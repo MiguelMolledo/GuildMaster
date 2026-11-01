@@ -114,7 +114,10 @@ func _process(delta: float) -> void:
 				app.interior().open_station_menu("furnace", Vector2(300, 200))
 				app.interior().station_menu().choose_mode("careful")
 				app.interior().station_menu().choose_recipe("forge_ingot")
-				app.interior().storage_panel().buy("iron", 4)
+				for st: Dictionary in hugo["inventory"]["stacks"]:
+					if str(st["item"]) == "sword":
+						app.interior().storage_panel().move_to_building("sword", int(st["quality"]), 1)
+						break
 				_go("queue")
 		"queue":
 			if _t > 0.5:

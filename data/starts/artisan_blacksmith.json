@@ -19,6 +19,8 @@
     "equipment": {"tool": {"item": "hammer", "quality": 0}}
   },
   "family": {"gold": 30, "reputation": 0},
+  "_defaults_doc": "What the new-game screen proposes (and what from_start uses for a choice left out): protagonist name and gender, family name and colours.",
+  "defaults": {"name": "Hugo", "female": false, "family_name": "Herrero", "colors": {"primary": "#8b2e2e", "secondary": "#c8a84e"}},
   "building": {
     "site": "player_forge",
     "type": "forge",

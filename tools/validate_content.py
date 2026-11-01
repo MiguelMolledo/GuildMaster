@@ -359,6 +359,21 @@ def check_h3(items, recipes, buildings, maps, strings, rep):
         for o in s.get("objectives") or []:
             if o not in objectives:
                 rep.error(w, f"objetivo desconocido {o}")
+        df = s.get("defaults") or {}
+        if not (isinstance(df.get("name"), str) and df["name"].strip() and isinstance(df.get("family_name"), str)
+                and df["family_name"].strip() and isinstance(df.get("female"), bool)):
+            rep.error(w, "defaults: name, family_name (texto) y female (bool)")
+        if not all(re.fullmatch(r"#[0-9a-fA-F]{6}", str((df.get("colors") or {}).get(k, ""))) for k in ("primary", "secondary")):
+            rep.error(w, "defaults.colors: primary y secondary en #rrggbb")
+
+    # H3 · cuentas (data/accounts.json): retenciones, avisos del préstamo y mantenimiento impagado (D15)
+    acc = load_json(os.path.join(DATA, "accounts.json"), rep) or {}
+    for k in ("ledger_detail_years", "ledger_days_view", "notices_keep_years", "upkeep_damage_days"):
+        if not isinstance(acc.get(k), int) or acc[k] < 1:
+            rep.error("accounts.json", f"{k} debe ser un entero >= 1")
+    wd = acc.get("loan_warn_days")
+    if not (isinstance(wd, list) and wd and all(isinstance(d, int) and d >= 1 for d in wd)):
+        rep.error("accounts.json", "loan_warn_days: lista de días enteros >= 1")
 
 
 class Report:

@@ -7,15 +7,23 @@ extends Node
 ## Options after "--" (besides Game's): --smoke --shots=<n> --shot-every=<s> takes screenshots to reports/shots/ and
 ## quits (needs a window: run it through `grimoire heavy`). In smoke mode the first person of the human family starts
 ## selected, so the capture shows the selection. --smoke-script=<id> runs a scripted capture instead
-## (game/smoke/smoke_<id>.gd; "forja" = the H2 forge screenshots).
+## (game/smoke/smoke_<id>.gd; "forja" = the H2 forge screenshots, "mercado" = the H3 market, board, book and new
+## game screens).
+## H3: without --scenario (and without --smoke / --smoke-script) the game opens on the new game screen (GDD 4.16)
+## over the paused default scenario; --new-game forces it. When state.ending is set (ruin, D18) the game pauses and
+## the ending screen shows. A right click on a stall or the board opens its panel on arrival (HUD); the counter of a
+## shop opens the market panel; a click on a notice centres the camera on its building or person.
 
-const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd"}
+const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
+	"mercado": "res://game/smoke/smoke_mercado.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView
 @onready var _interior: InteriorView = %InteriorView
 @onready var _hud: CanvasLayer = %Hud
 @onready var _fade: ColorRect = %Fade
+@onready var _new_game: NewGameScreen = %NewGameScreen
+@onready var _ending: EndingScreen = %EndingScreen
 
 var interior_building: String = ""   # "" = the town is shown
 var _shots_left: int = 0
@@ -29,7 +37,8 @@ var _fade_tween: Tween = null
 func _ready() -> void:
 	_bg_color = ViewConfig.color(str(ViewConfig.value("background", "#2b221b")))
 	var script_id := ""
-	for a: String in OS.get_cmdline_user_args():
+	var args := OS.get_cmdline_user_args()
+	for a: String in args:
 		if a == "--smoke":
 			_shots_left = maxi(_shots_left, 1)
 		elif a.begins_with("--shots="):
@@ -42,12 +51,22 @@ func _ready() -> void:
 	_interior.set_active(false)
 	_world.selection_changed.connect(_on_world_selection)
 	_world.building_picked.connect(func(id: String) -> void: _hud.set_building(id))
-	_world.manage_requested.connect(func(id: String) -> void: open_interior(id, true))
+	_world.manage_requested.connect(func(id: String) -> void:
+		if _owns(id):
+			open_interior(id, true))
 	_hud.manage_pressed.connect(func(id: String) -> void: open_interior(id, true))
+	_world.service_requested.connect(_hud.request_service)
+	_interior.shop_requested.connect(_hud.open_market)
+	_hud.focus_requested.connect(focus_on)
+	_new_game.started.connect(_on_new_game_started)
+	_ending.new_game_pressed.connect(show_new_game)
+	_ending.quit_pressed.connect(func() -> void: get_tree().quit())
 	_interior.selection_changed.connect(func(id: String) -> void: _world.select(id))
 	_interior.close_requested.connect(close_interior)
 	Events.sim_event.connect(_on_sim_event)
-	Game.started.connect(func() -> void: _close_now())
+	Game.started.connect(func() -> void:
+		_close_now()
+		_hud.close_panels())
 	if script_id != "":
 		_shots_left = 0
 		if SMOKE_SCRIPTS.has(script_id):
@@ -59,6 +78,69 @@ func _ready() -> void:
 			push_error("unknown --smoke-script=%s" % script_id)
 	elif _shots_left > 0:
 		_world.select(_world.first_selectable())
+	if bool(Game.parse_args(args)["new_game"]):
+		show_new_game()
+
+
+func new_game_screen() -> NewGameScreen:
+	return _new_game
+
+
+func ending_screen() -> EndingScreen:
+	return _ending
+
+
+## The new game screen over the paused town (GDD 4.16).
+func show_new_game() -> void:
+	var opts := Game.parse_args(OS.get_cmdline_user_args())
+	var seed_value: int = opts["seed"] if int(opts["seed"]) >= 0 else randi() % 1000000 + 1
+	_ending.visible = false
+	_new_game.setup(Game.sim.catalog, seed_value)
+	_new_game.visible = true
+	Game.set_paused(true)
+	Log.info("App", "new game screen (seed=%d)" % seed_value)
+
+
+func _on_new_game_started(state: WorldState) -> void:
+	Log.info("App", "new game started (family=%s, difficulty=%s)" % [SimQuery.player_family(state), state.difficulty])
+	_new_game.visible = false
+	_ending.visible = false
+	Game.start(state, Game.sim.catalog)
+	Game.set_paused(false)
+	_world.select(_world.first_selectable())
+
+
+func _owns(building: String) -> bool:
+	for id: String in Game.sim.state.characters:
+		if str(Game.sim.state.characters[id].get("controlled_by", "")) == "human" and SimQuery.is_own(Game.sim.state, id, building):
+			return true
+	return false
+
+
+## A notice was clicked: back to the town if needed, the camera on the building (its door) or the person (or the
+## building they are in); a person of the player's family is selected.
+func focus_on(target: String) -> void:
+	var st := Game.sim.state
+	var tile := Vector2i(-999, -999)
+	if st.buildings.has(target):
+		var d: Array = st.buildings[target].get("door", [])
+		if d.size() == 2:
+			tile = Vector2i(int(d[0]), int(d[1]))
+		_world.pick_building_id(target)
+	elif st.characters.has(target):
+		var ch: Dictionary = st.characters[target]
+		var loc := str(ch.get("location", ""))
+		var p: Array = st.buildings.get(loc, {}).get("door", []) if loc != "" else ch.get("position", [])
+		if p.size() == 2:
+			tile = Vector2i(int(p[0]), int(p[1]))
+		if _world.view_of(target) != null and _world.view_of(target).selectable:
+			_world.select(target)
+	if tile.x == -999:
+		return
+	Log.info("App", "focus %s (tile=%s)" % [target, tile])
+	if interior_building != "":
+		_close_now()
+	_world.camera().center_on(Iso.tile_to_world(tile))
 
 
 func world() -> WorldView:
@@ -139,6 +221,8 @@ func _on_sim_event(e: Dictionary) -> void:
 ## ESC: the top panel closes first (station menu, building panels, the person's panel); with nothing open inside a
 ## building, leave it (GDD 4.6.4).
 func _unhandled_input(event: InputEvent) -> void:
+	if _new_game.visible or _ending.visible:
+		return  # the screens take the keys themselves (they get them before the HUD)
 	if not event.is_action_pressed("ui_cancel"):
 		return
 	if interior_building != "" and _interior.close_top():
@@ -153,6 +237,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	if Game.sim != null and not Game.sim.state.ending.is_empty() and not _ending.visible:
+		Game.set_paused(true)  # D18: the ruin ends the game; the sim does not stop by itself
+		_ending.show_ending(Game.sim.state)
 	_background.color = Color.BLACK if interior_building != "" else _bg_color * _world.tint_color
 	if _shots_left <= 0:
 		return

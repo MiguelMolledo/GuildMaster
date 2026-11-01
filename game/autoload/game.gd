@@ -38,9 +38,15 @@ func _ready() -> void:
 
 
 ## The options of the command line that Game reads: {"scenario", "seed" (-1 = the scenario's), "lang", "at"
-## (minute of the day, -1 = the scenario's)}.
+## (minute of the day, -1 = the scenario's), "new_game" (H3: open on the new game screen, GDD 4.16: true unless
+## --scenario, --smoke, --shots or --smoke-script is given; --new-game forces it)}.
 static func parse_args(args: PackedStringArray) -> Dictionary:
-	var out := {"scenario": DEFAULT_SCENARIO, "seed": -1, "lang": "es", "at": -1}
+	var out := {"scenario": DEFAULT_SCENARIO, "seed": -1, "lang": "es", "at": -1, "new_game": true}
+	for a: String in args:
+		if a.begins_with("--scenario=") or a == "--smoke" or a.begins_with("--shots=") or a.begins_with("--smoke-script="):
+			out["new_game"] = false
+	if "--new-game" in args:
+		out["new_game"] = true
 	for a: String in args:
 		if a.begins_with("--lang="):
 			out["lang"] = a.substr(7)

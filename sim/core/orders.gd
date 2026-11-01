@@ -6,7 +6,7 @@ extends RefCounted
 ## an id the UI shows through i18n ("reason.<id>").
 ##
 ## Orders today: wait, transfer, move_to; H2: enter_building, exit_building, go_to_station, equip, unequip, work_at,
-## stop_work, master_touch, buy_raw (handlers live with their system; docs/contratos/h2_forja.md); H3: buy, sell,
+## stop_work, master_touch (handlers live with their system; docs/contratos/h2_forja.md); H3: buy, sell,
 ## repay_loan, read_notices, accept_contract, deliver_contract, abandon_contract (docs/contratos/h3_mercado.md). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
@@ -38,8 +38,6 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Production.order_stop_work(sim, order)
 		"master_touch":
 			return Production.order_master_touch(sim, order)
-		"buy_raw":
-			return Production.order_buy_raw(sim, order)
 		# H3 · market, money, contracts (sim/econ/market.gd, loans.gd, contracts.gd)
 		"buy":
 			return Market.order_buy(sim, order)

@@ -6,8 +6,13 @@ extends CanvasLayer
 ## H2: the selected person (portrait, name, gold) with their order queue as a numbered list (active pause, GDD 4.1:
 ## the state's order_queue plus the orders given during this pause), the button / key I of their panel
 ## (CharacterPanel), and the picked building with its "Manage" button (GDD 4.6.4).
+## H3: the family's gold and its debt with the due date, the account book (button / key L, LedgerPanel), the start
+## objectives, urgent notices popping up (a click centres the camera on the notice's building or person, or opens
+## the book), the market panel (MarketPanel) and the board (BoardPanel), opened when the person who was sent to a
+## stall or the board stands on its service tile, or from the counter of a shop.
 
 signal manage_pressed(building_id: String)
+signal focus_requested(target: String)  # a notice was clicked: centre on this building / person
 
 @onready var _sun_moon: SunMoon = %SunMoon
 @onready var _time_label: Label = %TimeLabel
@@ -32,11 +37,25 @@ signal manage_pressed(building_id: String)
 @onready var _building_hint: Label = %BuildingHint
 @onready var _manage_button: Button = %ManageButton
 @onready var _character_panel: CharacterPanel = %CharacterPanel
+@onready var _family_panel: PanelContainer = %FamilyPanel
+@onready var _family_gold: Label = %FamilyGold
+@onready var _debt_label: Label = %DebtLabel
+@onready var _ledger_button: Button = %LedgerButton
+@onready var _objective_panel: PanelContainer = %ObjectivePanel
+@onready var _objective_title: Label = %ObjectiveTitle
+@onready var _objective_label: Label = %ObjectiveLabel
+@onready var _objective_progress: Label = %ObjectiveProgress
+@onready var _notice_popups: VBoxContainer = %NoticePopups
+@onready var _market_panel: MarketPanel = %MarketPanel
+@onready var _board_panel: BoardPanel = %BoardPanel
+@onready var _ledger_panel: LedgerPanel = %LedgerPanel
 
 var selected_id: String = ""
 var building_id: String = ""
 var interior_open: bool = false
 var _queue_sig: String = ""
+var _pending_service: Dictionary = {}  # {actor, kind, id, service}: open its panel when the actor stands there
+var _popups: Array = []  # [{node, left}]
 
 var _game: Node = null
 var _toast_left: float = 0.0
@@ -68,12 +87,22 @@ func _ready() -> void:
 	_manage_button.tooltip_text = tr("hud.manage_tip")
 	_manage_button.pressed.connect(func() -> void: manage_pressed.emit(building_id))
 	_character_panel.order_sink = _game.give
+	_market_panel.order_sink = _game.give
+	_board_panel.order_sink = _game.give
+	_ledger_panel.order_sink = _game.give
+	_ledger_panel.notice_clicked.connect(notice_action)
+	_ledger_button.text = tr("hud.ledger")
+	_ledger_button.tooltip_text = tr("hud.ledger_tip")
+	_ledger_button.pressed.connect(toggle_ledger)
+	_objective_title.text = tr("hud.objective")
 	Events.sim_event.connect(_on_sim_event)
 	_refresh()
 
 
 func _process(delta: float) -> void:
 	_refresh()
+	_check_service()
+	_tick_popups(delta)
 	if _toast_left > 0.0:
 		_toast_left -= delta
 		if _toast_left <= 0.0:
@@ -92,6 +121,7 @@ func _refresh() -> void:
 		_speed_buttons[i].set_pressed_no_signal(Game.SPEEDS[i] == _game.speed)
 	_phase_bar.value = DayNight.phase_progress(minute, _game.step_fraction(), sim.catalog.time) * 100.0
 	_refresh_selected(sim)
+	_refresh_family(sim)
 	if minute == _last_minute:
 		return
 	_last_minute = minute
@@ -135,9 +165,15 @@ func _update_building_panel() -> void:
 		var ch: Dictionary = sim.state.characters[id]
 		if str(ch.get("controlled_by", "")) == "human" and SimQuery.is_own(sim.state, id, building_id):
 			own = true
-	_building_name.text = SimQuery.building_name(sim.state, sim.catalog, building_id)
-	_building_hint.text = tr("hud.building_own" if own else "hud.building_other")
+	_building_name.text = SimQuery.building_label(sim.state, sim.catalog, building_id)
+	if own:
+		_building_hint.text = tr("hud.building_own")
+	elif SimQuery.is_public(sim.state, sim.catalog, building_id):
+		_building_hint.text = tr("hud.building_public")
+	else:
+		_building_hint.text = tr("hud.building_other")
 	_manage_button.disabled = not own
+	_manage_button.visible = own  # another family's building cannot be managed (GDD 4.5.5)
 
 
 func toggle_character_panel() -> void:
@@ -148,8 +184,12 @@ func toggle_character_panel() -> void:
 		_character_panel.open()
 
 
-## ESC: closes the character panel if open. False if there was nothing to close.
+## ESC: closes the top panel (market, board, book, then the character panel). False if there was nothing to close.
 func close_top() -> bool:
+	for p: Control in [_market_panel, _board_panel, _ledger_panel]:
+		if p.visible:
+			p.call("close")
+			return true
 	if _character_panel.visible:
 		_character_panel.close()
 		return true
@@ -186,6 +226,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if (event as InputEventKey).keycode == KEY_I:
 		toggle_character_panel()
+	elif (event as InputEventKey).keycode == KEY_L:
+		toggle_ledger()
 	elif event.is_action_pressed("pause_toggle"):
 		_game.toggle_pause()
 	elif event.is_action_pressed("speed_1"):
@@ -200,6 +242,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_sim_event(e: Dictionary) -> void:
+	if str(e.get("type", "")) == "notice_added":
+		_on_notice(e)
+		return
 	if str(e.get("type", "")) != "order_refused":
 		return
 	var ch: Dictionary = _game.sim.state.characters.get(str(e.get("actor", "")), {})
@@ -213,3 +258,175 @@ func show_toast(text: String) -> void:
 	_toast_label.visible = true
 	_toast_left = float(ViewConfig.value("toast_seconds", 2.5))
 	Log.info("Hud", "toast: %s" % text)
+
+
+# --- H3 · family purse, debt, objectives ------------------------------------------------------------------------------
+
+func market_panel() -> MarketPanel:
+	return _market_panel
+
+
+func board_panel() -> BoardPanel:
+	return _board_panel
+
+
+func ledger_panel() -> LedgerPanel:
+	return _ledger_panel
+
+
+## The family whose purse the HUD shows: the selected person's, else the player's.
+func family() -> String:
+	var sim: Sim = _game.sim
+	var fam := str(sim.state.characters.get(selected_id, {}).get("family", ""))
+	if fam == "" or str(sim.state.families.get(fam, {}).get("controlled_by", "")) != "human":
+		fam = SimQuery.player_family(sim.state)
+	return fam
+
+
+func _refresh_family(sim: Sim) -> void:
+	var fam := family()
+	_family_panel.visible = fam != ""
+	if fam == "":
+		_objective_panel.visible = false
+		return
+	_family_gold.text = tr("hud.family_gold") % Money.gold(sim.state, fam)
+	var loans := SimQuery.loans_of(sim, fam)
+	_debt_label.visible = not loans.is_empty()
+	if not loans.is_empty():
+		var l: Dictionary = loans[0]
+		var days := int(l.get("days_left", 0))
+		_debt_label.text = tr("hud.debt") % [int(l.get("outstanding", 0)), days]
+		_debt_label.add_theme_color_override("font_color", Color(1, 0.5, 0.42) if days <= 2 else Color(0.93, 0.89, 0.82))
+		_debt_label.tooltip_text = tr("hud.debt_tip") % SimQuery.minute_label(int(l.get("due_minute", 0)) - 1)
+	var ov := Objectives.view(sim, fam)
+	var current := str(ov.get("current", ""))
+	_objective_panel.visible = not ov.is_empty() and (current != "" or not (ov.get("done", []) as Array).is_empty())
+	if not _objective_panel.visible:
+		return
+	if current == "":
+		_objective_label.text = tr("hud.objectives_done")
+		_objective_progress.text = ""
+		return
+	_objective_label.text = SimQuery.objective_name(sim.catalog, current)
+	var parts: PackedStringArray = []
+	for p: Dictionary in ov.get("progress", []):
+		parts.append("%d/%d" % [int(p.get("have", 0)), int(p.get("need", 1))])
+	_objective_progress.text = " · ".join(parts)
+	_objective_panel.reset_size()
+
+
+## Closes every panel (a new game was loaded).
+func close_panels() -> void:
+	_pending_service = {}
+	for p: Control in [_market_panel, _board_panel, _ledger_panel]:
+		p.call("close")
+	_character_panel.close()
+
+
+func toggle_ledger() -> void:
+	if _ledger_panel.visible:
+		_ledger_panel.close()
+	else:
+		open_ledger()
+
+
+func open_ledger(tab: String = "") -> void:
+	var sim: Sim = _game.sim
+	var fam := family()
+	if fam == "":
+		return
+	_market_panel.close()
+	_board_panel.close()
+	_ledger_panel.open_for(sim, fam, SimQuery.family_actor(sim.state, fam, selected_id), tab)
+
+
+# --- H3 · stalls, shops and the board ---------------------------------------------------------------------------------
+
+## The world sent `actor` to a stall or the board (kind ""= another order: forget it). The panel opens when they
+## stand on the service tile (at once if they already do).
+func request_service(actor: String, kind: String, id: String, service: Vector2i) -> void:
+	if kind == "":
+		if str(_pending_service.get("actor", "")) == actor:
+			_pending_service = {}
+		return
+	_pending_service = {"actor": actor, "kind": kind, "id": id, "service": service}
+	_market_panel.close()
+	_board_panel.close()
+	_check_service()
+
+
+func _check_service() -> void:
+	if _pending_service.is_empty() or _game == null or _game.sim == null:
+		return
+	var sim: Sim = _game.sim
+	var actor := str(_pending_service["actor"])
+	if not SimQuery.stands_on(sim.state, actor, _pending_service["service"]):
+		return
+	var kind := str(_pending_service["kind"])
+	var id := str(_pending_service["id"])
+	_pending_service = {}
+	if kind == "board":
+		open_board(actor)
+	else:
+		open_market(actor, id)
+
+
+func open_market(actor: String, stall: String) -> void:
+	_board_panel.close()
+	_ledger_panel.close()
+	_market_panel.open_for(_game.sim, actor, stall)
+	Log.info("Hud", "market panel (stall=%s, actor=%s)" % [stall, actor])
+
+
+func open_board(actor: String) -> void:
+	_market_panel.close()
+	_ledger_panel.close()
+	_board_panel.open_for(_game.sim, actor)
+	Log.info("Hud", "board panel (actor=%s)" % actor)
+
+
+# --- H3 · notices -----------------------------------------------------------------------------------------------------
+
+## Urgent notices of the player's family pop up (GDD 4.18); the rest only go to the book.
+func _on_notice(e: Dictionary) -> void:
+	if str(e.get("severity", "")) != "urgent" or str(e.get("family", "")) != SimQuery.player_family(_game.sim.state):
+		return
+	var cfg: Dictionary = ViewConfig.value("notices", {})
+	while _popups.size() >= int(cfg.get("popup_max", 3)):
+		(_popups.pop_front()["node"] as Node).queue_free()
+	var n := e.duplicate(true)
+	var b := Button.new()
+	b.text = "! " + SimQuery.notice_text(_game.sim.state, _game.sim.catalog, n)
+	b.tooltip_text = tr("hud.notice_tip")
+	b.focus_mode = Control.FOCUS_NONE
+	b.add_theme_color_override("font_color", ViewConfig.color(str(cfg.get("colors", {}).get("urgent", "#ff8070"))))
+	b.pressed.connect(func() -> void:
+		notice_action(n)
+		_drop_popup(b))
+	_notice_popups.add_child(b)
+	_popups.append({"node": b, "left": float(cfg.get("popup_seconds", 8.0))})
+	Log.info("Hud", "urgent notice: %s" % b.text)
+
+
+func _drop_popup(b: Node) -> void:
+	for i: int in _popups.size():
+		if _popups[i]["node"] == b:
+			_popups.remove_at(i)
+			break
+	b.queue_free()
+
+
+func _tick_popups(delta: float) -> void:
+	for p: Dictionary in _popups.duplicate():
+		p["left"] = float(p["left"]) - delta
+		if float(p["left"]) <= 0.0:
+			_drop_popup(p["node"])
+
+
+## A click on a notice: centre on its building or person (the app does it), else open the book on the notices.
+func notice_action(n: Dictionary) -> void:
+	var target := str(n.get("target", ""))
+	if target != "" and (_game.sim.state.buildings.has(target) or _game.sim.state.characters.has(target)):
+		focus_requested.emit(target)
+	elif not _ledger_panel.visible:
+		open_ledger("notices")

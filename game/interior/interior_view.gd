@@ -12,6 +12,8 @@ extends Node2D
 
 signal selection_changed(char_id: String)
 signal close_requested   # leave without an order (management mode, or nobody of the family inside)
+## H3: a click on the counter of a public shop (the Armory) with someone inside: open the market panel of `stall`.
+signal shop_requested(actor: String, stall: String)
 
 const STAND: Vector2 = Vector2(-0.75, 0.25)  # where a worker stands, in tiles from its station's tile
 
@@ -19,6 +21,7 @@ var order_sink: Callable = Callable()
 var sim: Sim
 var building: String = ""
 var manage: bool = false
+var shop_stall: String = ""   # the market stall this building serves ("" = not a shop): its counter opens the market
 var selected_id: String = ""
 var size_tiles: Vector2i = Vector2i(1, 1)
 var door_tile: Vector2i = Vector2i.ZERO
@@ -87,6 +90,7 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	_station_tiles.clear()
 	_views.clear()
 	var b: Dictionary = s.state.buildings.get(bld, {})
+	shop_stall = SimQuery.shop_stall(s.state, s.catalog, bld)
 	var def: Dictionary = s.catalog.buildings().get(str(b.get("type", "")), {})
 	var inside: Dictionary = def.get("interior", {})
 	var sz: Array = inside.get("size", [6, 6])
@@ -115,7 +119,7 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	_center = (Vector2((left + right) / 2.0, (top + bottom) / 2.0) + Vector2(float(off[0]), float(off[1]))).round()
 	camera().position = _center
 	camera().zoom = Vector2.ONE * _zoom
-	var bname := SimQuery.building_name(s.state, s.catalog, bld)
+	var bname := SimQuery.building_label(s.state, s.catalog, bld)
 	(%TitleLabel as Label).text = SimQuery.t_("ui.interior.title_manage" if manage_mode else "ui.interior.title") % bname
 	(%StorageButton as Button).text = SimQuery.t_("ui.interior.storage")
 	(%ProductionButton as Button).text = SimQuery.t_("ui.interior.production")
@@ -125,6 +129,9 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	(%StaffButton as Button).tooltip_text = SimQuery.t_("ui.interior.staff_later")
 	(%ExitButton as Button).text = SimQuery.t_("ui.interior.exit")
 	(%ExitButton as Button).tooltip_text = SimQuery.t_("ui.interior.exit_tip")
+	# a shop is not managed: only the way out (and its counter opens the market panel)
+	for n: String in ["StorageButton", "ProductionButton", "UpgradesButton", "StaffButton"]:
+		(get_node("%" + n) as Button).visible = shop_stall == ""
 	station_menu().order_sink = _give
 	station_menu().close()
 	storage_panel().order_sink = _give
@@ -346,6 +353,9 @@ func handle_input(event: InputEvent) -> bool:
 
 ## Left click on a station: the master touch while its window is open (for whoever works there), else go there.
 func click_station(zone: String) -> void:
+	if shop_stall != "":
+		open_shop()
+		return
 	var job := SimQuery.job_view(sim, building, zone)
 	if bool(job.get("window_open", false)) and not bool(job.get("touched", false)):
 		var worker := str(job.get("actor", ""))
@@ -357,9 +367,21 @@ func click_station(zone: String) -> void:
 
 
 func open_station_menu(zone: String, screen: Vector2) -> void:
+	if shop_stall != "":
+		open_shop()
+		return
 	var vp := viewport_size()
 	var at := Vector2(minf(screen.x + 6.0, vp.x - 180.0), minf(screen.y + 6.0, vp.y - 160.0))
 	station_menu().open_for(sim, actor(), building, zone, at)
+
+
+## The shop's counter: the market panel for the person inside (nobody of the family inside: nothing to do).
+func open_shop() -> void:
+	if actor() == "":
+		ViewConfig.info("Interior", "shop counter without anybody inside (building=%s)" % building)
+		return
+	ViewConfig.info("Interior", "shop counter (building=%s, stall=%s, actor=%s)" % [building, shop_stall, actor()])
+	shop_requested.emit(actor(), shop_stall)
 
 
 func show_storage(on: bool) -> void:

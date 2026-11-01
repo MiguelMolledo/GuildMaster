@@ -8,6 +8,28 @@
     "refused_orders": [
       0,
       0
+    ],
+    "rival_sold": [
+      1,
+      null
+    ]
+  },
+  "idle_rival": {
+    "days": [
+      10,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "rival_sold": [
+      1,
+      null
+    ],
+    "rival_gold_day10": [
+      40,
+      500
     ]
   },
   "wanderer": {
@@ -40,6 +62,16 @@
     "made_sword": [
       1,
       null
+    ]
+  },
+  "random_clicker": {
+    "days": [
+      3,
+      null
+    ],
+    "ledger_mismatch": [
+      0,
+      0
     ]
   }
 }

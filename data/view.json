@@ -22,6 +22,25 @@
     "forge": {"color": "#7c7f88", "height": 40, "sign": "#e0903a", "door": "#c8a050"},
     "armory": {"color": "#8a6a4a", "height": 40, "sign": "#c0c8d0", "door": "#c8a050"}
   },
+  "services": {
+    "_doc": "H3 greybox of the market stalls and the contract board on the map: sign colours (the blocks are the map's stall/board tiles).",
+    "stall_sign": "#d8c070",
+    "board_sign": "#c8a0d0"
+  },
+  "notices": {
+    "_doc": "H3: urgent notices pop up over the HUD for popup_seconds (at most popup_max at once); severity colours of the notices log.",
+    "popup_seconds": 8.0,
+    "popup_max": 3,
+    "colors": {"info": "#d8d0c0", "warning": "#f0c060", "urgent": "#ff8070"}
+  },
+  "new_game": {
+    "_doc": "H3 new game screen (GDD 4.16): the start offered (data/starts/) and the family colours to pick from (4.10.9; provisional palette from the style bible's base tones).",
+    "start": "artisan_blacksmith",
+    "default_name": "Hugo",
+    "default_family": "Herrero",
+    "colors": ["#8b2e2e", "#2e4f8b", "#3f6b3a", "#6b4a8b", "#8b6a2e", "#2e7a7a", "#c8a84e", "#d4b896", "#b8b8b0", "#e0e0d0", "#5a3a2a", "#1e1e28"],
+    "default_colors": [0, 6]
+  },
   "interior": {
     "_doc": "H2 greybox interior (GDD 4.6.4): zoom, fade (in+out, seconds), kit colours and heights, station blocks, the master-touch blink.",
     "zoom": 2,

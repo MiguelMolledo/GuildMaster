@@ -3,10 +3,11 @@ extends SceneTree
 ##   godot --headless --path . -s tools/sim_runner.gd -- [--scenario=<id>] [--bots=idle,...] [--days=<n>] [--seeds=<n>]
 ## Writes reports/sim/<scenario>_<bot>.json with the measures of every seed and exits with 1 if a target is missed.
 ## Measures today: days, refused_orders, refused_unreachable, refused_other (refused for any reason but unreachable),
-## moves (tiles walked), arrivals, state_hash; H2: work_done, made_<item> (units produced). Each milestone adds its own (gold_day10, days_to_citizen...).
+## moves (tiles walked), arrivals, state_hash; H2: work_done, made_<item> (units produced); H3 rival: rival_sold, rival_gold_day10. Each milestone adds its own (gold_day10, days_to_citizen...).
 ## The default scenario is town_e_start (the H1 town).
 
-var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith}
+var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
+	"random_clicker": BotRandomClicker, "idle_rival": BotIdle}  # idle_rival: idle with the rival's targets (10 days)
 
 
 func _init() -> void:
@@ -42,6 +43,9 @@ func _init() -> void:
 			var sim := Sim.new(r["state"], cat)
 			var bot: Object = BOTS[bot_id].new()
 			var m := {"refused_orders": 0, "refused_unreachable": 0, "refused_other": 0, "moves": 0, "arrivals": 0}
+			var gold0 := {}  # H3 conservation (GDD 4.19): ledger_mismatch = families whose book does not add up
+			for f: String in sim.state.families:
+				gold0[f] = Money.gold(sim.state, f) - Ledger.total(sim.state, f)
 			for i: int in days * Clock.MINUTES_PER_DAY:
 				for e: Dictionary in sim.step(bot.orders(sim)):
 					match str(e["type"]):
@@ -57,6 +61,15 @@ func _init() -> void:
 							m["work_done"] = int(m.get("work_done", 0)) + 1
 							var made := "made_" + str(e["item"])
 							m[made] = int(m.get(made, 0)) + int(e["qty"])
+						"market_sold":  # H3 rival (GDD 4.5.5): units sold by the AI families with a profile
+							if str(sim.state.families.get(str(e.get("family", "")), {}).get("ai_profile", "")) != "":
+								m["rival_sold"] = int(m.get("rival_sold", 0)) + int(e["qty"])
+				if i + 1 == 10 * Clock.MINUTES_PER_DAY:  # H3 rival: gold of the AI families with a profile at day 10
+					m["rival_gold_day10"] = _rival_gold(sim)
+			m["ledger_mismatch"] = 0
+			for f: String in sim.state.families:
+				if Money.gold(sim.state, f) - Ledger.total(sim.state, f) != int(gold0.get(f, 0)):
+					m["ledger_mismatch"] += 1
 			m.merge({"seed": s, "days": days, "state_hash": sim.state_hash()})
 			runs.append(m)
 		var fails := _check(targets.get(bot_id, {}), runs)
@@ -68,6 +81,15 @@ func _init() -> void:
 		FileAccess.open(path, FileAccess.WRITE).store_string(JSON.stringify(out, "\t"))
 		print("sim_runner: %s × %d seeds × %d days · %d misses · %s" % [bot_id, seeds, days, fails.size(), path])
 	quit(1 if missed > 0 else 0)
+
+
+## Gold of the AI families with an ai_profile (the rival smith, GDD 4.5.5).
+func _rival_gold(sim: Sim) -> int:
+	var g := 0
+	for f: String in sim.state.families:
+		if str(sim.state.families[f].get("ai_profile", "")) != "":
+			g += Money.gold(sim.state, f)
+	return g
 
 
 ## Every measure of every run inside [min, max] (null = open end).

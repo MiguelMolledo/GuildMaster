@@ -14,6 +14,7 @@ var cat := Catalog.load_from()
 ## The town_e_start scenario with `who` already inside the forge (placed by hand: entering is tested by «edificio»).
 func _sim(seed: int = 7, who: Array = [HUGO]) -> Sim:
 	var r := NewGame.from_scenario("town_e_start", seed)
+	(r["state"] as WorldState).families["fam_0003"]["ai_profile"] = ""  # the rival smith (H3) off: its rolls would share state.rng
 	var sim := Sim.new(r["state"], cat)
 	for id: String in who:
 		_inside(sim, id)
@@ -58,12 +59,21 @@ func test_buy_iron_make_ingots_and_a_sword_by_hand() -> void:
 	var sim := _sim()
 	_storage(sim)["stacks"] = []
 	var gold := Money.gold(sim.state, "fam_0001")
-	var r := Orders.apply(sim, {"type": "buy_raw", "actor": HUGO, "building": FORGE, "item": "iron", "qty": 4})
+	# H3: bought at the resources stall with an errand to the forge (Market), no longer buy_raw.
+	sim.state.clock["minute"] = 600  # by day: the market is open
+	sim.state.families["fam_0003"]["ai_profile"] = ""  # the rival works by day too: only Hugo's events count here
+	var hugo: Dictionary = sim.state.characters[HUGO]
+	hugo["location"] = ""
+	hugo["position"] = (cat.maps()["town_e"]["stalls"]["resources"]["service"] as Array).duplicate()
+	var buy := {"type": "buy", "actor": HUGO, "stall": "resources", "quality": 0, "deliver_to": FORGE}
+	var r := Orders.apply(sim, buy.merged({"item": "iron", "qty": 4}))
 	check(r["ok"], "buys iron: %s" % r["reason"])
-	r = Orders.apply(sim, {"type": "buy_raw", "actor": HUGO, "building": FORGE, "item": "coal", "qty": 1})
+	r = Orders.apply(sim, buy.merged({"item": "coal", "qty": 1}))
 	check(r["ok"], "buys coal: %s" % r["reason"])
-	eq(Money.gold(sim.state, "fam_0001"), gold - 4 * 5 - 3, "paid base_price x qty from the family purse")
+	eq(Money.gold(sim.state, "fam_0001"), gold - (4 * 5 + 4) - (3 + 1), "price + 20 % errand from the family purse")
+	_run(sim, 120)
 	eq(Inventory.count(_storage(sim), "iron"), 4, "iron in the storage")
+	_inside(sim, HUGO)
 	r = _work(sim, HUGO, "furnace", "forge_ingot")
 	check(r["ok"], "work_at furnace: %s" % r["reason"])
 	eq(str(sim.state.characters[HUGO]["station"]), "furnace", "work_at puts him at the free station")
@@ -363,15 +373,6 @@ func test_each_refusal_has_its_reason() -> void:
 	check(Inventory.add(st, cat, "iron_ingot", Inventory.NORMAL, 3), "3 ingots: the stack stays after taking 2")
 	eq((st["stacks"] as Array).size(), 10, "storage full")
 	_refused(sim, w, "storage_full", "no room for any sword quality")
-	# buy_raw
-	var b := {"type": "buy_raw", "actor": HUGO, "building": FORGE, "item": "iron", "qty": 1}
-	_refused(sim, b.merged({"item": "dragon"}, true), "unknown_item", "no such item")
-	_refused(sim, b.merged({"item": "sword"}, true), "not_raw", "only raw materials")
-	_refused(sim, b.merged({"qty": 0}, true), "bad_quantity", "zero")
-	_refused(sim, b.merged({"qty": 21}, true), "not_enough_gold", "105 > 100 gold of the family")
-	_refused(sim, b.merged({"item": "stone"}, true), "storage_full", "no stack for stone")
-	sim.state.characters[HUGO]["location"] = ""
-	_refused(sim, b, "not_inside", "buying from outside")
 
 
 # --- Consultas de la UI ----------------------------------------------------------------------------------------------

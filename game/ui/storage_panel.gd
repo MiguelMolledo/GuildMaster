@@ -1,8 +1,9 @@
 class_name StoragePanel
 extends PanelContainer
 ## Storage panel of a building (GDD 4.3.4, 4.6.4): the building's stacks (quality as a suffix, "Espada buena") and
-## those of the selected person inside, with buttons to move items either way (transfer) and the provisional purchase
-## of raw materials (buy_raw, until the market of H3) with quantity and cost. Only gives orders; the sim decides.
+## those of the selected person inside, with buttons to move items either way (transfer). The provisional purchase of
+## raw materials of H2 (buy_raw) is gone since the market of H3: materials are bought at the stalls (with an errand
+## they arrive here). Only gives orders; the sim decides.
 
 signal closed
 
@@ -19,9 +20,6 @@ func _bind() -> void:
 		return
 	_bound = true
 	(%CloseButton as Button).pressed.connect(close)
-	(%BuyButton as Button).pressed.connect(func() -> void: buy(selected_raw(), int((%BuyQty as SpinBox).value)))
-	(%BuyItem as OptionButton).item_selected.connect(func(_i: int) -> void: _update_cost())
-	(%BuyQty as SpinBox).value_changed.connect(func(_v: float) -> void: _update_cost())
 
 
 func setup(s: Sim, bld: String, who: String) -> void:
@@ -29,14 +27,7 @@ func setup(s: Sim, bld: String, who: String) -> void:
 	sim = s
 	building = bld
 	actor = who
-	var opt := %BuyItem as OptionButton
-	opt.clear()
-	for id: String in SimQuery.raw_items(s.catalog):
-		opt.add_item(SimQuery.item_name(s.catalog, id))
-		opt.set_item_metadata(opt.item_count - 1, id)
 	(%Title as Label).text = SimQuery.t_("ui.storage.title") % SimQuery.building_name(s.state, s.catalog, bld)
-	(%BuyLabel as Label).text = SimQuery.t_("ui.storage.buy_title")
-	(%BuyButton as Button).text = SimQuery.t_("ui.storage.buy")
 	refresh(true)
 
 
@@ -68,9 +59,8 @@ func refresh(force: bool = false) -> void:
 		return
 	var b: Dictionary = sim.state.buildings.get(building, {})
 	var ch: Dictionary = sim.state.characters.get(actor, {})
-	var sig := str(b.get("inventory", {})) + "|" + actor + "|" + str(ch.get("inventory", {})) + "|" + str(Money.gold(sim.state, Money.family_of(sim.state, actor)))
+	var sig := str(b.get("inventory", {})) + "|" + actor + "|" + str(ch.get("inventory", {}))
 	if sig == _sig and not force:
-		_update_cost()  # the quantity box may have changed (its signal is not reliable every frame)
 		return
 	_sig = sig
 	var inv: Dictionary = b.get("inventory", {})
@@ -87,8 +77,6 @@ func refresh(force: bool = false) -> void:
 	var hint := %Hint as Label
 	hint.visible = not has_actor
 	hint.text = SimQuery.t_("ui.storage.no_actor")
-	(%BuyButton as Button).disabled = not has_actor
-	_update_cost()
 
 
 func _fill(list: VBoxContainer, inv: Dictionary, from_building: bool) -> void:
@@ -146,33 +134,6 @@ func row_of(item: String, quality: int, in_building: bool) -> HBoxContainer:
 	return list.get_node_or_null("%s_%d" % [item, quality]) as HBoxContainer
 
 
-func selected_raw() -> String:
-	var opt := %BuyItem as OptionButton
-	if opt.selected < 0:
-		return ""
-	return str(opt.get_item_metadata(opt.selected))
-
-
-func select_raw(item: String) -> void:
-	var opt := %BuyItem as OptionButton
-	for i: int in opt.item_count:
-		if str(opt.get_item_metadata(i)) == item:
-			opt.select(i)
-	_update_cost()
-
-
-func _update_cost() -> void:
-	var item := selected_raw()
-	if sim == null or item == "":
-		return
-	var qty := int((%BuyQty as SpinBox).value)
-	var cost := SimQuery.raw_cost(sim, item, qty)
-	var gold := Money.gold(sim.state, Money.family_of(sim.state, actor))  # the family purse (H3)
-	var l := %BuyCost as Label
-	l.text = SimQuery.t_("ui.storage.cost") % [cost, gold] if actor != "" else SimQuery.t_("ui.storage.cost_only") % cost
-	l.modulate = Color(1, 0.6, 0.5) if actor != "" and cost > gold else Color.WHITE
-
-
 func move_to_actor(item: String, quality: int, qty: int) -> void:
 	_give({"type": "transfer", "actor": actor, "from": building, "to": actor, "item": item, "quality": quality,
 		"qty": qty})
@@ -181,12 +142,6 @@ func move_to_actor(item: String, quality: int, qty: int) -> void:
 func move_to_building(item: String, quality: int, qty: int) -> void:
 	_give({"type": "transfer", "actor": actor, "from": actor, "to": building, "item": item, "quality": quality,
 		"qty": qty})
-
-
-func buy(item: String, qty: int) -> void:
-	if item == "" or qty <= 0:
-		return
-	_give({"type": "buy_raw", "actor": actor, "building": building, "item": item, "qty": qty})
 
 
 func _give(o: Dictionary) -> void:

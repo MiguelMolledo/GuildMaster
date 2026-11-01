@@ -10,7 +10,8 @@ extends RefCounted
 ## queue and so cancels the entry, like a new move_to replaces a route. Orders queued after it run once inside.
 
 
-## {"ok", "reason"}: whether `actor` may enter `building` now (own building: its family's or its own; or public, H3).
+## {"ok", "reason"}: whether `actor` may enter `building` now (own building: its family's or its own; or public, H3,
+## and then only while the market is open: market_closed).
 static func can_enter(sim: Sim, actor: String, building: String) -> Dictionary:
 	var st := sim.state
 	if not st.characters.has(actor):
@@ -22,6 +23,8 @@ static func can_enter(sim: Sim, actor: String, building: String) -> Dictionary:
 		return Orders.fail("unknown_building")
 	if not owns(st, actor, building) and not is_public(sim, building):
 		return Orders.fail("not_your_building")
+	if Market.shop_closed(sim, building) and str(ch.get("location", "")) != building:
+		return Orders.fail("market_closed")  # a public shop opens with the market (H3, GDD 4.5.1); Market puts out at closing
 	var loc := str(ch.get("location", ""))
 	if loc != "" and loc != building:
 		return Orders.fail("inside_other_building")

@@ -17,6 +17,7 @@ var tiles: Dictionary = {}   # data/tiles.json "tiles": kind -> {char, walk_cost
 var production: Dictionary = {}  # data/production.json: quality table, work modes, master touch, tool bonus
 var market: Dictionary = {}      # data/market.json: stalls, opening phases, demand, sell ratio, quality, errands, board
 var difficulty: Dictionary = {}  # data/difficulty.json: "levels" {easy|normal|hard -> levers} (GDD 4.23)
+var accounts: Dictionary = {}    # data/accounts.json: ledger and notices retention, loan warnings, unpaid upkeep (H3)
 var errors: PackedStringArray = []  # files that could not be read
 
 
@@ -30,6 +31,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.production = c._load_json(root_dir.path_join("production.json"))
 	c.market = c._load_json(root_dir.path_join("market.json"))
 	c.difficulty = c._load_json(root_dir.path_join("difficulty.json"))
+	c.accounts = c._load_json(root_dir.path_join("accounts.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]

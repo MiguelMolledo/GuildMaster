@@ -8,10 +8,16 @@ extends Node2D
 ## Controls: left click on one of the human family's people selects it (left click elsewhere deselects);
 ## left click on a building picks it (the HUD shows its "Manage" button), double click opens it in management mode;
 ## right click on a tile sends the selected person there, on a building sends them in. Camera: see WorldCamera.
+## H3: the market stalls and the contract board of the map get a sign; a right click on one with someone selected
+## sends them to its service tile (move_to) and emits service_requested: the HUD opens its panel on arrival.
+## Buildings of other families carry the family's name ("Forja de Ferrer").
 
 signal selection_changed(char_id: String)
 signal building_picked(building_id: String)   # "" = none
 signal manage_requested(building_id: String)  # double click on a building (GDD 4.6.4, management mode)
+## Right click on a stall or the board (kind "stall"|"board", id = stall id or "board", service = its service tile);
+## kind "" = the selected person got another order (forget a pending one).
+signal service_requested(actor: String, kind: String, id: String, service: Vector2i)
 
 var order_sink: Callable = Callable()  # who receives the orders: Game.give in the game, a test's own in the tests
 var state: WorldState
@@ -21,6 +27,8 @@ var picked_building: String = ""
 var tint_color: Color = Color.WHITE
 var _views: Dictionary = {}  # chr_id -> CharacterView
 var _signs: Dictionary = {}  # bld_id -> BuildingMarks.Sign
+var _service_signs: Dictionary = {}  # stall id | "board" -> BuildingMarks.Sign
+var _services: Array = []   # SimQuery.map_services
 var _minutes_per_tile: int = 1
 var _game: Node = null      # the Game autoload, when in the tree
 
@@ -72,6 +80,7 @@ func setup(s: WorldState, c: Catalog) -> void:
 	picked_building = ""
 	_views.clear()
 	_signs.clear()
+	_service_signs.clear()
 	for layer: Node in [objects(), overlay()]:
 		for n: Node in layer.get_children():
 			layer.remove_child(n)
@@ -81,6 +90,7 @@ func setup(s: WorldState, c: Catalog) -> void:
 	ground().build(rows, c)
 	var blocks: Dictionary = ViewConfig.value("blocks", {})
 	var owned := _add_buildings()
+	_add_services()
 	var n_blocks := 0
 	for r: int in rows.size():
 		var row := str(rows[r])
@@ -149,7 +159,7 @@ func _add_buildings() -> Dictionary:
 			dm.name = id + "_door"
 			overlay().add_child(dm)  # over the blocks: the door may be on the hidden side
 		var sg := BuildingMarks.Sign.new()
-		sg.setup(SimQuery.building_name(state, catalog, id), ViewConfig.color(str(look.get("sign", "#e0903a"))))
+		sg.setup(SimQuery.building_label(state, catalog, id), ViewConfig.color(str(look.get("sign", "#e0903a"))))
 		sg.position = (top + Vector2(0, -height - 20)).round()
 		sg.name = id
 		overlay().add_child(sg)
@@ -159,6 +169,74 @@ func _add_buildings() -> Dictionary:
 
 func sign_of(building_id: String) -> Node2D:
 	return _signs.get(building_id, null)
+
+
+## The signs of the market stalls and the board (data/view.json "services": colours; the blocks come from the map).
+func _add_services() -> void:
+	_services = SimQuery.map_services(state, catalog)
+	var looks: Dictionary = ViewConfig.value("services", {})
+	var blocks: Dictionary = ViewConfig.value("blocks", {})
+	for svc: Dictionary in _services:
+		var kind := str(svc["kind"])
+		var id := str(svc["id"])
+		var h := float(blocks.get(kind, {}).get("height", 24))
+		var sg := BuildingMarks.Sign.new()
+		var text := SimQuery.stall_name(catalog, id) if kind == "stall" else SimQuery.t_("ui.board.sign")
+		sg.setup(text, ViewConfig.color(str(looks.get(kind + "_sign", "#d8c8a0"))))
+		sg.position = (Iso.tile_to_world(svc["tile"]) + Vector2(0, -h - 16)).round()
+		sg.name = "service_" + id
+		overlay().add_child(sg)
+		_service_signs[id] = sg
+
+
+## The sign of a stall (its id) or of the board ("board"), or null.
+func service_sign_of(id: String) -> Node2D:
+	return _service_signs.get(id, null)
+
+
+## The stall or board under `screen` ({} if none): the drawn block of its tile, else the tile itself.
+func pick_service(screen: Vector2) -> Dictionary:
+	var world := camera().screen_to_world(screen)
+	var blocks: Dictionary = ViewConfig.value("blocks", {})
+	for svc: Dictionary in _services:
+		var h := float(blocks.get(str(svc["kind"]), {}).get("height", 24))
+		var p := Iso.tile_to_world(svc["tile"])
+		var hw := Iso.TILE_W / 2.0
+		var hh := Iso.TILE_H / 2.0
+		var poly := PackedVector2Array([p + Vector2(-hw, 0), p + Vector2(-hw, -h), p + Vector2(0, -hh - h),
+			p + Vector2(hw, -h), p + Vector2(hw, 0), p + Vector2(0, hh)])
+		if Geometry2D.is_point_in_polygon(world, poly):
+			return svc
+	var tile := Iso.world_to_tile(world)
+	for svc: Dictionary in _services:
+		if svc["tile"] == tile:
+			return svc
+	return {}
+
+
+## Where a stall (its id) or the board ("board") is on screen: the middle of its block.
+func service_screen(id: String) -> Vector2:
+	var blocks: Dictionary = ViewConfig.value("blocks", {})
+	for svc: Dictionary in _services:
+		if str(svc["id"]) == id:
+			var h := float(blocks.get(str(svc["kind"]), {}).get("height", 24))
+			return camera().world_to_screen(Iso.tile_to_world(svc["tile"]) + Vector2(0, -h / 2.0))
+	return Vector2(-1, -1)
+
+
+## Sends the selected person to the service tile of `svc` (a stall or the board) and tells the HUD, which opens the
+## panel when they stand there (at once if they already do).
+func command_service(svc: Dictionary) -> void:
+	if selected_id == "" or svc.is_empty():
+		return
+	var service: Vector2i = svc["service"]
+	if not SimQuery.stands_on(state, selected_id, service):
+		var order := {"type": "move_to", "actor": selected_id, "tile": [service.x, service.y]}
+		ViewConfig.info("WorldView", "order move_to %s %s (actor=%s, tile=%s)" % [svc["kind"], svc["id"], selected_id, service])
+		if order_sink.is_valid():
+			order_sink.call(order)
+		marker().show_at(service, float(ViewConfig.value("target_marker_seconds", 1.0)))
+	service_requested.emit(selected_id, str(svc["kind"]), str(svc["id"]), service)
 
 
 func _add_view(id: String) -> void:
@@ -269,6 +347,7 @@ func command_move(tile: Vector2i) -> void:
 	ViewConfig.info("WorldView", "order move_to (actor=%s, tile=%s)" % [selected_id, tile])
 	if order_sink.is_valid():
 		order_sink.call(order)
+	service_requested.emit(selected_id, "", "", Vector2i.ZERO)
 	marker().show_at(tile, float(ViewConfig.value("target_marker_seconds", 1.0)))
 
 
@@ -325,6 +404,7 @@ func command_enter(building: String) -> void:
 	ViewConfig.info("WorldView", "order enter_building (actor=%s, building=%s)" % [selected_id, building])
 	if order_sink.is_valid():
 		order_sink.call(order)
+	service_requested.emit(selected_id, "", "", Vector2i.ZERO)
 	var d: Array = state.buildings.get(building, {}).get("door", [])
 	if d.size() == 2:
 		marker().show_at(Vector2i(int(d[0]), int(d[1])), float(ViewConfig.value("target_marker_seconds", 1.0)))
@@ -350,6 +430,10 @@ func handle_input(event: InputEvent) -> bool:
 			manage_requested.emit(bld)
 		return true
 	if event.is_action_pressed("command") and selected_id != "":
+		var svc := pick_service(mb.position)
+		if not svc.is_empty():
+			command_service(svc)
+			return true
 		var bld := pick_building(mb.position)
 		if bld != "":
 			command_enter(bld)

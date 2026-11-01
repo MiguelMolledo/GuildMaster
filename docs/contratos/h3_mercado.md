@@ -185,3 +185,122 @@ Motivos de rechazo: los elige cada dueño con su clave `reason.<id>` ES/EN (p. e
 - La Armería: `parcel_type: "government"` (es de la ciudad), `upkeep 0`, almacén de 0 pilas (stock ilimitado, 4.5.2).
 - Bernat, en el arenero, tiene las stats del Artesano con Artesanía 5 (la de Normal) y 80 de oro (4.5.5).
 - El préstamo vence al final del día `start.day + term_days − 1`: `due_minute = (start.day + term_days) × 1440`.
+
+## Mercado (hecho por «mercado»)
+- **«Al amanecer»** para el mercado = evento `phase_changed` con `phase == "dawn"` en este paso: la demanda de cada
+  objeto tocado se mueve `recover_per_day` hacia `rest` (desde arriba también baja), siempre en `[min, max]`.
+- **Venta**: `price(sell)` con la demanda de antes de la venta × `qty`, y luego la demanda baja `drop_per_unit × qty`
+  (una venta de 10 cobra las 10 al primer precio: **provisional**, tal como dice la tabla de órdenes). Cualquier
+  calidad se vende; solo se compra calidad normal (`bad_quality`, provisional de la base).
+- **Recado**: sobrecoste `round(coste × errand.surcharge)`; dos asientos con `ref` = id del recado y `building` = destino
+  (`purchases` y `errands`). Solo emite `errand_sent` (no `market_bought`). Destino válido: edificio propio (del
+  personaje o de su familia) con almacén (`unknown_building`, `not_your_building`, `no_inventory`). El hueco se
+  reserva **entre recados**: al pedir se cuenta lo que ya va de camino a ese almacén (`storage_full`). Producción y
+  traspasos no ven la reserva: si el almacén se llena antes de que llegue, el recado **espera en la puerta** y lo
+  reintenta cada minuto (evento `errand_blocked {delivery, family, to, item, quality, qty}` una vez; campo
+  `blocked: true` en el recado). Si el edificio ya no existe, el recado se pierde (no pasa en H3).
+- **Horario de la Armería**: `Buildings.can_enter` rechaza entrar en una tienda pública con el mercado cerrado
+  (`market_closed`; `Market.shop_closed(sim, bld)`). Al cerrar (cambio de fase a una cerrada) `Market.step` saca a la
+  puerta a quien siga dentro (como `exit_building`; eventos `building_left` y `shop_closed_out {actor, building}`).
+- **Motivos** de `buy`/`sell`: `unknown_actor`, `dead`, `unknown_stall`, `not_at_stall`, `market_closed`,
+  `unknown_item`, `wrong_stall`, `bad_quality`, `bad_quantity`, `not_enough` (venta), `no_family`, `too_heavy`,
+  `not_enough_gold`, y con `deliver_to` `unknown_building`, `not_your_building`, `no_inventory`, `storage_full`.
+- **Consultas extra**: `Market.max_buy(sim, actor, stall, item, quality, to := "") -> int` (oro, peso o almacén con la
+  reserva y el sobrecoste), `errand_surcharge(sim, coste)`, `errand_minutes(sim)`, `own_storages(sim, actor)`,
+  `pending(sim, fam) -> [recado]`, `shop_closed(sim, bld)`. En `offers`, `reason` = "" si puede comerciar ahí ahora;
+  las listas se rellenan igualmente (con `max_qty` 0 y `status` = el motivo); `status` de compra: `ok`,
+  `not_enough_gold`, `too_heavy` o el motivo del sitio/horario.
+- **`buy_raw` retirada** (orden y enlace). `Production.raw_cost` sigue solo para que compile la vista hasta que su panel
+  de almacén pase a `Market`. `bot_smith` compra por recado en el puesto `resources`.
+
+## Cuentas (hecho por «cuentas»)
+- **«Al amanecer»** = evento `phase_changed` con `phase == "dawn"` en este paso (`Ledger.is_dawn(sim)`). Upkeep, retención
+  del libro y de los avisos van ahí. Una partida nueva empieza ya en el amanecer del día 0: el primer mantenimiento es
+  el del día 1.
+- Cifras de cuentas en **`data/accounts.json`** → `Catalog.accounts`: `ledger_detail_years 2`, `ledger_days_view 8`,
+  `notices_keep_years 1`, `loan_warn_days [2, 1]`, `upkeep_damage_days 3`.
+- **Libro**: `Ledger.summary(sim, fam, scope) -> Variant`. `"today"` → `{income (≥0), expense (≤0), net = income +
+  expense, by_category}`; `"days"` → **Array** `[{day, income, expense, net}]` (últimos 8 hasta hoy, el más viejo
+  primero, sin días < 0); `"buildings"` → `{bld_o_"": {cat: neto}}` (asientos en detalle); **`"debts"`** → `{loans:
+  [Loans.status], contracts: [encargo aceptado de la familia + hours_left (−1 sin due)], upkeep: [{building, debt,
+  unpaid_since, days_unpaid}]}`. `Ledger.total(state, fam)` = asientos + resúmenes (conservación).
+  `summaries = {fam: {"año": {categoría: {edificio_o_"": int}}}}` (año como texto, `Clock.year` del asiento).
+- **Avisos**: `read_notices` rechaza (`unknown_notice`, sin cambiar nada) si algún id no es un aviso de su familia;
+  `ids: []` vale. Evento `notices_read {family, ids}`. `Notices.unread_count(sim, fam)`. Claves `notice.*` de cuentas
+  (params con `{nombre}` para `String.format`): `loan_due_soon {loan, days, amount}`, `loan_extension_due_soon` (igual),
+  `loan_extended {loan, amount, days, reputation}`, `loan_repaid {loan, lender}`, `loan_seized {loan, gold, items}`,
+  `ruin {loan, missing}`, `upkeep_unpaid {building, debt, days}`, `building_damaged {building, debt}`,
+  `upkeep_settled {building, amount}`, `objective_done {objective, name_key}`.
+- **Préstamo** (campos añadidos): `building` (la forja que embarga), `overdue_reputation`, `extension_seasons`,
+  `extension_surcharge`, `warned: [días ya avisados del vencimiento actual]`. `Loans.create(state, fam, términos,
+  principal, due_minute, building)`. Motivos de `repay_loan`: `unknown_actor`, `unknown_loan`, `not_your_loan`,
+  `loan_closed`, `bad_amount` (≤ 0), `not_enough_gold`. Avisos urgentes al cruzar 2 y 1 días (si se cruzan los dos a la
+  vez, solo el más urgente); al vencer: reputación + `overdue_reputation` (`reputation_changed reason "loan_overdue"`),
+  `outstanding = round(outstanding × 1,25)`, `due_minute += 1 estación` y estado `extended` (la prórroga se vuelve a
+  avisar a 2 y 1 días). Al vencer la prórroga: oro (asiento `loans`), luego mercancía del almacén de `building` en su
+  orden, por unidades enteras a `Market.price(sell)` (la última unidad puede pasarse: **no se devuelve cambio**,
+  provisional); la mercancía no apunta asiento (no es oro). Estado `seized` en los dos casos. Si no alcanza: aviso
+  `ruin`, `state.ending = {kind: "ruin", family, minute, loan}` y `game_over` (una vez). La forja **no** cambia de dueño
+  (la partida termina; provisional). `loan_repaid.extended` = si se pagó ya en prórroga (el objetivo pide `false`).
+- **D15 confirmado** (b, 3 días): al amanecer se cobra `upkeep_debt + upkeep` hasta donde llegue el oro; lo que falta
+  queda en `upkeep_debt` (`upkeep_unpaid_since` = primer día impagado; aviso `warning` cada amanecer impagado).
+  Cualquier paso con un `gold_changed` positivo de la familia cobra la deuda al momento. A los 3 días (`día −
+  unpaid_since ≥ 3`) pasa a `damaged` (aviso urgente, `building_damaged`). Al saldar: `upkeep_unpaid_since = −1`,
+  `damaged` → `normal` (evento `building_repaired {building}`; sin coste de reparación hasta H5) y aviso `upkeep_settled`.
+- **Objetivos**: `objectives[fam] = {chain: [obj], index, done: [obj], have: [int por condición del actual]}`.
+  `Objectives.start(state, catalog, fam, chain)`. Tipos: número con número compara como número; `bool` solo con `bool`.
+- **`NewGame.from_start`**: ids `fam_0001`/`chr_0001`/`bld_0001` el jugador; luego el rival (`fam_0002`, `chr_0002`,
+  `bld_0002`); luego las tiendas públicas del mapa por nombre de sitio (`bld_0003` Armería); `lon_0001`; `ctr_0001-2`.
+  Las elecciones que falten salen de `defaults` del inicio (`data/starts/<id>.json`, añadido: nombre, género, apellido y
+  colores). El estado sale ya normalizado como uno cargado (`WorldState.from_dict(to_dict())`). Sin campos de edad ni
+  título en el personaje (cambio de formato: cuando haga falta, H8). Errores: `unknown_start`, `unknown_difficulty`,
+  `unknown_map`, `bad_choices`. Encargos guionizados directamente en `contracts.board` con la forma propuesta y
+  `pay = round(qty × price(sell, min_quality) × (1 + premium))`.
+- **Escenarios** `debt_due` y `debt_extension_due`: los genera `tools/scenarios/make_debt_scenarios.gd` (partida nueva
+  Normal, semilla 1, sin pagar; 1 hora antes de cada vencimiento). Volver a generarlos si cambian el inicio o el sim.
+- **Bot `random_clicker`** (`sim/bots/bot_random_clicker.gd`, en `tools/sim_runner.gd`): órdenes al azar válidas e
+  inválidas de todos los tipos. `sim_runner` mide `ledger_mismatch` (familias cuyo libro no cuadra con su oro) en
+  todos los bots; diana de `random_clicker`: 0.
+
+## Decisiones de «rival» (encargos y herrero rival)
+- **«Al amanecer»** para los encargos = evento `phase_changed` con `phase == "dawn"` en este paso. Orden de
+  `Contracts.step`: vencimientos → avisos → (al amanecer) 1 encargo nuevo si hay hueco.
+- **Encargo**: la forma de arriba más `warned: [horas ya avisadas]`; `posted` es el **minuto** absoluto (from_start pone
+  el día: no lo lee ninguna regla). `due = accepted + deadline_days × 1440`. Vence cuando `ahora >= due`.
+  `Contracts.post(sim, {client, item, qty, min_quality, deadline_days, script?})` publica fijando el pago;
+  `Contracts.post_scripted(state, catalog, defs)` sirve para los guionizados de `from_start`.
+- **Avisos**: `notice.contract_due` (`warning` a 24 h, `urgent` a 2 h; params `contract, client, item, qty, hours`),
+  solo si al aceptar quedaba más tiempo que eso; `notice.contract_expired` al vencer (params `client, item, qty,
+  reputation, days`). Abandonar no avisa (lo hace el jugador).
+- **Incumplir**: el enfriamiento del cliente es global (`cooldowns[client] = día + client_cooldown_days`); los
+  encargos del tablón sin aceptar no caducan (provisional: el GDD no lo define).
+- **Entregar** quita primero las piezas válidas de menor calidad. Motivos: `unknown_contract`, `not_at_board`,
+  `contract_taken`, `too_many_contracts`, `not_your_contract`, `missing_items`, `no_family`.
+- **Rival** (`sim/ai/rival_ai.gd`): plan por fase en `ai_state {phase, plan, recipe, bought_day, last_order,
+  last_fp}`; además de las órdenes de 4.5.5 usa `transfer` (llevar al saco lo que vende o entrega y guardar lo que
+  compra: la venta exige llevarlo encima). Comprueba antes con `Market.offers` / `Production.recipe_options` y no
+  empieza un viaje a la Armería si no llega antes del cierre. Perfil: `max_contracts 1` («acepta uno»),
+  `accepts_scripted_contracts false` (los guionizados de inicio son para el jugador); no acepta un encargo si no puede
+  pagar sus entradas dejando la reserva. Receta: mayor margen > 0 a calidad normal; si le falta una entrada que otra
+  receta suya hace con su almacén (lingotes con su hierro), hace esa primero. Compra las entradas directas.
+- **sim_runner**: mide `rival_sold` y `rival_gold_day10`; bot `idle_rival` (= idle) con la diana del rival:
+  `--bots=idle_rival --days=10`.
+
+## Vista (hecho por «vista»)
+- **Arranque**: sin `--scenario` (y sin `--smoke`, `--shots=` ni `--smoke-script=`) el juego abre la **pantalla de
+  partida nueva** sobre el escenario por defecto en pausa; `--new-game` la fuerza. `Game.parse_args` da `new_game`.
+  Con `--scenario` o en smoke se entra directo: `boot_check` y el smoke de siempre no cambian (la variante sin
+  opciones de `boot_check` arranca ahora en esa pantalla, sin errores). La semilla: `--seed` o una al azar.
+- **Puestos y tablón**: clic derecho con alguien elegido → `move_to` a la casilla de servicio; el HUD abre el panel
+  cuando el personaje está en ella (`SimQuery.stands_on`); otra orden del mismo personaje lo olvida. Se cierra solo
+  si deja de estar (`Market.stall_at` / `Contracts.board_view.at_board`).
+- **Armería**: interior del kit con solo «Salir»; clic (izq. o der.) en el mostrador → panel de mercado del puesto
+  `market_stall` del edificio. Gestionar (botón o doble clic) solo en edificios propios.
+- **Carteles**: los edificios de otra familia llevan su nombre (`ui.building_of`: «Forja de Ferrer»).
+- **Libro**: botón del HUD y tecla L; al mostrar la pestaña Avisos se da `read_notices` con los no leídos; quien
+  firma las órdenes de familia (`repay_loan`, `read_notices`) es el elegido si es de la familia, si no el primer
+  miembro vivo (`SimQuery.family_actor`). Clic en un aviso con `target` → centra la cámara (y elige a la persona si es
+  tuya); sin `target` → abre el libro en Avisos. Solo los `urgent` de la familia del jugador saltan (8 s, máx. 3,
+  `data/view.json notices`).
+- **Ruina**: con `state.ending` no vacío la vista pausa y muestra la pantalla de final (Partida nueva / Salir).
+- **Almacén**: sin compra de materia prima (`buy_raw` retirada).

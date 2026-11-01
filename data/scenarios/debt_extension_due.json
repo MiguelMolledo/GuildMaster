@@ -1,0 +1,752 @@
+{
+	"buildings": {
+		"bld_0001": {
+			"door": [
+				26,
+				19
+			],
+			"footprint": [
+				3,
+				4
+			],
+			"id": "bld_0001",
+			"inventory": {
+				"limit": 10,
+				"limit_kind": "stacks",
+				"stacks": [
+					{
+						"item": "iron",
+						"qty": 8,
+						"quality": 0
+					},
+					{
+						"item": "coal",
+						"qty": 4,
+						"quality": 0
+					}
+				]
+			},
+			"origin": [
+				25,
+				20
+			],
+			"owner": "fam_0001",
+			"state": "normal",
+			"type": "forge",
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {
+				"anvil": {
+					"job": null,
+					"occupant": ""
+				},
+				"counter": {
+					"job": null,
+					"occupant": ""
+				},
+				"furnace": {
+					"job": null,
+					"occupant": ""
+				},
+				"storage": {
+					"job": null,
+					"occupant": ""
+				}
+			}
+		},
+		"bld_0002": {
+			"door": [
+				10,
+				19
+			],
+			"footprint": [
+				3,
+				4
+			],
+			"id": "bld_0002",
+			"inventory": {
+				"limit": 10,
+				"limit_kind": "stacks",
+				"stacks": [
+					{
+						"item": "iron_ingot",
+						"qty": 1,
+						"quality": 1
+					},
+					{
+						"item": "coal",
+						"qty": 1,
+						"quality": 0
+					}
+				]
+			},
+			"origin": [
+				9,
+				20
+			],
+			"owner": "fam_0002",
+			"state": "normal",
+			"type": "forge",
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {
+				"anvil": {
+					"job": null,
+					"occupant": ""
+				},
+				"counter": {
+					"job": null,
+					"occupant": ""
+				},
+				"furnace": {
+					"job": null,
+					"occupant": ""
+				},
+				"storage": {
+					"job": null,
+					"occupant": ""
+				}
+			}
+		},
+		"bld_0003": {
+			"door": [
+				24,
+				16
+			],
+			"footprint": [
+				3,
+				4
+			],
+			"id": "bld_0003",
+			"inventory": {
+				"limit": 0,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				25,
+				14
+			],
+			"owner": "",
+			"state": "normal",
+			"type": "armory",
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {
+				"counter": {
+					"job": null,
+					"occupant": ""
+				}
+			}
+		}
+	},
+	"characters": {
+		"chr_0001": {
+			"alive": true,
+			"controlled_by": "human",
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": {
+					"item": "hammer",
+					"quality": 0
+				}
+			},
+			"family": "fam_0001",
+			"female": false,
+			"id": "chr_0001",
+			"inventory": {
+				"limit": 24,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"location": "",
+			"move_progress": 0,
+			"name": "Hugo",
+			"order_queue": [],
+			"path": [],
+			"position": [
+				20,
+				21
+			],
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 5,
+				"craft": 7,
+				"dexterity": 4,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			}
+		},
+		"chr_0002": {
+			"alive": true,
+			"controlled_by": "ai",
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0002",
+			"female": false,
+			"id": "chr_0002",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"location": "bld_0002",
+			"move_progress": 0,
+			"name": "Bernat",
+			"order_queue": [],
+			"path": [],
+			"position": [
+				10,
+				19
+			],
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 5,
+				"craft": 5,
+				"dexterity": 4,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			}
+		}
+	},
+	"chronicle": [],
+	"clock": {
+		"minute": 14340
+	},
+	"contracts": {
+		"accepted": [],
+		"board": [
+			{
+				"accepted": -1,
+				"actor": "",
+				"client": "carpenter",
+				"deadline_days": 2,
+				"due": -1,
+				"family": "",
+				"id": "ctr_0001",
+				"item": "hammer",
+				"min_quality": 0,
+				"pay": 70,
+				"posted": 0,
+				"qty": 2,
+				"script": "carpenter_hammers"
+			},
+			{
+				"accepted": -1,
+				"actor": "",
+				"client": "guard_captain",
+				"deadline_days": 3,
+				"due": -1,
+				"family": "",
+				"id": "ctr_0002",
+				"item": "sword",
+				"min_quality": 1,
+				"pay": 83,
+				"posted": 0,
+				"qty": 1,
+				"script": "guard_good_sword"
+			},
+			{
+				"accepted": -1,
+				"actor": "",
+				"client": "carpenter",
+				"deadline_days": 1,
+				"due": -1,
+				"family": "",
+				"id": "ctr_0005",
+				"item": "armor",
+				"min_quality": 0,
+				"pay": 78,
+				"posted": 11820,
+				"qty": 1,
+				"script": "",
+				"warned": []
+			}
+		],
+		"cooldowns": {},
+		"relations": {
+			"fam_0002|farmer": 5,
+			"fam_0002|guard_captain": 5
+		}
+	},
+	"deliveries": [],
+	"difficulty": "normal",
+	"elections": [],
+	"emotions": {},
+	"ending": {},
+	"events_active": [],
+	"families": {
+		"fam_0001": {
+			"ai_profile": "",
+			"ai_state": {},
+			"colors": {
+				"primary": "#8b2e2e",
+				"secondary": "#c8a84e"
+			},
+			"controlled_by": "human",
+			"gold": 22,
+			"id": "fam_0001",
+			"members": [
+				"chr_0001"
+			],
+			"name": "Herrero",
+			"reputation": -10
+		},
+		"fam_0002": {
+			"ai_profile": "rival_smith",
+			"ai_state": {
+				"bought_day": 9,
+				"last_fp": "[[24,16],\"\",\"\",{\"limit\":30,\"limit_kind\":\"weight\",\"stacks\":[]},293,0,3]",
+				"last_order": "{\"actor\":\"chr_0002\",\"building\":\"bld_0002\",\"type\":\"enter_building\"}",
+				"phase": "night",
+				"plan": [],
+				"recipe": "forge_sword"
+			},
+			"colors": {
+				"primary": "#3f6b3a",
+				"secondary": "#b8b8b0"
+			},
+			"controlled_by": "ai",
+			"gold": 293,
+			"id": "fam_0002",
+			"members": [
+				"chr_0002"
+			],
+			"name": "Ferrer",
+			"reputation": 4
+		}
+	},
+	"ledger": {
+		"entries": [
+			{
+				"actor": "",
+				"amount": -2,
+				"building": "bld_0001",
+				"category": "upkeep",
+				"day": 6,
+				"family": "fam_0001",
+				"minute": 9030,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "",
+				"amount": -2,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 6,
+				"family": "fam_0002",
+				"minute": 9030,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": -3,
+				"building": "",
+				"category": "purchases",
+				"day": 6,
+				"family": "fam_0002",
+				"minute": 9165,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": -54,
+				"building": "",
+				"category": "purchases",
+				"day": 6,
+				"family": "fam_0002",
+				"minute": 9178,
+				"ref": "buy"
+			},
+			{
+				"actor": "",
+				"amount": -2,
+				"building": "bld_0001",
+				"category": "upkeep",
+				"day": 7,
+				"family": "fam_0001",
+				"minute": 10470,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "",
+				"amount": -2,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 7,
+				"family": "fam_0002",
+				"minute": 10470,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 129,
+				"building": "",
+				"category": "contracts",
+				"day": 7,
+				"family": "fam_0002",
+				"minute": 10485,
+				"ref": "ctr_0003"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": -3,
+				"building": "",
+				"category": "purchases",
+				"day": 7,
+				"family": "fam_0002",
+				"minute": 10605,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": -90,
+				"building": "",
+				"category": "purchases",
+				"day": 7,
+				"family": "fam_0002",
+				"minute": 10618,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 64,
+				"building": "",
+				"category": "contracts",
+				"day": 7,
+				"family": "fam_0002",
+				"minute": 11144,
+				"ref": "ctr_0004"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 59,
+				"building": "",
+				"category": "market_sales",
+				"day": 7,
+				"family": "fam_0002",
+				"minute": 11187,
+				"ref": "sell"
+			},
+			{
+				"actor": "",
+				"amount": -2,
+				"building": "bld_0001",
+				"category": "upkeep",
+				"day": 8,
+				"family": "fam_0001",
+				"minute": 11820,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "",
+				"amount": -2,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 8,
+				"family": "fam_0002",
+				"minute": 11820,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": -6,
+				"building": "",
+				"category": "purchases",
+				"day": 8,
+				"family": "fam_0002",
+				"minute": 11955,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": -72,
+				"building": "",
+				"category": "purchases",
+				"day": 8,
+				"family": "fam_0002",
+				"minute": 11968,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 46,
+				"building": "",
+				"category": "market_sales",
+				"day": 8,
+				"family": "fam_0002",
+				"minute": 12690,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 56,
+				"building": "",
+				"category": "market_sales",
+				"day": 8,
+				"family": "fam_0002",
+				"minute": 12750,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 53,
+				"building": "",
+				"category": "market_sales",
+				"day": 8,
+				"family": "fam_0002",
+				"minute": 12751,
+				"ref": "sell"
+			},
+			{
+				"actor": "",
+				"amount": -2,
+				"building": "bld_0001",
+				"category": "upkeep",
+				"day": 9,
+				"family": "fam_0001",
+				"minute": 13260,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "",
+				"amount": -2,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 9,
+				"family": "fam_0002",
+				"minute": 13260,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": -15,
+				"building": "",
+				"category": "purchases",
+				"day": 9,
+				"family": "fam_0002",
+				"minute": 13395,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": -72,
+				"building": "",
+				"category": "purchases",
+				"day": 9,
+				"family": "fam_0002",
+				"minute": 13408,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 25,
+				"building": "",
+				"category": "market_sales",
+				"day": 9,
+				"family": "fam_0002",
+				"minute": 14130,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 23,
+				"building": "",
+				"category": "market_sales",
+				"day": 9,
+				"family": "fam_0002",
+				"minute": 14131,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 29,
+				"building": "",
+				"category": "market_sales",
+				"day": 9,
+				"family": "fam_0002",
+				"minute": 14191,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 27,
+				"building": "",
+				"category": "market_sales",
+				"day": 9,
+				"family": "fam_0002",
+				"minute": 14192,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 25,
+				"building": "",
+				"category": "market_sales",
+				"day": 9,
+				"family": "fam_0002",
+				"minute": 14193,
+				"ref": "sell"
+			}
+		],
+		"summaries": {}
+	},
+	"loans": {
+		"lon_0001": {
+			"building": "bld_0001",
+			"due_minute": 14400,
+			"extended": true,
+			"extension_seasons": 1,
+			"extension_surcharge": 0.25,
+			"family": "fam_0001",
+			"id": "lon_0001",
+			"lender": "moneylender",
+			"outstanding": 250,
+			"overdue_reputation": -10,
+			"principal": 200,
+			"state": "extended",
+			"warned": [
+				2,
+				1
+			]
+		}
+	},
+	"map_id": "town_e",
+	"market": {
+		"demand": {
+			"hammer": 0.75,
+			"sword": 0.9500000000000001
+		},
+		"regulations": []
+	},
+	"meta": {
+		"description": "La misma partida sin pagar: queda 1 hora para que venza la prórroga (250). El embargo se lleva el oro y la mercancía de la forja y no alcanza: ruina, fin de la partida.",
+		"origin": "tools/scenarios/make_debt_scenarios.gd",
+		"title": "Prórroga a punto de vencer"
+	},
+	"next_ids": {
+		"bld": 4,
+		"chr": 3,
+		"ctr": 6,
+		"fam": 3,
+		"lon": 2,
+		"ntc": 6
+	},
+	"notices": [
+		{
+			"day": 6,
+			"family": "fam_0001",
+			"id": "ntc_0001",
+			"key": "notice.loan_due_soon",
+			"minute": 8640,
+			"params": {
+				"amount": 200,
+				"days": 2,
+				"loan": "lon_0001"
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0002",
+			"key": "notice.loan_due_soon",
+			"minute": 10080,
+			"params": {
+				"amount": 200,
+				"days": 1,
+				"loan": "lon_0001"
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 8,
+			"family": "fam_0001",
+			"id": "ntc_0003",
+			"key": "notice.loan_extended",
+			"minute": 11520,
+			"params": {
+				"amount": 250,
+				"days": 2,
+				"loan": "lon_0001",
+				"reputation": -10
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 8,
+			"family": "fam_0001",
+			"id": "ntc_0004",
+			"key": "notice.loan_extension_due_soon",
+			"minute": 11521,
+			"params": {
+				"amount": 250,
+				"days": 2,
+				"loan": "lon_0001"
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 9,
+			"family": "fam_0001",
+			"id": "ntc_0005",
+			"key": "notice.loan_extension_due_soon",
+			"minute": 12960,
+			"params": {
+				"amount": 250,
+				"days": 1,
+				"loan": "lon_0001"
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		}
+	],
+	"objectives": {
+		"fam_0001": {
+			"chain": [
+				"forge_sword",
+				"sell_in_armory",
+				"carpenter_hammers",
+				"quality_contract",
+				"errand_purchase",
+				"repay_debt"
+			],
+			"done": [],
+			"have": [
+				0,
+				0
+			],
+			"index": 0
+		}
+	},
+	"offices": {},
+	"parcels": {},
+	"relationships": {},
+	"rng_state": "1362994203411024665",
+	"seed": "1",
+	"trials": [],
+	"version": 4
+}

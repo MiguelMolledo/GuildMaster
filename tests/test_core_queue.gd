@@ -19,7 +19,9 @@ func _game() -> Node:
 
 
 func _sim() -> Sim:
-	return Sim.new(NewGame.from_scenario("town_e_start", 1)["state"], cat)
+	var st: WorldState = NewGame.from_scenario("town_e_start", 1)["state"]
+	st.families["fam_0003"]["ai_profile"] = ""  # the rival smith (H3) off: these tests count one actor's events
+	return Sim.new(st, cat)
 
 
 func _chr(sim: Sim, id: String) -> Dictionary:

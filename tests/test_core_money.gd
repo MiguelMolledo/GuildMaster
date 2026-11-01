@@ -51,10 +51,12 @@ func test_family_of() -> void:
 	eq(Money.family_of(st, "nobody"), "", "unknown")
 
 
-func test_buy_raw_pays_through_money() -> void:
+func test_market_buy_pays_through_money() -> void:
 	var sim := _sim()
-	sim.state.characters[HUGO]["location"] = FORGE
-	var r := Orders.apply(sim, {"type": "buy_raw", "actor": HUGO, "building": FORGE, "item": "iron", "qty": 2})
+	sim.state.clock["minute"] = 600  # by day: the market is open (buy_raw retired in H3 for the market's buy)
+	sim.state.characters[HUGO]["position"] = (sim.catalog.maps()["town_e"]["stalls"]["resources"]["service"] as Array).duplicate()
+	var r := Orders.apply(sim, {"type": "buy", "actor": HUGO, "stall": "resources", "item": "iron", "quality": 0,
+		"qty": 2, "deliver_to": FORGE})
 	check(r["ok"], "buys: %s" % r["reason"])
 	var e: Dictionary = sim.state.ledger["entries"][0]
 	eq([e["category"], int(e["amount"]), e["building"], e["actor"]], ["purchases", -10, FORGE, HUGO], "purchases entry")

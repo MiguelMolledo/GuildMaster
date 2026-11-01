@@ -27,6 +27,7 @@ class Sign:
 		set(v):
 			highlighted = v
 			queue_redraw()
+	var half_w: float = 30.0  # half the board's width: grows with the text (H3: "Forja de Ferrer")
 	var _label: Label
 
 	func setup(t: String, c: Color) -> void:
@@ -37,14 +38,24 @@ class Sign:
 		_label.add_theme_font_size_override("font_size", 10)
 		_label.add_theme_color_override("font_color", Color(0.12, 0.08, 0.05))
 		_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_label.size = Vector2(64, 14)
-		_label.position = Vector2(-32, -7)
 		_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_label)
+		_fit()
+
+	## The board's width follows the text as the label measures it (the project font, once in the tree).
+	func _fit() -> void:
+		var w := maxf(60.0, ceilf(_label.get_minimum_size().x) + 8.0)
+		half_w = ceilf(w / 2.0)
+		_label.size = Vector2(half_w * 2.0, 14)
+		_label.position = Vector2(-half_w, -7)
 		queue_redraw()
 
+	func _ready() -> void:
+		if _label != null:
+			_fit()
+
 	func _draw() -> void:
-		var r := Rect2(-30, -8, 60, 16)
+		var r := Rect2(-half_w, -8, half_w * 2.0, 16)
 		draw_line(Vector2(0, 8), Vector2(0, 18), Color(0.25, 0.17, 0.10), 2.0)
 		draw_rect(r, color)
 		draw_rect(r, Color(1.0, 0.92, 0.6) if highlighted else Color(0.25, 0.17, 0.10), false, 2.0 if highlighted else 1.0)

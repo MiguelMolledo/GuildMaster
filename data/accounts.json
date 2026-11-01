@@ -1,0 +1,8 @@
+{
+  "_doc": "Accounts (GDD 4.16, 4.18, D15) [balance]. ledger_detail_years: years of detailed entries kept (2 years = 16 days); older entries are summed into ledger.summaries by year, category and building. ledger_days_view: days of the 'by day' tab. notices_keep_years: a notice older than this goes away (at dawn). loan_warn_days: urgent notices when the loan (or its extension) falls due within these days. upkeep_damage_days: days of unpaid upkeep after which the building becomes damaged (D15 = b); it goes back to normal when the debt is settled.",
+  "ledger_detail_years": 2,
+  "ledger_days_view": 8,
+  "notices_keep_years": 1,
+  "loan_warn_days": [2, 1],
+  "upkeep_damage_days": 3
+}

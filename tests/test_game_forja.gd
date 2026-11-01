@@ -270,7 +270,7 @@ func test_click_in_the_window_gives_master_touch() -> void:
 	v.free()
 
 
-func test_storage_panel_transfer_and_buy() -> void:
+func test_storage_panel_transfer() -> void:
 	var sim := _sim()
 	_hugo_inside(sim)
 	var v := _interior(sim)
@@ -294,17 +294,7 @@ func test_storage_panel_transfer_and_buy() -> void:
 	(back.get_node("Move") as Button).pressed.emit()
 	_same(got[1], {"type": "transfer", "actor": HUGO, "from": HUGO, "to": BLD, "item": "iron", "quality": 0, "qty": 1},
 		"leave 1 iron")
-	got.clear()
-	panel.select_raw("coal")
-	(panel.get_node("%BuyQty") as SpinBox).value = 4
-	panel.refresh()  # one frame
-	check((panel.get_node("%BuyCost") as Label).text.contains(str(Production.raw_cost(cat, "coal", 4))), "the cost shown")
-	(panel.get_node("%BuyButton") as Button).pressed.emit()
-	_same(got[0], {"type": "buy_raw", "actor": HUGO, "building": BLD, "item": "coal", "qty": 4}, "buy 4 coal")
-	var ev := sim.step(got)
-	eq(_refusals(ev).size(), 0, "the purchase goes through")
-	eq(Money.gold(sim.state, "fam_0001"), 100 - Production.raw_cost(cat, "coal", 4), "paid from the family's gold")
-	eq(Inventory.count(sim.state.buildings[BLD]["inventory"], "coal"), 10, "into the storage")
+	check(panel.get_node_or_null("%BuyButton") == null, "no raw purchase in the storage since the market (H3)")
 	v.free()
 
 

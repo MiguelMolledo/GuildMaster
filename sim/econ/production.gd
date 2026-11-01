@@ -118,41 +118,8 @@ static func order_master_touch(sim: Sim, o: Dictionary) -> Dictionary:
 	return Orders.ok()
 
 
-## {"type": "buy_raw", "actor", "building", "item", "qty"}. PROVISIONAL until H3 (market): inside an own building,
-## raw materials only, pays ceil(base_price × raw_purchase_markup × qty) from the family purse (Money, category
-## purchases); they enter the storage as normal quality.
-static func order_buy_raw(sim: Sim, o: Dictionary) -> Dictionary:
-	var st := sim.state
-	var actor := str(o.get("actor", ""))
-	var bld_id := str(o.get("building", ""))
-	var item := str(o.get("item", ""))
-	var qty := int(o.get("qty", 0))
-	var why := _inside_reason(sim, actor, bld_id)
-	if why != "":
-		return Orders.fail(why)
-	var def := sim.catalog.item(item)
-	if def.is_empty():
-		return Orders.fail("unknown_item")
-	if str(def.get("category", "")) != "raw":
-		return Orders.fail("not_raw")
-	if qty <= 0:
-		return Orders.fail("bad_quantity")
-	var fam := Money.family_of(st, actor)
-	var cost := raw_cost(sim.catalog, item, qty)
-	if not Money.can_pay(st, fam, cost):
-		return Orders.fail("not_enough_gold")
-	var inv: Dictionary = st.buildings[bld_id]["inventory"]
-	if not Inventory.can_add(inv, sim.catalog, item, Inventory.NORMAL, qty):
-		return Orders.fail("storage_full")
-	Money.change(sim, fam, -cost, Money.PURCHASES, "buy_raw", bld_id, actor)
-	Inventory.add(inv, sim.catalog, item, Inventory.NORMAL, qty)
-	sim.events.append({"type": "items_bought", "actor": actor, "building": bld_id, "item": item, "qty": qty,
-		"cost": cost})
-	if OS.is_debug_build():
-		print("[Production] %s compra %s x%d por %d (oro=%d)" % [actor, item, qty, cost, Money.gold(st, fam)])
-	return Orders.ok()
-
-
+## Cost of `qty` units of a raw material in the old provisional purchase of H2 (the buy_raw order, retired in H3 for
+## the market's buy). Kept only for the view until it moves to Market.offers.
 static func raw_cost(catalog: Catalog, item: String, qty: int) -> int:
 	var markup := float(catalog.production.get("raw_purchase_markup", 1.0))
 	return ceili(float(catalog.item(item).get("base_price", 0)) * markup * qty - 0.0001)

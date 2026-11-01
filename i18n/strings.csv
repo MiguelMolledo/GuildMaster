@@ -202,3 +202,161 @@ objective.quality_contract,"Fulfil a contract of ""good"" quality","Cumple un en
 objective.errand_purchase,Buy with a delivery errand,Compra con recado de entrega
 objective.repay_debt,Repay the debt before day 8,Devuelve la deuda antes del día 8
 reason.not_implemented,Not available yet,Aún no disponible
+reason.unknown_stall,There is no such stall,No existe ese puesto
+reason.not_at_stall,You have to be at the stall,Tienes que estar en el puesto
+reason.market_closed,The market is closed,El mercado está cerrado
+reason.wrong_stall,That is not sold at this stall,Eso no se vende en este puesto
+reason.bad_quality,The market only deals in that quality,El mercado no trabaja esa calidad
+reason.no_family,Nobody pays for it,No hay familia que pague
+reason.unknown_loan,There is no such loan,No existe ese préstamo
+reason.not_your_loan,It is not your family's loan,No es un préstamo de tu familia
+reason.loan_closed,That loan is already closed,Ese préstamo ya está cerrado
+reason.bad_amount,Wrong amount,Cantidad no válida
+reason.unknown_notice,There is no such notice,No existe ese aviso
+notice.loan_due_soon,"The debt with the moneylender is due in {days} days: {amount} gold left","La deuda con el prestamista vence en {days} días: quedan {amount} de oro"
+notice.loan_extension_due_soon,"The extension of the debt ends in {days} days: {amount} gold left, then the seizure","La prórroga de la deuda acaba en {days} días: quedan {amount} de oro y después llega el embargo"
+notice.loan_extended,"The debt fell due unpaid: reputation {reputation}, now {amount} gold, {days} more days","La deuda venció sin pagar: reputación {reputation}, ahora {amount} de oro, {days} días más"
+notice.loan_repaid,The debt is repaid,La deuda está saldada
+notice.loan_seized,"The moneylender seized {gold} gold and goods from the storage: the debt is settled","El prestamista ha embargado {gold} de oro y mercancía del almacén: la deuda queda saldada"
+notice.ruin,"Ruin: the seizure falls {missing} gold short and the moneylender keeps the forge","Ruina: al embargo le faltan {missing} de oro y el prestamista se queda la forja"
+notice.upkeep_unpaid,"Upkeep of {building} unpaid: {debt} gold owed to the town; damaged in {days} days","Mantenimiento de {building} sin pagar: {debt} de oro con la ciudad; en {days} días se daña"
+notice.building_damaged,"{building} is damaged for unpaid upkeep ({debt} gold owed)","{building} está dañado por no pagar el mantenimiento (debe {debt} de oro)"
+notice.upkeep_settled,"Upkeep of {building} settled ({amount} gold)","Mantenimiento de {building} saldado ({amount} de oro)"
+notice.objective_done,"Objective done: {objective}","Objetivo cumplido: {objective}"
+ui.building_of,{building} of the {family},{building} de {family}
+ui.board.sign,Contract board,Tablón de encargos
+ui.quality.0,normal,normal
+ui.quality.1,good,buena
+ui.quality.2,excellent,excelente
+ui.days_hours,%d d %d h,%d d %d h
+ui.hours,%d h,%d h
+ui.day_time,Day %d · %02d:%02d,Día %d · %02d:%02d
+ui.market.buy_tab,Buy,Comprar
+ui.market.sell_tab,Sell,Vender
+ui.market.gold,Family gold: %d,Oro de la familia: %d
+ui.market.nothing_to_buy,Nothing for sale here,Aquí no se vende nada
+ui.market.unit_price,%d gold/u,%d oro/u
+ui.market.total,= %d gold,= %d oro
+ui.market.buy,Buy,Comprar
+ui.market.buy_tip,Buy %d for %d gold (you carry it),Comprar %d por %d de oro (lo llevas encima)
+ui.market.send,Send to…,Enviar a…
+ui.market.send_tip,Delivered to your storage in 2 h: +%d %% (%d gold),Llega a tu almacén en 2 h: +%d %% (%d de oro)
+ui.market.nothing_to_sell,You carry nothing this stall buys,No llevas nada que se compre aquí
+ui.market.sell_one,Sell 1,Vender 1
+ui.market.sell_all,Sell all,Vender todo
+ui.market.sell_tip,Sell %d for %d gold,Vender %d por %d de oro
+reason.no_own_building,You have no building to send it to,No tienes edificio al que enviarlo
+ui.board.title,Contract board,Tablón de encargos
+ui.board.open,Open contracts,Encargos disponibles
+ui.board.mine,Your contracts,Tus encargos
+ui.board.none_open,No contracts right now,Ahora no hay encargos
+ui.board.none_mine,You have no contracts,No tienes encargos
+ui.board.what,%s: %d × %s,%s: %d × %s
+ui.board.pay,%d gold,%d de oro
+ui.board.min_quality,quality %s or better,calidad %s o mejor
+ui.board.any_quality,any quality,cualquier calidad
+ui.board.deadline,%d days once accepted,%d días al aceptarlo
+ui.board.left,%s left,quedan %s
+ui.board.accept,Accept,Aceptar
+ui.board.deliver,Deliver,Entregar
+ui.board.deliver_tip,Hand over the pieces you carry and get paid,Entregar las piezas que llevas y cobrar
+ui.board.abandon,Abandon,Abandonar
+ui.board.abandon_tip,"Counts as failed: reputation −5, the client is angry","Cuenta como incumplido: reputación −5, el cliente se enfada"
+ui.ledger.title,Account book · %s,Libro de cuentas · %s
+ui.ledger.tab.today,Today,Hoy
+ui.ledger.tab.days,By day,Por día
+ui.ledger.tab.buildings,By building,Por edificio
+ui.ledger.tab.debts,Debts and contracts,Deudas y encargos
+ui.ledger.tab.notices,Notices,Avisos
+ui.ledger.income,Income,Ingresos
+ui.ledger.expense,Expenses,Gastos
+ui.ledger.net,Net,Neto
+ui.ledger.nothing_today,No gold moved today,Hoy no se ha movido oro
+ui.ledger.nothing,Nothing yet,Aún nada
+ui.ledger.day_header,Day,Día
+ui.ledger.days_cols,in  out  = net,entra  sale  = neto
+ui.ledger.day,Day %d,Día %d
+ui.ledger.no_building,No building,Sin edificio
+ui.ledger.loans,Debts,Deudas
+ui.ledger.no_loans,No debts,Sin deudas
+ui.ledger.loan,%s: %d gold owed,%s: debes %d de oro
+ui.ledger.due,due %s (%d days),vence %s (%d días)
+ui.ledger.extended,extended,prorrogada
+ui.ledger.pay,Pay,Pagar
+ui.ledger.pay_all,Pay all (%d),Pagar todo (%d)
+ui.ledger.contracts,Accepted contracts,Encargos aceptados
+ui.ledger.no_notices,No notices,Sin avisos
+lender.moneylender,The moneylender,El prestamista
+ui.new_game.title,New game,Partida nueva
+ui.new_game.difficulty,Difficulty,Dificultad
+ui.new_game.difficulty_hint,Debt %d gold · rival Craft %d · market prices %d %%,Deuda %d de oro · Artesanía del rival %d · precios del mercado %d %%
+ui.new_game.name,Name,Nombre
+ui.new_game.family,Family,Familia
+ui.new_game.male,Man,Hombre
+ui.new_game.female,Woman,Mujer
+ui.new_game.points,Free points: %d of %d,Puntos libres: %d de %d
+ui.new_game.primary,Main colour,Color principal
+ui.new_game.secondary,Second colour,Color secundario
+ui.new_game.start,Start,Empezar
+ui.new_game.need_names,Write a name and a family name,Escribe un nombre y un apellido de familia
+ui.new_game.error,The game could not be created (%s),No se ha podido crear la partida (%s)
+stat.charisma,Charisma,Carisma
+stat.empathy,Empathy,Empatía
+stat.negotiation,Negotiation,Negociación
+stat.arcane,Arcane,Arcano
+stat.dexterity,Dexterity,Destreza
+stat.craft,Craft,Artesanía
+stat.martial,Martial,Marcial
+stat.constitution,Constitution,Constitución
+stat.rhetoric,Rhetoric,Retórica
+stat.stealth,Stealth,Sigilo
+ui.ending.ruin.title,Ruin,Ruina
+ui.ending.ruin.body,The moneylender has seized the forge of the {family}. Without it there is no trade and no house: the dynasty ends here.,El prestamista se ha quedado con la forja de los {family}. Sin ella no hay oficio ni casa: la dinastía termina aquí.
+ui.ending.summary,The end: %s,Final: %s
+ui.ending.new_game,New game,Partida nueva
+ui.ending.quit,Quit,Salir
+hud.ledger,Book (L),Libro (L)
+hud.ledger_tip,"Account book: gold, debts, contracts and notices (key L)","Libro de cuentas: oro, deudas, encargos y avisos (tecla L)"
+hud.objective,Objective,Objetivo
+hud.objectives_done,Start objectives done,Objetivos de inicio cumplidos
+hud.building_public,Public shop · right click with someone selected: go in,Tienda pública · clic derecho con alguien elegido: entrar
+hud.family_gold,%d gold,%d de oro
+hud.debt,Debt %d · %d days left,Deuda %d · quedan %d días
+hud.debt_tip,Due %s. Pay it from the account book (L),Vence %s. Se paga desde el libro de cuentas (L)
+hud.notice_tip,Click: go there,Clic: ir allí
+ledger.cat.market_sales,Market sales,Ventas en el mercado
+ledger.cat.contracts,Contracts,Encargos
+ledger.cat.loans,Loans,Préstamos
+ledger.cat.counter_sales,Counter sales,Ventas en mostrador
+ledger.cat.events,Events,Sucesos
+ledger.cat.property,Property,Propiedades
+ledger.cat.offices,Offices,Cargos
+ledger.cat.services,Services,Servicios
+ledger.cat.loot,Loot,Botín
+ledger.cat.purchases,Purchases,Compras
+ledger.cat.errands,Errands,Recados
+ledger.cat.upkeep,Upkeep,Mantenimiento
+ledger.cat.wages,Wages,Salarios
+ledger.cat.upgrades,Upgrades,Mejoras
+ledger.cat.fines,Fines,Multas
+ledger.cat.titles,Titles,Títulos
+ledger.cat.politics,Politics,Política
+ledger.cat.taxes,Taxes,Impuestos
+ledger.cat.justice,Justice,Justicia
+ledger.cat.family,Family,Familia
+ledger.cat.donations,Donations,Donaciones
+ui.order.buy,Buy %d %s,Comprar %d %s
+ui.order.sell,Sell %d %s,Vender %d %s
+ui.order.accept_contract,Accept a contract,Aceptar un encargo
+ui.order.deliver_contract,Deliver a contract,Entregar un encargo
+ui.order.abandon_contract,Abandon a contract,Abandonar un encargo
+ui.order.repay_loan,Repay the debt,Pagar la deuda
+reason.unknown_contract,That contract does not exist,Ese encargo no existe
+reason.not_at_board,You have to be at the contract board,Tienes que estar en el tablón de encargos
+reason.contract_taken,Somebody already took that contract,Alguien ya ha aceptado ese encargo
+reason.too_many_contracts,Too many contracts at once,Demasiados encargos a la vez
+reason.not_your_contract,That contract is not your family's,Ese encargo no es de tu familia
+reason.missing_items,You do not carry the pieces it asks for,No llevas las piezas que pide
+reason.unknown_family,That family does not exist,Esa familia no existe
+notice.contract_due,"Contract for {client} due in {hours} h: {qty} × {item}","El encargo de {client} vence en {hours} h: {qty} × {item}"
+notice.contract_expired,"The contract for {client} expired: reputation {reputation} and no contracts from them for {days} days","El encargo de {client} ha vencido: reputación {reputation} y no te encargará nada en {days} días"

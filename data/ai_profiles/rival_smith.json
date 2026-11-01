@@ -1,6 +1,6 @@
 {
   "id": "rival_smith",
-  "_doc": "The rival smith (GDD 4.5.5) [balance]. H3 uses: sell_min_demand (sells an item while its demand is >= this; the difficulty's rival_sell_min_demand replaces it), gold_reserve (keeps this much when buying inputs), work_mode, work_phases (produces only then), decide_on (when it thinks: at dawn and at every phase change), buy_days (inputs for this many days of work), accepts_contracts. weights/aggression/risk_aversion/rivalry_threshold/preferred_professions are for the family AI of H6 (GDD 4.21).",
+  "_doc": "The rival smith (GDD 4.5.5) [balance]. H3 uses: sell_min_demand (sells an item while its demand is >= this; the difficulty's rival_sell_min_demand replaces it), gold_reserve (keeps this much when buying inputs), work_mode, work_phases (produces only then), decide_on (when it thinks: at dawn and at every phase change), buy_days (inputs for this many days of work), accepts_contracts (takes contracts from the board), max_contracts (contracts it holds at a time, under the board's max_accepted_per_family; GDD: \"acepta uno\"), accepts_scripted_contracts (false: it leaves the scripted start contracts to the player). weights/aggression/risk_aversion/rivalry_threshold/preferred_professions are for the family AI of H6 (GDD 4.21).",
   "weights": {"gold": 1.0, "title": 0.0, "office": 0.0},
   "aggression": 0.0,
   "risk_aversion": 0.5,
@@ -12,5 +12,7 @@
   "work_phases": ["day"],
   "decide_on": ["dawn", "phase_change"],
   "buy_days": 1,
-  "accepts_contracts": true
+  "accepts_contracts": true,
+  "max_contracts": 1,
+  "accepts_scripted_contracts": false
 }
