@@ -62,6 +62,25 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 	match from_version:
 		1:  # 1 -> 2 (H1): the town map the game runs on
 			data["map_id"] = ""
+		2:  # 2 -> 3 (H2): characters get stats, gold, inventory, equipment, location and an order queue
+			for c: Dictionary in (data.get("characters", {}) as Dictionary).values():
+				if not c.has("stats"):
+					var stats := {}
+					for k: String in ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial",
+							"constitution", "rhetoric", "stealth"]:
+						stats[k] = 3
+					c["stats"] = stats
+				if not c.has("gold"):
+					c["gold"] = 0
+				if not c.has("inventory"):
+					c["inventory"] = {"limit_kind": "weight", "limit": 30.0, "stacks": []}
+				if not c.has("equipment"):
+					c["equipment"] = {"tool": null, "clothes": null, "accessory": null}
+				for k: String in ["location", "station"]:
+					if not c.has(k):
+						c[k] = ""
+				if not c.has("order_queue"):
+					c["order_queue"] = []
 	return data
 
 

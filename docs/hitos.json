@@ -68,7 +68,7 @@
     {
       "id": "H2",
       "nombre": "Forja jugable a mano",
-      "estado": "pendiente",
+      "estado": "en_curso",
       "entregable": "Edificio Forja con interior, puestos, recetas, calidad, almacén, panel de almacén, inventario del personaje con peso y equipo. Modos de trabajo y toque de maestro (4.4.5). Entradas devueltas al interrumpir (D11). Pausa activa con cola de órdenes por personaje (4.1).",
       "criterios": [
         {

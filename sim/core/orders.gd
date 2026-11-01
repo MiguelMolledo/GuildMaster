@@ -5,7 +5,8 @@ extends RefCounted
 ## apply() validates first and returns {"ok": bool, "reason": String}. A refused order changes nothing; its reason is
 ## an id the UI shows through i18n ("reason.<id>").
 ##
-## Orders today: wait, transfer, move_to. Each milestone adds its own (GDD 05 §5.5 has the full list).
+## Orders today: wait, transfer, move_to; H2: enter_building, exit_building, go_to_station, equip, unequip, work_at,
+## stop_work, master_touch, buy_raw (handlers live with their system; docs/contratos/h2_forja.md). Each milestone adds its own (GDD 05 §5.5 has the full list).
 
 
 static func apply(sim: Sim, order: Dictionary) -> Dictionary:
@@ -17,6 +18,26 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return _transfer(sim, order)
 		"move_to":
 			return _move_to(sim, order)
+		# H2 · buildings and items (sim/world/buildings.gd, sim/econ/equipment.gd)
+		"enter_building":
+			return Buildings.order_enter(sim, order)
+		"exit_building":
+			return Buildings.order_exit(sim, order)
+		"go_to_station":
+			return Buildings.order_go_to_station(sim, order)
+		"equip":
+			return Equipment.order_equip(sim, order)
+		"unequip":
+			return Equipment.order_unequip(sim, order)
+		# H2 · production (sim/econ/production.gd)
+		"work_at":
+			return Production.order_work_at(sim, order)
+		"stop_work":
+			return Production.order_stop_work(sim, order)
+		"master_touch":
+			return Production.order_master_touch(sim, order)
+		"buy_raw":
+			return Production.order_buy_raw(sim, order)
 	return fail("unknown_order")
 
 

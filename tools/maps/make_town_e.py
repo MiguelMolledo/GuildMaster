@@ -48,6 +48,11 @@ for c0 in (9, 25):
 for c in (11, 27):
     rect(c, 15, c, 17, ",")
     rect(c, 20, c, 22, ",")
+# the family forge (H2): 3x4 footprint at cols 25-27, rows 20-23, door on the main street at (26, 19);
+# the rest of that block stays a house
+rect(25, 20, 29, 23, ".")
+rect(25, 20, 27, 23, "#")
+rect(28, 20, 29, 22, "#")
 # church north of the plaza, town hall south of it (blocked footprints)
 rect(17, 8, 22, 11, "#")
 rect(17, 26, 22, 29, "#")
@@ -70,19 +75,29 @@ with open(os.path.join(ROOT, "data/maps/town_e.json"), "w") as f:
     json.dump(town, f, indent=1, ensure_ascii=False)
     f.write("\n")
 
-def chr_(id_, name, female, family, ctrl, pos):
+STATS = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution", "rhetoric", "stealth"]
+
+def inv(limit_kind, limit, stacks=None):
+    return {"limit_kind": limit_kind, "limit": limit, "stacks": stacks or []}
+
+def chr_(id_, name, female, family, ctrl, pos, craft=3, gold=20):
+    stats = {k: 3 for k in STATS}
+    stats["craft"] = craft
     return {"id": id_, "name": name, "female": female, "family": family, "controlled_by": ctrl,
-            "alive": True, "position": pos, "path": [], "move_progress": 0}
+            "alive": True, "position": pos, "path": [], "move_progress": 0,
+            "stats": stats, "gold": gold, "inventory": inv("weight", 30.0),
+            "equipment": {"tool": None, "clothes": None, "accessory": None},
+            "location": "", "station": "", "order_queue": []}
 
 scenario = {
-    "version": 2, "seed": "1", "rng_state": "",
-    "meta": {"title": "Pueblo-calle", "description": "H1: mapa town_e con la familia del jugador (3) y dos vecinos quietos."},
+    "version": 3, "seed": "1", "rng_state": "",
+    "meta": {"title": "Pueblo-calle", "description": "Mapa town_e con la familia del jugador (3), su forja (bld_0001, puerta en la calle mayor) y dos vecinos."},
     "map_id": "town_e",
     "clock": {"minute": 480},
     "characters": {
-        "chr_0001": chr_("chr_0001", "Hugo", False, "fam_0001", "human", [20, 21]),
-        "chr_0002": chr_("chr_0002", "Elena", True, "fam_0001", "human", [21, 21]),
-        "chr_0003": chr_("chr_0003", "Tomás", False, "fam_0001", "human", [19, 22]),
+        "chr_0001": chr_("chr_0001", "Hugo", False, "fam_0001", "human", [20, 21], craft=7, gold=100),
+        "chr_0002": chr_("chr_0002", "Elena", True, "fam_0001", "human", [21, 21], craft=4),
+        "chr_0003": chr_("chr_0003", "Tomás", False, "fam_0001", "human", [19, 22], craft=2),
         "chr_0004": chr_("chr_0004", "Marta", True, "fam_0002", "ai", [8, 12]),
         "chr_0005": chr_("chr_0005", "Pere", False, "fam_0002", "ai", [30, 25]),
     },
@@ -92,9 +107,15 @@ scenario = {
         "fam_0002": {"id": "fam_0002", "name": "Vidal", "controlled_by": "ai", "members": ["chr_0004", "chr_0005"],
                      "colors": {"primary": "#2e4f8b", "secondary": "#d4b896"}},
     },
-    "buildings": {}, "parcels": {}, "market": {"demand": {}, "regulations": []},
+    "buildings": {
+        "bld_0001": {"id": "bld_0001", "type": "forge", "owner": "fam_0001", "origin": [25, 20], "footprint": [3, 4],
+                     "door": [26, 19], "state": "normal",
+                     "inventory": inv("stacks", 10, [{"item": "iron", "quality": 0, "qty": 10}, {"item": "coal", "quality": 0, "qty": 6}]),
+                     "zones": {z: {"occupant": "", "job": None} for z in ("furnace", "anvil", "counter", "storage")}},
+    },
+    "parcels": {}, "market": {"demand": {}, "regulations": []},
     "offices": {}, "elections": [], "trials": [], "relationships": {}, "emotions": {},
-    "events_active": [], "chronicle": [], "next_ids": {"chr": 6, "fam": 3},
+    "events_active": [], "chronicle": [], "next_ids": {"chr": 6, "fam": 3, "bld": 2},
 }
 with open(os.path.join(ROOT, "data/scenarios/town_e_start.json"), "w") as f:
     json.dump(scenario, f, indent=2, ensure_ascii=False)

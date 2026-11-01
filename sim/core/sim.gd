@@ -22,13 +22,20 @@ func step(orders: Array = []) -> Array:
 	for o: Dictionary in orders:
 		if record:
 			recording.append({"minute": int(state.clock["minute"]), "order": o.duplicate(true)})
+		if bool(o.get("queued", false)):
+			OrderQueue.push(self, o)  # given during pause: waits in the actor's queue (GDD 4.1, active pause)
+			continue
+		OrderQueue.clear_for(self, str(o.get("actor", "")))  # an order given live replaces what was queued
 		var r := Orders.apply(self, o)
 		if not r["ok"]:
 			events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),
 				"reason": r["reason"]})
 	Clock.tick(state, catalog.time, events)
 	# Systems, in a fixed order (GDD 05 §5.4). Each milestone adds its own here: routines, production, customers...
+	OrderQueue.step(self)   # starts the next queued order of each idle actor
 	Movement.step(self)
+	Buildings.step(self)    # arrivals at doors -> inside
+	Production.step(self)   # work cycles, master-touch windows
 	return events
 
 

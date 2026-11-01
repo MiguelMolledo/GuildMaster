@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 2
+const VERSION: int = 3
 
 var version: int = VERSION
 var world_seed: int = 0

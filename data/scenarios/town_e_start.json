@@ -1,10 +1,10 @@
 {
-  "version": 2,
+  "version": 3,
   "seed": "1",
   "rng_state": "",
   "meta": {
     "title": "Pueblo-calle",
-    "description": "H1: mapa town_e con la familia del jugador (3) y dos vecinos quietos."
+    "description": "Mapa town_e con la familia del jugador (3), su forja (bld_0001, puerta en la calle mayor) y dos vecinos."
   },
   "map_id": "town_e",
   "clock": {
@@ -23,7 +23,33 @@
         21
       ],
       "path": [],
-      "move_progress": 0
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 7,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "gold": 100,
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "",
+      "station": "",
+      "order_queue": []
     },
     "chr_0002": {
       "id": "chr_0002",
@@ -37,7 +63,33 @@
         21
       ],
       "path": [],
-      "move_progress": 0
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 4,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "gold": 20,
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "",
+      "station": "",
+      "order_queue": []
     },
     "chr_0003": {
       "id": "chr_0003",
@@ -51,7 +103,33 @@
         22
       ],
       "path": [],
-      "move_progress": 0
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 2,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "gold": 20,
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "",
+      "station": "",
+      "order_queue": []
     },
     "chr_0004": {
       "id": "chr_0004",
@@ -65,7 +143,33 @@
         12
       ],
       "path": [],
-      "move_progress": 0
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 3,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "gold": 20,
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "",
+      "station": "",
+      "order_queue": []
     },
     "chr_0005": {
       "id": "chr_0005",
@@ -79,7 +183,33 @@
         25
       ],
       "path": [],
-      "move_progress": 0
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 3,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "gold": 20,
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "",
+      "station": "",
+      "order_queue": []
     }
   },
   "families": {
@@ -111,7 +241,60 @@
       }
     }
   },
-  "buildings": {},
+  "buildings": {
+    "bld_0001": {
+      "id": "bld_0001",
+      "type": "forge",
+      "owner": "fam_0001",
+      "origin": [
+        25,
+        20
+      ],
+      "footprint": [
+        3,
+        4
+      ],
+      "door": [
+        26,
+        19
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 10,
+        "stacks": [
+          {
+            "item": "iron",
+            "quality": 0,
+            "qty": 10
+          },
+          {
+            "item": "coal",
+            "quality": 0,
+            "qty": 6
+          }
+        ]
+      },
+      "zones": {
+        "furnace": {
+          "occupant": "",
+          "job": null
+        },
+        "anvil": {
+          "occupant": "",
+          "job": null
+        },
+        "counter": {
+          "occupant": "",
+          "job": null
+        },
+        "storage": {
+          "occupant": "",
+          "job": null
+        }
+      }
+    }
+  },
   "parcels": {},
   "market": {
     "demand": {},
@@ -126,6 +309,7 @@
   "chronicle": [],
   "next_ids": {
     "chr": 6,
-    "fam": 3
+    "fam": 3,
+    "bld": 2
   }
 }

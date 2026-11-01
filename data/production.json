@@ -1,0 +1,72 @@
+{
+  "_doc": "Production figures (GDD 4.4.2 quality table, 4.4.5 modes and master touch). [balance] numbers: tune with bots.",
+  "quality_table": [
+    {
+      "craft": [
+        1,
+        3
+      ],
+      "chances": [
+        80,
+        18,
+        2
+      ]
+    },
+    {
+      "craft": [
+        4,
+        6
+      ],
+      "chances": [
+        50,
+        40,
+        10
+      ]
+    },
+    {
+      "craft": [
+        7,
+        9
+      ],
+      "chances": [
+        20,
+        50,
+        30
+      ]
+    },
+    {
+      "craft": [
+        10,
+        10
+      ],
+      "chances": [
+        5,
+        40,
+        55
+      ]
+    }
+  ],
+  "modes": {
+    "fast": {
+      "duration_mult": 0.7,
+      "craft_delta": -3,
+      "master_touch": false
+    },
+    "normal": {
+      "duration_mult": 1.0,
+      "craft_delta": 0,
+      "master_touch": false
+    },
+    "careful": {
+      "duration_mult": 1.5,
+      "craft_delta": 2,
+      "master_touch": true
+    }
+  },
+  "master_touch": {
+    "window_hours": 1.0,
+    "step_up_chance": 0.15
+  },
+  "tool_step_up_chance": 0.1,
+  "raw_purchase_markup": 1.0
+}

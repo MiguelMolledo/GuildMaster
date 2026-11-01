@@ -11,6 +11,7 @@ var root: String = "res://data"
 var tables: Dictionary = {}  # kind -> {id -> Dictionary}
 var time: Dictionary = {}    # data/time.json, with the dev variant applied when asked
 var tiles: Dictionary = {}   # data/tiles.json "tiles": kind -> {char, walk_cost (null = blocked), color}
+var production: Dictionary = {}  # data/production.json: quality table, work modes, master touch, tool bonus
 var errors: PackedStringArray = []  # files that could not be read
 
 
@@ -21,6 +22,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 		c.tables[kind] = c._load_folder(root_dir.path_join(kind))
 	c.time = c._load_json(root_dir.path_join("time.json"))
 	c.tiles = c._load_json(root_dir.path_join("tiles.json")).get("tiles", {})
+	c.production = c._load_json(root_dir.path_join("production.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
