@@ -3,10 +3,10 @@ extends SceneTree
 ##   godot --headless --path . -s tools/sim_runner.gd -- [--scenario=<id>] [--bots=idle,...] [--days=<n>] [--seeds=<n>]
 ## Writes reports/sim/<scenario>_<bot>.json with the measures of every seed and exits with 1 if a target is missed.
 ## Measures today: days, refused_orders, refused_unreachable, refused_other (refused for any reason but unreachable),
-## moves (tiles walked), arrivals, state_hash. Each milestone adds its own (gold_day10, days_to_citizen...).
+## moves (tiles walked), arrivals, state_hash; H2: work_done, made_<item> (units produced). Each milestone adds its own (gold_day10, days_to_citizen...).
 ## The default scenario is town_e_start (the H1 town).
 
-var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer}
+var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith}
 
 
 func _init() -> void:
@@ -53,6 +53,10 @@ func _init() -> void:
 							m["moves"] += 1
 						"character_arrived":
 							m["arrivals"] += 1
+						"work_done":  # H2 production: work_done count and made_<item> units
+							m["work_done"] = int(m.get("work_done", 0)) + 1
+							var made := "made_" + str(e["item"])
+							m[made] = int(m.get(made, 0)) + int(e["qty"])
 			m.merge({"seed": s, "days": days, "state_hash": sim.state_hash()})
 			runs.append(m)
 		var fails := _check(targets.get(bot_id, {}), runs)

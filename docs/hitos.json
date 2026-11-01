@@ -68,45 +68,45 @@
     {
       "id": "H2",
       "nombre": "Forja jugable a mano",
-      "estado": "en_curso",
+      "estado": "hecho",
       "entregable": "Edificio Forja con interior, puestos, recetas, calidad, almacén, panel de almacén, inventario del personaje con peso y equipo. Modos de trabajo y toque de maestro (4.4.5). Entradas devueltas al interrumpir (D11). Pausa activa con cola de órdenes por personaje (4.1).",
       "criterios": [
         {
           "texto": "Comprar materia prima (a mano en el almacén por ahora), producir lingote y espada a mano, ver la calidad",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_production.gd (lingote y espada desde almacén vacío con buy_raw) · docs/novedades/h2_almacen.png (Espada buena en el almacén)",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Test: producción con 0 vistas abiertas",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_production.gd: producción solo con el sim, sin escenas",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Test con semilla (200 ciclos): \"con cuidado\" da más calidad media que \"rápido\" y el toque de maestro suma lo previsto",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_production.gd, 200 ciclos con semilla: rápido 0,64 · con cuidado 1,10 · con cuidado + toque 1,26 de calidad media; subida con toque 0,20 (previsto 0,15 ± 0,08)",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Test: interrumpir devuelve las entradas",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_production.gd: stop_work/exit devuelve entradas (almacén, bolsa o suelo del puesto)",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Test: 3 órdenes dadas en pausa se ejecutan en orden al reanudar",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_core_queue.gd: move_to → enter_building → go_to_station dadas en pausa por Game se ejecutan en orden; una orden en vivo vacía la cola",
+          "fecha": "2026-11-01"
         }
       ]
     },
     {
       "id": "H3",
       "nombre": "Mercado, dinero e inicio de partida",
-      "estado": "pendiente",
+      "estado": "en_curso",
       "entregable": "Plaza con 3 puestos y 1 tienda con interior (Armería), panel comprar/vender, demanda, horario, HUD de oro. Partida nueva: dificultad (4.23), creación de personaje con 5 puntos libres (D5) y colores de familia; condiciones de inicio y deuda (4.16, entidad `Loan`); objetivos de inicio. Herrero rival con IA simple (4.5.5). Tablón de encargos (4.5.6). Recado de entrega (4.5.7). Libro de cuentas y registro de avisos (4.18). Mantenimiento diario (D12).",
       "criterios": [
         {

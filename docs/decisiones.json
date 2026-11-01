@@ -185,6 +185,24 @@
       "tema": "Formato del guardado v2",
       "decision": "WorldState.map_id (id de data/maps/), con migración 1 → 2.",
       "por_que": "El mapa de la partida es estado; el mapa en sí es estático y vive en data/."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "H2 · producción (provisional)",
+      "decision": "Duraciones redondeadas a minutos. Ventana del toque de maestro de 1 h centrada en la mitad del ciclo. Herramienta y toque son tiradas aparte de un escalón cada una. Entradas: primero la calidad más baja. Interrumpir devuelve entradas (o la pieza ya hecha si el puesto estaba bloqueado) a almacén → bolsa → suelo del puesto. buy_raw = ceil(precio base × cantidad) hasta que haya mercado (H3).",
+      "por_que": "Lo más simple que cumple 4.4 y D11; cifras [balance] en data/production.json."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "H2 · edificios y cola (provisional)",
+      "decision": "Dentro de un edificio no se anda por el mapa (move_to → not_inside_map; hay que salir). Entrar desde lejos camina a la puerta y entra al llegar. El equipo sale del inventario a su ranura y su peso cuenta en el límite de 30 kg. Pausa activa: las órdenes dadas en pausa van a la cola del personaje y empiezan cuando está libre; un trabajo con cola pendiente acaba su ciclo y no repite.",
+      "por_que": "Contrato docs/contratos/h2_forja.md."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Textos: concordancia de calidad",
+      "decision": "Cada objeto lleva gender m/f (español) y la calidad usa quality.<n>.<m|f>: «Espada buena», «Lingote de hierro bueno».",
+      "por_que": "Salía «Lingote de hierro buena»."
     }
   ],
   "pendientes": [
@@ -235,9 +253,12 @@
     }
   ],
   "proximos_pasos": [
-    "H2 · Forja jugable a mano: interior, puestos, recetas, calidad, almacén, inventario con peso y equipo, modos de trabajo y toque de maestro, pausa activa con cola de órdenes por personaje.",
-    "Picos del A*: rutas largas de town_e expanden ~900 casillas (peor paso del bench 41 ms con la máquina cargada). Antes de H7 (15-20 NPC): repartir los cálculos entre pasos o mejorar la heurística.",
-    "Traer los assets reutilizables del primer intento (origen_previo en assets/inventario.json) y hacer la captura de escala de D17.",
+    "H3 · Mercado, dinero e inicio de partida (en curso).",
+    "Recoger lo que queda en el suelo de un puesto (zones[z].floor): falta la orden.",
+    "Plurales en los textos («2 Lingote de hierro»).",
+    "Bonus de velocidad de la herramienta: el GDD lo nombra sin cifra.",
+    "Picos del A* antes de H7.",
+    "Traer los assets reutilizables del primer intento y captura de escala de D17.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner."
   ]
 }

@@ -1,6 +1,7 @@
 {
   "id": "work_clothes",
   "name_key": "item.work_clothes",
+  "gender": "f",
   "category": "equipment",
   "weight": 3.0,
   "max_stack": 1,

@@ -1,0 +1,134 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://game/interior/interior_view.gd" id="1_view"]
+[ext_resource type="Theme" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" path="res://game/ui/storage_panel.tscn" id="3_storage"]
+[ext_resource type="PackedScene" path="res://game/ui/production_panel.tscn" id="4_production"]
+[ext_resource type="PackedScene" path="res://game/ui/station_menu.tscn" id="5_menu"]
+
+[node name="InteriorView" type="Node2D"]
+visible = false
+script = ExtResource("1_view")
+
+[node name="Floor" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Walls" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Objects" type="Node2D" parent="."]
+unique_name_in_owner = true
+y_sort_enabled = true
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+enabled = false
+
+[node name="Ui" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 5
+visible = false
+
+[node name="Root" type="Control" parent="Ui"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+
+[node name="TitleLabel" type="Label" parent="Ui/Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 36.0
+offset_right = 160.0
+offset_bottom = 54.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_override_colors/font_outline_color = Color(0.0980392, 0.0705882, 0.0509804, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+text = "--"
+horizontal_alignment = 1
+
+[node name="Toolbar" type="HBoxContainer" parent="Ui/Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -330.0
+offset_top = 90.0
+offset_right = -6.0
+offset_bottom = 110.0
+grow_horizontal = 0
+alignment = 2
+theme_override_constants/separation = 2
+
+[node name="UpgradesButton" type="Button" parent="Ui/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+disabled = true
+text = "upgrades"
+
+[node name="StorageButton" type="Button" parent="Ui/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+text = "storage"
+
+[node name="StaffButton" type="Button" parent="Ui/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+disabled = true
+text = "staff"
+
+[node name="ProductionButton" type="Button" parent="Ui/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+text = "production"
+
+[node name="ExitButton" type="Button" parent="Ui/Root/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "exit"
+
+[node name="StoragePanel" parent="Ui/Root" instance=ExtResource("3_storage")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -276.0
+offset_top = 116.0
+offset_right = -6.0
+offset_bottom = 316.0
+grow_horizontal = 0
+
+[node name="ProductionPanel" parent="Ui/Root" instance=ExtResource("4_production")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -276.0
+offset_top = 116.0
+offset_right = -6.0
+offset_bottom = 236.0
+grow_horizontal = 0
+
+[node name="StationMenu" parent="Ui/Root" instance=ExtResource("5_menu")]
+unique_name_in_owner = true
+layout_mode = 0

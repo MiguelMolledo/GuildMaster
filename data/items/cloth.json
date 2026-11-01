@@ -1,6 +1,7 @@
 {
   "id": "cloth",
   "name_key": "item.cloth",
+  "gender": "f",
   "category": "material",
   "weight": 2.0,
   "max_stack": 50,

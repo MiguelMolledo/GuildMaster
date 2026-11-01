@@ -3,6 +3,11 @@ extends CanvasLayer
 ## ×1/×2/×4 (D4) by button or key (pause_toggle = Space, speed_1/2/3 = 1/2/3), the "paused" sign and a short
 ## message when the sim refuses an order of the human family (tr("reason.<id>")). Reads Game; only changes the
 ## session's speed and pause, never the world.
+## H2: the selected person (portrait, name, gold) with their order queue as a numbered list (active pause, GDD 4.1:
+## the state's order_queue plus the orders given during this pause), the button / key I of their panel
+## (CharacterPanel), and the picked building with its "Manage" button (GDD 4.6.4).
+
+signal manage_pressed(building_id: String)
 
 @onready var _sun_moon: SunMoon = %SunMoon
 @onready var _time_label: Label = %TimeLabel
@@ -15,6 +20,23 @@ extends CanvasLayer
 @onready var _toast_label: Label = %ToastLabel
 @onready var _help_label: Label = %HelpLabel
 @onready var _title_label: Label = %TitleLabel
+@onready var _selected_panel: PanelContainer = %SelectedPanel
+@onready var _portrait: ColorRect = %Portrait
+@onready var _name_label: Label = %NameLabel
+@onready var _gold_label: Label = %GoldLabel
+@onready var _inventory_button: Button = %InventoryButton
+@onready var _queue_label: Label = %QueueLabel
+@onready var _queue_list: VBoxContainer = %QueueList
+@onready var _building_panel: PanelContainer = %BuildingPanel
+@onready var _building_name: Label = %BuildingName
+@onready var _building_hint: Label = %BuildingHint
+@onready var _manage_button: Button = %ManageButton
+@onready var _character_panel: CharacterPanel = %CharacterPanel
+
+var selected_id: String = ""
+var building_id: String = ""
+var interior_open: bool = false
+var _queue_sig: String = ""
 
 var _game: Node = null
 var _toast_left: float = 0.0
@@ -38,6 +60,14 @@ func _ready() -> void:
 		b.button_group = group
 		b.pressed.connect(func() -> void: _game.set_speed(s))
 	_toast_label.visible = false
+	_inventory_button.text = tr("hud.inventory")
+	_inventory_button.tooltip_text = tr("hud.inventory_tip")
+	_inventory_button.pressed.connect(toggle_character_panel)
+	_queue_label.text = tr("hud.queue")
+	_manage_button.text = tr("hud.manage")
+	_manage_button.tooltip_text = tr("hud.manage_tip")
+	_manage_button.pressed.connect(func() -> void: manage_pressed.emit(building_id))
+	_character_panel.order_sink = _game.give
 	Events.sim_event.connect(_on_sim_event)
 	_refresh()
 
@@ -61,6 +91,7 @@ func _refresh() -> void:
 	for i: int in _speed_buttons.size():
 		_speed_buttons[i].set_pressed_no_signal(Game.SPEEDS[i] == _game.speed)
 	_phase_bar.value = DayNight.phase_progress(minute, _game.step_fraction(), sim.catalog.time) * 100.0
+	_refresh_selected(sim)
 	if minute == _last_minute:
 		return
 	_last_minute = minute
@@ -72,10 +103,90 @@ func _refresh() -> void:
 		t["minute"], tr("phase." + str(t["phase"]))]
 
 
+## The person picked on the map or inside ("" = nobody).
+func set_selected(id: String) -> void:
+	selected_id = id
+	_queue_sig = "-"
+	if _game != null and _game.sim != null:
+		_character_panel.setup(_game.sim, id)
+	if id == "":
+		_character_panel.close()
+
+
+## The building picked on the map ("" = none): its name and the Manage button.
+func set_building(id: String) -> void:
+	building_id = id
+	_update_building_panel()
+
+
+func set_interior(open: bool) -> void:
+	interior_open = open
+	_help_label.text = tr("hud.help_interior" if open else "hud.help")
+	_update_building_panel()
+
+
+func _update_building_panel() -> void:
+	_building_panel.visible = building_id != "" and not interior_open and _game != null and _game.sim != null
+	if not _building_panel.visible:
+		return
+	var sim: Sim = _game.sim
+	var own := false
+	for id: String in sim.state.characters:
+		var ch: Dictionary = sim.state.characters[id]
+		if str(ch.get("controlled_by", "")) == "human" and SimQuery.is_own(sim.state, id, building_id):
+			own = true
+	_building_name.text = SimQuery.building_name(sim.state, sim.catalog, building_id)
+	_building_hint.text = tr("hud.building_own" if own else "hud.building_other")
+	_manage_button.disabled = not own
+
+
+func toggle_character_panel() -> void:
+	if _character_panel.visible:
+		_character_panel.close()
+	elif selected_id != "":
+		_character_panel.setup(_game.sim, selected_id)
+		_character_panel.open()
+
+
+## ESC: closes the character panel if open. False if there was nothing to close.
+func close_top() -> bool:
+	if _character_panel.visible:
+		_character_panel.close()
+		return true
+	return false
+
+
+func _refresh_selected(sim: Sim) -> void:
+	var ch: Dictionary = sim.state.characters.get(selected_id, {})
+	_selected_panel.visible = not ch.is_empty()
+	if ch.is_empty():
+		return
+	var fam: Dictionary = sim.state.families.get(str(ch.get("family", "")), {})
+	_portrait.color = ViewConfig.color(str(fam.get("colors", {}).get("primary", "#808080")))
+	_name_label.text = str(ch.get("name", selected_id))
+	_gold_label.text = tr("ui.character.gold") % int(ch.get("gold", 0))
+	var lines := SimQuery.queue_lines(sim, selected_id, _game.pending(), _game.paused)
+	var sig := "|".join(lines)
+	if sig == _queue_sig:
+		return
+	_queue_sig = sig
+	for c: Node in _queue_list.get_children():
+		_queue_list.remove_child(c)
+		c.queue_free()
+	_queue_label.visible = not lines.is_empty()
+	for i: int in lines.size():
+		var l := Label.new()
+		l.text = "%d. %s" % [i + 1, lines[i]]
+		_queue_list.add_child(l)
+	_selected_panel.reset_size()
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if _game == null or not event is InputEventKey or not event.is_pressed() or event.is_echo():
 		return
-	if event.is_action_pressed("pause_toggle"):
+	if (event as InputEventKey).keycode == KEY_I:
+		toggle_character_panel()
+	elif event.is_action_pressed("pause_toggle"):
 		_game.toggle_pause()
 	elif event.is_action_pressed("speed_1"):
 		_game.set_speed(Game.SPEEDS[0])

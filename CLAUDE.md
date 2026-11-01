@@ -61,8 +61,12 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
   `data/targets.json`) al tocar reglas.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
-  --audio-driver Dummy --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**
-- Opciones del juego (tras `--`): `--scenario=<id>`, `--seed=<n>`, `--dev-time` (días de 30 s), `--lang=es|en`, `--smoke`.
+  --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**
+  `--always-on-top` porque macOS deja de dibujar una ventana tapada y la captura repite un fotograma viejo. Guion de la forja:
+  `--smoke-script=forja`.
+- Opciones del juego (tras `--`): `--scenario=<id>` (por defecto `town_e_start`), `--seed=<n>`, `--dev-time` (días de 30 s),
+  `--lang=es|en`, `--at=HH:MM`, `--smoke`, `--smoke-script=<id>`.
+- Contratos entre zonas de cada hito: `docs/contratos/` (los subgrims trabajan contra ellos).
 
 ## Registro del proyecto (dónde se apunta cada cosa)
 - `docs/hitos.json`: estado de cada hito y de cada criterio (pendiente / en_curso / hecho, con prueba y fecha).

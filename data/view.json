@@ -14,5 +14,26 @@
   },
   "background": "#2b221b",
   "toast_seconds": 2.5,
-  "target_marker_seconds": 1.0
+  "target_marker_seconds": 1.0,
+  "buildings": {
+    "_doc": "H2 greybox of the buildings of state.buildings on the map (by type): block colour and height, sign and door colours.",
+    "forge": {"color": "#7c7f88", "height": 40, "sign": "#e0903a", "door": "#c8a050"}
+  },
+  "interior": {
+    "_doc": "H2 greybox interior (GDD 4.6.4): zoom, fade (in+out, seconds), kit colours and heights, station blocks, the master-touch blink.",
+    "zoom": 2,
+    "center_offset": [56, -8],
+    "fade_seconds": 0.4,
+    "floor": "#8a7660",
+    "wall": "#5a4a3c",
+    "wall_height": 36,
+    "door": "#c8a050",
+    "station_height": 20,
+    "station_colors": {"furnace": "#a0482e", "anvil": "#55585f", "counter": "#8a6a3e", "storage": "#6e5a3a"},
+    "busy": "#f0c040",
+    "progress": "#7cc860",
+    "window": "#fff0a0",
+    "blink_hz": 3.0,
+    "touch_feedback_seconds": 1.5
+  }
 }

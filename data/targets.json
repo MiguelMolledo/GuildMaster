@@ -23,5 +23,23 @@
       1,
       null
     ]
+  },
+  "smith": {
+    "days": [
+      3,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "made_iron_ingot": [
+      1,
+      null
+    ],
+    "made_sword": [
+      1,
+      null
+    ]
   }
 }

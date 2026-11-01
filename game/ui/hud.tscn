@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://game/ui/hud.gd" id="1_hud"]
 [ext_resource type="Script" path="res://game/ui/sun_moon.gd" id="2_sun"]
+[ext_resource type="Theme" path="res://game/ui/greybox_theme.tres" id="3_theme"]
+[ext_resource type="PackedScene" path="res://game/ui/character_panel.tscn" id="4_char"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 6.0
@@ -122,6 +124,118 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 10
 toggle_mode = true
 text = "x4"
+
+[node name="SelectedPanel" type="PanelContainer" parent="Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 206.0
+offset_bottom = 60.0
+theme = ExtResource("3_theme")
+
+[node name="VBox" type="VBoxContainer" parent="Root/SelectedPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Top" type="HBoxContainer" parent="Root/SelectedPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Portrait" type="ColorRect" parent="Root/SelectedPanel/VBox/Top"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="Texts" type="VBoxContainer" parent="Root/SelectedPanel/VBox/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="NameLabel" type="Label" parent="Root/SelectedPanel/VBox/Top/Texts"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "--"
+
+[node name="GoldLabel" type="Label" parent="Root/SelectedPanel/VBox/Top/Texts"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
+text = "--"
+
+[node name="InventoryButton" type="Button" parent="Root/SelectedPanel/VBox/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "I"
+
+[node name="QueueLabel" type="Label" parent="Root/SelectedPanel/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+text = "--"
+
+[node name="QueueList" type="VBoxContainer" parent="Root/SelectedPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="BuildingPanel" type="PanelContainer" parent="Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -110.0
+offset_right = 150.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_theme")
+
+[node name="HBox" type="HBoxContainer" parent="Root/BuildingPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="BuildingTexts" type="VBoxContainer" parent="Root/BuildingPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="BuildingName" type="Label" parent="Root/BuildingPanel/HBox/BuildingTexts"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_override_font_sizes/font_size = 12
+text = "--"
+
+[node name="BuildingHint" type="Label" parent="Root/BuildingPanel/HBox/BuildingTexts"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "--"
+
+[node name="ManageButton" type="Button" parent="Root/BuildingPanel/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "manage"
+
+[node name="CharacterPanel" parent="Root" instance=ExtResource("4_char")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 6.0
+offset_top = 120.0
+offset_right = 236.0
+offset_bottom = 320.0
 
 [node name="PausedLabel" type="Label" parent="Root"]
 unique_name_in_owner = true

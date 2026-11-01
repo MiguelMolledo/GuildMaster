@@ -1,6 +1,7 @@
 {
   "id": "iron",
   "name_key": "item.iron",
+  "gender": "m",
   "category": "raw",
   "weight": 2.0,
   "max_stack": 99,

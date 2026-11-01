@@ -50,7 +50,8 @@ static func fail(reason: String) -> Dictionary:
 
 
 ## {"type": "transfer", "actor", "from", "to", "item", "quality", "qty"}: moves items between two inventories.
-## The actor must control the source: be it, or own the building it is. Proximity rules arrive with H2 (GDD 04 §4.3.4).
+## The actor must control the source: be it, or own the building it is (its own or its family's), and be near
+## (GDD 04 §4.3.4, _near). A character's weight limit counts its equipment (Equipment): too_heavy.
 static func _transfer(sim: Sim, o: Dictionary) -> Dictionary:
 	var st := sim.state
 	var actor := str(o.get("actor", ""))
@@ -66,6 +67,11 @@ static func _transfer(sim: Sim, o: Dictionary) -> Dictionary:
 		return fail("no_inventory")
 	if not _controls(st, actor, from):
 		return fail("not_yours")
+	var near := _near(st, from, to)
+	if near == "" and actor != from and actor != to:
+		near = _near(st, actor, from)  # an owner moving its building's goods must be inside it too
+	if near != "":
+		return fail(near)
 	var item := str(o.get("item", ""))
 	var quality := int(o.get("quality", 0))
 	var qty := int(o.get("qty", 0))
@@ -74,7 +80,7 @@ static func _transfer(sim: Sim, o: Dictionary) -> Dictionary:
 	if Inventory.count(src, item, quality) < qty:
 		return fail("not_enough")
 	if not Inventory.can_add(dst, sim.catalog, item, quality, qty):
-		return fail("no_room")
+		return fail("too_heavy" if st.characters.has(to) else "no_room")  # a character's limit counts its equipment
 	Inventory.remove(src, item, quality, qty)
 	Inventory.add(dst, sim.catalog, item, quality, qty)
 	sim.events.append({"type": "items_moved", "actor": actor, "from": from, "to": to, "item": item,
@@ -84,11 +90,39 @@ static func _transfer(sim: Sim, o: Dictionary) -> Dictionary:
 
 ## {"type": "move_to", "actor", "tile": [col, row]}: walk there by the cheapest route (GDD 05 §5.4, D3).
 ## Reasons: unknown_actor, dead, no_map, out_of_bounds, blocked, unreachable. The rules live in Movement.
+## Inside a building a character does not walk the map: not_inside_map until it leaves (exit_building).
 static func _move_to(sim: Sim, o: Dictionary) -> Dictionary:
-	return Movement.move_to(sim, str(o.get("actor", "")), o.get("tile"))
+	var actor := str(o.get("actor", ""))
+	if str(sim.state.characters.get(actor, {}).get("location", "")) != "":
+		return fail("not_inside_map")
+	return Movement.move_to(sim, actor, o.get("tile"))
 
 
 static func _controls(st: WorldState, actor: String, entity: String) -> bool:
 	if entity == actor:
 		return true
-	return st.buildings.has(entity) and str(st.buildings[entity].get("owner", "")) == actor
+	return Buildings.owns(st, actor, entity)
+
+
+## Physical proximity for a transfer (GDD 4.3.4): "" when near, else the reason. Character <-> building: the
+## character is inside it. Character <-> character: same family, and same tile on the map or inside the same building.
+static func _near(st: WorldState, a: String, b: String) -> String:
+	if st.characters.has(a) and st.characters.has(b):
+		var ca: Dictionary = st.characters[a]
+		var cb: Dictionary = st.characters[b]
+		if str(ca.get("family", "")) == "" or str(ca.get("family", "")) != str(cb.get("family", "")):
+			return "not_family"
+		var la := str(ca.get("location", ""))
+		if la != str(cb.get("location", "")):
+			return "too_far"
+		if la != "":
+			return ""
+		var pa: Array = ca.get("position", [])
+		var pb: Array = cb.get("position", [])
+		return "" if pa.size() == 2 and pb.size() == 2 and int(pa[0]) == int(pb[0]) and int(pa[1]) == int(pb[1]) \
+			else "too_far"
+	if st.characters.has(a) and st.buildings.has(b):
+		return "" if str(st.characters[a].get("location", "")) == b else "not_inside"
+	if st.buildings.has(a) and st.characters.has(b):
+		return "" if str(st.characters[b].get("location", "")) == a else "not_inside"
+	return "too_far"  # building <-> building: somebody has to carry it

@@ -1,6 +1,7 @@
 {
   "id": "armor",
   "name_key": "item.armor",
+  "gender": "f",
   "category": "equipment",
   "weight": 10.0,
   "max_stack": 1,

@@ -1,6 +1,7 @@
 {
   "id": "key",
   "name_key": "item.key",
+  "gender": "f",
   "category": "special",
   "weight": 0.05,
   "max_stack": 5,

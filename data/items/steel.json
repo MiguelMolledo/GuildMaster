@@ -1,6 +1,7 @@
 {
   "id": "steel",
   "name_key": "item.steel",
+  "gender": "m",
   "category": "material",
   "weight": 4.0,
   "max_stack": 50,

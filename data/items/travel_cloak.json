@@ -1,6 +1,7 @@
 {
   "id": "travel_cloak",
   "name_key": "item.travel_cloak",
+  "gender": "f",
   "category": "equipment",
   "weight": 2.0,
   "max_stack": 1,

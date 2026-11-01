@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://game/ui/character_panel.gd" id="1_panel"]
+[ext_resource type="Theme" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+
+[node name="CharacterPanel" type="PanelContainer"]
+visible = false
+custom_minimum_size = Vector2(230, 0)
+offset_right = 230.0
+offset_bottom = 200.0
+theme = ExtResource("2_theme")
+script = ExtResource("1_panel")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Header" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_override_font_sizes/font_size = 12
+text = "--"
+
+[node name="CloseButton" type="Button" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "x"
+
+[node name="GoldLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
+text = "--"
+
+[node name="WeightLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "--"
+
+[node name="WeightBar" type="ProgressBar" parent="VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+show_percentage = false
+
+[node name="SlotsLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+text = "--"
+
+[node name="Slots" type="VBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="InvLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+text = "--"
+
+[node name="InvList" type="VBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 1

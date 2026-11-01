@@ -1,6 +1,7 @@
 {
   "id": "stone",
   "name_key": "item.stone",
+  "gender": "f",
   "category": "raw",
   "weight": 3.0,
   "max_stack": 99,

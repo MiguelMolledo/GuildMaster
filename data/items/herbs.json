@@ -1,6 +1,7 @@
 {
   "id": "herbs",
   "name_key": "item.herbs",
+  "gender": "f",
   "category": "raw",
   "weight": 0.5,
   "max_stack": 99,

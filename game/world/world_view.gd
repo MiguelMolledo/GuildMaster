@@ -1,20 +1,26 @@
 class_name WorldView
 extends Node2D
-## The town seen from outside (H1): greybox ground, blocked tiles with volume, walkers, the camera and the
-## day/night tint. Reads Game.state and the catalog; the only thing it sends back are orders (D3: a right click
-## on a tile with someone selected -> {"type": "move_to", "actor", "tile"}). It never writes the state.
+## The town seen from outside (H1-H2): greybox ground, blocked tiles with volume, the buildings of state.buildings
+## (own colour, sign and door mark), walkers, the camera and the day/night tint. Reads Game.state and the catalog;
+## the only thing it sends back are orders (D3: a right click on a tile with someone selected -> move_to; on a
+## building -> enter_building). It never writes the state. People inside a building (location != "") are hidden.
 ##
 ## Controls: left click on one of the human family's people selects it (left click elsewhere deselects);
-## right click on a tile sends the selected person there. Camera: see WorldCamera.
+## left click on a building picks it (the HUD shows its "Manage" button), double click opens it in management mode;
+## right click on a tile sends the selected person there, on a building sends them in. Camera: see WorldCamera.
 
 signal selection_changed(char_id: String)
+signal building_picked(building_id: String)   # "" = none
+signal manage_requested(building_id: String)  # double click on a building (GDD 4.6.4, management mode)
 
 var order_sink: Callable = Callable()  # who receives the orders: Game.give in the game, a test's own in the tests
 var state: WorldState
 var catalog: Catalog
 var selected_id: String = ""
+var picked_building: String = ""
 var tint_color: Color = Color.WHITE
 var _views: Dictionary = {}  # chr_id -> CharacterView
+var _signs: Dictionary = {}  # bld_id -> BuildingMarks.Sign
 var _minutes_per_tile: int = 1
 var _game: Node = null      # the Game autoload, when in the tree
 
@@ -45,25 +51,42 @@ func marker() -> TargetMarker:
 	return get_node("%Marker")
 
 
+func overlay() -> Node2D:
+	return get_node("%Overlay")
+
+
+## Shown and taking input (the town), or hidden and frozen while an interior is open (GDD 4.6.4).
+func set_active(active: bool) -> void:
+	visible = active
+	process_mode = Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED
+	camera().enabled = active
+	if active and camera().is_inside_tree():
+		camera().make_current()
+
+
 ## Builds the view of `s`. Called again whenever a new state is loaded.
 func setup(s: WorldState, c: Catalog) -> void:
 	state = s
 	catalog = c
 	selected_id = ""
+	picked_building = ""
 	_views.clear()
-	for n: Node in objects().get_children():
-		objects().remove_child(n)
-		n.queue_free()
+	_signs.clear()
+	for layer: Node in [objects(), overlay()]:
+		for n: Node in layer.get_children():
+			layer.remove_child(n)
+			n.queue_free()
 	_minutes_per_tile = ViewConfig.minutes_per_tile(c)
 	var rows: Array = c.maps().get(s.map_id, {}).get("rows", [])
 	ground().build(rows, c)
 	var blocks: Dictionary = ViewConfig.value("blocks", {})
+	var owned := _add_buildings()
 	var n_blocks := 0
 	for r: int in rows.size():
 		var row := str(rows[r])
 		for col: int in row.length():
 			var kind := c.tile_kind_of_char(row[col])
-			if not blocks.has(kind):
+			if not blocks.has(kind) or owned.has(Vector2i(col, r)):
 				continue
 			var b := BlockView.new()
 			b.shape = str(blocks[kind].get("shape", "block"))
@@ -89,8 +112,53 @@ func setup(s: WorldState, c: Catalog) -> void:
 		cam.set_bounds(Rect2(left, 0.0, right - left, bottom))
 		cam.center_on(_start_focus(Iso.tile_to_world(Vector2i(w / 2, h / 2))))
 	sync(0.0)
-	ViewConfig.info("WorldView", "setup (map=%s, rows=%d, blocks=%d, characters=%d, minutes_per_tile=%d)" % [
-		s.map_id, rows.size(), n_blocks, _views.size(), _minutes_per_tile])
+	ViewConfig.info("WorldView", "setup (map=%s, rows=%d, blocks=%d, buildings=%d, characters=%d, minutes_per_tile=%d)" % [
+		s.map_id, rows.size(), n_blocks, _signs.size(), _views.size(), _minutes_per_tile])
+
+
+## The buildings of the state: one block per footprint tile in the building's colour, the door mark and the sign.
+## Returns the footprint tiles (the plain map blocks skip them).
+func _add_buildings() -> Dictionary:
+	var tiles := {}
+	var looks: Dictionary = ViewConfig.value("buildings", {})
+	var ids: Array = state.buildings.keys()
+	ids.sort()
+	for id: String in ids:
+		var b: Dictionary = state.buildings[id]
+		var look: Dictionary = looks.get(str(b.get("type", "")), {})
+		var o: Array = b.get("origin", [0, 0])
+		var f: Array = b.get("footprint", [1, 1])
+		var height := float(look.get("height", 48))
+		var top := Vector2.ZERO
+		for dr: int in int(f[1]):
+			for dc: int in int(f[0]):
+				var t := Vector2i(int(o[0]) + dc, int(o[1]) + dr)
+				tiles[t] = true
+				var bv := BlockView.new()
+				bv.height = height
+				bv.color = ViewConfig.color(str(look.get("color", "#808080")))
+				bv.position = Iso.tile_to_world(t)
+				objects().add_child(bv)
+				top += bv.position
+		top /= maxf(1.0, float(int(f[0]) * int(f[1])))
+		var d: Array = b.get("door", [])
+		if d.size() == 2:
+			var dm := BuildingMarks.DoorMark.new()
+			dm.color = ViewConfig.color(str(look.get("door", "#c8a050")))
+			dm.position = Iso.tile_to_world(Vector2i(int(d[0]), int(d[1])))
+			dm.name = id + "_door"
+			overlay().add_child(dm)  # over the blocks: the door may be on the hidden side
+		var sg := BuildingMarks.Sign.new()
+		sg.setup(SimQuery.building_name(state, catalog, id), ViewConfig.color(str(look.get("sign", "#e0903a"))))
+		sg.position = (top + Vector2(0, -height - 20)).round()
+		sg.name = id
+		overlay().add_child(sg)
+		_signs[id] = sg
+	return tiles
+
+
+func sign_of(building_id: String) -> Node2D:
+	return _signs.get(building_id, null)
 
 
 func _add_view(id: String) -> void:
@@ -144,7 +212,9 @@ func sync(frac: float) -> void:
 			if id == selected_id:
 				select("")
 			continue
-		(_views[id] as CharacterView).follow(ch, _minutes_per_tile, frac)
+		var v: CharacterView = _views[id]
+		v.visible = str(ch.get("location", "")) == ""
+		v.follow(ch, _minutes_per_tile, frac)
 	tint_color = DayNight.tint(int(state.clock["minute"]), frac, catalog.time, ViewConfig.value("day_night", {}))
 	(get_node("%Tint") as CanvasModulate).color = tint_color
 
@@ -177,7 +247,7 @@ func pick_character(screen: Vector2) -> String:
 	var best_y := -INF
 	for id: String in _views:
 		var v: CharacterView = _views[id]
-		if v.selectable and v.pick_rect().has_point(world) and v.position.y > best_y:
+		if v.selectable and v.visible and v.pick_rect().has_point(world) and v.position.y > best_y:
 			best = id
 			best_y = v.position.y
 	if best != "":
@@ -185,7 +255,8 @@ func pick_character(screen: Vector2) -> String:
 	var tile := Iso.world_to_tile(world)
 	for id: String in _views:
 		var pos: Array = state.characters[id].get("position", [])
-		if (_views[id] as CharacterView).selectable and Vector2i(int(pos[0]), int(pos[1])) == tile:
+		var cv: CharacterView = _views[id]
+		if cv.selectable and cv.visible and Vector2i(int(pos[0]), int(pos[1])) == tile:
 			return id
 	return ""
 
@@ -206,15 +277,83 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
-## Clicks of the world: left selects (or deselects), right moves the selected person. True if used.
+## The building under `screen` ("" if none): the drawn volume of one of its footprint blocks, else its door tile.
+func pick_building(screen: Vector2) -> String:
+	var world := camera().screen_to_world(screen)
+	var looks: Dictionary = ViewConfig.value("buildings", {})
+	var ids: Array = state.buildings.keys()
+	ids.sort()
+	for id: String in ids:
+		var b: Dictionary = state.buildings[id]
+		var h := float(looks.get(str(b.get("type", "")), {}).get("height", 48))
+		var o: Array = b.get("origin", [0, 0])
+		var f: Array = b.get("footprint", [1, 1])
+		for dr: int in int(f[1]):
+			for dc: int in int(f[0]):
+				var p := Iso.tile_to_world(Vector2i(int(o[0]) + dc, int(o[1]) + dr))
+				var hw := Iso.TILE_W / 2.0
+				var hh := Iso.TILE_H / 2.0
+				var poly := PackedVector2Array([p + Vector2(-hw, 0), p + Vector2(-hw, -h), p + Vector2(0, -hh - h),
+					p + Vector2(hw, -h), p + Vector2(hw, 0), p + Vector2(0, hh)])
+				if Geometry2D.is_point_in_polygon(world, poly):
+					return str(id)
+	var tile := Iso.world_to_tile(world)
+	for id: String in ids:
+		var d: Array = state.buildings[id].get("door", [])
+		if d.size() == 2 and Vector2i(int(d[0]), int(d[1])) == tile:
+			return str(id)
+	return ""
+
+
+func pick_building_id(id: String) -> void:
+	if id == picked_building:
+		return
+	if _signs.has(picked_building):
+		(_signs[picked_building] as BuildingMarks.Sign).highlighted = false
+	picked_building = id if state.buildings.has(id) else ""
+	if _signs.has(picked_building):
+		(_signs[picked_building] as BuildingMarks.Sign).highlighted = true
+	ViewConfig.info("WorldView", "picked building %s" % (picked_building if picked_building != "" else "none"))
+	building_picked.emit(picked_building)
+
+
+## Sends the selected person into `building` (walks to the door, then inside; the sim decides whether it can).
+func command_enter(building: String) -> void:
+	if selected_id == "":
+		return
+	var order := {"type": "enter_building", "actor": selected_id, "building": building}
+	ViewConfig.info("WorldView", "order enter_building (actor=%s, building=%s)" % [selected_id, building])
+	if order_sink.is_valid():
+		order_sink.call(order)
+	var d: Array = state.buildings.get(building, {}).get("door", [])
+	if d.size() == 2:
+		marker().show_at(Vector2i(int(d[0]), int(d[1])), float(ViewConfig.value("target_marker_seconds", 1.0)))
+
+
+## Clicks of the world: left selects a person or picks a building (double click: manage it), else deselects;
+## right moves the selected person, or sends them into the building clicked. True if used.
 func handle_input(event: InputEvent) -> bool:
 	if state == null or not event is InputEventMouseButton or not event.is_pressed():
 		return false
 	var mb := event as InputEventMouseButton
 	if event.is_action_pressed("select"):
-		select(pick_character(mb.position))
+		var who := pick_character(mb.position)
+		if who != "":
+			select(who)
+			return true
+		var bld := pick_building(mb.position)
+		pick_building_id(bld)
+		if bld == "":
+			select("")
+		elif mb.double_click:
+			ViewConfig.info("WorldView", "manage %s (double click)" % bld)
+			manage_requested.emit(bld)
 		return true
 	if event.is_action_pressed("command") and selected_id != "":
-		command_move(screen_to_tile(mb.position))
+		var bld := pick_building(mb.position)
+		if bld != "":
+			command_enter(bld)
+		else:
+			command_move(screen_to_tile(mb.position))
 		return true
 	return false

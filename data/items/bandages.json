@@ -1,6 +1,7 @@
 {
   "id": "bandages",
   "name_key": "item.bandages",
+  "gender": "f",
   "category": "consumable",
   "weight": 1.0,
   "max_stack": 10,

@@ -1,6 +1,7 @@
 {
   "id": "needle",
   "name_key": "item.needle",
+  "gender": "f",
   "category": "tool",
   "weight": 0.5,
   "max_stack": 1,

@@ -1,6 +1,7 @@
 {
   "id": "wheat",
   "name_key": "item.wheat",
+  "gender": "m",
   "category": "raw",
   "weight": 1.0,
   "max_stack": 99,

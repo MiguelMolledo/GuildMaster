@@ -1,6 +1,7 @@
 {
   "id": "sword",
   "name_key": "item.sword",
+  "gender": "f",
   "category": "product",
   "weight": 8.0,
   "max_stack": 20,

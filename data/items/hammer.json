@@ -1,6 +1,7 @@
 {
   "id": "hammer",
   "name_key": "item.hammer",
+  "gender": "m",
   "category": "tool",
   "weight": 6.0,
   "max_stack": 1,

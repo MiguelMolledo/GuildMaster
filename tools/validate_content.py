@@ -7,7 +7,8 @@ Comprueba lo que carga el juego en data/ (los ficheros y carpetas que empiezan p
   - recetas: edificio y puesto que existen, objetos de entrada y salida que existen, duración en horas > 0;
   - edificios: huella, tipo de parcela, puestos (ids únicos, tipo válido);
   - data/time.json (fases en orden, minutes_per_tile >= 1), data/targets.json ([mín, máx]) y cada escenario
-    (data/scenarios/: un guardado; cada personaje con posición en una casilla transitable de su mapa);
+    (data/scenarios/: un guardado; cada personaje con posición en una casilla transitable de su mapa; cada edificio
+    de tipo conocido, con la huella sobre casillas de edificio, la puerta transitable y pegada, y los puestos de su tipo);
   - mapas (data/maps/): filas y tamaño, códigos que existen en data/tiles.json, spawns en casillas transitables y
     todas las casillas de calle, plaza y puente conectadas entre sí;
   - claves de texto (name_key) en i18n/strings.csv con inglés y español;
@@ -99,8 +100,41 @@ def check_maps(rep):
             if len(seen) != len(roads):
                 lost = sorted(roads - seen, key=lambda t: (t[1], t[0]))
                 rep.error(w_, f"{len(lost)} casillas de calle/plaza/puente sueltas de la red (la primera, {list(lost[0])})")
+        walk.kind = lambda c, r, rows=rows, size=size: (
+            by_char[rows[r][c]] if 0 <= c < size[0] and 0 <= r < size[1] else None)
         out[id_] = walk
     return out
+
+
+def check_scenario_buildings(where, d, buildings, walk, rep):
+    """Cada edificio del escenario: tipo conocido, huella sobre casillas de edificio del mapa, puerta transitable y
+    pegada a la huella (sin diagonal), y los mismos puestos que su tipo."""
+    for bid, b in (d.get("buildings") or {}).items():
+        w = f"{where} {bid}"
+        typ = buildings.get(b.get("type"))
+        if typ is None:
+            rep.error(w, f"tipo de edificio desconocido {b.get('type')}")
+            continue
+        origin, fp, door = b.get("origin"), b.get("footprint"), b.get("door")
+        if not all(isinstance(v, list) and len(v) == 2 and all(isinstance(x, int) for x in v) for v in (origin, fp, door)):
+            rep.error(w, "origin, footprint y door deben ser [col, fila]")
+            continue
+        if fp != typ.get("footprint"):
+            rep.error(w, f"huella {fp} distinta de la de su tipo {typ.get('footprint')}")
+        cells = {(origin[0] + dc, origin[1] + dr) for dc in range(fp[0]) for dr in range(fp[1])}
+        if walk is not None:
+            bad = sorted((c for c in cells if walk.kind(*c) != "building"), key=lambda t: (t[1], t[0]))
+            if bad:
+                rep.error(w, f"{len(bad)} casillas de la huella no son de edificio en el mapa (la primera, {list(bad[0])})")
+            if not walk(*door):
+                rep.error(w, f"la puerta {door} no es transitable")
+        near = {(c + dc, r + dr) for c, r in cells for dc, dr in ((1, 0), (-1, 0), (0, 1), (0, -1))} - cells
+        if tuple(door) not in near:
+            rep.error(w, f"la puerta {door} no está pegada a la huella")
+        want = {z.get("id") for z in typ.get("zones", [])}
+        got = set((b.get("zones") or {}).keys())
+        if got != want:
+            rep.error(w, f"puestos {sorted(got)} distintos de los de su tipo {sorted(want)}")
 
 
 class Report:
@@ -194,6 +228,8 @@ def main():
     for id_, it in items.items():
         w = f"items/{id_}"
         check_text(w, it.get("name_key"), strings, rep)
+        if it.get("gender") not in ("m", "f"):
+            rep.error(w, "gender debe ser \"m\" o \"f\" (género en español para «Espada buena» / «Lingote bueno»)")
         cat = it.get("category")
         if cat not in CATEGORY_STACK:
             rep.error(w, f"categoría desconocida {cat}")
@@ -294,6 +330,7 @@ def main():
         if map_id and map_id not in maps:
             rep.error(f"scenarios/{name}", f"mapa desconocido {map_id}")
             continue
+        check_scenario_buildings(f"scenarios/{name}", d, buildings, maps.get(map_id), rep)
         for cid, ch in (d.get("characters") or {}).items():
             pos = ch.get("position")
             if pos is None:

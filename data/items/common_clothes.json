@@ -1,6 +1,7 @@
 {
   "id": "common_clothes",
   "name_key": "item.common_clothes",
+  "gender": "f",
   "category": "product",
   "weight": 3.0,
   "max_stack": 20,

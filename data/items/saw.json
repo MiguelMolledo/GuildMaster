@@ -1,6 +1,7 @@
 {
   "id": "saw",
   "name_key": "item.saw",
+  "gender": "f",
   "category": "tool",
   "weight": 7.0,
   "max_stack": 1,

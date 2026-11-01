@@ -1,6 +1,7 @@
 {
   "id": "bread",
   "name_key": "item.bread",
+  "gender": "m",
   "category": "product",
   "weight": 1.0,
   "max_stack": 20,

@@ -8,7 +8,7 @@ hud.pause_tip,Pause / resume (Space),Pausa / seguir (Espacio)
 hud.paused,PAUSED,EN PAUSA
 hud.speed,×%d,×%d
 hud.speed_tip,Speed ×%d (key %d),Velocidad ×%d (tecla %d)
-hud.help,"Left click: select · Right click: go there · WASD/arrows, wheel, middle button: camera · Space: pause · 1/2/3: speed","Clic izquierdo: elegir · Clic derecho: ir allí · WASD/flechas, rueda, botón central: cámara · Espacio: pausa · 1/2/3: velocidad"
+hud.help,"Left click: select (double click on a building: manage) · Right click: go there / go in · WASD/arrows, wheel, middle button: camera · Space: pause · 1/2/3: speed","Clic izquierdo: elegir (doble clic en un edificio: gestionar) · Clic derecho: ir allí / entrar · WASD/flechas, rueda, botón central: cámara · Espacio: pausa · 1/2/3: velocidad"
 season.spring,Spring,Primavera
 season.summer,Summer,Verano
 season.autumn,Autumn,Otoño
@@ -30,9 +30,27 @@ reason.out_of_bounds,Outside the town,Fuera del pueblo
 reason.blocked,You cannot walk there,Por ahí no se puede pasar
 reason.unreachable,There is no way there,No hay camino hasta allí
 reason.dead,This person is dead,Esta persona ha muerto
+reason.unknown_building,That building does not exist,Ese edificio no existe
+reason.not_your_building,It is not your building,No es tu edificio
+reason.inside_other_building,Leave the other building first,Sal antes del otro edificio
+reason.no_door,That building has no door,Ese edificio no tiene puerta
+reason.not_inside,You have to be inside,Tienes que estar dentro
+reason.unknown_station,There is no such station,No existe ese puesto
+reason.station_busy,Someone is already at that station,Ese puesto ya está ocupado
+reason.not_inside_map,Leave the building first,Sal antes del edificio
+reason.not_equippable,That cannot be worn,Eso no se puede equipar
+reason.unknown_slot,There is no such slot,No existe esa ranura
+reason.slot_empty,Nothing is worn there,No llevas nada ahí
+reason.too_heavy,Too heavy to carry,Pesa demasiado para llevarlo
+reason.too_far,Too far away,Está demasiado lejos
+reason.not_family,Not from your family,No es de tu familia
 quality.0,normal,normal
 quality.1,good,buena
+quality.1.m,good,bueno
+quality.1.f,good,buena
 quality.2,excellent,excelente
+quality.2.m,excellent,excelente
+quality.2.f,excellent,excelente
 item.iron,Iron ore,Hierro
 item.coal,Coal,Carbón
 item.wood,Wood,Madera
@@ -67,3 +85,100 @@ recipe.forge_armor,Forge armor,Forjar armadura
 recipe.forge_steel,Make steel,Hacer acero
 building.forge,Forge,Forja
 map.town_e,Street village,Pueblo-calle
+reason.unknown_recipe,There is no such recipe,No existe esa receta
+reason.wrong_station,That is not made at this station,Eso no se hace en este puesto
+reason.unknown_mode,Unknown way of working,Forma de trabajar desconocida
+reason.building_not_ready,The building cannot be used now,El edificio no se puede usar ahora
+reason.skill_too_low,Not enough Craft for that,No tienes Artesanía suficiente
+reason.needs_upgrade,The building needs an upgrade for that,El edificio necesita una mejora para eso
+reason.missing_inputs,Not enough materials in the storage,Faltan materiales en el almacén
+reason.storage_full,The storage is full,El almacén está lleno
+reason.not_working,Not working right now,No está trabajando
+reason.not_at_station,You have to be at that station,Tienes que estar en ese puesto
+reason.not_careful,Only when working carefully,Solo trabajando con cuidado
+reason.no_window,It is not the moment,No es el momento
+reason.already_touched,This piece already has its master touch,Esta pieza ya tiene su toque de maestro
+reason.unknown_item,There is no such item,No existe ese objeto
+reason.not_raw,Only raw materials can be bought here,Aquí solo se compran materias primas
+reason.not_enough_gold,Not enough gold,No hay oro suficiente
+reason.not_controlled,Only your own characters work by hand,Solo tus personajes trabajan a mano
+reason.night_rest,Workers do not work at night,Los empleados no trabajan de noche
+hud.inventory,Inventory (I),Inventario (I)
+hud.inventory_tip,Inventory and equipment of the selected person (key I),Inventario y equipo de la persona elegida (tecla I)
+hud.queue,Orders (active pause):,Órdenes (pausa activa):
+hud.manage,Manage,Gestionar
+hud.manage_tip,Open the inside without a person (double click on the building),Abrir el interior sin personaje (doble clic en el edificio)
+hud.building_own,Yours · right click with someone selected: go in,Tuyo · clic derecho con alguien elegido: entrar
+hud.building_other,Not yours,No es tuyo
+hud.help_interior,Left click: select / go to a station · Right click on a station: work · Door or Esc: leave · Space: pause,Clic izquierdo: elegir / ir a un puesto · Clic derecho en un puesto: trabajar · Puerta o Esc: salir · Espacio: pausa
+ui.item_quality,{item} ({quality}),{item} {quality}
+ui.zone.furnace,Furnace,Horno
+ui.zone.anvil,Anvil,Yunque
+ui.zone.counter,Counter,Mostrador
+ui.zone.storage,Storage,Almacén
+ui.mode.fast,fast,rápido
+ui.mode.normal,normal,normal
+ui.mode.careful,careful,con cuidado
+ui.order.move_to,"Walk to (%d, %d)","Ir a (%d, %d)"
+ui.order.enter_building,Go into the %s,Entrar en %s
+ui.order.exit_building,Leave the building,Salir del edificio
+ui.order.go_to_station,Go to the %s,Ir a %s
+ui.order.work_at,Work (%s): %s,Trabajar (%s): %s
+ui.order.stop_work,Stop working,Dejar de trabajar
+ui.order.master_touch,Master touch,Toque de maestro
+ui.order.buy_raw,Buy %d %s,Comprar %d %s
+ui.order.transfer,Move %d %s,Pasar %d %s
+ui.order.equip,Equip %s,Equipar %s
+ui.order.unequip,Take off equipment,Quitar equipo
+ui.order.wait,Wait,Esperar
+ui.back,Back,Atrás
+ui.station.work_fast,Work fast,Trabajar rápido
+ui.station.work,Work,Trabajar
+ui.station.work_careful,Work carefully,Trabajar con cuidado
+ui.station.stop,Stop,Parar
+ui.station.no_actor,Select someone of your family inside,Elige a alguien de tu familia que esté dentro
+ui.station.no_recipes,Nothing to make here,Aquí no se fabrica nada
+ui.station.choose_recipe,Work %s: choose,Trabajar %s: elige
+ui.recipe.duration,%.1f h,%.1f h
+ui.recipe.locked,Needs Craft %d,Necesita Artesanía %d
+ui.recipe.missing_inputs,Missing materials in the storage,Faltan materiales en el almacén
+ui.recipe.no_room,The storage is full,El almacén está lleno
+ui.storage.title,Storage · %s,Almacén · %s
+ui.storage.building_stacks,Building (%d/%d stacks),Edificio (%d/%d pilas)
+ui.storage.carried,%s (%.1f/%.0f kg),%s (%.1f/%.0f kg)
+ui.storage.no_actor,Select someone inside to move or buy,Elige a alguien de dentro para pasar o comprar
+ui.storage.empty,Empty,Vacío
+ui.storage.to_actor,Take,Coger
+ui.storage.to_actor_tip,To the selected person,Al inventario de la persona elegida
+ui.storage.to_building,Leave,Dejar
+ui.storage.to_building_tip,Into the building's storage,Al almacén del edificio
+ui.storage.buy_title,Buy raw materials (until the market),Comprar materia prima (hasta que haya mercado)
+ui.storage.buy,Buy,Comprar
+ui.storage.cost,Cost: %d gold · has %d,Coste: %d de oro · tiene %d
+ui.storage.cost_only,Cost: %d gold,Coste: %d de oro
+ui.production.title,Production · %s,Producción · %s
+ui.production.hint,Right click on a station to choose what to make. Employees and their queue arrive later.,Clic derecho en un puesto para elegir qué hacer. Los empleados y su cola llegan más adelante.
+ui.production.free,free,libre
+ui.production.window,master touch now!,¡toque de maestro ahora!
+ui.interior.title,%s,%s
+ui.interior.title_manage,%s · management,%s · gestión
+ui.interior.storage,Storage,Almacén
+ui.interior.production,Production,Producción
+ui.interior.upgrades,Upgrades,Mejoras
+ui.interior.upgrades_later,Arrives in H4,Llega en H4
+ui.interior.staff,Staff,Empleados
+ui.interior.staff_later,Arrives in H5,Llega en H5
+ui.interior.exit,Exit,Salir
+ui.interior.exit_tip,Back to the town (Esc),Volver al pueblo (Esc)
+ui.interior.touch_done,Master touch!,¡Toque de maestro!
+ui.character.equipment,Equipment,Equipo
+ui.character.inventory,Inventory,Inventario
+ui.character.nobody,Nobody,Nadie
+ui.character.gold,%d gold,%d de oro
+ui.character.weight,Weight: %.1f / %.0f kg,Peso: %.1f / %.0f kg
+ui.character.empty_slot,—,—
+ui.character.unequip,Take off,Quitar
+ui.character.equip,Equip,Equipar
+ui.slot.tool,Tool,Herramienta
+ui.slot.clothes,Clothes,Ropa
+ui.slot.accessory,Accessory,Accesorio

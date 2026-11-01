@@ -6,8 +6,9 @@ var cat := Catalog.load_from()
 
 func _sim() -> Sim:
 	var st := NewGame.fresh(cat, 1)
-	st.characters["chr_0001"] = {"id": "chr_0001", "inventory": Inventory.create("weight", 30.0)}
-	st.characters["chr_0002"] = {"id": "chr_0002", "inventory": Inventory.create("weight", 30.0)}
+	# Both inside the forge: transfers need proximity (GDD 4.3.4; tests/test_world_buildings_transfer.gd has the rules).
+	st.characters["chr_0001"] = {"id": "chr_0001", "location": "bld_0001", "inventory": Inventory.create("weight", 30.0)}
+	st.characters["chr_0002"] = {"id": "chr_0002", "location": "bld_0001", "inventory": Inventory.create("weight", 30.0)}
 	st.buildings["bld_0001"] = {"id": "bld_0001", "owner": "chr_0001", "inventory": Inventory.create("stacks", 10)}
 	Inventory.add(st.buildings["bld_0001"]["inventory"], cat, "iron", 0, 20)
 	return Sim.new(st, cat)
@@ -28,7 +29,7 @@ func test_transfer_moves_items() -> void:
 func test_refusals_change_nothing() -> void:
 	var cases := [
 		[_move("chr_0002", "bld_0001", "chr_0002", 1), "not_yours"],
-		[_move("chr_0001", "bld_0001", "chr_0001", 16), "no_room"],
+		[_move("chr_0001", "bld_0001", "chr_0001", 16), "too_heavy"],
 		[_move("chr_0001", "bld_0001", "chr_0001", 21), "not_enough"],
 		[_move("chr_0001", "bld_0001", "chr_0001", 0), "bad_quantity"],
 		[_move("chr_0009", "bld_0001", "chr_0001", 1), "unknown_actor"],

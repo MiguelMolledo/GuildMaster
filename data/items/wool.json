@@ -1,6 +1,7 @@
 {
   "id": "wool",
   "name_key": "item.wool",
+  "gender": "f",
   "category": "raw",
   "weight": 1.0,
   "max_stack": 99,

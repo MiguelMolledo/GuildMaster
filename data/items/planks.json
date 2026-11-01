@@ -1,6 +1,7 @@
 {
   "id": "planks",
   "name_key": "item.planks",
+  "gender": "f",
   "category": "material",
   "weight": 3.0,
   "max_stack": 50,

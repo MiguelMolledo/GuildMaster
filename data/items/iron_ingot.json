@@ -1,6 +1,7 @@
 {
   "id": "iron_ingot",
   "name_key": "item.iron_ingot",
+  "gender": "m",
   "category": "material",
   "weight": 4.0,
   "max_stack": 50,

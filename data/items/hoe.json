@@ -1,6 +1,7 @@
 {
   "id": "hoe",
   "name_key": "item.hoe",
+  "gender": "m",
   "category": "tool",
   "weight": 5.0,
   "max_stack": 1,

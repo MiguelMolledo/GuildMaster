@@ -73,8 +73,13 @@ func start(state: WorldState, catalog: Catalog = null) -> void:
 
 
 ## Queues an order for the next step. Its result comes back as events (order_refused, or the effect).
+## In pause (active pause, GDD 4.1) the order is marked "queued": on resume the sim puts it in the actor's
+## order_queue instead of applying it, so several orders given in pause run one after another.
 func give(order: Dictionary) -> void:
-	_pending.append(order)
+	var o := order.duplicate(true)
+	if paused:
+		o["queued"] = true
+	_pending.append(o)
 
 
 ## The orders queued for the next step (read only: tests and debugging).

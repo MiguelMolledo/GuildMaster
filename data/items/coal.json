@@ -1,6 +1,7 @@
 {
   "id": "coal",
   "name_key": "item.coal",
+  "gender": "m",
   "category": "raw",
   "weight": 1.0,
   "max_stack": 99,
