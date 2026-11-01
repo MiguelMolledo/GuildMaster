@@ -78,6 +78,8 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Manager + como mucho 4 subgrims de Grimoire (`grimoire cmd orchestrate.delegate`), cada uno en su zona de ficheros;
   los subgrims no hacen commit: ponen sus pruebas en `tests/test_<zona>_*.gd` y su entrada en `reports/novedades/<zona>.json`.
 - Procesos con ventana, exportaciones o navegador: `grimoire heavy`. Nunca `pkill -f` con patrones generales.
+- Arte con PixelLab: plugin **PixelLab Pip** (`/pixellab-pip`, instalado en `.claude/settings.json`), con el estilo
+  `pixellab-pip-style.json` y el paso a paso de `docs/protocolos/generar-arte-pixellab.md`.
 - Créditos (PixelLab, ElevenLabs, fal): solo con encargo; saldo antes y después en `assets/art/MANIFEST.md` /
   `assets/audio/MANIFEST.md`. `.env` (fuera de git) tiene `FAL_KEY`, `PIXELLAB_KEY` y `ELEVENLABS_API_KEY`: nunca se imprimen ni se suben.
 - Copia jugable: el hook post-commit (`ln -sf ../../tools/git-hooks/post-commit .git/hooks/post-commit`) prepara

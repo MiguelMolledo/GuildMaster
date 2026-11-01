@@ -8,3 +8,4 @@ Plan: Tier 1, 2.000 generaciones/mes, se renueva el 15 de cada mes.
 | Fecha | Encargo | Herramienta | Assets | Saldo antes | Saldo después | Gasto |
 |---|---|---|---|---|---|---|
 | 2026-11-01 | Láminas de concepto de ciudad (6) | fal Nano Banana Pro | `assets/concept/ciudades/` (en el repo guild) | — | — | 6 imágenes |
+| 2026-11-01 | Instalación de PixelLab Pip: comprobación de saldo (sin generar) | `get_balance` | — | 0 gen. del plan · $0.00 · 4 de regalo hoy | igual | 0 |

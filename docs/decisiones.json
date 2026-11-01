@@ -161,6 +161,12 @@
       "tema": "Registro del proyecto",
       "decision": "docs/hitos.json (estado de hitos y criterios), docs/novedades.json y docs/decisiones.json (diario), docs/style/biblia.md (perfil estético), docs/ASSETS.md (contrato) y assets/inventario.json (estado de cada asset: falta → greybox → concepto → sprite → animado → final). Todo lo junta la página del cuaderno.",
       "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Herramienta de arte",
+      "decision": "PixelLab se usa a través del plugin PixelLab Pip (MIT, Shilo/pixellab-pip), instalado a nivel de proyecto. Aporta: elección de herramienta, plan y coste antes de gastar, revisor de animaciones (fix.py) y exportación a SpriteFrames de Godot (make_sheet.py). Estilo en pixellab-pip-style.json (copia de la biblia); descargas en bruto en pixellab-pip-generations/ (fuera de git); protocolo en docs/protocolos/generar-arte-pixellab.md.",
+      "por_que": "Decisión del owner tras revisar el repo: cubre la revisión de animaciones y la exportación a Godot, que no teníamos."
     }
   ],
   "pendientes": [

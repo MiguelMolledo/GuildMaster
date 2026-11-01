@@ -1,0 +1,73 @@
+{
+  "styles": {
+    "guildmaster": {
+      "setting": "medieval-life-sim",
+      "density": "mid",
+      "look": "16-bit SNES pixel art, warm and lived-in, 14th century central European town, timber framing, stone, clay and slate roofs, cloth awnings",
+      "palette": "warm earthy: browns, tans, terracotta, forest green, stone grey, gold, deep red, sky blue",
+      "palette_hex": [
+        "#5c3a1e",
+        "#8a8a7a",
+        "#d4b896",
+        "#2a1f14",
+        "#c8a84e",
+        "#1a1209",
+        "#7ec87e",
+        "#c85050"
+      ],
+      "outline": "single color black outline",
+      "shading": "medium shading",
+      "dither": false,
+      "light": "top-left",
+      "view": "isometric 2:1 (low top-down for characters)",
+      "sizes": {
+        "hero": [
+          48,
+          48
+        ],
+        "tile": [
+          64,
+          32
+        ],
+        "building_small": [
+          128,
+          128
+        ],
+        "building_medium": [
+          192,
+          192
+        ],
+        "building_large": [
+          256,
+          256
+        ],
+        "icon": [
+          32,
+          32
+        ],
+        "portrait": [
+          64,
+          64
+        ]
+      },
+      "negatives": [
+        "no smooth gradients",
+        "no antialiasing",
+        "no text in sprites",
+        "no modern objects",
+        "no guns",
+        "no perspective other than isometric 2:1"
+      ],
+      "rules": [
+        "Characters: monolithic sprite per profession/NPC, no layers in the MVP",
+        "Family identity by palette: hair, skin and clothes in the family colour",
+        "Readable at 48 px: silhouette and clothing colour tell the profession before detail"
+      ],
+      "anim": {
+        "directions": 8
+      },
+      "notes": "Source of truth: docs/style/biblia.md (update this profile when it changes). Secondary autumn palette (dark grey, deep purple, muted gold, forest green) for night, intrigue, the Rogue's quarter and the court. Building sizes are provisional until the D2 x2 scale test (D17)."
+    }
+  },
+  "active_style": "guildmaster"
+}

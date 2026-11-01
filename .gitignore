@@ -10,3 +10,7 @@ __pycache__/
 tmp/*
 !tmp/.gdignore
 i18n/*.translation
+
+# PixelLab Pip: descargas en bruto (se promueven a assets/art/ a mano)
+pixellab-pip-generations/*
+!pixellab-pip-generations/.gdignore
