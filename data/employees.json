@@ -1,0 +1,49 @@
+{
+  "_doc": "Employees (GDD 4.7, H4; contract docs/contratos/h4_empleados.md). Catalog.employees. Durations in game days (1 year = 8 days, D1(b)). Probabilities per day in [0, 1]. Marked [balance] in the GDD: adjusted with bots.",
+  "_ranks_doc": "4.7.2. wage = gold per day, paid at dawn (category wages). efficiency = share of a normal worker's output (4.7.2: at least 1 unit per cycle). speed = multiplier of the cycle speed (duration / speed, 4.4.1). promote_after_days = days worked in this rank before the promotion can be offered; promote_min_loyalty = loyalty must be >= this (GDD: > 50 and > 70). requires_upgrade: building upgrade needed to hire or promote into this rank (GDD: Maestro needs 'Taller de maestro'; '' until the upgrade tree exists in H5 [provisional]). availability: how common it is in the town's population (descriptive).",
+  "ranks": {
+    "apprentice": {"name_key": "rank.apprentice", "wage": 1, "efficiency": 0.5, "speed": 0.5, "next": "journeyman", "promote_after_days": 8, "promote_min_loyalty": 51, "requires_upgrade": "", "availability": "abundant"},
+    "journeyman": {"name_key": "rank.journeyman", "wage": 3, "efficiency": 1.0, "speed": 1.0, "next": "master", "promote_after_days": 16, "promote_min_loyalty": 71, "requires_upgrade": "", "availability": "medium"},
+    "master": {"name_key": "rank.master", "wage": 6, "efficiency": 1.5, "speed": 1.5, "next": "", "promote_after_days": 0, "promote_min_loyalty": 0, "requires_upgrade": "", "availability": "scarce"}
+  },
+  "rank_order": ["apprentice", "journeyman", "master"],
+  "_roles_doc": "4.7.4: the task of each employee. A station id of the building (only that kind of station, BUG-023) or 'any' (wherever needed). default_role = the role of a new hire [provisional].",
+  "roles": {
+    "furnace": {"name_key": "ui.zone.furnace"},
+    "anvil": {"name_key": "ui.zone.anvil"},
+    "counter": {"name_key": "ui.zone.counter"},
+    "any": {"name_key": "role.any"}
+  },
+  "default_role": "any",
+  "_loyalty_doc": "4.7.3. start = loyalty of a new hire [provisional: GDD 06 example]. Changes: wage_paid per day paid on time, wage_unpaid per day unpaid after the grace, bonus (bonus_gold, 4.7.3 'Bonus manual (+5 oro)'), promotion_accepted, promotion_refused, building_damaged per day; facade_upgrade and dining_upgrade arrive with H5.",
+  "loyalty": {
+    "min": 0,
+    "max": 100,
+    "start": 50,
+    "wage_paid": 1,
+    "wage_unpaid": -5,
+    "bonus": 5,
+    "promotion_accepted": 15,
+    "promotion_refused": -10,
+    "building_damaged": -2,
+    "facade_upgrade": 5,
+    "dining_upgrade": 10
+  },
+  "bonus_gold": 5,
+  "_bands_doc": "4.7.3 consequences by loyalty, checked at dawn, the first band whose [min, max] holds the loyalty. efficiency_mult multiplies the rank's efficiency (GDD: -20 % at 40-69; also below 40 [provisional]). rumor_reputation: reputation of the employer family per day in the band [provisional: the GDD does not say how often]. quit_chance / theft_chance: per day. theft: 1-3 units of the most valuable product of the building storage, then the thief flees (no_rehire_days). security_divisor: Security branch (H5) divides the theft chance.",
+  "bands": [
+    {"id": "loyal", "min": 70, "max": 100, "efficiency_mult": 1.0, "rumor_reputation": 0, "quit_chance": 0.0, "theft_chance": 0.0},
+    {"id": "unhappy", "min": 40, "max": 69, "efficiency_mult": 0.8, "rumor_reputation": -1, "quit_chance": 0.0, "theft_chance": 0.0},
+    {"id": "disloyal", "min": 20, "max": 39, "efficiency_mult": 0.8, "rumor_reputation": -1, "quit_chance": 0.05, "theft_chance": 0.0},
+    {"id": "thief", "min": 0, "max": 19, "efficiency_mult": 0.8, "rumor_reputation": -1, "quit_chance": 0.0, "theft_chance": 0.03}
+  ],
+  "theft": {"units": [1, 3], "security_divisor": 2, "no_rehire_days": 8},
+  "_wages_doc": "4.7.3 real wages: at dawn from the employer family's gold. Without gold: notice, grace_days without penalty, then loyalty wage_unpaid and reputation unpaid_reputation per day.",
+  "wages": {"grace_days": 1, "unpaid_reputation": -2},
+  "_fire_doc": "4.7.3: the fired employee leaves at the end of the day; if their loyalty was > reputation_loyalty_over, the employer family loses `reputation`.",
+  "fire": {"reputation_loyalty_over": 70, "reputation": -2},
+  "_hire_doc": "4.7.1: a hire starts working the next day at dawn (start_day = day + start_after_days); the family must be able to pay one day's wage when hiring.",
+  "hire": {"start_after_days": 1},
+  "_schedule_doc": "4.1 and 4.11.2: employees leave home at the start of `leave_home_phase` with a delay drawn per employee and day in leave_home_delay_minutes, work in work_phases (Production.may_work refuses outside them: off_hours, or night_rest at night), and go home at the start of go_home_phase. Never at night.",
+  "schedule": {"leave_home_phase": "dawn", "leave_home_delay_minutes": [0, 45], "work_phases": ["dawn", "day"], "go_home_phase": "dusk"}
+}

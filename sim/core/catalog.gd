@@ -18,6 +18,7 @@ var production: Dictionary = {}  # data/production.json: quality table, work mod
 var market: Dictionary = {}      # data/market.json: stalls, opening phases, demand, sell ratio, quality, errands, board
 var difficulty: Dictionary = {}  # data/difficulty.json: "levels" {easy|normal|hard -> levers} (GDD 4.23)
 var accounts: Dictionary = {}    # data/accounts.json: ledger and notices retention, loan warnings, unpaid upkeep (H3)
+var employees: Dictionary = {}   # data/employees.json: ranks, roles, loyalty, bands, wages, theft, hiring, schedule (H4)
 var errors: PackedStringArray = []  # files that could not be read
 
 
@@ -32,6 +33,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.market = c._load_json(root_dir.path_join("market.json"))
 	c.difficulty = c._load_json(root_dir.path_join("difficulty.json"))
 	c.accounts = c._load_json(root_dir.path_join("accounts.json"))
+	c.employees = c._load_json(root_dir.path_join("employees.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
@@ -77,6 +79,11 @@ func contracts() -> Dictionary:
 ## The levers of a difficulty level (data/difficulty.json), {} if unknown.
 func difficulty_levels(level: String) -> Dictionary:
 	return difficulty.get("levels", {}).get(level, {})
+
+
+## The rank definition of data/employees.json (wage, efficiency, speed, promotion...), {} if unknown or "".
+func rank(id: String) -> Dictionary:
+	return employees.get("ranks", {}).get(id, {})
 
 
 ## Tile kind by its 1-char map code ("=" -> "street"), "" if unknown.
@@ -129,6 +136,14 @@ func validate() -> PackedStringArray:
 		var rival_profile := str(s.get("rival", {}).get("profile", ""))
 		if rival_profile != "" and not ai_profiles().has(rival_profile):
 			out.append("starts/%s: unknown ai profile %s" % [id, rival_profile])
+	# H4: the employees' table (tools/validate_content.py checks the rest).
+	for r: String in employees.get("rank_order", []):
+		if rank(r).is_empty():
+			out.append("employees.json: rank_order names unknown rank %s" % r)
+		elif str(rank(r).get("next", "")) != "" and rank(str(rank(r)["next"])).is_empty():
+			out.append("employees.json: rank %s: unknown next rank %s" % [r, rank(r)["next"]])
+	if not (employees.get("roles", {}) as Dictionary).has(str(employees.get("default_role", ""))):
+		out.append("employees.json: default_role is not a role")
 	for id: String in maps():
 		var m: Dictionary = maps()[id]
 		var size: Array = m.get("size", [0, 0])

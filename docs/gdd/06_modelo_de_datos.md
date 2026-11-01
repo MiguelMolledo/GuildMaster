@@ -44,12 +44,18 @@ Cada ficha es un JSON con `id` en inglés y `snake_case`. Las plantillas viven e
              "craft": 7, "martial": 3, "constitution": 5, "rhetoric": 3, "stealth": 2 },
   "attitudes": { "honesty": 0, "generosity": 0, "diplomacy": 0 },
   "inventory": { "...": "..." }, "equipment": { "tool": null, "clothes": null, "accessory": null },
-  "home": "bld_0002", "job": { "building": "bld_0001", "rank": "apprentice", "role": "any",
-  "loyalty": 50, "days_worked": 0 }, "spouse": null, "parents": [], "children": [],
+  "home": "bld_0002", "rank": "apprentice", "job": { "building": "bld_0001", "role": "any",
+  "loyalty": 50, "hired_day": 3, "start_day": 4, "end_day": -1, "days_worked": 0, "rank_days": 0, "unpaid_days": 0,
+  "promotion_offered": false }, "hire_bans": {}, "routine": {}, "spouse": null, "parents": [], "children": [],
   "controlled_by": "ai", "directives": ["work"], "schedule": null, "order_queue": [], "position": [12, 30],
   "visual": { "base": "artisan_m", "hair": 3, "skin": 1 } }
 ```
 `birth_day` cuenta en días desde el día 1 del año 1: con D1(b) (8 días por año), −200 son 25 años. `visual.hair` y `visual.skin` son índices de la paleta de intercambio; la ropa toma los colores de la familia (4.10.9). `schedule` solo lo usan los personajes controlados (4.10.8).
+
+`rank` es el rango de oficio de la persona (`""` si no es trabajador de oficio): vive en el personaje y no en `job`
+porque un candidato sin empleo lo enseña y un despedido lo conserva. `job` es `null` sin empleo; su forma y sus reglas,
+en `docs/contratos/h4_empleados.md` (desde H4, guardado v5). `hire_bans` = `{familia: hasta_día}` (ladrón huido);
+`routine` = memoria libre de la rutina diaria.
 
 > Los empleados **no** tienen una ficha aparte: son personajes con `job`. Se acaba la duplicación `WorkerData` / `CharacterData` y los stats inventados (Fuerza, Inteligencia).
 

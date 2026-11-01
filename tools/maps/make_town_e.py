@@ -11,6 +11,9 @@ H3: the market in the plaza (3 outdoor stalls and the contract board, blocked ti
   the armory (public shop with interior, cols 25-27 x rows 14-17, door (24,16) on the plaza) and the rival forge
   (cols 9-11 x rows 20-23, door (10,19), symmetric to the family one). The map declares them: "stalls", "board" and
   "buildings" (the initial buildings a new game places, GDD 06).
+H4: the townsfolk (GDD 4.11.1, 4.7.1): 8 houses (type house, 3x3, one per house block, door on the street or lane)
+  and "population": one household family per house with 2 unemployed adults each (16 NPC: 9 apprentices,
+  5 journeymen, 2 masters), the candidates to hire. NewGame.from_start and town_e_start place them.
 """
 import json, os
 
@@ -96,40 +99,93 @@ town = {
         "armory": {"type": "armory", "origin": [25, 14], "door": [24, 16], "owner": ""},
     },
 }
+
+# H4 · townsfolk houses (3x3 at the corner of each house block) and the population that lives there.
+HOUSES = {
+    "house_w_north": ([1, 15], [2, 18]),
+    "house_w_south": ([1, 20], [2, 19]),
+    "house_e_north": ([32, 15], [33, 18]),
+    "house_e_south": ([32, 20], [33, 19]),
+    "house_nw": ([9, 8], [10, 7]),
+    "house_ne": ([25, 8], [26, 7]),
+    "house_sw": ([9, 26], [10, 25]),
+    "house_se": ([25, 26], [26, 25]),
+}
+for key, (origin, door) in HOUSES.items():
+    town["buildings"][key] = {"type": "house", "origin": origin, "door": door}
+
+STATS = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution", "rhetoric", "stealth"]
+BASE = {"charisma": 4, "empathy": 3, "negotiation": 6, "arcane": 1, "dexterity": 4, "craft": 7, "martial": 3,
+        "constitution": 5, "rhetoric": 3, "stealth": 2}  # the artisan's distribution (GDD 4.2.2)
+
+def npc(i, name, female, rank, craft):
+    """A townsperson: the artisan base with a fixed spread per person (no randomness: same script, same file)."""
+    st = dict(BASE)
+    st["craft"] = craft
+    st["charisma"] = 2 + (i * 3) % 5
+    st["constitution"] = 3 + (i * 2) % 5
+    st["empathy"] = 2 + (i * 5) % 4
+    st["dexterity"] = 3 + (i * 7) % 4
+    return {"name": name, "female": female, "rank": rank, "stats": st}
+
+# 9 apprentices (craft 1-3), 5 journeymen (4-6), 2 masters (7-8): abundant, medium, scarce (GDD 4.7.2)
+POP = [
+    ("house_w_north", "Soler", "#7a5230", "#d8c8a0", [("Joan", False, "journeyman", 5), ("Agnès", True, "apprentice", 2)]),
+    ("house_w_south", "Puig", "#4a6a8a", "#e0d0b0", [("Pau", False, "apprentice", 3), ("Clara", True, "apprentice", 2)]),
+    ("house_e_north", "Roca", "#6a6a6a", "#c0a060", [("Arnau", False, "master", 8), ("Elisenda", True, "journeyman", 4)]),
+    ("house_e_south", "Vila", "#8a7a3a", "#3a3a4a", [("Martí", False, "apprentice", 1), ("Blanca", True, "apprentice", 3)]),
+    ("house_nw", "Serra", "#5a3a5a", "#d0b890", [("Guillem", False, "journeyman", 6), ("Sança", True, "apprentice", 2)]),
+    ("house_ne", "Font", "#3a6a6a", "#e8d8b8", [("Jaume", False, "apprentice", 3), ("Margarida", True, "journeyman", 4)]),
+    ("house_sw", "Pons", "#7a3a2a", "#b0b0a0", [("Ramon", False, "master", 7), ("Isabel", True, "apprentice", 1)]),
+    ("house_se", "Mas", "#4a5a2a", "#d8b878", [("Berenguer", False, "journeyman", 5), ("Violant", True, "apprentice", 2)]),
+]
+town["population"] = []
+n = 0
+for home, fam_name, c1, c2, members in POP:
+    people = []
+    for name, female, rank, craft in members:
+        people.append(npc(n, name, female, rank, craft))
+        n += 1
+    town["population"].append({"home": home, "family_name": fam_name, "gold": 20,
+                               "colors": {"primary": c1, "secondary": c2}, "members": people})
 with open(os.path.join(ROOT, "data/maps/town_e.json"), "w") as f:
     json.dump(town, f, indent=1, ensure_ascii=False)
     f.write("\n")
 
-STATS = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution", "rhetoric", "stealth"]
-
 def inv(limit_kind, limit, stacks=None):
     return {"limit_kind": limit_kind, "limit": limit, "stacks": stacks or []}
 
-def chr_(id_, name, female, family, ctrl, pos, craft=3, location=""):
-    stats = {k: 3 for k in STATS}
-    stats["craft"] = craft
+def chr_(id_, name, female, family, ctrl, pos, craft=3, location="", stats=None, rank="", home=""):
+    if stats is None:
+        stats = {k: 3 for k in STATS}
+        stats["craft"] = craft
     return {"id": id_, "name": name, "female": female, "family": family, "controlled_by": ctrl,
             "alive": True, "position": pos, "path": [], "move_progress": 0,
             "stats": stats, "inventory": inv("weight", 30.0),
             "equipment": {"tool": None, "clothes": None, "accessory": None},
-            "location": location, "station": "", "order_queue": []}
+            "location": location, "station": "", "order_queue": [],
+            "home": home, "rank": rank, "job": None, "hire_bans": {}, "routine": {}}
 
 def fam_(id_, name, ctrl, members, colors, gold, ai_profile=""):
     return {"id": id_, "name": name, "controlled_by": ctrl, "members": members, "colors": colors,
             "gold": gold, "reputation": 0, "ai_profile": ai_profile, "ai_state": {}}
 
+FOOTPRINTS = {"forge": [3, 4], "armory": [3, 4], "house": [3, 3]}
+SLOTS = {"forge": 1}  # data/buildings/<type>.json base_employees
+
 def bld_(id_, key, owner, zones, stacks=10, items=None):
     b = town["buildings"][key]
-    return {"id": id_, "type": b["type"], "owner": owner, "origin": b["origin"], "footprint": [3, 4],
+    return {"id": id_, "type": b["type"], "owner": owner, "origin": b["origin"], "footprint": FOOTPRINTS[b["type"]],
             "door": b["door"], "state": "normal", "inventory": inv("stacks", stacks, items),
             "zones": {z: {"occupant": "", "job": None} for z in zones},
-            "upkeep_debt": 0, "upkeep_unpaid_since": -1}
+            "upkeep_debt": 0, "upkeep_unpaid_since": -1, "employee_slots": SLOTS.get(b["type"], 0),
+            "queue": {"entries": [], "loop": False, "paused": False}}
 
 FORGE_ZONES = ("furnace", "anvil", "counter", "storage")
 
 scenario = {
-    "version": 4, "seed": "1", "rng_state": "",
-    "meta": {"title": "Pueblo-calle", "description": "Arenero de pruebas: mapa town_e con la familia del jugador (3) y su forja (bld_0001), dos vecinos, el herrero rival Bernat en su forja (bld_0002, familia IA Ferrer) y la Armería pública (bld_0003). Sin préstamo."},
+    "version": 5, "seed": "1", "rng_state": "",
+    "meta": {"title": "Pueblo-calle", "description": "Arenero de pruebas: mapa town_e con la familia del jugador (3) y su forja (bld_0001), dos vecinos, el herrero rival Bernat en su forja (bld_0002, familia IA Ferrer), la Armería pública (bld_0003) y 16 vecinos sin empleo en sus 8 casas (bld_0004-0011, candidatos a empleado). Sin préstamo."},
     "map_id": "town_e",
     "clock": {"minute": 480},
     "characters": {
@@ -157,11 +213,27 @@ scenario = {
     },
     "parcels": {}, "market": {"demand": {}, "regulations": []},
     "offices": {}, "elections": [], "trials": [], "relationships": {}, "emotions": {},
-    "events_active": [], "chronicle": [], "next_ids": {"chr": 7, "fam": 4, "bld": 4},
+    "events_active": [], "chronicle": [], "next_ids": {"chr": 7, "fam": 4, "bld": 4},  # moved on by the population
     "ledger": {"entries": [], "summaries": {}}, "notices": [], "loans": {},
     "contracts": {"board": [], "accepted": [], "cooldowns": {}, "relations": {}}, "deliveries": [],
     "difficulty": "normal", "objectives": {}, "ending": {},
 }
+# H4 · the townsfolk: a household family and a house per entry of the population, its members inside (at home).
+nid = scenario["next_ids"]
+for hh in town["population"]:
+    fid, bid = "fam_%04d" % nid["fam"], "bld_%04d" % nid["bld"]
+    nid["fam"] += 1
+    nid["bld"] += 1
+    members = []
+    for p in hh["members"]:
+        cid = "chr_%04d" % nid["chr"]
+        nid["chr"] += 1
+        scenario["characters"][cid] = chr_(cid, p["name"], p["female"], fid, "ai", town["buildings"][hh["home"]]["door"],
+                                           location=bid, stats=dict(p["stats"]), rank=p["rank"], home=bid)
+        members.append(cid)
+    scenario["families"][fid] = fam_(fid, hh["family_name"], "ai", members, hh["colors"], hh["gold"])
+    scenario["buildings"][bid] = bld_(bid, hh["home"], fid, (), stacks=0)
+
 with open(os.path.join(ROOT, "data/scenarios/town_e_start.json"), "w") as f:
     json.dump(scenario, f, indent=2, ensure_ascii=False)
     f.write("\n")

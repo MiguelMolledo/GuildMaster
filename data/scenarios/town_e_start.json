@@ -1,10 +1,10 @@
 {
-  "version": 4,
+  "version": 5,
   "seed": "1",
   "rng_state": "",
   "meta": {
     "title": "Pueblo-calle",
-    "description": "Arenero de pruebas: mapa town_e con la familia del jugador (3) y su forja (bld_0001), dos vecinos, el herrero rival Bernat en su forja (bld_0002, familia IA Ferrer) y la Armería pública (bld_0003). Sin préstamo."
+    "description": "Arenero de pruebas: mapa town_e con la familia del jugador (3) y su forja (bld_0001), dos vecinos, el herrero rival Bernat en su forja (bld_0002, familia IA Ferrer), la Armería pública (bld_0003) y 16 vecinos sin empleo en sus 8 casas (bld_0004-0011, candidatos a empleado). Sin préstamo."
   },
   "map_id": "town_e",
   "clock": {
@@ -48,7 +48,12 @@
       },
       "location": "",
       "station": "",
-      "order_queue": []
+      "order_queue": [],
+      "home": "",
+      "rank": "",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
     },
     "chr_0002": {
       "id": "chr_0002",
@@ -87,7 +92,12 @@
       },
       "location": "",
       "station": "",
-      "order_queue": []
+      "order_queue": [],
+      "home": "",
+      "rank": "",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
     },
     "chr_0003": {
       "id": "chr_0003",
@@ -126,7 +136,12 @@
       },
       "location": "",
       "station": "",
-      "order_queue": []
+      "order_queue": [],
+      "home": "",
+      "rank": "",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
     },
     "chr_0004": {
       "id": "chr_0004",
@@ -165,7 +180,12 @@
       },
       "location": "",
       "station": "",
-      "order_queue": []
+      "order_queue": [],
+      "home": "",
+      "rank": "",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
     },
     "chr_0005": {
       "id": "chr_0005",
@@ -204,7 +224,12 @@
       },
       "location": "",
       "station": "",
-      "order_queue": []
+      "order_queue": [],
+      "home": "",
+      "rank": "",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
     },
     "chr_0006": {
       "id": "chr_0006",
@@ -243,7 +268,716 @@
       },
       "location": "bld_0002",
       "station": "",
-      "order_queue": []
+      "order_queue": [],
+      "home": "",
+      "rank": "",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0007": {
+      "id": "chr_0007",
+      "name": "Joan",
+      "female": false,
+      "family": "fam_0004",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        2,
+        18
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 2,
+        "empathy": 2,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 3,
+        "craft": 5,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0004",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0004",
+      "rank": "journeyman",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0008": {
+      "id": "chr_0008",
+      "name": "Agnès",
+      "female": true,
+      "family": "fam_0004",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        2,
+        18
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 5,
+        "empathy": 3,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 6,
+        "craft": 2,
+        "martial": 3,
+        "constitution": 5,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0004",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0004",
+      "rank": "apprentice",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0009": {
+      "id": "chr_0009",
+      "name": "Pau",
+      "female": false,
+      "family": "fam_0005",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        2,
+        19
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 4,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 5,
+        "craft": 3,
+        "martial": 3,
+        "constitution": 7,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0005",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0005",
+      "rank": "apprentice",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0010": {
+      "id": "chr_0010",
+      "name": "Clara",
+      "female": true,
+      "family": "fam_0005",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        2,
+        19
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 6,
+        "empathy": 5,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 4,
+        "craft": 2,
+        "martial": 3,
+        "constitution": 4,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0005",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0005",
+      "rank": "apprentice",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0011": {
+      "id": "chr_0011",
+      "name": "Arnau",
+      "female": false,
+      "family": "fam_0006",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        33,
+        18
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 4,
+        "empathy": 2,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 3,
+        "craft": 8,
+        "martial": 3,
+        "constitution": 6,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0006",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0006",
+      "rank": "master",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0012": {
+      "id": "chr_0012",
+      "name": "Elisenda",
+      "female": true,
+      "family": "fam_0006",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        33,
+        18
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 2,
+        "empathy": 3,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 6,
+        "craft": 4,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0006",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0006",
+      "rank": "journeyman",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0013": {
+      "id": "chr_0013",
+      "name": "Martí",
+      "female": false,
+      "family": "fam_0007",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        33,
+        19
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 5,
+        "empathy": 4,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 5,
+        "craft": 1,
+        "martial": 3,
+        "constitution": 5,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0007",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0007",
+      "rank": "apprentice",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0014": {
+      "id": "chr_0014",
+      "name": "Blanca",
+      "female": true,
+      "family": "fam_0007",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        33,
+        19
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 5,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 4,
+        "craft": 3,
+        "martial": 3,
+        "constitution": 7,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0007",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0007",
+      "rank": "apprentice",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0015": {
+      "id": "chr_0015",
+      "name": "Guillem",
+      "female": false,
+      "family": "fam_0008",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        10,
+        7
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 6,
+        "empathy": 2,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 3,
+        "craft": 6,
+        "martial": 3,
+        "constitution": 4,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0008",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0008",
+      "rank": "journeyman",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0016": {
+      "id": "chr_0016",
+      "name": "Sança",
+      "female": true,
+      "family": "fam_0008",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        10,
+        7
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 4,
+        "empathy": 3,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 6,
+        "craft": 2,
+        "martial": 3,
+        "constitution": 6,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0008",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0008",
+      "rank": "apprentice",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0017": {
+      "id": "chr_0017",
+      "name": "Jaume",
+      "female": false,
+      "family": "fam_0009",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        26,
+        7
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 2,
+        "empathy": 4,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 5,
+        "craft": 3,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0009",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0009",
+      "rank": "apprentice",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0018": {
+      "id": "chr_0018",
+      "name": "Margarida",
+      "female": true,
+      "family": "fam_0009",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        26,
+        7
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 5,
+        "empathy": 5,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 4,
+        "craft": 4,
+        "martial": 3,
+        "constitution": 5,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0009",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0009",
+      "rank": "journeyman",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0019": {
+      "id": "chr_0019",
+      "name": "Ramon",
+      "female": false,
+      "family": "fam_0010",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        10,
+        25
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 2,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 3,
+        "craft": 7,
+        "martial": 3,
+        "constitution": 7,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0010",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0010",
+      "rank": "master",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0020": {
+      "id": "chr_0020",
+      "name": "Isabel",
+      "female": true,
+      "family": "fam_0010",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        10,
+        25
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 6,
+        "empathy": 3,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 6,
+        "craft": 1,
+        "martial": 3,
+        "constitution": 4,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0010",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0010",
+      "rank": "apprentice",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0021": {
+      "id": "chr_0021",
+      "name": "Berenguer",
+      "female": false,
+      "family": "fam_0011",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        26,
+        25
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 4,
+        "empathy": 4,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 5,
+        "craft": 5,
+        "martial": 3,
+        "constitution": 6,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0011",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0011",
+      "rank": "journeyman",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
+    },
+    "chr_0022": {
+      "id": "chr_0022",
+      "name": "Violant",
+      "female": true,
+      "family": "fam_0011",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        26,
+        25
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 2,
+        "empathy": 5,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 4,
+        "craft": 2,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 2
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0011",
+      "station": "",
+      "order_queue": [],
+      "home": "bld_0011",
+      "rank": "apprentice",
+      "job": null,
+      "hire_bans": {},
+      "routine": {}
     }
   },
   "families": {
@@ -296,6 +1030,142 @@
       "gold": 80,
       "reputation": 0,
       "ai_profile": "rival_smith",
+      "ai_state": {}
+    },
+    "fam_0004": {
+      "id": "fam_0004",
+      "name": "Soler",
+      "controlled_by": "ai",
+      "members": [
+        "chr_0007",
+        "chr_0008"
+      ],
+      "colors": {
+        "primary": "#7a5230",
+        "secondary": "#d8c8a0"
+      },
+      "gold": 20,
+      "reputation": 0,
+      "ai_profile": "",
+      "ai_state": {}
+    },
+    "fam_0005": {
+      "id": "fam_0005",
+      "name": "Puig",
+      "controlled_by": "ai",
+      "members": [
+        "chr_0009",
+        "chr_0010"
+      ],
+      "colors": {
+        "primary": "#4a6a8a",
+        "secondary": "#e0d0b0"
+      },
+      "gold": 20,
+      "reputation": 0,
+      "ai_profile": "",
+      "ai_state": {}
+    },
+    "fam_0006": {
+      "id": "fam_0006",
+      "name": "Roca",
+      "controlled_by": "ai",
+      "members": [
+        "chr_0011",
+        "chr_0012"
+      ],
+      "colors": {
+        "primary": "#6a6a6a",
+        "secondary": "#c0a060"
+      },
+      "gold": 20,
+      "reputation": 0,
+      "ai_profile": "",
+      "ai_state": {}
+    },
+    "fam_0007": {
+      "id": "fam_0007",
+      "name": "Vila",
+      "controlled_by": "ai",
+      "members": [
+        "chr_0013",
+        "chr_0014"
+      ],
+      "colors": {
+        "primary": "#8a7a3a",
+        "secondary": "#3a3a4a"
+      },
+      "gold": 20,
+      "reputation": 0,
+      "ai_profile": "",
+      "ai_state": {}
+    },
+    "fam_0008": {
+      "id": "fam_0008",
+      "name": "Serra",
+      "controlled_by": "ai",
+      "members": [
+        "chr_0015",
+        "chr_0016"
+      ],
+      "colors": {
+        "primary": "#5a3a5a",
+        "secondary": "#d0b890"
+      },
+      "gold": 20,
+      "reputation": 0,
+      "ai_profile": "",
+      "ai_state": {}
+    },
+    "fam_0009": {
+      "id": "fam_0009",
+      "name": "Font",
+      "controlled_by": "ai",
+      "members": [
+        "chr_0017",
+        "chr_0018"
+      ],
+      "colors": {
+        "primary": "#3a6a6a",
+        "secondary": "#e8d8b8"
+      },
+      "gold": 20,
+      "reputation": 0,
+      "ai_profile": "",
+      "ai_state": {}
+    },
+    "fam_0010": {
+      "id": "fam_0010",
+      "name": "Pons",
+      "controlled_by": "ai",
+      "members": [
+        "chr_0019",
+        "chr_0020"
+      ],
+      "colors": {
+        "primary": "#7a3a2a",
+        "secondary": "#b0b0a0"
+      },
+      "gold": 20,
+      "reputation": 0,
+      "ai_profile": "",
+      "ai_state": {}
+    },
+    "fam_0011": {
+      "id": "fam_0011",
+      "name": "Mas",
+      "controlled_by": "ai",
+      "members": [
+        "chr_0021",
+        "chr_0022"
+      ],
+      "colors": {
+        "primary": "#4a5a2a",
+        "secondary": "#d8b878"
+      },
+      "gold": 20,
+      "reputation": 0,
+      "ai_profile": "",
       "ai_state": {}
     }
   },
@@ -352,7 +1222,13 @@
         }
       },
       "upkeep_debt": 0,
-      "upkeep_unpaid_since": -1
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 1,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
     },
     "bld_0002": {
       "id": "bld_0002",
@@ -406,7 +1282,13 @@
         }
       },
       "upkeep_debt": 0,
-      "upkeep_unpaid_since": -1
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 1,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
     },
     "bld_0003": {
       "id": "bld_0003",
@@ -437,7 +1319,269 @@
         }
       },
       "upkeep_debt": 0,
-      "upkeep_unpaid_since": -1
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 0,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
+    },
+    "bld_0004": {
+      "id": "bld_0004",
+      "type": "house",
+      "owner": "fam_0004",
+      "origin": [
+        1,
+        15
+      ],
+      "footprint": [
+        3,
+        3
+      ],
+      "door": [
+        2,
+        18
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 0,
+        "stacks": []
+      },
+      "zones": {},
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 0,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
+    },
+    "bld_0005": {
+      "id": "bld_0005",
+      "type": "house",
+      "owner": "fam_0005",
+      "origin": [
+        1,
+        20
+      ],
+      "footprint": [
+        3,
+        3
+      ],
+      "door": [
+        2,
+        19
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 0,
+        "stacks": []
+      },
+      "zones": {},
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 0,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
+    },
+    "bld_0006": {
+      "id": "bld_0006",
+      "type": "house",
+      "owner": "fam_0006",
+      "origin": [
+        32,
+        15
+      ],
+      "footprint": [
+        3,
+        3
+      ],
+      "door": [
+        33,
+        18
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 0,
+        "stacks": []
+      },
+      "zones": {},
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 0,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
+    },
+    "bld_0007": {
+      "id": "bld_0007",
+      "type": "house",
+      "owner": "fam_0007",
+      "origin": [
+        32,
+        20
+      ],
+      "footprint": [
+        3,
+        3
+      ],
+      "door": [
+        33,
+        19
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 0,
+        "stacks": []
+      },
+      "zones": {},
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 0,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
+    },
+    "bld_0008": {
+      "id": "bld_0008",
+      "type": "house",
+      "owner": "fam_0008",
+      "origin": [
+        9,
+        8
+      ],
+      "footprint": [
+        3,
+        3
+      ],
+      "door": [
+        10,
+        7
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 0,
+        "stacks": []
+      },
+      "zones": {},
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 0,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
+    },
+    "bld_0009": {
+      "id": "bld_0009",
+      "type": "house",
+      "owner": "fam_0009",
+      "origin": [
+        25,
+        8
+      ],
+      "footprint": [
+        3,
+        3
+      ],
+      "door": [
+        26,
+        7
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 0,
+        "stacks": []
+      },
+      "zones": {},
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 0,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
+    },
+    "bld_0010": {
+      "id": "bld_0010",
+      "type": "house",
+      "owner": "fam_0010",
+      "origin": [
+        9,
+        26
+      ],
+      "footprint": [
+        3,
+        3
+      ],
+      "door": [
+        10,
+        25
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 0,
+        "stacks": []
+      },
+      "zones": {},
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 0,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
+    },
+    "bld_0011": {
+      "id": "bld_0011",
+      "type": "house",
+      "owner": "fam_0011",
+      "origin": [
+        25,
+        26
+      ],
+      "footprint": [
+        3,
+        3
+      ],
+      "door": [
+        26,
+        25
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 0,
+        "stacks": []
+      },
+      "zones": {},
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1,
+      "employee_slots": 0,
+      "queue": {
+        "entries": [],
+        "loop": false,
+        "paused": false
+      }
     }
   },
   "parcels": {},
@@ -453,9 +1597,9 @@
   "events_active": [],
   "chronicle": [],
   "next_ids": {
-    "chr": 7,
-    "fam": 4,
-    "bld": 4
+    "chr": 23,
+    "fam": 12,
+    "bld": 12
   },
   "ledger": {
     "entries": [],

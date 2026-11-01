@@ -360,3 +360,10 @@ reason.missing_items,You do not carry the pieces it asks for,No llevas las pieza
 reason.unknown_family,That family does not exist,Esa familia no existe
 notice.contract_due,"Contract for {client} due in {hours} h: {qty} × {item}","El encargo de {client} vence en {hours} h: {qty} × {item}"
 notice.contract_expired,"The contract for {client} expired: reputation {reputation} and no contracts from them for {days} days","El encargo de {client} ha vencido: reputación {reputation} y no te encargará nada en {days} días"
+building.house,House,Casa
+rank.apprentice,Apprentice,Aprendiz
+rank.journeyman,Journeyman,Oficial
+rank.master,Master,Maestro
+role.any,Anything,Cualquiera
+reason.off_hours,Employees only work by day,Los empleados solo trabajan de día
+reason.mode_not_allowed,Employees always work in normal mode,Los empleados trabajan siempre en modo normal

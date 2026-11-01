@@ -1,0 +1,476 @@
+{
+  "version": 4,
+  "seed": "1",
+  "rng_state": "",
+  "meta": {
+    "title": "Pueblo-calle",
+    "description": "Arenero de pruebas: mapa town_e con la familia del jugador (3) y su forja (bld_0001), dos vecinos, el herrero rival Bernat en su forja (bld_0002, familia IA Ferrer) y la Armería pública (bld_0003). Sin préstamo."
+  },
+  "map_id": "town_e",
+  "clock": {
+    "minute": 480
+  },
+  "characters": {
+    "chr_0001": {
+      "id": "chr_0001",
+      "name": "Hugo",
+      "female": false,
+      "family": "fam_0001",
+      "controlled_by": "human",
+      "alive": true,
+      "position": [
+        20,
+        21
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 7,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "",
+      "station": "",
+      "order_queue": []
+    },
+    "chr_0002": {
+      "id": "chr_0002",
+      "name": "Elena",
+      "female": true,
+      "family": "fam_0001",
+      "controlled_by": "human",
+      "alive": true,
+      "position": [
+        21,
+        21
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 4,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "",
+      "station": "",
+      "order_queue": []
+    },
+    "chr_0003": {
+      "id": "chr_0003",
+      "name": "Tomás",
+      "female": false,
+      "family": "fam_0001",
+      "controlled_by": "human",
+      "alive": true,
+      "position": [
+        19,
+        22
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 2,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "",
+      "station": "",
+      "order_queue": []
+    },
+    "chr_0004": {
+      "id": "chr_0004",
+      "name": "Marta",
+      "female": true,
+      "family": "fam_0002",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        8,
+        12
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 3,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "",
+      "station": "",
+      "order_queue": []
+    },
+    "chr_0005": {
+      "id": "chr_0005",
+      "name": "Pere",
+      "female": false,
+      "family": "fam_0002",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        30,
+        25
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 3,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "",
+      "station": "",
+      "order_queue": []
+    },
+    "chr_0006": {
+      "id": "chr_0006",
+      "name": "Bernat",
+      "female": false,
+      "family": "fam_0003",
+      "controlled_by": "ai",
+      "alive": true,
+      "position": [
+        10,
+        19
+      ],
+      "path": [],
+      "move_progress": 0,
+      "stats": {
+        "charisma": 3,
+        "empathy": 3,
+        "negotiation": 3,
+        "arcane": 3,
+        "dexterity": 3,
+        "craft": 5,
+        "martial": 3,
+        "constitution": 3,
+        "rhetoric": 3,
+        "stealth": 3
+      },
+      "inventory": {
+        "limit_kind": "weight",
+        "limit": 30.0,
+        "stacks": []
+      },
+      "equipment": {
+        "tool": null,
+        "clothes": null,
+        "accessory": null
+      },
+      "location": "bld_0002",
+      "station": "",
+      "order_queue": []
+    }
+  },
+  "families": {
+    "fam_0001": {
+      "id": "fam_0001",
+      "name": "Herrero",
+      "controlled_by": "human",
+      "members": [
+        "chr_0001",
+        "chr_0002",
+        "chr_0003"
+      ],
+      "colors": {
+        "primary": "#8b2e2e",
+        "secondary": "#c8a84e"
+      },
+      "gold": 100,
+      "reputation": 0,
+      "ai_profile": "",
+      "ai_state": {}
+    },
+    "fam_0002": {
+      "id": "fam_0002",
+      "name": "Vidal",
+      "controlled_by": "ai",
+      "members": [
+        "chr_0004",
+        "chr_0005"
+      ],
+      "colors": {
+        "primary": "#2e4f8b",
+        "secondary": "#d4b896"
+      },
+      "gold": 50,
+      "reputation": 0,
+      "ai_profile": "",
+      "ai_state": {}
+    },
+    "fam_0003": {
+      "id": "fam_0003",
+      "name": "Ferrer",
+      "controlled_by": "ai",
+      "members": [
+        "chr_0006"
+      ],
+      "colors": {
+        "primary": "#3f6b3a",
+        "secondary": "#b8b8b0"
+      },
+      "gold": 80,
+      "reputation": 0,
+      "ai_profile": "rival_smith",
+      "ai_state": {}
+    }
+  },
+  "buildings": {
+    "bld_0001": {
+      "id": "bld_0001",
+      "type": "forge",
+      "owner": "fam_0001",
+      "origin": [
+        25,
+        20
+      ],
+      "footprint": [
+        3,
+        4
+      ],
+      "door": [
+        26,
+        19
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 10,
+        "stacks": [
+          {
+            "item": "iron",
+            "quality": 0,
+            "qty": 10
+          },
+          {
+            "item": "coal",
+            "quality": 0,
+            "qty": 6
+          }
+        ]
+      },
+      "zones": {
+        "furnace": {
+          "occupant": "",
+          "job": null
+        },
+        "anvil": {
+          "occupant": "",
+          "job": null
+        },
+        "counter": {
+          "occupant": "",
+          "job": null
+        },
+        "storage": {
+          "occupant": "",
+          "job": null
+        }
+      },
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1
+    },
+    "bld_0002": {
+      "id": "bld_0002",
+      "type": "forge",
+      "owner": "fam_0003",
+      "origin": [
+        9,
+        20
+      ],
+      "footprint": [
+        3,
+        4
+      ],
+      "door": [
+        10,
+        19
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 10,
+        "stacks": [
+          {
+            "item": "iron",
+            "quality": 0,
+            "qty": 8
+          },
+          {
+            "item": "coal",
+            "quality": 0,
+            "qty": 4
+          }
+        ]
+      },
+      "zones": {
+        "furnace": {
+          "occupant": "",
+          "job": null
+        },
+        "anvil": {
+          "occupant": "",
+          "job": null
+        },
+        "counter": {
+          "occupant": "",
+          "job": null
+        },
+        "storage": {
+          "occupant": "",
+          "job": null
+        }
+      },
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1
+    },
+    "bld_0003": {
+      "id": "bld_0003",
+      "type": "armory",
+      "owner": "",
+      "origin": [
+        25,
+        14
+      ],
+      "footprint": [
+        3,
+        4
+      ],
+      "door": [
+        24,
+        16
+      ],
+      "state": "normal",
+      "inventory": {
+        "limit_kind": "stacks",
+        "limit": 0,
+        "stacks": []
+      },
+      "zones": {
+        "counter": {
+          "occupant": "",
+          "job": null
+        }
+      },
+      "upkeep_debt": 0,
+      "upkeep_unpaid_since": -1
+    }
+  },
+  "parcels": {},
+  "market": {
+    "demand": {},
+    "regulations": []
+  },
+  "offices": {},
+  "elections": [],
+  "trials": [],
+  "relationships": {},
+  "emotions": {},
+  "events_active": [],
+  "chronicle": [],
+  "next_ids": {
+    "chr": 7,
+    "fam": 4,
+    "bld": 4
+  },
+  "ledger": {
+    "entries": [],
+    "summaries": {}
+  },
+  "notices": [],
+  "loans": {},
+  "contracts": {
+    "board": [],
+    "accepted": [],
+    "cooldowns": {},
+    "relations": {}
+  },
+  "deliveries": [],
+  "difficulty": "normal",
+  "objectives": {},
+  "ending": {}
+}

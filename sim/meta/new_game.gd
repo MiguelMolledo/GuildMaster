@@ -30,7 +30,9 @@ static func from_scenario(id: String, world_seed: int = -1) -> Dictionary:
 ## takes the start's "defaults". stats_add: whole points >= 0 on known stats, at most free_points in total, each
 ## stat ending in [stat_min, stat_max]; otherwise {"ok": false, "error": "bad_choices"}.
 ## Ids: the player family fam_0001, the protagonist chr_0001, the player building bld_0001; the rival after them;
-## then the public buildings of the map (sorted by site name); the loan lon_0001; the scripted contracts ctr_0001...
+## then the public buildings of the map (sorted by site name); then (H4) the townsfolk of the map's "population", in
+## its order: per household a family, its house and its members (at home, inside the house); the loan lon_0001; the
+## scripted contracts ctr_0001...
 static func from_start(catalog: Catalog, start_id: String, difficulty: String, choices: Dictionary,
 		world_seed: int) -> Dictionary:
 	var start: Dictionary = catalog.starts().get(start_id, {})
@@ -84,6 +86,8 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	for n: String in names:
 		if sites[n].has("owner") and str(sites[n]["owner"]) == "":
 			_add_building(s, catalog, sites, n, "", [])
+	# H4: the townsfolk (GDD 4.11.1): unemployed adults at home, the candidates to hire (docs/contratos/h4_empleados.md).
+	add_population(s, catalog, map)
 	# The loan that paid the forge (no gold comes in), due at the end of day start.day + term_days - 1.
 	var ln: Dictionary = start.get("loan", {})
 	var debt := int(levers.get("start_debt", 0))
@@ -143,6 +147,29 @@ static func _choices(start: Dictionary, choices: Dictionary) -> Dictionary:
 		"colors": {"primary": str(colors["primary"]), "secondary": str(colors["secondary"])}, "stats": stats}
 
 
+## The map's "population" (H4): per household, in order, a family (controlled_by "ai", no ai_profile), its house (the
+## map site `home`, owned by the family) and its members inside it (location = home = the house, position = its door),
+## with their trade rank. Returns the new character ids.
+static func add_population(s: WorldState, catalog: Catalog, map: Dictionary) -> Array:
+	var sites: Dictionary = map.get("buildings", {})
+	var out: Array = []
+	for hh: Dictionary in map.get("population", []):
+		var site := str(hh["home"])
+		var fam := _add_family(s, str(hh.get("family_name", "")), "ai", hh.get("colors", {}), int(hh.get("gold", 0)), 0, "")
+		var house := _add_building(s, catalog, sites, site, fam, [])
+		for p: Dictionary in hh.get("members", []):
+			var id := _add_character(s, catalog, fam, str(p["name"]), bool(p.get("female", false)), "ai", p["stats"],
+				sites[site]["door"], 30.0, {})
+			var ch: Dictionary = s.characters[id]
+			ch["location"] = house
+			ch["home"] = house
+			ch["rank"] = str(p.get("rank", ""))
+			out.append(id)
+	if OS.is_debug_build() and not out.is_empty():
+		print("[NewGame] población: %d vecinos en %d casas" % [out.size(), (map.get("population", []) as Array).size()])
+	return out
+
+
 static func _add_family(s: WorldState, name: String, ctrl: String, colors: Dictionary, gold: int, reputation: int,
 		profile: String) -> String:
 	var id := Ids.next(s, "fam")
@@ -163,7 +190,7 @@ static func _add_character(s: WorldState, catalog: Catalog, fam: String, name: S
 	s.characters[id] = {"id": id, "name": name, "female": female, "family": fam, "controlled_by": ctrl, "alive": true,
 		"position": [int(pos[0]), int(pos[1])], "path": [], "move_progress": 0, "stats": stats.duplicate(),
 		"inventory": Inventory.create("weight", carry - worn), "equipment": eq, "location": "", "station": "",
-		"order_queue": []}
+		"order_queue": [], "home": "", "rank": "", "job": null, "hire_bans": {}, "routine": {}}
 	(s.families[fam]["members"] as Array).append(id)
 	return id
 
@@ -181,7 +208,8 @@ static func _add_building(s: WorldState, catalog: Catalog, sites: Dictionary, si
 		Inventory.add(inv, catalog, str(it["item"]), int(it.get("quality", 0)), int(it.get("qty", 0)))
 	s.buildings[id] = {"id": id, "type": str(m["type"]), "owner": owner, "origin": (m["origin"] as Array).duplicate(),
 		"footprint": (def.get("footprint", [1, 1]) as Array).duplicate(), "door": (m["door"] as Array).duplicate(),
-		"state": "normal", "inventory": inv, "zones": zones, "upkeep_debt": 0, "upkeep_unpaid_since": -1}
+		"state": "normal", "inventory": inv, "zones": zones, "upkeep_debt": 0, "upkeep_unpaid_since": -1,
+		"employee_slots": int(def.get("base_employees", 0)), "queue": {"entries": [], "loop": false, "paused": false}}
 	return id
 
 

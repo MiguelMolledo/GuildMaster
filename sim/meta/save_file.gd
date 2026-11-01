@@ -111,6 +111,20 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 			for k: String in empty:
 				if not data.has(k):
 					data[k] = empty[k]
+		4:  # 4 -> 5 (H4): employees (docs/contratos/h4_empleados.md). Characters: home (their house), rank (their trade
+			# rank, "" if none), job (null = unemployed), hire_bans {fam: until_day} and routine {} (Routines' memory).
+			# Buildings: employee_slots (v4 only knew the forge, base_employees 1, and the public armory, 0) and the
+			# production queue.
+			for c: Dictionary in (data.get("characters", {}) as Dictionary).values():
+				var add := {"home": "", "rank": "", "job": null, "hire_bans": {}, "routine": {}}
+				for k: String in add:
+					if not c.has(k):
+						c[k] = add[k]
+			for b: Dictionary in (data.get("buildings", {}) as Dictionary).values():
+				if not b.has("employee_slots"):
+					b["employee_slots"] = 1 if str(b.get("type", "")) == "forge" else 0
+				if not b.has("queue"):
+					b["queue"] = {"entries": [], "loop": false, "paused": false}
 	return data
 
 

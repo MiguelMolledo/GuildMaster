@@ -15,6 +15,9 @@ Comprueba lo que carga el juego en data/ (los ficheros y carpetas que empiezan p
     iniciales del mapa ("buildings"), data/market.json, data/difficulty.json, data/ai_profiles/, data/starts/,
     data/objectives/ y data/contracts/ (todo lo que nombran existe); en los escenarios, el oro en la familia (no en
     los personajes) y la ubicación de cada personaje en un edificio que existe;
+  - H4: data/employees.json (rangos, roles, lealtad, bandas, salarios, robo, contratación, horario), la población de
+    cada mapa (casas de tipo residencial del mapa, rango y atributos de cada vecino) y, en los escenarios v5, la casa,
+    el rango y el empleo de cada personaje, los huecos y la cola de cada edificio;
   - claves de texto (name_key) en i18n/strings.csv con inglés y español;
   - arte: un icono, sprite o escena que se pide y no existe sale como aviso (con --art-required, error).
 
@@ -376,6 +379,189 @@ def check_h3(items, recipes, buildings, maps, strings, rep):
         rep.error("accounts.json", "loan_warn_days: lista de días enteros >= 1")
 
 
+def check_h4(buildings, recipes, maps, strings, rep):
+    """Datos de H4 (docs/contratos/h4_empleados.md): data/employees.json y la población de cada mapa.
+    Devuelve (rangos, roles) para comprobar los escenarios."""
+    w = "employees.json"
+    emp = load_json(os.path.join(DATA, "employees.json"), rep) or {}
+    ranks = emp.get("ranks") or {}
+    order = emp.get("rank_order") or []
+    if sorted(order) != sorted(ranks) or not order:
+        rep.error(w, "rank_order debe nombrar todos los rangos de ranks, una vez cada uno")
+    for rid, r in ranks.items():
+        wr = f"{w} ranks.{rid}"
+        check_text(wr, r.get("name_key"), strings, rep)
+        if not ID_RE.match(rid):
+            rep.error(wr, "id en snake_case")
+        if not isinstance(r.get("wage"), int) or r["wage"] < 0:
+            rep.error(wr, "wage: oro por día, entero >= 0")
+        for k in ("efficiency", "speed"):
+            if not isinstance(r.get(k), (int, float)) or r[k] <= 0:
+                rep.error(wr, f"{k} debe ser > 0")
+        nxt = r.get("next", "")
+        if nxt and nxt not in ranks:
+            rep.error(wr, f"next desconocido {nxt}")
+        if nxt:
+            if not isinstance(r.get("promote_after_days"), int) or r["promote_after_days"] < 1:
+                rep.error(wr, "promote_after_days: días enteros >= 1 (1 año = 8 días)")
+            if not isinstance(r.get("promote_min_loyalty"), int) or not 0 <= r["promote_min_loyalty"] <= 100:
+                rep.error(wr, "promote_min_loyalty en [0, 100]")
+        if not isinstance(r.get("requires_upgrade", ""), str):
+            rep.error(wr, "requires_upgrade: id de mejora o \"\"")
+    for a, b in zip(order, order[1:]):
+        if ranks.get(a, {}).get("next") != b:
+            rep.error(w, f"rank_order: {a} debería ascender a {b}")
+    roles = emp.get("roles") or {}
+    zones = {z.get("id") for b in buildings.values() for z in b.get("zones", [])}
+    for rid, r in roles.items():
+        check_text(f"{w} roles.{rid}", r.get("name_key"), strings, rep)
+        if rid != "any" and rid not in zones:
+            rep.error(w, f"rol {rid}: no es un puesto de ningún edificio (ni any)")
+    if "any" not in roles:
+        rep.error(w, "falta el rol any (cualquiera, 4.7.4)")
+    if emp.get("default_role") not in roles:
+        rep.error(w, "default_role debe ser un rol")
+    loy = emp.get("loyalty") or {}
+    for k in ("min", "max", "start", "wage_paid", "wage_unpaid", "bonus", "promotion_accepted", "promotion_refused",
+              "building_damaged", "facade_upgrade", "dining_upgrade"):
+        if not isinstance(loy.get(k), int):
+            rep.error(w, f"loyalty.{k} debe ser un entero")
+    if isinstance(loy.get("min"), int) and isinstance(loy.get("max"), int):
+        if not loy["min"] <= loy.get("start", -1) <= loy["max"]:
+            rep.error(w, "loyalty.start debe estar entre min y max")
+        covered = set()
+        for b in emp.get("bands") or []:
+            wb = f"{w} bands.{b.get('id')}"
+            if not (isinstance(b.get("min"), int) and isinstance(b.get("max"), int) and b["min"] <= b["max"]):
+                rep.error(wb, "min y max enteros, min <= max")
+                continue
+            span = set(range(b["min"], b["max"] + 1))
+            if span & covered:
+                rep.error(wb, "se solapa con otra banda")
+            covered |= span
+            for k in ("quit_chance", "theft_chance"):
+                if not isinstance(b.get(k), (int, float)) or not 0 <= b[k] <= 1:
+                    rep.error(wb, f"{k}: probabilidad por día en [0, 1]")
+            if not isinstance(b.get("efficiency_mult"), (int, float)) or b["efficiency_mult"] <= 0:
+                rep.error(wb, "efficiency_mult debe ser > 0")
+            if not isinstance(b.get("rumor_reputation"), int):
+                rep.error(wb, "rumor_reputation debe ser un entero")
+        if covered != set(range(loy["min"], loy["max"] + 1)):
+            rep.error(w, "las bandas deben cubrir toda la lealtad de min a max")
+    if not isinstance(emp.get("bonus_gold"), int) or emp["bonus_gold"] < 1:
+        rep.error(w, "bonus_gold: entero >= 1")
+    th = emp.get("theft") or {}
+    u = th.get("units")
+    if not (isinstance(u, list) and len(u) == 2 and all(isinstance(x, int) for x in u) and 1 <= u[0] <= u[1]):
+        rep.error(w, "theft.units: [mín, máx] enteros >= 1")
+    for k in ("security_divisor", "no_rehire_days"):
+        if not isinstance(th.get(k), int) or th[k] < 1:
+            rep.error(w, f"theft.{k}: entero >= 1")
+    wg = emp.get("wages") or {}
+    if not isinstance(wg.get("grace_days"), int) or wg["grace_days"] < 0:
+        rep.error(w, "wages.grace_days: entero >= 0")
+    if not isinstance(wg.get("unpaid_reputation"), int):
+        rep.error(w, "wages.unpaid_reputation: entero")
+    fi = emp.get("fire") or {}
+    if not isinstance(fi.get("reputation_loyalty_over"), int) or not isinstance(fi.get("reputation"), int):
+        rep.error(w, "fire: reputation_loyalty_over y reputation enteros")
+    if not isinstance((emp.get("hire") or {}).get("start_after_days"), int) or emp["hire"]["start_after_days"] < 0:
+        rep.error(w, "hire.start_after_days: entero >= 0")
+    sch = emp.get("schedule") or {}
+    for k in ("leave_home_phase", "go_home_phase"):
+        if sch.get(k) not in PHASES:
+            rep.error(w, f"schedule.{k}: una fase ({', '.join(PHASES)})")
+    wp = sch.get("work_phases")
+    if not (isinstance(wp, list) and wp and all(p in PHASES for p in wp)) or "night" in (wp or []):
+        rep.error(w, "schedule.work_phases: fases sin night (los empleados nunca trabajan de noche, 4.4.3)")
+    d = sch.get("leave_home_delay_minutes")
+    if not (isinstance(d, list) and len(d) == 2 and all(isinstance(x, int) for x in d) and 0 <= d[0] <= d[1]):
+        rep.error(w, "schedule.leave_home_delay_minutes: [mín, máx] minutos enteros >= 0")
+
+    for id_, walk in maps.items():
+        sites = walk.map.get("buildings") or {}
+        homes = set()
+        for i, hh in enumerate(walk.map.get("population") or []):
+            wh = f"maps/{id_} population[{i}]"
+            site = sites.get(hh.get("home"))
+            if site is None:
+                rep.error(wh, f"home {hh.get('home')} no es un edificio del mapa")
+            elif buildings.get(site.get("type"), {}).get("category") != "residence":
+                rep.error(wh, f"home {hh.get('home')} no es una residencia (tipo {site.get('type')})")
+            if hh.get("home") in homes:
+                rep.error(wh, f"la casa {hh.get('home')} ya tiene otra familia")
+            homes.add(hh.get("home"))
+            if not (isinstance(hh.get("family_name"), str) and hh["family_name"].strip()):
+                rep.error(wh, "family_name: texto")
+            if not isinstance(hh.get("gold"), int) or hh["gold"] < 0:
+                rep.error(wh, "gold: entero >= 0")
+            if not all(re.fullmatch(r"#[0-9a-fA-F]{6}", str((hh.get("colors") or {}).get(k, ""))) for k in ("primary", "secondary")):
+                rep.error(wh, "colors: primary y secondary en #rrggbb")
+            if not hh.get("members"):
+                rep.error(wh, "una casa sin vecinos")
+            for p in hh.get("members") or []:
+                wp_ = f"{wh} {p.get('name')}"
+                if not (isinstance(p.get("name"), str) and p["name"].strip() and isinstance(p.get("female"), bool)):
+                    rep.error(wp_, "name (texto) y female (bool)")
+                if p.get("rank") not in ranks:
+                    rep.error(wp_, f"rango desconocido {p.get('rank')}")
+                stt = p.get("stats") or {}
+                if sorted(stt) != sorted(STATS) or not all(isinstance(v, int) and 1 <= v <= 10 for v in stt.values()):
+                    rep.error(wp_, "stats: los 10 atributos, enteros en [1, 10]")
+    return ranks, roles
+
+
+def check_h4_scenario(where, d, buildings, ranks, roles, recipes, rep):
+    """Escenarios v5: casa, rango y empleo de cada personaje; huecos y cola de cada edificio."""
+    blds = d.get("buildings") or {}
+    for cid, ch in (d.get("characters") or {}).items():
+        w = f"{where} {cid}"
+        for k in ("home", "rank", "job", "hire_bans", "routine"):
+            if k not in ch:
+                rep.error(w, f"falta {k} (guardado v5)")
+        home = ch.get("home", "")
+        if home and (home not in blds or buildings.get(blds[home].get("type"), {}).get("category") != "residence"):
+            rep.error(w, f"home {home} no es una casa del escenario")
+        if ch.get("rank", "") and ch["rank"] not in ranks:
+            rep.error(w, f"rango desconocido {ch['rank']}")
+        job = ch.get("job")
+        if job is not None:
+            if not isinstance(job, dict) or job.get("building") not in blds:
+                rep.error(w, "job.building no es un edificio del escenario")
+                continue
+            if not ch.get("rank"):
+                rep.error(w, "un empleado necesita rango")
+            zones = set((blds[job["building"]].get("zones") or {}).keys())
+            if job.get("role") not in roles or (job.get("role") != "any" and job.get("role") not in zones):
+                rep.error(w, f"job.role {job.get('role')}: ni any ni un puesto de su edificio")
+            for k in ("loyalty", "hired_day", "start_day", "end_day", "days_worked", "rank_days", "unpaid_days"):
+                if not isinstance(job.get(k), int):
+                    rep.error(w, f"job.{k} debe ser un entero")
+            if not isinstance(job.get("promotion_offered"), bool):
+                rep.error(w, "job.promotion_offered debe ser bool")
+    for bid, b in blds.items():
+        w = f"{where} {bid}"
+        n = sum(1 for ch in (d.get("characters") or {}).values()
+                if isinstance(ch.get("job"), dict) and ch["job"].get("building") == bid)
+        if not isinstance(b.get("employee_slots"), int) or b["employee_slots"] < 0:
+            rep.error(w, "employee_slots: entero >= 0 (guardado v5)")
+        elif n > b["employee_slots"]:
+            rep.error(w, f"{n} empleados y solo {b['employee_slots']} huecos")
+        q = b.get("queue")
+        if not (isinstance(q, dict) and isinstance(q.get("entries"), list) and isinstance(q.get("loop"), bool)
+                and isinstance(q.get("paused"), bool)):
+            rep.error(w, "queue: {entries: [], loop: bool, paused: bool} (guardado v5)")
+            continue
+        for e in q["entries"]:
+            r = recipes.get(e.get("recipe"))
+            if r is None or r.get("building") != b.get("type"):
+                rep.error(w, f"cola: receta {e.get('recipe')} no es de un {b.get('type')}")
+            if not (isinstance(e.get("qty"), int) and (e["qty"] >= 1 or e["qty"] == -1)):
+                rep.error(w, "cola: qty entero >= 1 o -1 (infinito)")
+            if not isinstance(e.get("done"), int) or e["done"] < 0 or not isinstance(e.get("id"), str):
+                rep.error(w, "cola: id (texto) y done (entero >= 0)")
+
+
 class Report:
     def __init__(self, art_required):
         self.errors, self.warnings, self.notes = [], [], []
@@ -535,6 +721,7 @@ def main():
     maps = check_maps(rep)
     check_map_buildings(maps, buildings, rep)
     check_h3(items, recipes, buildings, maps, strings, rep)
+    ranks, roles = check_h4(buildings, recipes, maps, strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")
@@ -597,6 +784,8 @@ def main():
             rep.error(f"scenarios/{name}", f"mapa desconocido {map_id}")
             continue
         check_scenario_buildings(f"scenarios/{name}", d, buildings, maps.get(map_id), rep)
+        if d.get("version", 0) >= 5:
+            check_h4_scenario(f"scenarios/{name}", d, buildings, ranks, roles, recipes, rep)
         if d.get("version", 0) >= 4:
             for fid, fam in (d.get("families") or {}).items():
                 if not isinstance(fam.get("gold"), int) or fam["gold"] < 0:

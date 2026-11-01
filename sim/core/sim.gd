@@ -32,6 +32,10 @@ func step(orders: Array = []) -> Array:
 	OrderQueue.step(self)   # starts the next queued order of each idle actor
 	Movement.step(self)
 	Buildings.step(self)    # arrivals at doors -> inside
+	# H4 · employees (docs/contratos/h4_empleados.md)
+	Staff.step(self)        # at dawn: day counted, leavers, hires start, wages, loyalty, quit/theft, promotions
+	Routines.step(self)     # employees: home -> work at dawn, work -> home at dusk (real orders, Sim.give)
+	WorkQueue.step(self)    # hands the queue's next unit to each free employee at its station (work_at)
 	Production.step(self)   # work cycles, master-touch windows
 	Market.step(self)       # errands arriving; demand recovery at dawn
 	Contracts.step(self)    # a new contract at dawn; deadline warnings; expiries
@@ -41,6 +45,12 @@ func step(orders: Array = []) -> Array:
 	Ledger.step(self)       # retention of the ledger at dawn
 	Notices.step(self)      # retention of the notices log
 	return events
+
+
+## An order given by a system for the characters it moves (H4: Routines, WorkQueue), during its step: applied now,
+## like one from outside (a refusal leaves order_refused in the events). Not recorded: it comes out of the state.
+func give(o: Dictionary) -> void:
+	_give(o)
 
 
 func _give(o: Dictionary) -> void:

@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 4
+const VERSION: int = 5
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -35,6 +35,8 @@ var deliveries: Array = []         # [delivery] market errands on their way (GDD
 var difficulty: String = "normal"  # easy | normal | hard (GDD 4.23, data/difficulty.json)
 var objectives: Dictionary = {}    # fam_id -> progress of its start objectives (GDD 4.16): Objectives
 var ending: Dictionary = {}        # {} while the game goes on; {kind, family, minute} when it ends (ruin, D18)
+# H4 (docs/contratos/h4_empleados.md): no new root fields. Characters get home, rank, job, hire_bans and routine;
+# buildings get employee_slots and queue (SaveFile._step 4 -> 5).
 
 
 func seed_rng(s: int) -> void:

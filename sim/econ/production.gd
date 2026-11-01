@@ -48,6 +48,8 @@ static func order_work_at(sim: Sim, o: Dictionary) -> Dictionary:
 		return Orders.fail("wrong_station")
 	if not _modes(sim).has(mode):
 		return Orders.fail("unknown_mode")
+	if mode != "normal" and _is_employee_at(sim, actor, bld_id):
+		return Orders.fail("mode_not_allowed")  # H4: employees work in normal mode, without master touch (4.4.5)
 	if str(bld.get("state", "normal")) != "normal":
 		return Orders.fail("building_not_ready")
 	why = may_work(sim, actor, bld_id)
@@ -254,16 +256,26 @@ static func interrupt(sim: Sim, bld_id: String, zone: String) -> Array:
 
 # --- Rules -----------------------------------------------------------------------------------------------------------
 
-## "" if the actor may work by hand now, or the refusal reason. GDD 4.4.3: characters controlled by the player work,
-## also at night. Employees (from H5) do not work at night in buildings whose night_production is "manual_only"; in
-## H2 there are no employees yet, so anybody not controlled by the player is refused with not_controlled, except (H3)
-## the members of an AI family with an ai_profile, who work their family's building (night_rest still applies).
+## "" if the actor may work now, or the refusal reason. GDD 4.4.3: characters controlled by the player work, also at
+## night. H4: an employee works only at the building it works at, while its job is active (Staff.is_active) and in
+## the schedule's work_phases (data/employees.json): night_rest at night, off_hours in the other phases (dusk), never
+## at night whatever the building. Anybody else not controlled by the player is refused with not_controlled, except
+## (H3) the members of an AI family with an ai_profile, who work their family's building (night_rest still applies in
+## buildings whose night_production is "manual_only").
 static func may_work(sim: Sim, actor: String, bld_id: String) -> String:
 	var ch: Dictionary = sim.state.characters.get(actor, {})
 	if str(ch.get("controlled_by", "")) == "human":
 		return ""
+	var phase := Clock.phase(int(sim.state.clock["minute"]), sim.catalog.time)
+	var night := phase == NIGHT
+	if _is_employee_at(sim, actor, bld_id):
+		if not Staff.is_active(sim, actor):
+			return "not_controlled"  # hired today (starts tomorrow at dawn) or already gone
+		if night:
+			return "night_rest"
+		var phases: Array = sim.catalog.employees.get("schedule", {}).get("work_phases", ["dawn", "day"])
+		return "" if phase in phases else "off_hours"
 	var bdef: Dictionary = sim.catalog.buildings().get(str(sim.state.buildings.get(bld_id, {}).get("type", "")), {})
-	var night := Clock.phase(int(sim.state.clock["minute"]), sim.catalog.time) == NIGHT
 	if night and str(bdef.get("night_production", "")) == "manual_only":
 		return "night_rest"
 	# H3: a member of an AI family with a profile (the rival smith, GDD 4.5.5) works its own family's building by day,
@@ -395,7 +407,7 @@ static func job_zone(sim: Sim, actor: String, bld_id: String) -> String:
 # --- Helpers ---------------------------------------------------------------------------------------------------------
 
 ## Common checks of the orders done inside a building: actor exists and lives, building exists and is the actor's
-## (or its family's), the actor is inside it.
+## (or its family's) or, H4, the one it works at (Staff.works_at), the actor is inside it.
 static func _inside_reason(sim: Sim, actor: String, bld_id: String) -> String:
 	var st := sim.state
 	if not st.characters.has(actor):
@@ -404,11 +416,16 @@ static func _inside_reason(sim: Sim, actor: String, bld_id: String) -> String:
 		return "dead"
 	if not st.buildings.has(bld_id):
 		return "unknown_building"
-	if not Buildings.owns(st, actor, bld_id):
+	if not Buildings.owns(st, actor, bld_id) and not _is_employee_at(sim, actor, bld_id):
 		return "not_your_building"
 	if str(st.characters[actor].get("location", "")) != bld_id:
 		return "not_inside"
 	return ""
+
+
+## H4: whether `actor` is an employee of `bld_id` (character.job.building), not its owner.
+static func _is_employee_at(sim: Sim, actor: String, bld_id: String) -> bool:
+	return Staff.works_at(sim.state, actor, bld_id) and not Buildings.owns(sim.state, actor, bld_id)
 
 
 ## "skill_too_low" if the actor's craft is under min_craft; "needs_upgrade" if the recipe asks for an upgrade the

@@ -267,6 +267,20 @@
       "notas": "Tienda con interior."
     },
     {
+      "id": "bld_house",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "H4",
+        "empleados"
+      ],
+      "ruta": "assets/art/buildings/house.png",
+      "origen": null,
+      "origen_previo": "guild:assets/sprites/buildings/residential",
+      "coste_gen": 0,
+      "notas": "Casa 3x3 de los vecinos (tipo house, sin interior). Puede salir de bld_house_a/b o del kit de casas."
+    },
+    {
       "id": "bld_house_a",
       "tipo": "edificio",
       "estado": "falta",

@@ -11,7 +11,8 @@ const CHANCE_PER_MINUTE: float = 0.15  # an order every ~7 game minutes (test bo
 const NONSENSE: float = 0.15           # share of fields filled with something that does not exist
 const TYPES: Array[String] = ["wait", "transfer", "move_to", "enter_building", "exit_building", "go_to_station",
 	"equip", "unequip", "work_at", "stop_work", "master_touch", "buy", "sell", "repay_loan",
-	"read_notices", "accept_contract", "deliver_contract", "abandon_contract", "nonsense_order"]
+	"read_notices", "accept_contract", "deliver_contract", "abandon_contract", "hire", "fire", "promote", "bonus",
+	"queue_add", "queue_remove", "queue_move", "queue_loop", "queue_pause", "set_role", "nonsense_order"]
 
 
 func orders(sim: Sim) -> Array:
@@ -61,6 +62,32 @@ func orders(sim: Sim) -> Array:
 			for c: Dictionary in st.contracts.get("board", []) + st.contracts.get("accepted", []):
 				cs.append(str(c["id"]))
 			o["contract"] = _pick(rng, cs)
+		# H4 · employees and the production queue (docs/contratos/h4_empleados.md)
+		"hire":
+			o.merge({"building": _pick(rng, _sorted(st.buildings.keys())),
+				"candidate": _pick(rng, _sorted(st.characters.keys()))})
+		"fire", "promote", "bonus", "set_role":
+			o["employee"] = _pick(rng, _sorted(st.characters.keys()))
+			if type == "promote":
+				o["accept"] = rng.randf() < 0.5
+			elif type == "set_role":
+				o["role"] = _pick(rng, _sorted((sim.catalog.employees.get("roles", {}) as Dictionary).keys()))
+		"queue_add", "queue_remove", "queue_move", "queue_loop", "queue_pause":
+			var b := _pick(rng, _sorted(st.buildings.keys()))
+			o["building"] = b
+			var entries: Array = []
+			for e: Dictionary in st.buildings.get(b, {}).get("queue", {}).get("entries", []):
+				entries.append(str(e.get("id", "")))
+			match type:
+				"queue_add":
+					o.merge({"recipe": _pick(rng, _sorted(sim.catalog.recipes().keys())),
+						"qty": _pick(rng, ["1", "5", "10", "-1", "0"]).to_int()})
+				"queue_remove", "queue_move":
+					o["entry"] = _pick(rng, entries)
+					if type == "queue_move":
+						o["to"] = rng.randi_range(-1, 4)
+				_:
+					o["on"] = rng.randf() < 0.5
 	return [o]
 
 

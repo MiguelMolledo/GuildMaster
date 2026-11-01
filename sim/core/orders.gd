@@ -7,7 +7,9 @@ extends RefCounted
 ##
 ## Orders today: wait, transfer, move_to; H2: enter_building, exit_building, go_to_station, equip, unequip, work_at,
 ## stop_work, master_touch (handlers live with their system; docs/contratos/h2_forja.md); H3: buy, sell,
-## repay_loan, read_notices, accept_contract, deliver_contract, abandon_contract (docs/contratos/h3_mercado.md). Each milestone adds
+## repay_loan, read_notices, accept_contract, deliver_contract, abandon_contract (docs/contratos/h3_mercado.md); H4: hire,
+## fire, promote, bonus, queue_add, queue_remove, queue_move, queue_loop, queue_pause, set_role
+## (docs/contratos/h4_empleados.md). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -53,6 +55,27 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Contracts.order_deliver(sim, order)
 		"abandon_contract":
 			return Contracts.order_abandon(sim, order)
+		# H4 · employees (sim/econ/staff.gd) and the production queue (sim/econ/work_queue.gd)
+		"hire":
+			return Staff.order_hire(sim, order)
+		"fire":
+			return Staff.order_fire(sim, order)
+		"promote":
+			return Staff.order_promote(sim, order)
+		"bonus":
+			return Staff.order_bonus(sim, order)
+		"queue_add":
+			return WorkQueue.order_add(sim, order)
+		"queue_remove":
+			return WorkQueue.order_remove(sim, order)
+		"queue_move":
+			return WorkQueue.order_move(sim, order)
+		"queue_loop":
+			return WorkQueue.order_loop(sim, order)
+		"queue_pause":
+			return WorkQueue.order_pause(sim, order)
+		"set_role":
+			return WorkQueue.order_set_role(sim, order)
 	return fail("unknown_order")
 
 

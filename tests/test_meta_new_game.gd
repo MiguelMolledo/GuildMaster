@@ -24,8 +24,8 @@ func test_three_difficulties() -> void:
 		eq(int(st.loans["lon_0001"]["principal"]), int(levers["start_debt"]), "%s debt" % lvl)
 		var rival := ""
 		for c: String in st.characters:
-			if str(st.characters[c]["family"]) != FAM:
-				rival = c
+			if str(st.characters[c]["family"]) != FAM and str(st.characters[c].get("rank", "")) == "":
+				rival = c  # H4: the townsfolk have a trade rank; the rival smith does not
 		eq(int(st.characters[rival]["stats"]["craft"]), int(levers["rival_craft"]), "%s rival craft" % lvl)
 		eq(Money.gold(st, FAM), 30, "%s: 30 gold" % lvl)
 		var sim := Sim.new(st, cat)
@@ -58,8 +58,8 @@ func test_the_town_at_dawn_of_day_one() -> void:
 	eq((forge["zones"] as Dictionary).keys().size(), 4, "its stations")
 	var rival_fam := ""
 	for f: String in st.families:
-		if f != FAM:
-			rival_fam = f
+		if f != FAM and str(st.families[f].get("ai_profile", "")) != "":
+			rival_fam = f  # H4: the household families of the townsfolk are AI families without a profile
 	var rf: Dictionary = st.families[rival_fam]
 	eq([rf["name"], rf["controlled_by"], rf["ai_profile"], int(rf["gold"])], ["Ferrer", "ai", "rival_smith", 80], "rival")
 	var bernat: Dictionary = st.characters[str(rf["members"][0])]
@@ -70,8 +70,8 @@ func test_the_town_at_dawn_of_day_one() -> void:
 		if str(st.buildings[b]["type"]) == "armory":
 			armory = b
 	check(armory != "" and str(st.buildings[armory]["owner"]) == "", "the public armory")
-	eq(st.buildings.size(), 3, "3 buildings")
-	eq(st.characters.size(), 2, "the protagonist and the rival")
+	eq(st.buildings.size(), 3 + 8, "3 buildings and the 8 townsfolk houses (H4)")
+	eq(st.characters.size(), 2 + 16, "the protagonist, the rival and 16 townsfolk (H4)")
 
 
 func test_scripted_contracts_and_objectives() -> void:
