@@ -1,0 +1,24 @@
+{
+  "id": "TODO_snake_case",
+  "weights": {
+    "gold": 1.0,
+    "title": 0.0,
+    "office": 0.0
+  },
+  "aggression": 0.0,
+  "risk_aversion": 0.5,
+  "rivalry_threshold": 0,
+  "preferred_professions": [],
+  "sell_min_demand": 0.8,
+  "gold_reserve": 20,
+  "work_mode": "normal",
+  "work_phases": [
+    "day"
+  ],
+  "decide_on": [
+    "dawn",
+    "phase_change"
+  ],
+  "buy_days": 1,
+  "accepts_contracts": true
+}

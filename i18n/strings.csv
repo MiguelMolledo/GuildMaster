@@ -84,6 +84,7 @@ recipe.forge_sword,Forge sword,Forjar espada
 recipe.forge_armor,Forge armor,Forjar armadura
 recipe.forge_steel,Make steel,Hacer acero
 building.forge,Forge,Forja
+building.armory,Armory,Armería
 map.town_e,Street village,Pueblo-calle
 reason.unknown_recipe,There is no such recipe,No existe esa receta
 reason.wrong_station,That is not made at this station,Eso no se hace en este puesto
@@ -182,3 +183,22 @@ ui.character.equip,Equip,Equipar
 ui.slot.tool,Tool,Herramienta
 ui.slot.clothes,Clothes,Ropa
 ui.slot.accessory,Accessory,Accesorio
+stall.resources,Resources,Recursos
+stall.food,Food,Alimentos
+stall.materials,Materials,Materiales
+stall.armory,Armory,Armería
+difficulty.easy,Easy,Fácil
+difficulty.normal,Normal,Normal
+difficulty.hard,Hard,Difícil
+start.artisan_blacksmith,Artisan · blacksmith,Artesano · herrero
+client.carpenter,The carpenter,El carpintero
+client.guard_captain,The guard captain,El capitán de la guardia
+client.farmer,The farmer,El granjero
+client.innkeeper,The innkeeper,La posadera
+objective.forge_sword,Smelt two ingots and forge a sword,Funde dos lingotes y forja una espada
+objective.sell_in_armory,Sell it at the market's armory,Véndela en la Armería del mercado
+objective.carpenter_hammers,Fulfil the carpenter's contract: 2 hammers in 2 days,Cumple el encargo del carpintero: 2 martillos en 2 días
+objective.quality_contract,"Fulfil a contract of ""good"" quality","Cumple un encargo de calidad ""buena"""
+objective.errand_purchase,Buy with a delivery errand,Compra con recado de entrega
+objective.repay_debt,Repay the debt before day 8,Devuelve la deuda antes del día 8
+reason.not_implemented,Not available yet,Aún no disponible

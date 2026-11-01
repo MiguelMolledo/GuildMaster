@@ -1,0 +1,21 @@
+{
+  "id": "forge_sword",
+  "_doc": "A start objective (GDD 4.16). Done when every condition is met (all of them). A condition counts the events of type `event` of the family (the event's family field, or its actor's family) whose fields match `match`: a plain value is equality; {\"gte\": n} / {\"lte\": n} / {\"ne\": v} compare. count = how many such events (each event counts 1). Progress counts only while the objective is the current one of the chain. name_key: the text in the HUD.",
+  "name_key": "objective.forge_sword",
+  "conditions": [
+    {
+      "event": "work_done",
+      "match": {
+        "item": "iron_ingot"
+      },
+      "count": 2
+    },
+    {
+      "event": "work_done",
+      "match": {
+        "item": "sword"
+      },
+      "count": 1
+    }
+  ]
+}

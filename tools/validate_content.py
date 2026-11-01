@@ -11,6 +11,10 @@ Comprueba lo que carga el juego en data/ (los ficheros y carpetas que empiezan p
     de tipo conocido, con la huella sobre casillas de edificio, la puerta transitable y pegada, y los puestos de su tipo);
   - mapas (data/maps/): filas y tamaño, códigos que existen en data/tiles.json, spawns en casillas transitables y
     todas las casillas de calle, plaza y puente conectadas entre sí;
+  - H3: puestos y tablón de cada mapa (casilla stall/board con su casilla de servicio transitable y pegada), edificios
+    iniciales del mapa ("buildings"), data/market.json, data/difficulty.json, data/ai_profiles/, data/starts/,
+    data/objectives/ y data/contracts/ (todo lo que nombran existe); en los escenarios, el oro en la familia (no en
+    los personajes) y la ubicación de cada personaje en un edificio que existe;
   - claves de texto (name_key) en i18n/strings.csv con inglés y español;
   - arte: un icono, sprite o escena que se pide y no existe sale como aviso (con --art-required, error).
 
@@ -34,6 +38,10 @@ CATEGORY_STACK = {"raw": 99, "material": 50, "product": 20, "tool": 1, "equipmen
 STALLS = {"resources", "food", "materials", "armory", "clothier", "apothecary", None}
 SLOTS = {"tool", "clothes", "accessory"}
 PARCEL_TYPES = {"production", "rustic", "housing", "government"}
+DIFFICULTIES = ["easy", "normal", "hard"]
+DIFF_LEVERS = {"start_debt": int, "rival_craft": int, "rival_sell_min_demand": (int, float), "buy_price_mult": (int, float)}
+STATS = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution", "rhetoric", "stealth"]
+MATCH_OPS = {"gte", "lte", "ne"}
 ZONE_KINDS = {"craft", "sales", "storage", "service"}
 NIGHT = {"none", "manual_only", "always"}
 PHASES = ["dawn", "day", "dusk", "night"]
@@ -87,6 +95,26 @@ def check_maps(rep):
                 rep.error(w_, f"spawn {name}: debe ser [col, fila]")
             elif not walk(*pos):
                 rep.error(w_, f"spawn {name} {pos} no está en una casilla transitable")
+        def is_pos(p):
+            return isinstance(p, list) and len(p) == 2 and all(isinstance(x, int) for x in p)
+
+        def adjacent(a, b):
+            return abs(a[0] - b[0]) + abs(a[1] - b[1]) == 1
+
+        services = [(f"puesto {k}", v, "stall") for k, v in (m.get("stalls") or {}).items()]
+        if m.get("board") is not None:
+            services.append(("tablón", m["board"], "board"))
+        for name, s, kind in services:
+            t, sv = (s or {}).get("tile"), (s or {}).get("service")
+            if not (is_pos(t) and is_pos(sv)):
+                rep.error(w_, f"{name}: tile y service deben ser [col, fila]")
+                continue
+            if not (0 <= t[0] < size[0] and 0 <= t[1] < size[1]) or by_char[rows[t[1]][t[0]]] != kind:
+                rep.error(w_, f"{name}: la casilla {t} no es de tipo {kind}")
+            if not walk(*sv):
+                rep.error(w_, f"{name}: la casilla de servicio {sv} no es transitable")
+            elif not adjacent(t, sv):
+                rep.error(w_, f"{name}: la casilla de servicio {sv} no está pegada a {t}")
         roads = {(c, r) for r in range(size[1]) for c in range(size[0]) if by_char[rows[r][c]] in ROAD_KINDS}
         if roads:
             first = min(roads, key=lambda t: (t[1], t[0]))
@@ -102,6 +130,7 @@ def check_maps(rep):
                 rep.error(w_, f"{len(lost)} casillas de calle/plaza/puente sueltas de la red (la primera, {list(lost[0])})")
         walk.kind = lambda c, r, rows=rows, size=size: (
             by_char[rows[r][c]] if 0 <= c < size[0] and 0 <= r < size[1] else None)
+        walk.map = m
         out[id_] = walk
     return out
 
@@ -135,6 +164,201 @@ def check_scenario_buildings(where, d, buildings, walk, rep):
         got = set((b.get("zones") or {}).keys())
         if got != want:
             rep.error(w, f"puestos {sorted(got)} distintos de los de su tipo {sorted(want)}")
+
+
+def check_map_buildings(maps, buildings, rep):
+    """Los edificios iniciales de cada mapa ("buildings", GDD 06): tipo conocido, huella sobre casillas de edificio y
+    puerta transitable y pegada; owner, si está, "" (público) y entonces su tipo es public."""
+    for id_, walk in maps.items():
+        for key, b in (walk.map.get("buildings") or {}).items():
+            w = f"maps/{id_} buildings.{key}"
+            typ = buildings.get(b.get("type"))
+            if typ is None:
+                rep.error(w, f"tipo de edificio desconocido {b.get('type')}")
+                continue
+            if "owner" in b and (b["owner"] != "" or not typ.get("public")):
+                rep.error(w, "owner solo puede ser \"\" y en un tipo public")
+            check_scenario_buildings(w, {"buildings": {key: dict(b, footprint=typ.get("footprint"),
+                zones={z.get("id"): {} for z in typ.get("zones", [])})}}, buildings, walk, rep)
+
+
+def check_h3(items, recipes, buildings, maps, strings, rep):
+    """Datos de H3 (docs/contratos/h3_mercado.md): mercado, dificultad, perfiles de IA, inicios, objetivos, encargos."""
+    market = load_json(os.path.join(DATA, "market.json"), rep) or {}
+    stalls = market.get("stalls") or {}
+    for sid, s in stalls.items():
+        w = f"market.json stalls.{sid}"
+        if sid not in STALLS:
+            rep.error(w, "puesto desconocido (los de data/items market_stall)")
+        check_text(w, s.get("name_key"), strings, rep)
+        if s.get("kind") not in ("outdoor", "shop"):
+            rep.error(w, "kind debe ser outdoor o shop")
+        for v in s.get("sells") or []:
+            if v not in STALLS:
+                rep.error(w, f"vende un market_stall desconocido {v}")
+        if s.get("kind") == "shop":
+            b = buildings.get(s.get("building"))
+            if b is None:
+                rep.error(w, f"edificio desconocido {s.get('building')}")
+            elif b.get("market_stall") != sid or not b.get("public"):
+                rep.error(w, f"el edificio {s['building']} debe ser public y tener market_stall {sid}")
+        elif s.get("kind") == "outdoor":
+            for mid, walk in maps.items():
+                if sid not in (walk.map.get("stalls") or {}):
+                    rep.warn(w, f"el mapa {mid} no tiene este puesto")
+    for mid, walk in maps.items():
+        for sid in (walk.map.get("stalls") or {}):
+            if stalls.get(sid, {}).get("kind") != "outdoor":
+                rep.error(f"maps/{mid}", f"puesto {sid}: no es un puesto exterior de data/market.json")
+    for b_id, b in buildings.items():
+        if b.get("market_stall") is not None and stalls.get(b["market_stall"], {}).get("building") != b_id:
+            rep.error(f"buildings/{b_id}", f"market_stall {b['market_stall']} no apunta a este edificio en market.json")
+    if any(p not in PHASES for p in market.get("open_phases", [])) or not market.get("open_phases"):
+        rep.error("market.json", "open_phases: fases de data/time.json")
+    dem = market.get("demand") or {}
+    if not all(isinstance(dem.get(k), (int, float)) for k in ("start", "rest", "min", "max", "drop_per_unit", "recover_per_day")):
+        rep.error("market.json", "demand: faltan start, rest, min, max, drop_per_unit o recover_per_day")
+    elif not dem["min"] <= dem["rest"] <= dem["max"] or not dem["min"] <= dem["start"] <= dem["max"]:
+        rep.error("market.json", "demand: start y rest deben estar en [min, max]")
+    if not isinstance(market.get("sell_ratio"), (int, float)) or not 0 < market["sell_ratio"] <= 1:
+        rep.error("market.json", "sell_ratio debe estar en (0, 1]")
+    qm = market.get("quality_mult")
+    if not (isinstance(qm, list) and len(qm) == 3 and all(isinstance(x, (int, float)) and x > 0 for x in qm)):
+        rep.error("market.json", "quality_mult: 3 multiplicadores (normal, buena, excelente)")
+    er = market.get("errand") or {}
+    if not isinstance(er.get("surcharge"), (int, float)) or not isinstance(er.get("hours"), (int, float)) or er["hours"] <= 0:
+        rep.error("market.json", "errand: surcharge y hours (horas de juego > 0)")
+    bd = market.get("board") or {}
+    for k in ("max_open", "new_per_dawn", "max_accepted_per_family"):
+        if not isinstance(bd.get(k), int) or bd[k] < 0:
+            rep.error("market.json", f"board.{k} debe ser un entero >= 0")
+
+    diff = load_json(os.path.join(DATA, "difficulty.json"), rep) or {}
+    levels = diff.get("levels") or {}
+    if diff.get("default") not in DIFFICULTIES:
+        rep.error("difficulty.json", "default debe ser easy, normal o hard")
+    for lvl in DIFFICULTIES:
+        L = levels.get(lvl)
+        if not isinstance(L, dict):
+            rep.error("difficulty.json", f"falta el nivel {lvl}")
+            continue
+        check_text(f"difficulty.json {lvl}", L.get("name_key"), strings, rep)
+        for k, typ in DIFF_LEVERS.items():
+            if not isinstance(L.get(k), typ) or L[k] < 0:
+                rep.error("difficulty.json", f"{lvl}.{k} falta o no es válido")
+
+    profiles = load_kind("ai_profiles", rep)
+    for pid, pr in profiles.items():
+        w = f"ai_profiles/{pid}"
+        if not isinstance(pr.get("sell_min_demand"), (int, float)) or not isinstance(pr.get("gold_reserve"), int):
+            rep.error(w, "sell_min_demand (número) y gold_reserve (entero) obligatorios")
+        if pr.get("work_mode") not in (None, "fast", "normal", "careful"):
+            rep.error(w, f"work_mode desconocido {pr.get('work_mode')}")
+        for p_ in pr.get("work_phases") or []:
+            if p_ not in PHASES:
+                rep.error(w, f"work_phases: fase desconocida {p_}")
+
+    objectives = load_kind("objectives", rep)
+    for oid, o in objectives.items():
+        w = f"objectives/{oid}"
+        check_text(w, o.get("name_key"), strings, rep)
+        conds = o.get("conditions")
+        if not (isinstance(conds, list) and conds):
+            rep.error(w, "conditions: al menos una")
+            continue
+        for c in conds:
+            if not isinstance(c.get("event"), str) or not c["event"]:
+                rep.error(w, "cada condición necesita event")
+            if not isinstance(c.get("match", {}), dict):
+                rep.error(w, "match debe ser un objeto")
+            else:
+                for k, v in c.get("match", {}).items():
+                    if isinstance(v, dict) and not set(v) <= MATCH_OPS:
+                        rep.error(w, f"match.{k}: operadores válidos {sorted(MATCH_OPS)}")
+            if not isinstance(c.get("count"), int) or c["count"] < 1:
+                rep.error(w, "count debe ser un entero >= 1")
+
+    contract_tables = load_kind("contracts", rep)
+    for cid, ct in contract_tables.items():
+        w = f"contracts/{cid}"
+        clients = ct.get("clients") or []
+        if not clients:
+            rep.error(w, "sin clients")
+        for cl in clients:
+            check_text(f"{w} client {cl.get('id')}", cl.get("name_key"), strings, rep)
+        for it in ct.get("items") or []:
+            if it.get("item") not in items:
+                rep.error(w, f"objeto desconocido {it.get('item')}")
+            elif not any(r.get("output", {}).get("item") == it["item"] for r in recipes.values()):
+                rep.error(w, f"ninguna receta produce {it['item']}")
+            q = it.get("qty")
+            if not (isinstance(q, list) and len(q) == 2 and all(isinstance(x, int) for x in q) and 1 <= q[0] <= q[1]):
+                rep.error(w, f"{it.get('item')}: qty debe ser [mín, máx] con 1 <= mín <= máx")
+        dd = ct.get("deadline_days")
+        if not (isinstance(dd, list) and len(dd) == 2 and all(isinstance(x, int) for x in dd) and 1 <= dd[0] <= dd[1]):
+            rep.error(w, "deadline_days debe ser [mín, máx] en días")
+        for k in ("premium", "reward_reputation", "reward_relation", "fail_reputation", "fail_relation", "client_cooldown_days"):
+            if not isinstance(ct.get(k), (int, float)):
+                rep.error(w, f"falta {k}")
+        if any(q not in (1, 2) for q in ct.get("min_qualities") or [None]):
+            rep.error(w, "min_qualities: calidades 1 (buena) o 2 (excelente)")
+
+    for sid, s in load_kind("starts", rep).items():
+        w = f"starts/{sid}"
+        check_text(w, s.get("name_key"), strings, rep)
+        walk = maps.get(s.get("map"))
+        if walk is None:
+            rep.error(w, f"mapa desconocido {s.get('map')}")
+        sites = (walk.map.get("buildings") or {}) if walk else {}
+        if (s.get("start") or {}).get("phase") not in PHASES:
+            rep.error(w, "start.phase debe ser una fase")
+        pr = s.get("protagonist") or {}
+        stats = pr.get("stats") or {}
+        if sorted(stats) != sorted(STATS):
+            rep.error(w, "protagonist.stats: los 10 atributos")
+        if not isinstance(pr.get("free_points"), int) or pr["free_points"] < 0:
+            rep.error(w, "protagonist.free_points debe ser un entero >= 0")
+        if walk and pr.get("spawn") not in (walk.map.get("spawns") or {}):
+            rep.error(w, f"protagonist.spawn {pr.get('spawn')} no es un spawn del mapa")
+        for slot, e in (pr.get("equipment") or {}).items():
+            it = items.get((e or {}).get("item"))
+            if it is None or it.get("slot") != slot:
+                rep.error(w, f"equipment.{slot}: objeto desconocido o de otra ranura")
+        if not isinstance((s.get("family") or {}).get("gold"), int):
+            rep.error(w, "family.gold debe ser un entero")
+        blds = [("building", s.get("building") or {})]
+        rv = s.get("rival")
+        if rv:
+            blds.append(("rival.building", rv.get("building") or {}))
+            if rv.get("profile") not in profiles:
+                rep.error(w, f"rival.profile desconocido {rv.get('profile')}")
+            if sorted((rv.get("character") or {}).get("stats") or {}) != sorted(STATS):
+                rep.error(w, "rival.character.stats: los 10 atributos")
+        for name, b in blds:
+            site = sites.get(b.get("site"))
+            if site is None:
+                rep.error(w, f"{name}.site {b.get('site')} no es un edificio del mapa")
+            elif site.get("type") != b.get("type"):
+                rep.error(w, f"{name}: tipo {b.get('type')} distinto del del mapa {site.get('type')}")
+            for st in b.get("inventory") or []:
+                if st.get("item") not in items:
+                    rep.error(w, f"{name}: objeto desconocido {st.get('item')}")
+        ln = s.get("loan") or {}
+        for k in ("term_days", "extension_seasons"):
+            if not isinstance(ln.get(k), int) or ln[k] < 1:
+                rep.error(w, f"loan.{k} debe ser un entero >= 1")
+        tables_items = {it.get("item") for ct in contract_tables.values() for it in ct.get("items") or []}
+        tables_clients = {cl.get("id") for ct in contract_tables.values() for cl in ct.get("clients") or []}
+        for c in s.get("contracts") or []:
+            if c.get("item") not in items:
+                rep.error(w, f"encargo {c.get('script')}: objeto desconocido {c.get('item')}")
+            elif c["item"] not in tables_items:
+                rep.warn(w, f"encargo {c.get('script')}: {c['item']} no sale en ninguna tabla de data/contracts")
+            if c.get("client") not in tables_clients:
+                rep.error(w, f"encargo {c.get('script')}: cliente desconocido {c.get('client')}")
+        for o in s.get("objectives") or []:
+            if o not in objectives:
+                rep.error(w, f"objetivo desconocido {o}")
 
 
 class Report:
@@ -263,6 +487,8 @@ def main():
             seen.add(z.get("id"))
             if z.get("kind") not in ZONE_KINDS:
                 rep.error(w, f"puesto {z.get('id')}: tipo desconocido {z.get('kind')}")
+        if b.get("market_stall") is not None and b["market_stall"] not in STALLS:
+            rep.error(w, f"market_stall desconocido {b['market_stall']}")
         if b.get("interior_scene"):
             rep.art(w, b["interior_scene"])
         if isinstance(b.get("sprite"), dict):
@@ -292,6 +518,8 @@ def main():
             rep.notes.append(f"{w}: requires_upgrade {r['requires_upgrade']} (las mejoras llegan en H5)")
 
     maps = check_maps(rep)
+    check_map_buildings(maps, buildings, rep)
+    check_h3(items, recipes, buildings, maps, strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")
@@ -331,6 +559,19 @@ def main():
             rep.error(f"scenarios/{name}", f"mapa desconocido {map_id}")
             continue
         check_scenario_buildings(f"scenarios/{name}", d, buildings, maps.get(map_id), rep)
+        if d.get("version", 0) >= 4:
+            for fid, fam in (d.get("families") or {}).items():
+                if not isinstance(fam.get("gold"), int) or fam["gold"] < 0:
+                    rep.error(f"scenarios/{name}", f"{fid}: gold de la familia debe ser un entero >= 0")
+                prof = fam.get("ai_profile", "")
+                if prof and not os.path.exists(os.path.join(DATA, "ai_profiles", prof + ".json")):
+                    rep.error(f"scenarios/{name}", f"{fid}: ai_profile desconocido {prof}")
+            for cid, ch in (d.get("characters") or {}).items():
+                if "gold" in ch:
+                    rep.error(f"scenarios/{name}", f"{cid}: el oro va en la familia desde v4, no en el personaje")
+                loc = ch.get("location", "")
+                if loc and loc not in (d.get("buildings") or {}):
+                    rep.error(f"scenarios/{name}", f"{cid}: location {loc} no es un edificio del escenario")
         for cid, ch in (d.get("characters") or {}).items():
             pos = ch.get("position")
             if pos is None:

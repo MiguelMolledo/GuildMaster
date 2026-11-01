@@ -1,0 +1,13 @@
+{
+  "id": "TODO_snake_case",
+  "name_key": "objective.TODO",
+  "conditions": [
+    {
+      "event": "work_done",
+      "match": {
+        "item": "TODO"
+      },
+      "count": 1
+    }
+  ]
+}

@@ -43,7 +43,7 @@ Cada ficha es un JSON con `id` en inglés y `snake_case`. Las plantillas viven e
   "stats": { "charisma": 4, "empathy": 3, "negotiation": 6, "arcane": 1, "dexterity": 4,
              "craft": 7, "martial": 3, "constitution": 5, "rhetoric": 3, "stealth": 2 },
   "attitudes": { "honesty": 0, "generosity": 0, "diplomacy": 0 },
-  "gold": 50, "inventory": { "...": "..." }, "equipment": { "tool": null, "clothes": null, "accessory": null },
+  "inventory": { "...": "..." }, "equipment": { "tool": null, "clothes": null, "accessory": null },
   "home": "bld_0002", "job": { "building": "bld_0001", "rank": "apprentice", "role": "any",
   "loyalty": 50, "days_worked": 0 }, "spouse": null, "parents": [], "children": [],
   "controlled_by": "ai", "directives": ["work"], "schedule": null, "order_queue": [], "position": [12, 30],
@@ -53,7 +53,7 @@ Cada ficha es un JSON con `id` en inglés y `snake_case`. Las plantillas viven e
 
 > Los empleados **no** tienen una ficha aparte: son personajes con `job`. Se acaba la duplicación `WorkerData` / `CharacterData` y los stats inventados (Fuerza, Inteligencia).
 
-**Familia**: `{ id, name, crest, colors: {primary, secondary}, reputation, class_reputation: {…}, title, heir, members: [], controlled_by: "human"|"ai", ai_profile, objectives, goals_done }`.
+**Familia**: `{ id, name, crest, colors: {primary, secondary}, gold, reputation, class_reputation: {…}, title, heir, members: [], controlled_by: "human"|"ai", ai_profile, ai_state, objectives, goals_done }`. Desde H3 el oro es **de la familia** (una bolsa, `gold`), no de cada personaje; solo lo cambia `Money.change`, que apunta el asiento en el libro (4.18).
 
 **Parcela** (en `data/maps/<mapa>.json`): `{ id, type, origin: [col,row], footprint: [w,h], linked_to: null }`.
 

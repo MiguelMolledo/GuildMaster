@@ -49,7 +49,7 @@ func _work(zone: String, recipe: String) -> Dictionary:
 
 ## Buys as many as affordable up to `qty` (at least 2 iron / 1 coal to be useful); nothing if it cannot.
 func _buy(sim: Sim, item: String, qty: int) -> Array:
-	var gold := int(sim.state.characters[ACTOR].get("gold", 0))
+	var gold := Money.gold(sim.state, Money.family_of(sim.state, ACTOR))
 	var n := qty
 	while n > 0 and Production.raw_cost(sim.catalog, item, n) > gold:
 		n -= 1

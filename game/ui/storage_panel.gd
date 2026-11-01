@@ -68,7 +68,7 @@ func refresh(force: bool = false) -> void:
 		return
 	var b: Dictionary = sim.state.buildings.get(building, {})
 	var ch: Dictionary = sim.state.characters.get(actor, {})
-	var sig := str(b.get("inventory", {})) + "|" + actor + "|" + str(ch.get("inventory", {})) + "|" + str(ch.get("gold", 0))
+	var sig := str(b.get("inventory", {})) + "|" + actor + "|" + str(ch.get("inventory", {})) + "|" + str(Money.gold(sim.state, Money.family_of(sim.state, actor)))
 	if sig == _sig and not force:
 		_update_cost()  # the quantity box may have changed (its signal is not reliable every frame)
 		return
@@ -167,7 +167,7 @@ func _update_cost() -> void:
 		return
 	var qty := int((%BuyQty as SpinBox).value)
 	var cost := SimQuery.raw_cost(sim, item, qty)
-	var gold := int(sim.state.characters.get(actor, {}).get("gold", 0))
+	var gold := Money.gold(sim.state, Money.family_of(sim.state, actor))  # the family purse (H3)
 	var l := %BuyCost as Label
 	l.text = SimQuery.t_("ui.storage.cost") % [cost, gold] if actor != "" else SimQuery.t_("ui.storage.cost_only") % cost
 	l.modulate = Color(1, 0.6, 0.5) if actor != "" and cost > gold else Color.WHITE

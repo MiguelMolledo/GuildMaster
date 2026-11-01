@@ -1,7 +1,8 @@
 class_name BotWanderer
 extends RefCounted
 ## Bot that walks everybody around the town (GDD 07 §7.2, H1): to each living character standing still it gives,
-## now and then, a move_to to a random walkable tile of the map. The randomness comes from state.rng.
+## now and then, a move_to to a random walkable tile of the map. Who is inside a building is left alone (H3: the
+## rival smith starts in his forge). The randomness comes from state.rng.
 ## Measures that routes, movement and arrivals hold up for days. Gives the same orders as the UI.
 
 const ID: String = "wanderer"
@@ -15,7 +16,8 @@ func orders(sim: Sim) -> Array:
 	var out: Array = []
 	for id: String in sim.state.characters:
 		var ch: Dictionary = sim.state.characters[id]
-		if not bool(ch.get("alive", true)) or not (ch.get("path", []) as Array).is_empty():
+		if not bool(ch.get("alive", true)) or not (ch.get("path", []) as Array).is_empty() \
+				or str(ch.get("location", "")) != "":
 			continue
 		if sim.state.rng.randf() >= CHANCE_PER_MINUTE:
 			continue

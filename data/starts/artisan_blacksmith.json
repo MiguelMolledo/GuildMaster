@@ -1,0 +1,52 @@
+{
+  "id": "artisan_blacksmith",
+  "name_key": "start.artisan_blacksmith",
+  "_doc": "Start of a new game as artisan / blacksmith (GDD 4.16) [balance]. NewGame.from_start reads it. The game starts at `start.phase` of day `start.day` (day 0 = day 1 of spring, year 1). map: data/maps/<map>.json; its \"buildings\" are placed: the one named in building.site for the protagonist's family, rival.building.site for the rival family, and every one with owner \"\" as a public building. protagonist: age, title, reputation, the artisan's base stats (GDD 4.2.2) + free_points the player spreads (D5: 5, each stat in [stat_min, stat_max]); carry_weight = 30 kg for now (the Constitution bonus of 4.2.2 is a proposal), equipment equipped at the start. loan: the amount is data/difficulty.json levels[difficulty].start_debt; due at the end of day start.day + term_days - 1 (term_days 8 = 1 year, 'before the end of day 8'); no interest; if it falls due unpaid: reputation + overdue_reputation and an extension of extension_seasons with surcharge over what is owed; when the extension falls due, seizure (gold, then the forge's goods at market sell price), and if it is not enough, ruin (D18: the game ends). contracts: the scripted ones on the board at the start (pay computed when posted, like any contract). objectives: the chain shown in the HUD, in order (data/objectives/). rival: the AI family of GDD 4.5.5 (its craft and sell threshold come from the difficulty).",
+  "class": "artisan",
+  "profession": "blacksmith",
+  "map": "town_e",
+  "start": {"day": 0, "phase": "dawn"},
+  "protagonist": {
+    "age": 20,
+    "title": "common",
+    "reputation": 0,
+    "spawn": "player",
+    "stats": {"charisma": 4, "empathy": 3, "negotiation": 6, "arcane": 1, "dexterity": 4, "craft": 7, "martial": 3, "constitution": 5, "rhetoric": 3, "stealth": 2},
+    "free_points": 5,
+    "stat_min": 1,
+    "stat_max": 10,
+    "carry_weight": 30.0,
+    "equipment": {"tool": {"item": "hammer", "quality": 0}}
+  },
+  "family": {"gold": 30, "reputation": 0},
+  "building": {
+    "site": "player_forge",
+    "type": "forge",
+    "inventory": [{"item": "iron", "quality": 0, "qty": 8}, {"item": "coal", "quality": 0, "qty": 4}]
+  },
+  "loan": {
+    "lender": "moneylender",
+    "term_days": 8,
+    "interest": 0.0,
+    "overdue_reputation": -10,
+    "extension_seasons": 1,
+    "extension_surcharge": 0.25
+  },
+  "contracts": [
+    {"script": "carpenter_hammers", "client": "carpenter", "item": "hammer", "qty": 2, "min_quality": 0, "deadline_days": 2},
+    {"script": "guard_good_sword", "client": "guard_captain", "item": "sword", "qty": 1, "min_quality": 1, "deadline_days": 3}
+  ],
+  "objectives": ["forge_sword", "sell_in_armory", "carpenter_hammers", "quality_contract", "errand_purchase", "repay_debt"],
+  "rival": {
+    "family_name": "Ferrer",
+    "colors": {"primary": "#3f6b3a", "secondary": "#b8b8b0"},
+    "profile": "rival_smith",
+    "gold": 80,
+    "character": {"name": "Bernat", "female": false, "age": 35, "stats": {"charisma": 4, "empathy": 3, "negotiation": 6, "arcane": 1, "dexterity": 4, "craft": 5, "martial": 3, "constitution": 5, "rhetoric": 3, "stealth": 2}},
+    "building": {
+      "site": "rival_forge",
+      "type": "forge",
+      "inventory": [{"item": "iron", "quality": 0, "qty": 8}, {"item": "coal", "quality": 0, "qty": 4}]
+    }
+  }
+}

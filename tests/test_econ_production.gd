@@ -57,12 +57,12 @@ func _job(sim: Sim, zone: String) -> Variant:
 func test_buy_iron_make_ingots_and_a_sword_by_hand() -> void:
 	var sim := _sim()
 	_storage(sim)["stacks"] = []
-	var gold := int(sim.state.characters[HUGO]["gold"])
+	var gold := Money.gold(sim.state, "fam_0001")
 	var r := Orders.apply(sim, {"type": "buy_raw", "actor": HUGO, "building": FORGE, "item": "iron", "qty": 4})
 	check(r["ok"], "buys iron: %s" % r["reason"])
 	r = Orders.apply(sim, {"type": "buy_raw", "actor": HUGO, "building": FORGE, "item": "coal", "qty": 1})
 	check(r["ok"], "buys coal: %s" % r["reason"])
-	eq(int(sim.state.characters[HUGO]["gold"]), gold - 4 * 5 - 3, "paid base_price x qty")
+	eq(Money.gold(sim.state, "fam_0001"), gold - 4 * 5 - 3, "paid base_price x qty from the family purse")
 	eq(Inventory.count(_storage(sim), "iron"), 4, "iron in the storage")
 	r = _work(sim, HUGO, "furnace", "forge_ingot")
 	check(r["ok"], "work_at furnace: %s" % r["reason"])
@@ -368,7 +368,7 @@ func test_each_refusal_has_its_reason() -> void:
 	_refused(sim, b.merged({"item": "dragon"}, true), "unknown_item", "no such item")
 	_refused(sim, b.merged({"item": "sword"}, true), "not_raw", "only raw materials")
 	_refused(sim, b.merged({"qty": 0}, true), "bad_quantity", "zero")
-	_refused(sim, b.merged({"qty": 21}, true), "not_enough_gold", "105 > 100 gold")
+	_refused(sim, b.merged({"qty": 21}, true), "not_enough_gold", "105 > 100 gold of the family")
 	_refused(sim, b.merged({"item": "stone"}, true), "storage_full", "no stack for stone")
 	sim.state.characters[HUGO]["location"] = ""
 	_refused(sim, b, "not_inside", "buying from outside")

@@ -1,0 +1,13 @@
+{
+  "id": "repay_debt",
+  "name_key": "objective.repay_debt",
+  "conditions": [
+    {
+      "event": "loan_repaid",
+      "match": {
+        "extended": false
+      },
+      "count": 1
+    }
+  ]
+}

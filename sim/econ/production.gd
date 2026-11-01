@@ -119,8 +119,8 @@ static func order_master_touch(sim: Sim, o: Dictionary) -> Dictionary:
 
 
 ## {"type": "buy_raw", "actor", "building", "item", "qty"}. PROVISIONAL until H3 (market): inside an own building,
-## raw materials only, pays ceil(base_price × raw_purchase_markup × qty) from the actor's gold; they enter the storage
-## as normal quality.
+## raw materials only, pays ceil(base_price × raw_purchase_markup × qty) from the family purse (Money, category
+## purchases); they enter the storage as normal quality.
 static func order_buy_raw(sim: Sim, o: Dictionary) -> Dictionary:
 	var st := sim.state
 	var actor := str(o.get("actor", ""))
@@ -137,19 +137,19 @@ static func order_buy_raw(sim: Sim, o: Dictionary) -> Dictionary:
 		return Orders.fail("not_raw")
 	if qty <= 0:
 		return Orders.fail("bad_quantity")
-	var ch: Dictionary = st.characters[actor]
+	var fam := Money.family_of(st, actor)
 	var cost := raw_cost(sim.catalog, item, qty)
-	if int(ch.get("gold", 0)) < cost:
+	if not Money.can_pay(st, fam, cost):
 		return Orders.fail("not_enough_gold")
 	var inv: Dictionary = st.buildings[bld_id]["inventory"]
 	if not Inventory.can_add(inv, sim.catalog, item, Inventory.NORMAL, qty):
 		return Orders.fail("storage_full")
-	ch["gold"] = int(ch.get("gold", 0)) - cost
+	Money.change(sim, fam, -cost, Money.PURCHASES, "buy_raw", bld_id, actor)
 	Inventory.add(inv, sim.catalog, item, Inventory.NORMAL, qty)
 	sim.events.append({"type": "items_bought", "actor": actor, "building": bld_id, "item": item, "qty": qty,
 		"cost": cost})
 	if OS.is_debug_build():
-		print("[Production] %s compra %s x%d por %d (oro=%d)" % [actor, item, qty, cost, int(ch["gold"])])
+		print("[Production] %s compra %s x%d por %d (oro=%d)" % [actor, item, qty, cost, Money.gold(st, fam)])
 	return Orders.ok()
 
 
@@ -289,7 +289,8 @@ static func interrupt(sim: Sim, bld_id: String, zone: String) -> Array:
 
 ## "" if the actor may work by hand now, or the refusal reason. GDD 4.4.3: characters controlled by the player work,
 ## also at night. Employees (from H5) do not work at night in buildings whose night_production is "manual_only"; in
-## H2 there are no employees yet, so anybody not controlled by the player is refused with not_controlled.
+## H2 there are no employees yet, so anybody not controlled by the player is refused with not_controlled, except (H3)
+## the members of an AI family with an ai_profile, who work their family's building (night_rest still applies).
 static func may_work(sim: Sim, actor: String, bld_id: String) -> String:
 	var ch: Dictionary = sim.state.characters.get(actor, {})
 	if str(ch.get("controlled_by", "")) == "human":
@@ -298,6 +299,11 @@ static func may_work(sim: Sim, actor: String, bld_id: String) -> String:
 	var night := Clock.phase(int(sim.state.clock["minute"]), sim.catalog.time) == NIGHT
 	if night and str(bdef.get("night_production", "")) == "manual_only":
 		return "night_rest"
+	# H3: a member of an AI family with a profile (the rival smith, GDD 4.5.5) works its own family's building by day,
+	# like a hand-worked one; employees arrive with H5.
+	var fam: Dictionary = sim.state.families.get(str(ch.get("family", "")), {})
+	if str(ch.get("controlled_by", "")) == "ai" and str(fam.get("ai_profile", "")) != "":
+		return ""
 	return "not_controlled"
 
 

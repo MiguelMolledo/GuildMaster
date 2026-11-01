@@ -303,7 +303,7 @@ func test_storage_panel_transfer_and_buy() -> void:
 	_same(got[0], {"type": "buy_raw", "actor": HUGO, "building": BLD, "item": "coal", "qty": 4}, "buy 4 coal")
 	var ev := sim.step(got)
 	eq(_refusals(ev).size(), 0, "the purchase goes through")
-	eq(int(sim.state.characters[HUGO]["gold"]), 100 - Production.raw_cost(cat, "coal", 4), "paid from Hugo's gold")
+	eq(Money.gold(sim.state, "fam_0001"), 100 - Production.raw_cost(cat, "coal", 4), "paid from the family's gold")
 	eq(Inventory.count(sim.state.buildings[BLD]["inventory"], "coal"), 10, "into the storage")
 	v.free()
 
@@ -361,7 +361,7 @@ func test_character_panel_weight_and_equipment() -> void:
 	p.setup(sim, HUGO)
 	check((p.get_node("%WeightLabel") as Label).text.contains("6.0"), "carried weight 6 kg")
 	check((p.get_node("%WeightLabel") as Label).text.contains("30"), "of 30 kg")
-	check((p.get_node("%GoldLabel") as Label).text.contains("100"), "Hugo's gold")
+	check((p.get_node("%GoldLabel") as Label).text.contains("100"), "the family's gold")
 	var row := p.get_node("%InvList").get_node("hammer_0")
 	(row.get_node("Equip") as Button).pressed.emit()
 	_same(got[0], {"type": "equip", "actor": HUGO, "item": "hammer", "quality": 0}, "equip")

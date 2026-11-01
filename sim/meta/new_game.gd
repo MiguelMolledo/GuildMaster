@@ -1,7 +1,7 @@
 class_name NewGame
 extends RefCounted
 ## Starting a game: a fresh state, or a scenario (a saved game in data/scenarios/<id>.json) loaded as is.
-## The opening of a real game (starting gold, forge, debt, first goal) arrives with H3 (GDD 04, start conditions).
+## A real game starts from a start (data/starts/<id>.json, GDD 4.16): from_start (subgrim «cuentas», H3).
 
 const SCENARIOS_DIR: String = "res://data/scenarios"
 
@@ -20,6 +20,15 @@ static func from_scenario(id: String, world_seed: int = -1) -> Dictionary:
 	if r["ok"] and world_seed >= 0:
 		(r["state"] as WorldState).seed_rng(world_seed)
 	return r
+
+
+## A new game from a start (GDD 4.16): the map and its public buildings, the protagonist (choices: name, female,
+## free points, colours), the family purse, the forge with its stock, the debt by `difficulty`, the rival family,
+## the scripted contracts and the objective chain. {"ok": true, "state": WorldState} or {"ok": false, "error": ...}.
+## Owner: subgrim «cuentas». Contract: docs/contratos/h3_mercado.md.
+static func from_start(_catalog: Catalog, _start_id: String, _difficulty: String, _choices: Dictionary,
+		_world_seed: int) -> Dictionary:
+	return {"ok": false, "error": "not_implemented"}
 
 
 static func scenario_ids() -> PackedStringArray:

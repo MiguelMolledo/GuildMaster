@@ -81,6 +81,36 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 						c[k] = ""
 				if not c.has("order_queue"):
 					c["order_queue"] = []
+		3:  # 3 -> 4 (H3): one gold purse per family (the sum of its characters' gold), reputation, ledger, notices,
+			# loans, contracts, errands, difficulty, objectives, ending; buildings get their unpaid upkeep (D15)
+			var families: Dictionary = data.get("families", {})
+			for f: Dictionary in families.values():
+				if not f.has("gold"):
+					f["gold"] = 0
+				if not f.has("reputation"):
+					f["reputation"] = 0
+				if not f.has("ai_profile"):
+					f["ai_profile"] = ""
+				if not f.has("ai_state"):
+					f["ai_state"] = {}
+			for c: Dictionary in (data.get("characters", {}) as Dictionary).values():
+				if not c.has("gold"):
+					continue
+				var fam := str(c.get("family", ""))
+				if families.has(fam):
+					families[fam]["gold"] = int(families[fam]["gold"]) + int(c["gold"])
+				c.erase("gold")  # a character without family loses it: there were none when v4 came
+			for b: Dictionary in (data.get("buildings", {}) as Dictionary).values():
+				if not b.has("upkeep_debt"):
+					b["upkeep_debt"] = 0
+				if not b.has("upkeep_unpaid_since"):
+					b["upkeep_unpaid_since"] = -1
+			var empty := {"ledger": {"entries": [], "summaries": {}}, "notices": [], "loans": {},
+				"contracts": {"board": [], "accepted": [], "cooldowns": {}, "relations": {}}, "deliveries": [],
+				"difficulty": "normal", "objectives": {}, "ending": {}}
+			for k: String in empty:
+				if not data.has(k):
+					data[k] = empty[k]
 	return data
 
 

@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "seed": "1",
   "rng_state": "",
   "meta": {
@@ -25,5 +25,21 @@
   "emotions": {},
   "events_active": [],
   "chronicle": [],
-  "next_ids": {}
+  "next_ids": {},
+  "ledger": {
+    "entries": [],
+    "summaries": {}
+  },
+  "notices": [],
+  "loans": {},
+  "contracts": {
+    "board": [],
+    "accepted": [],
+    "cooldowns": {},
+    "relations": {}
+  },
+  "deliveries": [],
+  "difficulty": "normal",
+  "objectives": {},
+  "ending": {}
 }

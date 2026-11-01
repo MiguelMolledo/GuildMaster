@@ -1,0 +1,11 @@
+{
+  "id": "errand_purchase",
+  "name_key": "objective.errand_purchase",
+  "conditions": [
+    {
+      "event": "errand_sent",
+      "match": {},
+      "count": 1
+    }
+  ]
+}

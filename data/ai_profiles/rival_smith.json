@@ -1,0 +1,16 @@
+{
+  "id": "rival_smith",
+  "_doc": "The rival smith (GDD 4.5.5) [balance]. H3 uses: sell_min_demand (sells an item while its demand is >= this; the difficulty's rival_sell_min_demand replaces it), gold_reserve (keeps this much when buying inputs), work_mode, work_phases (produces only then), decide_on (when it thinks: at dawn and at every phase change), buy_days (inputs for this many days of work), accepts_contracts. weights/aggression/risk_aversion/rivalry_threshold/preferred_professions are for the family AI of H6 (GDD 4.21).",
+  "weights": {"gold": 1.0, "title": 0.0, "office": 0.0},
+  "aggression": 0.0,
+  "risk_aversion": 0.5,
+  "rivalry_threshold": 0,
+  "preferred_professions": ["blacksmith"],
+  "sell_min_demand": 0.8,
+  "gold_reserve": 20,
+  "work_mode": "normal",
+  "work_phases": ["day"],
+  "decide_on": ["dawn", "phase_change"],
+  "buy_days": 1,
+  "accepts_contracts": true
+}

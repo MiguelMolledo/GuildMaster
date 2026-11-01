@@ -5,6 +5,9 @@ extends RefCounted
 ## part the game checks at start-up in debug builds (GDD 02, L9: data that points at missing things stops the game).
 
 const KINDS: Array[String] = ["items", "recipes", "buildings", "maps"]
+## H3 folders (docs/contratos/h3_mercado.md): loaded into `tables` too; not every one has a name_key.
+const H3_KINDS: Array[String] = ["ai_profiles", "starts", "objectives", "contracts"]
+const DIFFICULTIES: Array[String] = ["easy", "normal", "hard"]
 const ITEM_CATEGORIES: Array[String] = ["raw", "material", "product", "tool", "equipment", "consumable", "special"]
 
 var root: String = "res://data"
@@ -12,17 +15,21 @@ var tables: Dictionary = {}  # kind -> {id -> Dictionary}
 var time: Dictionary = {}    # data/time.json, with the dev variant applied when asked
 var tiles: Dictionary = {}   # data/tiles.json "tiles": kind -> {char, walk_cost (null = blocked), color}
 var production: Dictionary = {}  # data/production.json: quality table, work modes, master touch, tool bonus
+var market: Dictionary = {}      # data/market.json: stalls, opening phases, demand, sell ratio, quality, errands, board
+var difficulty: Dictionary = {}  # data/difficulty.json: "levels" {easy|normal|hard -> levers} (GDD 4.23)
 var errors: PackedStringArray = []  # files that could not be read
 
 
 static func load_from(root_dir: String = "res://data", dev_time: bool = false) -> Catalog:
 	var c := Catalog.new()
 	c.root = root_dir
-	for kind: String in KINDS:
+	for kind: String in KINDS + H3_KINDS:
 		c.tables[kind] = c._load_folder(root_dir.path_join(kind))
 	c.time = c._load_json(root_dir.path_join("time.json"))
 	c.tiles = c._load_json(root_dir.path_join("tiles.json")).get("tiles", {})
 	c.production = c._load_json(root_dir.path_join("production.json"))
+	c.market = c._load_json(root_dir.path_join("market.json"))
+	c.difficulty = c._load_json(root_dir.path_join("difficulty.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
@@ -47,6 +54,27 @@ func item(id: String) -> Dictionary:
 
 func maps() -> Dictionary:
 	return tables.get("maps", {})
+
+
+func ai_profiles() -> Dictionary:
+	return tables.get("ai_profiles", {})
+
+
+func starts() -> Dictionary:
+	return tables.get("starts", {})
+
+
+func objectives() -> Dictionary:
+	return tables.get("objectives", {})
+
+
+func contracts() -> Dictionary:
+	return tables.get("contracts", {})
+
+
+## The levers of a difficulty level (data/difficulty.json), {} if unknown.
+func difficulty_levels(level: String) -> Dictionary:
+	return difficulty.get("levels", {}).get(level, {})
 
 
 ## Tile kind by its 1-char map code ("=" -> "street"), "" if unknown.
@@ -84,6 +112,21 @@ func validate() -> PackedStringArray:
 				out.append("recipes/%s: unknown input item %s" % [id, inp.get("item")])
 		if not items().has(str(r.get("output", {}).get("item", ""))):
 			out.append("recipes/%s: unknown output item %s" % [id, r.get("output", {}).get("item")])
+	for lvl: String in DIFFICULTIES:
+		if difficulty_levels(lvl).is_empty():
+			out.append("difficulty.json: missing level %s" % lvl)
+	for st: String in market.get("stalls", {}):
+		var def: Dictionary = market["stalls"][st]
+		if def.has("building") and not buildings().has(str(def["building"])):
+			out.append("market.json: stall %s: unknown building %s" % [st, def["building"]])
+	for id: String in starts():
+		var s: Dictionary = starts()[id]
+		for o: String in s.get("objectives", []):
+			if not objectives().has(o):
+				out.append("starts/%s: unknown objective %s" % [id, o])
+		var rival_profile := str(s.get("rival", {}).get("profile", ""))
+		if rival_profile != "" and not ai_profiles().has(rival_profile):
+			out.append("starts/%s: unknown ai profile %s" % [id, rival_profile])
 	for id: String in maps():
 		var m: Dictionary = maps()[id]
 		var size: Array = m.get("size", [0, 0])

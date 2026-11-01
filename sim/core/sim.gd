@@ -22,21 +22,36 @@ func step(orders: Array = []) -> Array:
 	for o: Dictionary in orders:
 		if record:
 			recording.append({"minute": int(state.clock["minute"]), "order": o.duplicate(true)})
-		if bool(o.get("queued", false)):
-			OrderQueue.push(self, o)  # given during pause: waits in the actor's queue (GDD 4.1, active pause)
-			continue
-		OrderQueue.clear_for(self, str(o.get("actor", "")))  # an order given live replaces what was queued
-		var r := Orders.apply(self, o)
-		if not r["ok"]:
-			events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),
-				"reason": r["reason"]})
+		_give(o)
+	# The AI families give their orders like a bot, after the outside ones and on the same state (H3, GDD 4.5.5).
+	# Not recorded: they come out of the state, so a replay gives them again.
+	for o: Dictionary in RivalAI.orders(self):
+		_give(o)
 	Clock.tick(state, catalog.time, events)
 	# Systems, in a fixed order (GDD 05 §5.4). Each milestone adds its own here: routines, production, customers...
 	OrderQueue.step(self)   # starts the next queued order of each idle actor
 	Movement.step(self)
 	Buildings.step(self)    # arrivals at doors -> inside
 	Production.step(self)   # work cycles, master-touch windows
+	Market.step(self)       # errands arriving; demand recovery at dawn
+	Contracts.step(self)    # a new contract at dawn; deadline warnings; expiries
+	Upkeep.step(self)       # daily upkeep at dawn (D12, D15)
+	Loans.step(self)        # debt warnings, due date, extension, seizure, ruin
+	Objectives.step(self)   # reads the events of the step: after every system that emits
+	Ledger.step(self)       # retention of the ledger at dawn
+	Notices.step(self)      # retention of the notices log
 	return events
+
+
+func _give(o: Dictionary) -> void:
+	if bool(o.get("queued", false)):
+		OrderQueue.push(self, o)  # given during pause: waits in the actor's queue (GDD 4.1, active pause)
+		return
+	OrderQueue.clear_for(self, str(o.get("actor", "")))  # an order given live replaces what was queued
+	var r := Orders.apply(self, o)
+	if not r["ok"]:
+		events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),
+			"reason": r["reason"]})
 
 
 ## Runs `minutes` steps. `bot` (optional) gives the orders of each step: an object with orders(sim) -> Array.

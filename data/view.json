@@ -4,7 +4,9 @@
   "camera_speed": 480,
   "blocks": {
     "building": {"shape": "block", "height": 40},
-    "tree": {"shape": "tree", "height": 30}
+    "tree": {"shape": "tree", "height": 30},
+    "stall": {"shape": "block", "height": 20},
+    "board": {"shape": "block", "height": 26}
   },
   "character": {"height": 48, "width": 14, "skin": "#e0b48c", "outline": "#1e1812"},
   "day_night": {
@@ -17,7 +19,8 @@
   "target_marker_seconds": 1.0,
   "buildings": {
     "_doc": "H2 greybox of the buildings of state.buildings on the map (by type): block colour and height, sign and door colours.",
-    "forge": {"color": "#7c7f88", "height": 40, "sign": "#e0903a", "door": "#c8a050"}
+    "forge": {"color": "#7c7f88", "height": 40, "sign": "#e0903a", "door": "#c8a050"},
+    "armory": {"color": "#8a6a4a", "height": 40, "sign": "#c0c8d0", "door": "#c8a050"}
   },
   "interior": {
     "_doc": "H2 greybox interior (GDD 4.6.4): zoom, fade (in+out, seconds), kit colours and heights, station blocks, the master-touch blink.",

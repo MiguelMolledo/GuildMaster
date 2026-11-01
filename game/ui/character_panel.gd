@@ -52,12 +52,12 @@ func refresh(force: bool = false) -> void:
 	if sim == null:
 		return
 	var ch: Dictionary = sim.state.characters.get(actor, {})
-	var sig := actor + "|" + str(ch.get("inventory", {})) + "|" + str(ch.get("equipment", {})) + "|" + str(ch.get("gold", 0))
+	var sig := actor + "|" + str(ch.get("inventory", {})) + "|" + str(ch.get("equipment", {})) + "|" + str(Money.gold(sim.state, str(ch.get("family", ""))))
 	if sig == _sig and not force:
 		return
 	_sig = sig
 	(%Title as Label).text = str(ch.get("name", SimQuery.t_("ui.character.nobody")))
-	(%GoldLabel as Label).text = SimQuery.t_("ui.character.gold") % int(ch.get("gold", 0))
+	(%GoldLabel as Label).text = SimQuery.t_("ui.character.gold") % Money.gold(sim.state, str(ch.get("family", "")))  # family purse (H3)
 	var w := SimQuery.carried_weight(sim, actor) if not ch.is_empty() else 0.0
 	var mx := SimQuery.max_weight(sim, actor) if not ch.is_empty() else 0.0
 	(%WeightLabel as Label).text = SimQuery.t_("ui.character.weight") % [w, mx]

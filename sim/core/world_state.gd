@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 3
+const VERSION: int = 4
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -26,6 +26,15 @@ var emotions: Dictionary = {}      # chr_id -> [emotion]
 var events_active: Array = []
 var chronicle: Array = []          # facts of the game (births, weddings, titles...): input of the future chronicler
 var next_ids: Dictionary = {}      # prefix -> next number (Ids.next)
+# H3 (docs/contratos/h3_mercado.md): money, debt, contracts, errands, the start of a game.
+var ledger: Dictionary = {"entries": [], "summaries": {}}  # Money.change writes entries; Ledger keeps and sums them
+var notices: Array = []            # [notice] the warnings log (GDD 4.18): Notices.add
+var loans: Dictionary = {}         # lon_id -> loan (GDD 4.16): Loans
+var contracts: Dictionary = {"board": [], "accepted": [], "cooldowns": {}, "relations": {}}  # GDD 4.5.6: Contracts
+var deliveries: Array = []         # [delivery] market errands on their way (GDD 4.5.7): Market
+var difficulty: String = "normal"  # easy | normal | hard (GDD 4.23, data/difficulty.json)
+var objectives: Dictionary = {}    # fam_id -> progress of its start objectives (GDD 4.16): Objectives
+var ending: Dictionary = {}        # {} while the game goes on; {kind, family, minute} when it ends (ruin, D18)
 
 
 func seed_rng(s: int) -> void:
@@ -55,6 +64,14 @@ func to_dict() -> Dictionary:
 		"events_active": events_active,
 		"chronicle": chronicle,
 		"next_ids": next_ids,
+		"ledger": ledger,
+		"notices": notices,
+		"loans": loans,
+		"contracts": contracts,
+		"deliveries": deliveries,
+		"difficulty": difficulty,
+		"objectives": objectives,
+		"ending": ending,
 	}
 
 
@@ -85,6 +102,14 @@ static func from_dict(src: Dictionary) -> WorldState:
 	s.events_active = d.get("events_active", [])
 	s.chronicle = d.get("chronicle", [])
 	s.next_ids = d.get("next_ids", {})
+	s.ledger = d.get("ledger", {"entries": [], "summaries": {}})
+	s.notices = d.get("notices", [])
+	s.loans = d.get("loans", {})
+	s.contracts = d.get("contracts", {"board": [], "accepted": [], "cooldowns": {}, "relations": {}})
+	s.deliveries = d.get("deliveries", [])
+	s.difficulty = str(d.get("difficulty", "normal"))
+	s.objectives = d.get("objectives", {})
+	s.ending = d.get("ending", {})
 	return s
 
 

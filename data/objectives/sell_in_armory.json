@@ -1,0 +1,14 @@
+{
+  "id": "sell_in_armory",
+  "name_key": "objective.sell_in_armory",
+  "conditions": [
+    {
+      "event": "market_sold",
+      "match": {
+        "stall": "armory",
+        "item": "sword"
+      },
+      "count": 1
+    }
+  ]
+}

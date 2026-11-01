@@ -1,0 +1,15 @@
+{
+  "id": "quality_contract",
+  "name_key": "objective.quality_contract",
+  "conditions": [
+    {
+      "event": "contract_delivered",
+      "match": {
+        "min_quality": {
+          "gte": 1
+        }
+      },
+      "count": 1
+    }
+  ]
+}

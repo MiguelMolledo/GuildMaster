@@ -10,7 +10,7 @@ extends RefCounted
 ## queue and so cancels the entry, like a new move_to replaces a route. Orders queued after it run once inside.
 
 
-## {"ok", "reason"}: whether `actor` may enter `building` now (own building: its family's or its own).
+## {"ok", "reason"}: whether `actor` may enter `building` now (own building: its family's or its own; or public, H3).
 static func can_enter(sim: Sim, actor: String, building: String) -> Dictionary:
 	var st := sim.state
 	if not st.characters.has(actor):
@@ -20,12 +20,21 @@ static func can_enter(sim: Sim, actor: String, building: String) -> Dictionary:
 		return Orders.fail("dead")
 	if not st.buildings.has(building):
 		return Orders.fail("unknown_building")
-	if not owns(st, actor, building):
+	if not owns(st, actor, building) and not is_public(sim, building):
 		return Orders.fail("not_your_building")
 	var loc := str(ch.get("location", ""))
 	if loc != "" and loc != building:
 		return Orders.fail("inside_other_building")
 	return Orders.ok()
+
+
+## Whether anybody may go in (H3): a building without owner whose type says "public": true (the armory). Opening
+## hours and what can be done inside belong to its system (Market for shops).
+static func is_public(sim: Sim, building: String) -> bool:
+	var b: Dictionary = sim.state.buildings.get(building, {})
+	if b.is_empty() or str(b.get("owner", "")) != "":
+		return false
+	return bool(sim.catalog.buildings().get(str(b.get("type", "")), {}).get("public", false))
 
 
 ## Whether the building belongs to the actor or to the actor's family.

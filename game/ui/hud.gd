@@ -164,7 +164,7 @@ func _refresh_selected(sim: Sim) -> void:
 	var fam: Dictionary = sim.state.families.get(str(ch.get("family", "")), {})
 	_portrait.color = ViewConfig.color(str(fam.get("colors", {}).get("primary", "#808080")))
 	_name_label.text = str(ch.get("name", selected_id))
-	_gold_label.text = tr("ui.character.gold") % int(ch.get("gold", 0))
+	_gold_label.text = tr("ui.character.gold") % Money.gold(sim.state, str(ch.get("family", "")))  # the family purse (H3)
 	var lines := SimQuery.queue_lines(sim, selected_id, _game.pending(), _game.paused)
 	var sig := "|".join(lines)
 	if sig == _queue_sig:
