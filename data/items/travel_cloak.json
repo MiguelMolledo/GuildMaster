@@ -1,0 +1,11 @@
+{
+  "id": "travel_cloak",
+  "name_key": "item.travel_cloak",
+  "category": "equipment",
+  "weight": 2.0,
+  "max_stack": 1,
+  "base_price": 40,
+  "market_stall": "clothier",
+  "icon": null,
+  "slot": "accessory"
+}

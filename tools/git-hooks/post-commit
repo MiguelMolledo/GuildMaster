@@ -1,0 +1,5 @@
+#!/bin/sh
+# Tras cada commit, prepara en segundo plano la copia jugable de la versión nueva (tools/preparar_jugar.sh),
+# para que jugar.command arranque al momento. Se instala con: ln -sf ../../tools/git-hooks/post-commit .git/hooks/post-commit
+root=$(git rev-parse --show-toplevel)
+nohup "$root/tools/preparar_jugar.sh" >/dev/null 2>&1 &

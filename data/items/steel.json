@@ -1,0 +1,10 @@
+{
+  "id": "steel",
+  "name_key": "item.steel",
+  "category": "material",
+  "weight": 4.0,
+  "max_stack": 50,
+  "base_price": 40,
+  "market_stall": "materials",
+  "icon": null
+}

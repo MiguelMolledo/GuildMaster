@@ -1,0 +1,22 @@
+{
+  "id": "forge_hammer",
+  "name_key": "recipe.forge_hammer",
+  "building": "forge",
+  "zone": "anvil",
+  "inputs": [
+    {
+      "item": "iron_ingot",
+      "qty": 1
+    },
+    {
+      "item": "coal",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "hammer",
+    "qty": 1
+  },
+  "duration_hours": 2.0,
+  "min_craft": 2
+}

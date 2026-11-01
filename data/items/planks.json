@@ -1,0 +1,10 @@
+{
+  "id": "planks",
+  "name_key": "item.planks",
+  "category": "material",
+  "weight": 3.0,
+  "max_stack": 50,
+  "base_price": 15,
+  "market_stall": "materials",
+  "icon": null
+}

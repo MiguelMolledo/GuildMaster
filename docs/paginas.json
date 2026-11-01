@@ -1,0 +1,10 @@
+{
+  "_doc": "Las páginas de Grimoire del juego: título, id y el guion que la hace. tools/paginas.py --check.",
+  "paginas": [
+    {
+      "titulo": "GuildMaster · cuaderno",
+      "id": "art_01m6bsbthr8xejzndz27",
+      "guion": "tools/cuaderno.py"
+    }
+  ]
+}

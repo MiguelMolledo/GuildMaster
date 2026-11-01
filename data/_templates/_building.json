@@ -1,0 +1,26 @@
+{
+  "id": "TODO_snake_case",
+  "name_key": "building.TODO",
+  "category": "workshop",
+  "parcel_type": "production|rustic|housing",
+  "footprint": [
+    3,
+    3
+  ],
+  "build_cost": 100,
+  "build_days": 1,
+  "upkeep": 2,
+  "storage_stacks": 10,
+  "base_employees": 1,
+  "zones": [
+    {
+      "id": "storage",
+      "kind": "storage"
+    }
+  ],
+  "upgrade_tree": null,
+  "interior_scene": null,
+  "sprite": null,
+  "night_production": "none|manual_only|always",
+  "includes_housing": false
+}

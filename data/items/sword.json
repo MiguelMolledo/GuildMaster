@@ -1,0 +1,10 @@
+{
+  "id": "sword",
+  "name_key": "item.sword",
+  "category": "product",
+  "weight": 8.0,
+  "max_stack": 20,
+  "base_price": 65,
+  "market_stall": "armory",
+  "icon": null
+}

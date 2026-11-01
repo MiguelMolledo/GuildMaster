@@ -1,0 +1,11 @@
+{
+  "id": "saw",
+  "name_key": "item.saw",
+  "category": "tool",
+  "weight": 7.0,
+  "max_stack": 1,
+  "base_price": 40,
+  "market_stall": "armory",
+  "icon": null,
+  "slot": "tool"
+}

@@ -1,0 +1,42 @@
+{
+  "_doc": "Reloj único (GDD 04 §4.1). D1(b): año = 4 estaciones × 2 días; día = 5 min reales (D4). phase_starts en minutos del día (provisionales, balance). La variante dev la aplica --dev-time.",
+  "seasons": [
+    "spring",
+    "summer",
+    "autumn",
+    "winter"
+  ],
+  "days_per_season": 2,
+  "real_seconds_per_day": 300,
+  "age_years_per_calendar_year": 1,
+  "start_minute": 300,
+  "phase_starts": {
+    "spring": {
+      "dawn": 300,
+      "day": 420,
+      "dusk": 1140,
+      "night": 1260
+    },
+    "summer": {
+      "dawn": 270,
+      "day": 360,
+      "dusk": 1200,
+      "night": 1290
+    },
+    "autumn": {
+      "dawn": 330,
+      "day": 480,
+      "dusk": 1110,
+      "night": 1260
+    },
+    "winter": {
+      "dawn": 390,
+      "day": 510,
+      "dusk": 1050,
+      "night": 1140
+    }
+  },
+  "dev": {
+    "real_seconds_per_day": 30
+  }
+}

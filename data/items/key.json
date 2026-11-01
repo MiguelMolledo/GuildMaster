@@ -1,0 +1,10 @@
+{
+  "id": "key",
+  "name_key": "item.key",
+  "category": "special",
+  "weight": 0.05,
+  "max_stack": 5,
+  "base_price": 5,
+  "market_stall": null,
+  "icon": null
+}

@@ -1,0 +1,13 @@
+{
+  "_doc": "Dianas de los bots (GDD 07 §7.2): [mín, máx] por medida; null = sin límite. tools/sim_runner.gd las comprueba.",
+  "idle": {
+    "days": [
+      3,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ]
+  }
+}

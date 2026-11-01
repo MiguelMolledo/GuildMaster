@@ -1,0 +1,22 @@
+{
+  "id": "forge_sword",
+  "name_key": "recipe.forge_sword",
+  "building": "forge",
+  "zone": "anvil",
+  "inputs": [
+    {
+      "item": "iron_ingot",
+      "qty": 2
+    },
+    {
+      "item": "coal",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "sword",
+    "qty": 1
+  },
+  "duration_hours": 3.0,
+  "min_craft": 4
+}

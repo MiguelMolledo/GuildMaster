@@ -1,0 +1,486 @@
+{
+  "_doc": "Estado de cada hito (docs/gdd/10_hitos.md) y de cada criterio de aceptación. Estados: pendiente, en_curso, hecho. Un criterio solo pasa a «hecho» con su prueba (ritual, test, captura o partida del owner) y fecha. Lo enseña el cuaderno (tools/cuaderno.py).",
+  "hitos": [
+    {
+      "id": "H0",
+      "nombre": "Esqueleto",
+      "estado": "hecho",
+      "entregable": "Repo, `CLAUDE.md`, estructura de carpetas, `WorldState`, reloj con `TimeConfig` de D1(b), RNG, IDs, órdenes, eventos, `Log`, `Data` + validador, guardado/carga con migraciones (3 ranuras + autoguardado diario, D6), `i18n/` ES + EN (D13), runner de tests, `boot_check`, `sim_bench`, cuaderno, `decisiones.json` y `hitos.json`, hook de copia jugable.",
+      "criterios": [
+        {
+          "texto": "Arranca sin errores",
+          "estado": "hecho",
+          "prueba": "zsh tools/qa/boot_check.sh: sin opciones, --dev-time y --scenario=empty_town, 0 ERROR",
+          "fecha": "2026-11-01"
+        },
+        {
+          "texto": "Test de ida y vuelta del guardado",
+          "estado": "hecho",
+          "prueba": "tests/test_core_save.gd: ida y vuelta, rng, ids, ficheros rotos; autoguardado diario comprobado con --dev-time",
+          "fecha": "2026-11-01"
+        },
+        {
+          "texto": "Test de determinismo (30 días vacíos, mismo hash)",
+          "estado": "hecho",
+          "prueba": "tests/test_core_determinism.gd: 30 días con el bot idle, mismo hash; partida cargada y repetición de órdenes",
+          "fecha": "2026-11-01"
+        },
+        {
+          "texto": "Test del calendario: 2 días por estación, 8 por año, la edad sube 1 al cambiar de año",
+          "estado": "hecho",
+          "prueba": "tests/test_core_clock.gd: test_calendar_d1b_and_age y test_dev_time_only_shortens_the_day",
+          "fecha": "2026-11-01"
+        },
+        {
+          "texto": "Validador con 0 errores (incluidas las claves ES y EN)",
+          "estado": "hecho",
+          "prueba": "python3 tools/validate_content.py: 0 errores, claves ES y EN",
+          "fecha": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "id": "H1",
+      "nombre": "Mundo y movimiento",
+      "estado": "pendiente",
+      "entregable": "Mapa pequeño (estilo E, D10 provisional; ~40×40) con calles y hierba, viewport 960×540 ×2 (D2), cámara WASD/zoom/pan, selección y movimiento de todos los personajes por casillas desde el sim (D3), día/noche visual, reloj del HUD, pausa y velocidades ×1/×2/×4 (D4).",
+      "criterios": [
+        {
+          "texto": "Captura de día y de noche a escala ×2 sin píxeles deformes",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "El personaje prefiere calles",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "El clic del jugador se traduce en `MoveTo` (prueba de entrada real). 3 días pasan sin errores con el bot `idle`",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H2",
+      "nombre": "Forja jugable a mano",
+      "estado": "pendiente",
+      "entregable": "Edificio Forja con interior, puestos, recetas, calidad, almacén, panel de almacén, inventario del personaje con peso y equipo. Modos de trabajo y toque de maestro (4.4.5). Entradas devueltas al interrumpir (D11). Pausa activa con cola de órdenes por personaje (4.1).",
+      "criterios": [
+        {
+          "texto": "Comprar materia prima (a mano en el almacén por ahora), producir lingote y espada a mano, ver la calidad",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Test: producción con 0 vistas abiertas",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Test con semilla (200 ciclos): \"con cuidado\" da más calidad media que \"rápido\" y el toque de maestro suma lo previsto",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Test: interrumpir devuelve las entradas",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Test: 3 órdenes dadas en pausa se ejecutan en orden al reanudar",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H3",
+      "nombre": "Mercado, dinero e inicio de partida",
+      "estado": "pendiente",
+      "entregable": "Plaza con 3 puestos y 1 tienda con interior (Armería), panel comprar/vender, demanda, horario, HUD de oro. Partida nueva: dificultad (4.23), creación de personaje con 5 puntos libres (D5) y colores de familia; condiciones de inicio y deuda (4.16, entidad `Loan`); objetivos de inicio. Herrero rival con IA simple (4.5.5). Tablón de encargos (4.5.6). Recado de entrega (4.5.7). Libro de cuentas y registro de avisos (4.18). Mantenimiento diario (D12).",
+      "criterios": [
+        {
+          "texto": "Bot `artisan_novice` (30 semillas): oro a los 3 y 10 días en su diana, deuda pagada antes del día 8 en ≥ 90 % de las semillas y oro neto/día de la fase de inicio en `[25, 60]` (4.19)",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Imposible vender más de lo que se tiene (test)",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Con `idle`, el rival vende, la demanda de lo que vende baja (test) y su oro al día 10 cae en `[40, 300]`",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Test de encargo: entregar paga `cantidad × precio_venta × 1,4` y +2 de reputación; dejarlo vencer quita 5 de reputación y 15 de relación",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Test de recado: cobra +20 %, llega en 2 h al almacén, no pesa en el personaje y se rechaza si no cabe",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Test de conservación: tras 10 días de `random_clicker`, suma de asientos = variación de oro de cada familia",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Escenarios `debt_due` (prórroga con recargo) y `debt_extension_due` (embargo y pantalla de ruina)",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "El mantenimiento se cobra cada amanecer y sale en el libro",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Ida y vuelta del guardado con libro, préstamo, encargos y recados en camino",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Capturas del tablón y del libro de cuentas",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H4",
+      "nombre": "Empleados",
+      "estado": "pendiente",
+      "entregable": "Candidatos, contratar/despedir, rangos y ascensos (1 año / 2 años), salarios reales, lealtad, abandono/robo, cola con dependencias, roles estrictos, avisos al registro, empleados caminando de casa a la forja.",
+      "criterios": [
+        {
+          "texto": "Escenario \"2 empleados\": 3 días, la forja produce sin que el jugador entre; cada uno en su puesto; de noche se van",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Salario impagado baja lealtad",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Escenario \"aprendiz con 1 año trabajado y lealtad 60\": aparece el aviso de ascenso",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H5",
+      "nombre": "Mejoras",
+      "estado": "pendiente",
+      "entregable": "Árbol de la Forja (24), obras de 0,5-2 días, efectos, visuales interiores/exteriores con el kit de interior (4.6.4), inspecciones de Secretos (multa por ahora). Rebalanceo de precios y costes con bots (D14).",
+      "criterios": [
+        {
+          "texto": "Bot `artisan_expert` compra mejoras y su producción sube lo esperado",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Dianas `goldflow` de la fase \"Forja con empleados\" y del peso de los sumideros (30-60 %) en verde",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Fin de la rebanada vertical: 3 días seguidos jugables por el owner sin consola",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H6",
+      "nombre": "Parcelas y construcción",
+      "estado": "pendiente",
+      "entregable": "Modo construcción, parcelas por tipo, construir/demoler/comprar a NPC, límite por título, competencia NPC y válvula. IA rival: módulos de economía y construcción, quiebra, guerra de precios (4.21).",
+      "criterios": [
+        {
+          "texto": "El jugador abre un segundo negocio",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Los NPC compran parcelas sin bloquear al jugador (sim de 60 días ≈ 7,5 años)",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "El herrero rival contrata, mejora o quiebra según su IA",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Ninguna guerra de precios contra el jugador en el primer año (test)",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H7",
+      "nombre": "Ciudad viva",
+      "estado": "pendiente",
+      "entregable": "15-20 NPC con casa, trabajo y rutina; actividades sociales; burbujas; frases; estados emocionales (4 del MVP); acciones sobre NPC; clientes en el mostrador. Microeventos (los 3 de 4.20) como datos.",
+      "criterios": [
+        {
+          "texto": "Captura de la plaza al atardecer con NPC socializando",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Cabreado sube precios",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Todos en casa de noche",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "`sim_bench` < 2 ms",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "En un sim de 30 días los 3 microeventos aparecen con la frecuencia de su diana; sin respuesta, la opción por defecto se aplica a las 2 h (test); la Seguridad frustra al ladrón con su probabilidad (test)",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H8",
+      "nombre": "Familia y herencia",
+      "estado": "pendiente",
+      "entregable": "Cortejo, matrimonio, hijos, crecimiento, grupo 1-2-3, retratos, árbol genealógico, herencia, Game Over, directiva Trabajar. Rutina programable (4.10.8). Identidad visual por paleta y rasgos heredables (4.10.9). Puntuación de dinastía, metas y pantalla final (4.17). Módulo de familia de la IA rival.",
+      "criterios": [
+        {
+          "texto": "Bot `dynasty` llega a heredar dentro de su diana (generación ~200 días; primer hijo ~1,5 años tras la boda)",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Game Over sin heredero con la puntuación desglosada",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "La partida sigue con el heredero",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Test: con rutinas, 3 personajes trabajan un día entero sin órdenes manuales y una orden manual la interrumpe y luego se retoma",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Captura del árbol donde la familia se reconoce por sus colores y los hijos llevan el pelo o la piel de un padre",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H9",
+      "nombre": "Reputación y títulos",
+      "estado": "pendiente",
+      "entregable": "Reputación global y por clase, ganancias pasivas, ceremonia en el Ayuntamiento, títulos que abren límites. IA rival pide títulos.",
+      "criterios": [
+        {
+          "texto": "Bot `artisan_expert` llega a Patricio en su diana",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Al menos una familia IA sube de título en un sim de 10 años",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H10",
+      "nombre": "Cargos y elecciones",
+      "estado": "pendiente",
+      "entregable": "Gobierno procedural, organigrama, mandatos de 1-4 años, salarios, campaña de 1 estación, votación, poderes pasivos y activos. IA rival se presenta.",
+      "criterios": [
+        {
+          "texto": "Bot `politician` gana un cargo menor",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Inspector regula un precio y se nota en el mercado",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Test: la campaña ocupa la última estación del mandato y la elección cae al cambiar de año",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H11",
+      "nombre": "Tribunal",
+      "estado": "pendiente",
+      "entregable": "Acusación, testigos, preparación de 1 estación interactiva, vista oral interactiva, condenas (destierro 1 año); juicio desde inspección; acusaciones de la IA rival. Fin del MVP.",
+      "criterios": [
+        {
+          "texto": "Partida de 2 h del owner (3 años de juego): ocupa un cargo menor y ve nacer un hijo",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Desde el escenario `founder_old` (fundador de 60 años con heredero de 16) hereda y sigue jugando",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Bot `crook` acaba en juicio con la frecuencia esperada",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "En el sim, una familia IA acusa al jugador solo con motivo real o con pruebas fabricadas si su honestidad es baja",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H12",
+      "nombre": "Contenido EA I",
+      "estado": "pendiente",
+      "entregable": "Resto de profesiones del Artesano y luego Patrón, Erudito, Pícaro (fichas + recetas + edificios + interiores + árboles) con sus sistemas propios; 7 cadenas.",
+      "criterios": [
+        {
+          "texto": "Cada profesión tiene un bot que gana dinero con ella",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Tests de reglas de combate, robo, servicio, préstamo y ciclo de cultivo",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Validador 0 errores",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H13",
+      "nombre": "Contenido EA II",
+      "estado": "pendiente",
+      "entregable": "Estaciones en precios y producción, eventos globales (duraciones de 4.13), mapa EA 80×80 con 6 zonas y estilo elegido en 9.4, 30-40 NPC, 5 familias rivales con la IA completa de 4.21 (perfiles propios, sabotaje), todas las palancas de dificultad.",
+      "criterios": [
+        {
+          "texto": "Sim de 10 años (80 días) sin bloqueos",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Dianas de 4.21 en Normal: ninguna familia con más del 60 % de las parcelas de producción, al menos 2 familias IA suben de título, el jugador recibe entre 1 y 4 ataques",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        },
+        {
+          "texto": "Fácil y Difícil respetan el orden de oro neto (4.23)",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H14",
+      "nombre": "IA familiar",
+      "estado": "pendiente",
+      "entregable": "Directivas completas, necesidades, moral, notificaciones.",
+      "criterios": [
+        {
+          "texto": "Un familiar con \"Comerciar\" aprovisiona la forja solo",
+          "estado": "pendiente",
+          "prueba": null,
+          "fecha": null
+        }
+      ]
+    },
+    {
+      "id": "H15+",
+      "nombre": "EA",
+      "estado": "pendiente",
+      "entregable": "Arte final, audio, tutorial, balance, accesibilidad, Steam (FASES 12-15 del pipeline).",
+      "criterios": []
+    }
+  ]
+}

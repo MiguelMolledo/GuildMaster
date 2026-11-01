@@ -1,0 +1,10 @@
+{
+  "id": "common_clothes",
+  "name_key": "item.common_clothes",
+  "category": "product",
+  "weight": 3.0,
+  "max_stack": 20,
+  "base_price": 45,
+  "market_stall": "clothier",
+  "icon": null
+}

@@ -1,0 +1,11 @@
+{
+  "id": "work_clothes",
+  "name_key": "item.work_clothes",
+  "category": "equipment",
+  "weight": 3.0,
+  "max_stack": 1,
+  "base_price": 35,
+  "market_stall": "clothier",
+  "icon": null,
+  "slot": "clothes"
+}

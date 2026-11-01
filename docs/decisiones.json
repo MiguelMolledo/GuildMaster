@@ -1,0 +1,219 @@
+{
+  "tomadas": [
+    {
+      "fecha": "2026-04-13",
+      "tema": "Juego",
+      "decision": "Simulador de vida y dinastía medieval (inspirado en The Guild II/III), PC Steam Early Access.",
+      "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-04-13",
+      "tema": "Clases",
+      "decision": "4 clases (Artesano, Patrón, Erudito, Pícaro) y 18 profesiones.",
+      "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-04-13",
+      "tema": "Política",
+      "decision": "5 títulos, 6 cargos; tope del EA = Alcalde.",
+      "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-04-13",
+      "tema": "Mapa EA",
+      "decision": "1 mapa de ~80×80 casillas con 6 zonas; 30-40 NPC y 5 familias rivales.",
+      "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-04-15",
+      "tema": "Estilo visual",
+      "decision": "Pixel art 16-bit SNES (tipo Graveyard Keeper), isométrico 2:1, paleta de tierras cálidas + paleta otoñal secundaria.",
+      "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-04-15",
+      "tema": "Arte con IA",
+      "decision": "PixelLab para sprites de producción; fal.ai Nano Banana / Nano Banana Pro para concepto (FLUX descartado).",
+      "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-04-21",
+      "tema": "Sprites de personaje",
+      "decision": "Monolíticos por profesión/NPC (sin capas) en el MVP; variación por paleta para la identidad de familia.",
+      "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-05-03",
+      "tema": "MVP con un solo rol",
+      "decision": "Todos los sistemas core primero con Artesano / Herrero; el resto de clases después.",
+      "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Reconstrucción",
+      "decision": "Se rehace desde cero en el repo GuildMaster con el documento docs/gdd/ (origen: guild/docs/DISENO_RECONSTRUCCION.md).",
+      "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Arquitectura",
+      "decision": "sim/ (reglas puras, deterministas, sin nodos, paso de 1 minuto de juego) y game/ (dibuja y da órdenes). Todo cambio entra como orden con actor. Guardado con versión y migraciones desde H0.",
+      "por_que": "Lecciones L1-L4 y L7 del primer intento; arquitectura probada en Wizards Broke It."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Motor",
+      "decision": "Godot 4.7.2 (binario /opt/homebrew/bin/godot), GDScript con tipado estático, GL Compatibility, filtro Nearest.",
+      "por_que": "El mismo binario y herramientas que Wizards Broke It."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Inventario y tests",
+      "decision": "Inventario propio por (objeto, calidad); runner de pruebas propio (tests/run_tests.gd) sin GUT ni Gloot.",
+      "por_que": "Lecciones L5 y L13."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Ids y textos",
+      "decision": "Ids en inglés y snake_case; textos del juego en ES y EN desde H0 (i18n/strings.csv); documentos internos en español.",
+      "por_que": "D13 + regla de Wizards."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D1 Envejecimiento",
+      "decision": "Año corto: 4 estaciones × 2 días (40 min reales). Un único «año» para edad, mandatos y estaciones.",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D2 Resolución",
+      "decision": "Viewport 960×540 escalado ×2 entero (ventana 1920×1080).",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01. Confirmar con una captura de prueba en H1."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D3 Movimiento",
+      "decision": "Por casillas desde el sim, interpolado en la vista.",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D4 Día",
+      "decision": "5 min reales por día, con velocidades ×2 y ×4.",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D5 Creación de personaje",
+      "decision": "5 puntos libres redistribuibles.",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D6 Guardado",
+      "decision": "3 ranuras + autoguardado diario.",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D7 Dificultad",
+      "decision": "3 niveles (expansión NPC, precios, frecuencia de eventos).",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D8 Transporte",
+      "decision": "Carros con coste post-MVP; en el MVP se lleva a mano (peso) o con recado de entrega.",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D11 Receta interrumpida",
+      "decision": "Las entradas se devuelven.",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D12 Mantenimiento",
+      "decision": "Mantenimiento diario de edificios en el MVP (2 oro/día, balance).",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D13 Idiomas",
+      "decision": "ES + EN desde H0.",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D14 Precios",
+      "decision": "Rebalanceo con bots en H5 (mejoras ×5-×10 como punto de partida).",
+      "por_que": "Recomendación del documento de diseño, aprobada por el owner el 2026-11-01."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Huecos de diseño",
+      "decision": "Aprobados: herrero rival desde H3, condiciones de inicio con deuda, encargos, recado de entrega, libro de cuentas, trabajo a mano con decisión, duraciones recalculadas con D1, reservas de arquitectura para servicios/préstamos/combate, diseño de la IA rival antes de H6, fuentes y sumideros de oro, identidad visual por paleta, kit modular de interiores, objetivos de final de partida, microeventos desde H7, rutina programable, hermanos rivales (post-MVP).",
+      "por_que": "Revisión del documento de diseño, aprobada por el owner el 2026-11-01. Detalle en docs/gdd/."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Registro del proyecto",
+      "decision": "docs/hitos.json (estado de hitos y criterios), docs/novedades.json y docs/decisiones.json (diario), docs/style/biblia.md (perfil estético), docs/ASSETS.md (contrato) y assets/inventario.json (estado de cada asset: falta → greybox → concepto → sprite → animado → final). Todo lo junta la página del cuaderno.",
+      "por_que": "Decisión del owner."
+    }
+  ],
+  "pendientes": [
+    {
+      "tema": "D9 Nombre del mapa EA",
+      "detalle": "Sin propuesta.",
+      "opciones": ""
+    },
+    {
+      "tema": "D15 Mantenimiento impagado",
+      "detalle": "D12 no dice qué pasa si no hay oro.",
+      "opciones": "Recomendación: se acumula como deuda con la ciudad y, tras 3 días impagados [balance], el edificio pasa a Dañado."
+    },
+    {
+      "tema": "D16 Mostrador y demanda",
+      "detalle": "¿Las ventas en el mostrador bajan la demanda del mercado? Afecta a la competencia con el herrero rival.",
+      "opciones": "Recomendación: a la mitad (−0,025 por unidad)."
+    },
+    {
+      "tema": "D17 Escala de los edificios con D2",
+      "detalle": "La escala 1,6 del primer intento deforma píxeles con el escalado ×2 entero.",
+      "opciones": "Recomendación: generar los edificios ya a su tamaño final y dibujarlos a escala 1; confirmar con una captura de prueba en H1."
+    },
+    {
+      "tema": "D18 Ruina por la deuda inicial",
+      "detalle": "¿Termina la partida?",
+      "opciones": "Recomendación: sí, con avisos a 2 y 1 días, prórroga de 1 estación y deuda menor en Fácil."
+    },
+    {
+      "tema": "D19 Cierre voluntario de la dinastía",
+      "detalle": "¿Se puede terminar la partida cuando se quiera para ver la puntuación?",
+      "opciones": "Recomendación: permitido."
+    },
+    {
+      "tema": "Revisar cifras que fijó el subgrim",
+      "detalle": "Al recalcular duraciones con D1(b) se fijaron: días de obra y estados emocionales a la mitad, primer hijo con 10 % diario y un año entre hijos, campaña en la última estación del mandato, mandatos de 1-4 años (elecciones de cargos menores cada 40 min reales), umbrales de rivalidad de la IA y pago de la deuda desde el libro de cuentas.",
+      "opciones": "Todo va marcado [balance] en docs/gdd/; conviene que el owner lo mire, sobre todo la frecuencia de elecciones."
+    },
+    {
+      "tema": "D10 Estilo de ciudad (Gate)",
+      "detalle": "Aceptado como provisional: villa de mercado (A) con río y puerto (C) para el EA, pueblo-calle (E) para la rebanada vertical. Se confirma tras la prueba de PixelLab de docs/gdd/09_ciudades.md §9.4.",
+      "opciones": "Prueba de ~50 generaciones a partir del 2026-11-15 (renovación del plan)."
+    },
+    {
+      "tema": "Cifras de balance",
+      "detalle": "Todo lo marcado [balance] en el diseño (oro inicial, deuda, primas de encargos, precios, duraciones) se ajusta con bots y dianas en data/targets.json, no se decide a ojo.",
+      "opciones": ""
+    }
+  ],
+  "proximos_pasos": [
+    "H1 · Mundo y movimiento: mapa pequeño estilo E (~40×40), cámara, movimiento por casillas, día/noche, reloj del HUD, pausa y velocidades.",
+    "Traer los assets reutilizables del primer intento (origen_previo en assets/inventario.json), renombrarlos al contrato de docs/ASSETS.md y pasarlos a «sprite».",
+    "Captura de prueba de D2 (960×540 ×2) con un personaje de 48 px y tiles de 64×32.",
+    "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner."
+  ]
+}

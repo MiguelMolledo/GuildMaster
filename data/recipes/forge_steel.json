@@ -1,0 +1,23 @@
+{
+  "id": "forge_steel",
+  "name_key": "recipe.forge_steel",
+  "building": "forge",
+  "zone": "furnace",
+  "inputs": [
+    {
+      "item": "iron_ingot",
+      "qty": 2
+    },
+    {
+      "item": "coal",
+      "qty": 2
+    }
+  ],
+  "output": {
+    "item": "steel",
+    "qty": 1
+  },
+  "duration_hours": 3.0,
+  "min_craft": 6,
+  "requires_upgrade": "forge_production_3"
+}

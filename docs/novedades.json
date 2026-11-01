@@ -1,0 +1,11 @@
+[
+  {
+    "fecha": "2026-11-01",
+    "titulo": "H0 · Esqueleto: el repo nuevo arranca, guarda, carga y repite la misma partida",
+    "que": "Primer hito de la reconstrucción. Hay un mundo vacío con su reloj (día de 5 min reales, año de 4 estaciones × 2 días, fases del día por estación) y la hora en la esquina, en español o inglés. Por debajo está toda la base: el estado del mundo serializable, ids estables que no se reutilizan, órdenes validadas (la primera, mover objetos entre inventarios; si no puedes, dice por qué y no cambia nada), un inventario propio donde las calidades no se mezclan ni se vende lo que no hay, guardado atómico con versión y migraciones, y los catálogos del MVP (27 objetos, 5 recetas de la forja, la forja) validados al arrancar. Pasan los rituales: 20 pruebas de reglas, validador, inventario de arte, arranque con cada escenario, coste del sim (0,005 ms por paso) y el bot idle 3 días con 5 semillas.",
+    "como_probar": "Doble clic en jugar.command (o /opt/homebrew/bin/godot --path ~/Code/GuildMaster): verás la hora avanzar arriba a la derecha. Con -- --dev-time los días duran 30 s; con -- --lang=en, en inglés. Rituales: python3 tools/qa/run_all.py.",
+    "capturas": [
+      "docs/novedades/h0_esqueleto.png"
+    ]
+  }
+]

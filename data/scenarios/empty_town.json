@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "seed": "1",
+  "rng_state": "",
+  "meta": {
+    "title": "Pueblo vacío",
+    "description": "H0: solo el reloj, sin mapa ni personajes. Base de las pruebas de arranque."
+  },
+  "clock": {
+    "minute": 300
+  },
+  "characters": {},
+  "families": {},
+  "buildings": {},
+  "parcels": {},
+  "market": {
+    "demand": {},
+    "regulations": []
+  },
+  "offices": {},
+  "elections": [],
+  "trials": [],
+  "relationships": {},
+  "emotions": {},
+  "events_active": [],
+  "chronicle": [],
+  "next_ids": {}
+}

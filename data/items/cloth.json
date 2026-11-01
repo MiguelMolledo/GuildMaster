@@ -1,0 +1,10 @@
+{
+  "id": "cloth",
+  "name_key": "item.cloth",
+  "category": "material",
+  "weight": 2.0,
+  "max_stack": 50,
+  "base_price": 14,
+  "market_stall": "materials",
+  "icon": null
+}

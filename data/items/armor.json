@@ -1,0 +1,11 @@
+{
+  "id": "armor",
+  "name_key": "item.armor",
+  "category": "equipment",
+  "weight": 10.0,
+  "max_stack": 1,
+  "base_price": 80,
+  "market_stall": "armory",
+  "icon": null,
+  "slot": "clothes"
+}

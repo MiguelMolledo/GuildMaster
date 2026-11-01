@@ -1,0 +1,10 @@
+{
+  "id": "bandages",
+  "name_key": "item.bandages",
+  "category": "consumable",
+  "weight": 1.0,
+  "max_stack": 10,
+  "base_price": 8,
+  "market_stall": "apothecary",
+  "icon": null
+}

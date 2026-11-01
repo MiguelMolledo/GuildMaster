@@ -1,0 +1,12 @@
+.env
+.godot/
+*.import.tmp
+reports/*
+!reports/.gdignore
+export/
+.DS_Store
+__pycache__/
+*.pyc
+tmp/*
+!tmp/.gdignore
+i18n/*.translation

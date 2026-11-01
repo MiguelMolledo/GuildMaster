@@ -1,0 +1,49 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="GuildMaster"
+config/description="Simulador de vida y dinastía medieval en pixel art isométrico."
+config/version="0.0.1"
+run/main_scene="res://game/app.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="GuildMaster"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+
+[autoload]
+
+Log="*res://game/autoload/log.gd"
+Data="*res://game/autoload/data.gd"
+Events="*res://game/autoload/events.gd"
+Game="*res://game/autoload/game.gd"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/size/window_width_override=1920
+window/size/window_height_override=1080
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://i18n/strings.es.translation", "res://i18n/strings.en.translation")
+locale/fallback="es"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0

@@ -1,0 +1,11 @@
+{
+  "id": "needle",
+  "name_key": "item.needle",
+  "category": "tool",
+  "weight": 0.5,
+  "max_stack": 1,
+  "base_price": 25,
+  "market_stall": "armory",
+  "icon": null,
+  "slot": "tool"
+}

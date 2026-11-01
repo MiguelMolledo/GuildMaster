@@ -1,0 +1,11 @@
+{
+  "id": "hoe",
+  "name_key": "item.hoe",
+  "category": "tool",
+  "weight": 5.0,
+  "max_stack": 1,
+  "base_price": 30,
+  "market_stall": "armory",
+  "icon": null,
+  "slot": "tool"
+}

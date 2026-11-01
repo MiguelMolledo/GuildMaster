@@ -1,0 +1,22 @@
+{
+  "id": "forge_armor",
+  "name_key": "recipe.forge_armor",
+  "building": "forge",
+  "zone": "anvil",
+  "inputs": [
+    {
+      "item": "iron_ingot",
+      "qty": 3
+    },
+    {
+      "item": "coal",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "armor",
+    "qty": 1
+  },
+  "duration_hours": 5.0,
+  "min_craft": 6
+}

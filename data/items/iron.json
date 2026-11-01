@@ -1,0 +1,10 @@
+{
+  "id": "iron",
+  "name_key": "item.iron",
+  "category": "raw",
+  "weight": 2.0,
+  "max_stack": 99,
+  "base_price": 5,
+  "market_stall": "resources",
+  "icon": null
+}

@@ -1,0 +1,55 @@
+keys,en,es
+app.title,GuildMaster,GuildMaster
+hud.clock,"Day %d · %s, year %d · %02d:%02d · %s","Día %d · %s, año %d · %02d:%02d · %s"
+season.spring,Spring,Primavera
+season.summer,Summer,Verano
+season.autumn,Autumn,Otoño
+season.winter,Winter,Invierno
+phase.dawn,Dawn,Amanecer
+phase.day,Day,Día
+phase.dusk,Dusk,Atardecer
+phase.night,Night,Noche
+reason.unknown_order,Unknown order,Orden desconocida
+reason.unknown_actor,Nobody to do it,No hay nadie que lo haga
+reason.same_inventory,Same place,Es el mismo sitio
+reason.no_inventory,There is nowhere to put it,No hay dónde ponerlo
+reason.not_yours,It is not yours,No es tuyo
+reason.bad_quantity,Wrong quantity,Cantidad no válida
+reason.not_enough,Not enough,No hay suficiente
+reason.no_room,No room,No cabe
+quality.0,normal,normal
+quality.1,good,buena
+quality.2,excellent,excelente
+item.iron,Iron ore,Hierro
+item.coal,Coal,Carbón
+item.wood,Wood,Madera
+item.stone,Stone,Piedra
+item.wheat,Wheat,Trigo
+item.wool,Wool,Lana
+item.herbs,Herbs,Hierbas
+item.iron_ingot,Iron ingot,Lingote de hierro
+item.steel,Steel,Acero
+item.flour,Flour,Harina
+item.planks,Planks,Tablas
+item.cloth,Cloth,Tela
+item.sword,Sword,Espada
+item.bread,Bread,Pan
+item.common_clothes,Common clothes,Ropa común
+item.armor,Armor,Armadura
+item.hammer,Hammer,Martillo
+item.saw,Saw,Sierra
+item.needle,Needle,Aguja
+item.hoe,Hoe,Azadón
+item.work_clothes,Work clothes,Ropa de trabajo
+item.travel_cloak,Travel cloak,Capa de viaje
+item.bandages,Bandages,Vendas
+item.prepared_meal,Prepared meal,Comida preparada
+item.document,Document,Documento
+item.key,Key,Llave
+item.contract,Contract,Contrato
+recipe.forge_ingot,Smelt ingot,Fundir lingote
+recipe.forge_hammer,Forge hammer,Forjar martillo
+recipe.forge_sword,Forge sword,Forjar espada
+recipe.forge_armor,Forge armor,Forjar armadura
+recipe.forge_steel,Make steel,Hacer acero
+building.forge,Forge,Forja

@@ -1,0 +1,10 @@
+{
+  "id": "coal",
+  "name_key": "item.coal",
+  "category": "raw",
+  "weight": 1.0,
+  "max_stack": 99,
+  "base_price": 3,
+  "market_stall": "resources",
+  "icon": null
+}
