@@ -7,8 +7,8 @@ hud.pause,Pause,Pausa
 hud.pause_tip,Pause / resume (Space),Pausa / seguir (Espacio)
 hud.paused,PAUSED,EN PAUSA
 hud.speed,×%d,×%d
-hud.speed_tip,Speed ×%d (key %d),Velocidad ×%d (tecla %d)
-hud.help,"Left click: select (double click on a building: manage) · Right click: go there / go in · WASD/arrows, wheel, middle button: camera · Space: pause · 1/2/3: speed","Clic izquierdo: elegir (doble clic en un edificio: gestionar) · Clic derecho: ir allí / entrar · WASD/flechas, rueda, botón central: cámara · Espacio: pausa · 1/2/3: velocidad"
+hud.speed_tip,Speed ×%d (Shift+%d),Velocidad ×%d (Mayús+%d)
+hud.help,"Left click: select (double click on a building: manage) · Right click: go there / go in · WASD/arrows, wheel, middle button: camera · Space: pause · 1/2/3: family member · Shift+1/2/3: speed · F: family tree","Clic izquierdo: elegir (doble clic en un edificio: gestionar) · Clic derecho: ir allí / entrar · WASD/flechas, rueda, botón central: cámara · Espacio: pausa · 1/2/3: familiar · Mayús+1/2/3: velocidad · F: árbol genealógico"
 season.spring,Spring,Primavera
 season.summer,Summer,Verano
 season.autumn,Autumn,Otoño
@@ -547,3 +547,90 @@ title.patrician,patrician,patricio
 title.baron,baron,barón
 title.noble,noble,noble
 notice.inspection_debt,"{building}: you could not pay the whole fine, {debt} gold owed to the town","{building}: no has podido pagar toda la multa, debes {debt} de oro a la ciudad"
+reason.unknown_target,There is nobody like that,No hay nadie así
+reason.too_young,Too young (16 years at least),Es demasiado joven (16 años como mínimo)
+reason.not_single,Already married,Ya está casado
+reason.same_family,From the same family,Es de la misma familia
+reason.same_sex,They cannot have children together,No pueden tener hijos juntos
+reason.offended,Offended: will not listen,Está ofendido: no quiere escuchar
+reason.already_talked,Already talked today,Ya habéis hablado hoy
+reason.low_affinity,Not enough affinity (80 to propose),Falta afinidad (80 para proponer)
+reason.no_head,The family has no head,La familia no tiene cabeza
+reason.not_an_heir,Cannot inherit,No puede heredar
+reason.no_choice,No choice pending,No hay elección pendiente
+reason.unknown_stat,There is no such attribute,No existe ese atributo
+reason.disabled,Not available,No está disponible
+reason.not_your_family,Not your family,No es tu familia
+reason.bad_schedule,Wrong routine,Rutina incorrecta
+reason.bad_directives,Wrong directives,Directivas incorrectas
+notice.child_born,"{name} is born, child of {mother} and {father}","Nace {name}, hijo de {mother} y {father}"
+notice.wedding,{name} and {spouse} are married,{name} y {spouse} se han casado
+notice.death,{name} has died at {age},{name} ha muerto a los {age} años
+notice.inheritance,{name} is now the head of the family (generation {generation}),{name} es ahora el cabeza de familia (generación {generation})
+notice.school_choice,{name} goes to school: choose an attribute to raise (family tree),{name} va a la escuela: elige un atributo que mejorar (árbol genealógico)
+notice.apprentice,{name} starts as an apprentice,{name} empieza como aprendiz
+notice.came_of_age,{name} comes of age (16),{name} es mayor de edad (16)
+notice.goal_done,Dynasty goal achieved: {goal},Meta de dinastía cumplida: {goal}
+goal.five_generations,Five generations,Cinco generaciones
+goal.fortune,"Fortune (20,000 gold of wealth)",Fortuna (20.000 de oro de patrimonio)
+goal.mayor,Mayor,Alcalde
+class.artisan,Artisan,Artesano
+profession.blacksmith,Blacksmith,Herrero
+routine.work,Work,Trabajar
+routine.rest,Rest,Descansar
+routine.free,Free,Libre
+directive.work,Work,Trabajar
+score.birth,Births,Nacimientos
+score.wedding,Weddings,Bodas
+score.inheritance,New generations,Nuevas generaciones
+score.building_acquired,Buildings,Edificios
+score.goal_done,Goals,Metas
+score.trial_won,Trials won,Juicios ganados
+score.title,Titles,Títulos
+score.office_won,Offices,Cargos
+score.office_year,Years in office,Años de mandato
+score.sentence,Sentences,Condenas
+score.wealth_peak,Highest wealth,Patrimonio máximo
+ui.family.title,The %s family,Familia %s
+ui.family.age,%d years,%d años
+ui.family.age_dead,† at %d,† a los %d
+ui.family.designate_heir,Designate heir,Designar heredero
+ui.family.switch,Switch to this person,Cambiar a este personaje
+ui.family.court,Court,Cortejar
+ui.family.school,+1,+1
+ui.family.assign,Works at,Trabaja en
+ui.family.assign_default,Family workshop,Taller de la familia
+ui.family.goals,Dynasty goals,Metas de la dinastía
+ui.family.close_dynasty,End the dynasty,Cerrar la dinastía
+ui.family.dynasty,Generation %d · %d points,Generación %d · %d puntos
+ui.family.head,Head of the family,Cabeza de familia
+ui.family.heir,Heir,Heredero
+ui.family.regent,Regent,Regente
+ui.family.controllable,Controllable,Controlable
+ui.family.spouse,Married to %s,Casado con %s
+ui.family.tree,Family (F),Familia (F)
+ui.routine.title,Routine,Rutina
+ui.routine.on,Turn on,Activar
+ui.routine.off,Turn off,Quitar
+ui.routine.now,Now (%s): %s,Ahora (%s): %s
+ui.routine.none,nothing (manual orders only),nada (solo órdenes a mano)
+ui.routine.manual,a manual order rules,manda una orden a mano
+ui.routine.auto,Automatic,Automática
+ui.court.title,Courtship · %s,Cortejo · %s
+ui.court.nobody,Nobody to court,Nadie a quien cortejar
+ui.court.affinity,Affinity %d / 100 (80 to propose),Afinidad %d / 100 (80 para proponer)
+ui.court.talk,Talk,Hablar
+ui.court.gift,Gift,Regalar
+ui.court.propose,Propose,Proponer
+ui.court.walk,Walks there first,Primero va hasta allí
+ui.ending.game_over.title,End of the dynasty,Fin de la dinastía
+ui.ending.game_over.body,The head of the {family} has died with no heir: the dynasty ends here.,El cabeza de los {family} ha muerto sin heredero: la dinastía termina aquí.
+ui.ending.closed.title,The dynasty is closed,Dinastía cerrada
+ui.ending.closed.body,The {family} close their chronicle.,Los {family} cierran su crónica.
+ui.ending.generations,Generations: %d,Generaciones: %d
+ui.ending.head,"%s, head from day %d to day %s","%s, cabeza del día %d al día %s"
+ui.ending.peak,Highest wealth: %d gold,Patrimonio máximo: %d de oro
+ui.ending.goals,Goals met: %s,Metas cumplidas: %s
+ui.ending.score_title,Dynasty score,Puntuación de la dinastía
+ui.ending.score_line,%s (%d): %d,%s (%d): %d
+ui.ending.score_total,Total: %d points,Total: %d puntos

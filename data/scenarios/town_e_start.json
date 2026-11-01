@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "seed": "1",
   "rng_state": "",
   "meta": {
@@ -53,7 +53,24 @@
       "rank": "",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -160,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 1,
+        "skin": 1
+      },
+      "life": {}
     },
     "chr_0002": {
       "id": "chr_0002",
@@ -97,7 +114,24 @@
       "rank": "",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -192,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 2,
+        "skin": 2
+      },
+      "life": {}
     },
     "chr_0003": {
       "id": "chr_0003",
@@ -141,7 +175,24 @@
       "rank": "",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -144,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 3,
+        "skin": 3
+      },
+      "life": {}
     },
     "chr_0004": {
       "id": "chr_0004",
@@ -185,7 +236,24 @@
       "rank": "",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -240,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 4,
+        "skin": 0
+      },
+      "life": {}
     },
     "chr_0005": {
       "id": "chr_0005",
@@ -229,7 +297,24 @@
       "rank": "",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -256,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 5,
+        "skin": 1
+      },
+      "life": {}
     },
     "chr_0006": {
       "id": "chr_0006",
@@ -273,7 +358,24 @@
       "rank": "",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -280,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 0,
+        "skin": 2
+      },
+      "life": {}
     },
     "chr_0007": {
       "id": "chr_0007",
@@ -317,7 +419,24 @@
       "rank": "journeyman",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -144,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 0,
+        "skin": 0
+      },
+      "life": {}
     },
     "chr_0008": {
       "id": "chr_0008",
@@ -361,7 +480,24 @@
       "rank": "apprentice",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -184,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 5,
+        "skin": 3
+      },
+      "life": {}
     },
     "chr_0009": {
       "id": "chr_0009",
@@ -405,7 +541,24 @@
       "rank": "apprentice",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -224,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 4,
+        "skin": 2
+      },
+      "life": {}
     },
     "chr_0010": {
       "id": "chr_0010",
@@ -449,7 +602,24 @@
       "rank": "apprentice",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -160,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 3,
+        "skin": 1
+      },
+      "life": {}
     },
     "chr_0011": {
       "id": "chr_0011",
@@ -493,7 +663,24 @@
       "rank": "master",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -200,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 2,
+        "skin": 0
+      },
+      "life": {}
     },
     "chr_0012": {
       "id": "chr_0012",
@@ -537,7 +724,24 @@
       "rank": "journeyman",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -240,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 1,
+        "skin": 3
+      },
+      "life": {}
     },
     "chr_0013": {
       "id": "chr_0013",
@@ -581,7 +785,24 @@
       "rank": "apprentice",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -176,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 0,
+        "skin": 2
+      },
+      "life": {}
     },
     "chr_0014": {
       "id": "chr_0014",
@@ -625,7 +846,24 @@
       "rank": "apprentice",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -216,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 5,
+        "skin": 1
+      },
+      "life": {}
     },
     "chr_0015": {
       "id": "chr_0015",
@@ -669,7 +907,24 @@
       "rank": "journeyman",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -152,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 4,
+        "skin": 0
+      },
+      "life": {}
     },
     "chr_0016": {
       "id": "chr_0016",
@@ -713,7 +968,24 @@
       "rank": "apprentice",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -192,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 3,
+        "skin": 3
+      },
+      "life": {}
     },
     "chr_0017": {
       "id": "chr_0017",
@@ -757,7 +1029,24 @@
       "rank": "apprentice",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -232,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 2,
+        "skin": 2
+      },
+      "life": {}
     },
     "chr_0018": {
       "id": "chr_0018",
@@ -801,7 +1090,24 @@
       "rank": "journeyman",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -168,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 1,
+        "skin": 1
+      },
+      "life": {}
     },
     "chr_0019": {
       "id": "chr_0019",
@@ -845,7 +1151,24 @@
       "rank": "master",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -208,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 0,
+        "skin": 0
+      },
+      "life": {}
     },
     "chr_0020": {
       "id": "chr_0020",
@@ -889,7 +1212,24 @@
       "rank": "apprentice",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -144,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 5,
+        "skin": 3
+      },
+      "life": {}
     },
     "chr_0021": {
       "id": "chr_0021",
@@ -933,7 +1273,24 @@
       "rank": "journeyman",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -184,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 4,
+        "skin": 2
+      },
+      "life": {}
     },
     "chr_0022": {
       "id": "chr_0022",
@@ -977,7 +1334,24 @@
       "rank": "apprentice",
       "job": null,
       "hire_bans": {},
-      "routine": {}
+      "routine": {},
+      "birth_day": -224,
+      "death_day": -1,
+      "class": "artisan",
+      "profession": "blacksmith",
+      "spouse": "",
+      "parents": [],
+      "children": [],
+      "assigned": "",
+      "directives": [
+        "work"
+      ],
+      "schedule": null,
+      "visual": {
+        "hair": 3,
+        "skin": 1
+      },
+      "life": {}
     }
   },
   "families": {
@@ -997,7 +1371,14 @@
       "gold": 100,
       "reputation": 0,
       "ai_profile": "",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0001",
+      "heir": "",
+      "founder": "chr_0001",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     },
     "fam_0002": {
       "id": "fam_0002",
@@ -1014,7 +1395,14 @@
       "gold": 50,
       "reputation": 0,
       "ai_profile": "",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0004",
+      "heir": "",
+      "founder": "chr_0004",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     },
     "fam_0003": {
       "id": "fam_0003",
@@ -1030,7 +1418,14 @@
       "gold": 80,
       "reputation": 0,
       "ai_profile": "rival_smith",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0006",
+      "heir": "",
+      "founder": "chr_0006",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     },
     "fam_0004": {
       "id": "fam_0004",
@@ -1047,7 +1442,14 @@
       "gold": 20,
       "reputation": 0,
       "ai_profile": "",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0007",
+      "heir": "",
+      "founder": "chr_0007",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     },
     "fam_0005": {
       "id": "fam_0005",
@@ -1064,7 +1466,14 @@
       "gold": 20,
       "reputation": 0,
       "ai_profile": "",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0009",
+      "heir": "",
+      "founder": "chr_0009",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     },
     "fam_0006": {
       "id": "fam_0006",
@@ -1081,7 +1490,14 @@
       "gold": 20,
       "reputation": 0,
       "ai_profile": "",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0011",
+      "heir": "",
+      "founder": "chr_0011",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     },
     "fam_0007": {
       "id": "fam_0007",
@@ -1098,7 +1514,14 @@
       "gold": 20,
       "reputation": 0,
       "ai_profile": "",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0013",
+      "heir": "",
+      "founder": "chr_0013",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     },
     "fam_0008": {
       "id": "fam_0008",
@@ -1115,7 +1538,14 @@
       "gold": 20,
       "reputation": 0,
       "ai_profile": "",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0015",
+      "heir": "",
+      "founder": "chr_0015",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     },
     "fam_0009": {
       "id": "fam_0009",
@@ -1132,7 +1562,14 @@
       "gold": 20,
       "reputation": 0,
       "ai_profile": "",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0017",
+      "heir": "",
+      "founder": "chr_0017",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     },
     "fam_0010": {
       "id": "fam_0010",
@@ -1149,7 +1586,14 @@
       "gold": 20,
       "reputation": 0,
       "ai_profile": "",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0019",
+      "heir": "",
+      "founder": "chr_0019",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     },
     "fam_0011": {
       "id": "fam_0011",
@@ -1166,7 +1610,14 @@
       "gold": 20,
       "reputation": 0,
       "ai_profile": "",
-      "ai_state": {}
+      "ai_state": {},
+      "head": "chr_0021",
+      "heir": "",
+      "founder": "chr_0021",
+      "generation": 1,
+      "regent": "",
+      "class": "artisan",
+      "goals_done": []
     }
   },
   "buildings": {

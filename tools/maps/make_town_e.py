@@ -126,7 +126,9 @@ def npc(i, name, female, rank, craft):
     st["constitution"] = 3 + (i * 2) % 5
     st["empathy"] = 2 + (i * 5) % 4
     st["dexterity"] = 3 + (i * 7) % 4
-    return {"name": name, "female": female, "rank": rank, "stats": st}
+    # H8: adults of 18-30 years and their palette tones (GDD 4.10.9; data/family.json visual: 6 hair, 4 skin)
+    return {"name": name, "female": female, "rank": rank, "stats": st, "age": 18 + (i * 5) % 13,
+            "visual": {"hair": (i * 5) % 6, "skin": (i * 3) % 4}}
 
 # 9 apprentices (craft 1-3), 5 journeymen (4-6), 2 masters (7-8): abundant, medium, scarce (GDD 4.7.2)
 POP = [
@@ -155,20 +157,29 @@ with open(os.path.join(ROOT, "data/maps/town_e.json"), "w") as f:
 def inv(limit_kind, limit, stacks=None):
     return {"limit_kind": limit_kind, "limit": limit, "stacks": stacks or []}
 
-def chr_(id_, name, female, family, ctrl, pos, craft=3, location="", stats=None, rank="", home=""):
+def chr_(id_, name, female, family, ctrl, pos, craft=3, location="", stats=None, rank="", home="", age=25,
+         visual=None, profession="blacksmith"):
     if stats is None:
         stats = {k: 3 for k in STATS}
         stats["craft"] = craft
+    n = int(id_.split("_")[1])
     return {"id": id_, "name": name, "female": female, "family": family, "controlled_by": ctrl,
             "alive": True, "position": pos, "path": [], "move_progress": 0,
             "stats": stats, "inventory": inv("weight", 30.0),
             "equipment": {"tool": None, "clothes": None, "accessory": None},
             "location": location, "station": "", "order_queue": [],
-            "home": home, "rank": rank, "job": None, "hire_bans": {}, "routine": {}}
+            "home": home, "rank": rank, "job": None, "hire_bans": {}, "routine": {},
+            # v7 (H8, docs/contratos/h8_familia.md): born at the start of a calendar year (8 days), the scenario is day 0
+            "birth_day": -age * 8, "death_day": -1, "class": "artisan", "profession": profession, "spouse": "",
+            "parents": [], "children": [], "assigned": "", "directives": ["work"], "schedule": None,
+            "visual": visual or {"hair": n % 6, "skin": n % 4}, "life": {}}
 
 def fam_(id_, name, ctrl, members, colors, gold, ai_profile=""):
     return {"id": id_, "name": name, "controlled_by": ctrl, "members": members, "colors": colors,
-            "gold": gold, "reputation": 0, "ai_profile": ai_profile, "ai_state": {}}
+            "gold": gold, "reputation": 0, "ai_profile": ai_profile, "ai_state": {},
+            # v7 (H8): the first member is the head and founder
+            "head": members[0], "heir": "", "founder": members[0], "generation": 1, "regent": "",
+            "class": "artisan", "goals_done": []}
 
 FOOTPRINTS = {"forge": [3, 4], "armory": [3, 4], "house": [3, 3]}
 SLOTS = {"forge": 1}  # data/buildings/<type>.json base_employees
@@ -186,17 +197,17 @@ def bld_(id_, key, owner, zones, stacks=10, items=None):
 FORGE_ZONES = ("furnace", "anvil", "counter", "storage")
 
 scenario = {
-    "version": 6, "seed": "1", "rng_state": "",
+    "version": 7, "seed": "1", "rng_state": "",
     "meta": {"title": "Pueblo-calle", "description": "Arenero de pruebas: mapa town_e con la familia del jugador (3) y su forja (bld_0001), dos vecinos, el herrero rival Bernat en su forja (bld_0002, familia IA Ferrer), la Armería pública (bld_0003) y 16 vecinos sin empleo en sus 8 casas (bld_0004-0011, candidatos a empleado). Sin préstamo."},
     "map_id": "town_e",
     "clock": {"minute": 480},
     "characters": {
-        "chr_0001": chr_("chr_0001", "Hugo", False, "fam_0001", "human", [20, 21], craft=7),
-        "chr_0002": chr_("chr_0002", "Elena", True, "fam_0001", "human", [21, 21], craft=4),
-        "chr_0003": chr_("chr_0003", "Tomás", False, "fam_0001", "human", [19, 22], craft=2),
-        "chr_0004": chr_("chr_0004", "Marta", True, "fam_0002", "ai", [8, 12]),
-        "chr_0005": chr_("chr_0005", "Pere", False, "fam_0002", "ai", [30, 25]),
-        "chr_0006": chr_("chr_0006", "Bernat", False, "fam_0003", "ai", [10, 19], craft=5, location="bld_0002"),
+        "chr_0001": chr_("chr_0001", "Hugo", False, "fam_0001", "human", [20, 21], craft=7, age=20),
+        "chr_0002": chr_("chr_0002", "Elena", True, "fam_0001", "human", [21, 21], craft=4, age=24),
+        "chr_0003": chr_("chr_0003", "Tomás", False, "fam_0001", "human", [19, 22], craft=2, age=18),
+        "chr_0004": chr_("chr_0004", "Marta", True, "fam_0002", "ai", [8, 12], age=30, profession=""),
+        "chr_0005": chr_("chr_0005", "Pere", False, "fam_0002", "ai", [30, 25], age=32, profession=""),
+        "chr_0006": chr_("chr_0006", "Bernat", False, "fam_0003", "ai", [10, 19], craft=5, location="bld_0002", age=35),
     },
     "families": {
         "fam_0001": fam_("fam_0001", "Herrero", "human", ["chr_0001", "chr_0002", "chr_0003"],
@@ -231,7 +242,8 @@ for hh in town["population"]:
         cid = "chr_%04d" % nid["chr"]
         nid["chr"] += 1
         scenario["characters"][cid] = chr_(cid, p["name"], p["female"], fid, "ai", town["buildings"][hh["home"]]["door"],
-                                           location=bid, stats=dict(p["stats"]), rank=p["rank"], home=bid)
+                                           location=bid, stats=dict(p["stats"]), rank=p["rank"], home=bid,
+                                           age=p["age"], visual=dict(p["visual"]))
         members.append(cid)
     scenario["families"][fid] = fam_(fid, hh["family_name"], "ai", members, hh["colors"], hh["gold"])
     scenario["buildings"][bid] = bld_(bid, hh["home"], fid, (), stacks=0)

@@ -1,0 +1,85 @@
+{
+  "_doc": "Familia y dinastía (GDD 4.2.5 ciclo de vida, 4.10 entero, 4.21 módulo de familia). Edades en años: un año = 8 días (D1(b)); las edades se cumplen todas a la vez al cambiar de año (year_changed). Cifras [balance] y [provisional] explicadas en docs/contratos/h8_familia.md. Lo leen sim/family/*.gd (Catalog.family).",
+  "life": {
+    "_doc": "Etapas (4.2.5): school (8, +1 a un atributo), apprentice (12, profesión), majority (16, grupo controlable, trabajar, casarse, heredar). decline: a esas edades −1 a esos atributos (45-55 declive; 55-70 vejez acelerada, +1 Retórica a los 55) [provisional: el GDD da el ritmo, no los años exactos]. death: desde from_age, p_anual = base × growth^(edad − from_age) × (1 − (constitucion − 5) × constitution_step), tirada al cambiar de año; a partir de certain_age muere seguro. stat_min/stat_max: límites de los atributos.",
+    "school_age": 8,
+    "apprentice_age": 12,
+    "majority_age": 16,
+    "stat_min": 1,
+    "stat_max": 10,
+    "decline": [
+      {"age": 45, "stats": {"constitution": -1}},
+      {"age": 50, "stats": {"constitution": -1, "dexterity": -1}},
+      {"age": 55, "stats": {"constitution": -1, "rhetoric": 1}},
+      {"age": 58, "stats": {"constitution": -1}},
+      {"age": 61, "stats": {"constitution": -1, "dexterity": -1}},
+      {"age": 64, "stats": {"constitution": -1}},
+      {"age": 67, "stats": {"constitution": -1, "dexterity": -1}},
+      {"age": 70, "stats": {"constitution": -1}}
+    ],
+    "death": {"from_age": 55, "base": 0.02, "growth": 1.25, "constitution_step": 0.05, "certain_age": 75},
+    "ai_school_stat": "craft",
+    "adult_carry_weight": 30.0
+  },
+  "courtship": {
+    "_doc": "Cortejo por afinidad (4.10.1). talk: +[mín, máx] una vez por pretendiente y día; gift: +gold_value / gold_per_point, entre min y max (valor = precio de venta del regalo en el mercado); work_near: +1 por día trabajando a la vez en el mismo edificio. Multiplicador × (1 + (carisma − 5) × charisma_step) y × same_title_mult si las dos familias tienen el mismo título. propose_min: afinidad para proponer. range_tiles: distancia en casillas para hablar, regalar o proponer (a la persona en el mapa o a la puerta del edificio donde está). blocking_emotions: estados de 4.11.5 (H7) del pretendido hacia el actor que bloquean el cortejo. opposite_sex: provisional (los hijos necesitan padre y madre). affinity_max: tope.",
+    "talk": [3, 5],
+    "gift": {"min": 5, "max": 15, "gold_per_point": 2},
+    "work_near": 1,
+    "charisma_step": 0.1,
+    "same_title_mult": 1.15,
+    "propose_min": 80,
+    "affinity_max": 100,
+    "range_tiles": 3,
+    "blocking_emotions": ["offended", "angry"],
+    "opposite_sex": true
+  },
+  "children": {
+    "_doc": "Hijos (4.10.3) [balance]: primer hijo posible first_child_days después de la boda (1 estación); desde entonces daily_chance cada amanecer; between_days sin nuevo hijo tras un nacimiento (1 año); como mucho max_per_couple. mother_max_age: edad máxima de la madre [provisional, el GDD no la da]. Atributos: (padre + madre) / 2 + aleatorio(−jitter, +jitter), +both_high_bonus si los dos tienen >= both_high_min. Rasgos (4.10.9): pelo y piel de un padre al azar; new_tone_chance de tono nuevo [balance].",
+    "first_child_days": 2,
+    "daily_chance": 0.10,
+    "between_days": 8,
+    "max_per_couple": 3,
+    "mother_max_age": 45,
+    "stat_jitter": 1,
+    "both_high_min": 7,
+    "both_high_bonus": 1,
+    "new_tone_chance": 0.1
+  },
+  "visual": {
+    "_doc": "Identidad visual (4.10.9): índices de la paleta de intercambio (los colores viven en data/view.json palette, la vista los aplica). hair_tones / skin_tones [balance].",
+    "hair_tones": 6,
+    "skin_tones": 4
+  },
+  "group": {
+    "_doc": "Grupo controlable (4.10.5): como mucho max personajes (el cabeza + hijos >= 16).",
+    "max": 3
+  },
+  "routine": {
+    "_doc": "Rutina programable (4.10.8): franjas = fases del día; acciones work | rest | free. default: la rutina de quien entra en el grupo al cumplir 16 (Día = Trabajar en su edificio asignado; el resto, Libre). La del fundador de una partida nueva empieza vacía (null) [provisional, para no cambiar el balance de H3-H5]: se activa en la ficha. ai_rest_phases: fases en que un familiar con IA (la pareja, los adultos fuera del grupo) descansa en vez de seguir su directiva [provisional, hasta las necesidades POST-MVP]. retry_minutes: tras una orden rechazada. manual_grace_minutes: tras la última orden manual, la rutina espera al menos esto aunque el personaje ya esté libre (para encadenar órdenes a mano: salir y luego ir a un sitio) [provisional].",
+    "actions": ["work", "rest", "free"],
+    "default": {"dawn": {"action": "free"}, "day": {"action": "work"}, "dusk": {"action": "free"}, "night": {"action": "free"}},
+    "ai_rest_phases": ["night"],
+    "retry_minutes": 30,
+    "manual_grace_minutes": 60
+  },
+  "directives": {
+    "_doc": "Directivas IA de familiares (4.10.6): solo work en el MVP. default: las de un personaje nuevo.",
+    "known": ["work"],
+    "default": ["work"]
+  },
+  "succession": {
+    "_doc": "Herencia (4.10.4): heredero válido = descendiente vivo del cabeza con >= majority_age, o menor si vive la pareja del muerto (regente hasta su mayoría). Por defecto el mayor. voluntary_close: cierre voluntario de la dinastía (4.17, D19 pendiente): desactivado hasta que el owner lo apruebe.",
+    "voluntary_close": false
+  },
+  "ai_family": {
+    "_doc": "Módulo de familia de las familias IA con perfil (4.21) [provisional, el diseño de 4.21 no está cerrado: lo mínimo]. Un cabeza soltero sin heredero corteja de noche (una visita por noche a la puerta del candidato con más afinidad, conversar) y propone al llegar a propose_min. Los hijos nacen con las mismas reglas que los del jugador.",
+    "court_phase": "night",
+    "court_from_day": 0
+  },
+  "names": {
+    "_doc": "Nombres de los recién nacidos (por sexo), elegidos al azar con la semilla.",
+    "male": ["Pere", "Joan", "Arnau", "Bernat", "Guillem", "Ramon", "Jaume", "Martí", "Pau", "Berenguer", "Hugo", "Tomás", "Lluc", "Bartomeu", "Ferran", "Miquel"],
+    "female": ["Elena", "Agnès", "Clara", "Blanca", "Sança", "Margarida", "Isabel", "Violant", "Elisenda", "Marta", "Caterina", "Eulàlia", "Constança", "Francesca", "Joana", "Aldonça"]
+  }
+}

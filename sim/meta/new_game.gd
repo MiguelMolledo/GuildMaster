@@ -63,6 +63,10 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	var spawn: Array = map.get("spawns", {}).get(str(pr.get("spawn", "player")), [0, 0])
 	var hero := _add_character(s, catalog, fam, str(c["name"]), bool(c["female"]), "human", c["stats"], spawn,
 		float(pr.get("carry_weight", 30.0)), pr.get("equipment", {}))
+	# H8: age, class, trade and the palette tones (GDD 4.10.9) of the protagonist; the family's head and founder.
+	_set_kin(s, catalog, hero, int(pr.get("age", 20)), str(start.get("class", "artisan")),
+		str(start.get("profession", "")), c["visual"])
+	s.families[fam]["class"] = str(start.get("class", "artisan"))
 	var b: Dictionary = start["building"]
 	var forge := _add_building(s, catalog, sites, str(b["site"]), fam, b.get("inventory", []))
 	# The rival family (GDD 4.5.5): its craft comes from the difficulty.
@@ -78,6 +82,8 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 		var rsite: Dictionary = sites[str(rb["site"])]
 		var rchr := _add_character(s, catalog, rfam, str(rc.get("name", "")), bool(rc.get("female", false)), "ai",
 			rstats, rsite["door"], float(pr.get("carry_weight", 30.0)), {})
+		_set_kin(s, catalog, rchr, int(rc.get("age", 30)), str(start.get("class", "artisan")),
+			str(start.get("profession", "")), rc.get("visual", {}))
 		var rbld := _add_building(s, catalog, sites, str(rb["site"]), rfam, rb.get("inventory", []))
 		s.characters[rchr]["location"] = rbld
 	# The public buildings of the map (owner "" in the map), sorted by site.
@@ -143,8 +149,16 @@ static func _choices(start: Dictionary, choices: Dictionary) -> Dictionary:
 	for k: String in stats:
 		if int(stats[k]) < int(pr.get("stat_min", 1)) or int(stats[k]) > int(pr.get("stat_max", 10)):
 			return {}
+	var visual: Variant = choices.get("visual", d.get("visual", {}))
+	if not visual is Dictionary:
+		return {}
+	for k: String in ["hair", "skin"]:
+		var v: Variant = (visual as Dictionary).get(k, 0)
+		if not (typeof(v) in [TYPE_INT, TYPE_FLOAT]) or int(v) < 0:
+			return {}
 	return {"name": name, "female": bool(choices.get("female", d.get("female", false))), "family_name": family_name,
-		"colors": {"primary": str(colors["primary"]), "secondary": str(colors["secondary"])}, "stats": stats}
+		"colors": {"primary": str(colors["primary"]), "secondary": str(colors["secondary"])}, "stats": stats,
+		"visual": {"hair": int(visual.get("hair", 0)), "skin": int(visual.get("skin", 0))}}
 
 
 ## The map's "population" (H4): per household, in order, a family (controlled_by "ai", no ai_profile), its house (the
@@ -164,6 +178,8 @@ static func add_population(s: WorldState, catalog: Catalog, map: Dictionary) -> 
 			ch["location"] = house
 			ch["home"] = house
 			ch["rank"] = str(p.get("rank", ""))
+			_set_kin(s, catalog, id, int(p.get("age", SaveFile.MIGRATION_AGE)), "artisan",
+				"blacksmith" if str(p.get("rank", "")) != "" else "", p.get("visual", {}))
 			out.append(id)
 	if OS.is_debug_build() and not out.is_empty():
 		print("[NewGame] población: %d vecinos en %d casas" % [out.size(), (map.get("population", []) as Array).size()])
@@ -175,6 +191,7 @@ static func _add_family(s: WorldState, name: String, ctrl: String, colors: Dicti
 	var id := Ids.next(s, "fam")
 	s.families[id] = {"id": id, "name": name, "controlled_by": ctrl, "members": [], "colors": colors.duplicate(),
 		"gold": gold, "reputation": reputation, "ai_profile": profile, "ai_state": {}}
+	s.families[id].merge(Kin.family_fields("", "artisan"))  # H8: the head and founder is its first member
 	return id
 
 
@@ -191,8 +208,28 @@ static func _add_character(s: WorldState, catalog: Catalog, fam: String, name: S
 		"position": [int(pos[0]), int(pos[1])], "path": [], "move_progress": 0, "stats": stats.duplicate(),
 		"inventory": Inventory.create("weight", carry - worn), "equipment": eq, "location": "", "station": "",
 		"order_queue": [], "home": "", "rank": "", "job": null, "hire_bans": {}, "routine": {}}
+	var n := id.get_slice("_", 1).to_int()  # H8: tones and age until _set_kin gives the real ones
+	s.characters[id].merge(Kin.character_fields(Kin.birth_day_for(SaveFile.MIGRATION_AGE, int(s.clock["minute"]),
+		catalog.time), "artisan", "", n % int(catalog.family.get("visual", {}).get("hair_tones", 6)),
+		n % int(catalog.family.get("visual", {}).get("skin_tones", 4)), catalog.family.get("directives", {}).get("default", ["work"])))
 	(s.families[fam]["members"] as Array).append(id)
+	if str(s.families[fam].get("head", "")) == "":
+		s.families[fam]["head"] = id
+		s.families[fam]["founder"] = id
 	return id
+
+
+## H8: the age (born at the start of a calendar year), class, trade and palette tones of a new character; tones not
+## given keep the ones from its id.
+static func _set_kin(s: WorldState, catalog: Catalog, chr: String, age: int, char_class: String, profession: String,
+		visual: Dictionary) -> void:
+	var ch: Dictionary = s.characters[chr]
+	ch["birth_day"] = Kin.birth_day_for(age, int(s.clock["minute"]), catalog.time)
+	ch["class"] = char_class
+	ch["profession"] = profession
+	for k: String in ["hair", "skin"]:
+		if visual.has(k):
+			ch["visual"][k] = int(visual[k])
 
 
 static func _add_building(s: WorldState, catalog: Catalog, sites: Dictionary, site: String, owner: String,

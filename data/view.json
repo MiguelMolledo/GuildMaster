@@ -52,6 +52,13 @@
     "blink_hz": 3.0,
     "touch_feedback_seconds": 1.5
   },
+  "palette": {
+    "_doc": "H8 identidad visual (GDD 4.10.9): los tonos de la paleta de intercambio por índice (data/family.json visual: 6 de pelo, 4 de piel) [balance]. La ropa principal es el color primario de la familia. Los aplica la figura greybox (game/visuals/greybox/greybox_figure.gd) y el retrato (game/visuals/characters/portrait.tscn); los sprites, cuando respeten los colores clave (8.4, 9.6).",
+    "hair": ["#2a1d14", "#5a3a22", "#8a5a2e", "#c89a52", "#a8402a", "#d8d0c0"],
+    "skin": ["#f0d0b0", "#e0b48c", "#b88458", "#7a5236"],
+    "border_dead": "#6a6258",
+    "border_active": "#ffd84c"
+  },
   "upgrades": {
     "_doc": "H5 upgrade tree (GDD 4.8): latest_only_branches = branches whose visuals replace each other (only the highest finished level is shown; the rest show every finished level). status colours of the tree panel's cells (owned, in_works, available, blocked). works: the bar over a building under construction on the map (back, fill, text) and the panel's bar. The scaffold itself is the node Works of game/visuals/buildings/<type>.tscn.",
     "latest_only_branches": ["production", "facade"],

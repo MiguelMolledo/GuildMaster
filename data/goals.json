@@ -1,0 +1,8 @@
+{
+  "_doc": "Metas de dinastía (GDD 4.17), opcionales: se ven en el panel de dinastía desde el principio; cumplir una añade goal_done a la crónica (500 puntos, data/score.json) y la partida sigue. kind: generation (el cabeza de familia número min toma el mando), wealth (patrimonio >= min), office (un miembro gana ese cargo: H10, hasta entonces no se puede cumplir). since: hito desde el que se puede cumplir (informativo). Dynasty.step las mira cada amanecer.",
+  "goals": [
+    {"id": "five_generations", "name_key": "goal.five_generations", "kind": "generation", "min": 5, "since": "H8"},
+    {"id": "fortune", "name_key": "goal.fortune", "kind": "wealth", "min": 20000, "since": "H6"},
+    {"id": "mayor", "name_key": "goal.mayor", "kind": "office", "office": "mayor", "since": "H10"}
+  ]
+}

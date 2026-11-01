@@ -21,6 +21,9 @@ var accounts: Dictionary = {}    # data/accounts.json: ledger and notices retent
 var employees: Dictionary = {}   # data/employees.json: ranks, roles, loyalty, bands, wages, theft, hiring, schedule (H4)
 var upgrade_rules: Dictionary = {}  # data/upgrade_rules.json: branches, effect kinds, titles, inspections (H5)
 var upgrade_trees: Dictionary = {}  # tree -> [upgrade ids] sorted (data/upgrades/<tree>/*.json; the upgrades: tables.upgrades)
+var family: Dictionary = {}      # data/family.json: life cycle, courtship, children, routine, succession (H8)
+var score: Dictionary = {}       # data/score.json: dynasty score by chronicle fact (H8, GDD 4.17)
+var goals: Dictionary = {}       # data/goals.json: dynasty goals (H8, GDD 4.17)
 var errors: PackedStringArray = []  # files that could not be read
 
 
@@ -38,6 +41,9 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.employees = c._load_json(root_dir.path_join("employees.json"))
 	c.upgrade_rules = c._load_json(root_dir.path_join("upgrade_rules.json"))
 	c._load_upgrades(root_dir.path_join("upgrades"))
+	c.family = c._load_json(root_dir.path_join("family.json"))
+	c.score = c._load_json(root_dir.path_join("score.json"))
+	c.goals = c._load_json(root_dir.path_join("goals.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
@@ -169,6 +175,7 @@ func validate() -> PackedStringArray:
 	if not (employees.get("roles", {}) as Dictionary).has(str(employees.get("default_role", ""))):
 		out.append("employees.json: default_role is not a role")
 	out.append_array(_validate_upgrades())
+	out.append_array(_validate_family())
 	for id: String in maps():
 		var m: Dictionary = maps()[id]
 		var size: Array = m.get("size", [0, 0])
@@ -183,6 +190,30 @@ func validate() -> PackedStringArray:
 				if tile_kind_of_char(ch) == "":
 					out.append("maps/%s: row %d uses unknown tile code '%s'" % [id, r, ch])
 					break
+	return out
+
+
+## H8: the family tables (tools/validate_content.py check_h8 checks the rest and the texts).
+func _validate_family() -> PackedStringArray:
+	var out: PackedStringArray = []
+	var life: Dictionary = family.get("life", {})
+	for k: String in ["school_age", "apprentice_age", "majority_age", "death"]:
+		if not life.has(k):
+			out.append("family.json: life.%s missing" % k)
+	if int(family.get("group", {}).get("max", 0)) < 1:
+		out.append("family.json: group.max must be >= 1")
+	for k: String in ["male", "female"]:
+		if (family.get("names", {}).get(k, []) as Array).is_empty():
+			out.append("family.json: names.%s empty" % k)
+	var acts: Array = family.get("routine", {}).get("actions", [])
+	for ph: String in family.get("routine", {}).get("default", {}):
+		if not ph in Clock.PHASES or not str(family["routine"]["default"][ph].get("action", "")) in acts:
+			out.append("family.json: routine.default.%s is not a phase with a known action" % ph)
+	for g: Dictionary in goals.get("goals", []):
+		if not str(g.get("kind", "")) in ["generation", "wealth", "office"]:
+			out.append("goals.json: %s: unknown kind %s" % [g.get("id", "?"), g.get("kind")])
+	if score.get("points", {}).is_empty():
+		out.append("score.json: points missing")
 	return out
 
 
