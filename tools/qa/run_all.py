@@ -4,7 +4,9 @@
   python3 tools/qa/run_all.py [--only=a,b] [--skip=a,b] [--visual]
 
 Pasos: tests (reglas), content (validador), art (inventario), boot (arranque sin ventana con cada escenario),
-bench (coste del sim), sim (bots contra data/targets.json). Con --visual, además smoke (capturas con ventana, por
+bench (coste del sim), sim (bots contra data/targets.json en el arenero), sim2 (random_clicker e idle_rival a 10 días),
+novice (partida nueva real en Normal: artisan_novice e idle, 5 semillas; las 30 semillas y las tres dificultades se
+corren a mano, ver CLAUDE.md). Con --visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
 """
 import os
@@ -23,6 +25,9 @@ STEPS = [
     ("boot", ["zsh", "tools/qa/boot_check.sh"]),
     ("bench", G + ["-s", "tools/sim_bench.gd"]),
     ("sim", G + ["-s", "tools/sim_runner.gd", "--", "--bots=idle,wanderer,smith", "--days=3", "--seeds=5"]),
+    ("sim2", G + ["-s", "tools/sim_runner.gd", "--", "--bots=random_clicker,idle_rival", "--days=10", "--seeds=3"]),
+    ("novice", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=artisan_novice,idle",
+                    "--days=10", "--seeds=5"]),
 ]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]

@@ -31,10 +31,12 @@ func test_with_idle_the_rival_sells_and_the_demand_drops() -> void:
 	check(sold.size() >= 1, "the rival sold something on day 1 (%d)" % sold.size())
 	if sold.is_empty():
 		return
-	near(float(sold[0]["after"]), 0.95, 0.0001, "the first sale drops the demand of %s by 0.05" % sold[0]["item"])
+	var drop := float(cat.market["demand"]["drop_per_unit"])
+	near(float(sold[0]["after"]), 1.0 - drop, 0.0001, "the first sale drops the demand of %s by %.2f" % [sold[0]["item"],
+		drop])
 	var thr := RivalAI.sell_min_demand(sim, cat.ai_profiles()["rival_smith"])
 	for s: Dictionary in sold:
-		check(float(s["after"]) >= thr - 0.05 - 0.0001, "never sells under the threshold (%s %.2f)" % [s["item"], s["after"]])
+		check(float(s["after"]) >= thr - drop - 0.0001, "never sells under the threshold (%s %.2f)" % [s["item"], s["after"]])
 
 
 func test_only_real_orders_and_none_refused() -> void:
@@ -146,5 +148,8 @@ func test_its_memory_survives_a_save_exactly() -> void:
 		var sim2 := Sim.new(SaveFile.from_text(JSON.stringify(sim.state.to_dict()))["state"], cat)
 		sim.run_minutes(5)
 		sim2.run_minutes(5)
-		eq(str(sim2.state.families[FERRER]["ai_state"]), str(sim.state.families[FERRER]["ai_state"]),
-			"same memory after loading at minute %d" % int(sim.state.clock["minute"]))
+		var a: Dictionary = sim.state.families[FERRER]["ai_state"]
+		var b: Dictionary = sim2.state.families[FERRER]["ai_state"]
+		var at := int(sim.state.clock["minute"])
+		eq(str(b.get("last_fp", "")), str(a.get("last_fp", "")), "same fingerprint text after loading (minute %d)" % at)
+		eq(SaveFile.canonical(b), SaveFile.canonical(a), "same memory after loading (minute %d)" % at)

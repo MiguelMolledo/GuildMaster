@@ -203,6 +203,36 @@
       "tema": "Textos: concordancia de calidad",
       "decision": "Cada objeto lleva gender m/f (español) y la calidad usa quality.<n>.<m|f>: «Espada buena», «Lingote de hierro bueno».",
       "por_que": "Salía «Lingote de hierro buena»."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "D5, D15, D18 (provisionales del manager)",
+      "decision": "D5: 5 puntos libres (solo suben). D15 (b): el mantenimiento impagado se acumula como deuda con la ciudad, se cobra en cuanto hay oro, a los 3 días el edificio pasa a dañado y vuelve a normal al saldar. D18: sí, la ruina por la deuda termina la partida. D16 sigue pendiente (mostrador en H7).",
+      "por_que": "Recomendaciones del diseño; el owner puede cambiarlas."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Oro por familia",
+      "decision": "Una bolsa de oro por familia (families[fam].gold); todo movimiento pasa por Money y queda en el libro. Guardado v4.",
+      "por_que": "El libro de cuentas y la conservación son por familia (4.18, 4.19)."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "H3 · balance",
+      "decision": "Hierro 5 → 7, carbón 3 → 4, la demanda baja 0,1 por unidad vendida (antes 0,05; GDD 4.5.3 y apéndice A actualizados). Venta unidad a unidad. Con eso artisan_novice en Normal hace 47,3 de oro neto/día (diana 25-60) y paga la deuda a tiempo el 100 %; Fácil 67,5 > Normal > Difícil 39,2.",
+      "por_que": "Con las cifras originales el novato sacaba ~102/día y pagaba la deuda el día 1."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "H3 · rival (provisional)",
+      "decision": "Diana del oro de Ferrer al día 10 con idle: [40, 500] en vez de [40, 300]. Tras el balance queda en 145-418. Máximo 1 encargo a la vez y no acepta los guionizados.",
+      "por_que": "Su margen sale de la calidad (Artesanía 5) y de los encargos; se revisa en el rebalanceo de H5 (D14)."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "H3 · mercado y cuentas (provisionales)",
+      "decision": "Dificultad solo en el precio de compra. El mercado vende solo calidad normal. La deuda inicial no apunta ingreso. Embargo por unidades enteras a precio de venta. Al cerrar la Armería quien esté dentro sale. Sin --scenario el juego abre la pantalla de partida nueva.",
+      "por_que": "Contrato docs/contratos/h3_mercado.md."
     }
   ],
   "pendientes": [
@@ -210,11 +240,6 @@
       "tema": "D9 Nombre del mapa EA",
       "detalle": "Sin propuesta.",
       "opciones": ""
-    },
-    {
-      "tema": "D15 Mantenimiento impagado",
-      "detalle": "D12 no dice qué pasa si no hay oro.",
-      "opciones": "Recomendación: se acumula como deuda con la ciudad y, tras 3 días impagados [balance], el edificio pasa a Dañado."
     },
     {
       "tema": "D16 Mostrador y demanda",
@@ -225,11 +250,6 @@
       "tema": "D17 Escala de los edificios con D2",
       "detalle": "La escala 1,6 del primer intento deforma píxeles con el escalado ×2 entero.",
       "opciones": "Recomendación: generar los edificios ya a su tamaño final y dibujarlos a escala 1; confirmar con una captura de prueba en H1."
-    },
-    {
-      "tema": "D18 Ruina por la deuda inicial",
-      "detalle": "¿Termina la partida?",
-      "opciones": "Recomendación: sí, con avisos a 2 y 1 días, prórroga de 1 estación y deuda menor en Fácil."
     },
     {
       "tema": "D19 Cierre voluntario de la dinastía",
@@ -253,12 +273,11 @@
     }
   ],
   "proximos_pasos": [
-    "H3 · Mercado, dinero e inicio de partida (en curso).",
-    "Recoger lo que queda en el suelo de un puesto (zones[z].floor): falta la orden.",
-    "Plurales en los textos («2 Lingote de hierro»).",
-    "Bonus de velocidad de la herramienta: el GDD lo nombra sin cifra.",
+    "H4 · Empleados (en curso).",
+    "Revisar en H5 la diana del rival ([40, 300] del diseño) y las 3 de 30 semillas del novato que pasan de 60/día.",
+    "Recoger lo que queda en el suelo de un puesto; plurales en textos; bonus de velocidad de la herramienta.",
     "Picos del A* antes de H7.",
-    "Traer los assets reutilizables del primer intento y captura de escala de D17.",
+    "Traer los assets del primer intento y captura de escala de D17.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner."
   ]
 }

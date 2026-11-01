@@ -106,14 +106,14 @@
     {
       "id": "H3",
       "nombre": "Mercado, dinero e inicio de partida",
-      "estado": "en_curso",
+      "estado": "hecho",
       "entregable": "Plaza con 3 puestos y 1 tienda con interior (Armería), panel comprar/vender, demanda, horario, HUD de oro. Partida nueva: dificultad (4.23), creación de personaje con 5 puntos libres (D5) y colores de familia; condiciones de inicio y deuda (4.16, entidad `Loan`); objetivos de inicio. Herrero rival con IA simple (4.5.5). Tablón de encargos (4.5.6). Recado de entrega (4.5.7). Libro de cuentas y registro de avisos (4.18). Mantenimiento diario (D12).",
       "criterios": [
         {
           "texto": "Bot `artisan_novice` (30 semillas): oro a los 3 y 10 días en su diana, deuda pagada antes del día 8 en ≥ 90 % de las semillas y oro neto/día de la fase de inicio en `[25, 60]` (4.19)",
-          "estado": "en_curso",
-          "prueba": "Subgrim «balance» trabajando: bot artisan_novice y dianas de oro",
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "sim_runner --start=artisan_blacksmith --difficulty=easy,normal,hard --bots=artisan_novice --days=10 --seeds=30: 0 fallos. Normal: neto/día días 1-8 47,3 [26-70], deuda a tiempo 100 %, oro día 10 317 [15-472]. Fácil 67,5 > Normal 47,3 > Difícil 39,2",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Imposible vender más de lo que se tiene (test)",
@@ -123,8 +123,8 @@
         },
         {
           "texto": "Con `idle`, el rival vende, la demanda de lo que vende baja (test) y su oro al día 10 cae en `[40, 300]`",
-          "estado": "en_curso",
-          "prueba": "tests/test_ai_rival.gd (vende y baja la demanda); oro al día 10 399-479 con idle: diana provisional [40, 500], revisión en H5",
+          "estado": "hecho",
+          "prueba": "tests/test_ai_rival.gd (vende y baja la demanda). Oro de Ferrer al día 10 con idle: 145-418 → diana PROVISIONAL [40, 500] (la del diseño, [40, 300], se revisa en H5 con D14)",
           "fecha": "2026-11-01"
         },
         {
@@ -174,7 +174,7 @@
     {
       "id": "H4",
       "nombre": "Empleados",
-      "estado": "pendiente",
+      "estado": "en_curso",
       "entregable": "Candidatos, contratar/despedir, rangos y ascensos (1 año / 2 años), salarios reales, lealtad, abandono/robo, cola con dependencias, roles estrictos, avisos al registro, empleados caminando de casa a la forja.",
       "criterios": [
         {

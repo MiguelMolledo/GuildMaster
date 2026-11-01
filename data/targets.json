@@ -12,6 +12,10 @@
     "rival_sold": [
       1,
       null
+    ],
+    "player_other_flows": [
+      0,
+      0
     ]
   },
   "idle_rival": {
@@ -73,5 +77,55 @@
       0,
       0
     ]
+  },
+  "artisan_novice": {
+    "_doc": "GDD 4.16/4.19 (Normal, 30 semillas). Oro inicial 30, neto 25-60/día sin contar la deuda, deuda 200 antes del día 8, encargos guionizados de inicio ~153 de cobro (~110 netos). gold_day3 <= 30 + 3×60 + 110 = 320; gold_repaid_day3 (oro + lo ya devuelto) en [30 + 3×25 − 60 de capital (hierro y carbón de un lote), 320]; gold_day10 en [30 + 10×25 − 200 − 72 (valor del almacén inicial como capital de trabajo), 30 + 10×60 − 200 + 110]. debt_paid: proporción de semillas que saldan la deuda a tiempo >= 0,9. El oro neto/día va en goldflow.start.",
+    "days": [
+      10,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gold_day3": [
+      0,
+      320
+    ],
+    "gold_repaid_day3": [
+      45,
+      320
+    ],
+    "gold_day10": [
+      10,
+      540
+    ],
+    "_share": {
+      "debt_paid": [
+        0.9,
+        null
+      ]
+    }
+  },
+  "goldflow": {
+    "_doc": "GDD 4.19: oro neto por día medido por los bots sobre el libro de cuentas. window_days en días de juego jugados (1 = el primero, desde el amanecer del inicio); exclude_categories: categorías que no cuentan (la devolución de la deuda inicial no es un gasto de la fase: es lo que la fase tiene que pagar).",
+    "start": {
+      "bot": "artisan_novice",
+      "window_days": [
+        1,
+        8
+      ],
+      "net_per_day": [
+        25,
+        60
+      ],
+      "exclude_categories": [
+        "loans"
+      ]
+    }
   }
 }

@@ -299,7 +299,7 @@
 			"ai_profile": "rival_smith",
 			"ai_state": {
 				"bought_day": 7,
-				"last_fp": "[[24,16],\"\",\"\",{\"limit\":30,\"limit_kind\":\"weight\",\"stacks\":[]},178,0,2]",
+				"last_fp": "[[24,16],\"\",\"\",{\"limit\":30,\"limit_kind\":\"weight\",\"stacks\":[]},176,0,2]",
 				"last_order": "{\"actor\":\"chr_0002\",\"building\":\"bld_0002\",\"type\":\"enter_building\"}",
 				"phase": "night",
 				"plan": [],
@@ -310,7 +310,7 @@
 				"secondary": "#b8b8b0"
 			},
 			"controlled_by": "ai",
-			"gold": 178,
+			"gold": 176,
 			"id": "fam_0002",
 			"members": [
 				"chr_0002"
@@ -343,7 +343,7 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": -3,
+				"amount": -4,
 				"building": "",
 				"category": "purchases",
 				"day": 6,
@@ -393,7 +393,7 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": -3,
+				"amount": -4,
 				"building": "",
 				"category": "purchases",
 				"day": 7,
@@ -457,7 +457,7 @@
 	"map_id": "town_e",
 	"market": {
 		"demand": {
-			"sword": 0.9500000000000001
+			"sword": 0.9
 		},
 		"regulations": []
 	},

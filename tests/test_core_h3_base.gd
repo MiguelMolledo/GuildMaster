@@ -88,8 +88,9 @@ func test_market_price_and_hours() -> void:
 	sim.state.market["demand"]["sword"] = 0.5
 	eq(Market.price(sim, "sword", 1, "buy"), 42, "round(65 × 1.3 × 0.5)")
 	sim.state.difficulty = "hard"
-	eq(Market.price(sim, "iron", 0, "buy"), 6, "round(5 × 1.1)")
-	eq(Market.price(sim, "iron", 0, "sell"), 4, "the difficulty only touches buying: round(5 × 0.7)")
+	var iron := float(cat.item("iron")["base_price"])
+	eq(Market.price(sim, "iron", 0, "buy"), roundi(iron * 1.1), "round(iron × 1.1)")
+	eq(Market.price(sim, "iron", 0, "sell"), roundi(iron * 0.7), "the difficulty only touches buying: round(iron × 0.7)")
 	eq(Market.price(sim, "dragon", 0, "buy"), 0, "unknown item")
 	sim.state.clock["minute"] = 600
 	check(Market.is_open(sim), "open by day")

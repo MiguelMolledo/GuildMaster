@@ -70,7 +70,10 @@ func test_buy_iron_make_ingots_and_a_sword_by_hand() -> void:
 	check(r["ok"], "buys iron: %s" % r["reason"])
 	r = Orders.apply(sim, buy.merged({"item": "coal", "qty": 1}))
 	check(r["ok"], "buys coal: %s" % r["reason"])
-	eq(Money.gold(sim.state, "fam_0001"), gold - (4 * 5 + 4) - (3 + 1), "price + 20 % errand from the family purse")
+	var iron := 4 * int(cat.item("iron")["base_price"])
+	var coal := int(cat.item("coal")["base_price"])
+	eq(Money.gold(sim.state, "fam_0001"), gold - (iron + roundi(iron * 0.2)) - (coal + roundi(coal * 0.2)),
+		"price + 20 % errand from the family purse")
 	_run(sim, 120)
 	eq(Inventory.count(_storage(sim), "iron"), 4, "iron in the storage")
 	_inside(sim, HUGO)

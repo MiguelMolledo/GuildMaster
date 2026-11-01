@@ -58,7 +58,10 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Arranque sin ventana con cada escenario: `zsh tools/qa/boot_check.sh` (sale con 0 y sin `ERROR`).
 - Coste del sim: `godot --headless --path . -s tools/sim_bench.gd` (diana < 2 ms por paso).
 - Bots y dianas: `godot --headless --path . -s tools/sim_runner.gd -- --bots=idle --days=3 --seeds=5` (dianas en
-  `data/targets.json`) al tocar reglas.
+  `data/targets.json`) al tocar reglas. Partida nueva real: `--start=artisan_blacksmith [--difficulty=easy,normal,hard]`.
+- Balance del inicio (H3, ~3 min, al tocar cifras [balance] de economía): `godot --headless --path . -s tools/sim_runner.gd
+  -- --start=artisan_blacksmith --difficulty=easy,normal,hard --bots=artisan_novice --days=10 --seeds=30` (dianas de
+  Normal y orden Fácil > Normal > Difícil en oro neto/día; informes en `reports/sim/`).
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

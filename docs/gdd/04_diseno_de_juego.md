@@ -326,7 +326,7 @@ Cifras [balance].
 precio_compra  = round(precio_base × calidad × demanda × mod_estado_npc × mod_regulacion)
 precio_venta   = round(precio_compra × 0,70)
 demanda        ∈ [0,5 ; 2,0]   (por objeto)
-   - baja 0,05 por unidad que vende en el mercado cualquier actor (jugador, herrero rival, familias IA)
+   - baja 0,1 [balance] por unidad que vende en el mercado cualquier actor (jugador, herrero rival, familias IA), unidad a unidad: vender n de golpe cobra lo mismo que vender n veces 1 (era 0,05; ajustado en H3 con artisan_novice)
    - se recupera +0,1 por día hacia 1,0
 ```
 

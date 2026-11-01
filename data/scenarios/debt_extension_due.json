@@ -69,6 +69,16 @@
 				"limit_kind": "stacks",
 				"stacks": [
 					{
+						"item": "hammer",
+						"qty": 1,
+						"quality": 1
+					},
+					{
+						"item": "hammer",
+						"qty": 1,
+						"quality": 1
+					},
+					{
 						"item": "iron_ingot",
 						"qty": 1,
 						"quality": 1
@@ -310,18 +320,18 @@
 			"ai_profile": "rival_smith",
 			"ai_state": {
 				"bought_day": 9,
-				"last_fp": "[[24,16],\"\",\"\",{\"limit\":30,\"limit_kind\":\"weight\",\"stacks\":[]},293,0,3]",
+				"last_fp": "[[24,16],\"\",\"\",{\"limit\":30,\"limit_kind\":\"weight\",\"stacks\":[]},218,0,3]",
 				"last_order": "{\"actor\":\"chr_0002\",\"building\":\"bld_0002\",\"type\":\"enter_building\"}",
 				"phase": "night",
 				"plan": [],
-				"recipe": "forge_sword"
+				"recipe": ""
 			},
 			"colors": {
 				"primary": "#3f6b3a",
 				"secondary": "#b8b8b0"
 			},
 			"controlled_by": "ai",
-			"gold": 293,
+			"gold": 218,
 			"id": "fam_0002",
 			"members": [
 				"chr_0002"
@@ -354,7 +364,7 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": -3,
+				"amount": -4,
 				"building": "",
 				"category": "purchases",
 				"day": 6,
@@ -404,7 +414,7 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": -3,
+				"amount": -4,
 				"building": "",
 				"category": "purchases",
 				"day": 7,
@@ -464,7 +474,7 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": -6,
+				"amount": -8,
 				"building": "",
 				"category": "purchases",
 				"day": 8,
@@ -494,7 +504,7 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": 56,
+				"amount": 53,
 				"building": "",
 				"category": "market_sales",
 				"day": 8,
@@ -504,7 +514,7 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": 53,
+				"amount": 47,
 				"building": "",
 				"category": "market_sales",
 				"day": 8,
@@ -534,7 +544,7 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": -15,
+				"amount": -20,
 				"building": "",
 				"category": "purchases",
 				"day": 9,
@@ -564,7 +574,7 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": 23,
+				"amount": 22,
 				"building": "",
 				"category": "market_sales",
 				"day": 9,
@@ -574,32 +584,12 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": 29,
-				"building": "",
-				"category": "market_sales",
-				"day": 9,
-				"family": "fam_0002",
-				"minute": 14191,
-				"ref": "sell"
-			},
-			{
-				"actor": "chr_0002",
-				"amount": 27,
-				"building": "",
-				"category": "market_sales",
-				"day": 9,
-				"family": "fam_0002",
-				"minute": 14192,
-				"ref": "sell"
-			},
-			{
-				"actor": "chr_0002",
 				"amount": 25,
 				"building": "",
 				"category": "market_sales",
 				"day": 9,
 				"family": "fam_0002",
-				"minute": 14193,
+				"minute": 14191,
 				"ref": "sell"
 			}
 		],
@@ -628,8 +618,8 @@
 	"map_id": "town_e",
 	"market": {
 		"demand": {
-			"hammer": 0.75,
-			"sword": 0.9500000000000001
+			"hammer": 0.7000000000000001,
+			"sword": 0.8
 		},
 		"regulations": []
 	},

@@ -556,7 +556,30 @@ def main():
     for bot, measures in targets.items():
         if bot.startswith("_"):
             continue
+        if bot == "goldflow":  # GDD 4.19: {fase: {bot, window_days [a, b], net_per_day [mín, máx], exclude_categories}}
+            for phase, g in measures.items():
+                if phase.startswith("_"):
+                    continue
+                w, n = g.get("window_days"), g.get("net_per_day")
+                if not (isinstance(w, list) and len(w) == 2 and all(isinstance(x, int) for x in w) and 1 <= w[0] <= w[1]):
+                    rep.error("targets.json", f"goldflow.{phase}.window_days debe ser [día_ini, día_fin] (desde 1)")
+                if not (isinstance(n, list) and len(n) == 2):
+                    rep.error("targets.json", f"goldflow.{phase}.net_per_day debe ser [mín, máx]")
+                if not isinstance(g.get("bot"), str) or g.get("bot") not in targets:
+                    rep.error("targets.json", f"goldflow.{phase}.bot debe ser un bot con dianas")
+                money = open(os.path.join(ROOT, "sim", "econ", "money.gd"), encoding="utf-8").read()
+                cats = set(re.findall(r'const [A-Z_]+: String = "([a-z_]+)"', money))
+                if not all(c in cats for c in g.get("exclude_categories", [])):
+                    rep.error("targets.json", f"goldflow.{phase}.exclude_categories: categoría desconocida")
+            continue
         for m, rng in measures.items():
+            if m in ("_mean", "_share") and isinstance(rng, dict):
+                for mm, r2 in rng.items():
+                    if not (isinstance(r2, list) and len(r2) == 2):
+                        rep.error("targets.json", f"{bot}.{m}.{mm} debe ser [mín, máx]")
+                continue
+            if m.startswith("_"):
+                continue
             if not (isinstance(rng, list) and len(rng) == 2):
                 rep.error("targets.json", f"{bot}.{m} debe ser [mín, máx]")
 

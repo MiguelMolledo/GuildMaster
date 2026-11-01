@@ -4,7 +4,7 @@
 Calendario (D1(b))      = 1 día = 5 min reales · 1 estación = 2 días · 1 año = 8 días (40 min) · 1 año de edad por año
 Precio de compra (F1)   = round(base × calidad × demanda × estado_npc × regulación)       calidad: 1,0 / 1,3 / 1,6
 Precio de venta         = round(precio_compra × 0,70)
-Demanda                 ∈ [0,5 ; 2,0]; −0,05 por unidad vendida en el mercado por cualquier actor; +0,1/día hacia 1,0
+Demanda                 ∈ [0,5 ; 2,0]; −0,1 por unidad vendida en el mercado por cualquier actor (unidad a unidad); +0,1/día hacia 1,0
 Precio en mostrador     = base × calidad × (1 + carisma/100 + equipo + rango + bonus_edificio + min(rep/100 × 0,15 ; 0,15))
 Duración de receta      = duración_horas / (velocidad_rango × mult_mejoras) × modo (rápido 0,7 / normal 1 / con cuidado 1,5)
 Calidad a mano          = tabla de 4.4.2 con Artesanía −3 (rápido) / +2 (con cuidado); toque de maestro +15 % de subir un escalón

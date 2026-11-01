@@ -17,6 +17,10 @@ var cat := Catalog.load_from()
 
 ## town_e_start by day, without the rival AI (so nobody else sells or buys while a test runs).
 func _sim() -> Sim:
+	# The rules are checked with the figures written in these tests (raw prices and demand drop are [balance] in data/).
+	cat.item("iron")["base_price"] = 5
+	cat.item("coal")["base_price"] = 3
+	cat.market["demand"]["drop_per_unit"] = 0.05
 	var sim := Sim.new(NewGame.from_scenario("town_e_start", 3)["state"], cat)
 	sim.state.families["fam_0003"]["ai_profile"] = ""
 	sim.state.clock["minute"] = DAY
@@ -134,13 +138,13 @@ func test_selling_pays_and_drops_the_demand() -> void:
 	var gold := _gold(sim)
 	var r := Orders.apply(sim, _sell("sword", 2))
 	check(r["ok"], "sells 2: %s" % r["reason"])
-	eq(_gold(sim), gold + 92, "2 × round(65 × 0.7)")
+	eq(_gold(sim), gold + 89, "unit by unit: round(65 × 0.7) + round(65 × 0.95 × 0.7)")
 	near(Market.demand(sim, "sword"), 0.9, 0.0001, "demand drops 0.05 per unit")
 	var e: Dictionary = sim.state.ledger["entries"][-1]
-	eq([e["category"], int(e["amount"]), e["actor"]], ["market_sales", 92, HUGO], "market_sales entry")
+	eq([e["category"], int(e["amount"]), e["actor"]], ["market_sales", 89, HUGO], "market_sales entry")
 	var sold: Dictionary = _of(sim.events, "market_sold")[0]
 	eq([sold["actor"], sold["family"], sold["stall"], sold["item"], int(sold["quality"]), int(sold["qty"]),
-		int(sold["price"]), int(sold["total"])], [HUGO, FAM, "armory", "sword", 0, 2, 46, 92], "market_sold event")
+		int(sold["price"]), int(sold["total"])], [HUGO, FAM, "armory", "sword", 0, 2, 46, 89], "market_sold event (price = the first unit's)")
 	near(float(_of(sim.events, "demand_changed")[0]["demand"]), 0.9, 0.0001, "demand_changed event")
 	eq(Market.price(sim, "sword", 0, "sell"), 41, "the next ones are cheaper: round(65 × 0.9 × 0.7)")
 	check(Orders.apply(sim, _sell("sword", 18))["ok"], "sells the other 18")

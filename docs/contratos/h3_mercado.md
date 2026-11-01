@@ -95,7 +95,7 @@ reordenar ni tocar las de otros. Datos nuevos que necesite un sistema: en su fic
 | Orden | Campos | Dueño | Regla |
 |---|---|---|---|
 | `buy` | actor, stall, item, quality, qty, deliver_to? | mercado | En el puesto (o dentro de la tienda), abierto, el objeto es de ese puesto (`sells` ∋ su `market_stall`). Sin `deliver_to`: entra en la bolsa del personaje (`too_heavy`). Con `deliver_to` (edificio propio): +20 %, llega en 2 h al almacén, el hueco se comprueba y se reserva al pedir (`storage_full`). Paga la familia (`not_enough_gold`). |
-| `sell` | actor, stall, item, quality, qty | mercado | En el puesto, abierto, objeto del puesto, **nunca más de lo que lleva** el personaje (`not_enough`). Cobra `price(sell)` × qty; la demanda baja 0,05 por unidad. |
+| `sell` | actor, stall, item, quality, qty | mercado | En el puesto, abierto, objeto del puesto, **nunca más de lo que lleva** el personaje (`not_enough`). Cobra unidad a unidad (`price(sell)` y la demanda baja 0,05 tras cada una). |
 | `repay_loan` | actor, loan, amount | cuentas | Préstamo de su familia, abierto; paga `min(amount, pendiente)` (`not_enough_gold`). Desde cualquier sitio (libro de cuentas). |
 | `read_notices` | actor, ids | cuentas | Marca leídos avisos de su familia. |
 | `accept_contract` | actor, contract | rival | En el tablón; abierto; como mucho 2 aceptados por familia. El primero que acepta se lo queda. |
@@ -189,9 +189,10 @@ Motivos de rechazo: los elige cada dueño con su clave `reason.<id>` ES/EN (p. e
 ## Mercado (hecho por «mercado»)
 - **«Al amanecer»** para el mercado = evento `phase_changed` con `phase == "dawn"` en este paso: la demanda de cada
   objeto tocado se mueve `recover_per_day` hacia `rest` (desde arriba también baja), siempre en `[min, max]`.
-- **Venta**: `price(sell)` con la demanda de antes de la venta × `qty`, y luego la demanda baja `drop_per_unit × qty`
-  (una venta de 10 cobra las 10 al primer precio: **provisional**, tal como dice la tabla de órdenes). Cualquier
-  calidad se vende; solo se compra calidad normal (`bad_quality`, provisional de la base).
+- **Venta** (corregida por «balance»): cobra **unidad a unidad**: cada unidad a `price(sell)` con la demanda que dejó la
+  anterior, que luego baja `drop_per_unit` (vender 10 de golpe = vender 10 veces 1). `market_sold.price` = el de la
+  primera unidad, `total` = la suma; un solo `demand_changed` con la demanda final. Cualquier calidad se vende; solo se
+  compra calidad normal (`bad_quality`, provisional de la base).
 - **Recado**: sobrecoste `round(coste × errand.surcharge)`; dos asientos con `ref` = id del recado y `building` = destino
   (`purchases` y `errands`). Solo emite `errand_sent` (no `market_bought`). Destino válido: edificio propio (del
   personaje o de su familia) con almacén (`unknown_building`, `not_your_building`, `no_inventory`). El hueco se
@@ -304,3 +305,39 @@ Motivos de rechazo: los elige cada dueño con su clave `reason.<id>` ES/EN (p. e
   `data/view.json notices`).
 - **Ruina**: con `state.ending` no vacío la vista pausa y muestra la pantalla de final (Partida nueva / Salir).
 - **Almacén**: sin compra de materia prima (`buy_raw` retirada).
+- **Diana del oro del rival (decisión del manager, opción a)**: `rival_gold_day10` en **[40, 500]** (GDD 4.5.5 decía
+  [40, 300]). Con `idle`, semillas 1-5: 422/442/430/479/399 con encargos; 261-386 sin ellos (el margen sale de la
+  calidad, Artesanía 5, y de la prima ×1,4 de los encargos). Se revisa en el rebalanceo con bots de H5 (D14). Sin tocar
+  precios ni calidad; se mantienen `max_contracts 1` y `accepts_scripted_contracts false`.
+
+## Balance del inicio (hecho por «balance»)
+- **Bot `artisan_novice`** (`sim/bots/bot_artisan_novice.gd`): partida nueva real (`NewGame.from_start`, sin gastar los
+  puntos libres: un novato no optimiza). Solo órdenes reales, leídas con las consultas de la UI. Paga la deuda entera en
+  cuanto tiene lo debido + 30; el último día, lo que tenga. Encargos: acepta los que caben en el 60 % del plazo contando
+  los ya aceptados (horas de trabajo / probabilidad de llegar a la calidad); los hace primero (con cuidado y toque de
+  maestro si piden calidad). Mercado: la receta del yunque de más margen por hora con la demanda que dejaría lo que ya
+  tiene (máx. 4 piezas sin vender de cada una); vende en la Armería mientras la demanda es ≥ 0,7; compra por juegos
+  completos de piezas (a mano lo que cabe, el resto con recado). No cambia de receta a mitad de ciclo.
+- **`sim_runner`**: `--start=<inicio>` y `--difficulty=easy,normal,hard`. Las dianas por semilla solo se comprueban en
+  Normal (4.23); con varias dificultades exige oro neto/día medio Fácil > Normal > Difícil. Medidas nuevas de la familia
+  del jugador (la primera `controlled_by: "human"`): `gold_day3/8/10`, `gold_repaid_day3/8/10` (oro + lo ya devuelto a
+  préstamos), `debt_paid` (1 si cada préstamo se saldó antes de su vencimiento y sin prórroga), `debt_paid_day`,
+  `net_day_1_8` + `by_category_1_8`, `contracts_done/failed`, `player_other_flows` (asientos que no son pago de
+  mantenimiento o deuda). Dianas: por semilla `[mín, máx]`; `"_mean"` sobre la media; `"_share"` sobre la proporción de
+  semillas con la medida a 1.
+- **`goldflow`** en `data/targets.json` (4.19): `{fase: {bot, window_days, net_per_day, exclude_categories}}`. Inicio:
+  `artisan_novice`, días 1-8 (los 8 primeros días jugados desde el amanecer del inicio), `[25, 60]` sobre la **media** de
+  las semillas (4.19 dice «media»), **sin `loans`**: la devolución de la deuda no es gasto de la fase, es lo que la fase
+  tiene que pagar (4.16: «a mano se ganan 25-60 netos por día… en 8 días debe poder pagar la deuda»).
+- **Venta unidad a unidad** (regla corregida, ver «Mercado»).
+- **Dianas de `artisan_novice`** (Normal, `data/targets.json` con su `_doc`): `gold_day3` ≤ 320, `gold_repaid_day3` en
+  [45, 320], `gold_day10` en [10, 540], `_share.debt_paid` ≥ 0,9, `refused_orders` 0, `ledger_mismatch` 0; oro neto/día
+  días 1-8 en [25, 60] de media (`goldflow.start`). `idle`: `player_other_flows` 0 (con `idle` en partida nueva el oro
+  solo baja por mantenimiento y deuda, 4.19). Resultado (30 semillas): Normal 47,3 [26,1-69,5] oro/día, deuda pagada
+  100 % (día 2-3), oro día 10 317 [15-472]; Fácil 67,5 > Normal 47,3 > Difícil 39,2.
+- **Cifras [balance] cambiadas** (sin ellas el novato hacía ~102 oro/día y pagaba la deuda el día 1):
+  hierro `base_price` 5 → 7, carbón 3 → 4 (`data/items/`), `demand.drop_per_unit` 0,05 → 0,1 (`data/market.json`; GDD
+  4.5.3 y ap. A actualizados). Escenarios `debt_due` y `debt_extension_due` regenerados. Las pruebas de reglas del
+  mercado fijan en su catálogo las cifras con que están escritas (hierro 5, carbón 3, caída 0,05).
+- **Rival** con las cifras nuevas (`idle_rival`, semillas 1-5): 145/172/418/376/275 (antes 422/442/430/479/399): más
+  cerca de la diana original [40, 300], pero 2 de 5 siguen por encima; la provisional [40, 500] se mantiene.

@@ -5,7 +5,7 @@
   "category": "raw",
   "weight": 2.0,
   "max_stack": 99,
-  "base_price": 5,
+  "base_price": 7,
   "market_stall": "resources",
   "icon": null
 }

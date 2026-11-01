@@ -59,7 +59,9 @@ func test_market_buy_pays_through_money() -> void:
 		"qty": 2, "deliver_to": FORGE})
 	check(r["ok"], "buys: %s" % r["reason"])
 	var e: Dictionary = sim.state.ledger["entries"][0]
-	eq([e["category"], int(e["amount"]), e["building"], e["actor"]], ["purchases", -10, FORGE, HUGO], "purchases entry")
+	var cost := 2 * int(sim.catalog.item("iron")["base_price"])
+	eq([e["category"], int(e["amount"]), e["building"], e["actor"]], ["purchases", -cost, FORGE, HUGO],
+		"purchases entry (2 × iron price)")
 
 
 func test_ledger_adds_up_to_the_gold() -> void:

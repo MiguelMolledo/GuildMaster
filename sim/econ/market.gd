@@ -71,7 +71,8 @@ static func order_buy(sim: Sim, o: Dictionary) -> Dictionary:
 
 
 ## {"type": "sell", "actor", "stall", "item", "quality", "qty"}. Never more than the actor carries (not_enough).
-## Pays price(sell) × qty at the demand before the sale; then the demand drops drop_per_unit per unit.
+## Pays unit by unit: each unit at price(sell) with the demand left by the previous one, which then drops
+## drop_per_unit (the same as selling them one at a time). market_sold.price = the first unit's, total = the sum.
 ## Reasons: unknown_actor, dead, unknown_stall, not_at_stall, market_closed, unknown_item, wrong_stall, bad_quality,
 ## bad_quantity, not_enough, no_family.
 static func order_sell(sim: Sim, o: Dictionary) -> Dictionary:
@@ -94,14 +95,18 @@ static func order_sell(sim: Sim, o: Dictionary) -> Dictionary:
 	var fam := Money.family_of(st, actor)
 	if fam == "" or not st.families.has(fam):
 		return Orders.fail("no_family")
+	# Unit by unit: each unit is paid at the demand left by the one before (selling 10 at once = 10 sales of 1).
 	var unit := price(sim, item, quality, "sell")
-	var total := unit * qty
+	var total := 0
+	var drop := float(_demand_cfg(sim).get("drop_per_unit", 0.05))
+	for n: int in qty:
+		total += price(sim, item, quality, "sell")
+		_set_demand(sim, item, demand(sim, item) - drop, false)
 	Inventory.remove(inv, item, quality, qty)
 	Money.change(sim, fam, total, Money.MARKET_SALES, "sell", "", actor)
 	sim.events.append({"type": "market_sold", "actor": actor, "family": fam, "stall": stall, "item": item,
 		"quality": quality, "qty": qty, "price": unit, "total": total})
-	var drop := float(_demand_cfg(sim).get("drop_per_unit", 0.05)) * qty
-	_set_demand(sim, item, demand(sim, item) - drop)
+	sim.events.append({"type": "demand_changed", "item": item, "demand": demand(sim, item)})
 	if OS.is_debug_build():
 		print("[Market] %s vende %s x%d (q=%d) en %s por %d (unidad=%d, demanda=%.2f, oro=%d)" % [actor, item, qty,
 			quality, stall, total, unit, demand(sim, item), Money.gold(st, fam)])
@@ -438,13 +443,14 @@ static func _demand_cfg(sim: Sim) -> Dictionary:
 	return sim.catalog.market.get("demand", {})
 
 
-static func _set_demand(sim: Sim, item: String, value: float) -> void:
+static func _set_demand(sim: Sim, item: String, value: float, emit: bool = true) -> void:
 	var cfg := _demand_cfg(sim)
 	var v := snappedf(clampf(value, float(cfg.get("min", 0.5)), float(cfg.get("max", 2.0))), EPS)
 	if not sim.state.market.has("demand"):
 		sim.state.market["demand"] = {}
 	sim.state.market["demand"][item] = v
-	sim.events.append({"type": "demand_changed", "item": item, "demand": v})
+	if emit:
+		sim.events.append({"type": "demand_changed", "item": item, "demand": v})
 
 
 static func _sorted_keys(d: Dictionary) -> Array:
