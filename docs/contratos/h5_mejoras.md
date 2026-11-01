@@ -245,3 +245,27 @@ Hechas en la base (forma fija; «arbol» puede afinarlas sin cambiarla):
 1. **Cancelar una obra:** no existe en H5 (el GDD no lo prevé; no se inventa). Sin `cancel_upgrade`.
 2. **Multiplicador de precio de las mejoras (Comercio/Fachada):** solo en la venta de mostrador (4.5.4, H7). No toca el precio del mercado.
 3. **Multa impagable:** igual que el mantenimiento (D15): se acumula como deuda con la ciudad del edificio y se cobra en cuanto haya oro; aviso urgente. Provisional.
+
+## Hecho por «arbol» (2026-11-01)
+- `buy_upgrade`: `status_of` + `Money` (`upgrades`, ref = id) + materiales del almacén (calidad más baja primero) +
+  `Production.interrupt` de los ciclos en curso + `upgrade_work`. Evento `upgrade_started`. `Upgrades.step` termina
+  las obras (`complete` + aviso `notice.upgrade_done`); una obra que ya no puede terminar (mejora borrada) se descarta.
+- La obra no cambia `building.state` (sigue `normal`): bloquea por `Upgrades.under_works`. `Production.may_work` →
+  `under_works` para todos (dueño a mano incluido); la cola marca ociosos con motivo `under_works` (sin aviso).
+- Velocidad: `Production.owner_cycle_minutes(sim, bld, recipe, mode)` (nuevo, el dueño y la IA a mano) y
+  `employee_cycle_minutes` dividen por `Upgrades.mult(..., "production_speed")`. `cycle_minutes(catalog, …)` sigue sin
+  mejoras (lo usan bots y rival para estimar).
+- Calidad: `Production.roll_quality(..., bld_id = "")` suma `quality_bonus` a la Artesanía antes de recortar 1..10.
+- Puestos nuevos: `work_at` y `recipe_options` comparan `recipe.zone` con `Upgrades.zone_kind`; la cola busca el
+  primer puesto libre de ese tipo (`WorkQueue._free_station`: el propio, luego las copias por id). El rol fijo es el
+  tipo (`anvil` trabaja en `anvil_2`).
+- Rangos: `Upgrades.rank_gated(sim, bld, rank)` = alguna mejora del árbol del edificio tiene `allow_rank` de ese rango;
+  `Upgrades.rank_ok` = no restringido o permitido. `Staff._rank_allowed` (contratar, ascender, panel de candidatos) lo
+  usa; `ranks.<r>.requires_upgrade` sigue valiendo si se rellena. Sin cambios en `data/employees.json`.
+- Seguridad: `Staff._has_security` = `protection > 0` (o la lista antigua `theft.security_upgrades`, vacía).
+- Inspecciones: campo nuevo **`inspection.fine_debt`** (int, dentro de `inspection`: sin subir versión; prueba de ida y
+  vuelta en `tests/test_econ_inspections.gd`). Consulta `Inspections.fine_debt(sim, bld)` (`view` no cambia de forma).
+  Se cobra al amanecer o en un paso en que sube el oro de la familia (como `Upkeep`); aviso urgente
+  `notice.inspection_debt {building, debt}` (clave nueva). Evento `reputation_changed` con reason `inspection`.
+- Sin lector en H5: `price_multiplier`, `counter_sales`, `customer_bonus` (mostrador, H7), `tax_mult`, `illegal_profit`.
+  `market.gd` no se toca.

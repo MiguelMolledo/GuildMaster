@@ -47,8 +47,9 @@ static func order_work_at(sim: Sim, o: Dictionary) -> Dictionary:
 	var recipe: Dictionary = sim.catalog.recipes().get(recipe_id, {})
 	if recipe.is_empty():
 		return Orders.fail("unknown_recipe")
-	if str(recipe.get("building", "")) != str(bld.get("type", "")) or str(recipe.get("zone", "")) != zone:
-		return Orders.fail("wrong_station")
+	if str(recipe.get("building", "")) != str(bld.get("type", "")) \
+			or str(recipe.get("zone", "")) != Upgrades.zone_kind(sim, bld_id, zone):
+		return Orders.fail("wrong_station")  # H5: an upgrade's new station works as its `like` (anvil_2 -> anvil)
 	if not _modes(sim).has(mode):
 		return Orders.fail("unknown_mode")
 	if mode != "normal" and _is_employee_at(sim, actor, bld_id):
@@ -166,7 +167,7 @@ static func _step_job(sim: Sim, bld_id: String, zone: String, now: int) -> void:
 			return
 		var recipe: Dictionary = sim.catalog.recipes()[str(job["recipe"])]
 		var out: Dictionary = recipe["output"]
-		var q := roll_quality(sim, actor, str(bld["type"]), str(job["mode"]), bool(job.get("touched", false)))
+		var q := roll_quality(sim, actor, str(bld["type"]), str(job["mode"]), bool(job.get("touched", false)), bld_id)
 		job["result"] = {"item": str(out["item"]), "quality": q, "qty": output_units(sim, actor, bld_id, recipe)}
 	var res: Dictionary = job["result"]
 	var inv: Dictionary = bld["inventory"]
@@ -223,7 +224,7 @@ static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, 
 	for inp: Dictionary in recipe.get("inputs", []):
 		taken.append_array(_take_lowest(bld["inventory"], str(inp["item"]), int(inp["qty"])))
 	var now := int(st.clock["minute"])
-	var d := cycle_minutes(sim.catalog, recipe, mode)
+	var d := owner_cycle_minutes(sim, bld_id, recipe, mode)
 	if _is_employee_at(sim, actor, bld_id):
 		d = employee_cycle_minutes(sim, actor, recipe, mode)
 	var job := {"actor": actor, "recipe": recipe_id, "mode": mode, "start": now, "end": now + d, "inputs": taken,
@@ -268,10 +269,12 @@ static func interrupt(sim: Sim, bld_id: String, zone: String) -> Array:
 ## "" if the actor may work now, or the refusal reason. GDD 4.4.3: characters controlled by the player work, also at
 ## night. H4: an employee works only at the building it works at, while its job is active (Staff.is_active) and in
 ## the schedule's work_phases (data/employees.json): night_rest at night, off_hours in the other phases (dusk), never
-## at night whatever the building. Anybody else not controlled by the player is refused with not_controlled, except
-## (H3) the members of an AI family with an ai_profile, who work their family's building (night_rest still applies in
+## at night whatever the building. H5: under_works for everybody while the building has works in progress.
+## Anybody else not controlled by the player is refused with not_controlled, except (H3) the members of an AI family with an ai_profile, who work their family's building (night_rest still applies in
 ## buildings whose night_production is "manual_only").
 static func may_work(sim: Sim, actor: String, bld_id: String) -> String:
+	if Upgrades.under_works(sim.state, bld_id):
+		return "under_works"  # H5 (GDD 4.8): nobody produces in a building under works, owner nor employees
 	var ch: Dictionary = sim.state.characters.get(actor, {})
 	if str(ch.get("controlled_by", "")) == "human":
 		return ""
@@ -301,11 +304,22 @@ static func cycle_minutes(catalog: Catalog, recipe: Dictionary, mode: String) ->
 	return maxi(1, roundi(float(recipe.get("duration_hours", 1.0)) * 60.0 * mult))
 
 
+## H5: cycle length of whoever works by hand at `bld_id` (the owner, an AI family member): cycle_minutes / the
+## building's production_speed upgrades (Upgrades.mult), at least 1 minute.
+static func owner_cycle_minutes(sim: Sim, bld_id: String, recipe: Dictionary, mode: String) -> int:
+	var mult := float(sim.catalog.production.get("modes", {}).get(mode, {}).get("duration_mult", 1.0))
+	var up := maxf(Upgrades.mult(sim, bld_id, "production_speed"), 0.01)
+	return maxi(1, roundi(float(recipe.get("duration_hours", 1.0)) * 60.0 * mult / up))
+
+
 ## H4: cycle length of an employee (GDD 4.4.1, 4.7.2): the recipe's duration / (rank speed × upgrades), at least 1
-## minute. No upgrades yet (H5).
+## minute. H5: upgrades = production_speed of the building it works at (Upgrades.mult).
 static func employee_cycle_minutes(sim: Sim, actor: String, recipe: Dictionary, mode: String) -> int:
 	var mult := float(sim.catalog.production.get("modes", {}).get(mode, {}).get("duration_mult", 1.0))
 	var speed := maxf(Staff.speed(sim, actor), 0.01)
+	var bld_id := Staff.employer(sim.state, actor)
+	if bld_id != "":
+		speed *= maxf(Upgrades.mult(sim, bld_id, "production_speed"), 0.01)
 	return maxi(1, roundi(float(recipe.get("duration_hours", 1.0)) * 60.0 * mult / speed))
 
 
@@ -336,11 +350,14 @@ static func window_open(job: Dictionary, now: int) -> bool:
 ## Quality of a finished piece (GDD 4.4.2, 4.4.5): the quality table read with the actor's craft + the mode's
 ## craft_delta (1..10), then one extra roll per step-up bonus (right tool equipped, master touch given). Each success
 ## raises one step, up to excellent. Always the same rolls in the same order (determinism).
-static func roll_quality(sim: Sim, actor: String, building_type: String, mode: String, touched: bool) -> int:
+## H5: with `bld_id`, the building's quality_bonus upgrades add to that craft (before the 1..10 clamp).
+static func roll_quality(sim: Sim, actor: String, building_type: String, mode: String, touched: bool,
+		bld_id: String = "") -> int:
 	var prod := sim.catalog.production
 	var ch: Dictionary = sim.state.characters.get(actor, {})
-	var craft := clampi(int(ch.get("stats", {}).get("craft", 1)) + int(_modes(sim).get(mode, {}).get("craft_delta", 0)),
-		1, 10)
+	var bonus := roundi(Upgrades.amount(sim, bld_id, "quality_bonus")) if bld_id != "" else 0
+	var craft := clampi(int(ch.get("stats", {}).get("craft", 1)) + int(_modes(sim).get(mode, {}).get("craft_delta", 0))
+		+ bonus, 1, 10)
 	var chances := quality_chances(prod, craft)
 	var total := 0.0
 	for c: Variant in chances:
@@ -387,10 +404,11 @@ static func recipe_options(sim: Sim, actor: String, building: String, zone: Stri
 	var bld: Dictionary = st.buildings[building]
 	var ch: Dictionary = st.characters[actor]
 	var inv := _storage_after_returns(sim, actor, building)
+	var kind := Upgrades.zone_kind(sim, building, zone)
 	var out: Array = []
 	for rid: String in _sorted_keys(sim.catalog.recipes()):
 		var r: Dictionary = sim.catalog.recipes()[rid]
-		if str(r.get("building", "")) != str(bld.get("type", "")) or str(r.get("zone", "")) != zone:
+		if str(r.get("building", "")) != str(bld.get("type", "")) or str(r.get("zone", "")) != kind:
 			continue
 		var status := "ok"
 		if _lock_reason(sim, ch, bld, r) != "":

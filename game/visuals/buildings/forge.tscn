@@ -90,3 +90,57 @@ editor_description = "forge_security_2 (hired guard)"
 script = ExtResource("2_block")
 color = Color(0.545098039, 0.180392157, 0.180392157, 1)
 height = 14.0
+
+[node name="Works" type="Node2D" parent="."]
+visible = false
+position = Vector2(-16, 56)
+editor_description = "H5: scaffold shown while the building is under construction (upgrade works). Greybox poles and planks: replace them with a sprite when the art arrives. Its position is the front corner of the footprint, so it sorts in front of the building."
+
+[node name="Poles" type="Node2D" parent="Works"]
+
+[node name="PoleLeft" type="Line2D" parent="Works/Poles"]
+points = PackedVector2Array(-96, -48, -96, -104)
+width = 2.0
+default_color = Color(0.4, 0.29, 0.17, 1)
+
+[node name="PoleLeftMid" type="Line2D" parent="Works/Poles"]
+points = PackedVector2Array(-48, -24, -48, -80)
+width = 2.0
+default_color = Color(0.4, 0.29, 0.17, 1)
+
+[node name="PoleFront" type="Line2D" parent="Works/Poles"]
+points = PackedVector2Array(0, 0, 0, -56)
+width = 2.0
+default_color = Color(0.4, 0.29, 0.17, 1)
+
+[node name="PoleRightMid" type="Line2D" parent="Works/Poles"]
+points = PackedVector2Array(64, -32, 64, -88)
+width = 2.0
+default_color = Color(0.4, 0.29, 0.17, 1)
+
+[node name="PoleRight" type="Line2D" parent="Works/Poles"]
+points = PackedVector2Array(128, -64, 128, -120)
+width = 2.0
+default_color = Color(0.4, 0.29, 0.17, 1)
+
+[node name="Planks" type="Node2D" parent="Works"]
+
+[node name="PlankLow" type="Line2D" parent="Works/Planks"]
+points = PackedVector2Array(-98, -70, 0, -22, 130, -87)
+width = 3.0
+default_color = Color(0.72, 0.56, 0.34, 1)
+
+[node name="PlankHigh" type="Line2D" parent="Works/Planks"]
+points = PackedVector2Array(-98, -94, 0, -46, 130, -111)
+width = 3.0
+default_color = Color(0.72, 0.56, 0.34, 1)
+
+[node name="BraceLeft" type="Line2D" parent="Works/Planks"]
+points = PackedVector2Array(-96, -48, -48, -70, 0, -22)
+width = 1.0
+default_color = Color(0.55, 0.41, 0.24, 1)
+
+[node name="BraceRight" type="Line2D" parent="Works/Planks"]
+points = PackedVector2Array(0, 0, 64, -54, 128, -64)
+width = 1.0
+default_color = Color(0.55, 0.41, 0.24, 1)

@@ -89,6 +89,13 @@ edificio o un puesto, en el `Greybox` de su escena.
 Bajo `Upgrades` del interior (`interiors/forge.tscn`) o del exterior (`buildings/forge.tscn`) hay un nodo oculto por
 cada `visual.interior_node` / `visual.exterior_overlay` de `data/upgrades/`. Hazlo visible en el editor para verlo,
 cámbialo o ponle su sprite, y vuelve a ocultarlo: el juego lo enciende cuando la mejora termina.
+En las ramas de `upgrades.latest_only_branches` de `data/view.json` (Producción y Fachada) solo se ve el nivel más alto
+terminado; en el resto, todos.
+
+### El andamio de una obra
+El nodo oculto `Works` de `game/visuals/buildings/<tipo>.tscn` (postes y tablones greybox) sale en el mapa mientras el
+edificio está en obras. Cámbialo igual que un visual de mejora. Los colores de la barra de la obra sobre el edificio y
+de las casillas del panel de mejoras: `upgrades` en `data/view.json`.
 
 ## Después de tocar algo
 

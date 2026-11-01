@@ -246,10 +246,14 @@ static func _employee_reason(sim: Sim, actor: String, emp: String) -> String:
 	return ""
 
 
-## Whether a building can take someone of `rank` (requires_upgrade of the rank among the building's upgrades).
+## Whether a building can take someone of `rank`: H5, the building's upgrades allow it (Upgrades.rank_ok: a rank that
+## an upgrade of its tree allows, e.g. master with "Taller de maestro", needs that upgrade); the H4 requires_upgrade
+## of the rank (data/employees.json, empty) still applies if filled.
 static func _rank_allowed(sim: Sim, rank: String, bld: String) -> bool:
 	var need := str(sim.catalog.rank(rank).get("requires_upgrade", ""))
-	return need == "" or need in (sim.state.buildings[bld].get("upgrades", []) as Array)
+	if need != "" and not need in (sim.state.buildings[bld].get("upgrades", []) as Array):
+		return false
+	return Upgrades.rank_ok(sim, bld, rank)
 
 
 ## Gold from the employer family to the employee's household, both through Money (category wages): it stays in the
@@ -360,8 +364,12 @@ static func _steal(sim: Sim, c: String, tcfg: Dictionary) -> void:
 	_leave(sim, c, "theft")
 
 
-## Whether the building has an upgrade of the Security branch (theft.security_upgrades, filled by H5).
+## Whether the building has Security (GDD 4.7.3: the theft chance / security_divisor): H5, any finished upgrade with
+## protection > 0 (Upgrades.amount; its percentage is for sabotage and fire, later) [provisional]. The H4 list
+## theft.security_upgrades of data/employees.json (empty) still counts if filled.
 static func _has_security(sim: Sim, bld: String) -> bool:
+	if Upgrades.amount(sim, bld, "protection") > 0.0:
+		return true
 	var ups: Array = sim.state.buildings.get(bld, {}).get("upgrades", [])
 	for u: Variant in sim.catalog.employees.get("theft", {}).get("security_upgrades", []):
 		if u in ups:
@@ -546,8 +554,7 @@ static func candidates(sim: Sim, actor: String, bld: String) -> Array:
 			status = "no_slot"
 		elif int((ch.get("hire_bans", {}) as Dictionary).get(fam, -1)) >= today:
 			status = "banned"
-		elif str(sim.catalog.rank(rk).get("requires_upgrade", "")) != "" \
-				and not str(sim.catalog.rank(rk)["requires_upgrade"]) in (st.buildings[bld].get("upgrades", []) as Array):
+		elif not _rank_allowed(sim, rk, bld):
 			status = "needs_upgrade"
 		elif not Money.can_pay(st, fam, wage(sim, c)):
 			status = "not_enough_gold"

@@ -153,6 +153,9 @@ static func _step_building(sim: Sim, bld: String) -> void:
 	_clean_assigned(sim, bld, q)
 	_tidy(sim, bld, q)
 	var staff := Staff.employees_of(sim.state, bld)
+	if Upgrades.under_works(sim.state, bld):
+		_idle_under_works(sim, bld, q, staff)
+		return
 	var present: Array = []  # active employees inside, allowed to work now
 	for c: String in staff:
 		if _at_work(sim, c, bld):
@@ -193,11 +196,11 @@ static func _assign(sim: Sim, bld: String, q: Dictionary, chr: String, plans: Ar
 			continue
 		for rid: String in p["tasks"]:
 			var recipe: Dictionary = sim.catalog.recipes()[rid]
-			var zone := str(recipe.get("zone", ""))
-			if not _role_allows(sim, chr, zone) or Production._lock_reason(sim, st.characters[chr], b, recipe) != "":
+			var kind := str(recipe.get("zone", ""))
+			if not _role_allows(sim, chr, kind) or Production._lock_reason(sim, st.characters[chr], b, recipe) != "":
 				continue
-			var occ := str(zones.get(zone, {}).get("occupant", ""))
-			if (occ != "" and occ != chr) or zones.get(zone, {}).get("job") is Dictionary:
+			var zone := _free_station(sim, bld, kind, chr)
+			if zone == "":
 				continue
 			sim.give({"type": "work_at", "actor": chr, "building": bld, "zone": zone, "recipe": rid, "mode": "normal"})
 			if Production.job_zone(sim, chr, bld) != zone:
@@ -212,6 +215,36 @@ static func _assign(sim: Sim, bld: String, q: Dictionary, chr: String, plans: Ar
 				print("[WorkQueue] %s: %s hace %s en %s (entrada=%s)" % [bld, chr, rid, zone, p["entry"]])
 			return true
 	return false
+
+
+## H5: the station of `kind` where `chr` can start now: the one it already holds if it is of that kind, else the first
+## free one by id — the type's own station, then the copies an upgrade added (anvil, anvil_2; Upgrades.zone_kind).
+## "" if none. A fixed role works at every station of its kind (the role names the kind).
+static func _free_station(sim: Sim, bld: String, kind: String, chr: String) -> String:
+	var zones: Dictionary = sim.state.buildings[bld].get("zones", {})
+	var mine := str(sim.state.characters[chr].get("station", ""))
+	if zones.has(mine) and Upgrades.zone_kind(sim, bld, mine) == kind and not zones[mine].get("job") is Dictionary:
+		return mine
+	for z: String in _sorted_keys(zones):
+		if Upgrades.zone_kind(sim, bld, z) != kind:
+			continue
+		var occ := str(zones[z].get("occupant", ""))
+		if (occ == "" or occ == chr) and not zones[z].get("job") is Dictionary:
+			return z
+	return ""
+
+
+## H5: while the building is under works nobody gets work (GDD 4.8): the active employees inside are idle with reason
+## under_works (no notice: the works have their own); the others lose their idle mark.
+static func _idle_under_works(sim: Sim, bld: String, q: Dictionary, staff: Array) -> void:
+	var inside: Array = []
+	for c: String in staff:
+		var ch: Dictionary = sim.state.characters.get(c, {})
+		if bool(ch.get("alive", true)) and str(ch.get("location", "")) == bld and Staff.is_active(sim, c):
+			inside.append(c)
+	_clean_idle(sim, bld, q, inside)
+	for c: String in inside:
+		_set_idle(sim, bld, q, c, "under_works")
 
 
 ## Called by Production when an employee's cycle delivers `qty` of the output of `recipe` at `zone`.

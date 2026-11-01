@@ -8,7 +8,8 @@ extends Node2D
 ##
 ## Controls: left click on someone of the family inside selects them; on a station = go_to_station (or master_touch
 ## while its window is open, GDD 4.4.5); on the door = leave. Right click on a station = its context menu
-## (StationMenu). Toolbar (top right): Upgrades (H5) · Storage · Staff (H4: StaffPanel, staff and hiring) ·
+## (StationMenu). Toolbar (top right): Upgrades (H5: UpgradePanel, the tree; the works in progress show under the
+## title) · Storage · Staff (H4: StaffPanel, staff and hiring) ·
 ## Production (stations and, from H4, the employees' queue) · Exit. Management mode (no person, GDD 4.6.4): the
 ## same room opened from the map; leaving just closes it. Employees inside stand at their station like anybody
 ## else (CharacterView shows their badge); the station shows the cycle's bar.
@@ -99,6 +100,10 @@ func staff_panel() -> StaffPanel:
 	return get_node("%StaffPanel")
 
 
+func upgrade_panel() -> UpgradePanel:
+	return get_node("%UpgradePanel")
+
+
 func _bind() -> void:
 	if _bound:
 		return
@@ -106,10 +111,12 @@ func _bind() -> void:
 	(%StorageButton as Button).toggled.connect(func(on: bool) -> void: show_storage(on))
 	(%ProductionButton as Button).toggled.connect(func(on: bool) -> void: show_production(on))
 	(%StaffButton as Button).toggled.connect(func(on: bool) -> void: show_staff(on))
+	(%UpgradesButton as Button).toggled.connect(func(on: bool) -> void: show_upgrades(on))
 	(%ExitButton as Button).pressed.connect(request_exit)
 	storage_panel().closed.connect(func() -> void: (%StorageButton as Button).set_pressed_no_signal(false))
 	production_panel().closed.connect(func() -> void: (%ProductionButton as Button).set_pressed_no_signal(false))
 	staff_panel().closed.connect(func() -> void: (%StaffButton as Button).set_pressed_no_signal(false))
+	upgrade_panel().closed.connect(func() -> void: (%UpgradesButton as Button).set_pressed_no_signal(false))
 
 
 ## Builds the room of `bld`. `who` = the person selected on the map (may be outside: then nobody acts until someone
@@ -149,7 +156,7 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	(%StorageButton as Button).text = SimQuery.t_("ui.interior.storage")
 	(%ProductionButton as Button).text = SimQuery.t_("ui.interior.production")
 	(%UpgradesButton as Button).text = SimQuery.t_("ui.interior.upgrades")
-	(%UpgradesButton as Button).tooltip_text = SimQuery.t_("ui.interior.upgrades_h5")
+	(%UpgradesButton as Button).tooltip_text = SimQuery.t_("ui.interior.upgrades_tip")
 	(%StaffButton as Button).text = SimQuery.t_("ui.interior.staff")
 	(%StaffButton as Button).tooltip_text = SimQuery.t_("ui.interior.staff_tip")
 	(%ExitButton as Button).text = SimQuery.t_("ui.interior.exit")
@@ -168,7 +175,12 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	staff_panel().order_sink = _give
 	staff_panel().setup(s, bld, who)
 	staff_panel().close()
-	for n: String in ["StorageButton", "ProductionButton", "StaffButton"]:
+	upgrade_panel().order_sink = _give
+	upgrade_panel().setup(s, bld, who)
+	upgrade_panel().close()
+	# a building without an upgrade tree (a house...) has nothing to show
+	(%UpgradesButton as Button).visible = shop_stall == "" and Upgrades.tree_of(s, bld) != ""
+	for n: String in ["StorageButton", "ProductionButton", "StaffButton", "UpgradesButton"]:
 		(get_node("%" + n) as Button).set_pressed_no_signal(false)
 	sync()
 	ViewConfig.info("Interior", "setup (building=%s, manage=%s, size=%s, door=%s, stations=%d, selected=%s)" % [bld,
@@ -240,7 +252,8 @@ func _add_station(m: Marker2D) -> void:
 
 
 ## The upgrade visuals of the room: the nodes of Upgrades named by the building's finished upgrades
-## (Upgrades.visuals "interior") are shown, the rest hidden.
+## (SimQuery.upgrade_visual_nodes "interior": Upgrades.visuals, only the last level of the latest-only branches) are
+## shown, the rest hidden.
 func refresh_upgrades() -> void:
 	if sim == null:
 		return
@@ -250,13 +263,28 @@ func refresh_upgrades() -> void:
 			ViewConfig.info("Interior", "new station %s (building=%s)" % [z, building])
 			_add_station(_pending[z])
 	var on := {}
-	for v: Dictionary in Upgrades.visuals(sim, building).get("interior", []):
-		on[str(v["node"])] = true
+	for n: String in SimQuery.upgrade_visual_nodes(sim, building, "interior"):
+		on[n] = true
 	for n: String in _upgrades:
 		var u: Node2D = _upgrades[n]
 		if u.visible != on.has(n):
 			u.visible = on.has(n)
 			ViewConfig.info("Interior", "upgrade visual %s %s (building=%s)" % [n, "on" if u.visible else "off", building])
+
+
+## H5: the works in progress under the title ("En obras: Almacén ampliado · quedan 12 h"); hidden without works.
+func refresh_works() -> void:
+	if sim == null:
+		return
+	var w := SimQuery.upgrade_works(sim, building)
+	var l := %WorksLabel as Label
+	if l.visible != not w.is_empty():
+		ViewConfig.info("Interior", "works %s (building=%s, upgrade=%s)" % ["on" if not w.is_empty() else "off", building,
+			str(w.get("upgrade", ""))])
+	l.visible = not w.is_empty()
+	if not w.is_empty():
+		l.text = SimQuery.t_("ui.interior.works") % [SimQuery.upgrade_name(sim.catalog, str(w.get("upgrade", ""))),
+			SimQuery.minutes_left_label(int(w.get("minutes_left", 0)))]
 
 
 func station_view(zone: String) -> StationView:
@@ -296,6 +324,7 @@ func select(id: String) -> void:
 	storage_panel().set_actor(actor())
 	staff_panel().set_actor(id)
 	production_panel().set_actor(id)
+	upgrade_panel().set_actor(id)
 	ViewConfig.info("Interior", "selected %s" % (id if id != "" else "nobody"))
 	selection_changed.emit(id)
 
@@ -341,6 +370,7 @@ func sync() -> void:
 	if int(st.clock["minute"]) != _upgrades_minute:
 		_upgrades_minute = int(st.clock["minute"])
 		refresh_upgrades()
+		refresh_works()
 	var zones: Dictionary = st.buildings.get(building, {}).get("zones", {})
 	for z: String in _stations:
 		(_stations[z] as StationView).show_job(SimQuery.job_view(sim, building, z),
@@ -481,6 +511,7 @@ func show_storage(on: bool) -> void:
 	if on:
 		show_production(false)
 		show_staff(false)
+		show_upgrades(false)
 		storage_panel().set_actor(actor())
 		storage_panel().open()
 	else:
@@ -492,6 +523,7 @@ func show_production(on: bool) -> void:
 	if on:
 		show_storage(false)
 		show_staff(false)
+		show_upgrades(false)
 		production_panel().open()
 	else:
 		production_panel().close()
@@ -503,9 +535,22 @@ func show_staff(on: bool, tab: String = "") -> void:
 	if on:
 		show_storage(false)
 		show_production(false)
+		show_upgrades(false)
 		staff_panel().open(tab)
 	else:
 		staff_panel().close()
+
+
+## The upgrade tree panel (H5, GDD 4.8).
+func show_upgrades(on: bool) -> void:
+	(%UpgradesButton as Button).set_pressed_no_signal(on)
+	if on:
+		show_storage(false)
+		show_production(false)
+		show_staff(false)
+		upgrade_panel().open()
+	else:
+		upgrade_panel().close()
 
 
 ## ESC: closes the top thing open here (menu, then panel). False if there was nothing to close.
@@ -521,6 +566,9 @@ func close_top() -> bool:
 		return true
 	if staff_panel().visible:
 		show_staff(false)
+		return true
+	if upgrade_panel().visible:
+		show_upgrades(false)
 		return true
 	return false
 
@@ -552,6 +600,9 @@ func on_sim_event(e: Dictionary) -> void:
 		"station_blocked":
 			if sv != null:
 				sv.flash(SimQuery.t_("reason." + str(e.get("reason", ""))))
+		"upgrade_done", "upgrade_started":
+			refresh_upgrades()
+			refresh_works()
 
 
 func _give(o: Dictionary) -> void:

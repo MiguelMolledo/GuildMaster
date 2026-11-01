@@ -76,3 +76,46 @@ class IdleMark:
 		# "z z": two little zigzags
 		for x: float in [-7.0, 1.0]:
 			draw_polyline(PackedVector2Array([Vector2(x, -6), Vector2(x + 5, -6), Vector2(x, -1), Vector2(x + 5, -1)]), ink, 1.0)
+
+
+## H5: the works bar over a building under construction (GDD 4.8): progress of the works and the time left. Colours
+## and width from data/view.json upgrades.works. The scaffold itself is the node Works of the building's scene.
+class WorksBar:
+	extends Node2D
+	var progress: float = 0.0:
+		set(v):
+			progress = clampf(v, 0.0, 1.0)
+			queue_redraw()
+	var back: Color = Color(0.16, 0.13, 0.09)
+	var fill: Color = Color(0.94, 0.75, 0.25)
+	var width: float = 44.0
+	var _label: Label
+
+	func setup(cfg: Dictionary) -> void:
+		back = ViewConfig.color(str(cfg.get("back", "#2a2018")))
+		fill = ViewConfig.color(str(cfg.get("fill", "#f0c040")))
+		width = float(cfg.get("width", 44))
+		_label = Label.new()
+		_label.name = "Left"
+		_label.add_theme_font_size_override("font_size", 8)
+		_label.add_theme_color_override("font_color", ViewConfig.color(str(cfg.get("text", "#f6ecd0"))))
+		_label.add_theme_color_override("font_outline_color", back)
+		_label.add_theme_constant_override("outline_size", 3)
+		_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_label.size = Vector2(width + 40.0, 10)
+		_label.position = Vector2(-(width + 40.0) / 2.0, -14)
+		add_child(_label)
+
+	## The time left, as the HUD writes it ("12 h").
+	func set_text(t: String) -> void:
+		if _label != null:
+			_label.text = t
+
+	func text() -> String:
+		return _label.text if _label != null else ""
+
+	func _draw() -> void:
+		var r := Rect2(-width / 2.0, -2, width, 5)
+		draw_rect(r.grow(1.0), back)
+		draw_rect(Rect2(r.position, Vector2(width * progress, r.size.y)), fill)

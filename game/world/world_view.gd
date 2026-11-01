@@ -43,6 +43,7 @@ var _minutes_per_tile: int = 1
 var _game: Node = null      # the Game autoload, when in the tree
 var _hover_signs: Dictionary = {}  # bld -> true: signs shown only on hover / pick (houses)
 var _idle_marks: Dictionary = {}   # bld -> BuildingMarks.IdleMark
+var _works_bars: Dictionary = {}   # bld -> BuildingMarks.WorksBar (H5: works in progress)
 var hovered_building: String = ""
 var hovered_character: String = ""
 var _idle_minute: int = -1
@@ -103,6 +104,7 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	_signs.clear()
 	_hover_signs.clear()
 	_idle_marks.clear()
+	_works_bars.clear()
 	_service_signs.clear()
 	_building_visuals.clear()
 	_building_heights.clear()
@@ -210,6 +212,16 @@ func _add_buildings() -> Dictionary:
 		idle.visible = false
 		overlay().add_child(idle)
 		_idle_marks[id] = idle
+		var works := BuildingMarks.WorksBar.new()
+		works.name = id + "_works"
+		works.setup((ViewConfig.value("upgrades", {}) as Dictionary).get("works", {}))
+		works.position = sg.position + Vector2(0, -16)
+		works.visible = false
+		overlay().add_child(works)
+		_works_bars[id] = works
+		var scaffold := visual.get_node_or_null("Works") as CanvasItem
+		if scaffold != null:
+			scaffold.visible = false
 	return tiles
 
 
@@ -241,18 +253,46 @@ func refresh_idle() -> void:
 			ViewConfig.info("WorldView", "idle icon %s (building=%s)" % ["on" if on else "off", id])
 
 
+## The works bar of `building` (null if none).
+func works_bar_of(building: String) -> BuildingMarks.WorksBar:
+	return _works_bars.get(building, null)
+
+
+## The scaffold of `building` (the node Works of its scene; null if its scene has none).
+func scaffold_of(building: String) -> CanvasItem:
+	var v: Node = _building_visuals.get(building, null)
+	return v.get_node_or_null("Works") as CanvasItem if v != null else null
+
+
 ## The upgrade overlays of each building: the nodes under Upgrades of its scene named by its finished upgrades
-## (Upgrades.visuals "exterior") are shown, the rest hidden. Needs the Sim.
+## (SimQuery.upgrade_visual_nodes "exterior") are shown, the rest hidden. H5: a building under construction shows
+## the node Works of its scene (the scaffold) and the works bar with the time left. Needs the Sim.
 func refresh_upgrades() -> void:
 	if sim == null:
 		return
+	for id: String in _works_bars:
+		var w := SimQuery.upgrade_works(sim, id)
+		var bar: BuildingMarks.WorksBar = _works_bars[id]
+		var scaffold := scaffold_of(id)
+		if bar.visible != not w.is_empty():
+			ViewConfig.info("WorldView", "works %s (building=%s, upgrade=%s)" % ["on" if not w.is_empty() else "off", id,
+				str(w.get("upgrade", ""))])
+		bar.visible = not w.is_empty()
+		if scaffold != null:
+			scaffold.visible = not w.is_empty()
+		if not w.is_empty():
+			bar.progress = float(w.get("progress", 0.0))
+			bar.set_text(SimQuery.t_("ui.upgrades.works_left") % SimQuery.minutes_left_label(int(w.get("minutes_left", 0))))
+		var idle: Node2D = _idle_marks.get(id, null)
+		if idle != null:
+			idle.position = bar.position + Vector2(0, -16 if bar.visible else -2)
 	for id: String in _building_visuals:
 		var ups := (_building_visuals[id] as Node).get_node_or_null("Upgrades")
 		if ups == null or ups.get_child_count() == 0:
 			continue
 		var on := {}
-		for v: Dictionary in Upgrades.visuals(sim, id).get("exterior", []):
-			on[str(v["node"])] = true
+		for n: String in SimQuery.upgrade_visual_nodes(sim, id, "exterior"):
+			on[n] = true
 		for u: Node in ups.get_children():
 			if u is CanvasItem and (u as CanvasItem).visible != on.has(str(u.name)):
 				(u as CanvasItem).visible = on.has(str(u.name))

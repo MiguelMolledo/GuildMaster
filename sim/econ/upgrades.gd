@@ -13,7 +13,7 @@ extends RefCounted
 ## Stacking: "branch_top" = in each branch only the highest finished level that has the kind counts (the levels of a
 ## branch replace each other), then branches combine (mult multiply, amounts add); "all" = every finished upgrade.
 ##
-## Base (H5): queries, complete() and the shape of the UI query are done; order_buy and step belong to subgrim «arbol».
+## Base (H5): queries, complete() and the shape of the UI query; order_buy and step: subgrim «arbol».
 
 
 ## The inspection memory of a new building (save v6): last_day (last dawn rolled, -1 none), caught (times caught),
@@ -27,16 +27,84 @@ static func new_inspection() -> Dictionary:
 
 ## {"type": "buy_upgrade", "actor", "building", "upgrade"}: management order (no walking). Checks status_of() ==
 ## "available", pays the gold (Money, category upgrades, ref = the upgrade id) and the materials from the building's
-## storage, and starts the works (upgrade_work). Owner: «arbol».
-static func order_buy(_sim: Sim, _o: Dictionary) -> Dictionary:
-	return Orders.fail("not_implemented")
+## storage (lowest quality first), interrupts the cycles running there (the building does not produce during the
+## works, GDD 4.8; the inputs go back, D11) and starts the works: upgrade_work {upgrade, actor, start = now, end =
+## start + round(build_days × 1440)}. Emits upgrade_started. There is no way to cancel works (manager, 2026-11-01).
+static func order_buy(sim: Sim, o: Dictionary) -> Dictionary:
+	var st := sim.state
+	var actor := str(o.get("actor", ""))
+	var bld := str(o.get("building", ""))
+	var id := str(o.get("upgrade", ""))
+	var why := status_of(sim, actor, bld, id)
+	if why != "available":
+		return Orders.fail(why)
+	var u := sim.catalog.upgrade(id)
+	var fam := Money.family_of(st, bld)
+	var gold := int(u.get("cost", {}).get("gold", 0))
+	if not Money.change(sim, fam, -gold, Money.UPGRADES, id, bld, actor):
+		return Orders.fail("not_enough_gold")
+	var b: Dictionary = st.buildings[bld]
+	var taken: Array = []
+	for c: Dictionary in u.get("cost", {}).get("items", []):
+		taken.append_array(_take_lowest(b["inventory"], str(c["item"]), int(c["qty"])))
+	var zones: Dictionary = b.get("zones", {})
+	var zone_ids: Array = zones.keys().map(func(k: Variant) -> String: return str(k))
+	zone_ids.sort()
+	for z: String in zone_ids:
+		if zones[z].get("job") is Dictionary:
+			Production.interrupt(sim, bld, z)
+	var now := int(st.clock["minute"])
+	var end := now + roundi(float(u.get("build_days", 0.0)) * Clock.MINUTES_PER_DAY)
+	b["upgrade_work"] = {"upgrade": id, "actor": actor, "start": now, "end": end}
+	sim.events.append({"type": "upgrade_started", "actor": actor, "family": fam, "building": bld, "upgrade": id,
+		"start": now, "end": end})
+	if OS.is_debug_build():
+		print("[Upgrades] %s compra %s en %s (familia=%s, oro=%d, materiales=%s, obra min=%d-%d)" % [actor, id, bld, fam,
+			gold, taken, now, end])
+	return Orders.ok()
 
 
 # --- Step -------------------------------------------------------------------------------------------------------
 
-## Every minute, after Buildings and before Staff: works whose end has come finish (complete()). Owner: «arbol».
-static func step(_sim: Sim) -> void:
-	pass
+## Every minute, after Buildings and before Staff: buildings in id order (String); works whose end has come finish
+## (complete(): the effects count from this same minute) with the notice notice.upgrade_done. Works of an upgrade that
+## can no longer finish (data removed, already owned) are dropped so the building does not stay in works forever.
+static func step(sim: Sim) -> void:
+	var st := sim.state
+	var now := int(st.clock["minute"])
+	var due: Array = []
+	for b: Variant in st.buildings:
+		var w: Variant = st.buildings[b].get("upgrade_work", null)
+		if w is Dictionary and int((w as Dictionary).get("end", 0)) <= now:
+			due.append(str(b))
+	if due.is_empty():
+		return
+	due.sort()
+	for bld: String in due:
+		var id := str(work(st, bld).get("upgrade", ""))
+		if complete(sim, bld, id):
+			Notices.add(sim, Money.family_of(st, bld), Notices.INFO, "notice.upgrade_done",
+				{"building": bld, "upgrade": id}, bld)
+		else:
+			st.buildings[bld]["upgrade_work"] = null
+			if OS.is_debug_build():
+				print("[Upgrades] %s: la obra de %s no puede terminar (mejora desconocida o ya hecha): se descarta" % [
+					bld, id])
+
+
+## Takes `qty` of `item` from `inv`, lowest quality first. Returns the stacks taken [{item, quality, qty}].
+static func _take_lowest(inv: Dictionary, item: String, qty: int) -> Array:
+	var taken: Array = []
+	var left := qty
+	for q: int in Inventory.QUALITIES:
+		if left <= 0:
+			break
+		var n := mini(left, Inventory.count(inv, item, q))
+		if n > 0:
+			Inventory.remove(inv, item, q, n)
+			taken.append({"item": item, "quality": q, "qty": n})
+			left -= n
+	return taken
 
 
 # --- State queries ----------------------------------------------------------------------------------------------
@@ -270,10 +338,25 @@ static func zone_kind(sim: Sim, bld: String, zone: String) -> String:
 	return ""
 
 
-## Whether the building's upgrades allow employees of `rank` (allow_rank effects). The H4 check (data/employees.json
-## ranks.<rank>.requires_upgrade) still applies until «arbol» switches Staff to this.
+## Whether the building's upgrades allow employees of `rank` (allow_rank effects).
 static func allows_rank(sim: Sim, bld: String, rank: String) -> bool:
 	return rank in unlocks(sim, bld, "allow_rank")
+
+
+## Whether `rank` must be allowed by an upgrade in this building: some upgrade of the building's tree has
+## allow_rank for it (the forge: master, "Taller de maestro"). Ranks no upgrade of the tree names are always allowed.
+static func rank_gated(sim: Sim, bld: String, rank: String) -> bool:
+	for id: String in sim.catalog.upgrade_tree(tree_of(sim, bld)):
+		for e: Dictionary in sim.catalog.upgrade(id).get("effects", []):
+			if str(e.get("kind", "")) == "allow_rank" and str(e.get("rank", "")) == rank:
+				return true
+	return false
+
+
+## Whether the building can take someone of `rank` by its upgrades: not gated, or allowed (Staff: hire, promote,
+## candidates).
+static func rank_ok(sim: Sim, bld: String, rank: String) -> bool:
+	return not rank_gated(sim, bld, rank) or allows_rank(sim, bld, rank)
 
 
 # --- Finishing an upgrade ---------------------------------------------------------------------------------------

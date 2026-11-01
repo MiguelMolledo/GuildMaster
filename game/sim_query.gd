@@ -280,6 +280,8 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["zone"] = zone_name(str(p["zone"]))
 	if p.has("reason"):
 		p["reason"] = reason_text(str(p["reason"]))
+	if p.has("upgrade"):  # H5: upgrade notices
+		p["upgrade"] = upgrade_name(catalog, str(p["upgrade"]))
 	return t_(str(n.get("key", ""))).format(p)
 
 
@@ -407,3 +409,93 @@ static func qty_label(qty: int) -> String:
 static func employer_family(state: WorldState, chr: String) -> String:
 	var b := Staff.employer(state, chr)
 	return building_family(state, b) if b != "" else ""
+
+
+# --- H5 · upgrades (docs/contratos/h5_mejoras.md) ----------------------------------------------------------------------
+
+static func upgrade_name(catalog: Catalog, upgrade: String) -> String:
+	return t_(str(catalog.upgrade(upgrade).get("name_key", "upgrade." + upgrade)))
+
+
+static func branch_name(branch: String) -> String:
+	return t_("branch." + branch)
+
+
+static func title_name(title: String) -> String:
+	var key := "title." + title
+	var s := t_(key)
+	return title if s == key else s
+
+
+## The upgrade tree panel of `building` for `actor` (Upgrades.tree_view).
+static func upgrade_tree(sim: Sim, actor: String, building: String) -> Dictionary:
+	return Upgrades.tree_view(sim, actor, building)
+
+
+## {risk, last_day, caught, escaped, fines, can_escape} of a building (Inspections.view).
+static func inspection_view(sim: Sim, building: String) -> Dictionary:
+	return Inspections.view(sim, building)
+
+
+## The works in progress of a building as the tree panel shows them ({} if none): {upgrade, start, end, progress,
+## minutes_left}.
+static func upgrade_works(sim: Sim, building: String) -> Dictionary:
+	if not Upgrades.under_works(sim.state, building):
+		return {}
+	return Upgrades.tree_view(sim, "", building).get("work", {})
+
+
+## "12 h" / "1 d 4 h" of the game minutes left (rounded up to the hour).
+static func minutes_left_label(minutes: int) -> String:
+	return hours_label(float(maxi(0, minutes)) / 60.0)
+
+
+## One effect of an upgrade as the panel says it (effect.<kind> with its value formatted: fractions of protection,
+## customers and inspection risk as percentages, ids as names).
+static func effect_text(catalog: Catalog, e: Dictionary) -> String:
+	var kind := str(e.get("kind", ""))
+	var p := {}
+	if e.has("mult"):
+		p["mult"] = _num(float(e["mult"]))
+	if e.has("amount"):
+		var a := float(e["amount"])
+		if kind in ["protection", "customer_bonus", "inspection_risk"]:
+			p["amount"] = "%d %%" % roundi(a * 100.0)
+		else:
+			p["amount"] = _num(a)
+	if e.has("recipe"):
+		p["recipe"] = recipe_name(catalog, str(e["recipe"]))
+	if e.has("rank"):
+		p["rank"] = rank_name(catalog, str(e["rank"]))
+	if e.has("zone"):
+		p["zone"] = zone_name(str(e["zone"]))
+	var key := "effect." + kind
+	var s := t_(key)
+	return kind if s == key else s.format(p)
+
+
+## The visual nodes to show for a building's finished upgrades on one `side` ("interior" | "exterior"):
+## Upgrades.visuals, keeping in the branches of data/view.json upgrades.latest_only_branches only the highest finished
+## level (their visuals replace each other); the rest show every finished level. Node names, in finishing order.
+static func upgrade_visual_nodes(sim: Sim, building: String, side: String) -> Array:
+	var latest: Array = (ViewConfig.value("upgrades", {}) as Dictionary).get("latest_only_branches", [])
+	var rows: Array = Upgrades.visuals(sim, building).get(side, [])
+	var top := {}  # branch -> highest finished level with a visual on this side
+	for v: Dictionary in rows:
+		var u := sim.catalog.upgrade(str(v["upgrade"]))
+		var br := str(u.get("branch", ""))
+		if br in latest:
+			top[br] = maxi(int(top.get(br, 0)), int(u.get("level", 0)))
+	var out: Array = []
+	for v: Dictionary in rows:
+		var u := sim.catalog.upgrade(str(v["upgrade"]))
+		var br := str(u.get("branch", ""))
+		if br in latest and int(u.get("level", 0)) < int(top.get(br, 0)):
+			continue
+		out.append(str(v["node"]))
+	return out
+
+
+## "10" for whole numbers, "1.25" otherwise.
+static func _num(x: float) -> String:
+	return str(roundi(x)) if is_equal_approx(x, roundf(x)) else String.num(x, 2)

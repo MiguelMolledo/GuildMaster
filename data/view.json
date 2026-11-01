@@ -51,5 +51,11 @@
     "window": "#fff0a0",
     "blink_hz": 3.0,
     "touch_feedback_seconds": 1.5
+  },
+  "upgrades": {
+    "_doc": "H5 upgrade tree (GDD 4.8): latest_only_branches = branches whose visuals replace each other (only the highest finished level is shown; the rest show every finished level). status colours of the tree panel's cells (owned, in_works, available, blocked). works: the bar over a building under construction on the map (back, fill, text) and the panel's bar. The scaffold itself is the node Works of game/visuals/buildings/<type>.tscn.",
+    "latest_only_branches": ["production", "facade"],
+    "status_colors": {"owned": "#7cc860", "in_works": "#f0c040", "available": "#ece4d2", "blocked": "#8a8070"},
+    "works": {"back": "#2a2018", "fill": "#f0c040", "text": "#f6ecd0", "width": 44}
   }
 }

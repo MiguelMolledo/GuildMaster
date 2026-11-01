@@ -15,12 +15,14 @@ extends Node
 ## shop opens the market panel; a click on a notice centres the camera on its building or person.
 ## H4: a notice about an employee of the player's family (promotion, unpaid wage...) opens that building in
 ## management mode with its staff panel (GDD 4.18: "o abre su panel"). --smoke-script=empleados: the H4 captures.
+## H5: --smoke-script=mejoras: the upgrade tree, the works and the upgrade visuals.
 ## --gallery opens game/tools/gallery.tscn instead (every visual scene of game/visuals/ on the grid; with --smoke it
 ## saves reports/shots/gallery_01.png and quits). The AudioDirector node plays the sounds and music by id.
 
 const GALLERY: String = "res://game/tools/gallery.tscn"
 const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
-	"mercado": "res://game/smoke/smoke_mercado.gd", "empleados": "res://game/smoke/smoke_empleados.gd"}
+	"mercado": "res://game/smoke/smoke_mercado.gd", "empleados": "res://game/smoke/smoke_empleados.gd",
+	"mejoras": "res://game/smoke/smoke_mejoras.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView

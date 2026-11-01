@@ -512,3 +512,38 @@ reason.under_works,The building is under construction,El edificio está en obras
 notice.upgrade_done,{building}: the works of {upgrade} are finished,{building}: ha terminado la obra de {upgrade}
 notice.inspection_fined,"{building}: an inspection found irregularities, fine of {amount} gold","{building}: una inspección ha encontrado irregularidades, multa de {amount} de oro"
 notice.inspection_escaped,"{building}: an inspection came, the hidden passage saved you","{building}: ha venido una inspección, el pasadizo oculto te ha salvado"
+ui.interior.upgrades_tip,The building's upgrade tree,Árbol de mejoras del edificio
+ui.interior.works,Under construction: %s · %s left,En obras: %s · quedan %s
+ui.upgrades.title,%s · upgrades,%s · mejoras
+ui.upgrades.level,Lv %d,Nv %d
+ui.upgrades.status.owned,Built,Construida
+ui.upgrades.status.in_works,Under construction,En obra
+ui.upgrades.status.available,Available,Disponible
+ui.upgrades.status.blocked,Locked: %s,Bloqueada: %s
+ui.upgrades.branch_level,%s · level %d,%s · nivel %d
+ui.upgrades.cost,Cost: %s,Coste: %s
+ui.upgrades.gold,%d gold,%d de oro
+ui.upgrades.item,%s ×%d (have %d),%s ×%d (hay %d)
+ui.upgrades.requires,Requires: %s,Requisitos: %s
+ui.upgrades.req_stat,%s %d (has %d),%s %d (tiene %d)
+ui.upgrades.req_title,title %s,título %s
+ui.upgrades.none,none,ninguno
+ui.upgrades.build_time,Works: %s,Obra: %s
+ui.upgrades.effects,Effects: %s,Efectos: %s
+ui.upgrades.buy,Buy,Comprar
+ui.upgrades.buy_tip,Pay and start the works (the building does not produce meanwhile),Pagar y empezar la obra (mientras dura el edificio no produce)
+ui.upgrades.works,Under construction: %s,En obra: %s
+ui.upgrades.works_left,%s left,quedan %s
+ui.upgrades.no_works,No works in progress,Sin obras en curso
+ui.upgrades.no_tree,This building has no upgrades,Este edificio no tiene mejoras
+ui.upgrades.inspections,Inspections: risk %d%% · caught %d · escaped %d · fines %d gold,Inspecciones: riesgo %d%% · pillado %d · librado %d · multas %d de oro
+ui.upgrades.passage_ready,Hidden passage ready,Pasadizo listo
+ui.upgrades.passage_wait,Hidden passage not usable yet,El pasadizo aún no sirve
+ui.zone.anvil_2,Second anvil,Segundo yunque
+ui.zone.furnace_2,Second furnace,Segundo horno
+title.common,commoner,plebeyo
+title.citizen,citizen,ciudadano
+title.patrician,patrician,patricio
+title.baron,baron,barón
+title.noble,noble,noble
+notice.inspection_debt,"{building}: you could not pay the whole fine, {debt} gold owed to the town","{building}: no has podido pagar toda la multa, debes {debt} de oro a la ciudad"
