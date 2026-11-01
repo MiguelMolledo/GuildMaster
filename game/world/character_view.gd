@@ -3,6 +3,9 @@ extends Node2D
 ## Greybox walker (H1): a ~48 px figure in its family's colours, at its tile or between two tiles (D3: the sim moves
 ## by tiles, the view interpolates position -> path[0] with move_progress / minutes_per_tile). Shows its name and a
 ## ring when selected. Keeps only the character id; reads the rest from the state each frame.
+## H4: the name (with the family for people of other families) also shows while the mouse is over the figure
+## (hovered); an employee carries a small badge over the head in the colour of the family it works for, with a gold
+## border when it works for the player's family (set_badge, data/view.json "character.badge").
 
 var char_id: String = ""
 var primary: Color = Color(0.5, 0.5, 0.5)
@@ -13,8 +16,18 @@ var selected: bool = false:
 	set(v):
 		selected = v
 		if _name_label != null:
-			_name_label.visible = v
+			_name_label.visible = selected or hovered
 		queue_redraw()
+var hovered: bool = false:
+	set(v):
+		if v == hovered:
+			return
+		hovered = v
+		if _name_label != null:
+			_name_label.visible = selected or hovered
+var badge: Color = Color(0, 0, 0, 0)   # alpha 0 = no job
+var badge_own: bool = false            # works for the player's family
+var badge_border: Color = Color(1.0, 0.85, 0.3)
 var fig_height: float = 48.0
 var fig_width: float = 14.0
 var skin: Color = Color(0.88, 0.70, 0.55)
@@ -35,19 +48,41 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	skin = ViewConfig.color(str(cfg.get("skin", "#e0b48c")))
 	outline = ViewConfig.color(str(cfg.get("outline", "#1e1812")))
 	name = char_id
+	badge_border = ViewConfig.color(str(cfg.get("badge_own_border", "#ffd84c")))
 	_name_label = Label.new()
 	_name_label.text = str(ch.get("name", char_id))
+	if not selectable and str(family.get("name", "")) != "":
+		_name_label.text = "%s · %s" % [str(ch.get("name", char_id)), str(family["name"])]
 	_name_label.add_theme_font_size_override("font_size", 10)
 	_name_label.add_theme_color_override("font_color", Color(1.0, 0.95, 0.8))
 	_name_label.add_theme_color_override("font_outline_color", Color(0.1, 0.07, 0.05))
 	_name_label.add_theme_constant_override("outline_size", 3)
 	_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_name_label.size = Vector2(80, 14)
-	_name_label.position = Vector2(-40, -fig_height - 16)
+	_name_label.size = Vector2(120, 14)
+	_name_label.position = Vector2(-60, -fig_height - 20)
 	_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_name_label.visible = selected
 	add_child(_name_label)
 	queue_redraw()
+
+
+## The job badge: `c` = colour of the employer family (alpha 0 = none), `own` = it works for the player's family.
+func set_badge(c: Color, own: bool) -> void:
+	if c == badge and own == badge_own:
+		return
+	badge = c
+	badge_own = own
+	queue_redraw()
+
+
+## The badge from the state: the family whose building this character works at (none without a job).
+func follow_badge(state: WorldState, player_family: String) -> void:
+	var fam := SimQuery.employer_family(state, char_id)
+	if fam == "":
+		set_badge(Color(0, 0, 0, 0), false)
+		return
+	var colors: Dictionary = state.families.get(fam, {}).get("colors", {})
+	set_badge(ViewConfig.color(str(colors.get("primary", "#808080"))), fam == player_family)
 
 
 ## Where the walker is, in tiles (floats between two tiles while walking).
@@ -99,3 +134,9 @@ func _draw() -> void:
 	# head
 	draw_circle(Vector2(0, -h + head_r), head_r + 1.0, outline)
 	draw_circle(Vector2(0, -h + head_r), head_r, skin)
+	if badge.a > 0.0:
+		# a small diamond over the head: the employer's colour, gold border if it works for the player
+		var c := Vector2(0, -h - 6)
+		var d := PackedVector2Array([c + Vector2(0, -5), c + Vector2(5, 0), c + Vector2(0, 5), c + Vector2(-5, 0)])
+		draw_colored_polygon(d, badge)
+		draw_polyline(d + PackedVector2Array([d[0]]), badge_border if badge_own else outline, 2.0 if badge_own else 1.0)

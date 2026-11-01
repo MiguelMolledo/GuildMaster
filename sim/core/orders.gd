@@ -79,6 +79,16 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 	return fail("unknown_order")
 
 
+## Management orders: given from a panel, they act at once and never touch the actor's order queue (a bonus does
+## not stop someone walking; given in pause they apply on resume instead of waiting behind the walk).
+const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role", "queue_add", "queue_remove",
+	"queue_move", "queue_loop", "queue_pause", "repay_loan", "read_notices", "abandon_contract"]
+
+
+static func is_management(type: String) -> bool:
+	return type in MANAGEMENT
+
+
 static func ok() -> Dictionary:
 	return {"ok": true, "reason": ""}
 

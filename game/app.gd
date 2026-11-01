@@ -13,9 +13,11 @@ extends Node
 ## over the paused default scenario; --new-game forces it. When state.ending is set (ruin, D18) the game pauses and
 ## the ending screen shows. A right click on a stall or the board opens its panel on arrival (HUD); the counter of a
 ## shop opens the market panel; a click on a notice centres the camera on its building or person.
+## H4: a notice about an employee of the player's family (promotion, unpaid wage...) opens that building in
+## management mode with its staff panel (GDD 4.18: "o abre su panel"). --smoke-script=empleados: the H4 captures.
 
 const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
-	"mercado": "res://game/smoke/smoke_mercado.gd"}
+	"mercado": "res://game/smoke/smoke_mercado.gd", "empleados": "res://game/smoke/smoke_empleados.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView
@@ -122,6 +124,11 @@ func _owns(building: String) -> bool:
 func focus_on(target: String) -> void:
 	var st := Game.sim.state
 	var tile := Vector2i(-999, -999)
+	var workplace := Staff.employer(st, target) if st.characters.has(target) else ""
+	if workplace != "" and _owns(workplace):
+		Log.info("App", "focus employee %s: staff panel of %s" % [target, workplace])
+		open_interior(workplace, true, "staff")
+		return
 	if st.buildings.has(target):
 		var d: Array = st.buildings[target].get("door", [])
 		if d.size() == 2:
@@ -161,8 +168,9 @@ func _on_world_selection(id: String) -> void:
 		_interior.select(id)
 
 
-## Shows the inside of `building` (with the selected person, or in management mode) after a fade.
-func open_interior(building: String, manage: bool) -> void:
+## Shows the inside of `building` (with the selected person, or in management mode) after a fade. `panel` = "staff"
+## opens its staff panel too.
+func open_interior(building: String, manage: bool, panel: String = "") -> void:
 	if building == "" or not Game.sim.state.buildings.has(building):
 		return
 	Log.info("App", "open interior (building=%s, manage=%s, selected=%s)" % [building, manage, _world.selected_id])
@@ -171,7 +179,9 @@ func open_interior(building: String, manage: bool) -> void:
 		_interior.setup(Game.sim, building, _world.selected_id, manage)
 		_interior.set_active(true)
 		_world.set_active(false)
-		_hud.set_interior(true))
+		_hud.set_interior(true)
+		if panel == "staff":
+			_interior.show_staff(true, "staff"))
 
 
 ## Back to the town, centred on the building's door.

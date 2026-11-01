@@ -54,10 +54,17 @@ func give(o: Dictionary) -> void:
 
 
 func _give(o: Dictionary) -> void:
+	if Orders.is_management(str(o.get("type", ""))):
+		_apply_now(o)  # management (hire, bonus, queue_*...) is not something the character walks to do:
+		return         # it never waits in their queue nor cancels it
 	if bool(o.get("queued", false)):
 		OrderQueue.push(self, o)  # given during pause: waits in the actor's queue (GDD 4.1, active pause)
 		return
 	OrderQueue.clear_for(self, str(o.get("actor", "")))  # an order given live replaces what was queued
+	_apply_now(o)
+
+
+func _apply_now(o: Dictionary) -> void:
 	var r := Orders.apply(self, o)
 	if not r["ok"]:
 		events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),

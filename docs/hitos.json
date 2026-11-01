@@ -174,33 +174,33 @@
     {
       "id": "H4",
       "nombre": "Empleados",
-      "estado": "en_curso",
+      "estado": "hecho",
       "entregable": "Candidatos, contratar/despedir, rangos y ascensos (1 año / 2 años), salarios reales, lealtad, abandono/robo, cola con dependencias, roles estrictos, avisos al registro, empleados caminando de casa a la forja.",
       "criterios": [
         {
           "texto": "Escenario \"2 empleados\": 3 días, la forja produce sin que el jugador entre; cada uno en su puesto; de noche se van",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_queue.gd + test_world_routines.gd con two_employees: 10 espadas en 3 días con 20 lingotes justos, Agnès solo en el horno y Joan solo en el yunque, de noche fuera · docs/novedades/h4_forja_empleados.png",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Salario impagado baja lealtad",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_staff.gd: gracia el primer día, luego −5 lealtad/día y −2 reputación",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Escenario \"aprendiz con 1 año trabajado y lealtad 60\": aparece el aviso de ascenso",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_staff.gd con apprentice_promotion: aviso de ascenso al amanecer · docs/novedades/h4_ascenso.png",
+          "fecha": "2026-11-01"
         }
       ]
     },
     {
       "id": "H5",
       "nombre": "Mejoras",
-      "estado": "pendiente",
+      "estado": "en_curso",
       "entregable": "Árbol de la Forja (24), obras de 0,5-2 días, efectos, visuales interiores/exteriores con el kit de interior (4.6.4), inspecciones de Secretos (multa por ahora). Rebalanceo de precios y costes con bots (D14).",
       "criterios": [
         {

@@ -8,7 +8,7 @@
     "stall": {"shape": "block", "height": 20},
     "board": {"shape": "block", "height": 26}
   },
-  "character": {"height": 48, "width": 14, "skin": "#e0b48c", "outline": "#1e1812"},
+  "character": {"height": 48, "width": 14, "skin": "#e0b48c", "outline": "#1e1812", "badge_own_border": "#ffd84c", "_badge_doc": "H4: employees carry a diamond over the head in the colour of the family they work for; gold border (badge_own_border) when it is the player's family."},
   "day_night": {
     "colors": {"dawn": "#FFD4A0", "day": "#FFFFFF", "dusk": "#FF9060", "night": "#1A1A40"},
     "tint_strength": 0.7,
@@ -18,10 +18,10 @@
   "toast_seconds": 2.5,
   "target_marker_seconds": 1.0,
   "buildings": {
-    "_doc": "H2 greybox of the buildings of state.buildings on the map (by type): block colour and height, sign and door colours.",
+    "_doc": "H2 greybox of the buildings of state.buildings on the map (by type): block colour and height, sign and door colours. H4: sign_mode = \"hover\" shows the sign only while the mouse is over the building or it is picked (the houses: the town is not full of signs).",
     "forge": {"color": "#7c7f88", "height": 40, "sign": "#e0903a", "door": "#c8a050"},
     "armory": {"color": "#8a6a4a", "height": 40, "sign": "#c0c8d0", "door": "#c8a050"},
-    "house": {"color": "#6b4a3a", "height": 40, "sign": "#b8a888", "door": "#c8a050"}
+    "house": {"color": "#6b4a3a", "height": 40, "sign": "#b8a888", "door": "#c8a050", "sign_mode": "hover"}
   },
   "services": {
     "_doc": "H3 greybox of the market stalls and the contract board on the map: sign colours (the blocks are the map's stall/board tiles).",

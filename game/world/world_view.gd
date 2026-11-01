@@ -11,6 +11,10 @@ extends Node2D
 ## H3: the market stalls and the contract board of the map get a sign; a right click on one with someone selected
 ## sends them to its service tile (move_to) and emits service_requested: the HUD opens its panel on arrival.
 ## Buildings of other families carry the family's name ("Forja de Ferrer").
+## H4: the houses of the townsfolk show their sign only while the mouse is over them or when picked (data/view.json
+## buildings.<type>.sign_mode = "hover"), so the town is not full of signs; the townsfolk show their name on hover and the
+## employees a badge (CharacterView.set_badge); a building of the player's family with idle employees gets the idle
+## icon over it (WorkQueue.idle_employees, refreshed each game minute; needs the Sim: setup(..., sim)).
 
 signal selection_changed(char_id: String)
 signal building_picked(building_id: String)   # "" = none
@@ -22,6 +26,7 @@ signal service_requested(actor: String, kind: String, id: String, service: Vecto
 var order_sink: Callable = Callable()  # who receives the orders: Game.give in the game, a test's own in the tests
 var state: WorldState
 var catalog: Catalog
+var sim: Sim = null         # H4: for the queries that need it (idle employees); null = no idle icons
 var selected_id: String = ""
 var picked_building: String = ""
 var tint_color: Color = Color.WHITE
@@ -31,6 +36,12 @@ var _service_signs: Dictionary = {}  # stall id | "board" -> BuildingMarks.Sign
 var _services: Array = []   # SimQuery.map_services
 var _minutes_per_tile: int = 1
 var _game: Node = null      # the Game autoload, when in the tree
+var _hover_signs: Dictionary = {}  # bld -> true: signs shown only on hover / pick (houses)
+var _idle_marks: Dictionary = {}   # bld -> BuildingMarks.IdleMark
+var hovered_building: String = ""
+var hovered_character: String = ""
+var _idle_minute: int = -1
+var _player_family: String = ""
 
 
 func _ready() -> void:
@@ -38,9 +49,9 @@ func _ready() -> void:
 	if _game == null:
 		return
 	order_sink = _game.give
-	_game.started.connect(func() -> void: setup(_game.sim.state, _game.sim.catalog))
+	_game.started.connect(func() -> void: setup(_game.sim.state, _game.sim.catalog, _game.sim))
 	if _game.sim != null:
-		setup(_game.sim.state, _game.sim.catalog)
+		setup(_game.sim.state, _game.sim.catalog, _game.sim)
 
 
 func ground() -> GroundLayer:
@@ -73,13 +84,20 @@ func set_active(active: bool) -> void:
 
 
 ## Builds the view of `s`. Called again whenever a new state is loaded.
-func setup(s: WorldState, c: Catalog) -> void:
+func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	state = s
 	catalog = c
+	sim = sim_ref
 	selected_id = ""
 	picked_building = ""
+	hovered_building = ""
+	hovered_character = ""
+	_idle_minute = -1
+	_player_family = SimQuery.player_family(s)
 	_views.clear()
 	_signs.clear()
+	_hover_signs.clear()
+	_idle_marks.clear()
 	_service_signs.clear()
 	for layer: Node in [objects(), overlay()]:
 		for n: Node in layer.get_children():
@@ -164,7 +182,72 @@ func _add_buildings() -> Dictionary:
 		sg.name = id
 		overlay().add_child(sg)
 		_signs[id] = sg
+		if str(look.get("sign_mode", "")) == "hover":
+			_hover_signs[id] = true
+			sg.visible = false
+		var idle := BuildingMarks.IdleMark.new()
+		idle.name = id + "_idle"
+		idle.position = sg.position + Vector2(0, -18)
+		idle.visible = false
+		overlay().add_child(idle)
+		_idle_marks[id] = idle
 	return tiles
+
+
+## Whether the sign of `building` is shown now (hover-only signs: while hovered or picked).
+func sign_shown(building: String) -> bool:
+	var sg: Node2D = _signs.get(building, null)
+	return sg != null and sg.visible
+
+
+func _update_signs() -> void:
+	for id: String in _hover_signs:
+		(_signs[id] as Node2D).visible = id == hovered_building or id == picked_building
+
+
+## The idle icon of `building` (null if none).
+func idle_mark_of(building: String) -> Node2D:
+	return _idle_marks.get(building, null)
+
+
+## The idle icons: over each building of the player's family with idle employees (WorkQueue.idle_employees).
+func refresh_idle() -> void:
+	for id: String in _idle_marks:
+		var on := false
+		if sim != null and _player_family != "" and SimQuery.building_family(state, id) == _player_family:
+			on = not SimQuery.idle_employees(sim, id).is_empty()
+		var m: BuildingMarks.IdleMark = _idle_marks[id]
+		if m.visible != on:
+			m.visible = on
+			ViewConfig.info("WorldView", "idle icon %s (building=%s)" % ["on" if on else "off", id])
+
+
+## Mouse over the map (every frame): the building and person under it (hover signs and names).
+func update_hover(screen: Vector2) -> void:
+	var bld := pick_building(screen)
+	if bld != hovered_building:
+		hovered_building = bld
+		_update_signs()
+	var who := pick_any_character(screen)
+	if who != hovered_character:
+		if _views.has(hovered_character):
+			(_views[hovered_character] as CharacterView).hovered = false
+		hovered_character = who
+		if _views.has(who):
+			(_views[who] as CharacterView).hovered = true
+
+
+## Anybody visible under `screen` (the front-most figure), "" if nobody.
+func pick_any_character(screen: Vector2) -> String:
+	var world := camera().screen_to_world(screen)
+	var best := ""
+	var best_y := -INF
+	for id: String in _views:
+		var v: CharacterView = _views[id]
+		if v.visible and v.pick_rect().has_point(world) and v.position.y > best_y:
+			best = id
+			best_y = v.position.y
+	return best
 
 
 func sign_of(building_id: String) -> Node2D:
@@ -275,6 +358,7 @@ func _process(_delta: float) -> void:
 	if state == null:
 		return
 	sync(_game.step_fraction() if _game != null else 0.0)
+	update_hover(get_viewport().get_mouse_position())
 
 
 ## Follows the state: new or dead walkers, positions, the day/night tint. `frac` = how far towards the next step.
@@ -293,6 +377,10 @@ func sync(frac: float) -> void:
 		var v: CharacterView = _views[id]
 		v.visible = str(ch.get("location", "")) == ""
 		v.follow(ch, _minutes_per_tile, frac)
+		v.follow_badge(state, _player_family)
+	if int(state.clock["minute"]) != _idle_minute:
+		_idle_minute = int(state.clock["minute"])
+		refresh_idle()
 	tint_color = DayNight.tint(int(state.clock["minute"]), frac, catalog.time, ViewConfig.value("day_night", {}))
 	(get_node("%Tint") as CanvasModulate).color = tint_color
 
@@ -392,6 +480,7 @@ func pick_building_id(id: String) -> void:
 	picked_building = id if state.buildings.has(id) else ""
 	if _signs.has(picked_building):
 		(_signs[picked_building] as BuildingMarks.Sign).highlighted = true
+	_update_signs()
 	ViewConfig.info("WorldView", "picked building %s" % (picked_building if picked_building != "" else "none"))
 	building_picked.emit(picked_building)
 

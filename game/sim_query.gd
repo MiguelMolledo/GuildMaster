@@ -265,6 +265,21 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["client"] = client_name(str(p["client"]))
 	if p.has("objective"):
 		p["objective"] = t_(str(catalog.objectives().get(str(p["objective"]), {}).get("name_key", "objective." + str(p["objective"]))))
+	# H4: employees, ranks, recipes, roles and reasons of the staff and queue notices
+	for k: String in ["employee", "character", "thief"]:
+		if p.has(k) and state.characters.has(str(p[k])):
+			p[k] = str(state.characters[str(p[k])].get("name", p[k]))
+	for k: String in ["rank", "next_rank", "from_rank"]:
+		if p.has(k) and not catalog.rank(str(p[k])).is_empty():
+			p[k] = rank_name(catalog, str(p[k]))
+	if p.has("recipe"):
+		p["recipe"] = recipe_name(catalog, str(p["recipe"]))
+	if p.has("role"):
+		p["role"] = role_name(catalog, str(p["role"]))
+	if p.has("zone"):
+		p["zone"] = zone_name(str(p["zone"]))
+	if p.has("reason"):
+		p["reason"] = reason_text(str(p["reason"]))
 	return t_(str(n.get("key", ""))).format(p)
 
 
@@ -287,3 +302,108 @@ static func loans_of(sim: Sim, fam: String) -> Array:
 
 static func objective_name(catalog: Catalog, objective: String) -> String:
 	return t_(str(catalog.objectives().get(objective, {}).get("name_key", "objective." + objective)))
+
+
+# --- H4 · employees, production queue ----------------------------------------------------------------------------------
+
+## The family that owns `building` ("" if public or unknown).
+static func building_family(state: WorldState, building: String) -> String:
+	return Money.family_of(state, building)
+
+
+## Who signs the orders of `building`'s family (hire, fire, queue_*...): `preferred` if it is a living member of the
+## owner family, else its first living member ("" if nobody).
+static func building_actor(state: WorldState, building: String, preferred: String = "") -> String:
+	var fam := building_family(state, building)
+	return family_actor(state, fam, preferred) if fam != "" else ""
+
+
+## [{character, name, female, rank, stats, wage, status}] (Staff.candidates).
+static func candidates(sim: Sim, actor: String, building: String) -> Array:
+	return Staff.candidates(sim, actor, building)
+
+
+## [{character, name, rank, role, loyalty, band, wage, ..., routine, task}] (Staff.employees).
+static func employees(sim: Sim, building: String) -> Array:
+	return Staff.employees(sim, building)
+
+
+static func slots(state: WorldState, building: String) -> int:
+	return Staff.slots(state, building)
+
+
+static func free_slots(state: WorldState, building: String) -> int:
+	return Staff.free_slots(state, building)
+
+
+## {entries: [{id, recipe, qty, done, status}], loop, paused, stalled} (WorkQueue.view).
+static func queue_view(sim: Sim, building: String) -> Dictionary:
+	return WorkQueue.view(sim, building)
+
+
+## The employees of `building` at work with nothing to do (WorkQueue.idle_employees): the idle icon on the map.
+static func idle_employees(sim: Sim, building: String) -> Array:
+	return WorkQueue.idle_employees(sim, building)
+
+
+## The recipes made in a building of `building`'s type (data/recipes "building"), by station order then id.
+static func building_recipes(state: WorldState, catalog: Catalog, building: String) -> Array:
+	var type := str(state.buildings.get(building, {}).get("type", ""))
+	var zones: Array = []
+	for z: Dictionary in catalog.buildings().get(type, {}).get("zones", []):
+		zones.append(str(z.get("id", "")))
+	var out: Array = []
+	for id: Variant in catalog.recipes():
+		if str(catalog.recipes()[id].get("building", "")) == type:
+			out.append(str(id))
+	out.sort_custom(func(a: String, b: String) -> bool:
+		var za := zones.find(str(catalog.recipes()[a].get("zone", "")))
+		var zb := zones.find(str(catalog.recipes()[b].get("zone", "")))
+		if za != zb:
+			return za < zb
+		return a < b)
+	return out
+
+
+## The roles an employee of `building` can get (set_role): "any" first, then each station of its type that is a role
+## in data/employees.json "roles", in the type's station order.
+static func building_roles(state: WorldState, catalog: Catalog, building: String) -> Array:
+	var roles: Dictionary = catalog.employees.get("roles", {})
+	var out: Array = [str(catalog.employees.get("default_role", "any"))]
+	var type := str(state.buildings.get(building, {}).get("type", ""))
+	for z: Dictionary in catalog.buildings().get(type, {}).get("zones", []):
+		var id := str(z.get("id", ""))
+		if roles.has(id) and not id in out:
+			out.append(id)
+	return out
+
+
+static func rank_name(catalog: Catalog, rank: String) -> String:
+	return t_(str(catalog.rank(rank).get("name_key", "rank." + rank)))
+
+
+static func role_name(catalog: Catalog, role: String) -> String:
+	return t_(str(catalog.employees.get("roles", {}).get(role, {}).get("name_key", "role." + role)))
+
+
+## A loyalty band's name ("leal", "descontento"...), "" for none.
+static func band_name(band: String) -> String:
+	return t_("ui.staff.band." + band) if band != "" else ""
+
+
+## The text of a refusal / skip reason (reason.<id>), the id itself if it has no text.
+static func reason_text(reason: String) -> String:
+	var key := "reason." + reason
+	var s := t_(key)
+	return reason if s == key else s
+
+
+## "∞" or the number of a queue entry's quantity.
+static func qty_label(qty: int) -> String:
+	return "∞" if qty < 0 else str(qty)
+
+
+## The family whose building `chr` works at ("" without a job): the badge colour on the map.
+static func employer_family(state: WorldState, chr: String) -> String:
+	var b := Staff.employer(state, chr)
+	return building_family(state, b) if b != "" else ""

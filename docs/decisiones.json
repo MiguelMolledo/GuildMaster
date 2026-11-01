@@ -233,6 +233,24 @@
       "tema": "H3 · mercado y cuentas (provisionales)",
       "decision": "Dificultad solo en el precio de compra. El mercado vende solo calidad normal. La deuda inicial no apunta ingreso. Embargo por unidades enteras a precio de venta. Al cerrar la Armería quien esté dentro sale. Sin --scenario el juego abre la pantalla de partida nueva.",
       "por_que": "Contrato docs/contratos/h3_mercado.md."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "H4 · empleados (provisionales)",
+      "decision": "El rango vive en el personaje. Lealtad inicial 50, rol por defecto «cualquiera». Maestros contratables sin «Taller de maestro» hasta H5. Eficiencia ×0,8 con lealtad < 70; rumores −1 reputación/día por empleado. El salario pasa a la familia del empleado. El robo se lleva la pila de mayor precio de venta. Veto al ladrón por familia. Al atardecer termina el ciclo en curso y se van; de noche nunca dentro.",
+      "por_que": "Contrato docs/contratos/h4_empleados.md."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Órdenes de gestión",
+      "decision": "hire, fire, promote, bonus, set_role, queue_*, repay_loan, read_notices y abandon_contract actúan al momento y no tocan la cola de órdenes del personaje que las firma (ni la cancelan en vivo ni esperan detrás de su paseo en pausa).",
+      "por_que": "Pulsar Bonus cancelaba el paseo de Hugo."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Rendimiento del A*",
+      "decision": "Mismo A* con cubos por f en arrays empaquetados y memoria de rutas fuera del estado; 0 diferencias en 16 000 pares. Peor paso: 15→4,9 ms (todos andando), 22,6→8,2 ms (amanecer).",
+      "por_que": "Picos de hasta 270 ms con 22 personajes."
     }
   ],
   "pendientes": [
@@ -270,14 +288,34 @@
       "tema": "Cifras de balance",
       "detalle": "Todo lo marcado [balance] en el diseño (oro inicial, deuda, primas de encargos, precios, duraciones) se ajusta con bots y dianas en data/targets.json, no se decide a ojo.",
       "opciones": ""
+    },
+    {
+      "tema": "Estructura A · ids en data y una escena visual por id",
+      "detalle": "Recomendado: sí (artifact art_01m6cdrnwyzveedjkgg8). Se aplica al empezar H5 si el owner no dice otra cosa.",
+      "opciones": "sí / rutas como en 06"
+    },
+    {
+      "tema": "Estructura B · reproductor de audio",
+      "detalle": "Recomendado: nodo AudioDirector en app.tscn (no cabe otro autoload).",
+      "opciones": ""
+    },
+    {
+      "tema": "Estructura C · game/visuals/",
+      "detalle": "Recomendado: primera tarea de H5.",
+      "opciones": "H5 / mini-hito"
+    },
+    {
+      "tema": "Estructura D · pintar el mapa en el editor de TileMap",
+      "detalle": "Si sí, en H6 una herramienta Godot → JSON.",
+      "opciones": "sí / no"
     }
   ],
   "proximos_pasos": [
-    "H4 · Empleados (en curso).",
-    "Revisar en H5 la diana del rival ([40, 300] del diseño) y las 3 de 30 semillas del novato que pasan de 60/día.",
-    "Recoger lo que queda en el suelo de un puesto; plurales en textos; bonus de velocidad de la herramienta.",
-    "Picos del A* antes de H7.",
-    "Traer los assets del primer intento y captura de escala de D17.",
+    "H5 · Mejoras (en curso): empieza por game/visuals/ (decisiones A-C) y el validador sin rutas en data/.",
+    "Revisar en H5 la diana del rival y el balance con bots (D14).",
+    "Empleado «cualquiera» ocioso puede bloquear un puesto a otro de rol fijo.",
+    "Peor paso del bench al primer atardecer: 8,2-9,6 ms (diana 8).",
+    "La batería de tests tarda ~75 s por la prueba de equivalencia del A* (16 000 pares): reducirla si molesta.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner."
   ]
 }

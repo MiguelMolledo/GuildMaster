@@ -367,3 +367,87 @@ rank.master,Master,Maestro
 role.any,Anything,Cualquiera
 reason.off_hours,Employees only work by day,Los empleados solo trabajan de día
 reason.mode_not_allowed,Employees always work in normal mode,Los empleados trabajan siempre en modo normal
+reason.not_a_candidate,That person cannot be hired,Esa persona no se puede contratar
+reason.no_slot,There is no free place for an employee,No hay hueco libre para un empleado
+reason.banned,That person will not work for your family,Esa persona no trabajará para tu familia
+reason.not_your_employee,That person does not work for your family,Esa persona no trabaja para tu familia
+reason.no_promotion,There is no promotion to answer,No hay ningún ascenso pendiente
+reason.already_leaving,That employee is already leaving,Ese empleado ya se va
+notice.wage_unpaid,"No gold for {name}'s wage ({amount} gold): {days} days unpaid","No hay oro para el salario de {name} ({amount} de oro): {days} días sin cobrar"
+notice.promotion_offered,"{name} can be promoted to {rank}","{name} puede ascender a {rank}"
+notice.employee_quit,"{name} left {building} without notice","{name} ha abandonado {building} sin avisar"
+notice.employee_stole,"{name} stole {qty} × {item} from {building} and fled","{name} ha robado {qty} × {item} de {building} y ha huido"
+notice.employee_fired,"{name} leaves {building} at the end of the day","{name} deja {building} al final del día"
+notice.employee_fired_now,"{name} will not start at {building}","{name} ya no empezará en {building}"
+ui.staff.title,Staff · %s,Empleados · %s
+ui.staff.tab.staff,Staff,Plantilla
+ui.staff.tab.hire,Hire,Contratar
+ui.staff.slots,Places: %d/%d,Huecos: %d/%d
+ui.staff.none,No employees yet: hire someone in the Hire tab,Aún no hay empleados: contrata en la pestaña Contratar
+ui.staff.no_candidates,Nobody in town is looking for work,No hay nadie en el pueblo buscando trabajo
+ui.staff.role_tip,Station they work at (Anything = wherever needed),Puesto en el que trabaja (Cualquiera = donde haga falta)
+ui.staff.loyalty_line,Loyalty %d (%s) · %d gold/day,Lealtad %d (%s) · %d de oro/día
+ui.staff.unpaid,Unpaid for %d days,Sin cobrar desde hace %d días
+ui.staff.promotion,Can be promoted to %s (%d gold/day),Puede ascender a %s (%d de oro/día)
+ui.staff.accept,Accept,Aceptar
+ui.staff.accept_tip,"Promote: more loyalty, higher wage","Ascender: sube la lealtad y el salario"
+ui.staff.refuse,Refuse,Rechazar
+ui.staff.refuse_tip,Loyalty drops,Baja su lealtad
+ui.staff.bonus,Bonus %d,Bonus %d
+ui.staff.bonus_tip,Pay them extra gold: loyalty rises,Le pagas oro extra: sube su lealtad
+ui.staff.fire,Fire,Despedir
+ui.staff.fire_tip,"They leave at the end of the day; firing someone loyal costs reputation","Se va al acabar el día; despedir a alguien leal cuesta reputación"
+ui.staff.leaving,Leaves at the end of the day,Se va al acabar el día
+ui.staff.starts,Starts on day %d at dawn,Empieza el día %d al amanecer
+ui.staff.task,Working: %s (%s),Trabajando: %s (%s)
+ui.staff.routine.home,At home,En casa
+ui.staff.routine.at_work,"At work, nothing to do","En el trabajo, sin tarea"
+ui.staff.routine.walking,On the way,De camino
+ui.staff.routine.out,In town,Por el pueblo
+ui.staff.routine.inside,In another building,En otro edificio
+ui.staff.routine.to_work,Going to work,Yendo al trabajo
+ui.staff.routine.to_home,Going home,Volviendo a casa
+ui.staff.candidate,%s · %s · %d gold/day,%s · %s · %d de oro/día
+ui.staff.hire,Hire,Contratar
+ui.staff.hire_tip,Starts tomorrow at dawn,Empieza mañana al amanecer
+ui.staff.band.loyal,loyal,leal
+ui.staff.band.unhappy,unhappy,descontento
+ui.staff.band.disloyal,disloyal,desleal
+ui.staff.band.thief,resentful,resentido
+ui.interior.staff_tip,Employees: staff and hiring,Empleados: plantilla y contratación
+ui.interior.upgrades_h5,Arrives in H5,Llega en H5
+ui.production.hint_queue,Right click on a station to work it yourself. The employees make what the queue asks for.,Clic derecho en un puesto para trabajar tú. Los empleados hacen lo que pida la cola.
+ui.queue.title,Employees' queue,Cola de los empleados
+ui.queue.loop,Loop,Bucle
+ui.queue.loop_tip,"After the last entry, start again from the first","Al acabar la última entrada, vuelve a la primera"
+ui.queue.pause,Pause,Pausa
+ui.queue.pause_tip,No new work is handed out (what started finishes),No se reparte trabajo nuevo (lo empezado acaba)
+ui.queue.add_tip,Add the recipe to the queue with that quantity,Añadir la receta a la cola con esa cantidad
+ui.queue.stalled,Nothing can be made: %s,No se puede producir nada: %s
+ui.queue.empty,Empty queue: pick a recipe and a quantity,Cola vacía: elige receta y cantidad
+ui.queue.entry,%d. %s · %d/%s,%d. %s · %d/%s
+ui.queue.working,in progress,en curso
+ui.queue.up,Move up,Subir
+ui.queue.down,Move down,Bajar
+ui.queue.remove,Remove,Quitar
+ui.order.hire,Hire someone,Contratar
+ui.order.fire,Fire someone,Despedir
+ui.order.promote,Answer a promotion,Responder a un ascenso
+ui.order.bonus,Pay a bonus,Pagar un bonus
+ui.order.set_role,Change a role,Cambiar un puesto
+ui.order.queue_add,Add to the queue,Añadir a la cola
+ui.order.queue_remove,Remove from the queue,Quitar de la cola
+ui.order.queue_move,Reorder the queue,Reordenar la cola
+ui.order.queue_loop,Queue loop,Bucle de la cola
+ui.order.queue_pause,Pause the queue,Pausar la cola
+reason.unknown_entry,That entry is not in the queue,Esa entrada no está en la cola
+reason.wrong_building,That is not made in this building,Eso no se hace en este edificio
+reason.unknown_role,This building has no such task,Este edificio no tiene esa tarea
+reason.no_worker,No employee has that task,Ningún empleado tiene esa tarea
+reason.empty_queue,The queue is empty,La cola está vacía
+notice.queue_missing_inputs,"{building}: not enough materials for {recipe}, skipped","{building}: faltan materiales para {recipe}, se salta"
+notice.queue_storage_full,"{building}: the storage is full, {recipe} is skipped","{building}: el almacén está lleno, se salta {recipe}"
+notice.queue_cannot_make,"{building}: nobody can make {recipe} ({reason}), skipped","{building}: nadie puede hacer {recipe} ({reason}), se salta"
+notice.queue_empty,"{building}: nothing to produce, the queue is empty","{building}: nada que producir, la cola está vacía"
+notice.queue_stalled,"{building}: nothing in the queue can be made ({reason})","{building}: no se puede hacer nada de la cola ({reason})"
+notice.employee_idle,"{employee} is idle at {building}: nothing for the task {role}","{employee} está ocioso en {building}: nada para su tarea {role}"

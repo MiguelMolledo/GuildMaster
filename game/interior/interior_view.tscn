@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://game/interior/interior_view.gd" id="1_view"]
 [ext_resource type="Theme" path="res://game/ui/greybox_theme.tres" id="2_theme"]
 [ext_resource type="PackedScene" path="res://game/ui/storage_panel.tscn" id="3_storage"]
 [ext_resource type="PackedScene" path="res://game/ui/production_panel.tscn" id="4_production"]
 [ext_resource type="PackedScene" path="res://game/ui/station_menu.tscn" id="5_menu"]
+[ext_resource type="PackedScene" path="res://game/ui/staff_panel.tscn" id="6_staff"]
 
 [node name="InteriorView" type="Node2D"]
 visible = false
@@ -89,7 +90,7 @@ text = "storage"
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-disabled = true
+toggle_mode = true
 text = "staff"
 
 [node name="ProductionButton" type="Button" parent="Ui/Root/Toolbar"]
@@ -123,10 +124,22 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -276.0
+offset_left = -296.0
 offset_top = 116.0
 offset_right = -6.0
 offset_bottom = 236.0
+grow_horizontal = 0
+
+[node name="StaffPanel" parent="Ui/Root" instance=ExtResource("6_staff")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -306.0
+offset_top = 116.0
+offset_right = -6.0
+offset_bottom = 416.0
 grow_horizontal = 0
 
 [node name="StationMenu" parent="Ui/Root" instance=ExtResource("5_menu")]

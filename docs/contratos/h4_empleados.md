@@ -164,6 +164,14 @@ Motivos: los elige cada dueño con su clave `reason.<id>` ES/EN (p. ej. `not_a_c
 - **Avisos** (`Notices.add`, al registro de 4.18; claves `notice.*` de cada dueño, params para `String.format`):
   plantilla: salario impagable, ascenso disponible (`target` = el empleado), abandono, robo, despido;
   cola: falta de materia prima, almacén lleno, empleado ocioso, nada que producir. Urgentes: robo y abandono.
+  - Hechos (plantilla): `notice.wage_unpaid {name, building, amount, days}` (warning, target empleado),
+    `notice.promotion_offered {name, building, rank}` (info, target empleado), `notice.employee_quit {name, building}`
+    y `notice.employee_stole {name, building, item, qty, value}` (urgent, target edificio), `notice.employee_fired
+    {name, building}` (info, target empleado) y `notice.employee_fired_now` (despedido antes de empezar). `building`,
+    `rank` e `item` van como id. Motivos de sus órdenes: `unknown_actor`, `unknown_building`, `not_your_building`,
+    `no_slot`, `not_a_candidate`, `banned`, `needs_upgrade`, `not_enough_gold`, `not_your_employee`,
+    `already_leaving`, `no_promotion`. Seguridad (H5): ids de mejora en `employees.theft.security_upgrades`
+    (opcional, hoy no existe = sin Seguridad).
 
 ## Consultas para la UI (funciones puras; la vista no calcula reglas)
 Hechas en la base (forma fija; el dueño puede afinarlas sin cambiarla):
@@ -231,3 +239,24 @@ Con forma fija y relleno de «cola» (hoy devuelven vacío):
   sus carteles se ven siempre. Un personaje dentro de su casa no se dibuja (como dentro de cualquier edificio). Los
   paneles leen solo las consultas de arriba y dan las órdenes de la tabla. Quien firma las órdenes de familia: como en
   H3 (`SimQuery.family_actor`).
+
+## Hecho por «cola» (para «vista» y «plantilla»)
+- **Memoria nueva** (dentro de lo permitido, sin subir versión): `queue.assigned {chr: {zone, recipe, entry}}` (tarea en
+  curso de cada empleado), `queue.idle {chr: reason}` (ociosos ahora: `no_task`, `paused`, `empty_queue`, `stalled`),
+  `queue.stalled` (`""`, `empty_queue` o el motivo de la primera entrada), `entry.blocked` (`""` o motivo);
+  `character.routine {day, leave_at, retry_at, state}` con `state` = `home`/`to_work`/`at_work`/`to_home`/`out`
+  (lo emite `routine_changed`; `Routines.state_of` mantiene los valores de la base).
+- **Motivos de salto** de una entrada (`view().entries[].status`): `missing_inputs`, `storage_full`, `skill_too_low`,
+  `needs_upgrade`, `no_worker` (ningún empleado activo con rol para ese puesto). Claves nuevas: `reason.unknown_entry`,
+  `reason.wrong_building`, `reason.unknown_role`, `reason.no_worker`, `reason.empty_queue`, `notice.queue_missing_inputs`,
+  `notice.queue_storage_full`, `notice.queue_cannot_make`, `notice.queue_empty`, `notice.queue_stalled`,
+  `notice.employee_idle` (params `building`, `recipe`, `reason`, `employee`, `role`).
+- **Avisos**: uno al cambiar de estado (no uno por minuto): entrada saltada, cola parada / vacía, empleado ocioso por
+  `no_task`. Se evalúan solo mientras hay algún empleado dentro y en horario.
+- `Production.employee_cycle_minutes(sim, actor, recipe, mode)` y `Production.output_units(sim, actor, bld, recipe)`
+  (para el dueño: la cantidad de la receta). `WorkQueue.cycle_done(...)` lo llama `Production` al entregar un empleado.
+- **Decisiones provisionales «cola»**: `queue_remove` deja terminar el ciclo en curso (la salida va al almacén y no
+  cuenta para ninguna entrada); sin bucle, las entradas terminadas salen de la cola; los intermedios se hacen solo
+  para la siguiente unidad sin empezar (como mucho una unidad de adelanto); al atardecer el ciclo en curso termina y
+  luego se va (uno bloqueado por almacén lleno no lo retiene); de noche sale y el ciclo se interrumpe (D11); tras una
+  orden rechazada la rutina reintenta a los 30 min; los empleados con rol fijo se reparten antes que los «cualquiera».

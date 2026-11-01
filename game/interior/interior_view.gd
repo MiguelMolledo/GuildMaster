@@ -7,8 +7,10 @@ extends Node2D
 ##
 ## Controls: left click on someone of the family inside selects them; on a station = go_to_station (or master_touch
 ## while its window is open, GDD 4.4.5); on the door = leave. Right click on a station = its context menu
-## (StationMenu). Toolbar (top right): Upgrades (H4) · Storage · Staff (H5) · Production · Exit. Management mode
-## (no person, GDD 4.6.4): the same room opened from the map; leaving just closes it.
+## (StationMenu). Toolbar (top right): Upgrades (H5) · Storage · Staff (H4: StaffPanel, staff and hiring) ·
+## Production (stations and, from H4, the employees' queue) · Exit. Management mode (no person, GDD 4.6.4): the
+## same room opened from the map; leaving just closes it. Employees inside stand at their station like anybody
+## else (CharacterView shows their badge); the station shows the cycle's bar.
 
 signal selection_changed(char_id: String)
 signal close_requested   # leave without an order (management mode, or nobody of the family inside)
@@ -32,6 +34,7 @@ var _cfg: Dictionary = {}
 var _center: Vector2 = Vector2.ZERO
 var _zoom: int = 2
 var _bound: bool = false
+var _player_family: String = ""
 
 
 func floor_layer() -> Node2D:
@@ -62,15 +65,21 @@ func production_panel() -> ProductionPanel:
 	return get_node("%ProductionPanel")
 
 
+func staff_panel() -> StaffPanel:
+	return get_node("%StaffPanel")
+
+
 func _bind() -> void:
 	if _bound:
 		return
 	_bound = true
 	(%StorageButton as Button).toggled.connect(func(on: bool) -> void: show_storage(on))
 	(%ProductionButton as Button).toggled.connect(func(on: bool) -> void: show_production(on))
+	(%StaffButton as Button).toggled.connect(func(on: bool) -> void: show_staff(on))
 	(%ExitButton as Button).pressed.connect(request_exit)
 	storage_panel().closed.connect(func() -> void: (%StorageButton as Button).set_pressed_no_signal(false))
 	production_panel().closed.connect(func() -> void: (%ProductionButton as Button).set_pressed_no_signal(false))
+	staff_panel().closed.connect(func() -> void: (%StaffButton as Button).set_pressed_no_signal(false))
 
 
 ## Builds the room of `bld`. `who` = the person selected on the map (may be outside: then nobody acts until someone
@@ -91,6 +100,7 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	_views.clear()
 	var b: Dictionary = s.state.buildings.get(bld, {})
 	shop_stall = SimQuery.shop_stall(s.state, s.catalog, bld)
+	_player_family = SimQuery.player_family(s.state)
 	var def: Dictionary = s.catalog.buildings().get(str(b.get("type", "")), {})
 	var inside: Dictionary = def.get("interior", {})
 	var sz: Array = inside.get("size", [6, 6])
@@ -124,9 +134,9 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	(%StorageButton as Button).text = SimQuery.t_("ui.interior.storage")
 	(%ProductionButton as Button).text = SimQuery.t_("ui.interior.production")
 	(%UpgradesButton as Button).text = SimQuery.t_("ui.interior.upgrades")
-	(%UpgradesButton as Button).tooltip_text = SimQuery.t_("ui.interior.upgrades_later")
+	(%UpgradesButton as Button).tooltip_text = SimQuery.t_("ui.interior.upgrades_h5")
 	(%StaffButton as Button).text = SimQuery.t_("ui.interior.staff")
-	(%StaffButton as Button).tooltip_text = SimQuery.t_("ui.interior.staff_later")
+	(%StaffButton as Button).tooltip_text = SimQuery.t_("ui.interior.staff_tip")
 	(%ExitButton as Button).text = SimQuery.t_("ui.interior.exit")
 	(%ExitButton as Button).tooltip_text = SimQuery.t_("ui.interior.exit_tip")
 	# a shop is not managed: only the way out (and its counter opens the market panel)
@@ -137,7 +147,14 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	storage_panel().order_sink = _give
 	storage_panel().setup(s, bld, actor())
 	production_panel().order_sink = _give
-	production_panel().setup(s, bld)
+	production_panel().setup(s, bld, who)
+	production_panel().close()
+	storage_panel().close()
+	staff_panel().order_sink = _give
+	staff_panel().setup(s, bld, who)
+	staff_panel().close()
+	for n: String in ["StorageButton", "ProductionButton", "StaffButton"]:
+		(get_node("%" + n) as Button).set_pressed_no_signal(false)
 	sync()
 	ViewConfig.info("Interior", "setup (building=%s, manage=%s, size=%s, door=%s, stations=%d, selected=%s)" % [bld,
 		manage_mode, size_tiles, door_tile, _stations.size(), who])
@@ -209,6 +226,8 @@ func select(id: String) -> void:
 	for cid: String in _views:
 		(_views[cid] as CharacterView).selected = cid == id
 	storage_panel().set_actor(actor())
+	staff_panel().set_actor(id)
+	production_panel().set_actor(id)
 	ViewConfig.info("Interior", "selected %s" % (id if id != "" else "nobody"))
 	selection_changed.emit(id)
 
@@ -238,6 +257,8 @@ func sync() -> void:
 			v.selected = id == selected_id
 			objects().add_child(v)
 			_views[id] = v
+		(_views[id] as CharacterView).follow_badge(st, _player_family)
+		(_views[id] as CharacterView).hovered = Staff.works_at(st, id, building)  # employees inside: name always shown
 		var zone := str(ch.get("station", ""))
 		if _station_tiles.has(zone):
 			# beside the station (to its left on screen), so the block and its bar stay visible
@@ -388,6 +409,7 @@ func show_storage(on: bool) -> void:
 	(%StorageButton as Button).set_pressed_no_signal(on)
 	if on:
 		show_production(false)
+		show_staff(false)
 		storage_panel().set_actor(actor())
 		storage_panel().open()
 	else:
@@ -398,9 +420,21 @@ func show_production(on: bool) -> void:
 	(%ProductionButton as Button).set_pressed_no_signal(on)
 	if on:
 		show_storage(false)
+		show_staff(false)
 		production_panel().open()
 	else:
 		production_panel().close()
+
+
+## The staff panel (H4): `tab` "staff" or "hire" ("" = the last one shown).
+func show_staff(on: bool, tab: String = "") -> void:
+	(%StaffButton as Button).set_pressed_no_signal(on)
+	if on:
+		show_storage(false)
+		show_production(false)
+		staff_panel().open(tab)
+	else:
+		staff_panel().close()
 
 
 ## ESC: closes the top thing open here (menu, then panel). False if there was nothing to close.
@@ -413,6 +447,9 @@ func close_top() -> bool:
 		return true
 	if production_panel().visible:
 		show_production(false)
+		return true
+	if staff_panel().visible:
+		show_staff(false)
 		return true
 	return false
 

@@ -15,6 +15,24 @@ var costs: PackedInt32Array = PackedInt32Array()  # index = row * width + col
 var walkable_tiles: PackedInt32Array = PackedInt32Array()  # indices of every walkable tile, in row-major order
 ## The same costs with a 1-tile blocked border, (width + 2) × (height + 2): lets Pathfinder skip bounds checks.
 var padded: PackedInt32Array = PackedInt32Array()
+## Moves out of each padded tile, precomputed for Pathfinder (8 neighbours, no corner cutting, fixed order N E S W,
+## NE SE SW NW): the moves of tile i are link_to/link_cost[link_start[i] .. link_start[i + 1]). link_cost is the step
+## cost (walk_cost × 10 straight, × 14 diagonal). Built for every inner tile, walkable or not (a route may start on
+## a blocked tile).
+var link_start: PackedInt32Array = PackedInt32Array()
+var link_to: PackedInt32Array = PackedInt32Array()
+var link_cost: PackedInt32Array = PackedInt32Array()
+## Pathfinder's open list is a ring of buckets by f; ring_mask + 1 (a power of two) is larger than the largest jump
+## of f from a tile to its neighbour (largest step cost + the most the octile heuristic changes in a step), so two
+## open tiles with different f never share a bucket.
+var ring_mask: int = 255
+## Padded column and row of each padded tile (the heuristic reads them instead of dividing).
+var pad_col: PackedInt32Array = PackedInt32Array()
+var pad_row: PackedInt32Array = PackedInt32Array()
+## Routes already found on this grid (Pathfinder): from_index * size + to_index -> PackedInt32Array of padded tiles.
+## Only a speed-up: a route is a pure function of the grid, so this never changes a result. Static data like the
+## grid itself (never in WorldState). invalidate() empties it if the map ever changes.
+var routes: Dictionary = {}
 
 
 ## The grid of `map_id`, built once per catalog. null if the catalog has no such map.
@@ -49,14 +67,70 @@ static func build(catalog: Catalog, id: String) -> Grid:
 			g.costs[r * g.width + c] = cost
 			if cost != BLOCKED:
 				g.walkable_tiles.append(r * g.width + c)
-	var pw := g.width + 2
-	g.padded.resize(pw * (g.height + 2))
-	for r: int in g.height:
-		for c: int in g.width:
-			g.padded[(r + 1) * pw + c + 1] = g.costs[r * g.width + c]
+	g._link()
 	if OS.is_debug_build():
-		print("[Grid] built: %s (w=%d, h=%d, walkable=%d)" % [id, g.width, g.height, g.walkable_tiles.size()])
+		print("[Grid] built: %s (w=%d, h=%d, walkable=%d, moves=%d)"
+			% [id, g.width, g.height, g.walkable_tiles.size(), g.link_to.size()])
 	return g
+
+
+## Rebuilds what is derived from `costs` (padded copy, moves) and forgets the routes found. Call it after changing
+## `costs` (today the maps are static: nothing does).
+func invalidate() -> void:
+	_link()
+	if OS.is_debug_build():
+		print("[Grid] invalidate: %s (routes cleared)" % map_id)
+
+
+func _link() -> void:
+	routes.clear()
+	var pw := width + 2
+	var n := pw * (height + 2)
+	padded = PackedInt32Array()
+	padded.resize(n)
+	pad_col = PackedInt32Array()
+	pad_col.resize(n)
+	pad_row = PackedInt32Array()
+	pad_row.resize(n)
+	for i: int in n:
+		pad_col[i] = i % pw
+		pad_row[i] = i / pw
+	for r: int in height:
+		for c: int in width:
+			padded[(r + 1) * pw + c + 1] = costs[r * width + c]
+	# Straight k: N, E, S, W. Diagonal j joins straight j and j + 1: NE, SE, SW, NW.
+	var off: Array[int] = [-pw, 1, pw, -1]
+	var doff: Array[int] = [1 - pw, 1 + pw, pw - 1, -pw - 1]
+	link_start = PackedInt32Array()
+	link_start.resize(n + 1)
+	link_to = PackedInt32Array()
+	link_cost = PackedInt32Array()
+	for i: int in n:
+		link_start[i] = link_to.size()
+		if pad_col[i] == 0 or pad_row[i] == 0 or pad_col[i] == pw - 1 or pad_row[i] == height + 1:
+			continue  # the border is never a tile of a route
+		var open_bits := 0
+		for k: int in 4:
+			var step: int = padded[i + off[k]]
+			if step != BLOCKED:
+				open_bits |= 1 << k
+				link_to.append(i + off[k])
+				link_cost.append(step * Pathfinder.STRAIGHT)
+		for j: int in 4:
+			if (open_bits >> j) & 1 == 0 or (open_bits >> ((j + 1) & 3)) & 1 == 0:
+				continue
+			var step: int = padded[i + doff[j]]
+			if step != BLOCKED:
+				link_to.append(i + doff[j])
+				link_cost.append(step * Pathfinder.DIAGONAL)
+	link_start[n] = link_to.size()
+	var top := 0
+	for c: int in link_cost:
+		top = maxi(top, c)
+	var ring := 16
+	while ring <= top + Pathfinder.DIAGONAL:
+		ring <<= 1
+	ring_mask = ring - 1
 
 
 func in_bounds(c: int, r: int) -> bool:

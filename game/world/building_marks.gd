@@ -1,7 +1,7 @@
 class_name BuildingMarks
 extends RefCounted
-## The greybox marks of a building of state.buildings on the map (H2): its door and a sign with its name. Both go
-## over the blocks (the door may be on the side the camera does not see). The blocks themselves are BlockViews in
+## The greybox marks of a building of state.buildings on the map (H2): its door and a sign with its name; H4: the
+## idle icon (employees with nothing to do, GDD 4.7.4). They go over the blocks (the door may be on the side the camera does not see). The blocks themselves are BlockViews in
 ## the objects layer (Y-sort).
 
 
@@ -59,3 +59,20 @@ class Sign:
 		draw_line(Vector2(0, 8), Vector2(0, 18), Color(0.25, 0.17, 0.10), 2.0)
 		draw_rect(r, color)
 		draw_rect(r, Color(1.0, 0.92, 0.6) if highlighted else Color(0.25, 0.17, 0.10), false, 2.0 if highlighted else 1.0)
+
+
+## The idle icon over a building (H4, GDD 4.7.4): a speech bubble with "z z" (employees at work with nothing to do).
+class IdleMark:
+	extends Node2D
+	var color: Color = Color(0.95, 0.92, 0.82)
+	var ink: Color = Color(0.25, 0.17, 0.10)
+
+	func _draw() -> void:
+		var r := Rect2(-11, -9, 22, 13)
+		draw_rect(r, color)
+		draw_rect(r, ink, false, 1.0)
+		draw_colored_polygon(PackedVector2Array([Vector2(-3, 4), Vector2(3, 4), Vector2(0, 8)]), color)
+		draw_polyline(PackedVector2Array([Vector2(-3, 4), Vector2(0, 8), Vector2(3, 4)]), ink, 1.0)
+		# "z z": two little zigzags
+		for x: float in [-7.0, 1.0]:
+			draw_polyline(PackedVector2Array([Vector2(x, -6), Vector2(x + 5, -6), Vector2(x, -1), Vector2(x + 5, -1)]), ink, 1.0)

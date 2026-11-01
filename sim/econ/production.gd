@@ -14,6 +14,9 @@ extends RefCounted
 ## Interrupting (stop_work, leaving the station or the building) returns what the job holds (D11): inputs, or the
 ## finished result of a blocked job, to the storage; what does not fit to the actor's inventory; what does not fit
 ## there either to the "floor" of the station: zones[zone].floor = [{item, quality, qty}] (nobody picks it up yet).
+## H4 (subgrim «cola», docs/contratos/h4_empleados.md): an employee's cycle lasts duration / rank speed and gives
+## max(1, round(qty × efficiency)) units; it does not repeat on its own: WorkQueue.cycle_done is told and the queue
+## hands the next work.
 
 const NIGHT: String = "night"
 
@@ -164,7 +167,7 @@ static func _step_job(sim: Sim, bld_id: String, zone: String, now: int) -> void:
 		var recipe: Dictionary = sim.catalog.recipes()[str(job["recipe"])]
 		var out: Dictionary = recipe["output"]
 		var q := roll_quality(sim, actor, str(bld["type"]), str(job["mode"]), bool(job.get("touched", false)))
-		job["result"] = {"item": str(out["item"]), "quality": q, "qty": int(out.get("qty", 1))}
+		job["result"] = {"item": str(out["item"]), "quality": q, "qty": output_units(sim, actor, bld_id, recipe)}
 	var res: Dictionary = job["result"]
 	var inv: Dictionary = bld["inventory"]
 	if not Inventory.add(inv, sim.catalog, str(res["item"]), int(res["quality"]), int(res["qty"])):
@@ -180,6 +183,10 @@ static func _step_job(sim: Sim, bld_id: String, zone: String, now: int) -> void:
 		print("[Production] %s termina %s en %s/%s (calidad=%d, modo=%s, toque=%s)" % [actor, res["item"], bld_id, zone,
 			int(res["quality"]), job["mode"], job.get("touched", false)])
 	z["job"] = null
+	if _is_employee_at(sim, actor, bld_id):
+		# H4: an employee does not repeat on its own; the queue hands it the next work (WorkQueue.step).
+		WorkQueue.cycle_done(sim, bld_id, zone, actor, str(job["recipe"]), int(res["qty"]))
+		return
 	_repeat_or_idle(sim, bld_id, zone, actor, str(job["recipe"]), str(job["mode"]))
 
 
@@ -217,6 +224,8 @@ static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, 
 		taken.append_array(_take_lowest(bld["inventory"], str(inp["item"]), int(inp["qty"])))
 	var now := int(st.clock["minute"])
 	var d := cycle_minutes(sim.catalog, recipe, mode)
+	if _is_employee_at(sim, actor, bld_id):
+		d = employee_cycle_minutes(sim, actor, recipe, mode)
 	var job := {"actor": actor, "recipe": recipe_id, "mode": mode, "start": now, "end": now + d, "inputs": taken,
 		"window": cycle_window(sim.catalog, mode, now, d), "touched": false, "result": null, "blocked": false}
 	bld["zones"][zone]["job"] = job
@@ -290,6 +299,23 @@ static func may_work(sim: Sim, actor: String, bld_id: String) -> String:
 static func cycle_minutes(catalog: Catalog, recipe: Dictionary, mode: String) -> int:
 	var mult := float(catalog.production.get("modes", {}).get(mode, {}).get("duration_mult", 1.0))
 	return maxi(1, roundi(float(recipe.get("duration_hours", 1.0)) * 60.0 * mult))
+
+
+## H4: cycle length of an employee (GDD 4.4.1, 4.7.2): the recipe's duration / (rank speed × upgrades), at least 1
+## minute. No upgrades yet (H5).
+static func employee_cycle_minutes(sim: Sim, actor: String, recipe: Dictionary, mode: String) -> int:
+	var mult := float(sim.catalog.production.get("modes", {}).get(mode, {}).get("duration_mult", 1.0))
+	var speed := maxf(Staff.speed(sim, actor), 0.01)
+	return maxi(1, roundi(float(recipe.get("duration_hours", 1.0)) * 60.0 * mult / speed))
+
+
+## Units a finished cycle of `recipe` gives: the recipe's output qty; H4, for an employee of `bld_id`,
+## max(1, round(qty × Staff.efficiency)) (GDD 4.7.2: always at least 1 unit per cycle).
+static func output_units(sim: Sim, actor: String, bld_id: String, recipe: Dictionary) -> int:
+	var qty := int(recipe.get("output", {}).get("qty", 1))
+	if not _is_employee_at(sim, actor, bld_id):
+		return qty
+	return maxi(1, roundi(float(qty) * Staff.efficiency(sim, actor)))
 
 
 ## Master-touch window [start, end) centred on the middle of the cycle, window_hours long and inside the cycle;
