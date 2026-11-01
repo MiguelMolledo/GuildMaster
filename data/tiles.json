@@ -1,0 +1,14 @@
+{
+  "_doc": "Tile kinds of the town grid (GDD 05 §5.4, D3). walk_cost: path cost of entering the tile (null = blocked). color: greybox colour until the art arrives. The 1-char codes are what data/maps/*.json rows use.",
+  "tiles": {
+    "grass":    {"char": ".", "walk_cost": 10,   "color": "#5f8a3a"},
+    "street":   {"char": "=", "walk_cost": 1,    "color": "#9a8f7e"},
+    "plaza":    {"char": "P", "walk_cost": 1,    "color": "#b3a58c"},
+    "dirt":     {"char": ",", "walk_cost": 3,    "color": "#8c6a43"},
+    "field":    {"char": "f", "walk_cost": 12,   "color": "#a8923e"},
+    "bridge":   {"char": "b", "walk_cost": 1,    "color": "#7a5a36"},
+    "building": {"char": "#", "walk_cost": null, "color": "#6b4a3a"},
+    "water":    {"char": "w", "walk_cost": null, "color": "#3d6e9e"},
+    "tree":     {"char": "T", "walk_cost": null, "color": "#2f5a2a"}
+  }
+}

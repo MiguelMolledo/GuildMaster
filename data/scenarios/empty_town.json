@@ -1,11 +1,12 @@
 {
-  "version": 1,
+  "version": 2,
   "seed": "1",
   "rng_state": "",
   "meta": {
     "title": "Pueblo vacío",
     "description": "H0: solo el reloj, sin mapa ni personajes. Base de las pruebas de arranque."
   },
+  "map_id": "",
   "clock": {
     "minute": 300
   },

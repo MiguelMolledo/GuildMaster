@@ -5,12 +5,13 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 1
+const VERSION: int = 2
 
 var version: int = VERSION
 var world_seed: int = 0
 var rng := RandomNumberGenerator.new()
 var meta: Dictionary = {}          # title, description and origin of a scenario; free text, no rules read it
+var map_id: String = ""            # data/maps/<map_id>.json: the static town (tiles, spawns); "" = no map
 var clock: Dictionary = {"minute": 0}  # minutes since day 0, 00:00 (Clock derives the rest from data/time.json)
 var characters: Dictionary = {}    # chr_id -> character
 var families: Dictionary = {}      # fam_id -> family
@@ -39,6 +40,7 @@ func to_dict() -> Dictionary:
 		"seed": str(world_seed),
 		"rng_state": str(rng.state),
 		"meta": meta,
+		"map_id": map_id,
 		"clock": clock,
 		"characters": characters,
 		"families": families,
@@ -68,6 +70,7 @@ static func from_dict(src: Dictionary) -> WorldState:
 	if rng_state != "":
 		s.rng.state = rng_state.to_int()
 	s.meta = d.get("meta", {})
+	s.map_id = str(d.get("map_id", ""))
 	s.clock = d.get("clock", {"minute": 0})
 	s.characters = d.get("characters", {})
 	s.families = d.get("families", {})

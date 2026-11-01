@@ -4,12 +4,13 @@ extends RefCounted
 ## with "_" (templates, notes) are not loaded. tools/validate_content.py is the full validator; validate() here is the
 ## part the game checks at start-up in debug builds (GDD 02, L9: data that points at missing things stops the game).
 
-const KINDS: Array[String] = ["items", "recipes", "buildings"]
+const KINDS: Array[String] = ["items", "recipes", "buildings", "maps"]
 const ITEM_CATEGORIES: Array[String] = ["raw", "material", "product", "tool", "equipment", "consumable", "special"]
 
 var root: String = "res://data"
 var tables: Dictionary = {}  # kind -> {id -> Dictionary}
 var time: Dictionary = {}    # data/time.json, with the dev variant applied when asked
+var tiles: Dictionary = {}   # data/tiles.json "tiles": kind -> {char, walk_cost (null = blocked), color}
 var errors: PackedStringArray = []  # files that could not be read
 
 
@@ -19,6 +20,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	for kind: String in KINDS:
 		c.tables[kind] = c._load_folder(root_dir.path_join(kind))
 	c.time = c._load_json(root_dir.path_join("time.json"))
+	c.tiles = c._load_json(root_dir.path_join("tiles.json")).get("tiles", {})
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
@@ -39,6 +41,18 @@ func buildings() -> Dictionary:
 
 func item(id: String) -> Dictionary:
 	return items().get(id, {})
+
+
+func maps() -> Dictionary:
+	return tables.get("maps", {})
+
+
+## Tile kind by its 1-char map code ("=" -> "street"), "" if unknown.
+func tile_kind_of_char(ch: String) -> String:
+	for kind: String in tiles:
+		if str(tiles[kind].get("char", "")) == ch:
+			return kind
+	return ""
 
 
 ## Cross references between catalogs. Returns readable messages; empty means sound.
@@ -68,6 +82,20 @@ func validate() -> PackedStringArray:
 				out.append("recipes/%s: unknown input item %s" % [id, inp.get("item")])
 		if not items().has(str(r.get("output", {}).get("item", ""))):
 			out.append("recipes/%s: unknown output item %s" % [id, r.get("output", {}).get("item")])
+	for id: String in maps():
+		var m: Dictionary = maps()[id]
+		var size: Array = m.get("size", [0, 0])
+		var rows: Array = m.get("rows", [])
+		if rows.size() != int(size[1]):
+			out.append("maps/%s: %d rows, size says %d" % [id, rows.size(), int(size[1])])
+		for r in rows.size():
+			var row := str(rows[r])
+			if row.length() != int(size[0]):
+				out.append("maps/%s: row %d has %d tiles, size says %d" % [id, r, row.length(), int(size[0])])
+			for ch in row:
+				if tile_kind_of_char(ch) == "":
+					out.append("maps/%s: row %d uses unknown tile code '%s'" % [id, r, ch])
+					break
 	return out
 
 

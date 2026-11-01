@@ -58,9 +58,10 @@ static func migrate(d: Dictionary) -> Dictionary:
 	return {"ok": true, "data": data}
 
 
-static func _step(_from_version: int, data: Dictionary) -> Dictionary:
-	# match _from_version:
-	#     1: data["new_field"] = default   # 1 -> 2
+static func _step(from_version: int, data: Dictionary) -> Dictionary:
+	match from_version:
+		1:  # 1 -> 2 (H1): the town map the game runs on
+			data["map_id"] = ""
 	return data
 
 
