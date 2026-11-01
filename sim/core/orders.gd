@@ -9,7 +9,9 @@ extends RefCounted
 ## stop_work, master_touch (handlers live with their system; docs/contratos/h2_forja.md); H3: buy, sell,
 ## repay_loan, read_notices, accept_contract, deliver_contract, abandon_contract (docs/contratos/h3_mercado.md); H4: hire,
 ## fire, promote, bonus, queue_add, queue_remove, queue_move, queue_loop, queue_pause, set_role
-## (docs/contratos/h4_empleados.md); H5: buy_upgrade (docs/contratos/h5_mejoras.md). Each milestone adds
+## (docs/contratos/h4_empleados.md); H5: buy_upgrade (docs/contratos/h5_mejoras.md); H8: court_talk, court_gift,
+## propose, designate_heir, school_choice, assign_building, close_dynasty, set_schedule, set_directives
+## (docs/contratos/h8_familia.md). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -79,13 +81,33 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 		# H5 · upgrades (sim/econ/upgrades.gd)
 		"buy_upgrade":
 			return Upgrades.order_buy(sim, order)
+		# H8 · family (sim/family/*.gd, docs/contratos/h8_familia.md)
+		"court_talk":
+			return Courtship.order_talk(sim, order)
+		"court_gift":
+			return Courtship.order_gift(sim, order)
+		"propose":
+			return Courtship.order_propose(sim, order)
+		"designate_heir":
+			return Lifecycle.order_designate_heir(sim, order)
+		"school_choice":
+			return Lifecycle.order_school_choice(sim, order)
+		"assign_building":
+			return Lifecycle.order_assign_building(sim, order)
+		"close_dynasty":
+			return Lifecycle.order_close_dynasty(sim, order)
+		"set_schedule":
+			return Schedules.order_set(sim, order)
+		"set_directives":
+			return Schedules.order_set_directives(sim, order)
 	return fail("unknown_order")
 
 
 ## Management orders: given from a panel, they act at once and never touch the actor's order queue (a bonus does
 ## not stop someone walking; given in pause they apply on resume instead of waiting behind the walk).
 const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role", "queue_add", "queue_remove",
-	"queue_move", "queue_loop", "queue_pause", "repay_loan", "read_notices", "abandon_contract", "buy_upgrade"]
+	"queue_move", "queue_loop", "queue_pause", "repay_loan", "read_notices", "abandon_contract", "buy_upgrade",
+	"designate_heir", "school_choice", "assign_building", "close_dynasty", "set_schedule", "set_directives"]
 
 
 static func is_management(type: String) -> bool:

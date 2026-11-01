@@ -316,10 +316,13 @@ func test_only_player_characters_work_and_at_night_too() -> void:
 	var sim := _sim(7, [HUGO, ELENA])
 	sim.state.clock["minute"] = 1440 + 23 * 60  # night of day 1
 	check(_work(sim, HUGO, "furnace", "forge_ingot")["ok"], "the player works by hand at night")
+	# H8 (GDD 4.10.2, 4.10.6, 4.10.8): a family member run by AI works its family's forge like the player, also at
+	# night (no hammer here only for lack of ingots), from 16; a child does not.
 	sim.state.characters[ELENA]["controlled_by"] = "ai"
-	eq(_work(sim, ELENA, "anvil", "forge_hammer")["reason"], "night_rest", "workers do not work at night")
+	eq(_work(sim, ELENA, "anvil", "forge_hammer")["reason"], "missing_inputs", "family members work at night too")
 	sim.state.clock["minute"] = 1440 + 12 * 60
-	eq(_work(sim, ELENA, "anvil", "forge_hammer")["reason"], "not_controlled", "H2: nobody else works yet")
+	sim.state.characters[ELENA]["birth_day"] = Kin.birth_day_for(10, int(sim.state.clock["minute"]), sim.catalog.time)
+	eq(_work(sim, ELENA, "anvil", "forge_hammer")["reason"], "too_young", "a child of the family does not work")
 
 
 # --- Rechazos con su motivo ------------------------------------------------------------------------------------------

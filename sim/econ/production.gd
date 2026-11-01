@@ -287,6 +287,11 @@ static func may_work(sim: Sim, actor: String, bld_id: String) -> String:
 			return "night_rest"
 		var phases: Array = sim.catalog.employees.get("schedule", {}).get("work_phases", ["dawn", "day"])
 		return "" if phase in phases else "off_hours"
+	# H8 (GDD 4.10.6, 4.10.8): a member of the player's family works its family's buildings like the player, also at
+	# night; from its coming of age (16).
+	var own_fam: Dictionary = sim.state.families.get(str(ch.get("family", "")), {})
+	if str(own_fam.get("controlled_by", "")) == "human" and Buildings.owns(sim.state, actor, bld_id):
+		return "" if Kin.is_adult(sim, actor) else "too_young"
 	var bdef: Dictionary = sim.catalog.buildings().get(str(sim.state.buildings.get(bld_id, {}).get("type", "")), {})
 	if night and str(bdef.get("night_production", "")) == "manual_only":
 		return "night_rest"
