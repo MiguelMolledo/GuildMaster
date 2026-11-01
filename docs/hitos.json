@@ -111,63 +111,63 @@
       "criterios": [
         {
           "texto": "Bot `artisan_novice` (30 semillas): oro a los 3 y 10 días en su diana, deuda pagada antes del día 8 en ≥ 90 % de las semillas y oro neto/día de la fase de inicio en `[25, 60]` (4.19)",
-          "estado": "pendiente",
-          "prueba": null,
+          "estado": "en_curso",
+          "prueba": "Subgrim «balance» trabajando: bot artisan_novice y dianas de oro",
           "fecha": null
         },
         {
           "texto": "Imposible vender más de lo que se tiene (test)",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_market.gd: vender más de lo que se tiene se rechaza (not_enough)",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Con `idle`, el rival vende, la demanda de lo que vende baja (test) y su oro al día 10 cae en `[40, 300]`",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "en_curso",
+          "prueba": "tests/test_ai_rival.gd (vende y baja la demanda); oro al día 10 399-479 con idle: diana provisional [40, 500], revisión en H5",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Test de encargo: entregar paga `cantidad × precio_venta × 1,4` y +2 de reputación; dejarlo vencer quita 5 de reputación y 15 de relación",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_contracts.gd: entregar paga cantidad × precio_venta × 1,4 y +2 reputación; vencer −5 reputación y −15 relación",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Test de recado: cobra +20 %, llega en 2 h al almacén, no pesa en el personaje y se rechaza si no cabe",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_market.gd: recado +20 %, llega en 2 h, no pesa, storage_full si no cabe",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Test de conservación: tras 10 días de `random_clicker`, suma de asientos = variación de oro de cada familia",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "sim_runner random_clicker 10 días × 5 semillas: ledger_mismatch 0 · tests/test_econ_ledger.gd",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Escenarios `debt_due` (prórroga con recargo) y `debt_extension_due` (embargo y pantalla de ruina)",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "data/scenarios/debt_due.json y debt_extension_due.json (tools/scenarios/make_debt_scenarios.gd) · tests/test_econ_loans.gd · reports/novedades/cuentas_ruina.png",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "El mantenimiento se cobra cada amanecer y sale en el libro",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_ledger_upkeep.gd",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Ida y vuelta del guardado con libro, préstamo, encargos y recados en camino",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_econ_market.gd (recado en camino), test_econ_contracts.gd, test_econ_loans.gd, test_core_h3_base.gd",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "Capturas del tablón y del libro de cuentas",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "docs/novedades/h3_tablon.png, h3_libro.png, h3_libro_deudas.png",
+          "fecha": "2026-11-01"
         }
       ]
     },
