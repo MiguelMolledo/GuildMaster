@@ -3,8 +3,12 @@ extends PanelContainer
 ## The selected person's panel (key I or the HUD button; GDD 4.3.4): gold, carried weight / maximum
 ## (Equipment.carried_weight / max_weight), the equipment slots (tool, clothes, accessory) with Unequip, and the
 ## inventory with Equip on items that have a slot. Only gives orders (equip / unequip); the sim decides.
+## H8: the age, the buttons Family tree and Court, and the routine editor (GDD 4.10.8, RoutineEditor) of a controlled
+## person.
 
 signal closed
+signal tree_requested
+signal court_requested(id: String)
 
 const SLOTS: Array[String] = ["tool", "clothes", "accessory"]
 
@@ -19,8 +23,15 @@ func setup(s: Sim, who: String) -> void:
 	if not _bound:
 		_bound = true
 		(%CloseButton as Button).pressed.connect(close)
+		(%TreeButton as Button).pressed.connect(func() -> void: tree_requested.emit())
+		(%CourtButton as Button).pressed.connect(func() -> void: court_requested.emit(actor))
 	sim = s
 	actor = who
+	(%TreeButton as Button).text = SimQuery.t_("ui.family.tree")
+	(%CourtButton as Button).text = SimQuery.t_("ui.family.court")
+	var editor := %RoutineEditor as RoutineEditor
+	editor.order_sink = order_sink
+	editor.setup(s, who, who)
 	(%SlotsLabel as Label).text = SimQuery.t_("ui.character.equipment")
 	(%InvLabel as Label).text = SimQuery.t_("ui.character.inventory")
 	refresh(true)
@@ -29,6 +40,9 @@ func setup(s: Sim, who: String) -> void:
 func open() -> void:
 	visible = true
 	refresh(true)
+	if sim != null:
+		(%RoutineEditor as RoutineEditor).refresh(true)
+		_refresh_family()
 
 
 func close() -> void:
@@ -40,12 +54,25 @@ func close() -> void:
 func set_actor(who: String) -> void:
 	if who != actor:
 		actor = who
+		(%RoutineEditor as RoutineEditor).setup(sim, who, who)
 		refresh(true)
 
 
 func _process(_delta: float) -> void:
 	if visible:
 		refresh()
+		(%RoutineEditor as RoutineEditor).refresh()
+		_refresh_family()
+
+
+## H8: age and the family buttons (Court only for a single adult).
+func _refresh_family() -> void:
+	var ch: Dictionary = sim.state.characters.get(actor, {})
+	(%FamilyRow as Control).visible = not ch.is_empty()
+	if ch.is_empty():
+		return
+	(%AgeLabel as Label).text = SimQuery.t_("ui.family.age") % Kin.age(sim, actor)
+	(%CourtButton as Button).visible = Kin.is_adult(sim, actor) and Kin.is_single(sim.state, actor)
 
 
 func refresh(force: bool = false) -> void:

@@ -1114,6 +1114,19 @@
       "origen_previo": null,
       "coste_gen": 0,
       "notas": ""
+    },
+    {
+      "id": "ui_portrait",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "H8",
+        "retratos"
+      ],
+      "ruta": "assets/art/ui/portrait/",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Retrato 32×32 de cada persona (HUD, árbol, contratación) con colores clave reservados para el intercambio de paleta: pelo, piel, ropa principal y secundaria (GDD 4.10.9). Hoy greybox de nodos en game/visuals/characters/portrait.tscn."
     }
   ]
 }

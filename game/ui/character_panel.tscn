@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cixjb7v8psugm"]
+[gd_scene load_steps=4 format=3 uid="uid://cixjb7v8psugm"]
 
 [ext_resource type="Script" uid="uid://cu3kfps2dnn7o" path="res://game/ui/character_panel.gd" id="1_panel"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://cdu6teiualv1o" path="res://game/ui/routine_editor.tscn" id="3_routine"]
 
 [node name="CharacterPanel" type="PanelContainer"]
 visible = false
@@ -72,3 +73,32 @@ text = "--"
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 1
+
+[node name="FamilyRow" type="HBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AgeLabel" type="Label" parent="VBox/FamilyRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "--"
+
+[node name="TreeButton" type="Button" parent="VBox/FamilyRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "--"
+
+[node name="CourtButton" type="Button" parent="VBox/FamilyRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "--"
+
+[node name="RoutineEditor" parent="VBox" instance=ExtResource("3_routine")]
+unique_name_in_owner = true
+layout_mode = 2

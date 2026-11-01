@@ -1,0 +1,184 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0b08kla1lpp8"]
+
+[ext_resource type="Script" uid="uid://caw2bjjafok1i" path="res://game/ui/family_tree_panel.gd" id="1_panel"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tree"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.105882, 0.0823529, 0.0627451, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.85098, 0.705882, 0.415686, 1)
+
+[node name="FamilyTreePanel" type="PanelContainer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -225.0
+offset_right = 420.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tree")
+script = ExtResource("1_panel")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Header" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_override_font_sizes/font_size = 13
+text = "--"
+
+[node name="ZoomOut" type="Button" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "-"
+
+[node name="ZoomIn" type="Button" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "+"
+
+[node name="CloseButton" type="Button" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "X"
+
+[node name="Body" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="Scroll" type="ScrollContainer" parent="VBox/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Canvas" type="Control" parent="VBox/Body/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Side" type="VBoxContainer" parent="VBox/Body"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="SheetName" type="Label" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_override_font_sizes/font_size = 12
+text = "--"
+
+[node name="SheetInfo" type="Label" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "--"
+autowrap_mode = 3
+
+[node name="Stats" type="GridContainer" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 2
+
+[node name="HeirButton" type="Button" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "--"
+
+[node name="SwitchButton" type="Button" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "--"
+
+[node name="CourtButton" type="Button" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "--"
+
+[node name="AssignRow" type="HBoxContainer" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AssignLabel" type="Label" parent="VBox/Body/Side/AssignRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "--"
+
+[node name="AssignOption" type="OptionButton" parent="VBox/Body/Side/AssignRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="SchoolRow" type="HBoxContainer" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="SchoolOption" type="OptionButton" parent="VBox/Body/Side/SchoolRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="SchoolButton" type="Button" parent="VBox/Body/Side/SchoolRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "--"
+
+[node name="Sep" type="HSeparator" parent="VBox/Body/Side"]
+layout_mode = 2
+
+[node name="DynastyLabel" type="Label" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_override_font_sizes/font_size = 11
+text = "--"
+
+[node name="GoalsTitle" type="Label" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "--"
+
+[node name="Goals" type="VBoxContainer" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CloseDynasty" type="Button" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+focus_mode = 0
+text = "--"

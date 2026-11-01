@@ -1,7 +1,7 @@
 @tool
 class_name GreyboxFigure
 extends Node2D
-## Greybox walker (H1): a ~48 px figure, its shadow, a dress or a tunic. The CharacterView that wraps it gives it the
+## Greybox walker (H1): a ~48 px figure, its shadow, a dress or a tunic, and (H8) the hair. The CharacterView that wraps it gives it the
 ## family's colours (primary, secondary). Delete it (or hide it) when the character's SpriteFrames get their frames.
 
 @export var female: bool = false:
@@ -19,6 +19,11 @@ extends Node2D
 @export var skin: Color = Color(0.878431, 0.705882, 0.54902):
 	set(v):
 		skin = v
+		queue_redraw()
+## H8 identity (GDD 4.10.9): the hair tone of the palette swap (the game sets the person's, Identity).
+@export var hair: Color = Color(0.352941, 0.227451, 0.133333):
+	set(v):
+		hair = v
 		queue_redraw()
 @export var outline: Color = Color(0.117647, 0.094118, 0.070588):
 	set(v):
@@ -59,3 +64,12 @@ func _draw() -> void:
 	# head
 	draw_circle(Vector2(0, -h + head_r), head_r + 1.0, outline)
 	draw_circle(Vector2(0, -h + head_r), head_r, skin)
+	# hair: a cap over the head, longer at the sides for a woman
+	var top := Vector2(0, -h + head_r)
+	var cap := PackedVector2Array([top + Vector2(-head_r, 1), top + Vector2(-head_r + 1, -3), top + Vector2(-3, -head_r),
+		top + Vector2(3, -head_r), top + Vector2(head_r - 1, -3), top + Vector2(head_r, 1), top + Vector2(3, -2),
+		top + Vector2(-3, -2)])
+	draw_colored_polygon(cap, hair)
+	if female:
+		draw_rect(Rect2(top.x - head_r - 1, top.y - 1, 3, head_r + 4), hair)
+		draw_rect(Rect2(top.x + head_r - 2, top.y - 1, 3, head_r + 4), hair)
