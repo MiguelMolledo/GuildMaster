@@ -1,0 +1,32 @@
+{
+  "id": "forge_staff_1",
+  "name_key": "upgrade.forge_staff_1",
+  "tree": "forge",
+  "branch": "staff",
+  "level": 1,
+  "cost": {
+    "gold": 8,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 6
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "max_employees",
+      "amount": 1
+    }
+  ],
+  "visual": {
+    "interior_node": "upgrade_bunks",
+    "exterior_overlay": null
+  }
+}

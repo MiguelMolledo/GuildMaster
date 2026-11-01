@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://cixjb7v8psugm"]
 
-[ext_resource type="Script" path="res://game/ui/character_panel.gd" id="1_panel"]
-[ext_resource type="Theme" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="Script" uid="uid://cu3kfps2dnn7o" path="res://game/ui/character_panel.gd" id="1_panel"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
 
 [node name="CharacterPanel" type="PanelContainer"]
 visible = false

@@ -1,11 +1,23 @@
+@tool
 class_name BlockView
 extends Node2D
 ## Greybox volume of one blocked tile (a building block or a tree), so the street reads (H1). Its origin is the
-## centre of its tile, which is what the Y-sort of the objects layer compares with the walkers.
+## centre of its tile, which is what the Y-sort of the objects layer compares with the walkers. Used inside the visual
+## scenes of game/visuals/ (props/*.tscn directly, buildings/*.tscn through GreyboxBlocks): edit shape, height and
+## colour in the Inspector; delete it when the sprite arrives.
 
-var shape: String = "block"
-var height: float = 40.0
-var color: Color = Color.GRAY
+@export_enum("block", "tree") var shape: String = "block":
+	set(v):
+		shape = v
+		queue_redraw()
+@export var height: float = 40.0:
+	set(v):
+		height = v
+		queue_redraw()
+@export var color: Color = Color.GRAY:
+	set(v):
+		color = v
+		queue_redraw()
 
 
 func _draw() -> void:

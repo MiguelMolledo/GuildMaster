@@ -179,12 +179,14 @@ def bld_(id_, key, owner, zones, stacks=10, items=None):
             "door": b["door"], "state": "normal", "inventory": inv("stacks", stacks, items),
             "zones": {z: {"occupant": "", "job": None} for z in zones},
             "upkeep_debt": 0, "upkeep_unpaid_since": -1, "employee_slots": SLOTS.get(b["type"], 0),
-            "queue": {"entries": [], "loop": False, "paused": False}}
+            "queue": {"entries": [], "loop": False, "paused": False},
+            "upgrades": [], "upgrade_work": None,  # v6 (H5): sim/econ/upgrades.gd new_inspection()
+            "inspection": {"last_day": -1, "caught": 0, "escaped": 0, "fines": 0, "escape_ready_day": 0}}
 
 FORGE_ZONES = ("furnace", "anvil", "counter", "storage")
 
 scenario = {
-    "version": 5, "seed": "1", "rng_state": "",
+    "version": 6, "seed": "1", "rng_state": "",
     "meta": {"title": "Pueblo-calle", "description": "Arenero de pruebas: mapa town_e con la familia del jugador (3) y su forja (bld_0001), dos vecinos, el herrero rival Bernat en su forja (bld_0002, familia IA Ferrer), la Armería pública (bld_0003) y 16 vecinos sin empleo en sus 8 casas (bld_0004-0011, candidatos a empleado). Sin préstamo."},
     "map_id": "town_e",
     "clock": {"minute": 480},

@@ -1,0 +1,34 @@
+{
+  "id": "forge_commerce_2",
+  "name_key": "upgrade.forge_commerce_2",
+  "tree": "forge",
+  "branch": "commerce",
+  "level": 2,
+  "cost": {
+    "gold": 15,
+    "items": [
+      {
+        "item": "iron_ingot",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "forge_commerce_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "customer_bonus",
+      "amount": 0.3
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": "upgrade_shop_window"
+  }
+}

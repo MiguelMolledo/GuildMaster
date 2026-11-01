@@ -19,8 +19,6 @@
     }
   ],
   "upgrade_tree": null,
-  "interior_scene": null,
-  "sprite": null,
   "night_production": "none|manual_only|always",
   "includes_housing": false
 }

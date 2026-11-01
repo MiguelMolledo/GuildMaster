@@ -6,6 +6,5 @@
   "weight": 0.1,
   "max_stack": 5,
   "base_price": 8,
-  "market_stall": null,
-  "icon": null
+  "market_stall": null
 }

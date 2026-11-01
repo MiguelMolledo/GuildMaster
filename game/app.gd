@@ -15,7 +15,10 @@ extends Node
 ## shop opens the market panel; a click on a notice centres the camera on its building or person.
 ## H4: a notice about an employee of the player's family (promotion, unpaid wage...) opens that building in
 ## management mode with its staff panel (GDD 4.18: "o abre su panel"). --smoke-script=empleados: the H4 captures.
+## --gallery opens game/tools/gallery.tscn instead (every visual scene of game/visuals/ on the grid; with --smoke it
+## saves reports/shots/gallery_01.png and quits). The AudioDirector node plays the sounds and music by id.
 
+const GALLERY: String = "res://game/tools/gallery.tscn"
 const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mercado": "res://game/smoke/smoke_mercado.gd", "empleados": "res://game/smoke/smoke_empleados.gd"}
 
@@ -26,6 +29,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 @onready var _fade: ColorRect = %Fade
 @onready var _new_game: NewGameScreen = %NewGameScreen
 @onready var _ending: EndingScreen = %EndingScreen
+@onready var _audio: AudioDirector = %AudioDirector
 
 var interior_building: String = ""   # "" = the town is shown
 var _shots_left: int = 0
@@ -40,6 +44,11 @@ func _ready() -> void:
 	_bg_color = ViewConfig.color(str(ViewConfig.value("background", "#2b221b")))
 	var script_id := ""
 	var args := OS.get_cmdline_user_args()
+	if args.has("--gallery"):
+		Log.info("App", "gallery (%s)" % GALLERY)
+		Game.set_paused(true)
+		get_tree().change_scene_to_file.call_deferred(GALLERY)
+		return
 	for a: String in args:
 		if a == "--smoke":
 			_shots_left = maxi(_shots_left, 1)
@@ -148,6 +157,10 @@ func focus_on(target: String) -> void:
 	if interior_building != "":
 		_close_now()
 	_world.camera().center_on(Iso.tile_to_world(tile))
+
+
+func audio() -> AudioDirector:
+	return _audio
 
 
 func world() -> WorldView:

@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://cm3qb0ptvtihg"]
 
-[ext_resource type="Script" path="res://game/world/world_view.gd" id="1_view"]
-[ext_resource type="Script" path="res://game/world/ground_layer.gd" id="2_ground"]
-[ext_resource type="Script" path="res://game/world/target_marker.gd" id="3_marker"]
-[ext_resource type="Script" path="res://game/world/world_camera.gd" id="4_camera"]
+[ext_resource type="Script" uid="uid://cc5gsyvikntcq" path="res://game/world/world_view.gd" id="1_view"]
+[ext_resource type="Script" uid="uid://blbi3mm2jbndg" path="res://game/world/ground_layer.gd" id="2_ground"]
+[ext_resource type="Script" uid="uid://bq6yox7l0cr67" path="res://game/world/target_marker.gd" id="3_marker"]
+[ext_resource type="Script" uid="uid://bomjcqwbmhuoa" path="res://game/world/world_camera.gd" id="4_camera"]
 
 [node name="WorldView" type="Node2D"]
 script = ExtResource("1_view")

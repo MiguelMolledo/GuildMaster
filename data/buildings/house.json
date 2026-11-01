@@ -11,8 +11,6 @@
   "base_employees": 0,
   "zones": [],
   "upgrade_tree": null,
-  "interior_scene": null,
-  "sprite": null,
   "night_production": "none",
   "includes_housing": true,
   "_residence_doc": "H4: a townsfolk house (GDD 4.6.1 Casa 3x3, 4.11.1). No interior: who goes in disappears at the door (location = the house) and comes out on the door tile. Owned by the household family that lives there (the map's population); characters.home points at it. upkeep 0 until the town economy asks for it [provisional]."

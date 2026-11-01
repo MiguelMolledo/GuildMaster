@@ -251,6 +251,24 @@
       "tema": "Rendimiento del A*",
       "decision": "Mismo A* con cubos por f en arrays empaquetados y memoria de rutas fuera del estado; 0 diferencias en 16 000 pares. Peor paso: 15→4,9 ms (todos andando), 22,6→8,2 ms (amanecer).",
       "por_que": "Picos de hasta 270 ms con 22 personajes."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Estructura · ids en data/, una escena visual por id",
+      "decision": "data/ guarda ids y cifras, nunca rutas (el validador lo rechaza; única excepción: meta.origin de los escenarios). Cada cosa visible es game/visuals/<tipo>/<id>.tscn (buildings, interiors, stations, props, characters) con Marker2D Feet y Top y el greybox dentro; si falta, sale <tipo>/_generic.tscn. La ruta sale del id solo en game/visuals/visual_paths.gd. Fuera de data/: sprite, interior_scene, interior (size, door, stations: van al Kit y a Stations/<puesto> de la escena del interior) e icon (assets/art/icons/<id>.png por convención). Los visuales de las mejoras son nodos Upgrades/<visual id> de las escenas del interior y del exterior. Todo .tscn/.tres lleva uid (tools/uids.py); mover y renombrar solo en Godot.",
+      "por_que": "Que el owner cambie sprites, puestos y colores en Godot sin la IA y sin rutas de texto que se rompen al mover ficheros (artifact de estructura, decisión A, aprobada por defecto)."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Estructura · audio",
+      "decision": "Buses fijos en default_bus_layout.tres: Master ← Music, Sfx, Ambient, Voice, Ui (no se renombran). data/audio.json: id → bus, volumen y variación de tono; música por fase del día y sonido por evento del sim (solo los de la familia del jugador). El fichero sale del id: assets/audio/<sección>/<id>.ogg|wav (+ variantes _01, _02…). Reproduce un nodo AudioDirector dentro de app.tscn (no autoload). Sin fichero: silencio y nota en debug.",
+      "por_que": "Decisión B del artifact (no cabe otro autoload); nombres de bus fijados antes de que entre el primer sonido."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Estructura · galería",
+      "decision": "game/tools/gallery.tscn (F6 o `-- --gallery`; con --smoke guarda reports/shots/gallery_NN.png): todas las escenas de game/visuals/ a escala real sobre la rejilla, cada una con un caminante de 48 px. Montado al empezar H5, antes de los visuales de mejoras.",
+      "por_que": "Decisión C del artifact: primera comprobación al cambiar arte."
     }
   ],
   "pendientes": [
@@ -288,21 +306,6 @@
       "tema": "Cifras de balance",
       "detalle": "Todo lo marcado [balance] en el diseño (oro inicial, deuda, primas de encargos, precios, duraciones) se ajusta con bots y dianas en data/targets.json, no se decide a ojo.",
       "opciones": ""
-    },
-    {
-      "tema": "Estructura A · ids en data y una escena visual por id",
-      "detalle": "Recomendado: sí (artifact art_01m6cdrnwyzveedjkgg8). Se aplica al empezar H5 si el owner no dice otra cosa.",
-      "opciones": "sí / rutas como en 06"
-    },
-    {
-      "tema": "Estructura B · reproductor de audio",
-      "detalle": "Recomendado: nodo AudioDirector en app.tscn (no cabe otro autoload).",
-      "opciones": ""
-    },
-    {
-      "tema": "Estructura C · game/visuals/",
-      "detalle": "Recomendado: primera tarea de H5.",
-      "opciones": "H5 / mini-hito"
     },
     {
       "tema": "Estructura D · pintar el mapa en el editor de TileMap",

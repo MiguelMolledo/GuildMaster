@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://biwpwuxm5tjd6"]
 
-[ext_resource type="Script" path="res://game/ui/station_menu.gd" id="1_menu"]
-[ext_resource type="Theme" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="Script" uid="uid://opkrpkjft7y3" path="res://game/ui/station_menu.gd" id="1_menu"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
 
 [node name="StationMenu" type="PanelContainer"]
 visible = false

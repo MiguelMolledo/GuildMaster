@@ -31,37 +31,7 @@
     }
   ],
   "upgrade_tree": "forge",
-  "interior_scene": null,
-  "sprite": null,
   "night_production": "manual_only",
   "includes_housing": true,
-  "tool": "hammer",
-  "interior": {
-    "size": [
-      8,
-      6
-    ],
-    "door": [
-      0,
-      3
-    ],
-    "stations": {
-      "furnace": [
-        2,
-        1
-      ],
-      "anvil": [
-        5,
-        1
-      ],
-      "counter": [
-        6,
-        4
-      ],
-      "storage": [
-        2,
-        4
-      ]
-    }
-  }
+  "tool": "hammer"
 }

@@ -5,8 +5,9 @@ Cada ficha es un JSON con `id` en inglés y `snake_case`. Las plantillas viven e
 **Objeto** (`data/items/iron.json`)
 ```json
 { "id": "iron", "name_key": "item.iron", "category": "raw", "weight": 2.0, "max_stack": 99,
-  "base_price": 5, "market_stall": "resources", "icon": "assets/art/icons/iron.png" }
+  "base_price": 5, "market_stall": "resources" }
 ```
+Sin ruta al icono: es `assets/art/icons/iron.png` por convención (nombre = id).
 
 **Receta** (`data/recipes/forge_ingot.json`)
 ```json
@@ -22,19 +23,26 @@ Cada ficha es un JSON con `id` en inglés y `snake_case`. Las plantillas viven e
   "build_cost": 100, "build_days": 2, "upkeep": 2, "storage_stacks": 10, "base_employees": 1,
   "zones": [ { "id": "furnace", "kind": "craft" }, { "id": "anvil", "kind": "craft" },
              { "id": "counter", "kind": "sales" }, { "id": "storage", "kind": "storage" } ],
-  "upgrade_tree": "forge", "interior_scene": "res://game/interior/forge_interior.tscn",
-  "sprite": { "texture": "assets/art/buildings/forge.png", "scale": 1.6, "feet": [96, 170] },
-  "night_production": "manual_only", "includes_housing": true }
+  "upgrade_tree": "forge", "night_production": "manual_only", "includes_housing": true }
 ```
+**Nada de rutas en `data/`** (decisión de estructura, 2026-11-01): la ficha no lleva `sprite`, `interior_scene` ni
+`interior`. Cómo se ve por fuera es `game/visuals/buildings/forge.tscn` (sprite o greybox, `Marker2D` `Feet` en el
+centro de la huella y `Top` en lo alto); su interior, `game/visuals/interiors/forge.tscn` (nodo `Kit` con tamaño y
+puerta de la sala, un `Marker2D` por puesto en `Stations/<puesto>` y los visuales de las mejoras en `Upgrades/`). Las
+escenas se encuentran por el id (`game/visuals/visual_paths.gd`); el validador rechaza rutas dentro de `data/`.
 
 **Mejora** (`data/upgrades/forge/forge_production_1.json`)
 ```json
-{ "id": "forge_production_1", "tree": "forge", "branch": "production", "level": 1,
+{ "id": "forge_production_1", "name_key": "upgrade.forge_production_1", "tree": "forge", "branch": "production", "level": 1,
   "cost": { "gold": 3, "items": [{ "item": "wood", "qty": 2 }] },
   "requires": { "upgrades": [], "stat": null, "title": null }, "build_days": 0.5,
   "effects": [{ "kind": "production_speed", "mult": 1.2 }],
-  "visual": { "interior_node": "Bellows", "exterior_overlay": null } }
+  "visual": { "interior_node": "forge_bellows", "exterior_overlay": null } }
 ```
+`requires.stat` es `null` o `{ "id": "craft", "min": 6 }` (del actor que la compra); `requires.title`, un id de la
+escalera de `data/upgrade_rules.json`. Los tipos de efecto (`kind`), cómo se acumulan y quién los lee viven en
+`data/upgrade_rules.json`; los visuales son **ids** de `game/visuals/`, no rutas. Desde H5 (guardado v6) cada edificio
+guarda `upgrades` (terminadas), `upgrade_work` (obra en curso) e `inspection`: ver `docs/contratos/h5_mejoras.md`.
 
 **Personaje** (en el guardado, no en `data/`)
 ```json
@@ -77,4 +85,4 @@ en `docs/contratos/h4_empleados.md` (desde H4, guardado v5). `hire_bans` = `{fam
 
 **Mapa** (`data/maps/town_ea.json`): tamaño, capas de suelo (o referencia a un `.tscn` de tiles), parcelas, edificios iniciales con dueño, casas de NPC, puntos sociales, puestos del mercado, spawns y población inicial (o reglas para generarla).
 
-**Validador** (`tools/validate_content.py`): todos los `item`, `recipe`, `upgrade`, `building`, `zone`, `icon` y `texture` referenciados existen; huellas caben en sus parcelas; sin ciclos en prerrequisitos; precios > 0; claves de texto presentes en `i18n/strings.csv`. El juego en debug también valida al arrancar y se detiene ante un error (corrige L9).
+**Validador** (`tools/validate_content.py` + `tools/validate_structure.py`): todos los `item`, `recipe`, `upgrade`, `building` y `zone` referenciados existen; ninguna ruta a fichero en `data/`; cada edificio con su escena visual y cada puesto con su `Marker2D`; arte en estado `sprite` o más con su fichero; uid en cada `.tscn`/`.tres`; huellas caben en sus parcelas; sin ciclos en prerrequisitos; precios > 0; claves de texto presentes en `i18n/strings.csv`. El juego en debug también valida al arrancar y se detiene ante un error (corrige L9).

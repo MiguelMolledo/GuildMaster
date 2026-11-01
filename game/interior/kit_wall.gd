@@ -1,14 +1,30 @@
+@tool
 class_name KitWall
 extends Node2D
 ## Interior kit piece (GDD 4.6.4): one wall segment standing on a back edge of a floor tile. side "ne" = the edge from
 ## the tile's top corner to its right corner (back-right wall), "nw" = from its left corner to its top corner
 ## (back-left wall). The origin is the tile's centre. With `door`, the segment has the door opening drawn in it.
 
-var side: String = "ne"
-var height: float = 36.0
-var color: Color = Color(0.35, 0.29, 0.24)
-var door: bool = false
-var door_color: Color = Color(0.78, 0.63, 0.31)
+@export_enum("ne", "nw") var side: String = "ne":
+	set(v):
+		side = v
+		queue_redraw()
+@export var height: float = 36.0:
+	set(v):
+		height = v
+		queue_redraw()
+@export var color: Color = Color(0.35, 0.29, 0.24):
+	set(v):
+		color = v
+		queue_redraw()
+@export var door: bool = false:
+	set(v):
+		door = v
+		queue_redraw()
+@export var door_color: Color = Color(0.78, 0.63, 0.31):
+	set(v):
+		door_color = v
+		queue_redraw()
 
 
 ## The two ends of the segment on the floor.

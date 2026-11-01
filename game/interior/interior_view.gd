@@ -1,9 +1,10 @@
 class_name InteriorView
 extends Node2D
-## The inside of a building (GDD 4.6.4, H2 greybox): an isometric room built from kit pieces (KitFloor, KitWall with
-## the door) with the size, door and stations of the building's "interior" in data/buildings/<type>.json, the stations
-## as StationViews and the people inside (location == building) at their station or by the door. A view only: the
-## production runs in the sim whether this is open or not (L1). It sends orders, never writes the state.
+## The inside of a building (GDD 4.6.4, H2 greybox): the interior scene of its type (game/visuals/interiors/<type>.tscn:
+## the room's Kit with its size and door, a Marker2D per station under Stations, the upgrade visuals under Upgrades),
+## the stations as StationViews (with the station's scene inside) and the people inside (location == building) at
+## their station or by the door. A view only: the production runs in the sim whether this is open or not (L1). It
+## sends orders, never writes the state.
 ##
 ## Controls: left click on someone of the family inside selects them; on a station = go_to_station (or master_touch
 ## while its window is open, GDD 4.4.5); on the door = leave. Right click on a station = its context menu
@@ -27,6 +28,11 @@ var shop_stall: String = ""   # the market stall this building serves ("" = not 
 var selected_id: String = ""
 var size_tiles: Vector2i = Vector2i(1, 1)
 var door_tile: Vector2i = Vector2i.ZERO
+var wall_height: float = 36.0
+var _room: Node2D = null         # the interior scene of game/visuals/interiors
+var _upgrades: Dictionary = {}   # node name -> upgrade visual (moved into the objects layer, Y-sorted)
+var _upgrades_minute: int = -1
+var _pending: Dictionary = {}    # zone -> Marker2D of a station the building does not have yet (new_zone)
 var _stations: Dictionary = {}   # zone -> StationView
 var _station_tiles: Dictionary = {}  # zone -> Vector2i
 var _views: Dictionary = {}      # chr_id -> CharacterView
@@ -37,12 +43,36 @@ var _bound: bool = false
 var _player_family: String = ""
 
 
+## The layer that holds the interior scene (under the objects).
+func room_layer() -> Node2D:
+	return get_node("%Room")
+
+
+## The interior scene of the building open now (null before setup).
+func room() -> Node2D:
+	return _room
+
+
+## The room's kit (GreyboxKit: size, door, floor and walls), or null if the scene has none.
+func kit() -> GreyboxKit:
+	return _room.get_node_or_null("Kit") as GreyboxKit if _room != null else null
+
+
+## The floor pieces of the kit (null without a kit).
 func floor_layer() -> Node2D:
-	return get_node("%Floor")
+	var k := kit()
+	return k.floor_layer() if k != null else null
 
 
+## The wall pieces of the kit (null without a kit).
 func walls() -> Node2D:
-	return get_node("%Walls")
+	var k := kit()
+	return k.walls() if k != null else null
+
+
+## An upgrade visual of the room by its node name (data/upgrades: visual.interior_node), or null.
+func upgrade_visual(node_name: String) -> Node2D:
+	return _upgrades.get(node_name, null)
 
 
 func objects() -> Node2D:
@@ -91,36 +121,21 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	manage = manage_mode
 	selected_id = who
 	_cfg = ViewConfig.value("interior", {})
-	for layer: Node in [floor_layer(), walls(), objects()]:
+	for layer: Node in [room_layer(), objects()]:
 		for n: Node in layer.get_children():
 			layer.remove_child(n)
 			n.queue_free()
+	_upgrades.clear()
+	_pending.clear()
 	_stations.clear()
 	_station_tiles.clear()
 	_views.clear()
 	var b: Dictionary = s.state.buildings.get(bld, {})
 	shop_stall = SimQuery.shop_stall(s.state, s.catalog, bld)
 	_player_family = SimQuery.player_family(s.state)
-	var def: Dictionary = s.catalog.buildings().get(str(b.get("type", "")), {})
-	var inside: Dictionary = def.get("interior", {})
-	var sz: Array = inside.get("size", [6, 6])
-	size_tiles = Vector2i(int(sz[0]), int(sz[1]))
-	var d: Array = inside.get("door", [0, 0])
-	door_tile = Vector2i(int(d[0]), int(d[1]))
-	_build_kit()
-	var st: Dictionary = inside.get("stations", {})
-	var zones: Array = st.keys()
-	zones.sort()
-	for z: String in zones:
-		var t := Vector2i(int(st[z][0]), int(st[z][1]))
-		var sv := StationView.new()
-		sv.setup(z, SimQuery.zone_name(z), _cfg)
-		sv.position = Iso.tile_to_world(t)
-		objects().add_child(sv)
-		_stations[z] = sv
-		_station_tiles[z] = t
+	_build_room(str(b.get("type", "")), b.get("zones", {}))
 	_zoom = maxi(1, int(_cfg.get("zoom", 2)))
-	var wall_h := float(_cfg.get("wall_height", 36))
+	var wall_h := wall_height
 	var left := Iso.tile_to_world(Vector2i(0, size_tiles.y - 1)).x - Iso.TILE_W / 2.0
 	var right := Iso.tile_to_world(Vector2i(size_tiles.x - 1, 0)).x + Iso.TILE_W / 2.0
 	var top := Iso.tile_to_world(Vector2i.ZERO).y - Iso.TILE_H / 2.0 - wall_h
@@ -160,35 +175,88 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 		manage_mode, size_tiles, door_tile, _stations.size(), who])
 
 
-## The kit: a floor piece per tile, wall pieces on the two back edges, the door piece where the door is.
-func _build_kit() -> void:
-	var floor_c := ViewConfig.color(str(_cfg.get("floor", "#8a7660")))
-	var wall_c := ViewConfig.color(str(_cfg.get("wall", "#5a4a3c")))
-	var door_c := ViewConfig.color(str(_cfg.get("door", "#c8a050")))
-	var wall_h := float(_cfg.get("wall_height", 36))
-	for r: int in size_tiles.y:
-		for c: int in size_tiles.x:
-			var f := KitFloor.new()
-			f.color = floor_c if (c + r) % 2 == 0 else floor_c.darkened(0.06)
-			f.position = Iso.tile_to_world(Vector2i(c, r))
-			floor_layer().add_child(f)
-	for c: int in size_tiles.x:
-		walls().add_child(_wall(Vector2i(c, 0), "ne", wall_h, wall_c, door_c))
-	for r: int in size_tiles.y:
-		walls().add_child(_wall(Vector2i(0, r), "nw", wall_h, wall_c, door_c))
+## The interior scene of `type`: its Kit gives the size and the door; each Marker2D under Stations becomes a
+## StationView at the marker (the marker's child is the station's look, else game/visuals/stations/<zone>.tscn); the
+## upgrade visuals under Upgrades move into the objects layer so they sort with the people.
+func _build_room(type: String, zones: Dictionary) -> void:
+	_room = VisualPaths.instantiate("interiors", type)
+	_room.name = "Room"
+	room_layer().add_child(_room)
+	var k := kit()
+	if k != null:
+		k.ensure_built()
+	size_tiles = k.size if k != null else Vector2i(6, 6)
+	door_tile = k.door if k != null else Vector2i.ZERO
+	wall_height = k.wall_height if k != null else 36.0
+	var markers: Array = []
+	var holder := _room.get_node_or_null("Stations")
+	if holder != null:
+		for m: Node in holder.get_children():
+			if m is Marker2D:
+				markers.append(m)
+	markers.sort_custom(func(a: Node, b: Node) -> bool: return str(a.name) < str(b.name))
+	for m: Marker2D in markers:
+		if zones.has(str(m.name)):
+			_add_station(m)
+		else:
+			m.visible = false  # a station that an upgrade adds (new_zone): it waits until the building has it
+			_pending[str(m.name)] = m
+	var ups := _room.get_node_or_null("Upgrades") as Node2D
+	if ups != null:
+		for u: Node in ups.get_children():
+			if u is Node2D:
+				ups.remove_child(u)
+				u.owner = null
+				(u as Node2D).position += ups.position
+				objects().add_child(u)
+				_upgrades[str(u.name)] = u
+	for z: String in zones:
+		if not _stations.has(z):
+			ViewConfig.info("Interior", "no Marker2D Stations/%s in interiors/%s.tscn: station not drawn" % [z, type])
+	_upgrades_minute = -1
+	refresh_upgrades()
 
 
-func _wall(t: Vector2i, side: String, h: float, c: Color, door_c: Color) -> KitWall:
-	var w := KitWall.new()
-	w.side = side
-	w.height = h
-	w.color = c
-	w.door_color = door_c
-	w.door = t == door_tile and ((side == "nw" and t.x == 0) or (side == "ne" and t.y == 0))
-	w.position = Iso.tile_to_world(t)
-	if w.door:
-		w.name = "Door"
-	return w
+## A StationView at the marker `m` (its name is the zone): the marker's child is its look, else the station's scene.
+func _add_station(m: Marker2D) -> void:
+	var z := str(m.name)
+	var look: Node2D = null
+	for c: Node in m.get_children():
+		if c is Node2D:
+			look = c
+			break
+	if look != null:
+		m.remove_child(look)
+		look.owner = null
+	else:
+		look = VisualPaths.instantiate("stations", z)
+	var sv := StationView.new()
+	sv.setup(z, SimQuery.zone_name(z), _cfg, look)
+	sv.position = (m.get_parent() as Node2D).position + m.position
+	objects().add_child(sv)
+	_stations[z] = sv
+	_station_tiles[z] = Iso.world_to_tile(sv.position)
+	_pending.erase(z)
+
+
+## The upgrade visuals of the room: the nodes of Upgrades named by the building's finished upgrades
+## (Upgrades.visuals "interior") are shown, the rest hidden.
+func refresh_upgrades() -> void:
+	if sim == null:
+		return
+	var zones: Dictionary = sim.state.buildings.get(building, {}).get("zones", {})
+	for z: String in _pending.keys():
+		if zones.has(z):
+			ViewConfig.info("Interior", "new station %s (building=%s)" % [z, building])
+			_add_station(_pending[z])
+	var on := {}
+	for v: Dictionary in Upgrades.visuals(sim, building).get("interior", []):
+		on[str(v["node"])] = true
+	for n: String in _upgrades:
+		var u: Node2D = _upgrades[n]
+		if u.visible != on.has(n):
+			u.visible = on.has(n)
+			ViewConfig.info("Interior", "upgrade visual %s %s (building=%s)" % [n, "on" if u.visible else "off", building])
 
 
 func station_view(zone: String) -> StationView:
@@ -270,6 +338,9 @@ func sync() -> void:
 	for i: int in by_door.size():
 		var spot: Vector2 = Vector2(door_tile) + spots[i % spots.size()]
 		(_views[by_door[i]] as CharacterView).position = Iso.tilef_to_world(spot).round()
+	if int(st.clock["minute"]) != _upgrades_minute:
+		_upgrades_minute = int(st.clock["minute"])
+		refresh_upgrades()
 	var zones: Dictionary = st.buildings.get(building, {}).get("zones", {})
 	for z: String in _stations:
 		(_stations[z] as StationView).show_job(SimQuery.job_view(sim, building, z),
@@ -330,7 +401,7 @@ func is_door(screen: Vector2) -> bool:
 	if Iso.world_to_tile(world) == door_tile:
 		return true
 	var p := Iso.tile_to_world(door_tile)
-	var h := float(_cfg.get("wall_height", 36))
+	var h := wall_height
 	return Rect2(p + Vector2(-Iso.TILE_W / 2.0, -Iso.TILE_H / 2.0 - h), Vector2(Iso.TILE_W / 2.0 + 4, h + Iso.TILE_H / 2.0)).has_point(world)
 
 

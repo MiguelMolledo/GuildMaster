@@ -1,0 +1,45 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://blx6lmsedvu6n"]
+
+[resource]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+},
+{
+"frames": [],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+},
+{
+"frames": [],
+"loop": true,
+"name": &"work",
+"speed": 8.0
+},
+{
+"frames": [],
+"loop": true,
+"name": &"carry",
+"speed": 8.0
+},
+{
+"frames": [],
+"loop": true,
+"name": &"talk",
+"speed": 8.0
+},
+{
+"frames": [],
+"loop": true,
+"name": &"sit",
+"speed": 8.0
+},
+{
+"frames": [],
+"loop": true,
+"name": &"death",
+"speed": 8.0
+}]

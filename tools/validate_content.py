@@ -18,8 +18,13 @@ Comprueba lo que carga el juego en data/ (los ficheros y carpetas que empiezan p
   - H4: data/employees.json (rangos, roles, lealtad, bandas, salarios, robo, contratación, horario), la población de
     cada mapa (casas de tipo residencial del mapa, rango y atributos de cada vecino) y, en los escenarios v5, la casa,
     el rango y el empleo de cada personaje, los huecos y la cola de cada edificio;
+  - H5: data/upgrade_rules.json y data/upgrades/<árbol>/ (rama y nivel, coste, requisitos que existen en su árbol,
+    nivel N pide el N-1, sin ciclos, efectos de tipos conocidos, puestos nuevos como un puesto del edificio, recetas
+    desbloqueadas coherentes, visuales como ids) y, en los escenarios v6, mejoras, obra en curso e inspecciones;
   - claves de texto (name_key) en i18n/strings.csv con inglés y español;
-  - arte: un icono, sprite o escena que se pide y no existe sale como aviso (con --art-required, error).
+  - estructura (tools/validate_structure.py): data/ sin rutas a ficheros, nombres de assets en minúsculas, inventario
+    (estado >= sprite con su fichero), una escena en game/visuals/ por edificio, interior con un Marker2D por puesto y
+    los nodos de las mejoras, data/audio.json y sus buses, y uid en cada .tscn/.tres.
 
 Uso:  python3 tools/validate_content.py [--strict] [--art-required] [--quiet]
 Código de salida: 0 sin errores, 1 con errores (o avisos con --strict).
@@ -30,6 +35,8 @@ import json
 import os
 import re
 import sys
+
+import validate_structure
 
 sys.dont_write_bytecode = True
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -164,6 +171,8 @@ def check_scenario_buildings(where, d, buildings, walk, rep):
         if tuple(door) not in near:
             rep.error(w, f"la puerta {door} no está pegada a la huella")
         want = {z.get("id") for z in typ.get("zones", [])}
+        for u in b.get("upgrades") or []:  # H5: new stations of finished upgrades (new_zone)
+            want |= {e.get("zone") for e in UPGRADES.get(u, {}).get("effects", []) if e.get("kind") == "new_zone"}
         got = set((b.get("zones") or {}).keys())
         if got != want:
             rep.error(w, f"puestos {sorted(got)} distintos de los de su tipo {sorted(want)}")
@@ -578,6 +587,226 @@ class Report:
             (self.error if self.art_required else self.warn)(where, f"falta el arte {path}")
 
 
+UPGRADES = {}  # H5: id -> upgrade (data/upgrades/<tree>/<id>.json), loaded first in main()
+EFFECT_VALUES = {"mult", "amount", "zone", "recipe", "rank", "flag"}
+EFFECT_STACKS = {"branch_top", "all"}
+EFFECT_WHEN = {"query", "complete"}
+EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none"}
+
+
+def load_upgrades(rep):
+    """data/upgrades/<árbol>/<id>.json: una carpeta por árbol (el nombre de la carpeta es el árbol)."""
+    out = {}
+    root = os.path.join(DATA, "upgrades")
+    for tree in sorted(os.listdir(root)) if os.path.isdir(root) else []:
+        folder = os.path.join(root, tree)
+        if tree.startswith("_") or not os.path.isdir(folder):
+            continue
+        for name in sorted(os.listdir(folder)):
+            if name.startswith("_") or not name.endswith(".json"):
+                continue
+            where = f"upgrades/{tree}/{name}"
+            d = load_json(os.path.join(folder, name), rep)
+            if not isinstance(d, dict):
+                continue
+            id_ = d.get("id", "")
+            if not ID_RE.match(str(id_)):
+                rep.error(where, f"id «{id_}» no es inglés en snake_case")
+            if id_ != name[:-5]:
+                rep.error(where, f"el id «{id_}» no coincide con el nombre del fichero")
+                continue
+            if d.get("tree") != tree:
+                rep.error(where, f"tree {d.get('tree')} distinto de su carpeta {tree}")
+                continue
+            if id_ in out:
+                rep.error(where, f"id repetido en otro árbol ({out[id_]['tree']})")
+                continue
+            out[id_] = d
+    return out
+
+
+def check_h5(items, recipes, buildings, ranks, strings, rep):
+    """H5 (GDD 4.8, docs/contratos/h5_mejoras.md): data/upgrade_rules.json y cada mejora (rama y nivel, coste,
+    requisitos que existen en su árbol, nivel N pide el N-1, sin ciclos, efectos de tipos conocidos con su valor,
+    puestos nuevos que trabajan como un puesto del edificio, recetas que se desbloquean coherentes con su requires_upgrade,
+    visuales como ids), los árboles de los edificios y las claves de texto."""
+    w0 = "upgrade_rules.json"
+    rules = load_json(os.path.join(DATA, "upgrade_rules.json"), rep) or {}
+    branches, levels = rules.get("branches", []), rules.get("levels")
+    if not (isinstance(branches, list) and branches and all(isinstance(b, str) and ID_RE.match(b) for b in branches)):
+        rep.error(w0, "branches debe ser una lista de ids")
+        branches = []
+    if not isinstance(levels, int) or levels < 1:
+        rep.error(w0, "levels debe ser un entero >= 1")
+        levels = 0
+    for b in branches:
+        check_text(w0, f"branch.{b}", strings, rep)
+    kinds = rules.get("effect_kinds", {})
+    for k, ek in kinds.items():
+        if k.startswith("_"):
+            continue
+        if ek.get("value") not in EFFECT_VALUES or ek.get("stack") not in EFFECT_STACKS \
+                or ek.get("when") not in EFFECT_WHEN or ek.get("reader") not in EFFECT_READERS:
+            rep.error(w0, f"effect_kinds.{k}: value {sorted(EFFECT_VALUES)}, stack {sorted(EFFECT_STACKS)}, "
+                          f"when {sorted(EFFECT_WHEN)}, reader {sorted(EFFECT_READERS)}")
+        check_text(w0, f"effect.{k}", strings, rep)
+    titles = rules.get("titles", [])
+    if not (isinstance(titles, list) and titles) or rules.get("default_title") not in titles:
+        rep.error(w0, "titles debe ser una lista y default_title uno de ellos")
+    ins = rules.get("inspections", {})
+    fine = ins.get("fine")
+    if not (isinstance(fine, list) and len(fine) == 2 and all(isinstance(x, int) for x in fine) and 0 <= fine[0] <= fine[1]):
+        rep.error(w0, "inspections.fine debe ser [mín, máx] en oro entero")
+    for k in ("honesty_divisor", "escape_cooldown_days"):
+        if not isinstance(ins.get(k), int) or ins[k] < 1:
+            rep.error(w0, f"inspections.{k} debe ser un entero >= 1")
+    if not isinstance(ins.get("reputation"), int):
+        rep.error(w0, "inspections.reputation debe ser un entero")
+
+    trees = {}
+    for id_, u in UPGRADES.items():
+        trees.setdefault(u["tree"], []).append(id_)
+    slot = {}
+    for id_, u in sorted(UPGRADES.items()):
+        w = f"upgrades/{u['tree']}/{id_}"
+        check_text(w, u.get("name_key"), strings, rep)
+        br, lv = u.get("branch"), u.get("level")
+        if br not in branches:
+            rep.error(w, f"rama desconocida {br}")
+        if not isinstance(lv, int) or not 1 <= lv <= max(levels, 1):
+            rep.error(w, f"nivel {lv} fuera de 1..{levels}")
+        key = (u["tree"], br, lv)
+        if key in slot:
+            rep.error(w, f"misma rama y nivel que {slot[key]}")
+        slot[key] = id_
+        cost = u.get("cost", {})
+        if not isinstance(cost.get("gold"), int) or cost["gold"] < 0:
+            rep.error(w, "cost.gold debe ser un entero >= 0")
+        for c in cost.get("items", []):
+            if c.get("item") not in items:
+                rep.error(w, f"material desconocido {c.get('item')}")
+            if not isinstance(c.get("qty"), int) or c["qty"] < 1:
+                rep.error(w, f"cantidad no válida para {c.get('item')}")
+        days = u.get("build_days")
+        if not isinstance(days, (int, float)) or days <= 0:
+            rep.error(w, "build_days debe ser > 0 (días de juego)")
+        elif not 0.5 <= days <= 2:
+            rep.warn(w, f"build_days {days} fuera de 0,5-2 días (fila H5 de 10_hitos)")
+        req = u.get("requires", {})
+        ups = req.get("upgrades", [])
+        if not isinstance(ups, list):
+            rep.error(w, "requires.upgrades debe ser una lista")
+            ups = []
+        for r in ups:
+            if r not in UPGRADES:
+                rep.error(w, f"requiere la mejora desconocida {r}")
+            elif UPGRADES[r]["tree"] != u["tree"]:
+                rep.error(w, f"requiere {r}, de otro árbol")
+        if isinstance(lv, int) and lv > 1 and not any(
+                UPGRADES.get(r, {}).get("branch") == br and UPGRADES.get(r, {}).get("level") == lv - 1 for r in ups):
+            rep.error(w, f"el nivel {lv} debe requerir el {lv - 1} de su rama")
+        stat = req.get("stat")
+        if stat is not None and not (isinstance(stat, dict) and stat.get("id") in STATS
+                                     and isinstance(stat.get("min"), int) and 1 <= stat["min"] <= 10):
+            rep.error(w, "requires.stat debe ser {id, min 1-10} o null")
+        if req.get("title") is not None and req["title"] not in titles:
+            rep.error(w, f"título desconocido {req['title']}")
+        btypes = [bid for bid, b in buildings.items() if b.get("upgrade_tree") == u["tree"]]
+        for e in u.get("effects", []):
+            k = e.get("kind")
+            ek = kinds.get(k)
+            if not isinstance(ek, dict):
+                rep.error(w, f"efecto de tipo desconocido {k}")
+                continue
+            v = ek.get("value")
+            if v != "flag" and v not in e:
+                rep.error(w, f"el efecto {k} necesita {v}")
+                continue
+            if v == "mult" and not (isinstance(e["mult"], (int, float)) and e["mult"] > 0):
+                rep.error(w, f"{k}: mult debe ser > 0")
+            elif v == "amount" and not isinstance(e["amount"], (int, float)):
+                rep.error(w, f"{k}: amount debe ser un número")
+            elif v == "recipe":
+                if e["recipe"] not in recipes:
+                    rep.error(w, f"{k}: receta desconocida {e['recipe']}")
+                elif recipes[e["recipe"]].get("requires_upgrade") != id_:
+                    rep.error(w, f"{k}: la receta {e['recipe']} no pide esta mejora (requires_upgrade)")
+            elif v == "rank" and e["rank"] not in ranks:
+                rep.error(w, f"{k}: rango desconocido {e['rank']}")
+            elif v == "zone":
+                if not ID_RE.match(str(e["zone"])):
+                    rep.error(w, f"{k}: zone debe ser un id")
+                for bid in btypes:
+                    b = buildings[bid]
+                    own = {z.get("id") for z in b.get("zones", [])}
+                    if e["zone"] in own:
+                        rep.error(w, f"{k}: {bid} ya tiene el puesto {e['zone']}")
+                    if e.get("like", e["zone"]) not in own:
+                        rep.error(w, f"{k}: like {e.get('like')} no es un puesto de {bid}")
+        vis = u.get("visual")
+        if not isinstance(vis, dict) or set(vis) != {"interior_node", "exterior_overlay"}:
+            rep.error(w, "visual debe ser {interior_node, exterior_overlay}")
+        else:
+            for k2, v2 in vis.items():
+                if v2 is not None and not (isinstance(v2, str) and ID_RE.match(v2)):
+                    rep.error(w, f"visual.{k2} debe ser un id de game/visuals/ (snake_case) o null, no una ruta")
+
+    def loops(id_, seen):
+        if id_ in seen:
+            return True
+        return any(loops(r, seen | {id_}) for r in UPGRADES.get(id_, {}).get("requires", {}).get("upgrades", [])
+                   if r in UPGRADES)
+    for id_ in sorted(UPGRADES):
+        if loops(id_, frozenset()):
+            rep.error(f"upgrades/{UPGRADES[id_]['tree']}/{id_}", "los requisitos vuelven a ella (ciclo)")
+    for tree, ids in sorted(trees.items()):
+        for br in branches:
+            for lv in range(1, levels + 1):
+                if (tree, br, lv) not in slot:
+                    rep.warn(f"upgrades/{tree}", f"falta el nivel {lv} de la rama {br}")
+    for bid, b in buildings.items():
+        t = b.get("upgrade_tree")
+        if t and t not in trees:
+            rep.error(f"buildings/{bid}", f"upgrade_tree {t} sin mejoras en data/upgrades/{t}/")
+
+
+def check_h5_scenario(where, d, buildings, rep):
+    """Escenarios v6: mejoras terminadas de su árbol y con sus requisitos, obra en curso coherente, memoria de
+    inspecciones."""
+    chars = d.get("characters") or {}
+    for bid, b in (d.get("buildings") or {}).items():
+        w = f"{where} {bid}"
+        tree = (buildings.get(b.get("type")) or {}).get("upgrade_tree")
+        ups = b.get("upgrades")
+        if not isinstance(ups, list):
+            rep.error(w, "upgrades debe ser una lista de ids")
+            ups = []
+        for u in ups:
+            if u not in UPGRADES or UPGRADES[u]["tree"] != tree:
+                rep.error(w, f"mejora {u} desconocida o de otro árbol")
+                continue
+            miss = [r for r in UPGRADES[u].get("requires", {}).get("upgrades", []) if r not in ups]
+            if miss:
+                rep.error(w, f"{u} sin sus requisitos {miss}")
+        if len(set(ups)) != len(ups):
+            rep.error(w, "mejora repetida")
+        wk = b.get("upgrade_work", "falta")
+        if wk is not None:
+            if not isinstance(wk, dict) or not all(k in wk for k in ("upgrade", "actor", "start", "end")):
+                rep.error(w, "upgrade_work debe ser null o {upgrade, actor, start, end}")
+            else:
+                if wk["upgrade"] not in UPGRADES or UPGRADES[wk["upgrade"]]["tree"] != tree or wk["upgrade"] in ups:
+                    rep.error(w, f"obra de {wk['upgrade']}: desconocida, de otro árbol o ya terminada")
+                if wk["actor"] not in chars:
+                    rep.error(w, f"obra: actor desconocido {wk['actor']}")
+                if not (isinstance(wk["start"], int) and isinstance(wk["end"], int) and wk["start"] < wk["end"]):
+                    rep.error(w, "obra: start < end en minutos enteros")
+        ins = b.get("inspection")
+        keys = ("last_day", "caught", "escaped", "fines", "escape_ready_day")
+        if not (isinstance(ins, dict) and all(isinstance(ins.get(k), int) for k in keys)):
+            rep.error(w, f"inspection debe tener {list(keys)} enteros")
+
+
 def load_json(path, rep):
     try:
         with open(path, encoding="utf-8") as f:
@@ -649,6 +878,7 @@ def main():
     strings = load_strings(rep)
     t = {k: load_kind(k, rep) for k in KINDS}
     items, recipes, buildings = t["items"], t["recipes"], t["buildings"]
+    UPGRADES.update(load_upgrades(rep))
 
     for id_, it in items.items():
         w = f"items/{id_}"
@@ -668,8 +898,6 @@ def main():
             rep.error(w, f"puesto de mercado desconocido {it.get('market_stall')}")
         if "slot" in it and it["slot"] not in SLOTS:
             rep.error(w, f"ranura desconocida {it['slot']}")
-        if it.get("icon"):
-            rep.art(w, it["icon"])
 
     for id_, b in buildings.items():
         w = f"buildings/{id_}"
@@ -690,10 +918,6 @@ def main():
                 rep.error(w, f"puesto {z.get('id')}: tipo desconocido {z.get('kind')}")
         if b.get("market_stall") is not None and b["market_stall"] not in STALLS:
             rep.error(w, f"market_stall desconocido {b['market_stall']}")
-        if b.get("interior_scene"):
-            rep.art(w, b["interior_scene"])
-        if isinstance(b.get("sprite"), dict):
-            rep.art(w, b["sprite"].get("texture"))
 
     for id_, r in recipes.items():
         w = f"recipes/{id_}"
@@ -715,13 +939,14 @@ def main():
             rep.error(w, "duration_hours debe ser > 0 (horas de juego, nunca segundos)")
         if not isinstance(r.get("min_craft"), int) or not 1 <= r["min_craft"] <= 10:
             rep.error(w, "min_craft debe estar entre 1 y 10")
-        if r.get("requires_upgrade") and not os.path.isdir(os.path.join(DATA, "upgrades")):
-            rep.notes.append(f"{w}: requires_upgrade {r['requires_upgrade']} (las mejoras llegan en H5)")
+        if r.get("requires_upgrade") and r["requires_upgrade"] not in UPGRADES:
+            rep.error(w, f"requires_upgrade {r['requires_upgrade']}: mejora desconocida")
 
     maps = check_maps(rep)
     check_map_buildings(maps, buildings, rep)
     check_h3(items, recipes, buildings, maps, strings, rep)
     ranks, roles = check_h4(buildings, recipes, maps, strings, rep)
+    check_h5(items, recipes, buildings, ranks, strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")
@@ -786,6 +1011,8 @@ def main():
         check_scenario_buildings(f"scenarios/{name}", d, buildings, maps.get(map_id), rep)
         if d.get("version", 0) >= 5:
             check_h4_scenario(f"scenarios/{name}", d, buildings, ranks, roles, recipes, rep)
+        if d.get("version", 0) >= 6:
+            check_h5_scenario(f"scenarios/{name}", d, buildings, rep)
         if d.get("version", 0) >= 4:
             for fid, fam in (d.get("families") or {}).items():
                 if not isinstance(fam.get("gold"), int) or fam["gold"] < 0:
@@ -813,6 +1040,8 @@ def main():
                 if not (isinstance(t, list) and len(t) == 2 and maps[map_id](*t)):
                     rep.error(f"scenarios/{name}", f"{cid}: la ruta pasa por {t}, que no es transitable")
                     break
+
+    validate_structure.check(rep)
 
     if not args.quiet:
         for n in rep.notes:

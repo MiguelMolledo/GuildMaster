@@ -1,0 +1,29 @@
+{
+  "_doc": "Rules of the upgrade trees (GDD 4.8; docs/contratos/h5_mejoras.md). The upgrades themselves: data/upgrades/<tree>/<id>.json (one file each). branches: the 8 branches in UI order; levels: levels per branch. effect_kinds: every effect type an upgrade may declare (the validator refuses others). value: the field the effect carries (mult = multiplier, amount = number added, zone / recipe / rank = an id, flag = nothing). stack: branch_top = in each branch only the highest owned level that has this kind counts (the levels of a branch replace each other: speed x1.2 -> x1.4 -> x1.6), then branches combine; all = every owned upgrade counts. when: query = other systems ask Upgrades.mult / amount / unlocks / flag every time; complete = applied once to the stored state when the works end (Upgrades.complete). reader: the system that reads it (who integrates it: the contract).",
+  "branches": ["production", "capacity", "quality", "commerce", "staff", "facade", "security", "secrets"],
+  "levels": 3,
+  "effect_kinds": {
+    "production_speed": {"value": "mult", "stack": "branch_top", "when": "query", "reader": "production"},
+    "quality_bonus": {"value": "amount", "stack": "branch_top", "when": "query", "reader": "production"},
+    "price_multiplier": {"value": "mult", "stack": "branch_top", "when": "query", "reader": "market"},
+    "customer_bonus": {"value": "amount", "stack": "branch_top", "when": "query", "reader": "counter"},
+    "protection": {"value": "amount", "stack": "branch_top", "when": "query", "reader": "staff"},
+    "inspection_risk": {"value": "amount", "stack": "all", "when": "query", "reader": "inspections"},
+    "illegal_profit": {"value": "mult", "stack": "all", "when": "query", "reader": "none"},
+    "tax_mult": {"value": "mult", "stack": "all", "when": "query", "reader": "none"},
+    "unlock_recipe": {"value": "recipe", "stack": "all", "when": "query", "reader": "production"},
+    "allow_rank": {"value": "rank", "stack": "all", "when": "query", "reader": "staff"},
+    "counter_sales": {"value": "flag", "stack": "all", "when": "query", "reader": "counter"},
+    "inspection_escape": {"value": "flag", "stack": "all", "when": "query", "reader": "inspections"},
+    "max_employees": {"value": "amount", "stack": "all", "when": "complete", "reader": "staff"},
+    "extra_storage": {"value": "amount", "stack": "all", "when": "complete", "reader": "inventory"},
+    "new_zone": {"value": "zone", "stack": "all", "when": "complete", "reader": "production"},
+    "loyalty_bonus": {"value": "amount", "stack": "all", "when": "complete", "reader": "staff"},
+    "reputation": {"value": "amount", "stack": "all", "when": "complete", "reader": "family"}
+  },
+  "_titles_doc": "GDD 4.12.2, lowest first. A family without a title field (until H9) is default_title. requires.title of an upgrade = the minimum title of the owner family.",
+  "titles": ["common", "citizen", "patrician", "baron", "noble"],
+  "default_title": "common",
+  "_inspections_doc": "GDD 4.8 (Secrets branch): every dawn, each building with inspection_risk > 0 rolls p = sum(inspection_risk) x (1 - honesty / honesty_divisor) with state.rng. Caught: a fine (fine [min, max], whole gold, state.rng; category fines) and reputation (GDD 4.12.1: condena con multa -10). The automatic trial of 4.12 comes with H11 ('multa por ahora', 10). escape_cooldown_days: the hidden passage (inspection_escape) avoids one inspection that caught you, then needs this many days to be usable again [provisional: the GDD says 'escapar de una inspección'].",
+  "inspections": {"honesty_divisor": 200, "fine": [10, 50], "reputation": -10, "escape_cooldown_days": 8}
+}

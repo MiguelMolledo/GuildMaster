@@ -15,6 +15,8 @@ extends Node2D
 ## buildings.<type>.sign_mode = "hover"), so the town is not full of signs; the townsfolk show their name on hover and the
 ## employees a badge (CharacterView.set_badge); a building of the player's family with idle employees gets the idle
 ## icon over it (WorkQueue.idle_employees, refreshed each game minute; needs the Sim: setup(..., sim)).
+## Visuals: every building, map prop (tree, block, stall, board) and walker is the scene of its id in game/visuals/
+## (VisualPaths), placed by its Feet marker; its Top marker gives the height of its sign and of its click area.
 
 signal selection_changed(char_id: String)
 signal building_picked(building_id: String)   # "" = none
@@ -34,6 +36,9 @@ var _views: Dictionary = {}  # chr_id -> CharacterView
 var _signs: Dictionary = {}  # bld_id -> BuildingMarks.Sign
 var _service_signs: Dictionary = {}  # stall id | "board" -> BuildingMarks.Sign
 var _services: Array = []   # SimQuery.map_services
+var _building_visuals: Dictionary = {}  # bld_id -> its scene of game/visuals/buildings
+var _building_heights: Dictionary = {}  # bld_id -> how high it stands (its Top marker): sign and click area
+var _props: Dictionary = {}  # Vector2i -> the scene of game/visuals/props standing on that tile
 var _minutes_per_tile: int = 1
 var _game: Node = null      # the Game autoload, when in the tree
 var _hover_signs: Dictionary = {}  # bld -> true: signs shown only on hover / pick (houses)
@@ -99,6 +104,9 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	_hover_signs.clear()
 	_idle_marks.clear()
 	_service_signs.clear()
+	_building_visuals.clear()
+	_building_heights.clear()
+	_props.clear()
 	for layer: Node in [objects(), overlay()]:
 		for n: Node in layer.get_children():
 			layer.remove_child(n)
@@ -106,23 +114,30 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	_minutes_per_tile = ViewConfig.minutes_per_tile(c)
 	var rows: Array = c.maps().get(s.map_id, {}).get("rows", [])
 	ground().build(rows, c)
-	var blocks: Dictionary = ViewConfig.value("blocks", {})
 	var owned := _add_buildings()
-	_add_services()
+	_services = SimQuery.map_services(s, c)
+	var stall_at := {}
+	for svc: Dictionary in _services:
+		if str(svc["kind"]) == "stall":
+			stall_at[svc["tile"]] = str(svc["id"])
 	var n_blocks := 0
 	for r: int in rows.size():
 		var row := str(rows[r])
 		for col: int in row.length():
-			var kind := c.tile_kind_of_char(row[col])
-			if not blocks.has(kind) or owned.has(Vector2i(col, r)):
+			var t := Vector2i(col, r)
+			if owned.has(t):
 				continue
-			var b := BlockView.new()
-			b.shape = str(blocks[kind].get("shape", "block"))
-			b.height = float(blocks[kind].get("height", 32))
-			b.color = ViewConfig.color(str(c.tiles[kind].get("color", "#808080")))
-			b.position = Iso.tile_to_world(Vector2i(col, r))
-			objects().add_child(b)
+			var kind := c.tile_kind_of_char(row[col])
+			var id := "stall_" + str(stall_at[t]) if stall_at.has(t) else kind
+			# a tile kind stands up if it has a scene in game/visuals/props/; stalls and the board always do
+			if not VisualPaths.has_scene("props", id) and kind != "stall" and kind != "board":
+				continue
+			var p := VisualPaths.instantiate("props", id)
+			VisualPaths.place(p, Iso.tile_to_world(t))
+			objects().add_child(p)
+			_props[t] = p
 			n_blocks += 1
+	_add_services()
 	var ids: Array = s.characters.keys()
 	ids.sort()
 	for id: String in ids:
@@ -144,8 +159,8 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 		s.map_id, rows.size(), n_blocks, _signs.size(), _views.size(), _minutes_per_tile])
 
 
-## The buildings of the state: one block per footprint tile in the building's colour, the door mark and the sign.
-## Returns the footprint tiles (the plain map blocks skip them).
+## The buildings of the state: the scene of its type (game/visuals/buildings/<type>.tscn) on the footprint's centre,
+## the door mark and the sign. Returns the footprint tiles (the plain map blocks skip them).
 func _add_buildings() -> Dictionary:
 	var tiles := {}
 	var looks: Dictionary = ViewConfig.value("buildings", {})
@@ -156,19 +171,23 @@ func _add_buildings() -> Dictionary:
 		var look: Dictionary = looks.get(str(b.get("type", "")), {})
 		var o: Array = b.get("origin", [0, 0])
 		var f: Array = b.get("footprint", [1, 1])
-		var height := float(look.get("height", 48))
 		var top := Vector2.ZERO
 		for dr: int in int(f[1]):
 			for dc: int in int(f[0]):
 				var t := Vector2i(int(o[0]) + dc, int(o[1]) + dr)
 				tiles[t] = true
-				var bv := BlockView.new()
-				bv.height = height
-				bv.color = ViewConfig.color(str(look.get("color", "#808080")))
-				bv.position = Iso.tile_to_world(t)
-				objects().add_child(bv)
-				top += bv.position
+				top += Iso.tile_to_world(t)
 		top /= maxf(1.0, float(int(f[0]) * int(f[1])))
+		var visual := VisualPaths.instantiate("buildings", str(b.get("type", "")))
+		var greybox := visual.get_node_or_null("Greybox")
+		if greybox != null and greybox.has_method("apply_footprint"):
+			greybox.call("apply_footprint", Vector2i(int(f[0]), int(f[1])))
+		visual.name = id + "_visual"
+		VisualPaths.place(visual, top)
+		objects().add_child(visual)
+		var height := VisualPaths.top_height(visual, 48.0)
+		_building_visuals[id] = visual
+		_building_heights[id] = height
 		var d: Array = b.get("door", [])
 		if d.size() == 2:
 			var dm := BuildingMarks.DoorMark.new()
@@ -222,6 +241,24 @@ func refresh_idle() -> void:
 			ViewConfig.info("WorldView", "idle icon %s (building=%s)" % ["on" if on else "off", id])
 
 
+## The upgrade overlays of each building: the nodes under Upgrades of its scene named by its finished upgrades
+## (Upgrades.visuals "exterior") are shown, the rest hidden. Needs the Sim.
+func refresh_upgrades() -> void:
+	if sim == null:
+		return
+	for id: String in _building_visuals:
+		var ups := (_building_visuals[id] as Node).get_node_or_null("Upgrades")
+		if ups == null or ups.get_child_count() == 0:
+			continue
+		var on := {}
+		for v: Dictionary in Upgrades.visuals(sim, id).get("exterior", []):
+			on[str(v["node"])] = true
+		for u: Node in ups.get_children():
+			if u is CanvasItem and (u as CanvasItem).visible != on.has(str(u.name)):
+				(u as CanvasItem).visible = on.has(str(u.name))
+				ViewConfig.info("WorldView", "upgrade overlay %s %s (building=%s)" % [u.name, "on" if on.has(str(u.name)) else "off", id])
+
+
 ## Mouse over the map (every frame): the building and person under it (hover signs and names).
 func update_hover(screen: Vector2) -> void:
 	var bld := pick_building(screen)
@@ -254,15 +291,29 @@ func sign_of(building_id: String) -> Node2D:
 	return _signs.get(building_id, null)
 
 
-## The signs of the market stalls and the board (data/view.json "services": colours; the blocks come from the map).
+## The building's scene (game/visuals/buildings), or null.
+func building_visual(building_id: String) -> Node2D:
+	return _building_visuals.get(building_id, null)
+
+
+## The prop standing on `tile` (game/visuals/props), or null.
+func prop_at(tile: Vector2i) -> Node2D:
+	return _props.get(tile, null)
+
+
+## How high the stall or board of `svc` stands (its prop's Top marker).
+func _service_height(svc: Dictionary) -> float:
+	var p: Node2D = _props.get(svc["tile"], null)
+	return VisualPaths.top_height(p, 24.0) if p != null else 24.0
+
+
+## The signs of the market stalls and the board (data/view.json "services": colours; the props come from the map).
 func _add_services() -> void:
-	_services = SimQuery.map_services(state, catalog)
 	var looks: Dictionary = ViewConfig.value("services", {})
-	var blocks: Dictionary = ViewConfig.value("blocks", {})
 	for svc: Dictionary in _services:
 		var kind := str(svc["kind"])
 		var id := str(svc["id"])
-		var h := float(blocks.get(kind, {}).get("height", 24))
+		var h := _service_height(svc)
 		var sg := BuildingMarks.Sign.new()
 		var text := SimQuery.stall_name(catalog, id) if kind == "stall" else SimQuery.t_("ui.board.sign")
 		sg.setup(text, ViewConfig.color(str(looks.get(kind + "_sign", "#d8c8a0"))))
@@ -280,9 +331,8 @@ func service_sign_of(id: String) -> Node2D:
 ## The stall or board under `screen` ({} if none): the drawn block of its tile, else the tile itself.
 func pick_service(screen: Vector2) -> Dictionary:
 	var world := camera().screen_to_world(screen)
-	var blocks: Dictionary = ViewConfig.value("blocks", {})
 	for svc: Dictionary in _services:
-		var h := float(blocks.get(str(svc["kind"]), {}).get("height", 24))
+		var h := _service_height(svc)
 		var p := Iso.tile_to_world(svc["tile"])
 		var hw := Iso.TILE_W / 2.0
 		var hh := Iso.TILE_H / 2.0
@@ -299,10 +349,9 @@ func pick_service(screen: Vector2) -> Dictionary:
 
 ## Where a stall (its id) or the board ("board") is on screen: the middle of its block.
 func service_screen(id: String) -> Vector2:
-	var blocks: Dictionary = ViewConfig.value("blocks", {})
 	for svc: Dictionary in _services:
 		if str(svc["id"]) == id:
-			var h := float(blocks.get(str(svc["kind"]), {}).get("height", 24))
+			var h := _service_height(svc)
 			return camera().world_to_screen(Iso.tile_to_world(svc["tile"]) + Vector2(0, -h / 2.0))
 	return Vector2(-1, -1)
 
@@ -381,6 +430,7 @@ func sync(frac: float) -> void:
 	if int(state.clock["minute"]) != _idle_minute:
 		_idle_minute = int(state.clock["minute"])
 		refresh_idle()
+		refresh_upgrades()
 	tint_color = DayNight.tint(int(state.clock["minute"]), frac, catalog.time, ViewConfig.value("day_night", {}))
 	(get_node("%Tint") as CanvasModulate).color = tint_color
 
@@ -447,12 +497,11 @@ func _unhandled_input(event: InputEvent) -> void:
 ## The building under `screen` ("" if none): the drawn volume of one of its footprint blocks, else its door tile.
 func pick_building(screen: Vector2) -> String:
 	var world := camera().screen_to_world(screen)
-	var looks: Dictionary = ViewConfig.value("buildings", {})
 	var ids: Array = state.buildings.keys()
 	ids.sort()
 	for id: String in ids:
 		var b: Dictionary = state.buildings[id]
-		var h := float(looks.get(str(b.get("type", "")), {}).get("height", 48))
+		var h := float(_building_heights.get(id, 48.0))
 		var o: Array = b.get("origin", [0, 0])
 		var f: Array = b.get("footprint", [1, 1])
 		for dr: int in int(f[1]):

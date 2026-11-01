@@ -1,20 +1,17 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=7 format=3 uid="uid://1oarwrohy4ta"]
 
-[ext_resource type="Script" path="res://game/interior/interior_view.gd" id="1_view"]
-[ext_resource type="Theme" path="res://game/ui/greybox_theme.tres" id="2_theme"]
-[ext_resource type="PackedScene" path="res://game/ui/storage_panel.tscn" id="3_storage"]
-[ext_resource type="PackedScene" path="res://game/ui/production_panel.tscn" id="4_production"]
-[ext_resource type="PackedScene" path="res://game/ui/station_menu.tscn" id="5_menu"]
-[ext_resource type="PackedScene" path="res://game/ui/staff_panel.tscn" id="6_staff"]
+[ext_resource type="Script" uid="uid://b7puxkhkdsfaj" path="res://game/interior/interior_view.gd" id="1_view"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://ux7c4bdkm2km" path="res://game/ui/storage_panel.tscn" id="3_storage"]
+[ext_resource type="PackedScene" uid="uid://c8d7832s5hrfx" path="res://game/ui/production_panel.tscn" id="4_production"]
+[ext_resource type="PackedScene" uid="uid://biwpwuxm5tjd6" path="res://game/ui/station_menu.tscn" id="5_menu"]
+[ext_resource type="PackedScene" uid="uid://ptqmgtgtwtqy" path="res://game/ui/staff_panel.tscn" id="6_staff"]
 
 [node name="InteriorView" type="Node2D"]
 visible = false
 script = ExtResource("1_view")
 
-[node name="Floor" type="Node2D" parent="."]
-unique_name_in_owner = true
-
-[node name="Walls" type="Node2D" parent="."]
+[node name="Room" type="Node2D" parent="."]
 unique_name_in_owner = true
 
 [node name="Objects" type="Node2D" parent="."]

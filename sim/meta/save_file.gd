@@ -125,6 +125,16 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 					b["employee_slots"] = 1 if str(b.get("type", "")) == "forge" else 0
 				if not b.has("queue"):
 					b["queue"] = {"entries": [], "loop": false, "paused": false}
+		5:  # 5 -> 6 (H5): upgrades (docs/contratos/h5_mejoras.md). Buildings: upgrades (finished upgrade ids, in the order
+			# they were finished), upgrade_work (null = no works; else the works in progress) and inspection (the Secrets
+			# inspections' memory). v5 had no upgrades: everything starts empty.
+			for b: Dictionary in (data.get("buildings", {}) as Dictionary).values():
+				if not b.has("upgrades"):
+					b["upgrades"] = []
+				if not b.has("upgrade_work"):
+					b["upgrade_work"] = null
+				if not b.has("inspection"):
+					b["inspection"] = Upgrades.new_inspection()
 	return data
 
 

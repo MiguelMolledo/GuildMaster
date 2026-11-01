@@ -1,8 +1,12 @@
+@tool
 class_name KitFloor
 extends Node2D
-## Interior kit piece (GDD 4.6.4): one floor tile, a flat 64×32 diamond. Same piece for every interior.
+## Interior kit piece (GDD 4.6.4): one floor tile, a flat 64×32 diamond. Same piece for every interior (GreyboxKit).
 
-var color: Color = Color(0.54, 0.46, 0.38)
+@export var color: Color = Color(0.54, 0.46, 0.38):
+	set(v):
+		color = v
+		queue_redraw()
 
 
 func _draw() -> void:

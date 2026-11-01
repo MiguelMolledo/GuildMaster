@@ -19,8 +19,9 @@ sim/      todas las reglas: RefCounted puro, sin nodos, determinista. Paso fijo 
   econ/   inventory (y market, production... según hitos)
   meta/   save_file (versión + migraciones) · new_game · chronicle
   bots/   bots que juegan dando órdenes
-game/     dibuja y traduce la entrada a órdenes: app.tscn, autoload/ (Log, Data, Events, Game), iso.gd, vistas, ui/
-data/     contenido en JSON, una ficha por cosa; data/_templates/ y los ficheros `_*` no los carga el juego
+game/     dibuja y traduce la entrada a órdenes: app.tscn, autoload/ (Log, Data, Events, Game), iso.gd, vistas, ui/,
+          visuals/ (una escena por cosa visible + visual_paths.gd), audio/ (AudioDirector), tools/ (galería)
+data/     contenido en JSON, una ficha por cosa (ids y cifras, nunca rutas); data/_templates/ y `_*` no se cargan
 assets/   art/ (PixelLab) · audio/ · concept/ (fal) · inventario.json (estado de cada asset)
 i18n/     strings.csv (keys,en,es)
 tools/    validador, new_content, arte, cuaderno, sim_runner, sim_bench, qa/, art/, audio/
@@ -39,6 +40,21 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
    Tras cargar, los números enteros vuelven como `int`: lee el estado con `int()` / `float()`.
 7. **Como mucho 5 autoloads** (hoy: Log, Data, Events, Game; falta UI). Los sistemas no guardan referencias unos a otros.
 8. Nunca se ordenan ni comparan con `<` dos `StringName`: pásalas a `String` antes (lección de Wizards).
+9. **`data/` guarda ids y cifras, nunca rutas a ficheros** (el validador lo rechaza). Cada cosa visible es una escena
+   `game/visuals/<tipo>/<id>.tscn` (`buildings`, `interiors`, `stations`, `props`, `characters`) con `Marker2D` `Feet`
+   y `Top` y su greybox dentro (nodos editables, no `_draw` en la vista); el id → ruta solo en
+   `game/visuals/visual_paths.gd`. El dibujo por código queda para lo dinámico (barras, marcas, selección, día/noche).
+   Arte y audio se llaman como su id, en minúsculas. Audio por id (`data/audio.json`, buses fijos de
+   `default_bus_layout.tres`, `AudioDirector` en `app.tscn`). Dónde está cada cosa: `docs/protocolos/editar-a-mano.md`.
+
+## Ficheros y edición a mano (el owner edita en Godot)
+- Mover o renombrar ficheros **solo dentro de Godot** (panel FileSystem), nunca en Finder ni con `mv`/`git mv`: Godot
+  reescribe las referencias. Los `.import` y `.uid` van a git. Un fichero con nombre de id no se renombra (el id manda).
+- **Toda `.tscn`/`.tres` lleva uid** en la cabecera y en cada `ext_resource` (el del `.uid` del script, el `.import`
+  del asset o la cabecera de la escena). Si escribes escenas a mano: `godot --headless --path . --import` y luego
+  `python3 tools/uids.py --fix` (el validador falla si falta alguno).
+- Escenas nuevas de `game/visuals/` se copian de las existentes (Feet, Top, Greybox) y se revisan en la galería.
+- Si el owner tiene abierta en Godot una escena que vas a tocar, avísale: al guardar pisaría tu cambio.
 
 ## Godot
 - Binario: `/opt/homebrew/bin/godot` (4.7.2). El alias `godot` del shell puede apuntar a otro: usa la ruta completa.
@@ -53,7 +69,10 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 ## Rituales (antes de dar algo por hecho)
 - Reglas: `/opt/homebrew/bin/godot --headless --path . -s tests/run_tests.gd [-- --only=<texto>]`. Cada `tests/test_*.gd`
   hace `extends "res://tests/test_case.gd"`; cualquier `ERROR` o `SCRIPT ERROR` durante una prueba la hace fallar.
-- Contenido: `python3 tools/validate_content.py` (0 errores) al tocar `data/` o `i18n/`.
+- Contenido: `python3 tools/validate_content.py` (0 errores) al tocar `data/`, `i18n/`, `game/visuals/` o escenas
+  (también comprueba rutas en data/, mayúsculas, escenas y marcadores por id, audio y uid).
+- Galería de visuales (al tocar `game/visuals/` o arte): `godot --path . -- --gallery`; captura con
+  `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --gallery --smoke`.
 - Arte: `python3 tools/arte.py [--falta]` al tocar `assets/` o el inventario.
 - Arranque sin ventana con cada escenario: `zsh tools/qa/boot_check.sh` (sale con 0 y sin `ERROR`).
 - Coste del sim: `godot --headless --path . -s tools/sim_bench.gd` (diana < 2 ms por paso).
@@ -68,7 +87,7 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
   `--always-on-top` porque macOS deja de dibujar una ventana tapada y la captura repite un fotograma viejo. Guion de la forja:
   `--smoke-script=forja`.
 - Opciones del juego (tras `--`): `--scenario=<id>` (por defecto `town_e_start`), `--seed=<n>`, `--dev-time` (días de 30 s),
-  `--lang=es|en`, `--at=HH:MM`, `--smoke`, `--smoke-script=<id>`.
+  `--lang=es|en`, `--at=HH:MM`, `--smoke`, `--smoke-script=<id>`, `--gallery`.
 - Contratos entre zonas de cada hito: `docs/contratos/` (los subgrims trabajan contra ellos).
 
 ## Registro del proyecto (dónde se apunta cada cosa)

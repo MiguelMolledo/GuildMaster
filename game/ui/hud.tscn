@@ -1,12 +1,12 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=9 format=3 uid="uid://cg0hg8p8b605y"]
 
-[ext_resource type="Script" path="res://game/ui/hud.gd" id="1_hud"]
-[ext_resource type="Script" path="res://game/ui/sun_moon.gd" id="2_sun"]
-[ext_resource type="Theme" path="res://game/ui/greybox_theme.tres" id="3_theme"]
-[ext_resource type="PackedScene" path="res://game/ui/character_panel.tscn" id="4_char"]
-[ext_resource type="PackedScene" path="res://game/ui/market_panel.tscn" id="5_market"]
-[ext_resource type="PackedScene" path="res://game/ui/board_panel.tscn" id="6_board"]
-[ext_resource type="PackedScene" path="res://game/ui/ledger_panel.tscn" id="7_ledger"]
+[ext_resource type="Script" uid="uid://bk40qfbaik42s" path="res://game/ui/hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://dwh11vnyebw76" path="res://game/ui/sun_moon.gd" id="2_sun"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="3_theme"]
+[ext_resource type="PackedScene" uid="uid://cixjb7v8psugm" path="res://game/ui/character_panel.tscn" id="4_char"]
+[ext_resource type="PackedScene" uid="uid://bcpksngpbcrd3" path="res://game/ui/market_panel.tscn" id="5_market"]
+[ext_resource type="PackedScene" uid="uid://erjsfcb83dq4" path="res://game/ui/board_panel.tscn" id="6_board"]
+[ext_resource type="PackedScene" uid="uid://c63sbdqmag1xa" path="res://game/ui/ledger_panel.tscn" id="7_ledger"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 6.0

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfj4p8u7tptk7"]
+
+[ext_resource type="Script" uid="uid://bfy2rn2g7j76" path="res://game/visuals/greybox/greybox_figure.gd" id="1_figure"]
+[ext_resource type="SpriteFrames" uid="uid://6kv4eg78fvb6" path="res://game/visuals/characters/worker_m_frames.tres" id="2_frames"]
+
+[node name="WorkerM" type="Node2D"]
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -48)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_figure")
+skin = Color(0.878431373, 0.705882353, 0.549019608, 1)
+outline = Color(0.117647059, 0.0941176471, 0.0705882353, 1)

@@ -2,6 +2,7 @@
 
 Paso a paso para añadir contenido sin tocar código. Cada protocolo termina con los rituales que hay que pasar.
 
+- [editar-a-mano.md](editar-a-mano.md): cambiar sprites, animaciones, música, sonidos, textos, cifras, colores y puestos en Godot
 - [crear-objeto.md](crear-objeto.md)
 - [crear-receta.md](crear-receta.md)
 - [crear-edificio.md](crear-edificio.md)

@@ -9,7 +9,7 @@ extends RefCounted
 ## stop_work, master_touch (handlers live with their system; docs/contratos/h2_forja.md); H3: buy, sell,
 ## repay_loan, read_notices, accept_contract, deliver_contract, abandon_contract (docs/contratos/h3_mercado.md); H4: hire,
 ## fire, promote, bonus, queue_add, queue_remove, queue_move, queue_loop, queue_pause, set_role
-## (docs/contratos/h4_empleados.md). Each milestone adds
+## (docs/contratos/h4_empleados.md); H5: buy_upgrade (docs/contratos/h5_mejoras.md). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -76,13 +76,16 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return WorkQueue.order_pause(sim, order)
 		"set_role":
 			return WorkQueue.order_set_role(sim, order)
+		# H5 · upgrades (sim/econ/upgrades.gd)
+		"buy_upgrade":
+			return Upgrades.order_buy(sim, order)
 	return fail("unknown_order")
 
 
 ## Management orders: given from a panel, they act at once and never touch the actor's order queue (a bonus does
 ## not stop someone walking; given in pause they apply on resume instead of waiting behind the walk).
 const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role", "queue_add", "queue_remove",
-	"queue_move", "queue_loop", "queue_pause", "repay_loan", "read_notices", "abandon_contract"]
+	"queue_move", "queue_loop", "queue_pause", "repay_loan", "read_notices", "abandon_contract", "buy_upgrade"]
 
 
 static func is_management(type: String) -> bool:

@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://ptqmgtgtwtqy"]
 
-[ext_resource type="Script" path="res://game/ui/staff_panel.gd" id="1_panel"]
-[ext_resource type="Theme" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="Script" uid="uid://dnpd4a64fhxan" path="res://game/ui/staff_panel.gd" id="1_panel"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
 
 [node name="StaffPanel" type="PanelContainer"]
 visible = false

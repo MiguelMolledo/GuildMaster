@@ -12,7 +12,7 @@ const NONSENSE: float = 0.15           # share of fields filled with something t
 const TYPES: Array[String] = ["wait", "transfer", "move_to", "enter_building", "exit_building", "go_to_station",
 	"equip", "unequip", "work_at", "stop_work", "master_touch", "buy", "sell", "repay_loan",
 	"read_notices", "accept_contract", "deliver_contract", "abandon_contract", "hire", "fire", "promote", "bonus",
-	"queue_add", "queue_remove", "queue_move", "queue_loop", "queue_pause", "set_role", "nonsense_order"]
+	"queue_add", "queue_remove", "queue_move", "queue_loop", "queue_pause", "set_role", "buy_upgrade", "nonsense_order"]
 
 
 func orders(sim: Sim) -> Array:
@@ -88,6 +88,10 @@ func orders(sim: Sim) -> Array:
 						o["to"] = rng.randi_range(-1, 4)
 				_:
 					o["on"] = rng.randf() < 0.5
+		# H5 · upgrades (docs/contratos/h5_mejoras.md)
+		"buy_upgrade":
+			o.merge({"building": _pick(rng, _sorted(st.buildings.keys())),
+				"upgrade": _pick(rng, _sorted(sim.catalog.upgrades().keys()))})
 	return [o]
 
 

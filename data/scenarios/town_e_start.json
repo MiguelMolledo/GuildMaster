@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "seed": "1",
   "rng_state": "",
   "meta": {
@@ -1228,6 +1228,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     },
     "bld_0002": {
@@ -1288,6 +1297,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     },
     "bld_0003": {
@@ -1325,6 +1343,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     },
     "bld_0004": {
@@ -1357,6 +1384,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     },
     "bld_0005": {
@@ -1389,6 +1425,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     },
     "bld_0006": {
@@ -1421,6 +1466,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     },
     "bld_0007": {
@@ -1453,6 +1507,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     },
     "bld_0008": {
@@ -1485,6 +1548,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     },
     "bld_0009": {
@@ -1517,6 +1589,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     },
     "bld_0010": {
@@ -1549,6 +1630,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     },
     "bld_0011": {
@@ -1581,6 +1671,15 @@
         "entries": [],
         "loop": false,
         "paused": false
+      },
+      "upgrades": [],
+      "upgrade_work": null,
+      "inspection": {
+        "last_day": -1,
+        "caught": 0,
+        "escaped": 0,
+        "fines": 0,
+        "escape_ready_day": 0
       }
     }
   },

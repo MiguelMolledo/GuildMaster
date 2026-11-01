@@ -6,6 +6,5 @@
   "weight": 3.0,
   "max_stack": 20,
   "base_price": 45,
-  "market_stall": "clothier",
-  "icon": null
+  "market_stall": "clothier"
 }

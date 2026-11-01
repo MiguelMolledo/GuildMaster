@@ -5,6 +5,5 @@
   "weight": 1.0,
   "max_stack": 99,
   "base_price": 1,
-  "market_stall": "resources|food|materials|armory|clothier|apothecary|null",
-  "icon": null
+  "market_stall": "resources|food|materials|armory|clothier|apothecary|null"
 }

@@ -6,6 +6,5 @@
   "weight": 8.0,
   "max_stack": 20,
   "base_price": 65,
-  "market_stall": "armory",
-  "icon": null
+  "market_stall": "armory"
 }

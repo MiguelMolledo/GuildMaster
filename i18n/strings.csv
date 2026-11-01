@@ -451,3 +451,64 @@ notice.queue_cannot_make,"{building}: nobody can make {recipe} ({reason}), skipp
 notice.queue_empty,"{building}: nothing to produce, the queue is empty","{building}: nada que producir, la cola está vacía"
 notice.queue_stalled,"{building}: nothing in the queue can be made ({reason})","{building}: no se puede hacer nada de la cola ({reason})"
 notice.employee_idle,"{employee} is idle at {building}: nothing for the task {role}","{employee} está ocioso en {building}: nada para su tarea {role}"
+upgrade.forge_production_1,Improved bellows,Fuelle mejorado
+upgrade.forge_production_2,Advanced tempering,Temple avanzado
+upgrade.forge_production_3,Master forge,Forja de maestro
+upgrade.forge_capacity_1,Second anvil,Segundo yunque
+upgrade.forge_capacity_2,Larger storage,Almacén ampliado
+upgrade.forge_capacity_3,Second furnace,Tercer horno
+upgrade.forge_quality_1,Tempered steel,Acero templado
+upgrade.forge_quality_2,Fine engraving,Grabado fino
+upgrade.forge_quality_3,Master's seal,Sello de maestro
+upgrade.forge_commerce_1,Sales counter,Mostrador de venta
+upgrade.forge_commerce_2,Shop window,Escaparate exterior
+upgrade.forge_commerce_3,Trade reputation,Reputación comercial
+upgrade.forge_staff_1,Apprentice dormitory,Dormitorio de aprendiz
+upgrade.forge_staff_2,Dining room,Comedor
+upgrade.forge_staff_3,Master's workshop,Taller de maestro
+upgrade.forge_facade_1,Stone facade,Fachada de piedra
+upgrade.forge_facade_2,Garden and plants,Jardín y plantas
+upgrade.forge_facade_3,Noble facade,Fachada noble
+upgrade.forge_security_1,Reinforced lock,Cerradura reforzada
+upgrade.forge_security_2,Hired guard,Guardia contratado
+upgrade.forge_security_3,Strongbox,Caja fuerte
+upgrade.forge_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.forge_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.forge_secrets_3,Smuggling,Contrabando
+branch.production,Production,Producción
+branch.capacity,Capacity,Capacidad
+branch.quality,Quality,Calidad
+branch.commerce,Commerce,Comercio
+branch.staff,Staff,Personal
+branch.facade,Facade,Fachada
+branch.security,Security,Seguridad
+branch.secrets,Secrets,Secretos
+effect.production_speed,Production speed ×{mult},Velocidad de producción ×{mult}
+effect.quality_bonus,Quality +{amount},Calidad +{amount}
+effect.price_multiplier,Sale price ×{mult},Precio de venta ×{mult}
+effect.customer_bonus,Customers +{amount},Clientes +{amount}
+effect.protection,Protection {amount},Protección {amount}
+effect.inspection_risk,Inspection risk +{amount},Riesgo de inspección +{amount}
+effect.illegal_profit,Illegal profit ×{mult},Beneficio ilegal ×{mult}
+effect.tax_mult,Taxes ×{mult},Impuestos ×{mult}
+effect.unlock_recipe,New recipe: {recipe},Receta nueva: {recipe}
+effect.allow_rank,Allows hiring: {rank},Permite contratar: {rank}
+effect.counter_sales,Direct sales at the counter,Ventas directas en el mostrador
+effect.inspection_escape,Escape one inspection,Escapar de una inspección
+effect.max_employees,Employee places +{amount},Huecos de empleado +{amount}
+effect.extra_storage,Storage +{amount} stacks,Almacén +{amount} pilas
+effect.new_zone,New station: {zone},Puesto nuevo: {zone}
+effect.loyalty_bonus,Employees' loyalty +{amount} (once),Lealtad de los empleados +{amount} (una vez)
+effect.reputation,Reputation +{amount},Reputación +{amount}
+reason.unknown_upgrade,Unknown upgrade,Mejora desconocida
+reason.wrong_tree,That upgrade is not for this building,Esa mejora no es de este edificio
+reason.owned,Already built,Ya construida
+reason.in_works,Under construction,En obras
+reason.busy,Other works are in progress,Hay otra obra en curso
+reason.stat_too_low,Attribute too low,Atributo insuficiente
+reason.title_too_low,Title too low,Título insuficiente
+reason.missing_materials,Missing materials in the storage,Faltan materiales en el almacén
+reason.under_works,The building is under construction,El edificio está en obras
+notice.upgrade_done,{building}: the works of {upgrade} are finished,{building}: ha terminado la obra de {upgrade}
+notice.inspection_fined,"{building}: an inspection found irregularities, fine of {amount} gold","{building}: una inspección ha encontrado irregularidades, multa de {amount} de oro"
+notice.inspection_escaped,"{building}: an inspection came, the hidden passage saved you","{building}: ha venido una inspección, el pasadizo oculto te ha salvado"

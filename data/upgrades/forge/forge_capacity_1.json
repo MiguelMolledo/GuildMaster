@@ -1,0 +1,37 @@
+{
+  "id": "forge_capacity_1",
+  "name_key": "upgrade.forge_capacity_1",
+  "tree": "forge",
+  "branch": "capacity",
+  "level": 1,
+  "cost": {
+    "gold": 10,
+    "items": [
+      {
+        "item": "iron_ingot",
+        "qty": 5
+      },
+      {
+        "item": "wood",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "anvil_2",
+      "like": "anvil"
+    }
+  ],
+  "visual": {
+    "interior_node": "forge_anvil_2",
+    "exterior_overlay": null
+  }
+}

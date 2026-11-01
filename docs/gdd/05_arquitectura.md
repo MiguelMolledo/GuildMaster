@@ -163,9 +163,12 @@ Inventory
 
 - **Proyección isométrica en un solo sitio** (`game/iso.gd`): `tile → píxel` y su inversa para el ratón. Diamante de 64×32. `world = ((col - row) × 32, (col + row) × 16)`.
 - Capas: suelo (`TileMapLayer`), objetos y personajes en un mismo nodo con **Y-sort**, luces, UI (`CanvasLayer` 10+).
-- Edificios: `Sprite2D` desde la ficha del edificio (textura, escala, ancla de los pies, huella). La huella se genera para colisión de ratón y para la rejilla del sim.
-- Personajes: tiras de animación en 8 direcciones de PixelLab, cargadas por una ficha de personaje visual (`data/visuals/<id>.json`).
-- Interiores: una escena por tipo de edificio con marcadores para cada puesto (`Marker2D` con nombre = id del puesto). La vista coloca a cada trabajador en el marcador del puesto que el sim le ha asignado y reproduce su animación.
+- **Escenas visuales por id** (`game/visuals/<tipo>/<id>.tscn`; tipos `buildings`, `interiors`, `stations`, `props`, `characters`): los datos dicen qué hay (ids y cifras), la escena dice cómo se ve. Cada una lleva un `Marker2D` `Feet` (punto de apoyo) y otro `Top` (altura del letrero, la barra o el nombre y de la zona de clic), y el greybox dentro hasta que llega el arte. `game/visuals/visual_paths.gd` es el único sitio que convierte un id en ruta; si falta la escena sale `<tipo>/_generic.tscn`. Galería de revisión: `game/tools/gallery.tscn` (`-- --gallery`). Cómo se editan: `docs/protocolos/editar-a-mano.md`.
+- Edificios: `buildings/<tipo>.tscn` colocada en el centro de su huella (la huella es del sim, `data/buildings`); los visuales de las mejoras exteriores, nodos ocultos en `Upgrades/`.
+- Personajes: `characters/<rol>_<m|f>.tscn` (`artisan`, `worker`, `townsfolk`) con `AnimatedSprite2D` + `SpriteFrames` (`<id>_frames.tres`): tiras en 8 direcciones de PixelLab. La paleta de familia la aplica la vista.
+- Interiores: `interiors/<tipo>.tscn` con el `Kit` (tamaño y puerta de la sala), un `Marker2D` por puesto (`Stations/<id del puesto>`, también los que añaden las mejoras, que solo salen cuando el edificio tiene ese puesto) y los visuales de las mejoras en `Upgrades/` (se encienden con `Upgrades.visuals`). La vista coloca a cada trabajador junto al marcador del puesto que el sim le ha asignado.
+- **Audio**: por id, nunca por fichero. `data/audio.json` (bus, volumen, variación; música por fase; sonido por evento del sim), buses fijos en `default_bus_layout.tres` (Master, Music, Sfx, Ambient, Voice, Ui) y un nodo `AudioDirector` dentro de `app.tscn` (no gasta autoload). Sin fichero, silencio.
+- **Ficheros**: todas las `.tscn`/`.tres` con uid (`tools/uids.py`); se mueven y renombran solo dentro de Godot.
 - **UI:** escenas `.tscn`, `%UniqueName`, un `Theme` común (paleta de 9.6), textos desde `i18n/`. El gestor de paneles mantiene una pila: ESC cierra el de arriba; abrir uno principal cierra los demás principales; los modales bloquean el mundo.
 
 ### 5.11 Rendimiento

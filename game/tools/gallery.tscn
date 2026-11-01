@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://cayd3gvwy1esi"]
+
+[ext_resource type="Script" uid="uid://c5825udqh8vle" path="res://game/tools/gallery.gd" id="1_gallery"]
+
+[node name="Gallery" type="Node2D"]
+script = ExtResource("1_gallery")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Color" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.168627, 0.133333, 0.105882, 1)
+
+[node name="Grid" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Items" type="Node2D" parent="."]
+unique_name_in_owner = true
+y_sort_enabled = true
+
+[node name="Labels" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true

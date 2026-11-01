@@ -1,12 +1,13 @@
 class_name StationView
 extends Node2D
-## One station of an interior (H2 greybox): a low block in the station's colour with its name, on its floor tile.
-## Shows what the sim says (SimQuery.job_view): an occupied mark, the progress bar of the cycle, the master-touch
-## window (the block blinks while it is open, GDD 4.4.5) and a short floating text (master touch done, item made).
+## One station of an interior (H2 greybox): its look (the station's scene, game/visuals/stations/<zone>.tscn or the
+## child of its Marker2D in the interior scene, drawn behind) with its name, on its floor tile. Shows what the sim says
+## (SimQuery.job_view): an occupied mark, the progress bar of the cycle, the master-touch window (the look blinks
+## while it is open, GDD 4.4.5) and a short floating text (master touch done, item made). The look's Top marker gives
+## the station's height (bar, marks, click area).
 
 var zone: String = ""
 var title: String = ""
-var color: Color = Color(0.5, 0.4, 0.3)
 var height: float = 20.0
 var busy_color: Color = Color(0.94, 0.75, 0.25)
 var progress_color: Color = Color(0.49, 0.78, 0.38)
@@ -22,14 +23,20 @@ var _flash_left: float = 0.0
 var _flash_seconds: float = 1.5
 var _label: Label
 var _flash: Label
+var _look: Node2D = null
 
 
-func setup(zone_id: String, text: String, cfg: Dictionary) -> void:
+## `look` = the station's scene (null: game/visuals/stations/<zone>.tscn).
+func setup(zone_id: String, text: String, cfg: Dictionary, look: Node2D = null) -> void:
 	zone = zone_id
 	title = text
 	name = zone_id
-	color = ViewConfig.color(str(cfg.get("station_colors", {}).get(zone_id, "#7a6a50")))
-	height = float(cfg.get("station_height", 20))
+	_look = look if look != null else VisualPaths.instantiate("stations", zone_id)
+	_look.name = "Look"
+	_look.show_behind_parent = true
+	VisualPaths.place(_look, Vector2.ZERO)
+	add_child(_look)
+	height = VisualPaths.top_height(_look, 20.0)
 	busy_color = ViewConfig.color(str(cfg.get("busy", "#f0c040")))
 	progress_color = ViewConfig.color(str(cfg.get("progress", "#7cc860")))
 	window_color = ViewConfig.color(str(cfg.get("window", "#fff0a0")))
@@ -41,6 +48,11 @@ func setup(zone_id: String, text: String, cfg: Dictionary) -> void:
 	_flash.visible = false
 	add_child(_label)
 	add_child(_flash)
+
+
+## The station's scene (its look).
+func look() -> Node2D:
+	return _look
 
 
 func _make_label(text: String, c: Color, font_size: int) -> Label:
@@ -91,8 +103,22 @@ func _process(delta: float) -> void:
 		_flash.position.y -= delta * 10.0
 		if _flash_left <= 0.0:
 			_flash.visible = false
+	_blink()
 	if window_open or _flash_left > 0.0:
 		queue_redraw()
+
+
+## The master-touch window: the greybox block blinks towards the window colour; a sprite look is tinted instead.
+func _blink() -> void:
+	if _look == null:
+		return
+	var k := 0.35 + 0.35 * sin(_t * TAU * blink_hz) if window_open and not touched else 0.0
+	var gb := _look.get_node_or_null("Greybox") as StationBlock
+	if gb != null:
+		gb.highlight_color = window_color
+		gb.highlight = k
+	else:
+		_look.modulate = Color.WHITE.lerp(window_color, k)
 
 
 ## The block's drawn volume (local pixels): clicks inside it hit the station.
@@ -106,18 +132,6 @@ func pick_polygon() -> PackedVector2Array:
 func _draw() -> void:
 	var hw := Iso.TILE_W / 2.0 * 0.75
 	var hh := Iso.TILE_H / 2.0 * 0.75
-	var up := Vector2(0, -height)
-	var top := Vector2(0, -hh)
-	var right := Vector2(hw, 0)
-	var bottom := Vector2(0, hh)
-	var left := Vector2(-hw, 0)
-	var c := color
-	if window_open and not touched:
-		c = color.lerp(window_color, 0.35 + 0.35 * sin(_t * TAU * blink_hz))
-	draw_colored_polygon(PackedVector2Array([left, bottom, bottom + up, left + up]), c.darkened(0.15))
-	draw_colored_polygon(PackedVector2Array([bottom, right, right + up, bottom + up]), c.darkened(0.35))
-	var lid := PackedVector2Array([top + up, right + up, bottom + up, left + up])
-	draw_colored_polygon(lid, c.lightened(0.15))
 	if window_open and not touched:
 		draw_polyline(pick_polygon() + PackedVector2Array([pick_polygon()[0]]), window_color, 2.0)
 	if occupied:

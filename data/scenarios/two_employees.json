@@ -11,6 +11,13 @@
 				4
 			],
 			"id": "bld_0001",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 10,
 				"limit_kind": "stacks",
@@ -46,6 +53,8 @@
 			},
 			"state": "normal",
 			"type": "forge",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {
@@ -78,6 +87,13 @@
 				4
 			],
 			"id": "bld_0002",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 10,
 				"limit_kind": "stacks",
@@ -106,6 +122,8 @@
 			},
 			"state": "normal",
 			"type": "forge",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {
@@ -138,6 +156,13 @@
 				4
 			],
 			"id": "bld_0003",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 0,
 				"limit_kind": "stacks",
@@ -155,6 +180,8 @@
 			},
 			"state": "normal",
 			"type": "armory",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {
@@ -175,6 +202,13 @@
 				3
 			],
 			"id": "bld_0004",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 0,
 				"limit_kind": "stacks",
@@ -192,6 +226,8 @@
 			},
 			"state": "normal",
 			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {}
@@ -207,6 +243,13 @@
 				3
 			],
 			"id": "bld_0005",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 0,
 				"limit_kind": "stacks",
@@ -224,6 +267,8 @@
 			},
 			"state": "normal",
 			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {}
@@ -239,6 +284,13 @@
 				3
 			],
 			"id": "bld_0006",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 0,
 				"limit_kind": "stacks",
@@ -256,6 +308,8 @@
 			},
 			"state": "normal",
 			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {}
@@ -271,6 +325,13 @@
 				3
 			],
 			"id": "bld_0007",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 0,
 				"limit_kind": "stacks",
@@ -288,6 +349,8 @@
 			},
 			"state": "normal",
 			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {}
@@ -303,6 +366,13 @@
 				3
 			],
 			"id": "bld_0008",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 0,
 				"limit_kind": "stacks",
@@ -320,6 +390,8 @@
 			},
 			"state": "normal",
 			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {}
@@ -335,6 +407,13 @@
 				3
 			],
 			"id": "bld_0009",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 0,
 				"limit_kind": "stacks",
@@ -352,6 +431,8 @@
 			},
 			"state": "normal",
 			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {}
@@ -367,6 +448,13 @@
 				3
 			],
 			"id": "bld_0010",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 0,
 				"limit_kind": "stacks",
@@ -384,6 +472,8 @@
 			},
 			"state": "normal",
 			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {}
@@ -399,6 +489,13 @@
 				3
 			],
 			"id": "bld_0011",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
 			"inventory": {
 				"limit": 0,
 				"limit_kind": "stacks",
@@ -416,6 +513,8 @@
 			},
 			"state": "normal",
 			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
 			"zones": {}
@@ -1647,5 +1746,5 @@
 	"rng_state": "-1966449618399012673",
 	"seed": "1",
 	"trials": [],
-	"version": 5
+	"version": 6
 }

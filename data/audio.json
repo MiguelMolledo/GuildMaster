@@ -1,0 +1,25 @@
+{
+  "_doc": "Sounds and music by id (docs/protocolos/editar-a-mano.md). The file of an id is found by convention: assets/audio/<section>/<id>.ogg or .wav, or its variants <id>_01, <id>_02... (one is picked at random each time). No file yet = silence (and a note in debug). Sections: music, sfx, ambient, voice; each entry: bus (default Music / Sfx / Ambient / Voice by section; the buses are fixed in default_bus_layout.tres: Master, Music, Sfx, Ambient, Voice, Ui), volume_db, pitch_jitter (0-0.5: random pitch change per play, view only). phase_music: the music of each phase of the day. events: the sound of a sim event (only events of the player's family sound).",
+  "music": {
+    "music_city_day": {"volume_db": 0.0},
+    "music_night": {"volume_db": -2.0}
+  },
+  "sfx": {
+    "sfx_hammer": {"volume_db": 0.0, "pitch_jitter": 0.08},
+    "sfx_bellows": {"volume_db": -3.0},
+    "sfx_coins": {"volume_db": 0.0, "pitch_jitter": 0.05},
+    "sfx_door": {"volume_db": -3.0},
+    "sfx_ui_click": {"bus": "Ui", "volume_db": -6.0}
+  },
+  "ambient": {},
+  "voice": {},
+  "phase_music": {"dawn": "music_city_day", "day": "music_city_day", "dusk": "music_city_day", "night": "music_night"},
+  "events": {
+    "work_done": "sfx_hammer",
+    "master_touch_done": "sfx_bellows",
+    "market_sold": "sfx_coins",
+    "market_bought": "sfx_coins",
+    "building_entered": "sfx_door",
+    "building_left": "sfx_door"
+  }
+}

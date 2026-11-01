@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6frj3twgbs6i"]
+
+[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+
+[node name="StallFood" type="Node2D"]
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_block")
+height = 20.0
+color = Color(0.690196078, 0.439215686, 0.22745098, 1)

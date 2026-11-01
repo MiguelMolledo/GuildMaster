@@ -13,18 +13,9 @@
     {"id": "counter", "kind": "sales"}
   ],
   "upgrade_tree": null,
-  "interior_scene": null,
-  "sprite": null,
   "night_production": "none",
   "includes_housing": false,
   "_public_doc": "H3: public shop of the market square (GDD 4.5.1). public = anybody may go in (Buildings.is_public); market_stall = the stall of data/market.json it serves; owner \"\" in the map and the saves (the town's).",
   "public": true,
-  "market_stall": "armory",
-  "interior": {
-    "size": [6, 5],
-    "door": [0, 2],
-    "stations": {
-      "counter": [4, 2]
-    }
-  }
+  "market_stall": "armory"
 }

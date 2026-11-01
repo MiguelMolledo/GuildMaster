@@ -2,6 +2,25 @@
 
 Qué se pide a cada asset para que el juego lo cargue sin tocar código. El estado de cada uno vive en
 `assets/inventario.json`; `python3 tools/arte.py --falta` lo compara con este contrato y con el contenido de `data/`.
+Cómo cambiarlos a mano en Godot: `docs/protocolos/editar-a-mano.md`.
+
+## Ids, escenas y ficheros
+
+- **`data/` guarda ids y cifras, nunca rutas.** El validador rechaza `res://`, `assets/`, `.png`, `.ogg`… en `data/`.
+- **Cada cosa visible tiene su escena** `game/visuals/<tipo>/<id>.tscn` (`buildings`, `interiors`, `stations`, `props`,
+  `characters`), con un `Marker2D` `Feet` (punto de apoyo) y otro `Top` (altura: letrero, barra, nombre, clic). El
+  greybox vive dentro (`Greybox`) hasta que llega el sprite; el sprite se pone en la escena, con su textura arrastrada
+  en el editor (Godot guarda la referencia por uid). Sin escena, sale `<tipo>/_generic.tscn`.
+- **Los ficheros se llaman como su id**, en minúsculas y snake_case, en su carpeta por tipo (tabla de abajo). La
+  conversión id → ruta está solo en `game/visuals/visual_paths.gd`. Personajes: `<rol>_<m|f>` con rol `artisan`
+  (familia del jugador o rival), `worker` (empleado) o `townsfolk`; sus fotogramas, en `<id>_frames.tres` (SpriteFrames).
+- **Audio**: `assets/audio/<music|sfx|ambient|voice>/<id>.ogg|wav` (variantes `<id>_01`, `<id>_02`…), con el id
+  declarado en `data/audio.json` (bus, volumen, variación de tono). OGG para música y sonidos largos (bucle en Import),
+  WAV para efectos cortos. Buses fijos en `default_bus_layout.tres`: Master, Music, Sfx, Ambient, Voice, Ui.
+- **Mover o renombrar, solo en Godot.** Los `.import` y `.uid` van a git. Todas las `.tscn`/`.tres` llevan uid
+  (`python3 tools/uids.py [--fix]`).
+- El validador da **error** si un asset del inventario en estado `sprite` o más (audio: `generado` o más) no tiene su
+  fichero con las mayúsculas exactas, o si un nombre de `assets/art/`, `assets/audio/` o `game/visuals/` lleva mayúsculas.
 
 ## Escala de estados
 
@@ -33,7 +52,8 @@ Un asset que no se anima pasa de `sprite` a `final` directamente.
 | vfx | libre | — | `loop` o `once` | `assets/art/vfx/<id>/` |
 | retrato | 64×64 | — | — | `assets/art/portraits/<id>.png` |
 
-- Ancla de los pies: el punto de apoyo va en el centro inferior del fotograma; la ficha visual puede corregirlo con `feet: [x, y]`.
+- Ancla de los pies: el punto de apoyo va en el centro inferior del fotograma; se ajusta en su escena visual moviendo el
+  sprite (Offset) sobre el `Marker2D` `Feet`.
 - Fondo transparente, sin halo; contorno negro de un color; filtro `Nearest`.
 - Identidad de familia: los personajes se variarán por paleta (pelo, piel, ropa con el color de la familia). Los sprites se
   dibujan con colores clave fáciles de sustituir (ver la biblia de estilo).

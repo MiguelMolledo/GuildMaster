@@ -77,20 +77,42 @@ func test_forge_is_drawn_apart_with_sign_and_door() -> void:
 	var door := v.overlay().get_node_or_null(BLD + "_door") as Node2D
 	check(door != null, "a door mark")
 	eq(door.position, Iso.tile_to_world(Vector2i(26, 19)), "on the door tile")
-	var forge_color := ViewConfig.color(str(ViewConfig.value("buildings")["forge"]["color"]))
+	var forge_color := _greybox_color("buildings", "forge")
 	var at_forge := 0
-	var house_color := ViewConfig.color(str(cat.tiles["building"]["color"]))
-	for n: Node in v.objects().get_children():
-		if n is BlockView:
-			var t := Iso.world_to_tile(n.position)
-			var in_forge := Rect2i(25, 20, 3, 4).has_point(t)
-			if in_forge:
-				at_forge += 1
-				eq((n as BlockView).color, forge_color, "forge block colour at %s" % t)
-			elif t == Vector2i(28, 20):
-				eq((n as BlockView).color, house_color, "the house next door keeps the greybox colour")
+	var house_color := _greybox_color("props", "building")
+	for pair: Array in _blocks(v.objects(), Vector2.ZERO):
+		var bv: BlockView = pair[0]
+		var t := Iso.world_to_tile(pair[1])
+		var in_forge := Rect2i(25, 20, 3, 4).has_point(t)
+		if in_forge:
+			at_forge += 1
+			eq(bv.color, forge_color, "forge block colour at %s" % t)
+			eq(pair[1], Iso.tile_to_world(t), "each forge block on its own tile (Y-sort by tile)")
+		elif t == Vector2i(28, 20):
+			eq(bv.color, house_color, "the house next door keeps the greybox colour")
 	eq(at_forge, 12, "one forge block per footprint tile")
 	v.free()
+
+
+## The colour of the greybox of a visual scene (game/visuals/<kind>/<id>.tscn).
+func _greybox_color(kind: String, id: String) -> Color:
+	var n := VisualPaths.instantiate(kind, id)
+	var c: Color = n.get_node("Greybox").get("color")
+	n.free()
+	return c
+
+
+## Every BlockView under `n` with its position in `n`'s parent layer: [[BlockView, Vector2]].
+func _blocks(n: Node, origin: Vector2) -> Array:
+	var out: Array = []
+	for c: Node in n.get_children():
+		if not c is Node2D:
+			continue
+		var p := origin + (c as Node2D).position
+		if c is BlockView:
+			out.append([c, p])
+		out.append_array(_blocks(c, p))
+	return out
 
 
 func test_right_click_on_forge_with_hugo_selected_enters() -> void:
@@ -146,14 +168,14 @@ func test_interior_is_built_from_the_kit_with_the_stations() -> void:
 	var sim := _sim()
 	_hugo_inside(sim)
 	var v := _interior(sim)
-	eq(v.size_tiles, Vector2i(8, 6), "size from forge.json")
+	eq(v.size_tiles, Vector2i(8, 6), "size from the Kit of game/visuals/interiors/forge.tscn")
 	eq(v.floor_layer().get_child_count(), 48, "one floor piece per tile")
 	eq(v.walls().get_child_count(), 8 + 6, "a wall piece per back edge")
 	var door := v.walls().get_node_or_null("Door") as KitWall
 	check(door != null and door.door, "the door piece")
 	for z: String in ["furnace", "anvil", "counter", "storage"]:
 		check(v.station_view(z) != null, "station %s" % z)
-	eq(v.station_view("anvil").position, Iso.tile_to_world(Vector2i(5, 1)), "anvil where forge.json puts it")
+	eq(v.station_view("anvil").position, Iso.tile_to_world(Vector2i(5, 1)), "anvil where its Marker2D puts it")
 	check(v.view_of(HUGO) != null, "Hugo is drawn inside")
 	eq(v.actor(), HUGO, "and is who acts")
 	v.free()

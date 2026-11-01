@@ -6,6 +6,5 @@
   "weight": 4.0,
   "max_stack": 50,
   "base_price": 18,
-  "market_stall": "materials",
-  "icon": null
+  "market_stall": "materials"
 }

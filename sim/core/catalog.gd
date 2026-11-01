@@ -19,6 +19,8 @@ var market: Dictionary = {}      # data/market.json: stalls, opening phases, dem
 var difficulty: Dictionary = {}  # data/difficulty.json: "levels" {easy|normal|hard -> levers} (GDD 4.23)
 var accounts: Dictionary = {}    # data/accounts.json: ledger and notices retention, loan warnings, unpaid upkeep (H3)
 var employees: Dictionary = {}   # data/employees.json: ranks, roles, loyalty, bands, wages, theft, hiring, schedule (H4)
+var upgrade_rules: Dictionary = {}  # data/upgrade_rules.json: branches, effect kinds, titles, inspections (H5)
+var upgrade_trees: Dictionary = {}  # tree -> [upgrade ids] sorted (data/upgrades/<tree>/*.json; the upgrades: tables.upgrades)
 var errors: PackedStringArray = []  # files that could not be read
 
 
@@ -34,6 +36,8 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.difficulty = c._load_json(root_dir.path_join("difficulty.json"))
 	c.accounts = c._load_json(root_dir.path_join("accounts.json"))
 	c.employees = c._load_json(root_dir.path_join("employees.json"))
+	c.upgrade_rules = c._load_json(root_dir.path_join("upgrade_rules.json"))
+	c._load_upgrades(root_dir.path_join("upgrades"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
@@ -84,6 +88,26 @@ func difficulty_levels(level: String) -> Dictionary:
 ## The rank definition of data/employees.json (wage, efficiency, speed, promotion...), {} if unknown or "".
 func rank(id: String) -> Dictionary:
 	return employees.get("ranks", {}).get(id, {})
+
+
+## H5: every upgrade of every tree, by id (data/upgrades/<tree>/<id>.json).
+func upgrades() -> Dictionary:
+	return tables.get("upgrades", {})
+
+
+## An upgrade definition, {} if unknown.
+func upgrade(id: String) -> Dictionary:
+	return upgrades().get(id, {})
+
+
+## The upgrade ids of a tree (sorted), [] if unknown.
+func upgrade_tree(tree: String) -> Array:
+	return upgrade_trees.get(tree, [])
+
+
+## The definition of an effect kind (data/upgrade_rules.json effect_kinds), {} if unknown.
+func effect_kind(kind: String) -> Dictionary:
+	return upgrade_rules.get("effect_kinds", {}).get(kind, {})
 
 
 ## Tile kind by its 1-char map code ("=" -> "street"), "" if unknown.
@@ -144,6 +168,7 @@ func validate() -> PackedStringArray:
 			out.append("employees.json: rank %s: unknown next rank %s" % [r, rank(r)["next"]])
 	if not (employees.get("roles", {}) as Dictionary).has(str(employees.get("default_role", ""))):
 		out.append("employees.json: default_role is not a role")
+	out.append_array(_validate_upgrades())
 	for id: String in maps():
 		var m: Dictionary = maps()[id]
 		var size: Array = m.get("size", [0, 0])
@@ -159,6 +184,129 @@ func validate() -> PackedStringArray:
 					out.append("maps/%s: row %d uses unknown tile code '%s'" % [id, r, ch])
 					break
 	return out
+
+
+## H5: the upgrade trees (GDD 4.8): ids and files, tree = folder, branch and level known, one upgrade per branch and
+## level, requirements that exist in the same tree (level N needs N-1 of its branch), no cycles, known effect kinds
+## with their value, cost items and stats that exist, titles of the ladder, and every building's upgrade_tree exists.
+## tools/validate_content.py checks the same and the text keys.
+func _validate_upgrades() -> PackedStringArray:
+	var out: PackedStringArray = []
+	var branches: Array = upgrade_rules.get("branches", [])
+	var levels := int(upgrade_rules.get("levels", 0))
+	var titles: Array = upgrade_rules.get("titles", [])
+	if branches.is_empty() or levels < 1:
+		out.append("upgrade_rules.json: missing branches or levels")
+	var slot := {}  # "tree|branch|level" -> id
+	for id: String in upgrades():
+		var u: Dictionary = upgrades()[id]
+		var w := "upgrades/%s/%s" % [u.get("tree", "?"), id]
+		var tree := str(u.get("tree", ""))
+		var branch := str(u.get("branch", ""))
+		var level := int(u.get("level", 0))
+		if not branch in branches:
+			out.append("%s: unknown branch %s" % [w, branch])
+		if level < 1 or level > levels:
+			out.append("%s: level %d out of 1..%d" % [w, level, levels])
+		var key := "%s|%s|%d" % [tree, branch, level]
+		if slot.has(key):
+			out.append("%s: same branch and level as %s" % [w, slot[key]])
+		slot[key] = id
+		var cost: Dictionary = u.get("cost", {})
+		if int(cost.get("gold", -1)) < 0:
+			out.append("%s: cost.gold must be >= 0" % w)
+		for c: Dictionary in cost.get("items", []):
+			if not items().has(str(c.get("item", ""))) or int(c.get("qty", 0)) < 1:
+				out.append("%s: bad cost item %s" % [w, c])
+		if float(u.get("build_days", 0.0)) <= 0.0:
+			out.append("%s: build_days must be > 0" % w)
+		var req: Dictionary = u.get("requires", {})
+		var ups: Array = req.get("upgrades", [])
+		for r: Variant in ups:
+			var rd := upgrade(str(r))
+			if rd.is_empty():
+				out.append("%s: requires unknown upgrade %s" % [w, r])
+			elif str(rd.get("tree", "")) != tree:
+				out.append("%s: requires %s of another tree" % [w, r])
+		if level > 1:
+			var prev := ""
+			for r: Variant in ups:
+				var rd := upgrade(str(r))
+				if str(rd.get("branch", "")) == branch and int(rd.get("level", 0)) == level - 1:
+					prev = str(r)
+			if prev == "":
+				out.append("%s: level %d must require level %d of its branch" % [w, level, level - 1])
+		var stat: Variant = req.get("stat", null)
+		if stat is Dictionary:
+			var sid := str((stat as Dictionary).get("id", ""))
+			if not sid in ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial",
+					"constitution", "rhetoric", "stealth"] or int((stat as Dictionary).get("min", 0)) < 1:
+				out.append("%s: bad requires.stat %s" % [w, stat])
+		elif stat != null:
+			out.append("%s: requires.stat must be {id, min} or null" % w)
+		var title: Variant = req.get("title", null)
+		if title != null and not str(title) in titles:
+			out.append("%s: unknown title %s" % [w, title])
+		for e: Dictionary in u.get("effects", []):
+			var kind := str(e.get("kind", ""))
+			var ek := effect_kind(kind)
+			if ek.is_empty():
+				out.append("%s: unknown effect kind %s" % [w, kind])
+				continue
+			var value := str(ek.get("value", ""))
+			if value != "flag" and not e.has(value):
+				out.append("%s: effect %s needs %s" % [w, kind, value])
+			elif value == "recipe" and not recipes().has(str(e[value])):
+				out.append("%s: effect %s: unknown recipe %s" % [w, kind, e[value]])
+			elif value == "rank" and rank(str(e[value])).is_empty():
+				out.append("%s: effect %s: unknown rank %s" % [w, kind, e[value]])
+	# No cycles in the requirements (the same-tree and level rules already forbid most; cross links could loop).
+	for id: String in upgrades():
+		if _upgrade_cycle(id, {}, 0):
+			out.append("upgrades/%s: requirements loop back to it" % id)
+	for b: String in buildings():
+		var t: Variant = buildings()[b].get("upgrade_tree", null)
+		if t != null and str(t) != "" and not upgrade_trees.has(str(t)):
+			out.append("buildings/%s: unknown upgrade_tree %s" % [b, t])
+	return out
+
+
+func _upgrade_cycle(id: String, seen: Dictionary, depth: int) -> bool:
+	if seen.has(id) or depth > upgrades().size():
+		return true
+	var next := seen.duplicate()
+	next[id] = true
+	for r: Variant in upgrade(id).get("requires", {}).get("upgrades", []):
+		if upgrades().has(str(r)) and _upgrade_cycle(str(r), next, depth + 1):
+			return true
+	return false
+
+
+## data/upgrades/<tree>/<id>.json: one folder per tree; the folder name is the tree and must match each file's tree.
+func _load_upgrades(dir_path: String) -> void:
+	tables["upgrades"] = {}
+	upgrade_trees = {}
+	if not DirAccess.dir_exists_absolute(dir_path):
+		return
+	var trees := DirAccess.get_directories_at(dir_path)
+	trees.sort()
+	for tree: String in trees:
+		if tree.begins_with("_"):
+			continue
+		var folder := _load_folder(dir_path.path_join(tree))
+		var ids: Array = []
+		for id: String in folder:
+			if str(folder[id].get("tree", "")) != tree:
+				errors.append("%s: tree %s does not match its folder" % [dir_path.path_join(tree).path_join(id + ".json"),
+					folder[id].get("tree")])
+				continue
+			if (tables["upgrades"] as Dictionary).has(id):
+				errors.append("%s: upgrade id %s repeated in another tree" % [dir_path.path_join(tree), id])
+				continue
+			tables["upgrades"][id] = folder[id]
+			ids.append(id)
+		ids.sort()
+		upgrade_trees[tree] = ids
 
 
 func _load_folder(dir_path: String) -> Dictionary:

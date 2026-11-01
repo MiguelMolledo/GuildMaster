@@ -1,0 +1,92 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdthl05ub8gwp"]
+
+[ext_resource type="Script" uid="uid://dclcjwcrf4upw" path="res://game/visuals/greybox/greybox_blocks.gd" id="1_greybox"]
+[ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="2_block"]
+
+[node name="Forge" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -40)
+
+[node name="Greybox" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_greybox")
+footprint = Vector2i(3, 4)
+height = 40.0
+color = Color(0.48627451, 0.498039216, 0.533333333, 1)
+
+[node name="Upgrades" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="upgrade_shop_window" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(48, 40)
+editor_description = "forge_commerce_2 (shop window)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_shop_window"]
+script = ExtResource("2_block")
+color = Color(0.752941176, 0.784313725, 0.815686275, 1)
+height = 14.0
+
+[node name="upgrade_trade_sign" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(112, 8)
+editor_description = "forge_commerce_3 (trade sign)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_trade_sign"]
+script = ExtResource("2_block")
+color = Color(0.878431373, 0.564705882, 0.22745098, 1)
+height = 14.0
+
+[node name="upgrade_stone_facade" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-80, 40)
+editor_description = "forge_facade_1 (stone facade)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_stone_facade"]
+script = ExtResource("2_block")
+color = Color(0.603921569, 0.603921569, 0.564705882, 1)
+height = 14.0
+
+[node name="upgrade_garden" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-48, 56)
+editor_description = "forge_facade_2 (garden)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_garden"]
+script = ExtResource("2_block")
+color = Color(0.309803922, 0.541176471, 0.22745098, 1)
+height = 14.0
+
+[node name="upgrade_noble_facade" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-112, 24)
+editor_description = "forge_facade_3 (noble facade)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_noble_facade"]
+script = ExtResource("2_block")
+color = Color(0.784313725, 0.658823529, 0.305882353, 1)
+height = 14.0
+
+[node name="upgrade_reinforced_lock" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(80, 24)
+editor_description = "forge_security_1 (reinforced lock)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_reinforced_lock"]
+script = ExtResource("2_block")
+color = Color(0.333333333, 0.345098039, 0.37254902, 1)
+height = 14.0
+
+[node name="upgrade_guard" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(16, 56)
+editor_description = "forge_security_2 (hired guard)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_guard"]
+script = ExtResource("2_block")
+color = Color(0.545098039, 0.180392157, 0.180392157, 1)
+height = 14.0

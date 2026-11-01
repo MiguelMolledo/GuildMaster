@@ -1,0 +1,38 @@
+{
+  "id": "forge_capacity_3",
+  "name_key": "upgrade.forge_capacity_3",
+  "tree": "forge",
+  "branch": "capacity",
+  "level": 3,
+  "cost": {
+    "gold": 25,
+    "items": [
+      {
+        "item": "iron_ingot",
+        "qty": 10
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "forge_capacity_2"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "furnace_2",
+      "like": "furnace"
+    }
+  ],
+  "visual": {
+    "interior_node": "forge_furnace_2",
+    "exterior_overlay": null
+  }
+}

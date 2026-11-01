@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi2hhc7v5miwr"]
+
+[ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="1_block"]
+
+[node name="Generic" type="Node2D"]
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_block")
+color = Color(0.478431373, 0.415686275, 0.31372549, 1)
+height = 20.0

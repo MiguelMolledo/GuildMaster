@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3 uid="uid://q3aybt2fetow"]
 
-[ext_resource type="Script" path="res://game/app.gd" id="1_app"]
-[ext_resource type="PackedScene" path="res://game/world/world_view.tscn" id="2_world"]
-[ext_resource type="PackedScene" path="res://game/ui/hud.tscn" id="3_hud"]
-[ext_resource type="PackedScene" path="res://game/interior/interior_view.tscn" id="4_interior"]
-[ext_resource type="PackedScene" path="res://game/ui/new_game_screen.tscn" id="5_new"]
-[ext_resource type="PackedScene" path="res://game/ui/ending_screen.tscn" id="6_end"]
+[ext_resource type="Script" uid="uid://daosrqg582pui" path="res://game/app.gd" id="1_app"]
+[ext_resource type="PackedScene" uid="uid://cm3qb0ptvtihg" path="res://game/world/world_view.tscn" id="2_world"]
+[ext_resource type="PackedScene" uid="uid://cg0hg8p8b605y" path="res://game/ui/hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" uid="uid://1oarwrohy4ta" path="res://game/interior/interior_view.tscn" id="4_interior"]
+[ext_resource type="PackedScene" uid="uid://cpvekyuhyacgu" path="res://game/ui/new_game_screen.tscn" id="5_new"]
+[ext_resource type="PackedScene" uid="uid://b2v0o2fsnufcd" path="res://game/ui/ending_screen.tscn" id="6_end"]
+[ext_resource type="Script" uid="uid://160tt5r2kc3x" path="res://game/audio/audio_director.gd" id="7_audio"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_app")
@@ -53,3 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
+
+[node name="AudioDirector" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_audio")

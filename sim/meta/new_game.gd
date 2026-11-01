@@ -209,7 +209,8 @@ static func _add_building(s: WorldState, catalog: Catalog, sites: Dictionary, si
 	s.buildings[id] = {"id": id, "type": str(m["type"]), "owner": owner, "origin": (m["origin"] as Array).duplicate(),
 		"footprint": (def.get("footprint", [1, 1]) as Array).duplicate(), "door": (m["door"] as Array).duplicate(),
 		"state": "normal", "inventory": inv, "zones": zones, "upkeep_debt": 0, "upkeep_unpaid_since": -1,
-		"employee_slots": int(def.get("base_employees", 0)), "queue": {"entries": [], "loop": false, "paused": false}}
+		"employee_slots": int(def.get("base_employees", 0)), "queue": {"entries": [], "loop": false, "paused": false},
+		"upgrades": [], "upgrade_work": null, "inspection": Upgrades.new_inspection()}
 	return id
 
 

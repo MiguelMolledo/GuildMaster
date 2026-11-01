@@ -6,6 +6,9 @@ extends Node2D
 ## H4: the name (with the family for people of other families) also shows while the mouse is over the figure
 ## (hovered); an employee carries a small badge over the head in the colour of the family it works for, with a gold
 ## border when it works for the player's family (set_badge, data/view.json "character.badge").
+## The figure is the scene of the character's visual id (game/visuals/characters/<id>.tscn, VisualPaths.character_id):
+## AnimatedSprite2D + SpriteFrames, with the greybox figure inside until the frames arrive. Its Top marker gives the
+## height (name label, badge, click area). This node only draws the marks: the selection ring and the badge.
 
 var char_id: String = ""
 var primary: Color = Color(0.5, 0.5, 0.5)
@@ -30,8 +33,10 @@ var badge_own: bool = false            # works for the player's family
 var badge_border: Color = Color(1.0, 0.85, 0.3)
 var fig_height: float = 48.0
 var fig_width: float = 14.0
-var skin: Color = Color(0.88, 0.70, 0.55)
 var outline: Color = Color(0.12, 0.09, 0.07)
+var visual_id: String = ""
+var _visual: Node2D = null
+var _badge_mark: Node2D = null
 var _name_label: Label
 
 
@@ -43,11 +48,24 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	primary = ViewConfig.color(str(colors.get("primary", "#808080")))
 	secondary = ViewConfig.color(str(colors.get("secondary", "#c0c0c0")))
 	var cfg: Dictionary = ViewConfig.value("character", {})
-	fig_height = float(cfg.get("height", 48))
 	fig_width = float(cfg.get("width", 14))
-	skin = ViewConfig.color(str(cfg.get("skin", "#e0b48c")))
 	outline = ViewConfig.color(str(cfg.get("outline", "#1e1812")))
 	name = char_id
+	visual_id = VisualPaths.character_id(ch, family)
+	_visual = VisualPaths.instantiate("characters", visual_id)
+	_visual.name = "Visual"
+	var greybox := _visual.get_node_or_null("Greybox") as GreyboxFigure
+	if greybox != null:
+		greybox.female = female
+		greybox.primary = primary
+		greybox.secondary = secondary
+	VisualPaths.place(_visual, Vector2.ZERO)
+	fig_height = VisualPaths.top_height(_visual, 48.0)
+	add_child(_visual)
+	_badge_mark = Node2D.new()
+	_badge_mark.name = "Badge"
+	_badge_mark.draw.connect(_draw_badge)
+	add_child(_badge_mark)
 	badge_border = ViewConfig.color(str(cfg.get("badge_own_border", "#ffd84c")))
 	_name_label = Label.new()
 	_name_label.text = str(ch.get("name", char_id))
@@ -62,8 +80,19 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	_name_label.position = Vector2(-60, -fig_height - 20)
 	_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_name_label.visible = selected
+	_name_label.name = "NameLabel"
 	add_child(_name_label)
 	queue_redraw()
+
+
+## The name over the head (shown when selected or hovered).
+func name_label() -> Label:
+	return _name_label
+
+
+## The character's scene (game/visuals/characters), or null before setup.
+func visual() -> Node2D:
+	return _visual
 
 
 ## The job badge: `c` = colour of the employer family (alpha 0 = none), `own` = it works for the player's family.
@@ -72,7 +101,8 @@ func set_badge(c: Color, own: bool) -> void:
 		return
 	badge = c
 	badge_own = own
-	queue_redraw()
+	if _badge_mark != null:
+		_badge_mark.queue_redraw()
 
 
 ## The badge from the state: the family whose building this character works at (none without a job).
@@ -107,36 +137,20 @@ func pick_rect() -> Rect2:
 	return Rect2(position + Vector2(-fig_width / 2.0 - 3.0, -fig_height - 2.0), Vector2(fig_width + 6.0, fig_height + 6.0))
 
 
+## The selection ring (under the figure, which is the child scene).
 func _draw() -> void:
-	var w := fig_width
-	var h := fig_height
 	if selected:
 		var ring := PackedVector2Array([Vector2(0, -9), Vector2(18, 0), Vector2(0, 9), Vector2(-18, 0), Vector2(0, -9)])
 		draw_polyline(ring, Color(1.0, 0.85, 0.3), 2.0)
-	draw_colored_polygon(PackedVector2Array([Vector2(-9, 0), Vector2(0, -4), Vector2(9, 0), Vector2(0, 4)]),
-		Color(0, 0, 0, 0.3))
-	var head_r := 6.0
-	var body_top := -h + head_r * 2.0
-	# legs
-	draw_rect(Rect2(-w / 2.0 + 2, -12, w / 2.0 - 3, 12), outline)
-	draw_rect(Rect2(1, -12, w / 2.0 - 3, 12), outline)
-	# body: a dress (wider at the hem) or a tunic
-	var body: PackedVector2Array
-	if female:
-		body = PackedVector2Array([Vector2(-w / 2.0 + 1, body_top), Vector2(w / 2.0 - 1, body_top),
-			Vector2(w / 2.0 + 3, -4), Vector2(-w / 2.0 - 3, -4)])
-	else:
-		body = PackedVector2Array([Vector2(-w / 2.0, body_top), Vector2(w / 2.0, body_top), Vector2(w / 2.0, -11),
-			Vector2(-w / 2.0, -11)])
-	draw_colored_polygon(body, primary)
-	draw_polyline(body + PackedVector2Array([body[0]]), outline, 1.0)
-	draw_rect(Rect2(-w / 2.0, body_top + 12, w, 3), secondary)
-	# head
-	draw_circle(Vector2(0, -h + head_r), head_r + 1.0, outline)
-	draw_circle(Vector2(0, -h + head_r), head_r, skin)
-	if badge.a > 0.0:
-		# a small diamond over the head: the employer's colour, gold border if it works for the player
-		var c := Vector2(0, -h - 6)
-		var d := PackedVector2Array([c + Vector2(0, -5), c + Vector2(5, 0), c + Vector2(0, 5), c + Vector2(-5, 0)])
-		draw_colored_polygon(d, badge)
-		draw_polyline(d + PackedVector2Array([d[0]]), badge_border if badge_own else outline, 2.0 if badge_own else 1.0)
+
+
+## The job badge over the head (its own node, over the figure): the employer's colour, gold border if it works for
+## the player.
+func _draw_badge() -> void:
+	if badge.a <= 0.0:
+		return
+	var c := Vector2(0, -fig_height - 6)
+	var d := PackedVector2Array([c + Vector2(0, -5), c + Vector2(5, 0), c + Vector2(0, 5), c + Vector2(-5, 0)])
+	_badge_mark.draw_colored_polygon(d, badge)
+	_badge_mark.draw_polyline(d + PackedVector2Array([d[0]]), badge_border if badge_own else outline,
+		2.0 if badge_own else 1.0)

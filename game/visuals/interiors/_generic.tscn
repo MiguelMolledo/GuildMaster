@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://tnpaff1gt2yr"]
+
+[ext_resource type="Script" uid="uid://bym181u8o7u35" path="res://game/visuals/greybox/greybox_kit.gd" id="1_kit"]
+
+[node name="GenericInterior" type="Node2D"]
+
+[node name="Kit" type="Node2D" parent="."]
+script = ExtResource("1_kit")
+size = Vector2i(6, 6)
+door = Vector2i(0, 0)
+floor_color = Color(0.541176471, 0.462745098, 0.376470588, 1)
+wall_color = Color(0.352941176, 0.290196078, 0.235294118, 1)
+door_color = Color(0.784313725, 0.62745098, 0.31372549, 1)
+wall_height = 36.0
+
+[node name="Stations" type="Node2D" parent="."]
+
+[node name="Upgrades" type="Node2D" parent="."]

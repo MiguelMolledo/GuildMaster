@@ -357,7 +357,7 @@ func test_hover_shows_the_name_and_family() -> void:
 	v.camera().center_on(cv.position)
 	v.update_hover(v.camera().world_to_screen(cv.position + Vector2(0, -20)))
 	eq(v.hovered_character, "chr_0009", "the mouse is over Pau")
-	var lbl := cv.get_child(0) as Label
+	var lbl := cv.name_label()
 	check(lbl.visible and lbl.text == "Pau · Puig", "name and family on hover (%s)" % lbl.text)
 	v.update_hover(Vector2(-500, -500))
 	check(not lbl.visible, "hidden when the mouse leaves")
@@ -399,7 +399,7 @@ func test_employees_at_their_stations_inside() -> void:
 		var cv := v.view_of(id)
 		check(cv != null, "%s is drawn inside" % id)
 		check(cv.badge_own, "%s shows the badge" % id)
-		check((cv.get_child(0) as Label).visible, "%s shows the name inside" % id)
+		check(cv.name_label().visible, "%s shows the name inside" % id)
 	eq(str(sim.state.characters[JOAN]["station"]), "anvil", "Joan (anvil) at the anvil")
 	eq(str(sim.state.characters[AGNES]["station"]), "furnace", "Agnès (furnace) at the furnace")
 	var busy := 0

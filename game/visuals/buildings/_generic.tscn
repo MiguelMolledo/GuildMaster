@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bghilryy6c3u8"]
+
+[ext_resource type="Script" uid="uid://dclcjwcrf4upw" path="res://game/visuals/greybox/greybox_blocks.gd" id="1_greybox"]
+
+[node name="Generic" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -40)
+
+[node name="Greybox" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_greybox")
+footprint = Vector2i(1, 1)
+height = 40.0
+color = Color(1, 0, 1, 1)
