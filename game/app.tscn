@@ -1,56 +1,27 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://game/app.gd" id="1_app"]
+[ext_resource type="PackedScene" path="res://game/world/world_view.tscn" id="2_world"]
+[ext_resource type="PackedScene" path="res://game/ui/hud.tscn" id="3_hud"]
 
-[node name="App" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="App" type="Node"]
 script = ExtResource("1_app")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Background" type="ColorRect" parent="BackgroundLayer"]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.168627, 0.133333, 0.105882, 1)
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="WorldView" parent="." instance=ExtResource("2_world")]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -20.0
-offset_right = 200.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 24
-text = "GuildMaster"
-horizontal_alignment = 1
 
-[node name="ClockLabel" type="Label" parent="."]
+[node name="Hud" parent="." instance=ExtResource("3_hud")]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -420.0
-offset_top = 8.0
-offset_right = -8.0
-offset_bottom = 30.0
-grow_horizontal = 0
-theme_override_colors/font_color = Color(0.92549, 0.894118, 0.823529, 1)
-theme_override_font_sizes/font_size = 12
-text = "--"
-horizontal_alignment = 2

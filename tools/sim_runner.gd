@@ -2,13 +2,15 @@ extends SceneTree
 ## Bots playing whole days without a window (GDD 07 §7.2), checked against data/targets.json.
 ##   godot --headless --path . -s tools/sim_runner.gd -- [--scenario=<id>] [--bots=idle,...] [--days=<n>] [--seeds=<n>]
 ## Writes reports/sim/<scenario>_<bot>.json with the measures of every seed and exits with 1 if a target is missed.
-## Measures today: days, refused_orders, state_hash. Each milestone adds its own (gold_day10, days_to_citizen...).
+## Measures today: days, refused_orders, refused_unreachable, refused_other (refused for any reason but unreachable),
+## moves (tiles walked), arrivals, state_hash. Each milestone adds its own (gold_day10, days_to_citizen...).
+## The default scenario is town_e_start (the H1 town).
 
-var BOTS: Dictionary = {"idle": BotIdle}
+var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer}
 
 
 func _init() -> void:
-	var scenario := "empty_town"
+	var scenario := "town_e_start"
 	var bots: PackedStringArray = ["idle"]
 	var days := 3
 	var seeds := 5
@@ -39,12 +41,20 @@ func _init() -> void:
 				return
 			var sim := Sim.new(r["state"], cat)
 			var bot: Object = BOTS[bot_id].new()
-			var refused := 0
-			for m: int in days * Clock.MINUTES_PER_DAY:
+			var m := {"refused_orders": 0, "refused_unreachable": 0, "refused_other": 0, "moves": 0, "arrivals": 0}
+			for i: int in days * Clock.MINUTES_PER_DAY:
 				for e: Dictionary in sim.step(bot.orders(sim)):
-					if e["type"] == "order_refused":
-						refused += 1
-			runs.append({"seed": s, "days": days, "refused_orders": refused, "state_hash": sim.state_hash()})
+					match str(e["type"]):
+						"order_refused":
+							m["refused_orders"] += 1
+							m["refused_unreachable" if str(e["reason"]) == "unreachable" else "refused_other"] += 1
+							print("  [%s seed %d] refused %s %s: %s" % [bot_id, s, e["order"], e["actor"], e["reason"]])
+						"character_moved":
+							m["moves"] += 1
+						"character_arrived":
+							m["arrivals"] += 1
+			m.merge({"seed": s, "days": days, "state_hash": sim.state_hash()})
+			runs.append(m)
 		var fails := _check(targets.get(bot_id, {}), runs)
 		missed += fails.size()
 		for f: String in fails:

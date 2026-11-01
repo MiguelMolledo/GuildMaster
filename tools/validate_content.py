@@ -6,7 +6,10 @@ Comprueba lo que carga el juego en data/ (los ficheros y carpetas que empiezan p
   - objetos: categoría, peso, pila máxima por categoría, precio > 0, puesto de mercado, ranura;
   - recetas: edificio y puesto que existen, objetos de entrada y salida que existen, duración en horas > 0;
   - edificios: huella, tipo de parcela, puestos (ids únicos, tipo válido);
-  - data/time.json (fases en orden), data/targets.json ([mín, máx]) y cada escenario (data/scenarios/: un guardado);
+  - data/time.json (fases en orden, minutes_per_tile >= 1), data/targets.json ([mín, máx]) y cada escenario
+    (data/scenarios/: un guardado; cada personaje con posición en una casilla transitable de su mapa);
+  - mapas (data/maps/): filas y tamaño, códigos que existen en data/tiles.json, spawns en casillas transitables y
+    todas las casillas de calle, plaza y puente conectadas entre sí;
   - claves de texto (name_key) en i18n/strings.csv con inglés y español;
   - arte: un icono, sprite o escena que se pide y no existe sale como aviso (con --art-required, error).
 
@@ -33,6 +36,71 @@ PARCEL_TYPES = {"production", "rustic", "housing", "government"}
 ZONE_KINDS = {"craft", "sales", "storage", "service"}
 NIGHT = {"none", "manual_only", "always"}
 PHASES = ["dawn", "day", "dusk", "night"]
+ROAD_KINDS = {"street", "plaza", "bridge"}  # la red de calles: debe ser una sola pieza
+
+
+def check_maps(rep):
+    """Valida data/maps/*.json contra data/tiles.json. Devuelve {map_id: (ancho, alto, filas, transitable)}."""
+    tiles = (load_json(os.path.join(DATA, "tiles.json"), rep) or {}).get("tiles", {})
+    by_char = {}
+    for kind, t in tiles.items():
+        ch = t.get("char")
+        if not (isinstance(ch, str) and len(ch) == 1):
+            rep.error(f"tiles.json/{kind}", "char debe ser un solo carácter")
+            continue
+        if ch in by_char:
+            rep.error(f"tiles.json/{kind}", f"el código '{ch}' ya lo usa {by_char[ch]}")
+        wc = t.get("walk_cost")
+        if wc is not None and (not isinstance(wc, int) or wc < 1):
+            rep.error(f"tiles.json/{kind}", "walk_cost debe ser un entero >= 1 o null (bloqueada)")
+        by_char[ch] = kind
+    out = {}
+    for id_, m in load_kind("maps", rep).items():
+        w_ = f"maps/{id_}"
+        size, rows = m.get("size"), m.get("rows")
+        if not (isinstance(size, list) and len(size) == 2 and all(isinstance(x, int) and x > 0 for x in size)):
+            rep.error(w_, "size debe ser [ancho, alto]")
+            continue
+        if not isinstance(rows, list) or len(rows) != size[1]:
+            rep.error(w_, f"{len(rows) if isinstance(rows, list) else 0} filas, size dice {size[1]}")
+            continue
+        bad = False
+        for r, row in enumerate(rows):
+            if not isinstance(row, str) or len(row) != size[0]:
+                rep.error(w_, f"la fila {r} no tiene {size[0]} casillas")
+                bad = True
+                continue
+            for c, ch in enumerate(row):
+                if ch not in by_char:
+                    rep.error(w_, f"código de casilla desconocido '{ch}' en [{c}, {r}]")
+                    bad = True
+                    break
+        if bad:
+            continue
+
+        def walk(c, r):
+            return 0 <= c < size[0] and 0 <= r < size[1] and tiles[by_char[rows[r][c]]].get("walk_cost") is not None
+
+        for name, pos in (m.get("spawns") or {}).items():
+            if not (isinstance(pos, list) and len(pos) == 2 and all(isinstance(x, int) for x in pos)):
+                rep.error(w_, f"spawn {name}: debe ser [col, fila]")
+            elif not walk(*pos):
+                rep.error(w_, f"spawn {name} {pos} no está en una casilla transitable")
+        roads = {(c, r) for r in range(size[1]) for c in range(size[0]) if by_char[rows[r][c]] in ROAD_KINDS}
+        if roads:
+            first = min(roads, key=lambda t: (t[1], t[0]))
+            seen, todo = {first}, [first]
+            while todo:
+                c, r = todo.pop()
+                for n in ((c + 1, r), (c - 1, r), (c, r + 1), (c, r - 1)):
+                    if n in roads and n not in seen:
+                        seen.add(n)
+                        todo.append(n)
+            if len(seen) != len(roads):
+                lost = sorted(roads - seen, key=lambda t: (t[1], t[0]))
+                rep.error(w_, f"{len(lost)} casillas de calle/plaza/puente sueltas de la red (la primera, {list(lost[0])})")
+        out[id_] = walk
+    return out
 
 
 class Report:
@@ -187,7 +255,12 @@ def main():
         if r.get("requires_upgrade") and not os.path.isdir(os.path.join(DATA, "upgrades")):
             rep.notes.append(f"{w}: requires_upgrade {r['requires_upgrade']} (las mejoras llegan en H5)")
 
+    maps = check_maps(rep)
+
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
+    mpt = time.get("minutes_per_tile")
+    if not isinstance(mpt, int) or mpt < 1:
+        rep.error("time.json", "minutes_per_tile debe ser un entero >= 1 (minutos de juego por casilla)")
     for k in ["seasons", "days_per_season", "real_seconds_per_day", "phase_starts", "start_minute"]:
         if k not in time:
             rep.error("time.json", f"falta {k}")
@@ -215,6 +288,26 @@ def main():
         d = load_json(os.path.join(sc_dir, name), rep)
         if isinstance(d, dict) and (not isinstance(d.get("version"), int) or "minute" not in d.get("clock", {})):
             rep.error(f"scenarios/{name}", "no es un guardado (falta version o clock.minute)")
+        if not isinstance(d, dict):
+            continue
+        map_id = d.get("map_id", "")
+        if map_id and map_id not in maps:
+            rep.error(f"scenarios/{name}", f"mapa desconocido {map_id}")
+            continue
+        for cid, ch in (d.get("characters") or {}).items():
+            pos = ch.get("position")
+            if pos is None:
+                continue
+            if not map_id:
+                rep.error(f"scenarios/{name}", f"{cid} tiene posición pero el escenario no tiene mapa")
+            elif not (isinstance(pos, list) and len(pos) == 2 and all(isinstance(x, int) for x in pos)):
+                rep.error(f"scenarios/{name}", f"{cid}: position debe ser [col, fila]")
+            elif not maps[map_id](*pos):
+                rep.error(f"scenarios/{name}", f"{cid} está en {pos}, que no es una casilla transitable de {map_id}")
+            for t in (ch.get("path") or []) if map_id else []:
+                if not (isinstance(t, list) and len(t) == 2 and maps[map_id](*t)):
+                    rep.error(f"scenarios/{name}", f"{cid}: la ruta pasa por {t}, que no es transitable")
+                    break
 
     if not args.quiet:
         for n in rep.notes:
@@ -223,7 +316,7 @@ def main():
         print("  !", w)
     for e in rep.errors:
         print("  ✖", e)
-    counts = ", ".join(f"{len(t[k])} {k}" for k in KINDS)
+    counts = ", ".join([f"{len(t[k])} {k}" for k in KINDS] + [f"{len(maps)} maps"])
     print(f"validate_content: {counts} · {len(rep.errors)} errores, {len(rep.warnings)} avisos")
     return 1 if rep.errors or (args.strict and rep.warnings) else 0
 

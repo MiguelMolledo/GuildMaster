@@ -9,5 +9,19 @@
       0,
       0
     ]
+  },
+  "wanderer": {
+    "days": [
+      3,
+      null
+    ],
+    "refused_other": [
+      0,
+      0
+    ],
+    "arrivals": [
+      1,
+      null
+    ]
   }
 }

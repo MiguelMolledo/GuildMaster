@@ -42,26 +42,26 @@
     {
       "id": "H1",
       "nombre": "Mundo y movimiento",
-      "estado": "pendiente",
+      "estado": "hecho",
       "entregable": "Mapa pequeño (estilo E, D10 provisional; ~40×40) con calles y hierba, viewport 960×540 ×2 (D2), cámara WASD/zoom/pan, selección y movimiento de todos los personajes por casillas desde el sim (D3), día/noche visual, reloj del HUD, pausa y velocidades ×1/×2/×4 (D4).",
       "criterios": [
         {
           "texto": "Captura de día y de noche a escala ×2 sin píxeles deformes",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "docs/novedades/h1_dia.png y h1_noche.png (render 960×540 ampliado ×2 sin suavizado; zoom de cámara solo 1 o 2)",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "El personaje prefiere calles",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_world_pathfinder.gd: de (7,12) a (31,12) la ruta va solo por calle y plaza",
+          "fecha": "2026-11-01"
         },
         {
           "texto": "El clic del jugador se traduce en `MoveTo` (prueba de entrada real). 3 días pasan sin errores con el bot `idle`",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_game_view.gd: InputEventMouseButton real → move_to aceptado por el sim; tools/sim_runner.gd idle+wanderer × 5 semillas × 3 días en town_e_start, 0 fallos",
+          "fecha": "2026-11-01"
         }
       ]
     },

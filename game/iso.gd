@@ -15,3 +15,8 @@ static func world_to_tile(p: Vector2) -> Vector2i:
 	var col := p.x / TILE_W + p.y / TILE_H
 	var row := p.y / TILE_H - p.x / TILE_W
 	return Vector2i(roundi(col), roundi(row))
+
+
+## The same projection for a point between tiles (a walker half-way): (col, row) as floats.
+static func tilef_to_world(tile: Vector2) -> Vector2:
+	return Vector2((tile.x - tile.y) * TILE_W / 2.0, (tile.x + tile.y) * TILE_H / 2.0)

@@ -1,6 +1,14 @@
 keys,en,es
 app.title,GuildMaster,GuildMaster
 hud.clock,"Day %d · %s, year %d · %02d:%02d · %s","Día %d · %s, año %d · %02d:%02d · %s"
+hud.time,%02d:%02d,%02d:%02d
+hud.date,Day %d · %s · year %d,Día %d · %s · año %d
+hud.pause,Pause,Pausa
+hud.pause_tip,Pause / resume (Space),Pausa / seguir (Espacio)
+hud.paused,PAUSED,EN PAUSA
+hud.speed,×%d,×%d
+hud.speed_tip,Speed ×%d (key %d),Velocidad ×%d (tecla %d)
+hud.help,"Left click: select · Right click: go there · WASD/arrows, wheel, middle button: camera · Space: pause · 1/2/3: speed","Clic izquierdo: elegir · Clic derecho: ir allí · WASD/flechas, rueda, botón central: cámara · Espacio: pausa · 1/2/3: velocidad"
 season.spring,Spring,Primavera
 season.summer,Summer,Verano
 season.autumn,Autumn,Otoño
@@ -17,6 +25,11 @@ reason.not_yours,It is not yours,No es tuyo
 reason.bad_quantity,Wrong quantity,Cantidad no válida
 reason.not_enough,Not enough,No hay suficiente
 reason.no_room,No room,No cabe
+reason.no_map,There is no map here,Aquí no hay mapa
+reason.out_of_bounds,Outside the town,Fuera del pueblo
+reason.blocked,You cannot walk there,Por ahí no se puede pasar
+reason.unreachable,There is no way there,No hay camino hasta allí
+reason.dead,This person is dead,Esta persona ha muerto
 quality.0,normal,normal
 quality.1,good,buena
 quality.2,excellent,excelente

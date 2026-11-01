@@ -5,7 +5,7 @@ extends RefCounted
 ## apply() validates first and returns {"ok": bool, "reason": String}. A refused order changes nothing; its reason is
 ## an id the UI shows through i18n ("reason.<id>").
 ##
-## Orders today: wait, transfer. Each milestone adds its own (GDD 05 §5.5 has the full list).
+## Orders today: wait, transfer, move_to. Each milestone adds its own (GDD 05 §5.5 has the full list).
 
 
 static func apply(sim: Sim, order: Dictionary) -> Dictionary:
@@ -15,6 +15,8 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return ok()
 		"transfer":
 			return _transfer(sim, order)
+		"move_to":
+			return _move_to(sim, order)
 	return fail("unknown_order")
 
 
@@ -57,6 +59,12 @@ static func _transfer(sim: Sim, o: Dictionary) -> Dictionary:
 	sim.events.append({"type": "items_moved", "actor": actor, "from": from, "to": to, "item": item,
 		"quality": quality, "qty": qty})
 	return ok()
+
+
+## {"type": "move_to", "actor", "tile": [col, row]}: walk there by the cheapest route (GDD 05 §5.4, D3).
+## Reasons: unknown_actor, dead, no_map, out_of_bounds, blocked, unreachable. The rules live in Movement.
+static func _move_to(sim: Sim, o: Dictionary) -> Dictionary:
+	return Movement.move_to(sim, str(o.get("actor", "")), o.get("tile"))
 
 
 static func _controls(st: WorldState, actor: String, entity: String) -> bool:

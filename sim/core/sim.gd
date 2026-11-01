@@ -28,6 +28,7 @@ func step(orders: Array = []) -> Array:
 				"reason": r["reason"]})
 	Clock.tick(state, catalog.time, events)
 	# Systems, in a fixed order (GDD 05 §5.4). Each milestone adds its own here: routines, production, customers...
+	Movement.step(self)
 	return events
 
 

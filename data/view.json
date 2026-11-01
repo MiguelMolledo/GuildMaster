@@ -1,0 +1,18 @@
+{
+  "_doc": "Presentation figures of the world view (game/ only, no rule reads them). GDD 4.15 gives the day/night colours; the rest is provisional greybox (H1) until the art arrives. zoom_levels: only values that keep pixels whole (D2). tint_strength: how far the phase colour pulls from white (1 = the raw colour, too dark for #1A1A40 at night). transition_minutes: game minutes a phase takes to blend in from the previous one.",
+  "zoom_levels": [1, 2],
+  "camera_speed": 480,
+  "blocks": {
+    "building": {"shape": "block", "height": 40},
+    "tree": {"shape": "tree", "height": 30}
+  },
+  "character": {"height": 48, "width": 14, "skin": "#e0b48c", "outline": "#1e1812"},
+  "day_night": {
+    "colors": {"dawn": "#FFD4A0", "day": "#FFFFFF", "dusk": "#FF9060", "night": "#1A1A40"},
+    "tint_strength": 0.7,
+    "transition_minutes": 60
+  },
+  "background": "#2b221b",
+  "toast_seconds": 2.5,
+  "target_marker_seconds": 1.0
+}

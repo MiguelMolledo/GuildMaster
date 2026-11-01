@@ -22,7 +22,7 @@ STEPS = [
     ("art", [sys.executable, "tools/arte.py"]),
     ("boot", ["zsh", "tools/qa/boot_check.sh"]),
     ("bench", G + ["-s", "tools/sim_bench.gd"]),
-    ("sim", G + ["-s", "tools/sim_runner.gd", "--", "--bots=idle", "--days=3", "--seeds=5"]),
+    ("sim", G + ["-s", "tools/sim_runner.gd", "--", "--bots=idle,wanderer", "--days=3", "--seeds=5"]),
 ]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]

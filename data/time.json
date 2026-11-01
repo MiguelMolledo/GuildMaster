@@ -10,6 +10,8 @@
   "real_seconds_per_day": 300,
   "age_years_per_calendar_year": 1,
   "start_minute": 300,
+  "_minutes_per_tile_doc": "Minutos de juego para pasar de una casilla a la vecina (recta o diagonal), GDD 05 §5.4, D3. Provisional [balance]: a ×1 son ~0,42 s reales por casilla.",
+  "minutes_per_tile": 2,
   "phase_starts": {
     "spring": {
       "dawn": 300,

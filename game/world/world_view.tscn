@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://game/world/world_view.gd" id="1_view"]
+[ext_resource type="Script" path="res://game/world/ground_layer.gd" id="2_ground"]
+[ext_resource type="Script" path="res://game/world/target_marker.gd" id="3_marker"]
+[ext_resource type="Script" path="res://game/world/world_camera.gd" id="4_camera"]
+
+[node name="WorldView" type="Node2D"]
+script = ExtResource("1_view")
+
+[node name="Tint" type="CanvasModulate" parent="."]
+unique_name_in_owner = true
+
+[node name="Ground" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_ground")
+
+[node name="Marker" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+script = ExtResource("3_marker")
+
+[node name="Objects" type="Node2D" parent="."]
+unique_name_in_owner = true
+y_sort_enabled = true
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_camera")
