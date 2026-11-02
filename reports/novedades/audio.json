@@ -1,0 +1,9 @@
+[
+  {
+    "fecha": "2026-11-02",
+    "titulo": "Audio básico con ElevenLabs (en su rama audio-base, pendiente de juntar)",
+    "que": "El juego suena: música en bucle de día (laúd, flauta de pico y fídula, 100 bpm, 32 compases) y de noche (laúd lento sobre bordón de zanfona); ambiente de la plaza de día, de la noche (grillos y viento) y del interior de la forja (fuego de fragua), que cambia con la fase del día y al entrar en la forja; efectos del martillo, fuelle, monedas y puerta con 2-3 variantes; y efectos nuevos para eventos que no sonaban: contratar, mejora terminada, encargo entregado, aviso (campanilla), aviso urgente (campana), deudas (cadena y sello), objetivo cumplido (fanfarria corta) y objetivo fallado (laúd descendente). Los avisos suenan por su clave y si no por su severidad, así un aviso nunca suena dos veces. Hay además 5 frases de voz en castellano (vendedor del mercado, pregonero del tablón) y el clic de la UI, generados pero sin enganchar (encargo aparte). Gastados 4.010 de los 20.000 créditos del tope (saldo: 73.276 usados de 121.034). Herramientas nuevas: tools/audio/eleven.py (API directa, con tope y registro de coste) y tools/audio/master.py (recorte, normalización y bucles sin clic).",
+    "como_probar": "Con altavoces: /opt/homebrew/bin/godot --path ~/Code/GuildMaster-audio (sin --audio-driver Dummy). Suena la música y la plaza; entra en la forja (cambia el ambiente) y trabaja en el yunque (martillo); vende en la Armería (monedas). --at=22:00 para la música y el ambiente de noche. Volúmenes en data/audio.json y en el panel Audio de Godot (buses Music, Sfx, Ambient, Voice, Ui). Plan, comprobaciones y lo descartado en docs/audio/plan.md; gasto en assets/audio/MANIFEST.md.",
+    "capturas": []
+  }
+]

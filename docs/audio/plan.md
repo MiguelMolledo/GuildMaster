@@ -90,3 +90,10 @@ Reserva para segundas tomas: ~30 % del estimado. Total previsto: ~8.000–14.000
 
 Comprobado con análisis (envolvente, pico, RMS, tono por autocorrelación, salto en la costura), **no escuchado por
 un humano**: el owner debe oírlo antes de darlo por `final`.
+
+**Verificación (2026-11-02):** `python3 tools/qa/run_all.py` en verde (349 pruebas). Arranque con ventana y driver real
+(CoreAudio), `--dev-time --smoke-script=rebanada` por `grimoire heavy`: sale con 0, sin ningún `ERROR`; suenan
+`music_city_day` ↔ `music_night`, los tres ambientes (la forja al entrar), martillo, puerta, fuelle, monedas, contratar,
+mejora, encargo entregado, aviso y objetivo cumplido. Con el driver Dummy (headless) el AudioDirector no arranca
+reproducciones: Godot 4.7 deja una reproducción colgada si se para mientras el juego se cierra
+(«resources still in use at exit»), y con Dummy no se oye nada de todos modos.
