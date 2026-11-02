@@ -209,3 +209,20 @@ los edificios, `icon_steel`, `icon_saw`, VFX (chispas, humo) y el 9-patch ya mon
   - Todas las casas son la misma (`house_modest_1`): hay variantes en reserva cuando haya escena por variante.
   - El andamio de obras (`Works`) y las mejoras exteriores siguen en greybox, colocados para el bloque de 40 px.
 - Capturas: `docs/novedades/arte_guild_*_antes.png` / `_despues.png`.
+
+## Segunda tanda (manzanas, tablón, decoración, recoloreo)
+
+Todo lo derivado sale de `tools/art/derivar_guild.py` (Pillow, sobre copias; el repo `guild` no se toca).
+
+| Qué | De dónde | Cómo |
+|---|---|---|
+| Casas de las manzanas (`props/lot_house_a..d`) | `house_modest_2`, `house_modest_3`, `house_merchant_1`, `house_humble_4_south` | Escala 1, una por solar de 3×4/4×3/3×3; la mitad en espejo |
+| Patios (`props/yard_*`) | barriles, cajas, sacos, carro, surcos (`test_tiles_pro_diamond/tile_15`) | Temas por manzana (huerto / patio), cada patio con props una vez por manzana |
+| Suelo de patio (`tiles/building.png`) | `test_tiles_pro_diamond/tile_12` | Tal cual |
+| Props a escala (`barrel`, `crate`, `grain_sack`, `cart`, `bench`, `well`) | los de 64-96 px | Reducción 2:1 de pixel art (conserva el contorno, sin colores nuevos) |
+| Tablón (`props/board.png`) | marco de `overlays/shop_sign` + poste de `props/sign_post` | Compuesto, con cuatro notas clavadas dibujadas a mano |
+| Adoquín (`street`, `plaza`) | `tile_cobblestone_diamond` | Tono a gris piedra cálido (h≈32-38°, menos saturación); la plaza, más clara |
+| Tierra (`dirt`) | `diamonds/tile_dirt_block` | De rosada a marrón; las grietas oscuras del borde se igualan al tono base (sin rejilla) |
+| Iconos pequeños (`icons/small/<id>.png`) | los iconos de 32 | Reducción 2:1; en las filas del almacén y del inventario |
+
+Pendiente: árboles, puente y agua siguen en greybox; las variantes de hierba (`tile_1..11`) podrían salpicar el suelo.

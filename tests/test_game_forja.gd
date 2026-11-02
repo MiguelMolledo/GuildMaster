@@ -332,7 +332,8 @@ func test_storage_shows_quality_as_suffix() -> void:
 	var v := _interior(sim)
 	v.show_storage(true)
 	var row := v.storage_panel().row_of("sword", 1, true)
-	check(row != null and (row.get_child(0) as Label).text.begins_with("Espada buena"), "the row reads Espada buena")
+	check(row != null and (row.get_node("Name") as Label).text.begins_with("Espada buena"), "the row reads Espada buena")
+	check(row.get_node_or_null("Icon") is TextureRect, "the row starts with the sword's icon")
 	TranslationServer.set_locale(before)
 	v.free()
 

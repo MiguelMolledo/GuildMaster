@@ -17,6 +17,10 @@ extends Node2D
 ## icon over it (WorkQueue.idle_employees, refreshed each game minute; needs the Sim: setup(..., sim)).
 ## Visuals: every building, map prop (tree, block, stall, board) and walker is the scene of its id in game/visuals/
 ## (VisualPaths), placed by its Feet marker; its Top marker gives the height of its sign and of its click area.
+## The free building tiles (#) are dressed as houses and yards (data/view.json "filler", _add_filler) and the map's
+## hand-placed decoration comes from game/visuals/towns/<map id>.tscn (_add_town_decor).
+
+const FILLER_KIND: String = "building"  # map tiles that are town blocks unless a building of the state owns them
 
 signal selection_changed(char_id: String)
 signal building_picked(building_id: String)   # "" = none
@@ -123,6 +127,8 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 		if str(svc["kind"]) == "stall":
 			stall_at[svc["tile"]] = str(svc["id"])
 	var n_blocks := 0
+	var filler := {}  # free building tiles (#) dressed as houses and yards (data/view.json "filler")
+	var dress := not (ViewConfig.value("filler", {}) as Dictionary).is_empty()
 	for r: int in rows.size():
 		var row := str(rows[r])
 		for col: int in row.length():
@@ -130,6 +136,9 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 			if owned.has(t):
 				continue
 			var kind := c.tile_kind_of_char(row[col])
+			if dress and kind == FILLER_KIND and not stall_at.has(t):
+				filler[t] = true
+				continue
 			var id := "stall_" + str(stall_at[t]) if stall_at.has(t) else kind
 			# a tile kind stands up if it has a scene in game/visuals/props/; stalls and the board always do
 			if not VisualPaths.has_scene("props", id) and kind != "stall" and kind != "board":
@@ -139,6 +148,8 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 			objects().add_child(p)
 			_props[t] = p
 			n_blocks += 1
+	n_blocks += _add_filler(filler)
+	_add_town_decor(s.map_id)
 	_add_services()
 	var ids: Array = s.characters.keys()
 	ids.sort()
@@ -339,6 +350,137 @@ func building_visual(building_id: String) -> Node2D:
 ## The prop standing on `tile` (game/visuals/props), or null.
 func prop_at(tile: Vector2i) -> Node2D:
 	return _props.get(tile, null)
+
+
+## The free building tiles of the map (# not owned by a building of the state) dressed as the town's blocks
+## (data/view.json "filler"): each connected group is filled with house lots (the first lot size of `lot_sizes` that
+## fits, scanning row by row) and the tiles left over become yards (low props, so they never hide the base of the
+## building behind): each group takes one of `yard_themes` (a vegetable plot, a work yard...) and each tile one yard
+## of its theme, each one at most once per group (the theme's first yard fills the rest). A lone tile gets `single`. Which house or yard goes where depends only on the tiles, so the town
+## looks the same in every game; `mirror` flips half of the houses. Returns how many visuals were placed.
+func _add_filler(tiles: Dictionary) -> int:
+	if tiles.is_empty():
+		return 0
+	var cfg: Dictionary = ViewConfig.value("filler", {})
+	var houses: Array = cfg.get("houses", [])
+	var themes: Array = cfg.get("yard_themes", [])
+	var single := str(cfg.get("single", ""))
+	var mirror := bool(cfg.get("mirror", true))
+	var sizes: Array = cfg.get("lot_sizes", [[3, 4], [4, 3], [3, 3]])
+	var keys: Array = tiles.keys()
+	keys.sort_custom(func(a: Vector2i, b: Vector2i) -> bool: return a.y < b.y or (a.y == b.y and a.x < b.x))
+	var free := tiles.duplicate()
+	var placed := 0
+	var lots := 0
+	var seen := {}
+	for start: Vector2i in keys:
+		if seen.has(start):
+			continue
+		var group: Array = []  # the connected tiles of this block, in reading order
+		var stack: Array = [start]
+		seen[start] = true
+		while not stack.is_empty():
+			var t: Vector2i = stack.pop_back()
+			group.append(t)
+			for d: Vector2i in [Vector2i.RIGHT, Vector2i.LEFT, Vector2i.DOWN, Vector2i.UP]:
+				if tiles.has(t + d) and not seen.has(t + d):
+					seen[t + d] = true
+					stack.append(t + d)
+		group.sort_custom(func(a: Vector2i, b: Vector2i) -> bool: return a.y < b.y or (a.y == b.y and a.x < b.x))
+		if group.size() == 1 and single != "":
+			placed += _place_filler(single, [group[0]], false)
+			free.erase(group[0])
+			continue
+		var last_house := -1
+		if not houses.is_empty():
+			for t: Vector2i in group:
+				if not free.has(t):
+					continue
+				for sz: Array in sizes:
+					var lot := _lot_at(free, t, Vector2i(int(sz[0]), int(sz[1])))
+					if lot.is_empty():
+						continue
+					var h := _tile_hash(t)
+					var k := h % houses.size()
+					if k == last_house:
+						k = (k + 1) % houses.size()  # two lots side by side never get the same house
+					last_house = k
+					placed += _place_filler(str(houses[k]), lot, mirror and (h / 7) % 2 == 1)
+					for u: Vector2i in lot:
+						free.erase(u)
+					lots += 1
+					break
+		if themes.is_empty():
+			continue
+		var theme: Array = themes[_tile_hash(group[0] * 3 + Vector2i(1, 7)) % themes.size()]
+		var used := {}
+		for t: Vector2i in group:
+			if free.has(t) and not theme.is_empty():
+				var yard := str(theme[_tile_hash(t) % theme.size()])
+				if used.has(yard):
+					yard = str(theme[0])  # each yard with props once per block; the rest, the theme's first one
+				used[yard] = true
+				placed += _place_filler(yard, [t], false)
+				free.erase(t)
+	ViewConfig.info("WorldView", "filler: %d tiles -> %d house lots, %d visuals (houses=%d kinds, yard themes=%d)" % [
+		tiles.size(), lots, placed, houses.size(), themes.size()])
+	return placed
+
+
+## The tiles of a w×h lot whose top-left corner is `at`, if all of them are free; else [].
+func _lot_at(free: Dictionary, at: Vector2i, size: Vector2i) -> Array:
+	var out: Array = []
+	for dr: int in size.y:
+		for dc: int in size.x:
+			var t := at + Vector2i(dc, dr)
+			if not free.has(t):
+				return []
+			out.append(t)
+	return out
+
+
+## One filler visual (game/visuals/props/<id>.tscn) on the centre of `lot`; registered as the prop of each tile.
+func _place_filler(id: String, lot: Array, flip: bool) -> int:
+	var centre := Vector2.ZERO
+	for t: Vector2i in lot:
+		centre += Iso.tile_to_world(t)
+	centre /= float(lot.size())
+	var p := VisualPaths.instantiate("props", id)
+	if flip:
+		p.scale.x = -1.0  # mirrored around its Feet (x = 0 in every filler scene)
+	VisualPaths.place(p, centre)
+	objects().add_child(p)
+	for t: Vector2i in lot:
+		_props[t] = p
+	return 1
+
+
+## A well-mixed number from a tile (neighbouring tiles get unrelated values), always >= 0.
+static func _tile_hash(t: Vector2i) -> int:
+	var h := t.x * 374761393 + t.y * 668265263
+	h = (h ^ (h >> 13)) * 1274126177
+	h = h ^ (h >> 16)
+	return absi(h) % 1000003
+
+
+## The hand-placed decoration of the map (game/visuals/towns/<map id>.tscn: barrels, benches, carts... placed in the
+## editor in world pixels): its children join the objects layer so they sort with the walkers. Purely visual: they
+## do not block the way, so they go on grass or by the walls, not in the street.
+func _add_town_decor(map_id: String) -> void:
+	if not VisualPaths.has_scene("towns", map_id):
+		return
+	var decor := VisualPaths.instantiate("towns", map_id)
+	var n := 0
+	for ch: Node in decor.get_children():
+		if not ch is Node2D:
+			continue
+		decor.remove_child(ch)
+		ch.owner = null
+		(ch as Node2D).position += decor.position
+		objects().add_child(ch)
+		n += 1
+	decor.free()
+	ViewConfig.info("WorldView", "town decor %s: %d pieces" % [map_id, n])
 
 
 ## How high the stall or board of `svc` stands (its prop's Top marker).

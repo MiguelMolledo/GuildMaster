@@ -24,6 +24,8 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Interior de un edificio (sala, puestos, mejoras) | `game/visuals/interiors/<tipo>.tscn` |
 | Cómo se ve un puesto (horno, yunque…) | `game/visuals/stations/<puesto>.tscn` (o el hijo de su `Marker2D` en el interior) |
 | Árboles, bloques, puestos del mercado, tablón | `game/visuals/props/<tipo de casilla>.tscn`, `props/stall_<puesto>.tscn` |
+| Manzanas del pueblo (casillas `#` que no son de ningún edificio) | Casas `props/lot_house_*.tscn` y patios `props/yard_*.tscn`; cuáles y en qué tamaño de solar, `filler` en `data/view.json` (sin ese bloque, vuelve el bloque greybox `props/building.tscn` por casilla) |
+| Decoración del pueblo (barriles, bancos, carros, sacos…) | `game/visuals/towns/<mapa>.tscn` (hoy `town_e.tscn`): cada hijo es un prop colocado a mano |
 | Personajes | `game/visuals/characters/<rol>_<m\|f>.tscn` + `<rol>_<m\|f>_frames.tres` (roles: `artisan`, `worker`, `townsfolk`) |
 | Retrato de las personas (HUD, árbol genealógico) | `game/visuals/characters/portrait.tscn` (nodos Polygon2D: pelo, cabeza, cuerpo; los colores los pone el juego) |
 | Tonos de pelo y piel (paleta de intercambio, H8) | `data/view.json` → `palette` (6 pelos, 4 pieles; cuántos, en `data/family.json` → `visual`) |
@@ -52,6 +54,20 @@ zona de clic). Mientras no hay arte, dentro hay un nodo **`Greybox`** con el dib
    *Centered* si te es más cómodo. Ajusta *Offset* hasta que la base del dibujo toque el `Feet`.
 4. Borra (u oculta) el nodo `Greybox`. Mueve `Top` a lo alto del dibujo (letrero y clic).
 5. Si es el mismo tamaño que el anterior y solo cambia el dibujo: basta con sobrescribir el PNG con el mismo nombre.
+
+### La decoración del pueblo (barriles, bancos, carros…)
+1. Abre `game/visuals/towns/town_e.tscn`: en el editor se dibuja el mapa debajo (colores de `data/tiles.json`) para
+   ver dónde cae cada cosa (`show_map` en el Inspector lo apaga).
+2. Para añadir una pieza, arrastra su escena (`game/visuals/props/barrel.tscn`, `bench`, `cart`, `crate`,
+   `grain_sack`, `well`…) dentro de la raíz y muévela. Su `Feet` es el punto que toca el suelo.
+3. Es solo decoración: no corta el paso. Ponla en hierba o junto a las paredes, no en mitad de la calle.
+
+### Las manzanas de casas y patios
+Las casillas `#` libres del mapa se rellenan solas: en cada hueco de 3×4, 4×3 o 3×3 va una casa (`props/lot_house_*`,
+la mitad en espejo) y en lo que sobra, patios bajos (`props/yard_*`) que no tapan la base del edificio de detrás: cada manzana
+toma un tema de `yard_themes` (huerto, o patio con barriles, sacos y carro). Lo que va en cada casilla depende solo de la casilla (el pueblo sale igual en cada
+partida). Cambia el aspecto de una casa o un patio en su escena; qué escenas se usan y con qué peso (repetir un id),
+en `filler` de `data/view.json`.
 
 ### Una animación de personaje
 1. Abre `game/visuals/characters/<id>_frames.tres` (doble clic): se abre el panel SpriteFrames.

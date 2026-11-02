@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dml8lfjdys1n8"]
+
+[ext_resource type="PackedScene" uid="uid://eajtoq0v0brb" path="res://game/visuals/props/cart.tscn" id="1_cart"]
+
+[node name="YardCart" type="Node2D"]
+y_sort_enabled = true
+editor_description = "Filler yard: one map tile # left over around the houses (WorldView, filler.yards in data/view.json). Low props only, so they never hide the base of the building behind."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="Cart" parent="." instance=ExtResource("1_cart")]
+position = Vector2(0, 2)

@@ -292,7 +292,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/residential",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_2/house_modest_2_192.png (docs/arte/reuso_guild.md). Sin escena aún."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_2/house_modest_2_192.png (docs/arte/reuso_guild.md). Casa de relleno de las manzanas (props/lot_house_a.tscn)."
     },
     {
       "id": "bld_house_b",
@@ -306,7 +306,33 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/residential",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_3/house_modest_3_192.png (docs/arte/reuso_guild.md). Sin escena aún."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_3/house_modest_3_192.png (docs/arte/reuso_guild.md). Casa de relleno de las manzanas (props/lot_house_b.tscn)."
+    },
+    {
+      "id": "bld_house_c",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "ciudad"
+      ],
+      "ruta": "assets/art/buildings/house_c.png",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Casa de relleno de las manzanas (props/lot_house_c.tscn): guild:assets/sprites/buildings/residential/house_merchant_1/house_merchant_1_192.png (docs/arte/reuso_guild.md, tools/art/derivar_guild.py)."
+    },
+    {
+      "id": "bld_house_d",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "ciudad"
+      ],
+      "ruta": "assets/art/buildings/house_d.png",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Casa de relleno de las manzanas (props/lot_house_d.tscn): guild:assets/sprites/buildings/residential/house_humble_4_south/house_humble_4_south_192.png (docs/arte/reuso_guild.md, tools/art/derivar_guild.py)."
     },
     {
       "id": "tile_grass",
@@ -334,7 +360,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/tiles",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/tiles/tile_cobblestone_diamond.png (docs/arte/reuso_guild.md). Suelo de los tipos street y plaza (plaza.png es la misma imagen: tile_plaza)."
+      "notas": "Reuso sin coste de guild:assets/sprites/tiles/tile_cobblestone_diamond.png recoloreado hacia el gris piedra cálido de la biblia (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Suelo del tipo street."
     },
     {
       "id": "tile_dirt_path",
@@ -348,7 +374,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/tiles",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/tiles/diamonds/tile_dirt_block.png (docs/arte/reuso_guild.md). Suelo del tipo dirt."
+      "notas": "Reuso sin coste de guild:assets/sprites/tiles/diamonds/tile_dirt_block.png, de rosado a marrón y con el borde oscuro suavizado para que no se note la rejilla (docs/arte/reuso_guild.md, tools/art/derivar_guild.py)."
     },
     {
       "id": "tile_plaza",
@@ -362,7 +388,20 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/tiles",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/tiles/tile_cobblestone_diamond.png (docs/arte/reuso_guild.md). Diamante 64×32. Hoy es el mismo adoquín que street."
+      "notas": "El mismo adoquín, más claro y arenoso (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Suelo del tipo plaza."
+    },
+    {
+      "id": "tile_building",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "mapa"
+      ],
+      "ruta": "assets/art/tiles/building.png",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Suelo de las casillas # (patios y bases de casas): guild:assets/sprites/tiles/test_tiles_pro_diamond/tile_12.png (docs/arte/reuso_guild.md, tools/art/derivar_guild.py)."
     },
     {
       "id": "prop_barrel",
@@ -375,7 +414,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/barrel",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/props/barrel/barrel_64.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
+      "notas": "Reuso sin coste de guild:assets/sprites/props/barrel/barrel_64.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/barrel.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_bench",
@@ -388,7 +427,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/bench",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/props/bench/bench_64.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
+      "notas": "Reuso sin coste de guild:assets/sprites/props/bench/bench_64.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/bench.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_cart",
@@ -401,7 +440,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/cart",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/props/cart/cart_96.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
+      "notas": "Reuso sin coste de guild:assets/sprites/props/cart/cart_96.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/cart.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_grain_sack",
@@ -414,7 +453,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/grain_sack",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/props/grain_sack/grain_sack_48.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
+      "notas": "Reuso sin coste de guild:assets/sprites/props/grain_sack/grain_sack_48.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/grain_sack.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_well",
@@ -427,7 +466,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/well",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/props/well/well_96.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
+      "notas": "Reuso sin coste de guild:assets/sprites/props/well/well_96.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/well.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_anvil",
@@ -453,7 +492,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/crate.png",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/props/crate.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
+      "notas": "Reuso sin coste de guild:assets/sprites/props/crate.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/crate.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_torch",
@@ -506,6 +545,32 @@
       "origen_previo": "guild:assets/sprites/props/sign_post.png",
       "coste_gen": 0,
       "notas": "Reuso sin coste de guild:assets/sprites/props/sign_post.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
+    },
+    {
+      "id": "prop_board",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H3",
+        "tablón de encargos"
+      ],
+      "ruta": "assets/art/props/board.png",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Tablón compuesto con Pillow: marco de guild:buildings/overlays/shop_sign.png sobre dos postes de props/sign_post.png, con notas clavadas (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). En props/board.tscn (Greybox oculto)."
+    },
+    {
+      "id": "prop_furrows",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H7",
+        "manzanas"
+      ],
+      "ruta": "assets/art/props/furrows.png",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Surcos de huerto (casilla 64×32): guild:assets/sprites/tiles/test_tiles_pro_diamond/tile_15.png. Patios yard_plot*."
     },
     {
       "id": "bubble_chat",
@@ -1030,6 +1095,19 @@
       "origen_previo": "guild:assets/sprites/ui/icons/icon_contrato.png",
       "coste_gen": 0,
       "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_contrato.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
+    },
+    {
+      "id": "ui_icons_small",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H2",
+        "listas de almacén e inventario"
+      ],
+      "ruta": "assets/art/icons/small/",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Iconos de objeto a 16×16 para las filas de la UI (fuente de 10 px), derivados de los de 32×32 (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). VisualPaths.icon_small / UiIcons.item_rect."
     },
     {
       "id": "music_city_day",

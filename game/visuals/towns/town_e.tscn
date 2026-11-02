@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuds1fhb351bx"]
+
+[ext_resource type="Script" uid="uid://dh3bamwqunnrr" path="res://game/visuals/towns/town_decor.gd" id="1_decor"]
+[ext_resource type="PackedScene" uid="uid://cmohhh6t21dvr" path="res://game/visuals/props/barrel.tscn" id="2_barrel"]
+[ext_resource type="PackedScene" uid="uid://chsqa3cqv8t73" path="res://game/visuals/props/bench.tscn" id="3_bench"]
+[ext_resource type="PackedScene" uid="uid://eajtoq0v0brb" path="res://game/visuals/props/cart.tscn" id="4_cart"]
+[ext_resource type="PackedScene" uid="uid://emoq8rkfby0u" path="res://game/visuals/props/crate.tscn" id="5_crate"]
+[ext_resource type="PackedScene" uid="uid://u8nuf5p22jn0" path="res://game/visuals/props/grain_sack.tscn" id="6_grain_sack"]
+
+[node name="TownE" type="Node2D"]
+script = ExtResource("1_decor")
+
+[node name="Bench1" parent="." instance=ExtResource("3_bench")]
+position = Vector2(-64, 480)
+
+[node name="GrainSack1" parent="." instance=ExtResource("6_grain_sack")]
+position = Vector2(0, 448)
+
+[node name="Crate1" parent="." instance=ExtResource("5_crate")]
+position = Vector2(0, 416)
+
+[node name="Barrel1" parent="." instance=ExtResource("2_barrel")]
+position = Vector2(378, 610)
+
+[node name="Barrel2" parent="." instance=ExtResource("2_barrel")]
+position = Vector2(283, 814)
+
+[node name="Barrel3" parent="." instance=ExtResource("2_barrel")]
+position = Vector2(294, 819)
+
+[node name="Cart1" parent="." instance=ExtResource("4_cart")]
+position = Vector2(-224, 304)
+
+[node name="Bench2" parent="." instance=ExtResource("3_bench")]
+position = Vector2(32, 784)

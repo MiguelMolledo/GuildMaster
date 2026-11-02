@@ -94,6 +94,13 @@ static func icon(item_id: String) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
+## The small icon of an item for the UI lists (10 px font): assets/art/icons/small/<item_id>.png, 16×16, made from
+## the 32×32 one by tools/art/derivar_guild.py (null until it exists).
+static func icon_small(item_id: String) -> Texture2D:
+	var p := "%s/icons/small/%s.png" % [ART_ROOT, item_id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
 ## The ground texture of a tile kind (data/tiles.json): assets/art/tiles/<kind>.png (null until it exists: the ground
 ## keeps the kind's greybox colour).
 static func tile(kind: String) -> Texture2D:
