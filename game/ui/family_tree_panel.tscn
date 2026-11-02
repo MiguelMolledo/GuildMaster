@@ -122,6 +122,12 @@ layout_mode = 2
 focus_mode = 0
 text = "--"
 
+[node name="KinAiButton" type="Button" parent="VBox/Body/Side"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "--"
+
 [node name="AssignRow" type="HBoxContainer" parent="VBox/Body/Side"]
 unique_name_in_owner = true
 layout_mode = 2

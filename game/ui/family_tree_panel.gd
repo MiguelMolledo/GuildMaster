@@ -10,6 +10,7 @@ extends PanelContainer
 
 signal switch_requested(id: String)
 signal court_requested(id: String)
+signal kin_ai_requested(id: String)  # H14: the AI of the picked member
 signal closed
 
 const NODE_W: float = 112.0
@@ -40,6 +41,7 @@ func _bind() -> void:
 	(%HeirButton as Button).pressed.connect(func() -> void: _give({"type": "designate_heir", "actor": actor, "heir": picked}))
 	(%SwitchButton as Button).pressed.connect(func() -> void: switch_requested.emit(picked))
 	(%CourtButton as Button).pressed.connect(func() -> void: court_requested.emit(picked))
+	(%KinAiButton as Button).pressed.connect(func() -> void: kin_ai_requested.emit(picked))
 	(%SchoolButton as Button).pressed.connect(_school)
 	(%AssignOption as OptionButton).item_selected.connect(_assign)
 	(%CloseDynasty as Button).pressed.connect(func() -> void: _give({"type": "close_dynasty", "actor": actor}))
@@ -59,6 +61,7 @@ func setup(s: Sim, family: String, who: String) -> void:
 	(%HeirButton as Button).text = SimQuery.t_("ui.family.designate_heir")
 	(%SwitchButton as Button).text = SimQuery.t_("ui.family.switch")
 	(%CourtButton as Button).text = SimQuery.t_("ui.family.court")
+	(%KinAiButton as Button).text = SimQuery.t_("ui.kin_ai.button")
 	(%SchoolButton as Button).text = SimQuery.t_("ui.family.school")
 	(%AssignLabel as Label).text = SimQuery.t_("ui.family.assign")
 	(%GoalsTitle as Label).text = SimQuery.t_("ui.family.goals")
@@ -338,6 +341,7 @@ func _build_sheet() -> void:
 	var h := Kin.head(st, fam)
 	(%HeirButton as Button).disabled = not (alive and h != "" and Kin.can_inherit(sim, h, picked) and picked != Kin.heir(sim, fam))
 	(%SwitchButton as Button).disabled = not (alive and str(ch.get("controlled_by", "")) == "human" and picked != active)
+	(%KinAiButton as Button).visible = alive and Kin.is_adult(sim, picked)  # H14
 	(%CourtButton as Button).visible = alive and Kin.is_adult(sim, picked) and Kin.is_single(st, picked) \
 		and str(ch.get("controlled_by", "")) == "human"
 	var school := alive and ch.get("life") is Dictionary and str(ch["life"].get("school", "")) == "pending"

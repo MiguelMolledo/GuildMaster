@@ -1128,7 +1128,6 @@ ui.kin_ai.now_unknown,Now: —,Ahora: —
 ui.kin_ai.why_directive,directive,directiva
 ui.kin_ai.why_routine,routine,rutina
 ui.kin_ai.why_nothing,nothing to do,nada que hacer
-ui.kin_ai.why_need,%s is low,le falta %s
 ui.kin_ai.doing_work,working,trabajando
 ui.kin_ai.doing_trade,trading,comerciando
 ui.kin_ai.doing_socialize,socializing,sociabilizando
@@ -1148,3 +1147,7 @@ ui.kin_ai.rate_slow,Works at %d %% (low morale),Trabaja al %d %% (moral baja)
 help.kin_ai,Family AI,IA de la familia
 help.kin_ai_directives,"«AI» in a person's sheet or the family tree: tick and order their directives (work, trade, socialize, have fun). They follow them in the Free slots of their routine; the spouse, all day. Trade buys the raw materials the forge lacks and sells the surplus","«IA» en la ficha de una persona o en el árbol: marca y ordena sus directivas (trabajar, comerciar, sociabilizar, divertirse). Las siguen en las franjas Libre de su rutina; la pareja, todo el día. Comerciar compra las materias que le faltan a la forja y vende lo que sobra"
 help.kin_ai_needs,"Hunger and rest recover at home without working, social talking, fun on a bench. Low needs come first and lower morale: with low morale they work slower. Notices warn of exhaustion and low morale","El hambre y el descanso se recuperan en casa sin trabajar, lo social hablando, la diversión en un banco. Las necesidades bajas van primero y bajan la moral: con moral baja trabajan más despacio. Los avisos te dicen si alguien está agotado o desanimado"
+ui.kin_ai.why_need_hunger,hungry,tiene hambre
+ui.kin_ai.why_need_rest,tired,está cansado
+ui.kin_ai.why_need_social,lonely,se siente solo
+ui.kin_ai.why_need_fun,bored,se aburre

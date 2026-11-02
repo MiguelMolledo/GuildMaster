@@ -62,6 +62,8 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Panel de cargos (organigrama, campaña, poderes) y tarjeta de la votación (H10) | `game/ui/offices_panel.tscn`, `game/ui/office_card.tscn` (segundos en pantalla: `office_card_seconds` de `data/view.json`); textos `office.*`, `power.*`, `campaign.*`, `ui.offices.*`, `ui.office_card.*` |
 | Tribunal: cargos y su gravedad, condenas, hechos, testigos, vista oral, acusar, Juez (H11) | `data/justice.json`; la regla mínima de la IA rival, `accuse_rule` e `initial_attitudes` en `data/ai_profiles/rival_smith.json` |
 | Panel del juicio y carta «Te acusan» / veredicto (H11) | `game/ui/trial_panel.tscn` (la sección morada es el estilo del tribunal), `game/ui/trial_card.tscn` (segundos: `trial_card_seconds` de `data/view.json`); textos `charge.*`, `severity.*`, `sentence.*`, `ui.trial.*`, `ui.trial_card.*` |
+| IA familiar: directivas (orden, cuáles están listas), necesidades, moral, comercio y avisos (H14) | `data/family.json` (`directives`, `needs`, `morale`, `trade`, `leisure`, `kin_notices`) |
+| Panel de IA del familiar (H14) | `game/ui/kin_ai_panel.tscn` (botón «IA» de la ficha y del árbol); textos `directive.*`, `need.*`, `ui.kin_ai.*` |
 
 Cada escena visual tiene dos `Marker2D`: **`Feet`** (el punto que se apoya en el suelo: centro de la casilla, centro
 de la huella o los pies) y **`Top`** (lo alto que es: ahí van el letrero, la barra o el nombre, y hasta ahí llega la

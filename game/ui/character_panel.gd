@@ -9,6 +9,7 @@ extends PanelContainer
 signal closed
 signal tree_requested
 signal court_requested(id: String)
+signal kin_ai_requested(id: String)  # H14: the AI of the family (directives, needs)
 
 const SLOTS: Array[String] = ["tool", "clothes", "accessory"]
 
@@ -25,10 +26,13 @@ func setup(s: Sim, who: String) -> void:
 		(%CloseButton as Button).pressed.connect(close)
 		(%TreeButton as Button).pressed.connect(func() -> void: tree_requested.emit())
 		(%CourtButton as Button).pressed.connect(func() -> void: court_requested.emit(actor))
+		(%KinAiButton as Button).pressed.connect(func() -> void: kin_ai_requested.emit(actor))
 	sim = s
 	actor = who
 	(%TreeButton as Button).text = SimQuery.t_("ui.family.tree")
 	(%CourtButton as Button).text = SimQuery.t_("ui.family.court")
+	(%KinAiButton as Button).text = SimQuery.t_("ui.kin_ai.button")
+	(%KinAiButton as Button).tooltip_text = SimQuery.t_("ui.kin_ai.button_tip")
 	var editor := %RoutineEditor as RoutineEditor
 	editor.order_sink = order_sink
 	editor.setup(s, who, who)
