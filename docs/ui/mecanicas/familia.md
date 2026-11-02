@@ -9,7 +9,7 @@ Mecánica de H8 (GDD 4.10.4-4.10.9, 4.2.5, 4.17). Piezas:
 | Marco de retrato | `game/ui/portrait_frame.tscn` | El retrato con el color de la familia y sus marcas; lo usan el HUD (grupo 1-2-3), el árbol y las fichas. |
 | Momentos de vida | — (hoy solo avisos del registro) | Nacimiento, escuela (8), mayoría de edad (16), muerte, **sucesión**, fin de la dinastía. |
 
-Capturas de hoy: `hoy/h8_arbol.png` (tema pixel art), `hoy/h8_game_over.png`. Rutina (`routine_editor`) no es de este
+Capturas de hoy: `../maquetas/familia_hoy_arbol.png` (tema pixel art), `../maquetas/familia_hoy_fin.png`. Rutina (`routine_editor`) no es de este
 documento: se enlaza desde la ficha lateral.
 
 ---
@@ -102,7 +102,7 @@ Carta de sucesión: un único botón «Continuar con Pere» (o «… con Agnès 
 
 ## 6. Maqueta
 
-Árbol (900 × 440, x 30, y 56; el HUD superior queda visible por encima):
+Árbol (panel grande de [`_social.md`](_social.md): x 4..956, y 52..520; el HUD superior queda visible):
 
 ```
 +==========================================================================================+
@@ -154,7 +154,7 @@ Carta de sucesión (420 × 240, centrada, sobre velo oscuro):
 +==========================================================+
 ```
 
-Tarjeta lateral de vida (300 × 90, misma columna que el microevento):
+Tarjeta de vida (columna de tarjetas, 300 × ~60):
 
 ```
 +============================================+
@@ -164,8 +164,7 @@ Tarjeta lateral de vida (300 × 90, misma columna que el microevento):
 +============================================+
 ```
 
-**PNG**: `docs/ui/maquetas/familia_arbol.png`, `familia_nodo.png`, `familia_sucesion.png`, `familia_tarjeta_vida.png`
-(960×540 y ×2) cuando exista `tools/ui/maqueta.py`.
+**PNG** (fuente: `tools/ui/mecanicas/familia.py`): `../maquetas/familia_arbol.png` (árbol con nodos e insignias y ficha lateral), `../maquetas/familia_sucesion.png`, `../maquetas/familia_tarjetas_vida.png` (nacimiento y escuela), y sus `_x2`.
 
 **Piezas de kit pendientes**: estandarte de familia (9-patch vertical teñido con `colors.primary/secondary`); insignias
 8×8 (anillo, cruz, corona, «!», cargo, regente; base: `icon_crown`, `icon_deceased`, `icon_ring`, `icon_controllable`
@@ -210,7 +209,7 @@ Feedback: al designar, la corona se mueve del nodo viejo al nuevo; al nacer algu
 
 ## 9. Diferencias con hoy y tareas
 
-| Hoy (`hoy/h8_arbol.png`) | Debería |
+| Hoy (`../maquetas/familia_hoy_arbol.png`) | Debería |
 |---|---|
 | Cabecera solo con nombre y título. | Estandarte con colores, generación y puntos; aviso «sin heredero». |
 | Dos tercios del panel vacíos con una familia pequeña. | El árbol se centra y la ficha ocupa una columna fija de 220 px. |

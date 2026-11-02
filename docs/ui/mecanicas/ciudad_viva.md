@@ -9,11 +9,12 @@ Mecánica de H7 (GDD 4.11, 4.20) y del tablón de H3 (4.5.6). Cuatro piezas de i
 | Tarjeta de microevento | `game/ui/microevent_card.tscn` | Una decisión rápida que no pausa. |
 | Burbujas sobre la cabeza | `game/visuals/bubbles/*.tscn` + `game/world/character_view.gd` | Qué hace y qué siente cada vecino, sin abrir nada. |
 
-Capturas de hoy (tema pixel art, 2026-11-02): `hoy/h7_ficha_npc.png`, `hoy/h7_plaza_atardecer.png`,
-`hoy/h7_microevento.png`, `hoy/h5_tablon.png`.
+Capturas de hoy (tema pixel art, 2026-11-02): `../maquetas/ciudad_viva_hoy_ficha.png`, `../maquetas/ciudad_viva_hoy_plaza.png`,
+`../maquetas/ciudad_viva_hoy_microevento.png`, `../maquetas/ciudad_viva_hoy_tablon.png`.
 
-Medidas en píxeles lógicos (960×540). Si el kit (`docs/ui/00-03`) fija otras medidas de margen, fuente o botón, mandan
-las del kit; aquí solo se fija la composición.
+Medidas en píxeles lógicos (960×540). Zonas, rejilla y reglas comunes: [`_comun.md`](_comun.md) y
+[`_social.md`](_social.md). La ficha de vecino y el tablón van en el **panel lateral** (x 600..952); el microevento en
+la **columna de tarjetas** (x 4..304).
 
 ---
 
@@ -89,7 +90,7 @@ Prioridad (GDD 4.11.5): **emoción hacia tu familia** > actividad social > nada.
 
 Regla de oro para toda la UI social: **el motivo de un botón apagado se ve escrito en la ficha** (una línea gris bajo la
 fila de acciones con el motivo del botón sobre el que está el ratón, o del primero apagado), no solo en el tooltip.
-Hoy «Conversar» sale apagado sin decir por qué (`hoy/h7_ficha_npc.png`).
+Hoy «Conversar» sale apagado sin decir por qué (`../maquetas/ciudad_viva_hoy_ficha.png`).
 
 ### Tablón (`SimQuery.board_view(sim, actor)`)
 
@@ -117,26 +118,21 @@ oro» y el plazo sigue corriendo.
 
 ## 6. Maqueta
 
-Composición general (1 carácter ≈ 10 px; 96 × 27):
+Composición (zonas de [`_social.md`](_social.md)):
 
 ```
-+------------------+ +--------------------------------------------+   +--------------------+
-| HUD personaje    | | barra superior: título · rep · oro · libro |   | reloj              |
-+------------------+ +--------------------------------------------+   |                    |
-[1][2][3] grupo                                                        +--------------------+
-+--------------------------+                                          +--------------------+
-| MICROEVENTO (300×~150)   |      mapa                                 | objetivo           |
-| no bloqueante            |                                           +--------------------+
-+--------------------------+          (o)  burbuja de emoción
-+--------------------------+         /|\   "¡Ja! Esa sí que es buena"
-| FICHA DE VECINO          |
-| (240×~260, abajo-izq.)   |                 TABLÓN (centro, 440×~260)
-|                          |
-+--------------------------+
- ayuda de teclas
++---- HUD superior (kit) --------------------------------------------------------------+
+| [1][2][3]                                                                            |
+| +-- TARJETAS x 4..304 --+                          +-- PANEL LATERAL x 600..952 ---+ |
+| | microevento           |      mapa                | ficha de vecino  o  tablón     | |
+| | (+1 más)              |                          | (uno a la vez)                 | |
+| +-----------------------+       (o)  burbuja       |                                | |
+|                                 /|\  "¡Ja! Esa sí  |                                | |
+|                                      que es buena" +--------------------------------+ |
++---- línea de ayuda ------------------------------------------------------------------+
 ```
 
-Ficha de vecino (240 × 262, x 6, y 248):
+Ficha de vecino (panel lateral, 352 × ~300 desde y 96):
 
 ```
 +================================================+  <- marco de madera (panel.png)
@@ -158,7 +154,7 @@ Ficha de vecino (240 × 262, x 6, y 248):
 +================================================+
 ```
 
-Tablón (440 × 262, centrado):
+Tablón (panel lateral, 352 × ~380):
 
 ```
 +==================================================================+
@@ -180,7 +176,7 @@ Tablón (440 × 262, centrado):
 +==================================================================+
 ```
 
-Tarjeta de microevento (300 × ~150, x 6, y 112):
+Tarjeta de microevento (columna de tarjetas, 300 × ~150, x 4, y 96):
 
 ```
 +==============================================+
@@ -208,8 +204,7 @@ Burbujas (sobre la cabeza, 16 × 16 de icono dentro de un bocadillo de 20 × 18)
        v                                                           v
 ```
 
-**PNG**: `docs/ui/maquetas/ciudad_viva_ficha.png`, `ciudad_viva_tablon.png`, `ciudad_viva_microevento.png`,
-`ciudad_viva_burbujas.png` (a 960×540 y ×2), cuando exista `tools/ui/maqueta.py` del kit.
+**PNG** (hechas con `tools/ui/maqueta.py`; fuente: `tools/ui/mecanicas/ciudad_viva.py`): `../maquetas/ciudad_viva_ficha.png`, `../maquetas/ciudad_viva_tablon.png`, `../maquetas/ciudad_viva_microevento.png`, `../maquetas/ciudad_viva_burbujas.png` (y sus `_x2`). Los números de oro de las maquetas remiten a §3 y §4.
 
 **Piezas de kit pendientes**: barra bipolar (−100..+100 con marca en el cero); nota de tablón (pergamino clavado, 9-patch);
 botón de dos líneas (texto + línea de efectos con iconos); lengüeta «+N más»; bocadillo de emoción con borde de color y
@@ -266,7 +261,7 @@ mueve con una animación de 4 fotogramas. La emoción nueva aparece en la burbuj
 | Emociones de todas las familias mezcladas. | Las de tu familia primero, las demás plegadas. |
 | Tablón como lista de texto; no dice si ya puedes cumplirlo. | Notas con icono del objeto y «Tienes x/y». |
 | Abandonar sin confirmación ni coste visible. | Confirmación con el coste. |
-| Microevento con el coste dentro del texto de un botón en Silkscreen mayúsculas, ilegible en 2 líneas (`hoy/h7_microevento.png`). | Botón de dos líneas con fuente de cuerpo; efectos con iconos; Silkscreen solo en botones cortos. |
+| Microevento con el coste dentro del texto de un botón en Silkscreen mayúsculas, ilegible en 2 líneas (`../maquetas/ciudad_viva_hoy_microevento.png`). | Botón de dos líneas con fuente de cuerpo; efectos con iconos; Silkscreen solo en botones cortos. |
 | Reloj del microevento como texto. | Barra que se vacía + marca «por defecto». |
 | Burbuja de emoción con borde genérico. | Borde del color de la familia hacia la que siente la emoción + barra de intensidad. |
 

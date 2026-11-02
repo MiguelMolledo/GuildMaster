@@ -94,7 +94,7 @@ Si el actor no es soltero o es menor, la lista entera se sustituye por el motivo
 
 ## 6. Maqueta
 
-Panel de cortejo (440 × 300, centrado):
+Panel de cortejo (panel lateral de [`_social.md`](_social.md), 352 × ~380):
 
 ```
 +====================================================================+
@@ -142,7 +142,7 @@ Carta de boda (380 × 200, centrada):
 +======================================================+
 ```
 
-**PNG**: `docs/ui/maquetas/cortejo_panel.png`, `cortejo_ficha_vecino.png`, `cortejo_propuesta.png`, `cortejo_boda.png`.
+**PNG** (fuente: `tools/ui/mecanicas/cortejo_y_boda.py`): `../maquetas/cortejo_panel.png`, `../maquetas/cortejo_propuesta.png` (confirmación + sección de cortejo en la ficha de vecino), `../maquetas/cortejo_boda.png`, y sus `_x2`.
 
 **Piezas de kit pendientes**: barra con marca de umbral (línea dorada de 1 px en el 80 %); fila con fondo de estado
 (rojizo «bloqueado»); pestañas pequeñas de filtro; media cinta de familia (la misma pieza que el estandarte del árbol);
