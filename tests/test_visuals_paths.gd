@@ -67,7 +67,7 @@ func test_character_visual_ids() -> void:
 
 func test_missing_icon_and_audio_are_empty() -> void:
 	check(VisualPaths.icon("sword") == null, "no icon yet: null (no path in data/items)")
-	eq(VisualPaths.audio_files("sfx", "sfx_hammer").size(), 0, "no sound file yet")
+	eq(VisualPaths.audio_files("sfx", "sfx_without_file").size(), 0, "no sound file: empty")
 
 
 func test_world_view_builds_from_the_scenes() -> void:

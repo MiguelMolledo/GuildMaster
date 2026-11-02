@@ -4,8 +4,13 @@ extends Node
 ## (VisualPaths.audio_files: assets/audio/<section>/<id>.ogg|wav or its variants _01, _02...). An id without a file
 ## stays silent and says so once in debug. Lives inside app.tscn (not an autoload: there are at most 5). Listens to
 ## Events: the sound of each sim event of the player's family (audio.json "events") and the music of the phase of the
-## day ("phase_music"). Buses are fixed in default_bus_layout.tres (Master, Music, Sfx, Ambient, Voice, Ui): each id
-## goes to the bus of its section unless it names another. The pitch jitter is random, but only in the view.
+## day ("phase_music"). Ambient loops on their own player: "phase_ambient" (phase -> id, in the town) and
+## "interior_ambient" (building type -> id, while an interior is shown; a type without an entry is quiet inside).
+## A notice (event notice_added) sounds by its key first ("notice.objective_done") and else by its severity
+## ("notice_added.urgent"), so one notice never sounds twice. Buses are fixed in default_bus_layout.tres (Master, Music,
+## Sfx, Ambient, Voice, Ui): each id goes to the bus of its section unless it names another. The pitch jitter is
+## random, but only in the view. With the Dummy audio driver (headless runs) nothing is heard, so no playback starts:
+## Godot leaks a playback stopped while quitting there (resources still in use at exit).
 
 const PATH: String = "res://data/audio.json"
 const SECTIONS: Dictionary = {"music": "Music", "sfx": "Sfx", "ambient": "Ambient", "voice": "Voice"}
@@ -13,16 +18,20 @@ const POOL: int = 8
 
 var config: Dictionary = {}
 var music_id: String = ""            # what the music player plays now ("" = nothing)
+var ambient_id: String = ""          # what the ambient player plays now ("" = nothing)
 var _players: Array[AudioStreamPlayer] = []
 var _music: AudioStreamPlayer = null
+var _ambient: AudioStreamPlayer = null
 var _next: int = 0
 var _silent: Dictionary = {}         # id -> true: reported once
 var _game: Node = null
 var _check: float = 0.0
+var _dummy: bool = false             # Dummy audio driver (headless, --audio-driver Dummy): nothing is heard
 
 
 func _ready() -> void:
 	load_config()
+	_dummy = AudioServer.get_driver_name() == "Dummy"
 	for i: int in POOL:
 		var p := AudioStreamPlayer.new()
 		p.name = "Sfx%d" % i
@@ -31,11 +40,15 @@ func _ready() -> void:
 	_music = AudioStreamPlayer.new()
 	_music.name = "Music"
 	add_child(_music)
+	_ambient = AudioStreamPlayer.new()
+	_ambient.name = "Ambient"
+	add_child(_ambient)
 	var events := get_node_or_null("/root/Events")
 	if events != null:
 		events.sim_event.connect(on_sim_event)
 	_game = get_node_or_null("/root/Game")
-	_log("ready (sounds=%d, events=%d)" % [ids().size(), (config.get("events", {}) as Dictionary).size()])
+	_log("ready (sounds=%d, events=%d, driver=%s)" % [ids().size(), (config.get("events", {}) as Dictionary).size(),
+		AudioServer.get_driver_name()])
 
 
 func load_config() -> void:
@@ -76,6 +89,8 @@ func play(id: String) -> bool:
 	var stream := _stream(id)
 	if stream == null:
 		return false
+	if _dummy:
+		return true
 	var entry: Dictionary = config[section_of(id)][id]
 	var p := _players[_next]
 	_next = (_next + 1) % _players.size()
@@ -94,17 +109,33 @@ func play_music(id: String) -> void:
 	if id == music_id:
 		return
 	music_id = id
-	_music.stop()
+	_loop_on(_music, id, "music")
+
+
+## Starts the ambient loop `id`; "" stops it. Same id = keeps playing.
+func play_ambient(id: String) -> void:
+	if id == ambient_id:
+		return
+	ambient_id = id
+	_loop_on(_ambient, id, "ambient")
+
+
+func _loop_on(player: AudioStreamPlayer, id: String, what: String) -> void:
+	player.stop()
 	if id == "":
+		_log("%s off" % what)
 		return
 	var stream := _stream(id)
 	if stream == null:
 		return
-	_music.stream = stream
-	_music.bus = _bus(bus_of(id))
-	_music.volume_db = float((config[section_of(id)][id] as Dictionary).get("volume_db", 0.0))
-	_music.play()
-	_log("music %s" % id)
+	if _dummy:
+		_log("%s %s (dummy driver: not started)" % [what, id])
+		return
+	player.stream = stream
+	player.bus = _bus(bus_of(id))
+	player.volume_db = float((config[section_of(id)][id] as Dictionary).get("volume_db", 0.0))
+	player.play()
+	_log("%s %s" % [what, id])
 
 
 ## The music for the phase of the day (audio.json "phase_music").
@@ -112,9 +143,28 @@ func music_for_phase(phase: String) -> String:
 	return str((config.get("phase_music", {}) as Dictionary).get(phase, ""))
 
 
-## A sim event: its sound (audio.json "events"), if it concerns the player's family.
+## The ambient for the phase of the day in the town, or for the building type of the interior shown ("" = town).
+func ambient_for(phase: String, interior_type: String) -> String:
+	if interior_type != "":
+		return str((config.get("interior_ambient", {}) as Dictionary).get(interior_type, ""))
+	return str((config.get("phase_ambient", {}) as Dictionary).get(phase, ""))
+
+
+## The sound id of a sim event (audio.json "events"; "" = none). Notices: by key, else by severity.
+func sound_for(e: Dictionary) -> String:
+	var events: Dictionary = config.get("events", {})
+	var type := str(e.get("type", ""))
+	if type == "notice_added":
+		var key := str(e.get("key", ""))
+		if events.has(key):
+			return str(events[key])
+		return str(events.get("notice_added.%s" % str(e.get("severity", "")), ""))
+	return str(events.get(type, ""))
+
+
+## A sim event: its sound, if it concerns the player's family.
 func on_sim_event(e: Dictionary) -> void:
-	var id := str((config.get("events", {}) as Dictionary).get(str(e.get("type", "")), ""))
+	var id := sound_for(e)
 	if id == "" or not _concerns_player(e):
 		return
 	play(id)
@@ -126,7 +176,20 @@ func _process(delta: float) -> void:
 		return
 	_check = 1.0
 	var sim: Sim = _game.get("sim")
-	play_music(music_for_phase(Clock.phase(int(sim.state.clock["minute"]), sim.catalog.time)))
+	var phase := Clock.phase(int(sim.state.clock["minute"]), sim.catalog.time)
+	play_music(music_for_phase(phase))
+	play_ambient(ambient_for(phase, _interior_type(sim)))
+
+
+## The building type of the interior the app shows ("" = the town or no app).
+func _interior_type(sim: Sim) -> String:
+	var app := get_parent()
+	if app == null:
+		return ""
+	var bld: Variant = app.get("interior_building")
+	if bld == null or str(bld) == "":
+		return ""
+	return str(sim.state.buildings.get(str(bld), {}).get("type", ""))
 
 
 func _concerns_player(e: Dictionary) -> bool:

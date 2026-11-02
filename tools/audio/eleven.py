@@ -36,10 +36,10 @@ BUDGET = os.path.join(OUT, "budget.json")
 API = "https://api.elevenlabs.io"
 
 # Tarifas para estimar (créditos). Se corrigen con lo medido: ver docs/audio/plan.md.
-RATE_SFX_PER_SEC = 15.0        # efectos con duración fija (medido: 11 por 1 s)
+RATE_SFX_PER_SEC = 12.0        # efectos con duración fija (medido: 11 por segundo)
 RATE_SFX_AUTO = 100.0          # efectos sin duración (la elige el modelo)
-RATE_MUSIC_PER_MIN = 2000.0    # música
-RATE_TTS_PER_CHAR = 1.0        # voz (multilingual v2)
+RATE_MUSIC_PER_MIN = 850.0     # música (medido: 1.238 por 90 s)
+RATE_TTS_PER_CHAR = 0.5        # voz (multilingual v2; medido: ~0,45 por carácter)
 
 
 def _key() -> str:
@@ -147,11 +147,17 @@ def _record(section: str, sid: str, prompt: str, params: dict, files: list, esti
             before: dict, after: dict, hdr_costs: list) -> None:
     """Coste real = suma de la cabecera character-cost de cada llamada; si falta, la diferencia de saldo."""
     delta = after["used"] - before["used"]
+    source = "header"
     real = sum(hdr_costs) if hdr_costs and min(hdr_costs) >= 0 else delta
+    if not (hdr_costs and min(hdr_costs) >= 0):
+        source = "balance"
+        if delta < estimate * 0.5:      # el saldo aún no lo refleja: se apunta el estimado hasta conciliar
+            real, source = int(round(estimate)), "estimate"
     _log({"date": datetime.datetime.now().isoformat(timespec="seconds"), "section": section, "id": sid,
           "prompt": prompt, "params": params, "files": [os.path.relpath(p, ROOT) for p in files],
           "estimate": round(estimate), "cost": real, "used_before": before["used"], "used_after": after["used"],
-          "limit": after["limit"], "header_costs": hdr_costs, "balance_delta": delta})
+          "limit": after["limit"], "header_costs": hdr_costs, "balance_delta": delta,
+          "cost_source": source})
     b = _budget()
     tail = ""
     if b is not None:

@@ -1,5 +1,5 @@
 {
-  "_doc": "Sounds and music by id (docs/protocolos/editar-a-mano.md). The file of an id is found by convention: assets/audio/<section>/<id>.ogg or .wav, or its variants <id>_01, <id>_02... (one is picked at random each time). No file yet = silence (and a note in debug). Sections: music, sfx, ambient, voice; each entry: bus (default Music / Sfx / Ambient / Voice by section; the buses are fixed in default_bus_layout.tres: Master, Music, Sfx, Ambient, Voice, Ui), volume_db, pitch_jitter (0-0.5: random pitch change per play, view only). phase_music: the music of each phase of the day. events: the sound of a sim event (only events of the player's family sound).",
+  "_doc": "Sounds and music by id (docs/protocolos/editar-a-mano.md). The file of an id is found by convention: assets/audio/<section>/<id>.ogg or .wav, or its variants <id>_01, <id>_02... (one is picked at random each time). No file yet = silence (and a note in debug). Sections: music, sfx, ambient, voice; each entry: bus (default Music / Sfx / Ambient / Voice by section; the buses are fixed in default_bus_layout.tres: Master, Music, Sfx, Ambient, Voice, Ui), volume_db, pitch_jitter (0-0.5: random pitch change per play, view only). phase_music: the music of each phase of the day. phase_ambient: the ambient loop of each phase in the town; interior_ambient: the ambient loop inside a building type (no entry = quiet inside). events: the sound of a sim event (only events of the player's family sound); a notice (notice_added) sounds by its key (\"notice.objective_done\") or else by its severity (\"notice_added.warning\", \"notice_added.urgent\"). Music and ambient files are imported with Loop on.",
   "music": {
     "music_city_day": {"volume_db": 0.0},
     "music_night": {"volume_db": -2.0}
@@ -9,17 +9,44 @@
     "sfx_bellows": {"volume_db": -3.0},
     "sfx_coins": {"volume_db": 0.0, "pitch_jitter": 0.05},
     "sfx_door": {"volume_db": -3.0},
-    "sfx_ui_click": {"bus": "Ui", "volume_db": -6.0}
+    "sfx_ui_click": {"bus": "Ui", "volume_db": -6.0},
+    "sfx_hire": {"volume_db": -3.0, "pitch_jitter": 0.05},
+    "sfx_upgrade_done": {"volume_db": -2.0},
+    "sfx_contract_done": {"volume_db": -3.0, "pitch_jitter": 0.04},
+    "sfx_notice": {"volume_db": -4.0, "pitch_jitter": 0.03},
+    "sfx_alarm": {"volume_db": -5.0},
+    "sfx_debt": {"volume_db": -3.0},
+    "sfx_objective_done": {"volume_db": -6.0},
+    "sfx_objective_failed": {"volume_db": -4.0}
   },
-  "ambient": {},
-  "voice": {},
+  "ambient": {
+    "ambient_town_day": {"volume_db": 0.0},
+    "ambient_night": {"volume_db": 0.0},
+    "ambient_forge": {"volume_db": 0.0}
+  },
+  "voice": {
+    "voice_market_vendor": {"volume_db": -2.0},
+    "voice_board_crier": {"volume_db": -2.0}
+  },
   "phase_music": {"dawn": "music_city_day", "day": "music_city_day", "dusk": "music_city_day", "night": "music_night"},
+  "phase_ambient": {"dawn": "ambient_town_day", "day": "ambient_town_day", "dusk": "ambient_town_day", "night": "ambient_night"},
+  "interior_ambient": {"forge": "ambient_forge"},
   "events": {
     "work_done": "sfx_hammer",
     "master_touch_done": "sfx_bellows",
     "market_sold": "sfx_coins",
     "market_bought": "sfx_coins",
     "building_entered": "sfx_door",
-    "building_left": "sfx_door"
+    "building_left": "sfx_door",
+    "employee_hired": "sfx_hire",
+    "upgrade_done": "sfx_upgrade_done",
+    "contract_delivered": "sfx_contract_done",
+    "notice.objective_done": "sfx_objective_done",
+    "notice.objective_failed": "sfx_objective_failed",
+    "notice.wage_unpaid": "sfx_debt",
+    "notice.upkeep_unpaid": "sfx_debt",
+    "notice.loan_seized": "sfx_debt",
+    "notice_added.warning": "sfx_notice",
+    "notice_added.urgent": "sfx_alarm"
   }
 }

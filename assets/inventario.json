@@ -1020,100 +1020,282 @@
     {
       "id": "music_city_day",
       "tipo": "musica",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H1",
         "musica"
       ],
       "ruta": "assets/audio/music/music_city_day.ogg",
-      "origen": null,
+      "origen": "elevenlabs: Instrumental medieval folk music for a 14th-century Central European market town by day. Warm plucked lute and wooden recorder melody, light fiddle, soft frame drum, small acoustic ensemble of three or four players, cheerful but relaxed, about 100 bpm, cozy pastoral life-sim game soundtrack. No orchestra, no choir, no epic cinematic percussion, no vocals. Even energy from start to end: no intro build-up and no final ending, so it loops seamlessly.",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Ciudad de día (ElevenLabs Music o Suno de Miguel)."
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 1238 créditos (assets/audio/MANIFEST.md). Bucle de 32 compases (76,8 s) cortado donde la pieza repite su frase; -18 LUFS."
     },
     {
       "id": "music_night",
       "tipo": "musica",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H1",
         "musica"
       ],
       "ruta": "assets/audio/music/music_night.ogg",
-      "origen": null,
+      "origen": "elevenlabs: Instrumental medieval folk music for a quiet 14th-century Central European town at night. Slow, gentle solo lute fingerpicking with a soft hurdy-gurdy drone and an occasional low wooden flute phrase, calm and warm, a little melancholic, about 70 bpm, intimate and sparse, cozy pastoral life-sim game soundtrack. No percussion, no orchestra, no choir, no cinematic swells, no vocals. Even, steady texture from start to end: no intro build-up and no final ending, so it loops seamlessly.",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 1238 créditos (assets/audio/MANIFEST.md). Bucle de 85 s con fundido de 3 s en la costura; -20 LUFS."
     },
     {
       "id": "sfx_hammer",
       "tipo": "sonido",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H2",
         "forge"
       ],
-      "ruta": "assets/audio/sfx/sfx_hammer.ogg",
-      "origen": null,
+      "ruta": "assets/audio/sfx/sfx_hammer_01.ogg",
+      "origen": "elevenlabs: single blacksmith hammer strike on an iron anvil, bright metallic clang with short ring, close, dry medieval forge, no music",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 33 créditos (assets/audio/MANIFEST.md)."
     },
     {
       "id": "sfx_bellows",
       "tipo": "sonido",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H2",
         "forge"
       ],
-      "ruta": "assets/audio/sfx/sfx_bellows.ogg",
-      "origen": null,
+      "ruta": "assets/audio/sfx/sfx_bellows_01.ogg",
+      "origen": "elevenlabs: one long push of a large leather blacksmith bellows, deep airy whoosh into a forge fire, flames flare, close",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
     },
     {
       "id": "sfx_coins",
       "tipo": "sonido",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H3",
         "mercado"
       ],
-      "ruta": "assets/audio/sfx/sfx_coins.ogg",
-      "origen": null,
+      "ruta": "assets/audio/sfx/sfx_coins_01.ogg",
+      "origen": "elevenlabs: a few silver and copper coins dropped into a leather purse and onto a wooden counter, short jingle, close, medieval market, no music",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 33 créditos (assets/audio/MANIFEST.md)."
     },
     {
       "id": "sfx_door",
       "tipo": "sonido",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H2",
         "edificios"
       ],
-      "ruta": "assets/audio/sfx/sfx_door.ogg",
-      "origen": null,
+      "ruta": "assets/audio/sfx/sfx_door_01.ogg",
+      "origen": "elevenlabs: heavy old wooden door with iron hinges opening with a short creak and closing with a soft thud, medieval house, close",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
     },
     {
       "id": "sfx_ui_click",
       "tipo": "sonido",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H1",
         "ui"
       ],
-      "ruta": "assets/audio/sfx/sfx_ui_click.ogg",
-      "origen": null,
+      "ruta": "assets/audio/sfx/sfx_ui_click_01.ogg",
+      "origen": "elevenlabs: single soft click of a wooden button pressed on a parchment board, short dry tap, UI click, warm, no reverb",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 18 créditos (assets/audio/MANIFEST.md). Sin enganchar: el clic de los botones es un encargo aparte (la UI no llama a AudioDirector)."
+    },
+    {
+      "id": "sfx_hire",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H4",
+        "personal"
+      ],
+      "ruta": "assets/audio/sfx/sfx_hire_01.ogg",
+      "origen": "elevenlabs: a goose quill pen quickly signing a parchment contract, short scratchy flourish, then a light tap of the pen on a wooden desk, close, dry",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_upgrade_done",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H4",
+        "mejoras"
+      ],
+      "ruta": "assets/audio/sfx/sfx_upgrade_done_01.ogg",
+      "origen": "elevenlabs: two carpenter hammer taps on a wooden beam followed by one bright ring of a small brass hand bell, satisfying, medieval workshop, close",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 44 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_contract_done",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "encargos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_contract_done_01.ogg",
+      "origen": "elevenlabs: a wax seal pressed firmly onto parchment, then a small leather pouch of coins set down on a wooden table with a jingle, close",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_notice",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "avisos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_notice_01.ogg",
+      "origen": "elevenlabs: a small brass hand bell rung twice, short and clear, gentle attention signal, close, dry room",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 22 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_alarm",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "avisos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_alarm.ogg",
+      "origen": "elevenlabs: a medieval town alarm bell struck three times quickly, urgent bronze bell, short reverb tail",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 28 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_debt",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "cuentas"
+      ],
+      "ruta": "assets/audio/sfx/sfx_debt_01.ogg",
+      "origen": "elevenlabs: a heavy iron chain dropped onto a wooden table followed by a dull heavy stamp, ominous, short, close",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_objective_done",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H5",
+        "objetivos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_objective_done_01.ogg",
+      "origen": "elevenlabs: a very short joyful medieval fanfare: three quick ascending notes on a wooden recorder with a small bell chime at the end, warm, solo, dry",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 56 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_objective_failed",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H5",
+        "objetivos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_objective_failed.ogg",
+      "origen": "elevenlabs: a very short sad phrase on a plucked medieval lute: three slow descending notes, soft and dry, solo instrument",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 1 variante, 56 créditos (assets/audio/MANIFEST.md). 1 de 2 tomas (la otra no bajaba de tono con claridad)."
+    },
+    {
+      "id": "ambient_town_day",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ambiente"
+      ],
+      "ruta": "assets/audio/ambient/ambient_town_day.ogg",
+      "origen": "elevenlabs: ambience of a medieval town market square in the daytime: gentle murmur of a small crowd, footsteps on cobblestones, an occasional wooden cart rolling by, a few songbirds, distant chickens, steady and calm, no music, no modern sounds",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 330 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "ambient_night",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ambiente"
+      ],
+      "ruta": "assets/audio/ambient/ambient_night.ogg",
+      "origen": "elevenlabs: ambience of a quiet medieval village at night: crickets, soft wind through trees, a distant owl now and then, very calm and steady, no music, no voices, no modern sounds",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 330 créditos (assets/audio/MANIFEST.md). Loop de 30 s (modelo v2, loop) sin el hueco de 1,5 s del crudo."
+    },
+    {
+      "id": "ambient_forge",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H2",
+        "forge"
+      ],
+      "ruta": "assets/audio/ambient/ambient_forge.ogg",
+      "origen": "elevenlabs: ambience inside a medieval blacksmith forge: steady crackling coal fire, low roar of the hearth, soft hissing embers, quiet room tone, no hammering, no voices, no music",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 330 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "voice_market_vendor",
+      "tipo": "voz",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "mercado"
+      ],
+      "ruta": "assets/audio/voice/voice_market_vendor_01.ogg",
+      "origen": "elevenlabs: ¡Pan, queso y buen vino! ¡Acérquense, vecinos!",
+      "origen_previo": null,
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 45 créditos (assets/audio/MANIFEST.md). Sin disparo aún (encargo aparte). Voces peninsulares: Martin Osborne 6 y rolapp Jimena."
+    },
+    {
+      "id": "voice_board_crier",
+      "tipo": "voz",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "tablon"
+      ],
+      "ruta": "assets/audio/voice/voice_board_crier_01.ogg",
+      "origen": "elevenlabs: ¡Oíd, oíd! Nuevo aviso en el tablón.",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 39 créditos (assets/audio/MANIFEST.md). Sin disparo aún (encargo aparte). Voz peninsular: Martin Osborne 4."
     }
   ]
 }

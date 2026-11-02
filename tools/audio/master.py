@@ -4,11 +4,11 @@
 Uso:
   python3 tools/audio/master.py sfx  <crudo> assets/audio/sfx/sfx_hammer_01.ogg [--peak -1] [--max 2.5] [--mono]
   python3 tools/audio/master.py loop <crudo> assets/audio/music/music_city_day.ogg [--lufs -18] [--fade 2.0]
-                                     [--start 0] [--end 0]
+                                     [--start 0] [--end 0 | --length <s>]
   python3 tools/audio/master.py check <fichero> [--loop]
 
-sfx: recorta el silencio de delante y de detrás, corta a --max segundos con un fundido corto, normaliza el pico a
---peak dBFS y codifica a ogg (oggenc). loop: normaliza la sonoridad (loudnorm en dos pasadas, lineal) y cierra el
+sfx: normaliza el pico a --peak dBFS, recorta el silencio de delante y de detrás, corta a --max segundos con un
+fundido corto y codifica a ogg (oggenc). loop: normaliza la sonoridad (loudnorm en dos pasadas, lineal) y cierra el
 bucle: los últimos --fade segundos se funden sobre los primeros, así el final enlaza con el principio sin clic.
 check: duración, pico, RMS y, con --loop, el salto en la costura (último → primer sample) frente al salto típico.
 Necesita ffmpeg y oggenc (brew: ffmpeg, vorbis-tools). Solo stdlib.
@@ -106,6 +106,8 @@ def fade_in(s: array.array, ch: int, seconds: float) -> None:
 def cmd_sfx(a: argparse.Namespace) -> None:
     ch = 1 if a.mono else min(2, channels_of(a.src))
     s = decode(a.src, ch)
+    gain = 10 ** ((a.peak - peak_db(s)) / 20)          # normaliza antes: el umbral del recorte es tras normalizar
+    s = array.array("f", (x * gain for x in s))
     s = trim_silence(s, ch, a.silence)
     if a.max and len(s) // ch > int(a.max * RATE):
         s = s[:int(a.max * RATE) * ch]
@@ -113,8 +115,6 @@ def cmd_sfx(a: argparse.Namespace) -> None:
     else:
         fade_out(s, ch, 0.01)
     fade_in(s, ch, 0.002)
-    gain = 10 ** ((a.peak - peak_db(s)) / 20)
-    s = array.array("f", (x * gain for x in s))
     write_ogg(s, ch, a.dst, a.quality)
     report(a.dst, False)
 
@@ -136,13 +136,30 @@ def loudnorm(src: str, ch: int, lufs: float) -> array.array:
     return out
 
 
+def splice(s: array.array, ch: int, c0: int, c1: int, x: int) -> array.array:
+    """s sin los frames [c0, c1): los x frames antes de c0 se funden con los x que empiezan en c1."""
+    out = s[:(c0 - x) * ch]
+    for i in range(x):
+        t = i / x
+        gi, go = math.sin(t * math.pi / 2), math.cos(t * math.pi / 2)
+        for c in range(ch):
+            out.append(s[(c0 - x + i) * ch + c] * go + s[(c1 + i) * ch + c] * gi)
+    out.extend(s[(c1 + x) * ch:])
+    return out
+
+
 def cmd_loop(a: argparse.Namespace) -> None:
     ch = 1 if a.mono else min(2, channels_of(a.src))
     s = loudnorm(a.src, ch, a.lufs)
     frames = len(s) // ch
     start = int(a.start * RATE)
     end = frames - int(a.end * RATE) if a.end else frames
+    if a.length:                                   # cuerpo del bucle exacto (p. ej. N compases) + el fundido
+        end = min(frames, start + int((a.length + a.fade) * RATE))
     s = s[start * ch:end * ch]
+    for cut in a.cut:                              # quita un tramo (un hueco, un golpe raro) con un fundido corto
+        c0, c1 = (int(float(t) * RATE) for t in cut.split("-"))
+        s = splice(s, ch, c0, c1, int(0.25 * RATE))
     frames = len(s) // ch
     x = int(a.fade * RATE)
     if x * 2 >= frames:
@@ -191,7 +208,7 @@ def main() -> None:
     s.add_argument("dst")
     s.add_argument("--peak", type=float, default=-1.0)
     s.add_argument("--max", type=float, default=0.0)
-    s.add_argument("--silence", type=float, default=-45.0, help="umbral del recorte en dBFS")
+    s.add_argument("--silence", type=float, default=-55.0, help="umbral del recorte en dBFS (tras normalizar)")
     s.add_argument("--mono", action="store_true")
     s.add_argument("--quality", type=int, default=5)
     s.set_defaults(fn=cmd_sfx)
@@ -202,6 +219,9 @@ def main() -> None:
     lp.add_argument("--fade", type=float, default=2.0)
     lp.add_argument("--start", type=float, default=0.0)
     lp.add_argument("--end", type=float, default=0.0, help="segundos a quitar del final antes de cerrar el bucle")
+    lp.add_argument("--length", type=float, default=0.0,
+                    help="largo del bucle en segundos desde --start (p. ej. N compases); usa también --fade s después")
+    lp.add_argument("--cut", action="append", default=[], help="tramo a quitar (segundos tras --start): 16.6-18.1")
     lp.add_argument("--mono", action="store_true")
     lp.add_argument("--quality", type=int, default=5)
     lp.set_defaults(fn=cmd_loop)
