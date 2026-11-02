@@ -8,13 +8,16 @@ extends Node
 ## "interior_ambient" (building type -> id, while an interior is shown; a type without an entry is quiet inside).
 ## A notice (event notice_added) sounds by its key first ("notice.objective_done") and else by its severity
 ## ("notice_added.urgent"), so one notice never sounds twice. Other events try "<type>.<value>" first for their zone,
-## phase, category or stall ("work_started.furnace", "phase_changed.dawn", "gold_changed.counter_sales"), then the
-## plain type. An entry is one id or a list of ids. Events listed in "selected_only" sound only for the selected person (footsteps). An id with
-## "cooldown_s" does not sound again until that many real seconds have passed (voices).
-## The UI ("ui"): every button of the tree clicks ("button"), the panels named in "panels" (scene names of game/ui/)
-## sound when they open and close, "panel_open_by" adds a sound to one panel opening (the vendor, the crier), and
-## pausing / resuming the game has its own sound. All from here: no panel calls the AudioDirector. Buses are fixed in default_bus_layout.tres (Master, Music,
-## Sfx, Ambient, Voice, Ui): each id goes to the bus of its section unless it names another. The pitch jitter is
+## phase, category, stall, activity or def ("work_started.furnace", "phase_changed.dawn", "town_state.dice"), then the
+## plain type. An entry is one id or a list of ids. Events listed in "selected_only" sound only when the selected
+## person is in them (actor, a, b or character: footsteps, greetings). An id with "cooldown_s" does not sound again
+## until that many real seconds have passed (voices).
+## The UI ("ui"): every button of the tree clicks ("button"; not when the click itself pauses or resumes the game:
+## then the pause sound is enough), the panels named in "panels" (scene names of game/ui/) sound when they open and
+## close, "panel_open_by" adds a sound to one panel opening (the vendor, the crier), pausing / resuming has its own
+## sound (not when a game starts nor while a screen of "screen_music" is shown), and while a screen of "screen_music" is shown its music plays instead of the
+## phase's, with no ambient (the title theme on the new game screen). All from here: no panel calls the
+## AudioDirector. Buses are fixed in default_bus_layout.tres (Master, Music, Sfx, Ambient, Voice, Ui): each id goes to the bus of its section unless it names another. The pitch jitter is
 ## random, but only in the view. With the Dummy audio driver (headless runs) nothing is heard, so no playback starts:
 ## Godot leaks a playback stopped while quitting there (resources still in use at exit).
 
@@ -37,7 +40,12 @@ var _last: Dictionary = {}           # id -> Time.get_ticks_msec() of its last p
 var _paused: Variant = null          # Game.paused as last seen (null = not seen yet)
 var _panels: Dictionary = {}         # panel node instance id -> visible as last heard (sound only on a real change)
 var _ready_ms: int = 0               # panels setting themselves up right after start do not sound
-const EVENT_FIELDS: Array[String] = ["zone", "phase", "category", "stall"]
+var _started_frame: int = -100       # frame of the last Game.started (its unpause is not a "resume")
+var _click_pending: bool = false     # a button click waiting for the end of the frame
+var _pause_frame: int = -100         # frame in which the pause / resume sound played
+var _screens: Dictionary = {}        # screen node instance id -> [node, screen name] (ui.screen_music)
+const EVENT_FIELDS: Array[String] = ["zone", "phase", "category", "stall", "activity", "def"]
+const SELECTED_FIELDS: Array[String] = ["actor", "a", "b", "character"]
 
 
 func _ready() -> void:
@@ -58,7 +66,10 @@ func _ready() -> void:
 	if events != null:
 		events.sim_event.connect(on_sim_event)
 	_game = get_node_or_null("/root/Game")
+	if _game != null and _game.has_signal("started"):
+		_game.connect("started", func() -> void: _started_frame = Engine.get_process_frames())
 	_ready_ms = Time.get_ticks_msec()
+	_check = 0.5                         # the first music waits a moment: the new game screen may be about to show
 	get_tree().node_added.connect(_on_node_added)
 	_hook_tree.call_deferred(get_tree().root)
 	_log("ready (sounds=%d, events=%d, driver=%s)" % [ids().size(), (config.get("events", {}) as Dictionary).size(),
@@ -206,10 +217,25 @@ func on_sim_event(e: Dictionary) -> void:
 	var ids_ := sounds_for(e)
 	if ids_.is_empty() or not _concerns_player(e):
 		return
-	if str(e.get("type", "")) in (config.get("selected_only", []) as Array) and str(e.get("actor", "")) != _selected():
+	if str(e.get("type", "")) in (config.get("selected_only", []) as Array) and not _has_selected(e):
 		return
 	for id: String in ids_:
 		play(id)
+
+
+func _has_selected(e: Dictionary) -> bool:
+	var sel := _selected()
+	if sel == "":
+		return false
+	for f: String in SELECTED_FIELDS:
+		if str(e.get(f, "")) == sel:
+			return true
+	return false
+
+
+## The music of a screen (audio.json ui.screen_music, by scene name of game/ui/; "" = none).
+func screen_music(screen: String) -> String:
+	return str(((config.get("ui", {}) as Dictionary).get("screen_music", {}) as Dictionary).get(screen, ""))
 
 
 ## The sound id of a UI moment ("button", "pause", "resume", "panel_open", "panel_close"; "" = none).
@@ -239,17 +265,50 @@ func _on_node_added(n: Node) -> void:
 		var b := n as BaseButton
 		if not b.pressed.is_connected(_on_button):
 			b.pressed.connect(_on_button)
-	elif n is Control and n.scene_file_path != "" and not _panels.has(n.get_instance_id()):
-		var panel := n.scene_file_path.get_file().get_basename()
-		if is_panel(panel):
+	elif n is Control and n.scene_file_path != "":
+		var scene := n.scene_file_path.get_file().get_basename()
+		if is_panel(scene) and not _panels.has(n.get_instance_id()):
 			_panels[n.get_instance_id()] = (n as Control).visible
-			(n as Control).visibility_changed.connect(_on_panel_visibility.bind(n, panel))
+			(n as Control).visibility_changed.connect(_on_panel_visibility.bind(n, scene))
+		if screen_music(scene) != "":
+			_screens[n.get_instance_id()] = [n, scene]
 
 
+## The click waits for the end of the frame: if the button paused or resumed the game, the pause sound says it.
 func _on_button() -> void:
+	if not _click_pending:
+		_click_pending = true
+		_flush_click.call_deferred()
+
+
+func _flush_click() -> void:
+	_click_pending = false
+	if _game != null and _paused != null:
+		var p: Variant = _game.get("paused")
+		if p != null and bool(p) != bool(_paused) and not _game_just_started():
+			return                           # paused this frame and the director has not seen it yet
+	if _pause_frame == Engine.get_process_frames():
+		return                               # the pause sound already played this frame
 	var id := ui_sound("button")
 	if id != "":
 		play(id)
+
+
+func _game_just_started() -> bool:
+	return Engine.get_process_frames() - _started_frame <= 2
+
+
+## The music of the screen shown now ("" = none: the phase's music plays).
+func _shown_screen_music() -> String:
+	for k: Variant in _screens.keys():
+		var pair: Array = _screens[k]
+		if not is_instance_valid(pair[0]):
+			_screens.erase(k)
+			continue
+		var c := pair[0] as Control
+		if c.is_visible_in_tree():
+			return screen_music(str(pair[1]))
+	return ""
 
 
 func _on_panel_visibility(n: Control, panel: String) -> void:
@@ -270,15 +329,24 @@ func _on_panel_visibility(n: Control, panel: String) -> void:
 func _process(delta: float) -> void:
 	if _game != null:
 		var p: Variant = _game.get("paused")
-		if p != null and _paused != null and bool(p) != bool(_paused):
+		if p != null and _paused != null and bool(p) != bool(_paused) and not _game_just_started() \
+				and _shown_screen_music() == "":
 			var id := ui_sound("pause" if bool(p) else "resume")
 			if id != "":
 				play(id)
+				_pause_frame = Engine.get_process_frames()
 		_paused = p
 	_check -= delta
-	if _check > 0.0 or _game == null or _game.get("sim") == null:
+	if _check > 0.0:
 		return
-	_check = 1.0
+	_check = 0.5
+	var screen := _shown_screen_music()
+	if screen != "":
+		play_music(screen)
+		play_ambient("")
+		return
+	if _game == null or _game.get("sim") == null:
+		return
 	var sim: Sim = _game.get("sim")
 	var phase := Clock.phase(int(sim.state.clock["minute"]), sim.catalog.time)
 	play_music(music_for_phase(phase))

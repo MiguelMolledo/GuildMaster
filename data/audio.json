@@ -1,8 +1,9 @@
 {
-  "_doc": "Sounds and music by id (docs/protocolos/editar-a-mano.md). The file of an id is found by convention: assets/audio/<section>/<id>.ogg or .wav, or its variants <id>_01, <id>_02... (one is picked at random each time). No file yet = silence (and a note in debug). Sections: music, sfx, ambient, voice; each entry: bus (default Music / Sfx / Ambient / Voice by section; the buses are fixed in default_bus_layout.tres: Master, Music, Sfx, Ambient, Voice, Ui), volume_db, pitch_jitter (0-0.5: random pitch change per play, view only). phase_music: the music of each phase of the day. phase_ambient: the ambient loop of each phase in the town; interior_ambient: the ambient loop inside a building type (no entry = quiet inside). events: the sound of a sim event (only events of the player's family sound); a notice (notice_added) sounds by its key (\"notice.objective_done\") or else by its severity (\"notice_added.warning\", \"notice_added.urgent\"). Other events may name a value: \"<type>.<zone|phase|category|stall>\" (work_started.furnace, phase_changed.dawn, gold_changed.counter_sales) wins over the plain type; an entry is one id or a list of ids. selected_only: events that sound only for the selected person (footsteps). cooldown_s on an id: real seconds before it can sound again. ui: button (every button of the tree), pause / resume, panel_open / panel_close for the panels listed in panels (scene names of game/ui/), panel_open_by: an extra sound when one panel opens. Music and ambient files are imported with Loop on.",
+  "_doc": "Sounds and music by id (docs/protocolos/editar-a-mano.md). The file of an id is found by convention: assets/audio/<section>/<id>.ogg or .wav, or its variants <id>_01, <id>_02... (one is picked at random each time). No file yet = silence (and a note in debug). Sections: music, sfx, ambient, voice; each entry: bus (default Music / Sfx / Ambient / Voice by section; the buses are fixed in default_bus_layout.tres: Master, Music, Sfx, Ambient, Voice, Ui), volume_db, pitch_jitter (0-0.5: random pitch change per play, view only). phase_music: the music of each phase of the day. phase_ambient: the ambient loop of each phase in the town; interior_ambient: the ambient loop inside a building type (no entry = quiet inside). events: the sound of a sim event (only events of the player's family sound); a notice (notice_added) sounds by its key (\"notice.objective_done\") or else by its severity (\"notice_added.warning\", \"notice_added.urgent\"). Other events may name a value: \"<type>.<zone|phase|category|stall|activity|def>\" (work_started.furnace, phase_changed.dawn, gold_changed.counter_sales) wins over the plain type; an entry is one id or a list of ids. selected_only: events that sound only when the selected person is in them (actor, a, b or character: footsteps, greetings). cooldown_s on an id: real seconds before it can sound again. ui: button (every button of the tree), pause / resume, panel_open / panel_close for the panels listed in panels (scene names of game/ui/), panel_open_by: an extra sound when one panel opens; screen_music: the music while a screen is shown (title theme on new_game_screen), with no ambient. Music and ambient files are imported with Loop on.",
   "music": {
     "music_city_day": {"volume_db": 0.0},
-    "music_night": {"volume_db": -2.0}
+    "music_night": {"volume_db": -2.0},
+    "music_title": {"volume_db": -1.0}
   },
   "sfx": {
     "sfx_hammer": {"volume_db": 0.0, "pitch_jitter": 0.08},
@@ -27,22 +28,28 @@
     "sfx_panel_open": {"bus": "Ui", "volume_db": -8.0, "pitch_jitter": 0.05},
     "sfx_panel_close": {"bus": "Ui", "volume_db": -10.0, "pitch_jitter": 0.05},
     "sfx_pause": {"bus": "Ui", "volume_db": -6.0},
-    "sfx_resume": {"bus": "Ui", "volume_db": -6.0}
+    "sfx_resume": {"bus": "Ui", "volume_db": -6.0},
+    "sfx_dice": {"volume_db": -6.0, "pitch_jitter": 0.06, "cooldown_s": 4.0},
+    "sfx_thief_alarm": {"volume_db": -3.0},
+    "sfx_cough": {"volume_db": -4.0, "pitch_jitter": 0.06}
   },
   "ambient": {
     "ambient_town_day": {"volume_db": 0.0},
     "ambient_night": {"volume_db": 0.0},
-    "ambient_forge": {"volume_db": 0.0}
+    "ambient_forge": {"volume_db": 0.0},
+    "ambient_plaza_dusk": {"volume_db": 0.0}
   },
   "voice": {
     "voice_market_vendor": {"volume_db": -2.0, "cooldown_s": 20.0},
     "voice_market_deal": {"volume_db": -2.0, "cooldown_s": 20.0},
-    "voice_board_crier": {"volume_db": -2.0, "cooldown_s": 20.0}
+    "voice_board_crier": {"volume_db": -2.0, "cooldown_s": 20.0},
+    "voice_haggle": {"volume_db": -2.0, "cooldown_s": 20.0},
+    "voice_greeting": {"volume_db": -4.0, "cooldown_s": 8.0}
   },
   "phase_music": {"dawn": "music_city_day", "day": "music_city_day", "dusk": "music_city_day", "night": "music_night"},
-  "phase_ambient": {"dawn": "ambient_town_day", "day": "ambient_town_day", "dusk": "ambient_town_day", "night": "ambient_night"},
+  "phase_ambient": {"dawn": "ambient_town_day", "day": "ambient_town_day", "dusk": "ambient_plaza_dusk", "night": "ambient_night"},
   "interior_ambient": {"forge": "ambient_forge"},
-  "selected_only": ["character_moved"],
+  "selected_only": ["character_moved", "greeted", "town_state"],
   "ui": {
     "button": "sfx_ui_click",
     "pause": "sfx_pause",
@@ -50,7 +57,8 @@
     "panel_open": "sfx_panel_open",
     "panel_close": "sfx_panel_close",
     "panels": ["market_panel", "board_panel", "ledger_panel", "production_panel", "staff_panel", "storage_panel", "upgrade_panel", "help_panel"],
-    "panel_open_by": {"market_panel": "voice_market_vendor", "board_panel": "voice_board_crier"}
+    "panel_open_by": {"market_panel": "voice_market_vendor", "board_panel": "voice_board_crier"},
+    "screen_music": {"new_game_screen": "music_title"}
   },
   "events": {
     "work_done": "sfx_hammer",
@@ -74,6 +82,13 @@
     "gold_changed.counter_sales": "sfx_sale",
     "character_moved": "sfx_step",
     "phase_changed.dawn": "sfx_rooster",
-    "phase_changed.day": "sfx_market_bell"
+    "phase_changed.day": "sfx_market_bell",
+    "counter_sold": "sfx_sale",
+    "town_state.dice": "sfx_dice",
+    "greeted": "voice_greeting",
+    "notice.microevent.night_thief": "sfx_thief_alarm",
+    "notice.theft_frustrated": "sfx_thief_alarm",
+    "notice.microevent.sick_employee": "sfx_cough",
+    "notice.microevent.haggling_customer": "voice_haggle"
   }
 }

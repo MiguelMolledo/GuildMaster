@@ -19,5 +19,11 @@ retraso y se usa para conciliar.
 | | **Total de la tanda 2** | | 11 ids nuevos, 24 ficheros | **73.276** | **73.704** | **428 de 8.000** |
 | | **Total acumulado del tope de 20.000** | | 31 ids, 61 ficheros | 69.266 | 73.704 | **4.438** |
 
+| 2026-11-02 | Audio 3 (tope de la tanda 6.000) · tema de título | ElevenLabs music_v1 (60 s) | music_title | 73.704 | 74.529 | 825 |
+| 2026-11-02 | ídem · H7 ciudad viva: ambiente y efectos | ElevenLabs sfx v2 | ambient_plaza_dusk (loop 30 s), sfx_dice ×3, sfx_thief_alarm ×2, sfx_cough ×3 | 74.529 | 75.017 | 488 |
+| 2026-11-02 | ídem · H7: regateo y saludos | ElevenLabs TTS multilingual v2 | voice_haggle ×2 (4 frases montadas), voice_greeting ×3 (+1 descartada) | 75.017 | 75.113 | 96 |
+| | **Total de la tanda 3** | | 7 ids nuevos, 15 ficheros | **73.704** | **75.113** | **1.409 de 6.000** |
+| | **Total acumulado** | | 38 ids, 76 ficheros | 69.266 | 75.113 | **5.847** |
+
 Tarifas medidas: efecto ~11 créditos por segundo pedido; música ~825 por minuto (1.238 por 90 s); voz ~0,45 por carácter.
-Descartado (pagado, no integrado): 1 toma de `sfx_objective_failed` (28 créditos) y 2 tomas de 1,5 s de `sfx_sale` (34 créditos: la campanilla quedaba cortada).
+Descartado (pagado, no integrado): 1 toma de `sfx_objective_failed` (28 créditos) y 2 tomas de 1,5 s de `sfx_sale` (34 créditos: la campanilla quedaba cortada) y 1 toma de `voice_greeting` (8 créditos: alargaba «Que Dios os guarde.» a 4 s).

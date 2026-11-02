@@ -120,7 +120,9 @@ func test_ui_sounds_and_panels() -> void:
 	eq(b.pressed.get_connections().size(), 1, "a button is hooked once")
 	d._dummy = true
 	b.pressed.emit()
-	check(d._last.has("sfx_ui_click"), "pressing a hooked button clicks")
+	check(d._click_pending, "pressing a hooked button asks for a click (at the end of the frame)")
+	d._flush_click()
+	check(d._last.has("sfx_ui_click"), "and it clicks")
 	var p := Control.new()
 	p.scene_file_path = "res://game/ui/market_panel.tscn"
 	d._on_node_added(p)
@@ -138,4 +140,35 @@ func test_cooldown_keeps_voices_from_repeating() -> void:
 	check(not d.play("voice_market_vendor"), "again at once: the cooldown holds it")
 	check(d.play("sfx_coins"), "an id without cooldown always sounds")
 	check(d.play("sfx_coins"), "and again")
+	d.free()
+
+
+func test_title_screen_and_h7_sounds() -> void:
+	var d := _director()
+	eq(d.screen_music("new_game_screen"), "music_title", "the title theme on the new game screen")
+	eq(d.screen_music("hud"), "", "other scenes: none")
+	eq(d.ambient_for("dusk", ""), "ambient_plaza_dusk", "the plaza murmurs at dusk")
+	eq(d.sound_for({"type": "town_state", "character": "c", "state": "social", "activity": "dice"}), "sfx_dice", "dice")
+	eq(d.sound_for({"type": "town_state", "character": "c", "state": "social", "activity": "bench"}), "", "a bench: quiet")
+	eq(d.sound_for({"type": "greeted", "a": "x", "b": "y"}), "voice_greeting", "a greeting")
+	eq(d.sound_for({"type": "counter_sold", "family": "f"}), "sfx_sale", "a sale at the counter")
+	eq(d.sound_for({"type": "notice_added", "key": "notice.microevent.night_thief", "severity": "urgent"}),
+		"sfx_thief_alarm", "the thief")
+	eq(d.sound_for({"type": "notice_added", "key": "notice.microevent.sick_employee", "severity": "warning"}),
+		"sfx_cough", "the sick employee")
+	eq(d.sound_for({"type": "notice_added", "key": "notice.microevent.haggling_customer", "severity": "info"}),
+		"voice_haggle", "the haggling customer")
+	check("greeted" in (d.config["selected_only"] as Array), "greetings only for the selected person")
+	d.free()
+
+
+func test_a_click_that_pauses_does_not_click() -> void:
+	var d := _director()
+	d._dummy = true
+	d._pause_frame = Engine.get_process_frames()
+	d._flush_click()
+	check(not d._last.has("sfx_ui_click"), "the pause sound played this frame: no click")
+	d._pause_frame = -100
+	d._flush_click()
+	check(d._last.has("sfx_ui_click"), "a plain click clicks")
 	d.free()

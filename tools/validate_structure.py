@@ -274,7 +274,7 @@ def check_audio(rep):
             if id_ not in ids:
                 rep.error(w, f"events.{ev}: sonido desconocido {id_}")
     for ev in a.get("selected_only") or []:
-        if ev not in (a.get("events") or {}):
+        if not any(k == ev or k.startswith(ev + ".") for k in (a.get("events") or {})):
             rep.error(w, f"selected_only: {ev} no está en events")
     ui = a.get("ui") or {}
     for k in ("button", "pause", "resume", "panel_open", "panel_close"):
@@ -284,6 +284,11 @@ def check_audio(rep):
     for pn in list(ui.get("panels") or []) + list((ui.get("panel_open_by") or {}).keys()):
         if not os.path.exists(os.path.join(ui_dir, f"{pn}.tscn")):
             rep.error(w, f"ui: el panel {pn} no es una escena de game/ui/")
+    for sc, id_ in (ui.get("screen_music") or {}).items():
+        if not os.path.exists(os.path.join(ui_dir, f"{sc}.tscn")):
+            rep.error(w, f"ui.screen_music: {sc} no es una escena de game/ui/")
+        if ids.get(id_) != "music":
+            rep.error(w, f"ui.screen_music.{sc}: {id_} no es una música de audio.json")
     for pn, id_ in (ui.get("panel_open_by") or {}).items():
         if id_ not in ids:
             rep.error(w, f"ui.panel_open_by.{pn}: sonido desconocido {id_}")

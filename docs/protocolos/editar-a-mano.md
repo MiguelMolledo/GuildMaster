@@ -79,7 +79,8 @@ zona de clic). Mientras no hay arte, dentro hay un nodo **`Greybox`** con el dib
 ### Los sonidos de la interfaz
 Sección `ui` de `data/audio.json`: `button` (todos los botones, sin tocar los paneles), `pause` / `resume`,
 `panel_open` / `panel_close` para los paneles de `panels` (nombres de escena de `game/ui/`), y `panel_open_by`: un
-sonido más al abrir un panel concreto (el vendedor en `market_panel`, el pregonero en `board_panel`). Para que un
+sonido más al abrir un panel concreto (el vendedor en `market_panel`, el pregonero en `board_panel`), y
+`screen_music`: la música mientras se ve una pantalla (el tema de título en `new_game_screen`). Para que un
 panel nuevo suene al abrirse, añade su nombre a `panels`. Un sonido de UI que no esté aquí es un encargo.
 
 ### Un ambiente (plaza, noche, interior)
