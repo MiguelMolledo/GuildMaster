@@ -117,3 +117,28 @@ Tope de la tanda: 8.000. **Gastados 428** (saldo: 73.704 usados de 121.034). Acu
 | Campana del mercado | `sfx_market_bell` ×2 | `phase_changed.day` |
 
 Descartado: 2 tomas de `sfx_sale` de 1,5 s (la campanilla quedaba cortada a todo volumen); se rehízo a 2,5 s.
+
+## Tanda 3 (2026-11-02): pausa sin doble sonido, tema de título y audio de H7
+
+Tope de la tanda: 6.000. **Gastados 1.409** (saldo: 75.113 usados de 121.034). Acumulado: 5.847.
+
+- **Pausa**: el clic de un botón espera al final del fotograma; si en ese fotograma sonó (o va a sonar) la pausa, no
+  hay clic. Al empezar partida (`Game.started`) no suena «reanudar»; el botón de empezar sí hace clic.
+- **Tema de título**: `music_title` (laúd, flauta y fídula como `music_city_day`, 90 bpm), bucle de 16 compases
+  (42,67 s) cortado donde la pieza repite su frase; suena mientras se ve `new_game_screen` (`ui.screen_music`), sin
+  ambiente.
+- **H7 (rama origin/h7-ciudad, eventos de su contrato)**:
+
+| Qué | Id | Disparo (ya existe en h7-ciudad) |
+|---|---|---|
+| Murmullo de la plaza al atardecer | `ambient_plaza_dusk` | `phase_ambient.dusk` |
+| Dados | `sfx_dice` ×3 | `town_state.dice` de la persona seleccionada |
+| Ladrón / alarma | `sfx_thief_alarm` ×2 | avisos `notice.microevent.night_thief` y `notice.theft_frustrated` |
+| Tos de enfermo | `sfx_cough` ×3 | aviso `notice.microevent.sick_employee` |
+| Regateo (dos voces) | `voice_haggle` ×2 | aviso `notice.microevent.haggling_customer` |
+| Saludo de vecino | `voice_greeting` ×3 | `greeted {a, b}` con la persona seleccionada; enfriamiento 8 s |
+| Venta en el mostrador | `sfx_sale` (ya existía) | `counter_sold` |
+
+Hasta que H7 se junte, esos eventos no llegan y las entradas no hacen nada (el validador no exige que el evento
+exista). Si H7 cambia algún id de evento o clave de aviso, basta con renombrar la entrada en `events`.
+Descartado: 1 toma de `voice_greeting` (la voz alargaba «Que Dios os guarde.» a 4 s); se rehízo con otra voz.

@@ -1555,6 +1555,104 @@
       "origen_previo": null,
       "coste_gen": 1,
       "notas": "ElevenLabs, 1 variante, 6 créditos (assets/audio/MANIFEST.md). «¡Trato hecho!» al comprar en el mercado (enfriamiento 20 s). Voz: rolapp Jimena."
+    },
+    {
+      "id": "music_title",
+      "tipo": "musica",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "partida_nueva"
+      ],
+      "ruta": "assets/audio/music/music_title.ogg",
+      "origen": "elevenlabs: Instrumental medieval folk title theme for a cozy 14th-century Central European town life-sim game. Same small acoustic ensemble as the town music: warm plucked lute, wooden recorder melody, light fiddle and soft frame drum, about 90 bpm, inviting and hopeful, a gentle memorable main melody. No orchestra, no choir, no epic cinematic percussion, no vocals. Even energy from start to end: no intro build-up and no final ending, so it loops seamlessly.",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 825 créditos (assets/audio/MANIFEST.md). Bucle de 16 compases (42,67 s) en la pantalla de partida nueva (ui.screen_music); -18 LUFS."
+    },
+    {
+      "id": "sfx_dice",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "ciudad"
+      ],
+      "ruta": "assets/audio/sfx/sfx_dice_01.ogg",
+      "origen": "elevenlabs: two small wooden dice shaken in a leather cup and rolled onto a wooden tavern table, rattling and settling, close, dry",
+      "origen_previo": null,
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 51 créditos (assets/audio/MANIFEST.md). town_state.dice de la persona seleccionada (H7), enfriamiento 4 s."
+    },
+    {
+      "id": "sfx_thief_alarm",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "microeventos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_thief_alarm_01.ogg",
+      "origen": "elevenlabs: alarm for a thief caught at night: a hand bell rung hard and fast, a dog barking, quick running footsteps on cobblestones, medieval town, no words",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 56 créditos (assets/audio/MANIFEST.md). notice.microevent.night_thief y notice.theft_frustrated (H7)."
+    },
+    {
+      "id": "sfx_cough",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "microeventos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_cough_01.ogg",
+      "origen": "elevenlabs: a sick tired man coughing twice, dry chesty cough, close, indoor, no words",
+      "origen_previo": null,
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 51 créditos (assets/audio/MANIFEST.md). notice.microevent.sick_employee (H7)."
+    },
+    {
+      "id": "ambient_plaza_dusk",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "ciudad"
+      ],
+      "ruta": "assets/audio/ambient/ambient_plaza_dusk.ogg",
+      "origen": "elevenlabs: ambience of a medieval town square at dusk: lively murmur of a relaxed crowd chatting, occasional laughter, mugs clinking on wooden tables, a few distant footsteps, warm evening, no music, no modern sounds, steady",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 330 créditos (assets/audio/MANIFEST.md). Loop nativo de 30 s; plaza al atardecer (phase_ambient.dusk)."
+    },
+    {
+      "id": "voice_haggle",
+      "tipo": "voz",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "microeventos"
+      ],
+      "ruta": "assets/audio/voice/voice_haggle_01.ogg",
+      "origen": "elevenlabs: ¿Tres monedas? Le doy dos, ni una más.",
+      "origen_previo": null,
+      "coste_gen": 4,
+      "notas": "ElevenLabs, 2 variantes, 60 créditos (assets/audio/MANIFEST.md). Dos diálogos cliente + vendedor montados de 4 frases (Javi/Jimena, Sara Martin 2/Martin Osborne 6); notice.microevent.haggling_customer (H7)."
+    },
+    {
+      "id": "voice_greeting",
+      "tipo": "voz",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "ciudad"
+      ],
+      "ruta": "assets/audio/voice/voice_greeting_01.ogg",
+      "origen": "elevenlabs: ¡Salud, vecino!",
+      "origen_previo": null,
+      "coste_gen": 4,
+      "notas": "ElevenLabs, 3 variantes, 36 créditos (assets/audio/MANIFEST.md). «¡Salud, vecino!», «¡Buenas! ¿Qué tal la jornada?», «Que Dios os guarde.»; greeted con la persona seleccionada (H7). 1 toma descartada (voz que alargaba 4 s)."
     }
   ]
 }
