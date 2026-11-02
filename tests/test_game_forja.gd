@@ -128,7 +128,8 @@ func test_right_click_on_forge_with_hugo_selected_enters() -> void:
 	_same(got[0], {"type": "enter_building", "actor": HUGO, "building": BLD}, "right click on the forge")
 	check(_click(v, MOUSE_BUTTON_RIGHT, v.tile_to_screen(Vector2i(26, 19)) + Vector2(4, 2)), "right click on the door")
 	_same(got[1], {"type": "enter_building", "actor": HUGO, "building": BLD}, "right click on its door")
-	check(_click(v, MOUSE_BUTTON_RIGHT, v.tile_to_screen(Vector2i(22, 18))), "right click on the street")
+	# a plaza tile in front of the forge (scale B: the taller forge now covers the tiles just behind it, like 22,18)
+	check(_click(v, MOUSE_BUTTON_RIGHT, v.tile_to_screen(Vector2i(20, 17))), "right click on the street")
 	eq(str(got[2]["type"]), "move_to", "the street is still a walk")
 	# the order through the sim: he walks to the door and goes in
 	var ev := sim.step([got[0]])

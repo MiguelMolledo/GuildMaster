@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cac8a4smknsqk"]
+[gd_scene load_steps=3 format=3 uid="uid://cac8a4smknsqk"]
 
 [ext_resource type="Texture2D" uid="uid://b1jymj4lw6h2k" path="res://assets/art/buildings/house_d.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://b8tc724h2ge2a" path="res://assets/art/buildings/escala_b/house_d.png" id="1_tex_b"]
 
 [node name="LotHouseD" type="Node2D"]
 editor_description = "Filler house of the town's blocks (map tiles #): WorldView puts one on each free 3x4/4x3/3x3 lot, picked from filler.houses in data/view.json (and mirrored at random). Reused from Guild Renew (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). The sprite's base sits on Feet; move or swap it here."
@@ -8,9 +9,18 @@ editor_description = "Filler house of the town's blocks (map tiles #): WorldView
 [node name="Feet" type="Marker2D" parent="."]
 
 [node name="Top" type="Marker2D" parent="."]
-position = Vector2(0, -72)
+position = Vector2(0, -88)
 
 [node name="Sprite" type="Sprite2D" parent="."]
+editor_description = "Scale B (docs/arte/escala.md, tools/art/escala_b.py): Guild Renew sprite with taller floors and door, 1:1, base on Feet. The sprite of before is SpriteAntes (hidden)."
+texture_filter = 1
+texture = ExtResource("1_tex_b")
+centered = false
+offset = Vector2(-96, -161)
+
+[node name="SpriteAntes" type="Sprite2D" parent="."]
+editor_description = "Building scale before B (docs/arte/escala.md). To go back: hide Sprite, show this node and put Top back at (0, -72)."
+visible = false
 texture_filter = 1
 texture = ExtResource("1_tex")
 centered = false

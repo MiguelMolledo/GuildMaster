@@ -20,8 +20,12 @@ Referencias visuales: `assets/concept/ciudades/` (láminas de fal, 2026-11-01) y
 | Icono | 32×32 |
 | Retrato | 64×64 |
 
-> Las escalas de edificio del primer intento (192 px × 1,6) eran para 1920×1080. Con D2 se revisan en H1 con una captura de
-> prueba: personaje y edificio juntos en su escala real antes de generar nada nuevo.
+**Escala B** (decidida el 2026-11-02, `docs/arte/escala.md`):
+- **Densidad única**: un píxel de arte es un píxel lógico; ningún sprite se escala.
+- **Lo que toca la persona**: puerta 52 px.
+- **Plantas**: baja 64 px y altas 48. Casa de 2 plantas ~176 px hasta la cumbrera (3,7× el personaje).
+- **Monumentos**: tope de 400 px (iglesia 320, homenaje 300, catedral 400), hechos por módulos sobre la rejilla.
+- Todo edificio nuevo se pide y se revisa junto al personaje de 48 px.
 
 ## Paletas
 

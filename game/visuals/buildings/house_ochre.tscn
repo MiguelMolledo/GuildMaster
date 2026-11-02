@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwv6b74h7tnjv"]
+[gd_scene load_steps=4 format=3 uid="uid://cwv6b74h7tnjv"]
 
 [ext_resource type="Script" uid="uid://dclcjwcrf4upw" path="res://game/visuals/greybox/greybox_blocks.gd" id="1_greybox"]
 [ext_resource type="Texture2D" uid="uid://tffhuyrpgk8v" path="res://assets/art/buildings/house_f.png" id="2_sprite"]
+[ext_resource type="Texture2D" uid="uid://b87wjv8cg2yc7" path="res://assets/art/buildings/escala_b/house_f.png" id="2_sprite_b"]
 
 [node name="HouseOchre" type="Node2D"]
 editor_description = "A look of the building type house (data/view.json building_variants.house): WorldView picks one per house by its tile, the same every game."
@@ -10,7 +11,7 @@ y_sort_enabled = true
 [node name="Feet" type="Marker2D" parent="."]
 
 [node name="Top" type="Marker2D" parent="."]
-position = Vector2(0, -72)
+position = Vector2(0, -104)
 
 [node name="Greybox" type="Node2D" parent="."]
 visible = false
@@ -22,7 +23,15 @@ color = Color(0.419607843, 0.290196078, 0.22745098, 1)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+texture = ExtResource("2_sprite_b")
+centered = false
+offset = Vector2(-96, -174)
+editor_description = "Scale B (docs/arte/escala.md, tools/art/escala_b.py): Guild Renew sprite with taller floors and door, 1:1, base on Feet. The sprite of before is SpriteAntes (hidden)."
+
+[node name="SpriteAntes" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
 texture = ExtResource("2_sprite")
 centered = false
 offset = Vector2(-96, -142)
-editor_description = "Sprite reused from Guild Renew (docs/arte/reuso_guild.md), at scale 1 with its base on Feet. To go back to the greybox: hide this node, show Greybox and put Top back at (0, -40)."
+editor_description = "Building scale before B (docs/arte/escala.md). To go back: hide Sprite, show this node and put Top back at (0, -72)."
