@@ -1,6 +1,23 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "Escala B en el juego: casas y edificios más altos a 1:1, ayuntamiento sin el 1,6 y edificios translúcidos",
+    "que": "Primera prueba de la escala B aprobada (docs/arte/escala.md), sin créditos. Las 7 casas, la forja (y su andamio), la armería y el ayuntamiento de Guild Renew se han estirado con tools/art/escala_b.py sin reescalar nunca: suben las plantas duplicando las filas más uniformes en la diagonal 2:1 (puertas ~54 px, plantas ~50 + 48) y el ayuntamiento pasa a 1:1 sobre su solar de 6×4, alargado con 4 crujías de ventanas en vez de la escala 1,6. Sprites nuevos en assets/art/buildings/escala_b/; en cada escena el de antes queda como nodo oculto SpriteAntes para volver atrás (docs/arte/reuso_guild.md, «Escala B»). Top de cada edificio subido (letreros y zona de clic) y adornos de mejora de la forja recolocados. Nuevo: un edificio se vuelve translúcido mientras tapa a la persona elegida (data/view.json see_through). Además, prueba de kits de casa a partir de la lámina kit_entramado (docs/arte/kits.md): piezas reducidas a la densidad del juego, limpias y montadas en 3 casas junto al personaje.",
+    "como_probar": "jugar.command: mira la plaza, la calle de la forja y el ayuntamiento a zoom 1 y 2 (rueda). Elige a un familiar y llévalo detrás de la forja o del ayuntamiento: el edificio se vuelve translúcido. Capturas: --smoke-script=escala --shot-tag=despues.",
+    "capturas": [
+      "docs/novedades/escala_b_plaza_z1_antes.png",
+      "docs/novedades/escala_b_plaza_z1_despues.png",
+      "docs/novedades/escala_b_ayuntamiento_z1_antes.png",
+      "docs/novedades/escala_b_ayuntamiento_z1_despues.png",
+      "docs/novedades/escala_b_forja_z2_antes.png",
+      "docs/novedades/escala_b_forja_z2_despues.png",
+      "docs/novedades/escala_b_forja_detras_z1_despues.png",
+      "docs/novedades/escala_b_ayuntamiento_z2_despues.png",
+      "docs/novedades/escala_b_forja_mejoras_z2_despues.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "H11 · Tribunal: acusación, testigos, vista oral y condena",
     "que": "Una inspección de Secretos ya no es solo una multa: abre un juicio automático (evasión de impuestos). Te avisa una carta «Te acusan» y tienes una estación (2 días) para trabajar a 3-5 testigos en persona: convencer (retórica), sobornar (oro; pueden denunciarte) o amenazar (arte marcial). La balanza enseña la fórmula del GDD; las pruebas del acusador se ven en la vista. En la vista oral el juego se pausa: interrogas a cada testigo en contra (si sale bien no cuenta, si sale mal cuenta doble) y concluyes la defensa. Veredicto con su condena: multa, confiscación de los productos, pérdida de cargo y título, o destierro de un año (el desterrado desaparece del mapa y no puede actuar; el resto de la familia sí). Puedes acusar a otra familia desde la ficha de uno de sus miembros, con un hecho público o fabricando pruebas. El Juez dicta (−20 de honestidad si va contra la balanza) e indulta; el Alguacil arresta e investiga. El herrero rival acusa solo con un hecho real o, si su honestidad fuera baja, con pruebas fabricadas (regla mínima). Bot crook: acaba en juicio en 5 de 10 partidas de 40 días.",
     "como_probar": "jugar.command. Escenarios accused_player (preparación), trial_hearing (la vista empieza en 5 min), rival_accused (acusar al rival desde su ficha) y founder_old (heredar). Tecla J abre el juicio. Bots: --start=artisan_blacksmith --bots=crook --days=40 --seeds=10. Capturas: --smoke-script=tribunal.",

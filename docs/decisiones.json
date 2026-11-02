@@ -389,6 +389,12 @@
       "tema": "Mejoras de edificios",
       "detalle": "El owner quiere que el panel de mejoras sea más visual (ver el edificio y sus piezas); revisar cuando haya créditos de PixelLab.",
       "opciones": "Comentario del owner al aprobar el diseño de UI."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Kits de casa",
+      "detalle": "Escala B ya en el juego. Kits: vía mixta (lámina de fal sobre una maqueta de módulos, reducción y limpieza gratis, retoque con PixelLab; ~60-100 generaciones y ~0,45 USD de fal, hay que volver a autorizar fal), solo create_building_kit (25-50 generaciones) o esperar al 15-nov. Casas horneadas en PNG o montadas en la escena. Transparencia al 45 % solo con la persona elegida.",
+      "opciones": "Recomendado: vía mixta, horneadas y transparencia como está. Ver docs/arte/kits.md."
     }
   ],
   "proximos_pasos": [
