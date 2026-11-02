@@ -281,6 +281,18 @@
       "tema": "Objetivos de inicio con encargo guionizado",
       "decision": "Si el encargo guionizado de un objetivo de inicio ya no se puede cumplir (caduca, se abandona o lo coge otra familia), el objetivo se da por fallado con un aviso (notice.objective_failed) y la cadena pasa al siguiente; no se repone el encargo. El objetivo de calidad buena no está atado al encargo del capitán (vale cualquier encargo con calidad mínima ≥ buena), así que no falla. En el panel de contratar salen primero los candidatos contratables.",
       "por_que": "GDD 4.16: los objetivos «no bloquean nada»; en la prueba de la rebanada (H5) el objetivo del carpintero se quedaba bloqueado para siempre al caducar su encargo y recado y deuda ya no contaban. Reponer el encargo exigiría reglas nuevas de publicación; fallar y seguir es lo mínimo y el plazo incumplido también enseña."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Audio con ElevenLabs",
+      "decision": "Se genera el audio básico (efectos, loops de música y ambiente, alguna frase clave) con ElevenLabs, con un tope de 20.000 créditos por ahora. Los créditos se renuevan cada día 20 del mes; el owner ampliará el tope. Cada gasto queda apuntado en el MANIFEST.",
+      "por_que": "Lo autorizó el owner el 2026-11-02."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Reuso del arte de Guild Renew",
+      "decision": "Los sprites de Guild Renew que encajen con la biblia sustituyen al greybox, que queda oculto y no se borra; los personajes se integran después de juntar H7 y H8. Al acabar los hitos de la lista se siguen inventando y haciendo mejoras.",
+      "por_que": "Lo pidió el owner el 2026-11-02."
     }
   ],
   "pendientes": [
