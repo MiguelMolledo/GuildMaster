@@ -159,6 +159,8 @@ Sucesos pequeños de un edificio o un personaje que rompen la rutina y piden una
 
 **Requisito: este diseño se cierra y lo aprueba el owner [Gate] antes de empezar H6**, porque la competencia por parcelas ya la necesita.
 
+**Diseño detallado** (perfiles, arquitectura por módulos, rivalidad, ataques, dificultad, hitos, dianas y preguntas abiertas): [04c_ia_rival.md](04c_ia_rival.md). Lo que allí se precisa sobre esta sección está resumido en su 4.21.1.
+
 **Quién la usa:** toda familia con `controlled_by: "ai"`: el herrero rival desde H3 (con la versión simple de 4.5.5), las 5 familias rivales del EA y, [POST-MVP], las ramas cadetes (4.10.4).
 
 **Reglas de juego limpio:**
