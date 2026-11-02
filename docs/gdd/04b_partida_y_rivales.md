@@ -29,7 +29,7 @@ Continúa la sección 4 ([04_diseno_de_juego.md](04_diseno_de_juego.md)). Aproba
 
 Cuentas de referencia: a mano se ganan ~25-60 oro netos por día (4.19); en 8 días el bot `artisan_novice` debe poder pagar la deuda y quedarse en su diana de oro al día 10.
 
-**Objetivos de inicio (tutorial implícito).** Una cadena de objetivos visible en el HUD. No bloquean nada ni dan oro: su premio es lo que enseñan. Cada uno cumplido queda en el registro de avisos.
+**Objetivos de inicio (tutorial implícito).** Una cadena de objetivos visible en el HUD. No bloquean nada ni dan oro: su premio es lo que enseñan. Cada uno cumplido queda en el registro de avisos. Si un objetivo depende de un encargo guionizado y ese encargo ya no se puede cumplir (caduca, se abandona o lo coge otra familia), el objetivo **se da por fallado**: aviso en el registro que lo explica y la cadena pasa al siguiente (no se vuelve a ofrecer el encargo: el plazo incumplido también enseña). El de calidad "buena" no depende del encargo del capitán: vale cualquier encargo con calidad mínima buena.
 
 | # | Objetivo | Qué enseña |
 |---|---|---|

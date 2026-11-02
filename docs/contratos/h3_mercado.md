@@ -70,6 +70,9 @@ reordenar ni tocar las de otros. Datos nuevos que necesite un sistema: en su fic
 - `data/objectives/*.json` → `catalog.objectives()`: `conditions: [{event, match, count}]` (todas). Cuenta los eventos
   `event` de la familia (campo `family` del evento, o la familia de su `actor`) cuyos campos casan con `match`
   (valor = igualdad; `{"gte"|"lte"|"ne": v}` compara); `count` eventos. Solo cuenta el objetivo actual de la cadena.
+  H5: si una condición casa con `script` y ese encargo de guion ya no está en el tablón ni aceptado por la familia
+  (caducó, se abandonó o lo cogió otra familia), el objetivo falla: `objective_failed {family, objective, reason:
+  expired|abandoned|gone}`, aviso `notice.objective_failed` y la cadena sigue (no entra en `done`).
 - `data/contracts/blacksmith.json` → `catalog.contracts()`: clientes, objetos con `qty [mín, máx]` y
   `min_quality_chance`, `min_qualities`, `deadline_days`, `premium 0,4`, recompensas y castigos, `client_cooldown_days 8`.
 - `data/buildings/armory.json`: `public: true`, `market_stall: "armory"`, zona `counter`, `interior`, `upkeep 0`.
@@ -144,7 +147,7 @@ Motivos de rechazo: los elige cada dueño con su clave `reason.<id>` ES/EN (p. e
 - cuentas: `loan_payment {actor, family, loan, amount, outstanding}`, `loan_repaid {actor, family, loan, extended}`,
   `loan_extended {family, loan, outstanding}`, `loan_seized {family, loan, gold, items}`, `game_over {kind, family}`,
   `upkeep_charged {family, building, amount}`, `upkeep_unpaid {family, building, debt}`, `building_damaged {building}`,
-  `objective_done {family, objective}`, `reputation_changed`.
+  `objective_done {family, objective}`, `objective_failed {family, objective, reason}` (H5), `reputation_changed`.
 - rival: `contract_posted {contract}`, `contract_accepted {actor, family, contract}`, `contract_delivered {actor,
   family, contract, client, item, qty, min_quality, pay, script}`, `contract_failed {family, contract, reason:
   "expired"|"abandoned"}`, `reputation_changed`.

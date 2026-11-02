@@ -275,6 +275,12 @@
       "tema": "Proceso: hitos en paralelo",
       "decision": "Se trabaja en paralelo lo que no se pisa: hitos independientes en su propia rama y worktree (H8 en ../GuildMaster-h8, rama h8-familia, con su user:// aparte) y documentos de diseño (Gate de H6) mientras se cierra el hito en curso en main. El manager junta cada rama al cerrar. Máximo 4 subgrims a la vez por memoria.",
       "por_que": "El owner: «paraleliza lo que consideres que no afecte a otros jobs». Sustituye a «un hito a la vez»."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Objetivos de inicio con encargo guionizado",
+      "decision": "Si el encargo guionizado de un objetivo de inicio ya no se puede cumplir (caduca, se abandona o lo coge otra familia), el objetivo se da por fallado con un aviso (notice.objective_failed) y la cadena pasa al siguiente; no se repone el encargo. El objetivo de calidad buena no está atado al encargo del capitán (vale cualquier encargo con calidad mínima ≥ buena), así que no falla. En el panel de contratar salen primero los candidatos contratables.",
+      "por_que": "GDD 4.16: los objetivos «no bloquean nada»; en la prueba de la rebanada (H5) el objetivo del carpintero se quedaba bloqueado para siempre al caducar su encargo y recado y deuda ya no contaban. Reponer el encargo exigiría reglas nuevas de publicación; fallar y seguir es lo mínimo y el plazo incumplido también enseña."
     }
   ],
   "pendientes": [
