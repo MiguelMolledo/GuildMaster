@@ -141,8 +141,18 @@ func set_bubble(id: String) -> void:
 	_bubble = VisualPaths.instantiate("bubbles", id)
 	_bubble.name = "Bubble"
 	_bubble.z_index = MARKS_Z
-	VisualPaths.place(_bubble, Vector2(0, -fig_height - 12))
+	VisualPaths.place(_bubble, Vector2(bubble_shift, -fig_height - 12))
 	add_child(_bubble)
+
+
+## Moves the bubble `dx` px sideways (WorldView.spread_bubbles, so close heads do not stack their bubbles).
+var bubble_shift: float = 0.0
+
+
+func set_bubble_shift(dx: float) -> void:
+	bubble_shift = dx
+	if _bubble != null:
+		VisualPaths.place(_bubble, Vector2(dx, -fig_height - 12))
 
 
 ## H7: a phrase over the bubble ("" = none): what a townsperson says when the selected person is near (GDD 4.11.3).

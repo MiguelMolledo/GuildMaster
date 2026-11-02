@@ -34,7 +34,8 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Música y sonidos | `assets/audio/<music\|sfx\|ambient\|voice>/<id>.ogg\|wav`; volumen y bus en `data/audio.json` |
 | Buses de audio | `default_bus_layout.tres` (panel Audio, abajo en Godot): Master, Music, Sfx, Ambient, Voice, Ui |
 | Textos | `i18n/strings.csv` |
-| Paneles de la UI | `game/ui/<panel>.tscn`; colores y fuentes comunes en `game/ui/greybox_theme.tres` |
+| Paneles de la UI | `game/ui/<panel>.tscn`; el aspecto común (marco de madera, botones, campos, barras, fuente de los botones) en `game/ui/greybox_theme.tres`, que llevan todos los paneles y la raíz del HUD: un panel nuevo bajo el HUD lo hereda sin tocarlo. Las piezas son `assets/art/ui/theme/*.png` (`tools/art/dibujar_ui.py`) |
+| Tiempo que el objetivo muestra su «cómo» en el mapa | `hud.objective_hint_seconds` en `data/view.json` (luego se pliega; al pasar el ratón se despliega; dentro de un edificio siempre se ve) |
 | Colores de las marcas (letreros, puertas, barras, día/noche) y zoom | `data/view.json` |
 | Suelo del mapa | Textura por tipo de casilla en `assets/art/tiles/<tipo>.png` (`grass`, `street`, `plaza`, `dirt`…); sin PNG, el color de `data/tiles.json` (`color`) |
 | Orilla del río, bordillo del puente | `ground_edges` en `data/view.json` (qué tipos de casilla bordea cada uno) y `assets/art/tiles/<tipo>_edge_<ne\|se\|sw\|nw>.png` |

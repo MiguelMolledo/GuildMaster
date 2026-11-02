@@ -10,7 +10,8 @@ extends Node
 const PLACES: Array = [["norte", Vector2i(18, 3)], ["rio", Vector2i(35, 19)], ["manzana", Vector2i(20, 10)],
 	["plaza", Vector2i(19, 17)], ["sur", Vector2i(12, 30)], ["esquina", Vector2i(39, 39)], ["oeste", Vector2i(0, 19)],
 	["campos_primavera", Vector2i(6, 32), "spring"], ["campos_verano", Vector2i(6, 32), "summer"],
-	["campos_otono", Vector2i(6, 32), "autumn"], ["campos_invierno", Vector2i(6, 32), "winter"]]
+	["campos_otono", Vector2i(6, 32), "autumn"], ["campos_invierno", Vector2i(6, 32), "winter"],
+	["objetivo_plegado", Vector2i(24, 15), "", "fold"]]
 
 var app: Node = null
 var timeout: float = 60.0
@@ -37,6 +38,8 @@ func _process(delta: float) -> void:
 			Game.set_paused(true)
 			_next()
 		return
+	if _i < PLACES.size() and (PLACES[_i] as Array).size() > 3 and _t > 0.4:
+		app.hud().set("_hint_left", 0.0)  # after the HUD has seen the new objective
 	if _t > 0.8:
 		app.save_shot("arte_%s" % (PLACES[_i][0] if _i < PLACES.size() else "forja_mejoras"))
 		_next()
@@ -61,8 +64,15 @@ func _next() -> void:
 	if _i < PLACES.size():
 		print("[SmokeArte] camera on %s %s" % [PLACES[_i][0], PLACES[_i][1]])
 		app.world().camera().center_on(Iso.tile_to_world(PLACES[_i][1]))
-		if (PLACES[_i] as Array).size() > 2:
+		if (PLACES[_i] as Array).size() > 2 and str(PLACES[_i][2]) != "":
 			_set_season(str(PLACES[_i][2]))
+		if (PLACES[_i] as Array).size() > 3 and str(PLACES[_i][3]) == "fold":
+			# scenario title_ready has start objectives: the objective panel as it is after a while on the map
+			var r := NewGame.from_scenario("title_ready")
+			Game.start(r["state"])
+			Game.set_paused(true)
+			app.world().camera().center_on(Iso.tile_to_world(PLACES[_i][1]))
+			app.hud().set("_hint_left", 0.0)
 
 
 ## Moves the clock on by whole days until it is `season` (the same time of day). Capture only.

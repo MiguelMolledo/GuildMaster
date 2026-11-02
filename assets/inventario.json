@@ -874,16 +874,28 @@
     {
       "id": "ui_panel_frame",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "ui"
       ],
-      "ruta": "assets/art/ui/panel_frame.png",
-      "origen": null,
+      "ruta": "assets/art/ui/theme/panel.png",
+      "origen": "dibujado (Pillow)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Marco de madera con remaches, 9-patch (biblia de estilo)."
+      "notas": "Tema de UI pixel art (tools/art/dibujar_ui.py): panel.png (marco de madera con remaches y filete dorado, 9-patch), button_<normal|hover|pressed|disabled>.png, field.png, tooltip.png (pergamino). Todo en game/ui/greybox_theme.tres, puesto también en la raíz del HUD."
+    },
+    {
+      "id": "ui_font_pixel",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/fonts/silkscreen_regular.ttf",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Silkscreen (Jason Kottke, SIL Open Font License 1.1), traída de guild:assets/fonts. Solo en los botones del tema, a 8 px sin suavizado (es de mayúsculas: no sirve para párrafos)."
     },
     {
       "id": "ui_hud_clock",
