@@ -48,6 +48,7 @@ var _name_label: Label
 var bubble_id: String = ""      # H7: the bubble shown ("" = none)
 var _bubble: Node2D = null
 var _phrase_label: Label = null
+const MARKS_Z: int = 20  # bubble, name, phrase and badge draw over every figure and building (no one cuts them)
 var _sprite: AnimatedSprite2D = null
 var motion: String = "idle"   # the sprite's motion now: idle, walk, work, forge
 var facing: String = "s"      # its facing: s se e ne n nw w sw
@@ -98,6 +99,7 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	_badge_mark = Node2D.new()
 	_badge_mark.name = "Badge"
 	_badge_mark.draw.connect(_draw_badge)
+	_badge_mark.z_index = MARKS_Z
 	add_child(_badge_mark)
 	badge_border = ViewConfig.color(str(cfg.get("badge_own_border", "#ffd84c")))
 	_name_label = Label.new()
@@ -114,6 +116,7 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_name_label.visible = selected
 	_name_label.name = "NameLabel"
+	_name_label.z_index = MARKS_Z
 	add_child(_name_label)
 	queue_redraw()
 
@@ -137,6 +140,7 @@ func set_bubble(id: String) -> void:
 		return
 	_bubble = VisualPaths.instantiate("bubbles", id)
 	_bubble.name = "Bubble"
+	_bubble.z_index = MARKS_Z
 	VisualPaths.place(_bubble, Vector2(0, -fig_height - 12))
 	add_child(_bubble)
 
@@ -148,6 +152,7 @@ func set_phrase(text: String) -> void:
 			return
 		_phrase_label = Label.new()
 		_phrase_label.name = "PhraseLabel"
+		_phrase_label.z_index = MARKS_Z + 1
 		_phrase_label.add_theme_font_size_override("font_size", 9)
 		_phrase_label.add_theme_color_override("font_color", Color(1.0, 1.0, 0.92))
 		_phrase_label.add_theme_color_override("font_outline_color", Color(0.1, 0.07, 0.05))

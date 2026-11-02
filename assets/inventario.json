@@ -55,109 +55,109 @@
     {
       "id": "chr_artisan_m",
       "tipo": "personaje",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "protagonista"
       ],
       "ruta": "assets/art/characters/artisan_m/",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/characters/artesano",
       "coste_gen": 0,
-      "notas": "Hay fotogramas del primer intento: traer, renombrar al contrato y revisar con frame_check.",
+      "notas": "Reuso sin coste de guild:assets/sprites/characters/artesano (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en artisan_m_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk, work, death + forge; carry, talk y sit usan idle hasta tener las suyas.",
       "animaciones": {
-        "idle": "falta",
-        "walk": "falta",
-        "work": "falta",
+        "idle": "sprite",
+        "walk": "sprite",
+        "work": "sprite",
         "carry": "falta",
         "talk": "falta",
         "sit": "falta",
-        "death": "falta"
+        "death": "sprite"
       }
     },
     {
       "id": "chr_artisan_f",
       "tipo": "personaje",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "protagonista"
       ],
       "ruta": "assets/art/characters/artisan_f/",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/characters/artesana",
       "coste_gen": 0,
-      "notas": "Ídem.",
+      "notas": "Reuso sin coste de guild:assets/sprites/characters/artesana (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en artisan_f_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk, work, death + forge; carry, talk y sit usan idle hasta tener las suyas.",
       "animaciones": {
-        "idle": "falta",
-        "walk": "falta",
-        "work": "falta",
+        "idle": "sprite",
+        "walk": "sprite",
+        "work": "sprite",
         "carry": "falta",
         "talk": "falta",
         "sit": "falta",
-        "death": "falta"
+        "death": "sprite"
       }
     },
     {
       "id": "npc_worker_m",
       "tipo": "npc",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H4",
         "empleados"
       ],
-      "ruta": "assets/art/npcs/worker_m/",
-      "origen": null,
+      "ruta": "assets/art/characters/worker_m/",
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/npcs",
       "coste_gen": 0,
-      "notas": "Aprendiz/oficial. Variación por paleta (identidad visual).",
+      "notas": "Reuso sin coste de guild:assets/sprites/characters/artesano (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en worker_m_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk, work, death + forge; carry, talk y sit usan idle hasta tener las suyas.",
       "animaciones": {
-        "idle": "falta",
-        "walk": "falta",
+        "idle": "sprite",
+        "walk": "sprite",
         "talk": "falta",
         "sit": "falta",
-        "work": "falta",
+        "work": "sprite",
         "carry": "falta"
       }
     },
     {
       "id": "npc_worker_f",
       "tipo": "npc",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H4",
         "empleados"
       ],
-      "ruta": "assets/art/npcs/worker_f/",
-      "origen": null,
+      "ruta": "assets/art/characters/worker_f/",
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/npcs",
       "coste_gen": 0,
-      "notas": "",
+      "notas": "Reuso sin coste de guild:assets/sprites/characters/artesana (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en worker_f_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk, work, death + forge; carry, talk y sit usan idle hasta tener las suyas.",
       "animaciones": {
-        "idle": "falta",
-        "walk": "falta",
+        "idle": "sprite",
+        "walk": "sprite",
         "talk": "falta",
         "sit": "falta",
-        "work": "falta",
+        "work": "sprite",
         "carry": "falta"
       }
     },
     {
       "id": "npc_townsfolk_m",
       "tipo": "npc",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H7",
         "ciudad"
       ],
-      "ruta": "assets/art/npcs/townsfolk_m/",
-      "origen": null,
+      "ruta": "assets/art/characters/townsfolk_m/",
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/npcs",
       "coste_gen": 0,
-      "notas": "",
+      "notas": "Reuso sin coste de guild:assets/sprites/npcs/aldeano_hombre (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en townsfolk_m_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk; carry, talk y sit usan idle hasta tener las suyas.",
       "animaciones": {
-        "idle": "falta",
-        "walk": "falta",
+        "idle": "sprite",
+        "walk": "sprite",
         "talk": "falta",
         "sit": "falta"
       }
@@ -165,19 +165,19 @@
     {
       "id": "npc_townsfolk_f",
       "tipo": "npc",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H7",
         "ciudad"
       ],
-      "ruta": "assets/art/npcs/townsfolk_f/",
-      "origen": null,
+      "ruta": "assets/art/characters/townsfolk_f/",
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/npcs",
       "coste_gen": 0,
-      "notas": "",
+      "notas": "Reuso sin coste de guild:assets/sprites/npcs/aldeana_mujer (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en townsfolk_f_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk; carry, talk y sit usan idle hasta tener las suyas.",
       "animaciones": {
-        "idle": "falta",
-        "walk": "falta",
+        "idle": "sprite",
+        "walk": "sprite",
         "talk": "falta",
         "sit": "falta"
       }
@@ -846,15 +846,16 @@
     {
       "id": "prop_dice_table",
       "tipo": "prop",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
-        "H7"
+        "H7",
+        "plaza"
       ],
       "ruta": "assets/art/props/dice_table.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/props/dice_table.tscn (mesa de dados de la plaza)"
+      "notas": "Mesa de dados de la plaza: guild:props/dining_table.png a mitad con dos dados (tools/art/derivar_guild.py dice). En props/dice_table.tscn (Greybox oculto)."
     },
     {
       "id": "ui_panel_frame",
