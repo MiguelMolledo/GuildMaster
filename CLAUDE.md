@@ -96,6 +96,9 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Tribunal (H11, al tocar justicia, inspecciones o la IA rival): `godot --headless --path . -s tools/sim_runner.gd --
   --start=artisan_blacksmith --bots=crook --days=40 --seeds=10` (acaba en juicio, ~6 min). Captura:
   `--smoke-script=tribunal`. Escenarios: `accused_player`, `trial_hearing`, `rival_accused`, `founder_old`.
+- IA familiar (H14, al tocar directivas, necesidades o la rutina): `godot --headless --path . -s tools/sim_runner.gd --
+  --scenario=kin_trader --bots=kin_trader --days=2 --seeds=10` (un familiar con Comerciar aprovisiona la forja; en
+  `run_all`, paso kin). Captura: `--smoke-script=ia_familiar`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

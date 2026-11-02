@@ -227,6 +227,10 @@ static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, 
 	var d := owner_cycle_minutes(sim, bld_id, recipe, mode)
 	if _is_employee_at(sim, actor, bld_id):
 		d = employee_cycle_minutes(sim, actor, recipe, mode)
+	elif Needs.tracked(sim, actor):  # H14: low morale slows a family member down (GDD 4.2.6)
+		var pr := Needs.productivity(sim, actor)
+		if pr < 1.0:
+			d = maxi(1, roundi(float(d) / pr))
 	var job := {"actor": actor, "recipe": recipe_id, "mode": mode, "start": now, "end": now + d, "inputs": taken,
 		"window": cycle_window(sim.catalog, mode, now, d), "touched": false, "result": null, "blocked": false}
 	bld["zones"][zone]["job"] = job

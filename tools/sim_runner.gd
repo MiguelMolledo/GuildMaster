@@ -48,18 +48,23 @@ extends SceneTree
 ## never), guilty, inspected (inspections that caught it), ai_accusations (trials opened by an AI family with a
 ## profile) and ai_accusations_bad (one with no fact that is not a fabrication allowed by its honesty), e.g.
 ## --start=artisan_blacksmith --bots=crook --days=40 --seeds=10.
+## H14 (docs/contratos/h14_ia_familiar.md): forge_supplied (a family member other than the head carried raw materials
+## into the workshop), kin_bought (their purchases), low_morale_hours (hours of a family member with low morale), e.g.
+## --scenario=kin_trader --bots=kin_trader --days=2 --seeds=10.
 
 var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
 	"random_clicker": BotRandomClicker, "idle_rival": BotIdle, "artisan_novice": BotArtisanNovice,
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
-	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert}
+	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
+	"kin_trader": BotIdle}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
 	# expert_titles: artisan_expert with the title targets (H9, 96 days); idle_titles: idle, the AI's titles (80 days)
 	# politician: artisan_expert that runs for minor offices (H10, runs_office = 1, 40 days)
 	# crook: artisan_expert with the Secrets upgrade that ends in court (H11, crook = 1, 40 days)
+	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
 const YEAR_DAYS: int = 8  # D1(b): 1 year = 8 days
@@ -237,6 +242,8 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 	for k: String in ["trials", "tried", "guilty", "ai_accusations", "ai_accusations_bad", "inspected"]:  # H11
 		m[k] = 0
 	m["trial_day"] = days + 1
+	for k: String in ["forge_supplied", "kin_bought", "low_morale_hours"]:  # H14
+		m[k] = 0
 	for i: int in days * Clock.MINUTES_PER_DAY:
 		for e: Dictionary in sim.step(bot.orders(sim)):
 			match str(e["type"]):
@@ -300,6 +307,17 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 						m["ai_ran"] = 1
 						print("  [%s seed %d] día %d: la familia IA %s se presenta a %s" % [bot_id, s,
 							Clock.day(int(sim.state.clock["minute"])) - Clock.day(start_minute) + 1, fe, e["office"]])
+				"market_bought":  # H14: a family member other than the head buys (Trade)
+					if str(e.get("family", "")) == player and str(e.get("actor", "")) != Kin.head(sim.state, player):
+						m["kin_bought"] = int(m["kin_bought"]) + 1
+				"items_moved":
+					if player != "" and str(e.get("to", "")) == Kin.workplace(sim, player) \
+							and str(e.get("actor", "")) != Kin.head(sim.state, player) \
+							and str(sim.catalog.item(str(e.get("item", ""))).get("category", "")) == "raw":
+						m["forge_supplied"] = 1
+				"needs_changed":
+					if Needs.morale(sim, str(e.get("character", ""))) <= int(sim.catalog.family.get("morale", {}).get("low", 30)):
+						m["low_morale_hours"] = int(m["low_morale_hours"]) + 1
 				"trial_opened":  # H11 (GDD 4.12.5)
 					var dt := Clock.day(int(sim.state.clock["minute"])) - Clock.day(start_minute) + 1
 					var afm := str(e.get("accuser_family", ""))

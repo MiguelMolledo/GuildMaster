@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 11
+const VERSION: int = 12
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -55,6 +55,8 @@ var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD
 # H11 (docs/contratos/h11_tribunal.md): trials (a root field that already was) gets its shape and the new root justice
 # keeps the facts; families get attitudes {honesty, generosity, diplomacy} and characters banished_until
 # (SaveFile._step 10 -> 11).
+# H14 (docs/contratos/h14_ia_familiar.md): no new root fields. Characters get needs {hunger, rest, social, fun} and ai
+# (the directives' memory) (SaveFile._step 11 -> 12).
 
 
 func seed_rng(s: int) -> void:

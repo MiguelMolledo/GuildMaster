@@ -1295,6 +1295,52 @@ def check_h11_scenario(w, d, rep):
         rep.error(w, "justice.facts debe ser una lista")
 
 
+H14_NOTICES = ["kin_exhausted", "kin_low_morale", "forge_short", "kin_supplied"]
+
+
+def check_h14(strings, rep):
+    """H14 (GDD 4.10.6, 4.2.6, docs/contratos/h14_ia_familiar.md): data/family.json directivas (cada una con ready true o
+    su hito y con texto), necesidades (ids, start, cambios por hora enteros, eventos, low < recover_to, critical < low),
+    moral, comercio y los textos de los avisos."""
+    w = "family.json"
+    fam = load_json(os.path.join(DATA, "family.json"), rep) or {}
+    d = fam.get("directives") or {}
+    known = d.get("known") or []
+    for x in known:
+        r = (d.get("ready") or {}).get(x)
+        if r is not True and not (isinstance(r, str) and r):
+            rep.error(w, f"directives.ready.{x}: true o el hito que la trae")
+        check_text(w, f"directive.{x}", strings, rep)
+    for x in d.get("default") or []:
+        if x not in known:
+            rep.error(w, f"directives.default: {x} desconocida")
+    n = fam.get("needs") or {}
+    ids = n.get("ids") or []
+    if set(ids) != {"hunger", "rest", "social", "fun"}:
+        rep.error(w, "needs.ids: hunger, rest, social, fun (GDD 4.2.6)")
+    for k in ids:
+        check_text(w, f"need.{k}", strings, rep)
+        for sit, v in ((n.get("per_hour") or {}).get(k) or {}).items():
+            if not isinstance(v, int):
+                rep.error(w, f"needs.per_hour.{k}.{sit} debe ser un entero")
+    for ev, eff in (n.get("events") or {}).items():
+        if any(k not in ids or not isinstance(v, int) for k, v in eff.items()):
+            rep.error(w, f"needs.events.{ev}: necesidades conocidas y enteros")
+    if not (isinstance(n.get("critical"), int) and isinstance(n.get("low"), int) and isinstance(n.get("recover_to"), int)
+            and n["critical"] < n["low"] < n["recover_to"] <= 100):
+        rep.error(w, "needs: critical < low < recover_to <= 100")
+    p = (fam.get("morale") or {}).get("productivity") or {}
+    if not (0 < float(p.get("min_mult", 0)) <= 1 and 0 < int(p.get("full_at", 0)) <= 100):
+        rep.error(w, "morale.productivity: 0 < min_mult <= 1 y 0 < full_at <= 100")
+    t = fam.get("trade") or {}
+    for k in ("min_stock", "buy_up_to", "gold_reserve", "keep_products", "max_carry_units"):
+        if not isinstance(t.get(k), int) or t[k] < 0:
+            rep.error(w, f"trade.{k} debe ser un entero >= 0")
+    for k in H14_NOTICES:
+        check_text("i18n/notice", "notice." + k, strings, rep)
+    check_text("i18n/reason", "reason.directive_not_ready", strings, rep)
+
+
 def check_h5(items, recipes, buildings, ranks, strings, rep):
     """H5 (GDD 4.8, docs/contratos/h5_mejoras.md): data/upgrade_rules.json y cada mejora (rama y nivel, coste,
     requisitos que existen en su árbol, nivel N pide el N-1, sin ciclos, efectos de tipos conocidos con su valor,
@@ -1622,6 +1668,7 @@ def main():
     titles = check_h9(load_kind("maps", rep), strings, rep)
     offices = check_h10(titles, strings, rep)
     check_h11(strings, rep)
+    check_h14(strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")

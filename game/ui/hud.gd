@@ -76,6 +76,7 @@ signal focus_requested(target: String)  # a notice was clicked: centre on this b
 @onready var _office_card: OfficeCard = %OfficeCard        # H10: the result of a vote
 @onready var _trials_button: Button = %TrialsButton        # H11: the family's trial (key J), only while one is open
 @onready var _trial_panel: TrialPanel = %TrialPanel        # H11: preparation and hearing
+@onready var _kin_ai_panel: KinAiPanel = %KinAiPanel     # H14: directives, needs and morale of a family member
 @onready var _trial_card: TrialCard = %TrialCard           # H11: «you are accused» and the verdict
 
 var selected_id: String = ""
@@ -142,6 +143,9 @@ func _ready() -> void:
 	_offices_button.tooltip_text = tr("hud.offices_tip")
 	_offices_button.pressed.connect(toggle_offices)
 	_trial_panel.order_sink = _game.give
+	_kin_ai_panel.order_sink = _game.give
+	_character_panel.kin_ai_requested.connect(open_kin_ai)
+	_tree_panel.kin_ai_requested.connect(open_kin_ai)
 	_trials_button.text = tr("hud.trials")
 	_trials_button.tooltip_text = tr("hud.trials_tip")
 	_trials_button.pressed.connect(toggle_trial)
@@ -261,7 +265,7 @@ func close_top() -> bool:
 	if _help_panel.visible:
 		toggle_help()
 		return true
-	for p: Control in [_trial_card, _trial_panel, _office_card, _title_card, _offices_panel, _hall_panel, _npc_panel, _court_panel, _tree_panel,
+	for p: Control in [_kin_ai_panel, _trial_card, _trial_panel, _office_card, _title_card, _offices_panel, _hall_panel, _npc_panel, _court_panel, _tree_panel,
 			_market_panel, _board_panel, _ledger_panel]:
 		if p.visible:
 			p.call("close")
@@ -503,7 +507,7 @@ func close_panels() -> void:
 	_help_panel.visible = false
 	_pending_service = {}
 	for p: Control in [_market_panel, _board_panel, _ledger_panel, _tree_panel, _court_panel, _npc_panel, _hall_panel,
-			_title_card, _offices_panel, _office_card, _trial_panel, _trial_card]:
+			_title_card, _offices_panel, _office_card, _trial_panel, _trial_card, _kin_ai_panel]:
 		p.call("close")
 	_character_panel.close()
 
@@ -661,6 +665,22 @@ func toggle_trial() -> void:
 		_trial_panel.close()
 	else:
 		open_trial()
+
+
+## H14: the AI panel of family member `whose` (the selected person gives the orders, else the head).
+func open_kin_ai(whose: String = "") -> void:
+	if _game == null or _game.sim == null:
+		return
+	var sim: Sim = _game.sim
+	var who := selected_id
+	if who == "" or str(sim.state.characters.get(who, {}).get("family", "")) != family():
+		who = Kin.head(sim.state, family())
+	_kin_ai_panel.open_for(sim, who, whose if whose != "" else who)
+	Log.info("Hud", "kin AI panel (actor=%s, target=%s)" % [who, whose])
+
+
+func kin_ai_panel() -> KinAiPanel:
+	return _kin_ai_panel
 
 
 func trial_panel() -> TrialPanel:

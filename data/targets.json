@@ -405,5 +405,28 @@
         null
       ]
     }
+  },
+  "kin_trader": {
+    "_doc": "H14 (10/H14 «Un familiar con Comerciar aprovisiona la forja solo», GDD 4.10.6): bot idle (el jugador no da órdenes) desde el escenario kin_trader (Agnès, la mujer de Hugo, con las directivas Comerciar y Trabajar; la forja sin hierro ni carbón; 200 de oro), 2 días: Agnès compra y lleva materias a la forja (forge_supplied) en todas las semillas, sin órdenes rechazadas. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=kin_trader --bots=kin_trader --days=2 --seeds=10 (en run_all, paso kin, 3 semillas).",
+    "days": [
+      2,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "forge_supplied": [
+      1,
+      1
+    ],
+    "kin_bought": [
+      1,
+      null
+    ]
   }
 }

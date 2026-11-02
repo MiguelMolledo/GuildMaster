@@ -64,9 +64,46 @@
     "manual_grace_minutes": 60
   },
   "directives": {
-    "_doc": "Directivas IA de familiares (4.10.6): solo work en el MVP. default: las de un personaje nuevo.",
-    "known": ["work"],
+    "_doc": "Directivas IA de familiares (4.10.6, H14: docs/contratos/h14_ia_familiar.md). known: todas las del GDD; ready: true o el hito que la trae (learn: el GDD no da cómo sube un atributo). El orden de la lista de un personaje es su prioridad. default: las de un personaje nuevo.",
+    "known": ["work", "trade", "socialize", "leisure", "learn"],
+    "ready": {"work": true, "trade": true, "socialize": true, "leisure": true, "learn": "EA"},
     "default": ["work"]
+  },
+  "needs": {
+    "_doc": "Necesidades (GDD 4.2.6, H14) [provisional, balance: el GDD no da cifras]: enteros 0-100 de los adultos de la familia humana, cambian al cambiar de hora según dónde y qué hace (per_hour): home = en casa sin trabajar; work = trabajando (work_night de noche); social = en una actividad social o conversando; leisure = en ocio; base = lo demás. events: lo que suma cada evento de la hora (conversar, saludar, comerciar). low: la IA atiende primero la necesidad más baja por debajo de low, hasta que llega a recover_to; critical: aviso de agotado.",
+    "ids": ["hunger", "rest", "social", "fun"],
+    "start": 80,
+    "per_hour": {
+      "hunger": {"base": -2, "home": 12},
+      "rest": {"base": -2, "work_night": -3, "home": 8},
+      "social": {"base": -1, "social": 8},
+      "fun": {"base": -1, "leisure": 12}
+    },
+    "events": {"npc_action": {"social": 10}, "greeted": {"social": 5}, "market_sold": {"social": 4}, "market_bought": {"social": 4}},
+    "low": 30,
+    "recover_to": 70,
+    "critical": 15
+  },
+  "morale": {
+    "_doc": "Moral (GDD 4.2.6) = media de las necesidades. productivity: con moral >= full_at un familiar trabaja a ritmo normal; por debajo, la duración de su ciclo se divide por un multiplicador que baja en línea hasta min_mult con moral 0. low: aviso de moral baja [provisional, balance].",
+    "productivity": {"full_at": 40, "min_mult": 0.8},
+    "low": 30
+  },
+  "trade": {
+    "_doc": "Directiva Comerciar (4.10.6: compra materias primas y vende productos) [provisional]: mantiene min_stock unidades de cada materia prima (categoría raw) de las recetas del edificio asignado comprando hasta buy_up_to por viaje y guardando gold_reserve; si el almacén tiene más de keep_products de un producto, vende el excedente (como mucho max_carry_units por viaje).",
+    "min_stock": 6,
+    "buy_up_to": 10,
+    "gold_reserve": 20,
+    "keep_products": 4,
+    "max_carry_units": 10
+  },
+  "leisure": {
+    "_doc": "Directiva Divertirse (4.10.6: taberna, paseo, descanso) [provisional: no hay taberna en el MVP]: un rato de minutes minutos en un banco libre de la plaza (puntos sociales de H7).",
+    "minutes": 60
+  },
+  "kin_notices": {
+    "_doc": "Avisos de la IA familiar (H14): uno por personaje y tipo cada cooldown_days.",
+    "cooldown_days": 1
   },
   "succession": {
     "_doc": "Herencia (4.10.4): heredero válido = descendiente vivo del cabeza con >= majority_age, o menor si vive la pareja del muerto (regente hasta su mayoría). Por defecto el mayor. voluntary_close: cierre voluntario de la dinastía (4.17, D19 pendiente): desactivado hasta que el owner lo apruebe.",

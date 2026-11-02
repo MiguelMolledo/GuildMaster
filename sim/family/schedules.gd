@@ -7,7 +7,7 @@ extends RefCounted
 ## {action: "work" | "rest" | "free", building?, zone?, recipe?, mode?}. work: goes to the building (default: its
 ## assigned one, Kin.assigned_building) and works the recipe and mode given (default: the best paid one it can make
 ## now at a free station, normal mode), repeating on its own (Production). rest: goes home (Kin.home_of) and stays,
-## not working. free: follows its directives (only "work" in the MVP: like work with the defaults).
+## not working. free: follows its directives (H14: Directives.step_one, balanced with the needs).
 ## Who: the adults of the human family without a job. Controlled ones (controlled_by "human") with a schedule follow
 ## it; the AI ones (the spouse, adults outside the group) follow their directives, and rest in ai_rest_phases.
 ## It acts only with the real orders (exit_building, enter_building, work_at, stop_work) through Sim.give.
@@ -74,8 +74,9 @@ static func current_slot(sim: Sim, chr: String, phase: String) -> Dictionary:
 		slot = {"action": "rest"}
 	else:
 		slot = {"action": "free"}
-	if str(slot.get("action", "free")) == "free":
-		slot = {"action": "work"} if "work" in (ch.get("directives", []) as Array) else {"action": "idle"}
+	if str(slot.get("action", "free")) == "free" and (ch.get("directives", []) as Array).is_empty() \
+			and not Needs.tracked(sim, chr):
+		slot = {"action": "idle"}  # H14: «Free» follows the directives (Directives.step_one); none and no needs: idle
 	return slot
 
 
@@ -101,11 +102,17 @@ static func _step_one(sim: Sim, chr: String, phase: String, now: int) -> void:
 		sim.events.append({"type": "routine_slot", "character": chr, "phase": phase, "action": str(slot["action"])})
 	if now < int(r.get("retry_at", -1)):
 		return
+	if str(slot["action"]) != "free" and ch.get("ai") is Dictionary:  # H14: what it does now (the panel), the routine's
+		ch["ai"]["doing"] = str(slot["action"])
+		ch["ai"]["why"] = "routine"
+		ch["ai"].erase("leisure_at")
 	match str(slot["action"]):
 		"work":
 			_work(sim, chr, r, slot, now)
 		"rest":
 			_rest(sim, chr, r, now)
+		"free":  # H14: the directives in their order, balanced with the needs (GDD 4.10.6)
+			Directives.step_one(sim, chr, r, now)
 
 
 ## Idle: not walking, nothing queued, no cycle of its own running (a blocked one counts as finished).
@@ -266,7 +273,8 @@ static func check_schedule(sim: Sim, fam: String, sched: Variant) -> String:
 
 
 ## {"type": "set_directives", "actor", "character", "directives": [ids]}: the order of priority of a family member's
-## directives (GDD 4.10.6; only "work" exists in the MVP). Management order.
+## directives (GDD 4.10.6; H14: every ready directive, no repeats; one off until its milestone: directive_not_ready).
+## Management order.
 static func order_set_directives(sim: Sim, o: Dictionary) -> Dictionary:
 	var st := sim.state
 	var actor := str(o.get("actor", ""))
@@ -279,9 +287,13 @@ static func order_set_directives(sim: Sim, o: Dictionary) -> Dictionary:
 	if not d is Array:
 		return Orders.fail("bad_directives")
 	var known: Array = sim.catalog.family.get("directives", {}).get("known", ["work"])
+	var seen := {}
 	for x: Variant in d:
-		if not str(x) in known:
+		if not str(x) in known or seen.has(str(x)):
 			return Orders.fail("bad_directives")
+		seen[str(x)] = true
+		if not Directives.ready(sim, str(x)):
+			return Orders.fail("directive_not_ready")  # H14: in data, off until its milestone
 	st.characters[who]["directives"] = (d as Array).map(func(x: Variant) -> String: return str(x))
 	sim.events.append({"type": "directives_changed", "actor": actor, "character": who})
 	return Orders.ok()

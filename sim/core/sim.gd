@@ -58,6 +58,7 @@ func step(orders: Array = []) -> Array:
 	Loans.step(self)        # debt warnings, due date, extension, seizure, ruin
 	Births.step(self)       # H8: at dawn, children of the married couples
 	Emotions.step(self)     # H7: every hour, emotions that faded end
+	Needs.step(self)        # H14: needs by the hour (family adults), events of the step, notices
 	Offices.step(self)      # H10: the government, deaths free seats, elections at the year change, salaries and taxes
 	Tribunal.step(self)     # H11: automatic trials after inspections, preparation -> hearing -> verdict, banishments
 	Reputation.step(self)   # H9: reputation from the events of the step (trade, wages, townsfolk); passive at dawn
