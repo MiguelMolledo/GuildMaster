@@ -169,6 +169,20 @@ def ensure_page(thread):
     return m.group(0)
 
 
+def touch_meta(art_dir):
+    """Marks the page as updated in artifact.json so Grimoire lists it as recent and reloads it."""
+    meta_path = os.path.join(art_dir, "artifact.json")
+    if not os.path.isfile(meta_path):
+        return
+    with open(meta_path, encoding="utf-8") as f:
+        meta = json.load(f)
+    meta["updatedAt"] = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+    tmp = meta_path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(meta, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, meta_path)
+
+
 def main(argv):
     thread = argv[argv.index("--thread") + 1] if "--thread" in argv else DEFAULT_THREAD
     aid = ensure_page(thread)
@@ -179,6 +193,7 @@ def main(argv):
     with open(tmp, "w", encoding="utf-8") as f:
         f.write(page)
     os.replace(tmp, os.path.join(art_dir, "index.html"))
+    touch_meta(art_dir)
     print(f"cuaderno: {aid} · {len(page) // 1024} KB")
     return 0
 
