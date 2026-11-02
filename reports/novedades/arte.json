@@ -1,0 +1,37 @@
+{
+  "fecha": "2026-11-02",
+  "titulo": "Arte · interiores con suelo y paredes, árboles, río con orilla y puente, obras y fachadas de la forja",
+  "que": "La forja por dentro tiene suelo de losas irregulares y paredes de sillares con viga; la armería, losas grandes y paredes de yeso con entramado, y las dos su puerta de tablones en la pared. En el mapa, tres árboles dibujados (roble, redondo y pino, uno por casilla y siempre el mismo) sobre hierba con la sombra de la copa; el río tiene ondas y orilla de tierra y espuma donde toca la hierba o la calle, y el puente, tablones cruzados y bordillo hacia el agua. Las obras de la forja enseñan un andamio de madera con escalera, y las mejoras de fachada un zócalo de sillares (piedra) o claro con estandartes (noble); jardín, escaparate, letrero y cerradura tienen sprite. Iconos de espada y aguja redibujados a 16 px. Todo dibujado con Pillow (tools/art/dibujar_pixel.py) o recortado del repo guild, sin créditos. Los greybox siguen en sus escenas, ocultos; la guardia contratada sigue en greybox (es un personaje). Nuevo guion de capturas --smoke-script=arte (cámara a los árboles, el río, una manzana, la plaza y el sur).",
+  "como_probar": "Partida nueva: entra en la forja y en la armería; sube al norte del mapa (árboles) y al este (río y puente). Mejoras: escenario forge_upgrade_works. Editor: nodo Kit de game/visuals/interiors/forge.tscn (grupo Art) y ground_edges / prop_variants en data/view.json. Capturas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke --smoke-script=arte. Rituales: python3 tools/qa/run_all.py.",
+  "capturas": [
+    "docs/novedades/arte3_forja_interior_antes.png",
+    "docs/novedades/arte3_forja_interior_despues.png",
+    "docs/novedades/arte3_armeria_antes.png",
+    "docs/novedades/arte3_armeria_despues.png",
+    "docs/novedades/arte3_obra_antes.png",
+    "docs/novedades/arte3_obra_despues.png",
+    "docs/novedades/arte3_fachada_antes.png",
+    "docs/novedades/arte3_fachada_despues.png",
+    "docs/novedades/arte3_mapa_rio_antes.png",
+    "docs/novedades/arte3_mapa_rio_despues.png",
+    "docs/novedades/arte3_almacen_antes.png",
+    "docs/novedades/arte3_almacen_despues.png",
+    "docs/novedades/arte3_arboles.png",
+    "docs/novedades/arte3_rio_puente.png"
+  ],
+  "zona": "arte",
+  "ficheros": [
+    "tools/art/dibujar_pixel.py",
+    "game/visuals/greybox/greybox_kit.gd, game/interior/kit_floor.gd, game/interior/kit_wall.gd",
+    "game/world/ground_layer.gd, game/world/world_view.gd",
+    "game/visuals/interiors/forge.tscn, armory.tscn",
+    "game/visuals/buildings/forge.tscn (Works/Scaffold, Upgrades)",
+    "game/visuals/props/tree.tscn, tree_round.tscn, tree_pine.tscn",
+    "game/smoke/smoke_arte.gd, game/app.gd",
+    "data/view.json (ground_edges, prop_variants)",
+    "assets/art/ (interiors, tiles, props, buildings, icons/small)",
+    "assets/inventario.json, assets/art/MANIFEST.md",
+    "tests/test_arte_filler.gd, tests/test_visuals_paths.gd",
+    "docs/protocolos/editar-a-mano.md, docs/arte/reuso_guild.md"
+  ]
+}
