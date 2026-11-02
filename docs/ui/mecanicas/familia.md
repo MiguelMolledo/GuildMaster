@@ -182,7 +182,7 @@ de Guild Renew reescalados a mano); barra de atributo 1-10 en 10 segmentos; velo
 | Dinastía | `Dynasty.score`, `Dynasty.goals_view`, `Dynasty.summary` |
 | Retrato | `Identity.of(state, chr)` (pelo, piel, color primario); escena `game/visuals/characters/portrait.tscn` |
 | Disposición del árbol | `FamilyTreePanel.layout(state, fam)` (vista) |
-| Cargo de la persona (H10) | `Offices.of_character(sim, chr)` |
+| Cargo de la persona (H10) | `Offices.of_character(state, chr)` (rama `h10-cargos`) |
 | Sucesión | evento `character_died` y la entrada de crónica `inheritance {from, heir, generation, regent}`; edificios y oro del heredero desde el estado |
 | Actitudes morales | `families[fam].attitudes` **cuando exista** (hoy no está en el estado: la ficha no muestra la sección) |
 
