@@ -120,6 +120,7 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	_minutes_per_tile = ViewConfig.minutes_per_tile(c)
 	var rows: Array = c.maps().get(s.map_id, {}).get("rows", [])
 	ground().build(rows, c)
+	ground().set_season(Clock.season(int(s.clock.get("minute", 0)), c.time))
 	var owned := _add_buildings()
 	_services = SimQuery.map_services(s, c)
 	var stall_at := {}
@@ -636,6 +637,8 @@ func _process(_delta: float) -> void:
 
 ## Follows the state: new or dead walkers, positions, the day/night tint. `frac` = how far towards the next step.
 func sync(frac: float) -> void:
+	if catalog != null:  # the fields change with the season (data/view.json "seasonal_tiles"; a no-op if unchanged)
+		ground().set_season(Clock.season(int(state.clock.get("minute", 0)), catalog.time))
 	for id: String in state.characters:
 		if not _views.has(id):
 			_add_view(id)

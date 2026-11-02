@@ -257,3 +257,11 @@ Sigue en greybox: la guardia contratada (es un personaje), los visuales de mejor
 | Casas `house_e` y `house_f` | Recoloreo de `house_a` (pizarra + encalado) y `house_c` (barro marrón + ocre) | solares `lot_house_e/f`; vecinos `buildings/house_slate`, `house_ochre`, `house_tall` (`building_variants`) |
 
 Los segundos puestos (`anvil_2`, `furnace_2`) ya salían con su sprite (son la escena del puesto).
+
+## Quinta tanda (campos por estación, detalle de muebles)
+
+| Qué | Cómo | Dónde |
+|---|---|---|
+| Campos (casillas `f`) | Surcos de 8 px que casan de casilla a casilla; primavera brotes, verano surcos verdes, otoño trigo dorado, invierno tierra con escarcha (`dibujar_pixel.py fields`) | `seasonal_tiles` en `data/view.json`; `GroundLayer.set_season`, que `WorldView` llama con la estación del reloj |
+| Estanterías (forge_capacity_2) | Abiertas hacia delante: fondo de tablas, lateral, tres baldas con lingotes, tarros, cuerda, martillo, bolsa y libro | `upg_shelves.png` |
+| Mostrador de venta (forge_commerce_1) | Paneles hundidos, esquinas de hierro; encima tela, monedas, espada y balanza | `upg_counter.png` |

@@ -39,6 +39,7 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Suelo del mapa | Textura por tipo de casilla en `assets/art/tiles/<tipo>.png` (`grass`, `street`, `plaza`, `dirt`…); sin PNG, el color de `data/tiles.json` (`color`) |
 | Orilla del río, bordillo del puente | `ground_edges` en `data/view.json` (qué tipos de casilla bordea cada uno) y `assets/art/tiles/<tipo>_edge_<ne\|se\|sw\|nw>.png` |
 | Árboles (y otros props con varios aspectos) | `props/tree.tscn`, `tree_round.tscn`, `tree_pine.tscn`; cuál sale en cada casilla, `prop_variants` en `data/view.json` |
+| Campos (o cualquier suelo) que cambian con la estación | `seasonal_tiles.kinds` en `data/view.json` y `assets/art/tiles/<tipo>_<spring\|summer\|autumn\|winter>.png` |
 | Borde del mapa (bosque o campo fuera de la rejilla) | `map_border` en `data/view.json`: ancho en casillas, suelo, qué tipos siguen hacia fuera (calles, río), fundido al fondo y árboles (`tiles: 0` lo quita) |
 | Aspecto de las casas de vecinos | `building_variants.house` en `data/view.json` (escenas `buildings/house*.tscn`); cada casa toma uno por su casilla, siempre el mismo |
 | Suelo y paredes de un interior | Grupo *Art* del nodo `Kit` de `game/visuals/interiors/<tipo>.tscn` (suelo, pared ne/nw, pared con puerta ne/nw); vacíos = colores greybox |
