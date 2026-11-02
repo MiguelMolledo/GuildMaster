@@ -85,3 +85,58 @@ func test_item_icons_for_lists() -> void:
 		eq(r.texture.get_size(), Vector2(16, 16), "16×16")
 		r.free()
 	eq(UiIcons.item_rect("steel"), null, "no icon yet: no rect")
+
+
+func test_trees_take_one_of_their_looks() -> void:
+	var v := _view()
+	var looks: Array = (ViewConfig.value("prop_variants", {}) as Dictionary)["tree"]
+	var seen := {}
+	var rows: Array = cat.maps()["town_e"]["rows"]
+	for r: int in rows.size():
+		for c: int in str(rows[r]).length():
+			if str(rows[r])[c] == "T":
+				var id := _id(v.prop_at(Vector2i(c, r)))
+				check(looks.has(id), "tree at %d,%d is one of its looks (%s)" % [c, r, id])
+				seen[id] = true
+	check(seen.size() >= 2, "the map mixes tree looks: %s" % [seen.keys()])
+	v.free()
+
+
+func test_river_bank_and_bridge_curb() -> void:
+	var v := _view()
+	check(v.ground().edge_count() > 0, "the ground draws the river's bank and the bridge's curb")
+	v.free()
+
+
+func test_interior_kit_uses_its_art_and_falls_back() -> void:
+	for b: String in ["forge", "armory"]:
+		var room := VisualPaths.instantiate("interiors", b)
+		var kit := room.get_node("Kit") as GreyboxKit
+		check(kit.floor_texture != null and kit.wall_texture_ne != null and kit.door_texture_nw != null, "%s: kit art" % b)
+		kit.build()
+		var f := kit.floor_layer().get_child(0) as KitFloor
+		eq(f.texture, kit.floor_texture, "%s: the floor tiles get the floor art" % b)
+		var door := kit.walls().get_node_or_null("Door") as KitWall
+		check(door != null and door.texture == (kit.door_texture_ne if door.side == "ne" else kit.door_texture_nw),
+			"%s: the door segment gets the door art of its side" % b)
+		kit.floor_texture = null
+		kit.build()
+		eq((kit.floor_layer().get_child(0) as KitFloor).texture, null, "%s: no art = the greybox colours" % b)
+		room.free()
+
+
+func test_forge_works_and_facades_have_art_with_greybox_kept() -> void:
+	var f := VisualPaths.instantiate("buildings", "forge")
+	check(f.get_node("Works/Scaffold") is Sprite2D and not (f.get_node("Works/Poles") as CanvasItem).visible,
+		"the scaffold sprite replaces the greybox poles (kept hidden)")
+	for n: String in ["upgrade_stone_facade", "upgrade_noble_facade", "upgrade_garden", "upgrade_shop_window",
+			"upgrade_trade_sign", "upgrade_reinforced_lock"]:
+		var u := f.get_node("Upgrades/" + n)
+		var sprites := 0
+		for c: Node in u.get_children():
+			if c is Sprite2D:
+				sprites += 1
+		check(sprites > 0, "%s has its sprite" % n)
+		check(u.get_node_or_null("Greybox") != null and not (u.get_node("Greybox") as CanvasItem).visible,
+			"%s keeps its greybox, hidden" % n)
+	f.free()

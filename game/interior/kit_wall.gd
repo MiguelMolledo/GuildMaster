@@ -27,6 +27,14 @@ extends Node2D
 		queue_redraw()
 
 
+## Pixel art of the segment seen from inside (32 px wide, its top edge from (0, 0) down to (32, 16), `height` + 16
+## high), already drawn for its side and with the door if it has one; null = the greybox colours.
+@export var texture: Texture2D:
+	set(v):
+		texture = v
+		queue_redraw()
+
+
 ## The two ends of the segment on the floor.
 func ends() -> PackedVector2Array:
 	var top := Vector2(0, -Iso.TILE_H / 2.0)
@@ -37,6 +45,10 @@ func ends() -> PackedVector2Array:
 
 func _draw() -> void:
 	var e := ends()
+	if texture != null:
+		var left := minf(e[0].x, e[1].x)
+		draw_texture_rect(texture, Rect2(left, -Iso.TILE_H / 2.0 - height, Iso.TILE_W / 2.0, Iso.TILE_H / 2.0 + height), false)
+		return
 	var up := Vector2(0, -height)
 	var c := color if side == "ne" else color.lightened(0.08)
 	draw_colored_polygon(PackedVector2Array([e[0], e[1], e[1] + up, e[0] + up]), c)

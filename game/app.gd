@@ -20,6 +20,7 @@ extends Node
 ## help overlay (F1) before anything else.
 ## H8: the group portraits select (HUD select_requested); the ending screen shows the dynasty score (Game Over);
 ## --smoke-script=familia: the family tree, the routine editor and the Game Over captures.
+## --smoke-script=arte: the town's art (trees, river and bridge, a block, the plaza), camera on each place.
 ## --gallery opens game/tools/gallery.tscn instead (every visual scene of game/visuals/ on the grid; with --smoke it
 ## saves reports/shots/gallery_01.png and quits). The AudioDirector node plays the sounds and music by id.
 
@@ -27,7 +28,7 @@ const GALLERY: String = "res://game/tools/gallery.tscn"
 const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mercado": "res://game/smoke/smoke_mercado.gd", "empleados": "res://game/smoke/smoke_empleados.gd",
 	"mejoras": "res://game/smoke/smoke_mejoras.gd", "rebanada": "res://game/smoke/smoke_rebanada.gd",
-	"familia": "res://game/smoke/smoke_familia.gd"}
+	"familia": "res://game/smoke/smoke_familia.gd", "arte": "res://game/smoke/smoke_arte.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView

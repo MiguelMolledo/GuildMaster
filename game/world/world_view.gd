@@ -129,6 +129,7 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	var n_blocks := 0
 	var filler := {}  # free building tiles (#) dressed as houses and yards (data/view.json "filler")
 	var dress := not (ViewConfig.value("filler", {}) as Dictionary).is_empty()
+	var variants: Dictionary = ViewConfig.value("prop_variants", {})
 	for r: int in rows.size():
 		var row := str(rows[r])
 		for col: int in row.length():
@@ -140,6 +141,9 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 				filler[t] = true
 				continue
 			var id := "stall_" + str(stall_at[t]) if stall_at.has(t) else kind
+			if variants.get(id) is Array and not (variants[id] as Array).is_empty():
+				var looks: Array = variants[id]
+				id = str(looks[_tile_hash(t) % looks.size()])  # one of the kind's looks, the same every game
 			# a tile kind stands up if it has a scene in game/visuals/props/; stalls and the board always do
 			if not VisualPaths.has_scene("props", id) and kind != "stall" and kind != "board":
 				continue

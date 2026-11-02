@@ -226,3 +226,23 @@ Todo lo derivado sale de `tools/art/derivar_guild.py` (Pillow, sobre copias; el 
 | Iconos pequeños (`icons/small/<id>.png`) | los iconos de 32 | Reducción 2:1; en las filas del almacén y del inventario |
 
 Pendiente: árboles, puente y agua siguen en greybox; las variantes de hierba (`tile_1..11`) podrían salpicar el suelo.
+
+## Tercera tanda (interiores, naturaleza, obras, fachadas)
+
+Lo dibujado sale de `tools/art/dibujar_pixel.py` (Pillow, paleta de la biblia, contorno oscuro, luz de arriba a la
+izquierda). Sin créditos. `--preview DIR` deja una hoja ampliada para revisar.
+
+| Qué | Cómo | Dónde |
+|---|---|---|
+| Suelo de la forja | `stone_floor_flat/tile_4` (diamante 1:1) aplastado a 2:1 | grupo *Art* del `Kit` de `interiors/forge.tscn` |
+| Suelo de la armería | `stone_floor_flat/tile_11` aplastado y templado | `interiors/armory.tscn` |
+| Paredes | Dibujadas por segmento (32 px, 36 de alto): sillares (forja) y yeso con entramado (armería), viga arriba; variante con puerta | `KitWall.texture` |
+| Árboles | Roble, árbol redondo y pino dibujados; suelo de hierba con sombra bajo la copa | `props/tree*.tscn`, `prop_variants.tree` |
+| Río | Agua con ondas + orilla (tierra, arena, espuma) en los lados que tocan otra casilla | `tiles/water*.png`, `ground_edges` |
+| Puente | Tablones cruzados a la calle + bordillo hacia el agua | `tiles/bridge*.png` |
+| Andamio de obras | Postes, tablones, riostras y escalera sobre la base del sprite | `Works/Scaffold` en `buildings/forge.tscn` |
+| Fachada de piedra / noble | Zócalo de sillares (claro y con estandartes en la noble) | `Upgrades/upgrade_*_facade` |
+| Jardín, escaparate, letrero, cerradura | `overlays/garden_plants`, `stall_armeria`, `shop_sign`, `lock_reinforced` a mitad | `Upgrades/upgrade_*` |
+| Iconos espada y aguja (16 px) | Redibujados píxel a píxel | `icons/small/` |
+
+Sigue en greybox: la guardia contratada (es un personaje), los visuales de mejoras del interior y los campos.

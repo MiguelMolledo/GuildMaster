@@ -1,16 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://76l7ibueh3ng"]
+[gd_scene load_steps=3 format=3 uid="uid://76l7ibueh3ng"]
 
 [ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+[ext_resource type="Texture2D" uid="uid://ca60wfncudtc4" path="res://assets/art/props/tree_oak.png" id="2_sprite"]
 
 [node name="Tree" type="Node2D"]
 
 [node name="Feet" type="Marker2D" parent="."]
 
 [node name="Top" type="Marker2D" parent="."]
-position = Vector2(0, -30)
+position = Vector2(0, -52)
 
 [node name="Greybox" type="Node2D" parent="."]
+visible = false
 script = ExtResource("1_block")
 shape = "tree"
 height = 30.0
 color = Color(0.184313725, 0.352941176, 0.164705882, 1)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_sprite")
+centered = false
+offset = Vector2(-23, -55)
+editor_description = "Sprite reused from Guild Renew (docs/arte/reuso_guild.md), at scale 1 with its base on Feet. To go back to the greybox: hide this node, show Greybox and put Top back at (0, -30)."

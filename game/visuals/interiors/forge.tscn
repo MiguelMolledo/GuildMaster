@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtja1toj3atca"]
+[gd_scene load_steps=14 format=3 uid="uid://dtja1toj3atca"]
 
 [ext_resource type="Script" uid="uid://bym181u8o7u35" path="res://game/visuals/greybox/greybox_kit.gd" id="1_kit"]
 [ext_resource type="PackedScene" uid="uid://dal7b0vovts3o" path="res://game/visuals/stations/furnace.tscn" id="2_furnace"]
@@ -8,6 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://vi2ibwy5qbg7" path="res://game/visuals/stations/anvil.tscn" id="6_anvil_2"]
 [ext_resource type="PackedScene" uid="uid://dal7b0vovts3o" path="res://game/visuals/stations/furnace.tscn" id="7_furnace_2"]
 [ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="9_block"]
+[ext_resource type="Texture2D" uid="uid://upctym1v8ku0" path="res://assets/art/interiors/forge/floor.png" id="kit_floor"]
+[ext_resource type="Texture2D" uid="uid://x1hcgyqxrd5a" path="res://assets/art/interiors/forge/wall_ne.png" id="kit_wne"]
+[ext_resource type="Texture2D" uid="uid://dqwfy084146ek" path="res://assets/art/interiors/forge/wall_nw.png" id="kit_wnw"]
+[ext_resource type="Texture2D" uid="uid://ddbrw0drowln7" path="res://assets/art/interiors/forge/wall_door_ne.png" id="kit_dne"]
+[ext_resource type="Texture2D" uid="uid://q5jkwjjphtmr" path="res://assets/art/interiors/forge/wall_door_nw.png" id="kit_dnw"]
 
 [node name="ForgeInterior" type="Node2D"]
 
@@ -19,6 +24,11 @@ floor_color = Color(0.541176471, 0.462745098, 0.376470588, 1)
 wall_color = Color(0.352941176, 0.290196078, 0.235294118, 1)
 door_color = Color(0.784313725, 0.62745098, 0.31372549, 1)
 wall_height = 36.0
+floor_texture = ExtResource("kit_floor")
+wall_texture_ne = ExtResource("kit_wne")
+wall_texture_nw = ExtResource("kit_wnw")
+door_texture_ne = ExtResource("kit_dne")
+door_texture_nw = ExtResource("kit_dnw")
 
 [node name="Stations" type="Node2D" parent="."]
 
