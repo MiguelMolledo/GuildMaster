@@ -185,21 +185,21 @@
     {
       "id": "bld_forge",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "forge"
       ],
       "ruta": "assets/art/buildings/forge.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/forge",
       "coste_gen": 0,
-      "notas": "Exterior 192 px. Variantes: normal, obras, dañado."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/forge/exterior/building_forge_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/forge.tscn (Sprite, Greybox oculto). Sin variantes de obras ni dañado."
     },
     {
       "id": "int_forge",
       "tipo": "interior",
-      "estado": "falta",
+      "estado": "greybox",
       "para": [
         "H2",
         "forge"
@@ -208,251 +208,265 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Kit modular de interior (suelo, paredes, horno, yunque, mostrador, almacén)."
+      "notas": "Kit modular de interior (suelo, paredes, horno, yunque, mostrador, almacén). Suelo y paredes en greybox (GreyboxKit). Puestos con sprite de Guild Renew, sin coste: assets/art/interiors/forge/{furnace,anvil,storage,counter}.png en game/visuals/stations/ (docs/arte/reuso_guild.md)."
     },
     {
       "id": "bld_stall_resources",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "mercado"
       ],
       "ruta": "assets/art/buildings/stall_resources.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/market",
       "coste_gen": 0,
-      "notas": "Puesto exterior del mercado."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/interior/stall_recursos.png (docs/arte/reuso_guild.md). Puesto de una casilla, en game/visuals/props/stall_resources.tscn."
     },
     {
       "id": "bld_stall_food",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "mercado"
       ],
       "ruta": "assets/art/buildings/stall_food.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/market",
       "coste_gen": 0,
-      "notas": "Puesto exterior del mercado."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/interior/stall_alimentos.png (docs/arte/reuso_guild.md). Puesto de una casilla, en game/visuals/props/stall_food.tscn."
     },
     {
       "id": "bld_stall_materials",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "mercado"
       ],
       "ruta": "assets/art/buildings/stall_materials.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/market",
       "coste_gen": 0,
-      "notas": "Puesto exterior del mercado."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/interior/stall_materiales.png (docs/arte/reuso_guild.md). Puesto de una casilla, en game/visuals/props/stall_materials.tscn."
     },
     {
       "id": "bld_armory",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "mercado"
       ],
       "ruta": "assets/art/buildings/armory.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/market",
       "coste_gen": 0,
-      "notas": "Tienda con interior."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/exterior/building_armeria_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/armory.tscn."
     },
     {
       "id": "bld_house",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H4",
         "empleados"
       ],
       "ruta": "assets/art/buildings/house.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/residential",
       "coste_gen": 0,
-      "notas": "Casa 3x3 de los vecinos (tipo house, sin interior). Puede salir de bld_house_a/b o del kit de casas."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_1/house_modest_1_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/house.tscn (las 8 casas iguales)."
     },
     {
       "id": "bld_house_a",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "ciudad"
       ],
       "ruta": "assets/art/buildings/house_a.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/residential",
       "coste_gen": 0,
-      "notas": "Casa de relleno (estilo E). Kit modular cuando haya créditos (9.4)."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_2/house_modest_2_192.png (docs/arte/reuso_guild.md). Sin escena aún."
     },
     {
       "id": "bld_house_b",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "ciudad"
       ],
       "ruta": "assets/art/buildings/house_b.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/residential",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_3/house_modest_3_192.png (docs/arte/reuso_guild.md). Sin escena aún."
     },
     {
       "id": "tile_grass",
       "tipo": "tile",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "mapa"
       ],
       "ruta": "assets/art/tiles/grass.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/tiles/diamonds",
       "coste_gen": 0,
-      "notas": "Diamante 64×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/tiles/test_tiles_pro_diamond/tile_0.png (docs/arte/reuso_guild.md). Suelo del mapa (GroundLayer, tipo grass)."
     },
     {
       "id": "tile_cobblestone",
       "tipo": "tile",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "mapa"
       ],
-      "ruta": "assets/art/tiles/cobblestone.png",
-      "origen": null,
+      "ruta": "assets/art/tiles/street.png",
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/tiles",
       "coste_gen": 0,
-      "notas": "Diamante 64×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/tiles/tile_cobblestone_diamond.png (docs/arte/reuso_guild.md). Suelo de los tipos street y plaza (plaza.png es la misma imagen: tile_plaza)."
     },
     {
       "id": "tile_dirt_path",
       "tipo": "tile",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "mapa"
       ],
-      "ruta": "assets/art/tiles/dirt_path.png",
-      "origen": null,
+      "ruta": "assets/art/tiles/dirt.png",
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/tiles",
       "coste_gen": 0,
-      "notas": "Diamante 64×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/tiles/diamonds/tile_dirt_block.png (docs/arte/reuso_guild.md). Suelo del tipo dirt."
+    },
+    {
+      "id": "tile_plaza",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "mapa"
+      ],
+      "ruta": "assets/art/tiles/plaza.png",
+      "origen": "guild-renew",
+      "origen_previo": "guild:assets/sprites/tiles",
+      "coste_gen": 0,
+      "notas": "Reuso sin coste de guild:assets/sprites/tiles/tile_cobblestone_diamond.png (docs/arte/reuso_guild.md). Diamante 64×32. Hoy es el mismo adoquín que street."
     },
     {
       "id": "prop_barrel",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/barrel.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/barrel",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/barrel/barrel_64.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_bench",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/bench.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/bench",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/bench/bench_64.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_cart",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/cart.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/cart",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/cart/cart_96.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_grain_sack",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/grain_sack.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/grain_sack",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/grain_sack/grain_sack_48.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_well",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/well.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/well",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/well/well_96.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_anvil",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2"
       ],
       "ruta": "assets/art/props/anvil.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/anvil.png",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/anvil.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_crate",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2"
       ],
       "ruta": "assets/art/props/crate.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/crate.png",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/crate.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_torch",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/torch.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/torch.png",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/torch.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_lantern",
@@ -470,112 +484,112 @@
     {
       "id": "prop_scaffolding",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2"
       ],
       "ruta": "assets/art/props/scaffolding.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/scaffolding.png",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/scaffolding.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_sign_post",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/sign_post.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/sign_post.png",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/sign_post.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "bubble_chat",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/chat.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_chat.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
     },
     {
       "id": "bubble_dice",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/dice.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_dice.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
     },
     {
       "id": "bubble_rest",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/rest.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_rest.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
     },
     {
       "id": "bubble_shop",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/shop.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_shop.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
     },
     {
       "id": "bubble_think",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/think.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_think.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
     },
     {
       "id": "bubble_wave",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/wave.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_wave.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
     },
     {
       "id": "ui_panel_frame",
@@ -642,114 +656,114 @@
     {
       "id": "icon_iron",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/iron.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_hierro.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_hierro.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_coal",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/coal.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_carbon.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_carbon.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_wood",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/wood.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_madera.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_madera.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_stone",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/stone.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_piedra.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_piedra.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_wheat",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/wheat.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_trigo.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_trigo.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_wool",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/wool.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_lana.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_lana.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_herbs",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/herbs.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_hierbas.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_hierbas.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_iron_ingot",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/iron_ingot.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_lingote_hierro.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_lingote_hierro.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_steel",
@@ -763,119 +777,119 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md)."
     },
     {
       "id": "icon_flour",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/flour.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_harina.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_harina.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_planks",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/planks.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_tablas.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_tablas.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_cloth",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/cloth.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_tela.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_tela.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon). Se parece al documento: revisar."
     },
     {
       "id": "icon_sword",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/sword.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_espada.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_espada.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_bread",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/bread.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_pan.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_pan.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_common_clothes",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/common_clothes.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_ropa_comun.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_ropa_comun.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_armor",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/armor.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_armadura.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_armadura.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_hammer",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/hammer.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_martillo.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_martillo.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_saw",
@@ -889,133 +903,133 @@
       "origen": null,
       "origen_previo": "guild:assets/sprites/ui/icons/icon_sierra.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md)."
     },
     {
       "id": "icon_needle",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/needle.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_aguja.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_aguja.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_hoe",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/hoe.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_azadon.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_azadon.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon). Se lee como un pico: revisar."
     },
     {
       "id": "icon_work_clothes",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/work_clothes.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_ropa_trabajo.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_ropa_trabajo.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_travel_cloak",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/travel_cloak.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_capa_viaje.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_capa_viaje.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_bandages",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "objetos"
       ],
       "ruta": "assets/art/icons/bandages.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_vendas.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_vendas.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_prepared_meal",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "objetos"
       ],
       "ruta": "assets/art/icons/prepared_meal.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_comida_preparada.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_comida_preparada.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_document",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H8",
         "objetos"
       ],
       "ruta": "assets/art/icons/document.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_documento.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_documento.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_key",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H8",
         "objetos"
       ],
       "ruta": "assets/art/icons/key.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_llave.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_llave.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_contract",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H8",
         "objetos"
       ],
       "ruta": "assets/art/icons/contract.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_contrato.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_contrato.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "music_city_day",

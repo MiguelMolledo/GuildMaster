@@ -32,10 +32,10 @@ func test_real_click_gives_move_to() -> void:
 	check(_click(v, MOUSE_BUTTON_LEFT, _body(v, "chr_0001")), "left click used")
 	eq(v.selected_id, "chr_0001", "left click on Hugo selects him")
 	check(v.view_of("chr_0001").selected, "selection indicator on")
-	var target := Vector2i(24, 18)  # the main street
+	var target := Vector2i(20, 18)  # the plaza on the main street (clear of the forge's drawing)
 	check(_click(v, MOUSE_BUTTON_RIGHT, v.tile_to_screen(target) + Vector2(6, 2)), "right click used")
 	eq(got.size(), 1, "one order")
-	eq(SaveFile.canonical(got[0]), SaveFile.canonical({"type": "move_to", "actor": "chr_0001", "tile": [24, 18]}),
+	eq(SaveFile.canonical(got[0]), SaveFile.canonical({"type": "move_to", "actor": "chr_0001", "tile": [20, 18]}),
 		"the order")
 	# the same order through the sim: accepted, the walk starts
 	var sim := Sim.new(v.state, cat)

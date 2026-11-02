@@ -9,3 +9,4 @@ Plan: Tier 1, 2.000 generaciones/mes, se renueva el 15 de cada mes.
 |---|---|---|---|---|---|---|
 | 2026-11-01 | Láminas de concepto de ciudad (6) | fal Nano Banana Pro | `assets/concept/ciudades/` (en el repo guild) | — | — | 6 imágenes |
 | 2026-11-01 | Instalación de PixelLab Pip: comprobación de saldo (sin generar) | `get_balance` | — | 0 gen. del plan · $0.00 · 4 de regalo hoy | igual | 0 |
+| 2026-11-02 | Reuso de sprites de Guild Renew (rama arte-guild): edificios, puestos, suelo, puestos de la forja, props, iconos, bocadillos | Copia del repo `guild` (sin generar) | 53 assets, origen `guild-renew` (lista en `docs/arte/reuso_guild.md`) | — | — | 0 (reuso sin coste) |
