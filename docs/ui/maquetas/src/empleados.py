@@ -100,8 +100,9 @@ def plantilla():
     e += [t(X + 176, yy + 3, 60, 12, "20 /día", "negrita", "oro_claro"),
           ico(X + 40, yy + 17, IT + "sword"), t(X + 58, yy + 18, CW - 60, 12, "Yunque · Forjar espada 40 %")]
     # lealtad con marcas de tramo 20 / 40 / 70
-    bx, bw = X + 98, 150
-    e += [t(X + 40, yy + 34, 60, 12, "Lealtad 62", color="texto_tenue"), barra(bx, yy + 37, bw, 7, 0.62, "aviso")]
+    bx, bw = X + 112, 130
+    e += [t(X + 40, yy + 34, 72, 12, "Lealtad 62", color="texto_tenue", ajustar=False),
+          barra(bx, yy + 37, bw, 7, 0.62, "aviso")]
     for m in (0.2, 0.4, 0.7):
         e.append(caja(bx + int(bw * m), yy + 35, 1, 11, "texto"))
     e += [t(bx + bw + 6, yy + 34, CW - (bx + bw + 6 - X), 12, "descontenta", "negrita", "aviso"),

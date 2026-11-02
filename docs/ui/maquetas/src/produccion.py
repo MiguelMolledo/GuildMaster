@@ -39,12 +39,12 @@ def cola():
     ]
     for k, (icon, name, qty, done, tot, st, stc, sub) in enumerate(entradas):
         e.append(caja(X, yy, CW, 20, "madera" if k == 0 else "fila"))
-        e += [ico(X + 3, yy + 2, icon), t(X + 22, yy + 4, 90, 12, name, "negrita" if k == 0 else "cuerpo",
+        e += [ico(X + 3, yy + 2, icon), t(X + 22, yy + 4, 72, 12, name, "negrita" if k == 0 else "cuerpo",
                                           "oro_claro" if k == 0 else "texto", ajustar=False),
-              t(X + 110, yy + 4, 34, 12, qty, color="texto_tenue", alinear="der")]
+              t(X + 92, yy + 4, 62, 12, qty, color="texto_tenue", alinear="der", ajustar=False)]
         if tot:
-            e += pips(X + 150, yy + 7, done, tot)
-        e.append(t(X + 188, yy + 4, 76, 12, st, color=stc, ajustar=False))
+            e += pips(X + 160, yy + 7, done, tot)
+        e.append(t(X + 200, yy + 4, 72, 12, st, color=stc, ajustar=False))
         e += [btn(X + CW - 60, yy + 3, "↑", 18, 14, "desactivado" if k == 0 else "normal", fuente="cuerpo"),
               btn(X + CW - 40, yy + 3, "↓", 18, 14, "desactivado" if k == 2 else "normal", fuente="cuerpo"),
               btn(X + CW - 20, yy + 3, "x", 18, 14, fuente="cuerpo")]
