@@ -1,6 +1,17 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "Arte · interiores de piedra, árboles, río con puente y obras dibujadas",
+    "que": "La forja tiene suelo de losas y paredes de sillares; la armería, losas grandes y yeso con entramado. Tres árboles (roble, redondo, pino), río con orillas y espuma, puente de tablones, andamio de obras, fachadas de piedra y noble, y mejoras exteriores con piezas de Guild Renew. Espada y aguja redibujadas a 16 px. Todo dibujado con tools/art/dibujar_pixel.py (Pillow, regenerable), sin créditos. Quedan en greybox los visuales de mejoras del interior y la guardia.",
+    "como_probar": "jugar.command. Recorrido de cámara: --smoke-script=arte.",
+    "capturas": [
+      "docs/novedades/arte3_forja_interior_despues.png",
+      "docs/novedades/arte3_rio_puente.png",
+      "docs/novedades/arte3_arboles.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "Arte · el pueblo se llena: manzanas de casas, patios, pozo y tablón",
     "que": "Los bloques de relleno del mapa son ahora manzanas con cuatro modelos de casa de Guild Renew (la mitad en espejo) y patios de huerto o de trabajo con barriles, cajas, sacos y carro; el hueco de la plaza es un pozo. Adoquín en piedra cálida, plaza arenosa y tierra marrón sin rejilla. Tablón de encargos compuesto, props colocables a mano en game/visuals/towns/town_e.tscn e iconos de 16 px en almacén e inventario. Se desactiva quitando el bloque filler de data/view.json.",
     "como_probar": "jugar.command → Empezar. Derivados regenerables con tools/art/derivar_guild.py.",
