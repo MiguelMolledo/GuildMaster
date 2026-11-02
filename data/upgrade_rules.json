@@ -9,7 +9,7 @@
     "customer_bonus": {"value": "amount", "stack": "branch_top", "when": "query", "reader": "counter"},
     "protection": {"value": "amount", "stack": "branch_top", "when": "query", "reader": "staff"},
     "inspection_risk": {"value": "amount", "stack": "all", "when": "query", "reader": "inspections"},
-    "illegal_profit": {"value": "mult", "stack": "all", "when": "query", "reader": "none"},
+    "illegal_profit": {"value": "mult", "stack": "all", "when": "query", "reader": "counter"},
     "tax_mult": {"value": "mult", "stack": "all", "when": "query", "reader": "none"},
     "unlock_recipe": {"value": "recipe", "stack": "all", "when": "query", "reader": "production"},
     "allow_rank": {"value": "rank", "stack": "all", "when": "query", "reader": "staff"},
