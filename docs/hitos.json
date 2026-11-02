@@ -354,26 +354,26 @@
     {
       "id": "H10",
       "nombre": "Cargos y elecciones",
-      "estado": "pendiente",
+      "estado": "hecho",
       "entregable": "Gobierno procedural, organigrama, mandatos de 1-4 años, salarios, campaña de 1 estación, votación, poderes pasivos y activos. IA rival se presenta.",
       "criterios": [
         {
           "texto": "Bot `politician` gana un cargo menor",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "diana politician: gana Inspector en 10 de 10 semillas, día 25,8 de media (25-33), sin órdenes rechazadas",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Inspector regula un precio y se nota en el mercado",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_politics_offices.gd: el Inspector sube un 10 % el precio de las espadas en el mercado y la Armería; vuelve a los 2 días",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Test: la campaña ocupa la última estación del mandato y la elección cae al cambiar de año",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_politics_elections.gd: la campaña es el invierno del último año del mandato y se vota en el paso de cambio de año",
+          "fecha": "2026-11-02"
         }
       ]
     },
