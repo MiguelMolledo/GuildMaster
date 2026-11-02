@@ -1085,7 +1085,7 @@
       "origen": "elevenlabs: one long push of a large leather blacksmith bellows, deep airy whoosh into a forge fire, flames flare, close",
       "origen_previo": null,
       "coste_gen": 2,
-      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md). Al terminar de fundir en el horno (work_done.furnace)."
     },
     {
       "id": "sfx_coins",
@@ -1127,7 +1127,7 @@
       "origen": "elevenlabs: single soft click of a wooden button pressed on a parchment board, short dry tap, UI click, warm, no reverb",
       "origen_previo": null,
       "coste_gen": 3,
-      "notas": "ElevenLabs, 3 variantes, 18 créditos (assets/audio/MANIFEST.md). Sin enganchar: el clic de los botones es un encargo aparte (la UI no llama a AudioDirector)."
+      "notas": "ElevenLabs, 3 variantes, 18 créditos (assets/audio/MANIFEST.md). Suena en todos los botones (AudioDirector escucha el árbol)."
     },
     {
       "id": "sfx_hire",
@@ -1294,8 +1294,8 @@
       "ruta": "assets/audio/voice/voice_market_vendor_01.ogg",
       "origen": "elevenlabs: ¡Pan, queso y buen vino! ¡Acérquense, vecinos!",
       "origen_previo": null,
-      "coste_gen": 3,
-      "notas": "ElevenLabs, 3 variantes, 45 créditos (assets/audio/MANIFEST.md). Sin disparo aún (encargo aparte). Voces peninsulares: Martin Osborne 6 y rolapp Jimena."
+      "coste_gen": 5,
+      "notas": "ElevenLabs, 5 variantes, 75 créditos (assets/audio/MANIFEST.md). Al abrir el mercado (enfriamiento 20 s). Voces peninsulares: Martin Osborne 6 y rolapp Jimena."
     },
     {
       "id": "voice_board_crier",
@@ -1308,8 +1308,162 @@
       "ruta": "assets/audio/voice/voice_board_crier_01.ogg",
       "origen": "elevenlabs: ¡Oíd, oíd! Nuevo aviso en el tablón.",
       "origen_previo": null,
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 59 créditos (assets/audio/MANIFEST.md). Al abrir el tablón (enfriamiento 20 s). Voz peninsular: Martin Osborne 4."
+    },
+    {
+      "id": "sfx_step",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "personajes"
+      ],
+      "ruta": "assets/audio/sfx/sfx_step_01.ogg",
+      "origen": "elevenlabs: a single soft footstep of a leather shoe on packed dirt and cobblestone, quiet, close, dry, no music",
+      "origen_previo": null,
+      "coste_gen": 4,
+      "notas": "ElevenLabs, 4 variantes, 24 créditos (assets/audio/MANIFEST.md). Solo los pasos de la persona seleccionada (selected_only), enfriamiento 0,22 s."
+    },
+    {
+      "id": "sfx_furnace",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H2",
+        "forge"
+      ],
+      "ruta": "assets/audio/sfx/sfx_furnace_01.ogg",
+      "origen": "elevenlabs: a blacksmith furnace flaring up: deep whoosh of air and a roaring burst of coal fire that settles to a crackle, close",
+      "origen_previo": null,
       "coste_gen": 2,
-      "notas": "ElevenLabs, 2 variantes, 39 créditos (assets/audio/MANIFEST.md). Sin disparo aún (encargo aparte). Voz peninsular: Martin Osborne 4."
+      "notas": "ElevenLabs, 2 variantes, 44 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_master_touch",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H2",
+        "forge"
+      ],
+      "ruta": "assets/audio/sfx/sfx_master_touch_01.ogg",
+      "origen": "elevenlabs: a perfect master hammer strike on glowing steel: a bright pure ringing anvil tone with a shimmer of sparks, satisfying, short",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_sale",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "mercado"
+      ],
+      "ruta": "assets/audio/sfx/sfx_sale_01.ogg",
+      "origen": "elevenlabs: coins counted onto a wooden shop counter followed by a small brass shop bell ding, medieval shop sale, close",
+      "origen_previo": null,
+      "coste_gen": 4,
+      "notas": "ElevenLabs, 2 variantes, 90 créditos (assets/audio/MANIFEST.md). 2 tomas de 1,5 s descartadas (campanilla cortada); se rehízo a 2,5 s."
+    },
+    {
+      "id": "sfx_rooster",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "dia"
+      ],
+      "ruta": "assets/audio/sfx/sfx_rooster_01.ogg",
+      "origen": "elevenlabs: a single rooster crowing far away across a quiet medieval village at dawn, distant, soft morning air, no music",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 66 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_market_bell",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "mercado"
+      ],
+      "ruta": "assets/audio/sfx/sfx_market_bell_01.ogg",
+      "origen": "elevenlabs: a medieval market bell rung by hand several times in a town square in the morning, distant crowd starting, bronze bell, no music",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 66 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_panel_open",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_panel_open_01.ogg",
+      "origen": "elevenlabs: a sheet of thick parchment being unrolled and opened on a wooden desk, short soft paper rustle",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 16 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_panel_close",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_panel_close_01.ogg",
+      "origen": "elevenlabs: a sheet of thick parchment being rolled up and closed, short soft paper rustle with a light tap",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 16 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_pause",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_pause.ogg",
+      "origen": "elevenlabs: an old wooden hourglass set down and stopped on a table, soft wooden knock, short",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 8 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_resume",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_resume.ogg",
+      "origen": "elevenlabs: an old wooden hourglass turned over on a table with a soft knock and sand starting to trickle, short",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 8 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "voice_market_deal",
+      "tipo": "voz",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "mercado"
+      ],
+      "ruta": "assets/audio/voice/voice_market_deal.ogg",
+      "origen": "elevenlabs: ¡Trato hecho!",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 6 créditos (assets/audio/MANIFEST.md). «¡Trato hecho!» al comprar en el mercado (enfriamiento 20 s). Voz: rolapp Jimena."
     }
   ]
 }

@@ -13,7 +13,8 @@
     la escena exterior; cada tipo con su _generic.tscn; puestos del mercado y tablón con escena (si no, aviso: salen
     con la genérica); los personajes de VisualPaths.character_id;
   - audio: data/audio.json (secciones, buses que existen en default_bus_layout.tres, volumen, música y ambiente por fase,
-    ambiente por tipo de edificio que existe y sonidos de eventos que existen); un id sin fichero es una nota
+    ambiente por tipo de edificio que existe, sonidos de eventos y de la UI que existen, paneles que son escenas de
+    game/ui/, cooldown_s); un id sin fichero es una nota
     (silencio), con otras mayúsculas, error;
   - uid: cada .tscn/.tres con uid en la cabecera y en cada ext_resource (tools/uids.py).
 """
@@ -238,6 +239,9 @@ def check_audio(rep):
                 rep.error(w, f"{sec}.{id_}: el bus {e.get('bus')} no está en default_bus_layout.tres")
             if not isinstance(e.get("volume_db", 0.0), (int, float)):
                 rep.error(w, f"{sec}.{id_}: volume_db debe ser un número (dB)")
+            cd = e.get("cooldown_s", 0.0)
+            if not isinstance(cd, (int, float)) or cd < 0:
+                rep.error(w, f"{sec}.{id_}: cooldown_s debe ser un número >= 0 (segundos reales)")
             j = e.get("pitch_jitter", 0.0)
             if not isinstance(j, (int, float)) or not 0 <= j <= 0.5:
                 rep.error(w, f"{sec}.{id_}: pitch_jitter entre 0 y 0,5")
@@ -265,9 +269,24 @@ def check_audio(rep):
             rep.error(w, f"interior_ambient: tipo de edificio desconocido {bt} (data/buildings/)")
         if id_ and ids.get(id_) != "ambient":
             rep.error(w, f"interior_ambient.{bt}: {id_} no es un ambiente de audio.json")
-    for ev, id_ in (a.get("events") or {}).items():
+    for ev, v in (a.get("events") or {}).items():
+        for id_ in (v if isinstance(v, list) else [v]):
+            if id_ not in ids:
+                rep.error(w, f"events.{ev}: sonido desconocido {id_}")
+    for ev in a.get("selected_only") or []:
+        if ev not in (a.get("events") or {}):
+            rep.error(w, f"selected_only: {ev} no está en events")
+    ui = a.get("ui") or {}
+    for k in ("button", "pause", "resume", "panel_open", "panel_close"):
+        if ui.get(k) and ui[k] not in ids:
+            rep.error(w, f"ui.{k}: sonido desconocido {ui[k]}")
+    ui_dir = os.path.join(ROOT, "game", "ui")
+    for pn in list(ui.get("panels") or []) + list((ui.get("panel_open_by") or {}).keys()):
+        if not os.path.exists(os.path.join(ui_dir, f"{pn}.tscn")):
+            rep.error(w, f"ui: el panel {pn} no es una escena de game/ui/")
+    for pn, id_ in (ui.get("panel_open_by") or {}).items():
         if id_ not in ids:
-            rep.error(w, f"events.{ev}: sonido desconocido {id_}")
+            rep.error(w, f"ui.panel_open_by.{pn}: sonido desconocido {id_}")
 
 
 def check_uids(rep):

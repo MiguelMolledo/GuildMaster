@@ -7,7 +7,13 @@ extends Node
 ## day ("phase_music"). Ambient loops on their own player: "phase_ambient" (phase -> id, in the town) and
 ## "interior_ambient" (building type -> id, while an interior is shown; a type without an entry is quiet inside).
 ## A notice (event notice_added) sounds by its key first ("notice.objective_done") and else by its severity
-## ("notice_added.urgent"), so one notice never sounds twice. Buses are fixed in default_bus_layout.tres (Master, Music,
+## ("notice_added.urgent"), so one notice never sounds twice. Other events try "<type>.<value>" first for their zone,
+## phase, category or stall ("work_started.furnace", "phase_changed.dawn", "gold_changed.counter_sales"), then the
+## plain type. An entry is one id or a list of ids. Events listed in "selected_only" sound only for the selected person (footsteps). An id with
+## "cooldown_s" does not sound again until that many real seconds have passed (voices).
+## The UI ("ui"): every button of the tree clicks ("button"), the panels named in "panels" (scene names of game/ui/)
+## sound when they open and close, "panel_open_by" adds a sound to one panel opening (the vendor, the crier), and
+## pausing / resuming the game has its own sound. All from here: no panel calls the AudioDirector. Buses are fixed in default_bus_layout.tres (Master, Music,
 ## Sfx, Ambient, Voice, Ui): each id goes to the bus of its section unless it names another. The pitch jitter is
 ## random, but only in the view. With the Dummy audio driver (headless runs) nothing is heard, so no playback starts:
 ## Godot leaks a playback stopped while quitting there (resources still in use at exit).
@@ -27,6 +33,11 @@ var _silent: Dictionary = {}         # id -> true: reported once
 var _game: Node = null
 var _check: float = 0.0
 var _dummy: bool = false             # Dummy audio driver (headless, --audio-driver Dummy): nothing is heard
+var _last: Dictionary = {}           # id -> Time.get_ticks_msec() of its last play (cooldown_s)
+var _paused: Variant = null          # Game.paused as last seen (null = not seen yet)
+var _panels: Dictionary = {}         # panel node instance id -> visible as last heard (sound only on a real change)
+var _ready_ms: int = 0               # panels setting themselves up right after start do not sound
+const EVENT_FIELDS: Array[String] = ["zone", "phase", "category", "stall"]
 
 
 func _ready() -> void:
@@ -47,6 +58,9 @@ func _ready() -> void:
 	if events != null:
 		events.sim_event.connect(on_sim_event)
 	_game = get_node_or_null("/root/Game")
+	_ready_ms = Time.get_ticks_msec()
+	get_tree().node_added.connect(_on_node_added)
+	_hook_tree.call_deferred(get_tree().root)
 	_log("ready (sounds=%d, events=%d, driver=%s)" % [ids().size(), (config.get("events", {}) as Dictionary).size(),
 		AudioServer.get_driver_name()])
 
@@ -89,9 +103,14 @@ func play(id: String) -> bool:
 	var stream := _stream(id)
 	if stream == null:
 		return false
+	var entry: Dictionary = config[section_of(id)][id]
+	var cool := int(float(entry.get("cooldown_s", 0.0)) * 1000.0)
+	var now := Time.get_ticks_msec()
+	if cool > 0 and _last.has(id) and now - int(_last[id]) < cool:
+		return false
+	_last[id] = now
 	if _dummy:
 		return true
-	var entry: Dictionary = config[section_of(id)][id]
 	var p := _players[_next]
 	_next = (_next + 1) % _players.size()
 	p.stream = stream
@@ -150,27 +169,112 @@ func ambient_for(phase: String, interior_type: String) -> String:
 	return str((config.get("phase_ambient", {}) as Dictionary).get(phase, ""))
 
 
-## The sound id of a sim event (audio.json "events"; "" = none). Notices: by key, else by severity.
+## The first sound id of a sim event (audio.json "events"; "" = none). Notices: by key, else by severity.
 func sound_for(e: Dictionary) -> String:
+	var all := sounds_for(e)
+	return all[0] if not all.is_empty() else ""
+
+
+func _event_entry(e: Dictionary) -> Variant:
 	var events: Dictionary = config.get("events", {})
 	var type := str(e.get("type", ""))
 	if type == "notice_added":
 		var key := str(e.get("key", ""))
 		if events.has(key):
-			return str(events[key])
-		return str(events.get("notice_added.%s" % str(e.get("severity", "")), ""))
-	return str(events.get(type, ""))
+			return events[key]
+		return events.get("notice_added.%s" % str(e.get("severity", "")), null)
+	for f: String in EVENT_FIELDS:
+		if e.has(f) and events.has("%s.%s" % [type, str(e[f])]):
+			return events["%s.%s" % [type, str(e[f])]]
+	return events.get(type, null)
 
 
-## A sim event: its sound, if it concerns the player's family.
+## Every sound of a sim event: an entry of "events" is one id or a list of ids (coins and the vendor's voice).
+func sounds_for(e: Dictionary) -> Array[String]:
+	var out: Array[String] = []
+	var v: Variant = _event_entry(e)
+	if v is Array:
+		for x: Variant in v:
+			out.append(str(x))
+	elif v != null and str(v) != "":
+		out.append(str(v))
+	return out
+
+
+## A sim event: its sounds, if it concerns the player's family (and the selected person, for "selected_only").
 func on_sim_event(e: Dictionary) -> void:
-	var id := sound_for(e)
-	if id == "" or not _concerns_player(e):
+	var ids_ := sounds_for(e)
+	if ids_.is_empty() or not _concerns_player(e):
 		return
-	play(id)
+	if str(e.get("type", "")) in (config.get("selected_only", []) as Array) and str(e.get("actor", "")) != _selected():
+		return
+	for id: String in ids_:
+		play(id)
+
+
+## The sound id of a UI moment ("button", "pause", "resume", "panel_open", "panel_close"; "" = none).
+func ui_sound(what: String) -> String:
+	return str((config.get("ui", {}) as Dictionary).get(what, ""))
+
+
+## Whether `panel` (a scene name of game/ui/) sounds when it opens and closes.
+func is_panel(panel: String) -> bool:
+	return panel in ((config.get("ui", {}) as Dictionary).get("panels", []) as Array)
+
+
+## The extra sound of `panel` opening (audio.json ui.panel_open_by; "" = none).
+func panel_open_extra(panel: String) -> String:
+	return str(((config.get("ui", {}) as Dictionary).get("panel_open_by", {}) as Dictionary).get(panel, ""))
+
+
+func _hook_tree(n: Node) -> void:
+	_on_node_added(n)
+	for c: Node in n.get_children():
+		_hook_tree(c)
+
+
+## Every button clicks; the listed panels sound on open / close. Connected once per node.
+func _on_node_added(n: Node) -> void:
+	if n is BaseButton:
+		var b := n as BaseButton
+		if not b.pressed.is_connected(_on_button):
+			b.pressed.connect(_on_button)
+	elif n is Control and n.scene_file_path != "" and not _panels.has(n.get_instance_id()):
+		var panel := n.scene_file_path.get_file().get_basename()
+		if is_panel(panel):
+			_panels[n.get_instance_id()] = (n as Control).visible
+			(n as Control).visibility_changed.connect(_on_panel_visibility.bind(n, panel))
+
+
+func _on_button() -> void:
+	var id := ui_sound("button")
+	if id != "":
+		play(id)
+
+
+func _on_panel_visibility(n: Control, panel: String) -> void:
+	var key := n.get_instance_id()
+	if not n.is_inside_tree() or bool(_panels.get(key, not n.visible)) == n.visible:
+		return
+	_panels[key] = n.visible
+	if Time.get_ticks_msec() - _ready_ms < 1000:
+		return
+	var id := ui_sound("panel_open" if n.visible else "panel_close")
+	if id != "":
+		play(id)
+	if n.visible and panel_open_extra(panel) != "":
+		play(panel_open_extra(panel))
+	_log("panel %s %s" % [panel, "open" if n.visible else "closed"])
 
 
 func _process(delta: float) -> void:
+	if _game != null:
+		var p: Variant = _game.get("paused")
+		if p != null and _paused != null and bool(p) != bool(_paused):
+			var id := ui_sound("pause" if bool(p) else "resume")
+			if id != "":
+				play(id)
+		_paused = p
 	_check -= delta
 	if _check > 0.0 or _game == null or _game.get("sim") == null:
 		return
@@ -190,6 +294,18 @@ func _interior_type(sim: Sim) -> String:
 	if bld == null or str(bld) == "":
 		return ""
 	return str(sim.state.buildings.get(str(bld), {}).get("type", ""))
+
+
+## The person selected in the town ("" = none or no app).
+func _selected() -> String:
+	var app := get_parent()
+	if app == null or not app.has_method("world"):
+		return ""
+	var w: Variant = app.call("world")
+	if w == null:
+		return ""
+	var sel: Variant = (w as Object).get("selected_id")
+	return "" if sel == null else str(sel)
 
 
 func _concerns_player(e: Dictionary) -> bool:

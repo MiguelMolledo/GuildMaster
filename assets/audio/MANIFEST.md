@@ -14,5 +14,10 @@ retraso y se usa para conciliar.
 | 2026-11-02 | ídem · e: voces en castellano | ElevenLabs TTS multilingual v2 | voice_market_vendor ×3, voice_board_crier ×2 | 73.192 | 73.276 | 84 |
 | | **Total del encargo** | | 20 ids, 37 ficheros en assets/audio/ | **69.266** | **73.276** | **4.010 de 20.000** |
 
+| 2026-11-02 | Audio 2 (tope de la tanda 8.000) · efectos que faltaban | ElevenLabs sfx v2 | sfx_step ×4, sfx_panel_open ×2, sfx_panel_close ×2, sfx_furnace ×2, sfx_master_touch ×2, sfx_sale ×2 (+2 descartadas), sfx_pause, sfx_resume, sfx_rooster ×2, sfx_market_bell ×2 | 73.276 | 73.648 | 372 |
+| 2026-11-02 | ídem · más voces | ElevenLabs TTS multilingual v2 | voice_market_vendor +2, voice_market_deal, voice_board_crier +1 | 73.648 | 73.704 | 56 |
+| | **Total de la tanda 2** | | 11 ids nuevos, 24 ficheros | **73.276** | **73.704** | **428 de 8.000** |
+| | **Total acumulado del tope de 20.000** | | 31 ids, 61 ficheros | 69.266 | 73.704 | **4.438** |
+
 Tarifas medidas: efecto ~11 créditos por segundo pedido; música ~825 por minuto (1.238 por 90 s); voz ~0,45 por carácter.
-Descartado (pagado, no integrado): 1 toma de `sfx_objective_failed` (28 créditos).
+Descartado (pagado, no integrado): 1 toma de `sfx_objective_failed` (28 créditos) y 2 tomas de 1,5 s de `sfx_sale` (34 créditos: la campanilla quedaba cortada).

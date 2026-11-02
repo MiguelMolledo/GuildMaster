@@ -86,5 +86,56 @@ func test_phase_music_and_event_sounds() -> void:
 	eq(d.music_for_phase("night"), "music_night", "night music")
 	var events: Dictionary = d.config["events"]
 	for type: String in events:
-		check(d.section_of(str(events[type])) != "", "event %s -> a known id" % type)
+		var v: Variant = events[type]
+		for id: Variant in (v if v is Array else [v]):
+			check(d.section_of(str(id)) != "", "event %s -> a known id" % type)
+	d.free()
+
+
+func test_event_sounds_by_value_and_lists() -> void:
+	var d := _director()
+	eq(d.sound_for({"type": "work_started", "zone": "furnace"}), "sfx_furnace", "the furnace has its own sound")
+	eq(d.sound_for({"type": "work_started", "zone": "anvil"}), "", "the anvil starting is quiet")
+	eq(d.sound_for({"type": "work_done", "zone": "anvil"}), "sfx_hammer", "else the plain type")
+	eq(d.sound_for({"type": "phase_changed", "phase": "dawn"}), "sfx_rooster", "dawn")
+	eq(d.sound_for({"type": "phase_changed", "phase": "night"}), "", "night: none")
+	eq(d.sound_for({"type": "gold_changed", "category": "counter_sales"}), "sfx_sale", "counter sale")
+	eq(d.sound_for({"type": "gold_changed", "category": "wages"}), "", "other gold changes are quiet")
+	eq(d.sounds_for({"type": "market_bought"}), ["sfx_coins", "voice_market_deal"] as Array[String], "a list")
+	d.free()
+
+
+func test_ui_sounds_and_panels() -> void:
+	var d := _director()
+	eq(d.ui_sound("button"), "sfx_ui_click", "buttons click")
+	check(d.is_panel("market_panel") and d.is_panel("board_panel"), "market and board are panels")
+	check(not d.is_panel("character_panel"), "the character panel follows the selection: quiet")
+	eq(d.panel_open_extra("market_panel"), "voice_market_vendor", "the vendor greets")
+	eq(d.panel_open_extra("board_panel"), "voice_board_crier", "the crier calls")
+	for what: String in ["button", "pause", "resume", "panel_open", "panel_close"]:
+		check(d.section_of(d.ui_sound(what)) != "", "ui %s -> a known id" % what)
+	var b := Button.new()
+	d._on_node_added(b)
+	d._on_node_added(b)
+	eq(b.pressed.get_connections().size(), 1, "a button is hooked once")
+	d._dummy = true
+	b.pressed.emit()
+	check(d._last.has("sfx_ui_click"), "pressing a hooked button clicks")
+	var p := Control.new()
+	p.scene_file_path = "res://game/ui/market_panel.tscn"
+	d._on_node_added(p)
+	d._on_node_added(p)
+	eq(p.visibility_changed.get_connections().size(), 1, "a panel is hooked once")
+	b.free()
+	p.free()
+	d.free()
+
+
+func test_cooldown_keeps_voices_from_repeating() -> void:
+	var d := _director()
+	d._dummy = true
+	check(d.play("voice_market_vendor"), "first time: it sounds")
+	check(not d.play("voice_market_vendor"), "again at once: the cooldown holds it")
+	check(d.play("sfx_coins"), "an id without cooldown always sounds")
+	check(d.play("sfx_coins"), "and again")
 	d.free()

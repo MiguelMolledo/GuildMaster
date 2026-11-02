@@ -69,7 +69,16 @@ zona de clic). Mientras no hay arte, dentro hay un nodo **`Greybox`** con el dib
 3. Volumen y variación de tono (`pitch_jitter`, 0–0,5) en `data/audio.json`. Qué evento lo dispara: `events`.
    Los avisos (`notice_added`) suenan por su clave (`"notice.objective_done": "sfx_objective_done"`) o, si no está,
    por su severidad (`"notice_added.warning"`, `"notice_added.urgent"`); así un aviso nunca suena dos veces.
-   Un sonido para algo que hoy no suena y no es un evento del sim (un botón…) es un encargo.
+   Un evento puede sonar distinto según su puesto, fase, categoría o puesto del mercado: `"work_started.furnace"`,
+   `"phase_changed.dawn"`, `"gold_changed.counter_sales"` ganan al tipo solo. Una entrada puede ser una lista
+   (`["sfx_coins", "voice_market_deal"]`). Los eventos de `selected_only` (los pasos) solo suenan para la persona
+   seleccionada. `cooldown_s` en un id: segundos reales antes de poder volver a sonar (las voces, 20 s).
+
+### Los sonidos de la interfaz
+Sección `ui` de `data/audio.json`: `button` (todos los botones, sin tocar los paneles), `pause` / `resume`,
+`panel_open` / `panel_close` para los paneles de `panels` (nombres de escena de `game/ui/`), y `panel_open_by`: un
+sonido más al abrir un panel concreto (el vendedor en `market_panel`, el pregonero en `board_panel`). Para que un
+panel nuevo suene al abrirse, añade su nombre a `panels`. Un sonido de UI que no esté aquí es un encargo.
 
 ### Un ambiente (plaza, noche, interior)
 1. `assets/audio/ambient/<id>.ogg` con el id de la sección `ambient` de `data/audio.json`; en el panel Import, *Loop*.
