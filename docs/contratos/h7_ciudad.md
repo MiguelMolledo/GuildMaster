@@ -103,8 +103,9 @@ Migración 7 → 8 (`SaveFile._step`):
   entra (`Buildings.can_enter` lo deja pasar con el encargo `town.customer`) y espera en el mostrador. Le atiende quien
   esté en el puesto `counter` (familiar) o un empleado activo con rol `counter` dentro (`Counter` le lleva al puesto).
   Tras `serve_minutes` compra **una unidad** del producto (categoría `product`) de más valor del almacén:
-  `precio = base × calidad × (1 + carisma/100 + rango + (price_multiplier − 1) + min(reputación/100 × 0,15; 0,15)) ×
-  sell_mult(emoción del cliente)`; oro con `Money.change` categoría `counter_sales` (fuente, 4.19; el vecino no paga
+  `precio = base × (1 + carisma/100 + rango + (price_multiplier − 1) + min(reputación/100 × 0,15; 0,15)) ×
+  sell_mult(emoción del cliente)`, con `base` = lo que paga el mercado ahora por esa pieza (`counter.price_base`
+  `market_sell`: calidad, demanda y proporción de venta); oro con `Money.change` categoría `counter_sales` (fuente, 4.19; el vecino no paga
   de su bolsa [provisional]). Sin quien atienda en `patience_minutes`, sin producto o cabreado > 80: se va sin comprar.
 - **`Microevents.step`**: al amanecer, por familia que juega (humana o IA con perfil) con edificios: como mucho 1 al día,
   tirada `base_chance × microevent_chance`; si sale, una ficha elegible (condiciones y enfriamiento) por peso → plan.
@@ -207,7 +208,15 @@ Motivos nuevos (`reason.*`): `not_a_townsperson`, `refuses_talk`, `already_today
 - **Regateo solo con producto** (`has_products`): sin nada que vender no hay regateo que valga.
 - **El estado de la ciudad no guarda decimales** (`break_permil` en milésimas): un float no vuelve idéntico de un
   guardado y rompía la ida y vuelta.
-- **Riesgo de balance (abierto)**: la frecuencia de clientes de 4.5.4 ([propuesta], 1 cada 1-2 h de día) con el
-  precio del mostrador (base × calidad × (1 + bonus), sin demanda) da ~300-500 de oro al día con una forja con
-  Mostrador (6 de oro y 4 de madera). Ningún bot de esta rama compra `forge_commerce_1`, así que las dianas de H3-H5 no
-  se mueven, pero `artisan_expert` (en main) sí puede: hay que pasarlo y ajustar `counter.interval_hours` o el precio.
+- **Precio del mostrador = precio de venta del mercado × (1 + bonus)** (`counter.price_base: market_sell`) [balance]: la
+  lectura literal de 4.5.4 (precio base × calidad, sin demanda ni proporción de venta) vendía al doble que la plaza y
+  una forja con Mostrador hacía 300-500 de oro al día. Medido con `artisan_expert` (no compra el Mostrador) y con la
+  prueba `BOT_VARS=counter_shop=1` (lo compra primero y pone al empleado menos hábil a atender): ver el informe del
+  merge.
+- **El ladrón solo roba productos** (categoría `product`, condición `has_products`; GDD 4.20 «el producto más
+  valioso»): robando lo de más valor del almacén se llevaba el martillo o el hierro y el experto se atascaba.
+- **La boda vacía la cola de quien cambia de familia** (`Courtship.marry`): una vecina que iba a su casa vieja veía
+  rechazada la entrada al llegar.
+- **Saludos con probabilidad** (`routine.greet.chance 0,3`, 1 al día): con cada cruce un saludo, el principio del
+  atardecer eran todo saludos.
+- **La frase la dice el vecino más cercano cuya frase no tapa el nombre del elegido** (`WorldView._pick_talker`).

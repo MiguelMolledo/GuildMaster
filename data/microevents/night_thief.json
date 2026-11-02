@@ -5,7 +5,7 @@
   "trigger": {
     "phase": "night",
     "conditions": [
-      "has_goods"
+      "has_products"
     ],
     "chance_per_day": 1.0
   },

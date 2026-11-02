@@ -166,13 +166,19 @@ static func best_product(sim: Sim, bld: String) -> Dictionary:
 	return best
 
 
-## GDD 4.5.4: base × quality × (1 + charisma/100 + rank bonus + (price_multiplier − 1) + reputation bonus) × the
-## customer's sell_mult towards the owner family.
+## GDD 4.5.4: base × (1 + charisma/100 + rank bonus + (price_multiplier − 1) + reputation bonus) × the customer's
+## sell_mult towards the owner family. base = counter.price_base: "market_sell" (what the market pays for it now:
+## quality, demand and sell_ratio in; the counter is that plus its bonuses, H7 balance) or "base_price" (the item's
+## base price × quality, the literal reading of 4.5.4, which sold at about twice the market).
 static func price(sim: Sim, bld: String, server: String, item: String, quality: int, customer: String) -> int:
 	var st := sim.state
 	var cfg: Dictionary = sim.catalog.town.get("counter", {})
-	var qm: Array = sim.catalog.market.get("quality_mult", [1.0])
-	var base := float(sim.catalog.item(item).get("base_price", 1)) * float(qm[clampi(quality, 0, qm.size() - 1)])
+	var base := 0.0
+	if str(cfg.get("price_base", "market_sell")) == "market_sell":
+		base = float(Market.price(sim, item, quality, "sell"))  # what the market pays now (quality and demand in)
+	else:
+		var qm: Array = sim.catalog.market.get("quality_mult", [1.0])
+		base = float(sim.catalog.item(item).get("base_price", 1)) * float(qm[clampi(quality, 0, qm.size() - 1)])
 	var bonus := 0.0
 	if server != "":
 		bonus += float(SkillCheck.stat(sim, server, "charisma")) / 100.0

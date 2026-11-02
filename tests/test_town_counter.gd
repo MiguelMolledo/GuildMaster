@@ -42,9 +42,9 @@ func test_customers_come_and_buy() -> void:
 	eq(str(sold[0]["seller"]), emp, "the counter employee serves")
 	eq(str(sold[0]["item"]), "sword", "the most valuable product")
 	var expect := Counter.price(sim, FORGE, emp, "sword", 0, "")
-	var base := float(cat.item("sword")["base_price"])
+	var base := float(Market.price(sim, "sword", 0, "sell"))  # price_base market_sell (H7 balance)
 	var bonus := float(SkillCheck.stat(sim, emp, "charisma")) / 100.0 + float(cat.town["counter"]["rank_bonus"][str(sim.state.characters[emp]["rank"])])
-	eq(expect, roundi(base * (1.0 + bonus)), "base × (1 + charisma/100 + rank) (4.5.4)")
+	eq(expect, roundi(base * (1.0 + bonus)), "market sell price × (1 + charisma/100 + rank) (4.5.4)")
 	var total := 0
 	for e: Dictionary in sold:
 		total += int(e["price"])

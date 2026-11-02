@@ -108,9 +108,6 @@ static func _weddings(sim: Sim) -> void:
 	var b: Dictionary = st.characters[bride]
 	b["home"] = house
 	b["controlled_by"] = "ai"
-	b["order_queue"] = []  # a walk to her old house would be refused once it is not her family's
-	b["path"] = []
-	b["move_progress"] = 0
 	sim.events.append({"type": "townsfolk_married", "husband": groom, "wife": bride, "house": house})
 	if OS.is_debug_build():
 		print("[Population] boda en el pueblo: %s y %s (casa %s)" % [groom, bride, house])

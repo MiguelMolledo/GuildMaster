@@ -400,12 +400,13 @@ static func _steal(sim: Sim, m: Dictionary, e: Dictionary) -> void:
 		print("[Microevents] un ladrón roba %d × %s de %s" % [qty, best["item"], bld])
 
 
-## The most valuable stack of `bld`'s storage by market sell price ({item, quality} or {}); ties by item id, quality.
+## The most valuable product (category product: GDD 4.20 «el producto más valioso»; never raw materials or tools) of
+## `bld`'s storage by market sell price ({item, quality} or {}); ties by item id, quality.
 static func _most_valuable(sim: Sim, bld: String) -> Dictionary:
 	var best := {}
 	var best_price := -1
 	for s: Dictionary in sim.state.buildings.get(bld, {}).get("inventory", {}).get("stacks", []):
-		if int(s["qty"]) <= 0:
+		if int(s["qty"]) <= 0 or str(sim.catalog.item(str(s["item"])).get("category", "")) != "product":
 			continue
 		var p := Market.price(sim, str(s["item"]), int(s["quality"]), "sell")
 		var better := p > best_price
