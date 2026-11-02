@@ -140,3 +140,56 @@ func test_forge_works_and_facades_have_art_with_greybox_kept() -> void:
 		check(u.get_node_or_null("Greybox") != null and not (u.get_node("Greybox") as CanvasItem).visible,
 			"%s keeps its greybox, hidden" % n)
 	f.free()
+
+
+func test_interior_upgrades_have_art_with_greybox_kept() -> void:
+	var room := VisualPaths.instantiate("interiors", "forge")
+	var n := 0
+	for u: Node in room.get_node("Upgrades").get_children():
+		var gb := u.get_node_or_null("Greybox") as CanvasItem
+		if gb == null:
+			continue  # the extra stations' nodes (their look is the station's scene)
+		n += 1
+		check(u.get_node_or_null("Sprite") is Sprite2D, "%s has its sprite" % u.name)
+		check(not gb.visible, "%s keeps its greybox, hidden" % u.name)
+	check(n >= 15, "every upgrade visual of the forge's interior (%d)" % n)
+	room.free()
+
+
+func test_map_border_ring_with_streets_river_and_trees() -> void:
+	var v := _view()
+	var cfg: Dictionary = ViewConfig.value("map_border", {})
+	var ring := int(cfg["tiles"])
+	var cells: Array = v.ground().border_cells()
+	check(cells.size() > 0, "the ground draws a border ring")
+	var kinds := {}
+	var farthest := 0
+	for c: Array in cells:
+		kinds[str(c[1])] = true
+		farthest = maxi(farthest, int(c[3]))
+	eq(farthest, ring, "the ring is %d tiles wide" % ring)
+	check(kinds.has("street") and kinds.has("water"), "the gate streets and the river carry on outwards: %s" % [kinds.keys()])
+	var trees := 0
+	for n: Node in v.objects().get_children():
+		if str(n.name).begins_with("border_tree_"):
+			trees += 1
+	check(trees > 50, "a forest around the town (%d trees)" % trees)
+	for c: Array in cells:
+		var t: Vector2i = c[0]
+		check(t.x < 0 or t.y < 0 or t.x >= 40 or t.y >= 40, "border tile %s is outside the grid" % t)
+		if t.x >= 0 and t.y >= 0 and t.x < 40 and t.y < 40:
+			break
+	v.free()
+
+
+func test_houses_mix_their_looks() -> void:
+	var v := _view()
+	var looks: Array = (ViewConfig.value("building_variants", {}) as Dictionary)["house"]
+	var seen := {}
+	for id: String in v.state.buildings:
+		if str(v.state.buildings[id]["type"]) == "house":
+			var n := _id(v.building_visual(id))
+			check(looks.has(n), "%s is one of the house looks (%s)" % [id, n])
+			seen[n] = true
+	check(seen.size() >= 3, "the town's houses are not all the same: %s" % [seen.keys()])
+	v.free()

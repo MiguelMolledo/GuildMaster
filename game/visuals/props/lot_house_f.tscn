@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmebsnyanqgih"]
+
+[ext_resource type="Texture2D" uid="uid://tffhuyrpgk8v" path="res://assets/art/buildings/house_f.png" id="1_tex"]
+
+[node name="LotHouseF" type="Node2D"]
+editor_description = "Filler house of the town's blocks (map tiles #), recoloured from house_a/house_c by tools/art/derivar_guild.py (houses). WorldView picks it from filler.houses in data/view.json."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -72)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-96, -142)

@@ -208,7 +208,7 @@
       "origen": "guild-renew + dibujado (Pillow)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Kit del interior de la forja: suelo floor.png (losas de guild:tiles/stone_floor_flat/tile_4 aplastadas a 2:1) y paredes de piedra wall_ne/nw + wall_door_ne/nw (dibujadas, tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md), en el nodo Kit de game/visuals/interiors/forge.tscn. Puestos: furnace, anvil, storage, counter (guild-renew)."
+      "notas": "Kit del interior de la forja: suelo floor.png (losas de guild:tiles/stone_floor_flat/tile_4 aplastadas a 2:1) y paredes de piedra wall_ne/nw + wall_door_ne/nw (dibujadas, tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md), en el nodo Kit de game/visuals/interiors/forge.tscn. Puestos: furnace, anvil, storage, counter (guild-renew). Mejoras del interior con sprite (tools/art/dibujar_mejoras.py: assets/art/interiors/forge/upg_<id>.png): fuelle, tina, pila de temple, banco de grabado, sello, libro doble, estanterías, mostrador dibujados; forja de maestro, pasadizo, caja fuerte, literas, mesa, banco de maestro y alijo de piezas de guild. Greybox oculto en cada nodo de Upgrades."
     },
     {
       "id": "int_armory",
@@ -346,6 +346,32 @@
       "origen": "guild-renew",
       "coste_gen": 0,
       "notas": "Casa de relleno de las manzanas (props/lot_house_d.tscn): guild:assets/sprites/buildings/residential/house_humble_4_south/house_humble_4_south_192.png (docs/arte/reuso_guild.md, tools/art/derivar_guild.py)."
+    },
+    {
+      "id": "bld_house_e",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H7",
+        "manzanas"
+      ],
+      "ruta": "assets/art/buildings/house_e.png",
+      "origen": "guild-renew (recoloreado)",
+      "coste_gen": 0,
+      "notas": "house_a con tejado de pizarra y fachada encalada (tools/art/derivar_guild.py houses). Solar props/lot_house_e.tscn y casa de vecinos buildings/house_slate.tscn."
+    },
+    {
+      "id": "bld_house_f",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H7",
+        "manzanas"
+      ],
+      "ruta": "assets/art/buildings/house_f.png",
+      "origen": "guild-renew (recoloreado)",
+      "coste_gen": 0,
+      "notas": "house_c con teja de barro marrón y revoque ocre (tools/art/derivar_guild.py houses). Solar props/lot_house_f.tscn y casa de vecinos buildings/house_ochre.tscn."
     },
     {
       "id": "tile_grass",
