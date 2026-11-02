@@ -10,6 +10,10 @@ Writes assets/art/ui/theme/:
   button_<state>.png 12×12 9-patch (margins 3): normal, hover (gold edge), pressed (sunk), disabled (faded)
   field.png          12×12 9-patch (margins 3): sunken slot for text fields and spin boxes
   tooltip.png        12×12 9-patch (margins 3): parchment with a dark edge
+  tab_<on|off>.png   12×12 9-patch (margins 3): tab of a tabbed panel; the active one opens into the panel below
+  portrait_<normal|active|dim>.png 8×8 9-patch (margins 3): frame of a portrait (wood, gold when active, grey when not
+                     controllable or dead)
+PIECES (below) is the 9-patch margin of every piece: tools/ui/maqueta.py reads it, the theme uses the same numbers.
 The fonts are not drawn here: assets/art/ui/fonts/silkscreen_regular.ttf comes from Guild Renew (SIL OFL 1.1).
 """
 import argparse
@@ -39,6 +43,17 @@ GOLD = hexc("c8a84e")
 GOLD_DARK = hexc("8a7032")
 PARCHMENT = hexc("d4b896")
 PARCHMENT_DARK = hexc("b89a72")
+
+
+# 9-patch margin of every piece in assets/art/ui/theme/ (the same texture_margin_* as game/ui/greybox_theme.tres).
+PIECES = {
+    "panel": 6,
+    "button_normal": 3, "button_hover": 3, "button_pressed": 3, "button_disabled": 3,
+    "field": 3,
+    "tooltip": 3,
+    "tab_on": 3, "tab_off": 3,
+    "portrait_normal": 3, "portrait_active": 3, "portrait_dim": 3,
+}
 
 
 def h32(*v):
@@ -144,6 +159,47 @@ def tooltip():
     save(img, "tooltip.png")
 
 
+def tab(on):
+    """A tab: wooden top and sides, open at the bottom when active (it joins the panel's gold fillet)."""
+    w = h = 12
+    fill = WOOD if on else hexc("3a2716")
+    img = Image.new("RGBA", (w, h), fill)
+    px = img.load()
+    for y in range(h):
+        for x in range(w):
+            top, side = y == 0, x in (0, w - 1)
+            if top or side:
+                px[x, y] = EMPTY
+            elif y == 1 or x == 1:
+                px[x, y] = (GOLD if on else WOOD) if y == 1 else (WOOD_LIGHT if on else WOOD)
+            elif x == w - 2:
+                px[x, y] = WOOD_DARK
+            if y == h - 1 and not on and not side:
+                px[x, y] = GOLD_DARK   # an inactive tab sits behind the panel's fillet
+    for corner in ((0, 0), (w - 1, 0)):
+        px[corner] = (0, 0, 0, 0)
+    save(img, f"tab_{'on' if on else 'off'}.png")
+
+
+def portrait_frame(kind):
+    """Frame of a portrait: a 3 px ring; the art goes inside (the family colour is a tint the game adds on top)."""
+    w = h = 8
+    outer, mid, inner = {
+        "normal": (EMPTY, WOOD, WOOD_DARK),
+        "active": (EMPTY, GOLD, GOLD_DARK),
+        "dim": (EMPTY, hexc("6a6258"), hexc("3a3530")),
+    }[kind]
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    px = img.load()
+    for y in range(h):
+        for x in range(w):
+            d = ring(x, y, w, h)
+            px[x, y] = (outer, mid, inner)[d] if d < 3 else (0, 0, 0, 0)
+    if kind == "active":
+        px[1, 1] = hexc("f2d880")
+    save(img, f"portrait_{kind}.png")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--preview", default="")
@@ -153,6 +209,10 @@ def main():
         button(s)
     field()
     tooltip()
+    tab(True)
+    tab(False)
+    for k in ("normal", "active", "dim"):
+        portrait_frame(k)
     if a.preview:
         names = sorted(os.listdir(OUT))
         sheet = Image.new("RGBA", (len(names) * 40 * 4, 40 * 4), (96, 104, 92, 255))

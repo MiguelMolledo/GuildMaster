@@ -1,0 +1,32 @@
+{
+  "id": "_ejemplo",
+  "fondo": {"captura": "docs/novedades/ui_mapa_despues.png", "oscurecer": 0.35, "desaturar": 0.3},
+  "elementos": [
+    {"tipo": "panel", "rect": [4, 4, 180, 44]},
+    {"tipo": "retrato", "rect": [10, 10, 32, 32], "imagen": "guild:portraits/portrait_artesano.png", "marco": "activo", "familia": "#a03030", "tecla": "1"},
+    {"tipo": "texto", "rect": [48, 10, 130, 12], "texto": "Hugo", "fuente": "negrita"},
+    {"tipo": "icono", "rect": [48, 27, 16, 16], "icono": "guild:icons/icon_oro.png"},
+    {"tipo": "texto", "rect": [66, 28, 60, 12], "texto": "30", "fuente": "negrita", "color": "oro_claro"},
+    {"tipo": "boton", "rect": [120, 26, 0, 0], "texto": "Inventario", "fuente": "cuerpo", "estado": "encima"},
+
+    {"tipo": "panel", "rect": [200, 4, 400, 140], "titulo": "Libro de cuentas", "cerrar": true},
+    {"tipo": "pestanas", "rect": [208, 30, 0, 14], "textos": ["Hoy", "Por día", "Deudas", "Avisos"], "activa": 0},
+    {"tipo": "lista", "rect": [208, 46, 384, 0], "seleccionada": 1, "filas": [
+      {"texto": "Venta de espada (Armería)", "icono": "icono:sword", "valor": "+42", "color_valor": "positivo"},
+      {"texto": "Compra de hierro ×4", "icono": "icono:iron", "valor": "−16", "color_valor": "negativo"},
+      {"texto": "Salario de Inés", "valor": "−6", "color_valor": "negativo", "apagada": true}
+    ]},
+    {"tipo": "texto", "rect": [208, 96, 140, 12], "texto": "Deuda: 190 de 200", "color": "texto_tenue"},
+    {"tipo": "barra", "rect": [208, 110, 160, 6], "valor": 0.05, "color": "negativo", "marca": 0.5},
+    {"tipo": "campo", "rect": [380, 96, 80, 16], "texto": "20", "cursor": true},
+    {"tipo": "boton", "rect": [468, 96, 0, 16], "texto": "Pagar", "icono": "guild:icons/icon_oro.png"},
+    {"tipo": "boton", "rect": [532, 96, 0, 16], "texto": "Todo", "estado": "desactivado"},
+    {"tipo": "texto", "rect": [380, 116, 210, 24], "texto": "Te faltan 160 de oro para pagarlo todo.", "fuente": "cuerpo", "color": "texto_apagado"},
+
+    {"tipo": "tooltip", "rect": [620, 60, 170, 0], "titulo": "Hierro", "texto": "Compra 4 · vende 2. Demanda alta en la Armería."},
+    {"tipo": "aviso", "rect": [700, 500, 256, 30], "gravedad": "urgente", "icono": "guild:icons/icon_warning.png", "texto": "La deuda vence en 2 días."},
+    {"tipo": "zona", "rect": [4, 470, 260, 66], "texto": "Zona: avisos y ayuda", "color": "info"},
+    {"tipo": "llamada", "pos": [186, 4], "n": 1},
+    {"tipo": "llamada", "pos": [602, 4], "n": 2}
+  ]
+}
