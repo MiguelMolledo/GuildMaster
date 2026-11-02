@@ -12,8 +12,9 @@
     bajo Upgrades por cada visual.interior_node de su árbol; cada visual.exterior_overlay, un nodo bajo Upgrades de
     la escena exterior; cada tipo con su _generic.tscn; puestos del mercado y tablón con escena (si no, aviso: salen
     con la genérica); los personajes de VisualPaths.character_id;
-  - audio: data/audio.json (secciones, buses que existen en default_bus_layout.tres, volumen, música por fase y
-    sonidos de eventos que existen); un id sin fichero es una nota (silencio), con otras mayúsculas, error;
+  - audio: data/audio.json (secciones, buses que existen en default_bus_layout.tres, volumen, música y ambiente por fase,
+    ambiente por tipo de edificio que existe y sonidos de eventos que existen); un id sin fichero es una nota
+    (silencio), con otras mayúsculas, error;
   - uid: cada .tscn/.tres con uid en la cabecera y en cada ext_resource (tools/uids.py).
 """
 import json
@@ -253,6 +254,17 @@ def check_audio(rep):
             rep.error(w, f"phase_music: fase desconocida {ph}")
         if id_ and ids.get(id_) != "music":
             rep.error(w, f"phase_music.{ph}: {id_} no es una música de audio.json")
+    for ph, id_ in (a.get("phase_ambient") or {}).items():
+        if ph not in PHASES:
+            rep.error(w, f"phase_ambient: fase desconocida {ph}")
+        if id_ and ids.get(id_) != "ambient":
+            rep.error(w, f"phase_ambient.{ph}: {id_} no es un ambiente de audio.json")
+    types = {n[:-5] for n in os.listdir(os.path.join(DATA, "buildings")) if n.endswith(".json") and not n.startswith("_")}
+    for bt, id_ in (a.get("interior_ambient") or {}).items():
+        if bt not in types:
+            rep.error(w, f"interior_ambient: tipo de edificio desconocido {bt} (data/buildings/)")
+        if id_ and ids.get(id_) != "ambient":
+            rep.error(w, f"interior_ambient.{bt}: {id_} no es un ambiente de audio.json")
     for ev, id_ in (a.get("events") or {}).items():
         if id_ not in ids:
             rep.error(w, f"events.{ev}: sonido desconocido {id_}")

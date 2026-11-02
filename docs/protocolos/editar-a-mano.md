@@ -64,10 +64,23 @@ zona de clic). Mientras no hay arte, dentro hay un nodo **`Greybox`** con el dib
    Para toda la música a la vez: el bus `Music` en el panel Audio.
 
 ### Un efecto de sonido
-1. `assets/audio/sfx/<id>.ogg` o `.wav` (hoy: `sfx_hammer`, `sfx_bellows`, `sfx_coins`, `sfx_door`, `sfx_ui_click`).
+1. `assets/audio/sfx/<id>.ogg` o `.wav` (la lista de ids, en la sección `sfx` de `data/audio.json`).
 2. Variantes para que no suene siempre igual: `<id>_01.wav`, `<id>_02.wav`… (sin el fichero sin número). Sale una al azar.
 3. Volumen y variación de tono (`pitch_jitter`, 0–0,5) en `data/audio.json`. Qué evento lo dispara: `events`.
+   Los avisos (`notice_added`) suenan por su clave (`"notice.objective_done": "sfx_objective_done"`) o, si no está,
+   por su severidad (`"notice_added.warning"`, `"notice_added.urgent"`); así un aviso nunca suena dos veces.
    Un sonido para algo que hoy no suena y no es un evento del sim (un botón…) es un encargo.
+
+### Un ambiente (plaza, noche, interior)
+1. `assets/audio/ambient/<id>.ogg` con el id de la sección `ambient` de `data/audio.json`; en el panel Import, *Loop*.
+2. Qué ambiente suena en el pueblo en cada fase del día: `phase_ambient`. Dentro de un edificio, por su tipo:
+   `interior_ambient` (`"forge": "ambient_forge"`; un tipo sin entrada queda en silencio dentro).
+3. Volumen: `volume_db` del id, o el bus `Ambient` para todos.
+
+### Regenerar audio con ElevenLabs (encargo con créditos)
+`python3 tools/audio/eleven.py balance` (saldo) y `sfx` / `music` / `voice` (crudo en `audio-generations/`, con coste
+registrado); `python3 tools/audio/master.py sfx|loop` lo deja en `assets/audio/` recortado, normalizado y en bucle.
+Plan, tarifas y prompts: `docs/audio/plan.md`; gasto: `assets/audio/MANIFEST.md`.
 
 ### Un texto
 `i18n/strings.csv` (columnas `keys,en,es`). Después, abre el editor o pasa `godot --headless --path . --import`.
