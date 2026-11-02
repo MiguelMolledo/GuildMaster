@@ -1,5 +1,8 @@
 # Producción: panel de producción, cola, recetas y tiempos
 
+> Dueño: mecánicas-economía · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md)
+
 Id: `produccion` · Panel de hoy: `game/ui/production_panel.tscn` · GDD 4.4.1, 4.4.3, 4.7.4 · Convenciones:
 [_comun.md](_comun.md)
 
@@ -133,9 +136,16 @@ coste de las entradas va en el mercado (ver [mercado_y_libro.md](mercado_y_libro
 
 - Hoy: [produccion_hoy.png](../maquetas/produccion_hoy.png). Puestos como texto («Horno: libre»), una entrada
   «Fundir lingote · 0/5» sin estado visible, desplegable de recetas y botones.
-- Propuesta: wireframes de arriba. PNG en `docs/ui/maquetas/produccion.png` (pestaña «Cola» con una entrada saltada
-  y su dependencia) y `produccion_ahora.png` (con la franja de cola parada), a 960×540 y ×2, con
-  `tools/ui/maqueta.py`.
+- Propuesta (guion `docs/ui/maquetas/src/produccion.py`):
+  - [produccion.png](../maquetas/produccion.png): pestaña *Cola*, con una entrada trabajando y su dependencia (1, 2), una
+    saltada con su motivo (3), la rejilla de recetas con +1 / +5 / +10 / +siempre (4) y los interruptores (5);
+  - [produccion_ahora.png](../maquetas/produccion_ahora.png): pestaña *Ahora*, con la franja de cola parada (1), los puestos
+    con quién y su barra (2, 3) y el resumen del día (4).
+- La fuente de hoy no tiene `∞`, `▲` ni `▼`. En la maqueta van «siempre», `↑` y `↓`, y queda como pieza de kit
+  pendiente: el glifo `∞` o la palabra.
+
+![produccion](../maquetas/produccion.png)
+![produccion_ahora](../maquetas/produccion_ahora.png)
 
 **Piezas de kit pendientes:**
 - pestañas del panel lateral;

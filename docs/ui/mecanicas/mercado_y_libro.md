@@ -1,5 +1,8 @@
 # Mercado y libro de cuentas: comprar y vender, precios y demanda, libro y deuda inicial
 
+> Dueño: mecánicas-economía · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md)
+
 Id: `mercado_y_libro` · Paneles de hoy: `game/ui/market_panel.tscn`, `game/ui/ledger_panel.tscn` · GDD 4.5.1-4.5.3,
 4.5.7, 4.16 (deuda), 4.18, 4.19 · Convenciones: [_comun.md](_comun.md)
 
@@ -165,9 +168,20 @@ Clic en un aviso → centra o abre su panel (hoy ya). Filtros arriba: *Todos · 
   cortado), [mercado_y_libro_hoy_armeria.png](../maquetas/mercado_y_libro_hoy_armeria.png) (una fila, sin el precio
   de vender todo) y [mercado_y_libro_hoy_deuda.png](../maquetas/mercado_y_libro_hoy_deuda.png) (deuda en una línea,
   sin plazo visual, sin consecuencias ni previsión).
-- Propuesta: wireframes de arriba. PNG en `docs/ui/maquetas/mercado_y_libro.png` (Armería, *Vender*, con la
-  previsión de demanda), `mercado_y_libro_recado.png` (Recursos, *Comprar*) y `mercado_y_libro_deuda.png` (libro,
-  *Deudas*), con `tools/ui/maqueta.py`.
+- Propuesta (guion `docs/ui/maquetas/src/mercado_y_libro.py`):
+  - [mercado_y_libro.png](../maquetas/mercado_y_libro.png): Armería, *Vender*, con demanda (2), suma unidad a unidad (3),
+    demanda tras vender (4) y «mañana valdrá» (5);
+  - [mercado_y_libro_recado.png](../maquetas/mercado_y_libro_recado.png): Recursos, *Comprar*, con demanda (2), botón de
+    recado con coste y tiempo (3) y lo que limita la cantidad (4);
+  - [mercado_y_libro_deuda.png](../maquetas/mercado_y_libro_deuda.png): libro, *Deudas*, con la tarjeta de la deuda (1-4) y
+    los encargos (5);
+  - [mercado_y_libro_confirmar.png](../maquetas/mercado_y_libro_confirmar.png): confirmación de un pago que deja el oro por
+    debajo del cobro del alba.
+
+![mercado_y_libro](../maquetas/mercado_y_libro.png)
+![mercado_y_libro_recado](../maquetas/mercado_y_libro_recado.png)
+![mercado_y_libro_deuda](../maquetas/mercado_y_libro_deuda.png)
+![mercado_y_libro_confirmar](../maquetas/mercado_y_libro_confirmar.png)
 
 **Piezas de kit pendientes:**
 - indicador de demanda de 5 escalones (20×8);

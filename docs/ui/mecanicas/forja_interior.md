@@ -1,5 +1,8 @@
 # Forja por dentro: interior, menú de puesto, pausa activa y rutina
 
+> Dueño: mecánicas-economía · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md)
+
 Id: `forja_interior` · Paneles de hoy: `game/interior/*`, `game/ui/station_menu.tscn`, `game/ui/routine_editor.tscn`
 · GDD 4.1 (pausa activa), 4.4.3-4.4.5, 4.6.4, 4.10.8 · Convenciones: [_comun.md](_comun.md)
 
@@ -182,8 +185,16 @@ franja, y un detalle debajo de la franja elegida.
   entradas), [forja_interior_hoy_toque.png](../maquetas/forja_interior_hoy_toque.png) (la ventana es un punto
   amarillo de 4 px) y [forja_interior_hoy_rutina.png](../maquetas/forja_interior_hoy_rutina.png) (rutina con 12
   desplegables).
-- Propuesta: wireframes de arriba. PNG a 960×540 y ×2 en `docs/ui/maquetas/forja_interior.png` y
-  `forja_interior_x2.png`, hechos con `tools/ui/maqueta.py` en cuanto el kit lo publique.
+- Propuesta (con `tools/ui/maqueta.py`; guion `docs/ui/maquetas/src/forja_interior.py`, también en `_x2`):
+  - [forja_interior.png](../maquetas/forja_interior.png): placa del edificio (1), barra de herramientas con insignias (2), barra
+    del yunque con la ventana del toque encendida (3), menú de puesto en una caja (4) y órdenes de la pausa activa
+    sobre sus destinos (5);
+  - [forja_interior_rutina.png](../maquetas/forja_interior_rutina.png): pestaña *Rutina* de la ficha, con la tira del día (1),
+    el detalle de la franja (2) y el aviso de orden manual (3).
+- El HUD, el objetivo y el interior del fondo son una captura real de hoy, oscurecida.
+
+![forja_interior](../maquetas/forja_interior.png)
+![forja_interior_rutina](../maquetas/forja_interior_rutina.png)
 
 **Piezas de kit pendientes:**
 - selector de 3 (segmented control) con el filete dorado;

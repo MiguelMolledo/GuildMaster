@@ -28,6 +28,8 @@ mercado_y_libro, empleados, mejoras, parcelas_y_construccion), para no repetirlo
 - **Panel lateral**: todos los paneles de gestión de estas mecánicas (producción, almacén, empleados, mejoras,
   mercado, libro, parcela) se abren en la misma caja a la derecha. Abrir uno cierra el anterior. Así nunca tapan el
   puesto en el que trabaja el personaje (el interior se dibuja centrado-izquierda) ni se pisan entre sí.
+- **Dentro de un edificio** la caja empieza en y 116, bajo la barra de herramientas del interior (y 92..108), y la
+  placa del edificio va centrada en y 50. **Panel ancho**: solo el árbol de mejoras, 708×400 en x 244..952.
 - **Menú contextual** (clic derecho en un puesto o en una parcela): caja pequeña junto al cursor, nunca dentro del
   panel lateral. Se cierra con Esc, con clic fuera o al dar la orden.
 - **Confirmación**: caja centrada de 280×120 sobre la vista, con el resumen en cifras y dos botones (*Confirmar* /
@@ -84,5 +86,8 @@ enlace subrayado que lo abre («Necesita *Taller de maestro* → Mejoras»).
 
 - Oro siempre con el icono y sin decimales. Diferencias con signo y color: `+42`, `−20`.
 - Duraciones en horas de juego como hoy (`SimQuery.hours_label`): «3 h 54», «12 h», «1 d 6 h». Nunca segundos reales.
+- Glifos: la fuente de cuerpo (Pixel Operator) no tiene `✓ ∞ ▲ ▼ ■ ⦿`. En las maquetas van iconos (`icon_completed`)
+  o palabras («siempre», `↑ ↓`); en el juego, igual, o el kit añade los glifos (`tools/ui/glifos_extra.py`). En
+  estos documentos, `⦿` = icono de oro.
 - Las cifras salen del sim o de `data/`; la UI no calcula reglas. Lo que se pide al sim y no existe aún va en la
   sección 7 de cada documento como **consulta nueva** (se añade en el hito que la implemente, no en esta rama).

@@ -1,5 +1,8 @@
 # Almacén y personaje: panel de almacén, ficha del personaje e inventario (I)
 
+> Dueño: mecánicas-economía · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md)
+
 Id: `almacen_y_personaje` · Paneles de hoy: `game/ui/storage_panel.tscn`, `game/ui/character_panel.tscn` · GDD
 4.3 (objetos, calidad, inventarios, transferencias), 4.4.3 (D11), 4.6.4 · Convenciones: [_comun.md](_comun.md)
 
@@ -129,8 +132,14 @@ tiene cifra en `data/`: si no hay cifra, no se escribe.
 - Hoy: [almacen_y_personaje_hoy.png](../maquetas/almacen_y_personaje_hoy.png). Lista con `SpinBox` + *Coger* por
   pila y «Hugo (6.0/60 kg) · Vacío», sin casillas vacías ni barra. La ficha de hoy es la columna izquierda de
   [forja_interior_hoy_rutina.png](../maquetas/forja_interior_hoy_rutina.png): equipo como texto y «Quitar» en gris.
-- Propuesta: wireframes de arriba. PNG en `docs/ui/maquetas/almacen_y_personaje.png` (almacén con personaje y un
-  recado en camino) y `almacen_y_personaje_ficha.png` (ficha I), con `tools/ui/maqueta.py`.
+- Propuesta (guion `docs/ui/maquetas/src/almacen_y_personaje.py`):
+  - [almacen_y_personaje.png](../maquetas/almacen_y_personaje.png): pilas con huecos y un recado reservado (1, 2), atajos (3),
+    la bolsa con su barra de peso (4) y el rechazo por peso (5);
+  - [almacen_y_personaje_ficha.png](../maquetas/almacen_y_personaje_ficha.png): ficha (I) con cabecera (1), equipo con su
+    efecto (2), peso (3) y valor de venta (4).
+
+![almacen_y_personaje](../maquetas/almacen_y_personaje.png)
+![almacen_y_personaje_ficha](../maquetas/almacen_y_personaje_ficha.png)
 
 **Piezas de kit pendientes:**
 - casilla de inventario de 30×30 en 4 estados (vacía `#1a1209`, con objeto, bloqueada, reservada con borde

@@ -1,5 +1,8 @@
 # Parcelas y construcción: modo construcción, comprar, construir y demoler
 
+> Dueño: mecánicas-economía · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md)
+
 Id: `parcelas_y_construccion` · Hito: **H6 (sin hacer)** · Panel de hoy: no existe · GDD 4.9, 4.6.1-4.6.3, 4.12.2
 (límite por título), 4.17 (puntos por edificio), 4.19 (`property`); 04c §4.21.6.2-4.21.6.3 solo por lo que el jugador
 ve (cartel «Se vende», parcelas ocupadas) · Modelo: 06 (`Parcela`) · Convenciones: [_comun.md](_comun.md)
@@ -165,9 +168,15 @@ Ficha del edificio propio → `⋯` → *Demoler…*. Confirmación doble: es lo
 - Hoy: no hay pantalla. [parcelas_y_construccion_hoy.png](../maquetas/parcelas_y_construccion_hoy.png) es el mapa
   del día 4. Las manzanas libres (`#` en `data/maps/town_e.json`) se rellenan de casas de atrezo y no se distinguen
   de las parcelas.
-- Propuesta: PNG en `docs/ui/maquetas/parcelas_y_construccion.png` (modo construcción con franja, parcelas por tipo,
-  una ocupada con banderín y el panel de una libre) y `parcelas_y_construccion_confirmar.png` (confirmación de
-  construir), con `tools/ui/maqueta.py`.
+- Propuesta (guion `docs/ui/maquetas/src/parcelas_y_construccion.py`):
+  - [parcelas_y_construccion.png](../maquetas/parcelas_y_construccion.png): franja del modo (1), parcela de producción
+    elegida con su filete (2), banderín de una ocupada (3), panel de la parcela (4, 5) y aviso de que otra familia
+    compró (6);
+  - [parcelas_y_construccion_confirmar.png](../maquetas/parcelas_y_construccion_confirmar.png): confirmación.
+- Las parcelas van en posiciones de ejemplo, sobre manzanas de atrezo, que es lo que H6 convertirá en parcelas.
+
+![parcelas_y_construccion](../maquetas/parcelas_y_construccion.png)
+![parcelas_y_construccion_confirmar](../maquetas/parcelas_y_construccion_confirmar.png)
 
 **Piezas de kit pendientes:**
 - diamante de parcela de 64×32 en 4 tintes (de `parcels/parcel_*` de Guild Renew; falta el gris);

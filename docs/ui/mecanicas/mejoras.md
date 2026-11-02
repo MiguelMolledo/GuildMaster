@@ -1,5 +1,8 @@
 # Mejoras: árbol de mejoras del edificio
 
+> Dueño: mecánicas-economía · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md)
+
 Id: `mejoras` · Panel de hoy: `game/ui/upgrade_panel.tscn` · GDD 4.8 (y 4.7.3, 4.4.2, 4.5.4 por los efectos) ·
 Datos: `data/upgrades/forge/*.json`, `data/upgrade_rules.json`, `data/view.json` → `upgrades` · Convenciones:
 [_comun.md](_comun.md)
@@ -21,8 +24,8 @@ cancelar. Preguntas que responde:
   maestro*». Abren este panel con esa mejora elegida.
 - Se cierra con X, con Esc u otro panel. No pausa.
 
-Es el único panel de estas mecánicas que usa el **panel ancho**: 556×420 en x 396..952, y 96..516. Ocho filas de
-nombres no caben legibles en 352 px. Tapa la mitad derecha del interior; comprar una mejora es un momento de gestión,
+Es el único panel de estas mecánicas que usa el **panel ancho**: 708×400 en x 244..952, y 116..516. Ocho filas de
+nombres enteros («Dormitorio de aprendiz») no caben en 352 px. Tapa la mitad derecha del interior; comprar una mejora es un momento de gestión,
 no de mirar los puestos.
 
 ## 3. Jerarquía de información
@@ -107,11 +110,18 @@ Son cuentas de presentación con la cifra del efecto y la duración base. No son
 
 - Hoy: [mejoras_hoy.png](../maquetas/mejoras_hoy.png). Rejilla de botones con texto en mayúsculas de 8 px casi
   ilegible; el estado solo por el tono del texto; la línea del coste entera en rojo aunque solo falte la madera.
-- Propuesta: PNG en `docs/ui/maquetas/mejoras.png` (sin obra, con *Segundo yunque* elegido, al que le faltan
-  lingotes), `mejoras_obra.png` (franja de obra en curso y casillas «una a la vez») y `mejoras_confirmar.png` (caja de confirmación), con `tools/ui/maqueta.py`.
+- Propuesta (guion `docs/ui/maquetas/src/mejoras.py`):
+  - [mejoras.png](../maquetas/mejoras.png): sin obra (1), rejilla con estados (2), prerrequisitos de *Reputación comercial*
+    marcados (3), detalle con coste por material (4) y obra (5);
+  - [mejoras_obra.png](../maquetas/mejoras_obra.png): franja de obra en curso y «una obra a la vez»;
+  - [mejoras_confirmar.png](../maquetas/mejoras_confirmar.png): confirmación.
+
+![mejoras](../maquetas/mejoras.png)
+![mejoras_obra](../maquetas/mejoras_obra.png)
+![mejoras_confirmar](../maquetas/mejoras_confirmar.png)
 
 **Piezas de kit pendientes:**
-- panel ancho (556×420);
+- panel ancho (708×400);
 - casilla del árbol (150×20) en los 4 estados de color, con icono y precio;
 - filete dorado de prerrequisito;
 - iconos de rama de 16×16: `icon_rama_*` de Guild Renew, reducidos en el workbench;

@@ -1,5 +1,8 @@
 # Empleados: plantilla, contratar, salarios y rangos
 
+> Dueño: mecánicas-economía · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md)
+
 Id: `empleados` · Panel de hoy: `game/ui/staff_panel.tscn` · GDD 4.7.1-4.7.4 · Datos: `data/employees.json` ·
 Convenciones: [_comun.md](_comun.md)
 
@@ -121,8 +124,14 @@ tramo y su efecto van siempre escritos. Hoy solo dice «Lealtad 50 (descontento)
 - Hoy: [empleados_hoy_contratar.png](../maquetas/empleados_hoy_contratar.png) (lista cortada, sin qué puede hacer
   cada uno) y [empleados_hoy_plantilla.png](../maquetas/empleados_hoy_plantilla.png) (lealtad en texto, rol en
   desplegable).
-- Propuesta: PNG en `docs/ui/maquetas/empleados.png` (*Contratar*) y `empleados_plantilla.png` (*Plantilla* con un
-  ascenso pendiente), con `tools/ui/maqueta.py`.
+- Propuesta (guion `docs/ui/maquetas/src/empleados.py`):
+  - [empleados.png](../maquetas/empleados.png): *Contratar*, con la tabla de rangos (1), el candidato (2), «Puede» con
+    candados (3) y la confirmación en línea (4);
+  - [empleados_plantilla.png](../maquetas/empleados_plantilla.png): *Plantilla*, con el ascenso pendiente arriba (1), qué
+    hace (2), lealtad con tramos y su efecto (3), rol (4), gratificar y despedir (5).
+
+![empleados](../maquetas/empleados.png)
+![empleados_plantilla](../maquetas/empleados_plantilla.png)
 
 **Piezas de kit pendientes:**
 - insignia de rango (A / O / M en 3 colores);
