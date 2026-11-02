@@ -163,3 +163,13 @@ juego antes del 15-nov sin gastar**, no como arte final.
 - **Densidad única 1:1** sin excepciones; el ayuntamiento se rehace.
 - **Zoom 1 como vista de juego**, zoom 2 como lupa; transparencia de edificios cuando tapen algo importante.
 - La vista amplia nativa a 1080p queda pendiente de decisión (no hace falta para la rebanada).
+
+## 9. Aplicado en el juego (rama escala-b, 2026-11-02)
+
+El owner aprobó la escala B. Primera prueba en el juego, sin créditos:
+- Las casas, la forja, la armería y el ayuntamiento de Guild Renew, estirados con `tools/art/escala_b.py`. El
+  ayuntamiento queda a 1:1 sobre su solar de 6×4, alargado con 4 crujías de ventanas.
+- Las escenas guardan el sprite de antes como `SpriteAntes`.
+- Los edificios se vuelven translúcidos con la persona elegida detrás (`see_through` en `data/view.json`).
+- Detalles y vuelta atrás en `docs/arte/reuso_guild.md` («Escala B»). Kits de casa nuevos: `docs/arte/kits.md`.
+

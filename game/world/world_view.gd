@@ -54,6 +54,7 @@ var hovered_building: String = ""
 var hovered_character: String = ""
 var _idle_minute: int = -1
 var _player_family: String = ""
+var _see_through: Array = []  # tall visuals (buildings, filler houses) that fade while they hide the selected person
 
 
 func _ready() -> void:
@@ -161,6 +162,7 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	_add_town_decor(s.map_id)
 	_add_services()
 	_add_social_points(c, s.map_id)
+	_collect_see_through()
 	var ids: Array = s.characters.keys()
 	ids.sort()
 	for id: String in ids:
@@ -735,6 +737,49 @@ func sync(frac: float) -> void:
 		refresh_upgrades()
 	tint_color = DayNight.tint(int(state.clock["minute"]), frac, catalog.time, ViewConfig.value("day_night", {}))
 	(get_node("%Tint") as CanvasModulate).color = tint_color
+	_update_see_through()
+
+
+## Scale B (docs/arte/escala.md): the tall visuals that may hide a person behind them: the buildings of the state,
+## the town hall and the filler houses (a Sprite and a Top marker at least see_through.min_height high).
+func _collect_see_through() -> void:
+	_see_through.clear()
+	var min_h := float((ViewConfig.value("see_through", {}) as Dictionary).get("min_height", 60.0))
+	var seen := {}
+	var cands: Array = _building_visuals.values() + _props.values()
+	for n: Node2D in cands:
+		if n == null or seen.has(n) or n.get_node_or_null("Sprite") == null:
+			continue
+		seen[n] = true
+		if VisualPaths.top_height(n, 0.0) >= min_h:
+			_see_through.append(n)
+	ViewConfig.info("WorldView", "see-through: %d tall visuals" % _see_through.size())
+
+
+## A tall visual goes see-through (data/view.json see_through.alpha) while the selected person stands behind it and
+## its drawn pixels cover the person (feet, chest or head); back to opaque when not.
+func _update_see_through() -> void:
+	var who: CharacterView = _views.get(selected_id, null)
+	var alpha := float((ViewConfig.value("see_through", {}) as Dictionary).get("alpha", 0.45))
+	for n: Node2D in _see_through:
+		var a := alpha if who != null and who.visible and _hides(n, who) else 1.0
+		if not is_equal_approx(n.modulate.a, a):
+			n.modulate.a = a
+			ViewConfig.info("WorldView", "see-through %s %s (person=%s)" % [n.name, "on" if a < 1.0 else "off", selected_id])
+
+
+## Whether `n` (a visual with a Sprite) is drawn over `who`: the person is behind it (smaller y in the y-sort) and
+## one of three points of the figure falls on an opaque pixel of the sprite.
+func _hides(n: Node2D, who: Node2D) -> bool:
+	if who.global_position.y >= n.global_position.y:
+		return false
+	var spr := n.get_node("Sprite") as Sprite2D
+	if not spr.visible or spr.texture == null:
+		return false
+	for dy: float in [-4.0, -20.0, -36.0]:
+		if spr.is_pixel_opaque(spr.to_local(who.global_position + Vector2(0.0, dy))):
+			return true
+	return false
 
 
 ## Bubbles over heads that stand close (the dice table, a chat) would land on the figure behind or on each other:

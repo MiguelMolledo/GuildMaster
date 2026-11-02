@@ -43,6 +43,8 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Campos (o cualquier suelo) que cambian con la estación | `seasonal_tiles.kinds` en `data/view.json` y `assets/art/tiles/<tipo>_<spring\|summer\|autumn\|winter>.png` |
 | Borde del mapa (bosque o campo fuera de la rejilla) | `map_border` en `data/view.json`: ancho en casillas, suelo, qué tipos siguen hacia fuera (calles, río), fundido al fondo y árboles (`tiles: 0` lo quita) |
 | Aspecto de las casas de vecinos | `building_variants.house` en `data/view.json` (escenas `buildings/house*.tscn`); cada casa toma uno por su casilla, siempre el mismo |
+| Escala de los edificios (escala B) y cómo volver al sprite de antes | `assets/art/buildings/escala_b/` (sale de `tools/art/escala_b.py`); en cada escena, el nodo oculto `SpriteAntes` es el de antes (ver `docs/arte/reuso_guild.md`, «Escala B») |
+| Edificio que se vuelve translúcido cuando tapa a la persona elegida | `see_through` en `data/view.json` (`alpha`, `min_height`; `alpha: 1` lo apaga) |
 | Suelo y paredes de un interior | Grupo *Art* del nodo `Kit` de `game/visuals/interiors/<tipo>.tscn` (suelo, pared ne/nw, pared con puerta ne/nw); vacíos = colores greybox |
 | Ayuda en pantalla (F1 / «?») | Textos `help.*` de `i18n/strings.csv` (una línea por clave; el orden, en `LINES` de `game/ui/help_panel.gd`); aspecto en `game/ui/help_panel.tscn` |
 | Pista «cómo» del objetivo | `objective_how.<id del objetivo>` en `i18n/strings.csv` (`objective_how.free` cuando ya no quedan objetivos) |

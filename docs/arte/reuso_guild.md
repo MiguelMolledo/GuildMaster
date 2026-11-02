@@ -9,6 +9,32 @@ GuildMaster sin gastar créditos. Revisado contra `docs/style/biblia.md` (pixel 
 el ancho de una huella de 3×3 (diamante de 192×96); la de 3×4 mide 224 px, y el sprite queda algo más estrecho que la
 huella. Las escalas no enteras (1,17) se descartan: deforman el píxel.
 
+**Escala B (2026-11-02, `docs/arte/escala.md`).** Las casas, la forja, la armería, el andamio de obras y el ayuntamiento
+usan ahora una versión estirada a la escala B: puerta ~52-56 px, planta baja ~50-60, plantas altas ~46-48, siempre a
+1:1. `tools/art/escala_b.py` la saca de los PNG de esta tabla sin reescalar nunca:
+- sube plantas duplicando las filas más uniformes en la diagonal 2:1 de la base (tablas de puerta, cristal, revoco);
+- alarga fachadas repitiendo una crujía con un corte vertical (el ayuntamiento: 4 crujías de ventanas para llenar su
+  solar de 6×4 sin el 1,6 de antes).
+Los PNG nuevos están en `assets/art/buildings/escala_b/<id>.png`, con las anclas y lo añadido en `escala_b.json`; los de
+esta tabla siguen intactos.
+
+| Sprite | Filas añadidas | Ancla nueva | Top (antes → ahora) |
+|---|---|---|---|
+| `house` (cabaña) | 16 | (96, 157) | 72 → 88 |
+| `house_a` / `house_e` | 16 | (96, 152) | 72 → 88 |
+| `house_b` | 30 | (96, 172) | 72 → 102 |
+| `house_c` / `house_f` | 32 | (96, 174) | 72 → 104 |
+| `house_d` | 16 | (96, 161) | 72 → 88 |
+| `forge` (+ `forge_works`, 20) | 20 | (96, 159) | 72 → 92 |
+| `armory` | 20 | (96, 150) | 72 → 92 |
+| `town_hall` | 66 + 4 crujías (272×298) | (143, 206), sin escala 1,6 | 200 → 200 |
+
+**Volver atrás** (por escena, en Godot): cada escena tiene el sprite de antes como nodo oculto `SpriteAntes`. Oculta
+`Sprite`, muestra `SpriteAntes` y pon `Top` en el valor de antes (está en su `editor_description`). En la forja, los
+adornos de mejora del muro (letrero, cerrojo) se subieron 5-6 px y el andamio usa `escala_b/forge_works.png`: para volver,
+devuélvelos a su sitio o revierte el commit. La transparencia de los edificios con la persona elegida detrás está en
+`data/view.json` → `see_through` (`alpha = 1` la apaga).
+
 **Ancla.** «Ancla» es el píxel del PNG que cae sobre el `Feet` de la escena (centro de la huella o de la casilla): el
 centro del diamante de la base del dibujo. En la escena va como `Sprite2D` con `centered = false` y
 `offset = -ancla`.
