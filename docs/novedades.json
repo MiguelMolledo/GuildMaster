@@ -1,5 +1,16 @@
 [
   {
+    "id": "pulido",
+    "title": "Pulido del MVP",
+    "date": "2026-11-02",
+    "items": [
+      "Quien se casa y entra en una familia vive en la casa de esa familia (regla centralizada en la boda; no había fallo reproducible).",
+      "Una multa que no se puede pagar ya no bloquea la economía: se paga lo que pase de 30 de oro y el resto es una deuda con la ciudad a 8 días (libro, Deudas), con avisos, prórroga y embargo.",
+      "Contrabando (Secretos 3) duplica lo que cobra el mostrador de ese edificio.",
+      "Mayús + clic derecho lleva a la casilla aunque la tape un edificio alto; con el edificio transparente basta el clic derecho."
+    ]
+  },
+  {
     "fecha": "2026-11-02",
     "titulo": "H14 · IA familiar: directivas, necesidades y moral",
     "que": "Los familiares que lleva la IA (la pareja, los adultos fuera del grupo) y los del grupo en sus franjas «Libre» siguen ahora sus directivas en el orden que elijas: Trabajar, Comerciar, Sociabilizar y Divertirse (Aprender llega más adelante). Comerciar compra las materias que le faltan a la forja, las lleva al almacén y vende lo que sobra, con las mismas órdenes que darías tú. Cada familiar tiene hambre, descanso, social y diversión: se recuperan en casa, hablando o en un banco de la plaza; si una baja mucho la atiende primero, y con la moral baja trabaja más despacio. Avisos de familiar agotado, moral baja, forja sin material y materias traídas. Panel «IA» en la ficha y en el árbol.",

@@ -395,6 +395,12 @@
       "tema": "Kits de casa",
       "detalle": "Escala B ya en el juego. Kits: vía mixta (lámina de fal sobre una maqueta de módulos, reducción y limpieza gratis, retoque con PixelLab; ~60-100 generaciones y ~0,45 USD de fal, hay que volver a autorizar fal), solo create_building_kit (25-50 generaciones) o esperar al 15-nov. Casas horneadas en PNG o montadas en la escena. Transparencia al 45 % solo con la persona elegida.",
       "opciones": "Recomendado: vía mixta, horneadas y transparencia como está. Ver docs/arte/kits.md."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Pulido del MVP (provisional)",
+      "detalle": "Trampa de pobreza: con 0 de oro y sin material, la deuda de mantenimiento (D15) se come las ventas hasta el embargo; es de balance. Multa: se deja 30 de oro y lo demás pasa a préstamo a 8 días. Contrabando: el mostrador cobra el doble con Secretos 3. Casillas tapadas: Mayús + clic derecho, o el clic normal si el edificio está transparente.",
+      "opciones": "Confirmar o cambiar las cifras; la trampa de pobreza se decide con el balance."
     }
   ],
   "proximos_pasos": [
