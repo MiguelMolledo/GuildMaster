@@ -90,6 +90,9 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Títulos (H9, largos, al tocar reputación, títulos o la IA rival): `godot --headless --path . -s tools/sim_runner.gd --
   --start=artisan_blacksmith --bots=expert_titles --days=96 --seeds=10` (Patricio, ~17 min) y `--bots=idle_titles
   --days=80 --seeds=10` (la familia IA sube de título, ~9 min). Captura: `--smoke-script=titulos`.
+- Cargos (H10, al tocar cargos, elecciones o la IA rival): `godot --headless --path . -s tools/sim_runner.gd --
+  --start=artisan_blacksmith --bots=politician --days=40 --seeds=10` (gana un cargo menor, ~6 min); `idle_titles` mide
+  además que el rival se presenta. Captura: `--smoke-script=cargos`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

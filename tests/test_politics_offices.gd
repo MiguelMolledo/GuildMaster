@@ -153,6 +153,7 @@ func test_taking_an_office() -> void:
 	var facts := st.chronicle.filter(func(f: Dictionary) -> bool: return str(f.get("kind", "")) == "office_won")
 	eq(facts.size(), 1, "office_won in the chronicle")
 	eq(str(facts[0].get("data", facts[0]).get("rank", "")), "minor", "a minor office for the dynasty score")
+	eq(int(Dynasty.score(sim, FAM)["by_kind"].get("office_won", 0)), 30, "30 points (4.17: minor office)")
 	eq(Offices.reputation_with_class(sim, FAM, "artisan"), roundi(Reputation.with_class(st, FAM, "artisan") * 1.1),
 		"the inspector's passive: +10 % with the artisans")
 	eq(Offices.reputation_with_class(sim, FAM, "scholar"), Reputation.with_class(st, FAM, "scholar"), "not the scholars")

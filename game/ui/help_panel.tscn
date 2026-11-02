@@ -22,7 +22,12 @@ theme_override_font_sizes/font_size = 13
 text = "--"
 horizontal_alignment = 1
 
-[node name="HelpLines" type="VBoxContainer" parent="VBox"]
+[node name="Scroll" type="ScrollContainer" parent="VBox"]
+custom_minimum_size = Vector2(492, 470)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="HelpLines" type="VBoxContainer" parent="VBox/Scroll"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 1

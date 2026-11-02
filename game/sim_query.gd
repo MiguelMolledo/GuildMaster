@@ -297,7 +297,14 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["choice"] = t_(str(p["choice"]))
 	if p.has("title"):  # H9: a social title id
 		p["title"] = title_name(str(p["title"]))
+	if p.has("office"):  # H10: an office id
+		p["office"] = office_name(str(p["office"]))
 	return t_(str(n.get("key", ""))).format(p)
+
+
+## H10: the name of an office ("Inspector de mercado").
+static func office_name(office: String) -> String:
+	return t_("office." + office)
 
 
 ## "Día 3 · 14:05" of an absolute minute.

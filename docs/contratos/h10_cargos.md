@@ -110,8 +110,9 @@ Orden fijo (H9 + lo nuevo en negrita): … `Emotions` → **`Offices.step`** →
 Motivos nuevos (`reason.*`): `unknown_office`, `office_needs_title`, `holds_office`, `already_candidate`,
 `no_election`, `registration_closed`, `unknown_level`, `not_candidate`, `campaign_not_started`, `campaign_busy`,
 `unknown_campaign_action`, `not_a_voter`, `not_a_candidate`, `indoors`, `not_office_holder`, `unknown_power`,
-`power_not_ready`, `power_cooldown`, `bad_args`, `not_a_merchant`, `already_regulated` (con `too_young`, `dead`,
-`unknown_actor`, `no_family`, `not_enough_gold`, `out_of_range`, `already_today` de antes).
+`power_not_ready`, `power_cooldown`, `bad_args`, `not_a_merchant`, `already_regulated`, `already_bribed` (con
+`too_young`, `dead`, `unknown_actor`, `unknown_target`, `no_family`, `not_enough_gold`, `too_far`, `already_today` de
+antes).
 
 ## Eventos y avisos
 - Eventos: `office_candidate {election, office, character, family, level}`, `campaign_action {election, actor, kind,
@@ -135,7 +136,8 @@ office)`; `Elections.action_status(sim, actor, kind, target)`; `Market.regulatio
   Ayuntamiento. El Inspector y el Recaudador están vacantes: se puede presentar (organigrama).
 - **`office_election_eve`**: día 7 (el 8.º, invierno), 23:30. Hugo (nivel medio) y Bernat (el rival) se presentan a Inspector;
   la votación cae a medianoche (tarjeta con el recuento).
-- **`office_inspector`**: día 9 (el 10.º), 10:00. Hugo es Inspector desde ese día (hasta el 17): puede regular un precio
+- **`office_inspector`**: día 9 (el 10.º), 10:00. Hugo es Inspector desde el cambio de año (día 8, hasta el 16): puede
+  regular un precio
   (panel de cargos, sección Poderes).
 
 ## Bots y dianas
@@ -189,3 +191,10 @@ office)`; `Elections.action_status(sim, actor, kind, target)`; `Market.regulatio
   (soborno, discurso, difamación) usan `SkillCheck` con la corriente de la ciudad (`Kin.roll`, semilla del mundo), no
   `state.rng`, para no mover las tiradas de la economía (como H7).
 - **IA rival**: regla mínima en datos (`office_rule`), no los módulos de 04c.
+- **Quién vota**: los vecinos adultos de familias no humanas con título ≥ Ciudadano (también el rival si no es
+  candidato); la familia del jugador no vota y los candidatos tampoco.
+- **Pasivos de clase** (Inspector +10 % artesanos, Juez +20 % eruditos): multiplican la reputación de la familia con esa
+  clase cuando se lee (voto y consultas), no cada cambio (con +1 el redondeo se lo comería).
+- **Salarios**: también a los titulares de hogares (los NPC con cargo «cobran», 4.12.3).
+- **Bot `politician`** = `artisan_expert` con `runs_office = 1` (el 07 lo pedía aparte; así sus dianas de H5/H9 no
+  cambian y el político solo añade la política).

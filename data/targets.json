@@ -349,7 +349,7 @@
     }
   },
   "politician": {
-    "_doc": "H10 (10/H10 «Bot politician gana un cargo menor», GDD 4.12.3-4.12.4, 07 §7.2): artisan_expert con runs_office = 1 (sim/bots/bot_artisan_expert.gd) en una partida nueva Normal, 40 días (5 años). Ya Ciudadano, se presenta al primer cargo menor abierto (Inspector de mercado, luego Recaudador). office_won: ocupa un cargo menor (≥ 80 % de las semillas); office_won_day: día jugado en que lo toma (días + 1 si no), de media antes del día 41. Ritual largo, a mano: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=politician --days=40 --seeds=10. Medido (2026-11-02, 4 semillas): Inspector el día 25 (el cambio de año del año 3) en 4/4.",
+    "_doc": "H10 (10/H10 «Bot politician gana un cargo menor», GDD 4.12.3-4.12.4, 07 §7.2): artisan_expert con runs_office = 1 (sim/bots/bot_artisan_expert.gd) en una partida nueva Normal, 40 días (5 años). Ya Ciudadano, se presenta al primer cargo menor abierto (Inspector de mercado, luego Recaudador). office_won: ocupa un cargo menor (≥ 80 % de las semillas); office_won_day: día jugado en que lo toma (días + 1 si no), de media antes del día 41. Ritual largo, a mano: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=politician --days=40 --seeds=10. Medido (2026-11-02, 10 semillas): cargo menor (Inspector) en 10/10, día medio 25,8 (25-33); el rival se presenta 1,1 veces de media.",
     "days": [
       40,
       null

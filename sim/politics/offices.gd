@@ -191,7 +191,8 @@ static func tax_percent(sim: Sim) -> int:
 
 
 ## The organisation chart (GDD 4.12.4) for the UI: [{office, rank, min_title, salary, term_years, seats: [{holder,
-## name, family, family_name, until, years_left, vacant}], election: {} | {id, day, campaign_day, candidates}}].
+## name, family, family_name, until, years_left, vacant}], election: {} | {id, day, campaign_day, candidates},
+## election_day (the next vote if it is at the next year change, else -1)}].
 static func chart(sim: Sim) -> Array:
 	var out: Array = []
 	var st := sim.state
@@ -209,7 +210,7 @@ static func chart(sim: Sim) -> Array:
 				"vacant": not alive})
 		out.append({"office": office, "rank": str(def.get("rank", "")), "min_title": str(def.get("min_title", "")),
 			"salary": int(def.get("salary", 0)), "term_years": int(def.get("term_years", 1)), "seats": rows,
-			"election": Elections.open_election(st, office)})
+			"election": Elections.open_election(st, office), "election_day": election_day(sim, office)})
 	return out
 
 

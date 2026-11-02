@@ -2,14 +2,15 @@ class_name HelpPanel
 extends PanelContainer
 ## Help overlay (H5 polish): the controls and panels of the game, one line per help.* key (LINES), opened and closed
 ## with F1, "?" or the HUD's Help button; ESC closes it (HUD.close_top). It does not pause the game. Edit the texts in
-## i18n/strings.csv (help.*), the look in game/ui/help_panel.tscn.
+## i18n/strings.csv (help.*), the look in game/ui/help_panel.tscn. H10: the lines scroll (they no longer fit on screen).
 
 ## In order: "#" + key = a section title, else a line.
 const LINES: Array[String] = ["#help.map", "help.map_select", "help.map_right", "help.map_manage",
 	"help.map_camera", "help.map_time", "#help.inside", "help.inside_work", "help.inside_touch", "help.inside_exit",
 	"#help.panels", "help.panels_keys", "help.panels_forge", "help.panels_esc", "#help.family", "help.family_group",
 	"help.family_tree", "help.family_routine", "#help.town", "help.town_npc", "help.town_mev", "#help.titles",
-	"help.titles_rep", "help.titles_hall", "#help.money", "help.money_how"]
+	"help.titles_rep", "help.titles_hall", "#help.offices", "help.offices_chart", "help.offices_campaign",
+	"help.offices_powers", "#help.money", "help.money_how"]
 const WIDTH: float = 480.0   # wrapped lines need a width
 
 var _built: bool = false

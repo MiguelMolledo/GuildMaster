@@ -8,7 +8,8 @@ extends SceneTree
 ##                        town hall's service tile. The inspector and the collector are vacant: he can run (chart).
 ##   office_election_eve  day 7 (winter), 23:30: Hugo (medium) and Bernat, the rival (medium, Citizen, reputation 45,
 ##                        friends with four voters) run for market inspector; the vote falls at midnight.
-##   office_inspector     day 9, 10:00: Hugo has been market inspector since day 9; he can regulate a price.
+##   office_inspector     day 9, 10:00: Hugo has been market inspector since the year change (day 8, until 16); he can
+##                        regulate a price.
 
 const OUT: String = "res://data/scenarios"
 const FAM: String = "fam_0001"
@@ -97,13 +98,14 @@ func _inspector() -> bool:
 	if sim == null:
 		return false
 	var st := sim.state
-	st.clock["minute"] = 9 * Clock.MINUTES_PER_DAY + 10 * 60
+	st.clock["minute"] = 8 * Clock.MINUTES_PER_DAY  # elected at the year change: a term from day 8 to day 16
 	Offices.take(sim, INSPECTOR, 0, HERO)
+	st.clock["minute"] = 9 * Clock.MINUTES_PER_DAY + 10 * 60
 	if Offices.power_status(sim, HERO, "regulate_price", {"item": "sword", "percent": 10}) != "":
 		print("make_office_scenarios: the inspector cannot regulate swords")
 		return false
 	return _save(sim, "office_inspector", "Inspector de mercado",
-		"Día 10, 10:00: Hugo es Inspector de mercado desde hoy (hasta el día 18). Desde el panel de poderes puede regular el precio de un objeto ±10 % durante 2 días (se nota en el mercado), multar a un comerciante o, si fuera Recaudador, fijar el impuesto.")
+		"Día 10, 10:00: Hugo es Inspector de mercado desde el cambio de año (día 9) hasta el día 17. Desde el panel de poderes puede regular el precio de un objeto ±10 % durante 2 días (se nota en el mercado), multar a un comerciante o, si fuera Recaudador, fijar el impuesto.")
 
 
 func _save(sim: Sim, id: String, title: String, description: String) -> bool:

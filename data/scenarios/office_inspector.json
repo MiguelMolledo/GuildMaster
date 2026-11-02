@@ -1657,7 +1657,7 @@
 			"actor": "chr_0001",
 			"family": "fam_0001",
 			"kind": "office_won",
-			"minute": 13560,
+			"minute": 11520,
 			"office": "market_inspector",
 			"rank": "minor"
 		}
@@ -1782,7 +1782,7 @@
 					"amount": 5,
 					"class": "",
 					"class_amount": 0,
-					"minute": 13560,
+					"minute": 11520,
 					"reason": "office_taken"
 				}
 			],
@@ -2051,7 +2051,7 @@
 		"regulations": []
 	},
 	"meta": {
-		"description": "Día 10, 10:00: Hugo es Inspector de mercado desde hoy (hasta el día 18). Desde el panel de poderes puede regular el precio de un objeto ±10 % durante 2 días (se nota en el mercado), multar a un comerciante o, si fuera Recaudador, fijar el impuesto.",
+		"description": "Día 10, 10:00: Hugo es Inspector de mercado desde el cambio de año (día 9) hasta el día 17. Desde el panel de poderes puede regular el precio de un objeto ±10 % durante 2 días (se nota en el mercado), multar a un comerciante o, si fuera Recaudador, fijar el impuesto.",
 		"origin": "tools/scenarios/make_office_scenarios.gd",
 		"title": "Inspector de mercado"
 	},
@@ -2071,16 +2071,16 @@
 	},
 	"notices": [
 		{
-			"day": 9,
+			"day": 8,
 			"family": "fam_0001",
 			"id": "ntc_0001",
 			"key": "notice.office_won",
-			"minute": 13560,
+			"minute": 11520,
 			"params": {
 				"family": "Herrero",
 				"name": "Hugo",
 				"office": "market_inspector",
-				"until": 18
+				"until": 17
 			},
 			"read": false,
 			"severity": "info",
@@ -2150,8 +2150,8 @@
 				{
 					"cooldowns": {},
 					"holder": "chr_0001",
-					"since": 9,
-					"until": 17
+					"since": 8,
+					"until": 16
 				}
 			],
 			"settings": {}
