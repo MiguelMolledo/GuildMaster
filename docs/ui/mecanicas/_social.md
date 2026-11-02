@@ -7,47 +7,38 @@ con significado, motivos de rechazo, cifras, iconos de Guild Renew) y solo añad
 > [!NOTE]
 > Si la guía visual del kit (`docs/ui/README.md` y 00-03) fija otra cosa, manda la guía.
 
-## Dónde va cada cosa (960×540)
+## Dónde va cada cosa (zonas del HUD propuesto, `01_hud.md`)
 
-```
- 0                                                                          960
- ┌─ HUD superior (kit) ───────────────────────────────────────────────────────┐ 0
- ├────────────────────────────────────────────────────────────────────────────┤ 48
- │ grupo 1-2-3                                                                │
- │ ┌ TARJETAS ──────┐                     ┌── PANEL LATERAL (_comun) ───────┐ │ 96
- │ │ x 4..304       │                     │ x 600..952 · y 96..516           │ │
- │ │ microevento,   │                     │ ficha de vecino, cortejo,        │ │
- │ │ vida, presagio │       mapa          │ tablón, ayuntamiento, cargos,    │ │
- │ │ (apiladas,     │                     │ familias rivales                 │ │
- │ │  máx. 2 + «+N»)│                     │                                  │ │
- │ └────────────────┘                     └──────────────────────────────────┘ │
- ├────────────────────────────────────────────────────────────────────────────┤ 524
- └────────────────────────────────────────────────────────────────────────────┘ 540
+Mandan las zonas de [`01_hud.md`](../01_hud.md) (`hud.ZONAS` en `docs/ui/maquetas/src/hud.py`). Lo social las usa así:
 
- PANEL GRANDE (árbol, juicio):  x 4..956 · y 52..520, sobre velo; el HUD superior sigue visible.
- CARTA (ceremonia, boda, sucesión, recuento, veredicto): centrada, 360-420 × 180-260, sobre velo 50 %.
- CONFIRMACIÓN: la de _comun (280×120 centrada).
-```
+| Zona del HUD | Rect | Qué lleva de lo social |
+|---|---|---|
+| 4 · Columna izquierda | `[4, 58, 236, 186]`, y bajo ella hasta la zona de avisos | **Tarjetas**: microevento, nacimiento/escuela, «te acusan», presagio. Debajo del objetivo, que se pliega a su título cuando hay tarjeta. Como mucho 2 visibles; el resto en «+N más». 236 de ancho. |
+| 5 · Panel de gestión | `[600, 58, 356, 430]` | Ficha de vecino, tablón, cortejo, ayuntamiento, reputación (libro), familias rivales y ficha de familia. Uno a la vez. |
+| 6 · Selección | `[244, 492, 472, 44]` | La persona o el vecino elegido, con sus 1-3 acciones. |
+| Modal grande | `[24, 58, 912, 440]` sobre velo desde y 58 (el HUD de arriba se ve) | **Pantallas que no caben en la zona 5**: árbol de la familia, organigrama de cargos (con sus pestañas Campaña y Poderes) y el juicio (preparación y vista oral). |
+| Carta | centrada, 380-420 × 200-260, sobre velo | Ceremonia de título, boda, sucesión, recuento, veredicto. |
+| Confirmación | 280 × ~150 centrada (01_hud §5) | Cancelar a la izquierda, la acción a la derecha. |
 
-- **Panel lateral**: los paneles sociales usan la misma caja que los de economía. Abrir uno cierra el que hubiera. La
-  ficha de vecino deja de salir abajo a la izquierda: así no tapa el grupo ni las tarjetas.
-- **Tarjetas** (columna izquierda): avisos que piden mirar o decidir sin parar el juego. Como mucho 2 visibles; el resto
-  en una lengüeta «+N más». Orden: las que caducan antes, arriba.
-- **Cartas**: momentos (título, boda, sucesión, resultado de una elección, veredicto). Una a la vez; si llegan dos, la
-  segunda espera a que se cierre la primera. Se cierran con clic o con su tiempo; las que piden una decisión no se cierran
-  solas.
+- **Un solo panel de gestión** (01_hud): abrir la ficha de vecino cierra el tablón, etc.
+- **Tarjetas**: avisos que piden mirar o decidir sin parar el juego. Orden: las que caducan antes, arriba.
+- **Cartas**: una a la vez; si llegan dos, la segunda espera. Se cierran con clic o con su tiempo; las que piden una
+  decisión no se cierran solas.
 
 ## Piezas sociales que se repiten
 
 | Pieza | Uso | Estado en el kit |
 |---|---|---|
 | Retrato con color de familia | Toda persona que aparece en una ficha, lista o carta | Existe (`retrato` con `familia`) |
-| Estandarte / cinta de familia | Cabecera del árbol, cartas, fichas de familia rival | **Pendiente**: 9-patch vertical teñido con `colors.primary` y `secondary` |
+| Estandarte / cinta de familia | Cabecera del árbol, cartas, fichas de familia rival, letreros | **Pendiente**: 9-patch vertical teñido con `colors.primary` y `secondary` (en las maquetas, con cajas) |
 | Barra bipolar −100..+100 | Relación | **Pendiente** (la `barra` del kit es de 0 a 1; hace falta la marca del cero centrada) |
 | Barra con umbral | Afinidad (80), votos, juicio (defensa contra acusación) | Existe (`barra` con `marca`) |
-| Insignias 8×8 | Heredero, controlable, cargo, difunto, regente, candidato | **Pendiente** (base: `icon_crown`, `icon_deceased`, `icon_ring`, `icon_controllable` de Guild Renew) |
+| Insignias de título y cargo | Título de una familia, cargo de una persona | **Existen**: `ui:marks/badge_title_<id>` y `ui:marks/badge_office_<id>` (12×12) |
+| Galones de rango | Aprendiz / oficial / maestro de un vecino | **Existen**: `ui:marks/rank_1..3` (8×8) |
+| Insignias 8×8 de estado | Tecla 1-2-3, escuela pendiente, regente, elección abierta («urna»), de tu familia | **Pendiente** (en las maquetas, letra sobre caja) |
 | Banda de palabra | Relación (Enemigo…Amigo), rivalidad (Cordial…Enemiga), probabilidad (Fácil/Dudoso/Difícil) | Texto + color: no necesita pieza |
-| Sello de lacre | Cartas oficiales (título, cargo, veredicto) | **Pendiente**: sello 24×24 en `lacre` con relieve |
+| Sello de lacre | Cartas oficiales (título, cargo) | **Existe**: `ui:marks/seal` (16×16). Para el veredicto hace falta su variante con texto encima (CULPABLE / INOCENTE). |
+| Pergamino | Notas del tablón | **Existe**: pieza `parchment` |
 
 ## Reglas
 

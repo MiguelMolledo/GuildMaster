@@ -4,7 +4,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (con_hud, FONDO_AYTO, FAM, I, TAR_X, TAR_Y, bandera, barra, btn, caja, ico, llamada, panel, ret,  # noqa
+from social_base import (con_hud, MODAL, FONDO_AYTO, FAM, I, TAR_X, TAR_Y, bandera, barra, btn, caja, ico, llamada, panel, ret,  # noqa
                          sep, t, velo)
 
 PURP = "#2a2034"      # sección del tribunal (paleta secundaria de la biblia)
@@ -13,11 +13,24 @@ ORO_AP = "#a08a4a"    # oro apagado
 
 
 def juicio_marco(titulo, sub):
-    e = [velo(0.45), panel(4, 52, 952, 468, None, True), caja(12, 60, 936, 452, PURP),
-         caja(12, 60, 936, 1, ORO_AP), caja(12, 511, 936, 1, ORO_AP)]
-    e += [ico(20, 66, I + "icon_documento.png"), t(40, 66, 600, 14, titulo, "titulo", "oro"),
-          t(640, 67, 290, 12, sub, "negrita", "aviso", "der")]
+    """Modal grande 912×440 (01_hud §4.7) con la sección del tribunal en la paleta secundaria."""
+    x, y, w, h = MODAL
+    e = [velo(0.45, 58), panel(x, y, w, h, None, True), caja(x + 8, y + 8, w - 16, h - 16, PURP),
+         caja(x + 8, y + 8, w - 16, 1, ORO_AP), caja(x + 8, y + h - 9, w - 16, 1, ORO_AP)]
+    e += [ico(x + 14, y + 12, I + "icon_documento.png"), t(x + 34, y + 12, 560, 14, titulo, "titulo", "oro"),
+          t(x + 560, y + 13, 320, 12, sub, "negrita", "aviso", "der")]
     return e
+
+
+def al_modal(elementos):
+    """El contenido se diseñó para x 20..940, y 66..480: se encaja en el interior del modal (x 36..920)."""
+    for e in elementos:
+        if "rect" in e and e.get("tipo") != "velo":
+            x, y, w, h = e["rect"]
+            e["rect"] = [36 + round((x - 20) * 0.96), y + 6, round(w * 0.96) if w > 0 else w, h]
+        if "pos" in e:
+            e["pos"] = [36 + round((e["pos"][0] - 20) * 0.96), e["pos"][1] + 6]
+    return elementos
 
 
 def cabecera():
@@ -59,22 +72,22 @@ def testigo(y, who, fam, nombre, rol, disp, acciones=None, tachado=False):
 
 
 def acusacion():
-    x, y, w = TAR_X, TAR_Y, 300
-    e = [panel(x, y, w, 136, "Te acusan", False), caja(x + 6, y + 24, w - 12, 106, PURP)]
-    e += [ret(x + 12, y + 30, "bernat", 32, "ferrer"), t(x + 50, y + 34, 60, 12, "acusan a", "cuerpo", "texto_tenue",
-                                                        "centro"),
-          ret(x + 112, y + 30, "hugo", 32, "herrero"),
-          t(x + 150, y + 30, 144, 36, "Los Ferrer acusan a Hugo", "negrita"),
-          t(x + 12, y + 68, 280, 12, "Fraude en el mercado · gravedad MEDIA", "cuerpo", "aviso"),
-          t(x + 12, y + 81, 280, 12, "Puedes perder la Forja o su mercancía", "cuerpo", "negativo"),
-          t(x + 12, y + 94, 280, 12, "Preparación: 2 días (hasta el día 23)", "cuerpo", "texto_tenue"),
-          btn(x + 12, y + 110, "Preparar la defensa", 160, 16, "encima"),
-          t(x + 180, y + 112, 108, 12, "Más tarde", "cuerpo", "oro", "der")]
+    """Tarjeta en la columna izquierda (zona 4), 236 de ancho."""
+    x, y, w = TAR_X, TAR_Y, 236
+    e = [panel(x, y, w, 150, "Te acusan", False), caja(x + 6, y + 24, w - 12, 120, PURP)]
+    e += [ret(x + 12, y + 30, "bernat", 32, "ferrer"),
+          ret(x + 50, y + 30, "hugo", 32, "herrero"),
+          t(x + 90, y + 30, w - 98, 36, "Los Ferrer acusan a Hugo", "negrita"),
+          t(x + 12, y + 66, w - 24, 12, "Fraude en el mercado · MEDIA", "cuerpo", "aviso"),
+          t(x + 12, y + 79, w - 24, 24, "Puedes perder la Forja o su mercancía", "cuerpo", "negativo"),
+          t(x + 12, y + 105, w - 24, 12, "Preparar: 2 días (hasta el día 23)", "cuerpo", "texto_tenue"),
+          btn(x + 12, y + 124, "Preparar la defensa", 150, 16, "encima"),
+          t(x + 164, y + 126, w - 176, 12, "Luego", "cuerpo", "oro", "der")]
     return {"id": "tribunal_acusacion", "fondo": FONDO_AYTO, "elementos": e}
 
 
 def preparacion():
-    e = juicio_marco("Juicio · fraude en el mercado", "quedan 1 d 14 h")
+    e = []
     e += cabecera()
     e += [sep(20, 142, 920, ORO_AP)]
     e += balanza(148, 42, 40)
@@ -93,11 +106,12 @@ def preparacion():
            "lineas": ["Retórica 3 contra Empatía 3: dudoso.", "Éxito: pasa a favor (+15 a la defensa).",
                       "Una vez al día por testigo."]}]
     e += [llamada(8, 88, 1), llamada(8, 150, 2), llamada(8, 222, 3), llamada(368, 312, 4)]
-    return {"id": "tribunal_preparacion", "fondo": FONDO_AYTO, "elementos": e}
+    return {"id": "tribunal_preparacion", "fondo": FONDO_AYTO, "_obj": False,
+            "elementos": juicio_marco("Juicio · fraude en el mercado", "quedan 1 d 14 h") + al_modal(e)}
 
 
 def vista():
-    e = juicio_marco("Vista oral · fraude en el mercado", "en pausa durante la vista")
+    e = []
     # estrado
     e += [caja(380, 88, 200, 44, PURP_FILA), ret(462, 92, "erudito", 36, "soler"),
           t(380, 132, 200, 12, "Juez: Agnès Soler", "cuerpo", "texto_tenue", "centro"),
@@ -124,7 +138,8 @@ def vista():
                                "Si sale bien, su testimonio no cuenta; si sale mal, pesa doble.", "cuerpo",
             "texto_apagado")]
     e += [llamada(8, 150, 1), llamada(288, 206, 2), llamada(8, 314, 3)]
-    return {"id": "tribunal_vista", "fondo": FONDO_AYTO, "elementos": e}
+    return {"id": "tribunal_vista", "fondo": FONDO_AYTO, "_obj": False,
+            "elementos": juicio_marco("Vista oral · fraude en el mercado", "en pausa durante la vista") + al_modal(e)}
 
 
 def veredicto():

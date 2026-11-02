@@ -3,7 +3,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (con_hud, FONDO_AYTO, I, TAR_X, TAR_Y, bandera, barra, btn, caja, ico, insignia, llamada, panel,  # noqa
+from social_base import (con_hud, oficio, titulo_ins, FONDO_AYTO, I, TAR_X, TAR_Y, bandera, barra, btn, caja, ico, insignia, llamada, panel,  # noqa
                          ret, sep, t, velo)
 
 NW, NH = 112, 42
@@ -16,7 +16,10 @@ def nodo(x, y, who, nombre, edad, insignias=(), marco="normal", corona=False, mu
          t(x + 42, y + 4, 68, 12, nombre, "negrita", "texto_apagado" if muerto else ("oro_claro" if elegido else "texto")),
          t(x + 42, y + 16, 68, 12, edad, "cuerpo", "texto_apagado" if muerto else "texto_tenue")]
     for i, (letra, col) in enumerate(insignias):
-        e += insignia(x + 42 + i * 11, y + 30, letra, col)
+        if letra.startswith("ui:"):   # insignia del kit (cargo, título)
+            e.append({"tipo": "imagen", "rect": [x + 42 + i * 13, y + 29, 12, 12], "imagen": letra})
+        else:
+            e += insignia(x + 42 + i * 13, y + 30, letra, col)
     return e
 
 
@@ -30,51 +33,51 @@ def stat(x, y, nombre, v):
 
 
 def arbol():
-    e = [velo(0.35), panel(4, 52, 952, 468, None, True)]
-    e += bandera(14, 60, 16, 30, "herrero", "herrero2")
-    e += [t(36, 60, 300, 14, "Familia Herrero", "titulo", "oro"),
-          t(36, 76, 400, 12, "Ciudadanos · generación 1 · 340 puntos", "cuerpo", "texto_tenue"),
-          {"tipo": "pestanas", "rect": [520, 64, 0, 16], "textos": ["Árbol", "Dinastía"], "activa": 0},
-          btn(880, 60, "-", 16), btn(900, 60, "+", 16),
-          sep(12, 96, 936)]
-    # árbol (x 12..700)
-    hx, ay, by = 60, 130, 220
+    """Modal grande 912×440 (01_hud §4.7): el HUD de arriba sigue a la vista."""
+    e = [velo(0.45, 58), panel(24, 58, 912, 440, None, True)]
+    e += bandera(34, 66, 16, 30, "herrero", "herrero2")
+    e += [t(56, 66, 300, 14, "Familia Herrero", "titulo", "oro"),
+          {"tipo": "imagen", "rect": [56, 83, 12, 12], "imagen": titulo_ins("citizen")},
+          t(72, 82, 400, 12, "Ciudadanos · generación 1 · 340 puntos", "cuerpo", "texto_tenue"),
+          {"tipo": "pestanas", "rect": [520, 70, 0, 16], "textos": ["Árbol", "Dinastía"], "activa": 0},
+          btn(842, 63, "-", 16), btn(862, 63, "+", 16),
+          sep(32, 102, 896)]
+    hx, ay, by = 80, 128, 214
     e += [linea(hx + NW, ay + 20, 60, 2), caja(hx + NW + 26, ay + 16, 8, 8, "oro"), caja(hx + NW + 28, ay + 18, 4, 4,
           "fila"), linea(hx + NW + 30, ay + 24, 2, 40), linea(hx + 56, ay + 64, 400, 2)]
     for cx in (hx + 56, hx + 56 + 200, hx + 56 + 400):
         e.append(linea(cx, ay + 64, 2, by - ay - 64))
-    e += nodo(hx, ay, "hugo", "Hugo", "60 años", [("1", "oro"), ("C", "info")], marco="activo")
+    e += nodo(hx, ay, "hugo", "Hugo", "60 años", [("1", "oro"), (oficio("market_inspector"), "")], marco="activo")
     e += nodo(hx + NW + 60, ay, "agnes", "Agnès", "56 años", [])
     e += nodo(hx, by, "pere", "Pere", "16 años", [("2", "oro")], corona=True, elegido=True)
     e += nodo(hx + 200, by, "clara", "Clara", "8 años", [("!", "aviso")])
     e += nodo(hx + 400, by, "diego", "Marc", "† 3 años", [], muerto=True)
     e += [{"tipo": "tooltip", "rect": [hx + 2 * NW + 76, ay + 4, 250, 0], "titulo": "Hugo · cabeza de familia",
-           "lineas": ["60 años · riesgo de muerte este año: medio"]}]
-    e += [t(12, 480, 690, 12, "1-2-3 tecla del grupo · C cargo · ! escuela pendiente · corona: heredero",
-            "cuerpo", "texto_apagado"),
-          btn(12, 496, "Centrar en el cabeza", 140)]
-    # ficha lateral (x 708..948)
-    fx = 712
-    e += [caja(fx - 6, 100, 1, 412, "oro_oscuro"),
-          ret(fx, 104, "pere", 64, "herrero", corona=True),
-          t(fx + 72, 106, 160, 14, "Pere", "titulo", "oro"),
-          t(fx + 72, 124, 160, 12, "16 años · Herrero"),
-          t(fx + 72, 138, 160, 12, "heredero", "negrita", "oro_claro"),
-          t(fx + 72, 152, 160, 12, "en tu grupo (tecla 2)", "cuerpo", "texto_tenue")]
-    y = 176
+           "lineas": ["60 años · Inspector de mercado", "riesgo de muerte este año: medio"]}]
+    e += [btn(32, 474, "Centrar en el cabeza", 150, 16),
+          t(190, 476, 490, 12, "1-2-3 tecla · insignia de cargo · ! escuela pendiente · corona: heredero",
+            "cuerpo", "texto_apagado")]
+    fx = 696
+    e += [caja(fx - 8, 106, 1, 384, "oro_oscuro"),
+          ret(fx, 108, "pere", 64, "herrero", corona=True),
+          t(fx + 72, 110, 160, 14, "Pere", "titulo", "oro"),
+          t(fx + 72, 128, 160, 12, "16 años · Herrero"),
+          t(fx + 72, 142, 160, 12, "heredero", "negrita", "oro_claro"),
+          t(fx + 72, 156, 160, 12, "en tu grupo (tecla 2)", "cuerpo", "texto_tenue")]
+    y = 180
     for n, v in [("Carisma", 3), ("Empatía", 3), ("Negociación", 7), ("Arcano", 2), ("Destreza", 6),
                  ("Artesanía", 6), ("Arte marcial", 2), ("Constitución", 4), ("Retórica", 4), ("Sigilo", 3)]:
         e += stat(fx, y, n, v)
         y += 13
-    e += [sep(fx, y + 4, 236),
-          t(fx, y + 10, 70, 12, "Trabaja en"), {"tipo": "campo", "rect": [fx + 72, y + 8, 164, 16], "texto": "Forja  v"},
-          btn(fx, y + 30, "Cambiar a él", 116), btn(fx + 120, y + 30, "Rutina", 116),
-          btn(fx, y + 50, "Designar heredero", 236, estado="desactivado"),
-          t(fx, y + 68, 236, 12, "Ya es el heredero", "cuerpo", "texto_apagado"),
-          btn(fx, y + 84, "Cortejar", 236)]
-    e += [llamada(4, 58, 1), llamada(hx - 14, by, 2), llamada(fx - 18, 104, 3), llamada(fx - 18, y + 30, 4),
-          llamada(508, 64, 5)]
-    return {"id": "familia_arbol", "fondo": FONDO_AYTO, "elementos": e}
+    e += [sep(fx, y + 4, 232),
+          t(fx, y + 10, 70, 12, "Trabaja en"), {"tipo": "campo", "rect": [fx + 72, y + 8, 160, 16], "texto": "Forja  v"},
+          btn(fx, y + 30, "Cambiar a él", 114), btn(fx + 118, y + 30, "Rutina", 114),
+          btn(fx, y + 50, "Designar heredero", 232, estado="desactivado"),
+          t(fx, y + 68, 232, 12, "Ya es el heredero", "cuerpo", "texto_apagado"),
+          btn(fx, y + 84, "Cortejar", 232)]
+    e += [llamada(24, 64, 1), llamada(hx - 14, by, 2), llamada(fx - 20, 108, 3), llamada(fx - 20, y + 30, 4),
+          llamada(508, 70, 5)]
+    return {"id": "familia_arbol", "fondo": FONDO_AYTO, "elementos": e, "_obj": False}
 
 
 def sucesion():
@@ -104,22 +107,19 @@ def sucesion():
 
 
 def tarjetas_vida():
-    x, y, w = TAR_X, TAR_Y, 300
-    e = [panel(x, y, w, 64, "Ha nacido Clara", False),
-         ret(x + 8, y + 26, "clara", 32, "herrero"),
-         t(x + 46, y + 28, 246, 30, "Hija de Hugo y Agnès. Tiene el pelo de su madre.")]
-    y2 = y + 70
-    e += [panel(x, y2, w, 132, "Clara va a la escuela", False),
-          ret(x + 8, y2 + 26, "clara", 32, "herrero"),
-          t(x + 46, y2 + 28, 246, 24, "Cumple 8 años: elige un atributo que sube +1 (para siempre).")]
-    stats = ["Carisma", "Empatía", "Negoc.", "Arcano", "Destreza", "Artesan.", "Marcial", "Const.",
-             "Retórica", "Sigilo"]
-    for i, s in enumerate(stats):
-        bx = x + 8 + (i % 5) * 57
-        by = y2 + 62 + (i // 5) * 20
-        e.append(btn(bx, by, s, 55, 16, "encima" if s == "Artesan." else "normal", fuente="pequena"))
-    e += [t(x + 8, y2 + 106, 200, 12, "Artesanía 3 → 4 al confirmar", "cuerpo", "positivo"),
-          t(x + 200, y2 + 106, 92, 12, "Más tarde", "cuerpo", "oro", "der")]
+    """Tarjetas en la columna izquierda (zona 4), bajo el objetivo plegado."""
+    x, y, w = TAR_X, TAR_Y, 236
+    e = [panel(x, y, w, 70, "Ha nacido Clara", False),
+         ret(x + 8, y + 28, "clara", 32, "herrero"),
+         t(x + 46, y + 26, w - 54, 40, "Hija de Hugo y Agnès. Tiene el pelo de su madre.")]
+    y2 = y + 76
+    e += [panel(x, y2, w, 124, "Clara va a la escuela", False),
+          ret(x + 8, y2 + 28, "clara", 32, "herrero"),
+          t(x + 46, y2 + 26, w - 54, 40, "Cumple 8 años: un atributo sube +1 para siempre."),
+          {"tipo": "campo", "rect": [x + 8, y2 + 70, 130, 16], "texto": "Artesanía  v"},
+          btn(x + 144, y2 + 70, "Elegir", 84, 16, "encima"),
+          t(x + 8, y2 + 90, 150, 12, "Artesanía 3 → 4", "cuerpo", "positivo"),
+          t(x + 8, y2 + 104, w - 16, 12, "Más tarde (no caduca)", "cuerpo", "oro", "der")]
     e += [llamada(x + w + 2, y, 1), llamada(x + w + 2, y2, 2)]
     return {"id": "familia_tarjetas_vida", "fondo": FONDO_AYTO, "elementos": e}
 

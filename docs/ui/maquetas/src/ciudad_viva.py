@@ -3,7 +3,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (con_hud, FONDO_PLAZA, I, LAT_X, text_size, TAR_X, TAR_Y, bipolar, barra, btn, caja, ico, lateral, llamada,  # noqa
+from social_base import (con_hud, a_lateral, RET, FONDO_PLAZA, I, LAT_X, text_size, TAR_X, TAR_Y, bipolar, barra, btn, caja, ico, lateral, llamada,  # noqa
                          motivo, panel, ret, sep, t)
 
 X = LAT_X + 8
@@ -13,9 +13,11 @@ W = 336
 def ficha():
     e = [lateral("Agnès · Soler", 232)]
     e += [ret(X, 124, "agnes", 32, "soler"),
-          t(X + 40, 124, 290, 12, "Puesto de comida · Aprendiz · 23 años"),
-          ico(X + 40, 138, I + "bubble_chat.png"),
-          t(X + 58, 140, 270, 12, "charlando en la plaza", color="texto_tenue")]
+          t(X + 40, 122, 290, 12, "Puesto de comida · 23 años"),
+          {"tipo": "imagen", "rect": [X + 40, 137, 8, 8], "imagen": "ui:marks/rank_1"},
+          t(X + 52, 135, 100, 12, "Aprendiz", color="texto_tenue"),
+          ico(X + 150, 133, I + "bubble_chat.png"),
+          t(X + 168, 135, 160, 12, "charlando en la plaza", color="texto_tenue")]
     e += [t(X, 164, 200, 12, "Relación con Hugo", "negrita"),
           t(X + 200, 164, 136, 12, "Neutral  0", "cuerpo", "texto_tenue", "der")]
     e += bipolar(X, 178, W, 8, 0)
@@ -38,11 +40,13 @@ def ficha():
            "lineas": ["Carisma 4 contra Empatía 6:", "difícil. Éxito: relación +3;", "fallo: relación -2."]}]
     e += [llamada(LAT_X - 6, 120, 1), llamada(LAT_X - 6, 162, 2), llamada(LAT_X - 6, 203, 3),
           llamada(LAT_X - 6, 266, 4), llamada(LAT_X - 6, 304, 5)]
-    return {"id": "ciudad_viva_ficha", "fondo": FONDO_PLAZA, "elementos": e}
+    return {"id": "ciudad_viva_ficha", "fondo": FONDO_PLAZA, "elementos": a_lateral(e),
+            "_sel": ("Agnès Soler", "Vecina · charlando en la plaza", "texto_tenue", (("Ficha", "pulsado"),),
+                     RET["agnes"])}
 
 
 def nota(x, y, icono, que, cliente, calidad, plazo, paga, tiene=None, ok=False):
-    e = [panel(x, y, 162, 92, None, False, "pergamino"),
+    e = [panel(x, y, 162, 92, None, False, "parchment"),
          ico(x + 6, y + 6, icono), t(x + 24, y + 6, 134, 12, que, "negrita", "texto_tinta"),
          t(x + 6, y + 22, 150, 12, cliente, color="texto_tinta"),
          t(x + 6, y + 35, 150, 12, calidad, color="texto_tinta"),
@@ -75,14 +79,15 @@ def tablon():
               "160", "tienes 0/1")
     e += [t(X + 172, 330, 160, 40, "Abandonar o no cumplir un encargo cuesta reputación.", color="texto_apagado")]
     e += [llamada(LAT_X - 6, 140, 1), llamada(X + 172 + 150, 286, 2)]
-    return {"id": "ciudad_viva_tablon", "fondo": FONDO_PLAZA, "elementos": e}
+    return {"id": "ciudad_viva_tablon", "fondo": FONDO_PLAZA, "elementos": a_lateral(e),
+            "_sel": ("Hugo Herrero", "En el tablón de encargos", "texto_tenue", (("Inventario", "normal"),), RET["hugo"])}
 
 
 def opcion(x, y, w, titulo, efectos, defecto=False, estado="normal"):
     e = [btn(x, y, "", w, 28, estado)]
     e += [t(x + 6, y + 3, w - 80, 12, titulo, "negrita", "texto" if estado != "desactivado" else "texto_apagado")]
     if defecto:
-        e += [t(x + w - 80, y + 3, 74, 12, "por defecto", "cuerpo", "oro", "der")]
+        e += [t(x + w - 70, y + 3, 64, 12, "defecto", "cuerpo", "oro", "der")]
     cx = x + 6
     for icono, txt, col in efectos:
         if icono:
@@ -94,21 +99,23 @@ def opcion(x, y, w, titulo, efectos, defecto=False, estado="normal"):
 
 
 def microevento():
-    x, y, w = TAR_X, TAR_Y, 300
-    e = [panel(x, y, w, 180, "Ocurre algo en la Forja", False)]
+    """Tarjeta en la columna izquierda (zona 4), bajo el objetivo plegado: 236 de ancho."""
+    x, y, w = TAR_X, TAR_Y, 236
+    e = [panel(x, y, w, 196, "Ocurre algo en la Forja", False)]
     e += [ret(x + 8, y + 26, "joan", 32, "herrero"),
-          t(x + 46, y + 28, 246, 30, "Joan está enfermo hoy y no irá a trabajar a la Forja.")]
-    e += opcion(x + 8, y + 62, 284, "Pagar al médico", [(I + "icon_oro.png", "-10", "negativo"),
-                                                        (None, "vuelve mañana", "texto_tenue"),
-                                                        (None, "lealtad +5", "positivo")])
-    e += opcion(x + 8, y + 92, 284, "Día libre pagado", [(None, "falta hoy · cobra", "texto_tenue"),
-                                                         (None, "lealtad +2", "positivo")], defecto=True)
-    e += opcion(x + 8, y + 122, 284, "Descontarle el día", [(None, "falta 1-2 días", "texto_tenue"),
-                                                            (None, "lealtad -5", "negativo")])
-    e += [ico(x + 8, y + 156, I + "icon_pending.png", 12), barra(x + 24, y + 159, 150, 6, 0.65, "aviso"),
-          t(x + 178, y + 156, 40, 12, "1 h 20", color="aviso"),
-          t(x + 220, y + 156, 72, 12, "+1 más", "negrita", "oro", "der")]
-    e += [llamada(x + w + 2, y + 62, 1), llamada(x + w + 2, y + 92, 2), llamada(x + w + 2, y + 154, 3)]
+          t(x + 46, y + 26, w - 54, 36, "Joan está enfermo hoy y no irá a trabajar.")]
+    e += opcion(x + 6, y + 64, w - 12, "Pagar al médico", [(I + "icon_oro.png", "-10", "negativo"),
+                                                           (None, "vuelve mañana", "texto_tenue"),
+                                                           (None, "leal +5", "positivo")])
+    e += opcion(x + 6, y + 94, w - 12, "Día libre pagado", [(None, "falta hoy · cobra", "texto_tenue"),
+                                                            (None, "leal +2", "positivo")], defecto=True)
+    e += opcion(x + 6, y + 124, w - 12, "Descontarle el día", [(None, "falta 1-2 días", "texto_tenue"),
+                                                              (None, "leal -5", "negativo")])
+    e += [ico(x + 8, y + 158, I + "icon_pending.png", 12), barra(x + 24, y + 161, 110, 6, 0.65, "aviso"),
+          t(x + 138, y + 158, 40, 12, "1 h 20", color="aviso"),
+          t(x + 176, y + 158, 52, 12, "+1 más", "negrita", "oro", "der"),
+          t(x + 8, y + 174, w - 16, 12, "Si no eliges: Día libre pagado", "cuerpo", "texto_apagado")]
+    e += [llamada(x + w + 2, y + 64, 1), llamada(x + w + 2, y + 94, 2), llamada(x + w + 2, y + 156, 3)]
     return {"id": "ciudad_viva_microevento", "fondo": FONDO_PLAZA, "elementos": e}
 
 
@@ -137,7 +144,8 @@ def burbujas():
     e += [t(360, 240, 150, 60, "Prioridad: emoción hacia tu familia > otra emoción > actividad.")]
     e += [t(20, 340, 490, 50, "Una sola burbuja por cabeza. La frase (social_phrases.json) solo cerca de tu personaje, "
                               "en caja de pergamino debajo de la burbuja.", color="texto_tenue")]
-    return {"id": "ciudad_viva_burbujas", "fondo": FONDO_PLAZA, "elementos": e}
+    return {"id": "ciudad_viva_burbujas", "fondo": FONDO_PLAZA, "elementos": a_lateral(e, -34), "_sel": False,
+            "_obj": False}
 
 
 MAQUETAS = con_hud([ficha(), tablon(), microevento(), burbujas()])

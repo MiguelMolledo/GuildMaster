@@ -82,7 +82,7 @@ que abre en iconos. La escalera debajo con el peldaño nuevo encendiéndose.
 
 ## 6. Maqueta
 
-Ayuntamiento (panel lateral, 352 × ~360):
+Ayuntamiento (zona 5 del HUD, `[600, 58, 356, 430]`):
 
 ```
 +==================================================================+
@@ -141,8 +141,7 @@ Ceremonia (carta, 380 × 220):
 ![titulos_y_reputacion_reputacion](../maquetas/titulos_y_reputacion_reputacion.png)
 ![titulos_y_reputacion_ceremonia](../maquetas/titulos_y_reputacion_ceremonia.png)
 
-**Piezas de kit pendientes**: escalera de títulos (5 peldaños con estados actual / siguiente / lejano / conseguido);
-sello de lacre 24×24 con inicial (sin texto dentro del sprite: la letra se pone encima con la fuente); icono de «edificio»
+**Piezas del kit que usa**: `ui:marks/badge_title_<id>` (los peldaños de la escalera) y `ui:marks/seal` (ceremonia). **Piezas de kit pendientes**: marco de peldaño de la escalera (estados actual / siguiente / lejano / conseguido; en la maqueta, cajas); icono de «edificio»
 16 para los límites (base `icon_build_mode` de Guild Renew); flecha de tendencia (la fuente ya tiene ↑ ↓).
 
 ## 7. Datos
@@ -184,7 +183,7 @@ sello de lacre 24×24 con inicial (sin texto dentro del sprite: la letra se pone
 
 Tareas:
 
-1. Kit: escalera de títulos, sello de lacre, icono de edificio (pendientes).
+1. Kit: marco de peldaño e icono de edificio (pendientes); insignias de título y sello ya existen.
 2. Sim (consulta): `Titles.approver`.
 3. `town_hall_panel`: escalera; requisitos con barras; fila Aprueba; confirmación.
 4. `town_hall_panel`: modo consulta a distancia + «Ir allí»; clic en el título de la barra superior.

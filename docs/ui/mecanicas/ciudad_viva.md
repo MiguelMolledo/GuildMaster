@@ -16,8 +16,8 @@ Capturas de hoy (tema pixel art, 2026-11-02): `../maquetas/ciudad_viva_hoy_ficha
 `../maquetas/ciudad_viva_hoy_microevento.png`, `../maquetas/ciudad_viva_hoy_tablon.png`.
 
 Medidas en píxeles lógicos (960×540). Zonas, rejilla y reglas comunes: [`_comun.md`](_comun.md) y
-[`_social.md`](_social.md). La ficha de vecino y el tablón van en el **panel lateral** (x 600..952); el microevento en
-la **columna de tarjetas** (x 4..304).
+[`_social.md`](_social.md). La ficha de vecino y el tablón van en la **zona 5** del HUD (`[600, 58, 356, 430]`); el microevento
+en la **columna izquierda** (zona 4, 236 de ancho, bajo el objetivo plegado).
 
 ---
 
@@ -126,7 +126,7 @@ Composición (zonas de [`_social.md`](_social.md)):
 ```
 +---- HUD superior (kit) --------------------------------------------------------------+
 | [1][2][3]                                                                            |
-| +-- TARJETAS x 4..304 --+                          +-- PANEL LATERAL x 600..952 ---+ |
+| +-- ZONA 4 x 4..240 -----+                          +-- ZONA 5 x 600..956 ----------+ |
 | | microevento           |      mapa                | ficha de vecino  o  tablón     | |
 | | (+1 más)              |                          | (uno a la vez)                 | |
 | +-----------------------+       (o)  burbuja       |                                | |
@@ -135,7 +135,7 @@ Composición (zonas de [`_social.md`](_social.md)):
 +---- línea de ayuda ------------------------------------------------------------------+
 ```
 
-Ficha de vecino (panel lateral, 352 × ~300 desde y 96):
+Ficha de vecino (zona 5, 356 × ~232 desde y 58):
 
 ```
 +================================================+  <- marco de madera (panel.png)
@@ -157,7 +157,7 @@ Ficha de vecino (panel lateral, 352 × ~300 desde y 96):
 +================================================+
 ```
 
-Tablón (panel lateral, 352 × ~380):
+Tablón (zona 5, 356 × ~380):
 
 ```
 +==================================================================+
@@ -179,7 +179,7 @@ Tablón (panel lateral, 352 × ~380):
 +==================================================================+
 ```
 
-Tarjeta de microevento (columna de tarjetas, 300 × ~150, x 4, y 96):
+Tarjeta de microevento (columna izquierda, zona 4: 236 × ~196, x 4, y 112 bajo el objetivo plegado):
 
 ```
 +==============================================+
@@ -214,7 +214,7 @@ Burbujas (sobre la cabeza, 16 × 16 de icono dentro de un bocadillo de 20 × 18)
 ![ciudad_viva_microevento](../maquetas/ciudad_viva_microevento.png)
 ![ciudad_viva_burbujas](../maquetas/ciudad_viva_burbujas.png)
 
-**Piezas de kit pendientes**: barra bipolar (−100..+100 con marca en el cero); nota de tablón (pergamino clavado, 9-patch);
+**Piezas del kit que usa**: `parchment` (notas del tablón), `ui:marks/rank_1` (galón de Aprendiz en la ficha). **Piezas de kit pendientes**: barra bipolar (−100..+100 con marca en el cero); nota de tablón (pergamino clavado, 9-patch);
 botón de dos líneas (texto + línea de efectos con iconos); lengüeta «+N más»; bocadillo de emoción con borde de color y
 barra de intensidad; iconos 16 de oro, lealtad, relación, reloj y calidad (los de Guild Renew `icon_oro`, `state_*`,
 `icon_pending` sirven de base).

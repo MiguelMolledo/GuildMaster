@@ -105,7 +105,7 @@ Carta de sucesión: un único botón «Continuar con Pere» (o «… con Agnès 
 
 ## 6. Maqueta
 
-Árbol (panel grande de [`_social.md`](_social.md): x 4..956, y 52..520; el HUD superior queda visible):
+Árbol: **no cabe en la zona 5**, va como **modal grande a pantalla completa** (`[24, 58, 912, 440]`, 01_hud §4.7), sobre velo desde y 58 para que el HUD de arriba siga a la vista. No pausa.
 
 ```
 +==========================================================================================+
@@ -157,7 +157,7 @@ Carta de sucesión (420 × 240, centrada, sobre velo oscuro):
 +==========================================================+
 ```
 
-Tarjeta de vida (columna de tarjetas, 300 × ~60):
+Tarjeta de vida (columna izquierda, zona 4, 236 de ancho):
 
 ```
 +============================================+
@@ -173,9 +173,9 @@ Tarjeta de vida (columna de tarjetas, 300 × ~60):
 ![familia_sucesion](../maquetas/familia_sucesion.png)
 ![familia_tarjetas_vida](../maquetas/familia_tarjetas_vida.png)
 
-**Piezas de kit pendientes**: estandarte de familia (9-patch vertical teñido con `colors.primary/secondary`); insignias
-8×8 (anillo, cruz, corona, «!», cargo, regente; base: `icon_crown`, `icon_deceased`, `icon_ring`, `icon_controllable`
-de Guild Renew reescalados a mano); barra de atributo 1-10 en 10 segmentos; velo oscuro de carta modal; línea de
+**Piezas del kit que usa**: `ui:marks/badge_title_<id>` (título en la cabecera), `ui:marks/badge_office_<id>` (cargo en el nodo), pestañas. **Piezas de kit pendientes**: estandarte de familia (9-patch vertical teñido con `colors.primary/secondary`); insignias
+8×8 de estado (anillo, cruz, «!», regente; el cargo ya es `badge_office_<id>`; base: `icon_crown`, `icon_deceased`, `icon_ring`, `icon_controllable`
+de Guild Renew reescalados a mano); barra de atributo 1-10 en 10 segmentos; línea de
 árbol de 2 px en dorado con la unión de pareja (anillo 6×6).
 
 ## 7. Datos

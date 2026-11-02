@@ -3,7 +3,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (con_hud, FONDO_PLAZA, I, LAT_X, bandera, barra, btn, caja, ico, lateral, llamada, motivo, panel,  # noqa
+from social_base import (con_hud, a_lateral, RET, FONDO_PLAZA, I, LAT_X, bandera, barra, btn, caja, ico, lateral, llamada, motivo, panel,  # noqa
                          ret, sep, t, velo)
 
 X = LAT_X + 8
@@ -17,7 +17,8 @@ def fila(y, who, fam, nombre, linea2, afinidad, estado=None, estado_col="texto_t
          t(X + 42, y + 3, 230, 12, nombre, "negrita"),
          t(X + 42, y + 15, 230, 12, linea2, "cuerpo", "texto_tenue")]
     if titulo:
-        e.append(t(X + 230, y + 3, 102, 12, titulo, "cuerpo", "oro", "der"))
+        e += [{"tipo": "imagen", "rect": [X + 248, y + 4, 12, 12], "imagen": "ui:marks/badge_title_citizen"},
+              t(X + 230, y + 3, 102, 12, titulo, "cuerpo", "oro", "der")]
     e += [barra(X + 42, y + 30, 118, 6, afinidad / 100.0, "#d07090", 0.8),
           t(X + 162, y + 27, 22, 12, str(afinidad), "negrita", "texto", "der")]
     bx = X + 190
@@ -49,29 +50,37 @@ def panel_cortejo():
           t(X, 360, W, 40, "La línea en la barra es 80: desde ahí puedes pedir su mano. Hablar cada día y regalar la "
                            "suben.", "cuerpo", "texto_apagado")]
     e += [llamada(LAT_X - 6, 124, 1), llamada(LAT_X - 6, 206, 2), llamada(LAT_X - 6, 300, 3)]
-    return {"id": "cortejo_panel", "fondo": FONDO_PLAZA, "elementos": e}
+    return {"id": "cortejo_panel", "fondo": FONDO_PLAZA, "elementos": a_lateral(e)}
 
 
 def propuesta():
-    x, y, w, h = 240, 200, 340, 150
-    e = [velo(0.5), panel(x, y, w, h, "¿Pedir la mano de Agnès?", False)]
-    e += [ret(x + 10, y + 30, "agnes", 32, "soler"),
-          t(x + 50, y + 30, 280, 60, "· Se casa con Hugo y pasa a la familia Herrero.\n· Deja su trabajo en el Puesto "
-                                     "de comida.\n· Vivirá en vuestra casa (la Forja)."),
-          t(x + 50, y + 80, 280, 24, "El primer hijo puede llegar en 1 estación.", "cuerpo", "texto_tenue"),
-          sep(x + 10, y + 104, w - 20),
-          btn(x + 50, y + 118, "Pedir la mano", 120, 18, "encima"), btn(x + 190, y + 118, "Ahora no", 100, 18)]
-    # la sección de cortejo dentro de la ficha de vecino
+    # la sección de cortejo dentro de la ficha de vecino (zona 5)
     fx = LAT_X + 8
-    e += [panel(LAT_X, 96, 352, 120, "Agnès · Soler", True),
-          ret(fx, 124, "agnes", 32, "soler"), t(fx + 40, 124, 290, 12, "Puesto de comida · Aprendiz · 23 años"),
-          sep(fx, 162, 336), t(fx, 166, 200, 12, "Cortejo", "negrita", "#d07090"),
-          t(fx + 200, 166, 136, 12, "afinidad 84", "cuerpo", "texto", "der"),
-          barra(fx, 180, 336, 6, 0.84, "#d07090", 0.8),
-          btn(fx, 192, "Hablar", 80), btn(fx + 84, 192, "Regalar", 80), btn(fx + 168, 192, "Pedir la mano", 110,
-                                                                              estado="pulsado")]
-    e += [llamada(LAT_X - 6, 166, 1), llamada(x - 6, y, 2)]
-    return {"id": "cortejo_propuesta", "fondo": FONDO_PLAZA, "elementos": e}
+    lat = [panel(LAT_X, 96, 356, 120, "Agnès · Soler", True),
+           ret(fx, 124, "agnes", 32, "soler"), t(fx + 40, 124, 290, 12, "Puesto de comida · 23 años"),
+           {"tipo": "imagen", "rect": [fx + 40, 139, 8, 8], "imagen": "ui:marks/rank_1"},
+           t(fx + 52, 137, 200, 12, "Aprendiz", color="texto_tenue"),
+           sep(fx, 162, 336), t(fx, 166, 200, 12, "Cortejo", "negrita", "#d07090"),
+           t(fx + 200, 166, 136, 12, "afinidad 84", "cuerpo", "texto", "der"),
+           barra(fx, 180, 336, 6, 0.84, "#d07090", 0.8),
+           btn(fx, 192, "Hablar", 80), btn(fx + 84, 192, "Regalar", 80), btn(fx + 168, 192, "Pedir la mano", 110,
+                                                                               estado="pulsado"),
+           llamada(LAT_X - 6, 166, 1)]
+    e = a_lateral(lat)
+    # la confirmación (01_hud §5: 280 de ancho, Cancelar a la izquierda, la acción a la derecha)
+    x, y, w, h = 340, 190, 280, 168
+    e += [velo(0.5), panel(x, y, w, h, "¿Pedir la mano de Agnès?", False),
+          ret(x + 8, y + 30, "agnes", 32, "soler"),
+          t(x + 46, y + 28, w - 54, 84, "· Se casa con Hugo y pasa a la familia Herrero.\n· Deja el Puesto de "
+                                         "comida.\n· Vivirá en vuestra casa."),
+          t(x + 8, y + 100, w - 16, 24, "El primer hijo puede llegar en 1 estación. No se puede deshacer.", "cuerpo",
+            "texto_tenue"),
+          sep(x + 8, y + 132, w - 16),
+          btn(x + 8, y + 142, "Cancelar", 100, 18), btn(x + w - 128, y + 142, "Pedir la mano", 120, 18, "encima"),
+          llamada(x - 6, y, 2)]
+    return {"id": "cortejo_propuesta", "fondo": FONDO_PLAZA, "elementos": e,
+            "_sel": ("Agnès Soler", "Vecina · charlando en la plaza", "texto_tenue", (("Ficha", "pulsado"),),
+                     RET["agnes"])}
 
 
 def boda():

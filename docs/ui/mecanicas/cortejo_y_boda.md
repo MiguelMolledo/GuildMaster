@@ -97,7 +97,7 @@ Si el actor no es soltero o es menor, la lista entera se sustituye por el motivo
 
 ## 6. Maqueta
 
-Panel de cortejo (panel lateral de [`_social.md`](_social.md), 352 × ~380):
+Panel de cortejo (zona 5 del HUD, `[600, 58, 356, 430]`):
 
 ```
 +====================================================================+
@@ -151,7 +151,7 @@ Carta de boda (380 × 200, centrada):
 ![cortejo_propuesta](../maquetas/cortejo_propuesta.png)
 ![cortejo_boda](../maquetas/cortejo_boda.png)
 
-**Piezas de kit pendientes**: barra con marca de umbral (línea dorada de 1 px en el 80 %); fila con fondo de estado
+**Piezas del kit que usa**: `ui:marks/badge_title_<id>` (título de la familia del pretendiente), `ui:marks/rank_1`, pestañas, `barra` con `marca` (el umbral de 80 ya existe). **Piezas de kit pendientes**: barra con marca de umbral (línea dorada de 1 px en el 80 %); fila con fondo de estado
 (rojizo «bloqueado»); pestañas pequeñas de filtro; media cinta de familia (la misma pieza que el estandarte del árbol);
 icono anillo 16 (base `icon_ring` de Guild Renew).
 

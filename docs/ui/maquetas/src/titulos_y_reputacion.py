@@ -4,16 +4,18 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (con_hud, FONDO_AYTO, I, LAT_X, bandera, barra, btn, caja, ico, lateral, llamada, motivo, panel,  # noqa
+from social_base import (con_hud, a_lateral, RET, titulo_ins, FONDO_AYTO, I, LAT_X, bandera, barra, btn, caja, ico, lateral, llamada, motivo, panel,  # noqa
                          ret, sep, t, velo)
 
 X = LAT_X + 8
 W = 336
 TITULOS = ["Plebeyo", "Ciudadano", "Patricio", "Barón", "Nobleza"]
+IDS = ["common", "citizen", "patrician", "baron", "noble"]
 
 
 def escalera(x, y, w, actual, siguiente_resaltado=True):
-    """Pieza de kit pendiente: 5 peldaños (conseguido / actual / siguiente / lejano)."""
+    """5 peldaños con las insignias de título del kit (ui:marks/badge_title_<id>) a ×2; el marco dice el estado
+    (conseguido / actual / siguiente / lejano)."""
     e = []
     step = w // 5
     e.append(caja(x + step // 2, y + 9, step * 4, 2, "oro_oscuro"))
@@ -27,9 +29,10 @@ def escalera(x, y, w, actual, siguiente_resaltado=True):
             fill, border = "hueco", "aviso"
         else:
             fill, border = "hueco", "madera_clara"
-        e += [caja(cx - 1, y - 1, 20, 22, border), caja(cx + 1, y + 1, 16, 18, fill)]
+        e += [caja(cx - 3, y - 3, 30, 28, border), caja(cx - 1, y - 1, 26, 24, fill),
+              {"tipo": "imagen", "rect": [cx + 0, y - 1, 24, 24], "imagen": titulo_ins(IDS[i])}]
         col = "oro_claro" if i == actual else ("aviso" if i == actual + 1 and siguiente_resaltado else "texto_tenue")
-        e.append(t(x + i * step, y + 24, step, 12, n, "cuerpo", col, "centro", ajustar=False))
+        e.append(t(x + i * step, y + 26, step, 12, n, "cuerpo", col, "centro", ajustar=False))
     return e
 
 
@@ -67,7 +70,8 @@ def ayuntamiento():
           btn(X, 350, "Cargos y elecciones", 160, 16), t(X + 166, 352, 170, 12, "tecla O", "cuerpo", "texto_apagado")]
     e += [llamada(LAT_X - 6, 160, 1), llamada(LAT_X - 6, 222, 2), llamada(LAT_X - 6, 282, 3),
           llamada(LAT_X - 6, 328, 4)]
-    return {"id": "titulos_y_reputacion_ayuntamiento", "fondo": FONDO_AYTO, "elementos": e}
+    return {"id": "titulos_y_reputacion_ayuntamiento", "fondo": FONDO_AYTO, "elementos": a_lateral(e),
+            "_sel": ("Hugo Herrero", "En el Ayuntamiento", "texto_tenue", (("Inventario", "normal"),), RET["hugo"])}
 
 
 def reputacion():
@@ -93,7 +97,7 @@ def reputacion():
               t(X + 48, yy + 2, 230, 12, txt), t(X + 280, yy + 2, 52, 12, v, "negrita", c, "der")]
         yy += 17
     e += [llamada(LAT_X - 6, 146, 1), llamada(LAT_X - 6, 168, 2), llamada(LAT_X - 6, y + 58, 3)]
-    return {"id": "titulos_y_reputacion_reputacion", "fondo": FONDO_AYTO, "elementos": e}
+    return {"id": "titulos_y_reputacion_reputacion", "fondo": FONDO_AYTO, "elementos": a_lateral(e)}
 
 
 def ceremonia():
@@ -102,8 +106,7 @@ def ceremonia():
     e += bandera(x + 14, y + 10, 16, 30, "herrero", "herrero2") + bandera(x + w - 30, y + 10, 16, 30, "herrero",
                                                                           "herrero2")
     e += [t(x, y + 14, w, 14, "Ceremonia en el Ayuntamiento", "titulo", "oro", "centro"),
-          caja(x + w // 2 - 13, y + 38, 26, 26, "#5a1612"), caja(x + w // 2 - 11, y + 40, 22, 22, "lacre"),
-          t(x + w // 2 - 11, y + 40, 22, 22, "P", "negrita", "pergamino", "centro", "centro"),
+          {"tipo": "imagen", "rect": [x + w // 2 - 16, y + 36, 32, 32], "imagen": "ui:marks/seal"},
           t(x, y + 70, w, 14, "Patricio", "titulo", "oro_claro", "centro"),
           t(x + 20, y + 92, w - 40, 12, "Hugo lo recibe en nombre de la familia Herrero.", "cuerpo", "texto", "centro"),
           ico(x + 92, y + 110, I + "icon_build_mode.png"), t(x + 110, y + 112, 90, 12, "4 edificios"),

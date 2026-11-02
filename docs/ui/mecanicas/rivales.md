@@ -107,7 +107,7 @@ La IA no recibe órdenes desde aquí: estas acciones son las del jugador, las mi
 
 ## 6. Maqueta
 
-Panel de familias (panel lateral):
+Panel de familias (zona 5 del HUD, `[600, 58, 356, 430]`):
 
 ```
 +==================================================================+
@@ -132,7 +132,7 @@ Ficha de familia, presagio y letrero del mapa: en los PNG.
 ![rivales_ficha](../maquetas/rivales_ficha.png)
 ![rivales_presagio](../maquetas/rivales_presagio.png)
 
-**Piezas de kit pendientes**: estandarte pequeño 10×16 para filas y letreros; chip de banda de rivalidad (5 tonos de
+**Piezas del kit que usa**: `ui:marks/badge_title_<id>` y `ui:marks/badge_office_<id>` (filas y ficha de familia). **Piezas de kit pendientes**: estandarte pequeño 10×16 para filas y letreros; chip de banda de rivalidad (5 tonos de
 neutro a lacre, con texto encima); tarjeta de presagio (borde púrpura de la paleta secundaria); iconos 16 de rumor
 (oreja o boca), guerra de precios (moneda con flecha abajo), parcela, urna y sabotaje (antorcha, EA); letrero del mapa
 con banderín de familia (la pieza actual del letrero + 4 px de banderín a la izquierda).
@@ -180,7 +180,7 @@ Tareas (en H6, cuando el owner apruebe 04c; las de solo vista pueden ir antes):
 2. Antes de H6 (solo vista, con lo que ya hay): `families_panel` con título, reputación, negocios, cargos y hechos
    públicos; ficha de familia; letreros con banderín; botón y tecla.
 3. H6: consultas `Rivalry.band`, `Rivalry.protection`, `Market.public_sales` (si Q4); banda en filas y ficha.
-4. H6: tarjeta de presagio (columna de tarjetas) y su tachado al cancelarse.
+4. H6: tarjeta de presagio (columna izquierda, zona 4) y su tachado al cancelarse.
 5. Audio: `families_panel` en `ui.panels`; `sfx_rumor`.
 
 ## 10. Criterios de aceptación

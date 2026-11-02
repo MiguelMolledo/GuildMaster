@@ -40,7 +40,7 @@ Capturas de hoy (rama `h10-cargos`, antes del tema pixel art): `../maquetas/carg
 
 ## 3. Jerarquía de información
 
-### Organigrama (panel lateral, pestaña «Cargos»)
+### Organigrama (modal grande, pestaña «Cargos»)
 
 1. **Primero**: el **árbol de asientos** (GDD 4.12.4: Alcalde arriba; Concejales ×2; Juez y Alguacil; Recaudador e
    Inspector), cada asiento con el **retrato del titular** con el color de su familia o «VACANTE», y su nombre. El rango
@@ -117,7 +117,7 @@ tribunal»). Lo que está en vigor (regulación, impuesto) en una caja arriba co
 
 ## 6. Maqueta
 
-Organigrama (panel lateral, 352 × ~410, pestañas Cargos · Campaña · Poderes):
+Organigrama: **no cabe en la zona 5** (7 asientos + detalle), va como **modal grande a pantalla completa** (`[24, 58, 912, 440]`, 01_hud §4.7, que ya nombra el organigrama): el árbol de asientos a la izquierda, siempre a la vista, y a la derecha la pestaña Cargos (detalle del asiento) · Campaña · Poderes. Las acciones de campaña sobre un vecino siguen en su ficha (zona 5). El wireframe de abajo es el contenido; la disposición final, en los PNG.
 
 ```
 +==================================================================+
@@ -148,16 +148,17 @@ Organigrama (panel lateral, 352 × ~410, pestañas Cargos · Campaña · Poderes
 Recuento (carta 380 × 200), poderes (pestaña) y campaña (pestaña) en los PNG.
 
 **PNG** (fuente: `docs/ui/maquetas/src/cargos_y_elecciones.py`): `../maquetas/cargos_y_elecciones_organigrama.png`,
-`../maquetas/cargos_y_elecciones_campana.png`, `../maquetas/cargos_y_elecciones_recuento.png`,
+`../maquetas/cargos_y_elecciones_campana.png`, `../maquetas/cargos_y_elecciones_soborno.png` (ficha de vecino con campaña + confirmación), `../maquetas/cargos_y_elecciones_recuento.png`,
 `../maquetas/cargos_y_elecciones_poderes.png`, y sus `_x2`.
 
 ![cargos_y_elecciones_organigrama](../maquetas/cargos_y_elecciones_organigrama.png)
 ![cargos_y_elecciones_campana](../maquetas/cargos_y_elecciones_campana.png)
+![cargos_y_elecciones_soborno](../maquetas/cargos_y_elecciones_soborno.png)
 ![cargos_y_elecciones_recuento](../maquetas/cargos_y_elecciones_recuento.png)
 ![cargos_y_elecciones_poderes](../maquetas/cargos_y_elecciones_poderes.png)
 
-**Piezas de kit pendientes**: nodo de asiento (retrato 32 + dos líneas, con filete de rango oro/plata/bronce); insignia
-«urna» y «titular» 8×8; línea de calendario de tres tramos con marca de hoy; selector deslizante de 5-15 (impuesto);
+**Piezas del kit que usa**: `ui:marks/badge_office_<id>` (cada asiento, recuento, poderes), `ui:marks/badge_title_<id>`, `ui:marks/seal` (ganador), pestañas. **Piezas de kit pendientes**: nodo de asiento (retrato 32 + dos líneas, con filete de rango oro/plata/bronce); insignia
+«urna» y «titular» 8×8; línea de calendario de tres tramos con marca de hoy; (el deslizador del impuesto ya existe: `slider_track` / `slider_grabber`);
 icono de urna 16 y de mazo 16 (para H11).
 
 ## 7. Datos
@@ -196,7 +197,7 @@ Feedback: el recuento llena las barras de votos en 1 s (de cero a su valor) ante
 
 | Rama `h10-cargos` | Debería |
 |---|---|
-| Organigrama como lista de filas «cargo · titular · Presentarse» en un panel central. | Árbol de asientos con retratos en el panel lateral; detalle del asiento elegido. |
+| Organigrama como lista de filas «cargo · titular · Presentarse» en un panel central. | Árbol de asientos con retratos en un modal grande; detalle del asiento elegido. |
 | Ocho «Presentarse» apagados en gris sin motivo visible. | Un solo «Presentarse» en el detalle, con su motivo y cuándo. |
 | Calendario en una línea de texto («Votación el día 9 (campaña desde el día 7)»). | Línea de calendario con tramos y marca de hoy. |
 | Campaña mezclada bajo el organigrama. | Pestaña Campaña con lo hecho y días que quedan. |
@@ -208,7 +209,7 @@ Feedback: el recuento llena las barras de votos en 1 s (de cero a su valor) ante
 Tareas (cuando H10 esté en `main`):
 
 1. Kit: nodo de asiento, insignias urna/titular, línea de calendario, deslizador (pendientes).
-2. `offices_panel` → panel lateral con pestañas Cargos · Campaña · Poderes.
+2. `offices_panel` → modal grande (912×440) con el árbol de asientos a la izquierda y pestañas Cargos · Campaña · Poderes a la derecha.
 3. Árbol de asientos + detalle del asiento con calendario y Presentarse (motivo y confirmación).
 4. Pestaña Campaña (lo hecho, días, discurso, enlace «Elegir vecino»).
 5. `npc_panel`: confirmación de soborno y difamación con banda de riesgo.

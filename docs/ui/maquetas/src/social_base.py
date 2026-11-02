@@ -1,8 +1,10 @@
 """Ayudas compartidas por las maquetas de las mecánicas sociales (docs/ui/mecanicas/_social.md).
 
 Solo construyen listas de elementos para tools/ui/maqueta.py; no dibujan nada por su cuenta.
-Zonas (960×540): panel lateral x 600..952 · y 96..516; tarjetas x 4..304 desde y 96; panel grande x 4..956 · y 52..520;
-cartas centradas sobre velo.
+Zonas: las del HUD propuesto (docs/ui/01_hud.md, hud.ZONAS). Panel de gestión = zona 5 [600, 58, 356, 430]; tarjetas
+sociales en la columna izquierda (zona 4) bajo el objetivo plegado, x 4..240 desde y 112; pantallas grandes = modal
+912×440 en [24, 58]; cartas y confirmaciones centradas sobre velo; la selección abajo (zona 6).
+Las maquetas del panel lateral se escriben con LAT_Y = 96 (coordenada de diseño) y a_lateral() las sube a y 58.
 """
 
 import os as _os
@@ -10,13 +12,17 @@ import sys as _sys
 
 _ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))))
 _sys.path.insert(0, _os.path.join(_ROOT, "tools", "ui"))
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
 from maqueta import text_size  # noqa: E402
+import hud  # noqa: E402
 
 FONDO_PLAZA = {"captura": "docs/ui/maquetas/fondos/plaza_dia.png", "oscurecer": 0.25, "desaturar": 0.2}
 FONDO_AYTO = {"captura": "docs/ui/maquetas/fondos/mapa_dia.png", "oscurecer": 0.25, "desaturar": 0.2}
 
-LAT_X, LAT_Y, LAT_W = 600, 96, 352
-TAR_X, TAR_Y, TAR_W = 4, 96, 300
+LAT_X, LAT_Y, LAT_W = 600, 96, 356
+DY_LATERAL = hud.ZONAS["lateral"][1] - LAT_Y        # −38: de la coordenada de diseño a la zona 5
+TAR_X, TAR_Y, TAR_W = 4, 112, 236                  # bajo el objetivo plegado (zona 4)
+MODAL = [24, 58, 912, 440]                          # pantallas grandes (01_hud §4.7)
 
 # Colores de familia del escenario town_e_start (data/scenarios/town_e_start.json)
 FAM = {
@@ -89,7 +95,18 @@ def panel(x, y, w, h, titulo=None, cerrar=True, estilo="madera"):
 
 
 def lateral(titulo, h=380, y=LAT_Y):
-    return panel(LAT_X, y, LAT_W, h, titulo)
+    return panel(LAT_X, y, LAT_W, min(h, 430), titulo)
+
+
+def a_lateral(elementos, dy=None):
+    """Sube los elementos de una maqueta de panel lateral de y 96 (diseño) a la zona 5 del HUD (y 58)."""
+    dy = DY_LATERAL if dy is None else dy
+    for e in elementos:
+        if "rect" in e and e.get("tipo") != "velo":
+            e["rect"] = [e["rect"][0], e["rect"][1] + dy] + list(e["rect"][2:])
+        if "pos" in e:
+            e["pos"] = [e["pos"][0], e["pos"][1] + dy]
+    return elementos
 
 
 def llamada(x, y, n):
@@ -128,13 +145,38 @@ def motivo(x, y, w, txt):
     return t(x, y, w, 12, txt, "cuerpo", "negativo")
 
 
-def velo(op=0.55):
-    return {"tipo": "velo", "opacidad": op}
+def velo(op=0.55, desde=0):
+    """desde=58: el velo de un modal grande deja a la vista el HUD de arriba (01_hud §4.7)."""
+    return {"tipo": "velo", "opacidad": op, "rect": [0, desde, 960, 540 - desde]}
+
+
+def oficio(oid):
+    """Insignia de cargo del kit (12×12) por id de data/offices/."""
+    alias = {"tax_collector": "collector", "market_inspector": "inspector"}
+    return "ui:marks/badge_office_" + alias.get(oid, oid)
+
+
+def titulo_ins(tid):
+    return "ui:marks/badge_title_" + tid
+
+
+SEL_HUGO = ("Hugo Herrero", "En la plaza · sin órdenes", "texto_tenue",
+            (("Familia", "normal"), ("Inventario", "normal")), RET["hugo"])
+
+
+def base_hud(sel=None, objetivo=True):
+    """HUD propuesto (docs/ui/maquetas/src/hud.py): ficha, estado, reloj, objetivo plegado y selección."""
+    el = hud.ficha(titulo="citizen", titulo_txt="Ciudadano", rep="60", oro="300") + hud.barra_estado() + hud.reloj()
+    if objetivo:
+        el += hud.objetivo(plegado=True)[0]
+    if sel is not False:
+        el += hud.seleccion(*(sel or SEL_HUGO))
+    return el
 
 
 def con_hud(maquetas):
-    """Marca la franja del HUD superior (la diseña el kit en 01_hud.md) en cada maqueta: los fondos no llevan HUD."""
+    """Monta cada maqueta sobre el HUD propuesto. Claves opcionales de la maqueta: _sel (args de hud.seleccion o
+    False) y _obj (objetivo plegado en la columna)."""
     for m in maquetas:
-        m["elementos"].insert(0, {"tipo": "zona", "rect": [0, 0, 960, 48], "color": "remache",
-                                  "texto": "HUD superior (kit · 01_hud.md)", "fuente": "cuerpo"})
+        m["elementos"] = base_hud(m.pop("_sel", None), m.pop("_obj", True)) + m["elementos"]
     return maquetas

@@ -35,7 +35,7 @@ apagado, para que se note que estás en otro sitio.
 
 ## 3. Jerarquía de información
 
-### Panel del juicio · preparación (panel grande)
+### Panel del juicio · preparación (modal grande)
 
 1. **Primero**: cabecera con **acusado contra acusador** (retratos y familias), el **cargo** y su **gravedad**
    (leve · media · grave · máxima) con la **condena posible** escrita («Grave: pierdes el cargo y el título baja un
@@ -108,7 +108,7 @@ ganas, «Los Ferrer pierden 50 de reputación».
 
 ## 6. Maqueta
 
-Carta «Te acusan» (columna de tarjetas, 300 × ~130):
+Carta «Te acusan» (columna izquierda, zona 4, 236 de ancho):
 
 ```
 +==============================================+
@@ -121,7 +121,7 @@ Carta «Te acusan» (columna de tarjetas, 300 × ~130):
 +==============================================+
 ```
 
-Panel del juicio · preparación (panel grande, 952 × 468):
+Panel del juicio · preparación: **no cabe en la zona 5**, va como **modal grande a pantalla completa** (`[24, 58, 912, 440]`, 01_hud §4.7), igual que la vista oral; la carta «Te acusan» va en la columna izquierda (zona 4):
 
 ```
 +============================================================================================+
@@ -153,7 +153,7 @@ Vista oral y veredicto: en los PNG.
 ![tribunal_vista](../maquetas/tribunal_vista.png)
 ![tribunal_veredicto](../maquetas/tribunal_veredicto.png)
 
-**Piezas de kit pendientes**: marco del tribunal (variante de `panel` con sección púrpura `#2a2034` y filete oro
+**Piezas del kit que usa**: `ui:marks/seal` como base del sello de veredicto. **Piezas de kit pendientes**: marco del tribunal (variante de `panel` con sección púrpura `#2a2034` y filete oro
 apagado); balanza (barra doble enfrentada con fiel en el centro); sellos INOCENTE / CULPABLE (sin texto dentro del
 sprite: el texto va encima); iconos 16 de mazo, pergamino de acusación, ojo (testigo), cadena (destierro); insignia
 «desterrado» 8×8.
@@ -197,7 +197,7 @@ Tareas (en H11, tras su contrato):
 1. Owner: decisiones de la vista interactiva, pruebas visibles y pausa.
 2. Kit: marco de tribunal, balanza, sellos, iconos (pendientes).
 3. Sim (consultas): `Trials.balance`, `action_status`, `bribe_cost`, `evidence_for`.
-4. `trial_card` (te acusan) en la columna de tarjetas.
+4. `trial_card` (te acusan) en la columna izquierda (zona 4).
 5. `trial_panel`: preparación (cabecera, balanza, testigos y acciones con confirmación).
 6. `trial_panel`: vista oral paso a paso (+ interrogatorio si (b)).
 7. `verdict_card`.
