@@ -37,8 +37,9 @@ Hoy ya funciona así; se mantiene.
    `icon_warning` (parado: almacén lleno, sin entradas) o la ventana del toque abierta (martillo dorado parpadeando).
 2. La **barra de progreso del ciclo**, sobre el puesto y no sobre el personaje, con la **ventana del toque de maestro
    marcada en dorado** dentro de la propia barra. Así se ve venir.
-3. La **placa del edificio** (arriba en el centro, bajo el HUD): nombre, quién mira (con Hugo / gestión) y 4 fichas
-   de estado clicables: estado del edificio, almacén `3/10`, empleados `1/1` y cola en marcha o en pausa.
+3. La **barra del edificio** en la zona de selección (abajo, [01_hud.md](../01_hud.md)): nombre, una línea de estado
+   («Hugo en el yunque · cola parada»; en obras, «En obras: Fuelle mejorado · 12 h»; dañado, en rojo) y los botones
+   del interior con sus insignias (4.4).
 
 **Lo segundo (en el menú de puesto, al hacer clic derecho):** modo de trabajo, recetas con lo que gastan y lo que
 hay, duración real y probabilidad de cada calidad.
@@ -47,10 +48,6 @@ hay, duración real y probabilidad de cada calidad.
 saldrá), el motivo exacto de un puesto parado y la fórmula del modo.
 
 ```
- placa del edificio (centro, y=52)
- ┌──────────────────────────────────────────────────────────────┐
- │ FORJA · con Hugo   [● Normal] [▦ 3/10] [☺ 1/1] [▶ cola]      │
- └──────────────────────────────────────────────────────────────┘
           barra del puesto (32×4) con la ventana del toque en dorado
                  ┌────────────────────────────────┐
                  │███████████▓▓▓▓░░░░░░░░░░░░░░░░│  ▓ = ventana (1 h de juego)
@@ -125,12 +122,13 @@ personaje no está en ese puesto, el clic izquierdo es «ir allí» (`go_to_stat
 - Al reanudar, las marcas se borran a medida que se cumplen.
 - Una orden dada sin pausa sustituye la cola (GDD 4.1): las marcas viejas desaparecen de golpe.
 
-### 4.4 Barra de herramientas del interior
+### 4.4 Botones del interior (barra del edificio)
 
-Hoy: *Mejoras · Almacén · Empleados · Producción · Salir*, solo con texto. Se propone:
+Hoy: *Mejoras · Almacén · Empleados · Producción · Salir*, arriba a la derecha y solo con texto. Con el HUD propuesto
+(01_hud) van en la barra del edificio, abajo, en este orden de uso y con tecla: **Producción P · Almacén A ·
+Empleados E · Mejoras M · Salir Esc**. Lo que añade esta mecánica:
 
-- icono de 16 px y texto en cada botón, en este orden de uso: **Producción · Almacén · Empleados · Mejoras · Salir**;
-- el botón del panel abierto, con filete dorado (hoy ya se resalta);
+- el botón del panel abierto, pulsado (hoy ya se resalta);
 - **insignia** en el botón cuando hay algo que mirar: un `!` rojo en *Producción* si la cola está parada, un
   número en *Empleados* si hay un ascenso por responder y un martillo en *Mejoras* durante una obra.
 
@@ -186,12 +184,12 @@ franja, y un detalle debajo de la franja elegida.
   amarillo de 4 px) y [forja_interior_hoy_rutina.png](../maquetas/forja_interior_hoy_rutina.png) (rutina con 12
   desplegables).
 - Propuesta (con `tools/ui/maqueta.py`; guion `docs/ui/maquetas/src/forja_interior.py`, también en `_x2`):
-  - [forja_interior.png](../maquetas/forja_interior.png): placa del edificio (1), barra de herramientas con insignias (2), barra
-    del yunque con la ventana del toque encendida (3), menú de puesto en una caja (4) y órdenes de la pausa activa
-    sobre sus destinos (5);
+  - [forja_interior.png](../maquetas/forja_interior.png): sobre el HUD propuesto. Barra del edificio abajo (1) con
+    las insignias de *Producción* y *Empleados* (2), barra del yunque con la ventana del toque encendida (3), menú de
+    puesto en una caja (4), órdenes de la pausa activa sobre sus destinos (5) y su lista en la columna (6);
   - [forja_interior_rutina.png](../maquetas/forja_interior_rutina.png): pestaña *Rutina* de la ficha, con la tira del día (1),
     el detalle de la franja (2) y el aviso de orden manual (3).
-- El HUD, el objetivo y el interior del fondo son una captura real de hoy, oscurecida.
+- Fondo: el interior real sin HUD (`src/fondo_forja_hugo.png`, con Hugo recortado de una captura de hoy).
 
 ![forja_interior](../maquetas/forja_interior.png)
 ![forja_interior_rutina](../maquetas/forja_interior_rutina.png)
@@ -248,8 +246,8 @@ solo dice `window_open`.
 | Sin probabilidad de calidad | Barra de 3 tramos por receta y modo |
 | Ventana del toque = punto amarillo | Tramo dorado en la barra + martillo + campanilla |
 | Barra de progreso sobre el personaje | Barra sobre el puesto (el personaje puede moverse; el ciclo es del puesto) |
-| «Forja · gestión» y la obra en otra línea | Placa con fichas de estado clicables |
-| Barra de herramientas solo con texto | Iconos, orden de uso e insignias |
+| «Forja · gestión» arriba y la obra en otra línea | Barra del edificio abajo con nombre y estado (01_hud) |
+| Barra de herramientas arriba, solo con texto | Botones en la barra del edificio, con tecla, orden de uso e insignias |
 | Rutina con 12 desplegables | Tira del día + detalle de la franja |
 
 Tareas (cada una cabe en un commit):
@@ -257,8 +255,8 @@ Tareas (cada una cabe en un commit):
 2. `StationMenu`: una caja con selector de modo, filas con icono y entradas, motivo visible y barra de calidad.
 3. Barra del puesto con tramo de ventana en la vista del interior (`game/interior/`), y fuera la barra del personaje.
 4. Icono de estado por puesto (trabajando, libre, parado, ventana, noche).
-5. Placa del edificio con fichas clicables que abren su panel.
-6. Barra de herramientas con iconos, orden e insignias.
+5. Barra del edificio (la de 01_hud) con la línea de estado del interior.
+6. Insignias sobre los botones del interior.
 7. Marcas numeradas de la pausa activa sobre los destinos.
 8. `RoutineEditor` como tira del día con detalle (sin cambiar `set_schedule`).
 9. Globos de primera vez (puesto y toque), con su marca de «visto» en el perfil de usuario, no en la partida.
@@ -287,4 +285,4 @@ fijo de probabilidad en vez de +2 de Artesanía). Aquí no se toca.
 - [ ] Con la cola parada, la insignia `!` aparece en *Producción* sin abrir el panel.
 - [ ] La tira de la rutina en invierno tiene la noche más ancha que en verano (46 % frente a 26 %).
 - [ ] Con una orden manual en curso, el editor dice «Manda una orden manual».
-- [ ] Captura a 960×540 sin solapes: el menú de puesto abierto no tapa el panel lateral ni la placa.
+- [ ] Captura a 960×540 sin solapes: el menú de puesto abierto no tapa el panel lateral ni la barra del edificio.

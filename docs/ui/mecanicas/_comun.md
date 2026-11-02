@@ -4,35 +4,32 @@ Lo que comparten los siete documentos de `docs/ui/mecanicas/` (forja_interior, p
 mercado_y_libro, empleados, mejoras, parcelas_y_construccion), para no repetirlo en cada uno.
 
 > [!NOTE]
-> Si la guía visual del kit (`docs/ui/README.md` y sus ficheros 00-03) fija otra cosa, manda la guía. Las medidas de
-> aquí son provisionales hasta que el kit las cierre.
+> Manda la guía del kit: [00_lenguaje_visual.md](../00_lenguaje_visual.md) y [01_hud.md](../01_hud.md). Estas
+> convenciones se ajustan a sus zonas (`docs/ui/maquetas/src/hud.py` → `ZONAS`) y todas las maquetas de economía se
+> montan sobre el HUD propuesto.
 
 ## Pantalla y zonas (960×540 lógicos, ×2 a 1080p)
 
-```
- 0                                                                          960
- ┌─ HUD superior (kit) ───────────────────────────────────────────────────────┐ 0
- │ retrato · oro · título · deuda · libro · reloj · velocidades               │
- ├────────────────────────────────────────────────────────────────────────────┤ 48
- │ grupo 1-2-3 (kit)                         barra del edificio (si dentro)   │ 56
- │ objetivo plegable (kit)                ┌── PANEL LATERAL ──────────────┐   │ 96
- │                                        │ 352 × hasta 420                │   │
- │            vista (mapa o interior)     │ x 600..952 · y 96..516         │   │
- │                                        │ (uno a la vez)                 │   │
- │                                        └────────────────────────────────┘   │
- ├────────────────────────────────────────────────────────────────────────────┤ 524
- │ línea de ayuda de controles (kit)                                          │ 540
- └────────────────────────────────────────────────────────────────────────────┘
-```
+![Zonas del HUD propuesto](../maquetas/hud_zonas.png)
 
-- **Panel lateral**: todos los paneles de gestión de estas mecánicas (producción, almacén, empleados, mejoras,
-  mercado, libro, parcela) se abren en la misma caja a la derecha. Abrir uno cierra el anterior. Así nunca tapan el
-  puesto en el que trabaja el personaje (el interior se dibuja centrado-izquierda) ni se pisan entre sí.
-- **Dentro de un edificio** la caja empieza en y 116, bajo la barra de herramientas del interior (y 92..108), y la
-  placa del edificio va centrada en y 50. **Panel ancho**: solo el árbol de mejoras, 708×400 en x 244..952.
+| Zona del HUD (01) | Rect | Qué ponen ahí las mecánicas de economía |
+|---|---|---|
+| Ficha, estado, reloj | arriba | Nada propio: oro, deuda (con su umbral de color, ver mercado_y_libro) y teclas L / F / I / B |
+| Columna | `[4, 58, 236, 186]` | Las órdenes en pausa del personaje (pausa activa), bajo el objetivo |
+| **Lateral** | `[600, 58, 356, 430]` | El panel de gestión: producción, almacén, ficha (I), empleados, mercado, libro, parcela. Uno a la vez |
+| Vista | `[244, 58, 352, 430]` | Menús contextuales (menú de puesto), tooltips y modales |
+| **Selección** | `[244, 492, 472, 44]` | En un interior, la **barra del edificio** (nombre, estado y *Producción P · Almacén A · Empleados E · Mejoras M · Salir Esc*, con insignias). En el mapa, el puesto o edificio elegido. En modo construcción, la **barra del modo** |
+| Avisos | `[4, 404, 236, 132]` | Avisos emergentes (cola parada, otra familia compra parcela…) |
+
+- **Panel lateral**: todos los paneles de gestión de estas mecánicas se abren en la misma caja. Abrir uno cierra el
+  anterior. Nunca tapan el puesto en el que trabaja el personaje (el interior se dibuja centrado-izquierda).
+- **Panel ancho** (solo el árbol de mejoras): vista + lateral, `[244, 58, 712, 430]`. No pisa la columna ni la
+  selección. Ninguna pantalla de economía necesita el modal grande de 912×440.
+- La «placa del edificio» y la «barra de herramientas» de los primeros borradores pasan a la **barra del edificio**
+  de la zona de selección (01_hud): mismo contenido, otro sitio.
 - **Menú contextual** (clic derecho en un puesto o en una parcela): caja pequeña junto al cursor, nunca dentro del
   panel lateral. Se cierra con Esc, con clic fuera o al dar la orden.
-- **Confirmación**: caja centrada de 280×120 sobre la vista, con el resumen en cifras y dos botones (*Confirmar* /
+- **Confirmación**: modal centrado sobre velo (01_hud: 280×120; las de construir y pagar crecen en alto hasta 400×160 para que quepan todas las cifras), con el resumen en cifras y dos botones (*Confirmar* /
   *Cancelar*). Solo para lo caro o lo que no se deshace (construir, demoler, despedir a un leal, mejora, pagar la
   deuda dejando el oro por debajo de lo que se cobra mañana).
 - Ninguno de estos paneles pausa el juego (GDD 4.1). La pausa es la del HUD.

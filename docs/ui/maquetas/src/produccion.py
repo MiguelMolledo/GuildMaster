@@ -5,13 +5,13 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from economia_base import (CW, FAM_HERRERO, FONDO_FORJA, I, IT, LAT_X, X, aviso, barra, barra_ventana, btn, caja,  # noqa
                            filete, ico, lateral, llamada, motivo, pestanas, ret, sep, t)
-from forja_interior import barra_herramientas, placa  # noqa: E402
+from economia_base import hud_interior  # noqa: E402
 
-PY = 116
+PY = 58
 
 
 def base(titulo, h, activa):
-    e = [caja(380, 34, 200, 52, "#000000"), caja(508, 88, 452, 24, "#000000")] + placa() + barra_herramientas()
+    e = hud_interior("Producción", estado="Cola parada: falta hierro", insignias={0: ("!", "negativo")})
     e.append(lateral(titulo, h, PY))
     e.append(pestanas(X, PY + 26, ["Ahora", "Cola", "Recetas"], activa))
     return e

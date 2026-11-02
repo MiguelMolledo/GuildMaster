@@ -5,9 +5,9 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from economia_base import (FONDO_FORJA, I, IT, barra, btn, caja, check, confirmacion, filete, ico, llamada,  # noqa
                            motivo, panel, sep, t)
-from forja_interior import barra_herramientas, placa  # noqa: E402
+from economia_base import hud_interior  # noqa: E402
 
-PX, PY, PW, PH = 244, 116, 708, 400
+PX, PY, PW, PH = 244, 58, 712, 430   # panel ancho = vista + lateral (01_hud)
 CX = PX + 8
 COL = {"owned": "#7cc860", "in_works": "#f0c040", "available": "#ece4d2", "blocked": "#8a8070"}
 
@@ -57,7 +57,7 @@ def celda(x, y, w, h, nombre, precio, st, sel=False, obra=False):
 
 
 def arbol(seleccion, en_obra=False):
-    e = [caja(380, 34, 200, 52, "#000000"), caja(508, 88, 452, 24, "#000000")] + placa() + barra_herramientas(False)
+    e = hud_interior("Mejoras", estado="Sin obras")
     e.append(panel(PX, PY, PW, PH, "Mejoras · Forja"))
     yy = PY + 26
     if en_obra:
@@ -115,7 +115,7 @@ def detalle_segundo_yunque(e, yy, en_obra=False):
 def mejoras():
     e, yy = arbol("Segundo yunque")
     e = detalle_segundo_yunque(e, yy)
-    e.append({"tipo": "tooltip", "rect": [PX + 330, PY + 56, 230, 0], "titulo": "Reputación comercial",
+    e.append({"tipo": "tooltip", "rect": [PX + 320, PY + 56, 262, 0], "titulo": "Reputación comercial",
               "lineas": ["Necesita Fachada de piedra (Fachada 1)", "y Escaparate exterior (Comercio 2)."]})
     e += filete(PX + 8 + 104, PY + 55 + 22 * 5, 196, 20, "oro_claro")
     e += filete(PX + 8 + 104 + 199, PY + 55 + 22 * 3, 196, 20, "oro_claro")

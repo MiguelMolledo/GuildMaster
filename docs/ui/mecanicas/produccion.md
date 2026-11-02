@@ -19,7 +19,7 @@ Responde a:
 
 ## 2. Cómo se abre y se cierra
 
-- Botón *Producción* de la barra del interior, ficha `▶ cola` de la placa del edificio, o clic en un aviso de la
+- Botón *Producción* de la barra del interior, la línea de estado de la barra del edificio, o clic en un aviso de la
   cola en el libro (abre el interior en gestión con este panel).
 - Desde el mapa: ficha del edificio → *Gestionar* → abre el interior con *Producción*.
 - Se cierra con X, con Esc o abriendo otro panel lateral. No pausa.
@@ -148,7 +148,6 @@ coste de las entradas va en el mercado (ver [mercado_y_libro.md](mercado_y_libro
 ![produccion_ahora](../maquetas/produccion_ahora.png)
 
 **Piezas de kit pendientes:**
-- pestañas del panel lateral;
 - fila de puesto (retrato 16 + icono + barra);
 - pips de progreso;
 - franja de aviso (roja y ámbar);

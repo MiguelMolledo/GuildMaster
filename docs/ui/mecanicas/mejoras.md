@@ -19,12 +19,12 @@ cancelar. Preguntas que responde:
 
 ## 2. Cómo se abre y se cierra
 
-- Botón *Mejoras* de la barra del interior, o ficha `● En obras` de la placa del edificio durante una obra.
+- Botón *Mejoras* de la barra del interior, (tecla M); durante una obra, el botón lleva insignia y la barra del edificio dice «En obras».
 - Enlaces de otros paneles: «Almacén ampliado → Mejoras», «Dormitorio de aprendiz → Mejoras», «Necesita *Forja de
   maestro*». Abren este panel con esa mejora elegida.
 - Se cierra con X, con Esc u otro panel. No pausa.
 
-Es el único panel de estas mecánicas que usa el **panel ancho**: 708×400 en x 244..952, y 116..516. Ocho filas de
+Es el único panel de estas mecánicas que usa el **panel ancho**: vista + lateral del HUD propuesto, `[244, 58, 712, 430]`. No pisa la columna, la selección ni los avisos. Ocho filas de
 nombres enteros («Dormitorio de aprendiz») no caben en 352 px. Tapa la mitad derecha del interior; comprar una mejora es un momento de gestión,
 no de mirar los puestos.
 
@@ -99,7 +99,7 @@ Son cuentas de presentación con la cifra del efecto y la duración base. No son
 
 | Estado | Qué se ve |
 |---|---|
-| **Obra en curso** | Franja de obra arriba en el panel, ficha ámbar en la placa del edificio, andamio en el mapa (hoy ya) y barra sobre el edificio. El resto de casillas disponibles dicen «una a la vez» |
+| **Obra en curso** | Franja de obra arriba en el panel, «En obras» en la barra del edificio, andamio en el mapa (hoy ya) y barra sobre el edificio. El resto de casillas disponibles dicen «una a la vez» |
 | **Obra terminada** | `upgrade_done`: la casilla pasa a ✓ con destello. El aviso del libro y el efecto visual del interior (yunque nuevo) aparecen a la vez |
 | **Mejora destruida** (incendio o sabotaje, EA) | La casilla vuelve a disponible con la marca «destruida el día 30». No está en el MVP; aquí solo se reserva el estado |
 | **Rama Secretos** | Al elegir una de Secretos, el detalle añade en rojo: «Ilegal. Riesgo de inspección +5 %/día; si te pillan, multa y juicio». Con alguna construida, abajo sale la sección de inspecciones: riesgo diario actual, veces pillado, multas pagadas y, con *Pasadizo*, si está listo |
@@ -121,7 +121,6 @@ Son cuentas de presentación con la cifra del efecto y la duración base. No son
 ![mejoras_confirmar](../maquetas/mejoras_confirmar.png)
 
 **Piezas de kit pendientes:**
-- panel ancho (708×400);
 - casilla del árbol (150×20) en los 4 estados de color, con icono y precio;
 - filete dorado de prerrequisito;
 - iconos de rama de 16×16: `icon_rama_*` de Guild Renew, reducidos en el workbench;
@@ -166,7 +165,7 @@ para «Hecha el día 4». Hoy `upgrades` guarda el orden, no el día. Es opciona
 | Sin ver prerrequisitos cruzados | ⛓ en la casilla y filete en los prerrequisitos |
 
 Tareas:
-1. Panel ancho en la caja del panel lateral (que la placa y la barra de herramientas sigan visibles).
+1. Panel ancho = vista + lateral (que la barra del edificio y la columna sigan visibles).
 2. Casilla del árbol con icono, nombre, precio y estado (pieza del kit + escena).
 3. Detalle con coste por material, requisitos con ✓/✗ y enlaces, obra y consecuencia, «se verá».
 4. Caja de confirmación común (la de `_comun.md`).

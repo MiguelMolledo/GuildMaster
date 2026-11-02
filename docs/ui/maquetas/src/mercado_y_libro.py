@@ -3,7 +3,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from economia_base import (CW, FONDO_MAPA, I, IT, LAT_X, LAT_Y, X, barra, btn, caja, check, confirmacion, demanda,  # noqa
+from economia_base import (CW, hud_mapa, FONDO_MAPA, I, IT, LAT_X, LAT_Y, X, barra, btn, caja, check, confirmacion, demanda,  # noqa
                            ico, lateral, llamada, motivo, pestanas, sep, t, text_size, tramos)
 
 
@@ -12,7 +12,9 @@ def oro(x, y, n):
 
 
 def cabecera(nombre, sub, gold, h, pest):
-    e = [lateral(nombre, h)]
+    e = hud_mapa(oro=str(gold), nombre=nombre, estado="Puesto del mercado · " + sub.lower(), estado_color="positivo",
+                 botones=(), icono=I + "bubble_shop.png")
+    e += [lateral(nombre, h)]
     e += oro(X + CW - 76, LAT_Y + 4, gold)
     e.append(t(X, LAT_Y + 24, CW, 12, sub, color="texto_tenue"))
     e.append(pestanas(X, LAT_Y + 40, pest[0], pest[1]))
@@ -74,7 +76,8 @@ def comprar():
 
 
 def deuda():
-    e = [lateral("Libro de cuentas · Herrero", 300)]
+    e = hud_mapa(oro="75")
+    e += [lateral("Libro de cuentas · Herrero", 300)]
     e += oro(X + CW - 76, LAT_Y + 4, 75)
     e.append(pestanas(X, LAT_Y + 26, ["Hoy", "Por día", "Por edificio", "Deudas", "Avisos 3"], 3))
     yy = LAT_Y + 46

@@ -3,41 +3,9 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from economia_base import (CW, text_size, FAM_HERRERO, FONDO_FORJA, I, IT, LAT_X, X, barra, barra_ventana, btn, caja, filete,  # noqa
+from economia_base import (CW, text_size, hud_interior, FAM_HERRERO, FONDO_FORJA, I, IT, LAT_X, X, barra, barra_ventana, btn, caja, filete,  # noqa
                            ico, insignia, lateral, llamada, motivo, panel, pestanas, ret, selector, sep, t, tooltip,
                            tramos)
-
-
-def placa():
-    """Placa del edificio con fichas de estado (y=52, centro)."""
-    x, y = 268, 50
-    e = [panel(x, y, 424, 24, None, False, "oscuro"),
-         t(x + 8, y + 5, 120, 14, "FORJA · con Hugo", "negrita", "oro_claro")]
-    chips = [("icon_completed.png", "Normal", "positivo"), ("icon_backpack.png", "3/10", "texto"),
-             ("icon_controllable.png", "1/1", "texto"), ("icon_loop.png", "cola", "texto")]
-    cx = x + 128
-    for icon, txt, col in chips:
-        w = 16 + 6 + len(txt) * 6 + 8
-        e += [btn(cx, y + 4, "", w, 16), ico(cx + 3, y + 4, I + icon), t(cx + 21, y + 6, w - 22, 12, txt, color=col)]
-        cx += w + 4
-    return e
-
-
-def barra_herramientas(insignias=True):
-    x, y = 512, 92
-    e = []
-    items = [("Producción", "icon_working.png"), ("Almacén", "icon_backpack.png"),
-             ("Empleados", "icon_controllable.png"), ("Mejoras", "icon_build_mode.png"), ("Salir", "icon_close.png")]
-    cx = x
-    for i, (txt, icon) in enumerate(items):
-        w = text_size(txt, "cuerpo")[0] + 30
-        e.append(btn(cx, y, txt, w, 16, "normal", I + icon, "cuerpo"))
-        if insignias and txt == "Producción":
-            e += insignia(cx + w - 6, y - 4, "!")
-        if insignias and txt == "Empleados":
-            e += insignia(cx + w - 6, y - 4, "1", "oro")
-        cx += w + 2
-    return e
 
 
 def menu_puesto():
@@ -89,7 +57,8 @@ def menu_puesto():
 
 
 def interior():
-    e = [caja(380, 34, 200, 52, "#000000"), caja(508, 88, 452, 24, "#000000")] + placa() + barra_herramientas()
+    e = hud_interior(cola=2, pausa=True, estado="Hugo en el yunque · cola parada",
+                     insignias={0: ("!", "negativo"), 2: ("1", "oro")})
     # barra del puesto (sobre el yunque) con el tramo del toque encendido, y su icono de estado
     e += barra_ventana(440, 238, 50, 6, 0.55, 0.45, 0.62, encendida=True)
     e += [ico(494, 233, I + "icon_martillo.png"), caja(492, 231, 20, 20, "oro", 0.0)]
@@ -98,16 +67,15 @@ def interior():
     e += [ico(360, 196, I + "icon_idle.png")]
     # pausa activa: órdenes encoladas sobre sus destinos
     e += insignia(392, 214, "1", "oro") + insignia(402, 352, "2", "oro")
-    e += [tooltip(232, 380, 196, "Pausa activa", ["Órdenes de Hugo: 1. Fundir lingote", "2. Coger del almacén"])]
     e += menu_puesto()
-    e += [llamada(262, 48, 1), llamada(506, 90, 2), llamada(434, 232, 3), llamada(514, 124, 4), llamada(386, 210, 5)]
+    e += [llamada(240, 490, 1), llamada(326, 504, 2), llamada(434, 232, 3), llamada(514, 124, 4), llamada(386, 210, 5), llamada(240, 112, 6)]
     return {"id": "forja_interior", "fondo": FONDO_FORJA, "elementos": e}
 
 
 def rutina():
-    e = [caja(380, 34, 200, 52, "#000000"), caja(508, 88, 452, 24, "#000000")] + placa() + barra_herramientas(False)
-    e.append(lateral("Hugo", 262, 116))
-    yy = 116 + 26
+    e = hud_interior(estado="Hugo en el yunque")
+    e.append(lateral("Hugo", 262))
+    yy = 58 + 26
     e += [ret(X, yy, "portrait_artesano.png", 48, FAM_HERRERO, "activo"),
           t(X + 56, yy, 200, 12, "20 años · Herrero · Plebeyo", color="texto_tenue"),
           ico(X + 56, yy + 15, I + "icon_oro.png"), t(X + 74, yy + 17, 120, 12, "65 de la familia", "negrita",
@@ -153,7 +121,7 @@ def rutina():
     yy += 18
     e.append({"tipo": "aviso", "rect": [X, yy, CW, 22], "gravedad": "aviso", "icono": I + "icon_warning.png",
               "texto": "Manda una orden manual: 2 en cola."})
-    e += [llamada(LAT_X - 6, 222, 1), llamada(LAT_X - 6, 284, 2), llamada(LAT_X - 6, 362, 3)]
+    e += [llamada(LAT_X - 6, 164, 1), llamada(LAT_X - 6, 226, 2), llamada(LAT_X - 6, 304, 3)]
     return {"id": "forja_interior_rutina", "fondo": FONDO_FORJA, "elementos": e}
 
 

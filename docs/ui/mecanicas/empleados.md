@@ -19,7 +19,7 @@ aunque no haya trabajo. Preguntas que responde:
 
 ## 2. Cómo se abre y se cierra
 
-- Botón *Empleados* de la barra del interior o ficha `☺ 1/1` de la placa del edificio.
+- Botón *Empleados* de la barra del interior (tecla E), con insignia si hay un ascenso por responder.
 - Clic en un aviso de empleado del libro (ascenso, lealtad, abandono): abre el interior en gestión con este panel y
   el empleado resaltado.
 - Clic en un empleado dentro del interior: abre el panel en *Plantilla* con su tarjeta.
@@ -134,7 +134,6 @@ tramo y su efecto van siempre escritos. Hoy solo dice «Lealtad 50 (descontento)
 ![empleados_plantilla](../maquetas/empleados_plantilla.png)
 
 **Piezas de kit pendientes:**
-- insignia de rango (A / O / M en 3 colores);
 - barra de lealtad con marcas de tramo;
 - tarjeta con filete dorado (ascenso pendiente);
 - selector de 4 con iconos de puesto: horno y yunque del interior reducidos a 16×16 en el workbench; mostrador;
@@ -165,7 +164,7 @@ Nada nuevo en el sim: todo lo que pide este panel ya está en las dos consultas 
 | `employee_hired` | `sfx_hire` | Tarjeta nueva en *Plantilla* con «Llega mañana» |
 | `employee_started` | — | En el mapa, el empleado camina a la forja (hoy ya) |
 | `promotion_offered` | **falta**: `sfx_promotion`, campanilla | Insignia con número en el botón *Empleados* y la tarjeta arriba |
-| `employee_promoted` | `sfx_objective_done` (o el de ascenso si se hace) | La insignia de rango cambia con destello |
+| `employee_promoted` | `sfx_objective_done` (o el de ascenso si se hace) | Los galones (`rank_1..3`) cambian con destello |
 | `wage_unpaid` | `sfx_debt` | Franja roja en la tarjeta |
 | `employee_left` / `employee_stole` | `sfx_thief_alarm` (robo) · **falta** `sfx_door_slam` (abandono) | Tarjeta gris 1 día |
 | `employee_bonus` | `sfx_coins` | Barra de lealtad sube con «+5» |
@@ -191,7 +190,7 @@ Tareas:
 3. *Plantilla*: tarjeta de empleado (qué hace, lealtad con tramos, ascenso, rol con iconos, gratificar, despedir
    con confirmación).
 4. Tarjeta de ascenso pendiente arriba con filete dorado e insignia en la barra del interior.
-5. Pieza de insignia de rango y barra de lealtad en el kit.
+5. Galones de rango del kit (`ui:marks/rank_1..3`) en tarjetas y candidatos; barra de lealtad con tramos (pieza pendiente).
 6. `sfx_promotion` y `sfx_door_slam` en `data/audio.json`.
 
 ## 10. Criterios de aceptación

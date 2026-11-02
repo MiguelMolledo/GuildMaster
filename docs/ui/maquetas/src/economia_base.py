@@ -4,7 +4,10 @@ Regenerar todas: python3 tools/ui/maqueta.py docs/ui/maquetas/src/{forja_interio
 
 Solo construyen listas de elementos para tools/ui/maqueta.py; no dibujan nada por su cuenta. Lo que el kit aún no
 tiene (pieza de kit pendiente) se aproxima con cajas y textos y se nombra en el documento de cada mecánica.
-Zonas (960×540): panel lateral x 600..952 · y 96..516 (352 de ancho); panel ancho (mejoras) x 396..952.
+Se montan sobre el HUD propuesto (docs/ui/01_hud.md, src/hud.py): panel de gestión = hud.ZONAS["lateral"]
+[600, 58, 356, 430]; barra del interior y selección abajo [244, 492, 472, 44]; panel ancho (árbol de mejoras) =
+vista + lateral [244, 58, 712, 430]. Fondos propios en src/ (fondo_forja*.png, fondo_mapa.png: los de
+docs/ui/maquetas/fondos/ de 6ea96dd; en 0b6cb5e salieron los tres iguales).
 """
 
 import os as _os
@@ -13,14 +16,17 @@ import sys as _sys
 _ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))))
 _sys.path.insert(0, _os.path.join(_ROOT, "tools", "ui"))
 from maqueta import text_size  # noqa: E402,F401
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+import hud  # noqa: E402
 
-FONDO_FORJA = {"captura": "docs/novedades/ui_forja_despues.png", "oscurecer": 0.25, "desaturar": 0.2}
-FONDO_MAPA = {"captura": "docs/ui/maquetas/fondos/mapa_dia.png", "oscurecer": 0.25, "desaturar": 0.2}
+FONDO_FORJA = {"captura": "docs/ui/maquetas/src/fondo_forja_hugo.png"}
+FONDO_FORJA_VACIA = {"captura": "docs/ui/maquetas/src/fondo_forja.png"}
+FONDO_MAPA = {"captura": "docs/ui/maquetas/src/fondo_mapa.png"}
 
-LAT_X, LAT_Y, LAT_W = 600, 96, 352
-X = LAT_X + 8          # columna de contenido del panel lateral
-CW = LAT_W - 16        # ancho de contenido (336)
-ANCHO_X, ANCHO_W = 396, 556
+LAT_X, LAT_Y, LAT_W, LAT_H = hud.ZONAS["lateral"]
+X = LAT_X + 10         # columna de contenido del panel lateral
+CW = LAT_W - 20        # ancho de contenido (336)
+ANCHO = [244, 58, 712, 430]
 
 I = "guild:icons/"
 IT = "icono:"          # iconos de objeto del juego (assets/art/icons/<id>.png)
@@ -74,8 +80,9 @@ def caja(x, y, w, h, color="seccion", opacidad=1.0):
     return {"tipo": "caja", "rect": [x, y, w, h], "color": color, "opacidad": opacidad}
 
 
-def sep(x, y, w, color="oro_oscuro"):
-    return {"tipo": "separador", "rect": [x, y, w, 1], "color": color}
+def sep(x, y, w, color=None):
+    """Divisor del kit (pieza divider, 3 px de alto)."""
+    return {"tipo": "pieza", "pieza": "divider", "rect": [x, y - 1, w, 3]}
 
 
 def panel(x, y, w, h, titulo=None, cerrar=True, estilo="madera"):
@@ -85,8 +92,54 @@ def panel(x, y, w, h, titulo=None, cerrar=True, estilo="madera"):
     return e
 
 
-def lateral(titulo, h=400, y=LAT_Y):
-    return panel(LAT_X, y, LAT_W, h, titulo)
+def lateral(titulo, h=LAT_H, y=LAT_Y):
+    return panel(LAT_X, y, LAT_W, min(h, LAT_H), titulo)
+
+
+def rango(x, y, r, texto=True):
+    """Galones de rango del kit (ui:marks/rank_1..3, 8×8) + el nombre."""
+    nombre, n, col = {"A": ("Aprendiz", 1, "texto_tenue"), "O": ("Oficial", 2, "info"), "M": ("Maestro", 3, "oro")}[r]
+    out = [img(x, y, "ui:marks/rank_%d" % n, 8, 8)]
+    if texto:
+        out.append(t(x + 11, y - 1, 70, 12, nombre.upper(), "pequena", col, ajustar=False))
+    return out
+
+
+def scroll(x, y, h, desde=0.0, alto=0.4):
+    """Barra de scroll del kit (scroll_track + scroll_grabber)."""
+    return [{"tipo": "pieza", "pieza": "scroll_track", "rect": [x, y, 6, h]},
+            {"tipo": "pieza", "pieza": "scroll_grabber", "rect": [x, y + int(h * desde), 6, max(12, int(h * alto))]}]
+
+
+def deslizador(x, y, w, v):
+    """Deslizador del kit (slider_track + slider_grabber)."""
+    return [{"tipo": "pieza", "pieza": "slider_track", "rect": [x, y + 3, w, 6]},
+            img(x + int((w - 7) * v), y, "pieza:slider_grabber", 7, 11)]
+
+
+def hud_interior(activa=None, cola=None, estado="Hugo en el yunque · cola en marcha", oro="65", deuda="190",
+                 dias="7 días", pausa=False, objetivo=None, insignias=None):
+    """HUD propuesto con la barra del interior abajo (P / A / E / M / Salir) y las insignias pedidas encima."""
+    e = hud.ficha(oro=oro, cola=cola) + hud.barra_estado(deuda=deuda, dias=dias, pausa=pausa)
+    e += hud.reloj(hora="11:17", fecha="Día 2 · Primavera · año 1", fase=0.3, pausa=pausa)
+    obj, y = hud.objetivo(*(objetivo or ("Cumple un encargo de calidad «buena»", "0/1")), plegado=True)
+    e += obj
+    if cola:
+        e += hud.cola_ordenes(y, ordenes=("Fundir lingote (horno)", "Coger del almacén"))
+    e += hud.barra_interior("Forja de Hugo", estado, activa)
+    for k, (letra, color) in (insignias or {}).items():
+        bx = hud.ZONAS["seleccion"][0] + 9 + 92 * k + 80
+        e += insignia(bx, hud.ZONAS["seleccion"][1] + 18, letra, color)
+    return e
+
+
+def hud_mapa(oro="139", seleccion=True, **kw):
+    e = hud.ficha(oro=oro) + hud.barra_estado() + hud.reloj()
+    obj, _ = hud.objetivo("Cumple un encargo de calidad «buena»", "0/1", plegado=True)
+    e += obj
+    if seleccion:
+        e += hud.seleccion(**kw)
+    return e
 
 
 def pestanas(x, y, textos, activa=0):

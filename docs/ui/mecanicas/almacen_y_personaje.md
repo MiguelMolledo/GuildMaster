@@ -23,7 +23,7 @@ Preguntas que responde:
 
 | Qué | Abrir | Cerrar | Pausa |
 |---|---|---|---|
-| Almacén del edificio | Botón *Almacén* de la barra del interior, ficha `▦ 3/10` de la placa, o clic derecho en el puesto *Almacén* | X, Esc u otro panel lateral | No |
+| Almacén del edificio | Botón *Almacén* de la barra del interior, tecla A, o clic derecho en el puesto *Almacén* | X, Esc u otro panel lateral | No |
 | Ficha del personaje (I) | Tecla I, botón *Inventario (I)* del HUD o doble clic en su retrato del grupo | I, X, Esc u otro panel | No |
 
 Con el almacén abierto y un personaje dentro, la ficha no hace falta: el panel del almacén ya enseña la bolsa del
@@ -119,7 +119,7 @@ tiene cifra en `data/`: si no hay cifra, no se escribe.
 
 | Estado | Qué se ve |
 |---|---|
-| **Almacén lleno** | Contador `10/10` en rojo, casillas sin hueco, y en la placa del edificio la ficha en rojo. Si un puesto está parado por esto, el aviso lo dice (ver [produccion.md](produccion.md)) |
+| **Almacén lleno** | Contador `10/10` en rojo, casillas sin hueco, y la barra del edificio lo dice en rojo. Si un puesto está parado por esto, el aviso lo dice (ver [produccion.md](produccion.md)) |
 | **Personaje casi al límite** (> 90 %) | Barra en ámbar; al 100 %, en rojo y la línea «No puedes coger más: deja algo o usa el recado de entrega» |
 | **Cosas en el suelo de un puesto** (D11, no cabían) | En el almacén, una fila extra «En el suelo del yunque: 2 lingotes [Recoger]» → `transfer` desde el suelo, **si el sim lo permite** (hoy nadie las recoge: ver 7) |
 | **Recado en camino** | Fila gris al final del almacén: «En camino: 6 hierro · llega a las 11:40». Las pilas reservadas se ven como casillas con borde punteado |

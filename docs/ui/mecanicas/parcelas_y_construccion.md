@@ -43,8 +43,8 @@ y se entra en el modo.
 1. Las **parcelas pintadas por tipo** sobre el mapa (GDD 4.9): verde rústica, naranja producción, azul vivienda y
    gris ocupada. Son los diamantes de `parcels/parcel_<tipo>` de Guild Renew. Las ocupadas llevan el **banderín de
    la familia** dueña; las que están en venta, el cartel.
-2. La **franja del modo**, arriba bajo el HUD: edificios propios contra el límite del título, parcelas libres por
-   tipo y la leyenda.
+2. La **barra del modo** en la zona de selección (abajo, [01_hud.md](../01_hud.md)): edificios propios contra el
+   límite del título (con la insignia del título, `badge_title_<id>`), parcelas libres por tipo, la leyenda y *Salir B*.
 3. El resto del mapa, oscurecido un 25 %.
 
 **Al pasar el ratón por una parcela:** filete dorado y tooltip con tipo, tamaño, estado y qué admite.
@@ -52,11 +52,11 @@ y se entra en el modo.
 **Al hacer clic:** panel lateral con la parcela, los edificios que admite y su coste, y *Construir*.
 
 ```
- franja del modo (y=52, todo el ancho)
- ┌──────────────────────────────────────────────────────────────────────────────────┐
- │ ⚒ CONSTRUIR  Edificios 1/2 (Ciudadano) · Libres: ■ producción 3 ■ vivienda 4 ■ rústica 2 │
- │            ■ rústica ■ producción ■ vivienda ■ ocupada ⚑ familia  ⌂ se vende      [Salir B] │
- └──────────────────────────────────────────────────────────────────────────────────┘
+ barra del modo (zona de selección [244, 492, 472, 44])
+ ┌──────────────────────────────────────────────────────────────────┐
+ │ ⚒ CONSTRUIR  ⛉ Edificios 1/2  Libres: ◆3 ◆4 ◆2        [Salir B] │
+ │ ◆ rústica  ◆ producción  ◆ vivienda  ⚑ ocupada  ⌂ se vende       │
+ └──────────────────────────────────────────────────────────────────┘
 ```
 
 ## 4. Acciones y sus estados
@@ -153,12 +153,12 @@ Ficha del edificio propio → `⋯` → *Demoler…*. Confirmación doble: es lo
 
 | Estado | Qué se ve |
 |---|---|
-| **Primera vez en modo construcción** | Globo sobre la franja: «Cada color es un tipo de parcela. Clic en una libre para ver qué puedes construir». La primera vez que se cumple el límite, el globo apunta al enlace de requisitos |
-| **Límite de edificios alcanzado** | Las parcelas libres se siguen viendo (enseñan el camino), pero el filete al pasar el ratón es gris y la franja dice «1/1 · sube a Ciudadano para tener 2» |
+| **Primera vez en modo construcción** | Globo sobre la barra del modo: «Cada color es un tipo de parcela. Clic en una libre para ver qué puedes construir». La primera vez que se cumple el límite, el globo apunta al enlace de requisitos |
+| **Límite de edificios alcanzado** | Las parcelas libres se siguen viendo (enseñan el camino), pero el filete al pasar el ratón es gris y la barra del modo dice «1/1 · sube a Ciudadano para tener 2» |
 | **Edificio en obra** | En el mapa: andamio (la misma pieza que las mejoras, `Works`) + barra + placa «Forja · lista en 1 d 6 h». En el modo: la parcela con `icon_in_progress`. Al clicar, panel con la obra |
 | **Obra terminada** | Aviso «Tu nueva Forja está lista» + crónica (+15 puntos, 4.17). La primera vez, globo: «Contrata a alguien o pon a un familiar a trabajar aquí (árbol, F)» |
 | **Una familia IA compra o construye** | La parcela pasa a gris con su banderín y su andamio. Aviso informativo en el libro: «Los Ferrer compran una parcela en la Calle del Río». Es información pública (04c §4.21.4) |
-| **Quedan 2 libres de un tipo (válvula)** | En la franja, el número de ese tipo en ámbar con tooltip «Siempre quedan al menos 2 libres de cada tipo» |
+| **Quedan 2 libres de un tipo (válvula)** | En la barra del modo, el número de ese tipo en ámbar con tooltip «Siempre quedan al menos 2 libres de cada tipo» |
 | **Parcela que te quitan mientras miras** | El panel se refresca: «Los Ferrer la compraron hace un momento» y *Construir* se apaga |
 | **Nada que construir en ese tipo** (rústica en el MVP) | «Aquí van granjas, minas y aserraderos. Llegan con el contenido EA» |
 | **Mansión** (2 parcelas de vivienda, 4.6.1) | Al elegirla, se piden 2 parcelas adyacentes: la segunda se marca al pasar el ratón; con una sola libre, motivo «Necesita 2 parcelas de vivienda juntas». Es EA; se deja dicho |
@@ -169,9 +169,9 @@ Ficha del edificio propio → `⋯` → *Demoler…*. Confirmación doble: es lo
   del día 4. Las manzanas libres (`#` en `data/maps/town_e.json`) se rellenan de casas de atrezo y no se distinguen
   de las parcelas.
 - Propuesta (guion `docs/ui/maquetas/src/parcelas_y_construccion.py`):
-  - [parcelas_y_construccion.png](../maquetas/parcelas_y_construccion.png): franja del modo (1), parcela de producción
+  - [parcelas_y_construccion.png](../maquetas/parcelas_y_construccion.png): barra del modo abajo (1), parcela de producción
     elegida con su filete (2), banderín de una ocupada (3), panel de la parcela (4, 5) y aviso de que otra familia
-    compró (6);
+    compró, en la zona de avisos (6);
   - [parcelas_y_construccion_confirmar.png](../maquetas/parcelas_y_construccion_confirmar.png): confirmación.
 - Las parcelas van en posiciones de ejemplo, sobre manzanas de atrezo, que es lo que H6 convertirá en parcelas.
 
@@ -183,7 +183,6 @@ Ficha del edificio propio → `⋯` → *Demoler…*. Confirmación doble: es lo
 - filete dorado de parcela (contorno del rombo de la huella);
 - banderín de familia de 8×12 (dos colores de la familia);
 - cartel «Se vende» de 16×16: se dibuja en el workbench; no lleva texto en el sprite;
-- franja del modo (barra a todo el ancho con la leyenda);
 - miniatura de huella (rombos de 8×4);
 - caja de confirmación con campo de texto (demoler).
 
@@ -223,14 +222,14 @@ Hoy no hay nada de esto en el juego. Tareas para el hito H6, en este orden:
 1. Parcelas en `data/maps/town_e.json` (decidir qué manzanas `#` son parcelas y de qué tipo). Las casas de atrezo
    se quedan fuera de ellas.
 2. Pieza de diamante de parcela (4 tintes), banderín y cartel en el kit.
-3. Modo construcción: velo, capa de parcelas, franja con contadores y leyenda, tecla B.
+3. Modo construcción: velo, capa de parcelas, barra del modo (zona de selección) con contadores y leyenda, tecla B.
 4. Tooltip y filete al pasar el ratón.
 5. Panel de parcela con la lista de lo que admite y los motivos.
 6. Confirmación de construir; andamio y barra en el mapa (reutiliza la de mejoras).
 7. Ficha de edificio ajeno con *Comprar…* y su desglose; cartel «Se vende».
 8. *Demoler…* con confirmación escrita.
 9. Selector de edificio propio para cuando haya dos (lo pide este documento al kit). Hoy la barra del interior y
-   los paneles dan por hecho un solo edificio. Propuesta: flechas ◀ ▶ en la placa del edificio y la lista «Mis
+   los paneles dan por hecho un solo edificio. Propuesta: flechas ◀ ▶ en la barra del edificio y la lista «Mis
    edificios» en el HUD.
 10. Sonidos `sfx_build_mode`, `sfx_building_done`, `sfx_demolish` en `data/audio.json`.
 
@@ -247,7 +246,7 @@ Hoy no hay nada de esto en el juego. Tareas para el hito H6, en este orden:
 
 ## 10. Criterios de aceptación
 
-- [ ] Con B en el mapa se ven todas las parcelas con su color de tipo, y la franja dice edificios/límite y libres
+- [ ] Con B en el mapa se ven todas las parcelas con su color de tipo, y la barra del modo dice edificios/límite y libres
       por tipo.
 - [ ] Una parcela ocupada por los Ferrer se distingue de una libre en una captura en escala de grises (banderín, no
       solo color).
@@ -257,4 +256,4 @@ Hoy no hay nada de esto en el juego. Tareas para el hito H6, en este orden:
 - [ ] Si otra familia compra la parcela con el panel abierto, el panel lo dice y apaga *Construir*.
 - [ ] Comprar un edificio ajeno enseña el desglose (coste + mejoras × relación) antes de pagar.
 - [ ] Demoler exige escribir la palabra y dice cuánto se recupera.
-- [ ] A 960×540 la franja del modo no tapa el reloj ni el retrato del HUD.
+- [ ] A 960×540 la barra del modo ocupa solo la zona de selección y no tapa la ficha, el reloj ni los avisos.

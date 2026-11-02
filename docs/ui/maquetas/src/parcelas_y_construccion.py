@@ -9,7 +9,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from economia_base import (CW, FAM_FERRER, FAM_HERRERO, FONDO_MAPA, I, LAT_X, LAT_Y, X, btn, caja, confirmacion,  # noqa
+from economia_base import (CW, hud, hud_mapa, panel, FAM_FERRER, FAM_HERRERO, FONDO_MAPA, I, LAT_X, LAT_Y, X, btn, caja, confirmacion,  # noqa
                            filete, ico, img, lateral, llamada, motivo, sep, t, tooltip, velo)
 
 P = "guild:parcels/parcel_"
@@ -46,39 +46,41 @@ def banderin(x, y, c1, c2="oro"):
 
 
 def franja():
-    x, y, w = 56, 52, 684
-    e = [caja(x, y, w, 34, "seccion", 0.92), caja(x, y + 33, w, 1, "oro_oscuro"),
-         ico(x + 4, y + 3, I + "icon_build_mode.png"), t(x + 24, y + 4, 90, 12, "CONSTRUIR", "negrita", "oro_claro"),
-         t(x + 112, y + 4, 200, 12, "Edificios 1/2 (Ciudadano)", "negrita"),
-         t(x + 300, y + 4, 60, 12, "Libres:", color="texto_tenue")]
-    cx = x + 350
+    """Barra del modo construcción en la zona de selección (abajo, hud.ZONAS["seleccion"])."""
+    x, y, w, h = hud.ZONAS["seleccion"]
+    e = [panel(x, y, w, h, None, False),
+         ico(x + 8, y + 5, I + "icon_build_mode.png"), t(x + 28, y + 6, 80, 12, "CONSTRUIR", "negrita", "oro_claro"),
+         img(x + 104, y + 7, "ui:marks/badge_title_citizen", 12, 12),
+         t(x + 120, y + 6, 110, 12, "Edificios 1/2", "negrita"),
+         t(x + 214, y + 6, 50, 12, "Libres:", color="texto_tenue")]
+    cx = x + 262
     for tipo, n, col in [("production", "3", "texto"), ("housing", "4", "texto"), ("rustic", "2", "aviso")]:
-        e += [img(cx, y + 5, P + tipo + ".png", 20, 10), t(cx + 22, y + 4, 16, 12, n, "negrita", col)]
-        cx += 44
-    e.append(btn(x + w - 78, y + 3, "Salir", 74, 14, fuente="cuerpo", tecla="B"))
-    ly = y + 19
-    cx = x + 24
+        e += [img(cx, y + 8, P + tipo + ".png", 20, 10), t(cx + 22, y + 6, 14, 12, n, "negrita", col)]
+        cx += 40
+    e.append(btn(x + w - 64, y + 5, "Salir", 56, 16, fuente="cuerpo", tecla="B"))
+    ly = y + 25
+    cx = x + 10
     for tipo, txt in [("rustic", "rústica"), ("production", "producción"), ("housing", "vivienda")]:
-        e += [img(cx, ly + 1, P + tipo + ".png", 20, 10), t(cx + 22, ly, 80, 12, txt, color="texto_tenue")]
-        cx += 104
-    e += banderin(cx + 2, ly - 2, FAM_FERRER) + [t(cx + 14, ly, 100, 12, "de otra familia", color="texto_tenue")]
-    e += [ico(cx + 116, ly - 2, I + "icon_contrato.png", 14), t(cx + 132, ly, 80, 12, "se vende", color="texto_tenue")]
+        e += [img(cx, ly + 1, P + tipo + ".png", 20, 10), t(cx + 22, ly, 76, 12, txt, color="texto_tenue")]
+        cx += 96
+    e += banderin(cx + 2, ly - 3, FAM_FERRER) + [t(cx + 14, ly, 70, 12, "ocupada", color="texto_tenue")]
+    e += [ico(cx + 76, ly - 2, I + "icon_contrato.png", 14), t(cx + 92, ly, 70, 12, "se vende", color="texto_tenue")]
     return e
 
 
 def modo():
     e = [velo(0.25)]
-    e += parcela(250, 392, 3, 4, "production") + contorno(250, 392, 3, 4)
+    e += parcela(250, 356, 3, 4, "production") + contorno(250, 356, 3, 4)
     e += parcela(60, 300, 2, 2, "housing")
-    e += parcela(520, 440, 2, 2, "rustic")
+    e += parcela(548, 352, 2, 2, "rustic")
     e += banderin(446, 292, FAM_HERRERO) + banderin(640, 30, FAM_FERRER)
+    e += hud_mapa(oro="185", seleccion=False)
     e += franja()
-    e.append({"tipo": "aviso", "rect": [56, 92, 520, 30], "gravedad": "info", "icono": I + "icon_build_mode.png",
-              "texto": "Los Ferrer compran una parcela en la Calle Mayor (quedan 3 de producción)."})
-    e.append(tooltip(110, 318, 226, "Calle del Río · producción 3×4",
+    e += hud.avisos([("info", "Los Ferrer compran una parcela en la Calle Mayor.", I + "icon_build_mode.png")])
+    e.append(tooltip(40, 226, 226, "Calle del Río · producción 3×4",
                      ["Libre. Admite: Forja", "(talleres en EA). Clic: qué construir."]))
     # panel de la parcela
-    e.append(lateral("Parcela · Calle del Río", 300))
+    e.append(lateral("Parcela · Calle del Río", 232))
     yy = LAT_Y + 26
     for r in range(4):
         for c in range(3):
@@ -101,7 +103,7 @@ def modo():
     yy += 34
     e += [sep(X, yy, CW), t(X, yy + 6, CW, 12, "Tras construir: 2/2 edificios (Ciudadano).", color="texto_tenue"),
           t(X, yy + 20, CW, 12, "Patricio permite 4 → requisitos", color="info")]
-    e += [llamada(52, 50, 1), llamada(244, 388, 2), llamada(440, 288, 3), llamada(52, 92, 6), llamada(LAT_X - 6, LAT_Y + 22, 4),
+    e += [llamada(240, 490, 1), llamada(244, 352, 2), llamada(440, 288, 3), llamada(2, 500, 6), llamada(LAT_X - 6, LAT_Y + 22, 4),
           llamada(LAT_X - 6, LAT_Y + 92, 5)]
     return {"id": "parcelas_y_construccion", "fondo": FONDO_MAPA, "elementos": e}
 

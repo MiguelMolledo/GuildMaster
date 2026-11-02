@@ -3,28 +3,19 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from economia_base import (CW, text_size, FONDO_FORJA, I, IT, LAT_X, X, barra, btn, caja, filete, ico, insignia, lateral,  # noqa
+from economia_base import (CW, text_size, rango, scroll, FONDO_FORJA, I, IT, LAT_X, X, barra, btn, caja, filete, ico, insignia, lateral,  # noqa
                            llamada, motivo, pestanas, ret, selector, sep, t)
-from forja_interior import barra_herramientas, placa  # noqa: E402
+from economia_base import hud_interior  # noqa: E402
 
-PY = 116
-RANGO = {"A": ("Aprendiz", "texto_tenue"), "O": ("Oficial", "info"), "M": ("Maestro", "oro")}
+PY = 58
 
 
 def cabecera(activa, huecos, extra):
-    e = [caja(380, 34, 200, 52, "#000000"), caja(508, 88, 452, 24, "#000000")] + placa() + barra_herramientas()
+    e = hud_interior("Empleados", estado="2/2 empleados · 1 ascenso", insignias={2: ("1", "oro")})
     e.append(lateral("Empleados · Forja", 396 if activa else 300, PY))
     e.append(pestanas(X, PY + 26, ["Plantilla", "Contratar"], activa))
     e.append(t(X + 150, PY + 27, CW - 150, 12, huecos + extra, color="texto_tenue", alinear="der"))
     return e
-
-
-def rango(x, y, r):
-    """Insignia de rango (pieza de kit pendiente). Devuelve elementos; ancho ~ 12 + texto."""
-    nombre, col = RANGO[r]
-    return [caja(x, y, 9, 9, "hueco"), caja(x + 1, y + 1, 7, 7, col),
-            t(x, y, 9, 9, r, "pequena", "texto_tinta", "centro", "centro", False),
-            t(x + 12, y - 1, 60, 12, nombre.upper(), "pequena", col, ajustar=False)]
 
 
 def pasos(x, y, v, n=10, w=5):
@@ -78,6 +69,7 @@ def contratar():
         yy += 61
     e.append(t(X, yy + 2, CW, 12, "Empiezan mañana al alba; cobran cada alba.", color="texto_tenue"))
     e.append(t(X, yy + 18, CW, 12, "↓ 3 candidatos más", color="texto_apagado", alinear="centro"))
+    e += scroll(X + CW + 2, PY + 102, yy - PY - 104, 0.0, 0.5)
     e += [llamada(LAT_X - 6, PY + 48, 1), llamada(LAT_X - 6, PY + 106, 2), llamada(X + 80, PY + 140, 3),
           llamada(X + CW - 98, PY + 166, 4)]
     return {"id": "empleados", "fondo": FONDO_FORJA, "elementos": e}

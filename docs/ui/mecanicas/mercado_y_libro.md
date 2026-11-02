@@ -226,7 +226,7 @@ Clic en un aviso → centra o abre su panel (hoy ya). Filtros arriba: *Todos · 
 | `demand_changed` | — | El indicador se actualiza en vivo |
 | `errand_sent` / `errand_arrived` | **falta** `sfx_delivery` (compartido con el almacén) | Carro pequeño en la placa del almacén hasta que llega |
 | `loan_payment` | `sfx_coins` | La barra de pago avanza |
-| `loan_repaid` | **falta**: `sfx_loan_repaid`, fanfarria corta, más que `sfx_objective_done` | Sello «Pagada» sobre la tarjeta |
+| `loan_repaid` | **falta**: `sfx_loan_repaid`, fanfarria corta, más que `sfx_objective_done` | El sello de lacre del kit (`ui:marks/seal`) sobre la tarjeta: «Pagada» |
 | `notice.loan_*` urgente | `sfx_alarm` | Aviso emergente (kit) |
 
 ## 9. Diferencias con hoy y tareas
