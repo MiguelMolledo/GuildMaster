@@ -189,3 +189,23 @@ lienzo de 68 px). No hay `npc_worker_*`: los empleados podrían salir del artesa
 
 Árboles, tablón de encargos, paredes y suelo del interior, andamio que cubra la huella, variantes de obras y dañado de
 los edificios, `icon_steel`, `icon_saw`, VFX (chispas, humo) y el 9-patch ya montado. Todo eso sigue en greybox.
+
+## Integración (fase 2) y revisión (fase 3)
+
+- **Cómo está montado.** En cada escena de `game/visuals/` hay un nodo `Sprite` (Sprite2D, `centered = false`,
+  `offset = -ancla`, filtro Nearest) junto al `Greybox`, que queda **oculto, no borrado**. Volver al greybox en el
+  editor: ocultar `Sprite`, mostrar `Greybox` y devolver `Top` al valor que dice el `editor_description` del Sprite.
+- **Top.** Edificios: de 40 a 72 px (el letrero queda sobre el tejado). La zona de clic es el prisma de la huella con
+  esa altura: con más de ~76 px tapa la calle que hay detrás de la forja, por eso no llega a lo alto del dibujo.
+  Puestos del mercado: 32-45 px; puestos de la forja: 38-47 px (barra, marcas y clic sobre el dibujo).
+- **Suelo.** `GroundLayer` pinta `assets/art/tiles/<tipo>.png` si existe (`VisualPaths.tile`) y, si no, el color de
+  `data/tiles.json`. Con textura: hierba, calle, plaza y tierra. Campo, puente y agua siguen en color.
+- **Toque de maestro.** `StationView` teñía el bloque greybox; con el greybox oculto tiñe el sprite (modulate).
+- **Revisado en captura** (galería, rebanada completa): mapa, forja por dentro, mercado y armería. Ningún asset quedó
+  peor que el greybox. Avisos:
+  - Los bloques de relleno `#` del mapa (`props/building.tscn`) siguen en greybox y, cuando están delante, tapan la
+    base de los sprites (orden correcto, pero se ve el contraste).
+  - El adoquín es gris azulado, más frío que la paleta base; la tierra tiene borde marcado y se nota algo la rejilla.
+  - Todas las casas son la misma (`house_modest_1`): hay variantes en reserva cuando haya escena por variante.
+  - El andamio de obras (`Works`) y las mejoras exteriores siguen en greybox, colocados para el bloque de 40 px.
+- Capturas: `docs/novedades/arte_guild_*_antes.png` / `_despues.png`.

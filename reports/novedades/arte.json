@@ -1,0 +1,41 @@
+{
+  "fecha": "2026-11-02",
+  "titulo": "Arte · sprites de Guild Renew en lugar del greybox (rama arte-guild)",
+  "que": "Se reutilizan, sin gastar créditos, los sprites del proyecto anterior: forja, armería y casas en el mapa (escala 1, base sobre Feet), los tres puestos del mercado, el suelo (hierba, adoquín en calle y plaza, tierra) y los cuatro puestos de la forja (horno, yunque, almacén y mostrador, también en la armería). Además quedan en su ruta, sin escena todavía, 10 props, 25 iconos de objeto y 6 bocadillos. En cada escena de game/visuals/ el sprite va en un nodo Sprite junto al Greybox, que queda oculto (no borrado): para volver atrás basta ocultar Sprite, mostrar Greybox y devolver Top a su valor (lo dice el editor_description del Sprite). Top de los edificios pasa de 40 a 72 px (letrero sobre el tejado; zona de clic más alta pero sin tapar la calle de detrás). Siguen en greybox: árboles, tablón, bloques de relleno (#) del mapa, paredes y suelo del interior, variantes de obra, y los personajes (H7/H8). Catálogo completo con veredictos en docs/arte/reuso_guild.md.",
+  "como_probar": "/opt/homebrew/bin/godot --path ~/Code/GuildMaster-arte -- --gallery (todo a escala con un caminante de 48 px) y partida nueva: plaza, forja, armería, casas y puestos con sprite; entra en la forja y trabaja en el horno y el yunque (el toque de maestro tiñe el sprite). Rituales: python3 tools/qa/run_all.py.",
+  "capturas": [
+    "docs/novedades/arte_guild_mapa_antes.png",
+    "docs/novedades/arte_guild_mapa_despues.png",
+    "docs/novedades/arte_guild_mapa_dia3_antes.png",
+    "docs/novedades/arte_guild_mapa_dia3_despues.png",
+    "docs/novedades/arte_guild_forja_interior_antes.png",
+    "docs/novedades/arte_guild_forja_interior_despues.png",
+    "docs/novedades/arte_guild_mercado_antes.png",
+    "docs/novedades/arte_guild_mercado_despues.png",
+    "docs/novedades/arte_guild_galeria_antes.png",
+    "docs/novedades/arte_guild_galeria_despues.png"
+  ],
+  "zona": "arte",
+  "ficheros": [
+    "docs/arte/reuso_guild.md",
+    "assets/art/",
+    "assets/inventario.json",
+    "assets/art/MANIFEST.md",
+    "game/visuals/buildings/forge.tscn",
+    "game/visuals/buildings/armory.tscn",
+    "game/visuals/buildings/house.tscn",
+    "game/visuals/props/stall_food.tscn",
+    "game/visuals/props/stall_materials.tscn",
+    "game/visuals/props/stall_resources.tscn",
+    "game/visuals/stations/furnace.tscn",
+    "game/visuals/stations/anvil.tscn",
+    "game/visuals/stations/storage.tscn",
+    "game/visuals/stations/counter.tscn",
+    "game/visuals/visual_paths.gd",
+    "game/world/ground_layer.gd",
+    "game/interior/station_view.gd",
+    "tests/test_game_view.gd",
+    "tests/test_visuals_paths.gd",
+    "docs/protocolos/editar-a-mano.md"
+  ]
+}
