@@ -1,6 +1,18 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "Interfaz con tema pixel art y sin solapes",
+    "que": "Todos los paneles comparten un tema pixel art hecho con la paleta de la biblia y sin gastar créditos: marco de madera con remaches y filete dorado, botones con cuatro estados (normal, encima, pulsado, desactivado), campos hundidos, barras doradas y tooltips de pergamino. Los botones usan la fuente Silkscreen de Guild Renew. Paneles opacos. Solapes arreglados: los retratos de la forja ya no tapan las órdenes, el objetivo se pliega a los 20 s, las burbujas de la mesa de dados ya no se pisan y el Ayuntamiento se lee bien. Todo el tema está en un solo fichero (game/ui/greybox_theme.tres), que se puede editar desde Godot.",
+    "como_probar": "jugar.command; entra en la forja y abre el Ayuntamiento.",
+    "capturas": [
+      "docs/novedades/ui_forja_despues.png",
+      "docs/novedades/ui_ayuntamiento_despues.png",
+      "docs/novedades/ui_plaza_dados_despues.png",
+      "docs/novedades/ui_objetivo_plegado.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "H9 · Reputación y títulos: el Ayuntamiento",
     "que": "Reputación global y por clase que sube y baja con lo que haces (comercio justo, calidad, salarios pagados, encargos, cómo tratas a los vecinos). Ayuntamiento en el mapa: muestra tu título, los requisitos del siguiente (cumplidos o no) y lo que abre; se pide con oro y hay ceremonia. El título se ve en el HUD. El herrero rival también pide títulos (regla mínima en datos, sin los módulos de 04c). El bot experto llega a Patricio en 10 de 10 semillas (día 60 de media); el rival llega a Ciudadano.",
     "como_probar": "jugar.command; clic derecho en el Ayuntamiento. Escenario title_ready. Bots: --bots=expert_titles --days=96 --seeds=10 (~17 min).",
