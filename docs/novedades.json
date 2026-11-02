@@ -1,6 +1,13 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "Audio · el juego ya suena (ElevenLabs)",
+    "que": "Música en bucle de día (laúd, flauta y fídula) y de noche (laúd y zanfona), ambientes de plaza, noche e interior de la forja, efectos con variantes (martillo, monedas, puerta, fuelle) y sonidos para contratar, mejora terminada, encargo entregado, avisos, deudas y objetivos. 5 frases de voz en castellano generadas (aún sin enganchar). Gasto real: 4.010 créditos de los 20.000 autorizados (detalle en assets/audio/MANIFEST.md). Pendiente: que el owner lo escuche; está en estado «generado», no «final».",
+    "como_probar": "/opt/homebrew/bin/godot --path ~/Code/GuildMaster (sin --audio-driver Dummy). Entra en la forja para oír su ambiente; con -- --at=22:00 suena la noche. Volúmenes en data/audio.json o en los buses.",
+    "capturas": []
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "Arte · los sprites de Guild Renew sustituyen al greybox",
     "que": "Sin gastar créditos: forja, armería, casas, los tres puestos del mercado, el suelo (hierba, adoquín, tierra) y el interior de la forja (horno, yunque, almacén, mostrador) ya llevan sprites pixel art de Guild Renew. El greybox sigue en cada escena, oculto: se puede volver a él desde el editor. Catálogo de lo que sirve y lo que no en docs/arte/reuso_guild.md. Quedan en greybox los bloques de relleno del mapa, paredes y suelo del interior, el tablón, el andamio y los personajes.",
     "como_probar": "jugar.command → Empezar. Galería: /opt/homebrew/bin/godot --path ~/Code/GuildMaster -- --gallery.",
