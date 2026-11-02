@@ -335,6 +335,12 @@
       "tema": "Interfaz",
       "decision": "Panel de familias con la tecla G. Diseño de UI por pantalla en docs/ui (rama diseno-ui) con fuente Pixel Operator 16.",
       "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Escala del arte",
+      "decision": "Escala B: puerta 52 px, plantas 64 + 48 (casa de 2 plantas 176 px, 3,7 veces el personaje de 48), solares sin cambiar. Densidad única 1:1 sin excepciones (el ayuntamiento a 1,6 se rehace). Monumentos con tope de 400 px, hechos por módulos sobre la rejilla. Lámina de referencia para PixelLab: E pueblo-calle de cerca. Antes del 15-nov se prueba la escala B en el juego con las casas estiradas, sin créditos. La vista amplia se decide tras la prueba del 15-nov.",
+      "por_que": "Estudio docs/arte/escala.md; el owner aprobó todas las recomendaciones."
     }
   ],
   "pendientes": [
@@ -383,12 +389,6 @@
       "tema": "Mejoras de edificios",
       "detalle": "El owner quiere que el panel de mejoras sea más visual (ver el edificio y sus piezas); revisar cuando haya créditos de PixelLab.",
       "opciones": "Comentario del owner al aprobar el diseño de UI."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Escala del arte",
-      "detalle": "Propuesta B: puerta 52 px, plantas 64+48 (casa de 2 plantas 176 px), monumentos con tope de 400 px por módulos, densidad única 1:1 (rehacer el ayuntamiento a 1.6), lámina de referencia E de cerca, prueba en el juego con casas estiradas sin créditos, y la vista amplia se decide tras la prueba del 15-nov.",
-      "opciones": "Estudio docs/arte/escala.md; espera la decisión del owner."
     }
   ],
   "proximos_pasos": [
