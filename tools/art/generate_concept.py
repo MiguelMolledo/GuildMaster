@@ -56,7 +56,8 @@ def slugify(text: str, max_len: int = 40) -> str:
     return text[:max_len].strip("_")
 
 
-def generate(prompt: str, model: str, count: int, size: str, tag: str) -> None:
+def generate(prompt: str, model: str, count: int, size: str, tag: str, aspect: str = "", refs=None,
+             resolution: str = "") -> None:
     api_key = os.environ.get("FAL_KEY")
     if not api_key:
         print("ERROR: variable de entorno FAL_KEY no encontrada.")
@@ -74,7 +75,19 @@ def generate(prompt: str, model: str, count: int, size: str, tag: str) -> None:
     print(f"Imágenes: {count}  |  Tamaño: {image_size}")
     print(f"Destino: {out_dir}\n")
 
-    if model == "gpt":
+    if model in ("nano", "nanopro") and (aspect or refs or resolution):
+        # Nano Banana: aspect_ratio / resolution (Pro) y, con --ref, el endpoint /edit con imágenes de referencia
+        args = {"prompt": prompt, "num_images": count, "output_format": "png"}
+        if aspect:
+            args["aspect_ratio"] = aspect
+        if resolution and model == "nanopro":
+            args["resolution"] = resolution
+        if refs:
+            args["image_urls"] = [fal_client.upload_file(r) for r in refs]
+            model_id = model_id + "/edit"
+        print(f"Endpoint: {model_id} | aspect={aspect or 'auto'} | resolution={resolution or '-'} | refs={len(refs or [])}")
+        result = fal_client.run(model_id, arguments=args)
+    elif model == "gpt":
         result = fal_client.run(
             model_id,
             arguments={
@@ -115,7 +128,10 @@ def generate(prompt: str, model: str, count: int, size: str, tag: str) -> None:
     # Log de prompts para referencia
     log_path = os.path.join(out_dir, "prompts.log")
     with open(log_path, "a") as f:
-        f.write(f"{timestamp} | model={model} | size={image_size} | count={count}\n")
+        extra = f" | aspect={aspect or '-'} | resolution={resolution or '-'}"
+        if refs:
+            extra += " | refs=" + ",".join(os.path.basename(r) for r in refs)
+        f.write(f"{timestamp} | model={model} | size={image_size} | count={count}{extra}\n")
         f.write(f"  {prompt}\n\n")
 
     print(f"\nLog actualizado: {log_path}")
@@ -128,9 +144,12 @@ def main():
     parser.add_argument("--count", type=int, default=1, choices=range(1, 5))
     parser.add_argument("--size", choices=["landscape_4_3", "square", "portrait_4_3"], default="landscape_4_3")
     parser.add_argument("--tag", default="", help="Subcarpeta/etiqueta (ej: moodboard, artesano)")
+    parser.add_argument("--aspect", default="", help="Nano Banana: 16:9, 4:3, 1:1, 21:9...")
+    parser.add_argument("--resolution", default="", choices=["", "1K", "2K", "4K"], help="Nano Banana Pro")
+    parser.add_argument("--ref", action="append", default=[], help="Imagen de referencia (usa el endpoint /edit)")
     args = parser.parse_args()
 
-    generate(args.prompt, args.model, args.count, args.size, args.tag)
+    generate(args.prompt, args.model, args.count, args.size, args.tag, args.aspect, args.ref, args.resolution)
 
 
 if __name__ == "__main__":
