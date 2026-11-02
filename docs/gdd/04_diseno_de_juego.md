@@ -799,7 +799,13 @@ Reacciones de corta duración, separadas de la relación permanente. Intensidad 
 | Grave | Pérdida de cargo + título -1 | Corrupción, soborno descubierto |
 | Máxima | Destierro 1 año (8 días; el condenado no puede actuar en la ciudad, el resto de la familia sí) [balance] | Crimen violento, traición |
 
-La vista oral debe ser **interactiva** para el jugador (en el primer intento se autorresolvía).
+La vista oral debe ser **interactiva** para el jugador (en el primer intento se autorresolvía). **Decisión del owner
+(2026-11-02, `docs/decisiones.json`):**
+- El acusado puede **interrogar una vez a cada testigo en contra**: SkillCheck de Retórica contra la Empatía del testigo.
+  Si sale bien, su testimonio no cuenta; si sale mal, cuenta doble (`data/justice.json` → `cross.ok_weight 0` /
+  `fail_weight 2`) [provisional, balance]. Después concluye la defensa (o la vista acaba sola a las 2 h de juego).
+- Las **pruebas del acusador se ven como «?»** hasta la vista; la balanza enseña el resto de sumandos.
+- La **vista oral pausa el juego** (solo la vista; el sim no cambia: se puede seguir interrogando en pausa).
 
 #### 4.12.6 Intrigas [POST-MVP / EA]
 

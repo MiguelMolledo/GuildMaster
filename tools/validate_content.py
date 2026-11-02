@@ -1255,6 +1255,12 @@ def check_h11(strings, rep):
     for k in ("prep_days", "hearing_hours", "town_rhetoric"):
         if not isinstance(t.get(k), (int, float)) or t[k] <= 0:
             rep.error(w, f"trial.{k} debe ser > 0")
+    cr = j.get("cross") or {}
+    if not all(isinstance(cr.get(k), int) and cr[k] >= 0 for k in ("ok_weight", "fail_weight")):
+        rep.error(w, "cross.ok_weight y cross.fail_weight deben ser enteros >= 0 (decisión del owner del 2026-11-02)")
+    bd = j.get("bands") or {}
+    if not (isinstance(bd.get("easy"), int) and isinstance(bd.get("doubtful"), int) and bd["easy"] > bd["doubtful"]):
+        rep.error(w, "bands: easy > doubtful (enteros)")
     for k in ("convince", "bribe", "threaten"):
         if k not in (j.get("witness_actions") or {}):
             rep.error(w, f"witness_actions.{k} falta")

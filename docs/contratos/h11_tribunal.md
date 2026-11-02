@@ -55,7 +55,8 @@ Migración 10 → 11 (`SaveFile._step`):
   - `witness_actions`: `convince` (Retórica vs Empatía; una vez al día por testigo), `bribe` (`gold_base 20` +
     `gold_per_negotiation 5` × Negociación del testigo; a favor seguro; Sigilo vs Empatía, fallo = denuncia: cargo
     extra `bribery`), `threaten` (Arte Marcial vs Arte Marcial; fallo = en contra y cargo extra `brawl`).
-  - `cross`: interrogatorio en la vista (Retórica vs Empatía): éxito, el testigo no cuenta; fallo, cuenta doble.
+  - `cross`: interrogatorio en la vista (Retórica vs Empatía), una vez por testigo en contra: su testimonio cuenta
+    `ok_weight` veces si sale bien (0) y `fail_weight` si sale mal (2) en vez de 1 [provisional, balance].
   - `accuse`: `min_title citizen`, `fabricate {stat stealth, target 5, fail_reputation -50}`, `false_reputation -50`.
   - `judge`: `manipulate_honesty -20`, `scandal {target 5, reputation -20}`.
   - `honesty`: cambios de la actitud: `bribe -5`, `fabricate -10`, `manipulate -20` [−20 GDD; el resto provisional].
@@ -153,9 +154,11 @@ disposition, actions: {kind: motivo}}], days_left, minutes_left}`, `Tribunal.acc
   `h11_veredicto`, `h11_acusar`, `h11_destierro`.
 
 ## Decisiones provisionales
-- **Vista oral interactiva = interrogar a cada testigo en contra** (opción (b) del diseño de UI): SkillCheck Retórica
-  vs Empatía; éxito no cuenta, fallo cuenta doble. Y «Concluir la defensa».
-- **Pruebas del acusador ocultas («?») hasta la vista** (opción (b) del diseño de UI).
+- **Vista oral interactiva = interrogar una vez a cada testigo en contra** (decisión del owner del 2026-11-02, opción
+  (b) del diseño de UI; apuntada en `docs/decisiones.json` de main y en GDD 4.12.5): SkillCheck Retórica vs Empatía;
+  éxito no cuenta (`cross.ok_weight 0`), fallo cuenta doble (`fail_weight 2`) [las cifras, provisionales]. Y «Concluir
+  la defensa».
+- **Pruebas del acusador ocultas («?») hasta la vista** y **la vista pausa el juego** (decisión del owner, 2026-11-02).
 - **Todos los hechos de H11 son públicos**; nada de `known` de 04c.
 - **Juicio automático tras inspección**: además de la multa de H5; acusa la ciudad (Retórica 5 o la del Inspector).
 - **Confiscación = la mercancía**: los productos a la venta del almacén (como el ladrón de H7); las materias primas se
