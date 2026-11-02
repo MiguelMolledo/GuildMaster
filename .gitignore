@@ -14,3 +14,7 @@ i18n/*.translation
 # PixelLab Pip: descargas en bruto (se promueven a assets/art/ a mano)
 pixellab-pip-generations/*
 !pixellab-pip-generations/.gdignore
+
+# ElevenLabs: descargas en bruto (tools/audio/eleven.py; se pasan a assets/audio/ con tools/audio/master.py)
+audio-generations/*
+!audio-generations/.gdignore
