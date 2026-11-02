@@ -205,9 +205,9 @@
       "criterios": [
         {
           "texto": "Bot `artisan_expert` compra mejoras y su producción sube lo esperado",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_bots_expert.gd; sim_runner artisan_expert: producción ×1,2/×1,167/×1,143 (±0,7 %)",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Dianas `goldflow` de la fase \"Forja con empleados\" y del peso de los sumideros (30-60 %) en verde",
@@ -217,8 +217,8 @@
         },
         {
           "texto": "Fin de la rebanada vertical: 3 días seguidos jugables por el owner sin consola",
-          "estado": "pendiente",
-          "prueba": null,
+          "estado": "en_curso",
+          "prueba": "Rebanada lista (f358127, 8604ab9); falta que el owner la juegue",
           "fecha": null
         }
       ]
@@ -296,38 +296,38 @@
     {
       "id": "H8",
       "nombre": "Familia y herencia",
-      "estado": "pendiente",
+      "estado": "en_curso",
       "entregable": "Cortejo, matrimonio, hijos, crecimiento, grupo 1-2-3, retratos, árbol genealógico, herencia, Game Over, directiva Trabajar. Rutina programable (4.10.8). Identidad visual por paleta y rasgos heredables (4.10.9). Puntuación de dinastía, metas y pantalla final (4.17). Módulo de familia de la IA rival.",
       "criterios": [
         {
           "texto": "Bot `dynasty` llega a heredar dentro de su diana (generación ~200 días; primer hijo ~1,5 años tras la boda)",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "Rama h8-familia (bf8c703), pendiente de juntar con main",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Game Over sin heredero con la puntuación desglosada",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "Rama h8-familia (bf8c703), pendiente de juntar con main",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "La partida sigue con el heredero",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "Rama h8-familia (bf8c703), pendiente de juntar con main",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Test: con rutinas, 3 personajes trabajan un día entero sin órdenes manuales y una orden manual la interrumpe y luego se retoma",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "Rama h8-familia (bf8c703), pendiente de juntar con main",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Captura del árbol donde la familia se reconoce por sus colores y los hijos llevan el pelo o la piel de un padre",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "Rama h8-familia (bf8c703), pendiente de juntar con main",
+          "fecha": "2026-11-02"
         }
       ]
     },
