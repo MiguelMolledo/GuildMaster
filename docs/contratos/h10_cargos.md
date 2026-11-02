@@ -148,6 +148,11 @@ office)`; `Elections.action_status(sim, actor, kind, target)`; `Market.regulatio
 - `idle_titles` (H9) añade `ai_office_runs >= 1`: la IA rival se presenta al menos una vez en 10 años.
 - `artisan_expert` / `expert_titles` / `artisan_novice` no se presentan (`runs_office = 0`): sus dianas no se mueven
   por conducta; sí podrían por el gobierno (ver decisiones).
+- Medido (2026-11-02, Normal): `politician` 10 semillas × 40 días: Inspector 10/10, día medio 25,8 (25-33), 0 órdenes
+  rechazadas. `idle_titles` 10 × 80: el rival sube a Ciudadano 10/10 y se presenta 10/10. Sin cambios en las dianas de
+  H3-H9: `run_all` da las mismas cifras que antes de H10 (novato, experto corto, ciudad, sim, sim2); `expert_titles`
+  10 × 96: Patricio 10/10, día medio 59,0 (H9: 60,6), Ciudadano 17,9 (igual), neto días 9-24 67,4 (igual); `dynasty`
+  3 × 320: hereda 3/3, generación 149-170 días, primer hijo 15,7 días de media.
 - Medidas nuevas en `tools/sim_runner.gd`: `office_won` (0/1), `office_won_day`, `elections_run`, `elections_won`
   (de la familia del jugador), `ai_office_runs`, `ai_offices_won`.
 
