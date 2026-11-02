@@ -11,7 +11,8 @@ extends RefCounted
 
 
 ## {"ok", "reason"}: whether `actor` may enter `building` now (own building: its family's or its own; or public, H3,
-## and then only while the market is open: market_closed; or, H4, the building it works at: Staff.works_at).
+## and then only while the market is open: market_closed; or, H4, the building it works at: Staff.works_at; or, H7, the
+## counter it goes to as a customer: Counter.is_customer_of).
 static func can_enter(sim: Sim, actor: String, building: String) -> Dictionary:
 	var st := sim.state
 	if not st.characters.has(actor):
@@ -21,7 +22,8 @@ static func can_enter(sim: Sim, actor: String, building: String) -> Dictionary:
 		return Orders.fail("dead")
 	if not st.buildings.has(building):
 		return Orders.fail("unknown_building")
-	if not owns(st, actor, building) and not is_public(sim, building) and not Staff.works_at(st, actor, building):
+	if not owns(st, actor, building) and not is_public(sim, building) and not Staff.works_at(st, actor, building) \
+			and not Counter.is_customer_of(st, actor, building):
 		return Orders.fail("not_your_building")
 	if Market.shop_closed(sim, building) and str(ch.get("location", "")) != building:
 		return Orders.fail("market_closed")  # a public shop opens with the market (H3, GDD 4.5.1); Market puts out at closing

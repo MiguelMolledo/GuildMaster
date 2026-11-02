@@ -512,13 +512,14 @@
       "tipo": "prop",
       "estado": "sprite",
       "para": [
-        "H1"
+        "H1",
+        "H7"
       ],
       "ruta": "assets/art/props/bench.png",
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/bench",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/props/bench/bench_64.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/bench.tscn: patios de las manzanas y decoración de game/visuals/towns/."
+      "notas": "Reuso sin coste de guild:assets/sprites/props/bench/bench_64.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/bench.tscn: patios de las manzanas y decoración de game/visuals/towns/. Escena game/visuals/props/bench.tscn (banco de la plaza, H7)."
     },
     {
       "id": "prop_cart",
@@ -714,7 +715,7 @@
       "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_chat.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_chat.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/chat.tscn (H7)."
     },
     {
       "id": "bubble_dice",
@@ -728,7 +729,7 @@
       "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_dice.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_dice.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/dice.tscn (H7)."
     },
     {
       "id": "bubble_rest",
@@ -742,7 +743,7 @@
       "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_rest.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_rest.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/rest.tscn (H7)."
     },
     {
       "id": "bubble_shop",
@@ -756,7 +757,7 @@
       "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_shop.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_shop.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/shop.tscn (H7)."
     },
     {
       "id": "bubble_think",
@@ -770,7 +771,7 @@
       "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_think.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_think.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/think.tscn (H7)."
     },
     {
       "id": "bubble_wave",
@@ -784,7 +785,76 @@
       "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_wave.png (docs/arte/reuso_guild.md). 32×32. El juego aún no pinta bocadillos."
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_wave.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/wave.tscn (H7)."
+    },
+    {
+      "id": "bubble_emotion_grateful",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "H7",
+        "emociones"
+      ],
+      "ruta": "assets/art/ui/bubbles/emotion_grateful.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Greybox en game/visuals/bubbles/emotion_grateful.tscn (GDD 4.11.5)"
+    },
+    {
+      "id": "bubble_emotion_offended",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "H7",
+        "emociones"
+      ],
+      "ruta": "assets/art/ui/bubbles/emotion_offended.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Greybox en game/visuals/bubbles/emotion_offended.tscn (GDD 4.11.5)"
+    },
+    {
+      "id": "bubble_emotion_angry",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "H7",
+        "emociones"
+      ],
+      "ruta": "assets/art/ui/bubbles/emotion_angry.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Greybox en game/visuals/bubbles/emotion_angry.tscn (GDD 4.11.5)"
+    },
+    {
+      "id": "bubble_emotion_scared",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "H7",
+        "emociones"
+      ],
+      "ruta": "assets/art/ui/bubbles/emotion_scared.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Greybox en game/visuals/bubbles/emotion_scared.tscn (GDD 4.11.5)"
+    },
+    {
+      "id": "prop_dice_table",
+      "tipo": "prop",
+      "estado": "greybox",
+      "para": [
+        "H7"
+      ],
+      "ruta": "assets/art/props/dice_table.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Greybox en game/visuals/props/dice_table.tscn (mesa de dados de la plaza)"
     },
     {
       "id": "ui_panel_frame",

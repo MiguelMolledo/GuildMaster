@@ -170,6 +170,19 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 				for k: String in addf:
 					if not f.has(k):
 						f[k] = addf[k]
+		7:  # 7 -> 8 (H7): the living town (docs/contratos/h7_ciudad.md). Characters: occupation (the townsperson's trade,
+			# a workplace of the map; "" here: TownLife.assign_occupations gives one to the adult townsfolk the first time
+			# it runs, the same hand-out as a new game) and town (TownLife's memory). Root: microevents (GDD 4.20: active,
+			# pending, cooldowns, last_day) and town (the shop counters). v7 had none: everything starts empty.
+			for c: Dictionary in (data.get("characters", {}) as Dictionary).values():
+				if not c.has("occupation"):
+					c["occupation"] = ""
+				if not c.has("town"):
+					c["town"] = {}
+			if not data.has("microevents"):
+				data["microevents"] = {"active": [], "pending": [], "cooldowns": {}, "last_day": {}}
+			if not data.has("town"):
+				data["town"] = {"counters": {}}
 	return data
 
 

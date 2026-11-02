@@ -41,14 +41,14 @@ func test_walks_and_arrives_on_time() -> void:
 	eq(_chr(sim, "chr_0001")["path"], route, "the route is the A* one")
 	var steps := 1
 	while steps < n * mpt:
-		moved += _of_type(ev, "character_moved").size()
-		arrived.append_array(_of_type(ev, "character_arrived"))
+		moved += _mine(_of_type(ev, "character_moved")).size()  # H7: the townsfolk walk too
+		arrived.append_array(_mine(_of_type(ev, "character_arrived")))
 		ev = sim.step()
 		steps += 1
 		if steps == n * mpt - 1:
 			check(_chr(sim, "chr_0001")["position"] != target, "not there one minute early")
-	moved += _of_type(ev, "character_moved").size()
-	arrived.append_array(_of_type(ev, "character_arrived"))
+	moved += _mine(_of_type(ev, "character_moved")).size()
+	arrived.append_array(_mine(_of_type(ev, "character_arrived")))
 	eq(_chr(sim, "chr_0001")["position"], target, "there after tiles × minutes_per_tile")
 	eq(moved, n, "one character_moved per tile")
 	eq(arrived.size(), 1, "one character_arrived")
@@ -56,6 +56,11 @@ func test_walks_and_arrives_on_time() -> void:
 	eq(_chr(sim, "chr_0001")["path"], [], "still again")
 	eq(_chr(sim, "chr_0001")["move_progress"], 0, "no progress left")
 	eq(_chr(sim, "chr_0002")["position"], [21, 21], "the others did not move")
+
+
+## The events of chr_0001 only (H7: the townsfolk walk the town too).
+func _mine(evs: Array) -> Array:
+	return evs.filter(func(e: Dictionary) -> bool: return str(e.get("actor", "")) == "chr_0001")
 
 
 func test_moved_event_says_from_and_to() -> void:

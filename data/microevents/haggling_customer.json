@@ -1,0 +1,67 @@
+{
+  "id": "haggling_customer",
+  "scope": "building",
+  "text_key": "mev.haggling_customer",
+  "trigger": {
+    "phase": "day",
+    "conditions": [
+      "counter_sales",
+      "has_products"
+    ],
+    "chance_per_day": 1.0
+  },
+  "cooldown_days": 8,
+  "timeout_hours": 2,
+  "default_choice": "accept",
+  "choices": [
+    {
+      "id": "accept",
+      "text_key": "mev.haggling_customer.accept",
+      "effects": [
+        {
+          "kind": "sell",
+          "discount": 0.15
+        }
+      ]
+    },
+    {
+      "id": "hold",
+      "text_key": "mev.haggling_customer.hold",
+      "effects": [
+        {
+          "kind": "skill_check",
+          "actor_stat": "charisma",
+          "target_stat": "negotiation",
+          "success": [
+            {
+              "kind": "sell",
+              "discount": 0.0
+            }
+          ],
+          "fail": [
+            {
+              "kind": "leave"
+            },
+            {
+              "kind": "emotion",
+              "state": "offended"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "throw_out",
+      "text_key": "mev.haggling_customer.throw_out",
+      "effects": [
+        {
+          "kind": "leave"
+        },
+        {
+          "kind": "relation",
+          "amount": -5
+        }
+      ]
+    }
+  ]
+}

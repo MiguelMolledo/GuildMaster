@@ -145,7 +145,8 @@ func _ingot_cycles(mode: String, cycles: int, touch: bool) -> Dictionary:
 	var sim := _sim(4242)
 	var st := _storage(sim)
 	st["stacks"] = []
-	Inventory.add(st, cat, "iron", Inventory.NORMAL, cycles * 2)
+	# H7: a night thief (microevent, GDD 4.20) may take a few units of iron: some to spare
+	Inventory.add(st, cat, "iron", Inventory.NORMAL, cycles * 2 + 12)
 	check(_work(sim, HUGO, "furnace", "forge_ingot", mode)["ok"], "starts %s" % mode)
 	var total := 0
 	var done := 0

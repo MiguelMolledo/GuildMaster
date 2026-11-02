@@ -232,5 +232,63 @@
         24
       ]
     }
+  },
+  "idle_town": {
+    "_doc": "H7 (10/H7, GDD 4.20): bot idle (no answers) from town_microevents (forge with counter, 2 employees, goods), 30 days, per seed. 35 %/day, at most 1 per family and day, each microevent cools down 8 days (1 year) per building: each one between 1 and 4 times in 30 days; every card times out to its default (nobody answers); the counter sells; the town keeps 15-20 townsfolk. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=town_microevents --bots=idle_town --days=30 --seeds=3.",
+    "days": [
+      30,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "mev_haggling_customer": [
+      1,
+      4
+    ],
+    "mev_sick_employee": [
+      1,
+      4
+    ],
+    "mev_night_thief": [
+      1,
+      4
+    ],
+    "mev_max_per_day": [
+      0,
+      1
+    ],
+    "mev_timeouts": [
+      1,
+      null
+    ],
+    "counter_sold": [
+      10,
+      null
+    ],
+    "townsfolk": [
+      15,
+      20
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ]
+  },
+  "town_population": {
+    "_doc": "H7 renewal of the town (docs/contratos/h7_ciudad.md): tests/test_town_population.gd jumps from dawn to dawn for `years` years from town_e_start (weddings, births, deaths, newcomers): the living townsfolk always in townsfolk, and at the end at least fertile_singles single women of 18 to mother_max_age - 5 (the player's heirs still have someone to marry).",
+    "years": [
+      60,
+      null
+    ],
+    "townsfolk": [
+      14,
+      22
+    ],
+    "fertile_singles": [
+      2,
+      null
+    ]
   }
 }

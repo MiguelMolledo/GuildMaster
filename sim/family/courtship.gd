@@ -206,6 +206,10 @@ static func marry(sim: Sim, actor: String, target: String) -> void:
 	t["family"] = fam
 	t["controlled_by"] = "ai"
 	t["home"] = ""
+	# H7: a walk queued before the wedding (a townsperson on the way to its old house) would be refused on arrival
+	t["order_queue"] = []
+	t["path"] = []
+	t["move_progress"] = 0
 	t["assigned"] = ""
 	if t.get("job") is Dictionary:
 		var bld := str(t["job"].get("building", ""))

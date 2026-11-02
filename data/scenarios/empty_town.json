@@ -1,45 +1,54 @@
 {
-  "version": 6,
-  "seed": "1",
-  "rng_state": "",
-  "meta": {
-    "title": "Pueblo vacío",
-    "description": "H0: solo el reloj, sin mapa ni personajes. Base de las pruebas de arranque."
-  },
-  "map_id": "",
-  "clock": {
-    "minute": 300
-  },
-  "characters": {},
-  "families": {},
-  "buildings": {},
-  "parcels": {},
-  "market": {
-    "demand": {},
-    "regulations": []
-  },
-  "offices": {},
-  "elections": [],
-  "trials": [],
-  "relationships": {},
-  "emotions": {},
-  "events_active": [],
-  "chronicle": [],
-  "next_ids": {},
-  "ledger": {
-    "entries": [],
-    "summaries": {}
-  },
-  "notices": [],
-  "loans": {},
-  "contracts": {
-    "board": [],
-    "accepted": [],
-    "cooldowns": {},
-    "relations": {}
-  },
-  "deliveries": [],
-  "difficulty": "normal",
-  "objectives": {},
-  "ending": {}
+	"buildings": {},
+	"characters": {},
+	"chronicle": [],
+	"clock": {
+		"minute": 300
+	},
+	"contracts": {
+		"accepted": [],
+		"board": [],
+		"cooldowns": {},
+		"relations": {}
+	},
+	"deliveries": [],
+	"difficulty": "normal",
+	"elections": [],
+	"emotions": {},
+	"ending": {},
+	"events_active": [],
+	"families": {},
+	"ledger": {
+		"entries": [],
+		"summaries": {}
+	},
+	"loans": {},
+	"map_id": "",
+	"market": {
+		"demand": {},
+		"regulations": []
+	},
+	"meta": {
+		"description": "H0: solo el reloj, sin mapa ni personajes. Base de las pruebas de arranque.",
+		"title": "Pueblo vacío"
+	},
+	"microevents": {
+		"active": [],
+		"cooldowns": {},
+		"last_day": {},
+		"pending": []
+	},
+	"next_ids": {},
+	"notices": [],
+	"objectives": {},
+	"offices": {},
+	"parcels": {},
+	"relationships": {},
+	"rng_state": "-1966449618399012673",
+	"seed": "1",
+	"town": {
+		"counters": {}
+	},
+	"trials": [],
+	"version": 8
 }

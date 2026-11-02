@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "seed": "1",
   "rng_state": "",
   "meta": {
@@ -70,7 +70,9 @@
         "hair": 1,
         "skin": 1
       },
-      "life": {}
+      "life": {},
+      "occupation": "",
+      "town": {}
     },
     "chr_0002": {
       "id": "chr_0002",
@@ -131,7 +133,9 @@
         "hair": 2,
         "skin": 2
       },
-      "life": {}
+      "life": {},
+      "occupation": "",
+      "town": {}
     },
     "chr_0003": {
       "id": "chr_0003",
@@ -192,7 +196,9 @@
         "hair": 3,
         "skin": 3
       },
-      "life": {}
+      "life": {},
+      "occupation": "",
+      "town": {}
     },
     "chr_0004": {
       "id": "chr_0004",
@@ -253,7 +259,9 @@
         "hair": 4,
         "skin": 0
       },
-      "life": {}
+      "life": {},
+      "occupation": "",
+      "town": {}
     },
     "chr_0005": {
       "id": "chr_0005",
@@ -314,7 +322,9 @@
         "hair": 5,
         "skin": 1
       },
-      "life": {}
+      "life": {},
+      "occupation": "",
+      "town": {}
     },
     "chr_0006": {
       "id": "chr_0006",
@@ -375,7 +385,9 @@
         "hair": 0,
         "skin": 2
       },
-      "life": {}
+      "life": {},
+      "occupation": "",
+      "town": {}
     },
     "chr_0007": {
       "id": "chr_0007",
@@ -436,7 +448,9 @@
         "hair": 0,
         "skin": 0
       },
-      "life": {}
+      "life": {},
+      "occupation": "gate_west",
+      "town": {}
     },
     "chr_0008": {
       "id": "chr_0008",
@@ -497,7 +511,9 @@
         "hair": 5,
         "skin": 3
       },
-      "life": {}
+      "life": {},
+      "occupation": "stall_food",
+      "town": {}
     },
     "chr_0009": {
       "id": "chr_0009",
@@ -558,7 +574,9 @@
         "hair": 4,
         "skin": 2
       },
-      "life": {}
+      "life": {},
+      "occupation": "field_a",
+      "town": {}
     },
     "chr_0010": {
       "id": "chr_0010",
@@ -619,7 +637,9 @@
         "hair": 3,
         "skin": 1
       },
-      "life": {}
+      "life": {},
+      "occupation": "field_b",
+      "town": {}
     },
     "chr_0011": {
       "id": "chr_0011",
@@ -680,7 +700,9 @@
         "hair": 2,
         "skin": 0
       },
-      "life": {}
+      "life": {},
+      "occupation": "river_bank",
+      "town": {}
     },
     "chr_0012": {
       "id": "chr_0012",
@@ -741,7 +763,9 @@
         "hair": 1,
         "skin": 3
       },
-      "life": {}
+      "life": {},
+      "occupation": "stall_materials",
+      "town": {}
     },
     "chr_0013": {
       "id": "chr_0013",
@@ -802,7 +826,9 @@
         "hair": 0,
         "skin": 2
       },
-      "life": {}
+      "life": {},
+      "occupation": "gate_east",
+      "town": {}
     },
     "chr_0014": {
       "id": "chr_0014",
@@ -863,7 +889,9 @@
         "hair": 5,
         "skin": 1
       },
-      "life": {}
+      "life": {},
+      "occupation": "well",
+      "town": {}
     },
     "chr_0015": {
       "id": "chr_0015",
@@ -924,7 +952,9 @@
         "hair": 4,
         "skin": 0
       },
-      "life": {}
+      "life": {},
+      "occupation": "church_a",
+      "town": {}
     },
     "chr_0016": {
       "id": "chr_0016",
@@ -985,7 +1015,9 @@
         "hair": 3,
         "skin": 3
       },
-      "life": {}
+      "life": {},
+      "occupation": "stall_resources",
+      "town": {}
     },
     "chr_0017": {
       "id": "chr_0017",
@@ -1046,7 +1078,9 @@
         "hair": 2,
         "skin": 2
       },
-      "life": {}
+      "life": {},
+      "occupation": "armory",
+      "town": {}
     },
     "chr_0018": {
       "id": "chr_0018",
@@ -1107,7 +1141,9 @@
         "hair": 1,
         "skin": 1
       },
-      "life": {}
+      "life": {},
+      "occupation": "church_b",
+      "town": {}
     },
     "chr_0019": {
       "id": "chr_0019",
@@ -1168,7 +1204,9 @@
         "hair": 0,
         "skin": 0
       },
-      "life": {}
+      "life": {},
+      "occupation": "field_c",
+      "town": {}
     },
     "chr_0020": {
       "id": "chr_0020",
@@ -1229,7 +1267,9 @@
         "hair": 5,
         "skin": 3
       },
-      "life": {}
+      "life": {},
+      "occupation": "field_d",
+      "town": {}
     },
     "chr_0021": {
       "id": "chr_0021",
@@ -1290,7 +1330,9 @@
         "hair": 4,
         "skin": 2
       },
-      "life": {}
+      "life": {},
+      "occupation": "townhall_a",
+      "town": {}
     },
     "chr_0022": {
       "id": "chr_0022",
@@ -1351,7 +1393,9 @@
         "hair": 3,
         "skin": 1
       },
-      "life": {}
+      "life": {},
+      "occupation": "townhall_b",
+      "town": {}
     }
   },
   "families": {
@@ -2166,5 +2210,14 @@
   "deliveries": [],
   "difficulty": "normal",
   "objectives": {},
-  "ending": {}
+  "ending": {},
+  "microevents": {
+    "active": [],
+    "pending": [],
+    "cooldowns": {},
+    "last_day": {}
+  },
+  "town": {
+    "counters": {}
+  }
 }

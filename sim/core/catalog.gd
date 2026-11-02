@@ -7,6 +7,8 @@ extends RefCounted
 const KINDS: Array[String] = ["items", "recipes", "buildings", "maps"]
 ## H3 folders (docs/contratos/h3_mercado.md): loaded into `tables` too; not every one has a name_key.
 const H3_KINDS: Array[String] = ["ai_profiles", "starts", "objectives", "contracts"]
+## H7 folders (docs/contratos/h7_ciudad.md): the microevents of GDD 4.20, one file each.
+const H7_KINDS: Array[String] = ["microevents"]
 const DIFFICULTIES: Array[String] = ["easy", "normal", "hard"]
 const ITEM_CATEGORIES: Array[String] = ["raw", "material", "product", "tool", "equipment", "consumable", "special"]
 
@@ -24,13 +26,15 @@ var upgrade_trees: Dictionary = {}  # tree -> [upgrade ids] sorted (data/upgrade
 var family: Dictionary = {}      # data/family.json: life cycle, courtship, children, routine, succession (H8)
 var score: Dictionary = {}       # data/score.json: dynasty score by chronicle fact (H8, GDD 4.17)
 var goals: Dictionary = {}       # data/goals.json: dynasty goals (H8, GDD 4.17)
+var town: Dictionary = {}        # data/town.json: townsfolk routine, activities, emotions, NPC actions, counter, microevents, population (H7)
+var social_phrases: Dictionary = {}  # data/social_phrases.json: phrase keys by activity, phase and profession (H7, GDD 4.11.3)
 var errors: PackedStringArray = []  # files that could not be read
 
 
 static func load_from(root_dir: String = "res://data", dev_time: bool = false) -> Catalog:
 	var c := Catalog.new()
 	c.root = root_dir
-	for kind: String in KINDS + H3_KINDS:
+	for kind: String in KINDS + H3_KINDS + H7_KINDS:
 		c.tables[kind] = c._load_folder(root_dir.path_join(kind))
 	c.time = c._load_json(root_dir.path_join("time.json"))
 	c.tiles = c._load_json(root_dir.path_join("tiles.json")).get("tiles", {})
@@ -44,6 +48,8 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.family = c._load_json(root_dir.path_join("family.json"))
 	c.score = c._load_json(root_dir.path_join("score.json"))
 	c.goals = c._load_json(root_dir.path_join("goals.json"))
+	c.town = c._load_json(root_dir.path_join("town.json"))
+	c.social_phrases = c._load_json(root_dir.path_join("social_phrases.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
@@ -84,6 +90,11 @@ func objectives() -> Dictionary:
 
 func contracts() -> Dictionary:
 	return tables.get("contracts", {})
+
+
+## H7: the microevents of data/microevents/ (GDD 4.20), by id.
+func microevents() -> Dictionary:
+	return tables.get("microevents", {})
 
 
 ## The levers of a difficulty level (data/difficulty.json), {} if unknown.
@@ -176,6 +187,7 @@ func validate() -> PackedStringArray:
 		out.append("employees.json: default_role is not a role")
 	out.append_array(_validate_upgrades())
 	out.append_array(_validate_family())
+	out.append_array(_validate_town())
 	for id: String in maps():
 		var m: Dictionary = maps()[id]
 		var size: Array = m.get("size", [0, 0])
@@ -214,6 +226,44 @@ func _validate_family() -> PackedStringArray:
 			out.append("goals.json: %s: unknown kind %s" % [g.get("id", "?"), g.get("kind")])
 	if score.get("points", {}).is_empty():
 		out.append("score.json: points missing")
+	return out
+
+
+## H7: the town tables and the microevents (tools/validate_content.py check_h7 checks the rest and the texts).
+const MEV_EFFECTS: Array[String] = ["sell", "skill_check", "leave", "emotion", "relation", "pay", "loyalty", "absent",
+	"refund_wage", "steal", "nothing"]
+
+
+func _validate_town() -> PackedStringArray:
+	var out: PackedStringArray = []
+	for k: String in ["routine", "activities", "personality", "emotions", "actions", "skill_check", "counter",
+			"microevents", "population"]:
+		if not town.has(k):
+			out.append("town.json: %s missing" % k)
+	for e: String in town.get("emotions", {}):
+		var d: Array = town["emotions"][e].get("duration_days", [])
+		if d.size() != 2 or float(d[0]) <= 0.0 or float(d[0]) > float(d[1]):
+			out.append("town.json: emotions.%s.duration_days must be [min, max] > 0" % e)
+	for id: String in microevents():
+		var m: Dictionary = microevents()[id]
+		var ids: Array = []
+		for c: Dictionary in m.get("choices", []):
+			ids.append(str(c.get("id", "")))
+			out.append_array(_check_effects("microevents/%s/%s" % [id, c.get("id", "")], c.get("effects", [])))
+		if not str(m.get("default_choice", "")) in ids:
+			out.append("microevents/%s: default_choice %s is not a choice" % [id, m.get("default_choice")])
+		if not str(m.get("trigger", {}).get("phase", "")) in Clock.PHASES:
+			out.append("microevents/%s: trigger.phase must be a phase of the day" % id)
+	return out
+
+
+func _check_effects(where: String, effects: Array) -> PackedStringArray:
+	var out: PackedStringArray = []
+	for e: Dictionary in effects:
+		if not str(e.get("kind", "")) in MEV_EFFECTS:
+			out.append("%s: unknown effect %s" % [where, e.get("kind")])
+		out.append_array(_check_effects(where, e.get("success", [])))
+		out.append_array(_check_effects(where, e.get("fail", [])))
 	return out
 
 

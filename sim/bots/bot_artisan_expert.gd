@@ -40,6 +40,8 @@ var owner_sells: bool = false        # with employees, the protagonist sells ins
 var split_roles: bool = true         # with two employees: anvil + furnace (else both "any")
 var second_needs_furnace: bool = true  # a second employee only with a second furnace (forge_capacity_3)
 var max_employees: int = 2           # employees it hires at most (sim_runner: artisan_expert_<n> sets it)
+var counter_shop: int = 0            # H7 balance trial (BOT_VARS=counter_shop=1): buys the sales counter first and
+                                     # puts its least skilled employee at it (GDD 4.5.4: customers come to the forge)
 var _bonus_day: Dictionary = {}       # employee -> last day it got a bonus
 var _in_business: bool = false
 var _works_end: int = -1000000       # minute the last works of the forge ended (or will end)
@@ -190,6 +192,9 @@ func _roles(sim: Sim) -> Dictionary:
 		want[staff[0]] = ANVIL
 		for i: int in range(1, staff.size()):
 			want[staff[i]] = FURNACE
+	if counter_shop == 1 and not staff.is_empty() and Upgrades.flag(sim, FORGE, "counter_sales"):
+		var low: String = staff[staff.size() - 1] if staff.size() >= 2 else staff[0]
+		want[low] = "counter"  # the least skilled hand serves the customers
 	for c: String in want:
 		if str(sim.state.characters[c]["job"].get("role", "")) != str(want[c]):
 			return {"type": "set_role", "actor": ACTOR, "employee": c, "role": want[c]}
@@ -298,7 +303,8 @@ func _upgrade_at_home(sim: Sim) -> Array:
 func _next_upgrade(sim: Sim) -> String:
 	if Upgrades.under_works(sim.state, FORGE) or _now(sim) < _works_end + WORKS_GAP_DAYS * Clock.MINUTES_PER_DAY:
 		return ""
-	for id: String in UPGRADE_PLAN:
+	var plan: Array = (["forge_commerce_1"] if counter_shop == 1 else []) + UPGRADE_PLAN
+	for id: String in plan:
 		if id in STAFF_UPGRADES and _max_staff(sim) < int(STAFF_UPGRADES[id]):
 			continue  # a second anvil or another place only pay with that many employees
 		var s := Upgrades.status_of(sim, ACTOR, FORGE, id)

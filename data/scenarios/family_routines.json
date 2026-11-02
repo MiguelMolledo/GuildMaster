@@ -568,6 +568,7 @@
 			"location": "bld_0001",
 			"move_progress": 0,
 			"name": "Hugo",
+			"occupation": "",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -607,6 +608,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 1,
 				"skin": 1
@@ -643,6 +645,7 @@
 			"location": "bld_0002",
 			"move_progress": 0,
 			"name": "Bernat",
+			"occupation": "",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -668,6 +671,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 3,
 				"skin": 2
@@ -704,6 +708,7 @@
 			"location": "bld_0004",
 			"move_progress": 0,
 			"name": "Joan",
+			"occupation": "gate_west",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -729,6 +734,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 0,
 				"skin": 0
@@ -771,6 +777,7 @@
 			"location": "bld_0001",
 			"move_progress": 0,
 			"name": "Agnès",
+			"occupation": "stall_food",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -796,6 +803,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 5,
 				"skin": 3
@@ -832,6 +840,7 @@
 			"location": "bld_0005",
 			"move_progress": 0,
 			"name": "Pau",
+			"occupation": "field_a",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -857,6 +866,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 4,
 				"skin": 2
@@ -893,6 +903,7 @@
 			"location": "bld_0005",
 			"move_progress": 0,
 			"name": "Clara",
+			"occupation": "field_b",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -918,6 +929,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 3,
 				"skin": 1
@@ -954,6 +966,7 @@
 			"location": "bld_0006",
 			"move_progress": 0,
 			"name": "Arnau",
+			"occupation": "river_bank",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -979,6 +992,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 2,
 				"skin": 0
@@ -1015,6 +1029,7 @@
 			"location": "bld_0006",
 			"move_progress": 0,
 			"name": "Elisenda",
+			"occupation": "stall_materials",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1040,6 +1055,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 1,
 				"skin": 3
@@ -1076,6 +1092,7 @@
 			"location": "bld_0007",
 			"move_progress": 0,
 			"name": "Martí",
+			"occupation": "gate_east",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1101,6 +1118,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 0,
 				"skin": 2
@@ -1137,6 +1155,7 @@
 			"location": "bld_0007",
 			"move_progress": 0,
 			"name": "Blanca",
+			"occupation": "well",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1162,6 +1181,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 5,
 				"skin": 1
@@ -1198,6 +1218,7 @@
 			"location": "bld_0008",
 			"move_progress": 0,
 			"name": "Guillem",
+			"occupation": "church_a",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1223,6 +1244,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 4,
 				"skin": 0
@@ -1259,6 +1281,7 @@
 			"location": "bld_0008",
 			"move_progress": 0,
 			"name": "Sança",
+			"occupation": "stall_resources",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1284,6 +1307,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 3,
 				"skin": 3
@@ -1320,6 +1344,7 @@
 			"location": "bld_0009",
 			"move_progress": 0,
 			"name": "Jaume",
+			"occupation": "armory",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1345,6 +1370,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 2,
 				"skin": 2
@@ -1381,6 +1407,7 @@
 			"location": "bld_0009",
 			"move_progress": 0,
 			"name": "Margarida",
+			"occupation": "church_b",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1406,6 +1433,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 1,
 				"skin": 1
@@ -1442,6 +1470,7 @@
 			"location": "bld_0010",
 			"move_progress": 0,
 			"name": "Ramon",
+			"occupation": "field_c",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1467,6 +1496,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 0,
 				"skin": 0
@@ -1503,6 +1533,7 @@
 			"location": "bld_0010",
 			"move_progress": 0,
 			"name": "Isabel",
+			"occupation": "field_d",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1528,6 +1559,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 5,
 				"skin": 3
@@ -1564,6 +1596,7 @@
 			"location": "bld_0011",
 			"move_progress": 0,
 			"name": "Berenguer",
+			"occupation": "townhall_a",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1589,6 +1622,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 4,
 				"skin": 2
@@ -1625,6 +1659,7 @@
 			"location": "bld_0011",
 			"move_progress": 0,
 			"name": "Violant",
+			"occupation": "townhall_b",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1650,6 +1685,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 3,
 				"skin": 1
@@ -1688,6 +1724,7 @@
 			"location": "bld_0001",
 			"move_progress": 0,
 			"name": "Pere",
+			"occupation": "",
 			"order_queue": [],
 			"parents": [
 				"chr_0001",
@@ -1730,6 +1767,7 @@
 				"rhetoric": 3,
 				"stealth": 3
 			},
+			"town": {},
 			"visual": {
 				"hair": 1,
 				"skin": 3
@@ -1768,6 +1806,7 @@
 			"location": "bld_0001",
 			"move_progress": 0,
 			"name": "Clara",
+			"occupation": "",
 			"order_queue": [],
 			"parents": [
 				"chr_0001",
@@ -1810,6 +1849,7 @@
 				"rhetoric": 3,
 				"stealth": 3
 			},
+			"town": {},
 			"visual": {
 				"hair": 1,
 				"skin": 3
@@ -2145,6 +2185,12 @@
 		"origin": "tools/scenarios/make_family_scenarios.gd",
 		"title": "Rutinas de la familia"
 	},
+	"microevents": {
+		"active": [],
+		"cooldowns": {},
+		"last_day": {},
+		"pending": []
+	},
 	"next_ids": {
 		"bld": 12,
 		"chr": 21,
@@ -2177,6 +2223,9 @@
 	"relationships": {},
 	"rng_state": "-1966449618399012673",
 	"seed": "1",
+	"town": {
+		"counters": {}
+	},
 	"trials": [],
-	"version": 7
+	"version": 8
 }

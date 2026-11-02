@@ -459,13 +459,16 @@ static func works_at(st: WorldState, chr: String, bld: String) -> bool:
 	return bld != "" and employer(st, chr) == bld
 
 
-## Whether the job of `chr` is active today (started and not ended).
+## Whether the job of `chr` is active today (started, not ended and, H7, not absent: job.absent_until, the sick
+## employee microevent).
 static func is_active(sim: Sim, chr: String) -> bool:
 	var job: Variant = sim.state.characters.get(chr, {}).get("job")
 	if not job is Dictionary:
 		return false
 	var today := Clock.day(int(sim.state.clock["minute"]))
 	var end := int(job.get("end_day", -1))
+	if int(job.get("absent_until", -1)) >= today:
+		return false
 	return int(job.get("start_day", 0)) <= today and (end < 0 or today <= end)
 
 
@@ -500,14 +503,16 @@ static func speed(sim: Sim, chr: String) -> float:
 	return float(sim.catalog.rank(str(sim.state.characters[chr].get("rank", ""))).get("speed", 1.0))
 
 
-## Effective efficiency of an employee (GDD 4.7.2): rank × loyalty band (× emotion and equipment, later). 1.0 for
-## anybody without a job.
+## Effective efficiency of an employee (GDD 4.7.2): rank × loyalty band × H7 its emotions towards the employer family
+## (grateful +10 %, angry −20 %, GDD 4.11.5) (× equipment, later). 1.0 for anybody without a job.
 static func efficiency(sim: Sim, chr: String) -> float:
 	var job: Variant = sim.state.characters.get(chr, {}).get("job")
 	if not job is Dictionary:
 		return 1.0
 	var base := float(sim.catalog.rank(str(sim.state.characters[chr].get("rank", ""))).get("efficiency", 1.0))
-	return base * float(band(sim, int(job.get("loyalty", 0))).get("efficiency_mult", 1.0))
+	var fam := str(sim.state.buildings.get(str(job.get("building", "")), {}).get("owner", ""))
+	return base * float(band(sim, int(job.get("loyalty", 0))).get("efficiency_mult", 1.0)) \
+		* Emotions.employee_mult(sim, chr, fam)
 
 
 ## The loyalty band of data/employees.json that holds `loyalty` ({} if none).

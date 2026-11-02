@@ -1,0 +1,125 @@
+{
+ "_doc": "Phrase banks of the townsfolk (GDD 4.11.3): text keys of i18n/strings.csv. When the player's selected character is near (< 100 px, ~3 tiles), a townsperson shows one: from its activity (or its state: work, walk), its trade's profession and the phase of the day. 10 per activity.",
+ "activities": {
+  "bench": [
+   "phrase.bench.01",
+   "phrase.bench.02",
+   "phrase.bench.03",
+   "phrase.bench.04",
+   "phrase.bench.05",
+   "phrase.bench.06",
+   "phrase.bench.07",
+   "phrase.bench.08",
+   "phrase.bench.09",
+   "phrase.bench.10"
+  ],
+  "chat": [
+   "phrase.chat.01",
+   "phrase.chat.02",
+   "phrase.chat.03",
+   "phrase.chat.04",
+   "phrase.chat.05",
+   "phrase.chat.06",
+   "phrase.chat.07",
+   "phrase.chat.08",
+   "phrase.chat.09",
+   "phrase.chat.10"
+  ],
+  "market": [
+   "phrase.market.01",
+   "phrase.market.02",
+   "phrase.market.03",
+   "phrase.market.04",
+   "phrase.market.05",
+   "phrase.market.06",
+   "phrase.market.07",
+   "phrase.market.08",
+   "phrase.market.09",
+   "phrase.market.10"
+  ],
+  "observe": [
+   "phrase.observe.01",
+   "phrase.observe.02",
+   "phrase.observe.03",
+   "phrase.observe.04",
+   "phrase.observe.05",
+   "phrase.observe.06",
+   "phrase.observe.07",
+   "phrase.observe.08",
+   "phrase.observe.09",
+   "phrase.observe.10"
+  ],
+  "dice": [
+   "phrase.dice.01",
+   "phrase.dice.02",
+   "phrase.dice.03",
+   "phrase.dice.04",
+   "phrase.dice.05",
+   "phrase.dice.06",
+   "phrase.dice.07",
+   "phrase.dice.08",
+   "phrase.dice.09",
+   "phrase.dice.10"
+  ],
+  "greet": [
+   "phrase.greet.01",
+   "phrase.greet.02",
+   "phrase.greet.03",
+   "phrase.greet.04",
+   "phrase.greet.05",
+   "phrase.greet.06",
+   "phrase.greet.07",
+   "phrase.greet.08",
+   "phrase.greet.09",
+   "phrase.greet.10"
+  ],
+  "work": [
+   "phrase.work.01",
+   "phrase.work.02",
+   "phrase.work.03",
+   "phrase.work.04",
+   "phrase.work.05",
+   "phrase.work.06",
+   "phrase.work.07",
+   "phrase.work.08",
+   "phrase.work.09",
+   "phrase.work.10"
+  ],
+  "walk": [
+   "phrase.walk.01",
+   "phrase.walk.02",
+   "phrase.walk.03",
+   "phrase.walk.04",
+   "phrase.walk.05",
+   "phrase.walk.06",
+   "phrase.walk.07",
+   "phrase.walk.08",
+   "phrase.walk.09",
+   "phrase.walk.10"
+  ]
+ },
+ "phases": {
+  "dawn": [
+   "phrase.phase.dawn.01",
+   "phrase.phase.dawn.02",
+   "phrase.phase.dawn.03"
+  ],
+  "day": [
+   "phrase.phase.day.01",
+   "phrase.phase.day.02",
+   "phrase.phase.day.03"
+  ],
+  "dusk": [
+   "phrase.phase.dusk.01",
+   "phrase.phase.dusk.02",
+   "phrase.phase.dusk.03"
+  ]
+ },
+ "professions": {
+  "blacksmith": [
+   "phrase.profession.blacksmith.01",
+   "phrase.profession.blacksmith.02",
+   "phrase.profession.blacksmith.03"
+  ]
+ }
+}

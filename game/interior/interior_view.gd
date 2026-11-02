@@ -20,6 +20,7 @@ signal close_requested   # leave without an order (management mode, or nobody of
 signal shop_requested(actor: String, stall: String)
 
 const STAND: Vector2 = Vector2(-0.75, 0.25)  # where a worker stands, in tiles from its station's tile
+const CUSTOMER: Vector2 = Vector2(0.9, 0.35)  # H7: where a counter customer waits, across the counter from the seller
 
 var order_sink: Callable = Callable()
 var sim: Sim
@@ -357,7 +358,12 @@ func sync() -> void:
 		(_views[id] as CharacterView).follow_badge(st, _player_family)
 		(_views[id] as CharacterView).hovered = Staff.works_at(st, id, building)  # employees inside: name always shown
 		var zone := str(ch.get("station", ""))
-		if _station_tiles.has(zone):
+		# H7: a customer (GDD 4.5.4) waits in front of the counter with the market bubble
+		var customer := Counter.is_customer_of(st, id, building) and _station_tiles.has("counter")
+		(_views[id] as CharacterView).set_bubble("shop" if customer else SimQuery.bubble_of(sim, id))
+		if customer:
+			(_views[id] as CharacterView).position = Iso.tilef_to_world(Vector2(_station_tiles["counter"]) + CUSTOMER).round()
+		elif _station_tiles.has(zone):
 			# beside the station (to its left on screen), so the block and its bar stay visible
 			(_views[id] as CharacterView).position = Iso.tilef_to_world(Vector2(_station_tiles[zone]) + STAND).round()
 		else:

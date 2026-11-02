@@ -1,7 +1,7 @@
 class_name Ids
 extends RefCounted
 ## Stable, typed ids (GDD 05 §5.3): "<prefix>_<0001>". Never reused: the counters live in WorldState.next_ids and are saved.
-## Prefixes in use: chr (character), fam (family), bld (building), par (parcel), trial.
+## Prefixes in use: chr (character), fam (family), bld (building), par (parcel), trial; H7: mev (microevent).
 
 static func next(state: WorldState, prefix: String) -> String:
 	var n: int = int(state.next_ids.get(prefix, 1))

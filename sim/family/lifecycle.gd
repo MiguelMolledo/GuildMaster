@@ -277,6 +277,14 @@ static func _bequeath(sim: Sim, heir: String, home: String, item: String, q: int
 static func _no_heir(sim: Sim, fam: String, from: String) -> void:
 	var st := sim.state
 	var f: Dictionary = st.families[fam]
+	if TownLife.is_household(st, fam):
+		# H7: a household goes on with its first living member (the housemate); it only dies out when nobody is left.
+		for m: Variant in f.get("members", []):
+			if Kin.alive(st, str(m)):
+				f["head"] = str(m)
+				if OS.is_debug_build():
+					print("[Lifecycle] el hogar %s sigue con %s" % [fam, m])
+				return
 	f["head"] = ""
 	Chronicle.add(st, "extinct", {"family": fam, "last": from})
 	sim.events.append({"type": "family_extinct", "family": fam, "last": from})

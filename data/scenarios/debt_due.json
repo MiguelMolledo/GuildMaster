@@ -543,6 +543,7 @@
 			"location": "",
 			"move_progress": 0,
 			"name": "Hugo",
+			"occupation": "",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -568,6 +569,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 1,
 				"skin": 1
@@ -604,6 +606,7 @@
 			"location": "bld_0002",
 			"move_progress": 0,
 			"name": "Bernat",
+			"occupation": "",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -629,6 +632,7 @@
 				"rhetoric": 3,
 				"stealth": 2
 			},
+			"town": {},
 			"visual": {
 				"hair": 3,
 				"skin": 2
@@ -665,6 +669,7 @@
 			"location": "bld_0004",
 			"move_progress": 0,
 			"name": "Joan",
+			"occupation": "gate_west",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -689,6 +694,20 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 197,
+				"day": 7,
+				"greets": 1,
+				"leave_at": 10524,
+				"met": [
+					"chr_0006"
+				],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 0,
@@ -726,6 +745,7 @@
 			"location": "bld_0004",
 			"move_progress": 0,
 			"name": "Agnès",
+			"occupation": "stall_food",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -750,6 +770,20 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 169,
+				"day": 7,
+				"greets": 1,
+				"leave_at": 10482,
+				"met": [
+					"chr_0008"
+				],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 5,
@@ -787,6 +821,7 @@
 			"location": "bld_0005",
 			"move_progress": 0,
 			"name": "Pau",
+			"occupation": "field_a",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -811,6 +846,20 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 180,
+				"day": 7,
+				"greets": 1,
+				"leave_at": 10501,
+				"met": [
+					"chr_0006"
+				],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 4,
@@ -848,6 +897,7 @@
 			"location": "bld_0005",
 			"move_progress": 0,
 			"name": "Clara",
+			"occupation": "field_b",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -872,6 +922,21 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 162,
+				"day": 7,
+				"greets": 2,
+				"leave_at": 10523,
+				"met": [
+					"chr_0003",
+					"chr_0005"
+				],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 3,
@@ -909,6 +974,7 @@
 			"location": "bld_0006",
 			"move_progress": 0,
 			"name": "Arnau",
+			"occupation": "river_bank",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -933,6 +999,18 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 189,
+				"day": 7,
+				"greets": 0,
+				"leave_at": 10470,
+				"met": [],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 2,
@@ -970,6 +1048,7 @@
 			"location": "bld_0006",
 			"move_progress": 0,
 			"name": "Elisenda",
+			"occupation": "stall_materials",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -994,6 +1073,21 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 180,
+				"day": 7,
+				"greets": 2,
+				"leave_at": 10517,
+				"met": [
+					"chr_0014",
+					"chr_0004"
+				],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 1,
@@ -1031,6 +1125,7 @@
 			"location": "bld_0007",
 			"move_progress": 0,
 			"name": "Martí",
+			"occupation": "gate_east",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1055,6 +1150,21 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 172,
+				"day": 7,
+				"greets": 2,
+				"leave_at": 10526,
+				"met": [
+					"chr_0015",
+					"chr_0018"
+				],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 0,
@@ -1092,6 +1202,7 @@
 			"location": "bld_0007",
 			"move_progress": 0,
 			"name": "Blanca",
+			"occupation": "well",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1116,6 +1227,18 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 179,
+				"day": 7,
+				"greets": 0,
+				"leave_at": 10511,
+				"met": [],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 5,
@@ -1153,6 +1276,7 @@
 			"location": "bld_0008",
 			"move_progress": 0,
 			"name": "Guillem",
+			"occupation": "church_a",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1177,6 +1301,18 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 168,
+				"day": 7,
+				"greets": 0,
+				"leave_at": 10523,
+				"met": [],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 4,
@@ -1214,6 +1350,7 @@
 			"location": "bld_0008",
 			"move_progress": 0,
 			"name": "Sança",
+			"occupation": "stall_resources",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1238,6 +1375,18 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 151,
+				"day": 7,
+				"greets": 0,
+				"leave_at": 10485,
+				"met": [],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 3,
@@ -1275,6 +1424,7 @@
 			"location": "bld_0009",
 			"move_progress": 0,
 			"name": "Jaume",
+			"occupation": "armory",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1299,6 +1449,21 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 199,
+				"day": 7,
+				"greets": 2,
+				"leave_at": 10505,
+				"met": [
+					"chr_0014",
+					"chr_0018"
+				],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 2,
@@ -1336,6 +1501,7 @@
 			"location": "bld_0009",
 			"move_progress": 0,
 			"name": "Margarida",
+			"occupation": "church_b",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1360,6 +1526,21 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 180,
+				"day": 7,
+				"greets": 2,
+				"leave_at": 10500,
+				"met": [
+					"chr_0008",
+					"chr_0013"
+				],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 1,
@@ -1397,6 +1578,7 @@
 			"location": "bld_0010",
 			"move_progress": 0,
 			"name": "Ramon",
+			"occupation": "field_c",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1421,6 +1603,20 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 186,
+				"day": 7,
+				"greets": 1,
+				"leave_at": 10499,
+				"met": [
+					"chr_0009"
+				],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 0,
@@ -1458,6 +1654,7 @@
 			"location": "bld_0010",
 			"move_progress": 0,
 			"name": "Isabel",
+			"occupation": "field_d",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1482,6 +1679,18 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 186,
+				"day": 7,
+				"greets": 0,
+				"leave_at": 10476,
+				"met": [],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 5,
@@ -1519,6 +1728,7 @@
 			"location": "bld_0011",
 			"move_progress": 0,
 			"name": "Berenguer",
+			"occupation": "townhall_a",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1543,6 +1753,18 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 162,
+				"day": 7,
+				"greets": 0,
+				"leave_at": 10522,
+				"met": [],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 4,
@@ -1580,6 +1802,7 @@
 			"location": "bld_0011",
 			"move_progress": 0,
 			"name": "Violant",
+			"occupation": "townhall_b",
 			"order_queue": [],
 			"parents": [],
 			"path": [],
@@ -1604,6 +1827,21 @@
 				"negotiation": 6,
 				"rhetoric": 3,
 				"stealth": 2
+			},
+			"town": {
+				"adult": true,
+				"adult_day": 7,
+				"break_permil": 150,
+				"day": 7,
+				"greets": 2,
+				"leave_at": 10484,
+				"met": [
+					"chr_0013",
+					"chr_0009"
+				],
+				"plan": "home",
+				"shown": "",
+				"state": "home"
 			},
 			"visual": {
 				"hair": 3,
@@ -2048,6 +2286,12 @@
 		"origin": "tools/scenarios/make_debt_scenarios.gd",
 		"title": "Deuda a punto de vencer"
 	},
+	"microevents": {
+		"active": [],
+		"cooldowns": {},
+		"last_day": {},
+		"pending": []
+	},
 	"next_ids": {
 		"bld": 12,
 		"chr": 19,
@@ -2132,6 +2376,9 @@
 	},
 	"rng_state": "-3299030162849315060",
 	"seed": "1",
+	"town": {
+		"counters": {}
+	},
 	"trials": [],
-	"version": 7
+	"version": 8
 }

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://4a1k30ne8nlb"]
+
+[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+
+[node name="DiceTable" type="Node2D"]
+editor_description = "The dice table of the plaza (social point)"
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_block")
+height = 10.0
+color = Color(0.55, 0.4, 0.25, 1)

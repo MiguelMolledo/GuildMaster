@@ -36,13 +36,18 @@ extends SceneTree
 ## "_share": {measure: [min, max]} on the share of runs where the measure is 1.
 ## H8: a bot with measures(sim) adds its own (dynasty: wedding_day, first_child_days, inherited, inherit_day,
 ## generation_days, game_over), e.g. --scenario=dynasty_start --bots=dynasty --days=320 --seeds=3.
+## H7 (docs/contratos/h7_ciudad.md): for the player's family mev_<id> (microevents started, one per id of
+## data/microevents), mev_max_per_day (most in a single day), mev_timeouts (default applied after the timeout),
+## counter_sold (sales at the counter), thefts and thefts_foiled; townsfolk (alive at the end), e.g.
+## --scenario=town_microevents --bots=idle_town --days=30 --seeds=3.
 
 var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
 	"random_clicker": BotRandomClicker, "idle_rival": BotIdle, "artisan_novice": BotArtisanNovice,
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
-	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty}
+	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
+	# idle_town: idle with the microevent targets (30 days, H7)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
 const YEAR_DAYS: int = 8  # D1(b): 1 year = 8 days
@@ -203,6 +208,7 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 	var repaid := 0  # gold paid back to loans so far (gold_repaid_day<N> = gold + this)
 	var cycles: Array = []  # H5: [{minute, actor, std, real, hours}] cycles started in the player's buildings
 	var ups: Array = []     # H5: [{upgrade, start, end, mult_before, mult_after}] production upgrades of the player
+	var mev_days := {}  # H7: day -> microevents started for the player's family
 	for i: int in days * Clock.MINUTES_PER_DAY:
 		for e: Dictionary in sim.step(bot.orders(sim)):
 			match str(e["type"]):
@@ -233,6 +239,22 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 				"contract_failed":
 					if str(e.get("family", "")) == player:
 						m["contracts_failed"] = int(m.get("contracts_failed", 0)) + 1
+				"microevent_started":  # H7 (GDD 4.20)
+					if str(e.get("family", "")) == player:
+						var k := "mev_" + str(e["def"])
+						m[k] = int(m.get(k, 0)) + 1
+						var dd := Clock.day(int(sim.state.clock["minute"]))
+						mev_days[dd] = int(mev_days.get(dd, 0)) + 1
+				"microevent_resolved":
+					if str(e.get("family", "")) == player and str(e.get("by", "")) == "timeout":
+						m["mev_timeouts"] = int(m.get("mev_timeouts", 0)) + 1
+				"counter_sold":
+					if str(e.get("family", "")) == player:
+						m["counter_sold"] = int(m.get("counter_sold", 0)) + 1
+				"theft":
+					if str(e.get("family", "")) == player:
+						var tk := "thefts_foiled" if bool(e.get("frustrated", false)) else "thefts"
+						m[tk] = int(m.get(tk, 0)) + 1
 				"employee_hired":
 					if str(e.get("family", "")) == player:
 						m["hired"] = int(m.get("hired", 0)) + 1
@@ -291,6 +313,15 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 			m["debt_paid"] = ok
 			m["debt_paid_day"] = last if ok == 1 else -1
 		_production_gains(m, cycles, ups)
+	for d: String in sim.catalog.microevents():  # H7: every microevent measured, also the ones that never came
+		m["mev_" + d] = int(m.get("mev_" + d, 0))
+	var most := 0
+	for dd: Variant in mev_days:
+		most = maxi(most, int(mev_days[dd]))
+	m["mev_max_per_day"] = most
+	for k: String in ["mev_timeouts", "counter_sold", "thefts", "thefts_foiled"]:
+		m[k] = int(m.get(k, 0))
+	m["townsfolk"] = Population.townsfolk(sim.state).size()
 	if bot.has_method("measures"):  # H8: a bot may measure its own things (dynasty: wedding, children, inheritance)
 		m.merge(bot.call("measures", sim))
 	m.merge({"seed": s, "days": days, "state_hash": sim.state_hash()})

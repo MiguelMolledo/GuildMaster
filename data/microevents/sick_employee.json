@@ -1,0 +1,76 @@
+{
+  "id": "sick_employee",
+  "scope": "building",
+  "text_key": "mev.sick_employee",
+  "trigger": {
+    "phase": "dawn",
+    "conditions": [
+      "has_employees"
+    ],
+    "chance_per_day": 1.0
+  },
+  "cooldown_days": 8,
+  "timeout_hours": 2,
+  "default_choice": "day_off",
+  "choices": [
+    {
+      "id": "doctor",
+      "text_key": "mev.sick_employee.doctor",
+      "effects": [
+        {
+          "kind": "pay",
+          "gold": 10,
+          "category": "events"
+        },
+        {
+          "kind": "absent",
+          "days": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "loyalty",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "id": "day_off",
+      "text_key": "mev.sick_employee.day_off",
+      "effects": [
+        {
+          "kind": "absent",
+          "days": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "loyalty",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "dock",
+      "text_key": "mev.sick_employee.dock",
+      "effects": [
+        {
+          "kind": "absent",
+          "days": [
+            0,
+            1
+          ]
+        },
+        {
+          "kind": "loyalty",
+          "amount": -5
+        },
+        {
+          "kind": "refund_wage"
+        }
+      ]
+    }
+  ]
+}

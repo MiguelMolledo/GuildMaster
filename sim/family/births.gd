@@ -54,6 +54,8 @@ static func can_conceive(sim: Sim, mother: String, today: int) -> bool:
 		return false
 	if couple_children(sim.state, mother, str(ch.get("spouse", ""))).size() >= int(cfg.get("max_per_couple", 3)):
 		return false
+	if TownLife.is_household(sim.state, str(ch.get("family", ""))) and not Population.room_for_child(sim):
+		return false  # H7: the town stays at 15-20 townsfolk (docs/contratos/h7_ciudad.md)
 	return Kin.age(sim, mother) <= int(cfg.get("mother_max_age", 45))
 
 
@@ -88,8 +90,9 @@ static func born(sim: Sim, mother: String, father: String) -> String:
 	st.characters[id] = {"id": id, "name": name, "female": female, "family": fam, "controlled_by": "ai", "alive": true,
 		"position": [int(pos[0]), int(pos[1])], "path": [], "move_progress": 0, "stats": stats,
 		"inventory": Inventory.create("weight", 0.0), "equipment": {"tool": null, "clothes": null, "accessory": null},
-		"location": home, "station": "", "order_queue": [], "home": "", "rank": "", "job": null, "hire_bans": {},
-		"routine": {}}
+		"location": home, "station": "", "order_queue": [],
+		"home": home if TownLife.is_household(st, fam) else "", "rank": "", "job": null, "hire_bans": {},
+		"routine": {}, "occupation": "", "town": {}}
 	st.characters[id].merge(Kin.character_fields(today, str(st.families.get(fam, {}).get("class", f.get("class", "artisan"))),
 		"", int(vis["hair"]), int(vis["skin"]), cfg.get("directives", {}).get("default", ["work"])))
 	st.characters[id]["parents"] = [father, mother]

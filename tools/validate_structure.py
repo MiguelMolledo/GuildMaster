@@ -27,7 +27,7 @@ import uids
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 VISUALS = os.path.join(ROOT, "game", "visuals")
-KINDS = ["buildings", "interiors", "stations", "props", "characters"]
+KINDS = ["buildings", "interiors", "stations", "props", "characters", "bubbles"]
 CHARACTERS = [f"{r}_{s}" for r in ("artisan", "worker", "townsfolk") for s in ("m", "f")]
 AUDIO_SECTIONS = {"music": "Music", "sfx": "Sfx", "ambient": "Ambient", "voice": "Voice"}
 AUDIO_EXT = (".ogg", ".wav")

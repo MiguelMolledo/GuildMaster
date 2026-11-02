@@ -21,6 +21,8 @@ extends Node
 ## H8: the group portraits select (HUD select_requested); the ending screen shows the dynasty score (Game Over);
 ## --smoke-script=familia: the family tree, the routine editor and the Game Over captures.
 ## --smoke-script=arte: the town's art (trees, river and bridge, a block, the plaza), camera on each place.
+## H7: --smoke-script=ciudad: the plaza at dusk, the town at night, a townsperson's sheet, a microevent card and a
+## customer at the counter.
 ## --gallery opens game/tools/gallery.tscn instead (every visual scene of game/visuals/ on the grid; with --smoke it
 ## saves reports/shots/gallery_01.png and quits). The AudioDirector node plays the sounds and music by id.
 
@@ -28,7 +30,8 @@ const GALLERY: String = "res://game/tools/gallery.tscn"
 const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mercado": "res://game/smoke/smoke_mercado.gd", "empleados": "res://game/smoke/smoke_empleados.gd",
 	"mejoras": "res://game/smoke/smoke_mejoras.gd", "rebanada": "res://game/smoke/smoke_rebanada.gd",
-	"familia": "res://game/smoke/smoke_familia.gd", "arte": "res://game/smoke/smoke_arte.gd"}
+	"familia": "res://game/smoke/smoke_familia.gd", "arte": "res://game/smoke/smoke_arte.gd",
+	"ciudad": "res://game/smoke/smoke_ciudad.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView
@@ -70,6 +73,7 @@ func _ready() -> void:
 	_interior.set_active(false)
 	_world.selection_changed.connect(_on_world_selection)
 	_world.building_picked.connect(func(id: String) -> void: _hud.set_building(id))
+	_world.npc_picked.connect(func(id: String) -> void: _hud.open_npc(id))  # H7: a townsperson's sheet
 	_world.manage_requested.connect(func(id: String) -> void:
 		if _owns(id):
 			open_interior(id, true))

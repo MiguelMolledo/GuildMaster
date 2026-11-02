@@ -37,11 +37,16 @@ func step(orders: Array = []) -> Array:
 	Buildings.step(self)    # arrivals at doors -> inside
 	# H8 · family (docs/contratos/h8_familia.md)
 	Lifecycle.step(self)    # at year_changed: birthdays (school, trade, coming of age, decline), deaths, succession
+	# H7 · the living town (docs/contratos/h7_ciudad.md)
+	Population.step(self)   # dawn: townsfolk weddings; year_changed: coming of age, newcomers
 	# H5 · upgrades (docs/contratos/h5_mejoras.md)
 	Upgrades.step(self)     # works that end now finish: their effects apply before anyone reads them
 	# H4 · employees (docs/contratos/h4_empleados.md)
 	Staff.step(self)        # at dawn: day counted, leavers, hires start, wages, loyalty, quit/theft, promotions
+	Microevents.step(self)  # H7: dawn roll, the night thief, cards that time out (default choice)
 	Routines.step(self)     # employees: home -> work at dawn, work -> home at dusk (real orders, Sim.give)
+	TownLife.step(self)     # H7: the townsfolk's day (trade, breaks, market, dusk activities, home at night)
+	Counter.step(self)      # H7: customers at the shop counters
 	Schedules.step(self)    # H8: the family's routines and the Work directive (real orders, Sim.give)
 	WorkQueue.step(self)    # hands the queue's next unit to each free employee at its station (work_at)
 	Production.step(self)   # work cycles, master-touch windows
@@ -52,6 +57,7 @@ func step(orders: Array = []) -> Array:
 	Inspections.step(self)  # at dawn: Secrets inspections (fines), after wages and upkeep
 	Loans.step(self)        # debt warnings, due date, extension, seizure, ruin
 	Births.step(self)       # H8: at dawn, children of the married couples
+	Emotions.step(self)     # H7: every hour, emotions that faded end
 	Dynasty.step(self)      # H8: at dawn, wealth peaks and dynasty goals (chronicle)
 	Objectives.step(self)   # reads the events of the step: after every system that emits
 	Ledger.step(self)       # retention of the ledger at dawn

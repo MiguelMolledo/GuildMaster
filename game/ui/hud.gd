@@ -1,4 +1,6 @@
 extends CanvasLayer
+## H7: the sheet of a townsperson (NpcPanel, a click on somebody else) and the card of a microevent of the family
+## (MicroeventCard, top right, not blocking).
 ## HUD of the town (H1): clock (time, date, sun/moon, phase bar, tooltip with the full date), pause and speeds
 ## ×1/×2/×4 (D4) by button or key (pause_toggle = Space, speed_1/2/3 = 1/2/3), the "paused" sign and a short
 ## message when the sim refuses an order of the human family (tr("reason.<id>")). Reads Game; only changes the
@@ -64,6 +66,8 @@ signal focus_requested(target: String)  # a notice was clicked: centre on this b
 @onready var _group_bar: HBoxContainer = %GroupBar
 @onready var _tree_panel: FamilyTreePanel = %FamilyTreePanel
 @onready var _court_panel: CourtshipPanel = %CourtshipPanel
+@onready var _npc_panel: NpcPanel = %NpcPanel
+@onready var _mev_card: MicroeventCard = %MicroeventCard
 
 var selected_id: String = ""
 var building_id: String = ""
@@ -117,6 +121,8 @@ func _ready() -> void:
 	_help_button.pressed.connect(toggle_help)
 	_tree_panel.order_sink = _game.give
 	_court_panel.order_sink = _game.give
+	_npc_panel.order_sink = _game.give
+	_mev_card.order_sink = _game.give
 	_tree_panel.switch_requested.connect(func(id: String) -> void: select_requested.emit(id))
 	_tree_panel.court_requested.connect(open_courtship)
 	_character_panel.tree_requested.connect(toggle_tree)
@@ -127,6 +133,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_refresh()
+	if _game != null and _game.sim != null:
+		_mev_card.follow(_game.sim, selected_id)
 	_check_service()
 	_tick_popups(delta)
 	if _toast_left > 0.0:
@@ -168,6 +176,8 @@ func set_selected(id: String) -> void:
 	_queue_sig = "-"
 	if _game != null and _game.sim != null:
 		_character_panel.setup(_game.sim, id)
+		if _npc_panel.visible:
+			_npc_panel.setup(_game.sim, id, _npc_panel.target)  # H7: the new selected person acts
 	if id == "":
 		_character_panel.close()
 
@@ -224,7 +234,7 @@ func close_top() -> bool:
 	if _help_panel.visible:
 		toggle_help()
 		return true
-	for p: Control in [_court_panel, _tree_panel, _market_panel, _board_panel, _ledger_panel]:
+	for p: Control in [_npc_panel, _court_panel, _tree_panel, _market_panel, _board_panel, _ledger_panel]:
 		if p.visible:
 			p.call("close")
 			return true
@@ -411,9 +421,25 @@ func toggle_help() -> void:
 func close_panels() -> void:
 	_help_panel.visible = false
 	_pending_service = {}
-	for p: Control in [_market_panel, _board_panel, _ledger_panel, _tree_panel, _court_panel]:
+	for p: Control in [_market_panel, _board_panel, _ledger_panel, _tree_panel, _court_panel, _npc_panel]:
 		p.call("close")
 	_character_panel.close()
+
+
+## H7: the sheet of townsperson `npc` (actions on it by the selected person).
+func open_npc(npc: String) -> void:
+	if _game == null or _game.sim == null:
+		return
+	_npc_panel.setup(_game.sim, selected_id, npc)
+	_npc_panel.open()
+
+
+func npc_panel() -> NpcPanel:
+	return _npc_panel
+
+
+func microevent_card() -> MicroeventCard:
+	return _mev_card
 
 
 func toggle_ledger() -> void:

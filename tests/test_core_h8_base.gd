@@ -42,7 +42,7 @@ func test_v6_save_migrates_to_v7() -> void:
 	check(r["ok"], "the v6 save loads (%s)" % r.get("error", ""))
 	var st: WorldState = r["state"]
 	eq(st.version, WorldState.VERSION, "migrated")
-	eq(WorldState.VERSION, 7, "v7")
+	check(WorldState.VERSION >= 7, "v7 or later (H7: v8)")
 	var sim := Sim.new(st, cat)
 	for id: String in st.characters:
 		var c: Dictionary = st.characters[id]
