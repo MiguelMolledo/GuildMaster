@@ -22,7 +22,7 @@
     "sfx_step": {"volume_db": -12.0, "pitch_jitter": 0.1, "cooldown_s": 0.22},
     "sfx_furnace": {"volume_db": -3.0, "pitch_jitter": 0.05},
     "sfx_master_touch": {"volume_db": -2.0},
-    "sfx_sale": {"volume_db": -2.0, "pitch_jitter": 0.03},
+    "sfx_sale": {"volume_db": -6.0, "pitch_jitter": 0.03},
     "sfx_rooster": {"volume_db": -8.0},
     "sfx_market_bell": {"volume_db": -9.0},
     "sfx_panel_open": {"bus": "Ui", "volume_db": -8.0, "pitch_jitter": 0.05},

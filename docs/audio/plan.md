@@ -142,3 +142,16 @@ Tope de la tanda: 6.000. **Gastados 1.409** (saldo: 75.113 usados de 121.034). A
 Hasta que H7 se junte, esos eventos no llegan y las entradas no hacen nada (el validador no exige que el evento
 exista). Si H7 cambia algún id de evento o clave de aviso, basta con renombrar la entrada en `events`.
 Descartado: 1 toma de `voice_greeting` (la voz alargaba «Que Dios os guarde.» a 4 s); se rehízo con otra voz.
+
+## Comprobación con H7 en main (2026-11-02, 0 créditos)
+
+- El guion `--smoke-script=ciudad` adelanta el sim por dentro y no publica eventos: no sirve para oír la ciudad. Se
+  comprobó con un recuento sin ventana (eventos reales de 3-12 días por el AudioDirector) y con arranques con ventana
+  en tiempo real (`--scenario=plaza_dusk|town_microevents --dev-time --smoke --shots=5 --shot-every=10`, CoreAudio).
+- **No sonaban**: dados y saludos (en H7 son siempre entre vecinos, nunca de la familia del jugador, y estaban como
+  «solo la persona seleccionada»). Ahora son `positional`: suenan en la vista del vecino y se oyen al acercar la
+  cámara; nada dentro de un edificio. Con ventana: 7 dados y 3 saludos en plaza_dusk.
+- **Sonaba de más**: la venta de mostrador, dos veces por venta (`counter_sold` y `gold_changed.counter_sales`). Queda
+  solo `counter_sold`, y `sfx_sale` baja a -6 dB (unas 8 ventas por día de juego, al nivel de la música a -2).
+- Los avisos `notice.microevent.night_thief` y `notice.microevent.sick_employee` llegan con esas claves (ladrón y
+  tos). `notice.microevent.haggling_customer` no salió en 12 días; su clave sigue el mismo patrón.
