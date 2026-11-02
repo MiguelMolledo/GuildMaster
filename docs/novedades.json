@@ -13,7 +13,7 @@
   {
     "fecha": "2026-11-02",
     "titulo": "Audio · el juego ya suena (ElevenLabs)",
-    "que": "Música en bucle de día (laúd, flauta y fídula) y de noche (laúd y zanfona), ambientes de plaza, noche e interior de la forja, efectos con variantes (martillo, monedas, puerta, fuelle) y sonidos para contratar, mejora terminada, encargo entregado, avisos, deudas y objetivos. 5 frases de voz en castellano generadas (aún sin enganchar). Gasto real: 4.010 créditos de los 20.000 autorizados (detalle en assets/audio/MANIFEST.md). Pendiente: que el owner lo escuche; está en estado «generado», no «final».",
+    "que": "Música en bucle de día (laúd, flauta y fídula) y de noche (laúd y zanfona), ambientes de plaza, noche e interior de la forja, efectos con variantes (martillo, monedas, puerta, fuelle) y sonidos para contratar, mejora terminada, encargo entregado, avisos, deudas y objetivos. 5 frases de voz en castellano generadas (aún sin enganchar). Gasto real: 4.010 créditos de los 20.000 autorizados (detalle en assets/audio/MANIFEST.md). Pendiente: que el owner lo escuche; está en estado «generado», no «final». Segunda tanda (428 créditos; total 4.438): clic en todos los botones, sonido al abrir y cerrar paneles, voces del vendedor y del pregonero (con espera de 20 s), horno, toque de maestro, venta, pausa/reanudar, pasos del seleccionado, gallo al amanecer y campana del mercado.",
     "como_probar": "/opt/homebrew/bin/godot --path ~/Code/GuildMaster (sin --audio-driver Dummy). Entra en la forja para oír su ambiente; con -- --at=22:00 suena la noche. Volúmenes en data/audio.json o en los buses.",
     "capturas": []
   },
