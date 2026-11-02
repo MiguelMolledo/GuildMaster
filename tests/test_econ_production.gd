@@ -1,4 +1,5 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## Production by hand (GDD 4.4, D11, H2 criteria): cycles, quality, modes, master touch, interruption, refusals,
 ## save/load mid-cycle. Everything runs on the Sim alone: no views, no nodes (lesson L1, BUG-024).
 
@@ -8,7 +9,7 @@ const TOMAS: String = "chr_0003"
 const MARTA: String = "chr_0004"
 const FORGE: String = "bld_0001"
 
-var cat := Catalog.load_from()
+var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
 
 
 ## The town_e_start scenario with `who` already inside the forge (placed by hand: entering is tested by «edificio»).

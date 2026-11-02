@@ -17,7 +17,7 @@
     "item": "steel",
     "qty": 1
   },
-  "duration_hours": 3.0,
+  "duration_hours": 3.9,
   "min_craft": 6,
   "requires_upgrade": "forge_production_3"
 }

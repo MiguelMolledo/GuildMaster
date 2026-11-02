@@ -135,7 +135,8 @@ Los regalos no son un flujo propio (el oro ya salió al comprar el objeto). Las 
 
 Reglas que también vigilan los bots:
 
-- Desde H4, los sumideros recurrentes (salarios + mantenimiento + impuestos) se comen entre el **30 % y el 60 %** de los ingresos brutos.
+- Desde H4, los sumideros recurrentes (salarios + mantenimiento + impuestos) se comen entre el **30 % y el 60 %** de los ingresos brutos [balance]. **Ingresos brutos = margen bruto**: ventas + encargos − compras de materias − recados (decisión del manager en H5: sobre la facturación no cabe, las materias ya se comen ~65 % de las ventas). Se mide en `goldflow.staff` (`sink_base: margin`).
+- Con empleados la familia gana claramente más que sin ellos (razón de ser de H4): `artisan_expert_0/1/2` con las mismas semillas.
 - `artisan_novice` y `artisan_expert` no tienen oro neto negativo de media en ninguna ventana de 1 año, salvo el año de una obra grande.
 - Con el bot `idle`, el oro de la familia solo baja por mantenimiento y deuda (no hay fuentes gratis escondidas).
 - **Conservación:** en cualquier partida (incluido `random_clicker`), la suma de asientos de cada familia es igual a la variación de su oro. Ningún oro aparece ni desaparece fuera de esta tabla.

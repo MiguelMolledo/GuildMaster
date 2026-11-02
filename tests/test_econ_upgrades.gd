@@ -1,4 +1,5 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## H5 «arbol» (docs/contratos/h5_mejoras.md): buy_upgrade (requirements, gold and materials, refusals), the works
 ## (duration, what they block, Upgrades.step), each effect measured in the system that reads it (speed, quality, new
 ## stations, storage, places, allowed ranks, security), save/load with works in progress and the ledger.
@@ -9,7 +10,7 @@ const HERO: String = "chr_0001"
 const JOAN: String = "chr_0007"   # journeyman, role anvil
 const AGNES: String = "chr_0008"  # apprentice, role furnace
 
-var cat := Catalog.load_from()
+var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
 
 
 func _sim(id: String = "forge_upgrades", seed: int = 1) -> Sim:

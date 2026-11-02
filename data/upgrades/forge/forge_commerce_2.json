@@ -5,7 +5,7 @@
   "branch": "commerce",
   "level": 2,
   "cost": {
-    "gold": 15,
+    "gold": 75,
     "items": [
       {
         "item": "iron_ingot",

@@ -5,7 +5,7 @@
   "branch": "production",
   "level": 2,
   "cost": {
-    "gold": 8,
+    "gold": 40,
     "items": [
       {
         "item": "iron_ingot",

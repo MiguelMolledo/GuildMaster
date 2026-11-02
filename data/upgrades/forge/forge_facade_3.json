@@ -5,7 +5,7 @@
   "branch": "facade",
   "level": 3,
   "cost": {
-    "gold": 40,
+    "gold": 200,
     "items": []
   },
   "requires": {

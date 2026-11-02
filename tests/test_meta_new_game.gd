@@ -1,4 +1,5 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## A new game from a start (GDD 4.16, 4.23, D5): the 3 difficulties, the new-game choices and their validation,
 ## the town, the family, the forge, the rival, the loan, the scripted contracts and the objective chain.
 
@@ -6,7 +7,7 @@ const FAM := "fam_0001"
 const HUGO := "chr_0001"
 const FORGE := "bld_0001"
 
-var cat := Catalog.load_from()
+var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
 var start: Dictionary = cat.starts()["artisan_blacksmith"]
 
 

@@ -541,7 +541,7 @@
 			"home": "",
 			"id": "chr_0001",
 			"inventory": {
-				"limit": 24,
+				"limit": 54,
 				"limit_kind": "weight",
 				"stacks": []
 			},
@@ -606,7 +606,7 @@
 			"home": "",
 			"id": "chr_0002",
 			"inventory": {
-				"limit": 30,
+				"limit": 60,
 				"limit_kind": "weight",
 				"stacks": []
 			},
@@ -1648,7 +1648,7 @@
 			"home": "",
 			"id": "chr_0019",
 			"inventory": {
-				"limit": 30.0,
+				"limit": 60.0,
 				"limit_kind": "weight",
 				"stacks": []
 			},

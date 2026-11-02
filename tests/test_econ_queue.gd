@@ -1,4 +1,5 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## H4 · production queue (GDD 4.7.4, docs/contratos/h4_empleados.md, zone «cola»): the queue orders, set_role, the
 ## per-unit resolution with dependencies, strict roles, skipped entries with notices, employees' speed/efficiency,
 ## and the «2 empleados» scenario (3 days, the forge produces without the player, each at its station).
@@ -8,7 +9,7 @@ const PLAYER: String = "chr_0001"
 const JOAN: String = "chr_0007"    # journeyman, craft 5, role anvil
 const AGNES: String = "chr_0008"   # apprentice, craft 2, role furnace
 
-var cat := Catalog.load_from()
+var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
 
 
 func _sim(id: String = "two_employees") -> Sim:

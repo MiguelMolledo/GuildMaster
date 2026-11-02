@@ -124,8 +124,8 @@ static func _work(sim: Sim, chr: String, r: Dictionary, slot: Dictionary, now: i
 		return
 	if Production.job_zone(sim, chr, bld) != "":
 		return  # working (or its finished cycle waits for room): leave it
-	if Production.may_work(sim, chr, bld) != "":
-		return
+	if Production.may_work(sim, chr, bld) != "" or str(st.buildings[bld].get("state", "normal")) != "normal":
+		return  # not now (night rule, under works, damaged for unpaid upkeep...): no order that would be refused
 	var pick := pick_work(sim, chr, bld, str(slot.get("zone", "")), str(slot.get("recipe", "")))
 	if pick.is_empty():
 		r["retry_at"] = now + _retry(sim)

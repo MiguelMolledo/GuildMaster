@@ -1,7 +1,12 @@
 extends SceneTree
 ## Bots playing whole days without a window (GDD 07 §7.2), checked against data/targets.json.
 ##   godot --headless --path . -s tools/sim_runner.gd -- [--scenario=<id> | --start=<id>] [--difficulty=normal|easy,normal,hard]
-##       [--bots=idle,...] [--days=<n>] [--seeds=<n>]
+##       [--bots=idle,...] [--days=<n>] [--seeds=<n>] [--set=<where>=<json>]...
+## --set (balance trials, D14): changes one figure of the loaded catalog for this run only, without touching data/:
+## <where> = <table>.<id>.<key>[.<key>...] for the tables of data/ (items, recipes, upgrades, buildings, contracts,
+## ai_profiles, starts) or <market|employees|production|difficulty|accounts>.<key>[...] (e.g.
+## --set=market.demand.recover_per_day=0.2 --set=items.iron.base_price=6 --set=employees.ranks.journeyman.wage=10).
+## Reports of a run with --set (or --tag=<name>) go to reports/sim/trial_[<name>_]*.json, not the official ones.
 ## --scenario loads data/scenarios/<id>.json as is (default town_e_start, the H1 town). --start plays a real new game
 ## (NewGame.from_start, GDD 4.16) at each --difficulty (default normal; the bot may give its choices with
 ## bot_choices()). The targets of data/targets.json are those of Normal (GDD 4.23): with several difficulties the
@@ -18,6 +23,15 @@ extends SceneTree
 ## seeds, GDD 4.19 "media"), by_category_<a>_<b> (the window by category, for the report), contracts_done,
 ## contracts_failed, player_other_flows (ledger entries of the player's family that are not a payment of upkeep or
 ## loans: an idle family must have 0, GDD 4.19).
+## H5: sink_share_<a>_<b> (goldflow windows with sink_categories: those categories' expenses / gross income of the
+## window, GDD 4.19 "30-60 %"; sink_base "revenue" = over the gross income, "margin" = over the gross income minus
+## the input_categories (materials); both are written as sink_share_revenue_ / sink_share_margin_), net_year_<n> (net gold per day of each whole year of 8 days played, without the
+## categories of year_exclude), hired (employees hired by the player's family), upgrades_bought, upgrades_spent,
+## prod_gain_<upgrade> and prod_expected_<upgrade> for every production_speed upgrade the player finished
+## (production rate = standard minutes of the cycles started / their real minutes, per worker, in PROD_DAYS days
+## before the works and after; gain = after / before, expected = the building's production_speed after / before),
+## prod_gain_error (largest |gain / expected - 1| of the run), output_hours_<upgrade>_before / _after (standard hours
+## of work produced per day in those windows, for the report).
 ## Targets per bot: {measure: [min, max]} checked on every run; "_mean": {measure: [min, max]} on the mean of the runs;
 ## "_share": {measure: [min, max]} on the share of runs where the measure is 1.
 ## H8: a bot with measures(sim) adds its own (dynasty: wedding_day, first_child_days, inherited, inherit_day,
@@ -25,9 +39,14 @@ extends SceneTree
 
 var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
 	"random_clicker": BotRandomClicker, "idle_rival": BotIdle, "artisan_novice": BotArtisanNovice,
-	"dynasty": BotDynasty}
+	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
+	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty}
+	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
+const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
+const YEAR_DAYS: int = 8  # D1(b): 1 year = 8 days
+const YEAR_EXCLUDE: Array = ["loans"]  # the start debt is what the first year pays, not a loss (as goldflow.start)
 
 
 func _init() -> void:
@@ -37,6 +56,8 @@ func _init() -> void:
 	var bots: PackedStringArray = ["idle"]
 	var days := 3
 	var seeds := 5
+	var sets: PackedStringArray = []
+	var tag := ""  # name of a trial's report (reports/sim/trial_<tag>_...)
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--scenario="):
 			scenario = a.substr(11)
@@ -50,7 +71,16 @@ func _init() -> void:
 			days = a.substr(7).to_int()
 		elif a.begins_with("--seeds="):
 			seeds = a.substr(8).to_int()
+		elif a.begins_with("--set="):
+			sets.append(a.substr(6))
+		elif a.begins_with("--tag="):
+			tag = a.substr(6)
 	var cat := Catalog.load_from()
+	for spec: String in sets:
+		if not _apply_set(cat, spec):
+			print("sim_runner: bad --set %s" % spec)
+			quit(2)
+			return
 	var targets: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/targets.json"))
 	var flows := _goldflows(targets)
 	var missed := 0
@@ -68,6 +98,11 @@ func _init() -> void:
 			var runs: Array = []
 			for s: int in range(1, seeds + 1):
 				var bot: Object = BOTS[bot_id].new()
+				if bot_id.begins_with("artisan_expert_"):
+					bot.set("max_employees", bot_id.substr(15).to_int())
+					bot.set("second_needs_furnace", false)  # exactly n: what each employee adds
+				for kv: String in OS.get_environment("BOT_VARS").split(",", false):  # balance trials: k=v ints
+					bot.set(kv.get_slice("=", 0), kv.get_slice("=", 1).to_int())
 				var r := {}
 				if start != "":
 					var choices: Dictionary = bot.call("bot_choices") if bot.has_method("bot_choices") else {}
@@ -85,18 +120,28 @@ func _init() -> void:
 					if not t.has("_mean"):
 						t["_mean"] = {}
 					t["_mean"][_flow_key(fl)] = fl["net_per_day"]
+					if fl.has("sink_share"):
+						t["_mean"]["sink_share_" + _flow_key(fl).substr(8)] = fl["sink_share"]
+			if t.get("_mean") is Dictionary:  # years the run does not reach are not checked (net_year_<n>)
+				for k: String in (t["_mean"] as Dictionary).keys():
+					if k.begins_with("net_year_") and days < k.substr(9).to_int() * YEAR_DAYS:
+						t["_mean"].erase(k)
 			var fails: PackedStringArray = []
 			if diff in ["", "normal"]:
 				fails = _check(t, runs)
 			var agg := _aggregate(t, runs)
-			if not flows.is_empty():
-				means[diff] = agg.get("mean_" + _flow_key(flows[0]), NAN)
+			for fl: Dictionary in flows:  # GDD 4.23 order on this bot's first goldflow window
+				if str(fl.get("bot", "")) == bot_id and agg.has("mean_" + _flow_key(fl)):
+					means[diff] = agg["mean_" + _flow_key(fl)]
+					break
 			missed += fails.size()
 			for f: String in fails:
 				print("  MISS %s%s · %s" % [bot_id, "" if diff == "" else " (%s)" % diff, f])
 			var out := {"scenario": scenario if start == "" else "", "start": start, "difficulty": diff, "bot": bot_id,
+				"sets": sets,
 				"days": days, "seeds": seeds, "aggregate": agg, "runs": runs, "misses": fails}
-			var path := "res://reports/sim/%s_%s%s.json" % [label, bot_id, "" if diff in ["", "normal"] else "_" + diff]
+			var path := "res://reports/sim/%s%s_%s%s.json" % [("trial_%s_" % tag if tag != "" else "trial_") if not sets.is_empty() or tag != "" else "", label, bot_id,
+				"" if diff in ["", "normal"] else "_" + diff]
 			FileAccess.open(path, FileAccess.WRITE).store_string(JSON.stringify(out, "\t"))
 			print("sim_runner: %s%s × %d seeds × %d days · %d misses · %s · %s" % [bot_id,
 				"" if diff == "" else " (%s)" % diff, seeds, days, fails.size(), _brief(agg), path])
@@ -115,6 +160,33 @@ func _init() -> void:
 	quit(1 if missed > 0 else 0)
 
 
+## --set=<where>=<json>: true if the figure existed (only existing keys can be changed).
+func _apply_set(cat: Catalog, spec: String) -> bool:
+	var eq := spec.find("=")
+	if eq < 0:
+		return false
+	var keys := spec.substr(0, eq).split(".")
+	var value: Variant = JSON.parse_string(spec.substr(eq + 1))
+	if value == null or keys.size() < 2:
+		return false
+	var node: Variant = null
+	var i := 1
+	if keys[0] in ["market", "employees", "production", "difficulty", "accounts"]:
+		node = cat.get(keys[0])
+	elif cat.tables.has(keys[0]) and keys.size() >= 3:
+		node = (cat.tables[keys[0]] as Dictionary).get(keys[1])
+		i = 2
+	for k: int in range(i, keys.size() - 1):
+		if not node is Dictionary or not (node as Dictionary).has(keys[k]):
+			return false
+		node = node[keys[k]]
+	if not node is Dictionary or not (node as Dictionary).has(keys[keys.size() - 1]):
+		return false
+	node[keys[keys.size() - 1]] = value
+	print("sim_runner: --set %s = %s" % [".".join(keys), value])
+	return true
+
+
 ## One seed: plays `days` days with `bot` and returns its measures.
 func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array) -> Dictionary:
 	var m := {"refused_orders": 0, "refused_unreachable": 0, "refused_other": 0, "moves": 0, "arrivals": 0}
@@ -129,6 +201,8 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 			dues[id] = int(sim.state.loans[id].get("due_minute", 0))
 	var paid := {}
 	var repaid := 0  # gold paid back to loans so far (gold_repaid_day<N> = gold + this)
+	var cycles: Array = []  # H5: [{minute, actor, std, real, hours}] cycles started in the player's buildings
+	var ups: Array = []     # H5: [{upgrade, start, end, mult_before, mult_after}] production upgrades of the player
 	for i: int in days * Clock.MINUTES_PER_DAY:
 		for e: Dictionary in sim.step(bot.orders(sim)):
 			match str(e["type"]):
@@ -159,11 +233,38 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 				"contract_failed":
 					if str(e.get("family", "")) == player:
 						m["contracts_failed"] = int(m.get("contracts_failed", 0)) + 1
+				"employee_hired":
+					if str(e.get("family", "")) == player:
+						m["hired"] = int(m.get("hired", 0)) + 1
+				"work_started":
+					if player != "" and Money.family_of(sim.state, str(e["building"])) == player:
+						var rec: Dictionary = sim.catalog.recipes().get(str(e["recipe"]), {})
+						var now := int(sim.state.clock["minute"])
+						cycles.append({"minute": now, "actor": str(e["actor"]),
+							"std": Production.cycle_minutes(sim.catalog, rec, str(e["mode"])),
+							"real": maxi(1, int(e["end"]) - now), "hours": float(rec.get("duration_hours", 0.0)),
+							"speed": Staff.speed(sim, str(e["actor"])) if Staff.employer(sim.state, str(e["actor"])) != "" \
+								else 1.0})
+				"upgrade_started":
+					if str(e.get("family", "")) == player:
+						m["upgrades_bought"] = int(m.get("upgrades_bought", 0)) + 1
+						m["upgrades_spent"] = int(m.get("upgrades_spent", 0)) + int(sim.catalog.upgrade(
+							str(e["upgrade"])).get("cost", {}).get("gold", 0))
+						if _speeds(sim, str(e["upgrade"])):
+							ups.append({"upgrade": str(e["upgrade"]), "building": str(e["building"]),
+								"start": int(e["start"]), "end": int(e["end"]),
+								"mult_before": Upgrades.mult(sim, str(e["building"]), "production_speed")})
+				"upgrade_done":
+					for u: Dictionary in ups:
+						if str(u["upgrade"]) == str(e["upgrade"]) and str(u["building"]) == str(e["building"]):
+							u["mult_after"] = Upgrades.mult(sim, str(e["building"]), "production_speed")
 		var done_days := i + 1
 		if done_days % Clock.MINUTES_PER_DAY == 0:
 			var d := done_days / Clock.MINUTES_PER_DAY
 			if d == 10:  # H3 rival: gold of the AI families with a profile at day 10
 				m["rival_gold_day10"] = _rival_gold(sim)
+			if player != "":  # windows measured when they close (the ledger keeps only 2 years in detail)
+				_close_windows(sim, m, player, start_minute, d, flows)
 			if player != "" and d in [3, 8, 10]:
 				m["gold_day%d" % d] = Money.gold(sim.state, player)
 				m["gold_repaid_day%d" % d] = Money.gold(sim.state, player) + repaid
@@ -189,25 +290,117 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 					last = maxi(last, Clock.day(int(paid[id])))
 			m["debt_paid"] = ok
 			m["debt_paid_day"] = last if ok == 1 else -1
-		for fl: Dictionary in flows:
-			var w: Array = fl["window_days"]
-			var lo := start_minute + (int(w[0]) - 1) * Clock.MINUTES_PER_DAY
-			var hi := start_minute + int(w[1]) * Clock.MINUTES_PER_DAY
-			if hi - start_minute > days * Clock.MINUTES_PER_DAY:
-				continue  # the run is shorter than the window
-			var net := 0
-			var cats := {}  # the window by ledger category (for the report)
-			for e: Dictionary in sim.state.ledger.get("entries", []):
-				if str(e.get("family", "")) == player and int(e["minute"]) >= lo and int(e["minute"]) < hi:
-					cats[str(e["category"])] = int(cats.get(str(e["category"]), 0)) + int(e["amount"])
-					if not str(e["category"]) in (fl.get("exclude_categories", []) as Array):
-						net += int(e["amount"])
-			m[_flow_key(fl)] = snappedf(float(net) / float(int(w[1]) - int(w[0]) + 1), 0.01)
-			m["by_category_" + _flow_key(fl).substr(8)] = cats
+		_production_gains(m, cycles, ups)
 	if bot.has_method("measures"):  # H8: a bot may measure its own things (dynasty: wedding, children, inheritance)
 		m.merge(bot.call("measures", sim))
 	m.merge({"seed": s, "days": days, "state_hash": sim.state_hash()})
 	return m
+
+
+## Goldflow windows and whole years (GDD 4.19) that end with day `d` played: net_day_<a>_<b>, by_category_<a>_<b>,
+## sink_share_<a>_<b> and net_year_<n>, from the ledger entries of the player's family.
+func _close_windows(sim: Sim, m: Dictionary, player: String, start_minute: int, d: int, flows: Array) -> void:
+	if d % YEAR_DAYS == 0:
+		var yc := _window(sim, player, start_minute, d - YEAR_DAYS + 1, d)
+		var net_y := 0
+		for c: String in yc:
+			if not c in YEAR_EXCLUDE:
+				net_y += int(yc[c])
+		m["net_year_%d" % (d / YEAR_DAYS)] = snappedf(float(net_y) / YEAR_DAYS, 0.01)
+	for fl: Dictionary in flows:
+		var w: Array = fl["window_days"]
+		if int(w[1]) != d:
+			continue
+		var excl: Array = fl.get("exclude_categories", [])
+		var cats := _window(sim, player, start_minute, int(w[0]), int(w[1]))
+		var net := 0
+		var gross := 0
+		var sinks := 0
+		for c: String in cats:
+			if not c in excl:
+				net += int(cats[c])
+				if int(cats[c]) > 0:
+					gross += int(cats[c])
+			if c in (fl.get("sink_categories", []) as Array):
+				sinks -= int(cats[c])
+		m[_flow_key(fl)] = snappedf(float(net) / float(int(w[1]) - int(w[0]) + 1), 0.01)
+		m["by_category_" + _flow_key(fl).substr(8)] = cats
+		if fl.has("sink_categories"):  # GDD 4.19: recurrent sinks / gross income of the window
+			var inputs := 0  # what the income cost in materials (purchases and errands): gross margin = gross + this
+			for c: String in (fl.get("input_categories", []) as Array):
+				inputs += int(cats.get(c, 0))
+			var w_key := _flow_key(fl).substr(8)
+			m["sink_share_revenue_" + w_key] = snappedf(float(sinks) / maxf(1.0, float(gross)), 0.001)
+			m["sink_share_margin_" + w_key] = snappedf(float(sinks) / maxf(1.0, float(gross + inputs)), 0.001)
+			m["sink_share_" + w_key] = m["sink_share_%s_%s" % [str(fl.get("sink_base", "revenue")), w_key]]
+
+
+## The player's ledger entries of days [first, last] played (1 = the first day), summed by category.
+func _window(sim: Sim, player: String, start_minute: int, first: int, last: int) -> Dictionary:
+	var lo := start_minute + (first - 1) * Clock.MINUTES_PER_DAY
+	var hi := start_minute + last * Clock.MINUTES_PER_DAY
+	var cats := {}
+	for e: Dictionary in sim.state.ledger.get("entries", []):
+		if str(e.get("family", "")) == player and int(e["minute"]) >= lo and int(e["minute"]) < hi:
+			cats[str(e["category"])] = int(cats.get(str(e["category"]), 0)) + int(e["amount"])
+	return cats
+
+
+## H5: prod_gain_<upgrade> / prod_expected_<upgrade> / prod_gain_error and output_hours_<upgrade>_before/_after.
+func _production_gains(m: Dictionary, cycles: Array, ups: Array) -> void:
+	var worst := 0.0
+	for u: Dictionary in ups:
+		if not u.has("mult_after"):
+			continue
+		var span := PROD_DAYS * Clock.MINUTES_PER_DAY
+		var before := _rate(cycles, int(u["start"]) - span, int(u["start"]))
+		var after := _rate(cycles, int(u["end"]), int(u["end"]) + span)
+		var id := str(u["upgrade"])
+		m["output_hours_%s_before" % id] = snappedf(_output_hours(cycles, int(u["start"]) - span, int(u["start"])) / PROD_DAYS, 0.01)
+		m["output_hours_%s_after" % id] = snappedf(_output_hours(cycles, int(u["end"]), int(u["end"]) + span) / PROD_DAYS, 0.01)
+		if before <= 0.0 or after <= 0.0:
+			continue
+		var expected := float(u["mult_after"]) / maxf(float(u["mult_before"]), 0.01)
+		m["prod_gain_" + id] = snappedf(after / before, 0.001)
+		m["prod_expected_" + id] = snappedf(expected, 0.001)
+		worst = maxf(worst, absf(after / before / expected - 1.0))
+	m["prod_gain_error"] = snappedf(worst, 0.001)
+
+
+## Mean over workers of (standard minutes / (real minutes × rank speed)) of the cycles started in [lo, hi): 0 if none.
+## Without the rank's speed (a promotion in the window), the mean only moves with the building's upgrades.
+func _rate(cycles: Array, lo: int, hi: int) -> float:
+	var by := {}
+	for c: Dictionary in cycles:
+		if int(c["minute"]) >= lo and int(c["minute"]) < hi:
+			var a := str(c["actor"])
+			if not by.has(a):
+				by[a] = [0.0, 0.0]
+			by[a][0] += float(c["std"])
+			by[a][1] += float(c["real"]) * float(c["speed"])  # the rank's speed out: only the upgrades remain
+	return 0.0 if by.is_empty() else _mean_ratio(by)
+
+
+func _mean_ratio(by: Dictionary) -> float:
+	var sum := 0.0
+	for a: String in by:
+		sum += float(by[a][0]) / maxf(1.0, float(by[a][1]))
+	return sum / by.size()
+
+
+func _output_hours(cycles: Array, lo: int, hi: int) -> float:
+	var h := 0.0
+	for c: Dictionary in cycles:
+		if int(c["minute"]) >= lo and int(c["minute"]) < hi:
+			h += float(c["hours"])
+	return h
+
+
+func _speeds(sim: Sim, id: String) -> bool:
+	for e: Dictionary in sim.catalog.upgrade(id).get("effects", []):
+		if str(e.get("kind", "")) == "production_speed":
+			return true
+	return false
 
 
 ## The goldflow windows of data/targets.json that a bot measures (GDD 4.19), as an Array of their definitions.
@@ -300,7 +493,9 @@ func _aggregate(t: Dictionary, runs: Array) -> Dictionary:
 
 func _brief(agg: Dictionary) -> String:
 	var parts: PackedStringArray = []
-	for key: String in ["gold_day3", "gold_repaid_day3", "gold_day10", "net_day_1_8", "debt_paid", "debt_paid_day", "rival_gold_day10"]:
+	for key: String in ["gold_day3", "gold_repaid_day3", "gold_day10", "net_day_1_8", "net_day_9_24", "sink_share_9_24",
+			"net_year_1", "net_year_2", "net_year_3", "hired", "upgrades_bought", "prod_gain_error", "debt_paid",
+			"debt_paid_day", "rival_gold_day10"]:
 		if agg.has("mean_" + key):
 			parts.append("%s %s [%s-%s]" % [key, agg["mean_" + key], agg["min_" + key], agg["max_" + key]])
 	return ", ".join(parts)

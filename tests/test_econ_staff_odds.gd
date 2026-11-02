@@ -1,8 +1,9 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## Staff (zone «plantilla»): quitting and theft with a seed (GDD 4.7.3: 5 %/day at 20-39, 3 %/day at 0-19), the thief
 ## flees and is banned, and save/load with hired employees still waiting to start.
 
-var cat := Catalog.load_from()
+var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
 
 const PLAYER := "chr_0001"
 const FAM := "fam_0001"

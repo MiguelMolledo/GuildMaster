@@ -1944,7 +1944,7 @@
 			"founder": "chr_0001",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 992,
+			"gold": 960,
 			"head": "chr_0001",
 			"heir": "",
 			"id": "fam_0001",
@@ -2201,7 +2201,7 @@
 		"entries": [
 			{
 				"actor": "chr_0001",
-				"amount": -8,
+				"amount": -40,
 				"building": "bld_0001",
 				"category": "upgrades",
 				"day": 1,

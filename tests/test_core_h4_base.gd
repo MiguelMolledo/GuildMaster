@@ -22,9 +22,9 @@ func test_h4_data_loads() -> void:
 		var key := str(cat.rank(r)["name_key"])
 		check(TranslationServer.translate(key) != key, "%s has text" % r)
 	eq(cat.employees["rank_order"], ["apprentice", "journeyman", "master"], "3 ranks in order")
-	eq(wages, [1, 3, 6], "wages 1/3/6")
+	eq(wages, [7, 20, 40], "wages 7/20/40 (GDD 4.7.2, H5 balance)")
 	eq(eff, [0.5, 1.0, 1.5], "efficiency 50/100/150 %")
-	eq(spd, [0.5, 1.0, 1.5], "speed ×0,5/×1/×1,5")
+	eq(spd, [1.0, 2.0, 3.0], "speed ×1/×2/×3 (GDD 4.7.2, H5 balance)")
 	eq([int(cat.rank("apprentice")["promote_after_days"]), int(cat.rank("journeyman")["promote_after_days"])], [8, 16],
 		"1 year / 2 years more")
 	eq([int(cat.rank("apprentice")["promote_min_loyalty"]), int(cat.rank("journeyman")["promote_min_loyalty"])], [51, 71],
@@ -184,8 +184,8 @@ func test_staff_queries() -> void:
 	for c: String in Staff.employees_of(st, "bld_0001"):
 		if str(st.characters[c]["rank"]) == "apprentice":
 			apprentice = c
-	eq(Staff.wage(sim, apprentice), 1, "apprentice wage")
-	near(Staff.speed(sim, apprentice), 0.5, 0.0001, "apprentice speed")
+	eq(Staff.wage(sim, apprentice), 7, "apprentice wage")
+	near(Staff.speed(sim, apprentice), 1.0, 0.0001, "apprentice speed")
 	near(Staff.efficiency(sim, apprentice), 0.5 * 0.8, 0.0001, "loyalty 50: -20 %")
 	near(Staff.speed(sim, "chr_0001"), 1.0, 0.0001, "the player: no rank speed")
 	var cands := Staff.candidates(sim, "chr_0001", "bld_0001")

@@ -5,7 +5,7 @@
   "branch": "staff",
   "level": 2,
   "cost": {
-    "gold": 12,
+    "gold": 60,
     "items": [
       {
         "item": "wood",

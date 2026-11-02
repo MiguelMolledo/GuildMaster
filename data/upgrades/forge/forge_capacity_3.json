@@ -5,7 +5,7 @@
   "branch": "capacity",
   "level": 3,
   "cost": {
-    "gold": 25,
+    "gold": 125,
     "items": [
       {
         "item": "iron_ingot",

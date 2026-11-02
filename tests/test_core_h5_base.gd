@@ -28,7 +28,7 @@ func test_forge_tree_loads() -> void:
 		eq(int(per[br]), 3, "%s has 3 levels" % br)
 	var p1 := cat.upgrade("forge_production_1")
 	eq([int(p1["cost"]["gold"]), p1["cost"]["items"], float(p1["build_days"]), p1["effects"]],
-		[3, [{"item": "wood", "qty": 2}], 0.5, [{"kind": "production_speed", "mult": 1.2}]], "Fuelle mejorado (GDD 4.8)")
+		[15, [{"item": "wood", "qty": 2}], 0.5, [{"kind": "production_speed", "mult": 1.2}]], "Fuelle mejorado (GDD 4.8, oro ×5 de D14)")
 	eq(cat.upgrade("forge_commerce_3")["requires"]["upgrades"], ["forge_commerce_2", "forge_facade_1"], "cross requirement")
 	eq(cat.upgrade("forge_facade_3")["requires"]["title"], "citizen", "Fachada noble needs Ciudadano")
 	eq(cat.upgrade("forge_secrets_2")["requires"]["stat"], {"id": "stealth", "min": 3}, "Sigilo 3")
@@ -211,7 +211,7 @@ func test_visuals_are_ids() -> void:
 func test_upgrade_scenarios_run() -> void:
 	for id: String in ["forge_upgrades", "forge_upgrade_works"]:
 		var sim := _sim(id)
-		eq(Money.gold(sim.state, "fam_0001"), 1000 if id == "forge_upgrades" else 992, "%s gold" % id)
+		eq(Money.gold(sim.state, "fam_0001"), 1000 if id == "forge_upgrades" else 1000 - int(cat.upgrade("forge_capacity_2")["cost"]["gold"]), "%s gold" % id)
 		sim.run_minutes(240)  # through dawn: wages, upkeep, inspections (none: no Secrets)
 		eq(Staff.employees_of(sim.state, FORGE).size(), 2, "%s keeps its 2 employees" % id)
 		eq(int(sim.state.buildings[FORGE]["inspection"]["caught"]), 0, "%s: nobody inspects a forge without Secrets" % id)
