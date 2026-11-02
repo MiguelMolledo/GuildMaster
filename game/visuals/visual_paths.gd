@@ -94,6 +94,13 @@ static func icon(item_id: String) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
+## The ground texture of a tile kind (data/tiles.json): assets/art/tiles/<kind>.png (null until it exists: the ground
+## keeps the kind's greybox colour).
+static func tile(kind: String) -> Texture2D:
+	var p := "%s/tiles/%s.png" % [ART_ROOT, kind]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
 ## The audio files of a sound id: assets/audio/<folder>/<id>.<ogg|wav>, or its variants <id>_01, <id>_02... when
 ## there is no plain file. [] = no file yet (the game stays silent).
 static func audio_files(folder: String, id: String) -> PackedStringArray:

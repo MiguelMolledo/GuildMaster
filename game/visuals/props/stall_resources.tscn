@@ -1,15 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://c43haa5dxqwiq"]
+[gd_scene load_steps=3 format=3 uid="uid://c43haa5dxqwiq"]
 
 [ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+[ext_resource type="Texture2D" uid="uid://dd2yrrcfp3fuu" path="res://assets/art/buildings/stall_resources.png" id="2_sprite"]
 
 [node name="StallResources" type="Node2D"]
 
 [node name="Feet" type="Marker2D" parent="."]
 
 [node name="Top" type="Marker2D" parent="."]
-position = Vector2(0, -20)
+position = Vector2(0, -45)
 
 [node name="Greybox" type="Node2D" parent="."]
+visible = false
 script = ExtResource("1_block")
 height = 20.0
 color = Color(0.690196078, 0.439215686, 0.22745098, 1)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_sprite")
+centered = false
+offset = Vector2(-32, -46)
+editor_description = "Sprite reused from Guild Renew (docs/arte/reuso_guild.md), at scale 1 with its base on Feet. To go back to the greybox: hide this node, show Greybox and put Top back at (0, -20)."
