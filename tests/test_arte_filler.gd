@@ -193,3 +193,32 @@ func test_houses_mix_their_looks() -> void:
 			seen[n] = true
 	check(seen.size() >= 3, "the town's houses are not all the same: %s" % [seen.keys()])
 	v.free()
+
+
+func test_fields_change_with_the_season() -> void:
+	var v := _view()
+	var g := v.ground()
+	var field := Vector2i(1, 30)  # an f tile of town_e
+	eq(str(cat.maps()["town_e"]["rows"][field.y])[field.x], "f", "the test tile is a field")
+	var seen := {}
+	for season: String in ["spring", "summer", "autumn", "winter"]:
+		g.set_season(season)
+		eq(g.season(), season, "the ground shows %s" % season)
+		var t := g.texture_at(field)
+		check(t != null and str(t.resource_path).ends_with("field_%s.png" % season), "%s: %s" % [season, t.resource_path if t else "null"])
+		seen[t] = true
+	eq(seen.size(), 4, "four looks")
+	var grass := g.texture_at(Vector2i(0, 0))
+	g.set_season("winter")
+	eq(g.texture_at(Vector2i(0, 0)), grass, "other kinds do not change")
+	v.free()
+
+
+func test_the_view_follows_the_clock_season() -> void:
+	var v := _view()
+	var expected := Clock.season(int(v.state.clock["minute"]), cat.time)
+	eq(v.ground().season(), expected, "the ground starts in the clock's season")
+	v.state.clock["minute"] = int(v.state.clock["minute"]) + 1440 * int(cat.time["days_per_season"])
+	v.sync(0.0)
+	check(v.ground().season() != expected, "a season later the ground follows (%s)" % v.ground().season())
+	v.free()

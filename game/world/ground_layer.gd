@@ -12,7 +12,9 @@ extends Node2D
 
 const SIDES: Dictionary = {"ne": Vector2i(0, -1), "se": Vector2i(1, 0), "sw": Vector2i(0, 1), "nw": Vector2i(-1, 0)}
 
-var _tiles: Array = []   # [[Vector2i, Color, Texture2D or null, Color modulate]]
+var _tiles: Array = []   # [[Vector2i, Color, Texture2D or null, Color modulate, kind]]
+var _season: String = ""
+var _base_tex: Dictionary = {}  # kind -> its plain texture (assets/art/tiles/<kind>.png), for the seasonal kinds
 var _edges: Array = []   # [[Vector2i, Texture2D, Color modulate]], drawn after every tile
 var _border: Array = []  # [[Vector2i, kind, Color modulate, distance]] (border_cells)
 
@@ -78,7 +80,7 @@ func build(rows: Array, catalog: Catalog) -> void:
 			var col: Color = colour.get(kind, Color.MAGENTA)
 			if (c + r) % 2 == 1:
 				col = col.darkened(0.05)
-			_tiles.append([Vector2i(c, r), col, tex.get(kind, null), mod])
+			_tiles.append([Vector2i(c, r), col, tex.get(kind, null), mod, kind])
 			var against: Array = borders.get(kind, []) if borders.get(kind) is Array else []
 			for side: String in SIDES:
 				if against.is_empty():
@@ -90,12 +92,52 @@ func build(rows: Array, catalog: Catalog) -> void:
 					_edges.append([Vector2i(c, r), edge_tex[key], mod])
 	ViewConfig.info("GroundLayer", "build: %d tiles (%d in the border ring of %d), %d kinds with art (%s), %d edges" % [
 		_tiles.size(), _border.size(), ring, tex.size(), ", ".join(PackedStringArray(tex.keys())), _edges.size()])
+	var keep := _season
+	_season = ""
+	if keep != "":
+		set_season(keep)
 	queue_redraw()
 
 
 ## How many edge pieces the ground draws (the tests count them).
 func edge_count() -> int:
 	return _edges.size()
+
+
+## The season the ground shows (Clock.season id): the kinds of data/view.json "seasonal_tiles".kinds draw
+## assets/art/tiles/<kind>_<season>.png when it exists, else their plain texture. Redraws only when it changes.
+func set_season(season: String) -> void:
+	if season == _season:
+		return
+	_season = season
+	var kinds: Array = (ViewConfig.value("seasonal_tiles", {}) as Dictionary).get("kinds", [])
+	if kinds.is_empty():
+		return
+	var pick := {}
+	for kind: Variant in kinds:
+		var k := str(kind)
+		if not _base_tex.has(k):
+			_base_tex[k] = VisualPaths.tile(k)
+		var seasonal := VisualPaths.tile("%s_%s" % [k, season])
+		pick[k] = seasonal if seasonal != null else _base_tex[k]
+	for t: Array in _tiles:
+		if pick.has(t[4]):
+			t[2] = pick[t[4]]
+	ViewConfig.info("GroundLayer", "season %s: %s" % [season, ", ".join(PackedStringArray(pick.keys()))])
+	queue_redraw()
+
+
+## The season the ground shows ("" before the first set_season).
+func season() -> String:
+	return _season
+
+
+## The texture a tile of the map draws now (null = greybox colour), for the tests.
+func texture_at(tile: Vector2i) -> Texture2D:
+	for t: Array in _tiles:
+		if t[0] == tile:
+			return t[2]
+	return null
 
 
 ## The tiles of the map border: [[Vector2i tile, kind, Color modulate, distance out of the map in tiles]].

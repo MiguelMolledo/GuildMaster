@@ -54,33 +54,94 @@ def legs(d, cx, cy, a, b, h, color):
         d.rectangle([x - 1, y - h, x, y], fill=color)
 
 
+def on_face(p0, p1, u, v):
+    """A point on a vertical face whose bottom edge runs from p0 to p1: u along it (0..1), v px up."""
+    return (p0[0] + (p1[0] - p0[0]) * u, p0[1] + (p1[1] - p0[1]) * u - v)
+
+
 def sales_counter():
+    """The sales counter (forge_commerce_1): panelled front with iron corners, a top with a scale, coins, a cloth
+    and a sword for sale."""
     img = canvas()
     d = ImageDraw.Draw(img)
-    box(d, AX, AY, 30, 12, 12, WOOD[4], WOOD[3], WOOD[2])
+    g = box(d, AX, AY, 30, 12, 12, WOOD[3], WOOD[3], WOOD[2])
+    L, B, R = g["L"], g["B"], g["R"]
+    for p0, p1, n, dark in ((L, B, 2, WOOD[1]), (B, R, 3, WOOD[1])):  # sunken panels on both faces
+        for k in range(n):
+            a0, a1 = (k + 0.18) / n, (k + 0.82) / n
+            q = [on_face(p0, p1, a0, 2), on_face(p0, p1, a1, 2), on_face(p0, p1, a1, 9), on_face(p0, p1, a0, 9)]
+            d.polygon(q, fill=WOOD[2] if p0 is B else WOOD[4])
+            d.line([q[3], q[2]], fill=dark)
+            d.line([q[0], q[3]], fill=dark)
+    for p in (L, B, R):  # iron corners
+        d.line([(p[0], p[1] - 1), (p[0], p[1] - 11)], fill=IRON[2])
     box(d, AX, AY, 32, 14, 2, WOOD[5], WOOD[4], WOOD[3], lift=12)
-    for i, (x, y) in enumerate(((34, 40), (37, 39), (40, 38))):  # coins
-        d.rectangle([x, y - i, x + 2, y - i], fill=GOLD[3 if i % 2 else 2])
-    d.line([(44, 38), (52, 34)], fill=IRON[4])  # a sword on the counter
-    d.line([(45, 39), (53, 35)], fill=IRON[2])
-    d.point((43, 39), fill=GOLD[2])
+    # the top runs from the front-left corner up to the right: things along it
+    tl = on_face(L, B, 0.5, 14)
+    tr = on_face(B, R, 1.0, 14)
+    at = lambda u, dy=0: (tl[0] + (tr[0] - tl[0]) * u, tl[1] + (tr[1] - tl[1]) * u + dy)  # noqa: E731
+    cx, cy = at(0.18, 1)
+    d.polygon([(cx - 5, cy), (cx, cy + 2), (cx + 5, cy - 1), (cx, cy - 3)], fill=RED[2])  # cloth
+    d.line([(cx - 5, cy), (cx, cy + 2)], fill=RED[1])
+    for k in range(3):  # coins
+        x, y = at(0.38, 1)
+        d.rectangle([x, y - k, x + 2, y - k], fill=GOLD[3 if k % 2 else 2])
+    x0, y0 = at(0.5, 1)
+    d.line([(x0, y0), (x0 + 9, y0 - 4)], fill=IRON[4])  # sword
+    d.line([(x0 + 1, y0 + 1), (x0 + 10, y0 - 3)], fill=IRON[2])
+    d.line([(x0 - 1, y0 - 2), (x0, y0 + 1)], fill=GOLD[2])
+    sx, sy = at(0.86, 1)
+    d.line([(sx, sy), (sx, sy - 8)], fill=WOOD[1])  # scale: post, beam, pans
+    d.line([(sx - 5, sy - 7), (sx + 5, sy - 9)], fill=GOLD[1])
+    d.rectangle([sx - 6, sy - 5, sx - 4, sy - 4], fill=GOLD[2])
+    d.rectangle([sx + 4, sy - 7, sx + 6, sy - 6], fill=GOLD[2])
     finish(img, "interiors/forge/upg_counter.png")
 
 
 def shelves():
+    """Open shelving (forge_capacity_2) standing along the wall: a back of planks, a side panel, three boards with
+    ingots, jars, a coil of rope and tools along the open front, posts at the front corners."""
     img = canvas()
     d = ImageDraw.Draw(img)
-    g = box(d, AX, AY, 34, 8, 24, WOOD[3], WOOD[2], WOOD[1])
-    B, L = g["B"], g["L"]
-    for k in range(3):  # boards on the front-left face, with things on them
-        y0 = 6 + k * 8
-        d.line([(L[0], L[1] - y0), (B[0], B[1] - y0)], fill=WOOD[4])
-        for j in range(3):
-            t = (j + 0.5) / 3.0
-            x = L[0] + (B[0] - L[0]) * t
-            y = L[1] + (B[1] - L[1]) * t - y0 - 1
-            col = [IRON[3], GOLD[2], EARTH[3], RED[2]][(k + j) % 4]
-            d.rectangle([x - 1, y - 4, x, y], fill=col)
+    a, b, h = 34, 9, 26
+    g = box(d, AX, AY, a, b, 0, WOOD[3], WOOD[3], WOOD[3])
+    L, B, R, K = g["L"], g["B"], g["R"], g["K"]
+    d.polygon([L, K, (K[0], K[1] - h), (L[0], L[1] - h)], fill=WOOD[1])  # back, along the wall
+    for k in range(1, 6):
+        p = on_face(L, K, k / 6.0, 0)
+        d.line([p, (p[0], p[1] - h)], fill=WOOD[0])
+    items = [[IRON[3], IRON[4], IRON[3], IRON[4]], [EARTH[3], RED[2], EARTH[2], GOLD[2]], [GOLD[2], IRON[2], EARTH[3], RED[1]]]
+    for k, lift in enumerate((1, 10, 19)):
+        box(d, AX, AY, a, b, 2, WOOD[4], WOOD[3], WOOD[2], lift=lift)
+        for j in range(4):  # things on the board, between the back and the front edge
+            x, y = on_face(B, R, (j + 0.5) / 4.0, lift + 2)
+            x -= 3
+            y -= 2
+            col = items[k][j]
+            if k == 0:   # ingots: two stacked bars
+                d.polygon([(x - 3, y), (x, y + 1), (x + 3, y - 1), (x, y - 2)], fill=col)
+                d.polygon([(x - 3, y - 2), (x, y - 1), (x + 3, y - 3), (x, y - 4)], fill=IRON[5])
+            elif k == 1:  # jars with lids
+                d.rectangle([x - 1, y - 5, x + 1, y], fill=col)
+                d.line([(x - 2, y - 6), (x + 2, y - 6)], fill=EARTH[1])
+                d.point((x - 1, y - 4), fill=EARTH[4])
+            else:        # a coil of rope, a hammer, a pouch, a book
+                if j == 0:
+                    d.ellipse([x - 3, y - 4, x + 2, y], outline=GOLD[1], fill=GOLD[2])
+                elif j == 1:
+                    d.line([(x - 2, y), (x + 2, y - 2)], fill=WOOD[3])
+                    d.rectangle([x + 1, y - 4, x + 3, y - 2], fill=IRON[2])
+                elif j == 2:
+                    d.ellipse([x - 2, y - 4, x + 2, y], fill=EARTH[2])
+                    d.point((x, y - 4), fill=EARTH[4])
+                else:
+                    d.rectangle([x - 1, y - 5, x + 1, y], fill=col)
+                    d.line([(x + 1, y - 5), (x + 1, y)], fill=GOLD[2])
+    d.polygon([L, B, (B[0], B[1] - h), (L[0], L[1] - h)], fill=WOOD[3])  # the near side panel
+    d.line([(L[0] + 2, L[1] - 3), (B[0] - 2, B[1] - 3)], fill=WOOD[2])
+    for p in (B, R):  # front posts
+        d.rectangle([p[0] - 1, p[1] - h, p[0], p[1]], fill=WOOD[4])
+    box(d, AX, AY, a + 2, b + 2, 2, WOOD[4], WOOD[3], WOOD[2], lift=h)  # the top board
     finish(img, "interiors/forge/upg_shelves.png")
 
 

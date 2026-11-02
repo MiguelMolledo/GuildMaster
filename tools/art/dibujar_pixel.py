@@ -15,6 +15,7 @@
             (stone base of the facade upgrades), props/banner.png, and half-size overlays from guild: trade_sign,
             garden, lock, shop_window
   icons     icons/small/sword.png and needle.png redrawn by hand at 16×16
+  fields    tiles/field_<spring|summer|autumn|winter>.png (+ field.png = summer): the crop fields by season
 Every output is deterministic (same code, same pixels). --preview DIR writes enlarged contact sheets to look at.
 """
 import argparse
@@ -570,7 +571,59 @@ def preview(folder):
     print("preview", p)
 
 
-JOBS = {"interior": interior, "nature": nature, "works": works, "icons": icons}
+# --- fields ------------------------------------------------------------------------------------------------------------
+
+def in_diamond(x, y, margin=0.0):
+    return abs(x + 0.5 - 32) / 2 + abs(y + 0.5 - 16) <= 16 - margin
+
+
+def field_tile(season):
+    """A ploughed field (64×32) whose furrows run along the columns (seamless from tile to tile: 8 px rows, and a
+    neighbouring tile shifts the pattern by 0 or 32): bare earth with sprouts in spring, green rows in summer, golden
+    wheat in autumn, dark earth with a little frost in winter."""
+    img = Image.new("RGBA", (64, 32), (0, 0, 0, 0))
+    px = img.load()
+    earth = EARTH if season != "winter" else [hexc(c) for c in ("2e2116", "433121", "5a4530", "6e5a44", "84705a")]
+    period = 8.0
+    for y in range(32):
+        for x in range(64):
+            if not in_diamond(x, y):
+                continue
+            pos = (y - x / 2.0) % period  # constant along a furrow
+            c = earth[1] if pos < 2 else earth[2] if pos < 4 else earth[3] if pos < 7 else earth[2]
+            if 4 <= pos < 7 and h32(x, y, 3) % 5 == 0:
+                c = earth[4]
+            if season == "winter" and 4 <= pos < 7 and h32(x, y, 9) % 23 == 0:
+                c = hexc("c8ccc4")
+            px[x, y] = c
+    if season == "winter":
+        return img
+    for y in range(32):
+        for x in range(64):
+            if not in_diamond(x, y):
+                continue
+            pos = (y - x / 2.0) % period
+            n = h32(x, y, 21) % 100
+            if season == "spring":
+                if 3.5 <= pos < 7 and n < 48:
+                    px[x, y] = LEAF[3] if n < 16 else LEAF[4] if n < 36 else LEAF[5]
+            else:
+                pal = [LEAF[1], LEAF[2], LEAF[3], LEAF[4]] if season == "summer" else [GOLD[0], GOLD[1], GOLD[2], GOLD[3]]
+                if pos >= 2.5:   # the crop row covers the ridge; the trough between rows stays dark earth
+                    k = 0 if pos < 3.5 else 1 + (n % 2) if pos < 6 else 2 + (n % 2)
+                    if n < 7 and pos >= 3.5:
+                        k = 3
+                    px[x, y] = pal[k]
+    return img
+
+
+def fields(_guild):
+    for season in ("spring", "summer", "autumn", "winter"):
+        save(field_tile(season), f"tiles/field_{season}.png")
+    save(field_tile("summer"), "tiles/field.png")
+
+
+JOBS = {"interior": interior, "nature": nature, "works": works, "icons": icons, "fields": fields}
 
 
 def main():

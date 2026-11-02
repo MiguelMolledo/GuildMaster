@@ -47,6 +47,10 @@
     "_doc": "Building types with several looks: type -> scene ids of game/visuals/buildings/ (one per building, picked by its origin tile, the same every game; weights = repeat). Without an entry, the scene named like the type. Rules never read this (the type stays the same).",
     "house": ["house", "house_slate", "house_ochre", "house_tall"]
   },
+  "seasonal_tiles": {
+    "_doc": "Tile kinds whose ground changes with the season (GroundLayer.set_season, from the clock): assets/art/tiles/<kind>_<spring|summer|autumn|winter>.png, else <kind>.png. field: sprouts, green rows, golden wheat, bare earth. Empty kinds = no change.",
+    "kinds": ["field"]
+  },
   "prop_variants": {
     "_doc": "Map props with several looks: tile kind -> scene ids of game/visuals/props/ (one per tile, picked by the tile, the same every game; weights = repeat an id). Without an entry, the scene named like the kind.",
     "tree": ["tree", "tree_round", "tree_pine", "tree", "tree_round"]
