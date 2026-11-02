@@ -11,6 +11,10 @@ extends Node2D
 ## height (name label, badge, click area). This node only draws the marks: the selection ring and the badge.
 ## H7: a bubble over the head (set_bubble: the scene game/visuals/bubbles/<id>.tscn of the social activity or of the
 ## strongest emotion, which goes first, GDD 4.11.5) and a phrase when the selected person is near (set_phrase).
+## Sprites (Guild Renew frames): the scene's AnimatedSprite2D "Sprite" has <motion>_<dir> animations (idle, walk, work,
+## forge; dirs s se e ne n nw w sw) and the identity_swap shader, which gets the person's hair, skin and family colours
+## here. follow() walks it towards path[0] (the sim's next tile) and idles when it stops, keeping its facing; the
+## interior calls play_motion() for the work at a station.
 
 var char_id: String = ""
 var primary: Color = Color(0.5, 0.5, 0.5)
@@ -44,6 +48,10 @@ var _name_label: Label
 var bubble_id: String = ""      # H7: the bubble shown ("" = none)
 var _bubble: Node2D = null
 var _phrase_label: Label = null
+var _sprite: AnimatedSprite2D = null
+var motion: String = "idle"   # the sprite's motion now: idle, walk, work, forge
+var facing: String = "s"      # its facing: s se e ne n nw w sw
+const DIRS: Array[String] = ["e", "se", "s", "sw", "w", "nw", "n", "ne"]
 
 
 func setup(ch: Dictionary, family: Dictionary) -> void:
@@ -60,15 +68,29 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	visual_id = VisualPaths.character_id(ch, family)
 	_visual = VisualPaths.instantiate("characters", visual_id)
 	_visual.name = "Visual"
+	# H8 (GDD 4.10.9): hair and skin of the person from the palette swap
+	var vis: Dictionary = ch.get("visual", {}) if ch.get("visual") is Dictionary else {}
+	var hair := Identity.hair_color(int(vis.get("hair", 0)))
+	var skin := Identity.skin_color(int(vis.get("skin", 0)))
 	var greybox := _visual.get_node_or_null("Greybox") as GreyboxFigure
 	if greybox != null:
 		greybox.female = female
 		greybox.primary = primary
 		greybox.secondary = secondary
-		# H8 (GDD 4.10.9): hair and skin of the person from the palette swap
-		var vis: Dictionary = ch.get("visual", {}) if ch.get("visual") is Dictionary else {}
-		greybox.hair = Identity.hair_color(int(vis.get("hair", 0)))
-		greybox.skin = Identity.skin_color(int(vis.get("skin", 0)))
+		greybox.hair = hair
+		greybox.skin = skin
+	_sprite = _visual.get_node_or_null("Sprite") as AnimatedSprite2D
+	if _sprite != null and (not _sprite.visible or _sprite.sprite_frames == null):
+		_sprite = null  # the greybox is the look
+	if _sprite != null:
+		var mat := _sprite.material as ShaderMaterial
+		if mat != null:
+			mat.set_shader_parameter("hair", hair)
+			mat.set_shader_parameter("skin", skin)
+			mat.set_shader_parameter("primary", primary)
+			mat.set_shader_parameter("secondary", secondary)
+		motion = ""
+		play_motion("idle", "s")
 	kin_sig = kin_signature(ch)
 	VisualPaths.place(_visual, Vector2.ZERO)
 	fig_height = VisualPaths.top_height(_visual, 48.0)
@@ -185,9 +207,45 @@ static func tile_position(ch: Dictionary, minutes_per_tile: int, frac: float) ->
 	return from.lerp(Vector2(float(nxt[0]), float(nxt[1])), t)
 
 
-## Follows the state: whole world pixels (D2).
+## Follows the state: whole world pixels (D2); walks towards the next tile of its path, idles when it has none.
 func follow(ch: Dictionary, minutes_per_tile: int, frac: float) -> void:
 	position = Iso.tilef_to_world(tile_position(ch, minutes_per_tile, frac)).round()
+	var path: Array = ch.get("path", [])
+	if path.is_empty():
+		play_motion("idle", facing)
+		return
+	var pos: Array = ch.get("position", [0, 0])
+	var nxt: Array = path[0]
+	play_motion("walk", dir_of(Vector2(float(nxt[0]) - float(pos[0]), float(nxt[1]) - float(pos[1]))))
+
+
+## The facing (s se e ne n nw w sw) of a move of `delta` tiles (col, row), as seen on screen.
+static func dir_of(delta: Vector2) -> String:
+	if delta.length_squared() < 0.0001:
+		return "s"
+	var ground := Vector2(delta.x - delta.y, delta.x + delta.y)  # the screen direction, unsquashed (2:1)
+	var octant := int(roundf(rad_to_deg(ground.angle()) / 45.0))
+	return DIRS[posmod(octant, 8)]
+
+
+## Plays <motion>_<dir> on the sprite (falls back to idle_<dir>, then <motion>, then idle when the frames lack it).
+## No-op without sprite or when it already plays it.
+func play_motion(m: String, dir: String) -> void:
+	if _sprite == null or (m == motion and dir == facing):
+		return
+	motion = m
+	facing = dir
+	var sf := _sprite.sprite_frames
+	for a: String in ["%s_%s" % [m, dir], "idle_%s" % dir, m, "idle"]:
+		if sf.has_animation(a) and sf.get_frame_count(a) > 0:
+			if _sprite.animation != StringName(a) or not _sprite.is_playing():
+				_sprite.play(a)
+			return
+
+
+## The animation the sprite plays now ("" without sprite).
+func animation_name() -> String:
+	return str(_sprite.animation) if _sprite != null else ""
 
 
 ## The clickable figure, in world pixels.
