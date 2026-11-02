@@ -1,14 +1,10 @@
 [
   {
-    "id": "pulido",
-    "title": "Pulido del MVP",
-    "date": "2026-11-02",
-    "items": [
-      "Quien se casa y entra en una familia vive en la casa de esa familia (regla centralizada en la boda; no había fallo reproducible).",
-      "Una multa que no se puede pagar ya no bloquea la economía: se paga lo que pase de 30 de oro y el resto es una deuda con la ciudad a 8 días (libro, Deudas), con avisos, prórroga y embargo.",
-      "Contrabando (Secretos 3) duplica lo que cobra el mostrador de ese edificio.",
-      "Mayús + clic derecho lleva a la casilla aunque la tape un edificio alto; con el edificio transparente basta el clic derecho."
-    ]
+    "fecha": "2026-11-02",
+    "titulo": "Pulido del MVP",
+    "que": "Quien se casa y entra en una familia vive en la casa de esa familia (regla centralizada en la boda; no había fallo reproducible). Una multa que no se puede pagar ya no bloquea la economía: se paga lo que pase de 30 de oro y el resto es una deuda con la ciudad a 8 días (libro, Deudas), con avisos, prórroga y embargo. Contrabando (Secretos 3) duplica lo que cobra el mostrador de ese edificio. Mayús + clic derecho lleva a la casilla aunque la tape un edificio alto; con el edificio transparente basta el clic derecho.",
+    "como_probar": "jugar.command. Escenario fined_broke (multa sin poder pagar). Mayús + clic derecho detrás de un edificio alto.",
+    "capturas": []
   },
   {
     "fecha": "2026-11-02",
