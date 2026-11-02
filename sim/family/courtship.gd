@@ -205,7 +205,9 @@ static func marry(sim: Sim, actor: String, target: String) -> void:
 		(st.families[fam]["members"] as Array).append(target)
 	t["family"] = fam
 	t["controlled_by"] = "ai"
-	t["home"] = ""
+	# The one who joins lives in the family's home (pulido-mvp): the actor's house for a household (a townsfolk
+	# wedding), else "" = the family's residence (Kin.home_of); never the old house.
+	t["home"] = str(a.get("home", "")) if TownLife.is_household(st, fam) else ""
 	# H7: a walk queued before the wedding (a townsperson on the way to its old house) would be refused on arrival
 	t["order_queue"] = []
 	t["path"] = []
