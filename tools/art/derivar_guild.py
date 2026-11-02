@@ -242,7 +242,26 @@ def houses(_guild):
     save(remap(c, clay_ochre), "buildings/house_f.png")
 
 
-JOBS = {"tiles": tiles, "props": props, "board": board, "icons": icons, "houses": houses}
+def dice_table(guild):
+    """The plaza's dice table (H7 social point): guild's dining table at half size, with two dice and a cup on it."""
+    t = half(src(guild, "props/dining_table.png"))
+    t = pad_to(t, t.width + 2, t.height + 4)
+    px = t.load()
+    bb = t.getbbox()
+    cx, cy = (bb[0] + bb[2]) // 2, bb[1] + (bb[3] - bb[1]) // 3
+    white, dot, cup, rim = (236, 230, 214, 255), (30, 24, 18, 255), (110, 70, 40, 255), (70, 44, 26, 255)
+    for (x0, y0) in ((cx - 5, cy), (cx - 1, cy + 2)):           # two dice
+        for y in range(y0, y0 + 3):
+            for x in range(x0, x0 + 3):
+                px[x, y] = white
+        px[x0 + 1, y0 + 1] = dot
+    for y in range(cy - 3, cy + 2):                               # the cup
+        for x in range(cx + 3, cx + 6):
+            px[x, y] = cup if y > cy - 3 else rim
+    save(t, "props/dice_table.png")
+
+
+JOBS = {"tiles": tiles, "props": props, "board": board, "icons": icons, "houses": houses, "dice": dice_table}
 
 
 def main():

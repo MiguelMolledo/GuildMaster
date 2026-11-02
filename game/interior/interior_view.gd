@@ -335,6 +335,15 @@ func _process(_delta: float) -> void:
 		sync()
 
 
+## The sprite motion of `id` at station `zone`: "forge" at a furnace or anvil while its job runs, "work" at the other
+## stations while it works there, "idle" otherwise (waiting at the station).
+func station_motion(st: WorldState, id: String, zone: String) -> String:
+	var z: Dictionary = st.buildings.get(building, {}).get("zones", {}).get(zone, {})
+	if str(z.get("occupant", "")) != id or not (z.get("job") is Dictionary):
+		return "idle"
+	return "forge" if zone.begins_with("furnace") or zone.begins_with("anvil") else "work"
+
+
 ## Follows the state: who is inside and where, and each station's job.
 func sync() -> void:
 	if sim == null:
@@ -361,13 +370,17 @@ func sync() -> void:
 		# H7: a customer (GDD 4.5.4) waits in front of the counter with the market bubble
 		var customer := Counter.is_customer_of(st, id, building) and _station_tiles.has("counter")
 		(_views[id] as CharacterView).set_bubble("shop" if customer else SimQuery.bubble_of(sim, id))
+		var v: CharacterView = _views[id]
 		if customer:
-			(_views[id] as CharacterView).position = Iso.tilef_to_world(Vector2(_station_tiles["counter"]) + CUSTOMER).round()
+			v.position = Iso.tilef_to_world(Vector2(_station_tiles["counter"]) + CUSTOMER).round()
+			v.play_motion("idle", CharacterView.dir_of(-CUSTOMER))
 		elif _station_tiles.has(zone):
 			# beside the station (to its left on screen), so the block and its bar stay visible
-			(_views[id] as CharacterView).position = Iso.tilef_to_world(Vector2(_station_tiles[zone]) + STAND).round()
+			v.position = Iso.tilef_to_world(Vector2(_station_tiles[zone]) + STAND).round()
+			v.play_motion(station_motion(st, id, zone), CharacterView.dir_of(-STAND))
 		else:
 			by_door.append(id)
+			v.play_motion("idle", "se")
 	by_door.sort()
 	var spots: Array[Vector2] = [Vector2(1, 0), Vector2(1, -1), Vector2(1, 1), Vector2(2, 0), Vector2(2, -1), Vector2(2, 1)]
 	for i: int in by_door.size():

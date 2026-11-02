@@ -86,6 +86,10 @@ en `filler` de `data/view.json`.
 2. Las animaciones ya están creadas (`idle`, `walk`, `work`…). Elige una y añade fotogramas desde la tira PNG
    (*Add frames from sprite sheet*); ajusta FPS y bucle.
 3. En `game/visuals/characters/<id>.tscn`, oculta o borra el `Greybox`. Los pies del dibujo, sobre `Feet`.
+4. Hoy los fotogramas vienen de Guild Renew (`tools/art/personajes_guild.py strips` y `frames`): animaciones
+   `<anim>_<dir>` (`idle`, `walk`, `work`, `forge`, `death`; direcciones `s se e ne n nw w sw`). El pelo, la piel y la
+   ropa van codificados en el PNG y los pinta `identity_swap.gdshader` con los colores de la persona y su familia.
+   Para volver al greybox: oculta `Sprite` y muestra `Greybox`.
 
 ### Una música
 1. Pon el fichero en `assets/audio/music/<id>.ogg` con el id de `data/audio.json` (hoy: `music_city_day`, `music_night`).
