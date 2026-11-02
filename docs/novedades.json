@@ -1,6 +1,18 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "H7 · Ciudad viva: vecinos con casa, oficio, rutina y emociones",
+    "que": "16 vecinos con casa, oficio y rutina: de día trabajan, al atardecer se juntan en la plaza (bancos, mesa de dados, burbujas y frases) y de noche todos en casa. Cuatro emociones dirigidas a tu familia: un tendero cabreado cobra un 25 % más. Cinco acciones sobre vecinos desde su ficha. Clientes que entran al mostrador. Tres microeventos (cliente que regatea, empleado enfermo, ladrón nocturno) con opción por defecto a las 2 h; la Seguridad frustra al ladrón. La población se renueva (bodas, hijos, llegadas): 16-20 vecinos durante 60 años. Mostrador al precio del mercado; experto 65,9 oro/día, novato 51,3. Suenan murmullo, dados, saludos, tos, regateo y alarma.",
+    "como_probar": "jugar.command; a las 20:00 mira la plaza. Escenarios plaza_dusk y town_microevents. Bot: --bots=idle_town --days=30.",
+    "capturas": [
+      "docs/novedades/h7_ficha_npc.png",
+      "docs/novedades/h7_microevento.png",
+      "docs/novedades/h7_mostrador.png",
+      "docs/novedades/h7_noche.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "Arte · los campos cambian con la estación",
     "que": "Las casillas de campo tienen surcos continuos con cuatro aspectos: brotes en primavera, verde en verano, trigo dorado en otoño y tierra con escarcha en invierno; cambian solos al cambiar la estación (seasonal_tiles en data/view.json, sirve para cualquier suelo). La estantería y el mostrador de venta de la forja ya tienen detalle.",
     "como_probar": "--smoke-script=arte fotografía los campos en las cuatro estaciones.",

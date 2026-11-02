@@ -258,38 +258,38 @@
     {
       "id": "H7",
       "nombre": "Ciudad viva",
-      "estado": "pendiente",
+      "estado": "hecho",
       "entregable": "15-20 NPC con casa, trabajo y rutina; actividades sociales; burbujas; frases; estados emocionales (4 del MVP); acciones sobre NPC; clientes en el mostrador. Microeventos (los 3 de 4.20) como datos.",
       "criterios": [
         {
           "texto": "Captura de la plaza al atardecer con NPC socializando",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "test_town_life + captura h7_plaza_atardecer: 10 vecinos socializando a las 20:10",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Cabreado sube precios",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "test_town_emotions: +25 % al comprar, −25 % al vender",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Todos en casa de noche",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "test_town_life + captura h7_noche: 16 de 16 en casa a las 23:00",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "`sim_bench` < 2 ms",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "QA bench: 0,59 ms por paso",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "En un sim de 30 días los 3 microeventos aparecen con la frecuencia de su diana; sin respuesta, la opción por defecto se aplica a las 2 h (test); la Seguridad frustra al ladrón con su probabilidad (test)",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "diana idle_town (30 días), test_town_microevents: defecto a las 2 h, Seguridad 0/20/40/60 %",
+          "fecha": "2026-11-02"
         }
       ]
     },
