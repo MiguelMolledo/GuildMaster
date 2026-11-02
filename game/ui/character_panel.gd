@@ -72,6 +72,9 @@ func _refresh_family() -> void:
 	if ch.is_empty():
 		return
 	(%AgeLabel as Label).text = SimQuery.t_("ui.family.age") % Kin.age(sim, actor)
+	if Tribunal.is_banished(sim.state, actor):  # H11
+		(%AgeLabel as Label).text += " · " + SimQuery.t_("ui.trial.banished") % (int(sim.state.characters[actor].get(
+			"banished_until", 0)) + 1)
 	var where := Offices.seat_of(sim.state, actor)  # H10: the office it holds and until when
 	if not where.is_empty():
 		(%AgeLabel as Label).text += " · " + SimQuery.t_("ui.offices.until") % [SimQuery.office_name(str(where["office"])),

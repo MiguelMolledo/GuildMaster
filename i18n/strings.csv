@@ -1000,3 +1000,106 @@ ui.offices.vacant_vote,VACANT · vote on day %d,VACANTE · se vota el día %d
 ui.offices.regulation,"In force: %s %+d %% until day %d · the market pays %d, sells at %d",En vigor: %s %+d %% hasta el día %d · el mercado paga %d y vende a %d
 ui.offices.vacant_n,VACANT ×%d,VACANTES ×%d
 ui.offices.vote_on, · vote on day %d, · se vota el día %d
+reason.banished,Banished: cannot act in the town,Desterrado: no puede actuar en la ciudad
+reason.already_on_trial,That family is already on trial,Esa familia ya está en un juicio
+reason.unknown_trial,Unknown trial,Juicio desconocido
+reason.not_your_trial,Not your family's trial,No es un juicio de tu familia
+reason.trial_not_preparing,The preparation is over,La preparación ha terminado
+reason.trial_not_in_hearing,Only during the hearing,Solo durante la vista oral
+reason.unknown_witness,Not a witness of this trial,No es testigo de este juicio
+reason.unknown_fact,Unknown fact,Hecho desconocido
+reason.fact_not_usable,That fact cannot be taken to court,Ese hecho no se puede llevar a juicio
+reason.unknown_charge,Unknown charge,Cargo desconocido
+reason.needs_fact,Choose a fact or fabricate proofs,Elige un hecho o fabrica pruebas
+reason.not_against,The witness is not against you,El testigo no está en contra
+reason.already_crossed,Already questioned,Ya interrogado
+reason.not_the_judge,Only the judge,Solo el Juez
+reason.party_to_trial,The judge cannot rule on his own family,El Juez no puede juzgar a su familia
+reason.nothing_found,Nothing found,No se encuentra nada
+reason.not_banished,Not banished,No está desterrado
+reason.already_favor,Already on your side,Ya está a tu favor
+charge.brawl,brawl,pelea
+charge.minor_fraud,minor fraud,fraude menor
+charge.tax_evasion,tax evasion,evasión de impuestos
+charge.smuggling,smuggling,contrabando
+charge.bribery,bribery,soborno
+charge.corruption,corruption,corrupción
+charge.violent_crime,violent crime,crimen violento
+charge.treason,treason,traición
+severity.light,light,leve
+severity.medium,medium,media
+severity.grave,grave,grave
+severity.maximum,maximum,máxima
+sentence.light,a fine of 10-50 gold,una multa de 10-50 de oro
+sentence.medium,the goods of your business are confiscated,te confiscan la mercancía del negocio
+sentence.grave,you lose your office and your title drops a level,pierdes el cargo y el título baja un nivel
+sentence.maximum,banishment for a year,destierro durante un año
+trial.town,The town,La ciudad
+notice.trial_accused,{accuser} accuses {name} of {charge}: prepare the defense before day {day} (J),{accuser} acusa a {name} de {charge}: prepara la defensa antes del día {day} (J)
+notice.trial_accuser,Your accusation against {name} ({family}) of {charge} goes to court on day {day},Tu acusación contra {name} ({family}) por {charge} va a juicio el día {day}
+notice.trial_other,{accuser} accuses {name} ({family}) of {charge},{accuser} acusa a {name} ({family}) de {charge}
+notice.trial_hearing,The hearing against {name} ({charge}) begins (J),Empieza la vista oral contra {name} ({charge}) (J)
+notice.trial_verdict_guilty,{name}: guilty of {charge},{name}: culpable de {charge}
+notice.trial_verdict_innocent,{name}: innocent of {charge},{name}: inocente de {charge}
+notice.banished,{name} is banished from the town until day {day},{name} queda desterrado de la ciudad hasta el día {day}
+notice.banishment_ended,{name} comes back from banishment,{name} vuelve del destierro
+notice.false_accusation,A false accusation by the {family} family comes to light,Sale a la luz una acusación falsa de la familia {family}
+notice.witness_denounced,A witness denounces you: new charge of {charge},Un testigo te denuncia: nuevo cargo de {charge}
+hud.trials,Trial (J),Juicio (J)
+hud.trials_tip,"Your family's trial: witnesses, scale and hearing (key J)","El juicio de tu familia: testigos, balanza y vista oral (tecla J)"
+ui.trial.title,TRIAL · %s (%s),JUICIO · %s (%s)
+ui.trial.prep_left,preparation: %d d %d h left,preparación: quedan %d d %d h
+ui.trial.hearing_left,hearing: %d d %d h left,vista oral: quedan %d d %d h
+ui.trial.parties,%s (accused) against %s (accuser),%s (acusado) contra %s (acusador)
+ui.trial.stake,If you lose: %s,Si pierdes: %s
+ui.trial.defense,Defense %d · rhetoric %d · witnesses %d · reputation %d,Defensa %d · retórica %d · testigos %d · reputación %d
+ui.trial.accusation,Accusation %d · rhetoric %d · witnesses %d · proofs %d,Acusación %d · retórica %d · testigos %d · pruebas %d
+ui.trial.accusation_hidden,Accusation %d + ? · rhetoric %d · witnesses %d · proofs ?,Acusación %d + ? · retórica %d · testigos %d · pruebas ?
+ui.trial.witnesses,Witnesses,Testigos
+ui.trial.why_employee,your employee,tu empleado
+ui.trial.why_accuser_family,accuser's family,familia del acusador
+ui.trial.why_townsperson,neighbour,vecino
+ui.trial.disp_favor,FOR YOU,A FAVOR
+ui.trial.disp_neutral,NEUTRAL,NEUTRAL
+ui.trial.disp_against,AGAINST,EN CONTRA
+ui.trial.cross_ok,(discredited),(desmentido)
+ui.trial.cross_fail,(counts double),(cuenta doble)
+ui.trial.gone,Will not testify,Ya no declarará
+ui.trial.act_convince,Convince,Convencer
+ui.trial.act_bribe,Bribe %d,Sobornar %d
+ui.trial.act_threaten,Threaten,Amenazar
+ui.trial.cross,Question,Interrogar
+ui.trial.rest,Rest the defense,Concluir la defensa
+ui.trial.rest_tip,The judge rules now,El juez dicta sentencia ya
+ui.trial.guilty,Rule guilty,Dictar culpable
+ui.trial.innocent,Rule innocent,Dictar inocente
+ui.trial.hint_prep,"Win witnesses before the hearing: convince (rhetoric), bribe (gold; they may denounce you) or threaten (martial; if it fails, against you). The accuser's proofs show at the hearing.","Gana testigos antes de la vista: convence (retórica), soborna (oro; puede denunciarte) o amenaza (arte marcial; si falla, en contra). Las pruebas del acusador se ven en la vista."
+ui.trial.hint_hearing,"Hearing: question each witness against you (rhetoric against their empathy: if it works their word does not count, if not it counts double) and rest the defense.",Vista oral: interroga a cada testigo en contra (retórica contra su empatía: si sale bien su palabra no cuenta; si sale mal cuenta doble) y concluye la defensa.
+ui.trial.banished,banished until day %d,desterrado hasta el día %d
+ui.trial.banished_short,Banished,Desterrado
+ui.trial_card.accused,YOU ARE ACCUSED,TE ACUSAN
+ui.trial_card.accused_text,%s accuses %s of %s (%s),%s acusa a %s de %s (%s)
+ui.trial_card.accused_detail,It may cost: %s · preparation until day %d,Puede costarte: %s · preparación hasta el día %d
+ui.trial_card.prepare,Prepare the defense,Preparar la defensa
+ui.trial_card.later,Later,Más tarde
+ui.trial_card.verdict,Verdict · %s,Veredicto · %s
+ui.trial_card.guilty,GUILTY,CULPABLE
+ui.trial_card.innocent,INNOCENT,INOCENTE
+ui.trial_card.scale,%s · defense %d against accusation %d,%s · defensa %d contra acusación %d
+ui.trial_card.free,No sentence,Sin condena
+ui.trial_card.free_fabricated,No sentence: the accusation was false and the accuser loses 50 reputation,Sin condena: la acusación era falsa y el acusador pierde 50 de reputación
+ui.trial_card.s_fine,A fine of %d gold,Una multa de %d de oro
+ui.trial_card.s_confiscation,%d units confiscated (%s),Te confiscan %d unidades (%s)
+ui.trial_card.s_office,%s: office lost,%s: cargo perdido
+ui.trial_card.s_title,title down to %s,el título baja a %s
+ui.trial_card.s_banished,Banished from the town until day %d,Desterrado de la ciudad hasta el día %d
+ui.trial_card.ok,Understood,Entendido
+ui.npc.accuse,Accuse,Acusar
+ui.npc.accuse_fact,"%s (public fact, day %d)","%s (hecho público, día %d)"
+ui.npc.accuse_fabricate,Fabricate proofs: %s,Fabricar pruebas: %s
+ui.npc.accuse_tip,Take the fact to court: a trial against the head of that family,Llevar el hecho a juicio: un juicio contra el cabeza de esa familia
+ui.npc.accuse_tip_fabricate,"Stealth check: if it fails, -50 reputation; if they are found innocent, -50 more","Tirada de Sigilo: si falla, -50 de reputación; si sale inocente, otros -50"
+help.trials,Court,Tribunal
+help.trials_accused,"A Secrets inspection, a bribe found out or an accusation takes you to court. You have a season (2 days) to work the witnesses: convince, bribe or threaten them in person (J opens the trial)","Una inspección de Secretos, un soborno descubierto o una acusación te llevan a juicio. Tienes una estación (2 días) para trabajar a los testigos: convéncelos, sobórnalos o amenázalos en persona (J abre el juicio)"
+help.trials_hearing,"At the hearing the game pauses: question the witnesses against you and rest. Defense = rhetoric×2 + witnesses for×15 + reputation×0,1 against rhetoric×2 + witnesses against×15 + proofs×20. Guilty: a fine, confiscated goods, office and title, or a year of banishment","En la vista oral el juego se pausa: interroga a los testigos en contra y concluye. Defensa = retórica×2 + testigos a favor×15 + reputación×0,1 contra retórica×2 + en contra×15 + pruebas×20. Culpable: multa, mercancía confiscada, cargo y título, o un año de destierro"
+help.trials_accuse,"As a Citizen you can accuse another family from a person's sheet: with a public fact, or fabricating proofs (stealth: a false accusation costs 50 reputation)","Siendo Ciudadano puedes acusar a otra familia desde la ficha de uno de sus miembros: con un hecho público, o fabricando pruebas (sigilo: una acusación falsa cuesta 50 de reputación)"

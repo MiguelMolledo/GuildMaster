@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cg0hg8p8b605y"]
+[gd_scene load_steps=18 format=3 uid="uid://cg0hg8p8b605y"]
 
 [ext_resource type="Script" uid="uid://bk40qfbaik42s" path="res://game/ui/hud.gd" id="1_hud"]
 [ext_resource type="Script" uid="uid://dwh11vnyebw76" path="res://game/ui/sun_moon.gd" id="2_sun"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://djiot2yv2bj20" path="res://game/ui/title_card.tscn" id="14_titlecard"]
 [ext_resource type="PackedScene" uid="uid://gnjbmfmqvue6" path="res://game/ui/offices_panel.tscn" id="15_offices"]
 [ext_resource type="PackedScene" uid="uid://cf6skch6vlxye" path="res://game/ui/office_card.tscn" id="16_officecard"]
+[ext_resource type="PackedScene" uid="uid://cn4o5f5agoumf" path="res://game/ui/trial_panel.tscn" id="17_trial"]
+[ext_resource type="PackedScene" uid="uid://bavqo4xvafv5o" path="res://game/ui/trial_card.tscn" id="18_trialcard"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 6.0
@@ -288,6 +290,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "--"
 
+[node name="TrialsButton" type="Button" parent="Root/FamilyPanel/HBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+focus_mode = 0
+text = "--"
+
 [node name="OfficesButton" type="Button" parent="Root/FamilyPanel/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -540,6 +549,23 @@ offset_right = 200.0
 offset_bottom = 50.0
 
 [node name="OfficeCard" parent="Root" instance=ExtResource("16_officecard")]
+unique_name_in_owner = true
+layout_mode = 0
+
+[node name="TrialPanel" parent="Root" instance=ExtResource("17_trial")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -170.0
+offset_right = 260.0
+offset_bottom = 90.0
+
+[node name="TrialCard" parent="Root" instance=ExtResource("18_trialcard")]
 unique_name_in_owner = true
 layout_mode = 0
 

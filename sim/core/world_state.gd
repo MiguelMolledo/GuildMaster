@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 10
+const VERSION: int = 11
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -20,7 +20,8 @@ var parcels: Dictionary = {}       # par_id -> parcel
 var market: Dictionary = {"demand": {}, "regulations": []}
 var offices: Dictionary = {}      # H10: office_id -> {seats: [{holder, since, until, cooldowns}], settings}: Offices
 var elections: Array = []          # H10: [election] open and the last closed ones (GDD 4.12.4): Elections
-var trials: Array = []
+var trials: Array = []             # H11: [trial] open and the last closed ones (GDD 4.12.5): Tribunal
+var justice: Dictionary = {"facts": []}  # H11: facts that can be taken to court (an inspection, a scandal): Tribunal
 var relationships: Dictionary = {} # "chr_a|chr_b" (sorted as String) -> {relation, affinity}
 var emotions: Dictionary = {}      # chr_id -> [emotion]
 var events_active: Array = []
@@ -51,6 +52,9 @@ var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD
 # H10 (docs/contratos/h10_cargos.md): offices, elections and market.regulations (root fields that already were) get
 # their shape (SaveFile._step 9 -> 10). An empty offices on a map with a town hall = a government not handed out yet:
 # Offices.step hands it out the first time it runs.
+# H11 (docs/contratos/h11_tribunal.md): trials (a root field that already was) gets its shape and the new root justice
+# keeps the facts; families get attitudes {honesty, generosity, diplomacy} and characters banished_until
+# (SaveFile._step 10 -> 11).
 
 
 func seed_rng(s: int) -> void:
@@ -75,6 +79,7 @@ func to_dict() -> Dictionary:
 		"offices": offices,
 		"elections": elections,
 		"trials": trials,
+		"justice": justice,
 		"relationships": relationships,
 		"emotions": emotions,
 		"events_active": events_active,
@@ -115,6 +120,7 @@ static func from_dict(src: Dictionary) -> WorldState:
 	s.offices = d.get("offices", {})
 	s.elections = d.get("elections", [])
 	s.trials = d.get("trials", [])
+	s.justice = d.get("justice", {"facts": []})
 	s.relationships = d.get("relationships", {})
 	s.emotions = d.get("emotions", {})
 	s.events_active = d.get("events_active", [])

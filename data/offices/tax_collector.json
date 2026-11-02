@@ -22,7 +22,7 @@
     {
       "id": "seize_building",
       "cooldown_days": 8,
-      "ready": "H11"
+      "ready": "H6"
     }
   ]
 }

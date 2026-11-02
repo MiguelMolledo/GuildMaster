@@ -1216,6 +1216,79 @@ def check_h10_scenario(w, d, offices, rep):
         rep.error(w, "market.regulations debe ser una lista")
 
 
+H11_SENTENCE_KINDS = {"fine", "confiscation", "office_loss", "banishment"}
+H11_REASONS = ["banished", "already_on_trial", "unknown_trial", "not_your_trial", "trial_not_preparing",
+               "trial_not_in_hearing", "unknown_witness", "unknown_fact", "fact_not_usable", "unknown_charge",
+               "needs_fact", "not_against", "already_crossed", "not_the_judge", "party_to_trial", "nothing_found",
+               "not_banished", "already_favor"]
+H11_NOTICES = ["trial_accused", "trial_accuser", "trial_other", "trial_hearing", "trial_verdict_guilty",
+               "trial_verdict_innocent", "banished", "banishment_ended", "false_accusation", "witness_denounced"]
+
+
+def check_h11(strings, rep):
+    """H11 (GDD 4.12.5, docs/contratos/h11_tribunal.md): data/justice.json (cargos con gravedad conocida y texto,
+    condenas de cada gravedad con su tipo, hechos con cargo conocido, testigos [mín, máx], acciones), la regla de
+    acusación de los perfiles de IA y los textos de motivos, avisos, gravedades y condenas."""
+    w = "justice.json"
+    j = load_json(os.path.join(DATA, "justice.json"), rep) or {}
+    sev = j.get("severities") or []
+    charges = j.get("charges") or {}
+    for cid, c in charges.items():
+        if c.get("severity") not in sev:
+            rep.error(w, f"charges.{cid}: gravedad desconocida {c.get('severity')}")
+        check_text(w, c.get("name_key"), strings, rep)
+    for s in sev:
+        sd = (j.get("sentences") or {}).get(s)
+        if not sd or sd.get("kind") not in H11_SENTENCE_KINDS:
+            rep.error(w, f"sentences.{s}: falta o tipo desconocido")
+        if not isinstance((sd or {}).get("reputation", 0), int):
+            rep.error(w, f"sentences.{s}.reputation debe ser un entero")
+        check_text(w, f"severity.{s}", strings, rep)
+        check_text(w, f"sentence.{s}", strings, rep)
+    for k, c in (j.get("facts") or {}).items():
+        if c not in charges:
+            rep.error(w, f"facts.{k}: cargo desconocido {c}")
+    t = j.get("trial") or {}
+    ws = t.get("witnesses")
+    if not (isinstance(ws, list) and len(ws) == 2 and all(isinstance(x, int) for x in ws) and 1 <= ws[0] <= ws[1]):
+        rep.error(w, "trial.witnesses debe ser [mín, máx]")
+    for k in ("prep_days", "hearing_hours", "town_rhetoric"):
+        if not isinstance(t.get(k), (int, float)) or t[k] <= 0:
+            rep.error(w, f"trial.{k} debe ser > 0")
+    for k in ("convince", "bribe", "threaten"):
+        if k not in (j.get("witness_actions") or {}):
+            rep.error(w, f"witness_actions.{k} falta")
+    if not isinstance(j.get("banishment_days"), int) or j["banishment_days"] < 1:
+        rep.error(w, "banishment_days debe ser un entero >= 1")
+    for pid, prof in load_kind("ai_profiles", rep).items():
+        rule = prof.get("accuse_rule")
+        if rule is not None and rule.get("fabricate_charge") not in charges:
+            rep.error(f"ai_profiles/{pid}", f"accuse_rule.fabricate_charge desconocido {rule.get('fabricate_charge')}")
+    for k in H11_REASONS:
+        check_text("i18n/reason", "reason." + k, strings, rep)
+    for k in H11_NOTICES:
+        check_text("i18n/notice", "notice." + k, strings, rep)
+    check_text("i18n", "trial.town", strings, rep)
+
+
+def check_h11_scenario(w, d, rep):
+    """H11: en escenarios v11, familias con attitudes {honesty, generosity, diplomacy} enteros; trials lista con
+    acusado y testigos que existen; justice.facts lista."""
+    chars = d.get("characters") or {}
+    for fid, f in (d.get("families") or {}).items():
+        a = f.get("attitudes")
+        if not isinstance(a, dict) or any(not isinstance(a.get(k), int) for k in ("honesty", "generosity", "diplomacy")):
+            rep.error(w, f"{fid}: attitudes debe ser {{honesty, generosity, diplomacy}} enteros")
+    for t in d.get("trials") or []:
+        if t.get("accused") not in chars:
+            rep.error(w, f"trials.{t.get('id')}: acusado desconocido")
+        for x in t.get("witnesses") or []:
+            if x.get("character") not in chars:
+                rep.error(w, f"trials.{t.get('id')}: testigo desconocido {x.get('character')}")
+    if not isinstance((d.get("justice") or {}).get("facts"), list):
+        rep.error(w, "justice.facts debe ser una lista")
+
+
 def check_h5(items, recipes, buildings, ranks, strings, rep):
     """H5 (GDD 4.8, docs/contratos/h5_mejoras.md): data/upgrade_rules.json y cada mejora (rama y nivel, coste,
     requisitos que existen en su árbol, nivel N pide el N-1, sin ciclos, efectos de tipos conocidos con su valor,
@@ -1542,6 +1615,7 @@ def main():
     workplaces = check_h7(load_kind("maps", rep), strings, rep)
     titles = check_h9(load_kind("maps", rep), strings, rep)
     offices = check_h10(titles, strings, rep)
+    check_h11(strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")
@@ -1616,6 +1690,8 @@ def main():
             check_h9_scenario(f"scenarios/{name}", d, titles, rep)
         if d.get("version", 0) >= 10:
             check_h10_scenario(f"scenarios/{name}", d, offices, rep)
+        if d.get("version", 0) >= 11:
+            check_h11_scenario(f"scenarios/{name}", d, rep)
         if d.get("version", 0) >= 4:
             for fid, fam in (d.get("families") or {}).items():
                 if not isinstance(fam.get("gold"), int) or fam["gold"] < 0:

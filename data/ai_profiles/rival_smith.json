@@ -18,5 +18,8 @@
   "_title_rule_doc": "H9 [provisional, until 04c is approved]: requests = asks for the next title at the town hall when it meets its requirements and keeps spare_gold after paying it (RivalAI task title).",
   "title_rule": {"requests": true, "spare_gold": 100},
   "_office_rule_doc": "H10 [provisional, until 04c is approved]: runs = registers (RivalAI task office, a management order) for the first office of offices whose election is open, that its title allows and that nobody of the family already holds or runs for, when it can pay the level and keep spare_gold.",
-  "office_rule": {"runs": true, "offices": ["market_inspector", "tax_collector"], "level": "medium", "spare_gold": 50}
+  "office_rule": {"runs": true, "offices": ["market_inspector", "tax_collector"], "level": "medium", "spare_gold": 50},
+  "_accuse_doc": "H11 [provisional, until 04c is approved]: initial_attitudes = the family's attitudes at a new game (GDD 4.2.3; 04c, the stubborn artisan). accuse_rule: accuses the player's family with a public fact not yet tried against it (real_facts) or, if its honesty <= fabricate_max_honesty, with fabricated proofs (stealth check); never in the first protect_days days of the game; once every cooldown_days days.",
+  "initial_attitudes": {"honesty": 20, "generosity": 0, "diplomacy": 10},
+  "accuse_rule": {"accuses": true, "real_facts": true, "fabricate_max_honesty": -30, "fabricate_charge": "minor_fraud", "protect_days": 8, "cooldown_days": 8}
 }

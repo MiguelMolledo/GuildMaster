@@ -17,6 +17,7 @@
   "toast_seconds": 2.5,
   "title_card_seconds": 8.0,
   "office_card_seconds": 10.0,
+  "trial_card_seconds": 12.0,
   "target_marker_seconds": 1.0,
   "buildings": {
     "_doc": "Marks of the buildings of state.buildings on the map (by type): sign and door colours. H4: sign_mode = \"hover\" shows the sign only while the mouse is over the building or it is picked (the houses: the town is not full of signs). The building itself is game/visuals/buildings/<type>.tscn.",

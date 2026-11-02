@@ -724,7 +724,7 @@ func sync(frac: float) -> void:
 				v.selected = v.selectable
 				if not v.selectable:
 					select("")
-		v.visible = str(ch.get("location", "")) == ""
+		v.visible = str(ch.get("location", "")) == "" and not Tribunal.is_banished(state, id)  # H11: banished: away
 		v.follow(ch, _minutes_per_tile, frac)
 		v.follow_badge(state, _player_family)
 		_follow_town(id, v)

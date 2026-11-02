@@ -18,12 +18,12 @@
     {
       "id": "preside_trial",
       "cooldown_days": 0,
-      "ready": "H11"
+      "ready": true
     },
     {
       "id": "pardon",
       "cooldown_days": 8,
-      "ready": "H11"
+      "ready": true
     }
   ]
 }

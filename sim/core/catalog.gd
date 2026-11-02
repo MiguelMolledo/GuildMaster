@@ -39,6 +39,7 @@ var score: Dictionary = {}       # data/score.json: dynasty score by chronicle f
 var goals: Dictionary = {}       # data/goals.json: dynasty goals (H8, GDD 4.17)
 var town: Dictionary = {}        # data/town.json: townsfolk routine, activities, emotions, NPC actions, counter, microevents, population (H7)
 var social_phrases: Dictionary = {}  # data/social_phrases.json: phrase keys by activity, phase and profession (H7, GDD 4.11.3)
+var justice: Dictionary = {}     # data/justice.json: charges, sentences, facts, trials, witnesses (H11, GDD 4.12.5)
 var politics: Dictionary = {}    # data/politics.json: reputation rules and classes, the title ceremony (H9, GDD 4.12)
 var errors: PackedStringArray = []  # files that could not be read
 
@@ -63,6 +64,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.town = c._load_json(root_dir.path_join("town.json"))
 	c.social_phrases = c._load_json(root_dir.path_join("social_phrases.json"))
 	c.politics = c._load_json(root_dir.path_join("politics.json"))
+	c.justice = c._load_json(root_dir.path_join("justice.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
@@ -230,6 +232,7 @@ func validate() -> PackedStringArray:
 	out.append_array(_validate_town())
 	out.append_array(_validate_titles())
 	out.append_array(_validate_offices())
+	out.append_array(_validate_justice())
 	for id: String in maps():
 		var m: Dictionary = maps()[id]
 		var size: Array = m.get("size", [0, 0])
@@ -348,6 +351,25 @@ func _validate_offices() -> PackedStringArray:
 		for k: String in ["government", "elections", "taxes", "regulation"]:
 			if not politics.has(k):
 				out.append("politics.json: %s missing" % k)
+	return out
+
+
+## H11: every charge has a known severity with its sentence, every fact kind a known charge (tools/validate_content.py
+## check_h11 checks the rest and the texts).
+func _validate_justice() -> PackedStringArray:
+	var out: PackedStringArray = []
+	if justice.is_empty():
+		return out
+	var sev: Array = justice.get("severities", [])
+	for c: String in justice.get("charges", {}):
+		if not str(justice["charges"][c].get("severity", "")) in sev:
+			out.append("justice.json: charge %s: unknown severity" % c)
+	for s: Variant in sev:
+		if not (justice.get("sentences", {}) as Dictionary).has(str(s)):
+			out.append("justice.json: no sentence for %s" % s)
+	for f: String in justice.get("facts", {}):
+		if not (justice.get("charges", {}) as Dictionary).has(str(justice["facts"][f])):
+			out.append("justice.json: fact %s: unknown charge" % f)
 	return out
 
 

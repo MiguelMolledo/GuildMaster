@@ -374,5 +374,36 @@
         null
       ]
     }
+  },
+  "crook": {
+    "_doc": "H11 (10/H11 «Bot crook acaba en juicio con la frecuencia esperada», 07 §7.2, GDD 4.8 y 4.12.5): artisan_expert con crook = 1 (sim/bots/bot_artisan_expert.gd): compra la Doble contabilidad (Secretos 1, riesgo de inspección 5 %/día con honestidad 0) en cuanto salda la deuda; cada inspección que le pilla abre un juicio automático (evasión de impuestos). En una partida nueva Normal de 40 días: tried (acaba en juicio) en ≥ 40 % de las semillas y trials (juicios por semilla) de media entre 0,5 y 3 (con ~30 días de riesgo se esperan ~1,5). La IA no acusa sin motivo (ai_accusations_bad 0). Ritual largo, a mano: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=crook --days=40 --seeds=10. Medido (2026-11-02, 10 semillas): juicio en 5/10, 1,2 juicios de media (0-3), todos culpables (nadie trabaja a los testigos).",
+    "days": [
+      40,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "ai_accusations_bad": [
+      0,
+      0
+    ],
+    "_mean": {
+      "trials": [
+        0.5,
+        3.0
+      ]
+    },
+    "_share": {
+      "tried": [
+        0.4,
+        null
+      ]
+    }
   }
 }

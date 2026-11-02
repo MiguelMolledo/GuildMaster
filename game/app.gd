@@ -23,6 +23,7 @@ extends Node
 ## --smoke-script=arte: the town's art (trees, river and bridge, a block, the plaza), camera on each place.
 ## H7: --smoke-script=ciudad: the plaza at dusk, the town at night, a townsperson's sheet, a microevent card and a
 ## customer at the counter.
+## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## H10: --smoke-script=cargos: the offices chart, running, the campaign, the result card and the inspector's powers.
 ## --gallery opens game/tools/gallery.tscn instead (every visual scene of game/visuals/ on the grid; with --smoke it
 ## saves reports/shots/gallery_01.png and quits). The AudioDirector node plays the sounds and music by id.
@@ -33,7 +34,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mejoras": "res://game/smoke/smoke_mejoras.gd", "rebanada": "res://game/smoke/smoke_rebanada.gd",
 	"familia": "res://game/smoke/smoke_familia.gd", "arte": "res://game/smoke/smoke_arte.gd",
 	"ciudad": "res://game/smoke/smoke_ciudad.gd", "titulos": "res://game/smoke/smoke_titulos.gd",
-	"cargos": "res://game/smoke/smoke_cargos.gd"}
+	"cargos": "res://game/smoke/smoke_cargos.gd", "tribunal": "res://game/smoke/smoke_tribunal.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView

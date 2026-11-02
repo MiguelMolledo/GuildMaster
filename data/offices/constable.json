@@ -16,12 +16,12 @@
     {
       "id": "arrest",
       "cooldown_days": 2,
-      "ready": "H11"
+      "ready": true
     },
     {
       "id": "investigate",
       "cooldown_days": 2,
-      "ready": "H11"
+      "ready": true
     }
   ]
 }
