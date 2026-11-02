@@ -1,6 +1,17 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "Arte · los campos cambian con la estación",
+    "que": "Las casillas de campo tienen surcos continuos con cuatro aspectos: brotes en primavera, verde en verano, trigo dorado en otoño y tierra con escarcha en invierno; cambian solos al cambiar la estación (seasonal_tiles en data/view.json, sirve para cualquier suelo). La estantería y el mostrador de venta de la forja ya tienen detalle.",
+    "como_probar": "--smoke-script=arte fotografía los campos en las cuatro estaciones.",
+    "capturas": [
+      "docs/novedades/arte5_campos_primavera.png",
+      "docs/novedades/arte5_campos_otono.png",
+      "docs/novedades/arte5_campos_invierno.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "Arte · mejoras de la forja con sprite, bosque en el borde y casas variadas",
     "que": "Las 15 mejoras del interior de la forja que seguían en greybox ya tienen sprite (fuelle, tina de temple, banco de grabado, sello de maestro, literas, caja fuerte, forja de maestro...). Fuera del mapa, un anillo de hierba que se oscurece con bosque cada vez más denso, por donde siguen el río y las calles (map_border en data/view.json). Dos modelos de casa nuevos por recoloreo y las 8 casas de vecinos con cuatro aspectos (building_variants).",
     "como_probar": "jugar.command. Recorrido: --smoke-script=arte (esquina, puerta oeste, forja con todas las mejoras).",
