@@ -46,7 +46,7 @@ static func order_buy(sim: Sim, o: Dictionary) -> Dictionary:
 	var fam := Money.family_of(st, actor)
 	if fam == "" or not st.families.has(fam):
 		return Orders.fail("no_family")
-	var unit := price(sim, item, quality, "buy")
+	var unit := trade_price(sim, actor, stall, item, quality, "buy")
 	var cost := unit * qty
 	if to != "":
 		why = _errand_reason(sim, actor, to, item, quality, qty)
@@ -96,11 +96,11 @@ static func order_sell(sim: Sim, o: Dictionary) -> Dictionary:
 	if fam == "" or not st.families.has(fam):
 		return Orders.fail("no_family")
 	# Unit by unit: each unit is paid at the demand left by the one before (selling 10 at once = 10 sales of 1).
-	var unit := price(sim, item, quality, "sell")
+	var unit := trade_price(sim, actor, stall, item, quality, "sell")
 	var total := 0
 	var drop := float(_demand_cfg(sim).get("drop_per_unit", 0.05))
 	for n: int in qty:
-		total += price(sim, item, quality, "sell")
+		total += trade_price(sim, actor, stall, item, quality, "sell")
 		_set_demand(sim, item, demand(sim, item) - drop, false)
 	Inventory.remove(inv, item, quality, qty)
 	Money.change(sim, fam, total, Money.MARKET_SALES, "sell", "", actor)
@@ -218,6 +218,18 @@ static func price(sim: Sim, item: String, quality: int, side: String) -> int:
 	return roundi(p)
 
 
+## H7: the price `actor` pays (side "buy") or gets ("sell") at `stall`: price() × the emotions of the stall's keeper
+## (the townsperson whose trade is that stall) towards the actor's family (GDD 4.11.5: angry +25 % / −25 %...).
+## Without a keeper or emotions it is exactly price().
+static func trade_price(sim: Sim, actor: String, stall: String, item: String, quality: int, side: String) -> int:
+	var p := price(sim, item, quality, side)
+	var keeper := TownLife.stall_keeper(sim.state, sim.catalog, stall)
+	if keeper == "" or not sim.state.characters.has(actor):
+		return p
+	var m := Emotions.price_mult(sim, keeper, Money.family_of(sim.state, actor), side)
+	return p if m == 1.0 else roundi(float(p) * m)
+
+
 ## The surcharge of an errand over a purchase of `cost` gold: round(cost × errand.surcharge).
 static func errand_surcharge(sim: Sim, cost: int) -> int:
 	return roundi(cost * float(sim.catalog.market.get("errand", {}).get("surcharge", 0.2)))
@@ -255,7 +267,7 @@ static func offers(sim: Sim, actor: String, stall: String) -> Dictionary:
 		if status == "":
 			status = "ok" if n > 0 else _buy_block(sim, actor, item, Inventory.NORMAL)
 		(out["buy"] as Array).append({"item": item, "quality": Inventory.NORMAL,
-			"price": price(sim, item, Inventory.NORMAL, "buy"), "max_qty": n, "status": status})
+			"price": trade_price(sim, actor, stall, item, Inventory.NORMAL, "buy"), "max_qty": n, "status": status})
 	var held := {}
 	for s: Dictionary in st.characters[actor].get("inventory", {}).get("stacks", []):
 		var it := str(s["item"])
@@ -266,7 +278,7 @@ static func offers(sim: Sim, actor: String, stall: String) -> Dictionary:
 		var parts := key.split("|")
 		var q := int(parts[1])
 		(out["sell"] as Array).append({"item": parts[0], "quality": q, "qty": int(held[key]),
-			"price": price(sim, parts[0], q, "sell")})
+			"price": trade_price(sim, actor, stall, parts[0], q, "sell")})
 	out["deliver_to"] = own_storages(sim, actor)
 	return out
 
@@ -279,7 +291,7 @@ static func max_buy(sim: Sim, actor: String, stall: String, item: String, qualit
 		return 0
 	var st := sim.state
 	var fam := Money.family_of(st, actor)
-	var unit := price(sim, item, quality, "buy")
+	var unit := trade_price(sim, actor, stall, item, quality, "buy")
 	if fam == "" or not st.families.has(fam) or quality != Inventory.NORMAL:
 		return 0
 	if to != "" and _errand_target_reason(sim, actor, to) != "":
@@ -354,6 +366,9 @@ static func _trade_reason(sim: Sim, actor: String, stall: String, item: String) 
 		return "unknown_item"
 	if not str(it.get("market_stall", "")) in (def.get("sells", []) as Array):
 		return "wrong_stall"
+	var keeper := TownLife.stall_keeper(st, sim.catalog, stall)
+	if keeper != "" and Emotions.refuses_trade(sim, keeper, Money.family_of(st, actor)):
+		return "vendor_refuses"  # H7: an angry keeper above 80 will not trade (GDD 4.11.5)
 	return ""
 
 

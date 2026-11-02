@@ -24,22 +24,52 @@
 				"stacks": [
 					{
 						"item": "sword",
-						"qty": 6,
+						"qty": 20,
+						"quality": 0
+					},
+					{
+						"item": "sword",
+						"qty": 20,
+						"quality": 0
+					},
+					{
+						"item": "sword",
+						"qty": 20,
+						"quality": 0
+					},
+					{
+						"item": "sword",
+						"qty": 20,
+						"quality": 0
+					},
+					{
+						"item": "sword",
+						"qty": 20,
+						"quality": 0
+					},
+					{
+						"item": "sword",
+						"qty": 20,
+						"quality": 0
+					},
+					{
+						"item": "sword",
+						"qty": 20,
 						"quality": 0
 					},
 					{
 						"item": "iron_ingot",
-						"qty": 10,
+						"qty": 20,
 						"quality": 0
 					},
 					{
 						"item": "iron",
-						"qty": 30,
+						"qty": 99,
 						"quality": 0
 					},
 					{
 						"item": "coal",
-						"qty": 15,
+						"qty": 50,
 						"quality": 0
 					}
 				]
@@ -1992,7 +2022,7 @@
 		"regulations": []
 	},
 	"meta": {
-		"description": "Día 0, amanecer: la forja con Mostrador y Dormitorio (2 huecos), Agnès (aprendiz, en el mostrador) y Joan (oficial, hace espadas), almacén con espadas, lingotes, hierro y carbón, 300 de oro y sin deuda; Hugo dentro. Llegan clientes al mostrador y, algún amanecer, microeventos (regateo, empleado enfermo, ladrón nocturno).",
+		"description": "Día 0, amanecer: la forja con Mostrador y Dormitorio (2 huecos), Agnès (aprendiz, en el mostrador) y Joan (oficial, hace espadas), almacén con 140 espadas, lingotes, hierro y carbón (un mes de clientes), 300 de oro y sin deuda; Hugo dentro. Llegan clientes al mostrador y, algún amanecer, microeventos (regateo, empleado enfermo, ladrón nocturno).",
 		"origin": "tools/scenarios/make_town_scenarios.gd",
 		"title": "Mostrador y microeventos"
 	},

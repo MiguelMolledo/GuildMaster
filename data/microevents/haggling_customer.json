@@ -5,7 +5,8 @@
   "trigger": {
     "phase": "day",
     "conditions": [
-      "counter_sales"
+      "counter_sales",
+      "has_products"
     ],
     "chance_per_day": 1.0
   },

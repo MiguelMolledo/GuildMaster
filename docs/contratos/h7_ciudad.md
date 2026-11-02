@@ -108,7 +108,8 @@ Migración 7 → 8 (`SaveFile._step`):
 - **`Microevents.step`**: al amanecer, por familia que juega (humana o IA con perfil) con edificios: como mucho 1 al día,
   tirada `base_chance × microevent_chance`; si sale, una ficha elegible (condiciones y enfriamiento) por peso → plan.
   Disparo: `sick_employee` al momento; `night_thief` al empezar la noche + 1-5 h; `haggling_customer` con el siguiente
-  cliente de Negociación ≥ 6 que se atiende ese día (si no llega, se pierde sin enfriamiento). Al disparar:
+  cliente de Negociación ≥ 6 que se atiende ese día (si no llega antes del atardecer, se pierde sin enfriamiento;
+  solo es elegible con producto que vender: condición `has_products`). Al disparar:
   `microevent_started`, aviso (humana), enfriamiento `cooldown_days` por edificio. Activo hasta que se elige
   (`resolve_microevent`) o caduca a las `timeout_hours` → la opción por defecto (`microevent_resolved {by: "timeout"}`).
   Las familias IA eligen al momento la opción por defecto (la misma orden; 4.21 sin cerrar) [provisional].
@@ -156,14 +157,15 @@ Motivos nuevos (`reason.*`): `not_a_townsperson`, `refuses_talk`, `already_today
 - **`plaza_dusk`**: día 1, 18:40. Los vecinos en sus oficios (fuera de casa); a las 19:00 empieza el atardecer y
   se van a la plaza a socializar. Captura de la plaza.
 - **`town_microevents`**: día 0, amanecer. Forja con Mostrador (`forge_commerce_1`), dos empleados (uno con rol
-  `counter`), almacén con espadas, lingotes, hierro y carbón, 300 de oro, sin deuda. El arenero de los microeventos y
+  `counter`), almacén con 140 espadas, lingotes, hierro y carbón (un mes de clientes), 300 de oro, sin deuda. El arenero de los microeventos y
   los clientes (diana de 30 días).
 - **`microevent_card`**: `town_microevents` al amanecer del día 1 con un `sick_employee` activo (la tarjeta).
 
 ## Dianas
 - `data/targets.json` `idle_town` (bot `idle` desde `town_microevents`, 30 días): cada microevento entre 1 y 4 veces
   por semilla, como mucho 1 por familia y día, y algún cliente atendido. Ritual: `godot --headless --path . -s
-  tools/sim_runner.gd -- --scenario=town_microevents --bots=idle_town --days=30 --seeds=3`.
+  tools/sim_runner.gd -- --scenario=town_microevents --bots=idle_town --days=30 --seeds=3` (en `run_all.py`, paso
+  `town`, con 2 semillas). Medido: regateo 1-3, enfermo 2-3, ladrón 2-3 por semilla; ~170 ventas de mostrador.
 - `data/targets.json` `town_population`: en 60 años saltando de amanecer en amanecer (`tests/test_town_population.gd`),
   los vecinos vivos siempre en `[14, 22]` y al final quedan solteros en edad de tener hijos.
 
@@ -180,3 +182,10 @@ Motivos nuevos (`reason.*`): `not_a_townsperson`, `refuses_talk`, `already_today
 - **Seguridad contra el ladrón** solo cuando no hay nadie dentro (como dice la tabla de 4.20).
 - **Renovación de la población**: bodas entre vecinos + hijos (H8) con tope de 20 + vecinos nuevos si faltan adultos.
 - **Los niños se quedan en casa** hasta los 16 (no hay escuela visible).
+- **Regateo solo con producto** (`has_products`): sin nada que vender no hay regateo que valga.
+- **El estado de la ciudad no guarda decimales** (`break_permil` en milésimas): un float no vuelve idéntico de un
+  guardado y rompía la ida y vuelta.
+- **Riesgo de balance (abierto)**: la frecuencia de clientes de 4.5.4 ([propuesta], 1 cada 1-2 h de día) con el
+  precio del mostrador (base × calidad × (1 + bonus), sin demanda) da ~300-500 de oro al día con una forja con
+  Mostrador (6 de oro y 4 de madera). Ningún bot de esta rama compra `forge_commerce_1`, así que las dianas de H3-H5 no
+  se mueven, pero `artisan_expert` (en main) sí puede: hay que pasarlo y ajustar `counter.interval_hours` o el precio.

@@ -117,9 +117,11 @@ func test_hired_today_stays_home() -> void:
 	eq(str(sim.state.characters[JOAN]["location"]), FORGE, "Joan at work")
 
 
-func test_townsfolk_without_job_stay_home() -> void:
+## H7: the townsfolk without a job live their day (TownLife, docs/contratos/h7_ciudad.md); at night all are at home.
+func test_townsfolk_without_job_are_home_at_night() -> void:
 	var sim := _sim()
-	sim.run_minutes(12 * 60)
+	var night := 23 * 60 - Clock.minute_of_day(int(sim.state.clock["minute"]))
+	sim.run_minutes(night if night > 0 else night + Clock.MINUTES_PER_DAY)
 	for id: String in sim.state.characters:
 		var ch: Dictionary = sim.state.characters[id]
 		if str(ch.get("rank", "")) != "" and not ch.get("job") is Dictionary:

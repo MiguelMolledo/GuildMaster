@@ -8,7 +8,7 @@ extends SceneTree
 ##                      armory), Hugo in the plaza, no loan. At 19:00 dusk starts and they go to socialise.
 ##   town_microevents   day 0, dawn (05:00): the forge with the sales counter (forge_commerce_1) and a bedroom
 ##                      (forge_staff_1: 2 employee places), an apprentice at the counter (role counter) and a journeyman
-##                      at any station making swords, a stocked storage (swords, ingots, iron, coal), 300 gold, no loan,
+##                      at any station making swords, a stocked storage (140 swords, ingots, iron, coal: a month of customers), 300 gold, no loan,
 ##                      Hugo inside the forge. The sandbox of the microevents and the counter customers (30-day target).
 ##   microevent_card    town_microevents at dawn of day 1 with a sick_employee microevent waiting for an answer.
 
@@ -84,7 +84,7 @@ func _town_microevents() -> bool:
 	if sim == null:
 		return false
 	return _save(sim, "town_microevents", "Mostrador y microeventos",
-		"Día 0, amanecer: la forja con Mostrador y Dormitorio (2 huecos), %s (aprendiz, en el mostrador) y %s (oficial, hace espadas), almacén con espadas, lingotes, hierro y carbón, 300 de oro y sin deuda; Hugo dentro. Llegan clientes al mostrador y, algún amanecer, microeventos (regateo, empleado enfermo, ladrón nocturno)." % [
+		"Día 0, amanecer: la forja con Mostrador y Dormitorio (2 huecos), %s (aprendiz, en el mostrador) y %s (oficial, hace espadas), almacén con 140 espadas, lingotes, hierro y carbón (un mes de clientes), 300 de oro y sin deuda; Hugo dentro. Llegan clientes al mostrador y, algún amanecer, microeventos (regateo, empleado enfermo, ladrón nocturno)." % [
 		sim.state.characters[_counter_employee(sim)]["name"], sim.state.characters[_any_employee(sim)]["name"]])
 
 
@@ -107,7 +107,8 @@ func _build_microevents() -> Sim:
 	st.characters[smith]["job"] = Staff.new_job(sim, FORGE, -1, "any")
 	var forge: Dictionary = st.buildings[FORGE]
 	forge["inventory"]["stacks"] = []
-	for it: Array in [["sword", 6], ["iron_ingot", 10], ["iron", 30], ["coal", 15]]:
+	# a month of customers (1 every 1-2 h of day, GDD 4.5.4): 7 stacks of swords and inputs for more
+	for it: Array in [["sword", 140], ["iron_ingot", 20], ["iron", 99], ["coal", 50]]:
 		if not Inventory.add(forge["inventory"], cat, str(it[0]), Inventory.NORMAL, int(it[1])):
 			print("make_town_scenarios: %s does not fit" % it[0])
 			return null

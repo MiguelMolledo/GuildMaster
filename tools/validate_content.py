@@ -770,7 +770,7 @@ SOCIAL_KINDS = {"bench", "chat", "dice"}
 WORKPLACE_KINDS = {"tile", "stall", "shop"}
 MEV_EFFECTS = {"sell", "skill_check", "leave", "emotion", "relation", "pay", "loyalty", "absent", "refund_wage", "steal",
                "nothing"}
-MEV_CONDITIONS = {"counter_sales", "has_employees", "has_goods"}
+MEV_CONDITIONS = {"counter_sales", "has_employees", "has_goods", "has_products"}
 MEV_SCOPES = {"building", "character", "family"}
 TOWN_STATES = {"home", "walking", "working", "market", "strolling", "social", "customer"}
 

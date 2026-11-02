@@ -11,7 +11,8 @@ extends RefCounted
 ## fire, promote, bonus, queue_add, queue_remove, queue_move, queue_loop, queue_pause, set_role
 ## (docs/contratos/h4_empleados.md); H5: buy_upgrade (docs/contratos/h5_mejoras.md); H8: court_talk, court_gift,
 ## propose, designate_heir, school_choice, assign_building, close_dynasty, set_schedule, set_directives
-## (docs/contratos/h8_familia.md). Each milestone adds
+## (docs/contratos/h8_familia.md); H7: npc_talk, npc_gift, npc_flatter, npc_insult, npc_threaten, resolve_microevent
+## (docs/contratos/h7_ciudad.md). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -100,6 +101,19 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Schedules.order_set(sim, order)
 		"set_directives":
 			return Schedules.order_set_directives(sim, order)
+		# H7 · the living town (sim/town/*.gd, docs/contratos/h7_ciudad.md)
+		"npc_talk":
+			return NpcActions.order(sim, order, "talk")
+		"npc_gift":
+			return NpcActions.order(sim, order, "gift")
+		"npc_flatter":
+			return NpcActions.order(sim, order, "flatter")
+		"npc_insult":
+			return NpcActions.order(sim, order, "insult")
+		"npc_threaten":
+			return NpcActions.order(sim, order, "threaten")
+		"resolve_microevent":
+			return Microevents.order_resolve(sim, order)
 	return fail("unknown_order")
 
 
@@ -107,7 +121,8 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 ## not stop someone walking; given in pause they apply on resume instead of waiting behind the walk).
 const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role", "queue_add", "queue_remove",
 	"queue_move", "queue_loop", "queue_pause", "repay_loan", "read_notices", "abandon_contract", "buy_upgrade",
-	"designate_heir", "school_choice", "assign_building", "close_dynasty", "set_schedule", "set_directives"]
+	"designate_heir", "school_choice", "assign_building", "close_dynasty", "set_schedule", "set_directives",
+	"resolve_microevent"]
 
 
 static func is_management(type: String) -> bool:
