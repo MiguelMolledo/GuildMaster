@@ -1,10 +1,10 @@
 """Maquetas de docs/ui/mecanicas/tribunal.md (H11, sin implementar: nombres propuestos).
-python3 tools/ui/maqueta.py tools/ui/mecanicas/tribunal.py"""
+python3 tools/ui/maqueta.py docs/ui/maquetas/src/tribunal.py"""
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (FONDO_AYTO, FAM, I, TAR_X, TAR_Y, bandera, barra, btn, caja, ico, llamada, panel, ret,  # noqa
+from social_base import (con_hud, FONDO_AYTO, FAM, I, TAR_X, TAR_Y, bandera, barra, btn, caja, ico, llamada, panel, ret,  # noqa
                          sep, t, velo)
 
 PURP = "#2a2034"      # sección del tribunal (paleta secundaria de la biblia)
@@ -143,4 +143,4 @@ def veredicto():
     return {"id": "tribunal_veredicto", "fondo": FONDO_AYTO, "elementos": e}
 
 
-MAQUETAS = [acusacion(), preparacion(), vista(), veredicto()]
+MAQUETAS = con_hud([acusacion(), preparacion(), vista(), veredicto()])

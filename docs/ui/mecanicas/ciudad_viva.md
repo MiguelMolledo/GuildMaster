@@ -207,7 +207,7 @@ Burbujas (sobre la cabeza, 16 × 16 de icono dentro de un bocadillo de 20 × 18)
        v                                                           v
 ```
 
-**PNG** (hechas con `tools/ui/maqueta.py`; fuente: `tools/ui/mecanicas/ciudad_viva.py`): `../maquetas/ciudad_viva_ficha.png`, `../maquetas/ciudad_viva_tablon.png`, `../maquetas/ciudad_viva_microevento.png`, `../maquetas/ciudad_viva_burbujas.png` (y sus `_x2`). Los números de oro de las maquetas remiten a §3 y §4.
+**PNG** (hechas con `tools/ui/maqueta.py`; fuente: `docs/ui/maquetas/src/ciudad_viva.py`): `../maquetas/ciudad_viva_ficha.png`, `../maquetas/ciudad_viva_tablon.png`, `../maquetas/ciudad_viva_microevento.png`, `../maquetas/ciudad_viva_burbujas.png` (y sus `_x2`). Los números de oro de las maquetas remiten a §3 y §4.
 
 ![ciudad_viva_ficha](../maquetas/ciudad_viva_ficha.png)
 ![ciudad_viva_tablon](../maquetas/ciudad_viva_tablon.png)

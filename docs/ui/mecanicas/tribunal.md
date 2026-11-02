@@ -144,7 +144,7 @@ Panel del juicio · preparación (panel grande, 952 × 468):
 
 Vista oral y veredicto: en los PNG.
 
-**PNG** (fuente: `tools/ui/mecanicas/tribunal.py`): `../maquetas/tribunal_acusacion.png`,
+**PNG** (fuente: `docs/ui/maquetas/src/tribunal.py`): `../maquetas/tribunal_acusacion.png`,
 `../maquetas/tribunal_preparacion.png`, `../maquetas/tribunal_vista.png`, `../maquetas/tribunal_veredicto.png`, y sus
 `_x2`.
 

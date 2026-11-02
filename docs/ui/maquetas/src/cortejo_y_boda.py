@@ -1,9 +1,9 @@
-"""Maquetas de docs/ui/mecanicas/cortejo_y_boda.md.  python3 tools/ui/maqueta.py tools/ui/mecanicas/cortejo_y_boda.py"""
+"""Maquetas de docs/ui/mecanicas/cortejo_y_boda.md.  python3 tools/ui/maqueta.py docs/ui/maquetas/src/cortejo_y_boda.py"""
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (FONDO_PLAZA, I, LAT_X, bandera, barra, btn, caja, ico, lateral, llamada, motivo, panel,  # noqa
+from social_base import (con_hud, FONDO_PLAZA, I, LAT_X, bandera, barra, btn, caja, ico, lateral, llamada, motivo, panel,  # noqa
                          ret, sep, t, velo)
 
 X = LAT_X + 8
@@ -91,4 +91,4 @@ def boda():
     return {"id": "cortejo_boda", "fondo": FONDO_PLAZA, "elementos": e}
 
 
-MAQUETAS = [panel_cortejo(), propuesta(), boda()]
+MAQUETAS = con_hud([panel_cortejo(), propuesta(), boda()])

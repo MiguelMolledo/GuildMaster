@@ -1,10 +1,10 @@
 """Maquetas de docs/ui/mecanicas/cargos_y_elecciones.md (sobre la rama h10-cargos).
-python3 tools/ui/maqueta.py tools/ui/mecanicas/cargos_y_elecciones.py"""
+python3 tools/ui/maqueta.py docs/ui/maquetas/src/cargos_y_elecciones.py"""
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (FONDO_AYTO, FONDO_PLAZA, FAM, I, LAT_X, bandera, barra, btn, caja, ico, insignia, lateral,  # noqa
+from social_base import (con_hud, FONDO_AYTO, FONDO_PLAZA, FAM, I, LAT_X, bandera, barra, btn, caja, ico, insignia, lateral,  # noqa
                          llamada, motivo, panel, ret, sep, t, velo)
 
 X = LAT_X + 8
@@ -169,4 +169,4 @@ def poderes():
     return {"id": "cargos_y_elecciones_poderes", "fondo": FONDO_AYTO, "elementos": e}
 
 
-MAQUETAS = [organigrama(), campana(), recuento(), poderes()]
+MAQUETAS = con_hud([organigrama(), campana(), recuento(), poderes()])

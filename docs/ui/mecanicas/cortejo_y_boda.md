@@ -145,7 +145,7 @@ Carta de boda (380 × 200, centrada):
 +======================================================+
 ```
 
-**PNG** (fuente: `tools/ui/mecanicas/cortejo_y_boda.py`): `../maquetas/cortejo_panel.png`, `../maquetas/cortejo_propuesta.png` (confirmación + sección de cortejo en la ficha de vecino), `../maquetas/cortejo_boda.png`, y sus `_x2`.
+**PNG** (fuente: `docs/ui/maquetas/src/cortejo_y_boda.py`): `../maquetas/cortejo_panel.png`, `../maquetas/cortejo_propuesta.png` (confirmación + sección de cortejo en la ficha de vecino), `../maquetas/cortejo_boda.png`, y sus `_x2`.
 
 ![cortejo_panel](../maquetas/cortejo_panel.png)
 ![cortejo_propuesta](../maquetas/cortejo_propuesta.png)

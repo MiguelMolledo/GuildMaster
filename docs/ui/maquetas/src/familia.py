@@ -1,9 +1,9 @@
-"""Maquetas de docs/ui/mecanicas/familia.md.  python3 tools/ui/maqueta.py tools/ui/mecanicas/familia.py"""
+"""Maquetas de docs/ui/mecanicas/familia.md.  python3 tools/ui/maqueta.py docs/ui/maquetas/src/familia.py"""
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (FONDO_AYTO, I, TAR_X, TAR_Y, bandera, barra, btn, caja, ico, insignia, llamada, panel,  # noqa
+from social_base import (con_hud, FONDO_AYTO, I, TAR_X, TAR_Y, bandera, barra, btn, caja, ico, insignia, llamada, panel,  # noqa
                          ret, sep, t, velo)
 
 NW, NH = 112, 42
@@ -124,4 +124,4 @@ def tarjetas_vida():
     return {"id": "familia_tarjetas_vida", "fondo": FONDO_AYTO, "elementos": e}
 
 
-MAQUETAS = [arbol(), sucesion(), tarjetas_vida()]
+MAQUETAS = con_hud([arbol(), sucesion(), tarjetas_vida()])

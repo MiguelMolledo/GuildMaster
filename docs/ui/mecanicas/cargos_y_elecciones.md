@@ -147,7 +147,7 @@ Organigrama (panel lateral, 352 × ~410, pestañas Cargos · Campaña · Poderes
 
 Recuento (carta 380 × 200), poderes (pestaña) y campaña (pestaña) en los PNG.
 
-**PNG** (fuente: `tools/ui/mecanicas/cargos_y_elecciones.py`): `../maquetas/cargos_y_elecciones_organigrama.png`,
+**PNG** (fuente: `docs/ui/maquetas/src/cargos_y_elecciones.py`): `../maquetas/cargos_y_elecciones_organigrama.png`,
 `../maquetas/cargos_y_elecciones_campana.png`, `../maquetas/cargos_y_elecciones_recuento.png`,
 `../maquetas/cargos_y_elecciones_poderes.png`, y sus `_x2`.
 

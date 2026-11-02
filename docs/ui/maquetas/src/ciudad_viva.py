@@ -1,9 +1,9 @@
-"""Maquetas de docs/ui/mecanicas/ciudad_viva.md.  python3 tools/ui/maqueta.py tools/ui/mecanicas/ciudad_viva.py"""
+"""Maquetas de docs/ui/mecanicas/ciudad_viva.md.  python3 tools/ui/maqueta.py docs/ui/maquetas/src/ciudad_viva.py"""
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (FONDO_PLAZA, I, LAT_X, text_size, TAR_X, TAR_Y, bipolar, barra, btn, caja, ico, lateral, llamada,  # noqa
+from social_base import (con_hud, FONDO_PLAZA, I, LAT_X, text_size, TAR_X, TAR_Y, bipolar, barra, btn, caja, ico, lateral, llamada,  # noqa
                          motivo, panel, ret, sep, t)
 
 X = LAT_X + 8
@@ -140,4 +140,4 @@ def burbujas():
     return {"id": "ciudad_viva_burbujas", "fondo": FONDO_PLAZA, "elementos": e}
 
 
-MAQUETAS = [ficha(), tablon(), microevento(), burbujas()]
+MAQUETAS = con_hud([ficha(), tablon(), microevento(), burbujas()])

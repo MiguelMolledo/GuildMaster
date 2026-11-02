@@ -167,7 +167,7 @@ Tarjeta de vida (columna de tarjetas, 300 × ~60):
 +============================================+
 ```
 
-**PNG** (fuente: `tools/ui/mecanicas/familia.py`): `../maquetas/familia_arbol.png` (árbol con nodos e insignias y ficha lateral), `../maquetas/familia_sucesion.png`, `../maquetas/familia_tarjetas_vida.png` (nacimiento y escuela), y sus `_x2`.
+**PNG** (fuente: `docs/ui/maquetas/src/familia.py`): `../maquetas/familia_arbol.png` (árbol con nodos e insignias y ficha lateral), `../maquetas/familia_sucesion.png`, `../maquetas/familia_tarjetas_vida.png` (nacimiento y escuela), y sus `_x2`.
 
 ![familia_arbol](../maquetas/familia_arbol.png)
 ![familia_sucesion](../maquetas/familia_sucesion.png)

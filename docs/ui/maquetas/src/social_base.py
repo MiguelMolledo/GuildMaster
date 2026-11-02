@@ -8,11 +8,12 @@ cartas centradas sobre velo.
 import os as _os
 import sys as _sys
 
-_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+_ROOT = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))))
+_sys.path.insert(0, _os.path.join(_ROOT, "tools", "ui"))
 from maqueta import text_size  # noqa: E402
 
-FONDO_PLAZA = {"captura": "docs/ui/maquetas/ciudad_viva_hoy_plaza.png", "oscurecer": 0.30, "desaturar": 0.25}
-FONDO_AYTO = {"captura": "docs/novedades/ui_mapa_despues.png", "oscurecer": 0.30, "desaturar": 0.25}
+FONDO_PLAZA = {"captura": "docs/ui/maquetas/fondos/plaza_dia.png", "oscurecer": 0.25, "desaturar": 0.2}
+FONDO_AYTO = {"captura": "docs/ui/maquetas/fondos/mapa_dia.png", "oscurecer": 0.25, "desaturar": 0.2}
 
 LAT_X, LAT_Y, LAT_W = 600, 96, 352
 TAR_X, TAR_Y, TAR_W = 4, 96, 300
@@ -129,3 +130,11 @@ def motivo(x, y, w, txt):
 
 def velo(op=0.55):
     return {"tipo": "velo", "opacidad": op}
+
+
+def con_hud(maquetas):
+    """Marca la franja del HUD superior (la diseña el kit en 01_hud.md) en cada maqueta: los fondos no llevan HUD."""
+    for m in maquetas:
+        m["elementos"].insert(0, {"tipo": "zona", "rect": [0, 0, 960, 48], "color": "remache",
+                                  "texto": "HUD superior (kit · 01_hud.md)", "fuente": "cuerpo"})
+    return maquetas

@@ -1,10 +1,10 @@
 """Maquetas de docs/ui/mecanicas/titulos_y_reputacion.md.
-python3 tools/ui/maqueta.py tools/ui/mecanicas/titulos_y_reputacion.py"""
+python3 tools/ui/maqueta.py docs/ui/maquetas/src/titulos_y_reputacion.py"""
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (FONDO_AYTO, I, LAT_X, bandera, barra, btn, caja, ico, lateral, llamada, motivo, panel,  # noqa
+from social_base import (con_hud, FONDO_AYTO, I, LAT_X, bandera, barra, btn, caja, ico, lateral, llamada, motivo, panel,  # noqa
                          ret, sep, t, velo)
 
 X = LAT_X + 8
@@ -113,4 +113,4 @@ def ceremonia():
     return {"id": "titulos_y_reputacion_ceremonia", "fondo": FONDO_AYTO, "elementos": e}
 
 
-MAQUETAS = [ayuntamiento(), reputacion(), ceremonia()]
+MAQUETAS = con_hud([ayuntamiento(), reputacion(), ceremonia()])

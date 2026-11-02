@@ -1,10 +1,10 @@
 """Maquetas de docs/ui/mecanicas/rivales.md (solo la interfaz; la IA rival es 04c, sin aprobar).
-python3 tools/ui/maqueta.py tools/ui/mecanicas/rivales.py"""
+python3 tools/ui/maqueta.py docs/ui/maquetas/src/rivales.py"""
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from social_base import (FONDO_PLAZA, FAM, I, LAT_X, TAR_X, TAR_Y, bandera, barra, btn, caja, ico, insignia,  # noqa
+from social_base import (con_hud, FONDO_PLAZA, FAM, I, LAT_X, TAR_X, TAR_Y, bandera, barra, btn, caja, ico, insignia,  # noqa
                          lateral, llamada, panel, ret, sep, t)
 
 X = LAT_X + 8
@@ -110,12 +110,14 @@ def presagio():
     e += [panel(x, y2, w, 52, None, False), caja(x + 6, y2 + 6, w - 12, 40, "#2a2034"),
           t(x + 14, y2 + 8, 276, 12, "Rumor: los Ferrer preguntan por la parcela", "cuerpo", "texto_apagado"),
           caja(x + 14, y2 + 14, 270, 1, "texto_apagado"),
-          t(x + 14, y2 + 21, 276, 12, "Los Ferrer han desistido: la compraste tú", "negrita", "positivo")]
+          t(x + 14, y2 + 21, 276, 12, "Los Ferrer desisten: la compraste tú", "negrita", "positivo")]
     # letreros del mapa con banderín de familia
-    e += letrero(98, 50, "Forja de Ferrer", "ferrer", "ferrer2")
-    e += letrero(622, 306, "Forja", "herrero", "herrero2")
-    e += [llamada(x + w + 2, y, 1), llamada(x + w + 2, y2, 2), llamada(86, 50, 3), llamada(610, 306, 3)]
+    e += letrero(526, 354, "Forja", "herrero", "herrero2")
+    e += [caja(640, 470, 300, 46, "seccion", 0.85),
+          t(648, 474, 284, 12, "Letrero de un edificio de otra familia:", "cuerpo", "texto_tenue")]
+    e += letrero(648, 492, "Forja de Ferrer", "ferrer", "ferrer2")
+    e += [llamada(x + w + 2, y, 1), llamada(x + w + 2, y2, 2), llamada(514, 354, 3), llamada(628, 470, 3)]
     return {"id": "rivales_presagio", "fondo": FONDO_PLAZA, "elementos": e}
 
 
-MAQUETAS = [panel_familias(), ficha_familia(), presagio()]
+MAQUETAS = con_hud([panel_familias(), ficha_familia(), presagio()])

@@ -125,7 +125,7 @@ Panel de familias (panel lateral):
 
 Ficha de familia, presagio y letrero del mapa: en los PNG.
 
-**PNG** (fuente: `tools/ui/mecanicas/rivales.py`): `../maquetas/rivales_panel.png`, `../maquetas/rivales_ficha.png`,
+**PNG** (fuente: `docs/ui/maquetas/src/rivales.py`): `../maquetas/rivales_panel.png`, `../maquetas/rivales_ficha.png`,
 `../maquetas/rivales_presagio.png` (con los letreros del mapa con estandarte), y sus `_x2`.
 
 ![rivales_panel](../maquetas/rivales_panel.png)

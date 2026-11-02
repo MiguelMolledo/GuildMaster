@@ -134,7 +134,7 @@ Ceremonia (carta, 380 × 220):
 +======================================================+
 ```
 
-**PNG** (fuente: `tools/ui/mecanicas/titulos_y_reputacion.py`): `../maquetas/titulos_y_reputacion_ayuntamiento.png`,
+**PNG** (fuente: `docs/ui/maquetas/src/titulos_y_reputacion.py`): `../maquetas/titulos_y_reputacion_ayuntamiento.png`,
 `../maquetas/titulos_y_reputacion_reputacion.png`, `../maquetas/titulos_y_reputacion_ceremonia.png`, y sus `_x2`.
 
 ![titulos_y_reputacion_ayuntamiento](../maquetas/titulos_y_reputacion_ayuntamiento.png)
