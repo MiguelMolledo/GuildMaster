@@ -27,6 +27,8 @@ func test_justice_tables_load() -> void:
 	near(float(j["trial"]["reputation"]), 0.1, 0.0001, "reputation × 0,1")
 	eq(int(j["judge"]["manipulate_honesty"]), -20, "4.12.5: manipulating -20 honesty")
 	eq(int(j["accuse"]["false_reputation"]), -50, "4.12.1: false accusation -50")
+	eq([int(j["cross"]["ok_weight"]), int(j["cross"]["fail_weight"])], [0, 2],
+		"owner 2026-11-02: questioned well it does not count, badly it counts double (provisional)")
 	for p: String in ["arrest", "investigate", "preside_trial", "pardon"]:
 		var off := "constable" if p in ["arrest", "investigate"] else "judge"
 		var ready: Variant = null

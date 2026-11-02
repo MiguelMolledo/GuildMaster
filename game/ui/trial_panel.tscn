@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cn4o5f5agoumf"]
+[gd_scene load_steps=4 format=3 uid="uid://cn4o5f5agoumf"]
 
 [ext_resource type="Script" uid="uid://b7gsu3ivsbs5k" path="res://game/ui/trial_panel.gd" id="1_panel"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
@@ -14,9 +14,6 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.666667, 0.564706, 0.317647, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar"]
-bg_color = Color(0.85098, 0.705882, 0.415686, 1)
 
 [node name="TrialPanel" type="PanelContainer"]
 visible = false
@@ -53,6 +50,14 @@ layout_mode = 2
 focus_mode = 0
 text = "x"
 
+[node name="JudgeLabel" type="Label" parent="VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
+theme_override_font_sizes/font_size = 10
+text = "--"
+
 [node name="Parties" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -78,29 +83,65 @@ layout_mode = 2
 
 [node name="DefenseLabel" type="Label" parent="VBox/Court/CourtBox/ScaleRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.55, 0.85, 0.5, 1)
-theme_override_font_sizes/font_size = 10
 text = "--"
-autowrap_mode = 3
 
 [node name="AccusationLabel" type="Label" parent="VBox/Court/CourtBox/ScaleRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 0.55, 0.45, 1)
-theme_override_font_sizes/font_size = 10
 text = "--"
 horizontal_alignment = 2
-autowrap_mode = 3
 
-[node name="Balance" type="ProgressBar" parent="VBox/Court/CourtBox"]
+[node name="Balance" type="ColorRect" parent="VBox/Court/CourtBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 8)
+custom_minimum_size = Vector2(496, 8)
 layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_bar")
-show_percentage = false
+color = Color(0.0784314, 0.0588235, 0.0470588, 1)
+
+[node name="DefenseFill" type="ColorRect" parent="VBox/Court/CourtBox/Balance"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1.0
+offset_bottom = 8.0
+color = Color(0.45, 0.78, 0.45, 1)
+
+[node name="AccusationFill" type="ColorRect" parent="VBox/Court/CourtBox/Balance"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1.0
+offset_bottom = 8.0
+color = Color(0.8, 0.33, 0.3, 1)
+
+[node name="Middle" type="ColorRect" parent="VBox/Court/CourtBox/Balance"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 2.0
+offset_bottom = 8.0
+color = Color(1, 0.85098, 0.4, 1)
+
+[node name="PartsRow" type="HBoxContainer" parent="VBox/Court/CourtBox"]
+layout_mode = 2
+
+[node name="DefenseParts" type="Label" parent="VBox/Court/CourtBox/PartsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
+theme_override_font_sizes/font_size = 9
+text = "--"
+
+[node name="AccusationParts" type="Label" parent="VBox/Court/CourtBox/PartsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
+theme_override_font_sizes/font_size = 9
+text = "--"
+horizontal_alignment = 2
 
 [node name="WitnessesTitle" type="Label" parent="VBox/Court/CourtBox"]
 unique_name_in_owner = true

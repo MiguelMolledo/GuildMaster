@@ -73,29 +73,32 @@ func refresh(force: bool = false) -> void:
 		return
 	_sig = sig
 	var hearing := str(t["status"]) == "hearing"
-	(%Title as Label).text = SimQuery.t_("ui.trial.title") % [SimQuery.t_("charge." + str(t["charge"])),
-		SimQuery.t_("severity." + str(t["severity"]))]
+	(%Title as Label).text = SimQuery.t_("ui.trial.hearing_title" if hearing else "ui.trial.title") % [
+		SimQuery.t_("charge." + str(t["charge"])), SimQuery.t_("severity." + str(t["severity"]))]
+	var jl := %JudgeLabel as Label  # the hearing: who presides and that the game waits (owner decision 2026-11-02)
+	jl.visible = hearing
+	jl.text = SimQuery.t_("ui.trial.judge") % (str(v["judge"]) if str(v["judge"]) != "" else SimQuery.t_("trial.town"))
 	var left := int(v["minutes_left"])
 	(%TimeLabel as Label).text = (SimQuery.t_("ui.trial.hearing_left") if hearing else SimQuery.t_("ui.trial.prep_left")) \
 		% [left / Clock.MINUTES_PER_DAY, (left % Clock.MINUTES_PER_DAY) / 60]
 	var accuser := str(v["accuser_name"])
 	(%Parties as Label).text = SimQuery.t_("ui.trial.parties") % [str(v["accused_name"]),
 		SimQuery.t_("trial.town").to_lower() if accuser == "@town" else accuser]
-	(%Stake as Label).text = SimQuery.t_("ui.trial.stake") % SimQuery.t_("sentence." + str(t["severity"]))
+	(%Stake as Label).text = SimQuery.t_("ui.trial.stake") % [SimQuery.t_("severity." + str(t["severity"])).to_upper(),
+		SimQuery.t_("sentence." + str(t["severity"]))]
 	var sc: Dictionary = v["scale"]
 	var hidden := bool(v["proofs_hidden"])
 	var acc := int(sc["accusation"]) - (int(sc["a"]["proofs"]) if hidden else 0)
-	(%DefenseLabel as Label).text = SimQuery.t_("ui.trial.defense") % [int(sc["defense"]), int(sc["d"]["rhetoric"]),
-		int(sc["d"]["favor"]), int(sc["d"]["reputation"])]
-	if hidden:  # the accuser's proofs are not known until the hearing (docs/ui/mecanicas/tribunal.md)
-		(%AccusationLabel as Label).text = SimQuery.t_("ui.trial.accusation_hidden") % [acc, int(sc["a"]["rhetoric"]),
-			int(sc["a"]["against"])]
-	else:
-		(%AccusationLabel as Label).text = SimQuery.t_("ui.trial.accusation") % [acc, int(sc["a"]["rhetoric"]),
-			int(sc["a"]["against"]), int(sc["a"]["proofs"])]
-	var bar := %Balance as ProgressBar
-	bar.max_value = maxf(1.0, float(int(sc["defense"]) + acc))
-	bar.value = float(int(sc["defense"]))
+	var rh: Dictionary = v["rhetoric"]
+	(%DefenseLabel as Label).text = SimQuery.t_("ui.trial.defense_total") % int(sc["defense"])
+	(%DefenseParts as Label).text = SimQuery.t_("ui.trial.defense_parts") % [int(rh["accused"]), int(sc["d"]["rhetoric"]),
+		int(sc["favor"]), int(sc["d"]["favor"]), int(v["reputation"]), int(sc["d"]["reputation"])]
+	(%AccusationLabel as Label).text = SimQuery.t_("ui.trial.accusation_total_hidden" if hidden \
+		else "ui.trial.accusation_total") % acc
+	(%AccusationParts as Label).text = SimQuery.t_("ui.trial.accusation_parts") % [int(rh["accuser"]),
+		int(sc["a"]["rhetoric"]), int(sc["against"]), int(sc["a"]["against"]),
+		"?" if hidden else str(int(sc["a"]["proofs"]))]
+	_draw_balance(int(sc["defense"]), acc)
 	_fill_witnesses(v, hearing)
 	var rest := %RestButton as Button
 	rest.visible = hearing
@@ -105,6 +108,40 @@ func refresh(force: bool = false) -> void:
 	(%JudgeRow as Control).visible = hearing and judge
 	(%Hint as Label).text = SimQuery.t_("ui.trial.hint_hearing" if hearing else "ui.trial.hint_prep")
 	reset_size()
+
+
+## The scale as in the mockup: green for the defense to the left of the middle, red for the accusation to the right,
+## each as long as its share of the larger side (a dynamic bar: drawn by code, docs/protocolos/editar-a-mano.md).
+func _draw_balance(defense: int, accusation: int) -> void:
+	var track := %Balance as Control
+	var w := track.size.x if track.size.x > 0.0 else track.custom_minimum_size.x
+	var h := track.custom_minimum_size.y
+	var half := w / 2.0
+	var most := float(maxi(1, maxi(defense, accusation)))
+	var dw := roundf(half * float(maxi(0, defense)) / most)
+	var aw := roundf(half * float(maxi(0, accusation)) / most)
+	var d := %DefenseFill as ColorRect
+	var a := %AccusationFill as ColorRect
+	d.position = Vector2(half - dw, 0)
+	d.size = Vector2(dw, h)
+	a.position = Vector2(half, 0)
+	a.size = Vector2(aw, h)
+	(%Middle as ColorRect).position = Vector2(half - 1, 0)
+
+
+func _badge(disp: String) -> Label:
+	var l := Label.new()
+	l.name = "Disposition"
+	l.custom_minimum_size = Vector2(66, 0)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.add_theme_font_size_override("font_size", 10)
+	l.add_theme_color_override("font_color", Color(0.12, 0.1, 0.1))
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = DISP_COLORS.get(disp, Color.WHITE)
+	sb.content_margin_left = 3
+	sb.content_margin_right = 3
+	l.add_theme_stylebox_override("normal", sb)
+	return l
 
 
 func _fill_witnesses(v: Dictionary, hearing: bool) -> void:
@@ -121,27 +158,27 @@ func _fill_witnesses(v: Dictionary, hearing: bool) -> void:
 		who.add_theme_font_size_override("font_size", 10)
 		who.text = "%s · %s" % [str(w["name"]), SimQuery.t_("ui.trial.why_" + str(w["why"]))]
 		row.add_child(who)
-		var d := Label.new()
-		d.name = "Disposition"
-		d.custom_minimum_size = Vector2(70, 0)
-		d.add_theme_font_size_override("font_size", 10)
 		var disp := str(w["disposition"])
+		var d := _badge(disp)
 		d.text = SimQuery.t_("ui.trial.disp_" + disp)
 		if str(w.get("cross", "")) != "":
 			d.text += " " + SimQuery.t_("ui.trial.cross_" + str(w["cross"]))
+			d.custom_minimum_size = Vector2(130, 0)
 		if not bool(w["alive"]):
 			d.text = SimQuery.t_("ui.trial.gone")
-		d.add_theme_color_override("font_color", DISP_COLORS.get(disp, Color.WHITE))
 		row.add_child(d)
 		if hearing:
 			if disp == "against":
-				row.add_child(_button("Cross", SimQuery.t_("ui.trial.cross"), str(w["cross_reason"]),
+				row.add_child(_button("Cross", SimQuery.t_("ui.trial.cross") % SimQuery.t_("ui.trial.band_" + str(
+					w["bands"].get("cross", "doubtful"))), str(w["cross_reason"]),
 					{"type": "trial_cross", "actor": actor, "trial": trial_id, "witness": str(w["character"])}, false))
 		else:
 			for k: String in ["convince", "bribe", "threaten"]:
 				var text := SimQuery.t_("ui.trial.act_" + k)
 				if k == "bribe":
 					text = text % int(w["bribe_gold"])
+				else:
+					text = text % SimQuery.t_("ui.trial.band_" + str(w["bands"].get(k, "doubtful")))
 				var why := str(w["actions"][k])
 				row.add_child(_button(k.capitalize(), text, why, {"type": "witness_action", "actor": actor,
 					"trial": trial_id, "witness": str(w["character"]), "kind": k}, true))

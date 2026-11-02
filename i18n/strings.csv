@@ -1051,10 +1051,7 @@ ui.trial.title,TRIAL · %s (%s),JUICIO · %s (%s)
 ui.trial.prep_left,preparation: %d d %d h left,preparación: quedan %d d %d h
 ui.trial.hearing_left,hearing: %d d %d h left,vista oral: quedan %d d %d h
 ui.trial.parties,%s (accused) against %s (accuser),%s (acusado) contra %s (acusador)
-ui.trial.stake,If you lose: %s,Si pierdes: %s
-ui.trial.defense,Defense %d · rhetoric %d · witnesses %d · reputation %d,Defensa %d · retórica %d · testigos %d · reputación %d
-ui.trial.accusation,Accusation %d · rhetoric %d · witnesses %d · proofs %d,Acusación %d · retórica %d · testigos %d · pruebas %d
-ui.trial.accusation_hidden,Accusation %d + ? · rhetoric %d · witnesses %d · proofs ?,Acusación %d + ? · retórica %d · testigos %d · pruebas ?
+ui.trial.stake,If you lose (%s): %s,Si pierdes (%s): %s
 ui.trial.witnesses,Witnesses,Testigos
 ui.trial.why_employee,your employee,tu empleado
 ui.trial.why_accuser_family,accuser's family,familia del acusador
@@ -1065,10 +1062,10 @@ ui.trial.disp_against,AGAINST,EN CONTRA
 ui.trial.cross_ok,(discredited),(desmentido)
 ui.trial.cross_fail,(counts double),(cuenta doble)
 ui.trial.gone,Will not testify,Ya no declarará
-ui.trial.act_convince,Convince,Convencer
-ui.trial.act_bribe,Bribe %d,Sobornar %d
-ui.trial.act_threaten,Threaten,Amenazar
-ui.trial.cross,Question,Interrogar
+ui.trial.act_convince,Convince · %s,Convencer · %s
+ui.trial.act_bribe,Bribe · %d,Sobornar · %d
+ui.trial.act_threaten,Threaten · %s,Amenazar · %s
+ui.trial.cross,Question · %s,Interrogar · %s
 ui.trial.rest,Rest the defense,Concluir la defensa
 ui.trial.rest_tip,The judge rules now,El juez dicta sentencia ya
 ui.trial.guilty,Rule guilty,Dictar culpable
@@ -1103,3 +1100,13 @@ help.trials,Court,Tribunal
 help.trials_accused,"A Secrets inspection, a bribe found out or an accusation takes you to court. You have a season (2 days) to work the witnesses: convince, bribe or threaten them in person (J opens the trial)","Una inspección de Secretos, un soborno descubierto o una acusación te llevan a juicio. Tienes una estación (2 días) para trabajar a los testigos: convéncelos, sobórnalos o amenázalos en persona (J abre el juicio)"
 help.trials_hearing,"At the hearing the game pauses: question the witnesses against you and rest. Defense = rhetoric×2 + witnesses for×15 + reputation×0,1 against rhetoric×2 + witnesses against×15 + proofs×20. Guilty: a fine, confiscated goods, office and title, or a year of banishment","En la vista oral el juego se pausa: interroga a los testigos en contra y concluye. Defensa = retórica×2 + testigos a favor×15 + reputación×0,1 contra retórica×2 + en contra×15 + pruebas×20. Culpable: multa, mercancía confiscada, cargo y título, o un año de destierro"
 help.trials_accuse,"As a Citizen you can accuse another family from a person's sheet: with a public fact, or fabricating proofs (stealth: a false accusation costs 50 reputation)","Siendo Ciudadano puedes acusar a otra familia desde la ficha de uno de sus miembros: con un hecho público, o fabricando pruebas (sigilo: una acusación falsa cuesta 50 de reputación)"
+ui.trial.hearing_title,HEARING · %s (%s),VISTA ORAL · %s (%s)
+ui.trial.judge,Judge: %s · the game waits during the hearing,Juez: %s · en pausa durante la vista
+ui.trial.defense_total,Defense %d,Defensa %d
+ui.trial.accusation_total,Accusation %d,Acusación %d
+ui.trial.accusation_total_hidden,Accusation %d + ?,Acusación %d + ?
+ui.trial.defense_parts,"Rhetoric %d×2 = %d · for %d×15 = %d · reputation %d×0,1 = %d","Retórica %d×2 = %d · a favor %d×15 = %d · reputación %d×0,1 = %d"
+ui.trial.accusation_parts,Rhetoric %d×2 = %d · against %d×15 = %d · proofs %s,Retórica %d×2 = %d · en contra %d×15 = %d · pruebas %s
+ui.trial.band_easy,easy,fácil
+ui.trial.band_doubtful,doubtful,dudoso
+ui.trial.band_hard,hard,difícil

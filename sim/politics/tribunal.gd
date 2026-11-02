@@ -290,6 +290,7 @@ static func scale(sim: Sim, t: Dictionary) -> Dictionary:
 	var tc: Dictionary = cfg(sim).get("trial", {})
 	var favor := 0
 	var against := 0
+	var cw: Dictionary = cfg(sim).get("cross", {})
 	for w: Dictionary in t.get("witnesses", []):
 		if not Kin.alive(st, str(w["character"])):
 			continue
@@ -297,11 +298,11 @@ static func scale(sim: Sim, t: Dictionary) -> Dictionary:
 			"favor":
 				favor += 1
 			"against":
-				match str(w.get("cross", "")):
+				match str(w.get("cross", "")):  # questioned at the hearing: data cross.ok_weight / fail_weight
 					"ok":
-						pass
+						against += int(cw.get("ok_weight", 0))
 					"fail":
-						against += 2
+						against += int(cw.get("fail_weight", 2))
 					_:
 						against += 1
 	var r_acc := SkillCheck.stat(sim, str(t["accused"]), "rhetoric")
@@ -820,6 +821,16 @@ static func use_power(sim: Sim, actor: String, power: String, args: Dictionary) 
 
 # --- UI ---------------------------------------------------------------------------------------------------------------
 
+## How hard a check looks (data bands over the SkillCheck threshold of GDD 4.2.4): easy | doubtful | hard.
+static func band(sim: Sim, actor_stat: int, target_stat: int) -> String:
+	var sc: Dictionary = sim.catalog.town.get("skill_check", {})
+	var th := int(sc.get("base", 50)) + (actor_stat - target_stat) * int(sc.get("step", 5))
+	var b: Dictionary = cfg(sim).get("bands", {})
+	if th >= int(b.get("easy", 65)):
+		return "easy"
+	return "doubtful" if th >= int(b.get("doubtful", 40)) else "hard"
+
+
 ## The trial panel's data for `viewer_fam`: the trial, its scale (the accuser's proofs hidden until the hearing for
 ## the accused side), the witnesses with their actions' reasons for `actor`, the time left.
 static func view(sim: Sim, trial_id: String, actor: String) -> Dictionary:
@@ -841,7 +852,14 @@ static func view(sim: Sim, trial_id: String, actor: String) -> Dictionary:
 			why = "employee"
 		elif str(ch.get("family", "")) == str(t["accuser_family"]) and str(t["accuser_family"]) != "":
 			why = "accuser_family"
-		ws.append({"character": c, "name": str(ch.get("name", c)), "family": str(st.families.get(str(ch.get("family",
+		var wa: Dictionary = cfg(sim).get("witness_actions", {})
+		var bands := {}
+		if st.characters.has(actor):
+			for k: String in ["convince", "threaten"]:
+				bands[k] = band(sim, SkillCheck.stat(sim, actor, str(wa.get(k, {}).get("stat", "rhetoric"))),
+					SkillCheck.stat(sim, c, str(wa.get(k, {}).get("against", "empathy"))))
+			bands["cross"] = band(sim, SkillCheck.stat(sim, actor, "rhetoric"), SkillCheck.stat(sim, c, "empathy"))
+		ws.append({"character": c, "name": str(ch.get("name", c)), "bands": bands, "family": str(st.families.get(str(ch.get("family",
 			"")), {}).get("name", "")), "why": why, "disposition": str(w["disposition"]), "cross": str(w.get("cross", "")),
 			"alive": Kin.alive(st, c), "actions": acts, "bribe_gold": bribe_gold(sim, c),
 			"cross_reason": cross_status(sim, actor, trial_id, c)})
@@ -849,4 +867,8 @@ static func view(sim: Sim, trial_id: String, actor: String) -> Dictionary:
 	return {"trial": t, "scale": sc, "proofs_hidden": hidden, "witnesses": ws, "accuser_name": _accuser_name(sim, t),
 		"accused_name": str(st.characters.get(str(t["accused"]), {}).get("name", "")),
 		"minutes_left": maxi(0, until - _now(sim)), "rest_reason": hearing_status(sim, actor, trial_id),
+		"judge": str(st.characters.get(str((Offices.holders(sim, "judge") + [""])[0]), {}).get("name", "")),
+		"rhetoric": {"accused": SkillCheck.stat(sim, str(t["accused"]), "rhetoric"), "accuser": SkillCheck.stat(sim,
+			str(t["accuser"]), "rhetoric") if str(t["accuser"]) != "" else int(cfg(sim).get("trial", {}).get("town_rhetoric", 5))},
+		"reputation": Reputation.of(st, str(t["family"])),
 		"verdict_reason": verdict_status(sim, actor, trial_id, "guilty")}
