@@ -145,9 +145,7 @@ static func _extend(sim: Sim, id: String) -> void:
 	var loan: Dictionary = st.loans[id]
 	var fam := str(loan["family"])
 	var rep := int(loan["overdue_reputation"])
-	if st.families.has(fam) and rep != 0:
-		st.families[fam]["reputation"] = int(st.families[fam].get("reputation", 0)) + rep
-		sim.events.append({"type": "reputation_changed", "family": fam, "amount": rep, "reason": "loan_overdue"})
+	Reputation.change(sim, fam, rep, "loan_overdue")  # H9
 	var before := int(loan["outstanding"])
 	loan["outstanding"] = roundi(before * (1.0 + float(loan["extension_surcharge"])))
 	var days := int(loan["extension_seasons"]) * int(sim.catalog.time["days_per_season"])

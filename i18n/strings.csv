@@ -836,3 +836,75 @@ ui.microevent.more,+%d more waiting,+%d más esperando
 help.town,Town,Pueblo
 help.town_npc,"Click a townsperson: their sheet (Talk, Give a gift, Flatter, Insult, Threaten); an angry stall keeper charges more","Clic en un vecino: su ficha (Conversar, Regalar, Halagar, Insultar, Amenazar); un tendero cabreado cobra más"
 help.town_mev,"A card top right asks for a decision: if you do not choose within 2 game hours, the default (·) applies","Arriba a la derecha una tarjeta pide una decisión: si no eliges en 2 h de juego, se aplica la marcada (·)"
+class.patron,Patron,Patrón
+class.scholar,Scholar,Erudito
+class.rogue,Rogue,Pícaro
+reason.not_at_town_hall,You have to be at the town hall,Tienes que estar en el Ayuntamiento
+reason.max_title,Your family already has the highest title,Tu familia ya tiene el título más alto
+reason.wrong_title,That is not your family's next title,Ese no es el siguiente título de tu familia
+reason.title_needs_reputation,Not enough reputation,Falta reputación
+reason.title_needs_businesses,Not enough businesses,Faltan negocios
+reason.title_needs_employees,Not enough employees,Faltan empleados
+reason.title_needs_event,It needs a special event,Hace falta un evento especial
+reason.title_not_approved,The town hall does not approve it,El Ayuntamiento no lo aprueba
+notice.title_granted,"{name} receives the title of {title} at the town hall","{name} recibe el título de {title} en el Ayuntamiento"
+notice.rival_title,"The {family} family is now {title}","La familia {family} ya es {title}"
+ui.town_hall.sign,Town hall,Ayuntamiento
+ui.town_hall.title,Town hall,Ayuntamiento
+ui.town_hall.current,Title: %s · reputation %d,Título: %s · reputación %d
+ui.town_hall.next,Next: %s (%d gold),Siguiente: %s (%d de oro)
+ui.town_hall.top,Your family has the highest title,Tu familia tiene el título más alto
+ui.town_hall.req,%s %s: %d / %d,%s %s: %d / %d
+ui.town_hall.req_flag,%s %s,%s %s
+ui.town_hall.ok,[ok],[ok]
+ui.town_hall.missing,[missing],[falta]
+ui.town_hall.req_reputation,Reputation,Reputación
+ui.town_hall.req_businesses,Businesses,Negocios
+ui.town_hall.req_employees,Employees,Empleados
+ui.town_hall.req_event,Special event,Evento especial
+ui.town_hall.req_gold,Gold,Oro
+ui.town_hall.unlocks,Opens: %s,Abre: %s
+ui.town_hall.buildings,%d own buildings,%d edificios propios
+ui.town_hall.buildings_any,any number of buildings,edificios sin límite
+ui.town_hall.vote,vote,votar
+ui.town_hall.offices_minor,minor offices,cargos menores
+ui.town_hall.offices_middle,middle offices,cargos medios
+ui.town_hall.offices_major,major offices,cargos mayores
+ui.town_hall.offices_all,every office,todos los cargos
+ui.town_hall.ask,Ask for the title,Pedir el título
+ui.town_hall.ask_tip,The ceremony costs %d gold,La ceremonia cuesta %d de oro
+ui.title_card.header,Ceremony at the town hall,Ceremonia en el Ayuntamiento
+ui.title_card.text,"%s receives it on behalf of the %s family: from today, the title of %s.","%s lo recibe en nombre de la familia %s: desde hoy, el título de %s."
+ui.title_card.ok,Long live the family!,¡Viva la familia!
+hud.title_rep,%s · rep. %d,%s · rep. %d
+hud.title_rep_tip,Family title and reputation (L: the book's Reputation tab),Título y reputación de la familia (L: pestaña Reputación del libro)
+ui.ledger.tab.reputation,Reputation,Reputación
+ui.ledger.rep.title,Title: %s,Título: %s
+ui.ledger.rep.global,Reputation (everybody),Reputación (con todos)
+ui.ledger.rep.classes,With each class,Con cada clase
+ui.ledger.rep.next,"Next title: %s (%d gold, at the town hall)","Siguiente título: %s (%d de oro, en el Ayuntamiento)"
+ui.ledger.rep.passive,Passive reputation today: %+d (%d businesses with staff),Reputación pasiva hoy: %+d (%d negocios con empleados)
+ui.ledger.rep.log,Last changes,Últimos cambios
+ui.ledger.rep.none,Nothing yet,Nada todavía
+rep.reason.contract_done,Contract done,Encargo cumplido
+rep.reason.contract_failed,Contract failed,Encargo incumplido
+rep.reason.wage_unpaid,Wage unpaid,Salario impagado
+rep.reason.fired_loyal,Fired a loyal employee,Despido de un empleado leal
+rep.reason.employee_rumor,Rumours of unhappy employees,Rumores de empleados descontentos
+rep.reason.loan_overdue,Debt overdue,Deuda vencida
+rep.reason.inspection,Fined by an inspection,Multa de inspección
+rep.reason.upgrade,Building improvement,Mejora del edificio
+rep.reason.passive,Business with staff,Negocio con empleados
+rep.reason.fair_trade,Fair trade,Comercio justo
+rep.reason.quality_trade,Quality sale,Venta de calidad
+rep.reason.wages_paid,Wages paid,Salarios pagados
+rep.reason.npc_gift,Gift to a neighbour,Regalo a un vecino
+rep.reason.npc_flatter,Flattered a neighbour,Halago a un vecino
+rep.reason.npc_insult,Insulted a neighbour,Insulto a un vecino
+rep.reason.npc_threaten,Threatened a neighbour,Amenaza a un vecino
+rep.reason.microevent,A decision with a customer or employee,Una decisión con un cliente o empleado
+rep.reason.start_scenario,Earlier deeds,Hechos anteriores
+ui.family.title_rank,The %s family · %s,Familia %s · %s
+help.titles,Reputation and titles,Reputación y títulos
+help.titles_rep,"Reputation grows with contracts done, fair and quality sales, wages paid and each business with staff (+1 a day); it drops with failed contracts, unpaid wages, overdue debts, fines and insults. See it in the book (L), Reputation tab","La reputación sube con encargos cumplidos, ventas justas y de calidad, salarios pagados y cada negocio con empleados (+1 al día); baja con encargos incumplidos, salarios sin pagar, deudas vencidas, multas e insultos. Mírala en el libro (L), pestaña Reputación"
+help.titles_hall,"Right click on the town hall (south of the plaza): with enough reputation, gold and businesses or employees, ask for the next title (citizen, patrician...). It opens more buildings and offices","Clic derecho en el Ayuntamiento (al sur de la plaza): con reputación, oro y negocios o empleados suficientes, pide el siguiente título (ciudadano, patricio...). Abre más edificios y cargos"

@@ -44,10 +44,12 @@ extends SceneTree
 var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
 	"random_clicker": BotRandomClicker, "idle_rival": BotIdle, "artisan_novice": BotArtisanNovice,
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
-	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle}
+	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
+	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
+	# expert_titles: artisan_expert with the title targets (H9, 96 days); idle_titles: idle, the AI's titles (80 days)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
 const YEAR_DAYS: int = 8  # D1(b): 1 year = 8 days
@@ -209,6 +211,12 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 	var cycles: Array = []  # H5: [{minute, actor, std, real, hours}] cycles started in the player's buildings
 	var ups: Array = []     # H5: [{upgrade, start, end, mult_before, mult_after}] production upgrades of the player
 	var mev_days := {}  # H7: day -> microevents started for the player's family
+	var ladder := sim.catalog.title_ladder()  # H9: title_<id>_day = day played it was granted (days + 1 if never)
+	for t: Variant in ladder:
+		m["title_%s_day" % t] = days + 1
+		m["title_" + str(t)] = 0
+	m["ai_title_ups"] = 0
+	m["ai_titled"] = 0
 	for i: int in days * Clock.MINUTES_PER_DAY:
 		for e: Dictionary in sim.step(bot.orders(sim)):
 			match str(e["type"]):
@@ -251,6 +259,18 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 				"counter_sold":
 					if str(e.get("family", "")) == player:
 						m["counter_sold"] = int(m.get("counter_sold", 0)) + 1
+				"title_granted":  # H9 (GDD 4.12.2)
+					var played := Clock.day(int(sim.state.clock["minute"])) - Clock.day(start_minute) + 1
+					if str(e.get("family", "")) == player:
+						m["title_%s_day" % e["title"]] = played
+						m["title_" + str(e["title"])] = 1
+						print("  [%s seed %d] día %d: título %s (reputación %d)" % [bot_id, s, played, e["title"],
+							Reputation.of(sim.state, player)])
+					elif str(sim.state.families.get(str(e.get("family", "")), {}).get("ai_profile", "")) != "":
+						m["ai_title_ups"] = int(m["ai_title_ups"]) + 1
+						m["ai_titled"] = 1
+						print("  [%s seed %d] día %d: la familia IA %s sube a %s" % [bot_id, s, played, e["family"],
+							e["title"]])
 				"theft":
 					if str(e.get("family", "")) == player:
 						var tk := "thefts_foiled" if bool(e.get("frustrated", false)) else "thefts"
@@ -322,6 +342,9 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 	for k: String in ["mev_timeouts", "counter_sold", "thefts", "thefts_foiled"]:
 		m[k] = int(m.get(k, 0))
 	m["townsfolk"] = Population.townsfolk(sim.state).size()
+	if player != "":  # H9: where the family ended
+		m["reputation"] = Reputation.of(sim.state, player)
+		m["title_rank"] = Titles.rank(sim, Titles.current(sim, player))
 	if bot.has_method("measures"):  # H8: a bot may measure its own things (dynasty: wedding, children, inheritance)
 		m.merge(bot.call("measures", sim))
 	m.merge({"seed": s, "days": days, "state_hash": sim.state_hash()})
@@ -526,7 +549,7 @@ func _brief(agg: Dictionary) -> String:
 	var parts: PackedStringArray = []
 	for key: String in ["gold_day3", "gold_repaid_day3", "gold_day10", "net_day_1_8", "net_day_9_24", "sink_share_9_24",
 			"net_year_1", "net_year_2", "net_year_3", "hired", "upgrades_bought", "prod_gain_error", "debt_paid",
-			"debt_paid_day", "rival_gold_day10"]:
+			"debt_paid_day", "rival_gold_day10", "title_citizen_day", "title_patrician_day", "reputation", "ai_title_ups"]:
 		if agg.has("mean_" + key):
 			parts.append("%s %s [%s-%s]" % [key, agg["mean_" + key], agg["min_" + key], agg["max_" + key]])
 	return ", ".join(parts)

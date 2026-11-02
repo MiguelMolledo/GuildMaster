@@ -134,12 +134,12 @@ func test_unpaid_wage_lowers_loyalty_after_grace() -> void:
 		return str(n["key"]) == "notice.wage_unpaid")
 	eq(notices.size(), 2, "a notice per employee")
 	check(str(notices[0]["target"]) in [JOAN, AGNES], "the notice points at the employee")
-	eq(int(sim.state.families[FAM]["reputation"]), rep - 2, "only the rumours (2 unhappy employees, -1 each)")
+	eq(int(sim.state.families[FAM]["reputation"]) - _h9_rep(sim), rep - 2, "only the rumours (2 unhappy employees, -1 each)")
 	_to_dawn(sim)
 	eq(int(_job(sim, JOAN)["unpaid_days"]), 2, "2 days unpaid")
 	eq(int(_job(sim, JOAN)["loyalty"]), 45, "after the grace: -5")
 	eq(int(_job(sim, AGNES)["loyalty"]), 45, "both")
-	eq(int(sim.state.families[FAM]["reputation"]), rep - 2 - 2 * 2 - 2, "-2 per unpaid employee, plus rumours")
+	eq(int(sim.state.families[FAM]["reputation"]) - _h9_rep(sim), rep - 2 - 2 * 2 - 2, "-2 per unpaid employee, plus rumours")
 	var lc := _events(sim, "loyalty_changed").filter(func(e: Dictionary) -> bool:
 		return str(e["reason"]) == "wage_unpaid")
 	eq(lc.size(), 2, "loyalty_changed wage_unpaid")
@@ -319,3 +319,12 @@ func test_ledger_adds_up_with_wages() -> void:
 		if str(e["category"]) == Money.WAGES:
 			total_after += int(e["amount"])
 	eq(total_after, total_before, "wages and bonus move gold between families: they add up to 0")
+
+
+## H9: reputation from the sources H9 added (passive, trade, wages paid), apart from what this test measures.
+func _h9_rep(sim: Sim) -> int:
+	var n := 0
+	for e: Dictionary in sim.state.families[FAM].get("reputation_log", []):
+		if str(e["reason"]) in ["passive", "fair_trade", "quality_trade", "wages_paid"]:
+			n += int(e["amount"])
+	return n

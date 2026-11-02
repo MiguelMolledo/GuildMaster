@@ -125,6 +125,7 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	ground().set_season(Clock.season(int(s.clock.get("minute", 0)), c.time))
 	var owned := _add_buildings()
 	_services = SimQuery.map_services(s, c)
+	_add_town_hall(owned)  # H9: a site of the map drawn as a building (its tiles get no filler)
 	var stall_at := {}
 	for svc: Dictionary in _services:
 		if str(svc["kind"]) == "stall":
@@ -550,6 +551,26 @@ func _add_town_decor(map_id: String) -> void:
 	ViewConfig.info("WorldView", "town decor %s: %d pieces" % [map_id, n])
 
 
+## H9: the town hall (data/maps "town_hall", game/visuals/buildings/town_hall.tscn) in the middle of its footprint;
+## registered as the prop of its sign tile (the sign and the click use its height) and its tiles as owned.
+func _add_town_hall(owned: Dictionary) -> void:
+	for svc: Dictionary in _services:
+		if str(svc["kind"]) != "town_hall":
+			continue
+		var centre := Vector2.ZERO
+		for t: Vector2i in svc["tiles"]:
+			owned[t] = true
+			centre += Iso.tile_to_world(t)
+		centre /= maxf(1.0, float((svc["tiles"] as Array).size()))
+		var v := VisualPaths.instantiate("buildings", "town_hall")
+		v.name = "town_hall_visual"
+		VisualPaths.place(v, centre)
+		objects().add_child(v)
+		_props[svc["tile"]] = v
+		ViewConfig.info("WorldView", "town hall at %s (%d tiles, sign %s, service %s)" % [centre, (svc["tiles"] as Array).size(),
+			svc["tile"], svc["service"]])
+
+
 ## How high the stall or board of `svc` stands (its prop's Top marker).
 func _service_height(svc: Dictionary) -> float:
 	var p: Node2D = _props.get(svc["tile"], null)
@@ -564,7 +585,7 @@ func _add_services() -> void:
 		var id := str(svc["id"])
 		var h := _service_height(svc)
 		var sg := BuildingMarks.Sign.new()
-		var text := SimQuery.stall_name(catalog, id) if kind == "stall" else SimQuery.t_("ui.board.sign")
+		var text := SimQuery.stall_name(catalog, id) if kind == "stall" else SimQuery.t_("ui.%s.sign" % kind)
 		sg.setup(text, ViewConfig.color(str(looks.get(kind + "_sign", "#d8c8a0"))))
 		sg.position = (Iso.tile_to_world(svc["tile"]) + Vector2(0, -h - 16)).round()
 		sg.name = "service_" + id
@@ -591,7 +612,22 @@ func pick_service(screen: Vector2) -> Dictionary:
 			return svc
 	var tile := Iso.world_to_tile(world)
 	for svc: Dictionary in _services:
-		if svc["tile"] == tile:
+		if svc["tile"] == tile or (svc.get("tiles", []) as Array).has(tile):
+			return svc
+	var th := _town_hall_svc()  # H9: anywhere on the drawn town hall
+	if not th.is_empty():
+		var v: Node2D = _props.get(th["tile"], null)
+		var spr := v.get_node_or_null("Sprite") as Sprite2D if v != null else null
+		if spr != null and spr.visible and spr.texture != null:
+			var local := spr.to_local(world)
+			if Rect2(spr.offset, spr.texture.get_size()).has_point(local):
+				return th
+	return {}
+
+
+func _town_hall_svc() -> Dictionary:
+	for svc: Dictionary in _services:
+		if str(svc["kind"]) == "town_hall":
 			return svc
 	return {}
 

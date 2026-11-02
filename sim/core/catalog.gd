@@ -9,6 +9,8 @@ const KINDS: Array[String] = ["items", "recipes", "buildings", "maps"]
 const H3_KINDS: Array[String] = ["ai_profiles", "starts", "objectives", "contracts"]
 ## H7 folders (docs/contratos/h7_ciudad.md): the microevents of GDD 4.20, one file each.
 const H7_KINDS: Array[String] = ["microevents"]
+## H9 folders (docs/contratos/h9_titulos.md): the social titles of GDD 4.12.2, one file each.
+const H9_KINDS: Array[String] = ["titles"]
 const DIFFICULTIES: Array[String] = ["easy", "normal", "hard"]
 const ITEM_CATEGORIES: Array[String] = ["raw", "material", "product", "tool", "equipment", "consumable", "special"]
 
@@ -28,13 +30,14 @@ var score: Dictionary = {}       # data/score.json: dynasty score by chronicle f
 var goals: Dictionary = {}       # data/goals.json: dynasty goals (H8, GDD 4.17)
 var town: Dictionary = {}        # data/town.json: townsfolk routine, activities, emotions, NPC actions, counter, microevents, population (H7)
 var social_phrases: Dictionary = {}  # data/social_phrases.json: phrase keys by activity, phase and profession (H7, GDD 4.11.3)
+var politics: Dictionary = {}    # data/politics.json: reputation rules and classes, the title ceremony (H9, GDD 4.12)
 var errors: PackedStringArray = []  # files that could not be read
 
 
 static func load_from(root_dir: String = "res://data", dev_time: bool = false) -> Catalog:
 	var c := Catalog.new()
 	c.root = root_dir
-	for kind: String in KINDS + H3_KINDS + H7_KINDS:
+	for kind: String in KINDS + H3_KINDS + H7_KINDS + H9_KINDS:
 		c.tables[kind] = c._load_folder(root_dir.path_join(kind))
 	c.time = c._load_json(root_dir.path_join("time.json"))
 	c.tiles = c._load_json(root_dir.path_join("tiles.json")).get("tiles", {})
@@ -50,6 +53,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.goals = c._load_json(root_dir.path_join("goals.json"))
 	c.town = c._load_json(root_dir.path_join("town.json"))
 	c.social_phrases = c._load_json(root_dir.path_join("social_phrases.json"))
+	c.politics = c._load_json(root_dir.path_join("politics.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
@@ -95,6 +99,18 @@ func contracts() -> Dictionary:
 ## H7: the microevents of data/microevents/ (GDD 4.20), by id.
 func microevents() -> Dictionary:
 	return tables.get("microevents", {})
+
+
+## H9: the social titles of data/titles/ (GDD 4.12.2), by id.
+func titles() -> Dictionary:
+	return tables.get("titles", {})
+
+
+## H9: the title ids from the lowest rank to the highest.
+func title_ladder() -> Array:
+	var ids: Array = titles().keys()
+	ids.sort_custom(func(a: Variant, b: Variant) -> bool: return int(titles()[a].get("rank", 0)) < int(titles()[b].get("rank", 0)))
+	return ids
 
 
 ## The levers of a difficulty level (data/difficulty.json), {} if unknown.
@@ -188,6 +204,7 @@ func validate() -> PackedStringArray:
 	out.append_array(_validate_upgrades())
 	out.append_array(_validate_family())
 	out.append_array(_validate_town())
+	out.append_array(_validate_titles())
 	for id: String in maps():
 		var m: Dictionary = maps()[id]
 		var size: Array = m.get("size", [0, 0])
@@ -231,7 +248,7 @@ func _validate_family() -> PackedStringArray:
 
 ## H7: the town tables and the microevents (tools/validate_content.py check_h7 checks the rest and the texts).
 const MEV_EFFECTS: Array[String] = ["sell", "skill_check", "leave", "emotion", "relation", "pay", "loyalty", "absent",
-	"refund_wage", "steal", "nothing"]
+	"refund_wage", "steal", "nothing", "reputation"]
 
 
 func _validate_town() -> PackedStringArray:
@@ -264,6 +281,22 @@ func _check_effects(where: String, effects: Array) -> PackedStringArray:
 			out.append("%s: unknown effect %s" % [where, e.get("kind")])
 		out.append_array(_check_effects(where, e.get("success", [])))
 		out.append_array(_check_effects(where, e.get("fail", [])))
+	return out
+
+
+## H9: the title ladder is the one of data/upgrade_rules.json (ranks 0..n-1 in that order) and politics.json has its
+## tables (tools/validate_content.py check_h9 checks the rest and the texts).
+func _validate_titles() -> PackedStringArray:
+	var out: PackedStringArray = []
+	var ladder: Array = upgrade_rules.get("titles", [])
+	if title_ladder() != ladder:
+		out.append("titles/: the ranks give %s, upgrade_rules.titles says %s" % [title_ladder(), ladder])
+	for i: int in ladder.size():
+		if int(titles().get(str(ladder[i]), {}).get("rank", -1)) != i:
+			out.append("titles/%s: rank must be %d" % [ladder[i], i])
+	for k: String in ["reputation", "ceremony"]:
+		if not politics.has(k):
+			out.append("politics.json: %s missing" % k)
 	return out
 
 

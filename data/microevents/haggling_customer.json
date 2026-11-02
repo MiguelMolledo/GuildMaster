@@ -60,6 +60,10 @@
         {
           "kind": "relation",
           "amount": -5
+        },
+        {
+          "kind": "reputation",
+          "amount": -1
         }
       ]
     }

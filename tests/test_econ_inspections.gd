@@ -67,7 +67,7 @@ func test_caught_pays_a_fine_and_loses_reputation() -> void:
 	var reps := _of(ev, "reputation_changed").filter(func(e: Dictionary) -> bool: return str(e["reason"]) == "inspection")
 	eq(reps.size(), 1, "reputation_changed reason inspection")
 	eq(int(reps[0]["amount"]), -10, "−10 reputation")
-	check(int(st.families[FAM]["reputation"]) <= rep - 10, "the family lost the reputation")
+	check(int(st.families[FAM]["reputation"]) - _h9_rep(sim) <= rep - 10, "the family lost the reputation")
 	eq([int(_mem(sim)["last_day"]), int(_mem(sim)["caught"]), int(_mem(sim)["fines"])], [today, 1, fine], "memory")
 	var n := Notices.list(sim, FAM).filter(func(x: Dictionary) -> bool: return str(x["key"]) == "notice.inspection_fined")
 	eq(n.size(), 1, "notice")
@@ -169,3 +169,12 @@ func test_memory_and_debt_survive_save_load() -> void:
 	_to_dawn(sim)
 	_to_dawn(b)
 	eq(b.state_hash(), sim.state_hash(), "both go on the same")
+
+
+## H9: reputation from the sources H9 added (passive, trade, wages paid), apart from what this test measures.
+func _h9_rep(sim: Sim) -> int:
+	var n := 0
+	for e: Dictionary in sim.state.families[FAM].get("reputation_log", []):
+		if str(e["reason"]) in ["passive", "fair_trade", "quality_trade", "wages_paid"]:
+			n += int(e["amount"])
+	return n

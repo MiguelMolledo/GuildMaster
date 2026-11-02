@@ -1,0 +1,15 @@
+{
+  "id": "noble",
+  "name_key": "title.noble",
+  "rank": 4,
+  "cost_gold": 10000,
+  "reputation": 1000,
+  "requires": {
+    "event": "noble_event"
+  },
+  "unlocks": {
+    "max_buildings": null,
+    "vote": true,
+    "office_rank": "all"
+  }
+}

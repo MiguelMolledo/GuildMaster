@@ -19,6 +19,9 @@ extends RefCounted
 ## The checks before an order are the same queries the UI uses (Market.offers, Production.recipe_options,
 ## Contracts.board_view rules), so it gives no orders that would be refused; if the same order would be given twice
 ## with nothing changed, the task is dropped (guard). It never hires, upgrades nor goes bankrupt (H6).
+## H9 [provisional, until 04c is approved]: with the profile's title_rule.requests, the task "title" goes first in the
+## plan whenever the family meets its next title's requirements and keeps title_rule.spare_gold after paying it: it
+## walks to the town hall's service tile and gives request_title (docs/contratos/h9_titulos.md).
 ## ai_state: {phase, plan: [task], recipe, bought_day, last_order, last_fp}.
 
 const WAIT: Dictionary = {"_wait": true}  # task goes on, no order this minute
@@ -96,6 +99,8 @@ static func _decide(sim: Sim, fam: String, actor: String, home: String, profile:
 	ai["recipe"] = choose_recipe(sim, actor, home)
 	var work := ph in (profile.get("work_phases", ["day"]) as Array)
 	var plan: Array = []
+	if ph != Production.NIGHT and wants_title(sim, fam, profile):
+		plan.append("title")
 	if ph != Production.NIGHT:
 		if bool(profile.get("accepts_contracts", false)) or not Contracts.accepted_of(sim, fam).is_empty():
 			plan.append("contracts")
@@ -147,9 +152,31 @@ static func _task(sim: Sim, task: String, fam: String, actor: String, home: Stri
 			return _t_buy(sim, fam, actor, home, profile, ai)
 		"home":
 			return _t_home(sim, actor, home)
+		"title":
+			return _t_title(sim, fam, actor, profile)
 		"work":
 			return _t_work(sim, fam, actor, home, profile, ai)
 	return {}
+
+
+## H9: the profile asks for titles and the family is ready for its next one with spare_gold left.
+static func wants_title(sim: Sim, fam: String, profile: Dictionary) -> bool:
+	var rule: Dictionary = profile.get("title_rule", {})
+	return bool(rule.get("requests", false)) and Titles.ready(sim, fam, int(rule.get("spare_gold", 0)))
+
+
+## H9: to the town hall and request_title; {} when it is no longer ready (granted, or something changed).
+static func _t_title(sim: Sim, fam: String, actor: String, profile: Dictionary) -> Dictionary:
+	if not wants_title(sim, fam, profile):
+		return {}
+	var svc := Titles.service(sim)
+	if svc.size() != 2:
+		return {}
+	if _loc(sim, actor) != "":
+		return {"type": "exit_building", "actor": actor}
+	if not Titles.at_town_hall(sim, actor):
+		return {"type": "move_to", "actor": actor, "tile": [int(svc[0]), int(svc[1])]}
+	return {"type": "request_title", "actor": actor}
 
 
 static func _t_contracts(sim: Sim, fam: String, actor: String, home: String, profile: Dictionary) -> Dictionary:

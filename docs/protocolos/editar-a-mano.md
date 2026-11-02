@@ -52,6 +52,10 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Frases de los vecinos (H7) | Claves en `data/social_phrases.json` (por actividad, fase y profesión); textos `phrase.*` en `i18n/strings.csv` |
 | Rutina, actividades, emociones, acciones, mostrador, microeventos y población (H7) | `data/town.json`; cada microevento en `data/microevents/<id>.json`; la palanca `microevent_chance` en `data/difficulty.json` |
 | Ficha del vecino y tarjeta de microevento (H7) | `game/ui/npc_panel.tscn`, `game/ui/microevent_card.tscn` |
+| Títulos: coste, reputación, requisitos y lo que abren (H9) | `data/titles/<id>.json` (uno por título; el orden por `rank` debe ser el de `titles` en `data/upgrade_rules.json`) |
+| Reputación: clases, reglas (comercio justo, venta de calidad, salarios, acciones sobre vecinos), pasiva y ceremonia (H9) | `data/politics.json`; la regla mínima de la IA rival, `title_rule` en `data/ai_profiles/rival_smith.json` |
+| Ayuntamiento en el mapa (H9) | Dónde: `town_hall` de `data/maps/town_e.json` (lo genera `tools/maps/make_town_e.py`: huella, letrero y casilla donde se pide); cómo se ve: `game/visuals/buildings/town_hall.tscn` (sprite de Guild Renew a escala 1,6) |
+| Panel del Ayuntamiento, tarjeta de ceremonia y pestaña Reputación (H9) | `game/ui/town_hall_panel.tscn`, `game/ui/title_card.tscn` (segundos en pantalla: `title_card_seconds` de `data/view.json`), `game/ui/ledger_panel.*`; textos `ui.town_hall.*`, `ui.title_card.*`, `ui.ledger.rep.*`, `rep.reason.*` |
 
 Cada escena visual tiene dos `Marker2D`: **`Feet`** (el punto que se apoya en el suelo: centro de la casilla, centro
 de la huella o los pies) y **`Top`** (lo alto que es: ahí van el letrero, la barra o el nombre, y hasta ahí llega la

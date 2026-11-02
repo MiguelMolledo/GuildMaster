@@ -45,8 +45,8 @@ func test_v7_save_migrates_to_v8() -> void:
 	var r := SaveFile.load_file("res://tests/data/saves/v7_family_routines.json")
 	check(r["ok"], "the v7 save loads (%s)" % r.get("error", ""))
 	var st: WorldState = r["state"]
-	eq(WorldState.VERSION, 8, "v8")
-	eq(st.version, 8, "migrated")
+	check(WorldState.VERSION >= 8, "v8 or later (H9: v9)")
+	eq(st.version, WorldState.VERSION, "migrated")
 	for id: String in st.characters:
 		eq(str(st.characters[id]["occupation"]), "", "%s: no trade yet" % id)
 		eq(st.characters[id]["town"], {}, "%s: empty town memory" % id)
@@ -105,7 +105,7 @@ func test_new_game_gives_trades_in_map_order() -> void:
 	for stall: String in ["resources", "food", "materials", "armory"]:
 		check(TownLife.stall_keeper(st, cat, stall) != "", "the %s stall has a keeper" % stall)
 	eq(str(st.characters[HERO]["occupation"]), "", "the player has no town trade")
-	eq(st.version, 8, "a new game is v8")
+	eq(st.version, WorldState.VERSION, "a new game is the current version")
 
 
 func test_town_scenarios() -> void:
@@ -121,8 +121,8 @@ func test_town_scenarios() -> void:
 	eq(Staff.employees_of(mev.state, FORGE).size(), 2, "two employees")
 	check(Inventory.count(mev.state.buildings[FORGE]["inventory"], "sword") >= 6, "swords to sell")
 	eq(mev.state.loans, {}, "no loan")
-	eq(mev.state.version, 8, "v8 scenario")
+	eq(mev.state.version, WorldState.VERSION, "v8 scenario, migrated on load")
 	var start := _sim("town_e_start")
-	eq(start.state.version, 8, "town_e_start regenerated as v8")
+	eq(start.state.version, WorldState.VERSION, "town_e_start (v8), migrated on load")
 	for id: String in _townsfolk(start.state):
 		check(str(start.state.characters[id]["occupation"]) != "", "%s has a trade in town_e_start" % id)

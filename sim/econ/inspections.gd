@@ -70,9 +70,7 @@ static func _roll(sim: Sim, b: String, fam: String) -> void:
 	mem["caught"] = int(mem.get("caught", 0)) + 1
 	mem["fines"] = int(mem.get("fines", 0)) + fine
 	var rep := int(cfg.get("reputation", -10))
-	if rep != 0 and st.families.has(fam):
-		st.families[fam]["reputation"] = int(st.families[fam].get("reputation", 0)) + rep
-		sim.events.append({"type": "reputation_changed", "family": fam, "amount": rep, "reason": "inspection"})
+	Reputation.change(sim, fam, rep, "inspection")  # H9
 	sim.events.append({"type": "inspection", "family": fam, "building": b, "caught": true, "escaped": false,
 		"fine": fine})
 	Notices.add(sim, fam, Notices.URGENT, "notice.inspection_fined", {"building": b, "amount": fine}, b)

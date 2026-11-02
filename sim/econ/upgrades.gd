@@ -399,10 +399,7 @@ static func complete(sim: Sim, bld: String, id: String) -> bool:
 				for c: String in Staff.employees_of(st, bld):
 					Staff._add_loyalty(sim, c, int(e.get("amount", 0)), "upgrade")
 			"reputation":
-				if st.families.has(fam) and int(e.get("amount", 0)) != 0:
-					st.families[fam]["reputation"] = int(st.families[fam].get("reputation", 0)) + int(e["amount"])
-					sim.events.append({"type": "reputation_changed", "family": fam, "amount": int(e["amount"]),
-						"reason": "upgrade"})
+				Reputation.change(sim, fam, int(e.get("amount", 0)), "upgrade")  # H9
 	sim.events.append({"type": "upgrade_done", "family": fam, "building": bld, "upgrade": id})
 	if OS.is_debug_build():
 		print("[Upgrades] %s termina %s (familia=%s, huecos=%d, almacén=%s, puestos=%s)" % [bld, id, fam,

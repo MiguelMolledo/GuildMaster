@@ -138,7 +138,8 @@
         150
       ],
       "exclude_categories": [
-        "loans"
+        "loans",
+        "titles"
       ],
       "sink_categories": [
         "wages",
@@ -154,7 +155,7 @@
         "errands"
       ],
       "sink_base": "margin",
-      "_doc": "GDD 4.19 «Forja con empleados» (H4-H5): artisan_expert, días 9-24 (años 2-3). sink_share: (salarios + mantenimiento + impuestos) / ingresos brutos de la ventana; ingresos brutos = margen bruto (ventas + encargos − input_categories: compras y recados), decisión del manager en H5 (sink_base margin). Se miden las dos lecturas (sink_share_revenue_ / sink_share_margin_)."
+      "_doc": "GDD 4.19 «Forja con empleados» (H4-H5): artisan_expert, días 9-24 (años 2-3). sink_share: (salarios + mantenimiento + impuestos) / ingresos brutos de la ventana; ingresos brutos = margen bruto (ventas + encargos − input_categories: compras y recados), decisión del manager en H5 (sink_base margin). Se miden las dos lecturas (sink_share_revenue_ / sink_share_margin_). H9: también excluye titles (la ceremonia de Ciudadano, 100 de oro una vez, cae en los días 16-22 del experto; es un gasto de estatus de H9, no de la marcha de la forja que mide esta ventana: con él la media de 30 semillas quedaba al borde de 60; medido con BOT_VARS=asks_titles=0/1)."
     }
   },
   "artisan_expert": {
@@ -290,5 +291,57 @@
       2,
       null
     ]
+  },
+  "expert_titles": {
+    "_doc": "H9 (10/H9, GDD 4.12.2, 4.19 «Patricio (H9-H11) años 7-12»): bot artisan_expert (pide títulos en el Ayuntamiento: sim/bots/bot_artisan_expert.gd) en una partida nueva Normal, 96 días (12 años). title_patrician: llega a Patricio (≥ 80 % de las semillas); title_patrician_day: día jugado en que lo consigue (días + 1 si no), de media entre los años 5 y 12 (días 40-96); title_citizen_day: Ciudadano antes. Ritual largo, a mano: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=expert_titles --days=96 --seeds=10.",
+    "days": [
+      96,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "_mean": {
+      "title_patrician_day": [
+        40,
+        96
+      ],
+      "title_citizen_day": [
+        8,
+        48
+      ]
+    },
+    "_share": {
+      "title_patrician": [
+        0.8,
+        null
+      ]
+    }
+  },
+  "idle_titles": {
+    "_doc": "H9 (10/H9, GDD 4.21 dianas: «al menos 2 familias IA suben de título» con las 5 del EA; aquí hay una): bot idle en una partida nueva Normal, 80 días (10 años): el herrero rival (regla mínima title_rule de data/ai_profiles/rival_smith.json, provisional hasta 04c) sube al menos un título en ≥ 80 % de las semillas. Ritual largo, a mano: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=idle_titles --days=80 --seeds=5.",
+    "days": [
+      80,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "_share": {
+      "ai_titled": [
+        0.8,
+        null
+      ]
+    }
   }
 }

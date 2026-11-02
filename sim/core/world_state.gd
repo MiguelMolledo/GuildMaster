@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 8
+const VERSION: int = 9
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -46,6 +46,8 @@ var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD
 # birth_day, death_day, class, profession, spouse, parents, children, assigned, directives, schedule, visual and life;
 # families get head, heir, founder, generation, regent, class and goals_done (SaveFile._step 6 -> 7).
 # H7: emotions (already a root field) get their shape: chr -> [{state, source, start, duration, intensity0}].
+# H9 (docs/contratos/h9_titulos.md): no new root fields. Families get title, class_reputation, reputation_log and
+# reputation_caps (SaveFile._step 8 -> 9). The town hall is a site of the map, not state.
 
 
 func seed_rng(s: int) -> void:

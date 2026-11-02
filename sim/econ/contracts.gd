@@ -335,13 +335,7 @@ static func _warn(sim: Sim, c: Dictionary, now: int) -> void:
 
 
 static func _reputation(sim: Sim, fam: String, amount: int, reason: String) -> void:
-	if amount == 0 or not sim.state.families.has(fam):
-		return
-	var f: Dictionary = sim.state.families[fam]
-	f["reputation"] = int(f.get("reputation", 0)) + amount
-	sim.events.append({"type": "reputation_changed", "family": fam, "amount": amount, "reason": reason})
-	if OS.is_debug_build():
-		print("[Contracts] %s reputación %+d (%s) -> %d" % [fam, amount, reason, int(f["reputation"])])
+	Reputation.change(sim, fam, amount, reason)  # H9: the only way (class of the reason, log, event)
 
 
 static func _relation(sim: Sim, fam: String, client: String, amount: int) -> void:

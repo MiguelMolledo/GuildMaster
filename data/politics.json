@@ -1,0 +1,31 @@
+{
+  "_doc": "Reputation and the title ceremony (GDD 4.12.1, 4.12.2, ap. A; docs/contratos/h9_titulos.md) [balance]. Offices and elections come with H10.",
+  "reputation": {
+    "_doc": "classes: the social classes of the class modifier (family.class_reputation, GDD 4.12.1: reputation with a class = reputation + class_reputation[class]). class_share: a change with a class also moves that class's modifier by round(amount x class_share). reason_class: the class of the changes other systems make (Reputation.change reasons). log_size: changes kept in family.reputation_log. rules: what the events of a step give (Reputation.step): events (event types), amount (global), class (\"target\" = the other one's class: the counter's customer or the townsperson; an id; null), class_amount, cap / cap_days (at most cap times per window of cap_days days; 0 = no cap), min_quality (sales), action and ok (npc_action). passive: per_business_with_staff, at dawn, for each operative workshop of the family with an active employee (ap. A).",
+    "classes": ["artisan", "patron", "scholar", "rogue"],
+    "class_share": 0.5,
+    "log_size": 12,
+    "reason_class": {
+      "contract_done": "artisan",
+      "contract_failed": "artisan",
+      "wage_unpaid": "artisan",
+      "fired_loyal": "artisan",
+      "employee_rumor": "artisan"
+    },
+    "rules": [
+      {"id": "fair_trade", "events": ["market_sold", "counter_sold"], "amount": 1, "class": "target", "class_amount": 0, "cap": 1, "cap_days": 1, "min_quality": 0},
+      {"id": "quality_trade", "events": ["market_sold", "counter_sold"], "amount": 1, "class": "target", "class_amount": 0, "cap": 1, "cap_days": 1, "min_quality": 1},
+      {"id": "wages_paid", "events": ["wage_paid"], "amount": 2, "class": "artisan", "class_amount": 1, "cap": 1, "cap_days": 8},
+      {"id": "npc_gift", "events": ["npc_action"], "action": "gift", "ok": true, "amount": 0, "class": "target", "class_amount": 1, "cap": 0, "cap_days": 1},
+      {"id": "npc_flatter", "events": ["npc_action"], "action": "flatter", "ok": true, "amount": 0, "class": "target", "class_amount": 1, "cap": 0, "cap_days": 1},
+      {"id": "npc_insult", "events": ["npc_action"], "action": "insult", "amount": -1, "class": "target", "class_amount": -2, "cap": 0, "cap_days": 1},
+      {"id": "npc_threaten", "events": ["npc_action"], "action": "threaten", "amount": -1, "class": "target", "class_amount": -2, "cap": 0, "cap_days": 1}
+    ],
+    "passive": {"per_business_with_staff": 1}
+  },
+  "ceremony": {
+    "_doc": "GDD 4.12.2: the request is made in person at the town hall (the map's town_hall service tile); the gold is paid and the requirements checked; the first holder of approvers (an office of H10) approves if its affinity with the actor is >= min_affinity; a vacant office (no holder: all of them until H10) approves by itself.",
+    "approvers": ["mayor", "councillor"],
+    "min_affinity": 30
+  }
+}

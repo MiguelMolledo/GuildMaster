@@ -1,0 +1,15 @@
+{
+  "id": "patrician",
+  "name_key": "title.patrician",
+  "rank": 2,
+  "cost_gold": 500,
+  "reputation": 200,
+  "requires": {
+    "employees": 2
+  },
+  "unlocks": {
+    "max_buildings": 4,
+    "vote": true,
+    "office_rank": "middle"
+  }
+}

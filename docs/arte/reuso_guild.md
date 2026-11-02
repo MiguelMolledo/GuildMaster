@@ -30,7 +30,8 @@ Veredictos: **usar** · **usar con ajuste** · **no sirve** · **catalogado** (p
 | `house_humble_5_*` (192) | — | Dibujo pequeño (~100 px) con valla y parcela; escala distinta del resto | — | **no sirve** (escala) |
 | `house_merchant_1` (192) | variante futura | 2:1, entramado rojo | — | reserva |
 | `house_merchant_2` (192) | — | Lleva un cartel con letras | — | **no sirve** (texto en el sprite) |
-| `house_noble_1`, `_2`, `house_tavern_style` (192) | variantes futuras (casa noble, taberna) | 2:1 | — | reserva |
+| `house_noble_2` (192) | `bld_town_hall` → `buildings/town_hall.tscn` (H9) | 2:1, piedra con torre y estandarte: se lee como edificio de gobierno | Escala 1,6 sobre la huella 6×4 (bloque sur de la plaza) | **usar con ajuste** |
+| `house_noble_1`, `house_tavern_style` (192) | variantes futuras (casa noble, taberna) | 2:1 | — | reserva |
 | `market/exterior/building_alimentos_192`, `_materiales_`, `_recursos_` | — | Edificios enteros; en GuildMaster cada puesto es **una casilla** | — | **no sirve** (los puestos usan el de 64 px) |
 | `market/exterior/building_roperia_192` | — | Cartel «TAILOR» | — | **no sirve** (texto) |
 | `market/exterior/building_market_192`, `_boticario_192` | futuros (mercado cubierto, boticario) | 2:1 | — | reserva |
