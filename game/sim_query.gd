@@ -580,13 +580,18 @@ const PHRASE_TILES: int = 3
 ## The adult townsperson on the map nearest to `near` within PHRASE_TILES (ties by id; "" if none): only that one
 ## speaks, so the phrases do not pile up.
 static func nearest_talker(sim: Sim, near: String) -> String:
+	var t := talkers(sim, near)
+	return str(t[0]) if not t.is_empty() else ""
+
+
+## The adult townsfolk on the map within PHRASE_TILES of `near`, nearest first (ties by id).
+static func talkers(sim: Sim, near: String) -> Array:
 	var st := sim.state
 	var a: Dictionary = st.characters.get(near, {})
 	if a.is_empty() or str(a.get("location", "")) != "":
-		return ""
+		return []
 	var pa: Array = a.get("position", [0, 0])
-	var best := ""
-	var best_d := PHRASE_TILES + 1
+	var found: Array = []
 	var ids: Array = st.characters.keys()
 	ids.sort()
 	for id: String in ids:
@@ -595,10 +600,10 @@ static func nearest_talker(sim: Sim, near: String) -> String:
 			continue
 		var pb: Array = ch.get("position", [0, 0])
 		var d := maxi(absi(int(pa[0]) - int(pb[0])), absi(int(pa[1]) - int(pb[1])))
-		if d < best_d and TownLife.is_townsperson(st, id) and TownLife.is_adult(st, sim.catalog, id):
-			best = id
-			best_d = d
-	return best
+		if d <= PHRASE_TILES and TownLife.is_townsperson(st, id) and TownLife.is_adult(st, sim.catalog, id):
+			found.append([d, id])
+	found.sort_custom(func(x: Array, y: Array) -> bool: return int(x[0]) < int(y[0]) or (int(x[0]) == int(y[0]) and str(x[1]) < str(y[1])))
+	return found.map(func(x: Array) -> String: return str(x[1]))
 
 
 ## The name of a townsperson's trade ("" without one).

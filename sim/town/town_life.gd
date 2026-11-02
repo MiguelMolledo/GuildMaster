@@ -461,7 +461,8 @@ static func _doors(sim: Sim) -> Array:
 
 # --- Greetings ---------------------------------------------------------------------------------------------------
 
-## Two walking townsfolk 1 tile apart stop and greet (15-25 min), at most per_day each, once per pair a day.
+## Two walking townsfolk 1 tile apart stop and greet (15-25 min) with greet.chance, at most per_day each, once per pair a
+## day.
 static func _greetings(sim: Sim, folk: Array, now: int, today: int, gcfg: Dictionary) -> void:
 	var st := sim.state
 	var walking: Array = []
@@ -486,6 +487,9 @@ static func _greetings(sim: Sim, folk: Array, now: int, today: int, gcfg: Dictio
 			var pa: Array = st.characters[a]["position"]
 			var pb: Array = st.characters[b]["position"]
 			if maxi(absi(int(pa[0]) - int(pb[0])), absi(int(pa[1]) - int(pb[1]))) > 1:
+				continue
+			if Kin.roll(st, "town|greetroll|%s|%s|%d" % [a, b, today]) >= float(gcfg.get("chance", 1.0)):
+				(ta.get("met", []) as Array).append(b)  # they crossed without stopping: not again today
 				continue
 			var mm: Array = gcfg.get("minutes", [15, 25])
 			var dur := Kin.randi_range(st, "town|greet|%s|%s|%d" % [a, b, now], int(mm[0]), int(mm[1]))

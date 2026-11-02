@@ -5,7 +5,7 @@
   "branch": "security",
   "level": 2,
   "cost": {
-    "gold": 15,
+    "gold": 75,
     "items": []
   },
   "requires": {

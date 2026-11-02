@@ -1,5 +1,104 @@
 [
   {
+    "fecha": "2026-11-02",
+    "titulo": "Arte · los campos cambian con la estación",
+    "que": "Las casillas de campo tienen surcos continuos con cuatro aspectos: brotes en primavera, verde en verano, trigo dorado en otoño y tierra con escarcha en invierno; cambian solos al cambiar la estación (seasonal_tiles en data/view.json, sirve para cualquier suelo). La estantería y el mostrador de venta de la forja ya tienen detalle.",
+    "como_probar": "--smoke-script=arte fotografía los campos en las cuatro estaciones.",
+    "capturas": [
+      "docs/novedades/arte5_campos_primavera.png",
+      "docs/novedades/arte5_campos_otono.png",
+      "docs/novedades/arte5_campos_invierno.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
+    "titulo": "Arte · mejoras de la forja con sprite, bosque en el borde y casas variadas",
+    "que": "Las 15 mejoras del interior de la forja que seguían en greybox ya tienen sprite (fuelle, tina de temple, banco de grabado, sello de maestro, literas, caja fuerte, forja de maestro...). Fuera del mapa, un anillo de hierba que se oscurece con bosque cada vez más denso, por donde siguen el río y las calles (map_border en data/view.json). Dos modelos de casa nuevos por recoloreo y las 8 casas de vecinos con cuatro aspectos (building_variants).",
+    "como_probar": "jugar.command. Recorrido: --smoke-script=arte (esquina, puerta oeste, forja con todas las mejoras).",
+    "capturas": [
+      "docs/novedades/arte4_forja_mejoras_despues.png",
+      "docs/novedades/arte4_esquina_despues.png",
+      "docs/novedades/arte4_manzana_despues.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
+    "titulo": "Arte · interiores de piedra, árboles, río con puente y obras dibujadas",
+    "que": "La forja tiene suelo de losas y paredes de sillares; la armería, losas grandes y yeso con entramado. Tres árboles (roble, redondo, pino), río con orillas y espuma, puente de tablones, andamio de obras, fachadas de piedra y noble, y mejoras exteriores con piezas de Guild Renew. Espada y aguja redibujadas a 16 px. Todo dibujado con tools/art/dibujar_pixel.py (Pillow, regenerable), sin créditos. Quedan en greybox los visuales de mejoras del interior y la guardia.",
+    "como_probar": "jugar.command. Recorrido de cámara: --smoke-script=arte.",
+    "capturas": [
+      "docs/novedades/arte3_forja_interior_despues.png",
+      "docs/novedades/arte3_rio_puente.png",
+      "docs/novedades/arte3_arboles.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
+    "titulo": "Arte · el pueblo se llena: manzanas de casas, patios, pozo y tablón",
+    "que": "Los bloques de relleno del mapa son ahora manzanas con cuatro modelos de casa de Guild Renew (la mitad en espejo) y patios de huerto o de trabajo con barriles, cajas, sacos y carro; el hueco de la plaza es un pozo. Adoquín en piedra cálida, plaza arenosa y tierra marrón sin rejilla. Tablón de encargos compuesto, props colocables a mano en game/visuals/towns/town_e.tscn e iconos de 16 px en almacén e inventario. Se desactiva quitando el bloque filler de data/view.json.",
+    "como_probar": "jugar.command → Empezar. Derivados regenerables con tools/art/derivar_guild.py.",
+    "capturas": [
+      "docs/novedades/arte2_mapa_despues.png",
+      "docs/novedades/arte2_mercado_despues.png",
+      "docs/novedades/arte2_almacen_despues.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
+    "titulo": "H8 · Familia y herencia: casarse, tener hijos y heredar",
+    "que": "En la rama h8-familia: envejecer y morir, cortejo, boda, hijos, herencia (con regente si el heredero es menor), Game Over con puntuación desglosada, grupo controlable 1-2-3, rutina programable, árbol genealógico (F) con retratos que heredan pelo y piel, y la familia rival que también se casa. Bot dynasty: 320 días × 3 semillas, hereda en las tres, 0 órdenes rechazadas. 380 pruebas en verde tras juntar el pulido de H5. Teclas: 1-2-3 eligen familiar; velocidad con Mayús+1/2/3. D19 (cierre voluntario) hecho pero apagado.",
+    "como_probar": "jugar.command. F abre el árbol; 1-2-3 eligen familiar (velocidad con Mayús+1/2/3); I → Rutina. Escenarios founder_old (fundador de 60 con heredero) y founder_no_heir (Game Over). Bot: sim_runner --scenario=dynasty_start --bots=dynasty --days=320 --seeds=3 (~8 min por semilla).",
+    "capturas": [
+      "docs/novedades/h8_arbol.png",
+      "docs/novedades/h8_game_over.png",
+      "docs/novedades/h8_rutina.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
+    "titulo": "Audio · el juego ya suena (ElevenLabs)",
+    "que": "Música en bucle de día (laúd, flauta y fídula) y de noche (laúd y zanfona), ambientes de plaza, noche e interior de la forja, efectos con variantes (martillo, monedas, puerta, fuelle) y sonidos para contratar, mejora terminada, encargo entregado, avisos, deudas y objetivos. 5 frases de voz en castellano generadas (aún sin enganchar). Gasto real: 4.010 créditos de los 20.000 autorizados (detalle en assets/audio/MANIFEST.md). Pendiente: que el owner lo escuche; está en estado «generado», no «final». Segunda tanda (428 créditos; total 4.438): clic en todos los botones, sonido al abrir y cerrar paneles, voces del vendedor y del pregonero (con espera de 20 s), horno, toque de maestro, venta, pausa/reanudar, pasos del seleccionado, gallo al amanecer y campana del mercado. Tercera tanda (1.409 créditos; total 5.847): tema de la pantalla de título, pausa que suena una sola vez y sonidos preparados para la ciudad viva (murmullo de la plaza, dados, alarma del ladrón, tos, regateo, saludos).",
+    "como_probar": "/opt/homebrew/bin/godot --path ~/Code/GuildMaster (sin --audio-driver Dummy). Entra en la forja para oír su ambiente; con -- --at=22:00 suena la noche. Volúmenes en data/audio.json o en los buses.",
+    "capturas": []
+  },
+  {
+    "fecha": "2026-11-02",
+    "titulo": "Arte · los sprites de Guild Renew sustituyen al greybox",
+    "que": "Sin gastar créditos: forja, armería, casas, los tres puestos del mercado, el suelo (hierba, adoquín, tierra) y el interior de la forja (horno, yunque, almacén, mostrador) ya llevan sprites pixel art de Guild Renew. El greybox sigue en cada escena, oculto: se puede volver a él desde el editor. Catálogo de lo que sirve y lo que no en docs/arte/reuso_guild.md. Quedan en greybox los bloques de relleno del mapa, paredes y suelo del interior, el tablón, el andamio y los personajes.",
+    "como_probar": "jugar.command → Empezar. Galería: /opt/homebrew/bin/godot --path ~/Code/GuildMaster -- --gallery.",
+    "capturas": [
+      "docs/novedades/arte_guild_mapa_despues.png",
+      "docs/novedades/arte_guild_forja_interior_despues.png",
+      "docs/novedades/arte_guild_mercado_despues.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
+    "titulo": "H5 · Balance: los empleados y las mejoras ya dan dinero",
+    "que": "Nuevo bot artisan_expert: salda la deuda, contrata, reparte puestos, llena la cola, compra mejoras y vende, solo con órdenes reales. Con las cifras de H3 un empleado no añadía nada (el dueño ya llenaba el mercado). Rebalanceo D14 (provisional): la demanda cae 0,04 por pieza y se recupera 0,4 al día, recetas ×1,3, mantenimiento de la forja 20, salarios 7/20/40, velocidad de rango ×1/×2/×3, carga 60 kg y mejoras ×5. Resultado con 30 semillas: experto 71,9 oro/día en Normal (diana 60-150), sumideros 33 % del margen, novato 53,9 (diana 25-60). Con 1 empleado se gana un 37 % más en el año 3; con 2 se pierde hasta tener segundo horno.",
+    "como_probar": "godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --difficulty=normal --bots=artisan_expert --days=24 --seeds=30 (~15 min). Probar cifras sin tocar data/: --set=<tabla>.<id>.<clave>=<json>.",
+    "capturas": []
+  },
+  {
+    "fecha": "2026-11-02",
+    "titulo": "Gate H6 · diseño de la IA de las familias rivales",
+    "que": "docs/gdd/04c_ia_rival.md: la IA solo ve información pública (prueba de ceguera), seis módulos de decisión, seis perfiles, rivalidad dirigida en cinco bandas, ataques con aviso previo que se pueden frustrar, protecciones para el jugador (nada el primer año, tope común, tregua de sucesión), dificultad, dianas y 10 preguntas para el owner. Pendiente de aprobación: bloquea H6.",
+    "como_probar": "Leer la página «GuildMaster · IA de las familias rivales (Gate H6)» en Grimoire y responder Q1-Q10.",
+    "capturas": []
+  },
+  {
+    "fecha": "2026-11-02",
+    "titulo": "H5 · Rebanada jugable: ayuda, objetivos guiados e interior arreglado",
+    "que": "La partida se juega del principio al día 5 sin consola: F1 abre la ayuda, el panel Objetivo explica paso a paso, el interior de la forja se ve entero, la fachada lleva sillares, el mercado cerrado dice cuándo abre y la forja avisa si los empleados están parados y por qué. Si caduca el encargo de un objetivo, el objetivo falla con aviso y la cadena sigue. Contratar enseña primero a quien se puede contratar. 347 pruebas en verde.",
+    "como_probar": "Doble clic en jugar.command → Empezar → F1. El guion --smoke-script=rebanada recorre todo el flujo y hace capturas.",
+    "capturas": [
+      "docs/novedades/h5_rebanada_interior.png",
+      "docs/novedades/h5_rebanada_fachada.png",
+      "docs/novedades/h5_rebanada_ayuda.png",
+      "docs/novedades/h5_rebanada_contratar.png"
+    ]
+  },
+  {
     "fecha": "2026-11-01",
     "titulo": "H4 · Empleados: contratar, salarios, lealtad, ascensos, cola de producción y rutina",
     "que": "En el interior de la forja el botón Empleados abre la plantilla (rango, puesto que se cambia con un selector, lealtad y su banda, salario, qué hace ahora, Bonus, Despedir y, si toca, el ascenso con Aceptar/Rechazar) y la pestaña Contratar (los vecinos sin empleo con rango, Artesanía, Carisma, Constitución y salario; si no se puede, el botón sale apagado con el motivo). Producción enseña además la cola de los empleados: cada entrada con su receta, cantidad (1/5/10/∞), unidades hechas y aviso si se salta; se añade con receta + 1/5/10/∞, se sube, baja y quita, y hay Bucle y Pausa. En el mapa los empleados van andando de su casa a la forja con un rombo sobre la cabeza del color de la familia para la que trabajan (borde dorado si es la tuya); al pasar el ratón por cualquier vecino sale su nombre y su familia. Las casas solo enseñan su cartel al pasar el ratón o al elegirlas (el pueblo no se llena de carteles). Un edificio tuyo con empleados ociosos lleva un bocadillo «zz». Los avisos de empleados salen en el registro del libro con nombres y rangos; clic en uno de un empleado abre su edificio con la plantilla. Los empleados ya funcionan en el sim. Contratar ocupa un hueco libre con un vecino desempleado (empieza al amanecer siguiente, no se cobra nada al contratar). Cada amanecer se cobran los salarios del oro de la familia y van al hogar del empleado (el oro no desaparece). Sin oro: aviso, 1 día de gracia y luego -5 de lealtad y -2 de reputación por día. La lealtad sube +1 por día pagado y baja -2 si el edificio está dañado. Por debajo de 70 hay rumores (-1 de reputación al día por empleado); entre 20 y 39, 5 % diario de abandonar sin aviso; por debajo de 20, 3 % diario de robar 1-3 unidades de lo más valioso del almacén y huir (no se puede volver a contratar en 1 año). Un aprendiz con 1 año trabajado y lealtad > 50 pide ascenso (aviso): aceptar da +15 de lealtad y sube el salario; rechazar, -10. Despedir: se va al final del día (-2 de reputación si su lealtad pasaba de 70). Bonus: 5 de oro y +5 de lealtad. Cola de producción con resolución por unidad: para cada espada se funden primero sus 2 lingotes (nunca un montón de intermedios). Roles estrictos: el del horno solo funde, el del yunque solo forja; «cualquiera» va donde haga falta. Una entrada imposible (falta materia prima, almacén lleno, nadie sabe hacerla) se marca con aviso y se salta; si no se puede nada, aviso general y empleados ociosos. Bucle, pausa, quitar y mover entradas. Rutina: al amanecer cada empleado sale de casa con su retraso, camina a la forja y entra; al atardecer acaba el ciclo que lleva y vuelve a casa; de noche nunca está dentro. Aprendiz ×0,5 de velocidad, oficial ×1, maestro ×1,5; siempre al menos 1 unidad por ciclo. El cálculo de rutas de los personajes es el mismo A* de siempre (8 vecinos, sin cortar esquinas, mismo desempate) y da exactamente los mismos caminos y costes, pero mucho más barato: los vecinos de cada casilla vienen precalculados en el mapa, la lista abierta es un anillo de cubos por coste en arrays empaquetados (sin diccionarios ni Vector2i en el bucle) y cada ruta encontrada se recuerda en el mapa (fuera de la partida), así que los trayectos que se repiten (casa-trabajo) salen gratis desde el segundo día. Una ruta media de town_e pasa de ~3,7 ms a ~1,4 ms; una puerta-puerta, de ~1,1 a ~0,35 ms; una recordada, ~0,01 ms. En el bench con todos andando el peor paso baja de ~15 ms a ~4,5 ms y el p99 de ~6,5 a ~2,2 ms. El bench tiene un modo nuevo, --bot=dawn: los 16 vecinos salen de casa al amanecer con el retraso de la rutina, van a una puerta de trabajo y vuelven al atardecer (--rush: todos en el mismo minuto), y --runs=N para medir bien en una máquina ocupada.",

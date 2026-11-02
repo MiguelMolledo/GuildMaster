@@ -130,6 +130,9 @@ func refresh(force: bool = false) -> void:
 		var def := sim.catalog.item(item)
 		var row := HBoxContainer.new()
 		row.name = key
+		var icon := UiIcons.item_rect(item)
+		if icon != null:
+			row.add_child(icon)
 		var l := Label.new()
 		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		l.text = "%s ×%d · %s kg" % [SimQuery.item_label(sim.catalog, item, q), Inventory.count(ch["inventory"], item, q),

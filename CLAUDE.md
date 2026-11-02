@@ -81,6 +81,12 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Balance del inicio (H3, ~3 min, al tocar cifras [balance] de economía): `godot --headless --path . -s tools/sim_runner.gd
   -- --start=artisan_blacksmith --difficulty=easy,normal,hard --bots=artisan_novice --days=10 --seeds=30` (dianas de
   Normal y orden Fácil > Normal > Difícil en oro neto/día; informes en `reports/sim/`).
+- Balance de la forja con empleados (H5, ~15 min por dificultad; al tocar cifras [balance] de economía, empleados o
+  mejoras): `godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --difficulty=easy,normal,hard
+  --bots=artisan_expert --days=24 --seeds=30` (dianas `goldflow.staff` de días 9-24 y `artisan_expert`). Lo que aportan
+  los empleados (mismas semillas): `--bots=artisan_expert_0,artisan_expert_1,artisan_expert_2`. Pruebas de
+  cifras sin tocar `data/`: `--set=<tabla>.<id>.<clave>=<json>` (p. ej. `--set=market.demand.recover_per_day=0.3`) y
+  `--tag=<nombre>` → `reports/sim/trial_<nombre>_*.json`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

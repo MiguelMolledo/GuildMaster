@@ -185,275 +185,419 @@
     {
       "id": "bld_forge",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "forge"
       ],
       "ruta": "assets/art/buildings/forge.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/forge",
       "coste_gen": 0,
-      "notas": "Exterior 192 px. Variantes: normal, obras, dañado."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/forge/exterior/building_forge_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/forge.tscn (Sprite, Greybox oculto). Sin variantes de obras ni dañado."
     },
     {
       "id": "int_forge",
       "tipo": "interior",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "forge"
       ],
       "ruta": "assets/art/interiors/forge/",
-      "origen": null,
+      "origen": "guild-renew + dibujado (Pillow)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Kit modular de interior (suelo, paredes, horno, yunque, mostrador, almacén)."
+      "notas": "Kit del interior de la forja: suelo floor.png (losas de guild:tiles/stone_floor_flat/tile_4 aplastadas a 2:1) y paredes de piedra wall_ne/nw + wall_door_ne/nw (dibujadas, tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md), en el nodo Kit de game/visuals/interiors/forge.tscn. Puestos: furnace, anvil, storage, counter (guild-renew). Mejoras del interior con sprite (tools/art/dibujar_mejoras.py: assets/art/interiors/forge/upg_<id>.png): fuelle, tina, pila de temple, banco de grabado, sello, libro doble, estanterías, mostrador dibujados; forja de maestro, pasadizo, caja fuerte, literas, mesa, banco de maestro y alijo de piezas de guild. Greybox oculto en cada nodo de Upgrades. Estanterías y mostrador de venta redibujados con detalle (abiertas con lingotes, tarros y herramientas; paneles, balanza, monedas, tela y espada)."
+    },
+    {
+      "id": "int_armory",
+      "tipo": "interior",
+      "estado": "sprite",
+      "para": [
+        "H3",
+        "armería"
+      ],
+      "ruta": "assets/art/interiors/armory/",
+      "origen": "guild-renew + dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Suelo de losas grandes (guild:tiles/stone_floor_flat/tile_11 aplastada y templada) y paredes de yeso con entramado (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). Nodo Kit de interiors/armory.tscn."
     },
     {
       "id": "bld_stall_resources",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "mercado"
       ],
       "ruta": "assets/art/buildings/stall_resources.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/market",
       "coste_gen": 0,
-      "notas": "Puesto exterior del mercado."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/interior/stall_recursos.png (docs/arte/reuso_guild.md). Puesto de una casilla, en game/visuals/props/stall_resources.tscn."
     },
     {
       "id": "bld_stall_food",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "mercado"
       ],
       "ruta": "assets/art/buildings/stall_food.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/market",
       "coste_gen": 0,
-      "notas": "Puesto exterior del mercado."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/interior/stall_alimentos.png (docs/arte/reuso_guild.md). Puesto de una casilla, en game/visuals/props/stall_food.tscn."
     },
     {
       "id": "bld_stall_materials",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "mercado"
       ],
       "ruta": "assets/art/buildings/stall_materials.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/market",
       "coste_gen": 0,
-      "notas": "Puesto exterior del mercado."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/interior/stall_materiales.png (docs/arte/reuso_guild.md). Puesto de una casilla, en game/visuals/props/stall_materials.tscn."
     },
     {
       "id": "bld_armory",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "mercado"
       ],
       "ruta": "assets/art/buildings/armory.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/market",
       "coste_gen": 0,
-      "notas": "Tienda con interior."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/exterior/building_armeria_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/armory.tscn."
     },
     {
       "id": "bld_house",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H4",
         "empleados"
       ],
       "ruta": "assets/art/buildings/house.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/residential",
       "coste_gen": 0,
-      "notas": "Casa 3x3 de los vecinos (tipo house, sin interior). Puede salir de bld_house_a/b o del kit de casas."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_1/house_modest_1_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/house.tscn (las 8 casas iguales)."
     },
     {
       "id": "bld_house_a",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "ciudad"
       ],
       "ruta": "assets/art/buildings/house_a.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/residential",
       "coste_gen": 0,
-      "notas": "Casa de relleno (estilo E). Kit modular cuando haya créditos (9.4)."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_2/house_modest_2_192.png (docs/arte/reuso_guild.md). Casa de relleno de las manzanas (props/lot_house_a.tscn)."
     },
     {
       "id": "bld_house_b",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "ciudad"
       ],
       "ruta": "assets/art/buildings/house_b.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/residential",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_3/house_modest_3_192.png (docs/arte/reuso_guild.md). Casa de relleno de las manzanas (props/lot_house_b.tscn)."
+    },
+    {
+      "id": "bld_house_c",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "ciudad"
+      ],
+      "ruta": "assets/art/buildings/house_c.png",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Casa de relleno de las manzanas (props/lot_house_c.tscn): guild:assets/sprites/buildings/residential/house_merchant_1/house_merchant_1_192.png (docs/arte/reuso_guild.md, tools/art/derivar_guild.py)."
+    },
+    {
+      "id": "bld_house_d",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "ciudad"
+      ],
+      "ruta": "assets/art/buildings/house_d.png",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Casa de relleno de las manzanas (props/lot_house_d.tscn): guild:assets/sprites/buildings/residential/house_humble_4_south/house_humble_4_south_192.png (docs/arte/reuso_guild.md, tools/art/derivar_guild.py)."
+    },
+    {
+      "id": "bld_house_e",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H7",
+        "manzanas"
+      ],
+      "ruta": "assets/art/buildings/house_e.png",
+      "origen": "guild-renew (recoloreado)",
+      "coste_gen": 0,
+      "notas": "house_a con tejado de pizarra y fachada encalada (tools/art/derivar_guild.py houses). Solar props/lot_house_e.tscn y casa de vecinos buildings/house_slate.tscn."
+    },
+    {
+      "id": "bld_house_f",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H7",
+        "manzanas"
+      ],
+      "ruta": "assets/art/buildings/house_f.png",
+      "origen": "guild-renew (recoloreado)",
+      "coste_gen": 0,
+      "notas": "house_c con teja de barro marrón y revoque ocre (tools/art/derivar_guild.py houses). Solar props/lot_house_f.tscn y casa de vecinos buildings/house_ochre.tscn."
     },
     {
       "id": "tile_grass",
       "tipo": "tile",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "mapa"
       ],
       "ruta": "assets/art/tiles/grass.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/tiles/diamonds",
       "coste_gen": 0,
-      "notas": "Diamante 64×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/tiles/test_tiles_pro_diamond/tile_0.png (docs/arte/reuso_guild.md). Suelo del mapa (GroundLayer, tipo grass)."
     },
     {
       "id": "tile_cobblestone",
       "tipo": "tile",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "mapa"
       ],
-      "ruta": "assets/art/tiles/cobblestone.png",
-      "origen": null,
+      "ruta": "assets/art/tiles/street.png",
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/tiles",
       "coste_gen": 0,
-      "notas": "Diamante 64×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/tiles/tile_cobblestone_diamond.png recoloreado hacia el gris piedra cálido de la biblia (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Suelo del tipo street."
     },
     {
       "id": "tile_dirt_path",
       "tipo": "tile",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1",
         "mapa"
       ],
-      "ruta": "assets/art/tiles/dirt_path.png",
-      "origen": null,
+      "ruta": "assets/art/tiles/dirt.png",
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/tiles",
       "coste_gen": 0,
-      "notas": "Diamante 64×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/tiles/diamonds/tile_dirt_block.png, de rosado a marrón y con el borde oscuro suavizado para que no se note la rejilla (docs/arte/reuso_guild.md, tools/art/derivar_guild.py)."
+    },
+    {
+      "id": "tile_plaza",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "mapa"
+      ],
+      "ruta": "assets/art/tiles/plaza.png",
+      "origen": "guild-renew",
+      "origen_previo": "guild:assets/sprites/tiles",
+      "coste_gen": 0,
+      "notas": "El mismo adoquín, más claro y arenoso (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Suelo del tipo plaza."
+    },
+    {
+      "id": "tile_building",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "mapa"
+      ],
+      "ruta": "assets/art/tiles/building.png",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Suelo de las casillas # (patios y bases de casas): guild:assets/sprites/tiles/test_tiles_pro_diamond/tile_12.png (docs/arte/reuso_guild.md, tools/art/derivar_guild.py)."
+    },
+    {
+      "id": "tile_tree",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "mapa"
+      ],
+      "ruta": "assets/art/tiles/tree.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Hierba con la sombra de la copa bajo los árboles (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md)."
+    },
+    {
+      "id": "tile_field",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "mapa"
+      ],
+      "ruta": "assets/art/tiles/field.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Campos por estación: field_spring (brotes), field_summer (surcos verdes; también field.png), field_autumn (trigo dorado), field_winter (tierra con escarcha). tools/art/dibujar_pixel.py fields; seasonal_tiles de data/view.json."
+    },
+    {
+      "id": "tile_water",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "río"
+      ],
+      "ruta": "assets/art/tiles/water.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Agua con ondas, y la orilla water_edge_<ne|se|sw|nw>.png donde el río toca otra casilla (ground_edges de data/view.json) (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md)."
+    },
+    {
+      "id": "tile_bridge",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "río"
+      ],
+      "ruta": "assets/art/tiles/bridge.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Tablones cruzados a la calle y el bordillo bridge_edge_<lado>.png hacia el agua (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md)."
     },
     {
       "id": "prop_barrel",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/barrel.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/barrel",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/barrel/barrel_64.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/barrel.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_bench",
       "tipo": "prop",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H1",
         "H7"
       ],
       "ruta": "assets/art/props/bench.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/bench",
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/props/bench.tscn (banco de la plaza, H7)"
+      "notas": "Reuso sin coste de guild:assets/sprites/props/bench/bench_64.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/bench.tscn: patios de las manzanas y decoración de game/visuals/towns/. Escena game/visuals/props/bench.tscn (banco de la plaza, H7)."
     },
     {
       "id": "prop_cart",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/cart.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/cart",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/cart/cart_96.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/cart.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_grain_sack",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/grain_sack.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/grain_sack",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/grain_sack/grain_sack_48.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/grain_sack.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_well",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/well.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/well",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/well/well_96.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/well.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_anvil",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2"
       ],
       "ruta": "assets/art/props/anvil.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/anvil.png",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/anvil.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_crate",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2"
       ],
       "ruta": "assets/art/props/crate.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/crate.png",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/crate.png (docs/arte/reuso_guild.md). A mitad de tamaño (el original era para personas de 68 px) con reducción de pixel art (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). Escena props/crate.tscn: patios de las manzanas y decoración de game/visuals/towns/."
     },
     {
       "id": "prop_torch",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/torch.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/torch.png",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/torch.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_lantern",
@@ -471,112 +615,177 @@
     {
       "id": "prop_scaffolding",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2"
       ],
       "ruta": "assets/art/props/scaffolding.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/scaffolding.png",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/scaffolding.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
     },
     {
       "id": "prop_sign_post",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H1"
       ],
       "ruta": "assets/art/props/sign_post.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/props/sign_post.png",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Reuso sin coste de guild:assets/sprites/props/sign_post.png (docs/arte/reuso_guild.md). Sin escena aún (no hay casillas de este prop en los mapas)."
+    },
+    {
+      "id": "prop_board",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H3",
+        "tablón de encargos"
+      ],
+      "ruta": "assets/art/props/board.png",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Tablón compuesto con Pillow: marco de guild:buildings/overlays/shop_sign.png sobre dos postes de props/sign_post.png, con notas clavadas (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). En props/board.tscn (Greybox oculto)."
+    },
+    {
+      "id": "prop_furrows",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H7",
+        "manzanas"
+      ],
+      "ruta": "assets/art/props/furrows.png",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Surcos de huerto (casilla 64×32): guild:assets/sprites/tiles/test_tiles_pro_diamond/tile_15.png. Patios yard_plot*."
+    },
+    {
+      "id": "prop_tree",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "mapa"
+      ],
+      "ruta": "assets/art/props/tree_oak.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Tres árboles dibujados: tree_oak, tree_round, tree_pine (props/tree.tscn, tree_round.tscn, tree_pine.tscn; prop_variants.tree de data/view.json) (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md)."
+    },
+    {
+      "id": "bld_forge_works",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H5",
+        "obras"
+      ],
+      "ruta": "assets/art/buildings/forge_works.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Andamio dibujado sobre la base del sprite de la forja (nodo Works/Scaffold de buildings/forge.tscn; los postes greybox quedan ocultos) (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md)."
+    },
+    {
+      "id": "bld_forge_facades",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H5",
+        "mejoras de fachada"
+      ],
+      "ruta": "assets/art/buildings/forge_plinth.png",
+      "origen": "guild-renew + dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Zócalo de piedra (forge_plinth.png, fachada de piedra) y zócalo claro con estandartes (forge_plinth_noble.png + props/banner.png, fachada noble), dibujados; jardín (props/garden.png), escaparate (props/shop_window.png), letrero (props/trade_sign.png) y cerradura (props/lock.png) a mitad desde guild:buildings/overlays y market/interior/stall_armeria (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). Guardia: sigue en greybox (es un personaje)."
     },
     {
       "id": "bubble_chat",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/chat.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/chat.tscn (H7)"
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_chat.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/chat.tscn (H7)."
     },
     {
       "id": "bubble_dice",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/dice.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/dice.tscn (H7)"
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_dice.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/dice.tscn (H7)."
     },
     {
       "id": "bubble_rest",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/rest.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/rest.tscn (H7)"
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_rest.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/rest.tscn (H7)."
     },
     {
       "id": "bubble_shop",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/shop.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/shop.tscn (H7)"
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_shop.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/shop.tscn (H7)."
     },
     {
       "id": "bubble_think",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/think.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/think.tscn (H7)"
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_think.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/think.tscn (H7)."
     },
     {
       "id": "bubble_wave",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "burbujas"
       ],
       "ruta": "assets/art/ui/bubbles/wave.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/wave.tscn (H7)"
+      "notas": "Reuso sin coste de guild:assets/sprites/ui/icons/bubble_wave.png (docs/arte/reuso_guild.md). 32×32. Escena game/visuals/bubbles/wave.tscn (H7)."
     },
     {
       "id": "bubble_emotion_grateful",
@@ -712,114 +921,114 @@
     {
       "id": "icon_iron",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/iron.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_hierro.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_hierro.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_coal",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/coal.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_carbon.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_carbon.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_wood",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/wood.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_madera.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_madera.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_stone",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/stone.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_piedra.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_piedra.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_wheat",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/wheat.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_trigo.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_trigo.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_wool",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/wool.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_lana.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_lana.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_herbs",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/herbs.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_hierbas.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_hierbas.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_iron_ingot",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/iron_ingot.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_lingote_hierro.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_lingote_hierro.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_steel",
@@ -833,119 +1042,119 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md)."
     },
     {
       "id": "icon_flour",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/flour.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_harina.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_harina.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_planks",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/planks.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_tablas.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_tablas.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_cloth",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/cloth.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_tela.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_tela.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon). Se parece al documento: revisar."
     },
     {
       "id": "icon_sword",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/sword.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_espada.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_espada.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_bread",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/bread.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_pan.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_pan.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_common_clothes",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/common_clothes.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_ropa_comun.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_ropa_comun.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_armor",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/armor.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_armadura.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_armadura.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_hammer",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/hammer.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_martillo.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_martillo.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_saw",
@@ -959,231 +1168,426 @@
       "origen": null,
       "origen_previo": "guild:assets/sprites/ui/icons/icon_sierra.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md)."
     },
     {
       "id": "icon_needle",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/needle.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_aguja.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_aguja.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_hoe",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/hoe.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_azadon.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_azadon.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon). Se lee como un pico: revisar."
     },
     {
       "id": "icon_work_clothes",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/work_clothes.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_ropa_trabajo.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_ropa_trabajo.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_travel_cloak",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/travel_cloak.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_capa_viaje.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_capa_viaje.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_bandages",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "objetos"
       ],
       "ruta": "assets/art/icons/bandages.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_vendas.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_vendas.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_prepared_meal",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H3",
         "objetos"
       ],
       "ruta": "assets/art/icons/prepared_meal.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_comida_preparada.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_comida_preparada.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_document",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H8",
         "objetos"
       ],
       "ruta": "assets/art/icons/document.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_documento.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_documento.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_key",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H8",
         "objetos"
       ],
       "ruta": "assets/art/icons/key.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_llave.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_llave.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
     },
     {
       "id": "icon_contract",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H8",
         "objetos"
       ],
       "ruta": "assets/art/icons/contract.png",
-      "origen": null,
+      "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_contrato.png",
       "coste_gen": 0,
-      "notas": "32×32."
+      "notas": "Reuso sin coste de guild:assets/sprites/icons/icon_contrato.png (docs/arte/reuso_guild.md). La UI aún no pinta iconos de objeto (VisualPaths.icon)."
+    },
+    {
+      "id": "ui_icons_small",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H2",
+        "listas de almacén e inventario"
+      ],
+      "ruta": "assets/art/icons/small/",
+      "origen": "guild-renew",
+      "coste_gen": 0,
+      "notas": "Iconos de objeto a 16×16 para las filas de la UI (fuente de 10 px), derivados de los de 32×32 (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). VisualPaths.icon_small / UiIcons.item_rect. sword y needle redibujados a mano a 16×16 (tools/art/dibujar_pixel.py)."
     },
     {
       "id": "music_city_day",
       "tipo": "musica",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H1",
         "musica"
       ],
       "ruta": "assets/audio/music/music_city_day.ogg",
-      "origen": null,
+      "origen": "elevenlabs: Instrumental medieval folk music for a 14th-century Central European market town by day. Warm plucked lute and wooden recorder melody, light fiddle, soft frame drum, small acoustic ensemble of three or four players, cheerful but relaxed, about 100 bpm, cozy pastoral life-sim game soundtrack. No orchestra, no choir, no epic cinematic percussion, no vocals. Even energy from start to end: no intro build-up and no final ending, so it loops seamlessly.",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Ciudad de día (ElevenLabs Music o Suno de Miguel)."
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 1238 créditos (assets/audio/MANIFEST.md). Bucle de 32 compases (76,8 s) cortado donde la pieza repite su frase; -18 LUFS."
     },
     {
       "id": "music_night",
       "tipo": "musica",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H1",
         "musica"
       ],
       "ruta": "assets/audio/music/music_night.ogg",
-      "origen": null,
+      "origen": "elevenlabs: Instrumental medieval folk music for a quiet 14th-century Central European town at night. Slow, gentle solo lute fingerpicking with a soft hurdy-gurdy drone and an occasional low wooden flute phrase, calm and warm, a little melancholic, about 70 bpm, intimate and sparse, cozy pastoral life-sim game soundtrack. No percussion, no orchestra, no choir, no cinematic swells, no vocals. Even, steady texture from start to end: no intro build-up and no final ending, so it loops seamlessly.",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 1238 créditos (assets/audio/MANIFEST.md). Bucle de 85 s con fundido de 3 s en la costura; -20 LUFS."
     },
     {
       "id": "sfx_hammer",
       "tipo": "sonido",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H2",
         "forge"
       ],
-      "ruta": "assets/audio/sfx/sfx_hammer.ogg",
-      "origen": null,
+      "ruta": "assets/audio/sfx/sfx_hammer_01.ogg",
+      "origen": "elevenlabs: single blacksmith hammer strike on an iron anvil, bright metallic clang with short ring, close, dry medieval forge, no music",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 33 créditos (assets/audio/MANIFEST.md)."
     },
     {
       "id": "sfx_bellows",
       "tipo": "sonido",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H2",
         "forge"
       ],
-      "ruta": "assets/audio/sfx/sfx_bellows.ogg",
-      "origen": null,
+      "ruta": "assets/audio/sfx/sfx_bellows_01.ogg",
+      "origen": "elevenlabs: one long push of a large leather blacksmith bellows, deep airy whoosh into a forge fire, flames flare, close",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md). Al terminar de fundir en el horno (work_done.furnace)."
     },
     {
       "id": "sfx_coins",
       "tipo": "sonido",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H3",
         "mercado"
       ],
-      "ruta": "assets/audio/sfx/sfx_coins.ogg",
-      "origen": null,
+      "ruta": "assets/audio/sfx/sfx_coins_01.ogg",
+      "origen": "elevenlabs: a few silver and copper coins dropped into a leather purse and onto a wooden counter, short jingle, close, medieval market, no music",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 33 créditos (assets/audio/MANIFEST.md)."
     },
     {
       "id": "sfx_door",
       "tipo": "sonido",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H2",
         "edificios"
       ],
-      "ruta": "assets/audio/sfx/sfx_door.ogg",
-      "origen": null,
+      "ruta": "assets/audio/sfx/sfx_door_01.ogg",
+      "origen": "elevenlabs: heavy old wooden door with iron hinges opening with a short creak and closing with a soft thud, medieval house, close",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
     },
     {
       "id": "sfx_ui_click",
       "tipo": "sonido",
-      "estado": "falta",
+      "estado": "generado",
       "para": [
         "H1",
         "ui"
       ],
-      "ruta": "assets/audio/sfx/sfx_ui_click.ogg",
-      "origen": null,
+      "ruta": "assets/audio/sfx/sfx_ui_click_01.ogg",
+      "origen": "elevenlabs: single soft click of a wooden button pressed on a parchment board, short dry tap, UI click, warm, no reverb",
       "origen_previo": null,
-      "coste_gen": 0,
-      "notas": ""
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 18 créditos (assets/audio/MANIFEST.md). Suena en todos los botones (AudioDirector escucha el árbol)."
+    },
+    {
+      "id": "sfx_hire",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H4",
+        "personal"
+      ],
+      "ruta": "assets/audio/sfx/sfx_hire_01.ogg",
+      "origen": "elevenlabs: a goose quill pen quickly signing a parchment contract, short scratchy flourish, then a light tap of the pen on a wooden desk, close, dry",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_upgrade_done",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H4",
+        "mejoras"
+      ],
+      "ruta": "assets/audio/sfx/sfx_upgrade_done_01.ogg",
+      "origen": "elevenlabs: two carpenter hammer taps on a wooden beam followed by one bright ring of a small brass hand bell, satisfying, medieval workshop, close",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 44 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_contract_done",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "encargos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_contract_done_01.ogg",
+      "origen": "elevenlabs: a wax seal pressed firmly onto parchment, then a small leather pouch of coins set down on a wooden table with a jingle, close",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_notice",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "avisos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_notice_01.ogg",
+      "origen": "elevenlabs: a small brass hand bell rung twice, short and clear, gentle attention signal, close, dry room",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 22 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_alarm",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "avisos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_alarm.ogg",
+      "origen": "elevenlabs: a medieval town alarm bell struck three times quickly, urgent bronze bell, short reverb tail",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 28 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_debt",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "cuentas"
+      ],
+      "ruta": "assets/audio/sfx/sfx_debt_01.ogg",
+      "origen": "elevenlabs: a heavy iron chain dropped onto a wooden table followed by a dull heavy stamp, ominous, short, close",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_objective_done",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H5",
+        "objetivos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_objective_done_01.ogg",
+      "origen": "elevenlabs: a very short joyful medieval fanfare: three quick ascending notes on a wooden recorder with a small bell chime at the end, warm, solo, dry",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 56 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_objective_failed",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H5",
+        "objetivos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_objective_failed.ogg",
+      "origen": "elevenlabs: a very short sad phrase on a plucked medieval lute: three slow descending notes, soft and dry, solo instrument",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 1 variante, 56 créditos (assets/audio/MANIFEST.md). 1 de 2 tomas (la otra no bajaba de tono con claridad)."
+    },
+    {
+      "id": "ambient_town_day",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ambiente"
+      ],
+      "ruta": "assets/audio/ambient/ambient_town_day.ogg",
+      "origen": "elevenlabs: ambience of a medieval town market square in the daytime: gentle murmur of a small crowd, footsteps on cobblestones, an occasional wooden cart rolling by, a few songbirds, distant chickens, steady and calm, no music, no modern sounds",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 330 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "ambient_night",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ambiente"
+      ],
+      "ruta": "assets/audio/ambient/ambient_night.ogg",
+      "origen": "elevenlabs: ambience of a quiet medieval village at night: crickets, soft wind through trees, a distant owl now and then, very calm and steady, no music, no voices, no modern sounds",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 330 créditos (assets/audio/MANIFEST.md). Loop de 30 s (modelo v2, loop) sin el hueco de 1,5 s del crudo."
+    },
+    {
+      "id": "ambient_forge",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H2",
+        "forge"
+      ],
+      "ruta": "assets/audio/ambient/ambient_forge.ogg",
+      "origen": "elevenlabs: ambience inside a medieval blacksmith forge: steady crackling coal fire, low roar of the hearth, soft hissing embers, quiet room tone, no hammering, no voices, no music",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 330 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "voice_market_vendor",
+      "tipo": "voz",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "mercado"
+      ],
+      "ruta": "assets/audio/voice/voice_market_vendor_01.ogg",
+      "origen": "elevenlabs: ¡Pan, queso y buen vino! ¡Acérquense, vecinos!",
+      "origen_previo": null,
+      "coste_gen": 5,
+      "notas": "ElevenLabs, 5 variantes, 75 créditos (assets/audio/MANIFEST.md). Al abrir el mercado (enfriamiento 20 s). Voces peninsulares: Martin Osborne 6 y rolapp Jimena."
+    },
+    {
+      "id": "voice_board_crier",
+      "tipo": "voz",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "tablon"
+      ],
+      "ruta": "assets/audio/voice/voice_board_crier_01.ogg",
+      "origen": "elevenlabs: ¡Oíd, oíd! Nuevo aviso en el tablón.",
+      "origen_previo": null,
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 59 créditos (assets/audio/MANIFEST.md). Al abrir el tablón (enfriamiento 20 s). Voz peninsular: Martin Osborne 4."
     },
     {
       "id": "ui_portrait",
@@ -1197,6 +1601,258 @@
       "origen": null,
       "coste_gen": 0,
       "notas": "Retrato 32×32 de cada persona (HUD, árbol, contratación) con colores clave reservados para el intercambio de paleta: pelo, piel, ropa principal y secundaria (GDD 4.10.9). Hoy greybox de nodos en game/visuals/characters/portrait.tscn."
+    },
+    {
+      "id": "sfx_step",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "personajes"
+      ],
+      "ruta": "assets/audio/sfx/sfx_step_01.ogg",
+      "origen": "elevenlabs: a single soft footstep of a leather shoe on packed dirt and cobblestone, quiet, close, dry, no music",
+      "origen_previo": null,
+      "coste_gen": 4,
+      "notas": "ElevenLabs, 4 variantes, 24 créditos (assets/audio/MANIFEST.md). Solo los pasos de la persona seleccionada (selected_only), enfriamiento 0,22 s."
+    },
+    {
+      "id": "sfx_furnace",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H2",
+        "forge"
+      ],
+      "ruta": "assets/audio/sfx/sfx_furnace_01.ogg",
+      "origen": "elevenlabs: a blacksmith furnace flaring up: deep whoosh of air and a roaring burst of coal fire that settles to a crackle, close",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 44 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_master_touch",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H2",
+        "forge"
+      ],
+      "ruta": "assets/audio/sfx/sfx_master_touch_01.ogg",
+      "origen": "elevenlabs: a perfect master hammer strike on glowing steel: a bright pure ringing anvil tone with a shimmer of sparks, satisfying, short",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 34 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_sale",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "mercado"
+      ],
+      "ruta": "assets/audio/sfx/sfx_sale_01.ogg",
+      "origen": "elevenlabs: coins counted onto a wooden shop counter followed by a small brass shop bell ding, medieval shop sale, close",
+      "origen_previo": null,
+      "coste_gen": 4,
+      "notas": "ElevenLabs, 2 variantes, 90 créditos (assets/audio/MANIFEST.md). 2 tomas de 1,5 s descartadas (campanilla cortada); se rehízo a 2,5 s."
+    },
+    {
+      "id": "sfx_rooster",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "dia"
+      ],
+      "ruta": "assets/audio/sfx/sfx_rooster_01.ogg",
+      "origen": "elevenlabs: a single rooster crowing far away across a quiet medieval village at dawn, distant, soft morning air, no music",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 66 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_market_bell",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "mercado"
+      ],
+      "ruta": "assets/audio/sfx/sfx_market_bell_01.ogg",
+      "origen": "elevenlabs: a medieval market bell rung by hand several times in a town square in the morning, distant crowd starting, bronze bell, no music",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 66 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_panel_open",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_panel_open_01.ogg",
+      "origen": "elevenlabs: a sheet of thick parchment being unrolled and opened on a wooden desk, short soft paper rustle",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 16 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_panel_close",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_panel_close_01.ogg",
+      "origen": "elevenlabs: a sheet of thick parchment being rolled up and closed, short soft paper rustle with a light tap",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 16 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_pause",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_pause.ogg",
+      "origen": "elevenlabs: an old wooden hourglass set down and stopped on a table, soft wooden knock, short",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 8 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "sfx_resume",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_resume.ogg",
+      "origen": "elevenlabs: an old wooden hourglass turned over on a table with a soft knock and sand starting to trickle, short",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 8 créditos (assets/audio/MANIFEST.md)."
+    },
+    {
+      "id": "voice_market_deal",
+      "tipo": "voz",
+      "estado": "generado",
+      "para": [
+        "H3",
+        "mercado"
+      ],
+      "ruta": "assets/audio/voice/voice_market_deal.ogg",
+      "origen": "elevenlabs: ¡Trato hecho!",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 6 créditos (assets/audio/MANIFEST.md). «¡Trato hecho!» al comprar en el mercado (enfriamiento 20 s). Voz: rolapp Jimena."
+    },
+    {
+      "id": "music_title",
+      "tipo": "musica",
+      "estado": "generado",
+      "para": [
+        "H1",
+        "partida_nueva"
+      ],
+      "ruta": "assets/audio/music/music_title.ogg",
+      "origen": "elevenlabs: Instrumental medieval folk title theme for a cozy 14th-century Central European town life-sim game. Same small acoustic ensemble as the town music: warm plucked lute, wooden recorder melody, light fiddle and soft frame drum, about 90 bpm, inviting and hopeful, a gentle memorable main melody. No orchestra, no choir, no epic cinematic percussion, no vocals. Even energy from start to end: no intro build-up and no final ending, so it loops seamlessly.",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 825 créditos (assets/audio/MANIFEST.md). Bucle de 16 compases (42,67 s) en la pantalla de partida nueva (ui.screen_music); -18 LUFS."
+    },
+    {
+      "id": "sfx_dice",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "ciudad"
+      ],
+      "ruta": "assets/audio/sfx/sfx_dice_01.ogg",
+      "origen": "elevenlabs: two small wooden dice shaken in a leather cup and rolled onto a wooden tavern table, rattling and settling, close, dry",
+      "origen_previo": null,
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 51 créditos (assets/audio/MANIFEST.md). town_state.dice de la persona seleccionada (H7), enfriamiento 4 s."
+    },
+    {
+      "id": "sfx_thief_alarm",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "microeventos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_thief_alarm_01.ogg",
+      "origen": "elevenlabs: alarm for a thief caught at night: a hand bell rung hard and fast, a dog barking, quick running footsteps on cobblestones, medieval town, no words",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 56 créditos (assets/audio/MANIFEST.md). notice.microevent.night_thief y notice.theft_frustrated (H7)."
+    },
+    {
+      "id": "sfx_cough",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "microeventos"
+      ],
+      "ruta": "assets/audio/sfx/sfx_cough_01.ogg",
+      "origen": "elevenlabs: a sick tired man coughing twice, dry chesty cough, close, indoor, no words",
+      "origen_previo": null,
+      "coste_gen": 3,
+      "notas": "ElevenLabs, 3 variantes, 51 créditos (assets/audio/MANIFEST.md). notice.microevent.sick_employee (H7)."
+    },
+    {
+      "id": "ambient_plaza_dusk",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "ciudad"
+      ],
+      "ruta": "assets/audio/ambient/ambient_plaza_dusk.ogg",
+      "origen": "elevenlabs: ambience of a medieval town square at dusk: lively murmur of a relaxed crowd chatting, occasional laughter, mugs clinking on wooden tables, a few distant footsteps, warm evening, no music, no modern sounds, steady",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "ElevenLabs, 1 variante, 330 créditos (assets/audio/MANIFEST.md). Loop nativo de 30 s; plaza al atardecer (phase_ambient.dusk)."
+    },
+    {
+      "id": "voice_haggle",
+      "tipo": "voz",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "microeventos"
+      ],
+      "ruta": "assets/audio/voice/voice_haggle_01.ogg",
+      "origen": "elevenlabs: ¿Tres monedas? Le doy dos, ni una más.",
+      "origen_previo": null,
+      "coste_gen": 4,
+      "notas": "ElevenLabs, 2 variantes, 60 créditos (assets/audio/MANIFEST.md). Dos diálogos cliente + vendedor montados de 4 frases (Javi/Jimena, Sara Martin 2/Martin Osborne 6); notice.microevent.haggling_customer (H7)."
+    },
+    {
+      "id": "voice_greeting",
+      "tipo": "voz",
+      "estado": "generado",
+      "para": [
+        "H7",
+        "ciudad"
+      ],
+      "ruta": "assets/audio/voice/voice_greeting_01.ogg",
+      "origen": "elevenlabs: ¡Salud, vecino!",
+      "origen_previo": null,
+      "coste_gen": 4,
+      "notas": "ElevenLabs, 3 variantes, 36 créditos (assets/audio/MANIFEST.md). «¡Salud, vecino!», «¡Buenas! ¿Qué tal la jornada?», «Que Dios os guarde.»; greeted con la persona seleccionada (H7). 1 toma descartada (voz que alargaba 4 s)."
     }
   ]
 }

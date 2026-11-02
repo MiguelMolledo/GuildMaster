@@ -38,11 +38,12 @@ func test_feet_and_top_markers_place_the_visual() -> void:
 	var v := VisualPaths.instantiate("props", "tree")
 	VisualPaths.place(v, Vector2(100, 50))
 	eq(v.position, Vector2(100, 50) - VisualPaths.feet(v), "Feet lands on the anchor")
-	eq(VisualPaths.top_height(v, 0.0), 30.0, "the tree's Top: 30 px above its feet")
+	var top := VisualPaths.top_height(v, 0.0)
+	check(top > 20.0, "the tree's Top stands above its feet (%.0f px)" % top)
 	(v.get_node("Feet") as Marker2D).position = Vector2(0, 4)
 	VisualPaths.place(v, Vector2(100, 50))
 	eq(v.position, Vector2(100, 46), "moving Feet in the scene moves the visual")
-	eq(VisualPaths.top_height(v, 0.0), 34.0, "the height counts from the feet")
+	eq(VisualPaths.top_height(v, 0.0), top + 4.0, "the height counts from the feet")
 	v.free()
 	var bare := Node2D.new()
 	eq(VisualPaths.top_height(bare, 12.0), 12.0, "no Top marker: the default")
@@ -66,8 +67,10 @@ func test_character_visual_ids() -> void:
 
 
 func test_missing_icon_and_audio_are_empty() -> void:
-	check(VisualPaths.icon("sword") == null, "no icon yet: null (no path in data/items)")
-	eq(VisualPaths.audio_files("sfx", "sfx_hammer").size(), 0, "no sound file yet")
+	check(VisualPaths.icon("steel") == null, "no icon yet: null (no path in data/items)")
+	check(VisualPaths.icon("sword") != null, "an icon that exists: assets/art/icons/sword.png")
+	check(VisualPaths.audio_files("sfx", "sfx_hammer").size() > 0, "a sound with its files: sfx_hammer")
+	eq(VisualPaths.audio_files("sfx", "sfx_without_file").size(), 0, "no sound file: empty")
 
 
 func test_world_view_builds_from_the_scenes() -> void:
@@ -76,7 +79,7 @@ func test_world_view_builds_from_the_scenes() -> void:
 	v.setup(r["state"], cat)
 	var forge := v.building_visual("bld_0001")
 	check(forge != null and str(forge.scene_file_path).ends_with("buildings/forge.tscn"), "the forge is its scene")
-	eq(v.sign_of("bld_0001").position.y, (forge.position + VisualPaths.feet(forge)).y - 40.0 - 20.0,
+	eq(v.sign_of("bld_0001").position.y, (forge.position + VisualPaths.feet(forge)).y - VisualPaths.top_height(forge, 48.0) - 20.0,
 		"the sign hangs 20 px over the Top marker")
 	var stall := v.prop_at(Vector2i(16, 14))
 	check(stall != null and str(stall.scene_file_path).ends_with("props/stall_resources.tscn"), "the stall by its id")

@@ -5,7 +5,7 @@
   "branch": "commerce",
   "level": 1,
   "cost": {
-    "gold": 6,
+    "gold": 30,
     "items": [
       {
         "item": "wood",

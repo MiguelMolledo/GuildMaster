@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bm8acnsowwa0b"]
+
+[ext_resource type="PackedScene" uid="uid://cmohhh6t21dvr" path="res://game/visuals/props/barrel.tscn" id="1_barrel"]
+[ext_resource type="PackedScene" uid="uid://emoq8rkfby0u" path="res://game/visuals/props/crate.tscn" id="2_crate"]
+
+[node name="YardCrates" type="Node2D"]
+y_sort_enabled = true
+editor_description = "Filler yard: one map tile # left over around the houses (WorldView, filler.yards in data/view.json). Low props only, so they never hide the base of the building behind."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="Crate" parent="." instance=ExtResource("2_crate")]
+position = Vector2(-7, -2)
+
+[node name="Crate2" parent="." instance=ExtResource("2_crate")]
+position = Vector2(6, 3)
+
+[node name="Barrel" parent="." instance=ExtResource("1_barrel")]
+position = Vector2(-2, 7)

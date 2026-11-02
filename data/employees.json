@@ -2,9 +2,9 @@
   "_doc": "Employees (GDD 4.7, H4; contract docs/contratos/h4_empleados.md). Catalog.employees. Durations in game days (1 year = 8 days, D1(b)). Probabilities per day in [0, 1]. Marked [balance] in the GDD: adjusted with bots.",
   "_ranks_doc": "4.7.2. wage = gold per day, paid at dawn (category wages). efficiency = share of a normal worker's output (4.7.2: at least 1 unit per cycle). speed = multiplier of the cycle speed (duration / speed, 4.4.1). promote_after_days = days worked in this rank before the promotion can be offered; promote_min_loyalty = loyalty must be >= this (GDD: > 50 and > 70). requires_upgrade: building upgrade needed to hire or promote into this rank (GDD: Maestro needs 'Taller de maestro'; '' until the upgrade tree exists in H5 [provisional]). availability: how common it is in the town's population (descriptive).",
   "ranks": {
-    "apprentice": {"name_key": "rank.apprentice", "wage": 1, "efficiency": 0.5, "speed": 0.5, "next": "journeyman", "promote_after_days": 8, "promote_min_loyalty": 51, "requires_upgrade": "", "availability": "abundant"},
-    "journeyman": {"name_key": "rank.journeyman", "wage": 3, "efficiency": 1.0, "speed": 1.0, "next": "master", "promote_after_days": 16, "promote_min_loyalty": 71, "requires_upgrade": "", "availability": "medium"},
-    "master": {"name_key": "rank.master", "wage": 6, "efficiency": 1.5, "speed": 1.5, "next": "", "promote_after_days": 0, "promote_min_loyalty": 0, "requires_upgrade": "", "availability": "scarce"}
+    "apprentice": {"name_key": "rank.apprentice", "wage": 7, "efficiency": 0.5, "speed": 1.0, "next": "journeyman", "promote_after_days": 8, "promote_min_loyalty": 51, "requires_upgrade": "", "availability": "abundant"},
+    "journeyman": {"name_key": "rank.journeyman", "wage": 20, "efficiency": 1.0, "speed": 2.0, "next": "master", "promote_after_days": 16, "promote_min_loyalty": 71, "requires_upgrade": "", "availability": "medium"},
+    "master": {"name_key": "rank.master", "wage": 40, "efficiency": 1.5, "speed": 3.0, "next": "", "promote_after_days": 0, "promote_min_loyalty": 0, "requires_upgrade": "", "availability": "scarce"}
   },
   "rank_order": ["apprentice", "journeyman", "master"],
   "_roles_doc": "4.7.4: the task of each employee. A station id of the building (only that kind of station, BUG-023) or 'any' (wherever needed). default_role = the role of a new hire [provisional].",

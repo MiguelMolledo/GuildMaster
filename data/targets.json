@@ -79,7 +79,7 @@
     ]
   },
   "artisan_novice": {
-    "_doc": "GDD 4.16/4.19 (Normal, 30 semillas). Oro inicial 30, neto 25-60/día sin contar la deuda, deuda 200 antes del día 8, encargos guionizados de inicio ~153 de cobro (~110 netos). gold_day3 <= 30 + 3×60 + 110 = 320; gold_repaid_day3 (oro + lo ya devuelto) en [30 + 3×25 − 60 de capital (hierro y carbón de un lote), 320]; gold_day10 en [30 + 10×25 − 200 − 72 (valor del almacén inicial como capital de trabajo), 30 + 10×60 − 200 + 110]. debt_paid: proporción de semillas que saldan la deuda a tiempo >= 0,9. El oro neto/día va en goldflow.start.",
+    "_doc": "GDD 4.16/4.19 (Normal, 30 semillas). Oro inicial 30, neto 25-60/día sin contar la deuda, deuda 200 antes del día 8, encargos guionizados de inicio ~153 de cobro (~110 netos). gold_day3 <= 30 + 3×60 + 110 = 320; gold_repaid_day3 (oro + lo ya devuelto) en [30 + 3×25 − 60 de capital (hierro y carbón de un lote) − 3×18 de mantenimiento añadido en H5 (2 → 20/día), 320] ≈ [0, 320]; gold_day10 en [30 + 10×25 − 200 − 72 (valor del almacén inicial como capital de trabajo), 30 + 10×60 − 200 + 110]. debt_paid: proporción de semillas que saldan la deuda a tiempo >= 0,9. El oro neto/día va en goldflow.start.",
     "days": [
       10,
       null
@@ -97,7 +97,7 @@
       320
     ],
     "gold_repaid_day3": [
-      45,
+      0,
       320
     ],
     "gold_day10": [
@@ -125,6 +125,82 @@
       ],
       "exclude_categories": [
         "loans"
+      ]
+    },
+    "staff": {
+      "bot": "artisan_expert",
+      "window_days": [
+        9,
+        24
+      ],
+      "net_per_day": [
+        60,
+        150
+      ],
+      "exclude_categories": [
+        "loans"
+      ],
+      "sink_categories": [
+        "wages",
+        "upkeep",
+        "taxes"
+      ],
+      "sink_share": [
+        0.3,
+        0.6
+      ],
+      "input_categories": [
+        "purchases",
+        "errands"
+      ],
+      "sink_base": "margin",
+      "_doc": "GDD 4.19 «Forja con empleados» (H4-H5): artisan_expert, días 9-24 (años 2-3). sink_share: (salarios + mantenimiento + impuestos) / ingresos brutos de la ventana; ingresos brutos = margen bruto (ventas + encargos − input_categories: compras y recados), decisión del manager en H5 (sink_base margin). Se miden las dos lecturas (sink_share_revenue_ / sink_share_margin_)."
+    }
+  },
+  "artisan_expert": {
+    "_doc": "GDD 4.19/4.8, H5 (Normal). Partida nueva real (--start=artisan_blacksmith): juega el inicio como artisan_novice y, saldada la deuda, contrata, usa la cola y compra mejoras (sim/bots/bot_artisan_expert.gd). Oficial: 30 semillas × 24 días (net_day_9_24 y sink_share_9_24 en goldflow.staff); run_all corre una versión corta de 12 días. net_year_<n>: oro neto/día de cada año (8 días) sin la deuda, >= 0 de media (GDD 4.19; la excepción de la obra grande no hace falta mientras no haya obras de más de 2 días). prod_gain_error: la producción por trabajador tras cada mejora de Producción sube lo que dice la mejora (±5 %).",
+    "days": [
+      12,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "hired": [
+      1,
+      null
+    ],
+    "upgrades_bought": [
+      1,
+      null
+    ],
+    "prod_gain_error": [
+      0,
+      0.05
+    ],
+    "_mean": {
+      "net_year_1": [
+        0,
+        null
+      ],
+      "net_year_2": [
+        0,
+        null
+      ],
+      "net_year_3": [
+        0,
+        null
+      ]
+    },
+    "_share": {
+      "debt_paid": [
+        0.9,
+        null
       ]
     }
   },

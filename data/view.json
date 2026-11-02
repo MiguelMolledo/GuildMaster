@@ -27,6 +27,45 @@
     "stall_sign": "#d8c070",
     "board_sign": "#c8a0d0"
   },
+  "ground_edges": {
+    "_doc": "GroundLayer: where a tile of the kind (key) touches one of the listed kinds, its edge art (assets/art/tiles/<kind>_edge_<side>.png) is drawn on that side: the river's bank, the bridge's curb over the water. Remove a kind to drop its edges.",
+    "water": ["grass", "street", "plaza", "dirt", "field", "building", "tree", "stall", "board"],
+    "bridge": ["water"]
+  },
+  "map_border": {
+    "_doc": "A ring of tiles around the map, outside the playable grid and purely visual (GroundLayer + WorldView._add_border_trees): `ground` everywhere except the kinds of `extend` that reach the map's edge (they carry on outwards: streets, the river); from `fade_from` tiles out it darkens towards `fade_to` (the background). Trees of `trees` (scene ids of game/visuals/props/, weights = repeat) from `tree_from` tiles out, with a chance per tile growing from tree_density[0] to tree_density[1] at the outer edge. tiles = 0 removes the border.",
+    "tiles": 9,
+    "ground": "grass",
+    "extend": ["street", "water", "dirt"],
+    "fade_from": 2,
+    "fade_to": "#2b221b",
+    "trees": ["tree", "tree_round", "tree_pine", "tree_pine", "tree_pine"],
+    "tree_from": 3,
+    "tree_density": [0.2, 0.7]
+  },
+  "building_variants": {
+    "_doc": "Building types with several looks: type -> scene ids of game/visuals/buildings/ (one per building, picked by its origin tile, the same every game; weights = repeat). Without an entry, the scene named like the type. Rules never read this (the type stays the same).",
+    "house": ["house", "house_slate", "house_ochre", "house_tall"]
+  },
+  "seasonal_tiles": {
+    "_doc": "Tile kinds whose ground changes with the season (GroundLayer.set_season, from the clock): assets/art/tiles/<kind>_<spring|summer|autumn|winter>.png, else <kind>.png. field: sprouts, green rows, golden wheat, bare earth. Empty kinds = no change.",
+    "kinds": ["field"]
+  },
+  "prop_variants": {
+    "_doc": "Map props with several looks: tile kind -> scene ids of game/visuals/props/ (one per tile, picked by the tile, the same every game; weights = repeat an id). Without an entry, the scene named like the kind.",
+    "tree": ["tree", "tree_round", "tree_pine", "tree", "tree_round"]
+  },
+  "filler": {
+    "_doc": "How the free building tiles (#) of the map look (WorldView._add_filler): each block is filled with house lots of the first size in lot_sizes ([cols, rows]) that fits, and the tiles left over become yards: each block takes one of yard_themes (vegetable plot, work yard) and each tile one yard of its theme, each at most once per block (the theme's first yard fills the rest). houses / yard_themes / single are scene ids of game/visuals/props/; which one goes where depends only on the tile (the town looks the same every game), weights = repeat an id. mirror flips half of the houses. single = a lone # tile (the plaza's well). Remove this block to go back to one greybox block per tile (props/building.tscn).",
+    "houses": ["lot_house_a", "lot_house_b", "lot_house_c", "lot_house_d", "lot_house_e", "lot_house_f"],
+    "lot_sizes": [[3, 4], [4, 3], [3, 3]],
+    "mirror": true,
+    "yard_themes": [
+      ["yard_plot", "yard_plot", "yard_plot", "yard_plot_sack"],
+      ["yard_plain", "yard_plain", "yard_plain", "yard_barrels", "yard_crates", "yard_sacks", "yard_cart"]
+    ],
+    "single": "well"
+  },
   "notices": {
     "_doc": "H3: urgent notices pop up over the HUD for popup_seconds (at most popup_max at once); severity colours of the notices log.",
     "popup_seconds": 8.0,

@@ -1,14 +1,17 @@
 [gd_scene format=3 uid="uid://8m0pfdebcxci"]
 
+[ext_resource type="Texture2D" uid="uid://byeexjrhmtqcg" path="res://assets/art/ui/bubbles/think.png" id="1_sprite"]
+
 [node name="Think" type="Node2D"]
 editor_description = "Looking at a building (pensativo). Feet = the tip of the bubble (over the head); Greybox until the art arrives."
 
 [node name="Feet" type="Marker2D" parent="."]
 
 [node name="Top" type="Marker2D" parent="."]
-position = Vector2(0, -19)
+position = Vector2(0, -28)
 
 [node name="Greybox" type="Node2D" parent="."]
+visible = false
 
 [node name="Body" type="Polygon2D" parent="Greybox"]
 color = Color(0.88, 0.88, 0.9, 1)
@@ -30,3 +33,10 @@ theme_override_font_sizes/font_size = 9
 text = "?"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_sprite")
+centered = false
+offset = Vector2(-16, -30)
+editor_description = "Bubble reused from Guild Renew (assets/art/ui/bubbles/think.png, 32x32): the bottom of the drawing on Feet. To go back to the greybox: hide this node and show Greybox."

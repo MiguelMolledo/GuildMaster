@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmohhh6t21dvr"]
+
+[ext_resource type="Texture2D" uid="uid://co6pdlcxahbpf" path="res://assets/art/props/barrel.png" id="1_tex"]
+
+[node name="Barrel" type="Node2D"]
+editor_description = "Reused from Guild Renew (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). The sprite's base sits on Feet; move or swap it here."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -26)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-12, -26)

@@ -46,7 +46,7 @@
 | Cliente de mostrador | 1 cada 1-2 h de DÍA | 12-25 s | 4.5.4 |
 | Llegada de un recado de entrega | 2 h [balance] | 25 s | 4.5.7 |
 | Actividades sociales de NPC | 15 min – 5,5 h | 3-70 s | 4.11.3 |
-| Recuperación de la demanda | +0,1 por día | — | 4.5.3 |
+| Recuperación de la demanda | +0,4 por día [balance] (H5; era +0,1) | — | 4.5.3 |
 | Salario impagado: gracia | 1 día | 5 min | 4.7.3 |
 | Contratación / despido | efecto al amanecer siguiente / al final del día | — | 4.7.1 |
 | Plazo de un encargo | 1-3 días [balance] | 5-15 min | 4.5.6 |
@@ -119,7 +119,7 @@
 
 **Creación de personaje (D5):** sobre la distribución de su clase, el jugador reparte **5 puntos libres** (rango 1-10 por atributo). También elige nombre, género y los colores de la familia (4.10.9).
 
-**Capacidad de carga:** `30 kg + (constitucion - 5) × 3 kg` [propuesta; el actual es 30 kg "modificado por Constitución" sin fórmula cerrada].
+**Capacidad de carga:** `60 kg + (constitucion - 5) × 3 kg` [propuesta; implementado: 60 kg fijos [balance], 30 → 60 en H5: con 30 kg (3 espadas) los viajes a vender se comían la jornada del dueño en cuanto la forja producía más].
 
 #### 4.2.3 Actitudes morales de la dinastía (3 ejes, -100 a +100)
 
@@ -218,7 +218,7 @@ Todo objeto producido tiene calidad: **normal (×1,0)**, **buena (×1,3)**, **ex
 
 | Entidad | Restricción | Límite base |
 |---|---|---|
-| Personaje (≥16 años) | Peso | 30 kg (ver 4.2.2) |
+| Personaje (≥16 años) | Peso | 60 kg [balance] (ver 4.2.2) |
 | Edificio productivo | Nº de pilas | 10 pilas; +10 con "Almacén ampliado" |
 | Residencia familiar | Nº de pilas | 50 pilas (almacén de la familia) |
 | Carreta [POST-MVP] | Peso | 50 / 150 / 300 kg según tipo |
@@ -239,11 +239,13 @@ Cada receta define: `id`, `building_type`, `zone_type` (puesto donde se hace), `
 
 | ID | Puesto | Entradas | Salida | Duración | Artesanía mín. |
 |---|---|---|---|---|---|
-| `forja_lingote` | horno | hierro ×2 | lingote_hierro ×1 | 1 h | 1 |
-| `forja_martillo` | yunque | lingote ×1 + carbón ×1 | martillo ×1 | 2 h | 2 |
-| `forja_espada` | yunque | lingote ×2 + carbón ×1 | espada ×1 | 3 h | 4 |
-| `forja_armadura` | yunque | lingote ×3 + carbón ×1 | armadura ×1 | 5 h | 6 |
-| `forja_acero` | horno | lingote ×2 + carbón ×2 | acero ×1 | 3 h | 6 (**crear**: la desbloquea "Forja de maestro") |
+| `forja_lingote` | horno | hierro ×2 | lingote_hierro ×1 | 1,3 h [balance] | 1 |
+| `forja_martillo` | yunque | lingote ×1 + carbón ×1 | martillo ×1 | 2,6 h [balance] | 2 |
+| `forja_espada` | yunque | lingote ×2 + carbón ×1 | espada ×1 | 3,9 h [balance] | 4 |
+| `forja_armadura` | yunque | lingote ×3 + carbón ×1 | armadura ×1 | 6,5 h [balance] | 6 |
+| `forja_acero` | horno | lingote ×2 + carbón ×2 | acero ×1 | 3,9 h [balance] | 6 (**crear**: la desbloquea "Forja de maestro") |
+
+> Duraciones [balance] ×1,3 en H5 (D14, bot `artisan_expert`): con las de antes el dueño solo producía tanto que un empleado no añadía nada; ahora la mano de obra del dueño es escasa y el empleado la multiplica. El novato sigue en su diana de H3.
 
 > Las duraciones actuales eran 3-7 segundos reales. Se pasan a horas de juego para que un empleado haga varias piezas por jornada (≈12 h de día) y no cientos. Ajustar en balance.
 
@@ -326,8 +328,8 @@ Cifras [balance].
 precio_compra  = round(precio_base × calidad × demanda × mod_estado_npc × mod_regulacion)
 precio_venta   = round(precio_compra × 0,70)
 demanda        ∈ [0,5 ; 2,0]   (por objeto)
-   - baja 0,1 [balance] por unidad que vende en el mercado cualquier actor (jugador, herrero rival, familias IA), unidad a unidad: vender n de golpe cobra lo mismo que vender n veces 1 (era 0,05; ajustado en H3 con artisan_novice)
-   - se recupera +0,1 por día hacia 1,0
+   - baja 0,04 [balance] por unidad que vende en el mercado cualquier actor (jugador, herrero rival, familias IA), unidad a unidad: vender n de golpe cobra lo mismo que vender n veces 1 (0,05 → 0,1 en H3 con artisan_novice; 0,1 → 0,04 en H5 con artisan_expert: con 0,1 el dueño solo ya llenaba el mercado y un empleado no tenía dónde vender)
+   - se recupera +0,4 [balance] por día hacia 1,0 (era +0,1; H5)
 ```
 
 Las entregas de encargos (4.5.6) no tocan la demanda del mercado. Si las ventas en mostrador la tocan está pendiente (D16).
@@ -433,7 +435,7 @@ Comprar en un puesto del mercado y que la mercancía **llegue sola al almacén**
 
 - Cada edificio tiene **un dueño** (ID de personaje o de familia) o ninguno (público).
 - **Todo negocio incluye vivienda básica**: no hace falta casa aparte al principio. Cuando hay pareja e hijos se necesita una casa separada [propuesta: penalización de moral/reputación si la familia ≥3 vive en el taller].
-- **Mantenimiento diario** por edificio (`upkeep` en la ficha; 2 oro la Forja [balance]) **entra en el MVP** (D12), desde H3: se cobra cada amanecer junto con los salarios, sale en el libro de cuentas y da sentido a no acumular edificios vacíos. Qué pasa si no se puede pagar está pendiente (D15).
+- **Mantenimiento diario** por edificio (`upkeep` en la ficha; 20 oro la Forja [balance]: era 2, subido en H5 para que los sumideros recurrentes pesen 30-60 % del margen bruto y el rival sin competencia no acumule oro) **entra en el MVP** (D12), desde H3: se cobra cada amanecer junto con los salarios, sale en el libro de cuentas y da sentido a no acumular edificios vacíos. Qué pasa si no se puede pagar está pendiente (D15).
 
 #### 4.6.4 Interiores
 
@@ -462,9 +464,11 @@ Comprar en un puesto del mercado y que la mercancía **llegue sola al almacén**
 
 | Rango | Salario/día | Eficiencia | Velocidad | Disponibilidad | Asciende |
 |---|---|---|---|---|---|
-| Aprendiz | 1 oro | 50 % | ×0,5 | Abundante | → Oficial tras **1 año** (8 días) trabajado si lealtad > 50 [balance] |
-| Oficial | 3 oro | 100 % | ×1,0 | Media | → Maestro tras **2 años** más (16 días) si lealtad > 70 [balance] |
-| Maestro | 6 oro | 150 % | ×1,5 | Escasa (requiere mejora "Taller de maestro") | — |
+| Aprendiz | 7 oro [balance] | 50 % | ×1,0 [balance] | Abundante | → Oficial tras **1 año** (8 días) trabajado si lealtad > 50 [balance] |
+| Oficial | 20 oro [balance] | 100 % | ×2,0 [balance] | Media | → Maestro tras **2 años** más (16 días) si lealtad > 70 [balance] |
+| Maestro | 40 oro [balance] | 150 % | ×3,0 [balance] | Escasa (requiere mejora "Taller de maestro") | — |
+
+> Salarios y velocidades [balance] cambiados en H5 (D14, bot `artisan_expert` con 0/1/2 empleados): antes 1/3/6 oro y ×0,5/×1/×1,5. Un empleado trabaja de alba a atardecer (~11 h) y el dueño también de noche; con ×1 un oficial aportaba un 30 % de lo que hace el dueño y no compensaba ni su salario. Con ×2 un oficial produce como el dueño en su jornada; con 20 oro/día los salarios + mantenimiento pesan un 30-60 % del margen bruto (4.19).
 
 - Al poder ascender, se avisa al jugador: aceptar (+15 lealtad, sube el salario) o rechazar (-10 lealtad).
 - Eficiencia efectiva: `base_rango × mod_lealtad × mod_estado (cabreado 0,8 / agradecido 1,1) × mod_equipo`. Siempre produce al menos 1 unidad por ciclo.
@@ -528,18 +532,18 @@ En el MVP, la forma de no cargar a mano es el **recado de entrega** (4.5.7, desd
 
 | Rama | Nivel 1 | Nivel 2 | Nivel 3 |
 |---|---|---|---|
-| Producción | Fuelle mejorado — 3 oro, 2 madera, 0,5 d → velocidad ×1,2 | Temple avanzado — 8 oro, 5 lingotes, 1 d → ×1,4 | Forja de maestro — 20 oro, Artesanía 6, 1 d → ×1,6 + receta acero |
-| Capacidad | Segundo yunque — 10 oro, 5 lingotes, 3 madera, 1 d → puesto yunque 2 | Almacén ampliado — 8 oro, 8 madera, 1 d → +10 pilas | Tercer horno — 25 oro, 10 lingotes, Artesanía 5, 1,5 d → puesto horno 2 |
-| Calidad | Acero templado — 5 oro, 3 carbón, 1 d → calidad +1 | Grabado fino — 12 oro, Artesanía 5, 1 d → +2 | Sello de maestro — 30 oro, Artesanía 7, 1,5 d → +3 y precio ×1,5 |
-| Comercio | Mostrador de venta — 6 oro, 4 madera, 1 d → ventas directas | Escaparate exterior — 15 oro, 3 lingotes, 1 d → clientes +30 % | Reputación comercial — 25 oro, requiere Fachada 1, 1 d → clientes +50 %, precio ×1,1 |
-| Personal | Dormitorio aprendiz — 8 oro, 6 madera, 1 d → +1 empleado | Comedor — 12 oro, 5 madera, 1,5 d → lealtad +10 | Taller de maestro — 30 oro, requiere Capacidad 2, 1,5 d → +1 empleado, permite maestros |
-| Fachada | Fachada de piedra — 15 oro, 10 piedra, 1,5 d → reputación +10 | Jardín y plantas — 20 oro, 5 madera, 1,5 d → +20 | Fachada noble — 40 oro, título Ciudadano, 2 d → +30 |
-| Seguridad | Cerradura reforzada — 5 oro, 2 lingotes, 1 d → protección 20 % | Guardia contratado — 15 oro, 1 d → 40 % | Caja fuerte — 30 oro, 8 lingotes, 1 d → 60 % |
-| Secretos | Doble contabilidad — 10 oro, 1 d → impuestos -10 %, riesgo inspección +5 % | Pasadizo oculto — 20 oro, 5 madera, Sigilo 3, requiere Seguridad 1, 1 d → escapar de una inspección | Contrabando — 35 oro, Sigilo 5, 1 d → beneficio ilegal ×2, riesgo +15 % |
+| Producción | Fuelle mejorado — 15 oro, 2 madera, 0,5 d → velocidad ×1,2 | Temple avanzado — 40 oro, 5 lingotes, 1 d → ×1,4 | Forja de maestro — 100 oro, Artesanía 6, 1 d → ×1,6 + receta acero |
+| Capacidad | Segundo yunque — 50 oro, 5 lingotes, 3 madera, 1 d → puesto yunque 2 | Almacén ampliado — 40 oro, 8 madera, 1 d → +10 pilas | Tercer horno — 125 oro, 10 lingotes, Artesanía 5, 1,5 d → puesto horno 2 |
+| Calidad | Acero templado — 25 oro, 3 carbón, 1 d → calidad +1 | Grabado fino — 60 oro, Artesanía 5, 1 d → +2 | Sello de maestro — 150 oro, Artesanía 7, 1,5 d → +3 y precio ×1,5 |
+| Comercio | Mostrador de venta — 30 oro, 4 madera, 1 d → ventas directas | Escaparate exterior — 75 oro, 3 lingotes, 1 d → clientes +30 % | Reputación comercial — 125 oro, requiere Fachada 1, 1 d → clientes +50 %, precio ×1,1 |
+| Personal | Dormitorio aprendiz — 40 oro, 6 madera, 1 d → +1 empleado | Comedor — 60 oro, 5 madera, 1,5 d → lealtad +10 | Taller de maestro — 150 oro, requiere Capacidad 2, 1,5 d → +1 empleado, permite maestros |
+| Fachada | Fachada de piedra — 75 oro, 10 piedra, 1,5 d → reputación +10 | Jardín y plantas — 100 oro, 5 madera, 1,5 d → +20 | Fachada noble — 200 oro, título Ciudadano, 2 d → +30 |
+| Seguridad | Cerradura reforzada — 25 oro, 2 lingotes, 1 d → protección 20 % | Guardia contratado — 75 oro, 1 d → 40 % | Caja fuerte — 150 oro, 8 lingotes, 1 d → 60 % |
+| Secretos | Doble contabilidad — 50 oro, 1 d → impuestos -10 %, riesgo inspección +5 % | Pasadizo oculto — 100 oro, 5 madera, Sigilo 3, requiere Seguridad 1, 1 d → escapar de una inspección | Contrabando — 175 oro, Sigilo 5, 1 d → beneficio ilegal ×2, riesgo +15 % |
 
 > Días de obra [balance]: la mitad que en el primer intento, para que con D1(b) (año = 8 días) una obra de nivel 3 no pare la producción casi medio año.
 >
-> Los costes en oro son muy bajos comparados con los precios de venta (una espada vale 65). **Se rebalancean con bots en H5 (D14)**, previsiblemente ×5-×10, contra las dianas de oro neto por día (4.19).
+> Costes en oro [balance] ×5 en H5 (D14, bot `artisan_expert`): la tabla ya da las cifras nuevas (antes 3, 8, 20…). Con ×5 el experto sigue en su diana de oro neto (4.19); más caro retrasa las primeras mejoras más allá del año 3.
 
 **Inspecciones (rama Secretos):** cada día, por edificio con mejoras de Secretos: `p = Σ inspection_risk × (1 - honestidad_dueño/200)`. Si te pillan: multa y juicio automático (ver 4.12). El "Pasadizo oculto" permite evitar una inspección.
 

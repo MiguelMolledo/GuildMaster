@@ -108,13 +108,14 @@ func _process(delta: float) -> void:
 		queue_redraw()
 
 
-## The master-touch window: the greybox block blinks towards the window colour; a sprite look is tinted instead.
+## The master-touch window: the greybox block blinks towards the window colour; a sprite look (its Greybox hidden or
+## gone) is tinted instead.
 func _blink() -> void:
 	if _look == null:
 		return
 	var k := 0.35 + 0.35 * sin(_t * TAU * blink_hz) if window_open and not touched else 0.0
 	var gb := _look.get_node_or_null("Greybox") as StationBlock
-	if gb != null:
+	if gb != null and gb.visible:
 		gb.highlight_color = window_color
 		gb.highlight = k
 	else:

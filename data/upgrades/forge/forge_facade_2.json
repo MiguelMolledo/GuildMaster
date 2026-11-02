@@ -5,7 +5,7 @@
   "branch": "facade",
   "level": 2,
   "cost": {
-    "gold": 20,
+    "gold": 100,
     "items": [
       {
         "item": "wood",

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://mg0yiefq18jk"]
+
+[ext_resource type="Texture2D" uid="uid://dc5wa0yt6qci1" path="res://assets/art/props/well.png" id="1_tex"]
+
+[node name="Well" type="Node2D"]
+editor_description = "Reused from Guild Renew (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). The sprite's base sits on Feet; move or swap it here."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -38)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-19, -39)

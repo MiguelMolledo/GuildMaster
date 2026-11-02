@@ -48,6 +48,7 @@ Un asset que no se anima pasa de `sprite` a `final` directamente.
 | tile | diamante 64×32 | — | — | `assets/art/tiles/<id>.png` |
 | prop | libre, pies marcados | 1 | opcional (`loop`) | `assets/art/props/<id>.png` |
 | icono | 32×32 | — | — | `assets/art/icons/<item_id>.png` |
+| icono pequeño (listas de la UI) | 16×16 | — | — | `assets/art/icons/small/<item_id>.png` (se deriva del de 32 con `tools/art/derivar_guild.py`) |
 | ui | 9-patch o pieza suelta | — | — | `assets/art/ui/…` |
 | vfx | libre | — | `loop` o `once` | `assets/art/vfx/<id>/` |
 | retrato | 64×64 | — | — | `assets/art/portraits/<id>.png` |

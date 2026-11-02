@@ -1,6 +1,6 @@
 {
   "_doc": "The living town (GDD 4.11, 4.5.4, 4.20; docs/contratos/h7_ciudad.md). Catalog.town. Durations in game minutes or days (1 year = 8 days, D1(b)); chances in [0, 1]. Marked [balance] in the GDD: adjusted with bots.",
-  "_routine_doc": "4.11.2. Townsfolk = living adults with a house, no job, of a household family (AI without profile). Dawn: leave home at the phase start + a delay drawn per person and day (leave_home_delay_minutes) and walk to the trade (occupation). Day: at the trade; every hour on the hour a chance (drawn per person and day in break_chance_per_hour) of a social break of break_minutes; at market_hour, market_visit_chance of strolling the market instead. Dusk: free time, chaining activities. Night: everybody home (whatever they were doing). retry_minutes: after a refused order. chat_wait_minutes: alone at a chat point this long, it gives up. greet: two walking townsfolk 1 tile apart stop (checked every check_every minutes, at most per_day each). child_stays_home: under majority_age they never go out [provisional].",
+  "_routine_doc": "4.11.2. Townsfolk = living adults with a house, no job, of a household family (AI without profile). Dawn: leave home at the phase start + a delay drawn per person and day (leave_home_delay_minutes) and walk to the trade (occupation). Day: at the trade; every hour on the hour a chance (drawn per person and day in break_chance_per_hour) of a social break of break_minutes; at market_hour, market_visit_chance of strolling the market instead. Dusk: free time, chaining activities. Night: everybody home (whatever they were doing). retry_minutes: after a refused order. chat_wait_minutes: alone at a chat point this long, it gives up. greet: two walking townsfolk 1 tile apart stop with greet.chance (checked every check_every minutes, at most per_day each; each pair tries once a day) [balance: with every crossing greeting, the start of dusk was all greetings]. child_stays_home: under majority_age they never go out [provisional].",
   "routine": {
     "leave_home_delay_minutes": [0, 60],
     "break_chance_per_hour": [0.15, 0.20],
@@ -9,7 +9,7 @@
     "market_visit_chance": 0.25,
     "retry_minutes": 30,
     "chat_wait_minutes": 30,
-    "greet": {"check_every": 5, "per_day": 2, "minutes": [15, 25]},
+    "greet": {"check_every": 5, "per_day": 1, "chance": 0.3, "minutes": [15, 25]},
     "child_stays_home": true
   },
   "_activities_doc": "4.11.3 (cosmetic in the MVP). minutes = [min, max] of game time; market: per_stall_minutes at each of `stalls` [min, max] stall service tiles. spot: where it happens (social_points of that kind on the map, the market stalls, the doors of the non-house buildings, or none = where it is). bubble: the bubble id over the head (game/visuals/bubbles/<id>.tscn). weight: base weight when choosing; favored_by: the stat that makes it 3x likelier at >= personality.stat_min. greet is not chosen: it happens when two cross.",

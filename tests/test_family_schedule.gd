@@ -1,4 +1,5 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## H8 programmable routine (GDD 4.10.8, criterion of 10/H8): with routines, 3 characters work a whole day without
 ## manual orders; a manual order interrupts the routine and then it is resumed. Also the Work directive of the spouse
 ## and the set_schedule order.
@@ -7,7 +8,7 @@ const FAM: String = "fam_0001"
 const HERO: String = "chr_0001"
 const FORGE: String = "bld_0001"
 
-var cat := Catalog.load_from()
+var cat := Pins.classic(Catalog.load_from())  # round pre-H5 figures (recipe durations): see tests/balance_pins.gd
 
 
 func _sim(s: int = 1) -> Sim:
@@ -112,3 +113,15 @@ func test_set_schedule_order() -> void:
 	if zone != "":
 		var job: Dictionary = st.buildings[FORGE]["zones"][zone]["job"]
 		eq(str(job["mode"]), "careful", "in the chosen mode")
+
+
+func test_no_orders_while_the_forge_cannot_work() -> void:
+	var sim := _sim()
+	sim.state.buildings[FORGE]["state"] = "damaged"  # e.g. unpaid upkeep (D15)
+	var refused := 0
+	for i: int in 6 * 60:
+		for e: Dictionary in sim.step():
+			if str(e["type"]) == "order_refused":
+				refused += 1
+	eq(refused, 0, "the routine does not ask to work at a damaged forge")
+	eq(Production.job_zone(sim, HERO, FORGE), "", "nobody works there")

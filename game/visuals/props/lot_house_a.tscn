@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://5kfq1pvs2v7l"]
+
+[ext_resource type="Texture2D" uid="uid://cv645ku8gw5yf" path="res://assets/art/buildings/house_a.png" id="1_tex"]
+
+[node name="LotHouseA" type="Node2D"]
+editor_description = "Filler house of the town's blocks (map tiles #): WorldView puts one on each free 3x4/4x3/3x3 lot, picked from filler.houses in data/view.json (and mirrored at random). Reused from Guild Renew (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). The sprite's base sits on Feet; move or swap it here."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -72)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-96, -136)

@@ -9,7 +9,17 @@ extends Node2D
 		queue_redraw()
 
 
+## Pixel art of the tile (a 64×32 diamond); null = the greybox colour.
+@export var texture: Texture2D:
+	set(v):
+		texture = v
+		queue_redraw()
+
+
 func _draw() -> void:
+	if texture != null:
+		draw_texture(texture, Vector2(-Iso.TILE_W / 2.0, -Iso.TILE_H / 2.0))
+		return
 	var d := PackedVector2Array([Vector2(0, -Iso.TILE_H / 2.0), Vector2(Iso.TILE_W / 2.0, 0), Vector2(0, Iso.TILE_H / 2.0),
 		Vector2(-Iso.TILE_W / 2.0, 0)])
 	draw_colored_polygon(d, color)

@@ -31,6 +31,29 @@ extends Node2D
 	set(v):
 		wall_height = v
 		_rebuild()
+@export_group("Art")
+## Pixel art of the room (tools/art/dibujar_pixel.py): floor = a 64×32 diamond; walls = one 32 px segment seen from
+## inside, for the back-right (ne) and back-left (nw) walls, plain and with the door. Empty = the greybox colours.
+@export var floor_texture: Texture2D:
+	set(v):
+		floor_texture = v
+		_rebuild()
+@export var wall_texture_ne: Texture2D:
+	set(v):
+		wall_texture_ne = v
+		_rebuild()
+@export var wall_texture_nw: Texture2D:
+	set(v):
+		wall_texture_nw = v
+		_rebuild()
+@export var door_texture_ne: Texture2D:
+	set(v):
+		door_texture_ne = v
+		_rebuild()
+@export var door_texture_nw: Texture2D:
+	set(v):
+		door_texture_nw = v
+		_rebuild()
 
 
 func _ready() -> void:
@@ -78,6 +101,7 @@ func build() -> void:
 		for c: int in size.x:
 			var f := KitFloor.new()
 			f.color = floor_color if (c + r) % 2 == 0 else floor_color.darkened(0.06)
+			f.texture = floor_texture
 			f.position = Iso.tile_to_world(Vector2i(c, r))
 			fl.add_child(f)
 	for c: int in size.x:
@@ -94,6 +118,10 @@ func _wall(t: Vector2i, side: String) -> KitWall:
 	w.door_color = door_color
 	w.door = t == door and ((side == "nw" and t.x == 0) or (side == "ne" and t.y == 0))
 	w.position = Iso.tile_to_world(t)
+	if w.door:
+		w.texture = door_texture_ne if side == "ne" else door_texture_nw
+	else:
+		w.texture = wall_texture_ne if side == "ne" else wall_texture_nw
 	if w.door:
 		w.name = "Door"
 	return w

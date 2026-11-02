@@ -1,0 +1,11 @@
+[gd_scene load_steps=1 format=3 uid="uid://jhcp6ulmd54h"]
+
+
+[node name="YardPlain" type="Node2D"]
+y_sort_enabled = true
+editor_description = "Filler yard: one map tile # left over around the houses (WorldView, filler.yards in data/view.json). Low props only, so they never hide the base of the building behind."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -20)

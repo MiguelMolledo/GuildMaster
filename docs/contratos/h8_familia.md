@@ -40,7 +40,7 @@ Sin campos nuevos en la raíz (`relationships` y `chronicle` ya existían). Migr
 ## Datos (`data/family.json` → `Catalog.family`)
 - `life`: `school_age 8`, `apprentice_age 12`, `majority_age 16`; `decline` (edades y atributos); `death {from_age 55,
   base 0.02, growth 1.25, constitution_step 0.05, certain_age 75}` (la fórmula de 4.2.5; pasa de 1 hacia los 73);
-  `ai_school_stat`, `adult_carry_weight 30`.
+  `ai_school_stat`, `adult_carry_weight 60` (la carga del protagonista desde el balance de H5).
 - `courtship`: `talk [3, 5]`, `gift {min 5, max 15, gold_per_point 2}`, `work_near 1`, `charisma_step 0.1`,
   `same_title_mult 1.15`, `propose_min 80`, `range_tiles 3`, `blocking_emotions`, `opposite_sex true`.
 - `children`: `first_child_days 2`, `daily_chance 0.10`, `between_days 8`, `max_per_couple 3`, `mother_max_age 45`,
@@ -152,6 +152,9 @@ adulto soltero) camina hasta la puerta de un candidato con quien aún pueda tene
   ficha. Quien entra en el grupo a los 16 recibe la rutina por defecto.
 - **La rutina vale también para el personaje seleccionado**: el sim no sabe quién está seleccionado; una orden manual
   manda hasta que queda libre.
+- **La rutina no pide trabajar donde no se puede** (edificio dañado por mantenimiento impagado, en obras, regla de
+  noche): espera sin dar órdenes. Con el balance de H5 (mantenimiento 20/día) la familia del bot `dynasty`, que no
+  comercia, se queda sin oro y la forja se daña; antes la rutina pedía `work_at` cada 30 min y era rechazada.
 - **Familiares con IA descansan de noche** (`ai_rest_phases`) hasta que lleguen las necesidades (POST-MVP).
 - **Cortejo entre sexos opuestos** (los hijos necesitan padre y madre); `opposite_sex` en datos.
 - **Los vecinos son solteros** (cada casa: dos adultos que no son pareja): son los candidatos de cortejo. No se casan

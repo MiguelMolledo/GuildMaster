@@ -1,9 +1,10 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## Staff (GDD 4.7.1-4.7.3, docs/contratos/h4_empleados.md, zone «plantilla»): hire, fire, promote, bonus and the dawn
 ## step (day counted, leavers, starts, real wages, loyalty, promotion offers). Quitting, theft and save/load with
 ## pending hires: test_econ_staff_odds.gd.
 
-var cat := Catalog.load_from()
+var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
 
 const PLAYER := "chr_0001"
 const FAM := "fam_0001"

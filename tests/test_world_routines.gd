@@ -1,4 +1,5 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## H4 · employees' routine (GDD 4.7.1, 4.11.2, 4.4.3; docs/contratos/h4_empleados.md, zone «cola»): from home to
 ## work at dawn with a drawn delay, by the real orders; back home at dusk (a running cycle ends first); never at work
 ## at night; hired today stays home; deterministic.
@@ -7,7 +8,7 @@ const FORGE: String = "bld_0001"
 const JOAN: String = "chr_0007"
 const AGNES: String = "chr_0008"
 
-var cat := Catalog.load_from()
+var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
 
 
 func _sim() -> Sim:

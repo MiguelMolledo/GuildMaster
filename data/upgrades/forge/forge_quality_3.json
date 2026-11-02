@@ -5,7 +5,7 @@
   "branch": "quality",
   "level": 3,
   "cost": {
-    "gold": 30,
+    "gold": 150,
     "items": []
   },
   "requires": {

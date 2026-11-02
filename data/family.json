@@ -19,7 +19,7 @@
     ],
     "death": {"from_age": 55, "base": 0.02, "growth": 1.25, "constitution_step": 0.05, "certain_age": 75},
     "ai_school_stat": "craft",
-    "adult_carry_weight": 30.0
+    "adult_carry_weight": 60.0
   },
   "courtship": {
     "_doc": "Cortejo por afinidad (4.10.1). talk: +[mín, máx] una vez por pretendiente y día; gift: +gold_value / gold_per_point, entre min y max (valor = precio de venta del regalo en el mercado); work_near: +1 por día trabajando a la vez en el mismo edificio. Multiplicador × (1 + (carisma − 5) × charisma_step) y × same_title_mult si las dos familias tienen el mismo título. propose_min: afinidad para proponer. range_tiles: distancia en casillas para hablar, regalar o proponer (a la persona en el mapa o a la puerta del edificio donde está). blocking_emotions: estados de 4.11.5 (H7) del pretendido hacia el actor que bloquean el cortejo. opposite_sex: provisional (los hijos necesitan padre y madre). affinity_max: tope.",
