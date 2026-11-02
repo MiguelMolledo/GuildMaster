@@ -276,6 +276,13 @@ def check_audio(rep):
     for ev in a.get("selected_only") or []:
         if not any(k == ev or k.startswith(ev + ".") for k in (a.get("events") or {})):
             rep.error(w, f"selected_only: {ev} no está en events")
+    pos = a.get("positional") or {}
+    for ev in pos.get("events") or []:
+        if not any(k == ev or k.startswith(ev + ".") for k in (a.get("events") or {})):
+            rep.error(w, f"positional: {ev} no está en events")
+    for k in ("max_distance", "attenuation"):
+        if k in pos and (not isinstance(pos[k], (int, float)) or pos[k] <= 0):
+            rep.error(w, f"positional.{k} debe ser un número > 0")
     ui = a.get("ui") or {}
     for k in ("button", "pause", "resume", "panel_open", "panel_close"):
         if ui.get(k) and ui[k] not in ids:

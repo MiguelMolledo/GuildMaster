@@ -17,7 +17,9 @@ extends Node
 ## close, "panel_open_by" adds a sound to one panel opening (the vendor, the crier), pausing / resuming has its own
 ## sound (not when a game starts nor while a screen of "screen_music" is shown), and while a screen of "screen_music" is shown its music plays instead of the
 ## phase's, with no ambient (the title theme on the new game screen). All from here: no panel calls the
-## AudioDirector. Buses are fixed in default_bus_layout.tres (Master, Music, Sfx, Ambient, Voice, Ui): each id goes to the bus of its section unless it names another. The pitch jitter is
+## AudioDirector. Events of "positional" (town life: dice, greetings) sound where they happen: at the view of their
+## person in the town (character, a or actor), heard as the camera nears it (max_distance, attenuation), and not while
+## an interior is shown. Buses are fixed in default_bus_layout.tres (Master, Music, Sfx, Ambient, Voice, Ui): each id goes to the bus of its section unless it names another. The pitch jitter is
 ## random, but only in the view. With the Dummy audio driver (headless runs) nothing is heard, so no playback starts:
 ## Godot leaks a playback stopped while quitting there (resources still in use at exit).
 
@@ -46,6 +48,10 @@ var _pause_frame: int = -100         # frame in which the pause / resume sound p
 var _screens: Dictionary = {}        # screen node instance id -> [node, screen name] (ui.screen_music)
 const EVENT_FIELDS: Array[String] = ["zone", "phase", "category", "stall", "activity", "def"]
 const SELECTED_FIELDS: Array[String] = ["actor", "a", "b", "character"]
+const POSITION_FIELDS: Array[String] = ["character", "a", "actor"]
+const POOL_2D: int = 6
+var _players_2d: Array[AudioStreamPlayer2D] = []
+var _next_2d: int = 0
 
 
 func _ready() -> void:
@@ -56,6 +62,11 @@ func _ready() -> void:
 		p.name = "Sfx%d" % i
 		add_child(p)
 		_players.append(p)
+	for i: int in POOL_2D:
+		var p2 := AudioStreamPlayer2D.new()
+		p2.name = "Sfx2D%d" % i
+		add_child(p2)
+		_players_2d.append(p2)
 	_music = AudioStreamPlayer.new()
 	_music.name = "Music"
 	add_child(_music)
@@ -109,8 +120,9 @@ func bus_of(id: String) -> String:
 	return str((config[sec][id] as Dictionary).get("bus", SECTIONS[sec]))
 
 
-## Plays the sound `id` once. False if it is unknown or has no file yet (silence).
-func play(id: String) -> bool:
+## Plays the sound `id` once (at `at`, a world position, if it is a Vector2). False if it is unknown, has no file yet
+## (silence) or is cooling down.
+func play(id: String, at: Variant = null) -> bool:
 	var stream := _stream(id)
 	if stream == null:
 		return false
@@ -121,6 +133,21 @@ func play(id: String) -> bool:
 		return false
 	_last[id] = now
 	if _dummy:
+		return true
+	if at is Vector2:
+		var q := _players_2d[_next_2d]
+		_next_2d = (_next_2d + 1) % _players_2d.size()
+		var pos_cfg: Dictionary = config.get("positional", {})
+		q.stream = stream
+		q.bus = _bus(bus_of(id))
+		q.volume_db = float(entry.get("volume_db", 0.0))
+		q.max_distance = float(pos_cfg.get("max_distance", 600.0))
+		q.attenuation = float(pos_cfg.get("attenuation", 1.5))
+		var j2 := clampf(float(entry.get("pitch_jitter", 0.0)), 0.0, 0.5)
+		q.pitch_scale = 1.0 + randf_range(-j2, j2)
+		q.global_position = at
+		q.play()
+		_log("play %s at %s (bus=%s, volume_db=%.1f)" % [id, at, q.bus, q.volume_db])
 		return true
 	var p := _players[_next]
 	_next = (_next + 1) % _players.size()
@@ -217,10 +244,35 @@ func on_sim_event(e: Dictionary) -> void:
 	var ids_ := sounds_for(e)
 	if ids_.is_empty() or not _concerns_player(e):
 		return
-	if str(e.get("type", "")) in (config.get("selected_only", []) as Array) and not _has_selected(e):
+	var type := str(e.get("type", ""))
+	if type in (config.get("selected_only", []) as Array) and not _has_selected(e):
 		return
+	var at: Variant = null
+	if type in ((config.get("positional", {}) as Dictionary).get("events", []) as Array):
+		at = _position_of(e)
+		if at == null:
+			return
 	for id: String in ids_:
-		play(id)
+		play(id, at)
+
+
+## Where an event happens in the town: the view of its person (null = not in the town view, or an interior is shown).
+func _position_of(e: Dictionary) -> Variant:
+	var app := get_parent()
+	if app == null or not app.has_method("world"):
+		return null
+	var bld: Variant = app.get("interior_building")
+	if bld != null and str(bld) != "":
+		return null
+	var w: Object = app.call("world")
+	if w == null or not w.has_method("view_of"):
+		return null
+	for f: String in POSITION_FIELDS:
+		if e.has(f):
+			var v: Variant = w.call("view_of", str(e[f]))
+			if v != null and v is Node2D:
+				return (v as Node2D).global_position
+	return null
 
 
 func _has_selected(e: Dictionary) -> bool:

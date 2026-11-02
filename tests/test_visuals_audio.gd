@@ -99,7 +99,7 @@ func test_event_sounds_by_value_and_lists() -> void:
 	eq(d.sound_for({"type": "work_done", "zone": "anvil"}), "sfx_hammer", "else the plain type")
 	eq(d.sound_for({"type": "phase_changed", "phase": "dawn"}), "sfx_rooster", "dawn")
 	eq(d.sound_for({"type": "phase_changed", "phase": "night"}), "", "night: none")
-	eq(d.sound_for({"type": "gold_changed", "category": "counter_sales"}), "sfx_sale", "counter sale")
+	eq(d.sound_for({"type": "gold_changed", "category": "counter_sales"}), "", "the counter sale sounds by counter_sold")
 	eq(d.sound_for({"type": "gold_changed", "category": "wages"}), "", "other gold changes are quiet")
 	eq(d.sounds_for({"type": "market_bought"}), ["sfx_coins", "voice_market_deal"] as Array[String], "a list")
 	d.free()
@@ -158,7 +158,10 @@ func test_title_screen_and_h7_sounds() -> void:
 		"sfx_cough", "the sick employee")
 	eq(d.sound_for({"type": "notice_added", "key": "notice.microevent.haggling_customer", "severity": "info"}),
 		"voice_haggle", "the haggling customer")
-	check("greeted" in (d.config["selected_only"] as Array), "greetings only for the selected person")
+	var pos: Array = (d.config["positional"] as Dictionary)["events"]
+	check("greeted" in pos and "town_state" in pos, "greetings and dice sound where they happen")
+	check(not "greeted" in (d.config["selected_only"] as Array), "not only for the selected person")
+	eq(d._position_of({"type": "greeted", "a": "x", "b": "y"}), null, "no town view: nowhere (silence)")
 	d.free()
 
 
