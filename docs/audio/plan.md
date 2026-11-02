@@ -97,3 +97,23 @@ un humano**: el owner debe oírlo antes de darlo por `final`.
 mejora, encargo entregado, aviso y objetivo cumplido. Con el driver Dummy (headless) el AudioDirector no arranca
 reproducciones: Godot 4.7 deja una reproducción colgada si se para mientras el juego se cierra
 («resources still in use at exit»), y con Dummy no se oye nada de todos modos.
+
+## Tanda 2 (2026-11-02): enganches y lo que faltaba
+
+Tope de la tanda: 8.000. **Gastados 428** (saldo: 73.704 usados de 121.034). Acumulado del tope de 20.000: 4.438.
+
+| Qué | Id | Disparo |
+|---|---|---|
+| Clic de todos los botones | `sfx_ui_click` | `ui.button`: el AudioDirector escucha `node_added` del árbol y conecta cada `BaseButton` |
+| Abrir / cerrar panel | `sfx_panel_open` ×2, `sfx_panel_close` ×2 | `ui.panels` (mercado, tablón, libro, producción, personal, almacén, mejoras, ayuda) |
+| Vendedor | `voice_market_vendor` ×5, `voice_market_deal` | al abrir el mercado; «¡Trato hecho!» al comprar; enfriamiento 20 s |
+| Pregonero | `voice_board_crier` ×3 | al abrir el tablón; enfriamiento 20 s |
+| Pausa / reanudar | `sfx_pause`, `sfx_resume` | cambio de `Game.paused` |
+| Pasos | `sfx_step` ×4 | `character_moved` de la persona seleccionada, cada 0,22 s como mucho |
+| Horno | `sfx_furnace` ×2 (empieza), `sfx_bellows` (termina) | `work_started.furnace`, `work_done.furnace` |
+| Toque de maestro conseguido | `sfx_master_touch` ×2 | `master_touch_done` (antes, el fuelle) |
+| Venta en el mostrador | `sfx_sale` ×2 | `market_sold` y `gold_changed.counter_sales` |
+| Amanecer | `sfx_rooster` ×2 | `phase_changed.dawn` |
+| Campana del mercado | `sfx_market_bell` ×2 | `phase_changed.day` |
+
+Descartado: 2 tomas de `sfx_sale` de 1,5 s (la campanilla quedaba cortada a todo volumen); se rehízo a 2,5 s.
