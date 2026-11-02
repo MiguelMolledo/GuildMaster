@@ -269,6 +269,12 @@
       "tema": "Estructura · galería",
       "decision": "game/tools/gallery.tscn (F6 o `-- --gallery`; con --smoke guarda reports/shots/gallery_NN.png): todas las escenas de game/visuals/ a escala real sobre la rejilla, cada una con un caminante de 48 px. Montado al empezar H5, antes de los visuales de mejoras.",
       "por_que": "Decisión C del artifact: primera comprobación al cambiar arte."
+    },
+    {
+      "fecha": "2026-11-01",
+      "tema": "Proceso: hitos en paralelo",
+      "decision": "Se trabaja en paralelo lo que no se pisa: hitos independientes en su propia rama y worktree (H8 en ../GuildMaster-h8, rama h8-familia, con su user:// aparte) y documentos de diseño (Gate de H6) mientras se cierra el hito en curso en main. El manager junta cada rama al cerrar. Máximo 4 subgrims a la vez por memoria.",
+      "por_que": "El owner: «paraleliza lo que consideres que no afecte a otros jobs». Sustituye a «un hito a la vez»."
     }
   ],
   "pendientes": [

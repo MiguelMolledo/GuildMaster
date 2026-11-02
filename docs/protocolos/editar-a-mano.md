@@ -33,6 +33,9 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Paneles de la UI | `game/ui/<panel>.tscn`; colores y fuentes comunes en `game/ui/greybox_theme.tres` |
 | Colores de las marcas (letreros, puertas, barras, día/noche) y zoom | `data/view.json` |
 | Colores del suelo del mapa | `data/tiles.json` (`color`) |
+| Ayuda en pantalla (F1 / «?») | Textos `help.*` de `i18n/strings.csv` (una línea por clave; el orden, en `LINES` de `game/ui/help_panel.gd`); aspecto en `game/ui/help_panel.tscn` |
+| Pista «cómo» del objetivo | `objective_how.<id del objetivo>` en `i18n/strings.csv` (`objective_how.free` cuando ya no quedan objetivos) |
+| Encuadre del interior | `interior.zoom` (entero) y `interior.center_offset` (píxeles) en `data/view.json` |
 
 Cada escena visual tiene dos `Marker2D`: **`Feet`** (el punto que se apoya en el suelo: centro de la casilla, centro
 de la huella o los pies) y **`Top`** (lo alto que es: ahí van el letrero, la barra o el nombre, y hasta ahí llega la

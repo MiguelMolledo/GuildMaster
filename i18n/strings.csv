@@ -547,3 +547,34 @@ title.patrician,patrician,patricio
 title.baron,baron,barón
 title.noble,noble,noble
 notice.inspection_debt,"{building}: you could not pay the whole fine, {debt} gold owed to the town","{building}: no has podido pagar toda la multa, debes {debt} de oro a la ciudad"
+hud.help_more, · F1: help, · F1: ayuda
+hud.help_button,Help (F1),Ayuda (F1)
+hud.help_button_tip,Controls and panels (F1),Controles y paneles (F1)
+help.title,"Controls (F1, ? or Esc to close)","Controles (F1, ? o Esc para cerrar)"
+help.map,In the town,En el pueblo
+help.map_select,Left click: pick someone of your family (red) or a building,Clic izquierdo: elegir a alguien de tu familia (de rojo) o un edificio
+help.map_right,Right click with someone picked: walk there · on a building: go in · on a stall or the board: go and open it,Clic derecho con alguien elegido: ir allí · sobre un edificio: entrar · sobre un puesto o el tablón: ir y abrirlo
+help.map_manage,Double click on your forge (or Manage): open it without walking there,Doble clic en tu forja (o Gestionar): abrirla sin ir andando
+help.map_camera,"WASD / arrows, middle button: move the camera · wheel: zoom","WASD / flechas, botón central: mover la cámara · rueda: acercar"
+help.map_time,Space: pause (orders given in pause wait in a numbered list) · 1/2/3: speed ×1/×2/×4,Espacio: pausa (las órdenes en pausa esperan en una lista numerada) · 1/2/3: velocidad ×1/×2/×4
+help.inside,Inside a building,Dentro de un edificio
+help.inside_work,"Right click on a station: work (fast, normal or careful) and choose what to make","Clic derecho en un puesto: trabajar (rápido, normal o con cuidado) y elegir qué hacer"
+help.inside_touch,Left click on the station while it blinks: master touch (better quality),Clic izquierdo en el puesto mientras parpadea: toque de maestro (mejor calidad)
+help.inside_exit,"Door, Exit or Esc: back to the town","Puerta, Salir o Esc: volver al pueblo"
+help.panels,Panels,Paneles
+help.panels_keys,"I: what the picked person carries · L: account book (debts and paying them, contracts, notices)","I: lo que lleva la persona elegida · L: libro de cuentas (deudas y pagarlas, encargos, avisos)"
+help.panels_forge,In your forge: Upgrades · Storage (Take / Leave) · Staff (hire) · Production (the employees' queue),En tu forja: Mejoras · Almacén (Coger / Dejar) · Empleados (contratar) · Producción (cola de los empleados)
+help.panels_esc,Esc closes the panel on top · the Objective panel (right) says what to do next,Esc cierra el panel de arriba · el panel Objetivo (derecha) dice qué hacer ahora
+help.money,How to earn gold,Cómo ganar oro
+help.money_how,"Buy iron at the Resources stall, smelt ingots in the furnace, forge at the anvil; sell at the Armory or deliver contracts from the board. The debt is due on day 8.","Compra hierro en el puesto Recursos, funde lingotes en el horno y forja en el yunque; vende en la Armería o cumple encargos del tablón. La deuda vence el día 8."
+objective_how.forge_sword,"Pick your character and right click on your Forge. Inside: right click on the Furnace → Work → Smelt ingot; with two ingots, right click on the Anvil → Forge sword.","Elige a tu personaje y clic derecho en tu Forja. Dentro: clic derecho en el Horno → Trabajar → Fundir lingote; con dos lingotes, clic derecho en el Yunque → Forjar espada."
+objective_how.sell_in_armory,"Storage → Take the sword. Leave (Esc) and right click on the Armory; inside, click on the counter → Sell.","Almacén → Coger la espada. Sal (Esc) y clic derecho en la Armería; dentro, clic en el mostrador → Vender."
+objective_how.carpenter_hammers,"Right click on the Contract board → Accept the carpenter's. Forge 2 hammers at the Anvil, Take them from the Storage and back at the board → Deliver.","Clic derecho en el Tablón de encargos → Aceptar el del carpintero. Forja 2 martillos en el Yunque, cógelos del Almacén y en el tablón → Entregar."
+objective_how.quality_contract,Accept a contract of «good» quality at the board. Work carefully and click the station while it blinks (master touch) to raise the quality.,Acepta en el tablón un encargo de calidad «buena». Trabaja con cuidado y haz clic en el puesto mientras parpadea (toque de maestro) para subir la calidad.
+objective_how.errand_purchase,"At a market stall, choose the quantity and «Send to… Forge»: a runner takes it to your storage (+20 %).","En un puesto del mercado, elige cantidad y «Enviar a… Forja»: un recadero lo lleva a tu almacén (+20 %)."
+objective_how.repay_debt,Book (L) → Debts and contracts → Pay. Sell and deliver contracts to gather the gold before day 8.,Libro (L) → Deudas y encargos → Pagar. Vende y cumple encargos para reunir el oro antes del día 8.
+objective_how.free,"Keep going: hire in Staff, fill the queue in Production and improve the forge in Upgrades.","Sigue a tu aire: contrata en Empleados, llena la cola en Producción y mejora la forja en Mejoras."
+ui.market.opens,opens at %02d:%02d,abre a las %02d:%02d
+ui.market.opens_tomorrow,opens tomorrow at %02d:%02d,abre mañana a las %02d:%02d
+hud.building_idle,Employees idle: %s · Manage → Production,Empleados parados: %s · Gestionar → Producción
+hud.building_idle_unknown,nothing they can do,no tienen nada que hacer

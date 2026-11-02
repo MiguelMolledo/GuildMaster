@@ -82,7 +82,7 @@ func refresh(force: bool = false) -> void:
 		return
 	_offers = SimQuery.market_offers(sim, actor, stall)
 	var g := gold()
-	var sig := str(_offers) + "|" + str(g) + "|" + tab + "|" + str(_qty)
+	var sig := str(_offers) + "|" + str(g) + "|" + tab + "|" + str(_qty) + "|" + str(Clock.day(int(sim.state.clock["minute"])))
 	if sig == _sig and not force:
 		return
 	_sig = sig
@@ -90,6 +90,10 @@ func refresh(force: bool = false) -> void:
 	var status := %StatusLabel as Label
 	status.visible = str(_offers.get("reason", "")) != ""
 	status.text = SimQuery.t_("reason." + str(_offers.get("reason", "")))
+	if str(_offers.get("reason", "")) == "market_closed":
+		var opens := SimQuery.market_opens_text(sim)
+		if opens != "":
+			status.text += " · " + opens   # H5: when to come back
 	if tab == "buy":
 		_fill_buy()
 	else:

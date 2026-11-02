@@ -23,32 +23,32 @@ wall_height = 36.0
 [node name="Stations" type="Node2D" parent="."]
 
 [node name="furnace" type="Marker2D" parent="Stations"]
-position = Vector2(32, 48)
+position = Vector2(0, 32)
 
 [node name="Furnace" parent="Stations/furnace" instance=ExtResource("2_furnace")]
 
 [node name="anvil" type="Marker2D" parent="Stations"]
-position = Vector2(128, 96)
+position = Vector2(96, 80)
 
 [node name="Anvil" parent="Stations/anvil" instance=ExtResource("3_anvil")]
 
 [node name="counter" type="Marker2D" parent="Stations"]
-position = Vector2(64, 160)
+position = Vector2(128, 160)
 
 [node name="Counter" parent="Stations/counter" instance=ExtResource("4_counter")]
 
 [node name="storage" type="Marker2D" parent="Stations"]
-position = Vector2(-64, 96)
+position = Vector2(32, 144)
 
 [node name="Storage" parent="Stations/storage" instance=ExtResource("5_storage")]
 
 [node name="anvil_2" type="Marker2D" parent="Stations"]
-position = Vector2(64, 128)
+position = Vector2(192, 96)
 
 [node name="Anvil" parent="Stations/anvil_2" instance=ExtResource("6_anvil_2")]
 
 [node name="furnace_2" type="Marker2D" parent="Stations"]
-position = Vector2(0, 64)
+position = Vector2(-96, 80)
 
 [node name="Furnace" parent="Stations/furnace_2" instance=ExtResource("7_furnace_2")]
 
@@ -56,17 +56,17 @@ position = Vector2(0, 64)
 
 [node name="forge_anvil_2" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(64, 128)
+position = Vector2(192, 96)
 editor_description = "forge_capacity_1: the station itself is the Marker2D Stations/anvil_2; put extra decoration here."
 
 [node name="forge_furnace_2" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(0, 64)
+position = Vector2(-96, 80)
 editor_description = "forge_capacity_3: the station itself is the Marker2D Stations/furnace_2; put extra decoration here."
 
 [node name="upgrade_storage_shelves" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(-160, 80)
+position = Vector2(-32, 144)
 editor_description = "forge_capacity_2 (shelves)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_storage_shelves"]
@@ -76,7 +76,7 @@ height = 10.0
 
 [node name="upgrade_counter" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(96, 176)
+position = Vector2(64, 192)
 editor_description = "forge_commerce_1 (sales counter)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_counter"]
@@ -116,7 +116,7 @@ height = 10.0
 
 [node name="forge_quench_trough" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(128, 64)
+position = Vector2(160, 80)
 editor_description = "forge_quality_1 (quench trough)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/forge_quench_trough"]
@@ -126,7 +126,7 @@ height = 10.0
 
 [node name="forge_engraving_bench" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(192, 96)
+position = Vector2(64, 64)
 editor_description = "forge_quality_2 (engraving bench)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/forge_engraving_bench"]
@@ -136,7 +136,7 @@ height = 10.0
 
 [node name="forge_master_seal" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(224, 112)
+position = Vector2(64, 32)
 editor_description = "forge_quality_3 (master seal)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/forge_master_seal"]
@@ -146,7 +146,7 @@ height = 10.0
 
 [node name="upgrade_double_ledger" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(64, 192)
+position = Vector2(-64, 32)
 editor_description = "forge_secrets_1 (double ledger)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_double_ledger"]
@@ -166,7 +166,7 @@ height = 10.0
 
 [node name="upgrade_smuggler_cache" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(-128, 96)
+position = Vector2(-160, 80)
 editor_description = "forge_secrets_3 (smuggler cache)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_smuggler_cache"]
@@ -176,7 +176,7 @@ height = 10.0
 
 [node name="upgrade_strongbox" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(-64, 128)
+position = Vector2(-32, 112)
 editor_description = "forge_security_3 (strongbox)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_strongbox"]
@@ -186,7 +186,7 @@ height = 10.0
 
 [node name="upgrade_bunks" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(192, 128)
+position = Vector2(-128, 64)
 editor_description = "forge_staff_1 (apprentice bunks)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_bunks"]
@@ -196,7 +196,7 @@ height = 10.0
 
 [node name="upgrade_dining_table" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(32, 112)
+position = Vector2(32, 80)
 editor_description = "forge_staff_2 (dining table)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_dining_table"]
@@ -206,7 +206,7 @@ height = 10.0
 
 [node name="upgrade_master_bench" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(160, 144)
+position = Vector2(96, 144)
 editor_description = "forge_staff_3 (master bench)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_master_bench"]

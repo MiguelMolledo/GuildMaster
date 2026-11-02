@@ -284,11 +284,16 @@ func _show_inspections() -> void:
 	l.text = t
 
 
+## Width of the wrapped lines of the detail (the panel's inner width): without it the panel grew past the screen.
+const WRAP_WIDTH: float = 440.0
+
+
 func _label(text: String, color: Color = Color(0, 0, 0, 0), wrap: bool = true) -> Label:
 	var l := Label.new()
 	l.text = text
 	if wrap:
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.custom_minimum_size = Vector2(WRAP_WIDTH, 0)   # a wrapped label without a width asks for one word per line
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	if color.a > 0.0:
 		l.add_theme_color_override("font_color", color)

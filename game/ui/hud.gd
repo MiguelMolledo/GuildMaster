@@ -10,6 +10,11 @@ extends CanvasLayer
 ## objectives, urgent notices popping up (a click centres the camera on the notice's building or person, or opens
 ## the book), the market panel (MarketPanel) and the board (BoardPanel), opened when the person who was sent to a
 ## stall or the board stands on its service tile, or from the counter of a shop.
+## H5 (polish): an own building with idle employees (the "zz" icon) says why in the picked building's panel; the
+## help overlay (HelpPanel: key F1 or "?", the Help button; ESC closes it) lists the controls and panels, and the
+## objective panel says how to do the current objective (objective_how.<id>) or, with the start objectives done,
+## what to try next (objective_how.free). Inside a building the objective panel moves to the left, under the selected person, so it does not cover the building's
+## panels (they open on the right).
 
 signal manage_pressed(building_id: String)
 signal focus_requested(target: String)  # a notice was clicked: centre on this building / person
@@ -49,6 +54,9 @@ signal focus_requested(target: String)  # a notice was clicked: centre on this b
 @onready var _market_panel: MarketPanel = %MarketPanel
 @onready var _board_panel: BoardPanel = %BoardPanel
 @onready var _ledger_panel: LedgerPanel = %LedgerPanel
+@onready var _objective_hint: Label = %ObjectiveHint
+@onready var _help_button: Button = %HelpButton
+@onready var _help_panel: HelpPanel = %HelpPanel
 
 var selected_id: String = ""
 var building_id: String = ""
@@ -65,7 +73,7 @@ var _last_minute: int = -1
 func _ready() -> void:
 	_game = get_node_or_null("/root/Game")
 	_paused_label.text = tr("hud.paused")
-	_help_label.text = tr("hud.help")
+	_help_label.text = tr("hud.help") + tr("hud.help_more")
 	_title_label.text = tr("app.title")
 	_pause_button.text = tr("hud.pause")
 	_pause_button.tooltip_text = tr("hud.pause_tip")
@@ -95,6 +103,9 @@ func _ready() -> void:
 	_ledger_button.tooltip_text = tr("hud.ledger_tip")
 	_ledger_button.pressed.connect(toggle_ledger)
 	_objective_title.text = tr("hud.objective")
+	_help_button.text = tr("hud.help_button")
+	_help_button.tooltip_text = tr("hud.help_button_tip")
+	_help_button.pressed.connect(toggle_help)
 	Events.sim_event.connect(_on_sim_event)
 	_refresh()
 
@@ -125,6 +136,8 @@ func _refresh() -> void:
 	if minute == _last_minute:
 		return
 	_last_minute = minute
+	if _building_panel.visible:
+		_update_building_panel()   # the idle reason follows the queue
 	var t := sim.now()
 	_time_label.text = tr("hud.time") % [t["hour"], t["minute"]]
 	_date_label.text = tr("hud.date") % [t["day"], tr("season." + str(t["season"])), t["year"]]
@@ -151,7 +164,7 @@ func set_building(id: String) -> void:
 
 func set_interior(open: bool) -> void:
 	interior_open = open
-	_help_label.text = tr("hud.help_interior" if open else "hud.help")
+	_help_label.text = tr("hud.help_interior" if open else "hud.help") + tr("hud.help_more")
 	_update_building_panel()
 
 
@@ -168,6 +181,11 @@ func _update_building_panel() -> void:
 	_building_name.text = SimQuery.building_label(sim.state, sim.catalog, building_id)
 	if own:
 		_building_hint.text = tr("hud.building_own")
+		# H5: the idle icon over the building, explained (why the employees stand still)
+		if not SimQuery.idle_employees(sim, building_id).is_empty():
+			var why := str(SimQuery.queue_view(sim, building_id).get("stalled", ""))
+			_building_hint.text = tr("hud.building_idle") % (SimQuery.reason_text(why) if why != "" else
+				tr("hud.building_idle_unknown"))
 	elif SimQuery.is_public(sim.state, sim.catalog, building_id):
 		_building_hint.text = tr("hud.building_public")
 	else:
@@ -184,8 +202,12 @@ func toggle_character_panel() -> void:
 		_character_panel.open()
 
 
-## ESC: closes the top panel (market, board, book, then the character panel). False if there was nothing to close.
+## ESC: closes the top panel (help, market, board, book, then the character panel). False if there was nothing to
+## close.
 func close_top() -> bool:
+	if _help_panel.visible:
+		toggle_help()
+		return true
 	for p: Control in [_market_panel, _board_panel, _ledger_panel]:
 		if p.visible:
 			p.call("close")
@@ -224,7 +246,9 @@ func _refresh_selected(sim: Sim) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if _game == null or not event is InputEventKey or not event.is_pressed() or event.is_echo():
 		return
-	if (event as InputEventKey).keycode == KEY_I:
+	if HelpPanel.is_help_key(event):
+		toggle_help()
+	elif (event as InputEventKey).keycode == KEY_I:
 		toggle_character_panel()
 	elif (event as InputEventKey).keycode == KEY_L:
 		toggle_ledger()
@@ -303,10 +327,15 @@ func _refresh_family(sim: Sim) -> void:
 	_objective_panel.visible = not ov.is_empty() and (current != "" or not (ov.get("done", []) as Array).is_empty())
 	if not _objective_panel.visible:
 		return
+	_set_hint(current if current != "" else "free")
+	_place_objective()
 	if current == "":
 		_objective_label.text = tr("hud.objectives_done")
 		_objective_progress.text = ""
+		_objective_progress.visible = false
+		_objective_panel.reset_size()
 		return
+	_objective_progress.visible = true
 	_objective_label.text = SimQuery.objective_name(sim.catalog, current)
 	var parts: PackedStringArray = []
 	for p: Dictionary in ov.get("progress", []):
@@ -315,8 +344,41 @@ func _refresh_family(sim: Sim) -> void:
 	_objective_panel.reset_size()
 
 
+## The objective panel: top right under the clock in the town; inside a building, top left under the selected
+## person's panel (the building's panels open on the right).
+func _place_objective() -> void:
+	var vp := get_viewport().get_visible_rect().size if is_inside_tree() else Vector2(960, 540)
+	var y := 122.0
+	var x := vp.x - _objective_panel.size.x - 6.0
+	if interior_open:
+		x = 6.0
+		y = (_selected_panel.position.y + _selected_panel.size.y + 6.0) if _selected_panel.visible else 6.0
+	if _objective_panel.position != Vector2(x, y):
+		_objective_panel.position = Vector2(x, y)
+
+
+## How to do objective `id` (objective_how.<id>; "free" = after the start objectives); hidden without a text.
+func _set_hint(id: String) -> void:
+	var key := "objective_how." + id
+	var text := tr(key)
+	_objective_hint.visible = text != key and text != ""
+	if _objective_hint.visible and _objective_hint.text != text:
+		_objective_hint.text = text
+		Log.info("Hud", "objective hint: %s" % id)
+
+
+func help_visible() -> bool:
+	return _help_panel.visible
+
+
+## F1, "?" or the "?" button: the help overlay on / off (it does not pause the game).
+func toggle_help() -> void:
+	_help_panel.toggle()
+
+
 ## Closes every panel (a new game was loaded).
 func close_panels() -> void:
+	_help_panel.visible = false
 	_pending_service = {}
 	for p: Control in [_market_panel, _board_panel, _ledger_panel]:
 		p.call("close")
