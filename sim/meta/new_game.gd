@@ -181,6 +181,8 @@ static func add_population(s: WorldState, catalog: Catalog, map: Dictionary) -> 
 			_set_kin(s, catalog, id, int(p.get("age", SaveFile.MIGRATION_AGE)), "artisan",
 				"blacksmith" if str(p.get("rank", "")) != "" else "", p.get("visual", {}))
 			out.append(id)
+	# H7: each adult townsperson gets its trade (a workplace of the map, docs/contratos/h7_ciudad.md).
+	TownLife.assign_occupations(s, catalog)
 	if OS.is_debug_build() and not out.is_empty():
 		print("[NewGame] población: %d vecinos en %d casas" % [out.size(), (map.get("population", []) as Array).size()])
 	return out
@@ -207,7 +209,8 @@ static func _add_character(s: WorldState, catalog: Catalog, fam: String, name: S
 	s.characters[id] = {"id": id, "name": name, "female": female, "family": fam, "controlled_by": ctrl, "alive": true,
 		"position": [int(pos[0]), int(pos[1])], "path": [], "move_progress": 0, "stats": stats.duplicate(),
 		"inventory": Inventory.create("weight", carry - worn), "equipment": eq, "location": "", "station": "",
-		"order_queue": [], "home": "", "rank": "", "job": null, "hire_bans": {}, "routine": {}}
+		"order_queue": [], "home": "", "rank": "", "job": null, "hire_bans": {}, "routine": {}, "occupation": "",
+		"town": {}}
 	var n := id.get_slice("_", 1).to_int()  # H8: tones and age until _set_kin gives the real ones
 	s.characters[id].merge(Kin.character_fields(Kin.birth_day_for(SaveFile.MIGRATION_AGE, int(s.clock["minute"]),
 		catalog.time), "artisan", "", n % int(catalog.family.get("visual", {}).get("hair_tones", 6)),

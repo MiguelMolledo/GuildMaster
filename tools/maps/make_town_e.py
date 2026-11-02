@@ -14,6 +14,10 @@ H3: the market in the plaza (3 outdoor stalls and the contract board, blocked ti
 H4: the townsfolk (GDD 4.11.1, 4.7.1): 8 houses (type house, 3x3, one per house block, door on the street or lane)
   and "population": one household family per house with 2 unemployed adults each (16 NPC: 9 apprentices,
   5 journeymen, 2 masters), the candidates to hire. NewGame.from_start and town_e_start place them.
+H7: the living town (GDD 4.11.3, docs/contratos/h7_ciudad.md): "social_points" (benches of 2, chat points of 3, a dice
+  point of 3 in the plaza; each slot a walkable tile) and "workplaces" (the townsfolk's trades: the 3 market stalls,
+  the armory, church, town hall, fields, river, well and gates; TownLife.assign_occupations gives them in this order to
+  the adult townsfolk by id). town_e_start is a v8 save.
 """
 import json, os
 
@@ -141,6 +145,41 @@ POP = [
     ("house_sw", "Pons", "#7a3a2a", "#b0b0a0", [("Ramon", False, "master", 7), ("Isabel", True, "apprentice", 1)]),
     ("house_se", "Mas", "#4a5a2a", "#d8b878", [("Berenguer", False, "journeyman", 5), ("Violant", True, "apprentice", 2)]),
 ]
+# H7 · social points (GDD 4.11.3) and the townsfolk's trades (workplaces), in the order they are handed out.
+town["social_points"] = [
+    {"id": "bench_w", "kind": "bench", "slots": [[15, 23], [15, 24]]},
+    {"id": "bench_e", "kind": "bench", "slots": [[24, 22], [24, 23]]},
+    {"id": "bench_n", "kind": "bench", "slots": [[24, 13], [24, 14]]},
+    {"id": "chat_well", "kind": "chat", "slots": [[18, 17], [20, 17], [21, 18]]},
+    {"id": "chat_board", "kind": "chat", "slots": [[17, 21], [17, 22], [18, 22]]},
+    {"id": "dice_plaza", "kind": "dice", "slots": [[21, 22], [22, 22], [22, 23]]},
+]
+town["workplaces"] = [
+    {"id": "gate_west", "kind": "tile", "tile": [1, 19]},
+    {"id": "stall_food", "kind": "stall", "tile": [19, 13], "stall": "food"},
+    {"id": "field_a", "kind": "tile", "tile": [3, 28]},
+    {"id": "field_b", "kind": "tile", "tile": [5, 30]},
+    {"id": "river_bank", "kind": "tile", "tile": [34, 10]},
+    {"id": "stall_materials", "kind": "stall", "tile": [22, 13], "stall": "materials"},
+    {"id": "gate_east", "kind": "tile", "tile": [38, 19]},
+    {"id": "well", "kind": "tile", "tile": [20, 19]},
+    {"id": "church_a", "kind": "tile", "tile": [18, 12]},
+    {"id": "stall_resources", "kind": "stall", "tile": [16, 13], "stall": "resources"},
+    {"id": "armory", "kind": "shop", "tile": [24, 16], "building": "armory", "stall": "armory"},
+    {"id": "church_b", "kind": "tile", "tile": [21, 12]},
+    {"id": "field_c", "kind": "tile", "tile": [2, 34]},
+    {"id": "field_d", "kind": "tile", "tile": [10, 35]},
+    {"id": "townhall_a", "kind": "tile", "tile": [18, 25]},
+    {"id": "townhall_b", "kind": "tile", "tile": [21, 25]},
+]
+WALK = set("=P,fb.")
+for sp in town["social_points"]:
+    for c, r in sp["slots"]:
+        assert rows[r][c] in WALK, ("social point not walkable", sp["id"], c, r, rows[r][c])
+for wp in town["workplaces"]:
+    c, r = wp["tile"]
+    assert rows[r][c] in WALK, ("workplace not walkable", wp["id"], c, r, rows[r][c])
+
 town["population"] = []
 n = 0
 for home, fam_name, c1, c2, members in POP:
@@ -158,7 +197,7 @@ def inv(limit_kind, limit, stacks=None):
     return {"limit_kind": limit_kind, "limit": limit, "stacks": stacks or []}
 
 def chr_(id_, name, female, family, ctrl, pos, craft=3, location="", stats=None, rank="", home="", age=25,
-         visual=None, profession="blacksmith"):
+         visual=None, profession="blacksmith", occupation=""):
     if stats is None:
         stats = {k: 3 for k in STATS}
         stats["craft"] = craft
@@ -172,7 +211,9 @@ def chr_(id_, name, female, family, ctrl, pos, craft=3, location="", stats=None,
             # v7 (H8, docs/contratos/h8_familia.md): born at the start of a calendar year (8 days), the scenario is day 0
             "birth_day": -age * 8, "death_day": -1, "class": "artisan", "profession": profession, "spouse": "",
             "parents": [], "children": [], "assigned": "", "directives": ["work"], "schedule": None,
-            "visual": visual or {"hair": n % 6, "skin": n % 4}, "life": {}}
+            "visual": visual or {"hair": n % 6, "skin": n % 4}, "life": {},
+            # v8 (H7, docs/contratos/h7_ciudad.md): the townsperson's trade and TownLife's memory
+            "occupation": occupation, "town": {}}
 
 def fam_(id_, name, ctrl, members, colors, gold, ai_profile=""):
     return {"id": id_, "name": name, "controlled_by": ctrl, "members": members, "colors": colors,
@@ -197,7 +238,7 @@ def bld_(id_, key, owner, zones, stacks=10, items=None):
 FORGE_ZONES = ("furnace", "anvil", "counter", "storage")
 
 scenario = {
-    "version": 7, "seed": "1", "rng_state": "",
+    "version": 8, "seed": "1", "rng_state": "",
     "meta": {"title": "Pueblo-calle", "description": "Arenero de pruebas: mapa town_e con la familia del jugador (3) y su forja (bld_0001), dos vecinos, el herrero rival Bernat en su forja (bld_0002, familia IA Ferrer), la Armería pública (bld_0003) y 16 vecinos sin empleo en sus 8 casas (bld_0004-0011, candidatos a empleado). Sin préstamo."},
     "map_id": "town_e",
     "clock": {"minute": 480},
@@ -230,9 +271,12 @@ scenario = {
     "ledger": {"entries": [], "summaries": {}}, "notices": [], "loans": {},
     "contracts": {"board": [], "accepted": [], "cooldowns": {}, "relations": {}}, "deliveries": [],
     "difficulty": "normal", "objectives": {}, "ending": {},
+    # v8 (H7): microevents and the shop counters
+    "microevents": {"active": [], "pending": [], "cooldowns": {}, "last_day": {}}, "town": {"counters": {}},
 }
 # H4 · the townsfolk: a household family and a house per entry of the population, its members inside (at home).
 nid = scenario["next_ids"]
+widx = 0  # H7: the trades in map order to the townsfolk by id (TownLife.assign_occupations does the same)
 for hh in town["population"]:
     fid, bid = "fam_%04d" % nid["fam"], "bld_%04d" % nid["bld"]
     nid["fam"] += 1
@@ -243,7 +287,9 @@ for hh in town["population"]:
         nid["chr"] += 1
         scenario["characters"][cid] = chr_(cid, p["name"], p["female"], fid, "ai", town["buildings"][hh["home"]]["door"],
                                            location=bid, stats=dict(p["stats"]), rank=p["rank"], home=bid,
-                                           age=p["age"], visual=dict(p["visual"]))
+                                           age=p["age"], visual=dict(p["visual"]),
+                                           occupation=town["workplaces"][widx]["id"])
+        widx += 1
         members.append(cid)
     scenario["families"][fid] = fam_(fid, hh["family_name"], "ai", members, hh["colors"], hh["gold"])
     scenario["buildings"][bid] = bld_(bid, hh["home"], fid, (), stacks=0)

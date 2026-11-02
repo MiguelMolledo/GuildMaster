@@ -1,0 +1,24 @@
+{
+  "id": "TODO",
+  "scope": "building",
+  "text_key": "mev.TODO",
+  "trigger": {
+    "phase": "day",
+    "conditions": [],
+    "chance_per_day": 1.0
+  },
+  "cooldown_days": 8,
+  "timeout_hours": 2,
+  "default_choice": "a",
+  "choices": [
+    {
+      "id": "a",
+      "text_key": "mev.TODO.a",
+      "effects": [
+        {
+          "kind": "nothing"
+        }
+      ]
+    }
+  ]
+}

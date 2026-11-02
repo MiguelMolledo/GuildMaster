@@ -1,9 +1,9 @@
 {
-  "_doc": "Difficulty levers (GDD 4.23, D7) [balance]. Chosen when the game is created and saved in WorldState.difficulty. Each lever enters with its system; H3: start_debt (GDD 4.16, the loan of the start), rival_craft and rival_sell_min_demand (the rival smith, GDD 4.5.5: they replace the profile's figures), buy_price_mult (market purchase price). The targets of data/targets.json are those of normal.",
+  "_doc": "Difficulty levers (GDD 4.23, D7) [balance]. Chosen when the game is created and saved in WorldState.difficulty. Each lever enters with its system; H3: start_debt (GDD 4.16, the loan of the start), rival_craft and rival_sell_min_demand (the rival smith, GDD 4.5.5: they replace the profile's figures), buy_price_mult (market purchase price). The targets of data/targets.json are those of normal. H7: microevent_chance (GDD 4.20, 4.23: x0.7 / x1 / x1.3 the daily chance of a microevent).",
   "default": "normal",
   "levels": {
-    "easy":   {"name_key": "difficulty.easy",   "start_debt": 100, "rival_craft": 4, "rival_sell_min_demand": 0.9, "buy_price_mult": 0.9},
-    "normal": {"name_key": "difficulty.normal", "start_debt": 200, "rival_craft": 5, "rival_sell_min_demand": 0.8, "buy_price_mult": 1.0},
-    "hard":   {"name_key": "difficulty.hard",   "start_debt": 300, "rival_craft": 6, "rival_sell_min_demand": 0.7, "buy_price_mult": 1.1}
+    "easy": {"name_key": "difficulty.easy", "start_debt": 100, "rival_craft": 4, "rival_sell_min_demand": 0.9, "buy_price_mult": 0.9, "microevent_chance": 0.7},
+    "normal": {"name_key": "difficulty.normal", "start_debt": 200, "rival_craft": 5, "rival_sell_min_demand": 0.8, "buy_price_mult": 1.0, "microevent_chance": 1.0},
+    "hard": {"name_key": "difficulty.hard", "start_debt": 300, "rival_craft": 6, "rival_sell_min_demand": 0.7, "buy_price_mult": 1.1, "microevent_chance": 1.3}
   }
 }

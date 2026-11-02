@@ -89,7 +89,7 @@ static func born(sim: Sim, mother: String, father: String) -> String:
 		"position": [int(pos[0]), int(pos[1])], "path": [], "move_progress": 0, "stats": stats,
 		"inventory": Inventory.create("weight", 0.0), "equipment": {"tool": null, "clothes": null, "accessory": null},
 		"location": home, "station": "", "order_queue": [], "home": "", "rank": "", "job": null, "hire_bans": {},
-		"routine": {}}
+		"routine": {}, "occupation": "", "town": {}}
 	st.characters[id].merge(Kin.character_fields(today, str(st.families.get(fam, {}).get("class", f.get("class", "artisan"))),
 		"", int(vis["hair"]), int(vis["skin"]), cfg.get("directives", {}).get("default", ["work"])))
 	st.characters[id]["parents"] = [father, mother]

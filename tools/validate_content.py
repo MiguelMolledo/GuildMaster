@@ -21,6 +21,11 @@ Comprueba lo que carga el juego en data/ (los ficheros y carpetas que empiezan p
   - H5: data/upgrade_rules.json y data/upgrades/<árbol>/ (rama y nivel, coste, requisitos que existen en su árbol,
     nivel N pide el N-1, sin ciclos, efectos de tipos conocidos, puestos nuevos como un puesto del edificio, recetas
     desbloqueadas coherentes, visuales como ids) y, en los escenarios v6, mejoras, obra en curso e inspecciones;
+  - H8: data/family.json, data/goals.json, data/score.json y, en los escenarios v7, edades y parentesco;
+  - H7: data/town.json (rutina, actividades, emociones, acciones, mostrador, microeventos, población), data/microevents/
+    (opciones, opción por defecto, efectos y condiciones conocidos), data/social_phrases.json, la palanca
+    microevent_chance, los puntos sociales y oficios de cada mapa y, en los escenarios v8, oficio, memoria de la
+    ciudad, emociones y microeventos;
   - claves de texto (name_key) en i18n/strings.csv con inglés y español;
   - estructura (tools/validate_structure.py): data/ sin rutas a ficheros, nombres de assets en minúsculas, inventario
     (estado >= sprite con su fichero), una escena en game/visuals/ por edificio, interior con un Marker2D por puesto y
@@ -49,7 +54,8 @@ STALLS = {"resources", "food", "materials", "armory", "clothier", "apothecary", 
 SLOTS = {"tool", "clothes", "accessory"}
 PARCEL_TYPES = {"production", "rustic", "housing", "government"}
 DIFFICULTIES = ["easy", "normal", "hard"]
-DIFF_LEVERS = {"start_debt": int, "rival_craft": int, "rival_sell_min_demand": (int, float), "buy_price_mult": (int, float)}
+DIFF_LEVERS = {"start_debt": int, "rival_craft": int, "rival_sell_min_demand": (int, float), "buy_price_mult": (int, float),
+               "microevent_chance": (int, float)}
 STATS = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution", "rhetoric", "stealth"]
 MATCH_OPS = {"gte", "lte", "ne"}
 ZONE_KINDS = {"craft", "sales", "storage", "service"}
@@ -757,6 +763,223 @@ def check_h8_scenario(w, d, buildings, tones, rep):
             rep.error(w, f"{fid}: generation debe ser un entero >= 1")
 
 
+EMOTIONS = {"grateful", "offended", "angry", "scared"}  # the 4 of the MVP (GDD 4.11.5)
+ACTIVITIES = {"bench", "chat", "market", "greet", "observe", "dice"}  # GDD 4.11.3
+ACTIVITY_SPOTS = {"bench", "chat", "dice", "stalls", "doors", "none"}
+SOCIAL_KINDS = {"bench", "chat", "dice"}
+WORKPLACE_KINDS = {"tile", "stall", "shop"}
+MEV_EFFECTS = {"sell", "skill_check", "leave", "emotion", "relation", "pay", "loyalty", "absent", "refund_wage", "steal",
+               "nothing"}
+MEV_CONDITIONS = {"counter_sales", "has_employees", "has_goods"}
+MEV_SCOPES = {"building", "character", "family"}
+TOWN_STATES = {"home", "walking", "working", "market", "strolling", "social", "customer"}
+
+
+def _range_ok(v, lo=0):
+    return isinstance(v, list) and len(v) == 2 and all(isinstance(x, (int, float)) for x in v) and lo <= v[0] <= v[1]
+
+
+def check_h7(maps_raw, strings, rep):
+    """H7 (GDD 4.11, 4.5.4, 4.20, docs/contratos/h7_ciudad.md): data/town.json, data/microevents/, data/social_phrases.json
+    y los puntos sociales y oficios de los mapas. Devuelve {map_id: set(ids de oficio)} para los escenarios."""
+    w = "town.json"
+    town = load_json(os.path.join(DATA, "town.json"), rep) or {}
+    for k in ("routine", "activities", "personality", "emotions", "actions", "skill_check", "counter", "microevents",
+              "population"):
+        if k not in town:
+            rep.error(w, f"falta {k}")
+    ro = town.get("routine", {})
+    for k in ("leave_home_delay_minutes", "break_chance_per_hour", "break_minutes"):
+        if not _range_ok(ro.get(k)):
+            rep.error(w, f"routine.{k} debe ser [mín, máx]")
+    if any(not 0 <= x <= 1 for x in ro.get("break_chance_per_hour", [0, 0])) or not 0 <= ro.get("market_visit_chance", -1) <= 1:
+        rep.error(w, "routine: las probabilidades van en [0, 1]")
+    acts = town.get("activities", {})
+    if set(acts) != ACTIVITIES:
+        rep.error(w, f"activities debe tener {sorted(ACTIVITIES)}")
+    for a, d in acts.items():
+        if a == "market":
+            if not _range_ok(d.get("per_stall_minutes"), 1) or not _range_ok(d.get("stalls"), 1):
+                rep.error(w, "activities.market: per_stall_minutes y stalls [mín, máx]")
+        elif not _range_ok(d.get("minutes"), 1):
+            rep.error(w, f"activities.{a}.minutes debe ser [mín, máx] en minutos de juego")
+        if d.get("spot") not in ACTIVITY_SPOTS:
+            rep.error(w, f"activities.{a}.spot desconocido {d.get('spot')}")
+        if d.get("favored_by") and d["favored_by"] not in STATS:
+            rep.error(w, f"activities.{a}.favored_by debe ser un atributo")
+        if not ID_RE.match(str(d.get("bubble", ""))):
+            rep.error(w, f"activities.{a}.bubble debe ser un id")
+        check_text(w, f"activity.{a}", strings, rep)
+    emo = town.get("emotions", {})
+    if set(emo) != EMOTIONS:
+        rep.error(w, f"emotions debe tener los 4 del MVP {sorted(EMOTIONS)}")
+    for e, d in emo.items():
+        check_text(w, d.get("name_key"), strings, rep)
+        if not _range_ok(d.get("duration_days")) or d["duration_days"][0] <= 0:
+            rep.error(w, f"emotions.{e}.duration_days debe ser [mín, máx] > 0 (días)")
+        for k in ("buy_mult", "sell_mult", "employee_mult"):
+            if not isinstance(d.get(k), (int, float)) or d[k] <= 0:
+                rep.error(w, f"emotions.{e}.{k} debe ser > 0")
+        if not ID_RE.match(str(d.get("icon", ""))):
+            rep.error(w, f"emotions.{e}.icon debe ser un id")
+    for pair in town.get("incompatible", []):
+        if not (isinstance(pair, list) and len(pair) == 2 and all(x in EMOTIONS for x in pair)):
+            rep.error(w, f"incompatible: {pair} no es un par de emociones del MVP")
+    for a in ("talk", "gift", "flatter", "insult", "threaten"):
+        if a not in town.get("actions", {}):
+            rep.error(w, f"actions.{a} falta")
+        check_text(w, f"npc_action.{a}", strings, rep)
+    for a in ("flatter", "threaten"):
+        d = town.get("actions", {}).get(a, {})
+        if d.get("actor_stat") not in STATS or d.get("target_stat") not in STATS:
+            rep.error(w, f"actions.{a}: actor_stat y target_stat deben ser atributos")
+    for a, k in (("insult", "emotion"), ("threaten", "success_emotion"), ("threaten", "fail_emotion")):
+        if town.get("actions", {}).get(a, {}).get(k) not in EMOTIONS:
+            rep.error(w, f"actions.{a}.{k} debe ser una emoción del MVP")
+    co = town.get("counter", {})
+    if not _range_ok(co.get("interval_hours")) or co["interval_hours"][0] <= 0:
+        rep.error(w, "counter.interval_hours debe ser [mín, máx] > 0 (horas de juego)")
+    if any(p not in PHASES for p in co.get("phases", [])):
+        rep.error(w, "counter.phases: fases del día")
+    mv = town.get("microevents", {})
+    if not 0 <= mv.get("base_chance", -1) <= 1 or not isinstance(mv.get("max_per_family_day"), int):
+        rep.error(w, "microevents: base_chance en [0, 1] y max_per_family_day entero")
+    po = town.get("population", {})
+    for k in ("min_adults", "max_total", "min_singles", "marriage_min_age", "house_capacity"):
+        if not isinstance(po.get(k), int) or po[k] < 0:
+            rep.error(w, f"population.{k} debe ser un entero >= 0")
+    if not po.get("min_adults", 0) <= po.get("max_total", 0):
+        rep.error(w, "population: min_adults <= max_total")
+    if not _range_ok(po.get("newcomer_age"), 16):
+        rep.error(w, "population.newcomer_age debe ser [mín, máx] de adultos")
+    # microevents
+    mevs = load_kind("microevents", rep)
+    if not mevs:
+        rep.error("microevents", "no hay microeventos (GDD 4.20: los 3 del MVP)")
+    for id_, m in mevs.items():
+        wm = f"microevents/{id_}"
+        check_text(wm, m.get("text_key"), strings, rep)
+        check_text(wm, f"notice.microevent.{id_}", strings, rep)
+        if m.get("scope") not in MEV_SCOPES:
+            rep.error(wm, f"scope desconocido {m.get('scope')}")
+        tr = m.get("trigger", {})
+        if tr.get("phase") not in PHASES:
+            rep.error(wm, "trigger.phase debe ser una fase del día")
+        if any(c not in MEV_CONDITIONS for c in tr.get("conditions", [])):
+            rep.error(wm, f"trigger.conditions: conocidas {sorted(MEV_CONDITIONS)}")
+        if not isinstance(tr.get("chance_per_day"), (int, float)) or tr["chance_per_day"] < 0:
+            rep.error(wm, "trigger.chance_per_day debe ser >= 0")
+        for k in ("cooldown_days", "timeout_hours"):
+            if not isinstance(m.get(k), (int, float)) or m[k] <= 0:
+                rep.error(wm, f"{k} debe ser > 0 (días / horas de juego)")
+        ids = []
+        for c in m.get("choices", []):
+            ids.append(c.get("id"))
+            check_text(wm, c.get("text_key"), strings, rep)
+            _check_mev_effects(wm, c.get("effects", []), rep)
+        _check_mev_effects(wm, m.get("unattended_effects", []), rep)
+        if len(ids) != len(set(ids)) or not ids:
+            rep.error(wm, "opciones con id único (al menos una)")
+        if m.get("default_choice") not in ids:
+            rep.error(wm, f"default_choice {m.get('default_choice')} no es una opción")
+    # phrases
+    ph = load_json(os.path.join(DATA, "social_phrases.json"), rep) or {}
+    for group in ("activities", "phases", "professions"):
+        for k, keys in ph.get(group, {}).items():
+            if not keys:
+                rep.error("social_phrases.json", f"{group}.{k} vacío")
+            for key in keys:
+                check_text("social_phrases.json", key, strings, rep)
+    for a in ACTIVITIES:
+        if len(ph.get("activities", {}).get(a, [])) < 10:
+            rep.error("social_phrases.json", f"activities.{a}: 10-15 frases (GDD 4.11.3)")
+    # maps
+    out = {}
+    for mid, m in maps_raw.items():
+        wmap = f"maps/{mid}"
+        rows = m.get("rows", [])
+        walk = set("=P,fb.")
+        def walkable(c, r):
+            return 0 <= r < len(rows) and 0 <= c < len(rows[r]) and rows[r][c] in walk
+        for sp in m.get("social_points", []):
+            if sp.get("kind") not in SOCIAL_KINDS:
+                rep.error(wmap, f"social_points/{sp.get('id')}: kind desconocido {sp.get('kind')}")
+            if not sp.get("slots"):
+                rep.error(wmap, f"social_points/{sp.get('id')}: sin huecos")
+            for t in sp.get("slots", []):
+                if not (isinstance(t, list) and len(t) == 2 and walkable(*t)):
+                    rep.error(wmap, f"social_points/{sp.get('id')}: hueco {t} no transitable")
+        ids = set()
+        for wp in m.get("workplaces", []):
+            wid = wp.get("id")
+            if wid in ids or not ID_RE.match(str(wid)):
+                rep.error(wmap, f"workplaces/{wid}: id snake_case único")
+            ids.add(wid)
+            check_text(wmap, f"workplace.{wid}", strings, rep)
+            if wp.get("kind") not in WORKPLACE_KINDS:
+                rep.error(wmap, f"workplaces/{wid}: kind desconocido {wp.get('kind')}")
+            t = wp.get("tile")
+            if not (isinstance(t, list) and len(t) == 2 and walkable(*t)):
+                rep.error(wmap, f"workplaces/{wid}: casilla {t} no transitable")
+            if wp.get("stall") is not None and wp["stall"] not in STALLS:
+                rep.error(wmap, f"workplaces/{wid}: puesto desconocido {wp['stall']}")
+            if wp.get("kind") == "shop" and wp.get("building") not in m.get("buildings", {}):
+                rep.error(wmap, f"workplaces/{wid}: edificio {wp.get('building')} no está en el mapa")
+        if m.get("population") and len(ids) < 1:
+            rep.error(wmap, "un mapa con población necesita oficios (workplaces)")
+        out[mid] = ids
+    return out
+
+
+def _check_mev_effects(w, effects, rep):
+    for e in effects:
+        if e.get("kind") not in MEV_EFFECTS:
+            rep.error(w, f"efecto desconocido {e.get('kind')}")
+        if e.get("kind") == "skill_check":
+            if e.get("actor_stat") not in STATS or (e.get("target_stat") not in STATS and not isinstance(e.get("target_value"), int)):
+                rep.error(w, "skill_check: actor_stat y target_stat (atributos) o target_value (entero)")
+        if e.get("kind") == "emotion" and e.get("state") not in EMOTIONS:
+            rep.error(w, f"emotion: estado desconocido {e.get('state')}")
+        if e.get("kind") in ("absent", "steal") and not _range_ok(e.get("days") or e.get("units")):
+            rep.error(w, f"{e.get('kind')}: [mín, máx]")
+        _check_mev_effects(w, e.get("success", []), rep)
+        _check_mev_effects(w, e.get("fail", []), rep)
+
+
+def check_h7_scenario(w, d, workplaces, rep):
+    """H7: en escenarios v8, oficio (uno del mapa o ""), memoria de la ciudad, emociones (estados del MVP) y
+    microeventos (activos con ficha, opciones y familia que existen)."""
+    chars, fams = d.get("characters") or {}, d.get("families") or {}
+    wps = workplaces.get(d.get("map_id", ""), set())
+    for cid, ch in chars.items():
+        occ = ch.get("occupation")
+        if not isinstance(occ, str) or (occ and occ not in wps):
+            rep.error(w, f"{cid}: occupation {occ!r} no es un oficio del mapa")
+        if not isinstance(ch.get("town"), dict):
+            rep.error(w, f"{cid}: town debe ser un diccionario")
+        elif ch["town"].get("state") and ch["town"]["state"] not in TOWN_STATES:
+            rep.error(w, f"{cid}: town.state desconocido {ch['town']['state']}")
+    for cid, lst in (d.get("emotions") or {}).items():
+        if cid not in chars:
+            rep.error(w, f"emotions: {cid} no es un personaje")
+        for e in lst:
+            if e.get("state") not in EMOTIONS:
+                rep.error(w, f"emotions/{cid}: estado desconocido {e.get('state')}")
+    mv = d.get("microevents")
+    if not isinstance(mv, dict) or any(k not in mv for k in ("active", "pending", "cooldowns", "last_day")):
+        rep.error(w, "microevents debe ser {active, pending, cooldowns, last_day}")
+        return
+    for m in mv["active"]:
+        if not os.path.exists(os.path.join(DATA, "microevents", str(m.get("def")) + ".json")):
+            rep.error(w, f"microevents: ficha desconocida {m.get('def')}")
+        if m.get("family") not in fams:
+            rep.error(w, f"microevents/{m.get('id')}: familia desconocida {m.get('family')}")
+        if m.get("default") not in m.get("choices", []):
+            rep.error(w, f"microevents/{m.get('id')}: la opción por defecto no está entre las opciones")
+    if not isinstance(d.get("town"), dict):
+        rep.error(w, "town debe ser un diccionario")
+
+
 def check_h5(items, recipes, buildings, ranks, strings, rep):
     """H5 (GDD 4.8, docs/contratos/h5_mejoras.md): data/upgrade_rules.json y cada mejora (rama y nivel, coste,
     requisitos que existen en su árbol, nivel N pide el N-1, sin ciclos, efectos de tipos conocidos con su valor,
@@ -1080,6 +1303,7 @@ def main():
     ranks, roles = check_h4(buildings, recipes, maps, strings, rep)
     check_h5(items, recipes, buildings, ranks, strings, rep)
     tones = check_h8(strings, rep)
+    workplaces = check_h7(load_kind("maps", rep), strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")
@@ -1148,6 +1372,8 @@ def main():
             check_h5_scenario(f"scenarios/{name}", d, buildings, rep)
         if d.get("version", 0) >= 7:
             check_h8_scenario(f"scenarios/{name}", d, buildings, tones, rep)
+        if d.get("version", 0) >= 8:
+            check_h7_scenario(f"scenarios/{name}", d, workplaces, rep)
         if d.get("version", 0) >= 4:
             for fid, fam in (d.get("families") or {}).items():
                 if not isinstance(fam.get("gold"), int) or fam["gold"] < 0:

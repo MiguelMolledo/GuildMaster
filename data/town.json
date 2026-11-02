@@ -1,0 +1,69 @@
+{
+  "_doc": "The living town (GDD 4.11, 4.5.4, 4.20; docs/contratos/h7_ciudad.md). Catalog.town. Durations in game minutes or days (1 year = 8 days, D1(b)); chances in [0, 1]. Marked [balance] in the GDD: adjusted with bots.",
+  "_routine_doc": "4.11.2. Townsfolk = living adults with a house, no job, of a household family (AI without profile). Dawn: leave home at the phase start + a delay drawn per person and day (leave_home_delay_minutes) and walk to the trade (occupation). Day: at the trade; every hour on the hour a chance (drawn per person and day in break_chance_per_hour) of a social break of break_minutes; at market_hour, market_visit_chance of strolling the market instead. Dusk: free time, chaining activities. Night: everybody home (whatever they were doing). retry_minutes: after a refused order. chat_wait_minutes: alone at a chat point this long, it gives up. greet: two walking townsfolk 1 tile apart stop (checked every check_every minutes, at most per_day each). child_stays_home: under majority_age they never go out [provisional].",
+  "routine": {
+    "leave_home_delay_minutes": [0, 60],
+    "break_chance_per_hour": [0.15, 0.20],
+    "break_minutes": [90, 150],
+    "market_hour": 10,
+    "market_visit_chance": 0.25,
+    "retry_minutes": 30,
+    "chat_wait_minutes": 30,
+    "greet": {"check_every": 5, "per_day": 2, "minutes": [15, 25]},
+    "child_stays_home": true
+  },
+  "_activities_doc": "4.11.3 (cosmetic in the MVP). minutes = [min, max] of game time; market: per_stall_minutes at each of `stalls` [min, max] stall service tiles. spot: where it happens (social_points of that kind on the map, the market stalls, the doors of the non-house buildings, or none = where it is). bubble: the bubble id over the head (game/visuals/bubbles/<id>.tscn). weight: base weight when choosing; favored_by: the stat that makes it 3x likelier at >= personality.stat_min. greet is not chosen: it happens when two cross.",
+  "activities": {
+    "bench": {"minutes": [150, 300], "spot": "bench", "bubble": "rest", "weight": 1.0, "favored_by": "empathy"},
+    "chat": {"minutes": [75, 150], "spot": "chat", "bubble": "speech", "weight": 1.2, "favored_by": "charisma"},
+    "market": {"per_stall_minutes": [50, 70], "stalls": [2, 4], "spot": "stalls", "bubble": "cart", "weight": 0.8, "favored_by": ""},
+    "greet": {"minutes": [15, 25], "spot": "none", "bubble": "wave", "weight": 0.0, "favored_by": "charisma"},
+    "observe": {"minutes": [90, 180], "spot": "doors", "bubble": "thought", "weight": 0.6, "favored_by": "empathy"},
+    "dice": {"minutes": [180, 330], "spot": "dice", "bubble": "dice", "weight": 0.8, "favored_by": "dexterity"}
+  },
+  "personality": {"stat_min": 7, "favored_mult": 3.0, "exception_chance": 0.12},
+  "_emotions_doc": "4.11.5, the 4 of the MVP. duration_days [min, max] drawn when it starts [balance]; intensity starts at 100 and falls linearly to 0 at the end. buy_mult / sell_mult: what the actor's family pays buying from / gets selling to this NPC (stall keeper, shop clerk, counter customer). employee_mult: multiplies an employee's efficiency while it holds it towards its employer family. refuses_talk: npc_talk and court_talk refused. refuses_trade_over: above this intensity it will not trade (null = never). relation_on_expire: residual change of the permanent relation when it ends (GDD: ofensa no disculpada -3). icon: the emotion bubble id. incompatible: pairs where the newest replaces the other. max_per_source: active states of an NPC towards the same family.",
+  "emotions": {
+    "grateful": {"name_key": "emotion.grateful", "duration_days": [1.5, 2.5], "buy_mult": 0.9, "sell_mult": 1.1, "employee_mult": 1.1, "refuses_talk": false, "refuses_trade_over": null, "relation_on_expire": 0, "icon": "emotion_grateful"},
+    "offended": {"name_key": "emotion.offended", "duration_days": [1.0, 2.0], "buy_mult": 1.15, "sell_mult": 0.85, "employee_mult": 1.0, "refuses_talk": true, "refuses_trade_over": null, "relation_on_expire": -3, "icon": "emotion_offended"},
+    "angry": {"name_key": "emotion.angry", "duration_days": [2.0, 3.0], "buy_mult": 1.25, "sell_mult": 0.75, "employee_mult": 0.8, "refuses_talk": true, "refuses_trade_over": 80, "relation_on_expire": -3, "icon": "emotion_angry"},
+    "scared": {"name_key": "emotion.scared", "duration_days": [1.0, 1.5], "buy_mult": 0.8, "sell_mult": 1.15, "employee_mult": 1.0, "refuses_talk": false, "refuses_trade_over": null, "relation_on_expire": 0, "icon": "emotion_scared"}
+  },
+  "incompatible": [["grateful", "angry"]],
+  "max_per_source": 2,
+  "_actions_doc": "4.11.5, the player's actions on an NPC (its panel). range_tiles: like courtship (to the NPC on the map or to the door of the building it is in; inside the same building also). talk: +relation once per day and pair (refused by refuses_talk emotions). gift: one unit of an item; value = market sell price; > grateful_min_value -> grateful, else +value / gold_per_point relation up to max_relation. flatter: SkillCheck charisma vs empathy, once per day; success / fail relation (Halagado is POST-MVP) [provisional]. insult: offended and relation. threaten: SkillCheck martial vs martial; success scared and relation (GDD: relacion -5); fail angry [provisional].",
+  "actions": {
+    "range_tiles": 3,
+    "talk": {"relation": 2},
+    "gift": {"grateful_min_value": 50, "gold_per_point": 5, "max_relation": 10},
+    "flatter": {"actor_stat": "charisma", "target_stat": "empathy", "success_relation": 3, "fail_relation": -2},
+    "insult": {"relation": -10, "emotion": "offended"},
+    "threaten": {"actor_stat": "martial", "target_stat": "martial", "success_emotion": "scared", "success_relation": -5, "fail_emotion": "angry", "fail_relation": -5}
+  },
+  "_skill_check_doc": "4.2.4: threshold = base + (actor stat - target stat) x step + modifiers; roll d100; <= critical_success is a critical success, >= critical_fail a critical failure, else success if roll <= threshold.",
+  "skill_check": {"base": 50, "step": 5, "critical_success": 5, "critical_fail": 96},
+  "_counter_doc": "4.5.4. A building with counter_sales (forge_commerce_1) gets a customer every interval_hours [min, max] / (1 + customer_bonus) during `phases`: a free townsperson walks in and waits at the counter. Served by whoever holds the counter station (family) or an active employee with role counter inside, after serve_minutes; nobody in patience_minutes -> it leaves. Price = base_price x quality_mult x (1 + charisma/100 + rank_bonus + (price_multiplier - 1) + min(reputation/100 x reputation_mult, reputation_cap)) x the customer's sell_mult. Ledger category counter_sales (a source, 4.19).",
+  "counter": {
+    "interval_hours": [1, 2],
+    "phases": ["day"],
+    "patience_minutes": 60,
+    "serve_minutes": 10,
+    "rank_bonus": {"apprentice": 0.0, "journeyman": 0.05, "master": 0.10},
+    "reputation_mult": 0.15,
+    "reputation_cap": 0.15,
+    "haggle_min_negotiation": 6
+  },
+  "_microevents_doc": "4.20. At dawn, each playing family (human or AI with a profile) that owns buildings rolls base_chance x the difficulty's microevent_chance; at most max_per_family_day. The microevents themselves: data/microevents/<id>.json. timeout_hours: the default of a microevent without its own. thief_start_hours: the thief comes this many hours [min, max] after night starts.",
+  "microevents": {"base_chance": 0.35, "max_per_family_day": 1, "timeout_hours": 2, "thief_start_hours": [1, 5]},
+  "_population_doc": "Renewal of the town (H8 gap, docs/contratos/h7_ciudad.md) [provisional, the GDD only says 15-20 NPC]. At dawn single townsfolk marry (a man and a woman of different houses, both >= marriage_min_age, she <= mother_max_age - 5) with marriage_chance while more than min_singles singles are left; children come through Births (data/family.json children) only while the town has fewer than max_total townsfolk (children included). At year_changed, with fewer than min_adults adults, newcomers arrive (newcomer_age, rank newcomer_rank) to the house with fewest people (house_capacity at most).",
+  "population": {
+    "min_adults": 14,
+    "max_total": 20,
+    "min_singles": 6,
+    "marriage_chance": 0.05,
+    "marriage_min_age": 18,
+    "newcomer_age": [18, 24],
+    "newcomer_rank": "apprentice",
+    "house_capacity": 5
+  }
+}

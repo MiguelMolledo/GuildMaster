@@ -670,3 +670,158 @@ help.family,Family,Familia
 help.family_group,1/2/3 or a click on a portrait (top left): pick a member of your group · double click: centre the camera,1/2/3 o clic en un retrato (arriba a la izquierda): elegir a alguien de tu grupo · doble clic: centrar la cámara
 help.family_tree,"F: family tree (heir, school, where each one works, dynasty goals) · Court: from the sheet (I) or the tree","F: árbol genealógico (heredero, escuela, dónde trabaja cada uno, metas de la dinastía) · Cortejar: desde la ficha (I) o el árbol"
 help.family_routine,"I → Routine: what each one does at dawn, day, dusk and night; an order of yours rules until it is done","I → Rutina: qué hace cada uno al amanecer, de día, al atardecer y de noche; una orden tuya manda hasta que acaba"
+emotion.grateful,Grateful,Agradecido
+emotion.offended,Offended,Ofendido
+emotion.angry,Angry,Cabreado
+emotion.scared,Scared,Asustado
+town.state.home,At home,En casa
+town.state.walking,Walking,Caminando
+town.state.working,Working,Trabajando
+town.state.market,At the market,En el mercado
+town.state.strolling,Strolling,Paseando
+town.state.social,Socialising,Socializando
+town.state.customer,Shopping,De compras
+activity.bench,sitting on a bench,sentado en un banco
+activity.chat,chatting,charlando
+activity.market,strolling the market,paseando el mercado
+activity.greet,greeting,saludando
+activity.observe,looking at a building,observando un edificio
+activity.dice,playing dice,jugando a los dados
+workplace.gate_west,West gate,Puerta oeste
+workplace.gate_east,East gate,Puerta este
+workplace.stall_food,Food stall,Puesto de comida
+workplace.stall_materials,Materials stall,Puesto de materiales
+workplace.stall_resources,Resources stall,Puesto de recursos
+workplace.armory,Armory clerk,Dependiente de la Armería
+workplace.field_a,Fields,Campos
+workplace.field_b,Fields,Campos
+workplace.field_c,Fields,Campos
+workplace.field_d,Fields,Campos
+workplace.river_bank,River,Río
+workplace.well,Well,Pozo
+workplace.church_a,Church,Iglesia
+workplace.church_b,Church,Iglesia
+workplace.townhall_a,Town hall,Ayuntamiento
+workplace.townhall_b,Town hall,Ayuntamiento
+npc_action.talk,Talk,Conversar
+npc_action.gift,Give a gift,Regalar
+npc_action.flatter,Flatter,Halagar
+npc_action.insult,Insult,Insultar
+npc_action.threaten,Threaten,Amenazar
+reason.not_a_townsperson,Not someone you can deal with like that,No es alguien con quien tratar así
+reason.refuses_talk,Will not talk to you,No quiere hablar contigo
+reason.already_today,Already done today,Ya lo has hecho hoy
+reason.unknown_microevent,That matter is over,Ese asunto ya pasó
+reason.unknown_choice,Not an option,No es una opción
+reason.vendor_refuses,The stall keeper is too angry to trade with you,El tendero está demasiado cabreado para tratar contigo
+reason.no_item,You do not carry that,No llevas eso
+mev.haggling_customer,A customer at the counter of {building} haggles over {item} ({price} gold).,Un cliente en el mostrador de {building} regatea por {item} ({price} de oro).
+mev.haggling_customer.accept,Accept −15 % and sell,Aceptar −15 % y vender
+mev.haggling_customer.hold,Hold the price (Charisma vs Negotiation),Mantener el precio (Carisma contra Negociación)
+mev.haggling_customer.throw_out,Throw them out,Echarle
+mev.sick_employee,{name} is sick today and will not come to {building}.,{name} está enfermo hoy y no irá a {building}.
+mev.sick_employee.doctor,"Pay the doctor (10 gold): back tomorrow, loyalty +5","Pagar al médico (10 de oro): vuelve mañana, lealtad +5"
+mev.sick_employee.day_off,Paid day off: loyalty +2,Día libre pagado: lealtad +2
+mev.sick_employee.dock,"Dock the day: misses 1-2 days, loyalty −5","Descontarle el día: falta 1-2 días, lealtad −5"
+mev.night_thief,A thief is breaking into {building} while {name} is inside.,Un ladrón entra en {building} con {name} dentro.
+mev.night_thief.confront,Confront him (Martial vs 5),Enfrentarse (Arte Marcial contra 5)
+mev.night_thief.let,Let him be,Dejarle
+notice.microevent.haggling_customer,A customer haggles at {building},Un cliente regatea en {building}
+notice.microevent.sick_employee,{name} is sick ({building}),{name} está enfermo ({building})
+notice.microevent.night_thief,A thief at {building}!,¡Un ladrón en {building}!
+notice.microevent_done,Decided: {choice},Decidido: {choice}
+notice.theft,A thief stole {qty} × {item} from {building},Un ladrón ha robado {qty} × {item} de {building}
+notice.theft_frustrated,The security of {building} stopped a thief,La seguridad de {building} ha frustrado a un ladrón
+notice.counter_sold,Sold {item} at the counter for {price} gold,Vendido {item} en el mostrador por {price} de oro
+phrase.bench.01,Good to rest these old legs.,Qué bien descansar estas piernas.
+phrase.bench.02,From here you see the whole plaza.,Desde aquí se ve toda la plaza.
+phrase.bench.03,A bench and a little sun: what else.,Un banco y un poco de sol: qué más.
+phrase.bench.04,"Sit down, there's room for two.","Siéntate, que cabemos dos."
+phrase.bench.05,I come here every evening.,Vengo aquí todas las tardes.
+phrase.bench.06,My back thanks me for this bench.,Mi espalda le debe mucho a este banco.
+phrase.bench.07,The pigeons know me by now.,Las palomas ya me conocen.
+phrase.bench.08,I'll stay a bit before going home.,Me quedo un rato antes de volver a casa.
+phrase.bench.09,Watching people pass is free.,Mirar a la gente pasar no cuesta nada.
+phrase.bench.10,"Not now, I've only just sat down.","Ahora no, que me acabo de sentar."
+phrase.chat.01,Have you heard what the smith said?,¿Has oído lo que dijo el herrero?
+phrase.chat.02,They say iron will be dearer soon.,Dicen que el hierro va a subir.
+phrase.chat.03,My cousin saw a fox by the river.,Mi primo vio un zorro junto al río.
+phrase.chat.04,You don't say! And then what?,¡No me digas! ¿Y luego qué?
+phrase.chat.05,The baker's bread was burnt again.,El pan del horno salió quemado otra vez.
+phrase.chat.06,"Another wedding this year, I bet.","Este año habrá otra boda, ya verás."
+phrase.chat.07,"Keep it to yourself, eh?","Que quede entre nosotros, ¿eh?"
+phrase.chat.08,Times are not what they were.,Los tiempos ya no son lo que eran.
+phrase.chat.09,Who's the new face at the forge?,¿Quién es la cara nueva de la forja?
+phrase.chat.10,Ha! That's a good one.,¡Ja! Esa sí que es buena.
+phrase.market.01,Let's see what they have today.,A ver qué tienen hoy.
+phrase.market.02,Too dear for my purse.,Demasiado caro para mi bolsa.
+phrase.market.03,The coal is cheaper over there.,Allí el carbón está más barato.
+phrase.market.04,"Just looking, thank you.","Solo estoy mirando, gracias."
+phrase.market.05,Fresh wheat this morning!,¡Trigo fresco esta mañana!
+phrase.market.06,I always come before noon.,Siempre vengo antes del mediodía.
+phrase.market.07,Prices go up every season.,Cada estación suben los precios.
+phrase.market.08,I'll come back with more coin.,Volveré con más monedas.
+phrase.market.09,That stall has the best wool.,Ese puesto tiene la mejor lana.
+phrase.market.10,Do you know where the cloth is?,¿Sabes dónde venden la tela?
+phrase.observe.01,"Fine building, that one.","Buen edificio, ese."
+phrase.observe.02,I wonder what they make inside.,Me pregunto qué harán dentro.
+phrase.observe.03,Smoke from the chimney: hard at work.,Sale humo: están trabajando duro.
+phrase.observe.04,My grandfather helped build it.,Mi abuelo ayudó a levantarlo.
+phrase.observe.05,That door could use some paint.,A esa puerta le hace falta pintura.
+phrase.observe.06,One day I'll have a workshop too.,Algún día tendré un taller yo también.
+phrase.observe.07,Hm. Interesting.,Mm. Interesante.
+phrase.observe.08,They've changed the sign.,Han cambiado el letrero.
+phrase.observe.09,Who owns it now?,¿De quién es ahora?
+phrase.observe.10,"Busy place, this.",Mucho movimiento aquí.
+phrase.dice.01,Six and four! Pay up.,¡Seis y cuatro! Paga.
+phrase.dice.02,"These dice are loaded, I swear.","Estos dados están trucados, lo juro."
+phrase.dice.03,One more round and I'm off.,Una ronda más y me voy.
+phrase.dice.04,Luck is with me tonight.,Hoy la suerte está conmigo.
+phrase.dice.05,Don't tell my wife.,No se lo digas a mi mujer.
+phrase.dice.06,Double or nothing?,¿Doble o nada?
+phrase.dice.07,Snake eyes again...,Otra vez un par de unos...
+phrase.dice.08,"Your turn, and don't blow on them.","Te toca, y no soples."
+phrase.dice.09,I'm only playing for copper.,Solo juego por cobre.
+phrase.dice.10,Join us if you've got coin.,Únete si tienes monedas.
+phrase.greet.01,Good day to you!,¡Buenos días!
+phrase.greet.02,"Well met, neighbour.","Bien hallado, vecino."
+phrase.greet.03,How's the family?,¿Cómo está la familia?
+phrase.greet.04,Long time no see!,¡Cuánto tiempo!
+phrase.greet.05,God keep you.,Que Dios te guarde.
+phrase.greet.06,Off somewhere in a hurry?,¿Vas con prisa a alguna parte?
+phrase.greet.07,Say hello to your mother.,Saluda a tu madre de mi parte.
+phrase.greet.08,"Fine weather, eh?","Buen tiempo, ¿eh?"
+phrase.greet.09,See you at the plaza.,Nos vemos en la plaza.
+phrase.greet.10,"Ah, it's you!","¡Ah, eres tú!"
+phrase.work.01,"Can't stop, there's work to do.","No puedo parar, hay trabajo."
+phrase.work.02,"Another day, another coin.","Otro día, otra moneda."
+phrase.work.03,The day is long.,El día se hace largo.
+phrase.work.04,Come back when I'm done.,Vuelve cuando acabe.
+phrase.work.05,My hands ache already.,Ya me duelen las manos.
+phrase.work.06,"Work first, chatter later.","Primero el trabajo, luego la charla."
+phrase.work.07,"Busy, busy.","Ocupado, ocupado."
+phrase.work.08,If the master sees me idle...,Si el maestro me ve parado...
+phrase.work.09,Almost time for a rest.,Ya casi toca descansar.
+phrase.work.10,"Honest work, honest bread.","Trabajo honrado, pan honrado."
+phrase.walk.01,Just passing through.,Solo estoy de paso.
+phrase.walk.02,"Excuse me, I'm in a hurry.","Perdona, que tengo prisa."
+phrase.walk.03,Lovely day for a walk.,Buen día para pasear.
+phrase.walk.04,Is this the way to the plaza?,¿Por aquí se va a la plaza?
+phrase.walk.05,I'm late again.,Llego tarde otra vez.
+phrase.walk.06,Mind the mud!,¡Cuidado con el barro!
+phrase.walk.07,Back home soon.,Pronto en casa.
+phrase.walk.08,These streets are narrow.,Qué estrechas son estas calles.
+phrase.walk.09,Hello there.,Hola.
+phrase.walk.10,Have a good one.,Que te vaya bien.
+phrase.phase.dawn.01,The cock crowed early today.,El gallo ha cantado temprano hoy.
+phrase.phase.dawn.02,Still half asleep...,Aún medio dormido...
+phrase.phase.dawn.03,"Up with the sun, as always.","En pie con el sol, como siempre."
+phrase.phase.day.01,Hot at midday.,Qué calor a mediodía.
+phrase.phase.day.02,Half the day gone already.,Ya se ha ido medio día.
+phrase.phase.day.03,The bell will ring soon.,Pronto tocará la campana.
+phrase.phase.dusk.01,The best hour of the day.,La mejor hora del día.
+phrase.phase.dusk.02,Soon the lamps will be lit.,Pronto encenderán los faroles.
+phrase.phase.dusk.03,Supper's waiting at home.,La cena me espera en casa.
+phrase.profession.blacksmith.01,I know a thing or two about iron.,Algo sé yo del hierro.
+phrase.profession.blacksmith.02,"The forge pays well, they say.",Dicen que la forja paga bien.
+phrase.profession.blacksmith.03,If you need a hand at the anvil...,Si te hace falta una mano en el yunque...

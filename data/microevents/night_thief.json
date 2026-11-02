@@ -1,0 +1,68 @@
+{
+  "id": "night_thief",
+  "scope": "building",
+  "text_key": "mev.night_thief",
+  "trigger": {
+    "phase": "night",
+    "conditions": [
+      "has_goods"
+    ],
+    "chance_per_day": 1.0
+  },
+  "cooldown_days": 8,
+  "timeout_hours": 2,
+  "default_choice": "let",
+  "_unattended_doc": "Nobody of the family inside: no card; the building's Security (protection) foils the thief with that chance, else it steals (GDD 4.20).",
+  "unattended_effects": [
+    {
+      "kind": "steal",
+      "units": [
+        1,
+        3
+      ],
+      "security": true
+    }
+  ],
+  "choices": [
+    {
+      "id": "confront",
+      "text_key": "mev.night_thief.confront",
+      "effects": [
+        {
+          "kind": "skill_check",
+          "actor_stat": "martial",
+          "target_value": 5,
+          "success": [
+            {
+              "kind": "nothing"
+            }
+          ],
+          "fail": [
+            {
+              "kind": "steal",
+              "units": [
+                1,
+                3
+              ],
+              "security": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "let",
+      "text_key": "mev.night_thief.let",
+      "effects": [
+        {
+          "kind": "steal",
+          "units": [
+            1,
+            3
+          ],
+          "security": false
+        }
+      ]
+    }
+  ]
+}

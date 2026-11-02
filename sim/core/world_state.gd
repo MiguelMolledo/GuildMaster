@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 7
+const VERSION: int = 8
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -35,6 +35,9 @@ var deliveries: Array = []         # [delivery] market errands on their way (GDD
 var difficulty: String = "normal"  # easy | normal | hard (GDD 4.23, data/difficulty.json)
 var objectives: Dictionary = {}    # fam_id -> progress of its start objectives (GDD 4.16): Objectives
 var ending: Dictionary = {}        # {} while the game goes on; {kind, family, minute} when it ends (ruin, D18)
+# H7 (docs/contratos/h7_ciudad.md): the living town. Characters get occupation and town (SaveFile._step 7 -> 8).
+var microevents: Dictionary = {"active": [], "pending": [], "cooldowns": {}, "last_day": {}}  # GDD 4.20: Microevents
+var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD 4.5.4): Counter
 # H4 (docs/contratos/h4_empleados.md): no new root fields. Characters get home, rank, job, hire_bans and routine;
 # buildings get employee_slots and queue (SaveFile._step 4 -> 5).
 # H5 (docs/contratos/h5_mejoras.md): no new root fields. Buildings get upgrades, upgrade_work and inspection
@@ -42,6 +45,7 @@ var ending: Dictionary = {}        # {} while the game goes on; {kind, family, m
 # H8 (docs/contratos/h8_familia.md): no new root fields (relationships and chronicle already were). Characters get
 # birth_day, death_day, class, profession, spouse, parents, children, assigned, directives, schedule, visual and life;
 # families get head, heir, founder, generation, regent, class and goals_done (SaveFile._step 6 -> 7).
+# H7: emotions (already a root field) get their shape: chr -> [{state, source, start, duration, intensity0}].
 
 
 func seed_rng(s: int) -> void:
@@ -79,6 +83,8 @@ func to_dict() -> Dictionary:
 		"difficulty": difficulty,
 		"objectives": objectives,
 		"ending": ending,
+		"microevents": microevents,
+		"town": town,
 	}
 
 
@@ -117,6 +123,8 @@ static func from_dict(src: Dictionary) -> WorldState:
 	s.difficulty = str(d.get("difficulty", "normal"))
 	s.objectives = d.get("objectives", {})
 	s.ending = d.get("ending", {})
+	s.microevents = d.get("microevents", {"active": [], "pending": [], "cooldowns": {}, "last_day": {}})
+	s.town = d.get("town", {"counters": {}})
 	return s
 
 
