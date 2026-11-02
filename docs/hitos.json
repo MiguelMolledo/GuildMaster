@@ -206,14 +206,14 @@
         {
           "texto": "Bot `artisan_expert` compra mejoras y su producción sube lo esperado",
           "estado": "hecho",
-          "prueba": "tests/test_bots_expert.gd; sim_runner artisan_expert: producción ×1,2/×1,167/×1,143 (±0,7 %)",
+          "prueba": "tests/test_bots_expert.gd; sim_runner artisan_expert 30 semillas: producción según ficha (error máx. 0,9 %)",
           "fecha": "2026-11-02"
         },
         {
           "texto": "Dianas `goldflow` de la fase \"Forja con empleados\" y del peso de los sumideros (30-60 %) en verde",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "sim_runner artisan_expert 30 semillas × 24 días: Normal 71,9 oro/día (diana 60-150), sumideros 33 % del margen bruto; Fácil 113,7 > Normal > Difícil 40,5",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Fin de la rebanada vertical: 3 días seguidos jugables por el owner sin consola",

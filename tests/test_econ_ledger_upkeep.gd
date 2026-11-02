@@ -1,4 +1,5 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## Daily upkeep (D12, GDD 4.19) and unpaid upkeep (D15 = b, 3 days): charged every dawn to the owner family and in
 ## the ledger; what cannot be paid is owed to the town, charged as soon as there is gold; after 3 days unpaid the
 ## building is damaged, and back to normal when settled.
@@ -6,7 +7,7 @@ extends "res://tests/test_case.gd"
 const FAM := "fam_0001"
 const FORGE := "bld_0001"
 
-var cat := Catalog.load_from()
+var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
 
 
 func _sim() -> Sim:

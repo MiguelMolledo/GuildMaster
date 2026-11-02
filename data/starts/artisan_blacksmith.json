@@ -1,7 +1,7 @@
 {
   "id": "artisan_blacksmith",
   "name_key": "start.artisan_blacksmith",
-  "_doc": "Start of a new game as artisan / blacksmith (GDD 4.16) [balance]. NewGame.from_start reads it. The game starts at `start.phase` of day `start.day` (day 0 = day 1 of spring, year 1). map: data/maps/<map>.json; its \"buildings\" are placed: the one named in building.site for the protagonist's family, rival.building.site for the rival family, and every one with owner \"\" as a public building. protagonist: age, title, reputation, the artisan's base stats (GDD 4.2.2) + free_points the player spreads (D5: 5, each stat in [stat_min, stat_max]); carry_weight = 30 kg for now (the Constitution bonus of 4.2.2 is a proposal), equipment equipped at the start. loan: the amount is data/difficulty.json levels[difficulty].start_debt; due at the end of day start.day + term_days - 1 (term_days 8 = 1 year, 'before the end of day 8'); no interest; if it falls due unpaid: reputation + overdue_reputation and an extension of extension_seasons with surcharge over what is owed; when the extension falls due, seizure (gold, then the forge's goods at market sell price), and if it is not enough, ruin (D18: the game ends). contracts: the scripted ones on the board at the start (pay computed when posted, like any contract). objectives: the chain shown in the HUD, in order (data/objectives/). rival: the AI family of GDD 4.5.5 (its craft and sell threshold come from the difficulty).",
+  "_doc": "Start of a new game as artisan / blacksmith (GDD 4.16) [balance]. NewGame.from_start reads it. The game starts at `start.phase` of day `start.day` (day 0 = day 1 of spring, year 1). map: data/maps/<map>.json; its \"buildings\" are placed: the one named in building.site for the protagonist's family, rival.building.site for the rival family, and every one with owner \"\" as a public building. protagonist: age, title, reputation, the artisan's base stats (GDD 4.2.2) + free_points the player spreads (D5: 5, each stat in [stat_min, stat_max]); carry_weight = 60 kg [balance] (H5: 30 → 60) (the Constitution bonus of 4.2.2 is a proposal), equipment equipped at the start. loan: the amount is data/difficulty.json levels[difficulty].start_debt; due at the end of day start.day + term_days - 1 (term_days 8 = 1 year, 'before the end of day 8'); no interest; if it falls due unpaid: reputation + overdue_reputation and an extension of extension_seasons with surcharge over what is owed; when the extension falls due, seizure (gold, then the forge's goods at market sell price), and if it is not enough, ruin (D18: the game ends). contracts: the scripted ones on the board at the start (pay computed when posted, like any contract). objectives: the chain shown in the HUD, in order (data/objectives/). rival: the AI family of GDD 4.5.5 (its craft and sell threshold come from the difficulty).",
   "class": "artisan",
   "profession": "blacksmith",
   "map": "town_e",
@@ -15,7 +15,7 @@
     "free_points": 5,
     "stat_min": 1,
     "stat_max": 10,
-    "carry_weight": 30.0,
+    "carry_weight": 60.0,
     "equipment": {"tool": {"item": "hammer", "quality": 0}}
   },
   "family": {"gold": 30, "reputation": 0},

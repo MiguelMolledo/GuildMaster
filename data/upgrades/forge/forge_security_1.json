@@ -5,7 +5,7 @@
   "branch": "security",
   "level": 1,
   "cost": {
-    "gold": 5,
+    "gold": 25,
     "items": [
       {
         "item": "iron_ingot",

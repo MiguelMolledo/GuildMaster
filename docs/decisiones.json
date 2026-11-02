@@ -293,6 +293,12 @@
       "tema": "Reuso del arte de Guild Renew",
       "decision": "Los sprites de Guild Renew que encajen con la biblia sustituyen al greybox, que queda oculto y no se borra; los personajes se integran después de juntar H7 y H8. Al acabar los hitos de la lista se siguen inventando y haciendo mejoras.",
       "por_que": "Lo pidió el owner el 2026-11-02."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "H5 · balance D14 (provisional)",
+      "decision": "«Ingresos brutos» de 4.19 = margen bruto (ventas + encargos − compras − recados). Cifras [balance]: demanda −0,1 → −0,04 por pieza y +0,1 → +0,4 por día; recetas ×1,3; mantenimiento de la Forja 2 → 20; salarios 1/3/6 → 7/20/40; velocidad de rango ×0,5/×1/×1,5 → ×1/×2/×3; carga 30 → 60 kg; oro de las mejoras ×5. artisan_expert (30 semillas, Normal): 71,9/día en días 9-24, sumideros 33 % del margen; novato 53,9/día; con 1 empleado +37 % en el año 3 frente a 0. El segundo empleado no compensa con un solo horno.",
+      "por_que": "Decisión del manager (opción A) y medida con bots: con las cifras de H3 el dueño solo llenaba el mercado y un empleado no añadía nada."
     }
   ],
   "pendientes": [

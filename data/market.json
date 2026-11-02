@@ -7,7 +7,7 @@
     "armory": {"name_key": "stall.armory", "kind": "shop", "building": "armory", "sells": ["armory"]}
   },
   "open_phases": ["day", "dusk"],
-  "demand": {"start": 1.0, "rest": 1.0, "min": 0.5, "max": 2.0, "drop_per_unit": 0.1, "recover_per_day": 0.1},
+  "demand": {"start": 1.0, "rest": 1.0, "min": 0.5, "max": 2.0, "drop_per_unit": 0.04, "recover_per_day": 0.4},
   "sell_ratio": 0.7,
   "quality_mult": [1.0, 1.3, 1.6],
   "errand": {"surcharge": 0.2, "hours": 2},

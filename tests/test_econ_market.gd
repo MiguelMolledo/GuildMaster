@@ -1,4 +1,5 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## The market (GDD 4.5.1-4.5.3, 4.5.7, 4.23; docs/contratos/h3_mercado.md): buying and selling at the stalls and in
 ## the armory, never selling more than carried (H3 criterion), prices with quality, demand and difficulty, demand
 ## dropping with sales and recovering at dawn, opening hours, errands (H3 criterion) and save/load with one on its way.
@@ -12,7 +13,7 @@ const DAY: int = 600          # day 0, 10:00 (spring: day phase from 420 to 1140
 const NIGHT_STARTS: int = 1260
 const NEXT_DAWN: int = 1440 + 300
 
-var cat := Catalog.load_from()
+var cat := Pins.classic(Catalog.load_from())  # pre-H5 figures: see tests/balance_pins.gd
 
 
 ## town_e_start by day, without the rival AI (so nobody else sells or buys while a test runs).

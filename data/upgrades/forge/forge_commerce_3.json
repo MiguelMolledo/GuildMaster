@@ -5,7 +5,7 @@
   "branch": "commerce",
   "level": 3,
   "cost": {
-    "gold": 25,
+    "gold": 125,
     "items": []
   },
   "requires": {

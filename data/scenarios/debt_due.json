@@ -48,8 +48,8 @@
 			"type": "forge",
 			"upgrade_work": null,
 			"upgrades": [],
-			"upkeep_debt": 0,
-			"upkeep_unpaid_since": -1,
+			"upkeep_debt": 10,
+			"upkeep_unpaid_since": 7,
 			"zones": {
 				"anvil": {
 					"job": null,
@@ -93,16 +93,6 @@
 				"stacks": [
 					{
 						"item": "coal",
-						"qty": 2,
-						"quality": 0
-					},
-					{
-						"item": "iron_ingot",
-						"qty": 3,
-						"quality": 1
-					},
-					{
-						"item": "iron_ingot",
 						"qty": 1,
 						"quality": 0
 					}
@@ -536,7 +526,7 @@
 			"home": "",
 			"id": "chr_0001",
 			"inventory": {
-				"limit": 24,
+				"limit": 54,
 				"limit_kind": "weight",
 				"stacks": []
 			},
@@ -580,7 +570,7 @@
 			"home": "",
 			"id": "chr_0002",
 			"inventory": {
-				"limit": 30,
+				"limit": 60,
 				"limit_kind": "weight",
 				"stacks": []
 			},
@@ -1351,11 +1341,26 @@
 				"posted": 0,
 				"qty": 1,
 				"script": "guard_good_sword"
+			},
+			{
+				"accepted": -1,
+				"actor": "",
+				"client": "farmer",
+				"deadline_days": 3,
+				"due": -1,
+				"family": "",
+				"id": "ctr_0004",
+				"item": "sword",
+				"min_quality": 1,
+				"pay": 248,
+				"posted": 10470,
+				"qty": 3,
+				"script": "",
+				"warned": []
 			}
 		],
 		"cooldowns": {},
 		"relations": {
-			"fam_0002|farmer": 5,
 			"fam_0002|guard_captain": 5
 		}
 	},
@@ -1374,7 +1379,7 @@
 				"secondary": "#c8a84e"
 			},
 			"controlled_by": "human",
-			"gold": 26,
+			"gold": 0,
 			"id": "fam_0001",
 			"members": [
 				"chr_0001"
@@ -1386,24 +1391,24 @@
 			"ai_profile": "rival_smith",
 			"ai_state": {
 				"bought_day": 7,
-				"last_fp": "[[24,16],\"\",\"\",{\"limit\":30,\"limit_kind\":\"weight\",\"stacks\":[]},176,0,2]",
+				"last_fp": "[[24,16],\"\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},206,0,3]",
 				"last_order": "{\"actor\":\"chr_0002\",\"building\":\"bld_0002\",\"type\":\"enter_building\"}",
 				"phase": "night",
 				"plan": [],
-				"recipe": "forge_hammer"
+				"recipe": "forge_sword"
 			},
 			"colors": {
 				"primary": "#3f6b3a",
 				"secondary": "#b8b8b0"
 			},
 			"controlled_by": "ai",
-			"gold": 176,
+			"gold": 206,
 			"id": "fam_0002",
 			"members": [
 				"chr_0002"
 			],
 			"name": "Ferrer",
-			"reputation": 4
+			"reputation": 2
 		},
 		"fam_0003": {
 			"ai_profile": "",
@@ -1546,7 +1551,7 @@
 		"entries": [
 			{
 				"actor": "",
-				"amount": -2,
+				"amount": -20,
 				"building": "bld_0001",
 				"category": "upkeep",
 				"day": 6,
@@ -1556,7 +1561,7 @@
 			},
 			{
 				"actor": "",
-				"amount": -2,
+				"amount": -20,
 				"building": "bld_0002",
 				"category": "upkeep",
 				"day": 6,
@@ -1566,27 +1571,17 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": -4,
+				"amount": -36,
 				"building": "",
 				"category": "purchases",
 				"day": 6,
 				"family": "fam_0002",
-				"minute": 9165,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0002",
-				"amount": -54,
-				"building": "",
-				"category": "purchases",
-				"day": 6,
-				"family": "fam_0002",
-				"minute": 9178,
+				"minute": 9175,
 				"ref": "buy"
 			},
 			{
 				"actor": "",
-				"amount": -2,
+				"amount": -10,
 				"building": "bld_0001",
 				"category": "upkeep",
 				"day": 7,
@@ -1596,7 +1591,7 @@
 			},
 			{
 				"actor": "",
-				"amount": -2,
+				"amount": -20,
 				"building": "bld_0002",
 				"category": "upkeep",
 				"day": 7,
@@ -1611,47 +1606,17 @@
 				"category": "contracts",
 				"day": 7,
 				"family": "fam_0002",
-				"minute": 10485,
+				"minute": 11145,
 				"ref": "ctr_0003"
 			},
 			{
 				"actor": "chr_0002",
-				"amount": -4,
-				"building": "",
-				"category": "purchases",
-				"day": 7,
-				"family": "fam_0002",
-				"minute": 10605,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0002",
-				"amount": -90,
-				"building": "",
-				"category": "purchases",
-				"day": 7,
-				"family": "fam_0002",
-				"minute": 10618,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0002",
-				"amount": 64,
-				"building": "",
-				"category": "contracts",
-				"day": 7,
-				"family": "fam_0002",
-				"minute": 11144,
-				"ref": "ctr_0004"
-			},
-			{
-				"actor": "chr_0002",
-				"amount": 59,
+				"amount": 73,
 				"building": "",
 				"category": "market_sales",
 				"day": 7,
 				"family": "fam_0002",
-				"minute": 11187,
+				"minute": 11188,
 				"ref": "sell"
 			}
 		],
@@ -1680,7 +1645,7 @@
 	"map_id": "town_e",
 	"market": {
 		"demand": {
-			"sword": 0.9
+			"sword": 0.9600000000000001
 		},
 		"regulations": []
 	},
@@ -1695,7 +1660,7 @@
 		"ctr": 5,
 		"fam": 11,
 		"lon": 2,
-		"ntc": 3
+		"ntc": 4
 	},
 	"notices": [
 		{
@@ -1727,6 +1692,21 @@
 			"read": false,
 			"severity": "urgent",
 			"target": ""
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0003",
+			"key": "notice.upkeep_unpaid",
+			"minute": 10470,
+			"params": {
+				"building": "bld_0001",
+				"days": 3,
+				"debt": 10
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0001"
 		}
 	],
 	"objectives": {
@@ -1750,7 +1730,7 @@
 	"offices": {},
 	"parcels": {},
 	"relationships": {},
-	"rng_state": "575674709636772795",
+	"rng_state": "-3299030162849315060",
 	"seed": "1",
 	"trials": [],
 	"version": 6

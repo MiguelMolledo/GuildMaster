@@ -196,7 +196,7 @@ func _plan_trip(sim: Sim) -> Array:
 	for s: Dictionary in sell:
 		n_sell += int(s["qty"])
 	var idle := _wanted(sim).is_empty()
-	var buy := idle and not _raw_needs(sim).is_empty()
+	var buy := _want_buy(sim, idle)
 	var stuck := idle and Production.job_zone(sim, ACTOR, FORGE) == ""
 	if not (deliver or look or n_sell >= SELL_AT or buy or (stuck and n_sell > 0)):
 		return []
@@ -349,7 +349,7 @@ func _to_sell(sim: Sim) -> Array:
 		if seen.has(key) or str(sim.catalog.item(item).get("market_stall", "")) != ARMORY_STALL:
 			continue
 		seen[key] = true
-		if Market.demand(sim, item) < MIN_DEMAND - 0.000001:
+		if not _sell_ok(sim, item, q):
 			continue
 		var n := Inventory.count(inv, item, q) - int(keep.get(key, 0))
 		if n > 0:
@@ -388,7 +388,7 @@ func _sellable_in_bag(sim: Sim) -> Array:
 		var q := int(s["quality"])
 		if str(sim.catalog.item(item).get("market_stall", "")) != ARMORY_STALL:
 			continue
-		if Market.demand(sim, item) < MIN_DEMAND - 0.000001:
+		if not _sell_ok(sim, item, q):
 			continue
 		# kept pieces come first from the storage, then from the bag
 		var key := "%s|%d" % [item, q]
@@ -415,8 +415,10 @@ func _raw_needs(sim: Sim) -> Dictionary:
 		for i: int in maxi(missing, 0) + (1 if int(c["min_quality"]) > 0 and missing > 0 else 0):
 			if rid != "":
 				plan.append(rid)
+	plan.append_array(_extra_plan(sim))
 	var best := _best_market_recipe(sim)
-	while plan.size() < BATCH and best != "":
+	var batch := _batch(sim, plan.size())
+	while plan.size() < batch and best != "":
 		plan.append(best)
 	var stock := {}
 	for item: String in RAW:
@@ -464,7 +466,7 @@ func _best_market_recipe(sim: Sim) -> String:
 		if str(opt["status"]) == "locked":
 			continue
 		var rid := str(opt["recipe"])
-		if _held(sim, _output(sim, rid)) >= MAX_HELD:
+		if _held(sim, _output(sim, rid)) >= _max_held(sim, rid):
 			continue
 		var rate := _margin(sim, rid) / _hours(sim, rid, "normal")
 		if rate > best_rate + 0.000001:
@@ -484,7 +486,7 @@ func _can_make_in_time(sim: Sim, c: Dictionary) -> bool:
 	var hours := _contract_hours(sim, c)
 	for a: Dictionary in Contracts.accepted_of(sim, _fam(sim)):
 		hours += _contract_hours(sim, a)
-	return hours <= float(int(c["deadline_days"]) * 24) * 0.6
+	return hours <= float(int(c["deadline_days"]) * 24) * 0.6 * _capacity(sim)
 
 
 func _contract_hours(sim: Sim, c: Dictionary) -> float:
@@ -529,6 +531,39 @@ func _contracts_by_due(sim: Sim) -> Array:
 	list.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 		return int(a["due"]) < int(b["due"]) or (int(a["due"]) == int(b["due"]) and str(a["id"]) < str(b["id"])))
 	return list
+
+
+# --- Hooks (BotArtisanExpert changes them; the novice keeps its habits) --------------------------------------------
+
+## Whether one more unit of `item` at quality `q` is worth selling now: the novice sells while the demand is >=
+## MIN_DEMAND.
+func _sell_ok(sim: Sim, item: String, _q: int) -> bool:
+	return Market.demand(sim, item) >= MIN_DEMAND - 0.000001
+
+
+## Whether the trip should stop at the resources stall when nothing else calls it: the novice only when idle.
+func _want_buy(sim: Sim, idle: bool) -> bool:
+	return idle and not _raw_needs(sim).is_empty()
+
+
+## Recipes of extra pieces to buy raw materials for, after the contracts' and before its own (the novice: none).
+func _extra_plan(_sim: Sim) -> Array:
+	return []
+
+
+## Pieces of raw materials it plans ahead when `planned` are already planned for contracts and others: BATCH.
+func _batch(_sim: Sim, _planned: int) -> int:
+	return BATCH
+
+
+## Hands that make contract pieces, as a multiplier of the deadline share it accepts (the novice: only itself).
+func _capacity(_sim: Sim) -> float:
+	return 1.0
+
+
+## Most unsold pieces of the output of `rid` it keeps before choosing another recipe by hand.
+func _max_held(_sim: Sim, _rid: String) -> int:
+	return MAX_HELD
 
 
 # --- Helpers ---------------------------------------------------------------------------------------------------------

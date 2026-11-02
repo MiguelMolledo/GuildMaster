@@ -269,3 +269,25 @@ Hechas en la base (forma fija; «arbol» puede afinarlas sin cambiarla):
   `notice.inspection_debt {building, debt}` (clave nueva). Evento `reputation_changed` con reason `inspection`.
 - Sin lector en H5: `price_multiplier`, `counter_sales`, `customer_bonus` (mostrador, H7), `tax_mult`, `illegal_profit`.
   `market.gd` no se toca.
+
+## Hecho por «balance» (2026-11-02)
+- `sim/bots/bot_artisan_expert.gd` (`extends BotArtisanNovice`): partida nueva real; hasta saldar la deuda juega como el
+  novato; luego contrata (el segundo empleado solo con segundo horno), roles, cola, bonus, ascensos, mejoras
+  (`UPGRADE_PLAN`: Fuelle, Segundo yunque, Dormitorio, Temple; 3 días entre obras) y vende con demanda ≥ 0,6. El novato
+  gana ganchos (`_sell_ok`, `_want_buy`, `_extra_plan`, `_batch`, `_capacity`, `_max_held`) sin cambiar su conducta
+  (mismo `state_hash` que antes en 6 partidas).
+- `tools/sim_runner.gd`: bots `artisan_expert` y `artisan_expert_<n>` (exactamente n empleados); medidas
+  `sink_share_[revenue_|margin_]<a>_<b>`, `net_year_<n>`, `hired`, `upgrades_bought`, `upgrades_spent`,
+  `prod_gain_<id>`, `prod_expected_<id>`, `prod_gain_error`, `output_hours_<id>_before/_after`; ventanas medidas al
+  cerrarse (el libro guarda 2 años en detalle); `--set`, `--tag` y `BOT_VARS` para pruebas de cifras.
+- `data/targets.json`: `goldflow.staff` (días 9-24, [60, 150], sumideros [0,3, 0,6] **sobre el margen bruto**, decisión
+  del manager) y `artisan_expert`.
+- **Cifras [balance] cambiadas (D14)**: demanda −0,1 → −0,04 por unidad y +0,1 → +0,4 por día; recetas ×1,3 (lingote
+  1,3 h, martillo 2,6, espada 3,9, armadura 6,5, acero 3,9); mantenimiento de la Forja 2 → 20; salarios 1/3/6 → 7/20/40;
+  velocidad de rango ×0,5/×1/×1,5 → ×1/×2/×3; carga del protagonista 30 → 60 kg; oro de las 24 mejoras ×5. GDD 4.1,
+  4.2.2, 4.4, 4.5.3, 4.6 (D12), 4.7.2, 4.8, 4.19 y apéndice A al día. Escenarios regenerados (`forge_upgrade_works`
+  paga 40; `debt_due`/`debt_extension_due` arrastran mantenimiento impagado).
+- **Pruebas de otras zonas tocadas**: las de mecánica (`test_econ_production`, `_queue`, `_upgrades`, `_staff`,
+  `_staff_odds`, `_ledger_upkeep`, `_market`, `test_world_routines`, `test_meta_new_game`) fijan en su catálogo las
+  cifras de antes con `tests/balance_pins.gd` (una línea por fichero); las de datos (`test_core_h4_base`,
+  `test_core_h5_base`) comprueban las cifras nuevas.

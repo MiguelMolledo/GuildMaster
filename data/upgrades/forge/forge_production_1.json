@@ -5,7 +5,7 @@
   "branch": "production",
   "level": 1,
   "cost": {
-    "gold": 3,
+    "gold": 15,
     "items": [
       {
         "item": "wood",
