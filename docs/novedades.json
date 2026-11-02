@@ -1,6 +1,17 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "Estudio de escala y láminas de ciudad a escala (fal) · viabilidad con PixelLab",
+    "que": "Medición de la escala actual (planta de casa 34 px y puerta 40-43 px frente a un personaje de 48: la casa parece una caseta) y propuesta B: puerta 52, planta baja 64, planta alta 48 (casa de 2 plantas a 176 px, 3,7× el personaje), monumentos con tope de 400 px, densidad única 1:1. Láminas 1:1 en docs/arte/escala/ (tools/art/escala.py). Nueve láminas de fal (Nano Banana Pro) pintadas sobre maquetas grises a esa escala en assets/concept/ciudades2/: pueblo E (zoom 1 y amplia), plaza A, A+C con río, catedral, castillo con muralla, catálogo de tipos y dos kits. Análisis de PixelLab (límites, vías para edificios grandes, presupuesto y prueba del 15-nov) en docs/arte/ciudad_con_pixellab.md. Pruebas sin créditos: subir plantas sin reescalar (tools/art/estirar_iso.py) y reducir una lámina a la densidad del juego (tools/art/reducir_concepto.py). No cambia nada del juego.",
+    "como_probar": "Leer docs/arte/escala.md y docs/arte/ciudad_con_pixellab.md, o la página de Grimoire «Escala y ciudades» (art_01m6etghgmzcrhjvtjwr). Regenerar las láminas: python3 tools/art/escala.py --refs.",
+    "capturas": [
+      "docs/arte/escala/02_alineacion.png",
+      "docs/arte/escala/04_pantalla_zoom1_pueblo_E.png",
+      "docs/arte/escala/14_prueba_estirar_plantas.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "H10 · Cargos y elecciones",
     "que": "Seis cargos del pueblo (Alcalde, Concejal ×2, Juez, Alguacil, Recaudador e Inspector de mercado), con mandato, salario y poderes. Te presentas desde el organigrama (tecla O, botón Cargos o desde el Ayuntamiento). La campaña es la última estación del mandato, en persona: discurso, soborno o difamación desde la ficha del vecino. Se vota al cambiar de año y votan los vecinos de familias con título, según su relación con el candidato y la reputación. Sale una tarjeta con el recuento. El Inspector regula un precio durante 2 días. El herrero rival también se presenta. Los poderes de H11 y de EA se ven apagados, con su hito. El bot político gana Inspector en 10 de 10 semillas, hacia el día 26.",
     "como_probar": "jugar.command; tecla O. Escenarios office_campaign, office_election_eve y office_inspector. Bots: --start=artisan_blacksmith --bots=politician --days=40 --seeds=10.",
