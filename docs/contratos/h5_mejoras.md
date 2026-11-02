@@ -75,7 +75,7 @@ tipos de efecto): eso se pide aquí.
 | `customer_bonus` | amount | branch_top | query | +% de frecuencia de clientes del mostrador (H7) |
 | `protection` | amount | branch_top | query | 0..1; Seguridad (robo de empleados ahora; sabotaje/incendio después) |
 | `inspection_risk` | amount | all | query | suma de riesgos (4.8: `Σ inspection_risk`) |
-| `illegal_profit` | mult | all | query | sin lector todavía (actividad ilegal: H11/EA) |
+| `illegal_profit` | mult | all | query | `Counter.price`: lo que cobra el mostrador de ese edificio (venta bajo cuerda) [provisional, pulido del MVP] |
 | `tax_mult` | mult | all | query | sin lector todavía (impuestos: H10) |
 | `unlock_recipe` | recipe | all | query | ya lo cumple `recipe.requires_upgrade` (Production `_lock_reason`); declarativo para la UI |
 | `allow_rank` | rank | all | query | permite contratar/ascender a ese rango |
@@ -291,3 +291,10 @@ Hechas en la base (forma fija; «arbol» puede afinarlas sin cambiarla):
   `_staff_odds`, `_ledger_upkeep`, `_market`, `test_world_routines`, `test_meta_new_game`) fijan en su catálogo las
   cifras de antes con `tests/balance_pins.gd` (una línea por fichero); las de datos (`test_core_h4_base`,
   `test_core_h5_base`) comprueban las cifras nuevas.
+
+## Pulido del MVP (2026-11-02)
+- **Multas**: una multa nueva ya no deja `inspection.fine_debt`: se paga de lo que pase de `fine_loan.keep_gold` y el
+  resto es un `Loan` con la ciudad (`Loans.charge_fine`, ver `docs/contratos/h11_tribunal.md`). `fine_debt` de partidas
+  anteriores se sigue cobrando como antes.
+- **`illegal_profit`** (Contrabando, ×2): lo lee `Counter.price` (lo que cobra el mostrador de ese edificio) [provisional].
+

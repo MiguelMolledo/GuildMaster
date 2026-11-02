@@ -191,6 +191,9 @@ static func price(sim: Sim, bld: String, server: String, item: String, quality: 
 	var m := 1.0
 	if customer != "":
 		m = Emotions.price_mult(sim, customer, fam, "sell")
+	# Pulido del MVP [provisional]: the Secrets «contraband» (GDD 4.8: «beneficio ilegal ×2») doubles what this
+	# building's counter takes (selling under the counter): the only sale that belongs to a building.
+	m *= Upgrades.mult(sim, bld, "illegal_profit")
 	return maxi(1, roundi(base * (1.0 + bonus) * m))
 
 

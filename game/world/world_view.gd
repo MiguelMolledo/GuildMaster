@@ -979,7 +979,8 @@ func command_enter(building: String) -> void:
 
 
 ## Clicks of the world: left selects a person or picks a building (double click: manage it), else deselects;
-## right moves the selected person, or sends them into the building clicked. True if used.
+## right moves the selected person, or sends them into the building clicked (pulido-mvp: a walkable street tile under
+## the pointer is a walk behind a see-through building or with Shift held, command_target_building). True if used.
 func handle_input(event: InputEvent) -> bool:
 	if state == null or not event is InputEventMouseButton or not event.is_pressed():
 		return false
@@ -1003,14 +1004,54 @@ func handle_input(event: InputEvent) -> bool:
 			manage_requested.emit(bld)
 		return true
 	if event.is_action_pressed("command") and selected_id != "":
+		if mb.shift_pressed and ground_walk(mb.position):  # pulido-mvp: Shift = the ground tile, whatever covers it
+			command_move(screen_to_tile(mb.position))
+			return true
 		var svc := pick_service(mb.position)
 		if not svc.is_empty():
 			command_service(svc)
 			return true
-		var bld := pick_building(mb.position)
+		var bld := command_target_building(mb.position, mb.shift_pressed)
 		if bld != "":
 			command_enter(bld)
 		else:
 			command_move(screen_to_tile(mb.position))
 		return true
 	return false
+
+
+## Pulido del MVP (scale B): the building a right click sends the selected person into, "" = walk to the tile. As
+## before, a click on a building's drawn volume enters it; but the volume of a tall building also covers street tiles
+## behind it, so the ground tile under the pointer decides (a walkable tile that is not a door nor the building's own
+## tile is a walk) when Shift is held (`ground`) or when that building is see-through (the selected person is behind
+## it). Every hidden street tile can be reached.
+func command_target_building(screen: Vector2, ground: bool = false) -> String:
+	var bld := pick_building(screen)
+	if bld != "" and (ground or _is_see_through(bld)) and ground_walk(screen):
+		return ""
+	return bld
+
+
+## Whether the ground tile under `screen` is a street tile to walk to: walkable, not a door nor a building's own tile.
+func ground_walk(screen: Vector2) -> bool:
+	var tile := screen_to_tile(screen)
+	var grid := Grid.of(catalog, state.map_id) if catalog != null else null
+	if grid == null or not grid.walkable(tile.x, tile.y):
+		return false
+	for id: String in state.buildings:
+		var b: Dictionary = state.buildings[id]
+		var d: Array = b.get("door", [])
+		if d.size() == 2 and Vector2i(int(d[0]), int(d[1])) == tile:
+			return false
+		var o: Array = b.get("origin", [0, 0])
+		var f: Array = b.get("footprint", [1, 1])
+		if tile.x >= int(o[0]) and tile.y >= int(o[1]) and tile.x < int(o[0]) + int(f[0]) \
+				and tile.y < int(o[1]) + int(f[1]):
+			return false
+	return true
+
+
+## Whether building `id`'s visual is see-through now (faded while it hides the selected person).
+func _is_see_through(id: String) -> bool:
+	var n: Variant = _building_visuals.get(id, null)
+	return n is Node2D and (n as Node2D).modulate.a < 1.0

@@ -109,31 +109,38 @@ func test_hidden_passage_saves_once_then_cools_down() -> void:
 	eq(int(_mem(sim)["escaped"]), 2, "two escapes")
 
 
+## Pulido del MVP: an unpayable fine is owed to the town as a Loan with a term (keep_gold kept; was fine_debt, which
+## swallowed every income).
 func test_unpayable_fine_becomes_debt_with_the_town() -> void:
 	var sim := _sim(1, 1.0)
 	var st := sim.state
 	Upgrades.complete(sim, FORGE, "forge_secrets_1")
 	st.families[FAM]["gold"] = 0
-	# The forge_upgrades employees cost wages at dawn: with 0 gold they go unpaid; the fine cannot be paid either.
 	var ev := _to_dawn(sim)
 	var fine := int(_of(ev, "inspection")[0]["fine"])
 	eq(Money.gold(st, FAM), 0, "nothing to pay with")
-	eq(Inspections.fine_debt(sim, FORGE), fine, "the whole fine is owed")
+	var town := Loans.of_family(sim, FAM).filter(func(id: String) -> bool: return str(st.loans[id]["lender"]) == "town")
+	eq(town.size(), 1, "a debt with the town")
+	eq(int(st.loans[town[0]]["outstanding"]), fine, "the whole fine is owed")
+	eq(Inspections.fine_debt(sim, FORGE), 0, "no old fine debt eating the income")
 	eq(int(_mem(sim)["fines"]), fine, "fines counts the fine itself")
-	var n := Notices.list(sim, FAM).filter(func(x: Dictionary) -> bool: return str(x["key"]) == "notice.inspection_debt")
-	eq([n[0]["severity"], n[0]["params"]], [Notices.URGENT, {"building": FORGE, "debt": fine}], "urgent debt notice")
-	# Gold comes in during the day (a sale): the debt is charged in that same step.
-	var book := Ledger.total(st, FAM)
+	var n := Notices.list(sim, FAM).filter(func(x: Dictionary) -> bool: return str(x["key"]) == "notice.fine_loan")
+	eq(n[0]["severity"], Notices.URGENT, "urgent notice with the term")
 	Money.change(sim, FAM, 7, Money.MARKET_SALES, "test")
 	sim.events = [{"type": "gold_changed", "family": FAM, "amount": 7, "category": "market_sales", "gold": 7}]
 	Inspections.step(sim)
-	eq(Money.gold(st, FAM), 0, "the 7 gold went to the debt")
-	eq(Inspections.fine_debt(sim, FORGE), fine - 7, "partly settled")
-	eq(Ledger.total(st, FAM) - book, 0, "+7 sale −7 fine in the book")
-	# Next dawn with plenty of gold: settled (the day's own roll may fine again: paid at once).
-	st.families[FAM]["gold"] = 500
-	_to_dawn(sim)
-	eq(Inspections.fine_debt(sim, FORGE), 0, "settled at dawn")
+	eq(Money.gold(st, FAM), 7, "a sale is not swallowed: the family keeps it")
+
+
+func test_an_old_fine_debt_is_still_collected() -> void:
+	var sim := _sim(1, 1.0)
+	var st := sim.state
+	_mem(sim)["fine_debt"] = 12  # a save from before pulido-mvp
+	Money.change(sim, FAM, 5, Money.MARKET_SALES, "test")
+	sim.events = [{"type": "gold_changed", "family": FAM, "amount": 5, "category": "market_sales", "gold": 5}]
+	var gold := Money.gold(st, FAM)
+	Inspections.step(sim)
+	eq(Inspections.fine_debt(sim, FORGE), maxi(0, 12 - gold), "collected as before")
 
 
 func test_same_seed_same_inspections() -> void:
@@ -158,12 +165,11 @@ func test_memory_and_debt_survive_save_load() -> void:
 	Upgrades.complete(sim, FORGE, "forge_secrets_1")
 	sim.state.families[FAM]["gold"] = 0
 	_to_dawn(sim)
-	check(Inspections.fine_debt(sim, FORGE) > 0, "a debt to keep")
+	check(not Loans.of_family(sim, FAM).is_empty(), "a debt to keep (the town's loan)")
 	var r := SaveFile.from_text(JSON.stringify(sim.state.to_dict()))
 	check(r["ok"], "loads")
 	var back: WorldState = r["state"]
 	eq(SaveFile.canonical(back.to_dict()), SaveFile.canonical(sim.state.to_dict()), "same content")
-	eq(typeof(back.buildings[FORGE]["inspection"]["fine_debt"]), TYPE_INT, "fine_debt is int")
 	var b := Sim.new(back, sim.catalog)
 	eq(Inspections.view(b, FORGE), Inspections.view(sim, FORGE), "same view")
 	_to_dawn(sim)

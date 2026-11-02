@@ -553,7 +553,7 @@ hud.help_button_tip,Controls and panels (F1),Controles y paneles (F1)
 help.title,"Controls (F1, ? or Esc to close)","Controles (F1, ? o Esc para cerrar)"
 help.map,In the town,En el pueblo
 help.map_select,Left click: pick someone of your family (red) or a building,Clic izquierdo: elegir a alguien de tu familia (de rojo) o un edificio
-help.map_right,Right click with someone picked: walk there · on a building: go in · on a stall or the board: go and open it,Clic derecho con alguien elegido: ir allí · sobre un edificio: entrar · sobre un puesto o el tablón: ir y abrirlo
+help.map_right,Right click with someone picked: walk there · on a building: go in · on a stall or the board: go and open it · Shift + right click: go to the tile even if a building covers it,Clic derecho con alguien elegido: ir allí · sobre un edificio: entrar · sobre un puesto o el tablón: ir y abrirlo · Mayús + clic derecho: ir a la casilla aunque la tape un edificio
 help.map_manage,Double click on your forge (or Manage): open it without walking there,Doble clic en tu forja (o Gestionar): abrirla sin ir andando
 help.map_camera,"WASD / arrows, middle button: move the camera · wheel: zoom","WASD / flechas, botón central: mover la cámara · rueda: acercar"
 help.map_time,Space: pause (orders given in pause wait in a numbered list) · Shift+1/2/3: speed ×1/×2/×4,Espacio: pausa (las órdenes en pausa esperan en una lista numerada) · Mayús+1/2/3: velocidad ×1/×2/×4
@@ -1158,3 +1158,5 @@ ui.kin_ai.why_need_hunger,hungry,tiene hambre
 ui.kin_ai.why_need_rest,tired,está cansado
 ui.kin_ai.why_need_social,lonely,se siente solo
 ui.kin_ai.why_need_fun,bored,se aburre
+notice.fine_loan,"You pay {paid} of the fine now; {amount} is owed to the town until day {day} (book, Debts)","Pagas {paid} de la multa ahora; debes {amount} a la ciudad hasta el día {day} (libro, Deudas)"
+lender.town,The town (fines),La ciudad (multas)

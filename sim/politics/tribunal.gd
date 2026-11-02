@@ -375,9 +375,11 @@ static func _sentence(sim: Sim, t: Dictionary) -> void:
 	match str(sd.get("kind", "")):
 		"fine":
 			var span: Array = sd.get("fine", [10, 50])
-			var amount := mini(Kin.randi_range(st, "fine|" + str(t["id"]), int(span[0]), int(span[1])), Money.gold(st, fam))
-			Money.change(sim, fam, -amount, Money.JUSTICE, "sentence_" + str(t["id"]), "", accused)
+			var amount := Kin.randi_range(st, "fine|" + str(t["id"]), int(span[0]), int(span[1]))
+			var r := Loans.charge_fine(sim, fam, amount, Money.JUSTICE, "sentence_" + str(t["id"]),
+				str(t.get("building", "")), accused)  # pulido-mvp: what cannot be paid is owed to the town
 			out["gold"] = amount
+			out["owed"] = int(r["owed"])
 		"confiscation":
 			var bld := str(t.get("building", ""))
 			if bld == "" or not st.buildings.has(bld):
