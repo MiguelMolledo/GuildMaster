@@ -464,14 +464,14 @@
     {
       "id": "H14",
       "nombre": "IA familiar",
-      "estado": "pendiente",
+      "estado": "hecho",
       "entregable": "Directivas completas, necesidades, moral, notificaciones.",
       "criterios": [
         {
           "texto": "Un familiar con \"Comerciar\" aprovisiona la forja solo",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "diana kin_trader: con la forja sin hierro ni carbón, Agnès (Comerciar) compra, lo lleva al almacén y trabaja en 10 de 10 semillas sin órdenes rechazadas; tests/test_family_directives.gd",
+          "fecha": "2026-11-02"
         }
       ]
     },

@@ -1,6 +1,17 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "H14 · IA familiar: directivas, necesidades y moral",
+    "que": "Los familiares que lleva la IA (la pareja, los adultos fuera del grupo) y los del grupo en sus franjas «Libre» siguen ahora sus directivas en el orden que elijas: Trabajar, Comerciar, Sociabilizar y Divertirse (Aprender llega más adelante). Comerciar compra las materias que le faltan a la forja, las lleva al almacén y vende lo que sobra, con las mismas órdenes que darías tú. Cada familiar tiene hambre, descanso, social y diversión: se recuperan en casa, hablando o en un banco de la plaza; si una baja mucho la atiende primero, y con la moral baja trabaja más despacio. Avisos de familiar agotado, moral baja, forja sin material y materias traídas. Panel «IA» en la ficha y en el árbol.",
+    "como_probar": "jugar.command; ficha (I) → IA, o árbol (F) → IA. Escenarios kin_trader (Agnès comercia sola: la forja sin hierro) y kin_tired (cansada y con hambre). Bots: --scenario=kin_trader --bots=kin_trader --days=2 --seeds=10. Capturas: --smoke-script=ia_familiar.",
+    "capturas": [
+      "docs/novedades/h14_directivas.png",
+      "docs/novedades/h14_comerciar.png",
+      "docs/novedades/h14_necesidades.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "Escala B en el juego: casas y edificios más altos a 1:1, ayuntamiento sin el 1,6 y edificios translúcidos",
     "que": "Primera prueba de la escala B aprobada (docs/arte/escala.md), sin créditos. Las 7 casas, la forja (y su andamio), la armería y el ayuntamiento de Guild Renew se han estirado con tools/art/escala_b.py sin reescalar nunca: suben las plantas duplicando las filas más uniformes en la diagonal 2:1 (puertas ~54 px, plantas ~50 + 48) y el ayuntamiento pasa a 1:1 sobre su solar de 6×4, alargado con 4 crujías de ventanas en vez de la escala 1,6. Sprites nuevos en assets/art/buildings/escala_b/; en cada escena el de antes queda como nodo oculto SpriteAntes para volver atrás (docs/arte/reuso_guild.md, «Escala B»). Top de cada edificio subido (letreros y zona de clic) y adornos de mejora de la forja recolocados. Nuevo: un edificio se vuelve translúcido mientras tapa a la persona elegida (data/view.json see_through). Además, prueba de kits de casa a partir de la lámina kit_entramado (docs/arte/kits.md): piezas reducidas a la densidad del juego, limpias y montadas en 3 casas junto al personaje.",
     "como_probar": "jugar.command: mira la plaza, la calle de la forja y el ayuntamiento a zoom 1 y 2 (rueda). Elige a un familiar y llévalo detrás de la forja o del ayuntamiento: el edificio se vuelve translúcido. Capturas: --smoke-script=escala --shot-tag=despues.",
