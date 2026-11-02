@@ -13,7 +13,8 @@ Una maqueta: {"id", "fondo", "elementos": [...]}. fondo: {"color": token|#hex} o
 "desaturar": 0-1} (las capturas de docs/novedades/ son de 1920×1080 y se reducen a la mitad, píxel a píxel).
 Cada elemento: {"tipo", "rect": [x, y, w, h], ...}; en el README están todos los tipos con sus claves.
 Imágenes: "guild:<ruta>" = arte de Guild Renew (~/Code/guild/assets/sprites/ui, solo lectura; otra raíz con la
-variable GUILD_UI), "icono:<id>" = assets/art/icons/<id>.png, y si no, ruta desde la raíz del repo.
+variable GUILD_UI), "icono:<id>" = assets/art/icons/<id>.png, "ui:<ruta>" = assets/art/ui/<ruta>.png (marks/seal,
+cursor/cursor_arrow...), "pieza:<id>" = assets/art/ui/theme/<id>.png, y si no, ruta desde la raíz del repo.
 """
 import argparse
 import json
@@ -78,6 +79,8 @@ def image(ref):
         path = os.path.join(ROOT, "assets", "art", "icons", ref[6:] + ".png")
     elif ref.startswith("pieza:"):
         path = os.path.join(THEME, ref[6:] + ".png")
+    elif ref.startswith("ui:"):
+        path = os.path.join(ROOT, "assets", "art", "ui", ref[3:] + ".png")
     else:
         path = ref if os.path.isabs(ref) else os.path.join(ROOT, ref)
     if not os.path.exists(path):
@@ -103,9 +106,10 @@ def nine(canvas, piece, rect):
         canvas.alpha_composite(Image.new("RGBA", (w, h), color("negativo")), (x, y))
         return
     m = PIECES.get(piece, max(1, min(img.size) // 4))
+    mx, my = (m, m) if isinstance(m, int) else m
     iw, ih = img.size
-    xs = [(0, m, 0, m), (m, iw - m, m, w - m), (iw - m, iw, w - m, w)]
-    ys = [(0, m, 0, m), (m, ih - m, m, h - m), (ih - m, ih, h - m, h)]
+    xs = [(0, mx, 0, mx), (mx, iw - mx, mx, w - mx), (iw - mx, iw, w - mx, w)]
+    ys = [(0, my, 0, my), (my, ih - my, my, h - my), (ih - my, ih, h - my, h)]
     for sx0, sx1, dx0, dx1 in xs:
         for sy0, sy1, dy0, dy1 in ys:
             if dx1 > dx0 and dy1 > dy0 and sx1 > sx0 and sy1 > sy0:
@@ -181,8 +185,8 @@ def el_panel(c, e):
     r = e["rect"]
     if style == "madera":
         nine(c, "panel", r)
-    elif style == "pergamino":
-        nine(c, "tooltip", r)
+    elif style in ("pergamino", "parchment"):
+        nine(c, "parchment", r)
     elif style == "oscuro":
         fill(c, r, "seccion")
         x, y, w, h = r
@@ -196,7 +200,7 @@ def el_panel(c, e):
         nine(c, style, r)
     if e.get("titulo"):
         x, y, w, _ = r
-        ink = "texto_tinta" if style == "pergamino" else "oro"
+        ink = "texto_tinta" if style in ("pergamino", "parchment") else "oro"
         text(c, (x + 8, y + 6, w - 16, 14), e["titulo"], "titulo", ink)
         fill(c, (x + 8, y + 21, w - 16, 1), "oro_oscuro")
     if e.get("cerrar"):
@@ -210,12 +214,14 @@ def el_boton(c, e):
     x, y, w, h = e["rect"]
     role = e.get("fuente", "boton")
     if w <= 0:
-        w = text_size(e.get("texto", ""), role)[0] + 12 + (18 if e.get("icono") else 0)
+        w = text_size(e.get("texto", ""), role)[0] + 12 + (18 if e.get("icono") else 0) + \
+            (text_size(e["tecla"], "pequena")[0] + 3 if e.get("tecla") else 0)
     if h <= 0:
         h = TOKENS["medida"]["alto_boton"]
     nine(c, "button_" + state, (x, y, w, h))
     dy = 1 if state == "pressed" else 0
     ink = {"normal": "texto", "hover": "oro_claro", "pressed": "oro_claro", "disabled": "texto_apagado"}[state]
+    kw = text_size(e["tecla"], "pequena")[0] + 3 if e.get("tecla") else 0
     ix = x + 6
     if e.get("icono"):
         s = min(16, h - 2)
@@ -223,10 +229,9 @@ def el_boton(c, e):
         tx, tw = ix + s + 2, w - (ix + s + 2 - x) - 6
         text(c, (tx, y + dy, tw, h), e.get("texto", ""), role, ink, e.get("alinear", "izq"), "centro", False)
     else:
-        text(c, (x, y + dy, w, h), e.get("texto", ""), role, ink, "centro", "centro", False)
-    if e.get("tecla"):   # atajo en una esquina, p. ej. "L"
-        f, _, _ = font("pequena")
-        text(c, (x + w - 9, y + h - 9, 8, 8), e["tecla"], "pequena", "oro", "der", "arriba", False)
+        text(c, (x, y + dy, w - kw, h), e.get("texto", ""), role, ink, "centro", "centro", False)
+    if e.get("tecla"):   # atajo en la esquina de abajo a la derecha, p. ej. "L"
+        text(c, (x + w - kw - 2, y + h - 11, kw, 9), e["tecla"], "pequena", "oro", "der", "arriba", False)
     return w
 
 

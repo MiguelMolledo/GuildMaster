@@ -13,7 +13,7 @@ con el kit real (`tools/ui/maqueta.py`, ver [tools/ui/README.md](../../tools/ui/
 | # | Documento | Qué cubre | Dueño | Estado |
 |---|---|---|---|---|
 | — | [_plantilla.md](_plantilla.md) | Los 10 puntos de cada documento | kit | hecho |
-| 00 | [00_lenguaje_visual.md](00_lenguaje_visual.md) | Rejilla, tokens de color, marcos, estados, tipografía, iconos, animación, cursor, sonidos de UI | kit | en curso |
+| 00 | [00_lenguaje_visual.md](00_lenguaje_visual.md) | Rejilla, tokens de color, marcos, estados, tipografía, iconos, animación, cursor, sonidos de UI | kit | borrador |
 | 01 | [01_hud.md](01_hud.md) | Interfaz general en mapa e interior: zonas, prioridades y solapes, avisos, tooltips, modales, objetivos y F1, familiares, reloj, teclas | kit | pendiente |
 | 02 | [02_menu_inicial.md](02_menu_inicial.md) | Título, partida nueva, cargar/guardar, opciones, créditos, salir, fin de partida | kit | pendiente |
 | 03 | [03_produccion_sin_creditos.md](03_produccion_sin_creditos.md) | Cómo se hace la UI sin créditos, lista de la compra de PixelLab (15-nov), cómo editar piezas en Godot | kit | pendiente |
@@ -49,8 +49,11 @@ Convenciones comunes: [mecanicas/_social.md](mecanicas/_social.md).
 ## Maquetas
 
 - PNG en [maquetas/](maquetas/): `<id>.png` (960×540) y `<id>_x2.png` (1920×1080).
-- La fuente de cada maqueta va al lado, en `maquetas/src/<id>.json` (o `.py`), para que se pueda regenerar cuando
-  cambie una pieza: `python3 tools/ui/maqueta.py docs/ui/maquetas/src/*.json`.
+- La fuente de cada maqueta (`.json` o `.py`) va en `tools/ui/kit/` (00-03 y HUD) o `tools/ui/mecanicas/`, para que
+  se pueda regenerar cuando cambie una pieza: `python3 tools/ui/maqueta.py tools/ui/kit/*.py tools/ui/mecanicas/*.py`.
+- Para montar una pantalla sobre el HUD propuesto: `tools/ui/kit/hud.py` (`ficha()`, `barra_estado()`, `reloj()`,
+  `objetivo()`, `lateral()`, `seleccion()`, `avisos()`; zonas en `hud.ZONAS`).
+- Fondos del juego sin HUD: `maquetas/fondos/` (se regeneran con `tools/ui/captura_fondos.tscn`).
 - Las capturas del juego de hoy que ilustran un documento se llaman `<documento>_hoy_<qué>.png`.
 - Ejemplo con todos los tipos de elemento: `maquetas/_ejemplo.png` (fuente: `tools/ui/ejemplos/ejemplo.json`).
 

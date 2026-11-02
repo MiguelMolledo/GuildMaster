@@ -13,7 +13,18 @@ Writes assets/art/ui/theme/:
   tab_<on|off>.png   12×12 9-patch (margins 3): tab of a tabbed panel; the active one opens into the panel below
   portrait_<normal|active|dim>.png 8×8 9-patch (margins 3): frame of a portrait (wood, gold when active, grey when not
                      controllable or dead)
-PIECES (below) is the 9-patch margin of every piece: tools/ui/maqueta.py reads it, the theme uses the same numbers.
+  parchment.png      24×24 9-patch (margins 6): a document (contracts, decrees, the chronicle at the end)
+  check_<off|on>.png 10×10: check box
+  slider_track.png / slider_grabber.png, scroll_track.png / scroll_grabber.png: slider and scroll bar
+  divider.png        16×3 9-patch (margins 3×1): a gold rule with a small diamond at each end
+Writes assets/art/ui/marks/ (not 9-patch, drawn at 1×):
+  badge_title_<common|citizen|patrician|baron|noble>.png 12×12: shields, one per social title (data/titles)
+  badge_office_<mayor|councillor|judge|constable|collector|inspector>.png 12×12: the six offices (GDD 4.12.3)
+  rank_<1|2|3>.png   8×8: chevrons of an employee's rank (apprentice, journeyman, master)
+  seal.png           16×16: wax seal (signed, done, official)
+Writes assets/art/ui/cursor/: cursor_arrow.png, cursor_hand.png, cursor_wait.png (hotspot at the top-left pixel).
+PIECES (below) is the 9-patch margin of every piece (one number, or (x, y)): tools/ui/maqueta.py reads it, the theme
+uses the same numbers.
 The fonts are not drawn here: assets/art/ui/fonts/silkscreen_regular.ttf comes from Guild Renew (SIL OFL 1.1).
 """
 import argparse
@@ -53,7 +64,12 @@ PIECES = {
     "tooltip": 3,
     "tab_on": 3, "tab_off": 3,
     "portrait_normal": 3, "portrait_active": 3, "portrait_dim": 3,
+    "parchment": 6,
+    "slider_track": 3, "scroll_track": 3, "scroll_grabber": 3,
+    "divider": (3, 1),
 }
+MARKS = os.path.join(ROOT, "assets", "art", "ui", "marks")
+CURSOR = os.path.join(ROOT, "assets", "art", "ui", "cursor")
 
 
 def h32(*v):
@@ -64,10 +80,31 @@ def h32(*v):
     return x
 
 
-def save(img, name):
-    os.makedirs(OUT, exist_ok=True)
-    img.save(os.path.join(OUT, name))
-    print(f"  assets/art/ui/theme/{name} {img.size[0]}×{img.size[1]}")
+def save(img, name, folder=None):
+    folder = folder or OUT
+    os.makedirs(folder, exist_ok=True)
+    img.save(os.path.join(folder, name))
+    print(f"  {os.path.relpath(os.path.join(folder, name), ROOT)} {img.size[0]}×{img.size[1]}")
+
+
+INK = {
+    ".": (0, 0, 0, 0), "k": EMPTY, "s": DARK, "w": WOOD, "l": WOOD_LIGHT, "d": WOOD_DARK, "g": GOLD, "G": GOLD_DARK,
+    "y": hexc("f2d880"), "p": PARCHMENT, "P": PARCHMENT_DARK, "q": hexc("e8d4b0"), "r": RIVET, "R": RIVET_LIGHT,
+    "x": hexc("9a2a22"), "X": hexc("6a1a14"), "z": hexc("c4503e"), "i": hexc("5a5a54"), "I": hexc("8a8a84"),
+    "S": hexc("c8c8d0"), "c": hexc("ece4d2"), "b": hexc("3a3028"),
+}
+
+
+def bitmap(rows, ink=None):
+    """A sprite from rows of characters (INK: one character per colour; "." transparent)."""
+    ink = dict(INK, **(ink or {}))
+    w = max(len(r) for r in rows)
+    img = Image.new("RGBA", (w, len(rows)), (0, 0, 0, 0))
+    px = img.load()
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            px[x, y] = ink[ch]
+    return img
 
 
 def ring(x, y, w, h):
@@ -200,6 +237,267 @@ def portrait_frame(kind):
     save(img, f"portrait_{kind}.png")
 
 
+def parchment():
+    w = h = 24
+    img = Image.new("RGBA", (w, h), PARCHMENT)
+    px = img.load()
+    for y in range(h):
+        for x in range(w):
+            d = ring(x, y, w, h)
+            if d == 0:
+                px[x, y] = WOOD_DARK
+            elif d == 1:
+                px[x, y] = PARCHMENT_DARK if (y == h - 2 or x == w - 2) else INK["q"]
+            elif d == 2 and (y == h - 3 or x == w - 3) and h32(x, y, 3) % 3 == 0:
+                px[x, y] = PARCHMENT_DARK
+    for corner in ((0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)):
+        px[corner] = (0, 0, 0, 0)
+    save(img, "parchment.png")
+
+
+def check(on):
+    rows = ["dddddddddl",
+            "dkkkkkkkkl",
+            "dkkkkkkkkl",
+            "dkkkkkkkkl",
+            "dkkkkkkkkl",
+            "dkkkkkkkkl",
+            "dkkkkkkkkl",
+            "dkkkkkkkkl",
+            "dkkkkkkkkl",
+            "llllllllll"]
+    img = bitmap(rows)
+    if on:
+        mark = bitmap(["......y",
+                       ".....yg",
+                       "g...yg.",
+                       "gg.yg..",
+                       ".ggg...",
+                       "..g...."])
+        img.alpha_composite(mark, (2, 2))
+    save(img, f"check_{'on' if on else 'off'}.png")
+
+
+def slider_and_scroll():
+    save(bitmap(["dddddddddddd",
+                 "dkkkkkkkkkkl",
+                 "dkkkkkkkkkkl",
+                 "dkkkkkkkkkkl",
+                 "dkkkkkkkkkkl",
+                 "llllllllllll"]), "slider_track.png")
+    save(bitmap([".kkkkk.",
+                 "kyggggk",
+                 "kglllwk",
+                 "kglwwwk",
+                 "kglwwwk",
+                 "kglwwwk",
+                 "kglwwwk",
+                 "kglwwdk",
+                 "kgwwddk",
+                 "kGGGGGk",
+                 ".kkkkk."]), "slider_grabber.png")
+    save(bitmap(["kkkkkk",
+                 "kbbbbk",
+                 "kbbbbk",
+                 "kbbbbk",
+                 "kbbbbk",
+                 "kbbbbk",
+                 "kbbbbk",
+                 "kbbbbk",
+                 "kbbbbk",
+                 "kbbbbk",
+                 "kbbbbk",
+                 "kkkkkk"]), "scroll_track.png")
+    save(bitmap([".kkkk.",
+                 "kllwwk",
+                 "klwwdk",
+                 "klwwdk",
+                 "klwwdk",
+                 "klgGdk",
+                 "klwwdk",
+                 "klwwdk",
+                 "klwwdk",
+                 "klwwdk",
+                 "kwdddk",
+                 ".kkkk."]), "scroll_grabber.png")
+    save(bitmap([".k............k.",
+                 "kyGGGGGGGGGGGGyk",
+                 ".k............k."]), "divider.png")   # a rule with a diamond at each end
+
+
+SHIELD = ["kkkkkkkkkk",
+          "kHFFFFFFFk",
+          "kHFFFFFFFk",
+          "kHFFFFFFFk",
+          "kHFFFFFFDk",
+          "kHFFFFFFDk",
+          "kHFFFFFFDk",
+          ".kHFFFFDk.",
+          ".kFFFFFDk.",
+          "..kFFFDk..",
+          "...kFDk...",
+          "....kk...."]
+
+
+def badges():
+    titles = {   # fill, highlight, shade, band
+        "common": ("w", "l", "d", None),
+        "citizen": ("i", "I", "b", None),
+        "patrician": ("S", "c", "I", "x"),
+        "baron": ("g", "y", "G", "x"),
+        "noble": ("g", "y", "G", "x"),
+    }
+    for tid, (f, hl, sh, band) in titles.items():
+        rows = [r.replace("F", f).replace("H", hl).replace("D", sh) for r in SHIELD]
+        if band:
+            rows[4] = rows[4][:2] + band * 6 + rows[4][8:]
+            rows[5] = rows[5][:2] + band * 6 + rows[5][8:]
+        img = Image.new("RGBA", (12, 12), (0, 0, 0, 0))
+        if tid == "noble":   # the shield is lower and a crown sits on it
+            img.alpha_composite(bitmap(rows[:9] + ["..kFFDk...".replace("F", f).replace("D", sh), "...kk....."]), (1, 1))
+            img.alpha_composite(bitmap(["k.k.k.k", "kykykyk", "kgggggk", "kkkkkkk"]), (2, 0))
+        else:
+            img.alpha_composite(bitmap(rows), (1, 0))
+        save(img, f"badge_title_{tid}.png", MARKS)
+    offices = {
+        "mayor": ["k........k..",
+                  ".k......k...",
+                  "..k....k....",
+                  "...g..g.....",
+                  "....gg......",
+                  "...kkkk.....",
+                  "..kyggGk....",
+                  "..kgyxGk....",
+                  "..kgxxGk....",
+                  "..kGGGGk....",
+                  "...kkkk.....",
+                  "............"],
+        "councillor": [".kkkkkkkkk..",
+                       "kPpppppppPk.",
+                       ".kqqqqqqqk..",
+                       ".kqkkkkkqk..",
+                       ".kqqqqqqqk..",
+                       ".kqkkkkqqk..",
+                       ".kqqqqqqqk..",
+                       ".kqkkkqxqk..",
+                       ".kqqqqxzxk..",
+                       "kPpppppxpPk.",
+                       ".kkkkkkkkk..",
+                       "............"],
+        "judge": [".....kk.....",
+                  ".....yy.....",
+                  ".kggggggggk.",
+                  ".g...gg...g.",
+                  "g.g..gg..g.g",
+                  "g..g.gg.g..g",
+                  "kggk.gg.kggk",
+                  ".....gg.....",
+                  ".....gg.....",
+                  "...kggggk...",
+                  "..kGGGGGGk..",
+                  "............"],
+        "constable": ["..kkk.......",
+                      ".kIIIk......",
+                      "kIk.kIk.....",
+                      "kIk.kIk.....",
+                      ".kIIIk......",
+                      "..kIk.......",
+                      "..kIk.......",
+                      "..kIIIk.....",
+                      "..kIk.......",
+                      "..kIIk......",
+                      "..kIk.......",
+                      "...k........"],
+        "collector": ["....kkk.....",
+                      "...kdwdk....",
+                      "....kwk.....",
+                      "...kwwwk....",
+                      "..kwlwwwk...",
+                      ".kwlwwwwwk..",
+                      ".kwwwgwwwk..",
+                      ".kwwgygwwk..",
+                      ".kwwwgwwdk..",
+                      "..kwwwwdk...",
+                      "...kkkkk....",
+                      "............"],
+        "inspector": ["...kkkk.....",
+                      "..kIIIIk....",
+                      ".kISSSSIk...",
+                      ".kIScSSIk...",
+                      ".kISSSSIk...",
+                      ".kISSSSIk...",
+                      "..kIIIIk....",
+                      "...kkkkdk...",
+                      ".......kdk..",
+                      "........kdk.",
+                      ".........kd.",
+                      "..........k."],
+    }
+    for oid, rows in offices.items():
+        save(bitmap(rows), f"badge_office_{oid}.png", MARKS)
+    chevron = bitmap(["yg...gy.", ".gyyyg.."])   # two rows, one row of air between chevrons
+    for n, ys in ((1, (3,)), (2, (1, 5)), (3, (0, 3, 6))):
+        img = Image.new("RGBA", (8, 8), (0, 0, 0, 0))
+        for y in ys:
+            img.alpha_composite(chevron, (0, y))
+        save(img, f"rank_{n}.png", MARKS)
+    save(bitmap(["....kkkkk.......",
+                 "..kkxxxxxkk.....",
+                 ".kxzzxxxxxXk....",
+                 ".kzxxxxxxxXk....",
+                 "kxzxxXXXxxxXk...",
+                 "kxzxXzxxXxxXk...",
+                 "kxxxXxxzXxxXk...",
+                 "kxxxXXXXXxxXk...",
+                 "kxxxxxxxxxXXk...",
+                 ".kxxxxxxxXXk....",
+                 ".kXxxxxxXXXk....",
+                 "..kkXXXXXkk.....",
+                 "....kkkkkxk.....",
+                 ".........kxk....",
+                 "..........kk....",
+                 "................"]), "seal.png", MARKS)
+
+
+def cursors():
+    save(bitmap(["k.........",
+                 "kk........",
+                 "kck.......",
+                 "kcck......",
+                 "kccck.....",
+                 "kcccck....",
+                 "kccccck...",
+                 "kcccccck..",
+                 "kccccccck.",
+                 "kcccckkkkk",
+                 "kcckck....",
+                 "kck.kck...",
+                 "kk..kck...",
+                 "k....kck..",
+                 ".....kk..."], {"c": hexc("ece4d2")}), "cursor_arrow.png", CURSOR)
+    save(bitmap(["...kk.......",
+                 "..kcck......",
+                 "..kcck......",
+                 "..kcckkk....",
+                 "..kcckcckk..",
+                 "kkkcccccckk.",
+                 "kckcccccccck",
+                 "kccccccccck.",
+                 ".kcccccccck.",
+                 "..kcccccck..",
+                 "..kcccccck..",
+                 "...kkkkkk..."]), "cursor_hand.png", CURSOR)
+    save(bitmap(["kkkkkkkkk",
+                 "kgggggggk",
+                 ".kpppppk.",
+                 "..kpppk..",
+                 "...kpk...",
+                 "..kpypk..",
+                 ".kpyyypk.",
+                 "kgggggggk",
+                 "kkkkkkkkk"]), "cursor_wait.png", CURSOR)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--preview", default="")
@@ -213,6 +511,12 @@ def main():
     tab(False)
     for k in ("normal", "active", "dim"):
         portrait_frame(k)
+    parchment()
+    check(False)
+    check(True)
+    slider_and_scroll()
+    badges()
+    cursors()
     if a.preview:
         names = sorted(os.listdir(OUT))
         sheet = Image.new("RGBA", (len(names) * 40 * 4, 40 * 4), (96, 104, 92, 255))

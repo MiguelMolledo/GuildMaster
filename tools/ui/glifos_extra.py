@@ -128,7 +128,7 @@ def main():
         for n in sorted(os.listdir(FONTS)):
             if n.endswith(".ttf"):
                 cm = TTFont(os.path.join(FONTS, n)).getBestCmap()
-                print(f"  {n}: falta {''.join(sorted(set(c for c in a.falta if ord(c) not in cm and c != ' '))) or '-'}")
+                print(f"  {n}: falta {''.join(sorted(set(c for c in a.falta if ord(c) not in cm and c != ' ' and c.isprintable()))) or '-'}")
         return
     patch("pixel_operator.ttf", REGULAR, a.rehacer)
     patch("pixel_operator_bold.ttf", BOLD, a.rehacer)

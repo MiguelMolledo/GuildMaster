@@ -883,7 +883,7 @@
       "origen": "dibujado (Pillow)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Tema de UI pixel art (tools/art/dibujar_ui.py): panel.png (marco de madera con remaches y filete dorado, 9-patch), button_<normal|hover|pressed|disabled>.png, field.png, tooltip.png (pergamino), tab_<on|off>.png (pestañas) y portrait_<normal|active|dim>.png (marco de retrato). Todo en game/ui/greybox_theme.tres, puesto también en la raíz del HUD."
+      "notas": "Tema de UI pixel art (tools/art/dibujar_ui.py): panel.png (marco de madera con remaches y filete dorado, 9-patch), button_<normal|hover|pressed|disabled>.png, field.png, tooltip.png (pergamino), tab_<on|off>.png (pestañas) portrait_<normal|active|dim>.png (marco de retrato), parchment.png (documentos), check_<on|off>, slider_*, scroll_* y divider.png. Todo en game/ui/greybox_theme.tres, puesto también en la raíz del HUD."
     },
     {
       "id": "ui_font_pixel",
@@ -932,6 +932,30 @@
       "origen": "libre (OFL)",
       "coste_gen": 0,
       "notas": "Candidatas comparadas en docs/ui/00_lenguaje_visual.md: Tiny5 (8 px) y VT323 (16 px), SIL OFL 1.1 con su licencia al lado. Si no se eligen, se pueden borrar (desde Godot)."
+    },
+    {
+      "id": "ui_marks",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/marks/seal.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Insignias del kit (tools/art/dibujar_ui.py): badge_title_<common|citizen|patrician|baron|noble> y badge_office_<mayor|councillor|judge|constable|collector|inspector> de 12×12, rank_<1|2|3> (galones de 8×8) y seal.png (lacre, 16×16). Diseño: docs/ui/00_lenguaje_visual.md."
+    },
+    {
+      "id": "ui_cursor",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/cursor/cursor_arrow.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Cursores del kit: cursor_arrow, cursor_hand (sobre lo clicable), cursor_wait (cargar/guardar), a 1×; el juego usará la versión ×2. Aún no están en el juego."
     },
     {
       "id": "ui_hud_clock",
