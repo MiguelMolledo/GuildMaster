@@ -16,5 +16,7 @@
   "max_contracts": 1,
   "accepts_scripted_contracts": false,
   "_title_rule_doc": "H9 [provisional, until 04c is approved]: requests = asks for the next title at the town hall when it meets its requirements and keeps spare_gold after paying it (RivalAI task title).",
-  "title_rule": {"requests": true, "spare_gold": 100}
+  "title_rule": {"requests": true, "spare_gold": 100},
+  "_office_rule_doc": "H10 [provisional, until 04c is approved]: runs = registers (RivalAI task office, a management order) for the first office of offices whose election is open, that its title allows and that nobody of the family already holds or runs for, when it can pay the level and keep spare_gold.",
+  "office_rule": {"runs": true, "offices": ["market_inspector", "tax_collector"], "level": "medium", "spare_gold": 50}
 }

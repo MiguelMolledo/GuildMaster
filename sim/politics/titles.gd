@@ -162,21 +162,13 @@ static func _reason(sim: Sim, actor: String, title: String) -> String:
 
 ## GDD 4.12.2: the first holder of the ceremony's approvers (Mayor, then a Councillor) approves if its affinity with
 ## the actor is >= min_affinity; with no holder (vacant: every office until H10) it is approved by itself.
-## state.offices[office] = {holder: chr_id | holders: [chr_id]} (the shape H10 gives them).
+## H10: the holders are the living ones of the office's seats (Offices.holders, docs/contratos/h10_cargos.md).
 static func approved(sim: Sim, actor: String) -> bool:
 	var cer: Dictionary = sim.catalog.politics.get("ceremony", {})
 	for office: String in cer.get("approvers", []):
-		var o: Variant = sim.state.offices.get(office, {})
-		if not o is Dictionary:
-			continue
-		var holders: Array = []
-		if str((o as Dictionary).get("holder", "")) != "":
-			holders.append(str(o["holder"]))
-		for h: Variant in (o as Dictionary).get("holders", []):
-			holders.append(str(h))
-		for h: String in holders:
-			if h == "" or not Kin.alive(sim.state, h):
-				continue
+		for h: String in Offices.holders(sim, office):
+			if h == actor:
+				return true
 			var rel: Dictionary = sim.state.relationships.get(Ids.pair_key(h, actor), {})
 			return int(rel.get("affinity", 0)) >= int(cer.get("min_affinity", 30))
 	return true

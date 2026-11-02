@@ -81,7 +81,8 @@ func test_new_game_families_have_titles() -> void:
 	check(r["ok"], "new game")
 	var st: WorldState = r["state"]
 	for f: String in st.families:
-		eq(str(st.families[f]["title"]), "common", "%s starts common" % f)
+		if not TownLife.is_household(st, f):  # H10: the households get their titles from the procedural government
+			eq(str(st.families[f]["title"]), "common", "%s starts common" % f)
 		eq(st.families[f]["class_reputation"], {}, "%s: no class modifiers" % f)
 	eq(int(st.families[FAM]["reputation"]), 0, "the protagonist starts at 0 (4.16)")
 

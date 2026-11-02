@@ -20,6 +20,10 @@ extends BotArtisanNovice
 ##             paying it, the trip gets a town_hall stop (request_title on its service tile). When the next title
 ##             asks for more employees than it has and the reputation is at TITLE_STAFF_REP_SHARE of what it needs,
 ##             it wants that many employees (the second-furnace rule gives way, within max_employees).
+##   offices (H10, docs/contratos/h10_cargos.md; only with runs_office = 1, the bot `politician`): once Citizen, with no
+##             office nor candidacy, it runs for the first minor office open (POLITICS_OFFICES) at the best level it
+##             can pay keeping its reserve; as market inspector it regulates +10 % the price of its staff's product
+##             (or swords) whenever the power is ready. Management orders: the H5/H9 play is the same until they fire.
 ## Wages and upkeep are charged by the sim at dawn. Choices at the start (bot_choices): none. tools/sim_runner.gd runs
 ## it as artisan_expert (max 2, the rule above) and artisan_expert_<n> (exactly n employees, to measure what they add).
 
@@ -42,12 +46,15 @@ const MANAGE_EVERY: int = 10          # minutes between two looks at staff, queu
 const IDLE_EVERY: int = 5             # minutes between two looks for work or a trip when idle at home
 const TOWN_HALL: String = "town_hall"  # H9: trip stop to ask for the next title
 const TITLE_STAFF_REP_SHARE: float = 0.5  # H9: share of the next title's reputation before hiring for its employees
+const POLITICS_OFFICES: Array = ["market_inspector", "tax_collector"]  # H10: the minor offices it runs for, in order
+const POLITICS_LEVELS: Array = ["high", "medium", "basic"]  # H10: the best campaign level it can pay first
 
 var owner_sells: bool = false        # with employees, the protagonist sells instead of working in market hours
 var split_roles: bool = true         # with two employees: anvil + furnace (else both "any")
 var second_needs_furnace: bool = true  # a second employee only with a second furnace (forge_capacity_3)
 var max_employees: int = 2           # employees it hires at most (sim_runner: artisan_expert_<n> sets it)
 var asks_titles: int = 1             # H9: 0 = plays as in H5, never asks for a title (BOT_VARS=asks_titles=0)
+var runs_office: int = 0             # H10: 1 = the bot politician (runs for minor offices, regulates prices)
 var counter_shop: int = 0            # H7 balance trial (BOT_VARS=counter_shop=1): buys the sales counter first and
                                      # puts its least skilled employee at it (GDD 4.5.4: customers come to the forge)
 var _bonus_day: Dictionary = {}       # employee -> last day it got a bonus
@@ -114,6 +121,9 @@ func _manage(sim: Sim) -> Array:
 	if not o.is_empty():
 		out.append(o)
 	o = _roles(sim)
+	if not o.is_empty():
+		out.append(o)
+	o = _politics(sim)
 	if not o.is_empty():
 		out.append(o)
 	o = _queue(sim)
@@ -221,6 +231,36 @@ func _roles(sim: Sim) -> Dictionary:
 	for c: String in want:
 		if str(sim.state.characters[c]["job"].get("role", "")) != str(want[c]):
 			return {"type": "set_role", "actor": ACTOR, "employee": c, "role": want[c]}
+	return {}
+
+
+## H10 (runs_office = 1): run for a minor office, or use the inspector's regulation on its product.
+func _politics(sim: Sim) -> Dictionary:
+	if runs_office != 1:
+		return {}
+	var st := sim.state
+	var office := Offices.of_character(st, ACTOR)
+	if office == "market_inspector":
+		var item := _output(sim, _staff_recipe(sim)) if _staff_recipe(sim) != "" else "sword"
+		var pct := int(sim.catalog.politics.get("regulation", {}).get("percent", 10))
+		var args := {"item": item, "percent": pct}
+		if Offices.power_status(sim, ACTOR, "regulate_price", args) == "":
+			if OS.is_debug_build():
+				print("[BotExpert] día %d: regula %s +%d%%" % [_today(sim), item, pct])
+			return {"type": "use_office_power", "actor": ACTOR, "power": "regulate_price", "args": args}
+		return {}
+	if office != "" or not Elections.candidacy(st, ACTOR).is_empty():
+		return {}
+	var gold := Money.gold(st, _fam(sim))
+	var levels: Dictionary = sim.catalog.politics.get("elections", {}).get("levels", {})
+	for o: String in POLITICS_OFFICES:
+		for lv: String in POLITICS_LEVELS:
+			if gold < int(levels.get(lv, {}).get("gold", 0)) + _reserve(sim):
+				continue
+			if Elections.run_status(sim, ACTOR, o, lv) == "":
+				if OS.is_debug_build():
+					print("[BotExpert] día %d: se presenta a %s (%s, oro=%d)" % [_today(sim), o, lv, gold])
+				return {"type": "run_for_office", "actor": ACTOR, "office": o, "level": lv}
 	return {}
 
 

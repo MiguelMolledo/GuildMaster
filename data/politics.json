@@ -1,5 +1,5 @@
 {
-  "_doc": "Reputation and the title ceremony (GDD 4.12.1, 4.12.2, ap. A; docs/contratos/h9_titulos.md) [balance]. Offices and elections come with H10.",
+  "_doc": "Reputation and the title ceremony (GDD 4.12.1, 4.12.2, ap. A; docs/contratos/h9_titulos.md); H10: the government, elections, taxes and price regulation (GDD 4.12.3, 4.12.4; docs/contratos/h10_cargos.md) [balance]. The offices themselves: data/offices/.",
   "reputation": {
     "_doc": "classes: the social classes of the class modifier (family.class_reputation, GDD 4.12.1: reputation with a class = reputation + class_reputation[class]). class_share: a change with a class also moves that class's modifier by round(amount x class_share). reason_class: the class of the changes other systems make (Reputation.change reasons). log_size: changes kept in family.reputation_log. rules: what the events of a step give (Reputation.step): events (event types), amount (global), class (\"target\" = the other one's class: the counter's customer or the townsperson; an id; null), class_amount, cap / cap_days (at most cap times per window of cap_days days; 0 = no cap), min_quality (sales), action and ok (npc_action). passive: per_business_with_staff, at dawn, for each operative workshop of the family with an active employee (ap. A).",
     "classes": ["artisan", "patron", "scholar", "rogue"],
@@ -27,5 +27,46 @@
     "_doc": "GDD 4.12.2: the request is made in person at the town hall (the map's town_hall service tile); the gold is paid and the requirements checked; the first holder of approvers (an office of H10) approves if its affinity with the actor is >= min_affinity; a vacant office (no holder: all of them until H10) approves by itself.",
     "approvers": ["mayor", "councillor"],
     "min_affinity": 30
+  },
+  "government": {
+    "_doc": "GDD 4.12.3, procedural government (Offices.setup, once per game): the household families (AI without profile, by id) take household_titles[i] (common past the list); then each office, from the top of the chart, gets for each seat the adult of a household whose family title is exactly its min_title (oldest first, then id; at most 1 office per person) unless it is in start_vacant (GDD: 1-2 minor offices left free) or nobody fits (vacant). take_reputation: reputation when someone takes an office, by office rank (GDD 4.12.1 'ocupar un cargo') [provisional].",
+    "household_titles": ["patrician", "citizen", "citizen", "citizen", "citizen", "common", "common", "common"],
+    "start_vacant": ["market_inspector", "tax_collector"],
+    "take_reputation": {"minor": 5, "middle": 10, "major": 20, "mayor": 30}
+  },
+  "elections": {
+    "_doc": "GDD 4.12.4, ap. A. levels: the campaign level chosen when running (gold, ledger politics; bonus in per mille). vote: score = affinity x relation/relation_norm + reputation x reputation/reputation_norm + class x class modifier/class_norm + campaign x campaign permil/campaign_norm, each term clamped to -1..1; a voter never votes a candidate whose family it feels an 'against' emotion for, and prefers one it feels a 'favor' emotion for (a bribe secures the vote). actions: visit (relation with each adult of the visited family, busy_hours without another campaign action), bribe (gold, secured vote; check stealth vs the voter's empathy, a failure costs scandal reputation), speech (check rhetoric vs target_value; success: bonus_permil with the voters within range_tiles; once a day), defame (check stealth vs target_value + modifier; success: the target candidate loses penalty_permil; failure: scandal reputation; once a day). keep: closed elections kept.",
+    "levels": {
+      "basic": {"gold": 0, "bonus_permil": 50},
+      "medium": {"gold": 50, "bonus_permil": 150},
+      "high": {"gold": 200, "bonus_permil": 300}
+    },
+    "level_order": ["basic", "medium", "high"],
+    "vote": {
+      "affinity": 0.3, "reputation": 0.3, "class": 0.2, "campaign": 0.2,
+      "relation_norm": 100, "reputation_norm": 200, "class_norm": 50, "campaign_norm": 300,
+      "against": ["offended", "angry"],
+      "favor": ["grateful", "scared"]
+    },
+    "actions": {
+      "visit": {"relation": 5, "busy_hours": 4},
+      "bribe": {"gold": 20, "scandal": -10},
+      "speech": {"target_value": 5, "bonus_permil": 100, "range_tiles": 6},
+      "defame": {"target_value": 5, "modifier": -20, "penalty_permil": 100, "scandal": -20}
+    },
+    "keep": 12
+  },
+  "taxes": {
+    "_doc": "GDD 4.12.3: with a tax collector in office, every family pays tax_percent (the collector sets it, min-max; default_percent when it takes office) of its sales of the day before (categories) at dawn, ledger taxes; the collector's commission (its passive) comes out of what is collected.",
+    "default_percent": 5,
+    "min": 5,
+    "max": 15,
+    "categories": ["market_sales", "counter_sales"]
+  },
+  "regulation": {
+    "_doc": "GDD 4.12.3, the market inspector: regulate_price moves the market price of one item (buy and sell) by +-percent for days days; fine_merchant takes fine_gold from a family with a business (ledger fines) [provisional].",
+    "percent": 10,
+    "days": 2,
+    "fine_gold": 20
   }
 }

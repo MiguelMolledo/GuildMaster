@@ -324,7 +324,7 @@
     }
   },
   "idle_titles": {
-    "_doc": "H9 (10/H9, GDD 4.21 dianas: «al menos 2 familias IA suben de título» con las 5 del EA; aquí hay una): bot idle en una partida nueva Normal, 80 días (10 años): el herrero rival (regla mínima title_rule de data/ai_profiles/rival_smith.json, provisional hasta 04c) sube al menos un título en ≥ 80 % de las semillas. Ritual largo, a mano: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=idle_titles --days=80 --seeds=5.",
+    "_doc": "H9 (10/H9, GDD 4.21 dianas: «al menos 2 familias IA suben de título» con las 5 del EA; aquí hay una): bot idle en una partida nueva Normal, 80 días (10 años): el herrero rival (regla mínima title_rule de data/ai_profiles/rival_smith.json, provisional hasta 04c) sube al menos un título en ≥ 80 % de las semillas. Ritual largo, a mano: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=idle_titles --days=80 --seeds=5. H10: ai_office_runs, la familia IA se presenta al menos a una elección (regla mínima office_rule, provisional hasta 04c) en ≥ 80 % de las semillas (10/H10 «IA rival se presenta»).",
     "days": [
       80,
       null
@@ -339,6 +339,37 @@
     ],
     "_share": {
       "ai_titled": [
+        0.8,
+        null
+      ],
+      "ai_ran": [
+        0.8,
+        null
+      ]
+    }
+  },
+  "politician": {
+    "_doc": "H10 (10/H10 «Bot politician gana un cargo menor», GDD 4.12.3-4.12.4, 07 §7.2): artisan_expert con runs_office = 1 (sim/bots/bot_artisan_expert.gd) en una partida nueva Normal, 40 días (5 años). Ya Ciudadano, se presenta al primer cargo menor abierto (Inspector de mercado, luego Recaudador). office_won: ocupa un cargo menor (≥ 80 % de las semillas); office_won_day: día jugado en que lo toma (días + 1 si no), de media antes del día 41. Ritual largo, a mano: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=politician --days=40 --seeds=10. Medido (2026-11-02, 10 semillas): cargo menor (Inspector) en 10/10, día medio 25,8 (25-33); el rival se presenta 1,1 veces de media.",
+    "days": [
+      40,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "_mean": {
+      "office_won_day": [
+        17,
+        40
+      ]
+    },
+    "_share": {
+      "office_won": [
         0.8,
         null
       ]

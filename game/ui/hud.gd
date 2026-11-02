@@ -71,6 +71,9 @@ signal focus_requested(target: String)  # a notice was clicked: centre on this b
 @onready var _hall_panel: TownHallPanel = %TownHallPanel  # H9: the town hall (titles)
 @onready var _title_card: TitleCard = %TitleCard          # H9: the ceremony
 @onready var _family_title: Label = %FamilyTitle          # H9: the family's title and reputation
+@onready var _offices_button: Button = %OfficesButton      # H10: the offices (key O)
+@onready var _offices_panel: OfficesPanel = %OfficesPanel  # H10: the chart, running, campaign and powers
+@onready var _office_card: OfficeCard = %OfficeCard        # H10: the result of a vote
 
 var selected_id: String = ""
 var building_id: String = ""
@@ -130,6 +133,11 @@ func _ready() -> void:
 	_npc_panel.order_sink = _game.give
 	_mev_card.order_sink = _game.give
 	_hall_panel.order_sink = _game.give
+	_hall_panel.offices_requested.connect(open_offices)
+	_offices_panel.order_sink = _game.give
+	_offices_button.text = tr("hud.offices")
+	_offices_button.tooltip_text = tr("hud.offices_tip")
+	_offices_button.pressed.connect(toggle_offices)
 	_family_title.tooltip_text = tr("hud.title_rep_tip")
 	_tree_panel.switch_requested.connect(func(id: String) -> void: select_requested.emit(id))
 	_tree_panel.court_requested.connect(open_courtship)
@@ -244,8 +252,8 @@ func close_top() -> bool:
 	if _help_panel.visible:
 		toggle_help()
 		return true
-	for p: Control in [_title_card, _hall_panel, _npc_panel, _court_panel, _tree_panel, _market_panel, _board_panel,
-			_ledger_panel]:
+	for p: Control in [_office_card, _title_card, _offices_panel, _hall_panel, _npc_panel, _court_panel, _tree_panel,
+			_market_panel, _board_panel, _ledger_panel]:
 		if p.visible:
 			p.call("close")
 			return true
@@ -302,6 +310,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		toggle_character_panel()
 	elif (event as InputEventKey).keycode == KEY_L:
 		toggle_ledger()
+	elif (event as InputEventKey).keycode == KEY_O:  # H10: the offices
+		toggle_offices()
 	elif event.is_action_pressed("pause_toggle"):
 		_game.toggle_pause()
 	elif event.is_action_pressed("speed_1"):
@@ -320,6 +330,10 @@ func _on_sim_event(e: Dictionary) -> void:
 		if str(_game.sim.state.families.get(str(e.get("family", "")), {}).get("controlled_by", "")) == "human":
 			_hall_panel.close()
 			_title_card.show_for(_game.sim, e)
+		return
+	if str(e.get("type", "")) == "election_held":  # H10: the vote of an election the player's family stood in
+		if OfficeCard.concerns_human(_game.sim, e):
+			_office_card.show_for(_game.sim, e)
 		return
 	if str(e.get("type", "")) == "notice_added":
 		_on_notice(e)
@@ -475,7 +489,7 @@ func close_panels() -> void:
 	_help_panel.visible = false
 	_pending_service = {}
 	for p: Control in [_market_panel, _board_panel, _ledger_panel, _tree_panel, _court_panel, _npc_panel, _hall_panel,
-			_title_card]:
+			_title_card, _offices_panel, _office_card]:
 		p.call("close")
 	_character_panel.close()
 
@@ -565,6 +579,34 @@ func open_town_hall(actor: String) -> void:
 
 func town_hall_panel() -> TownHallPanel:
 	return _hall_panel
+
+
+## H10: the offices panel for the selected person (HUD button, key O, or the town hall's Offices button).
+func open_offices(actor: String = "") -> void:
+	if _game == null or _game.sim == null:
+		return
+	var who := actor if actor != "" else selected_id
+	_hall_panel.close()
+	_market_panel.close()
+	_board_panel.close()
+	_ledger_panel.close()
+	_offices_panel.open_for(_game.sim, who)
+	Log.info("Hud", "offices panel (actor=%s)" % who)
+
+
+func toggle_offices() -> void:
+	if _offices_panel.visible:
+		_offices_panel.close()
+	else:
+		open_offices()
+
+
+func offices_panel() -> OfficesPanel:
+	return _offices_panel
+
+
+func office_card() -> OfficeCard:
+	return _office_card
 
 
 func title_card() -> TitleCard:

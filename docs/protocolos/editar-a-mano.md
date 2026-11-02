@@ -57,6 +57,9 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Reputación: clases, reglas (comercio justo, venta de calidad, salarios, acciones sobre vecinos), pasiva y ceremonia (H9) | `data/politics.json`; la regla mínima de la IA rival, `title_rule` en `data/ai_profiles/rival_smith.json` |
 | Ayuntamiento en el mapa (H9) | Dónde: `town_hall` de `data/maps/town_e.json` (lo genera `tools/maps/make_town_e.py`: huella, letrero y casilla donde se pide); cómo se ve: `game/visuals/buildings/town_hall.tscn` (sprite de Guild Renew a escala 1,6) |
 | Panel del Ayuntamiento, tarjeta de ceremonia y pestaña Reputación (H9) | `game/ui/town_hall_panel.tscn`, `game/ui/title_card.tscn` (segundos en pantalla: `title_card_seconds` de `data/view.json`), `game/ui/ledger_panel.*`; textos `ui.town_hall.*`, `ui.title_card.*`, `ui.ledger.rep.*`, `rep.reason.*` |
+| Cargos: título mínimo, salario, mandato, asientos, orden en el organigrama, pasivos y poderes (H10) | `data/offices/<id>.json` (uno por cargo) |
+| Gobierno al empezar, elecciones (niveles de campaña, pesos del voto, acciones), impuestos y regulación de precios (H10) | `data/politics.json` (`government`, `elections`, `taxes`, `regulation`); la regla mínima de la IA rival, `office_rule` en `data/ai_profiles/rival_smith.json` |
+| Panel de cargos (organigrama, campaña, poderes) y tarjeta de la votación (H10) | `game/ui/offices_panel.tscn`, `game/ui/office_card.tscn` (segundos en pantalla: `office_card_seconds` de `data/view.json`); textos `office.*`, `power.*`, `campaign.*`, `ui.offices.*`, `ui.office_card.*` |
 
 Cada escena visual tiene dos `Marker2D`: **`Feet`** (el punto que se apoya en el suelo: centro de la casilla, centro
 de la huella o los pies) y **`Top`** (lo alto que es: ahí van el letrero, la barra o el nombre, y hasta ahí llega la

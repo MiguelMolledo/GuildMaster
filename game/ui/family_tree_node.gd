@@ -17,6 +17,10 @@ func show_person(sim: Sim, chr: String, flags: Dictionary) -> void:
 	(%AgeLabel as Label).text = (SimQuery.t_("ui.family.age_dead") if not bool(ch.get("alive", true)) \
 		else SimQuery.t_("ui.family.age")) % age
 	(%ClassLabel as Label).text = SimQuery.t_("class." + str(ch.get("class", "artisan")))
+	var office := Offices.of_character(sim.state, chr)  # H10: the office it holds
+	if office != "" and bool(ch.get("alive", true)):
+		(%ClassLabel as Label).text = SimQuery.office_name(office)
+		(%ClassLabel as Label).add_theme_color_override("font_color", Color(1, 0.85, 0.4))
 	modulate = Color(1, 1, 1, 0.6) if not bool(ch.get("alive", true)) else Color.WHITE
 	var sel := bool(flags.get("selected", false))
 	self_modulate = Color(1.35, 1.25, 1.0) if sel else Color.WHITE

@@ -1,0 +1,29 @@
+{
+  "id": "market_inspector",
+  "name_key": "office.market_inspector",
+  "rank": "minor",
+  "min_title": "citizen",
+  "salary": 2,
+  "term_years": 1,
+  "seats": 1,
+  "order": 5,
+  "passive": [
+    {
+      "kind": "class_reputation",
+      "class": "artisan",
+      "percent": 10
+    }
+  ],
+  "powers": [
+    {
+      "id": "regulate_price",
+      "cooldown_days": 2,
+      "ready": true
+    },
+    {
+      "id": "fine_merchant",
+      "cooldown_days": 2,
+      "ready": true
+    }
+  ]
+}

@@ -193,6 +193,25 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 						f[k] = addf[k]
 				if not f.has("reputation"):
 					f["reputation"] = 0
+		9:  # 9 -> 10 (H10): offices and elections (docs/contratos/h10_cargos.md). The root fields offices, elections and
+			# market.regulations already were (always empty until H10): whatever has not the H10 shape starts empty. An
+			# empty offices is handed out by Offices.step the first time it runs (the save has no catalog).
+			var offices: Variant = data.get("offices", {})
+			var shaped := offices is Dictionary
+			if shaped:
+				for o: Variant in (offices as Dictionary).values():
+					if not o is Dictionary or not (o as Dictionary).get("seats") is Array:
+						shaped = false
+			if not shaped:
+				data["offices"] = {}
+			if not data.get("elections") is Array:
+				data["elections"] = []
+			var market: Variant = data.get("market", {})
+			if not market is Dictionary:
+				market = {"demand": {}}
+				data["market"] = market
+			if not (market as Dictionary).get("regulations") is Array:
+				market["regulations"] = []
 	return data
 
 

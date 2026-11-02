@@ -4,11 +4,14 @@ extends PanelContainer
 ## trade and what it is doing now, its relation with the selected person, its emotions (icon colour, name, intensity)
 ## and the actions Talk / Give a gift / Flatter / Insult / Threaten. The reason a button cannot be used is its tooltip;
 ## far away, the selected person walks there first with the action queued (like courtship). Gift = the most valuable
-## thing the selected person carries. Only reads the state and gives orders (order_sink).
+## thing the selected person carries. H10: the office it holds in the info line and, while the selected person is a
+## candidate, the campaign actions Visit / Bribe / Defame (defame only on another candidate of the same election;
+## GDD 4.12.4). Only reads the state and gives orders (order_sink).
 
 signal closed
 
 const ACTIONS: Array[String] = ["talk", "gift", "flatter", "insult", "threaten"]
+const CAMPAIGN: Array[String] = ["visit", "bribe", "defame"]  # H10
 
 var order_sink: Callable = Callable()
 var sim: Sim
@@ -58,8 +61,14 @@ func refresh(force: bool = false) -> void:
 	var statuses: Array = []
 	for a: String in ACTIONS:
 		statuses.append(NpcActions.status(sim, actor, target, a) if actor != "" else "unknown_actor")
-	var sig := "%s|%s|%s|%s|%s|%s|%d" % [actor, target, SimQuery.town_state_text(sim, target), emos, gift, statuses,
-		Emotions.relation(st, actor, target) if actor != "" else 0]
+	var camp: Array = []  # H10: the campaign actions while the selected person is a candidate
+	if actor != "" and not Elections.candidacy(st, actor).is_empty():
+		for k: String in CAMPAIGN:
+			var why := Elections.action_status(sim, actor, k, target)
+			if k != "defame" or why != "not_a_candidate":
+				camp.append([k, why])
+	var sig := "%s|%s|%s|%s|%s|%s|%d|%s|%s" % [actor, target, SimQuery.town_state_text(sim, target), emos, gift, statuses,
+		Emotions.relation(st, actor, target) if actor != "" else 0, camp, Offices.of_character(st, target)]
 	if sig == _sig and not force:
 		return
 	_sig = sig
@@ -71,6 +80,9 @@ func refresh(force: bool = false) -> void:
 	if str(t.get("rank", "")) != "":
 		info.append(SimQuery.rank_name(sim.catalog, str(t["rank"])))
 	info.append(SimQuery.t_("ui.npc.age") % Kin.age(sim, target))
+	var office := Offices.of_character(st, target)  # H10
+	if office != "":
+		info.append(SimQuery.office_name(office))
 	(%Info as Label).text = " · ".join(info)
 	(%Doing as Label).text = SimQuery.town_state_text(sim, target)
 	var a: Dictionary = st.characters.get(actor, {})
@@ -124,7 +136,46 @@ func refresh(force: bool = false) -> void:
 			b.tooltip_text = SimQuery.item_label(sim.catalog, str(gift["item"]), int(gift["quality"]))
 		b.pressed.connect(func() -> void: do_action(act))
 		acts.add_child(b)
+	for c: Array in camp:  # H10: the campaign
+		var kind := str(c[0])
+		var why := str(c[1])
+		var b := Button.new()
+		b.name = "Campaign" + kind.capitalize()
+		b.text = SimQuery.t_("campaign." + kind)
+		b.focus_mode = Control.FOCUS_NONE
+		b.add_theme_font_size_override("font_size", 10)
+		b.add_theme_color_override("font_color", Color(1, 0.85, 0.4))
+		b.disabled = not why in ["", "too_far"]
+		b.tooltip_text = SimQuery.t_("ui.court.walk") if why == "too_far" else (SimQuery.reason_text(why) if why != "" \
+			else SimQuery.t_("ui.npc.campaign_tip"))
+		b.pressed.connect(func() -> void: do_campaign(kind))
+		acts.add_child(b)
 	reset_size()
+
+
+## H10: a campaign action on the townsperson: at once in range (defame anywhere), else walking there first.
+func do_campaign(kind: String) -> void:
+	if sim == null or actor == "":
+		return
+	var o := {"type": "campaign_action", "actor": actor, "kind": kind, "target": target}
+	var orders: Array = []
+	if kind == "defame" or NpcActions.in_range(sim, actor, target):
+		orders.append(o)
+	else:
+		var spot := Courtship.spot(sim.state, target)
+		if str(sim.state.characters[actor].get("location", "")) != "":
+			orders.append({"type": "exit_building", "actor": actor})
+			orders.append({"type": "move_to", "actor": actor, "tile": spot, "queued": true})
+		else:
+			orders.append({"type": "move_to", "actor": actor, "tile": spot})
+		var q := o.duplicate()
+		q["queued"] = true
+		orders.append(q)
+	for x: Dictionary in orders:
+		ViewConfig.info("NpcPanel", "order %s" % [x])
+		if order_sink.is_valid():
+			order_sink.call(x)
+	_sig = ""
 
 
 ## Gives the npc_<action> order: at once in range, else walking there first (the action queued behind).

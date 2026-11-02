@@ -6,6 +6,7 @@ extends PanelContainer
 ## ESC (the HUD), X, or when they leave. Only gives the order.
 
 signal closed
+signal offices_requested(actor: String)  # H10: the «Offices» button (the chart, OfficesPanel)
 
 var order_sink: Callable = Callable()
 var sim: Sim
@@ -20,6 +21,7 @@ func _bind() -> void:
 	_bound = true
 	(%CloseButton as Button).pressed.connect(close)
 	(%AskButton as Button).pressed.connect(_ask)
+	(%OfficesButton as Button).pressed.connect(func() -> void: offices_requested.emit(actor))
 
 
 func open_for(s: Sim, who: String) -> void:
@@ -28,6 +30,7 @@ func open_for(s: Sim, who: String) -> void:
 	actor = who
 	(%Title as Label).text = SimQuery.t_("ui.town_hall.title")
 	(%AskButton as Button).text = SimQuery.t_("ui.town_hall.ask")
+	(%OfficesButton as Button).text = SimQuery.t_("ui.town_hall.offices")
 	visible = true
 	refresh(true)
 	ViewConfig.info("TownHallPanel", "open (actor=%s)" % who)

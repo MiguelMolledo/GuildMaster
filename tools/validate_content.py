@@ -1090,6 +1090,132 @@ def check_h9_scenario(w, d, titles, rep):
             rep.error(w, f"{fid}: reputation debe ser un entero")
 
 
+H10_RANKS = ["minor", "middle", "major", "mayor"]
+H10_PASSIVES = {"class_reputation", "tax_commission", "reputation_per_day", "sees_reports", "votes_ordinances"}
+H10_POWERS = {"regulate_price", "fine_merchant", "set_tax", "seize_building", "arrest", "investigate", "preside_trial",
+              "pardon", "propose_ordinance", "veto", "legislate", "declare_event", "name_title"}
+H10_ACTIONS = ["visit", "bribe", "speech", "defame"]
+H10_REASONS = ["unknown_office", "office_needs_title", "holds_office", "already_candidate", "no_election",
+               "registration_closed", "unknown_level", "not_candidate", "campaign_not_started", "campaign_busy",
+               "unknown_campaign_action", "not_a_voter", "not_a_candidate", "indoors", "not_office_holder",
+               "unknown_power", "power_not_ready", "power_cooldown", "bad_args", "not_a_merchant", "already_regulated",
+               "already_bribed", "unknown_target"]
+H10_NOTICES = ["office_candidate", "campaign_started", "office_won", "office_lost", "rival_candidate", "rival_office",
+               "price_regulated", "fined", "tax_set"]
+
+
+def check_h10(titles, strings, rep):
+    """H10 (GDD 4.12.3-4.12.4, docs/contratos/h10_cargos.md): data/offices (rango, título mínimo, salario, mandato,
+    asientos, orden del organigrama, pasivos y poderes conocidos), data/politics.json (government, elections, taxes,
+    regulation), la regla de cargos de los perfiles de IA y los textos de cargos, poderes, niveles, acciones, motivos y
+    avisos."""
+    offices = load_kind("offices", rep)
+    orders = set()
+    for oid, o in offices.items():
+        w = f"offices/{oid}"
+        check_text(w, o.get("name_key"), strings, rep)
+        if o.get("rank") not in H10_RANKS:
+            rep.error(w, f"rank debe ser uno de {H10_RANKS}")
+        if o.get("min_title") not in titles:
+            rep.error(w, f"min_title desconocido {o.get('min_title')}")
+        for k, lo in (("salary", 0), ("term_years", 1), ("seats", 1), ("order", 0)):
+            if not isinstance(o.get(k), int) or o[k] < lo:
+                rep.error(w, f"{k} debe ser un entero >= {lo}")
+        if o.get("order") in orders:
+            rep.error(w, f"order {o.get('order')} repetido")
+        orders.add(o.get("order"))
+        for pa in o.get("passive") or []:
+            if pa.get("kind") not in H10_PASSIVES:
+                rep.error(w, f"pasivo desconocido {pa.get('kind')}")
+        for pw in o.get("powers") or []:
+            if pw.get("id") not in H10_POWERS:
+                rep.error(w, f"poder desconocido {pw.get('id')}")
+            if not isinstance(pw.get("cooldown_days"), int) or pw["cooldown_days"] < 0:
+                rep.error(w, f"{pw.get('id')}: cooldown_days debe ser un entero >= 0")
+            if pw.get("ready") is not True and not (isinstance(pw.get("ready"), str) and pw["ready"]):
+                rep.error(w, f"{pw.get('id')}: ready debe ser true o el hito que lo trae")
+            check_text(w, f"power.{pw.get('id')}", strings, rep)
+    if not offices:
+        return set()
+    pol = load_json(os.path.join(DATA, "politics.json"), rep) or {}
+    w = "politics.json"
+    g = pol.get("government") or {}
+    for t in g.get("household_titles") or []:
+        if t not in titles:
+            rep.error(w, f"government.household_titles: título desconocido {t}")
+    for o in g.get("start_vacant") or []:
+        if o not in offices:
+            rep.error(w, f"government.start_vacant: cargo desconocido {o}")
+    if set((g.get("take_reputation") or {}).keys()) != set(H10_RANKS):
+        rep.error(w, f"government.take_reputation debe tener los rangos {H10_RANKS}")
+    el = pol.get("elections") or {}
+    levels = el.get("levels") or {}
+    if not levels or set(el.get("level_order") or []) != set(levels):
+        rep.error(w, "elections.levels y level_order (los mismos niveles)")
+    for lv, d in levels.items():
+        if not isinstance(d.get("gold"), int) or not isinstance(d.get("bonus_permil"), int):
+            rep.error(w, f"elections.levels.{lv}: gold y bonus_permil enteros")
+        check_text(w, f"campaign.level.{lv}", strings, rep)
+    v = el.get("vote") or {}
+    if abs(sum(float(v.get(k, 0)) for k in ("affinity", "reputation", "class", "campaign")) - 1.0) > 0.0001:
+        rep.error(w, "elections.vote: los pesos deben sumar 1")
+    for k in ("relation_norm", "reputation_norm", "class_norm", "campaign_norm"):
+        if not isinstance(v.get(k), int) or v[k] < 1:
+            rep.error(w, f"elections.vote.{k} debe ser un entero >= 1")
+    for a in H10_ACTIONS:
+        if a not in (el.get("actions") or {}):
+            rep.error(w, f"elections.actions.{a} falta")
+        check_text(w, f"campaign.{a}", strings, rep)
+    tx = pol.get("taxes") or {}
+    if not (isinstance(tx.get("min"), int) and isinstance(tx.get("max"), int) and tx["min"] <= tx.get("default_percent", -1) <= tx["max"]):
+        rep.error(w, "taxes: min <= default_percent <= max (enteros)")
+    rg = pol.get("regulation") or {}
+    for k in ("percent", "days", "fine_gold"):
+        if not isinstance(rg.get(k), int) or rg[k] < 1:
+            rep.error(w, f"regulation.{k} debe ser un entero >= 1")
+    for pid, prof in load_kind("ai_profiles", rep).items():
+        rule = prof.get("office_rule")
+        if rule is None:
+            continue
+        for o in rule.get("offices") or []:
+            if o not in offices:
+                rep.error(f"ai_profiles/{pid}", f"office_rule: cargo desconocido {o}")
+        if rule.get("level") not in levels:
+            rep.error(f"ai_profiles/{pid}", f"office_rule: nivel desconocido {rule.get('level')}")
+    for k in H10_REASONS:
+        check_text("i18n/reason", "reason." + k, strings, rep)
+    for k in H10_NOTICES:
+        check_text("i18n/notice", "notice." + k, strings, rep)
+    return set(offices)
+
+
+def check_h10_scenario(w, d, offices, rep):
+    """H10: en escenarios v10, offices {cargo: {seats: [{holder, since, until, cooldowns}], settings}} con cargos que
+    existen y titulares que existen; elections lista de {id, office, day, campaign_day, status, candidates, result};
+    market.regulations lista."""
+    chars = d.get("characters") or {}
+    for oid, o in (d.get("offices") or {}).items():
+        if oid not in offices:
+            rep.error(w, f"offices: cargo desconocido {oid}")
+            continue
+        if not isinstance(o, dict) or not isinstance(o.get("seats"), list):
+            rep.error(w, f"offices.{oid}: debe ser {{seats: [...], settings}}")
+            continue
+        for s in o["seats"]:
+            if s.get("holder") and s["holder"] not in chars:
+                rep.error(w, f"offices.{oid}: titular desconocido {s['holder']}")
+            if not isinstance(s.get("until"), int):
+                rep.error(w, f"offices.{oid}: until debe ser un día (entero)")
+    for e in d.get("elections") or []:
+        if e.get("office") not in offices or e.get("status") not in ("open", "done"):
+            rep.error(w, f"elections: {e.get('id')} con cargo o estado desconocido")
+        for c in e.get("candidates") or []:
+            if c.get("character") not in chars:
+                rep.error(w, f"elections.{e.get('id')}: candidato desconocido {c.get('character')}")
+    if not isinstance((d.get("market") or {}).get("regulations", []), list):
+        rep.error(w, "market.regulations debe ser una lista")
+
+
 def check_h5(items, recipes, buildings, ranks, strings, rep):
     """H5 (GDD 4.8, docs/contratos/h5_mejoras.md): data/upgrade_rules.json y cada mejora (rama y nivel, coste,
     requisitos que existen en su árbol, nivel N pide el N-1, sin ciclos, efectos de tipos conocidos con su valor,
@@ -1415,6 +1541,7 @@ def main():
     tones = check_h8(strings, rep)
     workplaces = check_h7(load_kind("maps", rep), strings, rep)
     titles = check_h9(load_kind("maps", rep), strings, rep)
+    offices = check_h10(titles, strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")
@@ -1487,6 +1614,8 @@ def main():
             check_h7_scenario(f"scenarios/{name}", d, workplaces, rep)
         if d.get("version", 0) >= 9:
             check_h9_scenario(f"scenarios/{name}", d, titles, rep)
+        if d.get("version", 0) >= 10:
+            check_h10_scenario(f"scenarios/{name}", d, offices, rep)
         if d.get("version", 0) >= 4:
             for fid, fam in (d.get("families") or {}).items():
                 if not isinstance(fam.get("gold"), int) or fam["gold"] < 0:

@@ -12,7 +12,8 @@ extends RefCounted
 ## (docs/contratos/h4_empleados.md); H5: buy_upgrade (docs/contratos/h5_mejoras.md); H8: court_talk, court_gift,
 ## propose, designate_heir, school_choice, assign_building, close_dynasty, set_schedule, set_directives
 ## (docs/contratos/h8_familia.md); H7: npc_talk, npc_gift, npc_flatter, npc_insult, npc_threaten, resolve_microevent
-## (docs/contratos/h7_ciudad.md); H9: request_title (docs/contratos/h9_titulos.md). Each milestone adds
+## (docs/contratos/h7_ciudad.md); H9: request_title (docs/contratos/h9_titulos.md); H10: run_for_office,
+## campaign_action, use_office_power (docs/contratos/h10_cargos.md). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -117,6 +118,13 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 		# H9 · titles (sim/politics/titles.gd, docs/contratos/h9_titulos.md)
 		"request_title":
 			return Titles.order_request(sim, order)
+		# H10 · offices and elections (sim/politics/offices.gd, elections.gd, docs/contratos/h10_cargos.md)
+		"run_for_office":
+			return Elections.order_run(sim, order)
+		"campaign_action":
+			return Elections.order_campaign(sim, order)
+		"use_office_power":
+			return Offices.order_power(sim, order)
 	return fail("unknown_order")
 
 
@@ -125,7 +133,7 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role", "queue_add", "queue_remove",
 	"queue_move", "queue_loop", "queue_pause", "repay_loan", "read_notices", "abandon_contract", "buy_upgrade",
 	"designate_heir", "school_choice", "assign_building", "close_dynasty", "set_schedule", "set_directives",
-	"resolve_microevent"]
+	"resolve_microevent", "run_for_office", "use_office_power"]
 
 
 static func is_management(type: String) -> bool:

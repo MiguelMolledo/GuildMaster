@@ -908,3 +908,95 @@ ui.family.title_rank,The %s family · %s,Familia %s · %s
 help.titles,Reputation and titles,Reputación y títulos
 help.titles_rep,"Reputation grows with contracts done, fair and quality sales, wages paid and each business with staff (+1 a day); it drops with failed contracts, unpaid wages, overdue debts, fines and insults. See it in the book (L), Reputation tab","La reputación sube con encargos cumplidos, ventas justas y de calidad, salarios pagados y cada negocio con empleados (+1 al día); baja con encargos incumplidos, salarios sin pagar, deudas vencidas, multas e insultos. Mírala en el libro (L), pestaña Reputación"
 help.titles_hall,"Right click on the town hall (south of the plaza): with enough reputation, gold and businesses or employees, ask for the next title (citizen, patrician...). It opens more buildings and offices","Clic derecho en el Ayuntamiento (al sur de la plaza): con reputación, oro y negocios o empleados suficientes, pide el siguiente título (ciudadano, patricio...). Abre más edificios y cargos"
+reason.unknown_office,Unknown office,Cargo desconocido
+reason.office_needs_title,Your family's title is too low for this office,El título de la familia no llega para este cargo
+reason.holds_office,Already holds another office,Ya ocupa otro cargo
+reason.already_candidate,Already running in an election,Ya se presenta a una elección
+reason.no_election,This office does not vote this year,Este cargo no se vota este año
+reason.registration_closed,The campaign has started: too late to run,La campaña ya ha empezado: tarde para presentarse
+reason.unknown_level,Unknown campaign level,Nivel de campaña desconocido
+reason.not_candidate,Not a candidate,No es candidato
+reason.campaign_not_started,The campaign starts in winter,La campaña empieza en invierno
+reason.campaign_busy,Busy with a visit,Ocupado con una visita
+reason.unknown_campaign_action,Unknown campaign action,Acción de campaña desconocida
+reason.not_a_voter,That person does not vote,Esa persona no vota
+reason.indoors,It has to be outdoors,Tiene que ser al aire libre
+reason.not_office_holder,Holds no office,No ocupa ningún cargo
+reason.unknown_power,Unknown power,Poder desconocido
+reason.power_not_ready,Not available yet,Aún no disponible
+reason.power_cooldown,Used recently: wait,Usado hace poco: hay que esperar
+reason.bad_args,Choose a valid target,Elige un objetivo válido
+reason.not_a_merchant,That family has no business,Esa familia no tiene negocio
+reason.already_regulated,That price is already regulated,Ese precio ya está regulado
+reason.already_bribed,Already bribed,Ya está sobornado
+office.mayor,Mayor,Alcalde
+office.councillor,Councillor,Concejal
+office.judge,Judge,Juez
+office.constable,Constable,Alguacil
+office.tax_collector,Tax collector,Recaudador
+office.market_inspector,Market inspector,Inspector de mercado
+power.regulate_price,Regulate a price,Regular un precio
+power.fine_merchant,Fine a merchant,Multar a un comerciante
+power.set_tax,Set the tax,Fijar el impuesto
+power.seize_building,Seize a building,Embargar un edificio
+power.arrest,Arrest,Arrestar
+power.investigate,Investigate,Investigar
+power.preside_trial,Preside a trial,Presidir un juicio
+power.pardon,Pardon,Indultar
+power.propose_ordinance,Propose an ordinance,Proponer ordenanza
+power.veto,Veto,Vetar
+power.legislate,Legislate,Legislar
+power.declare_event,Declare an event,Declarar un evento
+power.name_title,Grant a title,Nombrar títulos
+campaign.level.basic,"Basic (free, +5 %)","Básica (gratis, +5 %)"
+campaign.level.medium,"Medium (50 gold, +15 %)","Media (50 de oro, +15 %)"
+campaign.level.high,"High (200 gold, +30 %)","Alta (200 de oro, +30 %)"
+campaign.visit,Visit the family,Visitar a la familia
+campaign.bribe,Bribe (20 gold),Sobornar (20 de oro)
+campaign.speech,Public speech,Discurso público
+campaign.defame,Defame,Difamar
+notice.office_candidate,"{name} runs for {office}: the vote is on day {day}, the campaign from day {campaign_day}",{name} se presenta a {office}: la votación es el día {day} y la campaña desde el día {campaign_day}
+notice.campaign_started,The campaign for {office} starts: the vote is on day {day},Empieza la campaña a {office}: la votación es el día {day}
+notice.office_won,{name} is now {office} until day {until},{name} ya es {office} hasta el día {until}
+notice.office_lost,{name} loses the office of {office},{name} pierde el cargo de {office}
+notice.rival_candidate,{name} ({family}) runs for {office},{name} ({family}) se presenta a {office}
+notice.rival_office,{name} ({family}) is now {office},{name} ({family}) ya es {office}
+notice.price_regulated,The market inspector moves the price of {item} {percent} %,El Inspector de mercado mueve el precio de {item} un {percent} %
+notice.fined,The market inspector fines you {gold} gold,El Inspector de mercado te multa con {gold} de oro
+notice.tax_set,The tax collector sets the tax at {percent} %,El Recaudador fija el impuesto en el {percent} %
+hud.offices,Offices (O),Cargos (O)
+hud.offices_tip,"The town's offices: who holds them, elections, campaign and powers (key O)","Los cargos del pueblo: quién los ocupa, elecciones, campaña y poderes (tecla O)"
+ui.town_hall.offices,Offices and elections,Cargos y elecciones
+ui.offices.title,Offices of the town,Cargos del pueblo
+ui.offices.who,For %s · %s · reputation %d,Para %s · %s · reputación %d
+ui.offices.level,Campaign:,Campaña:
+ui.offices.vacant,VACANT,VACANTE
+ui.offices.holder,%s (%s) until day %d,%s (%s) hasta el día %d
+ui.offices.run,Run,Presentarse
+ui.offices.run_tip,Run for %s with a %s campaign,Presentarse a %s con campaña %s
+ui.offices.office_tip,Needs the title of %s · %d gold a day · term of %d years,Pide el título de %s · %d de oro al día · mandato de %d años
+ui.offices.election,Vote on day %d (campaign from day %d) · candidates: %s,Votación el día %d (campaña desde el día %d) · candidatos: %s
+ui.offices.campaign,Campaign for %s: the vote is on day %d (%d days left). Rivals: %s,Campaña a %s: la votación es el día %d (quedan %d días). Rivales: %s
+ui.offices.campaign_on,"Winter: campaign on. Visit, bribe or defame from a townsperson's sheet; give a speech in the street.","Invierno: campaña abierta. Visita, soborna o difama desde la ficha de un vecino; da un discurso en la calle."
+ui.offices.campaign_wait,The campaign starts in winter (day %d).,La campaña empieza en invierno (día %d).
+ui.offices.speech_tip,"Rhetoric check: if it works, the voters within 6 tiles like you more","Tirada de Retórica: si sale bien, los votantes a 6 casillas te prefieren"
+ui.offices.powers,Powers of %s,Poderes de %s
+ui.offices.power_later,%s (comes with %s),%s (llega con %s)
+ui.offices.regulate,%+d %%,%+d %%
+ui.offices.cooldown,ready in %d h,lista en %d h
+ui.offices.until,%s until day %d,%s hasta el día %d
+ui.npc.campaign_tip,A campaign action for your election,Una acción de campaña para tu elección
+ui.office_card.header,Vote · %s,Votación · %s
+ui.office_card.votes,%d votes,%d votos
+ui.office_card.winner,%s is the new %s,%s es el nuevo %s
+ui.office_card.unopposed,Nobody stood against %s: elected without a vote,Nadie se presentó contra %s: elegido sin votación
+ui.office_card.nobody,Nobody takes the office,Nadie ocupa el cargo
+ui.office_card.voters,%d townsfolk voted,Votaron %d vecinos
+help.offices,Offices and elections,Cargos y elecciones
+help.offices_chart,"Offices (O) shows the town's offices, who holds them and until when. Once Citizen you can run for market inspector or tax collector; patrician opens judge and constable, baron councillor and mayor. Run before winter: the vote is at the change of year","Cargos (O) enseña los cargos del pueblo, quién los ocupa y hasta cuándo. Siendo Ciudadano puedes presentarte a Inspector de mercado o Recaudador; Patricio abre Juez y Alguacil, Barón Concejal y Alcalde. Preséntate antes del invierno: se vota al cambiar de año"
+help.offices_campaign,"Winter is the campaign: visit families, bribe a voter or defame a rival from their sheet, or give a speech in the street. Townsfolk of titled families vote for whom they like more, with more reputation and a better campaign; offended or angry ones never vote for you","El invierno es la campaña: visita familias, soborna a un votante o difama a un rival desde su ficha, o da un discurso en la calle. Votan los vecinos de familias con título: eligen a quien aprecian más, con más reputación y mejor campaña; los ofendidos o cabreados nunca te votan"
+help.offices_powers,An office pays a salary every day. The market inspector can move the price of an item 10 % for two days or fine a merchant; the tax collector sets the tax on sales (5-15 %),Un cargo paga un salario cada día. El Inspector de mercado puede mover el precio de un objeto un 10 % durante dos días o multar a un comerciante; el Recaudador fija el impuesto sobre las ventas (5-15 %)
+ui.offices.vacant_vote,VACANT · vote on day %d,VACANTE · se vota el día %d
+ui.offices.regulation,"In force: %s %+d %% until day %d · the market pays %d, sells at %d",En vigor: %s %+d %% hasta el día %d · el mercado paga %d y vende a %d
+ui.offices.vacant_n,VACANT ×%d,VACANTES ×%d
+ui.offices.vote_on, · vote on day %d, · se vota el día %d

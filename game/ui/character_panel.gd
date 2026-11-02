@@ -72,6 +72,10 @@ func _refresh_family() -> void:
 	if ch.is_empty():
 		return
 	(%AgeLabel as Label).text = SimQuery.t_("ui.family.age") % Kin.age(sim, actor)
+	var where := Offices.seat_of(sim.state, actor)  # H10: the office it holds and until when
+	if not where.is_empty():
+		(%AgeLabel as Label).text += " · " + SimQuery.t_("ui.offices.until") % [SimQuery.office_name(str(where["office"])),
+			int(sim.state.offices[str(where["office"])]["seats"][int(where["index"])].get("until", 0)) + 1]
 	(%CourtButton as Button).visible = Kin.is_adult(sim, actor) and Kin.is_single(sim.state, actor)
 
 
