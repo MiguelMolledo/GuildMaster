@@ -852,6 +852,12 @@ def check_h7(maps_raw, strings, rep):
         rep.error(w, "population: min_adults <= max_total")
     if not _range_ok(po.get("newcomer_age"), 16):
         rep.error(w, "population.newcomer_age debe ser [mín, máx] de adultos")
+    for a, d in acts.items():
+        if d.get("bubble") and not os.path.exists(os.path.join(ROOT, "game", "visuals", "bubbles", d["bubble"] + ".tscn")):
+            rep.error(w, f"activities.{a}.bubble: falta game/visuals/bubbles/{d['bubble']}.tscn")
+    for e, d in emo.items():
+        if d.get("icon") and not os.path.exists(os.path.join(ROOT, "game", "visuals", "bubbles", d["icon"] + ".tscn")):
+            rep.error(w, f"emotions.{e}.icon: falta game/visuals/bubbles/{d['icon']}.tscn")
     # microevents
     mevs = load_kind("microevents", rep)
     if not mevs:

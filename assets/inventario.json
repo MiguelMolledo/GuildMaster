@@ -366,15 +366,16 @@
     {
       "id": "prop_bench",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "greybox",
       "para": [
-        "H1"
+        "H1",
+        "H7"
       ],
       "ruta": "assets/art/props/bench.png",
       "origen": null,
       "origen_previo": "guild:assets/sprites/props/bench",
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Greybox en game/visuals/props/bench.tscn (banco de la plaza, H7)"
     },
     {
       "id": "prop_cart",
@@ -496,7 +497,7 @@
     {
       "id": "bubble_chat",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "greybox",
       "para": [
         "H7",
         "burbujas"
@@ -505,12 +506,12 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Greybox en game/visuals/bubbles/chat.tscn (H7)"
     },
     {
       "id": "bubble_dice",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "greybox",
       "para": [
         "H7",
         "burbujas"
@@ -519,12 +520,12 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Greybox en game/visuals/bubbles/dice.tscn (H7)"
     },
     {
       "id": "bubble_rest",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "greybox",
       "para": [
         "H7",
         "burbujas"
@@ -533,12 +534,12 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Greybox en game/visuals/bubbles/rest.tscn (H7)"
     },
     {
       "id": "bubble_shop",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "greybox",
       "para": [
         "H7",
         "burbujas"
@@ -547,12 +548,12 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Greybox en game/visuals/bubbles/shop.tscn (H7)"
     },
     {
       "id": "bubble_think",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "greybox",
       "para": [
         "H7",
         "burbujas"
@@ -561,12 +562,12 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Greybox en game/visuals/bubbles/think.tscn (H7)"
     },
     {
       "id": "bubble_wave",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "greybox",
       "para": [
         "H7",
         "burbujas"
@@ -575,7 +576,76 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Greybox en game/visuals/bubbles/wave.tscn (H7)"
+    },
+    {
+      "id": "bubble_emotion_grateful",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "H7",
+        "emociones"
+      ],
+      "ruta": "assets/art/ui/bubbles/emotion_grateful.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Greybox en game/visuals/bubbles/emotion_grateful.tscn (GDD 4.11.5)"
+    },
+    {
+      "id": "bubble_emotion_offended",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "H7",
+        "emociones"
+      ],
+      "ruta": "assets/art/ui/bubbles/emotion_offended.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Greybox en game/visuals/bubbles/emotion_offended.tscn (GDD 4.11.5)"
+    },
+    {
+      "id": "bubble_emotion_angry",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "H7",
+        "emociones"
+      ],
+      "ruta": "assets/art/ui/bubbles/emotion_angry.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Greybox en game/visuals/bubbles/emotion_angry.tscn (GDD 4.11.5)"
+    },
+    {
+      "id": "bubble_emotion_scared",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "H7",
+        "emociones"
+      ],
+      "ruta": "assets/art/ui/bubbles/emotion_scared.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Greybox en game/visuals/bubbles/emotion_scared.tscn (GDD 4.11.5)"
+    },
+    {
+      "id": "prop_dice_table",
+      "tipo": "prop",
+      "estado": "greybox",
+      "para": [
+        "H7"
+      ],
+      "ruta": "assets/art/props/dice_table.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Greybox en game/visuals/props/dice_table.tscn (mesa de dados de la plaza)"
     },
     {
       "id": "ui_panel_frame",

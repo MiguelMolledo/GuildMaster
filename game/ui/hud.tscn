@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cg0hg8p8b605y"]
+[gd_scene load_steps=14 format=3 uid="uid://cg0hg8p8b605y"]
 
 [ext_resource type="Script" uid="uid://bk40qfbaik42s" path="res://game/ui/hud.gd" id="1_hud"]
 [ext_resource type="Script" uid="uid://dwh11vnyebw76" path="res://game/ui/sun_moon.gd" id="2_sun"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://b0b08kla1lpp8" path="res://game/ui/family_tree_panel.tscn" id="8_tree"]
 [ext_resource type="PackedScene" uid="uid://c0fx42eegf2kp" path="res://game/ui/courtship_panel.tscn" id="9_court"]
 [ext_resource type="PackedScene" uid="uid://c4ti1lb02thva" path="res://game/ui/help_panel.tscn" id="10_help"]
+[ext_resource type="PackedScene" uid="uid://beygedux35qae" path="res://game/ui/npc_panel.tscn" id="11_npc"]
+[ext_resource type="PackedScene" uid="uid://4abg47m7ens7" path="res://game/ui/microevent_card.tscn" id="12_mev"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 6.0
@@ -478,6 +480,14 @@ unique_name_in_owner = true
 layout_mode = 1
 
 [node name="CourtshipPanel" parent="Root" instance=ExtResource("9_court")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="NpcPanel" parent="Root" instance=ExtResource("11_npc")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="MicroeventCard" parent="Root" instance=ExtResource("12_mev")]
 unique_name_in_owner = true
 layout_mode = 1
 

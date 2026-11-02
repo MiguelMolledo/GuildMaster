@@ -1,0 +1,15 @@
+[
+  {
+    "fecha": "2026-11-02",
+    "titulo": "H7 · Ciudad viva: vecinos con oficio y rutina, vida social al atardecer, emociones, acciones sobre NPC, clientes en el mostrador y microeventos",
+    "que": "Los 16 vecinos tienen casa y oficio (los tres puestos del mercado, la Armería, iglesia, ayuntamiento, campos, río, pozo y puertas). Al amanecer salen de casa cada uno a su minuto y van a su oficio; de día hacen descansos sociales y algunos pasean el mercado a media mañana; al atardecer encadenan actividades en la plaza (bancos, charla junto al pozo o al tablón, dados, pasear los puestos, mirar un edificio) y se saludan al cruzarse; de noche todos vuelven a casa. Cada uno lleva una burbuja con lo que hace (zz, …, $, o/, ?, dados) y el vecino más cercano a tu personaje dice una frase de su banco (por actividad, momento del día y oficio). Clic en un vecino abre su ficha: oficio, qué hace, relación contigo, sus emociones y las acciones Conversar, Regalar, Halagar, Insultar y Amenazar (lejos, camina primero). Los 4 estados del MVP (agradecido, ofendido, cabreado, asustado) se ven como icono sobre la cabeza con prioridad y cambian el trato: un tendero cabreado te cobra un 25 % más y por encima de 80 no te vende; un empleado cabreado rinde un 20 % menos. Una forja con Mostrador recibe clientes de día (cada 1-2 h): entran, esperan en el mostrador con su burbuja y compran el producto de más valor a quien atiende. Microeventos (cliente que regatea, empleado enfermo, ladrón nocturno): una tarjeta arriba a la izquierda con las opciones y el tiempo que queda; sin respuesta en 2 h se aplica la marcada; la Seguridad frustra al ladrón con su probabilidad. El pueblo se renueva: los vecinos se casan entre ellos, tienen hijos (con tope de 20) y llegan jóvenes si faltan adultos. Guardado v8 con migración desde v7.",
+    "como_probar": "Abrir --scenario=plaza_dusk --dev-time: a las 19:00 los vecinos dejan el trabajo y llenan la plaza; a las 21:00 vuelven a casa. Clic en un vecino: su ficha con las acciones. --scenario=town_microevents: llegan clientes al mostrador de la forja (doble clic en la forja para verlos dentro); --scenario=microevent_card: la tarjeta del empleado enfermo. Capturas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=ciudad. Pruebas: godot --headless --path . -s tests/run_tests.gd -- --only=town (test_town_life: plaza al atardecer y todos en casa de noche; test_town_emotions: cabreado sube precios; test_town_microevents: opción por defecto a las 2 h y Seguridad 20/40/60 %; test_town_counter, test_town_actions, test_town_population, test_game_town). Diana de 30 días: godot --headless --path . -s tools/sim_runner.gd -- --scenario=town_microevents --bots=idle_town --days=30 --seeds=3 (paso town de run_all). Coste: tools/sim_bench.gd (1,2-1,5 ms por paso).",
+    "capturas": [
+      "docs/novedades/h7_plaza_atardecer.png",
+      "docs/novedades/h7_noche.png",
+      "docs/novedades/h7_ficha_npc.png",
+      "docs/novedades/h7_microevento.png",
+      "docs/novedades/h7_mostrador.png"
+    ]
+  }
+]

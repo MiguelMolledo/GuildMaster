@@ -38,6 +38,12 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Ayuda en pantalla (F1 / «?») | Textos `help.*` de `i18n/strings.csv` (una línea por clave; el orden, en `LINES` de `game/ui/help_panel.gd`); aspecto en `game/ui/help_panel.tscn` |
 | Pista «cómo» del objetivo | `objective_how.<id del objetivo>` en `i18n/strings.csv` (`objective_how.free` cuando ya no quedan objetivos) |
 | Encuadre del interior | `interior.zoom` (entero) y `interior.center_offset` (píxeles) en `data/view.json` |
+| Burbujas sobre la cabeza (actividad social y emociones, H7) | `game/visuals/bubbles/<id>.tscn` (`rest`, `chat`, `shop`, `wave`, `think`, `dice`, `emotion_<estado>`); qué burbuja lleva cada actividad o emoción: `bubble` / `icon` en `data/town.json` |
+| Bancos y mesa de dados de la plaza (H7) | `game/visuals/props/bench.tscn`, `dice_table.tscn`; dónde están: `social_points` de `data/maps/town_e.json` (lo genera `tools/maps/make_town_e.py`) |
+| Oficios de los vecinos (H7) | `workplaces` de `data/maps/town_e.json` (casilla y orden de reparto); nombres `workplace.<id>` en `i18n/strings.csv` |
+| Frases de los vecinos (H7) | Claves en `data/social_phrases.json` (por actividad, fase y profesión); textos `phrase.*` en `i18n/strings.csv` |
+| Rutina, actividades, emociones, acciones, mostrador, microeventos y población (H7) | `data/town.json`; cada microevento en `data/microevents/<id>.json`; la palanca `microevent_chance` en `data/difficulty.json` |
+| Ficha del vecino y tarjeta de microevento (H7) | `game/ui/npc_panel.tscn`, `game/ui/microevent_card.tscn` |
 
 Cada escena visual tiene dos `Marker2D`: **`Feet`** (el punto que se apoya en el suelo: centro de la casilla, centro
 de la huella o los pies) y **`Top`** (lo alto que es: ahí van el letrero, la barra o el nombre, y hasta ahí llega la

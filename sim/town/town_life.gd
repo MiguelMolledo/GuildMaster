@@ -38,12 +38,18 @@ static func workplaces(st: WorldState, catalog: Catalog) -> Array:
 	return catalog.maps().get(st.map_id, {}).get("workplaces", [])
 
 
+static var _wp_cache: Dictionary = {}  # "<catalog instance>:<map>" -> {workplace id -> workplace} (static map data)
+
+
 ## A workplace of the map by id ({} if none).
 static func workplace(st: WorldState, catalog: Catalog, id: String) -> Dictionary:
-	for w: Dictionary in workplaces(st, catalog):
-		if str(w.get("id", "")) == id:
-			return w
-	return {}
+	var key := "%d:%s" % [catalog.get_instance_id(), st.map_id]
+	if not _wp_cache.has(key):
+		var by := {}
+		for w: Dictionary in workplaces(st, catalog):
+			by[str(w.get("id", ""))] = w
+		_wp_cache[key] = by
+	return _wp_cache[key].get(id, {})
 
 
 ## The townsperson whose trade is the market stall `stall` (its keeper; "" if nobody alive holds it).
@@ -131,7 +137,10 @@ static func _step_one(sim: Sim, chr: String, now: int, phase: String, today: int
 	var t: Dictionary = ch["town"]
 	var home := str(ch.get("home", ""))
 	var cfg: Dictionary = sim.catalog.town.get("routine", {})
-	if not is_adult(st, sim.catalog, chr):
+	if int(t.get("adult_day", -1)) != today:  # ages change once a day at most: worked out once a day
+		t["adult"] = is_adult(st, sim.catalog, chr)
+		t["adult_day"] = today
+	if not bool(t["adult"]):
 		if bool(cfg.get("child_stays_home", true)):
 			_go_building(sim, chr, t, home, now)
 			_set_state(sim, chr, t, "home" if str(ch.get("location", "")) == home else "walking")

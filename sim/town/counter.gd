@@ -37,7 +37,9 @@ static func step(sim: Sim) -> void:
 ## Whether `bld` sells at its counter: counter_sales and an owner family.
 static func _sells(sim: Sim, bld: String) -> bool:
 	var b: Dictionary = sim.state.buildings[bld]
-	return str(b.get("owner", "")) != "" and Upgrades.flag(sim, bld, "counter_sales")
+	if str(b.get("owner", "")) == "" or (b.get("upgrades", []) as Array).is_empty():
+		return false  # (cheap check first: this runs for every building every minute)
+	return Upgrades.flag(sim, bld, "counter_sales")
 
 
 ## Minutes until the next customer: interval_hours [min, max] / (1 + customer_bonus).

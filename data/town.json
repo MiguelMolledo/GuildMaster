@@ -15,10 +15,10 @@
   "_activities_doc": "4.11.3 (cosmetic in the MVP). minutes = [min, max] of game time; market: per_stall_minutes at each of `stalls` [min, max] stall service tiles. spot: where it happens (social_points of that kind on the map, the market stalls, the doors of the non-house buildings, or none = where it is). bubble: the bubble id over the head (game/visuals/bubbles/<id>.tscn). weight: base weight when choosing; favored_by: the stat that makes it 3x likelier at >= personality.stat_min. greet is not chosen: it happens when two cross.",
   "activities": {
     "bench": {"minutes": [150, 300], "spot": "bench", "bubble": "rest", "weight": 1.0, "favored_by": "empathy"},
-    "chat": {"minutes": [75, 150], "spot": "chat", "bubble": "speech", "weight": 1.2, "favored_by": "charisma"},
-    "market": {"per_stall_minutes": [50, 70], "stalls": [2, 4], "spot": "stalls", "bubble": "cart", "weight": 0.8, "favored_by": ""},
+    "chat": {"minutes": [75, 150], "spot": "chat", "bubble": "chat", "weight": 1.2, "favored_by": "charisma"},
+    "market": {"per_stall_minutes": [50, 70], "stalls": [2, 4], "spot": "stalls", "bubble": "shop", "weight": 0.8, "favored_by": ""},
     "greet": {"minutes": [15, 25], "spot": "none", "bubble": "wave", "weight": 0.0, "favored_by": "charisma"},
-    "observe": {"minutes": [90, 180], "spot": "doors", "bubble": "thought", "weight": 0.6, "favored_by": "empathy"},
+    "observe": {"minutes": [90, 180], "spot": "doors", "bubble": "think", "weight": 0.6, "favored_by": "empathy"},
     "dice": {"minutes": [180, 330], "spot": "dice", "bubble": "dice", "weight": 0.8, "favored_by": "dexterity"}
   },
   "personality": {"stat_min": 7, "favored_mult": 3.0, "exception_chance": 0.12},

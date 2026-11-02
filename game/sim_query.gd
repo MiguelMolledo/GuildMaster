@@ -282,6 +282,8 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["reason"] = reason_text(str(p["reason"]))
 	if p.has("upgrade"):  # H5: upgrade notices
 		p["upgrade"] = upgrade_name(catalog, str(p["upgrade"]))
+	if p.has("choice"):  # H7: the choice of a microevent (its text key)
+		p["choice"] = t_(str(p["choice"]))
 	return t_(str(n.get("key", ""))).format(p)
 
 
@@ -528,3 +530,93 @@ static func market_opens_text(sim: Sim) -> String:
 	var m := Clock.minute_of_day(at)
 	var key := "ui.market.opens" if Clock.day(at) == Clock.day(int(sim.state.clock["minute"])) else "ui.market.opens_tomorrow"
 	return t_(key) % [m / 60, m % 60]
+
+
+# --- H7 · the living town (docs/contratos/h7_ciudad.md) -----------------------------------------------------------
+
+## The bubble over a person: the icon of its strongest emotion (it goes first, GDD 4.11.5), else the bubble of its
+## social activity ("" = none).
+static func bubble_of(sim: Sim, chr: String) -> String:
+	var icon := Emotions.top_icon(sim, chr)
+	if icon != "":
+		return icon
+	return str(TownLife.view(sim, chr).get("bubble", ""))
+
+
+## What a townsperson says when the selected person `near` is close (< 100 px, ~3 tiles; GDD 4.11.3): a phrase of its
+## activity (or of its work / walk), of the phase of the day or of its trade's profession, changing every game hour.
+## "" when nobody is near.
+static func town_phrase(sim: Sim, npc: String, near: String) -> String:
+	if near == "" or near == npc:
+		return ""
+	var st := sim.state
+	if not TownLife.is_townsperson(st, npc) or not TownLife.is_adult(st, sim.catalog, npc):
+		return ""
+	var a: Dictionary = st.characters.get(near, {})
+	var b: Dictionary = st.characters[npc]
+	if a.is_empty() or str(a.get("location", "")) != "" or str(b.get("location", "")) != "":
+		return ""
+	var pa: Array = a.get("position", [0, 0])
+	var pb: Array = b.get("position", [0, 0])
+	if maxi(absi(int(pa[0]) - int(pb[0])), absi(int(pa[1]) - int(pb[1]))) > PHRASE_TILES:
+		return ""
+	var v := TownLife.view(sim, npc)
+	var act := str(v.get("activity", ""))
+	if act == "":
+		act = "work" if str(v.get("state", "")) == "working" else "walk"
+	var ph: Dictionary = sim.catalog.social_phrases
+	var pool: Array = (ph.get("activities", {}).get(act, []) as Array).duplicate()
+	pool.append_array(ph.get("phases", {}).get(str(sim.now()["phase"]), []))
+	pool.append_array(ph.get("professions", {}).get(str(b.get("profession", "")), []))
+	if pool.is_empty():
+		return ""
+	var hour := int(st.clock["minute"]) / 60
+	return t_(str(pool[absi(("%s|%d" % [npc, hour]).hash()) % pool.size()]))
+
+
+const PHRASE_TILES: int = 3
+
+
+## The adult townsperson on the map nearest to `near` within PHRASE_TILES (ties by id; "" if none): only that one
+## speaks, so the phrases do not pile up.
+static func nearest_talker(sim: Sim, near: String) -> String:
+	var st := sim.state
+	var a: Dictionary = st.characters.get(near, {})
+	if a.is_empty() or str(a.get("location", "")) != "":
+		return ""
+	var pa: Array = a.get("position", [0, 0])
+	var best := ""
+	var best_d := PHRASE_TILES + 1
+	var ids: Array = st.characters.keys()
+	ids.sort()
+	for id: String in ids:
+		var ch: Dictionary = st.characters[id]
+		if id == near or str(ch.get("location", "")) != "" or str(ch.get("home", "")) == "":
+			continue
+		var pb: Array = ch.get("position", [0, 0])
+		var d := maxi(absi(int(pa[0]) - int(pb[0])), absi(int(pa[1]) - int(pb[1])))
+		if d < best_d and TownLife.is_townsperson(st, id) and TownLife.is_adult(st, sim.catalog, id):
+			best = id
+			best_d = d
+	return best
+
+
+## The name of a townsperson's trade ("" without one).
+static func occupation_name(occupation: String) -> String:
+	return t_("workplace." + occupation) if occupation != "" else ""
+
+
+## "Charlando" / "Trabajando"... of a townsperson.
+static func town_state_text(sim: Sim, chr: String) -> String:
+	var v := TownLife.view(sim, chr)
+	if v.is_empty():
+		return ""
+	var s := t_("town.state." + str(v.get("state", "home")))
+	if str(v.get("activity", "")) != "" and str(v.get("state", "")) in ["social", "market", "walking", "strolling"]:
+		s += " · " + t_("activity." + str(v["activity"]))
+	return s
+
+
+## The text of an active microevent with its parameters (names, building, item).
+static func microevent_text(sim: Sim, view: Dictionary) -> String:
+	return notice_text(sim.state, sim.catalog, {"key": str(view.get("text_key", "")), "params": view.get("params", {})})

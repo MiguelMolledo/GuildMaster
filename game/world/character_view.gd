@@ -9,6 +9,8 @@ extends Node2D
 ## The figure is the scene of the character's visual id (game/visuals/characters/<id>.tscn, VisualPaths.character_id):
 ## AnimatedSprite2D + SpriteFrames, with the greybox figure inside until the frames arrive. Its Top marker gives the
 ## height (name label, badge, click area). This node only draws the marks: the selection ring and the badge.
+## H7: a bubble over the head (set_bubble: the scene game/visuals/bubbles/<id>.tscn of the social activity or of the
+## strongest emotion, which goes first, GDD 4.11.5) and a phrase when the selected person is near (set_phrase).
 
 var char_id: String = ""
 var primary: Color = Color(0.5, 0.5, 0.5)
@@ -39,6 +41,9 @@ var kin_sig: String = ""  # H8: family, control, tones and job when built (World
 var _visual: Node2D = null
 var _badge_mark: Node2D = null
 var _name_label: Label
+var bubble_id: String = ""      # H7: the bubble shown ("" = none)
+var _bubble: Node2D = null
+var _phrase_label: Label = null
 
 
 func setup(ch: Dictionary, family: Dictionary) -> void:
@@ -96,6 +101,46 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 static func kin_signature(ch: Dictionary) -> String:
 	return "%s|%s|%s|%s" % [ch.get("family", ""), ch.get("controlled_by", ""), ch.get("visual", {}),
 		ch.get("job") is Dictionary]
+
+
+## H7: the bubble over the head (game/visuals/bubbles/<id>.tscn, its Feet over the head); "" = none.
+func set_bubble(id: String) -> void:
+	if id == bubble_id:
+		return
+	bubble_id = id
+	if _bubble != null:
+		_bubble.queue_free()
+		_bubble = null
+	if id == "":
+		return
+	_bubble = VisualPaths.instantiate("bubbles", id)
+	_bubble.name = "Bubble"
+	VisualPaths.place(_bubble, Vector2(0, -fig_height - 12))
+	add_child(_bubble)
+
+
+## H7: a phrase over the bubble ("" = none): what a townsperson says when the selected person is near (GDD 4.11.3).
+func set_phrase(text: String) -> void:
+	if _phrase_label == null:
+		if text == "":
+			return
+		_phrase_label = Label.new()
+		_phrase_label.name = "PhraseLabel"
+		_phrase_label.add_theme_font_size_override("font_size", 9)
+		_phrase_label.add_theme_color_override("font_color", Color(1.0, 1.0, 0.92))
+		_phrase_label.add_theme_color_override("font_outline_color", Color(0.1, 0.07, 0.05))
+		_phrase_label.add_theme_constant_override("outline_size", 3)
+		_phrase_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_phrase_label.size = Vector2(180, 14)
+		_phrase_label.position = Vector2(-90, -fig_height - 46)
+		_phrase_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(_phrase_label)
+	_phrase_label.text = text
+	_phrase_label.visible = text != ""
+
+
+func phrase() -> String:
+	return _phrase_label.text if _phrase_label != null and _phrase_label.visible else ""
 
 
 ## The name over the head (shown when selected or hovered).

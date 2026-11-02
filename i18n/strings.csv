@@ -825,3 +825,14 @@ phrase.phase.dusk.03,Supper's waiting at home.,La cena me espera en casa.
 phrase.profession.blacksmith.01,I know a thing or two about iron.,Algo sé yo del hierro.
 phrase.profession.blacksmith.02,"The forge pays well, they say.",Dicen que la forja paga bien.
 phrase.profession.blacksmith.03,If you need a hand at the anvil...,Si te hace falta una mano en el yunque...
+ui.npc.age,%d years,%d años
+ui.npc.relation,Relation with %s: %d,Relación con %s: %d
+ui.npc.no_actor,Pick someone of your family to deal with them,Elige a alguien de tu familia para tratar con él
+ui.npc.calm,No emotions towards anyone,Sin emociones hacia nadie
+ui.npc.emotion,%s with %s (%d),%s con %s (%d)
+ui.microevent.title,Something happens,Ocurre algo
+ui.microevent.time,Decide within %s (if not: %s),Decide en %s (si no: %s)
+ui.microevent.more,+%d more waiting,+%d más esperando
+help.town,Town,Pueblo
+help.town_npc,"Click a townsperson: their sheet (Talk, Give a gift, Flatter, Insult, Threaten); an angry stall keeper charges more","Clic en un vecino: su ficha (Conversar, Regalar, Halagar, Insultar, Amenazar); un tendero cabreado cobra más"
+help.town_mev,"A card top right asks for a decision: if you do not choose within 2 game hours, the default (·) applies","Arriba a la derecha una tarjeta pide una decisión: si no eliges en 2 h de juego, se aplica la marcada (·)"

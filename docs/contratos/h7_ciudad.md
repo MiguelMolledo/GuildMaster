@@ -15,14 +15,15 @@ sin respuesta, la opción por defecto se aplica a las 2 h (test); la Seguridad f
 |---|---|---|
 | base | `sim/core/world_state.gd` (v8), `sim/meta/save_file.gd` (paso 7→8), `sim/core/catalog.gd` (`town`, `social_phrases`, `microevents`), `data/town.json`, `data/social_phrases.json`, `data/microevents/*.json`, `data/difficulty.json` (`microevent_chance`), `tools/maps/make_town_e.py` (puntos sociales, oficios, `town_e_start` v8), `tools/scenarios/make_town_scenarios.gd`, `tools/validate_content.py` (`check_h7`, `check_h7_scenario`) | `tests/test_core_h7_base.gd` |
 | sim | `sim/town/town_life.gd` (rutina y actividades), `emotions.gd`, `npc_actions.gd`, `skill_check.gd`, `counter.gd` (clientes), `microevents.gd`, `population.gd` (renovación); enganches en `sim/core/sim.gd`, `orders.gd`, `sim/econ/market.gd` (precio del puesto), `staff.gd` (ausencias y emoción en la eficiencia), `sim/world/buildings.gd` (el cliente entra), `sim/family/births.gd` y `lifecycle.gd` (vecinos), `tools/sim_runner.gd`, `data/targets.json` | `tests/test_town_*.gd` |
-| vista | `game/visuals/bubbles/*.tscn` (burbujas y emociones), `game/visuals/props/social_*.tscn` (banco, charla, dados), `game/world/character_view.gd` / `world_view.gd` (burbuja, frase, puntos sociales), `game/ui/microevent_card.*`, acciones y emoción en `game/ui/character_panel.*`, clientes en `game/interior/interior_view.gd`, `game/smoke/smoke_ciudad.gd` | `tests/test_game_town.gd` |
+| vista | `game/visuals/bubbles/*.tscn` (burbujas y emociones), `game/visuals/props/bench.tscn` y `dice_table.tscn`, `game/world/character_view.gd` / `world_view.gd` (burbuja, frase, puntos sociales), `game/ui/microevent_card.*`, acciones y emoción en `game/ui/character_panel.*`, clientes en `game/interior/interior_view.gd`, `game/smoke/smoke_ciudad.gd` | `tests/test_game_town.gd` |
 
 ## Estado (guardado v8)
 Migración 7 → 8 (`SaveFile._step`):
 - **Personaje** (todos): `occupation: "" | id de oficio` (el trabajo del vecino en el pueblo: un `workplaces` del
   mapa; `""` = sin oficio, p. ej. la familia del jugador, el rival o un niño) y `town: {}` (memoria libre de
-  `TownLife`: `state`, `plan`, `activity`, `spot`, `slot`, `until`, `day`, `leave_at`, `break_until`, `greets`,
-  `stalls`, `customer`…). Migración: `occupation ""` y `town {}`; `TownLife` da oficio a los vecinos adultos que no lo
+  `TownLife`: `state`, `shown`, `plan`, `activity`, `spot`, `slot`, `target`, `dur`, `until`, `day`, `leave_at`,
+  `break_permil`, `greets`, `met`, `greet_until`, `stalls`, `adult`, `customer`…; sin decimales).
+  Migración: `occupation ""` y `town {}`; `TownLife` da oficio a los vecinos adultos que no lo
   tienen la primera vez que corre (mismo reparto que una partida nueva: `TownLife.assign_occupations`).
 - **Raíz** `microevents: {active: [mev], pending: [plan], cooldowns: {"<def>|<edificio o familia>": hasta_día},
   last_day: {fam: día}}`. Un `mev` activo: `{id: "mev_0001", def, family, building, target, actor, started, expires,
@@ -168,6 +169,27 @@ Motivos nuevos (`reason.*`): `not_a_townsperson`, `refuses_talk`, `already_today
   `town`, con 2 semillas). Medido: regateo 1-3, enfermo 2-3, ladrón 2-3 por semilla; ~170 ventas de mostrador.
 - `data/targets.json` `town_population`: en 60 años saltando de amanecer en amanecer (`tests/test_town_population.gd`),
   los vecinos vivos siempre en `[14, 22]` y al final quedan solteros en edad de tener hijos.
+
+## Vista
+- **Burbujas** `game/visuals/bubbles/<id>.tscn` (Feet = la punta, sobre la cabeza; Greybox con cuerpo, borde y
+  símbolo): una por actividad (`rest`, `chat`, `shop`, `wave`, `think`, `dice`) y por emoción (`emotion_<estado>`).
+  `SimQuery.bubble_of`: la emoción más fuerte primero (4.11.5), si no la de la actividad. `CharacterView.set_bubble`.
+  Tipo nuevo `bubbles` en `VisualPaths.KINDS`, el validador y la galería.
+- **Frases**: el vecino adulto más cercano (≤ 3 casillas, `SimQuery.nearest_talker`) a la persona elegida dice una
+  frase de su actividad (o trabajo / paseo), de la fase y de su profesión, que cambia cada hora de juego
+  (`SimQuery.town_phrase`, `CharacterView.set_phrase`). Solo uno a la vez, para que no se amontonen.
+- **Puntos sociales**: un banco por asiento (`props/bench`) y la mesa de dados en medio de sus sitios
+  (`props/dice_table`); la charla no tiene objeto.
+- **Ficha del vecino** (`game/ui/npc_panel.*`, abajo a la izquierda): clic en alguien que no es de tu familia
+  (`WorldView.npc_picked`). Oficio, rango, edad, qué hace, relación con la persona elegida, emociones (icono, nombre,
+  familia e intensidad) y las 5 acciones; el motivo de un botón apagado es su tooltip; lejos, camina primero con la
+  acción encolada (como el cortejo).
+- **Tarjeta de microevento** (`game/ui/microevent_card.*`, arriba a la izquierda bajo el grupo): el más antiguo de la
+  familia, su texto con nombres, un botón por opción (la de por defecto con «·»), el tiempo que queda y «+N más».
+- **Clientes**: en el interior, el cliente espera delante del mostrador (`InteriorView.CUSTOMER`) con la burbuja `shop`.
+- Ayuda (F1): sección Pueblo (`help.town*`).
+- Capturas: `grimoire heavy --timeout 3m -- godot --audio-driver Dummy --always-on-top --path . --
+  --smoke-script=ciudad` → `h7_plaza_atardecer`, `h7_noche`, `h7_ficha_npc`, `h7_microevento`, `h7_mostrador`.
 
 ## Decisiones provisionales
 - **Oficio del vecino** (`occupation`): un sitio del mapa donde pasa el día (puesto, Armería, iglesia, campos…). Es

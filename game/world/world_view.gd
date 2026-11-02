@@ -24,6 +24,7 @@ signal manage_requested(building_id: String)  # double click on a building (GDD 
 ## Right click on a stall or the board (kind "stall"|"board", id = stall id or "board", service = its service tile);
 ## kind "" = the selected person got another order (forget a pending one).
 signal service_requested(actor: String, kind: String, id: String, service: Vector2i)
+signal npc_picked(char_id: String)  # H7: a click on somebody who is not of the player's family (their sheet)
 
 var order_sink: Callable = Callable()  # who receives the orders: Game.give in the game, a test's own in the tests
 var state: WorldState
@@ -38,6 +39,7 @@ var _service_signs: Dictionary = {}  # stall id | "board" -> BuildingMarks.Sign
 var _services: Array = []   # SimQuery.map_services
 var _building_visuals: Dictionary = {}  # bld_id -> its scene of game/visuals/buildings
 var _building_heights: Dictionary = {}  # bld_id -> how high it stands (its Top marker): sign and click area
+var _talker: String = ""  # H7: the townsperson who speaks to the selected person (SimQuery.nearest_talker)
 var _props: Dictionary = {}  # Vector2i -> the scene of game/visuals/props standing on that tile
 var _minutes_per_tile: int = 1
 var _game: Node = null      # the Game autoload, when in the tree
@@ -140,6 +142,7 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 			_props[t] = p
 			n_blocks += 1
 	_add_services()
+	_add_social_points(c, s.map_id)
 	var ids: Array = s.characters.keys()
 	ids.sort()
 	for id: String in ids:
@@ -159,6 +162,27 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	sync(0.0)
 	ViewConfig.info("WorldView", "setup (map=%s, rows=%d, blocks=%d, buildings=%d, characters=%d, minutes_per_tile=%d)" % [
 		s.map_id, rows.size(), n_blocks, _signs.size(), _views.size(), _minutes_per_tile])
+
+
+## H7: the social points of the map (data/maps "social_points", GDD 4.11.3): a bench on each seat
+## (game/visuals/props/bench.tscn) and the dice table in the middle of its places (dice_table). Chat points have
+## no prop: people stand around them.
+func _add_social_points(c: Catalog, map_id: String) -> void:
+	for p: Dictionary in c.maps().get(map_id, {}).get("social_points", []):
+		var slots: Array = p.get("slots", [])
+		match str(p.get("kind", "")):
+			"bench":
+				for t: Array in slots:
+					var b := VisualPaths.instantiate("props", "bench")
+					VisualPaths.place(b, Iso.tile_to_world(Vector2i(int(t[0]), int(t[1]))))
+					objects().add_child(b)
+			"dice":
+				var mid := Vector2.ZERO
+				for t: Array in slots:
+					mid += Iso.tile_to_world(Vector2i(int(t[0]), int(t[1])))
+				var d := VisualPaths.instantiate("props", "dice_table")
+				VisualPaths.place(d, (mid / maxf(1.0, float(slots.size()))).round())
+				objects().add_child(d)
 
 
 ## The buildings of the state: the scene of its type (game/visuals/buildings/<type>.tscn) on the footprint's centre,
@@ -452,6 +476,7 @@ func _process(_delta: float) -> void:
 
 ## Follows the state: new or dead walkers, positions, the day/night tint. `frac` = how far towards the next step.
 func sync(frac: float) -> void:
+	_talker = SimQuery.nearest_talker(sim, selected_id) if sim != null and selected_id != "" else ""
 	for id: String in state.characters:
 		if not _views.has(id):
 			_add_view(id)
@@ -479,12 +504,24 @@ func sync(frac: float) -> void:
 		v.visible = str(ch.get("location", "")) == ""
 		v.follow(ch, _minutes_per_tile, frac)
 		v.follow_badge(state, _player_family)
+		_follow_town(id, v)
 	if int(state.clock["minute"]) != _idle_minute:
 		_idle_minute = int(state.clock["minute"])
 		refresh_idle()
 		refresh_upgrades()
 	tint_color = DayNight.tint(int(state.clock["minute"]), frac, catalog.time, ViewConfig.value("day_night", {}))
 	(get_node("%Tint") as CanvasModulate).color = tint_color
+
+
+## H7: the bubble (emotion first, else the social activity) and the phrase of the townsperson nearest to the selected
+## person (_talker, worked out once per sync).
+func _follow_town(id: String, v: CharacterView) -> void:
+	if sim == null or not v.visible:
+		v.set_bubble("")
+		v.set_phrase("")
+		return
+	v.set_bubble(SimQuery.bubble_of(sim, id))
+	v.set_phrase(SimQuery.town_phrase(sim, id, selected_id) if id == _talker else "")
 
 
 func select(id: String) -> void:
@@ -610,6 +647,11 @@ func handle_input(event: InputEvent) -> bool:
 		var who := pick_character(mb.position)
 		if who != "":
 			select(who)
+			return true
+		var npc := pick_any_character(mb.position)  # H7: somebody else: their sheet (actions on an NPC)
+		if npc != "":
+			ViewConfig.info("WorldView", "npc picked %s" % npc)
+			npc_picked.emit(npc)
 			return true
 		var bld := pick_building(mb.position)
 		pick_building_id(bld)

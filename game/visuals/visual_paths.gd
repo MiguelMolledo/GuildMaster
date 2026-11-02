@@ -6,15 +6,16 @@ extends RefCounted
 ##
 ## Kinds: buildings (exterior of a building type), interiors (inside of a building type: kit, a Marker2D per station
 ## under Stations, upgrade visuals under Upgrades), stations (one station of an interior, by zone id), props (things
-## standing on a map tile: by tile kind, stalls by "stall_<stall id>") and characters (by visual id, see
-## character_id). A missing scene falls back to <kind>/_generic.tscn (a visible placeholder) and says so in debug.
+## standing on a map tile: by tile kind, stalls by "stall_<stall id>"; H7: the plaza's bench and dice_table),
+## characters (by visual id, see character_id) and, H7, bubbles (over a head: the social activity's bubble or an
+## emotion icon, ids of data/town.json). A missing scene falls back to <kind>/_generic.tscn (a visible placeholder) and says so in debug.
 ##
 ## Every visual scene has a Marker2D "Feet" (the point that rests on the anchor: a tile centre, the centre of a
 ## footprint, a walker's feet) and may have a Marker2D "Top" (how high it stands: where the sign, the bar or the name
 ## goes, and the height of its click area).
 
 const ROOT: String = "res://game/visuals"
-const KINDS: Array[String] = ["buildings", "interiors", "stations", "props", "characters"]
+const KINDS: Array[String] = ["buildings", "interiors", "stations", "props", "characters", "bubbles"]
 const GENERIC: String = "_generic"
 const ART_ROOT: String = "res://assets/art"
 const AUDIO_ROOT: String = "res://assets/audio"

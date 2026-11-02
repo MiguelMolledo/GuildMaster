@@ -4,10 +4,10 @@ extends Node2D
 ## Open game/tools/gallery.tscn and press F6, or run the game with `-- --gallery`. Controls: WASD/arrows or the
 ## middle button pan, the wheel zooms (×1/×2). With --smoke it saves one shot per screen, top to bottom
 ## (reports/shots/gallery_01.png, _02...), and quits.
-## Rows: buildings and props, stations and characters, interiors. The grid is the town's 64×32 diamonds; each
+## Rows: buildings and props, stations, characters and bubbles (H7), interiors. The grid is the town's 64×32 diamonds; each
 ## visual stands on a tile centre by its Feet marker, so a sprite whose base misses the diamond is misplaced.
 
-const ROWS: Array = [["buildings", "props"], ["stations", "characters"], ["interiors"]]
+const ROWS: Array = [["buildings", "props"], ["stations", "characters", "bubbles"], ["interiors"]]
 const ROW_GAP: float = 70.0
 const GRID_TILES: int = 40
 const MAX_W: float = 900.0     # a line of the gallery wraps past this width (one screen at ×1)
