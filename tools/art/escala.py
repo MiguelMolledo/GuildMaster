@@ -325,10 +325,10 @@ def elevation_sheet():
     ]
     prop = [  # (nombre, alto px, ancho px, forma)
         ("persona", 48, 18, "person"),
-        ("casa 1 planta", 130, 110, "house"),
-        ("casa 2 plantas", 200, 120, "house"),
-        ("casa 3 plantas", 256, 128, "house"),
-        ("muralla", 165, 200, "wall"),
+        ("casa 1 planta", 129, 110, "house"),
+        ("casa 2 plantas", 176, 120, "house"),
+        ("casa 3 plantas", 246, 128, "house"),
+        ("muralla", 170, 200, "wall"),
         ("torre homenaje", 300, 170, "keep"),
         ("iglesia", 320, 130, "church"),
         ("catedral", 400, 260, "cathedral"),
@@ -337,7 +337,7 @@ def elevation_sheet():
            ("ayuntamiento ×1,6", 0, 0, "sprite:town_hall")]
     gap = 60
     widths_real = [max(int(w * PX_M), 18) for _, _, w, _ in real]
-    W = 120 + sum(widths_real) + gap * len(real) + 160 + 700 + 160 + sum(p[2] for p in prop) + gap * len(prop) + 80
+    W = 120 + sum(widths_real) + gap * len(real) + 160 + 700 + 160 + sum(p[2] for p in prop) + gap * len(prop) + 500
     H = int(90 * PX_M) + 260
     img = Image.new("RGBA", (W, H), BG)
     d = ImageDraw.Draw(img)
@@ -348,7 +348,6 @@ def elevation_sheet():
         col = (200, 80, 80, 255) if hpx != 400 else (200, 170, 70, 255)
         for x in range(0, W, 12):
             d.line([(x, base - hpx), (x + 6, base - hpx)], fill=col, width=2)
-        label(d, (W - 20, base - hpx - 22), txt, 16, col, anchor="ra")
     d.line([(0, base), (W, base)], fill=(120, 100, 80, 255), width=2)
 
     def shape(x, w, h, kind, fill):
@@ -404,7 +403,7 @@ def elevation_sheet():
     hx += 80
     hb = Image.open(os.path.join(ART, "buildings", "house_b.png")).convert("RGBA")
     img.alpha_composite(hb, (hx, base - 166))
-    label(d, (hx + 96, base + 10), "casa de 2 plantas hoy\n158 px (planta: 34 px)", 15)
+    label(d, (hx + 96, base + 10), "casa de 2 plantas hoy\n158 px en pantalla, ~120 de alzado\n(planta: 34 px, puerta 40)", 15)
     label(d, (hx + 96, base - 186), "158 px", 16, bold=True)
     hx += 230
     th = Image.open(os.path.join(ART, "buildings", "town_hall.png")).convert("RGBA")
@@ -419,7 +418,12 @@ def elevation_sheet():
         label(d, (x + wpx / 2, base + 10), name, 15)
         label(d, (x + wpx / 2, base - hpx - 26), f"{hpx} px · {hpx / CHAR_PX:.1f}×", 16, bold=True)
         x += wpx + gap
-    img = img.crop((0, 0, min(W, x + 40), H))
+    img = img.crop((0, 0, min(W, x + 400), H))
+    d = ImageDraw.Draw(img)
+    for hpx, txt in [(540, "540 px: alto de la pantalla a zoom 1"), (270, "270 px: alto de la pantalla a zoom 2"),
+                     (400, "400 px: tope propuesto para un monumento")]:
+        col = (200, 80, 80, 255) if hpx != 400 else (200, 170, 70, 255)
+        label(d, (img.width - 20, base - hpx - 22), txt, 16, col, anchor="ra")
     img.save(os.path.join(OUT, "01_alturas_real_hoy_propuesta.png"))
 
 
