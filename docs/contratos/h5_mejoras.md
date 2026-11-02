@@ -291,3 +291,9 @@ Hechas en la base (forma fija; «arbol» puede afinarlas sin cambiarla):
   `_staff_odds`, `_ledger_upkeep`, `_market`, `test_world_routines`, `test_meta_new_game`) fijan en su catálogo las
   cifras de antes con `tests/balance_pins.gd` (una línea por fichero); las de datos (`test_core_h4_base`,
   `test_core_h5_base`) comprueban las cifras nuevas.
+
+## Pulido del MVP (2026-11-02)
+- **Multas**: una multa nueva ya no deja `inspection.fine_debt`: se paga de lo que pase de `fine_loan.keep_gold` y el
+  resto es un `Loan` con la ciudad (`Loans.charge_fine`, ver `docs/contratos/h11_tribunal.md`). `fine_debt` de partidas
+  anteriores se sigue cobrando como antes.
+

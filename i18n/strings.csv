@@ -1158,3 +1158,5 @@ ui.kin_ai.why_need_hunger,hungry,tiene hambre
 ui.kin_ai.why_need_rest,tired,está cansado
 ui.kin_ai.why_need_social,lonely,se siente solo
 ui.kin_ai.why_need_fun,bored,se aburre
+notice.fine_loan,"You pay {paid} of the fine now; {amount} is owed to the town until day {day} (book, Debts)","Pagas {paid} de la multa ahora; debes {amount} a la ciudad hasta el día {day} (libro, Deudas)"
+lender.town,The town (fines),La ciudad (multas)

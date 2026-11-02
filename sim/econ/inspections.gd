@@ -76,7 +76,8 @@ static func _roll(sim: Sim, b: String, fam: String) -> void:
 	Notices.add(sim, fam, Notices.URGENT, "notice.inspection_fined", {"building": b, "amount": fine}, b)
 	if OS.is_debug_build():
 		print("[Inspections] %s pillado: multa %d, reputación %+d" % [b, fine, rep])
-	_collect(sim, b, fam, fine)
+	_collect(sim, b, fam, 0)  # an old fine debt (saves before pulido-mvp) first
+	Loans.charge_fine(sim, fam, fine, Money.FINES, "inspection", b)  # pulido-mvp: the rest owed with a term
 
 
 ## Charges the fine debt plus `fine` (0 when only settling) as far as the family's gold goes; the rest stays as

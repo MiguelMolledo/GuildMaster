@@ -25,5 +25,7 @@
   "titles": ["common", "citizen", "patrician", "baron", "noble"],
   "default_title": "common",
   "_inspections_doc": "GDD 4.8 (Secrets branch): every dawn, each building with inspection_risk > 0 rolls p = sum(inspection_risk) x (1 - honesty / honesty_divisor) with state.rng. Caught: a fine (fine [min, max], whole gold, state.rng; category fines) and reputation (GDD 4.12.1: condena con multa -10). The automatic trial of 4.12 comes with H11 ('multa por ahora', 10). escape_cooldown_days: the hidden passage (inspection_escape) avoids one inspection that caught you, then needs this many days to be usable again [provisional: the GDD says 'escapar de una inspección'].",
-  "inspections": {"honesty_divisor": 200, "fine": [10, 50], "reputation": -10, "escape_cooldown_days": 8}
+  "inspections": {"honesty_divisor": 200, "fine": [10, 50], "reputation": -10, "escape_cooldown_days": 8},
+  "_fine_loan_doc": "Pulido del MVP [provisional]: a fine (inspection, court) is paid from the gold above keep_gold (what the family needs to keep working: buying iron); the rest becomes a debt with the town (a Loan like the start debt, GDD 4.16: due in term_days, warnings, extension with surcharge, seizure and ruin), added to the open one if there is. Before, the fine took every coin and its debt swallowed every income: a forge with no stock was stuck forever.",
+  "fine_loan": {"keep_gold": 30, "term_days": 8, "lender": "town", "overdue_reputation": -10, "extension_seasons": 1, "extension_surcharge": 0.25}
 }

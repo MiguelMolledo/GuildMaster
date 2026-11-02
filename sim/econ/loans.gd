@@ -14,6 +14,38 @@ const PAID: String = "paid"
 const SEIZED: String = "seized"
 
 
+## A fine `amount` (category, ref, building): paid from the gold above fine_loan.keep_gold; the rest is owed to the town
+## as a loan (added to the family's open town loan, else a new one due in term_days; data/upgrade_rules.json
+## fine_loan) [provisional, pulido del MVP]. Returns {paid, owed, loan}.
+static func charge_fine(sim: Sim, fam: String, amount: int, category: String, ref: String, building: String,
+		actor: String = "") -> Dictionary:
+	var st := sim.state
+	var cfg: Dictionary = sim.catalog.upgrade_rules.get("fine_loan", {})
+	var pay := clampi(Money.gold(st, fam) - int(cfg.get("keep_gold", 30)), 0, amount)
+	if pay > 0:
+		Money.change(sim, fam, -pay, category, ref, building, actor)
+	var owed := amount - pay
+	var id := ""
+	if owed > 0:
+		var lender := str(cfg.get("lender", "town"))
+		for lid: String in of_family(sim, fam):
+			var l: Dictionary = st.loans[lid]
+			if str(l.get("lender", "")) == lender and is_open(l):
+				id = lid
+		if id != "":
+			st.loans[id]["outstanding"] = int(st.loans[id]["outstanding"]) + owed
+			st.loans[id]["principal"] = int(st.loans[id]["principal"]) + owed
+		else:
+			var due := (Clock.day(int(st.clock["minute"])) + int(cfg.get("term_days", 8))) * Clock.MINUTES_PER_DAY
+			id = create(st, fam, cfg, owed, due, building)
+		sim.events.append({"type": "fine_owed", "family": fam, "loan": id, "amount": owed, "ref": ref})
+		Notices.add(sim, fam, Notices.URGENT, "notice.fine_loan", {"amount": owed, "paid": pay,
+			"day": Clock.day(int(st.loans[id]["due_minute"]))}, building)
+	if OS.is_debug_build():
+		print("[Loans] multa %s de %s: paga %d, debe %d a la ciudad (%s)" % [ref, fam, pay, owed, id])
+	return {"paid": pay, "owed": owed, "loan": id}
+
+
 ## A new loan for `fam` (NewGame.from_start). The debt does not bring gold in: the loan already paid the building.
 static func create(state: WorldState, fam: String, terms: Dictionary, principal: int, due_minute: int,
 		building: String) -> String:

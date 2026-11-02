@@ -170,3 +170,11 @@ disposition, actions: {kind: motivo}}], days_left, minutes_left}`, `Tribunal.acc
 - **IA rival**: acusa al jugador solo con un hecho público sin juzgar contra su familia o, si su honestidad ≤ −30, con
   pruebas fabricadas (Sigilo); no en el primer año; una vez por `cooldown_days`. No se defiende (04c).
 - **Testigos**: la relación de H7 decide la disposición; el acusado los trabaja en persona.
+- **Multas con plazo** (pulido del MVP, 2026-11-02): una multa (inspección de Secretos o condena leve) se paga de lo
+  que pase de `fine_loan.keep_gold` (30) y el resto queda como deuda con la ciudad: un `Loan` como la deuda inicial
+  (4.16), con plazo de `term_days` (8), avisos, prórroga con recargo y embargo (`data/upgrade_rules.json`
+  `fine_loan`), sumada a la abierta si la hay. Antes la multa se llevaba todo el oro y su deuda se tragaba cada ingreso:
+  una forja sin existencias se quedaba a 0 para siempre (bot `crook`, semilla 7). Escenario `fined_broke` y
+  `tests/test_econ_fine_loan.gd`. Queda para el owner: con 0 de oro y sin materias, la deuda de mantenimiento (D15)
+  sigue tragándose las ventas; el `crook` de la semilla 7 ya estaba así antes de la multa y ahora la partida acaba en
+  ruina al vencer la deuda con la ciudad (día 17) en vez de quedarse parada.
