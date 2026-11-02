@@ -17,7 +17,7 @@ colores y medidas de `tokens.json`. No es un dibujo libre: si una pieza cambia, 
   apagada) · `aviso` (gravedad info|aviso|urgente|bien) · `velo` · `caja` · `pieza` · `zona` · `llamada` (n).
 - Imágenes: `guild:icons/icon_oro.png` (Guild Renew, solo lectura), `icono:sword` (`assets/art/icons/`), `ui:marks/seal`
   (`assets/art/ui/`), `pieza:check_on` (`assets/art/ui/theme/`) o ruta del repo. Láminas de otro tamaño: `"tam": [w, h]`.
-- Fuentes de maquetas: `tools/ui/kit/` (00-03 y el HUD: `hud.py` tiene funciones `ficha()`, `reloj()`, `lateral()`…
-  para montar cualquier pantalla sobre el HUD propuesto), `tools/ui/mecanicas/`. Fondos sin HUD: `captura_fondos.tscn`.
+- Fuentes de maquetas: `docs/ui/maquetas/src/` (`hud.py` tiene `ficha()`, `reloj()`, `lateral()`… para montar
+  cualquier pantalla sobre el HUD propuesto). Fondos sin HUD: `captura_fondos.tscn` → `docs/ui/maquetas/fondos/`.
 - Colores: un token de `tokens.json` (`oro`, `negativo`…) o `#rrggbb`. Texto sin suavizado, como en el juego.
 - `glifos_extra.py` añade a Pixel Operator `→ ← ↑ ↓ −` (necesita `pip install fonttools`; solo si cambian las fuentes).

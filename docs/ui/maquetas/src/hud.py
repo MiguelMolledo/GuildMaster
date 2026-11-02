@@ -1,8 +1,8 @@
 """HUD propuesto (docs/ui/01_hud.md) y la lámina antes/después de docs/ui/00_lenguaje_visual.md.
-python3 tools/ui/maqueta.py tools/ui/kit/hud.py   → docs/ui/maquetas/hud_*.png
+python3 tools/ui/maqueta.py docs/ui/maquetas/src/hud.py   → docs/ui/maquetas/hud_*.png
 
 Las piezas de HUD son funciones (ficha, barra_estado, reloj...) para que los documentos de mecánica puedan montar su
-pantalla encima del mismo HUD: import sys; sys.path.insert(0, "tools/ui/kit"); import hud; hud.base(...)
+pantalla encima del mismo HUD: import sys; sys.path.insert(0, "docs/ui/maquetas/src"); import hud; hud.base(...)
 Zonas (960×540, margen 4, separación 4): ver ZONAS.
 """
 

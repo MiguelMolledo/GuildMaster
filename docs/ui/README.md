@@ -49,9 +49,9 @@ Convenciones comunes: [mecanicas/_social.md](mecanicas/_social.md).
 ## Maquetas
 
 - PNG en [maquetas/](maquetas/): `<id>.png` (960×540) y `<id>_x2.png` (1920×1080).
-- La fuente de cada maqueta (`.json` o `.py`) va en `tools/ui/kit/` (00-03 y HUD) o `tools/ui/mecanicas/`, para que
-  se pueda regenerar cuando cambie una pieza: `python3 tools/ui/maqueta.py tools/ui/kit/*.py tools/ui/mecanicas/*.py`.
-- Para montar una pantalla sobre el HUD propuesto: `tools/ui/kit/hud.py` (`ficha()`, `barra_estado()`, `reloj()`,
+- La fuente de cada maqueta (`.json` o `.py`) va en `maquetas/src/`, para que se pueda regenerar cuando cambie una
+  pieza: `python3 tools/ui/maqueta.py docs/ui/maquetas/src/<doc>.py`.
+- Para montar una pantalla sobre el HUD propuesto: `docs/ui/maquetas/src/hud.py` (`ficha()`, `barra_estado()`, `reloj()`,
   `objetivo()`, `lateral()`, `seleccion()`, `avisos()`; zonas en `hud.ZONAS`).
 - Fondos del juego sin HUD: `maquetas/fondos/` (se regeneran con `tools/ui/captura_fondos.tscn`).
 - Las capturas del juego de hoy que ilustran un documento se llaman `<documento>_hoy_<qué>.png`.

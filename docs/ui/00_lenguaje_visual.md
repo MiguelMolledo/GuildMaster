@@ -2,7 +2,7 @@
 
 > Dueño: kit · Estado: borrador para revisar · Fecha: 2026-11-02
 > Manda sobre `mecanicas/_comun.md` y `mecanicas/_social.md` donde choquen. Fuentes de las láminas:
-> `tools/ui/kit/laminas_00.py` y `tools/ui/kit/hud.py` (`python3 tools/ui/maqueta.py <fichero>`).
+> `docs/ui/maquetas/src/laminas_00.py` y `docs/ui/maquetas/src/hud.py` (`python3 tools/ui/maqueta.py <fichero>`).
 
 La interfaz de GuildMaster es **un libro de cuentas de gremio**: tablas de madera con remaches, filete de oro, papel de
 pergamino para lo escrito y tinta oscura. Todo se dibuja a 960×540 lógicos y se escala ×2 entero, sin suavizado. Esta

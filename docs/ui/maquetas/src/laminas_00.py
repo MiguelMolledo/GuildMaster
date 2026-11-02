@@ -1,10 +1,10 @@
 """Láminas de docs/ui/00_lenguaje_visual.md: tipografía, colores, componentes y estados, iconos.
-python3 tools/ui/maqueta.py tools/ui/kit/laminas_00.py   → docs/ui/maquetas/lamina_*.png
+python3 tools/ui/maqueta.py docs/ui/maquetas/src/laminas_00.py   → docs/ui/maquetas/lamina_*.png
 """
 import json
 import os
 
-ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 GUILD_UI = os.environ.get("GUILD_UI", os.path.expanduser("~/Code/guild/assets/sprites/ui"))
 TOKENS = json.load(open(os.path.join(ROOT, "tools", "ui", "tokens.json"), encoding="utf-8"))
 
@@ -170,9 +170,9 @@ def lamina_estados():
     el.append({"tipo": "texto", "rect": [330, 160, 200, 13], "texto": "Retratos", "fuente": "negrita",
                "color": "oro_claro"})
     for i, (m, lab, extra) in enumerate([("activo", "activo", {"tecla": "1", "familia": "#a03030"}),
-                                         ("normal", "controlable", {"tecla": "2", "familia": "#a03030", "cola": 3}),
+                                         ("normal", "tuyo", {"tecla": "2", "familia": "#a03030", "cola": 3}),
                                          ("apagado", "ajeno", {"familia": "#3060a0"}),
-                                         ("muerto", "fallecido", {"familia": "#a03030"}),
+                                         ("muerto", "muerto", {"familia": "#a03030"}),
                                          ("normal", "heredero", {"familia": "#a03030", "corona": True})]):
         img = ["guild:portraits/portrait_artesano.png", "guild:portraits/portrait_artesana.png",
                "guild:portraits/portrait_mercader.png", "guild:portraits/portrait_aldeano.png",
@@ -227,7 +227,7 @@ def lamina_estados():
            {"tipo": "pieza", "pieza": "scroll_track", "rect": [8, 362, 6, 60]},
            {"tipo": "pieza", "pieza": "scroll_grabber", "rect": [8, 372, 6, 20]},
            {"tipo": "pieza", "pieza": "divider", "rect": [24, 390, 280, 3]},
-           {"tipo": "texto", "rect": [24, 398, 280, 13], "texto": "Separador con rombo entre secciones.",
+           {"tipo": "texto", "rect": [24, 398, 280, 13], "texto": "Separador con rombos en las puntas.",
             "color": "texto_tenue"}]
     # modal de confirmación
     el += [{"tipo": "texto", "rect": [330, 370, 400, 13], "texto": "Confirmación (lo caro o irreversible)",
