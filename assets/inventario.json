@@ -919,7 +919,7 @@
       "ruta": "assets/art/ui/fonts/jacquarda_bastarda_9.ttf",
       "origen": "libre (OFL)",
       "coste_gen": 0,
-      "notas": "Jacquarda Bastarda 9 (The Soft Type Project, SIL OFL 1.1; licencia al lado). Letra gótica pixel para títulos de panel y pantallas, a 13 px. Aún no está en el theme."
+      "notas": "Jacquarda Bastarda 9 (The Soft Type Project, SIL OFL 1.1; licencia al lado). Letra gótica pixel para títulos de panel y pantallas, a 13 px. Aún no está en el theme. Jacquard 24 (misma licencia, jacquard_24.ttf) para el logotipo y el título del final, a 43 px."
     },
     {
       "id": "ui_font_candidates",
@@ -956,6 +956,18 @@
       "origen": "dibujado (Pillow)",
       "coste_gen": 0,
       "notas": "Cursores del kit: cursor_arrow, cursor_hand (sobre lo clicable), cursor_wait (cargar/guardar), a 1×; el juego usará la versión ×2. Aún no están en el juego."
+    },
+    {
+      "id": "ui_logo",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/logo/guildmaster_logo.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Logotipo «GuildMaster» (tools/ui/logo.py): Jacquard 24 (The Soft Type Project, SIL OFL 1.1; jacquard_24_ofl.txt al lado de la fuente) a 43 px sin suavizado, oro en tres franjas, contorno, sombra y regla con rombos. 187×34 y _x2. Para la pantalla de título (docs/ui/02_menu_inicial.md)."
     },
     {
       "id": "ui_hud_clock",

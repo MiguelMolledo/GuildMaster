@@ -15,7 +15,7 @@ con el kit real (`tools/ui/maqueta.py`, ver [tools/ui/README.md](../../tools/ui/
 | — | [_plantilla.md](_plantilla.md) | Los 10 puntos de cada documento | kit | hecho |
 | 00 | [00_lenguaje_visual.md](00_lenguaje_visual.md) | Rejilla, tokens de color, marcos, estados, tipografía, iconos, animación, cursor, sonidos de UI | kit | borrador |
 | 01 | [01_hud.md](01_hud.md) | Interfaz general en mapa e interior: zonas, prioridades y solapes, avisos, tooltips, modales, objetivos y F1, familiares, reloj, teclas | kit | borrador |
-| 02 | [02_menu_inicial.md](02_menu_inicial.md) | Título, partida nueva, cargar/guardar, opciones, créditos, salir, fin de partida | kit | pendiente |
+| 02 | [02_menu_inicial.md](02_menu_inicial.md) | Título, partida nueva, cargar/guardar, opciones, créditos, salir, fin de partida | kit | borrador |
 | 03 | [03_produccion_sin_creditos.md](03_produccion_sin_creditos.md) | Cómo se hace la UI sin créditos, lista de la compra de PixelLab (15-nov), cómo editar piezas en Godot | kit | pendiente |
 
 ### Mecánicas · economía (worker «mecánicas-economía»)
