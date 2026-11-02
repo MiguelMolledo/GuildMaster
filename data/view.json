@@ -27,6 +27,17 @@
     "stall_sign": "#d8c070",
     "board_sign": "#c8a0d0"
   },
+  "filler": {
+    "_doc": "How the free building tiles (#) of the map look (WorldView._add_filler): each block is filled with house lots of the first size in lot_sizes ([cols, rows]) that fits, and the tiles left over become yards: each block takes one of yard_themes (vegetable plot, work yard) and each tile one yard of its theme, each at most once per block (the theme's first yard fills the rest). houses / yard_themes / single are scene ids of game/visuals/props/; which one goes where depends only on the tile (the town looks the same every game), weights = repeat an id. mirror flips half of the houses. single = a lone # tile (the plaza's well). Remove this block to go back to one greybox block per tile (props/building.tscn).",
+    "houses": ["lot_house_a", "lot_house_b", "lot_house_c", "lot_house_d"],
+    "lot_sizes": [[3, 4], [4, 3], [3, 3]],
+    "mirror": true,
+    "yard_themes": [
+      ["yard_plot", "yard_plot", "yard_plot", "yard_plot_sack"],
+      ["yard_plain", "yard_plain", "yard_plain", "yard_barrels", "yard_crates", "yard_sacks", "yard_cart"]
+    ],
+    "single": "well"
+  },
   "notices": {
     "_doc": "H3: urgent notices pop up over the HUD for popup_seconds (at most popup_max at once); severity colours of the notices log.",
     "popup_seconds": 8.0,

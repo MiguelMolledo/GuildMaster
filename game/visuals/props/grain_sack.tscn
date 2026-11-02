@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://u8nuf5p22jn0"]
+
+[ext_resource type="Texture2D" uid="uid://d2dd2hxosdv83" path="res://assets/art/props/grain_sack.png" id="1_tex"]
+
+[node name="GrainSack" type="Node2D"]
+editor_description = "Reused from Guild Renew (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). The sprite's base sits on Feet; move or swap it here."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -21)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-12, -21)

@@ -101,7 +101,11 @@ func _fill(list: VBoxContainer, inv: Dictionary, from_building: bool) -> void:
 		var total := Inventory.count(inv, item, q)
 		var row := HBoxContainer.new()
 		row.name = key
+		var icon := UiIcons.item_rect(item)
+		if icon != null:
+			row.add_child(icon)
 		var name_l := Label.new()
+		name_l.name = "Name"
 		name_l.text = "%s ×%d" % [SimQuery.item_label(sim.catalog, item, q), total]
 		name_l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(name_l)
