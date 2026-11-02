@@ -137,8 +137,9 @@ Motivos nuevos (`reason.*`): `unknown_target`, `too_young`, `not_single`, `same_
 
 ## Bot `dynasty` y su diana
 `sim/bots/bot_dynasty.gd` desde `dynasty_start`: el pretendiente (el cabeza soltero sin heredero; después el heredero
-adulto soltero) camina hasta la puerta del candidato con más afinidad (primero sin empleo) con la acción encolada
-detrás, conversa una vez al día y propone al llegar a 80. Medidas (`measures()`, las suma `sim_runner`): `wedding_day`,
+adulto soltero) camina hasta la puerta de un candidato con quien aún pueda tener hijos (la mujer de la pareja ≤
+`mother_max_age` − 5; primero sin empleo, luego más afinidad, luego el más joven) con `move_to` y, ya al alcance
+(la rutina espera su margen), conversa una vez al día y propone al llegar a 80. Medidas (`measures()`, las suma `sim_runner`): `wedding_day`,
 `first_child_days`, `inherited`, `inherit_day`, `generation_days` (nacimiento del segundo cabeza → su primer hijo),
 `game_over`. Ritual a mano (largo, ~10-30 min por semilla): `godot --headless --path . -s tools/sim_runner.gd --
 --scenario=dynasty_start --bots=dynasty --days=320 --seeds=3` (dianas en `data/targets.json` `dynasty`).
@@ -198,3 +199,7 @@ detrás, conversa una vez al día y propone al llegar a 80. Medidas (`measures()
 2. ¿Las velocidades a Mayús+1/2/3 (o a otra tecla) para dejar 1-2-3 al grupo?
 3. ¿Rutina por defecto también para el fundador desde el inicio, aunque mueva el balance de H3-H5?
 4. 4.21: cuando se cierre el diseño de la IA rival, el módulo de familia se rehace con utilidad.
+5. **La población no se renueva**: los 16 vecinos envejecen con todos y no tienen hijos (su vida es de H7). Una
+   generación después (~25 años) casi todas las vecinas pasan de `mother_max_age` y el heredero apenas tiene con quién
+   tener hijos (lo vio el bot `dynasty`). Hace falta que H7 (o este hito, si se decide) renueve la población: vecinos
+   que se casan entre ellos y tienen hijos, o jóvenes que llegan al pueblo.

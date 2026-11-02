@@ -1,9 +1,9 @@
 class_name BotDynasty
 extends RefCounted
 ## Bot "dynasty" (GDD 07 §7.2, 10/H8): plays the family only, with the player's orders. The suitor (the head while it is
-## single and has no heir; later the heir once it is an adult and single) courts the single person with the most
-## affinity (those without a job first): walks to them (move_to + the talk queued behind it, so the routine does not
-## take it back before talking), talks once a day and proposes at 80. Then it waits for children, who grow, inherit and
+## single and has no heir; later the heir once it is an adult and single) courts a single person who can still have
+## children with it (without a job first, then the most affinity, then the youngest): walks to them (move_to; the
+## routine waits its manual grace), talks once a day when in range and proposes at 80. Then it waits for children, who grow, inherit and
 ## court in turn. It never works nor trades (the routine of the heir does).
 ## Measures (sim_runner reads measures()): wedding_day, first_child_days (wedding -> first child of the founder),
 ## inherited (1 if the family passed to an heir), inherit_day, generation_days (birth of the second head -> its first
@@ -11,7 +11,6 @@ extends RefCounted
 
 var fam: String = ""
 var talked: Dictionary = {}       # suitor -> day of its last talk order
-var sent: Dictionary = {}         # suitor -> minute it was sent walking (to wait for it)
 var wedding_day: int = -1
 var first_child_day: int = -1
 var inherit_day: int = -1
@@ -44,15 +43,12 @@ func orders(sim: Sim) -> Array:
 		return [{"type": act, "actor": suitor, "target": target}]
 	if status != "too_far":
 		return []
-	var out: Array = []
+	# Far: walk there; once in range (next minutes, the routine waits manual_grace_minutes) it talks. The talk is not
+	# queued behind the walk: the courted person may have moved by then (a refused order).
 	if str(st.characters[suitor].get("location", "")) != "":
-		out.append({"type": "exit_building", "actor": suitor})
-		out.append({"type": "move_to", "actor": suitor, "tile": Courtship.spot(st, target), "queued": true})
-	else:
-		out.append({"type": "move_to", "actor": suitor, "tile": Courtship.spot(st, target)})
-	out.append({"type": act, "actor": suitor, "target": target, "queued": true})
-	talked[suitor] = today
-	return out
+		return [{"type": "exit_building", "actor": suitor},
+			{"type": "move_to", "actor": suitor, "tile": Courtship.spot(st, target), "queued": true}]
+	return [{"type": "move_to", "actor": suitor, "tile": Courtship.spot(st, target)}]
 
 
 ## Who courts now: the head while single and without heir, else the heir once adult, single and controlled.
@@ -68,16 +64,37 @@ func _suitor(sim: Sim) -> String:
 	return ""
 
 
+## Who to court: someone who can still have children (the woman of the couple <= mother_max_age − 5), without a job
+## first, the most affinity (ties: the youngest); else anyone.
 func _target(sim: Sim, suitor: String) -> String:
+	var max_age := int(sim.catalog.family.get("children", {}).get("mother_max_age", 45)) - 5
+	var suitor_age := Kin.age(sim, suitor)
+	var female := bool(sim.state.characters[suitor].get("female", false))
+	var best := ""
+	var best_key := []
 	var fallback := ""
 	for c: Dictionary in Courtship.candidates(sim, suitor):
 		if not str(c["status"]) in ["", "too_far"]:
 			continue
 		if fallback == "":
 			fallback = str(c["character"])
-		if sim.state.characters[str(c["character"])].get("job") == null:
-			return str(c["character"])
-	return fallback
+		var mother_age := suitor_age if female else int(c["age"])
+		if mother_age > max_age:
+			continue
+		var key := [0 if sim.state.characters[str(c["character"])].get("job") == null else 1, -int(c["affinity"]),
+			int(c["age"])]
+		if best == "" or _before(key, best_key):  # candidates come sorted by id: ties keep the first
+			best = str(c["character"])
+			best_key = key
+	return best if best != "" else fallback
+
+
+## Whether the int key `a` sorts before `b`.
+static func _before(a: Array, b: Array) -> bool:
+	for i: int in a.size():
+		if int(a[i]) != int(b[i]):
+			return int(a[i]) < int(b[i])
+	return false
 
 
 ## Reads the events of the last step.
