@@ -499,3 +499,32 @@ static func upgrade_visual_nodes(sim: Sim, building: String, side: String) -> Ar
 ## "10" for whole numbers, "1.25" otherwise.
 static func _num(x: float) -> String:
 	return str(roundi(x)) if is_equal_approx(x, roundf(x)) else String.num(x, 2)
+
+
+## H5 (polish): when the market opens next (minute), from data/market.json open_phases and the season's phase starts
+## of data/time.json; -1 if it never does. Only for showing it ("Abre a las 08:00") next to «the market is closed».
+static func market_opens_at(sim: Sim) -> int:
+	var now := int(sim.state.clock["minute"])
+	var phases: Array = sim.catalog.market.get("open_phases", [])
+	var best := -1
+	for d: int in [Clock.day(now), Clock.day(now) + 1]:
+		var starts: Dictionary = sim.catalog.time["phase_starts"][Clock.season(d * Clock.MINUTES_PER_DAY, sim.catalog.time)]
+		for ph: Variant in phases:
+			if not starts.has(str(ph)):
+				continue
+			var s := d * Clock.MINUTES_PER_DAY + int(starts[str(ph)])
+			if s > now and (best < 0 or s < best):
+				best = s
+		if best >= 0:
+			break
+	return best
+
+
+## "Opens at 08:00" / "Opens tomorrow at 08:00" for the market's next opening ("" if unknown).
+static func market_opens_text(sim: Sim) -> String:
+	var at := market_opens_at(sim)
+	if at < 0:
+		return ""
+	var m := Clock.minute_of_day(at)
+	var key := "ui.market.opens" if Clock.day(at) == Clock.day(int(sim.state.clock["minute"])) else "ui.market.opens_tomorrow"
+	return t_(key) % [m / 60, m % 60]

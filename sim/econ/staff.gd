@@ -530,7 +530,8 @@ static func is_unemployed(sim: Sim, chr: String) -> bool:
 	return str(fam.get("controlled_by", "")) == "ai" and str(fam.get("ai_profile", "")) == ""
 
 
-## The candidates for `bld` as `actor` sees them (hiring panel, GDD 4.7.1), sorted by rank (best first) then id:
+## The candidates for `bld` as `actor` sees them (hiring panel, GDD 4.7.1): first the ones that can be hired (status
+## "ok"), then the rest; within each group by rank (best first) then id:
 ## [{character, name, female, rank, stats: {craft, charisma, constitution}, wage, status}]. status: "ok" or why not
 ## ("not_your_building", "no_slot", "not_enough_gold", "banned", "needs_upgrade"). Base version; «plantilla» owns it.
 static func candidates(sim: Sim, actor: String, bld: String) -> Array:
@@ -564,6 +565,9 @@ static func candidates(sim: Sim, actor: String, bld: String) -> Array:
 			"constitution": int(stats.get("constitution", 0))}, "wage": wage(sim, c), "status": status,
 			"_order": -order.find(rk)})
 	rows.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		var a_ok := str(a["status"]) == "ok"
+		if a_ok != (str(b["status"]) == "ok"):
+			return a_ok   # H5 polish: the ones that can be hired first
 		if int(a["_order"]) != int(b["_order"]):
 			return int(a["_order"]) < int(b["_order"])
 		return str(a["character"]) < str(b["character"]))

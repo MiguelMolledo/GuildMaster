@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdthl05ub8gwp"]
+[gd_scene load_steps=4 format=3 uid="uid://cdthl05ub8gwp"]
 
 [ext_resource type="Script" uid="uid://dclcjwcrf4upw" path="res://game/visuals/greybox/greybox_blocks.gd" id="1_greybox"]
 [ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="2_block"]
+[ext_resource type="Script" uid="uid://4ajbo4o6uuuw" path="res://game/visuals/greybox/greybox_masonry.gd" id="3_masonry"]
 
 [node name="Forge" type="Node2D"]
 y_sort_enabled = true
@@ -43,13 +44,12 @@ height = 14.0
 
 [node name="upgrade_stone_facade" type="Node2D" parent="Upgrades"]
 visible = false
-position = Vector2(-80, 40)
-editor_description = "forge_facade_1 (stone facade)"
+y_sort_enabled = true
+editor_description = "forge_facade_1 (stone facade): stone rows over the two front faces of the footprint (GreyboxMasonry, origin = Feet). Replace with the facade sprite when the art arrives."
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_stone_facade"]
-script = ExtResource("2_block")
-color = Color(0.603921569, 0.603921569, 0.564705882, 1)
-height = 14.0
+y_sort_enabled = true
+script = ExtResource("3_masonry")
 
 [node name="upgrade_garden" type="Node2D" parent="Upgrades"]
 visible = false

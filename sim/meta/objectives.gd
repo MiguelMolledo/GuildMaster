@@ -8,6 +8,10 @@ extends RefCounted
 ##                          done: [obj_id], have: [int per condition of the current one]}.
 ## A condition {event, match, count} counts the events of type `event` of the family (the event's `family`, or its
 ## `actor`'s family) whose fields match `match` (a plain value is equality; {"gte"|"lte"|"ne": v} compares).
+## H5 (GDD 4.16, «no bloquean nada»): an objective tied to a scripted contract (a condition matching `script`) fails
+## when that contract can no longer be delivered by the family — it expired or was abandoned, or another family took
+## it —: event objective_failed {family, objective, reason: expired | abandoned | gone}, a warning notice
+## (notice.objective_failed) and the chain goes on to the next one. A failed objective is not added to `done`.
 
 
 ## A fresh chain for `fam` (NewGame.from_start).
@@ -31,11 +35,15 @@ static func step(sim: Sim) -> void:
 		var chain: Array = prog.get("chain", [])
 		if int(prog.get("index", 0)) >= chain.size():
 			continue
+		var failed_reason := ""   # why a contract of the family failed this step (the likely cause of a loss)
 		for i: int in n:
 			var e: Dictionary = sim.events[i]
 			if _family_of_event(st, e) != fam:
 				continue
+			if str(e.get("type", "")) == "contract_failed":
+				failed_reason = str(e.get("reason", ""))
 			_count(sim, fam, e)
+		_drop_lost(sim, fam, failed_reason)
 
 
 ## {} | {current: obj_id | "", done: [obj_id], progress: [{have, need}]} of `fam`, for the HUD.
@@ -89,6 +97,53 @@ static func _count(sim: Sim, fam: String, e: Dictionary) -> void:
 	if OS.is_debug_build():
 		var next := str(chain[idx + 1]) if idx + 1 < chain.size() else "(fin de la cadena)"
 		print("[Objectives] %s cumple %s; siguiente: %s" % [fam, id, next])
+
+
+## While the current objective of `fam` waits for a scripted contract that is gone (not on the board and not accepted
+## by `fam`), it fails and the chain moves on (the next one may be lost too). `reason`: the reason of a contract of
+## the family that failed this step ("expired" | "abandoned"), "" if none (then "gone": another family took it).
+static func _drop_lost(sim: Sim, fam: String, reason: String) -> void:
+	var prog: Dictionary = sim.state.objectives[fam]
+	var chain: Array = prog["chain"]
+	while int(prog["index"]) < chain.size():
+		var idx := int(prog["index"])
+		var id := str(chain[idx])
+		var script := lost_script(sim, fam, id)
+		if script == "":
+			return
+		var why := reason if reason in ["expired", "abandoned"] else "gone"
+		prog["index"] = idx + 1
+		prog["have"] = _zeros(sim.catalog, chain, idx + 1)
+		sim.events.append({"type": "objective_failed", "family": fam, "objective": id, "reason": why})
+		Notices.add(sim, fam, Notices.WARNING, "notice.objective_failed", {"objective": id, "contract_reason": why,
+			"name_key": str(sim.catalog.objectives().get(id, {}).get("name_key", ""))})
+		if OS.is_debug_build():
+			var next := str(chain[idx + 1]) if idx + 1 < chain.size() else "(fin de la cadena)"
+			print("[Objectives] %s pierde %s: el encargo %s ya no se puede cumplir (%s); siguiente: %s" % [fam, id,
+				script, why, next])
+
+
+## The scripted contract that objective `id` of `fam` waits for and that is gone ("" if it has none, if it is still
+## on the board or accepted by `fam`, or if its conditions are already met).
+static func lost_script(sim: Sim, fam: String, id: String) -> String:
+	var prog: Dictionary = sim.state.objectives.get(fam, {})
+	var have: Array = prog.get("have", [])
+	var conds: Array = sim.catalog.objectives().get(id, {}).get("conditions", [])
+	for c: int in conds.size():
+		var m: Variant = conds[c].get("match", {})
+		if not m is Dictionary or not (m as Dictionary).has("script") or (m as Dictionary)["script"] is Dictionary:
+			continue
+		if c < have.size() and int(have[c]) >= int(conds[c].get("count", 1)):
+			continue
+		var script := str(m["script"])
+		var alive := false
+		for k: Dictionary in sim.state.contracts.get("board", []):
+			alive = alive or str(k.get("script", "")) == script
+		for k: Dictionary in sim.state.contracts.get("accepted", []):
+			alive = alive or (str(k.get("script", "")) == script and str(k.get("family", "")) == fam)
+		if not alive:
+			return script
+	return ""
 
 
 static func _family_of_event(st: WorldState, e: Dictionary) -> String:

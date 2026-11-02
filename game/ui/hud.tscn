@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cg0hg8p8b605y"]
+[gd_scene load_steps=12 format=3 uid="uid://cg0hg8p8b605y"]
 
 [ext_resource type="Script" uid="uid://bk40qfbaik42s" path="res://game/ui/hud.gd" id="1_hud"]
 [ext_resource type="Script" uid="uid://dwh11vnyebw76" path="res://game/ui/sun_moon.gd" id="2_sun"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c63sbdqmag1xa" path="res://game/ui/ledger_panel.tscn" id="7_ledger"]
 [ext_resource type="PackedScene" uid="uid://b0b08kla1lpp8" path="res://game/ui/family_tree_panel.tscn" id="8_tree"]
 [ext_resource type="PackedScene" uid="uid://c0fx42eegf2kp" path="res://game/ui/courtship_panel.tscn" id="9_court"]
+[ext_resource type="PackedScene" uid="uid://c4ti1lb02thva" path="res://game/ui/help_panel.tscn" id="10_help"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 6.0
@@ -279,6 +280,12 @@ layout_mode = 2
 focus_mode = 0
 text = "--"
 
+[node name="HelpButton" type="Button" parent="Root/FamilyPanel/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "?"
+
 [node name="ObjectivePanel" type="PanelContainer" parent="Root"]
 unique_name_in_owner = true
 visible = false
@@ -315,6 +322,15 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 1, 0.6, 1)
 text = "--"
+
+[node name="ObjectiveHint" type="Label" parent="Root/ObjectivePanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(196, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.815686, 0.737255, 1)
+theme_override_font_sizes/font_size = 9
+text = "--"
+autowrap_mode = 3
 
 [node name="NoticePopups" type="VBoxContainer" parent="Root"]
 unique_name_in_owner = true
@@ -464,3 +480,19 @@ layout_mode = 1
 [node name="CourtshipPanel" parent="Root" instance=ExtResource("9_court")]
 unique_name_in_owner = true
 layout_mode = 1
+
+[node name="HelpPanel" parent="Root" instance=ExtResource("10_help")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -172.0
+offset_right = 250.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2

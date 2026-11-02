@@ -29,7 +29,7 @@ Continúa la sección 4 ([04_diseno_de_juego.md](04_diseno_de_juego.md)). Aproba
 
 Cuentas de referencia: a mano se ganan ~25-60 oro netos por día (4.19); en 8 días el bot `artisan_novice` debe poder pagar la deuda y quedarse en su diana de oro al día 10.
 
-**Objetivos de inicio (tutorial implícito).** Una cadena de objetivos visible en el HUD. No bloquean nada ni dan oro: su premio es lo que enseñan. Cada uno cumplido queda en el registro de avisos.
+**Objetivos de inicio (tutorial implícito).** Una cadena de objetivos visible en el HUD. No bloquean nada ni dan oro: su premio es lo que enseñan. Cada uno cumplido queda en el registro de avisos. Si un objetivo depende de un encargo guionizado y ese encargo ya no se puede cumplir (caduca, se abandona o lo coge otra familia), el objetivo **se da por fallado**: aviso en el registro que lo explica y la cadena pasa al siguiente (no se vuelve a ofrecer el encargo: el plazo incumplido también enseña). El de calidad "buena" no depende del encargo del capitán: vale cualquier encargo con calidad mínima buena.
 
 | # | Objetivo | Qué enseña |
 |---|---|---|
@@ -158,6 +158,8 @@ Sucesos pequeños de un edificio o un personaje que rompen la rutina y piden una
 ### 4.21 IA de las familias rivales
 
 **Requisito: este diseño se cierra y lo aprueba el owner [Gate] antes de empezar H6**, porque la competencia por parcelas ya la necesita.
+
+**Diseño detallado** (perfiles, arquitectura por módulos, rivalidad, ataques, dificultad, hitos, dianas y preguntas abiertas): [04c_ia_rival.md](04c_ia_rival.md). Lo que allí se precisa sobre esta sección está resumido en su 4.21.1.
 
 **Quién la usa:** toda familia con `controlled_by: "ai"`: el herrero rival desde H3 (con la versión simple de 4.5.5), las 5 familias rivales del EA y, [POST-MVP], las ramas cadetes (4.10.4).
 

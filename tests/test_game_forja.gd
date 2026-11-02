@@ -175,7 +175,8 @@ func test_interior_is_built_from_the_kit_with_the_stations() -> void:
 	check(door != null and door.door, "the door piece")
 	for z: String in ["furnace", "anvil", "counter", "storage"]:
 		check(v.station_view(z) != null, "station %s" % z)
-	eq(v.station_view("anvil").position, Iso.tile_to_world(Vector2i(5, 1)), "anvil where its Marker2D puts it")
+	var marker := v.room().get_node("Stations/anvil") as Node2D   # it can be moved by hand in interiors/forge.tscn
+	eq(v.station_view("anvil").position, marker.position, "anvil where its Marker2D puts it")
 	check(v.view_of(HUGO) != null, "Hugo is drawn inside")
 	eq(v.actor(), HUGO, "and is who acts")
 	v.free()
@@ -257,7 +258,7 @@ func test_left_click_on_station_goes_there() -> void:
 	sim.step(got)
 	eq(str(sim.state.characters[HUGO]["station"]), "furnace", "Hugo at the furnace")
 	v.sync()
-	var spot := Iso.tilef_to_world(Vector2(2, 1) + InteriorView.STAND).round()
+	var spot := Iso.tilef_to_world(Vector2(Iso.world_to_tile(v.station_view("furnace").position)) + InteriorView.STAND).round()
 	eq(v.view_of(HUGO).position, spot, "drawn at his station")
 	v.free()
 
