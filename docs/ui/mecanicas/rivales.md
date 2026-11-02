@@ -1,5 +1,8 @@
 # Rivales · cómo ve el jugador a las otras familias
 
+> Dueño: mecánicas-social · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md) · Convenciones: [_comun.md](_comun.md), [_social.md](_social.md)
+
 Solo la interfaz. La IA rival tiene su diseño en `docs/gdd/04c_ia_rival.md`, **pendiente de aprobar por el owner** (Gate
 antes de H6); aquí no se toca ninguna regla de la IA. Lo que este documento enseña al jugador es exactamente lo que 04c
 dice que un jugador puede saber (4.21.4, «ve lo que vería un jugador») y lo que 04c promete mostrar: **bandas de
@@ -124,6 +127,10 @@ Ficha de familia, presagio y letrero del mapa: en los PNG.
 
 **PNG** (fuente: `tools/ui/mecanicas/rivales.py`): `../maquetas/rivales_panel.png`, `../maquetas/rivales_ficha.png`,
 `../maquetas/rivales_presagio.png` (con los letreros del mapa con estandarte), y sus `_x2`.
+
+![rivales_panel](../maquetas/rivales_panel.png)
+![rivales_ficha](../maquetas/rivales_ficha.png)
+![rivales_presagio](../maquetas/rivales_presagio.png)
 
 **Piezas de kit pendientes**: estandarte pequeño 10×16 para filas y letreros; chip de banda de rivalidad (5 tonos de
 neutro a lacre, con texto encima); tarjeta de presagio (borde púrpura de la paleta secundaria); iconos 16 de rumor

@@ -1,5 +1,8 @@
 # Títulos y reputación · Ayuntamiento y ceremonia
 
+> Dueño: mecánicas-social · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md) · Convenciones: [_comun.md](_comun.md), [_social.md](_social.md)
+
 Mecánica de H9 (GDD 4.12.1, 4.12.2; contrato `docs/contratos/h9_titulos.md`). Piezas:
 
 | Pieza | Escena hoy | Qué es |
@@ -133,6 +136,10 @@ Ceremonia (carta, 380 × 220):
 
 **PNG** (fuente: `tools/ui/mecanicas/titulos_y_reputacion.py`): `../maquetas/titulos_y_reputacion_ayuntamiento.png`,
 `../maquetas/titulos_y_reputacion_reputacion.png`, `../maquetas/titulos_y_reputacion_ceremonia.png`, y sus `_x2`.
+
+![titulos_y_reputacion_ayuntamiento](../maquetas/titulos_y_reputacion_ayuntamiento.png)
+![titulos_y_reputacion_reputacion](../maquetas/titulos_y_reputacion_reputacion.png)
+![titulos_y_reputacion_ceremonia](../maquetas/titulos_y_reputacion_ceremonia.png)
 
 **Piezas de kit pendientes**: escalera de títulos (5 peldaños con estados actual / siguiente / lejano / conseguido);
 sello de lacre 24×24 con inicial (sin texto dentro del sprite: la letra se pone encima con la fuente); icono de «edificio»

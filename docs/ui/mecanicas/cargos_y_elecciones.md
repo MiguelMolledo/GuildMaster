@@ -1,5 +1,8 @@
 # Cargos y elecciones · organigrama, campaña, recuento y poderes
 
+> Dueño: mecánicas-social · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md) · Convenciones: [_comun.md](_comun.md), [_social.md](_social.md)
+
 Mecánica de H10 (GDD 4.12.3, 4.12.4; contrato `docs/contratos/h10_cargos.md`). **Se diseña sobre la rama
 `h10-cargos`** (commits `dd2994b`, `cf6cda5`, `051b966`; sin juntar con `main` cuando se escribió esto). Piezas:
 
@@ -147,6 +150,11 @@ Recuento (carta 380 × 200), poderes (pestaña) y campaña (pestaña) en los PNG
 **PNG** (fuente: `tools/ui/mecanicas/cargos_y_elecciones.py`): `../maquetas/cargos_y_elecciones_organigrama.png`,
 `../maquetas/cargos_y_elecciones_campana.png`, `../maquetas/cargos_y_elecciones_recuento.png`,
 `../maquetas/cargos_y_elecciones_poderes.png`, y sus `_x2`.
+
+![cargos_y_elecciones_organigrama](../maquetas/cargos_y_elecciones_organigrama.png)
+![cargos_y_elecciones_campana](../maquetas/cargos_y_elecciones_campana.png)
+![cargos_y_elecciones_recuento](../maquetas/cargos_y_elecciones_recuento.png)
+![cargos_y_elecciones_poderes](../maquetas/cargos_y_elecciones_poderes.png)
 
 **Piezas de kit pendientes**: nodo de asiento (retrato 32 + dos líneas, con filete de rango oro/plata/bronce); insignia
 «urna» y «titular» 8×8; línea de calendario de tres tramos con marca de hoy; selector deslizante de 5-15 (impuesto);

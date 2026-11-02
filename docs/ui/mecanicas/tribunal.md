@@ -1,5 +1,8 @@
 # Tribunal · acusación, preparación, vista oral y condena
 
+> Dueño: mecánicas-social · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md) · Convenciones: [_comun.md](_comun.md), [_social.md](_social.md)
+
 Mecánica de H11 (GDD 4.12.5; ataques de la IA en 04c 4.21.9). **No está hecho**: no hay escenas, ni sim, ni contrato. Este
 documento diseña la interfaz sobre el GDD; los nombres de datos y órdenes son **propuestos** y los fija el contrato de
 H11 (`docs/contratos/h11_tribunal.md`, cuando exista). Zonas y reglas: [`_comun.md`](_comun.md), [`_social.md`](_social.md).
@@ -144,6 +147,11 @@ Vista oral y veredicto: en los PNG.
 **PNG** (fuente: `tools/ui/mecanicas/tribunal.py`): `../maquetas/tribunal_acusacion.png`,
 `../maquetas/tribunal_preparacion.png`, `../maquetas/tribunal_vista.png`, `../maquetas/tribunal_veredicto.png`, y sus
 `_x2`.
+
+![tribunal_acusacion](../maquetas/tribunal_acusacion.png)
+![tribunal_preparacion](../maquetas/tribunal_preparacion.png)
+![tribunal_vista](../maquetas/tribunal_vista.png)
+![tribunal_veredicto](../maquetas/tribunal_veredicto.png)
 
 **Piezas de kit pendientes**: marco del tribunal (variante de `panel` con sección púrpura `#2a2034` y filete oro
 apagado); balanza (barra doble enfrentada con fiel en el centro); sellos INOCENTE / CULPABLE (sin texto dentro del

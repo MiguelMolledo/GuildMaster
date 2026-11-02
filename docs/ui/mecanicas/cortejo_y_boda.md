@@ -1,5 +1,8 @@
 # Cortejo y boda
 
+> Dueño: mecánicas-social · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md) · Convenciones: [_comun.md](_comun.md), [_social.md](_social.md)
+
 Mecánica de H8 (GDD 4.10.1-4.10.3). Piezas:
 
 | Pieza | Escena hoy | Qué es |
@@ -143,6 +146,10 @@ Carta de boda (380 × 200, centrada):
 ```
 
 **PNG** (fuente: `tools/ui/mecanicas/cortejo_y_boda.py`): `../maquetas/cortejo_panel.png`, `../maquetas/cortejo_propuesta.png` (confirmación + sección de cortejo en la ficha de vecino), `../maquetas/cortejo_boda.png`, y sus `_x2`.
+
+![cortejo_panel](../maquetas/cortejo_panel.png)
+![cortejo_propuesta](../maquetas/cortejo_propuesta.png)
+![cortejo_boda](../maquetas/cortejo_boda.png)
 
 **Piezas de kit pendientes**: barra con marca de umbral (línea dorada de 1 px en el 80 %); fila con fondo de estado
 (rojizo «bloqueado»); pestañas pequeñas de filtro; media cinta de familia (la misma pieza que el estandarte del árbol);

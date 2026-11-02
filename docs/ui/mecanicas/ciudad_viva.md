@@ -1,5 +1,8 @@
 # Ciudad viva · ficha de vecino, tablón, microeventos y burbujas
 
+> Dueño: mecánicas-social · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md) · Convenciones: [_comun.md](_comun.md), [_social.md](_social.md)
+
 Mecánica de H7 (GDD 4.11, 4.20) y del tablón de H3 (4.5.6). Cuatro piezas de interfaz:
 
 | Pieza | Escena hoy | Qué es |
@@ -205,6 +208,11 @@ Burbujas (sobre la cabeza, 16 × 16 de icono dentro de un bocadillo de 20 × 18)
 ```
 
 **PNG** (hechas con `tools/ui/maqueta.py`; fuente: `tools/ui/mecanicas/ciudad_viva.py`): `../maquetas/ciudad_viva_ficha.png`, `../maquetas/ciudad_viva_tablon.png`, `../maquetas/ciudad_viva_microevento.png`, `../maquetas/ciudad_viva_burbujas.png` (y sus `_x2`). Los números de oro de las maquetas remiten a §3 y §4.
+
+![ciudad_viva_ficha](../maquetas/ciudad_viva_ficha.png)
+![ciudad_viva_tablon](../maquetas/ciudad_viva_tablon.png)
+![ciudad_viva_microevento](../maquetas/ciudad_viva_microevento.png)
+![ciudad_viva_burbujas](../maquetas/ciudad_viva_burbujas.png)
 
 **Piezas de kit pendientes**: barra bipolar (−100..+100 con marca en el cero); nota de tablón (pergamino clavado, 9-patch);
 botón de dos líneas (texto + línea de efectos con iconos); lengüeta «+N más»; bocadillo de emoción con borde de color y

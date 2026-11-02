@@ -1,5 +1,8 @@
 # Familia · árbol genealógico, retratos, herencia y muerte
 
+> Dueño: mecánicas-social · Estado: borrador · Fecha: 2026-11-02
+> Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md) · Convenciones: [_comun.md](_comun.md), [_social.md](_social.md)
+
 Mecánica de H8 (GDD 4.10.4-4.10.9, 4.2.5, 4.17). Piezas:
 
 | Pieza | Escena hoy | Qué es |
@@ -165,6 +168,10 @@ Tarjeta de vida (columna de tarjetas, 300 × ~60):
 ```
 
 **PNG** (fuente: `tools/ui/mecanicas/familia.py`): `../maquetas/familia_arbol.png` (árbol con nodos e insignias y ficha lateral), `../maquetas/familia_sucesion.png`, `../maquetas/familia_tarjetas_vida.png` (nacimiento y escuela), y sus `_x2`.
+
+![familia_arbol](../maquetas/familia_arbol.png)
+![familia_sucesion](../maquetas/familia_sucesion.png)
+![familia_tarjetas_vida](../maquetas/familia_tarjetas_vida.png)
 
 **Piezas de kit pendientes**: estandarte de familia (9-patch vertical teñido con `colors.primary/secondary`); insignias
 8×8 (anillo, cruz, corona, «!», cargo, regente; base: `icon_crown`, `icon_deceased`, `icon_ring`, `icon_controllable`
