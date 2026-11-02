@@ -211,6 +211,9 @@ static func price(sim: Sim, item: String, quality: int, side: String) -> int:
 	if def.is_empty() or quality < 0 or quality >= qm.size():
 		return 0
 	var p := float(def.get("base_price", 0)) * float(qm[quality]) * demand(sim, item)
+	var reg := Offices.regulation(sim, item)  # H10: the market inspector's regulation (GDD 4.12.3)
+	if reg != 0:
+		p *= float(100 + reg) / 100.0
 	if side == "buy":
 		p *= float(sim.catalog.difficulty_levels(sim.state.difficulty).get("buy_price_mult", 1.0))
 	else:

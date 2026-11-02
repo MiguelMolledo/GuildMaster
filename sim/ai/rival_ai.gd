@@ -22,6 +22,10 @@ extends RefCounted
 ## H9 [provisional, until 04c is approved]: with the profile's title_rule.requests, the task "title" goes first in the
 ## plan whenever the family meets its next title's requirements and keeps title_rule.spare_gold after paying it: it
 ## walks to the town hall's service tile and gives request_title (docs/contratos/h9_titulos.md).
+## H10 [provisional, until 04c is approved]: with the profile's office_rule.runs, the task "office" (before "title")
+## registers the actor for the first office of office_rule.offices whose election is open and that its title allows,
+## when it can pay the level and keep office_rule.spare_gold, and nobody of the family holds or runs for an office
+## (run_for_office, a management order: no walk; docs/contratos/h10_cargos.md). No campaign actions.
 ## ai_state: {phase, plan: [task], recipe, bought_day, last_order, last_fp}.
 
 const WAIT: Dictionary = {"_wait": true}  # task goes on, no order this minute
@@ -99,6 +103,8 @@ static func _decide(sim: Sim, fam: String, actor: String, home: String, profile:
 	ai["recipe"] = choose_recipe(sim, actor, home)
 	var work := ph in (profile.get("work_phases", ["day"]) as Array)
 	var plan: Array = []
+	if ph != Production.NIGHT and office_to_run(sim, fam, actor, profile) != "":
+		plan.append("office")
 	if ph != Production.NIGHT and wants_title(sim, fam, profile):
 		plan.append("title")
 	if ph != Production.NIGHT:
@@ -154,9 +160,34 @@ static func _task(sim: Sim, task: String, fam: String, actor: String, home: Stri
 			return _t_home(sim, actor, home)
 		"title":
 			return _t_title(sim, fam, actor, profile)
+		"office":
+			var office := office_to_run(sim, fam, actor, profile)
+			if office == "":
+				return {}
+			return {"type": "run_for_office", "actor": actor, "office": office,
+				"level": str(profile.get("office_rule", {}).get("level", "basic"))}
 		"work":
 			return _t_work(sim, fam, actor, home, profile, ai)
 	return {}
+
+
+## H10: the office the family registers for now ("" = none): the first of office_rule.offices that `actor` can run
+## for at the rule's level keeping spare_gold, while nobody of the family holds an office or is a candidate.
+static func office_to_run(sim: Sim, fam: String, actor: String, profile: Dictionary) -> String:
+	var rule: Dictionary = profile.get("office_rule", {})
+	if not bool(rule.get("runs", false)) or not Offices.of_family(sim, fam).is_empty():
+		return ""
+	for m: Variant in sim.state.families[fam].get("members", []):
+		if not Elections.candidacy(sim.state, str(m)).is_empty():
+			return ""
+	var level := str(rule.get("level", "basic"))
+	var cost := int(sim.catalog.politics.get("elections", {}).get("levels", {}).get(level, {}).get("gold", 0))
+	if Money.gold(sim.state, fam) < cost + int(rule.get("spare_gold", 0)):
+		return ""
+	for office: Variant in rule.get("offices", []):
+		if Elections.run_status(sim, actor, str(office), level) == "":
+			return str(office)
+	return ""
 
 
 ## H9: the profile asks for titles and the family is ready for its next one with spare_gold left.

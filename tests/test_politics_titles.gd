@@ -111,7 +111,7 @@ func test_office_holder_must_approve() -> void:
 		if TownLife.is_townsperson(st, c) and Kin.is_adult(sim, c):
 			mayor = c
 			break
-	st.offices = {"mayor": {"holder": mayor}}
+	st.offices = {"mayor": {"seats": [{"holder": mayor, "since": 0, "until": 32, "cooldowns": {}}], "settings": {}}}  # H10 shape
 	eq(_ask(sim)["reason"], "title_not_approved", "the mayor's affinity is 0 < 30")
 	st.relationships[Ids.pair_key(mayor, HERO)] = {"relation": 0, "affinity": 30}
 	check(_ask(sim)["ok"], "affinity 30: approved")

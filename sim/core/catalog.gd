@@ -11,6 +11,15 @@ const H3_KINDS: Array[String] = ["ai_profiles", "starts", "objectives", "contrac
 const H7_KINDS: Array[String] = ["microevents"]
 ## H9 folders (docs/contratos/h9_titulos.md): the social titles of GDD 4.12.2, one file each.
 const H9_KINDS: Array[String] = ["titles"]
+## H10 folders (docs/contratos/h10_cargos.md): the public offices of GDD 4.12.3, one file each.
+const H10_KINDS: Array[String] = ["offices"]
+## H10: the office ranks, from the lowest (the title that opens them: unlocks.office_rank) to the mayor.
+const OFFICE_RANKS: Array[String] = ["minor", "middle", "major", "mayor"]
+## H10: the passive effects and the active powers an office may have (data/offices/*.json).
+const OFFICE_PASSIVES: Array[String] = ["class_reputation", "tax_commission", "reputation_per_day", "sees_reports",
+	"votes_ordinances"]
+const OFFICE_POWERS: Array[String] = ["regulate_price", "fine_merchant", "set_tax", "seize_building", "arrest",
+	"investigate", "preside_trial", "pardon", "propose_ordinance", "veto", "legislate", "declare_event", "name_title"]
 const DIFFICULTIES: Array[String] = ["easy", "normal", "hard"]
 const ITEM_CATEGORIES: Array[String] = ["raw", "material", "product", "tool", "equipment", "consumable", "special"]
 
@@ -37,7 +46,7 @@ var errors: PackedStringArray = []  # files that could not be read
 static func load_from(root_dir: String = "res://data", dev_time: bool = false) -> Catalog:
 	var c := Catalog.new()
 	c.root = root_dir
-	for kind: String in KINDS + H3_KINDS + H7_KINDS + H9_KINDS:
+	for kind: String in KINDS + H3_KINDS + H7_KINDS + H9_KINDS + H10_KINDS:
 		c.tables[kind] = c._load_folder(root_dir.path_join(kind))
 	c.time = c._load_json(root_dir.path_join("time.json"))
 	c.tiles = c._load_json(root_dir.path_join("tiles.json")).get("tiles", {})
@@ -110,6 +119,21 @@ func titles() -> Dictionary:
 func title_ladder() -> Array:
 	var ids: Array = titles().keys()
 	ids.sort_custom(func(a: Variant, b: Variant) -> bool: return int(titles()[a].get("rank", 0)) < int(titles()[b].get("rank", 0)))
+	return ids
+
+
+## H10: the public offices of data/offices/ (GDD 4.12.3), by id.
+func offices() -> Dictionary:
+	return tables.get("offices", {})
+
+
+## H10: the office ids in the order of the chart (order 0 = the top: the mayor), then id.
+func office_chart() -> Array:
+	var ids: Array = offices().keys()
+	ids.sort_custom(func(a: Variant, b: Variant) -> bool:
+		var oa := int(offices()[a].get("order", 0))
+		var ob := int(offices()[b].get("order", 0))
+		return oa < ob if oa != ob else str(a) < str(b))
 	return ids
 
 
@@ -205,6 +229,7 @@ func validate() -> PackedStringArray:
 	out.append_array(_validate_family())
 	out.append_array(_validate_town())
 	out.append_array(_validate_titles())
+	out.append_array(_validate_offices())
 	for id: String in maps():
 		var m: Dictionary = maps()[id]
 		var size: Array = m.get("size", [0, 0])
@@ -297,6 +322,32 @@ func _validate_titles() -> PackedStringArray:
 	for k: String in ["reputation", "ceremony"]:
 		if not politics.has(k):
 			out.append("politics.json: %s missing" % k)
+	return out
+
+
+## H10: each office has a known rank and minimum title, a salary, a term of years and seats >= 1, known passives
+## and powers; politics.json has the H10 tables (tools/validate_content.py check_h10 checks the rest and the texts).
+func _validate_offices() -> PackedStringArray:
+	var out: PackedStringArray = []
+	for id: String in offices():
+		var o: Dictionary = offices()[id]
+		if not str(o.get("rank", "")) in OFFICE_RANKS:
+			out.append("offices/%s: unknown rank %s" % [id, o.get("rank", "")])
+		if not titles().has(str(o.get("min_title", ""))):
+			out.append("offices/%s: unknown min_title %s" % [id, o.get("min_title", "")])
+		for k: String in ["salary", "term_years", "seats"]:
+			if int(o.get(k, 0)) < (0 if k == "salary" else 1):
+				out.append("offices/%s: bad %s" % [id, k])
+		for p: Dictionary in o.get("passive", []):
+			if not str(p.get("kind", "")) in OFFICE_PASSIVES:
+				out.append("offices/%s: unknown passive %s" % [id, p.get("kind", "")])
+		for p: Dictionary in o.get("powers", []):
+			if not str(p.get("id", "")) in OFFICE_POWERS:
+				out.append("offices/%s: unknown power %s" % [id, p.get("id", "")])
+	if not offices().is_empty():
+		for k: String in ["government", "elections", "taxes", "regulation"]:
+			if not politics.has(k):
+				out.append("politics.json: %s missing" % k)
 	return out
 
 

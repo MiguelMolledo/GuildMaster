@@ -40,16 +40,21 @@ extends SceneTree
 ## data/microevents), mev_max_per_day (most in a single day), mev_timeouts (default applied after the timeout),
 ## counter_sold (sales at the counter), thefts and thefts_foiled; townsfolk (alive at the end), e.g.
 ## --scenario=town_microevents --bots=idle_town --days=30 --seeds=3.
+## H10 (docs/contratos/h10_cargos.md): office_won (the player's family takes an office), office_won_day (day played,
+## days + 1 if never), elections_run / elections_won (its candidacies and seats won), ai_office_runs / ai_ran (the AI
+## families with a profile register for an election), ai_offices_won, e.g. --start=artisan_blacksmith
+## --bots=politician --days=40 --seeds=10.
 
 var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
 	"random_clicker": BotRandomClicker, "idle_rival": BotIdle, "artisan_novice": BotArtisanNovice,
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
-	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle}
+	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
 	# expert_titles: artisan_expert with the title targets (H9, 96 days); idle_titles: idle, the AI's titles (80 days)
+	# politician: artisan_expert that runs for minor offices (H10, runs_office = 1, 40 days)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
 const YEAR_DAYS: int = 8  # D1(b): 1 year = 8 days
@@ -105,6 +110,8 @@ func _init() -> void:
 			var runs: Array = []
 			for s: int in range(1, seeds + 1):
 				var bot: Object = BOTS[bot_id].new()
+				if bot_id == "politician":
+					bot.set("runs_office", 1)
 				if bot_id.begins_with("artisan_expert_"):
 					bot.set("max_employees", bot_id.substr(15).to_int())
 					bot.set("second_needs_furnace", false)  # exactly n: what each employee adds
@@ -217,6 +224,9 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 		m["title_" + str(t)] = 0
 	m["ai_title_ups"] = 0
 	m["ai_titled"] = 0
+	for k: String in ["office_won", "elections_run", "elections_won", "ai_office_runs", "ai_offices_won", "ai_ran"]:  # H10
+		m[k] = 0
+	m["office_won_day"] = days + 1
 	for i: int in days * Clock.MINUTES_PER_DAY:
 		for e: Dictionary in sim.step(bot.orders(sim)):
 			match str(e["type"]):
@@ -271,6 +281,29 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 						m["ai_titled"] = 1
 						print("  [%s seed %d] día %d: la familia IA %s sube a %s" % [bot_id, s, played, e["family"],
 							e["title"]])
+				"office_candidate":  # H10 (GDD 4.12.4)
+					var fe := str(e.get("family", ""))
+					if fe == player:
+						m["elections_run"] = int(m["elections_run"]) + 1
+					elif str(sim.state.families.get(fe, {}).get("ai_profile", "")) != "":
+						m["ai_office_runs"] = int(m["ai_office_runs"]) + 1
+						m["ai_ran"] = 1
+						print("  [%s seed %d] día %d: la familia IA %s se presenta a %s" % [bot_id, s,
+							Clock.day(int(sim.state.clock["minute"])) - Clock.day(start_minute) + 1, fe, e["office"]])
+				"office_taken":
+					var fo := str(e.get("family", ""))
+					var dplayed := Clock.day(int(sim.state.clock["minute"])) - Clock.day(start_minute) + 1
+					if fo == player:
+						if int(m["office_won"]) == 0:
+							m["office_won_day"] = dplayed
+						m["office_won"] = 1
+						print("  [%s seed %d] día %d: cargo %s" % [bot_id, s, dplayed, e["office"]])
+					elif str(sim.state.families.get(fo, {}).get("ai_profile", "")) != "":
+						m["ai_offices_won"] = int(m["ai_offices_won"]) + 1
+				"election_held":
+					for w: Variant in e.get("winners", []):
+						if str(sim.state.characters.get(str(w), {}).get("family", "")) == player:
+							m["elections_won"] = int(m["elections_won"]) + 1
 				"theft":
 					if str(e.get("family", "")) == player:
 						var tk := "thefts_foiled" if bool(e.get("frustrated", false)) else "thefts"
@@ -549,7 +582,8 @@ func _brief(agg: Dictionary) -> String:
 	var parts: PackedStringArray = []
 	for key: String in ["gold_day3", "gold_repaid_day3", "gold_day10", "net_day_1_8", "net_day_9_24", "sink_share_9_24",
 			"net_year_1", "net_year_2", "net_year_3", "hired", "upgrades_bought", "prod_gain_error", "debt_paid",
-			"debt_paid_day", "rival_gold_day10", "title_citizen_day", "title_patrician_day", "reputation", "ai_title_ups"]:
+			"debt_paid_day", "rival_gold_day10", "title_citizen_day", "title_patrician_day", "reputation", "ai_title_ups", "office_won", "office_won_day",
+			"ai_office_runs"]:
 		if agg.has("mean_" + key):
 			parts.append("%s %s [%s-%s]" % [key, agg["mean_" + key], agg["min_" + key], agg["max_" + key]])
 	return ", ".join(parts)

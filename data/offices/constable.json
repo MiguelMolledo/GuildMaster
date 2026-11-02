@@ -1,0 +1,27 @@
+{
+  "id": "constable",
+  "name_key": "office.constable",
+  "rank": "middle",
+  "min_title": "patrician",
+  "salary": 4,
+  "term_years": 2,
+  "seats": 1,
+  "order": 3,
+  "passive": [
+    {
+      "kind": "sees_reports"
+    }
+  ],
+  "powers": [
+    {
+      "id": "arrest",
+      "cooldown_days": 2,
+      "ready": "H11"
+    },
+    {
+      "id": "investigate",
+      "cooldown_days": 2,
+      "ready": "H11"
+    }
+  ]
+}

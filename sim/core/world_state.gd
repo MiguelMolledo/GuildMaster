@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 9
+const VERSION: int = 10
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -18,8 +18,8 @@ var families: Dictionary = {}      # fam_id -> family
 var buildings: Dictionary = {}     # bld_id -> building
 var parcels: Dictionary = {}       # par_id -> parcel
 var market: Dictionary = {"demand": {}, "regulations": []}
-var offices: Dictionary = {}
-var elections: Array = []
+var offices: Dictionary = {}      # H10: office_id -> {seats: [{holder, since, until, cooldowns}], settings}: Offices
+var elections: Array = []          # H10: [election] open and the last closed ones (GDD 4.12.4): Elections
 var trials: Array = []
 var relationships: Dictionary = {} # "chr_a|chr_b" (sorted as String) -> {relation, affinity}
 var emotions: Dictionary = {}      # chr_id -> [emotion]
@@ -48,6 +48,9 @@ var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD
 # H7: emotions (already a root field) get their shape: chr -> [{state, source, start, duration, intensity0}].
 # H9 (docs/contratos/h9_titulos.md): no new root fields. Families get title, class_reputation, reputation_log and
 # reputation_caps (SaveFile._step 8 -> 9). The town hall is a site of the map, not state.
+# H10 (docs/contratos/h10_cargos.md): offices, elections and market.regulations (root fields that already were) get
+# their shape (SaveFile._step 9 -> 10). An empty offices on a map with a town hall = a government not handed out yet:
+# Offices.step hands it out the first time it runs.
 
 
 func seed_rng(s: int) -> void:

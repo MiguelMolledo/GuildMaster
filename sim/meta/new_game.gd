@@ -94,6 +94,9 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 			_add_building(s, catalog, sites, n, "", [])
 	# H4: the townsfolk (GDD 4.11.1): unemployed adults at home, the candidates to hire (docs/contratos/h4_empleados.md).
 	add_population(s, catalog, map)
+	# H10: the procedural government (GDD 4.12.3): household titles and the offices handed out.
+	if Offices.has_town_hall(s, catalog) and not catalog.offices().is_empty():
+		Offices.setup(s, catalog)
 	# The loan that paid the forge (no gold comes in), due at the end of day start.day + term_days - 1.
 	var ln: Dictionary = start.get("loan", {})
 	var debt := int(levers.get("start_debt", 0))

@@ -1,0 +1,28 @@
+{
+  "id": "tax_collector",
+  "name_key": "office.tax_collector",
+  "rank": "minor",
+  "min_title": "citizen",
+  "salary": 3,
+  "term_years": 1,
+  "seats": 1,
+  "order": 4,
+  "passive": [
+    {
+      "kind": "tax_commission",
+      "percent": 5
+    }
+  ],
+  "powers": [
+    {
+      "id": "set_tax",
+      "cooldown_days": 2,
+      "ready": true
+    },
+    {
+      "id": "seize_building",
+      "cooldown_days": 8,
+      "ready": "H11"
+    }
+  ]
+}

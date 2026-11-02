@@ -1,0 +1,29 @@
+{
+  "id": "judge",
+  "name_key": "office.judge",
+  "rank": "middle",
+  "min_title": "patrician",
+  "salary": 5,
+  "term_years": 2,
+  "seats": 1,
+  "order": 2,
+  "passive": [
+    {
+      "kind": "class_reputation",
+      "class": "scholar",
+      "percent": 20
+    }
+  ],
+  "powers": [
+    {
+      "id": "preside_trial",
+      "cooldown_days": 0,
+      "ready": "H11"
+    },
+    {
+      "id": "pardon",
+      "cooldown_days": 8,
+      "ready": "H11"
+    }
+  ]
+}

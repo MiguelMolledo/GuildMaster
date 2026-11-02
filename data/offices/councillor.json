@@ -1,0 +1,27 @@
+{
+  "id": "councillor",
+  "name_key": "office.councillor",
+  "rank": "major",
+  "min_title": "baron",
+  "salary": 6,
+  "term_years": 3,
+  "seats": 2,
+  "order": 1,
+  "passive": [
+    {
+      "kind": "votes_ordinances"
+    }
+  ],
+  "powers": [
+    {
+      "id": "propose_ordinance",
+      "cooldown_days": 2,
+      "ready": "EA"
+    },
+    {
+      "id": "veto",
+      "cooldown_days": 2,
+      "ready": "EA"
+    }
+  ]
+}

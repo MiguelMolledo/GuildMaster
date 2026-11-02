@@ -1,0 +1,33 @@
+{
+  "id": "mayor",
+  "name_key": "office.mayor",
+  "rank": "mayor",
+  "min_title": "baron",
+  "salary": 10,
+  "term_years": 4,
+  "seats": 1,
+  "order": 0,
+  "passive": [
+    {
+      "kind": "reputation_per_day",
+      "amount": 1
+    }
+  ],
+  "powers": [
+    {
+      "id": "legislate",
+      "cooldown_days": 2,
+      "ready": "EA"
+    },
+    {
+      "id": "declare_event",
+      "cooldown_days": 8,
+      "ready": "EA"
+    },
+    {
+      "id": "name_title",
+      "cooldown_days": 8,
+      "ready": "EA"
+    }
+  ]
+}
