@@ -68,6 +68,10 @@
     ],
     "single": "well"
   },
+  "hud": {
+    "_doc": "HUD presentation: objective_hint_seconds = how long the objective's how-to stays unfolded on the map after the objective changes (then it folds to the title and progress; hovering the panel unfolds it; inside a building it is always shown).",
+    "objective_hint_seconds": 20
+  },
   "notices": {
     "_doc": "H3: urgent notices pop up over the HUD for popup_seconds (at most popup_max at once); severity colours of the notices log.",
     "popup_seconds": 8.0,

@@ -75,6 +75,9 @@ signal focus_requested(target: String)  # a notice was clicked: centre on this b
 var selected_id: String = ""
 var building_id: String = ""
 var interior_open: bool = false
+var _hint_id: String = ""        # the objective whose hint is shown (a new one unfolds it again)
+var _hint_left: float = 0.0      # seconds the hint stays unfolded on the map (data/view.json "hud".objective_hint_seconds)
+var _hint_text_ok: bool = false  # the objective has a hint text
 var _queue_sig: String = ""
 var _pending_service: Dictionary = {}  # {actor, kind, id, service}: open its panel when the actor stands there
 var _popups: Array = []  # [{node, left}]
@@ -142,6 +145,8 @@ func _process(delta: float) -> void:
 		_mev_card.follow(_game.sim, selected_id)
 	_check_service()
 	_tick_popups(delta)
+	_tick_hint(delta)
+	_place_group_bar()
 	if _toast_left > 0.0:
 		_toast_left -= delta
 		if _toast_left <= 0.0:
@@ -415,10 +420,45 @@ func _place_objective() -> void:
 func _set_hint(id: String) -> void:
 	var key := "objective_how." + id
 	var text := tr(key)
-	_objective_hint.visible = text != key and text != ""
-	if _objective_hint.visible and _objective_hint.text != text:
+	_hint_text_ok = text != key and text != ""
+	if id != _hint_id:
+		_hint_id = id
+		_hint_left = float((ViewConfig.value("hud", {}) as Dictionary).get("objective_hint_seconds", 20.0))
+	if _hint_text_ok and _objective_hint.text != text:
 		_objective_hint.text = text
+		_objective_panel.tooltip_text = text
 		Log.info("Hud", "objective hint: %s" % id)
+	_show_hint()
+
+
+## The hint unfolds inside a building (there is room on the left), and on the map only for a while after the objective
+## changes or while the mouse is over the panel: folded, the panel covers less of the town (its signs).
+func _show_hint() -> void:
+	var over := _objective_panel.visible and _objective_panel.get_global_rect().has_point(
+		get_viewport().get_mouse_position()) if is_inside_tree() else false
+	var show := HudLayout.hint_shown(_hint_text_ok, interior_open, _hint_left, over)
+	if _objective_hint.visible != show:
+		_objective_hint.visible = show
+		_objective_panel.reset_size()
+
+
+func _tick_hint(delta: float) -> void:
+	if _hint_left > 0.0:
+		_hint_left = maxf(0.0, _hint_left - delta)
+	if _objective_panel.visible:
+		_show_hint()
+
+
+## Whether the objective's hint is unfolded now.
+func objective_hint_shown() -> bool:
+	return _objective_hint.visible
+
+
+## H8 group portraits: under the selected person's panel (which grows with the queued orders), never over it.
+func _place_group_bar() -> void:
+	var y := HudLayout.group_bar_y(_selected_panel.visible, Rect2(_selected_panel.position, _selected_panel.size))
+	if _group_bar.position.y != y:
+		_group_bar.position.y = y
 
 
 func help_visible() -> bool:

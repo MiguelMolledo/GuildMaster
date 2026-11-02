@@ -728,12 +728,68 @@ func sync(frac: float) -> void:
 		v.follow(ch, _minutes_per_tile, frac)
 		v.follow_badge(state, _player_family)
 		_follow_town(id, v)
+	spread_bubbles()
 	if int(state.clock["minute"]) != _idle_minute:
 		_idle_minute = int(state.clock["minute"])
 		refresh_idle()
 		refresh_upgrades()
 	tint_color = DayNight.tint(int(state.clock["minute"]), frac, catalog.time, ViewConfig.value("day_night", {}))
 	(get_node("%Tint") as CanvasModulate).color = tint_color
+
+
+## Bubbles over heads that stand close (the dice table, a chat) would land on the figure behind or on each other:
+## each bubble, front ones first, takes the first sideways shift (0, then ±BUBBLE_SHIFT, ±2×...) whose box covers
+## neither another visible figure nor a bubble already placed. Only the bubble moves; the person stays.
+const BUBBLE_SIZE: Vector2 = Vector2(26, 22)
+const BUBBLE_SHIFT: float = 16.0
+
+
+func spread_bubbles() -> void:
+	var shown: Array = []
+	for id: String in _views:
+		var v: CharacterView = _views[id]
+		if v.visible and v.bubble_id != "":
+			shown.append(v)
+	if shown.is_empty():
+		return
+	shown.sort_custom(func(a: CharacterView, b: CharacterView) -> bool:
+		return a.position.y > b.position.y or (a.position.y == b.position.y and str(a.name) < str(b.name)))
+	var bodies: Array = []
+	for id: String in _views:
+		var w: CharacterView = _views[id]
+		if w.visible:
+			bodies.append([w, w.pick_rect()])
+	var placed: Array[Rect2] = []
+	for v: CharacterView in shown:
+		var best: Array = []      # [dx, box] clear of bubbles and figures
+		var fallback: Array = []  # [dx, box] clear of bubbles only
+		for k: int in [0, -1, 1, -2, 2, -3, 3]:
+			var dx := float(k) * BUBBLE_SHIFT
+			var box := Rect2(v.position + Vector2(dx - BUBBLE_SIZE.x / 2.0, -v.fig_height - 12.0 - BUBBLE_SIZE.y),
+				BUBBLE_SIZE)
+			var free_of_bubbles := true
+			for p: Rect2 in placed:
+				if p.intersects(box):
+					free_of_bubbles = false
+					break
+			if not free_of_bubbles:
+				continue
+			if fallback.is_empty():
+				fallback = [dx, box]
+			var free_of_bodies := true
+			for b: Array in bodies:
+				if b[0] != v and (b[1] as Rect2).intersects(box.grow(-2.0)):
+					free_of_bodies = false
+					break
+			if free_of_bodies:
+				best = [dx, box]
+				break
+		var pick: Array = best if not best.is_empty() else fallback
+		if pick.is_empty():
+			v.set_bubble_shift(0.0)
+			continue
+		placed.append(pick[1])
+		v.set_bubble_shift(float(pick[0]))
 
 
 ## H7: who speaks to the selected person: the nearest townsperson whose phrase would not land on the selected
