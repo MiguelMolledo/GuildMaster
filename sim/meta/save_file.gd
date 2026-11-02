@@ -60,6 +60,8 @@ static func migrate(d: Dictionary) -> Dictionary:
 
 ## v6 -> v7: the age of everybody who had none (H8, docs/contratos/h8_familia.md) [provisional].
 const MIGRATION_AGE: int = 25
+## v11 -> v12: the needs of everybody (H14, data/family.json needs.start) [provisional].
+const NEEDS_START: int = 80
 
 
 static func _step(from_version: int, data: Dictionary) -> Dictionary:
@@ -225,6 +227,13 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 				data["trials"] = []
 			if not data.get("justice") is Dictionary or not (data["justice"] as Dictionary).get("facts") is Array:
 				data["justice"] = {"facts": []}
+		11:  # 11 -> 12 (H14): the family's AI (docs/contratos/h14_ia_familiar.md). Characters: needs (GDD 4.2.6, all at
+			# NEEDS_START: the save has no catalog; data needs.start is the same 80) and ai (the directives' memory, empty).
+			for c: Dictionary in (data.get("characters", {}) as Dictionary).values():
+				if not c.get("needs") is Dictionary:
+					c["needs"] = {"hunger": NEEDS_START, "rest": NEEDS_START, "social": NEEDS_START, "fun": NEEDS_START}
+				if not c.get("ai") is Dictionary:
+					c["ai"] = {}
 	return data
 
 

@@ -1103,3 +1103,48 @@ help.trials,Court,Tribunal
 help.trials_accused,"A Secrets inspection, a bribe found out or an accusation takes you to court. You have a season (2 days) to work the witnesses: convince, bribe or threaten them in person (J opens the trial)","Una inspección de Secretos, un soborno descubierto o una acusación te llevan a juicio. Tienes una estación (2 días) para trabajar a los testigos: convéncelos, sobórnalos o amenázalos en persona (J abre el juicio)"
 help.trials_hearing,"At the hearing the game pauses: question the witnesses against you and rest. Defense = rhetoric×2 + witnesses for×15 + reputation×0,1 against rhetoric×2 + witnesses against×15 + proofs×20. Guilty: a fine, confiscated goods, office and title, or a year of banishment","En la vista oral el juego se pausa: interroga a los testigos en contra y concluye. Defensa = retórica×2 + testigos a favor×15 + reputación×0,1 contra retórica×2 + en contra×15 + pruebas×20. Culpable: multa, mercancía confiscada, cargo y título, o un año de destierro"
 help.trials_accuse,"As a Citizen you can accuse another family from a person's sheet: with a public fact, or fabricating proofs (stealth: a false accusation costs 50 reputation)","Siendo Ciudadano puedes acusar a otra familia desde la ficha de uno de sus miembros: con un hecho público, o fabricando pruebas (sigilo: una acusación falsa cuesta 50 de reputación)"
+directive.trade,Trade,Comerciar
+directive.socialize,Socialize,Sociabilizar
+directive.leisure,Have fun,Divertirse
+directive.learn,Learn,Aprender
+need.hunger,Hunger,Hambre
+need.rest,Rest,Descanso
+need.social,Social,Social
+need.fun,Fun,Diversión
+reason.directive_not_ready,That directive is not available yet,Esa directiva aún no está disponible
+notice.kin_exhausted,{name} is exhausted ({need}): send them home,{name} está agotado ({need}): mándalo a casa
+notice.kin_low_morale,{name}'s morale is low ({morale}): they work slower,La moral de {name} está baja ({morale}): trabaja más despacio
+notice.forge_short,{building} has no {item} and nobody is trading: buy it or give a family member Trade,A {building} le falta {item} y nadie comercia: cómpralo o da a un familiar la directiva Comerciar
+notice.kin_supplied,{name} brings {qty} {item} to {building},{name} lleva {qty} de {item} a {building}
+ui.kin_ai.button,AI,IA
+ui.kin_ai.button_tip,"What they do on their own: directives, needs and morale","Lo que hace por su cuenta: directivas, necesidades y moral"
+ui.kin_ai.title,Family AI,IA de la familia
+ui.kin_ai.directives,Directives (in order of priority),Directivas (por orden de prioridad)
+ui.kin_ai.needs,Needs and morale,Necesidades y moral
+ui.kin_ai.when_controlled,Follows them in the Free slots of the routine,Las sigue en las franjas Libre de su rutina
+ui.kin_ai.when_ai,Follows them all day except at night (rests),Las sigue todo el día salvo de noche (descansa)
+ui.kin_ai.now,Now: %s (%s),Ahora: %s (%s)
+ui.kin_ai.now_unknown,Now: —,Ahora: —
+ui.kin_ai.why_directive,directive,directiva
+ui.kin_ai.why_routine,routine,rutina
+ui.kin_ai.why_nothing,nothing to do,nada que hacer
+ui.kin_ai.why_need,%s is low,le falta %s
+ui.kin_ai.doing_work,working,trabajando
+ui.kin_ai.doing_trade,trading,comerciando
+ui.kin_ai.doing_socialize,socializing,sociabilizando
+ui.kin_ai.doing_leisure,having fun,divirtiéndose
+ui.kin_ai.doing_home,at home,en casa
+ui.kin_ai.doing_rest,resting,descansando
+ui.kin_ai.doing_idle,idle,sin hacer nada
+ui.kin_ai.later,(comes with %s),(llega con %s)
+ui.kin_ai.tip_work,Goes to its building and works (normal mode),Va a su edificio y trabaja (modo normal)
+ui.kin_ai.tip_trade,Buys the raw materials its workshop lacks and sells the surplus of products,Compra las materias que le faltan a su taller y vende los productos que sobran
+ui.kin_ai.tip_socialize,Talks to townsfolk (raises relation and social),Habla con los vecinos (sube la relación y lo social)
+ui.kin_ai.tip_leisure,A while on a bench of the plaza (raises fun),Un rato en un banco de la plaza (sube la diversión)
+ui.kin_ai.tip_learn,Not in the game yet,Aún no está en el juego
+ui.kin_ai.morale,Morale,Moral
+ui.kin_ai.rate_full,Works at full speed,Trabaja a ritmo normal
+ui.kin_ai.rate_slow,Works at %d %% (low morale),Trabaja al %d %% (moral baja)
+help.kin_ai,Family AI,IA de la familia
+help.kin_ai_directives,"«AI» in a person's sheet or the family tree: tick and order their directives (work, trade, socialize, have fun). They follow them in the Free slots of their routine; the spouse, all day. Trade buys the raw materials the forge lacks and sells the surplus","«IA» en la ficha de una persona o en el árbol: marca y ordena sus directivas (trabajar, comerciar, sociabilizar, divertirse). Las siguen en las franjas Libre de su rutina; la pareja, todo el día. Comerciar compra las materias que le faltan a la forja y vende lo que sobra"
+help.kin_ai_needs,"Hunger and rest recover at home without working, social talking, fun on a bench. Low needs come first and lower morale: with low morale they work slower. Notices warn of exhaustion and low morale","El hambre y el descanso se recuperan en casa sin trabajar, lo social hablando, la diversión en un banco. Las necesidades bajas van primero y bajan la moral: con moral baja trabajan más despacio. Los avisos te dicen si alguien está agotado o desanimado"
