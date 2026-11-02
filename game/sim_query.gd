@@ -183,8 +183,9 @@ static func shop_stall(state: WorldState, catalog: Catalog, building: String) ->
 	return str(catalog.buildings().get(type, {}).get("market_stall", ""))
 
 
-## The outdoor stalls and the board of the current map: [{kind: "stall"|"board", id, tile: Vector2i, service:
-## Vector2i}] (data/maps/<map>.json "stalls" and "board").
+## The outdoor stalls, the board and (H9) the town hall of the current map: [{kind: "stall"|"board"|"town_hall", id,
+## tile: Vector2i, service: Vector2i}] (data/maps/<map>.json "stalls", "board", "town_hall"); the town hall also has
+## tiles (its footprint: [Vector2i]).
 static func map_services(state: WorldState, catalog: Catalog) -> Array:
 	var out: Array = []
 	var m: Dictionary = catalog.maps().get(state.map_id, {})
@@ -197,6 +198,16 @@ static func map_services(state: WorldState, catalog: Catalog) -> Array:
 	var b: Dictionary = m.get("board", {})
 	if not b.is_empty():
 		out.append({"kind": "board", "id": "board", "tile": _v2i(b.get("tile", [])), "service": _v2i(b.get("service", []))})
+	var th: Dictionary = m.get("town_hall", {})
+	if not th.is_empty():
+		var o: Array = th.get("origin", [0, 0])
+		var f: Array = th.get("footprint", [1, 1])
+		var tiles: Array = []
+		for dr: int in int(f[1]):
+			for dc: int in int(f[0]):
+				tiles.append(Vector2i(int(o[0]) + dc, int(o[1]) + dr))
+		out.append({"kind": "town_hall", "id": "town_hall", "tile": _v2i(th.get("tile", [])),
+			"service": _v2i(th.get("service", [])), "tiles": tiles})
 	return out
 
 
@@ -284,6 +295,8 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["upgrade"] = upgrade_name(catalog, str(p["upgrade"]))
 	if p.has("choice"):  # H7: the choice of a microevent (its text key)
 		p["choice"] = t_(str(p["choice"]))
+	if p.has("title"):  # H9: a social title id
+		p["title"] = title_name(str(p["title"]))
 	return t_(str(n.get("key", ""))).format(p)
 
 

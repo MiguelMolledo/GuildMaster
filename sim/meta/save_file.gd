@@ -183,6 +183,16 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 				data["microevents"] = {"active": [], "pending": [], "cooldowns": {}, "last_day": {}}
 			if not data.has("town"):
 				data["town"] = {"counters": {}}
+		8:  # 8 -> 9 (H9): reputation and titles (docs/contratos/h9_titulos.md). Families: title (v8 had none: the common
+			# title of everybody), class_reputation (the class modifier of GDD 4.12.1, all 0), reputation_log (the last
+			# changes, empty) and reputation_caps (the rules' counters, empty). reputation stays as it was.
+			for f: Dictionary in (data.get("families", {}) as Dictionary).values():
+				var addf := Reputation.family_fields()
+				for k: String in addf:
+					if not f.has(k):
+						f[k] = addf[k]
+				if not f.has("reputation"):
+					f["reputation"] = 0
 	return data
 
 

@@ -362,6 +362,8 @@ static func _apply(sim: Sim, m: Dictionary, effects: Array, why: String) -> void
 					Money.change(sim, fam, w, Money.WAGES, str(m["id"]), bld, target)
 			"steal":
 				_steal(sim, m, e)
+			"reputation":  # H9: a choice that costs (or gives) the family reputation
+				Reputation.change(sim, fam, int(e.get("amount", 0)), "microevent_" + str(m["def"]))
 			"nothing":
 				pass
 

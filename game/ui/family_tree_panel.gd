@@ -54,7 +54,8 @@ func setup(s: Sim, family: String, who: String) -> void:
 		else Kin.head(s.state, family)
 	if picked == "" or not s.state.characters.has(picked) or str(s.state.characters[picked].get("family", "")) != family:
 		picked = actor
-	(%Title as Label).text = SimQuery.t_("ui.family.title") % str(s.state.families.get(family, {}).get("name", ""))
+	(%Title as Label).text = SimQuery.t_("ui.family.title_rank") % [str(s.state.families.get(family, {}).get("name", "")),
+		SimQuery.title_name(Titles.current(s, family)).capitalize()]  # H9: the family's title
 	(%HeirButton as Button).text = SimQuery.t_("ui.family.designate_heir")
 	(%SwitchButton as Button).text = SimQuery.t_("ui.family.switch")
 	(%CourtButton as Button).text = SimQuery.t_("ui.family.court")

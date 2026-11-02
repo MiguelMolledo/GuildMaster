@@ -97,6 +97,9 @@ town = {
     "spawns": {"player": [20, 21], "market": [19, 16], "east_gate": [39, 18], "west_gate": [0, 19]},
     "stalls": {k: {"tile": t, "service": [t[0], t[1] + 1]} for k, t in STALLS.items()},
     "board": {"tile": BOARD, "service": [BOARD[0], BOARD[1] - 1]},
+    # H9 (docs/contratos/h9_titulos.md): the town hall on the south block of the plaza; titles are asked for on its
+    # service tile (like the board). A map site, not a building of the state.
+    "town_hall": {"origin": [17, 26], "footprint": [6, 4], "tile": [20, 26], "service": [20, 25]},
     "buildings": {
         "player_forge": {"type": "forge", "origin": [25, 20], "door": [26, 19]},
         "rival_forge": {"type": "forge", "origin": [9, 20], "door": [10, 19]},

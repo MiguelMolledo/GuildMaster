@@ -194,6 +194,7 @@ static func _add_family(s: WorldState, name: String, ctrl: String, colors: Dicti
 	s.families[id] = {"id": id, "name": name, "controlled_by": ctrl, "members": [], "colors": colors.duplicate(),
 		"gold": gold, "reputation": reputation, "ai_profile": profile, "ai_state": {}}
 	s.families[id].merge(Kin.family_fields("", "artisan"))  # H8: the head and founder is its first member
+	s.families[id].merge(Reputation.family_fields())  # H9: the common title, no class modifiers, an empty log
 	return id
 
 

@@ -87,6 +87,9 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
   los empleados (mismas semillas): `--bots=artisan_expert_0,artisan_expert_1,artisan_expert_2`. Pruebas de
   cifras sin tocar `data/`: `--set=<tabla>.<id>.<clave>=<json>` (p. ej. `--set=market.demand.recover_per_day=0.3`) y
   `--tag=<nombre>` → `reports/sim/trial_<nombre>_*.json`.
+- Títulos (H9, largos, al tocar reputación, títulos o la IA rival): `godot --headless --path . -s tools/sim_runner.gd --
+  --start=artisan_blacksmith --bots=expert_titles --days=96 --seeds=10` (Patricio, ~17 min) y `--bots=idle_titles
+  --days=80 --seeds=10` (la familia IA sube de título, ~9 min). Captura: `--smoke-script=titulos`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

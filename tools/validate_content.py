@@ -769,7 +769,7 @@ ACTIVITY_SPOTS = {"bench", "chat", "dice", "stalls", "doors", "none"}
 SOCIAL_KINDS = {"bench", "chat", "dice"}
 WORKPLACE_KINDS = {"tile", "stall", "shop"}
 MEV_EFFECTS = {"sell", "skill_check", "leave", "emotion", "relation", "pay", "loyalty", "absent", "refund_wage", "steal",
-               "nothing"}
+               "nothing", "reputation"}
 MEV_CONDITIONS = {"counter_sales", "has_employees", "has_goods", "has_products"}
 MEV_SCOPES = {"building", "character", "family"}
 TOWN_STATES = {"home", "walking", "working", "market", "strolling", "social", "customer"}
@@ -984,6 +984,110 @@ def check_h7_scenario(w, d, workplaces, rep):
             rep.error(w, f"microevents/{m.get('id')}: la opción por defecto no está entre las opciones")
     if not isinstance(d.get("town"), dict):
         rep.error(w, "town debe ser un diccionario")
+
+
+H9_REQUIRES = {"businesses", "employees", "event"}
+H9_RULE_EVENTS = {"market_sold", "counter_sold", "wage_paid", "npc_action"}
+H9_REASONS = ["not_at_town_hall", "max_title", "wrong_title", "title_needs_reputation", "title_needs_businesses",
+              "title_needs_employees", "title_needs_event", "title_not_approved"]
+
+
+def check_h9(maps_raw, strings, rep):
+    """H9 (GDD 4.12, docs/contratos/h9_titulos.md): data/titles (escalera = upgrade_rules.titles, cifras, requisitos y
+    lo que abren), data/politics.json (clases con texto, reglas con eventos conocidos), el Ayuntamiento de cada mapa
+    (huella sobre casillas de edificio, servicio transitable) y los textos de los motivos y avisos."""
+    titles = load_kind("titles", rep)
+    ladder = (load_json(os.path.join(DATA, "upgrade_rules.json"), rep) or {}).get("titles", [])
+    by_rank = sorted(titles.values(), key=lambda t: t.get("rank", 0))
+    if [t["id"] for t in by_rank] != ladder:
+        rep.error("titles/", f"el orden por rank {[t['id'] for t in by_rank]} no es upgrade_rules.titles {ladder}")
+    for i, t in enumerate(by_rank):
+        w = f"titles/{t['id']}"
+        check_text(w, t.get("name_key"), strings, rep)
+        if t.get("rank") != i:
+            rep.error(w, f"rank debe ser {i}")
+        for k in ("cost_gold", "reputation"):
+            if not isinstance(t.get(k), int) or t[k] < 0:
+                rep.error(w, f"{k} debe ser un entero >= 0")
+        if i > 0 and (t.get("cost_gold", 0) <= by_rank[i - 1].get("cost_gold", 0)
+                      or t.get("reputation", 0) <= by_rank[i - 1].get("reputation", 0)):
+            rep.error(w, "cada título cuesta más oro y pide más reputación que el anterior")
+        for k, v in (t.get("requires") or {}).items():
+            if k not in H9_REQUIRES:
+                rep.error(w, f"requisito desconocido {k}")
+            elif k != "event" and (not isinstance(v, int) or v < 1):
+                rep.error(w, f"requires.{k} debe ser un entero >= 1")
+        mb = (t.get("unlocks") or {}).get("max_buildings", 0)
+        if mb is not None and (not isinstance(mb, int) or mb < 1):
+            rep.error(w, "unlocks.max_buildings debe ser un entero >= 1 o null (sin límite)")
+    pol = load_json(os.path.join(DATA, "politics.json"), rep) or {}
+    rp = pol.get("reputation") or {}
+    classes = rp.get("classes") or []
+    for c in classes:
+        check_text(f"politics.json/classes/{c}", f"class.{c}", strings, rep)
+    for reason, c in (rp.get("reason_class") or {}).items():
+        if c not in classes:
+            rep.error("politics.json", f"reason_class.{reason}: clase desconocida {c}")
+    ids = set()
+    for r in rp.get("rules") or []:
+        w = f"politics.json/rules/{r.get('id')}"
+        if not r.get("id") or r["id"] in ids:
+            rep.error(w, "id vacío o repetido")
+        ids.add(r.get("id"))
+        if not r.get("events") or any(e not in H9_RULE_EVENTS for e in r["events"]):
+            rep.error(w, f"events debe ser una lista de {sorted(H9_RULE_EVENTS)}")
+        if r.get("class") not in (None, "target") and r.get("class") not in classes:
+            rep.error(w, f"clase desconocida {r.get('class')}")
+        if not isinstance(r.get("cap", 0), int) or not isinstance(r.get("cap_days", 1), int) or r.get("cap_days", 1) < 1:
+            rep.error(w, "cap (entero >= 0) y cap_days (entero >= 1)")
+    if not isinstance((rp.get("passive") or {}).get("per_business_with_staff"), int):
+        rep.error("politics.json", "passive.per_business_with_staff debe ser un entero")
+    cer = pol.get("ceremony") or {}
+    if not isinstance(cer.get("min_affinity"), int) or not cer.get("approvers"):
+        rep.error("politics.json", "ceremony: approvers y min_affinity")
+    for mid, m in maps_raw.items():
+        th = m.get("town_hall")
+        if th is None:
+            continue
+        w = f"maps/{mid}/town_hall"
+        rows = m.get("rows", [])
+        try:
+            (c0, r0), (fw, fh) = th["origin"], th["footprint"]
+            tc, tr = th["tile"]
+            sc, sr = th["service"]
+        except (KeyError, TypeError, ValueError):
+            rep.error(w, "debe ser {origin, footprint, tile, service}")
+            continue
+        if any(rows[r][c] != "#" for r in range(r0, r0 + fh) for c in range(c0, c0 + fw)):
+            rep.error(w, "la huella debe caer sobre casillas de edificio (#)")
+        if not (c0 <= tc < c0 + fw and r0 <= tr < r0 + fh):
+            rep.error(w, "tile (letrero) debe estar dentro de la huella")
+        if rows[sr][sc] not in set("=P,fb."):
+            rep.error(w, "service debe ser una casilla transitable")
+        for b in (m.get("buildings") or {}).values():
+            bc, br = b.get("origin", [-1, -1])
+            if c0 <= bc < c0 + fw and r0 <= br < r0 + fh:
+                rep.error(w, "se pisa con un edificio del mapa")
+    for k in H9_REASONS:
+        check_text("i18n/reason", "reason." + k, strings, rep)
+    for k in ("notice.title_granted", "notice.rival_title"):
+        check_text("i18n/notice", k, strings, rep)
+    return set(titles)
+
+
+def check_h9_scenario(w, d, titles, rep):
+    """H9: en escenarios v9, cada familia con un título que existe, class_reputation (diccionario de enteros),
+    reputation_log (lista) y reputation_caps (diccionario)."""
+    for fid, f in (d.get("families") or {}).items():
+        if f.get("title") not in titles:
+            rep.error(w, f"{fid}: título desconocido {f.get('title')}")
+        cr = f.get("class_reputation")
+        if not isinstance(cr, dict) or any(not isinstance(v, int) for v in cr.values()):
+            rep.error(w, f"{fid}: class_reputation debe ser {{clase: entero}}")
+        if not isinstance(f.get("reputation_log"), list) or not isinstance(f.get("reputation_caps"), dict):
+            rep.error(w, f"{fid}: reputation_log (lista) y reputation_caps (diccionario)")
+        if not isinstance(f.get("reputation"), int):
+            rep.error(w, f"{fid}: reputation debe ser un entero")
 
 
 def check_h5(items, recipes, buildings, ranks, strings, rep):
@@ -1310,6 +1414,7 @@ def main():
     check_h5(items, recipes, buildings, ranks, strings, rep)
     tones = check_h8(strings, rep)
     workplaces = check_h7(load_kind("maps", rep), strings, rep)
+    titles = check_h9(load_kind("maps", rep), strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")
@@ -1380,6 +1485,8 @@ def main():
             check_h8_scenario(f"scenarios/{name}", d, buildings, tones, rep)
         if d.get("version", 0) >= 8:
             check_h7_scenario(f"scenarios/{name}", d, workplaces, rep)
+        if d.get("version", 0) >= 9:
+            check_h9_scenario(f"scenarios/{name}", d, titles, rep)
         if d.get("version", 0) >= 4:
             for fid, fam in (d.get("families") or {}).items():
                 if not isinstance(fam.get("gold"), int) or fam["gold"] < 0:

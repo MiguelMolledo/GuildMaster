@@ -1,0 +1,15 @@
+{
+  "id": "citizen",
+  "name_key": "title.citizen",
+  "rank": 1,
+  "cost_gold": 100,
+  "reputation": 50,
+  "requires": {
+    "businesses": 1
+  },
+  "unlocks": {
+    "max_buildings": 2,
+    "vote": true,
+    "office_rank": "minor"
+  }
+}

@@ -46,7 +46,8 @@ func test_free_blocks_become_house_lots_and_yards() -> void:
 func test_the_dressing_is_the_same_every_game() -> void:
 	var a := _view()
 	var b := _view()
-	for t: Vector2i in [Vector2i(17, 8), Vector2i(12, 8), Vector2i(9, 11), Vector2i(28, 21), Vector2i(17, 26)]:
+	# H9: (12, 27) instead of (17, 26), which the town hall takes now
+	for t: Vector2i in [Vector2i(17, 8), Vector2i(12, 8), Vector2i(9, 11), Vector2i(28, 21), Vector2i(12, 27)]:
 		eq(_id(a.prop_at(t)), _id(b.prop_at(t)), "same visual at %s" % t)
 		eq(a.prop_at(t).scale, b.prop_at(t).scale, "same mirroring at %s" % t)
 	a.free()

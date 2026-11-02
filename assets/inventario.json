@@ -280,6 +280,20 @@
       "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/exterior/building_armeria_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/armory.tscn."
     },
     {
+      "id": "bld_town_hall",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H9",
+        "ayuntamiento"
+      ],
+      "ruta": "assets/art/buildings/town_hall.png",
+      "origen": "guild-renew",
+      "origen_previo": "guild:assets/sprites/buildings/residential/house_noble_2",
+      "coste_gen": 0,
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_noble_2/house_noble_2_192.png (casa noble de piedra con torre y estandarte) como Ayuntamiento, a escala 1,6 sobre la huella 6×4 del bloque sur de la plaza (docs/arte/reuso_guild.md). En game/visuals/buildings/town_hall.tscn."
+    },
+    {
       "id": "bld_house",
       "tipo": "edificio",
       "estado": "sprite",

@@ -68,6 +68,9 @@ signal focus_requested(target: String)  # a notice was clicked: centre on this b
 @onready var _court_panel: CourtshipPanel = %CourtshipPanel
 @onready var _npc_panel: NpcPanel = %NpcPanel
 @onready var _mev_card: MicroeventCard = %MicroeventCard
+@onready var _hall_panel: TownHallPanel = %TownHallPanel  # H9: the town hall (titles)
+@onready var _title_card: TitleCard = %TitleCard          # H9: the ceremony
+@onready var _family_title: Label = %FamilyTitle          # H9: the family's title and reputation
 
 var selected_id: String = ""
 var building_id: String = ""
@@ -123,6 +126,8 @@ func _ready() -> void:
 	_court_panel.order_sink = _game.give
 	_npc_panel.order_sink = _game.give
 	_mev_card.order_sink = _game.give
+	_hall_panel.order_sink = _game.give
+	_family_title.tooltip_text = tr("hud.title_rep_tip")
 	_tree_panel.switch_requested.connect(func(id: String) -> void: select_requested.emit(id))
 	_tree_panel.court_requested.connect(open_courtship)
 	_character_panel.tree_requested.connect(toggle_tree)
@@ -234,7 +239,8 @@ func close_top() -> bool:
 	if _help_panel.visible:
 		toggle_help()
 		return true
-	for p: Control in [_npc_panel, _court_panel, _tree_panel, _market_panel, _board_panel, _ledger_panel]:
+	for p: Control in [_title_card, _hall_panel, _npc_panel, _court_panel, _tree_panel, _market_panel, _board_panel,
+			_ledger_panel]:
 		if p.visible:
 			p.call("close")
 			return true
@@ -305,6 +311,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_sim_event(e: Dictionary) -> void:
+	if str(e.get("type", "")) == "title_granted":  # H9: the ceremony of the player's family
+		if str(_game.sim.state.families.get(str(e.get("family", "")), {}).get("controlled_by", "")) == "human":
+			_hall_panel.close()
+			_title_card.show_for(_game.sim, e)
+		return
 	if str(e.get("type", "")) == "notice_added":
 		_on_notice(e)
 		return
@@ -353,6 +364,8 @@ func _refresh_family(sim: Sim) -> void:
 		_objective_panel.visible = false
 		return
 	_family_gold.text = tr("hud.family_gold") % Money.gold(sim.state, fam)
+	_family_title.text = tr("hud.title_rep") % [SimQuery.title_name(Titles.current(sim, fam)).capitalize(),
+		Reputation.of(sim.state, fam)]
 	var loans := SimQuery.loans_of(sim, fam)
 	_debt_label.visible = not loans.is_empty()
 	if not loans.is_empty():
@@ -421,7 +434,8 @@ func toggle_help() -> void:
 func close_panels() -> void:
 	_help_panel.visible = false
 	_pending_service = {}
-	for p: Control in [_market_panel, _board_panel, _ledger_panel, _tree_panel, _court_panel, _npc_panel]:
+	for p: Control in [_market_panel, _board_panel, _ledger_panel, _tree_panel, _court_panel, _npc_panel, _hall_panel,
+			_title_card]:
 		p.call("close")
 	_character_panel.close()
 
@@ -471,6 +485,7 @@ func request_service(actor: String, kind: String, id: String, service: Vector2i)
 	_pending_service = {"actor": actor, "kind": kind, "id": id, "service": service}
 	_market_panel.close()
 	_board_panel.close()
+	_hall_panel.close()
 	_check_service()
 
 
@@ -486,6 +501,8 @@ func _check_service() -> void:
 	_pending_service = {}
 	if kind == "board":
 		open_board(actor)
+	elif kind == "town_hall":
+		open_town_hall(actor)
 	else:
 		open_market(actor, id)
 
@@ -495,6 +512,23 @@ func open_market(actor: String, stall: String) -> void:
 	_ledger_panel.close()
 	_market_panel.open_for(_game.sim, actor, stall)
 	Log.info("Hud", "market panel (stall=%s, actor=%s)" % [stall, actor])
+
+
+## H9: the town hall panel for `actor` (standing on its service tile).
+func open_town_hall(actor: String) -> void:
+	_market_panel.close()
+	_board_panel.close()
+	_ledger_panel.close()
+	_hall_panel.open_for(_game.sim, actor)
+	Log.info("Hud", "town hall panel (actor=%s)" % actor)
+
+
+func town_hall_panel() -> TownHallPanel:
+	return _hall_panel
+
+
+func title_card() -> TitleCard:
+	return _title_card
 
 
 func open_board(actor: String) -> void:

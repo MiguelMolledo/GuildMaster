@@ -1,0 +1,15 @@
+{
+  "id": "baron",
+  "name_key": "title.baron",
+  "rank": 3,
+  "cost_gold": 2000,
+  "reputation": 500,
+  "requires": {
+    "businesses": 3
+  },
+  "unlocks": {
+    "max_buildings": 6,
+    "vote": true,
+    "office_rank": "major"
+  }
+}

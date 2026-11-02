@@ -15,6 +15,11 @@ extends BotArtisanNovice
 ##             works; carries the materials home in the bag (or by errand) and buys the minute they are there.
 ##   market:   sells while the demand is >= EXPERT_MIN_DEMAND (what is made is sunk; holding it fills the storage).
 ##   contracts: as the novice, counting the employees' hands for the deadline.
+##   titles (H9, docs/contratos/h9_titulos.md): two hooks that leave the H5 play as it was until they fire. When its
+##             upgrade plan is done and the family meets its next title's requirements and keeps its reserve after
+##             paying it, the trip gets a town_hall stop (request_title on its service tile). When the next title
+##             asks for more employees than it has and the reputation is at TITLE_STAFF_REP_SHARE of what it needs,
+##             it wants that many employees (the second-furnace rule gives way, within max_employees).
 ## Wages and upkeep are charged by the sim at dawn. Choices at the start (bot_choices): none. tools/sim_runner.gd runs
 ## it as artisan_expert (max 2, the rule above) and artisan_expert_<n> (exactly n employees, to measure what they add).
 
@@ -35,11 +40,14 @@ const STAFF_PIECES: int = 2           # pieces per active employee it buys raw m
 const INGOTS_PER_EXTRA_HAND: int = 3  # with 2+ employees the single furnace is short: ingots kept bought, per hand
 const MANAGE_EVERY: int = 10          # minutes between two looks at staff, queue and upgrades
 const IDLE_EVERY: int = 5             # minutes between two looks for work or a trip when idle at home
+const TOWN_HALL: String = "town_hall"  # H9: trip stop to ask for the next title
+const TITLE_STAFF_REP_SHARE: float = 0.5  # H9: share of the next title's reputation before hiring for its employees
 
 var owner_sells: bool = false        # with employees, the protagonist sells instead of working in market hours
 var split_roles: bool = true         # with two employees: anvil + furnace (else both "any")
 var second_needs_furnace: bool = true  # a second employee only with a second furnace (forge_capacity_3)
 var max_employees: int = 2           # employees it hires at most (sim_runner: artisan_expert_<n> sets it)
+var asks_titles: int = 1             # H9: 0 = plays as in H5, never asks for a title (BOT_VARS=asks_titles=0)
 var counter_shop: int = 0            # H7 balance trial (BOT_VARS=counter_shop=1): buys the sales counter first and
                                      # puts its least skilled employee at it (GDD 4.5.4: customers come to the forge)
 var _bonus_day: Dictionary = {}       # employee -> last day it got a bonus
@@ -156,11 +164,26 @@ func _hire(sim: Sim) -> Dictionary:
 
 
 ## Employees it wants now: max_employees, but the second one only once the forge has a second furnace (measured in H5:
-## with one furnace the protagonist and two employees wait for ingots and the second does not pay its wage).
+## with one furnace the protagonist and two employees wait for ingots and the second does not pay its wage). H9: or the
+## employees its next title asks for (within max_employees), once its reputation is on the way (_title_staff).
 func _max_staff(sim: Sim) -> int:
 	if second_needs_furnace and Upgrades.zone_kind(sim, FORGE, "furnace_2") != "furnace":
-		return mini(max_employees, 1)
+		return maxi(mini(max_employees, 1), mini(max_employees, _title_staff(sim)))
 	return max_employees
+
+
+## H9: the employees the next title requires, once the family has TITLE_STAFF_REP_SHARE of its reputation (0 if it
+## asks for none, or not yet).
+func _title_staff(sim: Sim) -> int:
+	var fam := _fam(sim)
+	var nx := Titles.next_of(sim, fam)
+	if nx == "" or asks_titles != 1:
+		return 0
+	var def: Dictionary = sim.catalog.titles()[nx]
+	var need := int(def.get("requires", {}).get("employees", 0))
+	if need <= 0 or Reputation.of(sim.state, fam) < roundi(float(def.get("reputation", 0)) * TITLE_STAFF_REP_SHARE):
+		return 0
+	return need
 
 
 func _bonus(sim: Sim) -> Dictionary:
@@ -373,7 +396,38 @@ func _min_anvil_craft(sim: Sim) -> int:
 
 # --- Trips: the materials of the next upgrade ------------------------------------------------------------------------
 
+## H9: the H5 trip, with a stop at the town hall when the next title is ready (see _wants_title).
 func _plan_trip(sim: Sim) -> Array:
+	var t := _plan_trip_h5(sim)
+	if not _wants_title(sim):
+		return t
+	if t.is_empty():
+		t = ["home"]
+	t.insert(maxi(0, t.find("home")), TOWN_HALL)
+	if OS.is_debug_build():
+		print("[BotExpert] día %d: va al Ayuntamiento a pedir %s (reputación=%d, oro=%d) → %s" % [_today(sim),
+			Titles.next_of(sim, _fam(sim)), Reputation.of(sim.state, _fam(sim)), Money.gold(sim.state, _fam(sim)), t])
+	return t
+
+
+## H9: in business, and the family meets its next title's requirements keeping its reserve after the ceremony.
+func _wants_title(sim: Sim) -> bool:
+	return asks_titles == 1 and _business(sim) and _plan_done(sim) and Titles.ready(sim, _fam(sim), _reserve(sim))
+
+
+## H9: every upgrade of its plan it wants now is owned (the business first, the title after: paying a title in the
+## middle of the plan delays the upgrades the H5 targets of days 9-24 measure).
+func _plan_done(sim: Sim) -> bool:
+	var plan: Array = (["forge_commerce_1"] if counter_shop == 1 else []) + UPGRADE_PLAN
+	for id: String in plan:
+		if id in STAFF_UPGRADES and _max_staff(sim) < int(STAFF_UPGRADES[id]):
+			continue
+		if Upgrades.status_of(sim, ACTOR, FORGE, id) != "owned":
+			return false
+	return true
+
+
+func _plan_trip_h5(sim: Sim) -> Array:
 	var t := super._plan_trip(sim)
 	var need := _upgrade_needs(sim) if _business(sim) else {}
 	if _ingots_to_buy(sim) > 0:
@@ -394,6 +448,15 @@ func _plan_trip(sim: Sim) -> Array:
 
 
 func _stop(sim: Sim, stop: String) -> Dictionary:
+	if stop == TOWN_HALL:  # H9
+		if not _wants_title(sim):
+			return {}
+		var loc := str(sim.state.characters[ACTOR].get("location", ""))
+		if loc != "":
+			return {"type": "exit_building", "actor": ACTOR}
+		if not Titles.at_town_hall(sim, ACTOR):
+			return {"type": "move_to", "actor": ACTOR, "tile": Titles.service(sim)}
+		return {"type": "request_title", "actor": ACTOR}
 	if stop in [MATERIAL_STALL, "resources"] and Market.is_open(sim):
 		var o := _buy_upgrade_items(sim, stop)
 		if not o.is_empty():

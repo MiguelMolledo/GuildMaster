@@ -1,0 +1,14 @@
+{
+  "id": "common",
+  "name_key": "title.common",
+  "rank": 0,
+  "cost_gold": 0,
+  "reputation": 0,
+  "requires": {},
+  "unlocks": {
+    "max_buildings": 1,
+    "vote": false,
+    "office_rank": "none"
+  },
+  "_doc": "GDD 4.12.2 [balance]: one file per social title, lowest rank first (the order of data/upgrade_rules.json titles). cost_gold: paid at the ceremony (ledger category titles, GDD 4.19). reputation: the family's global reputation it needs. requires: businesses (operative workshops of the family), employees (hired by the family), event (a special event done; none exists yet: noble cannot be asked for). unlocks: max_buildings (own buildings, GDD 4.9; null = no limit; H6 applies it), vote and office_rank (H10). Contract: docs/contratos/h9_titulos.md."
+}

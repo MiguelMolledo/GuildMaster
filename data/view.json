@@ -15,6 +15,7 @@
   },
   "background": "#2b221b",
   "toast_seconds": 2.5,
+  "title_card_seconds": 8.0,
   "target_marker_seconds": 1.0,
   "buildings": {
     "_doc": "Marks of the buildings of state.buildings on the map (by type): sign and door colours. H4: sign_mode = \"hover\" shows the sign only while the mouse is over the building or it is picked (the houses: the town is not full of signs). The building itself is game/visuals/buildings/<type>.tscn.",
@@ -25,7 +26,8 @@
   "services": {
     "_doc": "H3 marks of the market stalls and the contract board on the map: sign colours (the stalls and the board are game/visuals/props/stall_<id>.tscn and board.tscn).",
     "stall_sign": "#d8c070",
-    "board_sign": "#c8a0d0"
+    "board_sign": "#c8a0d0",
+    "town_hall_sign": "#e8c060"
   },
   "ground_edges": {
     "_doc": "GroundLayer: where a tile of the kind (key) touches one of the listed kinds, its edge art (assets/art/tiles/<kind>_edge_<side>.png) is drawn on that side: the river's bank, the bridge's curb over the water. Remove a kind to drop its edges.",

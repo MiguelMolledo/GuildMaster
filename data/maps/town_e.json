@@ -107,6 +107,24 @@
    21
   ]
  },
+ "town_hall": {
+  "origin": [
+   17,
+   26
+  ],
+  "footprint": [
+   6,
+   4
+  ],
+  "tile": [
+   20,
+   26
+  ],
+  "service": [
+   20,
+   25
+  ]
+ },
  "buildings": {
   "player_forge": {
    "type": "forge",

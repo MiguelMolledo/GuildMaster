@@ -12,7 +12,7 @@ extends RefCounted
 ## (docs/contratos/h4_empleados.md); H5: buy_upgrade (docs/contratos/h5_mejoras.md); H8: court_talk, court_gift,
 ## propose, designate_heir, school_choice, assign_building, close_dynasty, set_schedule, set_directives
 ## (docs/contratos/h8_familia.md); H7: npc_talk, npc_gift, npc_flatter, npc_insult, npc_threaten, resolve_microevent
-## (docs/contratos/h7_ciudad.md). Each milestone adds
+## (docs/contratos/h7_ciudad.md); H9: request_title (docs/contratos/h9_titulos.md). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -114,6 +114,9 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return NpcActions.order(sim, order, "threaten")
 		"resolve_microevent":
 			return Microevents.order_resolve(sim, order)
+		# H9 · titles (sim/politics/titles.gd, docs/contratos/h9_titulos.md)
+		"request_title":
+			return Titles.order_request(sim, order)
 	return fail("unknown_order")
 
 
