@@ -299,6 +299,42 @@
       "tema": "H5 · balance D14 (provisional)",
       "decision": "«Ingresos brutos» de 4.19 = margen bruto (ventas + encargos − compras − recados). Cifras [balance]: demanda −0,1 → −0,04 por pieza y +0,1 → +0,4 por día; recetas ×1,3; mantenimiento de la Forja 2 → 20; salarios 1/3/6 → 7/20/40; velocidad de rango ×0,5/×1/×1,5 → ×1/×2/×3; carga 30 → 60 kg; oro de las mejoras ×5. artisan_expert (30 semillas, Normal): 71,9/día en días 9-24, sumideros 33 % del margen; novato 53,9/día; con 1 empleado +37 % en el año 3 frente a 0. El segundo empleado no compensa con un solo horno.",
       "por_que": "Decisión del manager (opción A) y medida con bots: con las cifras de H3 el dueño solo llenaba el mercado y un empleado no añadía nada."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Parcelas (H6)",
+      "decision": "Un solo precio (build_cost) que incluye el suelo en el MVP; precio por zona con el mapa EA. Demoler devuelve un 40 % fijo. No se puede demoler la única casa de la familia. Al comprar un edificio, los empleados del vendedor se van con él. No se pueden cancelar obras. Los días de obra de la forja los fija el balance de H6.",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Sucesión",
+      "decision": "La muerte del cabeza de familia pausa el juego hasta pulsar «Continuar» en la carta de sucesión (solo la vista).",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Cortejo",
+      "decision": "Del pretendiente se ven sus 2 atributos más altos como «destaca en», sin número.",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Elecciones",
+      "decision": "Sondeo por bandas (ventaja clara, reñido, por detrás) recalculado cada amanecer (consulta Elections.forecast).",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Tribunal (H11)",
+      "decision": "Vista oral interactiva: el acusado puede interrogar una vez a cada testigo en contra con una tirada de Retórica. Las pruebas del acusador se ven como «?» hasta la vista, y la vista pausa el juego.",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Interfaz",
+      "decision": "Panel de familias con la tecla G. Diseño de UI por pantalla en docs/ui (rama diseno-ui) con fuente Pixel Operator 16.",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
     }
   ],
   "pendientes": [
@@ -341,6 +377,12 @@
       "tema": "Estructura D · pintar el mapa en el editor de TileMap",
       "detalle": "Si sí, en H6 una herramienta Godot → JSON.",
       "opciones": "sí / no"
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Mejoras de edificios",
+      "decision": "El owner quiere que el panel de mejoras sea más visual (ver el edificio y sus piezas); revisar cuando haya créditos de PixelLab.",
+      "por_que": "Comentario del owner al aprobar el diseño de UI."
     }
   ],
   "proximos_pasos": [
