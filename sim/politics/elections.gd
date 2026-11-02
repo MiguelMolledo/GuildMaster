@@ -268,6 +268,7 @@ static func order_campaign(sim: Sim, o: Dictionary) -> Dictionary:
 			ok = bool(r["success"])
 			if not ok:
 				Reputation.change(sim, fam, int(a.get("scandal", -10)), "bribe_scandal")
+				Tribunal.add_fact(sim, "bribe_scandal", fam, actor)  # H11: a public fact that can be taken to court
 		"speech":
 			var r := SkillCheck.roll(sim, "speech|%s|%d" % [actor, today], SkillCheck.stat(sim, actor, "rhetoric"),
 				int(a.get("target_value", 5)))

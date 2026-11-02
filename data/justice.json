@@ -1,0 +1,53 @@
+{
+  "_doc": "The court (GDD 4.12.5, 4.8, 4.12.1, ap. A; docs/contratos/h11_tribunal.md) [balance]. charges: what one can be tried for and its severity (the GDD table's examples). sentences: what each severity costs (fine range in gold, ledger justice; confiscation = the goods of the implicated business's storage, until H6 brings property; office_loss = the office and one title down; banishment = banishment_days days out of the town) and its reputation. facts: the charge of each kind of fact (inspection: by the Secrets upgrade found: smuggling with illegal_profit, else tax_evasion). trial: witnesses [min, max]; disposition_band (relation with the accused minus relation with the accuser >= band: favor, <= -band: against); prep_days (1 season), hearing_hours; proofs of each source; the formula of ap. A; town_rhetoric (the town accuses with it when nobody holds the inspector's office); keep: closed trials kept. witness_actions: convince (rhetoric vs empathy), bribe (gold_base + gold_per_negotiation x the witness's negotiation; favor for sure; stealth vs empathy, a failure is a denunciation: extra charge), threaten (martial vs martial; failure: against and extra charge). cross: questioning a witness against at the hearing (rhetoric vs empathy): success it does not count, failure it counts double. accuse: the title to accuse; fabricating proofs (stealth vs target; failure: reputation and a fact against the accuser); false_reputation: the accuser of a fabricated case that ends innocent. judge: a verdict against the scale costs honesty and risks a scandal (stealth vs target). honesty: the attitude changes (GDD 4.2.3: manipulating trials -20; the rest provisional).",
+  "charges": {
+    "brawl": {"severity": "light", "name_key": "charge.brawl"},
+    "minor_fraud": {"severity": "light", "name_key": "charge.minor_fraud"},
+    "tax_evasion": {"severity": "medium", "name_key": "charge.tax_evasion"},
+    "smuggling": {"severity": "medium", "name_key": "charge.smuggling"},
+    "bribery": {"severity": "grave", "name_key": "charge.bribery"},
+    "corruption": {"severity": "grave", "name_key": "charge.corruption"},
+    "violent_crime": {"severity": "maximum", "name_key": "charge.violent_crime"},
+    "treason": {"severity": "maximum", "name_key": "charge.treason"}
+  },
+  "severities": ["light", "medium", "grave", "maximum"],
+  "sentences": {
+    "light": {"kind": "fine", "fine": [10, 50], "reputation": -10},
+    "medium": {"kind": "confiscation", "reputation": -30},
+    "grave": {"kind": "office_loss", "titles_down": 1, "reputation": -50},
+    "maximum": {"kind": "banishment", "reputation": -50}
+  },
+  "banishment_days": 8,
+  "facts": {
+    "inspection": "tax_evasion",
+    "inspection_smuggling": "smuggling",
+    "bribe_scandal": "bribery",
+    "witness_bribe": "bribery",
+    "witness_threat": "brawl",
+    "judge_scandal": "corruption",
+    "fabrication": "corruption",
+    "investigation": "tax_evasion"
+  },
+  "trial": {
+    "witnesses": [3, 5],
+    "disposition_band": 10,
+    "prep_days": 2,
+    "hearing_hours": 2,
+    "proofs": {"fact": 1, "inspection": 1, "fabricated": 1},
+    "rhetoric": 2,
+    "witness": 15,
+    "reputation": 0.1,
+    "proof": 20,
+    "town_rhetoric": 5,
+    "keep": 12
+  },
+  "witness_actions": {
+    "convince": {"stat": "rhetoric", "against": "empathy"},
+    "bribe": {"gold_base": 20, "gold_per_negotiation": 5, "stat": "stealth", "against": "empathy", "extra_charge": "bribery"},
+    "threaten": {"stat": "martial", "against": "martial", "extra_charge": "brawl"}
+  },
+  "cross": {"stat": "rhetoric", "against": "empathy"},
+  "accuse": {"min_title": "citizen", "fabricate": {"stat": "stealth", "target": 5, "fail_reputation": -50}, "false_reputation": -50},
+  "judge": {"manipulate_honesty": -20, "scandal": {"target": 5, "reputation": -20}},
+  "honesty": {"bribe": -5, "fabricate": -10, "manipulate": -20}
+}

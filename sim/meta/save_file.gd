@@ -212,6 +212,19 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 				data["market"] = market
 			if not (market as Dictionary).get("regulations") is Array:
 				market["regulations"] = []
+		10:  # 10 -> 11 (H11): the court (docs/contratos/h11_tribunal.md). Families: attitudes (GDD 4.2.3, all 0: what
+			# Inspections.honesty_of assumed until now). Characters: banished_until -1 (nobody banished). Root: trials
+			# (always empty until H11) as a list, and justice {facts: []}.
+			for f: Dictionary in (data.get("families", {}) as Dictionary).values():
+				if not f.get("attitudes") is Dictionary:
+					f["attitudes"] = {"honesty": 0, "generosity": 0, "diplomacy": 0}
+			for c: Dictionary in (data.get("characters", {}) as Dictionary).values():
+				if not c.has("banished_until"):
+					c["banished_until"] = -1
+			if not data.get("trials") is Array:
+				data["trials"] = []
+			if not data.get("justice") is Dictionary or not (data["justice"] as Dictionary).get("facts") is Array:
+				data["justice"] = {"facts": []}
 	return data
 
 

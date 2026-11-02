@@ -12,7 +12,7 @@
     "title": {"field": "title", "points": {"citizen": 25, "patrician": 75, "baron": 200, "noble": 500}},
     "office_won": {"field": "rank", "points": {"minor": 30, "middle": 60, "major": 120, "mayor": 250}},
     "office_year": {"field": "", "points": {"": 10}},
-    "sentence": {"field": "severity", "points": {"light": -30, "medium": -60, "grave": -150}}
+    "sentence": {"field": "severity", "points": {"light": -30, "medium": -60, "grave": -150, "maximum": -150}}
   },
   "wealth": {
     "_doc": "Patrimonio máximo alcanzado: +1 por cada gold_per_point de oro (el mayor wealth_peak de la crónica). Patrimonio = oro + valor de los edificios (build_cost de su tipo) y de sus mejoras terminadas (coste en oro). Cada amanecer, si el patrimonio supera el último pico en al menos step, la crónica apunta un wealth_peak.",

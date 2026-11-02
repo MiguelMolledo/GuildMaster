@@ -190,6 +190,14 @@ static func tax_percent(sim: Sim) -> int:
 	return 0
 
 
+## H11: the family's tax multiplier: the lowest tax_mult of its businesses (the Secrets «double accounting», GDD 4.8).
+static func _tax_mult(sim: Sim, fam: String) -> float:
+	var m := 1.0
+	for b: String in Titles.business_ids(sim, fam):
+		m = minf(m, Upgrades.mult(sim, b, "tax_mult"))
+	return m
+
+
 ## The organisation chart (GDD 4.12.4) for the UI: [{office, rank, min_title, salary, term_years, seats: [{holder,
 ## name, family, family_name, until, years_left, vacant}], election: {} | {id, day, campaign_day, candidates},
 ## election_day (the next vote if it is at the next year change, else -1)}].
@@ -317,7 +325,7 @@ static func _taxes(sim: Sim) -> void:
 	var fams: Array = sales.keys()
 	fams.sort()
 	for f: String in fams:
-		var tax := mini(roundi(float(sales[f]) * float(pct) / 100.0), Money.gold(st, f))
+		var tax := mini(roundi(float(sales[f]) * float(pct) / 100.0 * _tax_mult(sim, f)), Money.gold(st, f))
 		if tax > 0 and Money.change(sim, f, -tax, Money.TAXES, "tax_day_%d" % yday):
 			total += tax
 			sim.events.append({"type": "tax_collected", "family": f, "amount": tax, "sales": int(sales[f]), "percent": pct})
@@ -444,6 +452,8 @@ static func power_status(sim: Sim, actor: String, power: String, args: Dictionar
 		return "power_cooldown"
 	if not check_args:
 		return ""
+	if power in ["arrest", "investigate", "pardon", "preside_trial"]:  # H11: the court's powers
+		return Tribunal.power_reason(sim, actor, power, args)
 	var reg: Dictionary = sim.catalog.politics.get("regulation", {})
 	match power:
 		"regulate_price":
@@ -506,6 +516,8 @@ static func order_power(sim: Sim, o: Dictionary) -> Dictionary:
 			params.merge({"gold": amount})
 			if str(st.families[target].get("controlled_by", "")) == "human":
 				Notices.add(sim, target, Notices.WARNING, "notice.fined", params, actor)
+		"arrest", "investigate", "pardon", "preside_trial":  # H11
+			Tribunal.use_power(sim, actor, power, args)
 		"set_tax":
 			st.offices[office]["settings"]["tax_percent"] = int(args["percent"])
 			params.merge({"percent": int(args["percent"])})

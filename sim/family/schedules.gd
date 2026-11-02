@@ -56,7 +56,8 @@ static func step(sim: Sim) -> void:
 			continue
 		for m: Variant in (st.families[fam].get("members", []) as Array).duplicate():
 			var chr := str(m)
-			if Kin.alive(st, chr) and st.characters[chr].get("job") == null and Kin.is_adult(sim, chr):
+			if Kin.alive(st, chr) and st.characters[chr].get("job") == null and Kin.is_adult(sim, chr) \
+					and not Tribunal.is_banished(st, chr):  # H11: a banished member has no routine
 				_step_one(sim, chr, phase, now)
 
 

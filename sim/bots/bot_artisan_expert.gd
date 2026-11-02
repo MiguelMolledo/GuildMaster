@@ -24,6 +24,8 @@ extends BotArtisanNovice
 ##             office nor candidacy, it runs for the first minor office open (POLITICS_OFFICES) at the best level it
 ##             can pay keeping its reserve; as market inspector it regulates +10 % the price of its staff's product
 ##             (or swords) whenever the power is ready. Management orders: the H5/H9 play is the same until they fire.
+##   crook (H11, docs/contratos/h11_tribunal.md; only with crook = 1, the bot `crook`): the double accounting (Secrets 1)
+##             goes first in its upgrade plan; on trial, at the hearing it questions every witness against and rests.
 ## Wages and upkeep are charged by the sim at dawn. Choices at the start (bot_choices): none. tools/sim_runner.gd runs
 ## it as artisan_expert (max 2, the rule above) and artisan_expert_<n> (exactly n employees, to measure what they add).
 
@@ -54,6 +56,7 @@ var split_roles: bool = true         # with two employees: anvil + furnace (else
 var second_needs_furnace: bool = true  # a second employee only with a second furnace (forge_capacity_3)
 var max_employees: int = 2           # employees it hires at most (sim_runner: artisan_expert_<n> sets it)
 var asks_titles: int = 1             # H9: 0 = plays as in H5, never asks for a title (BOT_VARS=asks_titles=0)
+var crook: int = 0                   # H11: 1 = the bot crook (Secrets upgrades, defends itself at the hearing)
 var runs_office: int = 0             # H10: 1 = the bot politician (runs for minor offices, regulates prices)
 var counter_shop: int = 0            # H7 balance trial (BOT_VARS=counter_shop=1): buys the sales counter first and
                                      # puts its least skilled employee at it (GDD 4.5.4: customers come to the forge)
@@ -124,6 +127,9 @@ func _manage(sim: Sim) -> Array:
 	if not o.is_empty():
 		out.append(o)
 	o = _politics(sim)
+	if not o.is_empty():
+		out.append(o)
+	o = _court(sim)
 	if not o.is_empty():
 		out.append(o)
 	o = _queue(sim)
@@ -231,6 +237,21 @@ func _roles(sim: Sim) -> Dictionary:
 	for c: String in want:
 		if str(sim.state.characters[c]["job"].get("role", "")) != str(want[c]):
 			return {"type": "set_role", "actor": ACTOR, "employee": c, "role": want[c]}
+	return {}
+
+
+## H11 (crook = 1): at the hearing of its trial, question the next witness against, then rest the defense.
+func _court(sim: Sim) -> Dictionary:
+	if crook != 1:
+		return {}
+	var t := Tribunal.of_family(sim, _fam(sim))
+	if t.is_empty() or str(t["status"]) != "hearing":
+		return {}
+	for w: Dictionary in t["witnesses"]:
+		if Tribunal.cross_status(sim, ACTOR, str(t["id"]), str(w["character"])) == "":
+			return {"type": "trial_cross", "actor": ACTOR, "trial": str(t["id"]), "witness": str(w["character"])}
+	if Tribunal.hearing_status(sim, ACTOR, str(t["id"])) == "":
+		return {"type": "trial_rest", "actor": ACTOR, "trial": str(t["id"])}
 	return {}
 
 
@@ -366,7 +387,8 @@ func _upgrade_at_home(sim: Sim) -> Array:
 func _next_upgrade(sim: Sim) -> String:
 	if Upgrades.under_works(sim.state, FORGE) or _now(sim) < _works_end + WORKS_GAP_DAYS * Clock.MINUTES_PER_DAY:
 		return ""
-	var plan: Array = (["forge_commerce_1"] if counter_shop == 1 else []) + UPGRADE_PLAN
+	var plan: Array = (["forge_commerce_1"] if counter_shop == 1 else []) + (["forge_secrets_1"] if crook == 1 else []) \
+		+ UPGRADE_PLAN
 	for id: String in plan:
 		if id in STAFF_UPGRADES and _max_staff(sim) < int(STAFF_UPGRADES[id]):
 			continue  # a second anvil or another place only pay with that many employees

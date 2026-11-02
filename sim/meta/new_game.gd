@@ -78,6 +78,9 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 			rstats["craft"] = int(levers["rival_craft"])
 		var rfam := _add_family(s, str(rv.get("family_name", "")), "ai", rv.get("colors", {}), int(rv.get("gold", 0)),
 			0, str(rv.get("profile", "")))
+		var att: Dictionary = catalog.ai_profiles().get(str(rv.get("profile", "")), {}).get("initial_attitudes", {})
+		for k: String in att:  # H11: the rival's attitudes from its profile (04c, provisional)
+			s.families[rfam]["attitudes"][k] = int(att[k])
 		var rb: Dictionary = rv["building"]
 		var rsite: Dictionary = sites[str(rb["site"])]
 		var rchr := _add_character(s, catalog, rfam, str(rc.get("name", "")), bool(rc.get("female", false)), "ai",
@@ -198,6 +201,7 @@ static func _add_family(s: WorldState, name: String, ctrl: String, colors: Dicti
 		"gold": gold, "reputation": reputation, "ai_profile": profile, "ai_state": {}}
 	s.families[id].merge(Kin.family_fields("", "artisan"))  # H8: the head and founder is its first member
 	s.families[id].merge(Reputation.family_fields())  # H9: the common title, no class modifiers, an empty log
+	s.families[id]["attitudes"] = {"honesty": 0, "generosity": 0, "diplomacy": 0}  # H11 (GDD 4.2.3)
 	return id
 
 
@@ -214,7 +218,7 @@ static func _add_character(s: WorldState, catalog: Catalog, fam: String, name: S
 		"position": [int(pos[0]), int(pos[1])], "path": [], "move_progress": 0, "stats": stats.duplicate(),
 		"inventory": Inventory.create("weight", carry - worn), "equipment": eq, "location": "", "station": "",
 		"order_queue": [], "home": "", "rank": "", "job": null, "hire_bans": {}, "routine": {}, "occupation": "",
-		"town": {}}
+		"town": {}, "banished_until": -1}
 	var n := id.get_slice("_", 1).to_int()  # H8: tones and age until _set_kin gives the real ones
 	s.characters[id].merge(Kin.character_fields(Kin.birth_day_for(SaveFile.MIGRATION_AGE, int(s.clock["minute"]),
 		catalog.time), "artisan", "", n % int(catalog.family.get("visual", {}).get("hair_tones", 6)),

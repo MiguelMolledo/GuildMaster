@@ -297,6 +297,10 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["choice"] = t_(str(p["choice"]))
 	if p.has("title"):  # H9: a social title id
 		p["title"] = title_name(str(p["title"]))
+	if p.has("charge"):  # H11: a charge id
+		p["charge"] = t_("charge." + str(p["charge"]))
+	if str(p.get("accuser", "")) == "@town":  # H11: the town accuses
+		p["accuser"] = t_("trial.town")
 	if p.has("office"):  # H10: an office id
 		p["office"] = office_name(str(p["office"]))
 	return t_(str(n.get("key", ""))).format(p)

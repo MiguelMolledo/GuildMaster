@@ -26,7 +26,11 @@ extends RefCounted
 ## registers the actor for the first office of office_rule.offices whose election is open and that its title allows,
 ## when it can pay the level and keep office_rule.spare_gold, and nobody of the family holds or runs for an office
 ## (run_for_office, a management order: no walk; docs/contratos/h10_cargos.md). No campaign actions.
-## ai_state: {phase, plan: [task], recipe, bought_day, last_order, last_fp}.
+## H11 [provisional, until 04c is approved]: with the profile's accuse_rule.accuses, the task "accuse" (first) accuses
+## the head of the player's family with a public fact not yet tried against it or, only if the family's honesty is at
+## most fabricate_max_honesty, with fabricated proofs (its stealth check); never in the first protect_days days, then
+## once every cooldown_days (ai_state.accused_day). It does not defend itself in a trial (04c).
+## ai_state: {phase, plan: [task], recipe, bought_day, last_order, last_fp, accused_day}.
 
 const WAIT: Dictionary = {"_wait": true}  # task goes on, no order this minute
 const EPS: float = 0.000001
@@ -46,7 +50,7 @@ static func orders(sim: Sim) -> Array:
 			continue
 		var actor := _actor(sim, f)
 		var home := _home(sim, fam)
-		if actor == "" or home == "":
+		if actor == "" or home == "" or Tribunal.is_banished(sim.state, actor):  # H11: a banished rival waits
 			continue
 		var o := _think(sim, fam, actor, home, profile)
 		if not o.is_empty():
@@ -103,6 +107,8 @@ static func _decide(sim: Sim, fam: String, actor: String, home: String, profile:
 	ai["recipe"] = choose_recipe(sim, actor, home)
 	var work := ph in (profile.get("work_phases", ["day"]) as Array)
 	var plan: Array = []
+	if ph != Production.NIGHT and not accusation(sim, fam, actor, profile).is_empty():
+		plan.append("accuse")
 	if ph != Production.NIGHT and office_to_run(sim, fam, actor, profile) != "":
 		plan.append("office")
 	if ph != Production.NIGHT and wants_title(sim, fam, profile):
@@ -160,6 +166,11 @@ static func _task(sim: Sim, task: String, fam: String, actor: String, home: Stri
 			return _t_home(sim, actor, home)
 		"title":
 			return _t_title(sim, fam, actor, profile)
+		"accuse":
+			var o := accusation(sim, fam, actor, profile)
+			if not o.is_empty():
+				ai["accused_day"] = Clock.day(_now(sim))
+			return o
 		"office":
 			var office := office_to_run(sim, fam, actor, profile)
 			if office == "":
@@ -168,6 +179,36 @@ static func _task(sim: Sim, task: String, fam: String, actor: String, home: Stri
 				"level": str(profile.get("office_rule", {}).get("level", "basic"))}
 		"work":
 			return _t_work(sim, fam, actor, home, profile, ai)
+	return {}
+
+
+## H11: the accuse order the family would give now ({} = none): against the head of the human family, with a public
+## fact not yet tried against it (real_facts) or, if the family's honesty <= fabricate_max_honesty, fabricated.
+static func accusation(sim: Sim, fam: String, actor: String, profile: Dictionary) -> Dictionary:
+	var rule: Dictionary = profile.get("accuse_rule", {})
+	if not bool(rule.get("accuses", false)):
+		return {}
+	var today := Clock.day(_now(sim))
+	if today < int(rule.get("protect_days", 8)):
+		return {}
+	var last := int(sim.state.families[fam].get("ai_state", {}).get("accused_day", -100000))
+	if today < last + int(rule.get("cooldown_days", 8)):
+		return {}
+	var fams: Array = sim.state.families.keys()
+	fams.sort()
+	for f: String in fams:
+		if str(sim.state.families[f].get("controlled_by", "")) != "human":
+			continue
+		var target := Kin.head(sim.state, f)
+		if target == "" or Tribunal.accuse_status(sim, actor, target, "", "", false) != "":
+			continue
+		if bool(rule.get("real_facts", true)):
+			var facts := Tribunal.facts_against(sim, f)
+			if not facts.is_empty():
+				return {"type": "accuse", "actor": actor, "target": target, "fact": str(facts[0]["id"])}
+		if Tribunal.honesty(sim, fam) <= int(rule.get("fabricate_max_honesty", -30)):
+			return {"type": "accuse", "actor": actor, "target": target, "fabricate": true,
+				"charge": str(rule.get("fabricate_charge", "minor_fraud"))}
 	return {}
 
 

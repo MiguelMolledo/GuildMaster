@@ -59,6 +59,7 @@ func step(orders: Array = []) -> Array:
 	Births.step(self)       # H8: at dawn, children of the married couples
 	Emotions.step(self)     # H7: every hour, emotions that faded end
 	Offices.step(self)      # H10: the government, deaths free seats, elections at the year change, salaries and taxes
+	Tribunal.step(self)     # H11: automatic trials after inspections, preparation -> hearing -> verdict, banishments
 	Reputation.step(self)   # H9: reputation from the events of the step (trade, wages, townsfolk); passive at dawn
 	Dynasty.step(self)      # H8: at dawn, wealth peaks and dynasty goals (chronicle)
 	Objectives.step(self)   # reads the events of the step: after every system that emits
@@ -85,6 +86,10 @@ func _give(o: Dictionary) -> void:
 
 
 func _apply_now(o: Dictionary) -> void:
+	if Tribunal.is_banished(state, str(o.get("actor", ""))):  # H11: a banished character does not act in the town
+		events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),
+			"reason": "banished"})
+		return
 	var r := Orders.apply(self, o)
 	if not r["ok"]:
 		events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),

@@ -44,17 +44,22 @@ extends SceneTree
 ## days + 1 if never), elections_run / elections_won (its candidacies and seats won), ai_office_runs / ai_ran (the AI
 ## families with a profile register for an election), ai_offices_won, e.g. --start=artisan_blacksmith
 ## --bots=politician --days=40 --seeds=10.
+## H11 (docs/contratos/h11_tribunal.md): trials (against the player's family), trial_day (the first; days + 1 if
+## never), guilty, inspected (inspections that caught it), ai_accusations (trials opened by an AI family with a
+## profile) and ai_accusations_bad (one with no fact that is not a fabrication allowed by its honesty), e.g.
+## --start=artisan_blacksmith --bots=crook --days=40 --seeds=10.
 
 var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
 	"random_clicker": BotRandomClicker, "idle_rival": BotIdle, "artisan_novice": BotArtisanNovice,
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
-	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert}
+	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
 	# expert_titles: artisan_expert with the title targets (H9, 96 days); idle_titles: idle, the AI's titles (80 days)
 	# politician: artisan_expert that runs for minor offices (H10, runs_office = 1, 40 days)
+	# crook: artisan_expert with the Secrets upgrade that ends in court (H11, crook = 1, 40 days)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
 const YEAR_DAYS: int = 8  # D1(b): 1 year = 8 days
@@ -112,6 +117,8 @@ func _init() -> void:
 				var bot: Object = BOTS[bot_id].new()
 				if bot_id == "politician":
 					bot.set("runs_office", 1)
+				if bot_id == "crook":
+					bot.set("crook", 1)
 				if bot_id.begins_with("artisan_expert_"):
 					bot.set("max_employees", bot_id.substr(15).to_int())
 					bot.set("second_needs_furnace", false)  # exactly n: what each employee adds
@@ -227,6 +234,9 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 	for k: String in ["office_won", "elections_run", "elections_won", "ai_office_runs", "ai_offices_won", "ai_ran"]:  # H10
 		m[k] = 0
 	m["office_won_day"] = days + 1
+	for k: String in ["trials", "tried", "guilty", "ai_accusations", "ai_accusations_bad", "inspected"]:  # H11
+		m[k] = 0
+	m["trial_day"] = days + 1
 	for i: int in days * Clock.MINUTES_PER_DAY:
 		for e: Dictionary in sim.step(bot.orders(sim)):
 			match str(e["type"]):
@@ -290,6 +300,30 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 						m["ai_ran"] = 1
 						print("  [%s seed %d] día %d: la familia IA %s se presenta a %s" % [bot_id, s,
 							Clock.day(int(sim.state.clock["minute"])) - Clock.day(start_minute) + 1, fe, e["office"]])
+				"trial_opened":  # H11 (GDD 4.12.5)
+					var dt := Clock.day(int(sim.state.clock["minute"])) - Clock.day(start_minute) + 1
+					var afm := str(e.get("accuser_family", ""))
+					if str(e.get("family", "")) == player:
+						if int(m["trials"]) == 0:
+							m["trial_day"] = dt
+						m["tried"] = 1
+						m["trials"] = int(m["trials"]) + 1
+						print("  [%s seed %d] día %d: juicio por %s (%s)" % [bot_id, s, dt, e["charge"], e["source"]])
+					if str(e.get("source", "")) == "accusation" and str(sim.state.families.get(afm, {}).get("ai_profile",
+							"")) != "":
+						m["ai_accusations"] = int(m["ai_accusations"]) + 1
+						var tr := Tribunal.trial(sim.state, str(e["trial"]))
+						var fab_ok := Tribunal.honesty(sim, afm) <= int(sim.catalog.ai_profiles().get(str(
+							sim.state.families[afm]["ai_profile"]), {}).get("accuse_rule", {}).get("fabricate_max_honesty", -30))
+						if (bool(tr.get("fabricated", false)) and not fab_ok) or (not bool(tr.get("fabricated", false))
+								and str(tr.get("fact", "")) == ""):
+							m["ai_accusations_bad"] = int(m["ai_accusations_bad"]) + 1
+				"trial_verdict":
+					if str(e.get("family", "")) == player and str(e.get("verdict", "")) == "guilty":
+						m["guilty"] = int(m["guilty"]) + 1
+				"inspection":
+					if str(e.get("family", "")) == player and bool(e.get("caught", false)):
+						m["inspected"] = int(m["inspected"]) + 1
 				"office_taken":
 					var fo := str(e.get("family", ""))
 					var dplayed := Clock.day(int(sim.state.clock["minute"])) - Clock.day(start_minute) + 1
@@ -583,7 +617,7 @@ func _brief(agg: Dictionary) -> String:
 	for key: String in ["gold_day3", "gold_repaid_day3", "gold_day10", "net_day_1_8", "net_day_9_24", "sink_share_9_24",
 			"net_year_1", "net_year_2", "net_year_3", "hired", "upgrades_bought", "prod_gain_error", "debt_paid",
 			"debt_paid_day", "rival_gold_day10", "title_citizen_day", "title_patrician_day", "reputation", "ai_title_ups", "office_won", "office_won_day",
-			"ai_office_runs"]:
+			"ai_office_runs", "trials", "trial_day", "guilty"]:
 		if agg.has("mean_" + key):
 			parts.append("%s %s [%s-%s]" % [key, agg["mean_" + key], agg["min_" + key], agg["max_" + key]])
 	return ", ".join(parts)

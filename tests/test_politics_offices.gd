@@ -136,7 +136,7 @@ func test_fine_and_powers_that_come_later() -> void:
 	eq(Offices.power_status(sim, HERO, "fine_merchant", {"family": home}), "not_a_merchant", "a household has no business")
 	eq(Offices.power_status(sim, HERO, "fine_merchant", {"family": FAM}), "bad_args", "not one's own family")
 	var judge: String = Offices.holders(sim, "judge")[0]
-	eq(Offices.power_status(sim, judge, "pardon", {}), "power_not_ready", "pardons come with the court (H11)")
+	eq(Offices.power_status(sim, judge, "pardon", {}), "not_banished", "H11: pardons are ready (nobody banished)")
 	eq(Offices.power_status(sim, RIVAL, "regulate_price", {}), "not_office_holder", "no office, no powers")
 	eq(Offices.power_status(sim, HERO, "set_tax", {"percent": 10}), "unknown_power", "not an inspector's power")
 	var ps := Offices.powers(sim, HERO)
