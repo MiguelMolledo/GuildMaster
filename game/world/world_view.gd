@@ -153,6 +153,7 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 			_props[t] = p
 			n_blocks += 1
 	n_blocks += _add_filler(filler)
+	n_blocks += _add_border_trees()
 	_add_town_decor(s.map_id)
 	_add_services()
 	var ids: Array = s.characters.keys()
@@ -195,7 +196,12 @@ func _add_buildings() -> Dictionary:
 				tiles[t] = true
 				top += Iso.tile_to_world(t)
 		top /= maxf(1.0, float(int(f[0]) * int(f[1])))
-		var visual := VisualPaths.instantiate("buildings", str(b.get("type", "")))
+		var scene_id := str(b.get("type", ""))
+		var variants: Dictionary = ViewConfig.value("building_variants", {})
+		if variants.get(scene_id) is Array and not (variants[scene_id] as Array).is_empty():
+			var looks_of: Array = variants[scene_id]  # one of the type's looks, by its origin tile (same every game)
+			scene_id = str(looks_of[_tile_hash(Vector2i(int(o[0]), int(o[1]))) % looks_of.size()])
+		var visual := VisualPaths.instantiate("buildings", scene_id)
 		var greybox := visual.get_node_or_null("Greybox")
 		if greybox != null and greybox.has_method("apply_footprint"):
 			greybox.call("apply_footprint", Vector2i(int(f[0]), int(f[1])))
@@ -465,6 +471,38 @@ static func _tile_hash(t: Vector2i) -> int:
 	h = (h ^ (h >> 13)) * 1274126177
 	h = h ^ (h >> 16)
 	return absi(h) % 1000003
+
+
+## The trees of the map border (data/view.json "map_border", the ring GroundLayer draws around the map): on its
+## ground tiles from `tree_from` out, with a chance growing towards the outer edge, darkened like the ground under them.
+## Purely visual and outside the grid (no clicks, no paths). The same every game (by tile).
+func _add_border_trees() -> int:
+	var cfg: Dictionary = ViewConfig.value("map_border", {})
+	var trees: Array = cfg.get("trees", [])
+	var ring := int(cfg.get("tiles", 0))
+	if trees.is_empty() or ring <= 0:
+		return 0
+	var ground := str(cfg.get("ground", "grass"))
+	var from := int(cfg.get("tree_from", 3))
+	var dens: Array = cfg.get("tree_density", [0.2, 0.7])
+	var n := 0
+	for cell: Array in ground().border_cells():
+		var d := int(cell[3])
+		if str(cell[1]) != ground or d < from:
+			continue
+		var t: Vector2i = cell[0]
+		var k := float(d - from) / maxf(1.0, float(ring - from))
+		var chance := lerpf(float(dens[0]), float(dens[1]), k)
+		if float(_tile_hash(t) % 1000) / 1000.0 >= chance:
+			continue
+		var p := VisualPaths.instantiate("props", str(trees[_tile_hash(t * 7 + Vector2i(3, 1)) % trees.size()]))
+		VisualPaths.place(p, Iso.tile_to_world(t) + Vector2(float(_tile_hash(t) % 13) - 6.0, float(_tile_hash(t) % 7) - 3.0))
+		p.modulate = cell[2]
+		p.name = "border_tree_%d_%d" % [t.x + 100, t.y + 100]
+		objects().add_child(p)
+		n += 1
+	ViewConfig.info("WorldView", "map border: %d trees" % n)
+	return n
 
 
 ## The hand-placed decoration of the map (game/visuals/towns/<map id>.tscn: barrels, benches, carts... placed in the

@@ -12,6 +12,7 @@ Reads the originals from the guild repo (read only) and writes copies into asset
           furrows.png             a ploughed tile for the vegetable plots
   board   board.png               the contract board: the frame of the shop sign on two posts, with pinned notes
   icons   icons/small/<id>.png    16×16 versions of the 32×32 item icons for the UI lists (10 px font)
+  houses  buildings/house_e.png, house_f.png  recoloured copies of house_a / house_c (slate + whitewash, clay + ochre)
 Re-running overwrites the outputs. Never writes into the guild repo.
 """
 import argparse
@@ -217,7 +218,31 @@ def icons(_guild):
              f"icons/small/{iid}.png")
 
 
-JOBS = {"tiles": tiles, "props": props, "board": board, "icons": icons}
+def houses(_guild):
+    """Two more filler houses by recolouring local copies (style bible: clay tiles and slate roofs, whitewash, ochre):
+    house_e = house_a with a slate roof and whitewashed walls; house_f = house_c with brown clay tiles and ochre
+    plaster."""
+    def slate_whitewash(h, s, v):
+        if s > 0.25 and (h >= 312 or h < 14):          # red clay roof -> blue grey slate
+            return 214.0, s * 0.32, v * 0.92
+        if 36 <= h < 60 and s > 0.2 and v > 0.55:        # yellow plaster -> whitewash
+            return 40.0, s * 0.28, min(1.0, v * 1.06)
+        return h, s, v
+
+    def clay_ochre(h, s, v):
+        if s > 0.2 and (h >= 318 or h < 8):             # crimson roof and trim -> brown clay
+            return 20.0, s * 0.85, v * 0.95
+        if 32 <= h < 60 and s > 0.12 and v > 0.6:        # pale plaster -> ochre
+            return 38.0, min(1.0, s * 1.8 + 0.1), v * 0.97
+        return h, s, v
+
+    a = Image.open(os.path.join(ART, "buildings", "house_a.png")).convert("RGBA")
+    c = Image.open(os.path.join(ART, "buildings", "house_c.png")).convert("RGBA")
+    save(remap(a, slate_whitewash), "buildings/house_e.png")
+    save(remap(c, clay_ochre), "buildings/house_f.png")
+
+
+JOBS = {"tiles": tiles, "props": props, "board": board, "icons": icons, "houses": houses}
 
 
 def main():

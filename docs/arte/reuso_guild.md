@@ -246,3 +246,14 @@ izquierda). Sin créditos. `--preview DIR` deja una hoja ampliada para revisar.
 | Iconos espada y aguja (16 px) | Redibujados píxel a píxel | `icons/small/` |
 
 Sigue en greybox: la guardia contratada (es un personaje), los visuales de mejoras del interior y los campos.
+
+## Cuarta tanda (mejoras del interior, borde del mapa, más casas)
+
+| Qué | Cómo | Dónde |
+|---|---|---|
+| Fuelle, tina de temple, pila de temple, banco de grabado, sello de maestro, libro doble, estanterías, mostrador de venta | Dibujados con cajas isométricas (`tools/art/dibujar_mejoras.py`) | `Upgrades/<nodo>/Sprite` de `interiors/forge.tscn` |
+| Forja de maestro, pasadizo oculto, caja fuerte, literas, comedor, banco de maestro, alijo | `workzone_horno_sw`, `hidden_passage`, `safe_box`, `dormitory_bed`, `dining_table`, `anvil` de guild; el alijo con cajas, barril y saco del pueblo | ídem |
+| Borde del mapa | Anillo de 9 casillas fuera de la rejilla: hierba que se oscurece hacia el fondo (con algo de ruido para que no salgan franjas), calles y río que siguen hacia fuera, bosque que se espesa | `map_border` en `data/view.json`; `GroundLayer` + `WorldView._add_border_trees` |
+| Casas `house_e` y `house_f` | Recoloreo de `house_a` (pizarra + encalado) y `house_c` (barro marrón + ocre) | solares `lot_house_e/f`; vecinos `buildings/house_slate`, `house_ochre`, `house_tall` (`building_variants`) |
+
+Los segundos puestos (`anvil_2`, `furnace_2`) ya salían con su sprite (son la escena del puesto).
