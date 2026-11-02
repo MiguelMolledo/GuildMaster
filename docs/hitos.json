@@ -334,20 +334,20 @@
     {
       "id": "H9",
       "nombre": "Reputación y títulos",
-      "estado": "pendiente",
+      "estado": "hecho",
       "entregable": "Reputación global y por clase, ganancias pasivas, ceremonia en el Ayuntamiento, títulos que abren límites. IA rival pide títulos.",
       "criterios": [
         {
           "texto": "Bot `artisan_expert` llega a Patricio en su diana",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "diana expert_titles: 10 de 10 semillas llegan a Patricio, de media el día 60,6 (años 7-9)",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Al menos una familia IA sube de título en un sim de 10 años",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "diana idle_titles: el rival llega a Ciudadano en 10 de 10 semillas (días 24-40)",
+          "fecha": "2026-11-02"
         }
       ]
     },

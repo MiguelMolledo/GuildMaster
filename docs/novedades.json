@@ -1,6 +1,29 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "H9 · Reputación y títulos: el Ayuntamiento",
+    "que": "Reputación global y por clase que sube y baja con lo que haces (comercio justo, calidad, salarios pagados, encargos, cómo tratas a los vecinos). Ayuntamiento en el mapa: muestra tu título, los requisitos del siguiente (cumplidos o no) y lo que abre; se pide con oro y hay ceremonia. El título se ve en el HUD. El herrero rival también pide títulos (regla mínima en datos, sin los módulos de 04c). El bot experto llega a Patricio en 10 de 10 semillas (día 60 de media); el rival llega a Ciudadano.",
+    "como_probar": "jugar.command; clic derecho en el Ayuntamiento. Escenario title_ready. Bots: --bots=expert_titles --days=96 --seeds=10 (~17 min).",
+    "capturas": [
+      "docs/novedades/h9_ayuntamiento.png",
+      "docs/novedades/h9_ayuntamiento_patricio.png",
+      "docs/novedades/h9_ceremonia.png",
+      "docs/novedades/h9_reputacion.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
+    "titulo": "Personajes con sprite y colores de familia; la ciudad suena",
+    "que": "Familia, rivales, empleados y vecinos usan los personajes de Guild Renew en 8 direcciones (quieto, andar, trabajar, martillar, morir). Un shader pinta pelo y piel heredados y los colores de cada familia, así que la identidad de H8 se mantiene. Miran hacia donde caminan y martillan en horno y yunque. Burbujas y nombres por encima de todo. Los dados y saludos de los vecinos suenan donde ocurren (audio posicional) y la venta de mostrador ya no suena doble.",
+    "como_probar": "jugar.command; a las 20:00, la plaza. Para volver al greybox: ocultar Sprite y mostrar Greybox en la escena del personaje.",
+    "capturas": [
+      "docs/novedades/personajes_plaza_atardecer.png",
+      "docs/novedades/personajes_forja_trabajando.png",
+      "docs/novedades/personajes_mapa_dia.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "H7 · Ciudad viva: vecinos con casa, oficio, rutina y emociones",
     "que": "16 vecinos con casa, oficio y rutina: de día trabajan, al atardecer se juntan en la plaza (bancos, mesa de dados, burbujas y frases) y de noche todos en casa. Cuatro emociones dirigidas a tu familia: un tendero cabreado cobra un 25 % más. Cinco acciones sobre vecinos desde su ficha. Clientes que entran al mostrador. Tres microeventos (cliente que regatea, empleado enfermo, ladrón nocturno) con opción por defecto a las 2 h; la Seguridad frustra al ladrón. La población se renueva (bodas, hijos, llegadas): 16-20 vecinos durante 60 años. Mostrador al precio del mercado; experto 65,9 oro/día, novato 51,3. Suenan murmullo, dados, saludos, tos, regateo y alarma.",
     "como_probar": "jugar.command; a las 20:00 mira la plaza. Escenarios plaza_dusk y town_microevents. Bot: --bots=idle_town --days=30.",
