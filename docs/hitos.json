@@ -296,37 +296,37 @@
     {
       "id": "H8",
       "nombre": "Familia y herencia",
-      "estado": "en_curso",
+      "estado": "hecho",
       "entregable": "Cortejo, matrimonio, hijos, crecimiento, grupo 1-2-3, retratos, árbol genealógico, herencia, Game Over, directiva Trabajar. Rutina programable (4.10.8). Identidad visual por paleta y rasgos heredables (4.10.9). Puntuación de dinastía, metas y pantalla final (4.17). Módulo de familia de la IA rival.",
       "criterios": [
         {
           "texto": "Bot `dynasty` llega a heredar dentro de su diana (generación ~200 días; primer hijo ~1,5 años tras la boda)",
           "estado": "hecho",
-          "prueba": "Rama h8-familia (bf8c703), pendiente de juntar con main",
+          "prueba": "Juntado en main; bot dynasty 3 semillas × 320 días: hereda en las 3 (días 168-200), 0 rechazos",
           "fecha": "2026-11-02"
         },
         {
           "texto": "Game Over sin heredero con la puntuación desglosada",
           "estado": "hecho",
-          "prueba": "Rama h8-familia (bf8c703), pendiente de juntar con main",
+          "prueba": "Juntado en main; bot dynasty 3 semillas × 320 días: hereda en las 3 (días 168-200), 0 rechazos",
           "fecha": "2026-11-02"
         },
         {
           "texto": "La partida sigue con el heredero",
           "estado": "hecho",
-          "prueba": "Rama h8-familia (bf8c703), pendiente de juntar con main",
+          "prueba": "Juntado en main; bot dynasty 3 semillas × 320 días: hereda en las 3 (días 168-200), 0 rechazos",
           "fecha": "2026-11-02"
         },
         {
           "texto": "Test: con rutinas, 3 personajes trabajan un día entero sin órdenes manuales y una orden manual la interrumpe y luego se retoma",
           "estado": "hecho",
-          "prueba": "Rama h8-familia (bf8c703), pendiente de juntar con main",
+          "prueba": "Juntado en main; bot dynasty 3 semillas × 320 días: hereda en las 3 (días 168-200), 0 rechazos",
           "fecha": "2026-11-02"
         },
         {
           "texto": "Captura del árbol donde la familia se reconoce por sus colores y los hijos llevan el pelo o la piel de un padre",
           "estado": "hecho",
-          "prueba": "Rama h8-familia (bf8c703), pendiente de juntar con main",
+          "prueba": "Juntado en main; bot dynasty 3 semillas × 320 días: hereda en las 3 (días 168-200), 0 rechazos",
           "fecha": "2026-11-02"
         }
       ]

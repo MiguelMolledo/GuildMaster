@@ -1,6 +1,17 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "H8 · Familia y herencia: casarse, tener hijos y heredar",
+    "que": "En la rama h8-familia: envejecer y morir, cortejo, boda, hijos, herencia (con regente si el heredero es menor), Game Over con puntuación desglosada, grupo controlable 1-2-3, rutina programable, árbol genealógico (F) con retratos que heredan pelo y piel, y la familia rival que también se casa. Bot dynasty: 320 días × 3 semillas, hereda en las tres, 0 órdenes rechazadas. 380 pruebas en verde tras juntar el pulido de H5. Teclas: 1-2-3 eligen familiar; velocidad con Mayús+1/2/3. D19 (cierre voluntario) hecho pero apagado.",
+    "como_probar": "jugar.command. F abre el árbol; 1-2-3 eligen familiar (velocidad con Mayús+1/2/3); I → Rutina. Escenarios founder_old (fundador de 60 con heredero) y founder_no_heir (Game Over). Bot: sim_runner --scenario=dynasty_start --bots=dynasty --days=320 --seeds=3 (~8 min por semilla).",
+    "capturas": [
+      "docs/novedades/h8_arbol.png",
+      "docs/novedades/h8_game_over.png",
+      "docs/novedades/h8_rutina.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "Audio · el juego ya suena (ElevenLabs)",
     "que": "Música en bucle de día (laúd, flauta y fídula) y de noche (laúd y zanfona), ambientes de plaza, noche e interior de la forja, efectos con variantes (martillo, monedas, puerta, fuelle) y sonidos para contratar, mejora terminada, encargo entregado, avisos, deudas y objetivos. 5 frases de voz en castellano generadas (aún sin enganchar). Gasto real: 4.010 créditos de los 20.000 autorizados (detalle en assets/audio/MANIFEST.md). Pendiente: que el owner lo escuche; está en estado «generado», no «final».",
     "como_probar": "/opt/homebrew/bin/godot --path ~/Code/GuildMaster (sin --audio-driver Dummy). Entra en la forja para oír su ambiente; con -- --at=22:00 suena la noche. Volúmenes en data/audio.json o en los buses.",
@@ -22,13 +33,6 @@
     "titulo": "H5 · Balance: los empleados y las mejoras ya dan dinero",
     "que": "Nuevo bot artisan_expert: salda la deuda, contrata, reparte puestos, llena la cola, compra mejoras y vende, solo con órdenes reales. Con las cifras de H3 un empleado no añadía nada (el dueño ya llenaba el mercado). Rebalanceo D14 (provisional): la demanda cae 0,04 por pieza y se recupera 0,4 al día, recetas ×1,3, mantenimiento de la forja 20, salarios 7/20/40, velocidad de rango ×1/×2/×3, carga 60 kg y mejoras ×5. Resultado con 30 semillas: experto 71,9 oro/día en Normal (diana 60-150), sumideros 33 % del margen, novato 53,9 (diana 25-60). Con 1 empleado se gana un 37 % más en el año 3; con 2 se pierde hasta tener segundo horno.",
     "como_probar": "godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --difficulty=normal --bots=artisan_expert --days=24 --seeds=30 (~15 min). Probar cifras sin tocar data/: --set=<tabla>.<id>.<clave>=<json>.",
-    "capturas": []
-  },
-  {
-    "fecha": "2026-11-02",
-    "titulo": "H8 · Familia y herencia (en su rama, pendiente de juntar)",
-    "que": "En la rama h8-familia: envejecer y morir, cortejo, boda, hijos, herencia (con regente si el heredero es menor), Game Over con puntuación desglosada, grupo controlable 1-2-3, rutina programable, árbol genealógico (F) con retratos que heredan pelo y piel, y la familia rival que también se casa. Bot dynasty: 320 días × 3 semillas, hereda en las tres, 0 órdenes rechazadas. 380 pruebas en verde tras juntar el pulido de H5. Teclas: 1-2-3 eligen familiar; velocidad con Mayús+1/2/3. D19 (cierre voluntario) hecho pero apagado.",
-    "como_probar": "Se junta con main cuando cierre el balance de H5. Mientras: /opt/homebrew/bin/godot --path ~/Code/GuildMaster-h8 (escenario founder_old o dynasty_start).",
     "capturas": []
   },
   {
