@@ -37,6 +37,9 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Paneles de la UI | `game/ui/<panel>.tscn`; colores y fuentes comunes en `game/ui/greybox_theme.tres` |
 | Colores de las marcas (letreros, puertas, barras, día/noche) y zoom | `data/view.json` |
 | Suelo del mapa | Textura por tipo de casilla en `assets/art/tiles/<tipo>.png` (`grass`, `street`, `plaza`, `dirt`…); sin PNG, el color de `data/tiles.json` (`color`) |
+| Orilla del río, bordillo del puente | `ground_edges` en `data/view.json` (qué tipos de casilla bordea cada uno) y `assets/art/tiles/<tipo>_edge_<ne\|se\|sw\|nw>.png` |
+| Árboles (y otros props con varios aspectos) | `props/tree.tscn`, `tree_round.tscn`, `tree_pine.tscn`; cuál sale en cada casilla, `prop_variants` en `data/view.json` |
+| Suelo y paredes de un interior | Grupo *Art* del nodo `Kit` de `game/visuals/interiors/<tipo>.tscn` (suelo, pared ne/nw, pared con puerta ne/nw); vacíos = colores greybox |
 | Ayuda en pantalla (F1 / «?») | Textos `help.*` de `i18n/strings.csv` (una línea por clave; el orden, en `LINES` de `game/ui/help_panel.gd`); aspecto en `game/ui/help_panel.tscn` |
 | Pista «cómo» del objetivo | `objective_how.<id del objetivo>` en `i18n/strings.csv` (`objective_how.free` cuando ya no quedan objetivos) |
 | Encuadre del interior | `interior.zoom` (entero) y `interior.center_offset` (píxeles) en `data/view.json` |
@@ -127,7 +130,8 @@ edificio o un puesto, en el `Greybox` de su escena.
 2. Mueve el `Marker2D` del puesto (`Stations/anvil`…): su nombre es el id del puesto. Déjalo en el centro de una
    casilla (la vista lo redondea a la casilla para los clics).
 3. Los puestos que añaden las mejoras (`anvil_2`, `furnace_2`) ya tienen su marcador: solo salen cuando la mejora está hecha.
-4. Tamaño de la sala y puerta: el nodo `Kit` (*size*, *door*, colores, alto de pared).
+4. Tamaño de la sala y puerta: el nodo `Kit` (*size*, *door*, colores, alto de pared). Su grupo *Art* lleva las
+   texturas del suelo y de las paredes; si las vacías, vuelven los colores.
 
 ### El visual de una mejora
 Bajo `Upgrades` del interior (`interiors/forge.tscn`) o del exterior (`buildings/forge.tscn`) hay un nodo oculto por

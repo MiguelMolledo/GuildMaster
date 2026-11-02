@@ -199,16 +199,29 @@
     {
       "id": "int_forge",
       "tipo": "interior",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H2",
         "forge"
       ],
       "ruta": "assets/art/interiors/forge/",
-      "origen": null,
+      "origen": "guild-renew + dibujado (Pillow)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Kit modular de interior (suelo, paredes, horno, yunque, mostrador, almacén). Suelo y paredes en greybox (GreyboxKit). Puestos con sprite de Guild Renew, sin coste: assets/art/interiors/forge/{furnace,anvil,storage,counter}.png en game/visuals/stations/ (docs/arte/reuso_guild.md)."
+      "notas": "Kit del interior de la forja: suelo floor.png (losas de guild:tiles/stone_floor_flat/tile_4 aplastadas a 2:1) y paredes de piedra wall_ne/nw + wall_door_ne/nw (dibujadas, tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md), en el nodo Kit de game/visuals/interiors/forge.tscn. Puestos: furnace, anvil, storage, counter (guild-renew)."
+    },
+    {
+      "id": "int_armory",
+      "tipo": "interior",
+      "estado": "sprite",
+      "para": [
+        "H3",
+        "armería"
+      ],
+      "ruta": "assets/art/interiors/armory/",
+      "origen": "guild-renew + dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Suelo de losas grandes (guild:tiles/stone_floor_flat/tile_11 aplastada y templada) y paredes de yeso con entramado (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). Nodo Kit de interiors/armory.tscn."
     },
     {
       "id": "bld_stall_resources",
@@ -404,6 +417,45 @@
       "notas": "Suelo de las casillas # (patios y bases de casas): guild:assets/sprites/tiles/test_tiles_pro_diamond/tile_12.png (docs/arte/reuso_guild.md, tools/art/derivar_guild.py)."
     },
     {
+      "id": "tile_tree",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "mapa"
+      ],
+      "ruta": "assets/art/tiles/tree.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Hierba con la sombra de la copa bajo los árboles (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md)."
+    },
+    {
+      "id": "tile_water",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "río"
+      ],
+      "ruta": "assets/art/tiles/water.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Agua con ondas, y la orilla water_edge_<ne|se|sw|nw>.png donde el río toca otra casilla (ground_edges de data/view.json) (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md)."
+    },
+    {
+      "id": "tile_bridge",
+      "tipo": "tile",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "río"
+      ],
+      "ruta": "assets/art/tiles/bridge.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Tablones cruzados a la calle y el bordillo bridge_edge_<lado>.png hacia el agua (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md)."
+    },
+    {
       "id": "prop_barrel",
       "tipo": "prop",
       "estado": "sprite",
@@ -571,6 +623,45 @@
       "origen": "guild-renew",
       "coste_gen": 0,
       "notas": "Surcos de huerto (casilla 64×32): guild:assets/sprites/tiles/test_tiles_pro_diamond/tile_15.png. Patios yard_plot*."
+    },
+    {
+      "id": "prop_tree",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H1",
+        "mapa"
+      ],
+      "ruta": "assets/art/props/tree_oak.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Tres árboles dibujados: tree_oak, tree_round, tree_pine (props/tree.tscn, tree_round.tscn, tree_pine.tscn; prop_variants.tree de data/view.json) (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md)."
+    },
+    {
+      "id": "bld_forge_works",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H5",
+        "obras"
+      ],
+      "ruta": "assets/art/buildings/forge_works.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Andamio dibujado sobre la base del sprite de la forja (nodo Works/Scaffold de buildings/forge.tscn; los postes greybox quedan ocultos) (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md)."
+    },
+    {
+      "id": "bld_forge_facades",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H5",
+        "mejoras de fachada"
+      ],
+      "ruta": "assets/art/buildings/forge_plinth.png",
+      "origen": "guild-renew + dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Zócalo de piedra (forge_plinth.png, fachada de piedra) y zócalo claro con estandartes (forge_plinth_noble.png + props/banner.png, fachada noble), dibujados; jardín (props/garden.png), escaparate (props/shop_window.png), letrero (props/trade_sign.png) y cerradura (props/lock.png) a mitad desde guild:buildings/overlays y market/interior/stall_armeria (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). Guardia: sigue en greybox (es un personaje)."
     },
     {
       "id": "bubble_chat",
@@ -1107,7 +1198,7 @@
       "ruta": "assets/art/icons/small/",
       "origen": "guild-renew",
       "coste_gen": 0,
-      "notas": "Iconos de objeto a 16×16 para las filas de la UI (fuente de 10 px), derivados de los de 32×32 (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). VisualPaths.icon_small / UiIcons.item_rect."
+      "notas": "Iconos de objeto a 16×16 para las filas de la UI (fuente de 10 px), derivados de los de 32×32 (docs/arte/reuso_guild.md, tools/art/derivar_guild.py). VisualPaths.icon_small / UiIcons.item_rect. sword y needle redibujados a mano a 16×16 (tools/art/dibujar_pixel.py)."
     },
     {
       "id": "music_city_day",

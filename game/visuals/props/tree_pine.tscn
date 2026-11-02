@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://uvvg6dugwgyf"]
+
+[ext_resource type="Texture2D" uid="uid://6j4r6a5xaigh" path="res://assets/art/props/tree_pine.png" id="1_tex"]
+
+[node name="TreePine" type="Node2D"]
+editor_description = "A tree of the map (tile kind tree): WorldView picks one of prop_variants.tree in data/view.json per tile. Drawn by tools/art/dibujar_pixel.py. Its trunk's foot sits on Feet."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -52)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-17, -54)
