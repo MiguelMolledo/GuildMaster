@@ -625,6 +625,138 @@ def load_upgrades(rep):
     return out
 
 
+PHASES = ["dawn", "day", "dusk", "night"]
+STAT_IDS = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution", "rhetoric",
+            "stealth"]
+
+
+def check_h8(strings, rep):
+    """H8 (GDD 4.2.5, 4.10, 4.17, docs/contratos/h8_familia.md): data/family.json (edades, cortejo, hijos, paleta,
+    grupo, rutina, directivas, nombres), data/goals.json y data/score.json, con sus claves de texto. Devuelve los
+    tonos de pelo y piel (para los escenarios)."""
+    w = "family.json"
+    fam = load_json(os.path.join(DATA, "family.json"), rep) or {}
+    life = fam.get("life", {})
+    ages = [life.get(k) for k in ("school_age", "apprentice_age", "majority_age")]
+    if not all(isinstance(a, int) for a in ages) or not ages[0] < ages[1] < ages[2]:
+        rep.error(w, "life: school_age < apprentice_age < majority_age (años enteros)")
+    for d in life.get("decline", []):
+        if not isinstance(d.get("age"), int) or any(k not in STAT_IDS or not isinstance(v, int) for k, v in d.get("stats", {}).items()):
+            rep.error(w, f"life.decline: {d} debe ser {{age, stats {{atributo: entero}}}}")
+    death = life.get("death", {})
+    if not all(isinstance(death.get(k), (int, float)) for k in ("from_age", "base", "growth", "constitution_step", "certain_age")):
+        rep.error(w, "life.death: from_age, base, growth, constitution_step, certain_age")
+    if life.get("ai_school_stat") not in STAT_IDS:
+        rep.error(w, "life.ai_school_stat debe ser un atributo")
+    co = fam.get("courtship", {})
+    talk = co.get("talk")
+    if not (isinstance(talk, list) and len(talk) == 2 and all(isinstance(x, int) for x in talk) and 0 <= talk[0] <= talk[1]):
+        rep.error(w, "courtship.talk debe ser [mín, máx]")
+    g = co.get("gift", {})
+    if not (isinstance(g.get("min"), int) and isinstance(g.get("max"), int) and g["min"] <= g["max"] and g.get("gold_per_point", 0) > 0):
+        rep.error(w, "courtship.gift: min <= max y gold_per_point > 0")
+    if not isinstance(co.get("propose_min"), int) or not 0 < co["propose_min"] <= co.get("affinity_max", 100):
+        rep.error(w, "courtship.propose_min en (0, affinity_max]")
+    ch = fam.get("children", {})
+    for k in ("first_child_days", "between_days", "max_per_couple", "mother_max_age", "stat_jitter"):
+        if not isinstance(ch.get(k), int) or ch[k] < 0:
+            rep.error(w, f"children.{k} debe ser un entero >= 0")
+    for k in ("daily_chance", "new_tone_chance"):
+        if not isinstance(ch.get(k), (int, float)) or not 0 <= ch[k] <= 1:
+            rep.error(w, f"children.{k} debe estar en [0, 1]")
+    vis = fam.get("visual", {})
+    tones = {"hair": vis.get("hair_tones"), "skin": vis.get("skin_tones")}
+    if not all(isinstance(t, int) and t > 0 for t in tones.values()):
+        rep.error(w, "visual.hair_tones y skin_tones deben ser enteros > 0")
+        tones = {"hair": 1, "skin": 1}
+    view = load_json(os.path.join(DATA, "view.json"), rep) or {}
+    pal = view.get("palette", {})
+    for k in ("hair", "skin"):
+        if not isinstance(pal.get(k), list) or len(pal[k]) != tones[k]:
+            rep.error("view.json", f"palette.{k} debe tener {tones[k]} colores (data/family.json visual)")
+    if not isinstance(fam.get("group", {}).get("max"), int) or fam["group"]["max"] < 1:
+        rep.error(w, "group.max debe ser un entero >= 1")
+    ro = fam.get("routine", {})
+    acts = ro.get("actions", [])
+    for a in acts:
+        check_text(w, f"routine.{a}", strings, rep)
+    for ph, slot in ro.get("default", {}).items():
+        if ph not in PHASES or slot.get("action") not in acts:
+            rep.error(w, f"routine.default.{ph}: fase y acción conocidas")
+    for ph in ro.get("ai_rest_phases", []):
+        if ph not in PHASES:
+            rep.error(w, f"routine.ai_rest_phases: fase desconocida {ph}")
+    for d in fam.get("directives", {}).get("known", []):
+        check_text(w, f"directive.{d}", strings, rep)
+    for k in ("male", "female"):
+        if not fam.get("names", {}).get(k):
+            rep.error(w, f"names.{k} vacío")
+    if not isinstance(fam.get("succession", {}).get("voluntary_close"), bool):
+        rep.error(w, "succession.voluntary_close debe ser true o false (D19)")
+    goals = load_json(os.path.join(DATA, "goals.json"), rep) or {}
+    for gl in goals.get("goals", []):
+        wg = f"goals.json/{gl.get('id')}"
+        if not ID_RE.match(str(gl.get("id", ""))):
+            rep.error(wg, "id snake_case")
+        if gl.get("kind") not in ("generation", "wealth", "office"):
+            rep.error(wg, f"kind desconocido {gl.get('kind')}")
+        check_text(wg, gl.get("name_key"), strings, rep)
+    score = load_json(os.path.join(DATA, "score.json"), rep) or {}
+    for k, v in score.get("points", {}).items():
+        if not isinstance(v, int):
+            rep.error("score.json", f"points.{k} debe ser entero")
+        check_text("score.json", f"score.{k}", strings, rep)
+    for k in score.get("by_value", {}):
+        check_text("score.json", f"score.{k}", strings, rep)
+    if not isinstance(score.get("wealth", {}).get("gold_per_point"), int):
+        rep.error("score.json", "wealth.gold_per_point debe ser entero")
+    return tones
+
+
+def check_h8_scenario(w, d, buildings, tones, rep):
+    """H8: en escenarios v7, edades, parentesco coherente (pareja recíproca, padres e hijos), cabeza y heredero de cada
+    familia, rutina con fases y acciones conocidas y tonos dentro de la paleta."""
+    chars, fams, blds = d.get("characters") or {}, d.get("families") or {}, d.get("buildings") or {}
+    for cid, ch in chars.items():
+        for k in ("birth_day", "death_day"):
+            if not isinstance(ch.get(k), int):
+                rep.error(w, f"{cid}: {k} debe ser un entero (días)")
+        sp = ch.get("spouse", "")
+        if sp and ch.get("alive", True) and chars.get(sp, {}).get("alive", True) and chars.get(sp, {}).get("spouse") != cid:
+            rep.error(w, f"{cid}: su pareja {sp} no lo tiene como pareja")
+        for p in ch.get("parents", []):
+            if cid not in chars.get(p, {}).get("children", []):
+                rep.error(w, f"{cid}: su padre/madre {p} no lo tiene como hijo")
+        for c in ch.get("children", []):
+            if cid not in chars.get(c, {}).get("parents", []):
+                rep.error(w, f"{cid}: su hijo {c} no lo tiene como padre/madre")
+        vis = ch.get("visual", {})
+        for k in ("hair", "skin"):
+            if not isinstance(vis.get(k), int) or not 0 <= vis[k] < tones[k]:
+                rep.error(w, f"{cid}: visual.{k} fuera de la paleta (0..{tones[k] - 1})")
+        a = ch.get("assigned", "")
+        if a and a not in blds:
+            rep.error(w, f"{cid}: assigned {a} no es un edificio del escenario")
+        sched = ch.get("schedule")
+        if sched is not None:
+            if not isinstance(sched, dict):
+                rep.error(w, f"{cid}: schedule debe ser null o {{fase: franja}}")
+            else:
+                for ph, slot in sched.items():
+                    if ph not in PHASES or slot.get("action") not in ("work", "rest", "free"):
+                        rep.error(w, f"{cid}: schedule.{ph} con fase o acción desconocida")
+                    if slot.get("building") and slot["building"] not in blds:
+                        rep.error(w, f"{cid}: schedule.{ph}.building {slot['building']} desconocido")
+    for fid, f in fams.items():
+        h = f.get("head", "")
+        if h and (h not in chars or chars[h].get("family") != fid):
+            rep.error(w, f"{fid}: head {h} no es de la familia")
+        if f.get("heir") and f["heir"] not in chars:
+            rep.error(w, f"{fid}: heir {f['heir']} desconocido")
+        if not isinstance(f.get("generation"), int) or f["generation"] < 1:
+            rep.error(w, f"{fid}: generation debe ser un entero >= 1")
+
+
 def check_h5(items, recipes, buildings, ranks, strings, rep):
     """H5 (GDD 4.8, docs/contratos/h5_mejoras.md): data/upgrade_rules.json y cada mejora (rama y nivel, coste,
     requisitos que existen en su árbol, nivel N pide el N-1, sin ciclos, efectos de tipos conocidos con su valor,
@@ -947,6 +1079,7 @@ def main():
     check_h3(items, recipes, buildings, maps, strings, rep)
     ranks, roles = check_h4(buildings, recipes, maps, strings, rep)
     check_h5(items, recipes, buildings, ranks, strings, rep)
+    tones = check_h8(strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")
@@ -1013,6 +1146,8 @@ def main():
             check_h4_scenario(f"scenarios/{name}", d, buildings, ranks, roles, recipes, rep)
         if d.get("version", 0) >= 6:
             check_h5_scenario(f"scenarios/{name}", d, buildings, rep)
+        if d.get("version", 0) >= 7:
+            check_h8_scenario(f"scenarios/{name}", d, buildings, tones, rep)
         if d.get("version", 0) >= 4:
             for fid, fam in (d.get("families") or {}).items():
                 if not isinstance(fam.get("gold"), int) or fam["gold"] < 0:

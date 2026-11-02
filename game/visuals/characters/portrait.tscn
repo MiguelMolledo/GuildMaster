@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://g6mtpq1w0wm"]
+
+[ext_resource type="Script" uid="uid://chfs61yfmqhb4" path="res://game/visuals/characters/portrait.gd" id="1_portrait"]
+
+[node name="Portrait" type="Node2D"]
+script = ExtResource("1_portrait")
+
+[node name="Feet" type="Marker2D" parent="."]
+position = Vector2(16, 32)
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(16, 0)
+
+[node name="Greybox" type="Node2D" parent="."]
+
+[node name="Back" type="Polygon2D" parent="Greybox"]
+color = Color(0.164706, 0.12549, 0.0941176, 1)
+polygon = PackedVector2Array(0, 0, 32, 0, 32, 32, 0, 32)
+
+[node name="HairLong" type="Polygon2D" parent="Greybox"]
+visible = false
+color = Color(0.35, 0.23, 0.13, 1)
+polygon = PackedVector2Array(8, 8, 24, 8, 26, 24, 6, 24)
+
+[node name="Body" type="Polygon2D" parent="Greybox"]
+color = Color(0.55, 0.18, 0.18, 1)
+polygon = PackedVector2Array(4, 32, 6, 25, 12, 22, 20, 22, 26, 25, 28, 32)
+
+[node name="Collar" type="Polygon2D" parent="Greybox"]
+color = Color(0.78, 0.66, 0.31, 1)
+polygon = PackedVector2Array(12, 22, 20, 22, 18, 26, 14, 26)
+
+[node name="Head" type="Polygon2D" parent="Greybox"]
+color = Color(0.88, 0.71, 0.55, 1)
+polygon = PackedVector2Array(12, 7, 20, 7, 23, 11, 23, 18, 19, 22, 13, 22, 9, 18, 9, 11)
+
+[node name="Eyes" type="Polygon2D" parent="Greybox"]
+color = Color(0.117647, 0.0941176, 0.0705882, 1)
+polygon = PackedVector2Array(12, 14, 14, 14, 14, 15, 12, 15)
+
+[node name="Eyes2" type="Polygon2D" parent="Greybox"]
+color = Color(0.117647, 0.0941176, 0.0705882, 1)
+polygon = PackedVector2Array(18, 14, 20, 14, 20, 15, 18, 15)
+
+[node name="Hair" type="Polygon2D" parent="Greybox"]
+color = Color(0.35, 0.23, 0.13, 1)
+polygon = PackedVector2Array(9, 12, 9, 9, 12, 5, 20, 5, 23, 9, 23, 12, 20, 9, 12, 9)
+
+[node name="Cross" type="Node2D" parent="."]
+visible = false
+
+[node name="A" type="Line2D" parent="Cross"]
+points = PackedVector2Array(22, 2, 30, 10)
+width = 2.0
+default_color = Color(0.9, 0.85, 0.75, 1)
+
+[node name="B" type="Line2D" parent="Cross"]
+points = PackedVector2Array(30, 2, 22, 10)
+width = 2.0
+default_color = Color(0.9, 0.85, 0.75, 1)

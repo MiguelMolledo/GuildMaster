@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdu6teiualv1o"]
+
+[ext_resource type="Script" uid="uid://fbbo3tg5b1kq" path="res://game/ui/routine_editor.gd" id="1_editor"]
+
+[node name="RoutineEditor" type="VBoxContainer"]
+theme_override_constants/separation = 2
+script = ExtResource("1_editor")
+
+[node name="Header" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RoutineTitle" type="Label" parent="Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_override_font_sizes/font_size = 11
+text = "--"
+
+[node name="ToggleButton" type="Button" parent="Header"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "--"
+
+[node name="StateLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "--"
+autowrap_mode = 3
+
+[node name="Rows" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 2
+columns = 4

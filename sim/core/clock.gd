@@ -37,10 +37,13 @@ static func year(minute: int, time: Dictionary) -> int:
 
 
 ## Age in years of someone born on `birth_day` (negative before the game starts), at `minute`. One calendar year
-## (D1(b): 4 seasons × 2 days) is `age_years_per_calendar_year` years of age.
+## (D1(b): 4 seasons × 2 days) is `age_years_per_calendar_year` years of age. Everybody turns a year older at the
+## same time, when the calendar year changes (GDD 4.2.5, H8): the age is the difference of calendar years, so a
+## child born on the last day of a year is 1 the next day.
 static func age_years(birth_day: int, minute: int, time: Dictionary) -> int:
-	var days := day(minute) - birth_day
-	return floori(float(days) / days_per_year(time)) * int(time.get("age_years_per_calendar_year", 1))
+	var dpy := days_per_year(time)
+	var years := floori(float(day(minute)) / dpy) - floori(float(birth_day) / dpy)
+	return years * int(time.get("age_years_per_calendar_year", 1))
 
 
 ## The phase of the day ("dawn", "day", "dusk", "night") from the season's phase starts (minutes of the day).

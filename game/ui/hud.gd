@@ -15,8 +15,12 @@ extends CanvasLayer
 ## objective panel says how to do the current objective (objective_how.<id>) or, with the start objectives done,
 ## what to try next (objective_how.free). Inside a building the objective panel moves to the left, under the selected person, so it does not cover the building's
 ## panels (they open on the right).
+## H8: the controllable group (GDD 4.10.5) as portraits next to the selected person (keys 1-2-3 or a click select,
+## a double click centres the camera; the active one has the gold border); the speeds move to Shift+1/2/3. The family
+## tree (key F, FamilyTreePanel) and the courtship panel (CourtshipPanel, from the tree or the person's sheet).
 
 signal manage_pressed(building_id: String)
+signal select_requested(id: String)  # H8: a portrait of the group was picked (key 1-2-3 or click)
 signal focus_requested(target: String)  # a notice was clicked: centre on this building / person
 
 @onready var _sun_moon: SunMoon = %SunMoon
@@ -57,6 +61,9 @@ signal focus_requested(target: String)  # a notice was clicked: centre on this b
 @onready var _objective_hint: Label = %ObjectiveHint
 @onready var _help_button: Button = %HelpButton
 @onready var _help_panel: HelpPanel = %HelpPanel
+@onready var _group_bar: HBoxContainer = %GroupBar
+@onready var _tree_panel: FamilyTreePanel = %FamilyTreePanel
+@onready var _court_panel: CourtshipPanel = %CourtshipPanel
 
 var selected_id: String = ""
 var building_id: String = ""
@@ -64,6 +71,8 @@ var interior_open: bool = false
 var _queue_sig: String = ""
 var _pending_service: Dictionary = {}  # {actor, kind, id, service}: open its panel when the actor stands there
 var _popups: Array = []  # [{node, left}]
+var _group_sig: String = ""
+var _frame_scene: PackedScene = preload("res://game/ui/portrait_frame.tscn")
 
 var _game: Node = null
 var _toast_left: float = 0.0
@@ -83,7 +92,7 @@ func _ready() -> void:
 		var b := _speed_buttons[i]
 		var s: int = Game.SPEEDS[i]
 		b.text = tr("hud.speed") % s
-		b.tooltip_text = tr("hud.speed_tip") % [s, i + 1]
+		b.tooltip_text = tr("hud.speed_tip") % [s, i + 1]  # H8: Shift+1/2/3 (1-2-3 select the group)
 		b.button_group = group
 		b.pressed.connect(func() -> void: _game.set_speed(s))
 	_toast_label.visible = false
@@ -106,6 +115,12 @@ func _ready() -> void:
 	_help_button.text = tr("hud.help_button")
 	_help_button.tooltip_text = tr("hud.help_button_tip")
 	_help_button.pressed.connect(toggle_help)
+	_tree_panel.order_sink = _game.give
+	_court_panel.order_sink = _game.give
+	_tree_panel.switch_requested.connect(func(id: String) -> void: select_requested.emit(id))
+	_tree_panel.court_requested.connect(open_courtship)
+	_character_panel.tree_requested.connect(toggle_tree)
+	_character_panel.court_requested.connect(open_courtship)
 	Events.sim_event.connect(_on_sim_event)
 	_refresh()
 
@@ -133,6 +148,7 @@ func _refresh() -> void:
 	_phase_bar.value = DayNight.phase_progress(minute, _game.step_fraction(), sim.catalog.time) * 100.0
 	_refresh_selected(sim)
 	_refresh_family(sim)
+	_refresh_group(sim)
 	if minute == _last_minute:
 		return
 	_last_minute = minute
@@ -208,7 +224,7 @@ func close_top() -> bool:
 	if _help_panel.visible:
 		toggle_help()
 		return true
-	for p: Control in [_market_panel, _board_panel, _ledger_panel]:
+	for p: Control in [_court_panel, _tree_panel, _market_panel, _board_panel, _ledger_panel]:
 		if p.visible:
 			p.call("close")
 			return true
@@ -220,6 +236,8 @@ func close_top() -> bool:
 
 func _refresh_selected(sim: Sim) -> void:
 	var ch: Dictionary = sim.state.characters.get(selected_id, {})
+	if not ch.is_empty() and not bool(ch.get("alive", true)):
+		ch = {}  # H8: a dead person (or another game's id) is nobody
 	_selected_panel.visible = not ch.is_empty()
 	if ch.is_empty():
 		return
@@ -248,6 +266,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if HelpPanel.is_help_key(event):
 		toggle_help()
+		get_viewport().set_input_as_handled()
+		return
+	var key := (event as InputEventKey).keycode
+	if key in [KEY_1, KEY_2, KEY_3]:  # H8: 1-2-3 the group (GDD 4.10.5); Shift+1/2/3 the speeds (D4)
+		var i := [KEY_1, KEY_2, KEY_3].find(key)
+		if (event as InputEventKey).shift_pressed:
+			_game.set_speed(Game.SPEEDS[i])
+		else:
+			pick_group(i)
+	elif key == KEY_F:
+		toggle_tree()
 	elif (event as InputEventKey).keycode == KEY_I:
 		toggle_character_panel()
 	elif (event as InputEventKey).keycode == KEY_L:
@@ -345,7 +374,7 @@ func _refresh_family(sim: Sim) -> void:
 
 
 ## The objective panel: top right under the clock in the town; inside a building, top left under the selected
-## person's panel (the building's panels open on the right).
+## person's panel and the group's portraits (the building's panels open on the right).
 func _place_objective() -> void:
 	var vp := get_viewport().get_visible_rect().size if is_inside_tree() else Vector2(960, 540)
 	var y := 122.0
@@ -353,6 +382,8 @@ func _place_objective() -> void:
 	if interior_open:
 		x = 6.0
 		y = (_selected_panel.position.y + _selected_panel.size.y + 6.0) if _selected_panel.visible else 6.0
+		if _group_bar.visible:  # H8: under the group's portraits
+			y = maxf(y, _group_bar.position.y + _group_bar.size.y + 6.0)
 	if _objective_panel.position != Vector2(x, y):
 		_objective_panel.position = Vector2(x, y)
 
@@ -380,7 +411,7 @@ func toggle_help() -> void:
 func close_panels() -> void:
 	_help_panel.visible = false
 	_pending_service = {}
-	for p: Control in [_market_panel, _board_panel, _ledger_panel]:
+	for p: Control in [_market_panel, _board_panel, _ledger_panel, _tree_panel, _court_panel]:
 		p.call("close")
 	_character_panel.close()
 
@@ -488,7 +519,74 @@ func _tick_popups(delta: float) -> void:
 ## A click on a notice: centre on its building or person (the app does it), else open the book on the notices.
 func notice_action(n: Dictionary) -> void:
 	var target := str(n.get("target", ""))
+	if str(n.get("key", "")) == "notice.school_choice":  # H8: the choice is made in the family tree
+		if not _tree_panel.visible:
+			toggle_tree()
+		_tree_panel.pick(target)
+		return
 	if target != "" and (_game.sim.state.buildings.has(target) or _game.sim.state.characters.has(target)):
 		focus_requested.emit(target)
 	elif not _ledger_panel.visible:
 		open_ledger("notices")
+
+
+# --- H8 · group, family tree, courtship -------------------------------------------------------------------------------
+
+func tree_panel() -> FamilyTreePanel:
+	return _tree_panel
+
+
+func courtship_panel() -> CourtshipPanel:
+	return _court_panel
+
+
+## The group of the player's family as portraits (key 1-2-3; the active one with the gold border).
+func _refresh_group(sim: Sim) -> void:
+	var fam := family()
+	var group := Kin.group(sim.state, fam) if fam != "" else []
+	var heir := Kin.heir(sim, fam) if fam != "" else ""
+	var sig := "%s|%s|%s|%s" % [group, selected_id, heir, group.map(func(c: String) -> Variant: return sim.state.characters[c].get("visual"))]
+	if sig == _group_sig:
+		return
+	_group_sig = sig
+	for c: Node in _group_bar.get_children():
+		_group_bar.remove_child(c)
+		c.queue_free()
+	for i: int in group.size():
+		var f := _frame_scene.instantiate() as PortraitFrame
+		f.name = "Group%d" % (i + 1)
+		_group_bar.add_child(f)
+		f.show_character(sim.state, str(group[i]), {"active": str(group[i]) == selected_id, "controlled": true,
+			"heir": str(group[i]) == heir, "key": str(i + 1)})
+		f.clicked.connect(func(id: String) -> void: select_requested.emit(id))
+		f.double_clicked.connect(func(id: String) -> void: focus_requested.emit(id))
+	_group_bar.visible = group.size() > 0
+
+
+## The i-th person of the group (0-based), if any: selected.
+func pick_group(i: int) -> void:
+	var fam := family()
+	if fam == "":
+		return
+	var group := Kin.group(_game.sim.state, fam)
+	if i >= 0 and i < group.size():
+		Log.info("Hud", "group %d -> %s" % [i + 1, group[i]])
+		select_requested.emit(str(group[i]))
+
+
+func toggle_tree() -> void:
+	if _tree_panel.visible:
+		_tree_panel.close()
+		return
+	var fam := family()
+	if fam == "":
+		return
+	_tree_panel.setup(_game.sim, fam, selected_id)
+	_tree_panel.open()
+
+
+func open_courtship(who: String) -> void:
+	if who == "" or _game.sim == null:
+		return
+	_court_panel.setup(_game.sim, who)
+	_court_panel.open()

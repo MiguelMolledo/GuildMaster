@@ -18,13 +18,16 @@ extends Node
 ## H5: --smoke-script=mejoras: the upgrade tree, the works and the upgrade visuals. --smoke-script=rebanada: the
 ## vertical slice played from the new game screen through three days (game/smoke/smoke_rebanada.gd). ESC closes the
 ## help overlay (F1) before anything else.
+## H8: the group portraits select (HUD select_requested); the ending screen shows the dynasty score (Game Over);
+## --smoke-script=familia: the family tree, the routine editor and the Game Over captures.
 ## --gallery opens game/tools/gallery.tscn instead (every visual scene of game/visuals/ on the grid; with --smoke it
 ## saves reports/shots/gallery_01.png and quits). The AudioDirector node plays the sounds and music by id.
 
 const GALLERY: String = "res://game/tools/gallery.tscn"
 const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mercado": "res://game/smoke/smoke_mercado.gd", "empleados": "res://game/smoke/smoke_empleados.gd",
-	"mejoras": "res://game/smoke/smoke_mejoras.gd", "rebanada": "res://game/smoke/smoke_rebanada.gd"}
+	"mejoras": "res://game/smoke/smoke_mejoras.gd", "rebanada": "res://game/smoke/smoke_rebanada.gd",
+	"familia": "res://game/smoke/smoke_familia.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView
@@ -73,6 +76,7 @@ func _ready() -> void:
 	_world.service_requested.connect(_hud.request_service)
 	_interior.shop_requested.connect(_hud.open_market)
 	_hud.focus_requested.connect(focus_on)
+	_hud.select_requested.connect(func(id: String) -> void: _world.select(id))  # H8: the group (1-2-3, portraits)
 	_new_game.started.connect(_on_new_game_started)
 	_ending.new_game_pressed.connect(show_new_game)
 	_ending.quit_pressed.connect(func() -> void: get_tree().quit())
@@ -268,7 +272,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if Game.sim != null and not Game.sim.state.ending.is_empty() and not _ending.visible:
 		Game.set_paused(true)  # D18: the ruin ends the game; the sim does not stop by itself
-		_ending.show_ending(Game.sim.state)
+		_ending.show_ending(Game.sim.state, Game.sim)
 	_background.color = Color.BLACK if interior_building != "" else _bg_color * _world.tint_color
 	if _shots_left <= 0:
 		return

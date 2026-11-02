@@ -464,6 +464,18 @@ func sync(frac: float) -> void:
 				select("")
 			continue
 		var v: CharacterView = _views[id]
+		if v.kin_sig != CharacterView.kin_signature(ch):  # H8: married, came of age, hired...: rebuild it
+			var was := id == selected_id
+			v.queue_free()
+			_views.erase(id)
+			_add_view(id)
+			if not _views.has(id):
+				continue
+			v = _views[id]
+			if was:
+				v.selected = v.selectable
+				if not v.selectable:
+					select("")
 		v.visible = str(ch.get("location", "")) == ""
 		v.follow(ch, _minutes_per_tile, frac)
 		v.follow_badge(state, _player_family)

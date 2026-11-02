@@ -34,11 +34,13 @@ extends SceneTree
 ## of work produced per day in those windows, for the report).
 ## Targets per bot: {measure: [min, max]} checked on every run; "_mean": {measure: [min, max]} on the mean of the runs;
 ## "_share": {measure: [min, max]} on the share of runs where the measure is 1.
+## H8: a bot with measures(sim) adds its own (dynasty: wedding_day, first_child_days, inherited, inherit_day,
+## generation_days, game_over), e.g. --scenario=dynasty_start --bots=dynasty --days=320 --seeds=3.
 
 var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
 	"random_clicker": BotRandomClicker, "idle_rival": BotIdle, "artisan_novice": BotArtisanNovice,
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
-	"artisan_expert_2": BotArtisanExpert}
+	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
@@ -289,6 +291,8 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 			m["debt_paid"] = ok
 			m["debt_paid_day"] = last if ok == 1 else -1
 		_production_gains(m, cycles, ups)
+	if bot.has_method("measures"):  # H8: a bot may measure its own things (dynasty: wedding, children, inheritance)
+		m.merge(bot.call("measures", sim))
 	m.merge({"seed": s, "days": days, "state_hash": sim.state_hash()})
 	return m
 

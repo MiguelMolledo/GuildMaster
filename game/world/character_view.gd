@@ -35,6 +35,7 @@ var fig_height: float = 48.0
 var fig_width: float = 14.0
 var outline: Color = Color(0.12, 0.09, 0.07)
 var visual_id: String = ""
+var kin_sig: String = ""  # H8: family, control, tones and job when built (WorldView rebuilds the view if they change)
 var _visual: Node2D = null
 var _badge_mark: Node2D = null
 var _name_label: Label
@@ -59,6 +60,11 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 		greybox.female = female
 		greybox.primary = primary
 		greybox.secondary = secondary
+		# H8 (GDD 4.10.9): hair and skin of the person from the palette swap
+		var vis: Dictionary = ch.get("visual", {}) if ch.get("visual") is Dictionary else {}
+		greybox.hair = Identity.hair_color(int(vis.get("hair", 0)))
+		greybox.skin = Identity.skin_color(int(vis.get("skin", 0)))
+	kin_sig = kin_signature(ch)
 	VisualPaths.place(_visual, Vector2.ZERO)
 	fig_height = VisualPaths.top_height(_visual, 48.0)
 	add_child(_visual)
@@ -83,6 +89,13 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	_name_label.name = "NameLabel"
 	add_child(_name_label)
 	queue_redraw()
+
+
+## H8: what the view was built from that can change during the game (a wedding moves a person to another family, a
+## child comes of age and joins the group, a job): WorldView rebuilds the view when it differs.
+static func kin_signature(ch: Dictionary) -> String:
+	return "%s|%s|%s|%s" % [ch.get("family", ""), ch.get("controlled_by", ""), ch.get("visual", {}),
+		ch.get("job") is Dictionary]
 
 
 ## The name over the head (shown when selected or hovered).

@@ -54,7 +54,7 @@ func test_v5_save_migrates_to_v6() -> void:
 	check(r["ok"], "the v5 save loads (%s)" % r.get("error", ""))
 	var st: WorldState = r["state"]
 	eq(st.version, WorldState.VERSION, "migrated")
-	eq(WorldState.VERSION, 6, "v6")
+	check(WorldState.VERSION >= 6, "v6 or later")
 	for b: String in st.buildings:
 		var bld: Dictionary = st.buildings[b]
 		eq([bld["upgrades"], bld["upgrade_work"], bld["inspection"]], [[], null, Upgrades.new_inspection()],

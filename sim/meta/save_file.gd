@@ -58,6 +58,10 @@ static func migrate(d: Dictionary) -> Dictionary:
 	return {"ok": true, "data": data}
 
 
+## v6 -> v7: the age of everybody who had none (H8, docs/contratos/h8_familia.md) [provisional].
+const MIGRATION_AGE: int = 25
+
+
 static func _step(from_version: int, data: Dictionary) -> Dictionary:
 	match from_version:
 		1:  # 1 -> 2 (H1): the town map the game runs on
@@ -135,6 +139,37 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 					b["upgrade_work"] = null
 				if not b.has("inspection"):
 					b["inspection"] = Upgrades.new_inspection()
+		6:  # 6 -> 7 (H8): family and inheritance (docs/contratos/h8_familia.md). v6 had no ages nor kin: everybody
+			# gets MIGRATION_AGE years at the current day (born at the start of a year: ages change at year_changed),
+			# no spouse, parents nor children, the artisan class, the blacksmith trade if they work a forge (a rank
+			# or a family that plays), the work directive, no routine, palette tones from the id number and an empty
+			# life memory. Families: the first living member is the head, founder of generation 1, no designated heir.
+			var minute := int(data.get("clock", {}).get("minute", 0))
+			var year := floori(float(Clock.day(minute)) / 8.0)  # D1(b): 8 days per year (the save has no catalog)
+			var birth := (year - MIGRATION_AGE) * 8
+			var families: Dictionary = data.get("families", {})
+			for c: Dictionary in (data.get("characters", {}) as Dictionary).values():
+				var n := str(c.get("id", "chr_0")).get_slice("_", 1).to_int()
+				var fam: Dictionary = families.get(str(c.get("family", "")), {})
+				var plays := str(fam.get("controlled_by", "")) == "human" or str(fam.get("ai_profile", "")) != ""
+				var add := {"birth_day": birth, "death_day": -1 if bool(c.get("alive", true)) else Clock.day(minute),
+					"class": "artisan", "profession": "blacksmith" if plays or str(c.get("rank", "")) != "" else "",
+					"spouse": "", "parents": [], "children": [], "assigned": "", "directives": ["work"],
+					"schedule": null, "visual": {"hair": n % 6, "skin": n % 4}, "life": {}}
+				for k: String in add:
+					if not c.has(k):
+						c[k] = add[k]
+			for f: Dictionary in families.values():
+				var head := ""
+				for m: Variant in f.get("members", []):
+					if bool((data.get("characters", {}) as Dictionary).get(str(m), {}).get("alive", true)):
+						head = str(m)
+						break
+				var addf := {"head": head, "heir": "", "founder": head, "generation": 1, "regent": "", "class": "artisan",
+					"goals_done": []}
+				for k: String in addf:
+					if not f.has(k):
+						f[k] = addf[k]
 	return data
 
 

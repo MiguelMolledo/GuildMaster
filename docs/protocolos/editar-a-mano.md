@@ -25,6 +25,8 @@ ficheros de arte y audio **se llaman como su id**. El sim no se toca para nada d
 | Cómo se ve un puesto (horno, yunque…) | `game/visuals/stations/<puesto>.tscn` (o el hijo de su `Marker2D` en el interior) |
 | Árboles, bloques, puestos del mercado, tablón | `game/visuals/props/<tipo de casilla>.tscn`, `props/stall_<puesto>.tscn` |
 | Personajes | `game/visuals/characters/<rol>_<m\|f>.tscn` + `<rol>_<m\|f>_frames.tres` (roles: `artisan`, `worker`, `townsfolk`) |
+| Retrato de las personas (HUD, árbol genealógico) | `game/visuals/characters/portrait.tscn` (nodos Polygon2D: pelo, cabeza, cuerpo; los colores los pone el juego) |
+| Tonos de pelo y piel (paleta de intercambio, H8) | `data/view.json` → `palette` (6 pelos, 4 pieles; cuántos, en `data/family.json` → `visual`) |
 | Si falta la escena de un id | sale `game/visuals/<tipo>/_generic.tscn` (magenta: se nota) |
 | Sprites, iconos | `assets/art/<tipo>/<id>.png` (contrato en `docs/ASSETS.md`) |
 | Música y sonidos | `assets/audio/<music\|sfx\|ambient\|voice>/<id>.ogg\|wav`; volumen y bus en `data/audio.json` |

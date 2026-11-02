@@ -203,5 +203,34 @@
         null
       ]
     }
+  },
+  "dynasty": {
+    "_doc": "H8 (10/H8): bot dynasty desde dynasty_start (fundador de 40, soltero), 320 días. Hereda siempre (generation_days: nacimiento del segundo cabeza -> su primer hijo; el GDD da ~200 días con una boda más tardía: el bot casa al heredero en cuanto cumple 16) y el primer hijo llega de media ~1,5 años (12 días) tras la boda [balance]. Ritual a mano (largo).",
+    "days": [
+      320,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "inherited": [
+      1,
+      1
+    ],
+    "game_over": [
+      0,
+      0
+    ],
+    "generation_days": [
+      130,
+      260
+    ],
+    "_mean": {
+      "first_child_days": [
+        6,
+        24
+      ]
+    }
   }
 }

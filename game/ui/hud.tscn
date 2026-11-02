@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cg0hg8p8b605y"]
+[gd_scene load_steps=12 format=3 uid="uid://cg0hg8p8b605y"]
 
 [ext_resource type="Script" uid="uid://bk40qfbaik42s" path="res://game/ui/hud.gd" id="1_hud"]
 [ext_resource type="Script" uid="uid://dwh11vnyebw76" path="res://game/ui/sun_moon.gd" id="2_sun"]
@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://bcpksngpbcrd3" path="res://game/ui/market_panel.tscn" id="5_market"]
 [ext_resource type="PackedScene" uid="uid://erjsfcb83dq4" path="res://game/ui/board_panel.tscn" id="6_board"]
 [ext_resource type="PackedScene" uid="uid://c63sbdqmag1xa" path="res://game/ui/ledger_panel.tscn" id="7_ledger"]
-[ext_resource type="PackedScene" uid="uid://c4ti1lb02thva" path="res://game/ui/help_panel.tscn" id="8_help"]
+[ext_resource type="PackedScene" uid="uid://b0b08kla1lpp8" path="res://game/ui/family_tree_panel.tscn" id="8_tree"]
+[ext_resource type="PackedScene" uid="uid://c0fx42eegf2kp" path="res://game/ui/courtship_panel.tscn" id="9_court"]
+[ext_resource type="PackedScene" uid="uid://c4ti1lb02thva" path="res://game/ui/help_panel.tscn" id="10_help"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 6.0
@@ -238,7 +240,7 @@ unique_name_in_owner = true
 layout_mode = 1
 offset_left = 6.0
 offset_top = 120.0
-offset_right = 236.0
+offset_right = 316.0
 offset_bottom = 320.0
 
 [node name="FamilyPanel" type="PanelContainer" parent="Root"]
@@ -461,7 +463,25 @@ theme_override_font_sizes/font_size = 24
 text = "GuildMaster"
 horizontal_alignment = 1
 
-[node name="HelpPanel" parent="Root" instance=ExtResource("8_help")]
+[node name="GroupBar" type="HBoxContainer" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 6.0
+offset_top = 66.0
+offset_right = 140.0
+offset_bottom = 106.0
+theme = ExtResource("3_theme")
+theme_override_constants/separation = 4
+
+[node name="FamilyTreePanel" parent="Root" instance=ExtResource("8_tree")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="CourtshipPanel" parent="Root" instance=ExtResource("9_court")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="HelpPanel" parent="Root" instance=ExtResource("10_help")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1

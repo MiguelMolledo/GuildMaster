@@ -19,8 +19,8 @@
     "equipment": {"tool": {"item": "hammer", "quality": 0}}
   },
   "family": {"gold": 30, "reputation": 0},
-  "_defaults_doc": "What the new-game screen proposes (and what from_start uses for a choice left out): protagonist name and gender, family name and colours.",
-  "defaults": {"name": "Hugo", "female": false, "family_name": "Herrero", "colors": {"primary": "#8b2e2e", "secondary": "#c8a84e"}},
+  "_defaults_doc": "What the new-game screen proposes (and what from_start uses for a choice left out): protagonist name and gender, family name and colours; H8: the palette tones of hair and skin (indices of data/family.json visual, GDD 4.10.9).",
+  "defaults": {"name": "Hugo", "female": false, "family_name": "Herrero", "colors": {"primary": "#8b2e2e", "secondary": "#c8a84e"}, "visual": {"hair": 1, "skin": 1}},
   "building": {
     "site": "player_forge",
     "type": "forge",
@@ -44,7 +44,7 @@
     "colors": {"primary": "#3f6b3a", "secondary": "#b8b8b0"},
     "profile": "rival_smith",
     "gold": 80,
-    "character": {"name": "Bernat", "female": false, "age": 35, "stats": {"charisma": 4, "empathy": 3, "negotiation": 6, "arcane": 1, "dexterity": 4, "craft": 5, "martial": 3, "constitution": 5, "rhetoric": 3, "stealth": 2}},
+    "character": {"name": "Bernat", "female": false, "age": 35, "visual": {"hair": 3, "skin": 2}, "stats": {"charisma": 4, "empathy": 3, "negotiation": 6, "arcane": 1, "dexterity": 4, "craft": 5, "martial": 3, "constitution": 5, "rhetoric": 3, "stealth": 2}},
     "building": {
       "site": "rival_forge",
       "type": "forge",
