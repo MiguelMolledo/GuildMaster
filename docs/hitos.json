@@ -380,7 +380,7 @@
     {
       "id": "H11",
       "nombre": "Tribunal",
-      "estado": "pendiente",
+      "estado": "en_curso",
       "entregable": "Acusación, testigos, preparación de 1 estación interactiva, vista oral interactiva, condenas (destierro 1 año); juicio desde inspección; acusaciones de la IA rival. Fin del MVP.",
       "criterios": [
         {
@@ -391,21 +391,21 @@
         },
         {
           "texto": "Desde el escenario `founder_old` (fundador de 60 años con heredero de 16) hereda y sigue jugando",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_family_life.gd (H8) cubre la herencia; se juega con --scenario=founder_old",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "Bot `crook` acaba en juicio con la frecuencia esperada",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "diana crook: juicio en 5 de 10 semillas de 40 días, 1,2 juicios de media, 0 fallos (data/targets.json)",
+          "fecha": "2026-11-02"
         },
         {
           "texto": "En el sim, una familia IA acusa al jugador solo con motivo real o con pruebas fabricadas si su honestidad es baja",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_justice_ai.gd: sin hecho y honestidad 20 no acusa; con hecho público acusa; fabrica con honestidad −50 y no con −29; ai_accusations_bad = 0",
+          "fecha": "2026-11-02"
         }
       ]
     },

@@ -1,6 +1,21 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "H11 · Tribunal: acusación, testigos, vista oral y condena",
+    "que": "Una inspección de Secretos ya no es solo una multa: abre un juicio automático (evasión de impuestos). Te avisa una carta «Te acusan» y tienes una estación (2 días) para trabajar a 3-5 testigos en persona: convencer (retórica), sobornar (oro; pueden denunciarte) o amenazar (arte marcial). La balanza enseña la fórmula del GDD; las pruebas del acusador se ven en la vista. En la vista oral el juego se pausa: interrogas a cada testigo en contra (si sale bien no cuenta, si sale mal cuenta doble) y concluyes la defensa. Veredicto con su condena: multa, confiscación de los productos, pérdida de cargo y título, o destierro de un año (el desterrado desaparece del mapa y no puede actuar; el resto de la familia sí). Puedes acusar a otra familia desde la ficha de uno de sus miembros, con un hecho público o fabricando pruebas. El Juez dicta (−20 de honestidad si va contra la balanza) e indulta; el Alguacil arresta e investiga. El herrero rival acusa solo con un hecho real o, si su honestidad fuera baja, con pruebas fabricadas (regla mínima). Bot crook: acaba en juicio en 5 de 10 partidas de 40 días.",
+    "como_probar": "jugar.command. Escenarios accused_player (preparación), trial_hearing (la vista empieza en 5 min), rival_accused (acusar al rival desde su ficha) y founder_old (heredar). Tecla J abre el juicio. Bots: --start=artisan_blacksmith --bots=crook --days=40 --seeds=10. Capturas: --smoke-script=tribunal.",
+    "capturas": [
+      "docs/novedades/h11_acusacion.png",
+      "docs/novedades/h11_preparacion.png",
+      "docs/novedades/h11_vista.png",
+      "docs/novedades/h11_vista_interrogada.png",
+      "docs/novedades/h11_veredicto.png",
+      "docs/novedades/h11_acusar.png",
+      "docs/novedades/h11_destierro.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "Estudio de escala y láminas de ciudad a escala (fal) · viabilidad con PixelLab",
     "que": "Medición de la escala actual (planta de casa 34 px y puerta 40-43 px frente a un personaje de 48: la casa parece una caseta) y propuesta B: puerta 52, planta baja 64, planta alta 48 (casa de 2 plantas a 176 px, 3,7× el personaje), monumentos con tope de 400 px, densidad única 1:1. Láminas 1:1 en docs/arte/escala/ (tools/art/escala.py). Nueve láminas de fal (Nano Banana Pro) pintadas sobre maquetas grises a esa escala en assets/concept/ciudades2/: pueblo E (zoom 1 y amplia), plaza A, A+C con río, catedral, castillo con muralla, catálogo de tipos y dos kits. Análisis de PixelLab (límites, vías para edificios grandes, presupuesto y prueba del 15-nov) en docs/arte/ciudad_con_pixellab.md. Pruebas sin créditos: subir plantas sin reescalar (tools/art/estirar_iso.py) y reducir una lámina a la densidad del juego (tools/art/reducir_concepto.py). No cambia nada del juego.",
     "como_probar": "Leer docs/arte/escala.md y docs/arte/ciudad_con_pixellab.md, o la página de Grimoire «Escala y ciudades» (art_01m6etghgmzcrhjvtjwr). Regenerar las láminas: python3 tools/art/escala.py --refs.",
