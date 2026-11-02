@@ -1,6 +1,17 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "Arte · el pueblo se llena: manzanas de casas, patios, pozo y tablón",
+    "que": "Los bloques de relleno del mapa son ahora manzanas con cuatro modelos de casa de Guild Renew (la mitad en espejo) y patios de huerto o de trabajo con barriles, cajas, sacos y carro; el hueco de la plaza es un pozo. Adoquín en piedra cálida, plaza arenosa y tierra marrón sin rejilla. Tablón de encargos compuesto, props colocables a mano en game/visuals/towns/town_e.tscn e iconos de 16 px en almacén e inventario. Se desactiva quitando el bloque filler de data/view.json.",
+    "como_probar": "jugar.command → Empezar. Derivados regenerables con tools/art/derivar_guild.py.",
+    "capturas": [
+      "docs/novedades/arte2_mapa_despues.png",
+      "docs/novedades/arte2_mercado_despues.png",
+      "docs/novedades/arte2_almacen_despues.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "H8 · Familia y herencia: casarse, tener hijos y heredar",
     "que": "En la rama h8-familia: envejecer y morir, cortejo, boda, hijos, herencia (con regente si el heredero es menor), Game Over con puntuación desglosada, grupo controlable 1-2-3, rutina programable, árbol genealógico (F) con retratos que heredan pelo y piel, y la familia rival que también se casa. Bot dynasty: 320 días × 3 semillas, hereda en las tres, 0 órdenes rechazadas. 380 pruebas en verde tras juntar el pulido de H5. Teclas: 1-2-3 eligen familiar; velocidad con Mayús+1/2/3. D19 (cierre voluntario) hecho pero apagado.",
     "como_probar": "jugar.command. F abre el árbol; 1-2-3 eligen familiar (velocidad con Mayús+1/2/3); I → Rutina. Escenarios founder_old (fundador de 60 con heredero) y founder_no_heir (Game Over). Bot: sim_runner --scenario=dynasty_start --bots=dynasty --days=320 --seeds=3 (~8 min por semilla).",
