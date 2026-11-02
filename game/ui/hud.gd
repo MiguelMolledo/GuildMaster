@@ -74,6 +74,9 @@ signal focus_requested(target: String)  # a notice was clicked: centre on this b
 @onready var _offices_button: Button = %OfficesButton      # H10: the offices (key O)
 @onready var _offices_panel: OfficesPanel = %OfficesPanel  # H10: the chart, running, campaign and powers
 @onready var _office_card: OfficeCard = %OfficeCard        # H10: the result of a vote
+@onready var _trials_button: Button = %TrialsButton        # H11: the family's trial (key J), only while one is open
+@onready var _trial_panel: TrialPanel = %TrialPanel        # H11: preparation and hearing
+@onready var _trial_card: TrialCard = %TrialCard           # H11: «you are accused» and the verdict
 
 var selected_id: String = ""
 var building_id: String = ""
@@ -138,6 +141,11 @@ func _ready() -> void:
 	_offices_button.text = tr("hud.offices")
 	_offices_button.tooltip_text = tr("hud.offices_tip")
 	_offices_button.pressed.connect(toggle_offices)
+	_trial_panel.order_sink = _game.give
+	_trials_button.text = tr("hud.trials")
+	_trials_button.tooltip_text = tr("hud.trials_tip")
+	_trials_button.pressed.connect(toggle_trial)
+	_trial_card.prepare_requested.connect(open_trial)
 	_family_title.tooltip_text = tr("hud.title_rep_tip")
 	_tree_panel.switch_requested.connect(func(id: String) -> void: select_requested.emit(id))
 	_tree_panel.court_requested.connect(open_courtship)
@@ -173,6 +181,7 @@ func _refresh() -> void:
 		_speed_buttons[i].set_pressed_no_signal(Game.SPEEDS[i] == _game.speed)
 	_phase_bar.value = DayNight.phase_progress(minute, _game.step_fraction(), sim.catalog.time) * 100.0
 	_refresh_selected(sim)
+	_trials_button.visible = family() != "" and not Tribunal.of_family(sim, family(), true).is_empty()  # H11
 	_refresh_family(sim)
 	_refresh_group(sim)
 	if minute == _last_minute:
@@ -252,7 +261,7 @@ func close_top() -> bool:
 	if _help_panel.visible:
 		toggle_help()
 		return true
-	for p: Control in [_office_card, _title_card, _offices_panel, _hall_panel, _npc_panel, _court_panel, _tree_panel,
+	for p: Control in [_trial_card, _trial_panel, _office_card, _title_card, _offices_panel, _hall_panel, _npc_panel, _court_panel, _tree_panel,
 			_market_panel, _board_panel, _ledger_panel]:
 		if p.visible:
 			p.call("close")
@@ -312,6 +321,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		toggle_ledger()
 	elif (event as InputEventKey).keycode == KEY_O:  # H10: the offices
 		toggle_offices()
+	elif (event as InputEventKey).keycode == KEY_J:  # H11: the trial
+		toggle_trial()
 	elif event.is_action_pressed("pause_toggle"):
 		_game.toggle_pause()
 	elif event.is_action_pressed("speed_1"):
@@ -330,6 +341,9 @@ func _on_sim_event(e: Dictionary) -> void:
 		if str(_game.sim.state.families.get(str(e.get("family", "")), {}).get("controlled_by", "")) == "human":
 			_hall_panel.close()
 			_title_card.show_for(_game.sim, e)
+		return
+	if str(e.get("type", "")) in ["trial_opened", "trial_hearing", "trial_verdict"]:  # H11: the court
+		_on_trial_event(e)
 		return
 	if str(e.get("type", "")) == "election_held":  # H10: the vote of an election the player's family stood in
 		if OfficeCard.concerns_human(_game.sim, e):
@@ -489,7 +503,7 @@ func close_panels() -> void:
 	_help_panel.visible = false
 	_pending_service = {}
 	for p: Control in [_market_panel, _board_panel, _ledger_panel, _tree_panel, _court_panel, _npc_panel, _hall_panel,
-			_title_card, _offices_panel, _office_card]:
+			_title_card, _offices_panel, _office_card, _trial_panel, _trial_card]:
 		p.call("close")
 	_character_panel.close()
 
@@ -601,6 +615,62 @@ func toggle_offices() -> void:
 		open_offices()
 
 
+## H11: the court's events for the player's family: a new accusation shows its card; the hearing pauses the game
+## and opens the trial (docs/ui/mecanicas/tribunal.md); the verdict shows its card.
+func _on_trial_event(e: Dictionary) -> void:
+	var sim: Sim = _game.sim
+	var fam := family()
+	if fam == "":
+		return
+	var t := Tribunal.trial(sim.state, str(e.get("trial", "")))
+	if t.is_empty() or (str(t["family"]) != fam and str(t["accuser_family"]) != fam):
+		return
+	match str(e["type"]):
+		"trial_opened":
+			if str(t["family"]) == fam:
+				_trial_card.show_accusation(sim, str(t["id"]))
+		"trial_hearing":
+			_game.set_paused(true)
+			open_trial(str(t["id"]))
+		"trial_verdict":
+			_trial_panel.close()
+			_trial_card.show_verdict(sim, e)
+
+
+## H11: the trial panel of `tid` (the family's open trial if ""), for the selected person (or the head).
+func open_trial(tid: String = "") -> void:
+	if _game == null or _game.sim == null:
+		return
+	var sim: Sim = _game.sim
+	var id := tid
+	if id == "":
+		id = str(Tribunal.of_family(sim, family(), true).get("id", ""))
+	if id == "":
+		return
+	var who := selected_id
+	if who == "" or str(sim.state.characters.get(who, {}).get("family", "")) != family():
+		who = Kin.head(sim.state, family())
+	_offices_panel.close()
+	_ledger_panel.close()
+	_trial_panel.open_for(sim, who, id)
+	Log.info("Hud", "trial panel (trial=%s, actor=%s)" % [id, who])
+
+
+func toggle_trial() -> void:
+	if _trial_panel.visible:
+		_trial_panel.close()
+	else:
+		open_trial()
+
+
+func trial_panel() -> TrialPanel:
+	return _trial_panel
+
+
+func trial_card() -> TrialCard:
+	return _trial_card
+
+
 func offices_panel() -> OfficesPanel:
 	return _offices_panel
 
@@ -687,7 +757,8 @@ func _refresh_group(sim: Sim) -> void:
 	var fam := family()
 	var group := Kin.group(sim.state, fam) if fam != "" else []
 	var heir := Kin.heir(sim, fam) if fam != "" else ""
-	var sig := "%s|%s|%s|%s" % [group, selected_id, heir, group.map(func(c: String) -> Variant: return sim.state.characters[c].get("visual"))]
+	var sig := "%s|%s|%s|%s|%s" % [group, selected_id, heir, group.map(func(c: String) -> Variant: return sim.state.characters[c].get("visual")),
+		group.map(func(c: String) -> bool: return Tribunal.is_banished(sim.state, c))]
 	if sig == _group_sig:
 		return
 	_group_sig = sig
@@ -700,6 +771,9 @@ func _refresh_group(sim: Sim) -> void:
 		_group_bar.add_child(f)
 		f.show_character(sim.state, str(group[i]), {"active": str(group[i]) == selected_id, "controlled": true,
 			"heir": str(group[i]) == heir, "key": str(i + 1)})
+		if Tribunal.is_banished(sim.state, str(group[i])):  # H11: banished: greyed, with the day it ends
+			f.modulate = Color(0.55, 0.55, 0.55)
+			f.tooltip_text = tr("ui.trial.banished") % (int(sim.state.characters[str(group[i])].get("banished_until", 0)) + 1)
 		f.clicked.connect(func(id: String) -> void: select_requested.emit(id))
 		f.double_clicked.connect(func(id: String) -> void: focus_requested.emit(id))
 	_group_bar.visible = group.size() > 0

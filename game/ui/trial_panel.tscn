@@ -1,0 +1,148 @@
+[gd_scene load_steps=5 format=3 uid="uid://cn4o5f5agoumf"]
+
+[ext_resource type="Script" uid="uid://b7gsu3ivsbs5k" path="res://game/ui/trial_panel.gd" id="1_panel"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_court"]
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+bg_color = Color(0.164706, 0.12549, 0.203922, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.666667, 0.564706, 0.317647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar"]
+bg_color = Color(0.85098, 0.705882, 0.415686, 1)
+
+[node name="TrialPanel" type="PanelContainer"]
+visible = false
+custom_minimum_size = Vector2(520, 0)
+offset_right = 520.0
+offset_bottom = 260.0
+theme = ExtResource("2_theme")
+script = ExtResource("1_panel")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Header" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_override_font_sizes/font_size = 12
+text = "--"
+
+[node name="TimeLabel" type="Label" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "--"
+
+[node name="CloseButton" type="Button" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "x"
+
+[node name="Parties" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "--"
+
+[node name="Stake" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.45, 1)
+theme_override_font_sizes/font_size = 10
+text = "--"
+
+[node name="Court" type="PanelContainer" parent="VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_court")
+
+[node name="CourtBox" type="VBoxContainer" parent="VBox/Court"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ScaleRow" type="HBoxContainer" parent="VBox/Court/CourtBox"]
+layout_mode = 2
+
+[node name="DefenseLabel" type="Label" parent="VBox/Court/CourtBox/ScaleRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 10
+text = "--"
+autowrap_mode = 3
+
+[node name="AccusationLabel" type="Label" parent="VBox/Court/CourtBox/ScaleRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.45, 1)
+theme_override_font_sizes/font_size = 10
+text = "--"
+horizontal_alignment = 2
+autowrap_mode = 3
+
+[node name="Balance" type="ProgressBar" parent="VBox/Court/CourtBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_bar")
+show_percentage = false
+
+[node name="WitnessesTitle" type="Label" parent="VBox/Court/CourtBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+text = "--"
+
+[node name="Witnesses" type="VBoxContainer" parent="VBox/Court/CourtBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Hint" type="Label" parent="VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(508, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "--"
+autowrap_mode = 3
+
+[node name="ButtonRow" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="RestButton" type="Button" parent="VBox/ButtonRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "--"
+
+[node name="JudgeRow" type="HBoxContainer" parent="VBox/ButtonRow"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GuiltyButton" type="Button" parent="VBox/ButtonRow/JudgeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "--"
+
+[node name="InnocentButton" type="Button" parent="VBox/ButtonRow/JudgeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "--"

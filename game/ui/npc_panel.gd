@@ -6,7 +6,8 @@ extends PanelContainer
 ## far away, the selected person walks there first with the action queued (like courtship). Gift = the most valuable
 ## thing the selected person carries. H10: the office it holds in the info line and, while the selected person is a
 ## candidate, the campaign actions Visit / Bribe / Defame (defame only on another candidate of the same election;
-## GDD 4.12.4). Only reads the state and gives orders (order_sink).
+## GDD 4.12.4). H11: «Accuse…»: a public fact against the townsperson's family, or fabricated proofs of a charge
+## (GDD 4.12.5; the reason as tooltip). Only reads the state and gives orders (order_sink).
 
 signal closed
 
@@ -19,6 +20,7 @@ var actor: String = ""   # the selected person (who acts)
 var target: String = ""  # the townsperson of the sheet
 var _sig: String = ""
 var _bound: bool = false
+var _accuse_pick: int = 0  # H11: the chosen entry of the accuse picker (facts first, then fabricated charges)
 
 
 func setup(s: Sim, who: String, npc: String) -> void:
@@ -68,7 +70,8 @@ func refresh(force: bool = false) -> void:
 			if k != "defame" or why != "not_a_candidate":
 				camp.append([k, why])
 	var sig := "%s|%s|%s|%s|%s|%s|%d|%s|%s" % [actor, target, SimQuery.town_state_text(sim, target), emos, gift, statuses,
-		Emotions.relation(st, actor, target) if actor != "" else 0, camp, Offices.of_character(st, target)]
+		Emotions.relation(st, actor, target) if actor != "" else 0, camp, Offices.of_character(st, target)] \
+		+ "|%s|%d" % [Tribunal.accuse_options(sim, actor, target) if actor != "" else {}, _accuse_pick]
 	if sig == _sig and not force:
 		return
 	_sig = sig
@@ -136,6 +139,8 @@ func refresh(force: bool = false) -> void:
 			b.tooltip_text = SimQuery.item_label(sim.catalog, str(gift["item"]), int(gift["quality"]))
 		b.pressed.connect(func() -> void: do_action(act))
 		acts.add_child(b)
+	if actor != "" and str(st.characters.get(actor, {}).get("family", "")) != str(t.get("family", "")):
+		acts.add_child(_accuse_row())  # H11
 	for c: Array in camp:  # H10: the campaign
 		var kind := str(c[0])
 		var why := str(c[1])
@@ -151,6 +156,64 @@ func refresh(force: bool = false) -> void:
 		b.pressed.connect(func() -> void: do_campaign(kind))
 		acts.add_child(b)
 	reset_size()
+
+
+## H11: the accuse picker (public facts against the target's family, then «fabricate: <charge>») and its button.
+func _accuse_entries() -> Array:
+	var o := Tribunal.accuse_options(sim, actor, target)
+	var out: Array = []
+	for f: Variant in o["facts"]:
+		var fa := Tribunal.fact(sim.state, str(f))
+		out.append({"fact": str(f), "text": SimQuery.t_("ui.npc.accuse_fact") % [SimQuery.t_("charge." + str(fa["charge"])),
+			int(fa["day"]) + 1]})
+	for c: Variant in o["charges"]:
+		out.append({"charge": str(c), "fabricate": true, "text": SimQuery.t_("ui.npc.accuse_fabricate") %
+			SimQuery.t_("charge." + str(c))})
+	return out
+
+
+func _accuse_row() -> Control:
+	var row := HBoxContainer.new()
+	row.name = "AccuseRow"
+	var entries := _accuse_entries()
+	_accuse_pick = clampi(_accuse_pick, 0, maxi(0, entries.size() - 1))
+	var ob := OptionButton.new()
+	ob.name = "AccusePick"
+	ob.focus_mode = Control.FOCUS_NONE
+	ob.add_theme_font_size_override("font_size", 10)
+	for e: Dictionary in entries:
+		ob.add_item(str(e["text"]))
+	if not entries.is_empty():
+		ob.select(_accuse_pick)
+	ob.item_selected.connect(func(i: int) -> void:
+		_accuse_pick = i
+		_sig = "")
+	row.add_child(ob)
+	var b := Button.new()
+	b.name = "Accuse"
+	b.text = SimQuery.t_("ui.npc.accuse")
+	b.focus_mode = Control.FOCUS_NONE
+	b.add_theme_font_size_override("font_size", 10)
+	b.add_theme_color_override("font_color", Color(1, 0.55, 0.45))
+	var e: Dictionary = entries[_accuse_pick] if not entries.is_empty() else {}
+	var why := Tribunal.accuse_status(sim, actor, target, str(e.get("fact", "")), str(e.get("charge", "")),
+		bool(e.get("fabricate", false)))
+	b.disabled = why != "" or e.is_empty()
+	b.tooltip_text = SimQuery.reason_text(why) if why != "" else SimQuery.t_("ui.npc.accuse_tip_fabricate" if bool(e.get(
+		"fabricate", false)) else "ui.npc.accuse_tip")
+	b.pressed.connect(func() -> void:
+		var o := {"type": "accuse", "actor": actor, "target": target}
+		if bool(e.get("fabricate", false)):
+			o["fabricate"] = true
+			o["charge"] = str(e["charge"])
+		else:
+			o["fact"] = str(e.get("fact", ""))
+		ViewConfig.info("NpcPanel", "order %s" % [o])
+		if order_sink.is_valid():
+			order_sink.call(o)
+		_sig = "")
+	row.add_child(b)
+	return row
 
 
 ## H10: a campaign action on the townsperson: at once in range (defame anywhere), else walking there first.

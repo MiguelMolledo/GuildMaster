@@ -17,6 +17,9 @@ func show_person(sim: Sim, chr: String, flags: Dictionary) -> void:
 	(%AgeLabel as Label).text = (SimQuery.t_("ui.family.age_dead") if not bool(ch.get("alive", true)) \
 		else SimQuery.t_("ui.family.age")) % age
 	(%ClassLabel as Label).text = SimQuery.t_("class." + str(ch.get("class", "artisan")))
+	if Tribunal.is_banished(sim.state, chr):  # H11: banished
+		(%ClassLabel as Label).text = SimQuery.t_("ui.trial.banished_short")
+		(%ClassLabel as Label).add_theme_color_override("font_color", Color(1, 0.55, 0.45))
 	var office := Offices.of_character(sim.state, chr)  # H10: the office it holds
 	if office != "" and bool(ch.get("alive", true)):
 		(%ClassLabel as Label).text = SimQuery.office_name(office)

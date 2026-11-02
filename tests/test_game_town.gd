@@ -98,7 +98,8 @@ func test_npc_sheet_shows_emotion_and_gives_actions() -> void:
 	check(txt.contains(SimQuery.t_("emotion.angry")), "the emotion is listed (%s)" % txt)
 	check(txt.contains(str(sim.state.characters[npc]["name"])), "the name")
 	var acts := panel.get_node("%Actions")
-	eq(acts.get_child_count(), 5, "five actions")
+	eq(acts.get_children().filter(func(n: Node) -> bool: return n.name != "AccuseRow").size(), 5,
+		"five actions (H11 adds the accuse row)")
 	check((acts.get_node("Talk") as Button).disabled, "angry: will not talk")
 	_orders = []
 	(acts.get_node("Insult") as Button).pressed.emit()

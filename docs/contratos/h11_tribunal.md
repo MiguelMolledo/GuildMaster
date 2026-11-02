@@ -17,7 +17,7 @@ IA acusa al jugador solo con motivo real o con pruebas fabricadas si su honestid
 |---|---|---|
 | base | `sim/core/world_state.gd` (v11), `sim/meta/save_file.gd` (paso 10→11), `sim/core/catalog.gd` (`justice`), `data/justice.json`, `data/score.json`, `data/ai_profiles/rival_smith.json`, `data/offices/*.json` (poderes de H11 listos), `tools/scenarios/make_trial_scenarios.gd`, `tools/validate_content.py` (`check_h11`), `tests/data/saves/v10_office_campaign.json` | `tests/test_core_h11_base.gd` |
 | sim | `sim/politics/tribunal.gd` (hechos, juicios, testigos, vista, veredicto, condenas, destierro); enganches en `sim/core/sim.gd` (paso y órdenes del desterrado), `orders.gd`, `sim/econ/inspections.gd` (juicio automático), `sim/politics/elections.gd` (soborno descubierto = hecho), `sim/politics/offices.gd` (poderes de Juez y Alguacil; impuesto con `tax_mult`), `sim/family/schedules.gd` (el desterrado no tiene rutina), `sim/meta/new_game.gd` (actitudes), `sim/ai/rival_ai.gd` (tarea `accuse`), `sim/bots/bot_artisan_expert.gd` (ganchos `crook`), `tools/sim_runner.gd`, `data/targets.json` | `tests/test_justice_*.gd`, `tests/test_bots_crook.gd` |
-| vista | `game/ui/trial_panel.*` (preparación y vista oral), `game/ui/verdict_card.*`, carta de acusación (aviso y botón «Juicios» del HUD, tecla J), «Acusar…» en `npc_panel`, insignia de destierro (HUD, ficha, árbol), personaje desterrado oculto en el mapa, ayuda F1, `game/smoke/smoke_tribunal.gd` | `tests/test_game_trials.gd` |
+| vista | `game/ui/trial_panel.*` (preparación y vista oral), `game/ui/trial_card.*` (carta «Te acusan» y veredicto), botón «Juicio» del HUD (tecla J), «Acusar…» en `npc_panel`, insignia de destierro (HUD, ficha, árbol), personaje desterrado oculto en el mapa, ayuda F1, `game/smoke/smoke_tribunal.gd` | `tests/test_game_trials.gd` |
 
 ## Estado (guardado v11)
 Migración 10 → 11 (`SaveFile._step`):
@@ -138,19 +138,19 @@ disposition, actions: {kind: motivo}}], days_left, minutes_left}`, `Tribunal.acc
   `guilty`, `ai_accusations`, `ai_accusations_bad`, `banished_days`.
 
 ## Vista
-- **Carta «Te acusan»**: el aviso urgente abre el panel; botón **Juicios** del HUD (tecla J) mientras haya un juicio
-  de tu familia.
+- **Carta «Te acusan»** (`game/ui/trial_card.*`, «Preparar la defensa» abre el panel); botón **Juicio** del HUD (tecla J)
+  mientras haya un juicio de tu familia (acusada o acusadora).
 - **Panel del juicio** (`game/ui/trial_panel.*`): acusado contra acusador, cargo y gravedad con la condena posible,
   días que quedan; la **balanza** con sus sumandos (pruebas del acusador «?» hasta la vista); los testigos con su
   disposición y Convencer / Sobornar / Amenazar (lejos: camina primero). En la vista, el mismo panel: los testigos en
   contra con «Interrogar», «Concluir la defensa», y el Juez (si eres tú) puede dictar. El juego **se pausa** al empezar
   la vista de un juicio tuyo (como pide el diseño de UI; el sim no cambia).
-- **Tarjeta de veredicto** (`game/ui/verdict_card.*`): sello INOCENTE / CULPABLE, balanza final y condena concreta.
+- **Tarjeta de veredicto** (la misma `trial_card`): sello INOCENTE / CULPABLE, balanza final y condena concreta.
 - **Acusar…** en la ficha del vecino (hechos públicos contra su familia o fabricar con un cargo).
 - **Desterrado**: insignia en el retrato y la ficha («desterrado hasta el día N»), no se dibuja en el mapa.
 - Ayuda (F1): sección «Tribunal» (`help.trials*`).
-- Capturas: `--smoke-script=tribunal` → `h11_acusacion`, `h11_preparacion`, `h11_vista`, `h11_veredicto`,
-  `h11_acusar`.
+- Capturas: `--smoke-script=tribunal` → `h11_acusacion`, `h11_preparacion`, `h11_vista`, `h11_vista_interrogada`,
+  `h11_veredicto`, `h11_acusar`, `h11_destierro`.
 
 ## Decisiones provisionales
 - **Vista oral interactiva = interrogar a cada testigo en contra** (opción (b) del diseño de UI): SkillCheck Retórica
