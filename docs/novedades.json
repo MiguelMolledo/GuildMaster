@@ -1,6 +1,17 @@
 [
   {
     "fecha": "2026-11-02",
+    "titulo": "Arte · mejoras de la forja con sprite, bosque en el borde y casas variadas",
+    "que": "Las 15 mejoras del interior de la forja que seguían en greybox ya tienen sprite (fuelle, tina de temple, banco de grabado, sello de maestro, literas, caja fuerte, forja de maestro...). Fuera del mapa, un anillo de hierba que se oscurece con bosque cada vez más denso, por donde siguen el río y las calles (map_border en data/view.json). Dos modelos de casa nuevos por recoloreo y las 8 casas de vecinos con cuatro aspectos (building_variants).",
+    "como_probar": "jugar.command. Recorrido: --smoke-script=arte (esquina, puerta oeste, forja con todas las mejoras).",
+    "capturas": [
+      "docs/novedades/arte4_forja_mejoras_despues.png",
+      "docs/novedades/arte4_esquina_despues.png",
+      "docs/novedades/arte4_manzana_despues.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-02",
     "titulo": "Arte · interiores de piedra, árboles, río con puente y obras dibujadas",
     "que": "La forja tiene suelo de losas y paredes de sillares; la armería, losas grandes y yeso con entramado. Tres árboles (roble, redondo, pino), río con orillas y espuma, puente de tablones, andamio de obras, fachadas de piedra y noble, y mejoras exteriores con piezas de Guild Renew. Espada y aguja redibujadas a 16 px. Todo dibujado con tools/art/dibujar_pixel.py (Pillow, regenerable), sin créditos. Quedan en greybox los visuales de mejoras del interior y la guardia.",
     "como_probar": "jugar.command. Recorrido de cámara: --smoke-script=arte.",
