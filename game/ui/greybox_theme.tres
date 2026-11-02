@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=25 format=3 uid="uid://bsmlccu1dtv2v"]
+[gd_resource type="Theme" load_steps=32 format=3 uid="uid://bsmlccu1dtv2v"]
 
 [ext_resource type="Texture2D" uid="uid://55w2uwcmn4ky" path="res://assets/art/ui/theme/panel.png" id="panel"]
 [ext_resource type="Texture2D" uid="uid://bqd15odjsdvmm" path="res://assets/art/ui/theme/button_normal.png" id="button_normal"]
@@ -8,6 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://dm7770ubaeiua" path="res://assets/art/ui/theme/field.png" id="field"]
 [ext_resource type="Texture2D" uid="uid://8y1yaywb8m8y" path="res://assets/art/ui/theme/tooltip.png" id="tooltip"]
 [ext_resource type="FontFile" uid="uid://d2lfrgsqpllrv" path="res://assets/art/ui/fonts/silkscreen_regular.ttf" id="font_pixel"]
+[ext_resource type="Texture2D" uid="uid://cqmyiibm4adhb" path="res://assets/art/ui/theme/parchment.png" id="parchment"]
+[ext_resource type="FontFile" uid="uid://d2cgns7quqhfv" path="res://assets/art/ui/fonts/jacquarda_bastarda_9.ttf" id="font_title"]
+[ext_resource type="FontFile" uid="uid://8xsoepol553f" path="res://assets/art/ui/fonts/pixel_operator.ttf" id="font_body"]
+[ext_resource type="FontFile" uid="uid://6ldjcabjkexb" path="res://assets/art/ui/fonts/pixel_operator_bold.ttf" id="font_bold"]
+[ext_resource type="FontFile" uid="uid://b7a6boimjai6i" path="res://assets/art/ui/fonts/pixel_operator_8.ttf" id="font_small"]
 
 [sub_resource type="StyleBoxTexture" id="panel"]
 content_margin_left = 9.0
@@ -135,6 +140,29 @@ corner_radius_bottom_left = 1
 [sub_resource type="StyleBoxFlat" id="scroll"]
 bg_color = Color(0.101961, 0.0705882, 0.0352941, 0.8)
 
+[sub_resource type="StyleBoxTexture" id="parchment_box"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+texture = ExtResource("parchment")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="dark_box"]
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+bg_color = Color(0.164706, 0.121569, 0.0784314, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.243137, 0.156863, 0.0784314, 1)
+
 [resource]
 default_font_size = 10
 Button/colors/font_color = Color(0.92549, 0.894118, 0.823529, 1)
@@ -175,3 +203,28 @@ VScrollBar/styles/grabber_pressed = SubResource("grabber")
 VScrollBar/styles/scroll = SubResource("scroll")
 HScrollBar/styles/grabber = SubResource("grabber")
 HScrollBar/styles/scroll = SubResource("scroll")
+BodyLabel/base_type = &"Label"
+BodyLabel/constants/line_spacing = -3
+BodyLabel/fonts/font = ExtResource("font_body")
+BodyLabel/font_sizes/font_size = 16
+BoldLabel/base_type = &"Label"
+BoldLabel/constants/line_spacing = -3
+BoldLabel/fonts/font = ExtResource("font_bold")
+BoldLabel/font_sizes/font_size = 16
+DarkPanel/base_type = &"PanelContainer"
+DarkPanel/styles/panel = SubResource("dark_box")
+InkLabel/base_type = &"Label"
+InkLabel/colors/font_color = Color(0.164706, 0.121569, 0.0784314, 1)
+InkLabel/constants/line_spacing = -3
+InkLabel/fonts/font = ExtResource("font_body")
+InkLabel/font_sizes/font_size = 16
+ParchmentPanel/base_type = &"PanelContainer"
+ParchmentPanel/styles/panel = SubResource("parchment_box")
+SmallLabel/base_type = &"Label"
+SmallLabel/colors/font_color = Color(0.658824, 0.596078, 0.470588, 1)
+SmallLabel/fonts/font = ExtResource("font_small")
+SmallLabel/font_sizes/font_size = 8
+TitleLabel/base_type = &"Label"
+TitleLabel/colors/font_color = Color(0.784314, 0.658824, 0.305882, 1)
+TitleLabel/fonts/font = ExtResource("font_title")
+TitleLabel/font_sizes/font_size = 13

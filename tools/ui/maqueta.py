@@ -462,6 +462,7 @@ def background(spec):
         img = image(bg["captura"])
         if img is None:
             return Image.new("RGBA", (W, H), color("hueco"))
+        img = img.copy()   # la de la caché no se toca (si no, la siguiente maqueta con este fondo sale más oscura)
         if bg.get("recorte"):
             x, y, w, h = bg["recorte"]
             img = img.crop((x, y, x + w, y + h))
@@ -507,6 +508,9 @@ def render(spec, out=OUT, show_grid=False, save=True):
 def load(path):
     if path.endswith(".py"):
         ns = runpy.run_path(path)
+        if "MAQUETAS" not in ns and "MAQUETA" not in ns:
+            WARNINGS.append(f"{path} no define MAQUETA ni MAQUETAS (módulo de apoyo): lo salto")
+            return []
         return ns["MAQUETAS"] if "MAQUETAS" in ns else [ns["MAQUETA"]]
     with open(path, encoding="utf-8") as f:
         data = json.load(f)

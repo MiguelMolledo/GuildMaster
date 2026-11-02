@@ -132,7 +132,8 @@ Al pedir: saldo antes y después en `assets/art/MANIFEST.md`, cada asset con su 
    función de `dibujar_ui.py` (o se guarda con otro nombre) para que no se pise. Anotarlo en el inventario
    (`"origen": "a mano"`).
 
-**Una variación para un panel concreto** (p. ej. pergamino para un documento):
+**Una variación para un panel concreto** (p. ej. pergamino para un documento). Ya existen `ParchmentPanel`,
+`DarkPanel`, `TitleLabel`, `BodyLabel`, `BoldLabel`, `SmallLabel` e `InkLabel`; para una nueva:
 
 1. En el editor de Theme: «+» (Add Type) → nombre `ParchmentPanel` → en sus propiedades, `Base Type` =
    `PanelContainer`.

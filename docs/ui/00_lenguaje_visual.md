@@ -211,8 +211,11 @@ Tareas pequeñas, en este orden (ninguna toca `sim/`):
 - [ ] Theme: `Label`, `RichTextLabel`, `LineEdit`, `PopupMenu`, `TooltipLabel` con Pixel Operator 16 y
       `line_spacing = -3`; `Button` con Pixel Operator Bold 16 (sustituye a Silkscreen 8); `default_font` del theme =
       Pixel Operator 16.
-- [ ] Theme: tipos nuevos (variaciones) `TitleLabel` (Jacquarda 13, color oro), `SmallLabel` (Pixel Operator 8),
-      `ParchmentPanel` (pieza `parchment`, texto tinta), `DarkPanel` (sección oscura), `KeyLabel`.
+- [x] Theme: variaciones nuevas ya en `greybox_theme.tres` (no cambian nada de lo que hay; se usan poniendo su nombre
+      en `Theme Type Variation` del nodo): `TitleLabel` (Jacquarda 13, oro), `BodyLabel` y `BoldLabel` (Pixel Operator
+      16, `line_spacing` −3), `SmallLabel` (Pixel Operator 8, tenue), `InkLabel` (tinta, para pergamino),
+      `ParchmentPanel` (pieza `parchment`), `DarkPanel` (sección oscura). Sirven para probar la fuente en un panel
+      antes de cambiarla en todo el theme.
 - [ ] Theme: `CheckBox` (`check_on`/`check_off`), `HSlider` (`slider_track`/`slider_grabber`), `VScrollBar`
       (`scroll_track`/`scroll_grabber`), `TabBar`/`TabContainer` (`tab_on`/`tab_off`), `HSeparator` (`divider`).
 - [ ] Revisar cada panel de `game/ui/` contra la rejilla de 4 y los tamaños de la sección 2 (los que fuerzan
