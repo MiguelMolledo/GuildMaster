@@ -102,6 +102,41 @@ PIECES = {
                                           "by one while councillors at a table count and record them.")),
     "card_title": ("card", TITLE, card("TITLE CEREMONY. A person kneels before the mayor, who lays a sword flat on "
                                        "their shoulder, heraldic banners, a crowd applauding, golden light.")),
+    # tanda 4 (2026-11-04): cartas que pedían los documentos de UI y variantes aprobadas
+    "card_succession": ("card", TITLE, card("SUCCESSION. In a candlelit bedroom the dying head of the family, in bed, "
+                                            "hands the family ring and the account ledger to the kneeling heir, the "
+                                            "rest of the family gathered around; every face lit and visible.")),
+    "card_proposal": ("card", TITLE, card("MARRIAGE PROPOSAL. In a small garden by a stone well, a suitor on one knee "
+                                          "offers a ring to a young woman; her family watches smiling from a doorway; "
+                                          "faces lit and visible.")),
+    "card_accusation": ("card", TITLE, card("ACCUSATION. The town constable nails a parchment summons with a red wax "
+                                            "seal to the door of a workshop, while neighbours whisper and point.")),
+    "card_title_citizen": ("card", TITLE, card("CITIZENSHIP. In the guild hall a craftsman signs the town register "
+                                               "with a quill before the guild masters, who shake his hand.")),
+    "card_title_patrician": ("card", TITLE, card("PATRICIAN RANK. A rich banquet hall: a merchant family is toasted at "
+                                                 "the head of a long table full of food, under their banner.")),
+    "card_title_baron": ("card", TITLE, card("BARONY. Investiture: a person kneels before a lord on a throne who lays "
+                                             "a sword on their shoulder, knights and heraldic banners around.")),
+    "card_title_noble": ("card", TITLE, card("NOBILITY. A royal court: a new noble in a fur mantle receives a "
+                                             "parchment charter with a heavy gold seal before the crowned king, both in warm "
+                                             "light with clearly visible faces and features; no black silhouettes.")),
+    "card_verdict_guilty": ("card", TITLE, card("GUILTY VERDICT. Outside the town hall the condemned is led away in "
+                                                "chains between two guards, the crowd jeering, grey sky; faces "
+                                                "visible.")),
+    "card_verdict_innocent": ("card", TITLE, card("ACQUITTAL. The acquitted steps out of the town hall into warm "
+                                                  "sunlight, family embracing them, neighbours applauding; faces "
+                                                  "visible.")),
+    "screen_ending_ruin": ("screen", TITLE, STYLE + "the end screen of a dynasty RUINED by debt: an emptied workshop, "
+                           "creditors carrying out the furniture and tools, a blank wooden shop sign (no lettering) "
+                           "broken on the floor, grey cold light through the door. Absolutely no words or letters "
+                           "anywhere." + SCREEN),
+    "screen_ending_retire": ("screen", TITLE, STYLE + "the end screen of a dynasty that RETIRES in peace: an old "
+                             "couple sitting by a warm fireside, the account ledger closed on the table, the town at "
+                             "dusk through the window, a sleeping dog. No banners, no signs, no scrolls with writing: "
+                             "absolutely no words or letters anywhere." + SCREEN),
+    "screen_new_game": ("screen", TITLE, STYLE + "the background of the NEW GAME screen: a scribe's oak desk seen from "
+                        "above at an angle, a blank parchment family charter, a quill and inkpot, sealing wax and a "
+                        "seal, a candle, a few coins." + SCREEN),
     # pantallas (960×540)
     "screen_loading_1": ("screen", TITLE, STYLE + "a loading screen illustration: a guild master's desk seen from above "
                          "at an angle, an open ledger, a quill and inkpot, a candle, stacks of coins and a hand-drawn "
