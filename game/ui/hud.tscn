@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cn4o5f5agoumf" path="res://game/ui/trial_panel.tscn" id="17_trial"]
 [ext_resource type="PackedScene" uid="uid://bavqo4xvafv5o" path="res://game/ui/trial_card.tscn" id="18_trialcard"]
 [ext_resource type="PackedScene" uid="uid://dd1kuft7r6quj" path="res://game/ui/kin_ai_panel.tscn" id="19_kinai"]
+[ext_resource type="PackedScene" uid="uid://bf31qn5x14ckh" path="res://game/ui/family_card.tscn" id="40_familycard"]
 
 [sub_resource type="StyleBoxFlat" id="paused_tag"]
 content_margin_left = 4.0
@@ -440,6 +441,10 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="MicroeventCard" parent="Root/Column" instance=ExtResource("12_mev")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FamilyCard" parent="Root/Column" instance=ExtResource("40_familycard")]
 unique_name_in_owner = true
 layout_mode = 2
 

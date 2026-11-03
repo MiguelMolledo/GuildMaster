@@ -69,12 +69,15 @@ func test_tree_layout_and_identity() -> void:
 	panel.pick(daughter)
 	_orders.clear()
 	(panel.get_node("%HeirButton") as Button).pressed.emit()
+	eq(_orders.size(), 0, "designate heir asks first (familia.md §4)")
+	check(SocialKit.accept_pending(panel), "confirmed")
 	eq(_orders, [{"type": "designate_heir", "actor": HERO, "heir": daughter}], "designate_heir")
 	st.characters[daughter]["life"]["school"] = "pending"
 	panel.refresh(true)
 	check((panel.get_node("%SchoolRow") as Control).visible, "school choice row")
 	_orders.clear()
 	(panel.get_node("%SchoolButton") as Button).pressed.emit()
+	check(SocialKit.accept_pending(panel), "the school asks first")
 	eq(str(_orders[0]["type"]), "school_choice", "school_choice")
 	eq(str(_orders[0]["child"]), daughter, "for her")
 	check(not (panel.get_node("%CloseDynasty") as Control).visible, "no voluntary close (D19 off)")
@@ -117,9 +120,9 @@ func test_courtship_panel_talks_or_walks() -> void:
 	var first := list.get_child(0)
 	var agnes := str(first.name)
 	_orders.clear()
-	(first.get_node("Talk") as Button).pressed.emit()
+	(first.find_child("Talk", true, false) as Button).pressed.emit()
 	eq(_orders, [{"type": "court_talk", "actor": HERO, "target": agnes}], "in range: talk at once")
-	check((first.get_node("Propose") as Button).disabled, "propose needs 80")
+	check((first.find_child("Propose", true, false) as Button).disabled, "propose needs 80")
 	var far := ""
 	for c: Dictionary in Courtship.candidates(sim, HERO):
 		if str(c["status"]) == "too_far":

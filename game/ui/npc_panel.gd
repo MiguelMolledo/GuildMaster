@@ -90,7 +90,7 @@ func refresh(force: bool = false) -> void:
 	var rel := Emotions.relation(st, actor, target) if actor != "" else 0
 	var sig := "%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%d|%s" % [actor, target, SimQuery.town_state_text(sim, target), emos, gift,
 		statuses, rel, camp, Offices.of_character(st, target), Tribunal.accuse_options(sim, actor, target) if actor != "" \
-		else {}, _accuse_pick, _hovered]
+		else {}, _accuse_pick, _hovered] + "|%s" % [Courtship.affinity(st, actor, target) if actor != "" else 0]
 	if sig == _sig and not force:
 		return
 	_sig = sig
@@ -98,6 +98,7 @@ func refresh(force: bool = false) -> void:
 	_fill_relation(rel)
 	_fill_emotions(emos, my_fam)
 	_fill_actions(statuses, gift, camp, t)
+	_fill_court()
 	_update_reason()
 	reset_size()
 
@@ -263,6 +264,77 @@ func _fill_actions(statuses: Array, gift: Dictionary, camp: Array, t: Dictionary
 		b.mouse_exited.connect(_hover.bind(""))
 		b.pressed.connect(func() -> void: request_campaign(kind))
 		acts.add_child(b)
+
+
+## cortejo_y_boda.md §6: while the townsperson is someone the selected person could court, a Courtship section with
+## the affinity bar (the mark of propose_min) and Talk / Gift / Propose (the same orders as the courtship panel).
+func _fill_court() -> void:
+	var box := %CourtBox as Control
+	var entry := {}
+	if actor != "":
+		for c: Dictionary in Courtship.candidates(sim, actor):
+			if str(c["character"]) == target:
+				entry = c
+	box.visible = not entry.is_empty() and Kin.is_single(sim.state, actor)
+	if not box.visible:
+		return
+	var cfg: Dictionary = sim.catalog.family.get("courtship", {})
+	var min_aff := int(cfg.get("propose_min", 80))
+	var aff := int(entry["affinity"])
+	(%CourtTitle as Label).text = SimQuery.t_("ui.court.section")
+	(%CourtAffinity as Label).text = SimQuery.t_("ui.court.affinity") % aff
+	var slot := %CourtBarSlot as Control
+	SocialKit.clear(slot)
+	var bar := SocialKit.threshold_bar(float(aff), float(cfg.get("affinity_max", 100)), float(min_aff), 300.0, "Affinity")
+	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	slot.add_child(bar)
+	var acts := %CourtActions as Control
+	SocialKit.clear(acts)
+	var status := str(entry["status"])
+	var can := status in ["", "too_far"]
+	var talked := CourtshipPanel.talked(sim, actor, target)
+	var gift := CourtshipPanel.best_gift(sim, actor)
+	for spec: Array in [["CourtTalk", "ui.court.talk_short", can and not talked, func() -> void: _court({"type": "court_talk"})],
+			["CourtGift", "ui.court.gift", can and not gift.is_empty(), _court_gift],
+			["CourtPropose", "ui.court.propose_short", can and aff >= min_aff, _court_propose]]:
+		var b := Button.new()
+		b.name = str(spec[0])
+		b.text = SimQuery.t_(str(spec[1]))
+		b.theme_type_variation = &"BodyButton"
+		b.focus_mode = Control.FOCUS_NONE
+		b.disabled = not bool(spec[2])
+		b.pressed.connect(spec[3])
+		acts.add_child(b)
+	var line: Array = CourtshipPanel.status_line_for(sim, actor, entry, min_aff)
+	(%CourtStatus as Label).text = str(line[0])
+	(%CourtStatus as Label).theme_type_variation = StringName(line[1])
+
+
+func _court(o: Dictionary) -> void:
+	_give(CourtshipPanel.orders_for(sim, actor, target, o))
+
+
+func _court_gift() -> void:
+	var g := CourtshipPanel.best_gift(sim, actor)
+	if g.is_empty():
+		return
+	var o := {"type": "court_gift", "item": str(g["item"]), "quality": int(g["quality"])}
+	var value := Market.price(sim, str(g["item"]), int(g["quality"]), "sell")
+	if value >= int(sim.catalog.town.get("actions", {}).get("gift", {}).get("grateful_min_value", 50)):
+		SocialKit.ask(self, SimQuery.t_("ui.npc.ask_gift") % [SimQuery.item_label(sim.catalog, str(g["item"]),
+			int(g["quality"])), value, str(sim.state.characters.get(target, {}).get("name", ""))], "",
+			SimQuery.t_("npc_action.gift"), func() -> void: _court(o))
+		return
+	_court(o)
+
+
+## Proposing asks first with its consequences (cortejo_y_boda.md §4).
+func _court_propose() -> void:
+	var t: Dictionary = sim.state.characters.get(target, {})
+	var full := "%s %s" % [str(t.get("name", "")), str(sim.state.families.get(str(t.get("family", "")), {}).get("name", ""))]
+	SocialKit.ask(self, SimQuery.t_("ui.court.propose_q") % full.strip_edges(), "· " + "\n· ".join(
+		CourtshipPanel.propose_lines(sim, actor, target)), SimQuery.t_("ui.court.propose_yes"),
+		func() -> void: _court({"type": "propose"}))
 
 
 ## The reason of a status, saying when it is mended if it is a matter of time (_social rule 1).

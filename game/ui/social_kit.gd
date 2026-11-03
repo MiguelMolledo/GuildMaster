@@ -220,6 +220,27 @@ static func signed(n: int) -> String:
 	return ("+%d" % n) if n >= 0 else ("−%d" % absi(n))
 
 
+## A bar 0..max with a 1 px gold mark at `mark` (the threshold: afinidad 80, votos, defensa), its own `w` × 6.
+static func threshold_bar(value: float, max_value: float, mark: float, w: float = 120.0, name: String = "Bar") -> ProgressBar:
+	var p := bar(value / maxf(1.0, max_value), w, name)
+	var m := ColorRect.new()
+	m.name = "Mark"
+	m.color = Color(0.94902, 0.847059, 0.501961)
+	m.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var r := clampf(mark / maxf(1.0, max_value), 0.0, 1.0)
+	m.anchor_left = r
+	m.anchor_right = r
+	m.anchor_top = 0.0
+	m.anchor_bottom = 1.0
+	m.offset_left = 0.0
+	m.offset_right = 1.0
+	m.offset_top = -2.0
+	m.offset_bottom = 2.0
+	p.add_child(m)
+	p.set_meta("mark", mark)
+	return p
+
+
 static func clear(n: Node) -> void:
 	for c: Node in n.get_children():
 		n.remove_child(c)

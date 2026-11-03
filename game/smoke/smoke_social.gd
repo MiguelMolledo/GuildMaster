@@ -37,6 +37,13 @@ func _sections() -> Array:
 		["ciudad", "ficha", _ciudad_ficha, 0.8],
 		["ciudad", "tablon", _ciudad_tablon, 0.8],
 		["ciudad", "microevento", _ciudad_mev, 0.8],
+		["familia", "arbol", _familia_arbol, 0.8],
+		["familia", "sucesion", _familia_sucesion, 0.8],
+		["familia", "tarjetas_vida", _familia_nacimiento, 0.8],
+		["familia", "escuela", _familia_escuela, 0.8],
+		["cortejo", "panel", _cortejo_panel, 0.8],
+		["cortejo", "propuesta", _cortejo_propuesta, 0.8],
+		["cortejo", "boda", _cortejo_boda, 0.8],
 	]
 
 
@@ -66,13 +73,22 @@ func _next() -> void:
 		get_tree().quit(0)
 		return
 	app.hud().close_panels()
+	var card := app.get_node_or_null("%SuccessionCard") as SuccessionCard
+	if card != null and card.visible:
+		card.finish()
+	var wed := app.get_node_or_null("%WeddingCard") as WeddingCard
+	if wed != null:
+		wed.close()
+	var dlg := get_tree().root.get_node_or_null("SocialConfirmLayer/Confirm") as ConfirmDialog
+	if dlg != null:
+		dlg.close()
 	var s: Array = _steps[_i]
 	print("[SmokeSocial] %s/%s" % [s[0], s[1]])
 	(s[2] as Callable).call()
 
 
 static func _doc(section: String) -> String:
-	return {"ciudad": "ciudad_viva", "familia": "familia", "cortejo": "cortejo_boda", "titulos": "titulos_y_reputacion",
+	return {"ciudad": "ciudad_viva", "familia": "familia", "cortejo": "cortejo_y_boda", "titulos": "titulos_y_reputacion",
 		"cargos": "cargos_y_elecciones", "tribunal": "tribunal", "rivales": "rivales"}.get(section, section)
 
 
@@ -152,3 +168,71 @@ func _ciudad_mev() -> void:
 		second["id"] = str(first["id"]) + "_b"
 		(Game.sim.state.microevents["active"] as Array).append(second)  # «+1 más»
 		_centre(Vector2i(26, 20))
+
+
+# --- familia --------------------------------------------------------------------------------------------------------
+
+func _familia_arbol() -> void:
+	if _load("founder_old"):
+		app.hud().toggle_tree()
+		var heir := Kin.heir(Game.sim, FAM)
+		app.hud().tree_panel().pick(heir)
+
+
+func _familia_sucesion() -> void:
+	if _load("founder_old"):
+		_centre(Vector2i(19, 20))
+		Game.sim.events.clear()
+		Lifecycle.die(Game.sim, HERO, "old_age")
+		Events.publish(Game.sim.events.duplicate(true))   # the app shows the card, as after a step
+
+
+func _familia_nacimiento() -> void:
+	if _load("founder_old"):
+		_centre(Vector2i(19, 20))
+		var kid := str(Game.sim.state.characters[HERO]["children"][1])
+		Events.publish([{"type": "child_born", "family": FAM, "character": kid}])
+
+
+func _familia_escuela() -> void:
+	if _load("founder_old"):
+		_centre(Vector2i(19, 20))
+		var kid := str(Game.sim.state.characters[HERO]["children"][1])
+		Game.sim.state.characters[kid]["life"] = {"school": "pending"}
+
+
+# --- cortejo --------------------------------------------------------------------------------------------------------
+
+func _court_setup() -> String:
+	var c: Dictionary = Courtship.candidates(Game.sim, HERO)[0]
+	Courtship.relation(Game.sim.state, HERO, str(c["character"]))["affinity"] = 84
+	var cands := Courtship.candidates(Game.sim, HERO)
+	Emotions.add(Game.sim, str(cands[cands.size() - 1]["character"]), "angry", FAM)
+	return str(c["character"])
+
+
+func _cortejo_panel() -> void:
+	if _load("courtship"):
+		_court_setup()
+		_centre(Vector2i(19, 20))
+		app.hud().open_courtship(HERO)
+
+
+func _cortejo_propuesta() -> void:
+	if _load("courtship"):
+		var who := _court_setup()
+		var p: Array = Game.sim.state.characters[who].get("position", [19, 20])
+		_centre(Vector2i(int(p[0]) - 3, int(p[1])))
+		app.hud().open_npc(who)
+		var n: NpcPanel = app.hud().npc_panel()
+		n.refresh(true)
+		n.call("_court_propose")
+
+
+func _cortejo_boda() -> void:
+	if _load("courtship"):
+		var who := _court_setup()
+		_centre(Vector2i(19, 20))
+		Game.sim.events.clear()
+		Courtship.marry(Game.sim, HERO, who)
+		Events.publish(Game.sim.events.duplicate(true))

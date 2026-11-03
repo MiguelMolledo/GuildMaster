@@ -64,6 +64,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 @onready var _saves: SaveScreen = %SaveScreen
 @onready var _options: OptionsScreen = %OptionsScreen
 @onready var _credits: CreditsScreen = %CreditsScreen
+@onready var _succession: SuccessionCard = %SuccessionCard
 
 var interior_building: String = ""   # "" = the town is shown
 var _shots_left: int = 0
@@ -171,6 +172,10 @@ func _bind_menus() -> void:
 		else:
 			_quit_to(where))
 	Game.saved.connect(_on_saved)
+	Events.step_done.connect(_on_step_events)  # familia.md: the succession card
+	_succession.tree_requested.connect(func() -> void:
+		if not _hud.tree_panel().visible:
+			_hud.toggle_tree())
 	_hud.pause_menu_requested.connect(open_pause)  # the HUD's Esc with nothing open and its Menu button
 
 
@@ -338,6 +343,18 @@ func save_game(slot: String) -> void:
 		_quit_to(then)
 	elif _pause.visible:
 		_pause.open()
+
+
+## The succession card (docs/ui/mecanicas/familia.md, decision (a): it pauses) when the head of the player's family
+## dies and an heir takes over; the office_left of the same step say what is not inherited.
+func _on_step_events(events: Array) -> void:
+	if Game.sim == null or menu_open() and not _succession.visible:
+		return
+	var fam := SimQuery.player_family(Game.sim.state)
+	for e: Dictionary in events:
+		if str(e.get("type", "")) == "inheritance" and str(e.get("family", "")) == fam and fam != "":
+			Log.info("App", "succession card (%s -> %s)" % [e.get("from", ""), e.get("heir", "")])
+			_succession.show_for(Game.sim, e, events)
 
 
 ## A slot was written: its thumbnail is what was seen (when the pause menu opened, or the screen now).

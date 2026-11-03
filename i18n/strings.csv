@@ -713,7 +713,7 @@ ui.routine.manual,a manual order rules,manda una orden a mano
 ui.routine.auto,Automatic,Automática
 ui.court.title,Courtship · %s,Cortejo · %s
 ui.court.nobody,Nobody to court,Nadie a quien cortejar
-ui.court.affinity,Affinity %d / 100 (80 to propose),Afinidad %d / 100 (80 para proponer)
+ui.court.affinity,Affinity %d,Afinidad %d
 ui.court.talk,Talk,Hablar
 ui.court.gift,Gift,Regalar
 ui.court.propose,Propose,Proponer
@@ -1454,3 +1454,94 @@ ui.mev_fx.leave,leaves,se va
 ui.mev_fx.steal,steals,roba
 ui.mev_fx.check,%s %d against %d: %s,%s %d contra %d: %s
 ui.mev_fx.nothing,nothing,nada
+ui.family.switch_short,Control,Controlar
+ui.family.routine,Routine,Rutina
+ui.family.school_pick,Choose,Elegir
+ui.family.heads,Heads of the family,Cabezas de familia
+ui.family.tab_tree,Tree,Árbol
+ui.family.tab_dynasty,Dynasty,Dinastía
+ui.family.center,Centre on the head,Centrar en el cabeza
+ui.family.legend,1-2-3 key · ! school · crown: heir · R regent,1-2-3 tecla · ! escuela · corona: heredero · R regente
+ui.family.subtitle,%s · generation %d · %d points,%s · generación %d · %d puntos
+ui.family.no_heir,"No heir: if %s dies, the dynasty ends","Sin heredero: si %s muere, la dinastía termina"
+risk.low,low,bajo
+risk.medium,medium,medio
+risk.high,high,alto
+ui.family.risk,risk of dying this year: %s,riesgo de muerte este año: %s
+ui.family.in_group,in your group (key %d),en tu grupo (tecla %d)
+ui.family.not_in_group,Not in your group,No está en tu grupo
+ui.family.already_active,Already the active one,Ya es el activo
+ui.family.why_heir_dead,Cannot inherit,No puede heredar
+ui.family.why_heir_already,Already the heir,Ya es el heredero
+ui.family.why_heir_head,The head of the family,Es el cabeza de familia
+ui.family.why_heir_not_descendant,Not a descendant of the head,No es descendiente del cabeza
+ui.family.heir_q,Make %s the heir?,¿Designar heredero a %s?
+ui.family.heir_body,%s becomes the heir instead of %s.,%s pasará a ser el heredero en lugar de %s.
+ui.family.heir_body_none,%s becomes the heir.,%s pasará a ser el heredero.
+ui.family.school_preview,%s %d → %d,%s %d → %d
+ui.family.school_q,+1 %s for %s?,¿+1 %s para %s?
+ui.family.school_body,It is for ever.,Es para siempre.
+ui.family.head_days,%s: from day %d to %s,%s: del día %d al %s
+ui.family.no_score,No facts that score yet.,Aún no hay hechos que puntúen.
+ui.family.regent_badge,R,R
+ui.life.born,%s is born,Ha nacido %s
+ui.life.son_of,Son of %s.,Hijo de %s.
+ui.life.daughter_of,Daughter of %s.,Hija de %s.
+ui.life.mother,the mother,su madre
+ui.life.father,the father,su padre
+ui.life.hair_of,Has the hair of %s.,Tiene el pelo de %s.
+ui.life.skin_of,Has the skin of %s.,Tiene la piel de %s.
+ui.life.of_age,%s comes of age,%s es mayor de edad
+ui.life.of_age_body,Turns %d: an adult now.,Cumple %d años: ya es adulto.
+ui.life.died,%s has died,Ha muerto %s
+ui.life.died_body,at %d years.,a los %d años.
+ui.life.school,%s goes to school,%s va a la escuela
+ui.life.school_body,Turns %d: a stat rises +1 for ever.,Cumple %d años: un atributo sube +1 para siempre.
+ui.life.later,Later (does not expire),Más tarde (no caduca)
+ui.life.open,Open,Abrir
+ui.succession.title,The %s family,La familia %s
+ui.succession.died_at,† at %d,† a los %d años
+ui.succession.head_gen,head · generation %d,cabeza · generación %d
+ui.succession.building_detail,"(%d upgrades, %d employees)","(%d mejoras, %d empleados)"
+ui.succession.title_of,title %s,título %s
+ui.succession.vacant,%s: left vacant,%s: queda vacante
+ui.succession.regent,%s manages as regent until %s turns %d (%d years left),%s gestiona como regente hasta que %s cumpla %d (faltan %d años)
+ui.succession.no_regent,— (%s is of age),— (%s ya es mayor de edad)
+ui.succession.inherits,Inherits,Hereda
+ui.succession.not_inherits,Not inherited,No hereda
+ui.succession.regent_label,Regent,Regente
+ui.succession.paused,Paused until you go on.,En pausa hasta que continúes.
+ui.succession.continue,Go on with %s,Continuar con %s
+ui.succession.continue_regent,Go on with %s · %s regent,Continuar con %s · %s regente
+ui.succession.tree,See the tree,Ver el árbol
+ui.court.panel_title,Courtship,Cortejo
+ui.court.who,%s · Charisma %d,%s · Carisma %d
+ui.court.mult,×%s on every affinity gained,×%s a lo que gane la afinidad
+ui.court.ready_n,ready: %d,listos: %d
+ui.court.hint,The line on the bar is %d: from there you can propose. Talking every day and gifts raise it.,La línea en la barra es %d: desde ahí puedes pedir su mano. Hablar cada día y regalar la suben.
+ui.court.filter_all,All,Todos
+ui.court.filter_near,Near,Cerca
+ui.court.filter_ready,Ready,Listos
+ui.court.minor,%s is %d: may court at %d,%s tiene %d años: podrá cortejar a los %d
+ui.court.married,%s already has a spouse: %s,%s ya tiene pareja: %s
+ui.court.nobody_hint,Townsfolk who are widowed or turn 16 show up here.,Los vecinos que enviudan o cumplen 16 aparecen aquí.
+ui.court.rival,%s (rival),%s (rival)
+ui.court.talk_short,Talk,Hablar
+ui.court.propose_short,Propose,Pedir
+ui.court.blocked,%s with you · %s,%s contigo · %s
+ui.court.ready,ready to propose,a punto para pedir su mano
+ui.court.talked,already talked today · tomorrow,ya hablasteis hoy · mañana
+ui.court.far_in,far: at %s,lejos: está en %s
+ui.court.far,far: will walk there,lejos: irá hasta allí
+ui.court.stands_out,stands out in %s,destaca en %s
+ui.court.cons_marry,Will marry %s and join the %s family.,Se casará con %s y pasará a la familia %s.
+ui.court.cons_job,Will leave the job at %s.,Dejará su trabajo en %s.
+ui.court.cons_home,Will live in your home.,Vivirá en vuestra casa.
+ui.court.propose_q,Propose to %s?,¿Pedir la mano de %s?
+ui.court.propose_yes,Propose,Pedir la mano
+ui.court.section,Courtship,Cortejo
+ui.wedding.text,%s and %s marry!,¡%s y %s se casan!
+ui.wedding.home,%s lives in your home now,%s vive ahora en vuestra casa
+ui.wedding.job,Leaves the job at %s,Deja su trabajo en %s
+ui.wedding.child,The first child may come from day %d,El primer hijo puede llegar desde el día %d
+ui.wedding.ok,Long live the couple!,¡Que vivan los novios!

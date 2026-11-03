@@ -144,6 +144,46 @@ text = "--"
 mouse_filter = 0
 unique_name_in_owner = true
 
+[node name="CourtBox" type="VBoxContainer" parent="VBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 2
+unique_name_in_owner = true
+
+[node name="CourtSep" type="HSeparator" parent="VBox/CourtBox"]
+layout_mode = 2
+
+[node name="CourtHead" type="HBoxContainer" parent="VBox/CourtBox"]
+layout_mode = 2
+
+[node name="CourtTitle" type="Label" parent="VBox/CourtBox/CourtHead"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"BoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="CourtAffinity" type="Label" parent="VBox/CourtBox/CourtHead"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="CourtBarSlot" type="HBoxContainer" parent="VBox/CourtBox"]
+layout_mode = 2
+unique_name_in_owner = true
+
+[node name="CourtActions" type="HBoxContainer" parent="VBox/CourtBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+unique_name_in_owner = true
+
+[node name="CourtStatus" type="Label" parent="VBox/CourtBox"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+unique_name_in_owner = true
+
 [node name="Sep3" type="HSeparator" parent="VBox"]
 layout_mode = 2
 
