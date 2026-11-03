@@ -1,0 +1,11 @@
+{
+  "fecha": "2026-11-03",
+  "titulo": "H12 (1b): el rival es siempre de tu oficio",
+  "que": "Si empiezas de carpintero, albañil o sastre, ahora tienes un rival de tu mismo oficio, como el herrero tiene a Bernat: ocupa el solar junto a la plaza que la Forja del jugador deja libre en esos inicios (Ferran Serra, carpintero; Gonzalo Pedrosa, albañil; Leonor Agulló, sastra), compite por la misma demanda y por los encargos del tablón, y la dificultad cambia su Artesanía y su umbral de venta. El herrero Bernat sigue en su Forja como un competidor más, casado desde el inicio como los demás. Ropería y Enseres quedan como puestos exteriores hasta que haya tiendas con interior. Medido (Normal, 30 semillas, oro neto/día de los días 1-8): carpintero 38,4, albañil 38,0, sastre 46,6; orden Fácil > Normal > Difícil en los tres.",
+  "como_probar": "Partida nueva → Carpintero → Empezar: junto a la plaza, donde el herrero tiene su Forja, está la Carpintería de los Serra. Bots: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_carpenter --bots=carpenter_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (igual mason, tailor). Capturas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=oficios.",
+  "capturas": [
+    "docs/novedades/h12_oficios_rival_carpenter.png",
+    "docs/novedades/h12_oficios_rival_mason.png",
+    "docs/novedades/h12_oficios_rival_tailor.png"
+  ]
+}
