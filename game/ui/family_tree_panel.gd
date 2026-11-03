@@ -21,7 +21,6 @@ const NODE_W: float = 120.0
 const NODE_H: float = 44.0
 const GAP: float = 24.0
 const VGAP: float = 32.0
-const LINE: Color = Color(0.784314, 0.658824, 0.305882)
 const STATS: Array[String] = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial",
 	"constitution", "rhetoric", "stealth"]
 
@@ -319,7 +318,7 @@ func _build_tree() -> void:
 		var sb := StyleBoxFlat.new()
 		sb.draw_center = false
 		sb.set_border_width_all(2)
-		sb.border_color = Color(1, 0.85, 0.3)
+		sb.border_color = SocialKit.theme_color(&"FamilyTree", &"ring")
 		sb.set_corner_radius_all(4)
 		ring.add_theme_stylebox_override("panel", sb)
 		ring.size = Vector2(8, 8)
@@ -358,7 +357,7 @@ func _build_tree() -> void:
 func _line(canvas: Control, a: Vector2, b: Vector2) -> void:
 	var r := ColorRect.new()
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	r.color = LINE
+	r.color = SocialKit.theme_color(&"FamilyTree", &"line")
 	r.position = Vector2(minf(a.x, b.x), minf(a.y, b.y)) - Vector2(1, 1)
 	r.size = Vector2(absf(b.x - a.x), absf(b.y - a.y)) + Vector2(2, 2)
 	canvas.add_child(r)
