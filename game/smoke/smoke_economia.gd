@@ -5,7 +5,10 @@ extends Node
 ## Orders only through Game.give. Every check prints "[SmokeEconomia] ok|FAIL ..."; any FAIL quits with 1.
 ## A step waits for its condition (until), acts (do), then lets `wait` seconds pass before the next one.
 ## Sections: forja (station menu, the station's bar and the master touch, the active pause marks, the routine);
-## produccion (the scenario two_employees: the Now, Queue and Recipes tabs); almacen (the storage's squares, the sheet).
+## produccion (the scenario two_employees: the Now, Queue and Recipes tabs); almacen (the storage's squares, the sheet);
+## mercado (Hugo walks to the Resources stall: buy, sell, then the book's debts, today, days and the confirmation);
+## empleados (a new game: Hire with the ranks and the inline confirmation; two_employees with Joan's promotion pending
+## (set in the state for the shot): Staff and the confirmation of firing).
 
 const BLD := "bld_0001"
 const HUGO := "chr_0001"
@@ -38,6 +41,10 @@ func _ready() -> void:
 		_produccion()
 	if _on("almacen"):
 		_almacen()
+	if _on("mercado"):
+		_mercado()
+	if _on("empleados"):
+		_empleados()
 	print("[SmokeEconomia] start (%d steps, sections=%s)" % [_steps.size(), _sections])
 
 
@@ -200,3 +207,99 @@ func _almacen() -> void:
 		var p: CharacterPanel = app.hud().get_node("%CharacterPanel")
 		_check(p.visible and p.tab == "inventory", "the sheet (I) on its Inventory tab")
 		app.hud().toggle_character_panel(), Callable(), 0.4)
+
+# --- mercado_y_libro.md --------------------------------------------------------------------------------------------
+
+func _at_stall() -> bool:
+	return SimQuery.stall_at(Game.sim, HUGO) == "resources"
+
+
+func _mercado() -> void:
+	_step("mer_new", func() -> void:
+		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {}, 7)
+		app.call("_on_new_game_started", r["state"])
+		app.world().select(HUGO)
+		Game.set_speed(4), Callable(), 0.4)
+	_step("mer_walk", func() -> void:
+		Game.give({"type": "move_to", "actor": HUGO, "tile": [16, 15]}), Callable(), 0.2)
+	_step("mer_open", func() -> void:
+		Game.set_speed(1)
+		app.hud().open_market(HUGO, "resources"),
+		func() -> bool: return _at_stall() and Market.is_open(Game.sim), 0.8)
+	_step("mer_buy_shot", func() -> void:
+		_shot("mercado_y_libro_hoy_puesto")
+		var p: MarketPanel = app.hud().market_panel()
+		var send := p.row_of("iron", 0).get_node("Controls/Send") as MenuButton
+		_check(p.visible and send.text.contains("·"), "the errand button with its cost and time (%s)" % send.text)
+		_check(send.get_global_rect().end.x <= 957.0, "the buy row is not cut at 960×540")
+		Game.give({"type": "buy", "actor": HUGO, "stall": "resources", "item": "iron", "quality": 0, "qty": 3}), Callable(), 0.6)
+	_step("mer_sell", func() -> void:
+		app.hud().market_panel().show_tab("sell"), Callable(), 0.6)
+	_step("mer_sell_shot", func() -> void:
+		_shot("mercado_y_libro_hoy_vender")
+		var row: Control = app.hud().market_panel().row_of("iron", 0)
+		_check(row != null and (row.get_node("SellAll") as Button).text.contains("="), "Sell all with the sum unit by unit")
+		app.hud().market_panel().close()
+		app.hud().open_ledger("debts"), Callable(), 0.8)
+	_step("mer_debt_shot", func() -> void:
+		_shot("mercado_y_libro_hoy_deuda")
+		app.hud().ledger_panel().show_tab("today"), Callable(), 0.6)
+	_step("mer_today_shot", func() -> void:
+		_shot("mercado_y_libro_hoy_libro")
+		app.hud().ledger_panel().show_tab("days"), Callable(), 0.6)
+	_step("mer_days_shot", func() -> void:
+		_shot("mercado_y_libro_hoy_dias")
+		app.hud().ledger_panel().show_tab("debts")
+		var loans: Array = SimQuery.loans_of(Game.sim, SimQuery.player_family(Game.sim.state))
+		app.hud().ledger_panel().repay(str(loans[0]["id"]), Money.gold(Game.sim.state, SimQuery.player_family(Game.sim.state))),
+		Callable(), 0.6)
+	_step("mer_confirm_shot", func() -> void:
+		_shot("mercado_y_libro_hoy_confirmar")
+		_check(app.hud().confirm_modal().visible, "paying all the gold asks first (under the dawn's charges)")
+		app.hud().confirm_modal().cancel()
+		app.hud().ledger_panel().close(), Callable(), 0.4)
+
+
+# --- empleados.md --------------------------------------------------------------------------------------------------
+
+func _empleados() -> void:
+	_step("emp_new", func() -> void:
+		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {}, 7)
+		app.call("_on_new_game_started", r["state"])
+		app.world().select(HUGO)
+		app.open_interior(BLD, true), Callable(), 1.0)
+	_step("emp_hire", func() -> void:
+		app.interior().show_staff(true), func() -> bool: return app.interior_building == BLD, 0.6)
+	_step("emp_arm", func() -> void:
+		get_viewport().warp_mouse(Vector2(90, 470))   # off the objective's tooltip
+		var p: StaffPanel = app.interior().staff_panel()
+		_check(p.tab == "hire", "the staff empty: it opens on Hire")
+		var ok: Array = SimQuery.candidates(Game.sim, p.actor(), BLD).filter(
+			func(c: Dictionary) -> bool: return str(c["status"]) == "ok")
+		if ok.size() > 1:
+			(p.row_of(str(ok[1]["character"])).find_child("Hire", true, false) as Button).pressed.emit(), Callable(), 0.6)
+	_step("emp_hire_shot", func() -> void:
+		_shot("empleados_hoy_contratar")
+		var p: StaffPanel = app.interior().staff_panel()
+		_check(p.armed() != "", "Hire waits for its second click with the wage")
+		_check(p.hidden_below() > 0, "the line says how many candidates are below (%d)" % p.hidden_below())
+		_check(p.get_global_rect().size.x <= 357.0 and p.get_global_rect().end.y <= 540.0, "nothing cut at 960×540, in its zone (%s)" % p.get_global_rect())
+		_load("two_employees")
+		Game.sim.state.characters["chr_0007"]["job"]["promotion_offered"] = true
+		Game.sim.state.characters["chr_0008"]["job"]["loyalty"] = 75
+		app.open_interior(BLD, true), Callable(), 1.0)
+	_step("emp_staff", func() -> void:
+		app.interior().show_staff(true, "staff"), func() -> bool: return app.interior_building == BLD, 2.0)
+	_step("emp_staff_shot", func() -> void:
+		_shot("empleados_hoy_plantilla")
+		var p: StaffPanel = app.interior().staff_panel()
+		_check(str((p.get_node("%List") as Node).get_child(0).name) == "chr_0007", "the pending promotion first")
+		_check(p.get_global_rect().size.x <= 357.0 and p.get_global_rect().end.y <= 540.0, "the staff fits its zone (%s)" % p.get_global_rect())
+		_check(app.interior().badges().get("staff", 0) == 1, "the badge on the Staff button")
+		p.fire("chr_0008"), Callable(), 0.6)
+	_step("emp_fire_shot", func() -> void:
+		_shot("empleados_hoy_despedir")
+		_check(app.hud().confirm_modal().visible, "firing asks first")
+		_check(str(app.interior().staff_panel().fire_spec("chr_0008")["body"]).contains("-2"), "and warns of the reputation (loyal)")
+		app.hud().confirm_modal().cancel()
+		app.interior().show_staff(false), Callable(), 0.4)

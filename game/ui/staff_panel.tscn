@@ -5,15 +5,15 @@
 
 [node name="StaffPanel" type="PanelContainer"]
 visible = false
-custom_minimum_size = Vector2(300, 0)
-offset_right = 300.0
-offset_bottom = 300.0
+custom_minimum_size = Vector2(356, 430)
+offset_right = 356.0
+offset_bottom = 430.0
 theme = ExtResource("2_theme")
 script = ExtResource("1_panel")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 4
 
 [node name="Header" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
@@ -21,9 +21,10 @@ layout_mode = 2
 [node name="Title" type="Label" parent="VBox/Header"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"TitleLabel"
 size_flags_horizontal = 3
+theme_type_variation = &"TitleLabel"
 text = "--"
+clip_text = true
 
 [node name="CloseButton" type="Button" parent="VBox/Header"]
 unique_name_in_owner = true
@@ -39,25 +40,62 @@ theme_override_constants/separation = 2
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+theme_type_variation = &"TabButton"
 toggle_mode = true
-text = "staff"
+text = "--"
 
 [node name="HireTab" type="Button" parent="VBox/Tabs"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+theme_type_variation = &"TabButton"
 toggle_mode = true
-text = "hire"
+text = "--"
 
-[node name="SlotsLabel" type="Label" parent="VBox"]
+[node name="SlotsLabel" type="Label" parent="VBox/Tabs"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SmallLabel"
 text = "--"
+horizontal_alignment = 2
+clip_text = true
+
+[node name="Strip" type="PanelContainer" parent="VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"RowPanel"
+
+[node name="StripLabel" type="Label" parent="VBox/Strip"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"WarningLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="Ranks" type="VBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="RanksLabel" type="Label" parent="VBox/Ranks"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "--"
+
+[node name="RankRows" type="VBoxContainer" parent="VBox/Ranks"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Scroll" type="ScrollContainer" parent="VBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 250)
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
 [node name="List" type="VBoxContainer" parent="VBox/Scroll"]
@@ -65,3 +103,22 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 3
+
+[node name="More" type="Label" parent="VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+horizontal_alignment = 1
+
+[node name="Sep" type="HSeparator" parent="VBox"]
+layout_mode = 2
+theme_type_variation = &"DividerSeparator"
+
+[node name="Foot" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+autowrap_mode = 3

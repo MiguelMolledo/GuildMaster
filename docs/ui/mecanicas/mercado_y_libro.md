@@ -255,14 +255,41 @@ Tareas:
 
 ## 10. Criterios de aceptación
 
-- [ ] En la Armería, con 3 espadas buenas y demanda 1,0, el botón de vender todo dice «59+57+54 = 170» y, tras
+- [x] En la Armería, con 3 espadas buenas y demanda 1,0, el botón de vender todo dice «59+57+54 = 170» y, tras
       vender, la fila enseña demanda 0,88 «baja».
-- [ ] La demanda de cada objeto se ve sin pasar el ratón, con palabra y número.
-- [ ] El botón de recado dice el sobrecoste en oro y «2 h»; con el almacén lleno, se ve deshabilitado con el
+- [x] La demanda de cada objeto se ve sin pasar el ratón, con palabra y número.
+- [x] El botón de recado dice el sobrecoste en oro y «2 h»; con el almacén lleno, se ve deshabilitado con el
       motivo escrito.
-- [ ] La tarjeta de la deuda dice cuánto se debe, cuándo vence, qué pasa si vence y la previsión «te da / no te
+- [x] La tarjeta de la deuda dice cuánto se debe, cuándo vence, qué pasa si vence y la previsión «te da / no te
       da».
-- [ ] Pagar dejando menos oro que el cobro del alba pide confirmación con las cifras.
-- [ ] La ficha de deuda del HUD cambia a ámbar con 3 días y a rojo con 1.
-- [ ] *Por día* enseña 8 barras con la línea cero; un día de pérdidas va en rojo, por debajo.
-- [ ] A 960×540, la fila de compra con los dos botones no se corta («Enviar → Forja +8 · 2 h» entero).
+- [x] Pagar dejando menos oro que el cobro del alba pide confirmación con las cifras.
+- [x] La ficha de deuda del HUD cambia a ámbar con 3 días y a rojo con 1.
+- [x] *Por día* enseña 8 barras con la línea cero; un día de pérdidas va en rojo, por debajo.
+- [x] A 960×540, la fila de compra con los dos botones no se corta («Enviar → Forja +8 · 2 h» entero).
+
+## Implementado (rama ui-economia, 2026-11-03)
+
+Capturas (`--smoke-script=economia --eco=mercado`, Hugo camina hasta Recursos):
+[puesto](../maquetas/mercado_y_libro_hoy_puesto.png), [vender](../maquetas/mercado_y_libro_hoy_vender.png),
+[deuda](../maquetas/mercado_y_libro_hoy_deuda.png), [hoy](../maquetas/mercado_y_libro_hoy_libro.png),
+[por día](../maquetas/mercado_y_libro_hoy_dias.png) y [confirmación](../maquetas/mercado_y_libro_hoy_confirmar.png).
+
+- Puesto: cabecera con «abierto hasta las 21:00», indicador de demanda de 5 escalones con palabra y número en cada fila
+  (cortes en `data/view.json` `market_demand`), botón de recado «Enviar → Forja +N · 2 h», línea de lo que limita
+  («caben N» / «oro para N») y el motivo escrito si un botón está apagado (oro, almacén lleno, peso). Las listas hacen
+  scroll.
+- Vender: «Vender 1 · 59» y «Vender 3 · 59 + 57 + 54 = 170», «Tras vender 3: demanda 0,88 baja · al alba vuelve a
+  1,00» y «mañana valdrá ~ N» con demanda baja; «no llevas nada… Recursos compra …».
+- Libro: *Hoy* con el neto en grande y una barra por categoría; *Por día* con 8 barras sobre la línea cero y la media;
+  *Deudas* con la tarjeta (debes de total, barra de lo pagado, vence y días, consecuencias, previsión «te da / no te
+  da») y el pago con confirmación cuando deja el oro por debajo del cobro del alba; tarjeta de mantenimiento atrasado;
+  *Avisos* con el contador de no leídos en la pestaña y los filtros *Todos · Urgentes*.
+- Ficha de deuda del HUD: ámbar con 3 días o menos, roja con 1.
+- Lecturas nuevas en el sim (sin reglas nuevas): `Market.sell_preview`, `Market.demand_tomorrow`,
+  `Market.sell_price_at`, `Ledger.forecast`, `Upkeep.due_next_dawn`.
+
+Falta:
+- El filtro *Sin leer*: abrir la pestaña *Avisos* ya marca los avisos como leídos (`read_notices`), así que el filtro
+  quedaría siempre vacío; se deja el contador en la pestaña.
+- Globo de la primera venta; `sfx_delivery` y `sfx_loan_repaid` (sin créditos); el carro de 16 px.
+- La captura de la Armería con espadas: el guion no fabrica espadas; la venta se enseña en Recursos con hierro.
