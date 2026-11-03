@@ -12,7 +12,8 @@ extends Node
 ## plain type. An entry is one id or a list of ids. Events listed in "selected_only" sound only when the selected
 ## person is in them (actor, a, b or character: footsteps, greetings). An id with "cooldown_s" does not sound again
 ## until that many real seconds have passed (voices).
-## The UI ("ui"): every button of the tree clicks ("button"; not when the click itself pauses or resumes the game:
+## The UI ("ui"): a disabled button pressed says "no" ("denied"), a tab (TabBar, TabContainer or a button with the
+## theme variation TabButton) turns ("tab"), every other button of the tree clicks ("button"; not when the click itself pauses or resumes the game:
 ## then the pause sound is enough), the panels named in "panels" (scene names of game/ui/) sound when they open and
 ## close, "panel_open_by" adds a sound to one panel opening (the vendor, the crier), pausing / resuming has its own
 ## sound (not when a game starts nor while a screen of "screen_music" is shown), and while a screen of "screen_music" is shown its music plays instead of the
@@ -315,8 +316,17 @@ func _hook_tree(n: Node) -> void:
 func _on_node_added(n: Node) -> void:
 	if n is BaseButton:
 		var b := n as BaseButton
-		if not b.pressed.is_connected(_on_button):
+		if b.theme_type_variation == &"TabButton":   # a tab: the tab sound instead of the click (ui.tab)
+			if not b.pressed.is_connected(_on_tab):
+				b.pressed.connect(_on_tab)
+		elif not b.pressed.is_connected(_on_button):
 			b.pressed.connect(_on_button)
+		if not b.has_meta("ui_audio"):
+			b.set_meta("ui_audio", true)
+			b.gui_input.connect(_on_button_input.bind(b))
+	elif n is TabBar or n is TabContainer:
+		if not n.is_connected("tab_changed", _on_tab_changed):
+			n.connect("tab_changed", _on_tab_changed)
 	elif n is Control and n.scene_file_path != "":
 		var scene := n.scene_file_path.get_file().get_basename()
 		if is_panel(scene) and not _panels.has(n.get_instance_id()):
@@ -324,6 +334,22 @@ func _on_node_added(n: Node) -> void:
 			(n as Control).visibility_changed.connect(_on_panel_visibility.bind(n, scene))
 		if screen_music(scene) != "":
 			_screens[n.get_instance_id()] = [n, scene]
+
+
+## A disabled button pressed anyway: the "no" sound (ui.denied; the shake is UiFeel's).
+func _on_button_input(event: InputEvent, b: BaseButton) -> void:
+	var mb := event as InputEventMouseButton
+	if mb != null and mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT and b.disabled and ui_sound("denied") != "":
+		play(ui_sound("denied"))
+
+
+func _on_tab() -> void:
+	if ui_sound("tab") != "":
+		play(ui_sound("tab"))
+
+
+func _on_tab_changed(_i: int) -> void:
+	_on_tab()
 
 
 ## The click waits for the end of the frame: if the button paused or resumed the game, the pause sound says it.

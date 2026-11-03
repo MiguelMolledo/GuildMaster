@@ -83,15 +83,13 @@ theme_override_constants/separation = 0
 [node name="TimeLabel" type="Label" parent="Root/ClockPanel/VBox/Top/Texts"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.92549, 0.894118, 0.823529, 1)
-theme_override_font_sizes/font_size = 16
+theme_type_variation = &"BoldLabel"
 text = "08:00"
 
 [node name="DateLabel" type="Label" parent="Root/ClockPanel/VBox/Top/Texts"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 10
 text = "--"
 
 [node name="PhaseBar" type="ProgressBar" parent="Root/ClockPanel/VBox"]
@@ -110,7 +108,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
-theme_override_font_sizes/font_size = 10
 toggle_mode = true
 text = "Pausa"
 
@@ -119,7 +116,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 focus_mode = 0
-theme_override_font_sizes/font_size = 10
 toggle_mode = true
 text = "x1"
 
@@ -128,7 +124,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 focus_mode = 0
-theme_override_font_sizes/font_size = 10
 toggle_mode = true
 text = "x2"
 
@@ -137,7 +132,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 focus_mode = 0
-theme_override_font_sizes/font_size = 10
 toggle_mode = true
 text = "x4"
 
@@ -174,7 +168,7 @@ theme_override_constants/separation = 0
 [node name="NameLabel" type="Label" parent="Root/SelectedPanel/VBox/Top/Texts"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"BoldLabel"
 text = "--"
 
 [node name="GoldLabel" type="Label" parent="Root/SelectedPanel/VBox/Top/Texts"]
@@ -230,8 +224,7 @@ theme_override_constants/separation = 0
 [node name="BuildingName" type="Label" parent="Root/BuildingPanel/HBox/BuildingTexts"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"TitleLabel"
 text = "--"
 
 [node name="BuildingHint" type="Label" parent="Root/BuildingPanel/HBox/BuildingTexts"]
@@ -281,8 +274,7 @@ text = "--"
 [node name="FamilyGold" type="Label" parent="Root/FamilyPanel/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"GoldLabel"
 text = "--"
 
 [node name="DebtLabel" type="Label" parent="Root/FamilyPanel/HBox"]
@@ -357,8 +349,8 @@ text = "--"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(196, 0)
 layout_mode = 2
+theme_type_variation = &"DimLabel"
 theme_override_colors/font_color = Color(0.85098, 0.815686, 0.737255, 1)
-theme_override_font_sizes/font_size = 9
 text = "--"
 autowrap_mode = 3
 
@@ -419,6 +411,7 @@ offset_bottom = 170.0
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+theme_type_variation = &"GoldLabel"
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -427,10 +420,8 @@ offset_top = 64.0
 offset_right = 120.0
 offset_bottom = 88.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
 theme_override_colors/font_outline_color = Color(0.0980392, 0.0705882, 0.0509804, 1)
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 16
 text = "EN PAUSA"
 horizontal_alignment = 1
 
@@ -438,6 +429,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+theme_type_variation = &"BoldLabel"
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -449,10 +441,8 @@ offset_right = 220.0
 offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 0.788235, 0.698039, 1)
 theme_override_colors/font_outline_color = Color(0.0980392, 0.0705882, 0.0509804, 1)
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 12
 text = "--"
 horizontal_alignment = 1
 
@@ -470,13 +460,13 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(0.92549, 0.894118, 0.823529, 0.8)
 theme_override_colors/font_outline_color = Color(0.0980392, 0.0705882, 0.0509804, 1)
 theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 10
 text = "--"
 
 [node name="TitleLabel" type="Label" parent="Root"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+theme_type_variation = &"TitleLabel"
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -488,8 +478,6 @@ offset_right = 200.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 24
 text = "GuildMaster"
 horizontal_alignment = 1
 

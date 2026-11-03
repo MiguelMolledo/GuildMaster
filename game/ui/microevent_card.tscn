@@ -19,15 +19,13 @@ theme_override_constants/separation = 3
 [node name="Title" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.94, 0.62, 0.3, 1)
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"TitleLabel"
 text = "--"
 
 [node name="Text" type="Label" parent="VBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
 text = "--"
 autowrap_mode = 3
 
@@ -39,8 +37,8 @@ theme_override_constants/separation = 2
 [node name="Time" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"DimLabel"
 theme_override_colors/font_color = Color(0.75, 0.72, 0.6, 1)
-theme_override_font_sizes/font_size = 9
 text = "--"
 autowrap_mode = 3
 
@@ -48,5 +46,5 @@ autowrap_mode = 3
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme_type_variation = &"DimLabel"
 text = "--"

@@ -98,7 +98,6 @@ func refresh(force: bool = false) -> void:
 	if emos.is_empty():
 		var l := Label.new()
 		l.text = SimQuery.t_("ui.npc.calm")
-		l.add_theme_font_size_override("font_size", 10)
 		box.add_child(l)
 	for e: Dictionary in emos:
 		var row := HBoxContainer.new()
@@ -110,7 +109,6 @@ func refresh(force: bool = false) -> void:
 		holder.add_child(icon)
 		row.add_child(holder)
 		var l := Label.new()
-		l.add_theme_font_size_override("font_size", 10)
 		var src := str(st.families.get(str(e["source"]), {}).get("name", e["source"]))
 		l.text = SimQuery.t_("ui.npc.emotion") % [SimQuery.t_(str(e["name_key"])), src, int(e["intensity"])]
 		l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -129,7 +127,6 @@ func refresh(force: bool = false) -> void:
 		b.name = act.capitalize()
 		b.text = SimQuery.t_("npc_action." + act)
 		b.focus_mode = Control.FOCUS_NONE
-		b.add_theme_font_size_override("font_size", 10)
 		b.disabled = not why in ["", "too_far"]
 		if why == "too_far":
 			b.tooltip_text = SimQuery.t_("ui.court.walk")
@@ -148,7 +145,6 @@ func refresh(force: bool = false) -> void:
 		b.name = "Campaign" + kind.capitalize()
 		b.text = SimQuery.t_("campaign." + kind)
 		b.focus_mode = Control.FOCUS_NONE
-		b.add_theme_font_size_override("font_size", 10)
 		b.add_theme_color_override("font_color", Color(1, 0.85, 0.4))
 		b.disabled = not why in ["", "too_far"]
 		b.tooltip_text = SimQuery.t_("ui.court.walk") if why == "too_far" else (SimQuery.reason_text(why) if why != "" \
@@ -180,7 +176,6 @@ func _accuse_row() -> Control:
 	var ob := OptionButton.new()
 	ob.name = "AccusePick"
 	ob.focus_mode = Control.FOCUS_NONE
-	ob.add_theme_font_size_override("font_size", 10)
 	for e: Dictionary in entries:
 		ob.add_item(str(e["text"]))
 	if not entries.is_empty():
@@ -193,7 +188,6 @@ func _accuse_row() -> Control:
 	b.name = "Accuse"
 	b.text = SimQuery.t_("ui.npc.accuse")
 	b.focus_mode = Control.FOCUS_NONE
-	b.add_theme_font_size_override("font_size", 10)
 	b.add_theme_color_override("font_color", Color(1, 0.55, 0.45))
 	var e: Dictionary = entries[_accuse_pick] if not entries.is_empty() else {}
 	var why := Tribunal.accuse_status(sim, actor, target, str(e.get("fact", "")), str(e.get("charge", "")),

@@ -60,7 +60,6 @@ func refresh(force: bool = false) -> void:
 		var slot: Dictionary = (sched as Dictionary).get(ph, {"action": "free"})
 		var l := Label.new()
 		l.text = SimQuery.t_("phase." + ph)
-		l.add_theme_font_size_override("font_size", 10)
 		l.custom_minimum_size = Vector2(54, 0)
 		rows.add_child(l)
 		var act := _option("Action_" + ph)
@@ -98,7 +97,6 @@ func _option(n: String) -> OptionButton:
 	var o := OptionButton.new()
 	o.name = n
 	o.focus_mode = Control.FOCUS_NONE
-	o.add_theme_font_size_override("font_size", 10)
 	o.fit_to_longest_item = false
 	o.custom_minimum_size = Vector2(70, 0)
 	return o

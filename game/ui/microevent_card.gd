@@ -46,7 +46,6 @@ func _build(v: Dictionary) -> void:
 		b.name = str(c["id"]).capitalize()
 		b.text = ("· " if str(c["id"]) == str(v["default"]) else "") + SimQuery.t_(str(c["text_key"]))
 		b.focus_mode = Control.FOCUS_NONE
-		b.add_theme_font_size_override("font_size", 10)
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		b.custom_minimum_size = Vector2(288, 0)

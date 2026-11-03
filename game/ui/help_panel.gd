@@ -30,11 +30,9 @@ func build() -> void:
 		l.custom_minimum_size = Vector2(WIDTH, 0)
 		if k.begins_with("#"):
 			l.text = tr(k.substr(1))
-			l.add_theme_color_override("font_color", Color(0.85, 0.71, 0.42))
-			l.add_theme_font_size_override("font_size", 11)
+			l.theme_type_variation = &"TitleLabel"
 		else:
 			l.text = "· " + tr(k)
-			l.add_theme_font_size_override("font_size", 10)
 		box.add_child(l)
 
 

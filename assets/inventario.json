@@ -895,7 +895,7 @@
       "ruta": "assets/art/ui/fonts/silkscreen_regular.ttf",
       "origen": "guild-renew",
       "coste_gen": 0,
-      "notas": "Silkscreen (Jason Kottke, SIL Open Font License 1.1), traída de guild:assets/fonts. Solo en los botones del tema, a 8 px sin suavizado (es de mayúsculas: no sirve para párrafos). Licencia en silkscreen_ofl.txt."
+      "notas": "Silkscreen (Jason Kottke, SIL Open Font License 1.1), traída de guild:assets/fonts. Ya no la usa el tema (los botones van en Pixel Operator Bold 16, docs/ui/00 §6); queda por si sirve para rótulos de 1-2 palabras. Licencia en silkscreen_ofl.txt."
     },
     {
       "id": "ui_font_body",
@@ -907,7 +907,7 @@
       "ruta": "assets/art/ui/fonts/pixel_operator.ttf",
       "origen": "libre (CC0)",
       "coste_gen": 0,
-      "notas": "Pixel Operator de Jayvee Enaguas (CC0 1.0; licencia en pixel_operator_cc0.txt), regular, negrita y _8. Fuente de cuerpo recomendada en docs/ui/00_lenguaje_visual.md: 16 px nítida (mayúscula de 9 px), con ñ y acentos; tools/ui/glifos_extra.py le añade → ← ↑ ↓ −. Importada sin suavizado. Aún no está en el theme."
+      "notas": "Pixel Operator de Jayvee Enaguas (CC0 1.0; licencia en pixel_operator_cc0.txt), regular, negrita y _8. Fuente de cuerpo recomendada en docs/ui/00_lenguaje_visual.md: 16 px nítida (mayúscula de 9 px), con ñ y acentos; tools/ui/glifos_extra.py le añade → ← ↑ ↓ −. Importada sin suavizado. Es la letra por defecto del theme (cuerpo 16; botones en negrita 16; _8 para rótulos pequeños)."
     },
     {
       "id": "ui_font_title",
@@ -919,7 +919,7 @@
       "ruta": "assets/art/ui/fonts/jacquarda_bastarda_9.ttf",
       "origen": "libre (OFL)",
       "coste_gen": 0,
-      "notas": "Jacquarda Bastarda 9 (The Soft Type Project, SIL OFL 1.1; licencia al lado). Letra gótica pixel para títulos de panel y pantallas, a 13 px. Aún no está en el theme. Jacquard 24 (misma licencia, jacquard_24.ttf) para el logotipo y el título del final, a 43 px."
+      "notas": "Jacquarda Bastarda 9 (The Soft Type Project, SIL OFL 1.1; licencia al lado). Letra gótica pixel para títulos de panel y pantallas, a 13 px: variación TitleLabel del theme. Jacquard 24 (misma licencia, jacquard_24.ttf) para el logotipo y el título del final, a 43 px."
     },
     {
       "id": "ui_font_candidates",
@@ -955,7 +955,7 @@
       "ruta": "assets/art/ui/cursor/cursor_arrow.png",
       "origen": "dibujado (Pillow)",
       "coste_gen": 0,
-      "notas": "Cursores del kit: cursor_arrow, cursor_hand (sobre lo clicable), cursor_wait (cargar/guardar), a 1×; el juego usará la versión ×2. Aún no están en el juego."
+      "notas": "Cursores del kit: cursor_arrow, cursor_hand (sobre lo clicable), cursor_wait (cargar/guardar), a 1×, y sus *_x2.png (vecino más cercano), que son los que usa el juego (game/ui/ui_cursor.gd: el cursor no se escala con el viewport)."
     },
     {
       "id": "ui_logo",
@@ -1505,6 +1505,45 @@
       "origen_previo": null,
       "coste_gen": 3,
       "notas": "ElevenLabs, 3 variantes, 18 créditos (assets/audio/MANIFEST.md). Suena en todos los botones (AudioDirector escucha el árbol)."
+    },
+    {
+      "id": "sfx_ui_denied",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_ui_denied_01.ogg",
+      "origen": "elevenlabs: short dull wooden knock, soft muted thud, UI error denied click, medieval wooden button, dry, no reverb",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 12 créditos (assets/audio/MANIFEST.md). Botón apagado pulsado (ui.denied); el botón además tiembla (UiFeel)."
+    },
+    {
+      "id": "sfx_ui_tab",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_ui_tab_01.ogg",
+      "origen": "elevenlabs: quick soft paper page flip, parchment ledger tab turn, short UI swish, dry, no reverb",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 12 créditos (assets/audio/MANIFEST.md). Cambiar de pestaña (ui.tab: TabBar, TabContainer y botones con la variación TabButton)."
+    },
+    {
+      "id": "sfx_ui_seal",
+      "tipo": "sonido",
+      "estado": "generado",
+      "para": [
+        "ui"
+      ],
+      "ruta": "assets/audio/sfx/sfx_ui_seal_01.ogg",
+      "origen": "elevenlabs: wax seal stamp pressed onto parchment, firm soft thump with a slight squish, medieval document sealed, dry, no reverb",
+      "origen_previo": null,
+      "coste_gen": 2,
+      "notas": "ElevenLabs, 2 variantes, 22 créditos (assets/audio/MANIFEST.md). Lo caro sellado: empezar una mejora, recibir un título, tomar un cargo, aceptar un encargo, nombrar heredero (data/audio.json events)."
     },
     {
       "id": "sfx_hire",
