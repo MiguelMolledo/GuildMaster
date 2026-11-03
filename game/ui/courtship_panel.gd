@@ -125,9 +125,7 @@ func _row(c: Dictionary, gift: Dictionary, min_aff: int, max_aff: int) -> Contro
 	var aff := int(c["affinity"])
 	var panel := PanelContainer.new()
 	panel.name = id
-	panel.theme_type_variation = &"RowPanel"
-	if status == "offended":
-		panel.self_modulate = Color(1.3, 0.85, 0.8)   # the reddish background of a blocked row
+	panel.theme_type_variation = &"BlockedRow" if status == "offended" else &"RowPanel"
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", 6)
 	panel.add_child(h)

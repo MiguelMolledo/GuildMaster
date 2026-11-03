@@ -129,9 +129,9 @@ tiene cifra en `data/`: si no hay cifra, no se escribe.
 
 ## 6. Maqueta
 
-- Hoy: [almacen_y_personaje_hoy.png](../maquetas/almacen_y_personaje_hoy.png). Lista con `SpinBox` + *Coger* por
-  pila y «Hugo (6.0/60 kg) · Vacío», sin casillas vacías ni barra. La ficha de hoy es la columna izquierda de
-  [forja_interior_hoy_rutina.png](../maquetas/forja_interior_hoy_rutina.png): equipo como texto y «Quitar» en gris.
+- Hoy (rama ui-economia, `--smoke-script=economia --eco=almacen`): [almacen_y_personaje_hoy.png](../maquetas/almacen_y_personaje_hoy.png)
+  (casillas, fila bloqueada, atajos, bolsa con su barra) y [almacen_y_personaje_hoy_ficha.png](../maquetas/almacen_y_personaje_hoy_ficha.png)
+  (ficha I con equipo y su efecto, bolsa y valor de venta).
 - Propuesta (guion `docs/ui/maquetas/src/almacen_y_personaje.py`):
   - [almacen_y_personaje.png](../maquetas/almacen_y_personaje.png): pilas con huecos y un recado reservado (1, 2), atajos (3),
     la bolsa con su barra de peso (4) y el rechazo por peso (5);
@@ -203,11 +203,29 @@ Tareas:
 
 ## 10. Criterios de aceptación
 
-- [ ] Con 3 pilas en un almacén de 10, se ven 7 casillas vacías y una fila bloqueada con el nombre de la mejora.
-- [ ] Coger 8 hierro (16 kg) con 6 kg libres mueve 3 y dice «Solo caben 3 de 8».
-- [ ] *Llevar productos* con 2 espadas y 1 martillo en el almacén y 20 kg libres coge las 2 espadas (16 kg) y deja
+- [x] Con 3 pilas en un almacén de 10, se ven 7 casillas vacías y una fila bloqueada con el nombre de la mejora.
+- [x] Coger 8 hierro (16 kg) con 6 kg libres mueve 3 y dice «Solo caben 3 de 8».
+- [x] *Llevar productos* con 2 espadas y 1 martillo en el almacén y 20 kg libres coge las 2 espadas (16 kg) y deja
       el martillo (6 kg) con el motivo.
-- [ ] Una espada buena y una normal se ven como dos casillas, la buena con punto de plata.
-- [ ] En gestión (sin personaje), el panel lo dice con una línea y no ofrece mover.
-- [ ] La ficha (I) dice qué da el martillo equipado sin pasar el ratón.
-- [ ] Un recado comprado se ve «en camino» en el almacén con su hora de llegada.
+- [x] Una espada buena y una normal se ven como dos casillas, la buena con punto de plata.
+- [x] En gestión (sin personaje), el panel lo dice con una línea y no ofrece mover.
+- [x] La ficha (I) dice qué da el martillo equipado sin pasar el ratón.
+- [x] Un recado comprado se ve «en camino» en el almacén con su hora de llegada.
+
+## Implementado (rama ui-economia, 2026-11-03)
+
+- `ItemSlot` (`game/ui/item_slot.gd`): la casilla de 30×30 en sus 4 estados (vacía, con objeto, bloqueada, reservada)
+  con el punto de calidad (plata, oro). La usan el almacén y la ficha.
+- Almacén: todas las casillas (las vacías también), la fila bloqueada de *Almacén ampliado* con su nombre, los recados
+  en camino con su hora, *Dejar materias* y *Llevar productos* (del más caro, mientras quepan; lo que no cabe se dice),
+  la bolsa con barra de peso de umbrales, clic = la pila (lo que quepa, con «Solo caben 3 de 8»), clic derecho = 1, y la
+  línea de gestión. Cuánto cabe lo da el sim (`Inventory.fit_count`, lectura nueva).
+- Ficha (I): retrato, nombre, edad · oficio, oro; pestañas *Inventario · Rutina*; equipo con silueta y su efecto según
+  los datos; peso con barra; bolsa en casillas (clic: equipar); valor de venta de hoy por puesto.
+
+Falta:
+- La fila «En el suelo del yunque … [Recoger]»: no hay orden para recoger del suelo (hueco del sim, apuntado en §7).
+- Arrastrar con selector de cantidad (opcional en el documento) y la animación de la pila que «vuela».
+- `sfx_item_move`, `sfx_equip`, `sfx_delivery`: sin créditos de audio en esta fase.
+- Globos de primera vez.
+- El retrato de la ficha es el de 38 del HUD, no el de 64.

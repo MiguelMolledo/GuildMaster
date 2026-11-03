@@ -12,9 +12,8 @@ layout_mode = 2
 [node name="RoutineTitle" type="Label" parent="Header"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"BoldLabel"
+theme_type_variation = &"GoldLabel"
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
 text = "--"
 
 [node name="ToggleButton" type="Button" parent="Header"]
@@ -29,9 +28,41 @@ layout_mode = 2
 text = "--"
 autowrap_mode = 3
 
+[node name="Strip" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="StripLabels" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="DetailTitle" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "--"
+
 [node name="Rows" type="GridContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 2
 columns = 4
+
+[node name="WorksAt" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="ManualLine" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"WarningLabel"
+text = "--"
+autowrap_mode = 3

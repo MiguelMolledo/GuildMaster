@@ -5,15 +5,15 @@
 
 [node name="StoragePanel" type="PanelContainer"]
 visible = false
-custom_minimum_size = Vector2(250, 0)
-offset_right = 250.0
-offset_bottom = 200.0
+custom_minimum_size = Vector2(356, 430)
+offset_right = 356.0
+offset_bottom = 430.0
 theme = ExtResource("2_theme")
 script = ExtResource("1_panel")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 4
 
 [node name="Header" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
@@ -21,9 +21,10 @@ layout_mode = 2
 [node name="Title" type="Label" parent="VBox/Header"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"TitleLabel"
 size_flags_horizontal = 3
+theme_type_variation = &"TitleLabel"
 text = "--"
+clip_text = true
 
 [node name="CloseButton" type="Button" parent="VBox/Header"]
 unique_name_in_owner = true
@@ -34,26 +35,91 @@ text = "x"
 [node name="BuildingLabel" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "--"
 
-[node name="BuildingList" type="VBoxContainer" parent="VBox"]
+[node name="BuildingGrid" type="GridContainer" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 1
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+columns = 10
+
+[node name="LockedLine" type="Label" parent="VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="Errands" type="VBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Shortcuts" type="HBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="DropButton" type="Button" parent="VBox/Shortcuts"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+
+[node name="TakeButton" type="Button" parent="VBox/Shortcuts"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+
+[node name="Sep" type="HSeparator" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="CharLabel" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 text = "--"
 
-[node name="CharList" type="VBoxContainer" parent="VBox"]
+[node name="WeightBar" type="ProgressBar" parent="VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+show_percentage = false
+
+[node name="CharGrid" type="GridContainer" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 1
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+columns = 10
 
-[node name="Hint" type="Label" parent="VBox"]
+[node name="Reason" type="Label" parent="VBox"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.788235, 0.698039, 1)
+theme_type_variation = &"ReasonLabel"
 text = "--"
+autowrap_mode = 3
+
+[node name="Space" type="Control" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Hint" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+autowrap_mode = 3
