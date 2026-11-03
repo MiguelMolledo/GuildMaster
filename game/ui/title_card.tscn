@@ -1,74 +1,115 @@
 [gd_scene format=3 uid="uid://djiot2yv2bj20"]
 
-[ext_resource type="Script" uid="uid://baultci4og78b" path="res://game/ui/title_card.gd" id="1_card"]
+[ext_resource type="Script" uid="uid://baultci4og78b" path="res://game/ui/title_card.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://gnkphssi0rxq" path="res://assets/art/ui/marks/seal.png" id="4_seal"]
 
 [node name="TitleCard" type="PanelContainer"]
 visible = false
-custom_minimum_size = Vector2(260, 0)
-offset_left = 350.0
-offset_top = 160.0
-offset_right = 610.0
-offset_bottom = 300.0
+custom_minimum_size = Vector2(380, 0)
+offset_right = 380.0
+offset_bottom = 220.0
 mouse_filter = 0
 theme = ExtResource("2_theme")
-script = ExtResource("1_card")
+script = ExtResource("1_script")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Header" type="Label" parent="VBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-text = "--"
-horizontal_alignment = 1
-
 [node name="BannerRow" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
-alignment = 1
+theme_override_constants/separation = 8
 
 [node name="Banner" type="ColorRect" parent="VBox/BannerRow"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(28, 36)
+custom_minimum_size = Vector2(14, 28)
 layout_mode = 2
 color = Color(0.545, 0.18, 0.18, 1)
+unique_name_in_owner = true
 
 [node name="BannerStripe" type="ColorRect" parent="VBox/BannerRow/Banner"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 11.0
-offset_right = 17.0
-offset_bottom = 36.0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+grow_horizontal = 2
+grow_vertical = 0
 color = Color(0.784, 0.659, 0.306, 1)
-
-[node name="TitleName" type="Label" parent="VBox/BannerRow"]
 unique_name_in_owner = true
+
+[node name="Header" type="Label" parent="VBox/BannerRow"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_type_variation = &"TitleLabel"
 text = "--"
+horizontal_alignment = 1
+unique_name_in_owner = true
+
+[node name="BannerRight" type="ColorRect" parent="VBox/BannerRow"]
+custom_minimum_size = Vector2(14, 28)
+layout_mode = 2
+color = Color(0.545, 0.18, 0.18, 1)
+unique_name_in_owner = true
+
+[node name="SealBox" type="CenterContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Seal" type="TextureRect" parent="VBox/SealBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("4_seal")
+expand_mode = 1
+stretch_mode = 5
+unique_name_in_owner = true
+
+[node name="Initial" type="Label" parent="VBox/SealBox/Seal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"BoldLabel"
+text = "P"
+horizontal_alignment = 1
+vertical_alignment = 1
+unique_name_in_owner = true
+
+[node name="TitleName" type="Label" parent="VBox"]
+layout_mode = 2
+theme_type_variation = &"GothicTitle"
+theme_override_colors/font_color = Color(0.94902, 0.847059, 0.501961, 1)
+text = "--"
+horizontal_alignment = 1
+unique_name_in_owner = true
 
 [node name="Text" type="Label" parent="VBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(248, 0)
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 text = "--"
 horizontal_alignment = 1
 autowrap_mode = 3
+unique_name_in_owner = true
 
 [node name="Unlocks" type="Label" parent="VBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(248, 0)
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
+theme_type_variation = &"DimLabel"
 text = "--"
 horizontal_alignment = 1
 autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="Ladder" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 4
+unique_name_in_owner = true
 
 [node name="OkButton" type="Button" parent="VBox"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-focus_mode = 0
 text = "--"
+unique_name_in_owner = true

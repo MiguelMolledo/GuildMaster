@@ -3,18 +3,6 @@
 [ext_resource type="Script" uid="uid://f6m0e1cpgy1k" path="res://game/ui/trial_card.gd" id="1_card"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_court"]
-content_margin_left = 8.0
-content_margin_top = 6.0
-content_margin_right = 8.0
-content_margin_bottom = 6.0
-bg_color = Color(0.164706, 0.12549, 0.203922, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.666667, 0.564706, 0.317647, 1)
-
 [node name="TrialCard" type="PanelContainer"]
 visible = false
 custom_minimum_size = Vector2(300, 0)
@@ -28,7 +16,7 @@ script = ExtResource("1_card")
 
 [node name="Court" type="PanelContainer" parent="."]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_court")
+theme_type_variation = &"DarkPanel"
 
 [node name="VBox" type="VBoxContainer" parent="Court"]
 layout_mode = 2
@@ -44,7 +32,7 @@ horizontal_alignment = 1
 [node name="Stamp" type="Label" parent="Court/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"TitleLabel"
+theme_type_variation = &"BoldLabel"
 text = "--"
 horizontal_alignment = 1
 
@@ -60,7 +48,7 @@ autowrap_mode = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.55, 0.45, 1)
+theme_type_variation = &"ReasonLabel"
 text = "--"
 horizontal_alignment = 1
 autowrap_mode = 3

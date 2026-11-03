@@ -571,7 +571,8 @@ func _refresh_debt(sim: Sim, fam: String) -> void:
 	_debt_label.text = str(int(l.get("outstanding", 0)))
 	_debt_bar.value = 100.0 * float(principal - int(l.get("outstanding", 0))) / float(principal)
 	_debt_days.text = tr("hud.debt_days") % days
-	_debt_days.add_theme_color_override("font_color", token("negativo" if days <= 2 else "texto_tenue"))
+	# mercado_y_libro.md §5: amber at 3 days or less, red at 1
+	_debt_days.add_theme_color_override("font_color", token("negativo" if days <= 1 else ("aviso" if days <= 3 else "texto_tenue")))
 	_debt_box.tooltip_text = tr("hud.debt_tip") % SimQuery.minute_label(int(l.get("due_minute", 0)) - 1)
 
 

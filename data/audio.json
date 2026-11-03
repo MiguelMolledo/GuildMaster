@@ -63,7 +63,7 @@
     "resume": "sfx_resume",
     "panel_open": "sfx_panel_open",
     "panel_close": "sfx_panel_close",
-    "panels": ["market_panel", "board_panel", "ledger_panel", "production_panel", "staff_panel", "storage_panel", "upgrade_panel", "help_panel", "npc_panel", "courtship_panel", "town_hall_panel", "kin_ai_panel", "family_tree_panel", "offices_panel", "trial_panel"],
+    "panels": ["market_panel", "board_panel", "npc_panel", "family_tree_panel", "courtship_panel", "town_hall_panel", "offices_panel", "ledger_panel", "production_panel", "staff_panel", "storage_panel", "upgrade_panel", "help_panel", "npc_panel", "courtship_panel", "town_hall_panel", "kin_ai_panel", "family_tree_panel", "offices_panel", "trial_panel"],
     "panel_open_by": {"market_panel": "voice_market_vendor", "board_panel": "voice_board_crier"},
     "screen_music": {"title_screen": "music_title", "new_game_screen": "music_title", "credits_screen": "music_title"}
   },
@@ -83,6 +83,8 @@
     "upgrade_done": "sfx_upgrade_done",
     "contract_delivered": "sfx_contract_done",
     "notice.objective_done": "sfx_objective_done",
+    "notice.child_born": "sfx_objective_done",
+    "notice.came_of_age": "sfx_objective_done",
     "notice.objective_failed": "sfx_objective_failed",
     "notice.wage_unpaid": "sfx_debt",
     "notice.upkeep_unpaid": "sfx_debt",

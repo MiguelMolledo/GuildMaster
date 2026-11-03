@@ -1,108 +1,318 @@
-[gd_scene load_steps=3 format=3 uid="uid://gnjbmfmqvue6"]
+[gd_scene format=3 uid="uid://gnjbmfmqvue6"]
 
-[ext_resource type="Script" uid="uid://4slg8tbejxv0" path="res://game/ui/offices_panel.gd" id="1_panel"]
+[ext_resource type="Script" uid="uid://4slg8tbejxv0" path="res://game/ui/offices_panel.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
 
 [node name="OfficesPanel" type="PanelContainer"]
 visible = false
-custom_minimum_size = Vector2(400, 0)
-offset_right = 400.0
-offset_bottom = 220.0
 theme = ExtResource("2_theme")
-script = ExtResource("1_panel")
+script = ExtResource("1_script")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 4
 
 [node name="Header" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
 
 [node name="Title" type="Label" parent="VBox/Header"]
-unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"TitleLabel"
 size_flags_horizontal = 3
+theme_type_variation = &"TitleLabel"
 text = "--"
+unique_name_in_owner = true
 
 [node name="CloseButton" type="Button" parent="VBox/Header"]
-unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 focus_mode = 0
-text = "x"
-
-[node name="WhoLabel" type="Label" parent="VBox"]
+text = "×"
 unique_name_in_owner = true
+
+[node name="Body" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Left" type="VBoxContainer" parent="VBox/Body"]
+custom_minimum_size = Vector2(440, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Chart" type="VBoxContainer" parent="VBox/Body/Left"]
+layout_mode = 2
+theme_override_constants/separation = 6
+unique_name_in_owner = true
+
+[node name="LSep" type="HSeparator" parent="VBox/Body/Left"]
+layout_mode = 2
+
+[node name="Legend" type="Label" parent="VBox/Body/Left"]
+custom_minimum_size = Vector2(410, 0)
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
 text = "--"
-
-[node name="Chart" type="VBoxContainer" parent="VBox"]
+autowrap_mode = 3
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 2
 
-[node name="LevelRow" type="HBoxContainer" parent="VBox"]
+[node name="VSep" type="VSeparator" parent="VBox/Body"]
 layout_mode = 2
 
-[node name="LevelLabel" type="Label" parent="VBox/LevelRow"]
-unique_name_in_owner = true
+[node name="Right" type="VBoxContainer" parent="VBox/Body"]
 layout_mode = 2
-text = "--"
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
 
-[node name="LevelOption" type="OptionButton" parent="VBox/LevelRow"]
-unique_name_in_owner = true
+[node name="Tabs" type="HBoxContainer" parent="VBox/Body/Right"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Tab_offices" type="Button" parent="VBox/Body/Right/Tabs"]
 layout_mode = 2
 focus_mode = 0
-
-[node name="CampaignBox" type="VBoxContainer" parent="VBox"]
+theme_type_variation = &"TabButton"
+toggle_mode = true
+text = "--"
 unique_name_in_owner = true
+
+[node name="Tab_campaign" type="Button" parent="VBox/Body/Right/Tabs"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"TabButton"
+toggle_mode = true
+text = "--"
+unique_name_in_owner = true
+
+[node name="Tab_powers" type="Button" parent="VBox/Body/Right/Tabs"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"TabButton"
+toggle_mode = true
+text = "--"
+unique_name_in_owner = true
+
+[node name="Gap" type="Control" parent="VBox/Body/Right/Tabs"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="WhoBadge" type="TextureRect" parent="VBox/Body/Right/Tabs"]
+layout_mode = 2
+size_flags_vertical = 4
+stretch_mode = 3
+unique_name_in_owner = true
+
+[node name="WhoLabel" type="Label" parent="VBox/Body/Right/Tabs"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="OfficePage" type="VBoxContainer" parent="VBox/Body/Right"]
+layout_mode = 2
+theme_override_constants/separation = 3
+unique_name_in_owner = true
+
+[node name="DetailTitle" type="Label" parent="VBox/Body/Right/OfficePage"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="DetailFx" type="Label" parent="VBox/Body/Right/OfficePage"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="DetailReq" type="Label" parent="VBox/Body/Right/OfficePage"]
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
+[node name="Calendar" type="Control" parent="VBox/Body/Right/OfficePage"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+unique_name_in_owner = true
+
+[node name="CalLabels" type="HBoxContainer" parent="VBox/Body/Right/OfficePage"]
+layout_mode = 2
+unique_name_in_owner = true
+
+[node name="Candidates" type="Label" parent="VBox/Body/Right/OfficePage"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="RunRow" type="HBoxContainer" parent="VBox/Body/Right/OfficePage"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="LevelLabel" type="Label" parent="VBox/Body/Right/OfficePage/RunRow"]
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
+[node name="LevelOption" type="OptionButton" parent="VBox/Body/Right/OfficePage/RunRow"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+unique_name_in_owner = true
+
+[node name="RunButton" type="Button" parent="VBox/Body/Right/OfficePage/RunRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"PrimaryButton"
+text = "--"
+unique_name_in_owner = true
+
+[node name="RunReason" type="Label" parent="VBox/Body/Right/OfficePage"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_type_variation = &"ReasonLabel"
+text = ""
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="LevelsNote" type="Label" parent="VBox/Body/Right/OfficePage"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="CampaignBox" type="VBoxContainer" parent="VBox/Body/Right"]
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="Sep" type="HSeparator" parent="VBox/CampaignBox"]
-layout_mode = 2
-
-[node name="CampaignLabel" type="Label" parent="VBox/CampaignBox"]
+theme_override_constants/separation = 3
 unique_name_in_owner = true
-custom_minimum_size = Vector2(388, 0)
+
+[node name="CampTop" type="HBoxContainer" parent="VBox/Body/Right/CampaignBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
+
+[node name="CampaignLabel" type="Label" parent="VBox/Body/Right/CampaignBox/CampTop"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"GoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="DaysLeft" type="Label" parent="VBox/Body/Right/CampaignBox/CampTop"]
+layout_mode = 2
+theme_type_variation = &"WarningLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="CampaignCalendar" type="Control" parent="VBox/Body/Right/CampaignBox"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+unique_name_in_owner = true
+
+[node name="CampaignCalLabels" type="HBoxContainer" parent="VBox/Body/Right/CampaignBox"]
+layout_mode = 2
+unique_name_in_owner = true
+
+[node name="ForecastRow" type="HBoxContainer" parent="VBox/Body/Right/CampaignBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ForecastTitle" type="Label" parent="VBox/Body/Right/CampaignBox/ForecastRow"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Forecast" type="Label" parent="VBox/Body/Right/CampaignBox/ForecastRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "--"
+unique_name_in_owner = true
+
+[node name="ForecastNote" type="Label" parent="VBox/Body/Right/CampaignBox/ForecastRow"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="CampaignList" type="VBoxContainer" parent="VBox/Body/Right/CampaignBox"]
+layout_mode = 2
+theme_override_constants/separation = 3
+unique_name_in_owner = true
+
+[node name="CSep" type="HSeparator" parent="VBox/Body/Right/CampaignBox"]
+layout_mode = 2
+
+[node name="SpeechRow" type="HBoxContainer" parent="VBox/Body/Right/CampaignBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SpeechButton" type="Button" parent="VBox/Body/Right/CampaignBox/SpeechRow"]
+layout_mode = 2
+focus_mode = 0
+text = "--"
+unique_name_in_owner = true
+
+[node name="SpeechReason" type="Label" parent="VBox/Body/Right/CampaignBox/SpeechRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ReasonLabel"
+text = ""
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="CampaignHint" type="Label" parent="VBox/Body/Right/CampaignBox"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
 text = "--"
 autowrap_mode = 3
-
-[node name="CampaignHint" type="Label" parent="VBox/CampaignBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(388, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
-text = "--"
-autowrap_mode = 3
 
-[node name="SpeechButton" type="Button" parent="VBox/CampaignBox"]
-unique_name_in_owner = true
+[node name="PickNeighbour" type="Button" parent="VBox/Body/Right/CampaignBox"]
 layout_mode = 2
 size_flags_horizontal = 0
 focus_mode = 0
 text = "--"
-
-[node name="PowersBox" type="VBoxContainer" parent="VBox"]
 unique_name_in_owner = true
+
+[node name="PowersBox" type="VBoxContainer" parent="VBox/Body/Right"]
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="Sep" type="HSeparator" parent="VBox/PowersBox"]
-layout_mode = 2
-
-[node name="PowersTitle" type="Label" parent="VBox/PowersBox"]
+theme_override_constants/separation = 3
 unique_name_in_owner = true
+
+[node name="PowersTitle" type="Label" parent="VBox/Body/Right/PowersBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
+theme_type_variation = &"GoldLabel"
 text = "--"
-
-[node name="Powers" type="VBoxContainer" parent="VBox/PowersBox"]
 unique_name_in_owner = true
+
+[node name="InForceBox" type="PanelContainer" parent="VBox/Body/Right/PowersBox"]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_type_variation = &"DarkPanel"
+unique_name_in_owner = true
+
+[node name="IV" type="VBoxContainer" parent="VBox/Body/Right/PowersBox/InForceBox"]
+layout_mode = 2
+
+[node name="InForceTitle" type="Label" parent="VBox/Body/Right/PowersBox/InForceBox/IV"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="InForce" type="VBoxContainer" parent="VBox/Body/Right/PowersBox/InForceBox/IV"]
+layout_mode = 2
+unique_name_in_owner = true
+
+[node name="Powers" type="VBoxContainer" parent="VBox/Body/Right/PowersBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+unique_name_in_owner = true

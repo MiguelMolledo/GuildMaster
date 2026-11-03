@@ -955,7 +955,7 @@
       "ruta": "assets/art/ui/icons/icon_oro.png",
       "origen": "Guild Renew (~/Code/guild/assets/sprites/ui/icons), copiados",
       "coste_gen": 0,
-      "notas": "Iconos del HUD (docs/ui/00 §7) traídos de Guild Renew: icon_oro, sun, moon, libro, crown, backpack, build_mode, warning, completed, pending, in_progress, working, idle, contrato, profesion_herrero, llave, serving, close; a 32 en assets/art/ui/icons/ y a 16 (mitad, vecino más cercano) en small/. Los finos aún sin repasar a mano. Los carga UiIcons.ui()."
+      "notas": "Iconos del HUD (docs/ui/00 §7) traídos de Guild Renew: icon_oro, sun, moon, libro, crown, backpack, build_mode, warning, completed, pending, in_progress, working, idle, contrato, profesion_herrero, llave, serving, close, y (paneles de economía) slot_empty_herramienta/ropa/accesorio, locked, loop, martillo, demolish e icon_rama_<rama> (8); a 32 en assets/art/ui/icons/ y a 16 (mitad, vecino más cercano) en small/. Los finos aún sin repasar a mano. Los carga UiIcons.ui()."
     },
     {
       "id": "ui_cursor",

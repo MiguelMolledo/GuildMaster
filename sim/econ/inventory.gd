@@ -32,6 +32,15 @@ static func weight(inv: Dictionary, catalog: Catalog) -> float:
 
 
 ## Whether `qty` units fit: weight limit, or number of stacks (filling the open stacks of the same kind first).
+## How many of `qty` units of `item` at `quality` fit in `inv` now (0..qty). Read only: the storage panel says
+## «Solo caben 3 de 8» before moving.
+static func fit_count(inv: Dictionary, catalog: Catalog, item: String, quality: int, qty: int) -> int:
+	for n: int in range(qty, 0, -1):
+		if can_add(inv, catalog, item, quality, n):
+			return n
+	return 0
+
+
 static func can_add(inv: Dictionary, catalog: Catalog, item: String, quality: int, qty: int) -> bool:
 	var def := catalog.item(item)
 	if def.is_empty() or qty <= 0 or not quality in QUALITIES:

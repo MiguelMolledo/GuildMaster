@@ -143,6 +143,42 @@ func set_bubble(id: String) -> void:
 	_bubble.z_index = MARKS_Z
 	VisualPaths.place(_bubble, Vector2(bubble_shift, -fig_height - 12))
 	add_child(_bubble)
+	_apply_mark()
+
+
+## docs/ui/mecanicas/ciudad_viva.md §6: an emotion bubble takes the colour of the family it is felt towards as its
+## outline and a 2 px bar of its intensity on its right side (0..1); a = 0 (Color(0,0,0,0)) = no mark (activities).
+var bubble_mark: Color = Color(0, 0, 0, 0)
+var bubble_intensity: float = 0.0
+
+
+func set_bubble_mark(c: Color, intensity: float) -> void:
+	if c == bubble_mark and is_equal_approx(intensity, bubble_intensity):
+		return
+	bubble_mark = c
+	bubble_intensity = clampf(intensity, 0.0, 1.0)
+	_apply_mark()
+
+
+func _apply_mark() -> void:
+	if _bubble == null:
+		return
+	var outline := _bubble.get_node_or_null("Greybox/Outline") as Line2D
+	var bar := _bubble.get_node_or_null("IntensityBar") as Line2D
+	if bubble_mark.a <= 0.0:
+		if bar != null:
+			bar.queue_free()
+		return
+	if outline != null:
+		outline.default_color = bubble_mark
+	if bar == null:
+		bar = Line2D.new()
+		bar.name = "IntensityBar"
+		bar.width = 2.0
+		_bubble.add_child(bar)
+	bar.default_color = bubble_mark
+	var h := maxf(1.0, roundf(12.0 * bubble_intensity))
+	bar.points = PackedVector2Array([Vector2(14, -6), Vector2(14, -6 - h)])
 
 
 ## Moves the bubble `dx` px sideways (WorldView.spread_bubbles, so close heads do not stack their bubbles).

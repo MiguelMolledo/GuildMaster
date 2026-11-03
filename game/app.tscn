@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://cw47oqqfyd882" path="res://game/ui/save_screen.tscn" id="10_save"]
 [ext_resource type="PackedScene" uid="uid://ba2jpkakhndlt" path="res://game/ui/options_screen.tscn" id="11_options"]
 [ext_resource type="PackedScene" uid="uid://va0eu2186wto" path="res://game/ui/credits_screen.tscn" id="12_credits"]
+[ext_resource type="PackedScene" uid="uid://mb4b5s18hget" path="res://game/ui/succession_card.tscn" id="13_succession"]
+[ext_resource type="PackedScene" uid="uid://804hmcfe8cdg" path="res://game/ui/wedding_card.tscn" id="14_wedding"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_app")
@@ -50,6 +52,9 @@ unique_name_in_owner = true
 [node name="EndingScreen" parent="ScreensLayer" instance=ExtResource("6_end")]
 unique_name_in_owner = true
 
+[node name="SuccessionCard" parent="ScreensLayer" instance=ExtResource("13_succession")]
+unique_name_in_owner = true
+
 [node name="PauseMenu" parent="ScreensLayer" instance=ExtResource("9_pause")]
 unique_name_in_owner = true
 
@@ -60,6 +65,12 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="CreditsScreen" parent="ScreensLayer" instance=ExtResource("12_credits")]
+unique_name_in_owner = true
+
+[node name="CardsLayer" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="WeddingCard" parent="CardsLayer" instance=ExtResource("14_wedding")]
 unique_name_in_owner = true
 
 [node name="FadeLayer" type="CanvasLayer" parent="."]

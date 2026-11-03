@@ -427,6 +427,15 @@ static func active_for(sim: Sim, fam: String) -> Array:
 	return (sim.state.microevents.get("active", []) as Array).filter(func(m: Dictionary) -> bool: return str(m["family"]) == fam)
 
 
+## For the UI (a read, no rule): the effects of choice `choice` of microevent definition `def`, as written in
+## data/microevents/<def>.json (a copy), so the card says the figures of the data and not of a text. [] if unknown.
+static func choice_effects(sim: Sim, def: String, choice: String) -> Array:
+	for c: Dictionary in sim.catalog.microevents().get(def, {}).get("choices", []):
+		if str(c.get("id", "")) == choice:
+			return (c.get("effects", []) as Array).duplicate(true)
+	return []
+
+
 ## {id, def, text_key, params, choices: [{id, text_key}], default, minutes_left} of an active microevent ({} if none).
 static func view(sim: Sim, id: String) -> Dictionary:
 	var m := _find(sim, id)

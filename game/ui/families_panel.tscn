@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://dj4gcpp712bxd"]
+
+[ext_resource type="Script" uid="uid://bmoj6rbrhe6nf" path="res://game/ui/families_panel.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+
+[node name="FamiliesPanel" type="PanelContainer"]
+visible = false
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Header" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TitleLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="CloseButton" type="Button" parent="VBox/Header"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+focus_mode = 0
+text = "×"
+unique_name_in_owner = true
+
+[node name="ListPage" type="VBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 3
+unique_name_in_owner = true
+
+[node name="RivalsLabel" type="Label" parent="VBox/ListPage"]
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="RivalsList" type="VBoxContainer" parent="VBox/ListPage"]
+layout_mode = 2
+theme_override_constants/separation = 3
+unique_name_in_owner = true
+
+[node name="NeighboursButton" type="Button" parent="VBox/ListPage"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Scroll" type="ScrollContainer" parent="VBox/ListPage"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="NeighboursList" type="VBoxContainer" parent="VBox/ListPage/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+unique_name_in_owner = true
+
+[node name="SheetPage" type="VBoxContainer" parent="VBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 3
+unique_name_in_owner = true
+
+[node name="BackButton" type="Button" parent="VBox/SheetPage"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Head" type="HBoxContainer" parent="VBox/SheetPage"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="SheetRibbon" type="CenterContainer" parent="VBox/SheetPage/Head"]
+custom_minimum_size = Vector2(14, 36)
+layout_mode = 2
+unique_name_in_owner = true
+
+[node name="Lines" type="VBoxContainer" parent="VBox/SheetPage/Head"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -2
+
+[node name="SheetName" type="Label" parent="VBox/SheetPage/Head/Lines"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="SheetPublic" type="Label" parent="VBox/SheetPage/Head/Lines"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="NoGold" type="Label" parent="VBox/SheetPage/Head/Lines"]
+layout_mode = 2
+mouse_filter = 0
+theme_type_variation = &"DimLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Actions" type="HBoxContainer" parent="VBox/SheetPage"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="GiftButton" type="Button" parent="VBox/SheetPage/Actions"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+unique_name_in_owner = true
+
+[node name="AccuseButton" type="Button" parent="VBox/SheetPage/Actions"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+unique_name_in_owner = true
+
+[node name="MapButton" type="Button" parent="VBox/SheetPage/Actions"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Sep" type="HSeparator" parent="VBox/SheetPage"]
+layout_mode = 2
+
+[node name="MembersTitle" type="Label" parent="VBox/SheetPage"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Members" type="VBoxContainer" parent="VBox/SheetPage"]
+layout_mode = 2
+theme_override_constants/separation = 2
+unique_name_in_owner = true
+
+[node name="BusinessesTitle" type="Label" parent="VBox/SheetPage"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Businesses" type="VBoxContainer" parent="VBox/SheetPage"]
+layout_mode = 2
+theme_override_constants/separation = 0
+unique_name_in_owner = true
+
+[node name="FactsTitle" type="Label" parent="VBox/SheetPage"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Facts" type="VBoxContainer" parent="VBox/SheetPage"]
+layout_mode = 2
+theme_override_constants/separation = 0
+unique_name_in_owner = true

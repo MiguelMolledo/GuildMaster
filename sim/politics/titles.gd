@@ -174,6 +174,19 @@ static func approved(sim: Sim, actor: String) -> bool:
 	return true
 
 
+## For the UI (a read, the same rule as approved): who approves `actor`'s title now: {office, character, affinity,
+## need, ok}; {} when every approver office is vacant (it is approved by itself).
+static func approver(sim: Sim, actor: String) -> Dictionary:
+	var cer: Dictionary = sim.catalog.politics.get("ceremony", {})
+	for office: String in cer.get("approvers", []):
+		for h: String in Offices.holders(sim, office):
+			var rel: Dictionary = sim.state.relationships.get(Ids.pair_key(h, actor), {})
+			var aff := int(rel.get("affinity", 0))
+			var need := int(cer.get("min_affinity", 30))
+			return {"office": office, "character": h, "affinity": aff, "need": need, "ok": h == actor or aff >= need}
+	return {}
+
+
 ## {"type": "request_title", "actor", "title"?}: asks for the family's next title at the town hall (GDD 4.12.2).
 ## Reasons: unknown_actor, dead, too_young, no_family, max_title, wrong_title, not_at_town_hall,
 ## title_needs_reputation / businesses / employees / event, not_enough_gold, title_not_approved.

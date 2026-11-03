@@ -394,6 +394,50 @@ static func resolve(sim: Sim, office: String, due: Array) -> void:
 			n_voters, votes, winners, " (sin rival)" if unopposed else ""])
 
 
+## For the UI (a read, no rule; docs/ui/mecanicas/cargos_y_elecciones.md decision a): how each candidate of `office`'s
+## open election would stand if the vote were now, as a band: {character: "lead" | "close" | "behind"} ({} without an
+## election). The tally is resolve's (the same voters and _choice); the band compares with the first seat out (or in)
+## by a margin of max(2, 15 % of the voters), so the exact count stays hidden.
+static func forecast(sim: Sim, office: String) -> Dictionary:
+	var el := open_election(sim.state, office)
+	if el.is_empty():
+		return {}
+	var cands: Array = []
+	var ids: Array = []
+	for c: Dictionary in el.get("candidates", []):
+		if _can_stand(sim, str(c["character"]), office):
+			cands.append(c)
+			ids.append(str(c["character"]))
+	var votes: Dictionary = {}
+	for id: String in ids:
+		votes[id] = 0
+	var n := 0
+	for v: String in voters(sim, ids):
+		var pick := _choice(sim, cands, v)
+		if pick != "":
+			votes[pick] = int(votes[pick]) + 1
+			n += 1
+	var order := cands.duplicate()
+	order.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return _before(sim, votes, a, b))
+	var seats := maxi(1, Offices.seats(sim, office).size())
+	var margin := maxi(2, ceili(float(n) * 0.15))
+	var out := {}
+	for i: int in order.size():
+		var id := str(order[i]["character"])
+		var mine := int(votes[id])
+		var band := "close"
+		if i < seats:
+			var first_out := int(votes[str(order[seats]["character"])]) if order.size() > seats else -margin
+			if mine - first_out >= margin:
+				band = "lead"
+		else:
+			var last_in := int(votes[str(order[seats - 1]["character"])])
+			if last_in - mine >= margin:
+				band = "behind"
+		out[id] = band
+	return out
+
+
 static func _can_stand(sim: Sim, chr: String, office: String) -> bool:
 	var st := sim.state
 	if not Kin.alive(st, chr) or not Kin.is_adult(sim, chr):

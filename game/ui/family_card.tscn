@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bf31qn5x14ckh"]
+
+[ext_resource type="Script" uid="uid://f8t1811a4cjv" path="res://game/ui/family_card.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+
+[node name="FamilyCard" type="PanelContainer"]
+visible = false
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Title" type="Label" parent="VBox"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "--"
+clip_text = true
+unique_name_in_owner = true
+
+[node name="Who" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PortraitSlot" type="CenterContainer" parent="VBox/Who"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 0
+unique_name_in_owner = true
+
+[node name="Body" type="Label" parent="VBox/Who"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="SchoolBox" type="VBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+unique_name_in_owner = true
+
+[node name="Pick" type="HBoxContainer" parent="VBox/SchoolBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="StatOption" type="OptionButton" parent="VBox/SchoolBox/Pick"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+unique_name_in_owner = true
+
+[node name="PickButton" type="Button" parent="VBox/SchoolBox/Pick"]
+layout_mode = 2
+focus_mode = 0
+text = "--"
+unique_name_in_owner = true
+
+[node name="Preview" type="Label" parent="VBox/SchoolBox"]
+layout_mode = 2
+theme_type_variation = &"PositiveLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="LaterButton" type="Button" parent="VBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+unique_name_in_owner = true
