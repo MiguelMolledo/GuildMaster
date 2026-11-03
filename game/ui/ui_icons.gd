@@ -49,3 +49,16 @@ static func item_rect(item_id: String) -> TextureRect:
 	r.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return r
+
+
+## A kit icon of the HUD (assets/art/ui/icons, from Guild Renew): 16 px for lists, buttons and bars (small = true),
+## else 32 (docs/ui/00 §7). null if it is not there.
+static func ui(icon: String, small: bool = true) -> Texture2D:
+	var p := "res://assets/art/ui/icons/%s%s.png" % ["small/" if small else "", icon]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## A badge of the kit (assets/art/ui/marks: badge_title_<id>, badge_office_<id>, rank_<n>, seal), or null.
+static func mark(id: String) -> Texture2D:
+	var p := "res://assets/art/ui/marks/%s.png" % id
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null

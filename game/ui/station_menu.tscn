@@ -9,6 +9,7 @@ custom_minimum_size = Vector2(170, 0)
 offset_right = 170.0
 offset_bottom = 60.0
 theme = ExtResource("2_theme")
+theme_type_variation = &"DarkPanel"
 script = ExtResource("1_menu")
 
 [node name="VBox" type="VBoxContainer" parent="."]

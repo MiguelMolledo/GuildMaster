@@ -1,83 +1,108 @@
 extends CanvasLayer
-## H7: the sheet of a townsperson (NpcPanel, a click on somebody else) and the card of a microevent of the family
-## (MicroeventCard, top right, not blocking).
-## HUD of the town (H1): clock (time, date, sun/moon, phase bar, tooltip with the full date), pause and speeds
-## ×1/×2/×4 (D4) by button or key (pause_toggle = Space, speed_1/2/3 = 1/2/3), the "paused" sign and a short
-## message when the sim refuses an order of the human family (tr("reason.<id>")). Reads Game; only changes the
-## session's speed and pause, never the world.
-## H2: the selected person (portrait, name, gold) with their order queue as a numbered list (active pause, GDD 4.1:
-## the state's order_queue plus the orders given during this pause), the button / key I of their panel
-## (CharacterPanel), and the picked building with its "Manage" button (GDD 4.6.4).
-## H3: the family's gold and its debt with the due date, the account book (button / key L, LedgerPanel), the start
-## objectives, urgent notices popping up (a click centres the camera on the notice's building or person, or opens
-## the book), the market panel (MarketPanel) and the board (BoardPanel), opened when the person who was sent to a
-## stall or the board stands on its service tile, or from the counter of a shop.
-## H5 (polish): an own building with idle employees (the "zz" icon) says why in the picked building's panel; the
-## help overlay (HelpPanel: key F1 or "?", the Help button; ESC closes it) lists the controls and panels, and the
-## objective panel says how to do the current objective (objective_how.<id>) or, with the start objectives done,
-## what to try next (objective_how.free). Inside a building the objective panel moves to the left, under the selected person, so it does not cover the building's
-## panels (they open on the right).
-## H8: the controllable group (GDD 4.10.5) as portraits next to the selected person (keys 1-2-3 or a click select,
-## a double click centres the camera; the active one has the gold border); the speeds move to Shift+1/2/3. The family
-## tree (key F, FamilyTreePanel) and the courtship panel (CourtshipPanel, from the tree or the person's sheet).
+## The HUD in the town and inside a building, on the fixed zones of docs/ui/01_hud.md §4 (HudLayout.ZONES): it reads
+## the state and Game, opens panels and changes the session's pause and speed; it never changes the world itself.
+##   1 · Card (top left): the portraits of the group (keys 1-2-3, a click picks, a double click centres; the active
+##       one with the gold frame, the heir's crown, the queued orders in pause) and the active person's name, the
+##       family's gold, title badge and reputation (H8, GDD 4.10.5).
+##   2 · Status bar (top centre): the debt (figure, paid bar, days left; tooltip with the due date) and the panel
+##       buttons with their key: Book L, Family F, Inventory I, Build B (from H6), Offices O, Trial J (while one is
+##       open), Help F1, Menu (asks for the pause menu). «EN PAUSA» hangs under it while paused.
+##   3 · Clock (top right): sun / moon, time, date, the phase bar, pause and ×1 ×2 ×4 (D4; Space, Shift+1/2/3).
+##   4 · Column (left): the objective (it folds to its title and progress on the map after a while, or when the
+##       queue would not fit) with how to do it (objective_how.<id>), the active person's queued orders (active pause,
+##       GDD 4.1) and the cards that ask for a decision (MicroeventCard, H7).
+##   5 · Management zone (right): one panel at a time (ManageSlot): market, board, book, townsperson's sheet,
+##       courtship, town hall, family AI, inventory; the interior's panels join the same slot. The family tree, the
+##       offices chart and the trial are big modals (912×440) over the veil.
+##   6 · Selection (bottom centre): the picked building (Manage on your own) or the selected person; inside a
+##       building the interior draws its own bar there (InteriorView).
+##   7 · Notices (bottom left): the notices of the player's family that pop up, urgent (until clicked or the book is
+##       opened), warning (8 s) and done (5 s); a click centres the camera on its building or person or opens the
+##       book. Info notices only go to the book.
+## F1 / ? / the "?" button: the help (keys by sections and «Ahora mismo»). ESC is the app's (close_top); with nothing
+## open it calls request_pause_menu(), which emits pause_menu_requested (the pause menu is the menus' scene).
 
 signal manage_pressed(building_id: String)
-signal select_requested(id: String)  # H8: a portrait of the group was picked (key 1-2-3 or click)
+signal select_requested(id: String)    # H8: a portrait of the group was picked (key 1-2-3 or click)
 signal focus_requested(target: String)  # a notice was clicked: centre on this building / person
+signal deselect_requested               # ESC with only a building picked: the world forgets it
+signal pause_menu_requested             # ESC with nothing open, or the Menu button (docs/ui/02: the pause menu)
 
-@onready var _sun_moon: SunMoon = %SunMoon
+const GOLD_ICON: String = "icon_oro"
+
+@onready var _title_label: Label = %TitleLabel
+# 1 · card
+@onready var _card: PanelContainer = %Card
+@onready var _group_bar: HBoxContainer = %GroupBar
+@onready var _name_label: Label = %NameLabel
+@onready var _gold_icon: TextureRect = %GoldIcon
+@onready var _family_gold: Label = %GoldLabel
+@onready var _title_badge: TextureRect = %TitleBadge
+@onready var _family_title: Label = %FamilyTitle          # H9: the family's title and reputation
+# 2 · status bar
+@onready var _status_bar: PanelContainer = %StatusBar
+@onready var _debt_box: HBoxContainer = %DebtBox
+@onready var _debt_caption: Label = %DebtCaption
+@onready var _debt_label: Label = %DebtLabel
+@onready var _debt_bar: ProgressBar = %DebtBar
+@onready var _debt_days: Label = %DebtDays
+@onready var _ledger_button: Button = %LedgerButton
+@onready var _tree_button: Button = %TreeButton
+@onready var _inventory_button: Button = %InventoryButton
+@onready var _build_button: Button = %BuildButton
+@onready var _offices_button: Button = %OfficesButton      # H10: the offices (key O)
+@onready var _trials_button: Button = %TrialsButton        # H11: the family's trial (key J), only while one is open
+@onready var _help_button: Button = %HelpButton
+@onready var _menu_button: Button = %MenuButton
+@onready var _paused_tag: PanelContainer = %PausedTag
+@onready var _paused_label: Label = %PausedLabel
+# 3 · clock
+@onready var _clock_panel: PanelContainer = %ClockPanel
+@onready var _sun_moon: TextureRect = %SunMoon
 @onready var _time_label: Label = %TimeLabel
 @onready var _date_label: Label = %DateLabel
 @onready var _phase_bar: ProgressBar = %PhaseBar
-@onready var _clock_panel: PanelContainer = %ClockPanel
 @onready var _pause_button: Button = %PauseButton
 @onready var _speed_buttons: Array[Button] = [%Speed1, %Speed2, %Speed4]
-@onready var _paused_label: Label = %PausedLabel
-@onready var _toast_label: Label = %ToastLabel
-@onready var _help_label: Label = %HelpLabel
-@onready var _title_label: Label = %TitleLabel
-@onready var _selected_panel: PanelContainer = %SelectedPanel
-@onready var _portrait: ColorRect = %Portrait
-@onready var _name_label: Label = %NameLabel
-@onready var _gold_label: Label = %GoldLabel
-@onready var _inventory_button: Button = %InventoryButton
-@onready var _queue_label: Label = %QueueLabel
-@onready var _queue_list: VBoxContainer = %QueueList
-@onready var _building_panel: PanelContainer = %BuildingPanel
-@onready var _building_name: Label = %BuildingName
-@onready var _building_hint: Label = %BuildingHint
-@onready var _manage_button: Button = %ManageButton
-@onready var _character_panel: CharacterPanel = %CharacterPanel
-@onready var _family_panel: PanelContainer = %FamilyPanel
-@onready var _family_gold: Label = %FamilyGold
-@onready var _debt_label: Label = %DebtLabel
-@onready var _ledger_button: Button = %LedgerButton
+# 4 · column
 @onready var _objective_panel: PanelContainer = %ObjectivePanel
 @onready var _objective_title: Label = %ObjectiveTitle
 @onready var _objective_label: Label = %ObjectiveLabel
 @onready var _objective_progress: Label = %ObjectiveProgress
-@onready var _notice_popups: VBoxContainer = %NoticePopups
+@onready var _objective_sep: HSeparator = %ObjectiveSep
+@onready var _objective_hint: Label = %ObjectiveHint
+@onready var _queue_panel: PanelContainer = %QueuePanel
+@onready var _queue_label: Label = %QueueLabel
+@onready var _queue_list: VBoxContainer = %QueueList
+@onready var _mev_card: MicroeventCard = %MicroeventCard
+# 5 · management zone and big modals
 @onready var _market_panel: MarketPanel = %MarketPanel
 @onready var _board_panel: BoardPanel = %BoardPanel
 @onready var _ledger_panel: LedgerPanel = %LedgerPanel
-@onready var _objective_hint: Label = %ObjectiveHint
-@onready var _help_button: Button = %HelpButton
-@onready var _help_panel: HelpPanel = %HelpPanel
-@onready var _group_bar: HBoxContainer = %GroupBar
-@onready var _tree_panel: FamilyTreePanel = %FamilyTreePanel
-@onready var _court_panel: CourtshipPanel = %CourtshipPanel
 @onready var _npc_panel: NpcPanel = %NpcPanel
-@onready var _mev_card: MicroeventCard = %MicroeventCard
+@onready var _court_panel: CourtshipPanel = %CourtshipPanel
 @onready var _hall_panel: TownHallPanel = %TownHallPanel  # H9: the town hall (titles)
-@onready var _title_card: TitleCard = %TitleCard          # H9: the ceremony
-@onready var _family_title: Label = %FamilyTitle          # H9: the family's title and reputation
-@onready var _offices_button: Button = %OfficesButton      # H10: the offices (key O)
-@onready var _offices_panel: OfficesPanel = %OfficesPanel  # H10: the chart, running, campaign and powers
-@onready var _office_card: OfficeCard = %OfficeCard        # H10: the result of a vote
-@onready var _trials_button: Button = %TrialsButton        # H11: the family's trial (key J), only while one is open
-@onready var _trial_panel: TrialPanel = %TrialPanel        # H11: preparation and hearing
 @onready var _kin_ai_panel: KinAiPanel = %KinAiPanel     # H14: directives, needs and morale of a family member
+@onready var _character_panel: CharacterPanel = %CharacterPanel
+@onready var _veil: ColorRect = %Veil
+@onready var _tree_panel: FamilyTreePanel = %FamilyTreePanel
+@onready var _offices_panel: OfficesPanel = %OfficesPanel  # H10: the chart, running, campaign and powers
+@onready var _trial_panel: TrialPanel = %TrialPanel        # H11: preparation and hearing
+# 6 · selection
+@onready var _building_panel: PanelContainer = %SelectionBar
+@onready var _selection_icon: TextureRect = %SelectionIcon
+@onready var _building_name: Label = %BuildingName
+@onready var _building_hint: Label = %BuildingHint
+@onready var _manage_button: Button = %ManageButton
+@onready var _selection_action: Button = %SelectionAction
+# 7 · notices, toast, cards, help
+@onready var _notice_popups: VBoxContainer = %NoticePopups
+@onready var _toast_label: PanelContainer = %ToastLabel
+@onready var _toast_text: Label = %ToastText
+@onready var _title_card: TitleCard = %TitleCard          # H9: the ceremony
+@onready var _office_card: OfficeCard = %OfficeCard        # H10: the result of a vote
 @onready var _trial_card: TrialCard = %TrialCard           # H11: «you are accused» and the verdict
+@onready var _help_panel: HelpPanel = %HelpPanel
 
 var selected_id: String = ""
 var building_id: String = ""
@@ -87,81 +112,113 @@ var _hint_left: float = 0.0      # seconds the hint stays unfolded on the map (d
 var _hint_text_ok: bool = false  # the objective has a hint text
 var _queue_sig: String = ""
 var _pending_service: Dictionary = {}  # {actor, kind, id, service}: open its panel when the actor stands there
-var _popups: Array = []  # [{node, left}]
+var _popups: Array = []  # [{node, left, gravity}] oldest first (left < 0: until clicked)
 var _group_sig: String = ""
+var _card_sig: String = ""
 var _frame_scene: PackedScene = preload("res://game/ui/portrait_frame.tscn")
 
 var _game: Node = null
 var _toast_left: float = 0.0
 var _last_minute: int = -1
 
+static var _tok: Dictionary = {}
+
 
 func _ready() -> void:
 	_game = get_node_or_null("/root/Game")
+	HudKeys.ensure()
 	UiFeel.install(get_tree())
-	_paused_label.text = tr("hud.paused")
-	_help_label.text = tr("hud.help") + tr("hud.help_more")
 	_title_label.text = tr("app.title")
-	_pause_button.text = tr("hud.pause")
+	_paused_label.text = tr("hud.paused")
+	# 2 · status bar: icon + key on each button (docs/ui/01 §4, zone 2)
+	_status_button(_ledger_button, UiIcons.ui("icon_libro"), "L", "hud.ledger_tip", toggle_ledger)
+	_status_button(_tree_button, UiIcons.ui("icon_crown"), "F", "hud.tree_tip", toggle_tree)
+	_status_button(_inventory_button, UiIcons.ui("icon_backpack"), "I", "hud.inventory_tip", toggle_character_panel)
+	_status_button(_build_button, UiIcons.ui("icon_build_mode"), "B", "hud.build_tip", _build_denied)
+	_build_button.disabled = true   # the building mode arrives in H6: pressed, it says why (toast)
+	_status_button(_offices_button, UiIcons.mark("badge_office_mayor"), "O", "hud.offices_tip", toggle_offices)
+	_status_button(_trials_button, UiIcons.mark("badge_office_judge"), "J", "hud.trials_tip", toggle_trial)
+	_build_button.gui_input.connect(func(ev: InputEvent) -> void:
+		if ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed:
+			_build_denied())
+	_help_button.text = tr("hud.help_key")
+	_help_button.tooltip_text = tr("hud.help_button_tip")
+	_help_button.pressed.connect(toggle_help)
+	_menu_button.text = tr("hud.menu")
+	_menu_button.tooltip_text = tr("hud.menu_tip")
+	_menu_button.pressed.connect(request_pause_menu)
+	_debt_caption.text = tr("hud.debt_caption")
+	_gold_icon.texture = UiIcons.ui(GOLD_ICON)
+	_family_title.tooltip_text = tr("hud.title_rep_tip")
+	# 3 · clock
+	_pause_button.text = tr("hud.pause_short")
 	_pause_button.tooltip_text = tr("hud.pause_tip")
-	_pause_button.pressed.connect(func() -> void: _game.toggle_pause())
-	var group := ButtonGroup.new()
+	_pause_button.pressed.connect(func() -> void:
+		if _game != null:
+			_game.toggle_pause())
 	for i: int in _speed_buttons.size():
 		var b := _speed_buttons[i]
 		var s: int = Game.SPEEDS[i]
 		b.text = tr("hud.speed") % s
 		b.tooltip_text = tr("hud.speed_tip") % [s, i + 1]  # H8: Shift+1/2/3 (1-2-3 select the group)
-		b.button_group = group
-		b.pressed.connect(func() -> void: _game.set_speed(s))
-	_toast_label.visible = false
-	_inventory_button.text = tr("hud.inventory")
-	_inventory_button.tooltip_text = tr("hud.inventory_tip")
-	_inventory_button.pressed.connect(toggle_character_panel)
-	_queue_label.text = tr("hud.queue")
+		b.pressed.connect(func() -> void:
+			if _game != null:
+				_game.set_speed(s))
+	# 4 · column
+	_objective_title.text = tr("hud.objective").to_upper()
+	# 6 · selection
 	_manage_button.text = tr("hud.manage")
 	_manage_button.tooltip_text = tr("hud.manage_tip")
 	_manage_button.pressed.connect(func() -> void: manage_pressed.emit(building_id))
-	_character_panel.order_sink = _game.give
-	_market_panel.order_sink = _game.give
-	_board_panel.order_sink = _game.give
-	_ledger_panel.order_sink = _game.give
+	_selection_action.pressed.connect(toggle_character_panel)
+	_toast_label.visible = false
+	# panels: the orders go to Game; one management panel at a time (ManageSlot)
+	if _game != null:
+		for p: Control in [_character_panel, _market_panel, _board_panel, _ledger_panel, _tree_panel, _court_panel,
+				_npc_panel, _mev_card, _hall_panel, _offices_panel, _trial_panel, _kin_ai_panel]:
+			p.set("order_sink", _game.give)
+	for p: Control in _manage_panels() + _modal_panels():
+		ManageSlot.join(p)
 	_ledger_panel.notice_clicked.connect(notice_action)
-	_ledger_button.text = tr("hud.ledger")
-	_ledger_button.tooltip_text = tr("hud.ledger_tip")
-	_ledger_button.pressed.connect(toggle_ledger)
-	_objective_title.text = tr("hud.objective")
-	_help_button.text = tr("hud.help_button")
-	_help_button.tooltip_text = tr("hud.help_button_tip")
-	_help_button.pressed.connect(toggle_help)
-	_tree_panel.order_sink = _game.give
-	_court_panel.order_sink = _game.give
-	_npc_panel.order_sink = _game.give
-	_mev_card.order_sink = _game.give
-	_hall_panel.order_sink = _game.give
+	_ledger_panel.visibility_changed.connect(func() -> void:
+		if _ledger_panel.visible:
+			_drop_urgent())   # opening the book reads the urgent pop-ups (§5)
 	_hall_panel.offices_requested.connect(open_offices)
-	_offices_panel.order_sink = _game.give
-	_offices_button.text = tr("hud.offices")
-	_offices_button.tooltip_text = tr("hud.offices_tip")
-	_offices_button.pressed.connect(toggle_offices)
-	_trial_panel.order_sink = _game.give
-	_kin_ai_panel.order_sink = _game.give
 	_character_panel.kin_ai_requested.connect(open_kin_ai)
 	_tree_panel.kin_ai_requested.connect(open_kin_ai)
-	_trials_button.text = tr("hud.trials")
-	_trials_button.tooltip_text = tr("hud.trials_tip")
-	_trials_button.pressed.connect(toggle_trial)
 	_trial_card.prepare_requested.connect(open_trial)
-	_family_title.tooltip_text = tr("hud.title_rep_tip")
 	_tree_panel.switch_requested.connect(func(id: String) -> void: select_requested.emit(id))
 	_tree_panel.court_requested.connect(open_courtship)
 	_character_panel.tree_requested.connect(toggle_tree)
 	_character_panel.court_requested.connect(open_courtship)
 	Events.sim_event.connect(_on_sim_event)
+	Log.info("Hud", "ready (zones=%d, manage panels=%d, modals=%d)" % [HudLayout.ZONES.size(), _manage_panels().size(),
+		_modal_panels().size()])
 	_refresh()
 
 
 func _exit_tree() -> void:
 	UiFeel.uninstall()
+
+
+## A status bar button: its 16 px icon, the key in small letters after it, the tooltip, what it does.
+func _status_button(b: Button, icon: Texture2D, key: String, tip: String, action: Callable) -> void:
+	b.icon = icon
+	b.text = key
+	b.theme_type_variation = &"KeyButton"
+	b.tooltip_text = tr(tip)
+	b.pressed.connect(action)
+
+
+## The panels of zone 5 (one at a time).
+func _manage_panels() -> Array[Control]:
+	return [_market_panel, _board_panel, _ledger_panel, _npc_panel, _court_panel, _hall_panel, _kin_ai_panel,
+		_character_panel]
+
+
+## The big modals (912×440 over the veil).
+func _modal_panels() -> Array[Control]:
+	return [_tree_panel, _offices_panel, _trial_panel]
 
 
 func _process(delta: float) -> void:
@@ -171,7 +228,7 @@ func _process(delta: float) -> void:
 	_check_service()
 	_tick_popups(delta)
 	_tick_hint(delta)
-	_place_group_bar()
+	_veil.visible = _modal_panels().any(func(p: Control) -> bool: return p.visible)
 	if _toast_left > 0.0:
 		_toast_left -= delta
 		if _toast_left <= 0.0:
@@ -184,24 +241,24 @@ func _refresh() -> void:
 	var sim: Sim = _game.sim
 	var minute := int(sim.state.clock["minute"])
 	_title_label.visible = sim.state.map_id == ""
-	_paused_label.visible = _game.paused
+	_paused_tag.visible = _game.paused
 	_pause_button.set_pressed_no_signal(_game.paused)
 	for i: int in _speed_buttons.size():
-		_speed_buttons[i].set_pressed_no_signal(Game.SPEEDS[i] == _game.speed)
+		_speed_buttons[i].set_pressed_no_signal(not _game.paused and Game.SPEEDS[i] == _game.speed)
 	_phase_bar.value = DayNight.phase_progress(minute, _game.step_fraction(), sim.catalog.time) * 100.0
-	_refresh_selected(sim)
 	_trials_button.visible = family() != "" and not Tribunal.of_family(sim, family(), true).is_empty()  # H11
 	_refresh_family(sim)
 	_refresh_group(sim)
+	_refresh_queue(sim)
 	if minute == _last_minute:
 		return
 	_last_minute = minute
-	if _building_panel.visible:
-		_update_building_panel()   # the idle reason follows the queue
+	_update_building_panel()   # the idle reason follows the queue
 	var t := sim.now()
 	_time_label.text = tr("hud.time") % [t["hour"], t["minute"]]
 	_date_label.text = tr("hud.date") % [t["day"], tr("season." + str(t["season"])), t["year"]]
-	_sun_moon.phase = str(t["phase"])
+	var night := str(t["phase"]) in ["dusk", "night"]
+	_sun_moon.texture = UiIcons.ui("icon_moon" if night else "icon_sun")
 	_clock_panel.tooltip_text = tr("hud.clock") % [t["day"], tr("season." + str(t["season"])), t["year"], t["hour"],
 		t["minute"], tr("phase." + str(t["phase"]))]
 
@@ -210,12 +267,14 @@ func _refresh() -> void:
 func set_selected(id: String) -> void:
 	selected_id = id
 	_queue_sig = "-"
+	_card_sig = ""
 	if _game != null and _game.sim != null:
 		_character_panel.setup(_game.sim, id)
 		if _npc_panel.visible:
 			_npc_panel.setup(_game.sim, id, _npc_panel.target)  # H7: the new selected person acts
 	if id == "":
 		_character_panel.close()
+	_update_building_panel()
 
 
 ## The building picked on the map ("" = none): its name and the Manage button.
@@ -226,34 +285,83 @@ func set_building(id: String) -> void:
 
 func set_interior(open: bool) -> void:
 	interior_open = open
-	_help_label.text = tr("hud.help_interior" if open else "hud.help") + tr("hud.help_more")
 	_update_building_panel()
 
 
+# --- 6 · selection ---------------------------------------------------------------------------------------------------
+
+## The selection bar: the picked building (Manage on your own), else the selected person; hidden inside a building
+## (the interior draws its own bar there).
 func _update_building_panel() -> void:
-	_building_panel.visible = building_id != "" and not interior_open and _game != null and _game.sim != null
-	if not _building_panel.visible:
+	if _game == null or _game.sim == null or interior_open:
+		_building_panel.visible = false
 		return
 	var sim: Sim = _game.sim
+	if building_id != "" and sim.state.buildings.has(building_id):
+		_show_building(sim)
+	elif _selected_person(sim) != "":
+		_show_person(sim, _selected_person(sim))
+	else:
+		_building_panel.visible = false
+
+
+func _show_building(sim: Sim) -> void:
+	_building_panel.visible = true
 	var own := false
 	for id: String in sim.state.characters:
 		var ch: Dictionary = sim.state.characters[id]
 		if str(ch.get("controlled_by", "")) == "human" and SimQuery.is_own(sim.state, id, building_id):
 			own = true
 	_building_name.text = SimQuery.building_label(sim.state, sim.catalog, building_id)
+	var color := "texto_tenue"
+	var icon := "icon_llave"
 	if own:
+		icon = "icon_profesion_herrero"
 		_building_hint.text = tr("hud.building_own")
 		# H5: the idle icon over the building, explained (why the employees stand still)
 		if not SimQuery.idle_employees(sim, building_id).is_empty():
 			var why := str(SimQuery.queue_view(sim, building_id).get("stalled", ""))
 			_building_hint.text = tr("hud.building_idle") % (SimQuery.reason_text(why) if why != "" else
 				tr("hud.building_idle_unknown"))
+			color = "aviso"
 	elif SimQuery.is_public(sim.state, sim.catalog, building_id):
+		icon = "icon_serving"
 		_building_hint.text = tr("hud.building_public")
 	else:
 		_building_hint.text = tr("hud.building_other")
+	_building_hint.add_theme_color_override("font_color", token(color))
+	_selection_icon.texture = UiIcons.ui(icon, false)
 	_manage_button.disabled = not own
 	_manage_button.visible = own  # another family's building cannot be managed (GDD 4.5.5)
+	_selection_action.visible = false
+
+
+## The selected person (alive) or "".
+func _selected_person(sim: Sim) -> String:
+	var ch: Dictionary = sim.state.characters.get(selected_id, {})
+	return selected_id if not ch.is_empty() and bool(ch.get("alive", true)) else ""
+
+
+func _show_person(sim: Sim, who: String) -> void:
+	_building_panel.visible = true
+	var ch: Dictionary = sim.state.characters[who]
+	_building_name.text = str(ch.get("name", who))
+	var lines := SimQuery.queue_lines(sim, who, _game.pending(), _game.paused)
+	_building_hint.text = lines[0] if not lines.is_empty() else tr("hud.selection_free")
+	_building_hint.add_theme_color_override("font_color", token("texto_tenue"))
+	_selection_icon.texture = UiIcons.ui("icon_working" if not lines.is_empty() else "icon_idle", false)
+	_manage_button.visible = false
+	_selection_action.visible = str(ch.get("controlled_by", "")) == "human"
+	_selection_action.text = tr("hud.inventory")
+	_selection_action.tooltip_text = tr("hud.inventory_tip")
+
+
+## A colour of the UI tokens (tools/ui/tokens.json "color").
+static func token(id: String) -> Color:
+	if _tok.is_empty():
+		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://tools/ui/tokens.json"))
+		_tok = (d as Dictionary).get("color", {}) if d is Dictionary else {}
+	return Color.html(str(_tok.get(id, "#ece4d2")))
 
 
 func toggle_character_panel() -> void:
@@ -264,48 +372,36 @@ func toggle_character_panel() -> void:
 		_character_panel.open()
 
 
-## ESC: closes the top panel (help, market, board, book, then the character panel). False if there was nothing to
-## close.
+## B: the building mode arrives in H6 (the button is disabled; pressed, it says why).
+func _build_denied() -> void:
+	show_toast(tr("hud.build_later"))
+
+
+## ESC: closes the top thing (docs/ui/01 §2): a card, the help, the management panel or big modal, then the picked
+## building. False if there was nothing to close (the app then asks for the pause menu).
 func close_top() -> bool:
+	for c: Control in [_trial_card, _office_card, _title_card]:
+		if c.visible:
+			c.call("close")
+			return true
 	if _help_panel.visible:
 		toggle_help()
 		return true
-	for p: Control in [_kin_ai_panel, _trial_card, _trial_panel, _office_card, _title_card, _offices_panel, _hall_panel, _npc_panel, _court_panel, _tree_panel,
-			_market_panel, _board_panel, _ledger_panel]:
+	for p: Control in _modal_panels() + _manage_panels():
 		if p.visible:
 			p.call("close")
 			return true
-	if _character_panel.visible:
-		_character_panel.close()
+	if building_id != "" and not interior_open:
+		deselect_requested.emit()
+		set_building("")
 		return true
 	return false
 
 
-func _refresh_selected(sim: Sim) -> void:
-	var ch: Dictionary = sim.state.characters.get(selected_id, {})
-	if not ch.is_empty() and not bool(ch.get("alive", true)):
-		ch = {}  # H8: a dead person (or another game's id) is nobody
-	_selected_panel.visible = not ch.is_empty()
-	if ch.is_empty():
-		return
-	var fam: Dictionary = sim.state.families.get(str(ch.get("family", "")), {})
-	_portrait.color = ViewConfig.color(str(fam.get("colors", {}).get("primary", "#808080")))
-	_name_label.text = str(ch.get("name", selected_id))
-	_gold_label.text = tr("ui.character.gold") % Money.gold(sim.state, str(ch.get("family", "")))  # the family purse (H3)
-	var lines := SimQuery.queue_lines(sim, selected_id, _game.pending(), _game.paused)
-	var sig := "|".join(lines)
-	if sig == _queue_sig:
-		return
-	_queue_sig = sig
-	for c: Node in _queue_list.get_children():
-		_queue_list.remove_child(c)
-		c.queue_free()
-	_queue_label.visible = not lines.is_empty()
-	for i: int in lines.size():
-		var l := Label.new()
-		l.text = "%d. %s" % [i + 1, lines[i]]
-		_queue_list.add_child(l)
-	_selected_panel.reset_size()
+## The pause menu is asked for (ESC with nothing open, or the Menu button): pause_menu_requested.
+func request_pause_menu() -> void:
+	Log.info("Hud", "pause menu requested")
+	pause_menu_requested.emit()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -313,36 +409,41 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if HelpPanel.is_help_key(event):
 		toggle_help()
-		get_viewport().set_input_as_handled()
-		return
-	var key := (event as InputEventKey).keycode
-	if key in [KEY_1, KEY_2, KEY_3]:  # H8: 1-2-3 the group (GDD 4.10.5); Shift+1/2/3 the speeds (D4)
-		var i := [KEY_1, KEY_2, KEY_3].find(key)
-		if (event as InputEventKey).shift_pressed:
-			_game.set_speed(Game.SPEEDS[i])
-		else:
-			pick_group(i)
-	elif key == KEY_F:
+	elif _speed_key(event) >= 0:
+		_game.set_speed(Game.SPEEDS[_speed_key(event)])   # D4: Shift+1/2/3
+	elif _group_key(event) >= 0:
+		pick_group(_group_key(event))   # H8: 1-2-3 the group (GDD 4.10.5)
+	elif HudKeys.pressed(event, "family_tree"):
 		toggle_tree()
-	elif (event as InputEventKey).keycode == KEY_I:
+	elif HudKeys.pressed(event, "inventory"):
 		toggle_character_panel()
-	elif (event as InputEventKey).keycode == KEY_L:
+	elif HudKeys.pressed(event, "ledger"):
 		toggle_ledger()
-	elif (event as InputEventKey).keycode == KEY_O:  # H10: the offices
+	elif HudKeys.pressed(event, "offices"):  # H10: the offices
 		toggle_offices()
-	elif (event as InputEventKey).keycode == KEY_J:  # H11: the trial
+	elif HudKeys.pressed(event, "trials"):  # H11: the trial
 		toggle_trial()
+	elif HudKeys.pressed(event, "build_mode"):
+		_build_denied()
 	elif event.is_action_pressed("pause_toggle"):
 		_game.toggle_pause()
-	elif event.is_action_pressed("speed_1"):
-		_game.set_speed(Game.SPEEDS[0])
-	elif event.is_action_pressed("speed_2"):
-		_game.set_speed(Game.SPEEDS[1])
-	elif event.is_action_pressed("speed_3"):
-		_game.set_speed(Game.SPEEDS[2])
 	else:
 		return
 	get_viewport().set_input_as_handled()
+
+
+func _speed_key(event: InputEvent) -> int:
+	for i: int in 3:
+		if HudKeys.pressed(event, "speed_%d" % (i + 1)):
+			return i
+	return -1
+
+
+func _group_key(event: InputEvent) -> int:
+	for i: int in 3:
+		if HudKeys.pressed(event, "group_%d" % (i + 1)):
+			return i
+	return -1
 
 
 func _on_sim_event(e: Dictionary) -> void:
@@ -369,8 +470,9 @@ func _on_sim_event(e: Dictionary) -> void:
 	show_toast(tr("reason." + str(e.get("reason", ""))))
 
 
+## A short message over the selection bar (a refused order says why).
 func show_toast(text: String) -> void:
-	_toast_label.text = text
+	_toast_text.text = text
 	_toast_label.visible = true
 	_toast_left = float(ViewConfig.value("toast_seconds", 2.5))
 	Log.info("Hud", "toast: %s" % text)
@@ -399,58 +501,79 @@ func family() -> String:
 	return fam
 
 
+## The person the card speaks of: the selected one if of the shown family, else its head.
+func active_person() -> String:
+	var sim: Sim = _game.sim
+	var fam := family()
+	if fam == "":
+		return ""
+	if str(sim.state.characters.get(selected_id, {}).get("family", "")) == fam and _selected_person(sim) != "":
+		return selected_id
+	return Kin.head(sim.state, fam)
+
+
 func _refresh_family(sim: Sim) -> void:
 	var fam := family()
-	_family_panel.visible = fam != ""
+	_card.visible = fam != ""
+	_status_bar.visible = fam != ""
 	if fam == "":
 		_objective_panel.visible = false
 		return
-	_family_gold.text = tr("hud.family_gold") % Money.gold(sim.state, fam)
-	_family_title.text = tr("hud.title_rep") % [SimQuery.title_name(Titles.current(sim, fam)).capitalize(),
-		Reputation.of(sim.state, fam)]
+	var who := active_person()
+	var title := Titles.current(sim, fam)
+	var gold := Money.gold(sim.state, fam)
+	var rep := Reputation.of(sim.state, fam)
+	var sig := "%s|%s|%d|%s|%d" % [fam, who, gold, title, rep]
+	if sig != _card_sig:
+		_card_sig = sig
+		_name_label.text = str(sim.state.characters.get(who, {}).get("name", ""))
+		_family_gold.text = str(gold)
+		_family_gold.tooltip_text = tr("hud.family_gold") % gold
+		_title_badge.texture = UiIcons.mark("badge_title_" + title)
+		# with two or three portraits the card has room for the reputation only (the title is in the badge and the tooltip)
+		var full := tr("hud.title_rep") % [SimQuery.title_name(title).capitalize(), rep]
+		_family_title.text = full if Kin.group(sim.state, fam).size() < 2 else tr("hud.rep_short") % rep
+		_family_title.tooltip_text = full + "\n" + tr("hud.title_rep_tip")
+	_refresh_debt(sim, fam)
+	_refresh_objective(sim, fam)
+
+
+## Zone 2: the first open loan (figure, how much is paid, days left; red at 2 days or less).
+func _refresh_debt(sim: Sim, fam: String) -> void:
 	var loans := SimQuery.loans_of(sim, fam)
-	_debt_label.visible = not loans.is_empty()
-	if not loans.is_empty():
-		var l: Dictionary = loans[0]
-		var days := int(l.get("days_left", 0))
-		_debt_label.text = tr("hud.debt") % [int(l.get("outstanding", 0)), days]
-		_debt_label.add_theme_color_override("font_color", Color(1, 0.5, 0.42) if days <= 2 else Color(0.93, 0.89, 0.82))
-		_debt_label.tooltip_text = tr("hud.debt_tip") % SimQuery.minute_label(int(l.get("due_minute", 0)) - 1)
+	for n: Control in [_debt_label, _debt_bar, _debt_days]:
+		n.visible = not loans.is_empty()
+	if loans.is_empty():
+		_debt_caption.text = tr("hud.no_debt")
+		_debt_box.tooltip_text = ""
+		return
+	var l: Dictionary = loans[0]
+	var days := int(l.get("days_left", 0))
+	var principal := maxi(1, int(l.get("principal", 1)))
+	_debt_caption.text = tr("hud.debt_caption")
+	_debt_label.text = str(int(l.get("outstanding", 0)))
+	_debt_bar.value = 100.0 * float(principal - int(l.get("outstanding", 0))) / float(principal)
+	_debt_days.text = tr("hud.debt_days") % days
+	_debt_days.add_theme_color_override("font_color", token("negativo" if days <= 2 else "texto_tenue"))
+	_debt_box.tooltip_text = tr("hud.debt_tip") % SimQuery.minute_label(int(l.get("due_minute", 0)) - 1)
+
+
+func _refresh_objective(sim: Sim, fam: String) -> void:
 	var ov := Objectives.view(sim, fam)
 	var current := str(ov.get("current", ""))
 	_objective_panel.visible = not ov.is_empty() and (current != "" or not (ov.get("done", []) as Array).is_empty())
 	if not _objective_panel.visible:
 		return
 	_set_hint(current if current != "" else "free")
-	_place_objective()
 	if current == "":
 		_objective_label.text = tr("hud.objectives_done")
 		_objective_progress.text = ""
-		_objective_progress.visible = false
-		_objective_panel.reset_size()
 		return
-	_objective_progress.visible = true
 	_objective_label.text = SimQuery.objective_name(sim.catalog, current)
 	var parts: PackedStringArray = []
 	for p: Dictionary in ov.get("progress", []):
 		parts.append("%d/%d" % [int(p.get("have", 0)), int(p.get("need", 1))])
 	_objective_progress.text = " · ".join(parts)
-	_objective_panel.reset_size()
-
-
-## The objective panel: top right under the clock in the town; inside a building, top left under the selected
-## person's panel and the group's portraits (the building's panels open on the right).
-func _place_objective() -> void:
-	var vp := get_viewport().get_visible_rect().size if is_inside_tree() else Vector2(960, 540)
-	var y := 122.0
-	var x := vp.x - _objective_panel.size.x - 6.0
-	if interior_open:
-		x = 6.0
-		y = (_selected_panel.position.y + _selected_panel.size.y + 6.0) if _selected_panel.visible else 6.0
-		if _group_bar.visible:  # H8: under the group's portraits
-			y = maxf(y, _group_bar.position.y + _group_bar.size.y + 6.0)
-	if _objective_panel.position != Vector2(x, y):
-		_objective_panel.position = Vector2(x, y)
 
 
 ## How to do objective `id` (objective_how.<id>; "free" = after the start objectives); hidden without a text.
@@ -468,14 +591,21 @@ func _set_hint(id: String) -> void:
 	_show_hint()
 
 
-## The hint unfolds inside a building (there is room on the left), and on the map only for a while after the objective
-## changes or while the mouse is over the panel: folded, the panel covers less of the town (its signs).
+## The hint unfolds inside a building, and on the map only for a while after the objective changes or while the mouse
+## is over the panel; it folds anyway when the queued orders would not fit in the column (HudLayout.fold_objective).
 func _show_hint() -> void:
 	var over := _objective_panel.visible and _objective_panel.get_global_rect().has_point(
 		get_viewport().get_mouse_position()) if is_inside_tree() else false
 	var show := HudLayout.hint_shown(_hint_text_ok, interior_open, _hint_left, over)
+	if show:
+		var full := _objective_panel.get_combined_minimum_size().y
+		if not _objective_hint.visible:
+			full += _objective_hint.get_combined_minimum_size().y + _objective_sep.get_combined_minimum_size().y + 4.0
+		var queue_h := _queue_panel.get_combined_minimum_size().y if _queue_panel.visible else 0.0
+		show = not HudLayout.fold_objective(full, queue_h, (HudLayout.ZONES["column"] as Rect2).size.y)
 	if _objective_hint.visible != show:
 		_objective_hint.visible = show
+		_objective_sep.visible = show
 		_objective_panel.reset_size()
 
 
@@ -491,30 +621,81 @@ func objective_hint_shown() -> bool:
 	return _objective_hint.visible
 
 
-## H8 group portraits: under the selected person's panel (which grows with the queued orders), never over it.
-func _place_group_bar() -> void:
-	var y := HudLayout.group_bar_y(_selected_panel.visible, Rect2(_selected_panel.position, _selected_panel.size))
-	if _group_bar.position.y != y:
-		_group_bar.position.y = y
+## Zone 4: the active person's queued orders (the state's order queue plus the orders given in this pause).
+func _refresh_queue(sim: Sim) -> void:
+	var who := active_person()
+	var lines: PackedStringArray = SimQuery.queue_lines(sim, who, _game.pending(), _game.paused) if who != "" else PackedStringArray()
+	var sig := "%s|%s|%s" % [who, _game.paused, "|".join(lines)]
+	if sig == _queue_sig:
+		return
+	_queue_sig = sig
+	for c: Node in _queue_list.get_children():
+		_queue_list.remove_child(c)
+		c.queue_free()
+	_queue_panel.visible = not lines.is_empty()
+	if lines.is_empty():
+		return
+	var person := str(sim.state.characters.get(who, {}).get("name", who)).to_upper()
+	_queue_label.text = (tr("hud.queue_paused") if _game.paused else tr("hud.queue_of")) % person
+	for i: int in lines.size():
+		var l := Label.new()
+		l.text = "%d. %s" % [i + 1, lines[i]]
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.custom_minimum_size = Vector2(220, 0)
+		_queue_list.add_child(l)
+	Log.info("Hud", "queue of %s: %d orders" % [who, lines.size()])
 
+
+## The objective, the queue and the cards of the column (for the tests): their rects on screen.
+func column_rects() -> Dictionary:
+	var out := {}
+	for p: Control in [_objective_panel, _queue_panel]:
+		if p.visible:
+			out[str(p.name)] = p.get_global_rect()
+	return out
+
+
+# --- F1 help ---------------------------------------------------------------------------------------------------------
 
 func help_visible() -> bool:
 	return _help_panel.visible
 
 
-## F1, "?" or the "?" button: the help overlay on / off (it does not pause the game).
+## F1, "?" or the "?" button: the help on / off (it does not pause the game), with «Ahora mismo» filled in.
 func toggle_help() -> void:
+	if not _help_panel.visible:
+		_help_panel.set_now(now_text())
 	_help_panel.toggle()
+
+
+## «Ahora mismo» of the help: the current objective, how to do it and the debt's due date.
+func now_text() -> String:
+	if _game == null or _game.sim == null or family() == "":
+		return ""
+	var sim: Sim = _game.sim
+	var parts: PackedStringArray = []
+	var ov := Objectives.view(sim, family())
+	var current := str(ov.get("current", ""))
+	if current != "":
+		parts.append(tr("help.now_objective") % SimQuery.objective_name(sim.catalog, current))
+	var how := tr("objective_how." + (current if current != "" else "free"))
+	if not how.begins_with("objective_how."):
+		parts.append(how)
+	var loans := SimQuery.loans_of(sim, family())
+	if not loans.is_empty():
+		parts.append(tr("help.now_debt") % [int(loans[0].get("outstanding", 0)),
+			SimQuery.minute_label(int(loans[0].get("due_minute", 0)) - 1)])
+	return " ".join(parts)
 
 
 ## Closes every panel (a new game was loaded).
 func close_panels() -> void:
 	_help_panel.visible = false
 	_pending_service = {}
-	for p: Control in [_market_panel, _board_panel, _ledger_panel, _tree_panel, _court_panel, _npc_panel, _hall_panel,
-			_title_card, _offices_panel, _office_card, _trial_panel, _trial_card, _kin_ai_panel]:
+	for p: Control in _manage_panels() + _modal_panels() + [_title_card, _office_card, _trial_card]:
 		p.call("close")
-	_character_panel.close()
+	for n: Dictionary in _popups.duplicate():
+		_drop_popup(n["node"])
 
 
 ## H7: the sheet of townsperson `npc` (actions on it by the selected person).
@@ -545,8 +726,6 @@ func open_ledger(tab: String = "") -> void:
 	var fam := family()
 	if fam == "":
 		return
-	_market_panel.close()
-	_board_panel.close()
 	_ledger_panel.open_for(sim, fam, SimQuery.family_actor(sim.state, fam, selected_id), tab)
 
 
@@ -585,17 +764,12 @@ func _check_service() -> void:
 
 
 func open_market(actor: String, stall: String) -> void:
-	_board_panel.close()
-	_ledger_panel.close()
 	_market_panel.open_for(_game.sim, actor, stall)
 	Log.info("Hud", "market panel (stall=%s, actor=%s)" % [stall, actor])
 
 
 ## H9: the town hall panel for `actor` (standing on its service tile).
 func open_town_hall(actor: String) -> void:
-	_market_panel.close()
-	_board_panel.close()
-	_ledger_panel.close()
 	_hall_panel.open_for(_game.sim, actor)
 	Log.info("Hud", "town hall panel (actor=%s)" % actor)
 
@@ -609,10 +783,6 @@ func open_offices(actor: String = "") -> void:
 	if _game == null or _game.sim == null:
 		return
 	var who := actor if actor != "" else selected_id
-	_hall_panel.close()
-	_market_panel.close()
-	_board_panel.close()
-	_ledger_panel.close()
 	_offices_panel.open_for(_game.sim, who)
 	Log.info("Hud", "offices panel (actor=%s)" % who)
 
@@ -659,8 +829,6 @@ func open_trial(tid: String = "") -> void:
 	var who := selected_id
 	if who == "" or str(sim.state.characters.get(who, {}).get("family", "")) != family():
 		who = Kin.head(sim.state, family())
-	_offices_panel.close()
-	_ledger_panel.close()
 	_trial_panel.open_for(sim, who, id)
 	Log.info("Hud", "trial panel (trial=%s, actor=%s)" % [id, who])
 
@@ -709,33 +877,113 @@ func title_card() -> TitleCard:
 
 
 func open_board(actor: String) -> void:
-	_market_panel.close()
-	_ledger_panel.close()
 	_board_panel.open_for(_game.sim, actor)
 	Log.info("Hud", "board panel (actor=%s)" % actor)
 
 
-# --- H3 · notices -----------------------------------------------------------------------------------------------------
+## The management panel open now (zone 5, the wide one or a big modal, the interior's included), or null.
+func open_manage_panel() -> Control:
+	return ManageSlot.open_panel(get_tree()) if is_inside_tree() else null
 
-## Urgent notices of the player's family pop up (GDD 4.18); the rest only go to the book.
+
+## The screen rects that cover the town now (for the camera, §4.6): the management panel if one is open and the
+## selection bar if shown.
+func covered_rects() -> Array:
+	var out: Array = []
+	var open := open_manage_panel()
+	if open != null and open.is_visible_in_tree():
+		out.append(open.get_global_rect())
+	if _building_panel.visible:
+		out.append(_building_panel.get_global_rect())
+	return out
+
+
+# --- 7 · notices ------------------------------------------------------------------------------------------------------
+
+## The notices of the player's family pop up by gravity (§5: urgent, warning, done; info only in the book).
 func _on_notice(e: Dictionary) -> void:
-	if str(e.get("severity", "")) != "urgent" or str(e.get("family", "")) != SimQuery.player_family(_game.sim.state):
+	if str(e.get("family", "")) != SimQuery.player_family(_game.sim.state):
 		return
 	var cfg: Dictionary = ViewConfig.value("notices", {})
-	while _popups.size() >= int(cfg.get("popup_max", 3)):
-		(_popups.pop_front()["node"] as Node).queue_free()
+	var gravity := HudLayout.notice_gravity(str(e.get("severity", "")), str(e.get("key", "")),
+		cfg.get("done_keys", []) as Array)
+	if gravity == "":
+		return
 	var n := e.duplicate(true)
-	var b := Button.new()
-	b.text = "! " + SimQuery.notice_text(_game.sim.state, _game.sim.catalog, n)
-	b.tooltip_text = tr("hud.notice_tip")
-	b.focus_mode = Control.FOCUS_NONE
-	b.add_theme_color_override("font_color", ViewConfig.color(str(cfg.get("colors", {}).get("urgent", "#ff8070"))))
-	b.pressed.connect(func() -> void:
-		notice_action(n)
-		_drop_popup(b))
-	_notice_popups.add_child(b)
-	_popups.append({"node": b, "left": float(cfg.get("popup_seconds", 8.0))})
-	Log.info("Hud", "urgent notice: %s" % b.text)
+	var text := SimQuery.notice_text(_game.sim.state, _game.sim.catalog, n)
+	var node := _notice_node(gravity, text)
+	node.gui_input.connect(func(ev: InputEvent) -> void:
+		if ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed:
+			notice_action(n)
+			_drop_popup(node))
+	var left := -1.0 if gravity == "urgent" else float(cfg.get("done_seconds" if gravity == "done" else "popup_seconds", 8.0))
+	var kept := HudLayout.push_notice(_popups, {"node": node, "gravity": gravity, "left": left}, int(cfg.get("popup_max", 3)))
+	for p: Dictionary in _popups:
+		if not kept.has(p):
+			(p["node"] as Node).queue_free()   # the oldest goes; it stays in the book
+	_popups = kept
+	_notice_popups.add_child(node)
+	if gravity == "urgent":
+		_blink(node.get_node("HBox/Stripe") as CanvasItem)
+	Log.info("Hud", "notice %s: %s" % [gravity, text])
+
+
+## A pop-up: dark box, the gravity's stripe and icon, the text (docs/ui/00 §5, «aviso»).
+func _notice_node(gravity: String, text: String) -> PanelContainer:
+	var tok := {"urgent": "negativo", "warning": "aviso", "done": "positivo"}
+	var icons := {"urgent": "icon_warning", "warning": "icon_pending", "done": "icon_completed"}
+	var p := PanelContainer.new()
+	p.name = "Notice"
+	p.theme_type_variation = &"NoticePanel"
+	p.mouse_filter = Control.MOUSE_FILTER_STOP
+	p.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	p.tooltip_text = tr("hud.notice_tip")
+	var h := HBoxContainer.new()
+	h.name = "HBox"
+	h.add_theme_constant_override("separation", 4)
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p.add_child(h)
+	var stripe := ColorRect.new()
+	stripe.name = "Stripe"
+	stripe.custom_minimum_size = Vector2(3, 0)
+	stripe.color = token(tok[gravity])
+	stripe.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.add_child(stripe)
+	var icon := TextureRect.new()
+	icon.texture = UiIcons.ui(icons[gravity])
+	icon.custom_minimum_size = Vector2(16, 16)
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+	icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.add_child(icon)
+	var l := Label.new()
+	l.name = "Text"
+	l.text = text
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.custom_minimum_size = Vector2(196, 0)
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.add_child(l)
+	return p
+
+
+## The urgent stripe blinks twice as it comes in (docs/ui/00 §8).
+func _blink(c: CanvasItem) -> void:
+	var t := c.create_tween()
+	for i: int in 4:
+		t.tween_callback(func() -> void: c.visible = not c.visible)
+		t.tween_interval(0.08)
+
+
+## The notices on screen now: [{gravity, text}] oldest first (for the tests and the smoke captures).
+func shown_notices() -> Array:
+	var out: Array = []
+	for p: Dictionary in _popups:
+		var n: Node = p["node"]
+		if is_instance_valid(n):
+			out.append({"gravity": str(p["gravity"]), "text": (n.get_node("HBox/Text") as Label).text})
+	return out
 
 
 func _drop_popup(b: Node) -> void:
@@ -743,11 +991,21 @@ func _drop_popup(b: Node) -> void:
 		if _popups[i]["node"] == b:
 			_popups.remove_at(i)
 			break
-	b.queue_free()
+	if is_instance_valid(b):
+		b.queue_free()
+
+
+## Opening the book reads the urgent pop-ups: they go (they are in its Notices tab).
+func _drop_urgent() -> void:
+	for p: Dictionary in _popups.duplicate():
+		if str(p["gravity"]) == "urgent":
+			_drop_popup(p["node"])
 
 
 func _tick_popups(delta: float) -> void:
 	for p: Dictionary in _popups.duplicate():
+		if float(p["left"]) < 0.0:
+			continue   # urgent: until clicked or the book is opened
 		p["left"] = float(p["left"]) - delta
 		if float(p["left"]) <= 0.0:
 			_drop_popup(p["node"])
@@ -777,13 +1035,16 @@ func courtship_panel() -> CourtshipPanel:
 	return _court_panel
 
 
-## The group of the player's family as portraits (key 1-2-3; the active one with the gold border).
+## The group of the player's family as portraits (key 1-2-3; the active one with the gold frame).
 func _refresh_group(sim: Sim) -> void:
 	var fam := family()
 	var group := Kin.group(sim.state, fam) if fam != "" else []
 	var heir := Kin.heir(sim, fam) if fam != "" else ""
-	var sig := "%s|%s|%s|%s|%s" % [group, selected_id, heir, group.map(func(c: String) -> Variant: return sim.state.characters[c].get("visual")),
-		group.map(func(c: String) -> bool: return Tribunal.is_banished(sim.state, c))]
+	var who := active_person() if fam != "" else ""
+	var counts := group.map(func(c: String) -> int:
+		return SimQuery.queue_lines(sim, c, _game.pending(), true).size() if _game.paused else 0)
+	var sig := "%s|%s|%s|%s|%s|%s" % [group, who, heir, group.map(func(c: String) -> Variant: return sim.state.characters[c].get("visual")),
+		group.map(func(c: String) -> bool: return Tribunal.is_banished(sim.state, c)), counts]
 	if sig == _group_sig:
 		return
 	_group_sig = sig
@@ -794,8 +1055,8 @@ func _refresh_group(sim: Sim) -> void:
 		var f := _frame_scene.instantiate() as PortraitFrame
 		f.name = "Group%d" % (i + 1)
 		_group_bar.add_child(f)
-		f.show_character(sim.state, str(group[i]), {"active": str(group[i]) == selected_id, "controlled": true,
-			"heir": str(group[i]) == heir, "key": str(i + 1)})
+		f.show_character(sim.state, str(group[i]), {"active": str(group[i]) == who, "controlled": true,
+			"heir": str(group[i]) == heir, "key": str(i + 1), "queue": int(counts[i])})
 		if Tribunal.is_banished(sim.state, str(group[i])):  # H11: banished: greyed, with the day it ends
 			f.modulate = Color(0.55, 0.55, 0.55)
 			f.tooltip_text = tr("ui.trial.banished") % (int(sim.state.characters[str(group[i])].get("banished_until", 0)) + 1)

@@ -1,0 +1,14 @@
+{
+  "fecha": "2026-11-03",
+  "titulo": "Interfaz nueva (1/2): theme pixel y HUD por zonas",
+  "que": "El juego estrena la interfaz diseñada en docs/ui: un solo theme pixel (Pixel Operator 16 y su negrita en todo, Jacquarda en los títulos, marcos de madera, pergamino y estados del kit), cursores propios y los sonidos que faltaban (botón apagado, pestaña, sello). El HUD se ordena en zonas fijas que no se pisan: la ficha con los retratos del grupo, el oro, el título y la reputación; la barra de estado con la deuda y los accesos con su tecla; el reloj con II ×1 ×2 ×4; la columna con el objetivo, las órdenes en pausa y las tarjetas; un único panel de gestión a la derecha (abrir uno cierra el otro, también dentro de la forja); la selección abajo, que dentro de un edificio es su barra (Producción P, Almacén A, Empleados E, Mejoras M, Salir); y los avisos abajo a la izquierda por gravedad (urgente, aviso, cumplido; como mucho 3). La ayuda F1 es un pergamino con las teclas y «Ahora mismo». La línea de ayuda del borde de abajo desaparece. La cámara aparta lo seleccionado de debajo de los paneles y el interior se dibuja centrado en la vista libre.",
+  "como_probar": "Partida nueva como herrero: mira las zonas del HUD; abre el libro (L) con la forja elegida y comprueba que su barra sigue entera abajo; pulsa F1; entra en la forja, pausa (Espacio) y da dos órdenes: salen en la columna; prueba P / A / E / M y Esc. Mayús+1/2/3 cambia la velocidad y 1/2/3 elige familiar. Con ventana: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=hud (y --smoke-script=paneles para ver cada panel en su zona).",
+  "capturas": [
+    "docs/ui/maquetas/hud_hoy_mapa.png",
+    "docs/ui/maquetas/hud_hoy_libro.png",
+    "docs/ui/maquetas/hud_hoy_interior.png",
+    "docs/ui/maquetas/hud_hoy_avisos.png",
+    "docs/ui/maquetas/hud_hoy_ayuda.png",
+    "docs/ui/maquetas/hud_hoy_produccion.png"
+  ]
+}

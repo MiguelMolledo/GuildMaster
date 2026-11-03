@@ -1,9 +1,10 @@
 class_name PortraitFrame
 extends Control
-## A portrait in a frame (GDD 4.10.5, 4.10.7, 4.10.9): the portrait scene of game/visuals/characters/portrait.tscn with
-## the person's identity, an outer border in the family's colour, an inner ring gold (controllable) or grey (not), a
-## brighter back when active, a crown for the heir and the group key (1-2-3). Click: `clicked(id)`; double click:
-## `double_clicked(id)`. Only reads the state.
+## A portrait in the kit's frame (docs/ui/00 §2, 01 §7; GDD 4.10.5, 4.10.7, 4.10.9): 38×38, the 32×32 portrait scene of
+## game/visuals/characters/portrait.tscn with the person's identity inside, a 1 px ring in the family's colour just
+## inside the frame, the frame gold when active (portrait_active), wood when controllable (portrait_normal), grey when
+## not (portrait_dim); the heir's crown above the top right corner, the group key (1-2-3) bottom right and, in active
+## pause, the number of queued orders top left. Click: `clicked(id)`; double click: `double_clicked(id)`.
 
 signal clicked(id: String)
 signal double_clicked(id: String)
@@ -25,30 +26,26 @@ func _ensure() -> void:
 	_portrait = n as Portrait
 
 
-## Shows `chr`. flags: {active, heir, controlled, key ("" or "1".."3")}.
+## Shows `chr`. flags: {active, heir, controlled, key ("" or "1".."3"), queue (orders waiting, 0 = none)}.
 func show_character(state: WorldState, chr: String, flags: Dictionary = {}) -> void:
 	_ensure()
 	char_id = chr
 	var id := Identity.of(state, chr)
 	if _portrait != null:
 		_portrait.set_identity(id)
-	var border := (%Border as Panel).get_theme_stylebox("panel").duplicate() as StyleBoxFlat
-	border.border_color = id["primary"]
-	border.bg_color = Color(0.32, 0.27, 0.2) if bool(flags.get("active", false)) else Color(0.12, 0.09, 0.07)
-	(%Border as Panel).add_theme_stylebox_override("panel", border)
 	var ring := (%Ring as Panel).get_theme_stylebox("panel").duplicate() as StyleBoxFlat
-	var pal: Dictionary = ViewConfig.value("palette", {})
-	var gold := ViewConfig.color(str(pal.get("border_active", "#ffd84c")))
-	ring.border_color = gold if bool(flags.get("controlled", false)) else ViewConfig.color(str(pal.get("border_dead", "#6a6258")))
-	var w := 2 if bool(flags.get("active", false)) else 1
-	ring.border_width_left = w
-	ring.border_width_right = w
-	ring.border_width_top = w
-	ring.border_width_bottom = w
+	ring.border_color = id["primary"]
 	(%Ring as Panel).add_theme_stylebox_override("panel", ring)
+	var frame := &"FrameNormal" if bool(flags.get("controlled", false)) else &"FrameDim"
+	if bool(flags.get("active", false)):
+		frame = &"FrameActive"
+	(%Border as Panel).theme_type_variation = frame
 	(%Crown as CanvasItem).visible = bool(flags.get("heir", false))
 	(%Key as Label).text = str(flags.get("key", ""))
-	(%Key as Label).visible = str(flags.get("key", "")) != ""
+	(%KeyBox as CanvasItem).visible = str(flags.get("key", "")) != ""
+	var q := int(flags.get("queue", 0))
+	(%Queue as Label).text = str(q)
+	(%QueueBox as CanvasItem).visible = q > 0
 	tooltip_text = str(state.characters.get(chr, {}).get("name", ""))
 
 

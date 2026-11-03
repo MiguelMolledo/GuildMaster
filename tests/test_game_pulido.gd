@@ -133,6 +133,9 @@ func test_help_and_objective_texts_exist() -> void:
 		"ui.market.opens", "ui.market.opens_tomorrow"]
 	for k: String in HelpPanel.LINES:
 		keys.append(k.trim_prefix("#"))
+	for k: String in HelpPanel.key_ids():
+		keys.append("help.key." + k)
+		keys.append("help.key.%s_do" % k)
 	for o: Variant in cat.starts()["artisan_blacksmith"]["objectives"]:
 		keys.append("objective_how." + str(o))
 	for k: String in keys:
@@ -151,7 +154,13 @@ func test_help_overlay_keys() -> void:
 	p.toggle()
 	check(p.visible, "toggle opens it")
 	eq((p.get_node("%HelpLines") as Node).get_child_count(), HelpPanel.LINES.size(), "one line each")
-	check(p.get_combined_minimum_size().y <= 332.0 + 1.0, "fits its box in the HUD (min %s)" % p.get_combined_minimum_size())
+	var sheet := p.get_node("%Sheet") as Control
+	check(sheet.get_combined_minimum_size().y <= 420.0 + 1.0, "fits its parchment (min %s)" % sheet.get_combined_minimum_size())
+	var keys := 0
+	for col: String in ["%KeysLeft", "%KeysRight"]:
+		for c: Node in p.get_node(col).get_children():
+			keys += 1 if c is HBoxContainer else 0
+	eq(keys, HelpPanel.key_ids().size(), "one row per key of the map")
 	p.toggle()
 	check(not p.visible, "and closes it")
 	var f1 := InputEventKey.new()
