@@ -21,9 +21,8 @@ layout_mode = 2
 [node name="Title" type="Label" parent="VBox/Header"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"TitleLabel"
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 12
 text = "--"
 
 [node name="CloseButton" type="Button" parent="VBox/Header"]
@@ -77,8 +76,7 @@ layout_mode = 2
 [node name="DetailTitle" type="Label" parent="VBox/Detail/DetailHeader"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.85, 0.6, 1)
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"TitleLabel"
 text = "--"
 
 [node name="DetailBranch" type="Label" parent="VBox/Detail/DetailHeader"]

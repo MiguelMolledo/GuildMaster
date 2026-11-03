@@ -42,9 +42,8 @@ layout_mode = 2
 [node name="Title" type="Label" parent="VBox/Header"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"TitleLabel"
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 13
 text = "--"
 
 [node name="ZoomOut" type="Button" parent="VBox/Header"]
@@ -88,14 +87,12 @@ theme_override_constants/separation = 3
 [node name="SheetName" type="Label" parent="VBox/Body/Side"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"TitleLabel"
 text = "--"
 
 [node name="SheetInfo" type="Label" parent="VBox/Body/Side"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
 text = "--"
 autowrap_mode = 3
 
@@ -135,7 +132,6 @@ layout_mode = 2
 [node name="AssignLabel" type="Label" parent="VBox/Body/Side/AssignRow"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
 text = "--"
 
 [node name="AssignOption" type="OptionButton" parent="VBox/Body/Side/AssignRow"]
@@ -167,14 +163,13 @@ layout_mode = 2
 [node name="DynastyLabel" type="Label" parent="VBox/Body/Side"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"BoldLabel"
 theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 11
 text = "--"
 
 [node name="GoalsTitle" type="Label" parent="VBox/Body/Side"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
 text = "--"
 
 [node name="Goals" type="VBoxContainer" parent="VBox/Body/Side"]

@@ -361,6 +361,8 @@ func update_hover(screen: Vector2) -> void:
 		hovered_character = who
 		if _views.has(who):
 			(_views[who] as CharacterView).hovered = true
+	if visible:
+		UiFeel.set_hand(bld != "" or who != "")  # the hand over what can be clicked (docs/ui/00 §9)
 
 
 ## Anybody visible under `screen` (the front-most figure), "" if nobody.

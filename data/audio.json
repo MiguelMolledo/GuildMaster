@@ -1,5 +1,5 @@
 {
-  "_doc": "Sounds and music by id (docs/protocolos/editar-a-mano.md). The file of an id is found by convention: assets/audio/<section>/<id>.ogg or .wav, or its variants <id>_01, <id>_02... (one is picked at random each time). No file yet = silence (and a note in debug). Sections: music, sfx, ambient, voice; each entry: bus (default Music / Sfx / Ambient / Voice by section; the buses are fixed in default_bus_layout.tres: Master, Music, Sfx, Ambient, Voice, Ui), volume_db, pitch_jitter (0-0.5: random pitch change per play, view only). phase_music: the music of each phase of the day. phase_ambient: the ambient loop of each phase in the town; interior_ambient: the ambient loop inside a building type (no entry = quiet inside). events: the sound of a sim event (only events of the player's family sound); a notice (notice_added) sounds by its key (\"notice.objective_done\") or else by its severity (\"notice_added.warning\", \"notice_added.urgent\"). Other events may name a value: \"<type>.<zone|phase|category|stall|activity|def>\" (work_started.furnace, phase_changed.dawn, town_state.dice) wins over the plain type; an entry is one id or a list of ids. selected_only: events that sound only when the selected person is in them (actor, a, b or character: footsteps). cooldown_s on an id: real seconds before it can sound again. ui: button (every button of the tree), pause / resume, panel_open / panel_close for the panels listed in panels (scene names of game/ui/), panel_open_by: an extra sound when one panel opens; positional: {events, max_distance, attenuation}: events heard where they happen in the town (at the view of their person, as the camera nears; not inside a building; townsfolk events too). screen_music: the music while a screen is shown (title theme on new_game_screen), with no ambient. Music and ambient files are imported with Loop on.",
+  "_doc": "Sounds and music by id (docs/protocolos/editar-a-mano.md). The file of an id is found by convention: assets/audio/<section>/<id>.ogg or .wav, or its variants <id>_01, <id>_02... (one is picked at random each time). No file yet = silence (and a note in debug). Sections: music, sfx, ambient, voice; each entry: bus (default Music / Sfx / Ambient / Voice by section; the buses are fixed in default_bus_layout.tres: Master, Music, Sfx, Ambient, Voice, Ui), volume_db, pitch_jitter (0-0.5: random pitch change per play, view only). phase_music: the music of each phase of the day. phase_ambient: the ambient loop of each phase in the town; interior_ambient: the ambient loop inside a building type (no entry = quiet inside). events: the sound of a sim event (only events of the player's family sound); a notice (notice_added) sounds by its key (\"notice.objective_done\") or else by its severity (\"notice_added.warning\", \"notice_added.urgent\"). Other events may name a value: \"<type>.<zone|phase|category|stall|activity|def>\" (work_started.furnace, phase_changed.dawn, town_state.dice) wins over the plain type; an entry is one id or a list of ids. selected_only: events that sound only when the selected person is in them (actor, a, b or character: footsteps). cooldown_s on an id: real seconds before it can sound again. ui: button (every button of the tree), denied (a disabled button pressed), tab (a tab turned: TabBar, TabContainer or a button with the theme variation TabButton), pause / resume, panel_open / panel_close for the panels listed in panels (scene names of game/ui/), panel_open_by: an extra sound when one panel opens; positional: {events, max_distance, attenuation}: events heard where they happen in the town (at the view of their person, as the camera nears; not inside a building; townsfolk events too). screen_music: the music while a screen is shown (title theme on new_game_screen), with no ambient. Music and ambient files are imported with Loop on.",
   "music": {
     "music_city_day": {"volume_db": 0.0},
     "music_night": {"volume_db": -2.0},
@@ -11,6 +11,9 @@
     "sfx_coins": {"volume_db": 0.0, "pitch_jitter": 0.05},
     "sfx_door": {"volume_db": -3.0},
     "sfx_ui_click": {"bus": "Ui", "volume_db": -6.0},
+    "sfx_ui_denied": {"bus": "Ui", "volume_db": -8.0, "pitch_jitter": 0.04},
+    "sfx_ui_tab": {"bus": "Ui", "volume_db": -9.0, "pitch_jitter": 0.05},
+    "sfx_ui_seal": {"bus": "Ui", "volume_db": -4.0},
     "sfx_hire": {"volume_db": -3.0, "pitch_jitter": 0.05},
     "sfx_upgrade_done": {"volume_db": -2.0},
     "sfx_contract_done": {"volume_db": -3.0, "pitch_jitter": 0.04},
@@ -53,6 +56,8 @@
   "positional": {"events": ["greeted", "town_state"], "max_distance": 600, "attenuation": 1.5},
   "ui": {
     "button": "sfx_ui_click",
+    "denied": "sfx_ui_denied",
+    "tab": "sfx_ui_tab",
     "pause": "sfx_pause",
     "resume": "sfx_resume",
     "panel_open": "sfx_panel_open",
@@ -62,6 +67,11 @@
     "screen_music": {"new_game_screen": "music_title"}
   },
   "events": {
+    "upgrade_started": "sfx_ui_seal",
+    "title_granted": "sfx_ui_seal",
+    "office_taken": "sfx_ui_seal",
+    "contract_accepted": "sfx_ui_seal",
+    "heir_designated": "sfx_ui_seal",
     "work_done": "sfx_hammer",
     "master_touch_done": "sfx_master_touch",
     "market_sold": "sfx_sale",

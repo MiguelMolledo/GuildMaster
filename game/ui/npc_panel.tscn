@@ -26,9 +26,8 @@ layout_mode = 2
 [node name="Title" type="Label" parent="VBox/Header"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"TitleLabel"
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 12
 text = "--"
 
 [node name="CloseButton" type="Button" parent="VBox/Header"]
@@ -40,20 +39,17 @@ text = "X"
 [node name="Info" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
 text = "--"
 
 [node name="Doing" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.85, 0.7, 1)
-theme_override_font_sizes/font_size = 10
 text = "--"
 
 [node name="Relation" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
 text = "--"
 
 [node name="Emotions" type="VBoxContainer" parent="VBox"]

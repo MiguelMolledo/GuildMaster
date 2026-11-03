@@ -25,5 +25,8 @@ retraso y se usa para conciliar.
 | | **Total de la tanda 3** | | 7 ids nuevos, 15 ficheros | **73.704** | **75.113** | **1.409 de 6.000** |
 | | **Total acumulado** | | 38 ids, 76 ficheros | 69.266 | 75.113 | **5.847** |
 
+| 2026-11-03 | UI 1/2 (rama ui-hud, tope 300) · sonidos de UI que faltaban (docs/ui/00 §10) | ElevenLabs sfx v2 | sfx_ui_denied ×2 (0,5 s), sfx_ui_tab ×2 (0,5 s), sfx_ui_seal ×2 (1 s) | 75.182 | 75.228 | 46 de 300 |
+| | **Total acumulado** | | 41 ids, 82 ficheros | 69.266 | 75.228 | **5.893** |
+
 Tarifas medidas: efecto ~11 créditos por segundo pedido; música ~825 por minuto (1.238 por 90 s); voz ~0,45 por carácter.
 Descartado (pagado, no integrado): 1 toma de `sfx_objective_failed` (28 créditos) y 2 tomas de 1,5 s de `sfx_sale` (34 créditos: la campanilla quedaba cortada) y 1 toma de `voice_greeting` (8 créditos: alargaba «Que Dios os guarde.» a 4 s).

@@ -333,7 +333,7 @@ func _build_sheet() -> void:
 		if not sd.has(k):
 			continue
 		var l := Label.new()
-		l.add_theme_font_size_override("font_size", 9)
+		l.theme_type_variation = &"DimLabel"
 		l.text = "%s %d" % [SimQuery.t_("stat." + str(k)), int(sd[k])]
 		stats.add_child(l)
 	keys.clear()
@@ -393,7 +393,7 @@ func _build_dynasty() -> void:
 		c.queue_free()
 	for g: Dictionary in Dynasty.goals_view(sim, fam):
 		var l := Label.new()
-		l.add_theme_font_size_override("font_size", 9)
+		l.theme_type_variation = &"DimLabel"
 		l.text = ("+ " if bool(g["done"]) else "- ") + SimQuery.t_(str(g["name_key"]))
 		l.modulate = Color(0.6, 1, 0.6) if bool(g["done"]) else Color(1, 1, 1, 0.75)
 		goals.add_child(l)

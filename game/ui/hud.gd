@@ -98,6 +98,7 @@ var _last_minute: int = -1
 
 func _ready() -> void:
 	_game = get_node_or_null("/root/Game")
+	UiFeel.install(get_tree())
 	_paused_label.text = tr("hud.paused")
 	_help_label.text = tr("hud.help") + tr("hud.help_more")
 	_title_label.text = tr("app.title")
@@ -157,6 +158,10 @@ func _ready() -> void:
 	_character_panel.court_requested.connect(open_courtship)
 	Events.sim_event.connect(_on_sim_event)
 	_refresh()
+
+
+func _exit_tree() -> void:
+	UiFeel.uninstall()
 
 
 func _process(delta: float) -> void:
