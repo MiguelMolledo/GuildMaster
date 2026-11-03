@@ -1,31 +1,55 @@
-[gd_scene load_steps=4 format=3 uid="uid://chhxxc42lci1g"]
+[gd_scene load_steps=7 format=3 uid="uid://chhxxc42lci1g"]
 
 [ext_resource type="Script" uid="uid://bssmtfifygew8" path="res://game/ui/portrait_frame.gd" id="1_frame"]
+[ext_resource type="Texture2D" uid="uid://c16lw1kwl6se" path="res://assets/art/ui/icons/small/icon_crown.png" id="2_crown"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_border"]
-bg_color = Color(0.12, 0.09, 0.07, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.55, 0.18, 0.18, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ring"]
+[sub_resource type="StyleBoxFlat" id="ring"]
 draw_center = false
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(1, 0.847, 0.298, 1)
+border_color = Color(0.55, 0.18, 0.18, 1)
+
+[sub_resource type="StyleBoxFlat" id="key_box"]
+bg_color = Color(0.101961, 0.0705882, 0.0352941, 1)
+
+[sub_resource type="StyleBoxFlat" id="queue_box"]
+bg_color = Color(0.784314, 0.658824, 0.305882, 1)
 
 [node name="PortraitFrame" type="Control"]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(38, 38)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 38.0
+offset_bottom = 38.0
+size_flags_vertical = 4
 mouse_filter = 0
 script = ExtResource("1_frame")
+
+[node name="Back" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 35.0
+offset_bottom = 35.0
+mouse_filter = 2
+color = Color(0.164706, 0.121569, 0.0784314, 1)
+
+[node name="Holder" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(3, 3)
+
+[node name="Ring" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 35.0
+offset_bottom = 35.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("ring")
 
 [node name="Border" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -33,42 +57,59 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_border")
+theme_type_variation = &"FrameNormal"
 
-[node name="Ring" type="Panel" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = -2.0
-offset_bottom = -2.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ring")
-
-[node name="Holder" type="Node2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(4, 4)
-
-[node name="Crown" type="Polygon2D" parent="."]
+[node name="Crown" type="TextureRect" parent="."]
 unique_name_in_owner = true
 visible = false
-color = Color(1, 0.847, 0.298, 1)
-polygon = PackedVector2Array(1, 9, 1, 2, 4, 5, 7, 1, 10, 5, 13, 2, 13, 9)
+layout_mode = 0
+offset_left = 26.0
+offset_top = -6.0
+offset_right = 42.0
+offset_bottom = 10.0
+mouse_filter = 2
+texture = ExtResource("2_crown")
+stretch_mode = 3
 
-[node name="Key" type="Label" parent="."]
+[node name="KeyBox" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
 offset_left = 29.0
-offset_top = 26.0
-offset_right = 39.0
-offset_bottom = 40.0
+offset_top = 28.0
+offset_right = 37.0
+offset_bottom = 37.0
 mouse_filter = 2
-theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
-theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
-theme_override_constants/outline_size = 3
+theme_override_styles/panel = SubResource("key_box")
+
+[node name="Key" type="Label" parent="KeyBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.847059, 0.501961, 1)
+theme_type_variation = &"SmallLabel"
 text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QueueBox" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 9.0
+offset_bottom = 9.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("queue_box")
+
+[node name="Queue" type="Label" parent="QueueBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.164706, 0.121569, 0.0784314, 1)
+theme_type_variation = &"SmallLabel"
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -946,6 +946,18 @@
       "notas": "Insignias del kit (tools/art/dibujar_ui.py): badge_title_<common|citizen|patrician|baron|noble> y badge_office_<mayor|councillor|judge|constable|collector|inspector> de 12×12, rank_<1|2|3> (galones de 8×8) y seal.png (lacre, 16×16). Diseño: docs/ui/00_lenguaje_visual.md."
     },
     {
+      "id": "ui_icons_hud",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/icons/icon_oro.png",
+      "origen": "Guild Renew (~/Code/guild/assets/sprites/ui/icons), copiados",
+      "coste_gen": 0,
+      "notas": "Iconos del HUD (docs/ui/00 §7) traídos de Guild Renew: icon_oro, sun, moon, libro, crown, backpack, build_mode, warning, completed, pending, in_progress, working, idle, contrato, profesion_herrero, llave, serving, close; a 32 en assets/art/ui/icons/ y a 16 (mitad, vecino más cercano) en small/. Los finos aún sin repasar a mano. Los carga UiIcons.ui()."
+    },
+    {
       "id": "ui_cursor",
       "tipo": "ui",
       "estado": "sprite",

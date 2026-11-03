@@ -8,9 +8,11 @@ extends Node2D
 ##
 ## Controls: left click on someone of the family inside selects them; on a station = go_to_station (or master_touch
 ## while its window is open, GDD 4.4.5); on the door = leave. Right click on a station = its context menu
-## (StationMenu). Toolbar (top right): Upgrades (H5: UpgradePanel, the tree; the works in progress show under the
-## title) · Storage · Staff (H4: StaffPanel, staff and hiring) ·
-## Production (stations and, from H4, the employees' queue) · Exit. Management mode (no person, GDD 4.6.4): the
+## (StationMenu). The building's bar (docs/ui/01_hud.md §4, zone 6: the HUD's selection place): the name, who works
+## where and how many in the queue (or the works in progress, H5), and Production P (stations and, from H4, the
+## employees' queue) · Storage A · Staff E (H4: StaffPanel, staff and hiring) · Upgrades M (H5: UpgradePanel, the tree,
+## as the wide panel) · Exit Esc. The panels open in the management zone (5), one at a time with the HUD's
+## (ManageSlot). The room is drawn centred in the free view (HudLayout.view_center), not in the screen. Management mode (no person, GDD 4.6.4): the
 ## same room opened from the map; leaving just closes it. Employees inside stand at their station like anybody
 ## else (CharacterView shows their badge); the station shows the cycle's bar.
 
@@ -114,6 +116,8 @@ func _bind() -> void:
 	(%StaffButton as Button).toggled.connect(func(on: bool) -> void: show_staff(on))
 	(%UpgradesButton as Button).toggled.connect(func(on: bool) -> void: show_upgrades(on))
 	(%ExitButton as Button).pressed.connect(request_exit)
+	for p: Control in [storage_panel(), production_panel(), staff_panel(), upgrade_panel()]:
+		ManageSlot.join(p)
 	storage_panel().closed.connect(func() -> void: (%StorageButton as Button).set_pressed_no_signal(false))
 	production_panel().closed.connect(func() -> void: (%ProductionButton as Button).set_pressed_no_signal(false))
 	staff_panel().closed.connect(func() -> void: (%StaffButton as Button).set_pressed_no_signal(false))
@@ -150,10 +154,12 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	var bottom := Iso.tile_to_world(size_tiles - Vector2i.ONE).y + Iso.TILE_H / 2.0
 	var off: Array = _cfg.get("center_offset", [0, 0])
 	_center = (Vector2((left + right) / 2.0, (top + bottom) / 2.0) + Vector2(float(off[0]), float(off[1]))).round()
-	camera().position = _center
+	camera().position = _camera_position()
 	camera().zoom = Vector2.ONE * _zoom
 	var bname := SimQuery.building_label(s.state, s.catalog, bld)
 	(%TitleLabel as Label).text = SimQuery.t_("ui.interior.title_manage" if manage_mode else "ui.interior.title") % bname
+	(%ProductionButton as Button).tooltip_text = SimQuery.t_("ui.interior.production") + " (P)"
+	(%StorageButton as Button).tooltip_text = SimQuery.t_("ui.interior.storage") + " (A)"
 	(%StorageButton as Button).text = SimQuery.t_("ui.interior.storage")
 	(%ProductionButton as Button).text = SimQuery.t_("ui.interior.production")
 	(%UpgradesButton as Button).text = SimQuery.t_("ui.interior.upgrades")
@@ -283,9 +289,32 @@ func refresh_works() -> void:
 		ViewConfig.info("Interior", "works %s (building=%s, upgrade=%s)" % ["on" if not w.is_empty() else "off", building,
 			str(w.get("upgrade", ""))])
 	l.visible = not w.is_empty()
+	(%StatusLabel as Label).visible = w.is_empty()
 	if not w.is_empty():
 		l.text = SimQuery.t_("ui.interior.works") % [SimQuery.upgrade_name(sim.catalog, str(w.get("upgrade", ""))),
 			SimQuery.minutes_left_label(int(w.get("minutes_left", 0)))]
+
+
+## The bar's state line: who works at which station and how many entries wait in the queue ("Inés (Yunque) · 2 en
+## cola"); "Nadie trabajando" when the stations are empty.
+func refresh_status() -> void:
+	if sim == null:
+		return
+	var parts: PackedStringArray = []
+	var zones: Dictionary = sim.state.buildings.get(building, {}).get("zones", {})
+	var names: Array = zones.keys()
+	names.sort()
+	for z: Variant in names:
+		var who := str((zones[z] as Dictionary).get("occupant", ""))
+		if who != "" and parts.size() < 2:
+			parts.append(SimQuery.t_("ui.interior.bar_worker") % [str(sim.state.characters.get(who, {}).get("name", who)),
+				SimQuery.zone_name(str(z))])
+	if parts.is_empty():
+		parts.append(SimQuery.t_("ui.interior.bar_nobody"))
+	var queued := (SimQuery.queue_view(sim, building).get("entries", []) as Array).size()
+	if queued > 0:
+		parts.append(SimQuery.t_("ui.interior.bar_queue") % queued)
+	(%StatusLabel as Label).text = " · ".join(parts)
 
 
 func station_view(zone: String) -> StationView:
@@ -333,6 +362,8 @@ func select(id: String) -> void:
 func _process(_delta: float) -> void:
 	if sim != null and visible:
 		sync()
+		var m := get_viewport().get_mouse_position()
+		UiFeel.set_hand(pick_station(m) != "" or pick_character(m) != "" or is_door(m))
 
 
 ## The sprite motion of `id` at station `zone`: "forge" at a furnace or anvil while its job runs, "work" at the other
@@ -390,6 +421,7 @@ func sync() -> void:
 		_upgrades_minute = int(st.clock["minute"])
 		refresh_upgrades()
 		refresh_works()
+		refresh_status()
 	var zones: Dictionary = st.buildings.get(building, {}).get("zones", {})
 	for z: String in _stations:
 		(_stations[z] as StationView).show_job(SimQuery.job_view(sim, building, z),
@@ -402,12 +434,22 @@ func viewport_size() -> Vector2:
 	return get_viewport_rect().size if is_inside_tree() else Vector2(960, 540)
 
 
+## Where the room's centre is drawn: the centre of the free view (docs/ui/01 §4.6), not of the screen.
+func view_center() -> Vector2:
+	return HudLayout.view_center(viewport_size())
+
+
+## The camera looks at the screen's centre: shifted so that the room's centre lands on view_center().
+func _camera_position() -> Vector2:
+	return _center + (viewport_size() / 2.0 - view_center()) / float(_zoom)
+
+
 func screen_to_world(screen: Vector2) -> Vector2:
-	return _center + (screen - viewport_size() / 2.0) / float(_zoom)
+	return _center + (screen - view_center()) / float(_zoom)
 
 
 func world_to_screen(world: Vector2) -> Vector2:
-	return (world - _center) * float(_zoom) + viewport_size() / 2.0
+	return (world - _center) * float(_zoom) + view_center()
 
 
 func station_screen(zone: String) -> Vector2:
@@ -457,8 +499,24 @@ func is_door(screen: Vector2) -> bool:
 # --- input -----------------------------------------------------------------------------------------------------------
 
 func _unhandled_input(event: InputEvent) -> void:
-	if visible and handle_input(event):
+	if visible and (handle_input(event) or handle_keys(event)):
 		get_viewport().set_input_as_handled()
+
+
+## P / A / E / M (docs/ui/01 §9): the building's panels, as its bar's buttons (only those shown: a shop has none).
+func handle_keys(event: InputEvent) -> bool:
+	if sim == null or not event is InputEventKey or not event.is_pressed() or event.is_echo():
+		return false
+	for pair: Array in [["panel_production", "ProductionButton"], ["panel_storage", "StorageButton"],
+			["panel_staff", "StaffButton"], ["panel_upgrades", "UpgradesButton"]]:
+		if HudKeys.pressed(event, str(pair[0])):
+			var b := get_node("%" + str(pair[1])) as Button
+			if not b.visible:
+				return false
+			b.button_pressed = not b.button_pressed   # toggled → show_*
+			ViewConfig.info("Interior", "key %s -> %s %s" % [pair[0], pair[1], "on" if b.button_pressed else "off"])
+			return true
+	return false
 
 
 ## Clicks in the room. True if used.

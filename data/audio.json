@@ -62,7 +62,7 @@
     "resume": "sfx_resume",
     "panel_open": "sfx_panel_open",
     "panel_close": "sfx_panel_close",
-    "panels": ["market_panel", "board_panel", "ledger_panel", "production_panel", "staff_panel", "storage_panel", "upgrade_panel", "help_panel"],
+    "panels": ["market_panel", "board_panel", "ledger_panel", "production_panel", "staff_panel", "storage_panel", "upgrade_panel", "help_panel", "npc_panel", "courtship_panel", "town_hall_panel", "kin_ai_panel", "family_tree_panel", "offices_panel", "trial_panel"],
     "panel_open_by": {"market_panel": "voice_market_vendor", "board_panel": "voice_board_crier"},
     "screen_music": {"new_game_screen": "music_title"}
   },

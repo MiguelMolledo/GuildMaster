@@ -26,6 +26,8 @@ extends Node
 ## H14: --smoke-script=ia_familiar: the family AI panel, a spouse trading on her own, low needs.
 ## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## --smoke-script=escala: the plaza, the forge street and the town hall at zoom 1 and 2 (building scale B).
+## UI 1/2: --smoke-script=hud: the new HUD's zones, the book beside the forge's bar, notices, help, ESC, the interior;
+## --smoke-script=paneles: every existing panel in its zone (5, wide or big modal).
 ## H10: --smoke-script=cargos: the offices chart, running, the campaign, the result card and the inspector's powers.
 ## --gallery opens game/tools/gallery.tscn instead (every visual scene of game/visuals/ on the grid; with --smoke it
 ## saves reports/shots/gallery_01.png and quits). The AudioDirector node plays the sounds and music by id.
@@ -37,7 +39,8 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"familia": "res://game/smoke/smoke_familia.gd", "arte": "res://game/smoke/smoke_arte.gd",
 	"ciudad": "res://game/smoke/smoke_ciudad.gd", "titulos": "res://game/smoke/smoke_titulos.gd",
 	"cargos": "res://game/smoke/smoke_cargos.gd", "tribunal": "res://game/smoke/smoke_tribunal.gd",
-	"escala": "res://game/smoke/smoke_escala.gd", "ia_familiar": "res://game/smoke/smoke_ia_familiar.gd"}
+	"escala": "res://game/smoke/smoke_escala.gd", "ia_familiar": "res://game/smoke/smoke_ia_familiar.gd",
+	"hud": "res://game/smoke/smoke_hud.gd", "paneles": "res://game/smoke/smoke_paneles.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView
@@ -88,6 +91,7 @@ func _ready() -> void:
 	_interior.shop_requested.connect(_hud.open_market)
 	_hud.focus_requested.connect(focus_on)
 	_hud.select_requested.connect(func(id: String) -> void: _world.select(id))  # H8: the group (1-2-3, portraits)
+	_hud.deselect_requested.connect(func() -> void: _world.pick_building_id(""))  # ESC forgets the picked building
 	_new_game.started.connect(_on_new_game_started)
 	_ending.new_game_pressed.connect(show_new_game)
 	_ending.quit_pressed.connect(func() -> void: get_tree().quit())
@@ -276,7 +280,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif interior_building != "":
 		_interior.request_exit()
 	else:
-		return
+		_hud.request_pause_menu()   # nothing open: the pause menu (hud.pause_menu_requested, docs/ui/01 §2)
 	get_viewport().set_input_as_handled()
 
 
@@ -285,6 +289,7 @@ func _process(delta: float) -> void:
 		Game.set_paused(true)  # D18: the ruin ends the game; the sim does not stop by itself
 		_ending.show_ending(Game.sim.state, Game.sim)
 	_background.color = Color.BLACK if interior_building != "" else _bg_color * _world.tint_color
+	_reveal_selection()
 	if _shots_left <= 0:
 		return
 	_shot_timer += delta
@@ -296,6 +301,43 @@ func _process(delta: float) -> void:
 	_shots_left -= 1
 	if _shots_left == 0:
 		get_tree().quit()
+
+
+var _reveal_sig: String = ""
+
+
+## docs/ui/01 §4.6: when the selection or the open panel changes, the camera moves just enough so that the selected
+## person (or the picked building) is not under the management panel or the selection bar.
+func _reveal_selection() -> void:
+	if interior_building != "" or Game.sim == null:
+		_reveal_sig = ""
+		return
+	var open: Control = _hud.open_manage_panel()
+	var sig := "%s|%s|%s" % [_world.selected_id, _world.picked_building, open.name if open != null else ""]
+	if sig == _reveal_sig:
+		return
+	_reveal_sig = sig
+	var at := Vector2.INF
+	if _world.view_of(_world.selected_id) != null:
+		at = _world.view_of(_world.selected_id).position
+	elif _world.picked_building != "":
+		var d: Array = Game.sim.state.buildings.get(_world.picked_building, {}).get("door", [])
+		if d.size() == 2:
+			at = Iso.tile_to_world(Vector2i(int(d[0]), int(d[1])))
+	if at == Vector2.INF:
+		return
+	var cam := _world.camera()
+	var vp := get_viewport().get_visible_rect().size
+	var z := HudLayout.zones(vp)
+	var free := Rect2(Vector2((z["column"] as Rect2).end.x, (z["status"] as Rect2).end.y + 4.0),
+		Vector2.ZERO).expand(Vector2(vp.x - 4.0, (z["selection"] as Rect2).position.y - 4.0))
+	var blocked: Array = _hud.covered_rects()
+	if open != null:
+		free.end.x = minf(free.end.x, open.get_global_rect().position.x - 4.0)
+	var delta := HudLayout.reveal_delta(cam.world_to_screen(at), blocked, free)
+	if delta != Vector2.ZERO:
+		Log.info("App", "camera reveals %s (delta=%s)" % [sig, delta])
+		cam.pan(delta)
 
 
 ## Saves what the player sees to reports/shots/<shot_name>.png: the 960×540 render scaled by the window's whole

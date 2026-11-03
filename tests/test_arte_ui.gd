@@ -1,6 +1,6 @@
 extends "res://tests/test_case.gd"
-## UI look and overlaps (arte): the pixel art theme on every panel and on the HUD's root, the group portraits under
-## the selected person's panel, the objective's hint folding on the map, and bubbles of close heads spread apart.
+## UI look and overlaps (arte): the pixel art theme on every panel and on the HUD's root, the group portraits in the
+## card, the objective's hint folding on the map, and bubbles of close heads spread apart.
 
 var cat := Catalog.load_from()
 
@@ -16,10 +16,10 @@ func test_theme_is_pixel_art_and_on_the_hud_root() -> void:
 	check(root.contains('theme = ExtResource("3_theme")'), "the HUD's root carries the theme (new panels inherit it)")
 
 
-func test_group_bar_goes_under_the_selected_panel() -> void:
-	eq(HudLayout.group_bar_y(true, Rect2(6, 6, 200, 120)), 132.0, "under a panel grown with queued orders")
-	eq(HudLayout.group_bar_y(true, Rect2(6, 6, 200, 40)), 66.0, "its usual place under a short panel")
-	eq(HudLayout.group_bar_y(false, Rect2(6, 6, 200, 120)), 66.0, "no selected panel: its usual place")
+func test_group_portraits_live_in_the_card() -> void:
+	var hud := FileAccess.get_file_as_string("res://game/ui/hud.tscn")
+	check(hud.contains('[node name="GroupBar" type="HBoxContainer" parent="Root/Card/HBox"]'),
+		"the group's portraits are inside the card (zone 1), never over another panel")
 
 
 func test_objective_hint_folds_on_the_map() -> void:

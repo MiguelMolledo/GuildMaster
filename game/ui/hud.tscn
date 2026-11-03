@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://cg0hg8p8b605y"]
+[gd_scene load_steps=22 format=3 uid="uid://cg0hg8p8b605y"]
 
 [ext_resource type="Script" uid="uid://bk40qfbaik42s" path="res://game/ui/hud.gd" id="1_hud"]
-[ext_resource type="Script" uid="uid://dwh11vnyebw76" path="res://game/ui/sun_moon.gd" id="2_sun"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="3_theme"]
 [ext_resource type="PackedScene" uid="uid://cixjb7v8psugm" path="res://game/ui/character_panel.tscn" id="4_char"]
 [ext_resource type="PackedScene" uid="uid://bcpksngpbcrd3" path="res://game/ui/market_panel.tscn" id="5_market"]
@@ -20,454 +19,40 @@
 [ext_resource type="PackedScene" uid="uid://bavqo4xvafv5o" path="res://game/ui/trial_card.tscn" id="18_trialcard"]
 [ext_resource type="PackedScene" uid="uid://dd1kuft7r6quj" path="res://game/ui/kin_ai_panel.tscn" id="19_kinai"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+[sub_resource type="StyleBoxFlat" id="paused_tag"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.101961, 0.0705882, 0.0352941, 0.85)
+
+[sub_resource type="StyleBoxFlat" id="debt_fill"]
+bg_color = Color(0.784314, 0.313725, 0.313725, 1)
+
+[sub_resource type="StyleBoxFlat" id="toast_box"]
 content_margin_left = 6.0
-content_margin_top = 4.0
+content_margin_top = 1.0
 content_margin_right = 6.0
-content_margin_bottom = 4.0
-bg_color = Color(0.129412, 0.109804, 0.0980392, 0.88)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.541176, 0.435294, 0.270588, 1)
+content_margin_bottom = 1.0
+bg_color = Color(0.101961, 0.0705882, 0.0352941, 0.85)
 
 [node name="Hud" type="CanvasLayer"]
 layer = 10
 script = ExtResource("1_hud")
 
 [node name="Root" type="Control" parent="."]
+unique_name_in_owner = true
+theme = ExtResource("3_theme")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource("3_theme")
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="ClockPanel" type="PanelContainer" parent="Root"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -214.0
-offset_top = 6.0
-offset_right = -6.0
-offset_bottom = 84.0
-grow_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
-
-[node name="VBox" type="VBoxContainer" parent="Root/ClockPanel"]
-layout_mode = 2
-theme_override_constants/separation = 3
-
-[node name="Top" type="HBoxContainer" parent="Root/ClockPanel/VBox"]
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="SunMoon" type="Control" parent="Root/ClockPanel/VBox/Top"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(28, 28)
-layout_mode = 2
-mouse_filter = 2
-script = ExtResource("2_sun")
-
-[node name="Texts" type="VBoxContainer" parent="Root/ClockPanel/VBox/Top"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-theme_override_constants/separation = 0
-
-[node name="TimeLabel" type="Label" parent="Root/ClockPanel/VBox/Top/Texts"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_type_variation = &"BoldLabel"
-text = "08:00"
-
-[node name="DateLabel" type="Label" parent="Root/ClockPanel/VBox/Top/Texts"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-text = "--"
-
-[node name="PhaseBar" type="ProgressBar" parent="Root/ClockPanel/VBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 4)
-layout_mode = 2
-mouse_filter = 2
-show_percentage = false
-
-[node name="Speeds" type="HBoxContainer" parent="Root/ClockPanel/VBox"]
-layout_mode = 2
-theme_override_constants/separation = 3
-
-[node name="PauseButton" type="Button" parent="Root/ClockPanel/VBox/Speeds"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-toggle_mode = true
-text = "Pausa"
-
-[node name="Speed1" type="Button" parent="Root/ClockPanel/VBox/Speeds"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-focus_mode = 0
-toggle_mode = true
-text = "x1"
-
-[node name="Speed2" type="Button" parent="Root/ClockPanel/VBox/Speeds"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-focus_mode = 0
-toggle_mode = true
-text = "x2"
-
-[node name="Speed4" type="Button" parent="Root/ClockPanel/VBox/Speeds"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-focus_mode = 0
-toggle_mode = true
-text = "x4"
-
-[node name="SelectedPanel" type="PanelContainer" parent="Root"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-offset_left = 6.0
-offset_top = 6.0
-offset_right = 206.0
-offset_bottom = 60.0
-theme = ExtResource("3_theme")
-
-[node name="VBox" type="VBoxContainer" parent="Root/SelectedPanel"]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="Top" type="HBoxContainer" parent="Root/SelectedPanel/VBox"]
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="Portrait" type="ColorRect" parent="Root/SelectedPanel/VBox/Top"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(28, 28)
-layout_mode = 2
-mouse_filter = 2
-color = Color(0.5, 0.5, 0.5, 1)
-
-[node name="Texts" type="VBoxContainer" parent="Root/SelectedPanel/VBox/Top"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-
-[node name="NameLabel" type="Label" parent="Root/SelectedPanel/VBox/Top/Texts"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_type_variation = &"BoldLabel"
-text = "--"
-
-[node name="GoldLabel" type="Label" parent="Root/SelectedPanel/VBox/Top/Texts"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
-text = "--"
-
-[node name="InventoryButton" type="Button" parent="Root/SelectedPanel/VBox/Top"]
-unique_name_in_owner = true
-layout_mode = 2
-focus_mode = 0
-text = "I"
-
-[node name="QueueLabel" type="Label" parent="Root/SelectedPanel/VBox"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-text = "--"
-
-[node name="QueueList" type="VBoxContainer" parent="Root/SelectedPanel/VBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="BuildingPanel" type="PanelContainer" parent="Root"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -110.0
-offset_right = 150.0
-offset_bottom = -70.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("3_theme")
-
-[node name="HBox" type="HBoxContainer" parent="Root/BuildingPanel"]
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="BuildingTexts" type="VBoxContainer" parent="Root/BuildingPanel/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-
-[node name="BuildingName" type="Label" parent="Root/BuildingPanel/HBox/BuildingTexts"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_type_variation = &"TitleLabel"
-text = "--"
-
-[node name="BuildingHint" type="Label" parent="Root/BuildingPanel/HBox/BuildingTexts"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "--"
-
-[node name="ManageButton" type="Button" parent="Root/BuildingPanel/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-focus_mode = 0
-text = "manage"
-
-[node name="CharacterPanel" parent="Root" instance=ExtResource("4_char")]
-unique_name_in_owner = true
-layout_mode = 1
-offset_left = 6.0
-offset_top = 120.0
-offset_right = 316.0
-offset_bottom = 320.0
-
-[node name="FamilyPanel" type="PanelContainer" parent="Root"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -220.0
-offset_top = 6.0
-offset_right = 220.0
-offset_bottom = 32.0
-grow_horizontal = 2
-theme = ExtResource("3_theme")
-
-[node name="HBox" type="HBoxContainer" parent="Root/FamilyPanel"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="FamilyTitle" type="Label" parent="Root/FamilyPanel/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-mouse_filter = 0
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-text = "--"
-
-[node name="FamilyGold" type="Label" parent="Root/FamilyPanel/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_type_variation = &"GoldLabel"
-text = "--"
-
-[node name="DebtLabel" type="Label" parent="Root/FamilyPanel/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "--"
-
-[node name="TrialsButton" type="Button" parent="Root/FamilyPanel/HBox"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-focus_mode = 0
-text = "--"
-
-[node name="OfficesButton" type="Button" parent="Root/FamilyPanel/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-focus_mode = 0
-text = "--"
-
-[node name="LedgerButton" type="Button" parent="Root/FamilyPanel/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-focus_mode = 0
-text = "--"
-
-[node name="HelpButton" type="Button" parent="Root/FamilyPanel/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-focus_mode = 0
-text = "?"
-
-[node name="ObjectivePanel" type="PanelContainer" parent="Root"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -214.0
-offset_top = 122.0
-offset_right = -6.0
-offset_bottom = 172.0
-grow_horizontal = 0
-theme = ExtResource("3_theme")
-
-[node name="VBox" type="VBoxContainer" parent="Root/ObjectivePanel"]
-layout_mode = 2
-theme_override_constants/separation = 1
-
-[node name="ObjectiveTitle" type="Label" parent="Root/ObjectivePanel/VBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-text = "--"
-
-[node name="ObjectiveLabel" type="Label" parent="Root/ObjectivePanel/VBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(196, 0)
-layout_mode = 2
-text = "--"
-autowrap_mode = 3
-
-[node name="ObjectiveProgress" type="Label" parent="Root/ObjectivePanel/VBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 1, 0.6, 1)
-text = "--"
-
-[node name="ObjectiveHint" type="Label" parent="Root/ObjectivePanel/VBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(196, 0)
-layout_mode = 2
-theme_type_variation = &"DimLabel"
-theme_override_colors/font_color = Color(0.85098, 0.815686, 0.737255, 1)
-text = "--"
-autowrap_mode = 3
-
-[node name="NoticePopups" type="VBoxContainer" parent="Root"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -190.0
-offset_top = 90.0
-offset_right = 190.0
-offset_bottom = 90.0
-grow_horizontal = 2
-theme = ExtResource("3_theme")
-theme_override_constants/separation = 2
-
-[node name="MarketPanel" parent="Root" instance=ExtResource("5_market")]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 10.0
-
-[node name="BoardPanel" parent="Root" instance=ExtResource("6_board")]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = -150.0
-offset_right = 165.0
-offset_bottom = 10.0
-
-[node name="LedgerPanel" parent="Root" instance=ExtResource("7_ledger")]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -170.0
-offset_right = 220.0
-offset_bottom = 170.0
-
-[node name="PausedLabel" type="Label" parent="Root"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-theme_type_variation = &"GoldLabel"
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -120.0
-offset_top = 64.0
-offset_right = 120.0
-offset_bottom = 88.0
-grow_horizontal = 2
-theme_override_colors/font_outline_color = Color(0.0980392, 0.0705882, 0.0509804, 1)
-theme_override_constants/outline_size = 4
-text = "EN PAUSA"
-horizontal_alignment = 1
-
-[node name="ToastLabel" type="Label" parent="Root"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-theme_type_variation = &"BoldLabel"
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -220.0
-offset_top = -64.0
-offset_right = 220.0
-offset_bottom = -42.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_outline_color = Color(0.0980392, 0.0705882, 0.0509804, 1)
-theme_override_constants/outline_size = 4
-text = "--"
-horizontal_alignment = 1
-
-[node name="HelpLabel" type="Label" parent="Root"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -22.0
-offset_right = 700.0
-offset_bottom = -6.0
-grow_vertical = 0
-theme_override_colors/font_color = Color(0.92549, 0.894118, 0.823529, 0.8)
-theme_override_colors/font_outline_color = Color(0.0980392, 0.0705882, 0.0509804, 1)
-theme_override_constants/outline_size = 3
-text = "--"
 
 [node name="TitleLabel" type="Label" parent="Root"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-theme_type_variation = &"TitleLabel"
-anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -477,112 +62,597 @@ offset_top = -20.0
 offset_right = 200.0
 offset_bottom = 20.0
 grow_horizontal = 2
-grow_vertical = 2
+theme_type_variation = &"TitleLabel"
 text = "GuildMaster"
 horizontal_alignment = 1
 
-[node name="GroupBar" type="HBoxContainer" parent="Root"]
+[node name="Card" type="PanelContainer" parent="Root"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
-offset_left = 6.0
-offset_top = 66.0
-offset_right = 140.0
-offset_bottom = 106.0
-theme = ExtResource("3_theme")
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 240.0
+offset_bottom = 54.0
+
+[node name="HBox" type="HBoxContainer" parent="Root/Card"]
+layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="FamilyTreePanel" parent="Root" instance=ExtResource("8_tree")]
+[node name="GroupBar" type="HBoxContainer" parent="Root/Card/HBox"]
 unique_name_in_owner = true
-layout_mode = 1
+layout_mode = 2
+theme_override_constants/separation = 2
 
-[node name="CourtshipPanel" parent="Root" instance=ExtResource("9_court")]
-unique_name_in_owner = true
-layout_mode = 1
+[node name="CardTexts" type="VBoxContainer" parent="Root/Card/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+alignment = 1
 
-[node name="NpcPanel" parent="Root" instance=ExtResource("11_npc")]
+[node name="NameLabel" type="Label" parent="Root/Card/HBox/CardTexts"]
 unique_name_in_owner = true
-layout_mode = 1
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+clip_text = true
 
-[node name="MicroeventCard" parent="Root" instance=ExtResource("12_mev")]
-unique_name_in_owner = true
-layout_mode = 1
+[node name="CardRow" type="HBoxContainer" parent="Root/Card/HBox/CardTexts"]
+layout_mode = 2
+theme_override_constants/separation = 2
 
-[node name="TownHallPanel" parent="Root" instance=ExtResource("13_hall")]
+[node name="GoldIcon" type="TextureRect" parent="Root/Card/HBox/CardTexts/CardRow"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+stretch_mode = 3
+
+[node name="GoldLabel" type="Label" parent="Root/Card/HBox/CardTexts/CardRow"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+theme_type_variation = &"GoldLabel"
+text = "--"
+
+[node name="TitleBadge" type="TextureRect" parent="Root/Card/HBox/CardTexts/CardRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+stretch_mode = 3
+
+[node name="FamilyTitle" type="Label" parent="Root/Card/HBox/CardTexts/CardRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+theme_type_variation = &"DimLabel"
+text = "--"
+clip_text = true
+
+[node name="StatusBar" type="PanelContainer" parent="Root"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
-anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 10.0
+anchor_bottom = 0.0
+offset_left = -236.0
+offset_top = 4.0
+offset_right = 236.0
+offset_bottom = 32.0
+grow_horizontal = 2
+
+[node name="HBox" type="HBoxContainer" parent="Root/StatusBar"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="DebtBox" type="HBoxContainer" parent="Root/StatusBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+theme_override_constants/separation = 4
+
+[node name="DebtCaption" type="Label" parent="Root/StatusBar/HBox/DebtBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+
+[node name="DebtLabel" type="Label" parent="Root/StatusBar/HBox/DebtBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.784314, 0.313725, 0.313725, 1)
+theme_type_variation = &"BoldLabel"
+text = "--"
+
+[node name="DebtBar" type="ProgressBar" parent="Root/StatusBar/HBox/DebtBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 6)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/fill = SubResource("debt_fill")
+show_percentage = false
+
+[node name="DebtDays" type="Label" parent="Root/StatusBar/HBox/DebtBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+
+[node name="LedgerButton" type="Button" parent="Root/StatusBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+
+[node name="TreeButton" type="Button" parent="Root/StatusBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+
+[node name="InventoryButton" type="Button" parent="Root/StatusBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+
+[node name="BuildButton" type="Button" parent="Root/StatusBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+
+[node name="OfficesButton" type="Button" parent="Root/StatusBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+
+[node name="TrialsButton" type="Button" parent="Root/StatusBar/HBox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+
+[node name="HelpButton" type="Button" parent="Root/StatusBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+
+[node name="MenuButton" type="Button" parent="Root/StatusBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+
+[node name="PausedTag" type="PanelContainer" parent="Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -56.0
+offset_top = 34.0
+offset_right = 56.0
+offset_bottom = 49.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("paused_tag")
+
+[node name="PausedLabel" type="Label" parent="Root/PausedTag"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+text = "EN PAUSA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClockPanel" type="PanelContainer" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -240.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 54.0
+grow_horizontal = 0
+mouse_filter = 0
+
+[node name="HBox" type="HBoxContainer" parent="Root/ClockPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ClockLeft" type="VBoxContainer" parent="Root/ClockPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 1
+
+[node name="Top" type="HBoxContainer" parent="Root/ClockPanel/HBox/ClockLeft"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="SunMoon" type="TextureRect" parent="Root/ClockPanel/HBox/ClockLeft/Top"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+stretch_mode = 3
+
+[node name="TimeLabel" type="Label" parent="Root/ClockPanel/HBox/ClockLeft/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "08:00"
+
+[node name="DateLabel" type="Label" parent="Root/ClockPanel/HBox/ClockLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+clip_text = true
+
+[node name="PhaseBar" type="ProgressBar" parent="Root/ClockPanel/HBox/ClockLeft"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+show_percentage = false
+
+[node name="Speeds" type="GridContainer" parent="Root/ClockPanel/HBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="PauseButton" type="Button" parent="Root/ClockPanel/HBox/Speeds"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(31, 17)
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+text = "II"
+
+[node name="Speed1" type="Button" parent="Root/ClockPanel/HBox/Speeds"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(31, 17)
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+text = "×1"
+
+[node name="Speed2" type="Button" parent="Root/ClockPanel/HBox/Speeds"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(31, 17)
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+text = "×2"
+
+[node name="Speed4" type="Button" parent="Root/ClockPanel/HBox/Speeds"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(31, 17)
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+text = "×4"
+
+[node name="Column" type="VBoxContainer" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 4.0
+offset_top = 58.0
+offset_right = 240.0
+offset_bottom = 244.0
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="ObjectivePanel" type="PanelContainer" parent="Root/Column"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/Column/ObjectivePanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Head" type="HBoxContainer" parent="Root/Column/ObjectivePanel/VBox"]
+layout_mode = 2
+
+[node name="ObjectiveTitle" type="Label" parent="Root/Column/ObjectivePanel/VBox/Head"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"CaptionLabel"
+text = "--"
+
+[node name="ObjectiveProgress" type="Label" parent="Root/Column/ObjectivePanel/VBox/Head"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.494118, 0.784314, 0.494118, 1)
+theme_type_variation = &"SmallLabel"
+text = "--"
+horizontal_alignment = 2
+
+[node name="ObjectiveLabel" type="Label" parent="Root/Column/ObjectivePanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(218, 0)
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="ObjectiveSep" type="HSeparator" parent="Root/Column/ObjectivePanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ObjectiveHint" type="Label" parent="Root/Column/ObjectivePanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(218, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="QueuePanel" type="PanelContainer" parent="Root/Column"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="VBox" type="VBoxContainer" parent="Root/Column/QueuePanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="QueueLabel" type="Label" parent="Root/Column/QueuePanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "--"
+clip_text = true
+
+[node name="QueueList" type="VBoxContainer" parent="Root/Column/QueuePanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MicroeventCard" parent="Root/Column" instance=ExtResource("12_mev")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NoticePopups" type="VBoxContainer" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -136.0
+offset_right = 240.0
+offset_bottom = -4.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 3
+alignment = 2
+
+[node name="SelectionBar" type="PanelContainer" parent="Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -236.0
+offset_top = -48.0
+offset_right = 236.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBox" type="HBoxContainer" parent="Root/SelectionBar"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SelectionIcon" type="TextureRect" parent="Root/SelectionBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 28)
+layout_mode = 2
+mouse_filter = 2
+stretch_mode = 3
+
+[node name="SelectionTexts" type="VBoxContainer" parent="Root/SelectionBar/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="BuildingName" type="Label" parent="Root/SelectionBar/HBox/SelectionTexts"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "--"
+clip_text = true
+
+[node name="BuildingHint" type="Label" parent="Root/SelectionBar/HBox/SelectionTexts"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "--"
+clip_text = true
+
+[node name="ManageButton" type="Button" parent="Root/SelectionBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+text = "--"
+
+[node name="SelectionAction" type="Button" parent="Root/SelectionBar/HBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+text = "--"
+
+[node name="ToastLabel" type="PanelContainer" parent="Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -236.0
+offset_top = -70.0
+offset_right = 236.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("toast_box")
+
+[node name="ToastText" type="Label" parent="Root/ToastLabel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.627451, 0.25098, 1)
+theme_type_variation = &"BoldLabel"
+text = "--"
+horizontal_alignment = 1
+
+[node name="ManageZone" type="MarginContainer" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -360.0
+offset_top = 58.0
+offset_right = -4.0
+offset_bottom = 488.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="MarketPanel" parent="Root/ManageZone" instance=ExtResource("5_market")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
+[node name="BoardPanel" parent="Root/ManageZone" instance=ExtResource("6_board")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
+[node name="LedgerPanel" parent="Root/ManageZone" instance=ExtResource("7_ledger")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
+[node name="NpcPanel" parent="Root/ManageZone" instance=ExtResource("11_npc")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
+[node name="CourtshipPanel" parent="Root/ManageZone" instance=ExtResource("9_court")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
+[node name="TownHallPanel" parent="Root/ManageZone" instance=ExtResource("13_hall")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
+[node name="KinAiPanel" parent="Root/ManageZone" instance=ExtResource("19_kinai")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
+[node name="CharacterPanel" parent="Root/ManageZone" instance=ExtResource("4_char")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
+[node name="Veil" type="ColorRect" parent="Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101961, 0.0705882, 0.0352941, 0.55)
+
+[node name="ModalZone" type="MarginContainer" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -456.0
+offset_top = 58.0
+offset_right = 456.0
+offset_bottom = 498.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="FamilyTreePanel" parent="Root/ModalZone" instance=ExtResource("8_tree")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
+[node name="OfficesPanel" parent="Root/ModalZone" instance=ExtResource("15_offices")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
+[node name="TrialPanel" parent="Root/ModalZone" instance=ExtResource("17_trial")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
 
 [node name="TitleCard" parent="Root" instance=ExtResource("14_titlecard")]
 unique_name_in_owner = true
 layout_mode = 0
 
-[node name="OfficesPanel" parent="Root" instance=ExtResource("15_offices")]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -170.0
-offset_right = 200.0
-offset_bottom = 50.0
-
 [node name="OfficeCard" parent="Root" instance=ExtResource("16_officecard")]
 unique_name_in_owner = true
 layout_mode = 0
-
-[node name="TrialPanel" parent="Root" instance=ExtResource("17_trial")]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -260.0
-offset_top = -170.0
-offset_right = 260.0
-offset_bottom = 90.0
 
 [node name="TrialCard" parent="Root" instance=ExtResource("18_trialcard")]
 unique_name_in_owner = true
 layout_mode = 0
 
-[node name="KinAiPanel" parent="Root" instance=ExtResource("19_kinai")]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -170.0
-offset_right = 150.0
-offset_bottom = 130.0
-
 [node name="HelpPanel" parent="Root" instance=ExtResource("10_help")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -172.0
-offset_right = 250.0
-offset_bottom = 160.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2

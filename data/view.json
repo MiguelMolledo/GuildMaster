@@ -80,8 +80,10 @@
     "objective_hint_seconds": 20
   },
   "notices": {
-    "_doc": "H3: urgent notices pop up over the HUD for popup_seconds (at most popup_max at once); severity colours of the notices log.",
+    "_doc": "H3 / docs/ui/01_hud.md §5: the notices of the player's family pop up in the notices zone (at most popup_max at once; the oldest goes, it stays in the book): urgent until clicked or the book is opened, warning for popup_seconds, done (the keys in done_keys: a goal met) for done_seconds; info only in the book. Severity colours of the notices log.",
     "popup_seconds": 8.0,
+    "done_seconds": 5.0,
+    "done_keys": ["notice.objective_done", "notice.goal_done", "notice.upgrade_done", "notice.loan_repaid", "notice.title_granted", "notice.office_won"],
     "popup_max": 3,
     "colors": {"info": "#d8d0c0", "warning": "#f0c060", "urgent": "#ff8070"}
   },
@@ -94,9 +96,9 @@
     "default_colors": [0, 6]
   },
   "interior": {
-    "_doc": "H2 interior (GDD 4.6.4): zoom, camera offset, fade (in+out, seconds), the colours of the station marks (busy, progress, master-touch window) and its blink. The room, its stations and its colours are game/visuals/interiors/<type>.tscn.",
+    "_doc": "H2 interior (GDD 4.6.4): zoom, camera offset (from the centre of the HUD's free view, docs/ui/01 §4.6), fade (in+out, seconds), the colours of the station marks (busy, progress, master-touch window) and its blink. The room, its stations and its colours are game/visuals/interiors/<type>.tscn.",
     "zoom": 1,
-    "center_offset": [80, -30],
+    "center_offset": [0, 0],
     "fade_seconds": 0.4,
     "busy": "#f0c040",
     "progress": "#7cc860",
