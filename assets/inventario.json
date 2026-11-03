@@ -194,7 +194,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/forge",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/forge/exterior/building_forge_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/forge.tscn (Sprite, Greybox oculto). Sin variantes de obras ni dañado."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/forge/exterior/building_forge_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/forge.tscn (Sprite, Greybox oculto). Sin variantes de obras ni dañado. Candidata fal (2026-11-03): assets/art/buildings/fal/forge.png (mismo lienzo y ancla; entrada bld_forge_fal)."
     },
     {
       "id": "int_forge",
@@ -277,7 +277,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/market",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/exterior/building_armeria_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/armory.tscn."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/exterior/building_armeria_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/armory.tscn. Candidata fal (2026-11-03): assets/art/buildings/fal/armory.png (mismo lienzo y ancla; entrada bld_armory_fal)."
     },
     {
       "id": "bld_town_hall",
@@ -305,7 +305,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/residential",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_1/house_modest_1_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/house.tscn (las 8 casas iguales)."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_1/house_modest_1_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/house.tscn (las 8 casas iguales). Candidata fal (2026-11-03): assets/art/buildings/fal/house.png (mismo lienzo y ancla; entrada bld_house_fal)."
     },
     {
       "id": "bld_house_a",
@@ -804,58 +804,62 @@
     {
       "id": "bubble_emotion_grateful",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "emociones"
       ],
       "ruta": "assets/art/ui/bubbles/emotion_grateful.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/emotion_grateful.tscn (GDD 4.11.5)"
+      "notas": "Burbuja de emoción (GDD 4.11.5), 32×32 y assets/art/ui/bubbles/small/emotion_grateful.png. La escena game/visuals/bubbles/emotion_grateful.tscn sigue con su greybox: falta poner el sprite.",
+      "coste_usd": 0.02
     },
     {
       "id": "bubble_emotion_offended",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "emociones"
       ],
       "ruta": "assets/art/ui/bubbles/emotion_offended.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/emotion_offended.tscn (GDD 4.11.5)"
+      "notas": "Burbuja de emoción (GDD 4.11.5), 32×32 y assets/art/ui/bubbles/small/emotion_offended.png. La escena game/visuals/bubbles/emotion_offended.tscn sigue con su greybox: falta poner el sprite.",
+      "coste_usd": 0.02
     },
     {
       "id": "bubble_emotion_angry",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "emociones"
       ],
       "ruta": "assets/art/ui/bubbles/emotion_angry.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/emotion_angry.tscn (GDD 4.11.5)"
+      "notas": "Burbuja de emoción (GDD 4.11.5), 32×32 y assets/art/ui/bubbles/small/emotion_angry.png. La escena game/visuals/bubbles/emotion_angry.tscn sigue con su greybox: falta poner el sprite.",
+      "coste_usd": 0.02
     },
     {
       "id": "bubble_emotion_scared",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "emociones"
       ],
       "ruta": "assets/art/ui/bubbles/emotion_scared.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/emotion_scared.tscn (GDD 4.11.5)"
+      "notas": "Burbuja de emoción (GDD 4.11.5), 32×32 y assets/art/ui/bubbles/small/emotion_scared.png. La escena game/visuals/bubbles/emotion_scared.tscn sigue con su greybox: falta poner el sprite.",
+      "coste_usd": 0.02
     },
     {
       "id": "prop_dice_table",
@@ -1144,16 +1148,17 @@
     {
       "id": "icon_steel",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/steel.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md)."
+      "notas": "32×32 y assets/art/icons/small/steel.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/.",
+      "coste_usd": 0.02
     },
     {
       "id": "icon_flour",
@@ -1270,17 +1275,18 @@
     {
       "id": "icon_saw",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos",
         "H12"
       ],
       "ruta": "assets/art/icons/saw.png",
-      "origen": "dibujado (Pillow)",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_sierra.png",
       "coste_gen": 0,
-      "notas": "Placeholder dibujado (tools/art/oficios_h12.py), 32×32 y icons/small/saw.png: el icon_sierra de Guild Renew parece un mazo (docs/arte/reuso_guild.md). La herramienta del carpintero (H12). Pendiente de PixelLab."
+      "notas": "32×32 y assets/art/icons/small/saw.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/.",
+      "coste_usd": 0.02
     },
     {
       "id": "icon_needle",
@@ -1751,7 +1757,7 @@
       "ruta": "assets/art/ui/portrait/",
       "origen": null,
       "coste_gen": 0,
-      "notas": "Retrato 32×32 de cada persona (HUD, árbol, contratación) con colores clave reservados para el intercambio de paleta: pelo, piel, ropa principal y secundaria (GDD 4.10.9). Hoy greybox de nodos en game/visuals/characters/portrait.tscn."
+      "notas": "Retrato 32×32 de cada persona (HUD, árbol, contratación) con colores clave reservados para el intercambio de paleta: pelo, piel, ropa principal y secundaria (GDD 4.10.9). Hoy greybox de nodos en game/visuals/characters/portrait.tscn. Candidatos fal (piloto 2026-11-03): assets/art/fal_piloto/retratos/final/nano2_<persona>_64.png y _32.png (8 retratos en 2 rejillas 2×2 de nano-banana-2/edit + image2pixel). Prueba de identidad 4.10.9: nano2_artesano_64_clave.png (colores clave codificados como en personajes_guild.py) y _familias.png (3 familias). Retratos de producción (fal, 2026-11-03): assets/art/portraits/<tipo>.png (64) y <tipo>_32.png, entradas portrait_* del inventario; falta cablearlos en portrait.tscn."
     },
     {
       "id": "sfx_step",
@@ -2016,7 +2022,7 @@
       "ruta": "assets/art/buildings/escala_b/carpentry.png",
       "origen": "guild-renew (derivado con Pillow)",
       "origen_previo": "guild:assets/sprites/buildings/market/exterior/building_materiales_192.png",
-      "notas": "Placeholder derivado (tools/art/oficios_h12.py): el granero de «materiales» de Guild Renew subido a escala B (escala_b.add_rows), con cartel de sierra y banco de carpintero en el patio. Pendiente de la fachada de PixelLab (lista de la compra en assets/art/MANIFEST.md). En game/visuals/buildings/carpentry.tscn.",
+      "notas": "Placeholder derivado (tools/art/oficios_h12.py): el granero de «materiales» de Guild Renew subido a escala B (escala_b.add_rows), con cartel de sierra y banco de carpintero en el patio. Pendiente de la fachada de PixelLab (lista de la compra en assets/art/MANIFEST.md). En game/visuals/buildings/carpentry.tscn. Candidata fal (2026-11-03): assets/art/buildings/fal/carpentry.png (mismo lienzo y ancla; entrada bld_carpentry_fal).",
       "coste_gen": 0
     },
     {
@@ -2030,7 +2036,7 @@
       "ruta": "assets/art/buildings/escala_b/masonry.png",
       "origen": "guild-renew (derivado con Pillow)",
       "origen_previo": "assets/art/buildings/escala_b/house_d.png",
-      "notas": "Placeholder derivado (tools/art/oficios_h12.py): house_d (casa de piedra) con el tejado de pizarra, cartel de martillo y dos pilas de piedra. Se parece a las casas de relleno: pendiente de PixelLab. En game/visuals/buildings/masonry.tscn.",
+      "notas": "Placeholder derivado (tools/art/oficios_h12.py): house_d (casa de piedra) con el tejado de pizarra, cartel de martillo y dos pilas de piedra. Se parece a las casas de relleno: pendiente de PixelLab. En game/visuals/buildings/masonry.tscn. Candidata fal (2026-11-03): assets/art/buildings/fal/masonry.png (mismo lienzo y ancla; entrada bld_masonry_fal).",
       "coste_gen": 0
     },
     {
@@ -2044,7 +2050,7 @@
       "ruta": "assets/art/buildings/escala_b/tailor_shop.png",
       "origen": "guild-renew (derivado con Pillow)",
       "origen_previo": "guild:assets/sprites/buildings/market/exterior/building_roperia_192.png",
-      "notas": "Derivado (tools/art/oficios_h12.py): la ropería de Guild Renew (ya lleva ropa tendida y cartel «TAILOR», en inglés) subida a escala B. Pendiente de PixelLab (cartel sin texto). En game/visuals/buildings/tailor_shop.tscn.",
+      "notas": "Derivado (tools/art/oficios_h12.py): la ropería de Guild Renew (ya lleva ropa tendida y cartel «TAILOR», en inglés) subida a escala B. Pendiente de PixelLab (cartel sin texto). En game/visuals/buildings/tailor_shop.tscn. Candidata fal (2026-11-03): assets/art/buildings/fal/tailor_shop.png (mismo lienzo y ancla; entrada bld_tailor_shop_fal).",
       "coste_gen": 0
     },
     {
@@ -2134,114 +2140,122 @@
     {
       "id": "icon_chest",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "chest"
       ],
       "ruta": "assets/art/icons/chest.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/chest.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_cabinet",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "cabinet"
       ],
       "ruta": "assets/art/icons/cabinet.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/cabinet.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_cart_wheel",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "cart_wheel"
       ],
       "ruta": "assets/art/icons/cart_wheel.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/cart_wheel.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_ashlar",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "ashlar"
       ],
       "ruta": "assets/art/icons/ashlar.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/ashlar.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_grindstone",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "grindstone"
       ],
       "ruta": "assets/art/icons/grindstone.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/grindstone.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_trough",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "trough"
       ],
       "ruta": "assets/art/icons/trough.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/trough.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_millstone",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "millstone"
       ],
       "ruta": "assets/art/icons/millstone.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/millstone.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_statue",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "statue"
       ],
       "ruta": "assets/art/icons/statue.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/statue.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_fine_clothes",
@@ -2286,6 +2300,2915 @@
       "origen_previo": null,
       "coste_gen": 0,
       "notas": "Ilustraciones de evento (guerra y fiesta, 240×135 y 192×108) y 4 retratos 64 del piloto de fal, para la carta de evento y la galería mientras las de producción (assets/art/illustrations/, portraits/) no estén en main. VisualPaths.illustration busca primero assets/art/illustrations/events/<id>.png. Se borran al llegar las de producción."
+    },
+    {
+      "id": "portrait_artisan_adult_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/artisan_adult_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla grid_nano2_v1 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Artesano, adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_artisan_adult_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/artisan_adult_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla grid_nano2_v1 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Artesano, adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_artisan_child_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/artisan_child_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g01 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Artesano, niño (0-7), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_artisan_child_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/artisan_child_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g01 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Artesano, niño (0-7), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_artisan_elder_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/artisan_elder_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g02 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Artesano, anciano (55+), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_artisan_elder_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/artisan_elder_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g02 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Artesano, anciano (55+), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_artisan_mature_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/artisan_mature_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g02 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Artesano, maduro (45-54), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_artisan_mature_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/artisan_mature_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g01 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Artesano, maduro (45-54), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_artisan_youth_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/artisan_youth_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla grid2_nano2_v1 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Artesano, escuela y aprendiz (8-15), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_artisan_youth_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/artisan_youth_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g01 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Artesano, escuela y aprendiz (8-15), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_captain",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H3",
+        "encargos"
+      ],
+      "ruta": "assets/art/portraits/captain.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g14 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cargo o personaje único, con su ropa propia (solo se marcan pelo y piel). Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_constable",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "cargos"
+      ],
+      "ruta": "assets/art/portraits/constable.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g17 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cargo o personaje único, con su ropa propia (solo se marcan pelo y piel). Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_councillor",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "cargos"
+      ],
+      "ruta": "assets/art/portraits/councillor.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g18 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cargo o personaje único, con su ropa propia (solo se marcan pelo y piel). Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_dignitary",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/portraits/dignitary.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g18 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cargo o personaje único, con su ropa propia (solo se marcan pelo y piel). Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_foreigner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "forasteros"
+      ],
+      "ruta": "assets/art/portraits/foreigner.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g14 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cargo o personaje único, con su ropa propia (solo se marcan pelo y piel). Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_judge",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H11",
+        "tribunal"
+      ],
+      "ruta": "assets/art/portraits/judge.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g17 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cargo o personaje único, con su ropa propia (solo se marcan pelo y piel). Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_market_inspector",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "cargos"
+      ],
+      "ruta": "assets/art/portraits/market_inspector.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g18 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cargo o personaje único, con su ropa propia (solo se marcan pelo y piel). Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_mayor",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "cargos"
+      ],
+      "ruta": "assets/art/portraits/mayor.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g17 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cargo o personaje único, con su ropa propia (solo se marcan pelo y piel). Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_patron_adult_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/patron_adult_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g04 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Patrón (4.22), adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_patron_adult_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/patron_adult_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g04 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Patrón (4.22), adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_patron_child_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/patron_child_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g03 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Patrón (4.22), niño (0-7), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_patron_child_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/patron_child_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g03 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Patrón (4.22), niño (0-7), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_patron_elder_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/patron_elder_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g05 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Patrón (4.22), anciano (55+), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_patron_elder_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/patron_elder_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g05 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Patrón (4.22), anciano (55+), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_patron_mature_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/patron_mature_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g04 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Patrón (4.22), maduro (45-54), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_patron_mature_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/patron_mature_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g04 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Patrón (4.22), maduro (45-54), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_patron_youth_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/patron_youth_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g03 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Patrón (4.22), escuela y aprendiz (8-15), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_patron_youth_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/patron_youth_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g03 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Patrón (4.22), escuela y aprendiz (8-15), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_priest",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia"
+      ],
+      "ruta": "assets/art/portraits/priest.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g17 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cargo o personaje único, con su ropa propia (solo se marcan pelo y piel). Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rival_adult_f_1",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "rivales"
+      ],
+      "ruta": "assets/art/portraits/rival_adult_f_1.png",
+      "origen": "fal: nano-banana-2/edit, rejilla grid2_nano2_v1 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cabeza o pareja de una familia rival (4.21), adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rival_adult_f_2",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "rivales"
+      ],
+      "ruta": "assets/art/portraits/rival_adult_f_2.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g15 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cabeza o pareja de una familia rival (4.21), adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rival_adult_f_3",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "rivales"
+      ],
+      "ruta": "assets/art/portraits/rival_adult_f_3.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g15 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cabeza o pareja de una familia rival (4.21), adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rival_adult_f_4",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "rivales"
+      ],
+      "ruta": "assets/art/portraits/rival_adult_f_4.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g16 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cabeza o pareja de una familia rival (4.21), adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rival_adult_f_5",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "rivales"
+      ],
+      "ruta": "assets/art/portraits/rival_adult_f_5.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g16 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cabeza o pareja de una familia rival (4.21), adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rival_adult_m_1",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "rivales"
+      ],
+      "ruta": "assets/art/portraits/rival_adult_m_1.png",
+      "origen": "fal: nano-banana-2/edit, rejilla grid_nano2_v1 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cabeza o pareja de una familia rival (4.21), adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rival_adult_m_2",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "rivales"
+      ],
+      "ruta": "assets/art/portraits/rival_adult_m_2.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g15 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cabeza o pareja de una familia rival (4.21), adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rival_adult_m_3",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "rivales"
+      ],
+      "ruta": "assets/art/portraits/rival_adult_m_3.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g15 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cabeza o pareja de una familia rival (4.21), adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rival_adult_m_4",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "rivales"
+      ],
+      "ruta": "assets/art/portraits/rival_adult_m_4.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g16 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cabeza o pareja de una familia rival (4.21), adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rival_adult_m_5",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "rivales"
+      ],
+      "ruta": "assets/art/portraits/rival_adult_m_5.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g16 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cabeza o pareja de una familia rival (4.21), adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rogue_adult_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/rogue_adult_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g09 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Pícaro (4.22), adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rogue_adult_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/rogue_adult_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g09 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Pícaro (4.22), adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rogue_child_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/rogue_child_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g08 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Pícaro (4.22), niño (0-7), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rogue_child_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/rogue_child_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g08 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Pícaro (4.22), niño (0-7), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rogue_elder_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/rogue_elder_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g10 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Pícaro (4.22), anciano (55+), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rogue_elder_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/rogue_elder_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g10 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Pícaro (4.22), anciano (55+), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rogue_mature_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/rogue_mature_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g09 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Pícaro (4.22), maduro (45-54), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rogue_mature_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/rogue_mature_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g09 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Pícaro (4.22), maduro (45-54), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rogue_youth_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/rogue_youth_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g08 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Pícaro (4.22), escuela y aprendiz (8-15), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_rogue_youth_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/rogue_youth_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g08 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Pícaro (4.22), escuela y aprendiz (8-15), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_scholar_adult_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/scholar_adult_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g06 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Erudito (4.22), adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_scholar_adult_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/scholar_adult_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g06 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Erudito (4.22), adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_scholar_child_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/scholar_child_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g05 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Erudito (4.22), niño (0-7), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_scholar_child_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/scholar_child_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g05 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Erudito (4.22), niño (0-7), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_scholar_elder_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/scholar_elder_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g07 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Erudito (4.22), anciano (55+), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_scholar_elder_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/scholar_elder_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g07 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Erudito (4.22), anciano (55+), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_scholar_mature_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/scholar_mature_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g07 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Erudito (4.22), maduro (45-54), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_scholar_mature_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/scholar_mature_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g07 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Erudito (4.22), maduro (45-54), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_scholar_youth_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/scholar_youth_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g06 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Erudito (4.22), escuela y aprendiz (8-15), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_scholar_youth_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familia"
+      ],
+      "ruta": "assets/art/portraits/scholar_youth_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g06 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: familia del jugador · Erudito (4.22), escuela y aprendiz (8-15), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_tax_collector",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "cargos"
+      ],
+      "ruta": "assets/art/portraits/tax_collector.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g18 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: cargo o personaje único, con su ropa propia (solo se marcan pelo y piel). Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_adult_f_1",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_adult_f_1.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g12 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_adult_f_2",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_adult_f_2.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g12 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_adult_m_1",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_adult_m_1.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g12 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_adult_m_2",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_adult_m_2.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g12 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_child_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_child_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g11 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, niño (0-7), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_child_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_child_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g11 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, niño (0-7), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_elder_f_1",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_elder_f_1.png",
+      "origen": "fal: nano-banana-2/edit, rejilla grid2_nano2_v1 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, anciano (55+), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_elder_f_2",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_elder_f_2.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g14 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, anciano (55+), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_elder_m_1",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_elder_m_1.png",
+      "origen": "fal: nano-banana-2/edit, rejilla grid_nano2_v1 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, anciano (55+), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_elder_m_2",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_elder_m_2.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g14 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, anciano (55+), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_mature_f_1",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_mature_f_1.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g13 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, maduro (45-54), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_mature_f_2",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_mature_f_2.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g13 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, maduro (45-54), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_mature_m_1",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_mature_m_1.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g13 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, maduro (45-54), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_mature_m_2",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_mature_m_2.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g13 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, maduro (45-54), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_youth_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_youth_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g11 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, escuela y aprendiz (8-15), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_townsfolk_youth_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos"
+      ],
+      "ruta": "assets/art/portraits/townsfolk_youth_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g11 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: vecino, escuela y aprendiz (8-15), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_worker_adult_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H4",
+        "empleados"
+      ],
+      "ruta": "assets/art/portraits/worker_adult_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g02 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: empleado, adulto (16-44), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_worker_adult_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H4",
+        "empleados"
+      ],
+      "ruta": "assets/art/portraits/worker_adult_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla grid2_nano2_v1 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: empleado, adulto (16-44), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_worker_mature_f",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H4",
+        "empleados"
+      ],
+      "ruta": "assets/art/portraits/worker_mature_f.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g10 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: empleado, maduro (45-54), mujer. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "portrait_worker_mature_m",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H4",
+        "empleados"
+      ],
+      "ruta": "assets/art/portraits/worker_mature_m.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g10 (ref: rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Retrato de tipo de personaje: empleado, maduro (45-54), hombre. Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el marco). 64 = busto (fichas y cartas), <id>_32.png = cara (HUD y árbol). Sin cablear en escenas. Crudo y vista sin codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."
+    },
+    {
+      "id": "illus_event_famine",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/illustrations/event_famine.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Evento global famine (data/events.json). 240×135 (libro y cartas) y <id>_192.png a 192×108 (aviso). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_event_epidemic",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/illustrations/event_epidemic.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Evento global epidemic (data/events.json). 240×135 (libro y cartas) y <id>_192.png a 192×108 (aviso). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_event_good_harvest",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/illustrations/event_good_harvest.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Evento global good_harvest (data/events.json). 240×135 (libro y cartas) y <id>_192.png a 192×108 (aviso). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_event_religious_feast",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/illustrations/event_religious_feast.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Evento global religious_feast (data/events.json). 240×135 (libro y cartas) y <id>_192.png a 192×108 (aviso). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_event_dignitary_visit",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/illustrations/event_dignitary_visit.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Evento global dignitary_visit (data/events.json). 240×135 (libro y cartas) y <id>_192.png a 192×108 (aviso). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_event_riot",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/illustrations/event_riot.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Evento global riot (data/events.json). 240×135 (libro y cartas) y <id>_192.png a 192×108 (aviso). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_event_political_crisis",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/illustrations/event_political_crisis.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Evento global political_crisis (data/events.json). 240×135 (libro y cartas) y <id>_192.png a 192×108 (aviso). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_event_discovery",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/illustrations/event_discovery.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Evento global discovery (data/events.json). 240×135 (libro y cartas) y <id>_192.png a 192×108 (aviso). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_season_spring",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "estaciones"
+      ],
+      "ruta": "assets/art/illustrations/season_spring.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Estación spring (data/seasons.json). 240×135 y <id>_192.png a 192×108. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_season_summer",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "estaciones"
+      ],
+      "ruta": "assets/art/illustrations/season_summer.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Estación summer (data/seasons.json). 240×135 y <id>_192.png a 192×108. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_season_autumn",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "estaciones"
+      ],
+      "ruta": "assets/art/illustrations/season_autumn.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Estación autumn (data/seasons.json). 240×135 y <id>_192.png a 192×108. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_season_winter",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "estaciones"
+      ],
+      "ruta": "assets/art/illustrations/season_winter.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Estación winter (data/seasons.json). 240×135 y <id>_192.png a 192×108. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_wedding",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "boda"
+      ],
+      "ruta": "assets/art/illustrations/card_wedding.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (wedding). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_birth",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/illustrations/card_birth.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (birth). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_death",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/illustrations/card_death.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (death). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_trial",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H11",
+        "tribunal"
+      ],
+      "ruta": "assets/art/illustrations/card_trial.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (trial). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_verdict",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H11",
+        "tribunal"
+      ],
+      "ruta": "assets/art/illustrations/card_verdict.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (verdict). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_election",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "cargos"
+      ],
+      "ruta": "assets/art/illustrations/card_election.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (election). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_title",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H9",
+        "títulos"
+      ],
+      "ruta": "assets/art/illustrations/card_title.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (title). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_screen_loading_1",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "pantallas"
+      ],
+      "ruta": "assets/art/illustrations/screen_loading_1.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de pantalla (loading_1, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_screen_loading_2",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "pantallas"
+      ],
+      "ruta": "assets/art/illustrations/screen_loading_2.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de pantalla (loading_2, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_screen_saves",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "pantallas"
+      ],
+      "ruta": "assets/art/illustrations/screen_saves.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de pantalla (saves, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_screen_ending_victory",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "pantallas"
+      ],
+      "ruta": "assets/art/illustrations/screen_ending_victory.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de pantalla (ending_victory, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_screen_ending_extinction",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "pantallas"
+      ],
+      "ruta": "assets/art/illustrations/screen_ending_extinction.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de pantalla (ending_extinction, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_screen_title_night",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "pantallas"
+      ],
+      "ruta": "assets/art/illustrations/screen_title_night.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de pantalla (title_night, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_event_war",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/illustrations/event_war.png",
+      "origen": "fal: del piloto (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0,
+      "notas": "Evento global war (data/events.json). 240×135 (libro y cartas) y <id>_192.png a 192×108 (aviso). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_event_festival",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H13",
+        "eventos"
+      ],
+      "ruta": "assets/art/illustrations/event_festival.png",
+      "origen": "fal: del piloto (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0,
+      "notas": "Evento global festival (data/events.json). 240×135 (libro y cartas) y <id>_192.png a 192×108 (aviso). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_screen_title_dawn",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "pantallas"
+      ],
+      "ruta": "assets/art/illustrations/screen_title_dawn.png",
+      "origen": "fal: del piloto (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0,
+      "notas": "Fondo de pantalla (title_dawn, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_icon_gavel",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H11",
+        "tribunal"
+      ],
+      "ruta": "assets/art/ui/icons/icon_gavel.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): a judge's wooden gavel lying diagonally on a small round wooden block. 32×32 y assets/art/ui/icons/small/icon_gavel.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_ballot_box",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "elecciones"
+      ],
+      "ruta": "assets/art/ui/icons/icon_ballot_box.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): a wooden ballot box with a slot on the lid and a round wooden token dropping into it. 32×32 y assets/art/ui/icons/small/icon_ballot_box.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_reputation",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H9",
+        "reputación"
+      ],
+      "ruta": "assets/art/ui/icons/icon_reputation.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): a golden laurel wreath around a small bright star. 32×32 y assets/art/ui/icons/small/icon_reputation.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_menu",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "menú"
+      ],
+      "ruta": "assets/art/ui/icons/icon_menu.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): an iron cogwheel with eight teeth and a hole in the middle. 32×32 y assets/art/ui/icons/small/icon_menu.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_save",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "partidas"
+      ],
+      "ruta": "assets/art/ui/icons/icon_save.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): a closed leather-bound ledger with a red wax seal on the cover. 32×32 y assets/art/ui/icons/small/icon_save.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_load",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "partidas"
+      ],
+      "ruta": "assets/art/ui/icons/icon_load.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): an open book with cream pages and a red ribbon bookmark. 32×32 y assets/art/ui/icons/small/icon_load.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_parcels",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H6",
+        "construcción"
+      ],
+      "ruta": "assets/art/ui/icons/icon_parcels.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): a small parchment map showing a square plot of land outlined in red with a tiny red flag on it. 32×32 y assets/art/ui/icons/small/icon_parcels.png (16×16). Sin cablear."
+    },
+    {
+      "id": "bld_armory_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H3",
+        "mercado"
+      ],
+      "ruta": "assets/art/buildings/fal/armory.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio armory, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/armory.png: para usarla, en game/visuals/buildings/armory.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: armory_construction.png, armory_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "bld_forge_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H2",
+        "forge"
+      ],
+      "ruta": "assets/art/buildings/fal/forge.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio forge, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/forge.png: para usarla, en game/visuals/buildings/forge.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: forge_construction.png, forge_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "bld_house_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H4",
+        "empleados"
+      ],
+      "ruta": "assets/art/buildings/fal/house.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio house, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/house.png: para usarla, en game/visuals/buildings/house.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: house_construction.png, house_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "bld_carpentry_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "carpentry"
+      ],
+      "ruta": "assets/art/buildings/fal/carpentry.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio carpentry, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/carpentry.png: para usarla, en game/visuals/buildings/carpentry.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: carpentry_construction.png, carpentry_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "bld_masonry_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "masonry"
+      ],
+      "ruta": "assets/art/buildings/fal/masonry.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio masonry, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/masonry.png: para usarla, en game/visuals/buildings/masonry.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: masonry_construction.png, masonry_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "bld_tailor_shop_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "tailor_shop"
+      ],
+      "ruta": "assets/art/buildings/fal/tailor_shop.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio tailor_shop, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/tailor_shop.png: para usarla, en game/visuals/buildings/tailor_shop.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: tailor_shop_construction.png, tailor_shop_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "portrait_pool_f_adult_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, adult, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, adult, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, adult, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, adult, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_guard",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "guardia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/guard/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, adult, guard), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 10 caras (mujer, adult, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, adult, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, adult, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, adult, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, child, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, child, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, child, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, child, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, child, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, child, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, elder, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, elder, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, elder, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, elder, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, elder, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, elder, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, elder, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, elder, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, mature, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, mature, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, mature, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, mature, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_guard",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "guardia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/guard/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, mature, guard), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, mature, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, mature, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, mature, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, mature, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, youth, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, youth, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, youth, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, youth, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, youth, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, youth, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, youth, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, youth, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, adult, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, adult, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, adult, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, adult, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_guard",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "guardia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/guard/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, adult, guard), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 12 caras (hombre, adult, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, adult, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, adult, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, adult, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, child, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, child, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, child, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, child, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, child, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, child, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, elder, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, elder, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, elder, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, elder, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, elder, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, elder, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, elder, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, elder, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, mature, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, mature, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, mature, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, mature, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_guard",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "guardia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/guard/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, mature, guard), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, mature, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, mature, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, mature, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, mature, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, youth, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_guard",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "guardia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/guard/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, youth, guard), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, youth, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, youth, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
     }
   ]
 }
