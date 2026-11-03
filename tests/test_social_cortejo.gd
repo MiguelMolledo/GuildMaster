@@ -118,10 +118,20 @@ func test_wedding_card_shows_both() -> void:
 	var w: WeddingCard = _scene("res://game/ui/wedding_card.tscn")
 	w.show_for(sim, e, sim.events)
 	check(w.visible, "shown")
-	eq(w.get_node("%LeftSlot").get_child_count() + w.get_node("%RightSlot").get_child_count(), 2, "both portraits")
-	eq(w.get_node("%RibbonLeft").get_child_count() + w.get_node("%RibbonRight").get_child_count(), 2, "both ribbons")
-	check((w.get_node("%Text") as Label).text.contains("se casan"), "¡se casan!")
-	check((w.get_node("%Lines") as Label).text.contains("vuestra casa"), "the consequences")
+	# a «Carta» of the page kit (docs/ui/04_kit_de_pagina.md): the title on the ribbon, the portraits with the
+	# families' colours under the names, the consequences as lines
+	eq(w.find_child("LeftSlot", true, false).get_child_count() + w.find_child("RightSlot", true, false).get_child_count(),
+		2, "both portraits")
+	var bands := 0
+	for side: String in ["Left", "Right"]:
+		bands += 1 if w.find_child(side, true, false).find_child("Ribbon", false, false) != null else 0
+	eq(bands, 2, "both families' colours")
+	check((w.find_child("RibbonText", true, false) as Label).text.contains("se casan"), "¡se casan!")
+	var lines := ""
+	for l: Node in w.find_child("Block2_effects", true, false).get_children():
+		lines += (l as Label).text
+	check(lines.contains("vuestra casa"), "the consequences")
+	check(str(w.parts.get("page", "")) != "", "on the paper of the page kit")
 	w.free()
 	TranslationServer.set_locale(before)
 
