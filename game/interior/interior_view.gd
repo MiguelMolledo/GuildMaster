@@ -116,6 +116,11 @@ func _bind() -> void:
 	(%StaffButton as Button).toggled.connect(func(on: bool) -> void: show_staff(on))
 	(%UpgradesButton as Button).toggled.connect(func(on: bool) -> void: show_upgrades(on))
 	(%ExitButton as Button).pressed.connect(request_exit)
+	production_panel().panel_requested.connect(func(p: String) -> void:
+		if p == "staff":
+			show_staff(true)
+		elif p == "storage":
+			show_storage(true))
 	for p: Control in [storage_panel(), production_panel(), staff_panel(), upgrade_panel()]:
 		ManageSlot.join(p)
 	storage_panel().closed.connect(func() -> void: (%StorageButton as Button).set_pressed_no_signal(false))
@@ -172,6 +177,8 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	for n: String in ["StorageButton", "ProductionButton", "UpgradesButton", "StaffButton"]:
 		(get_node("%" + n) as Button).visible = shop_stall == ""
 	station_menu().order_sink = _give
+	if not station_menu().production_requested.is_connected(show_production):
+		station_menu().production_requested.connect(show_production.bind(true))
 	station_menu().close()
 	storage_panel().order_sink = _give
 	storage_panel().setup(s, bld, actor())
@@ -254,6 +261,8 @@ func _add_station(m: Marker2D) -> void:
 	sv.position = (m.get_parent() as Node2D).position + m.position
 	objects().add_child(sv)
 	_stations[z] = sv
+	sv.productive = sim != null and SimQuery.building_recipes(sim.state, sim.catalog, building).any(func(r: String) -> bool:
+		return str(sim.catalog.recipes()[r].get("zone", "")) == Upgrades.zone_kind(sim, building, z))
 	_station_tiles[z] = Iso.world_to_tile(sv.position)
 	_pending.erase(z)
 
@@ -311,10 +320,70 @@ func refresh_status() -> void:
 				SimQuery.zone_name(str(z))])
 	if parts.is_empty():
 		parts.append(SimQuery.t_("ui.interior.bar_nobody"))
-	var queued := (SimQuery.queue_view(sim, building).get("entries", []) as Array).size()
-	if queued > 0:
+	var qv := SimQuery.queue_view(sim, building)
+	var queued := (qv.get("entries", []) as Array).size()
+	if str(qv.get("stalled", "")) != "":
+		parts.append(SimQuery.t_("ui.interior.bar_stalled"))
+	elif queued > 0:
 		parts.append(SimQuery.t_("ui.interior.bar_queue") % queued)
 	(%StatusLabel as Label).text = " · ".join(parts)
+	refresh_badges()
+
+
+## The bar's badges (forja_interior.md §4.4): "!" on Production while the queue is stalled, the number of promotions
+## to answer on Staff, a hammer on Upgrades during works. What each says: badges() (for the tests).
+func refresh_badges() -> void:
+	var b := badges()
+	_badge(%ProductionButton as Button, "!" if bool(b.get("production", false)) else "", "negativo")
+	_badge(%StaffButton as Button, str(b.get("staff", 0)) if int(b.get("staff", 0)) > 0 else "", "oro")
+	_badge(%UpgradesButton as Button, "works" if bool(b.get("upgrades", false)) else "", "aviso")
+
+
+func badges() -> Dictionary:
+	if sim == null:
+		return {}
+	var promos := 0
+	for c: Variant in Staff.employees_of(sim.state, building):
+		var job: Variant = sim.state.characters.get(str(c), {}).get("job")
+		if job is Dictionary and bool(job.get("promotion_offered", false)):
+			promos += 1
+	return {"production": str(SimQuery.queue_view(sim, building).get("stalled", "")) != "", "staff": promos,
+		"upgrades": not SimQuery.upgrade_works(sim, building).is_empty()}
+
+
+func _badge(b: Button, text: String, token: String) -> void:
+	var n := b.get_node_or_null("Badge") as PanelContainer
+	if text == "":
+		if n != null:
+			n.visible = false
+		return
+	if n == null:
+		n = PanelContainer.new()
+		n.name = "Badge"
+		n.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var sb := StyleBoxFlat.new()
+		sb.content_margin_left = 2
+		sb.content_margin_right = 2
+		n.add_theme_stylebox_override("panel", sb)
+		var l := Label.new()
+		l.name = "Text"
+		l.theme_type_variation = &"SmallLabel"
+		l.add_theme_color_override("font_color", Color.html("#1a1209"))
+		n.add_child(l)
+		var t := TextureRect.new()
+		t.name = "Icon"
+		t.texture = UiIcons.ui("icon_build_mode")
+		t.custom_minimum_size = Vector2(10, 10)
+		t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		n.add_child(t)
+		b.add_child(n)
+		n.position = Vector2(b.size.x - 9, -5) if b.size.x > 0 else Vector2(80, -5)
+	n.visible = true
+	(n.get_theme_stylebox("panel") as StyleBoxFlat).bg_color = Color.html(StationMenu._token(token))
+	(n.get_node("Text") as Label).text = text if text != "works" else ""
+	(n.get_node("Text") as Label).visible = text != "works"
+	(n.get_node("Icon") as Control).visible = text == "works"
 
 
 func station_view(zone: String) -> StationView:
@@ -423,9 +492,53 @@ func sync() -> void:
 		refresh_works()
 		refresh_status()
 	var zones: Dictionary = st.buildings.get(building, {}).get("zones", {})
+	var night := Clock.phase(int(st.clock["minute"]), sim.catalog.time) == "night"
 	for z: String in _stations:
-		(_stations[z] as StationView).show_job(SimQuery.job_view(sim, building, z),
-			str(zones.get(z, {}).get("occupant", "")) != "")
+		var sv := _stations[z] as StationView
+		if sv.night != night:
+			sv.night = night
+			sv.queue_redraw()
+		sv.show_job(SimQuery.job_view(sim, building, z), str(zones.get(z, {}).get("occupant", "")) != "")
+	_refresh_marks()
+
+
+var _marks_sig: String = ""
+
+
+## Active pause (forja_interior.md §4.3): the orders of the selected person still waiting, numbered in gold over the
+## station each one goes to (①②③); they go as the orders are done; an order given without pause replaces them.
+func _refresh_marks() -> void:
+	var targets := queued_targets()
+	var sig := str(targets)
+	if sig == _marks_sig:
+		return
+	_marks_sig = sig
+	for z: String in _stations:
+		(_stations[z] as StationView).marks = []
+	for i: int in targets.size():
+		var sv := station_view(str(targets[i]))
+		if sv != null:
+			sv.marks.append(i + 1)
+	for z: String in _stations:
+		(_stations[z] as StationView).queue_redraw()
+
+
+## The stations of the selected person's waiting orders, in order (the state's order_queue, then the orders given
+## in this pause): "" for an order without a station.
+func queued_targets() -> Array:
+	var out: Array = []
+	var who := actor()
+	if who == "" or sim == null:
+		return out
+	var orders: Array = (sim.state.characters[who].get("order_queue", []) as Array).duplicate()
+	var game := get_node_or_null("/root/Game") if is_inside_tree() else null
+	if game != null and bool(game.get("paused")):
+		for o: Dictionary in game.call("pending"):
+			if str(o.get("actor", "")) == who:
+				orders.append(o)
+	for o: Dictionary in orders:
+		out.append(str(o.get("zone", "")))
+	return out
 
 
 # --- picking ---------------------------------------------------------------------------------------------------------
@@ -569,9 +682,24 @@ func open_station_menu(zone: String, screen: Vector2) -> void:
 	if shop_stall != "":
 		open_shop()
 		return
+	station_menu().open_for(sim, actor(), building, zone, screen + Vector2(6, 6))
+	station_menu().position = menu_position(screen, station_menu().get_combined_minimum_size())
+
+
+## Where the station menu goes: by the cursor, kept inside the free view (and over zone 5 only while no management
+## panel is open there), never over the building's bar (forja_interior.md §10).
+func menu_position(screen: Vector2, size: Vector2) -> Vector2:
 	var vp := viewport_size()
-	var at := Vector2(minf(screen.x + 6.0, vp.x - 180.0), minf(screen.y + 6.0, vp.y - 160.0))
-	station_menu().open_for(sim, actor(), building, zone, at)
+	var free := HudLayout.view_rect(vp)
+	var open := false
+	for p: Control in [storage_panel(), production_panel(), staff_panel(), upgrade_panel()]:
+		open = open or p.visible
+	if not open:
+		free.end.x = (HudLayout.zones(vp)["manage"] as Rect2).end.x
+	var at := screen + Vector2(6, 6)
+	at.x = clampf(at.x, free.position.x, maxf(free.position.x, free.end.x - size.x))
+	at.y = clampf(at.y, free.position.y, maxf(free.position.y, free.end.y - size.y))
+	return at.round()
 
 
 ## The shop's counter: the market panel for the person inside (nobody of the family inside: nothing to do).

@@ -332,6 +332,15 @@ static func employee_cycle_minutes(sim: Sim, actor: String, recipe: Dictionary, 
 	return maxi(1, roundi(float(recipe.get("duration_hours", 1.0)) * 60.0 * mult / speed))
 
 
+## The cycle length an employee of `rank` would take at `bld_id` (employee_cycle_minutes for somebody of that rank),
+## for the UI (the production panel's Recipes tab). Read only.
+static func rank_cycle_minutes(sim: Sim, bld_id: String, recipe: Dictionary, mode: String, rank: String) -> int:
+	var mult := float(sim.catalog.production.get("modes", {}).get(mode, {}).get("duration_mult", 1.0))
+	var speed := maxf(float(sim.catalog.rank(rank).get("speed", 1.0)), 0.01)
+	speed *= maxf(Upgrades.mult(sim, bld_id, "production_speed"), 0.01)
+	return maxi(1, roundi(float(recipe.get("duration_hours", 1.0)) * 60.0 * mult / speed))
+
+
 ## Units a finished cycle of `recipe` gives: the recipe's output qty; H4, for an employee of `bld_id`,
 ## max(1, round(qty × Staff.efficiency)) (GDD 4.7.2: always at least 1 unit per cycle).
 static func output_units(sim: Sim, actor: String, bld_id: String, recipe: Dictionary) -> int:
@@ -405,7 +414,9 @@ static func has_right_tool(sim: Sim, actor: String, building_type: String) -> bo
 
 # --- Queries (UI) ----------------------------------------------------------------------------------------------------
 
-## The recipes of a station for an actor: [{recipe, status: "ok" | "locked" | "missing_inputs" | "no_room"}], by id.
+## The recipes of a station for an actor: [{recipe, status: "ok" | "locked" | "missing_inputs" | "no_room", reason
+## ("" | skill_too_low | needs_upgrade | missing_inputs | storage_full), stock {input item: units in the storage, with
+## what a running job of the actor there would give back}}], by id. Read only (the station menu shows have/need).
 static func recipe_options(sim: Sim, actor: String, building: String, zone: String) -> Array:
 	var st := sim.state
 	if not st.buildings.has(building) or not st.characters.has(actor):
@@ -420,19 +431,25 @@ static func recipe_options(sim: Sim, actor: String, building: String, zone: Stri
 		if str(r.get("building", "")) != str(bld.get("type", "")) or str(r.get("zone", "")) != kind:
 			continue
 		var status := "ok"
-		if _lock_reason(sim, ch, bld, r) != "":
+		var reason := _lock_reason(sim, ch, bld, r)
+		if reason != "":
 			status = "locked"
 		else:
-			match _stock_reason(sim.catalog, inv, r):
+			reason = _stock_reason(sim.catalog, inv, r)
+			match reason:
 				"missing_inputs":
 					status = "missing_inputs"
 				"storage_full":
 					status = "no_room"
-		out.append({"recipe": rid, "status": status})
+		var stock := {}
+		for inp: Dictionary in r.get("inputs", []):
+			stock[str(inp["item"])] = Inventory.count(inv, str(inp["item"]))
+		out.append({"recipe": rid, "status": status, "reason": reason, "stock": stock})
 	return out
 
 
-## The job at a station for the UI: {} or {actor, recipe, mode, progress 0..1, window_open, touched, blocked}.
+## The job at a station for the UI: {} or {actor, recipe, mode, progress 0..1, window_open, touched, blocked,
+## window_from / window_to: the master-touch window as fractions 0..1 of the cycle (-1 without one)}.
 static func job_view(sim: Sim, building: String, zone: String) -> Dictionary:
 	var job: Variant = sim.state.buildings.get(building, {}).get("zones", {}).get(zone, {}).get("job")
 	if not job is Dictionary:
@@ -442,7 +459,31 @@ static func job_view(sim: Sim, building: String, zone: String) -> Dictionary:
 	return {"actor": str(job["actor"]), "recipe": str(job["recipe"]), "mode": str(job["mode"]),
 		"progress": clampf(float(now - int(job["start"])) / span, 0.0, 1.0),
 		"window_open": window_open(job, now) and not job.get("result") is Dictionary,
-		"touched": bool(job.get("touched", false)), "blocked": bool(job.get("blocked", false))}
+		"touched": bool(job.get("touched", false)), "blocked": bool(job.get("blocked", false)),
+		"window_from": _window_frac(job, 0, span), "window_to": _window_frac(job, 1, span)}
+
+
+static func _window_frac(job: Dictionary, i: int, span: int) -> float:
+	var w: Variant = job.get("window")
+	if not w is Array:
+		return -1.0
+	return clampf(float(int(w[i]) - int(job["start"])) / float(span), 0.0, 1.0)
+
+
+## What a piece made by `actor` at `bld_id` in `mode` may come out like (GDD 4.4.2, 4.4.5), for the UI: {chances
+## [normal, good, excellent] in %, craft (the one the table is read with, as roll_quality), tool (the right tool is
+## equipped), tool_chance and touch_chance (the extra step-up chances), touch (the mode has a master touch)}.
+static func quality_view(sim: Sim, actor: String, bld_id: String, mode: String) -> Dictionary:
+	var prod := sim.catalog.production
+	var ch: Dictionary = sim.state.characters.get(actor, {})
+	var btype := str(sim.state.buildings.get(bld_id, {}).get("type", ""))
+	var bonus := roundi(Upgrades.amount(sim, bld_id, "quality_bonus")) if bld_id != "" else 0
+	var m: Dictionary = _modes(sim).get(mode, {})
+	var craft := clampi(int(ch.get("stats", {}).get("craft", 1)) + int(m.get("craft_delta", 0)) + bonus, 1, 10)
+	return {"chances": quality_chances(prod, craft), "craft": craft, "tool": has_right_tool(sim, actor, btype),
+		"tool_chance": float(prod.get("tool_step_up_chance", 0.0)), "touch": bool(m.get("master_touch", false)),
+		"touch_chance": float(prod.get("master_touch", {}).get("step_up_chance", 0.0)),
+		"minutes_mult": float(m.get("duration_mult", 1.0))}
 
 
 ## The station where `actor` has a running job in `bld_id` ("" if none).
