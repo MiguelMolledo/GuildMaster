@@ -79,8 +79,7 @@ unique_name_in_owner = true
 
 [node name="TitleName" type="Label" parent="VBox"]
 layout_mode = 2
-theme_type_variation = &"GothicTitle"
-theme_override_colors/font_color = Color(0.94902, 0.847059, 0.501961, 1)
+theme_type_variation = &"GothicGoldTitle"
 text = "--"
 horizontal_alignment = 1
 unique_name_in_owner = true

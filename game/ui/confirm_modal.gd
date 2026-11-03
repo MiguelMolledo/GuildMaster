@@ -66,10 +66,11 @@ func ask(spec: Dictionary, on_confirm: Callable = Callable()) -> void:
 		_answer(false)   # a new question replaces the old one
 	_on_confirm = on_confirm
 	(%Title as Label).text = str(spec.get("title", ""))
-	(%Body as Label).text = str(spec.get("body", ""))
-	(%Body as Label).visible = str(spec.get("body", "")) != ""
+	var body := strip_irreversible(str(spec.get("body", "")))
+	(%Body as Label).text = body
+	(%Body as Label).visible = body != ""
 	(%Warn as Label).text = tr("ui.confirm.irreversible")
-	(%Warn as Label).visible = bool(spec.get("irreversible", false))
+	(%Warn as Label).visible = bool(spec.get("irreversible", false)) or body != str(spec.get("body", "")).strip_edges()
 	var reason := str(spec.get("reason", ""))
 	(%Reason as Label).text = reason
 	(%Reason as Label).visible = reason != ""
@@ -84,9 +85,38 @@ func ask(spec: Dictionary, on_confirm: Callable = Callable()) -> void:
 	(%CancelButton as Button).text = str(spec.get("cancel", "")) if str(spec.get("cancel", "")) != "" else tr("ui.confirm.cancel")
 	MenuKit.add_hint(%CancelButton as Button, tr("ui.confirm.key_cancel"))
 	MenuKit.add_hint(ok, tr("ui.confirm.key_ok"))
+	fit_button(%CancelButton as Button)
+	fit_button(ok)
 	visible = true
 	_fit()
 	ViewConfig.info("Confirm", "ask (title=%s, seal=%s, reason=%s)" % [spec.get("title", ""), seal, reason])
+
+
+## «No se puede deshacer» once: if the caller wrote it in the body, it is taken out (the warning line says it).
+static func strip_irreversible(body: String) -> String:
+	var out := body
+	for k: String in ["ui.confirm.irreversible", "ui.menu.cannot_undo"]:
+		var t := TranslationServer.translate(k)
+		if t != k and t != "":
+			out = out.replace(t, "")
+	return out.strip_edges()
+
+
+## The button grows so that its key hint («Intro», «Esc») never sits over its text: text + hint + margins.
+static func fit_button(b: Button) -> void:
+	var font := b.get_theme_font("font")
+	var size := b.get_theme_font_size("font_size")
+	var hint := b.get_node_or_null("Hint") as Label
+	var text_w := font.get_string_size(b.text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x if font != null else 0.0
+	var hint_w := 0.0
+	if hint != null:
+		var hf := hint.get_theme_font("font")
+		hint_w = hf.get_string_size(hint.text, HORIZONTAL_ALIGNMENT_LEFT, -1, hint.get_theme_font_size("font_size")).x \
+			if hf != null else 0.0
+	var need := ceilf(text_w + 2.0 * (hint_w + 6.0)) + 4.0   # the text stays centred: the hint's room on both sides
+	b.custom_minimum_size.x = maxf(112.0, need)
+	b.set_meta("fit_text_w", text_w)
+	b.set_meta("fit_hint_w", hint_w)
 
 
 ## The box grows with its text up to 400×160 (01 §5, _comun.md).
