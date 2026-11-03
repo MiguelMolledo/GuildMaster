@@ -23,3 +23,21 @@ Plan: Tier 1, 2.000 generaciones/mes, se renueva el 15 de cada mes.
 | 2026-11-02 | Kit de UI: pestañas, marcos de retrato y fuentes pixel libres (Pixel Operator CC0, Jacquarda Bastarda 9, Tiny5 y VT323 OFL) | Pillow (`tools/art/dibujar_ui.py`), fuentes descargadas de sus repos con su licencia al lado; `tools/ui/glifos_extra.py` añade → ← ↑ ↓ − a Pixel Operator | 5 piezas 9-patch, 4 fuentes | — | — | 0 (sin créditos) |
 | 2026-11-02 | Kit de UI (2): pergamino, casilla, deslizador, scroll, separador, insignias de título y cargo, galones, sello de lacre y cursores | Pillow (`tools/art/dibujar_ui.py`) | 8 piezas, 17 marcas, 3 cursores | — | — | 0 (sin créditos) |
 | 2026-11-02 | Logotipo «GuildMaster» y fuente Jacquard 24 (OFL) | Pillow (`tools/ui/logo.py`) | 1 logotipo, 1 fuente | — | — | 0 (sin créditos) |
+| 2026-11-03 | H12 · oficios del Artesano (carpintero, albañil, sastre): fachadas derivadas, interiores, puestos, mejoras, iconos, 2 puestos de mercado | Pillow (`tools/art/oficios_h12.py`) + sprites del repo `guild` (solo lectura) | 3 fachadas, 3 kits de interior, 6 puestos, 18 visuales de mejora, 11 iconos (+16 px), 2 puestos de plaza; todo placeholder o derivado (`assets/inventario.json`, `para` H12) | — | — | 0 (sin créditos) |
+
+## Lista de la compra · PixelLab (a partir del 15-nov)
+
+Lo que H12 deja como placeholder (dibujado o derivado sin créditos). Por orden de prioridad; estilo y paso a paso en
+`docs/protocolos/generar-arte-pixellab.md` y `pixellab-pip-style.json`. Ids y rutas, las del inventario.
+
+| # | Asset | Id del inventario | Qué pedir | Por qué |
+|---|---|---|---|---|
+| 1 | Fachada de la carpintería (3×4) | `bld_carpentry` | Taller de madera con portalón, cartel de sierra sin texto, banco de carpintero y tablas en el patio, escala B | El granero de Guild Renew es demasiado ancho para la huella |
+| 2 | Fachada de la cantería (3×4) | `bld_masonry` | Taller de piedra con cobertizo abierto, bloques y una grúa de mano, cartel sin texto | Hoy es una casa de relleno recoloreada: se confunde con las de los vecinos |
+| 3 | Fachada de la sastrería (3×3) | `bld_tailor_shop` | La ropería de Guild Renew sin el cartel «TAILOR» (texto en inglés), con telar a la vista | El cartel en inglés |
+| 4 | Puestos del oficio (6) | `int_carpentry`, `int_masonry`, `int_tailor_shop` | Caballete de serrar, banco de carpintero, banco de corte, banco de tallar, telar y mesa de costura; 80×72, base en (40, 56) | Cajas iso dibujadas |
+| 5 | Kits de interior (3) | `int_*` | Suelo de tablas (carpintería), losas de cantera (cantería), tarima con alfombra (sastrería); paredes a juego | Hoy, el kit de la forja recoloreado (casi igual en los tres) |
+| 6 | Mejoras de Producción y Calidad (18) | `int_*` | Una variante del puesto por nivel (sierra de bastidor, grúa, telar de pedal…), ver `game/visuals/interiors/<edificio>.tscn` Upgrades | Mesa + icono encima |
+| 7 | Iconos de objetos (10) | `icon_chest` … `icon_statue`, `icon_saw` | 32×32 como los de la forja: arcón, armario, rueda de carro, sillar, piedra de afilar, abrevadero, muela, estatua, sierra | Dibujados a mano en Pillow |
+| 8 | Puestos de la plaza (2) | `bld_stall_clothier`, `bld_stall_goods` | Puesto de ropería y puesto de enseres (muebles, barriles, piedra labrada), 64×64 | El de materiales recoloreado (todo, suelo incluido) |
+| 9 | Animación de trabajo por oficio | `chr_artisan_m/f` (`work`) | Serrar, picar piedra, coser/tejer (hoy todos usan `work`) | Opcional: la forja tiene `forge` |

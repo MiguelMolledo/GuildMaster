@@ -86,7 +86,7 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 		var rchr := _add_character(s, catalog, rfam, str(rc.get("name", "")), bool(rc.get("female", false)), "ai",
 			rstats, rsite["door"], float(pr.get("carry_weight", 30.0)), {})
 		_set_kin(s, catalog, rchr, int(rc.get("age", 30)), str(start.get("class", "artisan")),
-			str(start.get("profession", "")), rc.get("visual", {}))
+			str(rv.get("profession", start.get("profession", ""))), rc.get("visual", {}))
 		var rbld := _add_building(s, catalog, sites, str(rb["site"]), rfam, rb.get("inventory", []))
 		s.characters[rchr]["location"] = rbld
 	# The public buildings of the map (owner "" in the map), sorted by site.
@@ -100,6 +100,10 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	# H10: the procedural government (GDD 4.12.3): household titles and the offices handed out.
 	if Offices.has_town_hall(s, catalog) and not catalog.offices().is_empty():
 		Offices.setup(s, catalog)
+	# H12: the competitor workshops of the other trades (GDD 4.5.5 style): after everything else, so the ids of the
+	# families, characters and buildings of before do not move.
+	for cp: Dictionary in start.get("competitors", []):
+		_add_competitor(s, catalog, sites, start, cp, float(pr.get("carry_weight", 30.0)), levers)
 	# The loan that paid the forge (no gold comes in), due at the end of day start.day + term_days - 1.
 	var ln: Dictionary = start.get("loan", {})
 	var debt := int(levers.get("start_debt", 0))
@@ -126,6 +130,44 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 
 
 ## The validated choices with the defaults filled in, or {} if something is wrong.
+## H12: one competitor of a start ("competitors"): an AI family with its ai_profile (RivalAI plays it like the rival
+## smith), its artisan of the given profession and its workshop on its map site with its stock. Its craft comes from
+## the difficulty like the rival smith's (GDD 4.23).
+static func _add_competitor(s: WorldState, catalog: Catalog, sites: Dictionary, start: Dictionary, cp: Dictionary,
+		carry: float, levers: Dictionary) -> void:
+	var cc: Dictionary = cp["character"]
+	var stats: Dictionary = (cc.get("stats", {}) as Dictionary).duplicate()
+	if levers.has("rival_craft"):
+		stats["craft"] = int(levers["rival_craft"])
+	var fam := _add_family(s, str(cp.get("family_name", "")), "ai", cp.get("colors", {}), int(cp.get("gold", 0)), 0,
+		str(cp.get("profile", "")))
+	var att: Dictionary = catalog.ai_profiles().get(str(cp.get("profile", "")), {}).get("initial_attitudes", {})
+	for k: String in att:
+		s.families[fam]["attitudes"][k] = int(att[k])
+	var cb: Dictionary = cp["building"]
+	var site: Dictionary = sites[str(cb["site"])]
+	var chr := _add_character(s, catalog, fam, str(cc.get("name", "")), bool(cc.get("female", false)), "ai",
+		stats, site["door"], carry, {})
+	_set_kin(s, catalog, chr, int(cc.get("age", 30)), str(start.get("class", "artisan")), str(cp.get("profession", "")),
+		cc.get("visual", {}))
+	var bld := _add_building(s, catalog, sites, str(cb["site"]), fam, cb.get("inventory", []))
+	s.characters[chr]["location"] = bld
+	var sp: Dictionary = cp.get("spouse", {})
+	if not sp.is_empty():  # married from the start: a married head does not court (FamilyAI)
+		var mate := _add_character(s, catalog, fam, str(sp.get("name", "")), bool(sp.get("female", false)), "ai",
+			sp.get("stats", cc.get("stats", {})), site["door"], carry, {})
+		_set_kin(s, catalog, mate, int(sp.get("age", 30)), str(start.get("class", "artisan")), "", sp.get("visual", {}))
+		s.characters[mate]["location"] = bld
+		s.characters[chr]["spouse"] = mate
+		s.characters[mate]["spouse"] = chr
+		var wife: Dictionary = s.characters[mate] if bool(sp.get("female", false)) else s.characters[chr]
+		if not wife.get("life") is Dictionary:
+			wife["life"] = {}
+		wife["life"]["wedding_day"] = Clock.day(int(s.clock["minute"])) - int(catalog.time.get("days_per_season", 2)) * 4
+	if OS.is_debug_build():
+		print("[NewGame] competidor %s (%s, %s) en %s" % [fam, cp.get("family_name", ""), cp.get("profession", ""), bld])
+
+
 static func _choices(start: Dictionary, choices: Dictionary) -> Dictionary:
 	var d: Dictionary = start.get("defaults", {})
 	var pr: Dictionary = start.get("protagonist", {})

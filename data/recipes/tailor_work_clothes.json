@@ -1,0 +1,22 @@
+{
+  "id": "tailor_work_clothes",
+  "name_key": "recipe.tailor_work_clothes",
+  "building": "tailor_shop",
+  "zone": "sewing_table",
+  "inputs": [
+    {
+      "item": "cloth",
+      "qty": 1
+    },
+    {
+      "item": "wool",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "work_clothes",
+    "qty": 1
+  },
+  "duration_hours": 3.9,
+  "min_craft": 2
+}

@@ -1,0 +1,22 @@
+{
+  "id": "masonry_millstone",
+  "name_key": "recipe.masonry_millstone",
+  "building": "masonry",
+  "zone": "carving_bench",
+  "inputs": [
+    {
+      "item": "ashlar",
+      "qty": 4
+    },
+    {
+      "item": "stone",
+      "qty": 2
+    }
+  ],
+  "output": {
+    "item": "millstone",
+    "qty": 1
+  },
+  "duration_hours": 6.5,
+  "min_craft": 6
+}

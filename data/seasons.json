@@ -3,14 +3,14 @@
   "goods": {
     "food": ["wheat", "flour", "bread", "prepared_meal"],
     "farming": ["wheat"],
-    "textiles": ["wool", "cloth", "common_clothes", "work_clothes", "travel_cloak"],
+    "textiles": ["wool", "cloth", "common_clothes", "work_clothes", "travel_cloak", "fine_clothes"],
     "wood": ["wood", "planks"],
-    "construction": ["stone", "planks"],
+    "construction": ["stone", "planks", "ashlar"],
     "medicine": ["herbs", "bandages"],
     "weapons": ["sword"],
-    "luxury": []
+    "luxury": ["fine_clothes", "statue"]
   },
-  "_goods_doc": "luxury está vacío: aún no hay objetos de lujo (la guerra lo baja, GDD 4.13). farming = la producción agrícola de la hambruna (aún no hay recetas agrícolas: el efecto existe y no toca a la forja).",
+  "_goods_doc": "luxury: la ropa fina y la estatua de H12 (la guerra lo baja, GDD 4.13). farming = la producción agrícola de la hambruna (aún no hay recetas agrícolas: el efecto existe y no toca a la forja).",
   "price": {
     "spring": {"food": 0.8},
     "summer": {"food": 0.7, "textiles": 0.9},

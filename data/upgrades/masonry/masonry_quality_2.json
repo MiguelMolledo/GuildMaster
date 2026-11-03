@@ -1,0 +1,32 @@
+{
+  "id": "masonry_quality_2",
+  "name_key": "upgrade.masonry_quality_2",
+  "tree": "masonry",
+  "branch": "quality",
+  "level": 2,
+  "cost": {
+    "gold": 60,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "masonry_quality_1"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "quality_bonus",
+      "amount": 2
+    }
+  ],
+  "visual": {
+    "interior_node": "masonry_templates",
+    "exterior_overlay": null
+  }
+}

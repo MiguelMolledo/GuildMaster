@@ -1,0 +1,10 @@
+{
+  "id": "chest",
+  "name_key": "item.chest",
+  "gender": "m",
+  "category": "product",
+  "weight": 8.0,
+  "max_stack": 20,
+  "base_price": 65,
+  "market_stall": "goods"
+}

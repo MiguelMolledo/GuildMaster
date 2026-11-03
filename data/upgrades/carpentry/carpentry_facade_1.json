@@ -1,0 +1,36 @@
+{
+  "id": "carpentry_facade_1",
+  "name_key": "upgrade.carpentry_facade_1",
+  "tree": "carpentry",
+  "branch": "facade",
+  "level": 1,
+  "cost": {
+    "gold": 75,
+    "items": [
+      {
+        "item": "stone",
+        "qty": 10
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "reputation",
+      "amount": 10
+    },
+    {
+      "kind": "loyalty_bonus",
+      "amount": 5
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": "upgrade_stone_facade"
+  }
+}

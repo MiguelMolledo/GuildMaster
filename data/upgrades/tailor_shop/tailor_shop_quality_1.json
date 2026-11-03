@@ -1,0 +1,32 @@
+{
+  "id": "tailor_shop_quality_1",
+  "name_key": "upgrade.tailor_shop_quality_1",
+  "tree": "tailor_shop",
+  "branch": "quality",
+  "level": 1,
+  "cost": {
+    "gold": 25,
+    "items": [
+      {
+        "item": "wool",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "quality_bonus",
+      "amount": 1
+    }
+  ],
+  "visual": {
+    "interior_node": "tailor_shears",
+    "exterior_overlay": null
+  }
+}

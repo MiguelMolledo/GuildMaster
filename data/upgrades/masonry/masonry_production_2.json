@@ -1,0 +1,34 @@
+{
+  "id": "masonry_production_2",
+  "name_key": "upgrade.masonry_production_2",
+  "tree": "masonry",
+  "branch": "production",
+  "level": 2,
+  "cost": {
+    "gold": 40,
+    "items": [
+      {
+        "item": "ashlar",
+        "qty": 5
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "masonry_production_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "production_speed",
+      "mult": 1.4
+    }
+  ],
+  "visual": {
+    "interior_node": "masonry_crane",
+    "exterior_overlay": null
+  }
+}

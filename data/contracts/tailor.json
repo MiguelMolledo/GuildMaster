@@ -1,0 +1,63 @@
+{
+  "id": "tailor",
+  "profession": "tailor",
+  "_doc": "H12: contract table of the tailor, a copy of the blacksmith's (data/contracts/blacksmith.json) [balance].",
+  "clients": [
+    {
+      "id": "steward",
+      "name_key": "client.steward"
+    },
+    {
+      "id": "pilgrim",
+      "name_key": "client.pilgrim"
+    },
+    {
+      "id": "cloth_merchant",
+      "name_key": "client.cloth_merchant"
+    },
+    {
+      "id": "guard_sergeant",
+      "name_key": "client.guard_sergeant"
+    }
+  ],
+  "items": [
+    {
+      "item": "work_clothes",
+      "qty": [
+        1,
+        5
+      ],
+      "min_quality_chance": 0.3
+    },
+    {
+      "item": "travel_cloak",
+      "qty": [
+        1,
+        3
+      ],
+      "min_quality_chance": 0.3
+    },
+    {
+      "item": "common_clothes",
+      "qty": [
+        1,
+        3
+      ],
+      "min_quality_chance": 0.3
+    }
+  ],
+  "min_qualities": [
+    1,
+    2
+  ],
+  "deadline_days": [
+    1,
+    3
+  ],
+  "premium": 0.4,
+  "reward_reputation": 2,
+  "reward_relation": 5,
+  "fail_reputation": -5,
+  "fail_relation": -15,
+  "client_cooldown_days": 8
+}

@@ -1,0 +1,32 @@
+{
+  "id": "carpentry_quality_2",
+  "name_key": "upgrade.carpentry_quality_2",
+  "tree": "carpentry",
+  "branch": "quality",
+  "level": 2,
+  "cost": {
+    "gold": 60,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "carpentry_quality_1"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "quality_bonus",
+      "amount": 2
+    }
+  ],
+  "visual": {
+    "interior_node": "carpentry_gouges",
+    "exterior_overlay": null
+  }
+}

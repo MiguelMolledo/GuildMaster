@@ -1,0 +1,22 @@
+{
+  "id": "carpentry_barrel",
+  "name_key": "recipe.carpentry_barrel",
+  "building": "carpentry",
+  "zone": "workbench",
+  "inputs": [
+    {
+      "item": "planks",
+      "qty": 1
+    },
+    {
+      "item": "iron",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "barrel",
+    "qty": 1
+  },
+  "duration_hours": 2.6,
+  "min_craft": 2
+}

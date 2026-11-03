@@ -9,6 +9,9 @@ extends MenuScreen
 ## reason next to it while the name or the family is missing; Back (Esc) returns to the title.
 ## Start -> NewGame.from_start(catalog, start, difficulty, choices, seed); on success emits `started(state)` (the app
 ## starts the game with it).
+## H12: the trade inside the class (GDD 4.2.1), buttons in the header (data/professions/ of the start's class, in
+## their order); choosing one plays its start (data/professions/<id>.json "start") and, if the name and the family
+## still hold the defaults of the start before, puts the new start's defaults in.
 
 signal started(state: WorldState)
 
@@ -79,6 +82,7 @@ func setup(c: Catalog, seed_value: int) -> void:
 	var start: Dictionary = c.starts().get(start_id, {})
 	(%Title as Label).text = SimQuery.t_("ui.new_game.title")
 	(%StartName as Label).text = SimQuery.t_(str(start.get("name_key", "start." + start_id)))
+	(%ProfessionLabel as Label).text = SimQuery.t_("ui.new_game.profession")
 	(%DifficultyLabel as Label).text = SimQuery.t_("ui.new_game.difficulty")
 	(%NameLabel as Label).text = SimQuery.t_("ui.new_game.name")
 	(%FamilyLabel as Label).text = SimQuery.t_("ui.new_game.family")
@@ -97,6 +101,7 @@ func setup(c: Catalog, seed_value: int) -> void:
 	(%FamilyEdit as LineEdit).text = SimQuery.t_(str(cfg.get("default_family", "")))
 	(%ErrorLabel as Label).visible = false
 	_build_difficulty()
+	_build_professions()
 	_build_colors(%Primary as HBoxContainer, palette, true)
 	_build_colors(%Secondary as HBoxContainer, palette, false)
 	set_female(false)
@@ -131,6 +136,54 @@ func _build_difficulty() -> void:
 		b.pressed.connect(func() -> void: set_difficulty(lvl))
 		box.add_child(b)
 	_update_difficulty_hint()
+
+
+## H12: a toggle per profession of the start's class; the start's own one pressed. Hidden with a single one.
+func _build_professions() -> void:
+	var box := %Profession as HBoxContainer
+	MenuKit.clear(box)
+	var cls := str(catalog.starts().get(start_id, {}).get("class", ""))
+	var ids := catalog.professions_of(cls)
+	var group := ButtonGroup.new()
+	for p: String in ids:
+		var def: Dictionary = catalog.professions()[p]
+		if not catalog.starts().has(str(def.get("start", ""))):
+			continue
+		var b := MenuKit.button(SimQuery.t_(str(def.get("name_key", "profession." + p))))
+		b.name = p.to_pascal_case()
+		b.toggle_mode = true
+		b.button_group = group
+		b.custom_minimum_size = Vector2(0, 18)
+		b.button_pressed = str(def.get("start", "")) == start_id
+		b.pressed.connect(func() -> void: set_profession(p))
+		box.add_child(b)
+	box.visible = box.get_child_count() > 1
+	(%ProfessionLabel as Label).visible = box.visible
+
+
+## H12: plays the start of profession `p` (its data/professions "start"); the name and family that still hold the
+## defaults of the start before take the new one's. The stats chosen stay (every artisan start has the same base).
+func set_profession(p: String) -> void:
+	var def: Dictionary = catalog.professions().get(p, {})
+	var sid := str(def.get("start", ""))
+	if not catalog.starts().has(sid) or sid == start_id:
+		return
+	var before: Dictionary = catalog.starts().get(start_id, {}).get("defaults", {})
+	var after: Dictionary = catalog.starts()[sid].get("defaults", {})
+	var name_edit := %NameEdit as LineEdit
+	var fam_edit := %FamilyEdit as LineEdit
+	if name_edit.text.strip_edges() in [str(before.get("name", "")), SimQuery.t_(str(ViewConfig.value("new_game", {}).get("default_name", "")))]:
+		name_edit.text = str(after.get("name", name_edit.text))
+	if fam_edit.text.strip_edges() in [str(before.get("family_name", "")), SimQuery.t_(str(ViewConfig.value("new_game", {}).get("default_family", "")))]:
+		fam_edit.text = str(after.get("family_name", fam_edit.text))
+	start_id = sid
+	if bool(after.get("female", false)) != female and name_edit.text == str(after.get("name", "")):
+		set_female(bool(after.get("female", false)))
+	(%StartName as Label).text = SimQuery.t_(str(catalog.starts()[sid].get("name_key", "start." + sid)))
+	for b: Node in (%Profession as HBoxContainer).get_children():
+		(b as Button).set_pressed_no_signal(b.name == p.to_pascal_case())
+	ViewConfig.info("NewGame", "oficio %s (start=%s)" % [p, start_id])
+	_update_start()
 
 
 func set_difficulty(lvl: String) -> void:

@@ -1,0 +1,13 @@
+{
+  "id": "stable_grindstones",
+  "name_key": "objective.stable_grindstones",
+  "conditions": [
+    {
+      "event": "contract_delivered",
+      "match": {
+        "script": "stable_grindstones"
+      },
+      "count": 1
+    }
+  ]
+}

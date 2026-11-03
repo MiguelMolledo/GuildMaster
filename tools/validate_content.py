@@ -26,6 +26,10 @@ Comprueba lo que carga el juego en data/ (los ficheros y carpetas que empiezan p
     (opciones, opción por defecto, efectos y condiciones conocidos), data/social_phrases.json, la palanca
     microevent_chance, los puntos sociales y oficios de cada mapa y, en los escenarios v8, oficio, memoria de la
     ciudad, emociones y microeventos;
+  - H12: data/professions/ (clase, taller, herramienta, inicio y tabla de encargos coherentes: lo que pide la tabla
+    lo fabrica el taller), los competidores de cada inicio (perfil, solar del mapa de su tipo, oficio, sin repetir
+    solar) y que el inicio de cada oficio ponga al protagonista en su taller con su herramienta; cada puesto de
+    oficio con su rol de empleado;
   - claves de texto (name_key) en i18n/strings.csv con inglés y español;
   - estructura (tools/validate_structure.py): data/ sin rutas a ficheros, nombres de assets en minúsculas, inventario
     (estado >= sprite con su fichero), una escena en game/visuals/ por edificio, interior con un Marker2D por puesto y
@@ -50,7 +54,7 @@ DATA = os.path.join(ROOT, "data")
 ID_RE = re.compile(r"^[a-z][a-z0-9]*(_[a-z0-9]+)*$")
 KINDS = ["items", "recipes", "buildings"]
 CATEGORY_STACK = {"raw": 99, "material": 50, "product": 20, "tool": 1, "equipment": 1, "consumable": 10, "special": 5}
-STALLS = {"resources", "food", "materials", "armory", "clothier", "apothecary", None}
+STALLS = {"resources", "food", "materials", "armory", "clothier", "apothecary", "goods", None}  # H12: goods (enseres) [provisional]
 SLOTS = {"tool", "clothes", "accessory"}
 PARCEL_TYPES = {"production", "rustic", "housing", "government"}
 DIFFICULTIES = ["easy", "normal", "hard"]
@@ -1422,6 +1426,98 @@ def check_h13(items, strings, rep):
         check_text("i18n/reason", "reason." + k, strings, rep)
 
 
+CLASSES = {"artisan", "patron", "scholar", "rogue"}
+
+
+def check_h12(items, recipes, buildings, maps, strings, rep):
+    """H12 (GDD 4.2.1): data/professions/ y los competidores de data/starts/."""
+    profs = load_kind("professions", rep)
+    starts = load_kind("starts", rep)
+    tables = load_kind("contracts", rep)
+    profiles = load_kind("ai_profiles", rep)
+    emp = load_json(os.path.join(DATA, "employees.json"), rep) or {}
+    roles = emp.get("roles") or {}
+    orders = {}
+    for pid, pf in profs.items():
+        w = f"professions/{pid}"
+        check_text(w, pf.get("name_key"), strings, rep)
+        if pf.get("class") not in CLASSES:
+            rep.error(w, f"clase desconocida {pf.get('class')} (una de {sorted(CLASSES)})")
+        if not isinstance(pf.get("order"), int):
+            rep.error(w, "order debe ser un entero (orden en la pantalla de partida nueva)")
+        elif (pf.get("class"), pf["order"]) in orders:
+            rep.error(w, f"order {pf['order']} repetido en la clase {pf.get('class')} (también {orders[(pf.get('class'), pf['order'])]})")
+        else:
+            orders[(pf.get("class"), pf["order"])] = pid
+        b = buildings.get(pf.get("building"))
+        if b is None:
+            rep.error(w, f"taller desconocido {pf.get('building')}")
+        elif b.get("tool") != pf.get("tool"):
+            rep.error(w, f"tool {pf.get('tool')} distinta de la del edificio ({b.get('tool')})")
+        if (items.get(pf.get("tool")) or {}).get("slot") != "tool":
+            rep.error(w, f"tool {pf.get('tool')}: no es un objeto de la ranura tool")
+        st = starts.get(pf.get("start"))
+        if st is None:
+            rep.error(w, f"inicio desconocido {pf.get('start')}")
+        else:
+            if st.get("profession") != pid or st.get("class") != pf.get("class"):
+                rep.error(w, f"el inicio {pf['start']} es de {st.get('class')}/{st.get('profession')}")
+            if (st.get("building") or {}).get("type") != pf.get("building"):
+                rep.error(w, f"el inicio {pf['start']} no empieza en un {pf.get('building')}")
+            tool = ((st.get("protagonist") or {}).get("equipment") or {}).get("tool") or {}
+            if tool.get("item") != pf.get("tool"):
+                rep.warn(w, f"el inicio {pf['start']} no equipa {pf.get('tool')}")
+        ct = tables.get(pf.get("contracts"))
+        if ct is None or ct.get("profession") != pid:
+            rep.error(w, f"tabla de encargos {pf.get('contracts')}: no existe o no es de {pid}")
+        else:
+            made = {r.get("output", {}).get("item") for r in recipes.values() if r.get("building") == pf.get("building")}
+            for it in ct.get("items") or []:
+                if it.get("item") not in made:
+                    rep.error(w, f"la tabla {pf['contracts']} pide {it.get('item')} y el {pf.get('building')} no lo fabrica")
+        if b is not None:
+            for z in b.get("zones", []):
+                if z.get("kind") == "craft" and z.get("id") not in roles:
+                    rep.error(w, f"el puesto {z.get('id')} no tiene rol de empleado en employees.json")
+    for sid, s in starts.items():
+        w = f"starts/{sid}"
+        if s.get("profession") not in profs:
+            rep.error(w, f"oficio sin ficha en data/professions: {s.get('profession')}")
+        walk = maps.get(s.get("map"))
+        sites = (walk.map.get("buildings") or {}) if walk else {}
+        used = [(s.get("building") or {}).get("site"), ((s.get("rival") or {}).get("building") or {}).get("site")]
+        if (s.get("rival") or {}).get("profession") not in (None,) and s["rival"]["profession"] not in profs:
+            rep.error(w, f"rival.profession desconocida {s['rival']['profession']}")
+        for i, cp in enumerate(s.get("competitors") or []):
+            wc = f"{w} competitors[{i}]"
+            if cp.get("profile") not in profiles:
+                rep.error(wc, f"perfil desconocido {cp.get('profile')}")
+            if cp.get("profession") not in profs:
+                rep.error(wc, f"oficio desconocido {cp.get('profession')}")
+            ch = cp.get("character") or {}
+            if sorted(ch.get("stats") or {}) != sorted(STATS):
+                rep.error(wc, "character.stats: los 10 atributos")
+            if not (isinstance(ch.get("name"), str) and ch["name"].strip()):
+                rep.error(wc, "character.name")
+            if not isinstance(cp.get("gold"), int):
+                rep.error(wc, "gold debe ser un entero")
+            cb = cp.get("building") or {}
+            site = sites.get(cb.get("site"))
+            if site is None:
+                rep.error(wc, f"building.site {cb.get('site')} no es un edificio del mapa")
+            elif site.get("type") != cb.get("type"):
+                rep.error(wc, f"tipo {cb.get('type')} distinto del del mapa {site.get('type')}")
+            elif profs.get(cp.get("profession"), {}).get("building") != cb.get("type"):
+                rep.error(wc, f"un {cp.get('profession')} en un {cb.get('type')}")
+            for stk in cb.get("inventory") or []:
+                if stk.get("item") not in items:
+                    rep.error(wc, f"objeto desconocido {stk.get('item')}")
+            used.append(cb.get("site"))
+        dup = sorted({x for x in used if x and used.count(x) > 1})
+        if dup:
+            rep.error(w, f"solares repetidos entre protagonista, rival y competidores: {dup}")
+
+
 def check_h5(items, recipes, buildings, ranks, strings, rep):
     """H5 (GDD 4.8, docs/contratos/h5_mejoras.md): data/upgrade_rules.json y cada mejora (rama y nivel, coste,
     requisitos que existen en su árbol, nivel N pide el N-1, sin ciclos, efectos de tipos conocidos con su valor,
@@ -1751,6 +1847,7 @@ def main():
     check_h11(strings, rep)
     check_h14(strings, rep)
     check_h13(items, strings, rep)
+    check_h12(items, recipes, buildings, maps, strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")

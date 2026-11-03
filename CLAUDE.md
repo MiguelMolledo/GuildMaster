@@ -103,6 +103,9 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
   tools/sim_runner.gd -- --start=artisan_blacksmith --bots=events --days=80 --seeds=2` (10 años sin bloqueos, ~6 min;
   en `run_all`, paso events). Las dianas de antes de H13 corren sin eventos (`data/targets.json` `_no_events`;
   `--events=on` para medirlas con ellos). Captura: `--smoke-script=eventos`. Escenario: `season_events`.
+- Oficios del Artesano (H12, al tocar recetas, talleres o los inicios): `godot --headless --path . -s tools/sim_runner.gd --
+  --start=artisan_<carpenter|mason|tailor> --bots=<oficio>_novice --difficulty=easy,normal,hard --days=10 --seeds=30`
+  (diana `goldflow.start_<oficio>`, la del inicio de la forja; en `run_all`, pasos carpenter, mason y tailor).
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

@@ -1,0 +1,34 @@
+{
+  "id": "carpentry_production_2",
+  "name_key": "upgrade.carpentry_production_2",
+  "tree": "carpentry",
+  "branch": "production",
+  "level": 2,
+  "cost": {
+    "gold": 40,
+    "items": [
+      {
+        "item": "planks",
+        "qty": 5
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "carpentry_production_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "production_speed",
+      "mult": 1.4
+    }
+  ],
+  "visual": {
+    "interior_node": "carpentry_vice_bench",
+    "exterior_overlay": null
+  }
+}

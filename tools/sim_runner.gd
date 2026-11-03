@@ -63,13 +63,15 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
-	"kin_trader": BotIdle, "events": BotArtisanExpert}
+	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
+	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
 	# expert_titles: artisan_expert with the title targets (H9, 96 days); idle_titles: idle, the AI's titles (80 days)
 	# politician: artisan_expert that runs for minor offices (H10, runs_office = 1, 40 days)
 	# crook: artisan_expert with the Secrets upgrade that ends in court (H11, crook = 1, 40 days)
+	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
 	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
@@ -613,11 +615,14 @@ func _player_family(sim: Sim) -> String:
 	return ""
 
 
-## Gold of the AI families with an ai_profile (the rival smith, GDD 4.5.5).
+## Gold of the AI families with an ai_profile (the rival smith, GDD 4.5.5). H12: in a real new game only the ones with
+## the profile of the start's rival (the competitor workshops of the other trades are not the rival smith).
 func _rival_gold(sim: Sim) -> int:
+	var only := str(sim.catalog.starts().get(str(sim.state.meta.get("start", "")), {}).get("rival", {}).get("profile", ""))
 	var g := 0
 	for f: String in sim.state.families:
-		if str(sim.state.families[f].get("ai_profile", "")) != "":
+		var prof := str(sim.state.families[f].get("ai_profile", ""))
+		if prof != "" and (only == "" or prof == only):
 			g += Money.gold(sim.state, f)
 	return g
 

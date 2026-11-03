@@ -23,11 +23,11 @@ func test_three_difficulties() -> void:
 		var levers := cat.difficulty_levels(lvl)
 		eq(st.difficulty, lvl, "%s saved" % lvl)
 		eq(int(st.loans["lon_0001"]["principal"]), int(levers["start_debt"]), "%s debt" % lvl)
-		var rival := ""
-		for c: String in st.characters:
-			if str(st.characters[c]["family"]) != FAM and str(st.characters[c].get("rank", "")) == "":
-				rival = c  # H4: the townsfolk have a trade rank; the rival smith does not
-		eq(int(st.characters[rival]["stats"]["craft"]), int(levers["rival_craft"]), "%s rival craft" % lvl)
+		for f: String in st.families:  # H12: the rival smith and the competitors (the heads of the AI families with a profile)
+			if str(st.families[f].get("ai_profile", "")) == "":
+				continue
+			var rival := str(st.families[f]["head"])
+			eq(int(st.characters[rival]["stats"]["craft"]), int(levers["rival_craft"]), "%s rival craft (%s)" % [lvl, f])
 		eq(Money.gold(st, FAM), 30, "%s: 30 gold" % lvl)
 		var sim := Sim.new(st, cat)
 		sim.run_minutes(Clock.MINUTES_PER_DAY)  # a whole day runs without errors
@@ -59,8 +59,8 @@ func test_the_town_at_dawn_of_day_one() -> void:
 	eq((forge["zones"] as Dictionary).keys().size(), 4, "its stations")
 	var rival_fam := ""
 	for f: String in st.families:
-		if f != FAM and str(st.families[f].get("ai_profile", "")) != "":
-			rival_fam = f  # H4: the household families of the townsfolk are AI families without a profile
+		if f != FAM and str(st.families[f].get("ai_profile", "")) == "rival_smith":
+			rival_fam = f  # H4: the household families of the townsfolk are AI families without a profile; H12: the competitors have rival_artisan
 	var rf: Dictionary = st.families[rival_fam]
 	eq([rf["name"], rf["controlled_by"], rf["ai_profile"], int(rf["gold"])], ["Ferrer", "ai", "rival_smith", 80], "rival")
 	var bernat: Dictionary = st.characters[str(rf["members"][0])]
@@ -71,8 +71,8 @@ func test_the_town_at_dawn_of_day_one() -> void:
 		if str(st.buildings[b]["type"]) == "armory":
 			armory = b
 	check(armory != "" and str(st.buildings[armory]["owner"]) == "", "the public armory")
-	eq(st.buildings.size(), 3 + 8, "3 buildings and the 8 townsfolk houses (H4)")
-	eq(st.characters.size(), 2 + 16, "the protagonist, the rival and 16 townsfolk (H4)")
+	eq(st.buildings.size(), 3 + 8 + 3, "3 buildings, the 8 townsfolk houses (H4) and the 3 competitor workshops (H12)")
+	eq(st.characters.size(), 2 + 16 + 6, "the protagonist, the rival, 16 townsfolk (H4) and 3 competitor couples (H12)")
 
 
 func test_scripted_contracts_and_objectives() -> void:

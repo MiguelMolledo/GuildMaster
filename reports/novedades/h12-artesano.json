@@ -1,0 +1,14 @@
+{
+  "fecha": "2026-11-03",
+  "titulo": "H12 (1): carpintero, albañil y sastre",
+  "que": "El Artesano ya tiene sus cuatro oficios. En Partida nueva se elige el oficio en la cabecera (Herrero, Carpintero, Albañil, Sastre): cada uno empieza con las mismas cifras que el herrero (30 de oro, la deuda de la dificultad, dos encargos guionizados de su oficio y su cadena de objetivos) en su propio taller con vivienda. La Carpintería (caballete y banco: tablas, barriles, arcones, armarios y, con Producción 3, ruedas de carro), la Cantería (banco de corte y banco de tallar: sillares, piedras de afilar, abrevaderos, muelas y, con Producción 3, estatuas) y la Sastrería (telar y mesa de costura: tela, ropa de trabajo, capas de viaje, ropa común y, con Producción 3, ropa fina) copian la Forja: recetas con calidad, mostrador, empleados con su rol por puesto y un árbol de 8 ramas × 3 niveles con las mismas cifras. La materia prima (madera, piedra, lana, hierro para herrajes) se compra en Recursos. Los productos se venden en dos puestos nuevos de la plaza, Ropería y Enseres (provisionales). En town_e hay un taller de cada oficio al sur de la plaza: el tuyo, y los demás de familias IA que juegan como el herrero rival (sin títulos, cargos ni acusaciones). El tablón da encargos del oficio del jugador. Arte sin créditos: fachadas derivadas de Guild Renew, puestos, muebles e iconos dibujados (placeholder; lista de la compra de PixelLab en assets/art/MANIFEST.md).",
+  "como_probar": "Partida nueva → pulsa Carpintero (o Albañil, Sastre): el nombre y la familia cambian a los del oficio. Empieza: tu taller está al sur de la plaza (los otros dos y la Forja del rival también tienen dueño). Entra, sierra tablas en el caballete y haz un arcón en el banco; véndelo en el puesto de Enseres o cumple el encargo del tablón. Bots: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_carpenter --bots=carpenter_novice --days=10 --seeds=10 (igual mason, tailor). Capturas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=oficios.",
+  "capturas": [
+    "docs/novedades/h12_oficios_partida_nueva.png",
+    "docs/novedades/h12_oficios_calle_carpenter.png",
+    "docs/novedades/h12_oficios_interior_carpenter.png",
+    "docs/novedades/h12_oficios_interior_mason.png",
+    "docs/novedades/h12_oficios_interior_tailor.png",
+    "docs/novedades/h12_oficios_mejoras_tailor.png"
+  ]
+}

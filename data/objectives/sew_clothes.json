@@ -1,0 +1,20 @@
+{
+  "id": "sew_clothes",
+  "name_key": "objective.sew_clothes",
+  "conditions": [
+    {
+      "event": "work_done",
+      "match": {
+        "item": "cloth"
+      },
+      "count": 2
+    },
+    {
+      "event": "work_done",
+      "match": {
+        "item": "common_clothes"
+      },
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://plwlonq733gp"]
+
+[ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="1_block"]
+[ext_resource type="Texture2D" uid="uid://r7hij66m0yjp" path="res://assets/art/interiors/masonry/carving_bench.png" id="2_sprite"]
+
+[node name="CarvingBench" type="Node2D"]
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -40)
+
+[node name="Greybox" type="Node2D" parent="."]
+visible = false
+script = ExtResource("1_block")
+color = Color(0.333333333, 0.345098039, 0.37254902, 1)
+height = 20.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_sprite")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "H12 placeholder drawn with Pillow (tools/art/oficios_h12.py), 80×72 with the tile centre at (40, 56). To go back to the greybox: hide this node, show Greybox and put Top back at (0, -20)."

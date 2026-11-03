@@ -1,0 +1,360 @@
+[gd_scene load_steps=29 format=3 uid="uid://dsgbbstac7ddk"]
+
+[ext_resource type="Script" uid="uid://bym181u8o7u35" path="res://game/visuals/greybox/greybox_kit.gd" id="1_kit"]
+[ext_resource type="PackedScene" uid="uid://b3b0awfm7i6jh" path="res://game/visuals/stations/sawhorse.tscn" id="2_furnace"]
+[ext_resource type="PackedScene" uid="uid://wemkpgolf305" path="res://game/visuals/stations/workbench.tscn" id="3_anvil"]
+[ext_resource type="PackedScene" uid="uid://bdfx82twml5gl" path="res://game/visuals/stations/counter.tscn" id="4_counter"]
+[ext_resource type="PackedScene" uid="uid://bt8a0jyxyvvt2" path="res://game/visuals/stations/storage.tscn" id="5_storage"]
+[ext_resource type="PackedScene" uid="uid://wemkpgolf305" path="res://game/visuals/stations/workbench.tscn" id="6_anvil_2"]
+[ext_resource type="PackedScene" uid="uid://b3b0awfm7i6jh" path="res://game/visuals/stations/sawhorse.tscn" id="7_furnace_2"]
+[ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="9_block"]
+[ext_resource type="Texture2D" uid="uid://b7ruf8j2kahwx" path="res://assets/art/interiors/carpentry/floor.png" id="kit_floor"]
+[ext_resource type="Texture2D" uid="uid://bem7en1kxh6ha" path="res://assets/art/interiors/carpentry/wall_ne.png" id="kit_wne"]
+[ext_resource type="Texture2D" uid="uid://dlspihuxakv1r" path="res://assets/art/interiors/carpentry/wall_nw.png" id="kit_wnw"]
+[ext_resource type="Texture2D" uid="uid://b2s785rw2it47" path="res://assets/art/interiors/carpentry/wall_door_ne.png" id="kit_dne"]
+[ext_resource type="Texture2D" uid="uid://cgaa4qmoayjp" path="res://assets/art/interiors/carpentry/wall_door_nw.png" id="kit_dnw"]
+[ext_resource type="Texture2D" uid="uid://7eue4ahwqrpm" path="res://assets/art/interiors/forge/upg_shelves.png" id="upg_shelves"]
+[ext_resource type="Texture2D" uid="uid://n5ryei2nnqtk" path="res://assets/art/interiors/forge/upg_counter.png" id="upg_counter"]
+[ext_resource type="Texture2D" uid="uid://b4vt6jv8trv11" path="res://assets/art/interiors/carpentry/upg_frame_saw.png" id="upg_bellows"]
+[ext_resource type="Texture2D" uid="uid://ck8j2e156mt7o" path="res://assets/art/interiors/carpentry/upg_vice_bench.png" id="upg_tub"]
+[ext_resource type="Texture2D" uid="uid://bi46qi1mfr0tp" path="res://assets/art/interiors/carpentry/upg_master_bench.png" id="upg_master_furnace"]
+[ext_resource type="Texture2D" uid="uid://qtb7o4somxwr" path="res://assets/art/interiors/carpentry/upg_planes.png" id="upg_trough"]
+[ext_resource type="Texture2D" uid="uid://ckcebuvdq0vnh" path="res://assets/art/interiors/carpentry/upg_gouges.png" id="upg_engraving"]
+[ext_resource type="Texture2D" uid="uid://chmnnb1crubr" path="res://assets/art/interiors/carpentry/upg_mark.png" id="upg_seal"]
+[ext_resource type="Texture2D" uid="uid://bdnhqwriqwuka" path="res://assets/art/interiors/forge/upg_ledger.png" id="upg_ledger"]
+[ext_resource type="Texture2D" uid="uid://os8lbahkyw01" path="res://assets/art/interiors/forge/upg_passage.png" id="upg_passage"]
+[ext_resource type="Texture2D" uid="uid://2ubad8xpxnyn" path="res://assets/art/interiors/forge/upg_cache.png" id="upg_cache"]
+[ext_resource type="Texture2D" uid="uid://dg1nnpsnidgwn" path="res://assets/art/interiors/forge/upg_strongbox.png" id="upg_strongbox"]
+[ext_resource type="Texture2D" uid="uid://c5d6nr2jwqm11" path="res://assets/art/interiors/forge/upg_bunks.png" id="upg_bunks"]
+[ext_resource type="Texture2D" uid="uid://ctnxbx513w5wx" path="res://assets/art/interiors/forge/upg_dining.png" id="upg_dining"]
+[ext_resource type="Texture2D" uid="uid://bi46qi1mfr0tp" path="res://assets/art/interiors/carpentry/upg_master_bench.png" id="upg_master_bench"]
+
+[node name="CarpentryInterior" type="Node2D"]
+
+[node name="Kit" type="Node2D" parent="."]
+script = ExtResource("1_kit")
+size = Vector2i(8, 6)
+door = Vector2i(0, 3)
+floor_color = Color(0.541176471, 0.462745098, 0.376470588, 1)
+wall_color = Color(0.352941176, 0.290196078, 0.235294118, 1)
+door_color = Color(0.784313725, 0.62745098, 0.31372549, 1)
+wall_height = 36.0
+floor_texture = ExtResource("kit_floor")
+wall_texture_ne = ExtResource("kit_wne")
+wall_texture_nw = ExtResource("kit_wnw")
+door_texture_ne = ExtResource("kit_dne")
+door_texture_nw = ExtResource("kit_dnw")
+
+[node name="Stations" type="Node2D" parent="."]
+
+[node name="sawhorse" type="Marker2D" parent="Stations"]
+position = Vector2(0, 32)
+
+[node name="Station" parent="Stations/sawhorse" instance=ExtResource("2_furnace")]
+
+[node name="workbench" type="Marker2D" parent="Stations"]
+position = Vector2(96, 80)
+
+[node name="Station" parent="Stations/workbench" instance=ExtResource("3_anvil")]
+
+[node name="counter" type="Marker2D" parent="Stations"]
+position = Vector2(128, 160)
+
+[node name="Counter" parent="Stations/counter" instance=ExtResource("4_counter")]
+
+[node name="storage" type="Marker2D" parent="Stations"]
+position = Vector2(32, 144)
+
+[node name="Storage" parent="Stations/storage" instance=ExtResource("5_storage")]
+
+[node name="workbench_2" type="Marker2D" parent="Stations"]
+position = Vector2(192, 96)
+
+[node name="Station" parent="Stations/workbench_2" instance=ExtResource("6_anvil_2")]
+
+[node name="sawhorse_2" type="Marker2D" parent="Stations"]
+position = Vector2(-96, 80)
+
+[node name="Station" parent="Stations/sawhorse_2" instance=ExtResource("7_furnace_2")]
+
+[node name="Upgrades" type="Node2D" parent="."]
+
+[node name="carpentry_workbench_2" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(192, 96)
+editor_description = "carpentry_capacity_1: the station itself is the Marker2D Stations/workbench_2; put extra decoration here."
+
+[node name="carpentry_sawhorse_2" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-96, 80)
+editor_description = "carpentry_capacity_3: the station itself is the Marker2D Stations/sawhorse_2; put extra decoration here."
+
+[node name="upgrade_storage_shelves" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-32, 144)
+editor_description = "carpentry_capacity_2 (shelves)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_storage_shelves"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.541176471, 0.415686275, 0.243137255, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_storage_shelves"]
+texture_filter = 1
+texture = ExtResource("upg_shelves")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="upgrade_counter" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(64, 192)
+editor_description = "carpentry_commerce_1 (sales counter)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_counter"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.603921569, 0.478431373, 0.305882353, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_counter"]
+texture_filter = 1
+texture = ExtResource("upg_counter")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="carpentry_frame_saw" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(32, 16)
+editor_description = "carpentry_production_1 (bellows)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/carpentry_frame_saw"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.478431373, 0.290196078, 0.180392157, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/carpentry_frame_saw"]
+texture_filter = 1
+texture = ExtResource("upg_bellows")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="carpentry_vice_bench" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(96, 48)
+editor_description = "carpentry_production_2 (tempering tub)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/carpentry_vice_bench"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.290196078, 0.415686275, 0.541176471, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/carpentry_vice_bench"]
+texture_filter = 1
+texture = ExtResource("upg_tub")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="carpentry_master_bench" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-32, 16)
+editor_description = "carpentry_production_3 (master forge)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/carpentry_master_bench"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.690196078, 0.345098039, 0.180392157, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/carpentry_master_bench"]
+texture_filter = 1
+texture = ExtResource("upg_master_furnace")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="carpentry_planes" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(160, 80)
+editor_description = "carpentry_quality_1 (quench trough)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/carpentry_planes"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.243137255, 0.352941176, 0.478431373, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/carpentry_planes"]
+texture_filter = 1
+texture = ExtResource("upg_trough")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="carpentry_gouges" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(64, 64)
+editor_description = "carpentry_quality_2 (engraving bench)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/carpentry_gouges"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.431372549, 0.352941176, 0.22745098, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/carpentry_gouges"]
+texture_filter = 1
+texture = ExtResource("upg_engraving")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="carpentry_mark" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(64, 32)
+editor_description = "carpentry_quality_3 (master seal)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/carpentry_mark"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.784313725, 0.62745098, 0.31372549, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/carpentry_mark"]
+texture_filter = 1
+texture = ExtResource("upg_seal")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="upgrade_double_ledger" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-64, 32)
+editor_description = "carpentry_secrets_1 (double ledger)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_double_ledger"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.352941176, 0.290196078, 0.415686275, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_double_ledger"]
+texture_filter = 1
+texture = ExtResource("upg_ledger")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="upgrade_hidden_passage" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(0, 0)
+editor_description = "carpentry_secrets_2 (hidden passage)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_hidden_passage"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.22745098, 0.188235294, 0.188235294, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_hidden_passage"]
+texture_filter = 1
+texture = ExtResource("upg_passage")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="upgrade_smuggler_cache" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-160, 80)
+editor_description = "carpentry_secrets_3 (smuggler cache)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_smuggler_cache"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.290196078, 0.22745098, 0.164705882, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_smuggler_cache"]
+texture_filter = 1
+texture = ExtResource("upg_cache")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="upgrade_strongbox" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-32, 112)
+editor_description = "carpentry_security_3 (strongbox)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_strongbox"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.333333333, 0.345098039, 0.37254902, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_strongbox"]
+texture_filter = 1
+texture = ExtResource("upg_strongbox")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="upgrade_bunks" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-128, 64)
+editor_description = "carpentry_staff_1 (apprentice bunks)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_bunks"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.478431373, 0.415686275, 0.31372549, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_bunks"]
+texture_filter = 1
+texture = ExtResource("upg_bunks")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="upgrade_dining_table" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(32, 80)
+editor_description = "carpentry_staff_2 (dining table)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_dining_table"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.541176471, 0.415686275, 0.290196078, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_dining_table"]
+texture_filter = 1
+texture = ExtResource("upg_dining")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."
+
+[node name="upgrade_master_bench" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(96, 144)
+editor_description = "carpentry_staff_3 (master bench)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_master_bench"]
+visible = false
+script = ExtResource("9_block")
+color = Color(0.415686275, 0.352941176, 0.250980392, 1)
+height = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_master_bench"]
+texture_filter = 1
+texture = ExtResource("upg_master_bench")
+centered = false
+offset = Vector2(-40, -56)
+editor_description = "Pixel art (placeholder: tools/art/oficios_h12.py for the trade's own, tools/art/dibujar_mejoras.py for the shared ones). To go back to the greybox: hide this node and show Greybox."

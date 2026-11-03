@@ -1,0 +1,10 @@
+{
+  "id": "ashlar",
+  "name_key": "item.ashlar",
+  "gender": "m",
+  "category": "material",
+  "weight": 4.0,
+  "max_stack": 50,
+  "base_price": 12,
+  "market_stall": "materials"
+}
