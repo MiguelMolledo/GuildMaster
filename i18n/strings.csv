@@ -213,16 +213,16 @@ reason.not_your_loan,It is not your family's loan,No es un préstamo de tu famil
 reason.loan_closed,That loan is already closed,Ese préstamo ya está cerrado
 reason.bad_amount,Wrong amount,Cantidad no válida
 reason.unknown_notice,There is no such notice,No existe ese aviso
-notice.loan_due_soon,"The debt with the moneylender is due in {days} days: {amount} gold left","La deuda con el prestamista vence en {days} días: quedan {amount} de oro"
-notice.loan_extension_due_soon,"The extension of the debt ends in {days} days: {amount} gold left, then the seizure","La prórroga de la deuda acaba en {days} días: quedan {amount} de oro y después llega el embargo"
+notice.loan_due_soon,The debt with the moneylender is due in {days} days: {amount} gold left,La deuda con el prestamista vence en {days} días: quedan {amount} de oro
+notice.loan_extension_due_soon,"The extension of the debt ends in {days} days: {amount} gold left, then the seizure",La prórroga de la deuda acaba en {days} días: quedan {amount} de oro y después llega el embargo
 notice.loan_extended,"The debt fell due unpaid: reputation {reputation}, now {amount} gold, {days} more days","La deuda venció sin pagar: reputación {reputation}, ahora {amount} de oro, {days} días más"
 notice.loan_repaid,The debt is repaid,La deuda está saldada
-notice.loan_seized,"The moneylender seized {gold} gold and goods from the storage: the debt is settled","El prestamista ha embargado {gold} de oro y mercancía del almacén: la deuda queda saldada"
-notice.ruin,"Ruin: the seizure falls {missing} gold short and the moneylender keeps the forge","Ruina: al embargo le faltan {missing} de oro y el prestamista se queda la forja"
-notice.upkeep_unpaid,"Upkeep of {building} unpaid: {debt} gold owed to the town; damaged in {days} days","Mantenimiento de {building} sin pagar: {debt} de oro con la ciudad; en {days} días se daña"
-notice.building_damaged,"{building} is damaged for unpaid upkeep ({debt} gold owed)","{building} está dañado por no pagar el mantenimiento (debe {debt} de oro)"
-notice.upkeep_settled,"Upkeep of {building} settled ({amount} gold)","Mantenimiento de {building} saldado ({amount} de oro)"
-notice.objective_done,"Objective done: {objective}","Objetivo cumplido: {objective}"
+notice.loan_seized,The moneylender seized {gold} gold and goods from the storage: the debt is settled,El prestamista ha embargado {gold} de oro y mercancía del almacén: la deuda queda saldada
+notice.ruin,Ruin: the seizure falls {missing} gold short and the moneylender keeps the forge,Ruina: al embargo le faltan {missing} de oro y el prestamista se queda la forja
+notice.upkeep_unpaid,Upkeep of {building} unpaid: {debt} gold owed to the town; damaged in {days} days,Mantenimiento de {building} sin pagar: {debt} de oro con la ciudad; en {days} días se daña
+notice.building_damaged,{building} is damaged for unpaid upkeep ({debt} gold owed),{building} está dañado por no pagar el mantenimiento (debe {debt} de oro)
+notice.upkeep_settled,Upkeep of {building} settled ({amount} gold),Mantenimiento de {building} saldado ({amount} de oro)
+notice.objective_done,Objective done: {objective},Objetivo cumplido: {objective}
 ui.building_of,{building} of the {family},{building} de {family}
 ui.board.sign,Contract board,Tablón de encargos
 ui.quality.0,normal,normal
@@ -421,8 +421,8 @@ reason.too_many_contracts,Too many contracts at once,Demasiados encargos a la ve
 reason.not_your_contract,That contract is not your family's,Ese encargo no es de tu familia
 reason.missing_items,You do not carry the pieces it asks for,No llevas las piezas que pide
 reason.unknown_family,That family does not exist,Esa familia no existe
-notice.contract_due,"Contract for {client} due in {hours} h: {qty} × {item}","El encargo de {client} vence en {hours} h: {qty} × {item}"
-notice.contract_expired,"The contract for {client} expired: reputation {reputation} and no contracts from them for {days} days","El encargo de {client} ha vencido: reputación {reputation} y no te encargará nada en {days} días"
+notice.contract_due,Contract for {client} due in {hours} h: {qty} × {item},El encargo de {client} vence en {hours} h: {qty} × {item}
+notice.contract_expired,The contract for {client} expired: reputation {reputation} and no contracts from them for {days} days,El encargo de {client} ha vencido: reputación {reputation} y no te encargará nada en {days} días
 building.house,House,Casa
 rank.apprentice,Apprentice,Aprendiz
 rank.journeyman,Journeyman,Oficial
@@ -436,12 +436,12 @@ reason.banned,That person will not work for your family,Esa persona no trabajar�
 reason.not_your_employee,That person does not work for your family,Esa persona no trabaja para tu familia
 reason.no_promotion,There is no promotion to answer,No hay ningún ascenso pendiente
 reason.already_leaving,That employee is already leaving,Ese empleado ya se va
-notice.wage_unpaid,"No gold for {name}'s wage ({amount} gold): {days} days unpaid","No hay oro para el salario de {name} ({amount} de oro): {days} días sin cobrar"
-notice.promotion_offered,"{name} can be promoted to {rank}","{name} puede ascender a {rank}"
-notice.employee_quit,"{name} left {building} without notice","{name} ha abandonado {building} sin avisar"
-notice.employee_stole,"{name} stole {qty} × {item} from {building} and fled","{name} ha robado {qty} × {item} de {building} y ha huido"
-notice.employee_fired,"{name} leaves {building} at the end of the day","{name} deja {building} al final del día"
-notice.employee_fired_now,"{name} will not start at {building}","{name} ya no empezará en {building}"
+notice.wage_unpaid,No gold for {name}'s wage ({amount} gold): {days} days unpaid,No hay oro para el salario de {name} ({amount} de oro): {days} días sin cobrar
+notice.promotion_offered,{name} can be promoted to {rank},{name} puede ascender a {rank}
+notice.employee_quit,{name} left {building} without notice,{name} ha abandonado {building} sin avisar
+notice.employee_stole,{name} stole {qty} × {item} from {building} and fled,{name} ha robado {qty} × {item} de {building} y ha huido
+notice.employee_fired,{name} leaves {building} at the end of the day,{name} deja {building} al final del día
+notice.employee_fired_now,{name} will not start at {building},{name} ya no empezará en {building}
 ui.staff.title,Staff · %s,Empleados · %s
 ui.staff.tab.staff,Staff,Plantilla
 ui.staff.tab.hire,Hire,Contratar
@@ -453,13 +453,13 @@ ui.staff.loyalty_line,Loyalty %d (%s) · %d gold/day,Lealtad %d (%s) · %d de or
 ui.staff.unpaid,Unpaid for %d days,Sin cobrar desde hace %d días
 ui.staff.promotion,Can be promoted to %s (%d gold/day),Puede ascender a %s (%d de oro/día)
 ui.staff.accept,Accept,Aceptar
-ui.staff.accept_tip,"Promote: more loyalty, higher wage","Ascender: sube la lealtad y el salario"
+ui.staff.accept_tip,"Promote: more loyalty, higher wage",Ascender: sube la lealtad y el salario
 ui.staff.refuse,Refuse,Rechazar
 ui.staff.refuse_tip,Loyalty drops,Baja su lealtad
 ui.staff.bonus,Bonus %d,Bonus %d
 ui.staff.bonus_tip,Pay them extra gold: loyalty rises,Le pagas oro extra: sube su lealtad
 ui.staff.fire,Fire,Despedir
-ui.staff.fire_tip,"They leave at the end of the day; firing someone loyal costs reputation","Se va al acabar el día; despedir a alguien leal cuesta reputación"
+ui.staff.fire_tip,They leave at the end of the day; firing someone loyal costs reputation,Se va al acabar el día; despedir a alguien leal cuesta reputación
 ui.staff.leaving,Leaves at the end of the day,Se va al acabar el día
 ui.staff.starts,Starts on day %d at dawn,Empieza el día %d al amanecer
 ui.staff.task,Working: %s (%s),Trabajando: %s (%s)
@@ -512,8 +512,8 @@ notice.queue_missing_inputs,"{building}: not enough materials for {recipe}, skip
 notice.queue_storage_full,"{building}: the storage is full, {recipe} is skipped","{building}: el almacén está lleno, se salta {recipe}"
 notice.queue_cannot_make,"{building}: nobody can make {recipe} ({reason}), skipped","{building}: nadie puede hacer {recipe} ({reason}), se salta"
 notice.queue_empty,"{building}: nothing to produce, the queue is empty","{building}: nada que producir, la cola está vacía"
-notice.queue_stalled,"{building}: nothing in the queue can be made ({reason})","{building}: no se puede hacer nada de la cola ({reason})"
-notice.employee_idle,"{employee} is idle at {building}: nothing for the task {role}","{employee} está ocioso en {building}: nada para su tarea {role}"
+notice.queue_stalled,{building}: nothing in the queue can be made ({reason}),{building}: no se puede hacer nada de la cola ({reason})
+notice.employee_idle,{employee} is idle at {building}: nothing for the task {role},{employee} está ocioso en {building}: nada para su tarea {role}
 upgrade.forge_production_1,Improved bellows,Fuelle mejorado
 upgrade.forge_production_2,Advanced tempering,Temple avanzado
 upgrade.forge_production_3,Master forge,Forja de maestro
@@ -779,15 +779,15 @@ reason.unknown_choice,Not an option,No es una opción
 reason.vendor_refuses,The stall keeper is too angry to trade with you,El tendero está demasiado cabreado para tratar contigo
 reason.no_item,You do not carry that,No llevas eso
 mev.haggling_customer,A customer at the counter of {building} haggles over {item} ({price} gold).,Un cliente en el mostrador de {building} regatea por {item} ({price} de oro).
-mev.haggling_customer.accept,Accept −15 % and sell,Aceptar −15 % y vender
-mev.haggling_customer.hold,Hold the price (Charisma vs Negotiation),Mantener el precio (Carisma contra Negociación)
+mev.haggling_customer.accept,Accept and sell,Aceptar y vender
+mev.haggling_customer.hold,Hold the price,Mantener el precio
 mev.haggling_customer.throw_out,Throw them out,Echarle
 mev.sick_employee,{name} is sick today and will not come to {building}.,{name} está enfermo hoy y no irá a {building}.
-mev.sick_employee.doctor,"Pay the doctor (10 gold): back tomorrow, loyalty +5","Pagar al médico (10 de oro): vuelve mañana, lealtad +5"
-mev.sick_employee.day_off,Paid day off: loyalty +2,Día libre pagado: lealtad +2
-mev.sick_employee.dock,"Dock the day: misses 1-2 days, loyalty −5","Descontarle el día: falta 1-2 días, lealtad −5"
+mev.sick_employee.doctor,Pay the doctor,Pagar al médico
+mev.sick_employee.day_off,Paid day off,Día libre pagado
+mev.sick_employee.dock,Dock the day,Descontarle el día
 mev.night_thief,A thief is breaking into {building} while {name} is inside.,Un ladrón entra en {building} con {name} dentro.
-mev.night_thief.confront,Confront him (Martial vs 5),Enfrentarse (Arte Marcial contra 5)
+mev.night_thief.confront,Confront him,Enfrentarse
 mev.night_thief.let,Let him be,Dejarle
 notice.microevent.haggling_customer,A customer haggles at {building},Un cliente regatea en {building}
 notice.microevent.sick_employee,{name} is sick ({building}),{name} está enfermo ({building})
@@ -910,8 +910,8 @@ reason.title_needs_businesses,Not enough businesses,Faltan negocios
 reason.title_needs_employees,Not enough employees,Faltan empleados
 reason.title_needs_event,It needs a special event,Hace falta un evento especial
 reason.title_not_approved,The town hall does not approve it,El Ayuntamiento no lo aprueba
-notice.title_granted,"{name} receives the title of {title} at the town hall","{name} recibe el título de {title} en el Ayuntamiento"
-notice.rival_title,"The {family} family is now {title}","La familia {family} ya es {title}"
+notice.title_granted,{name} receives the title of {title} at the town hall,{name} recibe el título de {title} en el Ayuntamiento
+notice.rival_title,The {family} family is now {title},La familia {family} ya es {title}
 ui.town_hall.sign,Town hall,Ayuntamiento
 ui.town_hall.title,Town hall,Ayuntamiento
 ui.town_hall.current,Title: %s · reputation %d,Título: %s · reputación %d
@@ -1386,3 +1386,71 @@ ui.ending.fact.sentence,Sentenced on day %d,Condena el día %d
 ui.ending.fact.goal,Goal met: %s,Meta cumplida: %s
 ui.ending.fact.building,A new building on day %d,Edificio nuevo el día %d
 ui.ending.fact.wealth_peak,Highest wealth: %s gold,Patrimonio máximo: %s de oro
+relation_band.enemy,Enemy,Enemigo
+relation_band.hostile,Hostile,Hostil
+relation_band.cold,Cold,Frío
+relation_band.neutral,Neutral,Neutral
+relation_band.cordial,Cordial,Cordial
+relation_band.friend,Friend,Amigo
+check_band.easy,easy,fácil
+check_band.doubtful,doubtful,dudoso
+check_band.hard,hard,difícil
+ui.social.check,%s %d against %s %d: %s,%s %d contra %s %d: %s
+ui.social.days_hours,%d d %d h,%d d %d h
+ui.social.days,%d d,%d d
+ui.social.hours,%d h,%d h
+ui.social.minutes,%d min,%d min
+ui.npc.relation_with,Relation with %s,Relación con %s
+ui.npc.towards_family,Towards your family,Hacia tu familia
+ui.npc.emotion_other,%s towards the %s,%s hacia los %s
+ui.npc.no_emotions,No emotions towards your family,Sin emociones hacia tu familia
+ui.npc.others,and %d more towards other families,y %d más hacia otras familias
+ui.npc.fx_prices,prices %s %%,precios %s %%
+ui.npc.fx_no_talk,will not talk,no quiere hablar
+ui.npc.fx_no_trade,no trade over %d,no comercia por encima de %d
+ui.npc.reason_line,%s: %s,%s: %s
+ui.npc.why_refuses,will not talk to you (%s),no quiere hablar contigo (%s)
+ui.npc.why_today,already done today · tomorrow,ya lo has hecho hoy · mañana
+ui.npc.tip_talk,Relation +%d,Relación +%d
+ui.npc.tip_gift,Gives %s (%d gold),Regala %s (%d de oro)
+ui.npc.tip_check,%s. Success: relation %s; failure: relation %s.,%s. Éxito: relación %s; fallo: relación %s.
+ui.npc.tip_insult,Relation %s and they are offended,Relación %s y se ofende
+ui.npc.ask_insult,Insult %s?,¿Insultar a %s?
+ui.npc.ask_threaten,Threaten %s?,¿Amenazar a %s?
+ui.npc.ask_gift,Give %s (%d gold) to %s?,¿Regalar %s (%d de oro) a %s?
+ui.npc.ask_bribe,Bribe %s?,¿Sobornar a %s?
+ui.npc.ask_defame,Defame %s?,¿Difamar a %s?
+ui.npc.ask_campaign_body,A campaign action for your election.,Una acción de campaña para tu elección.
+ui.npc.accuse_q,Accuse %s?,¿Acusar a %s?
+ui.board.open_short,New,Nuevos
+ui.board.hint,Abandoning or failing a contract costs reputation.,Abandonar o no cumplir un encargo cuesta reputación.
+ui.board.what_short,%d × %s,%d × %s
+ui.board.have_mine,you carry %d/%d · store %d,llevas %d/%d · almacén %d
+ui.board.missing,%d %s missing,Falta %d %s
+ui.board.days,%d days,%d días
+ui.board.have,you have %d/%d,tienes %d/%d
+ui.board.accept_tip,The deadline starts when you accept it,El plazo empieza al aceptarlo
+ui.board.none_open_tomorrow,No new contracts. Come back tomorrow.,No hay encargos nuevos. Vuelve mañana.
+ui.board.abandon_q,Abandon the contract?,¿Abandonar el encargo?
+ui.board.abandon_body,Abandoning costs %d reputation and the client is angry.,Abandonar cuesta %d de reputación y el cliente se enfada.
+ui.microevent.title_at,Something happens at %s,Ocurre algo en %s
+ui.microevent.more_short,+%d more,+%d más
+ui.microevent.later,Later,Más tarde
+ui.microevent.open,Open,Abrir
+ui.microevent.default,default,por defecto
+ui.microevent.if_none,If you do not choose: %s,Si no eliges: %s
+ui.microevent.cannot_pay,You do not have %d gold,No tienes %d de oro
+ui.mev_fx.pay,−%d gold,−%d de oro
+ui.mev_fx.absent_today,misses today,falta hoy
+ui.mev_fx.absent,misses %d-%d days,falta %d-%d días
+ui.mev_fx.loyalty,loyalty %s,lealtad %s
+ui.mev_fx.relation,relation %s,relación %s
+ui.mev_fx.reputation,reputation %s,reputación %s
+ui.mev_fx.no_wage,no wage,sin sueldo
+ui.mev_fx.sell_discount,sells at −%d %%,vende con −%d %%
+ui.mev_fx.sell,sells,vende
+ui.mev_fx.emotion,ends up %s,queda %s
+ui.mev_fx.leave,leaves,se va
+ui.mev_fx.steal,steals,roba
+ui.mev_fx.check,%s %d against %d: %s,%s %d contra %d: %s
+ui.mev_fx.nothing,nothing,nada

@@ -91,6 +91,8 @@ func test_accuse_on_the_sheet() -> void:
 	var b := row.get_node("Accuse") as Button
 	check(not b.disabled, "he can accuse with the public fact")
 	b.pressed.emit()
+	eq(got.size(), 0, "accusing asks first")
+	check(SocialKit.accept_pending(p), "confirmed")
 	eq(str(got[0]["type"]), "accuse", "accuse")
 	check(str(got[0].get("fact", "")) != "", "with the fact")
 	p.free()

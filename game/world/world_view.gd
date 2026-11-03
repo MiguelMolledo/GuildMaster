@@ -864,6 +864,13 @@ func _follow_town(id: String, v: CharacterView) -> void:
 		v.set_phrase("")
 		return
 	v.set_bubble(SimQuery.bubble_of(sim, id))
+	var emos := Emotions.list(sim, id)  # ciudad_viva §6: the outline in the colour of the family it is felt towards
+	if emos.is_empty():
+		v.set_bubble_mark(Color(0, 0, 0, 0), 0.0)
+	else:
+		var src: Dictionary = sim.state.families.get(str(emos[0]["source"]), {})
+		v.set_bubble_mark(ViewConfig.color(str(src.get("colors", {}).get("primary", "#808080"))),
+			float(emos[0]["intensity"]) / 100.0)
 	v.set_phrase(SimQuery.town_phrase(sim, id, selected_id) if id == _talker else "")
 
 

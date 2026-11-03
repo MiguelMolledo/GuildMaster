@@ -293,6 +293,8 @@ func test_board_panel_accepts_delivers_and_abandons() -> void:
 	deliver.pressed.emit()
 	_same(got[0], {"type": "deliver_contract", "actor": HUGO, "contract": hammers}, "deliver")
 	(p.row_of(sword, true).get_node("Bottom/Abandon") as Button).pressed.emit()
+	eq(got.size(), 1, "abandoning asks first, with its cost")
+	check(SocialKit.accept_pending(p), "confirmed")
 	_same(got[1], {"type": "abandon_contract", "actor": HUGO, "contract": sword}, "abandon")
 	var gold := Money.gold(sim.state, "fam_0001")
 	eq(_refusals(sim.step(got)).size(), 0, "the sim takes both")

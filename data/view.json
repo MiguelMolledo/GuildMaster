@@ -118,5 +118,9 @@
     "latest_only_branches": ["production", "facade"],
     "status_colors": {"owned": "#7cc860", "in_works": "#f0c040", "available": "#ece4d2", "blocked": "#8a8070"},
     "works": {"back": "#2a2018", "fill": "#f0c040", "text": "#f6ecd0", "width": 44}
+  },
+  "social": {
+    "_doc": "Social panels (docs/ui/mecanicas/_social.md): relation_bands = [upper bound, word id] of the relation -100..100, in order (relation_band.<id> in i18n).",
+    "relation_bands": [[-60, "enemy"], [-25, "hostile"], [-6, "cold"], [5, "neutral"], [49, "cordial"], [100, "friend"]]
   }
 }
