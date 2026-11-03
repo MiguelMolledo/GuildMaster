@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://xsjspxf6tobl" path="res://game/ui/title_screen.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
-[ext_resource type="Theme" uid="uid://bixic0a2ia8dk" path="res://game/ui/menu_overrides_theme.tres" id="3_kit"]
 [ext_resource type="Texture2D" uid="uid://ba6xl31b71mk2" path="res://assets/art/ui/logo/guildmaster_logo_x2.png" id="4_logo"]
 
 [node name="TitleScreen" type="Control"]
@@ -24,7 +23,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme = ExtResource("3_kit")
 
 [node name="Veil" type="Control" parent="Kit"]
 unique_name_in_owner = true

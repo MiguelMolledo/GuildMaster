@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bnig84wps5fus" path="res://game/ui/pause_menu.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
-[ext_resource type="Theme" uid="uid://bixic0a2ia8dk" path="res://game/ui/menu_overrides_theme.tres" id="3_kit"]
 [ext_resource type="PackedScene" uid="uid://gprsav2dssbx" path="res://game/ui/confirm_dialog.tscn" id="5_confirm"]
 
 [node name="PauseMenu" type="Control"]
@@ -18,7 +17,6 @@ script = ExtResource("1_script")
 
 [node name="Center" type="CenterContainer" parent="."]
 mouse_filter = 2
-theme = ExtResource("3_kit")
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15

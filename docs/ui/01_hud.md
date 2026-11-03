@@ -106,6 +106,22 @@ la dinastía. Título con la pregunta, coste en cifras, «No se puede deshacer»
 
 ![Confirmación](maquetas/hud_confirmacion.png)
 
+**En el juego** (`game/ui/confirm_modal.gd`, uno en el HUD, sobre los paneles y bajo la ayuda): desde cualquier panel,
+
+```gdscript
+ConfirmModal.ask_in(get_tree(), {
+	"title": "¿Comprar Acero templado?",          # la pregunta
+	"body": "Cuesta 25 de oro y 3 de carbón.",     # las cifras (crece hasta 400×160)
+	"action": "Comprar",                           # el botón de la acción ("Confirmar" si falta)
+	"irreversible": true,                          # «No se puede deshacer» en aviso
+	"seal": true,                                  # lacre junto al título; el botón suena a sello (ui.seal)
+	"reason": "",                                  # si no se puede: el motivo a la vista y la acción apagada
+}, func() -> void: order_sink.call({...}))         # la orden la da quien pregunta, solo al confirmar
+```
+
+Esc, Cancelar o un clic en el velo cancelan; Intro o el botón confirman (Espacio sigue siendo la pausa). Responde con
+`answered(confirmed)`. Captura: `maquetas/hud_hoy_confirmacion.png`.
+
 ## 6. Objetivos y ayuda (F1)
 
 - **Objetivo** (zona 4): rótulo «OBJETIVO» pequeño en oro, progreso a la derecha en `positivo`, el título en negrita y

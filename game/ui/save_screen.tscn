@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bo6s32f7b7hk0" path="res://game/ui/save_screen.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
-[ext_resource type="Theme" uid="uid://bixic0a2ia8dk" path="res://game/ui/menu_overrides_theme.tres" id="3_kit"]
 [ext_resource type="Shader" uid="uid://cm4epmo6mt5yq" path="res://game/ui/menu_veil.gdshader" id="4_veil"]
 [ext_resource type="PackedScene" uid="uid://gprsav2dssbx" path="res://game/ui/confirm_dialog.tscn" id="5_confirm"]
 
@@ -40,7 +39,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme = ExtResource("3_kit")
 
 [node name="Panel" type="PanelContainer" parent="Center"]
 custom_minimum_size = Vector2(632, 476)

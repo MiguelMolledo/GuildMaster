@@ -19,6 +19,7 @@ static func join(panel: Control) -> void:
 static func _on_visibility(panel: Control) -> void:
 	if panel.visible and panel.is_inside_tree():
 		close_others(panel, panel.get_tree().get_nodes_in_group(GROUP))
+		UiAnim.panel_in(panel)   # in from its edge (docs/ui/00 §8)
 
 
 ## `panel` was opened: every other visible panel of `members` closes (its own close()). The closed ones are returned.

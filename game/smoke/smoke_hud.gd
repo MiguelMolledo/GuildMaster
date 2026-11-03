@@ -153,6 +153,9 @@ func _process(delta: float) -> void:
 		"menu":
 			if _t > 0.3:
 				_check(_menu_asked == int(get_meta("before")) + 1, "ESC with nothing open asks for the pause menu")
+				_check(app.pause_menu().visible, "and the pause menu opens")
+				app.pause_menu().close()
+				Game.set_paused(false)
 				app.world().command_enter(BLD)
 				_go("entering")
 		"entering":
@@ -185,6 +188,26 @@ func _process(delta: float) -> void:
 				hud.open_ledger()
 				_check(not app.interior().production_panel().visible, "the book closes the production (one panel)")
 				hud.ledger_panel().close()
+				var said := [""]
+				hud.confirm_modal().answered.connect(func(yes: bool) -> void: said[0] = "yes" if yes else "no", CONNECT_ONE_SHOT)
+				hud.confirm_modal().ask({"title": "¿Comprar Acero templado?",
+					"body": "Cuesta 25 de oro y 3 de carbón. Te quedan 5 de oro.", "action": "Comprar", "irreversible": true,
+					"seal": true})
+				set_meta("said", said)
+				_go("confirm")
+		"confirm":
+			if _t > 0.5:
+				app.save_shot("hud_hoy_confirmacion")
+				var esc := InputEventAction.new()
+				esc.action = "ui_cancel"
+				esc.pressed = true
+				Input.parse_input_event(esc)
+				_go("confirm_esc")
+		"confirm_esc":
+			if _t > 0.3:
+				_check(not hud.confirm_modal().visible and str((get_meta("said") as Array)[0]) == "no",
+					"ESC cancels the confirmation first (01 §2)")
+				_check(not app.pause_menu().visible, "and does not open the pause menu with it")
 				print("[SmokeHud] done (%d fails)" % _fails)
 				_go("done")
 				get_tree().quit(1 if _fails > 0 else 0)
