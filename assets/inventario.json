@@ -3964,6 +3964,1221 @@
       "coste_gen": 0,
       "coste_usd": 0.24,
       "notas": "Fachada redibujada del edificio tailor_shop, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/tailor_shop.png: para usarla, en game/visuals/buildings/tailor_shop.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: tailor_shop_construction.png, tailor_shop_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "portrait_pool_f_adult_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, adult, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, adult, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, adult, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, adult, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_guard",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "guardia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/guard/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, adult, guard), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 10 caras (mujer, adult, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, adult, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, adult, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_adult_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/adult/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, adult, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, child, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, child, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, child, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, child, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, child, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_child_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/child/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, child, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, elder, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, elder, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, elder, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, elder, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, elder, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, elder, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, elder, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_elder_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/elder/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, elder, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, mature, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, mature, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (mujer, mature, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, mature, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_guard",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "guardia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/guard/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, mature, guard), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, mature, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, mature, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, mature, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_mature_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/mature/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, mature, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, youth, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, youth, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, youth, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, youth, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, youth, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (mujer, youth, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, youth, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_f_youth_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/f/youth/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (mujer, youth, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, adult, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, adult, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, adult, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, adult, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_guard",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "guardia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/guard/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, adult, guard), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 12 caras (hombre, adult, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, adult, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, adult, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_adult_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/adult/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, adult, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, child, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, child, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, child, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, child, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, child, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_child_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/child/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, child, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, elder, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, elder, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, elder, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, elder, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, elder, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, elder, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, elder, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_elder_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/elder/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, elder, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, mature, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, mature, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, mature, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, mature, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_guard",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "guardia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/guard/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, mature, guard), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 8 caras (hombre, mature, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, mature, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, mature, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_mature_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/mature/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, mature, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_artisan",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/artisan/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, artisan), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_clergy",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "iglesia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/clergy/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, youth, clergy), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_commoner",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "vecinos",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/commoner/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, commoner), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_farmer",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/farmer/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, farmer), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_guard",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "guardia",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/guard/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, youth, guard), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_merchant",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/merchant/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, youth, merchant), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_noble",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/noble/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 6 caras (hombre, youth, noble), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_rogue",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/rogue/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, rogue), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "portrait_pool_m_youth_scholar",
+      "tipo": "retrato",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "familias",
+        "población"
+      ],
+      "ruta": "assets/art/portraits/m/youth/scholar/",
+      "origen": "fal: nano-banana-2/edit en rejillas 2×2 (ref: la rejilla del piloto) + mapa de regiones por /edit + image2pixel (tools/art/fal_pool.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
     }
   ]
 }

@@ -31,7 +31,7 @@ OUT = os.path.join(ROOT, "assets", "art", "fal_piloto")
 LEDGER = os.path.join(OUT, "gasto.json")
 # Tope por tanda: el piloto (3 USD) y la producción de retratos, eventos, pantallas y cartas (8 USD, 2026-11-03).
 TANDA = os.environ.get("FAL_TANDA", "piloto")
-CAPS = {"piloto": 3.0, "produccion": 8.0, "extra": 100.0}  # extra: sin tope del owner (2026-11-03); 100 es solo un freno
+CAPS = {"piloto": 3.0, "produccion": 8.0, "extra": 100.0, "pool": 100.0}  # extra: sin tope del owner (2026-11-03); 100 es solo un freno
 CAP = CAPS[TANDA]
 
 MODELS = {
@@ -68,8 +68,10 @@ def _note(piece, model, images, usd, what):
                  "modelo": model,
                  "imagenes": images, "usd": round(usd, 4), "que": what})
     os.makedirs(OUT, exist_ok=True)
-    with open(LEDGER, "w") as f:
+    tmp = f"{LEDGER}.{os.getpid()}.tmp"  # escritura atómica: quien lee a la vez nunca ve el fichero a medias
+    with open(tmp, "w") as f:
         json.dump(rows, f, indent=1, ensure_ascii=False)
+    os.replace(tmp, LEDGER)
 
 
 def guard(cost):

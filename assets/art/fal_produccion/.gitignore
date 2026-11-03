@@ -4,3 +4,10 @@ galeria*.html
 
 # Recortes de celda para repetir un mapa (tools/art/fal_retratos.py mascara_celda los rehace)
 retratos/crudo/*_celda.png
+
+# Recortes de celda del pool (fal_pool.py remascara los rehace)
+pool/crudo/*_celda.png
+
+# Pool: crudos (253 MB) e image2pixel (24 MB) fuera de git; copia en ~/Code/GuildMaster-arte-crudos/pool/
+pool/crudo/*.png
+pool/i2p/

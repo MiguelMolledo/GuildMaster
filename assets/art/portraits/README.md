@@ -72,9 +72,9 @@ assets/art/portraits/
 | Campo | Qué es |
 |---|---|
 | `portraits[].file` / `face` | Ruta relativa a `assets/art/portraits/` del busto (64) y de la cara (32). |
-| `portraits[].recolor` | Zonas que lleva codificadas y que el shader puede cambiar. `hair` incluye barba, bigote y cejas; `skin`, labios, cuello y manos. Si falta `primary`/`secondary`, la ropa es fija (el hábito del clérigo, la librea de la guardia…): no se tiñe con los colores de la familia. |
+| `portraits[].recolor` | Zonas que lleva codificadas **de verdad** (se calculan del PNG) y que el shader puede cambiar. Si una cofia, un casco o un sombrero tapan el pelo, no sale `hair`. `hair` incluye barba, bigote y cejas; `skin`, labios, cuello y manos. Si falta `primary`/`secondary`, la ropa es fija (el hábito del clérigo, la librea de la guardia…): no se tiñe con los colores de la familia. |
 | `portraits[].traits` | Etiquetas libres para variar o filtrar: `beard`, `moustache`, `bald`, `glasses`, `scar`, `eyepatch`, `hat`, `hood`, `headscarf`, `veil`, `wimple`, `helmet`, `apron`, `braids`, `curly`, `long_hair`, `jewellery`, `tonsure`, `freckles`… Ninguna regla depende de ellas. |
-| `fallback` | Combinaciones sin retrato propio: `fallback[tipo][edad]` da el tipo que se usa en su lugar (por ejemplo, un niño de familia de guardias usa `commoner`). Si para `sexo + edad + tipo` no hay ningún retrato y no hay fallback, usar `commoner` con esa edad y sexo: esa combinación existe siempre. |
+| `fallback` | Tipo que se usa cuando `sexo + edad + tipo` no tiene ningún retrato: `fallback[tipo][edad]`. Por ejemplo, un niño de familia de guardias usa `commoner`. Solo se consulta si no hay candidatos (un tipo puede tener retratos para un sexo y fallback para el otro). Si tampoco hay fallback, `commoner` con esa edad y sexo, que existe siempre. |
 | `regions` | Valor del canal azul de cada zona (ver abajo). |
 
 **Garantías.**
@@ -85,7 +85,9 @@ assets/art/portraits/
 
 ## Cómo elegir y teñir (para `poblacion`)
 
-1. **Candidatos:** los de `portraits` con `sex`, `age` y `type` de la persona, después de aplicar `fallback`.
+1. **Candidatos:** los de `portraits` con `sex`, `age` y `type` de la persona. **Solo si no hay ninguno**, se repite
+   con `type = fallback[type][age]` (por ejemplo, una chica guardia de 15 años usa `commoner`; el chico guardia de 15
+   tiene los suyos). Si aun así no hay, `commoner` con esa edad y sexo, que existe siempre.
 2. **Uno con la semilla:** usar el azar del sim por clave (como los demás). Guardar el `id` en la persona, no el índice
    de la lista: así añadir retratos no cambia los de las partidas guardadas.
 3. **Al cambiar de franja de edad** se elige otro de la franja nueva. Para que «crezca» el mismo, se puede preferir el
@@ -103,6 +105,17 @@ assets/art/portraits/
 
 ## Estado
 
-El pool se está generando. Hasta que esté, `index.json` puede no existir o estar a medias: los retratos que estén en
-el índice son válidos. Los 80 de la primera tanda se copian al pool con un id nuevo de su tipo equivalente
-(`artisan_adult_m` → `m/adult/artisan/…`, `townsfolk_*` → `commoner`, `patron_*` → `farmer`, `priest` → `clergy`…).
+**Completo, versión 1 (2026-11-03): 566 retratos en 81 combinaciones**, con entre 6 y 12 caras cada una:
+- 486 nuevos (6 por combinación);
+- los 80 de la primera tanda, copiados con su tipo equivalente y marcados con `"from": "<id antiguo>"`:
+  `artisan_adult_m` → `m/adult/artisan/…`, `townsfolk_*` → `commoner`, `patron_*` → `farmer`, `priest` → `clergy`…
+  Si su combinación tiene `fallback`, van a la de destino.
+
+| Tipo | Edades con retrato propio | Fallback |
+|---|---|---|
+| `artisan`, `commoner`, `merchant`, `noble`, `farmer`, `rogue` | todas, en los dos sexos | — |
+| `clergy` | youth, adult, mature, elder | child → `commoner` |
+| `scholar` | youth, adult, mature, elder | child → `merchant` |
+| `guard` | m: youth, adult, mature · f: adult, mature | child, youth (f) y elder → `commoner` |
+
+Lista y descripción de cada cara: `tools/art/fal_pool.py` (`python3 tools/art/fal_pool.py lista`).

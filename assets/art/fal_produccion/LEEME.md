@@ -117,6 +117,20 @@ La sastrería ya no lleva el cartel «TAILOR», sino unas tijeras.
   - La carpintería gana una base empedrada que antes no tenía.
 - No hizo falta Pro.
 
+## Pool de retratos (sexo × edad × tipo social)
+
+566 retratos en `assets/art/portraits/<sexo>/<edad>/<tipo>/`, con su `index.json` y el contrato en
+`assets/art/portraits/README.md` (formato del índice, fallback, cómo elegir con la semilla y teñir).
+
+- Son 486 nuevos (6 por cada una de las 81 combinaciones) y los 80 de la primera tanda copiados.
+- Se hicieron con `tools/art/fal_pool.py`, igual que los anteriores: rejillas 2×2, mapa de regiones por /edit y
+  `fal_retratos_proc.build()`.
+- `recolor` se calcula del PNG.
+- `qa` marca los dudosos: salieron 35 y, revisados a ojo, eran sombreros rojos, manos y pieles de abrigo, no mapas
+  rotos.
+- **Crudos e image2pixel del pool fuera de git** (277 MB): están en `~/Code/GuildMaster-arte-crudos/pool/`. Para
+  reprocesar, se copian otra vez a `assets/art/fal_produccion/pool/` (`crudo/` e `i2p/`).
+
 ## Rehacer
 
 ```bash
