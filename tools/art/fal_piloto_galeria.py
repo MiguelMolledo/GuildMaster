@@ -16,7 +16,8 @@ from PIL import Image
 HERE = os.path.dirname(__file__)
 sys.path.insert(0, HERE)
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-D = os.path.join(ROOT, "assets", "art", "fal_piloto")
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
+D = fr_.PILOTO
 GUILD = os.path.expanduser("~/Code/guild/assets/sprites")
 
 
@@ -44,7 +45,7 @@ def b64(path_or_im, thumb=0, fmt=None):
 
 
 def p(*parts):
-    return os.path.join(D, *parts)
+    return fr_.piloto(*parts)
 
 
 URIS = {}
@@ -87,7 +88,7 @@ def section(title, verdict, body):
 
 
 def main():
-    led = json.load(open(p("gasto.json")))
+    led = [r for r in json.load(open(p("gasto.json"))) if r.get("tanda", "piloto") == "piloto"]
     by = {}
     for r in led:
         by[r["pieza"]] = by.get(r["pieza"], 0) + r["usd"]

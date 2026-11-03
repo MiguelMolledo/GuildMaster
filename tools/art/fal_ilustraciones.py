@@ -23,8 +23,9 @@ from PIL import Image
 HERE = os.path.dirname(__file__)
 sys.path.insert(0, HERE)
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-P = os.path.join(ROOT, "assets", "art", "fal_produccion", "ilustraciones")
-PILOT = os.path.join(ROOT, "assets", "art", "fal_piloto")
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
+P = fr_.produccion("ilustraciones")
+PILOT = fr_.PILOTO
 OUT = os.path.join(ROOT, "assets", "art", "illustrations")
 TITLE = os.path.join(PILOT, "titulo", "crudo", "titulo_alba_v1.png")
 LOGO = os.path.join(ROOT, "assets", "art", "ui", "logo", "guildmaster_logo.png")

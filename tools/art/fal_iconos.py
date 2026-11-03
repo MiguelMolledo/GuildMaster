@@ -23,7 +23,8 @@ import derivar_guild as dg  # noqa: E402
 import fal_procesar as fp  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-P = os.path.join(ROOT, "assets", "art", "fal_produccion", "iconos")
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
+P = fr_.produccion("iconos")
 ART = os.path.join(ROOT, "assets", "art")
 REF_ITEMS = ["armor", "barrel", "iron_ingot", "planks", "wood", "stone", "work_clothes", "sword"]
 REF_BUBBLES = ["chat", "dice", "rest", "shop", "think", "wave"]

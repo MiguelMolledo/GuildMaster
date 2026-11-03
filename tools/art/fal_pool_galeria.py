@@ -16,8 +16,9 @@ import personajes_guild as pg  # noqa: E402
 from fal_produccion_galeria import BG, FAMILY_B, page, publish, row, tag  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
 PORT = os.path.join(ROOT, "assets", "art", "portraits")
-NAT = os.path.join(ROOT, "assets", "art", "fal_produccion", "pool", "natural")
+NAT = fr_.produccion("pool", "natural")
 AGES = ["child", "youth", "adult", "mature", "elder"]
 LIMIT = 900_000
 
@@ -78,7 +79,7 @@ def main():
         title = f"Arte fal · pool de retratos ({i}/{len(pages)})"
         html_page = page(title, intro + f"<p class='v'>{' · '.join(c for c, _ in pg_)}</p>",
                          "".join(h for _, h in pg_))
-        out = os.path.join(ROOT, "assets", "art", "fal_produccion", f"galeria_pool_{i}.html")
+        out = fr_.produccion(f"galeria_pool_{i}.html")
         with open(out, "w") as f:
             f.write(html_page)
         print(out, round(len(html_page.encode()) / 1024), "KB")

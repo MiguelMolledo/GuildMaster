@@ -27,9 +27,10 @@ from PIL import Image
 HERE = os.path.dirname(__file__)
 sys.path.insert(0, HERE)
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-P = os.path.join(ROOT, "assets", "art", "fal_produccion", "pool")
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
+P = fr_.produccion("pool")
 OUT = os.path.join(ROOT, "assets", "art", "portraits")
-REF = os.path.join(ROOT, "assets", "art", "fal_piloto", "retratos", "crudo", "grid_nano2_v1.png")
+REF = fr_.piloto("retratos", "crudo", "grid_nano2_v1.png")
 
 AGES = {"child": (6, 11), "youth": (12, 17), "adult": (18, 44), "mature": (45, 59), "elder": (60, None)}
 TYPES = ["artisan", "commoner", "merchant", "noble", "clergy", "guard", "scholar", "farmer", "rogue"]

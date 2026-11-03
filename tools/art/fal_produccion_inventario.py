@@ -51,7 +51,7 @@ def portrait_entry(pid, grid):
                       "+ image2pixel (tools/art/fal_retratos.py, fal_retratos_proc.py)",
             "coste_gen": 0, "coste_usd": 0.04,
             "notas": f"Retrato de tipo de personaje: {what}. {KEY_NOTE} Sin cablear en escenas. Crudo y vista sin "
-                     f"codificar en assets/art/fal_produccion/retratos/."}
+                     f"codificar en ~/Code/GuildMaster-arte-crudos/fal_produccion/retratos/."}
 
 
 def illus_entry(pid):
@@ -78,8 +78,8 @@ def illus_entry(pid):
             "origen": f"fal: {src} (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de "
                       "image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
             "coste_gen": 0, "coste_usd": 0.08 if pid not in fi.FROM_PILOT else 0.0,
-            "notas": f"{what}. {size}. Sin cablear en escenas. Crudo en assets/art/fal_produccion/ilustraciones/ "
-                     f"(o assets/art/fal_piloto/)."}
+            "notas": f"{what}. {size}. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ "
+                     f"(o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."}
 
 
 ICON_FOR = {"gavel": ["H11", "tribunal"], "ballot_box": ["H10", "elecciones"], "reputation": ["H9", "reputación"],
@@ -104,7 +104,7 @@ def extras(d, by_id):
             e.update({"estado": "sprite", "origen": ICON_ORIGIN, "coste_gen": 0, "coste_usd": 0.02,
                       "notas": f"32×32 y assets/art/{small} (16×16, half() de derivar_guild.py). Sustituye al "
                                f"placeholder dibujado (en el historial de git). Crudo en "
-                               f"assets/art/fal_produccion/iconos/."})
+                               f"~/Code/GuildMaster-arte-crudos/fal_produccion/iconos/."})
         elif rel.startswith("ui/bubbles/"):
             e = dict(d["assets"][by_id["bubble_" + iid]])
             e.update({"estado": "sprite", "origen": ICON_ORIGIN, "coste_gen": 0, "coste_usd": 0.02,

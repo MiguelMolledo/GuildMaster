@@ -27,7 +27,8 @@ sys.path.insert(0, HERE)
 import fal_procesar as fp  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-P = os.path.join(ROOT, "assets", "art", "fal_produccion", "fachadas")
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
+P = fr_.produccion("fachadas")
 OLD = os.path.join(ROOT, "assets", "art", "buildings", "escala_b")
 OUT = os.path.join(ROOT, "assets", "art", "buildings", "fal")
 CANVAS = 256

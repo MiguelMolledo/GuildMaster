@@ -11,7 +11,7 @@ Uso:
                                        [--transparent]
   python3 tools/art/fal_piloto.py rembg --piece paseo --src a.png --dst b.png
   python3 tools/art/fal_piloto.py total
-Tanda: FAL_TANDA=piloto (por defecto, tope 3 USD) o FAL_TANDA=produccion (tope 8 USD, crudo en assets/art/fal_produccion/).
+Tanda: FAL_TANDA=piloto (por defecto, tope 3 USD) o FAL_TANDA=produccion (tope 8 USD, crudo en $GUILDMASTER_ARTE_CRUDOS/fal_produccion/, fuera del repo).
 """
 import argparse
 import datetime
@@ -24,11 +24,13 @@ import urllib.request
 from dotenv import load_dotenv
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
 load_dotenv(os.path.join(ROOT, ".env"))
 import fal_client  # noqa: E402
 
-OUT = os.path.join(ROOT, "assets", "art", "fal_piloto")
-LEDGER = os.path.join(OUT, "gasto.json")
+OUT = fr_.PILOTO_REPO
+LEDGER = fr_.LEDGER
 # Tope por tanda: el piloto (3 USD) y la producción de retratos, eventos, pantallas y cartas (8 USD, 2026-11-03).
 TANDA = os.environ.get("FAL_TANDA", "piloto")
 CAPS = {"piloto": 3.0, "produccion": 8.0, "extra": 100.0, "pool": 100.0}  # extra: sin tope del owner (2026-11-03); 100 es solo un freno
@@ -96,7 +98,7 @@ def gen(a):
         model_id += "/edit"
     print(f"{model_id} | {a.count} img | {cost:.3f} USD (llevamos {t:.3f}) | refs={len(a.ref)}")
     res = fal_client.subscribe(model_id, arguments=args)
-    d = os.path.join(OUT if TANDA == "piloto" else os.path.join(ROOT, "assets", "art", "fal_produccion"), a.piece, "crudo")
+    d = os.path.join(fr_.PILOTO if TANDA == "piloto" else fr_.PRODUCCION, a.piece, "crudo")  # crudos fuera del repo
     os.makedirs(d, exist_ok=True)
     paths = []
     for i, im in enumerate(res.get("images", [])):

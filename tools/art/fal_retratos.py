@@ -17,8 +17,10 @@ import subprocess
 import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-OUT = os.path.join(ROOT, "assets", "art", "fal_produccion", "retratos", "crudo")
-REF = os.path.join(ROOT, "assets", "art", "fal_piloto", "retratos", "crudo", "grid_nano2_v1.png")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
+OUT = fr_.produccion("retratos", "crudo")
+REF = fr_.piloto("retratos", "crudo", "grid_nano2_v1.png")
 
 # Ropa: la principal en rojo oscuro y la secundaria en dorado mostaza (colores por defecto de la familia; el shader
 # de identidad las cambia). Los cargos y únicos llevan su ropa propia (solo se marcan pelo y piel).
@@ -170,7 +172,7 @@ def main():
             print(" ", i)
         return
     if a.cmd == "mascaras_piloto":
-        src = os.path.join(ROOT, "assets", "art", "fal_piloto", "retratos", "crudo", "grid2_nano2_v1.png")
+        src = fr_.piloto("retratos", "crudo", "grid2_nano2_v1.png")
         if not os.path.exists(os.path.join(OUT, "grid2_nano2_v1_mascara.png")):
             run("--name", "grid2_nano2_v1_mascara", "--ref", src, "--prompt", MASK)
         return

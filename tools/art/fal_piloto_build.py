@@ -3,7 +3,7 @@
 formas para compararlas: en local con Pillow (tools/art/fal_procesar.py) y con fal-ai/image2pixel (céntimos).
 
 Uso: python3 tools/art/fal_piloto_build.py [retratos|titulo|eventos|iconos|fachada|paseo|todo] [--sin-i2p]
-Salida: assets/art/fal_piloto/<pieza>/{celdas,local,i2p,final}/
+Salida: assets/art/fal_piloto/<pieza>/final/ (repo) y $GUILDMASTER_ARTE_CRUDOS/fal_piloto/<pieza>/{celdas,local,i2p}/
 """
 import argparse
 import json
@@ -18,7 +18,9 @@ sys.path.insert(0, HERE)
 import fal_procesar as fp  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-D = os.path.join(ROOT, "assets", "art", "fal_piloto")
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
+D = fr_.PILOTO  # crudos e intermedios fuera del repo; <pieza>/final/ en el repo (FINAL)
+FINAL = fr_.PILOTO_REPO
 USE_I2P = True
 
 
@@ -81,19 +83,19 @@ def retratos():
             if r:
                 im64 = Image.new("RGBA", (64, 64), (0, 0, 0, 255))
                 im64.alpha_composite(r[0].crop((0, 0, 64, 64)), (0, 0))
-                save(im64, os.path.join(P, "final", base + "_64.png"))
+                save(im64, os.path.join(FINAL, os.path.basename(P), "final", base + "_64.png"))
             tmp = save(face, os.path.join(P, "celdas", base + "_cara.png"))
             r = i2p("retratos", tmp, os.path.join(P, "i2p", base + "_cara_s12.png"), 24, 12)
             if r:
                 im32 = Image.new("RGBA", (32, 32), (0, 0, 0, 255))
                 im32.alpha_composite(r[0].crop((0, 0, 32, 32)), (0, 0))
-                save(im32, os.path.join(P, "final", base + "_32.png"))
+                save(im32, os.path.join(FINAL, os.path.basename(P), "final", base + "_32.png"))
     # identidad 4.10.9 sobre el artesano de 64
-    src = os.path.join(P, "final", "nano2_artesano_64.png")
+    src = os.path.join(FINAL, os.path.basename(P), "final", "nano2_artesano_64.png")
     if os.path.exists(src):
-        keyed = os.path.join(P, "final", "nano2_artesano_64_clave.png")
+        keyed = os.path.join(FINAL, os.path.basename(P), "final", "nano2_artesano_64_clave.png")
         print("regiones clave:", fp.key_portrait(src, keyed))
-        fp.preview_key(keyed, os.path.join(P, "final", "nano2_artesano_64_familias.png"), [
+        fp.preview_key(keyed, os.path.join(FINAL, os.path.basename(P), "final", "nano2_artesano_64_familias.png"), [
             {1: (92, 60, 34), 2: (224, 181, 140), 3: (140, 46, 46), 4: (200, 168, 80)},
             {1: (30, 24, 20), 2: (150, 100, 70), 3: (40, 70, 130), 4: (190, 190, 200)},
             {1: (200, 150, 60), 2: (240, 200, 170), 3: (50, 110, 60), 4: (120, 70, 40)},
@@ -117,10 +119,10 @@ def titulo():
             # más cercano deforma; mejor caja + paleta de la propia salida de image2pixel
             pal = nat.convert("RGB").quantize(colors=48, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
             f480 = im.convert("RGB").resize((480, 270), Image.BOX).quantize(palette=pal, dither=Image.Dither.NONE)
-            f480 = save(f480.convert("RGBA"), os.path.join(P, "final", n + "_480.png"))
+            f480 = save(f480.convert("RGBA"), os.path.join(FINAL, os.path.basename(P), "final", n + "_480.png"))
             small = Image.open(f480).convert("RGBA")
             small.alpha_composite(logo1, ((480 - logo1.width) // 2, 36))
-            save(small, os.path.join(P, "final", n + "_480_con_logo.png"))
+            save(small, os.path.join(FINAL, os.path.basename(P), "final", n + "_480_con_logo.png"))
 
 
 # ---------------------------------------------------------------- eventos
@@ -138,7 +140,7 @@ def eventos():
             pal = nat.convert("RGB").quantize(colors=32, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
             for w, h in ((240, 135), (192, 108)):
                 f = im.convert("RGB").resize((w, h), Image.BOX).quantize(palette=pal, dither=Image.Dither.NONE)
-                save(f.convert("RGBA"), os.path.join(P, "final", f"{n}_{w}.png"))
+                save(f.convert("RGBA"), os.path.join(FINAL, os.path.basename(P), "final", f"{n}_{w}.png"))
 
 
 # ---------------------------------------------------------------- iconos
@@ -167,7 +169,7 @@ def iconos():
                 out.alpha_composite(c, ((32 - c.width) // 2, (32 - c.height) // 2))
             else:
                 out = fit_canvas(nat, (32, 32), (30, 30), resample=Image.NEAREST)
-            save(out, os.path.join(P, "final", n + "_32.png"))
+            save(out, os.path.join(FINAL, os.path.basename(P), "final", n + "_32.png"))
 
 
 # ---------------------------------------------------------------- fachada
@@ -185,7 +187,7 @@ def fachada():
             nat, s = r
             save(nat, os.path.join(P, "i2p", n + "_nativo.png"))
             save(fit_canvas(nat, (192, 192), (182, 170), bottom=176, resample=Image.NEAREST),
-                 os.path.join(P, "final", n + "_192.png"))
+                 os.path.join(FINAL, os.path.basename(P), "final", n + "_192.png"))
 
 
 # ---------------------------------------------------------------- paseo
@@ -226,7 +228,7 @@ def paseo():
                 cell.alpha_composite(fig.crop((0, max(0, fig.height - 60), min(68, fig.width), fig.height)),
                                      ((68 - min(68, fig.width)) // 2, max(0, 60 - fig.height)))
                 strip.alpha_composite(cell, (i * 68, 0))
-            save(strip, os.path.join(P, "final", n + "_tira_i2p.png"))
+            save(strip, os.path.join(FINAL, os.path.basename(P), "final", n + "_tira_i2p.png"))
             print(n, "rejilla nativa: figura de", fig.height // k, "px, escala", k)
 
 

@@ -12,7 +12,7 @@
    marcan pelo y piel (su ropa es la suya).
 
 Salida: assets/art/portraits/<id>.png (64) y <id>_32.png (32), y vistas sin codificar en
-assets/art/fal_produccion/retratos/natural/ para revisar.
+$GUILDMASTER_ARTE_CRUDOS/fal_produccion/retratos/natural/ para revisar.
 
 Uso: python3 tools/art/fal_retratos_proc.py [--solo id1,id2] [--sin-i2p]
 """
@@ -30,8 +30,9 @@ sys.path.insert(0, HERE)
 import fal_retratos as fr  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-P = os.path.join(ROOT, "assets", "art", "fal_produccion", "retratos")
-PILOT = os.path.join(ROOT, "assets", "art", "fal_piloto", "retratos")
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
+P = fr_.produccion("retratos")
+PILOT = fr_.piloto("retratos")
 OUT = os.path.join(ROOT, "assets", "art", "portraits")
 HAIR, SKIN, PRIMARY, SECONDARY = 1, 2, 3, 4
 # Colores del mapa -> región. El mapa se cuantiza a las 8 esquinas del cubo RGB.

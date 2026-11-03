@@ -4,7 +4,7 @@ petición): retratos, ilustraciones (eventos, estaciones y cartas) y pantallas. 
 (PNG de paleta) y se amplían con vecino más cercano en el navegador.
 
 Uso: python3 tools/art/fal_produccion_galeria.py [--publicar]
-  -> assets/art/fal_produccion/galeria_<pagina>.html; con --publicar las registra en Grimoire (artifact.create).
+  -> $GUILDMASTER_ARTE_CRUDOS/fal_produccion/galeria_<pagina>.html; con --publicar las registra en Grimoire (artifact.create).
 """
 import argparse
 import base64
@@ -24,10 +24,11 @@ import fal_retratos as fr  # noqa: E402
 import personajes_guild as pg  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-PROD = os.path.join(ROOT, "assets", "art", "fal_produccion")
+import fal_rutas as fr_  # noqa: E402  (crudos fuera del repo)
+PROD = fr_.PRODUCCION
 PORTRAITS = os.path.join(ROOT, "assets", "art", "portraits")
 ILLUS = os.path.join(ROOT, "assets", "art", "illustrations")
-LEDGER = os.path.join(ROOT, "assets", "art", "fal_piloto", "gasto.json")
+LEDGER = fr_.LEDGER
 BG = (62, 40, 20)
 FAMILY_B = {1: (30, 24, 20), 2: (150, 100, 70), 3: (40, 70, 130), 4: (190, 190, 200)}
 FAMILY_C = {1: (200, 150, 60), 2: (240, 200, 170), 3: (50, 110, 60), 4: (120, 70, 40)}
