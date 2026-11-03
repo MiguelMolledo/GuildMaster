@@ -12,7 +12,7 @@ var cat := Catalog.load_from()
 
 
 func _broke() -> Sim:
-	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 7)["state"], cat)
+	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)["state"], cat)
 	var st := sim.state
 	st.loans = {}
 	st.families[FAM]["gold"] = 40

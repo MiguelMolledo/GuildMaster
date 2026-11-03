@@ -94,7 +94,7 @@ func test_round_trip_with_h7_state() -> void:
 
 
 func test_new_game_gives_trades_in_map_order() -> void:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 3)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 3)
 	check(r["ok"], "new game")
 	var st: WorldState = r["state"]
 	var folk := _townsfolk(st)

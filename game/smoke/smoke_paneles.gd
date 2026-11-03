@@ -20,7 +20,7 @@ var _steps: Array = []   # [id, open: Callable, panel: Callable -> Control, zone
 
 func _ready() -> void:
 	var hud: Node = app.hud()
-	var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {}, 7)
+	var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 	app.call("_on_new_game_started", r["state"])
 	Game.set_paused(true)
 	var keeper := func() -> String: return TownLife.stall_keeper(Game.sim.state, Game.sim.catalog, "food")

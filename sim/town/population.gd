@@ -9,7 +9,8 @@ extends RefCounted
 ##     room_for_child); they are born in their house and at majority age become apprentices with a trade;
 ##   - at year_changed, with fewer than min_adults adults, newcomers (newcomer_age, apprentices, alternating sex)
 ##     move into the house with fewest people.
-## Contract: docs/contratos/h7_ciudad.md. Figures: data/town.json "population", data/family.json "children", "names".
+## Contract: docs/contratos/h7_ciudad.md. Figures: data/town.json "population", data/family.json "children", "names";
+## población: names and looks of the newcomers come from Cast.newcomer (data/cast.json in a generated cast).
 
 
 ## Once per minute, after Lifecycle (deaths and birthdays happen first at year_changed).
@@ -164,15 +165,14 @@ static func _arrive(sim: Sim, house: String, today: int, n: int) -> String:
 			else:
 				men += 1
 	var female := women < men or (women == men and Kin.roll(st, key + "|sex") < 0.5)
-	var names: Array = sim.catalog.family.get("names", {}).get("female" if female else "male", ["?"])
-	var name := str(names[Kin.randi_range(st, key + "|name", 0, names.size() - 1)])
+	var nc := Cast.newcomer(sim, key, female)  # población: name and look from the game's cast
+	var name := str(nc["name"])
 	var span: Array = cfg.get("newcomer_age", [18, 24])
 	var age := Kin.randi_range(st, key + "|age", int(span[0]), int(span[1]))
 	var stats := {}
 	for k: String in ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution",
 			"rhetoric", "stealth"]:
 		stats[k] = Kin.randi_range(st, key + "|" + k, 2, 7)
-	var vis: Dictionary = sim.catalog.family.get("visual", {})
 	var door: Array = st.buildings[house].get("door", [0, 0])
 	var id := Ids.next(st, "chr")
 	st.characters[id] = {"id": id, "name": name, "female": female, "family": fam, "controlled_by": "ai", "alive": true,
@@ -182,9 +182,9 @@ static func _arrive(sim: Sim, house: String, today: int, n: int) -> String:
 		"order_queue": [], "home": house, "rank": str(cfg.get("newcomer_rank", "apprentice")), "job": null,
 		"hire_bans": {}, "routine": {}, "occupation": "", "town": {}}
 	st.characters[id].merge(Kin.character_fields(Kin.birth_day_for(age, int(st.clock["minute"]), sim.catalog.time),
-		"artisan", "blacksmith", Kin.randi_range(st, key + "|hair", 0, int(vis.get("hair_tones", 6)) - 1),
-		Kin.randi_range(st, key + "|skin", 0, int(vis.get("skin_tones", 4)) - 1),
+		"artisan", "blacksmith", int(nc["hair"]), int(nc["skin"]),
 		sim.catalog.family.get("directives", {}).get("default", ["work"])))
+	st.characters[id]["visual"]["portrait"] = nc["portrait"]
 	(st.families[fam]["members"] as Array).append(id)
 	if Kin.head(st, fam) == "":
 		st.families[fam]["head"] = id

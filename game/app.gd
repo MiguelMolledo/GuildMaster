@@ -27,6 +27,8 @@ extends Node
 ## H13: --smoke-script=eventos: the notices and the clock line of the global events, the market's price reason, the book.
 ## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## H12: --smoke-script=oficios: the trade buttons of the new game screen and the workshop of each artisan trade.
+## Población: --smoke-script=poblacion: the new game screen and «Otra familia», then the sheets of a townsman, a
+## townswoman and the rival with their base portraits.
 ## --smoke-script=menu: every menu screen (title, new game, pause, save, load, options, quit, credits, ending).
 ## --smoke-script=escala: the plaza, the forge street and the town hall at zoom 1 and 2 (building scale B).
 ## UI 1/2: --smoke-script=hud: the new HUD's zones, the book beside the forge's bar, notices, help, ESC, the interior;
@@ -52,7 +54,8 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"escala": "res://game/smoke/smoke_escala.gd", "ia_familiar": "res://game/smoke/smoke_ia_familiar.gd",
 	"hud": "res://game/smoke/smoke_hud.gd", "paneles": "res://game/smoke/smoke_paneles.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
-	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd"}
+	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd",
+	"poblacion": "res://game/smoke/smoke_poblacion.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView

@@ -23,7 +23,7 @@ func test_contraband_doubles_the_counter() -> void:
 
 
 func test_bots_cannot_buy_it() -> void:
-	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"], cat)
+	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"], cat)
 	var req: Dictionary = cat.upgrade("forge_secrets_3")["requires"]
 	check(int(sim.state.characters["chr_0001"]["stats"]["stealth"]) < int(req["stat"]["min"]),
 		"Hugo's stealth (2) is below 5: the crook never reaches it (the targets stay)")

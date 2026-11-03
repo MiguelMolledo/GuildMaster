@@ -31,7 +31,7 @@ func _init() -> void:
 
 
 func _base() -> Sim:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)
 	if not r["ok"]:
 		print("make_trial_scenarios: new game: %s" % r["error"])
 		return null

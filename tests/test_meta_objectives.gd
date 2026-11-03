@@ -10,7 +10,7 @@ var cat := Catalog.load_from()
 
 
 func _sim() -> Sim:
-	return Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"], cat)
+	return Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"], cat)
 
 
 ## Feeds `events` to Objectives as if a step had emitted them.

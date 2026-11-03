@@ -106,6 +106,10 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Oficios del Artesano (H12, al tocar recetas, talleres o los inicios): `godot --headless --path . -s tools/sim_runner.gd --
   --start=artisan_<carpenter|mason|tailor> --bots=<oficio>_novice --difficulty=easy,normal,hard --days=10 --seeds=30`
   (diana `goldflow.start_<oficio>`, la del inicio de la forja; en `run_all`, pasos carpenter, mason y tailor).
+- Población (al tocar `data/cast.json`, `sim/meta/cast.gd` o los inicios): las partidas nuevas reparten nombres,
+  edades y aspecto con la semilla; `sim_runner` y las pruebas usan el reparto fijo (`choices` `"cast": "fixed"`, el de
+  los datos) salvo `--cast=random` (con `--tag`; en `run_all`, paso cast). Contrato: `docs/contratos/poblacion.md`.
+  Captura: `--smoke-script=poblacion --seed=<n>`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

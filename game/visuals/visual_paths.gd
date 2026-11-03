@@ -89,6 +89,48 @@ static func character_id(ch: Dictionary, family: Dictionary) -> String:
 	return "%s_%s" % [role, "f" if bool(ch.get("female", false)) else "m"]
 
 
+## Población: the base portrait of a person (data/cast.json portraits; tools/art/fal_retratos.py): the art of
+## <type>_<stage>_<m|f> in assets/art/portraits/ (<id>_32.png for `size` 32, <id>.png for 64), variant `variant` among
+## the ones that exist (numbered _1, _2... or one unnumbered); if that type has none for the stage and sex, the types
+## of data/view.json portraits.fallback in order. While the production portraits are not in main, the fal pilot ones
+## (assets/art/portraits_pilot/, same names) stand in. null without any: the portrait keeps its greybox.
+static func portrait(type: String, stage: String, female: bool, variant: int, size: int = 32) -> Texture2D:
+	var types: Array = [type]
+	for t: Variant in (ViewConfig.value("portraits", {}) as Dictionary).get("fallback", []):
+		if not str(t) in types:
+			types.append(str(t))
+	for t: String in types:
+		var base := "%s_%s_%s" % [t, stage, "f" if female else "m"]
+		for dir: String in PORTRAIT_DIRS:
+			var found := portrait_variants(dir, base, size)
+			if not found.is_empty():
+				return load(found[posmod(variant, found.size())]) as Texture2D
+	return null
+
+
+const PORTRAIT_DIRS: Array[String] = ["res://assets/art/portraits", "res://assets/art/portraits_pilot"]
+static var _portrait_cache: Dictionary = {}  # "dir/base/size" -> [paths]
+
+
+## The files of portrait `base` in `dir`: the unnumbered one, else _1, _2... while they exist.
+static func portrait_variants(dir: String, base: String, size: int) -> PackedStringArray:
+	var key := "%s/%s/%d" % [dir, base, size]
+	if _portrait_cache.has(key):
+		return _portrait_cache[key]
+	var suffix := "_32" if size <= 32 else ""
+	var out := PackedStringArray()
+	var plain := "%s/%s%s.png" % [dir, base, suffix]
+	if ResourceLoader.exists(plain):
+		out.append(plain)
+	for i: int in range(1, 20):
+		var p := "%s/%s_%d%s.png" % [dir, base, i, suffix]
+		if not ResourceLoader.exists(p):
+			break
+		out.append(p)
+	_portrait_cache[key] = out
+	return out
+
+
 ## The icon of an item: assets/art/icons/<item_id>.png (null until it exists).
 static func icon(item_id: String) -> Texture2D:
 	var p := "%s/icons/%s.png" % [ART_ROOT, item_id]

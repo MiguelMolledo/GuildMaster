@@ -12,6 +12,9 @@ extends MenuScreen
 ## H12: the trade inside the class (GDD 4.2.1), buttons in the header (data/professions/ of the start's class, in
 ## their order); choosing one plays its start (data/professions/<id>.json "start") and, if the name and the family
 ## still hold the defaults of the start before, puts the new start's defaults in.
+## Población: the name, the family name and the look proposed come from the game's cast (Cast.proposal with the cast
+## seed Cast.sub_seed(world_seed, cast_roll)); «Otra familia» (%RerollButton) adds 1 to the roll: another proposal and
+## another town, the same world seed. Start sends cast and cast_seed with the choices.
 
 signal started(state: WorldState)
 
@@ -26,6 +29,9 @@ var primary: String = ""
 var secondary: String = ""
 var world_seed: int = 1
 var help_stat: String = ""       # the stat whose help is shown
+var cast_mode: String = Cast.RANDOM  # población: "fixed" proposes the start's defaults (and plays today's town)
+var cast_roll: int = 0           # «Otra familia» presses
+var proposal: Dictionary = {}    # Cast.proposal of the start: {name_m, name_f, family_name, visual}
 ## Who builds the state (NewGame.from_start by default; the tests watch the call).
 var from_start: Callable = NewGame.from_start
 var _bound: bool = false
@@ -44,6 +50,7 @@ func _bind() -> void:
 	(%FamilyEdit as LineEdit).text_changed.connect(func(_t: String) -> void: _update_start())
 	(%NameEdit as LineEdit).text_submitted.connect(func(_t: String) -> void: start_game())
 	(%FamilyEdit as LineEdit).text_submitted.connect(func(_t: String) -> void: start_game())
+	(%RerollButton as Button).pressed.connect(reroll_cast)
 
 
 func protagonist() -> Dictionary:
@@ -97,8 +104,12 @@ func setup(c: Catalog, seed_value: int) -> void:
 	MenuKit.add_hint(%StartButton as Button, SimQuery.t_("ui.key.enter"))
 	(%BackButton as Button).text = SimQuery.t_("ui.menu.back")
 	MenuKit.add_hint(%BackButton as Button, SimQuery.t_("ui.key.esc"))
-	(%NameEdit as LineEdit).text = SimQuery.t_(str(cfg.get("default_name", "")))
-	(%FamilyEdit as LineEdit).text = SimQuery.t_(str(cfg.get("default_family", "")))
+	(%RerollButton as Button).text = SimQuery.t_("ui.new_game.reroll")
+	(%RerollButton as Button).tooltip_text = SimQuery.t_("ui.new_game.reroll_tip")
+	cast_roll = 0
+	proposal = _proposal_for(start_id)
+	(%NameEdit as LineEdit).text = str(proposal.get("name_m", SimQuery.t_(str(cfg.get("default_name", "")))))
+	(%FamilyEdit as LineEdit).text = str(proposal.get("family_name", SimQuery.t_(str(cfg.get("default_family", "")))))
 	(%ErrorLabel as Label).visible = false
 	_build_difficulty()
 	_build_professions()
@@ -172,13 +183,18 @@ func set_profession(p: String) -> void:
 	var after: Dictionary = catalog.starts()[sid].get("defaults", {})
 	var name_edit := %NameEdit as LineEdit
 	var fam_edit := %FamilyEdit as LineEdit
-	if name_edit.text.strip_edges() in [str(before.get("name", "")), SimQuery.t_(str(ViewConfig.value("new_game", {}).get("default_name", "")))]:
-		name_edit.text = str(after.get("name", name_edit.text))
-	if fam_edit.text.strip_edges() in [str(before.get("family_name", "")), SimQuery.t_(str(ViewConfig.value("new_game", {}).get("default_family", "")))]:
-		fam_edit.text = str(after.get("family_name", fam_edit.text))
+	var name_kept := name_edit.text.strip_edges() in [str(before.get("name", "")), str(proposal.get("name_m", "")),
+		str(proposal.get("name_f", "")), SimQuery.t_(str(ViewConfig.value("new_game", {}).get("default_name", "")))]
+	var fam_kept := fam_edit.text.strip_edges() in [str(before.get("family_name", "")), str(proposal.get("family_name", "")),
+		SimQuery.t_(str(ViewConfig.value("new_game", {}).get("default_family", "")))]
 	start_id = sid
-	if bool(after.get("female", false)) != female and name_edit.text == str(after.get("name", "")):
-		set_female(bool(after.get("female", false)))
+	proposal = _proposal_for(sid)  # a family of the new trade (its trade surnames), the same roll
+	if fam_kept:
+		fam_edit.text = str(proposal.get("family_name", after.get("family_name", fam_edit.text)))
+	if name_kept:
+		if bool(after.get("female", false)) != female:
+			set_female(bool(after.get("female", false)))
+		name_edit.text = str(proposal.get("name_f" if female else "name_m", after.get("name", name_edit.text)))
 	(%StartName as Label).text = SimQuery.t_(str(catalog.starts()[sid].get("name_key", "start." + sid)))
 	for b: Node in (%Profession as HBoxContainer).get_children():
 		(b as Button).set_pressed_no_signal(b.name == p.to_pascal_case())
@@ -203,6 +219,9 @@ func _update_difficulty_hint() -> void:
 
 
 func set_female(f: bool) -> void:
+	var name_edit := %NameEdit as LineEdit
+	if f != female and name_edit.text.strip_edges() == str(proposal.get("name_f" if female else "name_m", "\t")):
+		name_edit.text = str(proposal.get("name_f" if f else "name_m", name_edit.text))  # the proposal of the other sex
 	female = f
 	(%Male as Button).set_pressed_no_signal(not f)
 	(%Female as Button).set_pressed_no_signal(f)
@@ -322,7 +341,8 @@ func _update_preview() -> void:
 		return
 	var start: Dictionary = catalog.starts().get(start_id, {})
 	var defaults: Dictionary = start.get("defaults", {})
-	var vis: Dictionary = defaults.get("visual", {})
+	var vis: Dictionary = proposal.get("visual", defaults.get("visual", {}))
+	var pt: Dictionary = vis.get("portrait", {}) if vis.get("portrait") is Dictionary else {}
 	if _portrait == null:
 		var n := VisualPaths.instantiate("characters", "portrait")
 		n.name = "Portrait"
@@ -331,7 +351,9 @@ func _update_preview() -> void:
 	if _portrait != null:
 		_portrait.set_identity({"hair": Identity.hair_color(int(vis.get("hair", 0))),
 			"skin": Identity.skin_color(int(vis.get("skin", 0))), "primary": ViewConfig.color(primary),
-			"secondary": ViewConfig.color(secondary), "female": female, "dead": false})
+			"secondary": ViewConfig.color(secondary), "female": female, "dead": false,
+			"portrait": {"type": str(pt.get("type", start.get("class", "artisan"))), "variant": int(pt.get("variant", 0)),
+				"stage": Identity.stage(int(protagonist().get("age", 20)))}})
 	var border := (%PortraitBorder as Panel).get_theme_stylebox("panel") as StyleBoxFlat
 	if border != null:
 		border = border.duplicate() as StyleBoxFlat
@@ -371,11 +393,31 @@ func missing_reason() -> String:
 	return ""
 
 
-## What the player chose, in the shape of NewGame.from_start's `choices`.
+## What the player chose, in the shape of NewGame.from_start's `choices` (población: with the cast and its seed).
 func choices() -> Dictionary:
 	return {"name": (%NameEdit as LineEdit).text.strip_edges(), "female": female,
 		"family_name": (%FamilyEdit as LineEdit).text.strip_edges(), "colors": {"primary": primary, "secondary": secondary},
-		"stats_add": stats_add.duplicate()}
+		"stats_add": stats_add.duplicate(), "cast": cast_mode, "cast_seed": cast_seed()}
+
+
+## Población: the cast seed of this screen (a sub-seed of the world seed: «Otra familia» moves only the roll).
+func cast_seed() -> int:
+	return Cast.sub_seed(world_seed, cast_roll)
+
+
+## «Otra familia»: another roll of the cast (name, family name and look proposed, and the town's people), the same world.
+func reroll_cast() -> void:
+	cast_roll += 1
+	proposal = _proposal_for(start_id)
+	(%NameEdit as LineEdit).text = str(proposal.get("name_f" if female else "name_m", ""))
+	(%FamilyEdit as LineEdit).text = str(proposal.get("family_name", ""))
+	ViewConfig.info("NewGame", "otra familia (tirada=%d, semilla=%d): %s de los %s" % [cast_roll, cast_seed(),
+		(%NameEdit as LineEdit).text, (%FamilyEdit as LineEdit).text])
+	_update_start()
+
+
+func _proposal_for(sid: String) -> Dictionary:
+	return Cast.proposal(catalog, catalog.starts().get(sid, {}), cast_mode, cast_seed())
 
 
 ## Start: builds the game with what was chosen; on success emits started(state), else shows the error.

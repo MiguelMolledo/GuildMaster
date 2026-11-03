@@ -26,8 +26,10 @@ static func from_scenario(id: String, world_seed: int = -1) -> Dictionary:
 ## free points, colours), the family purse, the forge with its stock, the debt by `difficulty`, the rival family,
 ## the scripted contracts and the objective chain. {"ok": true, "state": WorldState} or {"ok": false, "error": ...}.
 ## Owner: subgrim «cuentas». Contract: docs/contratos/h3_mercado.md.
-## choices = {name, female, family_name, colors {primary, secondary}, stats_add {stat: points}}; a missing choice
-## takes the start's "defaults". stats_add: whole points >= 0 on known stats, at most free_points in total, each
+## choices = {name, female, family_name, colors {primary, secondary}, stats_add {stat: points}, cast, cast_seed}; a
+## missing choice takes the cast's proposal (Cast.proposal: with cast "fixed", the start's "defaults"). cast: "random"
+## (default) or "fixed" (today's names, ages and tones of data/starts and data/maps: tests, scenarios, targets);
+## cast_seed: the cast's seed (default Cast.sub_seed(world_seed); the new-game screen's «Otra familia» changes it). stats_add: whole points >= 0 on known stats, at most free_points in total, each
 ## stat ending in [stat_min, stat_max]; otherwise {"ok": false, "error": "bad_choices"}.
 ## Ids: the player family fam_0001, the protagonist chr_0001, the player building bld_0001; the rival after them;
 ## then the public buildings of the map (sorted by site name); then (H4) the townsfolk of the map's "population", in
@@ -44,10 +46,22 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	var map: Dictionary = catalog.maps().get(str(start.get("map", "")), {})
 	if map.is_empty():
 		return {"ok": false, "error": "unknown_map"}
-	var c := _choices(start, choices)
+	# Población: the cast (sim/meta/cast.gd). "fixed" keeps the names, ages and tones of the data (tests, scenarios,
+	# targets); "random" (the default, a player's new game) deals them with the cast seed (a sub-seed of the world's).
+	var mode: Variant = choices.get("cast", Cast.RANDOM)
+	var cast_seed: Variant = choices.get("cast_seed", Cast.sub_seed(world_seed))
+	if not str(mode) in Cast.MODES or not (typeof(cast_seed) in [TYPE_INT, TYPE_FLOAT]):
+		return {"ok": false, "error": "bad_choices"}
+	var pro := Cast.proposal(catalog, start, str(mode), int(cast_seed))
+	var c := _choices(start, choices, pro)
 	if c.is_empty():
 		return {"ok": false, "error": "bad_choices"}
+	var cast := Cast.generate(catalog, start, map, str(mode), int(cast_seed), str(c["colors"]["primary"]))
+	var applied := Cast.apply(start, map, cast)
+	start = applied["start"]
+	map = applied["map"]
 	var s := fresh(catalog, world_seed)
+	s.cast = {"mode": str(mode), "seed": int(cast_seed), "map": str(start["map"])}
 	s.map_id = str(start["map"])
 	s.difficulty = difficulty
 	s.meta = {"title": "new_game", "start": start_id}
@@ -168,11 +182,14 @@ static func _add_competitor(s: WorldState, catalog: Catalog, sites: Dictionary, 
 		print("[NewGame] competidor %s (%s, %s) en %s" % [fam, cp.get("family_name", ""), cp.get("profession", ""), bld])
 
 
-static func _choices(start: Dictionary, choices: Dictionary) -> Dictionary:
+## pro: the cast's proposal for the protagonist (Cast.proposal): the name of the chosen sex, the family name and the
+## tones a missing choice takes (with the fixed cast, the start's defaults).
+static func _choices(start: Dictionary, choices: Dictionary, pro: Dictionary) -> Dictionary:
 	var d: Dictionary = start.get("defaults", {})
 	var pr: Dictionary = start.get("protagonist", {})
-	var name := str(choices.get("name", d.get("name", ""))).strip_edges()
-	var family_name := str(choices.get("family_name", d.get("family_name", ""))).strip_edges()
+	var female := bool(choices.get("female", d.get("female", false)))
+	var name := str(choices.get("name", pro.get("name_f" if female else "name_m", d.get("name", "")))).strip_edges()
+	var family_name := str(choices.get("family_name", pro.get("family_name", d.get("family_name", "")))).strip_edges()
 	if name == "" or family_name == "":
 		return {}
 	var colors: Variant = choices.get("colors", d.get("colors", {}))
@@ -197,16 +214,20 @@ static func _choices(start: Dictionary, choices: Dictionary) -> Dictionary:
 	for k: String in stats:
 		if int(stats[k]) < int(pr.get("stat_min", 1)) or int(stats[k]) > int(pr.get("stat_max", 10)):
 			return {}
-	var visual: Variant = choices.get("visual", d.get("visual", {}))
+	var pv: Dictionary = pro.get("visual", d.get("visual", {}))
+	var visual: Variant = choices.get("visual", pv)
 	if not visual is Dictionary:
 		return {}
 	for k: String in ["hair", "skin"]:
 		var v: Variant = (visual as Dictionary).get(k, 0)
 		if not (typeof(v) in [TYPE_INT, TYPE_FLOAT]) or int(v) < 0:
 			return {}
-	return {"name": name, "female": bool(choices.get("female", d.get("female", false))), "family_name": family_name,
+	var vis := {"hair": int(visual.get("hair", 0)), "skin": int(visual.get("skin", 0))}
+	if pv.get("portrait") is Dictionary:
+		vis["portrait"] = (pv["portrait"] as Dictionary).duplicate()
+	return {"name": name, "female": female, "family_name": family_name,
 		"colors": {"primary": str(colors["primary"]), "secondary": str(colors["secondary"])}, "stats": stats,
-		"visual": {"hair": int(visual.get("hair", 0)), "skin": int(visual.get("skin", 0))}}
+		"visual": vis}
 
 
 ## The map's "population" (H4): per household, in order, a family (controlled_by "ai", no ai_profile), its house (the
@@ -228,6 +249,8 @@ static func add_population(s: WorldState, catalog: Catalog, map: Dictionary) -> 
 			ch["rank"] = str(p.get("rank", ""))
 			_set_kin(s, catalog, id, int(p.get("age", SaveFile.MIGRATION_AGE)), "artisan",
 				"blacksmith" if str(p.get("rank", "")) != "" else "", p.get("visual", {}))
+			if p.has("birth_offset"):  # población: a day inside the birth year keeps the data's order of age (Cast)
+				ch["birth_day"] = int(ch["birth_day"]) + int(p["birth_offset"])
 			out.append(id)
 	# H7: each adult townsperson gets its trade (a workplace of the map, docs/contratos/h7_ciudad.md).
 	TownLife.assign_occupations(s, catalog)
@@ -286,6 +309,8 @@ static func _set_kin(s: WorldState, catalog: Catalog, chr: String, age: int, cha
 	for k: String in ["hair", "skin"]:
 		if visual.has(k):
 			ch["visual"][k] = int(visual[k])
+	if visual.get("portrait") is Dictionary:  # población: the base portrait {type, variant} (Cast)
+		ch["visual"]["portrait"] = (visual["portrait"] as Dictionary).duplicate()
 
 
 static func _add_building(s: WorldState, catalog: Catalog, sites: Dictionary, site: String, owner: String,

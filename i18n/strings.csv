@@ -1355,6 +1355,8 @@ ui.pause.without_saving,Don't save,Sin guardar
 ui.pause.save_and_quit,Save and quit,Guardar y salir
 ui.new_game.stats,Stats,Atributos
 ui.new_game.color_note,THE MAIN COLOUR DRESSES YOUR PEOPLE IN THE TOWN AND BORDERS THEIR PORTRAITS.,EL COLOR PRINCIPAL VISTE A LOS TUYOS EN EL PUEBLO Y BORDEA SUS RETRATOS.
+ui.new_game.reroll,Another family,Otra familia
+ui.new_game.reroll_tip,"Another name, family name and look for your character, and other neighbours in the town. The world stays the same.","Otro nombre, apellido y aspecto para tu personaje, y otros vecinos en el pueblo. El mundo es el mismo."
 ui.new_game.start_info,"You start at dawn on day 1 of spring, year 1. You can change whom you control, not the stats.","Empiezas al amanecer del día 1 de primavera del año 1. Podrás cambiar a quién controlas, no los atributos."
 ui.new_game.need_name,The name is missing,Falta el nombre
 ui.new_game.need_family,The family name is missing,Falta la familia

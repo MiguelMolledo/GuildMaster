@@ -45,6 +45,7 @@ var justice: Dictionary = {}     # data/justice.json: charges, sentences, facts,
 var politics: Dictionary = {}    # data/politics.json: reputation rules and classes, the title ceremony (H9, GDD 4.12)
 var seasons: Dictionary = {}     # data/seasons.json: goods groups, price and production by season (H13, GDD 4.5.3, 4.13)
 var events: Dictionary = {}      # data/events.json: the global events (H13, GDD 4.13): rules and events by id
+var cast: Dictionary = {}        # data/cast.json: the generated cast of a new game (names, surnames, ages, look, portraits)
 var errors: PackedStringArray = []  # files that could not be read
 var _goods_index: Dictionary = {}  # H13: item -> [goods groups] (goods_of)
 var _goods_built: bool = false
@@ -73,6 +74,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.justice = c._load_json(root_dir.path_join("justice.json"))
 	c.seasons = c._load_json(root_dir.path_join("seasons.json"))
 	c.events = c._load_json(root_dir.path_join("events.json"))
+	c.cast = c._load_json(root_dir.path_join("cast.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]

@@ -78,7 +78,7 @@ func test_round_trip_with_h5_state() -> void:
 
 
 func test_new_buildings_have_the_v6_fields() -> void:
-	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"]
+	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"]
 	for b: String in st.buildings:
 		eq([st.buildings[b]["upgrades"], st.buildings[b]["upgrade_work"]], [[], null], "%s starts without upgrades" % b)
 		eq(st.buildings[b]["inspection"], Upgrades.new_inspection(), "%s inspection memory" % b)
