@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d0xpvgeogxkbu"]
+
+[ext_resource type="Script" uid="uid://b4mpdblklg3rs" path="res://tools/ui/captura_fondos.gd" id="1"]
+
+[node name="CapturaFondos" type="Node"]
+script = ExtResource("1")

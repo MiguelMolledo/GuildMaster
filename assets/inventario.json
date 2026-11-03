@@ -883,7 +883,7 @@
       "origen": "dibujado (Pillow)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Tema de UI pixel art (tools/art/dibujar_ui.py): panel.png (marco de madera con remaches y filete dorado, 9-patch), button_<normal|hover|pressed|disabled>.png, field.png, tooltip.png (pergamino). Todo en game/ui/greybox_theme.tres, puesto también en la raíz del HUD."
+      "notas": "Tema de UI pixel art (tools/art/dibujar_ui.py): panel.png (marco de madera con remaches y filete dorado, 9-patch), button_<normal|hover|pressed|disabled>.png, field.png, tooltip.png (pergamino), tab_<on|off>.png (pestañas) portrait_<normal|active|dim>.png (marco de retrato), parchment.png (documentos), check_<on|off>, slider_*, scroll_* y divider.png. Todo en game/ui/greybox_theme.tres, puesto también en la raíz del HUD."
     },
     {
       "id": "ui_font_pixel",
@@ -895,7 +895,79 @@
       "ruta": "assets/art/ui/fonts/silkscreen_regular.ttf",
       "origen": "guild-renew",
       "coste_gen": 0,
-      "notas": "Silkscreen (Jason Kottke, SIL Open Font License 1.1), traída de guild:assets/fonts. Solo en los botones del tema, a 8 px sin suavizado (es de mayúsculas: no sirve para párrafos)."
+      "notas": "Silkscreen (Jason Kottke, SIL Open Font License 1.1), traída de guild:assets/fonts. Solo en los botones del tema, a 8 px sin suavizado (es de mayúsculas: no sirve para párrafos). Licencia en silkscreen_ofl.txt."
+    },
+    {
+      "id": "ui_font_body",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/fonts/pixel_operator.ttf",
+      "origen": "libre (CC0)",
+      "coste_gen": 0,
+      "notas": "Pixel Operator de Jayvee Enaguas (CC0 1.0; licencia en pixel_operator_cc0.txt), regular, negrita y _8. Fuente de cuerpo recomendada en docs/ui/00_lenguaje_visual.md: 16 px nítida (mayúscula de 9 px), con ñ y acentos; tools/ui/glifos_extra.py le añade → ← ↑ ↓ −. Importada sin suavizado. Aún no está en el theme."
+    },
+    {
+      "id": "ui_font_title",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/fonts/jacquarda_bastarda_9.ttf",
+      "origen": "libre (OFL)",
+      "coste_gen": 0,
+      "notas": "Jacquarda Bastarda 9 (The Soft Type Project, SIL OFL 1.1; licencia al lado). Letra gótica pixel para títulos de panel y pantallas, a 13 px. Aún no está en el theme. Jacquard 24 (misma licencia, jacquard_24.ttf) para el logotipo y el título del final, a 43 px."
+    },
+    {
+      "id": "ui_font_candidates",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/fonts/tiny5.ttf",
+      "origen": "libre (OFL)",
+      "coste_gen": 0,
+      "notas": "Candidatas comparadas en docs/ui/00_lenguaje_visual.md: Tiny5 (8 px) y VT323 (16 px), SIL OFL 1.1 con su licencia al lado. Si no se eligen, se pueden borrar (desde Godot)."
+    },
+    {
+      "id": "ui_marks",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/marks/seal.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Insignias del kit (tools/art/dibujar_ui.py): badge_title_<common|citizen|patrician|baron|noble> y badge_office_<mayor|councillor|judge|constable|collector|inspector> de 12×12, rank_<1|2|3> (galones de 8×8) y seal.png (lacre, 16×16). Diseño: docs/ui/00_lenguaje_visual.md."
+    },
+    {
+      "id": "ui_cursor",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/cursor/cursor_arrow.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Cursores del kit: cursor_arrow, cursor_hand (sobre lo clicable), cursor_wait (cargar/guardar), a 1×; el juego usará la versión ×2. Aún no están en el juego."
+    },
+    {
+      "id": "ui_logo",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/logo/guildmaster_logo.png",
+      "origen": "dibujado (Pillow)",
+      "coste_gen": 0,
+      "notas": "Logotipo «GuildMaster» (tools/ui/logo.py): Jacquard 24 (The Soft Type Project, SIL OFL 1.1; jacquard_24_ofl.txt al lado de la fuente) a 43 px sin suavizado, oro en tres franjas, contorno, sombra y regla con rombos. 187×34 y _x2. Para la pantalla de título (docs/ui/02_menu_inicial.md)."
     },
     {
       "id": "ui_hud_clock",
