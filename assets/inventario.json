@@ -194,7 +194,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/forge",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/forge/exterior/building_forge_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/forge.tscn (Sprite, Greybox oculto). Sin variantes de obras ni dañado."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/forge/exterior/building_forge_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/forge.tscn (Sprite, Greybox oculto). Sin variantes de obras ni dañado. Candidata fal (2026-11-03): assets/art/buildings/fal/forge.png (mismo lienzo y ancla; entrada bld_forge_fal)."
     },
     {
       "id": "int_forge",
@@ -277,7 +277,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/market",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/exterior/building_armeria_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/armory.tscn."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/market/exterior/building_armeria_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/armory.tscn. Candidata fal (2026-11-03): assets/art/buildings/fal/armory.png (mismo lienzo y ancla; entrada bld_armory_fal)."
     },
     {
       "id": "bld_town_hall",
@@ -305,7 +305,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/buildings/residential",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_1/house_modest_1_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/house.tscn (las 8 casas iguales)."
+      "notas": "Reuso sin coste de guild:assets/sprites/buildings/residential/house_modest_1/house_modest_1_192.png (docs/arte/reuso_guild.md). En game/visuals/buildings/house.tscn (las 8 casas iguales). Candidata fal (2026-11-03): assets/art/buildings/fal/house.png (mismo lienzo y ancla; entrada bld_house_fal)."
     },
     {
       "id": "bld_house_a",
@@ -804,58 +804,62 @@
     {
       "id": "bubble_emotion_grateful",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "emociones"
       ],
       "ruta": "assets/art/ui/bubbles/emotion_grateful.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/emotion_grateful.tscn (GDD 4.11.5)"
+      "notas": "Burbuja de emoción (GDD 4.11.5), 32×32 y assets/art/ui/bubbles/small/emotion_grateful.png. La escena game/visuals/bubbles/emotion_grateful.tscn sigue con su greybox: falta poner el sprite.",
+      "coste_usd": 0.02
     },
     {
       "id": "bubble_emotion_offended",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "emociones"
       ],
       "ruta": "assets/art/ui/bubbles/emotion_offended.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/emotion_offended.tscn (GDD 4.11.5)"
+      "notas": "Burbuja de emoción (GDD 4.11.5), 32×32 y assets/art/ui/bubbles/small/emotion_offended.png. La escena game/visuals/bubbles/emotion_offended.tscn sigue con su greybox: falta poner el sprite.",
+      "coste_usd": 0.02
     },
     {
       "id": "bubble_emotion_angry",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "emociones"
       ],
       "ruta": "assets/art/ui/bubbles/emotion_angry.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/emotion_angry.tscn (GDD 4.11.5)"
+      "notas": "Burbuja de emoción (GDD 4.11.5), 32×32 y assets/art/ui/bubbles/small/emotion_angry.png. La escena game/visuals/bubbles/emotion_angry.tscn sigue con su greybox: falta poner el sprite.",
+      "coste_usd": 0.02
     },
     {
       "id": "bubble_emotion_scared",
       "tipo": "ui",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H7",
         "emociones"
       ],
       "ruta": "assets/art/ui/bubbles/emotion_scared.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Greybox en game/visuals/bubbles/emotion_scared.tscn (GDD 4.11.5)"
+      "notas": "Burbuja de emoción (GDD 4.11.5), 32×32 y assets/art/ui/bubbles/small/emotion_scared.png. La escena game/visuals/bubbles/emotion_scared.tscn sigue con su greybox: falta poner el sprite.",
+      "coste_usd": 0.02
     },
     {
       "id": "prop_dice_table",
@@ -1144,16 +1148,17 @@
     {
       "id": "icon_steel",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos"
       ],
       "ruta": "assets/art/icons/steel.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md). Candidato fal (piloto 2026-11-03): assets/art/fal_piloto/iconos/final/acero_32.png (misma hoja que la sierra). Sirve con retoque: más grande y claro que iron_ingot, igualar tamaño."
+      "notas": "32×32 y assets/art/icons/small/steel.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en assets/art/fal_produccion/iconos/.",
+      "coste_usd": 0.02
     },
     {
       "id": "icon_flour",
@@ -1270,17 +1275,18 @@
     {
       "id": "icon_saw",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H2",
         "objetos",
         "H12"
       ],
       "ruta": "assets/art/icons/saw.png",
-      "origen": "dibujado (Pillow)",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_sierra.png",
       "coste_gen": 0,
-      "notas": "Placeholder dibujado (tools/art/oficios_h12.py), 32×32 y icons/small/saw.png: el icon_sierra de Guild Renew parece un mazo (docs/arte/reuso_guild.md). La herramienta del carpintero (H12). Pendiente de PixelLab. Candidato fal (piloto 2026-11-03): assets/art/fal_piloto/iconos/final/sierra_32.png (sirve con retoque)."
+      "notas": "32×32 y assets/art/icons/small/saw.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en assets/art/fal_produccion/iconos/.",
+      "coste_usd": 0.02
     },
     {
       "id": "icon_needle",
@@ -2016,7 +2022,7 @@
       "ruta": "assets/art/buildings/escala_b/carpentry.png",
       "origen": "guild-renew (derivado con Pillow)",
       "origen_previo": "guild:assets/sprites/buildings/market/exterior/building_materiales_192.png",
-      "notas": "Placeholder derivado (tools/art/oficios_h12.py): el granero de «materiales» de Guild Renew subido a escala B (escala_b.add_rows), con cartel de sierra y banco de carpintero en el patio. Pendiente de la fachada de PixelLab (lista de la compra en assets/art/MANIFEST.md). En game/visuals/buildings/carpentry.tscn.",
+      "notas": "Placeholder derivado (tools/art/oficios_h12.py): el granero de «materiales» de Guild Renew subido a escala B (escala_b.add_rows), con cartel de sierra y banco de carpintero en el patio. Pendiente de la fachada de PixelLab (lista de la compra en assets/art/MANIFEST.md). En game/visuals/buildings/carpentry.tscn. Candidata fal (2026-11-03): assets/art/buildings/fal/carpentry.png (mismo lienzo y ancla; entrada bld_carpentry_fal).",
       "coste_gen": 0
     },
     {
@@ -2030,7 +2036,7 @@
       "ruta": "assets/art/buildings/escala_b/masonry.png",
       "origen": "guild-renew (derivado con Pillow)",
       "origen_previo": "assets/art/buildings/escala_b/house_d.png",
-      "notas": "Placeholder derivado (tools/art/oficios_h12.py): house_d (casa de piedra) con el tejado de pizarra, cartel de martillo y dos pilas de piedra. Se parece a las casas de relleno: pendiente de PixelLab. En game/visuals/buildings/masonry.tscn.",
+      "notas": "Placeholder derivado (tools/art/oficios_h12.py): house_d (casa de piedra) con el tejado de pizarra, cartel de martillo y dos pilas de piedra. Se parece a las casas de relleno: pendiente de PixelLab. En game/visuals/buildings/masonry.tscn. Candidata fal (2026-11-03): assets/art/buildings/fal/masonry.png (mismo lienzo y ancla; entrada bld_masonry_fal).",
       "coste_gen": 0
     },
     {
@@ -2044,7 +2050,7 @@
       "ruta": "assets/art/buildings/escala_b/tailor_shop.png",
       "origen": "guild-renew (derivado con Pillow)",
       "origen_previo": "guild:assets/sprites/buildings/market/exterior/building_roperia_192.png",
-      "notas": "Derivado (tools/art/oficios_h12.py): la ropería de Guild Renew (ya lleva ropa tendida y cartel «TAILOR», en inglés) subida a escala B. Pendiente de PixelLab (cartel sin texto). En game/visuals/buildings/tailor_shop.tscn.",
+      "notas": "Derivado (tools/art/oficios_h12.py): la ropería de Guild Renew (ya lleva ropa tendida y cartel «TAILOR», en inglés) subida a escala B. Pendiente de PixelLab (cartel sin texto). En game/visuals/buildings/tailor_shop.tscn. Candidata fal (2026-11-03): assets/art/buildings/fal/tailor_shop.png (mismo lienzo y ancla; entrada bld_tailor_shop_fal).",
       "coste_gen": 0
     },
     {
@@ -2134,114 +2140,122 @@
     {
       "id": "icon_chest",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "chest"
       ],
       "ruta": "assets/art/icons/chest.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/chest.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en assets/art/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_cabinet",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "cabinet"
       ],
       "ruta": "assets/art/icons/cabinet.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/cabinet.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en assets/art/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_cart_wheel",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "cart_wheel"
       ],
       "ruta": "assets/art/icons/cart_wheel.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/cart_wheel.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en assets/art/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_ashlar",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "ashlar"
       ],
       "ruta": "assets/art/icons/ashlar.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/ashlar.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en assets/art/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_grindstone",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "grindstone"
       ],
       "ruta": "assets/art/icons/grindstone.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/grindstone.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en assets/art/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_trough",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "trough"
       ],
       "ruta": "assets/art/icons/trough.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/trough.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en assets/art/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_millstone",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "millstone"
       ],
       "ruta": "assets/art/icons/millstone.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/millstone.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en assets/art/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_statue",
       "tipo": "icono",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "statue"
       ],
       "ruta": "assets/art/icons/statue.png",
-      "origen": "dibujado (Pillow)",
-      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "notas": "32×32 y assets/art/icons/small/statue.png (16×16, half() de derivar_guild.py). Sustituye al placeholder dibujado (en el historial de git). Crudo en assets/art/fal_produccion/iconos/.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.02
     },
     {
       "id": "icon_fine_clothes",
@@ -3768,6 +3782,188 @@
       "coste_gen": 0,
       "coste_usd": 0.0,
       "notas": "Fondo de pantalla (title_dawn, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en assets/art/fal_produccion/ilustraciones/ (o assets/art/fal_piloto/)."
+    },
+    {
+      "id": "ui_icon_gavel",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H11",
+        "tribunal"
+      ],
+      "ruta": "assets/art/ui/icons/icon_gavel.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): a judge's wooden gavel lying diagonally on a small round wooden block. 32×32 y assets/art/ui/icons/small/icon_gavel.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_ballot_box",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H10",
+        "elecciones"
+      ],
+      "ruta": "assets/art/ui/icons/icon_ballot_box.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): a wooden ballot box with a slot on the lid and a round wooden token dropping into it. 32×32 y assets/art/ui/icons/small/icon_ballot_box.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_reputation",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H9",
+        "reputación"
+      ],
+      "ruta": "assets/art/ui/icons/icon_reputation.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): a golden laurel wreath around a small bright star. 32×32 y assets/art/ui/icons/small/icon_reputation.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_menu",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "menú"
+      ],
+      "ruta": "assets/art/ui/icons/icon_menu.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): an iron cogwheel with eight teeth and a hole in the middle. 32×32 y assets/art/ui/icons/small/icon_menu.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_save",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "partidas"
+      ],
+      "ruta": "assets/art/ui/icons/icon_save.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): a closed leather-bound ledger with a red wax seal on the cover. 32×32 y assets/art/ui/icons/small/icon_save.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_load",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "partidas"
+      ],
+      "ruta": "assets/art/ui/icons/icon_load.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): an open book with cream pages and a red ribbon bookmark. 32×32 y assets/art/ui/icons/small/icon_load.png (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_parcels",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H6",
+        "construcción"
+      ],
+      "ruta": "assets/art/ui/icons/icon_parcels.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): a small parchment map showing a square plot of land outlined in red with a tiny red flag on it. 32×32 y assets/art/ui/icons/small/icon_parcels.png (16×16). Sin cablear."
+    },
+    {
+      "id": "bld_armory_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H3",
+        "mercado"
+      ],
+      "ruta": "assets/art/buildings/fal/armory.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio armory, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/armory.png: para usarla, en game/visuals/buildings/armory.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: armory_construction.png, armory_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "bld_forge_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H2",
+        "forge"
+      ],
+      "ruta": "assets/art/buildings/fal/forge.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio forge, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/forge.png: para usarla, en game/visuals/buildings/forge.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: forge_construction.png, forge_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "bld_house_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H4",
+        "empleados"
+      ],
+      "ruta": "assets/art/buildings/fal/house.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio house, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/house.png: para usarla, en game/visuals/buildings/house.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: house_construction.png, house_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "bld_carpentry_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "carpentry"
+      ],
+      "ruta": "assets/art/buildings/fal/carpentry.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio carpentry, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/carpentry.png: para usarla, en game/visuals/buildings/carpentry.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: carpentry_construction.png, carpentry_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "bld_masonry_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "masonry"
+      ],
+      "ruta": "assets/art/buildings/fal/masonry.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio masonry, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/masonry.png: para usarla, en game/visuals/buildings/masonry.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: masonry_construction.png, masonry_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+    },
+    {
+      "id": "bld_tailor_shop_fal",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "tailor_shop"
+      ],
+      "ruta": "assets/art/buildings/fal/tailor_shop.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Fachada redibujada del edificio tailor_shop, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/tailor_shop.png: para usarla, en game/visuals/buildings/tailor_shop.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: tailor_shop_construction.png, tailor_shop_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
     }
   ]
 }

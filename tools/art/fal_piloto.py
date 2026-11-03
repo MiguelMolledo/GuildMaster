@@ -31,7 +31,7 @@ OUT = os.path.join(ROOT, "assets", "art", "fal_piloto")
 LEDGER = os.path.join(OUT, "gasto.json")
 # Tope por tanda: el piloto (3 USD) y la producción de retratos, eventos, pantallas y cartas (8 USD, 2026-11-03).
 TANDA = os.environ.get("FAL_TANDA", "piloto")
-CAPS = {"piloto": 3.0, "produccion": 8.0}
+CAPS = {"piloto": 3.0, "produccion": 8.0, "extra": 100.0}  # extra: sin tope del owner (2026-11-03); 100 es solo un freno
 CAP = CAPS[TANDA]
 
 MODELS = {

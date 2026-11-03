@@ -1,0 +1,15 @@
+{
+ "pixel_scale": 16,
+ "palette": [
+  "#133b64",
+  "#1a0d20",
+  "#3e7cbb",
+  "#5fb4e2",
+  "#754c2c",
+  "#9f714a",
+  "#dab487",
+  "#dcf5fd",
+  "#f0d9a9"
+ ],
+ "num_colors": 9
+}

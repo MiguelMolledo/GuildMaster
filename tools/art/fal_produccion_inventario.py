@@ -82,6 +82,62 @@ def illus_entry(pid):
                      f"(o assets/art/fal_piloto/)."}
 
 
+ICON_FOR = {"gavel": ["H11", "tribunal"], "ballot_box": ["H10", "elecciones"], "reputation": ["H9", "reputación"],
+            "menu": ["UI", "menú"], "save": ["UI", "partidas"], "load": ["UI", "partidas"],
+            "parcels": ["H6", "construcción"]}
+ICON_ORIGIN = ("fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4; burbujas: las 6 del juego) "
+               "+ image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)")
+
+
+def extras(d, by_id):
+    """Iconos (objeto, UI, burbujas) y fachadas de la tanda extra."""
+    import fal_iconos as fic
+    import fal_fachadas as ffa
+    new = []
+    for iid, (rel, what) in fic.ICONS.items():
+        path = "assets/art/" + rel
+        if not os.path.exists(os.path.join(ROOT, path)):
+            continue
+        small = "/small/".join(rel.rsplit("/", 1))
+        if rel.startswith("icons/"):
+            e = dict(d["assets"][by_id["icon_" + iid]])
+            e.update({"estado": "sprite", "origen": ICON_ORIGIN, "coste_gen": 0, "coste_usd": 0.02,
+                      "notas": f"32×32 y assets/art/{small} (16×16, half() de derivar_guild.py). Sustituye al "
+                               f"placeholder dibujado (en el historial de git). Crudo en "
+                               f"assets/art/fal_produccion/iconos/."})
+        elif rel.startswith("ui/bubbles/"):
+            e = dict(d["assets"][by_id["bubble_" + iid]])
+            e.update({"estado": "sprite", "origen": ICON_ORIGIN, "coste_gen": 0, "coste_usd": 0.02,
+                      "notas": f"Burbuja de emoción (GDD 4.11.5), 32×32 y assets/art/{small}. La escena "
+                               f"game/visuals/bubbles/{iid}.tscn sigue con su greybox: falta poner el sprite."})
+        else:
+            e = {"id": "ui_icon_" + iid, "tipo": "ui", "estado": "sprite", "para": ICON_FOR[iid], "ruta": path,
+                 "origen": ICON_ORIGIN, "coste_gen": 0, "coste_usd": 0.02,
+                 "notas": f"Icono de UI que faltaba (docs/ui/00_lenguaje_visual.md §7): {what}. 32×32 y "
+                          f"assets/art/{small} (16×16). Sin cablear."}
+        new.append(e)
+    for bid in ffa.BUILDINGS:
+        path = f"assets/art/buildings/fal/{bid}.png"
+        if not os.path.exists(os.path.join(ROOT, path)):
+            continue
+        states = [s for s in ("construction", "damaged")
+                  if os.path.exists(os.path.join(ROOT, f"assets/art/buildings/fal/{bid}_{s}.png"))]
+        new.append({"id": f"bld_{bid}_fal", "tipo": "edificio", "estado": "sprite",
+                    "para": d["assets"][by_id["bld_" + bid]]["para"], "ruta": path,
+                    "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + "
+                              "image2pixel a escala 4 (tools/art/fal_fachadas.py)",
+                    "coste_gen": 0, "coste_usd": 0.08 * (1 + len(states)),
+                    "notas": f"Fachada redibujada del edificio {bid}, estado normal, con el mismo lienzo y ancla que "
+                             f"assets/art/buildings/escala_b/{bid}.png: para usarla, en "
+                             f"game/visuals/buildings/{bid}.tscn poner esta textura en el nodo Sprite (sin mover "
+                             f"Feet ni el offset). Estados: " + (", ".join(f"{bid}_{s}.png" for s in states) or "—") +
+                             " (mismo lienzo). Sin cablear: la decide la integración."})
+        base = d["assets"][by_id["bld_" + bid]]
+        if "buildings/fal/" not in base["notas"]:
+            base["notas"] += f" Candidata fal (2026-11-03): {path} (mismo lienzo y ancla; entrada bld_{bid}_fal)."
+    return new
+
+
 def main():
     raw = open(INV).read()
     d = json.loads(raw)
@@ -95,6 +151,7 @@ def main():
     for pid in list(fi.PIECES) + list(fi.FROM_PILOT):
         if os.path.exists(os.path.join(ROOT, "assets", "art", "illustrations", pid + ".png")):
             new.append(illus_entry(pid))
+    new += extras(d, by_id)
     added = updated = 0
     for e in new:
         if e["id"] in by_id:

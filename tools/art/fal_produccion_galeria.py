@@ -182,6 +182,52 @@ def ilustraciones(kinds, title, total, table):
     return page(title, intro, "".join(body)), n
 
 
+def extra_page():
+    """Iconos y fachadas de la tanda extra."""
+    import subprocess
+    import fal_fachadas as ffa
+    import fal_iconos as fic
+    rows = [r for r in json.load(open(LEDGER)) if r.get("tanda") == "extra"]
+    total = sum(r["usd"] for r in rows)
+    art = os.path.join(ROOT, "assets", "art")
+    body = ["<h2>Iconos de 32 · " + str(len(fic.ICONS)) + "</h2>",
+            "<p class='v'>Arriba, cada icono nuevo a 32 (ampliado ×3); debajo, el placeholder que sustituye (si lo "
+            "había) y su versión de 16. Al final, los iconos del juego que sirvieron de referencia.</p>"]
+    ids = list(fic.ICONS)
+    sheet = Image.new("RGBA", (len(ids) * 36, 36 + 36 + 20), BG + (255,))
+    for c, iid in enumerate(ids):
+        rel = fic.ICONS[iid][0]
+        sheet.alpha_composite(Image.open(os.path.join(art, rel)).convert("RGBA"), (c * 36 + 2, 2))
+        try:
+            old = subprocess.run(["git", "-C", ROOT, "show", "5cf23c4:assets/art/" + rel], capture_output=True)
+            if old.returncode == 0:
+                sheet.alpha_composite(Image.open(io.BytesIO(old.stdout)).convert("RGBA"), (c * 36 + 2, 38))
+        except Exception:
+            pass
+        d, f = rel.rsplit("/", 1)
+        sheet.alpha_composite(Image.open(os.path.join(art, d, "small", f)).convert("RGBA"), (c * 36 + 10, 74))
+    body.append(row([tag(sheet, 3, " · ".join(ids))]))
+    refs = Image.new("RGBA", (8 * 36, 36), BG + (255,))
+    for c, n in enumerate(fic.REF_ITEMS):
+        refs.alpha_composite(Image.open(os.path.join(art, "icons", n + ".png")).convert("RGBA"), (c * 36 + 2, 2))
+    body.append(row([tag(refs, 3, "referencia: " + " · ".join(fic.REF_ITEMS))]))
+    body.append("<h2>Fachadas · 6 edificios × normal, obras y dañada</h2>"
+                "<p class='v'>Por columna un edificio. Fila 1: el sprite de escala B de hoy; fila 2: la fachada nueva "
+                "(mismo lienzo y ancla); filas 3 y 4: en obras y dañada. Ampliado ×2.</p>")
+    bids = list(ffa.BUILDINGS)
+    sh = Image.new("RGBA", (len(bids) * 196, 4 * 216), BG + (255,))
+    for c, b in enumerate(bids):
+        for r_, path in enumerate([os.path.join(art, "buildings", "escala_b", b + ".png")] +
+                                  [os.path.join(art, "buildings", "fal", b + suf + ".png")
+                                   for suf in ("", "_construction", "_damaged")]):
+            if os.path.exists(path):
+                sh.alpha_composite(Image.open(path).convert("RGBA"), (c * 196, r_ * 216))
+    body.append(row([tag(sh, 2, " · ".join(bids))]))
+    intro = (f"<p>2026-11-03 · rama <code>arte-fal</code> · tanda extra sin tope · gasto <b>{total:.2f} USD</b> "
+             f"({sum(r['imagenes'] for r in rows if 'nano' in r['modelo'])} imágenes).</p>")
+    return page("Arte fal · iconos y fachadas (extra)", intro, "".join(body))
+
+
 def publish(title, html_page, description):
     port = os.environ.get("GRIMOIRE_PORT", "4317")
     ws = os.environ.get("GRIMOIRE_WORKSPACE", os.path.expanduser("~/.grimoire/workspace"))
@@ -200,6 +246,7 @@ def publish(title, html_page, description):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--publicar", action="store_true")
+    ap.add_argument("--solo-extra", action="store_true")
     a = ap.parse_args()
     total, table = spend()
     pages = []
@@ -213,6 +260,10 @@ def main():
     p, n = ilustraciones([("Pantallas", "screen_")], "Arte fal · pantallas (producción)", total, table)
     pages.append(("pantallas", "Arte fal · pantallas (producción)", p,
                   f"GuildMaster · {n} fondos de pantalla a 960×540 con fal."))
+    if a.solo_extra:
+        pages = []
+    pages.append(("extra", "Arte fal · iconos y fachadas (extra)", extra_page(),
+                  "GuildMaster · 21 iconos de 32 y las fachadas de los 6 edificios (normal, obras, dañada) con fal."))
     for key, title, html_page, desc in pages:
         out = os.path.join(PROD, f"galeria_{key}.html")
         with open(out, "w") as f:

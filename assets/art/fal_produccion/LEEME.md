@@ -1,7 +1,8 @@
 # Arte con fal · producción del 2026-11-03
 
 Retratos, eventos, estaciones, cartas y pantallas hechos con fal tras el piloto (`assets/art/fal_piloto/INFORME.md`).
-Gasto: **5,51 USD** de un tope de 8 (filas en `assets/art/MANIFEST.md`; detalle por llamada en
+Gasto: **5,51 USD** de un tope de 8 en retratos e ilustraciones y **2,13 USD** en la tanda extra de iconos y
+fachadas (sin tope) (filas en `assets/art/MANIFEST.md`; detalle por llamada en
 `assets/art/fal_piloto/gasto.json`, `tanda: produccion`). Todo está en estado `sprite` en `assets/inventario.json` y
 **sin cablear** en escenas: lo decide la integración de UI.
 
@@ -76,6 +77,46 @@ pieza de la que deriva (las estaciones salen de la primavera). `proc` reduce cad
 paleta de image2pixel. La guerra, la fiesta y el título al alba vienen del piloto. Las pantallas de título llevan su
 vista previa con el logotipo del kit en `ilustraciones/vista/`; ese fichero no es el asset.
 
+## Iconos · tanda extra (sin tope)
+
+21 iconos de 32 con su versión de 16 en `small/`, hecha con la `half()` de `tools/art/derivar_guild.py`.
+
+| Qué | Ids y rutas | Estado |
+|---|---|---|
+| Objetos en greybox o que faltaban | `icon_saw`, `icon_steel`, `icon_chest`, `icon_cabinet`, `icon_cart_wheel`, `icon_ashlar`, `icon_grindstone`, `icon_trough`, `icon_millstone`, `icon_statue` → `assets/art/icons/<objeto>.png` | Sustituyen al placeholder en su ruta: el juego los carga por id, así que ya se ven. |
+| UI que faltaban (docs/ui/00 §7) | `ui_icon_gavel`, `ui_icon_ballot_box`, `ui_icon_reputation`, `ui_icon_menu`, `ui_icon_save`, `ui_icon_load`, `ui_icon_parcels` → `assets/art/ui/icons/icon_<nombre>.png` | Sin cablear. |
+| Burbujas de emoción (GDD 4.11.5) | `bubble_emotion_grateful`, `_offended`, `_angry`, `_scared` → `assets/art/ui/bubbles/emotion_<emoción>.png` | Su escena (`game/visuals/bubbles/`) sigue con el greybox. |
+
+Cómo se hicieron (`tools/art/fal_iconos.py`):
+- Rejillas 2×2 con una sola referencia: 8 iconos buenos del juego (armadura, barril, lingote, tablas, leña, piedra,
+  mandil y espada) ampliados ×4. Las burbujas llevan de referencia las 6 burbujas del juego.
+- Cada icono se pide sobre una rejilla de 32, con volumen y contorno oscuro de 1 px.
+- image2pixel a escala 16 lo deja exacto a 32×32. Después se oscurece el borde de la silueta donde haga falta, como
+  en Guild Renew.
+- La piedra de afilar salió ilegible y se repitió.
+
+## Fachadas · tanda extra
+
+Los 6 edificios de `data/buildings` (`armory`, `forge`, `house`, `carpentry`, `masonry` y `tailor_shop`) están en
+`assets/art/buildings/fal/`: `<id>.png` (normal), `<id>_construction.png` (en obras) y `<id>_damaged.png` (dañada).
+La sastrería ya no lleva el cartel «TAILOR», sino unas tijeras.
+
+- **Mismo lienzo y ancla** que el sprite de escala B (`assets/art/buildings/escala_b/<id>.png`). Para usarla, en
+  `game/visuals/buildings/<id>.tscn` se pone esta textura en el nodo `Sprite` y no se toca nada más (Feet, offset).
+  Quedan aparte, y no en el sitio de las de escala B, porque cambiar el aspecto de un edificio lo decide la
+  integración.
+- **Cómo se hicieron** (`tools/art/fal_fachadas.py`):
+  - La referencia única es el propio sprite de escala B, en un lienzo blanco de 256 ampliado ×4 (1024 exactos), y se
+    pide redibujarlo en la misma posición.
+  - image2pixel a escala 4.
+  - Ajuste de ±8 px contra la silueta vieja: todas casan entre 0,83 y 1,00 y quedan desplazadas como mucho 1 px.
+  - Las obras y la dañada salen de un /edit sobre la normal nueva. En las obras se quita también el blanco del
+    fondo que queda entre las vigas.
+- **Avisos.**
+  - La cantería en obras deja parte de los andamios fuera del lienzo de 208 (287 px cortados en el borde).
+  - La carpintería gana una base empedrada que antes no tenía.
+- No hizo falta Pro.
+
 ## Rehacer
 
 ```bash
@@ -84,6 +125,8 @@ python3 tools/art/fal_retratos_proc.py                              # usa image2
 FAL_TANDA=produccion python3 tools/art/fal_ilustraciones.py gen
 FAL_TANDA=produccion python3 tools/art/fal_ilustraciones.py proc
 python3 tools/art/fal_produccion_inventario.py                      # altas en el inventario
+FAL_TANDA=extra python3 tools/art/fal_iconos.py gen && python3 tools/art/fal_iconos.py proc
+FAL_TANDA=extra python3 tools/art/fal_fachadas.py gen [--estado construction|damaged]   # y proc
 python3 tools/art/fal_produccion_galeria.py [--publicar]            # galería (no va a git)
 /opt/homebrew/bin/godot --headless --path . --import && python3 tools/arte.py
 ```
