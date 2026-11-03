@@ -136,7 +136,6 @@ func _fill_chart(chart: Array, runs: Array) -> void:
 		if vacant > 1 and vacant == (row["seats"] as Array).size() and int(row["election_day"]) >= 0:
 			hl.text += SimQuery.t_("ui.offices.vote_on") % (int(row["election_day"]) + 1)
 		hl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		hl.add_theme_font_size_override("font_size", 10)
 		hl.clip_text = true
 		hl.custom_minimum_size = Vector2(170, 0)
 		line.add_child(hl)
@@ -144,7 +143,6 @@ func _fill_chart(chart: Array, runs: Array) -> void:
 		b.name = "Run"
 		b.text = SimQuery.t_("ui.offices.run")
 		b.focus_mode = Control.FOCUS_NONE
-		b.add_theme_font_size_override("font_size", 10)
 		var why := str(runs[i])
 		b.disabled = why != ""
 		b.tooltip_text = SimQuery.reason_text(why) if why != "" else SimQuery.t_("ui.offices.run_tip") % [
@@ -159,7 +157,7 @@ func _fill_chart(chart: Array, runs: Array) -> void:
 				names.append(str(sim.state.characters.get(str(c["character"]), {}).get("name", c["character"])))
 			var e := Label.new()
 			e.name = "Election_" + office
-			e.add_theme_font_size_override("font_size", 9)
+			e.theme_type_variation = &"DimLabel"
 			e.add_theme_color_override("font_color", Color(0.85, 0.75, 0.55))
 			e.text = SimQuery.t_("ui.offices.election") % [int(el["day"]) + 1, int(el["campaign_day"]) + 1,
 				", ".join(names) if not names.is_empty() else "—"]
@@ -202,7 +200,6 @@ func _fill_powers(powers: Array) -> void:
 		if not bool(p["ready"]):
 			var l := Label.new()
 			l.text = SimQuery.t_("ui.offices.power_later") % [SimQuery.t_("power." + id), str(p["from"])]
-			l.add_theme_font_size_override("font_size", 10)
 			l.add_theme_color_override("font_color", Color(0.6, 0.6, 0.58))
 			line.add_child(l)
 			box.add_child(line)
@@ -236,7 +233,7 @@ func _fill_powers(powers: Array) -> void:
 		if cd > 0:
 			var l := Label.new()
 			l.text = SimQuery.t_("ui.offices.cooldown") % ceili(float(cd) / 60.0)
-			l.add_theme_font_size_override("font_size", 9)
+			l.theme_type_variation = &"DimLabel"
 			line.add_child(l)
 		box.add_child(line)
 	for r: Variant in sim.state.market.get("regulations", []):  # the regulations in force, with the market price
@@ -244,7 +241,6 @@ func _fill_powers(powers: Array) -> void:
 			continue
 		var l := Label.new()
 		l.name = "Regulation_" + str(r["item"])
-		l.add_theme_font_size_override("font_size", 10)
 		l.add_theme_color_override("font_color", Color(0.55, 0.85, 0.5))
 		l.text = SimQuery.t_("ui.offices.regulation") % [SimQuery.item_name(sim.catalog, str(r["item"])),
 			int(r["percent"]), Clock.day(int(r["until"])) + 1, Market.price(sim, str(r["item"]), 0, "sell"),
@@ -256,7 +252,6 @@ func _item_picker() -> OptionButton:
 	var ob := OptionButton.new()
 	ob.name = "ItemOption"
 	ob.focus_mode = Control.FOCUS_NONE
-	ob.add_theme_font_size_override("font_size", 10)
 	var ids: Array = sim.catalog.items().keys()
 	ids.sort()
 	var n := 0
@@ -278,7 +273,6 @@ func _family_picker() -> OptionButton:
 	var ob := OptionButton.new()
 	ob.name = "FamilyOption"
 	ob.focus_mode = Control.FOCUS_NONE
-	ob.add_theme_font_size_override("font_size", 10)
 	var mine := str(sim.state.characters.get(actor, {}).get("family", ""))
 	var ids: Array = sim.state.families.keys()
 	ids.sort()
@@ -305,7 +299,6 @@ func _power_button(power: String, text: String, args: Dictionary) -> Button:
 		("_up" if int(args["percent"]) > 0 else "_down"))
 	b.text = text
 	b.focus_mode = Control.FOCUS_NONE
-	b.add_theme_font_size_override("font_size", 10)
 	var why := Offices.power_status(sim, actor, power, args)
 	b.disabled = why != ""
 	b.tooltip_text = SimQuery.reason_text(why) if why != "" else SimQuery.t_("power." + power)

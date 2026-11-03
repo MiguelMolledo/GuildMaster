@@ -21,9 +21,8 @@ layout_mode = 2
 [node name="Title" type="Label" parent="VBox/Header"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"TitleLabel"
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 12
 text = "--"
 
 [node name="CloseButton" type="Button" parent="VBox/Header"]
@@ -36,7 +35,6 @@ text = "x"
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-theme_override_font_sizes/font_size = 10
 
 [node name="NowLabel" type="Label" parent="VBox"]
 unique_name_in_owner = true
@@ -50,8 +48,8 @@ autowrap_mode = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
+theme_type_variation = &"DimLabel"
 theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
-theme_override_font_sizes/font_size = 9
 text = "--"
 autowrap_mode = 3
 

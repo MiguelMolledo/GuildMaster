@@ -134,7 +134,6 @@ func _badge(disp: String) -> Label:
 	l.name = "Disposition"
 	l.custom_minimum_size = Vector2(66, 0)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.add_theme_font_size_override("font_size", 10)
 	l.add_theme_color_override("font_color", Color(0.12, 0.1, 0.1))
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = DISP_COLORS.get(disp, Color.WHITE)
@@ -155,7 +154,6 @@ func _fill_witnesses(v: Dictionary, hearing: bool) -> void:
 		row.add_theme_constant_override("separation", 5)
 		var who := Label.new()
 		who.custom_minimum_size = Vector2(150, 0)
-		who.add_theme_font_size_override("font_size", 10)
 		who.text = "%s · %s" % [str(w["name"]), SimQuery.t_("ui.trial.why_" + str(w["why"]))]
 		row.add_child(who)
 		var disp := str(w["disposition"])
@@ -190,7 +188,6 @@ func _button(node_name: String, text: String, why: String, o: Dictionary, walk: 
 	b.name = node_name
 	b.text = text
 	b.focus_mode = Control.FOCUS_NONE
-	b.add_theme_font_size_override("font_size", 10)
 	var far := walk and why == "too_far"
 	b.disabled = why != "" and not far
 	b.tooltip_text = SimQuery.t_("ui.court.walk") if far else (SimQuery.reason_text(why) if why != "" else "")

@@ -128,7 +128,6 @@ func _fill_directives(dv: Dictionary) -> void:
 		cb.button_pressed = on
 		cb.text = ("%d. " % (list.find(d) + 1) if on else "") + SimQuery.t_("directive." + d)
 		cb.custom_minimum_size = Vector2(150, 0)
-		cb.add_theme_font_size_override("font_size", 10)
 		var is_ready: bool = ready is bool and bool(ready)
 		cb.disabled = not is_ready
 		if not is_ready:
@@ -141,7 +140,6 @@ func _fill_directives(dv: Dictionary) -> void:
 			b.name = "Up" if dir < 0 else "Down"
 			b.text = "▲" if dir < 0 else "▼"
 			b.focus_mode = Control.FOCUS_NONE
-			b.add_theme_font_size_override("font_size", 10)
 			var i := list.find(d)
 			b.disabled = not on or (dir < 0 and i == 0) or (dir > 0 and i == list.size() - 1)
 			b.pressed.connect(func() -> void: _move(d, dir))
@@ -161,7 +159,6 @@ func _fill_needs(nv: Dictionary) -> void:
 	box.add_child(_bar("Morale", SimQuery.t_("ui.kin_ai.morale"), m))
 	var rate := Label.new()
 	rate.name = "Rate"
-	rate.add_theme_font_size_override("font_size", 10)
 	var p := float(nv.get("productivity", 1.0))
 	rate.text = SimQuery.t_("ui.kin_ai.rate_full") if p >= 1.0 else SimQuery.t_("ui.kin_ai.rate_slow") % roundi(p * 100.0)
 	rate.add_theme_color_override("font_color", Color(0.75, 0.75, 0.7) if p >= 1.0 else Color(1, 0.55, 0.45))
@@ -174,7 +171,6 @@ func _bar(node_name: String, text: String, v: int) -> Control:
 	var l := Label.new()
 	l.text = "%s %d" % [text, v]
 	l.custom_minimum_size = Vector2(100, 0)
-	l.add_theme_font_size_override("font_size", 10)
 	row.add_child(l)
 	var bar := ProgressBar.new()
 	bar.name = "Bar"

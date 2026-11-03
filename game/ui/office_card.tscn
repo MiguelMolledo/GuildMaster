@@ -21,8 +21,7 @@ theme_override_constants/separation = 4
 [node name="Header" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"TitleLabel"
 text = "--"
 horizontal_alignment = 1
 
@@ -44,7 +43,6 @@ autowrap_mode = 3
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
-theme_override_font_sizes/font_size = 10
 text = "--"
 horizontal_alignment = 1
 

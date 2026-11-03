@@ -70,7 +70,6 @@ func refresh(force: bool = false) -> void:
 		row.name = str(c["character"])
 		var info := Label.new()
 		info.custom_minimum_size = Vector2(150, 0)
-		info.add_theme_font_size_override("font_size", 10)
 		info.text = "%s · %s · %d" % [c["name"], str(sim.state.families.get(str(c["family"]), {}).get("name", "")), int(c["age"])]
 		row.add_child(info)
 		var bar := ProgressBar.new()
@@ -82,7 +81,6 @@ func refresh(force: bool = false) -> void:
 		bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(bar)
 		var aff := Label.new()
-		aff.add_theme_font_size_override("font_size", 10)
 		aff.text = str(int(c["affinity"]))
 		aff.custom_minimum_size = Vector2(20, 0)
 		row.add_child(aff)
@@ -105,7 +103,6 @@ func _button(n: String, text: String, enabled: bool, why: String, cb: Callable) 
 	b.name = n
 	b.text = text
 	b.focus_mode = Control.FOCUS_NONE
-	b.add_theme_font_size_override("font_size", 10)
 	b.disabled = not enabled
 	if why != "" and why != "too_far":
 		b.tooltip_text = SimQuery.reason_text(why)
