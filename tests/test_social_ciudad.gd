@@ -146,7 +146,7 @@ func test_board_marks_what_the_family_can_deliver_and_abandon_asks() -> void:
 	p.open_for(sim, HERO)
 	var have := p.row_of(hammers, false).get_node("Bottom/Terms") as Label
 	check(have.text.contains("tienes %d/%d" % [int(board[0]["qty"]), int(board[0]["qty"])]), "tienes x/y (%s)" % have.text)
-	eq(have.theme_type_variation, &"PositiveLabel", "in green: the family can deliver it")
+	eq(have.theme_type_variation, &"PositiveInkLabel", "in green on the parchment: the family can deliver it")
 	var sword := str(board[1]["id"])
 	eq((p.row_of(sword, false).get_node("Bottom/Terms") as Label).theme_type_variation, &"InkLabel", "not this one")
 	_orders = []
