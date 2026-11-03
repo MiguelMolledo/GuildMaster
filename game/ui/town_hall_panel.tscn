@@ -142,6 +142,7 @@ theme_override_constants/separation = 6
 [node name="AskButton" type="Button" parent="VBox/AskRow"]
 layout_mode = 2
 focus_mode = 0
+theme_type_variation = &"PrimaryButton"
 text = "--"
 unique_name_in_owner = true
 

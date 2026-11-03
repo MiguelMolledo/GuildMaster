@@ -194,6 +194,7 @@ theme_override_constants/separation = 16
 [node name="ContinueButton" type="Button" parent="Center/Panel/VBox/Buttons"]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
+theme_type_variation = &"PrimaryButton"
 text = "--"
 unique_name_in_owner = true
 

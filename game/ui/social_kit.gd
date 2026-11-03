@@ -6,13 +6,10 @@ extends RefCounted
 ## line under a row of actions, the two-line button (what it does + its effects), the confirmation of irreversible
 ## actions (rule 2) and the family ribbon. Presentation only: no rule is computed here that the sim does not compute.
 ##
-## Confirmations (provisional until the shared confirm modal is in main): ask() keeps the question on the panel
-## (pending(), accept_pending() for the tests) and, inside the tree, shows the ConfirmDialog of the menus on its own
-## layer over the HUD.
+## Confirmations: ask() keeps the question on the panel (pending(), accept_pending() for the tests) and, inside the
+## game, shows it in the HUD's ConfirmModal (docs/ui/01_hud.md §5); its answer clears or runs the pending one.
 
 const PORTRAIT: String = "res://game/ui/portrait_frame.tscn"
-const CONFIRM: String = "res://game/ui/confirm_dialog.tscn"
-const CONFIRM_LAYER: int = 45
 const RELATION_BANDS_DEFAULT: Array = [[-60, "enemy"], [-25, "hostile"], [-6, "cold"], [5, "neutral"], [49, "cordial"],
 	[100, "friend"]]
 
@@ -124,17 +121,26 @@ static func button_lines(b: Button) -> String:
 # --- confirmation of irreversible actions (_social rule 2) ----------------------------------------------------------
 
 ## Asks before `on_yes` runs. The question stays on `owner` (pending) until answered; in the tree, a dialog shows it.
-static func ask(owner: Node, title: String, body: String, yes_text: String, on_yes: Callable, warn: String = "") -> void:
-	owner.set_meta("pending_confirm", {"title": title, "body": body, "yes": yes_text, "warn": warn, "on_yes": on_yes})
+static func ask(owner: Node, title: String, body: String, yes_text: String, on_yes: Callable, warn: String = "",
+		seal: bool = false) -> void:
+	owner.set_meta("pending_confirm", {"title": title, "body": body, "yes": yes_text, "warn": warn, "seal": seal,
+		"on_yes": on_yes})
 	ViewConfig.info("SocialKit", "ask (%s: %s)" % [owner.name, title])
 	if not owner.is_inside_tree():
 		return
-	var dlg := _dialog(owner.get_tree())
-	if dlg.chosen.is_connected(_on_chosen):
-		dlg.chosen.disconnect(_on_chosen)
-	dlg.chosen.connect(_on_chosen.bind(owner), CONNECT_ONE_SHOT)
-	dlg.ask(title, body, [{"id": "cancel", "text": SimQuery.t_("ui.menu.cancel"), "hint": SimQuery.t_("ui.key.esc")},
-		{"id": "yes", "text": yes_text, "hint": SimQuery.t_("ui.key.enter"), "primary": true}], warn)
+	show_in(ConfirmModal.of(owner.get_tree()), owner)   # the HUD's modal (docs/ui/01_hud.md §5)
+
+
+## Shows the question waiting on `owner` in modal `m`; its answer runs or drops it.
+static func show_in(m: ConfirmModal, owner: Node) -> void:
+	var p := pending(owner)
+	if m == null or p.is_empty():
+		return
+	if m.answered.is_connected(_on_answered):
+		m.answered.disconnect(_on_answered)
+	m.answered.connect(_on_answered.bind(owner), CONNECT_ONE_SHOT)
+	m.ask({"title": str(p["title"]), "body": str(p["body"]), "action": str(p["yes"]), "irreversible": str(p["warn"]) != "",
+		"seal": bool(p["seal"])})
 
 
 ## The question waiting on `owner` ({} if none).
@@ -159,26 +165,13 @@ static func cancel_pending(owner: Node) -> void:
 		owner.remove_meta("pending_confirm")
 
 
-static func _on_chosen(id: String, owner: Node) -> void:
+static func _on_answered(yes: bool, owner: Node) -> void:
 	if not is_instance_valid(owner):
 		return
-	if id == "yes":
+	if yes:
 		accept_pending(owner)
 	else:
 		cancel_pending(owner)
-
-
-static func _dialog(tree: SceneTree) -> ConfirmDialog:
-	var layer := tree.root.get_node_or_null("SocialConfirmLayer") as CanvasLayer
-	if layer == null:
-		layer = CanvasLayer.new()
-		layer.name = "SocialConfirmLayer"
-		layer.layer = CONFIRM_LAYER
-		tree.root.add_child(layer)
-		var d: Control = (load(CONFIRM) as PackedScene).instantiate()
-		d.name = "Confirm"
-		layer.add_child(d)
-	return layer.get_node("Confirm") as ConfirmDialog
 
 
 # --- small pieces ---------------------------------------------------------------------------------------------------

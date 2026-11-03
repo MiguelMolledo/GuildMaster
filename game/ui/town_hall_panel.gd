@@ -253,7 +253,7 @@ func request_ask() -> void:
 	var left := Money.gold(sim.state, str(st["family"])) - cost
 	SocialKit.ask(self, SimQuery.t_("ui.town_hall.ask_q") % SimQuery.title_name(str(st["next"])),
 		SimQuery.t_("ui.town_hall.ask_body") % [cost, SimQuery.title_name(str(st["next"])), left],
-		SimQuery.t_("ui.town_hall.ask"), _ask)
+		SimQuery.t_("ui.town_hall.ask"), _ask, "", true)
 
 
 func _ask() -> void:

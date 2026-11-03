@@ -324,6 +324,11 @@ hud.family_gold,%d gold,%d de oro
 hud.debt,Debt %d · %d days left,Deuda %d · quedan %d días
 hud.debt_tip,Due %s. Pay it from the account book (L),Vence %s. Se paga desde el libro de cuentas (L)
 hud.notice_tip,Click: go there,Clic: ir allí
+ui.confirm.irreversible,It cannot be undone.,No se puede deshacer.
+ui.confirm.ok,Confirm,Confirmar
+ui.confirm.cancel,Cancel,Cancelar
+ui.confirm.key_cancel,Esc,Esc
+ui.confirm.key_ok,Enter,Intro
 hud.pause_short,II,II
 hud.debt_caption,Debt,Deuda
 hud.no_debt,No debts,Sin deudas

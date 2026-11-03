@@ -70,7 +70,7 @@ unique_name_in_owner = true
 [node name="Filter_all" type="Button" parent="VBox/Filters"]
 layout_mode = 2
 focus_mode = 0
-theme_type_variation = &"BodyButton"
+theme_type_variation = &"TabButton"
 toggle_mode = true
 text = "--"
 unique_name_in_owner = true
@@ -78,7 +78,7 @@ unique_name_in_owner = true
 [node name="Filter_near" type="Button" parent="VBox/Filters"]
 layout_mode = 2
 focus_mode = 0
-theme_type_variation = &"BodyButton"
+theme_type_variation = &"TabButton"
 toggle_mode = true
 text = "--"
 unique_name_in_owner = true
@@ -86,7 +86,7 @@ unique_name_in_owner = true
 [node name="Filter_ready" type="Button" parent="VBox/Filters"]
 layout_mode = 2
 focus_mode = 0
-theme_type_variation = &"BodyButton"
+theme_type_variation = &"TabButton"
 toggle_mode = true
 text = "--"
 unique_name_in_owner = true

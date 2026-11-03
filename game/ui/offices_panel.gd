@@ -353,7 +353,7 @@ func request_run() -> void:
 		return
 	SocialKit.ask(self, SimQuery.t_("ui.offices.run_q") % SimQuery.office_name(o), SimQuery.t_("ui.offices.run_body") % [
 		SimQuery.t_("campaign.level." + _level), g, Offices.election_day(sim, o) + 1], SimQuery.t_("ui.offices.run"),
-		func() -> void: _run(o))
+		func() -> void: _run(o), "", true)
 
 
 # --- the campaign --------------------------------------------------------------------------------------------------

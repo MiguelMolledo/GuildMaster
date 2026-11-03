@@ -52,7 +52,7 @@ func show_for(sim: Sim, e: Dictionary) -> void:
 		var who := Label.new()
 		who.custom_minimum_size = Vector2(110, 0)
 		who.text = "%s%s · %s" % ["★ " if chr in winners else "", str(ch.get("name", chr)), str(f.get("name", ""))]
-		who.add_theme_color_override("font_color", Color(1, 0.85, 0.4) if chr in winners else Color(0.85, 0.85, 0.8))
+		who.theme_type_variation = &"GoldLabel" if chr in winners else &"BodyLabel"
 		row.add_child(who)
 		var track := Control.new()
 		track.custom_minimum_size = Vector2(100, 12)

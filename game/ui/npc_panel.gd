@@ -346,7 +346,7 @@ func _court_propose() -> void:
 	var full := "%s %s" % [str(t.get("name", "")), str(sim.state.families.get(str(t.get("family", "")), {}).get("name", ""))]
 	SocialKit.ask(self, SimQuery.t_("ui.court.propose_q") % full.strip_edges(), "· " + "\n· ".join(
 		CourtshipPanel.propose_lines(sim, actor, target)), SimQuery.t_("ui.court.propose_yes"),
-		func() -> void: _court({"type": "propose"}))
+		func() -> void: _court({"type": "propose"}), SimQuery.t_("ui.menu.cannot_undo"), true)
 
 
 ## The reason of a status, saying when it is mended if it is a matter of time (_social rule 1).

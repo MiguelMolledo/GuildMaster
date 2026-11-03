@@ -2,10 +2,9 @@ class_name MenuKit
 extends RefCounted
 ## Small pieces shared by the menu screens (docs/ui/02_menu_inicial.md): buttons and labels built by code (rows of
 ## lists) with the kit's type variations, the key hint on a button, the texts of a saved game's header and the
-## first focus. The look itself is in the themes: greybox_theme.tres (shared) and menu_overrides_theme.tres (the
-## variations the menus need that the shared theme does not have yet).
+## first focus. The look itself is in the shared theme, greybox_theme.tres (with the menus' variations GothicTitle,
+## InkBold, SealLabel, ThumbPanel and DividerSeparator).
 
-const OVERRIDES: String = "res://game/ui/menu_overrides_theme.tres"
 
 
 static func button(text: String, hint: String = "", variation: StringName = &"") -> Button:

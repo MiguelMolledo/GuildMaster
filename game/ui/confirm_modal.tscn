@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1211o7ka3d56"]
+
+[ext_resource type="Script" uid="uid://djrte7hfm1ss" path="res://game/ui/confirm_modal.gd" id="1_modal"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+
+[node name="ConfirmModal" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_modal")
+
+[node name="Veil" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101961, 0.0705882, 0.0352941, 0.5)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Box" type="PanelContainer" parent="Center"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 120)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center/Box"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Head" type="HBoxContainer" parent="Center/Box/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Seal" type="TextureRect" parent="Center/Box/VBox/Head"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+stretch_mode = 3
+
+[node name="Title" type="Label" parent="Center/Box/VBox/Head"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TitleLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="Sep" type="HSeparator" parent="Center/Box/VBox"]
+layout_mode = 2
+
+[node name="Body" type="Label" parent="Center/Box/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+text = "--"
+autowrap_mode = 3
+
+[node name="Warn" type="Label" parent="Center/Box/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"WarningLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="Reason" type="Label" parent="Center/Box/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"ReasonLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="Space" type="Control" parent="Center/Box/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Buttons" type="HBoxContainer" parent="Center/Box/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="CancelButton" type="Button" parent="Center/Box/VBox/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(112, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "--"
+
+[node name="ConfirmButton" type="Button" parent="Center/Box/VBox/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(112, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "--"

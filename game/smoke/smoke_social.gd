@@ -93,9 +93,9 @@ func _next() -> void:
 	var wed := app.get_node_or_null("%WeddingCard") as WeddingCard
 	if wed != null:
 		wed.close()
-	var dlg := get_tree().root.get_node_or_null("SocialConfirmLayer/Confirm") as ConfirmDialog
-	if dlg != null:
-		dlg.close()
+	var dlg := ConfirmModal.of(get_tree())
+	if dlg != null and dlg.visible:
+		dlg.cancel()
 	for c: Node in [app.hud().title_card(), app.hud().office_card(), app.hud().trial_card()]:
 		if c != null:
 			c.call("close")

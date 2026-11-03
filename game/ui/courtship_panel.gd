@@ -287,7 +287,7 @@ func request_propose(target: String) -> void:
 	var t: Dictionary = st.characters.get(target, {})
 	var full := "%s %s" % [str(t.get("name", "")), str(st.families.get(str(t.get("family", "")), {}).get("name", ""))]
 	SocialKit.ask(self, SimQuery.t_("ui.court.propose_q") % full.strip_edges(), "· " + "\n· ".join(propose_lines(sim, actor, target)),
-		SimQuery.t_("ui.court.propose_yes"), func() -> void: act(target, {"type": "propose"}))
+		SimQuery.t_("ui.court.propose_yes"), func() -> void: act(target, {"type": "propose"}), SimQuery.t_("ui.menu.cannot_undo"), true)
 
 
 func request_gift(target: String) -> void:

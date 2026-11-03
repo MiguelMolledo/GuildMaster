@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bg8vj3g4dl734" path="res://game/ui/board_panel.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
-[ext_resource type="Theme" uid="uid://bixic0a2ia8dk" path="res://game/ui/menu_overrides_theme.tres" id="3_kit"]
 
 [node name="BoardPanel" type="PanelContainer"]
 visible = false
@@ -11,7 +10,6 @@ script = ExtResource("1_script")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme = ExtResource("3_kit")
 theme_override_constants/separation = 4
 
 [node name="Header" type="HBoxContainer" parent="VBox"]

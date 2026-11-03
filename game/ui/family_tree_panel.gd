@@ -495,7 +495,7 @@ func request_heir() -> void:
 		else SimQuery.t_("ui.family.heir_body_none") % who
 	var heir_id := picked
 	SocialKit.ask(self, SimQuery.t_("ui.family.heir_q") % who, body, SimQuery.t_("ui.family.designate_heir"),
-		func() -> void: _give({"type": "designate_heir", "actor": actor, "heir": heir_id}))
+		func() -> void: _give({"type": "designate_heir", "actor": actor, "heir": heir_id}), "", true)
 
 
 func _school_preview() -> void:

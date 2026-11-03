@@ -225,3 +225,24 @@ func test_relation_bands() -> void:
 	eq(SocialKit.relation_band(0), "neutral", "neutral")
 	eq(SocialKit.relation_band(20), "cordial", "cordial")
 	eq(SocialKit.relation_band(70), "friend", "friend")
+
+
+func test_social_confirmations_use_the_shared_modal() -> void:
+	var m: ConfirmModal = (load("res://game/ui/confirm_modal.tscn") as PackedScene).instantiate()
+	var owner := Node.new()
+	var said: Array = []
+	SocialKit.ask(owner, "¿Insultar a Agnès?", "Relación −10", "Insultar", func() -> void: said.append("yes"), "x")
+	SocialKit.show_in(m, owner)   # in the game: the HUD's modal (ConfirmModal.of)
+	check(m.visible, "the shared modal shows the question")
+	eq((m.get_node("%Title") as Label).text, "¿Insultar a Agnès?", "its title")
+	check((m.get_node("%Warn") as Label).visible, "irreversible: «No se puede deshacer»")
+	m.cancel()
+	eq(said.size(), 0, "cancelled: nothing")
+	check(SocialKit.pending(owner).is_empty(), "and the question is gone")
+	SocialKit.ask(owner, "¿Pedir la mano?", "", "Pedir", func() -> void: said.append("yes"), "", true)
+	SocialKit.show_in(m, owner)
+	check((m.get_node("%Seal") as Control).visible, "an official one seals")
+	m.confirm()
+	eq(said, ["yes"], "confirmed: the action runs")
+	owner.free()
+	m.free()

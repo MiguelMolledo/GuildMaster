@@ -95,5 +95,6 @@ unique_name_in_owner = true
 [node name="OkButton" type="Button" parent="VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_type_variation = &"PrimaryButton"
 text = "--"
 unique_name_in_owner = true
