@@ -1,0 +1,14 @@
+{
+  "_doc": "Créditos del juego (docs/ui/02_menu_inicial.md §5). Cada sección: title_key (i18n) y lines; cada línea es text (nombre propio, igual en todos los idiomas) o key (i18n), con license opcional (CC0, OFL...). Las licencias de las fuentes son obligatorias en OFL: nombre y licencia (cada fichero de fuente lleva la suya al lado en assets/art/ui/fonts/).",
+  "sections": [
+    {"title_key": "credits.design", "lines": [{"text": "Miguel Molledo"}]},
+    {"title_key": "credits.made_with", "lines": [{"text": "Godot 4.7 · GDScript"}, {"key": "credits.claude"}]},
+    {"title_key": "credits.art", "lines": [{"key": "credits.art_pixellab"}, {"key": "credits.art_guild_renew"}]},
+    {"title_key": "credits.sound", "lines": [{"key": "credits.sound_elevenlabs"}]},
+    {"title_key": "credits.fonts", "lines": [
+      {"text": "Pixel Operator · Jayvee Enaguas", "license": "CC0"},
+      {"text": "Jacquarda Bastarda 9 · Jacquard 24 · The Soft Type Project", "license": "OFL"},
+      {"text": "Silkscreen · Jason Kottke", "license": "OFL"}
+    ]}
+  ]
+}

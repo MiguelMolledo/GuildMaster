@@ -1,0 +1,479 @@
+[gd_scene format=3 uid="uid://ba2jpkakhndlt"]
+
+[ext_resource type="Script" uid="uid://bt3tcnm1hayi5" path="res://game/ui/options_screen.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="Theme" uid="uid://bixic0a2ia8dk" path="res://game/ui/menu_overrides_theme.tres" id="3_kit"]
+[ext_resource type="Shader" uid="uid://cm4epmo6mt5yq" path="res://game/ui/menu_veil.gdshader" id="4_veil"]
+
+[sub_resource type="ShaderMaterial" id="veil_mat"]
+shader = ExtResource("4_veil")
+shader_parameter/darken = 0.45
+shader_parameter/desaturate = 0.6
+
+[node name="OptionsScreen" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Veil" type="ColorRect" parent="."]
+material = SubResource("veil_mat")
+color = Color(0.101961, 0.0705882, 0.0352941, 0.55)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center" type="CenterContainer" parent="."]
+mouse_filter = 2
+theme = ExtResource("3_kit")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(708, 0)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Header" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Center/Panel/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TitleLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="CloseButton" type="Button" parent="Center/Panel/VBox/Header"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+focus_mode = 0
+text = "×"
+unique_name_in_owner = true
+
+[node name="Sep" type="HSeparator" parent="Center/Panel/VBox"]
+theme_type_variation = &"DividerSeparator"
+layout_mode = 2
+
+[node name="Columns" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Left" type="VBoxContainer" parent="Center/Panel/VBox/Columns"]
+custom_minimum_size = Vector2(330, 0)
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SoundTitle" type="Label" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Sliders" type="GridContainer" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+columns = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 4
+
+[node name="MasterLabel" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Master" type="HSlider" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(180, 16)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+step = 5.0
+value = 100.0
+unique_name_in_owner = true
+
+[node name="MasterValue" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "100 %"
+horizontal_alignment = 2
+unique_name_in_owner = true
+
+[node name="MusicLabel" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Music" type="HSlider" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(180, 16)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+step = 5.0
+value = 100.0
+unique_name_in_owner = true
+
+[node name="MusicValue" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "100 %"
+horizontal_alignment = 2
+unique_name_in_owner = true
+
+[node name="SfxLabel" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Sfx" type="HSlider" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(180, 16)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+step = 5.0
+value = 100.0
+unique_name_in_owner = true
+
+[node name="SfxValue" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "100 %"
+horizontal_alignment = 2
+unique_name_in_owner = true
+
+[node name="AmbientLabel" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Ambient" type="HSlider" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(180, 16)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+step = 5.0
+value = 100.0
+unique_name_in_owner = true
+
+[node name="AmbientValue" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "100 %"
+horizontal_alignment = 2
+unique_name_in_owner = true
+
+[node name="VoiceLabel" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Voice" type="HSlider" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(180, 16)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+step = 5.0
+value = 100.0
+unique_name_in_owner = true
+
+[node name="VoiceValue" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "100 %"
+horizontal_alignment = 2
+unique_name_in_owner = true
+
+[node name="UiLabel" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Ui" type="HSlider" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(180, 16)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+step = 5.0
+value = 100.0
+unique_name_in_owner = true
+
+[node name="UiValue" type="Label" parent="Center/Panel/VBox/Columns/Left/Sliders"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "100 %"
+horizontal_alignment = 2
+unique_name_in_owner = true
+
+[node name="MuteUnfocused" type="CheckBox" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
+[node name="Gap" type="Control" parent="Center/Panel/VBox/Columns/Left"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LangTitle" type="Label" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Locale" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_override_constants/separation = 6
+unique_name_in_owner = true
+
+[node name="Es" type="Button" parent="Center/Panel/VBox/Columns/Left/Locale"]
+custom_minimum_size = Vector2(78, 18)
+layout_mode = 2
+toggle_mode = true
+text = "Español"
+
+[node name="En" type="Button" parent="Center/Panel/VBox/Columns/Left/Locale"]
+custom_minimum_size = Vector2(78, 18)
+layout_mode = 2
+toggle_mode = true
+text = "English"
+
+[node name="Right" type="VBoxContainer" parent="Center/Panel/VBox/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="DisplayTitle" type="Label" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Fullscreen" type="CheckBox" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
+[node name="ScaleRow" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ScaleLabel" type="Label" parent="Center/Panel/VBox/Columns/Right/ScaleRow"]
+custom_minimum_size = Vector2(136, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Scale" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right/ScaleRow"]
+layout_mode = 2
+theme_override_constants/separation = 4
+unique_name_in_owner = true
+
+[node name="X2" type="Button" parent="Center/Panel/VBox/Columns/Right/ScaleRow/Scale"]
+custom_minimum_size = Vector2(44, 18)
+layout_mode = 2
+toggle_mode = true
+text = "×2"
+
+[node name="X3" type="Button" parent="Center/Panel/VBox/Columns/Right/ScaleRow/Scale"]
+custom_minimum_size = Vector2(44, 18)
+layout_mode = 2
+toggle_mode = true
+text = "×3"
+
+[node name="X4" type="Button" parent="Center/Panel/VBox/Columns/Right/ScaleRow/Scale"]
+custom_minimum_size = Vector2(44, 18)
+layout_mode = 2
+toggle_mode = true
+text = "×4"
+
+[node name="ScaleNote" type="Label" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="TextRow" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TextLabel" type="Label" parent="Center/Panel/VBox/Columns/Right/TextRow"]
+custom_minimum_size = Vector2(136, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Text" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right/TextRow"]
+layout_mode = 2
+theme_override_constants/separation = 4
+unique_name_in_owner = true
+
+[node name="Normal" type="Button" parent="Center/Panel/VBox/Columns/Right/TextRow/Text"]
+custom_minimum_size = Vector2(44, 18)
+layout_mode = 2
+toggle_mode = true
+text = "Normal"
+
+[node name="Large" type="Button" parent="Center/Panel/VBox/Columns/Right/TextRow/Text"]
+custom_minimum_size = Vector2(44, 18)
+layout_mode = 2
+toggle_mode = true
+text = "Grande"
+
+[node name="TextNote" type="Label" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Gap" type="Control" parent="Center/Panel/VBox/Columns/Right"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="GameTitle" type="Label" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="LoadSpeedRow" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="LoadSpeedLabel" type="Label" parent="Center/Panel/VBox/Columns/Right/LoadSpeedRow"]
+custom_minimum_size = Vector2(136, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="LoadSpeed" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right/LoadSpeedRow"]
+layout_mode = 2
+theme_override_constants/separation = 4
+unique_name_in_owner = true
+
+[node name="X1" type="Button" parent="Center/Panel/VBox/Columns/Right/LoadSpeedRow/LoadSpeed"]
+custom_minimum_size = Vector2(44, 18)
+layout_mode = 2
+toggle_mode = true
+text = "×1"
+
+[node name="X2" type="Button" parent="Center/Panel/VBox/Columns/Right/LoadSpeedRow/LoadSpeed"]
+custom_minimum_size = Vector2(44, 18)
+layout_mode = 2
+toggle_mode = true
+text = "×2"
+
+[node name="X4" type="Button" parent="Center/Panel/VBox/Columns/Right/LoadSpeedRow/LoadSpeed"]
+custom_minimum_size = Vector2(44, 18)
+layout_mode = 2
+toggle_mode = true
+text = "×4"
+
+[node name="NoticesRow" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="NoticesLabel" type="Label" parent="Center/Panel/VBox/Columns/Right/NoticesRow"]
+custom_minimum_size = Vector2(136, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Notices" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right/NoticesRow"]
+layout_mode = 2
+theme_override_constants/separation = 4
+unique_name_in_owner = true
+
+[node name="Urgent" type="Button" parent="Center/Panel/VBox/Columns/Right/NoticesRow/Notices"]
+custom_minimum_size = Vector2(44, 18)
+layout_mode = 2
+toggle_mode = true
+text = "Urgentes"
+
+[node name="All" type="Button" parent="Center/Panel/VBox/Columns/Right/NoticesRow/Notices"]
+custom_minimum_size = Vector2(44, 18)
+layout_mode = 2
+toggle_mode = true
+text = "Todos"
+
+[node name="PauseUnfocused" type="CheckBox" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
+[node name="HelpLine" type="CheckBox" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
+[node name="ObjectiveHints" type="CheckBox" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
+[node name="Space" type="Control" parent="Center/Panel/VBox"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sep2" type="HSeparator" parent="Center/Panel/VBox"]
+theme_type_variation = &"DividerSeparator"
+layout_mode = 2
+
+[node name="Footer" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="DefaultsButton" type="Button" parent="Center/Panel/VBox/Footer"]
+custom_minimum_size = Vector2(148, 20)
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
+[node name="AppliedNote" type="Label" parent="Center/Panel/VBox/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DimLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="BackButton" type="Button" parent="Center/Panel/VBox/Footer"]
+custom_minimum_size = Vector2(118, 20)
+layout_mode = 2
+text = "Volver"
+unique_name_in_owner = true

@@ -1,0 +1,42 @@
+[gd_resource type="Theme" format=3 uid="uid://bixic0a2ia8dk"]
+
+[ext_resource type="FontFile" uid="uid://6ldjcabjkexb" path="res://assets/art/ui/fonts/pixel_operator_bold.ttf" id="font_bold"]
+[ext_resource type="FontFile" uid="uid://cmmb81sh8jtru" path="res://assets/art/ui/fonts/jacquard_24.ttf" id="font_gothic"]
+[ext_resource type="Texture2D" uid="uid://bc6k66krfho2o" path="res://assets/art/ui/theme/divider.png" id="divider"]
+
+[sub_resource type="StyleBoxFlat" id="thumb_box"]
+bg_color = Color(0.101961, 0.0705882, 0.0352941, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.243137, 0.156863, 0.0784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="divider_box"]
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+texture = ExtResource("divider")
+texture_margin_left = 3.0
+texture_margin_top = 1.0
+texture_margin_right = 3.0
+texture_margin_bottom = 1.0
+
+[resource]
+DividerSeparator/base_type = &"HSeparator"
+DividerSeparator/constants/separation = 3
+DividerSeparator/styles/separator = SubResource("divider_box")
+GothicTitle/base_type = &"Label"
+GothicTitle/colors/font_color = Color(0.603922, 0.164706, 0.133333, 1)
+GothicTitle/constants/line_spacing = 0
+GothicTitle/fonts/font = ExtResource("font_gothic")
+GothicTitle/font_sizes/font_size = 24
+InkBold/base_type = &"Label"
+InkBold/colors/font_color = Color(0.164706, 0.121569, 0.0784314, 1)
+InkBold/fonts/font = ExtResource("font_bold")
+InkBold/font_sizes/font_size = 16
+SealLabel/base_type = &"Label"
+SealLabel/colors/font_color = Color(0.603922, 0.164706, 0.133333, 1)
+SealLabel/fonts/font = ExtResource("font_bold")
+SealLabel/font_sizes/font_size = 16
+ThumbPanel/base_type = &"Panel"
+ThumbPanel/styles/panel = SubResource("thumb_box")

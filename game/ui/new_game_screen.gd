@@ -1,11 +1,18 @@
 class_name NewGameScreen
-extends Control
-## The new game screen (GDD 4.16, 4.23, D5): difficulty, the protagonist's name and gender, the family name, the
-## free points (data/starts/<start>.json protagonist.free_points, each stat within [stat_min, stat_max]) and the
-## family colours. Start -> NewGame.from_start(catalog, start, difficulty, choices, seed); on success emits
-## `started(state)` (the app starts the game with it). Shown when the game runs without --scenario.
+extends MenuScreen
+## The new game screen (GDD 4.16, 4.23, D5; docs/ui/02_menu_inicial.md §2), two columns in a 752×500 panel. Left: the
+## difficulty (the chosen one pressed) and what it changes in figures; the protagonist's name and gender; the family
+## name and how it reads ("Los Herrero"); the family colours (12 swatches each, the chosen one framed in gold); the
+## preview (portrait with the family border, "Hugo de los Herrero", age, trade and title, what they start with and the
+## family shield in its two colours). Right: the stats (name, −, value, +; the free points; "−" off at the base: points
+## only go up, D5) and, for the stat under the pointer or the focus, what it does. Start (Enter) is off with its
+## reason next to it while the name or the family is missing; Back (Esc) returns to the title.
+## Start -> NewGame.from_start(catalog, start, difficulty, choices, seed); on success emits `started(state)` (the app
+## starts the game with it).
 
 signal started(state: WorldState)
+
+const SWATCH: Vector2 = Vector2(14, 14)
 
 var catalog: Catalog
 var start_id: String = ""
@@ -15,9 +22,11 @@ var stats_add: Dictionary = {}   # stat -> points added (only up, at most free_p
 var primary: String = ""
 var secondary: String = ""
 var world_seed: int = 1
+var help_stat: String = ""       # the stat whose help is shown
 ## Who builds the state (NewGame.from_start by default; the tests watch the call).
 var from_start: Callable = NewGame.from_start
 var _bound: bool = false
+var _portrait: Portrait = null
 
 
 func _bind() -> void:
@@ -25,8 +34,13 @@ func _bind() -> void:
 		return
 	_bound = true
 	(%StartButton as Button).pressed.connect(start_game)
+	(%BackButton as Button).pressed.connect(func() -> void: back_requested.emit())
 	(%Male as Button).pressed.connect(func() -> void: set_female(false))
 	(%Female as Button).pressed.connect(func() -> void: set_female(true))
+	(%NameEdit as LineEdit).text_changed.connect(func(_t: String) -> void: _update_start())
+	(%FamilyEdit as LineEdit).text_changed.connect(func(_t: String) -> void: _update_start())
+	(%NameEdit as LineEdit).text_submitted.connect(func(_t: String) -> void: start_game())
+	(%FamilyEdit as LineEdit).text_submitted.connect(func(_t: String) -> void: start_game())
 
 
 func protagonist() -> Dictionary:
@@ -62,8 +76,9 @@ func setup(c: Catalog, seed_value: int) -> void:
 	var dc: Array = cfg.get("default_colors", [0, 1])
 	primary = str(palette[int(dc[0]) % palette.size()])
 	secondary = str(palette[int(dc[1]) % palette.size()])
+	var start: Dictionary = c.starts().get(start_id, {})
 	(%Title as Label).text = SimQuery.t_("ui.new_game.title")
-	(%StartName as Label).text = SimQuery.t_(str(c.starts().get(start_id, {}).get("name_key", "start." + start_id)))
+	(%StartName as Label).text = SimQuery.t_(str(start.get("name_key", "start." + start_id)))
 	(%DifficultyLabel as Label).text = SimQuery.t_("ui.new_game.difficulty")
 	(%NameLabel as Label).text = SimQuery.t_("ui.new_game.name")
 	(%FamilyLabel as Label).text = SimQuery.t_("ui.new_game.family")
@@ -71,7 +86,13 @@ func setup(c: Catalog, seed_value: int) -> void:
 	(%Female as Button).text = SimQuery.t_("ui.new_game.female")
 	(%PrimaryLabel as Label).text = SimQuery.t_("ui.new_game.primary")
 	(%SecondaryLabel as Label).text = SimQuery.t_("ui.new_game.secondary")
+	(%StatsLabel as Label).text = SimQuery.t_("ui.new_game.stats")
+	(%ColorNote as Label).text = SimQuery.t_("ui.new_game.color_note")
+	(%StartInfo as Label).text = SimQuery.t_("ui.new_game.start_info")
 	(%StartButton as Button).text = SimQuery.t_("ui.new_game.start")
+	MenuKit.add_hint(%StartButton as Button, SimQuery.t_("ui.key.enter"))
+	(%BackButton as Button).text = SimQuery.t_("ui.menu.back")
+	MenuKit.add_hint(%BackButton as Button, SimQuery.t_("ui.key.esc"))
 	(%NameEdit as LineEdit).text = SimQuery.t_(str(cfg.get("default_name", "")))
 	(%FamilyEdit as LineEdit).text = SimQuery.t_(str(cfg.get("default_family", "")))
 	(%ErrorLabel as Label).visible = false
@@ -80,30 +101,31 @@ func setup(c: Catalog, seed_value: int) -> void:
 	_build_colors(%Secondary as HBoxContainer, palette, false)
 	set_female(false)
 	_build_stats()
+	show_stat_help(str((protagonist().get("stats", {}) as Dictionary).keys()[0]) if not protagonist().get("stats", {}).is_empty() else "")
+	_update_start()
 	ViewConfig.info("NewGame", "setup (start=%s, difficulty=%s, free_points=%d, seed=%d)" % [start_id, difficulty,
 		free_points(), world_seed])
 
 
-func _clear(n: Node) -> void:
-	for c: Node in n.get_children():
-		n.remove_child(c)
-		c.queue_free()
+## The name field, with the caret at its end.
+func default_focus() -> Control:
+	(%NameEdit as LineEdit).caret_column = (%NameEdit as LineEdit).text.length()
+	return %NameEdit as LineEdit
 
 
 func _build_difficulty() -> void:
 	var box := %Difficulty as HBoxContainer
-	_clear(box)
+	MenuKit.clear(box)
 	var group := ButtonGroup.new()
 	for lvl: String in ["easy", "normal", "hard"]:
 		var def := catalog.difficulty_levels(lvl)
 		if def.is_empty():
 			continue
-		var b := Button.new()
+		var b := MenuKit.button(SimQuery.t_(str(def.get("name_key", "difficulty." + lvl))))
 		b.name = lvl.capitalize()
-		b.text = SimQuery.t_(str(def.get("name_key", "difficulty." + lvl)))
 		b.toggle_mode = true
 		b.button_group = group
-		b.focus_mode = Control.FOCUS_NONE
+		b.custom_minimum_size = Vector2(0, 18)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.button_pressed = lvl == difficulty
 		b.pressed.connect(func() -> void: set_difficulty(lvl))
@@ -118,6 +140,7 @@ func set_difficulty(lvl: String) -> void:
 	for b: Node in (%Difficulty as HBoxContainer).get_children():
 		(b as Button).set_pressed_no_signal(b.name == lvl.capitalize())
 	_update_difficulty_hint()
+	_update_preview()
 
 
 func _update_difficulty_hint() -> void:
@@ -130,42 +153,43 @@ func set_female(f: bool) -> void:
 	female = f
 	(%Male as Button).set_pressed_no_signal(not f)
 	(%Female as Button).set_pressed_no_signal(f)
+	_update_preview()
 
 
 func _build_stats() -> void:
 	var grid := %Stats as GridContainer
-	_clear(grid)
+	MenuKit.clear(grid)
 	var base: Dictionary = protagonist().get("stats", {})
 	var smax := int(protagonist().get("stat_max", 10))
 	var left := points_left()
 	for s: String in base:
 		var add := int(stats_add.get(s, 0))
-		var name_l := Label.new()
-		name_l.text = SimQuery.t_("stat." + s)
-		name_l.custom_minimum_size = Vector2(76, 0)
+		var name_l := MenuKit.label(SimQuery.t_("stat." + s), &"BodyLabel")
+		name_l.name = s + "_name"
+		name_l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		name_l.mouse_filter = Control.MOUSE_FILTER_PASS
+		name_l.mouse_entered.connect(func() -> void: show_stat_help(s))
 		grid.add_child(name_l)
-		var minus := Button.new()
+		var minus := MenuKit.button("−")
 		minus.name = s + "_minus"
-		minus.text = "−"
-		minus.focus_mode = Control.FOCUS_NONE
+		minus.custom_minimum_size = Vector2(16, 16)
 		minus.disabled = add <= 0
 		minus.pressed.connect(func() -> void: add_point(s, -1))
 		grid.add_child(minus)
-		var val := Label.new()
+		var val := MenuKit.label(str(int(base[s]) + add), &"PositiveLabel" if add > 0 else &"BoldLabel")
 		val.name = s + "_value"
-		val.text = str(int(base[s]) + add)
-		val.custom_minimum_size = Vector2(18, 0)
+		val.custom_minimum_size = Vector2(28, 0)
 		val.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		if add > 0:
-			val.add_theme_color_override("font_color", Color(0.6, 1.0, 0.6))
 		grid.add_child(val)
-		var plus := Button.new()
+		var plus := MenuKit.button("+")
 		plus.name = s + "_plus"
-		plus.text = "+"
-		plus.focus_mode = Control.FOCUS_NONE
+		plus.custom_minimum_size = Vector2(16, 16)
 		plus.disabled = left <= 0 or int(base[s]) + add >= smax
 		plus.pressed.connect(func() -> void: add_point(s, 1))
 		grid.add_child(plus)
+		for b: Button in [minus, plus]:
+			b.focus_entered.connect(func() -> void: show_stat_help(s))
+			b.mouse_entered.connect(func() -> void: show_stat_help(s))
 	(%PointsLabel as Label).text = SimQuery.t_("ui.new_game.points") % [left, free_points()]
 
 
@@ -181,27 +205,44 @@ func add_point(stat: String, delta: int) -> bool:
 		stats_add.erase(stat)
 	else:
 		stats_add[stat] = add
+	var focused := get_viewport().gui_get_focus_owner() if is_inside_tree() else null
+	var refocus := str(focused.name) if focused != null and (%Stats as Node).is_ancestor_of(focused) else ""
 	_build_stats()
+	if refocus != "":
+		var again := (%Stats as Node).get_node_or_null(refocus) as Button
+		if again != null and not again.disabled:
+			again.grab_focus()
+	show_stat_help(stat)
 	return true
 
 
+## What `stat` does (i18n stat_help.<stat>), in the box under the stats.
+func show_stat_help(stat: String) -> void:
+	help_stat = stat
+	(%HelpTitle as Label).text = SimQuery.t_("stat." + stat) if stat != "" else ""
+	var smin := int(protagonist().get("stat_min", 1))
+	var smax := int(protagonist().get("stat_max", 10))
+	(%HelpBody as Label).text = (SimQuery.t_("stat_help." + stat) + " " + SimQuery.t_("ui.new_game.points_up") % [smin, smax]) \
+		if stat != "" else ""
+
+
 func _build_colors(box: HBoxContainer, palette: Array, is_primary: bool) -> void:
-	_clear(box)
+	MenuKit.clear(box)
 	for hex: Variant in palette:
 		var h := str(hex)
 		var b := Button.new()
 		b.name = h.trim_prefix("#")
-		b.custom_minimum_size = Vector2(22, 18)
+		b.custom_minimum_size = SWATCH
 		b.focus_mode = Control.FOCUS_NONE
 		b.toggle_mode = true
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = ViewConfig.color(h)
 		sb.set_border_width_all(1)
-		sb.border_color = Color(0.25, 0.17, 0.1)
+		sb.border_color = ViewConfig.color("#1a1209")
 		var sel := sb.duplicate() as StyleBoxFlat
-		sel.set_border_width_all(3)
-		sel.border_color = Color(1.0, 0.92, 0.6)
-		for st: String in ["normal", "hover", "disabled"]:
+		sel.set_border_width_all(2)
+		sel.border_color = ViewConfig.color("#f2d880")
+		for st: String in ["normal", "hover", "disabled", "focus"]:
 			b.add_theme_stylebox_override(st, sb)
 		for st: String in ["pressed", "hover_pressed"]:
 			b.add_theme_stylebox_override(st, sel)
@@ -218,6 +259,63 @@ func set_color(is_primary: bool, hex: String) -> void:
 	var box := (%Primary if is_primary else %Secondary) as HBoxContainer
 	for b: Node in box.get_children():
 		(b as Button).set_pressed_no_signal(b.name == hex.trim_prefix("#"))
+	_update_preview()
+
+
+## The preview: the portrait in the family's colours with the primary as its border, the name, age, trade and title,
+## what the start gives and the shield.
+func _update_preview() -> void:
+	if catalog == null or not is_inside_tree():
+		return
+	var start: Dictionary = catalog.starts().get(start_id, {})
+	var defaults: Dictionary = start.get("defaults", {})
+	var vis: Dictionary = defaults.get("visual", {})
+	if _portrait == null:
+		var n := VisualPaths.instantiate("characters", "portrait")
+		n.name = "Portrait"
+		(%PortraitHolder as Node2D).add_child(n)
+		_portrait = n as Portrait
+	if _portrait != null:
+		_portrait.set_identity({"hair": Identity.hair_color(int(vis.get("hair", 0))),
+			"skin": Identity.skin_color(int(vis.get("skin", 0))), "primary": ViewConfig.color(primary),
+			"secondary": ViewConfig.color(secondary), "female": female, "dead": false})
+	var border := (%PortraitBorder as Panel).get_theme_stylebox("panel") as StyleBoxFlat
+	if border != null:
+		border = border.duplicate() as StyleBoxFlat
+		border.border_color = ViewConfig.color(primary)
+		(%PortraitBorder as Panel).add_theme_stylebox_override("panel", border)
+	(%ShieldTop as ColorRect).color = ViewConfig.color(primary)
+	(%ShieldBottom as ColorRect).color = ViewConfig.color(secondary)
+	var ch := choices()
+	var fam_name := str(ch["family_name"])
+	(%FamilyRead as Label).text = SimQuery.t_("ui.title.family") % fam_name if fam_name != "" else ""
+	(%PreviewName as Label).text = SimQuery.t_("ui.new_game.preview_name") % [str(ch["name"]), fam_name] \
+		if str(ch["name"]) != "" and fam_name != "" else str(ch["name"])
+	var p := protagonist()
+	var title := SimQuery.t_("title." + str(p.get("title", "common")))
+	(%PreviewAge as Label).text = SimQuery.t_("ui.new_game.preview_age") % [int(p.get("age", 20)),
+		SimQuery.t_("profession." + str(start.get("profession", ""))).to_lower(), title.substr(0, 1).to_upper() + title.substr(1)]
+	var debt := int(catalog.difficulty_levels(difficulty).get("start_debt", 0))
+	(%PreviewStart as Label).text = SimQuery.t_("ui.new_game.preview_start.%s" % start_id) % [
+		int(start.get("family", {}).get("gold", 0)), debt]
+
+
+## Start is off with its reason next to it while the name or the family is missing.
+func _update_start() -> void:
+	var why := missing_reason()
+	(%StartButton as Button).disabled = why != ""
+	(%ErrorLabel as Label).text = SimQuery.t_(why) if why != "" else ""
+	(%ErrorLabel as Label).visible = why != ""
+	_update_preview()
+
+
+## The i18n key of what is missing to start ("" = nothing).
+func missing_reason() -> String:
+	if (%NameEdit as LineEdit).text.strip_edges() == "":
+		return "ui.new_game.need_name"
+	if (%FamilyEdit as LineEdit).text.strip_edges() == "":
+		return "ui.new_game.need_family"
+	return ""
 
 
 ## What the player chose, in the shape of NewGame.from_start's `choices`.
@@ -230,26 +328,16 @@ func choices() -> Dictionary:
 ## Start: builds the game with what was chosen; on success emits started(state), else shows the error.
 func start_game() -> void:
 	var ch := choices()
-	var err := ""
 	if str(ch["name"]) == "" or str(ch["family_name"]) == "":
-		err = "ui.new_game.need_names"
-	else:
-		ViewConfig.info("NewGame", "from_start (start=%s, difficulty=%s, choices=%s, seed=%d)" % [start_id, difficulty, ch,
-			world_seed])
-		var r: Dictionary = from_start.call(catalog, start_id, difficulty, ch, world_seed)
-		if bool(r.get("ok", false)):
-			started.emit(r["state"])
-			return
-		err = "ui.new_game.error"
-		ViewConfig.info("NewGame", "from_start refused (error=%s)" % r.get("error", ""))
-		(%ErrorLabel as Label).text = SimQuery.t_(err) % str(r.get("error", ""))
+		(%ErrorLabel as Label).text = SimQuery.t_(missing_reason())
 		(%ErrorLabel as Label).visible = true
 		return
-	(%ErrorLabel as Label).text = SimQuery.t_(err)
+	ViewConfig.info("NewGame", "from_start (start=%s, difficulty=%s, choices=%s, seed=%d)" % [start_id, difficulty, ch,
+		world_seed])
+	var r: Dictionary = from_start.call(catalog, start_id, difficulty, ch, world_seed)
+	if bool(r.get("ok", false)):
+		started.emit(r["state"])
+		return
+	ViewConfig.info("NewGame", "from_start refused (error=%s)" % r.get("error", ""))
+	(%ErrorLabel as Label).text = SimQuery.t_("ui.new_game.error") % str(r.get("error", ""))
 	(%ErrorLabel as Label).visible = true
-
-
-## While shown, no key reaches the town or the HUD below (pause, speeds, ESC): this screen is drawn over them.
-func _unhandled_input(event: InputEvent) -> void:
-	if visible and event is InputEventKey and is_inside_tree():
-		get_viewport().set_input_as_handled()

@@ -1223,3 +1223,166 @@ ui.kin_ai.why_need_social,lonely,se siente solo
 ui.kin_ai.why_need_fun,bored,se aburre
 notice.fine_loan,"You pay {paid} of the fine now; {amount} is owed to the town until day {day} (book, Debts)","Pagas {paid} de la multa ahora; debes {amount} a la ciudad hasta el día {day} (libro, Deudas)"
 lender.town,The town (fines),La ciudad (multas)
+ui.title.continue,Continue,Continuar
+ui.title.new_game,New game,Partida nueva
+ui.title.load,Load game,Cargar partida
+ui.title.no_saves,No saved games,No hay partidas guardadas
+ui.title.options,Options,Opciones
+ui.title.credits,Credits,Créditos
+ui.title.quit,Quit,Salir
+ui.title.version,v%s · vertical slice,v%s · rebanada vertical
+ui.title.family,The %s,Los %s
+ui.menu.date,"Day %d, %s, year %d","Día %d, %s, año %d"
+ui.menu.back,Back,Volver
+ui.menu.cancel,Cancel,Cancelar
+ui.menu.cannot_undo,This cannot be undone.,No se puede deshacer.
+ui.key.esc,Esc,Esc
+ui.key.enter,Enter,Intro
+ui.key.f1,F1,F1
+ui.key.f5,F5,F5
+ui.key.f9,F9,F9
+ui.saves.load_title,Load game,Cargar partida
+ui.saves.save_title,Save game,Guardar partida
+ui.saves.auto_note,The game saves itself at every dawn.,El autoguardado se hace solo al amanecer de cada día.
+ui.saves.autosave,Autosave,Autoguardado
+ui.saves.slot,Slot %d,Ranura %d
+ui.saves.empty,Empty,Vacía
+ui.saves.saved_at,Saved %s,Guardada %s
+ui.saves.today,"today, %s","hoy, %s"
+ui.saves.yesterday,"yesterday, %s","ayer, %s"
+ui.saves.on_date,"%d %s, %s","%d %s, %s"
+ui.saves.on_date_year,"%d %s %d, %s","%d %s %d, %s"
+ui.saves.who,"%s, %s","%s, %s"
+ui.saves.gold,%s gold,%s de oro
+ui.saves.debt,debt %s,deuda %s
+ui.saves.no_debt,debt paid,deuda pagada
+ui.saves.load,Load,Cargar
+ui.saves.delete,Delete,Borrar
+ui.saves.save_here,Save here,Guardar aquí
+ui.saves.delete_q,Delete %s?,¿Borrar %s?
+ui.saves.overwrite_q,Overwrite slot %d?,¿Sobrescribir la ranura %d?
+ui.saves.overwrite_body,The game of %s is lost.,Se pierde la partida del %s.
+ui.saves.overwrite_body_broken,The file in this slot cannot be read: it is replaced.,El fichero de esta ranura no se puede leer: se sustituye.
+ui.saves.overwrite,Overwrite,Sobrescribir
+ui.saves.broken,Cannot be read: %s,No se puede leer: %s
+ui.saves.error.missing,the file is not there.,no está el fichero.
+ui.saves.error.empty,the file is empty.,el fichero está vacío.
+ui.saves.error.bad_json,the file is cut or damaged.,el fichero está cortado o dañado.
+ui.saves.error.not_a_save,it is not a saved game.,no es una partida guardada.
+ui.saves.error.newer_version,it is from a newer version of the game.,es de una versión más nueva del juego.
+ui.saves.error.other,error %s.,error %s.
+ui.saves.saved,Game saved in %s,Partida guardada en %s
+ui.saves.save_failed,The game could not be saved (%s),No se ha podido guardar la partida (%s)
+ui.saves.load_failed,The game could not be loaded: %s,No se ha podido cargar la partida: %s
+ui.month_short.1,Jan,ene
+ui.month_short.2,Feb,feb
+ui.month_short.3,Mar,mar
+ui.month_short.4,Apr,abr
+ui.month_short.5,May,may
+ui.month_short.6,Jun,jun
+ui.month_short.7,Jul,jul
+ui.month_short.8,Aug,ago
+ui.month_short.9,Sep,sep
+ui.month_short.10,Oct,oct
+ui.month_short.11,Nov,nov
+ui.month_short.12,Dec,dic
+ui.options.title,Options,Opciones
+ui.options.sound,Sound,Sonido
+ui.options.master,General,General
+ui.options.music,Music,Música
+ui.options.sfx,Effects,Efectos
+ui.options.ambient,Ambience,Ambiente
+ui.options.voice,Voices,Voces
+ui.options.ui,Interface,Interfaz
+ui.options.mute_unfocused,Lower the sound when the window is not active,Bajar el sonido si la ventana no está activa
+ui.options.language,Language,Idioma
+ui.options.display,Display,Pantalla
+ui.options.fullscreen,Full screen (F11),Pantalla completa (F11)
+ui.options.scale,Scale,Escala
+ui.options.scale_note,ONLY THE ONES THAT FIT WHOLE,SOLO LAS QUE CABEN ENTERAS
+ui.options.scale_full,IN FULL SCREEN THE SCALE IS THE SCREEN'S,EN PANTALLA COMPLETA MANDA LA PANTALLA
+ui.options.text,Text size,Tamaño del texto
+ui.options.text_note,"LARGE: BOLD, MORE SPACING","GRANDE: NEGRITA, MÁS AIRE"
+ui.options.text_normal,Normal,Normal
+ui.options.text_large,Large,Grande
+ui.options.game,Game,Juego
+ui.options.load_speed,Speed on load,Velocidad al cargar
+ui.options.notices,Notices that pop up,Avisos que saltan
+ui.options.notices_urgent,Urgent,Urgentes
+ui.options.notices_all,All,Todos
+ui.options.pause_unfocused,Pause when the window loses the focus,Pausar al perder el foco
+ui.options.help_line,Show the help line at the bottom,Mostrar la línea de ayuda abajo
+ui.options.objective_hints,Objective hints,Pistas de los objetivos
+ui.options.defaults,Defaults,Valores por defecto
+ui.options.applied,Changes apply at once.,Los cambios se aplican al momento.
+credits.design,"Design, direction and game","Diseño, dirección y juego"
+credits.made_with,Made with,Hecho con
+credits.claude,Claude Code (Grimoire agents),Claude Code (agentes de Grimoire)
+credits.art,Art,Arte
+credits.art_pixellab,PixelLab and hand-made pieces (Pillow),PixelLab y piezas a mano (Pillow)
+credits.art_guild_renew,Art reused from Guild Renew,Arte reutilizado de Guild Renew
+credits.sound,Sound and voices,Sonido y voces
+credits.sound_elevenlabs,ElevenLabs,ElevenLabs
+credits.fonts,Fonts,Letras
+credits.thanks,Thanks for playing.,Gracias por jugar.
+ui.pause.title,Pause,Pausa
+ui.pause.resume,Resume,Seguir
+ui.pause.save,Save,Guardar
+ui.pause.load,Load,Cargar
+ui.pause.options,Options,Opciones
+ui.pause.help,Help,Ayuda
+ui.pause.close_dynasty,End the dynasty…,Cerrar la dinastía…
+ui.pause.close_off,Not available in this version,No disponible en esta versión
+ui.pause.to_title,Quit to title,Salir al título
+ui.pause.quit,Quit the game,Salir del juego
+ui.pause.never_saved,Not saved yet,Aún sin guardar
+ui.pause.last_saved,Last saved: %s,Último guardado: %s
+ui.pause.ago_now,just now,hace un momento
+ui.pause.ago_min,%d min ago,hace %d min
+ui.pause.close_q,End the dynasty?,¿Cerrar la dinastía?
+ui.pause.close_body,The game ends here and its chronicle is written. You will see the final score.,La partida termina aquí y se escribe su crónica. Verás la puntuación final.
+ui.pause.close_yes,End it,Cerrarla
+ui.pause.quit_title_q,Quit to the title?,¿Salir al título?
+ui.pause.quit_q,Quit the game?,¿Salir del juego?
+ui.pause.quit_body,What was played since the last save is lost (%s).,Se pierde lo jugado desde el último guardado (%s).
+ui.pause.quit_body_never,This game has not been saved: everything played is lost.,Esta partida no se ha guardado: se pierde todo lo jugado.
+ui.pause.without_saving,Don't save,Sin guardar
+ui.pause.save_and_quit,Save and quit,Guardar y salir
+ui.new_game.stats,Stats,Atributos
+ui.new_game.color_note,THE MAIN COLOUR DRESSES YOUR PEOPLE IN THE TOWN AND BORDERS THEIR PORTRAITS.,EL COLOR PRINCIPAL VISTE A LOS TUYOS EN EL PUEBLO Y BORDEA SUS RETRATOS.
+ui.new_game.start_info,"You start at dawn on day 1 of spring, year 1. You can change whom you control, not the stats.","Empiezas al amanecer del día 1 de primavera del año 1. Podrás cambiar a quién controlas, no los atributos."
+ui.new_game.need_name,The name is missing,Falta el nombre
+ui.new_game.need_family,The family name is missing,Falta la familia
+ui.new_game.points_up,Points only go up (from %d to %d).,Los puntos solo suben (de %d a %d).
+ui.new_game.preview_name,%s of the %s,%s de los %s
+ui.new_game.preview_age,%d years · %s · %s,%d años · %s · %s
+ui.new_game.preview_start.artisan_blacksmith,"A forge with a home, %d gold and %d of debt with the moneylender.","Forja con vivienda, %d de oro y %d de deuda con el prestamista."
+stat_help.charisma,"Persuasion, courtship and selling at the counter.","Persuasión, cortejo y venta en el mostrador."
+stat_help.empathy,"Making allies, reading intentions and how long moods last.","Hacer aliados, detectar intenciones y cuánto duran los estados de ánimo."
+stat_help.negotiation,Buying and selling prices.,Precios de compra y venta.
+stat_help.arcane,"Alchemy, medicine and advanced recipes.","Alquimia, medicina y recetas avanzadas."
+stat_help.dexterity,"Theft, dodging and dice.","Robo, esquivar y dados."
+stat_help.craft,"Speed and quality of production, and the recipes you can make.","Velocidad y calidad de la producción, y las recetas que puedes hacer."
+stat_help.martial,Combat and intimidation.,Combate e intimidar.
+stat_help.constitution,"The weight you can carry, health and long life.","Peso que puedes cargar, salud y longevidad."
+stat_help.rhetoric,"Debates, the court and campaign speeches.","Debates, tribunal y discursos de campaña."
+stat_help.stealth,Spying and illegal deeds without being seen.,Espionaje y actividades ilegales sin ser descubierto.
+ui.ending.date,%s · %02d:%02d,%s · %02d:%02d
+ui.ending.chronicle,Chronicle,Crónica
+ui.ending.goals_title,Dynasty goals,Metas de dinastía
+ui.ending.total,Total,Total
+ui.ending.points,%d points,%d puntos
+ui.ending.view_town,See the town,Ver el pueblo
+ui.ending.to_title,Quit to title,Salir al título
+ui.ending.back_to_end,Back to the end,Volver al final
+ui.ending.head_days,Head from day %d to %s,Cabeza del día %d al %s
+ui.ending.fact.title,%s on day %d,%s el día %d
+ui.ending.fact.wedding,Married %s on day %d,Boda con %s el día %d
+ui.ending.fact.birth,%s is born on day %d,Nace %s el día %d
+ui.ending.fact.inheritance,%s inherits on day %d,%s hereda el día %d
+ui.ending.fact.office,%s on day %d,%s el día %d
+ui.ending.fact.trial_won,Trial won on day %d,Juicio ganado el día %d
+ui.ending.fact.sentence,Sentenced on day %d,Condena el día %d
+ui.ending.fact.goal,Goal met: %s,Meta cumplida: %s
+ui.ending.fact.building,A new building on day %d,Edificio nuevo el día %d
+ui.ending.fact.wealth_peak,Highest wealth: %s gold,Patrimonio máximo: %s de oro

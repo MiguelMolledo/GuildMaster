@@ -4,6 +4,10 @@ extends Node
 ## --dev-time (short days), --lang=es|en (Spanish by default until the options menu exists),
 ## --at=HH:MM (start at that time of the scenario's day: day and night screenshots).
 ## Speed and pause belong to the player's session, not to the world: they are not saved.
+## The menus (docs/ui/02_menu_inicial.md): the pause menu locks the orders (lock_orders: GDD 4.1, the one pause that is
+## not active); saved_minute tells a game with something unsaved (unsaved()); the options (Settings) are applied here
+## at start-up (--lang wins over the saved language; with --smoke / --shots / --smoke-script / --gallery the window
+## options are left alone so the captures keep their size).
 
 const MAX_STEPS_PER_FRAME: int = 64
 const SAVE_DIR: String = "user://saves"
@@ -13,17 +17,34 @@ const AUTOSAVE: String = "auto"
 const DEFAULT_SCENARIO: String = "town_e_start"
 
 signal started  # a new state is loaded (start, load): views rebuild
+signal saved(slot: String)  # a slot (or the autosave) was written: the app adds its thumbnail
 
 var sim: Sim
 var speed: int = 1
 var paused: bool = false
 var _pending: Array = []  # orders given since the last step
 var _acc: float = 0.0
+var orders_locked: bool = false   # the pause menu is open: orders are dropped, not queued
+var saved_minute: int = -1        # the clock minute of the last save or load (-1: never saved this game)
+var last_saved_ms: int = -1       # Time.get_ticks_msec() of the last save this session (-1: none)
 
 
 func _ready() -> void:
-	var opts := parse_args(OS.get_cmdline_user_args())
-	TranslationServer.set_locale(str(opts["lang"]))
+	var args := OS.get_cmdline_user_args()
+	var opts := parse_args(args)
+	var lang_given := false
+	var capture := false
+	for a: String in args:
+		lang_given = lang_given or a.begins_with("--lang=")
+		capture = capture or a == "--smoke" or a.begins_with("--shots=") or a.begins_with("--smoke-script=") or a == "--gallery"
+	if capture:
+		TranslationServer.set_locale(str(opts["lang"]))
+		for k: String in Settings.BUSES:
+			Settings.apply(k)
+	else:
+		Settings.apply_all(lang_given)
+		if lang_given:
+			TranslationServer.set_locale(str(opts["lang"]))
 	var world_seed: int = opts["seed"]
 	var state: WorldState
 	var r := NewGame.from_scenario(str(opts["scenario"]), world_seed)
@@ -38,15 +59,18 @@ func _ready() -> void:
 
 
 ## The options of the command line that Game reads: {"scenario", "seed" (-1 = the scenario's), "lang", "at"
-## (minute of the day, -1 = the scenario's), "new_game" (H3: open on the new game screen, GDD 4.16: true unless
-## --scenario, --smoke, --shots or --smoke-script is given; --new-game forces it)}.
+## (minute of the day, -1 = the scenario's), "new_game" (H3: open on the menus instead of straight in the game,
+## GDD 4.16: true unless --scenario, --smoke, --shots or --smoke-script is given; --new-game forces it), "title"
+## (02_menu_inicial: the menus start on the title screen; false with --new-game, which opens the new game screen)}.
 static func parse_args(args: PackedStringArray) -> Dictionary:
-	var out := {"scenario": DEFAULT_SCENARIO, "seed": -1, "lang": "es", "at": -1, "new_game": true}
+	var out := {"scenario": DEFAULT_SCENARIO, "seed": -1, "lang": "es", "at": -1, "new_game": true, "title": true}
 	for a: String in args:
 		if a.begins_with("--scenario=") or a == "--smoke" or a.begins_with("--shots=") or a.begins_with("--smoke-script="):
 			out["new_game"] = false
+			out["title"] = false
 	if "--new-game" in args:
 		out["new_game"] = true
+		out["title"] = false
 	for a: String in args:
 		if a.begins_with("--lang="):
 			out["lang"] = a.substr(7)
@@ -73,6 +97,7 @@ func start(state: WorldState, catalog: Catalog = null) -> void:
 	sim = Sim.new(state, catalog if catalog != null else _catalog())
 	_pending.clear()
 	_acc = 0.0
+	saved_minute = -1
 	_info("start (seed=%d, minute=%d, title=%s, map=%s)" % [state.world_seed, int(state.clock["minute"]),
 		state.meta.get("title", ""), state.map_id])
 	started.emit()
@@ -82,6 +107,9 @@ func start(state: WorldState, catalog: Catalog = null) -> void:
 ## In pause (active pause, GDD 4.1) the order is marked "queued": on resume the sim puts it in the actor's
 ## order_queue instead of applying it, so several orders given in pause run one after another.
 func give(order: Dictionary) -> void:
+	if orders_locked:
+		_info("order dropped: the pause menu is open (type=%s)" % order.get("type", ""))
+		return
 	var o := order.duplicate(true)
 	if paused:
 		o["queued"] = true
@@ -108,6 +136,21 @@ func set_paused(p: bool) -> void:
 
 func toggle_pause() -> void:
 	set_paused(not paused)
+
+
+## The pause menu (02 §6): pauses and locks the orders; unlocking leaves the pause as the menu found it (the caller
+## restores it).
+func lock_orders(locked: bool) -> void:
+	if locked != orders_locked:
+		orders_locked = locked
+		_info("orders locked=%s" % locked)
+
+
+## Something was played since the last save or load (a new game that has not been saved counts once it runs).
+func unsaved() -> bool:
+	if sim == null:
+		return false
+	return int(sim.state.clock["minute"]) != saved_minute
 
 
 func seconds_per_minute() -> float:
@@ -155,12 +198,18 @@ func advance(delta: float, publish: bool = true) -> int:
 	return steps
 
 
-## Saves in one of SLOTS (or AUTOSAVE).
+## Saves in one of SLOTS (or AUTOSAVE), in SaveSlots.dir (user://saves).
 func save_slot(slot: String) -> Error:
 	if not slot in SLOTS and slot != AUTOSAVE:
 		push_error("save_slot: unknown slot %s" % slot)
 		return ERR_INVALID_PARAMETER
-	return SaveFile.save(sim.state, SAVE_DIR.path_join(slot + ".json"))
+	var e := SaveFile.save(sim.state, SaveSlots.path_of(slot))
+	if e == OK:
+		saved_minute = int(sim.state.clock["minute"])
+		last_saved_ms = Time.get_ticks_msec()
+		_info("saved %s (minute=%d)" % [slot, int(sim.state.clock["minute"])])
+		saved.emit(slot)
+	return e
 
 
 ## At the start of every day (D6). A failed autosave is a warning, never a stop.
@@ -173,9 +222,11 @@ func _autosave() -> void:
 
 
 func load_slot(slot: String) -> Dictionary:
-	var r := SaveFile.load_file(SAVE_DIR.path_join(slot + ".json"))
+	var r := SaveFile.load_file(SaveSlots.path_of(slot))
 	if r["ok"]:
-		start(r["state"])
+		start(r["state"], sim.catalog if sim != null else null)
+		saved_minute = int(sim.state.clock["minute"])
+		_info("loaded %s (minute=%d)" % [slot, saved_minute])
 	return r
 
 
