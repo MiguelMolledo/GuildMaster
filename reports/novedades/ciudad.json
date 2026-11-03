@@ -1,0 +1,12 @@
+{
+  "fecha": "2026-11-03",
+  "titulo": "Constructor de ciudades (1/2): town_e vestido por reglas",
+  "que": "La ciudad se viste por reglas y no al azar (tools/city/ciudad.py vestir, reglas en tools/city/reglas.json): cada casa de relleno mira a la calle o al camino más cercano (sin girar = puerta hacia +fila, reflejada = +columna, y si la calle le queda detrás, la casa vista de espaldas: seis sprites nuevos sin puerta); los patios van detrás, lejos de la calle; farolas cada 6 casillas junto a las calles y en los cruces (sin pisar caminos ni puertas), barriles y cajas junto a las puertas de los talleres, un carro o un saco junto a cada puesto del mercado, bancos en el borde de la plaza y vallas alrededor de los campos con portillos. El resultado se guarda en data/maps/town_e.json \"decor\" (solo lo lee la vista: el sim y las dianas no cambian) y es el mismo en cada partida. Las casas de vecinos del sim cuya puerta cae en una cara oculta se dibujan de espaldas si su aspecto lo tiene (tres en town_e) y un edificio con la puerta en la otra cara visible se refleja (data/view.json building_door_face). Un validador (tools/city/ciudad.py validar, paso «ciudad» de la QA) comprueba solapes, puertas transitables y hacia la calle, todo alcanzable desde la plaza, puestos que dan a la plaza, farolas cada N, población que cabe en las casas, y que nada del decor pise una puerta, un camino, un servicio o un punto social. Avisa de lo que no se puede arreglar sin arte nuevo: forjas, armería, ayuntamiento y talleres de town_e tienen la puerta en una cara oculta y su sprite la dibuja en la otra.",
+  "como_probar": "python3 tools/city/ciudad.py validar town_e (0 errores; los avisos son las fachadas del sim de espaldas que faltan). Captura de toda la ciudad: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=mapa (reports/shots/mapa_town_e_*.png). Regenerar el vestido tras tocar el mapa: python3 tools/city/ciudad.py vestir town_e.",
+  "capturas": [
+    "docs/novedades/ciudad_antes_despues_ne.png",
+    "docs/novedades/ciudad_antes_despues_no.png",
+    "docs/novedades/ciudad_plaza_farolas.png",
+    "docs/novedades/ciudad_campos_vallas.png"
+  ]
+}

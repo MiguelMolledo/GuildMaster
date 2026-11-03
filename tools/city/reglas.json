@@ -1,0 +1,62 @@
+{
+  "_doc": "Rules of the town builder (tools/city/, docs/protocolos/generar-ciudad.md). Offline only: the game reads the result (data/maps/<id>.json \"decor\"), never this file. Ids are scene ids of game/visuals/props/. Distances in tiles; curb/edge/wall = fraction of a tile the prop is pushed from its tile's centre towards the street, the plaza edge or the wall.",
+  "_decor_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. Re-run the tool after editing rows or buildings.",
+  "filler": {
+    "_doc": "Filler houses: one 3x3 lot per house, placed first where its front gives to a road within street_reach tiles; the door looks to that road. back = the scene of each house seen from behind (door on a hidden face): +row front = house, +col = house mirrored, -row = back, -col = back mirrored. The houses, yards and the lone-tile prop come from data/view.json filler.",
+    "lot": [3, 3],
+    "street_reach": 3,
+    "back": {
+      "lot_house_a": "lot_house_a_back",
+      "lot_house_b": "lot_house_b_back",
+      "lot_house_c": "lot_house_c_back",
+      "lot_house_d": "lot_house_d_back",
+      "lot_house_e": "lot_house_e_back",
+      "lot_house_f": "lot_house_f_back"
+    }
+  },
+  "lanterns": {
+    "_doc": "A lantern beside the street (grass or a yard, never a road, a door or its 8 neighbours) every `every` tiles (Manhattan, crossings first).",
+    "id": "lantern",
+    "every": 6,
+    "streets": ["street", "bridge"],
+    "curb": 0.3
+  },
+  "workshops": {
+    "_doc": "Props by the door of each workshop type: against the wall beside the door when it is on a visible face, else on free tiles next to the door.",
+    "props": {
+      "forge": ["barrel", "crate"],
+      "carpentry": ["crate", "crate"],
+      "masonry": ["crate", "barrel"],
+      "tailor_shop": ["crate", "grain_sack"],
+      "armory": ["barrel", "crate"]
+    },
+    "wall": 0.42
+  },
+  "stalls": {
+    "_doc": "A prop behind or beside each market stall (never on its service tile nor next to it).",
+    "default": "cart",
+    "props": {"food": "grain_sack", "clothier": "crate"}
+  },
+  "plaza_benches": {
+    "_doc": "Decorative benches on the edge of the plaza (backs to what borders it), at least `spacing` apart. The social points' benches (data/maps social_points) are drawn by the game apart from these.",
+    "id": "bench",
+    "count": 4,
+    "spacing": 4,
+    "edge": 0.3
+  },
+  "generator": {
+    "_doc": "tools/city/generator.py: houses = townsfolk houses at least (one per household of population_from's population, which the generated towns copy); town_reach = how far from the plaza's centre (tiles, the larger of the two axes) filler blocks go; max_filler = most filler blocks; fields = fields outside the town; tree_density = chance of a tree per free grass tile (x3 outside the town, x0.6 inside).",
+    "houses": 8,
+    "population_from": "town_e",
+    "town_reach": 15,
+    "max_filler": 60,
+    "fields": 4,
+    "tree_density": 0.08
+  },
+  "fences": {
+    "_doc": "Fence segments on every edge of a field that faces something else (not water); a gate (gap) every gate_every road edges and on the trades' tiles.",
+    "id": "fence",
+    "gate_every": 5,
+    "edge": 0.45
+  }
+}

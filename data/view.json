@@ -61,6 +61,10 @@
     "_doc": "Tile kinds whose ground changes with the season (GroundLayer.set_season, from the clock): assets/art/tiles/<kind>_<spring|summer|autumn|winter>.png, else <kind>.png. field: sprouts, green rows, golden wheat, bare earth. Empty kinds = no change.",
     "kinds": ["field"]
   },
+  "building_door_face": {
+    "_doc": "Which visible face of each building scene (game/visuals/buildings/<id>.tscn, or its type) has the drawn door: row = the lower-left face (looks to +row, the default), col = the lower-right one (+col). WorldView mirrors a building whose map door is on the other visible face and uses <id>_back (seen from behind) when the door is on a hidden face and that scene exists (WorldView._door_facing; tools/city/ciudad.py validar warns about the rest).",
+    "faces": {"forge": "col", "tailor_shop": "col"}
+  },
   "prop_variants": {
     "_doc": "Map props with several looks: tile kind -> scene ids of game/visuals/props/ (one per tile, picked by the tile, the same every game; weights = repeat an id). Without an entry, the scene named like the kind.",
     "tree": ["tree", "tree_round", "tree_pine", "tree", "tree_round"]

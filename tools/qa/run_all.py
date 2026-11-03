@@ -3,7 +3,7 @@
 
   python3 tools/qa/run_all.py [--only=a,b] [--skip=a,b] [--visual]
 
-Pasos: tests (reglas), content (validador), art (inventario), boot (arranque sin ventana con cada escenario),
+Pasos: tests (reglas), content (validador), art (inventario), ciudad (coherencia de los mapas, tools/city/), boot (arranque sin ventana con cada escenario),
 bench (coste del sim), sim (bots contra data/targets.json en el arenero), sim2 (random_clicker e idle_rival a 10 días),
 novice (partida nueva real en Normal: artisan_novice e idle, 10 semillas: con 5 la media del novato queda al borde
 de su diana por ruido de semillas; las 30 semillas y las tres dificultades se
@@ -28,6 +28,7 @@ STEPS = [
     ("tests", G + ["-s", "tests/run_tests.gd"]),
     ("content", [sys.executable, "tools/validate_content.py", "--quiet"]),
     ("art", [sys.executable, "tools/arte.py"]),
+    ("ciudad", [sys.executable, "tools/city/ciudad.py", "validar", "--quiet"]),
     ("boot", ["zsh", "tools/qa/boot_check.sh"]),
     ("bench", G + ["-s", "tools/sim_bench.gd"]),
     ("sim", G + ["-s", "tools/sim_runner.gd", "--", "--bots=idle,wanderer,smith", "--days=3", "--seeds=5"]),

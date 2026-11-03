@@ -24,6 +24,7 @@ Plan: Tier 1, 2.000 generaciones/mes, se renueva el 15 de cada mes.
 | 2026-11-02 | Kit de UI (2): pergamino, casilla, deslizador, scroll, separador, insignias de título y cargo, galones, sello de lacre y cursores | Pillow (`tools/art/dibujar_ui.py`) | 8 piezas, 17 marcas, 3 cursores | — | — | 0 (sin créditos) |
 | 2026-11-02 | Logotipo «GuildMaster» y fuente Jacquard 24 (OFL) | Pillow (`tools/ui/logo.py`) | 1 logotipo, 1 fuente | — | — | 0 (sin créditos) |
 | 2026-11-03 | H12 · oficios del Artesano (carpintero, albañil, sastre): fachadas derivadas, interiores, puestos, mejoras, iconos, 2 puestos de mercado | Pillow (`tools/art/oficios_h12.py`) + sprites del repo `guild` (solo lectura) | 3 fachadas, 3 kits de interior, 6 puestos, 18 visuales de mejora, 11 iconos (+16 px), 2 puestos de plaza; todo placeholder o derivado (`assets/inventario.json`, `para` H12) | — | — | 0 (sin créditos) |
+| 2026-11-03 | Constructor de ciudades (rama ciudad): farola y casas de relleno de espaldas | fal `nano-banana-2/edit` (una referencia: el sprite vecino ×4, fondo blanco) + recorte y paleta locales (`tools/city/sprites_ciudad.py`); valla dibujada con Pillow | `props/lantern.png`, `buildings/escala_b/house_{a..f}_back.png` (6), `props/fence.png`; detalle por llamada en `tools/city/fal_gasto.json` | sin tope (owner, 2026-11-03) | — | 7 × 0,08 = 0,56 USD |
 
 ## Lista de la compra · PixelLab (a partir del 15-nov)
 

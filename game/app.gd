@@ -21,6 +21,7 @@ extends Node
 ## H8: the group portraits select (HUD select_requested); the ending screen shows the dynasty score (Game Over);
 ## --smoke-script=familia: the family tree, the routine editor and the Game Over captures.
 ## --smoke-script=arte: the town's art (trees, river and bridge, a block, the plaza), camera on each place.
+## --smoke-script=mapa [--smoke-maps=<scenario,...>]: a whole town (plaza, centre, quarters), the town builder's check.
 ## H7: --smoke-script=ciudad: the plaza at dusk, the town at night, a townsperson's sheet, a microevent card and a
 ## customer at the counter.
 ## H14: --smoke-script=ia_familiar: the family AI panel, a spouse trading on her own, low needs.
@@ -52,7 +53,8 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"escala": "res://game/smoke/smoke_escala.gd", "ia_familiar": "res://game/smoke/smoke_ia_familiar.gd",
 	"hud": "res://game/smoke/smoke_hud.gd", "paneles": "res://game/smoke/smoke_paneles.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
-	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd"}
+	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd",
+	"mapa": "res://game/smoke/smoke_mapa.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView
