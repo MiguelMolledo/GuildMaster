@@ -281,6 +281,15 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 					c["needs"] = {"hunger": NEEDS_START, "rest": NEEDS_START, "social": NEEDS_START, "fun": NEEDS_START}
 				if not c.get("ai") is Dictionary:
 					c["ai"] = {}
+		12:  # 12 -> 13 (H13): the global events in force (GDD 4.13). events_active was always [] before: anything that
+			# is not a well-formed event is dropped; a kept one gets "by" "" (rolled) if it had none.
+			var kept: Array = []
+			for ev: Variant in (data.get("events_active", []) if data.get("events_active") is Array else []):
+				if ev is Dictionary and str((ev as Dictionary).get("def", "")) != "" and (ev as Dictionary).has("end"):
+					var e: Dictionary = ev
+					kept.append({"id": str(e.get("id", "")), "def": str(e["def"]), "start": int(e.get("start", 0)),
+						"end": int(e["end"]), "by": str(e.get("by", ""))})
+			data["events_active"] = kept
 	return data
 
 

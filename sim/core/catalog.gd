@@ -41,7 +41,11 @@ var town: Dictionary = {}        # data/town.json: townsfolk routine, activities
 var social_phrases: Dictionary = {}  # data/social_phrases.json: phrase keys by activity, phase and profession (H7, GDD 4.11.3)
 var justice: Dictionary = {}     # data/justice.json: charges, sentences, facts, trials, witnesses (H11, GDD 4.12.5)
 var politics: Dictionary = {}    # data/politics.json: reputation rules and classes, the title ceremony (H9, GDD 4.12)
+var seasons: Dictionary = {}     # data/seasons.json: goods groups, price and production by season (H13, GDD 4.5.3, 4.13)
+var events: Dictionary = {}      # data/events.json: the global events (H13, GDD 4.13): rules and events by id
 var errors: PackedStringArray = []  # files that could not be read
+var _goods_index: Dictionary = {}  # H13: item -> [goods groups] (goods_of)
+var _goods_built: bool = false
 
 
 static func load_from(root_dir: String = "res://data", dev_time: bool = false) -> Catalog:
@@ -65,6 +69,8 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.social_phrases = c._load_json(root_dir.path_join("social_phrases.json"))
 	c.politics = c._load_json(root_dir.path_join("politics.json"))
 	c.justice = c._load_json(root_dir.path_join("justice.json"))
+	c.seasons = c._load_json(root_dir.path_join("seasons.json"))
+	c.events = c._load_json(root_dir.path_join("events.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
@@ -110,6 +116,32 @@ func contracts() -> Dictionary:
 ## H7: the microevents of data/microevents/ (GDD 4.20), by id.
 func microevents() -> Dictionary:
 	return tables.get("microevents", {})
+
+
+## H13: the groups of data/seasons.json goods that `item` belongs to, sorted ([] if none). Built once per catalog
+## (call goods_reset() after changing seasons.goods at run time, as sim_runner --set does).
+func goods_of(item: String) -> Array:
+	if _goods_index.is_empty() and not _goods_built:
+		_goods_built = true
+		var groups: Dictionary = seasons.get("goods", {})
+		var names: Array = groups.keys()
+		names.sort()
+		for g: Variant in names:
+			for it: Variant in groups[g]:
+				if not _goods_index.has(str(it)):
+					_goods_index[str(it)] = []
+				(_goods_index[str(it)] as Array).append(str(g))
+	return _goods_index.get(item, [])
+
+
+func goods_reset() -> void:
+	_goods_index = {}
+	_goods_built = false
+
+
+## H13: the global events of data/events.json, by id (enabled or not).
+func world_events() -> Dictionary:
+	return events.get("events", {})
 
 
 ## H9: the social titles of data/titles/ (GDD 4.12.2), by id.
@@ -299,6 +331,39 @@ func _validate_town() -> PackedStringArray:
 			out.append("microevents/%s: default_choice %s is not a choice" % [id, m.get("default_choice")])
 		if not str(m.get("trigger", {}).get("phase", "")) in Clock.PHASES:
 			out.append("microevents/%s: trigger.phase must be a phase of the day" % id)
+	out.append_array(_check_h13())
+	return out
+
+
+## H13: seasons.json and events.json point at known items, seasons, groups and effect kinds.
+func _check_h13() -> PackedStringArray:
+	var out: PackedStringArray = []
+	var groups: Dictionary = seasons.get("goods", {})
+	for g: String in groups:
+		for it: Variant in groups[g]:
+			if item(str(it)).is_empty():
+				out.append("seasons.json: goods.%s: unknown item %s" % [g, it])
+	for table: String in ["price", "production"]:
+		for s: String in seasons.get(table, {}):
+			if not s in (time.get("seasons", []) as Array):
+				out.append("seasons.json: %s.%s: unknown season" % [table, s])
+				continue
+			for g: String in seasons[table][s]:
+				if not groups.has(g) or float(seasons[table][s][g]) <= 0.0:
+					out.append("seasons.json: %s.%s.%s: unknown group or mult <= 0" % [table, s, g])
+	for id: String in world_events():
+		var ev: Dictionary = world_events()[id]
+		if not str(ev.get("scope", "")) in WorldEvents.SCOPES:
+			out.append("events.json: %s: scope must be season or local" % id)
+		for x: Variant in ev.get("excludes", []):
+			if not world_events().has(str(x)):
+				out.append("events.json: %s: excludes unknown event %s" % [id, x])
+		for e: Dictionary in ev.get("effects", []):
+			var k := str(e.get("kind", ""))
+			if not k in WorldEvents.EFFECTS:
+				out.append("events.json: %s: unknown effect %s" % [id, k])
+			elif k in WorldEvents.GROUP_EFFECTS and not groups.has(str(e.get("group", ""))):
+				out.append("events.json: %s: effect %s on unknown group %s" % [id, k, e.get("group")])
 	return out
 
 

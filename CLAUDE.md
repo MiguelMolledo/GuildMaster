@@ -99,6 +99,10 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - IA familiar (H14, al tocar directivas, necesidades o la rutina): `godot --headless --path . -s tools/sim_runner.gd --
   --scenario=kin_trader --bots=kin_trader --days=2 --seeds=10` (un familiar con Comerciar aprovisiona la forja; en
   `run_all`, paso kin). Captura: `--smoke-script=ia_familiar`.
+- Estaciones y eventos (H13, al tocar `data/seasons.json`, `data/events.json` o precios): `godot --headless --path . -s
+  tools/sim_runner.gd -- --start=artisan_blacksmith --bots=events --days=80 --seeds=2` (10 años sin bloqueos, ~6 min;
+  en `run_all`, paso events). Las dianas de antes de H13 corren sin eventos (`data/targets.json` `_no_events`;
+  `--events=on` para medirlas con ellos). Captura: `--smoke-script=eventos`. Escenario: `season_events`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

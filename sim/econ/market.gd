@@ -201,16 +201,31 @@ static func demand(sim: Sim, item: String) -> float:
 	return float(d.get(item, sim.catalog.market.get("demand", {}).get("start", 1.0)))
 
 
+## H13: the demand the price uses: demand() × the active events' demand effects, clamped to demand min / max.
+static func effective_demand(sim: Sim, item: String) -> float:
+	var d := demand(sim, item)
+	var m := WorldEvents.demand_mult(sim, item)
+	if m == 1.0:
+		return d
+	var cfg := _demand_cfg(sim)
+	return clampf(d * m, float(cfg.get("min", 0.5)), float(cfg.get("max", 2.0)))
+
+
 ## Unit price of `item` at `quality` now (GDD 4.5.3, phase 1). Done in the base (pure data):
 ##   buy  = round(base_price × quality_mult[quality] × demand × buy_price_mult of the difficulty)
 ##   sell = round(base_price × quality_mult[quality] × demand × sell_ratio)   (the difficulty only touches buying)
+## H13 (phase 2): demand × the events' demand effects (clamped to demand min/max), then × mod_estación × mod_evento
+## (WorldEvents.price_mult); a multiplier of exactly 1 is not applied (the same figures as before H13).
 ## 0 for an unknown item or quality.
 static func price(sim: Sim, item: String, quality: int, side: String) -> int:
 	var def := sim.catalog.item(item)
 	var qm: Array = sim.catalog.market.get("quality_mult", [])
 	if def.is_empty() or quality < 0 or quality >= qm.size():
 		return 0
-	var p := float(def.get("base_price", 0)) * float(qm[quality]) * demand(sim, item)
+	var p := float(def.get("base_price", 0)) * float(qm[quality]) * effective_demand(sim, item)
+	var sm := WorldEvents.price_mult(sim, item)
+	if sm != 1.0:
+		p *= sm
 	var reg := Offices.regulation(sim, item)  # H10: the market inspector's regulation (GDD 4.12.3)
 	if reg != 0:
 		p *= float(100 + reg) / 100.0
@@ -238,9 +253,9 @@ static func errand_surcharge(sim: Sim, cost: int) -> int:
 	return roundi(cost * float(sim.catalog.market.get("errand", {}).get("surcharge", 0.2)))
 
 
-## Minutes an errand takes to arrive (errand.hours of game time).
+## Minutes an errand takes to arrive (errand.hours of game time; H13: × the events' errands effect, cut routes).
 static func errand_minutes(sim: Sim) -> int:
-	return roundi(float(sim.catalog.market.get("errand", {}).get("hours", 2)) * 60.0)
+	return roundi(float(sim.catalog.market.get("errand", {}).get("hours", 2)) * 60.0 * WorldEvents.errands_mult(sim))
 
 
 ## What `actor` can do at `stall` now: {open, reason, buy: [{item, quality, price, max_qty, status}],

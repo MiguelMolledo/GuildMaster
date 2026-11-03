@@ -37,6 +37,7 @@ func step(orders: Array = []) -> Array:
 	Buildings.step(self)    # arrivals at doors -> inside
 	# H8 · family (docs/contratos/h8_familia.md)
 	Lifecycle.step(self)    # at year_changed: birthdays (school, trade, coming of age, decline), deaths, succession
+	WorldEvents.step(self)  # H13: events that end now; at day_started the season / local rolls (GDD 4.13)
 	# H7 · the living town (docs/contratos/h7_ciudad.md)
 	Population.step(self)   # dawn: townsfolk weddings; year_changed: coming of age, newcomers
 	# H5 · upgrades (docs/contratos/h5_mejoras.md)

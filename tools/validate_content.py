@@ -1341,6 +1341,87 @@ def check_h14(strings, rep):
     check_text("i18n/reason", "reason.directive_not_ready", strings, rep)
 
 
+H13_NOTICES = ["event_started", "event_declared", "event_ended"]
+H13_REASONS = ["event_active", "event_excluded", "too_many_events", "event_disabled", "unknown_event"]
+H13_EFFECTS = {"price", "demand", "production", "customers", "errands", "mortality"}
+H13_GROUP_EFFECTS = {"price", "demand", "production"}
+
+
+def check_h13(items, strings, rep):
+    """H13 (GDD 4.5.3 fase 2, 4.13): data/seasons.json (grupos de objetos conocidos, multiplicadores > 0 por estación y
+    grupo, con texto) y data/events.json (scope, disparador con probabilidades en [0, 1] por estación, duración en
+    estaciones o días, excludes conocidos, efectos conocidos sobre grupos conocidos, texto y frase; los desactivados
+    con disabled_reason; los declarables, activos y locales)."""
+    time = load_json(os.path.join(DATA, "time.json"), rep) or {}
+    seasons_ids = time.get("seasons", [])
+    w = "seasons.json"
+    sea = load_json(os.path.join(DATA, "seasons.json"), rep) or {}
+    groups = sea.get("goods") or {}
+    for g, its in groups.items():
+        check_text(w, f"goods.{g}", strings, rep)
+        for it in its:
+            if it not in items:
+                rep.error(w, f"goods.{g}: objeto desconocido {it}")
+    for table in ("price", "production"):
+        for s_, by in (sea.get(table) or {}).items():
+            if s_ not in seasons_ids:
+                rep.error(w, f"{table}.{s_}: estación desconocida")
+            for g, m in (by or {}).items():
+                if g not in groups:
+                    rep.error(w, f"{table}.{s_}.{g}: grupo desconocido")
+                if not isinstance(m, (int, float)) or m <= 0:
+                    rep.error(w, f"{table}.{s_}.{g}: multiplicador > 0")
+    w = "events.json"
+    evd = load_json(os.path.join(DATA, "events.json"), rep) or {}
+    evs = evd.get("events") or {}
+    rules = evd.get("rules") or {}
+    for k in ("max_active", "max_local_active"):
+        if not isinstance(rules.get(k), int) or rules[k] < 1:
+            rep.error(w, f"rules.{k}: entero >= 1")
+    for id_, ev in evs.items():
+        we = f"events.json/{id_}"
+        check_text(we, ev.get("text_key"), strings, rep)
+        check_text(we, (ev.get("text_key") or "") + ".desc", strings, rep)
+        if ev.get("scope") not in ("season", "local"):
+            rep.error(we, "scope: season o local")
+        if not isinstance(ev.get("enabled"), bool):
+            rep.error(we, "enabled: true o false")
+        elif not ev["enabled"] and not ev.get("disabled_reason"):
+            rep.error(we, "desactivado: falta disabled_reason")
+        trig = ev.get("trigger") or {}
+        want_at = "season_start" if ev.get("scope") == "season" else "day_start"
+        if trig.get("at") != want_at:
+            rep.error(we, f"trigger.at: {want_at} para scope {ev.get('scope')}")
+        ch = trig.get("chance") or {}
+        if set(ch) != set(seasons_ids) or not all(isinstance(v, (int, float)) and 0 <= v <= 1 for v in ch.values()):
+            rep.error(we, "trigger.chance: una probabilidad en [0, 1] por estación")
+        if not isinstance(trig.get("min_day", 0), int):
+            rep.error(we, "trigger.min_day: entero")
+        dur = ev.get("duration") or {}
+        key = "seasons" if ev.get("scope") == "season" else "days"
+        if not _range_ok(dur.get(key), 1):
+            rep.error(we, f"duration.{key}: [mín, máx] >= 1")
+        for x in ev.get("excludes") or []:
+            if x not in evs:
+                rep.error(we, f"excludes: evento desconocido {x}")
+        if ev.get("declarable") and (not ev.get("enabled") or ev.get("scope") != "local"):
+            rep.error(we, "declarable: solo eventos activos y locales (el Alcalde no declara una guerra)")
+        for e in ev.get("effects") or []:
+            k = e.get("kind")
+            if k not in H13_EFFECTS:
+                rep.error(we, f"efecto desconocido {k}")
+            elif k in H13_GROUP_EFFECTS and e.get("group") not in groups:
+                rep.error(we, f"efecto {k}: grupo desconocido {e.get('group')}")
+            if not isinstance(e.get("mult"), (int, float)) or e["mult"] <= 0:
+                rep.error(we, f"efecto {k}: mult > 0")
+        if ev.get("enabled") and not ev.get("effects"):
+            rep.error(we, "activo sin efectos")
+    for k in H13_NOTICES:
+        check_text("i18n/notice", "notice." + k, strings, rep)
+    for k in H13_REASONS:
+        check_text("i18n/reason", "reason." + k, strings, rep)
+
+
 def check_h5(items, recipes, buildings, ranks, strings, rep):
     """H5 (GDD 4.8, docs/contratos/h5_mejoras.md): data/upgrade_rules.json y cada mejora (rama y nivel, coste,
     requisitos que existen en su árbol, nivel N pide el N-1, sin ciclos, efectos de tipos conocidos con su valor,
@@ -1669,6 +1750,7 @@ def main():
     offices = check_h10(titles, strings, rep)
     check_h11(strings, rep)
     check_h14(strings, rep)
+    check_h13(items, strings, rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")

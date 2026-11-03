@@ -476,12 +476,17 @@ static func power_status(sim: Sim, actor: String, power: String, args: Dictionar
 			var pct := int(args.get("percent", -1))
 			if pct < int(tx.get("min", 5)) or pct > int(tx.get("max", 15)):
 				return "bad_args"
+		"declare_event":  # H13: the mayor declares a declarable global event (GDD 4.12.3, 4.13)
+			var ev := str(args.get("event", ""))
+			if not ev in WorldEvents.declarable(sim):
+				return "bad_args"
+			return WorldEvents.can_start(sim, ev)
 	return ""
 
 
 ## {"type": "use_office_power", "actor", "power", "args"}: a power of the actor's office (management). Reasons:
 ## unknown_actor, dead, not_office_holder, unknown_power, power_not_ready, power_cooldown, bad_args,
-## already_regulated, not_a_merchant.
+## already_regulated, not_a_merchant; H13 declare_event {event}: event_active, event_excluded, too_many_events.
 static func order_power(sim: Sim, o: Dictionary) -> Dictionary:
 	var actor := str(o.get("actor", ""))
 	var power := str(o.get("power", ""))
@@ -518,6 +523,8 @@ static func order_power(sim: Sim, o: Dictionary) -> Dictionary:
 				Notices.add(sim, target, Notices.WARNING, "notice.fined", params, actor)
 		"arrest", "investigate", "pardon", "preside_trial":  # H11
 			Tribunal.use_power(sim, actor, power, args)
+		"declare_event":  # H13: starts now; WorldEvents gives the notices
+			WorldEvents.start(sim, str(args["event"]), actor)
 		"set_tax":
 			st.offices[office]["settings"]["tax_percent"] = int(args["percent"])
 			params.merge({"percent": int(args["percent"])})

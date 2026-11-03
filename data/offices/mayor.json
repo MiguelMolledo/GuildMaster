@@ -22,7 +22,7 @@
     {
       "id": "declare_event",
       "cooldown_days": 8,
-      "ready": "EA"
+      "ready": true
     },
     {
       "id": "name_title",
