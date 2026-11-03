@@ -152,7 +152,11 @@ func test_abandon_counts_as_failed() -> void:
 
 
 func test_board_fills_at_dawn_up_to_three() -> void:
-	var sim := _sim()
+	# H13: without global events (seed 1 rolls a war on day 4: swords ×2 would change the price after posting).
+	var quiet := Catalog.load_from()
+	quiet.events["enabled"] = false
+	var sim := Sim.new(NewGame.from_scenario("town_e_start", 1)["state"], quiet)
+	sim.state.families["fam_0003"]["ai_profile"] = ""
 	var posted := 0
 	for d: int in 5:
 		for e: Dictionary in _run_day(sim):

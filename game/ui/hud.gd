@@ -8,6 +8,7 @@ extends CanvasLayer
 ##       buttons with their key: Book L, Family F, Inventory I, Build B (from H6), Offices O, Trial J (while one is
 ##       open), Help F1, Menu (asks for the pause menu). «EN PAUSA» hangs under it while paused.
 ##   3 · Clock (top right): sun / moon, time, date, the phase bar, pause and ×1 ×2 ×4 (D4; Space, Shift+1/2/3).
+##       H13: next to the time, the global event in force that lasts longest and its time left (all of them in the tip).
 ##   4 · Column (left): the objective (it folds to its title and progress on the map after a while, or when the
 ##       queue would not fit) with how to do it (objective_how.<id>), the active person's queued orders (active pause,
 ##       GDD 4.1) and the cards that ask for a decision (MicroeventCard, H7).
@@ -58,6 +59,7 @@ const GOLD_ICON: String = "icon_oro"
 @onready var _paused_label: Label = %PausedLabel
 # 3 · clock
 @onready var _clock_panel: PanelContainer = %ClockPanel
+@onready var _event_label: Label = %EventLabel  # H13: the global events in force and their time left
 @onready var _sun_moon: TextureRect = %SunMoon
 @onready var _time_label: Label = %TimeLabel
 @onready var _date_label: Label = %DateLabel
@@ -261,6 +263,10 @@ func _refresh() -> void:
 	_sun_moon.texture = UiIcons.ui("icon_moon" if night else "icon_sun")
 	_clock_panel.tooltip_text = tr("hud.clock") % [t["day"], tr("season." + str(t["season"])), t["year"], t["hour"],
 		t["minute"], tr("phase." + str(t["phase"]))]
+	var ev_line := SimQuery.events_line(sim)  # H13 (zone 3): «Guerra 5 d +1» next to the time; the full list in the tip
+	_event_label.visible = ev_line != ""
+	_event_label.text = SimQuery.events_short(sim)
+	_event_label.tooltip_text = tr("hud.event_tip") % ev_line if ev_line != "" else ""
 
 
 ## The person picked on the map or inside ("" = nobody).

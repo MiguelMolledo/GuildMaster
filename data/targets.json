@@ -1,5 +1,21 @@
 {
   "_doc": "Dianas de los bots (GDD 07 §7.2): [mín, máx] por medida; null = sin límite. tools/sim_runner.gd las comprueba.",
+  "_no_events_doc": "H13: estos bots miden dianas fijadas antes de los eventos globales (H3-H14) y corren con data/events.json enabled = false (las estaciones sí cuentan: no tocan a lo que comercia la forja). Con eventos, la semilla 1 trae una guerra el día 5 (armas ×2) y rompe gold_day10 del novato (642 > 540) y rival_gold_day10 de idle_rival (763 > 500). Los eventos se miden en el bot events (80 días). Para medir uno de estos con eventos: --events=on.",
+  "_no_events": [
+    "idle_rival",
+    "artisan_novice",
+    "artisan_expert",
+    "artisan_expert_0",
+    "artisan_expert_1",
+    "artisan_expert_2",
+    "expert_titles",
+    "idle_titles",
+    "politician",
+    "crook",
+    "dynasty",
+    "idle_town",
+    "kin_trader"
+  ],
   "idle": {
     "days": [
       3,
@@ -427,6 +443,37 @@
     "kin_bought": [
       1,
       null
+    ]
+  },
+  "events": {
+    "_doc": "H13 criterio 1 (10/H13 «Sim de 10 años (80 días) sin bloqueos», GDD 4.13): bot artisan_expert en una partida nueva Normal, 80 días, con los eventos globales y las estaciones encendidos. Sin órdenes rechazadas, el libro cuadra, sale al menos un evento, ninguno se queda pegado pasado su final (events_overdue), ningún evento local pasa del final de su estación y nunca hay más de rules.max_active a la vez. En run_all, paso events (2 semillas, ~4 min). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=events --days=80 --seeds=2. Sin eventos, mismas semillas: --set=events.enabled=false.",
+    "days": [
+      80,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "events_started": [
+      1,
+      null
+    ],
+    "events_overdue": [
+      0,
+      0
+    ],
+    "local_past_season": [
+      0,
+      0
+    ],
+    "events_max_active": [
+      0,
+      3
     ]
   }
 }

@@ -1386,3 +1386,64 @@ ui.ending.fact.sentence,Sentenced on day %d,Condena el día %d
 ui.ending.fact.goal,Goal met: %s,Meta cumplida: %s
 ui.ending.fact.building,A new building on day %d,Edificio nuevo el día %d
 ui.ending.fact.wealth_peak,Highest wealth: %s gold,Patrimonio máximo: %s de oro
+event.famine,Famine,Hambruna
+event.famine.desc,"farming at half speed, food ×2.5, more deaths","la producción agrícola a la mitad, alimentos ×2.5 y más muertes"
+event.epidemic,Epidemic,Epidemia
+event.epidemic.desc,"mortality +30 %, medicine ×3, fewer customers","mortalidad +30 %, medicina ×3 y menos clientes"
+event.war,Regional war,Guerra regional
+event.war.desc,"weapons ×2, food ×1.5, slower errands, luxury sells less","armas ×2, alimentos ×1.5, recados más lentos y el lujo se vende menos"
+event.good_harvest,Good harvest,Buena cosecha
+event.good_harvest.desc,food is cheaper (×0.7),"los alimentos bajan (×0.7)"
+event.festival,Town festival,Fiesta popular
+event.festival.desc,"more customers at the counters, more demand for food",más clientes en los mostradores y más demanda de comida
+event.religious_feast,Religious feast,Festividad religiosa
+event.religious_feast.desc,"fewer customers, more demand for food",menos clientes y más demanda de comida
+event.dignitary_visit,Dignitary's visit,Visita de dignatario
+event.dignitary_visit.desc,foreigners in town: many more customers,extranjeros en la ciudad: muchos más clientes
+event.riot,Riot,Revuelta
+event.riot.desc,townsfolk damage buildings,los vecinos dañan edificios
+event.political_crisis,Political crisis,Crisis política
+event.political_crisis.desc,the government falls: early elections,cae el gobierno: elecciones extraordinarias
+event.discovery,Discovery,Descubrimiento
+event.discovery.desc,a new technique makes a product obsolete,una técnica nueva deja obsoleto un producto
+goods.food,food,alimentos
+goods.farming,farming,agricultura
+goods.textiles,textiles,textiles
+goods.wood,wood,madera
+goods.construction,building materials,construcción
+goods.medicine,medicine,medicina
+goods.weapons,weapons,armas
+goods.luxury,luxury,lujo
+notice.event_started,{event} begins ({days} d): {desc},Empieza {event} ({days} d): {desc}
+notice.event_declared,{name} declares {event} ({days} d): {desc},{name} declara {event} ({days} d): {desc}
+notice.event_ended,{event} is over,Se acabó: {event}
+reason.event_active,That event is already on,Ese evento ya está en curso
+reason.event_excluded,Not possible with the event in course,No cabe con el evento en curso
+reason.too_many_events,Too many events at once,Demasiados eventos a la vez
+reason.event_disabled,That event does not happen yet,Ese evento aún no ocurre
+reason.unknown_event,Unknown event,Evento desconocido
+hud.event,%s · %s left,%s · quedan %s
+hud.event_tip,Global event: %s,Evento global: %s
+ui.days_left,%d d,%d d
+ui.hours_left,%d h,%d h
+price.demand,demand ×%s,demanda ×%s
+price.season,%s: %s ×%s,%s: %s ×%s
+price.event_demand,%s: demand ×%s,%s: demanda ×%s
+price.regulation,regulated %+d %%,regulado %+d %%
+ui.market.price_why,%s,%s
+ui.ledger.prices,Prices this season (%s): %s,Precios de la estación (%s): %s
+ui.ledger.prices_usual,as usual,los de siempre
+ui.ledger.event,Event: %s · %s left · %s,Evento: %s · quedan %s · %s
+ui.offices.declare,Declare: %s,Declarar: %s
+event.famine.short,Famine,Hambruna
+event.epidemic.short,Epidemic,Epidemia
+event.war.short,War,Guerra
+event.good_harvest.short,Harvest,Cosecha
+event.festival.short,Festival,Fiesta
+event.religious_feast.short,Feast,Festividad
+event.dignitary_visit.short,Visit,Visita
+event.riot.short,Riot,Revuelta
+event.political_crisis.short,Crisis,Crisis
+event.discovery.short,Discovery,Descubrimiento
+hud.event_short,%s %s,%s %s
+hud.event_more,%s +%d,%s +%d

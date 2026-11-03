@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 12
+const VERSION: int = 13
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -24,7 +24,7 @@ var trials: Array = []             # H11: [trial] open and the last closed ones 
 var justice: Dictionary = {"facts": []}  # H11: facts that can be taken to court (an inspection, a scandal): Tribunal
 var relationships: Dictionary = {} # "chr_a|chr_b" (sorted as String) -> {relation, affinity}
 var emotions: Dictionary = {}      # chr_id -> [emotion]
-var events_active: Array = []
+var events_active: Array = []     # H13: the global events in force [{id, def, start, end, by}] (GDD 4.13): WorldEvents
 var chronicle: Array = []          # facts of the game (births, weddings, titles...): input of the future chronicler
 var next_ids: Dictionary = {}      # prefix -> next number (Ids.next)
 # H3 (docs/contratos/h3_mercado.md): money, debt, contracts, errands, the start of a game.
@@ -57,6 +57,8 @@ var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD
 # (SaveFile._step 10 -> 11).
 # H14 (docs/contratos/h14_ia_familiar.md): no new root fields. Characters get needs {hunger, rest, social, fun} and ai
 # (the directives' memory) (SaveFile._step 11 -> 12).
+# H13 (estaciones y eventos globales): events_active (a root field that already was, always []) gets its shape
+# [{id, def, start, end, by}] (SaveFile._step 12 -> 13). The season is not state: Clock derives it from the minute.
 
 
 func seed_rng(s: int) -> void:

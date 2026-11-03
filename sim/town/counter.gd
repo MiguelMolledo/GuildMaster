@@ -42,11 +42,12 @@ static func _sells(sim: Sim, bld: String) -> bool:
 	return Upgrades.flag(sim, bld, "counter_sales")
 
 
-## Minutes until the next customer: interval_hours [min, max] / (1 + customer_bonus).
+## Minutes until the next customer: interval_hours [min, max] / (1 + customer_bonus) / the events' customers effect (H13).
 static func _interval(sim: Sim, bld: String, now: int) -> int:
 	var span: Array = sim.catalog.town.get("counter", {}).get("interval_hours", [1, 2])
 	var mins := Kin.randi_range(sim.state, "cnt|next|%s|%d" % [bld, now], int(float(span[0]) * 60.0), int(float(span[1]) * 60.0))
-	return maxi(10, roundi(float(mins) / (1.0 + Upgrades.amount(sim, bld, "customer_bonus"))))
+	var ev := maxf(WorldEvents.customers_mult(sim), 0.01)
+	return maxi(10, roundi(float(mins) / (1.0 + Upgrades.amount(sim, bld, "customer_bonus")) / ev))
 
 
 ## An active employee with role counter inside goes to the counter station.

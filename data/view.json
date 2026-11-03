@@ -83,7 +83,7 @@
     "_doc": "H3 / docs/ui/01_hud.md §5: the notices of the player's family pop up in the notices zone (at most popup_max at once; the oldest goes, it stays in the book): urgent until clicked or the book is opened, warning for popup_seconds, done (the keys in done_keys: a goal met) for done_seconds; info only in the book. Severity colours of the notices log.",
     "popup_seconds": 8.0,
     "done_seconds": 5.0,
-    "done_keys": ["notice.objective_done", "notice.goal_done", "notice.upgrade_done", "notice.loan_repaid", "notice.title_granted", "notice.office_won"],
+    "done_keys": ["notice.objective_done", "notice.goal_done", "notice.upgrade_done", "notice.loan_repaid", "notice.title_granted", "notice.office_won", "notice.event_ended"],
     "popup_max": 3,
     "colors": {"info": "#d8d0c0", "warning": "#f0c060", "urgent": "#ff8070"}
   },

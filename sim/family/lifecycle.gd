@@ -122,6 +122,9 @@ static func death_chance(sim: Sim, chr: String) -> float:
 	var con := int(sim.state.characters[chr].get("stats", {}).get("constitution", 5))
 	var p := float(d.get("base", 0.02)) * pow(float(d.get("growth", 1.25)), age - int(d.get("from_age", 55))) \
 		* (1.0 - (con - 5) * float(d.get("constitution_step", 0.05)))
+	var ev := WorldEvents.mortality_mult(sim)  # H13: an epidemic or a famine in force at the year change (GDD 4.13)
+	if ev != 1.0:
+		p *= ev
 	return clampf(p, 0.0, 1.0)
 
 

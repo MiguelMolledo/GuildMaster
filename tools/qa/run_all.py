@@ -9,7 +9,8 @@ novice (partida nueva real en Normal: artisan_novice e idle, 10 semillas: con 5 
 de su diana por ruido de semillas; las 30 semillas y las tres dificultades se
 corren a mano, ver CLAUDE.md), expert (H5: artisan_expert en una partida nueva real, versión corta de 2 semillas × 12
 días; las dianas goldflow de días 9-24 se corren a mano con 30 semillas), town (H7: microeventos y mostrador en 30 días,
-idle_town, 2 semillas), kin (H14: un familiar con Comerciar aprovisiona la forja, 3 semillas). Con --visual, además smoke (capturas con ventana, por
+idle_town, 2 semillas), kin (H14: un familiar con Comerciar aprovisiona la forja, 3 semillas), events (H13: 10 años,
+80 días, de artisan_expert con estaciones y eventos globales, sin bloqueos; 2 semillas). Con --visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
 """
 import os
@@ -37,6 +38,8 @@ STEPS = [
                   "--seeds=2"]),
     ("kin", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=kin_trader", "--bots=kin_trader", "--days=2",
                  "--seeds=3"]),
+    ("events", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=events", "--days=80",
+                    "--seeds=2"]),
 ]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]

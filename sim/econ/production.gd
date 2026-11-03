@@ -231,6 +231,9 @@ static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, 
 		var pr := Needs.productivity(sim, actor)
 		if pr < 1.0:
 			d = maxi(1, roundi(float(d) / pr))
+	var pm := WorldEvents.production_mult(sim, str(recipe.get("output", {}).get("item", "")))  # H13: season and events
+	if pm != 1.0:
+		d = maxi(1, roundi(float(d) / maxf(pm, 0.01)))
 	var job := {"actor": actor, "recipe": recipe_id, "mode": mode, "start": now, "end": now + d, "inputs": taken,
 		"window": cycle_window(sim.catalog, mode, now, d), "touched": false, "result": null, "blocked": false}
 	bld["zones"][zone]["job"] = job

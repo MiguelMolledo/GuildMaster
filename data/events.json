@@ -1,0 +1,142 @@
+{
+  "_doc": "H13 · eventos globales (GDD 4.13) como datos. Cada evento: enabled (false = no sale nunca; disabled_reason dice por qué), scope (season: empieza al empezar una estación y dura duration.seasons estaciones; local: empieza al empezar un día y dura duration.days días, nunca más allá del final de su estación), trigger {at: season_start | day_start, chance: estación -> probabilidad de esa tirada, min_day: primer día de juego en que puede salir}, excludes (no sale si alguno de esos está activo), declarable (el Alcalde puede declararlo con su poder declare_event, GDD 4.12.3), effects declarativos (mismo formato de lista {kind, ...} que los microeventos de 4.20) y text_key (nombre; <text_key>.desc es la frase del aviso). Tiradas: como mucho un evento nuevo por tirada de cada scope, elegido con una sola tirada sobre la suma de probabilidades (la de cada evento es la suya); el azar sale de la semilla del mundo por clave (como los microeventos), así que no mueve las demás tiradas. Todas las probabilidades y multiplicadores son [balance], provisionales.",
+  "_effects_doc": "price {group, mult}: el precio de mercado de los objetos del grupo (mod_evento de GDD 4.5.3). demand {group, mult}: la demanda del objeto en la fórmula, recortada a los límites de data/market.json demand. production {group, mult}: velocidad de los ciclos de las recetas cuyo producto está en el grupo (0,5 = tardan el doble). customers {mult}: frecuencia de clientes en los mostradores (4.5.4). errands {mult}: horas que tarda un recado (rutas cortadas). mortality {mult}: la probabilidad de muerte de la tirada anual (4.2.5), si el evento está activo al cambiar de año.",
+  "enabled": true,
+  "rules": {
+    "max_active": 3,
+    "max_local_active": 1
+  },
+  "events": {
+    "famine": {
+      "enabled": true,
+      "scope": "season",
+      "text_key": "event.famine",
+      "trigger": {"at": "season_start", "min_day": 2, "chance": {"spring": 0.02, "summer": 0.02, "autumn": 0.04, "winter": 0.06}},
+      "duration": {"seasons": [2, 2]},
+      "excludes": ["good_harvest"],
+      "declarable": false,
+      "effects": [
+        {"kind": "production", "group": "farming", "mult": 0.5},
+        {"kind": "price", "group": "food", "mult": 2.5},
+        {"kind": "mortality", "mult": 1.2}
+      ]
+    },
+    "epidemic": {
+      "enabled": true,
+      "scope": "season",
+      "text_key": "event.epidemic",
+      "trigger": {"at": "season_start", "min_day": 2, "chance": {"spring": 0.03, "summer": 0.02, "autumn": 0.03, "winter": 0.06}},
+      "duration": {"seasons": [1, 2]},
+      "excludes": [],
+      "declarable": false,
+      "effects": [
+        {"kind": "mortality", "mult": 1.3},
+        {"kind": "price", "group": "medicine", "mult": 3.0},
+        {"kind": "customers", "mult": 0.7}
+      ],
+      "_doc": "«Negocios cierran» = menos clientes en los mostradores (customers 0,7). «NPC débiles asustados» no se aplica: las emociones del MVP (4.11.5) son hacia una familia y asustado abarata la compra."
+    },
+    "war": {
+      "enabled": true,
+      "scope": "season",
+      "text_key": "event.war",
+      "trigger": {"at": "season_start", "min_day": 2, "chance": {"spring": 0.02, "summer": 0.02, "autumn": 0.02, "winter": 0.02}},
+      "duration": {"seasons": [4, 4]},
+      "excludes": [],
+      "declarable": false,
+      "effects": [
+        {"kind": "price", "group": "weapons", "mult": 2.0},
+        {"kind": "price", "group": "food", "mult": 1.5},
+        {"kind": "demand", "group": "luxury", "mult": 0.8},
+        {"kind": "errands", "mult": 1.5}
+      ],
+      "_doc": "1 año = 4 estaciones. «Rutas cortadas» = los recados tardan ×1,5."
+    },
+    "good_harvest": {
+      "enabled": true,
+      "scope": "season",
+      "text_key": "event.good_harvest",
+      "trigger": {"at": "season_start", "min_day": 2, "chance": {"spring": 0.0, "summer": 0.1, "autumn": 0.15, "winter": 0.0}},
+      "duration": {"seasons": [1, 1]},
+      "excludes": ["famine"],
+      "declarable": false,
+      "effects": [
+        {"kind": "price", "group": "food", "mult": 0.7}
+      ]
+    },
+    "festival": {
+      "enabled": true,
+      "scope": "local",
+      "text_key": "event.festival",
+      "trigger": {"at": "day_start", "min_day": 1, "chance": {"spring": 0.06, "summer": 0.08, "autumn": 0.06, "winter": 0.03}},
+      "duration": {"days": [1, 1]},
+      "excludes": ["famine", "epidemic"],
+      "declarable": true,
+      "effects": [
+        {"kind": "customers", "mult": 1.3},
+        {"kind": "demand", "group": "food", "mult": 1.2}
+      ],
+      "_doc": "No hay taberna ni posada: su «más demanda» va a los mostradores y a la comida. «NPC inspirados» no existe en el MVP (4.11.5)."
+    },
+    "religious_feast": {
+      "enabled": true,
+      "scope": "local",
+      "text_key": "event.religious_feast",
+      "trigger": {"at": "day_start", "min_day": 1, "chance": {"spring": 0.03, "summer": 0.03, "autumn": 0.03, "winter": 0.06}},
+      "duration": {"days": [1, 1]},
+      "excludes": [],
+      "declarable": true,
+      "effects": [
+        {"kind": "customers", "mult": 0.8},
+        {"kind": "demand", "group": "food", "mult": 1.2}
+      ],
+      "_doc": "«Cambia rutinas» no se aplica aún (las rutinas de 4.11.2 no leen eventos): solo la demanda."
+    },
+    "dignitary_visit": {
+      "enabled": true,
+      "scope": "local",
+      "text_key": "event.dignitary_visit",
+      "trigger": {"at": "day_start", "min_day": 1, "chance": {"spring": 0.03, "summer": 0.03, "autumn": 0.03, "winter": 0.03}},
+      "duration": {"days": [1, 2]},
+      "excludes": ["epidemic"],
+      "declarable": false,
+      "effects": [
+        {"kind": "customers", "mult": 1.5},
+        {"kind": "demand", "group": "luxury", "mult": 1.3}
+      ]
+    },
+    "riot": {
+      "enabled": false,
+      "disabled_reason": "Daña edificios y se resuelve con política: no hay daño de edificios (H6/04c) ni salida política todavía.",
+      "scope": "season",
+      "text_key": "event.riot",
+      "trigger": {"at": "season_start", "min_day": 2, "chance": {"spring": 0.0, "summer": 0.0, "autumn": 0.0, "winter": 0.0}},
+      "duration": {"seasons": [1, 1]},
+      "excludes": [],
+      "declarable": false,
+      "effects": []
+    },
+    "political_crisis": {
+      "enabled": false,
+      "disabled_reason": "Caída de gobierno y elecciones extraordinarias: las elecciones de H10 solo se convocan al acabar un mandato.",
+      "scope": "season",
+      "text_key": "event.political_crisis",
+      "trigger": {"at": "season_start", "min_day": 2, "chance": {"spring": 0.0, "summer": 0.0, "autumn": 0.0, "winter": 0.0}},
+      "duration": {"seasons": [1, 1]},
+      "excludes": [],
+      "declarable": false,
+      "effects": []
+    },
+    "discovery": {
+      "enabled": false,
+      "disabled_reason": "Nueva técnica que deja obsoleto un producto (permanente): no hay recetas que se desbloqueen por evento ni objetos que caduquen.",
+      "scope": "season",
+      "text_key": "event.discovery",
+      "trigger": {"at": "season_start", "min_day": 2, "chance": {"spring": 0.0, "summer": 0.0, "autumn": 0.0, "winter": 0.0}},
+      "duration": {"seasons": [1, 1]},
+      "excludes": [],
+      "declarable": false,
+      "effects": []
+    }
+  }
+}

@@ -145,6 +145,9 @@ func _fill_buy() -> void:
 		price_l.add_theme_color_override("font_color", Color(1, 0.85, 0.4))
 		top.add_child(price_l)
 		row.add_child(top)
+		var why_text := SimQuery.price_reason(sim, item)  # H13: why the price is not the base (season, events, demand)
+		if why_text != "":
+			row.add_child(_why_label(why_text))
 		var bottom := HBoxContainer.new()
 		bottom.name = "Controls"
 		var minus := _button("Minus", "−", func() -> void: set_qty(item, q, qty - 1))
@@ -249,6 +252,21 @@ func _fill_sell() -> void:
 			one.tooltip_text = SimQuery.t_("ui.market.sell_tip") % [1, price]
 			all.tooltip_text = SimQuery.t_("ui.market.sell_tip") % [have, price * have]
 		list.add_child(row)
+		var why_text := SimQuery.price_reason(sim, item)  # H13
+		if why_text != "":
+			var why_l := _why_label(why_text)
+			why_l.name = row.name + "_Why"
+			list.add_child(why_l)
+
+
+## H13: the small line under a price that says why it moves (SimQuery.price_reason).
+func _why_label(text: String) -> Label:
+	var l := Label.new()
+	l.name = "Why"
+	l.text = SimQuery.t_("ui.market.price_why") % text
+	l.theme_type_variation = &"DimLabel"
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	return l
 
 
 func _button(n: String, text: String, cb: Callable) -> Button:
