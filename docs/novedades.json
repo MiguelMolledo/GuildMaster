@@ -1,6 +1,37 @@
 [
   {
     "fecha": "2026-11-03",
+    "titulo": "Interfaz nueva (1/2): theme pixel y HUD por zonas",
+    "que": "El juego estrena la interfaz diseñada en docs/ui: un solo theme pixel (Pixel Operator 16 y su negrita en todo, Jacquarda en los títulos, marcos de madera, pergamino y estados del kit), cursores propios y los sonidos que faltaban (botón apagado, pestaña, sello). El HUD se ordena en zonas fijas que no se pisan: la ficha con los retratos del grupo, el oro, el título y la reputación; la barra de estado con la deuda y los accesos con su tecla; el reloj con II ×1 ×2 ×4; la columna con el objetivo, las órdenes en pausa y las tarjetas; un único panel de gestión a la derecha (abrir uno cierra el otro, también dentro de la forja); la selección abajo, que dentro de un edificio es su barra (Producción P, Almacén A, Empleados E, Mejoras M, Salir); y los avisos abajo a la izquierda por gravedad (urgente, aviso, cumplido; como mucho 3). La ayuda F1 es un pergamino con las teclas y «Ahora mismo». La línea de ayuda del borde de abajo desaparece. La cámara aparta lo seleccionado de debajo de los paneles y el interior se dibuja centrado en la vista libre.",
+    "como_probar": "Partida nueva como herrero: mira las zonas del HUD; abre el libro (L) con la forja elegida y comprueba que su barra sigue entera abajo; pulsa F1; entra en la forja, pausa (Espacio) y da dos órdenes: salen en la columna; prueba P / A / E / M y Esc. Mayús+1/2/3 cambia la velocidad y 1/2/3 elige familiar. Con ventana: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=hud (y --smoke-script=paneles para ver cada panel en su zona).",
+    "capturas": [
+      "docs/ui/maquetas/hud_hoy_mapa.png",
+      "docs/ui/maquetas/hud_hoy_libro.png",
+      "docs/ui/maquetas/hud_hoy_interior.png",
+      "docs/ui/maquetas/hud_hoy_avisos.png",
+      "docs/ui/maquetas/hud_hoy_ayuda.png",
+      "docs/ui/maquetas/hud_hoy_produccion.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-03",
+    "titulo": "Menú inicial, partidas, opciones, pausa y final",
+    "que": "El juego arranca en la pantalla de título (logotipo, el pueblo al atardecer detrás y music_title): Continuar (la partida más reciente, con su familia y fecha), Partida nueva, Cargar, Opciones, Créditos y Salir. La partida nueva va en dos columnas con vista previa (retrato con el borde de la familia, escudo, lo que tienes al empezar) y la ayuda de cada atributo; Empezar se apaga con el motivo si falta el nombre o la familia. Cargar y guardar con ranuras: miniatura del pueblo, quién y cuándo, oro, título y deuda, cuándo se guardó; una ranura rota dice por qué; sobrescribir y borrar preguntan. Opciones que se aplican al momento y se recuerdan (user://settings.cfg): volumen por bus, idioma, pantalla completa (F11), escala entera, tamaño del texto y las del juego. Menú de pausa con Esc (pausa y bloquea las órdenes; F5/F9 guardan y cargan; salir con algo sin guardar pregunta). Créditos con las licencias de las fuentes. Final de partida en pergamino: título en gótica según cómo acaba, crónica, metas, puntuación por filas y Ver el pueblo.",
+    "como_probar": "Abre el juego sin opciones (jugar.command): sale el título. Partida nueva → Empezar → Esc abre la pausa → Guardar en una ranura → Salir al título → Continuar. Las capturas de todas las pantallas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=menu (reports/shots/menu_hoy_*.png).",
+    "capturas": [
+      "docs/ui/maquetas/menu_hoy_titulo.png",
+      "docs/ui/maquetas/menu_hoy_partida_nueva.png",
+      "docs/ui/maquetas/menu_hoy_pausa.png",
+      "docs/ui/maquetas/menu_hoy_cargar.png",
+      "docs/ui/maquetas/menu_hoy_guardar_confirmar.png",
+      "docs/ui/maquetas/menu_hoy_opciones.png",
+      "docs/ui/maquetas/menu_hoy_salir.png",
+      "docs/ui/maquetas/menu_hoy_creditos.png",
+      "docs/ui/maquetas/menu_hoy_fin.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-03",
     "titulo": "Diseño de la interfaz en main",
     "que": "La rama diseno-ui entra en main: un documento de diseño por pantalla y mecánica (docs/ui), maquetas pixel art a 960×540 sobre el HUD propuesto, y el kit de UI (fuentes pixel libres, cursores, logotipo, insignias, 9-patch). El juego todavía no usa la interfaz nueva; ese es el siguiente paso.",
     "como_probar": "Abre docs/ui/README.md o la página «Diseño de la interfaz» en Grimoire.",
