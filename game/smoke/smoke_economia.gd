@@ -8,7 +8,9 @@ extends Node
 ## produccion (the scenario two_employees: the Now, Queue and Recipes tabs); almacen (the storage's squares, the sheet);
 ## mercado (Hugo walks to the Resources stall: buy, sell, then the book's debts, today, days and the confirmation);
 ## empleados (a new game: Hire with the ranks and the inline confirmation; two_employees with Joan's promotion pending
-## (set in the state for the shot): Staff and the confirmation of firing).
+## (set in the state for the shot): Staff and the confirmation of firing); mejoras (a new game with the doc's 65 gold,
+## 2 ingots and 3 wood: the tree with Second anvil chosen and Commercial reputation hovered, Build's confirmation, the
+## works in progress, a facade drawn outside).
 
 const BLD := "bld_0001"
 const HUGO := "chr_0001"
@@ -45,6 +47,8 @@ func _ready() -> void:
 		_mercado()
 	if _on("empleados"):
 		_empleados()
+	if _on("mejoras"):
+		_mejoras()
 	print("[SmokeEconomia] start (%d steps, sections=%s)" % [_steps.size(), _sections])
 
 
@@ -303,3 +307,68 @@ func _empleados() -> void:
 		_check(str(app.interior().staff_panel().fire_spec("chr_0008")["body"]).contains("-2"), "and warns of the reputation (loyal)")
 		app.hud().confirm_modal().cancel()
 		app.interior().show_staff(false), Callable(), 0.4)
+
+
+# --- mejoras.md ----------------------------------------------------------------------------------------------------
+
+func _mejoras() -> void:
+	_step("upg_new", func() -> void:
+		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {}, 7)
+		app.call("_on_new_game_started", r["state"])
+		app.world().select(HUGO)
+		var fam := SimQuery.building_family(Game.sim.state, BLD)
+		Game.sim.state.families[fam]["gold"] = 65   # the doc's case: 65 gold, 2 ingots, 3 wood
+		var inv: Dictionary = Game.sim.state.buildings[BLD]["inventory"]
+		inv["stacks"] = []
+		Inventory.add(inv, Game.sim.catalog, "iron_ingot", 0, 2)
+		Inventory.add(inv, Game.sim.catalog, "wood", 0, 3)
+		app.open_interior(BLD, true), Callable(), 1.0)
+	_step("upg_open", func() -> void:
+		get_viewport().warp_mouse(get_viewport().get_visible_rect().size * Vector2(0.12, 0.6))   # off any tooltip
+		app.interior().show_upgrades(true)
+		app.interior().upgrade_panel().select("forge_capacity_1")
+		app.interior().upgrade_panel().hover("forge_commerce_3"),
+		func() -> bool: return app.interior_building == BLD, 1.0)
+	_step("upg_shot", func() -> void:
+		_shot("mejoras_hoy")
+		var p: UpgradePanel = app.interior().upgrade_panel()
+		_check(p.status_of("forge_capacity_1") == "missing_materials", "Second anvil short of ingots")
+		_check(p.prereq_marked("forge_facade_1"), "Stone facade lit as a prerequisite")
+		var r := p.get_global_rect()
+		_check(r.size.x <= 713.0 and r.end.y <= 489.0, "the panel in the wide zone (%s)" % r)
+		var cut := 0
+		for id: String in Game.sim.catalog.upgrade_tree("forge"):
+			var l := p.cell_of(id).find_child("Name", true, false) as Label
+			if l.get_line_count() > 2 or l.get_line_count() * l.get_line_height() > l.size.y + 1.0:
+				cut += 1
+				print("[SmokeEconomia] cut name: %s (%s)" % [l.text, l.size])
+		_check(cut == 0, "the 24 names whole at 960×540 (%d cut)" % cut)
+		p.hover("")
+		var fam := SimQuery.building_family(Game.sim.state, BLD)
+		Game.sim.state.families[fam]["gold"] = 200
+		p.select("forge_production_1")
+		p.buy("forge_production_1"), Callable(), 0.6)
+	_step("upg_confirm_shot", func() -> void:
+		_shot("mejoras_hoy_confirmar")
+		_check(app.hud().confirm_modal().visible, "Build always asks")
+		app.hud().confirm_modal().confirm(), Callable(), 0.4)
+	_step("upg_works", func() -> void:
+		app.interior().upgrade_panel().select("forge_quality_1"),
+		func() -> bool: return not SimQuery.upgrade_works(Game.sim, BLD).is_empty(), 1.0)
+	_step("upg_works_shot", func() -> void:
+		_shot("mejoras_hoy_obra")
+		var p: UpgradePanel = app.interior().upgrade_panel()
+		var cut := 0
+		for id: String in Game.sim.catalog.upgrade_tree("forge"):
+			var l := p.cell_of(id).find_child("Name", true, false) as Label
+			if l.get_line_count() > 2 or l.get_line_count() * l.get_line_height() > l.size.y + 1.0:
+				cut += 1
+				print("[SmokeEconomia] cut name in works: %s (%s)" % [l.text, l.size])
+		_check(cut == 0, "the names whole during the works too (%d cut)" % cut)
+		_check(p.status_of("forge_quality_1") == "busy" and (p.cell_of("forge_quality_1").find_child("Price", true, false) as Label).text != "",
+			"the others say one at a time")
+		p.select("forge_facade_1"), Callable(), 0.6)
+	_step("upg_facade_shot", func() -> void:
+		_shot("mejoras_hoy_fachada")
+		_check((app.interior().upgrade_panel().get_node("%Preview") as UpgradePreview).side() == "exterior", "a facade drawn outside")
+		app.interior().show_upgrades(false), Callable(), 0.4)
