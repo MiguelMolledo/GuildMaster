@@ -26,6 +26,8 @@ Comprueba lo que carga el juego en data/ (los ficheros y carpetas que empiezan p
     (opciones, opción por defecto, efectos y condiciones conocidos), data/social_phrases.json, la palanca
     microevent_chance, los puntos sociales y oficios de cada mapa y, en los escenarios v8, oficio, memoria de la
     ciudad, emociones y microeventos;
+  - tutorial (docs/ui/05_tutorial.md): data/tutorial.json y data/tutorial/ (disparadores conocidos, textos con sus
+    huecos, objetivos de resaltado con forma válida, abridores, pistas, con qué partida se prueba cada capítulo);
   - H12: data/professions/ (clase, taller, herramienta, inicio y tabla de encargos coherentes: lo que pide la tabla
     lo fabrica el taller), los competidores de cada inicio (perfil, solar del mapa de su tipo, oficio, sin repetir
     solar) y que el inicio de cada oficio ponga al protagonista en su taller con su herramienta; cada puesto de
@@ -1700,6 +1702,256 @@ def check_h5_scenario(where, d, buildings, rep):
             rep.error(w, f"inspection debe tener {list(keys)} enteros")
 
 
+TUTORIAL_RULES = os.path.join(ROOT, "game", "ui", "tutorial", "tutorial_rules.gd")
+TUTORIAL_ADVANCE = {"action", "next"}
+TUTORIAL_UI_NAME = re.compile(r"^[A-Za-z0-9_*]+$")
+
+
+def _gd_const_list(src, name):
+    """Las cadenas de `const NAME: Array[String] = [ ... ]` (o las claves de un Dictionary con sus listas)."""
+    m = re.search(r"const %s: [A-Za-z\[\]]+ = [\[{](.*?)\n[\]}]" % name, src, re.S)
+    if not m:
+        return None
+    body = m.group(1)
+    if "{" in src[m.start():m.end()].split("=", 1)[1][:3]:
+        return {k: re.findall(r'"([a-z_]+)"', v) for k, v in re.findall(r'"([a-z_]+)": \[([^\]]*)\]', body)}
+    return re.findall(r'"([^"]+)"', body)
+
+
+def check_tutorial(strings, starts, scenarios, items, buildings, maps_raw, rep):
+    """docs/ui/05_tutorial.md: data/tutorial.json y data/tutorial/<capítulo>.json. Disparadores conocidos (los tipos
+    de evento que emite el sim, los de la UI y las condiciones de game/ui/tutorial/tutorial_rules.gd), textos en i18n
+    con sus {huecos}, objetivos de resaltado con forma válida, abridores y pistas."""
+    w0 = "tutorial.json"
+    cfg = load_json(os.path.join(DATA, "tutorial.json"), rep) if os.path.exists(os.path.join(DATA, "tutorial.json")) else None
+    if cfg is None:
+        return
+    try:
+        src = open(TUTORIAL_RULES, encoding="utf-8").read()
+    except OSError:
+        rep.error(w0, "falta game/ui/tutorial/tutorial_rules.gd (las listas de disparadores)")
+        return
+    ui_events = set(_gd_const_list(src, "UI_EVENTS") or [])
+    conditions = _gd_const_list(src, "CONDITIONS") or {}
+    zones = set(_gd_const_list(src, "ZONES") or [])
+    world_kinds = _gd_const_list(src, "WORLD_KINDS") or {}
+    symbols = set(_gd_const_list(src, "SYMBOLS") or [])
+    holes = set(_gd_const_list(src, "PLACEHOLDERS") or [])
+    if not (ui_events and conditions and zones and world_kinds and symbols):
+        rep.error(w0, "no se pueden leer las listas de tutorial_rules.gd")
+        return
+    sim_events = set()
+    for dp, _dn, fns in os.walk(os.path.join(ROOT, "sim")):
+        for fn in fns:
+            if fn.endswith(".gd"):
+                sim_events.update(re.findall(r'"type": "([a-z_]+)"', open(os.path.join(dp, fn), encoding="utf-8").read()))
+    panels = cfg.get("panels")
+    if not (isinstance(panels, list) and all(isinstance(p, str) and TUTORIAL_UI_NAME.match(p) for p in panels)):
+        rep.error(w0, "panels: lista de nombres de nodo")
+        panels = []
+    panels = set(panels)
+    stations = {z.get("id") for b in buildings.values() for z in b.get("zones", [])}
+    services = {"board", "town_hall"}
+    for m in maps_raw.values():
+        services.update((m.get("stalls") or {}).keys())
+    item_ids = set(items)
+
+    def text(w, key, need_holes=True):
+        check_text(w, key, strings, rep)
+        if key in strings:
+            for lang in strings[key][:2]:
+                for h in re.findall(r"\{([^}]*)\}", lang):
+                    if h not in holes:
+                        rep.error(w, f"{key}: hueco desconocido {{{h}}} (valen {sorted(holes)})")
+
+    def sym_ok(w, v):
+        if isinstance(v, str) and v.startswith("$") and v not in symbols and not v.startswith("$event."):
+            rep.error(w, f"símbolo desconocido {v} (valen {sorted(symbols)} o $event.<campo>)")
+
+    def match_ok(w, m):
+        if not isinstance(m, dict):
+            rep.error(w, "match debe ser un objeto")
+            return
+        for k, v in m.items():
+            if isinstance(v, dict) and not set(v) <= MATCH_OPS:
+                rep.error(w, f"match.{k}: operadores válidos {sorted(MATCH_OPS)}")
+            sym_ok(w, v)
+
+    def trigger(w, t, only_state=False):
+        if not isinstance(t, dict):
+            rep.error(w, "un disparador es un objeto {sim|ui|state: …}")
+            return
+        kinds = [k for k in ("sim", "ui", "state") if k in t]
+        if len(kinds) != 1:
+            rep.error(w, "un disparador lleva una sola de sim, ui o state")
+            return
+        k = kinds[0]
+        if only_state and k != "state":
+            rep.error(w, "aquí solo vale una condición (state)")
+        v = t[k]
+        if k == "sim" and v not in sim_events:
+            rep.error(w, f"evento del sim desconocido {v} (no lo emite sim/)")
+        elif k == "ui" and v not in ui_events:
+            rep.error(w, f"evento de la UI desconocido {v} (valen {sorted(ui_events)})")
+        elif k == "state":
+            if v not in conditions:
+                rep.error(w, f"condición desconocida {v} (valen {sorted(conditions)})")
+            else:
+                extra = set(t) - {"state"} - set(conditions[v])
+                if extra:
+                    rep.error(w, f"condición {v}: argumentos desconocidos {sorted(extra)} (valen {conditions[v]})")
+                for a, av in t.items():
+                    sym_ok(w, av)
+                if v in ("panel_open",) and t.get("is") not in panels:
+                    rep.error(w, f"panel_open: {t.get('is')} no está en panels")
+                if v == "panel_prop" and t.get("panel") not in panels:
+                    rep.error(w, f"panel_prop: {t.get('panel')} no está en panels")
+                if v in ("storage_has", "carries") and t.get("item") not in item_ids:
+                    rep.error(w, f"{v}: objeto desconocido {t.get('item')}")
+        if k in ("sim", "ui"):
+            if set(t) - {k, "match", "count", "anyone"}:
+                rep.error(w, f"claves desconocidas {sorted(set(t) - {k, 'match', 'count', 'anyone'})}")
+            match_ok(w, t.get("match", {}))
+            if "count" in t and (not isinstance(t["count"], int) or t["count"] < 1):
+                rep.error(w, "count debe ser un entero >= 1")
+            if k == "ui" and v in ("panel_opened", "panel_closed") and t.get("match", {}).get("panel") not in panels:
+                rep.error(w, f"{v}: match.panel debe ser uno de panels")
+
+    def target(w, t):
+        if not isinstance(t, dict):
+            rep.error(w, "target debe ser un objeto")
+            return
+        if "pad" in t and not isinstance(t["pad"], (int, float)):
+            rep.error(w, "pad debe ser un número")
+        if "opener_text" in t:
+            text(w, t["opener_text"])
+            if "opener" not in t:
+                rep.error(w, "opener_text sin opener")
+        kinds = [k for k in ("ui", "zone", "world") if k in t]
+        if len(kinds) != 1:
+            rep.error(w, "target lleva una sola de ui, zone o world")
+            return
+        k = kinds[0]
+        if k == "ui":
+            if not (isinstance(t["ui"], str) and TUTORIAL_UI_NAME.match(t["ui"])):
+                rep.error(w, f"ui: nombre de nodo no válido {t['ui']!r}")
+            if "in" in t and not (isinstance(t["in"], str) and TUTORIAL_UI_NAME.match(t["in"])):
+                rep.error(w, f"in: nombre de nodo no válido {t['in']!r}")
+            if set(t) - {"ui", "in", "pad", "opener", "opener_text"}:
+                rep.error(w, f"target ui: claves desconocidas {sorted(set(t) - {'ui', 'in', 'pad', 'opener', 'opener_text'})}")
+            if "opener" in t:
+                target(w + ".opener", t["opener"])
+        elif k == "zone":
+            if t["zone"] not in zones:
+                rep.error(w, f"zona desconocida {t['zone']} (valen {sorted(zones)})")
+        else:
+            wk = t["world"]
+            if wk not in world_kinds:
+                rep.error(w, f"world: tipo desconocido {wk} (valen {sorted(world_kinds)})")
+                return
+            if "opener" in t:
+                target(w + ".opener", t["opener"])
+            keys = set(t) - {"world", "pad", "opener", "opener_text"}
+            if len(keys) != 1 or not keys <= set(world_kinds[wk]):
+                rep.error(w, f"world {wk}: lleva una de {world_kinds[wk]}")
+                return
+            v = t.get(next(iter(keys)))
+            sym_ok(w, v)
+            if wk == "tile" and not (isinstance(v, list) and len(v) == 2 and all(isinstance(x, int) for x in v)):
+                rep.error(w, "tile: at = [col, fila]")
+            if "type" in t and t["type"] not in buildings:
+                rep.error(w, f"world {wk}: tipo de edificio desconocido {t['type']}")
+            if wk == "station" and isinstance(v, str) and not v.startswith("$") and v not in stations:
+                rep.error(w, f"station: ningún edificio tiene el puesto {v}")
+            if wk == "service" and v not in services:
+                rep.error(w, f"service: desconocido {v} (valen {sorted(services)})")
+
+    order = cfg.get("chapters")
+    if not (isinstance(order, list) and order and len(set(order)) == len(order)):
+        rep.error(w0, "chapters: lista de ids sin repetir")
+        order = []
+    files = load_kind("tutorial", rep)
+    for cid in order:
+        if cid not in files:
+            rep.error(w0, f"chapters: no existe data/tutorial/{cid}.json")
+    for cid in files:
+        if cid not in order:
+            rep.error(f"tutorial/{cid}", "no está en chapters de data/tutorial.json (no saldría nunca)")
+    for name, op in (cfg.get("openers") or {}).items():
+        w = f"tutorial.json openers.{name}"
+        if not (name in ("@interior", "@town") or TUTORIAL_UI_NAME.match(name)):
+            rep.error(w, "la clave es un nombre de nodo, @interior o @town")
+        if not isinstance(op, dict):
+            rep.error(w, "debe ser {target, text}")
+            continue
+        target(w, op.get("target"))
+        text(w, op.get("text"))
+    for k in ("@interior", "@town"):
+        if k not in (cfg.get("openers") or {}):
+            rep.error(w0, f"openers: falta {k}")
+    seen_h = set()
+    for h in cfg.get("hints") or []:
+        w = f"tutorial.json hints.{h.get('id')}"
+        if not ID_RE.match(str(h.get("id", ""))) or h.get("id") in seen_h:
+            rep.error(w, "id en snake_case y sin repetir")
+        seen_h.add(h.get("id"))
+        trigger(w + ".when", h.get("when"))
+        if "until" in h:
+            trigger(w + ".until", h["until"])
+        if "target" in h:
+            target(w + ".target", h["target"])
+        text(w, h.get("text"))
+        if set(h) - {"id", "when", "target", "text", "until"}:
+            rep.error(w, f"claves desconocidas {sorted(set(h) - {'id', 'when', 'target', 'text', 'until'})}")
+    look = cfg.get("look") or {}
+    for k, v in look.items():
+        if not (isinstance(v, (int, float)) or (isinstance(v, str) and re.match(r"^#[0-9a-fA-F]{6}$", v))):
+            rep.error(w0, f"look.{k}: un número o un color #rrggbb")
+    for cid, ch in files.items():
+        w = f"tutorial/{cid}"
+        text(w, ch.get("name_key"))
+        text(w, ch.get("desc_key"))
+        if "requires" in ch:
+            trigger(w + ".requires", ch["requires"], only_state=True)
+        test = ch.get("test") or {}
+        if not (("start" in test) ^ ("scenario" in test)):
+            rep.error(w, "test: start o scenario (con qué partida lo prueba el smoke de datos)")
+        elif "start" in test and test["start"] not in starts:
+            rep.error(w, f"test.start: inicio desconocido {test['start']}")
+        elif "scenario" in test and test["scenario"] not in scenarios:
+            rep.error(w, f"test.scenario: escenario desconocido {test['scenario']}")
+        steps = ch.get("steps")
+        if not (isinstance(steps, list) and steps):
+            rep.error(w, "steps: al menos un paso")
+            continue
+        ids = set()
+        for i, st in enumerate(steps):
+            ws = f"{w} paso {i + 1} ({st.get('id')})"
+            if not ID_RE.match(str(st.get("id", ""))) or st.get("id") in ids:
+                rep.error(ws, "id en snake_case y sin repetir en el capítulo")
+            ids.add(st.get("id"))
+            text(ws, st.get("text"))
+            extra = set(st) - {"id", "text", "target", "when", "done", "advance", "if", "pause"}
+            if extra:
+                rep.error(ws, f"claves desconocidas {sorted(extra)}")
+            if st.get("advance") not in TUTORIAL_ADVANCE:
+                rep.error(ws, f"advance debe ser {sorted(TUTORIAL_ADVANCE)}")
+            if st.get("advance") == "action" and not st.get("done"):
+                rep.error(ws, "advance action necesita done (la acción esperada)")
+            if st.get("advance") == "next" and "done" in st:
+                rep.error(ws, "advance next solo explica: sin done")
+            if "target" in st:
+                target(ws, st["target"])
+            if "when" in st:
+                trigger(ws + ".when", st["when"])
+            for d in (st.get("done") if isinstance(st.get("done"), list) else [st["done"]] if "done" in st else []):
+                trigger(ws + ".done", d)
+            if "if" in st:
+                trigger(ws + ".if", st["if"], only_state=True)
+            if "pause" in st and not isinstance(st["pause"], bool):
+                rep.error(ws, "pause: true o false")
+
+
 def load_json(path, rep):
     try:
         with open(path, encoding="utf-8") as f:
@@ -1848,6 +2100,9 @@ def main():
     check_h14(strings, rep)
     check_h13(items, strings, rep)
     check_h12(items, recipes, buildings, maps, strings, rep)
+    check_tutorial(strings, set(load_kind("starts", rep)),
+                   {n[:-5] for n in os.listdir(os.path.join(DATA, "scenarios")) if n.endswith(".json") and not n.startswith("_")},
+                   items, buildings, load_kind("maps", rep), rep)
 
     time = load_json(os.path.join(DATA, "time.json"), rep) or {}
     mpt = time.get("minutes_per_tile")

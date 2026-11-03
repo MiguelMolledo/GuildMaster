@@ -1,0 +1,125 @@
+{
+  "id": "staff",
+  "name_key": "tutorial.chapter.staff",
+  "desc_key": "tutorial.chapter.staff.desc",
+  "test": {
+    "start": "artisan_blacksmith"
+  },
+  "steps": [
+    {
+      "id": "manage",
+      "text": "tutorial.staff.manage",
+      "target": {
+        "world": "building",
+        "id": "$workshop"
+      },
+      "done": {
+        "state": "interior",
+        "is": "$workshop"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "open",
+      "text": "tutorial.staff.open",
+      "target": {
+        "ui": "StaffButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "StaffPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "staff_tab",
+      "text": "tutorial.staff.staff_tab",
+      "target": {
+        "ui": "StaffTab",
+        "in": "StaffPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "hire_tab",
+      "text": "tutorial.staff.hire_tab",
+      "target": {
+        "ui": "HireTab",
+        "in": "StaffPanel"
+      },
+      "done": {
+        "state": "panel_prop",
+        "panel": "StaffPanel",
+        "prop": "tab",
+        "value": "hire"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "ranks",
+      "text": "tutorial.staff.ranks",
+      "target": {
+        "ui": "Ranks",
+        "in": "StaffPanel",
+        "opener": {
+          "ui": "HireTab",
+          "in": "StaffPanel"
+        }
+      },
+      "advance": "next"
+    },
+    {
+      "id": "list",
+      "text": "tutorial.staff.list",
+      "target": {
+        "ui": "List",
+        "in": "StaffPanel",
+        "opener": {
+          "ui": "HireTab",
+          "in": "StaffPanel"
+        }
+      },
+      "advance": "next"
+    },
+    {
+      "id": "production",
+      "text": "tutorial.staff.production",
+      "target": {
+        "ui": "ProductionButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "ProductionPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "queue_tab",
+      "text": "tutorial.staff.queue_tab",
+      "target": {
+        "ui": "QueueTab",
+        "in": "ProductionPanel"
+      },
+      "done": {
+        "state": "panel_prop",
+        "panel": "ProductionPanel",
+        "prop": "tab",
+        "value": "queue"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "add",
+      "text": "tutorial.staff.add",
+      "target": {
+        "ui": "RecipeGrid",
+        "in": "ProductionPanel",
+        "opener": {
+          "ui": "QueueTab",
+          "in": "ProductionPanel"
+        }
+      },
+      "advance": "next"
+    }
+  ]
+}
