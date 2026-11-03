@@ -1,0 +1,378 @@
+[
+ {
+  "fecha": "2026-11-03T20:32:37",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana/edit",
+  "imagenes": 1,
+  "usd": 0.0398,
+  "que": "grid_nano_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:33:31",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "grid_nano2_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:33:46",
+  "pieza": "titulo",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "titulo_alba_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:34:03",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "iconos_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:34:31",
+  "pieza": "fachada",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "sastreria_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:34:45",
+  "pieza": "paseo",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "paseo_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:35:28",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0023,
+  "que": "image2pixel grid_nano2_v1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:36:30",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel nano2_artesano_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T20:37:26",
+  "pieza": "titulo",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "titulo_noche_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:37:42",
+  "pieza": "eventos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "guerra_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:37:58",
+  "pieza": "eventos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fiesta_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:38:14",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "grid2_nano2_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:38:27",
+  "pieza": "fachada",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "sastreria_v2"
+ },
+ {
+  "fecha": "2026-11-03T20:38:48",
+  "pieza": "fachada",
+  "modelo": "fal-ai/nano-banana-pro/edit",
+  "imagenes": 1,
+  "usd": 0.15,
+  "que": "sastreria_pro_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:39:03",
+  "pieza": "paseo",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "paseo_v2"
+ },
+ {
+  "fecha": "2026-11-03T20:40:53",
+  "pieza": "paseo",
+  "modelo": "fal-ai/nano-banana-pro/edit",
+  "imagenes": 1,
+  "usd": 0.15,
+  "que": "paseo_pro_v1"
+ },
+ {
+  "fecha": "2026-11-03T20:41:23",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.003,
+  "que": "image2pixel nano2_artesano_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T20:41:27",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nano2_artesana_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T20:41:31",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nano2_artesana_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T20:41:35",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nano2_anciano_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T20:41:39",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nano2_anciano_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T20:41:44",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nano2_rival_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T20:41:48",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel nano2_rival_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T20:41:53",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nano2_nina_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T20:41:57",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nano2_nina_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:01",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel nano2_trabajador_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:04",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel nano2_trabajador_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:09",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nano2_anciana_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:12",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel nano2_anciana_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:16",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nano2_rival_esposa_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:21",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nano2_rival_esposa_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:27",
+  "pieza": "titulo",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0006,
+  "que": "image2pixel titulo_alba_v1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:33",
+  "pieza": "titulo",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel titulo_noche_v1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:38",
+  "pieza": "eventos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel guerra_v1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:43",
+  "pieza": "eventos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel fiesta_v1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:48",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel sierra_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:52",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel arcon_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:42:56",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel estatua_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:43:00",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel acero_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:43:06",
+  "pieza": "fachada",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel sastreria_v1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:43:12",
+  "pieza": "fachada",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel sastreria_v2_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:43:20",
+  "pieza": "fachada",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel sastreria_pro_v1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:43:27",
+  "pieza": "paseo",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel paseo_v1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:43:34",
+  "pieza": "paseo",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel paseo_v2_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:43:40",
+  "pieza": "paseo",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel paseo_pro_v1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T20:48:41",
+  "pieza": "paseo",
+  "modelo": "fal-ai/birefnet/v2",
+  "imagenes": 1,
+  "usd": 0.0006,
+  "que": "birefnet paseo_v1_birefnet.png"
+ },
+ {
+  "fecha": "2026-11-03T20:48:45",
+  "pieza": "paseo",
+  "modelo": "fal-ai/birefnet/v2",
+  "imagenes": 1,
+  "usd": 0.0006,
+  "que": "birefnet paseo_v2_birefnet.png"
+ }
+]

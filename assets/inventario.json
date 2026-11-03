@@ -1153,7 +1153,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md)."
+      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md). Candidato fal (piloto 2026-11-03): assets/art/fal_piloto/iconos/final/acero_32.png (misma hoja que la sierra). Sirve con retoque: más grande y claro que iron_ingot, igualar tamaño."
     },
     {
       "id": "icon_flour",
@@ -1279,7 +1279,7 @@
       "origen": null,
       "origen_previo": "guild:assets/sprites/ui/icons/icon_sierra.png",
       "coste_gen": 0,
-      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md)."
+      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md). Candidato fal (piloto 2026-11-03): assets/art/fal_piloto/iconos/final/sierra_32.png (nano-banana-2/edit con 8 iconos de Guild Renew de referencia + image2pixel). Sirve con retoque: falta repasar el contorno al estilo de Guild Renew."
     },
     {
       "id": "icon_needle",
@@ -1750,7 +1750,7 @@
       "ruta": "assets/art/ui/portrait/",
       "origen": null,
       "coste_gen": 0,
-      "notas": "Retrato 32×32 de cada persona (HUD, árbol, contratación) con colores clave reservados para el intercambio de paleta: pelo, piel, ropa principal y secundaria (GDD 4.10.9). Hoy greybox de nodos en game/visuals/characters/portrait.tscn."
+      "notas": "Retrato 32×32 de cada persona (HUD, árbol, contratación) con colores clave reservados para el intercambio de paleta: pelo, piel, ropa principal y secundaria (GDD 4.10.9). Hoy greybox de nodos en game/visuals/characters/portrait.tscn. Candidatos fal (piloto 2026-11-03): assets/art/fal_piloto/retratos/final/nano2_<persona>_64.png y _32.png (8 retratos en 2 rejillas 2×2 de nano-banana-2/edit + image2pixel). Prueba de identidad 4.10.9: nano2_artesano_64_clave.png (colores clave codificados como en personajes_guild.py) y _familias.png (3 familias)."
     },
     {
       "id": "sfx_step",
