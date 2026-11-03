@@ -70,8 +70,8 @@ func test_staff_button_opens_the_panel_with_each_employee() -> void:
 	check(text.contains(SimQuery.rank_name(cat, "apprentice")), "the rank")
 	check(text.contains("50"), "the loyalty")
 	check(text.contains(SimQuery.band_name("unhappy")), "the loyalty band")
-	var role := p.row_of(AGNES).find_child("Role", true, false) as OptionButton
-	eq(str(role.get_item_metadata(role.selected)), "furnace", "the current role is selected")
+	var role := p.row_of(AGNES).find_child("Role", true, false) as Control
+	check((role.get_node("furnace") as Button).button_pressed, "the current role is pressed")
 	check(p.row_of(AGNES).find_child("Promotion", true, false) == null, "no promotion pending")
 	check(not v.production_panel().visible and not v.storage_panel().visible, "the other panels are closed")
 	_free(v)
@@ -82,13 +82,13 @@ func test_staff_rows_give_set_role_bonus_and_fire() -> void:
 	var v := _interior(sim)
 	v.show_staff(true)
 	var row := v.staff_panel().row_of(JOAN)
-	var role := row.find_child("Role", true, false) as OptionButton
+	var role := row.find_child("Role", true, false) as Control
 	var roles: Array = []
-	for i: int in role.item_count:
-		roles.append(str(role.get_item_metadata(i)))
-	eq(roles, ["any", "furnace", "anvil", "counter"], "the roles: anything and the forge's stations (no storage)")
-	role.select(roles.find("counter"))
-	role.item_selected.emit(roles.find("counter"))
+	for c: Node in role.get_children():
+		if c is Button:
+			roles.append(str(c.name))
+	eq(roles, ["furnace", "anvil", "counter", "any"], "the roles: the forge's stations (no storage) and anything")
+	(role.get_node("counter") as Button).pressed.emit()
 	_same(_last(), {"type": "set_role", "actor": HUGO, "employee": JOAN, "role": "counter"}, "role -> set_role")
 	check(_press(v.staff_panel().row_of(JOAN), "Bonus"), "Bonus is pressable")
 	_same(_last(), {"type": "bonus", "actor": HUGO, "employee": JOAN}, "Bonus -> bonus")
@@ -170,12 +170,14 @@ func test_hire_tab_lists_candidates_and_gives_hire() -> void:
 	check(text.contains(str(first["name"])), "the name")
 	check(text.contains(SimQuery.rank_name(cat, str(first["rank"]))), "the rank")
 	check(text.contains("%s %d" % [SimQuery.t_("stat.craft"), int(first["stats"]["craft"])]), "the craft (%s)" % text)
-	check(text.contains(SimQuery.t_("stat.charisma")) and text.contains(SimQuery.t_("stat.constitution")), "charisma, constitution")
+	check(text.contains(SimQuery.t_("stat.charisma")) and text.contains(SimQuery.t_("ui.staff.constitution_short")), "charisma, constitution")
 	check(text.contains(str(int(first["wage"]))), "the wage")
 	var ok: Array = cands.filter(func(c: Dictionary) -> bool: return str(c["status"]) == "ok")
 	check(not ok.is_empty(), "someone can be hired")
 	var who := str(ok[0]["character"])
 	check(_press(p.row_of(who), "Hire"), "Hire is pressable")
+	eq(_orders.size(), 0, "the first click asks (the daily wage)")
+	check(_press(p.row_of(who), "Hire"), "the second click")
 	_same(_last(), {"type": "hire", "actor": HUGO, "building": BLD, "candidate": who}, "Hire -> hire")
 	_free(v)
 
@@ -191,7 +193,7 @@ func test_hire_is_disabled_with_the_reason_when_no_slot() -> void:
 	var hb := row.find_child("Hire", true, false) as Button
 	check(hb.disabled, "Hire disabled")
 	var why := row.find_child("Reason", true, false) as Label
-	check(why != null and why.text == SimQuery.reason_text(str(cands[0]["status"])), "the reason is shown")
+	check(why != null and why.text == p.reason_of(cands[0]), "the reason is shown, with the upgrade that opens a place")
 	eq(str(cands[0]["status"]), "no_slot", "because there is no free place")
 	check(not _press(row, "Hire"), "a disabled Hire gives nothing")
 	eq(_orders.size(), 0, "no order")
@@ -209,13 +211,14 @@ func test_staff_orders_through_the_sim_take_effect() -> void:
 			who = str(c["character"])
 			break
 	_press(v.staff_panel().row_of(who), "Hire")
+	_press(v.staff_panel().row_of(who), "Hire")
 	var ev := sim.step(_orders.duplicate(true))
 	_orders.clear()
 	eq(ev.filter(func(e: Dictionary) -> bool: return e["type"] == "order_refused").size(), 0, "the sim takes the hire")
 	eq(Staff.employer(sim.state, who), BLD, "hired at the forge")
 	v.staff_panel().show_tab("staff")
 	check(v.staff_panel().row_of(who) != null, "now on the staff tab")
-	check(_texts(v.staff_panel().row_of(who)).contains(SimQuery.t_("ui.staff.starts") % (int(sim.state.characters[who]["job"]["start_day"]) + 1)),
+	check(_texts(v.staff_panel().row_of(who)).contains(SimQuery.t_("ui.staff.arrives_tomorrow") % (int(sim.state.characters[who]["job"]["start_day"]) + 1)),
 		"starts tomorrow")
 	_free(v)
 

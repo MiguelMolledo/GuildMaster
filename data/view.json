@@ -80,6 +80,16 @@
     "_doc": "HUD presentation: objective_hint_seconds = how long the objective's how-to stays unfolded on the map after the objective changes (then it folds to the title and progress; hovering the panel unfolds it; inside a building it is always shown).",
     "objective_hint_seconds": 20
   },
+  "market_demand": {
+    "_doc": "docs/ui/mecanicas/mercado_y_libro.md §4.2: the demand indicator's steps (view cuts, not game rules): below each `below` (in order) the step, its word (ui.market.demand.<word>) and its colour token (tools/ui/tokens.json).",
+    "steps": [
+      {"below": 0.7, "word": "very_low", "color": "negativo"},
+      {"below": 0.9, "word": "low", "color": "aviso"},
+      {"below": 1.1, "word": "normal", "color": "pergamino"},
+      {"below": 1.5, "word": "high", "color": "positivo"},
+      {"below": 99.0, "word": "very_high", "color": "positivo"}
+    ]
+  },
   "notices": {
     "_doc": "H3 / docs/ui/01_hud.md §5: the notices of the player's family pop up in the notices zone (at most popup_max at once; the oldest goes, it stays in the book): urgent until clicked or the book is opened, warning for popup_seconds, done (the keys in done_keys: a goal met) for done_seconds; info only in the book. Severity colours of the notices log.",
     "popup_seconds": 8.0,

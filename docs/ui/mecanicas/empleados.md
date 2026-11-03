@@ -121,9 +121,9 @@ tramo y su efecto van siempre escritos. Hoy solo dice «Lealtad 50 (descontento)
 
 ## 6. Maqueta
 
-- Hoy: [empleados_hoy_contratar.png](../maquetas/empleados_hoy_contratar.png) (lista cortada, sin qué puede hacer
-  cada uno) y [empleados_hoy_plantilla.png](../maquetas/empleados_hoy_plantilla.png) (lealtad en texto, rol en
-  desplegable).
+- Hoy (rama ui-economia): [empleados_hoy_contratar.png](../maquetas/empleados_hoy_contratar.png),
+  [empleados_hoy_plantilla.png](../maquetas/empleados_hoy_plantilla.png) y
+  [empleados_hoy_despedir.png](../maquetas/empleados_hoy_despedir.png).
 - Propuesta (guion `docs/ui/maquetas/src/empleados.py`):
   - [empleados.png](../maquetas/empleados.png): *Contratar*, con la tabla de rangos (1), el candidato (2), «Puede» con
     candados (3) y la confirmación en línea (4);
@@ -195,11 +195,40 @@ Tareas:
 
 ## 10. Criterios de aceptación
 
-- [ ] Un candidato con Artesanía 5 se ve con la armadura (mínimo 6) con candado en «Puede».
-- [ ] La tabla de rangos sale de `data/employees.json`: cambiar el salario del oficial allí cambia la tabla.
-- [ ] Contratar pide un segundo clic que dice el salario diario.
-- [ ] Sin hueco, el motivo nombra la mejora que lo abre.
-- [ ] La barra de lealtad tiene marcas en 20, 40 y 70, y el efecto del tramo se lee sin tooltip.
-- [ ] Un ascenso pendiente se ve sin abrir el panel (insignia) y, dentro, arriba del todo.
-- [ ] Despedir a un empleado con lealtad 75 avisa «reputación −2» antes de confirmar.
-- [ ] Con 6 candidatos, la lista hace scroll y nada se corta a 960×540.
+- [x] Un candidato con Artesanía 5 se ve con la armadura (mínimo 6) con candado en «Puede».
+- [x] La tabla de rangos sale de `data/employees.json`: cambiar el salario del oficial allí cambia la tabla.
+- [x] Contratar pide un segundo clic que dice el salario diario.
+- [x] Sin hueco, el motivo nombra la mejora que lo abre.
+- [x] La barra de lealtad tiene marcas en 20, 40 y 70, y el efecto del tramo se lee sin tooltip.
+- [x] Un ascenso pendiente se ve sin abrir el panel (insignia) y, dentro, arriba del todo.
+- [x] Despedir a un empleado con lealtad 75 avisa «reputación −2» antes de confirmar.
+- [x] Con 6 candidatos, la lista hace scroll y nada se corta a 960×540.
+
+## Implementado (rama ui-economia, 2026-11-03)
+
+Capturas (`--smoke-script=economia --eco=empleados`): [contratar](../maquetas/empleados_hoy_contratar.png),
+[plantilla](../maquetas/empleados_hoy_plantilla.png) y [despedir](../maquetas/empleados_hoy_despedir.png). La
+plantilla usa `two_employees` con el ascenso de Joan y la lealtad de Agnès puestos en el estado para la captura.
+
+- Cabecera común: «Huecos 2/2 · 27/día · 53 de oro». Se abre en *Contratar* si la plantilla está vacía.
+- *Contratar*: tabla de rangos de `data/employees.json` (galón, salario, velocidad, eficiencia, «muchos / algunos /
+  pocos» o el candado con la mejora que lo abre); candidato con retrato, galón, Artesanía en barra de 10, Carisma y
+  Constitución, «Puede:» con el icono de cada receta y candado si su `min_craft` supera la Artesanía; *Contratar*
+  pide un segundo clic «¿Contratar? 20/día»; los motivos con su cifra o su mejora («Sin hueco (2/2) → Dormitorio de
+  aprendiz +1», «Necesitas 20 de oro (1 día de salario)», «Te robó: no vuelve hasta el día N», «Maestro: necesita
+  Taller de maestro»); franja «Sin hueco: … → Mejoras»; scroll con la línea «↓ N candidatos más».
+- *Plantilla*: tarjeta por empleado, el ascenso pendiente primero con filete dorado (salario y velocidad de → a,
+  *Aceptar · +15 lealtad* / *Rechazar · −10 lealtad*); qué hace ahora (tarea con su %, llega mañana, se va hoy, en
+  casa (noche), ocioso con el motivo de la cola); barra de lealtad con marcas en 20/40/70, palabra del tramo y su
+  efecto escrito; progreso del ascenso («0/8 días · lealtad ≥ 51 (aún no)», y la mejora si el rango la pide); puesto
+  con un botón por puesto y *Cualquiera*; *Gratificar 5 · +5 lealtad*; *Despedir* con la caja de confirmación
+  (con «Era leal: reputación −2» si la lealtad pasa de 70, o «se cancela ya» si aún no empezó); franja de sin cobrar;
+  franja de noche «Los empleados vuelven al alba (05:00)»; pie «Salarios de mañana: 27 · tienes 53».
+- Insignia con el número de ascensos en el botón *Empleados* (ya estaba).
+- Lectura nueva en el sim: `Staff.has_security` (para «Seguridad lo divide entre 2»).
+
+Falta:
+- Tarjeta gris de un día tras abandono o robo: `Staff.employees` no guarda a quien ya se fue y no hay consulta de
+  los que se fueron; mostrarlo pide guardar ese dato en el sim (no es solo vista).
+- Globo de primera vez; `sfx_promotion` y `sfx_door_slam` (sin créditos de audio en esta fase).
+- Iconos de puesto 16×16 (horno, yunque, mostrador): los botones de puesto van con texto.

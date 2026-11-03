@@ -5,8 +5,8 @@
 
 [node name="StationMenu" type="PanelContainer"]
 visible = false
-custom_minimum_size = Vector2(170, 0)
-offset_right = 170.0
+custom_minimum_size = Vector2(296, 0)
+offset_right = 296.0
 offset_bottom = 60.0
 theme = ExtResource("2_theme")
 theme_type_variation = &"DarkPanel"
@@ -14,75 +14,146 @@ script = ExtResource("1_menu")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 3
 
-[node name="Title" type="Label" parent="VBox"]
+[node name="Head" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/Head"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_type_variation = &"TitleLabel"
 text = "--"
+
+[node name="Who" type="Label" parent="VBox/Head"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DimLabel"
+text = "--"
+horizontal_alignment = 2
+clip_text = true
 
 [node name="Hint" type="Label" parent="VBox"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.788235, 0.698039, 1)
-autowrap_mode = 2
+theme_type_variation = &"WarningLabel"
 text = "--"
+autowrap_mode = 3
 
-[node name="Modes" type="VBoxContainer" parent="VBox"]
+[node name="Modes" type="HBoxContainer" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 1
+theme_override_constants/separation = 2
 
 [node name="FastButton" type="Button" parent="VBox/Modes"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+theme_type_variation = &"TabButton"
+toggle_mode = true
 text = "fast"
-alignment = 0
 
 [node name="NormalButton" type="Button" parent="VBox/Modes"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+theme_type_variation = &"TabButton"
+toggle_mode = true
 text = "normal"
-alignment = 0
 
 [node name="CarefulButton" type="Button" parent="VBox/Modes"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+theme_type_variation = &"TabButton"
+toggle_mode = true
 text = "careful"
-alignment = 0
 
-[node name="StopButton" type="Button" parent="VBox/Modes"]
+[node name="ModeLine" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-focus_mode = 0
-text = "stop"
-alignment = 0
+theme_type_variation = &"DimLabel"
+text = "--"
+clip_text = true
+
+[node name="Sep" type="HSeparator" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="Recipes" type="VBoxContainer" parent="VBox"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 1
-
-[node name="RecipesTitle" type="Label" parent="VBox/Recipes"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "--"
 
 [node name="RecipeList" type="VBoxContainer" parent="VBox/Recipes"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 1
 
-[node name="BackButton" type="Button" parent="VBox/Recipes"]
+[node name="QualityBox" type="VBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Sep2" type="HSeparator" parent="VBox/QualityBox"]
+layout_mode = 2
+
+[node name="QualityHead" type="HBoxContainer" parent="VBox/QualityBox"]
+layout_mode = 2
+
+[node name="QualityTitle" type="Label" parent="VBox/QualityBox/QualityHead"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DimLabel"
+text = "--"
+clip_text = true
+
+[node name="QualityNumbers" type="Label" parent="VBox/QualityBox/QualityHead"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "--"
+
+[node name="QualityBar" type="HBoxContainer" parent="VBox/QualityBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="ToolLine" type="Label" parent="VBox/QualityBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"PositiveLabel"
+text = "--"
+clip_text = true
+
+[node name="Foot" type="HBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="StopButton" type="Button" parent="VBox/Foot"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-text = "back"
-alignment = 0
+text = "stop"
+
+[node name="ProductionButton" type="Button" parent="VBox/Foot"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+focus_mode = 0
+text = "--"
+
+[node name="JobLine" type="Label" parent="VBox/Foot"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DimLabel"
+text = "--"
+horizontal_alignment = 2
+clip_text = true

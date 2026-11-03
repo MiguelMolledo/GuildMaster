@@ -5,15 +5,15 @@
 
 [node name="ProductionPanel" type="PanelContainer"]
 visible = false
-custom_minimum_size = Vector2(270, 0)
-offset_right = 270.0
-offset_bottom = 120.0
+custom_minimum_size = Vector2(356, 430)
+offset_right = 356.0
+offset_bottom = 430.0
 theme = ExtResource("2_theme")
 script = ExtResource("1_panel")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 4
 
 [node name="Header" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
@@ -21,9 +21,10 @@ layout_mode = 2
 [node name="Title" type="Label" parent="VBox/Header"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"TitleLabel"
 size_flags_horizontal = 3
+theme_type_variation = &"TitleLabel"
 text = "--"
+clip_text = true
 
 [node name="CloseButton" type="Button" parent="VBox/Header"]
 unique_name_in_owner = true
@@ -31,88 +32,220 @@ layout_mode = 2
 focus_mode = 0
 text = "x"
 
-[node name="Stations" type="VBoxContainer" parent="VBox"]
+[node name="Tabs" type="HBoxContainer" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="QueueHeader" type="HBoxContainer" parent="VBox"]
-layout_mode = 2
-
-[node name="QueueTitle" type="Label" parent="VBox/QueueHeader"]
+[node name="NowTab" type="Button" parent="VBox/Tabs"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+focus_mode = 0
+theme_type_variation = &"TabButton"
+toggle_mode = true
 text = "--"
 
-[node name="LoopButton" type="Button" parent="VBox/QueueHeader"]
+[node name="QueueTab" type="Button" parent="VBox/Tabs"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+theme_type_variation = &"TabButton"
 toggle_mode = true
-text = "loop"
+text = "--"
 
-[node name="PauseButton" type="Button" parent="VBox/QueueHeader"]
+[node name="RecipesTab" type="Button" parent="VBox/Tabs"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+theme_type_variation = &"TabButton"
 toggle_mode = true
-text = "pause"
+text = "--"
 
-[node name="StalledLabel" type="Label" parent="VBox"]
+[node name="Stalled" type="PanelContainer" parent="VBox"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.7, 0.45, 1)
-autowrap_mode = 2
+theme_type_variation = &"RowPanel"
+
+[node name="HBox" type="HBoxContainer" parent="VBox/Stalled"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="StalledIcon" type="TextureRect" parent="VBox/Stalled/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+stretch_mode = 3
+
+[node name="StalledLabel" type="Label" parent="VBox/Stalled/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ReasonLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="StalledFix" type="Button" parent="VBox/Stalled/HBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
 text = "--"
 
-[node name="QueueList" type="VBoxContainer" parent="VBox"]
+[node name="NowPage" type="VBoxContainer" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
 
-[node name="AddRow" type="HBoxContainer" parent="VBox"]
+[node name="Stations" type="VBoxContainer" parent="VBox/NowPage"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 6
 
-[node name="RecipeOption" type="OptionButton" parent="VBox/AddRow"]
+[node name="NowSep" type="HSeparator" parent="VBox/NowPage"]
+layout_mode = 2
+
+[node name="CanMake" type="Label" parent="VBox/NowPage"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="QueuePage" type="VBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="QueueHeader" type="HBoxContainer" parent="VBox/QueuePage"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="QueueTitle" type="Label" parent="VBox/QueuePage/QueueHeader"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-focus_mode = 0
+theme_type_variation = &"BoldLabel"
+text = "--"
 
-[node name="Add1" type="Button" parent="VBox/AddRow"]
+[node name="LoopButton" type="Button" parent="VBox/QueuePage/QueueHeader"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+theme_type_variation = &"BodyButton"
+text = "--"
+
+[node name="PauseButton" type="Button" parent="VBox/QueuePage/QueueHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+theme_type_variation = &"BodyButton"
+text = "--"
+
+[node name="QueueScroll" type="ScrollContainer" parent="VBox/QueuePage"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="QueueList" type="VBoxContainer" parent="VBox/QueuePage/QueueScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="AddSep" type="HSeparator" parent="VBox/QueuePage"]
+layout_mode = 2
+
+[node name="AddHead" type="HBoxContainer" parent="VBox/QueuePage"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="AddLabel" type="Label" parent="VBox/QueuePage/AddHead"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+
+[node name="RecipeGrid" type="HFlowContainer" parent="VBox/QueuePage/AddHead"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+
+[node name="PickedLabel" type="Label" parent="VBox/QueuePage"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "--"
+clip_text = true
+
+[node name="AddRow" type="HBoxContainer" parent="VBox/QueuePage"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="RecipeOption" type="OptionButton" parent="VBox/QueuePage/AddRow"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+focus_mode = 0
+
+[node name="Add1" type="Button" parent="VBox/QueuePage/AddRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+size_flags_horizontal = 3
 focus_mode = 0
 text = "+1"
 
-[node name="Add5" type="Button" parent="VBox/AddRow"]
+[node name="Add5" type="Button" parent="VBox/QueuePage/AddRow"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(52, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 focus_mode = 0
 text = "+5"
 
-[node name="Add10" type="Button" parent="VBox/AddRow"]
+[node name="Add10" type="Button" parent="VBox/QueuePage/AddRow"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(52, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 focus_mode = 0
 text = "+10"
 
-[node name="AddInf" type="Button" parent="VBox/AddRow"]
+[node name="AddInf" type="Button" parent="VBox/QueuePage/AddRow"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(52, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 focus_mode = 0
-text = "+∞"
-
-[node name="Hint" type="Label" parent="VBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.92549, 0.894118, 0.823529, 0.7)
-autowrap_mode = 2
 text = "--"
+
+[node name="Hint" type="Label" parent="VBox/QueuePage"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="RecipesPage" type="ScrollContainer" parent="VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="RecipesList" type="VBoxContainer" parent="VBox/RecipesPage"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4

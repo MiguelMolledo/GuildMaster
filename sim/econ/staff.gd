@@ -367,6 +367,11 @@ static func _steal(sim: Sim, c: String, tcfg: Dictionary) -> void:
 ## Whether the building has Security (GDD 4.7.3: the theft chance / security_divisor): H5, any finished upgrade with
 ## protection > 0 (Upgrades.amount; its percentage is for sabotage and fire, later) [provisional]. The H4 list
 ## theft.security_upgrades of data/employees.json (empty) still counts if filled.
+## Read for the view (staff panel: «Security divides it by 2»): whether the building has Security.
+static func has_security(sim: Sim, bld: String) -> bool:
+	return _has_security(sim, bld)
+
+
 static func _has_security(sim: Sim, bld: String) -> bool:
 	if Upgrades.amount(sim, bld, "protection") > 0.0:
 		return true

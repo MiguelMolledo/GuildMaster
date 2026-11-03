@@ -108,8 +108,9 @@ Son cuentas de presentación con la cifra del efecto y la duración base. No son
 
 ## 6. Maqueta
 
-- Hoy: [mejoras_hoy.png](../maquetas/mejoras_hoy.png). Rejilla de botones con texto en mayúsculas de 8 px casi
-  ilegible; el estado solo por el tono del texto; la línea del coste entera en rojo aunque solo falte la madera.
+- Hoy (rama ui-economia): [mejoras_hoy.png](../maquetas/mejoras_hoy.png),
+  [mejoras_hoy_obra.png](../maquetas/mejoras_hoy_obra.png), [mejoras_hoy_confirmar.png](../maquetas/mejoras_hoy_confirmar.png)
+  y [mejoras_hoy_fachada.png](../maquetas/mejoras_hoy_fachada.png).
 - Propuesta (guion `docs/ui/maquetas/src/mejoras.py`):
   - [mejoras.png](../maquetas/mejoras.png): sin obra (1), rejilla con estados (2), prerrequisitos de *Reputación comercial*
     marcados (3), detalle con coste por material (4) y obra (5);
@@ -176,10 +177,41 @@ Tareas:
 
 ## 10. Criterios de aceptación
 
-- [ ] Los 24 nombres se leen enteros a 960×540 sin mayúsculas forzadas.
-- [ ] Con 65 ⦿, 2 lingotes y 3 madera, *Segundo yunque* enseña ✓ en oro y madera y ✗ en «5 lingotes (hay 2)», y el
+- [x] Los 24 nombres se leen enteros a 960×540 sin mayúsculas forzadas.
+- [x] Con 65 ⦿, 2 lingotes y 3 madera, *Segundo yunque* enseña ✓ en oro y madera y ✗ en «5 lingotes (hay 2)», y el
       motivo «Falta: 3 lingotes» junto al botón apagado.
-- [ ] Al pasar por *Reputación comercial*, *Fachada de piedra* se marca con filete dorado.
-- [ ] *Construir* siempre pide confirmación y la caja dice cuándo termina la obra.
-- [ ] Durante una obra, las demás casillas disponibles dicen «una a la vez».
-- [ ] El estado de cada casilla se distingue en una captura en escala de grises (icono, no solo color).
+- [x] Al pasar por *Reputación comercial*, *Fachada de piedra* se marca con filete dorado.
+- [x] *Construir* siempre pide confirmación y la caja dice cuándo termina la obra.
+- [x] Durante una obra, las demás casillas disponibles dicen «una a la vez».
+- [x] El estado de cada casilla se distingue en una captura en escala de grises (icono, no solo color).
+
+## Implementado (rama ui-economia, 2026-11-03)
+
+Capturas (`--smoke-script=economia --eco=mejoras`, partida nueva con 65 de oro, 2 lingotes y 3 de madera puestos en el
+estado para el caso del documento): [árbol](../maquetas/mejoras_hoy.png), [confirmación](../maquetas/mejoras_hoy_confirmar.png),
+[obra en curso](../maquetas/mejoras_hoy_obra.png) y [fachada](../maquetas/mejoras_hoy_fachada.png).
+
+- Panel ancho (712×430, zona ancha del HUD) con la franja de obra arriba («Sin obras. Una a la vez…» o «En obra: …
+  quedan 12 h · termina …» con su barra) y «Obras hechas: N».
+- Más visual (petición del owner): cada rama con su icono `icon_rama_*` de Guild Renew; cada casilla con la miniatura
+  de lo que pone en el edificio (el sprite del mueble de `game/visuals/interiors/forge.tscn` → `Upgrades/`, el puesto
+  nuevo de `Stations/` o el añadido de la fachada de `game/visuals/buildings/forge.tscn`; sin sprite, el icono de la
+  rama), nombre entero (dos líneas si no cabe), precio e icono de estado (hecha, en obra con barra de 2 px, se puede
+  pagar, punto si falta algo, candado, corona si pide título) y la llave si un prerrequisito es de otra rama.
+- «Se verá»: una vista pequeña del interior (o de la fachada) con las mejoras hechas y la elegida encendida en dorado
+  con un pulso lento, acercada a la pieza nueva (`game/ui/upgrade_preview.gd`). Así se ve qué cambia en el edificio
+  antes de pagar.
+- Al pasar por una casilla se encienden con filete dorado sus prerrequisitos (los de la elegida si no).
+- Detalle: efecto con su consecuencia en cifras (velocidad: «Forjar armadura pasa de 6 h 30 a 5 h 25»; almacén
+  «de 10 a 20 pilas»; huecos; puesto nuevo «dos personas pueden trabajar a la vez»), coste material a material con
+  «(hay N)» y ✓/⚠, requisitos con su estado (clic en una mejora que falta la elige), obra con lo que implica y cuándo
+  acabaría, «Falta: …» junto a *Construir*, y el aviso en rojo de la rama Secretos.
+- *Construir* siempre pide confirmación con todas las cifras, la duración y el día y hora de fin.
+- Durante una obra, las casillas que solo esperan a la obra dicen «una a la vez»; las que además piden otra mejora
+  siguen con su candado.
+- Lectura nueva en el sim: `Upgrades.mult_if` (la velocidad con la mejora, para la cuenta de la consecuencia).
+
+Falta:
+- `owned_day` («Hecha el día 4»): la casilla dice «Construida»; guardar el día pide tocar el sim (opcional en el doc).
+- Destello al terminar la obra y globo de primera vez; `sfx_build_start` y `sfx_inspection` (sin créditos de audio).
+- El enlace «→ ver requisitos» del título al libro (*Reputación*): el detalle dice el título que falta y el que tienes.

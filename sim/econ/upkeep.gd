@@ -72,3 +72,22 @@ static func _charge(sim: Sim, b: String, fam: String, today: int) -> void:
 	elif str(bld.get("state", "")) == "normal":
 		Notices.add(sim, fam, Notices.WARNING, "notice.upkeep_unpaid",
 			{"building": b, "debt": left, "days": limit - days}, b)
+
+
+
+## What the next dawn will charge `fam`: every building's upkeep plus what it owes, and the wages of its employees
+## ({upkeep, wages, total}). Read only (the confirmation of a payment that leaves the gold under it, mercado_y_libro.md).
+static func due_next_dawn(sim: Sim, fam: String) -> Dictionary:
+	var st := sim.state
+	var upkeep := 0
+	var wages := 0
+	var ids: Array = st.buildings.keys()
+	ids.sort()
+	for b: String in ids:
+		if Money.family_of(st, b) != fam:
+			continue
+		var bld: Dictionary = st.buildings[b]
+		upkeep += int(sim.catalog.buildings().get(str(bld["type"]), {}).get("upkeep", 0)) + int(bld.get("upkeep_debt", 0))
+		for c: Variant in Staff.employees_of(st, b):
+			wages += Staff.wage(sim, str(c))
+	return {"upkeep": upkeep, "wages": wages, "total": upkeep + wages}

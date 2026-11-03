@@ -1,106 +1,172 @@
-[gd_scene load_steps=4 format=3 uid="uid://cixjb7v8psugm"]
+[gd_scene load_steps=5 format=3 uid="uid://cixjb7v8psugm"]
 
 [ext_resource type="Script" uid="uid://cu3kfps2dnn7o" path="res://game/ui/character_panel.gd" id="1_panel"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
 [ext_resource type="PackedScene" uid="uid://cdu6teiualv1o" path="res://game/ui/routine_editor.tscn" id="3_routine"]
+[ext_resource type="PackedScene" uid="uid://chhxxc42lci1g" path="res://game/ui/portrait_frame.tscn" id="4_frame"]
 
 [node name="CharacterPanel" type="PanelContainer"]
 visible = false
-custom_minimum_size = Vector2(230, 0)
-offset_right = 230.0
-offset_bottom = 200.0
+custom_minimum_size = Vector2(356, 430)
+offset_right = 356.0
+offset_bottom = 430.0
 theme = ExtResource("2_theme")
 script = ExtResource("1_panel")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 4
 
 [node name="Header" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
+theme_override_constants/separation = 6
 
-[node name="Title" type="Label" parent="VBox/Header"]
+[node name="Portrait" parent="VBox/Header" instance=ExtResource("4_frame")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HeadTexts" type="VBoxContainer" parent="VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Title" type="Label" parent="VBox/Header/HeadTexts"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"TitleLabel"
-size_flags_horizontal = 3
 text = "--"
+clip_text = true
+
+[node name="AgeLabel" type="Label" parent="VBox/Header/HeadTexts"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+clip_text = true
+
+[node name="GoldLabel" type="Label" parent="VBox/Header/HeadTexts"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+text = "--"
+clip_text = true
 
 [node name="CloseButton" type="Button" parent="VBox/Header"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 0
 focus_mode = 0
 text = "x"
 
-[node name="GoldLabel" type="Label" parent="VBox"]
+[node name="Tabs" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="InvTab" type="Button" parent="VBox/Tabs"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
+focus_mode = 0
+theme_type_variation = &"TabButton"
+toggle_mode = true
 text = "--"
 
-[node name="WeightLabel" type="Label" parent="VBox"]
+[node name="RoutineTab" type="Button" parent="VBox/Tabs"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"TabButton"
+toggle_mode = true
+text = "--"
+
+[node name="FamilyRow" type="HBoxContainer" parent="VBox/Tabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+alignment = 2
+
+[node name="TreeButton" type="Button" parent="VBox/Tabs/FamilyRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+
+[node name="CourtButton" type="Button" parent="VBox/Tabs/FamilyRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+
+[node name="KinAiButton" type="Button" parent="VBox/Tabs/FamilyRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+
+[node name="InvPage" type="VBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="SlotsLabel" type="Label" parent="VBox/InvPage"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "--"
+
+[node name="Slots" type="VBoxContainer" parent="VBox/InvPage"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="InvSep" type="HSeparator" parent="VBox/InvPage"]
+layout_mode = 2
+
+[node name="WeightLabel" type="Label" parent="VBox/InvPage"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "--"
 
-[node name="WeightBar" type="ProgressBar" parent="VBox"]
+[node name="WeightBar" type="ProgressBar" parent="VBox/InvPage"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 5)
+custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
 max_value = 1.0
 step = 0.0
 show_percentage = false
 
-[node name="SlotsLabel" type="Label" parent="VBox"]
+[node name="InvLabel" type="Label" parent="VBox/InvPage"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_type_variation = &"CaptionLabel"
 text = "--"
 
-[node name="Slots" type="VBoxContainer" parent="VBox"]
+[node name="InvList" type="GridContainer" parent="VBox/InvPage"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 1
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+columns = 10
 
-[node name="InvLabel" type="Label" parent="VBox"]
+[node name="ValueLabel" type="Label" parent="VBox/InvPage"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_type_variation = &"DimLabel"
 text = "--"
+autowrap_mode = 3
 
-[node name="InvList" type="VBoxContainer" parent="VBox"]
+[node name="RoutinePage" type="ScrollContainer" parent="VBox"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
-theme_override_constants/separation = 1
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
-[node name="FamilyRow" type="HBoxContainer" parent="VBox"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="AgeLabel" type="Label" parent="VBox/FamilyRow"]
+[node name="RoutineEditor" parent="VBox/RoutinePage" instance=ExtResource("3_routine")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "--"
-
-[node name="TreeButton" type="Button" parent="VBox/FamilyRow"]
-unique_name_in_owner = true
-layout_mode = 2
-focus_mode = 0
-text = "--"
-
-[node name="CourtButton" type="Button" parent="VBox/FamilyRow"]
-unique_name_in_owner = true
-layout_mode = 2
-focus_mode = 0
-text = "--"
-
-[node name="KinAiButton" type="Button" parent="VBox/FamilyRow"]
-unique_name_in_owner = true
-layout_mode = 2
-focus_mode = 0
-text = "--"
-
-[node name="RoutineEditor" parent="VBox" instance=ExtResource("3_routine")]
-unique_name_in_owner = true
-layout_mode = 2
