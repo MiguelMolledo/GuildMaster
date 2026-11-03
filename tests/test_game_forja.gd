@@ -303,19 +303,18 @@ func test_storage_panel_transfer() -> void:
 	(v.get_node("%StorageButton") as Button).toggled.emit(true)
 	var panel := v.storage_panel()
 	check(panel.visible, "the storage panel opens from the toolbar")
-	var row := panel.row_of("iron", 0, true)
-	check(row != null, "a row for the iron")
-	(row.get_node("Qty") as SpinBox).value = 3
-	(row.get_node("Move") as Button).pressed.emit()
-	_same(got[0], {"type": "transfer", "actor": HUGO, "from": BLD, "to": HUGO, "item": "iron", "quality": 0, "qty": 3},
-		"take 3 iron")
+	var row := panel.row_of("iron", 0, true) as ItemSlot
+	check(row != null, "a square for the iron")
+	var fits := Inventory.fit_count(sim.state.characters[HUGO]["inventory"], cat, "iron", 0, row.qty)
+	row.clicked.emit(row, false)   # a click: all that fits (docs/ui/mecanicas/almacen_y_personaje.md §4.1)
+	_same(got[0], {"type": "transfer", "actor": HUGO, "from": BLD, "to": HUGO, "item": "iron", "quality": 0, "qty": fits},
+		"take the iron that fits")
 	eq(_refusals(sim.step(got)).size(), 0, "the sim takes it")
-	eq(Inventory.count(sim.state.characters[HUGO]["inventory"], "iron"), 3, "Hugo carries 3 iron")
+	eq(Inventory.count(sim.state.characters[HUGO]["inventory"], "iron"), fits, "Hugo carries it")
 	panel.refresh(true)
-	var back := panel.row_of("iron", 0, false)
-	check(back != null, "Hugo's row")
-	(back.get_node("Qty") as SpinBox).value = 1
-	(back.get_node("Move") as Button).pressed.emit()
+	var back := panel.row_of("iron", 0, false) as ItemSlot
+	check(back != null, "Hugo's square")
+	back.clicked.emit(back, true)   # a right click: 1
 	_same(got[1], {"type": "transfer", "actor": HUGO, "from": HUGO, "to": BLD, "item": "iron", "quality": 0, "qty": 1},
 		"leave 1 iron")
 	check(panel.get_node_or_null("%BuyButton") == null, "no raw purchase in the storage since the market (H3)")
@@ -332,9 +331,9 @@ func test_storage_shows_quality_as_suffix() -> void:
 	_add(sim.state.buildings[BLD]["inventory"], "sword", 1, 1)
 	var v := _interior(sim)
 	v.show_storage(true)
-	var row := v.storage_panel().row_of("sword", 1, true)
-	check(row != null and (row.get_node("Name") as Label).text.begins_with("Espada buena"), "the row reads Espada buena")
-	check(row.get_node_or_null("Icon") is TextureRect, "the row starts with the sword's icon")
+	var row := v.storage_panel().row_of("sword", 1, true) as ItemSlot
+	check(row != null and row.tooltip_text.begins_with("Espada buena"), "the square's tooltip reads Espada buena")
+	check(row.quality == 1 and row.state == "item", "with its quality (the silver dot)")
 	TranslationServer.set_locale(before)
 	v.free()
 

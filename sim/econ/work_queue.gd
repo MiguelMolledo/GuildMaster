@@ -577,6 +577,17 @@ static func _finished(e: Dictionary) -> bool:
 ## The queue of `bld` for the production panel: {entries: [{id, recipe, qty, done, status}], loop, paused, stalled}.
 ## status: "ok" | "working" | the reason it is skipped ("missing_inputs", "storage_full", "skill_too_low",
 ## "needs_upgrade", "no_worker"); stalled: "" or why nothing can be made ("empty_queue" or an entry's reason).
+## How many units of `recipe` the building's storage allows now, from its direct inputs (the production panel's
+## «da para N»). Read only.
+static func can_make(sim: Sim, bld: String, recipe: String) -> int:
+	var inv: Dictionary = sim.state.buildings.get(bld, {}).get("inventory", {})
+	var r: Dictionary = sim.catalog.recipes().get(recipe, {})
+	var n := 1 << 30
+	for inp: Dictionary in r.get("inputs", []):
+		n = mini(n, Inventory.count(inv, str(inp["item"])) / maxi(1, int(inp["qty"])))
+	return 0 if n == 1 << 30 else n
+
+
 static func view(sim: Sim, bld: String) -> Dictionary:
 	var q: Dictionary = sim.state.buildings.get(bld, {}).get("queue", {})
 	var entries: Array = []
