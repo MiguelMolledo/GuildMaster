@@ -195,35 +195,51 @@ izquierda; `GroupBar` con retratos debajo; `FamilyPanel` arriba en el centro (t�
 abajo en el centro; `NoticePopups`; `PausedLabel` grande en el centro; `HelpLabel` en el borde de abajo; los paneles
 de gestión salen cada uno donde quiere (el libro en el centro, encima del `BuildingPanel`).
 
-- [ ] Fijar las zonas: un `Control` por zona en `hud.tscn` con sus anclas y el rect de la tabla (o márgenes), y que
+- [x] Fijar las zonas: un `Control` por zona en `hud.tscn` con sus anclas y el rect de la tabla (o márgenes), y que
       los paneles se metan en su zona en vez de posicionarse solos.
-- [ ] Fundir `SelectedPanel` y `GroupBar` en la **ficha** (zona 1): retratos 1-2-3 + datos del activo; el oro y el
+- [x] Fundir `SelectedPanel` y `GroupBar` en la **ficha** (zona 1): retratos 1-2-3 + datos del activo; el oro y el
       título pasan de `FamilyPanel` a la ficha.
-- [ ] `FamilyPanel` → **barra de estado** (zona 2): deuda con barra, botones con icono y tecla, Menú.
-- [ ] `PausedLabel` → rótulo pequeño bajo la barra de estado.
-- [ ] `ObjectivePanel` → siempre en la columna izquierda (zona 4), con la cola de órdenes debajo (sale de la ficha).
-- [ ] Panel de gestión único (zona 5): `MarketPanel`, `BoardPanel`, `LedgerPanel`, `NpcPanel`, `TownHallPanel` y los
+- [x] `FamilyPanel` → **barra de estado** (zona 2): deuda con barra, botones con icono y tecla, Menú.
+- [x] `PausedLabel` → rótulo pequeño bajo la barra de estado.
+- [x] `ObjectivePanel` → siempre en la columna izquierda (zona 4), con la cola de órdenes debajo (sale de la ficha).
+- [x] Panel de gestión único (zona 5): `MarketPanel`, `BoardPanel`, `LedgerPanel`, `NpcPanel`, `TownHallPanel` y los
       del interior se abren en esa caja; abrir uno cierra el otro.
-- [ ] `BuildingPanel` → **selección** (zona 6) para edificio, persona o parcela; en el interior, barra del edificio con
+- [x] `BuildingPanel` → **selección** (zona 6) para edificio, persona o parcela; en el interior, barra del edificio con
       Producción / Almacén / Empleados / Mejoras / Salir (se quita la barra del interior de arriba a la derecha).
-- [ ] `NoticePopups` → zona 7, con gravedades aviso y cumplido además de urgente; franja e icono.
-- [ ] Quitar `HelpLabel`; la ayuda F1 gana el bloque «Ahora mismo».
-- [ ] Mapa de entrada: `speed_1..3` a Mayús+1..3; acciones nuevas `build_mode`, `panel_production`… para las teclas
+- [x] `NoticePopups` → zona 7, con gravedades aviso y cumplido además de urgente; franja e icono.
+- [x] Quitar `HelpLabel`; la ayuda F1 gana el bloque «Ahora mismo».
+- [x] Mapa de entrada: `speed_1..3` a Mayús+1..3; acciones nuevas `build_mode`, `panel_production`… para las teclas
       propuestas.
-- [ ] Cámara: desplazar para que lo seleccionado no quede bajo las zonas 5 y 6.
-- [ ] Menú de pausa (Esc sin nada abierto), según [02](02_menu_inicial.md).
+- [x] Cámara: desplazar para que lo seleccionado no quede bajo las zonas 5 y 6.
+- [ ] Menú de pausa (Esc sin nada abierto), según [02](02_menu_inicial.md). El HUD ya lo pide: `hud.pause_menu_requested` (Esc sin nada abierto o el botón Menú); la escena es de la rama de menús.
 
 ## 13. Criterios de aceptación
 
-- [ ] Con la Forja seleccionada en el mapa y el libro abierto, el panel del edificio se ve entero (captura
+- [x] Con la Forja seleccionada en el mapa y el libro abierto, el panel del edificio se ve entero (captura
       `ui_hud_libro.png`).
-- [ ] En ninguna captura de `--smoke-script=rebanada` dos paneles fijos se solapan (se puede comprobar con los rects de
+- [x] En ninguna captura de `--smoke-script=rebanada` dos paneles fijos se solapan (se puede comprobar con los rects de
       las zonas en una prueba de `HudLayout`).
-- [ ] Dentro de la forja en pausa con 2 órdenes, se ven el objetivo y las 2 órdenes sin solaparse ni salirse de la
+- [x] Dentro de la forja en pausa con 2 órdenes, se ven el objetivo y las 2 órdenes sin solaparse ni salirse de la
       columna.
-- [ ] Llegan 4 avisos urgentes seguidos: se ven 3 y el cuarto está en el libro.
+- [x] Llegan 4 avisos urgentes seguidos: se ven 3 y el cuarto está en el libro.
 - [ ] Esc cierra en el orden de la sección 2 y, con nada abierto, abre el menú de pausa (que sí pausa).
-- [ ] Todas las teclas de la tabla funcionan y salen en la ayuda F1.
+- [x] Todas las teclas de la tabla funcionan y salen en la ayuda F1 (salvo F5 / F9, que son de guardar y cargar: rama de menús).
+
+## Implementado (rama ui-hud, 2026-11-03)
+
+Capturas reales: `maquetas/hud_hoy_mapa.png`, `hud_hoy_libro.png`, `hud_hoy_avisos.png`, `hud_hoy_ayuda.png`,
+`hud_hoy_interior.png` y `hud_hoy_produccion.png` (`--smoke-script=hud`, que también comprueba los criterios de §13), y
+cada panel en su zona con `--smoke-script=paneles` (`reports/shots/ui_panel_<id>.png`).
+
+- Zonas: `HudLayout.ZONES` (`game/ui/hud_layout.gd`), una caja por zona en `hud.tscn`; los paneles de gestión van dentro
+  de `ManageZone` (zona 5), el árbol, los cargos y el juicio dentro de `ModalZone` (912×440 sobre el velo) y, en el
+  interior, almacén, producción y empleados en la zona 5 y el árbol de mejoras en el panel ancho `[244, 58, 712, 430]`
+  (`_comun.md`). Las tarjetas (microevento) van en la columna, bajo el objetivo (`_social.md`).
+- Un solo panel a la vez: `ManageSlot` (grupo `manage_panel`), el del HUD y el del interior juntos.
+- Teclas: `HudKeys` las registra en el mapa de entrada al arrancar (ver la desviación en el informe de la rama:
+  `project.godot` no se comparte entre ramas); Esc sin nada abierto emite `pause_menu_requested`.
+- Avisos: urgente (hasta clic o abrir el libro), aviso (8 s) y cumplido (5 s, claves en `data/view.json`
+  `notices.done_keys`); como mucho 3.
 
 ## Decisiones que necesitan al owner
 

@@ -197,9 +197,9 @@ Bus `Ui` (`default_bus_layout.tres`). Ids de `data/audio.json`:
 | Aviso / urgente | `sfx_notice` / `sfx_alarm` | existe |
 | Oro que entra (compra, venta) | `sfx_coins`, `sfx_sale` | existe |
 | Objetivo cumplido / fallado | `sfx_objective_done` / `sfx_objective_failed` | existe |
-| Acción no permitida (botón apagado pulsado) | `sfx_ui_denied` | **falta** |
-| Cambiar de pestaña | `sfx_ui_tab` (o `sfx_ui_click` más grave) | **falta** (opcional) |
-| Confirmar algo caro (sello) | `sfx_ui_seal` | **falta** |
+| Acción no permitida (botón apagado pulsado) | `sfx_ui_denied` | existe (el botón además tiembla: `UiFeel`) |
+| Cambiar de pestaña | `sfx_ui_tab` (TabBar, TabContainer y botones `TabButton`) | existe |
+| Confirmar algo caro (sello) | `sfx_ui_seal` (empezar mejora, título, cargo, encargo aceptado, heredero) | existe |
 | Pasar el ratón por encima | — | sin sonido (cansa) |
 
 Los que faltan se generan cuando haya créditos de ElevenLabs (tope del owner: 20.000; se renuevan el día 20).
@@ -208,7 +208,7 @@ Los que faltan se generan cuando haya créditos de ElevenLabs (tope del owner: 2
 
 Tareas pequeñas, en este orden (ninguna toca `sim/`):
 
-- [ ] Theme: `Label`, `RichTextLabel`, `LineEdit`, `PopupMenu`, `TooltipLabel` con Pixel Operator 16 y
+- [x] Theme: `Label`, `RichTextLabel`, `LineEdit`, `PopupMenu`, `TooltipLabel` con Pixel Operator 16 y
       `line_spacing = -3`; `Button` con Pixel Operator Bold 16 (sustituye a Silkscreen 8); `default_font` del theme =
       Pixel Operator 16.
 - [x] Theme: variaciones nuevas ya en `greybox_theme.tres` (no cambian nada de lo que hay; se usan poniendo su nombre
@@ -216,13 +216,13 @@ Tareas pequeñas, en este orden (ninguna toca `sim/`):
       16, `line_spacing` −3), `SmallLabel` (Pixel Operator 8, tenue), `InkLabel` (tinta, para pergamino),
       `ParchmentPanel` (pieza `parchment`), `DarkPanel` (sección oscura). Sirven para probar la fuente en un panel
       antes de cambiarla en todo el theme.
-- [ ] Theme: `CheckBox` (`check_on`/`check_off`), `HSlider` (`slider_track`/`slider_grabber`), `VScrollBar`
+- [x] Theme: `CheckBox` (`check_on`/`check_off`), `HSlider` (`slider_track`/`slider_grabber`), `VScrollBar`
       (`scroll_track`/`scroll_grabber`), `TabBar`/`TabContainer` (`tab_on`/`tab_off`), `HSeparator` (`divider`).
-- [ ] Revisar cada panel de `game/ui/` contra la rejilla de 4 y los tamaños de la sección 2 (los que fuerzan
+- [x] Revisar cada panel de `game/ui/` contra la rejilla de 4 y los tamaños de la sección 2 (los que fuerzan
       `font_size` o colores a mano, quitarlos para que mande el theme).
-- [ ] Cursores ×2 y `Input.set_custom_mouse_cursor` (arrow, hand sobre lo clicable, wait al cargar).
+- [x] Cursores ×2 y `Input.set_custom_mouse_cursor` (arrow, hand sobre lo clicable, wait al cargar).
 - [ ] Animaciones de la sección 8 (un solo script de transiciones para todos los paneles).
-- [ ] Sonidos que faltan en `data/audio.json` (con su fichero cuando haya créditos).
+- [x] Sonidos que faltan en `data/audio.json` (con su fichero cuando haya créditos).
 
 ## 12. Criterios de aceptación
 

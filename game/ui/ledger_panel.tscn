@@ -24,11 +24,12 @@ layout_mode = 2
 theme_type_variation = &"TitleLabel"
 size_flags_horizontal = 3
 text = "--"
+clip_text = true
 
 [node name="GoldLabel" type="Label" parent="VBox/Header"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
+theme_type_variation = &"GoldLabel"
 text = "--"
 
 [node name="CloseButton" type="Button" parent="VBox/Header"]
@@ -37,10 +38,11 @@ layout_mode = 2
 focus_mode = 0
 text = "x"
 
-[node name="Tabs" type="HBoxContainer" parent="VBox"]
+[node name="Tabs" type="HFlowContainer" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
 
 [node name="Scroll" type="ScrollContainer" parent="VBox"]
 layout_mode = 2

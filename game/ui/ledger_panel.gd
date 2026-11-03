@@ -28,7 +28,7 @@ func _bind() -> void:
 		return
 	_bound = true
 	(%CloseButton as Button).pressed.connect(close)
-	var tabs := %Tabs as HBoxContainer
+	var tabs := %Tabs as Container
 	var group := ButtonGroup.new()
 	for t: String in TABS:
 		var b := Button.new()
@@ -36,13 +36,13 @@ func _bind() -> void:
 		b.toggle_mode = true
 		b.button_group = group
 		b.focus_mode = Control.FOCUS_NONE
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.theme_type_variation = &"TabButton"   # the kit's tab (docs/ui/00 §5) and its sound (ui.tab)
 		b.pressed.connect(func() -> void: show_tab(t))
 		tabs.add_child(b)
 
 
 func tab_button(t: String) -> Button:
-	return (%Tabs as HBoxContainer).get_node_or_null(t.capitalize().replace(" ", "")) as Button
+	return (%Tabs as Container).get_node_or_null(t.capitalize().replace(" ", "")) as Button
 
 
 func open_for(s: Sim, fam: String, who: String, start_tab: String = "") -> void:
@@ -205,6 +205,7 @@ func _line(left: String, right: String, n: String = "") -> HBoxContainer:
 	var a := Label.new()
 	a.text = left
 	a.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	a.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART   # fits the management zone (356)
 	row.add_child(a)
 	var b := Label.new()
 	b.text = right
@@ -335,7 +336,6 @@ func _fill_notices(d: Variant) -> void:
 		b.add_theme_color_override("font_color", ViewConfig.color(str(colors.get(str(n.get("severity", "info")), "#d8d0c0"))))
 		b.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		b.clip_text = true
-		b.custom_minimum_size = Vector2(400, 0)
 		var notice := n.duplicate(true)
 		b.pressed.connect(func() -> void: notice_clicked.emit(notice))
 		(%Content as VBoxContainer).add_child(b)

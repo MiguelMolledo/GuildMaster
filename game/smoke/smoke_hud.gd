@@ -81,7 +81,12 @@ func _process(delta: float) -> void:
 			if _t > 0.8:
 				app.save_shot("hud_hoy_mapa")
 				_check(_fixed_overlaps().is_empty(), "no fixed zones overlap on the map (%s)" % [_fixed_overlaps()])
+				for pair: Array in [["card", "%Card"], ["status", "%StatusBar"], ["clock", "%ClockPanel"]]:
+					var r := _rect(str(pair[1]))
+					_check((HudLayout.ZONES[pair[0]] as Rect2).grow(0.5).encloses(r), "%s fits its zone (%s)" % [pair[0], r])
 				_check(_rect("%SelectionBar").has_area(), "the forge in the selection bar")
+				_check((HudLayout.ZONES["selection"] as Rect2).grow(0.5).encloses(_rect("%SelectionBar")),
+					"the selection bar inside zone 6 (%s)" % _rect("%SelectionBar"))
 				app.world().pick_building_id("")
 				# Hugo where the book will open: the camera must move him out from under it (§4.6)
 				var cam: WorldCamera = app.world().camera()
@@ -105,8 +110,10 @@ func _process(delta: float) -> void:
 			if _t > 0.6:
 				app.save_shot("hud_hoy_libro")
 				var book: Rect2 = (hud.call("ledger_panel") as Control).get_global_rect()
-				_check(hud.ledger_panel().visible and not book.intersects(_rect("%SelectionBar")),
-					"with the book open the forge's bar is seen whole (book=%s)" % book)
+				var bar := _rect("%SelectionBar")
+				_check(hud.ledger_panel().visible and bar.has_area() and not book.intersects(bar),
+					"with the book open the forge's bar is seen whole (book=%s, bar=%s, open=%s)" % [book, bar,
+					hud.ledger_panel().visible])
 				var fam := SimQuery.player_family(Game.sim.state)
 				for i: int in 4:
 					hud.call("_on_notice", {"type": "notice_added", "family": fam, "severity": "urgent",
@@ -168,6 +175,8 @@ func _process(delta: float) -> void:
 				_check(queue.has_area() and not obj.intersects(queue), "objective and orders do not overlap (%s, %s)" % [obj, queue])
 				_check(zone.grow(1).encloses(obj) and zone.grow(1).encloses(queue), "both inside the column %s" % zone)
 				_check(_rect("%SelectionBar") == Rect2(), "inside, the HUD's selection bar gives way to the building's")
+				var ibar: Rect2 = (app.interior().get_node("%BuildingBar") as Control).get_global_rect()
+				_check((HudLayout.ZONES["selection"] as Rect2).grow(0.5).encloses(ibar), "the building's bar in zone 6 (%s)" % ibar)
 				app.interior().show_production(true)
 				_go("production")
 		"production":

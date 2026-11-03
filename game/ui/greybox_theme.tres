@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=60 format=3 uid="uid://bsmlccu1dtv2v"]
+[gd_resource type="Theme" load_steps=62 format=3 uid="uid://bsmlccu1dtv2v"]
 
 [ext_resource type="Texture2D" uid="uid://55w2uwcmn4ky" path="res://assets/art/ui/theme/panel.png" id="panel"]
 [ext_resource type="Texture2D" uid="uid://bqd15odjsdvmm" path="res://assets/art/ui/theme/button_normal.png" id="button_normal"]
@@ -30,6 +30,28 @@ content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
+texture = ExtResource("panel")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="bar_panel"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+texture = ExtResource("panel")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="hud_panel"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
 texture = ExtResource("panel")
 texture_margin_left = 6.0
 texture_margin_top = 6.0
@@ -442,6 +464,10 @@ ParchmentPanel/base_type = &"PanelContainer"
 ParchmentPanel/styles/panel = SubResource("parchment_box")
 DarkPanel/base_type = &"PanelContainer"
 DarkPanel/styles/panel = SubResource("dark_box")
+HudPanel/base_type = &"PanelContainer"
+HudPanel/styles/panel = SubResource("hud_panel")
+BarPanel/base_type = &"PanelContainer"
+BarPanel/styles/panel = SubResource("bar_panel")
 RowPanel/base_type = &"PanelContainer"
 RowPanel/styles/panel = SubResource("row")
 KeyCap/base_type = &"PanelContainer"
@@ -537,7 +563,7 @@ HSlider/styles/grabber_area = SubResource("slider_fill")
 HSlider/styles/grabber_area_highlight = SubResource("slider_fill")
 TitleLabel/base_type = &"Label"
 TitleLabel/colors/font_color = Color(0.784314, 0.658824, 0.305882, 1)
-TitleLabel/constants/line_spacing = 0
+TitleLabel/constants/line_spacing = -4
 TitleLabel/fonts/font = ExtResource("font_title")
 TitleLabel/font_sizes/font_size = 13
 BodyLabel/base_type = &"Label"

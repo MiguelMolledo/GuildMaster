@@ -66,10 +66,10 @@ func refresh(force: bool = false) -> void:
 		list.add_child(l)
 	var min_aff := int(sim.catalog.family.get("courtship", {}).get("propose_min", 80))
 	for c: Dictionary in cands:
-		var row := HBoxContainer.new()
+		var row := HFlowContainer.new()   # name, affinity and, under them, the buttons: fits the management zone (356)
 		row.name = str(c["character"])
 		var info := Label.new()
-		info.custom_minimum_size = Vector2(150, 0)
+		info.custom_minimum_size = Vector2(200, 0)
 		info.text = "%s · %s · %d" % [c["name"], str(sim.state.families.get(str(c["family"]), {}).get("name", "")), int(c["age"])]
 		row.add_child(info)
 		var bar := ProgressBar.new()

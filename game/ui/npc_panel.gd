@@ -176,6 +176,9 @@ func _accuse_row() -> Control:
 	var ob := OptionButton.new()
 	ob.name = "AccusePick"
 	ob.focus_mode = Control.FOCUS_NONE
+	ob.clip_text = true   # fits the management zone (356): the long charges are cut, the tooltip has them
+	ob.fit_to_longest_item = false
+	ob.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for e: Dictionary in entries:
 		ob.add_item(str(e["text"]))
 	if not entries.is_empty():
