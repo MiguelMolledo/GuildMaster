@@ -1,23 +1,29 @@
 class_name FamilyTreePanel
 extends PanelContainer
-## The family tree (GDD 4.10.7, key F): an overlay that does not pause. Founder at the top, descendants below, spouses
-## beside them joined by a line with a ring, children hanging from the couple; scroll and zoom (+/−). Each node: portrait
-## (family colours, the person's hair and skin: GDD 4.10.9), name, age (or age at death), class; gold ring =
-## controllable, grey = not, faded with a cross = dead, crown = heir, highlighted = active. A click opens the side
-## sheet: attributes and the actions Designate heir, Assign building, Switch to this person, the school choice and
-## Court. Below, the dynasty: generation, score and goals (GDD 4.17), and the voluntary close only when the data
-## allows it (D19). Only reads the state and gives orders (order_sink); the lines are ColorRect nodes.
+## The family tree (GDD 4.10.7, key F; docs/ui/mecanicas/familia.md), a big modal that does not pause. Header: the
+## family's ribbon, name, title badge, generation and score, the tabs Árbol / Dinastía and, when nobody can inherit,
+## a red band «Sin heredero: si Hugo muere, la dinastía termina» (the Game Over rule of 4.10.4). The tree: founder at
+## the top, spouses beside joined by a line with a ring, children hanging from the couple; zoom −/+ and «Centrar en el
+## cabeza». Each node: portrait (family colours, the person's hair and skin: 4.10.9), name, age (or † age), a row of
+## badges (key 1-2-3, office, school pending «!», regent) and in its tooltip the role and the death risk this year as
+## a band (Lifecycle.death_chance: bajo < 5 % · medio < 15 % · alto). The side sheet (220 px): portrait 64, roles,
+## the stats as bars 1-10, where it works and the actions Switch, Routine (the family AI), Designate heir (asks
+## first; off with its reason), the school choice (asks first) and Court. The Dinastía tab: the score by kind, the
+## goals with their box, the heads with their days and the voluntary close only when the data allows it (D19). Only
+## reads the state and gives orders (order_sink); the lines are ColorRect nodes.
 
 signal switch_requested(id: String)
 signal court_requested(id: String)
 signal kin_ai_requested(id: String)  # H14: the AI of the picked member
 signal closed
 
-const NODE_W: float = 112.0
-const NODE_H: float = 48.0
-const GAP: float = 16.0
-const VGAP: float = 28.0
-const LINE: Color = Color(0.85, 0.75, 0.5)
+const NODE_W: float = 120.0
+const NODE_H: float = 44.0
+const GAP: float = 24.0
+const VGAP: float = 32.0
+const LINE: Color = Color(0.784314, 0.658824, 0.305882)
+const STATS: Array[String] = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial",
+	"constitution", "rhetoric", "stealth"]
 
 var order_sink: Callable = Callable()
 var sim: Sim
@@ -26,6 +32,7 @@ var actor: String = ""      # who gives the orders (the selected person or the h
 var active: String = ""     # the selected person on the map
 var picked: String = ""     # the person of the side sheet
 var zoom: float = 1.0
+var tab: String = "tree"    # "tree" | "dynasty"
 var _sig: String = ""
 var _bound: bool = false
 var _node_scene: PackedScene = preload("res://game/ui/family_tree_node.tscn")
@@ -38,13 +45,20 @@ func _bind() -> void:
 	(%CloseButton as Button).pressed.connect(close)
 	(%ZoomIn as Button).pressed.connect(func() -> void: set_zoom(zoom + 0.25))
 	(%ZoomOut as Button).pressed.connect(func() -> void: set_zoom(zoom - 0.25))
-	(%HeirButton as Button).pressed.connect(func() -> void: _give({"type": "designate_heir", "actor": actor, "heir": picked}))
+	(%HeirButton as Button).pressed.connect(request_heir)
 	(%SwitchButton as Button).pressed.connect(func() -> void: switch_requested.emit(picked))
 	(%CourtButton as Button).pressed.connect(func() -> void: court_requested.emit(picked))
 	(%KinAiButton as Button).pressed.connect(func() -> void: kin_ai_requested.emit(picked))
-	(%SchoolButton as Button).pressed.connect(_school)
+	(%SchoolButton as Button).pressed.connect(request_school)
+	(%SchoolOption as OptionButton).item_selected.connect(func(_i: int) -> void: _school_preview())
 	(%AssignOption as OptionButton).item_selected.connect(_assign)
-	(%CloseDynasty as Button).pressed.connect(func() -> void: _give({"type": "close_dynasty", "actor": actor}))
+	(%CloseDynasty as Button).pressed.connect(func() -> void:
+		SocialKit.ask(self, SimQuery.t_("ui.pause.close_q"), SimQuery.t_("ui.pause.close_body"),
+			SimQuery.t_("ui.pause.close_yes"), func() -> void: _give({"type": "close_dynasty", "actor": actor}),
+			SimQuery.t_("ui.menu.cannot_undo")))
+	(%TabTree as Button).pressed.connect(func() -> void: show_tab("tree"))
+	(%TabDynasty as Button).pressed.connect(func() -> void: show_tab("dynasty"))
+	(%CenterButton as Button).pressed.connect(center_on_head)
 
 
 func setup(s: Sim, family: String, who: String) -> void:
@@ -56,16 +70,20 @@ func setup(s: Sim, family: String, who: String) -> void:
 		else Kin.head(s.state, family)
 	if picked == "" or not s.state.characters.has(picked) or str(s.state.characters[picked].get("family", "")) != family:
 		picked = actor
-	(%Title as Label).text = SimQuery.t_("ui.family.title_rank") % [str(s.state.families.get(family, {}).get("name", "")),
-		SimQuery.title_name(Titles.current(s, family)).capitalize()]  # H9: the family's title
 	(%HeirButton as Button).text = SimQuery.t_("ui.family.designate_heir")
-	(%SwitchButton as Button).text = SimQuery.t_("ui.family.switch")
+	(%SwitchButton as Button).text = SimQuery.t_("ui.family.switch_short")
 	(%CourtButton as Button).text = SimQuery.t_("ui.family.court")
-	(%KinAiButton as Button).text = SimQuery.t_("ui.kin_ai.button")
-	(%SchoolButton as Button).text = SimQuery.t_("ui.family.school")
+	(%KinAiButton as Button).text = SimQuery.t_("ui.family.routine")
+	(%SchoolButton as Button).text = SimQuery.t_("ui.family.school_pick")
 	(%AssignLabel as Label).text = SimQuery.t_("ui.family.assign")
 	(%GoalsTitle as Label).text = SimQuery.t_("ui.family.goals")
+	(%HeadsTitle as Label).text = SimQuery.t_("ui.family.heads")
+	(%ScoreTitle as Label).text = SimQuery.t_("ui.ending.score_title")
 	(%CloseDynasty as Button).text = SimQuery.t_("ui.family.close_dynasty")
+	(%TabTree as Button).text = SimQuery.t_("ui.family.tab_tree")
+	(%TabDynasty as Button).text = SimQuery.t_("ui.family.tab_dynasty")
+	(%CenterButton as Button).text = SimQuery.t_("ui.family.center")
+	(%Legend as Label).text = SimQuery.t_("ui.family.legend")
 	refresh(true)
 
 
@@ -90,6 +108,25 @@ func pick(id: String) -> void:
 	refresh(true)
 
 
+func show_tab(t: String) -> void:
+	tab = t
+	(%TreePage as Control).visible = t == "tree"
+	(%DynastyPage as Control).visible = t == "dynasty"
+	(%TabTree as Button).set_pressed_no_signal(t == "tree")
+	(%TabDynasty as Button).set_pressed_no_signal(t == "dynasty")
+
+
+## Scrolls the tree so the head of the family is in the middle of the view.
+func center_on_head() -> void:
+	var h := Kin.head(sim.state, fam) if sim != null else ""
+	var n := (%Canvas as Control).get_node_or_null(h) as Control
+	if n == null:
+		return
+	var sc := %Scroll as ScrollContainer
+	sc.scroll_horizontal = int(maxf(0.0, n.position.x + NODE_W * zoom / 2.0 - sc.size.x / 2.0))
+	sc.scroll_vertical = int(maxf(0.0, n.position.y + NODE_H * zoom / 2.0 - sc.size.y / 2.0))
+
+
 func _process(_delta: float) -> void:
 	if visible:
 		refresh()
@@ -100,24 +137,56 @@ func refresh(force: bool = false) -> void:
 		return
 	var st := sim.state
 	var f: Dictionary = st.families.get(fam, {})
-	var sig := "%s|%s|%s|%s|%s|%s|%d|%s|%s" % [f.get("members", []), f.get("head", ""), Kin.heir(sim, fam),
+	var sig := "%s|%s|%s|%s|%s|%s|%d|%s|%s|%s" % [f.get("members", []), f.get("head", ""), Kin.heir(sim, fam),
 		f.get("regent", ""), active, picked, Clock.year(int(st.clock["minute"]), sim.catalog.time), zoom,
-		_people_sig(st, f)]
+		_people_sig(st, f), tab]
 	if sig == _sig and not force:
 		return
 	_sig = sig
+	_build_header()
 	_build_tree()
 	_build_sheet()
 	_build_dynasty()
+	show_tab(tab)
 
 
 func _people_sig(st: WorldState, f: Dictionary) -> String:
 	var parts: PackedStringArray = []
 	for m: Variant in f.get("members", []):
 		var ch: Dictionary = st.characters.get(str(m), {})
-		parts.append("%s%s%s%s%s" % [ch.get("alive", true), ch.get("controlled_by", ""), ch.get("spouse", ""),
-			(ch.get("children", []) as Array).size(), ch.get("life", {}).get("school", "") if ch.get("life") is Dictionary else ""])
+		parts.append("%s%s%s%s%s%s" % [ch.get("alive", true), ch.get("controlled_by", ""), ch.get("spouse", ""),
+			(ch.get("children", []) as Array).size(), ch.get("life", {}).get("school", "") if ch.get("life") is Dictionary else "",
+			ch.get("stats", {})])
 	return ",".join(parts)
+
+
+# --- Header ----------------------------------------------------------------------------------------------------------
+
+func _build_header() -> void:
+	var st := sim.state
+	var f: Dictionary = st.families.get(fam, {})
+	var slot := %RibbonSlot as Control
+	SocialKit.clear(slot)
+	slot.add_child(SocialKit.ribbon(st, fam, Vector2(10, 26)))
+	(%Title as Label).text = SimQuery.t_("ui.family.title") % str(f.get("name", ""))
+	var title := Titles.current(sim, fam)
+	(%TitleBadge as TextureRect).texture = UiIcons.mark("badge_title_" + title)
+	var t := SimQuery.title_name(title)
+	(%Subtitle as Label).text = SimQuery.t_("ui.family.subtitle") % [t.substr(0, 1).to_upper() + t.substr(1),
+		int(f.get("generation", 1)), int(Dynasty.score(sim, fam)["total"])]
+	var heir := Kin.heir(sim, fam)
+	var head := str(f.get("head", ""))
+	(%NoHeir as Control).visible = heir == "" and head != ""
+	(%NoHeirLabel as Label).text = SimQuery.t_("ui.family.no_heir") % str(st.characters.get(head, {}).get("name", ""))
+
+
+## The risk band of dying this year (bajo / medio / alto), never the number (familia.md §3).
+static func risk_band(chance: float) -> String:
+	if chance < 0.05:
+		return "low"
+	if chance < 0.15:
+		return "medium"
+	return "high"
 
 
 # --- Layout ------------------------------------------------------------------------------------------------------------
@@ -300,12 +369,20 @@ func _line(canvas: Control, a: Vector2, b: Vector2) -> void:
 func _build_sheet() -> void:
 	var st := sim.state
 	var ch: Dictionary = st.characters.get(picked, {})
+	var slot := %SheetPortrait as Control
+	SocialKit.clear(slot)
+	if not ch.is_empty():
+		var frame := SocialKit.portrait(st, picked, {"controlled": str(ch.get("controlled_by", "")) == "human",
+			"heir": picked == Kin.heir(sim, fam)})
+		frame.scale = Vector2(2, 2)  # 64 inside (familia.md §3: 64 in the sheet)
+		slot.add_child(frame)
 	(%SheetName as Label).text = str(ch.get("name", ""))
-	var lines: PackedStringArray = []
+	var alive := bool(ch.get("alive", true))
 	var age := Kin.age(sim, picked)
-	lines.append((SimQuery.t_("ui.family.age_dead") if not bool(ch.get("alive", true)) else SimQuery.t_("ui.family.age")) % age)
-	lines.append(SimQuery.t_("class." + str(ch.get("class", "artisan"))) + (" · " + SimQuery.t_("profession." + str(ch["profession"]))
-		if str(ch.get("profession", "")) != "" else ""))
+	var line := (SimQuery.t_("ui.family.age_dead") if not alive else SimQuery.t_("ui.family.age")) % age
+	if str(ch.get("profession", "")) != "":
+		line += " · " + SimQuery.t_("profession." + str(ch["profession"]))
+	(%SheetInfo as Label).text = line
 	var f: Dictionary = st.families.get(fam, {})
 	var roles: PackedStringArray = []
 	if picked == str(f.get("head", "")):
@@ -314,46 +391,67 @@ func _build_sheet() -> void:
 		roles.append(SimQuery.t_("ui.family.heir"))
 	if picked == str(f.get("regent", "")):
 		roles.append(SimQuery.t_("ui.family.regent"))
-	if str(ch.get("controlled_by", "")) == "human" and bool(ch.get("alive", true)):
-		roles.append(SimQuery.t_("ui.family.controllable"))
-	if not roles.is_empty():
-		lines.append(" · ".join(roles))
+	var office := Offices.of_character(st, picked)
+	if office != "" and alive:
+		roles.append(SimQuery.office_name(office))
+	(%SheetRoles as Label).text = " · ".join(roles).to_lower()
+	(%SheetRoles as Label).visible = not roles.is_empty()
+	var g := Kin.group(st, fam)
+	var key := g.find(picked)
+	var group_line := ""
+	if alive and key >= 0:
+		group_line = SimQuery.t_("ui.family.in_group") % (key + 1)
 	var sp := str(ch.get("spouse", ""))
 	if sp != "":
-		lines.append(SimQuery.t_("ui.family.spouse") % str(st.characters.get(sp, {}).get("name", "")))
-	(%SheetInfo as Label).text = "\n".join(lines)
+		group_line += ("\n" if group_line != "" else "") + SimQuery.t_("ui.family.spouse") % str(st.characters.get(sp, {}).get("name", ""))
+	(%SheetGroup as Label).text = group_line
+	(%SheetGroup as Label).visible = group_line != ""
 	var stats := %Stats as GridContainer
-	for c: Node in stats.get_children():
-		stats.remove_child(c)
-		c.queue_free()
+	SocialKit.clear(stats)
 	var sd: Dictionary = ch.get("stats", {})
-	var keys: Array = sd.keys()
-	for k: Variant in ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution",
-			"rhetoric", "stealth"]:
+	var smax := float(sim.catalog.family.get("life", {}).get("stat_max", 10))
+	for k: String in STATS:
 		if not sd.has(k):
 			continue
-		var l := Label.new()
-		l.theme_type_variation = &"DimLabel"
-		l.text = "%s %d" % [SimQuery.t_("stat." + str(k)), int(sd[k])]
+		var l := SocialKit.label(SimQuery.t_("stat." + k), &"DimLabel", "Name_" + k)
+		l.custom_minimum_size = Vector2(92, 0)
 		stats.add_child(l)
-	keys.clear()
-	var alive := bool(ch.get("alive", true))
+		var bar := SocialKit.bar(float(sd[k]) / smax, 80.0, "Bar_" + k)
+		stats.add_child(bar)
+		var v := SocialKit.label(str(int(sd[k])), &"", "Value_" + k)
+		v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		v.custom_minimum_size = Vector2(18, 0)
+		stats.add_child(v)
 	var h := Kin.head(st, fam)
-	(%HeirButton as Button).disabled = not (alive and h != "" and Kin.can_inherit(sim, h, picked) and picked != Kin.heir(sim, fam))
-	(%SwitchButton as Button).disabled = not (alive and str(ch.get("controlled_by", "")) == "human" and picked != active)
+	var heir_why := heir_reason(picked)
+	(%HeirButton as Button).disabled = heir_why != ""
+	(%HeirButton as Button).visible = alive
+	(%HeirReason as Label).text = heir_why
+	(%HeirReason as Label).visible = alive and heir_why != ""
+	var switch_why := ""
+	if not alive:
+		switch_why = "dead"
+	elif str(ch.get("controlled_by", "")) != "human":
+		switch_why = SimQuery.t_("ui.family.not_in_group")
+	elif picked == active:
+		switch_why = SimQuery.t_("ui.family.already_active")
+	(%SwitchButton as Button).disabled = switch_why != ""
+	(%SwitchButton as Button).tooltip_text = switch_why if switch_why != "dead" else ""
+	(%SwitchButton as Button).visible = alive
 	(%KinAiButton as Button).visible = alive and Kin.is_adult(sim, picked)  # H14
 	(%CourtButton as Button).visible = alive and Kin.is_adult(sim, picked) and Kin.is_single(st, picked) \
 		and str(ch.get("controlled_by", "")) == "human"
 	var school := alive and ch.get("life") is Dictionary and str(ch["life"].get("school", "")) == "pending"
 	(%SchoolRow as Control).visible = school
+	(%SchoolPreview as Label).visible = school
 	if school:
 		var opt := %SchoolOption as OptionButton
 		opt.clear()
-		for k: String in ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution",
-				"rhetoric", "stealth"]:
+		for k: String in STATS:
 			opt.add_item(SimQuery.t_("stat." + k))
 			opt.set_item_metadata(opt.item_count - 1, k)
-		opt.select(5)
+		opt.select(STATS.find("craft"))
+		_school_preview()
 	var assign := %AssignOption as OptionButton
 	assign.clear()
 	assign.add_item(SimQuery.t_("ui.family.assign_default"))
@@ -367,13 +465,59 @@ func _build_sheet() -> void:
 			if str(ch.get("assigned", "")) == b:
 				assign.select(assign.item_count - 1)
 	(%AssignRow as Control).visible = alive and Kin.is_adult(sim, picked)
+	if h == "":
+		(%HeirButton as Button).visible = false
 
 
-func _school() -> void:
+## Why `chr` cannot be designated heir now ("" if it can), as a text for the sheet.
+func heir_reason(chr: String) -> String:
+	var st := sim.state
+	var h := Kin.head(st, fam)
+	if h == "" or not Kin.alive(st, chr):
+		return SimQuery.t_("ui.family.why_heir_dead")
+	if chr == Kin.heir(sim, fam):
+		return SimQuery.t_("ui.family.why_heir_already")
+	if chr == h:
+		return SimQuery.t_("ui.family.why_heir_head")
+	if not Kin.can_inherit(sim, h, chr):
+		return SimQuery.t_("ui.family.why_heir_not_descendant")
+	return ""
+
+
+## Designate heir asks first (familia.md §4): «Pere pasará a ser el heredero en lugar de Clara».
+func request_heir() -> void:
+	if heir_reason(picked) != "":
+		return
+	var st := sim.state
+	var now := Kin.heir(sim, fam)
+	var who := str(st.characters.get(picked, {}).get("name", picked))
+	var body := SimQuery.t_("ui.family.heir_body") % [who, str(st.characters.get(now, {}).get("name", ""))] if now != "" \
+		else SimQuery.t_("ui.family.heir_body_none") % who
+	var heir_id := picked
+	SocialKit.ask(self, SimQuery.t_("ui.family.heir_q") % who, body, SimQuery.t_("ui.family.designate_heir"),
+		func() -> void: _give({"type": "designate_heir", "actor": actor, "heir": heir_id}), "", true)
+
+
+func _school_preview() -> void:
 	var opt := %SchoolOption as OptionButton
 	if opt.selected < 0:
 		return
-	_give({"type": "school_choice", "actor": actor, "child": picked, "stat": str(opt.get_item_metadata(opt.selected))})
+	var k := str(opt.get_item_metadata(opt.selected))
+	var v := int(sim.state.characters.get(picked, {}).get("stats", {}).get(k, 0))
+	(%SchoolPreview as Label).text = SimQuery.t_("ui.family.school_preview") % [SimQuery.t_("stat." + k), v, v + 1]
+
+
+## The school choice asks first: it is for ever (familia.md §4).
+func request_school() -> void:
+	var opt := %SchoolOption as OptionButton
+	if opt.selected < 0:
+		return
+	var k := str(opt.get_item_metadata(opt.selected))
+	var child := picked
+	var who := str(sim.state.characters.get(child, {}).get("name", child))
+	SocialKit.ask(self, SimQuery.t_("ui.family.school_q") % [SimQuery.t_("stat." + k), who], SimQuery.t_("ui.family.school_body"),
+		SimQuery.t_("ui.family.school_pick"), func() -> void:
+			_give({"type": "school_choice", "actor": actor, "child": child, "stat": k}), SimQuery.t_("ui.menu.cannot_undo"))
 
 
 func _assign(index: int) -> void:
@@ -384,19 +528,45 @@ func _assign(index: int) -> void:
 # --- Dynasty -----------------------------------------------------------------------------------------------------------
 
 func _build_dynasty() -> void:
-	var f: Dictionary = sim.state.families.get(fam, {})
+	var st := sim.state
+	var f: Dictionary = st.families.get(fam, {})
 	var sc := Dynasty.score(sim, fam)
 	(%DynastyLabel as Label).text = SimQuery.t_("ui.family.dynasty") % [int(f.get("generation", 1)), int(sc["total"])]
+	var rows := %ScoreRows as VBoxContainer
+	SocialKit.clear(rows)
+	var kinds: Array = (sc["by_kind"] as Dictionary).keys()
+	kinds.sort()
+	for k: String in kinds:
+		var r := HBoxContainer.new()
+		r.name = "Score_" + k
+		var n := SocialKit.label(SimQuery.t_("score." + k), &"", "Name")
+		n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		r.add_child(n)
+		r.add_child(SocialKit.label(str(int(sc["facts"].get(k, 0))) if k != "wealth_peak" else "", &"DimLabel", "Count"))
+		var p := SocialKit.label(str(int(sc["by_kind"][k])), &"BoldLabel", "Points")
+		p.custom_minimum_size = Vector2(48, 0)
+		p.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		r.add_child(p)
+		rows.add_child(r)
+	if kinds.is_empty():
+		rows.add_child(SocialKit.label(SimQuery.t_("ui.family.no_score"), &"DimLabel", "None"))
 	var goals := %Goals as VBoxContainer
-	for c: Node in goals.get_children():
-		goals.remove_child(c)
-		c.queue_free()
+	SocialKit.clear(goals)
 	for g: Dictionary in Dynasty.goals_view(sim, fam):
-		var l := Label.new()
-		l.theme_type_variation = &"DimLabel"
-		l.text = ("+ " if bool(g["done"]) else "- ") + SimQuery.t_(str(g["name_key"]))
-		l.modulate = Color(0.6, 1, 0.6) if bool(g["done"]) else Color(1, 1, 1, 0.75)
-		goals.add_child(l)
+		var r := HBoxContainer.new()
+		r.name = "Goal_" + str(g["id"])
+		var box := TextureRect.new()
+		box.texture = load("res://assets/art/ui/theme/check_on.png" if bool(g["done"]) else "res://assets/art/ui/theme/check_off.png")
+		box.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+		r.add_child(box)
+		r.add_child(SocialKit.label(SimQuery.t_(str(g["name_key"])), &"PositiveLabel" if bool(g["done"]) else &"", "Name"))
+		goals.add_child(r)
+	var heads := %Heads as VBoxContainer
+	SocialKit.clear(heads)
+	for hd: Dictionary in Dynasty.summary(sim, fam)["heads"]:
+		var to := int(hd.get("to_day", -1))
+		heads.add_child(SocialKit.label(SimQuery.t_("ui.family.head_days") % [str(hd["name"]), int(hd["from_day"]) + 1,
+			(str(to + 1) if to >= 0 else "—")], &"DimLabel"))
 	(%CloseDynasty as Button).visible = bool(sim.catalog.family.get("succession", {}).get("voluntary_close", false))
 
 

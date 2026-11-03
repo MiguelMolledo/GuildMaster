@@ -1,0 +1,18 @@
+{
+  "fecha": "2026-11-03",
+  "titulo": "Paneles sociales con la interfaz nueva",
+  "que": "Los paneles sociales siguen sus documentos de docs/ui/mecanicas. Ficha de vecino con retrato, relación como barra con palabra y número, emociones hacia tu familia con lo que hacen, el motivo de cada botón apagado escrito y la sección de cortejo; tablón con notas de pergamino que dicen si ya puedes cumplirlas; microeventos con botones de dos líneas cuyos efectos salen del dato; burbujas con el color de la familia. Árbol de familia con insignias, banda «sin heredero», pestaña Dinastía y ficha con barras; carta de sucesión (pausa hasta continuar); tarjetas de nacimiento, mayoría de edad, muerte y escuela. Cortejo con filtros, marca de 80 y «destaca en»; carta de boda. Ayuntamiento con escalera de títulos, requisitos en barras, quién aprueba y modo consulta con «Ir allí»; reputación agrupada; ceremonia con sello. Organigrama con asientos y retratos, calendario de la elección, campaña con sondeo por bandas y poderes con enfriamiento. Juicio con retratos, «dicen tener pruebas», lo que va pasando en la vista y veredicto en sello. Panel de familias (G) con lo público de cada una. Todo lo irreversible pide confirmación con su coste o su riesgo.",
+  "como_probar": "En la partida, clic en un vecino (ficha), F (árbol), O (cargos), G (familias), J (juicio). Capturas de todos: grimoire heavy --timeout 5m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=social (reports/shots/<doc>_hoy_*.png).",
+  "capturas": [
+    "docs/ui/maquetas/ciudad_viva_hoy_ficha.png",
+    "docs/ui/maquetas/ciudad_viva_hoy_tablon.png",
+    "docs/ui/maquetas/ciudad_viva_hoy_microevento.png",
+    "docs/ui/maquetas/familia_hoy_arbol.png",
+    "docs/ui/maquetas/familia_hoy_sucesion.png",
+    "docs/ui/maquetas/cortejo_y_boda_hoy_panel.png",
+    "docs/ui/maquetas/titulos_y_reputacion_hoy_ayuntamiento.png",
+    "docs/ui/maquetas/cargos_y_elecciones_hoy_campana.png",
+    "docs/ui/maquetas/tribunal_hoy_vista.png",
+    "docs/ui/maquetas/rivales_hoy_ficha.png"
+  ]
+}

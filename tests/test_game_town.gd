@@ -103,6 +103,8 @@ func test_npc_sheet_shows_emotion_and_gives_actions() -> void:
 	check((acts.get_node("Talk") as Button).disabled, "angry: will not talk")
 	_orders = []
 	(acts.get_node("Insult") as Button).pressed.emit()
+	eq(_orders, [], "insult asks first (docs/ui/mecanicas/_social.md rule 2)")
+	check(SocialKit.accept_pending(panel), "the question waits on the sheet")
 	eq(_orders, [{"type": "npc_insult", "actor": HERO, "target": npc}], "insult at once in range")
 	sim.state.characters[HERO]["position"] = [2, 19]
 	_orders = []

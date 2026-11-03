@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://mb4b5s18hget"]
+
+[ext_resource type="Script" uid="uid://b2728lhd0fvln" path="res://game/ui/succession_card.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="Shader" uid="uid://cm4epmo6mt5yq" path="res://game/ui/menu_veil.gdshader" id="4_veil"]
+
+[sub_resource type="ShaderMaterial" id="veil_mat"]
+shader = ExtResource("4_veil")
+shader_parameter/darken = 0.45
+shader_parameter/desaturate = 0.6
+
+[node name="SuccessionCard" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Veil" type="ColorRect" parent="."]
+material = SubResource("veil_mat")
+color = Color(0.101961, 0.0705882, 0.0352941, 0.55)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center" type="CenterContainer" parent="."]
+mouse_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Head" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+
+[node name="RibbonSlot" type="CenterContainer" parent="Center/Panel/VBox/Head"]
+custom_minimum_size = Vector2(12, 24)
+layout_mode = 2
+unique_name_in_owner = true
+
+[node name="Title" type="Label" parent="Center/Panel/VBox/Head"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TitleLabel"
+text = "--"
+horizontal_alignment = 1
+unique_name_in_owner = true
+
+[node name="Sep" type="HSeparator" parent="Center/Panel/VBox"]
+layout_mode = 2
+
+[node name="People" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 24
+
+[node name="Dead" type="VBoxContainer" parent="Center/Panel/VBox/People"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DeadSlot" type="Control" parent="Center/Panel/VBox/People/Dead"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+unique_name_in_owner = true
+
+[node name="DeadName" type="Label" parent="Center/Panel/VBox/People/Dead"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+horizontal_alignment = 1
+unique_name_in_owner = true
+
+[node name="DeadLine" type="Label" parent="Center/Panel/VBox/People/Dead"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+horizontal_alignment = 1
+unique_name_in_owner = true
+
+[node name="Arrow" type="Label" parent="Center/Panel/VBox/People"]
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+text = "→"
+
+[node name="Heir" type="VBoxContainer" parent="Center/Panel/VBox/People"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HeirSlot" type="Control" parent="Center/Panel/VBox/People/Heir"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+unique_name_in_owner = true
+
+[node name="HeirName" type="Label" parent="Center/Panel/VBox/People/Heir"]
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+horizontal_alignment = 1
+unique_name_in_owner = true
+
+[node name="HeirLine" type="Label" parent="Center/Panel/VBox/People/Heir"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+horizontal_alignment = 1
+unique_name_in_owner = true
+
+[node name="Sep2" type="HSeparator" parent="Center/Panel/VBox"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 8
+
+[node name="InheritsLabel" type="Label" parent="Center/Panel/VBox/Grid"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_type_variation = &"PositiveLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Inherits" type="Label" parent="Center/Panel/VBox/Grid"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="NotLabel" type="Label" parent="Center/Panel/VBox/Grid"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_type_variation = &"ReasonLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="NotInherits" type="Label" parent="Center/Panel/VBox/Grid"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="RegentLabel" type="Label" parent="Center/Panel/VBox/Grid"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_type_variation = &"GoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Regent" type="Label" parent="Center/Panel/VBox/Grid"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="Sep3" type="HSeparator" parent="Center/Panel/VBox"]
+layout_mode = 2
+
+[node name="PausedLabel" type="Label" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+horizontal_alignment = 1
+unique_name_in_owner = true
+
+[node name="Buttons" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="ContinueButton" type="Button" parent="Center/Panel/VBox/Buttons"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "--"
+unique_name_in_owner = true
+
+[node name="TreeButton" type="Button" parent="Center/Panel/VBox/Buttons"]
+layout_mode = 2
+theme_type_variation = &"BodyButton"
+text = "--"
+unique_name_in_owner = true

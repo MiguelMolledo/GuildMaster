@@ -1,6 +1,9 @@
 class_name FamilyTreeNode
 extends PanelContainer
-## One person of the family tree (GDD 4.10.7): portrait, name, age (or age at death) and class. Click: `picked(id)`.
+## One person of the family tree (GDD 4.10.7; docs/ui/mecanicas/familia.md §3): portrait, name, age (or † age) and a
+## row of badges: the key 1-2-3 of the group, the office it holds (H10), «!» while its school choice waits, «R» for
+## the regent, banished (H11). Its tooltip says the role and the death risk this year as a band. Dead: faded.
+## Click: `picked(id)`.
 
 signal picked(id: String)
 
@@ -10,23 +13,48 @@ var char_id: String = ""
 func show_person(sim: Sim, chr: String, flags: Dictionary) -> void:
 	char_id = chr
 	name = chr
-	var ch: Dictionary = sim.state.characters.get(chr, {})
-	(%Frame as PortraitFrame).show_character(sim.state, chr, flags)
+	var st := sim.state
+	var ch: Dictionary = st.characters.get(chr, {})
+	var fam := str(ch.get("family", ""))
+	var alive := bool(ch.get("alive", true))
+	var g := Kin.group(st, fam)
+	var key := g.find(chr) if alive else -1
+	var f := flags.duplicate()
+	if key >= 0:
+		f["key"] = str(key + 1)
+	(%Frame as PortraitFrame).show_character(st, chr, f)
 	(%NameLabel as Label).text = str(ch.get("name", chr))
 	var age := Kin.age(sim, chr)
-	(%AgeLabel as Label).text = (SimQuery.t_("ui.family.age_dead") if not bool(ch.get("alive", true)) \
-		else SimQuery.t_("ui.family.age")) % age
-	(%ClassLabel as Label).text = SimQuery.t_("class." + str(ch.get("class", "artisan")))
-	if Tribunal.is_banished(sim.state, chr):  # H11: banished
-		(%ClassLabel as Label).text = SimQuery.t_("ui.trial.banished_short")
-		(%ClassLabel as Label).add_theme_color_override("font_color", Color(1, 0.55, 0.45))
-	var office := Offices.of_character(sim.state, chr)  # H10: the office it holds
-	if office != "" and bool(ch.get("alive", true)):
-		(%ClassLabel as Label).text = SimQuery.office_name(office)
-		(%ClassLabel as Label).add_theme_color_override("font_color", Color(1, 0.85, 0.4))
-	modulate = Color(1, 1, 1, 0.6) if not bool(ch.get("alive", true)) else Color.WHITE
-	var sel := bool(flags.get("selected", false))
-	self_modulate = Color(1.35, 1.25, 1.0) if sel else Color.WHITE
+	(%AgeLabel as Label).text = (SimQuery.t_("ui.family.age_dead") if not alive else SimQuery.t_("ui.family.age")) % age
+	var badges := %Badges as HBoxContainer
+	SocialKit.clear(badges)
+	var office := Offices.of_character(st, chr)  # H10: the office it holds
+	if office != "" and alive:
+		var t := TextureRect.new()
+		t.name = "Office"
+		t.texture = UiIcons.mark("badge_office_" + office)
+		t.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+		t.tooltip_text = SimQuery.office_name(office)
+		badges.add_child(t)
+	if alive and ch.get("life") is Dictionary and str(ch["life"].get("school", "")) == "pending":
+		badges.add_child(SocialKit.label("!", &"WarningLabel", "School"))
+	if chr == str(st.families.get(fam, {}).get("regent", "")):
+		badges.add_child(SocialKit.label(SimQuery.t_("ui.family.regent_badge"), &"CaptionLabel", "Regent"))
+	if Tribunal.is_banished(st, chr):  # H11: banished
+		badges.add_child(SocialKit.label(SimQuery.t_("ui.trial.banished_short"), &"ReasonLabel", "Banished"))
+	var roles: PackedStringArray = [str(ch.get("name", chr)), (%AgeLabel as Label).text]
+	if chr == str(st.families.get(fam, {}).get("head", "")):
+		roles.append(SimQuery.t_("ui.family.head").to_lower())
+	if bool(flags.get("heir", false)):
+		roles.append(SimQuery.t_("ui.family.heir").to_lower())
+	if office != "" and alive:
+		roles.append(SimQuery.office_name(office))
+	var tip := " · ".join(roles)
+	if alive:
+		tip += "\n" + SimQuery.t_("ui.family.risk") % SimQuery.t_("risk." + FamilyTreePanel.risk_band(Lifecycle.death_chance(sim, chr)))
+	tooltip_text = tip
+	modulate = Color(1, 1, 1, 0.6) if not alive else Color.WHITE
+	theme_type_variation = &"SelectedRow" if bool(flags.get("selected", false)) else &"RowPanel"
 
 
 func _gui_input(event: InputEvent) -> void:

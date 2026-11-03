@@ -54,16 +54,18 @@ func test_panel_requirements_and_order() -> void:
 	p.open_for(sim, HERO)
 	var list := p.get_node("%ReqList") as VBoxContainer
 	eq(list.get_child_count(), 3, "citizen: reputation, businesses, gold")
-	check((p.get_node("%NextLabel") as Label).text.contains("100"), "next: citizen, 100 gold")
+	check((p.get_node("%Cost") as Label).text.contains("100"), "next: citizen, 100 gold")
 	var ask := p.get_node("%AskButton") as Button
 	check(not ask.disabled, "he can ask")
 	ask.pressed.emit()
+	eq(got.size(), 0, "asking asks first: it costs gold")
+	check(SocialKit.accept_pending(p), "confirmed")
 	eq(got, [{"type": "request_title", "actor": HERO}], "the order")
 	check(sim.step(got).all(func(e: Dictionary) -> bool: return str(e["type"]) != "order_refused"), "granted")
 	p.refresh(true)
 	eq(list.get_child_count(), 3, "patrician: reputation, employees, gold")
-	var emp := list.get_node_or_null("employees") as Label
-	check(emp != null and emp.text.contains("1 / 2"), "employees 1 / 2 pending")
+	var emp := list.get_node_or_null("employees")
+	check(emp != null and (emp.get_node("Value") as Label).text.contains("1 / 2"), "employees 1 / 2 pending")
 	check(ask.disabled, "disabled")
 	eq(ask.tooltip_text, SimQuery.reason_text("title_needs_reputation"), "the first missing requirement as the reason")
 	sim.state.characters[HERO]["position"] = [20, 21]
@@ -78,7 +80,7 @@ func test_title_card() -> void:
 	c.show_for(sim, {"type": "title_granted", "family": FAM, "actor": HERO, "title": "citizen", "from": "common"})
 	check(c.visible, "shown")
 	check((c.get_node("%Text") as Label).text.contains(str(sim.state.characters[HERO]["name"])), "who received it")
-	eq((c.get_node("%TitleName") as Label).text, SimQuery.title_name("citizen").to_upper(), "the title")
+	eq((c.get_node("%TitleName") as Label).text.to_lower(), SimQuery.title_name("citizen").to_lower(), "the title")
 	check((c.get_node("%Unlocks") as Label).text != "", "what it opens")
 	c._process(100.0)
 	check(not c.visible, "it closes by itself")

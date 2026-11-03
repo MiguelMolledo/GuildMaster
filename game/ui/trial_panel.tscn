@@ -3,18 +3,6 @@
 [ext_resource type="Script" uid="uid://b7gsu3ivsbs5k" path="res://game/ui/trial_panel.gd" id="1_panel"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_court"]
-content_margin_left = 6.0
-content_margin_top = 4.0
-content_margin_right = 6.0
-content_margin_bottom = 4.0
-bg_color = Color(0.164706, 0.12549, 0.203922, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.666667, 0.564706, 0.317647, 1)
-
 [node name="TrialPanel" type="PanelContainer"]
 visible = false
 custom_minimum_size = Vector2(520, 0)
@@ -52,7 +40,7 @@ text = "x"
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
+theme_type_variation = &"GoldLabel"
 text = "--"
 
 [node name="Parties" type="Label" parent="VBox"]
@@ -60,15 +48,57 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "--"
 
+[node name="PortraitsRow" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AccusedSlot" type="CenterContainer" parent="VBox/PortraitsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="AccusedText" type="Label" parent="VBox/PortraitsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"BoldLabel"
+text = "--"
+
+[node name="JudgeSlot" type="CenterContainer" parent="VBox/PortraitsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="VsLabel" type="Label" parent="VBox/PortraitsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DimLabel"
+text = "--"
+horizontal_alignment = 1
+
+[node name="AccuserText" type="Label" parent="VBox/PortraitsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"BoldLabel"
+text = "--"
+horizontal_alignment = 2
+
+[node name="AccuserSlot" type="CenterContainer" parent="VBox/PortraitsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
 [node name="Stake" type="Label" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.55, 0.45, 1)
+theme_type_variation = &"ReasonLabel"
 text = "--"
 
 [node name="Court" type="PanelContainer" parent="VBox"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_court")
+theme_type_variation = &"DarkPanel"
 
 [node name="CourtBox" type="VBoxContainer" parent="VBox/Court"]
 layout_mode = 2
@@ -81,14 +111,14 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.55, 0.85, 0.5, 1)
+theme_type_variation = &"PositiveLabel"
 text = "--"
 
 [node name="AccusationLabel" type="Label" parent="VBox/Court/CourtBox/ScaleRow"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 0.55, 0.45, 1)
+theme_type_variation = &"ReasonLabel"
 text = "--"
 horizontal_alignment = 2
 
@@ -127,7 +157,6 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"DimLabel"
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
 text = "--"
 
 [node name="AccusationParts" type="Label" parent="VBox/Court/CourtBox/PartsRow"]
@@ -135,14 +164,19 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"DimLabel"
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
 text = "--"
 horizontal_alignment = 2
+
+[node name="ProofsHint" type="Label" parent="VBox/Court/CourtBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"WarningLabel"
+text = "--"
 
 [node name="WitnessesTitle" type="Label" parent="VBox/Court/CourtBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
+theme_type_variation = &"GoldLabel"
 text = "--"
 
 [node name="Witnesses" type="VBoxContainer" parent="VBox/Court/CourtBox"]
@@ -150,11 +184,29 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 2
 
+[node name="StepsTitle" type="Label" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+text = "--"
+
+[node name="StepsRow" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Steps" type="GridContainer" parent="VBox/StepsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 0
+
 [node name="Hint" type="Label" parent="VBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(508, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.75, 0.7, 1)
+theme_type_variation = &"DimLabel"
 text = "--"
 autowrap_mode = 3
 

@@ -26,26 +26,35 @@ func test_chart_and_running() -> void:
 	p.open_for(sim, HERO)
 	var chart := p.get_node("%Chart") as VBoxContainer
 	for o: String in cat.office_chart():
-		check(chart.get_node_or_null("Office_" + o) != null, "a row for %s" % o)
-	eq(str(chart.get_child(0).name), "Office_mayor", "the mayor at the top")
-	var judge := chart.get_node("Office_judge") as HBoxContainer
-	check((judge.get_child(1) as Label).text.contains("Soler"), "the judge's family")
-	var insp := chart.get_node("Office_market_inspector") as HBoxContainer
-	check((insp.get_child(1) as Label).text.begins_with(SimQuery.t_("ui.offices.vacant")), "the inspector is vacant")
-	check((insp.get_child(1) as Label).text.contains("9"), "and votes on day 9")
-	check(not (insp.get_node("Run") as Button).disabled, "Hugo can run for inspector")
-	check((chart.get_node("Office_judge/Run") as Button).disabled, "not for judge (title)")
+		check(chart.find_child("Office_" + o, true, false) != null, "a seat for %s" % o)
+	eq(str(chart.get_child(0).get_child(0).name), "Office_mayor", "the mayor at the top")
+	var judge := chart.find_child("Office_judge", true, false)
+	check((judge.find_child("Seated", true, false) as Label).text.contains("Soler"), "the judge's family")
+	var insp := chart.find_child("Office_market_inspector", true, false)
+	var ih := (insp.find_child("Seated", true, false) as Label).text
+	check(ih.begins_with(SimQuery.t_("ui.offices.vacant")) and ih.contains("9"), "the inspector is vacant and votes on day 9 (%s)" % ih)
+	check(Elections.run_status(sim, HERO, p.office, "basic") == "", "a seat Hugo can run for is picked (%s)" % p.office)
+	p.pick("market_inspector")
+	check(not (p.get_node("%RunButton") as Button).disabled, "Hugo can run for inspector")
+	p.pick("judge")
+	check((p.get_node("%RunButton") as Button).disabled, "not for judge (title)")
+	check((p.get_node("%RunReason") as Label).text != "", "with the reason written")
+	p.pick("market_inspector")
 	var lv := p.get_node("%LevelOption") as OptionButton
 	lv.select(1)
 	lv.item_selected.emit(1)
-	(chart.get_node("Office_market_inspector/Run") as Button).pressed.emit()
+	(p.get_node("%RunButton") as Button).pressed.emit()
+	eq(got.size(), 0, "a level that costs gold asks first")
+	check(SocialKit.accept_pending(p), "confirmed")
 	eq(got, [{"type": "run_for_office", "actor": HERO, "office": "market_inspector", "level": "medium"}],
 		"the order at the chosen level")
 	Orders.apply(sim, got[0])
 	p.refresh(true)
-	check((p.get_node("%CampaignBox") as Control).visible, "the campaign section")
-	check(chart.get_node_or_null("Election_market_inspector") != null, "the open election under its office")
+	p.show_tab("campaign")
+	check((p.get_node("%CampaignBox") as Control).visible, "the campaign tab")
+	check(chart.find_child("Urn", true, false) != null, "the open election marked on its seat")
 	check((p.get_node("%SpeechButton") as Button).disabled, "no speech before winter")
+	check((p.get_node("%SpeechReason") as Label).visible, "saying when it starts")
 	p.free()
 
 
@@ -55,10 +64,12 @@ func test_powers_section() -> void:
 	var got: Array = []
 	p.order_sink = func(o: Dictionary) -> void: got.append(o)
 	p.open_for(sim, HERO)
+	p.show_tab("powers")
 	check((p.get_node("%PowersBox") as Control).visible, "the inspector's powers")
 	var up := p.get_node("%Powers").get_node("Power_regulate_price/Use_regulate_price_up") as Button
 	check(not up.disabled, "regulate +10 %")
 	up.pressed.emit()
+	check(SocialKit.accept_pending(p), "using a power asks first")
 	eq(str(got[0]["power"]), "regulate_price", "use_office_power")
 	eq(int(got[0]["args"]["percent"]), 10, "+10 %")
 	check(p.get_node("%Powers").get_node_or_null("Power_fine_merchant") != null, "fine a merchant")

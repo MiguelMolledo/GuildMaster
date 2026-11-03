@@ -213,16 +213,16 @@ reason.not_your_loan,It is not your family's loan,No es un préstamo de tu famil
 reason.loan_closed,That loan is already closed,Ese préstamo ya está cerrado
 reason.bad_amount,Wrong amount,Cantidad no válida
 reason.unknown_notice,There is no such notice,No existe ese aviso
-notice.loan_due_soon,"The debt with the moneylender is due in {days} days: {amount} gold left","La deuda con el prestamista vence en {days} días: quedan {amount} de oro"
-notice.loan_extension_due_soon,"The extension of the debt ends in {days} days: {amount} gold left, then the seizure","La prórroga de la deuda acaba en {days} días: quedan {amount} de oro y después llega el embargo"
+notice.loan_due_soon,The debt with the moneylender is due in {days} days: {amount} gold left,La deuda con el prestamista vence en {days} días: quedan {amount} de oro
+notice.loan_extension_due_soon,"The extension of the debt ends in {days} days: {amount} gold left, then the seizure",La prórroga de la deuda acaba en {days} días: quedan {amount} de oro y después llega el embargo
 notice.loan_extended,"The debt fell due unpaid: reputation {reputation}, now {amount} gold, {days} more days","La deuda venció sin pagar: reputación {reputation}, ahora {amount} de oro, {days} días más"
 notice.loan_repaid,The debt is repaid,La deuda está saldada
-notice.loan_seized,"The moneylender seized {gold} gold and goods from the storage: the debt is settled","El prestamista ha embargado {gold} de oro y mercancía del almacén: la deuda queda saldada"
-notice.ruin,"Ruin: the seizure falls {missing} gold short and the moneylender keeps the forge","Ruina: al embargo le faltan {missing} de oro y el prestamista se queda la forja"
-notice.upkeep_unpaid,"Upkeep of {building} unpaid: {debt} gold owed to the town; damaged in {days} days","Mantenimiento de {building} sin pagar: {debt} de oro con la ciudad; en {days} días se daña"
-notice.building_damaged,"{building} is damaged for unpaid upkeep ({debt} gold owed)","{building} está dañado por no pagar el mantenimiento (debe {debt} de oro)"
-notice.upkeep_settled,"Upkeep of {building} settled ({amount} gold)","Mantenimiento de {building} saldado ({amount} de oro)"
-notice.objective_done,"Objective done: {objective}","Objetivo cumplido: {objective}"
+notice.loan_seized,The moneylender seized {gold} gold and goods from the storage: the debt is settled,El prestamista ha embargado {gold} de oro y mercancía del almacén: la deuda queda saldada
+notice.ruin,Ruin: the seizure falls {missing} gold short and the moneylender keeps the forge,Ruina: al embargo le faltan {missing} de oro y el prestamista se queda la forja
+notice.upkeep_unpaid,Upkeep of {building} unpaid: {debt} gold owed to the town; damaged in {days} days,Mantenimiento de {building} sin pagar: {debt} de oro con la ciudad; en {days} días se daña
+notice.building_damaged,{building} is damaged for unpaid upkeep ({debt} gold owed),{building} está dañado por no pagar el mantenimiento (debe {debt} de oro)
+notice.upkeep_settled,Upkeep of {building} settled ({amount} gold),Mantenimiento de {building} saldado ({amount} de oro)
+notice.objective_done,Objective done: {objective},Objetivo cumplido: {objective}
 ui.building_of,{building} of the {family},{building} de {family}
 ui.board.sign,Contract board,Tablón de encargos
 ui.quality.0,normal,normal
@@ -426,8 +426,8 @@ reason.too_many_contracts,Too many contracts at once,Demasiados encargos a la ve
 reason.not_your_contract,That contract is not your family's,Ese encargo no es de tu familia
 reason.missing_items,You do not carry the pieces it asks for,No llevas las piezas que pide
 reason.unknown_family,That family does not exist,Esa familia no existe
-notice.contract_due,"Contract for {client} due in {hours} h: {qty} × {item}","El encargo de {client} vence en {hours} h: {qty} × {item}"
-notice.contract_expired,"The contract for {client} expired: reputation {reputation} and no contracts from them for {days} days","El encargo de {client} ha vencido: reputación {reputation} y no te encargará nada en {days} días"
+notice.contract_due,Contract for {client} due in {hours} h: {qty} × {item},El encargo de {client} vence en {hours} h: {qty} × {item}
+notice.contract_expired,The contract for {client} expired: reputation {reputation} and no contracts from them for {days} days,El encargo de {client} ha vencido: reputación {reputation} y no te encargará nada en {days} días
 building.house,House,Casa
 rank.apprentice,Apprentice,Aprendiz
 rank.journeyman,Journeyman,Oficial
@@ -441,12 +441,12 @@ reason.banned,That person will not work for your family,Esa persona no trabajar�
 reason.not_your_employee,That person does not work for your family,Esa persona no trabaja para tu familia
 reason.no_promotion,There is no promotion to answer,No hay ningún ascenso pendiente
 reason.already_leaving,That employee is already leaving,Ese empleado ya se va
-notice.wage_unpaid,"No gold for {name}'s wage ({amount} gold): {days} days unpaid","No hay oro para el salario de {name} ({amount} de oro): {days} días sin cobrar"
-notice.promotion_offered,"{name} can be promoted to {rank}","{name} puede ascender a {rank}"
-notice.employee_quit,"{name} left {building} without notice","{name} ha abandonado {building} sin avisar"
-notice.employee_stole,"{name} stole {qty} × {item} from {building} and fled","{name} ha robado {qty} × {item} de {building} y ha huido"
-notice.employee_fired,"{name} leaves {building} at the end of the day","{name} deja {building} al final del día"
-notice.employee_fired_now,"{name} will not start at {building}","{name} ya no empezará en {building}"
+notice.wage_unpaid,No gold for {name}'s wage ({amount} gold): {days} days unpaid,No hay oro para el salario de {name} ({amount} de oro): {days} días sin cobrar
+notice.promotion_offered,{name} can be promoted to {rank},{name} puede ascender a {rank}
+notice.employee_quit,{name} left {building} without notice,{name} ha abandonado {building} sin avisar
+notice.employee_stole,{name} stole {qty} × {item} from {building} and fled,{name} ha robado {qty} × {item} de {building} y ha huido
+notice.employee_fired,{name} leaves {building} at the end of the day,{name} deja {building} al final del día
+notice.employee_fired_now,{name} will not start at {building},{name} ya no empezará en {building}
 ui.staff.title,Staff · %s,Empleados · %s
 ui.staff.tab.staff,Staff,Plantilla
 ui.staff.tab.hire,Hire,Contratar
@@ -458,13 +458,13 @@ ui.staff.loyalty_line,Loyalty %d (%s) · %d gold/day,Lealtad %d (%s) · %d de or
 ui.staff.unpaid,Unpaid for %d days,Sin cobrar desde hace %d días
 ui.staff.promotion,Can be promoted to %s (%d gold/day),Puede ascender a %s (%d de oro/día)
 ui.staff.accept,Accept,Aceptar
-ui.staff.accept_tip,"Promote: more loyalty, higher wage","Ascender: sube la lealtad y el salario"
+ui.staff.accept_tip,"Promote: more loyalty, higher wage",Ascender: sube la lealtad y el salario
 ui.staff.refuse,Refuse,Rechazar
 ui.staff.refuse_tip,Loyalty drops,Baja su lealtad
 ui.staff.bonus,Bonus %d,Bonus %d
 ui.staff.bonus_tip,Pay them extra gold: loyalty rises,Le pagas oro extra: sube su lealtad
 ui.staff.fire,Fire,Despedir
-ui.staff.fire_tip,"They leave at the end of the day; firing someone loyal costs reputation","Se va al acabar el día; despedir a alguien leal cuesta reputación"
+ui.staff.fire_tip,They leave at the end of the day; firing someone loyal costs reputation,Se va al acabar el día; despedir a alguien leal cuesta reputación
 ui.staff.leaving,Leaves at the end of the day,Se va al acabar el día
 ui.staff.starts,Starts on day %d at dawn,Empieza el día %d al amanecer
 ui.staff.task,Working: %s (%s),Trabajando: %s (%s)
@@ -517,8 +517,8 @@ notice.queue_missing_inputs,"{building}: not enough materials for {recipe}, skip
 notice.queue_storage_full,"{building}: the storage is full, {recipe} is skipped","{building}: el almacén está lleno, se salta {recipe}"
 notice.queue_cannot_make,"{building}: nobody can make {recipe} ({reason}), skipped","{building}: nadie puede hacer {recipe} ({reason}), se salta"
 notice.queue_empty,"{building}: nothing to produce, the queue is empty","{building}: nada que producir, la cola está vacía"
-notice.queue_stalled,"{building}: nothing in the queue can be made ({reason})","{building}: no se puede hacer nada de la cola ({reason})"
-notice.employee_idle,"{employee} is idle at {building}: nothing for the task {role}","{employee} está ocioso en {building}: nada para su tarea {role}"
+notice.queue_stalled,{building}: nothing in the queue can be made ({reason}),{building}: no se puede hacer nada de la cola ({reason})
+notice.employee_idle,{employee} is idle at {building}: nothing for the task {role},{employee} está ocioso en {building}: nada para su tarea {role}
 upgrade.forge_production_1,Improved bellows,Fuelle mejorado
 upgrade.forge_production_2,Advanced tempering,Temple avanzado
 upgrade.forge_production_3,Master forge,Forja de maestro
@@ -718,7 +718,7 @@ ui.routine.manual,a manual order rules,manda una orden a mano
 ui.routine.auto,Automatic,Automática
 ui.court.title,Courtship · %s,Cortejo · %s
 ui.court.nobody,Nobody to court,Nadie a quien cortejar
-ui.court.affinity,Affinity %d / 100 (80 to propose),Afinidad %d / 100 (80 para proponer)
+ui.court.affinity,Affinity %d,Afinidad %d
 ui.court.talk,Talk,Hablar
 ui.court.gift,Gift,Regalar
 ui.court.propose,Propose,Proponer
@@ -784,15 +784,15 @@ reason.unknown_choice,Not an option,No es una opción
 reason.vendor_refuses,The stall keeper is too angry to trade with you,El tendero está demasiado cabreado para tratar contigo
 reason.no_item,You do not carry that,No llevas eso
 mev.haggling_customer,A customer at the counter of {building} haggles over {item} ({price} gold).,Un cliente en el mostrador de {building} regatea por {item} ({price} de oro).
-mev.haggling_customer.accept,Accept −15 % and sell,Aceptar −15 % y vender
-mev.haggling_customer.hold,Hold the price (Charisma vs Negotiation),Mantener el precio (Carisma contra Negociación)
+mev.haggling_customer.accept,Accept and sell,Aceptar y vender
+mev.haggling_customer.hold,Hold the price,Mantener el precio
 mev.haggling_customer.throw_out,Throw them out,Echarle
 mev.sick_employee,{name} is sick today and will not come to {building}.,{name} está enfermo hoy y no irá a {building}.
-mev.sick_employee.doctor,"Pay the doctor (10 gold): back tomorrow, loyalty +5","Pagar al médico (10 de oro): vuelve mañana, lealtad +5"
-mev.sick_employee.day_off,Paid day off: loyalty +2,Día libre pagado: lealtad +2
-mev.sick_employee.dock,"Dock the day: misses 1-2 days, loyalty −5","Descontarle el día: falta 1-2 días, lealtad −5"
+mev.sick_employee.doctor,Pay the doctor,Pagar al médico
+mev.sick_employee.day_off,Paid day off,Día libre pagado
+mev.sick_employee.dock,Dock the day,Descontarle el día
 mev.night_thief,A thief is breaking into {building} while {name} is inside.,Un ladrón entra en {building} con {name} dentro.
-mev.night_thief.confront,Confront him (Martial vs 5),Enfrentarse (Arte Marcial contra 5)
+mev.night_thief.confront,Confront him,Enfrentarse
 mev.night_thief.let,Let him be,Dejarle
 notice.microevent.haggling_customer,A customer haggles at {building},Un cliente regatea en {building}
 notice.microevent.sick_employee,{name} is sick ({building}),{name} está enfermo ({building})
@@ -915,8 +915,8 @@ reason.title_needs_businesses,Not enough businesses,Faltan negocios
 reason.title_needs_employees,Not enough employees,Faltan empleados
 reason.title_needs_event,It needs a special event,Hace falta un evento especial
 reason.title_not_approved,The town hall does not approve it,El Ayuntamiento no lo aprueba
-notice.title_granted,"{name} receives the title of {title} at the town hall","{name} recibe el título de {title} en el Ayuntamiento"
-notice.rival_title,"The {family} family is now {title}","La familia {family} ya es {title}"
+notice.title_granted,{name} receives the title of {title} at the town hall,{name} recibe el título de {title} en el Ayuntamiento
+notice.rival_title,The {family} family is now {title},La familia {family} ya es {title}
 ui.town_hall.sign,Town hall,Ayuntamiento
 ui.town_hall.title,Town hall,Ayuntamiento
 ui.town_hall.current,Title: %s · reputation %d,Título: %s · reputación %d
@@ -1115,7 +1115,7 @@ notice.false_accusation,A false accusation by the {family} family comes to light
 notice.witness_denounced,A witness denounces you: new charge of {charge},Un testigo te denuncia: nuevo cargo de {charge}
 hud.trials,Trial (J),Juicio (J)
 hud.trials_tip,"Your family's trial: witnesses, scale and hearing (key J)","El juicio de tu familia: testigos, balanza y vista oral (tecla J)"
-ui.trial.title,TRIAL · %s (%s),JUICIO · %s (%s)
+ui.trial.title,Trial · %s (%s),Juicio · %s (%s)
 ui.trial.prep_left,preparation: %d d %d h left,preparación: quedan %d d %d h
 ui.trial.hearing_left,hearing: %d d %d h left,vista oral: quedan %d d %d h
 ui.trial.parties,%s (accused) against %s (accuser),%s (acusado) contra %s (acusador)
@@ -1168,7 +1168,7 @@ help.trials,Court,Tribunal
 help.trials_accused,"A Secrets inspection, a bribe found out or an accusation takes you to court. You have a season (2 days) to work the witnesses: convince, bribe or threaten them in person (J opens the trial)","Una inspección de Secretos, un soborno descubierto o una acusación te llevan a juicio. Tienes una estación (2 días) para trabajar a los testigos: convéncelos, sobórnalos o amenázalos en persona (J abre el juicio)"
 help.trials_hearing,"At the hearing the game pauses: question the witnesses against you and rest. Defense = rhetoric×2 + witnesses for×15 + reputation×0,1 against rhetoric×2 + witnesses against×15 + proofs×20. Guilty: a fine, confiscated goods, office and title, or a year of banishment","En la vista oral el juego se pausa: interroga a los testigos en contra y concluye. Defensa = retórica×2 + testigos a favor×15 + reputación×0,1 contra retórica×2 + en contra×15 + pruebas×20. Culpable: multa, mercancía confiscada, cargo y título, o un año de destierro"
 help.trials_accuse,"As a Citizen you can accuse another family from a person's sheet: with a public fact, or fabricating proofs (stealth: a false accusation costs 50 reputation)","Siendo Ciudadano puedes acusar a otra familia desde la ficha de uno de sus miembros: con un hecho público, o fabricando pruebas (sigilo: una acusación falsa cuesta 50 de reputación)"
-ui.trial.hearing_title,HEARING · %s (%s),VISTA ORAL · %s (%s)
+ui.trial.hearing_title,Hearing · %s (%s),Vista oral · %s (%s)
 ui.trial.judge,Judge: %s · the game waits during the hearing,Juez: %s · en pausa durante la vista
 ui.trial.defense_total,Defense %d,Defensa %d
 ui.trial.accusation_total,Accusation %d,Acusación %d
@@ -1606,3 +1606,293 @@ ui.new_game.preview_start.artisan_tailor,"A tailor's shop with a home, %d gold a
 stall.clothier,Clothier,Ropería
 stall.goods,Goods,Enseres
 ui.new_game.profession,Trade,Oficio
+relation_band.enemy,Enemy,Enemigo
+relation_band.hostile,Hostile,Hostil
+relation_band.cold,Cold,Frío
+relation_band.neutral,Neutral,Neutral
+relation_band.cordial,Cordial,Cordial
+relation_band.friend,Friend,Amigo
+check_band.easy,easy,fácil
+check_band.doubtful,doubtful,dudoso
+check_band.hard,hard,difícil
+ui.social.check,%s %d against %s %d: %s,%s %d contra %s %d: %s
+ui.social.days_hours,%d d %d h,%d d %d h
+ui.social.days,%d d,%d d
+ui.social.hours,%d h,%d h
+ui.social.minutes,%d min,%d min
+ui.npc.relation_with,Relation with %s,Relación con %s
+ui.npc.towards_family,Towards your family,Hacia tu familia
+ui.npc.emotion_other,%s towards the %s,%s hacia los %s
+ui.npc.no_emotions,No emotions towards your family,Sin emociones hacia tu familia
+ui.npc.others,and %d more towards other families,y %d más hacia otras familias
+ui.npc.fx_prices,prices %s %%,precios %s %%
+ui.npc.fx_no_talk,will not talk,no quiere hablar
+ui.npc.fx_no_trade,no trade over %d,no comercia por encima de %d
+ui.npc.reason_line,%s: %s,%s: %s
+ui.npc.why_refuses,will not talk to you (%s),no quiere hablar contigo (%s)
+ui.npc.why_today,already done today · tomorrow,ya lo has hecho hoy · mañana
+ui.npc.tip_talk,Relation +%d,Relación +%d
+ui.npc.tip_gift,Gives %s (%d gold),Regala %s (%d de oro)
+ui.npc.tip_check,%s. Success: relation %s; failure: relation %s.,%s. Éxito: relación %s; fallo: relación %s.
+ui.npc.tip_insult,Relation %s and they are offended,Relación %s y se ofende
+ui.npc.ask_insult,Insult %s?,¿Insultar a %s?
+ui.npc.ask_threaten,Threaten %s?,¿Amenazar a %s?
+ui.npc.ask_gift,Give %s (%d gold) to %s?,¿Regalar %s (%d de oro) a %s?
+ui.npc.ask_bribe,Bribe %s?,¿Sobornar a %s?
+ui.npc.ask_defame,Defame %s?,¿Difamar a %s?
+ui.npc.ask_campaign_body,A campaign action for your election.,Una acción de campaña para tu elección.
+ui.npc.accuse_q,Accuse %s?,¿Acusar a %s?
+ui.board.open_short,New,Nuevos
+ui.board.hint,Abandoning or failing a contract costs reputation.,Abandonar o no cumplir un encargo cuesta reputación.
+ui.board.what_short,%d × %s,%d × %s
+ui.board.have_mine,you carry %d/%d · store %d,llevas %d/%d · almacén %d
+ui.board.missing,%d %s missing,Falta %d %s
+ui.board.days,%d days,%d días
+ui.board.have,you have %d/%d,tienes %d/%d
+ui.board.accept_tip,The deadline starts when you accept it,El plazo empieza al aceptarlo
+ui.board.none_open_tomorrow,No new contracts. Come back tomorrow.,No hay encargos nuevos. Vuelve mañana.
+ui.board.abandon_q,Abandon the contract?,¿Abandonar el encargo?
+ui.board.abandon_body,Abandoning costs %d reputation and the client is angry.,Abandonar cuesta %d de reputación y el cliente se enfada.
+ui.microevent.title_at,Something happens at %s,Ocurre algo en %s
+ui.microevent.more_short,+%d more,+%d más
+ui.microevent.later,Later,Más tarde
+ui.microevent.open,Open,Abrir
+ui.microevent.default,default,por defecto
+ui.microevent.if_none,If you do not choose: %s,Si no eliges: %s
+ui.microevent.cannot_pay,You do not have %d gold,No tienes %d de oro
+ui.mev_fx.pay,−%d gold,−%d de oro
+ui.mev_fx.absent_today,misses today,falta hoy
+ui.mev_fx.absent,misses %d-%d days,falta %d-%d días
+ui.mev_fx.loyalty,loyalty %s,lealtad %s
+ui.mev_fx.relation,relation %s,relación %s
+ui.mev_fx.reputation,reputation %s,reputación %s
+ui.mev_fx.no_wage,no wage,sin sueldo
+ui.mev_fx.sell_discount,sells at −%d %%,vende con −%d %%
+ui.mev_fx.sell,sells,vende
+ui.mev_fx.emotion,ends up %s,queda %s
+ui.mev_fx.leave,leaves,se va
+ui.mev_fx.steal,steals,roba
+ui.mev_fx.check,%s %d against %d: %s,%s %d contra %d: %s
+ui.mev_fx.nothing,nothing,nada
+ui.family.switch_short,Control,Controlar
+ui.family.routine,Routine,Rutina
+ui.family.school_pick,Choose,Elegir
+ui.family.heads,Heads of the family,Cabezas de familia
+ui.family.tab_tree,Tree,Árbol
+ui.family.tab_dynasty,Dynasty,Dinastía
+ui.family.center,Centre on the head,Centrar en el cabeza
+ui.family.legend,1-2-3 key · ! school · crown: heir · R regent,1-2-3 tecla · ! escuela · corona: heredero · R regente
+ui.family.subtitle,%s · generation %d · %d points,%s · generación %d · %d puntos
+ui.family.no_heir,"No heir: if %s dies, the dynasty ends","Sin heredero: si %s muere, la dinastía termina"
+risk.low,low,bajo
+risk.medium,medium,medio
+risk.high,high,alto
+ui.family.risk,risk of dying this year: %s,riesgo de muerte este año: %s
+ui.family.in_group,in your group (key %d),en tu grupo (tecla %d)
+ui.family.not_in_group,Not in your group,No está en tu grupo
+ui.family.already_active,Already the active one,Ya es el activo
+ui.family.why_heir_dead,Cannot inherit,No puede heredar
+ui.family.why_heir_already,Already the heir,Ya es el heredero
+ui.family.why_heir_head,The head of the family,Es el cabeza de familia
+ui.family.why_heir_not_descendant,Not a descendant of the head,No es descendiente del cabeza
+ui.family.heir_q,Make %s the heir?,¿Designar heredero a %s?
+ui.family.heir_body,%s becomes the heir instead of %s.,%s pasará a ser el heredero en lugar de %s.
+ui.family.heir_body_none,%s becomes the heir.,%s pasará a ser el heredero.
+ui.family.school_preview,%s %d → %d,%s %d → %d
+ui.family.school_q,+1 %s for %s?,¿+1 %s para %s?
+ui.family.school_body,It is for ever.,Es para siempre.
+ui.family.head_days,%s: from day %d to %s,%s: del día %d al %s
+ui.family.no_score,No facts that score yet.,Aún no hay hechos que puntúen.
+ui.family.regent_badge,R,R
+ui.life.born,%s is born,Ha nacido %s
+ui.life.son_of,Son of %s.,Hijo de %s.
+ui.life.daughter_of,Daughter of %s.,Hija de %s.
+ui.life.mother,the mother,su madre
+ui.life.father,the father,su padre
+ui.life.hair_of,Has the hair of %s.,Tiene el pelo de %s.
+ui.life.skin_of,Has the skin of %s.,Tiene la piel de %s.
+ui.life.of_age,%s comes of age,%s es mayor de edad
+ui.life.of_age_body,Turns %d: an adult now.,Cumple %d años: ya es adulto.
+ui.life.died,%s has died,Ha muerto %s
+ui.life.died_body,at %d years.,a los %d años.
+ui.life.school,%s goes to school,%s va a la escuela
+ui.life.school_body,Turns %d: a stat rises +1 for ever.,Cumple %d años: un atributo sube +1 para siempre.
+ui.life.later,Later (does not expire),Más tarde (no caduca)
+ui.life.open,Open,Abrir
+ui.succession.title,The %s family,La familia %s
+ui.succession.died_at,† at %d,† a los %d años
+ui.succession.head_gen,head · generation %d,cabeza · generación %d
+ui.succession.building_detail,"(%d upgrades, %d employees)","(%d mejoras, %d empleados)"
+ui.succession.title_of,title %s,título %s
+ui.succession.vacant,%s: left vacant,%s: queda vacante
+ui.succession.regent,%s manages as regent until %s turns %d (%d years left),%s gestiona como regente hasta que %s cumpla %d (faltan %d años)
+ui.succession.no_regent,— (%s is of age),— (%s ya es mayor de edad)
+ui.succession.inherits,Inherits,Hereda
+ui.succession.not_inherits,Not inherited,No hereda
+ui.succession.regent_label,Regent,Regente
+ui.succession.paused,Paused until you go on.,En pausa hasta que continúes.
+ui.succession.continue,Go on with %s,Continuar con %s
+ui.succession.continue_regent,Go on with %s · %s regent,Continuar con %s · %s regente
+ui.succession.tree,See the tree,Ver el árbol
+ui.court.panel_title,Courtship,Cortejo
+ui.court.who,%s · Charisma %d,%s · Carisma %d
+ui.court.mult,×%s on every affinity gained,×%s a lo que gane la afinidad
+ui.court.ready_n,ready: %d,listos: %d
+ui.court.hint,The line on the bar is %d: from there you can propose. Talking every day and gifts raise it.,La línea en la barra es %d: desde ahí puedes pedir su mano. Hablar cada día y regalar la suben.
+ui.court.filter_all,All,Todos
+ui.court.filter_near,Near,Cerca
+ui.court.filter_ready,Ready,Listos
+ui.court.minor,%s is %d: may court at %d,%s tiene %d años: podrá cortejar a los %d
+ui.court.married,%s already has a spouse: %s,%s ya tiene pareja: %s
+ui.court.nobody_hint,Townsfolk who are widowed or turn 16 show up here.,Los vecinos que enviudan o cumplen 16 aparecen aquí.
+ui.court.rival,%s (rival),%s (rival)
+ui.court.talk_short,Talk,Hablar
+ui.court.propose_short,Propose,Pedir
+ui.court.blocked,%s with you · %s,%s contigo · %s
+ui.court.ready,ready to propose,a punto para pedir su mano
+ui.court.talked,already talked today · tomorrow,ya hablasteis hoy · mañana
+ui.court.far_in,far: at %s,lejos: está en %s
+ui.court.far,far: will walk there,lejos: irá hasta allí
+ui.court.stands_out,stands out in %s,destaca en %s
+ui.court.cons_marry,Will marry %s and join the %s family.,Se casará con %s y pasará a la familia %s.
+ui.court.cons_job,Will leave the job at %s.,Dejará su trabajo en %s.
+ui.court.cons_home,Will live in your home.,Vivirá en vuestra casa.
+ui.court.propose_q,Propose to %s?,¿Pedir la mano de %s?
+ui.court.propose_yes,Propose,Pedir la mano
+ui.court.section,Courtship,Cortejo
+ui.wedding.text,%s and %s marry!,¡%s y %s se casan!
+ui.wedding.home,%s lives in your home now,%s vive ahora en vuestra casa
+ui.wedding.job,Leaves the job at %s,Deja su trabajo en %s
+ui.wedding.child,The first child may come from day %d,El primer hijo puede llegar desde el día %d
+ui.wedding.ok,Long live the couple!,¡Que vivan los novios!
+ui.rep.title,Reputation,Reputación
+ui.rep.trend,%s in %d days,%s en %d días
+ui.rep.mark,The mark is %d: what %s asks.,La marca es %d: lo que pide %s.
+ui.rep.done,done,hecho
+ui.rep.pending,pending,pendiente
+ui.rep.changes,Last changes,Últimos cambios
+ui.rep.day,Day %d,Día %d
+class_people.artisan,Artisans,Artesanos
+class_people.patron,Patrons,Patrones
+class_people.scholar,Scholars,Eruditos
+class_people.rogue,Rogues,Pícaros
+ui.town_hall.family_rep,The %s family · reputation %d,Familia %s · reputación %d
+ui.town_hall.today,%d changes today: %s,%d cambios hoy: %s
+ui.town_hall.next_short,Next: %s,Siguiente: %s
+ui.town_hall.cost,%d gold,%d de oro
+ui.town_hall.step_tip,"%s: reputation %d, %d gold. Opens: %s","%s: reputación %d, %d de oro. Abre: %s"
+ui.town_hall.event_undefined,Special deed (to be defined),Hazaña especial (por definir)
+ui.town_hall.approves,Approves,Aprueba
+ui.town_hall.approver_vacant,Office vacant: approved by itself,Cargo vacante: se aprueba sola
+ui.town_hall.approver_affinity,affinity %d / %d,afinidad %d / %d
+ui.town_hall.missing_req,Missing %s (%d/%d),Falta %s (%d/%d)
+ui.town_hall.not_approved,The %s does not approve you: affinity %d of %d,El %s no te aprueba: afinidad %d de %d
+ui.town_hall.buildings_from,%d → %d buildings,%d → %d edificios
+ui.town_hall.ask_q,Ask for the title of %s?,¿Pedir el título de %s?
+ui.town_hall.ask_body,You pay %d gold for the title of %s. You keep %d.,Pagas %d de oro por el título de %s. Te quedan %d.
+ui.town_hall.go,Go there,Ir allí
+ui.town_hall.offices_key,key O,tecla O
+ui.social.check_value,%s %d against %d: %s,%s %d contra %d: %s
+ui.yes,yes,sí
+ui.no,no,no
+ui.offices.title_town,Offices of the town,Cargos del pueblo
+ui.offices.pick_neighbour,Pick a neighbour on the map,Elegir vecino en el mapa
+ui.offices.sheet_hint,"Visit, bribe and defame: from a townsperson's sheet.","Visitar, sobornar y difamar: desde la ficha de un vecino."
+ui.offices.legend,Name colour: gold mayor · bronze councillors · silver middle · copper minor. URNA: open election. TUYO: your family's.,Color del nombre: oro alcalde · bronce concejal · plata medio · cobre menor. URNA: elección abierta. TUYO: de tu familia.
+ui.offices.tab_offices,Offices,Cargos
+ui.offices.tab_campaign,Campaign,Campaña
+ui.offices.tab_powers,Powers,Poderes
+ui.offices.level_note,%s %s (+%d %%),%s %s (+%d %%)
+ui.offices.free,free,gratis
+ui.offices.urn_badge,URN,URNA
+ui.offices.yours_badge,YOURS,TUYO
+ui.offices.holder_short,%s %s · day %d,%s %s · día %d
+ui.offices.history,%s · history\n%s,%s · historial\n%s
+ui.offices.no_history,No elections yet,Aún sin elecciones
+ui.offices.last_won,Day %d: %s,Día %d: %s
+ui.offices.detail,%s · %d gold/day · %d year(s),%s · %d de oro/día · %d año(s)
+ui.offices.no_powers,No powers of its own,Sin poderes propios
+ui.offices.needs_title_has,Asks: %s (you have it),Pide: %s (lo tienes)
+ui.offices.needs_title_not,Asks: %s (you do not have it),Pide: %s (no lo tienes)
+ui.offices.level_of,%s campaign,campaña %s
+ui.offices.candidates,Candidates: %s,Candidatos: %s
+ui.offices.nobody_yet,nobody has stood,nadie se ha presentado
+ui.offices.why_closed,Registration closed: it opens again on day %d,Inscripción cerrada: vuelve a abrir el día %d
+ui.offices.why_title,You must be %s,Hace falta ser %s
+ui.offices.no_vote,No vote this year,Este año no se vota
+ui.offices.cal_reg,registration · days %d-%d,inscripción · días %d-%d
+ui.offices.cal_camp,campaign %d-%d,campaña %d-%d
+ui.offices.cal_vote,vote %d,voto %d
+ui.offices.run_q,Stand for %s?,¿Presentarte a %s?
+ui.offices.run_body,%s campaign: %d gold. The vote is on day %d.,Campaña %s: %d de oro. Votación el día %d.
+ui.offices.campaign_short,%s,%s
+ui.offices.days_left,%d days left,quedan %d días
+forecast.lead,Clear lead,Ventaja clara
+forecast.close,Close,Reñido
+forecast.behind,Behind,Por detrás
+ui.offices.forecast_title,How it goes,Cómo vas
+ui.offices.forecast_note,poll at dawn,sondeo al alba
+ui.offices.incumbent,incumbent,titular
+ui.offices.speech_today,speech today: %s,discurso hoy: %s
+ui.offices.bribes,%d bribe(s),%d soborno(s)
+ui.offices.defamed_today,defamed today,difamó hoy
+ui.offices.why_campaign,The campaign starts on day %d,La campaña empieza el día %d
+ui.offices.why_speech_today,You gave one today · tomorrow,Ya diste uno hoy · mañana
+ui.offices.tax_in_force,Market tax: %d %%,Impuesto del mercado: %d %%
+ui.offices.in_force,In force,En vigor
+ui.offices.use,Use,Usar
+ui.offices.ready_in,ready in %s,lista en %s
+ui.offices.ask_power,Use «%s»?,¿Usar «%s»?
+ui.offices.ask_regulate,The price of %s changes %s %% in the whole market for %d days.,El precio de %s cambia %s %% en todo el mercado durante %d días.
+ui.offices.ask_fine,A fine of %d gold for the %s family.,Una multa de %d de oro a la familia %s.
+ui.offices.ask_tax,The market tax becomes %d %%.,El impuesto del mercado pasa a %d %%.
+ui.office_card.by_family,By family: %s,Por familias: %s
+ui.npc.risk_bribe,%d gold. Going unnoticed: %s. If it goes wrong: reputation %s.,%d de oro. Que no se note: %s. Si sale mal: reputación %s.
+ui.npc.risk_defame,%s. If it goes wrong: reputation %s.,%s. Si sale mal: reputación %s.
+ui.offices.vacant_vote_short,VACANT · vote day %d,VACANTE · voto día %d
+ui.trial.proofs_hint,%s say they have proofs.,%s dicen tener pruebas.
+ui.trial.accused_line,%s · accused,%s · acusado
+ui.trial.accuser_line,%s · accuser,%s · acusador
+ui.trial.versus,against,contra
+ui.trial.steps,What has happened,Lo que va pasando
+ui.trial.step_plea_acc,The accusation's plea,Alegato de la acusación
+ui.trial.step_proofs,Proofs shown,Pruebas presentadas
+ui.trial.step_witness_favor,%s speaks for you,%s declara a favor
+ui.trial.step_witness_against,%s speaks against you,%s declara en contra
+ui.trial.step_plea_def,The defense's plea and the reputation,Alegato de la defensa y reputación
+ui.trial.verdict_q,%s against the scale?,¿%s contra la balanza?
+ui.trial.verdict_body,The scale says otherwise: it is your decision as judge.,La balanza dice otra cosa: es una decisión tuya como juez.
+ui.trial.verb_convince,Convince,Convencer
+ui.trial.verb_bribe,Bribe,Sobornar
+ui.trial.verb_threaten,Threaten,Amenazar
+ui.trial.gold_missing,%d gold missing,te faltan %d de oro
+ui.trial.ask_bribe,Bribe %s?,¿Sobornar a %s?
+ui.trial.ask_bribe_body,%d gold. Going unnoticed: %s. If they denounce you: a new charge of %s (%s).,%d de oro. Que no se note: %s. Si te denuncia: nuevo cargo de %s (%s).
+ui.trial.ask_threaten,Threaten %s?,¿Amenazar a %s?
+ui.trial.ask_threaten_body,%s. If it fails they turn against you and denounce you: a new charge of %s (%s).,"%s. Si falla, pasa en contra y te denuncia: nuevo cargo de %s (%s)."
+ui.npc.accuse_false,If it is false and you lose: reputation %s.,Si es falsa y pierdes: reputación %s.
+ui.npc.accuse_fabricate_risk,Fabricating: %s; if found out: reputation %s.,Fabricarlas: %s; si te descubren: reputación %s.
+ui.npc.family_link,The %s family ›,Familia %s ›
+ui.families.title,Families of the town,Familias del pueblo
+ui.families.rivals,They compete with you,Compiten contigo
+ui.families.neighbours,Neighbours (%d),Vecinos (%d)
+ui.families.no_rivals,No family competes with you here.,Aquí no compite contigo ninguna familia.
+ui.families.back,‹ Back,‹ Volver
+ui.families.gift,Give the head a gift,Regalar al cabeza
+ui.families.accuse,Accuse…,Acusar…
+ui.families.map,See on the map,Ver en el mapa
+ui.families.public,%s · rep. %d · %d business(es),%s · rep. %d · %d negocio(s)
+ui.families.no_gold,Gold: unknown,Oro: no se sabe
+ui.families.no_gold_tip,You do not know how much gold they have,No sabes cuánto oro tienen
+ui.families.child,a child,niño
+ui.families.works,under works,en obra
+ui.families.open,open,abierto
+ui.families.no_business,No business,Sin negocio
+ui.families.no_facts,Nothing public yet,Nada público todavía
+ui.families.members,Members,Miembros
+ui.families.businesses,Businesses,Negocios
+ui.families.facts,Public facts,Hechos públicos
+ui.families.f_title,Became %s (day %d),Subió a %s (día %d)
+ui.families.f_office,Won %s (day %d),Ganó %s (día %d)
+ui.families.f_wedding,A wedding (day %d),Una boda (día %d)
+ui.families.f_fact,"%s (day %d, public)","%s (día %d, público)"

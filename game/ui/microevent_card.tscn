@@ -1,50 +1,96 @@
 [gd_scene format=3 uid="uid://4abg47m7ens7"]
 
-[ext_resource type="Script" uid="uid://l8m74nv8y10e" path="res://game/ui/microevent_card.gd" id="1_card"]
+[ext_resource type="Script" uid="uid://l8m74nv8y10e" path="res://game/ui/microevent_card.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
 
 [node name="MicroeventCard" type="PanelContainer"]
 visible = false
-offset_left = 6.0
-offset_top = 112.0
-offset_right = 306.0
-offset_bottom = 122.0
 theme = ExtResource("2_theme")
-script = ExtResource("1_card")
+script = ExtResource("1_script")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 3
 
 [node name="Title" type="Label" parent="VBox"]
-unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"TitleLabel"
 text = "--"
-
-[node name="Text" type="Label" parent="VBox"]
+clip_text = true
 unique_name_in_owner = true
-custom_minimum_size = Vector2(288, 0)
+
+[node name="Who" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
+theme_override_constants/separation = 6
+unique_name_in_owner = true
+
+[node name="PortraitSlot" type="CenterContainer" parent="VBox/Who"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 0
+unique_name_in_owner = true
+
+[node name="Text" type="Label" parent="VBox/Who"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+size_flags_horizontal = 3
 text = "--"
 autowrap_mode = 3
+unique_name_in_owner = true
 
 [node name="Choices" type="VBoxContainer" parent="VBox"]
-unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 2
-
-[node name="Time" type="Label" parent="VBox"]
 unique_name_in_owner = true
+
+[node name="ClockRow" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ClockIcon" type="TextureRect" parent="VBox/ClockRow"]
+layout_mode = 2
+stretch_mode = 3
+unique_name_in_owner = true
+
+[node name="Clock" type="ProgressBar" parent="VBox/ClockRow"]
+custom_minimum_size = Vector2(50, 6)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+show_percentage = false
+unique_name_in_owner = true
+
+[node name="ClockText" type="Label" parent="VBox/ClockRow"]
 layout_mode = 2
 theme_type_variation = &"DimLabel"
-theme_override_colors/font_color = Color(0.75, 0.72, 0.6, 1)
+text = "--"
+unique_name_in_owner = true
+
+[node name="MoreButton" type="Button" parent="VBox/ClockRow"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Foot" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Default" type="Label" parent="VBox/Foot"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DimLabel"
 text = "--"
 autowrap_mode = 3
-
-[node name="More" type="Label" parent="VBox"]
 unique_name_in_owner = true
-visible = false
+
+[node name="LaterButton" type="Button" parent="VBox/Foot"]
 layout_mode = 2
-theme_type_variation = &"DimLabel"
+size_flags_vertical = 0
+focus_mode = 0
+theme_type_variation = &"BodyButton"
 text = "--"
+unique_name_in_owner = true

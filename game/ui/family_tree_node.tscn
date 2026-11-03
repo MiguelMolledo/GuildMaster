@@ -1,47 +1,49 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctmoqq60r4msc"]
+[gd_scene format=3 uid="uid://ctmoqq60r4msc"]
 
-[ext_resource type="Script" uid="uid://ob11yqa4jg8x" path="res://game/ui/family_tree_node.gd" id="1_node"]
-[ext_resource type="PackedScene" uid="uid://chhxxc42lci1g" path="res://game/ui/portrait_frame.tscn" id="2_frame"]
+[ext_resource type="Script" uid="uid://ob11yqa4jg8x" path="res://game/ui/family_tree_node.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://chhxxc42lci1g" path="res://game/ui/portrait_frame.tscn" id="3_frame"]
 
 [node name="FamilyTreeNode" type="PanelContainer"]
-custom_minimum_size = Vector2(112, 48)
-offset_right = 112.0
-offset_bottom = 48.0
+custom_minimum_size = Vector2(120, 44)
+offset_right = 120.0
+offset_bottom = 44.0
 mouse_filter = 0
-script = ExtResource("1_node")
+theme_type_variation = &"RowPanel"
+script = ExtResource("1_script")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 4
 
-[node name="Frame" parent="HBox" instance=ExtResource("2_frame")]
-unique_name_in_owner = true
+[node name="Frame" parent="HBox" instance=ExtResource("3_frame")]
 layout_mode = 2
 mouse_filter = 2
+size_flags_vertical = 4
+unique_name_in_owner = true
 
 [node name="Texts" type="VBoxContainer" parent="HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = -2
 
 [node name="NameLabel" type="Label" parent="HBox/Texts"]
-unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_type_variation = &"BoldLabel"
 text = "--"
 clip_text = true
+unique_name_in_owner = true
 
 [node name="AgeLabel" type="Label" parent="HBox/Texts"]
-unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"DimLabel"
 text = "--"
+unique_name_in_owner = true
 
-[node name="ClassLabel" type="Label" parent="HBox/Texts"]
-unique_name_in_owner = true
+[node name="Badges" type="HBoxContainer" parent="HBox/Texts"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
-theme_type_variation = &"DimLabel"
-theme_override_colors/font_color = Color(0.75, 0.7, 0.6, 1)
-text = "--"
+mouse_filter = 2
+theme_override_constants/separation = 3
+unique_name_in_owner = true

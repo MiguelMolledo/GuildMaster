@@ -2,7 +2,8 @@ class_name OfficeCard
 extends PanelContainer
 ## The result of a vote (GDD 4.12.4, H10): when an election closes with a candidate of the player's family
 ## (election_held), a card in the middle of the screen with the office, a bar per candidate with its votes (its family
-## colour), the winner and how many voted; «unopposed» when nobody stood against. A click (or the button) closes it;
+## colour), the share of the votes by family, the winner with the seal and how many voted; «Elegido sin votación»
+## when nobody stood against (cargos_y_elecciones.md §3). A click (or the button) closes it;
 ## it also closes by itself after `office_card_seconds` real seconds (data/view.json). Reads only; gives no orders.
 
 var _left: float = 0.0
@@ -51,7 +52,7 @@ func show_for(sim: Sim, e: Dictionary) -> void:
 		var who := Label.new()
 		who.custom_minimum_size = Vector2(110, 0)
 		who.text = "%s%s · %s" % ["★ " if chr in winners else "", str(ch.get("name", chr)), str(f.get("name", ""))]
-		who.add_theme_color_override("font_color", Color(1, 0.85, 0.4) if chr in winners else Color(0.85, 0.85, 0.8))
+		who.theme_type_variation = &"GoldLabel" if chr in winners else &"BodyLabel"
 		row.add_child(who)
 		var track := Control.new()
 		track.custom_minimum_size = Vector2(100, 12)
@@ -82,6 +83,16 @@ func show_for(sim: Sim, e: Dictionary) -> void:
 		(%Winner as Label).text = SimQuery.t_("ui.office_card.winner") % [", ".join(wnames), SimQuery.office_name(office)]
 	(%Voters as Label).text = SimQuery.t_("ui.office_card.voters") % int(res.get("voters", 0)) \
 		if not bool(res.get("unopposed", false)) else ""
+	var by: Dictionary = res.get("by_family", {})   # cargos_y_elecciones.md §3: the share by family
+	var parts: PackedStringArray = []
+	var fams: Array = by.keys()
+	fams.sort()
+	for f: Variant in fams:
+		parts.append("%s %d" % [str(st.families.get(str(f), {}).get("name", f)), int(by[f])])
+	(%ByFamily as Label).text = SimQuery.t_("ui.office_card.by_family") % " · ".join(parts) \
+		if not parts.is_empty() and not bool(res.get("unopposed", false)) else ""
+	(%ByFamily as Label).visible = (%ByFamily as Label).text != ""
+	(%Seal as Control).visible = not winners.is_empty()
 	(%OkButton as Button).text = SimQuery.t_("ui.title_card.ok")
 	visible = true
 	_left = float(ViewConfig.value("office_card_seconds", 10.0))
