@@ -144,8 +144,22 @@ ui.recipe.duration,%.1f h,%.1f h
 ui.recipe.locked,Needs Craft %d,Necesita Artesanía %d
 ui.recipe.missing_inputs,Missing materials in the storage,Faltan materiales en el almacén
 ui.recipe.no_room,The storage is full,El almacén está lleno
+ui.station.mode_fast,Fast,Rápido
+ui.station.mode_normal,Normal,Normal
+ui.station.mode_careful,Careful,Con cuidado
+ui.station.who,%s · Craft %d,%s · Artesanía %d
+ui.station.enter_to_work,Go in with a character to work here,Entra con un personaje para trabajar aquí
+ui.station.busy_by,Taken by %s · %s %d %%,Ocupado por %s · %s %d %%
+ui.station.mode_line,×%s time · quality with Craft %d,×%s tiempo · calidad con Artesanía %d
+ui.station.with_touch,+ master touch,+ toque de maestro
+ui.station.working,Working: %s %d %%,Trabajando: %s %d %%
+ui.station.needs_craft,Craft %d (you have %d),Artesanía %d (tienes %d)
+ui.station.needs_upgrade,Needs %s → Upgrades,Necesita %s → Mejoras
+ui.station.missing,Missing: %s,Falta: %s
+ui.station.quality,Quality (%s),Calidad (%s)
+ui.station.tool_bonus,+ %s: +%d %% to go up a step,+ %s: +%d %% de subir un escalón
 ui.storage.title,Storage · %s,Almacén · %s
-ui.storage.building_stacks,Building (%d/%d stacks),Edificio (%d/%d pilas)
+ui.storage.building_stacks,%d/%d stacks,%d/%d pilas
 ui.storage.carried,%s (%.1f/%.0f kg),%s (%.1f/%.0f kg)
 ui.storage.no_actor,Select someone inside to move or buy,Elige a alguien de dentro para pasar o comprar
 ui.storage.empty,Empty,Vacío
@@ -157,6 +171,30 @@ ui.storage.buy_title,Buy raw materials (until the market),Comprar materia prima 
 ui.storage.buy,Buy,Comprar
 ui.storage.cost,Cost: %d gold · has %d,Coste: %d de oro · tiene %d
 ui.storage.cost_only,Cost: %d gold,Coste: %d de oro
+ui.storage.drop_materials,Drop materials,Dejar materias
+ui.storage.take_products,Take products,Llevar productos
+ui.storage.carries,%s carries %s / %s kg,%s lleva %s / %s kg
+ui.storage.drop_tip,Leave every raw material and material you carry,Deja todas las materias primas y materiales que llevas
+ui.storage.take_tip,"Take the products, dearest first, while they fit","Coge los productos, del más caro al más barato, mientras quepan"
+ui.storage.help,Click: move the stack · Right click: move 1,Clic: mover la pila · Clic derecho: mover 1
+ui.storage.no_actor_why,Go in with a character to take or leave things (they are moved by hand),Entra con un personaje para coger o dejar (las cosas se mueven a mano)
+ui.storage.locked_tip,Opens with %s (Upgrades),Se abre con %s (Mejoras)
+ui.storage.more_with,+%d stacks with %s → Upgrades,+%d pilas con %s → Mejoras
+ui.storage.on_the_way,On the way: %d %s · arrives %s,En camino: %d %s · llega %s
+ui.storage.slot_tip,"%s ×%d
+%s kg each · %s kg
+Worth today: %d","%s ×%d
+%s kg cada una · %s kg
+Vale hoy: %d"
+ui.storage.left_behind,Left behind: %s (no room by weight),Se quedan: %s (no caben por peso)
+ui.storage.only_fit,Only %d of %d fit (%s kg left),Solo caben %d de %d (te quedan %s kg)
+ui.storage.full,The storage is full (%d/%d),El almacén está lleno (%d/%d)
+ui.character.tree_short,Family (F),Familia (F)
+ui.character.bag,Bag,Bolsa
+ui.character.tool_effect,+%d %% to go up a quality step in the %s,+%d %% de subir un escalón de calidad en la %s
+ui.character.equip_tip,Click: equip,Clic: equipar
+ui.character.no_slot,It cannot be equipped,No se puede equipar
+ui.character.value_today,Worth today: ~ %d gold,Valor de venta hoy: ~ %d de oro
 ui.production.title,Production · %s,Producción · %s
 ui.production.hint,Right click on a station to choose what to make. Employees and their queue arrive later.,Clic derecho en un puesto para elegir qué hacer. Los empleados y su cola llegan más adelante.
 ui.production.free,free,libre
@@ -230,6 +268,7 @@ ui.quality.1,good,buena
 ui.quality.2,excellent,excelente
 ui.days_hours,%d d %d h,%d d %d h
 ui.hours,%d h,%d h
+ui.hours_minutes,%d h %02d,%d h %02d
 ui.day_time,Day %d · %02d:%02d,Día %d · %02d:%02d
 ui.market.buy_tab,Buy,Comprar
 ui.market.sell_tab,Sell,Vender
@@ -245,6 +284,44 @@ ui.market.nothing_to_sell,You carry nothing this stall buys,No llevas nada que s
 ui.market.sell_one,Sell 1,Vender 1
 ui.market.sell_all,Sell all,Vender todo
 ui.market.sell_tip,Sell %d for %d gold,Vender %d por %d de oro
+ui.market.demand.very_low,very low,muy baja
+ui.market.demand.low,low,baja
+ui.market.demand.normal,normal,normal
+ui.market.demand.high,high,alta
+ui.market.demand.very_high,very high,muy alta
+ui.market.demand_tip,Demand %s: every unit sold lowers it; at dawn it recovers %s towards %s,Demanda %s: cada unidad vendida la baja; al alba se recupera %s hacia %s
+ui.market.open_until,open until %02d:%02d,abierto hasta las %02d:%02d
+ui.market.errand_help,The errand goes on its own to the storage: +%d %% and %s.,El recado llega solo al almacén: +%d %% y %s.
+ui.market.send_to,Send → %s +%d · %s,Enviar → %s +%d · %s
+ui.market.send_choose,…,…
+ui.market.fits_weight,Carries %s/%s kg: %d fit,Lleva %s/%s kg: caben %d
+ui.market.gold_for,gold for %d,oro para %d
+ui.market.missing_gold,You lack %d gold,Te faltan %d de oro
+ui.market.storage_full,The storage of %s has no room (%d/%d),El almacén de %s no tiene hueco (%d/%d)
+ui.market.too_heavy,Too heavy: %s kg left,Pesa demasiado: te quedan %s kg
+ui.market.sell_help,Every unit somebody sells lowers the demand.,Cada unidad que vende alguien baja la demanda.
+ui.market.stall_takes,%s buys %s,%s compra %s
+ui.market.sell_one_at,Sell 1 · %d,Vender 1 · %d
+ui.market.sell_all_at,Sell %d · %s,Vender %d · %s
+ui.market.after_selling,After selling %d: demand %s %s · at dawn back to %s,Tras vender %d: demanda %s %s · al alba vuelve a %s
+ui.market.tomorrow,Low: tomorrow it will be worth ~ %d,Baja: mañana valdrá ~ %d
+ui.ledger.today_net,"Today, day %d   %s","Hoy, día %d   %s"
+ui.ledger.loan_owed,%s: you owe %d of %d,%s: debes %d de %d
+ui.ledger.due_line,Due %s · %d days left · %d %% paid,Vence: %s · quedan %d días · %d %% pagado
+ui.ledger.in_extension,In extension: you owe %d · seizure %s,En prórroga: debes %d · embargo %s
+ui.ledger.forecast,"At your pace (%s/day, last %d days) you get there with ~ %d gold: %s","A tu ritmo (%s/día, últimos %d días) llegas con ~ %d de oro: %s"
+ui.ledger.gives,enough,te da
+ui.ledger.not_gives,not enough,no te da
+ui.ledger.if_due,If it falls due: reputation %d and an extension of %d season with +%d %% (%d). If the extension falls due: seizure.,Si vence: reputación %d y prórroga de %d estación con +%d %% (%d). Si vence la prórroga: embargo (el oro y después la mercancía del almacén).
+ui.ledger.if_extension_due,"If it falls due: seizure, the gold first and then the storage's goods.","Si vence: embargo, primero el oro y después la mercancía del almacén."
+ui.ledger.upkeep_card,"Overdue upkeep of %s: %d gold · %d days · on the 3rd, damaged","Mantenimiento atrasado de %s: %d de oro · %d días · al 3.º, dañada"
+ui.ledger.days_mean,Mean of the %d days: %s/day,Media de los %d días: %s/día
+ui.ledger.day_tip,Day %d: income %s · expenses %s · net %s,Día %d: ingresos %s · gastos %s · neto %s
+ui.ledger.filter.all,All,Todos
+ui.ledger.filter.urgent,Urgent,Urgentes
+ui.ledger.confirm_title,Pay %d of the debt?,¿Pagar %d de la deuda?
+ui.ledger.confirm_body,You will have %d gold left. Tomorrow at dawn %d of upkeep and %d of wages are charged.,Te quedarán %d de oro. Mañana al alba se cobran %d de mantenimiento y %d de salarios.
+ui.ledger.pay_n,Pay %d,Pagar %d
 reason.no_own_building,You have no building to send it to,No tienes edificio al que enviarlo
 ui.board.title,Contract board,Tablón de encargos
 ui.board.open,Open contracts,Encargos disponibles
@@ -391,6 +468,7 @@ help.key.help,F1 or ?,F1 o ?
 help.key.help_do,this help,esta ayuda
 ui.interior.bar_worker,%s (%s),%s (%s)
 ui.interior.bar_queue,%d in the queue,%d en cola
+ui.interior.bar_stalled,queue stalled,cola parada
 ui.interior.bar_nobody,Nobody at work,Nadie trabajando
 ledger.cat.market_sales,Market sales,Ventas en el mercado
 ledger.cat.contracts,Contracts,Encargos
@@ -451,8 +529,8 @@ ui.staff.title,Staff · %s,Empleados · %s
 ui.staff.tab.staff,Staff,Plantilla
 ui.staff.tab.hire,Hire,Contratar
 ui.staff.slots,Places: %d/%d,Huecos: %d/%d
-ui.staff.none,No employees yet: hire someone in the Hire tab,Aún no hay empleados: contrata en la pestaña Contratar
-ui.staff.no_candidates,Nobody in town is looking for work,No hay nadie en el pueblo buscando trabajo
+ui.staff.none,No employees yet. They work the production queue from dawn to dusk,Aún no tienes empleados. Trabajan la cola de producción de alba a atardecer
+ui.staff.no_candidates,Nobody is looking for work now. There may be more tomorrow,Nadie busca trabajo ahora. Mañana puede haber más
 ui.staff.role_tip,Station they work at (Anything = wherever needed),Puesto en el que trabaja (Cualquiera = donde haga falta)
 ui.staff.loyalty_line,Loyalty %d (%s) · %d gold/day,Lealtad %d (%s) · %d de oro/día
 ui.staff.unpaid,Unpaid for %d days,Sin cobrar desde hace %d días
@@ -482,6 +560,60 @@ ui.staff.band.loyal,loyal,leal
 ui.staff.band.unhappy,unhappy,descontento
 ui.staff.band.disloyal,disloyal,desleal
 ui.staff.band.thief,resentful,resentido
+ui.staff.head,Places %d/%d · %d/day · %d gold,Huecos %d/%d · %d/día · %d de oro
+ui.staff.per_day,%d/day,%d/día
+ui.staff.ranks,Ranks,Rangos
+ui.staff.avail.abundant,plenty,muchos
+ui.staff.avail.medium,some,algunos
+ui.staff.avail.scarce,few,pocos
+ui.staff.rank_tip,"%s: %d gold a day, ×%s speed, %d %% efficiency","%s: %d de oro al día, velocidad ×%s, eficiencia %d %%"
+ui.staff.more_hire,↓ %d more candidates,↓ %d candidatos más
+ui.staff.more_staff,↓ %d more,↓ %d más
+ui.staff.hire_foot,They start tomorrow at dawn; wages are paid every dawn.,Empiezan mañana al alba; cobran cada alba.
+ui.staff.wages_tomorrow,Tomorrow's wages: %d · you have %d,Salarios de mañana: %d · tienes %d
+ui.staff.slot_upgrade,%s (+%d),%s (+%d)
+ui.staff.or, or , o 
+ui.staff.no_slot_strip,No place: %s → Upgrades,Sin hueco: %s → Mejoras
+ui.staff.no_slot_left,"No place, and no upgrade left that opens one","Sin hueco, y no queda mejora que abra otro"
+ui.staff.night_strip,Employees come back at dawn (%s),Los empleados vuelven al alba (%s)
+ui.staff.effect.eff_rumor,−%d %% efficiency and rumours (%d rep.),−%d %% de eficiencia y rumores (%d rep.)
+ui.staff.effect.eff,−%d %% efficiency,−%d %% de eficiencia
+ui.staff.effect.quit,May leave without notice (%d %%/day),Puede irse sin avisar (%d %%/día)
+ui.staff.effect.theft,May steal and run (%d %%/day),Puede robar y huir (%d %%/día)
+ui.staff.effect.security,Security divides it by %d,Seguridad lo divide entre %d
+ui.staff.effect.none,Works at full efficiency,Rinde al 100 %
+ui.staff.unpaid_strip,Unpaid %d day: grace until tomorrow; then %d loyalty a day and reputation %d,Sin cobrar %d día: gracia hasta mañana; después %d lealtad cada día y reputación %d
+ui.staff.unpaid_late,Unpaid %d days: %d loyalty a day and reputation %d,Sin cobrar %d días: %d lealtad cada día y reputación %d
+ui.staff.loyalty_n,Loyalty %d,Lealtad %d
+ui.staff.reward,Reward %d gold · +%d loyalty,Gratificar %d · +%d lealtad
+ui.staff.need_gold,You need %d gold,Necesitas %d de oro
+ui.staff.promotion_line,"Can be promoted to %s: wage %d → %d, speed ×%s → ×%s","Puede ascender a %s: salario %d → %d, velocidad ×%s → ×%s"
+ui.staff.accept_n,Accept · +%d loyalty,Aceptar · +%d lealtad
+ui.staff.refuse_n,Refuse · %d loyalty,Rechazar · %d lealtad
+ui.staff.next_rank,Promotion to %s: %d/%d days · loyalty ≥ %d %s,Ascenso a %s: %d/%d días · lealtad ≥ %d %s
+ui.staff.met,(yes),(sí)
+ui.staff.not_met,(not yet),(aún no)
+ui.staff.needs,needs %s,necesita %s
+ui.staff.role,Post,Puesto
+ui.staff.role_any_tip,Goes wherever needed,Va donde haga falta
+ui.staff.role_only_tip,Only works at the %s,Solo trabaja en el %s
+ui.staff.arrives_tomorrow,Arrives tomorrow (day %d) at dawn,Llega mañana (día %d) al alba
+ui.staff.task_now,%s · %s %d %%,%s · %s %d %%
+ui.staff.home_night,At home (night),En casa (noche)
+ui.staff.idle_why,Idle: %s,Ocioso: %s
+ui.staff.hire_ask,Hire? %d/day,¿Contratar? %d/día
+ui.staff.constitution_short,Const.,Const.
+ui.staff.can,Can:,Puede:
+ui.staff.min_craft,needs Craft %d,necesita Artesanía %d
+ui.staff.why.no_slot,No place (%d/%d) → %s +%d,Sin hueco (%d/%d) → %s +%d
+ui.staff.why.no_slot_none,No place (%d/%d),Sin hueco (%d/%d)
+ui.staff.why.gold,You need %d gold (1 day of wages),Necesitas %d de oro (1 día de salario)
+ui.staff.why.banned,Stole from you: not back until day %d,Te robó: no vuelve hasta el día %d
+ui.staff.why.rank,%s: needs %s,%s: necesita %s
+ui.staff.fire_title,Fire %s?,¿Despedir a %s?
+ui.staff.fire_body,%s leaves today at the end of the day. Today's wage is already paid.,%s se va hoy al final del día. Ya cobró hoy.
+ui.staff.fire_cancel,%s has not started yet: the hire is cancelled now.,%s aún no ha empezado: se cancela ya.
+ui.staff.fire_loyal,Was loyal: reputation %d,Era leal: reputación %d
 ui.interior.staff_tip,Employees: staff and hiring,Empleados: plantilla y contratación
 ui.interior.upgrades_h5,Arrives in H5,Llega en H5
 ui.production.hint_queue,Right click on a station to work it yourself. The employees make what the queue asks for.,Clic derecho en un puesto para trabajar tú. Los empleados hacen lo que pida la cola.
@@ -498,6 +630,29 @@ ui.queue.working,in progress,en curso
 ui.queue.up,Move up,Subir
 ui.queue.down,Move down,Bajar
 ui.queue.remove,Remove,Quitar
+ui.production.tab.now,Now,Ahora
+ui.production.tab.queue,Queue,Cola
+ui.production.tab.recipes,Recipes,Recetas
+ui.production.add,Add:,Añadir:
+ui.production.always,+always,+siempre
+ui.production.night,employees at home until dawn,los empleados vuelven al alba
+ui.production.blocked,stopped,parado
+ui.production.stop_tip,Stop: the inputs go back to the storage,Parar: las entradas vuelven al almacén
+ui.production.loop_state,Loop: %s,Bucle: %s
+ui.production.pause_state,Pause: %s,Pausa: %s
+ui.yes,yes,sí
+ui.no,no,no
+ui.production.buy_hint,buy at the Resources stall,compra en el puesto Recursos
+ui.production.no_staff,The employees work the queue. You have none yet.,La cola la trabajan los empleados. Aún no tienes ninguno.
+ui.production.can_make,With the storage: %d × %s,Con el almacén: da para %d × %s
+ui.production.queue_empty_now,The queue is empty,La cola está vacía
+ui.production.waiting,waiting,en espera
+ui.production.skipped,skipped: %s,saltada: %s
+ui.queue.remove_tip,Remove (the cycle under way finishes anyway),Quitar (el ciclo en marcha termina igual)
+ui.production.where,%s · Craft %d,%s · Artesanía %d
+ui.production.time_you,You: %s,Tú: %s
+ui.production.quality_you,Quality (you): %d · %d · %d %%,Calidad (tú): %d · %d · %d %%
+ui.production.price_today,Worth today: %d (demand %s),Vale hoy: %d (demanda %s)
 ui.order.hire,Hire someone,Contratar
 ui.order.fire,Fire someone,Despedir
 ui.order.promote,Answer a promotion,Responder a un ascenso
@@ -607,6 +762,45 @@ ui.upgrades.no_tree,This building has no upgrades,Este edificio no tiene mejoras
 ui.upgrades.inspections,Inspections: risk %d%% · caught %d · escaped %d · fines %d gold,Inspecciones: riesgo %d%% · pillado %d · librado %d · multas %d de oro
 ui.upgrades.passage_ready,Hidden passage ready,Pasadizo listo
 ui.upgrades.passage_wait,Hidden passage not usable yet,El pasadizo aún no sirve
+ui.upgrades.day_one,%s day,%s día
+ui.upgrades.days_n,%s days,%s días
+ui.upgrades.build,Build,Construir
+ui.upgrades.sees_caption,What you will see,Se verá
+ui.upgrades.level_head,Level %d,Nivel %d
+ui.upgrades.one_at_a_time,one at a time,una a la vez
+ui.upgrades.effect_line,Effect: %s,Efecto: %s
+ui.upgrades.cons.speed,%s goes from %s to %s,%s pasa de %s a %s
+ui.upgrades.cons.speed_now,%s takes %s,%s tarda %s
+ui.upgrades.cons.storage,the storage goes from %d to %d stacks,el almacén pasa de %d a %d pilas
+ui.upgrades.cons.slots,%d employee places,%d huecos de empleado
+ui.upgrades.cons.zone,two people can work at the %s at once,dos personas pueden trabajar a la vez en el %s
+ui.upgrades.cost_head,Cost:,Coste:
+ui.upgrades.cost_gold,%d gold (you have %d),%d de oro (tienes %d)
+ui.upgrades.cost_item,%d %s (there are %d),%d %s (hay %d)
+ui.upgrades.requires_head,Requires:,Requisitos:
+ui.upgrades.choose_tip,Click: choose it,Clic: elegirla
+ui.upgrades.req_stat_who,%s %d (%s has %d),%s %d (%s tiene %d)
+ui.upgrades.req_title_have,Title %s (you are %s),Título %s (eres %s)
+ui.upgrades.works_done,Built: its effect already counts.,Hecha: su efecto ya cuenta.
+ui.upgrades.works_now,Under construction: %s left · ends %s. Meanwhile nothing is produced.,"En obra: quedan %s · termina %s. Mientras, no se produce."
+ui.upgrades.works_line,Works: %s. The %s does not produce: the queue stops; wages are paid all the same. Would end %s.,Obra: %s. La %s no produce: la cola se para; los salarios se pagan igual. Acabaría %s.
+ui.upgrades.sees_nothing,"Nothing new to see: it changes figures, not furniture.","Nada nuevo a la vista: cambia cifras, no muebles."
+ui.upgrades.sees_built,Already in the building.,Ya está en el edificio.
+ui.upgrades.sees_interior,"Inside, lit in gold in the picture.","Dentro, en dorado en la imagen."
+ui.upgrades.sees_exterior,"On the facade, seen from the town (in gold).","En la fachada, desde el pueblo (en dorado)."
+ui.upgrades.illegal,"Illegal. Inspection risk +%d %%/day; if caught, a fine and a trial.","Ilegal. Riesgo de inspección +%d %%/día; si te pillan, multa y juicio."
+ui.upgrades.illegal_norisk,"Illegal: if caught, a fine and a trial.","Ilegal: si te pillan, multa y juicio."
+ui.upgrades.miss.materials,Missing: %s in the storage,Falta: %s en el almacén
+ui.upgrades.miss.gold,You are %d gold short,Te faltan %d de oro
+ui.upgrades.miss.busy,Other works are going on (one at a time),Hay otra obra en marcha (una a la vez)
+ui.upgrades.miss.upgrade,Needs %s (%s %d),Necesita %s (%s %d)
+ui.upgrades.miss.stat,%s %d (%s has %d),%s %d (%s tiene %d)
+ui.upgrades.miss.title,Title %s (you are %s),Título %s (eres %s)
+ui.upgrades.done_count,Built: %d,Obras hechas: %d
+ui.upgrades.no_works_line,"No works. One at a time: while it lasts, the %s does not produce.","Sin obras. Una a la vez: mientras dura, la %s no produce."
+ui.upgrades.works_strip,Under construction: %s · %s left · ends %s,En obra: %s · quedan %s · termina %s
+ui.upgrades.confirm_title,Build %s?,¿Construir %s?
+ui.upgrades.confirm_body,%s: %s. The %s will not produce for %s (until %s). The works cannot be cancelled.,%s: %s. La %s no producirá durante %s (hasta el %s). La obra no se puede cancelar.
 ui.zone.anvil_2,Second anvil,Segundo yunque
 ui.zone.furnace_2,Second furnace,Segundo horno
 title.common,commoner,plebeyo
@@ -715,6 +909,10 @@ ui.routine.off,Turn off,Quitar
 ui.routine.now,Now (%s): %s,Ahora (%s): %s
 ui.routine.none,nothing (manual orders only),nada (solo órdenes a mano)
 ui.routine.manual,a manual order rules,manda una orden a mano
+ui.routine.manual_line,"A manual order rules: %d in the queue. When it is done, back to this.","Manda una orden manual: %d en cola. Al acabar, vuelve aquí."
+ui.routine.works_at,"Works at: %s (changed in the tree, F)","Trabaja en: %s (se cambia en el árbol, F)"
+ui.routine.nowhere,nowhere yet,ningún sitio aún
+ui.routine.now_short,now,ahora
 ui.routine.auto,Automatic,Automática
 ui.court.title,Courtship · %s,Cortejo · %s
 ui.court.nobody,Nobody to court,Nadie a quien cortejar
@@ -1793,8 +1991,6 @@ ui.town_hall.ask_body,You pay %d gold for the title of %s. You keep %d.,Pagas %d
 ui.town_hall.go,Go there,Ir allí
 ui.town_hall.offices_key,key O,tecla O
 ui.social.check_value,%s %d against %d: %s,%s %d contra %d: %s
-ui.yes,yes,sí
-ui.no,no,no
 ui.offices.title_town,Offices of the town,Cargos del pueblo
 ui.offices.pick_neighbour,Pick a neighbour on the map,Elegir vecino en el mapa
 ui.offices.sheet_hint,"Visit, bribe and defame: from a townsperson's sheet.","Visitar, sobornar y difamar: desde la ficha de un vecino."

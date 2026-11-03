@@ -14,8 +14,8 @@ extends PanelContainer
 
 signal closed
 
-const DISP_COLORS: Dictionary = {"favor": Color(0.55, 0.85, 0.5), "neutral": Color(0.8, 0.8, 0.75),
-	"against": Color(1, 0.5, 0.45)}
+const DISP_VARIATIONS: Dictionary = {"favor": &"WitnessBadgeFavor", "neutral": &"WitnessBadgeNeutral",
+	"against": &"WitnessBadgeAgainst"}
 
 var order_sink: Callable = Callable()
 var sim: Sim
@@ -130,6 +130,10 @@ func _draw_balance(defense: int, accusation: int) -> void:
 	var aw := roundf(half * float(maxi(0, accusation)) / most)
 	var d := %DefenseFill as ColorRect
 	var a := %AccusationFill as ColorRect
+	(%Balance as ColorRect).color = SocialKit.theme_color(&"TrialBalance", &"track")
+	d.color = SocialKit.theme_color(&"TrialBalance", &"defense")
+	a.color = SocialKit.theme_color(&"TrialBalance", &"accusation")
+	(%Middle as ColorRect).color = SocialKit.theme_color(&"TrialBalance", &"middle")
 	d.position = Vector2(half - dw, 0)
 	d.size = Vector2(dw, h)
 	a.position = Vector2(half, 0)
@@ -142,12 +146,7 @@ func _badge(disp: String) -> Label:
 	l.name = "Disposition"
 	l.custom_minimum_size = Vector2(66, 0)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.add_theme_color_override("font_color", Color(0.12, 0.1, 0.1))
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = DISP_COLORS.get(disp, Color.WHITE)
-	sb.content_margin_left = 3
-	sb.content_margin_right = 3
-	l.add_theme_stylebox_override("normal", sb)
+	l.theme_type_variation = DISP_VARIATIONS.get(disp, &"WitnessBadgeNeutral")
 	return l
 
 

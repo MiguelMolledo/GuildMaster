@@ -1,0 +1,31 @@
+{
+  "fecha": "2026-11-03",
+  "titulo": "Interfaz nueva (2/2, parte 1): los paneles de economía por dentro",
+  "que": "Los paneles de la forja se rehacen con su documento de docs/ui/mecanicas. Menú del puesto en una sola caja con los tres modos, el tiempo de cada receta y por qué no se puede; la barra del puesto con la ventana del toque; marcas numeradas de las órdenes en pausa; la rutina como franja del día. Producción con pestañas Ahora · Cola · Recetas y la franja roja cuando la cola se para. El almacén en casillas (con la fila bloqueada de la mejora) y la ficha del personaje con lo que da cada pieza de equipo. Mercado con la demanda escrita en cada fila, el recado con su recargo y tiempo, y vender con la suma unidad a unidad; el libro con el neto de hoy, el gráfico por día y la tarjeta de deuda con previsión. Empleados con la tabla de rangos, lo que cada candidato puede hacer, contratar con segundo clic, la lealtad con sus tramos y el ascenso pendiente arriba. Mejoras en el panel ancho y más visual: iconos de rama, la miniatura del mueble que pone cada mejora y una vista del edificio con la pieza nueva en dorado; coste material a material y requisitos con su estado. Comprar una mejora, despedir o pagar dejando el oro bajo el cobro del alba piden confirmación en la caja común (Intro confirma, Esc cancela).",
+  "como_probar": "Partida nueva como herrero. Entra en la forja: clic derecho en el yunque (menú), P (producción), A (almacén), E (empleados: contrata a alguien con dos clics), M (mejoras: pasa el ratón por Reputación comercial y elige Segundo yunque). I abre la ficha. Camina al puesto de Recursos y compra; L abre el libro. Con ventana, todo seguido: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=economia (o --eco=forja,produccion,almacen,mercado,empleados,mejoras para una parte).",
+  "capturas": [
+    "docs/ui/maquetas/forja_interior_hoy_menu.png",
+    "docs/ui/maquetas/forja_interior_hoy_barra.png",
+    "docs/ui/maquetas/forja_interior_hoy_pausa.png",
+    "docs/ui/maquetas/forja_interior_hoy_rutina.png",
+    "docs/ui/maquetas/produccion_hoy_ahora.png",
+    "docs/ui/maquetas/produccion_hoy_cola.png",
+    "docs/ui/maquetas/produccion_hoy_recetas.png",
+    "docs/ui/maquetas/almacen_y_personaje_hoy.png",
+    "docs/ui/maquetas/almacen_y_personaje_hoy_ficha.png",
+    "docs/ui/maquetas/mercado_y_libro_hoy_puesto.png",
+    "docs/ui/maquetas/mercado_y_libro_hoy_vender.png",
+    "docs/ui/maquetas/mercado_y_libro_hoy_deuda.png",
+    "docs/ui/maquetas/mercado_y_libro_hoy_libro.png",
+    "docs/ui/maquetas/mercado_y_libro_hoy_dias.png",
+    "docs/ui/maquetas/mercado_y_libro_hoy_confirmar.png",
+    "docs/ui/maquetas/empleados_hoy_contratar.png",
+    "docs/ui/maquetas/empleados_hoy_plantilla.png",
+    "docs/ui/maquetas/empleados_hoy_despedir.png",
+    "docs/ui/maquetas/mejoras_hoy.png",
+    "docs/ui/maquetas/mejoras_hoy_obra.png",
+    "docs/ui/maquetas/mejoras_hoy_confirmar.png",
+    "docs/ui/maquetas/mejoras_hoy_fachada.png",
+    "docs/ui/maquetas/hud_hoy_confirmacion.png"
+  ]
+}

@@ -58,7 +58,7 @@ func show_for(sim: Sim, e: Dictionary) -> void:
 		track.custom_minimum_size = Vector2(100, 12)
 		track.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		var bg := ColorRect.new()
-		bg.color = Color(0.2, 0.18, 0.16)
+		bg.color = SocialKit.theme_color(&"VoteTrack", &"track")
 		bg.size = Vector2(100, 12)
 		track.add_child(bg)
 		var bar := ColorRect.new()

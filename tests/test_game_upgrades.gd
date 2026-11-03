@@ -149,8 +149,11 @@ func test_missing_materials_and_gold_are_shown() -> void:
 	eq(p.status_of("forge_capacity_2"), "missing_materials", "no wood: missing materials")
 	p.select("forge_capacity_2")
 	check((p.get_node("%BuyButton") as Button).disabled, "Buy disabled")
-	var cost := p.get_node("%DetailLines").find_child("Cost", true, false) as Label
-	check(cost != null and cost.has_theme_color_override("font_color"), "the cost is marked")
+	var cost := p.get_node("%DetailLines").find_child("Cost", true, false) as Control
+	var marked := false
+	for c: Node in cost.get_children() if cost != null else []:
+		marked = marked or (c is Label and (c as Label).theme_type_variation == &"ReasonLabel")
+	check(marked, "the missing material is marked")
 	v.free()
 
 
@@ -185,7 +188,7 @@ func test_works_in_progress_in_the_panel_and_the_interior() -> void:
 	Upgrades.complete(sim, BLD, "forge_capacity_2")
 	v.sync()
 	p.refresh()
-	check(not (p.get_node("%WorksBox") as Control).visible, "no works box once finished")
+	check(not (p.get_node("%WorksBar") as Control).visible, "no works bar once finished (the strip says there are none)")
 	eq(p.status_of("forge_capacity_2"), "owned", "built")
 	v.refresh_works()
 	check(not il.visible, "the interior label goes away")

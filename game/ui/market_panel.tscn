@@ -64,20 +64,33 @@ focus_mode = 0
 toggle_mode = true
 text = "sell"
 
-[node name="BuyList" type="VBoxContainer" parent="VBox"]
+[node name="Scroll" type="ScrollContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Lists" type="VBoxContainer" parent="VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BuyList" type="VBoxContainer" parent="VBox/Scroll/Lists"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
 
-[node name="SellList" type="VBoxContainer" parent="VBox"]
+[node name="SellList" type="VBoxContainer" parent="VBox/Scroll/Lists"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
 
 [node name="Hint" type="Label" parent="VBox"]
 unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.92549, 0.894118, 0.823529, 0.6)
+theme_type_variation = &"DimLabel"
 text = "--"
+autowrap_mode = 3

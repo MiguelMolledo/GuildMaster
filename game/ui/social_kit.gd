@@ -14,6 +14,17 @@ const RELATION_BANDS_DEFAULT: Array = [[-60, "enemy"], [-25, "hostile"], [-6, "c
 	[100, "friend"]]
 
 
+const THEME: String = "res://game/ui/greybox_theme.tres"
+const OFFICE_VARIATIONS: Dictionary = {"mayor": &"OfficeGold", "major": &"OfficeBronze", "middle": &"OfficeSilver",
+	"minor": &"OfficeCopper"}
+
+
+## A colour of the shared theme (the bars drawn by code take theirs from it: RelationBar, ThresholdBar...).
+static func theme_color(type: StringName, color: StringName) -> Color:
+	var t := load(THEME) as Theme
+	return t.get_color(color, type) if t != null and t.has_color(color, type) else Color.MAGENTA
+
+
 ## A portrait (32 inside a 40 frame) of `chr` with its family's border. flags as PortraitFrame.show_character.
 static func portrait(state: WorldState, chr: String, flags: Dictionary = {}) -> Control:
 	var p: Control = (load(PORTRAIT) as PackedScene).instantiate()
@@ -221,7 +232,7 @@ static func threshold_bar(value: float, max_value: float, mark: float, w: float 
 	var p := bar(value / maxf(1.0, max_value), w, name)
 	var m := ColorRect.new()
 	m.name = "Mark"
-	m.color = Color(0.94902, 0.847059, 0.501961)
+	m.color = theme_color(&"ThresholdBar", &"mark")
 	m.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var r := clampf(mark / maxf(1.0, max_value), 0.0, 1.0)
 	m.anchor_left = r
