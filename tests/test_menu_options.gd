@@ -73,13 +73,18 @@ func test_large_text_changes_the_theme_in_memory_and_back() -> void:
 	var p := _use_temp()
 	var theme := load(Settings.THEME_PATH) as Theme
 	var body_font := theme.get_font("font", "BodyLabel")
-	var spacing := theme.get_constant("line_spacing", "BodyLabel")
+	var bold := theme.get_font("font", "BoldLabel")
+	var had_label_font := theme.has_font("font", "Label")
+	var spacing := theme.get_constant("line_spacing", "Label")
 	Settings.set_value("display/text", "large")
-	eq(theme.get_font("font", "BodyLabel"), theme.get_font("font", "BoldLabel"), "large = bold")
-	eq(theme.get_constant("line_spacing", "BodyLabel"), spacing + 2, "with more line spacing")
+	eq(theme.get_font("font", "BodyLabel"), bold, "large = bold body")
+	eq(theme.get_font("font", "Label"), bold, "and bold plain labels")
+	eq(theme.get_constant("line_spacing", "Label"), spacing + Settings.LARGE_SPACING, "with more line spacing")
+	check(theme.get_font("font", "TitleLabel") != bold, "titles are not bold body")
 	Settings.set_value("display/text", "normal")
 	eq(theme.get_font("font", "BodyLabel"), body_font, "normal font back")
-	eq(theme.get_constant("line_spacing", "BodyLabel"), spacing, "normal spacing back")
+	eq(theme.has_font("font", "Label"), had_label_font, "the plain label as it was")
+	eq(theme.get_constant("line_spacing", "Label"), spacing, "normal spacing back")
 	_restore(p)
 
 

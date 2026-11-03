@@ -8,7 +8,7 @@ extends RefCounted
 const OVERRIDES: String = "res://game/ui/menu_overrides_theme.tres"
 
 
-static func button(text: String, hint: String = "", variation: StringName = &"BoldButton") -> Button:
+static func button(text: String, hint: String = "", variation: StringName = &"") -> Button:
 	var b := Button.new()
 	b.text = text
 	b.theme_type_variation = variation
@@ -23,7 +23,7 @@ static func add_hint(b: Button, hint: String) -> Label:
 	if l == null:
 		l = Label.new()
 		l.name = "Hint"
-		l.theme_type_variation = &"KeyHint"
+		l.theme_type_variation = &"CaptionLabel"
 		l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		l.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM

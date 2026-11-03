@@ -49,6 +49,7 @@ theme_type_variation = &"TitleLabel"
 text = "--"
 
 [node name="Sep" type="HSeparator" parent="Center/Panel/VBox"]
+theme_type_variation = &"DividerSeparator"
 layout_mode = 2
 
 [node name="Body" type="Label" parent="Center/Panel/VBox"]
@@ -63,7 +64,7 @@ autowrap_mode = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(324, 0)
 layout_mode = 2
-theme_type_variation = &"WarnLabel"
+theme_type_variation = &"WarningLabel"
 text = "--"
 autowrap_mode = 3
 

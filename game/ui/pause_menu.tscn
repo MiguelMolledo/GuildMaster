@@ -42,58 +42,54 @@ text = "--"
 unique_name_in_owner = true
 
 [node name="Sep" type="HSeparator" parent="Center/Panel/VBox"]
+theme_type_variation = &"DividerSeparator"
 layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="ResumeButton" type="Button" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(190, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "--"
 unique_name_in_owner = true
 
 [node name="SaveButton" type="Button" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(190, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "--"
 unique_name_in_owner = true
 
 [node name="LoadButton" type="Button" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(190, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "--"
 unique_name_in_owner = true
 
 [node name="OptionsButton" type="Button" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(190, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "--"
 unique_name_in_owner = true
 
 [node name="HelpButton" type="Button" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(190, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "--"
 unique_name_in_owner = true
 
 [node name="Sep2" type="HSeparator" parent="Center/Panel/VBox"]
+theme_type_variation = &"DividerSeparator"
 layout_mode = 2
 
 [node name="CloseDynastyButton" type="Button" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(190, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "--"
 unique_name_in_owner = true
 
 [node name="CloseReason" type="Label" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
-theme_type_variation = &"NegativeLabel"
+theme_type_variation = &"ReasonLabel"
 text = "--"
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -102,14 +98,12 @@ unique_name_in_owner = true
 [node name="TitleButton" type="Button" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(190, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "--"
 unique_name_in_owner = true
 
 [node name="QuitButton" type="Button" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(190, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "--"
 unique_name_in_owner = true
 

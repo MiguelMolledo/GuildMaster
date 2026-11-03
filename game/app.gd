@@ -72,6 +72,7 @@ var _fade_tween: Tween = null
 var _menu_from: String = ""        # where the save / load / options / credits screens return: "title" | "pause"
 var _after_save: String = ""       # "title" | "quit": the pause menu's "Save and quit" (after the save screen)
 var _pause_shot: Image = null      # what was seen when the pause menu opened (the thumbnail of a save)
+var _busy: bool = false            # a load or save is under way (the hourglass is shown)
 
 
 func _ready() -> void:
@@ -294,7 +295,14 @@ func _enter_game() -> void:
 
 ## Loads a slot (Continue, the load screen) and plays it at the "speed on load" of the options.
 func load_game(slot: String) -> void:
+	if _busy:
+		return
+	_busy = true
+	UiFeel.wait(true)
+	await get_tree().process_frame  # the hourglass shows before the work
 	var r := Game.load_slot(slot)
+	UiFeel.wait(false)
+	_busy = false
 	if not bool(r.get("ok", false)):
 		Log.info("App", "load %s failed (error=%s)" % [slot, r.get("error", "")])
 		if _saves.visible:
@@ -309,8 +317,17 @@ func load_game(slot: String) -> void:
 
 ## Saves in a slot from the save screen; then back to the pause menu, or on to quit ("Save and quit").
 func save_game(slot: String) -> void:
+	if _busy:
+		return
+	_busy = true
+	UiFeel.wait(true)
+	await get_tree().process_frame  # the hourglass shows before the work
 	var e := Game.save_slot(slot)
+	UiFeel.wait(false)
+	_busy = false
 	Log.info("App", "save %s (%s)" % [slot, error_string(e)])
+	if e == OK:
+		_audio.play("sfx_ui_seal")  # 02 §3: the seal of a saved game
 	_saves.close()
 	var then := _after_save
 	_after_save = ""
@@ -531,6 +548,7 @@ func _process(delta: float) -> void:
 			sc.close()
 		_hud.visible = false
 		_ending.show_ending(Game.sim.state, Game.sim)
+		_audio.play("sfx_ui_seal")  # 02 §7: the seal of the ending appears
 	_background.color = Color.BLACK if interior_building != "" else _bg_color * _world.tint_color
 	if _shots_left <= 0:
 		return

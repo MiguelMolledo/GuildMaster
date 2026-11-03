@@ -65,10 +65,10 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 focus_mode = 0
-theme_type_variation = &"BoldButton"
 text = "×"
 
 [node name="Sep" type="HSeparator" parent="Center/Panel/VBox"]
+theme_type_variation = &"DividerSeparator"
 layout_mode = 2
 
 [node name="Scroll" type="ScrollContainer" parent="Center/Panel/VBox"]
@@ -96,7 +96,6 @@ text = "--"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(118, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "Volver"
 
 [node name="Confirm" parent="." instance=ExtResource("5_confirm")]

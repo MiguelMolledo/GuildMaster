@@ -172,23 +172,30 @@ static func _apply_window() -> void:
 	_log("window x%d (%s)" % [k, size])
 
 
-## "Large" text (decision 1 of 02): the same size in bold and with more line spacing. Changes the body variations of
-## the theme in memory (never the file), and puts them back for "normal".
+## "Large" text (decision 1 of 02): the same size in bold and with more line spacing. Changes the body text of the
+## theme in memory (never the file): the Label base type and the body variations that set their own font get Pixel
+## Operator Bold, and the line spacing of the Label base type (inherited by every variation without its own) grows by
+## LARGE_SPACING. "normal" puts back exactly what there was.
+const LARGE_TYPES: Array[String] = ["Label", "BodyLabel", "InkLabel", "TooltipLabel"]
+const LARGE_SPACING: int = 2
+
+
 static func _apply_text(mode: String) -> void:
 	var theme := load(THEME_PATH) as Theme
 	if theme == null:
 		return
 	if _theme_saved.is_empty():
-		for t: String in ["Label", "BodyLabel", "InkLabel"]:
+		for t: String in LARGE_TYPES:
 			_theme_saved[t] = {"font": theme.get_font("font", t) if theme.has_font("font", t) else null,
 				"line_spacing": theme.get_constant("line_spacing", t) if theme.has_constant("line_spacing", t) else null}
 	var bold: Font = theme.get_font("font", "BoldLabel") if theme.has_font("font", "BoldLabel") else null
 	for t: String in _theme_saved:
 		var saved: Dictionary = _theme_saved[t]
 		if mode == "large":
-			if t != "Label" and bold != null:
+			if bold != null and (t == "Label" or saved["font"] != null):
 				theme.set_font("font", t, bold)
-			theme.set_constant("line_spacing", t, (int(saved["line_spacing"]) if saved["line_spacing"] != null else 0) + 2)
+			if saved["line_spacing"] != null:
+				theme.set_constant("line_spacing", t, int(saved["line_spacing"]) + LARGE_SPACING)
 		else:
 			if saved["font"] != null:
 				theme.set_font("font", t, saved["font"])
@@ -196,8 +203,7 @@ static func _apply_text(mode: String) -> void:
 				theme.clear_font("font", t)
 			if saved["line_spacing"] != null:
 				theme.set_constant("line_spacing", t, int(saved["line_spacing"]))
-			elif theme.has_constant("line_spacing", t):
-				theme.clear_constant("line_spacing", t)
+	_log("text %s" % mode)
 
 
 static func _log(msg: String) -> void:

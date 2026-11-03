@@ -33,7 +33,7 @@ func _refresh() -> void:
 	var box := %Sections as VBoxContainer
 	MenuKit.clear(box)
 	for sec: Dictionary in load_credits().get("sections", []):
-		var t := MenuKit.label(SimQuery.t_(str(sec.get("title_key", ""))), &"InkTitle")
+		var t := MenuKit.label(SimQuery.t_(str(sec.get("title_key", ""))), &"InkTitleLabel")
 		t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		box.add_child(t)
 		for line: Dictionary in sec.get("lines", []):

@@ -88,7 +88,6 @@ theme_override_constants/separation = 4
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 22)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "Continuar"
 
 [node name="ContinueInfo" type="Label" parent="Kit/Column"]
@@ -101,41 +100,36 @@ text = "--"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 22)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "Partida nueva"
 
 [node name="LoadButton" type="Button" parent="Kit/Column"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 22)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "Cargar partida"
 
 [node name="LoadReason" type="Label" parent="Kit/Column"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"NegativeLabel"
+theme_type_variation = &"ReasonLabel"
 text = "--"
 
 [node name="OptionsButton" type="Button" parent="Kit/Column"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 22)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "Opciones"
 
 [node name="CreditsButton" type="Button" parent="Kit/Column"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 22)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "Créditos"
 
 [node name="QuitButton" type="Button" parent="Kit/Column"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 22)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "Salir"
 
 [node name="Version" type="Label" parent="Kit"]

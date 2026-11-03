@@ -63,11 +63,11 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 focus_mode = 0
-theme_type_variation = &"BoldButton"
 text = "×"
 unique_name_in_owner = true
 
 [node name="Sep" type="HSeparator" parent="Center/Panel/VBox"]
+theme_type_variation = &"DividerSeparator"
 layout_mode = 2
 
 [node name="Columns" type="HBoxContainer" parent="Center/Panel/VBox"]
@@ -259,14 +259,12 @@ unique_name_in_owner = true
 [node name="Es" type="Button" parent="Center/Panel/VBox/Columns/Left/Locale"]
 custom_minimum_size = Vector2(78, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "Español"
 
 [node name="En" type="Button" parent="Center/Panel/VBox/Columns/Left/Locale"]
 custom_minimum_size = Vector2(78, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "English"
 
@@ -305,21 +303,18 @@ unique_name_in_owner = true
 [node name="X2" type="Button" parent="Center/Panel/VBox/Columns/Right/ScaleRow/Scale"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "×2"
 
 [node name="X3" type="Button" parent="Center/Panel/VBox/Columns/Right/ScaleRow/Scale"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "×3"
 
 [node name="X4" type="Button" parent="Center/Panel/VBox/Columns/Right/ScaleRow/Scale"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "×4"
 
@@ -348,14 +343,12 @@ unique_name_in_owner = true
 [node name="Normal" type="Button" parent="Center/Panel/VBox/Columns/Right/TextRow/Text"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "Normal"
 
 [node name="Large" type="Button" parent="Center/Panel/VBox/Columns/Right/TextRow/Text"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "Grande"
 
@@ -395,21 +388,18 @@ unique_name_in_owner = true
 [node name="X1" type="Button" parent="Center/Panel/VBox/Columns/Right/LoadSpeedRow/LoadSpeed"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "×1"
 
 [node name="X2" type="Button" parent="Center/Panel/VBox/Columns/Right/LoadSpeedRow/LoadSpeed"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "×2"
 
 [node name="X4" type="Button" parent="Center/Panel/VBox/Columns/Right/LoadSpeedRow/LoadSpeed"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "×4"
 
@@ -432,14 +422,12 @@ unique_name_in_owner = true
 [node name="Urgent" type="Button" parent="Center/Panel/VBox/Columns/Right/NoticesRow/Notices"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "Urgentes"
 
 [node name="All" type="Button" parent="Center/Panel/VBox/Columns/Right/NoticesRow/Notices"]
 custom_minimum_size = Vector2(44, 18)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "Todos"
 
@@ -464,6 +452,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Sep2" type="HSeparator" parent="Center/Panel/VBox"]
+theme_type_variation = &"DividerSeparator"
 layout_mode = 2
 
 [node name="Footer" type="HBoxContainer" parent="Center/Panel/VBox"]
@@ -473,7 +462,6 @@ theme_override_constants/separation = 16
 [node name="DefaultsButton" type="Button" parent="Center/Panel/VBox/Footer"]
 custom_minimum_size = Vector2(148, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "--"
 unique_name_in_owner = true
 
@@ -487,6 +475,5 @@ unique_name_in_owner = true
 [node name="BackButton" type="Button" parent="Center/Panel/VBox/Footer"]
 custom_minimum_size = Vector2(118, 20)
 layout_mode = 2
-theme_type_variation = &"BoldButton"
 text = "Volver"
 unique_name_in_owner = true

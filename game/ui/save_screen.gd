@@ -110,7 +110,7 @@ func _row(e: Dictionary, now: int) -> PanelContainer:
 		how.name = "How"
 		info.add_child(how)
 	elif bool(e["exists"]):
-		var why := MenuKit.label(MenuKit.broken_label(str(e["error"])), &"NegativeLabel")
+		var why := MenuKit.label(MenuKit.broken_label(str(e["error"])), &"ReasonLabel")
 		why.name = "Broken"
 		why.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		why.custom_minimum_size = Vector2(260, 0)
