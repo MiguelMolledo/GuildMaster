@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://va0eu2186wto"]
+
+[ext_resource type="Script" uid="uid://cvchl3ffi2qjh" path="res://game/ui/credits_screen.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="Theme" uid="uid://bixic0a2ia8dk" path="res://game/ui/menu_overrides_theme.tres" id="3_kit"]
+[ext_resource type="Shader" uid="uid://cm4epmo6mt5yq" path="res://game/ui/menu_veil.gdshader" id="4_veil"]
+[ext_resource type="Texture2D" uid="uid://ba6xl31b71mk2" path="res://assets/art/ui/logo/guildmaster_logo_x2.png" id="5_logo"]
+[ext_resource type="Texture2D" uid="uid://gnkphssi0rxq" path="res://assets/art/ui/marks/seal.png" id="6_seal"]
+
+[sub_resource type="ShaderMaterial" id="veil_mat"]
+shader = ExtResource("4_veil")
+shader_parameter/darken = 0.35
+shader_parameter/desaturate = 0.5
+
+[node name="CreditsScreen" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Veil" type="ColorRect" parent="."]
+material = SubResource("veil_mat")
+color = Color(0.101961, 0.0705882, 0.0352941, 0.45)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center" type="CenterContainer" parent="."]
+mouse_filter = 2
+theme = ExtResource("3_kit")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(496, 500)
+layout_mode = 2
+theme_type_variation = &"ParchmentPanel"
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Logo" type="TextureRect" parent="Center/Panel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+texture = ExtResource("5_logo")
+stretch_mode = 2
+
+[node name="Sep" type="HSeparator" parent="Center/Panel/VBox"]
+layout_mode = 2
+
+[node name="Sections" type="VBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+unique_name_in_owner = true
+
+[node name="Seal" type="TextureRect" parent="Center/Panel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+texture = ExtResource("6_seal")
+stretch_mode = 2
+
+[node name="Thanks" type="Label" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_type_variation = &"InkLabel"
+text = "--"
+horizontal_alignment = 1
+unique_name_in_owner = true
+
+[node name="BackButton" type="Button" parent="Center/Panel/VBox"]
+custom_minimum_size = Vector2(120, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"BoldButton"
+text = "Volver"
+unique_name_in_owner = true

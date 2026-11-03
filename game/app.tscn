@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://q3aybt2fetow"]
+[gd_scene format=3 uid="uid://q3aybt2fetow"]
 
 [ext_resource type="Script" uid="uid://daosrqg582pui" path="res://game/app.gd" id="1_app"]
 [ext_resource type="PackedScene" uid="uid://cm3qb0ptvtihg" path="res://game/world/world_view.tscn" id="2_world"]
@@ -7,6 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://cpvekyuhyacgu" path="res://game/ui/new_game_screen.tscn" id="5_new"]
 [ext_resource type="PackedScene" uid="uid://b2v0o2fsnufcd" path="res://game/ui/ending_screen.tscn" id="6_end"]
 [ext_resource type="Script" uid="uid://160tt5r2kc3x" path="res://game/audio/audio_director.gd" id="7_audio"]
+[ext_resource type="PackedScene" uid="uid://b60mx4417qleq" path="res://game/ui/title_screen.tscn" id="8_title"]
+[ext_resource type="PackedScene" uid="uid://jwfoletmsvki" path="res://game/ui/pause_menu.tscn" id="9_pause"]
+[ext_resource type="PackedScene" uid="uid://cw47oqqfyd882" path="res://game/ui/save_screen.tscn" id="10_save"]
+[ext_resource type="PackedScene" uid="uid://ba2jpkakhndlt" path="res://game/ui/options_screen.tscn" id="11_options"]
+[ext_resource type="PackedScene" uid="uid://va0eu2186wto" path="res://game/ui/credits_screen.tscn" id="12_credits"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_app")
@@ -36,10 +41,25 @@ unique_name_in_owner = true
 [node name="ScreensLayer" type="CanvasLayer" parent="."]
 layer = 40
 
-[node name="EndingScreen" parent="ScreensLayer" instance=ExtResource("6_end")]
+[node name="TitleScreen" parent="ScreensLayer" instance=ExtResource("8_title")]
 unique_name_in_owner = true
 
 [node name="NewGameScreen" parent="ScreensLayer" instance=ExtResource("5_new")]
+unique_name_in_owner = true
+
+[node name="EndingScreen" parent="ScreensLayer" instance=ExtResource("6_end")]
+unique_name_in_owner = true
+
+[node name="PauseMenu" parent="ScreensLayer" instance=ExtResource("9_pause")]
+unique_name_in_owner = true
+
+[node name="SaveScreen" parent="ScreensLayer" instance=ExtResource("10_save")]
+unique_name_in_owner = true
+
+[node name="OptionsScreen" parent="ScreensLayer" instance=ExtResource("11_options")]
+unique_name_in_owner = true
+
+[node name="CreditsScreen" parent="ScreensLayer" instance=ExtResource("12_credits")]
 unique_name_in_owner = true
 
 [node name="FadeLayer" type="CanvasLayer" parent="."]

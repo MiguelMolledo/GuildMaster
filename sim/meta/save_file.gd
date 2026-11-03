@@ -42,6 +42,53 @@ static func from_text(text: String) -> Dictionary:
 	return {"ok": true, "state": WorldState.from_dict(m["data"])}
 
 
+## The light header of a saved game for the load / save lists (docs/ui/02_menu_inicial.md §3), without building the
+## state: {"ok": true, "header": {version, minute, family, family_name, head, head_name, female, profession, title,
+## gold, debt, ending}} or the same {"ok": false, "error"} as load_file(). The save format does not change: the header
+## is read from the saved data itself (migrated in memory), so it can never disagree with the game it describes.
+static func peek(path: String) -> Dictionary:
+	if not FileAccess.file_exists(path):
+		return {"ok": false, "error": "missing"}
+	var text := FileAccess.get_file_as_string(path)
+	if text.strip_edges() == "":
+		return {"ok": false, "error": "empty"}
+	var json := JSON.new()
+	if json.parse(text) != OK:
+		return {"ok": false, "error": "bad_json"}
+	if not json.data is Dictionary or not (json.data as Dictionary).has("version"):
+		return {"ok": false, "error": "not_a_save"}
+	var m := migrate(json.data)
+	if not m["ok"]:
+		return m
+	return {"ok": true, "header": header(m["data"])}
+
+
+## The header of a saved dictionary already migrated to VERSION (see peek). The player's family is the first one
+## (by id) controlled by "human"; its debt is what it still owes on its open loans.
+static func header(d: Dictionary) -> Dictionary:
+	var families: Dictionary = d.get("families", {})
+	var ids: Array = families.keys()
+	ids.sort()
+	var fam := ""
+	for id: Variant in ids:
+		if str((families[id] as Dictionary).get("controlled_by", "")) == "human":
+			fam = str(id)
+			break
+	var f: Dictionary = families.get(fam, {})
+	var head := str(f.get("head", ""))
+	var ch: Dictionary = (d.get("characters", {}) as Dictionary).get(head, {})
+	var debt := 0
+	for l: Variant in (d.get("loans", {}) as Dictionary).values():
+		if l is Dictionary and str((l as Dictionary).get("family", "")) == fam and Loans.is_open(l):
+			debt += int((l as Dictionary).get("outstanding", 0))
+	var ending: Variant = d.get("ending", {})
+	return {"version": int(d.get("version", 0)), "minute": int((d.get("clock", {}) as Dictionary).get("minute", 0)),
+		"family": fam, "family_name": str(f.get("name", "")), "head": head, "head_name": str(ch.get("name", "")),
+		"female": bool(ch.get("female", false)), "profession": str(ch.get("profession", "")),
+		"title": str(f.get("title", "")), "gold": int(f.get("gold", 0)), "debt": debt,
+		"ending": str((ending as Dictionary).get("kind", "")) if ending is Dictionary else ""}
+
+
 ## Brings a saved dictionary up to WorldState.VERSION, one version at a time. Add a step to _step() for each new
 ## version and a test with a saved file of the old one (tests/data/saves/).
 static func migrate(d: Dictionary) -> Dictionary:

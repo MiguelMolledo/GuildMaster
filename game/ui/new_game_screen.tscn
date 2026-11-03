@@ -1,7 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpvekyuhyacgu"]
+[gd_scene format=3 uid="uid://cpvekyuhyacgu"]
 
-[ext_resource type="Script" uid="uid://dyriiuxdekryy" path="res://game/ui/new_game_screen.gd" id="1_screen"]
+[ext_resource type="Script" uid="uid://dyriiuxdekryy" path="res://game/ui/new_game_screen.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="Theme" uid="uid://bixic0a2ia8dk" path="res://game/ui/menu_overrides_theme.tres" id="3_kit"]
+[ext_resource type="Shader" uid="uid://cm4epmo6mt5yq" path="res://game/ui/menu_veil.gdshader" id="4_veil"]
+
+[sub_resource type="ShaderMaterial" id="veil_mat"]
+shader = ExtResource("4_veil")
+shader_parameter/darken = 0.45
+shader_parameter/desaturate = 0.6
+
+[sub_resource type="StyleBoxFlat" id="portrait_border"]
+bg_color = Color(0.101961, 0.0705882, 0.0352941, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.545098, 0.180392, 0.180392, 1)
+
+[sub_resource type="StyleBoxFlat" id="shield_frame"]
+bg_color = Color(0.101961, 0.0705882, 0.0352941, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.784314, 0.658824, 0.305882, 1)
 
 [node name="NewGameScreen" type="Control"]
 visible = false
@@ -12,18 +35,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_theme")
-script = ExtResource("1_screen")
+script = ExtResource("1_script")
 
 [node name="Background" type="ColorRect" parent="."]
+material = SubResource("veil_mat")
+color = Color(0.101961, 0.0705882, 0.0352941, 0.55)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.105882, 0.0862745, 0.0705882, 1)
 
 [node name="Center" type="CenterContainer" parent="."]
+mouse_filter = 2
+theme = ExtResource("3_kit")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,143 +58,318 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(752, 500)
 layout_mode = 2
-custom_minimum_size = Vector2(560, 0)
 
 [node name="VBox" type="VBoxContainer" parent="Center/Panel"]
 layout_mode = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 4
 
-[node name="Title" type="Label" parent="Center/Panel/VBox"]
-unique_name_in_owner = true
+[node name="Header" type="HBoxContainer" parent="Center/Panel/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.705882, 0.415686, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_constants/separation = 24
+
+[node name="Title" type="Label" parent="Center/Panel/VBox/Header"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
 text = "--"
-horizontal_alignment = 1
-
-[node name="StartName" type="Label" parent="Center/Panel/VBox"]
 unique_name_in_owner = true
+
+[node name="StartName" type="Label" parent="Center/Panel/VBox/Header"]
 layout_mode = 2
+theme_type_variation = &"DimLabel"
 text = "--"
-horizontal_alignment = 1
-
-[node name="DifficultyRow" type="HBoxContainer" parent="Center/Panel/VBox"]
-layout_mode = 2
-
-[node name="DifficultyLabel" type="Label" parent="Center/Panel/VBox/DifficultyRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(110, 0)
+
+[node name="Sep" type="HSeparator" parent="Center/Panel/VBox"]
 layout_mode = 2
+
+[node name="Columns" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="Left" type="VBoxContainer" parent="Center/Panel/VBox/Columns"]
+custom_minimum_size = Vector2(348, 0)
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="DifficultyLabel" type="Label" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_type_variation = &"GoldBold"
 text = "--"
-
-[node name="Difficulty" type="HBoxContainer" parent="Center/Panel/VBox/DifficultyRow"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="DifficultyHint" type="Label" parent="Center/Panel/VBox"]
-unique_name_in_owner = true
+[node name="Difficulty" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Left"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.92549, 0.894118, 0.823529, 0.7)
+theme_override_constants/separation = 6
+unique_name_in_owner = true
+
+[node name="DifficultyHint" type="Label" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
 text = "--"
-
-[node name="NameRow" type="HBoxContainer" parent="Center/Panel/VBox"]
-layout_mode = 2
-
-[node name="NameLabel" type="Label" parent="Center/Panel/VBox/NameRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(110, 0)
+
+[node name="NameLabel" type="Label" parent="Center/Panel/VBox/Columns/Left"]
 layout_mode = 2
+theme_type_variation = &"GoldBold"
 text = "--"
-
-[node name="NameEdit" type="LineEdit" parent="Center/Panel/VBox/NameRow"]
 unique_name_in_owner = true
+
+[node name="NameRow" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="NameEdit" type="LineEdit" parent="Center/Panel/VBox/Columns/Left/NameRow"]
+custom_minimum_size = Vector2(200, 18)
 layout_mode = 2
 size_flags_horizontal = 3
 max_length = 20
-
-[node name="Male" type="Button" parent="Center/Panel/VBox/NameRow"]
 unique_name_in_owner = true
+
+[node name="Male" type="Button" parent="Center/Panel/VBox/Columns/Left/NameRow"]
+custom_minimum_size = Vector2(68, 18)
 layout_mode = 2
-focus_mode = 0
+theme_type_variation = &"BoldButton"
 toggle_mode = true
 button_pressed = true
 text = "--"
-
-[node name="Female" type="Button" parent="Center/Panel/VBox/NameRow"]
 unique_name_in_owner = true
+
+[node name="Female" type="Button" parent="Center/Panel/VBox/Columns/Left/NameRow"]
+custom_minimum_size = Vector2(60, 18)
 layout_mode = 2
-focus_mode = 0
+theme_type_variation = &"BoldButton"
 toggle_mode = true
 text = "--"
-
-[node name="FamilyRow" type="HBoxContainer" parent="Center/Panel/VBox"]
-layout_mode = 2
-
-[node name="FamilyLabel" type="Label" parent="Center/Panel/VBox/FamilyRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(110, 0)
+
+[node name="FamilyLabel" type="Label" parent="Center/Panel/VBox/Columns/Left"]
 layout_mode = 2
+theme_type_variation = &"GoldBold"
 text = "--"
-
-[node name="FamilyEdit" type="LineEdit" parent="Center/Panel/VBox/FamilyRow"]
 unique_name_in_owner = true
+
+[node name="FamilyRow" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="FamilyEdit" type="LineEdit" parent="Center/Panel/VBox/Columns/Left/FamilyRow"]
+custom_minimum_size = Vector2(200, 18)
+layout_mode = 2
+max_length = 20
+unique_name_in_owner = true
+
+[node name="FamilyRead" type="Label" parent="Center/Panel/VBox/Columns/Left/FamilyRow"]
 layout_mode = 2
 size_flags_horizontal = 3
-max_length = 20
-
-[node name="PointsLabel" type="Label" parent="Center/Panel/VBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85098, 0.4, 1)
+theme_type_variation = &"DimLabel"
 text = "--"
-
-[node name="Stats" type="GridContainer" parent="Center/Panel/VBox"]
 unique_name_in_owner = true
+
+[node name="PrimaryLabel" type="Label" parent="Center/Panel/VBox/Columns/Left"]
 layout_mode = 2
+theme_type_variation = &"GoldBold"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Primary" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_override_constants/separation = 3
+unique_name_in_owner = true
+
+[node name="SecondaryLabel" type="Label" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_type_variation = &"GoldBold"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Secondary" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_override_constants/separation = 3
+unique_name_in_owner = true
+
+[node name="Gap" type="Control" parent="Center/Panel/VBox/Columns/Left"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Preview" type="PanelContainer" parent="Center/Panel/VBox/Columns/Left"]
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel/VBox/Columns/Left/Preview"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Row" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Left/Preview/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PortraitBorder" type="Panel" parent="Center/Panel/VBox/Columns/Left/Preview/VBox/Row"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("portrait_border")
+unique_name_in_owner = true
+
+[node name="PortraitHolder" type="Node2D" parent="Center/Panel/VBox/Columns/Left/Preview/VBox/Row/PortraitBorder"]
+position = Vector2(3, 3)
+scale = Vector2(2, 2)
+unique_name_in_owner = true
+
+[node name="Texts" type="VBoxContainer" parent="Center/Panel/VBox/Columns/Left/Preview/VBox/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="PreviewName" type="Label" parent="Center/Panel/VBox/Columns/Left/Preview/VBox/Row/Texts"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="PreviewAge" type="Label" parent="Center/Panel/VBox/Columns/Left/Preview/VBox/Row/Texts"]
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="PreviewStart" type="Label" parent="Center/Panel/VBox/Columns/Left/Preview/VBox/Row/Texts"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="Shield" type="Panel" parent="Center/Panel/VBox/Columns/Left/Preview/VBox/Row"]
+custom_minimum_size = Vector2(16, 20)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("shield_frame")
+unique_name_in_owner = true
+
+[node name="ShieldTop" type="ColorRect" parent="Center/Panel/VBox/Columns/Left/Preview/VBox/Row/Shield"]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 13.0
+mouse_filter = 2
+color = Color(0.545098, 0.180392, 0.180392, 1)
+unique_name_in_owner = true
+
+[node name="ShieldBottom" type="ColorRect" parent="Center/Panel/VBox/Columns/Left/Preview/VBox/Row/Shield"]
+offset_left = 1.0
+offset_top = 13.0
+offset_right = 15.0
+offset_bottom = 19.0
+mouse_filter = 2
+color = Color(0.784314, 0.658824, 0.305882, 1)
+unique_name_in_owner = true
+
+[node name="ColorNote" type="Label" parent="Center/Panel/VBox/Columns/Left/Preview/VBox"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="Right" type="VBoxContainer" parent="Center/Panel/VBox/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="StatsHeader" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+
+[node name="StatsLabel" type="Label" parent="Center/Panel/VBox/Columns/Right/StatsHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"GoldBold"
+text = "--"
+unique_name_in_owner = true
+
+[node name="PointsLabel" type="Label" parent="Center/Panel/VBox/Columns/Right/StatsHeader"]
+layout_mode = 2
+theme_type_variation = &"GoldBold"
+text = "--"
+unique_name_in_owner = true
+
+[node name="Stats" type="GridContainer" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+columns = 4
 theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 1
-columns = 8
-
-[node name="PrimaryRow" type="HBoxContainer" parent="Center/Panel/VBox"]
-layout_mode = 2
-
-[node name="PrimaryLabel" type="Label" parent="Center/Panel/VBox/PrimaryRow"]
+theme_override_constants/v_separation = 3
 unique_name_in_owner = true
-custom_minimum_size = Vector2(110, 0)
-layout_mode = 2
-text = "--"
 
-[node name="Primary" type="HBoxContainer" parent="Center/Panel/VBox/PrimaryRow"]
-unique_name_in_owner = true
+[node name="Gap" type="Control" parent="Center/Panel/VBox/Columns/Right"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Help" type="PanelContainer" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"DarkPanel"
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel/VBox/Columns/Right/Help"]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="SecondaryRow" type="HBoxContainer" parent="Center/Panel/VBox"]
+[node name="HelpTitle" type="Label" parent="Center/Panel/VBox/Columns/Right/Help/VBox"]
 layout_mode = 2
-
-[node name="SecondaryLabel" type="Label" parent="Center/Panel/VBox/SecondaryRow"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(110, 0)
-layout_mode = 2
+theme_type_variation = &"TitleLabel"
 text = "--"
-
-[node name="Secondary" type="HBoxContainer" parent="Center/Panel/VBox/SecondaryRow"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 2
 
-[node name="ErrorLabel" type="Label" parent="Center/Panel/VBox"]
-unique_name_in_owner = true
-visible = false
+[node name="HelpBody" type="Label" parent="Center/Panel/VBox/Columns/Right/Help/VBox"]
+custom_minimum_size = Vector2(330, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.6, 0.5, 1)
+theme_type_variation = &"BodyLabel"
 text = "--"
-
-[node name="StartButton" type="Button" parent="Center/Panel/VBox"]
+autowrap_mode = 3
 unique_name_in_owner = true
+
+[node name="Sep2" type="HSeparator" parent="Center/Panel/VBox"]
 layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 14
+
+[node name="StartInfo" type="Label" parent="Center/Panel/VBox"]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
 text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="Footer" type="HBoxContainer" parent="Center/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BackButton" type="Button" parent="Center/Panel/VBox/Footer"]
+custom_minimum_size = Vector2(118, 20)
+layout_mode = 2
+theme_type_variation = &"BoldButton"
+text = "Volver"
+unique_name_in_owner = true
+
+[node name="Spacer" type="Control" parent="Center/Panel/VBox/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ErrorLabel" type="Label" parent="Center/Panel/VBox/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"NegativeLabel"
+text = "--"
+horizontal_alignment = 2
+unique_name_in_owner = true
+
+[node name="StartButton" type="Button" parent="Center/Panel/VBox/Footer"]
+custom_minimum_size = Vector2(158, 20)
+layout_mode = 2
+theme_type_variation = &"BoldButton"
+text = "--"
+unique_name_in_owner = true
