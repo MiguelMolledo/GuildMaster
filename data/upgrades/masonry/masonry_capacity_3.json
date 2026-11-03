@@ -1,0 +1,38 @@
+{
+  "id": "masonry_capacity_3",
+  "name_key": "upgrade.masonry_capacity_3",
+  "tree": "masonry",
+  "branch": "capacity",
+  "level": 3,
+  "cost": {
+    "gold": 125,
+    "items": [
+      {
+        "item": "ashlar",
+        "qty": 10
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "masonry_capacity_2"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "cutting_bench_2",
+      "like": "cutting_bench"
+    }
+  ],
+  "visual": {
+    "interior_node": "masonry_cutting_bench_2",
+    "exterior_overlay": null
+  }
+}

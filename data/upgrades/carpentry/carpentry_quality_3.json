@@ -1,0 +1,36 @@
+{
+  "id": "carpentry_quality_3",
+  "name_key": "upgrade.carpentry_quality_3",
+  "tree": "carpentry",
+  "branch": "quality",
+  "level": 3,
+  "cost": {
+    "gold": 150,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "carpentry_quality_2"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 7
+    },
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "quality_bonus",
+      "amount": 3
+    },
+    {
+      "kind": "price_multiplier",
+      "mult": 1.5
+    }
+  ],
+  "visual": {
+    "interior_node": "carpentry_mark",
+    "exterior_overlay": null
+  }
+}

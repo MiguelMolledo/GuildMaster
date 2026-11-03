@@ -1,0 +1,10 @@
+{
+  "id": "fine_clothes",
+  "name_key": "item.fine_clothes",
+  "gender": "f",
+  "category": "product",
+  "weight": 3.0,
+  "max_stack": 20,
+  "base_price": 80,
+  "market_stall": "clothier"
+}

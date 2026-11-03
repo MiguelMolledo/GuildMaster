@@ -1,0 +1,32 @@
+{
+  "id": "masonry_quality_1",
+  "name_key": "upgrade.masonry_quality_1",
+  "tree": "masonry",
+  "branch": "quality",
+  "level": 1,
+  "cost": {
+    "gold": 25,
+    "items": [
+      {
+        "item": "stone",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "quality_bonus",
+      "amount": 1
+    }
+  ],
+  "visual": {
+    "interior_node": "masonry_chisels",
+    "exterior_overlay": null
+  }
+}

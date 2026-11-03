@@ -1,0 +1,32 @@
+{
+  "id": "tailor_shop_quality_2",
+  "name_key": "upgrade.tailor_shop_quality_2",
+  "tree": "tailor_shop",
+  "branch": "quality",
+  "level": 2,
+  "cost": {
+    "gold": 60,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "tailor_shop_quality_1"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "quality_bonus",
+      "amount": 2
+    }
+  ],
+  "visual": {
+    "interior_node": "tailor_dyes",
+    "exterior_overlay": null
+  }
+}

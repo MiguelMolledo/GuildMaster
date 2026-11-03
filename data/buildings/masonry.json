@@ -1,0 +1,38 @@
+{
+  "id": "masonry",
+  "name_key": "building.masonry",
+  "category": "workshop",
+  "parcel_type": "production",
+  "footprint": [
+    3,
+    4
+  ],
+  "build_cost": 100,
+  "build_days": 1,
+  "upkeep": 20,
+  "storage_stacks": 10,
+  "base_employees": 1,
+  "zones": [
+    {
+      "id": "cutting_bench",
+      "kind": "craft"
+    },
+    {
+      "id": "carving_bench",
+      "kind": "craft"
+    },
+    {
+      "id": "counter",
+      "kind": "sales"
+    },
+    {
+      "id": "storage",
+      "kind": "storage"
+    }
+  ],
+  "upgrade_tree": "masonry",
+  "night_production": "manual_only",
+  "includes_housing": true,
+  "tool": "hammer",
+  "_doc": "H12: the mason's workshop (GDD 4.2.1, 4.6.1), a copy of the forge: cutting_bench (first station, like the furnace) and carving_bench (products, like the anvil). Figures as the forge's [balance]."
+}

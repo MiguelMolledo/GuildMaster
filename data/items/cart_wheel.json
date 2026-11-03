@@ -1,0 +1,10 @@
+{
+  "id": "cart_wheel",
+  "name_key": "item.cart_wheel",
+  "gender": "f",
+  "category": "product",
+  "weight": 7.0,
+  "max_stack": 20,
+  "base_price": 65,
+  "market_stall": "goods"
+}

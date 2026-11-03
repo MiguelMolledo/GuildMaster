@@ -99,6 +99,9 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - IA familiar (H14, al tocar directivas, necesidades o la rutina): `godot --headless --path . -s tools/sim_runner.gd --
   --scenario=kin_trader --bots=kin_trader --days=2 --seeds=10` (un familiar con Comerciar aprovisiona la forja; en
   `run_all`, paso kin). Captura: `--smoke-script=ia_familiar`.
+- Oficios del Artesano (H12, al tocar recetas, talleres o los inicios): `godot --headless --path . -s tools/sim_runner.gd --
+  --start=artisan_<carpenter|mason|tailor> --bots=<oficio>_novice --difficulty=easy,normal,hard --days=10 --seeds=30`
+  (diana `goldflow.start_<oficio>`, la del inicio de la forja; en `run_all`, pasos carpenter, mason y tailor).
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

@@ -1,0 +1,10 @@
+{
+  "id": "cabinet",
+  "name_key": "item.cabinet",
+  "gender": "m",
+  "category": "product",
+  "weight": 10.0,
+  "max_stack": 20,
+  "base_price": 80,
+  "market_stall": "goods"
+}

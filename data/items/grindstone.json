@@ -1,0 +1,10 @@
+{
+  "id": "grindstone",
+  "name_key": "item.grindstone",
+  "gender": "f",
+  "category": "product",
+  "weight": 6.0,
+  "max_stack": 20,
+  "base_price": 32,
+  "market_stall": "goods"
+}

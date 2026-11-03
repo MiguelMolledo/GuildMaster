@@ -111,6 +111,105 @@
       ]
     }
   },
+  "carpenter_novice": {
+    "_doc": "H12 (10/H12 «Cada profesión tiene un bot que gana dinero con ella»): BotArtisanTrade (sim/bots/bot_artisan_trade.gd, the novice of any trade) in a new game as artisan_carpenter, Normal. The same start as the forge (30 gold, 200 of debt before day 8) and the same targets as artisan_novice; its net gold per day goes in goldflow.start_carpenter. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_carpenter --bots=carpenter_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step carpenter, 10 seeds). Medido (2026-11-03, Normal, 30 semillas): neto/día 43,6 [25,8-55,6], deuda saldada 30/30. Orden de dificultad (20 semillas): easy 61,0 > normal 44,2 > hard 36,4. El orden de 4.23 no se cumple en albañil y sastre: la palanca que lo da en la Forja es el herrero rival, que compite por la misma demanda, y estos oficios no tienen rival de su oficio en town_e (un taller por oficio); la piedra y la lana son baratas y el ×0,9/×1,1 del precio apenas mueve. Pendiente del owner (¿un competidor del mismo oficio?).",
+    "days": [
+      10,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gold_day3": [
+      0,
+      320
+    ],
+    "gold_repaid_day3": [
+      0,
+      320
+    ],
+    "gold_day10": [
+      10,
+      540
+    ],
+    "_share": {
+      "debt_paid": [
+        0.9,
+        null
+      ]
+    }
+  },
+  "mason_novice": {
+    "_doc": "H12 (10/H12 «Cada profesión tiene un bot que gana dinero con ella»): BotArtisanTrade (sim/bots/bot_artisan_trade.gd, the novice of any trade) in a new game as artisan_mason, Normal. The same start as the forge (30 gold, 200 of debt before day 8) and the same targets as artisan_novice; its net gold per day goes in goldflow.start_mason. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_mason --bots=mason_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step mason, 10 seeds). Medido (2026-11-03, Normal, 30 semillas): neto/día 39,1 [21,4-57,8], deuda saldada 30/30. Orden de dificultad (20 semillas): easy 41,1 · normal 39,5 · hard 41,1 (no cumple). El orden de 4.23 no se cumple en albañil y sastre: la palanca que lo da en la Forja es el herrero rival, que compite por la misma demanda, y estos oficios no tienen rival de su oficio en town_e (un taller por oficio); la piedra y la lana son baratas y el ×0,9/×1,1 del precio apenas mueve. Pendiente del owner (¿un competidor del mismo oficio?).",
+    "days": [
+      10,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gold_day3": [
+      0,
+      320
+    ],
+    "gold_repaid_day3": [
+      0,
+      320
+    ],
+    "gold_day10": [
+      10,
+      540
+    ],
+    "_share": {
+      "debt_paid": [
+        0.9,
+        null
+      ]
+    }
+  },
+  "tailor_novice": {
+    "_doc": "H12 (10/H12 «Cada profesión tiene un bot que gana dinero con ella»): BotArtisanTrade (sim/bots/bot_artisan_trade.gd, the novice of any trade) in a new game as artisan_tailor, Normal. The same start as the forge (30 gold, 200 of debt before day 8) and the same targets as artisan_novice; its net gold per day goes in goldflow.start_tailor. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_tailor --bots=tailor_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step tailor, 10 seeds). Medido (2026-11-03, Normal, 30 semillas): neto/día 55,2 [44,5-63,0], deuda saldada 30/30. Orden de dificultad (20 semillas): easy 54,4 · normal 54,9 · hard 43,7 (no cumple). El orden de 4.23 no se cumple en albañil y sastre: la palanca que lo da en la Forja es el herrero rival, que compite por la misma demanda, y estos oficios no tienen rival de su oficio en town_e (un taller por oficio); la piedra y la lana son baratas y el ×0,9/×1,1 del precio apenas mueve. Pendiente del owner (¿un competidor del mismo oficio?).",
+    "days": [
+      10,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gold_day3": [
+      0,
+      320
+    ],
+    "gold_repaid_day3": [
+      0,
+      320
+    ],
+    "gold_day10": [
+      10,
+      540
+    ],
+    "_share": {
+      "debt_paid": [
+        0.9,
+        null
+      ]
+    }
+  },
   "goldflow": {
     "_doc": "GDD 4.19: oro neto por día medido por los bots sobre el libro de cuentas. window_days en días de juego jugados (1 = el primero, desde el amanecer del inicio); exclude_categories: categorías que no cuentan (la devolución de la deuda inicial no es un gasto de la fase: es lo que la fase tiene que pagar).",
     "start": {
@@ -156,6 +255,51 @@
       ],
       "sink_base": "margin",
       "_doc": "GDD 4.19 «Forja con empleados» (H4-H5): artisan_expert, días 9-24 (años 2-3). sink_share: (salarios + mantenimiento + impuestos) / ingresos brutos de la ventana; ingresos brutos = margen bruto (ventas + encargos − input_categories: compras y recados), decisión del manager en H5 (sink_base margin). Se miden las dos lecturas (sink_share_revenue_ / sink_share_margin_). H9: también excluye titles (la ceremonia de Ciudadano, 100 de oro una vez, cae en los días 16-22 del experto; es un gasto de estatus de H9, no de la marcha de la forja que mide esta ventana: con él la media de 30 semillas quedaba al borde de 60; medido con BOT_VARS=asks_titles=0/1)."
+    },
+    "start_carpenter": {
+      "bot": "carpenter_novice",
+      "window_days": [
+        1,
+        8
+      ],
+      "net_per_day": [
+        25,
+        60
+      ],
+      "exclude_categories": [
+        "loans"
+      ],
+      "_doc": "H12: the start of the carpenter (artisan_carpenter), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)»)."
+    },
+    "start_mason": {
+      "bot": "mason_novice",
+      "window_days": [
+        1,
+        8
+      ],
+      "net_per_day": [
+        25,
+        60
+      ],
+      "exclude_categories": [
+        "loans"
+      ],
+      "_doc": "H12: the start of the mason (artisan_mason), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)»)."
+    },
+    "start_tailor": {
+      "bot": "tailor_novice",
+      "window_days": [
+        1,
+        8
+      ],
+      "net_per_day": [
+        25,
+        60
+      ],
+      "exclude_categories": [
+        "loans"
+      ],
+      "_doc": "H12: the start of the tailor (artisan_tailor), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)»)."
     }
   },
   "artisan_expert": {

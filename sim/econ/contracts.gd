@@ -141,12 +141,13 @@ static func step(sim: Sim) -> void:
 ## Posts a contract drawn from the tables of data/contracts/ (state.rng): a client off cooldown, an item with qty in
 ## [min, max], a minimum quality in min_quality_chance of them (one of min_qualities), a deadline in deadline_days.
 ## Returns its id, "" if no client is available.
+## H12: the tables are those of the professions of the heads of the human families (the player's trade: a carpenter
+## gets carpentry contracts); all of them if none matches.
 static func post_random(sim: Sim) -> String:
 	var st := sim.state
-	var tables: Array = sim.catalog.contracts().keys()
+	var tables := board_tables(sim)
 	if tables.is_empty():
 		return ""
-	tables.sort()
 	var t: Dictionary = sim.catalog.contracts()[str(tables[st.rng.randi_range(0, tables.size() - 1)])]
 	var today := Clock.day(_now(sim))
 	var clients: Array = []
@@ -279,6 +280,29 @@ static func count_valid(inv: Dictionary, item: String, min_quality: int) -> int:
 ## The relation of `fam` with a client (0 if never touched).
 static func relation(sim: Sim, fam: String, client: String) -> int:
 	return int(sim.state.contracts.get("relations", {}).get("%s|%s" % [fam, client], 0))
+
+
+## H12: the ids of the contract tables the board draws from (sorted): the tables whose profession is the profession
+## of the head of a human family; every table if none matches.
+static func board_tables(sim: Sim) -> Array:
+	var all: Array = sim.catalog.contracts().keys()
+	all.sort()
+	var profs := {}
+	var fams: Array = sim.state.families.keys()
+	fams.sort()
+	for f: String in fams:
+		var fam: Dictionary = sim.state.families[f]
+		if str(fam.get("controlled_by", "")) != "human":
+			continue
+		var head := str(fam.get("head", ""))
+		var prof := str(sim.state.characters.get(head, {}).get("profession", ""))
+		if prof != "":
+			profs[prof] = true
+	var out: Array = []
+	for id: String in all:
+		if profs.has(str(sim.catalog.contracts()[id].get("profession", ""))):
+			out.append(id)
+	return out if not out.is_empty() else all
 
 
 ## The data/contracts/ table that has `item` (the first by id), else the first table, else {}.

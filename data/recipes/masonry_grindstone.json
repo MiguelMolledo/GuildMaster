@@ -1,0 +1,22 @@
+{
+  "id": "masonry_grindstone",
+  "name_key": "recipe.masonry_grindstone",
+  "building": "masonry",
+  "zone": "carving_bench",
+  "inputs": [
+    {
+      "item": "ashlar",
+      "qty": 1
+    },
+    {
+      "item": "wood",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "grindstone",
+    "qty": 1
+  },
+  "duration_hours": 2.6,
+  "min_craft": 2
+}

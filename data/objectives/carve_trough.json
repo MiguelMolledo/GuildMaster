@@ -1,0 +1,20 @@
+{
+  "id": "carve_trough",
+  "name_key": "objective.carve_trough",
+  "conditions": [
+    {
+      "event": "work_done",
+      "match": {
+        "item": "ashlar"
+      },
+      "count": 3
+    },
+    {
+      "event": "work_done",
+      "match": {
+        "item": "trough"
+      },
+      "count": 1
+    }
+  ]
+}

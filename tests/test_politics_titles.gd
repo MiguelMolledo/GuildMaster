@@ -124,7 +124,7 @@ func test_the_title_opens_an_upgrade() -> void:
 	var st := sim.state
 	var need := ""
 	for id: String in cat.upgrades():
-		if str(cat.upgrade(id).get("requires", {}).get("title", "")) == "citizen":
+		if str(cat.upgrade(id).get("requires", {}).get("title", "")) == "citizen" and str(cat.upgrade(id).get("tree", "")) == "forge":
 			need = id
 	check(need != "", "an upgrade asks for citizen (Fachada noble, 4.8)")
 	var reqs: Dictionary = cat.upgrade(need).get("requires", {})

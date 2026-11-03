@@ -13,6 +13,8 @@ const H7_KINDS: Array[String] = ["microevents"]
 const H9_KINDS: Array[String] = ["titles"]
 ## H10 folders (docs/contratos/h10_cargos.md): the public offices of GDD 4.12.3, one file each.
 const H10_KINDS: Array[String] = ["offices"]
+## H12 folders: the professions of each class (GDD 4.2.1), one file each: workshop, tool, start and contract table.
+const H12_KINDS: Array[String] = ["professions"]
 ## H10: the office ranks, from the lowest (the title that opens them: unlocks.office_rank) to the mayor.
 const OFFICE_RANKS: Array[String] = ["minor", "middle", "major", "mayor"]
 ## H10: the passive effects and the active powers an office may have (data/offices/*.json).
@@ -47,7 +49,7 @@ var errors: PackedStringArray = []  # files that could not be read
 static func load_from(root_dir: String = "res://data", dev_time: bool = false) -> Catalog:
 	var c := Catalog.new()
 	c.root = root_dir
-	for kind: String in KINDS + H3_KINDS + H7_KINDS + H9_KINDS + H10_KINDS:
+	for kind: String in KINDS + H3_KINDS + H7_KINDS + H9_KINDS + H10_KINDS + H12_KINDS:
 		c.tables[kind] = c._load_folder(root_dir.path_join(kind))
 	c.time = c._load_json(root_dir.path_join("time.json"))
 	c.tiles = c._load_json(root_dir.path_join("tiles.json")).get("tiles", {})
@@ -105,6 +107,24 @@ func objectives() -> Dictionary:
 
 func contracts() -> Dictionary:
 	return tables.get("contracts", {})
+
+
+## H12: the professions of data/professions/ (GDD 4.2.1), by id.
+func professions() -> Dictionary:
+	return tables.get("professions", {})
+
+
+## H12: the profession ids of `char_class` in their "order".
+func professions_of(char_class: String) -> Array:
+	var out: Array = []
+	for id: String in professions():
+		if str(professions()[id].get("class", "")) == char_class:
+			out.append(id)
+	out.sort_custom(func(a: String, b: String) -> bool:
+		var oa := int(professions()[a].get("order", 0))
+		var ob := int(professions()[b].get("order", 0))
+		return oa < ob or (oa == ob and a < b))
+	return out
 
 
 ## H7: the microevents of data/microevents/ (GDD 4.20), by id.
@@ -219,6 +239,15 @@ func validate() -> PackedStringArray:
 		var rival_profile := str(s.get("rival", {}).get("profile", ""))
 		if rival_profile != "" and not ai_profiles().has(rival_profile):
 			out.append("starts/%s: unknown ai profile %s" % [id, rival_profile])
+		for cp: Dictionary in s.get("competitors", []):  # H12
+			if not ai_profiles().has(str(cp.get("profile", ""))):
+				out.append("starts/%s: competitor: unknown ai profile %s" % [id, cp.get("profile", "")])
+	for id: String in professions():  # H12
+		var pf: Dictionary = professions()[id]
+		if not buildings().has(str(pf.get("building", ""))):
+			out.append("professions/%s: unknown building %s" % [id, pf.get("building", "")])
+		if not starts().has(str(pf.get("start", ""))):
+			out.append("professions/%s: unknown start %s" % [id, pf.get("start", "")])
 	# H4: the employees' table (tools/validate_content.py checks the rest).
 	for r: String in employees.get("rank_order", []):
 		if rank(r).is_empty():

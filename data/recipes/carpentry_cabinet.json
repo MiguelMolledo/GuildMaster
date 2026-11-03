@@ -1,0 +1,22 @@
+{
+  "id": "carpentry_cabinet",
+  "name_key": "recipe.carpentry_cabinet",
+  "building": "carpentry",
+  "zone": "workbench",
+  "inputs": [
+    {
+      "item": "planks",
+      "qty": 3
+    },
+    {
+      "item": "iron",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "cabinet",
+    "qty": 1
+  },
+  "duration_hours": 6.5,
+  "min_craft": 6
+}

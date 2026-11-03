@@ -1,0 +1,22 @@
+{
+  "id": "carpentry_chest",
+  "name_key": "recipe.carpentry_chest",
+  "building": "carpentry",
+  "zone": "workbench",
+  "inputs": [
+    {
+      "item": "planks",
+      "qty": 2
+    },
+    {
+      "item": "iron",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "chest",
+    "qty": 1
+  },
+  "duration_hours": 3.9,
+  "min_craft": 4
+}
