@@ -103,6 +103,7 @@ const GOLD_ICON: String = "icon_oro"
 @onready var _office_card: OfficeCard = %OfficeCard        # H10: the result of a vote
 @onready var _trial_card: TrialCard = %TrialCard           # H11: «you are accused» and the verdict
 @onready var _help_panel: HelpPanel = %HelpPanel
+@onready var _confirm: ConfirmModal = %ConfirmModal       # docs/ui/01 §5: the confirmation of what is expensive
 
 var selected_id: String = ""
 var building_id: String = ""
@@ -115,6 +116,8 @@ var _pending_service: Dictionary = {}  # {actor, kind, id, service}: open its pa
 var _popups: Array = []  # [{node, left, gravity}] oldest first (left < 0: until clicked)
 var _group_sig: String = ""
 var _card_sig: String = ""
+var _gold_family: String = ""
+var _gold_shown: int = -1
 var _frame_scene: PackedScene = preload("res://game/ui/portrait_frame.tscn")
 
 var _game: Node = null
@@ -380,6 +383,9 @@ func _build_denied() -> void:
 ## ESC: closes the top thing (docs/ui/01 §2): a card, the help, the management panel or big modal, then the picked
 ## building. False if there was nothing to close (the app then asks for the pause menu).
 func close_top() -> bool:
+	if _confirm.visible:
+		_confirm.cancel()
+		return true
 	for c: Control in [_trial_card, _office_card, _title_card]:
 		if c.visible:
 			c.call("close")
@@ -527,7 +533,12 @@ func _refresh_family(sim: Sim) -> void:
 	if sig != _card_sig:
 		_card_sig = sig
 		_name_label.text = str(sim.state.characters.get(who, {}).get("name", ""))
-		_family_gold.text = str(gold)
+		if fam == _gold_family and _gold_shown >= 0 and gold != _gold_shown:
+			UiAnim.gold_change(_family_gold, _gold_shown, gold)   # counts and «+42» rises (00 §8)
+		else:
+			_family_gold.text = str(gold)
+		_gold_family = fam
+		_gold_shown = gold
 		_family_gold.tooltip_text = tr("hud.family_gold") % gold
 		_title_badge.texture = UiIcons.mark("badge_title_" + title)
 		# with two or three portraits the card has room for the reputation only (the title is in the badge and the tooltip)
@@ -657,6 +668,11 @@ func column_rects() -> Dictionary:
 
 # --- F1 help ---------------------------------------------------------------------------------------------------------
 
+## The confirmation modal (see ConfirmModal: ask(spec, on_confirm)).
+func confirm_modal() -> ConfirmModal:
+	return _confirm
+
+
 func help_visible() -> bool:
 	return _help_panel.visible
 
@@ -692,7 +708,7 @@ func now_text() -> String:
 func close_panels() -> void:
 	_help_panel.visible = false
 	_pending_service = {}
-	for p: Control in _manage_panels() + _modal_panels() + [_title_card, _office_card, _trial_card]:
+	for p: Control in _manage_panels() + _modal_panels() + [_title_card, _office_card, _trial_card, _confirm]:
 		p.call("close")
 	for n: Dictionary in _popups.duplicate():
 		_drop_popup(n["node"])
@@ -923,6 +939,7 @@ func _on_notice(e: Dictionary) -> void:
 			(p["node"] as Node).queue_free()   # the oldest goes; it stays in the book
 	_popups = kept
 	_notice_popups.add_child(node)
+	UiAnim.notice_in(node.get_node("HBox") as Control)
 	if gravity == "urgent":
 		_blink(node.get_node("HBox/Stripe") as CanvasItem)
 	Log.info("Hud", "notice %s: %s" % [gravity, text])

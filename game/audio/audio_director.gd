@@ -316,12 +316,8 @@ func _hook_tree(n: Node) -> void:
 func _on_node_added(n: Node) -> void:
 	if n is BaseButton:
 		var b := n as BaseButton
-		if b.theme_type_variation == &"TabButton":   # a tab: the tab sound instead of the click (ui.tab)
-			if not b.pressed.is_connected(_on_tab):
-				b.pressed.connect(_on_tab)
-		elif not b.pressed.is_connected(_on_button):
-			b.pressed.connect(_on_button)
 		if not b.has_meta("ui_audio"):
+			b.pressed.connect(_on_pressed.bind(b))   # the sound is chosen when pressed (its variation may change)
 			b.set_meta("ui_audio", true)
 			b.gui_input.connect(_on_button_input.bind(b))
 	elif n is TabBar or n is TabContainer:
@@ -341,6 +337,22 @@ func _on_button_input(event: InputEvent, b: BaseButton) -> void:
 	var mb := event as InputEventMouseButton
 	if mb != null and mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT and b.disabled and ui_sound("denied") != "":
 		play(ui_sound("denied"))
+
+
+## A tab (TabButton) turns (ui.tab), an expensive thing confirmed (SealButton) seals (ui.seal), the rest click.
+func _on_pressed(b: BaseButton) -> void:
+	match b.theme_type_variation:
+		&"TabButton":
+			_on_tab()
+		&"SealButton":
+			_on_seal()
+		_:
+			_on_button()
+
+
+func _on_seal() -> void:
+	if ui_sound("seal") != "":
+		play(ui_sound("seal"))
 
 
 func _on_tab() -> void:
