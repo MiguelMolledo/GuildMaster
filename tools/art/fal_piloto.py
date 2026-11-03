@@ -11,6 +11,7 @@ Uso:
                                        [--transparent]
   python3 tools/art/fal_piloto.py rembg --piece paseo --src a.png --dst b.png
   python3 tools/art/fal_piloto.py total
+Tanda: FAL_TANDA=piloto (por defecto, tope 3 USD) o FAL_TANDA=produccion (tope 8 USD, crudo en assets/art/fal_produccion/).
 """
 import argparse
 import datetime
@@ -28,7 +29,10 @@ import fal_client  # noqa: E402
 
 OUT = os.path.join(ROOT, "assets", "art", "fal_piloto")
 LEDGER = os.path.join(OUT, "gasto.json")
-CAP = 3.0
+# Tope por tanda: el piloto (3 USD) y la producción de retratos, eventos, pantallas y cartas (8 USD, 2026-11-03).
+TANDA = os.environ.get("FAL_TANDA", "piloto")
+CAPS = {"piloto": 3.0, "produccion": 8.0}
+CAP = CAPS[TANDA]
 
 MODELS = {
     "nano": ("fal-ai/nano-banana", 0.0398),
@@ -47,12 +51,21 @@ def ledger():
 
 
 def total():
-    return round(sum(r["usd"] for r in ledger()), 4)
+    return round(sum(r["usd"] for r in ledger() if r.get("tanda", "piloto") == TANDA), 4)
 
 
 def note(piece, model, images, usd, what):
+    import fcntl  # varias tandas a la vez: el gasto se escribe con cerrojo
+    os.makedirs(OUT, exist_ok=True)
+    with open(LEDGER + ".lock", "w") as lk:
+        fcntl.flock(lk, fcntl.LOCK_EX)
+        _note(piece, model, images, usd, what)
+
+
+def _note(piece, model, images, usd, what):
     rows = ledger()
-    rows.append({"fecha": datetime.datetime.now().isoformat(timespec="seconds"), "pieza": piece, "modelo": model,
+    rows.append({"fecha": datetime.datetime.now().isoformat(timespec="seconds"), "tanda": TANDA, "pieza": piece,
+                 "modelo": model,
                  "imagenes": images, "usd": round(usd, 4), "que": what})
     os.makedirs(OUT, exist_ok=True)
     with open(LEDGER, "w") as f:
@@ -62,7 +75,7 @@ def note(piece, model, images, usd, what):
 def guard(cost):
     t = total()
     if t + cost > CAP + 1e-9:
-        print(f"TOPE: gastado {t:.3f} USD + {cost:.3f} pasaría de {CAP} USD. No se genera.")
+        print(f"TOPE ({TANDA}): gastado {t:.3f} USD + {cost:.3f} pasaría de {CAP} USD. No se genera.")
         sys.exit(2)
     return t
 
@@ -81,7 +94,7 @@ def gen(a):
         model_id += "/edit"
     print(f"{model_id} | {a.count} img | {cost:.3f} USD (llevamos {t:.3f}) | refs={len(a.ref)}")
     res = fal_client.subscribe(model_id, arguments=args)
-    d = os.path.join(OUT, a.piece, "crudo")
+    d = os.path.join(OUT if TANDA == "piloto" else os.path.join(ROOT, "assets", "art", "fal_produccion"), a.piece, "crudo")
     os.makedirs(d, exist_ok=True)
     paths = []
     for i, im in enumerate(res.get("images", [])):
@@ -173,7 +186,7 @@ def main():
     r.add_argument("--dst", required=True)
     sub.add_parser("total")
     a = p.parse_args()
-    {"gen": gen, "pixel": pixel, "rembg": rembg, "total": lambda _: print(f"{total():.4f} USD")}[a.cmd](a)
+    {"gen": gen, "pixel": pixel, "rembg": rembg, "total": lambda _: print(f"{TANDA}: {total():.4f} USD")}[a.cmd](a)
 
 
 if __name__ == "__main__":

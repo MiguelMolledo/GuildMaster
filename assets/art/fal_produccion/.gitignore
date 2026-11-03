@@ -1,0 +1,6 @@
+# Intermedios y la galería (regenerables: tools/art/fal_*_proc.py, fal_produccion_galeria.py)
+*/i2p/*.src.png
+galeria*.html
+
+# Recortes de celda para repetir un mapa (tools/art/fal_retratos.py mascara_celda los rehace)
+retratos/crudo/*_celda.png

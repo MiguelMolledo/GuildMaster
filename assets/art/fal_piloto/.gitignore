@@ -1,2 +1,3 @@
 # Intermedios que regenera tools/art/fal_piloto_build.py (cortes de rejilla y recortes sin fondo)
 */celdas/
+*.lock

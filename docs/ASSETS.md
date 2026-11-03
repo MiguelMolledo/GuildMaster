@@ -51,7 +51,8 @@ Un asset que no se anima pasa de `sprite` a `final` directamente.
 | icono pequeño (listas de la UI) | 16×16 | — | — | `assets/art/icons/small/<item_id>.png` (se deriva del de 32 con `tools/art/derivar_guild.py`) |
 | ui | 9-patch o pieza suelta | — | — | `assets/art/ui/…` |
 | vfx | libre | — | `loop` o `once` | `assets/art/vfx/<id>/` |
-| retrato | 64×64 | — | — | `assets/art/portraits/<id>.png` |
+| retrato | 64×64 (busto) y 32×32 (cara) | — | — | `assets/art/portraits/<tipo>.png` y `<tipo>_32.png`: un retrato por tipo de personaje (grupo, etapa, sexo), con fondo transparente y los colores clave codificados como los personajes (se pintan con `identity_swap.gdshader`). Lista y criterio en `assets/art/fal_produccion/LEEME.md` |
+| ilustración (ui) | 240×135 (libro y cartas), 192×108 (aviso, `<id>_192.png`), pantallas 960×540 (480×270 ×2) | — | — | `assets/art/illustrations/<id>.png`: `event_<evento>`, `season_<estación>`, `card_<carta>`, `screen_<pantalla>` |
 
 - Ancla de los pies: el punto de apoyo va en el centro inferior del fotograma; se ajusta en su escena visual moviendo el
   sprite (Offset) sobre el `Marker2D` `Feet`.

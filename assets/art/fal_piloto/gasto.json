@@ -374,5 +374,2183 @@
   "imagenes": 1,
   "usd": 0.0006,
   "que": "birefnet paseo_v2_birefnet.png"
+ },
+ {
+  "fecha": "2026-11-03T21:03:21",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "mascara_prueba"
+ },
+ {
+  "fecha": "2026-11-03T21:05:38",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G01"
+ },
+ {
+  "fecha": "2026-11-03T21:05:54",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G01_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:06:11",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "grid2_nano2_v1_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:06:47",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G02"
+ },
+ {
+  "fecha": "2026-11-03T21:07:23",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G02_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:07:40",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G03"
+ },
+ {
+  "fecha": "2026-11-03T21:07:54",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G03_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:08:11",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G04"
+ },
+ {
+  "fecha": "2026-11-03T21:08:26",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G04_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:08:41",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G05"
+ },
+ {
+  "fecha": "2026-11-03T21:08:56",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G05_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:09:14",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G06"
+ },
+ {
+  "fecha": "2026-11-03T21:09:32",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G06_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:09:49",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G07"
+ },
+ {
+  "fecha": "2026-11-03T21:09:52",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "event_famine"
+ },
+ {
+  "fecha": "2026-11-03T21:10:03",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G07_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:10:07",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "event_epidemic"
+ },
+ {
+  "fecha": "2026-11-03T21:10:19",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G08"
+ },
+ {
+  "fecha": "2026-11-03T21:10:21",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "event_good_harvest"
+ },
+ {
+  "fecha": "2026-11-03T21:10:36",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G08_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:10:39",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "event_religious_feast"
+ },
+ {
+  "fecha": "2026-11-03T21:10:51",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G09"
+ },
+ {
+  "fecha": "2026-11-03T21:10:54",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "event_dignitary_visit"
+ },
+ {
+  "fecha": "2026-11-03T21:11:06",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G09_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:11:12",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "event_riot"
+ },
+ {
+  "fecha": "2026-11-03T21:11:26",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G10"
+ },
+ {
+  "fecha": "2026-11-03T21:11:27",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "event_political_crisis"
+ },
+ {
+  "fecha": "2026-11-03T21:11:41",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G10_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:11:42",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "event_discovery"
+ },
+ {
+  "fecha": "2026-11-03T21:11:57",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0019,
+  "que": "image2pixel artisan_child_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:11:57",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G11"
+ },
+ {
+  "fecha": "2026-11-03T21:11:58",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "season_spring"
+ },
+ {
+  "fecha": "2026-11-03T21:12:01",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel artisan_child_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:05",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel artisan_child_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:10",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel artisan_child_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:13",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G11_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:12:14",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "season_summer"
+ },
+ {
+  "fecha": "2026-11-03T21:12:15",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel artisan_youth_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:19",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel artisan_youth_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:24",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel artisan_mature_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:27",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G12"
+ },
+ {
+  "fecha": "2026-11-03T21:12:27",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel artisan_mature_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:30",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "season_autumn"
+ },
+ {
+  "fecha": "2026-11-03T21:12:32",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel artisan_mature_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:36",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel artisan_mature_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:40",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel artisan_elder_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:44",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel artisan_elder_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:44",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G12_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:12:45",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "season_winter"
+ },
+ {
+  "fecha": "2026-11-03T21:12:48",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel artisan_elder_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:53",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel artisan_elder_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:57",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel worker_adult_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:12:59",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G13"
+ },
+ {
+  "fecha": "2026-11-03T21:13:00",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_wedding"
+ },
+ {
+  "fecha": "2026-11-03T21:13:01",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel worker_adult_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:05",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel patron_child_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:09",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_child_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:14",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel patron_child_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:17",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_birth"
+ },
+ {
+  "fecha": "2026-11-03T21:13:18",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G13_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:13:18",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel patron_child_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:22",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_youth_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:26",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_youth_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:31",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel patron_youth_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:32",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_death"
+ },
+ {
+  "fecha": "2026-11-03T21:13:32",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G14"
+ },
+ {
+  "fecha": "2026-11-03T21:13:35",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_youth_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:39",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel patron_adult_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:44",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel patron_adult_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:46",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G14_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:13:48",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_trial"
+ },
+ {
+  "fecha": "2026-11-03T21:13:49",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel patron_adult_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:53",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_adult_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:13:57",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_mature_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:01",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_mature_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:02",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G15"
+ },
+ {
+  "fecha": "2026-11-03T21:14:04",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_verdict"
+ },
+ {
+  "fecha": "2026-11-03T21:14:06",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel patron_mature_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:10",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_mature_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:15",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel patron_elder_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:18",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_election"
+ },
+ {
+  "fecha": "2026-11-03T21:14:19",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_elder_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:20",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G15_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:14:23",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_elder_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:28",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel patron_elder_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:33",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel scholar_child_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:34",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_title"
+ },
+ {
+  "fecha": "2026-11-03T21:14:38",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel scholar_child_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:39",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G16"
+ },
+ {
+  "fecha": "2026-11-03T21:14:43",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel scholar_child_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:46",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scholar_child_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:51",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_loading_1"
+ },
+ {
+  "fecha": "2026-11-03T21:14:51",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scholar_youth_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:55",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scholar_youth_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:14:59",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G16_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:15:00",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scholar_youth_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:04",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scholar_youth_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:08",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_loading_2"
+ },
+ {
+  "fecha": "2026-11-03T21:15:08",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel scholar_adult_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:12",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scholar_adult_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:16",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G17"
+ },
+ {
+  "fecha": "2026-11-03T21:15:16",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel scholar_adult_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:20",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel scholar_adult_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:24",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scholar_mature_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:25",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_saves"
+ },
+ {
+  "fecha": "2026-11-03T21:15:28",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scholar_mature_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:33",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel scholar_mature_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:37",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scholar_mature_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:37",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G17_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:15:41",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scholar_elder_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:45",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_ending_victory"
+ },
+ {
+  "fecha": "2026-11-03T21:15:45",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel scholar_elder_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:50",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel scholar_elder_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:15:52",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G18"
+ },
+ {
+  "fecha": "2026-11-03T21:15:56",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel scholar_elder_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:01",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rogue_child_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:03",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_ending_extinction"
+ },
+ {
+  "fecha": "2026-11-03T21:16:05",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rogue_child_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:09",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rogue_child_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:12",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "G18_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:16:13",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rogue_child_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:17",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rogue_youth_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:19",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_title_night"
+ },
+ {
+  "fecha": "2026-11-03T21:16:21",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rogue_youth_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:25",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rogue_youth_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:30",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rogue_youth_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:35",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel rogue_adult_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:39",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rogue_adult_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:43",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rogue_adult_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:48",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rogue_adult_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:52",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rogue_mature_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:16:56",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rogue_mature_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:17:00",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rogue_mature_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:17:05",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rogue_mature_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:17:09",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rogue_elder_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:17:14",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel rogue_elder_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:17:18",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rogue_elder_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:17:23",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rogue_elder_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:17:27",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel worker_mature_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:17:31",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel worker_mature_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:17:35",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel worker_mature_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:17:39",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel worker_mature_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:18:20",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_child_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:18:25",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_child_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:18:29",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel townsfolk_child_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:18:34",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_child_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:18:38",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_youth_m_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:18:42",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel townsfolk_youth_m_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:18:47",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_youth_f_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:18:50",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_youth_f_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:18:55",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_adult_m_1_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:18:59",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_adult_m_1_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:03",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_adult_m_2_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:07",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel townsfolk_adult_m_2_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:11",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_adult_f_1_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:15",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_adult_f_1_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:19",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_adult_f_2_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:23",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel townsfolk_adult_f_2_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:27",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_mature_m_1_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:32",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel townsfolk_mature_m_1_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:36",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_mature_m_2_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:40",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_mature_m_2_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:44",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel townsfolk_mature_f_1_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:47",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel townsfolk_mature_f_1_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:52",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_mature_f_2_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:19:56",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel townsfolk_mature_f_2_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:01",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel townsfolk_elder_m_2_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:05",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel townsfolk_elder_m_2_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:09",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_elder_f_2_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:13",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel townsfolk_elder_f_2_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:17",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel foreigner_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:21",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel foreigner_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:25",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel captain_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:29",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel captain_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:33",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rival_adult_m_2_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:37",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rival_adult_m_2_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:42",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rival_adult_f_2_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:47",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rival_adult_f_2_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:51",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rival_adult_m_3_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:20:55",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rival_adult_m_3_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:00",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel rival_adult_f_3_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:04",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rival_adult_f_3_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:09",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rival_adult_m_4_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:13",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rival_adult_m_4_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:17",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rival_adult_f_4_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:21",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rival_adult_f_4_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:25",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rival_adult_m_5_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:29",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rival_adult_m_5_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:34",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rival_adult_f_5_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:37",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel rival_adult_f_5_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:42",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel mayor_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:46",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel mayor_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:51",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel judge_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:55",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel judge_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:21:59",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel priest_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:04",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel priest_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:08",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel constable_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:12",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel constable_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:17",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tax_collector_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:21",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tax_collector_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:25",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel market_inspector_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:30",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel market_inspector_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:35",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel councillor_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:40",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel councillor_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:45",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel dignitary_s8.png"
+ },
+ {
+  "fecha": "2026-11-03T21:22:49",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel dignitary_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:02",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel event_famine_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:07",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel event_epidemic_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:12",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel event_good_harvest_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:17",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel event_religious_feast_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:22",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel event_dignitary_visit_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:27",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel event_riot_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:33",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel event_political_crisis_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:38",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel event_discovery_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:43",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel season_spring_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:48",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel season_summer_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:54",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0007,
+  "que": "image2pixel season_autumn_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:23:59",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel season_winter_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:04",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_wedding_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:09",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_birth_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:14",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_death_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:19",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_trial_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:24",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_verdict_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:29",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_election_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:34",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_title_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:39",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel screen_loading_1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:44",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel screen_loading_2_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:49",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel screen_saves_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:24:54",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel screen_ending_victory_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:25:00",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel screen_ending_extinction_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:25:06",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel screen_title_night_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:25:11",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel event_war_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:25:16",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel event_festival_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:25:21",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel screen_title_dawn_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:26:59",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "patron_mature_m_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:27:15",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rival_adult_m_3_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:27:31",
+  "tanda": "produccion",
+  "pieza": "retratos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "townsfolk_youth_m_mascara"
+ },
+ {
+  "fecha": "2026-11-03T21:31:49",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_birth"
+ },
+ {
+  "fecha": "2026-11-03T21:32:05",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "event_good_harvest"
+ },
+ {
+  "fecha": "2026-11-03T21:32:16",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0013,
+  "que": "image2pixel card_birth_i2p.png"
+ },
+ {
+  "fecha": "2026-11-03T21:32:21",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel event_good_harvest_i2p.png"
  }
 ]
