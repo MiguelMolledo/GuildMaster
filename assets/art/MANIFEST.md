@@ -24,6 +24,7 @@ Plan: Tier 1, 2.000 generaciones/mes, se renueva el 15 de cada mes.
 | 2026-11-02 | Kit de UI (2): pergamino, casilla, deslizador, scroll, separador, insignias de título y cargo, galones, sello de lacre y cursores | Pillow (`tools/art/dibujar_ui.py`) | 8 piezas, 17 marcas, 3 cursores | — | — | 0 (sin créditos) |
 | 2026-11-02 | Logotipo «GuildMaster» y fuente Jacquard 24 (OFL) | Pillow (`tools/ui/logo.py`) | 1 logotipo, 1 fuente | — | — | 0 (sin créditos) |
 | 2026-11-03 | H12 · oficios del Artesano (carpintero, albañil, sastre): fachadas derivadas, interiores, puestos, mejoras, iconos, 2 puestos de mercado | Pillow (`tools/art/oficios_h12.py`) + sprites del repo `guild` (solo lectura) | 3 fachadas, 3 kits de interior, 6 puestos, 18 visuales de mejora, 11 iconos (+16 px), 2 puestos de plaza; todo placeholder o derivado (`assets/inventario.json`, `para` H12) | — | — | 0 (sin créditos) |
+| 2026-11-03 | Kit de página piloto (rama kit-pagina): pergaminos, marcos, esquina, cinta, separador, cartucho, texturas; máscaras y velo gratis | fal nano-banana-2/edit ×15 (ref: el kit de UI actual a ×8; magenta como croma) + fal-ai/image2pixel ×15 (rejilla) + fal-ai/z-image/turbo/tiling ×2 (1024²) + Pillow (`tools/art/kit_pagina.py`) | 29 piezas en `assets/art/ui/page_kit/` (detalle por llamada en `assets/art/ui/page_kit/gasto.json`; prompts en `assets/art/ui/page_kit/prompts.log`; el crudo en `tmp/kit_pagina/crudo/`, fuera de git) | sin tope (encargo) | — | 15 × 0,08 + 0,007 + 2 × 0,021 = **1,25 USD** |
 
 ## Lista de la compra · PixelLab (a partir del 15-nov)
 

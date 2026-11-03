@@ -2256,6 +2256,36 @@
       "notas": "Derivado (tools/art/oficios_h12.py): ropa común recoloreada, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
       "coste_gen": 0,
       "origen_previo": null
+    },
+    {
+      "id": "ui_page_kit",
+      "tipo": "ui",
+      "estado": "concepto",
+      "para": [
+        "UI",
+        "kit-pagina",
+        "H13"
+      ],
+      "ruta": "assets/art/ui/page_kit/",
+      "origen": "fal nano-banana-2/edit (ref: el kit de UI actual a ×8) + fal-ai/image2pixel + fal-ai/z-image/turbo/tiling; máscaras y velo con Pillow",
+      "origen_previo": null,
+      "coste_gen": 17,
+      "notas": "Kit de página piloto (docs/ui/04_kit_de_pagina.md, tools/art/kit_pagina.py): pergamino rasgado claro (2 apaisados, 1 vertical) y cuero oscuro (solo decorativo), marco de cuadro (2), marco de caja (2), esquina, cinta (2), separador (2), cartucho, texturas clara y oscura, máscaras de pincel tramadas (pie 240 y 192, esquina, lateral; 3 de cada) y velo. kit.json: medidas (9 trozos, zona segura, remates y franja de la cinta, hueco del cartucho) y variantes elegidas. Lo usan game/ui/page_kit.gd y page_card.gd. Gasto: 1,25 USD (assets/art/ui/page_kit/gasto.json, MANIFEST)."
+    },
+    {
+      "id": "ui_page_pilot_art",
+      "tipo": "ui",
+      "estado": "concepto",
+      "para": [
+        "UI",
+        "kit-pagina",
+        "H13"
+      ],
+      "ruta": "assets/art/ui/page_kit/piloto/",
+      "origen": "copia del piloto de la rama arte-fal (assets/art/fal_piloto/eventos/final, retratos/final)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Ilustraciones de evento (guerra y fiesta, 240×135 y 192×108) y 4 retratos 64 del piloto de fal, para la carta de evento y la galería mientras las de producción (assets/art/illustrations/, portraits/) no estén en main. VisualPaths.illustration busca primero assets/art/illustrations/events/<id>.png. Se borran al llegar las de producción."
     }
   ]
 }
