@@ -1,0 +1,7 @@
+{
+  "fecha": "2026-11-03",
+  "titulo": "Diseño de las otras clases (4.22, Gate antes de H12)",
+  "que": "Nuevo documento de diseño docs/gdd/04d_otras_clases.md que desarrolla el esbozo de 4.22: piezas comunes (recetas de servicio y de campo, clientes con necesidad, salud, vigilancia y testigos, forasteros, guardado v13 y órdenes nuevas); Patrón (campos por estación, ganado, molino, panadería, carnicería, taberna y posada); Erudito (médico, sacerdote, alquimista, escriba y banquero con el Loan ampliado); Pícaro (combate como orden, guardias y detención, carterista y robo, mercancía robada y perista, espía y chantaje, bandido y rescates, mercenario). Cada sistema con reglas y cifras [balance], bucle diario, interfaz que falta, bot y dianas, riesgos, lista de la compra de PixelLab para el 15-nov y 15 decisiones para el owner. Solo documentación: no cambia código ni 04c.",
+  "como_probar": "Leer docs/gdd/04d_otras_clases.md (enlazado desde 4.22 en 04b y desde docs/gdd/README.md) y responder las decisiones O1-O15 de 4.22.11.",
+  "capturas": []
+}

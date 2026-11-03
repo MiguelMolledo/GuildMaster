@@ -218,6 +218,8 @@ Cada ataque detectado se apunta en el registro de avisos y en la crónica.
 
 ### 4.22 Sistemas propios de las otras clases [EA, diseñar en detalle antes de H12]
 
+**Diseño detallado** (piezas comunes, Patrón, Erudito, Pícaro, guardado, órdenes, bots, arte y decisiones del owner): [04d_otras_clases.md](04d_otras_clases.md). Lo que allí se precisa sobre esta sección está resumido en su 4.22.1.
+
 El Artesano se juega con los sistemas del MVP, pero las otras tres clases **no son solo datos**: cada una necesita un sistema nuevo en `sim/`. Aquí va el esbozo; el diseño detallado de cada uno se cierra y lo aprueba el owner [Gate] antes de empezar H12. La arquitectura reserva desde ya sus huecos (5.3 y 5.5) para no tener que rehacer nada.
 
 **Pícaro: combate, robo y guardias**

@@ -10,6 +10,7 @@ Si lo jugado choca con el diseño, gana lo jugado: se cambia aquí en el mismo c
 - [4. Diseño de juego (4.1-4.15)](04_diseno_de_juego.md)
 - [4 (cont.). Inicio y final de partida, libro de cuentas, flujos de oro, microeventos, IA rival, otras clases, dificultad (4.16-4.23)](04b_partida_y_rivales.md)
 - [4c. IA de las familias rivales: diseño detallado de 4.21 (Gate antes de H6)](04c_ia_rival.md)
+- [4d. Sistemas propios de las otras clases: diseño detallado de 4.22 (Gate antes de H12)](04d_otras_clases.md)
 - [5. Arquitectura técnica](05_arquitectura.md)
 - [6. Modelo de datos (fichas de `data/`)](06_modelo_de_datos.md)
 - [7. Testing y verificación (el sistema de Wizards Broke It)](07_testing.md)
