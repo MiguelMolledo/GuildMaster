@@ -36,6 +36,7 @@ func _bind() -> void:
 		return
 	_bound = true
 	(%CloseButton as Button).pressed.connect(close)
+	(%FamilyLink as Button).pressed.connect(open_family)   # rivales.md: «de la familia Soler ›»
 	_bar = RelationBar.new()
 	_bar.name = "Bar"
 	_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -135,6 +136,8 @@ func _fill_head(t: Dictionary) -> void:
 			VisualPaths.place(b, Vector2(13, 20))
 			icon_slot.add_child(b)
 	(%Doing as Label).text = SimQuery.town_state_text(sim, target)
+	(%FamilyLink as Button).text = SimQuery.t_("ui.npc.family_link") % str(fam.get("name", ""))
+	(%FamilyLink as Button).visible = fam.size() > 0 and str(t.get("family", "")) != SimQuery.player_family(st)
 
 
 func _fill_relation(rel: int) -> void:
@@ -264,6 +267,15 @@ func _fill_actions(statuses: Array, gift: Dictionary, camp: Array, t: Dictionary
 		b.mouse_exited.connect(_hover.bind(""))
 		b.pressed.connect(func() -> void: request_campaign(kind))
 		acts.add_child(b)
+
+
+## The sheet of the townsperson's family (the families panel, rivales.md).
+func open_family() -> void:
+	if not is_inside_tree():
+		return
+	var p := get_tree().get_first_node_in_group(FamiliesPanel.GROUP) as FamiliesPanel
+	if p != null:
+		p.open_for(sim, actor, str(sim.state.characters.get(target, {}).get("family", "")))
 
 
 ## cortejo_y_boda.md §6: while the townsperson is someone the selected person could court, a Courtship section with
@@ -452,10 +464,22 @@ func _accuse_row() -> Control:
 		else:
 			o["fact"] = str(e.get("fact", ""))
 		var name_t := str(sim.state.characters.get(target, {}).get("name", target))
-		SocialKit.ask(self, SimQuery.t_("ui.npc.accuse_q") % name_t, str(e.get("text", "")),
-			SimQuery.t_("ui.npc.accuse"), func() -> void: _give([o]), SimQuery.t_("ui.menu.cannot_undo")))
+		SocialKit.ask(self, SimQuery.t_("ui.npc.accuse_q") % name_t, accuse_risk(e), SimQuery.t_("ui.npc.accuse"),
+			func() -> void: _give([o]), SimQuery.t_("ui.menu.cannot_undo")))
 	row.add_child(b)
 	return row
+
+
+## What an accusation risks (tribunal.md §4): a false one lost costs reputation; fabricated proofs, its odds.
+func accuse_risk(e: Dictionary) -> String:
+	var ac: Dictionary = sim.catalog.justice.get("accuse", {})
+	var out := str(e.get("text", "")) + ". " + SimQuery.t_("ui.npc.accuse_false") % SocialKit.signed(int(ac.get("false_reputation", -50)))
+	if bool(e.get("fabricate", false)):
+		var fc: Dictionary = ac.get("fabricate", {})
+		var b := SocialKit.check_band(sim, actor, target, str(fc.get("stat", "stealth")), "", int(fc.get("target", 5)))
+		out += " " + SimQuery.t_("ui.npc.accuse_fabricate_risk") % [SocialKit.check_text(b, str(fc.get("stat", "stealth")), ""),
+			SocialKit.signed(int(fc.get("fail_reputation", -50)))]
+	return out
 
 
 ## A button of the sheet: the irreversible ones ask first (_social rule 2), the others go at once.

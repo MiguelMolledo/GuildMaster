@@ -85,6 +85,14 @@ text = "--"
 clip_text = true
 unique_name_in_owner = true
 
+[node name="FamilyLink" type="Button" parent="VBox/Head/Lines"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+text = "--"
+unique_name_in_owner = true
+
 [node name="Sep1" type="HSeparator" parent="VBox"]
 layout_mode = 2
 

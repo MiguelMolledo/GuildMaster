@@ -52,6 +52,12 @@ func _sections() -> Array:
 		["cargos", "soborno", _cargos_soborno, 0.8],
 		["cargos", "recuento", _cargos_recuento, 0.8],
 		["cargos", "poderes", _cargos_poderes, 0.8],
+		["tribunal", "acusacion", _tribunal_acusacion, 0.8],
+		["tribunal", "preparacion", _tribunal_preparacion, 0.8],
+		["tribunal", "vista", _tribunal_vista, 0.8],
+		["tribunal", "veredicto", _tribunal_veredicto, 0.8],
+		["rivales", "panel", _rivales_panel, 0.8],
+		["rivales", "ficha", _rivales_ficha, 0.8],
 	]
 
 
@@ -90,7 +96,7 @@ func _next() -> void:
 	var dlg := get_tree().root.get_node_or_null("SocialConfirmLayer/Confirm") as ConfirmDialog
 	if dlg != null:
 		dlg.close()
-	for c: Node in [app.hud().title_card(), app.hud().office_card()]:
+	for c: Node in [app.hud().title_card(), app.hud().office_card(), app.hud().trial_card()]:
 		if c != null:
 			c.call("close")
 	var s: Array = _steps[_i]
@@ -329,3 +335,67 @@ func _cargos_poderes() -> void:
 			"args": {"item": "sword", "percent": 10}})
 		app.hud().toggle_offices()
 		app.hud().offices_panel().show_tab("powers")
+
+
+# --- tribunal -------------------------------------------------------------------------------------------------------
+
+func _tid() -> String:
+	return str((Game.sim.state.trials[Game.sim.state.trials.size() - 1] as Dictionary)["id"])
+
+
+func _tribunal_acusacion() -> void:
+	if _load("accused_player"):
+		_centre(Vector2i(20, 22))
+		app.hud().trial_card().show_accusation(Game.sim, _tid())
+
+
+func _tribunal_preparacion() -> void:
+	if _load("accused_player"):
+		_centre(Vector2i(20, 22))
+		app.hud().open_trial(_tid())
+
+
+func _tribunal_vista() -> void:
+	if _load("trial_hearing"):
+		Game.sim.run_minutes(10)
+		var t := Tribunal.trial(Game.sim.state, _tid())
+		for w: Dictionary in t["witnesses"]:   # one questioning already done, so the steps show it
+			if str(w["disposition"]) == "against":
+				Orders.apply(Game.sim, {"type": "trial_cross", "actor": HERO, "trial": _tid(), "witness": str(w["character"])})
+				break
+		_centre(Vector2i(20, 22))
+		app.hud().open_trial(_tid())
+
+
+func _tribunal_veredicto() -> void:
+	if _load("trial_hearing"):
+		Game.sim.run_minutes(10)
+		Orders.apply(Game.sim, {"type": "trial_rest", "actor": HERO, "trial": _tid()})
+		var guard := 0
+		while str(Tribunal.trial(Game.sim.state, _tid()).get("status", "")) != "done" and guard < 600:
+			Game.sim.run_minutes(5)
+			guard += 5
+		_centre(Vector2i(20, 22))
+		app.hud().trial_card().show_verdict(Game.sim, {"trial": _tid()})
+
+
+# --- rivales --------------------------------------------------------------------------------------------------------
+
+func _families() -> FamiliesPanel:
+	return get_tree().get_first_node_in_group(FamiliesPanel.GROUP) as FamiliesPanel
+
+
+func _rivales_panel() -> void:
+	if _load("office_campaign"):
+		_centre(Vector2i(19, 20))
+		_families().open_for(Game.sim, HERO)
+
+
+func _rivales_ficha() -> void:
+	if _load("office_campaign"):
+		_centre(Vector2i(19, 20))
+		var rival := ""
+		for f: String in Game.sim.state.families:
+			if str(Game.sim.state.families[f].get("ai_profile", "")) != "":
+				rival = f
+		_families().open_for(Game.sim, HERO, rival)

@@ -1110,7 +1110,7 @@ notice.false_accusation,A false accusation by the {family} family comes to light
 notice.witness_denounced,A witness denounces you: new charge of {charge},Un testigo te denuncia: nuevo cargo de {charge}
 hud.trials,Trial (J),Juicio (J)
 hud.trials_tip,"Your family's trial: witnesses, scale and hearing (key J)","El juicio de tu familia: testigos, balanza y vista oral (tecla J)"
-ui.trial.title,TRIAL · %s (%s),JUICIO · %s (%s)
+ui.trial.title,Trial · %s (%s),Juicio · %s (%s)
 ui.trial.prep_left,preparation: %d d %d h left,preparación: quedan %d d %d h
 ui.trial.hearing_left,hearing: %d d %d h left,vista oral: quedan %d d %d h
 ui.trial.parties,%s (accused) against %s (accuser),%s (acusado) contra %s (acusador)
@@ -1163,7 +1163,7 @@ help.trials,Court,Tribunal
 help.trials_accused,"A Secrets inspection, a bribe found out or an accusation takes you to court. You have a season (2 days) to work the witnesses: convince, bribe or threaten them in person (J opens the trial)","Una inspección de Secretos, un soborno descubierto o una acusación te llevan a juicio. Tienes una estación (2 días) para trabajar a los testigos: convéncelos, sobórnalos o amenázalos en persona (J abre el juicio)"
 help.trials_hearing,"At the hearing the game pauses: question the witnesses against you and rest. Defense = rhetoric×2 + witnesses for×15 + reputation×0,1 against rhetoric×2 + witnesses against×15 + proofs×20. Guilty: a fine, confiscated goods, office and title, or a year of banishment","En la vista oral el juego se pausa: interroga a los testigos en contra y concluye. Defensa = retórica×2 + testigos a favor×15 + reputación×0,1 contra retórica×2 + en contra×15 + pruebas×20. Culpable: multa, mercancía confiscada, cargo y título, o un año de destierro"
 help.trials_accuse,"As a Citizen you can accuse another family from a person's sheet: with a public fact, or fabricating proofs (stealth: a false accusation costs 50 reputation)","Siendo Ciudadano puedes acusar a otra familia desde la ficha de uno de sus miembros: con un hecho público, o fabricando pruebas (sigilo: una acusación falsa cuesta 50 de reputación)"
-ui.trial.hearing_title,HEARING · %s (%s),VISTA ORAL · %s (%s)
+ui.trial.hearing_title,Hearing · %s (%s),Vista oral · %s (%s)
 ui.trial.judge,Judge: %s · the game waits during the hearing,Juez: %s · en pausa durante la vista
 ui.trial.defense_total,Defense %d,Defensa %d
 ui.trial.accusation_total,Accusation %d,Acusación %d
@@ -1630,3 +1630,49 @@ ui.office_card.by_family,By family: %s,Por familias: %s
 ui.npc.risk_bribe,%d gold. Going unnoticed: %s. If it goes wrong: reputation %s.,%d de oro. Que no se note: %s. Si sale mal: reputación %s.
 ui.npc.risk_defame,%s. If it goes wrong: reputation %s.,%s. Si sale mal: reputación %s.
 ui.offices.vacant_vote_short,VACANT · vote day %d,VACANTE · voto día %d
+ui.trial.proofs_hint,%s say they have proofs.,%s dicen tener pruebas.
+ui.trial.accused_line,%s · accused,%s · acusado
+ui.trial.accuser_line,%s · accuser,%s · acusador
+ui.trial.versus,against,contra
+ui.trial.steps,What has happened,Lo que va pasando
+ui.trial.step_plea_acc,The accusation's plea,Alegato de la acusación
+ui.trial.step_proofs,Proofs shown,Pruebas presentadas
+ui.trial.step_witness_favor,%s speaks for you,%s declara a favor
+ui.trial.step_witness_against,%s speaks against you,%s declara en contra
+ui.trial.step_plea_def,The defense's plea and the reputation,Alegato de la defensa y reputación
+ui.trial.verdict_q,%s against the scale?,¿%s contra la balanza?
+ui.trial.verdict_body,The scale says otherwise: it is your decision as judge.,La balanza dice otra cosa: es una decisión tuya como juez.
+ui.trial.verb_convince,Convince,Convencer
+ui.trial.verb_bribe,Bribe,Sobornar
+ui.trial.verb_threaten,Threaten,Amenazar
+ui.trial.gold_missing,%d gold missing,te faltan %d de oro
+ui.trial.ask_bribe,Bribe %s?,¿Sobornar a %s?
+ui.trial.ask_bribe_body,%d gold. Going unnoticed: %s. If they denounce you: a new charge of %s (%s).,%d de oro. Que no se note: %s. Si te denuncia: nuevo cargo de %s (%s).
+ui.trial.ask_threaten,Threaten %s?,¿Amenazar a %s?
+ui.trial.ask_threaten_body,%s. If it fails they turn against you and denounce you: a new charge of %s (%s).,"%s. Si falla, pasa en contra y te denuncia: nuevo cargo de %s (%s)."
+ui.npc.accuse_false,If it is false and you lose: reputation %s.,Si es falsa y pierdes: reputación %s.
+ui.npc.accuse_fabricate_risk,Fabricating: %s; if found out: reputation %s.,Fabricarlas: %s; si te descubren: reputación %s.
+ui.npc.family_link,The %s family ›,Familia %s ›
+ui.families.title,Families of the town,Familias del pueblo
+ui.families.rivals,They compete with you,Compiten contigo
+ui.families.neighbours,Neighbours (%d),Vecinos (%d)
+ui.families.no_rivals,No family competes with you here.,Aquí no compite contigo ninguna familia.
+ui.families.back,‹ Back,‹ Volver
+ui.families.gift,Give the head a gift,Regalar al cabeza
+ui.families.accuse,Accuse…,Acusar…
+ui.families.map,See on the map,Ver en el mapa
+ui.families.public,%s · rep. %d · %d business(es),%s · rep. %d · %d negocio(s)
+ui.families.no_gold,Gold: unknown,Oro: no se sabe
+ui.families.no_gold_tip,You do not know how much gold they have,No sabes cuánto oro tienen
+ui.families.child,a child,niño
+ui.families.works,under works,en obra
+ui.families.open,open,abierto
+ui.families.no_business,No business,Sin negocio
+ui.families.no_facts,Nothing public yet,Nada público todavía
+ui.families.members,Members,Miembros
+ui.families.businesses,Businesses,Negocios
+ui.families.facts,Public facts,Hechos públicos
+ui.families.f_title,Became %s (day %d),Subió a %s (día %d)
+ui.families.f_office,Won %s (day %d),Ganó %s (día %d)
+ui.families.f_wedding,A wedding (day %d),Una boda (día %d)
+ui.families.f_fact,"%s (day %d, public)","%s (día %d, público)"

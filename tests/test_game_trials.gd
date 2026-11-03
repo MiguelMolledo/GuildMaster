@@ -76,7 +76,7 @@ func test_cards() -> void:
 	eq(asked, [str(t["id"])], "«Prepare the defense» opens the trial")
 	Tribunal.rule(sim, t)
 	c.show_verdict(sim, {"trial": str(t["id"])})
-	eq((c.get_node("%Stamp") as Label).text, SimQuery.t_("ui.trial_card.guilty"), "GUILTY")
+	check((c.get_node("%Stamp") as Label).text.contains(SimQuery.t_("ui.trial_card.guilty")), "GUILTY")
 	check((c.get_node("%Detail") as Label).text.contains("4"), "four swords confiscated")
 	c.free()
 

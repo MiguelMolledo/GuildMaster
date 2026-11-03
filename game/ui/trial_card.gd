@@ -63,7 +63,7 @@ func show_verdict(sim: Sim, e: Dictionary) -> void:
 	(%Header as Label).text = SimQuery.t_("ui.trial_card.verdict") % SimQuery.t_("charge." + str(t["charge"]))
 	var stamp := %Stamp as Label
 	stamp.visible = true
-	stamp.text = SimQuery.t_("ui.trial_card.guilty" if guilty else "ui.trial_card.innocent")
+	stamp.text = "— %s —" % SimQuery.t_("ui.trial_card.guilty" if guilty else "ui.trial_card.innocent")  # the stamp in bold capitals
 	stamp.add_theme_color_override("font_color", Color(0.75, 0.15, 0.15) if guilty else Color(1, 0.85, 0.4))
 	(%Text as Label).text = SimQuery.t_("ui.trial_card.scale") % [str(st.characters.get(str(t["accused"]), {}).get(
 		"name", "")), int(t["scale"].get("defense", 0)), int(t["scale"].get("accusation", 0))]
