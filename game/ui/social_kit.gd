@@ -40,11 +40,11 @@ static func relation_word(v: int) -> String:
 
 ## The odds of a skill check: {band: "easy" | "doubtful" | "hard", threshold, actor_stat, target_stat}.
 static func check_band(sim: Sim, actor: String, target: String, actor_stat: String, target_stat: String,
-		target_value: int = -1) -> Dictionary:
+		target_value: int = -1, modifier: int = 0) -> Dictionary:
 	var cfg: Dictionary = sim.catalog.town.get("skill_check", {})
 	var a := SkillCheck.stat(sim, actor, actor_stat)
 	var t := target_value if target_value >= 0 else SkillCheck.stat(sim, target, target_stat)
-	var th := int(cfg.get("base", 50)) + (a - t) * int(cfg.get("step", 5))
+	var th := int(cfg.get("base", 50)) + (a - t) * int(cfg.get("step", 5)) + modifier
 	var band := "doubtful"
 	if th >= 65:
 		band = "easy"
@@ -55,6 +55,9 @@ static func check_band(sim: Sim, actor: String, target: String, actor_stat: Stri
 
 ## "Carisma 4 contra Empatía 6: difícil" of a check_band.
 static func check_text(b: Dictionary, actor_stat: String, target_stat: String) -> String:
+	if target_stat == "":
+		return SimQuery.t_("ui.social.check_value") % [SimQuery.t_("stat." + actor_stat), int(b["actor_stat"]),
+			int(b["target_stat"]), SimQuery.t_("check_band." + str(b["band"]))]
 	return SimQuery.t_("ui.social.check") % [SimQuery.t_("stat." + actor_stat), int(b["actor_stat"]),
 		SimQuery.t_("stat." + target_stat) if target_stat != "" else "", int(b["target_stat"]),
 		SimQuery.t_("check_band." + str(b["band"]))]

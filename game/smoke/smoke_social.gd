@@ -44,6 +44,14 @@ func _sections() -> Array:
 		["cortejo", "panel", _cortejo_panel, 0.8],
 		["cortejo", "propuesta", _cortejo_propuesta, 0.8],
 		["cortejo", "boda", _cortejo_boda, 0.8],
+		["titulos", "ayuntamiento", _titulos_ayuntamiento, 0.8],
+		["titulos", "reputacion", _titulos_reputacion, 0.8],
+		["titulos", "ceremonia", _titulos_ceremonia, 0.8],
+		["cargos", "organigrama", _cargos_organigrama, 0.8],
+		["cargos", "campana", _cargos_campana, 0.8],
+		["cargos", "soborno", _cargos_soborno, 0.8],
+		["cargos", "recuento", _cargos_recuento, 0.8],
+		["cargos", "poderes", _cargos_poderes, 0.8],
 	]
 
 
@@ -82,6 +90,9 @@ func _next() -> void:
 	var dlg := get_tree().root.get_node_or_null("SocialConfirmLayer/Confirm") as ConfirmDialog
 	if dlg != null:
 		dlg.close()
+	for c: Node in [app.hud().title_card(), app.hud().office_card()]:
+		if c != null:
+			c.call("close")
 	var s: Array = _steps[_i]
 	print("[SmokeSocial] %s/%s" % [s[0], s[1]])
 	(s[2] as Callable).call()
@@ -236,3 +247,85 @@ func _cortejo_boda() -> void:
 		Game.sim.events.clear()
 		Courtship.marry(Game.sim, HERO, who)
 		Events.publish(Game.sim.events.duplicate(true))
+
+
+# --- títulos y reputación -------------------------------------------------------------------------------------------
+
+func _rep_log() -> void:
+	var now := int(Game.sim.state.clock["minute"])
+	var log: Array = Game.sim.state.families[FAM]["reputation_log"]
+	for i: int in 6:
+		log.append({"minute": now - 30 * i, "amount": 1, "reason": "fair_trade"})
+	log.append({"minute": now - 200, "amount": 2, "reason": "contract_done"})
+	log.append({"minute": now - Clock.MINUTES_PER_DAY, "amount": -2, "reason": "wage_unpaid"})
+
+
+func _titulos_ayuntamiento() -> void:
+	if _load("title_ready"):
+		var svc := Titles.service(Game.sim)
+		_stand(HERO, Vector2i(int(svc[0]), int(svc[1])))
+		Game.sim.state.families[FAM]["reputation"] = 30
+		_rep_log()
+		_centre(Vector2i(int(svc[0]) - 4, int(svc[1])))
+		app.hud().town_hall_panel().open_for(Game.sim, HERO)
+
+
+func _titulos_reputacion() -> void:
+	if _load("title_ready"):
+		_rep_log()
+		_centre(Vector2i(19, 20))
+		app.hud().open_ledger("reputation")
+
+
+func _titulos_ceremonia() -> void:
+	if _load("title_ready"):
+		_centre(Vector2i(19, 20))
+		app.hud().title_card().show_for(Game.sim, {"type": "title_granted", "family": FAM, "actor": HERO,
+			"title": Titles.next_of(Game.sim, FAM), "from": Titles.current(Game.sim, FAM)})
+
+
+# --- cargos y elecciones --------------------------------------------------------------------------------------------
+
+func _cargos_organigrama() -> void:
+	if _load("office_campaign"):
+		_centre(Vector2i(19, 20))
+		app.hud().toggle_offices()
+		app.hud().offices_panel().pick("market_inspector")
+
+
+func _cargos_campana() -> void:
+	if _load("office_election_eve"):
+		_centre(Vector2i(19, 20))
+		app.hud().toggle_offices()
+
+
+func _cargos_soborno() -> void:
+	if _load("office_election_eve"):
+		var v := str(Elections.voters(Game.sim, [HERO, "chr_0002"])[0])
+		var p: Array = Game.sim.state.characters[v].get("position", [19, 20])
+		_centre(Vector2i(int(p[0]) - 3, int(p[1])))
+		app.hud().open_npc(v)
+		app.hud().npc_panel().refresh(true)
+		app.hud().npc_panel().request_campaign("bribe")
+
+
+func _cargos_recuento() -> void:
+	if _load("office_election_eve"):
+		_centre(Vector2i(19, 20))
+		var held: Dictionary = {}
+		var guard := 0
+		while held.is_empty() and guard < 5000:
+			guard += 1
+			for e: Dictionary in Game.sim.step([]):
+				if str(e["type"]) == "election_held":
+					held = e
+		app.hud().office_card().show_for(Game.sim, held)
+
+
+func _cargos_poderes() -> void:
+	if _load("office_inspector"):
+		_centre(Vector2i(19, 20))
+		Orders.apply(Game.sim, {"type": "use_office_power", "actor": HERO, "power": "regulate_price",
+			"args": {"item": "sword", "percent": 10}})
+		app.hud().toggle_offices()
+		app.hud().offices_panel().show_tab("powers")

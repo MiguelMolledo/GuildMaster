@@ -1545,3 +1545,88 @@ ui.wedding.home,%s lives in your home now,%s vive ahora en vuestra casa
 ui.wedding.job,Leaves the job at %s,Deja su trabajo en %s
 ui.wedding.child,The first child may come from day %d,El primer hijo puede llegar desde el día %d
 ui.wedding.ok,Long live the couple!,¡Que vivan los novios!
+ui.rep.title,Reputation,Reputación
+ui.rep.trend,%s in %d days,%s en %d días
+ui.rep.mark,The mark is %d: what %s asks.,La marca es %d: lo que pide %s.
+ui.rep.done,done,hecho
+ui.rep.pending,pending,pendiente
+ui.rep.changes,Last changes,Últimos cambios
+ui.rep.day,Day %d,Día %d
+class_people.artisan,Artisans,Artesanos
+class_people.patron,Patrons,Patrones
+class_people.scholar,Scholars,Eruditos
+class_people.rogue,Rogues,Pícaros
+ui.town_hall.family_rep,The %s family · reputation %d,Familia %s · reputación %d
+ui.town_hall.today,%d changes today: %s,%d cambios hoy: %s
+ui.town_hall.next_short,Next: %s,Siguiente: %s
+ui.town_hall.cost,%d gold,%d de oro
+ui.town_hall.step_tip,"%s: reputation %d, %d gold. Opens: %s","%s: reputación %d, %d de oro. Abre: %s"
+ui.town_hall.event_undefined,Special deed (to be defined),Hazaña especial (por definir)
+ui.town_hall.approves,Approves,Aprueba
+ui.town_hall.approver_vacant,Office vacant: approved by itself,Cargo vacante: se aprueba sola
+ui.town_hall.approver_affinity,affinity %d / %d,afinidad %d / %d
+ui.town_hall.missing_req,Missing %s (%d/%d),Falta %s (%d/%d)
+ui.town_hall.not_approved,The %s does not approve you: affinity %d of %d,El %s no te aprueba: afinidad %d de %d
+ui.town_hall.buildings_from,%d → %d buildings,%d → %d edificios
+ui.town_hall.ask_q,Ask for the title of %s?,¿Pedir el título de %s?
+ui.town_hall.ask_body,You pay %d gold for the title of %s. You keep %d.,Pagas %d de oro por el título de %s. Te quedan %d.
+ui.town_hall.go,Go there,Ir allí
+ui.town_hall.offices_key,key O,tecla O
+ui.social.check_value,%s %d against %d: %s,%s %d contra %d: %s
+ui.yes,yes,sí
+ui.no,no,no
+ui.offices.title_town,Offices of the town,Cargos del pueblo
+ui.offices.pick_neighbour,Pick a neighbour on the map,Elegir vecino en el mapa
+ui.offices.sheet_hint,"Visit, bribe and defame: from a townsperson's sheet.","Visitar, sobornar y difamar: desde la ficha de un vecino."
+ui.offices.legend,Name colour: gold mayor · bronze councillors · silver middle · copper minor. URNA: open election. TUYO: your family's.,Color del nombre: oro alcalde · bronce concejal · plata medio · cobre menor. URNA: elección abierta. TUYO: de tu familia.
+ui.offices.tab_offices,Offices,Cargos
+ui.offices.tab_campaign,Campaign,Campaña
+ui.offices.tab_powers,Powers,Poderes
+ui.offices.level_note,%s %s (+%d %%),%s %s (+%d %%)
+ui.offices.free,free,gratis
+ui.offices.urn_badge,URN,URNA
+ui.offices.yours_badge,YOURS,TUYO
+ui.offices.holder_short,%s %s · day %d,%s %s · día %d
+ui.offices.history,%s · history\n%s,%s · historial\n%s
+ui.offices.no_history,No elections yet,Aún sin elecciones
+ui.offices.last_won,Day %d: %s,Día %d: %s
+ui.offices.detail,%s · %d gold/day · %d year(s),%s · %d de oro/día · %d año(s)
+ui.offices.no_powers,No powers of its own,Sin poderes propios
+ui.offices.needs_title_has,Asks: %s (you have it),Pide: %s (lo tienes)
+ui.offices.needs_title_not,Asks: %s (you do not have it),Pide: %s (no lo tienes)
+ui.offices.level_of,%s campaign,campaña %s
+ui.offices.candidates,Candidates: %s,Candidatos: %s
+ui.offices.nobody_yet,nobody has stood,nadie se ha presentado
+ui.offices.why_closed,Registration closed: it opens again on day %d,Inscripción cerrada: vuelve a abrir el día %d
+ui.offices.why_title,You must be %s,Hace falta ser %s
+ui.offices.no_vote,No vote this year,Este año no se vota
+ui.offices.cal_reg,registration · days %d-%d,inscripción · días %d-%d
+ui.offices.cal_camp,campaign %d-%d,campaña %d-%d
+ui.offices.cal_vote,vote %d,voto %d
+ui.offices.run_q,Stand for %s?,¿Presentarte a %s?
+ui.offices.run_body,%s campaign: %d gold. The vote is on day %d.,Campaña %s: %d de oro. Votación el día %d.
+ui.offices.campaign_short,%s,%s
+ui.offices.days_left,%d days left,quedan %d días
+forecast.lead,Clear lead,Ventaja clara
+forecast.close,Close,Reñido
+forecast.behind,Behind,Por detrás
+ui.offices.forecast_title,How it goes,Cómo vas
+ui.offices.forecast_note,poll at dawn,sondeo al alba
+ui.offices.incumbent,incumbent,titular
+ui.offices.speech_today,speech today: %s,discurso hoy: %s
+ui.offices.bribes,%d bribe(s),%d soborno(s)
+ui.offices.defamed_today,defamed today,difamó hoy
+ui.offices.why_campaign,The campaign starts on day %d,La campaña empieza el día %d
+ui.offices.why_speech_today,You gave one today · tomorrow,Ya diste uno hoy · mañana
+ui.offices.tax_in_force,Market tax: %d %%,Impuesto del mercado: %d %%
+ui.offices.in_force,In force,En vigor
+ui.offices.use,Use,Usar
+ui.offices.ready_in,ready in %s,lista en %s
+ui.offices.ask_power,Use «%s»?,¿Usar «%s»?
+ui.offices.ask_regulate,The price of %s changes %s %% in the whole market for %d days.,El precio de %s cambia %s %% en todo el mercado durante %d días.
+ui.offices.ask_fine,A fine of %d gold for the %s family.,Una multa de %d de oro a la familia %s.
+ui.offices.ask_tax,The market tax becomes %d %%.,El impuesto del mercado pasa a %d %%.
+ui.office_card.by_family,By family: %s,Por familias: %s
+ui.npc.risk_bribe,%d gold. Going unnoticed: %s. If it goes wrong: reputation %s.,%d de oro. Que no se note: %s. Si sale mal: reputación %s.
+ui.npc.risk_defame,%s. If it goes wrong: reputation %s.,%s. Si sale mal: reputación %s.
+ui.offices.vacant_vote_short,VACANT · vote day %d,VACANTE · voto día %d

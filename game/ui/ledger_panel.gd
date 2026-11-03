@@ -139,47 +139,9 @@ func _data() -> Variant:
 	return {}
 
 
-## H9: the Reputation tab.
-func _fill_reputation(d: Dictionary) -> void:
-	var gold_c := Color(1, 0.85, 0.4)
-	var head_c := Color(0.85, 0.705, 0.415)
-	_label(SimQuery.t_("ui.ledger.rep.title") % SimQuery.title_name(str(d["title"])).capitalize(), gold_c)
-	_label(SimQuery.t_("ui.town_hall.unlocks") % TownHallPanel.unlocks_text(sim.catalog, str(d["title"])))
-	_line(SimQuery.t_("ui.ledger.rep.global"), str(int(d["reputation"])), "rep_global")
-	_label(SimQuery.t_("ui.ledger.rep.classes"), head_c)
-	for c: Variant in sim.catalog.politics.get("reputation", {}).get("classes", []):
-		var mod := Reputation.class_mod(sim.state, family, str(c))
-		_line("  " + SimQuery.t_("class." + str(c)), "%d (%s)" % [int(d["reputation"]) + mod, signed(mod)],
-			"rep_" + str(c))
-	var nx := str(d["next"])
-	if nx != "":
-		_label(SimQuery.t_("ui.ledger.rep.next") % [SimQuery.title_name(nx), int(sim.catalog.titles()[nx].get("cost_gold", 0))],
-			head_c)
-		for r: Dictionary in Titles.requirements(sim, family, nx):
-			if str(r["kind"]) == "gold":
-				continue
-			var l := _label("  " + (SimQuery.t_("ui.town_hall.req_flag") % [SimQuery.t_("ui.town_hall.ok" if bool(r["ok"]) \
-				else "ui.town_hall.missing"), SimQuery.t_("ui.town_hall.req_" + str(r["kind"]))] if str(r["kind"]) == "event" \
-				else SimQuery.t_("ui.town_hall.req") % [SimQuery.t_("ui.town_hall.ok" if bool(r["ok"]) else "ui.town_hall.missing"),
-				SimQuery.t_("ui.town_hall.req_" + str(r["kind"])), int(r["have"]), int(r["need"])]),
-				Color(0.55, 0.85, 0.5) if bool(r["ok"]) else Color(1, 0.55, 0.45))
-			l.name = "req_" + str(r["kind"])
-	var n := 0
-	for b: String in Titles.business_ids(sim, family):
-		for c: String in Staff.employees_of(sim.state, b):
-			if Staff.is_active(sim, c):
-				n += 1
-				break
-	var per := int(sim.catalog.politics.get("reputation", {}).get("passive", {}).get("per_business_with_staff", 0))
-	_label(SimQuery.t_("ui.ledger.rep.passive") % [per * n, n])
-	_label(SimQuery.t_("ui.ledger.rep.log"), head_c)
-	var log: Array = (d["log"] as Array).duplicate()
-	log.reverse()
-	if log.is_empty():
-		_label(SimQuery.t_("ui.ledger.rep.none"), Color(1, 1, 1, 0.6))
-	for e: Dictionary in log:
-		_line("%s  %s" % [SimQuery.minute_label(int(e["minute"])), reason_text(str(e["reason"]))],
-			signed(int(e["amount"])))
+## H9: the Reputation tab (docs/ui/mecanicas/titulos_y_reputacion.md: ReputationView builds it).
+func _fill_reputation(_d: Dictionary) -> void:
+	ReputationView.fill(%Content as VBoxContainer, sim, family)
 
 
 ## The text of a reputation change's reason (rep.reason.<id>; microevents share one).

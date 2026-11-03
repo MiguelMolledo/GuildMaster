@@ -485,10 +485,21 @@ func request_action(act: String) -> void:
 func request_campaign(kind: String) -> void:
 	if kind in CAMPAIGN_ASK:
 		var name_t := str(sim.state.characters.get(target, {}).get("name", target))
-		SocialKit.ask(self, SimQuery.t_("ui.npc.ask_" + kind) % name_t, SimQuery.t_("ui.npc.ask_campaign_body"),
+		SocialKit.ask(self, SimQuery.t_("ui.npc.ask_" + kind) % name_t, campaign_risk(kind),
 			SimQuery.t_("campaign." + kind), func() -> void: do_campaign(kind), SimQuery.t_("ui.menu.cannot_undo"))
 		return
 	do_campaign(kind)
+
+
+## What a bribe or a defamation risks, with its odds as a band (data/politics.json elections.actions).
+func campaign_risk(kind: String) -> String:
+	var a: Dictionary = sim.catalog.politics.get("elections", {}).get("actions", {}).get(kind, {})
+	if kind == "bribe":
+		var b := SocialKit.check_band(sim, actor, target, "stealth", "empathy")
+		return SimQuery.t_("ui.npc.risk_bribe") % [int(a.get("gold", 20)), SocialKit.check_text(b, "stealth", "empathy"),
+			SocialKit.signed(int(a.get("scandal", -10)))]
+	var d := SocialKit.check_band(sim, actor, target, "stealth", "", int(a.get("target_value", 5)), int(a.get("modifier", 0)))
+	return SimQuery.t_("ui.npc.risk_defame") % [SocialKit.check_text(d, "stealth", ""), SocialKit.signed(int(a.get("scandal", -20)))]
 
 
 ## H10: a campaign action on the townsperson: at once in range (defame anywhere), else walking there first.
