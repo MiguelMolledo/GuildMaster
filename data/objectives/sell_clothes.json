@@ -1,0 +1,14 @@
+{
+  "id": "sell_clothes",
+  "name_key": "objective.sell_clothes",
+  "conditions": [
+    {
+      "event": "market_sold",
+      "match": {
+        "stall": "clothier",
+        "item": "common_clothes"
+      },
+      "count": 1
+    }
+  ]
+}

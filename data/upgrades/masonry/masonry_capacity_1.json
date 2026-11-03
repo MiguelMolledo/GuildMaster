@@ -1,0 +1,37 @@
+{
+  "id": "masonry_capacity_1",
+  "name_key": "upgrade.masonry_capacity_1",
+  "tree": "masonry",
+  "branch": "capacity",
+  "level": 1,
+  "cost": {
+    "gold": 50,
+    "items": [
+      {
+        "item": "ashlar",
+        "qty": 5
+      },
+      {
+        "item": "wood",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "carving_bench_2",
+      "like": "carving_bench"
+    }
+  ],
+  "visual": {
+    "interior_node": "masonry_carving_bench_2",
+    "exterior_overlay": null
+  }
+}

@@ -227,6 +227,12 @@ func _fill_powers(powers: Array) -> void:
 					_sig = "")
 				line.add_child(spin)
 				line.add_child(_power_button(id, SimQuery.t_("power." + id), {"percent": int(spin.value)}))
+			"declare_event":  # H13: one button per declarable event (data/events.json declarable)
+				for ev: String in WorldEvents.declarable(sim):
+					var b := _power_button(id, SimQuery.t_("ui.offices.declare") % SimQuery.event_name(sim.catalog, ev),
+						{"event": ev})
+					b.name = "Use_declare_event_" + ev
+					line.add_child(b)
 			_:
 				line.add_child(_power_button(id, SimQuery.t_("power." + id), {}))
 		var cd := int(p["cooldown_minutes"])

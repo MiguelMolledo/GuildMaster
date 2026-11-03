@@ -1,0 +1,18 @@
+{
+  "id": "masonry_trough",
+  "name_key": "recipe.masonry_trough",
+  "building": "masonry",
+  "zone": "carving_bench",
+  "inputs": [
+    {
+      "item": "ashlar",
+      "qty": 3
+    }
+  ],
+  "output": {
+    "item": "trough",
+    "qty": 1
+  },
+  "duration_hours": 3.9,
+  "min_craft": 4
+}

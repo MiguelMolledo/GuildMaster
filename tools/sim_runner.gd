@@ -51,20 +51,29 @@ extends SceneTree
 ## H14 (docs/contratos/h14_ia_familiar.md): forge_supplied (a family member other than the head carried raw materials
 ## into the workshop), kin_bought (their purchases), low_morale_hours (hours of a family member with low morale), e.g.
 ## --scenario=kin_trader --bots=kin_trader --days=2 --seeds=10.
+## H13 (seasons and global events, GDD 4.13): events_started (global events started), ev_<def> (times each one
+## started), events_declared, events_ended, events_overdue (in force past their end at the close: 0), events_max_active
+## (most at once), local_past_season (a local event that ends after its season: 0), event_days (days with an event in
+## force), e.g. --start=artisan_blacksmith --bots=events --days=80 --seeds=2. --set also reaches seasons.<key> and
+## events.<key> (e.g. --set=events.enabled=false: the same seeds without events). The bots listed in data/targets.json
+## _no_events (targets fixed before H13) run without global events unless --events=on.
 
 var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
 	"random_clicker": BotRandomClicker, "idle_rival": BotIdle, "artisan_novice": BotArtisanNovice,
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
-	"kin_trader": BotIdle}
+	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
+	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
 	# expert_titles: artisan_expert with the title targets (H9, 96 days); idle_titles: idle, the AI's titles (80 days)
 	# politician: artisan_expert that runs for minor offices (H10, runs_office = 1, 40 days)
 	# crook: artisan_expert with the Secrets upgrade that ends in court (H11, crook = 1, 40 days)
+	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
+	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
 const YEAR_DAYS: int = 8  # D1(b): 1 year = 8 days
@@ -80,6 +89,7 @@ func _init() -> void:
 	var seeds := 5
 	var sets: PackedStringArray = []
 	var tag := ""  # name of a trial's report (reports/sim/trial_<tag>_...)
+	var events_on := false  # H13: --events=on runs the bots of targets _no_events with the global events too
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--scenario="):
 			scenario = a.substr(11)
@@ -97,12 +107,15 @@ func _init() -> void:
 			sets.append(a.substr(6))
 		elif a.begins_with("--tag="):
 			tag = a.substr(6)
+		elif a == "--events=on":
+			events_on = true
 	var cat := Catalog.load_from()
 	for spec: String in sets:
 		if not _apply_set(cat, spec):
 			print("sim_runner: bad --set %s" % spec)
 			quit(2)
 			return
+	cat.events["_enabled_data"] = bool(cat.events.get("enabled", true))  # what data/ (or --set) says, before _no_events
 	var targets: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/targets.json"))
 	var flows := _goldflows(targets)
 	var missed := 0
@@ -116,6 +129,11 @@ func _init() -> void:
 			missed += 1
 			continue
 		var means := {}  # difficulty -> mean net gold per day of the first goldflow window (GDD 4.23 order)
+		# H13: the targets fixed before the global events run without them (data/targets.json _no_events).
+		var quiet: bool = bot_id in (targets.get("_no_events", []) as Array) and not events_on
+		cat.events["enabled"] = not quiet and bool(cat.events.get("_enabled_data", cat.events.get("enabled", true)))
+		if quiet:
+			print("sim_runner: %s without global events (targets _no_events; --events=on to include them)" % bot_id)
 		for diff: String in diffs:
 			var runs: Array = []
 			for s: int in range(1, seeds + 1):
@@ -197,7 +215,7 @@ func _apply_set(cat: Catalog, spec: String) -> bool:
 		return false
 	var node: Variant = null
 	var i := 1
-	if keys[0] in ["market", "employees", "production", "difficulty", "accounts"]:
+	if keys[0] in ["market", "employees", "production", "difficulty", "accounts", "seasons", "events"]:
 		node = cat.get(keys[0])
 	elif cat.tables.has(keys[0]) and keys.size() >= 3:
 		node = (cat.tables[keys[0]] as Dictionary).get(keys[1])
@@ -209,6 +227,7 @@ func _apply_set(cat: Catalog, spec: String) -> bool:
 	if not node is Dictionary or not (node as Dictionary).has(keys[keys.size() - 1]):
 		return false
 	node[keys[keys.size() - 1]] = value
+	cat.goods_reset()  # H13: seasons.goods may have changed
 	print("sim_runner: --set %s = %s" % [".".join(keys), value])
 	return true
 
@@ -244,6 +263,11 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 	m["trial_day"] = days + 1
 	for k: String in ["forge_supplied", "kin_bought", "low_morale_hours"]:  # H14
 		m[k] = 0
+	for k: String in ["events_started", "events_declared", "events_ended", "events_max_active", "local_past_season",
+			"event_days"]:  # H13
+		m[k] = 0
+	for k: String in sim.catalog.world_events():
+		m["ev_" + k] = 0
 	for i: int in days * Clock.MINUTES_PER_DAY:
 		for e: Dictionary in sim.step(bot.orders(sim)):
 			match str(e["type"]):
@@ -381,6 +405,22 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 							ups.append({"upgrade": str(e["upgrade"]), "building": str(e["building"]),
 								"start": int(e["start"]), "end": int(e["end"]),
 								"mult_before": Upgrades.mult(sim, str(e["building"]), "production_speed")})
+				"world_event_started":  # H13 (GDD 4.13)
+					var dps := int(sim.catalog.time["days_per_season"])
+					var day0 := Clock.day(int(e["start"]))
+					m["events_started"] = int(m["events_started"]) + 1
+					m["ev_" + str(e["def"])] = int(m.get("ev_" + str(e["def"]), 0)) + 1
+					if str(e.get("by", "")) != "":
+						m["events_declared"] = int(m["events_declared"]) + 1
+					if str(sim.catalog.world_events().get(str(e["def"]), {}).get("scope", "")) == "local" \
+							and int(e["end"]) > (day0 - day0 % dps + dps) * Clock.MINUTES_PER_DAY:
+						m["local_past_season"] = int(m["local_past_season"]) + 1
+					m["events_max_active"] = maxi(int(m["events_max_active"]), sim.state.events_active.size())
+					print("  [%s seed %d] día %d: empieza el evento %s hasta el día %d" % [bot_id, s,
+						Clock.day(int(sim.state.clock["minute"])) - Clock.day(start_minute) + 1, e["def"],
+						ceili(float(int(e["end"])) / Clock.MINUTES_PER_DAY) - Clock.day(start_minute)])
+				"world_event_ended":
+					m["events_ended"] = int(m["events_ended"]) + 1
 				"upgrade_done":
 					for u: Dictionary in ups:
 						if str(u["upgrade"]) == str(e["upgrade"]) and str(u["building"]) == str(e["building"]):
@@ -388,6 +428,8 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 		var done_days := i + 1
 		if done_days % Clock.MINUTES_PER_DAY == 0:
 			var d := done_days / Clock.MINUTES_PER_DAY
+			if not sim.state.events_active.is_empty():  # H13
+				m["event_days"] = int(m["event_days"]) + 1
 			if d == 10:  # H3 rival: gold of the AI families with a profile at day 10
 				m["rival_gold_day10"] = _rival_gold(sim)
 			if player != "":  # windows measured when they close (the ledger keeps only 2 years in detail)
@@ -395,6 +437,10 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 			if player != "" and d in [3, 8, 10]:
 				m["gold_day%d" % d] = Money.gold(sim.state, player)
 				m["gold_repaid_day%d" % d] = Money.gold(sim.state, player) + repaid
+	m["events_overdue"] = 0  # H13: an event in force past its end would be stuck
+	for ev: Dictionary in sim.state.events_active:
+		if int(ev.get("end", 0)) <= int(sim.state.clock["minute"]):
+			m["events_overdue"] = int(m["events_overdue"]) + 1
 	m["ledger_mismatch"] = 0
 	for f: String in sim.state.families:
 		if Money.gold(sim.state, f) - Ledger.total(sim.state, f) != int(gold0.get(f, 0)):
@@ -569,11 +615,14 @@ func _player_family(sim: Sim) -> String:
 	return ""
 
 
-## Gold of the AI families with an ai_profile (the rival smith, GDD 4.5.5).
+## Gold of the AI families with an ai_profile (the rival smith, GDD 4.5.5). H12: in a real new game only the ones with
+## the profile of the start's rival (the competitor workshops of the other trades are not the rival smith).
 func _rival_gold(sim: Sim) -> int:
+	var only := str(sim.catalog.starts().get(str(sim.state.meta.get("start", "")), {}).get("rival", {}).get("profile", ""))
 	var g := 0
 	for f: String in sim.state.families:
-		if str(sim.state.families[f].get("ai_profile", "")) != "":
+		var prof := str(sim.state.families[f].get("ai_profile", ""))
+		if prof != "" and (only == "" or prof == only):
 			g += Money.gold(sim.state, f)
 	return g
 
@@ -635,7 +684,7 @@ func _brief(agg: Dictionary) -> String:
 	for key: String in ["gold_day3", "gold_repaid_day3", "gold_day10", "net_day_1_8", "net_day_9_24", "sink_share_9_24",
 			"net_year_1", "net_year_2", "net_year_3", "hired", "upgrades_bought", "prod_gain_error", "debt_paid",
 			"debt_paid_day", "rival_gold_day10", "title_citizen_day", "title_patrician_day", "reputation", "ai_title_ups", "office_won", "office_won_day",
-			"ai_office_runs", "trials", "trial_day", "guilty"]:
+			"ai_office_runs", "trials", "trial_day", "guilty", "events_started", "event_days"]:
 		if agg.has("mean_" + key):
 			parts.append("%s %s [%s-%s]" % [key, agg["mean_" + key], agg["min_" + key], agg["max_" + key]])
 	return ", ".join(parts)

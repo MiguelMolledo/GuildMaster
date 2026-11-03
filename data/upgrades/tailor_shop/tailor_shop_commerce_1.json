@@ -1,0 +1,31 @@
+{
+  "id": "tailor_shop_commerce_1",
+  "name_key": "upgrade.tailor_shop_commerce_1",
+  "tree": "tailor_shop",
+  "branch": "commerce",
+  "level": 1,
+  "cost": {
+    "gold": 30,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 4
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "counter_sales"
+    }
+  ],
+  "visual": {
+    "interior_node": "upgrade_counter",
+    "exterior_overlay": null
+  }
+}

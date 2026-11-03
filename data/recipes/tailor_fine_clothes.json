@@ -1,0 +1,23 @@
+{
+  "id": "tailor_fine_clothes",
+  "name_key": "recipe.tailor_fine_clothes",
+  "building": "tailor_shop",
+  "zone": "sewing_table",
+  "inputs": [
+    {
+      "item": "cloth",
+      "qty": 3
+    },
+    {
+      "item": "wool",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "fine_clothes",
+    "qty": 1
+  },
+  "duration_hours": 6.5,
+  "min_craft": 6,
+  "requires_upgrade": "tailor_shop_production_3"
+}

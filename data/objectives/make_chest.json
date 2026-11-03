@@ -1,0 +1,20 @@
+{
+  "id": "make_chest",
+  "name_key": "objective.make_chest",
+  "conditions": [
+    {
+      "event": "work_done",
+      "match": {
+        "item": "planks"
+      },
+      "count": 2
+    },
+    {
+      "event": "work_done",
+      "match": {
+        "item": "chest"
+      },
+      "count": 1
+    }
+  ]
+}

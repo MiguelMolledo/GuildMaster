@@ -249,6 +249,28 @@ Cada receta define: `id`, `building_type`, `zone_type` (puesto donde se hace), `
 
 > Las duraciones actuales eran 3-7 segundos reales. Se pasan a horas de juego para que un empleado haga varias piezas por jornada (≈12 h de día) y no cientos. Ajustar en balance.
 
+**Recetas del resto del Artesano (H12)** [balance]. Cada taller copia la Forja: un puesto para el intermedio (como el horno), otro para los productos (como el yunque), mostrador y almacén; huella de 4.6.1 (Carpintería y Albañilería 3×4, Taller de sastre 3×3), mantenimiento 20, 10 pilas, 1 empleado, vivienda básica. La materia prima que en EA sale de otra cadena (madera del aserradero, lana de la granja, piedra) se compra de momento en el puesto de Recursos, como el hierro. Cifras puestas para que el margen por hora con Artesanía 7 quede como el de la Forja (espada ≈ 4,3 oro/h); la costura, un 15 % más lenta tras medir con el bot (el sastre tiene el taller más cerca de la plaza y salía por encima de la diana).
+
+| Oficio (herramienta) | Puesto | Receta | Entradas | Salida (precio base) | Duración | Artesanía mín. |
+|---|---|---|---|---|---|---|
+| Carpintero (sierra) | caballete | `carpentry_planks` | madera ×2 | tablas (15) | 1,3 h | 1 |
+| | banco | `carpentry_barrel` | tablas + hierro (herrajes) | barril (35) | 2,6 h | 2 |
+| | banco | `carpentry_chest` | tablas ×2 + hierro | arcón (65) | 3,9 h | 4 |
+| | banco | `carpentry_cabinet` | tablas ×3 + hierro | armario (80) | 6,5 h | 6 |
+| | caballete | `carpentry_cart_wheel` | tablas ×2 + hierro | rueda de carro (65) | 5,2 h | 6 (la desbloquea Producción 3) |
+| Albañil (martillo) | banco de corte | `masonry_ashlar` | piedra ×2 | sillar (12) | 1,3 h | 1 |
+| | banco de tallar | `masonry_grindstone` | sillar + madera | piedra de afilar (32) | 2,6 h | 2 |
+| | banco de tallar | `masonry_trough` | sillar ×3 | abrevadero (60) | 3,9 h | 4 |
+| | banco de tallar | `masonry_millstone` | sillar ×4 + piedra ×2 | muela de molino (80) | 6,5 h | 6 |
+| | banco de tallar | `masonry_statue` | sillar ×5 | estatua (110) | 7,8 h | 6 (Producción 3) |
+| Sastre (aguja) | telar | `tailor_cloth` | lana ×2 | tela (14) | 1,3 h | 1 |
+| | mesa de costura | `tailor_work_clothes` | tela + lana | ropa de trabajo (35) | 3,9 h | 2 |
+| | mesa de costura | `tailor_travel_cloak` | tela + lana | capa de viaje (40) | 4,55 h | 3 |
+| | mesa de costura | `tailor_common_clothes` | tela + lana ×2 | ropa común (45) | 4,55 h | 4 |
+| | mesa de costura | `tailor_fine_clothes` | tela ×3 + lana | ropa fina (80) | 6,5 h | 6 (Producción 3) |
+
+Sillar (material), barril, arcón, armario, rueda, piedra de afilar, abrevadero, muela, estatua y ropa fina son objetos nuevos (`data/items/`). Cada oficio tiene su ficha en `data/professions/` (taller, herramienta, inicio y tabla de encargos).
+
 - Las recetas por debajo de `min_skill` se ven bloqueadas con candado; las que no tienen entradas suficientes en el almacén, deshabilitadas.
 - La duración efectiva: `duracion / (velocidad_trabajador × multiplicador_mejoras)`.
 
@@ -312,6 +334,8 @@ Cifras [balance].
 - **3 puestos exteriores** (interacción directa, sin cambiar de vista): Recursos (materias primas), Alimentos (comida, consumibles), Materiales (lingotes, harina, tablas, tela).
 - **3 tiendas con interior** (se entra como en un edificio): Armería (herramientas, armas, armaduras), Ropería (equipamiento, ropa), Boticario (hierbas, vendas, pociones).
 - Todos abren el **mismo panel** con pestañas *Comprar* y *Vender*, filtrado por las categorías de ese puesto.
+- **[provisional, H12]** Mientras no haya tiendas con interior para ellos, la Ropería es un puesto exterior más de la plaza y hay un cuarto puesto exterior, **Enseres** (muebles, barriles y piedra labrada), que no estaba en esta lista. Lo decide el owner.
+
 - La plaza es pública: no se compra ni se mejora. El jugador no trabaja en los puestos.
 - Horario: abierto solo en **DÍA** y **ATARDECER**; cerrado en amanecer y noche.
 
@@ -374,6 +398,8 @@ Desde la rebanada vertical el jugador no está solo en el mercado: **un herrero 
   5. **Encargos:** acepta uno del tablón si su Artesanía permite la receta y calcula que llega al plazo con su producción del día; le da prioridad sobre la venta libre.
 - No contrata, no mejora y no quiebra en la rebanada: si se queda sin oro, deja de comprar hasta vender. Desde H6 pasa a regirse por la IA de familias rivales (4.21), con contratar, mejorar, construir y quebrar.
 - La dificultad (4.23) cambia su Artesanía y su umbral de venta.
+- **Talleres competidores (H12):** en town_e hay un taller de cada oficio del Artesano. El del oficio con el que empiezas es tuyo; los demás son de una familia IA cada uno (perfil `rival_artisan`) que juega con esta misma IA, sin títulos, cargos ni acusaciones hasta que 04c se apruebe. Si empiezas de herrero conservas además al herrero rival; si empiezas de otro oficio, el herrero rival está igual en su Forja (no hay rival de tu mismo oficio) [provisional].
+
 - Diana: el rival termina los primeros 10 días con oro en `[40, 300]` y la demanda de la espada no pasa más de 1 día seguido por debajo de 0,6 por su culpa (bot `idle` + rival) [balance].
 
 #### 4.5.6 Encargos de NPC (contratos, desde H3)
@@ -391,7 +417,7 @@ Los NPC piden piezas concretas con plazo. Es dinero mejor pagado que el mercado 
 
 - Se publican en un **tablón de encargos** de la plaza (objeto del mapa): como mucho 3 visibles; sale 1 nuevo cada amanecer si hay hueco.
 - `AcceptContract(actor, contrato)` en el tablón; como mucho 2 aceptados a la vez por familia. `DeliverContract(actor, contrato)` en el tablón con las piezas en el inventario del personaje: se quitan del inventario y se cobra.
-- Los encargos de inicio están guionizados en el escenario de partida nueva (4.16); después salen de una tabla de datos por profesión (`data/contracts/`).
+- Los encargos de inicio están guionizados en el escenario de partida nueva (4.16); después salen de una tabla de datos por profesión (`data/contracts/`). Desde H12 el tablón saca los encargos de la tabla del oficio del cabeza de familia del jugador (un carpintero recibe encargos de carpintería); si no hay ninguna, de todas.
 - El libro de cuentas los apunta en su categoría y el registro de avisos avisa 1 día y 2 h antes de que venzan (4.18).
 
 #### 4.5.7 Recado de entrega (desde H3)
@@ -527,6 +553,8 @@ En el MVP, la forma de no cargar a mano es el **recado de entrega** (4.5.7, desd
 - **Solo una obra a la vez** por edificio; durante la obra el edificio **no produce**.
 - Las mejoras son permanentes. Un evento (incendio, sabotaje, revuelta) puede destruir **la última mejora** de una rama; hay que pagarla de nuevo. Seguridad reduce la probabilidad.
 - Cada mejora tiene efectos declarativos (`production_speed`, `extra_storage`, `new_zone`, `max_employees`, `quality_bonus`, `price_multiplier`, `customer_bonus`, `loyalty_bonus`, `reputation`, `protection`, `inspection_risk`, `illegal_profit`…) y visuales (nodo interior / overlay exterior que aparece).
+
+Los árboles de la Carpintería, la Albañilería y el Taller de sastre (H12) copian el de la Forja con las mismas cifras: cambian el material (tablas, sillares o tela en vez de lingotes; hierro, piedra o lana en vez de carbón), los puestos nuevos de Capacidad (segundo banco / segundo caballete, etc.) y la receta que desbloquea Producción 3 [balance].
 
 **Árbol de la Forja (implementado en el primer intento, conservar):**
 
@@ -829,6 +857,8 @@ Espionaje (observar NPC, descubrir secretos), sabotaje de negocios, chantaje, fa
 | Descubrimiento | Nueva técnica, un producto queda obsoleto | permanente |
 
 Los eventos son **datos** (disparador, probabilidad por estación, efectos declarativos, duración, texto). El Alcalde puede declarar algunos. Con D1(b) una estación son 2 días: un evento local (fiesta, visita) no puede durar más que la estación en la que cae.
+
+**Implementado en H13 (parte 1)** [provisional, balance]: `data/seasons.json` (grupos de objetos: alimentos, agricultura, textiles, madera, construcción, medicina, armas, lujo; los `mod_estación` de 4.5.3; la producción por estación vale 1 en todas) y `data/events.json` (los 10 eventos). Reglas: una tirada al empezar cada estación para los eventos de estación y una cada día para los locales; como mucho un evento nuevo por tirada, 3 a la vez y 1 local; el azar sale de la semilla por clave. Activos: hambruna, epidemia, guerra, buena cosecha, fiesta, festividad religiosa y visita de dignatario, con los efectos que ya existen (precio, demanda, producción, clientes del mostrador, horas de recado, mortalidad de la tirada anual). Desactivados con su motivo: revuelta (no hay daño de edificios), crisis política (no hay elecciones extraordinarias) y descubrimiento (no hay técnicas ni objetos obsoletos). El Alcalde declara la fiesta y la festividad (poder `declare_event`, enfriamiento 1 año). Las cifras sin número en esta tabla (probabilidades, «alimentos bajan» ×0,7, clientes ×0,7-1,5, demanda ×0,8-1,3, mortalidad ×1,2 en la hambruna) son propuestas a ajustar con el owner.
 
 Los **microeventos** (cliente que regatea, empleado enfermo, ladrón nocturno) son eventos pequeños de un edificio o personaje que llegan antes, en H7: ver 4.20.
 

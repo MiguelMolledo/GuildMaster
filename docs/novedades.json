@@ -1,6 +1,38 @@
 [
   {
     "fecha": "2026-11-03",
+    "titulo": "H12 (1): carpintero, albañil y sastre",
+    "que": "El Artesano ya tiene sus cuatro oficios. En Partida nueva se elige el oficio en la cabecera (Herrero, Carpintero, Albañil, Sastre): cada uno empieza con las mismas cifras que el herrero (30 de oro, la deuda de la dificultad, dos encargos guionizados de su oficio y su cadena de objetivos) en su propio taller con vivienda. La Carpintería (caballete y banco: tablas, barriles, arcones, armarios y, con Producción 3, ruedas de carro), la Cantería (banco de corte y banco de tallar: sillares, piedras de afilar, abrevaderos, muelas y, con Producción 3, estatuas) y la Sastrería (telar y mesa de costura: tela, ropa de trabajo, capas de viaje, ropa común y, con Producción 3, ropa fina) copian la Forja: recetas con calidad, mostrador, empleados con su rol por puesto y un árbol de 8 ramas × 3 niveles con las mismas cifras. La materia prima (madera, piedra, lana, hierro para herrajes) se compra en Recursos. Los productos se venden en dos puestos nuevos de la plaza, Ropería y Enseres (provisionales). En town_e hay un taller de cada oficio al sur de la plaza: el tuyo, y los demás de familias IA que juegan como el herrero rival (sin títulos, cargos ni acusaciones). El tablón da encargos del oficio del jugador. Arte sin créditos: fachadas derivadas de Guild Renew, puestos, muebles e iconos dibujados (placeholder; lista de la compra de PixelLab en assets/art/MANIFEST.md).",
+    "como_probar": "Partida nueva → pulsa Carpintero (o Albañil, Sastre): el nombre y la familia cambian a los del oficio. Empieza: tu taller está al sur de la plaza (los otros dos y la Forja del rival también tienen dueño). Entra, sierra tablas en el caballete y haz un arcón en el banco; véndelo en el puesto de Enseres o cumple el encargo del tablón. Bots: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_carpenter --bots=carpenter_novice --days=10 --seeds=10 (igual mason, tailor). Capturas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=oficios.",
+    "capturas": [
+      "docs/novedades/h12_oficios_partida_nueva.png",
+      "docs/novedades/h12_oficios_calle_carpenter.png",
+      "docs/novedades/h12_oficios_interior_carpenter.png",
+      "docs/novedades/h12_oficios_interior_mason.png",
+      "docs/novedades/h12_oficios_interior_tailor.png",
+      "docs/novedades/h12_oficios_mejoras_tailor.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-03",
+    "titulo": "Estaciones en los precios y eventos globales (H13, parte 1)",
+    "que": "La estación entra en la fórmula de precios por grupo de objetos (data/seasons.json, cifras de GDD 4.5.3: invierno alimentos ×1.5, construcción ×1.3, medicina ×1.4; verano alimentos ×0.7 y textiles ×0.9; primavera alimentos ×0.8; otoño madera ×1.2) y en la producción (vale 1 en todas las estaciones hasta que el owner ponga cifras). Eventos globales como datos (data/events.json): hambruna, epidemia, guerra regional, buena cosecha, fiesta popular, festividad religiosa y visita de dignatario están activos, con efectos sobre precio, demanda, producción, clientes del mostrador, horas de recado y mortalidad; revuelta, crisis política y descubrimiento quedan desactivados con su motivo. Una tirada al empezar cada estación y otra cada día, deterministas con la semilla; un evento local nunca pasa del final de su estación. El Alcalde puede declarar una fiesta o una festividad (poder declare_event). Avisos al empezar y al acabar (zona 7), el evento y lo que le queda junto a la hora, y en el mercado y en el libro (pestaña Hoy) una línea con el motivo de cada precio. Guardado v13 con migración.",
+    "como_probar": "Escenario season_events (invierno, guerra y fiesta en curso; a medianoche acaba la fiesta y empieza una festividad): /opt/homebrew/bin/godot --path . -- --scenario=season_events; con --at=10:00, ir al puesto de Recursos y mirar la línea bajo el trigo; abrir el libro (L) en Hoy. Captura guionizada: --smoke-script=eventos. Sim de 10 años: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=events --days=80 --seeds=2.",
+    "capturas": [
+      "docs/novedades/h13_avisos.png",
+      "docs/novedades/h13_mercado.png",
+      "docs/novedades/h13_libro.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-03",
+    "titulo": "Diseño de las otras clases (4.22, Gate antes de H12)",
+    "que": "Nuevo documento de diseño docs/gdd/04d_otras_clases.md que desarrolla el esbozo de 4.22: piezas comunes (recetas de servicio y de campo, clientes con necesidad, salud, vigilancia y testigos, forasteros, guardado v13 y órdenes nuevas); Patrón (campos por estación, ganado, molino, panadería, carnicería, taberna y posada); Erudito (médico, sacerdote, alquimista, escriba y banquero con el Loan ampliado); Pícaro (combate como orden, guardias y detención, carterista y robo, mercancía robada y perista, espía y chantaje, bandido y rescates, mercenario). Cada sistema con reglas y cifras [balance], bucle diario, interfaz que falta, bot y dianas, riesgos, lista de la compra de PixelLab para el 15-nov y 15 decisiones para el owner. Solo documentación: no cambia código ni 04c.",
+    "como_probar": "Leer docs/gdd/04d_otras_clases.md (enlazado desde 4.22 en 04b y desde docs/gdd/README.md) y responder las decisiones O1-O15 de 4.22.11.",
+    "capturas": []
+  },
+  {
+    "fecha": "2026-11-03",
     "titulo": "Interfaz nueva (1/2): theme pixel y HUD por zonas",
     "que": "El juego estrena la interfaz diseñada en docs/ui: un solo theme pixel (Pixel Operator 16 y su negrita en todo, Jacquarda en los títulos, marcos de madera, pergamino y estados del kit), cursores propios y los sonidos que faltaban (botón apagado, pestaña, sello). El HUD se ordena en zonas fijas que no se pisan: la ficha con los retratos del grupo, el oro, el título y la reputación; la barra de estado con la deuda y los accesos con su tecla; el reloj con II ×1 ×2 ×4; la columna con el objetivo, las órdenes en pausa y las tarjetas; un único panel de gestión a la derecha (abrir uno cierra el otro, también dentro de la forja); la selección abajo, que dentro de un edificio es su barra (Producción P, Almacén A, Empleados E, Mejoras M, Salir); y los avisos abajo a la izquierda por gravedad (urgente, aviso, cumplido; como mucho 3). La ayuda F1 es un pergamino con las teclas y «Ahora mismo». La línea de ayuda del borde de abajo desaparece. La cámara aparta lo seleccionado de debajo de los paneles y el interior se dibuja centrado en la vista libre.",
     "como_probar": "Partida nueva como herrero: mira las zonas del HUD; abre el libro (L) con la forja elegida y comprueba que su barra sigue entera abajo; pulsa F1; entra en la forja, pausa (Espacio) y da dos órdenes: salen en la columna; prueba P / A / E / M y Esc. Mayús+1/2/3 cambia la velocidad y 1/2/3 elige familiar. Con ventana: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=hud (y --smoke-script=paneles para ver cada panel en su zona).",

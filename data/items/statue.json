@@ -1,0 +1,10 @@
+{
+  "id": "statue",
+  "name_key": "item.statue",
+  "gender": "f",
+  "category": "product",
+  "weight": 12.0,
+  "max_stack": 20,
+  "base_price": 110,
+  "market_stall": "goods"
+}

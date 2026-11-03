@@ -4,7 +4,7 @@ Continúa la sección 4 ([04_diseno_de_juego.md](04_diseno_de_juego.md)). Aproba
 
 ### 4.16 Inicio de partida
 
-**Partida nueva:** se elige dificultad (4.23), se crea el personaje (4.2.2: nombre, género, 5 puntos libres) y los colores de la familia (4.10.9). La partida empieza al amanecer del día 1 de primavera del año 1.
+**Partida nueva:** se elige dificultad (4.23), se crea el personaje (4.2.2: nombre, género, 5 puntos libres) y los colores de la familia (4.10.9). La partida empieza al amanecer del día 1 de primavera del año 1. Desde H12 se elige también el oficio dentro del Artesano (herrero, carpintero, albañil o sastre): cada uno tiene su inicio (`data/starts/artisan_<oficio>.json`) con las mismas cifras que el del herrero (30 de oro, deuda por dificultad, 2 encargos guionizados de su oficio) y su taller en su solar de town_e.
 
 **Condiciones de inicio (Artesano / Herrero, dificultad Normal)** [balance]:
 
@@ -217,6 +217,8 @@ Cada ataque detectado se apunta en el registro de avisos y en la crónica.
 **Dianas** (sim de 10 años en Normal) [balance]: ninguna familia tiene más del 60 % de las parcelas de producción; al menos 2 familias IA suben de título; el jugador recibe entre 1 y 4 ataques; la válvula de parcelas se respeta siempre.
 
 ### 4.22 Sistemas propios de las otras clases [EA, diseñar en detalle antes de H12]
+
+**Diseño detallado** (piezas comunes, Patrón, Erudito, Pícaro, guardado, órdenes, bots, arte y decisiones del owner): [04d_otras_clases.md](04d_otras_clases.md). Lo que allí se precisa sobre esta sección está resumido en su 4.22.1.
 
 El Artesano se juega con los sistemas del MVP, pero las otras tres clases **no son solo datos**: cada una necesita un sistema nuevo en `sim/`. Aquí va el esbozo; el diseño detallado de cada uno se cierra y lo aprueba el owner [Gate] antes de empezar H12. La arquitectura reserva desde ya sus huecos (5.3 y 5.5) para no tener que rehacer nada.
 

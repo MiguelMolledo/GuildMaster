@@ -1,0 +1,10 @@
+{
+  "id": "barrel",
+  "name_key": "item.barrel",
+  "gender": "m",
+  "category": "product",
+  "weight": 6.0,
+  "max_stack": 20,
+  "base_price": 35,
+  "market_stall": "goods"
+}

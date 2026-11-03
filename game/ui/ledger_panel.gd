@@ -95,7 +95,8 @@ func refresh(force: bool = false) -> void:
 	if sim == null:
 		return
 	var data: Variant = _data()
-	var sig := tab + "|" + str(data) + "|" + str(_gold()) + "|" + str(_pay)
+	var sig := tab + "|" + str(data) + "|" + str(_gold()) + "|" + str(_pay) + "|" + SimQuery.events_line(sim) \
+		+ SimQuery.season_prices_line(sim)  # H13: the season and the events of the Today tab
 	if sig == _sig and not force:
 		return
 	_sig = sig
@@ -232,6 +233,21 @@ func _fill_today(d: Variant) -> void:
 	keys.sort()
 	for c: String in keys:
 		_line(SimQuery.category_name(c), signed(int(cats[c])), c)
+	_fill_prices()
+
+
+## H13: why prices move today: the season's multipliers and each global event in force with its time left.
+func _fill_prices() -> void:
+	(%Content as VBoxContainer).add_child(HSeparator.new())
+	var l := _label(SimQuery.season_prices_line(sim))
+	l.name = "SeasonPrices"
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	for v: Dictionary in WorldEvents.view(sim):
+		var key := str(v["text_key"])
+		var e := _label(SimQuery.t_("ui.ledger.event") % [SimQuery.t_(key), SimQuery.time_left(int(v["minutes_left"])),
+			SimQuery.t_(key + ".desc")], Color(0.94, 0.75, 0.38))
+		e.name = "Event_" + str(v["def"])
+		e.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 
 func _fill_days(d: Variant) -> void:

@@ -1,0 +1,14 @@
+{
+  "id": "sell_chest",
+  "name_key": "objective.sell_chest",
+  "conditions": [
+    {
+      "event": "market_sold",
+      "match": {
+        "stall": "goods",
+        "item": "chest"
+      },
+      "count": 1
+    }
+  ]
+}

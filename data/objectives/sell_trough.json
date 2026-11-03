@@ -1,0 +1,14 @@
+{
+  "id": "sell_trough",
+  "name_key": "objective.sell_trough",
+  "conditions": [
+    {
+      "event": "market_sold",
+      "match": {
+        "stall": "goods",
+        "item": "trough"
+      },
+      "count": 1
+    }
+  ]
+}

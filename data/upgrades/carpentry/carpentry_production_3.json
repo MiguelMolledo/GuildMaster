@@ -1,0 +1,36 @@
+{
+  "id": "carpentry_production_3",
+  "name_key": "upgrade.carpentry_production_3",
+  "tree": "carpentry",
+  "branch": "production",
+  "level": 3,
+  "cost": {
+    "gold": 100,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "carpentry_production_2"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 6
+    },
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "production_speed",
+      "mult": 1.6
+    },
+    {
+      "kind": "unlock_recipe",
+      "recipe": "carpentry_cart_wheel"
+    }
+  ],
+  "visual": {
+    "interior_node": "carpentry_master_bench",
+    "exterior_overlay": null
+  }
+}

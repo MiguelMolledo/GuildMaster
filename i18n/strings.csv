@@ -1391,3 +1391,218 @@ ui.ending.fact.sentence,Sentenced on day %d,Condena el día %d
 ui.ending.fact.goal,Goal met: %s,Meta cumplida: %s
 ui.ending.fact.building,A new building on day %d,Edificio nuevo el día %d
 ui.ending.fact.wealth_peak,Highest wealth: %s gold,Patrimonio máximo: %s de oro
+event.famine,Famine,Hambruna
+event.famine.desc,"farming at half speed, food ×2.5, more deaths","la producción agrícola a la mitad, alimentos ×2.5 y más muertes"
+event.epidemic,Epidemic,Epidemia
+event.epidemic.desc,"mortality +30 %, medicine ×3, fewer customers","mortalidad +30 %, medicina ×3 y menos clientes"
+event.war,Regional war,Guerra regional
+event.war.desc,"weapons ×2, food ×1.5, slower errands, luxury sells less","armas ×2, alimentos ×1.5, recados más lentos y el lujo se vende menos"
+event.good_harvest,Good harvest,Buena cosecha
+event.good_harvest.desc,food is cheaper (×0.7),"los alimentos bajan (×0.7)"
+event.festival,Town festival,Fiesta popular
+event.festival.desc,"more customers at the counters, more demand for food",más clientes en los mostradores y más demanda de comida
+event.religious_feast,Religious feast,Festividad religiosa
+event.religious_feast.desc,"fewer customers, more demand for food",menos clientes y más demanda de comida
+event.dignitary_visit,Dignitary's visit,Visita de dignatario
+event.dignitary_visit.desc,foreigners in town: many more customers,extranjeros en la ciudad: muchos más clientes
+event.riot,Riot,Revuelta
+event.riot.desc,townsfolk damage buildings,los vecinos dañan edificios
+event.political_crisis,Political crisis,Crisis política
+event.political_crisis.desc,the government falls: early elections,cae el gobierno: elecciones extraordinarias
+event.discovery,Discovery,Descubrimiento
+event.discovery.desc,a new technique makes a product obsolete,una técnica nueva deja obsoleto un producto
+goods.food,food,alimentos
+goods.farming,farming,agricultura
+goods.textiles,textiles,textiles
+goods.wood,wood,madera
+goods.construction,building materials,construcción
+goods.medicine,medicine,medicina
+goods.weapons,weapons,armas
+goods.luxury,luxury,lujo
+notice.event_started,{event} begins ({days} d): {desc},Empieza {event} ({days} d): {desc}
+notice.event_declared,{name} declares {event} ({days} d): {desc},{name} declara {event} ({days} d): {desc}
+notice.event_ended,{event} is over,Se acabó: {event}
+reason.event_active,That event is already on,Ese evento ya está en curso
+reason.event_excluded,Not possible with the event in course,No cabe con el evento en curso
+reason.too_many_events,Too many events at once,Demasiados eventos a la vez
+reason.event_disabled,That event does not happen yet,Ese evento aún no ocurre
+reason.unknown_event,Unknown event,Evento desconocido
+hud.event,%s · %s left,%s · quedan %s
+hud.event_tip,Global event: %s,Evento global: %s
+ui.days_left,%d d,%d d
+ui.hours_left,%d h,%d h
+price.demand,demand ×%s,demanda ×%s
+price.season,%s: %s ×%s,%s: %s ×%s
+price.event_demand,%s: demand ×%s,%s: demanda ×%s
+price.regulation,regulated %+d %%,regulado %+d %%
+ui.market.price_why,%s,%s
+ui.ledger.prices,Prices this season (%s): %s,Precios de la estación (%s): %s
+ui.ledger.prices_usual,as usual,los de siempre
+ui.ledger.event,Event: %s · %s left · %s,Evento: %s · quedan %s · %s
+ui.offices.declare,Declare: %s,Declarar: %s
+event.famine.short,Famine,Hambruna
+event.epidemic.short,Epidemic,Epidemia
+event.war.short,War,Guerra
+event.good_harvest.short,Harvest,Cosecha
+event.festival.short,Festival,Fiesta
+event.religious_feast.short,Feast,Festividad
+event.dignitary_visit.short,Visit,Visita
+event.riot.short,Riot,Revuelta
+event.political_crisis.short,Crisis,Crisis
+event.discovery.short,Discovery,Descubrimiento
+hud.event_short,%s %s,%s %s
+hud.event_more,%s +%d,%s +%d
+item.barrel,Barrel,Barril
+item.chest,Chest,Arcón
+item.cabinet,Cabinet,Armario
+item.cart_wheel,Cart wheel,Rueda de carro
+item.ashlar,Ashlar,Sillar
+item.grindstone,Grindstone,Piedra de afilar
+item.trough,Stone trough,Abrevadero
+item.millstone,Millstone,Muela de molino
+item.statue,Statue,Estatua
+item.fine_clothes,Fine clothes,Ropa fina
+building.carpentry,Carpentry,Carpintería
+ui.zone.sawhorse,Sawhorse,Caballete de serrar
+ui.zone.workbench,Workbench,Banco de carpintero
+ui.zone.sawhorse_2,Second sawhorse,Segundo caballete
+ui.zone.workbench_2,Second workbench,Segundo banco
+recipe.carpentry_planks,Saw planks,Serrar tablas
+recipe.carpentry_barrel,Make a barrel,Hacer un barril
+recipe.carpentry_chest,Make a chest,Hacer un arcón
+recipe.carpentry_cabinet,Make a cabinet,Hacer un armario
+recipe.carpentry_cart_wheel,Make a cart wheel,Hacer una rueda de carro
+upgrade.carpentry_capacity_1,Second workbench,Segundo banco
+upgrade.carpentry_capacity_2,Larger storage,Almacén ampliado
+upgrade.carpentry_capacity_3,Second sawhorse,Segundo caballete
+upgrade.carpentry_commerce_1,Sales counter,Mostrador de venta
+upgrade.carpentry_commerce_2,Shop window,Escaparate exterior
+upgrade.carpentry_commerce_3,Trade reputation,Reputación comercial
+upgrade.carpentry_facade_1,Stone facade,Fachada de piedra
+upgrade.carpentry_facade_2,Garden and plants,Jardín y plantas
+upgrade.carpentry_facade_3,Noble facade,Fachada noble
+upgrade.carpentry_production_1,Frame saw,Sierra de bastidor
+upgrade.carpentry_production_2,Double vice bench,Banco de doble tornillo
+upgrade.carpentry_production_3,Cabinetmaker's workshop,Taller de ebanista
+upgrade.carpentry_quality_1,Fine planes,Cepillos finos
+upgrade.carpentry_quality_2,Carving gouges,Gubias de talla
+upgrade.carpentry_quality_3,Cabinetmaker's mark,Marca de ebanista
+upgrade.carpentry_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.carpentry_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.carpentry_secrets_3,Smuggling,Contrabando
+upgrade.carpentry_security_1,Reinforced lock,Cerradura reforzada
+upgrade.carpentry_security_2,Hired guard,Guardia contratado
+upgrade.carpentry_security_3,Strongbox,Caja fuerte
+upgrade.carpentry_staff_1,Apprentice dormitory,Dormitorio de aprendiz
+upgrade.carpentry_staff_2,Dining room,Comedor
+upgrade.carpentry_staff_3,Master's workshop,Taller de maestro
+client.wine_merchant,The wine merchant,El vinatero
+client.miller,The miller,El molinero
+client.bride_family,The bride's family,La familia de la novia
+client.parish_priest,The parish priest,El párroco
+objective.make_chest,Saw two planks and make a chest,Sierra dos tablas y haz un arcón
+objective.sell_chest,Sell it at the market's goods stall,Véndelo en el puesto de enseres del mercado
+objective.wine_barrels,Fulfil the wine merchant's contract: 2 barrels in 2 days,Cumple el encargo del vinatero: 2 barriles en 2 días
+profession.carpenter,Carpenter,Carpintero
+phrase.profession.carpenter.01,Good wood sings under the saw.,La buena madera canta bajo la sierra.
+phrase.profession.carpenter.02,A chest outlives the one who made it.,Un arcón dura más que quien lo hizo.
+phrase.profession.carpenter.03,If you need a hand at the bench...,Si te hace falta una mano en el banco...
+start.artisan_carpenter,Artisan · carpenter,Artesano · carpintero
+ui.new_game.preview_start.artisan_carpenter,"A carpentry with a home, %d gold and %d of debt with the moneylender.","Carpintería con vivienda, %d de oro y %d de deuda con el prestamista."
+building.masonry,Mason's yard,Cantería
+ui.zone.cutting_bench,Cutting bench,Banco de corte
+ui.zone.carving_bench,Carving bench,Banco de tallar
+ui.zone.cutting_bench_2,Second cutting bench,Segundo banco de corte
+ui.zone.carving_bench_2,Second carving bench,Segundo banco de tallar
+recipe.masonry_ashlar,Dress an ashlar,Labrar un sillar
+recipe.masonry_grindstone,Make a grindstone,Hacer una piedra de afilar
+recipe.masonry_trough,Carve a trough,Tallar un abrevadero
+recipe.masonry_millstone,Carve a millstone,Tallar una muela de molino
+recipe.masonry_statue,Carve a statue,Tallar una estatua
+upgrade.masonry_capacity_1,Second carving bench,Segundo banco de tallar
+upgrade.masonry_capacity_2,Larger storage,Almacén ampliado
+upgrade.masonry_capacity_3,Second cutting bench,Segundo banco de corte
+upgrade.masonry_commerce_1,Sales counter,Mostrador de venta
+upgrade.masonry_commerce_2,Shop window,Escaparate exterior
+upgrade.masonry_commerce_3,Trade reputation,Reputación comercial
+upgrade.masonry_facade_1,Stone facade,Fachada de piedra
+upgrade.masonry_facade_2,Garden and plants,Jardín y plantas
+upgrade.masonry_facade_3,Noble facade,Fachada noble
+upgrade.masonry_production_1,Steel wedges,Cuñas de acero
+upgrade.masonry_production_2,Hand crane,Grúa de mano
+upgrade.masonry_production_3,Master mason's yard,Taller de cantero maestro
+upgrade.masonry_quality_1,Tempered chisels,Cinceles templados
+upgrade.masonry_quality_2,Carving templates,Plantillas de talla
+upgrade.masonry_quality_3,Mason's mark,Marca de cantero
+upgrade.masonry_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.masonry_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.masonry_secrets_3,Smuggling,Contrabando
+upgrade.masonry_security_1,Reinforced lock,Cerradura reforzada
+upgrade.masonry_security_2,Hired guard,Guardia contratado
+upgrade.masonry_security_3,Strongbox,Caja fuerte
+upgrade.masonry_staff_1,Apprentice dormitory,Dormitorio de aprendiz
+upgrade.masonry_staff_2,Dining room,Comedor
+upgrade.masonry_staff_3,Master's workshop,Taller de maestro
+client.master_builder,The master builder,El maestro de obras
+client.abbot,The abbot,El abad
+client.stable_master,The stable master,El caballerizo
+client.mill_owner,The mill owner,La dueña del molino
+objective.carve_trough,Dress three ashlars and carve a trough,Labra tres sillares y talla un abrevadero
+objective.sell_trough,Sell it at the market's goods stall,Véndelo en el puesto de enseres del mercado
+objective.stable_grindstones,Fulfil the stable master's contract: 2 grindstones in 2 days,Cumple el encargo del caballerizo: 2 piedras de afilar en 2 días
+profession.mason,Mason,Albañil
+phrase.profession.mason.01,Stone does not forgive a bad blow.,La piedra no perdona un mal golpe.
+phrase.profession.mason.02,What I carve will outlast us all.,Lo que yo tallo nos sobrevivirá a todos.
+phrase.profession.mason.03,If you need a hand at the bench...,Si te hace falta una mano en el banco...
+start.artisan_mason,Artisan · mason,Artesano · albañil
+ui.new_game.preview_start.artisan_mason,"A mason's yard with a home, %d gold and %d of debt with the moneylender.","Cantería con vivienda, %d de oro y %d de deuda con el prestamista."
+building.tailor_shop,Tailor's shop,Sastrería
+ui.zone.loom,Loom,Telar
+ui.zone.sewing_table,Sewing table,Mesa de costura
+ui.zone.loom_2,Second loom,Segundo telar
+ui.zone.sewing_table_2,Second sewing table,Segunda mesa de costura
+recipe.tailor_cloth,Weave cloth,Tejer tela
+recipe.tailor_work_clothes,Sew work clothes,Coser ropa de trabajo
+recipe.tailor_travel_cloak,Sew a travel cloak,Coser una capa de viaje
+recipe.tailor_common_clothes,Sew common clothes,Coser ropa común
+recipe.tailor_fine_clothes,Sew fine clothes,Coser ropa fina
+upgrade.tailor_shop_capacity_1,Second sewing table,Segunda mesa de costura
+upgrade.tailor_shop_capacity_2,Larger storage,Almacén ampliado
+upgrade.tailor_shop_capacity_3,Second loom,Segundo telar
+upgrade.tailor_shop_commerce_1,Sales counter,Mostrador de venta
+upgrade.tailor_shop_commerce_2,Shop window,Escaparate exterior
+upgrade.tailor_shop_commerce_3,Trade reputation,Reputación comercial
+upgrade.tailor_shop_facade_1,Stone facade,Fachada de piedra
+upgrade.tailor_shop_facade_2,Garden and plants,Jardín y plantas
+upgrade.tailor_shop_facade_3,Noble facade,Fachada noble
+upgrade.tailor_shop_production_1,Treadle loom,Telar de pedal
+upgrade.tailor_shop_production_2,Flying shuttle,Lanzadera volante
+upgrade.tailor_shop_production_3,Master tailor's workshop,Taller de maestro sastre
+upgrade.tailor_shop_quality_1,Fine shears,Tijeras finas
+upgrade.tailor_shop_quality_2,Quality dyes,Tintes de calidad
+upgrade.tailor_shop_quality_3,Guild seal,Sello del gremio
+upgrade.tailor_shop_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.tailor_shop_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.tailor_shop_secrets_3,Smuggling,Contrabando
+upgrade.tailor_shop_security_1,Reinforced lock,Cerradura reforzada
+upgrade.tailor_shop_security_2,Hired guard,Guardia contratado
+upgrade.tailor_shop_security_3,Strongbox,Caja fuerte
+upgrade.tailor_shop_staff_1,Apprentice dormitory,Dormitorio de aprendiz
+upgrade.tailor_shop_staff_2,Dining room,Comedor
+upgrade.tailor_shop_staff_3,Master's workshop,Taller de maestro
+client.steward,The steward,El mayordomo
+client.pilgrim,The pilgrim,La peregrina
+client.cloth_merchant,The cloth merchant,El mercader de paños
+client.guard_sergeant,The guard sergeant,El sargento de la guardia
+objective.sew_clothes,Weave two cloths and sew common clothes,Teje dos telas y cose ropa común
+objective.sell_clothes,Sell them at the market's clothier,Véndela en la ropería del mercado
+objective.sergeant_work_clothes,Fulfil the sergeant's contract: 2 work clothes in 2 days,Cumple el encargo del sargento: 2 ropas de trabajo en 2 días
+profession.tailor,Tailor,Sastre
+phrase.profession.tailor.01,A good seam is never seen.,Una buena costura no se ve.
+phrase.profession.tailor.02,Wool from the hills is the softest.,La lana de los cerros es la más suave.
+phrase.profession.tailor.03,If you need a hand at the loom...,Si te hace falta una mano en el telar...
+start.artisan_tailor,Artisan · tailor,Artesano · sastre
+ui.new_game.preview_start.artisan_tailor,"A tailor's shop with a home, %d gold and %d of debt with the moneylender.","Sastrería con vivienda, %d de oro y %d de deuda con el prestamista."
+stall.clothier,Clothier,Ropería
+stall.goods,Goods,Enseres
+ui.new_game.profession,Trade,Oficio

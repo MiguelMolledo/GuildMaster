@@ -50,5 +50,11 @@
       "type": "forge",
       "inventory": [{"item": "iron", "quality": 0, "qty": 8}, {"item": "coal", "quality": 0, "qty": 4}]
     }
-  }
+  },
+  "_competitors_doc": "H12: the other workshops of the town (GDD 4.5.5 style, no new AI): one AI family with the profile of each, its building on its map site with its stock. Added after the townsfolk and the offices (the ids of before do not move). spouse: they start married (a married head does not court: the town keeps its singles for the rival smith and the player).",
+  "competitors": [
+    {"family_name": "Fuster", "colors": {"primary": "#5a6b2e", "secondary": "#c9a35a"}, "profile": "rival_artisan", "gold": 80, "profession": "carpenter", "spouse": {"name": "Teresa", "female": true, "age": 36, "visual": {"hair": 2, "skin": 1}}, "character": {"name": "Jaume", "female": false, "age": 38, "visual": {"hair": 4, "skin": 1}, "stats": {"charisma": 4, "empathy": 3, "negotiation": 6, "arcane": 1, "dexterity": 4, "craft": 5, "martial": 3, "constitution": 5, "rhetoric": 3, "stealth": 2}}, "building": {"site": "workshop_carpentry", "type": "carpentry", "inventory": [{"item": "wood", "quality": 0, "qty": 8}, {"item": "iron", "quality": 0, "qty": 2}]}},
+    {"family_name": "Picapedrero", "colors": {"primary": "#4a4f5c", "secondary": "#b07a3a"}, "profile": "rival_artisan", "gold": 80, "profession": "mason", "spouse": {"name": "Mencía", "female": true, "age": 40, "visual": {"hair": 0, "skin": 2}}, "character": {"name": "Ramiro", "female": false, "age": 42, "visual": {"hair": 1, "skin": 2}, "stats": {"charisma": 4, "empathy": 3, "negotiation": 6, "arcane": 1, "dexterity": 4, "craft": 5, "martial": 3, "constitution": 5, "rhetoric": 3, "stealth": 2}}, "building": {"site": "workshop_masonry", "type": "masonry", "inventory": [{"item": "stone", "quality": 0, "qty": 12}, {"item": "wood", "quality": 0, "qty": 2}]}},
+    {"family_name": "Tejedor", "colors": {"primary": "#2e4a6b", "secondary": "#c8b8a0"}, "profile": "rival_artisan", "gold": 80, "profession": "tailor", "spouse": {"name": "Fortún", "female": false, "age": 35, "visual": {"hair": 3, "skin": 0}}, "character": {"name": "Urraca", "female": true, "age": 33, "visual": {"hair": 5, "skin": 0}, "stats": {"charisma": 4, "empathy": 3, "negotiation": 6, "arcane": 1, "dexterity": 4, "craft": 5, "martial": 3, "constitution": 5, "rhetoric": 3, "stealth": 2}}, "building": {"site": "workshop_tailor", "type": "tailor_shop", "inventory": [{"item": "wool", "quality": 0, "qty": 10}]}}
+  ]
 }

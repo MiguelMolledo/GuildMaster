@@ -1,0 +1,32 @@
+{
+  "id": "masonry_security_1",
+  "name_key": "upgrade.masonry_security_1",
+  "tree": "masonry",
+  "branch": "security",
+  "level": 1,
+  "cost": {
+    "gold": 25,
+    "items": [
+      {
+        "item": "ashlar",
+        "qty": 2
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "protection",
+      "amount": 0.2
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": "upgrade_reinforced_lock"
+  }
+}

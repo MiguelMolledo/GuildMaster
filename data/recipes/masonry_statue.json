@@ -1,0 +1,19 @@
+{
+  "id": "masonry_statue",
+  "name_key": "recipe.masonry_statue",
+  "building": "masonry",
+  "zone": "carving_bench",
+  "inputs": [
+    {
+      "item": "ashlar",
+      "qty": 5
+    }
+  ],
+  "output": {
+    "item": "statue",
+    "qty": 1
+  },
+  "duration_hours": 7.8,
+  "min_craft": 6,
+  "requires_upgrade": "masonry_production_3"
+}

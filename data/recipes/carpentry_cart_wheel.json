@@ -1,0 +1,23 @@
+{
+  "id": "carpentry_cart_wheel",
+  "name_key": "recipe.carpentry_cart_wheel",
+  "building": "carpentry",
+  "zone": "sawhorse",
+  "inputs": [
+    {
+      "item": "planks",
+      "qty": 2
+    },
+    {
+      "item": "iron",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "cart_wheel",
+    "qty": 1
+  },
+  "duration_hours": 5.2,
+  "min_craft": 6,
+  "requires_upgrade": "carpentry_production_3"
+}

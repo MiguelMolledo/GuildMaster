@@ -1,0 +1,38 @@
+{
+  "id": "tailor_shop_capacity_3",
+  "name_key": "upgrade.tailor_shop_capacity_3",
+  "tree": "tailor_shop",
+  "branch": "capacity",
+  "level": 3,
+  "cost": {
+    "gold": 125,
+    "items": [
+      {
+        "item": "cloth",
+        "qty": 10
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tailor_shop_capacity_2"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "loom_2",
+      "like": "loom"
+    }
+  ],
+  "visual": {
+    "interior_node": "tailor_shop_loom_2",
+    "exterior_overlay": null
+  }
+}

@@ -305,7 +305,76 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["accuser"] = t_("trial.town")
 	if p.has("office"):  # H10: an office id
 		p["office"] = office_name(str(p["office"]))
+	if p.has("event"):  # H13: a global event id (its name and the sentence of its effects)
+		var ek := str(catalog.world_events().get(str(p["event"]), {}).get("text_key", "event." + str(p["event"])))
+		p["desc"] = t_(ek + ".desc")
+		p["event"] = t_(ek)
 	return t_(str(n.get("key", ""))).format(p)
+
+
+# --- H13 · seasons and global events ----------------------------------------------------------------------------------
+
+## Why `item`'s market price is not its base now, in one line ("" if nothing moves it): the demand (with the events'
+## demand effects), the season and the events by goods group, the inspector's regulation.
+## E.g. «demanda ×0,84 · Invierno: alimentos ×1,5 · Hambruna: alimentos ×2,5».
+static func price_reason(sim: Sim, item: String) -> String:
+	var parts: PackedStringArray = []
+	var d := Market.demand(sim, item)
+	if absf(d - 1.0) > 0.005:
+		parts.append(t_("price.demand") % _num(d))
+	for f: Dictionary in WorldEvents.factors(sim, item):
+		var who := t_("season." + str(f["id"])) if str(f["source"]) == "season" else event_name(sim.catalog, str(f["id"]))
+		if str(f["kind"]) == "demand":
+			parts.append(t_("price.event_demand") % [who, _num(float(f["mult"]))])
+		else:
+			parts.append(t_("price.season") % [who, t_("goods." + str(f["group"])), _num(float(f["mult"]))])
+	var reg := Offices.regulation(sim, item)
+	if reg != 0:
+		parts.append(t_("price.regulation") % reg)
+	return " · ".join(parts)
+
+
+static func event_name(catalog: Catalog, def: String) -> String:
+	return t_(str(catalog.world_events().get(def, {}).get("text_key", "event." + def)))
+
+
+## «3 d» / «5 h» of a span of minutes (rounded up).
+static func time_left(minutes: int) -> String:
+	if minutes >= Clock.MINUTES_PER_DAY:
+		return t_("ui.days_left") % ceili(float(minutes) / float(Clock.MINUTES_PER_DAY))
+	return t_("ui.hours_left") % maxi(1, ceili(float(minutes) / 60.0))
+
+
+## The events in force for the clock: «Hambruna · quedan 3 d» (several joined with " / "; "" if none).
+static func events_line(sim: Sim) -> String:
+	var parts: PackedStringArray = []
+	for v: Dictionary in WorldEvents.view(sim):
+		parts.append(t_("hud.event") % [t_(str(v["text_key"])), time_left(int(v["minutes_left"]))])
+	return " / ".join(parts)
+
+
+## The clock's short line (zone 3): the event that lasts longest, short name and time left, «Guerra 5 d»; «+n» when
+## there are more ("" if none). The full list goes in its tooltip (events_line).
+static func events_short(sim: Sim) -> String:
+	var v := WorldEvents.view(sim)
+	if v.is_empty():
+		return ""
+	var top: Dictionary = v[0]
+	for x: Dictionary in v:
+		if int(x["minutes_left"]) > int(top["minutes_left"]):
+			top = x
+	var s := t_("hud.event_short") % [t_(str(top["text_key"]) + ".short"), time_left(int(top["minutes_left"]))]
+	return s if v.size() == 1 else t_("hud.event_more") % [s, v.size() - 1]
+
+
+## The season's prices for the book: «Precios de la estación (Invierno): alimentos ×1,5, construcción ×1,3...».
+static func season_prices_line(sim: Sim) -> String:
+	var parts: PackedStringArray = []
+	var sp := WorldEvents.season_prices(sim)
+	for g: String in sp:
+		parts.append("%s ×%s" % [t_("goods." + g), _num(float(sp[g]))])
+	var season := t_("season." + Clock.season(int(sim.state.clock["minute"]), sim.catalog.time))
+	return t_("ui.ledger.prices") % [season, ", ".join(parts) if not parts.is_empty() else t_("ui.ledger.prices_usual")]
 
 
 ## H10: the name of an office ("Inspector de mercado").

@@ -4,8 +4,11 @@
     "resources": {"name_key": "stall.resources", "kind": "outdoor", "sells": ["resources"]},
     "food": {"name_key": "stall.food", "kind": "outdoor", "sells": ["food"]},
     "materials": {"name_key": "stall.materials", "kind": "outdoor", "sells": ["materials"]},
-    "armory": {"name_key": "stall.armory", "kind": "shop", "building": "armory", "sells": ["armory"]}
+    "armory": {"name_key": "stall.armory", "kind": "shop", "building": "armory", "sells": ["armory"]},
+    "clothier": {"name_key": "stall.clothier", "kind": "outdoor", "sells": ["clothier"]},
+    "goods": {"name_key": "stall.goods", "kind": "outdoor", "sells": ["goods"]}
   },
+  "_stalls_h12_doc": "H12 [provisional, the owner decides]: clothier (the Ropería of GDD 4.5.1, a shop with interior there) and goods (furniture, barrels and carved stone, not in 4.5.1) are outdoor stalls of the plaza for now.",
   "open_phases": ["day", "dusk"],
   "demand": {"start": 1.0, "rest": 1.0, "min": 0.5, "max": 2.0, "drop_per_unit": 0.04, "recover_per_day": 0.4},
   "sell_ratio": 0.7,

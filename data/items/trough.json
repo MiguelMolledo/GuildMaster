@@ -1,0 +1,10 @@
+{
+  "id": "trough",
+  "name_key": "item.trough",
+  "gender": "m",
+  "category": "product",
+  "weight": 10.0,
+  "max_stack": 20,
+  "base_price": 60,
+  "market_stall": "goods"
+}

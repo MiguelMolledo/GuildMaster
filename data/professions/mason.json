@@ -1,0 +1,11 @@
+{
+  "id": "mason",
+  "name_key": "profession.mason",
+  "class": "artisan",
+  "order": 2,
+  "building": "masonry",
+  "tool": "hammer",
+  "start": "artisan_mason",
+  "contracts": "mason",
+  "_doc": "H12: a profession of a class (GDD 4.2.1): its workshop type, the right tool (GDD 4.3.4), the start of a new game as it (data/starts) and its contract table (data/contracts)."
+}

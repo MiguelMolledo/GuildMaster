@@ -1,0 +1,37 @@
+{
+  "id": "tailor_shop_capacity_1",
+  "name_key": "upgrade.tailor_shop_capacity_1",
+  "tree": "tailor_shop",
+  "branch": "capacity",
+  "level": 1,
+  "cost": {
+    "gold": 50,
+    "items": [
+      {
+        "item": "cloth",
+        "qty": 5
+      },
+      {
+        "item": "wood",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "sewing_table_2",
+      "like": "sewing_table"
+    }
+  ],
+  "visual": {
+    "interior_node": "tailor_shop_sewing_table_2",
+    "exterior_overlay": null
+  }
+}

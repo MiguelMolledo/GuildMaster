@@ -1,0 +1,22 @@
+{
+  "id": "tailor_common_clothes",
+  "name_key": "recipe.tailor_common_clothes",
+  "building": "tailor_shop",
+  "zone": "sewing_table",
+  "inputs": [
+    {
+      "item": "cloth",
+      "qty": 1
+    },
+    {
+      "item": "wool",
+      "qty": 2
+    }
+  ],
+  "output": {
+    "item": "common_clothes",
+    "qty": 1
+  },
+  "duration_hours": 4.55,
+  "min_craft": 4
+}

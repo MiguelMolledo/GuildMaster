@@ -1,0 +1,13 @@
+{
+  "id": "sergeant_work_clothes",
+  "name_key": "objective.sergeant_work_clothes",
+  "conditions": [
+    {
+      "event": "contract_delivered",
+      "match": {
+        "script": "sergeant_work_clothes"
+      },
+      "count": 1
+    }
+  ]
+}

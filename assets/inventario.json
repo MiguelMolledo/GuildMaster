@@ -1270,16 +1270,17 @@
     {
       "id": "icon_saw",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "greybox",
       "para": [
         "H2",
-        "objetos"
+        "objetos",
+        "H12"
       ],
       "ruta": "assets/art/icons/saw.png",
-      "origen": null,
+      "origen": "dibujado (Pillow)",
       "origen_previo": "guild:assets/sprites/ui/icons/icon_sierra.png",
       "coste_gen": 0,
-      "notas": "32×32. En Guild Renew no hay uno que sirva (docs/arte/reuso_guild.md). Candidato fal (piloto 2026-11-03): assets/art/fal_piloto/iconos/final/sierra_32.png (nano-banana-2/edit con 8 iconos de Guild Renew de referencia + image2pixel). Sirve con retoque: falta repasar el contorno al estilo de Guild Renew."
+      "notas": "Placeholder dibujado (tools/art/oficios_h12.py), 32×32 y icons/small/saw.png: el icon_sierra de Guild Renew parece un mazo (docs/arte/reuso_guild.md). La herramienta del carpintero (H12). Pendiente de PixelLab. Candidato fal (piloto 2026-11-03): assets/art/fal_piloto/iconos/final/sierra_32.png (sirve con retoque)."
     },
     {
       "id": "icon_needle",
@@ -2003,6 +2004,258 @@
       "origen_previo": null,
       "coste_gen": 4,
       "notas": "ElevenLabs, 3 variantes, 36 créditos (assets/audio/MANIFEST.md). «¡Salud, vecino!», «¡Buenas! ¿Qué tal la jornada?», «Que Dios os guarde.»; greeted con la persona seleccionada (H7). 1 toma descartada (voz que alargaba 4 s)."
+    },
+    {
+      "id": "bld_carpentry",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "carpentry"
+      ],
+      "ruta": "assets/art/buildings/escala_b/carpentry.png",
+      "origen": "guild-renew (derivado con Pillow)",
+      "origen_previo": "guild:assets/sprites/buildings/market/exterior/building_materiales_192.png",
+      "notas": "Placeholder derivado (tools/art/oficios_h12.py): el granero de «materiales» de Guild Renew subido a escala B (escala_b.add_rows), con cartel de sierra y banco de carpintero en el patio. Pendiente de la fachada de PixelLab (lista de la compra en assets/art/MANIFEST.md). En game/visuals/buildings/carpentry.tscn.",
+      "coste_gen": 0
+    },
+    {
+      "id": "bld_masonry",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "masonry"
+      ],
+      "ruta": "assets/art/buildings/escala_b/masonry.png",
+      "origen": "guild-renew (derivado con Pillow)",
+      "origen_previo": "assets/art/buildings/escala_b/house_d.png",
+      "notas": "Placeholder derivado (tools/art/oficios_h12.py): house_d (casa de piedra) con el tejado de pizarra, cartel de martillo y dos pilas de piedra. Se parece a las casas de relleno: pendiente de PixelLab. En game/visuals/buildings/masonry.tscn.",
+      "coste_gen": 0
+    },
+    {
+      "id": "bld_tailor_shop",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "tailor_shop"
+      ],
+      "ruta": "assets/art/buildings/escala_b/tailor_shop.png",
+      "origen": "guild-renew (derivado con Pillow)",
+      "origen_previo": "guild:assets/sprites/buildings/market/exterior/building_roperia_192.png",
+      "notas": "Derivado (tools/art/oficios_h12.py): la ropería de Guild Renew (ya lleva ropa tendida y cartel «TAILOR», en inglés) subida a escala B. Pendiente de PixelLab (cartel sin texto). En game/visuals/buildings/tailor_shop.tscn.",
+      "coste_gen": 0
+    },
+    {
+      "id": "int_carpentry",
+      "tipo": "interior",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "carpentry"
+      ],
+      "ruta": "assets/art/interiors/carpentry/",
+      "origen": "dibujado (Pillow) + kit de la forja recoloreado",
+      "notas": "Placeholder (tools/art/oficios_h12.py): suelo y paredes del kit de la forja recoloreados; puestos (caballete de serrar y banco de carpintero) y las 6 mejoras de Producción y Calidad dibujados con cajas iso. Las demás mejoras usan los visuales comunes de la forja. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "int_masonry",
+      "tipo": "interior",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "masonry"
+      ],
+      "ruta": "assets/art/interiors/masonry/",
+      "origen": "dibujado (Pillow) + kit de la forja recoloreado",
+      "notas": "Placeholder (tools/art/oficios_h12.py): suelo y paredes del kit de la forja recoloreados; puestos (banco de corte y banco de tallar) y las 6 mejoras de Producción y Calidad dibujados con cajas iso. Las demás mejoras usan los visuales comunes de la forja. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "int_tailor_shop",
+      "tipo": "interior",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "tailor_shop"
+      ],
+      "ruta": "assets/art/interiors/tailor_shop/",
+      "origen": "dibujado (Pillow) + kit de la forja recoloreado",
+      "notas": "Placeholder (tools/art/oficios_h12.py): suelo y paredes del kit de la forja recoloreados; puestos (telar y mesa de costura) y las 6 mejoras de Producción y Calidad dibujados con cajas iso. Las demás mejoras usan los visuales comunes de la forja. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "bld_stall_clothier",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "mercado"
+      ],
+      "ruta": "assets/art/buildings/stall_clothier.png",
+      "origen": "guild-renew (derivado con Pillow)",
+      "origen_previo": "assets/art/buildings/stall_materials.png",
+      "notas": "Placeholder derivado (tools/art/oficios_h12.py): el puesto de materiales recoloreado con iconos encima (ropería, puesto exterior provisional). En game/visuals/props/stall_clothier.tscn.",
+      "coste_gen": 0
+    },
+    {
+      "id": "bld_stall_goods",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "mercado"
+      ],
+      "ruta": "assets/art/buildings/stall_goods.png",
+      "origen": "guild-renew (derivado con Pillow)",
+      "origen_previo": "assets/art/buildings/stall_materials.png",
+      "notas": "Placeholder derivado (tools/art/oficios_h12.py): el puesto de materiales recoloreado con iconos encima (enseres, puesto exterior provisional). En game/visuals/props/stall_goods.tscn.",
+      "coste_gen": 0
+    },
+    {
+      "id": "icon_barrel",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "barrel"
+      ],
+      "ruta": "assets/art/icons/barrel.png",
+      "origen": "guild-renew (derivado con Pillow)",
+      "notas": "Derivado (tools/art/oficios_h12.py): barril de Guild Renew a mitad, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "icon_chest",
+      "tipo": "icono",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "chest"
+      ],
+      "ruta": "assets/art/icons/chest.png",
+      "origen": "dibujado (Pillow)",
+      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "icon_cabinet",
+      "tipo": "icono",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "cabinet"
+      ],
+      "ruta": "assets/art/icons/cabinet.png",
+      "origen": "dibujado (Pillow)",
+      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "icon_cart_wheel",
+      "tipo": "icono",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "cart_wheel"
+      ],
+      "ruta": "assets/art/icons/cart_wheel.png",
+      "origen": "dibujado (Pillow)",
+      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "icon_ashlar",
+      "tipo": "icono",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "ashlar"
+      ],
+      "ruta": "assets/art/icons/ashlar.png",
+      "origen": "dibujado (Pillow)",
+      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "icon_grindstone",
+      "tipo": "icono",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "grindstone"
+      ],
+      "ruta": "assets/art/icons/grindstone.png",
+      "origen": "dibujado (Pillow)",
+      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "icon_trough",
+      "tipo": "icono",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "trough"
+      ],
+      "ruta": "assets/art/icons/trough.png",
+      "origen": "dibujado (Pillow)",
+      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "icon_millstone",
+      "tipo": "icono",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "millstone"
+      ],
+      "ruta": "assets/art/icons/millstone.png",
+      "origen": "dibujado (Pillow)",
+      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "icon_statue",
+      "tipo": "icono",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "statue"
+      ],
+      "ruta": "assets/art/icons/statue.png",
+      "origen": "dibujado (Pillow)",
+      "notas": "Placeholder (tools/art/oficios_h12.py): dibujado, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
+    },
+    {
+      "id": "icon_fine_clothes",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "fine_clothes"
+      ],
+      "ruta": "assets/art/icons/fine_clothes.png",
+      "origen": "guild-renew (derivado con Pillow)",
+      "notas": "Derivado (tools/art/oficios_h12.py): ropa común recoloreada, 32×32 y icons/small/ 16×16. Pendiente de PixelLab.",
+      "coste_gen": 0,
+      "origen_previo": null
     }
   ]
 }

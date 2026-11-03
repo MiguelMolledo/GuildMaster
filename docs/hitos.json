@@ -412,13 +412,13 @@
     {
       "id": "H12",
       "nombre": "Contenido EA I",
-      "estado": "pendiente",
+      "estado": "en_curso",
       "entregable": "Resto de profesiones del Artesano y luego Patrón, Erudito, Pícaro (fichas + recetas + edificios + interiores + árboles) con sus sistemas propios; 7 cadenas.",
       "criterios": [
         {
           "texto": "Cada profesión tiene un bot que gana dinero con ella",
           "estado": "pendiente",
-          "prueba": null,
+          "prueba": "parcial: carpenter_novice 43,6, mason_novice 39,1 y tailor_novice 55,2 de oro neto al día (30 semillas, Normal, diana 25-60); faltan Patrón, Erudito y Pícaro (Gate 4.22)",
           "fecha": null
         },
         {
@@ -429,23 +429,23 @@
         },
         {
           "texto": "Validador 0 errores",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "validate_content tras H12 parte 1 (carpintero, albañil y sastre): 37 objetos, 20 recetas, 6 edificios, 0 errores",
+          "fecha": "2026-11-03"
         }
       ]
     },
     {
       "id": "H13",
       "nombre": "Contenido EA II",
-      "estado": "pendiente",
+      "estado": "en_curso",
       "entregable": "Estaciones en precios y producción, eventos globales (duraciones de 4.13), mapa EA 80×80 con 6 zonas y estilo elegido en 9.4, 30-40 NPC, 5 familias rivales con la IA completa de 4.21 (perfiles propios, sabotaje), todas las palancas de dificultad.",
       "criterios": [
         {
           "texto": "Sim de 10 años (80 días) sin bloqueos",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "paso events de run_all: artisan_expert 80 días × 2 semillas con estaciones y eventos, 0 órdenes rechazadas, libro cuadrado, 12 y 18 eventos, ninguno pegado",
+          "fecha": "2026-11-03"
         },
         {
           "texto": "Dianas de 4.21 en Normal: ninguna familia con más del 60 % de las parcelas de producción, al menos 2 familias IA suben de título, el jugador recibe entre 1 y 4 ataques",

@@ -1,0 +1,11 @@
+{
+  "id": "tailor",
+  "name_key": "profession.tailor",
+  "class": "artisan",
+  "order": 3,
+  "building": "tailor_shop",
+  "tool": "needle",
+  "start": "artisan_tailor",
+  "contracts": "tailor",
+  "_doc": "H12: a profession of a class (GDD 4.2.1): its workshop type, the right tool (GDD 4.3.4), the start of a new game as it (data/starts) and its contract table (data/contracts)."
+}
