@@ -107,7 +107,7 @@ def check_maps(rep):
         if bad:
             continue
 
-        def walk(c, r):
+        def walk(c, r, rows=rows, size=size):  # bound now: one walk per map (data/maps has several)
             return 0 <= c < size[0] and 0 <= r < size[1] and tiles[by_char[rows[r][c]]].get("walk_cost") is not None
 
         for name, pos in (m.get("spawns") or {}).items():

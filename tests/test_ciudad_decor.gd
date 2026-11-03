@@ -78,6 +78,9 @@ func test_door_on_the_other_visible_face_mirrors_the_building() -> void:
 	eq(v._door_facing(b, "house_slate"), {"scene": "house_slate_back", "flip": true}, "door to -col: back view, mirrored")
 	b["door"] = [13, 11]
 	eq(v._door_facing(b, "tailor_shop"), {"scene": "tailor_shop", "flip": false}, "the tailor's door is drawn on +col")
+	b["door"] = [11, 13]
+	eq(v._door_facing(b, "tailor_shop"), {"scene": "tailor_shop", "flip": false},
+		"the tailor's sign has text: never mirrored (data/view.json no_mirror)")
 	v.free()
 
 

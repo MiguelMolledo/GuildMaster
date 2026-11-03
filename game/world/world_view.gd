@@ -304,8 +304,9 @@ func _door_facing(b: Dictionary, scene_id: String) -> Dictionary:
 	var faces: Dictionary = (ViewConfig.value("building_door_face", {}) as Dictionary).get("faces", {})
 	var face := str(faces.get(scene_id, faces.get(str(b.get("type", "")), "row")))
 	var drawn := Vector2i(0, 1) if face == "row" else Vector2i(1, 0)
+	var no_mirror: Array = (ViewConfig.value("building_door_face", {}) as Dictionary).get("no_mirror", [])
 	if side == Vector2i(0, 1) or side == Vector2i(1, 0):
-		out["flip"] = side != drawn
+		out["flip"] = side != drawn and not (scene_id in no_mirror or str(b.get("type", "")) in no_mirror)
 	elif VisualPaths.has_scene("buildings", scene_id + "_back"):
 		out["scene"] = scene_id + "_back"
 		out["flip"] = side != -drawn

@@ -1,0 +1,1132 @@
+{
+ "id": "town_road",
+ "name_key": "map.town_road",
+ "size": [
+  40,
+  40
+ ],
+ "rows": [
+  "TT........T....TT.TTTTTTTT..T....T..T...",
+  "TT.......T........TT..TTTT......TTT.T.TT",
+  "...T...............TT..T.........T......",
+  "T.T.....................................",
+  "T...T...ffffff........................T.",
+  "TT..T...ffffff.###.###.###.###.###......",
+  "TT..T...ffffff.###.###.###.###.###.....T",
+  ".T......ffffff.###.###.###.###.###...T..",
+  ".T.......=,,,,,,,,,,,,,,,,,,,,,,,,=..TT.",
+  "....fffff=.####..######.####......=.....",
+  "....fffff=.####..######.####...###=...T.",
+  "....fffff=.####..######.####...###=.....",
+  ".T.......=.####..######.####...###=.....",
+  ".T.......=........................=.....",
+  ".T.......=......PPPPPPPPPP.....###=.....",
+  ".....###.=..###.PSPPSPPSPP.###.###=.###.",
+  ".....###.=..###.PPPPPPPPPP.###.###=.###.",
+  ".....###.=..###.SPPPPPPPPP.###....=.###.",
+  ".....###.=..###.PPPPPPPPPP.###....=.###.",
+  "================PPPP#PPPPP==============",
+  "================PPPPPPPPPP==============",
+  ".........=......SPPPPPPPPP.###....=.....",
+  "...ffffff=..###.PPPPPPPPPP.###.###=.....",
+  "...ffffff=..###.PNPPPPPPPP.###.###=..TT.",
+  "...ffffff=..###.PPPPPPPPPP.....###=.....",
+  "...ffffff=..###.PPPPPPPPPP........=..TT.",
+  ".........=.....................###=.....",
+  "......###=..................T..###=.....",
+  "TT....###=.....................###=...T.",
+  "......###=........................=.....",
+  ".........=.###.###.###.###.###....=..TT.",
+  ".T....###=.###.###.###.###.###....=....T",
+  "......###=.###.###.###.###.###....=.....",
+  "T.....###=,,,,,,,,,,,,,,,,,,,,,,,,=.....",
+  "T.T..............................ffffff.",
+  ".....www.........................ffffff.",
+  "..T..www....T..TT.T.........T....ffffff.",
+  "T.........T.TT...T.T.....T.TT....ffffff.",
+  "..........TT.........T....T.T...........",
+  "......T.....T......T.T..T.T............."
+ ],
+ "spawns": {
+  "player": [
+   21,
+   22
+  ],
+  "market": [
+   20,
+   17
+  ],
+  "west_gate": [
+   0,
+   20
+  ],
+  "east_gate": [
+   39,
+   19
+  ]
+ },
+ "stalls": {
+  "resources": {
+   "tile": [
+    17,
+    15
+   ],
+   "service": [
+    17,
+    16
+   ]
+  },
+  "food": {
+   "tile": [
+    20,
+    15
+   ],
+   "service": [
+    20,
+    16
+   ]
+  },
+  "materials": {
+   "tile": [
+    23,
+    15
+   ],
+   "service": [
+    23,
+    16
+   ]
+  },
+  "clothier": {
+   "tile": [
+    16,
+    17
+   ],
+   "service": [
+    17,
+    17
+   ]
+  },
+  "goods": {
+   "tile": [
+    16,
+    21
+   ],
+   "service": [
+    17,
+    21
+   ]
+  }
+ },
+ "board": {
+  "tile": [
+   17,
+   23
+  ],
+  "service": [
+   17,
+   22
+  ]
+ },
+ "town_hall": {
+  "origin": [
+   17,
+   9
+  ],
+  "footprint": [
+   6,
+   4
+  ],
+  "tile": [
+   20,
+   12
+  ],
+  "service": [
+   20,
+   13
+  ]
+ },
+ "buildings": {
+  "armory": {
+   "type": "armory",
+   "origin": [
+    12,
+    22
+   ],
+   "door": [
+    15,
+    24
+   ],
+   "owner": ""
+  },
+  "house_01": {
+   "type": "house",
+   "origin": [
+    31,
+    14
+   ],
+   "door": [
+    34,
+    15
+   ]
+  },
+  "house_02": {
+   "type": "house",
+   "origin": [
+    31,
+    22
+   ],
+   "door": [
+    34,
+    23
+   ]
+  },
+  "house_03": {
+   "type": "house",
+   "origin": [
+    31,
+    26
+   ],
+   "door": [
+    34,
+    27
+   ]
+  },
+  "house_04": {
+   "type": "house",
+   "origin": [
+    11,
+    30
+   ],
+   "door": [
+    12,
+    33
+   ]
+  },
+  "house_05": {
+   "type": "house",
+   "origin": [
+    15,
+    30
+   ],
+   "door": [
+    16,
+    33
+   ]
+  },
+  "house_06": {
+   "type": "house",
+   "origin": [
+    19,
+    30
+   ],
+   "door": [
+    20,
+    33
+   ]
+  },
+  "house_07": {
+   "type": "house",
+   "origin": [
+    23,
+    30
+   ],
+   "door": [
+    24,
+    33
+   ]
+  },
+  "house_08": {
+   "type": "house",
+   "origin": [
+    27,
+    30
+   ],
+   "door": [
+    28,
+    33
+   ]
+  },
+  "player_forge": {
+   "type": "forge",
+   "origin": [
+    12,
+    15
+   ],
+   "door": [
+    13,
+    19
+   ]
+  },
+  "rival_forge": {
+   "type": "forge",
+   "origin": [
+    27,
+    15
+   ],
+   "door": [
+    28,
+    19
+   ]
+  },
+  "workshop_carpentry": {
+   "type": "carpentry",
+   "origin": [
+    5,
+    15
+   ],
+   "door": [
+    6,
+    19
+   ]
+  },
+  "workshop_masonry": {
+   "type": "masonry",
+   "origin": [
+    36,
+    15
+   ],
+   "door": [
+    37,
+    19
+   ]
+  },
+  "workshop_tailor": {
+   "type": "tailor_shop",
+   "origin": [
+    31,
+    10
+   ],
+   "door": [
+    34,
+    11
+   ]
+  }
+ },
+ "social_points": [
+  {
+   "id": "bench_w",
+   "kind": "bench",
+   "slots": [
+    [
+     16,
+     24
+    ],
+    [
+     16,
+     25
+    ]
+   ]
+  },
+  {
+   "id": "bench_e",
+   "kind": "bench",
+   "slots": [
+    [
+     25,
+     23
+    ],
+    [
+     25,
+     24
+    ]
+   ]
+  },
+  {
+   "id": "bench_n",
+   "kind": "bench",
+   "slots": [
+    [
+     25,
+     14
+    ],
+    [
+     25,
+     15
+    ]
+   ]
+  },
+  {
+   "id": "chat_well",
+   "kind": "chat",
+   "slots": [
+    [
+     19,
+     18
+    ],
+    [
+     21,
+     18
+    ],
+    [
+     22,
+     19
+    ]
+   ]
+  },
+  {
+   "id": "chat_board",
+   "kind": "chat",
+   "slots": [
+    [
+     18,
+     22
+    ],
+    [
+     18,
+     23
+    ],
+    [
+     19,
+     23
+    ]
+   ]
+  },
+  {
+   "id": "dice_plaza",
+   "kind": "dice",
+   "slots": [
+    [
+     22,
+     23
+    ],
+    [
+     23,
+     23
+    ],
+    [
+     23,
+     24
+    ]
+   ]
+  }
+ ],
+ "workplaces": [
+  {
+   "id": "gate_west",
+   "kind": "tile",
+   "tile": [
+    1,
+    20
+   ]
+  },
+  {
+   "id": "stall_food",
+   "kind": "stall",
+   "tile": [
+    20,
+    14
+   ],
+   "stall": "food"
+  },
+  {
+   "id": "field_a",
+   "kind": "tile",
+   "tile": [
+    9,
+    5
+   ]
+  },
+  {
+   "id": "field_b",
+   "kind": "tile",
+   "tile": [
+    4,
+    23
+   ]
+  },
+  {
+   "id": "river_bank",
+   "kind": "tile",
+   "tile": [
+    5,
+    34
+   ]
+  },
+  {
+   "id": "stall_materials",
+   "kind": "stall",
+   "tile": [
+    23,
+    14
+   ],
+   "stall": "materials"
+  },
+  {
+   "id": "gate_east",
+   "kind": "tile",
+   "tile": [
+    38,
+    19
+   ]
+  },
+  {
+   "id": "well",
+   "kind": "tile",
+   "tile": [
+    21,
+    20
+   ]
+  },
+  {
+   "id": "church_a",
+   "kind": "tile",
+   "tile": [
+    16,
+    10
+   ]
+  },
+  {
+   "id": "stall_resources",
+   "kind": "stall",
+   "tile": [
+    17,
+    14
+   ],
+   "stall": "resources"
+  },
+  {
+   "id": "armory",
+   "kind": "shop",
+   "tile": [
+    15,
+    24
+   ],
+   "building": "armory",
+   "stall": "armory"
+  },
+  {
+   "id": "church_b",
+   "kind": "tile",
+   "tile": [
+    23,
+    10
+   ]
+  },
+  {
+   "id": "field_c",
+   "kind": "tile",
+   "tile": [
+    34,
+    35
+   ]
+  },
+  {
+   "id": "field_d",
+   "kind": "tile",
+   "tile": [
+    5,
+    10
+   ]
+  },
+  {
+   "id": "townhall_a",
+   "kind": "tile",
+   "tile": [
+    18,
+    13
+   ]
+  },
+  {
+   "id": "townhall_b",
+   "kind": "tile",
+   "tile": [
+    22,
+    13
+   ]
+  }
+ ],
+ "population": [
+  {
+   "home": "house_01",
+   "family_name": "Soler",
+   "gold": 20,
+   "colors": {
+    "primary": "#7a5230",
+    "secondary": "#d8c8a0"
+   },
+   "members": [
+    {
+     "name": "Joan",
+     "female": false,
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 18,
+     "visual": {
+      "hair": 0,
+      "skin": 0
+     }
+    },
+    {
+     "name": "Agnès",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 23,
+     "visual": {
+      "hair": 5,
+      "skin": 3
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_02",
+   "family_name": "Puig",
+   "gold": 20,
+   "colors": {
+    "primary": "#4a6a8a",
+    "secondary": "#e0d0b0"
+   },
+   "members": [
+    {
+     "name": "Pau",
+     "female": false,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 28,
+     "visual": {
+      "hair": 4,
+      "skin": 2
+     }
+    },
+    {
+     "name": "Clara",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 20,
+     "visual": {
+      "hair": 3,
+      "skin": 1
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_03",
+   "family_name": "Roca",
+   "gold": 20,
+   "colors": {
+    "primary": "#6a6a6a",
+    "secondary": "#c0a060"
+   },
+   "members": [
+    {
+     "name": "Arnau",
+     "female": false,
+     "rank": "master",
+     "stats": {
+      "charisma": 4,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 8,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 25,
+     "visual": {
+      "hair": 2,
+      "skin": 0
+     }
+    },
+    {
+     "name": "Elisenda",
+     "female": true,
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 30,
+     "visual": {
+      "hair": 1,
+      "skin": 3
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_04",
+   "family_name": "Vila",
+   "gold": 20,
+   "colors": {
+    "primary": "#8a7a3a",
+    "secondary": "#3a3a4a"
+   },
+   "members": [
+    {
+     "name": "Martí",
+     "female": false,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 22,
+     "visual": {
+      "hair": 0,
+      "skin": 2
+     }
+    },
+    {
+     "name": "Blanca",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 27,
+     "visual": {
+      "hair": 5,
+      "skin": 1
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_05",
+   "family_name": "Serra",
+   "gold": 20,
+   "colors": {
+    "primary": "#5a3a5a",
+    "secondary": "#d0b890"
+   },
+   "members": [
+    {
+     "name": "Guillem",
+     "female": false,
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 6,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 6,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 19,
+     "visual": {
+      "hair": 4,
+      "skin": 0
+     }
+    },
+    {
+     "name": "Sança",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 4,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 24,
+     "visual": {
+      "hair": 3,
+      "skin": 3
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_06",
+   "family_name": "Font",
+   "gold": 20,
+   "colors": {
+    "primary": "#3a6a6a",
+    "secondary": "#e8d8b8"
+   },
+   "members": [
+    {
+     "name": "Jaume",
+     "female": false,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 29,
+     "visual": {
+      "hair": 2,
+      "skin": 2
+     }
+    },
+    {
+     "name": "Margarida",
+     "female": true,
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 5,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 21,
+     "visual": {
+      "hair": 1,
+      "skin": 1
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_07",
+   "family_name": "Pons",
+   "gold": 20,
+   "colors": {
+    "primary": "#7a3a2a",
+    "secondary": "#b0b0a0"
+   },
+   "members": [
+    {
+     "name": "Ramon",
+     "female": false,
+     "rank": "master",
+     "stats": {
+      "charisma": 3,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 7,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 26,
+     "visual": {
+      "hair": 0,
+      "skin": 0
+     }
+    },
+    {
+     "name": "Isabel",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 18,
+     "visual": {
+      "hair": 5,
+      "skin": 3
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_08",
+   "family_name": "Mas",
+   "gold": 20,
+   "colors": {
+    "primary": "#4a5a2a",
+    "secondary": "#d8b878"
+   },
+   "members": [
+    {
+     "name": "Berenguer",
+     "female": false,
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 4,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 23,
+     "visual": {
+      "hair": 4,
+      "skin": 2
+     }
+    },
+    {
+     "name": "Violant",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 28,
+     "visual": {
+      "hair": 3,
+      "skin": 1
+     }
+    }
+   ]
+  }
+ ],
+ "generated": {
+  "layout": "calle",
+  "seed": 6,
+  "size": [
+   40,
+   40
+  ],
+  "tool": "tools/city/ciudad.py generar",
+  "starts": [
+   "artisan_blacksmith",
+   "artisan_carpenter",
+   "artisan_mason",
+   "artisan_tailor"
+  ]
+ },
+ "decor": {
+  "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. Re-run the tool after editing rows or buildings.",
+  "items": [
+   {"kind": "house", "id": "lot_house_a", "at": [15, 5], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "house", "id": "lot_house_d", "at": [19, 5], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "house", "id": "lot_house_b", "at": [23, 5], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "house", "id": "lot_house_b", "at": [27, 5], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "house", "id": "lot_house_d", "at": [31, 5], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "house", "id": "lot_house_d_back", "at": [11, 9], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "yard", "id": "yard_plain", "at": [14, 9]},
+   {"kind": "yard", "id": "yard_crates", "at": [14, 10]},
+   {"kind": "yard", "id": "yard_barrels", "at": [14, 11]},
+   {"kind": "yard", "id": "yard_plain", "at": [11, 12]},
+   {"kind": "yard", "id": "yard_sacks", "at": [12, 12]},
+   {"kind": "yard", "id": "yard_plain", "at": [13, 12]},
+   {"kind": "yard", "id": "yard_plain", "at": [14, 12]},
+   {"kind": "house", "id": "lot_house_b_back", "at": [24, 9], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "yard", "id": "yard_plain", "at": [27, 9]},
+   {"kind": "yard", "id": "yard_sacks", "at": [27, 10]},
+   {"kind": "yard", "id": "yard_plain", "at": [27, 11]},
+   {"kind": "yard", "id": "yard_plain", "at": [24, 12]},
+   {"kind": "yard", "id": "yard_plain", "at": [25, 12]},
+   {"kind": "yard", "id": "yard_cart", "at": [26, 12]},
+   {"kind": "yard", "id": "yard_plain", "at": [27, 12]},
+   {"kind": "single", "id": "well", "at": [20, 19]},
+   {"kind": "house", "id": "lot_house_e_back", "at": [27, 21], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "house", "id": "lot_house_a", "at": [6, 27], "size": [3, 3], "flip": true, "facing": [1, 0]},
+   {"kind": "house", "id": "lot_house_e", "at": [6, 31], "size": [3, 3], "flip": true, "facing": [1, 0]},
+   {"kind": "lantern", "id": "lantern", "at": [1, 18], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [8, 18], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [30, 18], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [13, 21], "off": [10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [35, 21], "off": [10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [8, 8], "off": [10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [35, 8], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [10, 14], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [10, 24], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [35, 25], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [10, 30], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [35, 31], "off": [-10, -5]},
+   {"kind": "prop", "id": "barrel", "at": [14, 25], "off": [13, 7]},
+   {"kind": "prop", "id": "crate", "at": [14, 23], "off": [13, 7]},
+   {"kind": "prop", "id": "barrel", "at": [14, 18], "off": [-13, 7]},
+   {"kind": "prop", "id": "crate", "at": [12, 18], "off": [-13, 7]},
+   {"kind": "prop", "id": "barrel", "at": [29, 18], "off": [-13, 7]},
+   {"kind": "prop", "id": "crate", "at": [27, 18], "off": [-13, 7]},
+   {"kind": "prop", "id": "crate", "at": [7, 18], "off": [-13, 7]},
+   {"kind": "prop", "id": "crate", "at": [5, 18], "off": [-13, 7]},
+   {"kind": "prop", "id": "crate", "at": [38, 18], "off": [-13, 7]},
+   {"kind": "prop", "id": "barrel", "at": [36, 18], "off": [-13, 7]},
+   {"kind": "prop", "id": "crate", "at": [33, 12], "off": [13, 7]},
+   {"kind": "prop", "id": "grain_sack", "at": [33, 10], "off": [13, 7]},
+   {"kind": "prop", "id": "crate", "at": [15, 17]},
+   {"kind": "prop", "id": "grain_sack", "at": [19, 14]},
+   {"kind": "prop", "id": "cart", "at": [15, 21]},
+   {"kind": "prop", "id": "cart", "at": [22, 14]},
+   {"kind": "prop", "id": "cart", "at": [16, 14]},
+   {"kind": "prop", "id": "bench", "at": [25, 21], "off": [10, 5]},
+   {"kind": "prop", "id": "bench", "at": [25, 25], "off": [-10, 5], "flip": true},
+   {"kind": "prop", "id": "bench", "at": [17, 24], "off": [10, -5], "flip": true},
+   {"kind": "prop", "id": "bench", "at": [21, 25], "off": [-10, 5], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [8, 4], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [8, 4], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [9, 4], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [10, 4], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [11, 4], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [12, 4], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [13, 4], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [13, 4], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [8, 5], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [13, 5], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [8, 6], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [13, 6], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [8, 7], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [8, 7], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [9, 7], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [10, 7], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [11, 7], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [12, 7], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [13, 7], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [4, 9], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [4, 9], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [5, 9], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [6, 9], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [7, 9], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [8, 9], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [8, 9], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [4, 10], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [8, 10], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [4, 11], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [4, 11], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [5, 11], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [6, 11], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [7, 11], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [8, 11], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [8, 11], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [3, 22], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [3, 22], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [4, 22], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [5, 22], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [6, 22], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [7, 22], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [8, 22], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [8, 22], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [3, 23], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [3, 24], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [8, 24], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [3, 25], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [3, 25], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [4, 25], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [5, 25], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [6, 25], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [7, 25], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [8, 25], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [8, 25], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [33, 34], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [33, 34], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [34, 34], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [35, 34], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [36, 34], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [37, 34], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [38, 34], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [38, 34], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [33, 35], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [38, 35], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [33, 36], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [38, 36], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [33, 37], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [33, 37], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [34, 37], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [35, 37], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [36, 37], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [37, 37], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [38, 37], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [38, 37], "off": [14, 7], "flip": true}
+  ]
+ }
+}

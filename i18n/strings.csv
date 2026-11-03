@@ -86,6 +86,10 @@ recipe.forge_steel,Make steel,Hacer acero
 building.forge,Forge,Forja
 building.armory,Armory,Armería
 map.town_e,Street village,Pueblo-calle
+map.town_road,Road town,Villacalle
+map.town_square,Square town,Plaza Mayor
+map.town_crossroads,Crossroads,Cruce de Caminos
+map.town_river,Bridge town,Villa del Puente
 reason.unknown_recipe,There is no such recipe,No existe esa receta
 reason.wrong_station,That is not made at this station,Eso no se hace en este puesto
 reason.unknown_mode,Unknown way of working,Forma de trabajar desconocida

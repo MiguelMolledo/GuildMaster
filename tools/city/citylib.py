@@ -72,6 +72,9 @@ def building_scene(cat, site):
     if side is None:
         return scene, scene, False, side
     if side in VISIBLE:
+        no_mirror = cat.view.get("building_door_face", {}).get("no_mirror", [])
+        if side != drawn and (scene in no_mirror or site["type"] in no_mirror):
+            return scene, scene, None, side  # it would need mirroring and must not be: the drawn door looks away
         return scene, scene, side != drawn, side
     back = scene + "_back"
     if os.path.exists(os.path.join(ROOT, "game", "visuals", "buildings", back + ".tscn")):
@@ -617,7 +620,10 @@ def validate(m, strict=False, hand_decor=None):
         else:
             scene, drawn, flip, out_d = building_scene(m.cat, s)
         face = faces.get(scene, faces.get(s["type"], "row"))
-        if out_d not in VISIBLE and drawn == scene:
+        if flip is None:
+            soft(f"{sid} ({scene}): la puerta {d} da hacia {_dir_name(out_d)} y su sprite (con texto, no se refleja) "
+                 f"la dibuja en la otra cara visible")
+        elif out_d not in VISIBLE and drawn == scene:
             rep.warn(f"{sid} ({scene}): la puerta {d} queda en una cara oculta (hacia {_dir_name(out_d)}) y no hay "
                  f"{scene}_back; el sprite dibuja la puerta en la cara "
                  f"{'inferior izquierda' if face == 'row' else 'inferior derecha'}")
@@ -643,6 +649,21 @@ def validate(m, strict=False, hand_decor=None):
     for t, what in must:
         if t not in reach:
             rep.error(f"{what} en {t} no se alcanza desde la plaza")
+    islands = sorted((t for t in m.all_tiles() if m.walkable(t) and t not in reach), key=lambda t: (t[1], t[0]))
+    if islands:
+        soft(f"{len(islands)} casillas transitables aisladas de la plaza (la primera {islands[0]})")
+    net = [t for t in m.all_tiles() if m.kind(t) in ("street", "plaza", "bridge")]
+    if net:
+        seen_n, todo = {net[0]}, [net[0]]
+        while todo:
+            t = todo.pop()
+            for dd in DIRS:
+                v = (t[0] + dd[0], t[1] + dd[1])
+                if v not in seen_n and m.kind(v) in ("street", "plaza", "bridge"):
+                    seen_n.add(v)
+                    todo.append(v)
+        if len(seen_n) != len(net):
+            rep.error(f"{len(net) - len(seen_n)} casillas de calle, plaza o puente sueltas de la red")
     # stalls give to the plaza
     for kind, sid, tile, svc in m.services():
         if abs(tile[0] - svc[0]) + abs(tile[1] - svc[1]) != 1:

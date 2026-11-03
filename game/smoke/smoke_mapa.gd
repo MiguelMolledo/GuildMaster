@@ -1,6 +1,7 @@
 extends Node
 ## Scripted capture of a whole town (--smoke-script=mapa; run it through `grimoire heavy` with the engine's
-## --always-on-top): for each scenario of --smoke-maps=<id,id...> (default town_e_start), paused at its time, the
+## --always-on-top): for each scenario of --smoke-maps=<id,id...> (default town_e_start), paused (moved on to 10:00
+## if it starts earlier: capture only), the
 ## camera on the plaza, the centre and the four quarters of the map, and a shot of each
 ## (reports/shots/mapa_<map id>_<place>.png). Made to check the town builder's dressing (tools/city/,
 ## docs/protocolos/generar-ciudad.md): houses facing the street, lanterns, props, fences. Quits when done, or after
@@ -56,7 +57,11 @@ func _next_scenario() -> void:
 		print("[SmokeMapa] scenario %s: %s" % [_scenarios[_s], r["error"]])
 		get_tree().quit(1)
 		return
-	Game.start(r["state"])
+	var st: WorldState = r["state"]
+	var minute := int(st.clock["minute"])
+	if minute % Clock.MINUTES_PER_DAY < 600:
+		st.clock["minute"] = minute - minute % Clock.MINUTES_PER_DAY + 600  # capture only: 10:00, in daylight
+	Game.start(st)
 	Game.set_paused(true)
 	var rows: Array = Game.sim.catalog.maps().get(Game.sim.state.map_id, {}).get("rows", [])
 	var h := rows.size()
