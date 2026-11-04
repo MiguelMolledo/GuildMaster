@@ -567,6 +567,180 @@
      41
     ]
    ]
+  },
+  {
+   "id": "meet_well",
+   "kind": "well",
+   "slots": [
+    [
+     35,
+     37
+    ],
+    [
+     37,
+     37
+    ],
+    [
+     36,
+     38
+    ]
+   ]
+  },
+  {
+   "id": "meet_atrium",
+   "kind": "atrium",
+   "slots": [
+    [
+     34,
+     25
+    ],
+    [
+     35,
+     25
+    ],
+    [
+     32,
+     25
+    ],
+    [
+     36,
+     25
+    ],
+    [
+     34,
+     24
+    ]
+   ]
+  },
+  {
+   "id": "meet_washhouse",
+   "kind": "washhouse",
+   "slots": [
+    [
+     35,
+     62
+    ],
+    [
+     34,
+     62
+    ],
+    [
+     37,
+     62
+    ]
+   ]
+  },
+  {
+   "id": "meet_bridge",
+   "kind": "bridge",
+   "slots": [
+    [
+     55,
+     63
+    ],
+    [
+     55,
+     65
+    ],
+    [
+     54,
+     63
+    ]
+   ]
+  },
+  {
+   "id": "meet_east_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     77,
+     39
+    ],
+    [
+     76,
+     40
+    ],
+    [
+     77,
+     41
+    ]
+   ]
+  },
+  {
+   "id": "meet_north_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     45,
+     1
+    ],
+    [
+     44,
+     2
+    ],
+    [
+     46,
+     2
+    ]
+   ]
+  },
+  {
+   "id": "meet_south_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     60,
+     76
+    ],
+    [
+     59,
+     77
+    ],
+    [
+     61,
+     77
+    ]
+   ]
+  },
+  {
+   "id": "meet_west_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     2,
+     39
+    ],
+    [
+     3,
+     40
+    ],
+    [
+     2,
+     41
+    ]
+   ]
+  },
+  {
+   "id": "meet_square",
+   "kind": "square",
+   "slots": [
+    [
+     40,
+     37
+    ],
+    [
+     38,
+     35
+    ],
+    [
+     40,
+     35
+    ],
+    [
+     42,
+     35
+    ]
+   ]
   }
  ],
  "workplaces": [
@@ -2115,6 +2289,46 @@
   ],
   "lots": "38,45,2,2,vila;40,44,2,2,vila;30,45,3,2,vila;26,36,2,2,vila;44,44,2,2,vila;24,31,2,3,vila;47,32,4,2,vila;26,44,2,3,vila;23,37,2,3,vila;34,49,2,2,vila;36,49,3,3,vila;47,43,4,2,vila;24,28,3,2,vila;23,41,2,2,vila;47,28,2,2,vila;31,23,2,2,vila;28,48,3,3,vila;23,43,2,2,vila;37,52,2,2,vila;50,30,3,2,vila;20,42,2,2,vila;49,45,4,2,vila;19,34,2,3,vila;28,23,2,2,vila;52,32,2,2,vila;26,51,2,4,vila;20,44,2,2,vila;21,26,3,3,vila;37,20,2,2,vila;44,20,2,3,vila;40,20,3,2,vila;26,19,2,4,vila;19,30,2,3,vila;17,33,2,4,vila;33,16,2,4,vila;17,39,2,4,vila;54,30,2,4,vila;19,25,2,4,vila;31,16,2,4,vila;51,48,4,2,vila;28,17,3,3,vila;22,50,2,3,vila;24,21,2,2,vila;47,21,2,2,vila;17,30,2,2,vila;53,27,3,2,vila;20,23,3,2,vila;51,24,2,2,vila;15,36,2,2,vila;52,50,4,2,vila;56,43,2,4,vila;57,37,2,2,vila;37,15,2,2,vila;57,39,3,2,vila;57,32,3,3,vila;50,53,2,2,vila;24,19,2,2,vila;55,25,2,2,vila;12,42,3,3,vila;12,31,3,2,vila;53,52,4,2,vila;47,16,2,2,vila;13,46,3,2,vila;17,22,2,2,vila;39,14,4,2,vila;15,24,2,3,vila;12,35,2,4,vila;13,29,2,2,vila;12,40,2,2,vila;18,53,2,2,vila;15,49,2,2,vila;23,16,2,2,vila;52,19,4,2,vila;20,55,2,2,vila;59,42,2,2,vila;21,17,2,2,vila;16,51,2,2,vila;50,16,3,3,vila;13,27,2,2,vila;32,11,2,3,vila;58,47,2,4,vila;27,13,2,2,vila;30,12,2,2,vila;54,54,2,2,vila;36,11,2,2,vila;34,11,2,2,vila;61,38,2,2,vila;38,10,2,3,vila;61,32,2,4,vila;60,45,4,2,vila;40,10,2,3,vila;61,29,2,2,vila;45,11,4,2,vila;60,26,3,2,vila;63,34,2,3,vila;63,39,3,3,vila;49,12,2,2,vila;55,57,3,2,vila;60,50,2,2,vila;8,37,2,2,raval;63,29,2,4,vila;62,47,2,2,vila;51,12,2,2,vila;58,55,2,2,vila;6,42,3,3,raval;53,13,2,2,vila;62,43,3,2,vila;61,53,2,2,vila;63,22,2,2,vila;64,24,2,2,vila;66,29,2,3,vila;65,26,2,2,vila;64,50,2,2,vila;3,37,3,2,raval;66,45,3,2,vila;67,34,3,2,vila;5,32,3,3,raval;67,41,3,2,vila;67,32,2,2,vila;67,43,2,2,vila;1,42,3,2,raval;46,73,2,2,raval;55,72,2,2,raval;48,76,2,2,raval;51,76,2,2,raval;56,75,2,2,raval;61,74,2,3,raval;65,74,3,3,raval"
  },
+ "patrols": [
+  {
+   "id": "patrol_main",
+   "tiles": [
+    [
+     75,
+     39
+    ],
+    [
+     34,
+     34
+    ],
+    [
+     45,
+     3
+    ]
+   ]
+  },
+  {
+   "id": "patrol_plaza",
+   "tiles": [
+    [
+     28,
+     29
+    ],
+    [
+     52,
+     29
+    ],
+    [
+     50,
+     47
+    ],
+    [
+     28,
+     44
+    ]
+   ]
+  }
+ ],
  "decor": {
   "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
   "items": [

@@ -236,6 +236,9 @@ sys.path.insert(0, os.path.join(ROOT, "tools", "city"))
 sys.dont_write_bytecode = True
 import citylib  # noqa: E402
 town["decor"] = citylib.dress(citylib.Map(town, citylib.Catalog()))
+# 04f 4.24.2 / 4.24.4: the meeting points (well, atrium, washhouse, bridge, gates, open plaza) and the night watch's
+# patrols, added after the decor and never on it: the dressing and H7's points (the targets) stay as they were.
+citylib.add_life(town, citylib.Catalog())
 _emit("data/maps/town_e.json", citylib.dumps_map(town))
 
 def inv(limit_kind, limit, stacks=None):

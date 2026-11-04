@@ -1303,6 +1303,7 @@ def build(map_id, plan, cat=None, variant=None):
                           "lots": ";".join(",".join(str(x) for x in lot) for lot in tw.lots)}}
     m = citylib.Map(data, cat)
     data["decor"] = citylib.dress(m)
+    citylib.add_life(data, cat)  # 04f 4.24: meeting points and patrols, after the decor (never on it)
     for line in tw.log:
         print("  aviso del plan:", line)
     return data

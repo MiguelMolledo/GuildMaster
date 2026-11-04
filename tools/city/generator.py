@@ -515,6 +515,7 @@ def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None, households
         data["generated"]["profile"] = {k: profile[k] for k in sorted(profile)}
     m = citylib.Map(data, cat)
     data["decor"] = citylib.dress(m, rl)
+    citylib.add_life(data, cat)  # 04f 4.24: meeting points and patrols, after the decor (never on it)
     return data
 
 
