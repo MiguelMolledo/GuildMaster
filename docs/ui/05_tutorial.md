@@ -427,6 +427,18 @@ Tu sastrería: sus dos puestos y dónde se vende. · solo si `tailor`
 | 4 | `second` | acaba el anterior | station `sewing_table` | En la mesa de costura: ropa de trabajo, capas y ropa común. | «Siguiente» |
 | 5 | `stall` | acaba el anterior | service `clothier` | Se vende en la Ropería; la lana se compra en Recursos. | «Siguiente» |
 
+### 15. Duelo (`duel`)
+
+Retar con motivo y ganar al alba (docs/gdd/04e_combate.md). Se prueba con el escenario `duel_ready`.
+
+| # | Paso | Sale cuando | Resalta | Texto (ES) | Pasa con |
+|---|---|---|---|---|---|
+| 1 | `why` | acaba el anterior | — | El juego no va de pelear, pero el honor cuenta: puedes retar a quien te ha ofendido, a un pretendiente rival o al rival de tu oficio. Rechazar un reto ante testigos cuesta reputación. | «Siguiente» |
+| 2 | `sheet` | acaba el anterior | — | Haz clic en el rival de tu oficio para abrir su ficha. | estado `panel_open` (is=NpcPanel) |
+| 3 | `button` | acaba el anterior · si estado `panel_open` (is=NpcPanel) | `DuelButton` en `NpcPanel` | «Retar a duelo…»: la carta dice el motivo, tus opciones y lo que te juegas. | «Siguiente» |
+| 4 | `dawn` | acaba el anterior | — | Si acepta, el duelo es al alba siguiente en la plaza. Tu duelista irá solo: si no está allí a la hora, pierde. | «Siguiente» |
+| 5 | `read` | acaba el anterior | — | En el duelo, lee el gesto: Golpe gana a Finta, Finta a Parada y Parada a Golpe. «Resolver sin jugar» rinde lo mismo que seguir la pista. | «Siguiente» |
+
 ### Pistas de primera vez
 
 | Pista | Sale cuando | Resalta | Texto (ES) | Se va sola con |
@@ -452,6 +464,9 @@ Tu sastrería: sus dos puestos y dónde se vende. · solo si `tailor`
 | `wedding` | sim `wedding` | `GroupBar` | ¡Boda! Tu pareja entra en tu grupo: elígela con su número. | — |
 | `birth` | sim `child_born` | `TreeButton` en `StatusBar` | Ha nacido un hijo. En el árbol (F) eliges su escuela cuando crezca. | — |
 | `inheritance` | sim `inheritance` | `Card` | Quien hereda toma el mando: ahora juegas con su personaje. | — |
+| `duel_button` | estado `node_visible` (is=DuelButton) | `DuelButton` en `NpcPanel` | Con un motivo (una ofensa, un pretendiente rival, el rival de tu oficio) puedes retarle a duelo. | — |
+| `duel_card` | estado `panel_open` (is=DuelCard) | `DuelCard` | Cuantos más testigos, más honor: un duelo público cuenta el doble, y rechazarlo también. | — |
+| `duel_screen` | estado `panel_open` (is=DuelScreen) | `Gesture` en `DuelScreen` | Lee el gesto y cuánto fiarte de él. Golpe gana a Finta, Finta a Parada, Parada a Golpe; parar recupera aliento. | — |
 
 ## 10. Criterios de aceptación
 
