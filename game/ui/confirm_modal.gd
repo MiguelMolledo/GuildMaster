@@ -104,19 +104,7 @@ static func strip_irreversible(body: String) -> String:
 
 ## The button grows so that its key hint («Intro», «Esc») never sits over its text: text + hint + margins.
 static func fit_button(b: Button) -> void:
-	var font := b.get_theme_font("font")
-	var size := b.get_theme_font_size("font_size")
-	var hint := b.get_node_or_null("Hint") as Label
-	var text_w := font.get_string_size(b.text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x if font != null else 0.0
-	var hint_w := 0.0
-	if hint != null:
-		var hf := hint.get_theme_font("font")
-		hint_w = hf.get_string_size(hint.text, HORIZONTAL_ALIGNMENT_LEFT, -1, hint.get_theme_font_size("font_size")).x \
-			if hf != null else 0.0
-	var need := ceilf(text_w + 2.0 * (hint_w + 6.0)) + 4.0   # the text stays centred: the hint's room on both sides
-	b.custom_minimum_size.x = maxf(112.0, need)
-	b.set_meta("fit_text_w", text_w)
-	b.set_meta("fit_hint_w", hint_w)
+	MenuKit.fit_hint(b, 112.0)
 
 
 ## The box grows with its text up to 400×160 (01 §5, _comun.md).
