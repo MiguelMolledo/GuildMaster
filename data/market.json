@@ -8,7 +8,7 @@
     "clothier": {"name_key": "stall.clothier", "kind": "outdoor", "sells": ["clothier"]},
     "goods": {"name_key": "stall.goods", "kind": "outdoor", "sells": ["goods"]}
   },
-  "_stalls_h12_doc": "H12 [provisional, the owner decides]: clothier (the Ropería of GDD 4.5.1, a shop with interior there) and goods (furniture, barrels and carved stone, not in 4.5.1) are outdoor stalls of the plaza for now.",
+  "_stalls_h12_doc": "H12 (decided 2026-11-03, until the EA shops with interior): clothier (the Ropería of GDD 4.5.1, a shop with interior there) and goods (furniture, barrels and carved stone, not in 4.5.1) are outdoor stalls of the plaza for now.",
   "open_phases": ["day", "dusk"],
   "demand": {"start": 1.0, "rest": 1.0, "min": 0.5, "max": 2.0, "drop_per_unit": 0.04, "recover_per_day": 0.4},
   "sell_ratio": 0.7,

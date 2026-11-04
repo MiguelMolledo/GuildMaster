@@ -30,7 +30,7 @@ Comprueba lo que carga el juego en data/ (los ficheros y carpetas que empiezan p
     huecos, objetivos de resaltado con forma válida, abridores, pistas, con qué partida se prueba cada capítulo);
   - H12: data/professions/ (clase, taller, herramienta, inicio y tabla de encargos coherentes: lo que pide la tabla
     lo fabrica el taller), los competidores de cada inicio (perfil, solar del mapa de su tipo, oficio, sin repetir
-    solar) y que el inicio de cada oficio ponga al protagonista en su taller con su herramienta; cada puesto de
+    solar ni pisar otro solar usado) y que el inicio de cada oficio ponga al protagonista en su taller con su herramienta; cada puesto de
     oficio con su rol de empleado;
   - claves de texto (name_key) en i18n/strings.csv con inglés y español;
   - estructura (tools/validate_structure.py): data/ sin rutas a ficheros, nombres de assets en minúsculas, inventario
@@ -1518,6 +1518,21 @@ def check_h12(items, recipes, buildings, maps, strings, rep):
         dup = sorted({x for x in used if x and used.count(x) > 1})
         if dup:
             rep.error(w, f"solares repetidos entre protagonista, rival y competidores: {dup}")
+        # a map may offer several sites on the same lot (rival_forge / rival_carpentry...): a start uses one of them
+        taken = {}
+        for name in [x for x in used if x in sites]:
+            st_ = sites[name]
+            fp = (buildings.get(st_.get("type")) or {}).get("footprint") or [1, 1]
+            for dc in range(fp[0]):
+                for dr in range(fp[1]):
+                    cell = (st_["origin"][0] + dc, st_["origin"][1] + dr)
+                    if cell in taken and taken[cell] != name:
+                        rep.error(w, f"los solares {taken[cell]} y {name} se pisan en {list(cell)}")
+                        break
+                    taken[cell] = name
+                else:
+                    continue
+                break
 
 
 def check_h5(items, recipes, buildings, ranks, strings, rep):
