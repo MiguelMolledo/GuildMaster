@@ -274,7 +274,7 @@ func test_event_page_data() -> void:
 		if str(b["type"]) == "effects":
 			fx = b["items"]
 	eq(fx.size(), 4, "the four effects of the war")
-	eq(str(fx[0]["text"]), "Armas: precio ×2", "price of weapons")
+	eq(str(fx[0]["text"]), "Armas: precio ×1.5", "price of weapons")
 	eq(str(fx[3]["sign"]), "-", "slower errands hurt")
 	eq(str(d["footer_figures"][0]["value"]), "Dura 4 estaciones", "how long it lasts")
 	eq(str(d["buttons"][0]["text"]), "Entendido", "the button")

@@ -111,7 +111,7 @@ func test_event_effects() -> void:
 	var sword := _raw_price(sim, "sword", "sell")
 	var errand := Market.errand_minutes(sim)
 	WorldEvents.start(sim, "war")
-	eq(Market.price(sim, "sword", 0, "sell"), roundi(sword * 2.0), "war: weapons ×2")
+	eq(Market.price(sim, "sword", 0, "sell"), roundi(sword * 1.5), "war: weapons ×1,5 (owner, 2026-11-03)")
 	eq(Market.price(sim, "bread", 0, "buy"), roundi(bread * 0.7 * 2.5 * 1.5), "war and famine multiply")
 	eq(Market.errand_minutes(sim), roundi(errand * 1.5), "war: errands take ×1,5")
 	sim.state.events_active.clear()

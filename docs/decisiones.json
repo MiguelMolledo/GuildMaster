@@ -347,6 +347,12 @@
       "tema": "Población variada",
       "decision": "Cada partida nueva genera con su semilla el reparto cosmético (nombres, apellidos de casa, edades en rango, aspecto, retrato base, colores de las familias IA y personalidad de los vecinos; data/cast.json). Lo que pesa en el balance sale de los datos y no varía; también el orden de edad de los vecinos (los cargos van al mayor). «Reparto fijo» (choices cast = fixed) conserva el de antes para pruebas, escenarios y dianas (sim_runner por defecto). «Otra familia» en Partida nueva usa una sub-semilla del reparto: la semilla del mundo no cambia. Guardado v14 (raíz cast y visual.portrait).",
       "por_que": "Encargo del owner: que varias partidas no tengan siempre las mismas familias y vecinos, y que cada ciudad tenga su gente. La sub-semilla deja el mundo igual (mismos eventos y tiradas) y cambia solo quién vive en él."
+    },
+    {
+      "fecha": "2026-11-03",
+      "tema": "H13 · guerra regional",
+      "decision": "La guerra regional sube el precio de las armas ×1,5 en vez de ×2 (data/events.json, GDD 4.5.3 y 4.13). Probabilidades, cifras y producción por estación sin cambios. Las dianas largas siguen midiéndose sin eventos (_no_events); con eventos fallan solo casos de cola (novato normal semillas 1 y 12 con guerra; experto semilla 15 con cinco eventos).",
+      "por_que": "Aprobado por el owner a propuesta del worker de H13: con ×2 el rival inactivo llegaba a 763 de oro al día 10 en guerra (269 con ×1,5) y rompía el balance."
     }
   ],
   "pendientes": [
