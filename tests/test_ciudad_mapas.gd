@@ -52,3 +52,26 @@ func test_the_view_draws_a_generated_town() -> void:
 			lanterns += 1
 	check(lanterns >= 6, "lanterns along the streets of town_square (%d)" % lanterns)
 	v.free()
+
+
+func test_every_artisan_start_plays_on_every_generated_town() -> void:
+	# a generated town has the sites of the starts it was made for ("generated.starts"): each one is a real new
+	# game there (H12: the rival of the player's own trade on the plot the player's forge has in the smith's game)
+	for id: String in MAPS:
+		var m: Dictionary = cat.maps().get(id, {})
+		if m.is_empty():
+			continue
+		for start_id: Variant in (m["generated"] as Dictionary).get("starts", []):
+			var start: Dictionary = cat.starts()[str(start_id)]
+			var before := str(start["map"])
+			start["map"] = id
+			var r := NewGame.from_start(cat, str(start_id), "normal", {}, 1)
+			start["map"] = before
+			check(bool(r["ok"]), "%s plays on %s (%s)" % [start_id, id, r.get("error", "")])
+			if r["ok"]:
+				var types := {}
+				for b: String in (r["state"] as WorldState).buildings:
+					var bb: Dictionary = (r["state"] as WorldState).buildings[b]
+					var key := "%s,%s" % [bb["origin"][0], bb["origin"][1]]
+					check(not types.has(key), "%s on %s: one building per plot (%s)" % [start_id, id, key])
+					types[key] = true

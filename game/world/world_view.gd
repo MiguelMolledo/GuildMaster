@@ -532,18 +532,23 @@ func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int
 	var items: Array = decor.get("items", [])
 	if items.is_empty():
 		return 0
-	# the map sites with a building in this game (by origin): an item with "site" belongs to one of them
+	# the map sites with a building in this game (same origin and type: sites on one plot are alternatives, H12) and
+	# the plots with any building: an item with "site" belongs to a site (its lots dress the whole plot)
 	var built := {}
-	var origins := {}
+	var plot_built := {}
+	var placed := {}
 	for id: String in state.buildings:
 		var o: Array = state.buildings[id].get("origin", [])
 		if o.size() == 2:
-			origins[Vector2i(int(o[0]), int(o[1]))] = true
+			placed["%d,%d,%s" % [int(o[0]), int(o[1]), state.buildings[id].get("type", "")]] = true
+			plot_built["%d,%d" % [int(o[0]), int(o[1])]] = true
 	var sites: Dictionary = catalog.maps().get(state.map_id, {}).get("buildings", {})
 	for sid: String in sites:
 		var o: Array = sites[sid].get("origin", [])
-		if o.size() == 2 and origins.has(Vector2i(int(o[0]), int(o[1]))):
+		if o.size() == 2 and placed.has("%d,%d,%s" % [int(o[0]), int(o[1]), sites[sid].get("type", "")]):
 			built[sid] = true
+		if o.size() == 2 and plot_built.has("%d,%d" % [int(o[0]), int(o[1])]):
+			plot_built[sid] = true
 	var n := 0
 	var skipped := 0
 	var kinds := {}
@@ -552,8 +557,8 @@ func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int
 		var site := str(it.get("site", ""))
 		if site != "":
 			var is_lot := kind in ["house", "yard", "single"]
-			# a site's own lot only without its building; a site's props only with it
-			if is_lot == built.has(site):
+			# a site's lots only while its plot is empty; a site's props (by its door) only with that building
+			if (is_lot and plot_built.has(site)) or (not is_lot and not built.has(site)):
 				continue
 		var at: Array = it.get("at", [0, 0])
 		var size: Array = it.get("size", [1, 1])

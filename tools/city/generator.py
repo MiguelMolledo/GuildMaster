@@ -179,17 +179,33 @@ LAYOUTS = {"calle": layout_calle, "plaza": layout_plaza, "cruce": layout_cruce, 
 # --- the town --------------------------------------------------------------------------------------------------
 
 def _required(cat, start_ids):
-    """The sites the starts ask for: {site: type} (player, rival and competitors' buildings)."""
+    """The sites the starts ask for: {site: (type, set of the starts that build it)} (player, rival and competitors'
+    buildings)."""
     out = {}
+
+    def add(site, typ, st):
+        out.setdefault(site, (typ, set()))[1].add(st)
+
     for sid in start_ids:
         s = citylib.load_json(os.path.join(citylib.DATA, "starts", sid + ".json"))
-        out[s["building"]["site"]] = s["building"]["type"]
+        add(s["building"]["site"], s["building"]["type"], sid)
         rv = s.get("rival", {}).get("building")
         if rv:
-            out[rv["site"]] = rv["type"]
+            add(rv["site"], rv["type"], sid)
         for cp in s.get("competitors", []):
-            out[cp["building"]["site"]] = cp["building"]["type"]
+            add(cp["building"]["site"], cp["building"]["type"], sid)
     return out
+
+
+def _flush(plot, foot, d):
+    """A footprint inside a plot rect, flush with the plot's street side d (its door on the same street)."""
+    c, r, w, h = plot
+    fw, fh = foot
+    if d == (0, 1):
+        return (c, r + h - fh, fw, fh)
+    if d == (1, 0):
+        return (c + w - fw, r, fw, fh)
+    return (c, r, fw, fh)
 
 
 def _tiles(rect):
@@ -353,11 +369,24 @@ def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None):
 
     req = _required(cat, start_ids or ["artisan_blacksmith", "artisan_carpenter", "artisan_mason", "artisan_tailor"])
     order = sorted(req.items(), key=lambda kv: (0 if kv[0] == "player_forge" else 1, kv[0]))
-    for sid, typ in order:
-        got = place(cat.footprints[typ], prefer_main=True, typ=typ)
-        if got is None:
-            raise SystemExit(f"generar: no cabe {sid} ({typ}) en el trazado {layout}")
-        rect, d = got
+    plots = []  # [rect, street side, set of the starts that build something on it]
+    for sid, (typ, used_by) in order:
+        foot = cat.footprints[typ]
+        # a site no start builds together with what a plot already has goes on that plot (H12: the rival of the
+        # player's own trade on the player forge's plot), flush with its street, if it fits and its scene draws its
+        # door towards that street
+        host = next((pl for pl in plots if not (pl[2] & used_by) and foot[0] <= pl[0][2] and foot[1] <= pl[0][3]
+                     and site_door(cat, typ, _flush(pl[0], foot, pl[1]), pl[1])[1]), None)
+        if host is not None:
+            rect = _flush(host[0], foot, host[1])
+            d = host[1]
+            host[2] |= used_by
+        else:
+            got = place(foot, prefer_main=True, typ=typ)
+            if got is None:
+                raise SystemExit(f"generar: no cabe {sid} ({typ}) en el trazado {layout}")
+            rect, d = got
+            plots.append([rect, d, set(used_by)])
         sites[sid] = {"type": typ, "origin": [rect[0], rect[1]], "door": list(site_door(cat, typ, rect, d)[0])}
     pop = citylib.load_json(os.path.join(citylib.DATA, "maps", gen.get("population_from", "town_e") + ".json"))
     households = pop.get("population", [])

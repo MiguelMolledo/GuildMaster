@@ -185,6 +185,17 @@ class Map:
             tiles = {(o[0] + dc, o[1] + dr) for dr in range(fh) for dc in range(fw)}
             self.sites[sid] = {"type": b["type"], "tiles": tiles, "door": tuple(b["door"]) if b.get("door") else None,
                                "origin": tuple(o), "footprint": (fw, fh)}
+        # sites on the same plot (one inside another's footprint): alternatives no start builds together (H12: the
+        # rival of the player's own trade takes the forge's plot when the player is not the smith); the plot belongs
+        # to the largest one (then by id)
+        self.alt_of = {}
+        plots = []
+        for sid in sorted(self.sites, key=lambda k: (-len(self.sites[k]["tiles"]), k)):
+            host = next((p for p in plots if self.sites[sid]["tiles"] <= self.sites[p]["tiles"]), "")
+            if host:
+                self.alt_of[sid] = host
+            else:
+                plots.append(sid)
         th = data.get("town_hall") or {}
         if th:
             o, f = th["origin"], th["footprint"]
@@ -416,7 +427,7 @@ def dress(m, rl=None):
     # that leaves a workshop out): WorldView draws these only when the site's tiles are free
     alt = []
     for sid, s in sorted(m.sites.items()):
-        if sid != "town_hall":
+        if sid != "town_hall" and sid not in m.alt_of:  # one dressing per plot (alternatives share it)
             dress_group(sorted(s["tiles"], key=lambda t: (t[1], t[0])), alt, sid)
     yard_tiles = {tuple(it["at"]) for it in items if it["kind"] == "yard"}
 
@@ -625,6 +636,27 @@ class Report:
         self.info.append(msg)
 
 
+def starts_of(m):
+    """{start id: set of map sites it builds} for the starts of data/starts that play on this map (their "map") or
+    that a generated map was made for ("generated.starts")."""
+    out = {}
+    sdir = os.path.join(DATA, "starts")
+    wanted = set((m.d.get("generated") or {}).get("starts", []))
+    for f in sorted(os.listdir(sdir)):
+        if not f.endswith(".json") or f.startswith("_"):
+            continue
+        st = load_json(os.path.join(sdir, f))
+        if st.get("map") != m.d.get("id") and st.get("id") not in wanted:
+            continue
+        used = {st["building"]["site"]}
+        if st.get("rival", {}).get("building"):
+            used.add(st["rival"]["building"]["site"])
+        for cp in st.get("competitors", []):
+            used.add(cp["building"]["site"])
+        out[st["id"]] = used
+    return out
+
+
 def bfs(m, start):
     seen = {start}
     q = [start]
@@ -654,11 +686,20 @@ def validate(m, strict=False, hand_decor=None):
     # sites: inside, on building tiles, no overlap
     seen = {}
     for sid, s in sorted(m.sites.items()):
+        alt = m.alt_of.get(sid, "")
+        if alt:
+            both = [st for st, used in starts_of(m).items() if sid in used and alt in used]
+            if both:
+                rep.error(f"{sid} está dentro del solar de {alt} y el inicio {both[0]} construye los dos")
+            else:
+                rep.note(f"{sid}: alternativa de {alt} en el mismo solar (ningún inicio construye los dos)")
         for t in sorted(s["tiles"]):
             if not m.inside(t):
                 rep.error(f"{sid}: casilla {t} fuera del mapa")
             elif m.kind(t) != "building":
                 rep.error(f"{sid}: casilla {t} de la huella no es de edificio ({m.kind(t)})")
+            if alt:
+                continue
             if t in seen:
                 rep.error(f"{sid} se solapa con {seen[t]} en {t}")
             seen[t] = sid

@@ -62,6 +62,9 @@ python3 tools/city/ciudad.py validar town_road
    casas de vecinos (una por hogar de la población) en las secundarias; los campos fuera, tocando un camino; el resto
    del frente, manzanas de relleno (`#`) hasta `generator.town_reach` casillas de la plaza; un estanque si no hay
    río; árboles en la hierba lejos de todo; la hierba que queda encerrada (sin camino a la plaza) se vuelve bosque.
+   Dos solares que ningún inicio construye juntos (sus inicios no se cruzan) comparten hueco, como en town_e: el
+   segundo va pegado a la calle del primero si cabe y su escena dibuja la puerta hacia esa calle; si no, hueco propio.
+   El vestido de reserva de un hueco se hace una vez, para el solar mayor.
 5. **El mapa**: solares (`buildings` con `origin` y `door`), `spawns` (jugador, mercado, puertas), `stalls`,
    `board`, `town_hall`, `social_points`, `workplaces` (los 16 oficios de town_e en su orden de reparto) y
    `population` (la de town_e, con sus casas nuevas).
@@ -74,7 +77,7 @@ todo es error; en `town_e` (hecho a mano) lo que su trazado antiguo incumple que
 
 | Regla | Qué mira |
 |---|---|
-| Nada se solapa | Ninguna casilla en dos solares; puestos y tablón fuera de los solares; cada huella sobre casillas `#` |
+| Nada se solapa | Ninguna casilla en dos solares, salvo **solares alternativos**: uno dentro de la huella de otro (H12: el rival del oficio del jugador en el solar de la forja), y entonces ningún inicio de ese mapa puede construir los dos; puestos y tablón fuera de los solares; cada huella sobre casillas `#` |
 | Puertas transitables | La puerta de cada solar es una casilla transitable pegada a su huella |
 | Puertas a la calle | La puerta es calle, plaza, camino o puente, o toca una |
 | Todo conectado | BFS desde la plaza: llega a cada puerta, servicio, punto social, spawn y oficio, y a toda casilla transitable (sin bolsas de hierba encerradas: el bot wanderer va a cualquiera) |

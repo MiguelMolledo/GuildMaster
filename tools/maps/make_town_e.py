@@ -131,6 +131,11 @@ town = {
     "buildings": {
         "player_forge": {"type": "forge", "origin": [25, 20], "door": [26, 19]},
         "rival_forge": {"type": "forge", "origin": [9, 20], "door": [10, 19]},
+        # H12 (1b): the rival of the player's own trade takes the player forge's plot when the player is not the
+        # smith (data/starts rival.building.site); alternatives of player_forge, never built together with it
+        "rival_carpentry": {"type": "carpentry", "origin": [25, 20], "door": [26, 19]},
+        "rival_masonry": {"type": "masonry", "origin": [25, 20], "door": [26, 19]},
+        "rival_tailor": {"type": "tailor_shop", "origin": [25, 20], "door": [26, 19]},
         # H12: the workshops of the competitor families (data/starts competitors) and of the other trades' starts
         "workshop_carpentry": {"type": "carpentry", "origin": [14, 34], "door": [15, 33]},
         "workshop_masonry": {"type": "masonry", "origin": [19, 34], "door": [20, 33]},
