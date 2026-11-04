@@ -12,7 +12,7 @@ extends PanelContainer
 ##   title, ribbon (the ribbon's text if it is not the title), image (Texture2D; 240×135 in cards, 192×108 in notices),
 ##   portrait (Texture2D, 64), subtitle (lines under the name in a sheet), dark (dark paper),
 ##   blocks [{type: paragraph | effects | figures | quote | divider | portraits, ...}] (§3 «Bloques»),
-##   seal {text} (the wax seal with a letter or a word), buttons [{id, text, primary}], seconds (closes by itself),
+##   seal {text} (the wax seal with a letter or a word), buttons [{id, text, primary, disabled, tip}], seconds (closes by itself),
 ##   footer_figures [{label, value}] (cartouches at the left of the foot), sticky (a click on the card does not close
 ##   it: cards that ask for a decision).
 ## The page is a StyleBoxTexture with the measured 9-slice margins; Body takes the measured safe area as margins, so no
@@ -722,6 +722,8 @@ func _footer(d: Dictionary) -> void:
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		if bool(btn.get("primary", false)):
 			b.theme_type_variation = &"PrimaryButton"
+		b.disabled = bool(btn.get("disabled", false))   # a button shown off (the region map's «Viajar»)
+		b.tooltip_text = str(btn.get("tip", ""))
 		var id := str(btn.get("id", ""))
 		b.pressed.connect(func() -> void:
 			button_pressed.emit(id)

@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://804hmcfe8cdg" path="res://game/ui/wedding_card.tscn" id="14_wedding"]
 [ext_resource type="PackedScene" uid="uid://dupl0o8lqxmf3" path="res://game/ui/event_card.tscn" id="15_event"]
 [ext_resource type="PackedScene" uid="uid://c7tutorial0lyr" path="res://game/ui/tutorial/tutorial.tscn" id="16_tutorial"]
+[ext_resource type="PackedScene" uid="uid://wuiv6gx1g3ru" path="res://game/ui/region_screen.tscn" id="17_region"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_app")
@@ -67,6 +68,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="CreditsScreen" parent="ScreensLayer" instance=ExtResource("12_credits")]
+unique_name_in_owner = true
+
+[node name="RegionScreen" parent="ScreensLayer" instance=ExtResource("17_region")]
 unique_name_in_owner = true
 
 [node name="CardsLayer" type="CanvasLayer" parent="."]

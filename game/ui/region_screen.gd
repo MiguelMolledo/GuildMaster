@@ -1,0 +1,294 @@
+class_name RegionScreen
+extends MenuScreen
+## «Mapa de la región» (docs/gdd/09b_region.md §9b.7): the illustrated parchment of the region with its settlements,
+## the routes between them (cut ones in red while a world event in force cuts them, data/world/region.json cut_by) and
+## their names; hovering or clicking a settlement shows its card (PageCard «card»: kind, size, distance from home,
+## specialty, who rules, what is cheap and what pays well, its routes) with «Viajar» off and «Próximamente». The
+## distance counts only the routes open now.
+## Opened from the pause menu or with R in the HUD (the app); while open the game is paused, as it was before on
+## closing. View only: reads RegionView and the state, gives no orders, saves nothing. Esc closes the card, then the
+## screen (back_requested).
+
+const PAGE_CARD: PackedScene = preload("res://game/ui/page_card.tscn")
+const INK := Color("#2a1f14")
+const ROAD := Color("#4a2a12")
+const CUT := Color("#c85050")
+const WAX := Color("#8a2a1e")
+const GOLD := Color("#c8a84e")
+const PAPER := Color("#d4b896")
+const RADIUS := {"capital": 9.0, "villa": 7.0}  # the rest 6
+const CARD_GAP: float = 14.0
+const BOTTOM: float = 46.0          # the card stays above the Back button
+
+var game: Node = null
+var sim: Sim = null                 # tests set it; else Game.sim on opening
+var home: String = ""
+var hours: Dictionary = {}          # settlement -> game hours from home
+var cut: Dictionary = {}            # route id -> [event ids in force that cut it]
+var selected: String = ""           # the settlement whose card is shown ("" = none)
+var pinned: bool = false            # the card was clicked open (it stays when the mouse leaves)
+var markers: Dictionary = {}        # settlement -> Button
+var _was_paused: bool = false
+var _open: bool = false
+var _bound: bool = false
+var _card: PageCard = null
+
+var _map: TextureRect = null
+var _layer: Control = null
+
+
+func _ready() -> void:
+	_bind()
+
+
+func _bind() -> void:
+	if _bound:
+		return
+	_bound = true
+	_map = get_node("%Map") as TextureRect
+	_layer = get_node("%Layer") as Control
+	if game == null and is_inside_tree():
+		game = get_node_or_null("/root/Game")
+	(%BackButton as Button).pressed.connect(func() -> void: back_requested.emit())
+	_layer.draw.connect(_draw_layer)
+	_card = PAGE_CARD.instantiate() as PageCard
+	_card.name = "SettlementCard"
+	_card.visible = false
+	add_child(_card)
+	_card.closed.connect(func() -> void:
+		selected = ""
+		pinned = false
+		_layer.queue_redraw())
+
+
+## Pauses (remembering the pause it found) and shows the map.
+func open() -> void:
+	_bind()
+	if not _open:
+		_open = true
+		_was_paused = bool(game.get("paused")) if game != null else false
+		if game != null and game.has_method("set_paused"):
+			game.call("set_paused", true)
+	super()
+
+
+## Hides the map and puts the pause back as it was.
+func close() -> void:
+	super()
+	if _card != null:
+		_card.close()
+	if _open:
+		_open = false
+		if game != null and game.has_method("set_paused"):
+			game.call("set_paused", _was_paused)
+
+
+func is_open() -> bool:
+	return _open
+
+
+func _refresh() -> void:
+	_bind()
+	if sim == null and game != null:
+		sim = game.get("sim") as Sim
+	var reg := RegionView.data()
+	home = RegionView.home_of(sim.state.map_id if sim != null else "")
+	cut = RegionView.cut_routes(sim)
+	hours = RegionView.hours_from(home, cut.keys())   # over the routes open now
+	_map.texture = VisualPaths.region_map(str(reg.get("id", "")))
+	(%Title as Label).text = "%s · %s" % [SimQuery.t_("ui.region.title"), SimQuery.t_(str(reg.get("name_key", "")))]
+	(%Hint as Label).text = SimQuery.t_("ui.region.hint")
+	(%BackButton as Button).text = SimQuery.t_("ui.region.back")
+	MenuKit.add_hint(%BackButton as Button, SimQuery.t_("ui.key.esc"))
+	_build_markers()
+	_layer.queue_redraw()
+	if OS.is_debug_build():
+		print("[RegionScreen] abre: casa=%s, %d asentamientos, %d rutas, cortadas=%s, horas=%s" % [home,
+			RegionView.settlements().size(), RegionView.routes().size(), cut, hours])
+
+
+func default_focus() -> Control:
+	return %BackButton as Control
+
+
+## One flat button per settlement on its pos (hover shows the card, a click pins it) and its name under it.
+func _build_markers() -> void:
+	for c: Node in _layer.get_children():
+		_layer.remove_child(c)
+		c.queue_free()
+	markers = {}
+	for s: Dictionary in RegionView.settlements():
+		var id := str(s["id"])
+		var p := Vector2(s["pos"][0], s["pos"][1])
+		var r := _radius(s)
+		var b := Button.new()
+		b.name = "Marker_" + id
+		b.flat = true
+		b.focus_mode = Control.FOCUS_ALL
+		b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		b.position = p - Vector2(r + 3, r + 3)
+		b.size = Vector2(r + 3, r + 3) * 2.0
+		b.tooltip_text = ""
+		b.mouse_entered.connect(func() -> void:
+			if not pinned:
+				show_card(id, false))
+		b.mouse_exited.connect(func() -> void:
+			if not pinned and selected == id:
+				_card.close())
+		b.focus_entered.connect(func() -> void:
+			if not pinned:
+				show_card(id, false))
+		b.pressed.connect(func() -> void: show_card(id, true))
+		_layer.add_child(b)
+		markers[id] = b
+		var l := Label.new()
+		l.name = "Name_" + id
+		l.text = SimQuery.t_(str(s.get("name_key", id)))
+		l.theme_type_variation = &"InkTitleLabel" if str(s.get("kind", "")) == "capital" else &"InkLabel"
+		l.add_theme_color_override("font_outline_color", PAPER)
+		l.add_theme_constant_override("outline_size", 4)
+		l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_layer.add_child(l)
+		l.reset_size()
+		l.position = (p + Vector2(-l.size.x / 2.0, r + 2)).round()
+
+
+func _radius(s: Dictionary) -> float:
+	return float(RADIUS.get(str(s.get("kind", "")), 6.0))
+
+
+## The routes (dashed ink; red with a cross in the middle while cut) and the settlements (a wax seal; gold for home,
+## a gold ring round the one whose card is open).
+func _draw_layer() -> void:
+	for r: Dictionary in RegionView.routes():
+		var pts := RegionView.route_points(r)
+		var is_cut := cut.has(str(r["id"]))
+		var col := CUT if is_cut else ROAD
+		for i: int in pts.size() - 1:   # a pale underlay so the ink reads on fields and forest
+			_layer.draw_line(pts[i], pts[i + 1], Color(PAPER, 0.45), 4.0)
+		for i: int in pts.size() - 1:
+			_layer.draw_dashed_line(pts[i], pts[i + 1], col, 2.0, 5.0)
+		if is_cut:
+			var m := _middle(pts)
+			_layer.draw_line(m + Vector2(-5, -5), m + Vector2(5, 5), CUT, 3.0)
+			_layer.draw_line(m + Vector2(-5, 5), m + Vector2(5, -5), CUT, 3.0)
+	for s: Dictionary in RegionView.settlements():
+		var p := Vector2(s["pos"][0], s["pos"][1])
+		var r := _radius(s)
+		var id := str(s["id"])
+		if id == selected:
+			_layer.draw_circle(p, r + 4.0, GOLD)
+		_layer.draw_circle(p, r + 1.5, INK)
+		_layer.draw_circle(p, r, GOLD if id == home else WAX)
+		_layer.draw_circle(p, r * 0.45, INK if id == home else Color(WAX.lightened(0.25)))
+
+
+## The point halfway along a polyline.
+static func _middle(pts: PackedVector2Array) -> Vector2:
+	var total := 0.0
+	for i: int in pts.size() - 1:
+		total += pts[i].distance_to(pts[i + 1])
+	var left := total / 2.0
+	for i: int in pts.size() - 1:
+		var d := pts[i].distance_to(pts[i + 1])
+		if left <= d and d > 0.0:
+			return pts[i].lerp(pts[i + 1], left / d)
+		left -= d
+	return pts[pts.size() - 1]
+
+
+## Shows the card of settlement `id` beside its seal (pinned: it stays when the mouse leaves).
+func show_card(id: String, pin: bool) -> void:
+	var s := RegionView.settlement(id)
+	if s.is_empty():
+		return
+	selected = id
+	pinned = pin
+	_card.build(card_data(id))
+	_card.visible = true
+	_card.layout_now()
+	var p := Vector2(s["pos"][0], s["pos"][1])
+	var view := get_viewport_rect().size if is_inside_tree() else Vector2(960, 540)
+	var x := p.x + CARD_GAP if p.x + CARD_GAP + _card.size.x < view.x - 8 else p.x - CARD_GAP - _card.size.x
+	var y := clampf(p.y - _card.size.y / 2.0, 8.0 + _card.ribbon_overhang, view.y - BOTTOM - _card.size.y)
+	_card.position = Vector2(x, y).round()
+	_layer.queue_redraw()
+	if OS.is_debug_build():
+		print("[RegionScreen] ficha %s (fijada=%s, en %s, %s)" % [id, pin, _card.position, _card.size])
+
+
+## The PageCard data of a settlement's card.
+func card_data(id: String) -> Dictionary:
+	var s := RegionView.settlement(id)
+	var dist := _t("ui.region.here")
+	if id != home:
+		dist = _t("ui.region.unreachable") if not hours.has(id) else _t("ui.region.distance_value") % [
+			int(round(float(hours[id]))), _t(str(RegionView.settlement(home).get("name_key", "")))]
+	var blocks: Array = [
+		{"type": "paragraph", "text": _t("region.kind." + str(s.get("kind", "")))},
+		{"type": "figures", "items": [
+			{"label": _t("ui.region.size"), "value": _t("ui.region.size_value") % [int(s.get("households", 0)),
+				int(s.get("souls", 0))]},
+			{"label": _t("ui.region.distance"), "value": dist}]},
+		{"type": "paragraph", "text": "%s: %s" % [_t("ui.region.specialty"), _t(str(s.get("specialty", "")))]},
+		{"type": "paragraph", "text": "%s: %s" % [_t("ui.region.rulers"), _t(str(s.get("rulers", "")))]},
+	]
+	var goods: Array = []
+	if not (s.get("cheap", {}) as Dictionary).is_empty():
+		goods.append({"text": "%s: %s" % [_t("ui.region.cheap"), _mults(s["cheap"])], "sign": ""})
+	if not (s.get("dear", {}) as Dictionary).is_empty():
+		goods.append({"text": "%s: %s" % [_t("ui.region.dear"), _mults(s["dear"])], "sign": "+"})
+	if not goods.is_empty():
+		blocks.append({"type": "effects", "items": goods})
+	var lines: Array = []
+	for r: Dictionary in RegionView.routes_of(id):
+		var other := str(r["b"]) if str(r["a"]) == id else str(r["a"])
+		var text := "%s · %s" % [_t(str(RegionView.settlement(other).get("name_key", ""))),
+			_t("ui.region.route") % [_t("region.terrain." + str(r.get("terrain", ""))), int(r.get("hours", 0)),
+			int(r.get("risk", 0))]]
+		var by: Array = cut.get(str(r["id"]), [])
+		if not by.is_empty():
+			text += " · " + _t("ui.region.route_cut") % ", ".join(by.map(func(e: String) -> String:
+				return SimQuery.event_name(sim.catalog, e)))
+		lines.append({"text": text, "sign": "-" if not by.is_empty() else ""})
+	blocks.append({"type": "divider"})
+	blocks.append({"type": "effects", "items": lines})
+	return {"template": "card", "title": _t(str(s.get("name_key", id))), "sticky": true, "blocks": blocks,
+		"buttons": [{"id": "travel", "text": "%s · %s" % [_t("ui.region.travel"), _t("ui.region.soon")],
+			"disabled": true, "tip": _t("ui.region.travel_tip")}]}
+
+
+static func _t(key: String) -> String:
+	return SimQuery.t_(key)
+
+
+## «hierro ×0,6, carbón ×0,7»: items by their name, goods groups by theirs (goods.<group>).
+func _mults(m: Dictionary) -> String:
+	var parts: PackedStringArray = []
+	for k: String in m:
+		var name := ""
+		if sim != null and sim.catalog.items().has(k):
+			name = SimQuery.item_name(sim.catalog, k).to_lower()
+		else:
+			name = SimQuery.t_("goods." + k).to_lower()
+		parts.append("%s ×%s" % [name, _num(float(m[k]))])
+	return ", ".join(parts)
+
+
+static func _num(x: float) -> String:
+	var s := ("%.2f" % x).rstrip("0").rstrip(".")
+	return s.replace(".", ",") if TranslationServer.get_locale().begins_with("es") else s
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and _card != null and _card.visible and event.is_action_pressed("ui_cancel") and not event.is_echo():
+		_card.close()
+		get_viewport().set_input_as_handled()
+		return
+	super(event)
+
+
+## A click on the parchment (not on a seal or the card) closes a pinned card.
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and (event as InputEventMouseButton).pressed and _card.visible:
+		_card.close()

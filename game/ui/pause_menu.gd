@@ -2,7 +2,7 @@ class_name PauseMenu
 extends MenuScreen
 ## The pause menu (docs/ui/02_menu_inicial.md §6). open() pauses the game and locks the orders (GDD 4.1: the one
 ## pause that is not active: an order given while it is open is dropped); close() unlocks them and puts the pause back
-## as it was (Resume or Esc). Resume (Esc) · Save (F5) · Load (F9) · Options · Help (F1) · ─ · End the dynasty…
+## as it was (Resume or Esc). Resume (Esc) · Save (F5) · Load (F9) · Options · Help (F1) · Map of the region (R) · ─ · End the dynasty…
 ## (D19: off with its reason while data/family.json succession.voluntary_close is false; on, a strong confirmation)
 ## · Quit to title · Quit the game; below, when it was last saved. Quitting with something unsaved asks first (Cancel ·
 ## Without saving · Save and quit). The app does what each signal asks; this screen only pauses and asks.
@@ -13,6 +13,7 @@ signal save_requested
 signal load_requested
 signal options_requested
 signal help_requested
+signal region_requested   # the «Mapa de la región» (docs/gdd/09b_region.md)
 signal close_dynasty_confirmed
 ## where: "title" | "quit"; save_first: the player chose "Save and quit" (the app opens the save screen first).
 signal quit_requested(where: String, save_first: bool)
@@ -39,6 +40,7 @@ func _bind() -> void:
 	(%LoadButton as Button).pressed.connect(func() -> void: load_requested.emit())
 	(%OptionsButton as Button).pressed.connect(func() -> void: options_requested.emit())
 	(%HelpButton as Button).pressed.connect(func() -> void: help_requested.emit())
+	(%RegionButton as Button).pressed.connect(func() -> void: region_requested.emit())
 	(%CloseDynastyButton as Button).pressed.connect(_ask_close_dynasty)
 	(%TitleButton as Button).pressed.connect(func() -> void: _ask_quit("title"))
 	(%QuitButton as Button).pressed.connect(func() -> void: _ask_quit("quit"))
@@ -88,7 +90,7 @@ func _refresh() -> void:
 	(%Title as Label).text = SimQuery.t_("ui.pause.title")
 	var rows := {"ResumeButton": ["ui.pause.resume", "ui.key.esc"], "SaveButton": ["ui.pause.save", "ui.key.f5"],
 		"LoadButton": ["ui.pause.load", "ui.key.f9"], "OptionsButton": ["ui.pause.options", ""],
-		"HelpButton": ["ui.pause.help", "ui.key.f1"], "CloseDynastyButton": ["ui.pause.close_dynasty", ""],
+		"HelpButton": ["ui.pause.help", "ui.key.f1"], "RegionButton": ["ui.pause.region", "ui.key.r"], "CloseDynastyButton": ["ui.pause.close_dynasty", ""],
 		"TitleButton": ["ui.pause.to_title", ""], "QuitButton": ["ui.pause.quit", ""]}
 	for n: String in rows:
 		var b := get_node("%" + n) as Button
@@ -134,6 +136,8 @@ func _key(event: InputEventKey) -> bool:
 			load_requested.emit()
 		KEY_F1:
 			help_requested.emit()
+		KEY_R:
+			region_requested.emit()
 		_:
 			return false
 	return true

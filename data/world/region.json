@@ -1,0 +1,74 @@
+{
+  "_doc": "The region (docs/gdd/09b_region.md): the settlements, the routes between them and their identity, as data for the «Mapa de la región» screen (game/ui/region_screen.gd) and the design. DESIGN ONLY: the sim never reads this file (travel, caravans and treaties are designed, not implemented: 9b.5), and nothing of it is saved. Checked by tools/validate_content.py (check_region): unique ids, routes between settlements that exist, no repeated pair, the region connected, every map in data/maps, every text in i18n, the items and groups of the price multipliers in data/items and data/seasons.json goods. Names are proposals (9b.9, D9): only the i18n texts change, never the ids.",
+  "id": "valldaura",
+  "name_key": "region.name",
+  "home": "villa",
+  "map": {
+    "_doc": "The illustrated parchment (tools/art/fal_region.py; the view finds it by the region's id, VisualPaths.region_map) and its size in px: pos of a settlement and path of a route are px on it (960x540, the internal resolution of D2).",
+    "size": [960, 540]
+  },
+  "settlements": [
+    {
+      "id": "villa", "kind": "villa", "name_key": "region.villa", "map": "town_e", "pos": [300, 245],
+      "map_size": [40, 40], "households": 8, "souls": 300, "layout": "calle", "style": "E",
+      "trades": ["blacksmith", "carpenter", "mason", "tailor"],
+      "cheap": {}, "dear": {}, "tariff": 0.0,
+      "rulers": "region.villa.rulers", "specialty": "region.villa.specialty"
+    },
+    {
+      "id": "capital", "kind": "capital", "name_key": "region.capital", "map": "region_capital", "pos": [400, 360],
+      "map_size": [80, 80], "households": 16, "souls": 4000, "layout": "plaza", "style": "A+C",
+      "trades": ["merchant", "moneylender", "tailor", "goldsmith", "notary", "guard"],
+      "cheap": {"textiles": 0.85, "fine_clothes": 0.8, "document": 0.8},
+      "dear": {"food": 1.3, "weapons": 1.25, "construction": 1.2, "luxury": 1.4}, "tariff": 0.1,
+      "rulers": "region.capital.rulers", "specialty": "region.capital.specialty"
+    },
+    {
+      "id": "port", "kind": "port", "name_key": "region.port", "map": "region_port", "pos": [720, 445],
+      "map_size": [48, 48], "households": 10, "souls": 900, "layout": "rio", "style": "C",
+      "trades": ["boatman", "cooper", "carpenter", "fisherman"],
+      "cheap": {"wood": 0.75, "planks": 0.8, "barrel": 0.8},
+      "dear": {"iron_ingot": 1.2, "steel": 1.2, "hammer": 1.2, "saw": 1.2, "travel_cloak": 1.3}, "tariff": 0.05,
+      "rulers": "region.port.rulers", "specialty": "region.port.specialty"
+    },
+    {
+      "id": "quarry", "kind": "quarry", "name_key": "region.quarry", "map": "region_quarry", "pos": [235, 165],
+      "map_size": [40, 40], "households": 6, "souls": 400, "layout": "cruce", "style": "B",
+      "trades": ["miner", "mason", "charcoal_burner", "blacksmith"],
+      "cheap": {"iron": 0.6, "coal": 0.7, "stone": 0.7, "ashlar": 0.85},
+      "dear": {"food": 1.35, "work_clothes": 1.3, "hammer": 1.3, "bandages": 1.3}, "tariff": 0.08,
+      "rulers": "region.quarry.rulers", "specialty": "region.quarry.specialty"
+    },
+    {
+      "id": "hamlet", "kind": "hamlet", "name_key": "region.hamlet", "map": "region_hamlet", "pos": [372, 272],
+      "map_size": [32, 32], "households": 4, "souls": 120, "layout": "aldea", "style": "E",
+      "trades": ["farmer", "miller", "baker", "shepherd"],
+      "cheap": {"wheat": 0.6, "flour": 0.75, "bread": 0.85, "wool": 0.8},
+      "dear": {"hoe": 1.35, "cart_wheel": 1.3, "millstone": 1.3, "common_clothes": 1.2}, "tariff": 0.0,
+      "rulers": "region.hamlet.rulers", "specialty": "region.hamlet.specialty"
+    },
+    {
+      "id": "abbey", "kind": "abbey", "name_key": "region.abbey", "map": "region_abbey", "pos": [560, 200],
+      "map_size": [36, 36], "households": 4, "souls": 150, "layout": "abadia", "style": "B",
+      "trades": ["copyist", "herbalist", "apothecary", "weaver"],
+      "cheap": {"herbs": 0.6, "bandages": 0.75, "document": 0.7},
+      "dear": {"ashlar": 1.35, "statue": 1.5, "cloth": 1.2, "planks": 1.15}, "tariff": 0.0,
+      "rulers": "region.abbey.rulers", "specialty": "region.abbey.specialty"
+    }
+  ],
+  "_routes_doc": "hours: game hours (1 h = 12.5 s real at x1). terrain: road | royal_road | river | mountain | ridge | forest | ford. risk 0..5: chance of an ambush per trip without escort = risk x 4 % [balance, design]. cut_by: world events (data/events.json) or proposed ones (events_proposed) that close the route. path: px on the map between the two ends (for the drawing).",
+  "routes": [
+    {"id": "r1", "a": "villa", "b": "hamlet", "hours": 3, "terrain": "road", "risk": 1, "cut_by": [], "path": []},
+    {"id": "r2", "a": "villa", "b": "capital", "hours": 8, "terrain": "royal_road", "risk": 2, "cut_by": ["war", "riot"], "path": [[318, 300], [352, 338]]},
+    {"id": "r3", "a": "capital", "b": "port", "hours": 6, "terrain": "river", "risk": 1, "cut_by": ["war", "flood"], "path": [[500, 345], [600, 352], [668, 400]]},
+    {"id": "r4", "a": "villa", "b": "quarry", "hours": 10, "terrain": "mountain", "risk": 4, "cut_by": ["war", "snow"], "path": [[288, 205]]},
+    {"id": "r5", "a": "quarry", "b": "abbey", "hours": 9, "terrain": "ridge", "risk": 3, "cut_by": ["snow"], "path": [[330, 140], [440, 165]]},
+    {"id": "r6", "a": "abbey", "b": "port", "hours": 8, "terrain": "forest", "risk": 3, "cut_by": [], "path": [[640, 250], [700, 340]]},
+    {"id": "r7", "a": "hamlet", "b": "capital", "hours": 4, "terrain": "ford", "risk": 2, "cut_by": ["flood"], "path": [[392, 318]]}
+  ],
+  "events_proposed": {
+    "_doc": "Events the region needs that are NOT in data/events.json (O-R8): adding them would move the event rolls and the targets. Same shape as there when they are added.",
+    "snow": {"text_key": "region.event.snow", "season": "winter", "cuts": ["mountain", "ridge"]},
+    "flood": {"text_key": "region.event.flood", "season": "spring", "cuts": ["river", "ford"]}
+  }
+}

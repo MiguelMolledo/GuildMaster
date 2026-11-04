@@ -5587,6 +5587,20 @@
       "coste_gen": 0,
       "coste_usd": 0.24,
       "notas": "El edificio tailor_shop de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/tailor_shop.tscn). Estados: tailor_shop_back_construction.png, tailor_shop_back_damaged.png. Sin cablear. En escena desde 2026-11-04: game/visuals/buildings/tailor_shop_back.tscn, con su marcador Door."
+    },
+    {
+      "id": "ui_region_map_valldaura",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "region"
+      ],
+      "ruta": "assets/art/region/valldaura_map.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto) + paleta de image2pixel y reducción con caja a 480×270, doblada ×2; las letras de la rosa de los vientos, borradas en local (tools/art/fal_region.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.168,
+      "notas": "Pergamino ilustrado de la región (docs/gdd/09b_region.md): sierra al norte, río Daura, bosque al este, campos; sin pueblos, caminos ni texto (la pantalla «Mapa de la región», game/ui/region_screen.gd, dibuja encima asentamientos, rutas y nombres de data/world/region.json). 960×540. 2 generaciones (la v2 salió peor: río partido y letras en la rosa); crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/region/. Cableado: VisualPaths.region_map."
     }
   ]
 }

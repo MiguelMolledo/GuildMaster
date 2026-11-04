@@ -27,6 +27,7 @@ extends Node
 ## H14: --smoke-script=ia_familiar: the family AI panel, a spouse trading on her own, low needs.
 ## H13: --smoke-script=eventos: the notices and the clock line of the global events, the market's price reason, the book.
 ## Page kit: --smoke-script=pagina: the card of a global event that starts and the other templates of PageCard.
+## Region: --smoke-script=region: the map of the region from the pause menu and from R, its cards, the war's cut routes.
 ## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## H12: --smoke-script=oficios: the trade buttons of the new game screen and the workshop of each artisan trade.
 ## Población: --smoke-script=poblacion: the new game screen and «Otra familia», then the sheets of a townsman, a
@@ -63,7 +64,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
 	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd",
 	"poblacion": "res://game/smoke/smoke_poblacion.gd", "pagina": "res://game/smoke/smoke_pagina.gd",
-	"mapa": "res://game/smoke/smoke_mapa.gd",
+	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd"}
 
 @onready var _background: ColorRect = %Background
@@ -79,6 +80,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 @onready var _saves: SaveScreen = %SaveScreen
 @onready var _options: OptionsScreen = %OptionsScreen
 @onready var _credits: CreditsScreen = %CreditsScreen
+@onready var _region: RegionScreen = %RegionScreen
 @onready var _succession: SuccessionCard = %SuccessionCard
 @onready var _tutorial: Tutorial = %Tutorial
 
@@ -204,6 +206,9 @@ func _bind_menus() -> void:
 	_pause.save_requested.connect(func() -> void: _open_sub("pause", _saves, "save"))
 	_pause.load_requested.connect(func() -> void: _open_sub("pause", _saves, "load"))
 	_pause.options_requested.connect(func() -> void: _open_sub("pause", _options))
+	_pause.region_requested.connect(func() -> void: _open_sub("pause", _region))  # docs/gdd/09b_region.md
+	_region.back_requested.connect(func() -> void: _close_sub(_region))
+	_hud.region_requested.connect(open_region)  # R in the HUD
 	_pause.help_requested.connect(func() -> void:
 		_pause.close()
 		if not _hud.help_visible():
@@ -275,7 +280,7 @@ func credits_screen() -> CreditsScreen:
 
 ## The title (02 §1): the default town paused at dusk behind (decision 2), the HUD hidden, the orders locked.
 func show_title() -> void:
-	for sc: MenuScreen in [_new_game, _ending, _pause, _saves, _options, _credits]:
+	for sc: MenuScreen in [_new_game, _ending, _pause, _saves, _options, _credits, _region]:
 		sc.close()
 	var opts := Game.parse_args(OS.get_cmdline_user_args())
 	var r := NewGame.from_scenario(Game.DEFAULT_SCENARIO, int(opts["seed"]))
@@ -423,6 +428,18 @@ func open_pause() -> void:
 	if DisplayServer.get_name() != "headless":
 		_pause_shot = get_viewport().get_texture().get_image()
 	_pause.open()
+
+
+## The map of the region straight from the HUD (R): over the town, paused while open (docs/gdd/09b_region.md).
+func open_region() -> void:
+	if menu_open() or Game.sim == null or not Game.sim.state.ending.is_empty():
+		return
+	_menu_from = "hud"
+	_region.open()
+
+
+func region_screen() -> RegionScreen:
+	return _region
 
 
 func _quit_to(where: String) -> void:
@@ -612,7 +629,7 @@ func _process(delta: float) -> void:
 			and not _new_game.visible:
 		Game.set_paused(true)  # D18: the ruin ends the game; the sim does not stop by itself
 		Game.lock_orders(true)
-		for sc: MenuScreen in [_pause, _saves, _options, _credits]:
+		for sc: MenuScreen in [_pause, _saves, _options, _credits, _region]:
 			sc.close()
 		_hud.visible = false
 		_ending.show_ending(Game.sim.state, Game.sim)

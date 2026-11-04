@@ -12,7 +12,7 @@ const KEYS: Dictionary = {
 	"family_tree": [KEY_F, false], "inventory": [KEY_I, false], "ledger": [KEY_L, false],
 	"offices": [KEY_O, false], "trials": [KEY_J, false], "help": [KEY_F1, false], "build_mode": [KEY_B, false],
 	"panel_production": [KEY_P, false], "panel_storage": [KEY_A, false], "panel_staff": [KEY_E, false],
-	"panel_upgrades": [KEY_M, false], "confirm": [KEY_ENTER, false],
+	"panel_upgrades": [KEY_M, false], "confirm": [KEY_ENTER, false], "region_map": [KEY_R, false],
 }
 const SHIFTED: Array[String] = ["speed_1", "speed_2", "speed_3"]
 
