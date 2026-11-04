@@ -46,11 +46,14 @@ func show_card(d: Dictionary) -> void:
 		blocks.append({"type": "paragraph", "text": str(d["body"])})
 	page.build({"template": "notice", "ribbon": str(d.get("step", "")), "blocks": blocks, "buttons": d.get("buttons", []),
 		"sticky": true})
+	add_theme_constant_override("margin_top", page.ribbon_overhang)   # the ribbon rises above the page: room for it
 	var column := page.get_node("%Column") as VBoxContainer
 	if str(d.get("lead", "")) != "":
 		var lead := _line(str(d["lead"]), &"TutorialTitle", "Lead")
 		column.add_child(lead)
-		column.move_child(lead, mini(1, column.get_child_count() - 1))   # under the ribbon
+		# under the title: the ribbon is on the page's edge (column top), or the title in ink heads the column
+		var under := 1 if column.get_child_count() > 1 and column.get_child(0).name == &"Ribbon" else 0
+		column.move_child(lead, mini(under, column.get_child_count() - 1))
 	if str(d.get("foot", "")) != "":
 		var foot := _line(str(d["foot"]), &"TutorialStep", "Keys")
 		column.add_child(foot)

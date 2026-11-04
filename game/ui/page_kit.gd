@@ -136,16 +136,18 @@ static func frame_style(v: Dictionary) -> StyleBoxTexture:
 	return sb
 
 
-## The ribbon cut in 3: the end caps keep, the flat middle stretches; content margins put the text on the cloth.
+## The ribbon cut in 3: the end caps keep, the flat middle stretches; content margins put the text on the cloth (from
+## where the plain cloth starts inside the caps, `cloth` in kit.json; without it, past the caps).
 static func ribbon_style(v: Dictionary) -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
 	sb.texture = texture_of(v)
 	var cap: Dictionary = v.get("cap", {})
+	var cloth: Variant = v.get("cloth")
 	var text: Dictionary = v.get("text", {})
 	sb.texture_margin_left = _side(cap, "left", 8)
 	sb.texture_margin_right = _side(cap, "right", 8)
-	sb.content_margin_left = _side(cap, "left", 8) + 2
-	sb.content_margin_right = _side(cap, "right", 8) + 2
+	sb.content_margin_left = _side(cloth, "left", _side(cap, "left", 8) + 1) + 1
+	sb.content_margin_right = _side(cloth, "right", _side(cap, "right", 8) + 1) + 1
 	sb.content_margin_top = _side(text, "top", 4)
 	sb.content_margin_bottom = _side(text, "bottom", 4)
 	return sb

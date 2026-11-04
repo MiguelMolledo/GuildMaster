@@ -303,6 +303,10 @@
      "text": {
       "top": 2,
       "bottom": 11
+     },
+     "cloth": {
+      "left": 15,
+      "right": 15
      }
     },
     {
@@ -320,6 +324,10 @@
      "text": {
       "top": 13,
       "bottom": 14
+     },
+     "cloth": {
+      "left": 25,
+      "right": 25
      }
     }
    ],

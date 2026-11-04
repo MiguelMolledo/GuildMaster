@@ -113,6 +113,7 @@ Escala de la recomendada (en `tokens.json` → `fuente`):
 | Papel | Fuente y tamaño | Uso |
 |---|---|---|
 | `titulo` | Jacquarda Bastarda 9 a 13 | Título de panel, de pantalla y de documento. Nunca en frases largas ni en botones. |
+| `cinta` | Jacquard 24 a 24 (dorado, sombra de 1 px) | El título en la cinta del kit de página (`PageRibbon`). Si no cabe, Pixel Operator Bold 16 (`PageRibbonSmall`). Ver `04_kit_de_pagina.md`. |
 | `negrita` | Pixel Operator Bold 16 | Botones, cifras, nombres, el título del objetivo. |
 | `cuerpo` | Pixel Operator 16 | Todo lo demás. |
 | `pequena` | Pixel Operator 8 | Teclas en los botones, contadores sobre retratos, rótulos en mayúsculas («OBJETIVO»). |
