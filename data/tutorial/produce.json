@@ -146,7 +146,7 @@
       "id": "live_forge",
       "text": "tutorial.produce.live_forge",
       "target": {
-        "ui": "Iron",
+        "ui": "Panel",
         "in": "LiveForgeScreen"
       },
       "when": {

@@ -383,6 +383,30 @@
       "tema": "Encargos con especificaciones (03b §3b.3, O-D5 a)",
       "decision": "Algunos encargos del herrero (spec_chance 0,35 [balance]) piden variante: hoja corta o larga, guarnición sencilla o labrada y temple, dicho con palabras en el tablón. Cada pieza hecha a medida cobra +30 % [balance] (spec_pay) al entregarla; una pieza normal se sigue aceptando a la paga normal. Las que cumplen se apartan para el encargo (contract.made) y vuelven al almacén si el encargo falla. Hoja larga ×1,15 y un golpe medido más; guarnición labrada ×1,25 y un golpe de acabado más.",
       "por_que": "«Tensión, no castigo» (§3b.5.5) y las dianas: como prima, ni el jugador que no juega ni los bots pierden nada. Qué encargo pide variante sale de un azar propio (semilla de la partida + id del encargo), no de state.rng, para que las dianas de hoy salgan iguales."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Desbloqueos (03b §3b.4, O-D2 a)",
+      "decision": "data/unlocks.json con disparador (start, calendario, oro, título, empleados, edad, evento con cuenta, ganarle al rival un día, any/all), ventana de 3b.4, marca en el HUD, capítulo del tutorial y meta; sim/pacing/unlocks.gd escribe state.unlocks (v20) y no lee reglas ni tira dados. Lo que se esconde es solo UI: los botones de Empleados y Mejoras de la forja hasta su desbloqueo; el resto se anuncia con carta, marca y meta sin esconderlo. Empezar un capítulo del tutorial desde la ayuda abre lo que enseña. Las partidas de antes de v20 lo tienen todo abierto. Fiestas, feria, taberna y sucesos quedan como ganchos (requires) que se activan solos cuando exista su data/<id>.json o data/<id>/.",
+      "por_que": "«Lo que se desbloquea es acceso de la UI, no reglas del sim». Esconder más paneles rompería los capítulos del tutorial y los escenarios; los demás ya tenían su puerta en el sim (títulos, edad, la mejora del mostrador). Cambios en la tabla: la obra maestra con la primera que salga (Hugo ya tiene Artesanía 7), el tribunal con un juicio o una acusación (no hay medida de «rival hostil»), cargos y tratados con Patricio, boda y caravanas juntos; ventanas medidas con el bot de ritmo: encargos día 1-2 (el novato vende el primer día o el segundo), mejoras día 4-6 (300 de oro llega entre el 5 y el 6 si paga la deuda pronto)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Metas siempre abiertas (03b §3b.5.1)",
+      "decision": "sim/pacing/goals.gd sobre los objetivos que ya hay: hoy = el objetivo de la cadena de inicio (el panel de siempre), esta estación = la meta del último desbloqueo por cumplir, este año = la deuda en el año 1 y después la primera meta de dinastía. Las metas de los desbloqueos cuentan aparte de la cadena, desde que se abren (state.unlocks[fam]._goals). La zona de metas va debajo del objetivo.",
+      "por_que": "Siempre hay al menos dos metas (hoy y este año); el bot de ritmo lo mide cada hora (mínimo 2, media 2,8-3,0)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "«Saltar hasta…» (03b §3b.5.2, O-D3 a)",
+      "decision": "Botón «»» junto a las velocidades: el próximo evento, el amanecer o que acabe la cola, a ×8 (data/view.json skip). Lo corta cualquier aviso de la familia, un desbloqueo, un evento global o microevento, una orden, la pausa, cambiar la velocidad o un día entero. Es de la sesión (Game), no se guarda.",
+      "por_que": "Contra la espera vacía sin tocar el sim: la velocidad no es estado de la partida."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Bot de ritmo (03b §3b.6)",
+      "decision": "Bot pacing: el novato forjando en Forja viva y leyendo las cartas, 8 días. Diana en data/targets.json (pacing): mediana < 30 s y máximo < 60 s entre decisiones, siempre >= 2 metas, desbloqueos en su ventana ±1 día. Paso pacing en run_all (5 semillas). Lista de comprobación de la partida del owner en docs/partida_owner.json (sale en el cuaderno).",
+      "por_que": "Medido con 3 semillas: mediana 4,7 s, máximo 29-40 s, metas mín 2, 9 desbloqueos y 0 fuera de ventana. Las órdenes a menos de 3 s cuentan como una decisión (las paradas de un mismo viaje)."
     }
   ],
   "pendientes": [

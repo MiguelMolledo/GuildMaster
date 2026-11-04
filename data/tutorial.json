@@ -542,7 +542,7 @@
         "is": "LiveForgeScreen"
       },
       "target": {
-        "ui": "Iron",
+        "ui": "Panel",
         "in": "LiveForgeScreen"
       },
       "text": "tutorial.hint.live_forge"

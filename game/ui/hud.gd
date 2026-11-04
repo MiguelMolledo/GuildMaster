@@ -206,6 +206,10 @@ func _ready() -> void:
 			toggle_help()
 		tutorial_requested.emit(id))
 	Events.sim_event.connect(_on_sim_event)
+	var ph := PacingHud.new()   # 03b: goals zone, «Saltar hasta…», «Nuevo» marks (game/ui/forja/pacing_hud.gd)
+	ph.name = "PacingHud"
+	add_child(ph)
+	ph.mount(self)
 	Log.info("Hud", "ready (zones=%d, manage panels=%d, modals=%d)" % [HudLayout.ZONES.size(), _manage_panels().size(),
 		_modal_panels().size()])
 	_refresh()
@@ -494,6 +498,11 @@ func _on_sim_event(e: Dictionary) -> void:
 
 
 ## A short message over the selection bar (a refused order says why).
+## 03b: the goals zone, «Saltar hasta…» and the unlock marks.
+func pacing() -> PacingHud:
+	return get_node_or_null("PacingHud") as PacingHud
+
+
 func show_toast(text: String) -> void:
 	_toast_text.text = text
 	_toast_label.visible = true

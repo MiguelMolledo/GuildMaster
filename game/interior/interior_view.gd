@@ -91,6 +91,16 @@ func station_menu() -> StationMenu:
 	return get_node("%StationMenu")
 
 
+## 03b §3b.4: Staff and Upgrades stay hidden for the player's family until their unlock (data/unlocks.json ui).
+func apply_unlocks() -> void:
+	if sim == null:
+		return
+	var fam := SimQuery.player_family(sim.state)
+	(%StaffButton as Button).visible = shop_stall == "" and Unlocks.ui_open(sim, fam, "staff")
+	(%UpgradesButton as Button).visible = shop_stall == "" and Upgrades.tree_of(sim, building) != "" \
+		and Unlocks.ui_open(sim, fam, "upgrades")
+
+
 ## Forja viva (03b §3b.2): the short screen of a piece forged by hand.
 func live_screen() -> LiveForgeScreen:
 	return get_node("%LiveForgeScreen")
@@ -201,6 +211,7 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	upgrade_panel().close()
 	# a building without an upgrade tree (a house...) has nothing to show
 	(%UpgradesButton as Button).visible = shop_stall == "" and Upgrades.tree_of(s, bld) != ""
+	apply_unlocks()
 	for n: String in ["StorageButton", "ProductionButton", "StaffButton", "UpgradesButton"]:
 		(get_node("%" + n) as Button).set_pressed_no_signal(false)
 	sync()
@@ -807,6 +818,8 @@ func on_sim_event(e: Dictionary) -> void:
 	if str(e.get("building", "")) != building:
 		return
 	live_screen().on_sim_event(e)
+	if str(e.get("type", "")) == "unlocked":
+		apply_unlocks()
 	if str(e.get("type", "")) == "work_started" and str(e.get("mode", "")) == LiveForge.MODE \
 			and str(e.get("actor", "")) == actor() and not live_screen().visible:
 		station_menu().close()

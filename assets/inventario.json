@@ -6363,6 +6363,244 @@
       "coste_gen": 0,
       "coste_usd": 0,
       "notas": "Lámina de la carta «Obra maestra» (03b §3b.2): una espada recién templada sobre el yunque, con el sello del maestro, luz de fragua. 240×135 y masterwork_192.png (192×108). Cableado: LiveForgeScreen._show_masterwork (VisualPaths.illustration(\"events\", \"masterwork\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_contracts",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_contracts.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo contracts (docs/gdd/03b_diversion_y_ritmo.md §3b.4): el tablón de la plaza con papeles clavados y un recadero con un saco. 240×135 y unlock_contracts_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_contracts\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_counter",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_counter.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo counter (docs/gdd/03b_diversion_y_ritmo.md §3b.4): el mostrador de la forja con una clienta. 240×135 y unlock_counter_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_counter\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_first_festival",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_first_festival.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo first_festival (docs/gdd/03b_diversion_y_ritmo.md §3b.4): la plaza engalanada en Semana Santa. 240×135 y unlock_first_festival_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_first_festival\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_staff",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_staff.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo staff (docs/gdd/03b_diversion_y_ritmo.md §3b.4): un aprendiz joven ante el yunque con el maestro detrás. 240×135 y unlock_staff_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_staff\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_rival",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_rival.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo rival (docs/gdd/03b_diversion_y_ritmo.md §3b.4): el herrero rival mirando desde su puerta, brazos cruzados. 240×135 y unlock_rival_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_rival\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_upgrades",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_upgrades.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo upgrades (docs/gdd/03b_diversion_y_ritmo.md §3b.4): la forja con andamio y un fuelle nuevo. 240×135 y unlock_upgrades_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_upgrades\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_fair",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_fair.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo fair (docs/gdd/03b_diversion_y_ritmo.md §3b.4): la feria de verano con toldos y caballos. 240×135 y unlock_fair_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_fair\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_tavern",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_tavern.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo tavern (docs/gdd/03b_diversion_y_ritmo.md §3b.4): el interior de una taberna con dados y naipes. 240×135 y unlock_tavern_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_tavern\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_debt",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_debt.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo debt (docs/gdd/03b_diversion_y_ritmo.md §3b.4): el prestamista con su libro y una bolsa de monedas. 240×135 y unlock_debt_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_debt\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_courtship",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_courtship.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo courtship (docs/gdd/03b_diversion_y_ritmo.md §3b.4): dos jóvenes hablando junto al pozo. 240×135 y unlock_courtship_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_courtship\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_citizen",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_citizen.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo citizen (docs/gdd/03b_diversion_y_ritmo.md §3b.4): un camino que sale de la villa hacia Valldaura. 240×135 y unlock_citizen_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_citizen\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_incidents",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_incidents.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo incidents (docs/gdd/03b_diversion_y_ritmo.md §3b.4): una pelea en la plaza de noche con la guardia llegando. 240×135 y unlock_incidents_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_incidents\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_family_trade",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_family_trade.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo family_trade (docs/gdd/03b_diversion_y_ritmo.md §3b.4): una boda en la puerta de la iglesia y un carro cargado. 240×135 y unlock_family_trade_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_family_trade\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_offices",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_offices.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo offices (docs/gdd/03b_diversion_y_ritmo.md §3b.4): el concejo reunido en el ayuntamiento. 240×135 y unlock_offices_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_offices\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_court",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_court.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo court (docs/gdd/03b_diversion_y_ritmo.md §3b.4): la sala del tribunal con el juez. 240×135 y unlock_court_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_court\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_masterwork",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_masterwork.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo masterwork (docs/gdd/03b_diversion_y_ritmo.md §3b.4): una espada recién templada sobre el yunque, luz de fragua. 240×135 y unlock_masterwork_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_masterwork\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "illus_event_unlock_heir",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "desbloqueos",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/unlock_heir.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Nuevo: …» del desbloqueo heir (docs/gdd/03b_diversion_y_ritmo.md §3b.4): el heredero joven tomando el martillo. 240×135 y unlock_heir_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_heir\"); sin ella, la carta va sin lámina)."
     }
   ]
 }

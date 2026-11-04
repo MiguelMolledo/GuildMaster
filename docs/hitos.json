@@ -503,11 +503,15 @@
       "criterios": [
         {
           "texto": "Bot pacing: mediana < 30 s entre decisiones en el año 1",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "prueba": "sim_runner --start=artisan_blacksmith --bots=pacing --days=8 (paso pacing de la QA): mediana 4,7 s, máximo 29-40 s, desbloqueos en su ventana (data/targets.json pacing)",
+          "fecha": "2026-11-04"
         },
         {
           "texto": "Siempre ≥ 2 metas abiertas",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "prueba": "bot pacing goals_min = 2 cada hora del año 1 (OpenGoals.view); tests/test_forja_ritmo.gd test_open_goals",
+          "fecha": "2026-11-04"
         },
         {
           "texto": "Partida del owner sin «solo mirar una barra»",

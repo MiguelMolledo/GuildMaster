@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://wuiv6gx1g3ru" path="res://game/ui/region_screen.tscn" id="17_region"]
 [ext_resource type="PackedScene" uid="uid://bhgwpupiiywej" path="res://game/ui/city_screen.tscn" id="18_city"]
 [ext_resource type="PackedScene" uid="uid://c2r3cgv3ioq5i" path="res://game/ui/caravan_screen.tscn" id="19_caravan"]
+[ext_resource type="PackedScene" uid="uid://48h64ebelfl3" path="res://game/ui/forja/unlock_card.tscn" id="90_unlock"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_app")
@@ -88,6 +89,9 @@ layer = 30
 unique_name_in_owner = true
 
 [node name="EventCard" parent="CardsLayer" instance=ExtResource("15_event")]
+unique_name_in_owner = true
+
+[node name="UnlockCard" parent="CardsLayer" instance=ExtResource("90_unlock")]
 unique_name_in_owner = true
 
 [node name="Tutorial" parent="." instance=ExtResource("16_tutorial")]

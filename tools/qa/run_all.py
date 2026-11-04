@@ -54,6 +54,8 @@ STEPS = [
     ("duel", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=duel_ready", "--bots=duelist", "--days=8", "--seeds=3"]),
     ("merchant", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=travel_start", "--bots=merchant", "--days=16",
                       "--seeds=10"]),
+    ("pacing", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=pacing", "--days=8",
+                    "--seeds=5"]),
 ]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]

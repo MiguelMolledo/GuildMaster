@@ -2686,9 +2686,9 @@ def main():
                 rep.error(f"scenarios/{name}", f"{cid}: position debe ser [col, fila]")
             elif not maps[map_id](*pos):
                 rep.error(f"scenarios/{name}", f"{cid} está en {pos}, que no es una casilla transitable de {map_id}")
-            for t in (ch.get("path") or []) if map_id else []:
-                if not (isinstance(t, list) and len(t) == 2 and maps[map_id](*t)):
-                    rep.error(f"scenarios/{name}", f"{cid}: la ruta pasa por {t}, que no es transitable")
+            for tile in (ch.get("path") or []) if map_id else []:  # not `t`: that name holds the tables
+                if not (isinstance(tile, list) and len(tile) == 2 and maps[map_id](*tile)):
+                    rep.error(f"scenarios/{name}", f"{cid}: la ruta pasa por {tile}, que no es transitable")
                     break
 
     validate_structure.check(rep)

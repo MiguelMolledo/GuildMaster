@@ -222,3 +222,50 @@ Lo que cambió al construirlo, con su porqué (también en `docs/decisiones.json
 **Guardado v20** (`SaveFile._to_v20`): las raíces `unlocks` y `masterworks` (`pieces`, `learned`). Una partida de
 antes recibe todos los desbloqueos como vistos (ya lo tenía todo abierto) y ninguna obra maestra. No depende de los
 campos de v17-v19.
+
+**Desbloqueos (§3b.4, O-D2 a).** Tabla en `data/unlocks.json`, sistema en `sim/pacing/unlocks.gd` (estado en
+`unlocks`, v20).
+
+- Cada fila tiene su **disparador** (`start`, `calendar` por día, `gold`, `title`, `employees`, `age`, `event` con
+  cuenta, `outsold_rival` y las combinaciones `any`/`all`), su **ventana** de 3b.4 (los días en que se espera, para
+  el bot de ritmo), la **marca** (el botón del HUD o del interior que se marca con «●» hasta que se usa), el
+  **capítulo** del tutorial, la **meta** (un objetivo de `data/objectives/`) y su horizonte.
+- Lo que se desbloquea es **acceso de la UI**: hoy solo se esconden los botones de **Empleados** y **Mejoras** de la
+  forja hasta su desbloqueo (150 de oro o 3 encargos; 300 de oro). El resto ya tenía su puerta en el sim (títulos,
+  edad, la propia mejora del mostrador) o está en el mundo (el tablón): se anuncia con su carta, su marca y su meta,
+  sin esconderlo. El sim no lee los desbloqueos para ninguna regla y no tira dados: las dianas de hoy salen iguales.
+- **Nada se esconde para siempre:** empezar un capítulo del tutorial desde la ayuda abre lo que enseña (orden
+  `unlock_seen` con `what: now`), y las partidas de antes de v20 lo tienen todo abierto.
+- **Carta «Nuevo: …»** (`UnlockCard`, del kit de página): qué es, la meta que trae y «Ver capítulo» si las pistas
+  están encendidas. No pausa; al cerrarla queda leída. Lámina `events/unlock_<id>` del arte cuando llegue.
+- **Ganchos:** la primera fiesta y la feria (`festivals`), la taberna (`tavern`) y los sucesos (`incidents`) están
+  en la tabla con su meta y se activan solos cuando exista su `data/<id>.json` o `data/<id>/` (lo que traigan las
+  ramas de vida, fiestas y posada al juntarse; si el nombre de su fichero es otro, se cambia `requires`).
+- **Cambios en la tabla de 3b.4:** la obra maestra se desbloquea cuando sale la primera (ver arriba); el tribunal,
+  cuando hay un juicio o una acusación (no hay todavía una medida de «rival hostil» en el sim); cargos y tratados,
+  con el título de Patricio (el de Ciudadano ya trae viajar y el duelo); «boda e hijos» y «caravanas» van juntos
+  (`family_trade`: boda o carro).
+
+**Metas siempre abiertas (§3b.5.1).** `sim/pacing/goals.gd` sobre los objetivos que ya hay. La zona de metas va
+debajo del objetivo (que es la meta de **hoy**, la cadena de inicio): **esta estación** es la meta del último
+desbloqueo que falta por cumplir y **este año** es la deuda en el año 1 (`year_goal`) y después la primera meta de
+dinastía. Las metas de los desbloqueos cuentan los hechos de la familia desde que se abren, aparte de la cadena.
+Siempre hay al menos dos (hoy y este año).
+
+**«Saltar hasta…» (§3b.5.2, O-D3 a).** Botón «»» junto a las velocidades: el próximo evento, el amanecer o que acabe
+la cola (la del edificio abierto o la primera de la familia con trabajo). Va a ×8 (`data/view.json` `skip`) y se
+corta con cualquier aviso de la familia, un desbloqueo, un evento global o un microevento, una orden del jugador,
+la pausa, un cambio de velocidad o al pasar un día entero. «El próximo evento» es además una pieza terminada, un
+encargo nuevo, un recado que llega o un cambio de fase del día. Es estado de la sesión, como la velocidad: no se
+guarda. Volver a pulsar «■» lo para.
+
+**Bot de ritmo y partida del owner (§3b.6).** `sim/bots/bot_pacing.gd` es el novato de siempre que forja en Forja viva
+y lee cada carta. Cuenta como decisión cada orden suya (las que van a menos de 3 s, como las paradas de un viaje,
+cuentan como una), una decisión de la forja o una carta leída; un minuto de juego vale lo que vale a ×1 y la octava
+parte cuando el jugador estaría saltando (un ciclo en marcha sin nada que decidir, o la noche); andar nunca se salta.
+Diana en `data/targets.json` (`pacing`, paso `pacing` de la QA, 5 semillas). Medido el 2026-11-04 con 3 semillas:
+mediana 4,7 s entre decisiones, p90 6,6 s, máximo 29-40 s, al menos 2 metas a todas horas (media 2,8-3,0) y los 9
+desbloqueos del año 1 dentro de su ventana. Dos ventanas se movieron tras medir: los encargos, días 1-2 (el novato
+vende el primer día o el segundo), y las mejoras, días 4-6 (con la deuda pagada pronto, los 300 de oro llegan el
+quinto o el sexto día). La lista de comprobación de la partida del owner está en `docs/partida_owner.json` y sale
+en el cuaderno.
