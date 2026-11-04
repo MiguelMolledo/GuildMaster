@@ -15,7 +15,7 @@ extends RefCounted
 ## (docs/contratos/h7_ciudad.md); H9: request_title (docs/contratos/h9_titulos.md); H10: run_for_office,
 ## campaign_action, use_office_power (docs/contratos/h10_cargos.md); H11: accuse, witness_action, trial_cross,
 ## trial_rest, trial_verdict (docs/contratos/h11_tribunal.md); duelo: duel_challenge, duel_answer, duel_withdraw,
-## duel_move, duel_auto, duel_brawl (docs/contratos/duelo.md). Each milestone adds
+## duel_move, duel_auto, duel_brawl (docs/contratos/duelo.md); juegos: game_play, game_bet (docs/contratos/juegos.md). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -174,6 +174,11 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Treaties.order_propose_town(sim, order)
 		"cancel_treaty":
 			return Treaties.order_cancel(sim, order)
+		# Juegos · games and competitions (sim/games/, docs/contratos/juegos.md)
+		"game_play":
+			return Games.replay(sim, order)
+		"game_bet":
+			return Betting.order_bet(sim, order)
 	return fail("unknown_order")
 
 
@@ -185,7 +190,8 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"resolve_microevent", "run_for_office", "use_office_power", "accuse", "trial_cross", "trial_rest", "trial_verdict",
 	"duel_answer", "duel_withdraw", "duel_move", "duel_auto",
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
-	"city_accept", "city_deliver", "sign_treaty"]
+	"city_accept", "city_deliver", "sign_treaty",
+	"game_play", "game_bet"]
 
 
 static func is_management(type: String) -> bool:

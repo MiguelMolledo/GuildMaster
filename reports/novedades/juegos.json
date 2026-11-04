@@ -1,0 +1,16 @@
+{
+  "fecha": "2026-11-04",
+  "titulo": "Juegos: dados de la época, pulso, naipes, apuestas y torneo de lucha",
+  "que": "Minijuegos de taberna y de fiesta (04f §4.26), todos de decisiones y no de reflejos, con «Resolver sin jugar» que da lo mismo que jugar bien. Dados: el «azar» del Libro de los juegos de Alfonso X (azar, reazar y la suerte de cada uno; doblar o no) y «tres dados a la mayor» (un dado bajo el cubilete; seguir o retirarse). Pulso: tres empujes (empujar, aguantar o ceder) con su barra de fuerza y el gesto del rival. Naipes: el envite, tres bazas que se descubren una a una, envidar, querer, subir o no querer, y la cara del rival para saber si va de farol. Apuestas: el corredor da cuotas a partir de las probabilidades del juego con su 10 %, se apuesta por uno mismo o sobre lo que juegan otros, y se mira la partida. Dados cargados: dan ventaja, pero si el rival los ve es trampa (hecho para el tribunal, reputación y la apuesta perdida). Torneo de lucha: eliminatoria de ocho con el duelo, a tres asaltos por puntos, muerte súbita y jueces, contra forasteros de Bellcaire, Portvell o Navarra; bolsa y reputación al ganador. Se apuesta 5, 10, 25 o 50 (tope 50) y avisa si pierdes más de 100 en un día. El bot gambler comprueba que, en una casa de juego, se pierde exactamente lo que se queda la casa.",
+  "como_probar": "godot --path . -- --games-test=azar (o mayor, pulso, envite, tourney, apuestas). Opciones: --games-stake=25, --games-opponents=preset:regular_cheat. Capturas: grimoire heavy -- godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=juegos. Medidas: godot --headless --path . -s tools/games_bench.gd. Bot: sim_runner --scenario=games_gambler --bots=gambler --days=8 --seeds=5.",
+  "capturas": [
+    "docs/novedades/juegos_azar_decidir.png",
+    "docs/novedades/juegos_mayor_decidir.png",
+    "docs/novedades/juegos_pulso_empuje.png",
+    "docs/novedades/juegos_azar_resultado.png",
+    "docs/novedades/juegos_envite_decidir.png",
+    "docs/novedades/juegos_apuestas_corredor.png",
+    "docs/novedades/juegos_torneo_apuestas.png",
+    "docs/novedades/juegos_torneo_resultado.png"
+  ]
+}

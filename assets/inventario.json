@@ -6265,6 +6265,266 @@
       "coste_gen": 0,
       "coste_usd": 0.04,
       "notas": "Carro de caravana de bueyes, de perfil mirando al este (al oeste, reflejado), 56×34 a la densidad del pergamino. Variante caravan_cart.png (carreta de mula, 48×24). Cableado: las caravanas de la familia en el mapa regional (VisualPaths.region_caravan, reflejada hacia el oeste; por defecto la de bueyes, CARAVAN_VARIANT)."
+    },
+    {
+      "id": "ui_games_dice_table",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/dice/table.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.7, 4.28.3): el fondo del tablero de los dados, una mesa de taberna con tapete o tablero de tafurería vista desde arriba, 404×180 (lo que ocupa el tablero en GameScreen). Sin texto. Lo lee VisualPaths.game_art(\"dice\", \"table\"); hasta que exista, greybox verde con su etiqueta."
+    },
+    {
+      "id": "ui_games_dice_faces",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/dice/die_1.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: las seis caras de un dado de hueso, die_1.png … die_6.png, 32×32 cada una (se dibujan a 30 y 20 px; Nearest). VisualPaths.game_art(\"dice\", \"die_<n>\"); hasta que existan, el dado se dibuja por código con sus puntos."
+    },
+    {
+      "id": "ui_games_dice_cup",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/dice/cup.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: el cubilete de cuero boca abajo que tapa el dado oculto de «a la mayor», 24×24. VisualPaths.game_art(\"dice\", \"cup\"); hasta que exista, un cuadro con «?»."
+    },
+    {
+      "id": "ui_games_pulso_table",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/pulso/table.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.9): la mesa de taberna del pulso, de frente y algo desde arriba, con sitio en el centro para los dos antebrazos (que se dibujan por código), 404×180. VisualPaths.game_art(\"pulso\", \"table\")."
+    },
+    {
+      "id": "icon_game_azar",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_azar.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono del «azar» (tres dados), 32×32 y small/game_azar.png 16×16. VisualPaths.game_icon(\"azar\"). Para la carta de la fiesta y la mesa de juego de la Posada."
+    },
+    {
+      "id": "icon_game_mayor",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_mayor.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono de «tres dados a la mayor» (dados y cubilete), 32×32 y small/ 16×16. VisualPaths.game_icon(\"mayor\")."
+    },
+    {
+      "id": "icon_game_pulso",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_pulso.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono del pulso (dos manos agarradas), 32×32 y small/ 16×16. VisualPaths.game_icon(\"pulso\")."
+    },
+    {
+      "id": "ill_game_azar",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_azar.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina de la carta de resultado del azar (dados en una mesa de taberna, a la luz de una vela), 240×135 y game_azar_192.png 192×108, estilo de las láminas de 4.28.3. VisualPaths.game_illustration(\"game_azar\")."
+    },
+    {
+      "id": "ill_game_mayor",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_mayor.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina del resultado de «a la mayor» (cuatro jugadores, cubiletes y un bote de monedas), 240×135 y _192 192×108."
+    },
+    {
+      "id": "ill_game_pulso",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_pulso.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina del resultado del pulso (dos hombres echando un pulso en la taberna, parroquianos alrededor), 240×135 y _192 192×108."
+    },
+    {
+      "id": "ui_games_naipes_table",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/naipes/table.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.8): la mesa del envite, tapete o madera de taberna desde arriba, 404×180. VisualPaths.game_art(\"naipes\", \"table\")."
+    },
+    {
+      "id": "ui_games_naipes_cards",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/naipes/oros_1.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: la baraja de 40 naipes de cuatro palos al estilo del s. XIV-XV (oros, copas, espadas, bastos; 1-7, sota 10, caballo 11, rey 12), <palo>_<n>.png, 30×44 cada uno (Nearest). VisualPaths.game_art(\"naipes\", \"<palo>_<n>\"); hasta que existan, una carta greybox con el número y el color del palo."
+    },
+    {
+      "id": "ui_games_naipes_back",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/naipes/back.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: el reverso de los naipes, 30×44. VisualPaths.game_art(\"naipes\", \"back\")."
+    },
+    {
+      "id": "ui_games_tourney_list",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/tourney/list.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.2): fondo del torneo de lucha, la liza o el palenque de tierra con el público detrás, apagado para que se lean el cuadro (izquierda) y el combate (derecha), 404×180. VisualPaths.game_art(\"tourney\", \"list\")."
+    },
+    {
+      "id": "icon_game_envite",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_envite.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono del envite (tres naipes en abanico), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "icon_game_tourney",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_tourney.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono del torneo de lucha (dos espadas cruzadas sobre un escudo), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "icon_game_bets",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_bets.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.6): icono del corredor de apuestas (bolsa y monedas), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "ill_game_envite",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_envite.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina del resultado del envite (dos jugadores con naipes, uno mirando la cara del otro, en la taberna), 240×135 y _192 192×108."
+    },
+    {
+      "id": "ill_game_tourney",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_tourney.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina del torneo de lucha (dos luchadores con espadas de torneo en la plaza, jueces y público), 240×135 y _192 192×108. Sirve también a la carta de la fiesta (4.25.2, evento Torneo)."
+    },
+    {
+      "id": "icon_loaded_dice",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/icons/loaded_dice.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.7, O-V10 b): el objeto «dados cargados» (dos dados de hueso con una mancha de plomo), 32×32 y small/loaded_dice.png 16×16, como los demás iconos de objeto (VisualPaths.icon)."
     }
   ]
 }

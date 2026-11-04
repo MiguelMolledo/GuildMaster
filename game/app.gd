@@ -66,10 +66,17 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"poblacion": "res://game/smoke/smoke_poblacion.gd", "pagina": "res://game/smoke/smoke_pagina.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd", "viajes": "res://game/smoke/smoke_viajes.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
-	"duel": "res://game/smoke/smoke_duel.gd", "duelo_partida": "res://game/smoke/smoke_duelo_partida.gd"}
+	"duel": "res://game/smoke/smoke_duel.gd", "duelo_partida": "res://game/smoke/smoke_duelo_partida.gd",
+	"juegos": "res://game/smoke/smoke_juegos.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
 const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"
+## Juegos (docs/gdd/04f_vida_y_fiestas.md §4.26, docs/ui/mecanicas/juegos.md): --games-test=<game> opens that game over
+## the paused game (the protagonist against the rival smith; a la mayor adds a boastful regular), played for real: its
+## order game_play goes to the sim. --games-stake=<n>, --games-opponents=<ref,...> (character ids or preset:<id>),
+## --games-house=<building> (a licensed house: its rake). --games-test=apuestas: the bookmaker (a pulso of others to
+## bet on and watch). --smoke-script=juegos captures every game.
+const GAME_SCREEN: String = "res://game/ui/games/game_screen.tscn"
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView
@@ -172,6 +179,10 @@ func _ready() -> void:
 	if args.has("--duel-test"):
 		open_duel_test.call_deferred()
 		return
+	for a: String in args:
+		if a.begins_with("--games-test="):
+			open_games_test.call_deferred(a.substr(13))
+			return
 	if bool(opts["title"]):
 		show_title()
 	elif bool(opts["new_game"]):
@@ -208,6 +219,57 @@ func open_duel_test() -> DuelScreen:
 	layer.add_child(screen)
 	screen.open_test(st, Data.catalog.combat, a, b, kind, weapon, maxi(st.world_seed, 1))
 	Log.info("App", "duel test: %s contra %s (%s, arma %s)" % [a, b, kind, weapon if weapon != "" else "la suya"])
+	return screen
+
+
+## A game over the paused game (--games-test and --smoke-script=juegos): the head of the human family against the head
+## of the rival smith's family (a la mayor: and a boastful regular), or --games-opponents. Played for real through
+## Game.step_now (the order game_play); closing it leaves the game paused.
+func open_games_test(game_id: String, extra: Dictionary = {}) -> GameScreen:
+	var st := Game.sim.state
+	var me := ""
+	var rival := ""
+	for fid: String in st.families:
+		var f: Dictionary = st.families[fid]
+		if me == "" and str(f.get("controlled_by", "")) == "human":
+			me = str(f.get("head", ""))
+		elif rival == "" and str(f.get("ai_profile", "")) == "rival_smith":
+			rival = str(f.get("head", ""))
+	var opponents: Array = [rival]
+	if game_id == "mayor":
+		opponents.append("preset:regular_boastful")
+	if game_id == "tourney":  # the knockout of eight: the protagonist and the outsiders (TourneyMatch.entrants)
+		opponents = TourneyMatch.entrants(st, Data.catalog.games, me).slice(1)
+		extra = extra.duplicate()
+		extra.merge({"bets_open": true}, false)
+	if game_id == "apuestas":  # the bookmaker: a pulso of others to bet on and watch
+		extra = extra.duplicate()
+		extra.merge({"watch": true, "players": [rival, "preset:regular_boastful"]}, false)
+		game_id = "pulso"
+	var stake := 10 if game_id in Games.STAKED else 0
+	var opts: Dictionary = {}
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--games-stake="):
+			stake = arg.substr(14).to_int()
+		elif arg.begins_with("--games-opponents="):
+			opponents = Array(arg.substr(18).split(","))
+		elif arg.begins_with("--games-house="):
+			opts["house"] = arg.substr(14)
+	var req := {"actor": me, "game": game_id, "opponents": opponents, "stake": stake, "opts": opts}
+	req.merge(extra, true)
+	Game.set_paused(true)
+	var layer := get_node_or_null("GamesLayer") as CanvasLayer
+	if layer == null:
+		layer = CanvasLayer.new()
+		layer.name = "GamesLayer"
+		layer.layer = 60
+		add_child(layer)
+	for c: Node in layer.get_children():
+		c.queue_free()
+	var screen := (load(GAME_SCREEN) as PackedScene).instantiate() as GameScreen
+	layer.add_child(screen)
+	screen.open(req, st, Data.catalog.games, Game.step_now)
+	Log.info("App", "games test: %s, %s contra %s (apuesta %d)" % [game_id, me, opponents, stake])
 	return screen
 
 

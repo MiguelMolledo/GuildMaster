@@ -2667,3 +2667,224 @@ tutorial.hint.duel_screen,"Read the gesture and how reliable it is. Strike beats
 combat.card.for.offense,For the insult,Por la ofensa
 combat.card.for.courtship,For %s,Por %s
 combat.card.for.rivalry,For the trade,Por el oficio
+ledger.cat.games,Games and bets,Juego y apuestas
+notice.games_losses,You have lost {gold} gold at games today. Careful with the dice.,Hoy has perdido {gold} de oro en el juego. Cuidado con los dados.
+reason.unknown_game,Unknown game,Juego desconocido
+reason.bad_players,Not the right players for this game,No son los jugadores que pide el juego
+reason.bad_stake,"The stake must be 5, 10, 25 or 50","La apuesta tiene que ser de 5, 10, 25 o 50"
+reason.over_cap,At most 50 per bet,Como mucho 50 por apuesta
+reason.bad_move,That move is not allowed,Esa jugada no vale
+reason.unfinished,The game is not finished,La partida no ha terminado
+reason.unknown_house,Unknown gambling house,Casa de juego desconocida
+games.temper.prudent,Prudent,Prudente
+games.temper.even,Steady,Templado
+games.temper.boastful,Boastful,Fanfarrón
+games.temper.cheat,Cheat,Tramposo
+games.preset.regular_even,Jaume the cooper,Jaume el tonelero
+games.preset.regular_prudent,Old Miquel,El viejo Miquel
+games.preset.regular_boastful,Pere the boaster,Pere el fanfarrón
+games.preset.regular_cheat,The stranger with rings,El forastero de los anillos
+games.why.cap,You cannot bet more than 50,No se puede apostar más de 50
+games.why.strength,No strength left for that,No te queda fuerza para eso
+games.ui.auto,Resolve without playing,Resolver sin jugar
+games.ui.again,Play again,Otra partida
+games.ui.close,Close,Cerrar
+games.ui.over,The game is over,Se acabó la partida
+games.ui.sub_stake,Stake: %d gold,Apuesta: %d de oro
+games.ui.sub_free,For pride,Por el orgullo
+games.ui.in_house,in the gambling house (keeps %d %% of a win),en la tafurería (se queda el %d %% de lo ganado)
+games.ui.stake_now,At stake: %d,En juego: %d
+games.ui.reliable,Reliable: %d in 10,Fiable: %d de cada 10
+games.ui.read_by,%s reads you: %d in 10,%s te lee: %d de cada 10
+games.ui.ev,"Expected gold: %+.1f as it is, %+.1f doubling","Oro esperado: %+.1f así, %+.1f si doblas"
+games.ui.art_missing,Provisional art: %s,Arte provisional: %s
+games.ui.art_provisional,Provisional art: missing %s,Arte provisional: falta %s
+games.result.win,You win,Ganas
+games.result.lose,You lose,Pierdes
+games.result.draw,Nobody wins,No gana nadie
+games.result.gold,Gold %s,Oro %s
+games.result.house,The house keeps %d,La casa se queda %d
+games.result.refused,Not applied: %s,No se aplicó: %s
+games.result.nothing,Nothing changes,No cambia nada
+games.azar.name,Azar,Azar
+games.azar.rules,Three dice. 3-6 or 15-18 on the first throw is azar: the thrower wins. A middle number is the other's chance; then the thrower throws for his own (an azar now is reazar: he loses). Then he throws until one of the two chances comes.,Tres dados. Un 3-6 o un 15-18 en la primera tirada es azar: gana quien tira. Un número del medio es la suerte del otro; luego el que tira busca la suya (un azar ahora es reazar: pierde). Después tira hasta que salga una de las dos suertes.
+games.azar.action.double,Double,Doblar
+games.azar.action.double.hint,Double the stake: the other accepts or gives up what was at stake,Doblar la apuesta: el otro acepta o pierde lo que había
+games.azar.action.pass,Keep it,Dejarlo así
+games.azar.action.pass.hint,Play on at this stake,Seguir con esta apuesta
+games.azar.action.accept,Accept,Quiero
+games.azar.action.accept.hint,Play on at the double,Seguir al doble
+games.azar.action.refuse,Refuse,No quiero
+games.azar.action.refuse.hint,Lose the stake as it is and stop,Perder lo apostado y dejarlo
+games.azar.prompt.offer,Both chances are out: double?,Ya están las dos suertes: ¿doblas?
+games.azar.prompt.answer,%s doubles,%s dobla
+games.azar.how.azar,Azar on the first throw.,Azar en la primera tirada.
+games.azar.how.reazar,Reazar: an azar number when throwing for one's own chance.,Reazar: un número de azar al buscar la suerte propia.
+games.azar.how.chance,The winner's chance came out first.,Salió antes la suerte del ganador.
+games.azar.how.refused,The double was refused.,No se quiso el doble.
+games.azar.how.stuck,The dice would not decide: the thrower loses.,Los dados no se decidían: pierde quien tira.
+games.azar.result.win,%s wins at azar.,%s gana al azar.
+games.azar.result.lose,%s wins at azar.,%s gana al azar.
+games.azar.result.draw,Nobody wins.,No gana nadie.
+games.azar.ui.thrower,Throws: %s,Tira: %s
+games.azar.ui.chance,Chance of %s,Suerte de %s
+games.azar.ui.total,%d,%d
+games.azar.ui.earlier,Earlier throws,Tiradas de antes
+games.azar.ui.rolling,The dice roll,Ruedan los dados
+games.azar.ui.odds,Your chance comes first %d times in 100. Doubling pays from %d.,Tu suerte sale antes %d de cada 100 veces. Doblar compensa desde %d.
+games.azar.ui.odds_answer,Your chance comes first %d times in 100. Accepting pays from %d.,Tu suerte sale antes %d de cada 100 veces. Querer compensa desde %d.
+games.azar.ui.refuse_cost,Refusing costs %d,No querer cuesta %d
+games.mayor.name,Three dice to the highest,Tres dados a la mayor
+games.mayor.rules,"Three dice each, two in sight and one under the cup. All decide at once: retire (lose half) or go on (double or nothing). The highest of those who go on takes the pot.","Tres dados cada uno, dos a la vista y uno bajo el cubilete. Todos deciden a la vez: retirarse (pierde la mitad) o seguir (doble o nada). El más alto de los que siguen se lleva el bote."
+games.mayor.action.stay,Go on,Seguir
+games.mayor.action.stay.hint,Put the stake again: double or nothing,Poner otra vez la apuesta: doble o nada
+games.mayor.action.retire,Retire,Retirarse
+games.mayor.action.retire.hint,Take back half the stake,Recuperar la mitad de la apuesta
+games.mayor.prompt,Go on or retire?,¿Sigues o te retiras?
+games.mayor.how.alone,Only one went on: he takes the pot without showing.,Solo siguió uno: se lleva el bote sin enseñar.
+games.mayor.how.tie,A tie at the top: they share the pot.,Empate arriba: se reparten el bote.
+games.mayor.how.highest,The highest of those who went on takes the pot.,El más alto de los que siguieron se lleva el bote.
+games.mayor.how.all_retired,Everybody retired: all lose half.,Se retiraron todos: todos pierden la mitad.
+games.mayor.result.win,%s takes the pot.,%s se lleva el bote.
+games.mayor.result.lose,%s takes the pot.,%s se lleva el bote.
+games.mayor.result.draw,Nobody takes it whole.,Nadie se lo lleva entero.
+games.mayor.ui.shows,%d in sight,%d a la vista
+games.mayor.ui.odds,"If all go on, you take the pot %d times in 100 (ties shared).","Si siguen todos, te llevas el bote %d de cada 100 veces (los empates, a medias)."
+games.mayor.ui.ev,"Expected gold: %+.1f going on, %+.1f retiring","Oro esperado: %+.1f si sigues, %+.1f si te retiras"
+games.pulso.name,Arm wrestling,Pulso
+games.pulso.rules,"Three pushes; who takes two wins. Push beats give, give beats hold, hold beats push.","Tres empujes; gana quien se lleva dos. Empujar gana a ceder, ceder gana a aguantar y aguantar gana a empujar."
+games.pulso.action.push,Push,Empujar
+games.pulso.action.push.hint,All your strength: beats giving,Con toda la fuerza: gana a ceder
+games.pulso.action.give,Give,Ceder
+games.pulso.action.give.hint,Give way and roll his wrist: beats holding,Ceder y volcarle la muñeca: gana a aguantar
+games.pulso.action.hold,Hold,Aguantar
+games.pulso.action.hold.hint,Hold firm and get your breath: beats pushing,Aguantar firme y recobrar fuerza: gana a empujar
+games.pulso.cue.push,"His jaw tightens, the vein swells: he is going to push.",Aprieta la mandíbula y se le hincha la vena: va a empujar.
+games.pulso.cue.give,His wrist softens a little: he is going to give way.,La muñeca se le afloja un poco: va a ceder.
+games.pulso.cue.hold,He plants his elbow and breathes: he is going to hold.,Planta el codo y respira: va a aguantar.
+games.pulso.prompt.blind,The first push: nobody shows anything,El primer empuje: nadie enseña nada
+games.pulso.prompt.lead,You lead: choose first,Llevas la iniciativa: eliges primero
+games.pulso.prompt.read,%s leads: look at his face,%s lleva la iniciativa: mírale la cara
+games.pulso.ui.lead_text,%s will look at your face before choosing.,%s te mirará la cara antes de elegir.
+games.pulso.ui.blind_text,Choose without knowing what he will do.,Elige sin saber qué hará.
+games.pulso.ui.strength,Strength,Fuerza
+games.pulso.ui.pushes,Pushes,Empujes
+games.pulso.ui.log,Push %d: %s against %s · %s takes it,Empuje %d: %s contra %s · se lo lleva %s
+games.pulso.how.pushes,Two pushes of three.,Dos empujes de tres.
+games.pulso.result.win,%s lays the arm down.,%s tumba el brazo.
+games.pulso.result.lose,%s lays your arm down.,%s te tumba el brazo.
+games.pulso.result.draw,Nobody wins.,No gana nadie.
+games.ui.playing,…,…
+games.pulso.ui.pushing,They push!,¡Empujan!
+games.envite.name,Envite,Envite
+games.envite.rules,"Three cards each, three bazas uncovered one by one: the highest against the highest, then the middle ones, then the lowest. Before each baza you may raise; the other wants, raises again or folds. Watch his face: is he bluffing?","Tres cartas cada uno y tres bazas que se descubren una a una: la más alta contra la más alta, luego las del medio, luego las más bajas. Antes de cada baza se puede envidar; el otro quiere, sube o no quiere. Mírale la cara: ¿va de farol?"
+games.envite.action.raise,Raise,Envidar
+games.envite.action.raise.hint,Raise the stake by the starting bet,Subir la apuesta en lo que se apostó al principio
+games.envite.action.pass,Pass,Pasar
+games.envite.action.pass.hint,Do not raise,No envidar
+games.envite.action.want,I want,Quiero
+games.envite.action.want.hint,Accept the raise and play on,Aceptar el envite y seguir
+games.envite.action.reraise,Raise again,Subo
+games.envite.action.reraise.hint,Accept and raise again,Aceptar y subir otra vez
+games.envite.action.fold,I don't want,No quiero
+games.envite.action.fold.hint,Give up and lose what you put,Rendirse y perder lo puesto
+games.envite.say.raise,Raise!,¡Envido!
+games.envite.say.pass,Pass.,Paso.
+games.envite.say.want,I want.,Quiero.
+games.envite.say.reraise,And again!,¡Y subo!
+games.envite.say.fold,I don't want.,No quiero.
+games.envite.prompt.bet,Do you raise?,¿Envidas?
+games.envite.prompt.bet2,Do you raise?,¿Envidas?
+games.envite.prompt.answer,%s raises: do you want?,%s envida: ¿quieres?
+games.envite.prompt.answer2,%s raises: do you want?,%s sube: ¿quieres?
+games.envite.how.fold,One did not want the raise.,Uno no quiso el envite.
+games.envite.how.bazas,The bazas decided it.,Lo decidieron las bazas.
+games.envite.result.win,%s takes the hand.,%s se lleva la mano.
+games.envite.result.lose,%s takes the hand.,%s se lleva la mano.
+games.envite.result.draw,Nobody wins.,No gana nadie.
+games.envite.cue.pleased,%s looks pleased with his cards.,A %s se le ve contento con sus cartas.
+games.envite.cue.uneasy,%s looks uneasy.,A %s se le ve inquieto.
+games.envite.ui.odds,With your cards you win %d in 100.,Con tus cartas ganas %d de cada 100.
+games.envite.ui.odds_gesture,Counting his face: %d in 100.,Contando su cara: %d de cada 100.
+games.envite.ui.want_at,Wanting pays from %d,Querer compensa desde %d
+games.envite.ui.baza,Baza %d,Baza %d
+games.envite.ui.parda,Tie,Parda
+games.envite.ui.mano,Mano: %s,Es mano: %s
+games.envite.ui.playing,The cards speak,Hablan las cartas
+games.envite.ui.log_baza,Baza %d: %s against %s · %s,Baza %d: %s contra %s · %s
+games.envite.ui.log_say,%s: %s,%s: %s
+games.envite.card,%s of %s,%s de %s
+games.envite.rank.1,ace,as
+games.envite.rank.2,two,dos
+games.envite.rank.3,three,tres
+games.envite.rank.4,four,cuatro
+games.envite.rank.5,five,cinco
+games.envite.rank.6,six,seis
+games.envite.rank.7,seven,siete
+games.envite.rank.10,jack,sota
+games.envite.rank.11,knight,caballo
+games.envite.rank.12,king,rey
+games.envite.suit.oros,coins,oros
+games.envite.suit.copas,cups,copas
+games.envite.suit.espadas,swords,espadas
+games.envite.suit.bastos,clubs,bastos
+charge.cheat,cheating at games,trampa en el juego
+item.loaded_dice,Loaded dice,Dados cargados
+rep.reason.games_cheat,Caught cheating at games,Pillado haciendo trampa en el juego
+reason.bad_bet,That bet is not valid,Esa apuesta no vale
+reason.no_loaded_dice,You have no loaded dice,No llevas dados cargados
+reason.bad_option,That option does not fit this game,Esa opción no va con este juego
+games.bets.title,Bets,Apuestas
+games.bets.odds,Pays %.2f per gold,Paga %.2f por cada uno
+games.bets.chance,%d in 100,%d de cada 100
+games.bets.on,On: %s,Por: %s
+games.bets.none,No bet,Sin apuesta
+games.bets.result.won,Bet won: %s,Apuesta ganada: %s
+games.bets.result.lost,Bet lost: %s,Apuesta perdida: %s
+games.result.caught,%s saw the loaded dice!,¡%s ha visto los dados cargados!
+games.result.fraud,Somebody noticed you lost on purpose,Alguien se ha dado cuenta de que perdiste adrede
+games.how.caught,Caught with loaded dice: the game does not count.,Pillado con dados cargados: la partida no cuenta.
+games.bets.margin,The bookmaker keeps %d %% (the odds already count it),El corredor se queda el %d %% (las cuotas ya lo cuentan)
+games.bets.stake,Bet: %d,Apuesta: %d
+games.ui.watching,The game is played,Se juega la partida
+games.result.watched,The game is over,Se acabó la partida
+combat.kind.tourney,in three rounds,a tres asaltos
+combat.kind.tourney_sudden,sudden death,a muerte súbita
+rep.reason.games_prize,Won a competition,Ganó una competición
+rep.reason.games_finalist,Runner-up of a competition,Finalista de una competición
+games.preset.fighter_bellcaire,Guillem of Bellcaire,Guillem de Bellcaire
+games.preset.fighter_portvell,Nicolau the sailor,Nicolau el marinero
+games.preset.fighter_mercenary,The Navarrese mercenary,El mercenario navarro
+games.preset.fighter_smith,Ramon the farrier,Ramon el herrador
+games.preset.fighter_shepherd,Pau the shepherd,Pau el pastor
+games.preset.fighter_squire,The baron's squire,El escudero del barón
+games.preset.fighter_monk,Brother Bernat of Montsacre,Fray Bernat de Montsacre
+games.tourney.name,Fighting tournament,Torneo de lucha
+games.tourney.rules,"A knockout of eight: each bout is a duel in three rounds, a point a touch, no wounds. Equal points: sudden death, then the judges. The breath does not all come back between bouts.","Eliminatoria de ocho: cada combate es un duelo a tres asaltos, un punto por toque, sin heridas. Con los mismos puntos, muerte súbita y luego los jueces. El aliento no se recupera del todo entre combates."
+games.tourney.action.strike,Strike,Golpe
+games.tourney.action.strike.hint,Beats the feint,Gana a la finta
+games.tourney.action.parry,Parry,Parada
+games.tourney.action.parry.hint,Beats the strike and recovers breath,Gana al golpe y recupera aliento
+games.tourney.action.feint,Feint,Finta
+games.tourney.action.feint.hint,Beats the parry,Gana a la parada
+games.tourney.prompt,Your bout,Tu combate
+games.tourney.how.final,The final decided it.,Lo decidió la final.
+games.tourney.how.points,On points,A los puntos
+games.tourney.how.sudden,Sudden death,Muerte súbita
+games.tourney.how.judges,The judges' decision,Decisión de los jueces
+games.tourney.result.win,%s wins the tournament.,%s gana el torneo.
+games.tourney.result.lose,%s wins the tournament.,%s gana el torneo.
+games.tourney.result.draw,Nobody wins.,No gana nadie.
+games.tourney.round.quarter,Quarter-finals,Cuartos de final
+games.tourney.round.semi,Semi-finals,Semifinales
+games.tourney.round.final,Final,Final
+games.tourney.ui.asalto,Round %d of 3 · lance %d,Asalto %d de 3 · lance %d
+games.tourney.ui.sudden,Sudden death · lance %d,Muerte súbita · lance %d
+games.tourney.ui.out,You are out: the tournament goes on,Has caído: el torneo sigue
+games.tourney.ui.playing,The bouts are fought,Se luchan los combates
+games.tourney.ui.log_bout,%s beats %s (%d-%d · %s),%s vence a %s (%d-%d · %s)
+games.tourney.ui.weapon,With %s,Con %s
+games.result.prize,Prize: %d gold and reputation %s,Premio: %d de oro y reputación %s
+games.result.finalist,Runner-up: reputation %s,Finalista: reputación %s
+games.bets.short,%s %d %% (pays %.2f),%s %d %% (paga %.2f)
+games.bets.place,Bet (pays %.2f),Apostar (paga %.2f)

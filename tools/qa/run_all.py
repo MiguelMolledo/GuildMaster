@@ -14,7 +14,8 @@ idle_town, 2 semillas), kin (H14: un familiar con Comerciar aprovisiona la forja
 tailor (H12: el novato de cada oficio del Artesano en su partida nueva real en Normal, 10 semillas × 10 días; las 30
 semillas y las tres dificultades, a mano), cast (población: el novato con repartos generados, --cast=random, 10
 semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), duel (duelo: el bot duelista desde
-duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días). Con
+duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días), gambler (juegos: el bot jugador en
+games_gambler, 3 semillas × 8 días: pierde lo que marca el margen de la casa). Con
 --visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
 """
@@ -54,6 +55,8 @@ STEPS = [
     ("duel", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=duel_ready", "--bots=duelist", "--days=8", "--seeds=3"]),
     ("merchant", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=travel_start", "--bots=merchant", "--days=16",
                       "--seeds=10"]),
+    ("gambler", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=games_gambler", "--bots=gambler", "--days=8",
+                     "--seeds=3"]),
 ]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]

@@ -30,8 +30,9 @@ const TAXES: String = "taxes"
 const JUSTICE: String = "justice"
 const FAMILY: String = "family"
 const DONATIONS: String = "donations"
+const GAMES: String = "games"            # 04f §4.26: games, bets and competition prizes (sim/games/)
 const CATEGORIES: Array[String] = [MARKET_SALES, CONTRACTS, LOANS, COUNTER_SALES, EVENTS, PROPERTY, OFFICES, SERVICES,
-	LOOT, PURCHASES, ERRANDS, UPKEEP, WAGES, UPGRADES, FINES, TITLES, POLITICS, TAXES, JUSTICE, FAMILY, DONATIONS]
+	LOOT, PURCHASES, ERRANDS, UPKEEP, WAGES, UPGRADES, FINES, TITLES, POLITICS, TAXES, JUSTICE, FAMILY, DONATIONS, GAMES]
 
 
 ## The gold of a family (0 if it does not exist).

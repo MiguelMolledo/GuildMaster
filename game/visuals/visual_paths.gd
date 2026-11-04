@@ -308,6 +308,25 @@ static func duel_illustration(id: String, small: bool = false) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
+## Juegos (04f §4.26, §4.28.3): a piece of a game's screen, assets/art/ui/games/<game>/<id>.png (the dice, the table,
+## the cards, the lists, the horses...). null until the art arrives: the board draws its greybox with a label.
+static func game_art(game: String, id: String) -> Texture2D:
+	var p := "%s/ui/games/%s/%s.png" % [ART_ROOT, game, id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## Juegos: the icon of a game (assets/art/ui/icons/game_<game>.png, `small` from small/), null until it exists.
+static func game_icon(game: String, small: bool = false) -> Texture2D:
+	var p := "%s/ui/icons/%sgame_%s.png" % [ART_ROOT, "small/" if small else "", game]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## Juegos: the illustration of a game's result or of a competition (assets/art/illustrations/events/<id>.png, 240×135;
+## `small`: <id>_192.png, 192×108), shared with the fiestas' cards. null until it exists.
+static func game_illustration(id: String, small: bool = false) -> Texture2D:
+	return illustration("events", id, small)
+
+
 ## The ground texture of a tile kind (data/tiles.json): assets/art/tiles/<kind>.png (null until it exists: the ground
 ## keeps the kind's greybox colour).
 static func tile(kind: String) -> Texture2D:
