@@ -8,7 +8,7 @@ Las cifras marcadas **[balance]** son valores iniciales: se ajustan con bots con
 documento cambia o precisa algo de 4.22 (o de otra sección) se dice explícitamente (resumen en 4.22.1). Lo que solo
 puede decidir el owner está al final, en 4.22.11.
 
-Dependencias: parte del código de hoy (guardado **v13**, que trae las estaciones y eventos de H13, `Loan` de H3, ladrón nocturno de H7, tribunal de H11,
+Dependencias: parte del código de hoy (guardado **v14**, que trae las estaciones y eventos de H13 y el reparto de población, `Loan` de H3, ladrón nocturno de H7, tribunal de H11,
 necesidades de H14). **No cambia 04c** (IA rival, esperando al owner) ni las parcelas y la construcción de H6: se diseña
 para que encaje con ellas (4.22.6.10 y 4.22.4.1).
 
@@ -181,11 +181,11 @@ Viajeros que llegan por el camino. Son los clientes de la Posada y las víctimas
 - Un forastero robado en el camino llega a la ciudad igual y denuncia si vio al autor (4.22.3.5).
 - Se borran al salir del mapa; `state.town.visitors` guarda solo los vivos (como mucho 12).
 
-#### 4.22.3.7 Guardado (v14)
+#### 4.22.3.7 Guardado (v15)
 
 Una sola migración para todo H12 [la versión real será la siguiente libre cuando se implemente].
 
-| Dónde | Campo nuevo | Migración desde v13 |
+| Dónde | Campo nuevo | Migración desde v14 |
 |---|---|---|
 | Personaje | `health: {wounded_until: -1, sick_until: -1, severity: 0}` | sano |
 | Edificio | `fields: {zone → field}` (4.22.4.1) | `{}` |
@@ -198,7 +198,7 @@ Una sola migración para todo H12 [la versión real será la siguiente libre cua
 | Raíz `justice.facts` | `public`, `seen_by`, `victim_family`, `value` (sin subir versión, regla de H11) | `public: true` (los de H11 ya lo eran), `[]`, `""`, 0 |
 | Inventarios | ids `<item>@stolen` (4.22.6.4) | ninguno |
 
-Prueba de ida y vuelta con un guardado v13 de `tests/data/saves/` y con un escenario de cada clase.
+Prueba de ida y vuelta con un guardado v14 de `tests/data/saves/` y con un escenario de cada clase.
 
 #### 4.22.3.8 Órdenes nuevas
 
@@ -957,7 +957,7 @@ pruebas, su bot y su escenario de test (`tools/scenarios/`).
 
 | Bloque | Entra | Pruebas (GUT, `tests/test_*.gd`) |
 |---|---|---|
-| **H12.0 Base común** | v14 y migración; recetas `field`/`service` y `stat`; `demand_weight`; `Services` (demanda, elección, visita, efectos); `health`; `Watch.observe`; forasteros; `Loan` ampliado | Ida y vuelta v13 → v14; elección de proveedor con semilla (más barato = más clientes); conservación con las categorías nuevas; `demand_weight` no cambia la espada |
+| **H12.0 Base común** | v15 y migración; recetas `field`/`service` y `stat`; `demand_weight`; `Services` (demanda, elección, visita, efectos); `health`; `Watch.observe`; forasteros; `Loan` ampliado | Ida y vuelta v14 → v15; elección de proveedor con semilla (más barato = más clientes); conservación con las categorías nuevas; `demand_weight` no cambia la espada |
 | **H12.1 Patrón** | Granja (campos, corral), Molino, Panadería, Carnicería, Taberna, Posada; `livestock`; inicio `patron_farmer`; bots | Ciclo del trigo (siembra día 1 → listo día 5, invierno 0, podrido a los 2 días, interrumpir devuelve la semilla); ganado (pienso de invierno, muerte a los 2 días, cría); taberna de noche con empleados |
 | **H12.2 Erudito** | Consulta, Iglesia, Botica, Herbolario, Scriptorium, Banco; solicitudes, cuotas, impago, garantía, prestamista; inicio `scholar_physician`; bots | Curar (tirada y tiempos); misa a horas fijas con donativos; préstamo: cuotas, impago, reclamar (60 / 30 %), embargo a familia jugadora para el banquero; la deuda inicial de H3 sigue igual |
 | **H12.3 Pícaro** | Combate, guardias y patrullas, detención, carterista, robo, `@stolen`, perista, blanquear, espía, chantaje, Nido y rehenes, Cuartel y contratos; cargos; inicio `rogue_thief`; bots | Combate (200 semillas: 7 vs 3 gana ≥ 90 %, vs guardia < 35 %); vista de noche < de día; detención y sus 4 respuestas; `@stolen` rechazado en mercado y recetas; tope del perista; ladrón de H7 con guardias |

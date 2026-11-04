@@ -557,8 +557,8 @@ def _col(im, x):
 
 
 def measure_ribbon(im):
-    """Remates de la cinta (columnas desde cada lado que no son iguales a la columna central) y la franja del texto
-    (filas opacas de la columna central entre las dos líneas de borde)."""
+    """Remates de la cinta (columnas desde cada lado que no son iguales a la columna central), la franja del texto
+    (filas opacas de la columna central entre las dos líneas de borde) y el paño (dónde empieza la tela lisa)."""
     W, H = im.size
     mid = _col(im, W // 2)
     left = 0
@@ -584,8 +584,15 @@ def measure_ribbon(im):
         if z - y > best[1] - best[0]:
             best = (y, z)
         y = z + 1
+    # el paño: desde cada lado, la primera columna igual a la central en toda la franja del texto (dentro del remate
+    # la tela ya es lisa; el texto puede entrar ahí sin pisar la cola ni la sombra del pliegue)
+    def plain(x):
+        return all(im.getpixel((x, y)) == mid[y] for y in range(best[0], best[1] + 1))
+    cloth_l = next((x for x in range(W // 2) if plain(x)), left)
+    cloth_r = next((k for k in range(W // 2) if plain(W - 1 - k)), right)
     return {"cap": {"left": left, "right": right}, "edge": {"top": top, "bottom": bottom},
-            "text": {"top": best[0], "bottom": H - 1 - best[1]}, "width": W, "height": H}
+            "text": {"top": best[0], "bottom": H - 1 - best[1]}, "cloth": {"left": cloth_l, "right": cloth_r},
+            "width": W, "height": H}
 
 
 def normalize_ribbon(im):

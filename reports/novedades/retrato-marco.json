@@ -1,0 +1,12 @@
+{
+  "fecha": "2026-11-04",
+  "titulo": "Los retratos, en un marco de cuadro",
+  "que": "Queja del owner: los retratos iban en un cuadrado con borde. Ahora PortraitFrame, el componente que usan todos (HUD, carta de boda y de sucesión, ficha de personaje y de vecino, árbol familiar, cortejo, empleados, cargos, juicio, rivales, final), los pone en un marco de cuadro de madera tallada con filete y remates dorados en las esquinas: dorado entero si es el activo, madera con filete de oro si se controla, madera con filete de bronce los demás. Dos tamaños dibujados a su medida con Pillow (tools/art/marco_retrato.py, paleta del marco de la Lámina; sus esquinas de 32 px no cabían a 32-64): 38 para el retrato de 32 y 76 para el de 64; la boda, la sucesión, la ficha del árbol y la Partida nueva usan el grande en vez de escalar el pequeño ×2. La Partida nueva, que pintaba su retrato con un borde propio, pasa a PortraitFrame. El color de la familia, que iba en el anillo interior, va ahora en una placa al pie del marco (principal sobre una franja de la secundaria). El marco no tapa la cara ni recorta el retrato: solo los remates entran en sus esquinas. No cambia qué imagen sale (población). Gasto: 0.",
+  "como_probar": "Partida nueva y mirar el HUD arriba a la izquierda; abrir la ficha (I) y el árbol (F). Capturas: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=pagina (boda), --smoke-script=paneles (ficha) y --smoke-script=social (árbol, sucesión, vecino, cortejo, cargos, juicio). Pruebas: godot --headless --path . -s tests/run_tests.gd -- --only=test_ui_portrait_frame. Redibujar el marco: python3 tools/art/marco_retrato.py.",
+  "capturas": [
+    "docs/novedades/kit_pagina_boda.png",
+    "docs/novedades/retrato_marco_ficha.png",
+    "docs/novedades/retrato_marco_arbol.png",
+    "docs/novedades/retrato_marco_sucesion.png"
+  ]
+}

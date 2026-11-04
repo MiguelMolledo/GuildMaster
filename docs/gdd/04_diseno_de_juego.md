@@ -366,7 +366,7 @@ mod_estación (por categoría):
   Verano:    alimentos ×0,7, textiles ×0,9
   Otoño:     madera ×1,2
   Invierno:  alimentos ×1,5, construcción ×1,3, medicina ×1,4
-mod_evento: hambruna alimentos ×2,5 · epidemia medicina ×3,0 · guerra armas ×2,0 y alimentos ×1,5
+mod_evento: hambruna alimentos ×2,5 · epidemia medicina ×3,0 · guerra armas ×1,5 (era ×2,0; owner, 2026-11-03) y alimentos ×1,5
 mod_negociación: descuento del 1 % por punto de Negociación por encima de 5 [propuesta]
 demanda: oferta/demanda reales de la ciudad, límites [0,3 ; 3,0]
 ```
@@ -849,7 +849,7 @@ Espionaje (observar NPC, descubrir secretos), sabotaje de negocios, chantaje, fa
 |---|---|---|
 | Hambruna | Producción agrícola -50 %, alimentos ×2,5, posibles muertes | 2 estaciones |
 | Epidemia | Mortalidad +30 %, medicina ×3, negocios cierran, NPC débiles asustados | 1-2 estaciones |
-| Guerra regional | Rutas cortadas, armas ×2, alimentos ×1,5, lujo baja | 1 año |
+| Guerra regional | Rutas cortadas, armas ×1,5 (era ×2), alimentos ×1,5, lujo baja | 1 año |
 | Buena cosecha | Alimentos bajan | 1 estación |
 | Fiesta popular | Taberna/posada más demanda, NPC inspirados | 1 día |
 | Festividad religiosa | Cambia rutinas y demanda | 1 día |
@@ -860,7 +860,7 @@ Espionaje (observar NPC, descubrir secretos), sabotaje de negocios, chantaje, fa
 
 Los eventos son **datos** (disparador, probabilidad por estación, efectos declarativos, duración, texto). El Alcalde puede declarar algunos. Con D1(b) una estación son 2 días: un evento local (fiesta, visita) no puede durar más que la estación en la que cae.
 
-**Implementado en H13 (parte 1)** [provisional, balance]: `data/seasons.json` (grupos de objetos: alimentos, agricultura, textiles, madera, construcción, medicina, armas, lujo; los `mod_estación` de 4.5.3; la producción por estación vale 1 en todas) y `data/events.json` (los 10 eventos). Reglas: una tirada al empezar cada estación para los eventos de estación y una cada día para los locales; como mucho un evento nuevo por tirada, 3 a la vez y 1 local; el azar sale de la semilla por clave. Activos: hambruna, epidemia, guerra, buena cosecha, fiesta, festividad religiosa y visita de dignatario, con los efectos que ya existen (precio, demanda, producción, clientes del mostrador, horas de recado, mortalidad de la tirada anual). Desactivados con su motivo: revuelta (no hay daño de edificios), crisis política (no hay elecciones extraordinarias) y descubrimiento (no hay técnicas ni objetos obsoletos). El Alcalde declara la fiesta y la festividad (poder `declare_event`, enfriamiento 1 año). Las cifras sin número en esta tabla (probabilidades, «alimentos bajan» ×0,7, clientes ×0,7-1,5, demanda ×0,8-1,3, mortalidad ×1,2 en la hambruna) son propuestas a ajustar con el owner.
+**Implementado en H13 (parte 1)** [provisional, balance]: `data/seasons.json` (grupos de objetos: alimentos, agricultura, textiles, madera, construcción, medicina, armas, lujo; los `mod_estación` de 4.5.3; la producción por estación vale 1 en todas) y `data/events.json` (los 10 eventos). Reglas: una tirada al empezar cada estación para los eventos de estación y una cada día para los locales; como mucho un evento nuevo por tirada, 3 a la vez y 1 local; el azar sale de la semilla por clave. Activos: hambruna, epidemia, guerra, buena cosecha, fiesta, festividad religiosa y visita de dignatario, con los efectos que ya existen (precio, demanda, producción, clientes del mostrador, horas de recado, mortalidad de la tirada anual). Desactivados con su motivo: revuelta (no hay daño de edificios), crisis política (no hay elecciones extraordinarias) y descubrimiento (no hay técnicas ni objetos obsoletos). El Alcalde declara la fiesta y la festividad (poder `declare_event`, enfriamiento 1 año). Las cifras sin número en esta tabla (probabilidades, «alimentos bajan» ×0,7, clientes ×0,7-1,5, demanda ×0,8-1,3, mortalidad ×1,2 en la hambruna) las aceptó el owner el 2026-11-03 tal cual, salvo la guerra (armas ×1,5 en vez de ×2). La producción por estación sigue a 1 hasta que haya cifras.
 
 Los **microeventos** (cliente que regatea, empleado enfermo, ladrón nocturno) son eventos pequeños de un edificio o personaje que llegan antes, en H7: ver 4.20.
 

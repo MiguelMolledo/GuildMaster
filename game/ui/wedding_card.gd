@@ -60,12 +60,8 @@ func data_for(sim: Sim, e: Dictionary, events: Array = []) -> Dictionary:
 	for pair: Array in [["left_node", a], ["right_node", b]]:
 		if st.characters.has(str(pair[1])):
 			var p := SocialKit.portrait(st, str(pair[1]))
-			p.scale = Vector2(2, 2)
-			var holder := Control.new()  # a scaled Control keeps its unscaled size in containers: reserve the ×2
-			holder.custom_minimum_size = p.custom_minimum_size * 2.0 if p.custom_minimum_size != Vector2.ZERO \
-				else Vector2(80, 80)
-			holder.add_child(p)
-			people[pair[0]] = holder
+			p.set("big", true)  # the portrait ×2 in the big picture frame
+			people[pair[0]] = p
 	var items: Array = []
 	for l: String in lines:
 		items.append({"text": l, "sign": ""})

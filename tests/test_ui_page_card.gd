@@ -1,8 +1,9 @@
 extends "res://tests/test_case.gd"
 ## The page kit (docs/ui/04_kit_de_pagina.md): each template of PageCard creates its nodes; no text of a page lands
-## outside the safe area measured on its background; without the kit (or without one piece) the card falls back to the
-## pieces of the theme of today; the chosen variants alternate card after card; the event card says the event's name,
-## its effects and how long it lasts.
+## outside the safe area measured on its background; the title's ribbon is mounted on the page's top edge (half of it
+## above the parchment) and its text fits the ribbon's cloth; without the kit (or without one piece) the card falls back
+## to the pieces of the theme of today; the chosen variants alternate card after card; the event card says the event's
+## name, its effects and how long it lasts.
 
 const SCENE := "res://game/ui/page_card.tscn"
 const ILL := "res://assets/art/ui/page_kit/piloto/event_war.png"
@@ -49,10 +50,10 @@ func _rect_in(card: Control, c: Control) -> Rect2:
 
 
 func test_each_template_creates_its_nodes() -> void:
-	var want := {"card": ["Head", "Illustration", "Ribbon", "RibbonText", "Footer", "Seal", "Button_ok", "Cartouche"],
-		"plate": ["Plate", "Illustration", "RibbonRow", "Ribbon", "TextBand", "Veil", "Frame", "Button_ok"],
+	var want := {"card": ["Illustration", "Ribbon", "RibbonText", "Footer", "Seal", "Button_ok", "Cartouche"],
+		"plate": ["Plate", "Illustration", "Ribbon", "TextBand", "Veil", "Frame", "Button_ok"],
 		"sheet": ["Top", "Portrait", "Side", "Ribbon", "Footer", "Corner0", "Corner3"],
-		"notice": ["Head", "Illustration", "Ribbon", "Frame", "Footer"]}
+		"notice": ["Illustration", "Ribbon", "Frame", "Footer"]}
 	for t: String in want:
 		var c := _card()
 		c.build(_data(t))
@@ -95,7 +96,10 @@ func test_no_text_outside_the_safe_area() -> void:
 		if t != "plate":
 			eq(int(c.custom_minimum_size.x) - int(c.safe["left"]) - int(c.safe["right"]), c.column_width,
 				"%s: the column is the card minus the safe area" % t)
+		var ribbon := c.find_child("Ribbon", true, false) as Control
 		for l: Control in texts:
+			if ribbon.is_ancestor_of(l):  # the title on the ribbon: on the edge, checked in test_ribbon_on_the_top_edge
+				continue
 			check(body.is_ancestor_of(l), "%s: «%s» is inside the safe area (Body)" % [t, str(l.get("text")).left(24)])
 			check(not decor.is_ancestor_of(l), "%s: no text in the decoration" % t)
 			check(l.custom_minimum_size.x <= c.column_width, "%s: «%s» fits the column (%d <= %d)" % [t,
@@ -111,6 +115,91 @@ func test_no_text_outside_the_safe_area() -> void:
 			eq(int(c2.safe["left"]), int(v["content_margin"]["left"]), "left margin = the measured one")
 			eq(int(c2.safe["top"]), int(v["content_margin"]["top"]), "top margin = the measured one")
 	c2.free()
+
+
+## What `l` (a RibbonText) needs on screen: {w, h} with the font of its variation (no window: no Label sizes).
+func _ribbon_text_size(l: Label, width: float) -> Vector2:
+	var th := PageKit.theme()
+	var font := th.get_font("font", l.theme_type_variation)
+	var fs := th.get_font_size("font_size", l.theme_type_variation)
+	if l.autowrap_mode == TextServer.AUTOWRAP_OFF:
+		return Vector2(font.get_string_size(l.text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x, font.get_height(fs))
+	var sz := font.get_multiline_string_size(l.text, HORIZONTAL_ALIGNMENT_CENTER, width, fs, -1,
+		TextServer.BREAK_MANDATORY | TextServer.BREAK_WORD_BOUND)
+	var n := int(roundf(sz.y / font.get_height(fs)))
+	return Vector2(sz.x, n * font.get_height(fs) + (n - 1) * th.get_constant("line_spacing", l.theme_type_variation))
+
+
+## Every template: the ribbon is centred on the page's top edge, part of it above the parchment (about half) and the
+## rest over it; the column starts under it (no block under the ribbon); the title fits the ribbon's cloth in width and
+## height, in the big gothic letter when it fits. A long title in the narrow notice takes the smaller letter (or two
+## lines) and still fits; one that fits nowhere is cut with «…» inside the ribbon.
+func test_ribbon_on_the_top_edge() -> void:
+	var titles := {"card": "Festividad religiosa", "plate": "Fiesta popular", "sheet": "Agnès Ferrer",
+		"notice": "Fiesta popular"}
+	for t: String in titles:
+		for turn: int in 2:  # both ribbons of the kit
+			var c := _card()
+			for _i: int in turn:
+				PageKit.variant("ribbon")
+			var d := _data(t)
+			d["title"] = titles[t]
+			c.build(d)
+			var r := c.find_child("Ribbon", true, false) as PanelContainer
+			check(r != null and (c.find_child("Decor", true, false) as Control).is_ancestor_of(r),
+				"%s: the ribbon is over the page (Decor)" % t)
+			if r == null:
+				c.free()
+				continue
+			var h := r.custom_minimum_size.y
+			var w := r.custom_minimum_size.x
+			eq(r.anchor_left, 0.5, "%s: centred" % t)
+			eq(r.offset_left, -r.offset_right, "%s: centred on the card" % t)
+			check(r.offset_top < 0.0, "%s: the ribbon rises above the parchment (top %d)" % [t, int(r.offset_top)])
+			check(r.offset_bottom > 0.0, "%s: and is mounted on its edge (bottom %d)" % [t, int(r.offset_bottom)])
+			check(-r.offset_top >= h * 0.4 and -r.offset_top <= h * 0.6, "%s: about half outside (%d of %d)" % [t,
+				int(-r.offset_top), int(h)])
+			eq(c.ribbon_overhang, int(-r.offset_top), "%s: ribbon_overhang says how much" % t)
+			check(w <= float(c.custom_minimum_size.x if t != "plate" else 516) - 24.0, "%s: narrower than the card" % t)
+			if t != "plate":
+				check(int(c.safe["top"]) >= int(r.offset_bottom) + PageCard.RIBBON_GAP,
+					"%s: the column starts under the ribbon (top %d, ribbon to %d)" % [t, int(c.safe["top"]),
+					int(r.offset_bottom)])
+			var l := r.get_node("RibbonText") as Label
+			eq(l.text, titles[t], "%s: the title on the ribbon" % t)
+			eq(l.theme_type_variation, &"PageRibbon", "%s: «%s» in the big letter" % [t, titles[t]])
+			var st := r.get_theme_stylebox("panel") as StyleBoxTexture
+			var cloth := Vector2(w - st.content_margin_left - st.content_margin_right,
+				h - st.content_margin_top - st.content_margin_bottom)
+			var need := _ribbon_text_size(l, cloth.x)
+			check(need.x <= cloth.x and need.y <= cloth.y, "%s (%s): the text %s fits the cloth %s" % [t,
+				c.parts.get("ribbon", ""), need, cloth])
+			c.free()
+	# a long title in the notice: a smaller letter, and still inside the cloth
+	for title: String in ["Familia, cortejo y herencia · 12/14", "Oficio: carpintero · 10/12",
+			"Una crónica larguísima que no cabe de ninguna manera en una cinta tan corta como esta"]:
+		var c := _card()
+		var d := _data("notice")
+		d["ribbon"] = title
+		c.build(d)
+		var r := c.find_child("Ribbon", true, false) as PanelContainer
+		var l := r.get_node("RibbonText") as Label
+		var st := r.get_theme_stylebox("panel") as StyleBoxTexture
+		var cloth := Vector2(r.custom_minimum_size.x - st.content_margin_left - st.content_margin_right,
+			r.custom_minimum_size.y - st.content_margin_top - st.content_margin_bottom)
+		check(r.custom_minimum_size.x <= 236.0 - 24.0, "notice: «%s» on a ribbon inside the notice" % title.left(20))
+		eq(l.theme_type_variation, &"PageRibbonSmall", "notice: «%s» in the smaller letter" % title.left(20))
+		if l.text_overrun_behavior == TextServer.OVERRUN_NO_TRIMMING:
+			var need := _ribbon_text_size(l, l.custom_minimum_size.x if l.custom_minimum_size.x > 0 else cloth.x)
+			check(need.x <= cloth.x and need.y <= cloth.y, "notice: «%s» %s fits the cloth %s" % [title.left(20), need,
+				cloth])
+			if l.autowrap_mode != TextServer.AUTOWRAP_OFF:  # a wrapped label asks for all its lines (else it shows none)
+				check(not l.clip_text and l.custom_minimum_size.y >= need.y, "notice: «%s» asks for its %d px of lines" % [
+					title.left(20), int(need.y)])
+		else:
+			check(title.length() > 60, "only a title that fits nowhere is cut («%s»)" % title.left(20))
+			check(l.clip_text, "the cut title does not leave the ribbon")
+		c.free()
 
 
 func test_missing_pieces_fall_back_to_the_theme() -> void:
@@ -185,7 +274,7 @@ func test_event_page_data() -> void:
 		if str(b["type"]) == "effects":
 			fx = b["items"]
 	eq(fx.size(), 4, "the four effects of the war")
-	eq(str(fx[0]["text"]), "Armas: precio ×2", "price of weapons")
+	eq(str(fx[0]["text"]), "Armas: precio ×1.5", "price of weapons")
 	eq(str(fx[3]["sign"]), "-", "slower errands hurt")
 	eq(str(d["footer_figures"][0]["value"]), "Dura 4 estaciones", "how long it lasts")
 	eq(str(d["buttons"][0]["text"]), "Entendido", "the button")

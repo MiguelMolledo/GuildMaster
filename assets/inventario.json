@@ -2379,6 +2379,19 @@
       "notas": "Kit de página piloto (docs/ui/04_kit_de_pagina.md, tools/art/kit_pagina.py): pergamino rasgado claro (2 apaisados, 1 vertical) y cuero oscuro (solo decorativo), marco de cuadro (2), marco de caja (2), esquina, cinta (2), separador (2), cartucho, texturas clara y oscura, máscaras de pincel tramadas (pie 240 y 192, esquina, lateral; 3 de cada) y velo. kit.json: medidas (9 trozos, zona segura, remates y franja de la cinta, hueco del cartucho) y variantes elegidas. Lo usan game/ui/page_kit.gd y page_card.gd. Gasto: 1,25 USD (assets/art/ui/page_kit/gasto.json, MANIFEST)."
     },
     {
+      "id": "ui_portrait_frame",
+      "tipo": "ui",
+      "estado": "concepto",
+      "para": [
+        "UI"
+      ],
+      "ruta": "assets/art/ui/portrait_frame/",
+      "origen": "Pillow (tools/art/marco_retrato.py) con la paleta de page_kit/plate_frame",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Marco de cuadro de los retratos (PortraitFrame): frame_s_* 38×38 (listón 3, retrato 32) y frame_l_* 76×76 (listón 6, retrato 64), acabados gold (activo), wood (controlable) y dark (los demás). 9 trozos con el remate de la esquina de margen (5 y 9). Sustituye a los marcos portrait_normal/active/dim del theme en los retratos (siguen para otros usos)."
+    },
+    {
       "id": "ui_page_pilot_art",
       "tipo": "ui",
       "estado": "concepto",
