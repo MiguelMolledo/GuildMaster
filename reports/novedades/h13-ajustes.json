@@ -1,0 +1,7 @@
+{
+  "fecha": "2026-11-03",
+  "titulo": "Guerra regional más suave: armas ×1.5",
+  "que": "El owner aceptó las cifras de los eventos globales tal cual, salvo la guerra regional: ahora sube las armas ×1.5 en vez de ×2 (data/events.json, GDD 4.5.3 y 4.13). La producción por estación sigue a 1 hasta que haya cifras. Medidas las dianas largas (H5 con 30 semillas y los títulos) con eventos activados (--events=on).",
+  "como_probar": "Escenario season_events (guerra en curso): /opt/homebrew/bin/godot --path . -- --scenario=season_events --at=10:00; en el mercado, la línea bajo la espada dice «Guerra regional: armas ×1.5». Sim con eventos: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=events --days=80 --seeds=2.",
+  "capturas": []
+}

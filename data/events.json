@@ -45,12 +45,12 @@
       "excludes": [],
       "declarable": false,
       "effects": [
-        {"kind": "price", "group": "weapons", "mult": 2.0},
+        {"kind": "price", "group": "weapons", "mult": 1.5},
         {"kind": "price", "group": "food", "mult": 1.5},
         {"kind": "demand", "group": "luxury", "mult": 0.8},
         {"kind": "errands", "mult": 1.5}
       ],
-      "_doc": "1 año = 4 estaciones. «Rutas cortadas» = los recados tardan ×1,5."
+      "_doc": "1 año = 4 estaciones. «Rutas cortadas» = los recados tardan ×1,5. Armas ×1,5 (era ×2 en el GDD; decisión del owner 2026-11-03: con ×2 la forja ganaba de más durante todo un año)."
     },
     "good_harvest": {
       "enabled": true,

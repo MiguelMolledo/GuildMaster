@@ -32,7 +32,7 @@ static func data_for(sim: Sim, e: Dictionary) -> Dictionary:
 		"seconds": float(ViewConfig.value("event_card_seconds", 12.0)), "event": id}
 
 
-## One effect of data/events.json as {text, sign}: «Armas: precio ×2». sign "+" helps, "-" hurts, "" depends on
+## One effect of data/events.json as {text, sign}: «Armas: precio ×1.5». sign "+" helps, "-" hurts, "" depends on
 ## whether one buys or sells (prices, demand).
 static func effect_line(fx: Dictionary) -> Dictionary:
 	var kind := str(fx.get("kind", ""))

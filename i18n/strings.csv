@@ -1596,7 +1596,7 @@ event.famine.desc,"farming at half speed, food ×2.5, more deaths","la producci�
 event.epidemic,Epidemic,Epidemia
 event.epidemic.desc,"mortality +30 %, medicine ×3, fewer customers","mortalidad +30 %, medicina ×3 y menos clientes"
 event.war,Regional war,Guerra regional
-event.war.desc,"weapons ×2, food ×1.5, slower errands, luxury sells less","armas ×2, alimentos ×1.5, recados más lentos y el lujo se vende menos"
+event.war.desc,"weapons ×1.5, food ×1.5, slower errands, luxury sells less","armas ×1.5, alimentos ×1.5, recados más lentos y el lujo se vende menos"
 event.good_harvest,Good harvest,Buena cosecha
 event.good_harvest.desc,food is cheaper (×0.7),"los alimentos bajan (×0.7)"
 event.festival,Town festival,Fiesta popular
