@@ -25,7 +25,8 @@ static func theme_color(type: StringName, color: StringName) -> Color:
 	return t.get_color(color, type) if t != null and t.has_color(color, type) else Color.MAGENTA
 
 
-## A portrait (32 inside a 40 frame) of `chr` with its family's border. flags as PortraitFrame.show_character.
+## A portrait (32 inside the 38 picture frame; `big` on it: 64 in 76) of `chr` with its family's plaque. flags as
+## PortraitFrame.show_character.
 static func portrait(state: WorldState, chr: String, flags: Dictionary = {}) -> Control:
 	var p: Control = (load(PORTRAIT) as PackedScene).instantiate()
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE

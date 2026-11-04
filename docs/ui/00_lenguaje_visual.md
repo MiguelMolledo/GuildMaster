@@ -65,8 +65,14 @@ el resto son sus tonos claros y oscuros, sin colores nuevos.
 Reglas:
 - Fondo de panel siempre opaco (`seccion`). Translúcido solo el velo de los modales (`velo` al 50-60 %).
 - Las cifras de oro van en negrita y `oro_claro` con el icono de oro; las diferencias con signo y color (`+42`, `−16`).
-- El color de la familia (del sim, `families.<id>.colors`) solo aparece en el borde interior del retrato y en el sello
-  de la familia, nunca como fondo de un panel.
+- El color de la familia (del sim, `families.<id>.colors`) solo aparece en la placa al pie del marco del retrato
+  (principal sobre una franja de la secundaria) y en el sello de la familia, nunca como fondo de un panel.
+- **Retratos en marco de cuadro** (`PortraitFrame`, `assets/art/ui/portrait_frame/`, `tools/art/marco_retrato.py`):
+  madera tallada con filete y remates dorados en las esquinas, como un cuadro colgado; nunca un cuadrado con borde.
+  Dos tamaños dibujados a su medida (no se escala el pequeño): 38×38 con listón de 3 para el retrato de 32 y 76×76
+  con listón de 6 para el de 64 (`big`). Dorado entero si está activo, madera con filete de oro si se controla, madera
+  con filete de bronce los demás. Solo los remates de las esquinas entran en el retrato (en sus esquinas, lejos de la
+  cara) y la placa va al pie, sobre los hombros.
 
 ## 4. Superficies y marcos
 
@@ -89,7 +95,7 @@ Un panel dentro de otro no lleva otro marco de madera: usa una sección oscura o
 | Encima (ratón o foco de teclado) | Filo de oro, madera más clara, texto oro claro | `button_hover` |
 | Pulsado / activo (velocidad elegida, pestaña abierta) | Hundido: sombra arriba, el texto baja 1 px | `button_pressed` |
 | Desactivado | Apagado, sin relieve, texto `texto_apagado` **y el motivo al lado** en `negativo` | `button_disabled` |
-| Seleccionado (fila, retrato) | Fondo `madera`, franja de oro de 1 px a la izquierda; retrato con marco de oro | `portrait_active` |
+| Seleccionado (fila, retrato) | Fondo `madera`, franja de oro de 1 px a la izquierda; retrato con el marco de cuadro dorado | `portrait_active` (fila), `portrait_frame/frame_*_gold` (retrato) |
 | Peligro (acción cara o irreversible) | Normal, pero abre confirmación: título con la pregunta, coste en cifras y «No se puede deshacer» en `aviso` | — |
 
 El foco de teclado usa el mismo aspecto que «encima»: así se puede jugar sin ratón en los menús.
