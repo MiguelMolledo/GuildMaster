@@ -469,7 +469,7 @@ static func _later_rng(st: WorldState, key: String) -> RandomNumberGenerator:
 	return r
 
 
-# --- Portraits of the pool (Catalog.portrait_pool, assets/art/portraits/README.md) ---------------------------------
+# --- Portraits of the pool (Catalog.portrait_pool = data/portraits.json, exported from the pool index) -----------------
 
 ## The age band of `age` (data/cast.json portraits.stages, the pool's: under 6 is child).
 static func stage_of(catalog: Catalog, age: int) -> String:
