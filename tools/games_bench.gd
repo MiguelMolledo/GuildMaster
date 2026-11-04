@@ -28,7 +28,7 @@ func _init() -> void:
 			print("[GamesBench] --set %s = %s" % [kv[0], kv[1]])
 	GameMatch.verbose = false
 	print("[GamesBench] %d partidas por fila" % n)
-	for g: String in ["azar", "mayor", "pulso", "envite", "tourney"]:
+	for g: String in ["azar", "mayor", "pulso", "envite", "tourney", "joust", "sortija", "race", "bulls"]:
 		if only.is_empty() or g in only:
 			call("_bench_" + g)
 	quit(0)
@@ -232,3 +232,138 @@ func _bench_tourney() -> void:
 				var a := act
 				_trow("Arte Marcial 5 · Siempre %s" % act, ps, func(m: GameMatch, _v: Dictionary) -> String:
 					return a if a in m.allowed(0) else "parry")
+
+
+# --- Justa -------------------------------------------------------------------------------------------------------------
+
+func _bench_joust() -> void:
+	print("")
+	print("| Justa (contra un caballero templado) | Gana | Tablas | Desmontado |")
+	print("|---|---|---|---|")
+	var plain := {"martial": 3, "empathy": 3, "dexterity": 3}
+	var ps := [_p("regular_even", plain), _p("regular_even", plain)]
+	_jrow("Iguales · Resolver sin jugar", ps, Callable())
+	_jrow("Iguales · Sigue la pista (la política de la IA)", ps, func(m: GameMatch, _v: Dictionary) -> String: return m.ai_move(0))
+	_jrow("Iguales · Al azar", ps, _random)
+	for st: String in JoustMatch.STANCES:
+		var a := st
+		_jrow("Iguales · Siempre %s" % st, ps, func(_m: GameMatch, _v: Dictionary) -> String: return a)
+	_jrow("Destreza 6 vs 3", [_p("regular_even", {"dexterity": 6}), _p("regular_even", plain)], Callable())
+	_jrow("Empatía 7 vs Arte Marcial 3", [_p("regular_even", {"empathy": 7}), _p("regular_even", plain)], Callable())
+	_jrow("Arte Marcial 7 (se le lee peor) vs 3", [_p("regular_even", {"martial": 7}), _p("regular_even", plain)], Callable())
+
+
+func _jrow(label: String, ps: Array, policy: Callable) -> void:
+	var w := 0
+	var dr := 0
+	var un := 0
+	for i: int in n:
+		var m := _play("joust", i, ps, policy, 0, {})
+		var r := m.result()
+		w += int(int(r["winner"]) == 0)
+		dr += int(int(r["winner"]) < 0)
+		un += int(str(r["how"]) == "unhorsed")
+	print("| %s | %d %% | %d %% | %d %% |" % [label, roundi(100.0 * w / n), roundi(100.0 * dr / n), roundi(100.0 * un / n)])
+
+
+# --- Sortija -----------------------------------------------------------------------------------------------------------
+
+func _bench_sortija() -> void:
+	print("")
+	print("| Sortija (contra 3 jinetes de Destreza 3-5) | Gana | Puntos | Anillas |")
+	print("|---|---|---|---|")
+	var ps: Array = [_p("regular_even", {"dexterity": 4})]
+	for r: Variant in cfg["sortija"]["riders"]:
+		ps.append(Games.preset_player(cfg, "preset:" + str(r)))
+	_srow("Destreza 4 · Resolver sin jugar", ps, Callable())
+	_srow("Destreza 4 · Sigue la anilla y el mejor ritmo", ps, func(m: GameMatch, _v: Dictionary) -> String: return m.ai_move(0))
+	_srow("Destreza 4 · Al azar", ps, _random)
+	for p: String in SortijaMatch.PACES:
+		var pc := p
+		_srow("Destreza 4 · Siempre %s (sigue la anilla)" % p, ps, func(m: GameMatch, v: Dictionary) -> String:
+			return pc if str(v["phase"]) == "pace" else m.ai_move(0))
+	_srow("Destreza 4 · Mejor ritmo, baja la lanza al azar", ps, func(m: GameMatch, v: Dictionary) -> String:
+		return m.ai_move(0) if str(v["phase"]) == "pace" else _random(m, v))
+	var ps7 := ps.duplicate()
+	ps7[0] = _p("regular_even", {"dexterity": 7})
+	_srow("Destreza 7 · Resolver sin jugar", ps7, Callable())
+
+
+func _srow(label: String, ps: Array, policy: Callable) -> void:
+	var w := 0
+	var pts := 0
+	var hits := 0
+	for i: int in n:
+		var m := _play("sortija", i, ps, policy, 0, {})
+		w += int(int(m.result()["winner"]) == 0)
+		pts += int((m.d["points"] as Array)[0])
+		hits += int((m.d["hits"] as Array)[0])
+	print("| %s | %d %% | %.2f | %.2f |" % [label, roundi(100.0 * w / n), float(pts) / n, float(hits) / n])
+
+
+# --- Carrera de caballos -----------------------------------------------------------------------------------------------
+
+func _bench_race() -> void:
+	print("")
+	print("| Carrera (alquilado: 10, fuelle 6; contra un rocín, un alquilado y un corcel) | Gana | Distancia |")
+	print("|---|---|---|")
+	var ps: Array = [_p("regular_even", {"dexterity": 4})]
+	for r: Variant in cfg["race"]["riders"]:
+		ps.append(Games.preset_player(cfg, "preset:" + str(r)))
+	_rrow("Resolver sin jugar", ps, Callable())
+	_rrow("Sigue el plan (la política de la IA)", ps, func(m: GameMatch, _v: Dictionary) -> String: return m.ai_move(0))
+	_rrow("Al azar", ps, _random)
+	for p: String in RaceMatch.PACES:
+		var pc := p
+		_rrow("Siempre %s (si puede)" % p, ps, func(m: GameMatch, _v: Dictionary) -> String:
+			return pc if pc in m.allowed(0) else ("keep" if "keep" in m.allowed(0) else "reserve"))
+	_rrow("Aprieta al salir y reserva luego", ps, func(m: GameMatch, v: Dictionary) -> String:
+		return "press" if int(v["stretch"]) == 0 else "reserve")
+	var pj := ps.duplicate()
+	pj[0] = _p("regular_even", {"dexterity": 4})
+	pj[0]["horse"] = "jennet"
+	_rrow("Con una jaca (velocidad 10,5, fuelle 5)", pj, Callable())
+	var pd := ps.duplicate()
+	pd[0] = _p("regular_even", {"dexterity": 4})
+	pd[0]["horse"] = "destrier"
+	_rrow("Con un corcel de fuelle (9,9, 8)", pd, Callable())
+
+
+func _rrow(label: String, ps: Array, policy: Callable) -> void:
+	var w := 0
+	var dist := 0.0
+	for i: int in n:
+		var m := _play("race", i, ps, policy, 0, {})
+		w += int(int(m.result()["winner"]) == 0)
+		dist += float((m.d["dist"] as Array)[0])
+	print("| %s | %d %% | %.1f |" % [label, roundi(100.0 * w / n), dist / n])
+
+
+# --- Toros -------------------------------------------------------------------------------------------------------------
+
+func _bench_bulls() -> void:
+	print("")
+	print("| Toros (un mozo solo, tres embestidas) | Aplausos | Quiebros | Sustos |")
+	print("|---|---|---|---|")
+	for bull: String in ["bravo", "manso", "resabiado"]:
+		var ps: Array = [_p("regular_even", {"dexterity": 4})]
+		_brow("%s · Resolver sin jugar" % bull, ps, Callable(), bull)
+		if bull == "bravo":
+			_brow("%s · Sigue la señal (la política de la IA)" % bull, ps, func(m: GameMatch, _v: Dictionary) -> String: return m.ai_move(0), bull)
+			_brow("%s · Al azar" % bull, ps, _random, bull)
+			for a: String in BullsMatch.ACTIONS:
+				var ac := a
+				_brow("%s · Siempre %s" % [bull, a], ps, func(_m: GameMatch, _v: Dictionary) -> String: return ac, bull)
+			_brow("%s · Destreza 7" % bull, [_p("regular_even", {"dexterity": 7})], Callable(), bull)
+
+
+func _brow(label: String, ps: Array, policy: Callable, bull: String) -> void:
+	var pts := 0.0
+	var br := 0
+	var fl := 0
+	for i: int in n:
+		var m := _play("bulls", i, ps, policy, 0, {"bull": bull})
+		pts += float((m.d["points"] as Array)[0])
+		br += int((m.d["breaks"] as Array)[0])
+		fl += int((m.d["fails"] as Array)[0])
+	print("| %s | %.2f | %.2f | %.2f |" % [label, pts / n, float(br) / n, float(fl) / n])

@@ -12,7 +12,7 @@ import os
 STATS = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution", "rhetoric",
          "stealth"]
 TEMPERS = {"prudent", "even", "boastful", "cheat"}
-GAMES = ["azar", "mayor", "pulso", "envite"]
+GAMES = ["azar", "mayor", "pulso", "envite", "tourney", "joust", "sortija", "race", "bulls"]
 
 
 def _num(x):
@@ -167,6 +167,113 @@ def check_games(root, strings, rep, check_text):
         check_text(w, f"games.envite.suit.{x}", strings, rep)
     for x in ranks:
         check_text(w, f"games.envite.rank.{x}", strings, rep)
-    for x in ("unknown_game", "bad_players", "bad_stake", "over_cap", "bad_move", "unfinished", "unknown_house"):
+    presets = g.get("presets") or {}
+    t = g.get("tourney") or {}
+    for o in t.get("outsiders") or []:
+        if o not in presets:
+            rep.error(w, f"tourney.outsiders: ficha desconocida {o}")
+    if not isinstance(t.get("size"), int) or t.get("size") not in (4, 8, 16):
+        rep.error(w, "tourney.size: 4, 8 o 16")
+    try:
+        combat = json.load(open(os.path.join(root, "data", "combat.json"), encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        combat = {}
+    if t.get("weapon") not in (combat.get("weapons") or {}):
+        rep.error(w, "tourney.weapon: un arma de data/combat.json")
+    for k in ("tourney", "tourney_sudden"):
+        if k not in (combat.get("kinds") or {}):
+            rep.error(w, f"data/combat.json kinds.{k}: el combate del torneo")
+    for x in ("points", "sudden", "judges", "final"):
+        check_text(w, f"games.tourney.how.{x}", strings, rep)
+    j = g.get("joust") or {}
+    st = j.get("stances") or {}
+    aims = j.get("aims") or {}
+    if set(st) != set(aims) or any(v.get("aim") not in aims or v.get("covers") not in aims for v in st.values()):
+        rep.error(w, "joust.stances: cada postura apunta y cubre un blanco de aims")
+    else:
+        beats = {a: [b for b in st if st[b]["covers"] != st[a]["aim"] and st[a]["covers"] == st[b]["aim"]] for a in st}
+        if any(len(v) != 1 for v in beats.values()):
+            rep.error(w, "joust.stances: cada postura gana exactamente a otra (un triángulo)")
+    for k, a in aims.items():
+        if not isinstance(a.get("mod"), int) or not _num(a.get("points")) or not _num(a.get("safe")) \
+                or not isinstance(a.get("unhorses"), bool):
+            rep.error(w, f"joust.aims.{k}: mod entero, points y safe números, unhorses true/false")
+    _read(w, "joust.read", j.get("read") or {}, rep)
+    for x in st:
+        check_text(w, f"games.joust.action.{x}", strings, rep)
+        check_text(w, f"games.joust.action.{x}.hint", strings, rep)
+        check_text(w, f"games.joust.cue.{x}", strings, rep)
+    for x in ("blind", "lead", "read"):
+        check_text(w, f"games.joust.prompt.{x}", strings, rep)
+    for x in ("unhorsed", "points", "draw"):
+        check_text(w, f"games.joust.how.{x}", strings, rep)
+    if (j.get("requires") or {}).get("title") not in (None, "", "common", "citizen", "patrician", "baron", "noble"):
+        rep.error(w, "joust.requires.title: un título")
+    so = g.get("sortija") or {}
+    for k, pc in (so.get("paces") or {}).items():
+        if not isinstance(pc.get("points"), int) or not isinstance(pc.get("window"), int) or not _num(pc.get("read")) \
+                or not 0 <= pc["read"] <= 1:
+            rep.error(w, f"sortija.paces.{k}: points y window enteros, read en [0, 1]")
+        check_text(w, f"games.sortija.action.{k}", strings, rep)
+        check_text(w, f"games.sortija.action.{k}.hint", strings, rep)
+    if set(so.get("paces") or {}) != {"prudent", "firm", "gallop"}:
+        rep.error(w, "sortija.paces: prudent, firm y gallop")
+    for k, v in (so.get("rings") or {}).items():
+        if not isinstance(v, int):
+            rep.error(w, f"sortija.rings.{k}: entero")
+        check_text(w, f"games.sortija.ring.{k}", strings, rep)
+    for x in ("first", "second", "third"):
+        check_text(w, f"games.sortija.cue.{x}", strings, rep)
+        check_text(w, f"games.sortija.action.{x}", strings, rep)
+    for r_ in so.get("riders") or []:
+        if r_ not in presets:
+            rep.error(w, f"sortija.riders: ficha desconocida {r_}")
+    ra = g.get("race") or {}
+    if set(ra.get("paces") or {}) != {"reserve", "keep", "press"}:
+        rep.error(w, "race.paces: reserve, keep y press")
+    for k, pc in (ra.get("paces") or {}).items():
+        if not isinstance(pc.get("wind"), int) or not _num(pc.get("factor")) or not isinstance(pc.get("risky"), bool):
+            rep.error(w, f"race.paces.{k}: wind entero, factor número, risky true/false")
+        check_text(w, f"games.race.action.{k}", strings, rep)
+        check_text(w, f"games.race.action.{k}.hint", strings, rep)
+    if not any((pc.get("wind") or 0) <= 0 for pc in (ra.get("paces") or {}).values()):
+        rep.error(w, "race.paces: un ritmo que no gaste fuelle")
+    for x in ra.get("stretches") or []:
+        check_text(w, f"games.race.stretch.{x}", strings, rep)
+    if ra.get("risky") not in (ra.get("stretches") or []):
+        rep.error(w, "race.risky: uno de los tramos")
+    horses = ra.get("horses") or {}
+    if ra.get("rented") not in horses:
+        rep.error(w, "race.rented: un caballo de horses")
+    for k, h in horses.items():
+        if not _num(h.get("speed")) or h["speed"] <= 0 or not isinstance(h.get("wind"), int) or h["wind"] < 3:
+            rep.error(w, f"race.horses.{k}: speed > 0 y wind entero >= 3")
+    for r_ in ra.get("riders") or []:
+        if r_ not in presets:
+            rep.error(w, f"race.riders: ficha desconocida {r_}")
+        elif (presets[r_].get("horse") or "") not in ("", *horses):
+            rep.error(w, f"presets.{r_}.horse: un caballo de race.horses")
+    bu = g.get("bulls") or {}
+    acts_b = {"cite", "break", "safe"}
+    bull_acts = {"charge", "feint", "hook"}
+    if set(bu.get("payoff") or {}) != acts_b or any(set(v) != bull_acts for v in (bu.get("payoff") or {}).values()):
+        rep.error(w, "bulls.payoff: cite, break y safe contra charge, feint y hook")
+    for k, b in (bu.get("bulls") or {}).items():
+        if set(b.get("weights") or {}) != bull_acts or not isinstance(b.get("bravery"), int):
+            rep.error(w, f"bulls.bulls.{k}: weights de charge, feint y hook y bravery entero")
+        check_text(w, f"games.bulls.bull.{k}", strings, rep)
+    if bu.get("bull") not in (bu.get("bulls") or {}):
+        rep.error(w, "bulls.bull: un toro de bulls")
+    for x in acts_b:
+        check_text(w, f"games.bulls.action.{x}", strings, rep)
+        check_text(w, f"games.bulls.action.{x}.hint", strings, rep)
+    for x in bull_acts:
+        check_text(w, f"games.bulls.cue.{x}", strings, rep)
+        check_text(w, f"games.bulls.what.{x}", strings, rep)
+    _read(w, "bulls.read", bu.get("read") or {}, rep)
+    for r_ in bu.get("mozos") or []:
+        if r_ not in presets:
+            rep.error(w, f"bulls.mozos: ficha desconocida {r_}")
+    for x in ("unknown_game", "bad_players", "bad_stake", "over_cap", "bad_move", "unfinished", "unknown_house", "bad_bet", "bad_option", "no_loaded_dice", "no_title"):
         check_text(w, f"reason.{x}", strings, rep)
     check_text(w, "notice.games_losses", strings, rep)

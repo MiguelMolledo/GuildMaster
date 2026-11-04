@@ -19,7 +19,9 @@ signal finished(result: Dictionary)
 const KEYS: Array = [KEY_1, KEY_2, KEY_3, KEY_4]
 const BOARDS: Dictionary = {"azar": "res://game/ui/games/board_dice.gd", "mayor": "res://game/ui/games/board_dice.gd",
 	"pulso": "res://game/ui/games/board_pulso.gd", "envite": "res://game/ui/games/board_naipes.gd",
-	"tourney": "res://game/ui/games/board_tourney.gd"}
+	"tourney": "res://game/ui/games/board_tourney.gd", "joust": "res://game/ui/games/board_joust.gd",
+	"sortija": "res://game/ui/games/board_sortija.gd", "race": "res://game/ui/games/board_race.gd",
+	"bulls": "res://game/ui/games/board_bulls.gd"}
 
 var m: GameMatch = null
 var spec: Dictionary = {}
@@ -258,6 +260,10 @@ func _traits(p: Dictionary) -> String:
 			stats = ["empathy", "rhetoric"]
 		"tourney":
 			stats = ["martial", "empathy"]
+		"joust":
+			stats = ["dexterity", "empathy", "martial"]
+		"sortija", "race", "bulls":
+			stats = ["dexterity"]
 	for s: String in stats:
 		parts.append("%s %d" % [tr("stat.%s" % s), GameRules.stat(p, s)])
 	if str(p.get("preset", "")) != "":
@@ -433,7 +439,20 @@ func _show_result(refused: String) -> void:
 		if not bets.is_empty():
 			effects.append({"text": tr("games.bets.result.%s" % ("won" if bn2 > 0 else "lost")) % SocialKit.signed(bn2),
 				"sign": "+" if bn2 > 0 else "-"})
+		if int(applied.get("entry", 0)) > 0:
+			effects.append({"text": tr("games.result.entry") % int(applied["entry"]), "sign": "-"})
 		for f: Dictionary in applied.get("facts", []):
+			if str(f.get("kind", "")) == "prize":
+				var pt := tr("games.result.prize") % [int(f.get("gold", 0)), SocialKit.signed(int(f.get("reputation", 0)))] \
+					if int(f.get("gold", 0)) > 0 else tr("games.result.prize_rep") % SocialKit.signed(int(f.get("reputation", 0)))
+				effects.append({"text": pt, "sign": "+"})
+			elif str(f.get("kind", "")) == "finalist":
+				effects.append({"text": tr("games.result.finalist") % SocialKit.signed(int(f.get("reputation", 0))), "sign": "+"})
+			elif str(f.get("kind", "")) == "bulls":
+				effects.append({"text": tr("games.result.bulls") % [int(f.get("breaks", 0)), int(f.get("fails", 0))],
+					"sign": "+" if int(f.get("fails", 0)) == 0 else "-"})
+			elif str(f.get("kind", "")) == "favor":
+				effects.append({"text": tr("games.result.favor") % _who_id(str(f.get("of", ""))), "sign": "+"})
 			if str(f.get("kind", "")) == "caught":
 				effects.append({"text": tr("games.result.caught") % _who_id(str(f.get("by", ""))), "sign": "-"})
 			elif str(f.get("kind", "")) == "fraud":
@@ -463,7 +482,7 @@ func _who_id(id: String) -> String:
 	for i: int in (spec["players"] as Array).size():
 		if str((spec["players"][i] as Dictionary)["id"]) == id:
 			return str(_names[i])
-	return id
+	return str(_state.characters.get(id, {}).get("name", id))
 
 
 func _on_result_button(id: String) -> void:

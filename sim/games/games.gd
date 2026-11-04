@@ -14,9 +14,9 @@ extends RefCounted
 ## spec = {game, match (the id: its rolls' key), seed (the world's), players [player], player (the side the human
 ## plays, -1 = none), stake, opts {...the game's own}}. Nothing here is saved: a game exists while it is played.
 
-const GAMES: Array[String] = ["azar", "mayor", "pulso", "envite", "tourney"]
+const GAMES: Array[String] = ["azar", "mayor", "pulso", "envite", "tourney", "joust", "sortija", "race", "bulls"]
 ## How many players a game takes [min, max] (the actor included).
-const PLAYERS: Dictionary = {"azar": [2, 2], "pulso": [2, 2], "mayor": [2, 4], "envite": [2, 2], "tourney": [8, 8]}
+const PLAYERS: Dictionary = {"azar": [2, 2], "pulso": [2, 2], "mayor": [2, 4], "envite": [2, 2], "tourney": [8, 8], "joust": [2, 2], "sortija": [2, 6], "race": [2, 6], "bulls": [1, 4]}
 ## Games played for a stake (the others are competitions with a prize; pulso may go for a stake or for nothing).
 const STAKED: Array[String] = ["azar", "mayor", "envite"]
 
@@ -40,6 +40,14 @@ static func create(games: Dictionary, spec: Dictionary) -> GameMatch:
 			return EnviteMatch.create(games, id, seed, players, player, stake, opts)
 		"tourney":
 			return TourneyMatch.create(games, games.get("_combat", {}), id, seed, players, player, stake, opts)
+		"joust":
+			return JoustMatch.create(games, id, seed, players, player, stake, opts)
+		"sortija":
+			return SortijaMatch.create(games, id, seed, players, player, stake, opts)
+		"race":
+			return RaceMatch.create(games, id, seed, players, player, stake, opts)
+		"bulls":
+			return BullsMatch.create(games, id, seed, players, player, stake, opts)
 	return null
 
 
@@ -87,7 +95,7 @@ static func preset_player(games: Dictionary, ref: String) -> Dictionary:
 		return {}
 	return {"id": ref if ref.begins_with("preset:") else "preset:" + ref, "name": "", "name_key": str(pr.get("name_key", "")),
 		"family": "", "stats": (pr.get("stats", {}) as Dictionary).duplicate(), "temper": str(pr.get("temper", "even")),
-		"preset": pid, "look": int(pr.get("look", 0)), "female": bool(pr.get("female", false))}
+		"preset": pid, "look": int(pr.get("look", 0)), "female": bool(pr.get("female", false)), "horse": str(pr.get("horse", ""))}
 
 
 ## A player by reference: a character id or "preset:<id>[#n]" ({} if unknown).
@@ -143,6 +151,14 @@ static func spec_of(sim: Sim, o: Dictionary) -> Dictionary:
 			return {"reason": "over_cap"}
 		if not Money.can_pay(st, str(ch["family"]), max_loss(g, stake, int(games.get("cap", 50)))):
 			return {"reason": "not_enough_gold"}
+	# who may enter (the joust: a title of Ciudadano or more) and the entry fee (horse and lance rented: D8)
+	var gsec: Dictionary = games.get(g, {})
+	var req: Dictionary = gsec.get("requires", {})
+	if str(req.get("title", "")) != "" and Titles.rank(sim, Titles.current(sim, str(ch["family"]))) \
+			< Titles.rank(sim, str(req["title"])):
+		return {"reason": "no_title"}
+	if int(gsec.get("entry_fee", 0)) > 0 and not Money.can_pay(st, str(ch["family"]), int(gsec["entry_fee"])):
+		return {"reason": "not_enough_gold"}
 	var opts: Dictionary = (o.get("opts", {}) as Dictionary).duplicate(true)
 	opts.erase("rake")  # the margin of an order is the house's (opts.house), never the order's
 	var house := str(opts.get("house", ""))
@@ -233,9 +249,12 @@ static func _apply(sim: Sim, o: Dictionary, spec: Dictionary, m: GameMatch, res:
 			< float((games.get("bets", {}) as Dictionary).get("fraud_seen", 0.5)):
 		_cheat(sim, fam, actor, str(spec["match"]), "fraud", "")
 		facts.append({"kind": "fraud"})
-	# a competition's prize (data/games.json "<game>".prize; the fiestas' sponsors add theirs by the event)
+	# a competition's entry fee and prize (data/games.json "<game>"; the fiestas' sponsors add theirs by the event)
 	var sec: Dictionary = games.get(str(spec["game"]), {})
 	var rank: Array = res.get("ranking", [])
+	var entry := int(sec.get("entry_fee", 0))
+	if entry > 0:
+		Money.change(sim, fam, -entry, Money.GAMES, "entry_" + str(spec["game"]), house, actor, true)
 	if sec.has("prize") and caught == "" and w == 0:
 		var pz: Dictionary = sec["prize"]
 		if int(pz.get("gold", 0)) != 0:
@@ -243,18 +262,38 @@ static func _apply(sim: Sim, o: Dictionary, spec: Dictionary, m: GameMatch, res:
 		if int(pz.get("reputation", 0)) != 0:
 			Reputation.change(sim, fam, int(pz["reputation"]), "games_prize")
 		facts.append({"kind": "prize", "gold": int(pz.get("gold", 0)), "reputation": int(pz.get("reputation", 0))})
+		var favor := int(sec.get("favor", 0))
+		if favor > 0:  # the favour of a lady or a knight: the one the winner courts most (cortejo, 4.10.1)
+			var best := ""
+			var top := 0
+			for c: Variant in Courtship.candidates(sim, actor):
+				var a := Courtship.affinity(st, actor, str(c))
+				if a > top:
+					top = a
+					best = str(c)
+			if best != "":
+				Courtship.add_affinity(sim, actor, best, favor, "games_favor")
+				facts.append({"kind": "favor", "of": best})
 	elif sec.has("finalist") and caught == "" and rank.size() > 1 and int(rank[1]) == 0:
 		var fz: Dictionary = sec["finalist"]
 		if int(fz.get("reputation", 0)) != 0:
 			Reputation.change(sim, fam, int(fz["reputation"]), "games_finalist")
 		facts.append({"kind": "finalist", "reputation": int(fz.get("reputation", 0))})
+	# the bulls: applause and jeers (O-V5 a: a failure is a fright, never a wound until 4.22's health)
+	for f: Dictionary in res.get("facts", []):
+		if str(f.get("kind", "")) == "bulls":
+			var rep := int(f.get("breaks", 0)) * int(sec.get("rep_per_break", 2)) + int(f.get("fails", 0)) * int(sec.get("rep_per_fail", -1))
+			if rep != 0:
+				Reputation.change(sim, fam, rep, "games_bulls")
+			if int(f.get("fails", 0)) > 0:
+				Emotions.add(sim, actor, "scared", "bull")
 	var opp: Array = []
 	for p: Variant in (spec["players"] as Array).slice(1):
 		opp.append(str((p as Dictionary)["id"]))
 	sim.events.append({"type": "game_played", "actor": actor, "family": fam, "game": str(spec["game"]),
 		"match": str(spec["match"]), "opponents": opp, "stake": int(spec["stake"]), "winner": w, "won": w == 0,
 		"net": net - cut, "house_cut": cut, "house": house, "how": "caught" if caught != "" else str(res["how"]),
-		"moves": (m.moves() as Array).size(), "facts": facts, "bets_net": bet_net,
+		"moves": (m.moves() as Array).size(), "facts": facts, "bets_net": bet_net, "entry": entry,
 		"event": str((spec["opts"] as Dictionary).get("event", ""))})
 	_warn_losses(sim, fam)
 	if OS.is_debug_build():

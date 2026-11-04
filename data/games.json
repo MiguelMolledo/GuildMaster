@@ -29,6 +29,14 @@
     "fighter_smith": {"stats": {"martial": 4, "empathy": 3, "constitution": 6, "dexterity": 3}, "temper": "even", "name_key": "games.preset.fighter_smith", "look": 26},
     "fighter_shepherd": {"stats": {"martial": 4, "empathy": 5, "constitution": 5, "dexterity": 4}, "temper": "even", "name_key": "games.preset.fighter_shepherd", "look": 30},
     "fighter_squire": {"stats": {"martial": 5, "empathy": 4, "constitution": 4, "dexterity": 6}, "temper": "even", "name_key": "games.preset.fighter_squire", "look": 33},
+    "knight_bellcaire": {"stats": {"martial": 5, "empathy": 4, "dexterity": 5, "constitution": 5}, "temper": "even", "name_key": "games.preset.knight_bellcaire", "look": 9},
+    "knight_young": {"stats": {"martial": 3, "empathy": 3, "dexterity": 4, "constitution": 4}, "temper": "even", "name_key": "games.preset.knight_young", "look": 21},
+    "rider_miller": {"stats": {"dexterity": 4, "empathy": 3, "martial": 3, "constitution": 4}, "temper": "even", "horse": "nag", "name_key": "games.preset.rider_miller", "look": 12},
+    "rider_carter": {"stats": {"dexterity": 3, "empathy": 3, "martial": 3, "constitution": 5}, "temper": "even", "name_key": "games.preset.rider_carter", "look": 27},
+    "rider_squire": {"stats": {"dexterity": 5, "empathy": 4, "martial": 4, "constitution": 4}, "temper": "even", "horse": "courser", "name_key": "games.preset.rider_squire", "look": 35},
+    "mozo_butcher": {"stats": {"dexterity": 4, "empathy": 3, "martial": 3, "constitution": 5}, "temper": "even", "name_key": "games.preset.mozo_butcher", "look": 15},
+    "mozo_shepherd": {"stats": {"dexterity": 5, "empathy": 3, "martial": 3, "constitution": 4}, "temper": "even", "name_key": "games.preset.mozo_shepherd", "look": 24},
+    "mozo_baker": {"stats": {"dexterity": 3, "empathy": 4, "martial": 3, "constitution": 3}, "temper": "even", "name_key": "games.preset.mozo_baker", "look": 39},
     "fighter_monk": {"stats": {"martial": 4, "empathy": 6, "constitution": 4, "dexterity": 4}, "temper": "even", "name_key": "games.preset.fighter_monk", "look": 44}
   },
   "azar": {
@@ -76,5 +84,57 @@
     "outsiders": ["fighter_bellcaire", "fighter_portvell", "fighter_mercenary", "fighter_smith", "fighter_shepherd", "fighter_squire", "fighter_monk"],
     "prize": {"gold": 50, "reputation": 5},
     "finalist": {"reputation": 2}
+  },
+  "joust": {
+    "_doc": "The joust (04f §4.26.1): two riders, three passes. Each pass each rider takes a stance: stances.<id>.aim is where his lance goes and .covers what his shield covers (the three make a triangle: one beats another when its lance finds the other open and the other's lance meets its cover). A lance at what the other does not cover hits with hit.base + (dexterity - the other's) x hit.step + aims.<aim>.mod: the helm unhorses (the joust is won), the chest gives 2, the shield 1; a covered aim gives its `safe` (the shield's half point), and a failed hit too. The first `blind` passes are blind; then the riders lead in turn (side 0 first) and the reader sees a gesture of the leader's stance, true with read (empathy of the reader against the martial of the rider; three stances, so 0.5 already tells). ai: as the duel's (answers the gesture with what beats it; leading or blind, counters the other's most repeated stance with chance habit from min_history passes, else at random). Equal after `passes`: up to `extra` more, then a draw. requires.title: who may enter (Ciudadano or more, or a noble); entry_fee: the horse and the tournament lance rented (D8: carts and horses with a cost; the carpenter's lance is a fiesta order). prize to the winner; favor: affinity with the one he courts most (the favour of a lady or a knight).",
+    "stances": {"helm": {"aim": "helm", "covers": "chest"}, "chest": {"aim": "chest", "covers": "shield"}, "shield": {"aim": "shield", "covers": "helm"}},
+    "aims": {"helm": {"mod": -25, "points": 0, "safe": 0.0, "unhorses": true}, "chest": {"mod": 5, "points": 2, "safe": 0.0, "unhorses": false}, "shield": {"mod": 15, "points": 1, "safe": 0.5, "unhorses": false}},
+    "hit": {"base": 55, "step": 5},
+    "read": {"base": 0.5, "step": 0.05, "min": 0.34, "max": 0.9},
+    "blind": 1,
+    "ai": {"habit": 0.5, "min_history": 1},
+    "passes": 3,
+    "extra": 2,
+    "requires": {"title": "citizen"},
+    "entry_fee": 10,
+    "prize": {"gold": 40, "reputation": 10},
+    "favor": 15
+  },
+  "sortija": {
+    "_doc": "Correr la sortija (04f §4.26.3): 2-6 riders, `runs` runs each in turn. Each run the ring is one of `rings` (keyed per run; the value is the window's change). The rider chooses a pace (paces.<id>: points if threaded, window = the hit's threshold, read = how reliable the sway of the ring is at that speed) and then the moment among three signals; one is right (keyed per rider and run) and the sway shows it, true with paces.<p>.read + (dexterity - 3) x read.step (clamped). At the right moment the hit passes with window + ring + (dexterity - 3) x hit_step. After the runs the most points win; equal, more rings; then a keyed roll. The numbers make each pace the best on one ring (dexterity 3): prudent on the small, firm on the medium, gallop on the large. entry_fee: the horse rented; prize to the winner. Anyone with a horse may run it (no title).",
+    "paces": {"prudent": {"points": 1, "window": 85, "read": 0.85}, "firm": {"points": 2, "window": 65, "read": 0.6}, "gallop": {"points": 3, "window": 45, "read": 0.55}},
+    "rings": {"large": 25, "medium": 0, "small": -25},
+    "read": {"step": 0.03, "min": 0.34, "max": 0.95},
+    "hit_step": 5,
+    "runs": 3,
+    "entry_fee": 5,
+    "prize": {"gold": 20, "reputation": 3},
+    "riders": ["rider_miller", "rider_carter", "rider_squire"]
+  },
+  "race": {
+    "_doc": "The horse race (04f §4.26.4): `stretches` (the start, the straight, the mill's bend, the finish) against 3-5 riders. Each stretch every rider chooses a pace: paces.<id>.wind is what it costs (negative: recovers; a pace one has not the wind for cannot be chosen) and .factor the horse's speed it gives; a stretch covers speed x factor (x finish.press when pressing on the finish: the last push pays most) + noise x (a keyed roll in [-1, 1]). On the `risky` stretch a pace marked risky stumbles unless the rider passes stumble.base + (dexterity - 3) x stumble.step: the stretch then counts stumble.keep of itself. horses: speed and wind by horse (the rented one, `rented`, if the rider has none: D8 carts and horses with a cost). The longest run wins (equal: the faster horse, then a keyed roll). entry_fee: the rented horse; prize: the palio's worth (a silk cloth: the item waits for the fiestas' pieces) and reputation.",
+    "stretches": ["start", "straight", "bend", "finish"],
+    "risky": "bend",
+    "paces": {"reserve": {"wind": -2, "factor": 0.8, "risky": false}, "keep": {"wind": 1, "factor": 1.0, "risky": false}, "press": {"wind": 3, "factor": 1.2, "risky": true}},
+    "finish": {"stretch": "finish", "press": 1.15},
+    "stumble": {"base": 70, "step": 5, "keep": 0.5},
+    "noise": 1.5,
+    "horses": {"rented": {"speed": 10.0, "wind": 6}, "nag": {"speed": 9.8, "wind": 6}, "courser": {"speed": 10.2, "wind": 6}, "jennet": {"speed": 10.5, "wind": 5}, "destrier": {"speed": 9.9, "wind": 8}},
+    "rented": "rented",
+    "entry_fee": 5,
+    "prize": {"gold": 30, "reputation": 5},
+    "riders": ["rider_miller", "rider_carter", "rider_squire"]
+  },
+  "bulls": {
+    "_doc": "Correr el toro (04f §4.26.5; O-V5 a: no wounds until 4.22's health, a failure is a fright and jeers): 1-4 mozos, `charges` each in turn. Each charge the bull charges, feints or hooks, keyed with its kind's weights (bulls.<id>.weights); its sign is true with read.base + (dexterity of the mozo - bulls.<id>.bravery) x read.step (clamped). payoff.<action>.<bull's action>: the applause (a failure is negative). The most applause wins (equal: fewer failures, then a keyed roll). For the played side's family: reputation rep_per_break for each quiebro, rep_per_fail for each failure (the jeers) and the emotion scared; the winner, prize. bull: the default (the fiestas pass opts.bull).",
+    "bulls": {"bravo": {"weights": {"charge": 0.5, "feint": 0.25, "hook": 0.25}, "bravery": 5}, "manso": {"weights": {"charge": 0.25, "feint": 0.5, "hook": 0.25}, "bravery": 3}, "resabiado": {"weights": {"charge": 0.3, "feint": 0.2, "hook": 0.5}, "bravery": 6}},
+    "bull": "bravo",
+    "payoff": {"cite": {"charge": -2, "feint": 1, "hook": -2}, "break": {"charge": 2, "feint": -2, "hook": -2}, "safe": {"charge": 0, "feint": 0, "hook": 0}},
+    "read": {"base": 0.5, "step": 0.05, "min": 0.34, "max": 0.9},
+    "charges": 3,
+    "rep_per_break": 2,
+    "rep_per_fail": -1,
+    "prize": {"gold": 0, "reputation": 3},
+    "mozos": ["mozo_butcher", "mozo_shepherd", "mozo_baker"]
   }
 }

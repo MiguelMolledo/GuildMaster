@@ -313,15 +313,35 @@ Se juegan en las fiestas, en la taberna o donde el evento lo pida.
 
 #### 4.26.1 Justa (torneo a caballo)
 
-- **Tres pasadas** contra un rival. En cada una eliges **dónde apuntas la lanza** (yelmo, escudo o pecho) y
-  **cómo te cubres** (escudo alto, medio o bajo). El rival hace lo mismo. Apuntar donde él no cubre es acierto.
-  Apuntar al yelmo es difícil (Destreza), pero si aciertas lo desmontas. El escudo da medio punto seguro.
-- **Lectura**, como el duelo: el caballo del rival y su postura dan una pista, con su fiabilidad (Empatía contra
-  Arte Marcial).
-- **Puntos:** lanza rota en el escudo 1, en el pecho 2, desmontar gana la justa.
-- **Quién entra:** hace falta un título de Ciudadano o más (o ser noble), un caballo (alquilado en la feria o
-  propio, D8) y una lanza de torneo (encargo del carpintero). Premio: una bolsa, reputación +10 y el favor de una
-  dama o un caballero (cortejo +15).
+**Construido** (`sim/games/joust.gd`; cifras en `data/games.json` → `joust`).
+
+- **Tres pasadas** contra un rival. En cada una eliges una **postura**, que dice a la vez **dónde apuntas la lanza** y
+  **cómo te cubres**: **al yelmo** (lanza alta, escudo medio: cubre el pecho), **al pecho** (lanza al pecho, escudo
+  bajo: cubre la cara del escudo) o **al escudo** (lanza al escudo, escudo alto: cubre el yelmo). Forman un triángulo
+  como el del duelo: al escudo gana a al yelmo, al yelmo gana a al pecho y al pecho gana a al escudo. Apuntar donde él no
+  cubre es acierto (si pasa la tirada: Destreza contra Destreza, 55 ± 5 por punto; el yelmo −25, el pecho +5, el escudo
+  +15). **El yelmo desmonta** (gana la justa); el pecho vale 2; el escudo 1 y **da medio punto seguro** (cubierto o
+  fallado, la lanza se rompe en él).
+  - *Cambio al construirlo:* la primera versión tenía las dos decisiones por separado (apuntar y luego cubrirse, 9
+    combinaciones). En tres pasadas la IA no llegaba a castigar una costumbre: «siempre al escudo y escudo bajo»
+    empataba con ella (47-50 %) o le ganaba el 81 %, según cuánto valorase desmontar. Con una sola decisión de tres
+    posturas en triángulo, como el duelo y el pulso, las tres posturas fijas pierden (33-40 %) y la lectura vale.
+- **Lectura**, como el duelo: la primera pasada es a ciegas; luego la iniciativa se alterna y quien la lleva elige
+  primero: el caballo del rival y su postura dan una pista, con su fiabilidad (Empatía contra Arte Marcial).
+- **Puntos:** tras tres pasadas gana quien más tenga; empatados, hasta dos pasadas más; luego tablas.
+- **Quién entra:** hace falta un título de Ciudadano o más (o ser noble; `reason.no_title`), un caballo (alquilado en
+  la feria o propio, D8) y una lanza de torneo (encargo del carpintero): hoy el caballo y la lanza se alquilan al
+  entrar (**10 de oro**) hasta que existan como objetos. Premio: una bolsa (40), reputación +10 y el favor de una dama
+  o un caballero (cortejo **+15** de afinidad con la persona a la que más cortejas, si hay alguna).
+- **Medido** (`tools/games_bench.gd`, 2.000 justas por fila, contra un caballero templado):
+
+| Justa | Gana | Desmontado |
+|---|---|---|
+| Iguales · Resolver sin jugar = sigue la pista | 49 % | 31 % |
+| Iguales · al azar | 46 % | 33 % |
+| Iguales · siempre al yelmo · al pecho · al escudo | 33 % · 33 % · 40 % | 46 % · 43 % · 0 % |
+| Destreza 6 contra 3 | 70 % | 33 % |
+| Empatía 7 contra Arte Marcial 3 | 54 % | 31 % |
 
 #### 4.26.2 Torneo de lucha
 
@@ -354,33 +374,91 @@ Se juegan en las fiestas, en la taberna o donde el evento lo pida.
 
 #### 4.26.3 La sortija
 
-- **Correr la sortija:** a caballo, al galope, hay que ensartar con la lanza una anilla colgada. Tres carreras.
-- En cada una eliges el **ritmo** (prudente, firme o a todo galope) y el **momento** de bajar la lanza entre tres
-  señales. A más galope, más puntos si aciertas, pero la ventana es más pequeña (Destreza).
-- Es la justa de los que no tienen título: cualquiera con caballo.
+**Construido** (`sim/games/sortija.gd`; cifras en `data/games.json` → `sortija`).
+
+- **Correr la sortija:** a caballo, al galope, hay que ensartar con la lanza una anilla colgada. Tres carreras, contra
+  2-5 jinetes que corren por turnos.
+- En cada una eliges el **ritmo** (prudente 1 punto, firme 2 o a todo galope 3) y el **momento** de bajar la lanza
+  entre tres señales (el primer, segundo o tercer poste). A más galope, más puntos si aciertas, pero la ventana es más
+  pequeña (Destreza): 85, 65 o 45 (+5 por punto de Destreza sobre 3). El momento bueno lo dice **el balanceo de la
+  anilla**, que se lee peor cuanto más rápido vas (0,85, 0,6 o 0,55 de fiabilidad, +0,03 por punto de Destreza).
+  - *Cambio al construirlo:* **la anilla de cada carrera es grande, mediana o pequeña** (±25 a la ventana). Sin eso, el
+    ritmo firme era siempre el mejor y elegir el ritmo no era una decisión. Con Destreza 3, cada ritmo es el mejor en una
+    anilla: prudente en la pequeña, firme en la mediana, galope en la grande. La pantalla dice los puntos esperados de
+    cada ritmo.
+- Es la justa de los que no tienen título: cualquiera con caballo (hoy, alquilado al entrar: 5 de oro). Premio 20 y
+  reputación +3 [balance].
+- **Medido** (`tools/games_bench.gd`, 3.000 por fila, contra tres jinetes de Destreza 3-5):
+
+| Sortija (Destreza 4) | Gana | Puntos | Anillas |
+|---|---|---|---|
+| Resolver sin jugar = sigue la anilla y el mejor ritmo | 23 % | 2,74 | 1,44 |
+| Al azar | 7 % | 1,24 | 0,67 |
+| Siempre prudente · firme · galope (siguiendo la anilla) | 10 % · 20 % · 21 % | 2,19 · 2,63 · 2,59 | |
+| El mejor ritmo, pero baja la lanza al azar | 8 % | 1,41 | 0,68 |
+| Destreza 7 | 38 % | 3,88 | 1,53 |
 
 #### 4.26.4 Carrera de caballos
 
-- **Cuatro tramos** (salida, recta, curva del molino, meta) contra 3-5 jinetes.
-- En cada tramo eliges el **ritmo**: reservar, mantener o apretar. Cada ritmo gasta **fuelle** del caballo (como el
-  aliento del duelo: apretar −3, mantener −1, reservar +1). En la curva, apretar puede costar un tropiezo
-  (Destreza). Gana quien llegue primero; un caballo sin fuelle solo puede reservar.
-- **El caballo importa:** velocidad y fuelle por caballo. En la feria se compran y se alquilan (D8: carros y
-  caballos con coste).
-- Se apuesta (4.26.6). Premio: el palio (un paño de seda: objeto de lujo) y reputación.
+**Construido** (`sim/games/horse_race.gd`; cifras en `data/games.json` → `race`).
+
+- **Cuatro tramos** (salida, recta, curva del molino, meta) contra 3-5 jinetes; todos eligen a la vez en cada tramo,
+  viendo dónde va cada uno y el fuelle que le queda.
+- En cada tramo eliges el **ritmo**: reservar, mantener o apretar. Cada ritmo gasta **fuelle** del caballo: apretar −3
+  (velocidad ×1,2), mantener −1 (×1), reservar **+2** (×0,8). En la curva, apretar puede costar un tropiezo (Destreza:
+  70 + 5 por punto sobre 3; el tramo cuenta la mitad). Gana quien llegue primero; un caballo sin fuelle solo puede
+  reservar. Apretar en la meta rinde ×1,15 más (el último empujón).
+  - *Cambios al construirlo:* reservar recupera 2 (no 1) y apretar en la meta rinde más; sin eso, «apretar siempre»
+    empataba con el mejor plan. Los caballos son más parejos (velocidad 9,8-10,5) y el ruido por tramo mayor (±1,5):
+    con la jaca a 11, el caballo decidía casi todas las carreras.
+- **El caballo importa:** velocidad y fuelle por caballo (alquilado 10/6, rocín 9,8/6, corcel 10,2/6, jaca 10,5/5,
+  caballo de fuelle 9,9/8). En la feria se compran y se alquilan (D8: carros y caballos con coste): hoy se alquila al
+  entrar (5) y las fichas traen el suyo.
+- La IA y «Resolver sin jugar» reparten el fuelle con el **plan exacto** (programación dinámica sobre los tramos que
+  quedan y el fuelle, con el riesgo de la curva). La pantalla dice, por ritmo, lo que da el tramo y lo que se llegaría
+  a correr hasta la meta.
+- Se apuesta (4.26.6): el corredor da las cuotas antes de la salida. Premio: el palio (un paño de seda: hoy su valor,
+  30 de oro, hasta que exista el objeto de lujo) y reputación +5.
+- **Medido** (`tools/games_bench.gd`, 2.000 por fila; caballo alquilado contra un rocín, un alquilado y un corcel):
+
+| Carrera | Gana | Distancia |
+|---|---|---|
+| Resolver sin jugar = sigue el plan | 21 % | 43,8 |
+| Al azar | 3 % | 39,1 |
+| Siempre reservar · mantener · apretar | 0 % · 1 % · 5 % | 32,0 · 40,0 · 42,0 |
+| Aprieta al salir y reserva luego | 0 % | 36,0 |
+| Con una jaca (10,5/5) · con un caballo de fuelle (9,9/8) | 59 % · 47 % | |
 
 #### 4.26.5 Los toros
 
 En la Edad Media no había matadores: se «corría el toro» en la plaza cerrada con carros, y los mozos lo citaban y
-lo esquivaban (en algunas villas, el toro ensogado).
+lo esquivaban (en algunas villas, el toro ensogado). **Construido** (`sim/games/bulls.gd`; cifras en
+`data/games.json` → `bulls`).
 
-- **Mirar:** espectáculo, `fun` +40 a todos.
-- **Correr el toro** (minijuego): tres embestidas. En cada una eliges **citar**, **quebrar** (esquivar en el último
-  momento) o **ponerte a salvo** tras los carros. El toro avisa con su pista (escarba, baja la cabeza, se arranca)
-  y la lectura es Destreza contra la bravura del toro. Quebrar bien da aplausos (reputación +2 por quiebro). Fallar
-  da **«asustado»** y burla, nunca una herida mientras no exista la salud de 4.22; con salud, «herido» con un 10 %
-  [balance].
-- El cerco lo monta el carpintero (encargo) y los toros los paga el concejo o un patrocinador.
+- **Mirar:** espectáculo, `fun` +40 a todos (lo aplican las Fiestas).
+- **Correr el toro** (minijuego): tres embestidas, con 0-3 mozos más que salen por turnos. En cada una eliges
+  **citar**, **quebrar** (esquivar en el último momento) o **ponerte a salvo** tras los carros. El toro hace una de tres
+  cosas, según su casta (bravo: se arranca la mitad de las veces; manso: amaga; resabiado: derrota): **se arranca**
+  recto, **amaga** y se para, o **derrota** de lado. Avisa con su pista (baja la cabeza, escarba, sale torcido) y la
+  lectura es Destreza contra la bravura del toro (0,50 ± 0,05 por punto). Quebrar a uno que se arranca es el quiebro
+  (+2 aplausos), citar a uno que amaga es un pase (+1), a salvo es 0 y lo demás es un **fallo** (−2). La pantalla dice
+  la probabilidad de cada cosa del toro y los aplausos esperados de cada opción.
+- **Consecuencias** (para tu familia): **reputación +2 por quiebro**; fallar da **«asustado»** (la emoción de 4.11.5)
+  y burla (−1 de reputación por fallo), **nunca una herida** mientras no exista la salud de 4.22 (O-V5 a); con salud,
+  «herido» con un 10 % [balance]. El que más aplausos se lleva, +3 de reputación.
+- El cerco lo monta el carpintero (encargo) y los toros los paga el concejo o un patrocinador (las Fiestas, con
+  `opts.bull` para la casta).
+- **Medido** (`tools/games_bench.gd`, 3.000 por fila, un mozo solo, tres embestidas; aplausos netos):
+
+| Toros (Destreza 4) | Aplausos | Quiebros | Sustos |
+|---|---|---|---|
+| Bravo · Resolver sin jugar = sigue la señal | +0,48 | 0,66 | 0,42 |
+| Bravo · al azar | −1,22 | 0,50 | 1,23 |
+| Bravo · siempre citar · quebrar · a salvo | −3,70 · +0,06 · 0 | | |
+| Bravo · Destreza 7 | +1,18 | 0,90 | 0,31 |
+| Manso · resabiado (Resolver sin jugar) | +0,17 · 0 (con el resabiado lo sensato es no arriesgar) | | |
+  - *Cambio al construirlo:* el fallo vale −2 (no −1): con −1, contra el toro bravo «quebrar siempre» empataba con leer
+    la señal.
 
 #### 4.26.6 Apuestas
 
@@ -505,6 +583,9 @@ Para el juego proponemos el **«envite»**, en la familia de los juegos de envit
 su pantalla y llega al sim en **una orden**, `game_play`, con las jugadas; el sim la vuelve a jugar con las mismas
 claves y aplica el oro. La API para las Fiestas y la Posada (quién juega, apuesta, premio y resultado) está en el
 contrato [docs/contratos/juegos.md](../contratos/juegos.md):
+
+Juegos construidos: `azar`, `mayor`, `pulso`, `envite`, `tourney`, `joust`, `sortija`, `race`, `bulls` (y apuestas sobre
+cualquiera). Para abrir cada uno: `godot --path . -- --games-test=<juego>` (y `apuestas`: el corredor).
 
 | Quién llama | Cómo |
 |---|---|
@@ -710,7 +791,7 @@ de ida y vuelta desde la versión de antes.
 |---|---|---|---|
 | **Vida** | 4.24 (agenda, reunión y rumores, población y forasteros, guardia, sucesos) | v17 | — |
 | **Fiestas** | 4.25 (calendario, eventos, efectos, encargos, patrocinio, región) | v18 | Vida (forasteros, rutinas) y Juegos (espectáculos); empieza por lo que no depende |
-| **Juegos** | 4.26 (reglas puras, pantallas, apuestas) | sin guardado: se resuelven en el momento | el duelo (04e) |
+| **Juegos** | 4.26 (reglas puras, pantallas, apuestas). **Hecho** (rama juegos): los nueve juegos, apuestas, dados cargados, bot `gambler`; API en `docs/contratos/juegos.md` | sin guardado: se resuelven en el momento (una orden `game_play` / `game_bet`) | el duelo (04e) |
 | **Posada** | 4.27 | v19 | Vida (clientela y forasteros) y Juegos (mesa de juego); empieza por el edificio, la carta y el turno |
 | **Arte** | 4.28.3 | — | las rutas de este documento |
 
@@ -732,3 +813,13 @@ Cada una lleva la recomendación con la que se construye si no se dice otra cosa
 | **O-V8** | Juego con dinero de verdad | (a) Sí, con margen de la casa y tope por apuesta. (b) Solo por reputación | **(a)**, con tope de 50 por apuesta y aviso si pierdes más de 100 en un día |
 | **O-V9** | Segunda taberna en otra ciudad | (a) Más adelante, cuando se pueda cargar otra ciudad (O-R3). (b) Nunca | **(a)** |
 | **O-V10** | Dados cargados y trampas para cualquiera | (a) Solo el Pícaro (4.22). (b) Cualquiera que los compre | **(b)**, con el riesgo de que te pillen; el Pícaro tendrá ventaja |
+
+**Nuevas (rama juegos, para el owner):**
+
+| # | Pregunta | Opciones | Recomendación |
+|---|---|---|---|
+| **O-V11** | Apuestas en el torneo de lucha | (a) Una al ganador del torneo (hoy). (b) Una por combate, entre ronda y ronda | **(a)** hasta que el torneo viva en el calendario de las Fiestas (con su guardado); luego **(b)** |
+| **O-V12** | La justa: ¿dos decisiones (apuntar y cubrirse) o una postura? | (a) Una postura de tres en triángulo (hoy, medido). (b) Las dos por separado (más fiel, la IA no castiga costumbres en tres pasadas) | **(a)** |
+| **O-V13** | Envite de varios jugadores en la mesa de la Posada | (a) Uno contra uno (hoy). (b) Hasta cuatro (cambia las cuentas del farol) | **(a)** ahora; **(b)** con la Posada si se pide |
+| **O-V14** | Caballos y lanza de torneo como objetos | (a) Alquilados al entrar (hoy: 10 la justa, 5 la sortija y la carrera). (b) Objetos que se compran (D8) y la lanza del carpintero (encargo de fiesta) | **(a)** hasta D8; **(b)** con las piezas de las Fiestas |
+

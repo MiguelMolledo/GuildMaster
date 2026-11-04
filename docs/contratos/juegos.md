@@ -17,6 +17,11 @@ claves y aplica el oro y la reputación. Nada de los juegos entra en `WorldState
 | `AzarMatch`, `MayorMatch`, `PulsoMatch` | Bloque 1: «azar», «tres dados a la mayor» y pulso |
 | `EnviteMatch` | Bloque 2: los naipes («envite», con farol y lectura del gesto) |
 | `Betting` | Bloque 3: cuotas (`quote`, `market`), `settle`, la orden `game_bet` y las apuestas a la propia partida |
+| `TourneyMatch` | Bloque 4: el torneo de lucha (eliminatoria de 8 con `Duel`, tipos `tourney` y `tourney_sudden`); `TourneyMatch.entrants(state, games, actor)` da los 8 |
+| `JoustMatch` | Bloque 5: la justa (tres posturas en triángulo, desmontar) |
+| `SortijaMatch` | Bloque 6: la sortija (ritmo, anilla y momento) |
+| `RaceMatch` | Bloque 7: la carrera de caballos (tramos, fuelle, caballos) |
+| `BullsMatch` | Bloque 8: correr el toro (señal del toro, citar, quebrar, a salvo; sin heridas) |
 | `Games` | La API: `create`, `auto`, `win_odds`, `player_of`, `preset_player`, `player_ref`, `spec_of`, `replay` (la orden) |
 
 Una tirada nunca usa `state.rng`: un juego no mueve ninguna otra tirada de la partida, y da igual cuándo se resuelva.
@@ -57,7 +62,15 @@ que gana el ganador y se lo da al dueño; sin `house`, en la calle, 0), `rake` (
 
 **Opciones de cada juego:** `azar`: `thrower` (0/1: quién tira; si no, una tirada con clave), `loaded` (el lado que usa
 dados cargados: en una orden solo `0`, el actor, y si lleva el objeto `loaded_dice`). `mayor`: `loaded`. `envite`:
-`mano` (0/1). `pulso`: —.
+`mano` (0/1). `pulso`: —. `tourney`: `weapon` (`sword`, `staff`, `fists`). `joust`: —. `sortija`: —. `race`: `horse`
+(el caballo del actor; los demás, el de su ficha; si no, el alquilado). `bulls`: `bull` (`bravo`, `manso`,
+`resabiado`).
+
+**Jugadores por juego** (`Games.PLAYERS`, el actor incluido): azar, pulso, envite y justa 2; a la mayor 2-4; torneo 8;
+sortija y carrera 2-6; toros 1-4. **Quién entra:** la justa pide un título de Ciudadano o más (`requires.title`); las
+competiciones a caballo cobran la entrada (`entry_fee`: el caballo alquilado). **Premios** (`prize`, `finalist`,
+`favor`, y en los toros `rep_per_break` / `rep_per_fail`): los aplica `game_played` al actor; los extra del
+patrocinador, las Fiestas.
 
 ## 4. La orden `game_play` (gestión: se aplica al momento, también en pausa)
 
@@ -73,7 +86,7 @@ dados cargados: en una orden solo `0`, el actor, y si lleva el objeto `loaded_di
 | `bets` | Opcional: `[{on: lado, stake}]` apuestas a la propia partida, a las cuotas de antes de jugarla (`on: 0` por uno mismo; contra uno mismo y perder habiendo jugado es fraude) |
 | `match` | Opcional: el id de la partida. Por defecto `"<game>|<actor>|<minuto>"`: la misma partida no se puede volver a tirar en el mismo minuto, y cada partida jugada mueve el reloj un minuto por su orden |
 
-Rechazos (`reason.<id>`): `unknown_game`, `unknown_actor`, `bad_players` (número de jugadores fuera de
+Rechazos (`reason.<id>`): `unknown_game`, `unknown_actor`, `no_title` (la justa), `bad_players` (número de jugadores fuera de
 `PLAYERS`, un rival desconocido o uno mismo), `bad_stake`, `over_cap`, `not_enough_gold` (hay que poder pagar lo
 peor: el doble en los dados, siete veces la apuesta en el envite, más las apuestas), `unknown_house`, `bad_option`
 (dados cargados fuera de los dados), `no_loaded_dice`, `bad_bet`, `bad_move` (una jugada que la partida no admite),
@@ -89,7 +102,8 @@ Dados cargados: cada rival puede verlos (d100 con clave ≤ `loaded.catch.base` 
 `loaded.reputation` y el evento `game_cheat_caught {actor, family, match, how: loaded_dice | fraud, by, fact}`.
 
 Evento: `game_played {actor, family, game, match, opponents, stake, winner, won, net, house_cut, house, how, moves,
-facts, bets_net, event}`.
+facts, bets_net, entry, event}`. `facts`: `prize {gold, reputation}`, `finalist`, `favor {of}`, `unhorsed {side}`,
+`bulls {breaks, fails}`, `caught {by}`, `fraud`.
 
 ## 4 bis. La orden `game_bet` (apostar sobre una partida de otros)
 
@@ -125,6 +139,7 @@ Para apuestas que esperan a una competición futura (el calendario de las Fiesta
 - `tests/test_games_dice.gd`: reglas, determinismo, «Resolver sin jugar» = jugar bien, la orden y sus rechazos, la
   casa y el aviso de pérdidas. `tests/test_games_cards.gd`: el envite. `tests/test_games_bets.gd`: cuotas, `game_bet`,
   apostar a uno mismo y el fraude, dados cargados y que te pillen.
+- `tests/test_games_tourney.gd`, `test_games_joust.gd`, `test_games_sortija.gd`, `test_games_race_bulls.gd`: los bloques 4-8.
 - Bot `gambler` (`sim/bots/bot_gambler.gd`, escenario `games_gambler`, diana `gambler`): `godot --headless --path . -s
   tools/sim_runner.gd -- --scenario=games_gambler --bots=gambler --days=8 --seeds=5` (en `run_all`, paso `gambler`).
 - `godot --headless --path . -s tools/games_bench.gd [-- --n=4000 --only=azar,pulso]`: tablas de 04f §4.26.10.

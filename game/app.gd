@@ -242,6 +242,19 @@ func open_games_test(game_id: String, extra: Dictionary = {}) -> GameScreen:
 		opponents = TourneyMatch.entrants(st, Data.catalog.games, me).slice(1)
 		extra = extra.duplicate()
 		extra.merge({"bets_open": true}, false)
+	if game_id == "joust":  # a knight of Bellcaire; the test lends the protagonist's family the title it needs
+		opponents = ["preset:knight_bellcaire"]
+		var fam: String = str(st.characters.get(me, {}).get("family", ""))
+		var need := str((Data.catalog.games.get("joust", {}).get("requires", {}) as Dictionary).get("title", ""))
+		if need != "" and Titles.rank(Game.sim, Titles.current(Game.sim, fam)) < Titles.rank(Game.sim, need):
+			st.families[fam]["title"] = need
+	if game_id in ["sortija", "race", "bulls"]:  # three riders (or mozos) of the town
+		opponents = []
+		for r: Variant in Data.catalog.games.get(game_id, {}).get("mozos" if game_id == "bulls" else "riders", []):
+			opponents.append("preset:" + str(r))
+		if game_id == "race":
+			extra = extra.duplicate()
+			extra.merge({"bets_open": true}, false)
 	if game_id == "apuestas":  # the bookmaker: a pulso of others to bet on and watch
 		extra = extra.duplicate()
 		extra.merge({"watch": true, "players": [rival, "preset:regular_boastful"]}, false)

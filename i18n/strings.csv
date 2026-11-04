@@ -2888,3 +2888,138 @@ games.result.prize,Prize: %d gold and reputation %s,Premio: %d de oro y reputaci
 games.result.finalist,Runner-up: reputation %s,Finalista: reputación %s
 games.bets.short,%s %d %% (pays %.2f),%s %d %% (paga %.2f)
 games.bets.place,Bet (pays %.2f),Apostar (paga %.2f)
+reason.no_title,You need a title of Citizen or more,Hace falta un título de Ciudadano o más
+rep.reason.games_favor,The favour of the lists,El favor de la liza
+games.preset.knight_bellcaire,Sir Arnau of Bellcaire,Mosén Arnau de Bellcaire
+games.preset.knight_young,The young knight of Vilablat,El joven caballero de Vilablat
+games.joust.name,Joust,Justa
+games.joust.cue.helm,"His lance rises, his horse lifts its head: he aims at your helm.",Levanta la lanza y su caballo alza la cabeza: va a tu yelmo.
+games.joust.cue.shield,"He sits back, the lance steady and low: he aims at your shield.","Se echa atrás, la lanza firme y baja: va a tu escudo."
+games.joust.cue.chest,He leans forward over the neck: he aims at your chest.,Se inclina sobre el cuello del caballo: va a tu pecho.
+games.joust.how.unhorsed,Unhorsed!,¡Desmontado!
+games.joust.how.points,On points after the passes.,A los puntos tras las pasadas.
+games.joust.how.draw,Equal after every pass: a draw.,Iguales tras todas las pasadas: tablas.
+games.joust.result.win,%s wins the joust.,%s gana la justa.
+games.joust.result.lose,%s wins the joust.,%s gana la justa.
+games.joust.result.draw,A draw: both keep their honour.,Tablas: los dos salvan el honor.
+games.joust.ui.pass,Pass %d,Pasada %d
+games.joust.ui.points,Points,Puntos
+games.joust.ui.charge,They charge!,¡Cargan!
+games.joust.ui.log,Pass %d: you %s · he %s · %s–%s,Pasada %d: tú %s · él %s · %s–%s
+games.joust.aim.helm,helm,yelmo
+games.joust.aim.shield,shield,escudo
+games.joust.aim.chest,chest,pecho
+games.result.favor,The favour of %s (affinity +),El favor de %s (afinidad +)
+games.joust.ui.hit,At the %s! +%s,¡Al %s! +%s
+games.joust.rules,"Three passes on horseback. Each pass, a stance: at the helm (shield mid, covers the chest), at the chest (shield low, covers the shield) or at the shield (shield high, covers the helm). At the shield beats at the helm, at the helm beats at the chest, at the chest beats at the shield. The helm unhorses, the chest is worth 2, the shield 1 (and always half a point).","Tres pasadas a caballo. En cada una, una postura: al yelmo (escudo medio, cubre el pecho), al pecho (escudo bajo, cubre el escudo) o al escudo (escudo alto, cubre el yelmo). Al escudo gana a al yelmo, al yelmo gana a al pecho y al pecho gana a al escudo. El yelmo desmonta, el pecho vale 2 y el escudo 1 (y siempre medio punto)."
+games.joust.action.helm,At the helm,Al yelmo
+games.joust.action.helm.hint,Lance high, shield mid (covers the chest): beats «at the chest»; if it lands he is unhorsed,"Lanza alta, escudo medio (cubre el pecho): gana a «al pecho»; si entra, lo desmontas"
+games.joust.action.chest,At the chest,Al pecho
+games.joust.action.chest.hint,"Lance at the chest, shield low: beats «at the shield»; 2 points","Lanza al pecho, escudo bajo: gana a «al escudo»; 2 puntos"
+games.joust.action.shield,At the shield,Al escudo
+games.joust.action.shield.hint,"Lance at the shield, shield high (covers the helm): beats «at the helm»; 1 point, half for sure","Lanza al escudo, escudo alto (cubre el yelmo): gana a «al yelmo»; 1 punto, medio seguro"
+games.joust.prompt.blind,The first pass: nobody shows anything,La primera pasada: nadie enseña nada
+games.joust.prompt.lead,You lead: choose first,Llevas la iniciativa: eliges primero
+games.joust.prompt.read,%s charges first: look at his seat,%s carga primero: mírale la postura
+games.joust.ui.lead_text,%s will watch your seat before choosing.,%s te mirará la postura antes de elegir.
+games.joust.ui.blind_text,"Your hits: helm %d, chest %d, shield %d in 100.","Tus golpes: yelmo %d, pecho %d, escudo %d de cada 100."
+games.result.entry,Entry (the horse rented): −%d,Entrada (el caballo alquilado): −%d
+games.preset.rider_miller,Joan the miller,Joan el molinero
+games.preset.rider_carter,Tomàs the carter,Tomàs el carretero
+games.preset.rider_squire,The bishop's page,El paje del obispo
+games.sortija.name,Running at the ring,La sortija
+games.sortija.rules,"Three runs at a gallop: thread the ring with the lance. Choose the pace (prudent 1 point, firm 2, full gallop 3) and then the moment to lower the lance at one of three posts; the ring's sway tells which, less clearly the faster you go.","Tres carreras al galope: ensartar la anilla con la lanza. Elige el ritmo (prudente 1 punto, firme 2, a todo galope 3) y luego el momento de bajar la lanza en uno de los tres postes; el balanceo de la anilla dice cuál, peor cuanto más rápido vas."
+games.sortija.action.prudent,Prudent,Prudente
+games.sortija.action.prudent.hint,1 point; easy to see and to hit,1 punto; fácil de ver y de acertar
+games.sortija.action.firm,Firm,Firme
+games.sortija.action.firm.hint,2 points,2 puntos
+games.sortija.action.gallop,Full gallop,A todo galope
+games.sortija.action.gallop.hint,3 points; the window is small and the ring hard to read,3 puntos; la ventana es pequeña y la anilla se lee peor
+games.sortija.action.first,First post,Primer poste
+games.sortija.action.first.hint,Lower the lance at the first post,Bajar la lanza en el primer poste
+games.sortija.action.second,Second post,Segundo poste
+games.sortija.action.second.hint,Lower the lance at the second post,Bajar la lanza en el segundo poste
+games.sortija.action.third,Third post,Tercer poste
+games.sortija.action.third.hint,Lower the lance at the third post,Bajar la lanza en el tercer poste
+games.sortija.moment.first,1st,1.º
+games.sortija.moment.second,2nd,2.º
+games.sortija.moment.third,3rd,3.º
+games.sortija.prompt.pace,What pace?,¿A qué ritmo?
+games.sortija.prompt.moment,When do you lower the lance?,¿Cuándo bajas la lanza?
+games.sortija.cue.first,The ring swings towards you: lower it at the first post.,La anilla se mece hacia ti: bájala en el primer poste.
+games.sortija.cue.second,The ring hangs still: lower it at the second post.,La anilla cuelga quieta: bájala en el segundo poste.
+games.sortija.cue.third,The ring swings away: lower it at the third post.,La anilla se mece hacia el fondo: bájala en el tercer poste.
+games.sortija.ring.large,A large ring,Anilla grande
+games.sortija.ring.medium,A medium ring,Anilla mediana
+games.sortija.ring.small,A small ring,Anilla pequeña
+games.sortija.how.points,The most points after three runs.,Más puntos tras tres carreras.
+games.sortija.result.win,%s wins the ring.,%s gana la sortija.
+games.sortija.result.lose,%s wins the ring.,%s gana la sortija.
+games.sortija.result.draw,Nobody wins.,No gana nadie.
+games.sortija.ui.pace_value,"%s %.2f (hits %d %%, the ring reads %d in 10)","%s %.2f (acierta %d %%, la anilla se lee %d de 10)"
+games.sortija.ui.ev_note,Expected points of each pace (lowering the lance where the ring says),Puntos esperados de cada ritmo (bajando la lanza donde dice la anilla)
+games.sortija.ui.threaded,Threaded! +%d,¡Ensartada! +%d
+games.sortija.ui.missed,Missed,Fallada
+games.sortija.ui.run,Run %d of %d,Carrera %d de %d
+games.sortija.ui.riding,At a gallop!,¡Al galope!
+games.sortija.ui.log,Run %d · %s %s: %s,Carrera %d · %s %s: %s
+games.why.wind,No wind left for that,No le queda fuelle para eso
+games.race.name,Horse race,Carrera de caballos
+games.race.rules,"Four stretches: the start, the straight, the mill's bend and the finish. Each stretch: reserve (+2 wind), keep (−1) or press (−3; in the bend you may stumble; pressing on the finish pays most). A horse without wind can only reserve.","Cuatro tramos: la salida, la recta, la curva del molino y la meta. En cada uno: reservar (+2 de fuelle), mantener (−1) o apretar (−3; en la curva puedes tropezar; apretar en la meta rinde más). Un caballo sin fuelle solo puede reservar."
+games.race.action.reserve,Reserve,Reservar
+games.race.action.reserve.hint,Slower; the horse gets its wind back,Más despacio; el caballo recobra el fuelle
+games.race.action.keep,Keep,Mantener
+games.race.action.keep.hint,The horse's pace,El paso del caballo
+games.race.action.press,Press,Apretar
+games.race.action.press.hint,Fastest; costs 3 of wind; risky in the bend,Lo más rápido; cuesta 3 de fuelle; arriesgado en la curva
+games.race.prompt,What pace?,¿A qué ritmo?
+games.race.stretch.start,Start,Salida
+games.race.stretch.straight,Straight,Recta
+games.race.stretch.bend,The mill's bend,Curva del molino
+games.race.stretch.finish,Finish,Meta
+games.race.how.finish,The longest run at the finish.,El que más corrió en la meta.
+games.race.result.win,%s wins the palio.,%s gana el palio.
+games.race.result.lose,%s wins the palio.,%s gana el palio.
+games.race.result.draw,Nobody wins.,No gana nadie.
+games.race.ui.to_finish,%.1f to the finish,%.1f hasta la meta
+games.race.ui.wind,Wind %d of %d,Fuelle %d de %d
+games.race.ui.stumble_risk,pressing here stumbles %d in 100,apretar aquí tropieza %d de cada 100
+games.race.ui.stumble,stumbles!,¡tropieza!
+games.race.ui.running,They run!,¡Corren!
+games.race.ui.log,%s: %s · you are %d.º,%s: %s · vas %d.º
+rep.reason.games_bulls,In the bull ring,En la plaza del toro
+games.preset.mozo_butcher,Pep the butcher,Pep el carnicero
+games.preset.mozo_shepherd,Quim the shepherd boy,Quim el zagal
+games.preset.mozo_baker,Martí the baker,Martí el panadero
+games.bulls.name,Running the bull,Correr el toro
+games.bulls.rules,"In the plaza closed with carts: three charges. Before each, the bull gives a sign. Call it (a pass if it feints), break away at the last moment (a quiebro if it charges straight) or get behind the carts. A failure is a fright and the crowd's jeers.","En la plaza cerrada con carros: tres embestidas. Antes de cada una el toro da una señal. Cítalo (un pase si amaga), quiebra en el último momento (un quiebro si se arranca recto) o ponte a salvo tras los carros. Fallar es un susto y la burla del público."
+games.bulls.action.cite,Call it,Citar
+games.bulls.action.cite.hint,"A pass if it feints (+1); if it charges or hooks, a fright","Un pase si amaga (+1); si se arranca o derrota, un susto"
+games.bulls.action.break,Break away,Quebrar
+games.bulls.action.break.hint,A quiebro if it charges straight (+2); otherwise a fright,"Un quiebro si se arranca recto (+2); si no, un susto"
+games.bulls.action.safe,To safety,A salvo
+games.bulls.action.safe.hint,Behind the carts: nothing won nothing lost,Tras los carros: ni se gana ni se pierde
+games.bulls.cue.charge,It lowers its head and fixes you: it will charge straight.,Baja la cabeza y te mira fijo: se va a arrancar recto.
+games.bulls.cue.feint,It paws the ground and snorts: it will feint and stop.,Escarba y resopla: va a amagar y pararse.
+games.bulls.cue.hook,"It sets off crooked, the horn to one side: it will hook.","Sale torcido, con el cuerno de lado: va a derrotar."
+games.bulls.prompt,The bull is coming: what do you do?,Viene el toro: ¿qué haces?
+games.bulls.how.applause,The most applause.,El que más aplausos se llevó.
+games.bulls.result.win,%s takes the applause of the plaza.,%s se lleva los aplausos de la plaza.
+games.bulls.result.lose,%s takes the applause of the plaza.,%s se lleva los aplausos de la plaza.
+games.bulls.result.draw,Nobody shone today.,Hoy no lució nadie.
+games.bulls.bull.bravo,A brave bull,Un toro bravo
+games.bulls.bull.manso,A tame bull,Un toro manso
+games.bulls.bull.resabiado,A sly bull,Un toro resabiado
+games.bulls.what.charge,it charged,se arrancó
+games.bulls.what.feint,it feinted,amagó
+games.bulls.what.hook,it hooked,derrotó
+games.bulls.ui.odds,It will: charge %d · feint %d · hook %d in 100,Va a: arrancarse %d · amagar %d · derrotar %d de cada 100
+games.bulls.ui.expected,applause: call %+.1f · break %+.1f · safe %+.1f,aplausos: citar %+.1f · quebrar %+.1f · a salvo %+.1f
+games.bulls.ui.got.good,%s! +%s,¡%s! +%s
+games.bulls.ui.got.safe,%s: %s,%s: %s
+games.bulls.ui.got.fail,%s: a fright! %s,%s: ¡susto! %s
+games.bulls.ui.charge,Charge %d of %d,Embestida %d de %d
+games.bulls.ui.charging,The bull charges!,¡Embiste el toro!
+games.bulls.ui.log,Charge %d: you %s and %s · %s,Embestida %d: tú %s y %s · %s
+games.result.bulls,"Quiebros %d, frights %d","Quiebros %d, sustos %d"
+games.result.prize_rep,Prize: reputation %s,Premio: reputación %s

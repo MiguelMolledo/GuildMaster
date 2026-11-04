@@ -6525,6 +6525,201 @@
       "origen_previo": null,
       "coste_gen": 0,
       "notas": "Juegos (04f §4.26.7, O-V10 b): el objeto «dados cargados» (dos dados de hueso con una mancha de plomo), 32×32 y small/loaded_dice.png 16×16, como los demás iconos de objeto (VisualPaths.icon)."
+    },
+    {
+      "id": "ui_games_joust_lists",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/joust/lists.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.1): la liza de la justa vista de lado, con la tela (la barrera) en el centro y el público y los pendones detrás, apagada para que se lean los jinetes y los puntos, 404×180. VisualPaths.game_art(\"joust\", \"lists\")."
+    },
+    {
+      "id": "ui_games_joust_horse",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/joust/horse.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: caballo de justa con gualdrapa, de perfil mirando al este (al oeste se refleja), 48×32, sin jinete (el jinete y la lanza se dibujan por código). VisualPaths.game_art(\"joust\", \"horse\")."
+    },
+    {
+      "id": "ui_games_sortija_lane",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/sortija/lane.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.3): la calle de la sortija con su travesaño y tres postes de señal, 404×180 (la anilla y el jinete se dibujan por código). VisualPaths.game_art(\"sortija\", \"lane\")."
+    },
+    {
+      "id": "ui_games_race_track",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/race/track.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.4): el camino de la carrera desde arriba (salida, recta, la curva del molino con el molino al lado y la meta), 404×180. VisualPaths.game_art(\"race\", \"track\")."
+    },
+    {
+      "id": "ui_games_race_horse",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/race/horse.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: caballo al galope con jinete, de perfil al este, 28×18 (se tiñe el jinete por código). VisualPaths.game_art(\"race\", \"horse\")."
+    },
+    {
+      "id": "ui_games_bulls_plaza",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/bulls/plaza.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.5): la plaza cerrada con carros vista desde arriba, el público en los balcones, 404×180. VisualPaths.game_art(\"bulls\", \"plaza\")."
+    },
+    {
+      "id": "ui_games_bulls_bull",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/bulls/bull.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: el toro embistiendo, de perfil al este, 36×24. VisualPaths.game_art(\"bulls\", \"bull\")."
+    },
+    {
+      "id": "icon_game_joust",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_joust.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono de la justa (yelmo y lanza), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "icon_game_sortija",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_sortija.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono de la sortija (una anilla atravesada por una lanza), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "icon_game_race",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_race.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono de la carrera (cabeza de caballo y el palio), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "icon_game_bulls",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_bulls.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono de correr el toro (cuernos), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "ill_game_joust",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_joust.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina de la justa (dos caballeros chocan en la tela, astillas de lanza), 240×135 y _192 192×108. Sirve también a la carta de la fiesta con justas (Sant Jordi en Bellcaire)."
+    },
+    {
+      "id": "ill_game_sortija",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_sortija.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina de la sortija (un jinete al galope ensarta la anilla), 240×135 y _192 192×108."
+    },
+    {
+      "id": "ill_game_race",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_race.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina de la carrera de caballos (jinetes en la curva del molino, el palio en la meta), 240×135 y _192 192×108. Sirve a la carta de la feria (4.25.1)."
+    },
+    {
+      "id": "ill_game_bulls",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_bulls.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina de correr el toro (la plaza cerrada con carros, un mozo quiebra al toro), 240×135 y _192 192×108. Sirve a la carta del Corpus con toros."
     }
   ]
 }
