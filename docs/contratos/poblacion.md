@@ -55,8 +55,10 @@ mismos vecinos ocupan los mismos cargos con cualquier reparto.
 
 Pool: `assets/art/portraits/index.json` versión 1 y su README (566 retratos, 81 combinaciones de 6 a 12 caras).
 
-- El sim lee del índice solo ids, sexo, franja, tipo y `fallback` (`Catalog.portrait_pool`); las rutas, solo
-  `VisualPaths.portrait_file(id, size)`: la cara de 32 para `size` 32, el busto de 64 para 64.
+- El sim solo depende de `data/`: `data/portraits.json` (ids, sexo, franja, tipo y `fallback`, sin rutas) se exporta
+  del índice con `python3 tools/art/portraits_catalog.py` cada vez que cambia el pool, y `tools/validate_content.py`
+  falla si no coinciden (como `data/building_sprites.json` de ciudad). Lo lee `Catalog.portrait_pool`. Las rutas,
+  solo `VisualPaths.portrait_file(id, size)` con el índice: la cara de 32 para `size` 32, el busto de 64 para 64.
 - Franjas (`data/cast.json portraits.stages`, las del pool): child ≤11 (menos de 6 también), youth 12-17, adult
   18-44, mature 45-59, elder 60+. El validador comprueba que casan con el índice y que existe `commoner` en todas.
 - `Identity.of` pasa `portrait: {id, type, stage, seed}`; sin id (partida vieja hasta su año siguiente),

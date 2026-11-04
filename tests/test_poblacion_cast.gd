@@ -389,3 +389,16 @@ func test_portrait_resolution_in_the_view() -> void:
 	var black := Color(0.1, 0.1, 0.1)
 	eq(Identity.greyed(black, "adult"), black, "an adult keeps the hair")
 	check(Identity.greyed(black, "elder").v > Identity.greyed(black, "mature").v, "the elder greys more than the mature")
+
+
+func test_the_sim_reads_the_pool_from_data_only() -> void:
+	# data/portraits.json is the sim's whole knowledge of the pool (tools/art/portraits_catalog.py exports it from the
+	# index; the validator checks they match): without it a game still starts, with empty portrait ids.
+	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/portraits.json"))
+	check(d is Dictionary and not (d as Dictionary).has("portraits"), "data/portraits.json: ids by combination, no files")
+	eq(cat.portrait_pool["by"], d["by"], "Catalog.portrait_pool is data/portraits.json")
+	var bare := Catalog.load_from()
+	bare.portrait_pool = {}
+	var r := NewGame.from_start(bare, "artisan_blacksmith", "normal", {}, 3)
+	check(bool(r["ok"]), "a game starts without the pool")
+	eq(str((r["state"] as WorldState).characters["chr_0003"]["visual"]["portrait"]["id"]), "", "with no portrait id")
