@@ -1,0 +1,15 @@
+{
+  "fecha": "2026-11-04",
+  "titulo": "La cinta del título se lee y va sobre el borde de la carta",
+  "que": "Queja del owner: el título de la cinta (Jacquarda Bastarda 9 a 13) casi no se leía y la cinta iba dentro de la carta. Ahora el título va en Jacquard 24 a 24, la gótica del logotipo, en dorado con sombra de 1 px (hoja comparativa con Pixel Operator Bold 16 y Jacquarda a ×2 en docs/novedades/cinta_letras.png). La cinta va centrada arriba y montada sobre el borde superior en las cuatro plantillas de PageCard (Carta, Lámina, Ficha y aviso corto): la mitad sobresale del pergamino y el contenido empieza justo debajo, sin hueco; con ilustración, la cinta sigue encima y la ilustración debajo. El texto usa todo el paño liso de la cinta (medida nueva `cloth` en kit.json). Si un título no cabe, pasa a Pixel Operator Bold 16 en una línea y luego en dos (los pasos largos del tutorial); lo que no cabe ni así se corta con «…». El tutorial deja sitio arriba para la cinta. Sin cambios en el sim, sin gasto.",
+  "como_probar": "Escenario season_events y esperar a las 00:00 (sale la Festividad religiosa): /opt/homebrew/bin/godot --path . -- --scenario=season_events. Capturas: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=pagina (comprueba en pantalla que la cinta sobresale por arriba y que su texto cabe en el paño) y --smoke-script=tutorial --dev-time. Pruebas: godot --headless --path . -s tests/run_tests.gd -- --only=test_ui_page_card.",
+  "capturas": [
+    "docs/novedades/kit_pagina_evento.png",
+    "docs/novedades/kit_pagina_guerra.png",
+    "docs/novedades/kit_pagina_boda.png",
+    "docs/novedades/kit_pagina_aviso.png",
+    "docs/novedades/kit_pagina_ficha.png",
+    "docs/novedades/kit_pagina_lamina.png",
+    "docs/novedades/cinta_letras.png"
+  ]
+}

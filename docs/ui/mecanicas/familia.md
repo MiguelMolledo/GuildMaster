@@ -63,10 +63,11 @@ documento: se enlaza desde la ficha lateral.
 
 ### Retrato (marco)
 
-Capas, de fuera adentro (GDD 4.10.7, 4.10.9): borde de 2 px en el **color primario de la familia** → anillo de 1 px
-dorado (controlable) o gris (no) → fondo (claro si es el activo) → retrato. Marcas encima: corona (heredero) arriba a la
-izquierda, tecla 1-2-3 abajo a la derecha, cruz y desaturado si ha muerto, insignia de cargo abajo a la izquierda.
-Tamaños: 32 (HUD y árbol) y 64 (ficha y cartas).
+Un **marco de cuadro** tallado (`PortraitFrame`, GDD 4.10.7, 4.10.9; desde 2026-11-04): dorado si es el activo, madera
+con filete de oro si se controla, madera con filete de bronce si no; los colores de la familia en una **placa** al pie
+del marco (principal sobre una franja de la secundaria). Marcas encima: corona (heredero) arriba a la derecha, tecla
+1-2-3 abajo a la derecha, cruz y desaturado si ha muerto. Tamaños: 32 en un marco de 38 (HUD y árbol) y 64 en uno de 76
+(ficha del árbol y cartas), cada uno dibujado a su medida.
 
 ### Sucesión
 

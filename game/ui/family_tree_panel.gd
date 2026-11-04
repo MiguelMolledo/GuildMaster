@@ -373,7 +373,7 @@ func _build_sheet() -> void:
 	if not ch.is_empty():
 		var frame := SocialKit.portrait(st, picked, {"controlled": str(ch.get("controlled_by", "")) == "human",
 			"heir": picked == Kin.heir(sim, fam)})
-		frame.scale = Vector2(2, 2)  # 64 inside (familia.md §3: 64 in the sheet)
+		frame.set("big", true)  # 64 inside (familia.md §3: 64 in the sheet), in the big picture frame
 		slot.add_child(frame)
 	(%SheetName as Label).text = str(ch.get("name", ""))
 	var alive := bool(ch.get("alive", true))

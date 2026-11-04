@@ -136,10 +136,10 @@ Esc, Cancelar o un clic en el velo cancelan; Intro o el botón confirman (Espaci
 
 ## 7. Selector de familiares (grupo 1-2-3)
 
-- En la ficha (zona 1): hasta 3 retratos de 38 (32 dentro), en el orden del grupo. El activo con marco de oro; los
-  demás con marco de madera. Cada uno lleva su **número** (tecla) abajo a la derecha, el **borde interior en el color
-  de la familia**, la **corona** si es el heredero y, en pausa activa, un **contador de órdenes en cola** arriba a la
-  izquierda.
+- En la ficha (zona 1): hasta 3 retratos de 38 (32 dentro), en el orden del grupo, en su **marco de cuadro**
+  (`PortraitFrame`, ver `00_lenguaje_visual.md` §3). El activo con el marco dorado; los demás con el de madera. Cada uno
+  lleva su **número** (tecla) abajo a la derecha, la **placa con el color de la familia** al pie, la **corona** si es el
+  heredero y, en pausa activa, un **contador de órdenes en cola** arriba a la izquierda.
 - Clic o tecla 1-2-3: lo elige. Doble clic o doble pulsación: centra la cámara en él. Un familiar que muere sale del
   grupo con un aviso; un hijo que cumple 16 entra (GDD 4.10.5).
 - Junto a los retratos, del **activo**: nombre, oro de la familia (con el icono), insignia y nombre del título y la

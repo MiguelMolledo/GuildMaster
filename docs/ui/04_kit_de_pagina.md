@@ -44,7 +44,7 @@ lo escribe en `kit.json`; el componente no usa números a mano. Ficheros: `asset
 | Marco de cuadro (Lámina) | `plate_frame` | 192×142 | transparente | corte 32 / listón 18 · corte 44-47 / listón 11-13 | nano-banana-2/edit + croma | 2 | elemento |
 | Marco de caja (cajas y aviso) | `box_frame` | 130×95 y 164×121 | transparente | corte 14-16 / listón 5-6 · corte 21 / listón 7-8 | nano-banana-2/edit + croma | 2 | elemento |
 | Esquina de página | `page_corner` | 47×46 | transparente | caja del alfa | nano-banana-2/edit + croma, a la mitad | 1 | página |
-| Cinta del título | `ribbon` | 101×42 y 153×62 | transparente | remates 22 y 37 · franja del texto | nano-banana-2/edit + croma | 2 | elemento |
+| Cinta del título | `ribbon` | 101×42 y 153×62 | transparente | remates 22 y 37 · paño desde 15 y 25 · franja del texto 29 y 35 | nano-banana-2/edit + croma | 2 | elemento |
 | Separador | `divider` | 301×42 y 307×42 | transparente | caja del alfa | nano-banana-2/edit + croma | 2 | elemento |
 | Textura clara repetible | `tile_light` | 64×64 | opaco, sin costuras | — | z-image/turbo/tiling + rampa de 4 tonos | 1 | elemento |
 | Textura oscura repetible | `tile_dark` | 64×64 | opaco, sin costuras | — | z-image/turbo/tiling + rampa de 4 tonos | 1 | elemento |
@@ -81,7 +81,17 @@ Reglas de cada hueco:
   recorriendo la arista mientras el adorno sea más grueso que el listón. Después se **normalizan las aristas**: cada
   arista se rehace repitiendo su columna o fila central, para que estirarla no deje saltos.
 - **Cinta.** Remates labrados a los lados y el centro liso: se corta en 3 (izquierda, centro que se estira, derecha);
-  la franja del texto (alto útil) se mide en la columna central. Título en Jacquarda 9 a 13, nunca en mayúsculas.
+  la franja del texto (alto útil) se mide en la columna central y el **paño** (`cloth`: dónde empieza la tela lisa
+  dentro de cada remate) desde los lados; el texto va del paño de un lado al del otro. Va **centrada arriba y montada
+  sobre el borde superior** de la página en todas las plantillas: la mitad de su alto por fuera del pergamino y la otra
+  mitad encima del borde; el contenido empieza debajo (la zona segura de arriba crece lo que haga falta, + 4 de aire).
+  Título en **Jacquard 24 a 24** (`PageRibbon`, la gótica del logotipo, dorado con sombra de 1 px), nunca en
+  mayúsculas. Si no cabe en una línea en ninguna de las dos cintas, **Pixel Operator Bold 16** (`PageRibbonSmall`) en
+  una línea y, si tampoco, en dos (solo en la cinta alta, cuyo paño mide 35); lo que no quepa ni así se corta con «…».
+  Ancho máximo: el de la página menos lo que ocupan las esquinas (296 en la Carta, 258 en la Ficha, 194-204 en el aviso).
+  Hoja comparativa de letras (2026-11-04): ![](../novedades/cinta_letras.png) — Jacquarda Bastarda 9 ya iba a su tamaño
+  nativo (13 px/em) pero su ojo es de 5-6 px y la «r», la «v» y la «x» se confunden; a ×2 ocupa demasiado y sigue
+  igual de ambigua. Pixel Operator Bold se lee mejor que nada, pero no parece medieval: queda de reserva.
 - **Máscaras.** Blanco opaco = se ve, transparente = papel. Borde de pincel con ruido (armónicos con semilla fija,
   como `generate-masks.mjs`) y una banda de 6-10 px **tramada con Bayer 4×4**: el pixel art no admite alfa suave, la
   trama hace el fundido. `pie` funde abajo y a los lados (la ilustración de la carta), `esquina` funde los dos lados
@@ -108,15 +118,15 @@ aviso corto. Todas: fondo de página + marco + 4 esquinas, y dentro, en la zona 
 
 ### Carta
 
-Ilustración arriba, fundida con el pincel de pie; la cinta con el título cruza su borde de abajo; cuerpo; sello y
-botones al pie. **400 de ancho**, alto según el contenido (≤ 296 sin repetir el papel; la de guerra mide 421). Centrada.
+La cinta con el título montada sobre el borde de arriba; ilustración debajo, fundida con el pincel de pie; cuerpo;
+sello y botones al pie. **400 de ancho**, alto según el contenido (≤ 296 sin repetir el papel; la de guerra mide 421). Centrada.
 
 ```
-+= marco ====================================================+
+                ◀═══════════ Guerra regional ═══════════▶
++= marco =======◀═══════════════════════════════════════▶===+
 |◤                                                         ◥|
 |            ░▒▓ ilustración 240×135 (pie) ▓▒░               |
 |            ░▒▓                           ▓▒░               |
-|       ◀═══════════ Guerra regional ═══════════▶            |
 |   La guerra corta los caminos del condado. Las armas        |
 |   valen el doble y la comida sube.                          |
 |   ─────────────────── ◆ ───────────────────                 |
@@ -127,19 +137,19 @@ botones al pie. **400 de ancho**, alto según el contenido (≤ 296 sin repetir 
 +============================================================+
 ```
 
-- Ilustración 240×135 a ×1, centrada, con `mask_foot`. Sin ilustración (falta el arte): la cinta sube y la carta
-  queda como una página de texto.
+- Ilustración 240×135 a ×1, centrada, con `mask_foot`, justo debajo de la cinta. Sin ilustración (falta el arte): el
+  cuerpo sube y la carta queda como una página de texto.
 - Retratos en vez de ilustración (boda, sucesión): dos retratos 64 a ×1 con `mask_corner`, uno a cada lado.
-- Cinta de 288 de ancho como mucho; si el título no cabe en una línea, se baja a Jacquarda 9 y se ensancha la cinta.
+- Cinta de 296 de ancho como mucho (sin pisar las esquinas); si el título no cabe, la letra pequeña (ver «Cinta»).
 
 ### Lámina
 
-La ilustración a toda la ventana a **×2** (240×135 → 480×270, escala entera), la cinta con el título arriba y una banda
-de texto abajo sobre el velo. **516×306** (480×270 + el listón medido del marco, 18). Para los momentos grandes: poca letra, mucha imagen.
+La ilustración a toda la ventana a **×2** (240×135 → 480×270, escala entera), la cinta con el título sobre el borde de
+arriba del marco (tapa solo el cielo: la ilustración llena el marco y no baja) y una banda de texto abajo sobre el velo. **516×306** (480×270 + el listón medido del marco, 18). Para los momentos grandes: poca letra, mucha imagen.
 
 ```
-+= marco ============================================+
-|   ◀══════ Patricio de la villa ══════▶              |
+               ◀══════ Patricio de la villa ══════▶
++= marco ======◀═══════════════════════════════════▶==+
 |                                                     |
 |          ilustración 480×270 (×2)                   |
 |                                                     |
@@ -154,8 +164,9 @@ Retrato fundido a un lado (64 a **×2** = 128×128, `mask_side`) y los datos al 
 dentro del modal grande. Sin retrato («Solo ficha»): la columna ocupa todo el ancho y el fondo es el vertical.
 
 ```
-+= marco =================================+
-|  ▓▓▓▓▓▓▓▓▒░   ◀═ Agnès Ferrer ═▶         |
+            ◀═ Agnès Ferrer ═▶
++= marco ===◀══════════════════▶==========+
+|  ▓▓▓▓▓▓▓▓▒░                              |
 |  ▓ retrato ▒░  Tejedora · oficial · 24    |
 |  ▓  128   ▒░  Familia Ferrer (sello)      |
 |  ▓▓▓▓▓▓▓▓▒░  ───────── ◆ ─────────       |
@@ -166,8 +177,9 @@ dentro del modal grande. Sin retrato («Solo ficha»): la columna ocupa todo el 
 
 ### Aviso corto
 
-La carta en pequeño para la columna izquierda (zona 4, **236 de ancho**): ilustración 192×108 con `mask_foot`, cinta,
-una o dos líneas y un botón. No tapa el centro. Para lo que avisa sin parar el juego y tiene imagen (microevento,
+La carta en pequeño para la columna izquierda (zona 4, **236 de ancho**): la cinta sobre el borde de arriba,
+ilustración 192×108 con `mask_foot`, una o dos líneas y un botón. Quien la coloque (el tutorial) deja sitio arriba para
+lo que sobresale la cinta (`PageCard.ribbon_overhang`). No tapa el centro. Para lo que avisa sin parar el juego y tiene imagen (microevento,
 nacimiento, presagio).
 
 | Lámina | Ficha | Aviso corto | Boda (Carta con retratos) |
@@ -206,7 +218,7 @@ El componente cae a lo que hay hoy en el theme, pieza a pieza:
 | Cinta | el título en `InkTitleLabel` centrado |
 | Separador | `HSeparator` con `DividerSeparator` |
 | Máscara | la imagen sin fundir, con el marco de retrato del theme |
-| Ilustración | la carta sin imagen (la cinta sube) |
+| Ilustración | la carta sin imagen (el cuerpo sube) |
 
 ## 4. A qué ventana va cada plantilla
 
@@ -264,7 +276,9 @@ llegue su ilustración (rama arte-fal: `assets/art/illustrations/` y `portraits/
 - [x] `PageKit` (lee el kit, alterna variantes, cae al theme) y `PageCard` (monta las 4 plantillas) con pruebas
       (`tests/test_ui_page_card.gd`).
 - [x] Variaciones nuevas del theme con prefijo `Page*`: `PageInk`, `PageInkBold`, `PageInkDim`, `PageGood`, `PageBad`
-      (positivo y negativo legibles sobre papel), `PageTitle`, `PageRibbon`, `PageSmall`, `PageSeal`.
+      (positivo y negativo legibles sobre papel), `PageTitle`, `PageRibbon`, `PageRibbonSmall`, `PageSmall`, `PageSeal`.
+- [x] La cinta del título montada sobre el borde de arriba en las cuatro plantillas y en Jacquard 24 a 24 (antes:
+      Jacquarda 9 a 13, dentro de la carta; queja del owner del 2026-11-04).
 - [x] Carta del evento global al empezar (H13, `EventCard` en `app.tscn` › CardsLayer) y captura con
       `--smoke-script=pagina`.
 - [x] Carta de boda con el kit (`wedding_card.gd`/`.tscn` sobre `PageCard`).
@@ -278,6 +292,8 @@ llegue su ilustración (rama arte-fal: `assets/art/illustrations/` y `portraits/
 - [x] Ningún texto de una página queda fuera de la zona segura medida (prueba de montaje y, en pantalla, el guion `pagina`: 0 fuera en 6 capturas).
 - [x] Sin `kit.json` o sin una pieza, la carta sale igual con las piezas del theme de hoy (prueba).
 - [x] Dos cartas seguidas usan variantes distintas de fondo y cinta cuando el kit tiene dos (prueba).
+- [x] La cinta sobresale del pergamino por arriba (más o menos la mitad), centrada, y su texto cabe en el paño, en
+      todas las plantillas y con las dos cintas (prueba `test_ribbon_on_the_top_edge` y, en pantalla, el guion `pagina`).
 
 ## Decisiones que necesitan al owner
 

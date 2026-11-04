@@ -3,10 +3,12 @@ extends PanelContainer
 ## A narrative window built with the page kit (docs/ui/04_kit_de_pagina.md §3): show_page(data) clears the card and
 ## mounts one of four templates from a dictionary, so the event card, the wedding and the rest only translate the
 ## state into data:
-##   template  "card" (Carta: illustration on top faded into the paper, the title on a ribbon, body, seal and buttons) ·
-##             "plate" (Lámina: the illustration ×2 in the picture frame, ribbon on top, text on the veil) ·
+##   template  "card" (Carta: illustration on top faded into the paper, body, seal and buttons) ·
+##             "plate" (Lámina: the illustration ×2 in the picture frame, text on the veil) ·
 ##             "sheet" (Ficha: the portrait ×2 faded on one side, the data on the other; without portrait «solo ficha») ·
 ##             "notice" (aviso corto: the card in small, 236 wide, inside a framed box)
+##   every template carries the title on the kit's ribbon, centred and mounted on the top edge of the page: about half
+##   of it rises above the card (ribbon_overhang px), the rest covers the top band and the content starts under it.
 ##   title, ribbon (the ribbon's text if it is not the title), image (Texture2D; 240×135 in cards, 192×108 in notices),
 ##   portrait (Texture2D, 64), subtitle (lines under the name in a sheet), dark (dark paper),
 ##   blocks [{type: paragraph | effects | figures | quote | divider | portraits, ...}] (§3 «Bloques»),
@@ -22,14 +24,20 @@ signal button_pressed(id: String)
 signal closed
 
 const WIDTH: Dictionary = {"card": 400, "notice": 236, "sheet": 356}
-const IMAGE_OVERLAP: int = 18      # the ribbon covers the faded foot of the illustration
 const RIBBON_MIN: int = 160
+const RIBBON_GAP: int = 4          # air between the ribbon's lower edge and the first block
+const RIBBON_SIDE: int = 12        # the ribbon keeps this far from the card's sides (more where the corners are)
+## The ribbon's letter, from the largest down: Jacquard 24 on one line, Pixel Operator Bold on one line, then on two
+## (only on a ribbon whose cloth fits two lines). A title that fits none is cut with «…».
+const RIBBON_TIERS: Array = [[&"PageRibbon", 1], [&"PageRibbonSmall", 1], [&"PageRibbonSmall", 2]]
 const PLATE_SIZE: Vector2i = Vector2i(480, 270)
 
 var data: Dictionary = {}
 var parts: Dictionary = {}          # slot -> file used ("" = fallback of the theme)
 var safe: Dictionary = {}           # the safe area of this card: {left, top, right, bottom} in px
 var column_width: int = 0
+var ribbon_overhang: int = 0        # px the ribbon rises above the card's top edge (0: no ribbon of the kit)
+var _corner_reach: int = 0          # how far the corner ornaments reach in from the sides (the ribbon keeps clear)
 var _left: float = 0.0
 
 @onready var _body: MarginContainer = %Body
@@ -57,8 +65,9 @@ func show_page(d: Dictionary) -> void:
 	visible = true
 	_left = float(d.get("seconds", 0.0))
 	reset_size()
-	if is_inside_tree():
-		position = ((get_viewport_rect().size - size) / 2.0).round()
+	if is_inside_tree():  # centred with the ribbon that rises above it
+		var whole := size + Vector2(0, ribbon_overhang)
+		position = ((get_viewport_rect().size - whole) / 2.0 + Vector2(0, ribbon_overhang)).round()
 	if OS.is_debug_build():
 		print("[PageCard] %s «%s» (piezas=%s, zona segura=%s, %s)" % [str(d.get("template", "card")),
 			str(d.get("title", "")), parts, safe, size])
@@ -84,6 +93,8 @@ func build(d: Dictionary) -> void:
 	_bind()
 	data = d.duplicate()
 	parts = {}
+	ribbon_overhang = 0
+	_corner_reach = 0
 	for n: Node in [_column, _decor]:
 		for c: Node in n.get_children():
 			n.remove_child(c)
@@ -126,32 +137,20 @@ static func _sort(n: Node) -> void:
 func _build_card(d: Dictionary) -> void:
 	_page("page_bg_dark" if bool(d.get("dark", false)) else "page_bg", int(WIDTH["card"]))
 	_corners()
+	_top_ribbon(_ribbon_text(d), int(WIDTH["card"]))
 	var img: Texture2D = d.get("image") as Texture2D
 	if img != null:
-		var head := VBoxContainer.new()
-		head.name = "Head"
-		head.add_theme_constant_override("separation", -IMAGE_OVERLAP)
-		head.add_child(_masked(img, "mask_foot_240", 1, "Illustration"))
-		head.add_child(_ribbon(_ribbon_text(d)))
-		_column.add_child(head)
-	else:
-		_column.add_child(_ribbon(_ribbon_text(d)))
+		_column.add_child(_masked(img, "mask_foot_240", 1, "Illustration"))
 	_blocks(d)
 	_footer(d)
 
 
 func _build_notice(d: Dictionary) -> void:
 	_box_page(int(WIDTH["notice"]))
+	_top_ribbon(_ribbon_text(d), int(WIDTH["notice"]))
 	var img: Texture2D = d.get("image") as Texture2D
 	if img != null:
-		var head := VBoxContainer.new()
-		head.name = "Head"
-		head.add_theme_constant_override("separation", -IMAGE_OVERLAP + 4)
-		head.add_child(_masked(img, "mask_foot_192", 1, "Illustration"))
-		head.add_child(_ribbon(_ribbon_text(d)))
-		_column.add_child(head)
-	else:
-		_column.add_child(_ribbon(_ribbon_text(d)))
+		_column.add_child(_masked(img, "mask_foot_192", 1, "Illustration"))
 	_blocks(d)
 	_footer(d)
 
@@ -159,6 +158,7 @@ func _build_notice(d: Dictionary) -> void:
 func _build_sheet(d: Dictionary) -> void:
 	_page("page_bg_tall", int(WIDTH["sheet"]))
 	_corners()
+	_top_ribbon(_ribbon_text(d), int(WIDTH["sheet"]))
 	var por: Texture2D = d.get("portrait") as Texture2D
 	if por != null:
 		var top := HBoxContainer.new()
@@ -170,13 +170,11 @@ func _build_sheet(d: Dictionary) -> void:
 		side.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		side.add_theme_constant_override("separation", 2)
 		var w := column_width - por.get_width() * 2 - 4
-		side.add_child(_ribbon(_ribbon_text(d), w))
 		for line: Variant in d.get("subtitle", []):
 			side.add_child(_label(str(line), &"PageInkDim", w))
 		top.add_child(side)
 		_column.add_child(top)
 	else:
-		_column.add_child(_ribbon(_ribbon_text(d)))
 		for line: Variant in d.get("subtitle", []):
 			var l := _label(str(line), &"PageInkDim")
 			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -201,6 +199,8 @@ func _build_plate(d: Dictionary) -> void:
 		var b: Dictionary = (v.get("nine", {}) as Dictionary).get("bar", {})
 		for k: String in bar:
 			bar[k] = int(b.get(k, 8))
+		var sl: Dictionary = (v.get("nine", {}) as Dictionary).get("slice", {})
+		_corner_reach = maxi(int(sl.get("left", 8)), int(sl.get("right", 8)))
 		parts["plate_frame"] = str(v["file"])
 	else:
 		parts["plate_frame"] = ""
@@ -220,12 +220,6 @@ func _build_plate(d: Dictionary) -> void:
 		t.set_anchors_preset(Control.PRESET_FULL_RECT)
 		t.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		plate.add_child(t)
-	var top := CenterContainer.new()
-	top.name = "RibbonRow"
-	top.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	top.offset_top = 6
-	top.add_child(_ribbon(_ribbon_text(d), PLATE_SIZE.x - 48))
-	plate.add_child(top)
 	var vv := PageKit.variant("veil")
 	var band := MarginContainer.new()
 	band.name = "TextBand"
@@ -268,6 +262,9 @@ func _build_plate(d: Dictionary) -> void:
 	_column = col
 	column_width = PLATE_SIZE.x
 	band.offset_top = -band.get_combined_minimum_size().y
+	# on the frame's top edge; the illustration fills the frame, so the ribbon covers its top (the sky) instead of
+	# pushing it down
+	_top_ribbon(_ribbon_text(d), PLATE_SIZE.x + int(bar["left"]) + int(bar["right"]), false)
 
 
 # --- Pieces ---------------------------------------------------------------------------------------------------------
@@ -311,6 +308,7 @@ func _box_page(width: int) -> void:
 		fr.add_theme_stylebox_override("panel", st)
 		_decor.add_child(fr)
 		bar = int(maxf(st.content_margin_left, st.content_margin_top))
+		_corner_reach = int(maxf(st.texture_margin_left, st.texture_margin_right))
 		parts["box_frame"] = str(f["file"])
 	else:
 		parts["box_frame"] = ""
@@ -348,49 +346,124 @@ func _corners() -> void:
 		c.offset_right = c.offset_left + w
 		c.offset_bottom = c.offset_top + h
 		_decor.add_child(c)
+		_corner_reach = maxi(_corner_reach, inset_x + w)
 
 
 func _ribbon_text(d: Dictionary) -> String:
 	return str(d.get("ribbon", d.get("title", "")))
 
 
-## The title on the ribbon (3-slice of the kit; fallback: the title in ink, centred).
-func _ribbon(text: String, max_w: int = -1) -> Control:
-	var maxw := column_width if max_w < 0 else max_w
-	var v := PageKit.variant("ribbon")
+## The title on the kit's ribbon, centred on the page's top edge with about half of it above (in Decor, over
+## everything; the card does not clip it). The column starts under it: the safe area's top grows to clear the ribbon
+## (`push`; the plate does not push, its illustration fills the frame). Without a ribbon in the kit: the title in ink
+## at the head of the column.
+func _top_ribbon(text: String, page_width: int, push: bool = true) -> void:
+	var maxw := page_width - 2 * maxi(RIBBON_SIDE, _corner_reach)
+	var r := _ribbon(text, maxw)
+	if r is Label:
+		_column.add_child(r)
+		_column.move_child(r, 0)
+		return
+	var w := int(r.custom_minimum_size.x)
+	var h := int(r.custom_minimum_size.y)
+	ribbon_overhang = h / 2
+	r.anchor_left = 0.5
+	r.anchor_right = 0.5
+	r.offset_left = -w / 2
+	r.offset_right = r.offset_left + w
+	r.offset_top = -ribbon_overhang
+	r.offset_bottom = r.offset_top + h
+	_decor.add_child(r)
+	if push:
+		safe["top"] = maxi(int(safe["top"]), h - ribbon_overhang + RIBBON_GAP)
+	if OS.is_debug_build():
+		var l := r.get_node("RibbonText") as Label
+		print("[PageCard] cinta «%s»: %s, letra %s, %d línea(s), %dx%d, sobresale %d (máx %d)" % [text,
+			parts.get("ribbon", ""), l.theme_type_variation, l.get_meta("lines", 1), w, h, ribbon_overhang, maxw])
+
+
+## The title on the ribbon (3-slice of the kit; fallback: the title in ink, centred). The turn's ribbon first; if the
+## title does not fit it (width up to `maxw`, the letter's lines inside the cloth), the other chosen ribbons, then a
+## smaller letter (RIBBON_TIERS).
+func _ribbon(text: String, maxw: int) -> Control:
 	var l := Label.new()
 	l.name = "RibbonText"
 	l.text = text
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	var tw := int(ceilf(_text_width(l, text, &"PageRibbon")))
-	if not v.is_empty() and tw + _ribbon_caps(v) + 8 > maxw:  # the turn's ribbon is too narrow: another that fits
-		var fit: Dictionary = {}
-		for c: Dictionary in PageKit.chosen("ribbon"):
-			if tw + _ribbon_caps(c) + 8 <= maxw:
-				fit = c
-				break
-		v = fit
-	if v.is_empty():
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var first := PageKit.variant("ribbon")
+	if first.is_empty():
 		parts["ribbon"] = ""
 		l.theme_type_variation = &"InkTitleLabel"
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		l.custom_minimum_size = Vector2(maxw, 0)
+		l.custom_minimum_size = Vector2(column_width, 0)
 		l.name = "Ribbon"
 		return l
+	var order: Array = [first]
+	for c: Dictionary in PageKit.chosen("ribbon"):
+		if c != first:
+			order.append(c)
+	var pick: Dictionary = {}
+	for tier: Array in RIBBON_TIERS:
+		for v: Dictionary in order:
+			var need := _ribbon_need(text, tier[0], int(tier[1]), v, maxw)
+			if not need.is_empty():
+				pick = need
+				pick["v"] = v
+				pick["variation"] = tier[0]
+				break
+		if not pick.is_empty():
+			break
+	if pick.is_empty():  # fits nowhere: the small letter on the turn's ribbon, cut
+		pick = {"v": first, "variation": &"PageRibbonSmall", "lines": 1, "width": maxw, "height": 0}
+		l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		l.clip_text = true
+	var v: Dictionary = pick["v"]
 	parts["ribbon"] = str(v["file"])
-	l.theme_type_variation = &"PageRibbon"
+	l.theme_type_variation = pick["variation"]
+	l.set_meta("lines", pick["lines"])
+	if int(pick["lines"]) > 1:  # wraps at the measured width; asks for its whole height (it fits the cloth)
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var p := PanelContainer.new()
 	p.name = "Ribbon"
-	var st := PageKit.ribbon_style(v)
-	p.add_theme_stylebox_override("panel", st)
-	p.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	var tex := PageKit.texture_of(v)
-	var caps := _ribbon_caps(v)
-	p.custom_minimum_size = Vector2(clampi(tw + caps + 8, mini(RIBBON_MIN, maxw), maxw), tex.get_height())
-	l.clip_text = true
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p.add_theme_stylebox_override("panel", PageKit.ribbon_style(v))
+	var w := int(pick["width"])
+	w += w % 2  # even, so the centred ribbon lands on whole pixels
+	p.custom_minimum_size = Vector2(w, PageKit.texture_of(v).get_height())
+	if int(pick["lines"]) > 1:
+		l.custom_minimum_size = Vector2(w - _ribbon_caps(v) - 8, int(pick["height"]))
 	p.add_child(l)
 	return p
+
+
+## What ribbon `v` needs for `text` in `variation` on up to `lines` lines: {width, lines, height} ({} if it does not
+## fit in `maxw` or the lines do not fit the cloth's height). Two lines only when one does not do.
+func _ribbon_need(text: String, variation: StringName, lines: int, v: Dictionary, maxw: int) -> Dictionary:
+	var th := PageKit.theme()
+	var font := th.get_font("font", variation)
+	var fs := th.get_font_size("font_size", variation)
+	var st := PageKit.ribbon_style(v)
+	var caps := int(st.content_margin_left + st.content_margin_right)
+	var band := PageKit.texture_of(v).get_height() - int(st.content_margin_top + st.content_margin_bottom)
+	var line_h := font.get_height(fs)
+	if lines == 1:
+		var tw := int(ceilf(font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x)) + 1  # +1: the shadow
+		if line_h > band or tw + caps + 8 > maxw:
+			return {}
+		return {"width": clampi(tw + caps + 8, mini(RIBBON_MIN, maxw), maxw), "lines": 1, "height": 0}
+	var inner := maxw - caps - 8
+	var spacing := th.get_constant("line_spacing", variation)
+	var para := TextParagraph.new()  # how Label breaks it (AUTOWRAP_WORD_SMART)
+	para.add_string(text, font, fs)
+	para.break_flags = TextServer.BREAK_MANDATORY | TextServer.BREAK_WORD_BOUND | TextServer.BREAK_ADAPTIVE
+	para.width = inner
+	var n := para.get_line_count()
+	var height := n * line_h + (n - 1) * spacing
+	if n < 2 or n > lines or height > band:
+		return {}
+	return {"width": maxw, "lines": n, "height": height}
 
 
 func _ribbon_caps(v: Dictionary) -> int:
