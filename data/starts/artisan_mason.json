@@ -1,7 +1,7 @@
 {
   "id": "artisan_mason",
   "name_key": "start.artisan_mason",
-  "_doc": "H12: start of a new game as artisan / mason, a copy of artisan_blacksmith (see its _doc) with the mason's workshop on its map site, its tool, stock, scripted contracts and first objectives. The rival smith stays in its forge; the other trades are competitors.",
+  "_doc": "H12: start of a new game as artisan / mason, a copy of artisan_blacksmith (see its _doc) with the mason's workshop on its map site, its tool, stock, scripted contracts and first objectives. The rival (GDD 4.5.5) is of the same trade, in the lot the player's forge leaves free (rival_<building> of the map); the smith Bernat and the other trades are competitors.",
   "class": "artisan",
   "profession": "mason",
   "map": "town_e",
@@ -106,21 +106,21 @@
     "repay_debt"
   ],
   "rival": {
-    "family_name": "Ferrer",
-    "profession": "blacksmith",
+    "family_name": "Pedrosa",
+    "profession": "mason",
     "colors": {
-      "primary": "#3f6b3a",
-      "secondary": "#b8b8b0"
+      "primary": "#5c5c4a",
+      "secondary": "#c8a84e"
     },
     "profile": "rival_smith",
     "gold": 80,
     "character": {
-      "name": "Bernat",
+      "name": "Gonzalo",
       "female": false,
       "age": 35,
       "visual": {
-        "hair": 3,
-        "skin": 2
+        "hair": 4,
+        "skin": 1
       },
       "stats": {
         "charisma": 4,
@@ -136,24 +136,80 @@
       }
     },
     "building": {
-      "site": "rival_forge",
-      "type": "forge",
+      "site": "rival_masonry",
+      "type": "masonry",
       "inventory": [
         {
-          "item": "iron",
+          "item": "stone",
           "quality": 0,
-          "qty": 8
+          "qty": 12
         },
         {
-          "item": "coal",
+          "item": "wood",
           "quality": 0,
-          "qty": 4
+          "qty": 2
         }
       ]
     }
   },
   "_competitors_doc": "H12: the other workshops of the town (GDD 4.5.5 style, no new AI): one AI family with the profile of each, its building on its map site with its stock. Added after the townsfolk and the offices (the ids of before do not move). spouse: they start married (a married head does not court: the town keeps its singles for the rival smith and the player).",
   "competitors": [
+    {
+      "family_name": "Ferrer",
+      "colors": {
+        "primary": "#3f6b3a",
+        "secondary": "#b8b8b0"
+      },
+      "profile": "rival_artisan",
+      "gold": 80,
+      "profession": "blacksmith",
+      "spouse": {
+        "name": "Mireia",
+        "female": true,
+        "age": 33,
+        "visual": {
+          "hair": 1,
+          "skin": 2
+        }
+      },
+      "character": {
+        "name": "Bernat",
+        "female": false,
+        "age": 35,
+        "visual": {
+          "hair": 3,
+          "skin": 2
+        },
+        "stats": {
+          "charisma": 4,
+          "empathy": 3,
+          "negotiation": 6,
+          "arcane": 1,
+          "dexterity": 4,
+          "craft": 5,
+          "martial": 3,
+          "constitution": 5,
+          "rhetoric": 3,
+          "stealth": 2
+        }
+      },
+      "building": {
+        "site": "rival_forge",
+        "type": "forge",
+        "inventory": [
+          {
+            "item": "iron",
+            "quality": 0,
+            "qty": 8
+          },
+          {
+            "item": "coal",
+            "quality": 0,
+            "qty": 4
+          }
+        ]
+      }
+    },
     {
       "family_name": "Fuster",
       "colors": {
