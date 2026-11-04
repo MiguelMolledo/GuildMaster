@@ -6657,6 +6657,75 @@
       "coste_gen": 0,
       "coste_usd": 0.02,
       "notas": "Icono de la carta de la taberna: dulces de Navidad (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_game_naipes",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/naipes/",
+      "origen": "fal: nano-banana-2/edit (los 4 palos y 12 figuras) + image2pixel; cartas compuestas con Pillow (tools/art/juegos_taberna.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.32,
+      "notas": "Baraja de 40 de 4 palos (04f §4.26.8), al estilo de los naipes antiguos: <oros|copas|espadas|bastos>_<1-7|10|11|12>.png (48×72, número en las esquinas, la disposición de los palos de la baraja española; 10 sota, 11 caballo, 12 rey), back.png (reverso), slot.png (hueco), suit_<palo>.png (32) y small/ (16)."
+    },
+    {
+      "id": "ui_game_dados",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/dados/",
+      "origen": "dibujado (Pillow, tools/art/juegos_taberna.py dados)",
+      "coste_gen": 0,
+      "notas": "Dados de hueso (04f §4.26.7): d1-d6.png (24×24, cara de arriba, puntos exactos) y shadow.png."
+    },
+    {
+      "id": "ui_game_mesa",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/mesa/mesa.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de mesa de taberna para dados y naipes, visto desde arriba, el centro libre: 960×540 (480×270 ×2)."
+    },
+    {
+      "id": "ui_forge_live",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "forja"
+      ],
+      "ruta": "assets/art/ui/forge/",
+      "origen": "fal: nano-banana-2/edit (ref: el kit de la forja ×4) + image2pixel (tools/art/fal_forja_viva.py); calores y golpes, con Pillow",
+      "coste_gen": 0,
+      "coste_usd": 0.16,
+      "notas": "Forja viva (03b §3b.2). Calentar: iron_cold y iron_<dark_red|cherry|orange|yellow|white>.png (64×64, la misma barra con rampas fijas) y hearth.png (la fragua). Batir: strike_<strong|measured|finish>.png (80×96: el martillo arriba, a media altura o en la barra, con chispas según el golpe), anvil.png y hammer.png sueltos para animarlos. Templar: quench_<water|oil|air>.png (64×64)."
+    },
+    {
+      "id": "ui_icon_forge_traits",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "forja"
+      ],
+      "ruta": "assets/art/ui/forge/trait_oil_tempered.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Iconos de rasgos de pieza (03b §3b.2): trait_<oil_tempered|fine_edge|master_mark|masterwork>.png (32×32) y small/ (16×16): templada al aceite, filo fino, marca del maestro y obra maestra."
     }
   ]
 }

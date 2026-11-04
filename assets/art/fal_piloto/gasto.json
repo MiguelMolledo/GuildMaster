@@ -16007,5 +16007,338 @@
   "imagenes": 1,
   "usd": 0.0003,
   "que": "image2pixel minstrel_corner_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:28:41",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "s1"
+ },
+ {
+  "fecha": "2026-11-04T21:28:55",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "k1"
+ },
+ {
+  "fecha": "2026-11-04T21:29:15",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.003,
+  "que": "image2pixel s1_suit_oros_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T21:29:20",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel s1_suit_copas_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T21:29:24",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel s1_suit_espadas_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T21:29:28",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel s1_suit_bastos_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T21:29:32",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel k1_trait_oil_tempered_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T21:29:36",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel k1_trait_fine_edge_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T21:29:40",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel k1_trait_master_mark_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T21:29:44",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel k1_trait_masterwork_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T21:29:59",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "n1"
+ },
+ {
+  "fecha": "2026-11-04T21:30:12",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "n2"
+ },
+ {
+  "fecha": "2026-11-04T21:30:27",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "n3"
+ },
+ {
+  "fecha": "2026-11-04T21:30:43",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "mesa"
+ },
+ {
+  "fecha": "2026-11-04T21:30:53",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0013,
+  "que": "image2pixel sota_oros_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:30:56",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel sota_copas_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:30:59",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel sota_espadas_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:02",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel sota_bastos_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:05",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel caballo_oros_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:08",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel caballo_copas_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:11",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel caballo_espadas_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:14",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel caballo_bastos_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:17",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel rey_oros_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:20",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel rey_copas_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:23",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel rey_espadas_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:26",
+  "tanda": "h16",
+  "pieza": "juegos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel rey_bastos_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:29",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel games_mesa_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T21:31:46",
+  "tanda": "h16",
+  "pieza": "forja_viva",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "g1"
+ },
+ {
+  "fecha": "2026-11-04T21:32:00",
+  "tanda": "h16",
+  "pieza": "forja_viva",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "g2"
+ },
+ {
+  "fecha": "2026-11-04T21:32:03",
+  "tanda": "h16",
+  "pieza": "forja_viva",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel iron_cold_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:32:06",
+  "tanda": "h16",
+  "pieza": "forja_viva",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel anvil_strike_1_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:32:09",
+  "tanda": "h16",
+  "pieza": "forja_viva",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel anvil_strike_2_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:32:12",
+  "tanda": "h16",
+  "pieza": "forja_viva",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel anvil_strike_3_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:32:15",
+  "tanda": "h16",
+  "pieza": "forja_viva",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel hearth_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:32:18",
+  "tanda": "h16",
+  "pieza": "forja_viva",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel quench_water_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:32:21",
+  "tanda": "h16",
+  "pieza": "forja_viva",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel quench_oil_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T21:32:24",
+  "tanda": "h16",
+  "pieza": "forja_viva",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel quench_air_s8.png"
  }
 ]
