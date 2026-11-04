@@ -3,7 +3,8 @@ extends "res://tests/test_case.gd"
 ## as a map of the catalog, its test start (data/scenarios/<map>_start.json, tools/scenarios/make_city_scenarios.gd)
 ## is a real new game on it, the sim walks it and the view draws its decor.
 
-const MAPS: Array[String] = ["town_road", "town_square", "town_crossroads", "town_river"]
+const MAPS: Array[String] = ["town_road", "town_square", "town_crossroads", "town_river", "region_capital", "region_port",
+	"region_quarry", "region_hamlet", "region_abbey"]
 
 var cat := Catalog.load_from()
 

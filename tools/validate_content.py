@@ -512,18 +512,21 @@ def check_h4(buildings, recipes, maps, strings, rep):
             if hh.get("home") in homes:
                 rep.error(wh, f"la casa {hh.get('home')} ya tiene otra familia")
             homes.add(hh.get("home"))
-            if not (isinstance(hh.get("family_name"), str) and hh["family_name"].strip()):
+            # docs/contratos/poblacion.md «Varias ciudades»: a household of a generated town may bring only gold and
+            # its members' rank and stats; the cast gives surname, colours, names, sex, age and look (fixed cast too)
+            if "family_name" in hh and not (isinstance(hh.get("family_name"), str) and hh["family_name"].strip()):
                 rep.error(wh, "family_name: texto")
             if not isinstance(hh.get("gold"), int) or hh["gold"] < 0:
                 rep.error(wh, "gold: entero >= 0")
-            if not all(re.fullmatch(r"#[0-9a-fA-F]{6}", str((hh.get("colors") or {}).get(k, ""))) for k in ("primary", "secondary")):
+            if "colors" in hh and not all(re.fullmatch(r"#[0-9a-fA-F]{6}", str((hh.get("colors") or {}).get(k, ""))) for k in ("primary", "secondary")):
                 rep.error(wh, "colors: primary y secondary en #rrggbb")
             if not hh.get("members"):
                 rep.error(wh, "una casa sin vecinos")
             for p in hh.get("members") or []:
                 wp_ = f"{wh} {p.get('name')}"
-                if not (isinstance(p.get("name"), str) and p["name"].strip() and isinstance(p.get("female"), bool)):
-                    rep.error(wp_, "name (texto) y female (bool)")
+                if ("name" in p or "female" in p) and not (isinstance(p.get("name"), str) and p["name"].strip()
+                                                         and isinstance(p.get("female"), bool)):
+                    rep.error(wp_, "name (texto) y female (bool), o ninguno de los dos (los pone el reparto)")
                 if p.get("rank") not in ranks:
                     rep.error(wp_, f"rango desconocido {p.get('rank')}")
                 stt = p.get("stats") or {}
@@ -1870,6 +1873,116 @@ TUTORIAL_ADVANCE = {"action", "next"}
 TUTORIAL_UI_NAME = re.compile(r"^[A-Za-z0-9_*]+$")
 
 
+REGION_KINDS = {"villa", "capital", "port", "quarry", "hamlet", "abbey"}
+REGION_TERRAINS = {"road", "royal_road", "river", "mountain", "ridge", "forest", "ford"}
+
+
+def check_region(items, strings, rep):
+    """data/world/region.json (docs/gdd/09b_region.md): the settlements and routes of the region. Design and view
+    only (the sim does not read it), but it must hold together: unique ids, routes between settlements that exist,
+    no repeated pair, the region connected, every map in data/maps, every text in i18n, positions on the map image,
+    the items and goods groups of the price multipliers known, the events that cut a route known."""
+    w = "world/region.json"
+    path = os.path.join(DATA, "world", "region.json")
+    if not os.path.exists(path):
+        return
+    r = load_json(path, rep)
+    if not isinstance(r, dict):
+        return
+    check_text(w, r.get("name_key", ""), strings, rep)
+    size = r.get("map", {}).get("size", [0, 0])
+    img = os.path.join(ROOT, "assets", "art", "region", f"{r.get('id', '')}_map.png")
+    if not os.path.exists(img):
+        rep.error(w, f"falta el pergamino {os.path.relpath(img, ROOT)} (VisualPaths.region_map)")
+    seasons = load_json(os.path.join(DATA, "seasons.json"), rep) or {}
+    groups = set(seasons.get("goods", {}))
+    events = set((load_json(os.path.join(DATA, "events.json"), rep) or {}).get("events", {}))
+    proposed = {k for k in r.get("events_proposed", {}) if not k.startswith("_")}
+    ids = []
+    for st in r.get("settlements", []):
+        sid = str(st.get("id", ""))
+        ws = f"{w} {sid}"
+        if not ID_RE.match(sid):
+            rep.error(ws, "id no es inglés en snake_case")
+        if sid in ids:
+            rep.error(ws, "id repetido")
+        ids.append(sid)
+        if st.get("kind") not in REGION_KINDS:
+            rep.error(ws, f"kind desconocido {st.get('kind')}")
+        for k in ("name_key", "rulers", "specialty"):
+            check_text(ws, str(st.get(k, "")), strings, rep)
+        mid = str(st.get("map", ""))
+        mp = os.path.join(DATA, "maps", mid + ".json")
+        if not os.path.exists(mp):
+            rep.error(ws, f"el mapa {mid} no existe en data/maps")
+        else:
+            m = load_json(mp, rep) or {}
+            if list(m.get("size", [])) != list(st.get("map_size", [])):
+                rep.error(ws, f"map_size {st.get('map_size')} no es el tamaño del mapa {mid} ({m.get('size')})")
+            if len(m.get("population", [])) != st.get("households"):
+                rep.error(ws, f"households {st.get('households')}: el mapa {mid} tiene {len(m.get('population', []))}")
+        pos = st.get("pos", [])
+        if not (isinstance(pos, list) and len(pos) == 2 and 0 <= pos[0] < size[0] and 0 <= pos[1] < size[1]):
+            rep.error(ws, f"pos {pos} fuera del mapa regional {size}")
+        for side in ("cheap", "dear"):
+            for k, v in st.get(side, {}).items():
+                if k not in items and k not in groups:
+                    rep.error(ws, f"{side}: {k} no es un objeto ni un grupo de data/seasons.json goods")
+                if not isinstance(v, (int, float)) or v <= 0 or (side == "cheap" and v >= 1) or (side == "dear" and v <= 1):
+                    rep.error(ws, f"{side}: {k} ×{v} (barato < 1 < caro)")
+        t = st.get("tariff", 0)
+        if not isinstance(t, (int, float)) or not 0 <= t < 1:
+            rep.error(ws, f"tariff {t} debe estar en [0, 1)")
+    if r.get("home") not in ids:
+        rep.error(w, f"home {r.get('home')} no es un asentamiento")
+    adj = {i: set() for i in ids}
+    pairs = set()
+    rids = set()
+    for rt in r.get("routes", []):
+        rid = str(rt.get("id", ""))
+        wr = f"{w} ruta {rid}"
+        if rid in rids:
+            rep.error(wr, "id repetido")
+        rids.add(rid)
+        a, b = rt.get("a"), rt.get("b")
+        if a not in adj or b not in adj:
+            rep.error(wr, f"une {a} y {b}: alguno no es un asentamiento")
+            continue
+        if a == b:
+            rep.error(wr, "une un asentamiento consigo mismo")
+        pair = tuple(sorted((a, b)))
+        if pair in pairs:
+            rep.error(wr, f"ya hay una ruta entre {a} y {b}")
+        pairs.add(pair)
+        adj[a].add(b)
+        adj[b].add(a)
+        if not isinstance(rt.get("hours"), (int, float)) or rt["hours"] <= 0:
+            rep.error(wr, "hours debe ser > 0 (horas de juego)")
+        if not isinstance(rt.get("risk"), int) or not 0 <= rt["risk"] <= 5:
+            rep.error(wr, "risk debe ser un entero de 0 a 5")
+        if rt.get("terrain") not in REGION_TERRAINS:
+            rep.error(wr, f"terrain desconocido {rt.get('terrain')}")
+        check_text(wr, "region.terrain." + str(rt.get("terrain", "")), strings, rep)
+        for e in rt.get("cut_by", []):
+            if e not in events and e not in proposed:
+                rep.error(wr, f"cut_by {e}: no es un evento de data/events.json ni de events_proposed")
+        for pt in rt.get("path", []):
+            if not (isinstance(pt, list) and len(pt) == 2 and 0 <= pt[0] < size[0] and 0 <= pt[1] < size[1]):
+                rep.error(wr, f"path {pt} fuera del mapa regional")
+    for k in proposed:
+        check_text(f"{w} events_proposed.{k}", str(r["events_proposed"][k].get("text_key", "")), strings, rep)
+    if ids:
+        seen = {ids[0]}
+        todo = [ids[0]]
+        while todo:
+            for n in adj[todo.pop()]:
+                if n not in seen:
+                    seen.add(n)
+                    todo.append(n)
+        if len(seen) != len(ids):
+            rep.error(w, f"la región no es conexa: no se llega a {sorted(set(ids) - seen)}")
+
+
 def _gd_const_list(src, name):
     """Las cadenas de `const NAME: Array[String] = [ ... ]` (o las claves de un Dictionary con sus listas)."""
     m = re.search(r"const %s: [A-Za-z\[\]]+ = [\[{](.*?)\n[\]}]" % name, src, re.S)
@@ -2264,6 +2377,7 @@ def main():
     check_h14(strings, rep)
     check_h13(items, strings, rep)
     check_h12(items, recipes, buildings, maps, strings, rep)
+    check_region(items, strings, rep)
     check_tutorial(strings, set(load_kind("starts", rep)),
                    {n[:-5] for n in os.listdir(os.path.join(DATA, "scenarios")) if n.endswith(".json") and not n.startswith("_")},
                    items, buildings, load_kind("maps", rep), rep)
