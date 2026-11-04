@@ -2094,6 +2094,25 @@ ui.families.f_wedding,A wedding (day %d),Una boda (día %d)
 ui.families.f_fact,"%s (day %d, public)","%s (día %d, público)"
 help.key.tutorial,Tab · Shift+Tab,Tab · Mayús+Tab
 help.key.tutorial_do,"Tutorial: skip the step · the chapter (Backspace repeats it)","Tutorial: saltar el paso · el capítulo (Retroceso lo repite)"
+ui.event_card.ok,Understood,Entendido
+ui.event_card.declared,"Declared by %s, the mayor.","Lo declara %s, el Alcalde."
+ui.event_card.lasts_season,Lasts %d season,Dura %d estación
+ui.event_card.lasts_seasons,Lasts %d seasons,Dura %d estaciones
+ui.event_card.lasts_day,Lasts %d day,Dura %d día
+ui.event_card.lasts_days,Lasts %d days,Dura %d días
+ui.event_card.fx_price,%s: price ×%s,%s: precio ×%s
+ui.event_card.fx_demand,%s: demand ×%s,%s: demanda ×%s
+ui.event_card.fx_production,%s: production ×%s,%s: producción ×%s
+ui.event_card.fx_customers,Customers at the counters ×%s,Clientes en los mostradores ×%s
+ui.event_card.fx_errands,Errands take ×%s,Los recados tardan ×%s
+ui.event_card.fx_mortality,Deaths ×%s,Muertes ×%s
+event.famine.story,The harvest has failed across the county. Bread is scarce and the old and the weak fall ill.,La cosecha se ha perdido en todo el condado. Falta pan y los viejos y los débiles enferman.
+event.epidemic.story,A fever spreads from house to house. Shops close early and the apothecaries cannot keep up.,Unas fiebres pasan de casa en casa. Las tiendas cierran pronto y los boticarios no dan abasto.
+event.war.story,The count's troops cross the region and cut the roads. Weapons are worth double and food goes up.,Las tropas del conde cruzan la comarca y cortan los caminos. Las armas valen el doble y la comida sube.
+event.good_harvest.story,The granaries are full to the roof. Food is cheap this season.,Los graneros están llenos hasta el techo. La comida sale barata esta estación.
+event.festival.story,"Music, stalls and dancing in the square: the town is in the street and spends.","Música, puestos y baile en la plaza: el pueblo está en la calle y gasta."
+event.religious_feast.story,The bells call to mass. Few people shop and every table wants bread and meat.,Las campanas llaman a misa. Poca gente compra y todas las mesas quieren pan y carne.
+event.dignitary_visit.story,A noble's retinue arrives in town. Strangers with full purses fill the shops.,Llega a la villa el séquito de un noble. Forasteros con la bolsa llena llenan las tiendas.
 tutorial.chapter.first_steps,First steps,Primeros pasos
 tutorial.chapter.first_steps.desc,"Pick and move your character, the time and the speed, go into your workshop.","Elegir y mover a tu personaje, la hora y la velocidad, entrar en tu taller."
 tutorial.first_steps.welcome,This is {town}. I will show you the basics step by step; the game waits paused while you read.,Esto es {town}. Te enseño lo básico paso a paso; el juego espera en pausa mientras lees.
@@ -2275,7 +2294,7 @@ tutorial.ui.never,Do not show again,No volver a mostrar
 tutorial.ui.step,{chapter} · {n}/{total},{chapter} · {n}/{total}
 tutorial.ui.waiting,Do it to go on,Hazlo para seguir
 tutorial.ui.hint,First time,Primera vez
-tutorial.ui.chapter_done,Chapter done: {chapter},Capítulo terminado: {chapter}
+tutorial.ui.chapter_done,Chapter done.,Capítulo terminado.
 tutorial.ui.chapter_done_body,Next: {next}.,El siguiente: {next}.
 tutorial.ui.all_done,You have seen every chapter. F1 replays any of them.,Has visto todos los capítulos. F1 repite cualquiera.
 tutorial.ui.next_chapter,Next chapter,Siguiente capítulo
@@ -2289,22 +2308,3 @@ tutorial.ui.help_done,done,hecho
 tutorial.ui.help_other_trade,Only in a game of this trade,Solo en una partida de este oficio
 tutorial.ui.options_hints,First-time hints,Pistas de primera vez
 tutorial.ui.options_guided,Guided tutorial: only the highlight,Tutorial guiado: solo lo resaltado
-ui.event_card.ok,Understood,Entendido
-ui.event_card.declared,"Declared by %s, the mayor.","Lo declara %s, el Alcalde."
-ui.event_card.lasts_season,Lasts %d season,Dura %d estación
-ui.event_card.lasts_seasons,Lasts %d seasons,Dura %d estaciones
-ui.event_card.lasts_day,Lasts %d day,Dura %d día
-ui.event_card.lasts_days,Lasts %d days,Dura %d días
-ui.event_card.fx_price,%s: price ×%s,%s: precio ×%s
-ui.event_card.fx_demand,%s: demand ×%s,%s: demanda ×%s
-ui.event_card.fx_production,%s: production ×%s,%s: producción ×%s
-ui.event_card.fx_customers,Customers at the counters ×%s,Clientes en los mostradores ×%s
-ui.event_card.fx_errands,Errands take ×%s,Los recados tardan ×%s
-ui.event_card.fx_mortality,Deaths ×%s,Muertes ×%s
-event.famine.story,The harvest has failed across the county. Bread is scarce and the old and the weak fall ill.,La cosecha se ha perdido en todo el condado. Falta pan y los viejos y los débiles enferman.
-event.epidemic.story,A fever spreads from house to house. Shops close early and the apothecaries cannot keep up.,Unas fiebres pasan de casa en casa. Las tiendas cierran pronto y los boticarios no dan abasto.
-event.war.story,The count's troops cross the region and cut the roads. Weapons are worth double and food goes up.,Las tropas del conde cruzan la comarca y cortan los caminos. Las armas valen el doble y la comida sube.
-event.good_harvest.story,The granaries are full to the roof. Food is cheap this season.,Los graneros están llenos hasta el techo. La comida sale barata esta estación.
-event.festival.story,"Music, stalls and dancing in the square: the town is in the street and spends.","Música, puestos y baile en la plaza: el pueblo está en la calle y gasta."
-event.religious_feast.story,The bells call to mass. Few people shop and every table wants bread and meat.,Las campanas llaman a misa. Poca gente compra y todas las mesas quieren pan y carne.
-event.dignitary_visit.story,A noble's retinue arrives in town. Strangers with full purses fill the shops.,Llega a la villa el séquito de un noble. Forasteros con la bolsa llena llenan las tiendas.

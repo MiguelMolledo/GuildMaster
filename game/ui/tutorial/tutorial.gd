@@ -478,8 +478,9 @@ func _end_card(args: Dictionary) -> Dictionary:
 	var a := args.duplicate()
 	a["chapter"] = tr(str(ch.get("name_key", "")))
 	a["next"] = tr(str(chapters.get(nxt, {}).get("name_key", ""))) if nxt != "" else ""
-	var d := {"step": _t("tutorial.ui.chapter_done", a),
-		"body": _t("tutorial.ui.chapter_done_body", a) if nxt != "" else tr("tutorial.ui.all_done")}
+	var d := {"step": str(a["chapter"]),   # the chapter's name on the ribbon (a long one would not fit in it)
+		"body": tr("tutorial.ui.chapter_done") + " " + (_t("tutorial.ui.chapter_done_body", a) if nxt != ""
+			else tr("tutorial.ui.all_done"))}
 	var buttons: Array = []
 	if nxt != "":
 		buttons.append({"id": "next_chapter", "text": tr("tutorial.ui.next_chapter"), "primary": true})

@@ -299,3 +299,28 @@ func test_the_progress_is_in_the_settings_not_in_the_game() -> void:
 	Settings.reread()
 	var src := FileAccess.get_file_as_string("res://sim/core/world_state.gd")
 	check(not src.contains("tutorial"), "the saved game knows nothing of the tutorial")
+
+
+## upgrade_preview.gd (found by the tutorial's smoke: «Infinite loop detected» in the Armory): the gold pulse is a
+## looped tween; it only runs on a node in the tree and at a sane time scale, and it is bound to the node.
+func test_the_upgrade_preview_pulse_never_loops_on_nothing() -> void:
+	var n := Node2D.new()
+	check(not UpgradePreview.pulse_allowed(n, 1.0), "a node out of the tree does not pulse")
+	check(not UpgradePreview.pulse_allowed(null, 1.0), "nor no node")
+	var pv := UpgradePreview.new()
+	pv._light(n)
+	eq(n.modulate, UpgradePreview.GOLD, "it is lit in gold anyway")
+	check(pv._tween == null, "with no tween behind")
+	pv._unlight()
+	eq(n.modulate, Color.WHITE, "and unlit")
+	var src := FileAccess.get_file_as_string("res://game/ui/upgrade_preview.gd")
+	check(src.contains("bind_node(n)"), "the tween is bound to the lit node")
+	check(UpgradePreview.MAX_PULSE_TIME_SCALE <= 16.0, "and stops pulsing when time is sped up a lot")
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree != null:   # with a main loop: in the tree it pulses, sped up it does not
+		tree.root.add_child(n)
+		check(UpgradePreview.pulse_allowed(n, 1.0), "in the tree, at ×1, it pulses")
+		check(not UpgradePreview.pulse_allowed(n, 100.0), "at ×100 it does not")
+		check(not UpgradePreview.pulse_allowed(n, 0.0), "nor with time stopped")
+	pv.free()
+	n.free()

@@ -177,8 +177,8 @@ parpadea).
   debajo de los menús y del fundido (capa 35 entre las tarjetas, 30, y las pantallas, 40).
 - **Marco**: 2 px de oro (`#c8a84e`) que late: crece 0 → 2 px y baja de brillo en 0,9 s, a saltos de píxel entero.
 - **Flecha**: triángulo de oro de 7 px entre la tarjeta y el objetivo, apuntándolo, que sube y baja 2 px.
-- **Tarjeta**: pergamino (`TutorialCard`) de 236 de ancho: `TutorialStep` (capítulo y n/total), `TutorialBody`
-  (el texto) y los botones. Se coloca debajo del objetivo; si no cabe, encima, a la derecha o a la izquierda; nunca
+- **Tarjeta**: el aviso corto del kit de página (236 de ancho): la cinta con el capítulo y n/total, el texto y los
+  botones (ver abajo). Se coloca debajo del objetivo; si no cabe, encima, a la derecha o a la izquierda; nunca
   encima del objetivo ni fuera de la pantalla. Sin objetivo, en el centro de la vista libre.
 - **Pista**: sin velo, el marco y la flecha más la tarjeta con «Entendido» / «No volver a mostrar».
 - **Sigue al objetivo cada fotograma**: los paneles entran con `UiAnim` y se mueven; el foco se recalcula siempre
@@ -186,10 +186,11 @@ parpadea).
 - **Modo guiado** (opcional, Opciones): el velo se queda los clics fuera del objetivo; pasan los del objetivo, los de
   la tarjeta y los del botón de pausa y velocidades. Esc y Espacio siempre funcionan.
 
-Theme: el común (`greybox_theme.tres`) con cuatro variaciones nuevas, `TutorialCard`, `TutorialBody`,
-`TutorialStep` y `TutorialTitle`. La tarjeta es propia y sencilla (`tutorial_card.tscn`) con la misma forma de datos
-que `PageCard.show_page` del kit de página (rama kit-pagina, aún no en main): cuando llegue, se cambia por la
-plantilla `notice`.
+Tarjeta: el aviso corto del kit de página ([04](04_kit_de_pagina.md), `PageCard`, plantilla `notice`, 236 de ancho,
+variaciones `Page*`): el capítulo y el paso en la cinta, el texto como párrafo (`PageInk`) y los botones en el pie.
+Lo que el aviso no trae va en su columna con dos variaciones propias del theme común: `TutorialTitle` (la línea de
+qué lo abre, bajo la cinta) y `TutorialStep` (la línea de teclas, sobre los botones). `TutorialCard`
+(`tutorial_card.tscn`) envuelve la página: la monta con `build` (no se centra sola) y `sticky` (un clic no la cierra).
 
 ## 6. Progreso
 
