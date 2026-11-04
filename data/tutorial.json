@@ -1,0 +1,474 @@
+{
+  "_doc": "Tutorial interactivo (docs/ui/05_tutorial.md). chapters: el orden de los capítulos (data/tutorial/<id>.json). openers: qué se resalta cuando el objetivo de un paso no está a la vista: por el nombre del panel que lo contiene (el «in» del objetivo o un antepasado del nodo), «@interior» (un puesto con el pueblo a la vista) o «@town» (algo del pueblo desde dentro de un edificio). panels: los paneles que se vigilan (panel_open, panel_opened, panel_closed). hints: las pistas de primera vez (when, target, text, until). look: el aspecto del foco (velo, marco que late, flecha y tarjeta), en píxeles de 960×540 y segundos reales.",
+  "chapters": [
+    "first_steps",
+    "produce",
+    "market",
+    "debt",
+    "staff",
+    "upgrades",
+    "family",
+    "titles",
+    "offices",
+    "court",
+    "seasons",
+    "trade_carpenter",
+    "trade_mason",
+    "trade_tailor"
+  ],
+  "openers": {
+    "LedgerPanel": {
+      "target": {
+        "ui": "LedgerButton"
+      },
+      "text": "tutorial.open.ledgerpanel"
+    },
+    "FamilyTreePanel": {
+      "target": {
+        "ui": "TreeButton",
+        "in": "StatusBar"
+      },
+      "text": "tutorial.open.familytreepanel"
+    },
+    "CharacterPanel": {
+      "target": {
+        "ui": "InventoryButton"
+      },
+      "text": "tutorial.open.characterpanel"
+    },
+    "OfficesPanel": {
+      "target": {
+        "ui": "OfficesButton"
+      },
+      "text": "tutorial.open.officespanel"
+    },
+    "TrialPanel": {
+      "target": {
+        "ui": "TrialsButton"
+      },
+      "text": "tutorial.open.trialpanel"
+    },
+    "CourtshipPanel": {
+      "target": {
+        "ui": "CourtButton",
+        "in": "CharacterPanel"
+      },
+      "text": "tutorial.open.courtshippanel"
+    },
+    "KinAiPanel": {
+      "target": {
+        "ui": "KinAiButton",
+        "in": "CharacterPanel"
+      },
+      "text": "tutorial.open.kinaipanel"
+    },
+    "TownHallPanel": {
+      "target": {
+        "world": "service",
+        "id": "town_hall"
+      },
+      "text": "tutorial.open.townhallpanel"
+    },
+    "BoardPanel": {
+      "target": {
+        "world": "service",
+        "id": "board"
+      },
+      "text": "tutorial.open.boardpanel"
+    },
+    "ProductionPanel": {
+      "target": {
+        "ui": "ProductionButton"
+      },
+      "text": "tutorial.open.productionpanel"
+    },
+    "StoragePanel": {
+      "target": {
+        "ui": "StorageButton"
+      },
+      "text": "tutorial.open.storagepanel"
+    },
+    "StaffPanel": {
+      "target": {
+        "ui": "StaffButton"
+      },
+      "text": "tutorial.open.staffpanel"
+    },
+    "UpgradePanel": {
+      "target": {
+        "ui": "UpgradesButton"
+      },
+      "text": "tutorial.open.upgradepanel"
+    },
+    "StationMenu": {
+      "target": {
+        "world": "station",
+        "id": "$first_station"
+      },
+      "text": "tutorial.open.stationmenu"
+    },
+    "DynastyPage": {
+      "target": {
+        "ui": "TabDynasty",
+        "in": "FamilyTreePanel"
+      },
+      "text": "tutorial.open.dynastypage"
+    },
+    "TreePage": {
+      "target": {
+        "ui": "TabTree",
+        "in": "FamilyTreePanel"
+      },
+      "text": "tutorial.open.treepage"
+    },
+    "QueuePage": {
+      "target": {
+        "ui": "QueueTab",
+        "in": "ProductionPanel"
+      },
+      "text": "tutorial.open.queuepage"
+    },
+    "NowPage": {
+      "target": {
+        "ui": "NowTab",
+        "in": "ProductionPanel"
+      },
+      "text": "tutorial.open.nowpage"
+    },
+    "RecipesPage": {
+      "target": {
+        "ui": "RecipesTab",
+        "in": "ProductionPanel"
+      },
+      "text": "tutorial.open.recipespage"
+    },
+    "SellList": {
+      "target": {
+        "ui": "SellTab",
+        "in": "MarketPanel"
+      },
+      "text": "tutorial.open.selllist"
+    },
+    "BuyList": {
+      "target": {
+        "ui": "BuyTab",
+        "in": "MarketPanel"
+      },
+      "text": "tutorial.open.buylist"
+    },
+    "@interior": {
+      "target": {
+        "world": "building",
+        "id": "$workshop"
+      },
+      "text": "tutorial.open.interior"
+    },
+    "@town": {
+      "target": {
+        "ui": "ExitButton"
+      },
+      "text": "tutorial.open.town"
+    }
+  },
+  "panels": [
+    "LedgerPanel",
+    "MarketPanel",
+    "BoardPanel",
+    "NpcPanel",
+    "FamiliesPanel",
+    "CourtshipPanel",
+    "TownHallPanel",
+    "KinAiPanel",
+    "CharacterPanel",
+    "FamilyTreePanel",
+    "OfficesPanel",
+    "TrialPanel",
+    "StoragePanel",
+    "ProductionPanel",
+    "StaffPanel",
+    "UpgradePanel",
+    "StationMenu",
+    "HelpPanel",
+    "MicroeventCard",
+    "TrialCard",
+    "TitleCard",
+    "OfficeCard",
+    "ConfirmModal",
+    "WeddingCard",
+    "SuccessionCard"
+  ],
+  "hints": [
+    {
+      "id": "inside",
+      "when": {
+        "state": "interior",
+        "is": "$workshop"
+      },
+      "target": {
+        "world": "station",
+        "id": "$first_station"
+      },
+      "text": "tutorial.hint.inside",
+      "until": {
+        "ui": "order_given",
+        "match": {
+          "type": "work_at"
+        }
+      }
+    },
+    {
+      "id": "master_touch",
+      "when": {
+        "sim": "master_window",
+        "match": {
+          "open": true
+        }
+      },
+      "target": {
+        "world": "station",
+        "id": "$event.zone"
+      },
+      "text": "tutorial.hint.master_touch",
+      "until": {
+        "sim": "master_window",
+        "match": {
+          "open": false
+        }
+      }
+    },
+    {
+      "id": "storage",
+      "when": {
+        "state": "panel_open",
+        "is": "StoragePanel"
+      },
+      "target": {
+        "ui": "BuildingGrid",
+        "in": "StoragePanel"
+      },
+      "text": "tutorial.hint.storage"
+    },
+    {
+      "id": "production",
+      "when": {
+        "state": "panel_open",
+        "is": "ProductionPanel"
+      },
+      "target": {
+        "ui": "Tabs",
+        "in": "ProductionPanel"
+      },
+      "text": "tutorial.hint.production"
+    },
+    {
+      "id": "market",
+      "when": {
+        "state": "panel_open",
+        "is": "MarketPanel"
+      },
+      "target": {
+        "ui": "MarketPanel"
+      },
+      "text": "tutorial.hint.market"
+    },
+    {
+      "id": "ledger",
+      "when": {
+        "state": "panel_open",
+        "is": "LedgerPanel"
+      },
+      "target": {
+        "ui": "Tabs",
+        "in": "LedgerPanel"
+      },
+      "text": "tutorial.hint.ledger"
+    },
+    {
+      "id": "staff",
+      "when": {
+        "state": "panel_open",
+        "is": "StaffPanel"
+      },
+      "target": {
+        "ui": "StaffTab",
+        "in": "StaffPanel"
+      },
+      "text": "tutorial.hint.staff"
+    },
+    {
+      "id": "upgrades",
+      "when": {
+        "state": "panel_open",
+        "is": "UpgradePanel"
+      },
+      "target": {
+        "ui": "Grid",
+        "in": "UpgradePanel"
+      },
+      "text": "tutorial.hint.upgrades"
+    },
+    {
+      "id": "tree",
+      "when": {
+        "state": "panel_open",
+        "is": "FamilyTreePanel"
+      },
+      "target": {
+        "ui": "Heads",
+        "in": "FamilyTreePanel"
+      },
+      "text": "tutorial.hint.tree"
+    },
+    {
+      "id": "courtship",
+      "when": {
+        "state": "panel_open",
+        "is": "CourtshipPanel"
+      },
+      "target": {
+        "ui": "CourtshipPanel"
+      },
+      "text": "tutorial.hint.courtship"
+    },
+    {
+      "id": "npc",
+      "when": {
+        "state": "panel_open",
+        "is": "NpcPanel"
+      },
+      "target": {
+        "ui": "RelationBar",
+        "in": "NpcPanel"
+      },
+      "text": "tutorial.hint.npc"
+    },
+    {
+      "id": "microevent",
+      "when": {
+        "state": "panel_open",
+        "is": "MicroeventCard"
+      },
+      "target": {
+        "ui": "MicroeventCard"
+      },
+      "text": "tutorial.hint.microevent"
+    },
+    {
+      "id": "town_hall",
+      "when": {
+        "state": "panel_open",
+        "is": "TownHallPanel"
+      },
+      "target": {
+        "ui": "Ladder",
+        "in": "TownHallPanel"
+      },
+      "text": "tutorial.hint.town_hall"
+    },
+    {
+      "id": "offices",
+      "when": {
+        "state": "panel_open",
+        "is": "OfficesPanel"
+      },
+      "target": {
+        "ui": "Calendar",
+        "in": "OfficesPanel"
+      },
+      "text": "tutorial.hint.offices"
+    },
+    {
+      "id": "families",
+      "when": {
+        "state": "panel_open",
+        "is": "FamiliesPanel"
+      },
+      "target": {
+        "ui": "FamiliesPanel"
+      },
+      "text": "tutorial.hint.families"
+    },
+    {
+      "id": "trial",
+      "when": {
+        "sim": "trial_opened"
+      },
+      "target": {
+        "ui": "TrialsButton"
+      },
+      "text": "tutorial.hint.trial"
+    },
+    {
+      "id": "trial_panel",
+      "when": {
+        "state": "panel_open",
+        "is": "TrialPanel"
+      },
+      "target": {
+        "ui": "Balance",
+        "in": "TrialPanel"
+      },
+      "text": "tutorial.hint.trial_panel"
+    },
+    {
+      "id": "world_event",
+      "when": {
+        "sim": "world_event_started",
+        "match": {
+          "anyone": true
+        }
+      },
+      "target": {
+        "ui": "EventLabel"
+      },
+      "text": "tutorial.hint.world_event"
+    },
+    {
+      "id": "wedding",
+      "when": {
+        "sim": "wedding"
+      },
+      "target": {
+        "ui": "GroupBar"
+      },
+      "text": "tutorial.hint.wedding"
+    },
+    {
+      "id": "birth",
+      "when": {
+        "sim": "child_born"
+      },
+      "target": {
+        "ui": "TreeButton",
+        "in": "StatusBar"
+      },
+      "text": "tutorial.hint.birth"
+    },
+    {
+      "id": "inheritance",
+      "when": {
+        "sim": "inheritance"
+      },
+      "target": {
+        "ui": "Card"
+      },
+      "text": "tutorial.hint.inheritance"
+    }
+  ],
+  "look": {
+    "veil": "#1a1209",
+    "veil_alpha": 0.62,
+    "frame": "#c8a84e",
+    "frame_width": 2,
+    "pad": 3,
+    "pulse_seconds": 0.9,
+    "pulse_grow": 2,
+    "arrow": 7,
+    "arrow_bob": 2,
+    "card_width": 236,
+    "card_gap": 10,
+    "hint_seconds": 0,
+    "refind_seconds": 0.25,
+    "camera_margin": 24
+  }
+}

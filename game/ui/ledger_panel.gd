@@ -5,6 +5,12 @@ extends PanelContainer
 ## contracts with their time left) · Notices (newest first; showing them marks them read -> read_notices; a click on
 ## one -> notice_clicked, the HUD centres the camera or opens its panel). Reads Ledger / Loans / Notices / Contracts;
 ## only gives orders.
+## docs/ui/mecanicas/mercado_y_libro.md §4.3: Today with the net in big and a bar per category; By day as 8 bars over the
+## zero line (losses red, under it) and the mean; Debts as a card per loan (owed of the total with its paid bar, when
+## it is due and how many days, what happens if it falls due, the forecast «a tu ritmo llegas con ~ N: te da / no te
+## da» from Ledger.forecast, and the payment: an amount and Pay, or Pay all; a payment that leaves the gold under what
+## the next dawn charges, Upkeep.due_next_dawn, asks first in the confirmation modal); the unpaid upkeep as a card;
+## Notices with the unread count on its tab and the filters All · Urgent.
 ## H9: tab Reputation (GDD 4.12.1): the title and what it opens, the global reputation and the one with each class,
 ## the next title's requirements (asked for at the town hall), the passive reputation of today and the last changes.
 
@@ -19,6 +25,7 @@ var family: String = ""
 var actor: String = ""   # who gives the family's orders (repay_loan, read_notices)
 var tab: String = "today"
 var _pay: Dictionary = {}  # loan id -> amount chosen
+var notice_filter: String = "all"   # all | urgent
 var _sig: String = ""
 var _bound: bool = false
 
@@ -53,6 +60,7 @@ func open_for(s: Sim, fam: String, who: String, start_tab: String = "") -> void:
 	(%Title as Label).text = SimQuery.t_("ui.ledger.title") % str(s.state.families.get(fam, {}).get("name", fam))
 	for t: String in TABS:
 		tab_button(t).text = SimQuery.t_("ui.ledger.tab." + t)
+	_count_unread()
 	visible = true
 	show_tab(start_tab if start_tab in TABS else tab)
 	ViewConfig.info("LedgerPanel", "open (family=%s, actor=%s, tab=%s)" % [fam, who, tab])
@@ -101,6 +109,7 @@ func refresh(force: bool = false) -> void:
 		return
 	_sig = sig
 	(%GoldLabel as Label).text = SimQuery.t_("ui.market.gold") % _gold()
+	_count_unread()
 	var content := %Content as VBoxContainer
 	for c: Node in content.get_children():
 		content.remove_child(c)
@@ -182,20 +191,52 @@ static func signed(v: int) -> String:
 	return ("+%d" % v) if v > 0 else str(v)
 
 
+## «Aviso (3)»: the unread notices on the Notices tab.
+func _count_unread() -> void:
+	if sim == null or family == "":
+		return
+	var n := Notices.list(sim, family, true).size()
+	tab_button("notices").text = SimQuery.t_("ui.ledger.tab.notices") + (" (%d)" % n if n > 0 else "")
+
+
 func _fill_today(d: Variant) -> void:
 	var t: Dictionary = d if d is Dictionary else {}
+	var net := int(t.get("net", 0))
+	var big := _label(SimQuery.t_("ui.ledger.today_net") % [Clock.day(int(sim.state.clock["minute"])) + 1, signed(net)])
+	big.name = "Big"
+	big.theme_type_variation = &"PositiveLabel" if net >= 0 else &"ReasonLabel"
 	_line(SimQuery.t_("ui.ledger.income"), signed(int(t.get("income", 0))), "Income")
 	_line(SimQuery.t_("ui.ledger.expense"), signed(int(t.get("expense", 0))), "Expense")
-	_line(SimQuery.t_("ui.ledger.net"), signed(int(t.get("net", 0))), "Net")
+	_line(SimQuery.t_("ui.ledger.net"), signed(net), "Net")
 	(%Content as VBoxContainer).add_child(HSeparator.new())
 	var cats: Dictionary = t.get("by_category", {})
 	if cats.is_empty():
 		_label(SimQuery.t_("ui.ledger.nothing_today"), Color(1, 1, 1, 0.6))
 	var keys: Array = cats.keys()
-	keys.sort()
+	keys.sort_custom(func(a: String, b: String) -> bool: return int(cats[a]) > int(cats[b]))
+	var top := 1
 	for c: String in keys:
-		_line(SimQuery.category_name(c), signed(int(cats[c])), c)
+		top = maxi(top, absi(int(cats[c])))
+	for c: String in keys:
+		var row := _line(("+ " if int(cats[c]) >= 0 else "− ") + SimQuery.category_name(c), signed(int(cats[c])), c)
+		row.add_child(_bar(float(absi(int(cats[c]))) / float(top), int(cats[c]) >= 0))
+		row.move_child(row.get_child(2), 1)
 	_fill_prices()
+
+
+## A bar of `frac` (0..1) of 90 px, green or red (the category lines of Today).
+func _bar(frac: float, positive: bool) -> Control:
+	var box := Control.new()
+	box.name = "Bar"
+	box.custom_minimum_size = Vector2(90, 13)
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var r := ColorRect.new()
+	r.color = Color.html(StationMenu._token("positivo" if positive else "negativo"))
+	r.position = Vector2(0, 4)
+	r.size = Vector2(maxf(1.0, roundf(90.0 * clampf(frac, 0.0, 1.0))), 6)
+	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(r)
+	return box
 
 
 ## H13: why prices move today: the season's multipliers and each global event in force with its time left.
@@ -217,10 +258,51 @@ func _fill_days(d: Variant) -> void:
 	if rows.is_empty():
 		_label(SimQuery.t_("ui.ledger.nothing"), Color(1, 1, 1, 0.6))
 		return
+	(%Content as VBoxContainer).add_child(_days_chart(rows))
+	var sum := 0
+	for r: Dictionary in rows:
+		sum += int(r.get("net", 0))
+	_label(SimQuery.t_("ui.ledger.days_mean") % [rows.size(), signed(roundi(float(sum) / float(rows.size())))]).name = "Mean"
 	_line(SimQuery.t_("ui.ledger.day_header"), SimQuery.t_("ui.ledger.days_cols"))
 	for r: Dictionary in rows:
 		_line(SimQuery.t_("ui.ledger.day") % (int(r.get("day", 0)) + 1), "%s  %s  = %s" % [signed(int(r.get("income", 0))),
 			signed(int(r.get("expense", 0))), signed(int(r.get("net", 0)))], "Day%d" % int(r.get("day", 0)))
+
+
+## 8 bars of the net per day over the zero line (green up, red down), the day under each one.
+func _days_chart(rows: Array) -> Control:
+	var c := Control.new()
+	c.name = "Chart"
+	c.custom_minimum_size = Vector2(330, 84)
+	c.mouse_filter = Control.MOUSE_FILTER_PASS
+	var top := 1
+	for r: Dictionary in rows:
+		top = maxi(top, absi(int(r.get("net", 0))))
+	var pos := Color.html(StationMenu._token("positivo"))
+	var neg := Color.html(StationMenu._token("negativo"))
+	var axis := Color.html(StationMenu._token("oro_oscuro"))
+	c.draw.connect(func() -> void:
+		var mid := 38.0
+		var w := floorf(330.0 / 8.0)
+		c.draw_line(Vector2(0, mid), Vector2(330, mid), axis, 1.0)
+		for i: int in rows.size():
+			var net := int(rows[i].get("net", 0))
+			var h := roundf(34.0 * float(absi(net)) / float(top))
+			var x := float(i) * w + 4.0
+			if net >= 0:
+				c.draw_rect(Rect2(x, mid - h, w - 8.0, h), pos)
+			else:
+				c.draw_rect(Rect2(x, mid + 1.0, w - 8.0, h), neg))
+	for i: int in rows.size():
+		var l := Label.new()
+		l.theme_type_variation = &"SmallLabel"
+		l.text = str(int(rows[i].get("day", 0)) + 1)
+		l.position = Vector2(float(i) * floorf(330.0 / 8.0) + 10.0, 74)
+		l.tooltip_text = SimQuery.t_("ui.ledger.day_tip") % [int(rows[i].get("day", 0)) + 1, signed(int(rows[i].get("income", 0))),
+			signed(int(rows[i].get("expense", 0))), signed(int(rows[i].get("net", 0)))]
+		l.mouse_filter = Control.MOUSE_FILTER_STOP
+		c.add_child(l)
+	return c
 
 
 func _fill_buildings(d: Variant) -> void:
@@ -254,11 +336,40 @@ func _fill_debts(d: Variant) -> void:
 	for l: Dictionary in loans:
 		var id := str(l.get("id", ""))
 		var owed := int(l.get("outstanding", 0))
-		var line := _line(SimQuery.t_("ui.ledger.loan") % [SimQuery.t_("lender." + str(l.get("lender", ""))), owed],
-			SimQuery.t_("ui.ledger.due") % [SimQuery.minute_label(int(l.get("due_minute", 0)) - 1),
-			int(l.get("days_left", 0))], id)
+		var principal := maxi(1, int(l.get("principal", owed)))
+		var days := int(l.get("days_left", 0))
+		var line := _line(SimQuery.t_("ui.ledger.loan_owed") % [SimQuery.t_("lender." + str(l.get("lender", ""))), owed, principal],
+			"", id)
+		line.get_child(0).set("theme_type_variation", &"BoldLabel")
+		var bar := ProgressBar.new()
+		bar.name = id + "_bar"
+		bar.custom_minimum_size = Vector2(0, 6)
+		bar.show_percentage = false
+		bar.max_value = 1.0
+		bar.step = 0.0
+		bar.value = float(principal - owed) / float(principal) if not bool(l.get("extended", false)) else 0.0
+		(%Content as VBoxContainer).add_child(bar)
+		var due := _label(SimQuery.t_("ui.ledger.due_line") % [SimQuery.minute_label(int(l.get("due_minute", 0)) - 1), days,
+			roundi(100.0 * bar.value)])
+		due.theme_type_variation = &"ReasonLabel" if days <= 1 else (&"WarningLabel" if days <= 3 else &"DimLabel")
 		if bool(l.get("extended", false)):
-			(line.get_child(1) as Label).text += " · " + SimQuery.t_("ui.ledger.extended")
+			due.text = SimQuery.t_("ui.ledger.in_extension") % [owed, SimQuery.minute_label(int(l.get("due_minute", 0)) - 1)]
+			due.theme_type_variation = &"ReasonLabel"
+		var fc := Ledger.forecast(sim, family, int(l.get("due_minute", 0)))
+		var gives := int(fc["gold_at"]) >= owed
+		var f := _label(SimQuery.t_("ui.ledger.forecast") % [signed(int(fc["avg_net"])), int(fc["days"]), int(fc["gold_at"]),
+			SimQuery.t_("ui.ledger.gives" if gives else "ui.ledger.not_gives")])
+		f.name = id + "_forecast"
+		f.theme_type_variation = &"PositiveLabel" if gives else &"ReasonLabel"
+		f.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		var loan: Dictionary = sim.state.loans.get(id, {})
+		var ifdue := _label(SimQuery.t_("ui.ledger.if_due") % [int(loan.get("overdue_reputation", -10)),
+			int(loan.get("extension_seasons", 1)), roundi(float(loan.get("extension_surcharge", 0.25)) * 100.0),
+			roundi(owed * (1.0 + float(loan.get("extension_surcharge", 0.25))))] if not bool(l.get("extended", false)) \
+			else SimQuery.t_("ui.ledger.if_extension_due"))
+		ifdue.name = id + "_consequences"
+		ifdue.theme_type_variation = &"DimLabel"
+		ifdue.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		var pay := HBoxContainer.new()
 		pay.name = id + "_pay"
 		var amount := SpinBox.new()
@@ -267,6 +378,7 @@ func _fill_debts(d: Variant) -> void:
 		amount.max_value = maxi(1, mini(owed, g))
 		amount.value = clampi(int(_pay.get(id, mini(owed, g))), 1, maxi(1, mini(owed, g)))
 		amount.custom_minimum_size = Vector2(64, 0)
+		amount.custom_arrow_step = 10.0
 		amount.value_changed.connect(func(v: float) -> void: _pay[id] = int(v))
 		pay.add_child(amount)
 		var some := Button.new()
@@ -286,6 +398,17 @@ func _fill_debts(d: Variant) -> void:
 		all.pressed.connect(func() -> void: repay(id, owed))
 		pay.add_child(all)
 		(%Content as VBoxContainer).add_child(pay)
+		if g < owed:
+			var short := _label(SimQuery.t_("ui.market.missing_gold") % (owed - g))
+			short.theme_type_variation = &"ReasonLabel"
+			short.name = id + "_short"
+		(%Content as VBoxContainer).add_child(HSeparator.new())
+	var upkeep: Array = (Ledger.summary(sim, family, "debts") as Dictionary).get("upkeep", [])
+	for u: Dictionary in upkeep:
+		var card := _label(SimQuery.t_("ui.ledger.upkeep_card") % [SimQuery.building_label(sim.state, sim.catalog,
+			str(u.get("building", ""))), int(u.get("debt", 0)), int(u.get("days_unpaid", 0))])
+		card.theme_type_variation = &"ReasonLabel"
+		card.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	(%Content as VBoxContainer).add_child(HSeparator.new())
 	_label(SimQuery.t_("ui.ledger.contracts"), Color(0.85, 0.7, 0.42))
 	var cs: Array = t.get("contracts", [])
@@ -299,6 +422,23 @@ func _fill_debts(d: Variant) -> void:
 
 func _fill_notices(d: Variant) -> void:
 	var rows: Array = d if d is Array else []
+	var filters := HBoxContainer.new()
+	filters.name = "Filters"
+	for fl: String in ["all", "urgent"]:
+		var b := Button.new()
+		b.name = "Filter_" + fl
+		b.text = SimQuery.t_("ui.ledger.filter." + fl)
+		b.toggle_mode = true
+		b.theme_type_variation = &"TabButton"
+		b.focus_mode = Control.FOCUS_NONE
+		b.set_pressed_no_signal(fl == notice_filter)
+		b.pressed.connect(func() -> void:
+			notice_filter = fl
+			refresh(true))
+		filters.add_child(b)
+	(%Content as VBoxContainer).add_child(filters)
+	if notice_filter == "urgent":
+		rows = rows.filter(func(n: Dictionary) -> bool: return str(n.get("severity", "")) == "urgent")
 	if rows.is_empty():
 		_label(SimQuery.t_("ui.ledger.no_notices"), Color(1, 1, 1, 0.6))
 		return
@@ -324,10 +464,26 @@ func row_of(n: String) -> Control:
 	return (%Content as VBoxContainer).get_node_or_null(n) as Control
 
 
+## Pays `amount` of `loan`. If it leaves the gold under what the next dawn charges (upkeep and wages,
+## Upkeep.due_next_dawn), the confirmation modal asks first with the figures (01 §5); without one (no HUD) it pays.
 func repay(loan: String, amount: int) -> void:
 	if amount <= 0:
 		return
-	_give({"type": "repay_loan", "actor": actor, "loan": loan, "amount": amount})
+	var o := {"type": "repay_loan", "actor": actor, "loan": loan, "amount": amount}
+	var due := Upkeep.due_next_dawn(sim, family)
+	var left := _gold() - amount
+	if left < int(due["total"]) and is_inside_tree():
+		var asked := ConfirmModal.ask_in(get_tree(), {"title": SimQuery.t_("ui.ledger.confirm_title") % amount,
+			"body": SimQuery.t_("ui.ledger.confirm_body") % [left, int(due["upkeep"]), int(due["wages"])],
+			"action": SimQuery.t_("ui.ledger.pay_n") % amount, "seal": true}, func() -> void: _give(o))
+		if asked:
+			return
+	_give(o)
+
+
+## Whether paying `amount` now would ask for confirmation (the gold left under the next dawn's charges).
+func needs_confirm(amount: int) -> bool:
+	return _gold() - amount < int(Upkeep.due_next_dawn(sim, family)["total"])
 
 
 func _give(o: Dictionary) -> void:

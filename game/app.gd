@@ -25,6 +25,7 @@ extends Node
 ## customer at the counter.
 ## H14: --smoke-script=ia_familiar: the family AI panel, a spouse trading on her own, low needs.
 ## H13: --smoke-script=eventos: the notices and the clock line of the global events, the market's price reason, the book.
+## Page kit: --smoke-script=pagina: the card of a global event that starts and the other templates of PageCard.
 ## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## H12: --smoke-script=oficios: the trade buttons of the new game screen and the workshop of each artisan trade.
 ## --smoke-script=menu: every menu screen (title, new game, pause, save, load, options, quit, credits, ending).
@@ -40,6 +41,10 @@ extends Node
 ## menu (it pauses and locks the orders); F5 / F9 open save / load over it; F11 toggles full screen anywhere. The
 ## screens of ScreensLayer stack: the last one shown is on top. Saving keeps a thumbnail of what was seen
 ## (user://saves/<slot>.png). When the window loses the focus the sound goes down and the game pauses (options).
+## Tutorial (docs/ui/05_tutorial.md): the Tutorial layer (35) listens and paints; a new game with «Con tutorial» starts
+## its first chapter, the help's chapter buttons start theirs. In smoke mode its progress stays in memory (the
+## player's settings are not touched) and the first-time hints only show in the tutorial's own scripts:
+## --smoke-script=tutorial (chapters 1 and 2 played, a shot per step) and tutorial_datos (every step finds its target).
 
 const GALLERY: String = "res://game/tools/gallery.tscn"
 const TITLE_TILE: Vector2i = Vector2i(20, 15)  # the camera behind the title (the plaza, docs/ui/maquetas/fondos)
@@ -51,8 +56,11 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"cargos": "res://game/smoke/smoke_cargos.gd", "tribunal": "res://game/smoke/smoke_tribunal.gd",
 	"escala": "res://game/smoke/smoke_escala.gd", "ia_familiar": "res://game/smoke/smoke_ia_familiar.gd",
 	"hud": "res://game/smoke/smoke_hud.gd", "paneles": "res://game/smoke/smoke_paneles.gd",
+	"economia": "res://game/smoke/smoke_economia.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
-	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd"}
+	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd",
+	"pagina": "res://game/smoke/smoke_pagina.gd",
+	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView
@@ -68,6 +76,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 @onready var _options: OptionsScreen = %OptionsScreen
 @onready var _credits: CreditsScreen = %CreditsScreen
 @onready var _succession: SuccessionCard = %SuccessionCard
+@onready var _tutorial: Tutorial = %Tutorial
 
 var interior_building: String = ""   # "" = the town is shown
 var _shots_left: int = 0
@@ -126,7 +135,11 @@ func _ready() -> void:
 	Events.sim_event.connect(_on_sim_event)
 	Game.started.connect(func() -> void:
 		_close_now()
-		_hud.close_panels())
+		_hud.close_panels()
+		_tutorial.stop()
+		if _tutorial.ctx != null:
+			_tutorial.ctx.clear_cache())
+	_bind_tutorial(script_id)
 	if script_id != "":
 		_shots_left = 0
 		if SMOKE_SCRIPTS.has(script_id):
@@ -143,6 +156,30 @@ func _ready() -> void:
 		show_title()
 	elif bool(opts["new_game"]):
 		show_new_game()
+
+
+## The tutorial reads the game through AppTutorialContext; the sim's events reach it from here.
+func _bind_tutorial(script_id: String) -> void:
+	_tutorial.setup(AppTutorialContext.new(self))
+	_hud.tutorial = _tutorial
+	_hud.tutorial_requested.connect(start_tutorial)
+	Events.sim_event.connect(func(e: Dictionary) -> void: _tutorial.on_event("sim", str(e.get("type", "")), e))
+	if script_id != "" or _shots_left > 0:
+		_tutorial.use_settings = false
+		_tutorial.memory["game/tutorial_hints"] = script_id.begins_with("tutorial")
+
+
+func tutorial() -> Tutorial:
+	return _tutorial
+
+
+## A chapter of the tutorial now (the help's buttons); one that cannot be played says why.
+func start_tutorial(id: String) -> void:
+	var why := _tutorial.cannot_play(id)
+	if why != "":
+		_hud.show_toast(tr(why))
+		return
+	_tutorial.start(id)
 
 
 func _bind_menus() -> void:
@@ -277,11 +314,17 @@ func show_new_game() -> void:
 
 func _on_new_game_started(state: WorldState) -> void:
 	Log.info("App", "new game started (family=%s, difficulty=%s)" % [SimQuery.player_family(state), state.difficulty])
+	var with_tutorial := _new_game.with_tutorial()
+	_tutorial.set_progress("tutorial/asked", true)
 	_new_game.close()
 	_ending.close()
 	_title.close()
 	Game.start(state, Game.sim.catalog)
 	_enter_game()
+	if with_tutorial:
+		var ids := _tutorial.chapter_ids()
+		if not ids.is_empty():
+			_tutorial.start(str(ids[0]))
 
 
 ## The signs over the buildings and the stalls (hidden behind the title, as in its mock-up).

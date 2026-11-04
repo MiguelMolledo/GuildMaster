@@ -1,0 +1,62 @@
+{
+  "id": "court",
+  "name_key": "tutorial.chapter.court",
+  "desc_key": "tutorial.chapter.court.desc",
+  "test": {
+    "scenario": "accused_player"
+  },
+  "steps": [
+    {
+      "id": "why",
+      "text": "tutorial.court.why",
+      "advance": "next"
+    },
+    {
+      "id": "button",
+      "text": "tutorial.court.button",
+      "target": {
+        "ui": "TrialsButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "TrialPanel"
+      },
+      "advance": "action",
+      "if": {
+        "state": "has_trial",
+        "is": true
+      }
+    },
+    {
+      "id": "balance",
+      "text": "tutorial.court.balance",
+      "target": {
+        "ui": "Balance",
+        "in": "TrialPanel"
+      },
+      "advance": "next",
+      "if": {
+        "state": "has_trial",
+        "is": true
+      }
+    },
+    {
+      "id": "witnesses",
+      "text": "tutorial.court.witnesses",
+      "target": {
+        "ui": "Witnesses",
+        "in": "TrialPanel"
+      },
+      "advance": "next",
+      "if": {
+        "state": "has_trial",
+        "is": true
+      }
+    },
+    {
+      "id": "accuse",
+      "text": "tutorial.court.accuse",
+      "advance": "next"
+    }
+  ]
+}

@@ -132,14 +132,8 @@ func _fill_ladder(current: String, next: String) -> void:
 		var step := PanelContainer.new()
 		step.name = t
 		step.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		var sb := StyleBoxFlat.new()   # thin margins: five steps in 356 px (the kit's step frame is pending)
-		sb.set_content_margin_all(1)
-		sb.content_margin_left = 0
-		sb.content_margin_right = 0
-		sb.bg_color = Color(0.360784, 0.227451, 0.117647) if t == current else Color(0.2, 0.152941, 0.109804)
-		sb.border_color = Color(0.784314, 0.658824, 0.305882)
-		sb.set_border_width_all(1 if t == current or t == next else 0)
-		step.add_theme_stylebox_override("panel", sb)
+		step.theme_type_variation = &"TitleStepCurrent" if t == current else (&"TitleStepFar" if i > cur and t != next \
+			else &"TitleStep")
 		step.set_meta("current", t == current)
 		var v := VBoxContainer.new()
 		v.add_theme_constant_override("separation", 0)
@@ -155,8 +149,6 @@ func _fill_ladder(current: String, next: String) -> void:
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		l.clip_text = true
 		v.add_child(l)
-		if i > cur and t != next:
-			step.modulate = Color(1, 1, 1, 0.7)
 		var def: Dictionary = sim.catalog.titles().get(t, {})
 		step.tooltip_text = SimQuery.t_("ui.town_hall.step_tip") % [tn, int(def.get("reputation", 0)), int(def.get("cost_gold", 0)),
 			unlocks_text(sim.catalog, t)]

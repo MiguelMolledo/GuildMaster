@@ -167,7 +167,7 @@ func _fill_mine(list: VBoxContainer, rows: Array, fam: String) -> void:
 		var bar := SocialKit.bar(float(hours) / span, 120.0, "Time")
 		bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		if hours <= URGENT_HOURS:
-			bar.modulate = ViewConfig.color("#c85050")
+			bar.theme_type_variation = &"UrgentBar"
 		timer.add_child(bar)
 		timer.add_child(SocialKit.label(SimQuery.hours_label(float(hours)), &"ReasonLabel" if hours <= URGENT_HOURS else &"DimLabel", "Left"))
 		row.add_child(timer)
@@ -244,9 +244,7 @@ func _fill_open(grid: GridContainer, rows: Array, fam: String) -> void:
 		var stock := family_stock(sim, fam, str(c.get("item", "")), int(c.get("min_quality", 0))) + carried(c)
 		var enough := stock >= int(c.get("qty", 1))
 		var have := SocialKit.label(SimQuery.t_("ui.board.have") % [stock, int(c.get("qty", 1))],
-			&"PositiveLabel" if enough else &"InkLabel", "Terms")
-		if enough:
-			have.add_theme_color_override("font_color", ViewConfig.color("#3f6b3a"))  # positive, darker on parchment
+			&"PositiveInkLabel" if enough else &"InkLabel", "Terms")
 		have.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		bottom.add_child(have)
 		var status := str(c.get("status", "ok"))

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=65 format=3 uid="uid://bsmlccu1dtv2v"]
+[gd_resource type="Theme" load_steps=73 format=3 uid="uid://bsmlccu1dtv2v"]
 
 [ext_resource type="Texture2D" uid="uid://55w2uwcmn4ky" path="res://assets/art/ui/theme/panel.png" id="panel"]
 [ext_resource type="Texture2D" uid="uid://bqd15odjsdvmm" path="res://assets/art/ui/theme/button_normal.png" id="button_normal"]
@@ -405,6 +405,53 @@ texture_margin_top = 1.0
 texture_margin_right = 3.0
 texture_margin_bottom = 1.0
 
+[sub_resource type="StyleBoxFlat" id="row_blocked"]
+content_margin_left = 3.0
+content_margin_top = 1.0
+content_margin_right = 3.0
+content_margin_bottom = 1.0
+bg_color = Color(0.329412, 0.152941, 0.121569, 1)
+border_width_left = 1
+border_color = Color(0.784314, 0.313725, 0.313725, 1)
+
+[sub_resource type="StyleBoxFlat" id="title_step"]
+content_margin_top = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.2, 0.152941, 0.109804, 1)
+
+[sub_resource type="StyleBoxFlat" id="title_step_current"]
+content_margin_top = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.360784, 0.227451, 0.117647, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.784314, 0.658824, 0.305882, 1)
+
+[sub_resource type="StyleBoxFlat" id="title_step_far"]
+content_margin_top = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.164706, 0.121569, 0.0784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="witness_favor"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0.494118, 0.784314, 0.494118, 1)
+
+[sub_resource type="StyleBoxFlat" id="witness_neutral"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(0.8, 0.8, 0.75, 1)
+
+[sub_resource type="StyleBoxFlat" id="witness_against"]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color(1, 0.5, 0.45, 1)
+
+[sub_resource type="StyleBoxFlat" id="bar_fill_urgent"]
+bg_color = Color(0.784314, 0.313725, 0.313725, 1)
+
 [resource]
 default_font = ExtResource("font_body")
 default_font_size = 16
@@ -645,3 +692,118 @@ PrimaryButton/styles/normal = SubResource("btn_h")
 SealButton/base_type = &"Button"
 SealButton/colors/font_color = Color(0.94902, 0.847059, 0.501961, 1)
 SealButton/styles/normal = SubResource("btn_h")
+PositiveInkLabel/base_type = &"Label"
+PositiveInkLabel/colors/font_color = Color(0.247059, 0.419608, 0.227451, 1)
+PositiveInkLabel/fonts/font = ExtResource("font_body")
+PositiveInkLabel/font_sizes/font_size = 16
+GothicGoldTitle/base_type = &"GothicTitle"
+GothicGoldTitle/colors/font_color = Color(0.94902, 0.847059, 0.501961, 1)
+BlockedRow/base_type = &"PanelContainer"
+BlockedRow/styles/panel = SubResource("row_blocked")
+TitleStep/base_type = &"PanelContainer"
+TitleStep/styles/panel = SubResource("title_step")
+TitleStepCurrent/base_type = &"PanelContainer"
+TitleStepCurrent/styles/panel = SubResource("title_step_current")
+TitleStepFar/base_type = &"PanelContainer"
+TitleStepFar/styles/panel = SubResource("title_step_far")
+WitnessBadgeFavor/base_type = &"Label"
+WitnessBadgeFavor/colors/font_color = Color(0.101961, 0.0705882, 0.0352941, 1)
+WitnessBadgeFavor/styles/normal = SubResource("witness_favor")
+WitnessBadgeNeutral/base_type = &"Label"
+WitnessBadgeNeutral/colors/font_color = Color(0.101961, 0.0705882, 0.0352941, 1)
+WitnessBadgeNeutral/styles/normal = SubResource("witness_neutral")
+WitnessBadgeAgainst/base_type = &"Label"
+WitnessBadgeAgainst/colors/font_color = Color(0.101961, 0.0705882, 0.0352941, 1)
+WitnessBadgeAgainst/styles/normal = SubResource("witness_against")
+OfficeGold/base_type = &"Label"
+OfficeGold/colors/font_color = Color(0.94902, 0.847059, 0.501961, 1)
+OfficeGold/fonts/font = ExtResource("font_bold")
+OfficeGold/font_sizes/font_size = 16
+OfficeBronze/base_type = &"Label"
+OfficeBronze/colors/font_color = Color(0.85, 0.7, 0.42, 1)
+OfficeBronze/fonts/font = ExtResource("font_bold")
+OfficeBronze/font_sizes/font_size = 16
+OfficeSilver/base_type = &"Label"
+OfficeSilver/colors/font_color = Color(0.72, 0.74, 0.78, 1)
+OfficeSilver/fonts/font = ExtResource("font_bold")
+OfficeSilver/font_sizes/font_size = 16
+OfficeCopper/base_type = &"Label"
+OfficeCopper/colors/font_color = Color(0.72, 0.52, 0.32, 1)
+OfficeCopper/fonts/font = ExtResource("font_bold")
+OfficeCopper/font_sizes/font_size = 16
+UrgentBar/base_type = &"ProgressBar"
+UrgentBar/styles/fill = SubResource("bar_fill_urgent")
+RelationBar/colors/track = Color(0.101961, 0.0705882, 0.0352941, 1)
+RelationBar/colors/edge = Color(0.243137, 0.156863, 0.0784314, 1)
+RelationBar/colors/zero = Color(0.784314, 0.658824, 0.305882, 1)
+RelationBar/colors/plus = Color(0.94902, 0.847059, 0.501961, 1)
+RelationBar/colors/minus = Color(0.784314, 0.313725, 0.313725, 1)
+ThresholdBar/colors/mark = Color(0.94902, 0.847059, 0.501961, 1)
+ElectionCalendar/colors/registration = Color(0.494118, 0.784314, 0.494118, 1)
+ElectionCalendar/colors/campaign = Color(0.878431, 0.627451, 0.25098, 1)
+ElectionCalendar/colors/vote = Color(0.541176, 0.705882, 0.815686, 1)
+ElectionCalendar/colors/today = Color(0.94902, 0.847059, 0.501961, 1)
+ElectionCalendar/colors/edge = Color(0.101961, 0.0705882, 0.0352941, 1)
+TrialBalance/colors/track = Color(0.0784314, 0.0588235, 0.0470588, 1)
+TrialBalance/colors/defense = Color(0.45, 0.78, 0.45, 1)
+TrialBalance/colors/accusation = Color(0.8, 0.33, 0.3, 1)
+TrialBalance/colors/middle = Color(1, 0.85098, 0.4, 1)
+FamilyTree/colors/line = Color(0.784314, 0.658824, 0.305882, 1)
+FamilyTree/colors/ring = Color(1, 0.85, 0.3, 1)
+VoteTrack/colors/track = Color(0.2, 0.18, 0.16, 1)
+TutorialTitle/base_type = &"Label"
+TutorialTitle/colors/font_color = Color(0.360784, 0.227451, 0.117647, 1)
+TutorialTitle/constants/line_spacing = 0
+TutorialTitle/fonts/font = ExtResource("font_title")
+TutorialTitle/font_sizes/font_size = 13
+TutorialStep/base_type = &"Label"
+TutorialStep/colors/font_color = Color(0.360784, 0.227451, 0.117647, 1)
+TutorialStep/constants/line_spacing = 1
+TutorialStep/fonts/font = ExtResource("font_small")
+TutorialStep/font_sizes/font_size = 8
+PageInk/base_type = &"Label"
+PageInk/colors/font_color = Color(0.164706, 0.121569, 0.0784314, 1)
+PageInk/constants/line_spacing = -3
+PageInk/fonts/font = ExtResource("font_body")
+PageInk/font_sizes/font_size = 16
+PageInkBold/base_type = &"Label"
+PageInkBold/colors/font_color = Color(0.164706, 0.121569, 0.0784314, 1)
+PageInkBold/constants/line_spacing = -3
+PageInkBold/fonts/font = ExtResource("font_bold")
+PageInkBold/font_sizes/font_size = 16
+PageInkDim/base_type = &"Label"
+PageInkDim/colors/font_color = Color(0.360784, 0.227451, 0.117647, 1)
+PageInkDim/constants/line_spacing = -3
+PageInkDim/fonts/font = ExtResource("font_body")
+PageInkDim/font_sizes/font_size = 16
+PageGood/base_type = &"Label"
+PageGood/colors/font_color = Color(0.317647, 0.462745, 0.286275, 1)
+PageGood/constants/line_spacing = -3
+PageGood/fonts/font = ExtResource("font_body")
+PageGood/font_sizes/font_size = 16
+PageBad/base_type = &"Label"
+PageBad/colors/font_color = Color(0.603922, 0.164706, 0.133333, 1)
+PageBad/constants/line_spacing = -3
+PageBad/fonts/font = ExtResource("font_body")
+PageBad/font_sizes/font_size = 16
+PageTitle/base_type = &"Label"
+PageTitle/colors/font_color = Color(0.243137, 0.156863, 0.0784314, 1)
+PageTitle/constants/line_spacing = 0
+PageTitle/fonts/font = ExtResource("font_title")
+PageTitle/font_sizes/font_size = 13
+PageRibbon/base_type = &"Label"
+PageRibbon/colors/font_color = Color(0.94902, 0.847059, 0.501961, 1)
+PageRibbon/colors/font_outline_color = Color(0.101961, 0.0705882, 0.0352941, 1)
+PageRibbon/constants/line_spacing = 0
+PageRibbon/constants/outline_size = 0
+PageRibbon/fonts/font = ExtResource("font_title")
+PageRibbon/font_sizes/font_size = 13
+PageSmall/base_type = &"Label"
+PageSmall/colors/font_color = Color(0.360784, 0.227451, 0.117647, 1)
+PageSmall/constants/line_spacing = 1
+PageSmall/fonts/font = ExtResource("font_small")
+PageSmall/font_sizes/font_size = 8
+PageSeal/base_type = &"Label"
+PageSeal/colors/font_color = Color(0.94902, 0.847059, 0.501961, 1)
+PageSeal/fonts/font = ExtResource("font_bold")
+PageSeal/font_sizes/font_size = 16

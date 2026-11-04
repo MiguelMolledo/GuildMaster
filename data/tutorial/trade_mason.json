@@ -1,0 +1,72 @@
+{
+  "id": "trade_mason",
+  "name_key": "tutorial.chapter.trade_mason",
+  "desc_key": "tutorial.chapter.trade_mason.desc",
+  "requires": {
+    "state": "profession",
+    "is": "mason"
+  },
+  "test": {
+    "start": "artisan_mason"
+  },
+  "steps": [
+    {
+      "id": "enter",
+      "text": "tutorial.trade_mason.enter",
+      "target": {
+        "world": "building",
+        "id": "$workshop"
+      },
+      "done": {
+        "state": "interior",
+        "is": "$workshop"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "first",
+      "text": "tutorial.trade_mason.first",
+      "target": {
+        "world": "station",
+        "id": "cutting_bench"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "StationMenu",
+        "zone": "cutting_bench"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "recipe",
+      "text": "tutorial.trade_mason.recipe",
+      "target": {
+        "ui": "Row_masonry_ashlar",
+        "in": "StationMenu",
+        "opener": {
+          "world": "station",
+          "id": "cutting_bench"
+        }
+      },
+      "advance": "next"
+    },
+    {
+      "id": "second",
+      "text": "tutorial.trade_mason.second",
+      "target": {
+        "world": "station",
+        "id": "carving_bench"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "stall",
+      "text": "tutorial.trade_mason.stall",
+      "target": {
+        "world": "service",
+        "id": "goods"
+      },
+      "advance": "next"
+    }
+  ]
+}

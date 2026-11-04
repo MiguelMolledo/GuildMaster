@@ -17,6 +17,8 @@ con el kit real (`tools/ui/maqueta.py`, ver [tools/ui/README.md](../../tools/ui/
 | 01 | [01_hud.md](01_hud.md) | Interfaz general en mapa e interior: zonas, prioridades y solapes, avisos, tooltips, modales, objetivos y F1, familiares, reloj, teclas | kit | borrador |
 | 02 | [02_menu_inicial.md](02_menu_inicial.md) | Título, partida nueva, cargar/guardar, opciones, créditos, salir, fin de partida | kit | borrador |
 | 03 | [03_produccion_sin_creditos.md](03_produccion_sin_creditos.md) | Cómo se hace la UI sin créditos, lista de la compra de PixelLab (15-nov), cómo editar piezas en Godot | kit | borrador |
+| 04 | [04_kit_de_pagina.md](04_kit_de_pagina.md) | Kit de página para las ventanas narrativas: huecos en píxel (pergamino, marcos, cinta, separador, máscaras), plantillas Carta, Lámina, Ficha y aviso, a qué ventana va cada una | kit-página | borrador |
+| 05 | [05_tutorial.md](05_tutorial.md) | Tutorial interactivo: capítulos guiados y pistas de primera vez; disparadores, objetivos de resaltado, abridores, foco y tarjeta (aviso corto del kit), progreso en los ajustes | tutorial | borrador |
 
 ### Mecánicas · economía (worker «mecánicas-economía»)
 
@@ -65,4 +67,5 @@ Convenciones comunes: [mecanicas/_social.md](mecanicas/_social.md).
 | Piezas del kit (9-patch) | `tools/art/dibujar_ui.py` → `assets/art/ui/theme/` (márgenes en `PIECES`) |
 | Fuentes | `assets/art/ui/fonts/` (cada una con su licencia al lado) · `tools/ui/glifos_extra.py` |
 | Theme del juego | `game/ui/greybox_theme.tres` (uno solo, en la raíz del HUD y en todos los paneles) |
+| Kit de página | `tools/art/kit_pagina.py` → `assets/art/ui/page_kit/` (`kit.json` con las medidas) · `game/ui/page_kit.gd`, `page_card.gd` |
 | Iconos | `assets/art/icons/` (juego) · `~/Code/guild/assets/sprites/ui/` (Guild Renew, solo lectura) |

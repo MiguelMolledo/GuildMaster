@@ -1,0 +1,567 @@
+{
+ "_doc": "Kit de página (docs/ui/04_kit_de_pagina.md). Lo escribe tools/art/kit_pagina.py measure: un hueco por clave, sus variantes (fichero en esta carpeta y lo medido: márgenes del 9 trozos y de contenido de los fondos, corte del marco, remates y franja de texto de la cinta, hueco del cartucho) y las elegidas, que game/ui/page_kit.gd alterna (por página, por elemento o por imagen). Medidas en píxeles lógicos salvo `safe` (fracciones).",
+ "version": 1,
+ "slots": {
+  "page_bg": {
+   "rotation": "page",
+   "background": "opaque",
+   "size": [
+    512,
+    384
+   ],
+   "variants": [
+    {
+     "file": "page_bg_1.png",
+     "width": 400,
+     "height": 296,
+     "safe": {
+      "top": 0.076,
+      "right": 0.103,
+      "bottom": 0.105,
+      "left": 0.072
+     },
+     "texture_margin": {
+      "top": 24,
+      "right": 44,
+      "bottom": 32,
+      "left": 32
+     },
+     "content_margin": {
+      "top": 28,
+      "right": 48,
+      "bottom": 36,
+      "left": 36
+     },
+     "paper": "#d4b896",
+     "busy": 0.262,
+     "decorative_only": false
+    },
+    {
+     "file": "page_bg_3.png",
+     "width": 400,
+     "height": 296,
+     "safe": {
+      "top": 0.133,
+      "right": 0.114,
+      "bottom": 0.133,
+      "left": 0.114
+     },
+     "texture_margin": {
+      "top": 40,
+      "right": 48,
+      "bottom": 40,
+      "left": 48
+     },
+     "content_margin": {
+      "top": 44,
+      "right": 52,
+      "bottom": 44,
+      "left": 52
+     },
+     "paper": "#d4b896",
+     "busy": 0.3,
+     "decorative_only": false
+    }
+   ],
+   "chosen": [
+    "page_bg_1.png",
+    "page_bg_3.png"
+   ]
+  },
+  "page_bg_tall": {
+   "rotation": "page",
+   "background": "opaque",
+   "size": [
+    384,
+    512
+   ],
+   "variants": [
+    {
+     "file": "page_bg_tall_1.png",
+     "width": 296,
+     "height": 398,
+     "safe": {
+      "top": 0.098,
+      "right": 0.103,
+      "bottom": 0.098,
+      "left": 0.103
+     },
+     "texture_margin": {
+      "top": 40,
+      "right": 32,
+      "bottom": 40,
+      "left": 32
+     },
+     "content_margin": {
+      "top": 44,
+      "right": 36,
+      "bottom": 44,
+      "left": 36
+     },
+     "paper": "#d4b896",
+     "busy": 0.311,
+     "decorative_only": false
+    }
+   ],
+   "chosen": [
+    "page_bg_tall_1.png"
+   ]
+  },
+  "page_bg_dark": {
+   "rotation": "page",
+   "background": "opaque",
+   "size": [
+    512,
+    384
+   ],
+   "variants": [
+    {
+     "file": "page_bg_dark_1.png",
+     "width": 398,
+     "height": 296,
+     "safe": {
+      "top": 0.119,
+      "right": 0.124,
+      "bottom": 0.062,
+      "left": 0.124
+     },
+     "texture_margin": {
+      "top": 36,
+      "right": 52,
+      "bottom": 20,
+      "left": 52
+     },
+     "content_margin": {
+      "top": 40,
+      "right": 56,
+      "bottom": 24,
+      "left": 56
+     },
+     "paper": "#4d3119",
+     "busy": 0.281,
+     "decorative_only": true
+    }
+   ],
+   "chosen": []
+  },
+  "plate_frame": {
+   "rotation": "element",
+   "background": "transparent",
+   "size": [
+    200,
+    148
+   ],
+   "variants": [
+    {
+     "file": "plate_frame_1.png",
+     "width": 192,
+     "height": 142,
+     "nine": {
+      "slice": {
+       "top": 32,
+       "bottom": 32,
+       "left": 32,
+       "right": 32
+      },
+      "bar": {
+       "left": 18,
+       "right": 18,
+       "top": 18,
+       "bottom": 18
+      },
+      "width": 192,
+      "height": 142
+     }
+    },
+    {
+     "file": "plate_frame_2.png",
+     "width": 192,
+     "height": 142,
+     "nine": {
+      "slice": {
+       "top": 44,
+       "bottom": 46,
+       "left": 47,
+       "right": 47
+      },
+      "bar": {
+       "left": 11,
+       "right": 11,
+       "top": 12,
+       "bottom": 13
+      },
+      "width": 192,
+      "height": 142
+     }
+    }
+   ],
+   "chosen": [
+    "plate_frame_1.png",
+    "plate_frame_2.png"
+   ]
+  },
+  "box_frame": {
+   "rotation": "element",
+   "background": "transparent",
+   "size": [
+    200,
+    148
+   ],
+   "variants": [
+    {
+     "file": "box_frame_1.png",
+     "width": 130,
+     "height": 95,
+     "nine": {
+      "slice": {
+       "top": 14,
+       "bottom": 15,
+       "left": 16,
+       "right": 16
+      },
+      "bar": {
+       "left": 6,
+       "right": 6,
+       "top": 5,
+       "bottom": 5
+      },
+      "width": 130,
+      "height": 95
+     }
+    },
+    {
+     "file": "box_frame_2.png",
+     "width": 164,
+     "height": 121,
+     "nine": {
+      "slice": {
+       "top": 21,
+       "bottom": 21,
+       "left": 21,
+       "right": 21
+      },
+      "bar": {
+       "left": 7,
+       "right": 7,
+       "top": 8,
+       "bottom": 8
+      },
+      "width": 164,
+      "height": 121
+     }
+    }
+   ],
+   "chosen": [
+    "box_frame_1.png",
+    "box_frame_2.png"
+   ]
+  },
+  "page_corner": {
+   "rotation": "page",
+   "background": "transparent",
+   "size": [
+    32,
+    32
+   ],
+   "variants": [
+    {
+     "file": "page_corner_1.png",
+     "width": 47,
+     "height": 46,
+     "bbox": [
+      0,
+      0,
+      47,
+      46
+     ]
+    }
+   ],
+   "chosen": [
+    "page_corner_1.png"
+   ]
+  },
+  "ribbon": {
+   "rotation": "element",
+   "background": "transparent",
+   "size": [
+    224,
+    32
+   ],
+   "variants": [
+    {
+     "file": "ribbon_1.png",
+     "width": 101,
+     "height": 42,
+     "cap": {
+      "left": 22,
+      "right": 22
+     },
+     "edge": {
+      "top": 0,
+      "bottom": 8
+     },
+     "text": {
+      "top": 2,
+      "bottom": 11
+     }
+    },
+    {
+     "file": "ribbon_2.png",
+     "width": 153,
+     "height": 62,
+     "cap": {
+      "left": 37,
+      "right": 37
+     },
+     "edge": {
+      "top": 10,
+      "bottom": 12
+     },
+     "text": {
+      "top": 13,
+      "bottom": 14
+     }
+    }
+   ],
+   "chosen": [
+    "ribbon_1.png",
+    "ribbon_2.png"
+   ]
+  },
+  "divider": {
+   "rotation": "element",
+   "background": "transparent",
+   "size": [
+    192,
+    12
+   ],
+   "variants": [
+    {
+     "file": "divider_1.png",
+     "width": 301,
+     "height": 42,
+     "bbox": [
+      0,
+      0,
+      301,
+      42
+     ]
+    },
+    {
+     "file": "divider_2.png",
+     "width": 307,
+     "height": 42,
+     "bbox": [
+      0,
+      0,
+      307,
+      42
+     ]
+    }
+   ],
+   "chosen": [
+    "divider_1.png",
+    "divider_2.png"
+   ]
+  },
+  "tile_light": {
+   "rotation": "element",
+   "background": "opaque",
+   "size": [
+    64,
+    64
+   ],
+   "variants": [
+    {
+     "file": "tile_light_1.png",
+     "width": 64,
+     "height": 64
+    }
+   ],
+   "chosen": [
+    "tile_light_1.png"
+   ]
+  },
+  "tile_dark": {
+   "rotation": "element",
+   "background": "opaque",
+   "size": [
+    64,
+    64
+   ],
+   "variants": [
+    {
+     "file": "tile_dark_1.png",
+     "width": 64,
+     "height": 64
+    }
+   ],
+   "chosen": [
+    "tile_dark_1.png"
+   ]
+  },
+  "folio": {
+   "rotation": "page",
+   "background": "transparent",
+   "size": [
+    96,
+    24
+   ],
+   "variants": [
+    {
+     "file": "folio_1.png",
+     "width": 90,
+     "height": 36,
+     "hole": {
+      "left": 18,
+      "top": 9,
+      "right": 18,
+      "bottom": 7
+     },
+     "paper": "#d4b896"
+    }
+   ],
+   "chosen": [
+    "folio_1.png"
+   ]
+  },
+  "mask_foot_240": {
+   "rotation": "image",
+   "background": "mask",
+   "size": [
+    240,
+    135
+   ],
+   "variants": [
+    {
+     "file": "mask_foot_240_1.png",
+     "width": 240,
+     "height": 135
+    },
+    {
+     "file": "mask_foot_240_2.png",
+     "width": 240,
+     "height": 135
+    },
+    {
+     "file": "mask_foot_240_3.png",
+     "width": 240,
+     "height": 135
+    }
+   ],
+   "chosen": [
+    "mask_foot_240_1.png",
+    "mask_foot_240_2.png",
+    "mask_foot_240_3.png"
+   ]
+  },
+  "mask_foot_192": {
+   "rotation": "image",
+   "background": "mask",
+   "size": [
+    192,
+    108
+   ],
+   "variants": [
+    {
+     "file": "mask_foot_192_1.png",
+     "width": 192,
+     "height": 108
+    },
+    {
+     "file": "mask_foot_192_2.png",
+     "width": 192,
+     "height": 108
+    },
+    {
+     "file": "mask_foot_192_3.png",
+     "width": 192,
+     "height": 108
+    }
+   ],
+   "chosen": [
+    "mask_foot_192_1.png",
+    "mask_foot_192_2.png",
+    "mask_foot_192_3.png"
+   ]
+  },
+  "mask_corner": {
+   "rotation": "image",
+   "background": "mask",
+   "size": [
+    64,
+    64
+   ],
+   "variants": [
+    {
+     "file": "mask_corner_1.png",
+     "width": 64,
+     "height": 64
+    },
+    {
+     "file": "mask_corner_2.png",
+     "width": 64,
+     "height": 64
+    },
+    {
+     "file": "mask_corner_3.png",
+     "width": 64,
+     "height": 64
+    }
+   ],
+   "chosen": [
+    "mask_corner_1.png",
+    "mask_corner_2.png",
+    "mask_corner_3.png"
+   ]
+  },
+  "mask_side": {
+   "rotation": "image",
+   "background": "mask",
+   "size": [
+    64,
+    64
+   ],
+   "variants": [
+    {
+     "file": "mask_side_1.png",
+     "width": 64,
+     "height": 64
+    },
+    {
+     "file": "mask_side_2.png",
+     "width": 64,
+     "height": 64
+    },
+    {
+     "file": "mask_side_3.png",
+     "width": 64,
+     "height": 64
+    }
+   ],
+   "chosen": [
+    "mask_side_1.png",
+    "mask_side_2.png",
+    "mask_side_3.png"
+   ]
+  },
+  "veil": {
+   "rotation": "image",
+   "background": "mask",
+   "size": [
+    480,
+    96
+   ],
+   "variants": [
+    {
+     "file": "veil_1.png",
+     "width": 480,
+     "height": 96
+    }
+   ],
+   "chosen": [
+    "veil_1.png"
+   ]
+  }
+ }
+}

@@ -96,6 +96,27 @@ static func summary(sim: Sim, fam: String, scope: String) -> Variant:
 	return {}
 
 
+## Where the family's gold goes at its pace (mercado_y_libro.md §4.3): the mean net of the last `days` whole days (today
+## if there is none yet) times the days left until `until_minute`, plus the gold now: {avg_net, days, days_left, gold_at}.
+## Read only: the same estimate for the UI and the bots.
+static func forecast(sim: Sim, fam: String, until_minute: int, days: int = 3) -> Dictionary:
+	var now := int(sim.state.clock["minute"])
+	var today := Clock.day(now)
+	var first := maxi(0, today - days)
+	var nets: Array = []
+	for d: int in range(first, today):
+		nets.append(int(_totals(entries(sim, fam, d, d))["net"]))
+	if nets.is_empty():
+		nets.append(int(_totals(entries(sim, fam, today, today))["net"]))
+	var sum := 0
+	for n: Variant in nets:
+		sum += int(n)
+	var avg := roundi(float(sum) / float(nets.size()))
+	var left := maxf(0.0, float(until_minute - now) / float(Clock.MINUTES_PER_DAY))
+	return {"avg_net": avg, "days": nets.size(), "days_left": left,
+		"gold_at": Money.gold(sim.state, fam) + roundi(avg * left)}
+
+
 ## The detailed entries of `fam` from day `from_day` to `to_day` (both included), oldest first (copies).
 static func entries(sim: Sim, fam: String, from_day: int, to_day: int) -> Array:
 	var out: Array = []

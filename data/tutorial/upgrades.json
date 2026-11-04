@@ -1,0 +1,62 @@
+{
+  "id": "upgrades",
+  "name_key": "tutorial.chapter.upgrades",
+  "desc_key": "tutorial.chapter.upgrades.desc",
+  "test": {
+    "start": "artisan_blacksmith"
+  },
+  "steps": [
+    {
+      "id": "manage",
+      "text": "tutorial.upgrades.manage",
+      "target": {
+        "world": "building",
+        "id": "$workshop"
+      },
+      "done": {
+        "state": "interior",
+        "is": "$workshop"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "open",
+      "text": "tutorial.upgrades.open",
+      "target": {
+        "ui": "UpgradesButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "UpgradePanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "grid",
+      "text": "tutorial.upgrades.grid",
+      "target": {
+        "ui": "Grid",
+        "in": "UpgradePanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "detail",
+      "text": "tutorial.upgrades.detail",
+      "target": {
+        "ui": "Detail",
+        "in": "UpgradePanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "buy",
+      "text": "tutorial.upgrades.buy",
+      "target": {
+        "ui": "BuyButton",
+        "in": "UpgradePanel"
+      },
+      "advance": "next"
+    }
+  ]
+}

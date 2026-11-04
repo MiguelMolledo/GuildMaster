@@ -334,7 +334,7 @@ Cifras [balance].
 - **3 puestos exteriores** (interacción directa, sin cambiar de vista): Recursos (materias primas), Alimentos (comida, consumibles), Materiales (lingotes, harina, tablas, tela).
 - **3 tiendas con interior** (se entra como en un edificio): Armería (herramientas, armas, armaduras), Ropería (equipamiento, ropa), Boticario (hierbas, vendas, pociones).
 - Todos abren el **mismo panel** con pestañas *Comprar* y *Vender*, filtrado por las categorías de ese puesto.
-- **[provisional, H12]** Mientras no haya tiendas con interior para ellos, la Ropería es un puesto exterior más de la plaza y hay un cuarto puesto exterior, **Enseres** (muebles, barriles y piedra labrada), que no estaba en esta lista. Lo decide el owner.
+- **[H12, decidido 2026-11-03]** Mientras no haya tiendas con interior para ellos, la Ropería es un puesto exterior más de la plaza y hay un cuarto puesto exterior, **Enseres** (muebles, barriles y piedra labrada). La Ropería pasará a tienda con interior cuando lleguen las tiendas de EA.
 
 - La plaza es pública: no se compra ni se mejora. El jugador no trabaja en los puestos.
 - Horario: abierto solo en **DÍA** y **ATARDECER**; cerrado en amanecer y noche.
@@ -398,7 +398,7 @@ Desde la rebanada vertical el jugador no está solo en el mercado: **un herrero 
   5. **Encargos:** acepta uno del tablón si su Artesanía permite la receta y calcula que llega al plazo con su producción del día; le da prioridad sobre la venta libre.
 - No contrata, no mejora y no quiebra en la rebanada: si se queda sin oro, deja de comprar hasta vender. Desde H6 pasa a regirse por la IA de familias rivales (4.21), con contratar, mejorar, construir y quebrar.
 - La dificultad (4.23) cambia su Artesanía y su umbral de venta.
-- **Talleres competidores (H12):** en town_e hay un taller de cada oficio del Artesano. El del oficio con el que empiezas es tuyo; los demás son de una familia IA cada uno (perfil `rival_artisan`) que juega con esta misma IA, sin títulos, cargos ni acusaciones hasta que 04c se apruebe. Si empiezas de herrero conservas además al herrero rival; si empiezas de otro oficio, el herrero rival está igual en su Forja (no hay rival de tu mismo oficio) [provisional].
+- **Talleres competidores (H12):** en town_e hay un taller de cada oficio del Artesano. El del oficio con el que empiezas es tuyo; los demás son de una familia IA cada uno (perfil `rival_artisan`) que juega con esta misma IA, sin títulos, cargos ni acusaciones hasta que 04c se apruebe, y que empieza casada (una familia casada no corteja: el pueblo guarda sus solteros para el rival y el jugador). **El rival es siempre de tu oficio** (decidido 2026-11-03): si empiezas de carpintero, albañil o sastre, un rival de ese oficio ocupa el solar que la Forja del jugador deja libre junto a la plaza (`rival_<edificio>` del mapa) con el perfil `rival_smith`, y el herrero Bernat pasa a ser un competidor más. Así la dificultad (Artesanía y umbral de venta del rival) pesa igual en todos los oficios.
 
 - Diana: el rival termina los primeros 10 días con oro en `[40, 300]` y la demanda de la espada no pasa más de 1 día seguido por debajo de 0,6 por su culpa (bot `idle` + rival) [balance].
 

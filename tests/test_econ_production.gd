@@ -385,11 +385,16 @@ func test_each_refusal_has_its_reason() -> void:
 
 # --- Consultas de la UI ----------------------------------------------------------------------------------------------
 
+## recipe_options without its UI extras (reason, stock): recipe and status only.
+func _rs(opts: Array) -> Array:
+	return opts.map(func(o: Dictionary) -> Dictionary: return {"recipe": o["recipe"], "status": o["status"]})
+
+
 func test_recipe_options_and_job_view() -> void:
 	var sim := _sim(7, [HUGO, TOMAS])
-	eq(Production.recipe_options(sim, HUGO, FORGE, "furnace"), [{"recipe": "forge_ingot", "status": "ok"},
+	eq(_rs(Production.recipe_options(sim, HUGO, FORGE, "furnace")), [{"recipe": "forge_ingot", "status": "ok"},
 		{"recipe": "forge_steel", "status": "locked"}], "furnace for Hugo")
-	eq(Production.recipe_options(sim, TOMAS, FORGE, "anvil"), [{"recipe": "forge_armor", "status": "locked"},
+	eq(_rs(Production.recipe_options(sim, TOMAS, FORGE, "anvil")), [{"recipe": "forge_armor", "status": "locked"},
 		{"recipe": "forge_hammer", "status": "missing_inputs"}, {"recipe": "forge_sword", "status": "locked"}],
 		"anvil for Tomás (craft 2)")
 	eq(Production.job_view(sim, FORGE, "anvil"), {}, "no job")

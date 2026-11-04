@@ -259,6 +259,16 @@ static func hours_label(hours: float) -> String:
 	return t_("ui.hours") % h
 
 
+## "3 h 54" / "12 h" / "1 d 6 h" from game minutes (docs/ui/mecanicas/_comun.md, Cifras): the minutes shown under a day.
+static func duration_label(minutes: int) -> String:
+	var m := maxi(0, minutes)
+	if m >= 24 * 60:
+		return hours_label(float(m) / 60.0)
+	if m % 60 == 0:
+		return t_("ui.hours") % (m / 60)
+	return t_("ui.hours_minutes") % [m / 60, m % 60]
+
+
 static func category_name(category: String) -> String:
 	var key := "ledger.cat." + category
 	var s := t_(key)

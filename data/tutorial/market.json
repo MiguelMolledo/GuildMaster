@@ -1,0 +1,164 @@
+{
+  "id": "market",
+  "name_key": "tutorial.chapter.market",
+  "desc_key": "tutorial.chapter.market.desc",
+  "test": {
+    "start": "artisan_blacksmith"
+  },
+  "steps": [
+    {
+      "id": "armory",
+      "text": "tutorial.market.armory",
+      "target": {
+        "world": "building",
+        "type": "armory"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "take",
+      "text": "tutorial.market.take",
+      "target": {
+        "ui": "BuildingGrid",
+        "in": "StoragePanel"
+      },
+      "done": {
+        "state": "carries",
+        "item": "sword"
+      },
+      "advance": "action",
+      "if": {
+        "state": "storage_has",
+        "item": "sword",
+        "qty": 1
+      }
+    },
+    {
+      "id": "enter",
+      "text": "tutorial.market.enter",
+      "target": {
+        "world": "building",
+        "type": "armory"
+      },
+      "done": {
+        "state": "interior_type",
+        "is": "armory"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "counter",
+      "text": "tutorial.market.counter",
+      "target": {
+        "world": "station",
+        "id": "counter",
+        "opener": {
+          "world": "building",
+          "type": "armory"
+        },
+        "opener_text": "tutorial.open.armory"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "MarketPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "sell_tab",
+      "text": "tutorial.market.sell_tab",
+      "target": {
+        "ui": "SellTab",
+        "in": "MarketPanel",
+        "opener": {
+          "world": "station",
+          "id": "counter",
+          "opener": {
+            "world": "building",
+            "type": "armory"
+          },
+          "opener_text": "tutorial.open.armory"
+        },
+        "opener_text": "tutorial.open.counter"
+      },
+      "done": {
+        "state": "panel_prop",
+        "panel": "MarketPanel",
+        "prop": "tab",
+        "value": "sell"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "sell_list",
+      "text": "tutorial.market.sell_list",
+      "target": {
+        "ui": "Scroll",
+        "in": "MarketPanel",
+        "opener": {
+          "ui": "SellTab",
+          "in": "MarketPanel",
+          "opener": {
+            "world": "station",
+            "id": "counter",
+            "opener": {
+              "world": "building",
+              "type": "armory"
+            },
+            "opener_text": "tutorial.open.armory"
+          },
+          "opener_text": "tutorial.open.counter"
+        }
+      },
+      "advance": "next"
+    },
+    {
+      "id": "leave",
+      "text": "tutorial.market.leave",
+      "target": {
+        "ui": "ExitButton"
+      },
+      "done": {
+        "state": "interior",
+        "is": ""
+      },
+      "advance": "action"
+    },
+    {
+      "id": "resources",
+      "text": "tutorial.market.resources",
+      "target": {
+        "world": "service",
+        "id": "resources"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "MarketPanel",
+        "stall": "resources"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "errand",
+      "text": "tutorial.market.errand",
+      "target": {
+        "ui": "Send",
+        "in": "BuyList",
+        "opener": {
+          "world": "service",
+          "id": "resources"
+        },
+        "opener_text": "tutorial.open.resources"
+      },
+      "done": {
+        "sim": "errand_sent"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "done",
+      "text": "tutorial.market.done",
+      "advance": "next"
+    }
+  ]
+}

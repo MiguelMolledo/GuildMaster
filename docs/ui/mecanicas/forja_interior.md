@@ -179,10 +179,11 @@ franja, y un detalle debajo de la franja elegida.
 
 ## 6. Maqueta
 
-- Hoy: [forja_interior_hoy_menu.png](../maquetas/forja_interior_hoy_menu.png) (menú en dos pasos, sin calidad ni
-  entradas), [forja_interior_hoy_toque.png](../maquetas/forja_interior_hoy_toque.png) (la ventana es un punto
-  amarillo de 4 px) y [forja_interior_hoy_rutina.png](../maquetas/forja_interior_hoy_rutina.png) (rutina con 12
-  desplegables).
+- Hoy (rama ui-economia, `--smoke-script=economia --eco=forja`): [forja_interior_hoy_menu.png](../maquetas/forja_interior_hoy_menu.png)
+  (menú en una caja), [forja_interior_hoy_barra.png](../maquetas/forja_interior_hoy_barra.png) (tramo del toque en la barra),
+  [forja_interior_hoy_toque.png](../maquetas/forja_interior_hoy_toque.png) (ventana abierta),
+  [forja_interior_hoy_pausa.png](../maquetas/forja_interior_hoy_pausa.png) (marcas numeradas) y
+  [forja_interior_hoy_rutina.png](../maquetas/forja_interior_hoy_rutina.png) (tira del día).
 - Propuesta (con `tools/ui/maqueta.py`; guion `docs/ui/maquetas/src/forja_interior.py`, también en `_x2`):
   - [forja_interior.png](../maquetas/forja_interior.png): sobre el HUD propuesto. Barra del edificio abajo (1) con
     las insignias de *Producción* y *Empleados* (2), barra del yunque con la ventana del toque encendida (3), menú de
@@ -273,16 +274,35 @@ fijo de probabilidad en vez de +2 de Artesanía). Aquí no se toca.
 
 ## 10. Criterios de aceptación
 
-- [ ] Con Hugo dentro y 2 lingotes + 1 carbón, un clic derecho en el yunque y un clic en *Forjar espada* dan
+- [x] Con Hugo dentro y 2 lingotes + 1 carbón, un clic derecho en el yunque y un clic en *Forjar espada* dan
       `work_at` (2 clics, hoy 3).
-- [ ] Cada receta que no se puede hacer enseña su motivo escrito sin pasar el ratón.
-- [ ] Con Artesanía 7, al pasar de *Normal* a *Rápido* la barra de calidad de la espada pasa de 20/50/30 a
+- [x] Cada receta que no se puede hacer enseña su motivo escrito sin pasar el ratón.
+- [x] Con Artesanía 7, al pasar de *Normal* a *Rápido* la barra de calidad de la espada pasa de 20/50/30 a
       50/40/10 (se lee con Artesanía 4) y la duración de 3 h 54 a 2 h 44; con *Con cuidado*, a 5 h 51 y la línea
       «+ toque de maestro».
-- [ ] En un ciclo con cuidado, el tramo dorado se ve en la barra desde el primer minuto del ciclo.
+- [x] En un ciclo con cuidado, el tramo dorado se ve en la barra desde el primer minuto del ciclo.
 - [ ] El tramo se enciende, suena la campanilla y el toque dado deja un check visible.
-- [ ] En pausa, tres órdenes a tres puestos se ven como ①②③ sobre esos puestos.
-- [ ] Con la cola parada, la insignia `!` aparece en *Producción* sin abrir el panel.
-- [ ] La tira de la rutina en invierno tiene la noche más ancha que en verano (46 % frente a 26 %).
-- [ ] Con una orden manual en curso, el editor dice «Manda una orden manual».
-- [ ] Captura a 960×540 sin solapes: el menú de puesto abierto no tapa el panel lateral ni la barra del edificio.
+- [x] En pausa, tres órdenes a tres puestos se ven como ①②③ sobre esos puestos.
+- [x] Con la cola parada, la insignia `!` aparece en *Producción* sin abrir el panel.
+- [x] La tira de la rutina en invierno tiene la noche más ancha que en verano (46 % frente a 26 %).
+- [x] Con una orden manual en curso, el editor dice «Manda una orden manual».
+- [x] Captura a 960×540 sin solapes: el menú de puesto abierto no tapa el panel lateral ni la barra del edificio.
+
+## Implementado (rama ui-economia, 2026-11-03)
+
+- Menú de puesto en una caja (`game/ui/station_menu.*`): selector de modo que se recuerda por persona y puesto, recetas
+  con icono, `tengo/necesito`, duración real («3 h 54») y el motivo escrito debajo; barra de calidad de 3 tramos
+  (`Production.quality_view`, lectura nueva), bonificación de la herramienta, *Parar*, modo gestión con *Producción*
+  y «Ocupado por…». Se coloca dentro de la vista libre y nunca sobre la barra del edificio.
+- Barra del puesto con el tramo del toque desde el primer minuto (`job_view` da ya `window_from` / `window_to`),
+  marca de estado por puesto con recetas (trabajando, libre, parado, ventana, noche).
+- Insignias en la barra del edificio (`!` cola parada, número de ascensos, martillo en obras) y estado «cola parada».
+- Marcas numeradas de la pausa activa sobre el puesto de cada orden en espera.
+- Rutina como tira del día proporcional a la estación, con el detalle de la franja elegida y la línea de orden manual.
+
+Falta (no se hizo en esta fase):
+- Globos de primera vez (tarea 9): necesitan una marca de «visto» en el perfil de usuario, que no existe aún.
+- `sfx_master_window` y `sfx_station_blocked` (tarea 10): sin créditos de ElevenLabs en esta fase.
+- Martillo dorado de 16 px propio y marcas ①②③ como pieza de kit: se usan `icon_working` tintado y un círculo dorado con
+  la cifra dibujada.
+- La barra del puesto sigue siendo de 44×6 (no 32×4) para que se lea el tramo.

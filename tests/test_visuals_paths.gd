@@ -67,7 +67,8 @@ func test_character_visual_ids() -> void:
 
 
 func test_missing_icon_and_audio_are_empty() -> void:
-	check(VisualPaths.icon("steel") == null, "no icon yet: null (no path in data/items)")
+	check(VisualPaths.icon("item_without_icon") == null, "no icon yet: null (no path in data/items)")
+	check(VisualPaths.icon("steel") != null, "steel has its icon now (fal, 2026-11-03)")
 	check(VisualPaths.icon("sword") != null, "an icon that exists: assets/art/icons/sword.png")
 	check(VisualPaths.audio_files("sfx", "sfx_hammer").size() > 0, "a sound with its files: sfx_hammer")
 	eq(VisualPaths.audio_files("sfx", "sfx_without_file").size(), 0, "no sound file: empty")

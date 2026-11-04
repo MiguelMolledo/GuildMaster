@@ -379,6 +379,11 @@ text = "--"
 horizontal_alignment = 2
 unique_name_in_owner = true
 
+[node name="TutorialCheck" type="CheckBox" parent="Center/Panel/VBox/Footer"]
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
 [node name="StartButton" type="Button" parent="Center/Panel/VBox/Footer"]
 custom_minimum_size = Vector2(158, 20)
 layout_mode = 2

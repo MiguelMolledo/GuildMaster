@@ -289,6 +289,19 @@ static func mult(sim: Sim, bld: String, kind: String) -> float:
 	return m
 
 
+## Read for the view (upgrade tree: «the sword goes from 3 h 54 to 3 h 15»): mult(kind) as it would be with `upgrade`
+## built too, by the same stack rule. Adds it to the building's list for the sum and takes it out: changes nothing.
+static func mult_if(sim: Sim, bld: String, kind: String, upgrade: String) -> float:
+	var b: Dictionary = sim.state.buildings.get(bld, {})
+	if not b.has("upgrades") or upgrade in (b["upgrades"] as Array):
+		return mult(sim, bld, kind)
+	var ups: Array = b["upgrades"]
+	ups.append(upgrade)
+	var m := mult(sim, bld, kind)
+	ups.pop_back()
+	return m
+
+
 ## Sum of the `amount` of the effects of `kind` that count (0.0 with none). E.g. amount(sim, bld, "quality_bonus").
 static func amount(sim: Sim, bld: String, kind: String) -> float:
 	var a := 0.0
