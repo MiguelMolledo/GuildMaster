@@ -2,6 +2,11 @@
   "tomadas": [
     {
       "fecha": "2026-11-04",
+      "tema": "Juegos y vida: el rescate jugado y las apuestas sobre altercados",
+      "decision": "El rescate de un secuestro (Incidents, elección rescue) se juega en la pantalla de juegos: RescueMatch es la cadena de duelos de Incidents._fights (sin jugadas da el mismo resultado tirada a tirada, medido en tests/test_games_town.gd); la orden resolve_incident lleva las jugadas (moves) y el sim la vuelve a jugar con Rescue.fight. Las apuestas sobre un altercado se hacen mientras los dos van a pegarse (fase gathering) con game_bet {incident}; el corredor cotiza con el duelo del propio suceso (BrawlMatch) y la apuesta viaja dentro del suceso (ya guardado en v17), se paga en incident_fight y se devuelve si no hay pelea. Juegos sigue sin versión de guardado propia."
+    },
+    {
+      "fecha": "2026-11-04",
       "tema": "Juegos 5-8: justa, sortija, carrera y toros (04f §4.26.1, §4.26.3-5)",
       "decision": "Justa: una sola decisión por pasada entre tres posturas que forman un triángulo (al yelmo: escudo medio; al pecho: escudo bajo; al escudo: escudo alto), con iniciativa alterna y lectura como el duelo; con apuntar y cubrirse por separado (9 combinaciones) la IA no castigaba una costumbre en tres pasadas («siempre al escudo, escudo bajo» empataba o ganaba el 81 %). Yelmo −25 (desmonta), pecho +5 (2 puntos), escudo +15 (1, medio seguro). Requiere Ciudadano (reason.no_title); caballo y lanza alquilados al entrar (10) hasta que existan como objetos; favor: +15 de afinidad con la persona más cortejada. Sortija: la anilla de cada carrera es grande, mediana o pequeña (±25) para que cada ritmo sea el mejor en una. Carrera: reservar recupera 2, apretar en la meta ×1,15, caballos parejos (9,8-10,5) y ruido ±1,5; la IA usa el plan exacto (programación dinámica); el palio se paga en oro (30) hasta que exista el objeto de lujo. Toros: casta bravo/manso/resabiado, quiebro +2, pase +1, fallo −2 (con −1 quebrar siempre empataba con leer la señal); fallo = «asustado» y −1 de reputación, nunca herida (O-V5 a); quiebro +2 de reputación."
     },

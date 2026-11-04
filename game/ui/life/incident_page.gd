@@ -38,6 +38,10 @@ static func data_for(sim: Sim, inc: Dictionary, actor: String) -> Dictionary:
 		tp["cost"] = Incidents.helper_cost(sim, inc, 2)
 		buttons.append({"id": id, "text": SimQuery.t_("incident.choice." + id), "primary": id == dflt,
 			"disabled": why != "", "tip": SimQuery.reason_text(why) if why != "" else SimQuery.t_("incident.choice.%s.tip" % id).format(tp)})
+	if def == "altercation" and str(inc.get("phase", "")) == "gathering" and not actor in (inc.get("people", []) as Array):
+		# juegos (04f §4.26.6): bet on the brawl before they come to blows (the bookmaker, GameScreen)
+		buttons.append({"id": "bet", "text": SimQuery.t_("incident.choice.bet"), "primary": false,
+			"tip": SimQuery.t_("incident.choice.bet.tip")})
 	buttons.append({"id": "later", "text": SimQuery.t_("ui.incident.close"), "primary": false})
 	if dflt != "":
 		blocks.append({"type": "paragraph", "text": SimQuery.t_("ui.incident.default") % SimQuery.t_("incident.choice." + dflt)})

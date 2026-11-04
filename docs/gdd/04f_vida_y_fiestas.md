@@ -534,6 +534,13 @@ lo esquivaban (en algunas villas, el toro ensogado). **Construido** (`sim/games/
 - **Apostar sobre lo que juegan otros** (`game_bet`): se resuelve al momento con `Games.auto` y el id de la partida;
   la misma partida con el mismo id da el mismo ganador a quien la resuelva (las Fiestas, la pantalla que la enseña).
   La pantalla del corredor enseña la probabilidad y la cuota de cada uno, se apuesta (o no) y se **mira la partida**.
+- **Sobre los altercados** (4.24.5, rama vida): mientras los dos van a pegarse, la carta del altercado trae «Apostar».
+  El corredor cotiza con la pelea misma del suceso y paga cuando se pegan; si se calman o la guardia llega antes de
+  que empiecen, devuelve lo apostado. Uno no apuesta a su propia pelea. La apuesta va dentro del suceso (guardado v17,
+  sin versión propia).
+- **El rescate jugado** (secuestro, 4.24.5): la elección «rescatar» abre la pantalla de juegos con la cadena de
+  peleas (tú primero, luego los guardias que contrates, contra la banda); tus peleas se juegan lance a lance con el
+  duelo y las de los guardias se resuelven solas. «Resolver sin jugar» es la resolución de antes, tirada a tirada.
 - **Apostar por ti mismo** está permitido (`bets` en tu `game_play`, a las cuotas de antes de jugar); apostar contra
   ti mismo y perder **habiendo jugado** es **fraude**: con una probabilidad del 50 % alguien se da cuenta (delito
   «trampa», hecho público para el tribunal de H11, reputación −5).

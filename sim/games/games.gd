@@ -48,6 +48,11 @@ static func create(games: Dictionary, spec: Dictionary) -> GameMatch:
 			return RaceMatch.create(games, id, seed, players, player, stake, opts)
 		"bulls":
 			return BullsMatch.create(games, id, seed, players, player, stake, opts)
+		# not games of their own (no game_play): the town's fights of vida, played or priced through their incident
+		"rescue":
+			return RescueMatch.create(games, games.get("_combat", {}), id, seed, players, player, opts)
+		"brawl":
+			return BrawlMatch.create(games, games.get("_combat", {}), id, seed, players, opts)
 	return null
 
 

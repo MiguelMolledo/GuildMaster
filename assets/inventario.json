@@ -7266,6 +7266,19 @@
       "origen_previo": null,
       "coste_gen": 0,
       "notas": "Juegos: lámina de correr el toro (la plaza cerrada con carros, un mozo quiebra al toro), 240×135 y _192 192×108. Sirve a la carta del Corpus con toros."
+    },
+    {
+      "id": "ui_games_fight_street",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/fight/street.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.24.5, §4.26): fondo de las peleas de la ciudad (el rescate de un secuestro y el altercado al que se apuesta): una calle o un claro de noche con antorchas, apagado para que se lean los dos bandos y el combate, 404×180. VisualPaths.game_art(\"fight\", \"street\")."
     }
   ]
 }

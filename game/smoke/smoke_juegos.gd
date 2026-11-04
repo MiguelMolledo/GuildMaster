@@ -21,7 +21,7 @@ var _tries: int = 0
 
 
 func _ready() -> void:
-	_games = Array(Games.GAMES) + ["apuestas"]
+	_games = Array(Games.GAMES) + ["apuestas", "rescue", "brawl"]
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--smoke-timeout="):
 			timeout = a.substr(16).to_float()
@@ -78,7 +78,7 @@ func _process(delta: float) -> void:
 				_go("first")
 		"first":
 			if _t > 0.8 and not _screen.busy:
-				if _screen.m.over() and _tries < 12:  # an azar on the first throw: nothing to decide, another game
+				if _screen.m.over() and not _screen.watch and _tries < 12:  # an azar on the first throw: nothing to decide, another game
 					_tries += 1
 					_screen = app.open_games_test(_game(), {"match": "%s|smoke|%d" % [_game(), _tries]})
 					_t = 0.0
@@ -113,7 +113,11 @@ func _process(delta: float) -> void:
 				if not _shot_key:
 					app.save_shot("juegos_%s_2" % _game())
 				app.save_shot("juegos_%s_3" % _game())
-				if _screen.watch:
+				if _screen.bet_only or _screen.request.get("order") is Dictionary:
+					print("[SmokeJuegos] %s: %s" % [_game(), "apuesta puesta" if _screen.bet_only else "rescate %s" % _screen.applied])
+					if _screen.request.get("order") is Dictionary and _screen.applied.is_empty():
+						_bad += 1
+				elif _screen.watch:
 					if _screen.bet_event.is_empty():
 						print("[SmokeJuegos] %s: la apuesta game_bet no se aplicó" % _game())
 						_bad += 1

@@ -258,6 +258,21 @@ func open_games_test(game_id: String, extra: Dictionary = {}) -> GameScreen:
 		if game_id == "race":
 			extra = extra.duplicate()
 			extra.merge({"bets_open": true}, false)
+	if game_id in ["rescue", "brawl"]:  # vida's fights: a kidnapping of the protagonist's spouse, or two townsmen quarrelling
+		var sim: Sim = Game.sim
+		if game_id == "rescue":
+			var victim := ""
+			for m2: Variant in st.families[str(st.characters[me]["family"])].get("members", []):
+				if str(m2) != me and victim == "":
+					victim = str(m2)
+			Incidents._start_kidnap(sim, "games_test", victim)
+		else:
+			var folk := Population.townsfolk(st)
+			Incidents._begin_altercation(sim, {"a": str(folk[0]), "b": str(folk[1]), "tile": Life.tile_of(st, str(folk[0])),
+				"point": "plaza", "why": "drunk"}, int(st.clock["minute"]))
+		var inc: Dictionary = Incidents.active(st).back() if not Incidents.active(st).is_empty() else {}
+		extra = extra.duplicate()
+		extra.merge({"incident": str(inc.get("id", "")), "helpers": 2}, false)
 	if game_id == "apuestas":  # the bookmaker: a pulso of others to bet on and watch
 		extra = extra.duplicate()
 		extra.merge({"watch": true, "players": [rival, "preset:regular_boastful"]}, false)
@@ -273,6 +288,15 @@ func open_games_test(game_id: String, extra: Dictionary = {}) -> GameScreen:
 			opts["house"] = arg.substr(14)
 	var req := {"actor": me, "game": game_id, "opponents": opponents, "stake": stake, "opts": opts}
 	req.merge(extra, true)
+	var screen := open_game(req)
+	Log.info("App", "games test: %s, %s contra %s (apuesta %d)" % [game_id, me, opponents, stake])
+	return screen
+
+
+## A game's screen over the paused game (the tests, the incident cards: the played rescue, a bet on a brawl; the
+## fiestas and the tavern): GameScreen.open(req) with Game.step_now. Closing it gives back the pause it found.
+func open_game(req: Dictionary) -> GameScreen:
+	var was_paused: bool = Game.paused
 	Game.set_paused(true)
 	var layer := get_node_or_null("GamesLayer") as CanvasLayer
 	if layer == null:
@@ -281,11 +305,14 @@ func open_games_test(game_id: String, extra: Dictionary = {}) -> GameScreen:
 		layer.layer = 60
 		add_child(layer)
 	for c: Node in layer.get_children():
+		layer.remove_child(c)
 		c.queue_free()
 	var screen := (load(GAME_SCREEN) as PackedScene).instantiate() as GameScreen
 	layer.add_child(screen)
-	screen.open(req, st, Data.catalog.games, Game.step_now)
-	Log.info("App", "games test: %s, %s contra %s (apuesta %d)" % [game_id, me, opponents, stake])
+	screen.closed.connect(func() -> void:
+		if not was_paused:
+			Game.set_paused(false))
+	screen.open(req, Game.sim.state, Data.catalog.games, Game.step_now)
 	return screen
 
 

@@ -2803,10 +2803,6 @@ visitor.soldier.f,soldier on the road,soldado de paso
 visitor.noble.f,travelling noblewoman,noble de viaje
 visitor.beggar.f,beggar,mendiga
 reason.passing_through,Only passing through the town,Está de paso por la villa
-%s kg each · %s kg
-Worth today: %d","%s ×%d
-%s kg cada una · %s kg
-Vale hoy: %d"
 ledger.cat.games,Games and bets,Juego y apuestas
 notice.games_losses,You have lost {gold} gold at games today. Careful with the dice.,Hoy has perdido {gold} de oro en el juego. Cuidado con los dados.
 reason.unknown_game,Unknown game,Juego desconocido
@@ -3053,7 +3049,7 @@ games.result.favor,The favour of %s (affinity +),El favor de %s (afinidad +)
 games.joust.ui.hit,At the %s! +%s,¡Al %s! +%s
 games.joust.rules,"Three passes on horseback. Each pass, a stance: at the helm (shield mid, covers the chest), at the chest (shield low, covers the shield) or at the shield (shield high, covers the helm). At the shield beats at the helm, at the helm beats at the chest, at the chest beats at the shield. The helm unhorses, the chest is worth 2, the shield 1 (and always half a point).","Tres pasadas a caballo. En cada una, una postura: al yelmo (escudo medio, cubre el pecho), al pecho (escudo bajo, cubre el escudo) o al escudo (escudo alto, cubre el yelmo). Al escudo gana a al yelmo, al yelmo gana a al pecho y al pecho gana a al escudo. El yelmo desmonta, el pecho vale 2 y el escudo 1 (y siempre medio punto)."
 games.joust.action.helm,At the helm,Al yelmo
-games.joust.action.helm.hint,Lance high, shield mid (covers the chest): beats «at the chest»; if it lands he is unhorsed,"Lanza alta, escudo medio (cubre el pecho): gana a «al pecho»; si entra, lo desmontas"
+games.joust.action.helm.hint,Lance high, shield mid (covers the chest): beats «at the chest»; if it lands he is unhorsed
 games.joust.action.chest,At the chest,Al pecho
 games.joust.action.chest.hint,"Lance at the chest, shield low: beats «at the shield»; 2 points","Lanza al pecho, escudo bajo: gana a «al escudo»; 2 puntos"
 games.joust.action.shield,At the shield,Al escudo
@@ -3163,3 +3159,30 @@ games.bulls.ui.charging,The bull charges!,¡Embiste el toro!
 games.bulls.ui.log,Charge %d: you %s and %s · %s,Embestida %d: tú %s y %s · %s
 games.result.bulls,"Quiebros %d, frights %d","Quiebros %d, sustos %d"
 games.result.prize_rep,Prize: reputation %s,Premio: reputación %s
+incident.choice.bet,Bet on it,Apostar
+incident.choice.bet.tip,"The bookmaker gives odds on the brawl; paid when they fight, back if they don't",El corredor da cuotas de la pelea; se paga cuando peleen y se devuelve si no llegan a hacerlo
+games.brawl.name,A brawl,Una pelea
+games.brawl.rules,Two of the town are about to come to blows. Bet before they do.,Dos del pueblo están a punto de llegar a las manos. Apuesta antes de que empiecen.
+games.brawl.title,Bet placed,Apuesta hecha
+games.brawl.text,"The bookmaker pays when they fight; if they cool down or the watch comes first, you get your stake back.","El corredor paga cuando peleen; si se calman o llega antes la guardia, te devuelve lo apostado."
+games.brawl.placed,%d on %s at %.2f,%d a %s a %.2f
+games.rescue.name,The rescue,El rescate
+games.rescue.rules,"A chain of fights against the band: you first, then the guards you hired. Whoever loses a fight is out and the next of his side fights on.","Una cadena de peleas contra la banda: tú primero, luego los guardias que contrataste. Quien pierde una pelea queda fuera y sigue el siguiente de su lado."
+games.rescue.bandit,Bandit,Bandido
+games.rescue.prompt,Your fight,Tu pelea
+games.rescue.action.strike,Strike,Golpe
+games.rescue.action.strike.hint,Beats the feint,Gana a la finta
+games.rescue.action.parry,Parry,Parada
+games.rescue.action.parry.hint,Beats the strike and recovers breath,Gana al golpe y recupera aliento
+games.rescue.action.feint,Feint,Finta
+games.rescue.action.feint.hint,Beats the parry,Gana a la parada
+games.rescue.how.rescued,The band is beaten.,La banda ha caído.
+games.rescue.how.beaten,The band held.,La banda aguantó.
+games.rescue.title.won,Rescued!,¡Rescatado!
+games.rescue.title.lost,The rescue failed,El rescate fracasa
+games.rescue.text.won,The band is beaten and the captive is free.,La banda ha caído y el cautivo queda libre.
+games.rescue.text.lost,The band held. There is still the ransom.,La banda aguantó. Queda el rescate.
+games.rescue.result.won,The captive comes home,El cautivo vuelve a casa
+games.rescue.result.lost,No second try at a rescue,No hay otro intento de rescate
+games.rescue.ui.bout,%s beats %s,%s vence a %s
+games.rescue.ui.draw,%s and %s: both out,%s y %s: los dos fuera

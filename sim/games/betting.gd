@@ -57,6 +57,8 @@ static func valid_stake(games: Dictionary, stake: int) -> bool:
 
 ## The order game_bet: a bet on a game of others, resolved now.
 static func order_bet(sim: Sim, o: Dictionary) -> Dictionary:
+	if str(o.get("incident", "")) != "":
+		return _order_bet_incident(sim, o)
 	var st := sim.state
 	var games: Dictionary = sim.catalog.games
 	var g := str(o.get("game", ""))
@@ -142,3 +144,90 @@ static func own_bets(sim: Sim, spec: Dictionary, bets: Array, fam: String, reser
 	if not Money.can_pay(sim.state, fam, reserve + total):
 		return {"ok": false, "reason": "not_enough_gold"}
 	return {"ok": true, "bets": out}
+
+
+# --- Bets on a brawl of the town (vida's altercation, 04f §4.24.5 and §4.26.6) -------------------------------------------
+## game_bet {actor, incident, on (0: the first of the two, 1: the other), stake}: while the two are still on their way
+## (phase gathering) the bookmaker prices the brawl (the incident's own duel, BrawlMatch) and takes the stake; the bet
+## rides on the incident (state.town.incidents, saved since v17: no save of its own) and is paid when it is fought
+## (incident_fight: settle_incident) or given back if it never is (they cool down, the watch comes first: refund_incident).
+
+## The spec of the brawl of altercation `inc` (the duel Incidents._fight will fight).
+static func brawl_spec(sim: Sim, inc: Dictionary) -> Dictionary:
+	var d := Incidents.def(sim, "altercation")
+	var w := str(d.get("weapon", "fists"))
+	var players: Array = []
+	for c: Variant in inc.get("people", []):
+		var ch: Dictionary = sim.state.characters.get(str(c), {})
+		players.append({"id": str(c), "name": str(ch.get("name", "?")), "family": str(ch.get("family", "")),
+			"stats": (ch.get("stats", {}) as Dictionary).duplicate(), "fighter": Duels.fighter_of(sim, str(c), w)})
+	return {"game": "brawl", "match": str(inc["id"]), "seed": sim.state.world_seed, "players": players, "player": -1,
+		"stake": 0, "opts": {"kind": str(d.get("duel_kind", "first_blood")), "weapon": w}}
+
+
+static func _order_bet_incident(sim: Sim, o: Dictionary) -> Dictionary:
+	var st := sim.state
+	var games: Dictionary = sim.catalog.games
+	var actor := str(o.get("actor", ""))
+	var ch: Dictionary = st.characters.get(actor, {})
+	if ch.is_empty() or str(ch.get("family", "")) == "":
+		return Orders.fail("unknown_actor")
+	var inc := Incidents.find(st, str(o["incident"]))
+	if inc.is_empty() or str(inc.get("def", "")) != "altercation":
+		return Orders.fail("unknown_incident")
+	if str(inc.get("phase", "")) != "gathering":
+		return Orders.fail("too_late")
+	if actor in (inc.get("people", []) as Array):
+		return Orders.fail("bad_bet")  # one does not bet on one's own brawl
+	var stake := int(o.get("stake", 0))
+	if not valid_stake(games, stake):
+		return Orders.fail("bad_stake")
+	var fam := str(ch["family"])
+	if not Money.can_pay(st, fam, stake):
+		return Orders.fail("not_enough_gold")
+	var on := int(o.get("on", -1))
+	if on < 0 or on > 1:
+		return Orders.fail("bad_bet")
+	var mk := market(games, brawl_spec(sim, inc))
+	var odds := float((mk[on] as Dictionary)["odds"])
+	Money.change(sim, fam, -stake, Money.GAMES, "bet_brawl", "", actor)
+	if not inc.get("bets") is Array:
+		inc["bets"] = []
+	(inc["bets"] as Array).append({"actor": actor, "family": fam, "on": on, "stake": stake, "odds": odds, "settled": false})
+	sim.events.append({"type": "game_bet_placed", "actor": actor, "family": fam, "game": "brawl", "incident": str(inc["id"]),
+		"on": on, "stake": stake, "odds": odds})
+	Games._warn_losses(sim, fam)
+	if OS.is_debug_build():
+		print("[Betting] %s apuesta %d a %s en la pelea %s (cuota %.2f)" % [actor, stake, (inc["people"] as Array)[on], inc["id"], odds])
+	return Orders.ok()
+
+
+## The brawl of `inc` was fought and `winner` (a character id, "" a draw) won: its bets are paid (a draw gives the
+## stakes back).
+static func settle_incident(sim: Sim, inc: Dictionary, winner: String) -> void:
+	var people: Array = inc.get("people", [])
+	for b: Variant in inc.get("bets", []):
+		var bet := b as Dictionary
+		if bool(bet.get("settled", false)):
+			continue
+		bet["settled"] = true
+		var stake := int(bet["stake"])
+		var back := stake if winner == "" else (payout(stake, float(bet["odds"])) if str(people[int(bet["on"])]) == winner else 0)
+		if back > 0:
+			Money.change(sim, str(bet["family"]), back, Money.GAMES, "bet_brawl", "", str(bet["actor"]))
+		sim.events.append({"type": "game_bet_settled", "actor": str(bet["actor"]), "family": str(bet["family"]), "game": "brawl",
+			"match": str(inc["id"]), "incident": str(inc["id"]), "on": int(bet["on"]), "stake": stake, "odds": float(bet["odds"]),
+			"winner": people.find(winner), "won": back > stake, "net": back - stake, "house": "", "house_cut": 0})
+
+
+## The incident closes: a bet still open (the brawl never came) gives its stake back.
+static func refund_incident(sim: Sim, inc: Dictionary) -> void:
+	for b: Variant in inc.get("bets", []):
+		var bet := b as Dictionary
+		if bool(bet.get("settled", false)):
+			continue
+		bet["settled"] = true
+		Money.change(sim, str(bet["family"]), int(bet["stake"]), Money.GAMES, "bet_brawl", "", str(bet["actor"]))
+		sim.events.append({"type": "game_bet_settled", "actor": str(bet["actor"]), "family": str(bet["family"]), "game": "brawl",
+			"match": str(inc["id"]), "incident": str(inc["id"]), "on": int(bet["on"]), "stake": int(bet["stake"]),
+			"odds": float(bet["odds"]), "winner": -1, "won": false, "net": 0, "refunded": true, "house": "", "house_cut": 0})

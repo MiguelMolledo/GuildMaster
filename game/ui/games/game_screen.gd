@@ -21,7 +21,8 @@ const BOARDS: Dictionary = {"azar": "res://game/ui/games/board_dice.gd", "mayor"
 	"pulso": "res://game/ui/games/board_pulso.gd", "envite": "res://game/ui/games/board_naipes.gd",
 	"tourney": "res://game/ui/games/board_tourney.gd", "joust": "res://game/ui/games/board_joust.gd",
 	"sortija": "res://game/ui/games/board_sortija.gd", "race": "res://game/ui/games/board_race.gd",
-	"bulls": "res://game/ui/games/board_bulls.gd"}
+	"bulls": "res://game/ui/games/board_bulls.gd", "rescue": "res://game/ui/games/board_fight.gd",
+	"brawl": "res://game/ui/games/board_fight.gd"}
 
 var m: GameMatch = null
 var spec: Dictionary = {}
@@ -44,6 +45,7 @@ var bet_event: Dictionary = {}     # game_bet_settled of a bet on a game of othe
 var _market: Dictionary = {}
 var _bet_stake: int = 10
 var _bet_on: int = 0
+var bet_only: bool = false           # a bet on a fight of the town (a brawl): placed now, paid when it is fought
 
 
 func _ready() -> void:
@@ -77,19 +79,42 @@ func open(req: Dictionary, state: WorldState, games: Dictionary, give: Callable 
 	bets = []
 	_bet_on = 0
 	bet_event = {}
-	var players: Array = [] if watch else [Games.player_of(state, actor)]
-	for ref: Variant in req.get("players" if watch else "opponents", []):
-		var p := Games.player_ref(state, games, str(ref))
-		if p.is_empty():
-			push_error("GameScreen: unknown player %s" % ref)
-			return false
-		players.append(p)
+	bet_only = false
+	var players: Array = []
 	var mid := str(req.get("match", ""))
-	if mid == "":
-		mid = Games.match_id(state, g, actor) if not watch else "%s|watch|%s|%d" % [g, actor, int(state.clock.get("minute", 0))]
-		request["match"] = mid
-	spec = {"game": g, "match": mid, "seed": maxi(state.world_seed, 1), "players": players, "player": -1 if watch else 0,
-		"stake": int(req.get("stake", 0)), "opts": (req.get("opts", {}) as Dictionary).duplicate(true)}
+	if g in ["rescue", "brawl"]:
+		# vida's fights (docs/contratos/juegos.md §5): their spec comes from the incident
+		var sim: Sim = Game.sim
+		var inc := Incidents.find(state, str(req.get("incident", "")))
+		if sim == null or inc.is_empty():
+			push_error("GameScreen: unknown incident %s" % req.get("incident", ""))
+			return false
+		if g == "rescue":
+			var pv := Rescue.preview(sim, inc, actor, int(req.get("helpers", 2)))
+			spec = {"game": "rescue", "match": str(pv["key"]), "seed": int(pv["seed"]), "players": pv["players"], "player": 0,
+				"stake": 0, "opts": {"team_a": int(pv["team_a"])}}
+			request["order"] = {"type": "resolve_incident", "actor": actor, "incident": str(inc["id"]), "choice": "rescue",
+				"helpers": int(req.get("helpers", 2))}
+		else:
+			spec = Betting.brawl_spec(sim, inc)
+			watch = true
+			betting = true
+			bet_only = true
+		players = spec["players"]
+		mid = str(spec["match"])
+	else:
+		players = [] if watch else [Games.player_of(state, actor)]
+		for ref: Variant in req.get("players" if watch else "opponents", []):
+			var p := Games.player_ref(state, games, str(ref))
+			if p.is_empty():
+				push_error("GameScreen: unknown player %s" % ref)
+				return false
+			players.append(p)
+		if mid == "":
+			mid = Games.match_id(state, g, actor) if not watch else "%s|watch|%s|%d" % [g, actor, int(state.clock.get("minute", 0))]
+			request["match"] = mid
+		spec = {"game": g, "match": mid, "seed": maxi(state.world_seed, 1), "players": players, "player": -1 if watch else 0,
+			"stake": int(req.get("stake", 0)), "opts": (req.get("opts", {}) as Dictionary).duplicate(true)}
 	if betting:
 		var ms := spec.duplicate(true)
 		ms["player"] = -1
@@ -157,6 +182,33 @@ func _refresh_betting() -> void:
 		i += 1
 
 
+## A bet on a brawl of the town: game_bet with its incident; the card says it is paid when they fight.
+func _bet_brawl() -> void:
+	var refused := ""
+	var placed := {}
+	if not bets.is_empty() and _give.is_valid():
+		var b: Dictionary = bets[0]
+		var o := {"type": "game_bet", "actor": str(request.get("actor", "")), "incident": str(request.get("incident", "")),
+			"on": int(b["on"]), "stake": int(b["stake"])}
+		for e: Dictionary in _give.call(o):
+			if str(e.get("type", "")) == "order_refused" and str(e.get("order", "")) == "game_bet":
+				refused = str(e.get("reason", ""))
+			elif str(e.get("type", "")) == "game_bet_placed":
+				placed = e
+	_sent = true
+	var effects: Array = []
+	if not placed.is_empty():
+		effects.append({"text": tr("games.brawl.placed") % [int(placed["stake"]), str(_names[int(placed["on"])]), float(placed["odds"])],
+			"sign": ""})
+	elif refused != "":
+		effects.append({"text": tr("games.result.refused") % tr("reason.%s" % refused), "sign": "-"})
+	else:
+		effects.append({"text": tr("games.bets.none"), "sign": ""})
+	(get_node("%Result") as PageCard).show_page({"template": "card", "title": tr("games.brawl.title"), "sticky": true,
+		"blocks": [{"type": "paragraph", "text": tr("games.brawl.text")}, {"type": "effects", "items": effects}],
+		"buttons": [{"id": "close", "text": tr("games.ui.close"), "primary": true}]})
+
+
 func _short_name(n: String) -> String:
 	return n if n.length() <= 18 else n.substr(0, 17) + "…"
 
@@ -179,6 +231,9 @@ func _bet_action(id: String) -> void:
 	betting = false
 	if OS.is_debug_build():
 		print("[GameScreen] apuestas: %s" % [bets])
+	if bet_only:
+		_bet_brawl()
+		return
 	if watch and not bets.is_empty() and _give.is_valid():
 		var b: Dictionary = bets[0]
 		var o := {"type": "game_bet", "actor": str(request.get("actor", "")), "game": str(spec["game"]),
@@ -258,7 +313,7 @@ func _traits(p: Dictionary) -> String:
 			stats = ["constitution", "empathy"]
 		"envite":
 			stats = ["empathy", "rhetoric"]
-		"tourney":
+		"tourney", "rescue", "brawl":
 			stats = ["martial", "empathy"]
 		"joust":
 			stats = ["dexterity", "empathy", "martial"]
@@ -391,6 +446,9 @@ func _finish() -> void:
 	if watch:
 		_show_result("")
 		return
+	if request.get("order") is Dictionary:  # the rescue: vida's own order with the moves played
+		_finish_order()
+		return
 	var o := {"type": "game_play", "actor": str(request.get("actor", "")), "game": str(spec["game"]),
 		"opponents": (request.get("opponents", []) as Array).duplicate(), "stake": int(spec["stake"]),
 		"opts": (spec["opts"] as Dictionary).duplicate(true), "moves": (m.moves() as Array).duplicate(), "auto": true,
@@ -408,6 +466,31 @@ func _finish() -> void:
 		print("[GameScreen] fin %s: gana %d, oro %s, orden %s" % [spec["match"], int(m.result()["winner"]),
 			applied.get("net", "-"), "rechazada: " + refused if refused != "" else "aplicada"])
 	_show_result(refused)
+
+
+func _finish_order() -> void:
+	var o: Dictionary = (request["order"] as Dictionary).duplicate(true)
+	o["moves"] = (m.moves() as Array).duplicate()
+	o["auto"] = true
+	var refused := ""
+	if _give.is_valid():
+		for e: Dictionary in _give.call(o):
+			var t := str(e.get("type", ""))
+			if t == "order_refused" and str(e.get("order", "")) == str(o["type"]):
+				refused = str(e.get("reason", ""))
+			elif t == "incident_rescue":
+				applied = e
+	if OS.is_debug_build():
+		print("[GameScreen] rescate %s: %s" % [o.get("incident", ""), applied if refused == "" else "rechazado: " + refused])
+	var won := bool(applied.get("won", m.won() if m is RescueMatch else false))
+	var effects: Array = [{"text": tr("games.rescue.result.%s" % ("won" if won else "lost")), "sign": "+" if won else "-"}]
+	if refused != "":
+		effects = [{"text": tr("games.result.refused") % tr("reason.%s" % refused), "sign": "-"}]
+	(get_node("%Result") as PageCard).show_page({"template": "card", "title": tr("games.rescue.title.%s" % ("won" if won else "lost")),
+		"sticky": true, "blocks": [{"type": "paragraph", "text": tr("games.rescue.text.%s" % ("won" if won else "lost"))},
+			{"type": "divider"}, {"type": "effects", "items": effects}],
+		"buttons": [{"id": "close", "text": tr("games.ui.close"), "primary": true}]})
+	finished.emit(m.result())
 
 
 func _show_result(refused: String) -> void:

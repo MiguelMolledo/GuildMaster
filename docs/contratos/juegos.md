@@ -134,11 +134,32 @@ Para apuestas que esperan a una competición futura (el calendario de las Fiesta
 - **Nuevos juegos:** un `*Match` que extiende `GameMatch`, su sección en `data/games.json`, su fila en
   `Games.GAMES`/`PLAYERS` y su tablero en `game/ui/games/board_<juego>.gd` (BOARDS de `GameScreen`).
 
+## 5 bis. Con la vida (rama vida, 04f §4.24.5): el rescate jugado y las apuestas sobre altercados
+
+- **Rescate jugado** (secuestro, elección `rescue`): la cadena de duelos de `Incidents` es `RescueMatch`
+  (`sim/games/rescue.gd`): el actor primero, luego los guardias contratados, contra la banda; quien pierde queda fuera
+  y sigue el siguiente; un empate saca a los dos. Sin jugadas es **exactamente** el `Incidents._fights` de antes (mismos
+  ids de duelo `<incidente>|rescue|<n>`, mismos luchadores, misma tirada: `tests/test_games_town.gd`). La carta del
+  suceso abre la pantalla (`App.open_game({game: "rescue", actor, incident, helpers})`, con `Rescue.preview` para ver a
+  quién se enfrenta) y al acabar manda la orden de vida `resolve_incident {choice: "rescue", helpers, moves, auto}`;
+  el sim la vuelve a jugar con `Rescue.fight`. Evento `incident_rescue` con `played`.
+- **Apuestas sobre un altercado** (4.26.6): mientras los dos van a pegarse (fase `gathering`), `game_bet {actor,
+  incident, on (0 o 1: people[on]), stake}`; el corredor cotiza con el duelo del propio suceso (`BrawlMatch`: el id del
+  incidente, la semilla del mundo, `Duels.fighter_of` con el arma del altercado) y cobra la apuesta. La apuesta va
+  **dentro del suceso** (`incidents.active[...].bets`, que ya se guarda desde la v17: **no hace falta versión propia**)
+  y se paga en `incident_fight` (`Betting.settle_incident`: empate, se devuelve) o se devuelve si el suceso se cierra
+  sin pelea (se calman, se van: `Betting.refund_incident` en `Incidents._close`). Rechazos: `unknown_incident`,
+  `too_late` (ya pelean), `bad_bet` (uno de los dos apuesta a su pelea, o lado fuera de rango), `bad_stake`,
+  `not_enough_gold`. Eventos `game_bet_placed` y `game_bet_settled` (con `incident`, `refunded`). La carta del
+  altercado lleva el botón «Apostar», que abre el corredor (`App.open_game({game: "brawl", actor, incident})`).
+
 ## 6. Pruebas y bancos
 
 - `tests/test_games_dice.gd`: reglas, determinismo, «Resolver sin jugar» = jugar bien, la orden y sus rechazos, la
   casa y el aviso de pérdidas. `tests/test_games_cards.gd`: el envite. `tests/test_games_bets.gd`: cuotas, `game_bet`,
   apostar a uno mismo y el fraude, dados cargados y que te pillen.
+- `tests/test_games_town.gd`: el rescate sin jugar igual al de antes, la vista previa contra los bandidos reales, jugar
+  siguiendo la pista = resolver, la apuesta a una pelea (cobro, pago con el ganador del suceso, devolución).
 - `tests/test_games_tourney.gd`, `test_games_joust.gd`, `test_games_sortija.gd`, `test_games_race_bulls.gd`: los bloques 4-8.
 - Bot `gambler` (`sim/bots/bot_gambler.gd`, escenario `games_gambler`, diana `gambler`): `godot --headless --path . -s
   tools/sim_runner.gd -- --scenario=games_gambler --bots=gambler --days=8 --seeds=5` (en `run_all`, paso `gambler`).
