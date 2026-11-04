@@ -6265,6 +6265,202 @@
       "coste_gen": 0,
       "coste_usd": 0.04,
       "notas": "Carro de caravana de bueyes, de perfil mirando al este (al oeste, reflejado), 56×34 a la densidad del pergamino. Variante caravan_cart.png (carreta de mula, 48×24). Cableado: las caravanas de la familia en el mapa regional (VisualPaths.region_caravan, reflejada hacia el oeste; por defecto la de bueyes, CARAVAN_VARIANT)."
+    },
+    {
+      "id": "illus_event_altercation",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "vida",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/altercation.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Suceso altercation de la ciudad viva II (docs/gdd/04f_vida_y_fiestas.md §4.24.5, data/life/incidents.json): una pelea a puñetazos entre dos vecinos en la plaza al atardecer, corro de mirones, un guardia con librea llega corriendo. 240×135 (la carta del suceso, game/ui/life/incident_card) y altercation_192.png a 192×108 (aviso). Lo lee VisualPaths.illustration(\"events\", \"altercation\"); hasta que llegue, la carta enseña un greybox rayado con su etiqueta."
+    },
+    {
+      "id": "illus_event_bandit_raid",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "vida",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/bandit_raid.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Suceso bandit_raid de la ciudad viva II (docs/gdd/04f_vida_y_fiestas.md §4.24.5, data/life/incidents.json): de noche, una banda de 3 bandidos con capuchas fuerza la puerta de una casa del borde de la villa; perros ladrando, un farol. 240×135 (la carta del suceso, game/ui/life/incident_card) y bandit_raid_192.png a 192×108 (aviso). Lo lee VisualPaths.illustration(\"events\", \"bandit_raid\"); hasta que llegue, la carta enseña un greybox rayado con su etiqueta."
+    },
+    {
+      "id": "illus_event_kidnapping",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "vida",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/kidnapping.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Suceso kidnapping de la ciudad viva II (docs/gdd/04f_vida_y_fiestas.md §4.24.5, data/life/incidents.json): una nota de rescate clavada en una puerta con un puñal; al fondo, unos jinetes se alejan hacia un collado. 240×135 (la carta del suceso, game/ui/life/incident_card) y kidnapping_192.png a 192×108 (aviso). Lo lee VisualPaths.illustration(\"events\", \"kidnapping\"); hasta que llegue, la carta enseña un greybox rayado con su etiqueta."
+    },
+    {
+      "id": "bubble_water",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "vida",
+        "burbujas"
+      ],
+      "ruta": "assets/art/ui/bubbles/water.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Burbuja de la ciudad viva II (04f §4.24): por agua al pozo (un cántaro). 32×32, el pico abajo como chat.png. Escena game/visuals/bubbles/water.tscn (greybox): al llegar el png, poner un Sprite como en chat.tscn y ocultar el Greybox."
+    },
+    {
+      "id": "bubble_wash",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "vida",
+        "burbujas"
+      ],
+      "ruta": "assets/art/ui/bubbles/wash.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Burbuja de la ciudad viva II (04f §4.24): lavar ropa (una tabla de lavar o ropa tendida). 32×32, el pico abajo como chat.png. Escena game/visuals/bubbles/wash.tscn (greybox): al llegar el png, poner un Sprite como en chat.tscn y ocultar el Greybox."
+    },
+    {
+      "id": "bubble_pray",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "vida",
+        "burbujas"
+      ],
+      "ruta": "assets/art/ui/bubbles/pray.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Burbuja de la ciudad viva II (04f §4.24): en misa (unas manos juntas o una cruz). 32×32, el pico abajo como chat.png. Escena game/visuals/bubbles/pray.tscn (greybox): al llegar el png, poner un Sprite como en chat.tscn y ocultar el Greybox."
+    },
+    {
+      "id": "bubble_play",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "vida",
+        "burbujas"
+      ],
+      "ruta": "assets/art/ui/bubbles/play.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Burbuja de la ciudad viva II (04f §4.24): un niño jugando (una pelota o una peonza). 32×32, el pico abajo como chat.png. Escena game/visuals/bubbles/play.tscn (greybox): al llegar el png, poner un Sprite como en chat.tscn y ocultar el Greybox."
+    },
+    {
+      "id": "bubble_show",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "vida",
+        "burbujas"
+      ],
+      "ruta": "assets/art/ui/bubbles/show.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Burbuja de la ciudad viva II (04f §4.24): mirando un espectáculo (una nota musical o un antifaz). 32×32, el pico abajo como chat.png. Escena game/visuals/bubbles/show.tscn (greybox): al llegar el png, poner un Sprite como en chat.tscn y ocultar el Greybox."
+    },
+    {
+      "id": "bubble_alms",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "vida",
+        "burbujas"
+      ],
+      "ruta": "assets/art/ui/bubbles/alms.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Burbuja de la ciudad viva II (04f §4.24): pidiendo limosna (un cuenco con una moneda). 32×32, el pico abajo como chat.png. Escena game/visuals/bubbles/alms.tscn (greybox): al llegar el png, poner un Sprite como en chat.tscn y ocultar el Greybox."
+    },
+    {
+      "id": "bubble_rumor",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "vida",
+        "burbujas"
+      ],
+      "ruta": "assets/art/ui/bubbles/rumor.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Burbuja de la ciudad viva II (04f §4.24): contando un rumor (un signo de exclamación o una boca que susurra). 32×32, el pico abajo como chat.png. Escena game/visuals/bubbles/rumor.tscn (greybox): al llegar el png, poner un Sprite como en chat.tscn y ocultar el Greybox."
+    },
+    {
+      "id": "bubble_fight",
+      "tipo": "ui",
+      "estado": "greybox",
+      "para": [
+        "vida",
+        "burbujas"
+      ],
+      "ruta": "assets/art/ui/bubbles/fight.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Burbuja de la ciudad viva II (04f §4.24): en una pelea (dos puños o una estrella de golpe). 32×32, el pico abajo como chat.png. Escena game/visuals/bubbles/fight.tscn (greybox): al llegar el png, poner un Sprite como en chat.tscn y ocultar el Greybox."
+    },
+    {
+      "id": "prop_hand_lantern",
+      "tipo": "prop",
+      "estado": "greybox",
+      "para": [
+        "vida",
+        "guardia"
+      ],
+      "ruta": "assets/art/props/hand_lantern.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "El farol de mano de la ronda de noche (04f §4.24.4): ~8×12 px, hierro negro y cristal ámbar, con su halo. Escena game/visuals/props/hand_lantern.tscn (greybox con halo aditivo), colgada de la mano del guardia (CharacterView.set_lantern)."
+    },
+    {
+      "id": "npc_guard",
+      "tipo": "npc",
+      "estado": "falta",
+      "para": [
+        "vida",
+        "guardia"
+      ],
+      "ruta": "assets/art/characters/guard/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Personaje de la ciudad viva II (04f §4.28.3): guardia de la villa con librea (gambesón rojo oscuro y oro, el color del concejo), espada y casco de hierro. Hasta el ciclo de PixelLab del 15-nov se tiñe el townsfolk con el shader de identidad (colores de fam_watch / fam_bandits en data/life/life.json)."
+    },
+    {
+      "id": "npc_bandit",
+      "tipo": "npc",
+      "estado": "falta",
+      "para": [
+        "vida",
+        "sucesos"
+      ],
+      "ruta": "assets/art/characters/bandit/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Personaje de la ciudad viva II (04f §4.28.3): bandido de capucha oscura y capa raída, con garrote o cuchillo. Hasta el ciclo de PixelLab del 15-nov se tiñe el townsfolk con el shader de identidad (colores de fam_watch / fam_bandits en data/life/life.json)."
     }
   ]
 }
