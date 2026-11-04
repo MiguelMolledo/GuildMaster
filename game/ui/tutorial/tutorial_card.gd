@@ -1,12 +1,13 @@
 class_name TutorialCard
 extends MarginContainer
-## The tutorial's card (docs/ui/05_tutorial.md §5): the page kit's short notice (PageCard, template "notice", 236
-## wide) with the step on its ribbon («Producir · 3/12»), the text as its paragraph and the buttons in its foot. What
-## the notice has no block for goes into the page's column with the tutorial's own variations: the lead line (what
-## opens the target, TutorialTitle) above the text and the keys line (TutorialStep) under it. The overlay places this
-## node; the page inside never centres itself (build, not show_page) and never closes on a click (sticky).
-## show_card(data) takes {step, lead, body, foot, buttons: [{id, text, primary}]}; a button emits button_pressed(id).
-## Reads nothing and gives no orders.
+## The tutorial's card (docs/ui/05_tutorial.md §5): the page kit's short notice (PageCard, template "notice", 236 wide)
+## with the chapter on its ribbon («Producir»), the step count in the card, the text as its paragraph and the buttons in
+## its foot. What the notice has no block for goes into the page's column with the tutorial's own variations: the lead
+## line (what opens the target, TutorialTitle) above the text and the keys line (TutorialStep) under it. The overlay
+## places this node; the page inside never centres itself (build, not show_page) and never closes on a click (sticky).
+## show_card(data) takes {step, count, lead, body, foot, buttons: [{id, text, primary}]}: `step` goes on the ribbon (one
+## line), `count` («Paso 3 de 12») in small at the top of the card, right; a button emits button_pressed(id). Reads
+## nothing and gives no orders.
 
 signal button_pressed(id: String)
 
@@ -54,6 +55,12 @@ func show_card(d: Dictionary) -> void:
 		# under the title: the ribbon is on the page's edge (column top), or the title in ink heads the column
 		var under := 1 if column.get_child_count() > 1 and column.get_child(0).name == &"Ribbon" else 0
 		column.move_child(lead, mini(under, column.get_child_count() - 1))
+	if str(d.get("count", "")) != "":
+		var count := _line(str(d["count"]), &"TutorialStep", "Count")
+		count.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		column.add_child(count)
+		var top := 1 if column.get_child_count() > 1 and column.get_child(0).name == &"Ribbon" else 0
+		column.move_child(count, mini(top, column.get_child_count() - 1))   # above the lead and the text
 	if str(d.get("foot", "")) != "":
 		var foot := _line(str(d["foot"]), &"TutorialStep", "Keys")
 		column.add_child(foot)

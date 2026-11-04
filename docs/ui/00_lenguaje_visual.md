@@ -69,8 +69,10 @@ Reglas:
   (principal sobre una franja de la secundaria) y en el sello de la familia, nunca como fondo de un panel.
 - **Retratos en marco de cuadro** (`PortraitFrame`, `assets/art/ui/portrait_frame/`, `tools/art/marco_retrato.py`):
   madera tallada con filete y remates dorados en las esquinas, como un cuadro colgado; nunca un cuadrado con borde.
-  Dos tamaños dibujados a su medida (no se escala el pequeño): 38×38 con listón de 3 para el retrato de 32 y 76×76
-  con listón de 6 para el de 64 (`big`). Dorado entero si está activo, madera con filete de oro si se controla, madera
+  Dos tamaños dibujados a su medida (no se escala el pequeño): 38×38 con listón de 3 para el retrato de 32 y 82×82
+  con listón de 9 para el de 64 (`big`: moldura de cuentas, media caña, doble filete y tacos en las esquinas con un
+  diamante y una hoja a lo largo de cada listón). Dorado entero si está activo o en una carta de celebración (boda,
+  nacimiento, mayoría de edad, ceremonia de título: marca `gold`), madera con filete de oro si se controla, madera
   con filete de bronce los demás. Solo los remates de las esquinas entran en el retrato (en sus esquinas, lejos de la
   cara) y la placa va al pie, sobre los hombros.
 
@@ -118,14 +120,18 @@ Escala de la recomendada (en `tokens.json` → `fuente`):
 
 | Papel | Fuente y tamaño | Uso |
 |---|---|---|
-| `titulo` | Jacquarda Bastarda 9 a 13 | Título de panel, de pantalla y de documento. Nunca en frases largas ni en botones. |
+| `titulo` | Jacquard 24 a 24 (`TitleLabel` en oro, `InkTitleLabel` en tinta) | Título de panel, de carta, de pantalla y de documento, y el nombre en la cabecera de una ficha. Nunca en frases largas ni en botones. |
+| `seccion` | Pixel Operator Bold 16 (`SectionTitle` en oro, `InkBold` en tinta) | Rótulos pequeños: secciones dentro de un panel, nombres en barras y filas, la frase de qué lo abre del tutorial (`TutorialTitle`). |
 | `cinta` | Jacquard 24 a 24 (dorado, sombra de 1 px) | El título en la cinta del kit de página (`PageRibbon`). Si no cabe, Pixel Operator Bold 16 (`PageRibbonSmall`). Ver `04_kit_de_pagina.md`. |
 | `negrita` | Pixel Operator Bold 16 | Botones, cifras, nombres, el título del objetivo. |
 | `cuerpo` | Pixel Operator 16 | Todo lo demás. |
 | `pequena` | Pixel Operator 8 | Teclas en los botones, contadores sobre retratos, rótulos en mayúsculas («OBJETIVO»). |
 
+> Jacquarda Bastarda 9 a 13 (la gótica pequeña de antes) se retiró el 2026-11-04: aun a su tamaño nativo su ojo mide
+> 5-6 px y la «r», la «v» y la «x» se confunden. Hoja de los cambios: `docs/novedades/letras_titulos.png`.
+
 - Pixel Operator no traía `→ ← ↑ ↓ −`, que usan los textos del juego (`i18n/strings.csv` tiene 22 `→` y 6 `−`):
-  `tools/ui/glifos_extra.py` los dibuja en su rejilla (es CC0, se puede modificar). Jacquarda no los tiene: en títulos
+  `tools/ui/glifos_extra.py` los dibuja en su rejilla (es CC0, se puede modificar). Jacquard 24 no trae las flechas: en títulos
   no se usan.
 - Importación en Godot: sin suavizado, sin hinting y sin subpíxel (ya puesto en los `.import` de
   `assets/art/ui/fonts/`). Solo los tamaños de la tabla: otro tamaño deforma las letras.
@@ -219,7 +225,7 @@ Tareas pequeñas, en este orden (ninguna toca `sim/`):
       `line_spacing = -3`; `Button` con Pixel Operator Bold 16 (sustituye a Silkscreen 8); `default_font` del theme =
       Pixel Operator 16.
 - [x] Theme: variaciones nuevas ya en `greybox_theme.tres` (no cambian nada de lo que hay; se usan poniendo su nombre
-      en `Theme Type Variation` del nodo): `TitleLabel` (Jacquarda 13, oro), `BodyLabel` y `BoldLabel` (Pixel Operator
+      en `Theme Type Variation` del nodo): `TitleLabel` (Jacquard 24, oro; antes Jacquarda 13), `BodyLabel` y `BoldLabel` (Pixel Operator
       16, `line_spacing` −3), `SmallLabel` (Pixel Operator 8, tenue), `InkLabel` (tinta, para pergamino),
       `ParchmentPanel` (pieza `parchment`), `DarkPanel` (sección oscura). Sirven para probar la fuente en un panel
       antes de cambiarla en todo el theme.

@@ -1,6 +1,6 @@
 extends "res://tests/test_case.gd"
 ## The portrait's picture frame (PortraitFrame, assets/art/ui/portrait_frame/): a carved frame in two sizes (38 for the
-## portrait of 32, 76 for the ×2 one), gilded when active, wood when controllable, dark otherwise; cut in 9 with the
+## portrait of 32, 82 for the ×2 one), gilded when active, wood when controllable, dark otherwise; cut in 9 with the
 ## carved corner as its margin (never stretched); the frame does not cover the face (only its corners enter the
 ## portrait's corners) nor crops the portrait; the family's colours on the plaque of its foot; the big cards (wedding,
 ## succession, the tree's sheet, the new game) use the big frame instead of scaling the small one.
@@ -26,8 +26,8 @@ func test_sizes_and_finishes() -> void:
 	for big: bool in [false, true]:
 		var f := _frame(big)
 		f.show_character(sim.state, hero, {"controlled": true})
-		var side := 76.0 if big else 38.0
-		var band := 6.0 if big else 3.0
+		var side := 82.0 if big else 38.0
+		var band := 9.0 if big else 3.0
 		eq(f.custom_minimum_size, Vector2(side, side), "big=%s: the frame's size" % big)
 		var holder := f.get_node("%Holder") as Node2D
 		eq(holder.position, Vector2(band, band), "big=%s: the portrait inside the band" % big)
@@ -43,7 +43,8 @@ func test_sizes_and_finishes() -> void:
 				"big=%s: the %s picture frame" % [big, want])
 			if sb != null:
 				eq(sb.texture.get_size(), Vector2(side, side), "the frame's art is drawn at its size (no scaling)")
-				eq(int(sb.texture_margin_left), 9 if big else 5, "the carved corner is the 9-slice margin")
+				eq(int(sb.texture_margin_left), int(PortraitFrame.SIZES["l" if big else "s"]["corner"]),
+					"the carved corner is the 9-slice margin")
 				check(not sb.draw_center, "the centre is not drawn")
 		f.free()
 
@@ -114,6 +115,7 @@ func test_big_cards_use_the_big_frame() -> void:
 	for k: String in ["left_node", "right_node"]:
 		var f := people.get(k) as PortraitFrame
 		check(f != null and f.big and f.scale == Vector2.ONE, "wedding %s: the big frame, not a scaled one" % k)
+		check(f != null and f.finish == "gold", "wedding %s: a celebration, the gilded frame" % k)
 		if f != null:
 			f.free()
 	wc.free()
@@ -121,3 +123,31 @@ func test_big_cards_use_the_big_frame() -> void:
 	var pf := ng.get_node_or_null("%PortraitFrame") as PortraitFrame
 	check(pf != null and pf.big, "the new game's preview in the big picture frame")
 	ng.free()
+
+
+## The celebration cards gild the frame: the title ceremony (with who receives it, ×2) and the birth card; a death does
+## not.
+func test_celebrations_gild_the_frame() -> void:
+	var sim := _sim()
+	var st := sim.state
+	var fam := SimQuery.player_family(st)
+	var hero := SimQuery.family_actor(st, fam)
+	var tc := (load("res://game/ui/title_card.tscn") as PackedScene).instantiate() as TitleCard
+	tc.show_for(sim, {"type": "title_granted", "family": fam, "actor": hero, "title": "citizen", "from": "commoner"})
+	var slot := tc.get_node("%PortraitSlot") as Control
+	var f := slot.get_child(0) as PortraitFrame if slot.get_child_count() > 0 else null
+	check(f != null and f.big and f.finish == "gold" and f.char_id == hero, "ceremony: who receives it, ×2, gilded")
+	tc.free()
+	var fc := (load("res://game/ui/family_card.tscn") as PackedScene).instantiate()
+	for t: Array in [["birth", "gold"], ["death", "dark"]]:
+		fc.set("sim", sim)
+		fc.set("shown", {"type": t[0], "character": hero, "age": 60})
+		fc.call("_show")
+		var ps := fc.get_node("%PortraitSlot") as Control
+		var pf: PortraitFrame = null
+		for c: Node in ps.get_children():
+			if c is PortraitFrame and not c.is_queued_for_deletion():
+				pf = c
+		check(pf != null and (pf.finish == "gold") == (t[1] == "gold"), "%s card: %s frame (%s)" % [t[0], t[1],
+			pf.finish if pf != null else "none"])
+	fc.free()

@@ -1,0 +1,15 @@
+{
+  "fecha": "2026-11-04",
+  "titulo": "Títulos legibles en todo el juego, marco grande tallado y cartas de celebración en oro",
+  "que": "Jacquarda Bastarda 9 (la gótica pequeña que se emborronaba) desaparece del theme. Los títulos de ventana, carta, pantalla y ficha (TitleLabel, InkTitleLabel: el nombre de la ficha de personaje y del árbol, la sucesión, los paneles de gestión, Partida nueva, Opciones, la ceremonia, el nacimiento...) pasan a Jacquard 24 a 24; los rótulos pequeños (secciones de Opciones y de Dinastía, la barra de selección y la del interior, las ranuras de guardar, las cabeceras de teclas de la ayuda, el total del final y la frase del tutorial) a Pixel Operator Bold 16 (SectionTitle nueva, InkBold). Un título de panel que no cabe en gótica pasa solo a la letra pequeña (TitleFit); el del libro de cuentas queda en «Libro de cuentas». Hoja de cambios: docs/novedades/letras_titulos.png. El marco grande de los retratos (64) pasa a 82 con un listón de 9: moldura de cuentas, media caña, doble filete y tacos en las esquinas con un diamante y una hoja por listón; el de 32 se queda. Cartas de celebración con el marco dorado: boda, nacimiento y mayoría de edad, y la ceremonia de título, que ahora enseña el retrato de quien lo recibe. Tutorial: la cinta lleva solo el capítulo (con nombre corto si el largo no cabe: «Deuda y cuentas», «Familia y herencia») en una línea, y «Paso n de 12» va en pequeño en la tarjeta.",
+  "como_probar": "Capturas: grimoire heavy --timeout 8m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=paneles (ficha, paneles), --smoke-script=social (árbol, sucesión, ceremonia, nacimiento), --smoke-script=pagina (boda), --smoke-script=tutorial --dev-time y --smoke-script=menu (Partida nueva, Opciones). Pruebas: godot --headless --path . -s tests/run_tests.gd -- --only=hud_theme (letras y TitleFit), --only=portrait_frame (marcos y celebraciones), --only=test_the_chapter_fits (cinta del tutorial).",
+  "capturas": [
+    "docs/novedades/letras_titulos.png",
+    "docs/novedades/retrato_marco_ceremonia.png",
+    "docs/novedades/kit_pagina_boda.png",
+    "docs/novedades/retrato_marco_sucesion.png",
+    "docs/novedades/retrato_marco_arbol.png",
+    "docs/novedades/retrato_marco_ficha.png",
+    "docs/novedades/tutorial_cinta_capitulo.png"
+  ]
+}

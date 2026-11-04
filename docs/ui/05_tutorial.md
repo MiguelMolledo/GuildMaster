@@ -47,7 +47,7 @@ El tutorial se esconde mientras hay un menú (título, pausa, guardar, opciones�
 
 1. **Lo resaltado**: el rectángulo del objetivo sin velo, con marco dorado que late y una flecha que lo señala.
 2. **La tarjeta**: una frase en segunda persona, qué hacer y por qué (≤ 2 líneas de 236 px casi siempre). Encima,
-   pequeño, «Capítulo · 3/12». Debajo, «Siguiente» si el paso solo explica, o «Hazlo para seguir» si espera tu acción.
+   el capítulo en la cinta y, pequeño, «Paso 3 de 12» en la tarjeta. Debajo, «Siguiente» si el paso solo explica, o «Hazlo para seguir» si espera tu acción.
 3. **A demanda**: las teclas del tutorial en la línea de pie de la tarjeta.
 
 ## 4. El modelo: capítulos, pasos y pistas
@@ -177,7 +177,8 @@ parpadea).
   debajo de los menús y del fundido (capa 35 entre las tarjetas, 30, y las pantallas, 40).
 - **Marco**: 2 px de oro (`#c8a84e`) que late: crece 0 → 2 px y baja de brillo en 0,9 s, a saltos de píxel entero.
 - **Flecha**: triángulo de oro de 7 px entre la tarjeta y el objetivo, apuntándolo, que sube y baja 2 px.
-- **Tarjeta**: el aviso corto del kit de página (236 de ancho): la cinta con el capítulo y n/total, el texto y los
+- **Tarjeta**: el aviso corto del kit de página (236 de ancho): la cinta con el capítulo (su nombre corto, `<capítulo>.short`, si el largo no cabe en una línea),
+  «Paso n de total» en pequeño arriba a la derecha, el texto y los
   botones (ver abajo). Se coloca debajo del objetivo; si no cabe, encima, a la derecha o a la izquierda; nunca
   encima del objetivo ni fuera de la pantalla. Sin objetivo, en el centro de la vista libre.
 - **Pista**: sin velo, el marco y la flecha más la tarjeta con «Entendido» / «No volver a mostrar».
@@ -187,7 +188,7 @@ parpadea).
   la tarjeta y los del botón de pausa y velocidades. Esc y Espacio siempre funcionan.
 
 Tarjeta: el aviso corto del kit de página ([04](04_kit_de_pagina.md), `PageCard`, plantilla `notice`, 236 de ancho,
-variaciones `Page*`): el capítulo y el paso en la cinta, el texto como párrafo (`PageInk`) y los botones en el pie.
+variaciones `Page*`): el capítulo en la cinta (una línea), el paso en la tarjeta (`TutorialStep`, arriba a la derecha), el texto como párrafo (`PageInk`) y los botones en el pie.
 Lo que el aviso no trae va en su columna con dos variaciones propias del theme común: `TutorialTitle` (la línea de
 qué lo abre, bajo la cinta) y `TutorialStep` (la línea de teclas, sobre los botones). `TutorialCard`
 (`tutorial_card.tscn`) envuelve la página: la monta con `build` (no se centra sola) y `sticky` (un clic no la cierra).

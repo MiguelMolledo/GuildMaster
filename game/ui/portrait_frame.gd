@@ -5,20 +5,22 @@ extends Control
 ## (assets/art/ui/portrait_frame/, tools/art/marco_retrato.py): gilded when active, wood with a gold liner when
 ## controllable, dark wood when not. The family's colours on a small plaque on the frame's foot (primary over
 ## secondary). The heir's crown above the top right corner, the group key (1-2-3) bottom right and, in active pause, the
-## number of queued orders top left. `big`: 76×76 with the portrait ×2 (64) and the frame drawn at its own size (not
-## the small one scaled). Click: `clicked(id)`; double click: `double_clicked(id)`.
+## number of queued orders top left. `big`: 82×82 with the portrait ×2 (64) and a wider carved frame (band 9: bead
+## moulding, double liner, corner blocks with a diamond and a leaf on each bar), drawn at its own size (not the small
+## one scaled). Click: `clicked(id)`; double click: `double_clicked(id)`.
 
 signal clicked(id: String)
 signal double_clicked(id: String)
 
 const DIR: String = "res://assets/art/ui/portrait_frame/"
-## side, band (the frame's width; the portrait sits inside it), corner (the carved corner: never stretched), plaque
+## side, band (the frame's width; the portrait sits inside it), corner (the carved corner and its leaves: the 9-slice
+## margin, never stretched), plaque
 ## rect {x, y, w, h} (on the foot, over the band and the bottom of the bust), crown and key offsets.
 const SIZES: Dictionary = {
 	"s": {"side": 38, "band": 3, "corner": 5, "plaque": Rect2(13, 33, 12, 5), "crown": Vector2(26, -6),
 		"key": Vector2(29, 28), "queue": Vector2(-1, -1)},
-	"l": {"side": 76, "band": 6, "corner": 9, "plaque": Rect2(28, 66, 20, 9), "crown": Vector2(62, -8),
-		"key": Vector2(65, 64), "queue": Vector2(-1, -1)},
+	"l": {"side": 82, "band": 9, "corner": 20, "plaque": Rect2(31, 72, 20, 9), "crown": Vector2(68, -8),
+		"key": Vector2(71, 70), "queue": Vector2(-1, -1)},
 }
 
 @export var big: bool = false:
@@ -47,7 +49,8 @@ func _ensure() -> void:
 	_portrait = n as Portrait
 
 
-## Shows `chr`. flags: {active, heir, controlled, key ("" or "1".."3"), queue (orders waiting, 0 = none)}.
+## Shows `chr`. flags: {active, heir, controlled, key ("" or "1".."3"), queue (orders waiting, 0 = none), gold (the
+## gilded frame without being the active one: the celebration cards, wedding, birth, title ceremony)}.
 func show_character(state: WorldState, chr: String, flags: Dictionary = {}) -> void:
 	char_id = chr
 	show_identity(Identity.of(state, chr), flags)
@@ -62,7 +65,7 @@ func show_identity(id: Dictionary, flags: Dictionary = {}) -> void:
 	(get_node("%PlaqueTop") as ColorRect).color = id.get("primary", Color("#8a2e2e"))
 	(get_node("%PlaqueLow") as ColorRect).color = id.get("secondary", id.get("primary", Color("#8a2e2e")))
 	finish = "wood" if bool(flags.get("controlled", false)) else "dark"
-	if bool(flags.get("active", false)):
+	if bool(flags.get("active", false)) or bool(flags.get("gold", false)):
 		finish = "gold"
 	(get_node("%Crown") as CanvasItem).visible = bool(flags.get("heir", false))
 	(get_node("%Key") as Label).text = str(flags.get("key", ""))

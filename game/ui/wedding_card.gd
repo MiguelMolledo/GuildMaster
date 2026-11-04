@@ -59,7 +59,7 @@ func data_for(sim: Sim, e: Dictionary, events: Array = []) -> Dictionary:
 		"right_band": SocialKit.ribbon(st, old if st.families.has(old) else fam, Vector2(64, 6))}
 	for pair: Array in [["left_node", a], ["right_node", b]]:
 		if st.characters.has(str(pair[1])):
-			var p := SocialKit.portrait(st, str(pair[1]))
+			var p := SocialKit.portrait(st, str(pair[1]), {"gold": true})  # a celebration: the gilded frame
 			p.set("big", true)  # the portrait ×2 in the big picture frame
 			people[pair[0]] = p
 	var items: Array = []

@@ -14,18 +14,24 @@ func _path(r: Resource) -> String:
 	return r.resource_path if r != null else ""
 
 
-func test_fonts_are_pixel_operator_and_jacquarda_at_their_sizes() -> void:
+func test_fonts_are_pixel_operator_and_jacquard_at_their_sizes() -> void:
 	var th := _theme()
 	check(_path(th.default_font).ends_with("pixel_operator.ttf"), "default font: Pixel Operator")
 	eq(th.default_font_size, 16, "default size 16")
 	check(_path(th.get_font("font", "Button")).ends_with("pixel_operator_bold.ttf"), "buttons: Pixel Operator Bold")
 	eq(th.get_font_size("font_size", "Button"), 16, "buttons at 16")
 	eq(th.get_constant("line_spacing", "Label"), -3, "labels: line_spacing -3 (13 px lines)")
-	check(_path(th.get_font("font", "TitleLabel")).ends_with("jacquarda_bastarda_9.ttf"), "titles: Jacquarda Bastarda 9")
-	eq(th.get_font_size("font_size", "TitleLabel"), 13, "titles at 13")
+	check(_path(th.get_font("font", "TitleLabel")).ends_with("jacquard_24.ttf"), "titles: Jacquard 24")
+	eq(th.get_font_size("font_size", "TitleLabel"), 24, "titles at 24")
+	check(_path(th.get_font("font", "SectionTitle")).ends_with("pixel_operator_bold.ttf"), "small titles: PO Bold")
+	eq(th.get_font_size("font_size", "SectionTitle"), 16, "small titles at 16")
+	# the small gothic (Jacquarda Bastarda 9 at 13) smudged at its size: no variation uses it any more (2026-11-04)
+	for type: StringName in th.get_font_type_list():
+		for fname: StringName in th.get_font_list(type):
+			check(not _path(th.get_font(fname, type)).ends_with("jacquarda_bastarda_9.ttf"), "%s: not the small gothic" % type)
 	check(_path(th.get_font("font", "SmallLabel")).ends_with("pixel_operator_8.ttf"), "small: Pixel Operator 8")
 	eq(th.get_font_size("font_size", "SmallLabel"), 8, "small at 8")
-	for f: String in ["pixel_operator.ttf", "pixel_operator_bold.ttf", "pixel_operator_8.ttf", "jacquarda_bastarda_9.ttf"]:
+	for f: String in ["pixel_operator.ttf", "pixel_operator_bold.ttf", "pixel_operator_8.ttf", "jacquard_24.ttf"]:
 		var ff := load("res://assets/art/ui/fonts/" + f) as FontFile
 		eq(ff.antialiasing, TextServer.FONT_ANTIALIASING_NONE, "%s: no antialiasing" % f)
 		eq(ff.hinting, TextServer.HINTING_NONE, "%s: no hinting" % f)
@@ -98,3 +104,25 @@ func test_ui_sounds_denied_tab_seal() -> void:
 		check((cfg["sfx"] as Dictionary).has(id), "%s in data/audio.json" % id)
 		eq(str(cfg["sfx"][id].get("bus", "")), "Ui", "%s on the Ui bus" % id)
 		check(ResourceLoader.exists("res://assets/audio/sfx/%s_01.ogg" % id), "%s has its file" % id)
+
+
+## A title that clips and does not fit its width in Jacquard 24 drops to Pixel Operator Bold (TitleFit), and goes back
+## when it fits.
+func test_a_long_title_takes_the_small_letter() -> void:
+	var l := Label.new()
+	l.theme = _theme()
+	l.theme_type_variation = &"TitleLabel"
+	l.clip_text = true
+	TitleFit.hook(l)
+	check(l.has_meta("title_fit"), "a clipped title is watched")
+	l.size = Vector2(200, 24)
+	l.text = "Libro de cuentas · Herrero"
+	eq(TitleFit.check(l), &"SectionTitle", "too long for 200 px in gothic: the small letter")
+	l.text = "Almacén"
+	eq(TitleFit.check(l), &"TitleLabel", "a short one: back to the gothic")
+	var free := Label.new()
+	free.theme_type_variation = &"TitleLabel"
+	TitleFit.hook(free)
+	check(not free.has_meta("title_fit"), "a title that does not clip is left alone (it grows)")
+	free.free()
+	l.free()

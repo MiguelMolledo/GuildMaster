@@ -134,9 +134,10 @@ func _show() -> void:
 	var ch: Dictionary = st.characters.get(who, {})
 	var slot := %PortraitSlot as Control
 	SocialKit.clear(slot)
-	if not ch.is_empty():
-		slot.add_child(SocialKit.portrait(st, who))
 	var school := shown.is_empty()
+	if not ch.is_empty():  # a birth or coming of age is a celebration: the gilded frame
+		slot.add_child(SocialKit.portrait(st, who, {"gold": not school and str(shown.get("type", "")) in ["birth",
+			"of_age"]}))
 	(%SchoolBox as Control).visible = school and not folded
 	(%Body as Label).visible = not (school and folded)
 	(%LaterButton as Button).visible = school

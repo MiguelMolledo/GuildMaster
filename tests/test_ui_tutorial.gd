@@ -324,3 +324,33 @@ func test_the_upgrade_preview_pulse_never_loops_on_nothing() -> void:
 		check(not UpgradePreview.pulse_allowed(n, 0.0), "nor with time stopped")
 	pv.free()
 	n.free()
+
+
+## The ribbon of the tutorial's card carries only the chapter (its short name if it has one) and fits one line of the
+## notice's ribbon in Spanish and English, whichever ribbon of the kit is up; the step count goes in the card.
+func test_the_chapter_fits_one_line_of_the_ribbon() -> void:
+	var before := TranslationServer.get_locale()
+	var tut: Tutorial = (load(SCENE) as PackedScene).instantiate()
+	tut.load_data()
+	for loc: String in ["es", "en"]:
+		TranslationServer.set_locale(loc)
+		for id: Variant in tut.chapter_ids():
+			var name := tut.ribbon_name(str(id))
+			check(not name.contains("/"), "%s %s: no step count on the ribbon" % [loc, id])
+			for turn: int in 2:
+				PageKit.use_kit(null)
+				for _i: int in turn:
+					PageKit.variant("ribbon")
+				for _i: int in turn:
+					PageKit.variant("box_frame")
+				var page := (load("res://game/ui/page_card.tscn") as PackedScene).instantiate() as PageCard
+				page.build({"template": "notice", "ribbon": name, "blocks": [{"type": "paragraph", "text": "·"}]})
+				var r := page.get_node("%Decor").get_node_or_null("Ribbon")
+				var l := r.get_node("RibbonText") as Label if r != null else null
+				check(l != null and int(l.get_meta("lines", 1)) == 1 and l.text_overrun_behavior ==
+					TextServer.OVERRUN_NO_TRIMMING, "%s «%s» (%s): one line, whole" % [loc, name, page.parts.get("ribbon",
+					"")])
+				page.free()
+	TranslationServer.set_locale(before)
+	PageKit.use_kit(null)
+	tut.free()

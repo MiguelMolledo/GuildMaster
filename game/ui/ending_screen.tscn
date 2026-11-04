@@ -156,7 +156,7 @@ layout_mode = 2
 [node name="TotalLabel" type="Label" parent="Center/Panel/VBox/Columns/Right/ScoreBox/Total"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"InkTitleLabel"
+theme_type_variation = &"InkBold"
 text = "--"
 unique_name_in_owner = true
 
