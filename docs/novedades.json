@@ -1,5 +1,12 @@
 [
   {
+    "fecha": "2026-11-03",
+    "titulo": "Guerra regional más suave: armas ×1.5",
+    "que": "El owner aceptó las cifras de los eventos globales tal cual, salvo la guerra regional: ahora sube las armas ×1.5 en vez de ×2 (data/events.json, GDD 4.5.3 y 4.13). La producción por estación sigue a 1 hasta que haya cifras. Medidas las dianas largas (H5 con 30 semillas y los títulos) con eventos activados (--events=on).",
+    "como_probar": "Escenario season_events (guerra en curso): /opt/homebrew/bin/godot --path . -- --scenario=season_events --at=10:00; en el mercado, la línea bajo la espada dice «Guerra regional: armas ×1.5». Sim con eventos: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=events --days=80 --seeds=2.",
+    "capturas": []
+  },
+  {
     "fecha": "2026-11-04",
     "titulo": "Los retratos, en un marco de cuadro",
     "que": "Queja del owner: los retratos iban en un cuadrado con borde. Ahora PortraitFrame, el componente que usan todos (HUD, carta de boda y de sucesión, ficha de personaje y de vecino, árbol familiar, cortejo, empleados, cargos, juicio, rivales, final), los pone en un marco de cuadro de madera tallada con filete y remates dorados en las esquinas: dorado entero si es el activo, madera con filete de oro si se controla, madera con filete de bronce los demás. Dos tamaños dibujados a su medida con Pillow (tools/art/marco_retrato.py, paleta del marco de la Lámina; sus esquinas de 32 px no cabían a 32-64): 38 para el retrato de 32 y 76 para el de 64; la boda, la sucesión, la ficha del árbol y la Partida nueva usan el grande en vez de escalar el pequeño ×2. La Partida nueva, que pintaba su retrato con un borde propio, pasa a PortraitFrame. El color de la familia, que iba en el anillo interior, va ahora en una placa al pie del marco (principal sobre una franja de la secundaria). El marco no tapa la cara ni recorta el retrato: solo los remates entran en sus esquinas. No cambia qué imagen sale (población). Gasto: 0.",
