@@ -106,7 +106,7 @@ func test_errand_button_says_cost_and_time_and_why_not() -> void:
 
 
 func _started() -> Sim:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 3)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 3)
 	return Sim.new(r["state"], cat)
 
 
