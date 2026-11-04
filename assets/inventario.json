@@ -6267,144 +6267,396 @@
       "notas": "Carro de caravana de bueyes, de perfil mirando al este (al oeste, reflejado), 56×34 a la densidad del pergamino. Variante caravan_cart.png (carreta de mula, 48×24). Cableado: las caravanas de la familia en el mapa regional (VisualPaths.region_caravan, reflejada hacia el oeste; por defecto la de bueyes, CARAVAN_VARIANT)."
     },
     {
+      "id": "illus_semana_santa",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/semana_santa.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Semana Santa (04f §4.25.1), 240×135, y semana_santa_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_mayos_corpus",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/mayos_corpus.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de los Mayos y el Corpus (04f §4.25.1), 240×135, y mayos_corpus_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_san_juan",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/san_juan.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de San Juan (04f §4.25.1), 240×135, y san_juan_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_siega_feria",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/siega_feria.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la siega y la feria (04f §4.25.1), 240×135, y siega_feria_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_san_miguel",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/san_miguel.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de San Miguel y la vendimia (04f §4.25.1), 240×135, y san_miguel_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_matanza",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/matanza.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Todos los Santos y San Martín (la matanza) (04f §4.25.1), 240×135, y matanza_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_navidad",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/navidad.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Navidad (04f §4.25.1), 240×135, y navidad_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_carnaval",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/carnaval.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Carnaval (04f §4.25.1), 240×135, y carnaval_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_altercado",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/altercado.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el altercado (04f §4.24.5), 240×135, y altercado_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_asalto_bandidos",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/asalto_bandidos.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el asalto de bandidos (04f §4.24.5), 240×135, y asalto_bandidos_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_secuestro",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/secuestro.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el secuestro (04f §4.24.5), 240×135, y secuestro_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_rescate",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/rescate.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el rescate (04f §4.24.5), 240×135, y rescate_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_ladron",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/ladron.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el ladrón nocturno (04f §4.24.5), 240×135, y ladron_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
       "id": "bld_tavern_inn",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
-        "posada",
-        "04f-4.27"
+        "H17",
+        "posada"
       ],
       "ruta": "assets/art/buildings/fal/tavern_inn.png",
-      "origen": null,
-      "origen_previo": null,
+      "origen": "fal: nano-banana-2/edit (ref: la fachada fal de la carpintería, mismo lienzo y puerta) + image2pixel (tools/art/fal_fachadas.py)",
       "coste_gen": 0,
-      "notas": "Fachada de la Taberna-Posada (04f §4.28.3), huella 4×4, puerta en la cara SE (game/visuals/buildings/tavern_inn.tscn); ~272×230, lienzo de las fachadas fal: el borde inferior del png en el vértice inferior de la huella (InnArtSlot bottom 64). Hasta entonces, greybox con etiqueta."
+      "coste_usd": 0.24,
+      "notas": "Taberna-Posada (04f §4.27): dos plantas con entramado, cartel con una jarra (sin letras), toneles, banco y un cobertizo de establo. Huella 3×4 como la carpintería. Lienzo 192×230 (20 px más alto que el de la carpintería): en la escena, Sprite offset (-104, -158) y Door (-40, 12), los pies como la carpintería. 2 intentos descartados (tejado cortado; la referencia grande, ampliada)."
     },
     {
       "id": "bld_tavern_inn_back",
       "tipo": "edificio",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
-        "posada",
-        "04f-4.27"
+        "H17",
+        "posada"
       ],
       "ruta": "assets/art/buildings/fal/tavern_inn_back.png",
-      "origen": null,
-      "origen_previo": null,
+      "origen": "fal: nano-banana-2/edit (ref: tavern_inn.png) + image2pixel (tools/art/fal_fachadas.py --estado back)",
       "coste_gen": 0,
-      "notas": "La Taberna-Posada vista desde detrás (puerta NW; el mapa la usa espejada cuando la puerta da al NE, como en town_e). Mismo lienzo que bld_tavern_inn."
+      "coste_usd": 0.08,
+      "notas": "La Taberna-Posada de espaldas, sin puerta en las caras visibles (para la puerta del sim en una cara oculta). Mismo lienzo y ancla que tavern_inn.png."
     },
     {
-      "id": "int_tavern_floor",
+      "id": "int_tavern",
       "tipo": "interior",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
-        "posada",
-        "04f-4.27"
+        "H17",
+        "posada"
       ],
-      "ruta": "assets/art/interiors/tavern/floor.png",
-      "origen": null,
-      "origen_previo": null,
+      "ruta": "assets/art/interiors/tavern/",
+      "origen": "fal: nano-banana-2/edit (ref: el kit de la forja ×4) + image2pixel (tools/art/fal_taberna.py); suelo con Pillow; paredes, copia de la carpintería",
       "coste_gen": 0,
-      "notas": "Kit del interior de la taberna: Baldosa del suelo 64×32 (como assets/art/interiors/carpentry/floor.png). InnLayer lo pone en el Kit cuando existe."
+      "coste_usd": 0.16,
+      "notas": "Kit de interior de la Taberna-Posada (04f §4.27.4): bar (80×72), table, bench, barrel, kitchen, fireplace, minstrel_corner (64×64), bed (80×72), con los pies abajo en el centro como los de la forja; floor.png (tablas, 64×32, tesela) y wall_ne/nw, wall_door_ne/nw (32×52, de la carpintería)."
     },
     {
-      "id": "int_tavern_wall_ne",
-      "tipo": "interior",
-      "estado": "falta",
+      "id": "ui_icon_food_beer",
+      "tipo": "ui",
+      "estado": "sprite",
       "para": [
-        "posada",
-        "04f-4.27"
+        "H17",
+        "posada"
       ],
-      "ruta": "assets/art/interiors/tavern/wall_ne.png",
-      "origen": null,
-      "origen_previo": null,
+      "ruta": "assets/art/ui/icons/food_beer.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
-      "notas": "Kit del interior de la taberna: Pared NE 32×52. InnLayer lo pone en el Kit cuando existe."
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: cerveza (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
     },
     {
-      "id": "int_tavern_wall_nw",
-      "tipo": "interior",
-      "estado": "falta",
+      "id": "ui_icon_food_strong_beer",
+      "tipo": "ui",
+      "estado": "sprite",
       "para": [
-        "posada",
-        "04f-4.27"
+        "H17",
+        "posada"
       ],
-      "ruta": "assets/art/interiors/tavern/wall_nw.png",
-      "origen": null,
-      "origen_previo": null,
+      "ruta": "assets/art/ui/icons/food_strong_beer.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
-      "notas": "Kit del interior de la taberna: Pared NW 32×52. InnLayer lo pone en el Kit cuando existe."
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: cerveza fuerte (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
     },
     {
-      "id": "int_tavern_wall_door_ne",
-      "tipo": "interior",
-      "estado": "falta",
+      "id": "ui_icon_food_wine",
+      "tipo": "ui",
+      "estado": "sprite",
       "para": [
-        "posada",
-        "04f-4.27"
+        "H17",
+        "posada"
       ],
-      "ruta": "assets/art/interiors/tavern/wall_door_ne.png",
-      "origen": null,
-      "origen_previo": null,
+      "ruta": "assets/art/ui/icons/food_wine.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
-      "notas": "Kit del interior de la taberna: Pared NE con puerta 32×52. InnLayer lo pone en el Kit cuando existe."
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: vino (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
     },
     {
-      "id": "int_tavern_wall_door_nw",
-      "tipo": "interior",
-      "estado": "falta",
+      "id": "ui_icon_food_good_wine",
+      "tipo": "ui",
+      "estado": "sprite",
       "para": [
-        "posada",
-        "04f-4.27"
+        "H17",
+        "posada"
       ],
-      "ruta": "assets/art/interiors/tavern/wall_door_nw.png",
-      "origen": null,
-      "origen_previo": null,
+      "ruta": "assets/art/ui/icons/food_good_wine.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
-      "notas": "Kit del interior de la taberna: Pared NW con puerta 32×52. InnLayer lo pone en el Kit cuando existe."
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: vino bueno (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
     },
     {
-      "id": "int_tavern_bar",
-      "tipo": "interior",
-      "estado": "falta",
+      "id": "ui_icon_food_cider",
+      "tipo": "ui",
+      "estado": "sprite",
       "para": [
-        "posada",
-        "04f-4.27"
+        "H17",
+        "posada"
       ],
-      "ruta": "assets/art/interiors/tavern/bar.png",
-      "origen": null,
-      "origen_previo": null,
+      "ruta": "assets/art/ui/icons/food_cider.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
-      "notas": "Puesto del interior: la barra con jarras; ~80×64, base en Feet (como assets/art/interiors/forge/counter.png). Escena game/visuals/stations/bar.tscn."
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: sidra (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
     },
     {
-      "id": "int_tavern_kitchen",
-      "tipo": "interior",
-      "estado": "falta",
+      "id": "ui_icon_food_bread",
+      "tipo": "ui",
+      "estado": "sprite",
       "para": [
-        "posada",
-        "04f-4.27"
+        "H17",
+        "posada"
       ],
-      "ruta": "assets/art/interiors/tavern/kitchen.png",
-      "origen": null,
-      "origen_previo": null,
+      "ruta": "assets/art/ui/icons/food_bread.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
-      "notas": "Puesto del interior: la cocina: fogón y olla; ~80×64, base en Feet (como assets/art/interiors/forge/counter.png). Escena game/visuals/stations/kitchen.tscn."
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: pan (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
     },
     {
-      "id": "int_tavern_tables",
-      "tipo": "interior",
-      "estado": "falta",
+      "id": "ui_icon_food_garlic_soup",
+      "tipo": "ui",
+      "estado": "sprite",
       "para": [
-        "posada",
-        "04f-4.27"
+        "H17",
+        "posada"
       ],
-      "ruta": "assets/art/interiors/tavern/tables.png",
-      "origen": null,
-      "origen_previo": null,
+      "ruta": "assets/art/ui/icons/food_garlic_soup.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
-      "notas": "Puesto del interior: la mesa grande con bancos; ~80×64, base en Feet (como assets/art/interiors/forge/counter.png). Escena game/visuals/stations/tables.tscn."
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: sopa de ajo (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_empanada",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_empanada.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: empanada (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_stew",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_stew.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: olla (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_roast_lamb",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_roast_lamb.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: cordero asado (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_sausage",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_sausage.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: embutido (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_sweets",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_sweets.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: dulces de Navidad (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
     },
     {
       "id": "int_tavern_rooms",
@@ -6421,20 +6673,6 @@
       "notas": "Puesto del interior: la escalera a las habitaciones; ~80×64, base en Feet (como assets/art/interiors/forge/counter.png). Escena game/visuals/stations/rooms.tscn."
     },
     {
-      "id": "int_tavern_minstrel_corner",
-      "tipo": "interior",
-      "estado": "falta",
-      "para": [
-        "posada",
-        "04f-4.27"
-      ],
-      "ruta": "assets/art/interiors/tavern/minstrel_corner.png",
-      "origen": null,
-      "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Puesto del interior: el rincón del juglar (tarima); ~80×64, base en Feet (como assets/art/interiors/forge/counter.png). Escena game/visuals/stations/minstrel_corner.tscn."
-    },
-    {
       "id": "int_tavern_gaming_table",
       "tipo": "interior",
       "estado": "falta",
@@ -6447,34 +6685,6 @@
       "origen_previo": null,
       "coste_gen": 0,
       "notas": "Puesto del interior: la mesa de dados y naipes; ~80×64, base en Feet (como assets/art/interiors/forge/counter.png). Escena game/visuals/stations/gaming_table.tscn."
-    },
-    {
-      "id": "int_tavern_inn_more_tables",
-      "tipo": "interior",
-      "estado": "falta",
-      "para": [
-        "posada",
-        "04f-4.27"
-      ],
-      "ruta": "assets/art/interiors/tavern/inn_more_tables.png",
-      "origen": null,
-      "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Pieza de mejora del interior (más mesas): nodo Upgrades/inn_more_tables de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
-    },
-    {
-      "id": "int_tavern_inn_hearth",
-      "tipo": "interior",
-      "estado": "falta",
-      "para": [
-        "posada",
-        "04f-4.27"
-      ],
-      "ruta": "assets/art/interiors/tavern/inn_hearth.png",
-      "origen": null,
-      "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Pieza de mejora del interior (chimenea): nodo Upgrades/inn_hearth de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
     },
     {
       "id": "int_tavern_inn_tapestries",
@@ -6533,20 +6743,6 @@
       "notas": "Pieza de mejora del interior (despensa fría): nodo Upgrades/inn_pantry de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
     },
     {
-      "id": "int_tavern_inn_barrels",
-      "tipo": "interior",
-      "estado": "falta",
-      "para": [
-        "posada",
-        "04f-4.27"
-      ],
-      "ruta": "assets/art/interiors/tavern/inn_barrels.png",
-      "origen": null,
-      "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Pieza de mejora del interior (toneles): nodo Upgrades/inn_barrels de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
-    },
-    {
       "id": "int_tavern_inn_reserve",
       "tipo": "interior",
       "estado": "falta",
@@ -6573,20 +6769,6 @@
       "origen_previo": null,
       "coste_gen": 0,
       "notas": "Pieza de mejora del interior (entrada a la cueva de crianza): nodo Upgrades/inn_cave de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
-    },
-    {
-      "id": "int_tavern_inn_more_beds",
-      "tipo": "interior",
-      "estado": "falta",
-      "para": [
-        "posada",
-        "04f-4.27"
-      ],
-      "ruta": "assets/art/interiors/tavern/inn_more_beds.png",
-      "origen": null,
-      "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Pieza de mejora del interior (camas nuevas): nodo Upgrades/inn_more_beds de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
     },
     {
       "id": "int_tavern_inn_good_room",
@@ -6698,7 +6880,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (jarra de cerveza), 32×32, y el pequeño 16×16 en assets/art/icons/small/ale.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras)."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (jarra de cerveza), 32×32, y el pequeño 16×16 en assets/art/icons/small/ale.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     },
     {
       "id": "icon_cider",
@@ -6712,7 +6894,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (jarra de sidra), 32×32, y el pequeño 16×16 en assets/art/icons/small/cider.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras)."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (jarra de sidra), 32×32, y el pequeño 16×16 en assets/art/icons/small/cider.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     },
     {
       "id": "icon_wine",
@@ -6726,7 +6908,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (copa de vino), 32×32, y el pequeño 16×16 en assets/art/icons/small/wine.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras)."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (copa de vino), 32×32, y el pequeño 16×16 en assets/art/icons/small/wine.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     },
     {
       "id": "icon_meat",
@@ -6740,7 +6922,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (pieza de carne), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras)."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (pieza de carne), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     },
     {
       "id": "icon_garlic_soup",
@@ -6754,7 +6936,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (cuenco de sopa de ajo), 32×32, y el pequeño 16×16 en assets/art/icons/small/garlic_soup.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras)."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (cuenco de sopa de ajo), 32×32, y el pequeño 16×16 en assets/art/icons/small/garlic_soup.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     },
     {
       "id": "icon_stew",
@@ -6768,7 +6950,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (olla), 32×32, y el pequeño 16×16 en assets/art/icons/small/stew.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras)."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (olla), 32×32, y el pequeño 16×16 en assets/art/icons/small/stew.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     },
     {
       "id": "icon_meat_pie",
@@ -6782,7 +6964,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (empanada), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat_pie.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras)."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (empanada), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat_pie.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     },
     {
       "id": "icon_roast_lamb",
@@ -6796,7 +6978,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (cordero asado), 32×32, y el pequeño 16×16 en assets/art/icons/small/roast_lamb.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras)."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (cordero asado), 32×32, y el pequeño 16×16 en assets/art/icons/small/roast_lamb.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     },
     {
       "id": "icon_sausage",
@@ -6810,7 +6992,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (embutido), 32×32, y el pequeño 16×16 en assets/art/icons/small/sausage.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras)."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (embutido), 32×32, y el pequeño 16×16 en assets/art/icons/small/sausage.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     },
     {
       "id": "icon_sweets",
@@ -6824,7 +7006,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (dulces de Navidad), 32×32, y el pequeño 16×16 en assets/art/icons/small/sweets.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras)."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (dulces de Navidad), 32×32, y el pequeño 16×16 en assets/art/icons/small/sweets.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     }
   ]
 }

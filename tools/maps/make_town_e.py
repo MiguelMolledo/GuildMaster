@@ -106,9 +106,10 @@ g[18][19] = "#"
 rect(14, 34, 16, 37, "#")
 rect(19, 34, 21, 37, "#")
 rect(23, 30, 25, 32, "#")
-# Posada (docs/gdd/04f_vida_y_fiestas.md §4.27): the Taberna-Posada for sale, 4x4 on the meadow south of the bottom lane
-# (cols 26-29 x rows 34-37), door on the lane at (27, 33). A new game places it without owner (NewGame, for_sale).
-rect(26, 34, 29, 37, "#")
+# Posada (docs/gdd/04f_vida_y_fiestas.md §4.27): the Taberna-Posada for sale, 3x4 (the carpentry's footprint, like its
+# art) on the meadow south of the bottom lane (cols 26-28 x rows 34-37), door on the lane at (27, 33). A new game places
+# it without owner (NewGame, for_sale).
+rect(26, 34, 28, 37, "#")
 # market stalls and the contract board (H3): one blocked tile each, served from the tile in front (towards the street);
 # H12: the clothier's and the goods stalls on the west edge of the plaza, served from the tile to their east
 STALLS = {"resources": ([16, 14], [16, 15]), "food": ([19, 14], [19, 15]), "materials": ([22, 14], [22, 15]),

@@ -15,11 +15,13 @@ const GROUP_COLORS: Dictionary = {"locals": ["#7a5230", "#d8c8a0"], "merchants":
 	"gamblers": ["#2e5a3a", "#d0b070"]}
 const BED_COLORS: Dictionary = {"made": "#6a9a4a", "occupied": "#4a6a9a", "dirty": "#9a5a3a", "making": "#c8a84e"}
 const HEAD: float = 60.0
+const BED_SCALE: float = 0.6
 
 var sim: Sim = null
 var building: String = ""
 var interior: InteriorView = null
 var _views: Dictionary = {}      # guest id -> CharacterView
+var _icons: Dictionary = {}      # guest id -> Sprite2D: the dish's icon over the disc of its order (sync)
 var _seat_pos: Array = []        # Vector2 by seat index
 var _bed_pos: Array = []         # Vector2 by bed index
 var _font: Font = null
@@ -110,7 +112,36 @@ func sync() -> void:
 		if not seen.has(gid):
 			(_views[gid] as Node).queue_free()
 			_views.erase(gid)
+	_sync_icons()
 	queue_redraw()
+
+
+## The icon of each waiting guest's order (a Sprite2D over the disc _draw paints); none while it has no icon.
+func _sync_icons() -> void:
+	var want := {}
+	for g: Dictionary in Inn.guests(sim, building):
+		var gid := str(g["id"])
+		if str(g.get("state", "")) != "waiting" or not _views.has(gid):
+			continue
+		var d := str(g.get("order", ""))
+		var tex := VisualPaths.inn_dish_icon(d)
+		if tex == null:
+			tex = VisualPaths.icon_small(str(Inn.dish(sim, d).get("item", d)))
+		if tex == null:
+			continue
+		want[gid] = true
+		if not _icons.has(gid):
+			var sp := Sprite2D.new()
+			sp.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			add_child(sp)
+			_icons[gid] = sp
+		var icon: Sprite2D = _icons[gid]
+		icon.texture = tex
+		icon.position = (_views[gid] as Node2D).position - position + Vector2(0, -HEAD)
+	for gid: String in _icons.keys():
+		if not want.has(gid):
+			(_icons[gid] as Node).queue_free()
+			_icons.erase(gid)
 
 
 func guest_count() -> int:
@@ -156,6 +187,15 @@ func _draw() -> void:
 
 
 func _bed(p: Vector2, c: Color, good: bool) -> void:
+	var art := VisualPaths.inn_art("interior", "bed")
+	if art != null:  # the art's bed (feet at its bottom centre), tinted by its state, and a dot of the state's colour
+		var tint := Color.WHITE.lerp(c, 0.35)
+		var sz := Vector2(art.get_size()) * BED_SCALE  # the room holds up to 8 beds a tile apart: drawn smaller
+		draw_texture_rect(art, Rect2(p - Vector2(sz.x / 2.0, sz.y - 6.0), sz), false, tint)
+		draw_circle(p + Vector2(0, -sz.y + 10.0), 3.0, c)
+		if good:
+			draw_line(p + Vector2(-14, -sz.y + 4.0), p + Vector2(14, -sz.y + 4.0), Color.html("#c8a84e"), 2.0)
+		return
 	var hw := 16.0
 	var hh := 8.0
 	var up := Vector2(0, -7)
@@ -184,14 +224,14 @@ func _bar(p: Vector2, frac: float, c: Color) -> void:
 ## letters (a visible placeholder).
 func _order(p: Vector2, dish: String) -> void:
 	var item := str(Inn.dish(sim, dish).get("item", dish))
-	var tex := VisualPaths.icon_small(item)
+	var tex := VisualPaths.inn_dish_icon(dish)
+	if tex == null:
+		tex = VisualPaths.icon_small(item)
 	var kind := str(Inn.dish(sim, dish).get("kind", "drink"))
 	draw_colored_polygon(PackedVector2Array([p + Vector2(-4, 8), p + Vector2(4, 8), p + Vector2(0, 13)]), Color.html("#f4ead0"))
 	draw_circle(p, 10.0, Color.html("#f4ead0"))
 	draw_arc(p, 10.0, 0.0, TAU, 20, Color.html("#c8a84e") if kind == "drink" else Color.html("#9a3a24"), 2.0)
-	if tex != null:
-		draw_texture_rect(tex, Rect2(p - Vector2(8, 8), Vector2(16, 16)), false)
-	else:
+	if tex == null:
 		var letter := SimQuery.t_("item." + item).substr(0, 2)
 		draw_string(_font, p + Vector2(-8, 4), letter, HORIZONTAL_ALIGNMENT_CENTER, 16, 10, Color.html("#3a2414"))
 
@@ -261,8 +301,9 @@ func server() -> String:
 
 
 func clear() -> void:
-	for v: Variant in _views.values():
+	for v: Variant in _views.values() + _icons.values():
 		(v as Node).queue_free()
 	_views.clear()
+	_icons.clear()
 	sim = null
 	queue_redraw()

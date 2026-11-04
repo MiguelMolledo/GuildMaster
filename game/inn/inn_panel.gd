@@ -207,6 +207,13 @@ func _build_menu(body: VBoxContainer) -> void:
 		on.focus_mode = Control.FOCUS_NONE
 		on.toggled.connect(func(v: bool) -> void: _toggle_dish(d, v))
 		row.add_child(on)
+		var ic := TextureRect.new()
+		ic.texture = VisualPaths.inn_dish_icon(d, bool(def.get("cellar", false)) and Inn.wine_quality(sim, building) > 0)
+		if ic.texture == null:
+			ic.texture = VisualPaths.icon_small(str(def.get("item", d)))
+		ic.custom_minimum_size = Vector2(16, 16)
+		ic.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+		row.add_child(ic)
 		var dname := SimQuery.t_("item." + str(def.get("item", d)))
 		if str(def.get("season", "")) != "":
 			dname += " · " + SimQuery.t_("ui.inn.season." + str(def["season"])) + ("!" if str(def["season"]) == season else "")

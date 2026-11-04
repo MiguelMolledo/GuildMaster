@@ -165,6 +165,23 @@ static func icon(item_id: String) -> Texture2D:
 const INN_ART: Dictionary = {"building": "buildings/fal", "interior": "interiors/tavern"}
 
 
+## Posada: the menu's icons of the art (assets/art/ui/icons/food_<id>.png, 32×32, and small/ 16×16) by dish of
+## data/inn/menu.json; a good or excellent ale is the strong beer and the wine the good wine. null if missing (the
+## caller falls back to the item's icon, then to a disc with its letters).
+const INN_DISH_ICONS: Dictionary = {"ale": "beer", "cider": "cider", "wine": "wine", "bread": "bread",
+	"garlic_soup": "garlic_soup", "meat_pie": "empanada", "stew": "stew", "roast_lamb": "roast_lamb", "sausage": "sausage",
+	"sweets": "sweets"}
+const INN_DISH_GOOD: Dictionary = {"ale": "strong_beer", "wine": "good_wine"}
+
+
+static func inn_dish_icon(dish: String, good: bool = false, small: bool = true) -> Texture2D:
+	var id := str(INN_DISH_GOOD.get(dish, "")) if good and INN_DISH_GOOD.has(dish) else str(INN_DISH_ICONS.get(dish, ""))
+	if id == "":
+		return null
+	var p := "%s/ui/icons/%sfood_%s.png" % [ART_ROOT, "small/" if small else "", id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
 static func inn_art(kind: String, id: String) -> Texture2D:
 	if not INN_ART.has(kind) or id == "":
 		return null

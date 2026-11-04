@@ -5,7 +5,7 @@
   "category": "service",
   "parcel_type": "production",
   "footprint": [
-    4,
+    3,
     4
   ],
   "build_cost": 300,

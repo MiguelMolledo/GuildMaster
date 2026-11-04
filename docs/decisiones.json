@@ -2,6 +2,11 @@
   "tomadas": [
     {
       "fecha": "2026-11-04",
+      "tema": "Posada: huella 3×4 y el arte de arte-fal-2",
+      "decision": "La Taberna-Posada pasa de 4×4 a 3×4 (la huella de la carpintería) para usar su arte sin rehacerlo: fachada y espalda fal (192×230, Sprite offset (-104, -158), puertas SW (1, 4) y NE (1, -1)); en town_e, cols 26-28 × filas 34-37, puerta (27, 33) igual. El interior usa el kit de assets/art/interiors/tavern/ (suelo, paredes, barra, mesa, bancos, toneles, cocina, chimenea, cama, rincón del juglar) por VisualPaths.inn_art, y la carta los iconos food_* por VisualPaths.inn_dish_icon (cerveza fuerte y vino bueno para la calidad buena o mejor). Lo que no tiene arte sigue en greybox con etiqueta."
+    },
+    {
+      "fecha": "2026-11-04",
       "tema": "Taberna-Posada (posada, 04f §4.27)",
       "decision": "La Taberna-Posada entra como segundo negocio de cualquier familia (O-V7 a): el solar de cada mapa con su taberna en venta (town_e: cols 26-29 × filas 34-37, puerta (27,33); 320 de oro, buy_building), solo en partidas nuevas. Carta de 10 platos (data/inn/menu.json) con precio de 0,5× a 2×, plato de la casa y platos de temporada; 6 grupos de clientes con su «por qué no vienen» (data/inn/clientele.json, fórmula de 4.22.3.2 en data/services.json); turno de noche del atardecer a las 02:00 con llegadas en corrillo, paciencia, servir a mano o por roles, cuenta y propina, camas que se cobran al llegar y se hacen por la mañana, pelea (portero), irse sin pagar (el mozo persigue), juglar, rumor y partida (ganchos), resumen del turno; fama 0-5; árbol de 18 mejoras en 6 ramas; licencia de tafurería (60, 1 año). Guardado v19 (SaveFile._to_v19).",
       "detalle": "Cambios del diseño en 04f §4.27.7 (T1-T10): comprar la del pueblo y construir con H6; sin tope de edificios por título; turnos por rol (barra y mesas de noche, cocina y habitaciones de día); corrillos; recetas sin hierbas; la comida se estropea sin despensa fría; ramas inn_*; se sirve durante las obras; plato de la casa; ganchos a vida y juegos."
