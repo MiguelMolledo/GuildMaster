@@ -14999,5 +14999,410 @@
   "imagenes": 1,
   "usd": 0.0078,
   "que": "image2pixel region_map_v1_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:26:11",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "d1"
+ },
+ {
+  "fecha": "2026-11-04T15:26:25",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "d2"
+ },
+ {
+  "fecha": "2026-11-04T15:26:38",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "r1"
+ },
+ {
+  "fecha": "2026-11-04T15:27:04",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0039,
+  "que": "image2pixel d1_duel_strike_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:18",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel d1_duel_parry_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:22",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel d1_duel_feint_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:25",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel d1_duel_surrender_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:28",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel d2_duel_auto_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:31",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel d2_duel_breath_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:34",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel d2_duel_touch_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:38",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel d2_duel_challenge_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:41",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel r1_tariff_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:44",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel r1_treaty_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:48",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel r1_caravan_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:27:51",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel r1_city_reputation_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:28:21",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "r2"
+ },
+ {
+  "fecha": "2026-11-04T15:28:25",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel r2_tariff_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:28:28",
+  "tanda": "duelo_region",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel r2_duel_breath_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:29:21",
+  "tanda": "duelo_region",
+  "pieza": "region_piezas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "piezas"
+ },
+ {
+  "fecha": "2026-11-04T15:29:24",
+  "tanda": "duelo_region",
+  "pieza": "region_piezas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel family_token_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:29:27",
+  "tanda": "duelo_region",
+  "pieza": "region_piezas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel family_token_shield_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:29:31",
+  "tanda": "duelo_region",
+  "pieza": "region_piezas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel caravan_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:29:34",
+  "tanda": "duelo_region",
+  "pieza": "region_piezas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel caravan_cart_s16.png"
+ },
+ {
+  "fecha": "2026-11-04T15:30:26",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "duel_victory"
+ },
+ {
+  "fecha": "2026-11-04T15:30:26",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "duel_challenge"
+ },
+ {
+  "fecha": "2026-11-04T15:30:27",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "duel_draw"
+ },
+ {
+  "fecha": "2026-11-04T15:30:27",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "duel_defeat"
+ },
+ {
+  "fecha": "2026-11-04T15:30:41",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "city_capital"
+ },
+ {
+  "fecha": "2026-11-04T15:30:43",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "city_villa"
+ },
+ {
+  "fecha": "2026-11-04T15:30:44",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "city_port"
+ },
+ {
+  "fecha": "2026-11-04T15:30:46",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "city_quarry"
+ },
+ {
+  "fecha": "2026-11-04T15:30:56",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "city_hamlet"
+ },
+ {
+  "fecha": "2026-11-04T15:30:58",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "city_abbey"
+ },
+ {
+  "fecha": "2026-11-04T15:31:20",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0034,
+  "que": "image2pixel duel_victory_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:31:25",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel duel_defeat_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:31:29",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel duel_draw_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:31:34",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel duel_challenge_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:31:38",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel city_villa_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:31:43",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel city_capital_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:31:48",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel city_port_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:31:52",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel city_quarry_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:31:57",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel city_hamlet_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:32:01",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel city_abbey_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T15:32:31",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "duel_defeat"
+ },
+ {
+  "fecha": "2026-11-04T15:32:35",
+  "tanda": "duelo_region",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel duel_defeat_i2p.png"
  }
 ]

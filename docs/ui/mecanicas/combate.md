@@ -111,10 +111,44 @@ iniciativa), `duelo_lance.png` (a mitad de animación), `duelo_resultado.png` (l
 
 | Id | Qué | Herramienta | Coste |
 |---|---|---|---|
-| `chr_duel_poses` | Guardia, golpe, parada, finta, tocado y rendido, de perfil (e y w), para los 6 ids de personaje | PixelLab `animate_character` (ciclo del 15-nov) | ~6 × 6 animaciones, estimar con `get_balance` |
-| `vfx_duel_strike`, `vfx_duel_parry`, `vfx_duel_feint`, `vfx_duel_hit` | Tajo, chispa, estela, toque | `vfx_workbench` | Gratis |
-| `icon_duel_actions` | Golpe, Parada, Finta, Rendirse, aliento, toque (32 y 16) | `create_1_direction_object` o Pillow | 1 hoja |
-| `ill_duel_result` | Ilustración de la carta (victoria, derrota, tablas) | fal con el kit de página | ~0,15 USD por lámina |
+| `chr_duel_poses` | Guardia, golpe, parada, finta, tocado y rendido, de perfil (e y w), para los 6 ids de personaje | PixelLab `animate_character` (ciclo del 15-nov) | ~40 generaciones (lista de abajo) |
+| `vfx_duel_strike`, `vfx_duel_parry`, `vfx_duel_feint`, `vfx_duel_hit` | Tajo, chispa, estela, toque | `vfx_workbench` | **Hecho** (gratis): `assets/art/vfx/<id>/<id>.png` + `.json` |
+| `icon_duel_actions` | Golpe, Parada, Finta, Rendirse, Resolver sin jugar, aliento, toque y reto (32 y 16) | fal | **Hecho**: `assets/art/ui/icons/duel/icon_<acción>.png` y `small/` |
+| `ill_duel_result` | Ilustración de la carta (victoria, derrota, tablas) y de la carta de reto | fal | **Hecho**: `assets/art/ui/illustrations/duel/<victory\|defeat\|draw\|challenge>.png` (240×135) y `_192` |
+
+**Efectos.** Cada tira es de izquierda a derecha y va acompañada de su `.json`, con estos campos:
+- `frames`, `frame_w`, `frame_h`, `fps` y `loop`;
+- `offset`: la esquina de arriba a la izquierda del fotograma respecto a los pies del personaje, mirando al **este**.
+  Mirando al oeste, se refleja y se usa `x = -(offset.x + frame_w)`.
+
+Dónde va cada uno: el golpe, la parada y la finta se ponen en quien los hace; el toque, en quien lo recibe. Los
+cuatro se editan en «My effects» de pixellab.ai (`tools/art/vfx_duelo.py` lleva sus ids) y se rehacen con
+`python3 tools/art/vfx_duelo.py`.
+
+**Poses: lista para el ciclo de PixelLab del 15-nov** (`chr_duel_poses`). Los 6 ids salen de 4 personajes de
+PixelLab, porque los empleados comparten sprite con los artesanos (`tools/art/personajes_guild.py`). Todo se pide
+mirando al **este**; el oeste es el mismo reflejado. Las tiras se pasan por `personajes_guild.py` para codificar la
+identidad, igual que las demás animaciones.
+
+| Personaje (PixelLab) | Lo usan |
+|---|---|
+| Artesano Base `1cf5846c-8d08-4c45-9e4c-cd04a8da312c` | `artisan_m`, `worker_m` |
+| Artesana Base `695c5c8e-c279-426e-848c-a4d8cde4fe30` | `artisan_f`, `worker_f` |
+| Aldeano Hombre `fde29d1c-75de-4379-9b9a-e7f682a7ddba` | `townsfolk_m` |
+| Aldeana Mujer `e29d63fb-1474-4396-a095-79cd8aefcf36` | `townsfolk_f` |
+
+| Animación (id del juego) | Cómo pedirla | Generaciones por personaje (este) |
+|---|---|---|
+| `duel_guard` (bucle) | plantilla `fight-stance-idle-8-frames` | 1 |
+| `duel_hit` (tocado) | plantilla `taking-punch` | 1 |
+| `duel_strike` | a medida (skeleton-v3, pose `slash`): «steps forward and slashes a short sword from high to low, then returns to guard», 6-8 fotogramas | ~2 |
+| `duel_parry` | a medida (pose `block`): «raises the blade across the body to block a blow and leans back a little», 4-6 fotogramas | ~2 |
+| `duel_feint` | a medida: «starts a forward slash, stops halfway and pulls back to guard», 6 fotogramas | ~2 |
+| `duel_yield` (rendido, sin bucle) | a medida (pose `kneel`): «drops the sword and kneels on one knee, one hand raised», 6 fotogramas | ~2 |
+
+En total, unas 4 × 10 = **~40 generaciones**. El coste a medida, `ceil(ancho × alto × fotogramas / 65536)` por
+dirección, sale del lienzo que genere la herramienta: hay que mirar el recibo y apuntar el saldo antes y después en
+`MANIFEST`. Se guardan como `assets/art/characters/<id>/duel_<pose>_e.png` (y `_w` reflejado), como las demás tiras.
 
 - Sonido (faltan en `data/audio.json`): `combat_hit`, `combat_miss` (ya propuestos en 04d 4.22.9), `combat_parry`,
   `combat_feint`, `duel_start` (campana corta), `duel_won`.

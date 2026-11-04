@@ -137,6 +137,38 @@ PIECES = {
     "screen_new_game": ("screen", TITLE, STYLE + "the background of the NEW GAME screen: a scribe's oak desk seen from "
                         "above at an angle, a blank parchment family charter, a quill and inkpot, sealing wax and a "
                         "seal, a candle, a few coins." + SCREEN),
+    # duelo (docs/gdd/04e_combate.md §4e.8; carta de resultado y carta de reto): assets/art/ui/illustrations/duel/
+    "duel_victory": ("duel", TITLE, card("DUEL WON. In the town square at dawn, a victorious duellist lowers his sword "
+                                         "and offers a hand to the kneeling opponent, townsfolk cheering at the "
+                                         "edges; faces lit and visible.")),
+    "duel_defeat": ("duel", TITLE, card("DUEL LOST. In the town square at dawn, a duellist on one knee clutches a "
+                                        "bleeding arm, his sword on the cobbles, the rival standing over him in warm "
+                                        "dawn light, every figure fully lit with visible faces and clothes (no dark "
+                                        "silhouettes), onlookers murmuring.")),
+    "duel_draw": ("duel", TITLE, card("DUEL DRAWN. In the town square at dawn, two exhausted duellists stand apart, "
+                                      "swords lowered, breathing hard, a judge raising both hands between them; "
+                                      "faces lit and visible.")),
+    "duel_challenge": ("duel", TITLE, card("CHALLENGE TO A DUEL. In a tavern, a man throws a leather gauntlet onto "
+                                           "the table in front of his rival, who stands up, drinkers turning to "
+                                           "look; faces lit and visible.")),
+    # asentamientos de Valldaura (docs/gdd/09b_region.md §9b.3): su página de ciudad, assets/art/illustrations/
+    "city_villa": ("city", TITLE, card("VILARRASA, a modest village strung along one main street on a flat plain: "
+                                       "timber-framed houses, a smithy with smoke, a carpenter's yard and a small "
+                                       "stone town hall, wheat fields around.")),
+    "city_capital": ("city", TITLE, card("BELLCAIRE, the regional capital at the crossing of the royal road and the "
+                                         "river: a busy market square with stalls, rich merchant houses, a cathedral "
+                                         "under scaffolding, town walls and a stone bridge.")),
+    "city_port": ("city", TITLE, card("PORTVELL, a river port: wooden quays on the wide river Daura, flat barges "
+                                      "loaded with timber and barrels, a cooper's workshop, boatmen with poles, "
+                                      "riverside houses.")),
+    "city_quarry": ("city", TITLE, card("PEÑARROJA, a mining and quarry town of grey stone houses at the foot of a "
+                                        "mountain of red rock: a mine entrance with a cart track, a stone quarry with "
+                                        "cut blocks, charcoal smoke, a small baron's tower.")),
+    "city_hamlet": ("city", TITLE, card("VILABLAT, a tiny farming hamlet among golden wheat fields: a few farmhouses, "
+                                        "a windmill or watermill, a bakery oven, sheep in a pen, a dirt road.")),
+    "city_abbey": ("city", TITLE, card("MONTSACRE, a walled abbey high on a mountain slope: a stone church with a "
+                                       "bell tower, a cloister under construction with scaffolding, herb gardens, "
+                                       "monks in brown habits, a path up from the forest.")),
     # pantallas (960×540)
     "screen_loading_1": ("screen", TITLE, STYLE + "a loading screen illustration: a guild master's desk seen from above "
                          "at an angle, an open ledger, a quill and inkpot, a candle, stacks of coins and a hand-drawn "
@@ -216,6 +248,13 @@ def proc(pid):
             prev.alpha_composite(logo, ((480 - logo.width) // 2, 36))
             os.makedirs(os.path.join(P, "vista"), exist_ok=True)
             prev.resize((960, 540), Image.NEAREST).save(os.path.join(P, "vista", pid + "_con_logo.png"))
+    elif kind == "duel":  # la ruta que ya tenía el inventario (ill_duel_result): ui/illustrations/duel/<nombre>
+        pal = i2p_palette(src, pid, 32)
+        d = os.path.join(ROOT, "assets", "art", "ui", "illustrations", "duel")
+        os.makedirs(d, exist_ok=True)
+        name = pid[len("duel_"):]
+        reduce(im, (240, 135), pal).save(os.path.join(d, name + ".png"))
+        reduce(im, (192, 108), pal).save(os.path.join(d, name + "_192.png"))
     else:
         pal = i2p_palette(src, pid, 32)
         reduce(im, (240, 135), pal).save(os.path.join(OUT, pid + ".png"))

@@ -1,0 +1,9 @@
+{
+  "fecha": "2026-11-04",
+  "titulo": "Arte para el duelo y la región de Valldaura",
+  "que": "Arte nuevo, todavía sin cablear: los workers del duelo y de los viajes lo leerán por VisualPaths, con caída al provisional. Duelo: los efectos de golpe (tajo), parada (chispas), finta (estela azul) y toque (estrella roja), hechos con el vfx_workbench de PixelLab (gratis), en tiras con su ficha de fotogramas y su posición respecto a los pies (assets/art/vfx/duel_*/); ocho iconos de 32 y 16 (Golpe, Parada, Finta, Rendirse, Resolver sin jugar, aliento, toque y reto) y cuatro láminas de carta (victoria, derrota, tablas y reto, a 240×135 y 192×108). Región: la página de ciudad de los seis asentamientos (Vilarrasa, Bellcaire, Portvell, Peñarroja, Vilablat y Montsacre, 240×135), los iconos de arancel, tratado, caravana y reputación de ciudad, y para el mapa regional la ficha de la familia (estandarte o escudo con los colores de la familia, que se tiñe como los personajes) y el carro de caravana, a la escala del pergamino. Las poses de los personajes esperan al ciclo de PixelLab del 15-nov: la lista para pedirlas (personajes, plantillas, acciones y ~40 generaciones) está en docs/ui/mecanicas/combate.md §8. Gasto: 1,29 USD de fal (16 imágenes).",
+  "como_probar": "Hoja de contacto en Grimoire («Arte · duelo y región»). Inventario: python3 tools/arte.py (0 errores). Efectos: assets/art/vfx/duel_<strike|parry|feint|hit>/<id>.png y .json. Se rehacen sin gasto con python3 tools/art/vfx_duelo.py; las láminas e iconos, con tools/art/fal_ilustraciones.py proc y fal_iconos.py proc (los crudos están en ~/Code/GuildMaster-arte-crudos/).",
+  "capturas": [
+    "docs/novedades/arte_duelo_region.png"
+  ]
+}
