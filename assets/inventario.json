@@ -5587,6 +5587,118 @@
       "coste_gen": 0,
       "coste_usd": 0.24,
       "notas": "El edificio tailor_shop de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/tailor_shop.tscn). Estados: tailor_shop_back_construction.png, tailor_shop_back_damaged.png. Sin cablear. En escena desde 2026-11-04: game/visuals/buildings/tailor_shop_back.tscn, con su marcador Door."
+    },
+    {
+      "id": "chr_duel_poses",
+      "tipo": "personaje",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/characters/duel/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Poses del duelo (docs/gdd/04e_combate.md §4e.8, docs/ui/mecanicas/combate.md §8) para artisan_m/f, worker_m/f y townsfolk_m/f, de perfil e y w: guardia, golpe, parada, finta, tocado y rendido. Hoy el prototipo usa forge (golpe), work (finta) e idle (parada) y lo marca en pantalla. PixelLab animate_character en el ciclo del 15-nov.",
+      "animaciones": {
+        "idle": "falta",
+        "walk": "falta",
+        "work": "falta",
+        "carry": "falta",
+        "talk": "falta",
+        "sit": "falta",
+        "death": "falta"
+      }
+    },
+    {
+      "id": "vfx_duel_strike",
+      "tipo": "vfx",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/vfx/duel_strike/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Tajo del golpe (hoy: dos líneas por código en DuelArena). Gratis con vfx_workbench.",
+      "animaciones": {
+        "loop": "falta"
+      }
+    },
+    {
+      "id": "vfx_duel_parry",
+      "tipo": "vfx",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/vfx/duel_parry/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Chispa de la parada (hoy: aspa amarilla por código). Gratis con vfx_workbench.",
+      "animaciones": {
+        "loop": "falta"
+      }
+    },
+    {
+      "id": "vfx_duel_feint",
+      "tipo": "vfx",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/vfx/duel_feint/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Estela de la finta (hoy: arco azul por código). Gratis con vfx_workbench.",
+      "animaciones": {
+        "loop": "falta"
+      }
+    },
+    {
+      "id": "vfx_duel_hit",
+      "tipo": "vfx",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/vfx/duel_hit/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Toque recibido (hoy: círculo rojo y parpadeo). Gratis con vfx_workbench.",
+      "animaciones": {
+        "loop": "falta"
+      }
+    },
+    {
+      "id": "icon_duel_actions",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/ui/icons/duel/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Iconos de Golpe, Parada, Finta, Rendirse, aliento y toque (32 y 16 px) para los botones y las barras del duelo. Hoy: texto y cuadros de color."
+    },
+    {
+      "id": "ill_duel_result",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/ui/illustrations/duel/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la carta de resultado (240×135, PageCard «card»): victoria, derrota y tablas en la plaza al alba. Candidata a fal con el kit de página."
     }
   ]
 }
