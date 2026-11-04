@@ -173,6 +173,7 @@ Esc, Cancelar o un clic en el velo cancelan; Intro o el botón confirman (Espaci
 | P · A · E · M | Dentro de tu edificio: Producción · Almacén · Empleados · Mejoras | **propuesta** |
 | Intro | Confirmar el modal | **propuesta** |
 | F5 · F9 | Guardado rápido · cargar el rápido (ver [02](02_menu_inicial.md)) | **propuesta** |
+| Tab · Mayús+Tab · Retroceso | Con el tutorial a la vista: saltar el paso · el capítulo · repetir el paso ([05](05_tutorial.md)) | sí |
 
 Todas las teclas van al mapa de entrada de `project.godot` (no `KEY_*` en el código) para poder cambiarlas en
 opciones más adelante.

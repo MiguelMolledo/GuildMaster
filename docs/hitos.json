@@ -418,7 +418,7 @@
         {
           "texto": "Cada profesión tiene un bot que gana dinero con ella",
           "estado": "pendiente",
-          "prueba": "parcial: carpenter_novice 43,6, mason_novice 39,1 y tailor_novice 55,2 de oro neto al día (30 semillas, Normal, diana 25-60); faltan Patrón, Erudito y Pícaro (Gate 4.22)",
+          "prueba": "parcial: con rival de su mismo oficio, carpenter_novice 38,4, mason_novice 38,0 y tailor_novice 46,6 de oro neto al día (30 semillas, Normal, diana 25-60; Fácil > Normal > Difícil); faltan Patrón, Erudito y Pícaro (Gate 4.22)",
           "fecha": null
         },
         {

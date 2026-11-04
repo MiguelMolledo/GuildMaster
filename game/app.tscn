@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://mb4b5s18hget" path="res://game/ui/succession_card.tscn" id="13_succession"]
 [ext_resource type="PackedScene" uid="uid://804hmcfe8cdg" path="res://game/ui/wedding_card.tscn" id="14_wedding"]
 [ext_resource type="PackedScene" uid="uid://dupl0o8lqxmf3" path="res://game/ui/event_card.tscn" id="15_event"]
+[ext_resource type="PackedScene" uid="uid://c7tutorial0lyr" path="res://game/ui/tutorial/tutorial.tscn" id="16_tutorial"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_app")
@@ -75,6 +76,9 @@ layer = 30
 unique_name_in_owner = true
 
 [node name="EventCard" parent="CardsLayer" instance=ExtResource("15_event")]
+unique_name_in_owner = true
+
+[node name="Tutorial" parent="." instance=ExtResource("16_tutorial")]
 unique_name_in_owner = true
 
 [node name="FadeLayer" type="CanvasLayer" parent="."]

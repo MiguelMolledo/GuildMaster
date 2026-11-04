@@ -20,14 +20,16 @@ extends CanvasLayer
 ##   7 · Notices (bottom left): the notices of the player's family that pop up, urgent (until clicked or the book is
 ##       opened), warning (8 s) and done (5 s); a click centres the camera on its building or person or opens the
 ##       book. Info notices only go to the book.
-## F1 / ? / the "?" button: the help (keys by sections and «Ahora mismo»). ESC is the app's (close_top); with nothing
-## open it calls request_pause_menu(), which emits pause_menu_requested (the pause menu is the menus' scene).
+## F1 / ? / the "?" button: the help (keys by sections, «Ahora mismo» and the tutorial's chapters, whose buttons emit
+## tutorial_requested). ESC is the app's (close_top); with nothing open it calls request_pause_menu(), which emits
+## pause_menu_requested (the pause menu is the menus' scene).
 
 signal manage_pressed(building_id: String)
 signal select_requested(id: String)    # H8: a portrait of the group was picked (key 1-2-3 or click)
 signal focus_requested(target: String)  # a notice was clicked: centre on this building / person
 signal deselect_requested               # ESC with only a building picked: the world forgets it
 signal pause_menu_requested             # ESC with nothing open, or the Menu button (docs/ui/02: the pause menu)
+signal tutorial_requested(chapter: String)  # a chapter picked in the help (docs/ui/05_tutorial.md §2)
 
 const GOLD_ICON: String = "icon_oro"
 
@@ -123,6 +125,7 @@ var _gold_shown: int = -1
 var _frame_scene: PackedScene = preload("res://game/ui/portrait_frame.tscn")
 
 var _game: Node = null
+var tutorial: Tutorial = null    # the app's (its chapters go in the help)
 var _toast_left: float = 0.0
 var _last_minute: int = -1
 
@@ -196,6 +199,10 @@ func _ready() -> void:
 	_tree_panel.court_requested.connect(open_courtship)
 	_character_panel.tree_requested.connect(toggle_tree)
 	_character_panel.court_requested.connect(open_courtship)
+	_help_panel.chapter_requested.connect(func(id: String) -> void:
+		if _help_panel.visible:
+			toggle_help()
+		tutorial_requested.emit(id))
 	Events.sim_event.connect(_on_sim_event)
 	Log.info("Hud", "ready (zones=%d, manage panels=%d, modals=%d)" % [HudLayout.ZONES.size(), _manage_panels().size(),
 		_modal_panels().size()])
@@ -688,7 +695,21 @@ func help_visible() -> bool:
 func toggle_help() -> void:
 	if not _help_panel.visible:
 		_help_panel.set_now(now_text())
+		_help_panel.set_chapters(tutorial_chapters())
 	_help_panel.toggle()
+
+
+## The tutorial's chapters for the help: [{id, name, desc, done, reason}].
+func tutorial_chapters() -> Array:
+	var out: Array = []
+	if tutorial == null:
+		return out
+	var done := tutorial.done_chapters()
+	for id: Variant in tutorial.chapter_ids():
+		var ch: Dictionary = tutorial.chapters[str(id)]
+		out.append({"id": str(id), "name": tr(str(ch.get("name_key", ""))), "desc": tr(str(ch.get("desc_key", ""))),
+			"done": str(id) in done, "reason": tutorial.cannot_play(str(id))})
+	return out
 
 
 ## «Ahora mismo» of the help: the current objective, how to do it and the debt's due date.

@@ -4,6 +4,11 @@ extends Control
 ## two columns), the «Ahora mismo» block (the current objective, how to do it, the debt; the HUD fills it with
 ## set_now) and, under it, the longer help of each mechanic (LINES). F1, "?", the HUD's "?" button or ESC close it;
 ## it does not pause the game. Texts in i18n/strings.csv (help.*), the look in game/ui/help_panel.tscn.
+## The «Tutorial» block (docs/ui/05_tutorial.md §2): a button per chapter (set_chapters, filled by the HUD from the
+## Tutorial), «hecho» on the ones done, off with the reason when they cannot be played now; a click emits
+## chapter_requested(id) (the HUD closes the help and the app starts it).
+
+signal chapter_requested(chapter: String)
 
 ## The map of keys: [column, section title key, [[key text key, what it does key], ...]] (help.key.<id> /
 ## help.key.<id>_do). Every key of HudKeys and the app is here (§9).
@@ -11,7 +16,7 @@ const KEYS: Array = [
 	[0, "help.keys_map", ["click_left", "double_click", "click_right", "camera", "wheel"]],
 	[0, "help.keys_time", ["space", "speeds"]],
 	[1, "help.keys_family", ["group", "tree", "inventory"]],
-	[1, "help.keys_panels", ["ledger", "offices", "trials", "build", "inside", "confirm", "esc", "help"]],
+	[1, "help.keys_panels", ["ledger", "offices", "trials", "build", "inside", "confirm", "esc", "help", "tutorial"]],
 ]
 ## The longer help, in order: "#" + key = a section title, else a line.
 const LINES: Array[String] = ["#help.map", "help.map_select", "help.map_right", "help.map_manage",
@@ -36,6 +41,8 @@ func build() -> void:
 	(get_node("%CloseHint") as Label).text = tr("help.close_hint")
 	(get_node("%NowTitle") as Label).text = tr("help.now")
 	(get_node("%MoreTitle") as Label).text = tr("help.more")
+	(get_node("%TutorialTitle") as Label).text = tr("tutorial.ui.help_title")
+	(get_node("%TutorialHint") as Label).text = tr("tutorial.ui.help_hint")
 	for sec: Array in KEYS:
 		var col := get_node("%KeysRight" if int(sec[0]) == 1 else "%KeysLeft") as VBoxContainer
 		var t := Label.new()
@@ -81,6 +88,28 @@ func _key_row(id: String) -> HBoxContainer:
 	d.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(d)
 	return row
+
+
+## The tutorial's chapters: [{id, name, done, reason}] (reason: why it cannot be played now, "" = it can). Hidden
+## when there are none.
+func set_chapters(list: Array) -> void:
+	build()
+	var box := get_node("%Chapters") as HFlowContainer
+	for c: Node in box.get_children():
+		box.remove_child(c)
+		c.queue_free()
+	for ch: Dictionary in list:
+		var b := Button.new()
+		var id := str(ch.get("id", ""))
+		b.name = "Chapter_" + id
+		b.text = str(ch.get("name", id)) + ("  · " + tr("tutorial.ui.help_done") if bool(ch.get("done", false)) else "")
+		b.disabled = str(ch.get("reason", "")) != ""
+		b.tooltip_text = tr(str(ch.get("reason", ""))) if b.disabled else str(ch.get("desc", ""))
+		b.focus_mode = Control.FOCUS_NONE
+		b.pressed.connect(func() -> void: chapter_requested.emit(id))
+		box.add_child(b)
+	for n: String in ["%SepTutorial", "%TutorialTitle", "%TutorialHint", "%Chapters"]:
+		(get_node(n) as Control).visible = not list.is_empty()
 
 
 ## «Ahora mismo»: what to do now (the HUD sends it before opening).

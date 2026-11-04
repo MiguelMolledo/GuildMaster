@@ -4,7 +4,8 @@ extends RefCounted
 ## applied the moment they change. Keys are "<section>/<name>" (DEFAULTS). The sound sliders scale each bus of
 ## default_bus_layout.tres from the volume it has in the layout (100 % = the layout's volume, 0 % = muted). The
 ## display ones only act with a real window (not headless). The "game/*" keys are read by whoever needs them
-## (the app: load_speed and pause_unfocused; the HUD: notices, help_line, objective_hints).
+## (the app: load_speed and pause_unfocused; the HUD: notices, help_line, objective_hints; the tutorial:
+## tutorial_hints, tutorial_guided and its progress tutorial/done, tutorial/seen, tutorial/asked, docs/ui/05_tutorial.md).
 ## Everybody listens to Settings.notifier.changed(key, value).
 
 const PATH: String = "user://settings.cfg"
@@ -17,6 +18,8 @@ const DEFAULTS: Dictionary = {
 	"display/fullscreen": false, "display/scale": 2, "display/text": "normal",
 	"game/load_speed": 1, "game/notices": "all", "game/pause_unfocused": true, "game/help_line": false,
 	"game/objective_hints": true,
+	"game/tutorial_hints": true, "game/tutorial_guided": false,
+	"tutorial/done": [], "tutorial/seen": [], "tutorial/asked": false,
 }
 const CHOICES: Dictionary = {"lang/locale": ["es", "en"], "display/scale": [2, 3, 4], "display/text": ["normal", "large"],
 	"game/load_speed": [1, 2, 4], "game/notices": ["urgent", "all"]}
@@ -58,6 +61,8 @@ static func value(key: String) -> Variant:
 	var v: Variant = _cfg.get_value(key.get_slice("/", 0), key.get_slice("/", 1), def)
 	if def is int and v is float:
 		v = int(v)
+	if def is Array:
+		return (v as Array).duplicate() if v is Array else (def as Array).duplicate()
 	if CHOICES.has(key) and not v in CHOICES[key]:
 		return def
 	return v
@@ -83,10 +88,12 @@ static func set_value(key: String, v: Variant) -> bool:
 	return true
 
 
-## Back to DEFAULTS ("Valores por defecto": no confirmation, they are only options).
+## Back to DEFAULTS ("Valores por defecto": no confirmation, they are only options). The tutorial's progress
+## (tutorial/*: chapters done, hints seen) is not an option: it stays.
 static func reset() -> void:
 	for k: String in DEFAULTS:
-		set_value(k, DEFAULTS[k])
+		if not k.begins_with("tutorial/"):
+			set_value(k, DEFAULTS[k])
 
 
 ## Applies every option (at start-up). `lang_from_cmdline`: --lang was given, it wins over the saved language.

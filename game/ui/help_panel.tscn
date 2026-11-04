@@ -75,6 +75,31 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 4
 
+[node name="TutorialTitle" type="Label" parent="Sheet/VBox/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"InkTitleLabel"
+text = "--"
+
+[node name="TutorialHint" type="Label" parent="Sheet/VBox/Scroll/Body"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_type_variation = &"InkLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="Chapters" type="HFlowContainer" parent="Sheet/VBox/Scroll/Body"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+
+[node name="SepTutorial" type="HSeparator" parent="Sheet/VBox/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="Keys" type="HBoxContainer" parent="Sheet/VBox/Scroll/Body"]
 layout_mode = 2
 theme_override_constants/separation = 16

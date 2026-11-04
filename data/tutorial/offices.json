@@ -1,0 +1,45 @@
+{
+  "id": "offices",
+  "name_key": "tutorial.chapter.offices",
+  "desc_key": "tutorial.chapter.offices.desc",
+  "test": {
+    "scenario": "office_campaign"
+  },
+  "steps": [
+    {
+      "id": "open",
+      "text": "tutorial.offices.open",
+      "target": {
+        "ui": "OfficesButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "OfficesPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "chart",
+      "text": "tutorial.offices.chart",
+      "target": {
+        "ui": "Chart",
+        "in": "OfficesPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "calendar",
+      "text": "tutorial.offices.calendar",
+      "target": {
+        "ui": "Calendar",
+        "in": "OfficesPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "powers",
+      "text": "tutorial.offices.powers",
+      "advance": "next"
+    }
+  ]
+}

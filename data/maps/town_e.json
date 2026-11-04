@@ -168,6 +168,39 @@
     19
    ]
   },
+  "rival_carpentry": {
+   "type": "carpentry",
+   "origin": [
+    25,
+    20
+   ],
+   "door": [
+    26,
+    19
+   ]
+  },
+  "rival_masonry": {
+   "type": "masonry",
+   "origin": [
+    25,
+    20
+   ],
+   "door": [
+    26,
+    19
+   ]
+  },
+  "rival_tailor": {
+   "type": "tailor_shop",
+   "origin": [
+    25,
+    20
+   ],
+   "door": [
+    26,
+    19
+   ]
+  },
   "workshop_carpentry": {
    "type": "carpentry",
    "origin": [
