@@ -16,7 +16,27 @@ taberna).
 ### 4.6.5.1 La biblioteca de props
 
 El camino es el que propone el owner: **muchas piezas sueltas, bien catalogadas**, y los interiores se componen con
-ellas. No se pintan interiores enteros como fondo, porque así no se podrían mejorar, mover ni reutilizar.
+ellas.
+
+**Decisión del owner (2026-11-05), tras ver el piloto de la forja:** la **mezcla** de `docs/arte/interiores.md` (camino C).
+Cada sala tiene un **fondo pintado** con fal sobre una plantilla de su geometría exacta: suelo, las paredes del
+fondo, la puerta, lo que cuelga de ellas y la luz de base. **Encima** van como piezas sueltas todo lo que tiene altura y
+todo con lo que se interactúa: puestos, mostrador, expositor, mejoras, atrezo de pie y escaleras. Por último, las
+capas de luz y partículas. «Lo importante es que case la estética» (owner). Por eso:
+
+- **Un fondo por sala y por planta**, no uno por edificio. Las paredes **entre salas** son piezas propias, no van en
+  el fondo, para que puedan volverse transparentes (4.6.5.3). La plantilla de cada sala la saca el montador de
+  4.6.5.2 a partir de los datos del interior, y el fondo se pinta sobre ella.
+- **Mismas reglas para fondo y piezas:** la misma paleta (48 colores por interior, sacados del fondo), la luz del mismo
+  lado, el mismo grosor de contorno y la misma escala de píxel (bloques de 6-8 en image2pixel, escala B). Una pieza que
+  no case se repinta con el fondo como referencia.
+- **Biblioteca de props:** sigue siendo el objetivo (abajo), pero para las piezas sueltas y para el atrezo que las
+  mejoras añaden. Lo plano va en el fondo.
+- **Mejoras que cambian la sala** (suelo de piedra, tapices): una pieza plana encima del fondo o, si cambia todo, un
+  segundo fondo que la mejora enciende.
+- **Personajes:** son lo que menos casa hoy con los fondos (tienen menos detalle). Cuando vuelva PixelLab (15 de
+  noviembre), toca revisar su detalle y su paleta frente a los fondos.
+
 
 - **De la referencia a la pieza:** para cada render de referencia (assets/art/interiors/_referencias/) se sacan las
   piezas que salen en él, como se hizo con las fachadas: fal/edit con la referencia recortada, fondo plano, recorte
