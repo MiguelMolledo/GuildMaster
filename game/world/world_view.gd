@@ -280,11 +280,15 @@ func _add_buildings() -> Dictionary:
 	return tiles
 
 
-## Which look of a building puts its drawn door on the side of its map door (data/view.json building_door_face):
-## {"scene", "flip"}. The camera sees the faces that look to +row (lower left) and +col (lower right); a scene draws
-## its door on one of them (faces: "row" by default, "col"). A door on the other visible face mirrors the scene; a
-## door on a hidden face (-row, -col) takes the scene <id>_back if there is one (the building seen from behind,
-## mirrored for the other hidden face), else stays as it is (tools/city/ciudad.py validar lists them).
+## Which look of a building puts its drawn door on the side of its map door: {"scene", "flip"}. Each scene says where
+## it draws its door with its Door marker (VisualPaths.door_of: SW = the face that looks to +row, SE = +col, NE and
+## NW the hidden ones). Tried in order: the scene as drawn, mirrored (if its marker allows: mirroring swaps SW/SE and
+## NE/NW), its back view (the marker's "back") and the back view mirrored; none fits: the scene as it is
+## (tools/city/ciudad.py validar lists those).
+const DOOR_SIDES: Dictionary = {"SW": Vector2i(0, 1), "SE": Vector2i(1, 0), "NE": Vector2i(0, -1), "NW": Vector2i(-1, 0)}
+const MIRRORED_SIDE: Dictionary = {"SW": "SE", "SE": "SW", "NE": "NW", "NW": "NE"}
+
+
 func _door_facing(b: Dictionary, scene_id: String) -> Dictionary:
 	var out := {"scene": scene_id, "flip": false}
 	var d: Array = b.get("door", [])
@@ -293,26 +297,34 @@ func _door_facing(b: Dictionary, scene_id: String) -> Dictionary:
 	if d.size() != 2:
 		return out
 	var door := Vector2i(int(d[0]), int(d[1]))
-	var side := Vector2i.ZERO
-	for dir: Vector2i in [Vector2i(0, 1), Vector2i(1, 0), Vector2i(0, -1), Vector2i(-1, 0)]:
-		var inner := door - dir
+	var side := ""
+	for s: String in DOOR_SIDES:
+		var inner: Vector2i = door - (DOOR_SIDES[s] as Vector2i)
 		if inner.x >= int(o[0]) and inner.x < int(o[0]) + int(f[0]) and inner.y >= int(o[1]) and inner.y < int(o[1]) + int(f[1]):
-			side = dir
+			side = s
 			break
-	if side == Vector2i.ZERO:
+	if side == "":
 		return out
-	var faces: Dictionary = (ViewConfig.value("building_door_face", {}) as Dictionary).get("faces", {})
-	var face := str(faces.get(scene_id, faces.get(str(b.get("type", "")), "row")))
-	var drawn := Vector2i(0, 1) if face == "row" else Vector2i(1, 0)
-	var no_mirror: Array = (ViewConfig.value("building_door_face", {}) as Dictionary).get("no_mirror", [])
-	if side == Vector2i(0, 1) or side == Vector2i(1, 0):
-		out["flip"] = side != drawn and not (scene_id in no_mirror or str(b.get("type", "")) in no_mirror)
-	elif VisualPaths.has_scene("buildings", scene_id + "_back"):
-		out["scene"] = scene_id + "_back"
-		out["flip"] = side != -drawn
-	if bool(out["flip"]) or str(out["scene"]) != scene_id:
-		ViewConfig.info("WorldView", "building %s: door %s on side %s -> %s%s" % [b.get("id", ""), door, side,
-			out["scene"], " (mirrored)" if bool(out["flip"]) else ""])
+	var front := VisualPaths.door_of("buildings", scene_id)
+	if front.is_empty():
+		return out
+	var tries: Array = [scene_id]
+	if str(front["back"]) != "":
+		tries.append(str(front["back"]))
+	for sc: String in tries:
+		var m := VisualPaths.door_of("buildings", sc)
+		if m.is_empty():
+			continue
+		for flip: bool in [false, true]:
+			if flip and not bool(m["mirror"]):
+				continue
+			var drawn := str(MIRRORED_SIDE[str(m["side"])]) if flip else str(m["side"])
+			if drawn == side:
+				out = {"scene": sc, "flip": flip}
+				if flip or sc != scene_id:
+					ViewConfig.info("WorldView", "building %s: door %s on %s -> %s%s" % [b.get("id", ""), door, side,
+						sc, " (mirrored)" if flip else ""])
+				return out
 	return out
 
 
@@ -512,18 +524,37 @@ func _add_filler(tiles: Dictionary) -> int:
 ## The map's dressing made by the town builder (data/maps "decor", tools/city/ciudad.py, docs/protocolos/
 ## generar-ciudad.md): filler lots (house / yard / single: a scene on the centre of its tiles, mirrored if `flip`,
 ## registered as the prop of each tile and taken out of `filler`) and props (lantern / prop / fence: a scene on the
-## tile's centre + `off` pixels). Purely visual, the same every game. A lot whose tiles are not all free filler (a
+## tile's centre + `off` pixels). An item with "site" belongs to a map site: its lots dress the site's footprint in a
+## game without that building, its props (a workshop's barrels) only show with it. Purely visual, the same every game. A lot whose tiles are not all free filler (a
 ## building of this game stands there) or a prop on a building's tiles is skipped; the filler left falls back to
 ## _add_filler. Returns how many visuals were placed.
 func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int:
 	var items: Array = decor.get("items", [])
 	if items.is_empty():
 		return 0
+	# the map sites with a building in this game (by origin): an item with "site" belongs to one of them
+	var built := {}
+	var origins := {}
+	for id: String in state.buildings:
+		var o: Array = state.buildings[id].get("origin", [])
+		if o.size() == 2:
+			origins[Vector2i(int(o[0]), int(o[1]))] = true
+	var sites: Dictionary = catalog.maps().get(state.map_id, {}).get("buildings", {})
+	for sid: String in sites:
+		var o: Array = sites[sid].get("origin", [])
+		if o.size() == 2 and origins.has(Vector2i(int(o[0]), int(o[1]))):
+			built[sid] = true
 	var n := 0
 	var skipped := 0
 	var kinds := {}
 	for it: Dictionary in items:
 		var kind := str(it.get("kind", ""))
+		var site := str(it.get("site", ""))
+		if site != "":
+			var is_lot := kind in ["house", "yard", "single"]
+			# a site's own lot only without its building; a site's props only with it
+			if is_lot == built.has(site):
+				continue
 		var at: Array = it.get("at", [0, 0])
 		var size: Array = it.get("size", [1, 1])
 		var flip := bool(it.get("flip", false))

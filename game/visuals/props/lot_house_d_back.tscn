@@ -10,6 +10,17 @@ editor_description = "Back view of the filler house lot_house_d (same size and F
 [node name="Top" type="Marker2D" parent="."]
 position = Vector2(0, -88)
 
+[node name="Door" type="Marker2D" parent="."]
+editor_description = "Threshold of the drawn door (docs/protocolos/generar-ciudad.md §Puertas): the generator, the validator and WorldView read where the door is from here (data/building_sprites.json is exported from it: python3 tools/city/sprites_catalog.py). side = face of the footprint (SW, SE, NE, NW), tile = door tile from the footprint origin."
+position = Vector2(26, -15)
+metadata/side = "NE"
+metadata/tile = Vector2i(1, -1)
+metadata/footprint = Vector2i(3, 3)
+metadata/mirror = true
+metadata/back = ""
+metadata/front = "lot_house_d"
+
+
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_tex")

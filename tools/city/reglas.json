@@ -1,18 +1,10 @@
 {
   "_doc": "Rules of the town builder (tools/city/, docs/protocolos/generar-ciudad.md). Offline only: the game reads the result (data/maps/<id>.json \"decor\"), never this file. Ids are scene ids of game/visuals/props/. Distances in tiles; curb/edge/wall = fraction of a tile the prop is pushed from its tile's centre towards the street, the plaza edge or the wall.",
-  "_decor_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. Re-run the tool after editing rows or buildings.",
+  "_decor_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
   "filler": {
-    "_doc": "Filler houses: one 3x3 lot per house, placed first where its front gives to a road within street_reach tiles; the door looks to that road. back = the scene of each house seen from behind (door on a hidden face): +row front = house, +col = house mirrored, -row = back, -col = back mirrored. The houses, yards and the lone-tile prop come from data/view.json filler.",
+    "_doc": "Filler houses: one 3x3 lot per house, placed first where its front gives to a road within street_reach tiles; the door looks to that road: the look (as drawn, mirrored, its back view, back mirrored) is the one whose Door marker (data/building_sprites.json) is on that side. The houses, yards and the lone-tile prop come from data/view.json filler.",
     "lot": [3, 3],
-    "street_reach": 3,
-    "back": {
-      "lot_house_a": "lot_house_a_back",
-      "lot_house_b": "lot_house_b_back",
-      "lot_house_c": "lot_house_c_back",
-      "lot_house_d": "lot_house_d_back",
-      "lot_house_e": "lot_house_e_back",
-      "lot_house_f": "lot_house_f_back"
-    }
+    "street_reach": 3
   },
   "lanterns": {
     "_doc": "A lantern beside the street (grass or a yard, never a road, a door or its 8 neighbours) every `every` tiles (Manhattan, crossings first).",

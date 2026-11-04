@@ -137,11 +137,11 @@
    4
   ],
   "tile": [
-   20,
+   19,
    12
   ],
   "service": [
-   20,
+   19,
    13
   ]
  },
@@ -154,7 +154,7 @@
    ],
    "door": [
     15,
-    24
+    23
    ],
    "owner": ""
   },
@@ -489,7 +489,7 @@
    "kind": "shop",
    "tile": [
     15,
-    24
+    23
    ],
    "building": "armory",
    "stall": "armory"
@@ -522,7 +522,7 @@
    "id": "townhall_a",
    "kind": "tile",
    "tile": [
-    18,
+    17,
     13
    ]
   },
@@ -530,7 +530,7 @@
    "id": "townhall_b",
    "kind": "tile",
    "tile": [
-    22,
+    21,
     13
    ]
   }
@@ -993,7 +993,7 @@
   ]
  },
  "decor": {
-  "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. Re-run the tool after editing rows or buildings.",
+  "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
   "items": [
    {"kind": "house", "id": "lot_house_a", "at": [15, 5], "size": [3, 3], "flip": false, "facing": [0, 1]},
    {"kind": "house", "id": "lot_house_d", "at": [19, 5], "size": [3, 3], "flip": false, "facing": [0, 1]},
@@ -1032,27 +1032,27 @@
    {"kind": "lantern", "id": "lantern", "at": [35, 25], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [10, 30], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [35, 31], "off": [-10, -5]},
-   {"kind": "prop", "id": "barrel", "at": [14, 25], "off": [13, 7]},
-   {"kind": "prop", "id": "crate", "at": [14, 23], "off": [13, 7]},
-   {"kind": "prop", "id": "barrel", "at": [14, 18], "off": [-13, 7]},
-   {"kind": "prop", "id": "crate", "at": [12, 18], "off": [-13, 7]},
-   {"kind": "prop", "id": "barrel", "at": [29, 18], "off": [-13, 7]},
-   {"kind": "prop", "id": "crate", "at": [27, 18], "off": [-13, 7]},
-   {"kind": "prop", "id": "crate", "at": [7, 18], "off": [-13, 7]},
-   {"kind": "prop", "id": "crate", "at": [5, 18], "off": [-13, 7]},
-   {"kind": "prop", "id": "crate", "at": [38, 18], "off": [-13, 7]},
-   {"kind": "prop", "id": "barrel", "at": [36, 18], "off": [-13, 7]},
-   {"kind": "prop", "id": "crate", "at": [33, 12], "off": [13, 7]},
-   {"kind": "prop", "id": "grain_sack", "at": [33, 10], "off": [13, 7]},
+   {"kind": "prop", "id": "barrel", "at": [14, 24], "off": [13, 7], "site": "armory"},
+   {"kind": "prop", "id": "crate", "at": [14, 22], "off": [13, 7], "site": "armory"},
+   {"kind": "prop", "id": "barrel", "at": [14, 18], "off": [-13, 7], "site": "player_forge"},
+   {"kind": "prop", "id": "crate", "at": [12, 18], "off": [-13, 7], "site": "player_forge"},
+   {"kind": "prop", "id": "barrel", "at": [29, 18], "off": [-13, 7], "site": "rival_forge"},
+   {"kind": "prop", "id": "crate", "at": [27, 18], "off": [-13, 7], "site": "rival_forge"},
+   {"kind": "prop", "id": "crate", "at": [7, 18], "off": [-13, 7], "site": "workshop_carpentry"},
+   {"kind": "prop", "id": "crate", "at": [5, 18], "off": [-13, 7], "site": "workshop_carpentry"},
+   {"kind": "prop", "id": "crate", "at": [38, 18], "off": [-13, 7], "site": "workshop_masonry"},
+   {"kind": "prop", "id": "barrel", "at": [36, 18], "off": [-13, 7], "site": "workshop_masonry"},
+   {"kind": "prop", "id": "crate", "at": [33, 12], "off": [13, 7], "site": "workshop_tailor"},
+   {"kind": "prop", "id": "grain_sack", "at": [33, 10], "off": [13, 7], "site": "workshop_tailor"},
    {"kind": "prop", "id": "crate", "at": [15, 17]},
-   {"kind": "prop", "id": "grain_sack", "at": [19, 14]},
+   {"kind": "prop", "id": "grain_sack", "at": [21, 14]},
    {"kind": "prop", "id": "cart", "at": [15, 21]},
-   {"kind": "prop", "id": "cart", "at": [22, 14]},
+   {"kind": "prop", "id": "cart", "at": [24, 14]},
    {"kind": "prop", "id": "cart", "at": [16, 14]},
    {"kind": "prop", "id": "bench", "at": [25, 21], "off": [10, 5]},
    {"kind": "prop", "id": "bench", "at": [25, 25], "off": [-10, 5], "flip": true},
-   {"kind": "prop", "id": "bench", "at": [17, 24], "off": [10, -5], "flip": true},
    {"kind": "prop", "id": "bench", "at": [21, 25], "off": [-10, 5], "flip": true},
+   {"kind": "prop", "id": "bench", "at": [19, 19], "off": [10, 5]},
    {"kind": "fence", "id": "fence", "at": [8, 4], "off": [14, -7]},
    {"kind": "fence", "id": "fence", "at": [8, 4], "off": [-14, -7], "flip": true},
    {"kind": "fence", "id": "fence", "at": [9, 4], "off": [14, -7]},
@@ -1126,7 +1126,36 @@
    {"kind": "fence", "id": "fence", "at": [36, 37], "off": [-14, 7]},
    {"kind": "fence", "id": "fence", "at": [37, 37], "off": [-14, 7]},
    {"kind": "fence", "id": "fence", "at": [38, 37], "off": [-14, 7]},
-   {"kind": "fence", "id": "fence", "at": [38, 37], "off": [14, 7], "flip": true}
+   {"kind": "fence", "id": "fence", "at": [38, 37], "off": [14, 7], "flip": true},
+   {"kind": "house", "id": "lot_house_d_back", "at": [12, 22], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "armory"},
+   {"kind": "yard", "id": "yard_plot_sack", "at": [12, 25], "site": "armory"},
+   {"kind": "yard", "id": "yard_plot", "at": [13, 25], "site": "armory"},
+   {"kind": "yard", "id": "yard_plot", "at": [14, 25], "site": "armory"},
+   {"kind": "house", "id": "lot_house_a", "at": [31, 14], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_01"},
+   {"kind": "house", "id": "lot_house_f", "at": [31, 22], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_02"},
+   {"kind": "house", "id": "lot_house_e", "at": [31, 26], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_03"},
+   {"kind": "house", "id": "lot_house_f", "at": [11, 30], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_04"},
+   {"kind": "house", "id": "lot_house_d", "at": [15, 30], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_05"},
+   {"kind": "house", "id": "lot_house_f", "at": [19, 30], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_06"},
+   {"kind": "house", "id": "lot_house_e", "at": [23, 30], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_07"},
+   {"kind": "house", "id": "lot_house_d", "at": [27, 30], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_08"},
+   {"kind": "house", "id": "lot_house_c", "at": [12, 16], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "player_forge"},
+   {"kind": "yard", "id": "yard_plot", "at": [12, 15], "site": "player_forge"},
+   {"kind": "yard", "id": "yard_plot_sack", "at": [13, 15], "site": "player_forge"},
+   {"kind": "yard", "id": "yard_plot", "at": [14, 15], "site": "player_forge"},
+   {"kind": "house", "id": "lot_house_f", "at": [27, 16], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "rival_forge"},
+   {"kind": "yard", "id": "yard_plain", "at": [27, 15], "site": "rival_forge"},
+   {"kind": "yard", "id": "yard_sacks", "at": [28, 15], "site": "rival_forge"},
+   {"kind": "yard", "id": "yard_barrels", "at": [29, 15], "site": "rival_forge"},
+   {"kind": "house", "id": "lot_house_d", "at": [5, 16], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_carpentry"},
+   {"kind": "yard", "id": "yard_barrels", "at": [5, 15], "site": "workshop_carpentry"},
+   {"kind": "yard", "id": "yard_sacks", "at": [6, 15], "site": "workshop_carpentry"},
+   {"kind": "yard", "id": "yard_plain", "at": [7, 15], "site": "workshop_carpentry"},
+   {"kind": "house", "id": "lot_house_f", "at": [36, 16], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_masonry"},
+   {"kind": "yard", "id": "yard_barrels", "at": [36, 15], "site": "workshop_masonry"},
+   {"kind": "yard", "id": "yard_sacks", "at": [37, 15], "site": "workshop_masonry"},
+   {"kind": "yard", "id": "yard_plain", "at": [38, 15], "site": "workshop_masonry"},
+   {"kind": "house", "id": "lot_house_f", "at": [31, 10], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "workshop_tailor"}
   ]
  }
 }

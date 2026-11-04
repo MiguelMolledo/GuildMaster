@@ -141,7 +141,7 @@
 		"bld_0003": {
 			"door": [
 				13,
-				25
+				24
 			],
 			"employee_slots": 0,
 			"footprint": [
@@ -515,7 +515,7 @@
 		"bld_0012": {
 			"door": [
 				18,
-				30
+				29
 			],
 			"employee_slots": 1,
 			"footprint": [
@@ -2042,7 +2042,7 @@
 			"path": [],
 			"position": [
 				18,
-				30
+				29
 			],
 			"profession": "carpenter",
 			"rank": "",
@@ -2115,7 +2115,7 @@
 			"path": [],
 			"position": [
 				18,
-				30
+				29
 			],
 			"profession": "",
 			"rank": "",

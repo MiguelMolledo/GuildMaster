@@ -258,6 +258,7 @@ def _parcel_rect_from_first(first, d, along, depth):
 
 
 def _door(rect, d):
+    """The middle of the side d of a rect: the door of a building whose scene has no Door marker for that side."""
     c, r, w, h = rect
     if d == (0, 1):
         return (c + w // 2, r + h)
@@ -266,6 +267,22 @@ def _door(rect, d):
     if d == (1, 0):
         return (c + w, r + h // 2)
     return (c - 1, r + h // 2)
+
+
+def site_door(cat, typ, rect, d):
+    """(door tile, drawn): the door of a building of type `typ` on `rect` with its street on side d, where its
+    scene draws it (the Door marker of the look WorldView will draw, data/building_sprites.json, as drawn, mirrored or
+    seen from behind); drawn = False if no look draws a door on that side (then the middle of the side)."""
+    look = typ
+    looks = cat.view.get("building_variants", {}).get(typ)
+    if isinstance(looks, list) and looks:
+        look = looks[citylib.gd_tile_hash(rect[0], rect[1]) % len(looks)]
+    got = citylib.looks_for(cat.sprites, "buildings", look, citylib.SIDE_OF[d])
+    if not got:
+        return _door(rect, d), False
+    scene, flip = got[0]
+    _, tile = citylib.drawn_door(cat.sprites["buildings/" + scene], flip, (rect[2], rect[3]))
+    return (rect[0] + tile[0], rect[1] + tile[1]), True
 
 
 def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None):
@@ -289,12 +306,13 @@ def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None):
     # the town hall north of the plaza (door on its visible +row face, onto the grass row before the plaza)
     th_o = (px + 1, py - 5)
     p.rect(th_o[0], th_o[1], th_o[0] + 5, th_o[1] + 3, "#")
-    town_hall = {"origin": list(th_o), "footprint": [6, 4], "tile": [th_o[0] + 3, th_o[1] + 3],
-                 "service": [th_o[0] + 3, th_o[1] + 4]}
+    (sc, sr), _ = site_door(cat, "town_hall", (th_o[0], th_o[1], 6, 4), (0, 1))
+    town_hall = {"origin": list(th_o), "footprint": [6, 4], "tile": [sc, sr - 1], "service": [sc, sr]}
     # the armory west of the plaza, its door (+col, visible) on the grass column by the plaza
     ar_o = (px - 4, py + 8)
     p.rect(ar_o[0], ar_o[1], ar_o[0] + 2, ar_o[1] + 3, "#")
-    sites["armory"] = {"type": "armory", "origin": list(ar_o), "door": [ar_o[0] + 3, ar_o[1] + 2], "owner": ""}
+    a_door, _ = site_door(cat, "armory", (ar_o[0], ar_o[1], 3, 4), (1, 0))
+    sites["armory"] = {"type": "armory", "origin": list(ar_o), "door": list(a_door), "owner": ""}
     # keep a grass ring round the plaza, the town hall and the armory (no parcels glued to them)
     for (c0, r0, ww, hh) in ((px, py, PLAZA_W, PLAZA_H), (th_o[0], th_o[1], 6, 5), (ar_o[0], ar_o[1], 4, 4)):
         for c in range(c0 - 1, c0 + ww + 1):
@@ -309,23 +327,17 @@ def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None):
         c, r, ww, hh = rect
         return max(abs(c + ww / 2.0 - pc[0]), abs(r + hh / 2.0 - pc[1]))
 
-    dface = cat.view.get("building_door_face", {})
-
     def place(foot, prefer_main, prefer_visible=True, typ=""):
         fw, fh = foot
         best = None
-        # the faces where its door looks right: both visible ones (mirrored if need be), only the drawn one for a
-        # scene that must not be mirrored (its sign has text)
-        ok_sides = VISIBLE
-        if typ in dface.get("no_mirror", []):
-            ok_sides = {(0, 1) if dface.get("faces", {}).get(typ, "row") == "row" else (1, 0)}
         for d in DIRS:
             along, depth = (fw, fh) if d[1] != 0 else (fh, fw)
             for rect, dd, front in _candidates(p, taken, along, depth, roads):
                 if dd != d:
                     continue
                 main = all(t in p.main for t in front)
-                vis = d in ok_sides
+                # the camera sees the door and the scene draws it there (its Door marker, mirrored if it may be)
+                vis = d in VISIBLE and site_door(cat, typ, rect, d)[1]
                 # a door on a face the camera sees and that its sprite draws comes first; then the street class
                 key = (0 if (vis or not prefer_visible) else 1, 0 if main == prefer_main else 1, round(dist(rect), 1),
                        rect[1], rect[0])
@@ -346,7 +358,7 @@ def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None):
         if got is None:
             raise SystemExit(f"generar: no cabe {sid} ({typ}) en el trazado {layout}")
         rect, d = got
-        sites[sid] = {"type": typ, "origin": [rect[0], rect[1]], "door": list(_door(rect, d))}
+        sites[sid] = {"type": typ, "origin": [rect[0], rect[1]], "door": list(site_door(cat, typ, rect, d)[0])}
     pop = citylib.load_json(os.path.join(citylib.DATA, "maps", gen.get("population_from", "town_e") + ".json"))
     households = pop.get("population", [])
     n_houses = max(len(households), int(gen.get("houses", 8)))
@@ -357,7 +369,7 @@ def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None):
             raise SystemExit(f"generar: solo caben {i} casas de vecinos de {n_houses} en {layout}")
         rect, d = got
         sid = f"house_{i + 1:02d}"
-        sites[sid] = {"type": "house", "origin": [rect[0], rect[1]], "door": list(_door(rect, d))}
+        sites[sid] = {"type": "house", "origin": [rect[0], rect[1]], "door": list(site_door(cat, "house", rect, d)[0])}
         homes.append(sid)
     reach = int(gen.get("town_reach", 16))
     # 5. fields outside the town, a pond if there is no river, trees

@@ -29,8 +29,8 @@ func test_every_decor_house_is_drawn_with_its_look_and_mirror() -> void:
 	var items: Array = cat.maps()["town_e"]["decor"]["items"]
 	var houses := 0
 	for it: Dictionary in items:
-		if str(it["kind"]) != "house":
-			continue
+		if str(it["kind"]) != "house" or str(it.get("site", "")) != "":
+			continue  # the lots of a site are drawn only without its building (next tests)
 		houses += 1
 		var t := Vector2i(int(it["at"][0]), int(it["at"][1]))
 		var p := v.prop_at(t)
@@ -80,7 +80,7 @@ func test_door_on_the_other_visible_face_mirrors_the_building() -> void:
 	eq(v._door_facing(b, "tailor_shop"), {"scene": "tailor_shop", "flip": false}, "the tailor's door is drawn on +col")
 	b["door"] = [11, 13]
 	eq(v._door_facing(b, "tailor_shop"), {"scene": "tailor_shop", "flip": false},
-		"the tailor's sign has text: never mirrored (data/view.json no_mirror)")
+		"the tailor's sign has text: never mirrored (its Door marker: mirror = false)")
 	v.free()
 
 
@@ -92,4 +92,27 @@ func test_a_lot_with_a_building_of_this_game_is_skipped() -> void:
 	var n := v._add_decor({"items": [{"kind": "house", "id": "lot_house_a", "at": [17, 9], "size": [3, 3]}]}, filler, {})
 	eq(n, 0, "a lot whose tiles are not all free filler is not drawn")
 	eq(filler.size(), 1, "and its tiles stay for the old filler")
+	v.free()
+
+
+func test_a_site_without_its_building_gets_its_own_dressing() -> void:
+	# town_e_start (the sandbox) leaves the carpentry, the masonry and the tailor's sites empty: their footprints take
+	# the decor lots made for them ("site"), not the old random filler, and their barrels and crates stay away
+	var v := _view()
+	var items: Array = cat.maps()["town_e"]["decor"]["items"]
+	var lots := 0
+	for it: Dictionary in items:
+		if str(it.get("site", "")) != "workshop_carpentry":
+			continue
+		var t := Vector2i(int(it["at"][0]), int(it["at"][1]))
+		if str(it["kind"]) in ["house", "yard"]:
+			lots += 1
+			eq(_id(v.prop_at(t)), str(it["id"]), "the empty carpentry site at %s takes its decor lot" % t)
+		elif str(it["kind"]) == "prop":
+			var off: Array = it.get("off", [0, 0])
+			var where := Iso.tile_to_world(t) + Vector2(float(off[0]), float(off[1]))
+			for c: Node in v.objects().get_children():
+				if _id(c) == str(it["id"]) and (c as Node2D).position + VisualPaths.feet(c as Node2D) == where:
+					check(false, "the carpentry's %s at %s is not drawn without the carpentry" % [it["id"], t])
+	check(lots >= 2, "the carpentry site has its own lots (%d)" % lots)
 	v.free()

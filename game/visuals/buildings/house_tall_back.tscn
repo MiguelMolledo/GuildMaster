@@ -4,13 +4,24 @@
 [ext_resource type="Texture2D" uid="uid://bdra8eo1os12x" path="res://assets/art/buildings/escala_b/house_b_back.png" id="2_sprite_b"]
 
 [node name="HouseTallBack" type="Node2D"]
-editor_description = "house_tall seen from behind (no door on its visible faces; the sprite of the filler house lot_house_b_back). WorldView._door_facing uses it when the map door of a house with this look is on a hidden face (data/view.json building_door_face)."
+editor_description = "house_tall seen from behind (no door on its visible faces; the sprite of the filler house lot_house_b_back). WorldView._door_facing uses it when the map door of a house with this look is on a hidden face (its Door marker: NE, and the front scene's metadata/back)."
 y_sort_enabled = true
 
 [node name="Feet" type="Marker2D" parent="."]
 
 [node name="Top" type="Marker2D" parent="."]
 position = Vector2(0, -102)
+
+[node name="Door" type="Marker2D" parent="."]
+editor_description = "Threshold of the drawn door (docs/protocolos/generar-ciudad.md §Puertas): the generator, the validator and WorldView read where the door is from here (data/building_sprites.json is exported from it: python3 tools/city/sprites_catalog.py). side = face of the footprint (SW, SE, NE, NW), tile = door tile from the footprint origin."
+position = Vector2(25, -13)
+metadata/side = "NE"
+metadata/tile = Vector2i(1, -1)
+metadata/footprint = Vector2i(3, 3)
+metadata/mirror = true
+metadata/back = ""
+metadata/front = "house_tall"
+
 
 [node name="Greybox" type="Node2D" parent="."]
 visible = false

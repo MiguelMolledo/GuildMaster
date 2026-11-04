@@ -52,9 +52,75 @@ def gd_tile_hash(c, r):
     return abs(h) % 1000003
 
 
+# --- doors (docs/protocolos/generar-ciudad.md §Puertas) ------------------------------------------------------------
+# The door of a drawn building is the Door marker of its scene (tools/city/marcar_puertas.py), exported to
+# data/building_sprites.json (tools/city/sprites_catalog.py). Sides by the face of the footprint: SW looks to +row,
+# SE to +col (the two the camera sees), NE to -row, NW to -col. Mirroring (x -> -x) swaps cols and rows: SW <-> SE,
+# NE <-> NW, and a w x h drawing covers h x w.
+SIDES = {"SW": (0, 1), "SE": (1, 0), "NE": (0, -1), "NW": (-1, 0)}
+SIDE_OF = {v: k for k, v in SIDES.items()}
+MIRRORED = {"SW": "SE", "SE": "SW", "NE": "NW", "NW": "NE"}
+
+
+def px_to_rel(px):
+    """A point of a scene (pixels from Feet, the footprint's centre) as tiles from that centre (col, row)."""
+    return (px[0] / 64.0 + px[1] / 32.0, px[1] / 32.0 - px[0] / 64.0)
+
+
+def _half_up(v):
+    return int(v + 0.5) if v >= 0 else -int(-v + 0.5)
+
+
+def door_tile(side, px, footprint):
+    """The door's tile (from the footprint's origin) of a threshold `px` on face `side` of a w x h footprint."""
+    w, h = footprint
+    fc, fr = px_to_rel(px)
+    c, r = fc + (w - 1) / 2.0, fr + (h - 1) / 2.0
+    if side == "SW":
+        return (max(0, min(w - 1, _half_up(c))), h)
+    if side == "NE":
+        return (max(0, min(w - 1, _half_up(c))), -1)
+    if side == "SE":
+        return (w, max(0, min(h - 1, _half_up(r))))
+    return (-1, max(0, min(h - 1, _half_up(r))))
+
+
+def sprites():
+    p = os.path.join(DATA, "building_sprites.json")
+    return load_json(p).get("scenes", {}) if os.path.exists(p) else {}
+
+
+def drawn_door(entry, flip, footprint):
+    """(side, tile from the origin) where a scene draws its door on a footprint, mirrored or not."""
+    px = entry["door"]["px"]
+    side = entry["door"]["side"]
+    if flip:
+        px, side = (-px[0], px[1]), MIRRORED[side]
+    return side, door_tile(side, px, footprint)
+
+
+def looks_for(spr, kind, scene, side):
+    """The (scene, flip) of `scene` or its back view whose drawn door is on `side`, in order of preference (as drawn,
+    mirrored, back, back mirrored); [] if none."""
+    out = []
+    e = spr.get(f"{kind}/{scene}")
+    if not e:
+        return out
+    for sc in [scene] + ([e["back"]] if e.get("back") else []):
+        ee = spr.get(f"{kind}/{sc}")
+        if not ee:
+            continue
+        if ee["door"]["side"] == side:
+            out.append((sc, False))
+        if ee.get("mirror") and MIRRORED[ee["door"]["side"]] == side:
+            out.append((sc, True))
+    return out
+
+
 def building_scene(cat, site):
-    """The scene WorldView draws for a site (data/view.json building_variants) and the one it uses for its door
-    side (building_door_face, <scene>_back): (scene, drawn scene, flip, door side)."""
+    """What WorldView draws for a site (WorldView._door_facing): (look, drawn scene, flip, map door side) with look
+    = data/view.json building_variants by its origin; the drawn scene and flip put the drawn door on the map door's
+    side when a look can (as drawn, mirrored, back, back mirrored), else the look as drawn."""
     scene = site["type"]
     looks = cat.view.get("building_variants", {}).get(scene)
     if isinstance(looks, list) and looks:
@@ -66,19 +132,11 @@ def building_scene(cat, site):
             if (d[0] - dd[0], d[1] - dd[1]) in site["tiles"]:
                 side = dd
                 break
-    faces = cat.view.get("building_door_face", {}).get("faces", {})
-    face = faces.get(scene, faces.get(site["type"], "row"))
-    drawn = (0, 1) if face == "row" else (1, 0)
     if side is None:
         return scene, scene, False, side
-    if side in VISIBLE:
-        no_mirror = cat.view.get("building_door_face", {}).get("no_mirror", [])
-        if side != drawn and (scene in no_mirror or site["type"] in no_mirror):
-            return scene, scene, None, side  # it would need mirroring and must not be: the drawn door looks away
-        return scene, scene, side != drawn, side
-    back = scene + "_back"
-    if os.path.exists(os.path.join(ROOT, "game", "visuals", "buildings", back + ".tscn")):
-        return scene, back, side != (-drawn[0], -drawn[1]), side
+    got = looks_for(cat.sprites, "buildings", scene, SIDE_OF[side])
+    if got:
+        return scene, got[0][0], got[0][1], side
     return scene, scene, False, side
 
 
@@ -108,6 +166,7 @@ class Catalog:
                 self.footprints[b["id"]] = tuple(b.get("footprint", [1, 1]))
         self.view = load_json(os.path.join(DATA, "view.json"))
         self.town = load_json(os.path.join(DATA, "town.json"))
+        self.sprites = sprites()  # data/building_sprites.json: the Door marker of each scene
 
 
 class Map:
@@ -274,16 +333,11 @@ def lot_facing(m, lot, block, reach):
     return best
 
 
-def house_scene(base, d, rl):
-    """Scene id and mirror for a filler house whose door looks to d (docs: 4 orientations from 2 sprites)."""
-    back = rl["filler"]["back"].get(base, "")
-    if d == (0, 1):
-        return base, False
-    if d == (1, 0):
-        return base, True
-    if d == (0, -1):
-        return (back or base), False
-    return (back or base), True
+def house_scene(cat, base, d):
+    """Scene id and mirror for a filler house whose door must look to d: the look of the house (as drawn, mirrored,
+    seen from behind, behind and mirrored) whose Door marker (data/building_sprites.json) is on that side."""
+    got = looks_for(cat.sprites, "props", base, SIDE_OF[d])
+    return got[0] if got else (base, False)
 
 
 def dress(m, rl=None):
@@ -301,29 +355,29 @@ def dress(m, rl=None):
     lw, lh = rl["filler"]["lot"]
     reach = rl["filler"]["street_reach"]
     placed = []  # (lot, base)
-    for gi, group in enumerate(groups_of(free)):
+
+    def dress_group(group, out, site=""):
+        """House lots and yards of one block (a group of building tiles) into `out`; site: the alternative look of a
+        map site's footprint, drawn only in a game without that building."""
         block = set(group)
-        if len(group) == 1 and single:
-            t = group[0]
-            items.append({"kind": "single", "id": single, "at": list(t)})
-            used[t] = len(items) - 1
-            block.clear()
-            continue
+        extra = {"site": site} if site else {}
+        if len(group) == 1 and single and not site:
+            out.append({"kind": "single", "id": single, "at": list(group[0])})
+            return
         left = set(group)
         while True:
             best = None
             for t in group:
-                for (w, h) in ((lw, lh),):
-                    lot = (t[0], t[1], w, h)
-                    tiles = [(t[0] + dc, t[1] + dr) for dr in range(h) for dc in range(w)]
-                    if not all(u in left for u in tiles):
-                        continue
-                    f = lot_facing(m, lot, block, reach)
-                    if f is None:
-                        continue
-                    key = (f[0], -t[1], -t[0])
-                    if best is None or key > best[0]:
-                        best = (key, lot, tiles, f)
+                lot = (t[0], t[1], lw, lh)
+                tiles = [(t[0] + dc, t[1] + dr) for dr in range(lh) for dc in range(lw)]
+                if not all(u in left for u in tiles):
+                    continue
+                f = lot_facing(m, lot, block, reach)
+                if f is None:
+                    continue
+                key = (f[0], -t[1], -t[0])
+                if best is None or key > best[0]:
+                    best = (key, lot, tiles, f)
             if best is None:
                 break
             _, lot, tiles, f = best
@@ -337,11 +391,9 @@ def dress(m, rl=None):
                 k = (k + 1) % len(houses)
             base = houses[k]
             placed.append((lot, base))
-            sid, flip = house_scene(base, f[1], rl)
-            items.append({"kind": "house", "id": sid, "at": [lot[0], lot[1]], "size": [lot[2], lot[3]], "flip": flip,
-                          "facing": list(f[1])})
-            for u in tiles:
-                used[u] = len(items) - 1
+            sid, flip = house_scene(m.cat, base, f[1])
+            out.append(dict({"kind": "house", "id": sid, "at": [lot[0], lot[1]], "size": [lot[2], lot[3]],
+                             "flip": flip, "facing": list(f[1])}, **extra))
         # yards: what is left of the block (behind or beside the houses), one theme per block
         if themes and left:
             theme = themes[tile_hash(group[0][0] * 3 + 1, group[0][1] * 3 + 7) % len(themes)]
@@ -351,8 +403,21 @@ def dress(m, rl=None):
                 if y in seen_y:
                     y = theme[0]
                 seen_y.add(y)
-                items.append({"kind": "yard", "id": y, "at": list(t)})
-                used[t] = len(items) - 1
+                out.append(dict({"kind": "yard", "id": y, "at": list(t)}, **extra))
+
+    for group in groups_of(free):
+        dress_group(group, items)
+    for it_i, it in enumerate(items):
+        w, h = it.get("size", [1, 1])
+        for dr in range(h):
+            for dc in range(w):
+                used[(it["at"][0] + dc, it["at"][1] + dr)] = it_i
+    # the footprint of each site dressed like filler too, for a game where that building is not there (a scenario
+    # that leaves a workshop out): WorldView draws these only when the site's tiles are free
+    alt = []
+    for sid, s in sorted(m.sites.items()):
+        if sid != "town_hall":
+            dress_group(sorted(s["tiles"], key=lambda t: (t[1], t[0])), alt, sid)
     yard_tiles = {tuple(it["at"]) for it in items if it["kind"] == "yard"}
 
     def open_spot(t, allow_yard=True, allow_plaza=False, allow_site=False):
@@ -375,7 +440,7 @@ def dress(m, rl=None):
 
     props = []  # (tile, item)
 
-    def add_prop(kind, sid, t, toward=None, frac=0.0, flip=False):
+    def add_prop(kind, sid, t, toward=None, frac=0.0, flip=False, site=""):
         off = [0, 0]
         if toward is not None:
             a, b = to_world(*t), to_world(*toward)
@@ -385,6 +450,8 @@ def dress(m, rl=None):
             it["off"] = off
         if flip:
             it["flip"] = True
+        if site:
+            it["site"] = site  # only with that building in the game (its props by the door)
         items.append(it)
         props.append(t)
         if t not in used:
@@ -460,7 +527,7 @@ def dress(m, rl=None):
                     continue
             elif not open_spot(t, allow_yard=True):
                 continue
-            add_prop("prop", kinds[n], t, toward=toward, frac=frac)
+            add_prop("prop", kinds[n], t, toward=toward, frac=frac, site=sid)
             n += 1
     # 3. a cart by each market stall (behind or beside it, never in front of its service tile)
     scfg = rl["stalls"]
@@ -524,7 +591,7 @@ def dress(m, rl=None):
             if d[1] == 0:
                 it["flip"] = True
             items.append(it)
-    return {"_doc": rl["_decor_doc"], "items": items}
+    return {"_doc": rl["_decor_doc"], "items": items + alt}
 
 
 def _touch(a, b):
@@ -571,12 +638,10 @@ def bfs(m, start):
     return seen
 
 
-DOOR_FACE = None
-
-
-def door_faces(cat):
-    """Which face of each building scene carries the drawn door: "row" (lower-left, default) or "col"."""
-    return cat.view.get("building_door_face", {}).get("faces", {})
+def _catalog_problems():
+    """The catalogue of drawn doors against the Door markers of the scenes (tools/city/sprites_catalog.py)."""
+    import sprites_catalog
+    return sprites_catalog.check()
 
 
 def validate(m, strict=False, hand_decor=None):
@@ -600,8 +665,9 @@ def validate(m, strict=False, hand_decor=None):
     for kind, sid, tile, svc in m.services():
         if kind != "town_hall" and tile in seen:
             rep.error(f"{kind} {sid} en {tile} encima de {seen[tile]}")
-    # doors give to a walkable tile next to the footprint, on a street
-    faces = door_faces(m.cat)
+    # doors give to a walkable tile next to the footprint, on a street, and the drawn door (Door marker) is there
+    for prob in _catalog_problems():
+        rep.error(prob)
     for sid, s in sorted(m.sites.items()):
         d = s["door"]
         if d is None:
@@ -615,20 +681,23 @@ def validate(m, strict=False, hand_decor=None):
             continue
         if not (m.is_road(d) or any(m.is_road((d[0] + dd[0], d[1] + dd[1])) for dd in DIRS)):
             soft(f"{sid}: la puerta {d} no da a una calle ni a un camino ({m.kind(d)})")
-        if sid == "town_hall":
-            scene, drawn, flip, out_d = "town_hall", "town_hall", False, (d[0] - inner[0][0], d[1] - inner[0][1])
-        else:
-            scene, drawn, flip, out_d = building_scene(m.cat, s)
-        face = faces.get(scene, faces.get(s["type"], "row"))
-        if flip is None:
-            soft(f"{sid} ({scene}): la puerta {d} da hacia {_dir_name(out_d)} y su sprite (con texto, no se refleja) "
-                 f"la dibuja en la otra cara visible")
-        elif out_d not in VISIBLE and drawn == scene:
-            rep.warn(f"{sid} ({scene}): la puerta {d} queda en una cara oculta (hacia {_dir_name(out_d)}) y no hay "
-                 f"{scene}_back; el sprite dibuja la puerta en la cara "
-                 f"{'inferior izquierda' if face == 'row' else 'inferior derecha'}")
+        scene, drawn, flip, out_d = building_scene(m.cat, s)
+        e = m.cat.sprites.get("buildings/" + drawn)
+        if e is None:
+            rep.error(f"{sid}: la escena buildings/{drawn} no tiene marcador Door (data/building_sprites.json)")
+            continue
+        dside, dtile = drawn_door(e, flip, s["footprint"])
+        rel = (d[0] - s["origin"][0], d[1] - s["origin"][1])
+        look = f"{drawn}{' reflejado' if flip else ''}"
+        if dside != SIDE_OF[out_d]:
+            why = "no hay vista de espaldas" if out_d not in VISIBLE else "no se puede reflejar (lleva texto)"
+            soft(f"{sid} ({look}): la puerta del mapa {d} da a {SIDE_OF[out_d]} y el sprite la dibuja en {dside} "
+                 f"({why})")
+        elif tuple(dtile) != rel:
+            soft(f"{sid} ({look}): la puerta del mapa está en la casilla {list(rel)} de la huella y la dibujada en "
+                 f"{list(dtile)}")
         elif drawn != scene or flip:
-            rep.note(f"{sid}: puerta hacia {_dir_name(out_d)} -> {drawn}{' girado' if flip else ''}")
+            rep.note(f"{sid}: puerta hacia {SIDE_OF[out_d]} -> {look}")
     # connectivity from the plaza
     plaza = next((t for t in m.all_tiles() if m.kind(t) == "plaza"), None)
     start = plaza or tuple((m.d.get("spawns") or {}).get("player", (0, 0)))
@@ -700,6 +769,7 @@ def validate(m, strict=False, hand_decor=None):
     prot = m.protected()
     free = m.free_filler()
     covered = {}
+    alt_covered = {}  # site -> {tile: item}: the footprint of a site dressed for a game without that building
     n_kind = {}
     lantern_at = []
     for i, it in enumerate(decor):
@@ -711,22 +781,34 @@ def validate(m, strict=False, hand_decor=None):
         if not os.path.exists(os.path.join(ROOT, "game", "visuals", "props", it["id"] + ".tscn")):
             rep.error(f"decor[{i}]: no hay escena game/visuals/props/{it['id']}.tscn")
         if k in ("house", "yard", "single"):
+            site = it.get("site", "")
+            area = m.sites[site]["tiles"] if site in m.sites else free
+            cov = alt_covered.setdefault(site, {}) if site else covered
             for t in tiles:
-                if t not in free:
-                    rep.error(f"decor[{i}] {it['id']}: {t} no es una casilla de relleno libre ({m.kind(t)})")
-                if t in covered:
-                    rep.error(f"decor[{i}] {it['id']}: {t} ya lo cubre decor[{covered[t]}]")
-                covered[t] = i
+                if t not in area:
+                    where = f"del solar {site}" if site else "de relleno libre"
+                    rep.error(f"decor[{i}] {it['id']}: {t} no es una casilla {where} ({m.kind(t)})")
+                if t in cov:
+                    rep.error(f"decor[{i}] {it['id']}: {t} ya lo cubre decor[{cov[t]}]")
+                cov[t] = i
             if k == "house":
                 f = tuple(it.get("facing", (0, 1)))
                 lot = (at[0], at[1], w, h)
-                fr = lot_facing_dir(m, lot, f, set(free), rl["filler"]["street_reach"])
+                fr = lot_facing_dir(m, lot, f, set(area), rl["filler"]["street_reach"])
                 if not fr:
                     rep.error(f"decor[{i}] casa {it['id']} en {at}: su puerta (hacia {_dir_name(f)}) no da a una calle")
-                exp_id, exp_flip = house_scene(_base_of(it["id"], rl), f, rl)
-                if (exp_id, exp_flip) != (it["id"], bool(it.get("flip", False))):
-                    rep.error(f"decor[{i}] casa {it['id']} en {at}: el sprite y el giro no casan con su puerta "
-                              f"(hacia {_dir_name(f)}: {exp_id}{' girada' if exp_flip else ''})")
+                e = m.cat.sprites.get("props/" + it["id"])
+                if e is None:
+                    rep.error(f"decor[{i}] casa {it['id']}: su escena no tiene marcador Door")
+                    continue
+                dside, dtile = drawn_door(e, bool(it.get("flip", False)), (w, h))
+                if dside != SIDE_OF[f]:
+                    rep.error(f"decor[{i}] casa {it['id']} en {at}: dibuja la puerta en {dside} y la calle le queda "
+                              f"en {SIDE_OF[f]}")
+                dt = (at[0] + dtile[0], at[1] + dtile[1])
+                if not m.walkable(dt) and dt not in area:
+                    rep.error(f"decor[{i}] casa {it['id']} en {at}: delante de su puerta, {dt}, no se puede pasar "
+                              f"({m.kind(dt)})")
         else:
             x, y = to_world(*at)
             off = it.get("off", [0, 0])
@@ -742,6 +824,10 @@ def validate(m, strict=False, hand_decor=None):
                     rep.error(f"decor[{i}] {it['id']} en {t}: encima de una casa de relleno")
             if it["id"] == rl["lanterns"]["id"]:
                 lantern_at.append(at)
+    for sid, cov in sorted(alt_covered.items()):
+        rest = sorted(m.sites[sid]["tiles"] - set(cov))
+        if rest:
+            rep.error(f"el vestido de reserva del solar {sid} no cubre {rest[0]} (y {len(rest) - 1} más)")
     missing = sorted(free - set(covered))
     if missing:
         soft(f"{len(missing)} casillas de relleno sin vestir (la primera {missing[0]}): el juego las rellena como antes")
@@ -770,13 +856,6 @@ def lot_facing_dir(m, lot, d, block, reach):
     hits = [road_reach(m, t, d, reach, block) for t in front_line(lot, d)]
     need = max(2, (lot[2] if d[1] else lot[3]) - 1)
     return sum(1 for k in hits if k is not None) >= need
-
-
-def _base_of(sid, rl):
-    for base, back in rl["filler"]["back"].items():
-        if sid == back:
-            return base
-    return sid
 
 
 def _dir_name(d):

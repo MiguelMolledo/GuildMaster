@@ -12,6 +12,8 @@ calle, patios detrás, farolas, barriles, carros, bancos, vallas) y **genera** c
 | `tools/city/preview.py` | La vista previa en PNG (plano + boceto isométrico), sin abrir el juego |
 | `tools/city/reglas.json` | Las cifras de las reglas (cada cuántas casillas una farola, qué props van en cada taller…) |
 | `tools/city/sprites_ciudad.py`, `fal_ciudad.py` | Los sprites del constructor (farola, valla, casas de espaldas) y su gasto en fal |
+| `tools/city/sprites_catalog.py` | Exporta `data/building_sprites.json` de los marcadores `Door` de las escenas (y lo comprueba) |
+| `tools/city/proponer_puerta.py`, `marcar_puertas.py` | Ayuda de una vez al importar un sprite: propone la puerta; escribe el marcador |
 | `tools/scenarios/make_city_scenarios.gd` | Un escenario de prueba `<mapa>_start` por cada ciudad generada |
 
 Por qué Python: las herramientas offline del repo ya lo son (`validate_content.py`, `arte.py`, `make_town_e.py`),
@@ -79,36 +81,50 @@ todo es error; en `town_e` (hecho a mano) lo que su trazado antiguo incumple que
 | La población cabe | Cada hogar en una casa del mapa distinta, como mucho `house_capacity` por casa, y el total cabe |
 | El vestido | Cubre cada `#` libre una sola vez; cada casa de relleno mira a una calle y su sprite y su giro casan con su puerta; ninguna pieza pisa una puerta, un camino (`=`, `,`, `b`), un servicio, un punto social, un spawn ni un oficio; lo mismo para la decoración a mano de `game/visuals/towns/<mapa>.tscn` |
 | Puertas en caras ocultas (aviso) | Un edificio del sim con la puerta hacia -fila o -columna y sin escena `<id>_back`: su sprite dibuja la puerta en la otra cara |
-| Sin reflejo (aviso) | Una escena de `building_door_face.no_mirror` (carteles con texto: la sastrería) con la puerta en la otra cara visible |
+| Marcadores de puerta | Cada escena de `game/visuals/buildings/` y cada casa de relleno tiene su `Door`, y `data/building_sprites.json` dice lo mismo (`sprites_catalog.check`) |
+| Puerta dibujada = puerta del mapa | Para cada edificio del sim, el lado y la casilla de la puerta que dibuja su escena (con el reflejo o la vista de espaldas que elija el juego) son los de `door` del mapa; en las casas de relleno, el lado es el de su calle y la casilla de delante de la puerta es transitable |
 
-### La orientación de una casa
+### Puertas: el marcador `Door`
 
-La cámara ve las dos caras que miran a **+fila** (abajo a la izquierda) y a **+columna** (abajo a la derecha). Con
-un sprite que dibuja la puerta en una de ellas salen las cuatro orientaciones:
+Dónde está la puerta lo dice la escena, no la imagen. Cada escena de edificio, casa o variante
+(`game/visuals/buildings/*.tscn`, `game/visuals/props/lot_house_*.tscn`) lleva un `Marker2D` **«Door»** en el umbral
+de la puerta dibujada, con estos metadatos:
 
-| La calle queda hacia | Sprite | Reflejado |
-|---|---|---|
-| +fila | la casa | no |
-| +columna | la casa | sí |
-| -fila | la casa de espaldas (`<id>_back`) | no |
-| -columna | la casa de espaldas | sí |
+| Metadato | Qué es |
+|---|---|
+| `side` | La cara de la huella: **SW** (mira a +fila, abajo a la izquierda), **SE** (+columna, abajo a la derecha), **NE** (-fila) y **NW** (-columna); las dos últimas no las ve la cámara |
+| `tile` | La casilla de la puerta desde el origen de la huella (fuera de la huella, en ese lado) |
+| `footprint` | La huella para la que está dibujado el sprite |
+| `mirror` | Si puede reflejarse (no lleva texto: la sastrería, no) |
+| `back` / `front` | La misma escena vista desde el otro lado (`""` si no hay) |
 
-Las casas de relleno lo hacen con `lot_house_<a..f>` y `lot_house_<a..f>_back` (`tools/city/reglas.json`
-`filler.back`). Los edificios del sim, en el juego (`WorldView._door_facing`): `data/view.json`
-`building_door_face.faces` dice en qué cara dibuja la puerta cada escena (`row` por defecto, `col` la forja y la
-sastrería); si la puerta del mapa está en la otra cara visible se refleja (salvo las de `no_mirror`, cuyo cartel
-tiene texto y saldría al revés), y si está en una oculta usa `<escena>_back` si existe (hoy `house_slate_back`,
-`house_ochre_back`, `house_tall_back`). El generador pone cada edificio, si puede, donde su puerta cae en una cara
-que la cámara ve y que su sprite dibuja (la sastrería, solo con la calle hacia +columna); si no hay sitio así, en la
-calle que le toca con aviso.
+- **El reflejo no lleva marcador propio**: x → -x cambia columnas por filas, así que SW ↔ SE y NE ↔ NW, y la casilla
+  sale de la posición reflejada sobre la huella del mapa. Con un sprite y su vista de espaldas salen las cuatro
+  orientaciones: como está, reflejado, de espaldas, de espaldas reflejado.
+- **El catálogo**: `data/building_sprites.json` (no se edita a mano) se exporta de los marcadores con
+  `python3 tools/city/sprites_catalog.py`; `--check` sale con 1 si no casan (lo usa el validador) y
+  `tests/test_ciudad_sprites.gd` lo comprueba contra las escenas cargadas. El generador y el validador leen el
+  catálogo; el juego (`WorldView._door_facing`, `VisualPaths.door_of`) lee el marcador de la escena que dibuja.
+- **Un sprite nuevo**: `python3 tools/city/proponer_puerta.py buildings/<id> --sheet reports/ciudad/puertas.png`
+  propone el umbral (el hueco oscuro de la fachada que toca la base) y dibuja la propuesta: solo ayuda, falla a
+  menudo. Mira la hoja, pon el `Door` en Godot (o en `tools/city/marcar_puertas.py`, que escribió los primeros) con
+  su posición y metadatos, y exporta el catálogo.
+- **Otros accesos** (el portalón de un patio, la entrada de un campo, el sitio de un carro): el exportador recoge
+  cualquier escena con un `Door`; hoy no hace falta ninguno más (el portalón de la carpintería es su `Door`; las
+  farolas y los props se apoyan en su `Feet`).
+
+En town_e el juego dibuja de espaldas las tres casas de vecinos cuyo aspecto tiene `back`
+(`house_slate_back`, `house_ochre_back`, `house_tall_back`); el resto de edificios del sim con la puerta en una cara
+oculta queda como aviso hasta que tengan su vista de espaldas. El generador pone cada edificio donde una de sus
+vistas dibuja la puerta en una cara que la cámara ve, y escribe en el mapa la casilla de puerta que dice su marcador.
 
 ## 3. Reglas de mobiliario
 
 Las hace `citylib.dress` en este orden; las cifras están en `tools/city/reglas.json`:
 
 1. **Casas de relleno**: en cada manzana libre, lotes de 3×3 donde su frente da a una calle a `street_reach`
-   casillas o menos (mejor calle que plaza, mejor plaza que camino), las puertas hacia ella; dos lotes vecinos nunca
-   con la misma casa.
+   casillas o menos (mejor calle que plaza, mejor plaza que camino), con la vista cuyo `Door` mira a ella; dos lotes
+   vecinos nunca con la misma casa.
 2. **Patios**: lo que queda de la manzana (detrás o al lado de las casas), un tema por manzana (huerto o patio de
    trabajo, `data/view.json` `filler.yard_themes`).
 3. **Farolas** (`lanterns`): primero en los cruces, luego cada `every` casillas a lo largo de las calles, en la
@@ -165,7 +181,7 @@ antes (`_add_filler`). La decoración a mano de `game/visuals/towns/<mapa>.tscn`
 | Valla | `props/fence` | ✔ (campos) | Un tramo dibujado `\`, reflejado para `/` |
 | Árboles | `props/tree*` | ✔ | `data/view.json` `prop_variants.tree` |
 | Agua, orilla, puente | `tiles/water*`, `tiles/bridge*` | `rio` (y el estanque) | |
-| Edificios del sim | `buildings/<tipo>` | ✔ | Con la puerta en una cara oculta hace falta `<tipo>_back` (lo lleva el arte, ver §2) |
+| Edificios del sim | `buildings/<tipo>` | ✔ | Cada uno con su `Door`; con la puerta en una cara oculta hace falta `<tipo>_back` (lo lleva el arte, ver §2) |
 
 Cómo se hicieron la farola y las casas de espaldas (fal, `nano-banana-2/edit` con una sola referencia: el sprite
 vecino ×4 sobre blanco, y recorte y paleta locales): `tools/city/fal_ciudad.py` y `tools/city/sprites_ciudad.py`;
@@ -175,6 +191,6 @@ espaldas: `python3 tools/city/fal_ciudad.py gen --piece back_houses --name <id>_
 
 ## Rituales
 
-`python3 tools/city/ciudad.py validar` (0 errores) · `python3 tools/validate_content.py` · `python3 tools/arte.py` ·
-pruebas (`--only=test_ciudad`, `--only=test_arte_filler`) · arranque (`zsh tools/qa/boot_check.sh`) · los bots en el
+`python3 tools/city/ciudad.py validar` (0 errores; incluye `sprites_catalog.py --check`) · `python3 tools/validate_content.py` · `python3 tools/arte.py` ·
+pruebas (`--only=test_ciudad` cubre decor, mapas y marcadores; `--only=test_arte_filler`) · arranque (`zsh tools/qa/boot_check.sh`) · los bots en el
 escenario nuevo · la captura `--smoke-script=mapa` (mírala).
