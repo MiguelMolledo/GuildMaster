@@ -341,6 +341,12 @@
       "tema": "Escala del arte",
       "decision": "Escala B: puerta 52 px, plantas 64 + 48 (casa de 2 plantas 176 px, 3,7 veces el personaje de 48), solares sin cambiar. Densidad única 1:1 sin excepciones (el ayuntamiento a 1,6 se rehace). Monumentos con tope de 400 px, hechos por módulos sobre la rejilla. Lámina de referencia para PixelLab: E pueblo-calle de cerca. Antes del 15-nov se prueba la escala B en el juego con las casas estiradas, sin créditos. La vista amplia se decide tras la prueba del 15-nov.",
       "por_que": "Estudio docs/arte/escala.md; el owner aprobó todas las recomendaciones."
+    },
+    {
+      "fecha": "2026-11-03",
+      "tema": "Población variada",
+      "decision": "Cada partida nueva genera con su semilla el reparto cosmético (nombres, apellidos de casa, edades en rango, aspecto, retrato base, colores de las familias IA y personalidad de los vecinos; data/cast.json). Lo que pesa en el balance sale de los datos y no varía; también el orden de edad de los vecinos (los cargos van al mayor). «Reparto fijo» (choices cast = fixed) conserva el de antes para pruebas, escenarios y dianas (sim_runner por defecto). «Otra familia» en Partida nueva usa una sub-semilla del reparto: la semilla del mundo no cambia. Guardado v14 (raíz cast y visual.portrait).",
+      "por_que": "Encargo del owner: que varias partidas no tengan siempre las mismas familias y vecinos, y que cada ciudad tenga su gente. La sub-semilla deja el mundo igual (mismos eventos y tiradas) y cambia solo quién vive en él."
     }
   ],
   "pendientes": [

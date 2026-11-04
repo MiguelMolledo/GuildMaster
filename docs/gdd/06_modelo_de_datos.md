@@ -58,7 +58,7 @@ guarda `upgrades` (terminadas), `upgrade_work` (obra en curso) e `inspection`: v
   "controlled_by": "ai", "directives": ["work"], "schedule": null, "order_queue": [], "position": [12, 30],
   "visual": { "base": "artisan_m", "hair": 3, "skin": 1 } }
 ```
-`birth_day` cuenta en días desde el día 1 del año 1: con D1(b) (8 días por año), −200 son 25 años. `visual.hair` y `visual.skin` son índices de la paleta de intercambio; la ropa toma los colores de la familia (4.10.9). `schedule` solo lo usan los personajes controlados (4.10.8).
+`birth_day` cuenta en días desde el día 1 del año 1: con D1(b) (8 días por año), −200 son 25 años. `visual.hair` y `visual.skin` son índices de la paleta de intercambio; la ropa toma los colores de la familia (4.10.9). Desde v14 `visual.portrait = {id, type}` es el retrato base (id del pool de `assets/art/portraits/index.json` y tipo social; cambia de franja al envejecer) y la raíz guarda `cast = {mode, seed, map}`, cómo se repartió la población (`docs/contratos/poblacion.md`). `schedule` solo lo usan los personajes controlados (4.10.8).
 
 `rank` es el rango de oficio de la persona (`""` si no es trabajador de oficio): vive en el personaje y no en `job`
 porque un candidato sin empleo lo enseña y un despedido lo conserva. `job` es `null` sin empleo; su forma y sus reglas,

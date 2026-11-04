@@ -65,7 +65,7 @@ func _load_game(id: String) -> void:
 	var test: Dictionary = _tut.chapters[id].get("test", {})
 	var r: Dictionary
 	if test.has("start"):
-		r = NewGame.from_start(Game.sim.catalog, str(test["start"]), "normal", {}, 7)
+		r = NewGame.from_start(Game.sim.catalog, str(test["start"]), "normal", {"cast": "fixed"}, 7)
 	else:
 		r = NewGame.from_scenario(str(test.get("scenario", "")))
 	if not bool(r.get("ok", false)):

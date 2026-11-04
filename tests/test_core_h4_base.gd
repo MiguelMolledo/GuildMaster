@@ -76,7 +76,7 @@ func test_sandbox_townsfolk_are_unemployed_at_home() -> void:
 
 
 func test_new_game_places_the_townsfolk_after_the_shops() -> void:
-	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"]
+	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"]
 	eq(str(st.families["fam_0002"]["ai_profile"]), "rival_smith", "the rival is still fam_0002")
 	eq(str(st.characters["chr_0002"]["name"]), "Bernat", "Bernat is still chr_0002")
 	eq(str(st.buildings["bld_0003"]["type"]), "armory", "the armory is still bld_0003")

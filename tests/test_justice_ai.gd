@@ -12,7 +12,7 @@ var cat := Catalog.load_from()
 
 
 func _sim(day: int) -> Sim:
-	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"], cat)
+	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"], cat)
 	sim.state.families[RIVAL_FAM]["title"] = "citizen"
 	sim.state.families[RIVAL_FAM]["gold"] = 0  # no campaign, no title: only the accusation is on its mind
 	sim.state.clock["minute"] = day * Clock.MINUTES_PER_DAY + 4 * 60

@@ -14234,5 +14234,743 @@
   "imagenes": 1,
   "usd": 0.0003,
   "que": "image2pixel f_elder_rogue_06_cara_s12.png"
+ },
+ {
+  "fecha": "2026-11-04T00:22:09",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_accusation"
+ },
+ {
+  "fecha": "2026-11-04T00:22:11",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_proposal"
+ },
+ {
+  "fecha": "2026-11-04T00:22:11",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_title_citizen"
+ },
+ {
+  "fecha": "2026-11-04T00:22:12",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_succession"
+ },
+ {
+  "fecha": "2026-11-04T00:22:23",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_title_patrician"
+ },
+ {
+  "fecha": "2026-11-04T00:22:26",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_title_baron"
+ },
+ {
+  "fecha": "2026-11-04T00:22:27",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_title_noble"
+ },
+ {
+  "fecha": "2026-11-04T00:22:30",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_verdict_guilty"
+ },
+ {
+  "fecha": "2026-11-04T00:22:39",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_verdict_innocent"
+ },
+ {
+  "fecha": "2026-11-04T00:22:42",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_ending_retire"
+ },
+ {
+  "fecha": "2026-11-04T00:22:42",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_ending_ruin"
+ },
+ {
+  "fecha": "2026-11-04T00:22:48",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_new_game"
+ },
+ {
+  "fecha": "2026-11-04T00:23:02",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0021,
+  "que": "image2pixel card_succession_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:23:07",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_proposal_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:23:12",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_accusation_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:23:18",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_title_citizen_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:23:24",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0006,
+  "que": "image2pixel card_title_patrician_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:23:29",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_title_baron_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:23:34",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_title_noble_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:23:39",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_verdict_guilty_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:23:45",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_verdict_innocent_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:23:50",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel screen_ending_ruin_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:23:55",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel screen_ending_retire_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:24:00",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel screen_new_game_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:24:39",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_ending_ruin"
+ },
+ {
+  "fecha": "2026-11-04T00:24:55",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "screen_ending_retire"
+ },
+ {
+  "fecha": "2026-11-04T00:25:13",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "card_title_noble"
+ },
+ {
+  "fecha": "2026-11-04T00:25:18",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0006,
+  "que": "image2pixel screen_ending_ruin_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:25:24",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel screen_ending_retire_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:25:29",
+  "tanda": "tanda4",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel card_title_noble_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T00:39:33",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "armory_back"
+ },
+ {
+  "fecha": "2026-11-04T00:39:47",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "forge_back"
+ },
+ {
+  "fecha": "2026-11-04T00:40:02",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.002,
+  "que": "image2pixel armory_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:40:12",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0006,
+  "que": "image2pixel forge_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:40:43",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_back"
+ },
+ {
+  "fecha": "2026-11-04T00:40:43",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "tailor_shop_back"
+ },
+ {
+  "fecha": "2026-11-04T00:40:45",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "carpentry_back"
+ },
+ {
+  "fecha": "2026-11-04T00:40:45",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "town_hall_back"
+ },
+ {
+  "fecha": "2026-11-04T00:40:47",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "masonry_back"
+ },
+ {
+  "fecha": "2026-11-04T00:40:53",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel house_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:41:02",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel town_hall_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:41:11",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel carpentry_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:41:20",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel masonry_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:41:29",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel tailor_shop_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:42:22",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "carpentry_back"
+ },
+ {
+  "fecha": "2026-11-04T00:42:38",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "tailor_shop_back"
+ },
+ {
+  "fecha": "2026-11-04T00:42:54",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "town_hall_back"
+ },
+ {
+  "fecha": "2026-11-04T00:43:22",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0042,
+  "que": "image2pixel carpentry_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:43:30",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel tailor_shop_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:43:38",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel town_hall_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:44:14",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "town_hall_back"
+ },
+ {
+  "fecha": "2026-11-04T00:44:24",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0012,
+  "que": "image2pixel town_hall_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:45:05",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "forge_back_construction"
+ },
+ {
+  "fecha": "2026-11-04T00:45:05",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "armory_back_construction"
+ },
+ {
+  "fecha": "2026-11-04T00:45:06",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "carpentry_back_construction"
+ },
+ {
+  "fecha": "2026-11-04T00:45:07",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_back_construction"
+ },
+ {
+  "fecha": "2026-11-04T00:45:19",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "tailor_shop_back_construction"
+ },
+ {
+  "fecha": "2026-11-04T00:45:20",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "forge_back_damaged"
+ },
+ {
+  "fecha": "2026-11-04T00:45:21",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "armory_back_damaged"
+ },
+ {
+  "fecha": "2026-11-04T00:45:21",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "masonry_back_construction"
+ },
+ {
+  "fecha": "2026-11-04T00:45:33",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_back_damaged"
+ },
+ {
+  "fecha": "2026-11-04T00:45:35",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "masonry_back_damaged"
+ },
+ {
+  "fecha": "2026-11-04T00:45:35",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "carpentry_back_damaged"
+ },
+ {
+  "fecha": "2026-11-04T00:45:37",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "tailor_shop_back_damaged"
+ },
+ {
+  "fecha": "2026-11-04T00:45:43",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel armory_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:45:51",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel forge_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:45:59",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel house_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:46:07",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel carpentry_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:46:14",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel masonry_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:46:23",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tailor_shop_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:46:31",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel armory_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:46:39",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel forge_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:46:46",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel house_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:46:53",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel carpentry_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:47:01",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel masonry_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:47:08",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tailor_shop_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:48:08",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_back_construction"
+ },
+ {
+  "fecha": "2026-11-04T00:48:22",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "masonry_back_construction"
+ },
+ {
+  "fecha": "2026-11-04T00:48:38",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "masonry_back_damaged"
+ },
+ {
+  "fecha": "2026-11-04T00:48:43",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel house_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:48:51",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel masonry_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T00:49:00",
+  "tanda": "espaldas",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel masonry_back_damaged_s4.png"
  }
 ]

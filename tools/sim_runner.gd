@@ -57,6 +57,9 @@ extends SceneTree
 ## force), e.g. --start=artisan_blacksmith --bots=events --days=80 --seeds=2. --set also reaches seasons.<key> and
 ## events.<key> (e.g. --set=events.enabled=false: the same seeds without events). The bots listed in data/targets.json
 ## _no_events (targets fixed before H13) run without global events unless --events=on.
+## Población: --start games use the fixed cast (today's names, ages and tones: the targets were set with it) unless
+## --cast=random (a generated cast per seed, Cast.sub_seed of the seed: what a player's new game gets). The reports of
+## a --cast=random run go with --tag (e.g. --tag=cast_random) so they do not replace the official ones.
 
 var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
 	"random_clicker": BotRandomClicker, "idle_rival": BotIdle, "artisan_novice": BotArtisanNovice,
@@ -90,6 +93,7 @@ func _init() -> void:
 	var sets: PackedStringArray = []
 	var tag := ""  # name of a trial's report (reports/sim/trial_<tag>_...)
 	var events_on := false  # H13: --events=on runs the bots of targets _no_events with the global events too
+	var cast := "fixed"  # población: --cast=random deals a generated cast per seed (the targets were set with the fixed one)
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--scenario="):
 			scenario = a.substr(11)
@@ -109,6 +113,8 @@ func _init() -> void:
 			tag = a.substr(6)
 		elif a == "--events=on":
 			events_on = true
+		elif a.begins_with("--cast="):
+			cast = a.substr(7)
 	var cat := Catalog.load_from()
 	for spec: String in sets:
 		if not _apply_set(cat, spec):
@@ -149,7 +155,9 @@ func _init() -> void:
 					bot.set(kv.get_slice("=", 0), kv.get_slice("=", 1).to_int())
 				var r := {}
 				if start != "":
-					var choices: Dictionary = bot.call("bot_choices") if bot.has_method("bot_choices") else {}
+					var choices: Dictionary = (bot.call("bot_choices") as Dictionary).duplicate() if bot.has_method("bot_choices") else {}
+					if not choices.has("cast"):
+						choices["cast"] = cast
 					r = NewGame.from_start(cat, start, diff, choices, s)
 				else:
 					r = NewGame.from_scenario(scenario, s)

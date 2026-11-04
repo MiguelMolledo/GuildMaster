@@ -76,7 +76,7 @@ func test_h3_orders_are_wired() -> void:
 	for t: String in ["buy", "sell", "repay_loan", "read_notices", "accept_contract", "deliver_contract", "abandon_contract"]:
 		var r := Orders.apply(sim, base.merged({"type": t}))
 		check(r["reason"] != "unknown_order", "%s is wired (%s)" % [t, r["reason"]])
-	check(NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1).has("ok"), "from_start answers")
+	check(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1).has("ok"), "from_start answers")
 	sim.run_minutes(Clock.MINUTES_PER_DAY)  # every H3 system runs a whole day without breaking anything
 
 

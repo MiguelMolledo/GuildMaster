@@ -14,7 +14,7 @@ var cat: Catalog
 
 func _init() -> void:
 	cat = Catalog.load_from()
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 7)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 	if not r["ok"]:
 		quit(1)
 		return

@@ -78,7 +78,7 @@ func test_round_trip_with_offices_and_elections() -> void:
 
 
 func test_new_game_government() -> void:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)
 	check(r["ok"], "new game")
 	var sim := Sim.new(r["state"], cat)
 	var st := sim.state

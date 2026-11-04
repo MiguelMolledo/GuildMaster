@@ -1,0 +1,58 @@
+{
+  "_doc": "Generated cast of a new game (sim/meta/cast.gd, docs/contratos/poblacion.md, GDD 4.11.1 and 4.10.9). With the cast seed of the game (Cast.sub_seed(world seed, roll): the «Otra familia» button only changes the roll) it decides the cosmetic part of the protagonist, the rival, the competitors and the townsfolk of the map's population: given names, house surnames, ages in their range, sex when the data does not fix it, look (hair and skin tones, portrait type and variant) and the clothes colours of the AI families, plus the townsfolk's personality. What weighs on the balance comes from data/starts and data/maps and never varies: the stats of the key characters, gold, debt, buildings, ranks, professions and the protagonist's age. The «fixed» cast (choices cast = \"fixed\", the tests and scenarios) keeps the names, ages and tones written in data/starts and data/maps, and the births and newcomers draw from data/family.json names as before. Every draw comes from its own keyed stream (cast seed + key): it never moves any other roll of the game.",
+  "names": {
+    "_doc": "Given names by sex (Catalan and Castilian, Middle Ages). Dealt without repetition inside a game while they last; births and newcomers avoid the names of living people.",
+    "male": ["Pere", "Joan", "Arnau", "Bernat", "Guillem", "Ramon", "Jaume", "Martí", "Pau", "Berenguer", "Hugo", "Tomàs", "Lluc", "Bartomeu", "Ferran", "Miquel", "Jordi", "Francesc", "Esteve", "Galceran", "Gilabert", "Dalmau", "Bonanat", "Andreu", "Antoni", "Nicolau", "Llorenç", "Bertran", "Blai", "Climent", "Domènec", "Gerard", "Jofre", "Mateu", "Oleguer", "Guerau", "Ponç", "Romeu", "Simó", "Vicenç", "Bernabé", "Sancho", "Rodrigo", "Diego", "Gonzalo", "Fernando", "Alfonso", "Martín", "Pedro", "Álvaro", "Nuño", "Gutierre", "Lope", "Íñigo", "García", "Fortún", "Ramiro", "Bermudo", "Ordoño", "Pelayo", "Suero", "Tello", "Velasco", "Munio", "Rui", "Gil", "Mendo", "Fruela", "Garcés", "Nalvillo", "Esteban", "Tristán", "Lorenzo", "Juan"],
+    "female": ["Elena", "Agnès", "Clara", "Blanca", "Sança", "Margarida", "Isabel", "Violant", "Elisenda", "Marta", "Caterina", "Eulàlia", "Constança", "Francesca", "Joana", "Aldonça", "Teresa", "Mencía", "Urraca", "Elvira", "Jimena", "Sancha", "Toda", "Mayor", "Leonor", "Berenguela", "Estefanía", "Inés", "María", "Juana", "Catalina", "Beatriz", "Guiomar", "Lucía", "Oria", "Godina", "Ermessenda", "Guillema", "Ramona", "Dolça", "Saurina", "Brunissenda", "Esclarmonda", "Floreta", "Raimunda", "Tecla", "Antònia", "Llúcia", "Peronella", "Úrsula", "Sibil·la", "Valença", "Gaia", "Mafalda", "Alamanda", "Arsenda", "Adelaida", "Aldonza", "Constanza", "Marina", "Olalla", "Quiteria", "Muniadona", "Onneca", "Andregoto", "Elo", "Gontrodo", "Romia", "Bonadona", "Guisla", "Benvinguda"]
+  },
+  "surnames": {
+    "_doc": "House surnames: general = the townsfolk households; trade = the families of a trade (the protagonist, the rival and the competitors take one of their profession while it has unused ones, else a general one). Never two families with the same surname in a game.",
+    "general": ["Soler", "Puig", "Roca", "Vila", "Serra", "Font", "Pons", "Mas", "Riera", "Prat", "Vidal", "Sala", "Bosch", "Coll", "Ribas", "Camps", "Pujol", "Torrent", "Vives", "Marí", "Oliver", "Bonet", "Planas", "Comas", "Vallès", "Sabater", "Fabra", "Rovira", "Cases", "Molins", "Bassa", "Codina", "Mir", "Pla", "Canals", "Guasch", "Feliu", "Batlle", "Valls", "Gual", "Duran", "Alsina", "Ripoll", "Torras", "Ballester", "Moliner", "Sunyer", "Avinyó", "Montcada", "Cardona", "Queralt", "García", "Fernández", "Gómez", "Díaz", "Ruiz", "Sánchez", "Martínez", "López", "González", "Pérez", "Rodríguez", "Álvarez", "Muñoz", "Gutiérrez", "Ortiz", "Ramírez", "Salazar", "Mendoza", "Guzmán", "Lara", "Castro", "Haro", "Osorio", "Quiñones", "Manrique", "Ayala", "Zúñiga", "Toledo", "Medina", "Vega", "Rojas", "Ponce", "Téllez", "Núñez", "Ordóñez", "Vélez", "Peralta", "Aranda", "Molina", "Navarro", "Cuesta", "Prieto", "Calvo"],
+    "trade": {
+      "blacksmith": ["Herrero", "Ferrer", "Ferrero", "Farré", "Herrera", "Ferré", "Ferreres", "Herrador"],
+      "carpenter": ["Carpintero", "Fuster", "Fusté", "Fustero", "Serrador", "Carpinter"],
+      "mason": ["Picapedrero", "Cantero", "Pedrero", "Pedrer", "Mestre", "Picapedrer"],
+      "tailor": ["Tejedor", "Sastre", "Teixidor", "Sartre", "Cardador", "Tintorer", "Pelaire"]
+    }
+  },
+  "ages": {
+    "_doc": "Ages (years, D1(b): 8 days) by role, [min, max] drawn per person. protagonist: the start's age (the player's, it weighs on the balance). rival: narrow, around the 35 of the start (his wedding and old age, H8/H9 targets). competitor / competitor_spouse: the AI workshops' couple. townsfolk: the household members (mothers must stay <= data/family.json mother_max_age - 5 for the town's weddings; the hire panel does not read the age). A member with its own age in data/maps keeps it in the fixed cast only.",
+    "rival": [34, 36],
+    "competitor": [33, 44],
+    "competitor_spouse": [31, 41],
+    "townsfolk": [18, 30]
+  },
+  "personality": {
+    "_doc": "Townsfolk personality (GDD 4.11.3: an activity is favoured at stat >= data/town.json personality.stat_min): these stats of each household member move by a random -jitter..+jitter, clamped to [1, 10]. Never on the key characters. The rest of their stats (craft, rank: the hire candidates) stay.",
+    "stats": ["charisma", "empathy", "dexterity"],
+    "jitter": 1
+  },
+  "look": {
+    "_doc": "Identity (GDD 4.10.9): the hair and skin tones a generated person may get (indices of data/view.json palette; the beard is the hair's region of the key colours, so it takes the hair tone). Index 5 (white hair) is left to age. kin_resemblance: chance that a household member takes the house's hair / skin instead of its own (siblings look alike). Births inherit from a parent (data/family.json children.new_tone_chance) and a new tone is one of these.",
+    "hair": [0, 1, 2, 3, 4, 6, 7, 8, 9],
+    "skin": [0, 1, 2, 3, 4, 5],
+    "kin_resemblance": 0.6
+  },
+  "family_colors": {
+    "_doc": "Clothes colours [primary, secondary] of the generated AI families (GDD 4.10.9: the main clothes are the family's primary). Dealt without repetition; a pair whose primary is too close to the player's (|r|+|g|+|b| < min_distance, 0..3) is skipped.",
+    "pairs": [["#7a5230", "#d8c8a0"], ["#4a6a8a", "#e0d0b0"], ["#6a6a6a", "#c0a060"], ["#8a7a3a", "#3a3a4a"], ["#5a3a5a", "#d0b890"], ["#3a6a6a", "#e8d8b8"], ["#7a3a2a", "#b0b0a0"], ["#4a5a2a", "#d8b878"], ["#3f6b3a", "#b8b8b0"], ["#5a6b2e", "#c9a35a"], ["#4a4f5c", "#b07a3a"], ["#2e4a6b", "#c8b8a0"], ["#6b2e4a", "#d8c8a8"], ["#8a5a2a", "#2e3a4a"], ["#2e5a4a", "#c8a84e"], ["#5c4a7a", "#e0d0a0"], ["#7a6a5a", "#4a2e2e"], ["#9a4a2e", "#e8dcc0"], ["#3a3a5a", "#b8a078"], ["#6a7a3a", "#5a3a2a"], ["#2e2e3a", "#a8402a"], ["#8a8a6a", "#3a4a6b"]],
+    "min_distance": 0.25
+  },
+  "portraits": {
+    "_doc": "Base portrait of each person, from the pool of assets/art/portraits/index.json v1 (its README; Catalog.portrait_pool reads only its ids): visual.portrait = {id, type}. id: the pool's portrait (<sex>_<band>_<type>_<nn>), drawn with the cast seed among the candidates of the person's sex, age band and type (with none: the index's fallback, then commoner); kept until the age band changes, then Cast.grow_portraits takes one of the new band, the same nn if it has it (adding portraits to the pool never changes a saved one). type: the person's social type (artisan, commoner, merchant, noble, clergy, guard, scholar, farmer, rogue), kept so the next band is drawn from it even when the id came from a fallback: the protagonist's family by its class (classes), the rival, the competitors and the townsfolk by roles; a child takes its father's. stages: the pool's age bands (the first whose to_age >= age; under 6 is child).",
+    "classes": {
+      "artisan": "artisan",
+      "patron": "farmer",
+      "scholar": "scholar",
+      "rogue": "rogue"
+    },
+    "roles": {
+      "rival": "artisan",
+      "competitor": "artisan",
+      "townsfolk": "commoner",
+      "newcomer": "commoner"
+    },
+    "types": ["artisan", "commoner", "merchant", "noble", "clergy", "guard", "scholar", "farmer", "rogue"],
+    "stages": [{"id": "child", "to_age": 11}, {"id": "youth", "to_age": 17}, {"id": "adult", "to_age": 44}, {"id": "mature", "to_age": 59}, {"id": "elder", "to_age": 200}]
+  }
+}

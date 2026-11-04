@@ -89,6 +89,65 @@ static func character_id(ch: Dictionary, family: Dictionary) -> String:
 	return "%s_%s" % [role, "f" if bool(ch.get("female", false)) else "m"]
 
 
+## Población: the texture of the pool's portrait `id` (assets/art/portraits/index.json v1, its README; the id the
+## person keeps, Cast.pick_portrait): its face (32) for `size` 32, its bust (64) for 64. null if the index has no such
+## id (the greybox stays).
+static func portrait_file(id: String, size: int = 32) -> Texture2D:
+	var e: Dictionary = (portrait_index().get("_ids", {}) as Dictionary).get(id, {})
+	if e.is_empty():
+		return null
+	var path := PORTRAIT_DIR.path_join(str(e.get("face" if size <= 32 else "file", e.get("file", ""))))
+	return load(path) as Texture2D if ResourceLoader.exists(path) else null
+
+
+## A portrait for somebody who has no id yet (a game from before v14 until its next year change): the candidates of
+## sex + band + type, then the index's fallback and commoner, the one of `seed` (stable, the id number of the person).
+static func portrait(type: String, stage: String, female: bool, seed: int, size: int = 32) -> Texture2D:
+	var idx := portrait_index()
+	if idx.is_empty():
+		return null
+	var sex := "f" if female else "m"
+	var fb: Variant = (idx.get("fallback", {}) as Dictionary).get(type, {})
+	for t: String in [type, str(fb.get(stage, "")) if fb is Dictionary else "", "commoner"]:
+		var found: Array = (idx["_by"] as Dictionary).get("%s|%s|%s" % [sex, stage, t], [])
+		if not found.is_empty():
+			return portrait_file(str(found[posmod(seed, found.size())]["id"]), size)
+	return null
+
+
+const PORTRAIT_DIR: String = "res://assets/art/portraits"
+static var _portrait_index: Dictionary = {}
+
+
+## The pool's index.json ({} without one), with "_by" {"sex|age|type": [entries sorted by id]} and "_ids" {id: entry}.
+static func portrait_index() -> Dictionary:
+	if not _portrait_index.is_empty():
+		return _portrait_index
+	var out := {"_none": true}
+	var path := PORTRAIT_DIR.path_join("index.json")
+	if FileAccess.file_exists(path):
+		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+		if d is Dictionary and int((d as Dictionary).get("version", 0)) == 1:
+			out = d
+			var by := {}
+			var ids := {}
+			for e: Variant in out.get("portraits", []):
+				if e is Dictionary:
+					ids[str(e.get("id", ""))] = e
+					var k := "%s|%s|%s" % [e.get("sex", ""), e.get("age", ""), e.get("type", "")]
+					if not by.has(k):
+						by[k] = []
+					(by[k] as Array).append(e)
+			for k: String in by:
+				(by[k] as Array).sort_custom(func(x: Dictionary, y: Dictionary) -> bool: return str(x["id"]) < str(y["id"]))
+			out["_by"] = by
+			out["_ids"] = ids
+		elif OS.is_debug_build():
+			print("[Visuals] %s: not an index of version 1" % path)
+	_portrait_index = out
+	return {} if out.has("_none") else out
+
+
 ## The icon of an item: assets/art/icons/<item_id>.png (null until it exists).
 static func icon(item_id: String) -> Texture2D:
 	var p := "%s/icons/%s.png" % [ART_ROOT, item_id]

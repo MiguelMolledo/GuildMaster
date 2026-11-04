@@ -5209,6 +5209,279 @@
       "coste_gen": 0,
       "coste_usd": 0.24,
       "notas": "Grupo del pool de retratos: 7 caras (hombre, youth, scholar), busto 64 y cara _32, colores clave de 4.10.9 (hair, skin, primary, secondary). Lista y formato en assets/art/portraits/index.json y README.md."
+    },
+    {
+      "id": "illus_card_succession",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "familia"
+      ],
+      "ruta": "assets/art/illustrations/card_succession.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (succession). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_proposal",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H8",
+        "cortejo"
+      ],
+      "ruta": "assets/art/illustrations/card_proposal.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (proposal). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_accusation",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H11",
+        "tribunal"
+      ],
+      "ruta": "assets/art/illustrations/card_accusation.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (accusation). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_title_citizen",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H9",
+        "títulos"
+      ],
+      "ruta": "assets/art/illustrations/card_title_citizen.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (title_citizen). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_title_patrician",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H9",
+        "títulos"
+      ],
+      "ruta": "assets/art/illustrations/card_title_patrician.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (title_patrician). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_title_baron",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H9",
+        "títulos"
+      ],
+      "ruta": "assets/art/illustrations/card_title_baron.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (title_baron). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_title_noble",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H9",
+        "títulos"
+      ],
+      "ruta": "assets/art/illustrations/card_title_noble.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (title_noble). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_verdict_guilty",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H11",
+        "tribunal"
+      ],
+      "ruta": "assets/art/illustrations/card_verdict_guilty.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (verdict_guilty). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "illus_card_verdict_innocent",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H11",
+        "tribunal"
+      ],
+      "ruta": "assets/art/illustrations/card_verdict_innocent.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de carta (verdict_innocent). 240×135. Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_screen_ending_ruin",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "pantallas"
+      ],
+      "ruta": "assets/art/illustrations/screen_ending_ruin.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de pantalla (ending_ruin, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_screen_ending_retire",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "pantallas"
+      ],
+      "ruta": "assets/art/illustrations/screen_ending_retire.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de pantalla (ending_retire, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "ui_screen_new_game",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "UI",
+        "pantallas"
+      ],
+      "ruta": "assets/art/illustrations/screen_new_game.png",
+      "origen": "fal: nano-banana-2/edit (ref: lámina de título al alba del piloto o la pieza de la que deriva) + paleta de image2pixel y reducción con caja (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de pantalla (new_game, docs/ui/02_menu_inicial.md). 960×540 (dibujada a 480×270 y doblada ×2 entero). Sin cablear en escenas. Crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/ilustraciones/ (o ~/Code/GuildMaster-arte-crudos/fal_piloto/)."
+    },
+    {
+      "id": "bld_armory_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H3",
+        "mercado",
+        "ciudades"
+      ],
+      "ruta": "assets/art/buildings/fal/armory_back.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "El edificio armory de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/armory.tscn). Estados: armory_back_construction.png, armory_back_damaged.png. Sin cablear."
+    },
+    {
+      "id": "bld_forge_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H2",
+        "forge",
+        "ciudades"
+      ],
+      "ruta": "assets/art/buildings/fal/forge_back.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "El edificio forge de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/forge.tscn). Estados: forge_back_construction.png, forge_back_damaged.png. Sin cablear."
+    },
+    {
+      "id": "bld_house_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H4",
+        "empleados",
+        "ciudades"
+      ],
+      "ruta": "assets/art/buildings/fal/house_back.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "El edificio house de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/house.tscn). Estados: house_back_construction.png, house_back_damaged.png. Sin cablear."
+    },
+    {
+      "id": "bld_carpentry_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "carpentry",
+        "ciudades"
+      ],
+      "ruta": "assets/art/buildings/fal/carpentry_back.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "El edificio carpentry de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/carpentry.tscn). Estados: carpentry_back_construction.png, carpentry_back_damaged.png. Sin cablear."
+    },
+    {
+      "id": "bld_masonry_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "masonry",
+        "ciudades"
+      ],
+      "ruta": "assets/art/buildings/fal/masonry_back.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "El edificio masonry de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/masonry.tscn). Estados: masonry_back_construction.png, masonry_back_damaged.png. Sin cablear."
+    },
+    {
+      "id": "bld_town_hall_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H9",
+        "ayuntamiento",
+        "ciudades"
+      ],
+      "ruta": "assets/art/buildings/fal/town_hall_back.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "El edificio town_hall de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/town_hall.tscn). Estados: —. Sin cablear."
+    },
+    {
+      "id": "bld_tailor_shop_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "tailor_shop",
+        "ciudades"
+      ],
+      "ruta": "assets/art/buildings/fal/tailor_shop_back.png",
+      "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "El edificio tailor_shop de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/tailor_shop.tscn). Estados: tailor_shop_back_construction.png, tailor_shop_back_damaged.png. Sin cablear."
     }
   ]
 }

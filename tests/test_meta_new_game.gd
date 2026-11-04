@@ -12,7 +12,10 @@ var start: Dictionary = cat.starts()["artisan_blacksmith"]
 
 
 func _new(difficulty: String, choices: Dictionary = {}, world_seed: int = 1) -> Dictionary:
-	return NewGame.from_start(cat, "artisan_blacksmith", difficulty, choices, world_seed)
+	var ch := choices.duplicate()
+	if not ch.has("cast"):
+		ch["cast"] = "fixed"  # población: today's names (these tests read Hugo, Bernat, the town's people)
+	return NewGame.from_start(cat, "artisan_blacksmith", difficulty, ch, world_seed)
 
 
 func test_three_difficulties() -> void:
@@ -34,7 +37,7 @@ func test_three_difficulties() -> void:
 	eq([int(_new("easy")["state"].loans["lon_0001"]["principal"]), int(_new("hard")["state"].loans["lon_0001"]["principal"])],
 		[100, 300], "100 easy, 300 hard")
 	eq(_new("impossible"), {"ok": false, "error": "unknown_difficulty"}, "unknown difficulty")
-	eq(NewGame.from_start(cat, "nope", "normal", {}, 1), {"ok": false, "error": "unknown_start"}, "unknown start")
+	eq(NewGame.from_start(cat, "nope", "normal", {"cast": "fixed"}, 1), {"ok": false, "error": "unknown_start"}, "unknown start")
 
 
 func test_the_town_at_dawn_of_day_one() -> void:

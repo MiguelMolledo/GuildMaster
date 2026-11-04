@@ -49,7 +49,7 @@ func _process(delta: float) -> void:
 	match _step:
 		"start":
 			if _t > 0.3:
-				var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"name": "Hugo",
+				var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed", "name": "Hugo",
 					"female": false, "family_name": "Herrero", "colors": {"primary": "#8b2e2e", "secondary": "#c8a84e"},
 					"stats_add": {"craft": 2, "negotiation": 2, "constitution": 1}}, 7)
 				if not bool(r.get("ok", false)):

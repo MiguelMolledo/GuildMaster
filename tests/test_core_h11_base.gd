@@ -69,7 +69,7 @@ func test_round_trip_with_a_trial() -> void:
 
 
 func test_new_game_attitudes() -> void:
-	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"]
+	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"]
 	eq(st.families[FAM]["attitudes"], {"honesty": 0, "generosity": 0, "diplomacy": 0}, "the player starts at 0")
 	eq(int(st.families[RIVAL_FAM]["attitudes"]["honesty"]), 20, "the rival from its profile (04c, provisional)")
 	eq(st.trials, [], "no trials")

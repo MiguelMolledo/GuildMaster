@@ -180,6 +180,12 @@ theme_type_variation = &"DimLabel"
 text = "--"
 unique_name_in_owner = true
 
+[node name="RerollButton" type="Button" parent="Center/Panel/VBox/Columns/Left/FamilyRow"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
 [node name="PrimaryLabel" type="Label" parent="Center/Panel/VBox/Columns/Left"]
 layout_mode = 2
 theme_type_variation = &"GoldLabel"
