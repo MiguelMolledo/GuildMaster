@@ -44,6 +44,9 @@ python3 tools/city/ciudad.py validar town_road
   `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . --
   --smoke-script=mapa --smoke-maps=<id>_start`.
 - **No sustituyas `town_e`**: las dianas de `data/targets.json` y los escenarios se ajustaron sobre sus solares.
+  `town_e` no se genera: su fuente es `tools/maps/make_town_e.py` (trazado, solares, población y, al final, el
+  vestido por reglas). Tras tocar el mapa o las reglas, `python3 tools/maps/make_town_e.py`; el paso `town_e` de la
+  QA (`--check`) falla si el fichero y el script no coinciden.
 
 ### Los pasos del generador
 
