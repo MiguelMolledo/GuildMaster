@@ -14,7 +14,8 @@ idle_town, 2 semillas), kin (H14: un familiar con Comerciar aprovisiona la forja
 tailor (H12: el novato de cada oficio del Artesano en su partida nueva real en Normal, 10 semillas × 10 días; las 30
 semillas y las tres dificultades, a mano), cast (población: el novato con repartos generados, --cast=random, 10
 semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), duel (duelo: el bot duelista desde
-duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días), life
+duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días), gambler (juegos: el bot jugador en
+games_gambler, 3 semillas × 8 días: pierde lo que marca el margen de la casa), life
 (vida, 04f 4.28.4: el bot guard_watch en life_bandits, 3 semillas × 16 días; las dianas de antes corren con la vida
 apagada, data/targets.json _no_life). Con
 --visual, además smoke (capturas con ventana, por
@@ -56,6 +57,8 @@ STEPS = [
     ("duel", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=duel_ready", "--bots=duelist", "--days=8", "--seeds=3"]),
     ("merchant", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=travel_start", "--bots=merchant", "--days=16",
                       "--seeds=10"]),
+    ("gambler", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=games_gambler", "--bots=gambler", "--days=8",
+                     "--seeds=3"]),
     ("life", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=life_bandits", "--bots=guard_watch", "--days=16",
                   "--seeds=3"]),
 ]

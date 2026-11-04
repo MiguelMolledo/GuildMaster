@@ -1,5 +1,5 @@
 {
-  "_doc": "The duel «a tres tiempos» (docs/gdd/04e_combate.md; draft for the owner, Gate O-C*): the shared combat resolution of the duel and, later, of the rogue (4.22.6.1). Pure rules in sim/combat/ (CombatRules, Duel); nothing in the game calls them yet. Every lance both fighters choose one action: strike beats feint, feint beats parry, parry beats strike. The winner of the exchange tries a touch (touch: SkillCheck martial vs martial + advantage); a tie on strike is a clash (clash: whoever wins it touches); a tie on a weapon's edge action is a one-sided roll for its holder when its weapons.<w>.tie > 0 (weapons.<w>.touch: extra on the touch of its edge action). Lances 1..blind are blind (nobody shows a gesture); after them the initiative alternates, the challenger first: the leader chooses first and shows a gesture; the reader sees a cue that tells the truth with read_chance = base + (reader.empathy - leader.martial) x step, clamped to [min, max] (a lie shows one of the two other actions). breath: max = base + floor(constitution x per_constitution) + weapon breath; each action costs actions.<a>.breath (negative = recovers), an action that costs more than the breath left is not allowed (parry is always allowed). kinds: touches to win, lances at most (then more touches wins, equal = draw), whether the loser is wounded and whether one may yield; to_death is locked (O4). ai: the policy of the rival and of «Resolver sin jugar» (reads the cue and answers it; when leading, counters the opponent's most frequent action with probability habit once there are min_history lances, else a mix with edge_weight extra for the weapon's edge; yields in a duel that allows it when the opponent needs one touch and it is behind by yield_behind, with yield_chance). items: which equipped item fights as which weapon (anything else: fists); armor_items: the clothes that count as armour (armor.against on the rolls against its wearer). Every roll is keyed (world seed | combat | duel | lance | what): it never moves another roll of the game. [balance]",
+  "_doc": "The duel «a tres tiempos» (docs/gdd/04e_combate.md; draft for the owner, Gate O-C*): the shared combat resolution of the duel and, later, of the rogue (4.22.6.1). Pure rules in sim/combat/ (CombatRules, Duel); nothing in the game calls them yet. Every lance both fighters choose one action: strike beats feint, feint beats parry, parry beats strike. The winner of the exchange tries a touch (touch: SkillCheck martial vs martial + advantage); a tie on strike is a clash (clash: whoever wins it touches); a tie on a weapon's edge action is a one-sided roll for its holder when its weapons.<w>.tie > 0 (weapons.<w>.touch: extra on the touch of its edge action). Lances 1..blind are blind (nobody shows a gesture); after them the initiative alternates, the challenger first: the leader chooses first and shows a gesture; the reader sees a cue that tells the truth with read_chance = base + (reader.empathy - leader.martial) x step, clamped to [min, max] (a lie shows one of the two other actions). breath: max = base + floor(constitution x per_constitution) + weapon breath; each action costs actions.<a>.breath (negative = recovers), an action that costs more than the breath left is not allowed (parry is always allowed). kinds: touches to win, lances at most (then more touches wins, equal = draw), whether the loser is wounded and whether one may yield; to_death is locked (O4). ai: the policy of the rival and of «Resolver sin jugar» (reads the cue and answers it; when leading, counters the opponent's most frequent action with probability habit once there are min_history lances, else a mix with edge_weight extra for the weapon's edge; yields in a duel that allows it when the opponent needs one touch and it is behind by yield_behind, with yield_chance). items: which equipped item fights as which weapon (anything else: fists); armor_items: the clothes that count as armour (armor.against on the rolls against its wearer). Every roll is keyed (world seed | combat | duel | lance | what): it never moves another roll of the game. [balance] Juegos (04f §4.26.2): tourney = «a tres asaltos, por puntos», the bout of the fighting tournament: three rounds of three lances, every touch a point, no wound; equal points go to tourney_sudden (the first touch in three lances), then the judges (more breath left, then a keyed roll). Neither can be a duel of honour (challenge.kinds_allowed).",
   "actions": {
     "strike": {
       "beats": "feint",
@@ -105,6 +105,20 @@
       "wound": true,
       "can_yield": false,
       "locked": true
+    },
+    "tourney": {
+      "touches": 9,
+      "lances": 9,
+      "wound": false,
+      "can_yield": false,
+      "locked": false
+    },
+    "tourney_sudden": {
+      "touches": 1,
+      "lances": 3,
+      "wound": false,
+      "can_yield": false,
+      "locked": false
     }
   },
   "ai": {

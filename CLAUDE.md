@@ -114,6 +114,9 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Duelo (al tocar `data/combat.json`, `sim/combat/` o la IA rival): `godot --headless --path . -s tools/sim_runner.gd --
   --scenario=duel_ready --bots=duelist --days=8 --seeds=5` (en `run_all`, paso duel) y el banco del lance
   `godot --headless --path . -s tools/duel_bench.gd`. Capturas: `--smoke-script=duelo_partida`. Contrato: `docs/contratos/duelo.md`.
+- Juegos (al tocar `data/games.json` o `sim/games/`): el banco `godot --headless --path . -s tools/games_bench.gd
+  [-- --only=azar,pulso]` (04f §4.26.10), las pruebas `--only=test_games` y las capturas `--smoke-script=juegos
+  [--smoke-games=…]`; a mano `--games-test=<juego>`. Contrato: `docs/contratos/juegos.md`.
 - Vida (04f 4.24, al tocar `data/life/`, `sim/life/`, `TownLife` o los puntos de los mapas): todo cuelga de
   `data/life/life.json` `enabled`; las dianas de antes corren con la vida apagada (`data/targets.json` `_no_life`;
   `--life=on` para medirlas con ella). Pruebas `-- --only=test_life`; bot `godot --headless --path . -s

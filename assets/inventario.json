@@ -6824,7 +6824,7 @@
       "origen": "fal: nano-banana-2/edit (los 4 palos y 12 figuras) + image2pixel; cartas compuestas con Pillow (tools/art/juegos_taberna.py)",
       "coste_gen": 0,
       "coste_usd": 0.32,
-      "notas": "Baraja de 40 de 4 palos (04f §4.26.8), al estilo de los naipes antiguos: <oros|copas|espadas|bastos>_<1-7|10|11|12>.png (48×72, número en las esquinas, la disposición de los palos de la baraja española; 10 sota, 11 caballo, 12 rey), back.png (reverso), slot.png (hueco), suit_<palo>.png (32) y small/ (16)."
+      "notas": "Baraja de 40 de 4 palos (04f §4.26.8), al estilo de los naipes antiguos: <oros|copas|espadas|bastos>_<1-7|10|11|12>.png (48×72, número en las esquinas, la disposición de los palos de la baraja española; 10 sota, 11 caballo, 12 rey), back.png (reverso), slot.png (hueco), suit_<palo>.png (32) y small/ (16). Cableado (rama juegos): VisualPaths.game_art (alias GAME_ART_ALIAS: la mesa es el tablero de los dados, los naipes y el pulso; dice/die_<n> → dados/d<n>); naipes a 48×72 y dados a 24 (×2 en el azar), sin escalar a medias."
     },
     {
       "id": "ui_game_dados",
@@ -6837,7 +6837,7 @@
       "ruta": "assets/art/ui/games/dados/",
       "origen": "dibujado (Pillow, tools/art/juegos_taberna.py dados)",
       "coste_gen": 0,
-      "notas": "Dados de hueso (04f §4.26.7): d1-d6.png (24×24, cara de arriba, puntos exactos) y shadow.png."
+      "notas": "Dados de hueso (04f §4.26.7): d1-d6.png (24×24, cara de arriba, puntos exactos) y shadow.png. Cableado (rama juegos): VisualPaths.game_art (alias GAME_ART_ALIAS: la mesa es el tablero de los dados, los naipes y el pulso; dice/die_<n> → dados/d<n>); naipes a 48×72 y dados a 24 (×2 en el azar), sin escalar a medias."
     },
     {
       "id": "ui_game_mesa",
@@ -6851,7 +6851,7 @@
       "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel",
       "coste_gen": 0,
       "coste_usd": 0.08,
-      "notas": "Fondo de mesa de taberna para dados y naipes, visto desde arriba, el centro libre: 960×540 (480×270 ×2)."
+      "notas": "Fondo de mesa de taberna para dados y naipes, visto desde arriba, el centro libre: 960×540 (480×270 ×2). Cableado (rama juegos): VisualPaths.game_art (alias GAME_ART_ALIAS: la mesa es el tablero de los dados, los naipes y el pulso; dice/die_<n> → dados/d<n>); naipes a 48×72 y dados a 24 (×2 en el azar), sin escalar a medias."
     },
     {
       "id": "ui_forge_live",
@@ -7384,6 +7384,396 @@
       "origen": null,
       "coste_gen": 0,
       "notas": "Animal: oveja (la feria de ganado) (04f §4.25-4.26). PixelLab create_character cuadrúpedo, andar e idle en 8 direcciones, en el ciclo del 15-nov: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (11)."
+    },
+    {
+      "id": "ui_games_dice_cup",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/dados/cup.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.7): el cubilete de cuero boca abajo que tapa el dado oculto de «a la mayor», 24×24 (como los dados de ui_game_dados). Pieza a 1:1, sin texto."
+    },
+    {
+      "id": "icon_game_azar",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_azar.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono del «azar» (tres dados), 32×32 y small/game_azar.png 16×16. VisualPaths.game_icon(\"azar\"). Para la carta de la fiesta y la mesa de juego de la Posada."
+    },
+    {
+      "id": "icon_game_mayor",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_mayor.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono de «tres dados a la mayor» (dados y cubilete), 32×32 y small/ 16×16. VisualPaths.game_icon(\"mayor\")."
+    },
+    {
+      "id": "icon_game_pulso",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_pulso.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono del pulso (dos manos agarradas), 32×32 y small/ 16×16. VisualPaths.game_icon(\"pulso\")."
+    },
+    {
+      "id": "ill_game_azar",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_azar.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina de la carta de resultado del azar (dados en una mesa de taberna, a la luz de una vela), 240×135 y game_azar_192.png 192×108, estilo de las láminas de 4.28.3. VisualPaths.game_illustration(\"game_azar\")."
+    },
+    {
+      "id": "ill_game_mayor",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_mayor.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina del resultado de «a la mayor» (cuatro jugadores, cubiletes y un bote de monedas), 240×135 y _192 192×108."
+    },
+    {
+      "id": "ill_game_pulso",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_pulso.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina del resultado del pulso (dos hombres echando un pulso en la taberna, parroquianos alrededor), 240×135 y _192 192×108."
+    },
+    {
+      "id": "ui_games_tourney_list",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/tourney/list.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.2): el palenque del torneo de lucha (tierra apisonada, empalizada, público), apagado a la izquierda para leer el cuadro. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
+    },
+    {
+      "id": "icon_game_envite",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_envite.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono del envite (tres naipes en abanico), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "icon_game_tourney",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_tourney.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono del torneo de lucha (dos espadas cruzadas sobre un escudo), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "icon_game_bets",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_bets.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.6): icono del corredor de apuestas (bolsa y monedas), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "ill_game_envite",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_envite.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina del resultado del envite (dos jugadores con naipes, uno mirando la cara del otro, en la taberna), 240×135 y _192 192×108."
+    },
+    {
+      "id": "ill_game_tourney",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_tourney.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina del torneo de lucha (dos luchadores con espadas de torneo en la plaza, jueces y público), 240×135 y _192 192×108. Sirve también a la carta de la fiesta (4.25.2, evento Torneo)."
+    },
+    {
+      "id": "icon_loaded_dice",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/icons/loaded_dice.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.7, O-V10 b): el objeto «dados cargados» (dos dados de hueso con una mancha de plomo), 32×32 y small/loaded_dice.png 16×16, como los demás iconos de objeto (VisualPaths.icon)."
+    },
+    {
+      "id": "ui_games_joust_lists",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/joust/lists.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.1): la liza de la justa vista de lado, la tela (barrera baja de madera) a lo ancho a media altura, público y pendones al fondo, suelo de tierra; deja libre la franja central para los jinetes. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
+    },
+    {
+      "id": "ui_games_joust_horse",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/joust/horse.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: caballo de justa con gualdrapa y jinete armado con la lanza en ristre, de perfil mirando al este (al oeste se refleja), 48×32; y horse_fallen.png (el jinete en el suelo), 48×32. Pieza a 1:1, sin texto."
+    },
+    {
+      "id": "ui_games_sortija_lane",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/sortija/lane.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.3): la calle de la sortija de lado: suelo de tierra, un travesaño alto del que cuelga la anilla en el centro y tres postes de señal a lo largo; el jinete y la anilla se dibujan encima. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
+    },
+    {
+      "id": "ui_games_race_track",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/race/track.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.4): el camino de la carrera desde arriba, cuatro tramos de izquierda a derecha (salida, recta, la curva del molino con el molino al lado, meta con el palio), con sitio para 4-6 calles. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
+    },
+    {
+      "id": "ui_games_race_horse",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/race/horse.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: caballo al galope con jinete, de perfil al este, 28×18, 4 fotogramas en tira (horse.png 112×18) si se puede; la ropa del jinete en un gris neutro (se tiñe por código). Pieza a 1:1, sin texto."
+    },
+    {
+      "id": "ui_games_bulls_plaza",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/bulls/plaza.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.5): la plaza cerrada con carros vista desde arriba (un círculo de carros), suelo de tierra, gente en balcones alrededor; centro libre. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
+    },
+    {
+      "id": "ui_games_bulls_bull",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/bulls/bull.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: el toro de perfil al este, 36×24 (y bull_charge.png, cabeza baja embistiendo, 36×24); el mozo es el sprite de personaje de siempre. Pieza a 1:1, sin texto."
+    },
+    {
+      "id": "icon_game_joust",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_joust.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono de la justa (yelmo y lanza), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "icon_game_sortija",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_sortija.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono de la sortija (una anilla atravesada por una lanza), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "icon_game_race",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_race.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono de la carrera (cabeza de caballo y el palio), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "icon_game_bulls",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/icons/game_bulls.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: icono de correr el toro (cuernos), 32×32 y small/ 16×16."
+    },
+    {
+      "id": "ill_game_joust",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_joust.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina de la justa (dos caballeros chocan en la tela, astillas de lanza), 240×135 y _192 192×108. Sirve también a la carta de la fiesta con justas (Sant Jordi en Bellcaire)."
+    },
+    {
+      "id": "ill_game_sortija",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_sortija.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina de la sortija (un jinete al galope ensarta la anilla), 240×135 y _192 192×108."
+    },
+    {
+      "id": "ill_game_race",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_race.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina de la carrera de caballos (jinetes en la curva del molino, el palio en la meta), 240×135 y _192 192×108. Sirve a la carta de la feria (4.25.1)."
+    },
+    {
+      "id": "ill_game_bulls",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/illustrations/events/game_bulls.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos: lámina de correr el toro (la plaza cerrada con carros, un mozo quiebra al toro), 240×135 y _192 192×108. Sirve a la carta del Corpus con toros."
+    },
+    {
+      "id": "ui_games_fight_street",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/fight/street.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.24.5): una calle o claro de noche con antorchas para las peleas de la ciudad (el rescate y el altercado). Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     }
   ]
 }
