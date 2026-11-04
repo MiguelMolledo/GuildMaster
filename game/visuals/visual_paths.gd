@@ -240,11 +240,21 @@ static func _art_or(path: String, size: Vector2i, color: Color) -> Texture2D:
 
 static func illustration(kind: String, id: String, small: bool = false) -> Texture2D:
 	var suffix := "_192" if small else ""
-	for p: String in ["%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, id, suffix],
+	var art := str(EVENT_ILLUSTRATION_ALIAS.get(id, id)) if kind == "events" else id
+	for p: String in ["%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, art, suffix],
+			"%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, id, suffix],
 			"%s/ui/page_kit/piloto/%s_%s%s.png" % [ART_ROOT, kind.trim_suffix("s"), id, suffix]]:
 		if ResourceLoader.exists(p):
 			return load(p) as Texture2D
 	return null
+
+
+## Fiestas (04f 4.28.3): the names the art uses for the festival and incident ids (arte-fal-2 kept its Spanish names,
+## ids illus_<name> in assets/inventario.json): assets/art/illustrations/events/<name>[_192].png.
+const EVENT_ILLUSTRATION_ALIAS: Dictionary = {"holy_week": "semana_santa", "mayday_corpus": "mayos_corpus",
+	"st_john": "san_juan", "harvest_fair": "siega_feria", "st_michael": "san_miguel", "all_saints_matanza": "matanza",
+	"christmas": "navidad", "carnival": "carnaval", "brawl": "altercado", "bandit_raid": "asalto_bandidos",
+	"kidnapping": "secuestro", "rescue": "rescate", "night_thief": "ladron"}
 
 
 ## Fiestas (04f 4.28.3): the illustration of `id`, or a visible provisional greybox (240×135, 192×108 small) that

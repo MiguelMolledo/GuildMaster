@@ -6267,6 +6267,188 @@
       "notas": "Carro de caravana de bueyes, de perfil mirando al este (al oeste, reflejado), 56×34 a la densidad del pergamino. Variante caravan_cart.png (carreta de mula, 48×24). Cableado: las caravanas de la familia en el mapa regional (VisualPaths.region_caravan, reflejada hacia el oeste; por defecto la de bueyes, CARAVAN_VARIANT)."
     },
     {
+      "id": "illus_semana_santa",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/semana_santa.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Semana Santa (04f §4.25.1), 240×135, y semana_santa_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_mayos_corpus",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/mayos_corpus.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de los Mayos y el Corpus (04f §4.25.1), 240×135, y mayos_corpus_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_san_juan",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/san_juan.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de San Juan (04f §4.25.1), 240×135, y san_juan_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_siega_feria",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/siega_feria.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la siega y la feria (04f §4.25.1), 240×135, y siega_feria_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_san_miguel",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/san_miguel.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de San Miguel y la vendimia (04f §4.25.1), 240×135, y san_miguel_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_matanza",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/matanza.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Todos los Santos y San Martín (la matanza) (04f §4.25.1), 240×135, y matanza_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_navidad",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/navidad.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Navidad (04f §4.25.1), 240×135, y navidad_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_carnaval",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/carnaval.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Carnaval (04f §4.25.1), 240×135, y carnaval_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_altercado",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/altercado.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el altercado (04f §4.24.5), 240×135, y altercado_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_asalto_bandidos",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/asalto_bandidos.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el asalto de bandidos (04f §4.24.5), 240×135, y asalto_bandidos_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_secuestro",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/secuestro.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el secuestro (04f §4.24.5), 240×135, y secuestro_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_rescate",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/rescate.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el rescate (04f §4.24.5), 240×135, y rescate_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_ladron",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/ladron.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el ladrón nocturno (04f §4.24.5), 240×135, y ladron_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
       "id": "icon_decorative_sword",
       "tipo": "icono",
       "estado": "falta",
@@ -6434,110 +6616,6 @@
       "origen": null,
       "coste_gen": 0,
       "notas": "Icono de objeto de fiesta (candelabro), data/items/candlestick.json. 32×32 y small/candlestick.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
-    },
-    {
-      "id": "illus_event_holy_week",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/illustrations/events/holy_week.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Ilustración de la fiesta holy_week (data/festivals.json): 240×135 (carta de la fiesta) y holy_week_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
-    },
-    {
-      "id": "illus_event_mayday_corpus",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/illustrations/events/mayday_corpus.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Ilustración de la fiesta mayday_corpus (data/festivals.json): 240×135 (carta de la fiesta) y mayday_corpus_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
-    },
-    {
-      "id": "illus_event_st_john",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/illustrations/events/st_john.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Ilustración de la fiesta st_john (data/festivals.json): 240×135 (carta de la fiesta) y st_john_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
-    },
-    {
-      "id": "illus_event_harvest_fair",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/illustrations/events/harvest_fair.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Ilustración de la fiesta harvest_fair (data/festivals.json): 240×135 (carta de la fiesta) y harvest_fair_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
-    },
-    {
-      "id": "illus_event_st_michael",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/illustrations/events/st_michael.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Ilustración de la fiesta st_michael (data/festivals.json): 240×135 (carta de la fiesta) y st_michael_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
-    },
-    {
-      "id": "illus_event_all_saints_matanza",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/illustrations/events/all_saints_matanza.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Ilustración de la fiesta all_saints_matanza (data/festivals.json): 240×135 (carta de la fiesta) y all_saints_matanza_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
-    },
-    {
-      "id": "illus_event_christmas",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/illustrations/events/christmas.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Ilustración de la fiesta christmas (data/festivals.json): 240×135 (carta de la fiesta) y christmas_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
-    },
-    {
-      "id": "illus_event_carnival",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/illustrations/events/carnival.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Ilustración de la fiesta carnival (data/festivals.json): 240×135 (carta de la fiesta) y carnival_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
     },
     {
       "id": "illus_event_marquis_visit",

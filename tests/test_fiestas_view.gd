@@ -102,3 +102,14 @@ func test_commission_recipes_show_with_a_contract() -> void:
 	(sim.state.contracts["accepted"] as Array).append({"id": "ctr_9999", "item": "horseshoe", "qty": 1, "family": fam,
 		"race": true, "due": 99999, "accepted": 0, "client": "fair_warden", "min_quality": 0, "warned": []})
 	check("forge_horseshoe" in ids.call(), "the horseshoes show once a contract asks for them")
+
+
+func test_the_fixed_feasts_have_their_illustration() -> void:
+	for f: Dictionary in Festivals.calendar(_game()):
+		var id := str(f["id"])
+		for small: bool in [false, true]:
+			var t := VisualPaths.illustration_or_greybox("events", id, small)
+			check(t != null and not VisualPaths.is_placeholder(t), "%s%s: its art (arte-fal-2, by alias)" % [id,
+				" small" if small else ""])
+			if t != null:
+				eq(t.get_width(), 192 if small else 240, "%s: its size" % id)
