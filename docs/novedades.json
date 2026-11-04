@@ -1,6 +1,47 @@
 [
   {
     "fecha": "2026-11-04",
+    "titulo": "Planos de Valldaura v2: ciudades orgánicas desde planos de fal, río navegable y puertos",
+    "que": "Los cinco asentamientos se rehacen con un generador nuevo (tools/city/organic.py) que sigue un plano por ciudad (tools/city/ciudades.json). Cuatro toman su forma de un plano semántico visto desde arriba hecho con fal (tools/city/fal_planos.py: colores planos con significado, calles, plazas, agua, casas, muralla, campos y cada hito su color): tools/city/desde_imagen.py lo pasa a la rejilla y tools/city/esqueleto.py toma de ahí el esqueleto (calles, plaza, río, muralla, hitos, campos) y deja al generador los solares, las casas con la puerta a la calle y el decor; Montsacre sigue procedural. Bellcaire con la muralla redonda cerrada, torres y puertas, calles en abanico hacia la plaza, la catedral al lado y el puerto del Daura con muelle, embarcaderos, barcos, lonja, aduana, almacenes y grúa; Portvell con el muelle y sus almacenes; Peñarroja con la mina, la cantera y las escombreras al pie de la sierra; Vilablat con el molino y campos grandes; Montsacre con el recinto, la iglesia, el claustro y el huerto. Los hitos son bloques con su color y su nombre que el sim no lee, listos para cambiar por un sprite. En el juego, las calles en diagonal ya no se ven en escalera: el suelo suaviza las esquinas de cada peldaño. El validador comprueba además el río (solo por puentes o vados), los muelles, los barcos y las huellas de los hitos. Las reglas de lo orgánico, sacadas de villas reales, están en docs/protocolos/generar-ciudad.md.",
+    "como_probar": "Vista previa de cada ciudad: python3 tools/city/ciudad.py region (reports/ciudad/<mapa>.png). En el juego: /opt/homebrew/bin/godot --path . -- --scenario=region_capital_start (o region_port_start, region_quarry_start, region_hamlet_start, region_abbey_start). Capturas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=mapa --smoke-maps=region_capital_start,region_port_start.",
+    "capturas": [
+      "docs/arte/ciudades_v2/fal/region_capital.png",
+      "docs/arte/ciudades_v2/region_capital.png",
+      "docs/arte/ciudades_v2/region_port.png",
+      "docs/arte/ciudades_v2/region_quarry.png",
+      "docs/arte/ciudades_v2/region_hamlet.png",
+      "docs/arte/ciudades_v2/region_abbey.png",
+      "docs/arte/ciudades_v2/juego_region_capital_muralla.jpg",
+      "docs/arte/ciudades_v2/juego_region_port_calles.jpg",
+      "docs/arte/ciudades_v2/juego_region_port_puerto.jpg"
+    ]
+  },
+  {
+    "fecha": "2026-11-04",
+    "titulo": "El duelo entra en la partida: retos con motivo, duelo al alba en la plaza, honor y cortejo",
+    "que": "Aprobado 04e (O-C1..O-C12). Desde la ficha de cualquier persona de otra familia, «Retar a duelo…» abre la carta de reto (PageCard): el motivo (una ofensa de H7 —insulto o amenaza—, un pretendiente rival de la misma persona en el cortejo de H8 o el rival de tu oficio), tus opciones en banda con el %, los testigos, lo que ganas o pierdes y qué le cuesta rechazar; «Pelear sin reto» si estás al alcance (sin honor, y con testigos un hecho «pelea» de H11). El rival responde en el minuto (los NPC nunca retan, O-C7 b; aceptan con un 40 % de opciones, ajustado por su aversión al riesgo, o algo menos si rechazar ante testigos les costaría honor; un título 2+ escalones por encima rechaza gratis, O-C8) y la respuesta llega en otra carta. A las 05:30 del día siguiente el sim lleva a los dos a la plaza (y ninguna IA, rutina ni directiva se los lleva mientras); a las 06:00, si los dos están, la partida se pausa y se abre la pantalla del duelo; cada lance es una orden duel_move que se aplica al momento (Game.step_now, un minuto de juego, en el replay), con «Resolver sin jugar». Quien no está pierde por incomparecencia. Consecuencias (§4e.5): reputación como honor (+5 ganar, −2 perder, el doble en público, más contra un título mayor), relación, afinidad del cortejo (+15 al ganador, +5 al que perdió luchando), fin de la ofensa, crónica, avisos y la pantalla final. Solo a primera sangre (hasta la rendición espera a la salud de 4.22). Guardado v15 (SaveFile._to_v15). Ajuste del lance (medido con tools/duel_bench.gd): Golpe gasta 1, Parada recupera 2, ventaja del toque 15, espada +25, herramienta +10 → con Constitución 3 los lances sin nada bajan del 30 % al 19 %, la espada gana a puño 54/38 (era 46/44), el Pícaro con espada gana al vecino el 90 %. Tutorial: capítulo «Duelo» y tres pistas de primera vez. Bot duelista (escenario duel_ready) con su diana. Arte con caída: efectos, iconos e ilustración por VisualPaths.duel_* (se ven solos cuando lleguen de arte-fal-2); las poses esperan a PixelLab.",
+    "como_probar": "Jugarlo: /opt/homebrew/bin/godot --path . -- --scenario=duel_ready (Bernat acaba de insultar a Hugo, los dos en la plaza): clic en Bernat → «Retar a duelo…» → «Por la ofensa»; corre el tiempo hasta las 06:00 del día 2. Capturas: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=duelo_partida → reports/shots/duelp_*.png. Reglas: godot --headless --path . -s tests/run_tests.gd -- --only=test_combat (y --only=test_ui_duel). Bot: godot --headless --path . -s tools/sim_runner.gd -- --scenario=duel_ready --bots=duelist --days=8 --seeds=5. Banco: godot --headless --path . -s tools/duel_bench.gd. Tutorial: --smoke-script=tutorial_datos --tutorial-chapters=duel.",
+    "capturas": [
+      "docs/novedades/duelp_ficha.png",
+      "docs/novedades/duelp_carta.png",
+      "docs/novedades/duelp_respuesta.png",
+      "docs/novedades/duelp_alba.png",
+      "docs/novedades/duelp_pantalla.png",
+      "docs/novedades/duelp_lance_1.png",
+      "docs/novedades/duelp_resultado.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-04",
+    "titulo": "Arte para el duelo y la región de Valldaura",
+    "que": "Arte nuevo, todavía sin cablear: los workers del duelo y de los viajes lo leerán por VisualPaths, con caída al provisional. Duelo: los efectos de golpe (tajo), parada (chispas), finta (estela azul) y toque (estrella roja), hechos con el vfx_workbench de PixelLab (gratis), en tiras con su ficha de fotogramas y su posición respecto a los pies (assets/art/vfx/duel_*/); ocho iconos de 32 y 16 (Golpe, Parada, Finta, Rendirse, Resolver sin jugar, aliento, toque y reto) y cuatro láminas de carta (victoria, derrota, tablas y reto, a 240×135 y 192×108). Región: la página de ciudad de los seis asentamientos (Vilarrasa, Bellcaire, Portvell, Peñarroja, Vilablat y Montsacre, 240×135), los iconos de arancel, tratado, caravana y reputación de ciudad, y para el mapa regional la ficha de la familia (estandarte o escudo con los colores de la familia, que se tiñe como los personajes) y el carro de caravana, a la escala del pergamino. Las poses de los personajes esperan al ciclo de PixelLab del 15-nov: la lista para pedirlas (personajes, plantillas, acciones y ~40 generaciones) está en docs/ui/mecanicas/combate.md §8. Gasto: 1,29 USD de fal (16 imágenes).",
+    "como_probar": "Hoja de contacto en Grimoire («Arte · duelo y región»). Inventario: python3 tools/arte.py (0 errores). Efectos: assets/art/vfx/duel_<strike|parry|feint|hit>/<id>.png y .json. Se rehacen sin gasto con python3 tools/art/vfx_duelo.py; las láminas e iconos, con tools/art/fal_ilustraciones.py proc y fal_iconos.py proc (los crudos están en ~/Code/GuildMaster-arte-crudos/).",
+    "capturas": [
+      "docs/novedades/arte_duelo_region.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-04",
     "titulo": "Planos de Valldaura v2: ciudades orgánicas, río navegable y puertos",
     "que": "Los cinco asentamientos de la región se rehacen con un generador nuevo (tools/city/organic.py) que sigue un plano por ciudad (tools/city/ciudades.json). Calles mayores en curva desde las puertas, calles secundarias que crecen en ángulos variados y callejones; plaza de forma irregular; manzanas irregulares con casas de tamaños mezclados (2×2 a 3×4) mirando a la calle y patios detrás. El Daura es ancho (7-8 casillas) con puentes de piedra; Portvell y Bellcaire tienen sección del puerto: muelle a lo largo de la orilla, embarcaderos transitables sobre el agua, barcos amarrados y barcas, lonja, aduana, almacenes y grúa. Bellcaire con muralla, torres y puertas, catedral con atrio junto a la plaza, barrios de mercaderes y menestrales y dos arrabales sueltos. Peñarroja con la sierra, la boca de la mina, la cantera, las escombreras y la fundición; Vilablat con arroyo, vado, molino de agua, eras y campos grandes; Montsacre con el recinto amurallado, la iglesia abacial, el claustro, la hospedería y el huerto. Los hitos son bloques isométricos con su color y su nombre que el sim no lee, listos para cambiar por un sprite. La densidad de cada barrio es un número del plano. El validador comprueba además que el río solo se cruza por puentes o vados, que los muelles tocan agua y tierra, que los barcos van en el agua y que nada pisa la huella de un hito.",
     "como_probar": "Vista previa de cada ciudad: python3 tools/city/ciudad.py region (reports/ciudad/<mapa>.png). En el juego: /opt/homebrew/bin/godot --path . -- --scenario=region_capital_start (o region_port_start, region_quarry_start, region_hamlet_start, region_abbey_start). Capturas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=mapa --smoke-maps=region_capital_start,region_port_start.",
