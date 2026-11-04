@@ -114,6 +114,10 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Duelo (al tocar `data/combat.json`, `sim/combat/` o la IA rival): `godot --headless --path . -s tools/sim_runner.gd --
   --scenario=duel_ready --bots=duelist --days=8 --seeds=5` (en `run_all`, paso duel) y el banco del lance
   `godot --headless --path . -s tools/duel_bench.gd`. Capturas: `--smoke-script=duelo_partida`. Contrato: `docs/contratos/duelo.md`.
+- Fiestas (04f 4.25, al tocar `data/festivals.json`, `data/contracts/festivals.json`, `sim/fest/` o los encargos):
+  `godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=festive --days=8 --seeds=3` (un
+  año con todas las fiestas, sus encargos y sin bloqueos; en `run_all`, pasos festive y bench_fair). Las demás dianas corren
+  sin fiestas (`data/targets.json` `_festivals`; `--festivals=on` para medirlas con ellas). Captura: `--smoke-script=fiestas`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

@@ -1,0 +1,11 @@
+{
+  "id": "banner",
+  "name_key": "item.banner",
+  "gender": "m",
+  "category": "product",
+  "weight": 2.0,
+  "max_stack": 20,
+  "base_price": 40,
+  "market_stall": null,
+  "to_order": true
+}

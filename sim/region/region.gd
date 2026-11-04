@@ -180,7 +180,7 @@ static func events_mult(sim: Sim, c: String, kind: String, item: String) -> floa
 		for e: Dictionary in def.get("effects", []):
 			if str(e.get("kind", "")) == kind and str(e.get("group", "")) in groups:
 				m *= float(e.get("mult", 1.0))
-	return m
+	return m * Festivals.city_mult(sim, c, kind, item)  # fiestas (04f 4.25.6): its patron feast and its fair
 
 
 ## The unit price of `item` at `quality` in city `c` (side buy | sell), before any tariff (9b.5):
@@ -206,6 +206,8 @@ static func price(sim: Sim, c: String, item: String, quality: int, side: String)
 static func traded_items(sim: Sim) -> Array:
 	var out: Array = []
 	for id: String in _sorted_keys(sim.catalog.items()):
+		if bool(sim.catalog.items()[id].get("to_order", false)):
+			continue  # fiestas (4.25.4): the festival pieces are made to order, no market trades them
 		if str(sim.catalog.items()[id].get("market_stall", "")) != "":
 			out.append(id)
 	return out
@@ -215,7 +217,7 @@ static func traded_items(sim: Sim) -> Array:
 static func tariff(sim: Sim, c: String, fam: String) -> float:
 	if Treaties.exempt(sim, c, fam):
 		return 0.0
-	return float(settlement(sim, c).get("tariff", 0.0))
+	return float(settlement(sim, c).get("tariff", 0.0)) * Festivals.city_tariff_mult(sim, c)  # 4.25.6: feria franca
 
 
 # --- Reputation ------------------------------------------------------------------------------------------------------
@@ -330,7 +332,7 @@ static func path_cost(sim: Sim, p: Array) -> Dictionary:
 	for rid: String in p:
 		var r := route(sim, rid)
 		minutes += leg_minutes(sim, r)
-		toll += int(r.get("toll", 0))
+		toll += Festivals.route_toll(sim, r)  # fiestas (4.25.6): no toll on the way to a fair
 		risk = maxi(risk, int(r.get("risk", 0)))
 	return {"minutes": minutes, "toll": toll, "risk": risk, "legs": p.size()}
 
@@ -474,7 +476,8 @@ static func _product_of(sim: Sim, f: String) -> String:
 			if str(rec.get("building", "")) != str(bd.get("type", "")):
 				continue
 			var out := str(rec.get("output", {}).get("item", ""))
-			if out == "" or str(sim.catalog.item(out).get("market_stall", "")) == "":
+			if out == "" or str(sim.catalog.item(out).get("market_stall", "")) == "" \
+					or bool(sim.catalog.item(out).get("to_order", false)):  # fiestas: not for a caravan
 				continue
 			if best == "" or int(sim.catalog.item(out).get("base_price", 0)) > int(sim.catalog.item(best).get("base_price", 0)):
 				best = out

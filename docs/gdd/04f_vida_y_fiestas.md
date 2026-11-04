@@ -303,6 +303,52 @@ los normales, piden **calidad** y dan **prestigio** (reputación y relación con
 - **Visitas:** en tu fiesta llegan forasteros de las otras ciudades (4.24.3). En la suya puedes ir tú (viaje,
   09b): en la página de la ciudad sale su fiesta con sus juegos (justa, carrera, dados) y sus encargos de fuera.
 
+#### 4.25.7 Cómo quedó construido (rama fiestas, 2026-11-04)
+
+Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
+
+- **El día 0 no hay fiesta** (`rules.first_day` 1). La partida empieza la mañana de la Semana Santa; si cayera, el
+  primer día del tutorial sería día de guardar. La primera Semana Santa es la del año 2 (día 8). El primer pregón es
+  el del día 0 a las 12:00: los Mayos.
+- **Pregón a las 12:00 de la víspera** (`eve_hour`) y **encargos que vencen a las 17:00 del día de la fiesta**
+  (`contracts.due_hour`): unas 29 horas para fabricar. La visita del marqués se anuncia dos días antes.
+- **No hay carne en el juego**: la Cuaresma, la Pascua y la matanza mueven el grupo `food` (demanda ×0,8 hasta las
+  17:00 y ×1,5 después; precio ×0,6 en la matanza).
+- **Día de guardar solo por la mañana y solo en tres fiestas** (Semana Santa 07-12 ×0,3, Todos los Santos 07-10 ×0,5,
+  Navidad 07-10 ×0,5). Parar el trabajo en las cinco grandes quitaba la mitad del año. En el sim es la velocidad de
+  producción de todos los ciclos que empiezan en esa ventana; para los NPC, el gancho `Festivals.holy_day`.
+- **Las obras se hacen en el taller** (`stage`, `triumphal_arch`): son piezas que se fabrican y se montan al
+  entregarlas; la vista pinta el arco y la tribuna cuando el encargo se ha cumplido (`needs_contract`). Montarlas a
+  pie de obra llegará cuando el mapa tenga obras.
+- **Tres piezas pequeñas más para el herrero** (`horseshoe`, `butcher_knife`, `candlestick`): la tabla de 4.25.4 le
+  pide herraduras, cuchillos de matarife y candelabros, y no existían.
+- **Recetas por encargo** (`kind: commission`): salen en el taller del jugador, pero los bots y la IA rival no las
+  eligen para vender en el mercado (no tienen puesto). Así las dianas de siempre salen iguales.
+- **Un solo ganador, con órdenes de verdad**: el encargo de fiesta sigue en el tablón mientras dura la carrera; cada
+  familia que lo acepta tiene su copia; la primera que lo entrega con la calidad pedida cobra, gana su reputación y
+  relación (también con la familia de la boda) y, si la fila lo dice, sale en la crónica; las demás lo pierden sin
+  castigo. El rival del oficio compite con su IA de siempre (04c acepta lo que puede fabricar a tiempo). Una fila
+  solo se publica si en la villa hay una familia (del jugador o IA) con el taller de ese oficio.
+- **La comida** de los banquetes se pide como `prepared_meal` o `bread` (cualquiera la lleva). La pieza `feast`
+  existe sin receta: la cocina de la Taberna-Posada (4.27) le pondrá la suya.
+- **No hay tesorería del concejo**: `organize_festival` (toros o justa, cada 2 días de enfriamiento) no cobra a
+  nadie; el coste queda en los datos para cuando la haya. La justa abre un torneo ese mismo día.
+- **La boda del jugador** abre una carta con «Pagar el banquete (80)» durante un día; los encargos de una boda no los
+  puede coger la familia que se casa (es su propia boda).
+- **Patrocinios**: banquete, música y, si la fiesta los tiene, los toros. Sin patrocinio, los forasteros ×0,7. El
+  patrocinio de la IA rival queda como propuesta para la revisión de 04c.
+- **El regalo de la villa** en la visita del marqués es un encargo de carrera (la espada excelente); que el Alcalde
+  elija entre varias piezas ofrecidas y la audiencia con privilegios quedan pendientes.
+- **Fiestas de las otras ciudades**: la patronal y la feria caen el mismo día (Bellcaire en Primavera 2, Portvell en
+  Verano 1, Montsacre en Otoño 1, Peñarroja en Invierno 1, Vilablat en Primavera 2); la de Vilarrasa es la de la siega
+  (Verano 2). Durante la feria: arancel 0 en esa ciudad, sin portazgo en sus caminos desde el día antes y su demanda
+  sube. Son puro calendario (no se guardan).
+- **Ganchos para las otras ramas** (`Festivals.hook_mult` / `hook_kinds` / `hook_amount` / `spectacles` / el evento
+  `festival_spectacle`): `visitors`, `routine`, `need` e `incident` (vida), `spectacle` (juegos), `service` (posada).
+  Ya responden con las cifras de `data/festivals.json`; los leen esas ramas cuando estén en main.
+- **Las dianas**: `sim_runner` apaga las fiestas para todos los bots salvo los de `data/targets.json` `_festivals`
+  (hoy, `festive`). En el juego están encendidas.
+
 ---
 
 ### 4.26 Juegos y competiciones (minijuegos)

@@ -121,6 +121,45 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	queue_redraw()
 
 
+## Fiestas (04f 4.25.3): the clothes in the festival's palette (rules.view_looks: {color, amount, mask}; {} = the
+## everyday ones). Mixes the family's colours towards the look's colour in the identity shader (and the greybox);
+## a mask of Carnival is a dark band over the face. Cheap when the look does not change.
+var festive_look: String = ""
+
+
+func set_festive(look: Dictionary) -> void:
+	var id := str(look.get("id", ""))
+	if id == festive_look:
+		return
+	festive_look = id
+	var c := ViewConfig.color(str(look.get("color", "#ffffff")))
+	var amount := clampf(float(look.get("amount", 0.0)), 0.0, 1.0) if id != "" else 0.0
+	var p := primary.lerp(c, amount)
+	var s := secondary.lerp(c.lightened(0.2), amount * 0.6)
+	var greybox := _visual.get_node_or_null("Greybox") as GreyboxFigure if _visual != null else null
+	if greybox != null:
+		greybox.primary = p
+		greybox.secondary = s
+		greybox.queue_redraw()
+	if _sprite != null and _sprite.material is ShaderMaterial:
+		(_sprite.material as ShaderMaterial).set_shader_parameter("primary", p)
+		(_sprite.material as ShaderMaterial).set_shader_parameter("secondary", s)
+	var mask := get_node_or_null("FestiveMask") as ColorRect
+	if bool(look.get("mask", false)):
+		if mask == null:
+			mask = ColorRect.new()
+			mask.name = "FestiveMask"
+			mask.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			mask.size = Vector2(8, 3)
+			mask.position = Vector2(-4, -fig_height + 6)
+			mask.z_index = 1
+			add_child(mask)
+		mask.color = c.darkened(0.3)
+		mask.visible = true
+	elif mask != null:
+		mask.visible = false
+
+
 ## H8: what the view was built from that can change during the game (a wedding moves a person to another family, a
 ## child comes of age and joins the group, a job): WorldView rebuilds the view when it differs.
 static func kin_signature(ch: Dictionary) -> String:

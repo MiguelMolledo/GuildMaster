@@ -276,6 +276,57 @@ static func category_name(category: String) -> String:
 
 
 ## A notice's text: its key formatted with its params, ids turned into names (item, building, client, objective).
+## Fiestas (4.25.6): the lines of a city's page about its feasts: «Patronal: Sant Jordi, con justas (Primavera 2) ·
+## ¡Hoy!» and «Feria: Primavera 2 · sin arancel, sin portazgo 2 d antes», and the games of its patron feast.
+static func city_feast_lines(sim: Sim, city: String) -> Array:
+	var out: Array = []
+	var s := Region.settlement(sim, city)
+	var today := posmod(Clock.day(int(sim.state.clock["minute"])), Festivals.days_per_year(sim))
+	var pf: Dictionary = s.get("patron_feast", {})
+	if not pf.is_empty():
+		var line := t_("ui.city.patron") % [t_("region.feast." + str(pf.get("id", ""))), calendar_day(sim, int(pf.get("day_of_year", 0)))]
+		if int(pf.get("day_of_year", -1)) == today:
+			line += " · " + t_("ui.city.feast_today")
+		out.append(line)
+		var games: Array = []
+		for g: Variant in pf.get("games", []):
+			games.append(t_("region.game." + str(g)))
+		if not games.is_empty():
+			out.append(t_("ui.city.feast_games") % ", ".join(games))
+	var fair: Dictionary = s.get("fair", {})
+	if not fair.is_empty():
+		var line := t_("ui.city.fair") % [calendar_day(sim, int(fair.get("day_of_year", 0))), int(fair.get("toll_free_days", 1)) - 1]
+		if int(fair.get("day_of_year", -1)) == today:
+			line += " · " + t_("ui.city.feast_today")
+		out.append(line)
+	return out
+
+
+## «Primavera 2»: the season and the day in it of a day of the year.
+static func calendar_day(sim: Sim, day_of_year: int) -> String:
+	var seasons: Array = sim.catalog.time.get("seasons", [])
+	var dps := maxi(1, int(sim.catalog.time.get("days_per_season", 2)))
+	var si := clampi(day_of_year / dps, 0, maxi(0, seasons.size() - 1))
+	return t_("ui.festival.day_of_year") % [t_("season." + str(seasons[si])) if not seasons.is_empty() else "",
+		day_of_year % dps + 1]
+
+
+## Fiestas (4.25.6): the feast of `city` within the next `days` days ("" if none): its name for the region map.
+static func city_feast_soon(sim: Sim, city: String, days: int = 1) -> String:
+	var today := Clock.day(int(sim.state.clock["minute"]))
+	for k: int in days + 1:
+		for f: Dictionary in Festivals.city_feasts(sim, city, today + k):
+			if str(f.get("kind", "")) == "patron":
+				return t_("region.feast." + str(f.get("id", "")))
+			return t_("festival." + str(f.get("id", ""))) if str(f.get("id", "")) != "fair" else t_("ui.region.fair")
+	return ""
+
+
+## Fiestas (4.25): the name of a festival id («Los Mayos y el Corpus»).
+static func festival_name(id: String) -> String:
+	return t_("festival." + id)
+
+
 static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> String:
 	var p: Dictionary = (n.get("params", {}) as Dictionary).duplicate()
 	if p.has("item"):
@@ -318,6 +369,10 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 	for k: String in ["city", "treaty", "what"]:  # viajes: a settlement's name_key, a treaty kind, a regional event
 		if p.has(k):
 			p[k] = t_(str(p[k]))
+	if p.has("festival"):  # fiestas (4.25): a festival id and a sponsored or organized part
+		p["festival"] = festival_name(str(p["festival"]))
+	if p.has("part"):
+		p["part"] = t_("festival.part." + str(p["part"])).to_lower()
 	if p.has("event"):  # H13: a global event id (its name and the sentence of its effects)
 		var ek := str(catalog.world_events().get(str(p["event"]), {}).get("text_key", "event." + str(p["event"])))
 		p["desc"] = t_(ek + ".desc")
@@ -337,6 +392,8 @@ static func price_reason(sim: Sim, item: String) -> String:
 		parts.append(t_("price.demand") % _num(d))
 	for f: Dictionary in WorldEvents.factors(sim, item):
 		var who := t_("season." + str(f["id"])) if str(f["source"]) == "season" else event_name(sim.catalog, str(f["id"]))
+		if str(f["source"]) == "festival":  # fiestas (4.25.3)
+			who = festival_name(str(f["id"]))
 		if str(f["kind"]) == "demand":
 			parts.append(t_("price.event_demand") % [who, _num(float(f["mult"]))])
 		else:

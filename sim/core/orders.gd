@@ -174,6 +174,11 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Treaties.order_propose_town(sim, order)
 		"cancel_treaty":
 			return Treaties.order_cancel(sim, order)
+		# Fiestas (sim/fest/festivals.gd, docs/gdd/04f_vida_y_fiestas.md 4.25.5)
+		"festival_sponsor":
+			return Festivals.order_sponsor(sim, order)
+		"festival_host_wedding":
+			return Festivals.order_host_wedding(sim, order)
 	return fail("unknown_order")
 
 
@@ -185,7 +190,8 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"resolve_microevent", "run_for_office", "use_office_power", "accuse", "trial_cross", "trial_rest", "trial_verdict",
 	"duel_answer", "duel_withdraw", "duel_move", "duel_auto",
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
-	"city_accept", "city_deliver", "sign_treaty"]
+	"city_accept", "city_deliver", "sign_treaty",
+	"festival_sponsor", "festival_host_wedding"]
 
 
 static func is_management(type: String) -> bool:

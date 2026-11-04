@@ -1,0 +1,23 @@
+{
+  "id": "carpentry_dowry_chest",
+  "name_key": "recipe.carpentry_dowry_chest",
+  "kind": "commission",
+  "building": "carpentry",
+  "zone": "workbench",
+  "inputs": [
+    {
+      "item": "planks",
+      "qty": 3
+    },
+    {
+      "item": "iron",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "dowry_chest",
+    "qty": 1
+  },
+  "duration_hours": 4.0,
+  "min_craft": 4
+}

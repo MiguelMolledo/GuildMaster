@@ -48,6 +48,7 @@ import re
 import sys
 
 import validate_structure
+import validate_fiestas  # fiestas (04f 4.25): data/festivals.json and its contracts
 
 sys.dont_write_bytecode = True
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -302,7 +303,7 @@ def check_h3(items, recipes, buildings, maps, strings, rep):
             if not isinstance(c.get("count"), int) or c["count"] < 1:
                 rep.error(w, "count debe ser un entero >= 1")
 
-    contract_tables = load_kind("contracts", rep)
+    contract_tables = {k: v for k, v in load_kind("contracts", rep).items() if v.get("kind") != "festival"}  # 4.25.4
     for cid, ct in contract_tables.items():
         w = f"contracts/{cid}"
         clients = ct.get("clients") or []
@@ -1250,7 +1251,8 @@ def check_h9_scenario(w, d, titles, rep):
 H10_RANKS = ["minor", "middle", "major", "mayor"]
 H10_PASSIVES = {"class_reputation", "tax_commission", "reputation_per_day", "sees_reports", "votes_ordinances"}
 H10_POWERS = {"regulate_price", "fine_merchant", "set_tax", "seize_building", "arrest", "investigate", "preside_trial",
-              "pardon", "propose_ordinance", "veto", "legislate", "declare_event", "name_title"}
+              "pardon", "propose_ordinance", "veto", "legislate", "declare_event", "name_title",
+              "organize_festival"}  # fiestas (04f 4.25.5)
 H10_ACTIONS = ["visit", "bribe", "speech", "defame"]
 H10_REASONS = ["unknown_office", "office_needs_title", "holds_office", "already_candidate", "no_election",
                "registration_closed", "unknown_level", "not_candidate", "campaign_not_started", "campaign_busy",
@@ -2584,6 +2586,7 @@ def main():
     check_combat(items, strings, rep)
     check_h12(items, recipes, buildings, maps, strings, rep)
     check_region(items, strings, rep)
+    validate_fiestas.check_festivals(DATA, items, recipes, strings, check_text, load_json, rep)
     check_tutorial(strings, set(load_kind("starts", rep)),
                    {n[:-5] for n in os.listdir(os.path.join(DATA, "scenarios")) if n.endswith(".json") and not n.startswith("_")},
                    items, buildings, load_kind("maps", rep), rep)

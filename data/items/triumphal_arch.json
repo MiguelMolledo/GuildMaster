@@ -1,0 +1,11 @@
+{
+  "id": "triumphal_arch",
+  "name_key": "item.triumphal_arch",
+  "gender": "m",
+  "category": "product",
+  "weight": 20.0,
+  "max_stack": 20,
+  "base_price": 170,
+  "market_stall": null,
+  "to_order": true
+}

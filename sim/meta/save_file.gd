@@ -314,7 +314,25 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 			_to_v15(data)
 		15:  # 15 -> 16 (viajes, docs/gdd/09b_region.md)
 			data = to_v16(data)
+		16:  # 16 -> 17 (vida, 04f 4.24): the life block's step goes here when its branch is merged
+			pass
+		17:  # 17 -> 18 (fiestas, 04f 4.25)
+			_to_v18(data)
 	return data
+
+
+## 17 -> 18 (fiestas, docs/gdd/04f_vida_y_fiestas.md 4.28.2): the new root «festivals» (the calendar in force, the
+## sponsors, the festival contracts' feasts). A game from before had none: {} and Festivals.ensure fills it at its
+## first step; its contracts had no festival fields (they are plain ones). Depends on no field of v17: it runs after
+## the life block's step (16 -> 17) or on its own.
+static func _to_v18(data: Dictionary) -> void:
+	var f: Variant = data.get("festivals")
+	if not f is Dictionary:
+		data["festivals"] = {}
+		return
+	for k: String in ["active", "upcoming", "history"]:
+		if (f as Dictionary).has(k) and not (f as Dictionary).get(k) is Array:
+			f[k] = []
 
 
 ## 15 -> 16 (viajes, docs/gdd/09b_region.md §9b.6): the new root «region» of travel and trade. A game from before had

@@ -695,5 +695,50 @@
         null
       ]
     }
+  },
+  "_festivals_doc": "Fiestas (04f 4.28.4, principio 4): solo los bots de esta lista juegan con el calendario de fiestas; todas las dianas de antes corren sin él (sim_runner pone data/festivals.json enabled a false), así salen iguales. --festivals=on lo enciende para cualquier bot (con --tag, para no pisar los informes oficiales).",
+  "_festivals": [
+    "festive"
+  ],
+  "festive": {
+    "_doc": "Fiestas (04f 4.28.4): artisan_expert un año entero (8 días) con las fiestas, en una partida nueva real (--start=artisan_blacksmith --bots=festive --days=8). Cada fiesta fija sale (fest_fixed_seen 8), cada una con su pregón, sus encargos se publican y se cumplen (los gana el jugador o el rival del oficio: un solo ganador), nada se queda colgado (fest_stuck 0) y ninguna orden de fiesta se rechaza. Medido (3 semillas, 2026-11-04): 27-37 encargos publicados, 5-9 cumplidos (casi todos por los rivales del oficio; la comida de los banquetes nadie la lleva hasta la posada), 0 colgados, 0 órdenes rechazadas. Bandas [provisional].",
+    "days": [
+      8,
+      null
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "fest_stuck": [
+      0,
+      0
+    ],
+    "fest_refused": [
+      0,
+      0
+    ],
+    "fest_fixed_seen": [
+      8,
+      8
+    ],
+    "fest_eves": [
+      8,
+      null
+    ],
+    "fest_contracts_posted": [
+      20,
+      null
+    ],
+    "fest_contracts_done": [
+      4,
+      null
+    ],
+    "_mean": {
+      "fest_contracts_done": [
+        5,
+        null
+      ]
+    }
   }
 }

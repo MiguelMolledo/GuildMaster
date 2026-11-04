@@ -247,6 +247,19 @@ static func illustration(kind: String, id: String, small: bool = false) -> Textu
 	return null
 
 
+## Fiestas (04f 4.28.3): the illustration of `id`, or a visible provisional greybox (240×135, 192×108 small) that
+## says what it stands for (meta «label»; PageCard writes it on it) until the art is at
+## assets/art/illustrations/<kind>/<id>[_192].png.
+static func illustration_or_greybox(kind: String, id: String, small: bool = false) -> Texture2D:
+	var t := illustration(kind, id, small)
+	if t != null:
+		return t
+	var size := Vector2i(192, 108) if small else Vector2i(240, 135)
+	var g := _art_or("%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, id, "_192" if small else ""], size, Color("#7a6a4a"))
+	g.set_meta("label", id)
+	return g
+
+
 ## Duelo (docs/ui/mecanicas/combate.md §8): the names the art uses for the duel's ids (the art keeps its names, as in
 ## assets/inventario.json): icons icon_<name>.png, illustrations <name>[_192].png.
 const DUEL_ICON_ALIAS: Dictionary = {"yield": "surrender"}

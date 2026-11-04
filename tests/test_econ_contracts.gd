@@ -155,6 +155,7 @@ func test_board_fills_at_dawn_up_to_three() -> void:
 	# H13: without global events (seed 1 rolls a war on day 4: swords ×2 would change the price after posting).
 	var quiet := Catalog.load_from()
 	quiet.events["enabled"] = false
+	quiet.festivals["enabled"] = false  # fiestas: the daily board alone (the feasts post their own contracts)
 	var sim := Sim.new(NewGame.from_scenario("town_e_start", 1)["state"], quiet)
 	sim.state.families["fam_0003"]["ai_profile"] = ""
 	var posted := 0

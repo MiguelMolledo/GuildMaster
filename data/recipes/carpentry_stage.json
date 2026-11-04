@@ -1,0 +1,19 @@
+{
+  "id": "carpentry_stage",
+  "name_key": "recipe.carpentry_stage",
+  "kind": "commission",
+  "building": "carpentry",
+  "zone": "sawhorse",
+  "inputs": [
+    {
+      "item": "planks",
+      "qty": 6
+    }
+  ],
+  "output": {
+    "item": "stage",
+    "qty": 1
+  },
+  "duration_hours": 5.0,
+  "min_craft": 3
+}

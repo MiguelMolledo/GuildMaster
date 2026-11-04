@@ -1,7 +1,7 @@
 extends SceneTree
 ## Cost of the sim per step (GDD 05 §5.4; target < 2 ms per step on the Mac, worst step < 8 ms).
 ##   godot --headless --path . -s tools/sim_bench.gd [-- --scenario=<id> --days=<n> --bot=wanderer|dawn|idle|none
-##        --rush --runs=<n>]
+##        --rush --runs=<n> --at-day=<n>]  (--at-day: start that day at 05:00; fiestas: 3 = the harvest fair)
 ## Default: town_e_start with the wanderer bot (everybody walking); the bot's orders count in the time of the step.
 ## --bot=dawn: every neighbour (a character with a home) leaves home at dawn and walks to a work door, waits there
 ##   (as if inside) and goes home at the start of dusk, like the H4 routine: each one leaves after a delay drawn per
@@ -23,6 +23,7 @@ func _init() -> void:
 	var bot_id := "wanderer"
 	var rush := false
 	var runs := 1
+	var at_day := -1
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--scenario="):
 			scenario = a.substr(11)
@@ -34,6 +35,8 @@ func _init() -> void:
 			rush = true
 		elif a.begins_with("--runs="):
 			runs = maxi(1, a.substr(7).to_int())
+		elif a.begins_with("--at-day="):  # fiestas: start on that day (05:00), e.g. --at-day=3 = the harvest fair
+			at_day = a.substr(9).to_int()
 	var cat := Catalog.load_from()
 	var steps := days * Clock.MINUTES_PER_DAY
 	var best := PackedInt64Array()  # per step, the least time over the runs
@@ -52,6 +55,8 @@ func _init() -> void:
 			quit(2)
 			return
 		var sim := Sim.new(r["state"], cat)
+		if at_day >= 0:
+			sim.state.clock["minute"] = at_day * Clock.MINUTES_PER_DAY + 300
 		var bot: Object = null
 		if bot_id == "wanderer":
 			bot = BotWanderer.new()

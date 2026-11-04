@@ -2,6 +2,12 @@
   "tomadas": [
     {
       "fecha": "2026-11-04",
+      "tema": "Calendario de fiestas (fiestas, 04f 4.25)",
+      "decision": "Construido 4.25 con el diseño del manager y estos cambios (04f §4.25.7): sin fiesta el día 0 (first_day 1); pregón a las 12:00 de la víspera y encargos que vencen a las 17:00 del día de la fiesta; la carne del diseño es el grupo food; día de guardar solo por la mañana en Semana Santa, Todos los Santos y Navidad (en las cinco grandes quitaba medio año); tablado y arco triunfal se fabrican en el taller y se montan al entregarlos; tres piezas pequeñas más para el herrero (herraduras, cuchillo de matarife, candelabro); recetas kind commission que bots e IA no eligen para el mercado; encargos de fiesta como carrera de un solo ganador con copias por familia y la IA rival compitiendo con sus órdenes; filas publicadas solo si hay quien las fabrique; la comida del banquete es prepared_meal/bread hasta la cocina de la posada; organize_festival sin coste real (no hay tesorería del concejo); la boda del jugador se celebra pagando 80 de banquete; patronal y feria de cada ciudad el mismo día, como calendario puro; las fiestas apagadas en sim_runner salvo los bots de targets _festivals (dianas iguales). Guardado v18 (SaveFile._to_v18).",
+      "por_que": "Lo pide el owner (fiestas, bodas y encargos por oficio); los cambios evitan castigar el primer día y el año, y que el rival y los bots vendan piezas sin puesto."
+    },
+    {
+      "fecha": "2026-11-04",
       "tema": "Duelo en la partida y ajuste del lance (duelo2)",
       "decision": "El duelo entra en la partida según 04e (O-C1..O-C12): retos con causa (ofensa de H7, pretendiente rival de H8, rival del oficio), solo a primera sangre, respuesta de los NPC que nunca retan, duelo a las 06:00 del día siguiente en la plaza con los duelistas reservados desde las 05:30, incomparecencia, testigos y consecuencias de §4e.5, pelea sin reto como hecho brawl con testigos; guardado v15 (SaveFile._to_v15). Ajuste [balance] del lance: Golpe gasta 1 (era 2), Parada recupera 2 (era 1), ventaja del toque 15 (era 30), espada +25 (era 20), herramienta +10 (era 5).",
       "por_que": "Medido con tools/duel_bench.gd: con Constitución 3 el 30 % de los lances acababan sin nada (ahora 19 %) y la espada apenas ganaba a puño limpio (46/44, ahora 54/38); las políticas fijas siguen perdiendo y «Resolver sin jugar» sigue igual que seguir la pista. Las dianas de antes no se mueven: ningún bot de antes ni ningún NPC reta."
@@ -446,6 +452,16 @@
       "tema": "Diversión y ritmo (03b §3b.7, O-D1–O-D5)",
       "detalle": "Se construye con las recomendaciones: Forja viva de 3 decisiones con Resolver sin jugar; desbloqueos por hito y calendario con carta; Saltar hasta…; obras maestras con nombre; encargos con especificaciones.",
       "opciones": "Ver 03b §3b.7."
+    },
+    {
+      "tema": "Fiestas: regalo de la villa y audiencia del marqués",
+      "detalle": "4.25.2: que el Alcalde elija el regalo entre las piezas ofrecidas y que la audiencia dé privilegios (−1 año al próximo título, exención o cargo menor). Hoy el regalo es un encargo de carrera (la primera espada excelente) y no hay audiencia.",
+      "opciones": "construirlo con el diseño · dejarlo para 4.22"
+    },
+    {
+      "tema": "Fiestas: patrocinios de la IA rival",
+      "detalle": "4.25.5 [propuesta]: las familias rivales patrocinan si les sobra oro y quieren reputación. Va en la revisión de 04c.",
+      "opciones": "sí, con su módulo de reputación · no"
     }
   ],
   "proximos_pasos": [

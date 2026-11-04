@@ -1,0 +1,19 @@
+{
+  "id": "tailor_banner",
+  "name_key": "recipe.tailor_banner",
+  "kind": "commission",
+  "building": "tailor_shop",
+  "zone": "sewing_table",
+  "inputs": [
+    {
+      "item": "cloth",
+      "qty": 2
+    }
+  ],
+  "output": {
+    "item": "banner",
+    "qty": 1
+  },
+  "duration_hours": 2.0,
+  "min_craft": 2
+}
