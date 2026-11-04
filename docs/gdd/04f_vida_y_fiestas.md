@@ -398,9 +398,9 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
 - **La boda del jugador** abre una carta con «Pagar el banquete (80)» durante un día; los encargos de una boda no los
   puede coger la familia que se casa (es su propia boda).
 - **Patrocinios**: banquete, música y, si la fiesta los tiene, los toros. Sin patrocinio, los forasteros ×0,7. El
-  patrocinio de la IA rival queda como propuesta para la revisión de 04c.
+  patrocinio de la IA rival: de momento no (manager, a la espera del owner; iría en la revisión de 04c).
 - **El regalo de la villa** en la visita del marqués es un encargo de carrera (la espada excelente); que el Alcalde
-  elija entre varias piezas ofrecidas y la audiencia con privilegios quedan pendientes.
+  elija entre varias piezas ofrecidas y la audiencia con privilegios: de momento no (manager, a la espera del owner).
 - **Fiestas de las otras ciudades**: la patronal y la feria caen el mismo día (Bellcaire en Primavera 2, Portvell en
   Verano 1, Montsacre en Otoño 1, Peñarroja en Invierno 1, Vilablat en Primavera 2); la de Vilarrasa es la de la siega
   (Verano 2). Durante la feria: arancel 0 en esa ciudad, sin portazgo en sus caminos desde el día antes y su demanda

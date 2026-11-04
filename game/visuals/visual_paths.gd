@@ -249,12 +249,14 @@ static func illustration(kind: String, id: String, small: bool = false) -> Textu
 	return null
 
 
-## Fiestas (04f 4.28.3): the names the art uses for the festival and incident ids (arte-fal-2 kept its Spanish names,
-## ids illus_<name> in assets/inventario.json): assets/art/illustrations/events/<name>[_192].png.
+## The names the art uses for the ids of the festivals (fiestas, 4.25) and the incidents (vida, 4.24.5): arte-fal-2
+## kept its Spanish names (ids illus_<name> in assets/inventario.json), assets/art/illustrations/events/<name>[_192].png.
+## The only alias table of the event illustrations: illustration("events", id) applies it (FestivalPage, IncidentPage).
+## The art's rescate.png and ladron.png have no id of the sim yet.
 const EVENT_ILLUSTRATION_ALIAS: Dictionary = {"holy_week": "semana_santa", "mayday_corpus": "mayos_corpus",
 	"st_john": "san_juan", "harvest_fair": "siega_feria", "st_michael": "san_miguel", "all_saints_matanza": "matanza",
-	"christmas": "navidad", "carnival": "carnaval", "brawl": "altercado", "altercation": "altercado", "bandit_raid": "asalto_bandidos",
-	"kidnapping": "secuestro", "rescue": "rescate", "night_thief": "ladron"}
+	"christmas": "navidad", "carnival": "carnaval", "altercation": "altercado", "bandit_raid": "asalto_bandidos",
+	"kidnapping": "secuestro"}
 
 
 ## Fiestas (04f 4.28.3): the illustration of `id`, or a visible provisional greybox (240×135, 192×108 small) that

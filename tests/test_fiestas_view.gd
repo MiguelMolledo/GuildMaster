@@ -113,3 +113,13 @@ func test_the_fixed_feasts_have_their_illustration() -> void:
 				" small" if small else ""])
 			if t != null:
 				eq(t.get_width(), 192 if small else 240, "%s: its size" % id)
+
+
+## One alias table for the event illustrations (VisualPaths.EVENT_ILLUSTRATION_ALIAS): vida's incidents find theirs.
+func test_the_incidents_find_their_illustration_by_the_same_alias() -> void:
+	for id: String in ["altercation", "bandit_raid", "kidnapping"]:
+		check(VisualPaths.illustration("events", id) != null, "%s: its art" % id)
+		check(VisualPaths.illustration("events", id, true) != null, "%s: its small art" % id)
+	var sim := _game()
+	var d := IncidentPage.data_for(sim, {"def": "altercation", "card": {}}, "")
+	check(d.get("image") is Texture2D and not VisualPaths.is_placeholder(d["image"]), "the incident card shows the art")

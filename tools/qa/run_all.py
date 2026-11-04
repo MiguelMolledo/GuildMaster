@@ -61,7 +61,7 @@ STEPS = [
                   "--seeds=3"]),
     ("festive", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=festive", "--days=8",
                      "--seeds=3"]),
-    ("bench_fair", G + ["-s", "tools/sim_bench.gd", "--", "--at-day=3", "--days=1"]),
+    ("bench_fair", G + ["-s", "tools/sim_bench.gd", "--", "--at-day=3", "--days=1", "--runs=3"]),
 ]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]

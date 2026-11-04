@@ -2,6 +2,12 @@
   "tomadas": [
     {
       "fecha": "2026-11-04",
+      "tema": "Fiestas: regalo de la villa, audiencia del marqués y patrocinios de la IA (de momento, no)",
+      "decision": "Manager, a la espera del owner: no a las dos. El regalo de la villa sigue siendo un encargo de carrera (la primera espada excelente) y no hay audiencia con privilegios; las familias rivales no patrocinan fiestas. Las dos preguntas pasan al owner.",
+      "por_que": "Respuesta provisional del manager mientras el owner decide."
+    },
+    {
+      "fecha": "2026-11-04",
       "tema": "Fiestas enganchadas con vida (forasteros, agenda, sucesos)",
       "decision": "Tras juntar vida, las fiestas del calendario mueven su agenda, sus forasteros y sus sucesos por los mismos puntos que ya leía de data/events.json (Life.event_mult, holy_day, festival). Los forasteros se planean con las fiestas de todo el día; con una fiesta del calendario no se suma el ×3 genérico de vida (la feria da ×5, ×3,5 sin patrocinio, y abre fair_max); los tipos que trae la fiesta pesan el doble. Los espectáculos de la fiesta entran como espectáculos de vida y el predicador sube la fe. Los ids de actividad y suceso de data/festivals.json pasan a los de data/life/ (procesión y romería → mass, baile → stroll, hogueras y banquete → chat, cementerio → visit, brawl → altercation) y el validador los comprueba.",
       "por_que": "Una sola puerta para lo que la ciudad viva lee de un evento o una fiesta; así no se cuentan dos veces los forasteros."
@@ -493,16 +499,6 @@
       "tema": "Diversión y ritmo (03b §3b.7, O-D1–O-D5)",
       "detalle": "Se construye con las recomendaciones: Forja viva de 3 decisiones con Resolver sin jugar; desbloqueos por hito y calendario con carta; Saltar hasta…; obras maestras con nombre; encargos con especificaciones.",
       "opciones": "Ver 03b §3b.7."
-    },
-    {
-      "tema": "Fiestas: regalo de la villa y audiencia del marqués",
-      "detalle": "4.25.2: que el Alcalde elija el regalo entre las piezas ofrecidas y que la audiencia dé privilegios (−1 año al próximo título, exención o cargo menor). Hoy el regalo es un encargo de carrera (la primera espada excelente) y no hay audiencia.",
-      "opciones": "construirlo con el diseño · dejarlo para 4.22"
-    },
-    {
-      "tema": "Fiestas: patrocinios de la IA rival",
-      "detalle": "4.25.5 [propuesta]: las familias rivales patrocinan si les sobra oro y quieren reputación. Va en la revisión de 04c.",
-      "opciones": "sí, con su módulo de reputación · no"
     }
   ],
   "proximos_pasos": [
