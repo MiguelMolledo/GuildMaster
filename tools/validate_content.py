@@ -1495,6 +1495,87 @@ def check_h14(strings, rep):
     check_text("i18n/reason", "reason.directive_not_ready", strings, rep)
 
 
+def check_combat(items, strings, rep):
+    """Duelo «a tres tiempos» (docs/gdd/04e_combate.md, borrador): data/combat.json. Las tres acciones forman un ciclo
+    (cada una gana a otra distinta), costes de aliento enteros y Parada sin coste; lectura con min <= base <= max en
+    [0, 1]; tiradas enteras; armas con filo conocido y cifras enteras; tipos con toques > 0 y lances >= toques; los
+    objetos de items y armor_items existen y caen en un arma conocida; probabilidades de la IA en [0, 1]; textos de
+    acciones, tipos y armas."""
+    w = "combat.json"
+    c = load_json(os.path.join(DATA, "combat.json"), rep) or {}
+    acts = c.get("actions") or {}
+    if set(acts) != {"strike", "parry", "feint"}:
+        rep.error(w, "actions: strike, parry y feint")
+        return
+    if {a.get("beats") for a in acts.values()} != set(acts) or any(k == a.get("beats") for k, a in acts.items()):
+        rep.error(w, "actions.beats: cada acción gana a otra distinta y las tres forman un ciclo")
+    for k, a in acts.items():
+        if not isinstance(a.get("breath"), int):
+            rep.error(w, f"actions.{k}.breath debe ser un entero (negativo = recupera)")
+        check_text(w, f"combat.action.{k}", strings, rep)
+        check_text(w, f"combat.action.{k}.hint", strings, rep)
+    if isinstance(acts["parry"].get("breath"), int) and acts["parry"]["breath"] > 0:
+        rep.error(w, "actions.parry.breath <= 0: sin aliento siempre se puede parar")
+    b = c.get("breath") or {}
+    if not isinstance(b.get("base"), int) or not isinstance(b.get("per_constitution"), (int, float)):
+        rep.error(w, "breath: base entero y per_constitution numérico")
+    r = c.get("read") or {}
+    try:
+        if not (0 <= float(r["min"]) <= float(r["base"]) <= float(r["max"]) <= 1 and float(r["step"]) >= 0):
+            rep.error(w, "read: 0 <= min <= base <= max <= 1 y step >= 0")
+        if r.get("stat") not in STATS or r.get("against") not in STATS:
+            rep.error(w, "read.stat y read.against: atributos conocidos")
+    except (KeyError, TypeError, ValueError):
+        rep.error(w, "read: stat, against, base, step, min y max")
+    for k in ("touch", "clash"):
+        t = c.get(k) or {}
+        if t.get("stat") not in STATS or any(not isinstance(t.get(x), int) for x in ("base", "step")):
+            rep.error(w, f"{k}: stat conocido y base, step enteros")
+    if not isinstance((c.get("touch") or {}).get("advantage"), int):
+        rep.error(w, "touch.advantage debe ser un entero")
+    ini = c.get("initiative") or {}
+    if not isinstance(ini.get("blind"), int) or ini.get("blind") < 0 or ini.get("first") not in ("challenger", "challenged"):
+        rep.error(w, "initiative: blind entero >= 0 y first challenger | challenged")
+    weapons = c.get("weapons") or {}
+    if "fists" not in weapons:
+        rep.error(w, "weapons.fists: el arma de quien no lleva nada")
+    for k, wp in weapons.items():
+        if wp.get("edge") not in set(acts) | {""}:
+            rep.error(w, f"weapons.{k}.edge: una acción o \"\"")
+        for x in ("touch", "tie", "breath"):
+            if not isinstance(wp.get(x), int):
+                rep.error(w, f"weapons.{k}.{x} debe ser un entero")
+        check_text(w, f"combat.weapon.{k}", strings, rep)
+    for x in (c.get("armor") or {}, c.get("wounded") or {}):
+        if not x:
+            rep.error(w, "armor y wounded")
+    for k, kd in (c.get("kinds") or {}).items():
+        t, l = kd.get("touches"), kd.get("lances")
+        if not (isinstance(t, int) and isinstance(l, int) and 0 < t <= l):
+            rep.error(w, f"kinds.{k}: 0 < touches <= lances (enteros)")
+        for x in ("wound", "can_yield", "locked"):
+            if not isinstance(kd.get(x), bool):
+                rep.error(w, f"kinds.{k}.{x} debe ser true o false")
+        check_text(w, f"combat.kind.{k}", strings, rep)
+    if not any(not kd.get("locked") for kd in (c.get("kinds") or {}).values()):
+        rep.error(w, "kinds: al menos un tipo sin bloquear")
+    ai = c.get("ai") or {}
+    for x in ("habit", "edge_weight", "yield_chance"):
+        if not isinstance(ai.get(x), (int, float)) or not 0 <= ai[x] <= 1:
+            rep.error(w, f"ai.{x} en [0, 1]")
+    for x in ("min_history", "yield_behind"):
+        if not isinstance(ai.get(x), int) or ai[x] < 0:
+            rep.error(w, f"ai.{x} entero >= 0")
+    for it, wp in (c.get("items") or {}).items():
+        if it not in items:
+            rep.error(w, f"items.{it}: objeto desconocido")
+        if wp not in weapons:
+            rep.error(w, f"items.{it}: arma desconocida {wp}")
+    for it in c.get("armor_items") or []:
+        if it not in items:
+            rep.error(w, f"armor_items: objeto desconocido {it}")
+
+
 H13_NOTICES = ["event_started", "event_declared", "event_ended"]
 H13_REASONS = ["event_active", "event_excluded", "too_many_events", "event_disabled", "unknown_event"]
 H13_EFFECTS = {"price", "demand", "production", "customers", "errands", "mortality"}
@@ -2263,6 +2344,7 @@ def main():
     check_h11(strings, rep)
     check_h14(strings, rep)
     check_h13(items, strings, rep)
+    check_combat(items, strings, rep)
     check_h12(items, recipes, buildings, maps, strings, rep)
     check_tutorial(strings, set(load_kind("starts", rep)),
                    {n[:-5] for n in os.listdir(os.path.join(DATA, "scenarios")) if n.endswith(".json") and not n.startswith("_")},

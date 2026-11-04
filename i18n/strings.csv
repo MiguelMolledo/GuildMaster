@@ -2316,3 +2316,60 @@ tutorial.ui.help_done,done,hecho
 tutorial.ui.help_other_trade,Only in a game of this trade,Solo en una partida de este oficio
 tutorial.ui.options_hints,First-time hints,Pistas de primera vez
 tutorial.ui.options_guided,Guided tutorial: only the highlight,Tutorial guiado: solo lo resaltado
+combat.action.strike,Strike,Golpe
+combat.action.strike.hint,Beats a feint. Costs 2 breath.,Gana a la finta. Gasta 2 de aliento.
+combat.action.parry,Parry,Parada
+combat.action.parry.hint,Beats a strike and counters. Recovers 1 breath.,Gana al golpe y contraataca. Recupera 1 de aliento.
+combat.action.feint,Feint,Finta
+combat.action.feint.hint,Beats a parry. Costs 1 breath.,Gana a la parada. Gasta 1 de aliento.
+combat.weapon.fists,Fists,A puño
+combat.weapon.tool,Tool,Herramienta
+combat.weapon.sword,Sword,Espada
+combat.weapon.dagger,Dagger,Daga
+combat.weapon.staff,Staff,Bastón
+combat.kind.first_blood,to first blood,a primera sangre
+combat.kind.surrender,until one yields,hasta la rendición
+combat.kind.to_death,to the death,a muerte
+combat.ui.title,Duel %s,Duelo %s
+combat.ui.lance,Lance %d of %d · first to %d touches wins,Lance %d de %d · gana quien dé %d toques
+combat.ui.breath,Breath %d/%d,Aliento %d/%d
+combat.ui.touches,Touches,Toques
+combat.ui.lances,Lances,Lances
+combat.ui.armor,armour,armadura
+combat.ui.rival_leads,%s has the initiative: read the gesture,%s lleva la iniciativa: lee su gesto
+combat.cue.strike,The shoulder comes forward: a strike is coming.,Adelanta el hombro: viene un golpe.
+combat.cue.parry,Weight on the back foot: waiting to parry.,Carga el pie de atrás: espera para parar.
+combat.cue.feint,The eyes dance and the blade lies: a feint.,La mirada baila y la hoja miente: prepara una finta.
+combat.ui.reliable,Reliable: %d in 10,Fiable: %d de cada 10
+combat.ui.you_lead,You have the initiative,Llevas la iniciativa
+combat.ui.you_lead_text,You choose first. %s watches your body for a tell.,Eliges primero. %s busca en tu cuerpo lo que vas a hacer.
+combat.ui.read_by,%s reads you: %d in 10,%s te lee: %d de cada 10
+combat.ui.blind,Blind lance,Lance a ciegas
+combat.ui.blind_text,Salute and first exchange: nobody shows a gesture.,Saludo y primer cruce: nadie enseña su gesto.
+combat.ui.yield,Yield,Rendirse
+combat.ui.auto,Resolve without playing,Resolver sin jugar
+combat.ui.nobody,nobody,nadie
+combat.ui.log_line,Lance %d · %s against %s → %s (%s),Lance %d · %s contra %s → %s (%s)
+combat.ui.touch,Touch!,¡Toque!
+combat.how.beats,touch,toque
+combat.how.held,held off,detenido
+combat.how.clash,clash,choque
+combat.how.edge,the weapon's edge,filo del arma
+combat.how.even,nothing,nada
+combat.ui.missing_art,Provisional art: the duel poses and effects are missing,Arte provisional: faltan las poses y efectos del duelo
+combat.ui.again,Another duel,Otro duelo
+combat.ui.close,Close,Cerrar
+combat.result.win,Victory,Victoria
+combat.result.lose,Defeat,Derrota
+combat.result.draw,Draw,Tablas
+combat.result.yielded_you,You yielded,Te has rendido
+combat.result.yielded_rival,The rival yields,El rival se rinde
+combat.result.text,"%s %d – %d %s, in %d lances.","%s %d – %d %s, en %d lances."
+combat.result.proposal,"What it would change in the game (proposal, not applied in this test):","Lo que cambiaría en la partida (propuesta, sin aplicar en esta prueba):"
+combat.result.effects.win,Reputation +5 (×2 with 3 or more witnesses)|Relation with %s −10|If it was for love: +15 affinity,Reputación +5 (×2 con 3 o más testigos)|Relación con %s −10|Si era por amor: +15 de afinidad
+combat.result.effects.lose,Reputation −2|Relation with %s −5|If it was for love: +5 affinity for fighting,Reputación −2|Relación con %s −5|Si era por amor: +5 de afinidad por batirte
+combat.result.effects.draw,Reputation +1 for both|Relation with %s +5,Reputación +1 los dos|Relación con %s +5
+combat.result.effects.yielded_you,Reputation −8|No wound|If it was for love: −15 affinity,Reputación −8|Sin herida|Si era por amor: −15 de afinidad
+combat.result.effects.yielded_rival,Reputation +5|%s: reputation −8,Reputación +5|%s: reputación −8
+reason.no_breath,Not enough breath,Te falta aliento
+combat.ui.over,The duel is over,El duelo ha terminado
