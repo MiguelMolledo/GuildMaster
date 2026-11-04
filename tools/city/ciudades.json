@@ -1,5 +1,5 @@
 {
- "_doc": "Plans of the organic towns of the region (tools/city/organic.py, docs/protocolos/generar-ciudad.md §Ciudades orgánicas). Coordinates in tiles [col, row] of the map; sizes [cols, rows]. Change a number and run python3 tools/city/ciudad.py region <id> (then the scenarios: tools/scenarios/make_city_scenarios.gd). Same plan, same map.",
+ "_doc": "Plans of the organic towns of the region (tools/city/organic.py, docs/protocolos/generar-ciudad.md §Ciudades orgánicas). Coordinates in tiles [col, row] of the map; sizes [cols, rows]. Change a number and run python3 tools/city/ciudad.py region <id> (then the scenarios: tools/scenarios/make_city_scenarios.gd). Same plan, same map. \"use\": \"imagen\" takes the skeleton of the plan's drawing (\"skeleton\", tools/city/esqueleto.py), \"procedural\" (default) grows it from the plan; ciudad.py region <id> --variante imagen|procedural forces one to compare.",
  "region_port": {
   "size": [
    48,
@@ -492,7 +492,96 @@
    "cell": 9
   },
   "trees": 0.12,
-  "gardens": 0.05
+  "gardens": 0.05,
+  "fal": {
+   "classes": [
+    "grass",
+    "street",
+    "plaza",
+    "water",
+    "building",
+    "field",
+    "forest",
+    "dock",
+    "exchange",
+    "warehouse"
+   ],
+   "brief": "Portvell, a river port. A wide river (one seventh of the image wide) crosses the image from left to right a little below the middle. Along the north bank, a long grey quay with five short brown wooden piers sticking into the water; three cyan warehouses and one orange exchange hall stand on the waterfront. One grey stone bridge crosses to a small quarter of scattered houses on the south bank. An irregular beige market square in the middle of the town, near the river. About 90 small red houses packed tightly in irregular blocks between curving streets. Two grey roads leave the town to the left and to the right edges of the image. Yellow fields and dark green woods at the edges. No town wall."
+  },
+  "skeleton": {
+   "image": "docs/arte/ciudades_v2/fal/region_port.png",
+   "boats": 4,
+   "rowboats": 3,
+   "boat": [
+    4,
+    2
+   ],
+   "crane": {
+    "height": 88,
+    "color": "#7a5530"
+   },
+   "districts": [
+    {
+     "id": "ribera",
+     "when": "dense",
+     "roof": "#8a3b2a",
+     "density": {
+      "fill": 1.0,
+      "touch": true,
+      "lot_sizes": [
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        3
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        2,
+        4
+       ]
+      ],
+      "backyard": 1,
+      "patios": 0.5,
+      "blocks": 0.8,
+      "block_max": 30
+     }
+    },
+    {
+     "id": "afores",
+     "when": "loose",
+     "roof": "#7a5a3a",
+     "density": {
+      "fill": 0.7,
+      "lot_sizes": [
+       [
+        3,
+        3
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ],
+      "backyard": 1
+     }
+    }
+   ]
+  },
+  "use": "imagen"
  },
  "region_capital": {
   "size": [
@@ -1141,7 +1230,106 @@
    "cell": 10
   },
   "trees": 0.1,
-  "gardens": 0.04
+  "gardens": 0.04,
+  "fal": {
+   "classes": [
+    "grass",
+    "street",
+    "plaza",
+    "water",
+    "building",
+    "field",
+    "forest",
+    "wall",
+    "dock",
+    "church",
+    "exchange",
+    "warehouse"
+   ],
+   "brief": "Bellcaire, a walled market city on a wide river. A wide blue river crosses the bottom fifth of the image from left to right. A black town wall with small square towers makes a rough oval around the old town, from the river bank round the north back to the river bank, with four gates where the main roads pass. Inside: an irregular beige market square in the middle, a large purple cathedral with a small beige square in front of it beside the market square, about 250 small red houses packed in irregular blocks, narrow alleys. On the river bank inside the wall: a grey quay with six brown piers, an orange exchange hall and three cyan warehouses. One grey bridge crosses the river to a loose suburb of red houses on the far bank; another loose suburb outside the west gate. Grey roads leave from each gate to the edges. Yellow fields and dark green woods around."
+  },
+  "skeleton": {
+   "image": "docs/arte/ciudades_v2/fal/region_capital.png",
+   "boats": 5,
+   "rowboats": 4,
+   "boat": [
+    4,
+    2
+   ],
+   "crane": {
+    "height": 88,
+    "color": "#7a5530"
+   },
+   "walls": {
+    "towers_every": 12,
+    "tower": [
+     2,
+     2
+    ],
+    "tower_height": 80
+   },
+   "districts": [
+    {
+     "id": "vila",
+     "when": "inside",
+     "roof": "#7a4a3a",
+     "density": {
+      "fill": 1.0,
+      "touch": true,
+      "lot_sizes": [
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        3
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        2,
+        4
+       ]
+      ],
+      "backyard": 1,
+      "patios": 0.5,
+      "blocks": 0.8,
+      "block_max": 30
+     }
+    },
+    {
+     "id": "raval",
+     "when": "outside",
+     "roof": "#7a6040",
+     "density": {
+      "fill": 0.7,
+      "lot_sizes": [
+       [
+        3,
+        3
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ],
+      "backyard": 1
+     }
+    }
+   ]
+  },
+  "use": "imagen"
  },
  "region_quarry": {
   "size": [
@@ -1510,7 +1698,86 @@
    "cell": 8
   },
   "trees": 0.16,
-  "gardens": 0.05
+  "gardens": 0.05,
+  "fal": {
+   "classes": [
+    "grass",
+    "street",
+    "plaza",
+    "water",
+    "building",
+    "field",
+    "forest",
+    "rock",
+    "mine",
+    "quarry"
+   ],
+   "brief": "Peñarroja, a mining and quarry village at the foot of a mountain. The top fifth of the image is bare rock of the mountain (dark brownish grey) with a ragged edge. A narrow blue torrent comes down from the rock and runs to the bottom edge, crossed by one grey bridge. A small beige square in the middle; about 40 small red stone houses in short irregular rows along the curving lanes, climbing towards the rock. At the foot of the rock: a magenta mine entrance at the end of a lane, a very light grey quarry pit cut into the rock on the left. Grey roads to the left, right and bottom edges; a few yellow fields to the south, dark green woods."
+  },
+  "skeleton": {
+   "image": "docs/arte/ciudades_v2/fal/region_quarry.png",
+   "districts": [
+    {
+     "id": "poble",
+     "when": "dense",
+     "roof": "#7c776e",
+     "density": {
+      "fill": 0.9,
+      "touch": true,
+      "lot_sizes": [
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        3
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        2,
+        4
+       ]
+      ],
+      "backyard": 1,
+      "patios": 0.5,
+      "blocks": 0.5,
+      "block_max": 20
+     }
+    },
+    {
+     "id": "afores",
+     "when": "loose",
+     "roof": "#7c776e",
+     "density": {
+      "fill": 0.7,
+      "lot_sizes": [
+       [
+        3,
+        3
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        2,
+        2
+       ]
+      ],
+      "backyard": 1
+     }
+    }
+   ]
+  },
+  "use": "imagen"
  },
  "region_hamlet": {
   "size": [
@@ -1781,7 +2048,54 @@
    "min_size": 12
   },
   "trees": 0.1,
-  "gardens": 0.06
+  "gardens": 0.06,
+  "fal": {
+   "classes": [
+    "grass",
+    "street",
+    "plaza",
+    "water",
+    "building",
+    "field",
+    "forest",
+    "mill"
+   ],
+   "brief": "Vilablat, a small farming hamlet. A narrow blue stream runs from the top to the bottom edge on the right, crossed by one grey road. A small beige village green in the middle with about 25 small red houses scattered loosely around it, each with a garden. A pink water mill on the stream bank. Large yellow fields of irregular shapes all around, separated by grey dirt lanes and dark green hedges. One grey road crosses the image from left to right through the green."
+  },
+  "skeleton": {
+   "image": "docs/arte/ciudades_v2/fal/region_hamlet.png",
+   "districts": [
+    {
+     "id": "aldea",
+     "when": "any",
+     "roof": "#8a6a3a",
+     "density": {
+      "fill": 0.9,
+      "lot_sizes": [
+       [
+        3,
+        3
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        2,
+        2
+       ]
+      ],
+      "backyard": 1
+     }
+    }
+   ],
+   "around_plaza": 11
+  },
+  "use": "imagen"
  },
  "region_abbey": {
   "size": [
@@ -2054,6 +2368,62 @@
    "min_size": 10
   },
   "trees": 0.2,
-  "gardens": 0.06
+  "gardens": 0.06,
+  "fal": {
+   "classes": [
+    "grass",
+    "street",
+    "plaza",
+    "water",
+    "building",
+    "field",
+    "forest",
+    "wall",
+    "church",
+    "cloister"
+   ],
+   "brief": "Montsacre, an abbey with its small village. On the right half, a black precinct wall encloses a large purple abbey church, a white square cloister beside it, a yellow kitchen garden and a small blue fish pond, with one gate on its left side. On the left half, a small beige square with about 30 small red houses in irregular blocks along curving streets. A grey road comes from the left edge to the square and another runs round the north of the precinct to the right edge. Yellow fields and dark green woods around."
+  },
+  "skeleton": {
+   "image": "docs/arte/ciudades_v2/fal/region_abbey.png",
+   "types": {
+    "church": "abbey_church"
+   },
+   "walls": {
+    "towers_every": 0,
+    "tower": [
+     2,
+     2
+    ],
+    "tower_height": 64
+   },
+   "districts": [
+    {
+     "id": "burg",
+     "when": "outside",
+     "roof": "#7c776e",
+     "density": {
+      "fill": 0.85,
+      "touch": true,
+      "lot_sizes": [
+       [
+        3,
+        3
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        2
+       ]
+      ],
+      "backyard": 1
+     }
+    }
+   ]
+  },
+  "use": "procedural"
  }
 }

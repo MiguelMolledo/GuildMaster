@@ -2,8 +2,8 @@
 	"buildings": {
 		"bld_0001": {
 			"door": [
-				20,
-				34
+				19,
+				15
 			],
 			"employee_slots": 1,
 			"footprint": [
@@ -35,8 +35,8 @@
 				]
 			},
 			"origin": [
-				19,
-				30
+				18,
+				11
 			],
 			"owner": "fam_0001",
 			"queue": {
@@ -71,8 +71,8 @@
 		},
 		"bld_0002": {
 			"door": [
-				5,
-				21
+				6,
+				19
 			],
 			"employee_slots": 1,
 			"footprint": [
@@ -104,8 +104,8 @@
 				]
 			},
 			"origin": [
-				4,
-				17
+				5,
+				15
 			],
 			"owner": "fam_0002",
 			"queue": {
@@ -140,8 +140,8 @@
 		},
 		"bld_0003": {
 			"door": [
-				10,
-				25
+				8,
+				28
 			],
 			"employee_slots": 0,
 			"footprint": [
@@ -162,8 +162,8 @@
 				"stacks": []
 			},
 			"origin": [
-				7,
-				24
+				5,
+				27
 			],
 			"owner": "",
 			"queue": {
@@ -186,8 +186,8 @@
 		},
 		"bld_0004": {
 			"door": [
-				11,
-				32
+				28,
+				28
 			],
 			"employee_slots": 0,
 			"footprint": [
@@ -208,8 +208,8 @@
 				"stacks": []
 			},
 			"origin": [
-				10,
-				29
+				25,
+				27
 			],
 			"owner": "fam_0003",
 			"queue": {
@@ -227,8 +227,8 @@
 		},
 		"bld_0005": {
 			"door": [
-				7,
-				14
+				22,
+				33
 			],
 			"employee_slots": 0,
 			"footprint": [
@@ -249,8 +249,8 @@
 				"stacks": []
 			},
 			"origin": [
-				4,
-				13
+				21,
+				30
 			],
 			"owner": "fam_0004",
 			"queue": {
@@ -268,8 +268,8 @@
 		},
 		"bld_0006": {
 			"door": [
-				25,
-				34
+				11,
+				33
 			],
 			"employee_slots": 0,
 			"footprint": [
@@ -290,8 +290,8 @@
 				"stacks": []
 			},
 			"origin": [
-				24,
-				31
+				8,
+				32
 			],
 			"owner": "fam_0005",
 			"queue": {
@@ -309,8 +309,8 @@
 		},
 		"bld_0007": {
 			"door": [
-				29,
-				34
+				31,
+				32
 			],
 			"employee_slots": 0,
 			"footprint": [
@@ -350,8 +350,8 @@
 		},
 		"bld_0008": {
 			"door": [
-				29,
-				37
+				31,
+				28
 			],
 			"employee_slots": 0,
 			"footprint": [
@@ -372,8 +372,8 @@
 				"stacks": []
 			},
 			"origin": [
-				26,
-				36
+				30,
+				25
 			],
 			"owner": "fam_0007",
 			"queue": {
@@ -391,8 +391,8 @@
 		},
 		"bld_0009": {
 			"door": [
-				33,
-				36
+				34,
+				10
 			],
 			"employee_slots": 0,
 			"footprint": [
@@ -413,8 +413,8 @@
 				"stacks": []
 			},
 			"origin": [
-				32,
-				33
+				33,
+				7
 			],
 			"owner": "fam_0008",
 			"queue": {
@@ -432,8 +432,8 @@
 		},
 		"bld_0010": {
 			"door": [
-				17,
-				34
+				5,
+				23
 			],
 			"employee_slots": 1,
 			"footprint": [
@@ -465,8 +465,8 @@
 				]
 			},
 			"origin": [
-				14,
-				33
+				2,
+				22
 			],
 			"owner": "fam_0009",
 			"queue": {
@@ -501,8 +501,8 @@
 		},
 		"bld_0011": {
 			"door": [
-				29,
-				24
+				2,
+				18
 			],
 			"employee_slots": 1,
 			"footprint": [
@@ -534,8 +534,8 @@
 				]
 			},
 			"origin": [
-				28,
-				20
+				1,
+				14
 			],
 			"owner": "fam_0010",
 			"queue": {
@@ -570,8 +570,8 @@
 		},
 		"bld_0012": {
 			"door": [
-				33,
-				23
+				37,
+				17
 			],
 			"employee_slots": 1,
 			"footprint": [
@@ -598,8 +598,8 @@
 				]
 			},
 			"origin": [
-				32,
-				20
+				36,
+				14
 			],
 			"owner": "fam_0011",
 			"queue": {
@@ -686,8 +686,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				16,
-				24
+				14,
+				27
 			],
 			"profession": "blacksmith",
 			"rank": "",
@@ -761,8 +761,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				5,
-				21
+				6,
+				19
 			],
 			"profession": "blacksmith",
 			"rank": "",
@@ -836,8 +836,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				11,
-				32
+				28,
+				28
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -911,8 +911,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				11,
-				32
+				28,
+				28
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -986,8 +986,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				7,
-				14
+				22,
+				33
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1061,8 +1061,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				7,
-				14
+				22,
+				33
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1136,8 +1136,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				25,
-				34
+				11,
+				33
 			],
 			"profession": "blacksmith",
 			"rank": "master",
@@ -1211,8 +1211,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				25,
-				34
+				11,
+				33
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -1286,8 +1286,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				29,
-				34
+				31,
+				32
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1361,8 +1361,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				29,
-				34
+				31,
+				32
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1436,8 +1436,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				29,
-				37
+				31,
+				28
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -1511,8 +1511,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				29,
-				37
+				31,
+				28
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1586,8 +1586,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				33,
-				36
+				34,
+				10
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1661,8 +1661,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				33,
-				36
+				34,
+				10
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -1736,8 +1736,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				17,
-				34
+				5,
+				23
 			],
 			"profession": "carpenter",
 			"rank": "",
@@ -1813,8 +1813,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				17,
-				34
+				5,
+				23
 			],
 			"profession": "",
 			"rank": "",
@@ -1888,8 +1888,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				29,
-				24
+				2,
+				18
 			],
 			"profession": "mason",
 			"rank": "",
@@ -1965,8 +1965,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				29,
-				24
+				2,
+				18
 			],
 			"profession": "",
 			"rank": "",
@@ -2042,8 +2042,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				33,
-				23
+				37,
+				17
 			],
 			"profession": "tailor",
 			"rank": "",
@@ -2117,8 +2117,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				33,
-				23
+				37,
+				17
 			],
 			"profession": "",
 			"rank": "",
@@ -2589,7 +2589,7 @@
 		"regulations": []
 	},
 	"meta": {
-		"description": "Partida nueva de artisan_blacksmith (normal, semilla 1) en la ciudad generada region_quarry (trazado organic, semilla 1).",
+		"description": "Partida nueva de artisan_blacksmith (normal, semilla 1) en la ciudad generada region_quarry (trazado organic+imagen, semilla 1).",
 		"origin": "tools/scenarios/make_city_scenarios.gd",
 		"start": "artisan_blacksmith",
 		"title": "region_quarry_start"

@@ -164,6 +164,7 @@ class Town:
         self.bridges_ok = set()  # water tiles a road may turn into a bridge
         self.log = []
         self.lot_tiles = set()  # tiles of the filler lots (houses and their yards)
+        self.prefer = set()  # tiles where the drawing has houses (skeleton plans): the sites go there first
         self.stats = {}  # why the branches of the street mesh stopped (debug)
         self.lines = []  # (rank, samples) of every street drawn: main roads, quay, secondary streets, alleys
         self.quay = set()
@@ -629,6 +630,12 @@ class Town:
                 continue
             for k in range(int(lm.get("count", 1))):
                 spots = self.landmark_spots(lm)
+                if not spots and self.plan.get("skeleton"):  # a drawn town is tighter: a little smaller
+                    for f in (0.8, 0.65):
+                        lm = dict(lm, size=[max(2, int(round(v * f))) for v in lm["size"]])
+                        spots = self.landmark_spots(lm)
+                        if spots:
+                            break
                 if not spots:
                     self.log.append(f"hito {lm['type']}: no cabe cerca de {lm['near']}")
                     break
@@ -877,13 +884,15 @@ class Town:
 
     def place_site(self, typ, prefer_main):
         fw, fh = self.cat.footprints[typ]
+        on_fields = bool(self.plan.get("skeleton"))  # a drawn town: a workshop may take the edge of a field
         pc = (self.px + gen.PLAZA_W / 2.0, self.py + gen.PLAZA_H / 2.0)
         best = None
         for r in range(1, self.h - fh):
             for c in range(1, self.w - fw):
                 rect = (c, r, fw, fh)
                 tiles = gen._tiles(rect)
-                if not all(self._free(t) for t in tiles):
+                if not all(self._free(t) or (on_fields and self.at(t) in ("f", "T") and self.inside(t, 1)
+                                             and t not in self.taken and t not in self.p.reserved) for t in tiles):
                     continue
                 ring = gen._ring(rect)
                 if any(t in self.taken or self.at(t) in ("#", "H") for t in ring):
@@ -902,7 +911,8 @@ class Town:
                     vis = d in VISIBLE and drawn
                     cx, cy = c + fw / 2.0, r + fh / 2.0
                     dist = round(max(abs(cx - pc[0]), abs(cy - pc[1])), 1)
-                    key = (0 if vis else 1, 0 if main == prefer_main else 1, dist, r, c)
+                    drawn = sum(1 for t in tiles if t in self.prefer) * 2 >= len(tiles) if self.prefer else True
+                    key = (0 if vis else 1, 0 if main == prefer_main else 1, 0 if drawn else 1, dist, r, c)
                     if best is None or key < best[0]:
                         best = (key, rect, d, door)
         if best is None:
@@ -1010,12 +1020,14 @@ class Town:
         touch = bool(den.get("touch", False))
         back = int(den.get("backyard", 0))
         setback = int(den.get("setback", 0))
+        loose = bool(self.plan.get("skeleton"))  # a drawn town: a lot may lie across two districts
         for shift in range(0, along):
             # the front tiles of the house, then the rect behind them (away from the street)
             f0 = (t[0] - step[0] * shift - d[0] * setback, t[1] - step[1] * shift - d[1] * setback)
             fronts = [(f0[0] + step[0] * k, f0[1] + step[1] * k) for k in range(along)]
             tiles = [(f[0] - d[0] * j, f[1] - d[1] * j) for f in fronts for j in range(depth)]
-            if not all(self._free(u) and self.district_of.get(u) == i for u in tiles):
+            if not all(self._free(u) and (self.district_of.get(u) == i or (loose and u in self.district_of))
+                       for u in tiles):
                 continue
             # each front tile reaches the street straight ahead within 1 + setback + slack tiles of open grass
             way = []
@@ -1046,7 +1058,8 @@ class Town:
             extra = []
             for j in range(depth, depth + back):
                 row = [(f[0] - d[0] * j, f[1] - d[1] * j) for f in fronts]
-                if all(self._free(u) and self.district_of.get(u) == i for u in row):
+                if all(self._free(u) and (self.district_of.get(u) == i or (loose and u in self.district_of))
+                       for u in row):
                     extra += row
                 else:
                     break
@@ -1062,6 +1075,14 @@ class Town:
 
     # 9. fields, woods, pockets -----------------------------------------------------------------------------------
     def fields(self):
+        if self.plan.get("skeleton"):
+            # the drawing's fields (its pieces of 6 tiles or more, nearest the plaza first)
+            pc = (self.px + gen.PLAZA_W / 2.0, self.py + gen.PLAZA_H / 2.0)
+            cells = [g for g in citylib.groups_of({t for t in self.tiles() if self.at(t) == "f"}) if len(g) >= 6]
+            cells.sort(key=lambda g: (min(abs(t[0] - pc[0]) + abs(t[1] - pc[1]) for t in g), g[0]))
+            self.field_cells = list(getattr(self, "plot_cells", [])) + cells
+            if self.field_cells:
+                return
         cfg = self.plan.get("fields", {})
         n = int(cfg.get("count", 4))
         cell = float(cfg.get("cell", 8))
@@ -1218,24 +1239,37 @@ class Town:
         return [wp[k] for k in gen.WORKPLACE_ORDER]
 
 
-def build(map_id, plan, cat=None):
+def build(map_id, plan, cat=None, variant=None):
+    """variant: "imagen" (the skeleton of the plan's drawing), "procedural", or None (the plan's "use")."""
     cat = cat or citylib.Catalog()
+    plan = json.loads(json.dumps(plan))
+    if (variant or plan.get("use", "procedural")) != "imagen":
+        plan.pop("skeleton", None)
+    elif not plan.get("skeleton"):
+        raise SystemExit(f"organic: {map_id} no tiene plano de imagen (\"skeleton\")")
     tw = Town(map_id, plan, cat)
     start_ids = plan.get("starts") or ["artisan_blacksmith", "artisan_carpenter", "artisan_mason", "artisan_tailor"]
     pop = citylib.load_json(os.path.join(citylib.DATA, "maps", "town_e.json"))
     households = gen.population_of(pop.get("population", []), int(plan["households"]))
-    tw.terrain()
-    tw.plaza()
-    tw.roads()
-    tw.walls()
-    tw.port()
-    tw.place_landmarks("early")
-    tw.place_plots()
-    for ln in plan.get("lanes", []):
-        tw.stamp(spline(jitter(tw.rng, ln["path"], ln.get("jitter", 1.0)), 0.2), ln.get("width", 1), ln.get("ch", ","),
-                 bridge=ln.get("ford", True))
-    tw.mesh()
-    tw.place_landmarks("mid")
+    if plan.get("skeleton"):  # the skeleton from a semantic plan (an image: tools/city/esqueleto.py)
+        import esqueleto
+        esqueleto.apply(tw)
+        tw.plaza()
+        esqueleto.after_plaza(tw)
+        tw.place_plots()
+    else:
+        tw.terrain()
+        tw.plaza()
+        tw.roads()
+        tw.walls()
+        tw.port()
+        tw.place_landmarks("early")
+        tw.place_plots()
+        for ln in plan.get("lanes", []):
+            tw.stamp(spline(jitter(tw.rng, ln["path"], ln.get("jitter", 1.0)), 0.2), ln.get("width", 1),
+                     ln.get("ch", ","), bridge=ln.get("ford", True))
+        tw.mesh()
+        tw.place_landmarks("mid")
     tw.sites_and_houses(start_ids, households)
     tw.filler()
     tw.fields()
@@ -1263,7 +1297,7 @@ def build(map_id, plan, cat=None):
             "population": population,
             "landmarks": sorted(tw.landmarks, key=lambda e: (e["origin"][1], e["origin"][0])),
             "boats": tw.boats,
-            "generated": {"layout": "organic", "plan": map_id, "seed": tw.seed, "size": [tw.w, tw.h],
+            "generated": {"layout": "organic" + ("+imagen" if plan.get("skeleton") else ""), "plan": map_id, "seed": tw.seed, "size": [tw.w, tw.h],
                           "tool": "tools/city/ciudad.py generar --plan", "starts": start_ids,
                           "style": plan.get("style", ""), "rivers": tw.rivers, "districts": dists,
                           "lots": ";".join(",".join(str(x) for x in lot) for lot in tw.lots)}}
@@ -1274,14 +1308,14 @@ def build(map_id, plan, cat=None):
     return data
 
 
-def main(ids, out=""):
+def main(ids, out="", variant=None):
     plans = load_plans()
     cat = citylib.Catalog()
     bad = 0
     import preview
     for mid in ids or [k for k in plans if not k.startswith("_")]:
         plan = plans[mid]
-        data = build(mid, plan, cat)
+        data = build(mid, plan, cat, variant)
         if out:
             os.makedirs(out, exist_ok=True)
             path = os.path.join(out, mid + ".json")

@@ -124,3 +124,12 @@ func test_the_new_tile_kinds_walk_as_the_table_says() -> void:
 			break
 	check(pier.x >= 0, "region_port has piers")
 	check(not Pathfinder.find(g, Vector2i(int(from[0]), int(from[1])), pier).is_empty(), "a path from the plaza onto a pier")
+
+
+func test_the_ground_smooths_the_stairs_of_the_diagonal_streets() -> void:
+	# data/view.json ground_corners: a tile with street on two sides that meet at a corner gets a triangle of street
+	var v: WorldView = (load("res://game/world/world_view.tscn") as PackedScene).instantiate()
+	v.setup(NewGame.from_scenario("region_capital_start")["state"], cat)
+	check(v.ground().corner_count() > 50, "corner pieces along the diagonal streets of region_capital (%d)" %
+		v.ground().corner_count())
+	v.free()

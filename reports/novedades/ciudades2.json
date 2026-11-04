@@ -1,16 +1,17 @@
 {
   "fecha": "2026-11-04",
-  "titulo": "Planos de Valldaura v2: ciudades orgánicas, río navegable y puertos",
-  "que": "Los cinco asentamientos de la región se rehacen con un generador nuevo (tools/city/organic.py) que sigue un plano por ciudad (tools/city/ciudades.json). Calles mayores en curva desde las puertas, calles secundarias que crecen en ángulos variados y callejones; plaza de forma irregular; manzanas irregulares con casas de tamaños mezclados (2×2 a 3×4) mirando a la calle y patios detrás. El Daura es ancho (7-8 casillas) con puentes de piedra; Portvell y Bellcaire tienen sección del puerto: muelle a lo largo de la orilla, embarcaderos transitables sobre el agua, barcos amarrados y barcas, lonja, aduana, almacenes y grúa. Bellcaire con muralla, torres y puertas, catedral con atrio junto a la plaza, barrios de mercaderes y menestrales y dos arrabales sueltos. Peñarroja con la sierra, la boca de la mina, la cantera, las escombreras y la fundición; Vilablat con arroyo, vado, molino de agua, eras y campos grandes; Montsacre con el recinto amurallado, la iglesia abacial, el claustro, la hospedería y el huerto. Los hitos son bloques isométricos con su color y su nombre que el sim no lee, listos para cambiar por un sprite. La densidad de cada barrio es un número del plano. El validador comprueba además que el río solo se cruza por puentes o vados, que los muelles tocan agua y tierra, que los barcos van en el agua y que nada pisa la huella de un hito.",
+  "titulo": "Planos de Valldaura v2: ciudades orgánicas desde planos de fal, río navegable y puertos",
+  "que": "Los cinco asentamientos se rehacen con un generador nuevo (tools/city/organic.py) que sigue un plano por ciudad (tools/city/ciudades.json). Cuatro toman su forma de un plano semántico visto desde arriba hecho con fal (tools/city/fal_planos.py: colores planos con significado, calles, plazas, agua, casas, muralla, campos y cada hito su color): tools/city/desde_imagen.py lo pasa a la rejilla y tools/city/esqueleto.py toma de ahí el esqueleto (calles, plaza, río, muralla, hitos, campos) y deja al generador los solares, las casas con la puerta a la calle y el decor; Montsacre sigue procedural. Bellcaire con la muralla redonda cerrada, torres y puertas, calles en abanico hacia la plaza, la catedral al lado y el puerto del Daura con muelle, embarcaderos, barcos, lonja, aduana, almacenes y grúa; Portvell con el muelle y sus almacenes; Peñarroja con la mina, la cantera y las escombreras al pie de la sierra; Vilablat con el molino y campos grandes; Montsacre con el recinto, la iglesia, el claustro y el huerto. Los hitos son bloques con su color y su nombre que el sim no lee, listos para cambiar por un sprite. En el juego, las calles en diagonal ya no se ven en escalera: el suelo suaviza las esquinas de cada peldaño. El validador comprueba además el río (solo por puentes o vados), los muelles, los barcos y las huellas de los hitos. Las reglas de lo orgánico, sacadas de villas reales, están en docs/protocolos/generar-ciudad.md.",
   "como_probar": "Vista previa de cada ciudad: python3 tools/city/ciudad.py region (reports/ciudad/<mapa>.png). En el juego: /opt/homebrew/bin/godot --path . -- --scenario=region_capital_start (o region_port_start, region_quarry_start, region_hamlet_start, region_abbey_start). Capturas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=mapa --smoke-maps=region_capital_start,region_port_start.",
   "capturas": [
+    "docs/arte/ciudades_v2/fal/region_capital.png",
     "docs/arte/ciudades_v2/region_capital.png",
     "docs/arte/ciudades_v2/region_port.png",
     "docs/arte/ciudades_v2/region_quarry.png",
     "docs/arte/ciudades_v2/region_hamlet.png",
     "docs/arte/ciudades_v2/region_abbey.png",
-    "docs/arte/ciudades_v2/juego_region_port_puerto.jpg",
-    "docs/arte/ciudades_v2/juego_region_capital_puerto.jpg",
-    "docs/arte/ciudades_v2/juego_region_capital_muralla.jpg"
+    "docs/arte/ciudades_v2/juego_region_capital_muralla.jpg",
+    "docs/arte/ciudades_v2/juego_region_port_calles.jpg",
+    "docs/arte/ciudades_v2/juego_region_port_puerto.jpg"
   ]
 }
