@@ -171,6 +171,9 @@ func _fact_lines(sim: Sim, fam: String) -> Array:
 				out.append(["birth", SimQuery.t_("ui.ending.fact.birth") % [_name(st, str(e.get("character", ""))), d]])
 			"inheritance":
 				out.append(["inheritance", SimQuery.t_("ui.ending.fact.inheritance") % [_name(st, str(e.get("heir", ""))), d]])
+			"duel":  # duelo: one fact per family
+				out.append(["duel", SimQuery.t_("ui.ending.fact.duel") % [_name(st, str(e.get("rival", ""))),
+					SimQuery.t_("combat.result_word." + str(e.get("result", "draw"))), d]])
 			"office_won":
 				out.append(["office_" + str(e.get("office", "")), SimQuery.t_("ui.ending.fact.office") % [SimQuery.office_name(str(e.get("office", ""))), d]])
 			"trial_won":
@@ -202,7 +205,7 @@ func _mark_row(mark: String, text: String, variation: StringName) -> Control:
 		path = "res://assets/art/ui/theme/check_on.png"
 	elif mark == "goal_open":
 		path = "res://assets/art/ui/theme/check_off.png"
-	elif mark in ["wedding", "inheritance", "trial", "goal"]:
+	elif mark in ["wedding", "inheritance", "trial", "goal", "duel"]:
 		path = "res://assets/art/ui/marks/seal.png"
 	if path != "" and ResourceLoader.exists(path):
 		tex = load(path) as Texture2D

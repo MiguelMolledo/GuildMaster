@@ -91,7 +91,8 @@ func refresh(force: bool = false) -> void:
 	var rel := Emotions.relation(st, actor, target) if actor != "" else 0
 	var sig := "%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%d|%s" % [actor, target, SimQuery.town_state_text(sim, target), emos, gift,
 		statuses, rel, camp, Offices.of_character(st, target), Tribunal.accuse_options(sim, actor, target) if actor != "" \
-		else {}, _accuse_pick, _hovered] + "|%s" % [Courtship.affinity(st, actor, target) if actor != "" else 0]
+		else {}, _accuse_pick, _hovered] + "|%s|%s" % [Courtship.affinity(st, actor, target) if actor != "" else 0,
+		Duels.challenge_status(sim, actor, target, "", "first_blood", false) if actor != "" else ""]
 	if sig == _sig and not force:
 		return
 	_sig = sig
@@ -251,6 +252,7 @@ func _fill_actions(statuses: Array, gift: Dictionary, camp: Array, t: Dictionary
 		acts.add_child(b)
 	if actor != "" and str(st.characters.get(actor, {}).get("family", "")) != str(t.get("family", "")):
 		acts.add_child(_accuse_row())  # H11
+		acts.add_child(_duel_button())  # duelo
 	for c: Array in camp:  # H10: the campaign
 		var kind := str(c[0])
 		var why := str(c[1])
@@ -267,6 +269,30 @@ func _fill_actions(statuses: Array, gift: Dictionary, camp: Array, t: Dictionary
 		b.mouse_exited.connect(_hover.bind(""))
 		b.pressed.connect(func() -> void: request_campaign(kind))
 		acts.add_child(b)
+
+
+## Duelo (docs/ui/mecanicas/combate.md §4): «Retar a duelo…» opens the challenge card (DuelDirector) with the causes
+## and what is at stake; off with its reason (no cause, cooldown, busy...). Far away is fine: the card walks there.
+func _duel_button() -> Button:
+	var why := Duels.challenge_status(sim, actor, target, "", "first_blood", false)
+	var b := Button.new()
+	b.name = "DuelButton"
+	b.text = SimQuery.t_("ui.npc.duel")
+	b.focus_mode = Control.FOCUS_NONE
+	b.theme_type_variation = &"BodyButton"
+	b.disabled = why != ""
+	b.tooltip_text = SimQuery.t_("ui.npc.duel_tip") if why == "" else SimQuery.reason_text(why)
+	_reasons[b.name] = SimQuery.t_("ui.npc.reason_line") % [b.text, SimQuery.reason_text(why)] if b.disabled else ""
+	b.mouse_entered.connect(_hover.bind(b.name))
+	b.mouse_exited.connect(_hover.bind(""))
+	b.pressed.connect(request_duel)
+	return b
+
+
+func request_duel() -> void:
+	var d := get_tree().get_first_node_in_group("duel_director") if is_inside_tree() else null
+	if d != null and sim != null and actor != "":
+		d.call("show_challenge", actor, target)
 
 
 ## The sheet of the townsperson's family (the families panel, rivales.md).

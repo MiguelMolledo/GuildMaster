@@ -182,6 +182,49 @@ static func illustration(kind: String, id: String, small: bool = false) -> Textu
 	return null
 
 
+## Duelo (docs/ui/mecanicas/combate.md §8): the frames of a duel effect (strike, parry, feint, hit) from
+## assets/art/vfx/duel_<kind>/: a horizontal strip duel_<kind>.png of square frames (its height), or numbered frames
+## duel_<kind>_01.png, _02.png... [] until they exist: the arena draws its provisional effect by code.
+static func duel_vfx(kind: String) -> Array[Texture2D]:
+	var out: Array[Texture2D] = []
+	var dir := "%s/vfx/duel_%s" % [ART_ROOT, kind]
+	var strip := "%s/duel_%s.png" % [dir, kind]
+	if ResourceLoader.exists(strip):
+		var t := load(strip) as Texture2D
+		var h := t.get_height()
+		var n := maxi(1, t.get_width() / maxi(1, h))
+		for i: int in n:
+			var a := AtlasTexture.new()
+			a.atlas = t
+			a.region = Rect2(i * h, 0, h, h)
+			out.append(a)
+		return out
+	for i: int in range(1, 17):
+		var p := "%s/duel_%s_%02d.png" % [dir, kind, i]
+		if not ResourceLoader.exists(p):
+			break
+		out.append(load(p) as Texture2D)
+	return out
+
+
+## Duelo: the icon of a duel action or figure (strike, parry, feint, yield, breath, touch): assets/art/ui/icons/duel/
+## <id>.png (32) or small/<id>.png (16). null until it exists: the buttons and bars go without it.
+static func duel_icon(id: String, small: bool = false) -> Texture2D:
+	var p := "%s/ui/icons/duel/%s%s.png" % [ART_ROOT, "small/" if small else "", id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## Duelo: the illustration of a duel card (won, lost, draw, challenge): the page kit's place
+## (assets/art/illustrations/duel/<id>.png, illustration()) or the one assets/inventario.json reserves
+## (assets/art/ui/illustrations/duel/<id>.png). null = the card goes without it.
+static func duel_illustration(id: String) -> Texture2D:
+	var t := illustration("duel", id)
+	if t != null:
+		return t
+	var p := "%s/ui/illustrations/duel/%s.png" % [ART_ROOT, id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
 ## The ground texture of a tile kind (data/tiles.json): assets/art/tiles/<kind>.png (null until it exists: the ground
 ## keeps the kind's greybox colour).
 static func tile(kind: String) -> Texture2D:

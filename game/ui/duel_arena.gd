@@ -3,8 +3,9 @@ extends Control
 ## The stage of the duel screen (docs/ui/mecanicas/combate.md §3, §8): the two duellists face to face with their
 ## sprites (CharacterView, ×2), and the short animation of each lance: the strike lunges, the parry steps back with a
 ## spark, the feint half-lunges and pulls back; whoever is touched recoils and blinks, and a word rises over the middle
-## («¡Toque!», «Choque», «Detenido», «Nada»). The duel poses and hit effects have no art yet: the sprites use their
-## forge / work / idle animations and the effects are drawn by code (marked on screen as provisional, see MISSING_ART).
+## («¡Toque!», «Choque», «Detenido», «Nada»). The duel poses have no art yet (PixelLab, 15-nov): the sprites use their
+## forge / work / idle animations. The effects come from VisualPaths.duel_vfx (assets/art/vfx/duel_<kind>/) when they
+## exist, else they are drawn by code; what is still provisional is written on screen.
 ## View only: reads a lance record of Duel.lances_log(), gives no orders.
 
 signal lance_shown
@@ -16,14 +17,23 @@ const FX_SECONDS: float = 0.45
 ## The motion of the sprite (game/visuals/characters/*_frames.tres) that stands for each action until the duel poses.
 const POSE: Dictionary = {"strike": "forge", "parry": "idle", "feint": "work"}
 const MISSING_ART: String = "duel_poses"
+## The effect drawn for each lance and its art id (VisualPaths.duel_vfx).
+const VFX: Dictionary = {"slash": "strike", "spark": "parry", "swirl": "feint", "hit": "hit"}
 
 var fighters: Array[CharacterView] = []
-var _fx: Array = []                 # [{kind, at, t}]
+var _fx: Array = []                 # [{kind, at, t, frames}]
+var _frames: Dictionary = {}        # effect kind -> [Texture2D] (empty: drawn by code)
 var _words: Label = null
 var _missing: Label = null
 
 
 func _ready() -> void:
+	_ensure()
+
+
+func _ensure() -> void:
+	if _words != null:
+		return
 	clip_contents = true
 	_words = Label.new()
 	_words.name = "Words"
@@ -35,7 +45,10 @@ func _ready() -> void:
 	_missing = Label.new()
 	_missing.name = "MissingArt"
 	_missing.theme_type_variation = &"WarningLabel"
-	_missing.text = tr("combat.ui.missing_art")
+	for k: String in VFX:
+		_frames[k] = VisualPaths.duel_vfx(str(VFX[k]))
+	var all_fx := _frames.values().all(func(f: Array) -> bool: return not f.is_empty())
+	_missing.text = tr("combat.ui.missing_poses" if all_fx else "combat.ui.missing_art")
 	_missing.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_missing)
 	resized.connect(_layout)
@@ -43,6 +56,7 @@ func _ready() -> void:
 
 ## The two duellists (characters of the state with their families): side 0 on the left facing east.
 func setup(chars: Array, families: Array) -> void:
+	_ensure()
 	for f: CharacterView in fighters:
 		f.queue_free()
 	fighters.clear()
@@ -74,6 +88,9 @@ func idle() -> void:
 
 ## Plays the animation of one lance record (Duel.lances_log() entry); emits lance_shown when done (~0.6 s).
 func play(rec: Dictionary, fast: bool = false) -> void:
+	if not is_inside_tree():  # the tests: nothing to animate
+		lance_shown.emit()
+		return
 	var acts: Array = rec.get("actions", ["", ""])
 	var seconds := 0.3 if fast else 0.6
 	for i: int in fighters.size():
@@ -90,7 +107,7 @@ func play(rec: Dictionary, fast: bool = false) -> void:
 	var w := int(rec.get("winner", -1))
 	var mid := Vector2(size.x / 2.0, FEET_Y - 40.0)
 	var kind := "spark" if "parry" in acts else ("slash" if "strike" in acts else "swirl")
-	_fx.append({"kind": kind, "at": mid, "t": FX_SECONDS})
+	_fx.append({"kind": kind, "at": mid, "t": FX_SECONDS, "frames": _frames.get(kind, [])})
 	var how := str(rec.get("how", "even"))
 	var word := tr("combat.how.%s" % how)
 	if w >= 0:
@@ -98,7 +115,8 @@ func play(rec: Dictionary, fast: bool = false) -> void:
 		var hit := fighters[1 - w]
 		get_tree().create_timer(0.22).timeout.connect(func() -> void:
 			UiAnim.recoil(hit, (-10.0 if w == 1 else 10.0))
-			_fx.append({"kind": "hit", "at": hit.position + Vector2(0, -34), "t": FX_SECONDS}))
+			_fx.append({"kind": "hit", "at": hit.position + Vector2(0, -34), "t": FX_SECONDS,
+				"frames": _frames.get("hit", [])}))
 	_show_word(word)
 	set_process(true)
 	get_tree().create_timer(seconds).timeout.connect(func() -> void:
@@ -133,6 +151,12 @@ func _draw() -> void:
 	for f: Dictionary in _fx:
 		var at: Vector2 = f["at"]
 		var k := float(f["t"]) / FX_SECONDS
+		var frames: Array = f.get("frames", [])
+		if not frames.is_empty():  # the effect's art: its frames over the effect's time, centred, ×2 like the figures
+			var tex: Texture2D = frames[clampi(floori((1.0 - k) * frames.size()), 0, frames.size() - 1)]
+			var sz := tex.get_size() * SCALE
+			draw_texture_rect(tex, Rect2((at - sz / 2.0).round(), sz), false)
+			continue
 		var r := roundf(4.0 + (1.0 - k) * 10.0)
 		match str(f["kind"]):
 			"slash":
