@@ -65,7 +65,11 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd",
 	"poblacion": "res://game/smoke/smoke_poblacion.gd", "pagina": "res://game/smoke/smoke_pagina.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd",
-	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd"}
+	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
+	"duel": "res://game/smoke/smoke_duel.gd"}
+## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
+## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
+const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView
@@ -158,10 +162,46 @@ func _ready() -> void:
 	elif _shots_left > 0:
 		_world.select(_world.first_selectable())
 	var opts := Game.parse_args(args)
+	if args.has("--duel-test"):
+		open_duel_test.call_deferred()
+		return
 	if bool(opts["title"]):
 		show_title()
 	elif bool(opts["new_game"]):
 		show_new_game()
+
+
+## The duel prototype over the paused game (--duel-test and --smoke-script=duel): the head of the human family against
+## the head of the rival smith's family (or --duel-rival). Nothing is saved; closing it leaves the game paused.
+func open_duel_test() -> DuelScreen:
+	var st := Game.sim.state
+	var a := ""
+	var b := ""
+	var kind := "first_blood"
+	var weapon := ""
+	for fid: String in st.families:
+		var f: Dictionary = st.families[fid]
+		if a == "" and str(f.get("controlled_by", "")) == "human":
+			a = str(f.get("head", ""))
+		elif b == "" and str(f.get("ai_profile", "")) == "rival_smith":
+			b = str(f.get("head", ""))
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--duel-kind="):
+			kind = arg.substr(12)
+		elif arg.begins_with("--duel-weapon="):
+			weapon = arg.substr(14)
+		elif arg.begins_with("--duel-rival="):
+			b = arg.substr(13)
+	Game.set_paused(true)
+	var layer := CanvasLayer.new()
+	layer.name = "DuelLayer"
+	layer.layer = 60
+	add_child(layer)
+	var screen := (load(DUEL_SCREEN) as PackedScene).instantiate() as DuelScreen
+	layer.add_child(screen)
+	screen.open_test(st, Data.catalog.combat, a, b, kind, weapon, maxi(st.world_seed, 1))
+	Log.info("App", "duel test: %s contra %s (%s, arma %s)" % [a, b, kind, weapon if weapon != "" else "la suya"])
+	return screen
 
 
 ## The tutorial reads the game through AppTutorialContext; the sim's events reach it from here.

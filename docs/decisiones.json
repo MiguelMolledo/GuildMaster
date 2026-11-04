@@ -418,6 +418,11 @@
       "tema": "P-R1 Región en vez de un solo mapa EA",
       "detalle": "La capital es el mapa EA de 80×80 (A + C); los demás asentamientos, de 32×32 a 48×48; town_e sigue como rebanada; solo la ciudad de casa se simula entera. Preguntas O-R1 a O-R10 en docs/gdd/09b_region.md §9b.8.",
       "opciones": "(a) capital grande y el resto pequeños · (b) todos iguales · (c) un mapa y destinos abstractos"
+    },
+    {
+      "tema": "Gate O-C · Combate: duelo «a tres tiempos» (docs/gdd/04e_combate.md)",
+      "detalle": "Borrador 2026-11-04 con prototipo jugable aparte (--duel-test) y reglas puras en sim/combat/ (data/combat.json), sin conectar a la partida ni al guardado. Doce decisiones O-C1..O-C12 con opciones y recomendación en 04e §4e.9: cuándo entra (O-C1), una sola resolución que sustituya a los asaltos de 4.22.6.1 (O-C2), duelo a muerte bloqueado (O-C3), herida (O-C4), armas (O-C5), atributo de lectura (O-C6), la IA rival reta (O-C7), coste de rechazar (O-C8), iniciativa (O-C9), «Resolver sin jugar» (O-C10), tipos (O-C11), dama o caballero (O-C12).",
+      "opciones": "Ver 04e §4e.9."
     }
   ],
   "proximos_pasos": [

@@ -1,0 +1,126 @@
+{
+  "_doc": "The duel «a tres tiempos» (docs/gdd/04e_combate.md; draft for the owner, Gate O-C*): the shared combat resolution of the duel and, later, of the rogue (4.22.6.1). Pure rules in sim/combat/ (CombatRules, Duel); nothing in the game calls them yet. Every lance both fighters choose one action: strike beats feint, feint beats parry, parry beats strike. The winner of the exchange tries a touch (touch: SkillCheck martial vs martial + advantage); a tie on strike is a clash (clash: whoever wins it touches); a tie on a weapon's edge action is a one-sided roll for its holder when its weapons.<w>.tie > 0 (weapons.<w>.touch: extra on the touch of its edge action). Lances 1..blind are blind (nobody shows a gesture); after them the initiative alternates, the challenger first: the leader chooses first and shows a gesture; the reader sees a cue that tells the truth with read_chance = base + (reader.empathy - leader.martial) x step, clamped to [min, max] (a lie shows one of the two other actions). breath: max = base + floor(constitution x per_constitution) + weapon breath; each action costs actions.<a>.breath (negative = recovers), an action that costs more than the breath left is not allowed (parry is always allowed). kinds: touches to win, lances at most (then more touches wins, equal = draw), whether the loser is wounded and whether one may yield; to_death is locked (O4). ai: the policy of the rival and of «Resolver sin jugar» (reads the cue and answers it; when leading, counters the opponent's most frequent action with probability habit once there are min_history lances, else a mix with edge_weight extra for the weapon's edge; yields in a duel that allows it when the opponent needs one touch and it is behind by yield_behind, with yield_chance). items: which equipped item fights as which weapon (anything else: fists); armor_items: the clothes that count as armour (armor.against on the rolls against its wearer). Every roll is keyed (world seed | combat | duel | lance | what): it never moves another roll of the game. [balance]",
+  "actions": {
+    "strike": {
+      "beats": "feint",
+      "breath": 2
+    },
+    "parry": {
+      "beats": "strike",
+      "breath": -1
+    },
+    "feint": {
+      "beats": "parry",
+      "breath": 1
+    }
+  },
+  "breath": {
+    "base": 2,
+    "per_constitution": 0.5
+  },
+  "read": {
+    "stat": "empathy",
+    "against": "martial",
+    "base": 0.5,
+    "step": 0.05,
+    "min": 0.34,
+    "max": 0.9
+  },
+  "touch": {
+    "stat": "martial",
+    "base": 50,
+    "step": 5,
+    "advantage": 30
+  },
+  "clash": {
+    "stat": "martial",
+    "base": 50,
+    "step": 5
+  },
+  "critical": {
+    "success": 5,
+    "fail": 96
+  },
+  "initiative": {
+    "blind": 1,
+    "first": "challenger"
+  },
+  "weapons": {
+    "fists": {
+      "edge": "",
+      "touch": 0,
+      "tie": 0,
+      "breath": 1
+    },
+    "tool": {
+      "edge": "strike",
+      "touch": 5,
+      "tie": 10,
+      "breath": 0
+    },
+    "sword": {
+      "edge": "strike",
+      "touch": 20,
+      "tie": 20,
+      "breath": 0
+    },
+    "dagger": {
+      "edge": "feint",
+      "touch": 5,
+      "tie": 10,
+      "breath": 0
+    },
+    "staff": {
+      "edge": "parry",
+      "touch": 5,
+      "tie": 0,
+      "breath": 1
+    }
+  },
+  "armor": {
+    "against": -10
+  },
+  "wounded": {
+    "rolls": -20,
+    "read": -0.1
+  },
+  "kinds": {
+    "first_blood": {
+      "touches": 3,
+      "lances": 9,
+      "wound": false,
+      "can_yield": false,
+      "locked": false
+    },
+    "surrender": {
+      "touches": 4,
+      "lances": 11,
+      "wound": true,
+      "can_yield": true,
+      "locked": false
+    },
+    "to_death": {
+      "touches": 4,
+      "lances": 11,
+      "wound": true,
+      "can_yield": false,
+      "locked": true
+    }
+  },
+  "ai": {
+    "habit": 0.5,
+    "min_history": 2,
+    "edge_weight": 0.2,
+    "yield_behind": 2,
+    "yield_chance": 0.5
+  },
+  "items": {
+    "sword": "sword",
+    "hammer": "tool",
+    "saw": "tool",
+    "hoe": "tool"
+  },
+  "armor_items": [
+    "armor"
+  ]
+}

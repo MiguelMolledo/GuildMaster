@@ -85,3 +85,41 @@ static func gold_change(label: Label, from: int, to: int) -> void:
 			delta.modulate.a = a)
 		f.tween_interval(FLOAT_SECONDS / 4.0)
 	f.tween_callback(delta.queue_free)
+
+
+## Duel (docs/ui/mecanicas/combate.md §8): `n` lunges `dx` px towards the other and back, by whole pixels (0.24 s).
+const LUNGE_STEPS: Array[float] = [0.5, 1.0, 1.0, 0.5, 0.0]
+const LUNGE_SECONDS: float = 0.24
+## A touch received: the figure is pushed back `dx` px and comes back in 3 steps while it blinks (0.18 s).
+const RECOIL_STEPS: Array[float] = [1.0, 0.5, 0.0]
+const RECOIL_SECONDS: float = 0.18
+
+
+static func lunge(n: Node2D, dx: float, steps: Array[float] = LUNGE_STEPS, seconds: float = LUNGE_SECONDS) -> void:
+	if not n.is_inside_tree():
+		return
+	var base := n.position.x
+	var t := n.create_tween()
+	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	for f: float in steps:
+		t.tween_callback(func() -> void: n.position.x = base + roundf(dx * f))
+		t.tween_interval(seconds / float(steps.size()))
+	t.tween_callback(func() -> void: n.position.x = base)
+
+
+static func recoil(n: Node2D, dx: float) -> void:
+	if not n.is_inside_tree():
+		return
+	var base := n.position.x
+	var t := n.create_tween()
+	t.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	for i: int in RECOIL_STEPS.size():
+		var f: float = RECOIL_STEPS[i]
+		var a := 0.4 if i % 2 == 0 else 1.0
+		t.tween_callback(func() -> void:
+			n.position.x = base + roundf(dx * f)
+			n.modulate.a = a)
+		t.tween_interval(RECOIL_SECONDS / float(RECOIL_STEPS.size()))
+	t.tween_callback(func() -> void:
+		n.position.x = base
+		n.modulate.a = 1.0)

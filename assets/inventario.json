@@ -5601,6 +5601,118 @@
       "coste_gen": 0,
       "coste_usd": 0.168,
       "notas": "Pergamino ilustrado de la región (docs/gdd/09b_region.md): sierra al norte, río Daura, bosque al este, campos; sin pueblos, caminos ni texto (la pantalla «Mapa de la región», game/ui/region_screen.gd, dibuja encima asentamientos, rutas y nombres de data/world/region.json). 960×540. 2 generaciones (la v2 salió peor: río partido y letras en la rosa); crudo en ~/Code/GuildMaster-arte-crudos/fal_produccion/region/. Cableado: VisualPaths.region_map."
+    },
+    {
+      "id": "chr_duel_poses",
+      "tipo": "personaje",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/characters/duel/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Poses del duelo (docs/gdd/04e_combate.md §4e.8, docs/ui/mecanicas/combate.md §8) para artisan_m/f, worker_m/f y townsfolk_m/f, de perfil e y w: guardia, golpe, parada, finta, tocado y rendido. Hoy el prototipo usa forge (golpe), work (finta) e idle (parada) y lo marca en pantalla. PixelLab animate_character en el ciclo del 15-nov.",
+      "animaciones": {
+        "idle": "falta",
+        "walk": "falta",
+        "work": "falta",
+        "carry": "falta",
+        "talk": "falta",
+        "sit": "falta",
+        "death": "falta"
+      }
+    },
+    {
+      "id": "vfx_duel_strike",
+      "tipo": "vfx",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/vfx/duel_strike/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Tajo del golpe (hoy: dos líneas por código en DuelArena). Gratis con vfx_workbench.",
+      "animaciones": {
+        "loop": "falta"
+      }
+    },
+    {
+      "id": "vfx_duel_parry",
+      "tipo": "vfx",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/vfx/duel_parry/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Chispa de la parada (hoy: aspa amarilla por código). Gratis con vfx_workbench.",
+      "animaciones": {
+        "loop": "falta"
+      }
+    },
+    {
+      "id": "vfx_duel_feint",
+      "tipo": "vfx",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/vfx/duel_feint/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Estela de la finta (hoy: arco azul por código). Gratis con vfx_workbench.",
+      "animaciones": {
+        "loop": "falta"
+      }
+    },
+    {
+      "id": "vfx_duel_hit",
+      "tipo": "vfx",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/vfx/duel_hit/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Toque recibido (hoy: círculo rojo y parpadeo). Gratis con vfx_workbench.",
+      "animaciones": {
+        "loop": "falta"
+      }
+    },
+    {
+      "id": "icon_duel_actions",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/ui/icons/duel/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Iconos de Golpe, Parada, Finta, Rendirse, aliento y toque (32 y 16 px) para los botones y las barras del duelo. Hoy: texto y cuadros de color."
+    },
+    {
+      "id": "ill_duel_result",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "duelo"
+      ],
+      "ruta": "assets/art/ui/illustrations/duel/",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la carta de resultado (240×135, PageCard «card»): victoria, derrota y tablas en la plaza al alba. Candidata a fal con el kit de página."
     }
   ]
 }
