@@ -652,5 +652,48 @@
         2.5
       ]
     }
+  },
+  "merchant": {
+    "_doc": "Viajes (docs/gdd/09b_region.md §9b.5): bot merchant (sim/bots/bot_merchant.gd) en el escenario travel_start (two_employees, la familia ciudadana, 900 de oro más, 6 espadas), 16 días (2 años). Compra un carro y manda una caravana escoltada a Peñarroja a por hierro y carbón; el cabeza lleva espadas a Bellcaire una vez para abrir mercado; después las caravanas llevan las espadas de la forja a Bellcaire y el cabeza vuelve solo para entregar un encargo o firmar la cuota de espadas cuando su reputación allí lo permite. Mide que viajes, caravanas, el mercado de fuera y los tratados aguantan días sin órdenes rechazadas y sin descuadre del libro. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=travel_start --bots=merchant --days=16 --seeds=10 (paso merchant de la QA). Medido (2026-11-04, 10 semillas): llegadas fuera 1,8 (1-2), caravanas de vuelta 4,1 (3-5), ventas fuera 612 de oro (422-891), tratado firmado en 8/10 (la cuota de 4 espadas por estación se rompe en 8/10: las caravanas no llegan; el castigo funciona), asaltos 0,3 al viajero y 0,8 a las caravanas, oro final 567 (411-…). Banda propuesta.",
+    "days": [
+      16,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "trv_arrivals": [
+      1,
+      null
+    ],
+    "trv_caravans_back": [
+      2,
+      null
+    ],
+    "trv_city_sales_gold": [
+      300,
+      null
+    ],
+    "_mean": {
+      "trv_city_sales_gold": [
+        450,
+        900
+      ],
+      "trv_caravans_back": [
+        3,
+        6
+      ]
+    },
+    "_share": {
+      "trv_treaties_signed": [
+        0.6,
+        null
+      ]
+    }
   }
 }

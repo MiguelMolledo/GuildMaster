@@ -3,7 +3,7 @@ extends RefCounted
 ## The region as the view sees it (docs/gdd/09b_region.md): reads data/world/region.json (the settlements, the routes
 ## and their identity) and answers what the «Mapa de la región» screen draws: which settlement is home, how many game
 ## hours each one is from it (shortest way over the routes), which routes a world event in force cuts. View only: the
-## sim never reads the region, nothing of it is saved, and travelling is not possible yet (9b.5).
+## sim reads the same file (Region); what moves (trips, caravans, the regional events) is read from the state.
 
 const PATH: String = "res://data/world/region.json"
 
@@ -76,15 +76,12 @@ static func routes_of(id: String) -> Array:
 	return routes().filter(func(r: Dictionary) -> bool: return str(r["a"]) == id or str(r["b"]) == id)
 
 
-## The ids of the world events in force (data/events.json) that cut `route` (cut_by); [] without a game.
+## The ids of the events in force that cut `route` (home's world events in its cut_by and the regional ones, snow
+## and flood: Region.cut_by); [] without a game.
 static func cut_by_now(sim: Sim, route: Dictionary) -> Array:
-	var out: Array = []
 	if sim == null:
-		return out
-	for e: String in route.get("cut_by", []):
-		if sim.catalog.world_events().has(e) and WorldEvents.is_active(sim, e):
-			out.append(e)
-	return out
+		return []
+	return Region.cut_by(sim, route)
 
 
 ## The routes cut now ({route id: [event ids]}).

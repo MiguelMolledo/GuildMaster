@@ -15,7 +15,8 @@
     "trade_carpenter",
     "trade_mason",
     "trade_tailor",
-    "duel"
+    "duel",
+    "travel"
   ],
   "openers": {
     "LedgerPanel": {
@@ -198,7 +199,10 @@
     "WeddingCard",
     "SuccessionCard",
     "DuelScreen",
-    "DuelCard"
+    "DuelCard",
+    "RegionScreen",
+    "CityScreen",
+    "CaravanScreen"
   ],
   "hints": [
     {
@@ -491,6 +495,44 @@
         "in": "DuelScreen"
       },
       "text": "tutorial.hint.duel_screen"
+    },
+    {
+      "id": "first_trip",
+      "when": {
+        "state": "panel_open",
+        "is": "CityScreen"
+      },
+      "target": {
+        "ui": "Tabs",
+        "in": "CityScreen"
+      },
+      "text": "tutorial.hint.first_trip"
+    },
+    {
+      "id": "first_caravan",
+      "when": {
+        "state": "panel_open",
+        "is": "CaravanScreen"
+      },
+      "target": {
+        "ui": "Form",
+        "in": "CaravanScreen"
+      },
+      "text": "tutorial.hint.first_caravan"
+    },
+    {
+      "id": "first_treaty",
+      "when": {
+        "state": "panel_prop",
+        "panel": "CityScreen",
+        "prop": "tab",
+        "value": "treaties"
+      },
+      "target": {
+        "ui": "Body",
+        "in": "CityScreen"
+      },
+      "text": "tutorial.hint.first_treaty"
     }
   ],
   "look": {

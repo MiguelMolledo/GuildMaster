@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 15
+const VERSION: int = 16
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -26,6 +26,7 @@ var relationships: Dictionary = {} # "chr_a|chr_b" (sorted as String) -> {relati
 var emotions: Dictionary = {}      # chr_id -> [emotion]
 var events_active: Array = []     # H13: the global events in force [{id, def, start, end, by}] (GDD 4.13): WorldEvents
 var cast: Dictionary = {"mode": "fixed", "seed": 0, "map": ""}  # how the cast was made {mode, seed, map}: Cast
+var region: Dictionary = {}        # viajes (v16): travel and trade between the settlements (docs/gdd/09b_region.md): Region
 var chronicle: Array = []          # facts of the game (births, weddings, titles...): input of the future chronicler
 var next_ids: Dictionary = {}      # prefix -> next number (Ids.next)
 # H3 (docs/contratos/h3_mercado.md): money, debt, contracts, errands, the start of a game.
@@ -65,6 +66,9 @@ var duels: Dictionary = {"open": {}, "closed": []}  # duels of honour: id -> due
 # draw their names and looks from it) and characters' visual gets portrait {type, variant} (SaveFile._step 13 -> 14).
 # Duelo (docs/gdd/04e_combate.md, docs/contratos/duelo.md): the new root duels {open: {id -> duel}, closed: [duel]}
 # (SaveFile._to_v15, step 14 -> 15).
+# Viajes (docs/gdd/09b_region.md §9b.6): the new root region {cities {id: {demand,
+# events, board, reputation}}, events, treaties, trips, caravans, carts, contracts, ...}, {} until Region.ensure fills it
+# (SaveFile.to_v16, step 15 -> 16).
 
 
 func seed_rng(s: int) -> void:
@@ -94,6 +98,7 @@ func to_dict() -> Dictionary:
 		"emotions": emotions,
 		"events_active": events_active,
 		"cast": cast,
+		"region": region,
 		"chronicle": chronicle,
 		"next_ids": next_ids,
 		"ledger": ledger,
@@ -137,6 +142,7 @@ static func from_dict(src: Dictionary) -> WorldState:
 	s.emotions = d.get("emotions", {})
 	s.events_active = d.get("events_active", [])
 	s.cast = d.get("cast", {"mode": "fixed", "seed": 0, "map": ""})
+	s.region = d.get("region", {}) if d.get("region") is Dictionary else {}
 	s.chronicle = d.get("chronicle", [])
 	s.next_ids = d.get("next_ids", {})
 	s.ledger = d.get("ledger", {"entries": [], "summaries": {}})

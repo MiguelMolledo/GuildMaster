@@ -2433,6 +2433,129 @@ combat.result.effects.yielded_you,Reputation −8|No wound|If it was for love: �
 combat.result.effects.yielded_rival,Reputation +5|%s: reputation −8,Reputación +5|%s: reputación −8
 reason.no_breath,Not enough breath,Te falta aliento
 combat.ui.over,The duel is over,El duelo ha terminado
+reason.title_needed,Your family needs a higher title,Tu familia necesita un título más alto
+reason.not_adult,Only an adult can travel,Solo un adulto puede viajar
+reason.employee,An employee travels only as a carter,Un empleado solo viaja como carretero
+reason.on_the_road,Already on the road,Ya está de camino
+reason.unknown_city,Unknown town,Población desconocida
+reason.already_there,Already there,Ya está allí
+reason.no_open_route,Every road there is cut now,Todos los caminos hasta allí están cortados
+reason.not_in_city,Only while in that town,Solo estando en esa población
+reason.not_traded,This market does not trade it,Este mercado no lo trata
+reason.wrong_city,That contract is from another town,Ese encargo es de otra población
+reason.too_many_carts,No room for more carts,No caben más carros
+reason.no_free_cart,"No free cart (buy one, or wait for a caravan)",No hay carro libre (compra uno o espera a una caravana)
+reason.unknown_driver,Choose a carter,Elige un carretero
+reason.driver_away,That employee is away,Ese empleado está fuera
+reason.empty_caravan,Load something or add something to buy,Carga algo o añade algo que comprar
+reason.bad_line,A line of the caravan is wrong,Una línea de la caravana está mal
+reason.too_many_stacks,Too many lots for one cart,Demasiados lotes para un carro
+reason.unknown_kind,Unknown treaty,Tratado desconocido
+reason.reputation_needed,Not enough reputation in that town,Falta reputación en esa población
+reason.needs_item,Choose the goods of the treaty,Elige la mercancía del tratado
+reason.not_a_dear_item,That town does not pay well for it,Esa población no lo paga bien
+reason.already_signed,Already signed,Ya está firmado
+reason.item_taken,Another family holds it,Lo tiene otra familia
+reason.not_the_head,Only the head of the family signs,Solo firma el cabeza de familia
+reason.not_the_mayor,Only the Mayor,Solo el Alcalde
+reason.away,Away from home,Está fuera de casa
+reason.not_a_town_kind,The town signs only exemptions,La villa solo firma exenciones
+reason.council_said_no,The council voted no,El concejo ha votado que no
+reason.unknown_treaty,Unknown treaty,Tratado desconocido
+notice.region_event,{what}: some roads are cut this season.,{what}: hay caminos cortados esta estación.
+notice.trip_stopped,{name} stays in {city}: no gold for the next leg.,{name} se queda en {city}: no hay oro para el siguiente tramo.
+notice.trip_ambushed,Bandits rob {name} on the road: {count} lots lost.,Asaltan a {name} en el camino: pierde {count} lotes de carga.
+notice.trip_arrived,{name} reaches {city}.,{name} llega a {city}.
+notice.trip_returned,{name} is back home.,{name} vuelve a casa.
+notice.city_contract_failed,A contract of {city} was not met: your reputation there drops.,Encargo de {city} sin cumplir: baja tu reputación allí.
+notice.cart_upkeep_unpaid,No {gold} gold for the carts' upkeep.,No hay {gold} de oro para el mantenimiento de los carros.
+notice.caravan_toll_unpaid,The caravan waits: {gold} gold missing for the toll.,La caravana espera: faltan {gold} de oro para el peaje.
+notice.caravan_ambushed,Bandits rob your caravan: {count} lots lost.,Asaltan tu caravana: se llevan {count} lotes.
+notice.caravan_arrived,Your caravan reaches {city} and sells for {gold} gold.,Tu caravana llega a {city} y vende por {gold} de oro.
+notice.caravan_back,The caravan is back (it sold for {gold} gold).,La caravana vuelve a casa (vendió por {gold} de oro).
+notice.treaty_signed,Treaty signed in {city}: {treaty}.,Tratado firmado en {city}: {treaty}.
+notice.treaty_ended,The {treaty} treaty with {city} ends.,Termina el tratado de {treaty} con {city}.
+notice.treaty_broken,The {treaty} treaty with {city} is broken.,Se rompe el tratado de {treaty} con {city}.
+treaty.exemption,tariff exemption,exención de aranceles
+treaty.exclusivity,exclusivity,exclusividad
+treaty.quota,fixed quota,cuota fija
+ui.region.caravans,Caravans,Caravanas
+ui.region.status_city,%s is in %s,%s está en %s
+ui.region.status_road,%s on the way to %s (%d h left),%s de camino a %s (quedan %d h)
+ui.region.see_city,See the town,Ver la población
+ui.region.return,Come back home,Volver a casa
+ui.region.travel_escort,With escort (+%d),Con escolta (+%d)
+ui.region.travel_tip_on,Sets out now; the clock runs while the map is open,Sale ahora; el reloj corre mientras el mapa está abierto
+ui.region.town_treaty,Town treaty (Mayor),Tratado de la villa (Alcalde)
+ui.region.town_treaty_tip,Tariff exemption for every family of home; the council votes,Exención de aranceles para todas las familias de casa; vota el concejo
+hud.away_tip,Away (%s): open the region map with R,Fuera (%s): abre el mapa de la región con R
+ui.city.reputation,Your reputation here: %d,Tu reputación aquí: %d
+ui.city.tariff,Tariff on your sales: %d %%,Arancel sobre tus ventas: %d %%
+ui.city.tariff_none,No tariff for you here,Aquí no pagas arancel
+ui.city.gold,Your family's gold: %d,Oro de tu familia: %d
+ui.city.tab.market,Market,Mercado
+ui.city.tab.board,Contracts,Encargos
+ui.city.tab.treaties,Treaties,Tratados
+ui.city.map,Region map,Mapa de la región
+ui.city.col_item,Goods,Mercancía
+ui.city.col_buy,Buy,Compra
+ui.city.col_sell,Sell (net),Venta (neta)
+ui.city.col_have,You carry,Llevas
+ui.city.buy,Buy,Comprar
+ui.city.sell,Sell,Vender
+ui.city.quota_price,%d (quota),%d (cuota)
+ui.city.offers,Contracts of the town,Encargos de la población
+ui.city.no_offers,No contracts right now,Ahora no hay encargos
+ui.city.offer,%s ×%d · %d gold · %d days,%s ×%d · %d de oro · %d días
+ui.city.accept,Accept,Aceptar
+ui.city.accepted,Your contracts here,Tus encargos de aquí
+ui.city.accepted_line,%s ×%d · %d gold · %d h left,%s ×%d · %d de oro · quedan %d h
+ui.city.no_accepted,None,Ninguno
+ui.city.deliver,Deliver,Entregar
+ui.city.treaty_exemption,no tariff on your sales here,sin arancel en tus ventas aquí
+ui.city.treaty_exclusivity,only your family sells that item here,solo tu familia vende esa mercancía aquí
+ui.city.treaty_quota,the town buys a fixed quantity each season at a fixed price,la población compra una cantidad fija cada estación a precio fijo
+ui.city.treaty_needs,Needs: %s · reputation %d here · %d gold · %d seasons,Pide: %s · reputación %d aquí · %d de oro · %d estaciones
+ui.city.treaty_signed,Signed (%s),Firmado (%s)
+ui.city.scope_family,your family,tu familia
+ui.city.scope_town,the whole town,toda la villa
+ui.city.quota_left,%d of %d this season,%d de %d esta estación
+ui.city.cancel,Break it,Romperlo
+ui.city.sign,Sign (%d gold),Firmar (%d de oro)
+ui.caravan.title,Caravans,Caravanas
+ui.caravan.carts,Carts: %d (%d free) · upkeep %d gold a day each,Carros: %d (%d libres) · mantenimiento %d de oro al día cada uno
+ui.caravan.buy_cart,Buy a cart (%d),Comprar un carro (%d)
+ui.caravan.on_road,on the road to %s (%d %%),de camino a %s (%d %%)
+ui.caravan.in_city,trading in %s,comerciando en %s
+ui.caravan.waiting,waiting: no gold for the toll,esperando: falta oro para el peaje
+ui.caravan.unloading,unloading at home,descargando en casa
+ui.caravan.dir_out,Going,Ida
+ui.caravan.dir_back,Coming back,Vuelta
+ui.caravan.sold,sold %d,vendido %d
+ui.caravan.to,To,A
+ui.caravan.from,from,desde
+ui.caravan.driver,carter,carretero
+ui.caravan.cargo,Cargo (how many · minimum price a unit),Carga (cuántos · precio mínimo por unidad)
+ui.caravan.min_price,min.,mín.
+ui.caravan.nothing,Nothing in that storage,Nada en ese almacén
+ui.caravan.shopping,"To buy there (how many · maximum price a unit, 0 = any)","Comprar allí (cuántos · precio máximo por unidad, 0 = cualquiera)"
+ui.caravan.max_price,max.,máx.
+ui.caravan.escort,"Escort (+%d gold a leg, halves the risk)","Escolta (+%d de oro por tramo, divide el riesgo)"
+ui.caravan.send,Send,Enviar
+tutorial.chapter.travel,Travel and trade,Viajar y comerciar
+tutorial.chapter.travel.desc,"Go to another town of the region, trade there and come back (from the Citizen title)","Ir a otra población de la región, comerciar allí y volver (desde el título de Ciudadano)"
+tutorial.travel.open,Press R (or Esc → Map of the region) to see the towns of Valldaura.,Pulsa R (o Esc → Mapa de la región) para ver las poblaciones de Valldaura.
+tutorial.travel.card,"Click Vilablat: its card tells what it makes cheap, what it pays well for and how far it is.","Pulsa Vilablat: su ficha dice qué produce barato, qué paga bien y a qué distancia está."
+tutorial.travel.go,Press Travel. The escort costs more and halves the risk of bandits.,Pulsa Viajar. La escolta cuesta más y divide el riesgo de bandidos.
+tutorial.travel.road,"The clock runs: your emblem goes along the road. At home, your employees and the family's directives go on.","El reloj corre: tu emblema avanza por el camino. En casa, tus empleados y las directivas de la familia siguen."
+tutorial.travel.market,"The market of the town: its own prices. What you sell here pays its tariff, unless a treaty frees you of it.","El mercado de la población: sus propios precios. Lo que vendes aquí paga su arancel, salvo que un tratado te libre."
+tutorial.travel.treaties,"Open Treaties: exemption, exclusivity and quota, each with the title and the reputation here it asks for.","Abre Tratados: exención, exclusividad y cuota, cada uno con el título y la reputación aquí que pide."
+tutorial.travel.home,«Come back home» brings you back by the shortest open road.,«Volver a casa» te trae por el camino abierto más corto.
+tutorial.travel.caravans,With a cart and an employee as carter you can trade without leaving home: Map of the region → Caravans.,Con un carro y un empleado de carretero puedes comerciar sin salir de casa: Mapa de la región → Caravanas.
+tutorial.hint.first_trip,"Your first town away from home: each one has its own prices, contracts and reputation.","Tu primera población fuera de casa: cada una tiene sus precios, sus encargos y su reputación."
+tutorial.hint.first_caravan,"Choose the town, the storage it loads from and the carter; below a minimum price a cargo line does not sell.","Elige la población, el almacén del que carga y el carretero; por debajo del precio mínimo una línea de carga no se vende."
+tutorial.hint.first_treaty,A treaty asks for a title and reputation in this town; a quota you do not fill breaks and costs a fine.,Un tratado pide un título y reputación en esta población; una cuota que no cumples se rompe y cuesta una multa.
+ui.city.close,Close,Cerrar
 hito.abbey_church,Abbey church,Iglesia abacial
 hito.barn,Barn,Pajar
 hito.cathedral,Cathedral,Catedral

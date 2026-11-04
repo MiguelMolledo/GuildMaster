@@ -63,6 +63,16 @@ theme_type_variation = &"PageSmall"
 text = "--"
 horizontal_alignment = 1
 
+[node name="CaravansButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 20)
+layout_mode = 0
+offset_left = 670.0
+offset_top = 500.0
+offset_right = 780.0
+offset_bottom = 520.0
+text = "--"
+
 [node name="BackButton" type="Button" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(110, 20)

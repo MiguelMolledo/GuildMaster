@@ -1093,7 +1093,7 @@ func _refresh_group(sim: Sim) -> void:
 	var counts := group.map(func(c: String) -> int:
 		return SimQuery.queue_lines(sim, c, _game.pending(), true).size() if _game.paused else 0)
 	var sig := "%s|%s|%s|%s|%s|%s" % [group, who, heir, group.map(func(c: String) -> Variant: return sim.state.characters[c].get("visual")),
-		group.map(func(c: String) -> bool: return Tribunal.is_banished(sim.state, c)), counts]
+		group.map(func(c: String) -> bool: return Tribunal.is_banished(sim.state, c) or Region.is_away(sim.state, c)), counts]
 	if sig == _group_sig:
 		return
 	_group_sig = sig
@@ -1109,6 +1109,11 @@ func _refresh_group(sim: Sim) -> void:
 		if Tribunal.is_banished(sim.state, str(group[i])):  # H11: banished: greyed, with the day it ends
 			f.modulate = Color(0.55, 0.55, 0.55)
 			f.tooltip_text = tr("ui.trial.banished") % (int(sim.state.characters[str(group[i])].get("banished_until", 0)) + 1)
+		if Region.is_away(sim.state, str(group[i])):  # viajes: on a trip (or driving a caravan): greyed, where it is
+			f.modulate = Color(0.6, 0.6, 0.6)
+			var p := Travel.progress(sim, str(group[i]))
+			var where := str(p.get("at", "")) if str(p.get("state", "")) == "city" else str(p.get("to", ""))
+			f.tooltip_text = tr("hud.away_tip") % tr(str(Region.settlement(sim, where).get("name_key", where)))
 		f.clicked.connect(func(id: String) -> void: select_requested.emit(id))
 		f.double_clicked.connect(func(id: String) -> void: focus_requested.emit(id))
 	_group_bar.visible = group.size() > 0

@@ -173,6 +173,71 @@ static func region_map(region_id: String) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
+## Viajes: the art of the region (assets/inventario.json). Each returns the file when it is there and else a visible
+## placeholder (a flat box of the given colour with a dark border), so a missing piece still shows.
+##   city_art(id): the illustration of a settlement's page, 240×135 (illus_city_<id>:
+##     assets/art/illustrations/city_<id>.png)
+##   region_token(variant): the family's token on the region map, 24×44, feet at the bottom centre; its cloth is keyed
+##     for identity_swap.gdshader (ui_region_family_token: assets/art/region/family_token.png, the banner by default;
+##     «shield»: family_token_shield.png)
+##   region_caravan(variant): a caravan on the region map, facing east (mirrored to go west) (ui_region_caravan:
+##     assets/art/region/caravan.png, 56×34, the ox cart by default; «cart»: caravan_cart.png, 48×24)
+##   region_icon(id): tariff | treaty | caravan | city_reputation (ui_icon_<id>: assets/art/ui/icons/icon_<id>.png,
+##     32×32; small: its small/ 16×16)
+const REGION_ICONS: Dictionary = {"tariff": "#c8a84e", "treaty": "#8a2a1e", "caravan": "#7a5230",
+	"city_reputation": "#4a6a8a"}
+static var _placeholders: Dictionary = {}
+
+
+const TOKEN_FILES: Dictionary = {"banner": "family_token", "shield": "family_token_shield"}
+const CARAVAN_FILES: Dictionary = {"ox": "caravan", "cart": "caravan_cart"}
+
+
+static func city_art(id: String) -> Texture2D:
+	return _art_or("%s/illustrations/city_%s.png" % [ART_ROOT, id], Vector2i(240, 135), Color("#a08a64"))
+
+
+static func region_token(variant: String = "banner") -> Texture2D:
+	return _art_or("%s/region/%s.png" % [ART_ROOT, str(TOKEN_FILES.get(variant, "family_token"))], Vector2i(24, 44),
+		Color("#c8a84e"))
+
+
+static func region_caravan(variant: String = "ox") -> Texture2D:
+	return _art_or("%s/region/%s.png" % [ART_ROOT, str(CARAVAN_FILES.get(variant, "caravan"))], Vector2i(56, 34),
+		Color("#7a5230"))
+
+
+static func region_icon(id: String, small: bool = true) -> Texture2D:
+	var size := 16 if small else 32
+	return _art_or("%s/ui/icons/%sicon_%s.png" % [ART_ROOT, "small/" if small else "", id], Vector2i(size, size),
+		Color(str(REGION_ICONS.get(id, "#888888"))))
+
+
+## Whether `tex` is one of these placeholders (the view then writes what it stands for over it).
+static func is_placeholder(tex: Texture2D) -> bool:
+	return tex != null and tex.has_meta("placeholder")
+
+
+static func _art_or(path: String, size: Vector2i, color: Color) -> Texture2D:
+	if ResourceLoader.exists(path):
+		return load(path) as Texture2D
+	var key := "%s|%s|%s" % [path, size, color.to_html()]
+	if not _placeholders.has(key):
+		var img := Image.create(size.x, size.y, false, Image.FORMAT_RGBA8)
+		img.fill(color)
+		var edge := Color("#2a1f14")
+		for x: int in size.x:
+			img.set_pixel(x, 0, edge)
+			img.set_pixel(x, size.y - 1, edge)
+		for y: int in size.y:
+			img.set_pixel(0, y, edge)
+			img.set_pixel(size.x - 1, y, edge)
+		var tex := ImageTexture.create_from_image(img)
+		tex.set_meta("placeholder", path)
+		_placeholders[key] = tex
+	return _placeholders[key]
+
+
 static func illustration(kind: String, id: String, small: bool = false) -> Texture2D:
 	var suffix := "_192" if small else ""
 	for p: String in ["%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, id, suffix],

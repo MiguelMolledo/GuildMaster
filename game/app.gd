@@ -64,7 +64,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
 	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd",
 	"poblacion": "res://game/smoke/smoke_poblacion.gd", "pagina": "res://game/smoke/smoke_pagina.gd",
-	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd",
+	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd", "viajes": "res://game/smoke/smoke_viajes.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
 	"duel": "res://game/smoke/smoke_duel.gd", "duelo_partida": "res://game/smoke/smoke_duelo_partida.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
@@ -85,6 +85,8 @@ const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"
 @onready var _options: OptionsScreen = %OptionsScreen
 @onready var _credits: CreditsScreen = %CreditsScreen
 @onready var _region: RegionScreen = %RegionScreen
+@onready var _city: CityScreen = %CityScreen          # viajes: the page of a city away from home
+@onready var _caravans: CaravanScreen = %CaravanScreen  # viajes: the carts and caravans
 @onready var _succession: SuccessionCard = %SuccessionCard
 @onready var _tutorial: Tutorial = %Tutorial
 
@@ -255,8 +257,19 @@ func _bind_menus() -> void:
 	_pause.save_requested.connect(func() -> void: _open_sub("pause", _saves, "save"))
 	_pause.load_requested.connect(func() -> void: _open_sub("pause", _saves, "load"))
 	_pause.options_requested.connect(func() -> void: _open_sub("pause", _options))
-	_pause.region_requested.connect(func() -> void: _open_sub("pause", _region))  # docs/gdd/09b_region.md
+	_pause.region_requested.connect(func() -> void:  # docs/gdd/09b_region.md
+		_region.actor = _hud.active_person()
+		_open_sub("pause", _region))
 	_region.back_requested.connect(func() -> void: _close_sub(_region))
+	_region.city_requested.connect(open_city)   # viajes: arrival, or «Ver la población» on the card
+	_region.caravans_requested.connect(func() -> void:
+		_caravans.actor = _hud.active_person()
+		_caravans.open())
+	_caravans.back_requested.connect(func() -> void: _caravans.close())
+	_city.back_requested.connect(func() -> void: _city.close())
+	_city.map_requested.connect(func() -> void:
+		_city.close()
+		open_region())
 	_hud.region_requested.connect(open_region)  # R in the HUD
 	_pause.help_requested.connect(func() -> void:
 		_pause.close()
@@ -329,7 +342,7 @@ func credits_screen() -> CreditsScreen:
 
 ## The title (02 §1): the default town paused at dusk behind (decision 2), the HUD hidden, the orders locked.
 func show_title() -> void:
-	for sc: MenuScreen in [_new_game, _ending, _pause, _saves, _options, _credits, _region]:
+	for sc: MenuScreen in [_new_game, _ending, _pause, _saves, _options, _credits, _region, _city, _caravans]:
 		sc.close()
 	var opts := Game.parse_args(OS.get_cmdline_user_args())
 	var r := NewGame.from_scenario(Game.DEFAULT_SCENARIO, int(opts["seed"]))
@@ -484,7 +497,33 @@ func open_region() -> void:
 	if menu_open() or Game.sim == null or not Game.sim.state.ending.is_empty():
 		return
 	_menu_from = "hud"
+	_region.actor = _hud.active_person()
 	_region.open()
+
+
+## Viajes: the page of city `c` for the active person (who is there): over the town, the clock running.
+func open_city(c: String) -> void:
+	if c == "" or Game.sim == null:
+		return
+	if _region.visible:
+		_close_sub(_region)
+		if _pause.visible:
+			_pause.close()
+	var who: String = _hud.active_person()
+	if Travel.in_city(Game.sim.state, who) != c:  # else the family's traveller who is there
+		for t: Dictionary in (Game.sim.state.region.get("trips", {}) as Dictionary).values():
+			if Travel.in_city(Game.sim.state, str(t["actor"])) == c and str(t["family"]) == _hud.family():
+				who = str(t["actor"])
+	Log.info("App", "open city %s (actor=%s)" % [c, who])
+	_city.show_city(c, who)
+
+
+func city_screen() -> CityScreen:
+	return _city
+
+
+func caravan_screen() -> CaravanScreen:
+	return _caravans
 
 
 func region_screen() -> RegionScreen:
@@ -618,6 +657,10 @@ func _fade_swap(swap: Callable) -> void:
 func _on_sim_event(e: Dictionary) -> void:
 	var type := str(e.get("type", ""))
 	var actor := str(e.get("actor", ""))
+	if type in ["trip_started", "caravan_sent"]:
+		_pass_control(str(e.get("driver", actor)))
+	elif type == "trip_arrived" and actor == _hud.active_person() and not menu_open():
+		open_city(str(e.get("city", "")))   # viajes: arriving opens the page of the city
 	if type == "building_entered" and actor == _world.selected_id and actor != "":
 		if interior_building != str(e.get("building", "")):
 			open_interior(str(e.get("building", "")), false)
@@ -626,6 +669,18 @@ func _on_sim_event(e: Dictionary) -> void:
 			close_interior()
 	if interior_building != "":
 		_interior.on_sim_event(e)
+
+
+## Viajes: when the selected person leaves the map (a trip, a caravan), the control passes to the next one of the
+## family's group who is at home (GDD 4.10.5); with nobody, the selection stays on the traveller.
+func _pass_control(gone: String) -> void:
+	if gone == "" or gone != _world.selected_id or Game.sim == null:
+		return
+	for c: String in Kin.group(Game.sim.state, _hud.family()):
+		if c != gone and not Region.is_away(Game.sim.state, c):
+			Log.info("App", "control passes from %s to %s (away)" % [gone, c])
+			_world.select(c)
+			return
 
 
 ## ESC: the top panel closes first (station menu, building panels, the person's panel); with nothing open inside a
@@ -678,7 +733,7 @@ func _process(delta: float) -> void:
 			and not _new_game.visible:
 		Game.set_paused(true)  # D18: the ruin ends the game; the sim does not stop by itself
 		Game.lock_orders(true)
-		for sc: MenuScreen in [_pause, _saves, _options, _credits, _region]:
+		for sc: MenuScreen in [_pause, _saves, _options, _credits, _region, _city, _caravans]:
 			sc.close()
 		_hud.visible = false
 		_ending.show_ending(Game.sim.state, Game.sim)

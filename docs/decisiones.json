@@ -444,6 +444,10 @@
     "Empleado «cualquiera» ocioso puede bloquear un puesto a otro de rol fijo.",
     "Peor paso del bench al primer atardecer: 8,2-9,6 ms (diana 8).",
     "La batería de tests tarda ~75 s por la prueba de equivalencia del A* (16 000 pares): reducirla si molesta.",
-    "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner."
+    "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner.",
+    {
+      "tema": "Viajes: lo que queda (rama viajes, 2026-11-04)",
+      "detalle": "H13: O-R1 (la capital Bellcaire como casa por defecto, elegible al empezar, cuando exista su mapa EA) y O-R9 (población proporcional a las casas; hoy max_total 20 para todos). H12.3: el asalto en el camino hiere al viajero o al carretero (hoy solo se lleva la carga)."
+    }
   ]
 }

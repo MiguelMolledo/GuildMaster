@@ -1,12 +1,13 @@
 ## 9b. La región: varias ciudades y pueblos
 
 > [!NOTE]
-> **Estado: propuesta (2026-11-04), pendiente del owner.** Lo que se juega hoy no cambia: la partida sigue en un solo
-> mapa y ninguna regla del sim lee la región. Existe ya, como **datos y vista**: `data/world/region.json` (validado
-> por `tools/validate_content.py`), un mapa generado para cada asentamiento (`data/maps/region_*.json`) y la pantalla
-> «Mapa de la región» (menú de pausa o tecla `R`), con el botón de viajar deshabilitado («Próximamente»). Los viajes,
-> las caravanas y los tratados de este capítulo están **diseñados, no implementados**. Las preguntas O-R* (9b.8) son
-> del owner; los nombres (9b.9) son propuestas, y el del mapa EA es la decisión D9.
+> **Estado (2026-11-04): aprobado por el owner e implementado en la rama `viajes`** (P-R1 y O-R1 a O-R10 tomadas,
+> D9 = Bellcaire). Se juegan: viajar (título de Ciudadano), la página de cada ciudad (mercado con su demanda, su
+> identidad y su arancel; encargos de fuera; reputación allí; tratados), las caravanas, los tratados de familia y del
+> Alcalde, la nieve y la crecida, las caravanas abstractas de las familias IA y la simulación abstracta de las ciudades
+> lejanas (guardado v16). Reglas y cifras en `data/world/trade.json`; el sim en `sim/region/`; resumen de lo
+> implementado en 9b.10. **Quedan para H13** (con el mapa grande): O-R1 (la capital como casa por defecto) y O-R9
+> (población proporcional a las casas); el inicio del jugador y el `max_total` de hoy no cambian.
 
 ### 9b.1 El cambio de planteamiento
 
@@ -184,9 +185,9 @@ Lo mínimo para que tengan vida, sin coste:
 | Mapas | `data/maps/region_*.json` y `town_e` | Uno por asentamiento, generado con `tools/city` (trazados nuevos `aldea` y `abadia`, número de casas por mapa); su escenario de prueba `<mapa>_start` |
 | Mapa de la región | `game/ui/region_screen.gd` | Pergamino ilustrado, rutas, nombres y la ficha de cada asentamiento al pasar o pulsar; «Viajar» deshabilitado con «Próximamente» |
 
-### 9b.8 Preguntas abiertas para el owner
+### 9b.8 Preguntas que se hicieron al owner
 
-Nada de esto cambia reglas del sim hasta que el owner lo apruebe.
+Aprobadas todas las recomendaciones el 2026-11-04 («me parece bien lo que comentas, dale caña»): `docs/decisiones.json`.
 
 | # | Pregunta | Opciones | Recomendación |
 |---|---|---|---|
@@ -219,3 +220,24 @@ En la línea catalana y castellana de `data/cast.json`. Todo es propuesta: los t
 | Sierra · bosque · paso | **Rocaverd** · **l'Olzina** · **Coll de la Venta** | — | La «venta» del paso es donde rondan los bandidos |
 
 **D9 (nombre del mapa EA)** sigue pendiente del owner. Propuesta: si el mapa EA es la capital (O-R1), **Bellcaire**.
+
+### 9b.10 Lo implementado (rama viajes, 2026-11-04)
+
+| Pieza | Dónde | Reglas (cifras [balance] en `data/world/trade.json`) |
+|---|---|---|
+| Estado | `state.region` (guardado **v16**, `SaveFile.to_v16`, paso propio 15 → 16 que no depende de nada de la v15) | Ciudades (demanda, eventos locales, tablón, reputación por familia), eventos regionales, tratados, viajes, caravanas, carros, encargos aceptados, contadores. `Region.ensure` lo llena en el primer paso |
+| Simulación de las ciudades | `sim/region/region.gd` | Al alba la demanda vuelve hacia su reposo; cada día un evento local por ciudad (la tabla local de `data/events.json`, flujo «rgev\|<ciudad>») y un encargo posible; al empezar estación, nieve y crecida (flujo propio) y las caravanas IA (una tirada por familia IA con taller: bajan la demanda de su producto más caro en una ciudad). Ninguna tirada usa `state.rng` ni toca el mercado, los eventos o la reputación de casa |
+| Precio en una ciudad | `Region.price` | base × calidad × demanda_ciudad (× demanda de sus eventos) × estación × eventos regionales y locales × mod_ciudad (barato / caro de 9b.3) × compra de la dificultad o `sell_ratio` |
+| Viajar | `sim/region/travel.gd`: órdenes `travel` y `return` | Título de Ciudadano. Camino abierto más corto; cada tramo: horas × el ×1,5 de la guerra, su peaje (`toll` de la ruta) y la escolta (20) al empezarlo, la tirada de asalto al acabarlo (riesgo × 4 %, ÷ 2 con escolta). **Un asalto se lleva la carga sin herida: la herida llega con la salud de 4.22 (H12.3)**. Fuera del mapa: órdenes rechazadas salvo las de la región, sin rutina ni necesidades; vuelve por la puerta oeste. La vista pasa el control al siguiente del grupo |
+| Comerciar fuera | `sim/region/city_trade.gd`: `city_buy`, `city_sell`, `city_accept`, `city_deliver` | Arancel de 9b.3 sobre lo que vende un forastero (0 con exención). Reputación allí: +1 cada 2 unidades vendidas, +3 por encargo cumplido, −2 por encargo vencido |
+| Caravanas | `sim/region/caravans.gd`: `buy_cart`, `caravan_send` | Carro 120 de oro y 2 al día; como mucho 2; 6 lotes. El carretero es un empleado de la familia (fuera mientras va). Carga con precio mínimo por línea, lista de compra con precio máximo, escolta por tramo; entrega en destino los encargos que pueda; un asalto se lleva la carga, nunca el carro. Sin oro para un peaje, espera una hora y lo vuelve a intentar |
+| Tratados | `sim/region/treaties.gd`: `sign_treaty`, `propose_town_treaty`, `cancel_treaty` | Exención (Patricio, reputación 20, 60 de oro, 4 estaciones), exclusividad (Barón, 40, 150, 2) y cuota (Ciudadano, 5, 20, 4: 4 unidades por estación a 1,2 × base, sin arancel). Al empezar cada estación: cuota corta = roto (multa 20, −10 de reputación, termina); los demás, +2. El Alcalde firma la exención de la villa si el concejo vota sí (concejal: sí con afinidad ≥ 0 con el Alcalde; empate, el Alcalde): vale para todas las familias de casa |
+| Vista | `game/ui/region_screen.gd`, `city_screen.gd`, `caravan_screen.gd` | Viajar y volver desde la ficha (motivo cuando no se puede); el emblema y los carros avanzan por la ruta; al llegar se abre la página de la ciudad (mercado, encargos, tratados). Arte de arte-fal-2 por `VisualPaths`: `city_art` (`illus_city_<id>`), `region_token` (el estandarte de la familia, con su tela teñida por `identity_swap.gdshader`; variante escudo), `region_caravan` (carro de bueyes, reflejado hacia el oeste; variante carreta) y `region_icon` (arancel, tratado, caravana, reputación de ciudad); sin un fichero, un provisional visible |
+| Tutorial | `data/tutorial/travel.json` y tres pistas de primera vez | Capítulo «Viajar y comerciar» (escenario `travel_start`); pistas al primer viaje, la primera caravana y el primer tratado |
+| Bot | `sim/bots/bot_merchant.gd`, diana `merchant` | Ver `data/targets.json` |
+
+**Para H13 (con el mapa grande de la capital):** O-R1 (la capital como casa por defecto, elegible al empezar) y O-R9
+(población proporcional a las casas: hoy `data/town.json population.max_total` sigue en 20 y el inicio del jugador
+sigue en `town_e`).
+
+**Para H12.3 (salud de 4.22):** el asalto en el camino hiere al viajero (o al carretero) además de llevarse la carga.

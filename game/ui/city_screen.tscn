@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bhgwpupiiywej"]
+
+[ext_resource type="Script" uid="uid://d4m1g2lwcn6o2" path="res://game/ui/city_screen.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+
+[node name="CityScreen" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")

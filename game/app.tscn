@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://dupl0o8lqxmf3" path="res://game/ui/event_card.tscn" id="15_event"]
 [ext_resource type="PackedScene" uid="uid://c7tutorial0lyr" path="res://game/ui/tutorial/tutorial.tscn" id="16_tutorial"]
 [ext_resource type="PackedScene" uid="uid://wuiv6gx1g3ru" path="res://game/ui/region_screen.tscn" id="17_region"]
+[ext_resource type="PackedScene" uid="uid://bhgwpupiiywej" path="res://game/ui/city_screen.tscn" id="18_city"]
+[ext_resource type="PackedScene" uid="uid://c2r3cgv3ioq5i" path="res://game/ui/caravan_screen.tscn" id="19_caravan"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_app")
@@ -71,6 +73,12 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="RegionScreen" parent="ScreensLayer" instance=ExtResource("17_region")]
+unique_name_in_owner = true
+
+[node name="CityScreen" parent="ScreensLayer" instance=ExtResource("18_city")]
+unique_name_in_owner = true
+
+[node name="CaravanScreen" parent="ScreensLayer" instance=ExtResource("19_caravan")]
 unique_name_in_owner = true
 
 [node name="CardsLayer" type="CanvasLayer" parent="."]

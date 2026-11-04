@@ -280,7 +280,7 @@ func test_a_bigger_town_scales() -> void:
 
 func test_save_round_trip_keeps_the_cast() -> void:
 	var st := _game("artisan_blacksmith", 8)
-	check(WorldState.VERSION >= 14, "v14 or later (duelo: v15)")
+	check(WorldState.VERSION >= 14, "v14 or later (the cast arrived with v14; duelo v15, viajes v16)")
 	var back: WorldState = SaveFile.from_text(JSON.stringify(st.to_dict()))["state"]
 	eq(SaveFile.canonical(back.to_dict()), SaveFile.canonical(st.to_dict()), "the cast and the portraits come back")
 	eq(back.cast, st.cast, "the cast seed and mode")

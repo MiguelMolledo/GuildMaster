@@ -55,7 +55,7 @@ func _check(shot: String) -> void:
 		var view := sc.get_viewport_rect()
 		var on := view.grow(0.5).encloses(r)
 		var b := card.find_child("Button_travel", true, false) as Button
-		var off := b != null and b.disabled
+		var off := b == null or b.disabled   # a commoner (town_e_start) cannot travel; home's card has no travel button
 		if not on or not off:
 			_bad += 1
 		print("[SmokeRegion] %s: ficha %s en %s (dentro=%s), «%s» deshabilitado=%s" % [shot, sc.selected, r, on,

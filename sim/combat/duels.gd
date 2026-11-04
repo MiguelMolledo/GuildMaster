@@ -219,6 +219,8 @@ static func challenge_status(sim: Sim, actor: String, target: String, cause: Str
 		return "wounded"
 	if not of_character(st, actor).is_empty() or not of_character(st, target).is_empty():
 		return "busy"
+	if Region.is_away(st, actor) or Region.is_away(st, target):
+		return "busy"  # viajes: whoever is away (a trip, a caravan) is not there to fight
 	if on_cooldown(sim, actor, target):
 		return "cooldown"
 	var k: Dictionary = (sim.catalog.combat.get("kinds", {}) as Dictionary).get(kind, {})
@@ -295,6 +297,8 @@ static func order_answer(sim: Sim, o: Dictionary) -> Dictionary:
 	var answer := str(o.get("answer", ""))
 	if not answer in ["accept", "refuse"]:
 		return Orders.fail("bad_answer")
+	if answer == "accept" and Region.is_away(st, actor):
+		return Orders.fail("busy")  # viajes: away from home, it cannot take a duel
 	_answered(sim, rec, answer)
 	return Orders.ok()
 

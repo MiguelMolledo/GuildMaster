@@ -312,6 +312,18 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 					c["visual"]["portrait"] = {"id": "", "type": type}  # the id: Cast.grow_portraits at the next year
 		14:  # 14 -> 15 (duelo, docs/gdd/04e_combate.md)
 			_to_v15(data)
+		15:  # 15 -> 16 (viajes, docs/gdd/09b_region.md)
+			data = to_v16(data)
+	return data
+
+
+## 15 -> 16 (viajes, docs/gdd/09b_region.md §9b.6): the new root «region» of travel and trade. A game from before had
+## never travelled: empty, and Region.ensure fills the cities from data/world/region.json at its first step (the save
+## has no catalog). Characters and families get nothing: whoever is not on a trip has no «trip». Depends on no field of
+## v15: it runs after _to_v15 (14 -> 15) or on its own.
+static func to_v16(data: Dictionary) -> Dictionary:
+	if not data.get("region") is Dictionary:
+		data["region"] = {}
 	return data
 
 

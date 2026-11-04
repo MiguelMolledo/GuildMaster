@@ -6110,7 +6110,7 @@
       "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
       "coste_gen": 0,
       "coste_usd": 0.08,
-      "notas": "Ilustración de la página de ciudad de Vilarrasa (villa del jugador, pueblo-calle) (data/world/region.json, id villa), 240×135. Sin cablear."
+      "notas": "Ilustración de la página de ciudad de Vilarrasa (villa del jugador, pueblo-calle) (data/world/region.json, id villa), 240×135. Cableado: la página de la ciudad (game/ui/city_screen.gd, VisualPaths.city_art)."
     },
     {
       "id": "illus_city_capital",
@@ -6124,7 +6124,7 @@
       "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
       "coste_gen": 0,
       "coste_usd": 0.08,
-      "notas": "Ilustración de la página de ciudad de Bellcaire (capital, mercado y catedral) (data/world/region.json, id capital), 240×135. Sin cablear."
+      "notas": "Ilustración de la página de ciudad de Bellcaire (capital, mercado y catedral) (data/world/region.json, id capital), 240×135. Cableado: la página de la ciudad (game/ui/city_screen.gd, VisualPaths.city_art)."
     },
     {
       "id": "illus_city_port",
@@ -6138,7 +6138,7 @@
       "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
       "coste_gen": 0,
       "coste_usd": 0.08,
-      "notas": "Ilustración de la página de ciudad de Portvell (puerto de río) (data/world/region.json, id port), 240×135. Sin cablear."
+      "notas": "Ilustración de la página de ciudad de Portvell (puerto de río) (data/world/region.json, id port), 240×135. Cableado: la página de la ciudad (game/ui/city_screen.gd, VisualPaths.city_art)."
     },
     {
       "id": "illus_city_quarry",
@@ -6152,7 +6152,7 @@
       "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
       "coste_gen": 0,
       "coste_usd": 0.08,
-      "notas": "Ilustración de la página de ciudad de Peñarroja (mina y cantera) (data/world/region.json, id quarry), 240×135. Sin cablear."
+      "notas": "Ilustración de la página de ciudad de Peñarroja (mina y cantera) (data/world/region.json, id quarry), 240×135. Cableado: la página de la ciudad (game/ui/city_screen.gd, VisualPaths.city_art)."
     },
     {
       "id": "illus_city_hamlet",
@@ -6166,7 +6166,7 @@
       "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
       "coste_gen": 0,
       "coste_usd": 0.08,
-      "notas": "Ilustración de la página de ciudad de Vilablat (aldea de trigo y molino) (data/world/region.json, id hamlet), 240×135. Sin cablear."
+      "notas": "Ilustración de la página de ciudad de Vilablat (aldea de trigo y molino) (data/world/region.json, id hamlet), 240×135. Cableado: la página de la ciudad (game/ui/city_screen.gd, VisualPaths.city_art)."
     },
     {
       "id": "illus_city_abbey",
@@ -6180,7 +6180,7 @@
       "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
       "coste_gen": 0,
       "coste_usd": 0.08,
-      "notas": "Ilustración de la página de ciudad de Montsacre (abadía en la sierra) (data/world/region.json, id abbey), 240×135. Sin cablear."
+      "notas": "Ilustración de la página de ciudad de Montsacre (abadía en la sierra) (data/world/region.json, id abbey), 240×135. Cableado: la página de la ciudad (game/ui/city_screen.gd, VisualPaths.city_art)."
     },
     {
       "id": "ui_icon_tariff",
@@ -6194,7 +6194,7 @@
       "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
       "coste_usd": 0.02,
-      "notas": "Icono de arancel (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Sin cablear."
+      "notas": "Icono de arancel (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Cableado: página de la ciudad y panel de caravanas (VisualPaths.region_icon, small/ a 16)."
     },
     {
       "id": "ui_icon_treaty",
@@ -6208,7 +6208,7 @@
       "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
       "coste_usd": 0.02,
-      "notas": "Icono de tratado (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Sin cablear."
+      "notas": "Icono de tratado (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Cableado: página de la ciudad y panel de caravanas (VisualPaths.region_icon, small/ a 16)."
     },
     {
       "id": "ui_icon_caravan",
@@ -6222,7 +6222,7 @@
       "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
       "coste_usd": 0.02,
-      "notas": "Icono de caravana (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Sin cablear."
+      "notas": "Icono de caravana (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Cableado: página de la ciudad y panel de caravanas (VisualPaths.region_icon, small/ a 16)."
     },
     {
       "id": "ui_icon_city_reputation",
@@ -6236,7 +6236,7 @@
       "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
       "coste_usd": 0.02,
-      "notas": "Icono de reputación de ciudad (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Sin cablear."
+      "notas": "Icono de reputación de ciudad (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Cableado: página de la ciudad y panel de caravanas (VisualPaths.region_icon, small/ a 16)."
     },
     {
       "id": "ui_region_family_token",
@@ -6250,7 +6250,7 @@
       "origen": "fal: nano-banana-2/edit (ref: el pergamino de Valldaura) + image2pixel (tools/art/fal_region_piezas.py)",
       "coste_gen": 0,
       "coste_usd": 0.04,
-      "notas": "Ficha de la familia que viaja por el mapa regional: estandarte de tela en un mástil, 24×44 a la densidad del pergamino (12×22 de arte ×2), pies abajo en el centro. La tela lleva los colores de la familia codificados (alfa 254, azul 150 principal y 200 secundario): se pinta con identity_swap.gdshader. Variante family_token_shield.png (escudo). Sin cablear."
+      "notas": "Ficha de la familia que viaja por el mapa regional: estandarte de tela en un mástil, 24×44 a la densidad del pergamino (12×22 de arte ×2), pies abajo en el centro. La tela lleva los colores de la familia codificados (alfa 254, azul 150 principal y 200 secundario): se pinta con identity_swap.gdshader. Variante family_token_shield.png (escudo). Cableado: el viajero de la familia en el mapa regional (game/ui/region_screen.gd, VisualPaths.region_token, tela teñida con identity_swap.gdshader; por defecto el estandarte, TOKEN_VARIANT)."
     },
     {
       "id": "ui_region_caravan",
@@ -6264,7 +6264,7 @@
       "origen": "fal: nano-banana-2/edit (ref: el pergamino de Valldaura) + image2pixel (tools/art/fal_region_piezas.py)",
       "coste_gen": 0,
       "coste_usd": 0.04,
-      "notas": "Carro de caravana de bueyes, de perfil mirando al este (al oeste, reflejado), 56×34 a la densidad del pergamino. Variante caravan_cart.png (carreta de mula, 48×24). Sin cablear."
+      "notas": "Carro de caravana de bueyes, de perfil mirando al este (al oeste, reflejado), 56×34 a la densidad del pergamino. Variante caravan_cart.png (carreta de mula, 48×24). Cableado: las caravanas de la familia en el mapa regional (VisualPaths.region_caravan, reflejada hacia el oeste; por defecto la de bueyes, CARAVAN_VARIANT)."
     }
   ]
 }

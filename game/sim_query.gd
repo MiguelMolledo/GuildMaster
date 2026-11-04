@@ -315,6 +315,9 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["accuser"] = t_("trial.town")
 	if p.has("office"):  # H10: an office id
 		p["office"] = office_name(str(p["office"]))
+	for k: String in ["city", "treaty", "what"]:  # viajes: a settlement's name_key, a treaty kind, a regional event
+		if p.has(k):
+			p[k] = t_(str(p[k]))
 	if p.has("event"):  # H13: a global event id (its name and the sentence of its effects)
 		var ek := str(catalog.world_events().get(str(p["event"]), {}).get("text_key", "event." + str(p["event"])))
 		p["desc"] = t_(ek + ".desc")
