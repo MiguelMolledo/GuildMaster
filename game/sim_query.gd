@@ -315,6 +315,8 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["accuser"] = t_("trial.town")
 	if p.has("office"):  # H10: an office id
 		p["office"] = office_name(str(p["office"]))
+	if p.has("place"):  # vida: the bandits' nest (an i18n key)
+		p["place"] = t_(str(p["place"]))
 	for k: String in ["city", "treaty", "what"]:  # viajes: a settlement's name_key, a treaty kind, a regional event
 		if p.has(k):
 			p[k] = t_(str(p[k]))
@@ -648,6 +650,9 @@ static func bubble_of(sim: Sim, chr: String) -> String:
 	var icon := Emotions.top_icon(sim, chr)
 	if icon != "":
 		return icon
+	var life := LifeQuery.bubble_of(sim, chr)  # vida (04f 4.24): a rumour, a visitor, a guard, a brawl
+	if life != "":
+		return life
 	return str(TownLife.view(sim, chr).get("bubble", ""))
 
 

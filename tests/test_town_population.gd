@@ -3,7 +3,15 @@ extends "res://tests/test_case.gd"
 ## cap), grow up into apprentices, die, and newcomers fill the gaps. A long sim jumping from midnight to dawn (only the
 ## steps where those rules act) for the years of data/targets.json town_population.
 
-var cat := Catalog.load_from()
+var cat := _h7_catalog()
+
+
+## H7's renewal with H7's cap (data/town.json max_total): measured without the living town II, whose per-map cap
+## (04f 4.24.3, O-V2) has its own test and band (tests/test_life_population.gd, targets town_population_life).
+static func _h7_catalog() -> Catalog:
+	var c := Catalog.load_from()
+	c.life_tables["life"]["enabled"] = false
+	return c
 
 
 func _targets() -> Dictionary:

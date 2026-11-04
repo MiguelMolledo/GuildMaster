@@ -350,6 +350,130 @@
      22
     ]
    ]
+  },
+  {
+   "id": "meet_well",
+   "kind": "well",
+   "slots": [
+    [
+     11,
+     17
+    ],
+    [
+     10,
+     18
+    ],
+    [
+     12,
+     18
+    ]
+   ]
+  },
+  {
+   "id": "meet_atrium",
+   "kind": "atrium",
+   "slots": [
+    [
+     9,
+     6
+    ],
+    [
+     8,
+     6
+    ],
+    [
+     10,
+     6
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     11,
+     6
+    ]
+   ]
+  },
+  {
+   "id": "meet_washhouse",
+   "kind": "washhouse",
+   "slots": [
+    [
+     29,
+     26
+    ],
+    [
+     28,
+     27
+    ],
+    [
+     31,
+     25
+    ],
+    [
+     29,
+     28
+    ]
+   ]
+  },
+  {
+   "id": "meet_east_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     32,
+     4
+    ],
+    [
+     33,
+     5
+    ],
+    [
+     32,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "meet_west_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     2,
+     16
+    ],
+    [
+     3,
+     17
+    ],
+    [
+     2,
+     18
+    ]
+   ]
+  },
+  {
+   "id": "meet_square",
+   "kind": "square",
+   "slots": [
+    [
+     9,
+     17
+    ],
+    [
+     9,
+     19
+    ],
+    [
+     11,
+     19
+    ],
+    [
+     12,
+     16
+    ]
+   ]
   }
  ],
  "workplaces": [
@@ -793,6 +917,46 @@
   ],
   "lots": ""
  },
+ "patrols": [
+  {
+   "id": "patrol_main",
+   "tiles": [
+    [
+     31,
+     3
+    ],
+    [
+     9,
+     15
+    ],
+    [
+     4,
+     16
+    ]
+   ]
+  },
+  {
+   "id": "patrol_plaza",
+   "tiles": [
+    [
+     5,
+     11
+    ],
+    [
+     16,
+     11
+    ],
+    [
+     16,
+     23
+    ],
+    [
+     5,
+     23
+    ]
+   ]
+  }
+ ],
  "decor": {
   "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
   "items": [

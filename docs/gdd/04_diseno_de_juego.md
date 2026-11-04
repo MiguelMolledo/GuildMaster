@@ -467,6 +467,8 @@ Comprar en un puesto del mercado y que la mercancía **llegue sola al almacén**
 
 #### 4.6.4 Interiores
 
+> Ampliado en [04g_interiores.md](04g_interiores.md) (4.6.5, 2026-11-04): biblioteca de props a partir de referencias de fal, interiores por datos con habitaciones, desniveles y dos plantas, paredes que se abren, mostrador con cola y clientes que aparecen en su sitio de acción.
+
 - Al entrar (personaje o modo gestión) la vista pasa a una **escena interior isométrica** propia de cada tipo de edificio. El exterior se ve negro. Transición: fundido de ~0,3-0,5 s. El juego no se pausa.
 - **Entrar con personaje:** el personaje camina a la puerta y aparece dentro; se mueve libre por el interior (limitado al suelo navegable).
 - **Gestionar (modo omnisciente):** se abre el interior sin personaje, para gestionar con el ratón: almacén, empleados, cola, mejoras.

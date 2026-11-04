@@ -314,7 +314,7 @@ func test_ledger_adds_up_with_wages() -> void:
 	var total_before := 0
 	var total_after := 0
 	for f: String in sim.state.families:
-		eq(Money.gold(sim.state, f) - Ledger.total(sim.state, f), int(gold0[f]), "%s book adds up" % f)
+		eq(Money.gold(sim.state, f) - Ledger.total(sim.state, f), int(gold0.get(f, 0)), "%s book adds up" % f)  # vida: families made later start at 0
 	for e: Dictionary in sim.state.ledger["entries"]:
 		if str(e["category"]) == Money.WAGES:
 			total_after += int(e["amount"])
