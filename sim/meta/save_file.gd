@@ -109,6 +109,8 @@ static func migrate(d: Dictionary) -> Dictionary:
 const MIGRATION_AGE: int = 25
 ## v11 -> v12: the needs of everybody (H14, data/family.json needs.start) [provisional].
 const NEEDS_START: int = 80
+## v13 -> v14: the class -> portrait type of data/cast.json portraits.classes (the save has no catalog).
+const MIGRATION_CLASS_TYPES: Dictionary = {"artisan": "artisan", "patron": "farmer", "scholar": "scholar", "rogue": "rogue"}
 
 
 static func _step(from_version: int, data: Dictionary) -> Dictionary:
@@ -290,6 +292,24 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 					kept.append({"id": str(e.get("id", "")), "def": str(e["def"]), "start": int(e.get("start", 0)),
 						"end": int(e["end"]), "by": str(e.get("by", ""))})
 			data["events_active"] = kept
+		13:  # 13 -> 14 (población, docs/contratos/poblacion.md): the cast of a game from before was the fixed one (its
+			# births and newcomers keep the H7/H8 names). Each character's visual gets its base portrait: the type of its
+			# family (Cast.family_type) and no id yet: the pool is not in the save (the view shows one of its type meanwhile;
+			# Cast.grow_portraits fixes it at the next year change).
+			if not data.get("cast") is Dictionary:
+				data["cast"] = {"mode": "fixed", "seed": 0, "map": str(data.get("map_id", ""))}
+			var fams: Dictionary = data.get("families", {}) if data.get("families") is Dictionary else {}
+			for c: Dictionary in (data.get("characters", {}) as Dictionary).values():
+				if not c.get("visual") is Dictionary:
+					c["visual"] = {"hair": 0, "skin": 0}
+				if not (c["visual"] as Dictionary).get("portrait") is Dictionary:
+					var f: Dictionary = fams.get(str(c.get("family", "")), {})
+					var type := "commoner"
+					if str(f.get("controlled_by", "")) == "human":
+						type = str(MIGRATION_CLASS_TYPES.get(str(f.get("class", "artisan")), "artisan"))
+					elif str(f.get("ai_profile", "")) != "":
+						type = "artisan"
+					c["visual"]["portrait"] = {"id": "", "type": type}  # the id: Cast.grow_portraits at the next year
 	return data
 
 

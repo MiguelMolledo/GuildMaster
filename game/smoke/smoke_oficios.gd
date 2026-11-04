@@ -39,7 +39,7 @@ func _new_game_screen() -> void:
 
 
 func _start(p: String) -> void:
-	var r := NewGame.from_start(Game.sim.catalog, "artisan_" + p, "normal", {}, 7)
+	var r := NewGame.from_start(Game.sim.catalog, "artisan_" + p, "normal", {"cast": "fixed"}, 7)
 	_check(bool(r["ok"]), "artisan_%s starts" % p)
 	app.call("_on_new_game_started", r["state"])
 	Game.set_paused(true)

@@ -310,7 +310,7 @@ func test_board_panel_accepts_delivers_and_abandons() -> void:
 # --- the account book ----------------------------------------------------------------------------------------------
 
 func _started() -> WorldState:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"name": "Hugo", "female": false,
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed", "name": "Hugo", "female": false,
 		"family_name": "Herrero", "colors": {"primary": "#8b2e2e", "secondary": "#c8a84e"}, "stats_add": {}}, 7)
 	check(bool(r.get("ok", false)), "from_start works: %s" % r.get("error", ""))
 	return r["state"]
@@ -415,7 +415,8 @@ func test_new_game_screen_calls_from_start_with_the_choices() -> void:
 	eq(calls[0][4], 42, "the seed")
 	_same(calls[0][3], {"name": "Marta", "female": true, "family_name": "Ferran",
 		"colors": {"primary": "#2e4f8b", "secondary": "#e0e0d0"},
-		"stats_add": {"craft": 3, "charisma": 1, "negotiation": 1}}, "what was chosen, 5 points")
+		"stats_add": {"craft": 3, "charisma": 1, "negotiation": 1}, "cast": "random", "cast_seed": Cast.sub_seed(42, 0)},
+		"what was chosen, 5 points (población: and the cast of the screen)")
 	eq(started.size(), 1, "the game starts with the state")
 	if not started.is_empty():
 		var st: WorldState = started[0]

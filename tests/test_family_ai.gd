@@ -10,7 +10,7 @@ var cat := Catalog.load_from()
 
 
 func test_the_rival_courts_marries_and_has_children() -> void:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 4)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 4)
 	var sim := Sim.new(r["state"], cat)
 	var st := sim.state
 	eq(str(st.families[RIVAL_FAM]["head"]), RIVAL, "Bernat heads the Ferrer")

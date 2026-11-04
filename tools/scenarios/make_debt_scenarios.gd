@@ -14,7 +14,7 @@ const LEAD: int = 60  # minutes left before each due date when the scenario star
 
 func _init() -> void:
 	var cat := Catalog.load_from()
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)
 	if not r["ok"]:
 		print("make_debt_scenarios: %s" % r["error"])
 		quit(1)

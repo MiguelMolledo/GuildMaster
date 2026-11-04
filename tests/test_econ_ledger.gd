@@ -46,7 +46,7 @@ func test_summary_today_days_and_buildings() -> void:
 
 
 func test_summary_debts() -> void:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)
 	var sim := Sim.new(r["state"], cat)
 	var d: Dictionary = Ledger.summary(sim, FAM, "debts")
 	eq((d["loans"] as Array).size(), 1, "the start loan")
@@ -112,7 +112,7 @@ func test_notices_kept_one_year() -> void:
 
 
 func test_conservation_random_clicker_10_days() -> void:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 7)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 	var sim := Sim.new(r["state"], cat)
 	var before := {}
 	for f: String in sim.state.families:

@@ -22,7 +22,7 @@ func _cleanup(d: String) -> void:
 
 
 func _started() -> WorldState:
-	return NewGame.from_start(cat, "artisan_blacksmith", "normal", {"name": "Hugo", "family_name": "Herrero"}, 7)["state"]
+	return NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed", "name": "Hugo", "family_name": "Herrero"}, 7)["state"]
 
 
 func _game(state: WorldState) -> Node:

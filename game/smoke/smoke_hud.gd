@@ -69,7 +69,7 @@ func _process(delta: float) -> void:
 		"start":
 			if _t > 0.3:
 				# a real new game (the debt, the start objectives), as the Start button does
-				var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {}, 7)
+				var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 				app.call("_on_new_game_started", r["state"])
 				_go("pick")
 		"pick":

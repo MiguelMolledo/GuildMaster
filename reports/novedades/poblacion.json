@@ -1,0 +1,12 @@
+{
+  "fecha": "2026-11-03",
+  "titulo": "Población variada: cada partida, otra gente",
+  "que": "Cada partida nueva reparte con su semilla quién vive en el pueblo (data/cast.json, sim/meta/cast.gd): nombres de pila (74 de hombre y 71 de mujer, catalanes y castellanos medievales), apellidos de casa (94 generales y 27 de oficio: el herrero rival se apellida Ferrer, Herrador, Farré…), edades dentro del rango de cada papel, pelo y piel (10 tonos de pelo y 6 de piel; los vecinos de una casa se parecen), retrato base del pool de 566 retratos (index.json v1: la persona guarda el id de su retrato, de su tipo social, sexo y franja de edad, sin repetir cara en el pueblo; al cambiar de franja recibe otro de la nueva y el pelo encanece), colores de ropa de las familias IA (lejos del color que elige el jugador) y la personalidad de los vecinos (carisma, empatía y destreza ±1). Lo que pesa en el balance no cambia: atributos del protagonista, del rival y de los competidores, oro, deuda, edificios, oficios, rangos y el orden de edad de los vecinos (los cargos siguen yendo a los mismos). Los recién nacidos y los recién llegados sacan del reparto un nombre que no lleva nadie vivo. En Partida nueva, «Otra familia» propone otro nombre, apellido y aspecto (y otro pueblo) sin cambiar la semilla del mundo. Las pruebas, los escenarios y las dianas usan el «reparto fijo», idéntico al de antes. Guardado v14 con migración. Cada ciudad saca su propia gente (el mapa entra en la semilla).",
+  "como_probar": "Partida nueva: /opt/homebrew/bin/godot --path . (o jugar.command): pulsar «Otra familia» varias veces y empezar; abrir la ficha de un vecino (clic en él). Captura guionizada: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=poblacion --seed=7. Pruebas: godot --headless --path . -s tests/run_tests.gd -- --only=poblacion. Dianas con repartos generados: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=artisan_novice --days=10 --seeds=10 --cast=random --tag=cast_random.",
+  "capturas": [
+    "docs/novedades/poblacion_partida_nueva.png",
+    "docs/novedades/poblacion_otra_familia.png",
+    "docs/novedades/poblacion_vecino.png",
+    "docs/novedades/poblacion_rival.png"
+  ]
+}

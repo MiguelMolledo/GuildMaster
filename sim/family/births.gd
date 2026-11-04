@@ -5,7 +5,8 @@ extends RefCounted
 ## at most max_per_couple. The child inherits the stats ((father + mother) / 2 + random(-jitter, +jitter), clamped,
 ## +bonus if both are high) and the hair and skin of one parent each (or, rarely, a new tone). It lives in the family's
 ## residence, is not controllable and has no inventory of its own until it comes of age (Lifecycle).
-## Contract: docs/contratos/h8_familia.md. Figures: data/family.json "children", "visual", "names".
+## Contract: docs/contratos/h8_familia.md. Figures: data/family.json "children", "visual", "names"; población: the name
+## and the look come from Cast.newborn (the fixed cast keeps this draw; the generated one, data/cast.json).
 ## The couple's memory lives in the mother's life: {wedding_day, last_birth_day}.
 
 
@@ -79,10 +80,10 @@ static func born(sim: Sim, mother: String, father: String) -> String:
 	var cfg: Dictionary = sim.catalog.family
 	var key := "child|%d|%s" % [today, mother]
 	var female := Kin.roll(st, key + "|sex") < 0.5
-	var names: Array = cfg.get("names", {}).get("female" if female else "male", ["?"])
-	var name := str(names[Kin.randi_range(st, key + "|name", 0, names.size() - 1)])
 	var stats := child_stats(sim, m.get("stats", {}), f.get("stats", {}), key)
-	var vis := child_visual(sim, m.get("visual", {}), f.get("visual", {}), key)
+	var nb := Cast.newborn(sim, key, female, m, f, fam)  # población: name and look from the game's cast
+	var name := str(nb["name"])
+	var vis: Dictionary = nb["visual"]
 	var home := Kin.residence(sim, fam)
 	var pos: Array = (st.buildings[home].get("door", m.get("position", [0, 0])) as Array).duplicate() if home != "" \
 		else (m.get("position", [0, 0]) as Array).duplicate()
@@ -95,6 +96,7 @@ static func born(sim: Sim, mother: String, father: String) -> String:
 		"routine": {}, "occupation": "", "town": {}}
 	st.characters[id].merge(Kin.character_fields(today, str(st.families.get(fam, {}).get("class", f.get("class", "artisan"))),
 		"", int(vis["hair"]), int(vis["skin"]), cfg.get("directives", {}).get("default", ["work"])))
+	st.characters[id]["visual"]["portrait"] = vis["portrait"]
 	st.characters[id]["parents"] = [father, mother]
 	(st.families[fam]["members"] as Array).append(id)
 	for p: Dictionary in [m, f]:

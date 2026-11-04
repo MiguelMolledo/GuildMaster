@@ -28,6 +28,8 @@ extends Node
 ## Page kit: --smoke-script=pagina: the card of a global event that starts and the other templates of PageCard.
 ## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## H12: --smoke-script=oficios: the trade buttons of the new game screen and the workshop of each artisan trade.
+## Población: --smoke-script=poblacion: the new game screen and «Otra familia», then the sheets of a townsman, a
+## townswoman and the rival with their base portraits.
 ## --smoke-script=menu: every menu screen (title, new game, pause, save, load, options, quit, credits, ending).
 ## --smoke-script=escala: the plaza, the forge street and the town hall at zoom 1 and 2 (building scale B).
 ## UI 1/2: --smoke-script=hud: the new HUD's zones, the book beside the forge's bar, notices, help, ESC, the interior;
@@ -59,7 +61,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"economia": "res://game/smoke/smoke_economia.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
 	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd",
-	"pagina": "res://game/smoke/smoke_pagina.gd",
+	"poblacion": "res://game/smoke/smoke_poblacion.gd", "pagina": "res://game/smoke/smoke_pagina.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd"}
 
 @onready var _background: ColorRect = %Background

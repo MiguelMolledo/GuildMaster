@@ -13,7 +13,7 @@ var cat := Catalog.load_from()
 
 
 func _new_game() -> Sim:
-	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"], cat)
+	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"], cat)
 	sim.state.families[FAM]["title"] = "citizen"
 	sim.state.families[FAM]["gold"] = 500
 	return sim

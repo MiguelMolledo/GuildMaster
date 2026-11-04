@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 13
+const VERSION: int = 14
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -25,6 +25,7 @@ var justice: Dictionary = {"facts": []}  # H11: facts that can be taken to court
 var relationships: Dictionary = {} # "chr_a|chr_b" (sorted as String) -> {relation, affinity}
 var emotions: Dictionary = {}      # chr_id -> [emotion]
 var events_active: Array = []     # H13: the global events in force [{id, def, start, end, by}] (GDD 4.13): WorldEvents
+var cast: Dictionary = {"mode": "fixed", "seed": 0, "map": ""}  # how the cast was made {mode, seed, map}: Cast
 var chronicle: Array = []          # facts of the game (births, weddings, titles...): input of the future chronicler
 var next_ids: Dictionary = {}      # prefix -> next number (Ids.next)
 # H3 (docs/contratos/h3_mercado.md): money, debt, contracts, errands, the start of a game.
@@ -59,6 +60,8 @@ var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD
 # (the directives' memory) (SaveFile._step 11 -> 12).
 # H13 (estaciones y eventos globales): events_active (a root field that already was, always []) gets its shape
 # [{id, def, start, end, by}] (SaveFile._step 12 -> 13). The season is not state: Clock derives it from the minute.
+# Población (docs/contratos/poblacion.md): the new root cast {mode fixed | random, seed, map} (births and newcomers
+# draw their names and looks from it) and characters' visual gets portrait {type, variant} (SaveFile._step 13 -> 14).
 
 
 func seed_rng(s: int) -> void:
@@ -87,6 +90,7 @@ func to_dict() -> Dictionary:
 		"relationships": relationships,
 		"emotions": emotions,
 		"events_active": events_active,
+		"cast": cast,
 		"chronicle": chronicle,
 		"next_ids": next_ids,
 		"ledger": ledger,
@@ -128,6 +132,7 @@ static func from_dict(src: Dictionary) -> WorldState:
 	s.relationships = d.get("relationships", {})
 	s.emotions = d.get("emotions", {})
 	s.events_active = d.get("events_active", [])
+	s.cast = d.get("cast", {"mode": "fixed", "seed": 0, "map": ""})
 	s.chronicle = d.get("chronicle", [])
 	s.next_ids = d.get("next_ids", {})
 	s.ledger = d.get("ledger", {"entries": [], "summaries": {}})

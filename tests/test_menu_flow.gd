@@ -65,7 +65,7 @@ func test_title_continues_the_last_game() -> void:
 	var before := TranslationServer.get_locale()
 	TranslationServer.set_locale("es")
 	var d := _dir()
-	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {"name": "Hugo", "family_name": "Herrero"}, 3)["state"]
+	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed", "name": "Hugo", "family_name": "Herrero"}, 3)["state"]
 	SaveFile.save(st, SaveSlots.path_of("slot_1"))
 	var t: TitleScreen = _scene("res://game/ui/title_screen.tscn")
 	t.time_config = cat.time

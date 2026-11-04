@@ -6,7 +6,7 @@ extends "res://tests/test_case.gd"
 ## the production branch, with no refused order and the book adding up.
 func test_expert_runs_the_forge() -> void:
 	var cat := Catalog.load_from()
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)
 	check(bool(r["ok"]), "new game")
 	var sim := Sim.new(r["state"], cat)
 	var bot := BotArtisanExpert.new()
@@ -34,7 +34,7 @@ func test_expert_runs_the_forge() -> void:
 ## The novice keeps its habits: the hooks the expert overrides give the novice's values.
 func test_novice_hooks_unchanged() -> void:
 	var cat := Catalog.load_from()
-	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"], cat)
+	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"], cat)
 	var bot := BotArtisanNovice.new()
 	eq(bot._capacity(sim), 1.0, "capacity")
 	eq(bot._max_held(sim, "forge_sword"), BotArtisanNovice.MAX_HELD, "max held")

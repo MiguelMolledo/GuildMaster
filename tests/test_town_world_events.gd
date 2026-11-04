@@ -289,7 +289,7 @@ func test_save_round_trip_with_events() -> void:
 	var sim2 := Sim.new(back, cat)
 	check(WorldEvents.is_active(sim2, "war") and WorldEvents.is_active(sim2, "festival"), "both still in force")
 	eq(Market.price(sim2, "sword", 0, "sell"), Market.price(sim, "sword", 0, "sell"), "the same war price")
-	eq(WorldState.VERSION, 13, "v13")
+	check(WorldState.VERSION >= 13, "v13 or later (población: v14)")
 
 
 func test_v12_save_migrates_to_v13() -> void:

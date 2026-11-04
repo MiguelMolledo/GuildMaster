@@ -32,7 +32,7 @@ func _ready() -> void:
 			_sections = Array(a.substr(6).split(","))
 		elif a.begins_with("--smoke-timeout="):
 			timeout = a.substr(16).to_float()
-	var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {}, 7)
+	var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 	app.call("_on_new_game_started", r["state"])
 	_step("pick", func() -> void:
 		app.world().select(HUGO)
@@ -192,7 +192,7 @@ func _produccion() -> void:
 
 func _almacen() -> void:
 	_step("alm_enter", func() -> void:
-		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {}, 7)
+		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 		app.call("_on_new_game_started", r["state"])
 		app.world().select(HUGO)
 		Game.set_speed(4), Callable(), 0.4)
@@ -220,7 +220,7 @@ func _at_stall() -> bool:
 
 func _mercado() -> void:
 	_step("mer_new", func() -> void:
-		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {}, 7)
+		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 		app.call("_on_new_game_started", r["state"])
 		app.world().select(HUGO)
 		Game.set_speed(4), Callable(), 0.4)
@@ -268,7 +268,7 @@ func _mercado() -> void:
 
 func _empleados() -> void:
 	_step("emp_new", func() -> void:
-		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {}, 7)
+		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 		app.call("_on_new_game_started", r["state"])
 		app.world().select(HUGO)
 		app.open_interior(BLD, true), Callable(), 1.0)
@@ -313,7 +313,7 @@ func _empleados() -> void:
 
 func _mejoras() -> void:
 	_step("upg_new", func() -> void:
-		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {}, 7)
+		var r := NewGame.from_start(Game.sim.catalog, "artisan_blacksmith", "normal", {"cast": "fixed"}, 7)
 		app.call("_on_new_game_started", r["state"])
 		app.world().select(HUGO)
 		var fam := SimQuery.building_family(Game.sim.state, BLD)

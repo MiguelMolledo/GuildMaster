@@ -33,7 +33,7 @@ func _init() -> void:
 
 ## The common start of the three: a Citizen family with gold and reputation, no loan, day 4 at 10:00.
 func _base() -> Sim:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)
 	if not r["ok"]:
 		print("make_office_scenarios: new game: %s" % r["error"])
 		return null
