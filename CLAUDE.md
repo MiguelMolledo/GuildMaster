@@ -109,7 +109,8 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Población (al tocar `data/cast.json`, `sim/meta/cast.gd` o los inicios): las partidas nuevas reparten nombres,
   edades y aspecto con la semilla; `sim_runner` y las pruebas usan el reparto fijo (`choices` `"cast": "fixed"`, el de
   los datos) salvo `--cast=random` (con `--tag`; en `run_all`, paso cast). Contrato: `docs/contratos/poblacion.md`.
-  Captura: `--smoke-script=poblacion --seed=<n>`.
+  Captura: `--smoke-script=poblacion --seed=<n>`. Al cambiar el pool de retratos (`assets/art/portraits/index.json`):
+  `python3 tools/art/portraits_catalog.py` (exporta `data/portraits.json`; el validador comprueba que coinciden).
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**
