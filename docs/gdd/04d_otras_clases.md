@@ -591,6 +591,11 @@ Cuenta de referencia: 800 de capital prestado a 25 % anual medio con 7 % de impa
 
 #### 4.22.6.1 Combate como orden
 
+> [!NOTE]
+> [04e_combate.md](04e_combate.md) (borrador, 2026-11-04) propone resolver todo combate con el lance del duelo «a tres
+> tiempos» en vez de estos asaltos (O-C2), con las variantes del Pícaro en 4e.7. Hasta que el owner decida, esta sección
+> sigue como está.
+
 `attack(actor, target, intent, stance)`. Se resuelve en el sim, por asaltos de **5 min de juego**; mientras dura,
 los dos están ocupados (su cola espera).
 
@@ -818,7 +823,7 @@ almacén; (4) blanquea una pieza y véndela en el mercado; (5) pasa una noche en
 | **Tarjeta de detención** (Rendirse / Huir / Luchar / Sobornar, con la probabilidad en el tooltip) | el mismo | **falta** |
 | **Perista** (tope del día, precio, «robado» marcado en rojo en los iconos) | el mismo y [almacen_y_personaje.md](../ui/mecanicas/almacen_y_personaje.md) | **falta** |
 | **Expedientes**: lo que han visto tus espías, hechos que puedes usar (Acusar / Chantajear) | el mismo | **falta** |
-| **Combate**: tarjeta con los asaltos, vidas y postura; resultado | `docs/ui/mecanicas/combate.md` | **falta** |
+| **Combate**: el duelo «a tres tiempos» (lances, gesto, aliento, toques) y su resultado; 04e propone que sustituya a los asaltos de 4.22.6.1 (O-C2) | [combate.md](../ui/mecanicas/combate.md) | borrador (prototipo aparte) |
 | Rehenes del Nido y rescates | `noche_y_crimen.md` | **falta** |
 | Juicio y acusar | [tribunal.md](../ui/mecanicas/tribunal.md) | existe; añadir «testigo presencial» |
 | Contratos de armas en el tablón | [ciudad_viva.md](../ui/mecanicas/ciudad_viva.md) | existe; añadir el `kind` |
