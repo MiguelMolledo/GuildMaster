@@ -1,0 +1,68 @@
+{
+  "_doc": "Travel and trade between the settlements of the region (docs/gdd/09b_region.md, decisions of 2026-11-04: O-R2 a, O-R3 a, O-R4 c, O-R5 a, O-R6 c, O-R7 a, O-R8 a). Read by sim/region/*.gd (Region, Travel, CityTrade, Caravans, Treaties); the places, routes and identity are in region.json. Every figure is [balance], provisional. Nothing here touches the home town: a family that never travels nor sends a caravan meets none of these rules (its rolls are keyed streams of their own, never state.rng).",
+  "travel": {
+    "_doc": "unlock_title: the social title that opens travelling (O-R2 a). The route's hours × the events' errands multiplier (the war's «rutas cortadas», ×1.5). A route whose cut_by event is in force (home's events_active or the regional events of «regional_events») cannot be taken. toll: gold per leg, the route's «toll» in region.json. escort: gold per leg; divides the ambush chance. ambush_per_risk: chance of an ambush per leg without escort = risk × this. An ambush takes every item the traveller carries (no wound until the health of 4.22 arrives: H12.3). gate: the spawn the traveller leaves by and comes back to.",
+    "unlock_title": "citizen",
+    "escort_cost": 20,
+    "escort_divisor": 2.0,
+    "ambush_per_risk": 0.04,
+    "gate": "west_gate"
+  },
+  "city_market": {
+    "_doc": "The market of a settlement away from home (9b.5): price = base_price × quality × demand_city × season × the regional events (home's season-scope events in force) × the city's own local events × mod_city (its «cheap» / «dear» in region.json, by item or goods group, multiplied) × buy_price_mult of the difficulty (buying) or sell_ratio (selling). The demand of each city moves like home's (data/market.json demand: drop_per_unit for each unit sold there, recover_per_day at dawn towards rest). The city's tariff (region.json) is taken from what an outsider sells there, unless an exemption treaty covers the family. What it trades: every item with a market_stall.",
+    "use_home_demand_rules": true
+  },
+  "reputation": {
+    "_doc": "Reputation of each family in each settlement away from home (O-R7 a), in [min, max], 0 at first. Home's reputation (4.10.5) never moves with it.",
+    "min": -100,
+    "max": 100,
+    "contract_done": 3,
+    "contract_failed": -2,
+    "treaty_kept": 2,
+    "treaty_broken": -10,
+    "sale": 0
+  },
+  "board": {
+    "_doc": "Contracts of the cities (9b.5, «encargos de fuera»): at dawn each city may post one (chance) while it has fewer than max_open; the item is one of its «dear» items (or of its dear goods groups), qty in [qty_min, qty_max], the reward = base_price × qty × reward_mult, due in days_min..days_max days. Accepting needs to be there (or a caravan heading there); delivering, the goods there (the traveller or a caravan). Rolls keyed by city and day.",
+    "chance": 0.5,
+    "max_open": 2,
+    "qty_min": 2,
+    "qty_max": 6,
+    "reward_mult": 1.4,
+    "days_min": 2,
+    "days_max": 4
+  },
+  "caravans": {
+    "_doc": "O-R4 c: a family buys a cart (cart_price, upkeep per day at dawn, capacity in stacks) and sends it with one of its employees (the carter: away while it goes) to a city by the shortest open way, with a cargo from one of its buildings (each item with a minimum unit price: below it, it does not sell) and a shopping list (each item with a maximum unit price and a quantity). It sells, buys, stays stay_hours and comes back to the building it left from. Each leg rolls its ambush like a trip (escort optional, per leg); an ambush takes the cargo, never the cart. The carter's wage goes on as at home.",
+    "cart_price": 120,
+    "cart_upkeep": 2,
+    "capacity_stacks": 6,
+    "stay_hours": 2,
+    "max_carts": 2
+  },
+  "ai_caravans": {
+    "_doc": "Abstract caravans of the AI families (9b.5, «con las familias rivales»): at the start of each season, each AI family with a production building rolls chance (keyed stream); with a hit, it «sells» qty units of what its building makes in a city (keyed pick): the city's demand of that item drops qty × drop_per_unit. No gold, no orders, no agenda (04c untouched). An exclusivity treaty keeps the item out.",
+    "chance": 0.5,
+    "qty": 4
+  },
+  "treaties": {
+    "_doc": "The three treaties of 9b.5 (O-R6 c). title: the social title the signer's family needs; reputation: in that city; seasons: how long it lasts; fee: gold at signing. exemption: no tariff there. exclusivity (item): only the family sells that item there (the AI caravans leave it). quota (item): the city buys qty units a season at price_mult × base_price, no tariff; at the end of each season with fewer delivered: breach (penalty gold, the reputation's treaty_broken, the treaty ends). Each season kept: treaty_kept. A family treaty is signed by its head (or the regent) in the city. A town treaty (scope «town», exemption only) is proposed by the Mayor and voted by the council (the mayor and the councillors: a councillor votes yes if its affinity with the mayor is >= council_yes_affinity; the mayor's vote breaks ties); it covers every family of home and gives the mayor town_reputation at home.",
+    "kinds": {
+      "exemption": {"title": "patrician", "reputation": 20, "seasons": 4, "fee": 60},
+      "exclusivity": {"title": "baron", "reputation": 40, "seasons": 2, "fee": 150},
+      "quota": {"title": "citizen", "reputation": 10, "seasons": 4, "fee": 20, "qty": 4, "price_mult": 1.2, "penalty": 20}
+    },
+    "town_kinds": ["exemption"],
+    "council_yes_affinity": 0,
+    "town_reputation": 5
+  },
+  "regional_events": {
+    "_doc": "O-R8 a: the events of the region that cut routes (not in data/events.json: they would move its rolls and today's targets). At the start of each season one keyed roll per event (its own stream, «rgev»), from min_day; it lasts the season. cuts: the route terrains it closes (region.json routes terrain). They touch nothing at home.",
+    "snow": {"text_key": "region.event.snow", "chance": {"spring": 0.0, "summer": 0.0, "autumn": 0.1, "winter": 0.6}, "min_day": 2, "cuts": ["mountain", "ridge"]},
+    "flood": {"text_key": "region.event.flood", "chance": {"spring": 0.4, "summer": 0.05, "autumn": 0.15, "winter": 0.05}, "min_day": 2, "cuts": ["river", "ford"]}
+  },
+  "city_events": {
+    "_doc": "The local events of each city away from home: every day one keyed roll per city («rgev|<city>») over the local-scope events of data/events.json with chance × chance_mult; their price and demand effects touch only that city's market. At most one at a time per city.",
+    "chance_mult": 1.0
+  }
+}

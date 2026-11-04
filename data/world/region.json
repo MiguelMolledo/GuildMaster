@@ -1,5 +1,5 @@
 {
-  "_doc": "The region (docs/gdd/09b_region.md): the settlements, the routes between them and their identity, as data for the «Mapa de la región» screen (game/ui/region_screen.gd) and the design. DESIGN ONLY: the sim never reads this file (travel, caravans and treaties are designed, not implemented: 9b.5), and nothing of it is saved. Checked by tools/validate_content.py (check_region): unique ids, routes between settlements that exist, no repeated pair, the region connected, every map in data/maps, every text in i18n, the items and groups of the price multipliers in data/items and data/seasons.json goods. Names are proposals (9b.9, D9): only the i18n texts change, never the ids.",
+  "_doc": "The region (docs/gdd/09b_region.md): the settlements, the routes between them and their identity. Read by the «Mapa de la región» screen (game/ui/region_screen.gd) and by the sim of travel and trade (sim/region/, rules in trade.json); what changes (each city's demand, events, reputation, treaties, trips, caravans) is saved in state.region (v16). Checked by tools/validate_content.py (check_region): unique ids, routes between settlements that exist, no repeated pair, the region connected, every map in data/maps, every text in i18n, the items and groups of the price multipliers in data/items and data/seasons.json goods. Names are proposals (9b.9, D9): only the i18n texts change, never the ids.",
   "id": "valldaura",
   "name_key": "region.name",
   "home": "villa",
@@ -56,19 +56,15 @@
       "rulers": "region.abbey.rulers", "specialty": "region.abbey.specialty"
     }
   ],
-  "_routes_doc": "hours: game hours (1 h = 12.5 s real at x1). terrain: road | royal_road | river | mountain | ridge | forest | ford. risk 0..5: chance of an ambush per trip without escort = risk x 4 % [balance, design]. cut_by: world events (data/events.json) or proposed ones (events_proposed) that close the route. path: px on the map between the two ends (for the drawing).",
+  "_routes_doc": "hours: game hours (1 h = 12.5 s real at x1). terrain: road | royal_road | river | mountain | ridge | forest | ford. risk 0..5: chance of an ambush per trip without escort = risk x 4 % [balance, design]. toll: gold per trip on it (trade.json travel). cut_by: world events (data/events.json) or regional ones (trade.json regional_events) that close the route. path: px on the map between the two ends (for the drawing).",
   "routes": [
-    {"id": "r1", "a": "villa", "b": "hamlet", "hours": 3, "terrain": "road", "risk": 1, "cut_by": [], "path": []},
-    {"id": "r2", "a": "villa", "b": "capital", "hours": 8, "terrain": "royal_road", "risk": 2, "cut_by": ["war", "riot"], "path": [[318, 300], [352, 338]]},
-    {"id": "r3", "a": "capital", "b": "port", "hours": 6, "terrain": "river", "risk": 1, "cut_by": ["war", "flood"], "path": [[500, 345], [600, 352], [668, 400]]},
-    {"id": "r4", "a": "villa", "b": "quarry", "hours": 10, "terrain": "mountain", "risk": 4, "cut_by": ["war", "snow"], "path": [[288, 205]]},
-    {"id": "r5", "a": "quarry", "b": "abbey", "hours": 9, "terrain": "ridge", "risk": 3, "cut_by": ["snow"], "path": [[330, 140], [440, 165]]},
-    {"id": "r6", "a": "abbey", "b": "port", "hours": 8, "terrain": "forest", "risk": 3, "cut_by": [], "path": [[640, 250], [700, 340]]},
-    {"id": "r7", "a": "hamlet", "b": "capital", "hours": 4, "terrain": "ford", "risk": 2, "cut_by": ["flood"], "path": [[392, 318]]}
-  ],
-  "events_proposed": {
-    "_doc": "Events the region needs that are NOT in data/events.json (O-R8): adding them would move the event rolls and the targets. Same shape as there when they are added.",
-    "snow": {"text_key": "region.event.snow", "season": "winter", "cuts": ["mountain", "ridge"]},
-    "flood": {"text_key": "region.event.flood", "season": "spring", "cuts": ["river", "ford"]}
-  }
+    {"id": "r1", "a": "villa", "b": "hamlet", "hours": 3, "terrain": "road", "risk": 1, "toll": 0, "cut_by": [], "path": []},
+    {"id": "r2", "a": "villa", "b": "capital", "hours": 8, "terrain": "royal_road", "risk": 2, "toll": 2, "cut_by": ["war", "riot"], "path": [[318, 300], [352, 338]]},
+    {"id": "r3", "a": "capital", "b": "port", "hours": 6, "terrain": "river", "risk": 1, "toll": 3, "cut_by": ["war", "flood"], "path": [[500, 345], [600, 352], [668, 400]]},
+    {"id": "r4", "a": "villa", "b": "quarry", "hours": 10, "terrain": "mountain", "risk": 4, "toll": 0, "cut_by": ["war", "snow"], "path": [[288, 205]]},
+    {"id": "r5", "a": "quarry", "b": "abbey", "hours": 9, "terrain": "ridge", "risk": 3, "toll": 0, "cut_by": ["snow"], "path": [[330, 140], [440, 165]]},
+    {"id": "r6", "a": "abbey", "b": "port", "hours": 8, "terrain": "forest", "risk": 3, "toll": 0, "cut_by": [], "path": [[640, 250], [700, 340]]},
+    {"id": "r7", "a": "hamlet", "b": "capital", "hours": 4, "terrain": "ford", "risk": 2, "toll": 1, "cut_by": ["flood"], "path": [[392, 318]]}
+  ]
+
 }

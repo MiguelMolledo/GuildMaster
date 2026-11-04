@@ -2433,3 +2433,49 @@ combat.result.effects.yielded_you,Reputation −8|No wound|If it was for love: �
 combat.result.effects.yielded_rival,Reputation +5|%s: reputation −8,Reputación +5|%s: reputación −8
 reason.no_breath,Not enough breath,Te falta aliento
 combat.ui.over,The duel is over,El duelo ha terminado
+reason.title_needed,Your family needs a higher title,Tu familia necesita un título más alto
+reason.not_adult,Only an adult can travel,Solo un adulto puede viajar
+reason.employee,An employee travels only as a carter,Un empleado solo viaja como carretero
+reason.on_the_road,Already on the road,Ya está de camino
+reason.unknown_city,Unknown town,Población desconocida
+reason.already_there,Already there,Ya está allí
+reason.no_open_route,Every road there is cut now,Todos los caminos hasta allí están cortados
+reason.not_in_city,Only while in that town,Solo estando en esa población
+reason.not_traded,This market does not trade it,Este mercado no lo trata
+reason.wrong_city,That contract is from another town,Ese encargo es de otra población
+reason.too_many_carts,No room for more carts,No caben más carros
+reason.no_free_cart,"No free cart (buy one, or wait for a caravan)",No hay carro libre (compra uno o espera a una caravana)
+reason.unknown_driver,Choose a carter,Elige un carretero
+reason.driver_away,That employee is away,Ese empleado está fuera
+reason.empty_caravan,Load something or add something to buy,Carga algo o añade algo que comprar
+reason.bad_line,A line of the caravan is wrong,Una línea de la caravana está mal
+reason.too_many_stacks,Too many lots for one cart,Demasiados lotes para un carro
+reason.unknown_kind,Unknown treaty,Tratado desconocido
+reason.reputation_needed,Not enough reputation in that town,Falta reputación en esa población
+reason.needs_item,Choose the goods of the treaty,Elige la mercancía del tratado
+reason.not_a_dear_item,That town does not pay well for it,Esa población no lo paga bien
+reason.already_signed,Already signed,Ya está firmado
+reason.item_taken,Another family holds it,Lo tiene otra familia
+reason.not_the_head,Only the head of the family signs,Solo firma el cabeza de familia
+reason.not_the_mayor,Only the Mayor,Solo el Alcalde
+reason.away,Away from home,Está fuera de casa
+reason.not_a_town_kind,The town signs only exemptions,La villa solo firma exenciones
+reason.council_said_no,The council voted no,El concejo ha votado que no
+reason.unknown_treaty,Unknown treaty,Tratado desconocido
+notice.region_event,{what}: some roads are cut this season.,{what}: hay caminos cortados esta estación.
+notice.trip_stopped,{name} stays in {city}: no gold for the next leg.,{name} se queda en {city}: no hay oro para el siguiente tramo.
+notice.trip_ambushed,Bandits rob {name} on the road: {count} lots lost.,Asaltan a {name} en el camino: pierde {count} lotes de carga.
+notice.trip_arrived,{name} reaches {city}.,{name} llega a {city}.
+notice.trip_returned,{name} is back home.,{name} vuelve a casa.
+notice.city_contract_failed,A contract of {city} was not met: your reputation there drops.,Encargo de {city} sin cumplir: baja tu reputación allí.
+notice.cart_upkeep_unpaid,No {gold} gold for the carts' upkeep.,No hay {gold} de oro para el mantenimiento de los carros.
+notice.caravan_toll_unpaid,The caravan waits: {gold} gold missing for the toll.,La caravana espera: faltan {gold} de oro para el peaje.
+notice.caravan_ambushed,Bandits rob your caravan: {count} lots lost.,Asaltan tu caravana: se llevan {count} lotes.
+notice.caravan_arrived,Your caravan reaches {city} and sells for {gold} gold.,Tu caravana llega a {city} y vende por {gold} de oro.
+notice.caravan_back,The caravan is back (it sold for {gold} gold).,La caravana vuelve a casa (vendió por {gold} de oro).
+notice.treaty_signed,Treaty signed in {city}: {treaty}.,Tratado firmado en {city}: {treaty}.
+notice.treaty_ended,The {treaty} treaty with {city} ends.,Termina el tratado de {treaty} con {city}.
+notice.treaty_broken,The {treaty} treaty with {city} is broken.,Se rompe el tratado de {treaty} con {city}.
+treaty.exemption,tariff exemption,exención de aranceles
+treaty.exclusivity,exclusivity,exclusividad
+treaty.quota,fixed quota,cuota fija

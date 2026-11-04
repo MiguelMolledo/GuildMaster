@@ -71,7 +71,8 @@ static func most_urgent(sim: Sim, chr: String, threshold: int = -1) -> String:
 static func tracked(sim: Sim, chr: String) -> bool:
 	var st := sim.state
 	var ch: Dictionary = st.characters.get(chr, {})
-	if ch.is_empty() or not bool(ch.get("alive", true)) or not Kin.is_adult(sim, chr) or Tribunal.is_banished(st, chr):
+	if ch.is_empty() or not bool(ch.get("alive", true)) or not Kin.is_adult(sim, chr) or Tribunal.is_banished(st, chr) \
+			or Region.is_away(st, chr):  # viajes: away (a trip, a caravan): no needs while off the map
 		return false
 	if str(st.families.get(str(ch.get("family", "")), {}).get("controlled_by", "")) != "human":
 		return false

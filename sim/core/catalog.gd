@@ -46,6 +46,8 @@ var politics: Dictionary = {}    # data/politics.json: reputation rules and clas
 var seasons: Dictionary = {}     # data/seasons.json: goods groups, price and production by season (H13, GDD 4.5.3, 4.13)
 var events: Dictionary = {}      # data/events.json: the global events (H13, GDD 4.13): rules and events by id
 var cast: Dictionary = {}        # data/cast.json: the generated cast of a new game (names, surnames, ages, look, portraits)
+var region: Dictionary = {}      # data/world/region.json: the settlements and routes of the region (09b)
+var trade: Dictionary = {}       # data/world/trade.json: travel, city markets, caravans, treaties, regional events (09b)
 var combat: Dictionary = {}      # data/combat.json: the duel «a tres tiempos» (draft, 04e; nothing in the sim uses it yet)
 ## Población: data/portraits.json, the ids of the portrait pool (exported from assets/art/portraits/index.json by
 ## tools/art/portraits_catalog.py; the sim depends on data/ only): {by: {"sex|age|type": [ids sorted]}, fallback: {type:
@@ -81,6 +83,8 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.events = c._load_json(root_dir.path_join("events.json"))
 	c.cast = c._load_json(root_dir.path_join("cast.json"))
 	c.combat = c._load_json(root_dir.path_join("combat.json"))
+	c.region = c._load_json(root_dir.path_join("world/region.json"))
+	c.trade = c._load_json(root_dir.path_join("world/trade.json"))
 	c.portrait_pool = c._load_json(root_dir.path_join("portraits.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:

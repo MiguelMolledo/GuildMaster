@@ -53,6 +53,7 @@ func step(orders: Array = []) -> Array:
 	Production.step(self)   # work cycles, master-touch windows
 	Courtship.step(self)    # H8: +affinity for working at the same building (reads work_done)
 	Market.step(self)       # errands arriving; demand recovery at dawn
+	Region.step(self)       # viajes (09b): trips, caravans; the cities' demand, events, contracts; treaties by season
 	Contracts.step(self)    # a new contract at dawn; deadline warnings; expiries
 	Upkeep.step(self)       # daily upkeep at dawn (D12, D15)
 	Inspections.step(self)  # at dawn: Secrets inspections (fines), after wages and upkeep
@@ -91,6 +92,10 @@ func _apply_now(o: Dictionary) -> void:
 	if Tribunal.is_banished(state, str(o.get("actor", ""))):  # H11: a banished character does not act in the town
 		events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),
 			"reason": "banished"})
+		return
+	if Region.is_away(state, str(o.get("actor", ""))) and not str(o.get("type", "")) in Travel.AWAY_ORDERS:
+		events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),
+			"reason": "away"})  # viajes: away from home, only the region's orders (Travel.AWAY_ORDERS)
 		return
 	var r := Orders.apply(self, o)
 	if not r["ok"]:

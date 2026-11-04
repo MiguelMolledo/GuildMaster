@@ -137,6 +137,29 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Tribunal.order_rest(sim, order)
 		"trial_verdict":
 			return Tribunal.order_verdict(sim, order)
+		# Viajes (sim/region/*.gd, docs/gdd/09b_region.md §9b.5)
+		"travel":
+			return Travel.order_travel(sim, order)
+		"return":
+			return Travel.order_return(sim, order)
+		"city_buy":
+			return CityTrade.order_buy(sim, order)
+		"city_sell":
+			return CityTrade.order_sell(sim, order)
+		"city_accept":
+			return CityTrade.order_accept(sim, order)
+		"city_deliver":
+			return CityTrade.order_deliver(sim, order)
+		"buy_cart":
+			return Caravans.order_buy_cart(sim, order)
+		"caravan_send":
+			return Caravans.order_send(sim, order)
+		"sign_treaty":
+			return Treaties.order_sign(sim, order)
+		"propose_town_treaty":
+			return Treaties.order_propose_town(sim, order)
+		"cancel_treaty":
+			return Treaties.order_cancel(sim, order)
 	return fail("unknown_order")
 
 
@@ -145,7 +168,9 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role", "queue_add", "queue_remove",
 	"queue_move", "queue_loop", "queue_pause", "repay_loan", "read_notices", "abandon_contract", "buy_upgrade",
 	"designate_heir", "school_choice", "assign_building", "close_dynasty", "set_schedule", "set_directives",
-	"resolve_microevent", "run_for_office", "use_office_power", "accuse", "trial_cross", "trial_rest", "trial_verdict"]
+	"resolve_microevent", "run_for_office", "use_office_power", "accuse", "trial_cross", "trial_rest", "trial_verdict",
+	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
+	"city_accept", "city_deliver", "sign_treaty"]
 
 
 static func is_management(type: String) -> bool:

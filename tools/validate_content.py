@@ -1978,7 +1978,8 @@ def check_region(items, strings, rep):
     seasons = load_json(os.path.join(DATA, "seasons.json"), rep) or {}
     groups = set(seasons.get("goods", {}))
     events = set((load_json(os.path.join(DATA, "events.json"), rep) or {}).get("events", {}))
-    proposed = {k for k in r.get("events_proposed", {}) if not k.startswith("_")}
+    trade = load_json(os.path.join(DATA, "world", "trade.json"), rep) or {}
+    proposed = {k for k in trade.get("regional_events", {}) if not k.startswith("_")}
     ids = []
     for st in r.get("settlements", []):
         sid = str(st.get("id", ""))
@@ -2046,12 +2047,13 @@ def check_region(items, strings, rep):
         check_text(wr, "region.terrain." + str(rt.get("terrain", "")), strings, rep)
         for e in rt.get("cut_by", []):
             if e not in events and e not in proposed:
-                rep.error(wr, f"cut_by {e}: no es un evento de data/events.json ni de events_proposed")
+                rep.error(wr, f"cut_by {e}: no es un evento de data/events.json ni de trade.json regional_events")
+        if not isinstance(rt.get("toll", 0), int) or rt.get("toll", 0) < 0:
+            rep.error(wr, "toll debe ser un entero >= 0 (oro por tramo)")
         for pt in rt.get("path", []):
             if not (isinstance(pt, list) and len(pt) == 2 and 0 <= pt[0] < size[0] and 0 <= pt[1] < size[1]):
                 rep.error(wr, f"path {pt} fuera del mapa regional")
-    for k in proposed:
-        check_text(f"{w} events_proposed.{k}", str(r["events_proposed"][k].get("text_key", "")), strings, rep)
+    check_trade(trade, items, strings, proposed, rep)
     if ids:
         seen = {ids[0]}
         todo = [ids[0]]
@@ -2062,6 +2064,66 @@ def check_region(items, strings, rep):
                     todo.append(n)
         if len(seen) != len(ids):
             rep.error(w, f"la región no es conexa: no se llega a {sorted(set(ids) - seen)}")
+
+
+VIAJES_REASONS = ["title_needed", "not_adult", "employee", "on_the_road", "unknown_city", "already_there",
+                  "no_open_route", "not_in_city", "not_traded", "unknown_contract", "wrong_city", "too_many_carts",
+                  "no_free_cart", "unknown_driver", "not_your_employee", "driver_away", "empty_caravan", "bad_line",
+                  "too_many_stacks", "unknown_kind", "reputation_needed", "needs_item", "not_a_dear_item",
+                  "already_signed", "item_taken", "not_the_head", "not_the_mayor", "away", "not_a_town_kind",
+                  "council_said_no", "unknown_treaty"]
+VIAJES_NOTICES = ["region_event", "trip_stopped", "trip_ambushed", "trip_arrived", "trip_returned",
+                  "city_contract_failed", "cart_upkeep_unpaid", "caravan_toll_unpaid", "caravan_ambushed",
+                  "caravan_arrived", "caravan_back", "treaty_signed", "treaty_ended", "treaty_broken"]
+
+
+def check_trade(trade, items, strings, regional, rep):
+    """data/world/trade.json (viajes, sim/region/): the rules of travel, the cities' markets, caravans, treaties and
+    the regional events; and the texts of their reasons and notices."""
+    w = "world/trade.json"
+    titles = {n[:-5] for n in os.listdir(os.path.join(DATA, "titles")) if n.endswith(".json")}
+    tr = trade.get("travel", {})
+    if tr.get("unlock_title") not in titles:
+        rep.error(w, f"travel.unlock_title {tr.get('unlock_title')} no es un título")
+    for k in ("escort_cost", "ambush_per_risk", "escort_divisor"):
+        if not isinstance(tr.get(k), (int, float)) or tr[k] < 0:
+            rep.error(w, f"travel.{k} debe ser un número >= 0")
+    if tr.get("escort_divisor", 1) < 1:
+        rep.error(w, "travel.escort_divisor debe ser >= 1")
+    kinds = trade.get("treaties", {}).get("kinds", {})
+    for k in ("exemption", "exclusivity", "quota"):
+        if k not in kinds:
+            rep.error(w, f"falta el tratado {k}")
+            continue
+        d = kinds[k]
+        if d.get("title") not in titles:
+            rep.error(w, f"treaties.{k}.title {d.get('title')} no es un título")
+        for f in ("reputation", "seasons", "fee"):
+            if not isinstance(d.get(f), int) or d[f] < 0:
+                rep.error(w, f"treaties.{k}.{f} debe ser un entero >= 0")
+        check_text(w, "treaty." + k, strings, rep)
+    for k in trade.get("treaties", {}).get("town_kinds", []):
+        if k not in kinds:
+            rep.error(w, f"treaties.town_kinds: {k} no es un tratado")
+    seasons = load_json(os.path.join(DATA, "time.json"), rep).get("seasons", [])
+    for k in regional:
+        d = trade["regional_events"][k]
+        check_text(f"{w} regional_events.{k}", str(d.get("text_key", "")), strings, rep)
+        if sorted(d.get("chance", {})) != sorted(seasons):
+            rep.error(w, f"regional_events.{k}.chance: una probabilidad por estación")
+        if not all(isinstance(v, (int, float)) and 0 <= v <= 1 for v in d.get("chance", {}).values()):
+            rep.error(w, f"regional_events.{k}.chance: en [0, 1]")
+        for t in d.get("cuts", []):
+            if t not in REGION_TERRAINS:
+                rep.error(w, f"regional_events.{k}.cuts: terreno desconocido {t}")
+    cv = trade.get("caravans", {})
+    for k in ("cart_price", "cart_upkeep", "capacity_stacks", "max_carts"):
+        if not isinstance(cv.get(k), int) or cv[k] < 0:
+            rep.error(w, f"caravans.{k} debe ser un entero >= 0")
+    for k in VIAJES_REASONS:
+        check_text("i18n/reason", "reason." + k, strings, rep)
+    for k in VIAJES_NOTICES:
+        check_text("i18n/notice", "notice." + k, strings, rep)
 
 
 def _gd_const_list(src, name):
