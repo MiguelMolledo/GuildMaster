@@ -42,6 +42,51 @@ def illustrations():
     return out
 
 
+FOOD = {"beer": "cerveza", "strong_beer": "cerveza fuerte", "wine": "vino", "good_wine": "vino bueno",
+        "cider": "sidra", "bread": "pan", "garlic_soup": "sopa de ajo", "empanada": "empanada", "stew": "olla",
+        "roast_lamb": "cordero asado", "sausage": "embutido", "sweets": "dulces de Navidad"}
+FAL_ICON = "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)"
+
+
+def tavern():
+    out = []
+    if os.path.exists(os.path.join(ROOT, "assets/art/buildings/fal/tavern_inn.png")):
+        out.append({"id": "bld_tavern_inn", "tipo": "edificio", "estado": "sprite", "para": ["H17", "posada"],
+                    "ruta": "assets/art/buildings/fal/tavern_inn.png",
+                    "origen": "fal: nano-banana-2/edit (ref: la fachada fal de la carpintería, mismo lienzo y puerta) + "
+                              "image2pixel (tools/art/fal_fachadas.py)", "coste_gen": 0, "coste_usd": 0.24,
+                    "notas": "Taberna-Posada (04f §4.27): dos plantas con entramado, cartel con una jarra (sin letras), "
+                             "toneles, banco y un cobertizo de establo. Huella 3×4 como la carpintería. Lienzo 192×230 "
+                             "(20 px más alto que el de la carpintería): en la escena, Sprite offset (-104, -158) y "
+                             "Door (-40, 12), los pies como la carpintería. 2 intentos descartados (tejado cortado; "
+                             "la referencia grande, ampliada)."})
+    if os.path.exists(os.path.join(ROOT, "assets/art/buildings/fal/tavern_inn_back.png")):
+        out.append({"id": "bld_tavern_inn_back", "tipo": "edificio", "estado": "sprite", "para": ["H17", "posada"],
+                    "ruta": "assets/art/buildings/fal/tavern_inn_back.png",
+                    "origen": "fal: nano-banana-2/edit (ref: tavern_inn.png) + image2pixel (tools/art/fal_fachadas.py "
+                              "--estado back)", "coste_gen": 0, "coste_usd": 0.08,
+                    "notas": "La Taberna-Posada de espaldas, sin puerta en las caras visibles (para la puerta del sim en "
+                             "una cara oculta). Mismo lienzo y ancla que tavern_inn.png."})
+    if os.path.exists(os.path.join(ROOT, "assets/art/interiors/tavern/bar.png")):
+        out.append({"id": "int_tavern", "tipo": "interior", "estado": "sprite", "para": ["H17", "posada"],
+                    "ruta": "assets/art/interiors/tavern/",
+                    "origen": "fal: nano-banana-2/edit (ref: el kit de la forja ×4) + image2pixel (tools/art/"
+                              "fal_taberna.py); suelo con Pillow; paredes, copia de la carpintería",
+                    "coste_gen": 0, "coste_usd": 0.16,
+                    "notas": "Kit de interior de la Taberna-Posada (04f §4.27.4): bar (80×72), table, bench, barrel, "
+                             "kitchen, fireplace, minstrel_corner (64×64), bed (80×72), con los pies abajo en el centro "
+                             "como los de la forja; floor.png (tablas, 64×32, tesela) y wall_ne/nw, wall_door_ne/nw "
+                             "(32×52, de la carpintería)."})
+    for fid, what in FOOD.items():
+        path = f"assets/art/ui/icons/food_{fid}.png"
+        if os.path.exists(os.path.join(ROOT, path)):
+            out.append({"id": "ui_icon_food_" + fid, "tipo": "ui", "estado": "sprite", "para": ["H17", "posada"],
+                        "ruta": path, "origen": FAL_ICON, "coste_gen": 0, "coste_usd": 0.02,
+                        "notas": f"Icono de la carta de la taberna: {what} (04f §4.27.3), 32×32 y small/ (16×16). "
+                                 "Para el bocadillo del pedido y la carta."})
+    return out
+
+
 def apply(entries):
     raw = open(INV).read()
     d = json.loads(raw)
@@ -64,7 +109,7 @@ def apply(entries):
 
 
 def main():
-    apply(illustrations())
+    apply(illustrations() + tavern())
 
 
 if __name__ == "__main__":

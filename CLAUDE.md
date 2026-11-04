@@ -118,6 +118,12 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
   `godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=festive --days=8 --seeds=3` (un
   año con todas las fiestas, sus encargos y sin bloqueos; en `run_all`, pasos festive y bench_fair). Las demás dianas corren
   sin fiestas (`data/targets.json` `_festivals`; `--festivals=on` para medirlas con ellas). Captura: `--smoke-script=fiestas`.
+- Vida (04f 4.24, al tocar `data/life/`, `sim/life/`, `TownLife` o los puntos de los mapas): todo cuelga de
+  `data/life/life.json` `enabled`; las dianas de antes corren con la vida apagada (`data/targets.json` `_no_life`;
+  `--life=on` para medirlas con ella). Pruebas `-- --only=test_life`; bot `godot --headless --path . -s
+  tools/sim_runner.gd -- --scenario=life_bandits --bots=guard_watch --days=16 --seeds=5` (en `run_all`, paso life);
+  coste `tools/sim_bench.gd [-- --life=off]`; puntos y rondas de un mapa `python3 tools/city/ciudad.py reunion <mapa>`;
+  escenarios `tools/scenarios/make_life_scenarios.gd`. Captura: `--smoke-script=vida`. Contrato: `docs/contratos/vida.md`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

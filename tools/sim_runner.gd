@@ -60,6 +60,9 @@ extends SceneTree
 ## Población: --start games use the fixed cast (today's names, ages and tones: the targets were set with it) unless
 ## --cast=random (a generated cast per seed, Cast.sub_seed of the seed: what a player's new game gets). The reports of
 ## a --cast=random run go with --tag (e.g. --tag=cast_random) so they do not replace the official ones.
+## Vida (04f 4.24): the bots listed in data/targets.json _no_life (targets fixed before the living town II) run with
+## data/life/life.json enabled = false unless --life=on; --set also reaches life.<file>.<key> (e.g.
+## --set=life.life.enabled=false). Measures of the life (a bot with measures(sim) adds them, e.g. guard_watch).
 
 var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSmith,
 	"random_clicker": BotRandomClicker, "idle_rival": BotIdle, "artisan_novice": BotArtisanNovice,
@@ -68,7 +71,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
 	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
-	"merchant": BotMerchant, "festive": BotFestive}
+	"merchant": BotMerchant, "guard_watch": BotGuardWatch, "festive": BotFestive}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
@@ -80,6 +83,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
 	# duelist: challenges the rival of the trade by the rules and plays its duels (duelo, --scenario=duel_ready)
 	# merchant: travels to the capital, sells there, takes contracts, signs a quota, sends a caravan (viajes, 09b)
+	# guard_watch: nights with bandit raids; the watch answers, nobody loses more than the cap (vida, 04f 4.28.4)
 	# festive: artisan_expert for a year with the festivals on (fiestas, 04f 4.28.4): every feast, its contracts
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
@@ -98,6 +102,7 @@ func _init() -> void:
 	var tag := ""  # name of a trial's report (reports/sim/trial_<tag>_...)
 	var events_on := false  # H13: --events=on runs the bots of targets _no_events with the global events too
 	var cast := "fixed"  # población: --cast=random deals a generated cast per seed (the targets were set with the fixed one)
+	var life_on := false  # vida: --life=on runs the bots of targets _no_life with the living town II too
 	var festivals_on := false  # fiestas: --festivals=on runs every bot with the festival calendar (else only _festivals)
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--scenario="):
@@ -118,6 +123,8 @@ func _init() -> void:
 			tag = a.substr(6)
 		elif a == "--events=on":
 			events_on = true
+		elif a == "--life=on":
+			life_on = true
 		elif a.begins_with("--cast="):
 			cast = a.substr(7)
 		elif a == "--festivals=on":
@@ -129,6 +136,8 @@ func _init() -> void:
 			quit(2)
 			return
 	cat.events["_enabled_data"] = bool(cat.events.get("enabled", true))  # what data/ (or --set) says, before _no_events
+	var life_cfg: Dictionary = cat.life_tables.get("life", {})
+	var life_data := bool(life_cfg.get("enabled", true))  # vida: what data/ (or --set) says, before _no_life
 	cat.festivals["_enabled_data"] = bool(cat.festivals.get("enabled", false))  # fiestas: before _festivals
 	var targets: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/targets.json"))
 	var flows := _goldflows(targets)
@@ -148,6 +157,10 @@ func _init() -> void:
 		cat.events["enabled"] = not quiet and bool(cat.events.get("_enabled_data", cat.events.get("enabled", true)))
 		if quiet:
 			print("sim_runner: %s without global events (targets _no_events; --events=on to include them)" % bot_id)
+		var still: bool = bot_id in (targets.get("_no_life", []) as Array) and not life_on  # vida (04f 4.24)
+		life_cfg["enabled"] = life_data and not still
+		if still:
+			print("sim_runner: %s without the living town II (targets _no_life; --life=on to include it)" % bot_id)
 		# fiestas (04f 4.28.4, principle 4): the targets fixed before the festivals run without them; only the bots of
 		# data/targets.json _festivals (or --festivals=on) play the calendar.
 		cat.festivals["enabled"] = (bot_id in (targets.get("_festivals", []) as Array) or festivals_on) \
@@ -235,8 +248,11 @@ func _apply_set(cat: Catalog, spec: String) -> bool:
 		return false
 	var node: Variant = null
 	var i := 1
-	if keys[0] in ["market", "employees", "production", "difficulty", "accounts", "seasons", "events"]:
+	if keys[0] in ["market", "employees", "production", "difficulty", "accounts", "seasons", "events", "town"]:
 		node = cat.get(keys[0])
+	elif keys[0] == "life" and keys.size() >= 3:  # vida: data/life/<file>.json
+		node = cat.life_tables.get(keys[1])
+		i = 2
 	elif cat.tables.has(keys[0]) and keys.size() >= 3:
 		node = (cat.tables[keys[0]] as Dictionary).get(keys[1])
 		i = 2

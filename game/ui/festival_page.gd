@@ -117,7 +117,7 @@ static func effect_line(sim: Sim, f: Dictionary) -> Dictionary:
 			return {"text": SimQuery.t_("ui.festival_card.fx_spectacle") % [int(f.get("hour", 0)) % 24,
 				SimQuery.t_("spectacle." + str(f.get("id", "")))], "sign": ""}
 		"incident":
-			if str(f.get("id", "")) != "brawl":
+			if str(f.get("id", "")) != "altercation":
 				return {}
 			return {"text": SimQuery.t_("ui.festival_card.fx_incident") % num, "sign": "-"}
 		"emotion":

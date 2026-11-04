@@ -253,7 +253,7 @@ static func illustration(kind: String, id: String, small: bool = false) -> Textu
 ## ids illus_<name> in assets/inventario.json): assets/art/illustrations/events/<name>[_192].png.
 const EVENT_ILLUSTRATION_ALIAS: Dictionary = {"holy_week": "semana_santa", "mayday_corpus": "mayos_corpus",
 	"st_john": "san_juan", "harvest_fair": "siega_feria", "st_michael": "san_miguel", "all_saints_matanza": "matanza",
-	"christmas": "navidad", "carnival": "carnaval", "brawl": "altercado", "bandit_raid": "asalto_bandidos",
+	"christmas": "navidad", "carnival": "carnaval", "brawl": "altercado", "altercation": "altercado", "bandit_raid": "asalto_bandidos",
 	"kidnapping": "secuestro", "rescue": "rescate", "night_thief": "ladron"}
 
 

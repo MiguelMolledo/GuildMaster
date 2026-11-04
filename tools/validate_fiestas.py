@@ -38,6 +38,12 @@ def check_festivals(data_dir, items, recipes, strings, check_text, load_json, re
     audio = load_json(os.path.join(data_dir, "audio.json"), rep) or {}
     music = dict(audio.get("music") or {}, **(audio.get("pending_music") or {}))
     ctr = load_json(os.path.join(data_dir, "contracts", "festivals.json"), rep) or {}
+    life_dir = os.path.join(data_dir, "life")  # vida (04f 4.24): the ids of its agenda and its incidents
+    acts = {k for k in (load_json(os.path.join(life_dir, "activities.json"), rep) or {}) if not k.startswith("_")} \
+        if os.path.exists(os.path.join(life_dir, "activities.json")) else None
+    _inc = load_json(os.path.join(life_dir, "incidents.json"), rep) or {}
+    incs = {k for k in (_inc.get("incidents") or _inc) if not k.startswith("_")} \
+        if os.path.exists(os.path.join(life_dir, "incidents.json")) else None
     tables = ctr.get("tables") or {}
     rules = fest.get("rules") or {}
     parts = set((rules.get("sponsor") or {}).get("parts", {})) | set((rules.get("organize") or {}).get("parts", []))
@@ -113,6 +119,10 @@ def check_festivals(data_dir, items, recipes, strings, check_text, load_json, re
                 rep.error(we, "from_hour debe ser menor que to_hour")
             if e.get("needs") and e["needs"] not in parts:
                 rep.error(we, f"needs desconocido {e['needs']}")
+            if k == "routine" and acts is not None and e.get("activity") not in acts:
+                rep.error(we, f"actividad desconocida {e.get('activity')} (data/life/activities.json)")
+            if k == "incident" and incs is not None and e.get("id") not in incs and e.get("id") != "fire":
+                rep.error(we, f"suceso desconocido {e.get('id')} (data/life/incidents.json; fire espera a O-V6)")
         tab = d.get("contracts", "")
         if tab and tab not in tables:
             rep.error(w, f"tabla de encargos desconocida {tab} (data/contracts/festivals.json)")

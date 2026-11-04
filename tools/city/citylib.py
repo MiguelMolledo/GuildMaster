@@ -820,6 +820,9 @@ def validate(m, strict=False, hand_decor=None):
         must.append((tuple(t), "spawn " + name))
     for w in m.d.get("workplaces") or []:
         must.append((tuple(w["tile"]), "oficio " + w["id"]))
+    for pt in m.d.get("patrols") or []:  # 04f 4.24.4: the watch walks them
+        for t in pt.get("tiles", []):
+            must.append((tuple(t), "ronda " + pt["id"]))
     for t, what in must:
         if t not in reach:
             rep.error(f"{what} en {t} no se alcanza desde la plaza")
@@ -1132,6 +1135,162 @@ def hand_decor(map_id):
                 out.append((name, (float(mp.group(1)), float(mp.group(2)))))
                 name = None
     return out
+
+
+# --- The living town II (docs/gdd/04f_vida_y_fiestas.md §4.24.2, §4.24.4) ---------------------------------------------
+
+MEETING_KINDS = ("well", "atrium", "tavern", "washhouse", "bridge", "gate", "square")
+
+
+def _decor_tiles(d):
+    """The tiles the map's decor stands on (props, lanterns, fences, yards; lots cover building tiles)."""
+    out = set()
+    for it in (d.get("decor") or {}).get("items", []):
+        a = it.get("at")
+        if not a:
+            continue
+        w, h = (it.get("size") or [1, 1])
+        for dr in range(h):
+            for dc in range(w):
+                out.add((a[0] + dc, a[1] + dr))
+    return out
+
+
+def _near(m, anchor, used, n, radius, ok=None):
+    """Up to n free walkable tiles within `radius` of `anchor`, nearest first (then reading order)."""
+    cands = []
+    for r in range(anchor[1] - radius, anchor[1] + radius + 1):
+        for c in range(anchor[0] - radius, anchor[0] + radius + 1):
+            t = (c, r)
+            if t == tuple(anchor) or t in used or not m.walkable(t) or m.kind(t) in ("water", "ford"):
+                continue
+            if ok is not None and not ok(t):
+                continue
+            cands.append((max(abs(c - anchor[0]), abs(r - anchor[1])), abs(c - anchor[0]) + abs(r - anchor[1]), r, c))
+    cands.sort()
+    return [(c, r) for _, _, r, c in cands[:n]]
+
+
+def meeting_points(d, cat):
+    """The meeting points of 04f 4.24.2 a map lacks, as social_points [{id, kind, slots}] (corrillos of 2 to 5): the well
+    of the plaza, the church's atrium, the tavern's door (a tavern_inn site), the washhouse by the water nearest to the
+    plaza, the bridge nearest to the plaza, each gate (next to its guard) and the open plaza (children, a minstrel, a
+    peddler). Deterministic; never on a protected tile (doors, services, other seats, spawns, workplaces) nor on the
+    decor, so a map that had them keeps its dressing. Kinds the map already has are not added again."""
+    m = Map(d, cat)
+    have = {sp.get("kind") for sp in d.get("social_points") or []}
+    used = set(m.protected()) | _decor_tiles(d)
+    sp = d.get("spawns") or {}
+    centre = tuple(sp.get("market", sp.get("player", (m.w // 2, m.h // 2))))
+    wps = {w["id"]: tuple(w["tile"]) for w in d.get("workplaces") or []}
+    out = []
+
+    def add(pid, kind, slots):
+        if len(slots) >= 2:
+            out.append({"id": pid, "kind": kind, "slots": [list(t) for t in slots]})
+            used.update(slots)
+
+    if "well" not in have and "well" in wps:
+        add("meet_well", "well", _near(m, wps["well"], used, 3, 2))
+    if "atrium" not in have:
+        anchors = [wps[k] for k in ("church_a", "church_b") if k in wps]
+        if anchors:
+            mid = (sum(a[0] for a in anchors) // len(anchors), sum(a[1] for a in anchors) // len(anchors))
+            add("meet_atrium", "atrium", _near(m, mid, used, 5, 3))
+    if "tavern" not in have:
+        for sid, s in sorted(m.sites.items()):
+            if s["type"] in ("tavern_inn", "tavern") and s["door"]:
+                add("meet_tavern", "tavern", _near(m, s["door"], used, 5, 2))
+                break
+    if "washhouse" not in have:
+        shore = [t for t in m.all_tiles() if m.walkable(t) and m.kind(t) not in ("water", "ford", "bridge", "dock")
+                 and t not in used and any(m.kind((t[0] + a, t[1] + b)) == "water" for a, b in DIRS)]
+        if shore:
+            shore.sort(key=lambda t: (abs(t[0] - centre[0]) + abs(t[1] - centre[1]), t[1], t[0]))
+            first = shore[0]
+            near = [t for t in shore if max(abs(t[0] - first[0]), abs(t[1] - first[1])) <= 2][:4]
+            add("meet_washhouse", "washhouse", near)
+    if "bridge" not in have:
+        bridges = sorted((t for t in m.all_tiles() if m.kind(t) == "bridge"),
+                         key=lambda t: (max(abs(t[0] - centre[0]), abs(t[1] - centre[1])), t[1], t[0]))
+        if bridges:
+            add("meet_bridge", "bridge", _near(m, bridges[0], used, 3, 2) or [])
+    if "gate" not in have:
+        for name in sorted(k for k in sp if k.endswith("_gate")):
+            g = tuple(sp[name])
+            inward = (g[0] + (1 if g[0] == 0 else -1 if g[0] >= m.w - 1 else 0),
+                      g[1] + (1 if g[1] == 0 else -1 if g[1] >= m.h - 1 else 0))
+            step = (inward[0] - g[0], inward[1] - g[1])
+            post = (g[0] + 2 * step[0], g[1] + 2 * step[1])
+            add("meet_" + name, "gate", _near(m, post, used, 3, 2, ok=lambda t: t != g))
+    if "square" not in have:
+        plaza = [t for t in m.all_tiles() if m.kind(t) == "plaza" and t not in used]
+        if plaza:  # around the middle of the plaza (the market spawn is by the stalls)
+            centre = ((min(t[0] for t in plaza) + max(t[0] for t in plaza)) // 2,
+                      (min(t[1] for t in plaza) + max(t[1] for t in plaza)) // 2)
+        plaza.sort(key=lambda t: (max(abs(t[0] - centre[0]), abs(t[1] - centre[1])), t[1], t[0]))
+        picked = []
+        for t in plaza:
+            if all(max(abs(t[0] - p[0]), abs(t[1] - p[1])) >= 2 for p in picked) and \
+                    all(max(abs(t[0] - u[0]), abs(t[1] - u[1])) >= 1 for u in used if m.kind(u) == "plaza"):
+                picked.append(t)
+            if len(picked) == 4:
+                break
+        add("meet_square", "square", picked)
+    return out
+
+
+def patrols(d, cat):
+    """The night watch's rounds (04f 4.24.4) [{id, tiles}]: one along the main street from gate to gate through the
+    plaza, one round the plaza. Each tile walkable, a little inside the gates, never on a protected tile."""
+    m = Map(d, cat)
+    used = set(m.protected())
+    sp = d.get("spawns") or {}
+    centre = tuple(sp.get("market", sp.get("player", (m.w // 2, m.h // 2))))
+    gates = [tuple(sp[k]) for k in sorted(k for k in sp if k.endswith("_gate"))]
+
+    def spot(t, r=3):
+        got = _near(m, t, used, 1, r)
+        return list(got[0]) if got else None
+
+    out = []
+    route = []
+    for g in gates[:2]:
+        inward = (g[0] + (4 if g[0] == 0 else -4 if g[0] >= m.w - 1 else 0),
+                  g[1] + (4 if g[1] == 0 else -4 if g[1] >= m.h - 1 else 0))
+        s1 = spot(inward)
+        if s1:
+            route.append(s1)
+        c = spot(centre)
+        if c and c not in route:
+            route.append(c)
+    if len(route) >= 2:
+        out.append({"id": "patrol_main", "tiles": route})
+    plaza = [t for t in m.all_tiles() if m.kind(t) == "plaza"]
+    if plaza:
+        cs = [min(t[0] for t in plaza), max(t[0] for t in plaza)]
+        rs = [min(t[1] for t in plaza), max(t[1] for t in plaza)]
+        ring = []
+        for corner in ((cs[0], rs[0]), (cs[1], rs[0]), (cs[1], rs[1]), (cs[0], rs[1])):
+            s1 = spot(corner, 2)
+            if s1 and s1 not in ring:
+                ring.append(s1)
+        if len(ring) >= 2:
+            out.append({"id": "patrol_plaza", "tiles": ring})
+    return out
+
+
+def add_life(d, cat):
+    """Adds the meeting points and the patrols of 04f 4.24 to map dict d (what it lacks). Returns what it added."""
+    pts = meeting_points(d, cat)
+    d["social_points"] = (d.get("social_points") or []) + pts
+    added = {"points": [p["id"] for p in pts]}
+    if not d.get("patrols"):
+        pat = patrols(d, cat)
+        if pat:
+            d["patrols"] = pat
+            added["patrols"] = [p["id"] for p in pat]
+    return added
 
 
 def load_map(map_id, cat=None):

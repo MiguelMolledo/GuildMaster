@@ -2,9 +2,45 @@
   "tomadas": [
     {
       "fecha": "2026-11-04",
+      "tema": "Fiestas enganchadas con vida (forasteros, agenda, sucesos)",
+      "decision": "Tras juntar vida, las fiestas del calendario mueven su agenda, sus forasteros y sus sucesos por los mismos puntos que ya leía de data/events.json (Life.event_mult, holy_day, festival). Los forasteros se planean con las fiestas de todo el día; con una fiesta del calendario no se suma el ×3 genérico de vida (la feria da ×5, ×3,5 sin patrocinio, y abre fair_max); los tipos que trae la fiesta pesan el doble. Los espectáculos de la fiesta entran como espectáculos de vida y el predicador sube la fe. Los ids de actividad y suceso de data/festivals.json pasan a los de data/life/ (procesión y romería → mass, baile → stroll, hogueras y banquete → chat, cementerio → visit, brawl → altercation) y el validador los comprueba.",
+      "por_que": "Una sola puerta para lo que la ciudad viva lee de un evento o una fiesta; así no se cuentan dos veces los forasteros."
+    },
+    {
+      "fecha": "2026-11-04",
       "tema": "Calendario de fiestas (fiestas, 04f 4.25)",
       "decision": "Construido 4.25 con el diseño del manager y estos cambios (04f §4.25.7): sin fiesta el día 0 (first_day 1); pregón a las 12:00 de la víspera y encargos que vencen a las 17:00 del día de la fiesta; la carne del diseño es el grupo food; día de guardar solo por la mañana en Semana Santa, Todos los Santos y Navidad (en las cinco grandes quitaba medio año); tablado y arco triunfal se fabrican en el taller y se montan al entregarlos; tres piezas pequeñas más para el herrero (herraduras, cuchillo de matarife, candelabro); recetas kind commission que bots e IA no eligen para el mercado; encargos de fiesta como carrera de un solo ganador con copias por familia y la IA rival compitiendo con sus órdenes; filas publicadas solo si hay quien las fabrique; la comida del banquete es prepared_meal/bread hasta la cocina de la posada; organize_festival sin coste real (no hay tesorería del concejo); la boda del jugador se celebra pagando 80 de banquete; patronal y feria de cada ciudad el mismo día, como calendario puro; las fiestas apagadas en sim_runner salvo los bots de targets _festivals (dianas iguales). Guardado v18 (SaveFile._to_v18).",
       "por_que": "Lo pide el owner (fiestas, bodas y encargos por oficio); los cambios evitan castigar el primer día y el año, y que el rival y los bots vendan piezas sin puesto."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Vida (04f 4.24): un interruptor y las dianas de antes con la vida apagada",
+      "decision": "Toda la ciudad viva II (agenda, corrillos y rumores, forasteros, guardia y sucesos) cuelga de data/life/life.json enabled. Las dianas de data/targets.json se miden con ella apagada (lista _no_life, como _no_events de H13; --life=on para medirlas con ella) y salen idénticas a las de main (comparadas semilla a semilla). La vida se mide en el bot guard_watch, en tests/test_life_*.gd y en el bench (1,73 ms con la máquina cargada; 1,37 sin la vida).",
+      "por_que": "Principio 4 de 04f: los vecinos van a otros sitios y a otras horas, y eso cambia quién entra al mostrador, quién se casa y las rutas; con el sistema apagado los números de antes no se mueven."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Vida: los sucesos en data/life/incidents.json, no en data/events.json",
+      "decision": "Altercado, asalto y secuestro viven en data/life/incidents.json con su flujo (claves events_city|…). Los eventos de data/events.json solo los multiplican (efecto {kind: incident, id, mult}). El incendio no se construye (O-V6 b).",
+      "por_que": "WorldEvents tira por cada definición de events.json y respeta un max_active: un suceso nuevo allí movería las tiradas y los topes de los eventos de H13 (y sus dianas)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Vida: guardado v17 todo bajo town",
+      "decision": "v17 guarda town.life, town.visitors, town.watch, town.rumors (oídos) y town.incidents (en curso, planificados, nidos) en vez de rumors_heard e incidents en la raíz (4.28.2 decía raíz). SaveFile._to_v17 no depende de ningún campo de v18-v21.",
+      "por_que": "Sin campos nuevos en la raíz, WorldState.to_dict/from_dict no cambian: v18 (fiestas) y v19 (posada) se encadenan sin conflictos."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Vida: aviso antes de un asalto y corrillos que hablan al formarse",
+      "decision": "El asalto de una noche se tira al alba del día anterior: ese día hay aviso (notice.life.bandits_seen) y rumor «Han visto bandidos por …» (riesgo justo). El secuestro, al alba del mismo día. Un corrillo cuenta su rumor en cuanto se forma (cada 10 min, uno por punto mientras dura la burbuja: 50 min) en vez de una vez por hora; lo oye cualquiera de la familia del jugador a ≤ 4 casillas (no solo el seleccionado) y queda en la pestaña «Rumores» del libro de cuentas. Altercados entre 18 y 22 h (si sale la tirada, ocurre en cuanto haya dos fuera): medido ~0,46 al día (diseño ~0,5).",
+      "por_que": "Con una tirada por hora los corrillos se deshacían antes de hablar y casi nunca se oía nada; con 19-02 h los altercados caían de noche, con todos en casa, y salían 0,12 al día."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Vida: el rescate se resuelve sin jugar; las apuestas sobre un altercado, con Juegos",
+      "decision": "«Rescatar» contrata 0-3 ayudantes (15-30 cada uno), y la cadena de combates del duelo se resuelve sin jugar (Duel.auto, las mismas probabilidades que jugar bien, O-C10). Jugar la cadena en la pantalla del duelo y apostar sobre un altercado (4.26.6) quedan para el bloque de Juegos (el evento incident_fight lleva el ganador).",
+      "por_que": "La pantalla del duelo es de un combate; encadenar varios pide trabajo de UI del bloque Juegos."
     },
     {
       "fecha": "2026-11-04",
@@ -380,6 +416,11 @@
     }
   ],
   "pendientes": [
+    {
+      "tema": "O-V2 Población de town_e con la vida (banda nueva)",
+      "detalle": "Construido como recomienda O-V2 (a): con la vida encendida el tope es 5 por casa hasta 32 (data/life/life.json population; town_e: 32). Medido (semilla 1, 60 años saltando días): de 16 a 21 vecinos en 10 años, 29 en 20 y 30-32 desde el año 30, con 6 solteras fértiles al final. La diana de H7 (town_population [14, 22]) no cambia porque se mide con la vida apagada; la nueva town_population_life propone [14, 32]. En las partidas de 10-24 días (dianas de economía) el tope casi no llega a usarse. Pendiente del visto bueno del owner.",
+      "opciones": "(a) 32 · (b) 26 · (c) 20, como hoy"
+    },
     {
       "tema": "D9 Nombre del mapa EA",
       "detalle": "Propuesta (rama mundo, 2026-11-04, docs/gdd/09b_region.md §9b.9): si el mapa EA es la capital de la región (P-R1, O-R1), Bellcaire. Pendiente del owner.",

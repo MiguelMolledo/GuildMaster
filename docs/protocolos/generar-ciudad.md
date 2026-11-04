@@ -282,6 +282,22 @@ pintado: la rejilla, los caminos y el sim no cambian. La vista previa hace lo mi
    `population` (la de town_e, con sus casas nuevas).
 6. **El vestido** por reglas (§3) y la **validación** estricta (§2).
 
+### 1h. Puntos de reunión y rondas de la guardia (04f 4.24)
+
+Después del decor, `citylib.add_life` añade a cada mapa lo que le falte (el generador, `ciudad.py region` y
+`tools/maps/make_town_e.py` lo llaman solos; para un mapa ya hecho, `python3 tools/city/ciudad.py reunion [mapa…]`):
+
+- **Puntos de reunión** (`social_points` con kinds nuevos, 2-5 huecos transitables, nunca en una casilla protegida
+  ni bajo el decor): `well` (junto al oficio `well`), `atrium` (delante de la iglesia: entre `church_a` y
+  `church_b`), `tavern` (la puerta de un sitio `tavern_inn`), `washhouse` (la orilla más cercana a la plaza),
+  `bridge` (el puente más cercano), `gate` (uno por puerta, a dos casillas dentro) y `square` (cuatro casillas de la
+  plaza abierta). Para poner uno a mano: un `social_point` con su `id` (snake_case), su `kind` y sus `slots`.
+- **Rondas** (`patrols`: `[{id, tiles}]`): `patrol_main` de puerta a puerta pasando por la plaza y `patrol_plaza`
+  por sus esquinas. Cada casilla, transitable y alcanzable desde la plaza (el validador lo comprueba).
+- `population_max` (opcional): el tope de vecinos del mapa con la vida encendida (si no, 5 por casa hasta 32).
+
+H7 solo usa `bench`, `chat` y `dice`: un punto nuevo no cambia el día de H7 ni sus dianas.
+
 ## 2. Reglas de coherencia (el validador)
 
 `python3 tools/city/ciudad.py validar [mapa...]` (paso `ciudad` de `tools/qa/run_all.py`). En las ciudades generadas

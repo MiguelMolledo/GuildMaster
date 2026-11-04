@@ -274,6 +274,7 @@ static func _start(sim: Sim, inst: Dictionary) -> void:
 				(inst["stalls"] as Array).append({"stall": str(e.get("stall", "fair")),
 					"group": str(groups[i % groups.size()]) if not groups.is_empty() else ""})
 	_apply_at(sim, inst, "start")
+	_needs(sim, inst)
 	sim.events.append({"type": "festival_started", "id": str(inst["id"]), "def": str(inst["def"]),
 		"day": int(inst["day"]), "start": int(inst["start"]), "end": int(inst["end"]), "patron": bool(inst["patron"]),
 		"sponsors": (inst["sponsors"] as Dictionary).keys()})
@@ -300,6 +301,9 @@ static func _spectacles(sim: Sim, inst: Dictionary, now: int) -> void:
 				continue
 			sim.events.append({"type": "festival_spectacle", "festival": str(inst["id"]), "def": str(inst["def"]),
 				"spectacle": str(e.get("id", "")), "at": at})
+			if Life.on(sim):  # vida (04f 4.24.1): the townsfolk go and watch it in the plaza (activity watch_show)
+				Life.add_spectacle(sim, str(e.get("id", "")), Life.plaza(sim), at + int(rules(sim).get("spectacle_minutes",
+					120)), str(inst["id"]))
 			if OS.is_debug_build():
 				print("[Festivals] espectáculo %s de %s a las %d:00" % [e.get("id", ""), inst["id"], int(e.get("hour", 0))])
 
@@ -351,6 +355,27 @@ static func _apply_at(sim: Sim, inst: Dictionary, at: String) -> void:
 			for c: String in Population.townsfolk(st):
 				if Kin.roll(st, "fst|rel|%s|%s|%s" % [inst["id"], fam, c]) < float(sp.get("relation_share", 0.4)):
 					Emotions.change_relation(sim, c, head, int(sp.get("relation", 2)), "festival_sponsor")
+
+
+## vida (04f 4.24.1): the need effects (the preacher's faith +40) raise the townsfolk's needs when the feast starts.
+static func _needs(sim: Sim, inst: Dictionary) -> void:
+	if not Life.on(sim):
+		return
+	var raises := {}
+	for e: Dictionary in def_of(sim, str(inst["def"])).get("effects", []):
+		if str(e.get("kind", "")) == "need" and _part_ok(inst, e):
+			raises[str(e.get("id", ""))] = int(raises.get(str(e.get("id", "")), 0)) + int(e.get("amount", 0))
+	if raises.is_empty():
+		return
+	var now := int(sim.state.clock["minute"])
+	var n := 0
+	for c: String in Population.townsfolk(sim.state):
+		var t: Variant = sim.state.characters[c].get("town")
+		if t is Dictionary:
+			Agenda.raise(sim, t, raises, now)
+			n += 1
+	if OS.is_debug_build():
+		print("[Festivals] %s: necesidades %s a %d vecinos" % [inst["id"], raises, n])
 
 
 ## The families an effect names: mayor (the mayor's family), sponsors, hosts (the wedding's).
@@ -649,6 +674,47 @@ static func hook_mult(sim: Sim, kind: String, key: String = "") -> float:
 			mi *= float(rules(sim).get("unsponsored_visitors_mult", 1.0))
 		m *= mi
 	return m
+
+
+## The festivals of today (running or still to start today), for the life block's plans made at the start of the day.
+static func _today(sim: Sim) -> Array:
+	if not enabled(sim):
+		return []
+	var today := Clock.day(int(sim.state.clock["minute"]))
+	return _all(sim).filter(func(i: Dictionary) -> bool: return int(i.get("day", -1)) == today)
+
+
+## Whether a feast of the calendar is on today (vida: the plaza guard, Life.festival).
+static func on_today(sim: Sim) -> bool:
+	return not _today(sim).is_empty()
+
+
+## The product of today's festivals' `kind` effects (any hour), with the unsponsored cut for visitors (vida plans the
+## day's visitors at its start: Visitors._plan_day through Life.event_mult).
+static func today_mult(sim: Sim, kind: String) -> float:
+	var m := 1.0
+	for inst: Dictionary in _today(sim):
+		var mi := 1.0
+		for e: Dictionary in def_of(sim, str(inst["def"])).get("effects", []):
+			if str(e.get("kind", "")) == kind and _part_ok(inst, e):
+				mi *= float(e.get("mult", 1.0))
+		if kind == "visitors" and (inst["sponsors"] as Dictionary).is_empty() and mi != 1.0:
+			mi *= float(rules(sim).get("unsponsored_visitors_mult", 1.0))
+		m *= mi
+	return m
+
+
+## The visitor kinds today's festivals bring, sorted.
+static func today_kinds(sim: Sim) -> Array:
+	var out: Array = []
+	for inst: Dictionary in _today(sim):
+		for e: Dictionary in def_of(sim, str(inst["def"])).get("effects", []):
+			if str(e.get("kind", "")) == "visitors":
+				for k: Variant in e.get("kinds", []):
+					if not str(k) in out:
+						out.append(str(k))
+	out.sort()
+	return out
 
 
 ## The visitor kinds the running festivals bring (4.24.3), sorted, [] if none.

@@ -84,8 +84,48 @@ REGION = {
     "city_reputation": ("ui/icons/icon_city_reputation.png", "a small stone town gate tower with a gold star above "
                                                              "it"),
 }
+# Taberna-Posada (04f §4.27.3): platos y bebidas, assets/art/ui/icons/food_<id>.png
+FOOD = {
+    "food_beer": ("ui/icons/food_beer.png", "a wooden tankard of foaming amber beer"),
+    "food_strong_beer": ("ui/icons/food_strong_beer.png", "a big dark clay mug of dark strong beer with thick foam"),
+    "food_wine": ("ui/icons/food_wine.png", "a clay jug of red wine with a small cup"),
+    "food_good_wine": ("ui/icons/food_good_wine.png", "a glass bottle of dark red wine with a pewter goblet"),
+    "food_cider": ("ui/icons/food_cider.png", "a clay cup of golden cider with a green apple beside it"),
+    "food_bread": ("ui/icons/food_bread.png", "a round loaf of country bread with a cut slice"),
+    "food_garlic_soup": ("ui/icons/food_garlic_soup.png", "a steaming wooden bowl of garlic soup with bread and a "
+                                                         "head of garlic"),
+    "food_empanada": ("ui/icons/food_empanada.png", "a golden baked savoury pie (empanada) with a slice cut out"),
+    "food_stew": ("ui/icons/food_stew.png", "a small iron pot of meat and chickpea stew, steaming"),
+    "food_roast_lamb": ("ui/icons/food_roast_lamb.png", "a roast leg of lamb on a wooden board with rosemary"),
+    "food_sausage": ("ui/icons/food_sausage.png", "a string of cured sausages and a slice of ham"),
+    "food_sweets": ("ui/icons/food_sweets.png", "Christmas sweets: almond nougat bars and honey pastries on a plate"),
+}
+# Naipes (04f §4.26.8): los 4 palos, para componer la baraja (tools/art/naipes.py)
+SUITS = {
+    "suit_oros": ("ui/games/naipes/suit_oros.png", "the Spanish playing-card suit of coins: one round gold coin with "
+                                                   "a sun face, flat old woodcut card style, red and gold"),
+    "suit_copas": ("ui/games/naipes/suit_copas.png", "the Spanish playing-card suit of cups: one golden goblet "
+                                                     "chalice, flat old woodcut card style, gold and red"),
+    "suit_espadas": ("ui/games/naipes/suit_espadas.png", "the Spanish playing-card suit of swords: one straight "
+                                                         "blue steel sword point down, flat old woodcut card style"),
+    "suit_bastos": ("ui/games/naipes/suit_bastos.png", "the Spanish playing-card suit of clubs: one knotty green and "
+                                                       "brown wooden club, flat old woodcut card style"),
+}
+# Forja viva (03b §3b.2): rasgos de la pieza, assets/art/ui/forge/trait_<id>.png
+TRAITS = {
+    "trait_oil_tempered": ("ui/forge/trait_oil_tempered.png", "a blade dipped in a small pot of golden oil, a drop "
+                                                             "falling"),
+    "trait_fine_edge": ("ui/forge/trait_fine_edge.png", "a sword edge with a bright white glint running along it"),
+    "trait_master_mark": ("ui/forge/trait_master_mark.png", "a small hammer-and-anvil maker's mark stamped on a metal "
+                                                           "plate, with a gold rim"),
+    "trait_masterwork": ("ui/forge/trait_masterwork.png", "a sword with a golden laurel wreath around its hilt and "
+                                                         "a star"),
+}
 ICONS.update(DUEL)
 ICONS.update(REGION)
+ICONS.update(FOOD)
+ICONS.update(SUITS)
+ICONS.update(TRAITS)
 
 GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashlar", "grindstone", "trough"],
          "i3": ["millstone", "statue", "gavel", "ballot_box"], "i4": ["reputation", "menu", "save", "load"],
@@ -95,7 +135,12 @@ GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashla
          "d1": ["duel_strike", "duel_parry", "duel_feint", "duel_surrender"],
          "d2": ["duel_auto", "duel_breath", "duel_touch", "duel_challenge"],
          "r1": ["tariff", "treaty", "caravan", "city_reputation"],
-         "r2": ["tariff", "duel_breath"]}  # repetidas: el arancel no se leía y el aliento era una mancha  # repetida: la de i2 salió ilegible (la última rejilla manda)
+         "r2": ["tariff", "duel_breath"],
+         "f1": ["food_beer", "food_strong_beer", "food_wine", "food_good_wine"],
+         "f2": ["food_cider", "food_bread", "food_garlic_soup", "food_empanada"],
+         "f3": ["food_stew", "food_roast_lamb", "food_sausage", "food_sweets"],
+         "s1": ["suit_oros", "suit_copas", "suit_espadas", "suit_bastos"],
+         "k1": ["trait_oil_tempered", "trait_fine_edge", "trait_master_mark", "trait_masterwork"]}  # repetidas: el arancel no se leía y el aliento era una mancha  # repetida: la de i2 salió ilegible (la última rejilla manda)
 REDO_2 = {
     "tariff": "a toll gate: a horizontal red and white striped wooden barrier pole on a post, with a small stack "
               "of gold coins in front of it",

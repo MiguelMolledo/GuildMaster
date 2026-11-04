@@ -48,6 +48,10 @@ BUILDINGS = {
     "masonry": "a stonemason's workshop of rough grey stone with a slate roof, cut stone blocks stacked outside and "
                "a hanging sign with a hammer-and-chisel symbol",
     "town_hall": "the town hall: a noble stone house with a tower and a banner",
+    "tavern_inn": "a two-storey timber-framed TAVERN-INN: whitewashed walls, terracotta roof, warm light in the "
+                  "windows, a wide open door at the same place as the reference's door, a hanging wooden sign with a "
+                  "painted tankard (no letters), barrels and a bench outside, upper-floor windows for the rooms and a "
+                  "small stable lean-to on one side",
     "tailor_shop": "a tailor's shop: timber-framed with a terracotta roof, clothes hanging on a rail in the open "
                    "shop front and a hanging sign with a pair of scissors (replace the word on the sign with the "
                    "scissors symbol)",
@@ -69,8 +73,15 @@ BACK = ("the SAME building seen from the OPPOSITE side, as if it were turned 180
         "walls are closed walls with NO doors, NO gates, NO big openings and NO wooden door panels; they only have windows, timber or stone, and back details (a woodpile, barrels or crates; no shed, no small doors or openings of any kind)")
 
 
+# Edificios nuevos sin sprite de escala B: parten del de otro con el mismo lienzo, ancla y puerta (la Taberna-Posada,
+# 3×4 casillas como la carpintería: Sprite offset (-104, -138), Door (-40, 12)).
+NEW_FROM = {"tavern_inn": os.path.join(OUT, "carpentry.png")}
+
+
 def base_of(bid, state=""):
     """Sprite del que parte cada estado: la fachada fal (o la de escala B si no hay), o la de espaldas fal."""
+    if not state and bid in NEW_FROM:
+        return NEW_FROM[bid]
     if state.startswith("back_"):
         return os.path.join(OUT, bid + "_back.png")
     if state:
@@ -82,7 +93,9 @@ def base_of(bid, state=""):
 def grid(bid, state=""):
     """(lienzo, escala): 256 a ×4 o, si el sprite pasa de 240 px, 512 a ×2; la imagen siempre es de 1024."""
     im = Image.open(base_of(bid, state))
-    return (512, 2) if max(im.size) > 240 else (CANVAS, 4)
+    if max(im.size) > 240:
+        return (512, 2)
+    return (CANVAS, 4)
 
 
 def ref(bid, state=""):
@@ -90,6 +103,8 @@ def ref(bid, state=""):
     im = Image.open(base).convert("RGBA")
     cv, k = grid(bid, state)
     ox, oy = (cv - im.width) // 2, (cv - im.height) // 2
+    if bid in NEW_FROM and state in ("", "back"):  # un edificio nuevo puede ser más alto: la referencia, abajo
+        oy = cv - im.height - 4
     c = Image.new("RGBA", (cv, cv), (255, 255, 255, 255))
     c.alpha_composite(im, (ox, oy))
     p = os.path.join(P, "ref", bid + ("_" + state if state else "") + ".png")
@@ -99,6 +114,13 @@ def ref(bid, state=""):
 
 
 def prompt(bid):
+    if bid in NEW_FROM:  # un edificio nuevo sobre la misma huella, lienzo y puerta que la referencia
+        return ("The attached image is a building sprite from our isometric 2:1 pixel art game, shown enlarged 4x on "
+                "white (every art pixel is a 4x4 block). Draw a DIFFERENT building on EXACTLY the same footprint, "
+                "base, position in the frame, 2:1 projection and camera, with its entrance door at the same place "
+                "and about the same overall size (it may be one storey taller): " + BUILDINGS[bid] + ". Same clean "
+                "1-pixel dark outline, warm 16-bit SNES palette, light from the top-left, 4x4 pixel blocks. No text, "
+                "letters or words anywhere. Keep the plain flat white background, no ground shadow outside the base.")
     return ("The attached image is the current sprite of a building in our isometric 2:1 pixel art game, shown "
             "enlarged 4x on white (every art pixel is a 4x4 block). Redraw it as a finished, higher-quality sprite "
             "of the SAME building: keep EXACTLY the same position in the frame, the same footprint and base, the "
@@ -194,7 +216,7 @@ def proc(bid, name, state=""):
     cv, k = grid(bid, state)
     im = Image.open(raw).convert("RGBA").resize((cv * k, cv * k))
     keyed = fp.key_background(im, "white", 22)
-    if state in ("construction", "back_construction"):
+    if state in ("construction", "back_construction", "back"):
         keyed = holes(keyed)
     src = os.path.join(P, "celdas", name + ".png")
     os.makedirs(os.path.dirname(src), exist_ok=True)
@@ -219,7 +241,14 @@ def proc(bid, name, state=""):
     score, dx, dy = best
     shifted = Image.new("RGBA", (cv, cv), (0, 0, 0, 0))
     shifted.alpha_composite(full, (dx, dy))
-    out = shifted.crop((ox, oy, ox + w, oy + h))
+    grow = 0
+    if bid in NEW_FROM:  # un edificio nuevo puede ser más alto: el lienzo crece hacia arriba (pies y puerta quietos)
+        bb = shifted.crop((ox, 0, ox + w, oy + h)).getchannel("A").getbbox()
+        grow = max(0, oy - bb[1]) if bb else 0
+    out = shifted.crop((ox, oy - grow, ox + w, oy + h))
+    if grow:
+        print(f"  {name}: el lienzo crece {grow} px hacia arriba: {w}×{h + grow}, offset del Sprite y {-grow} "
+              "respecto al de su referencia")
     os.makedirs(OUT, exist_ok=True)
     if state:
         target = os.path.join(OUT, f"{bid}_{state}.png")

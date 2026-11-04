@@ -924,13 +924,13 @@ def check_cast(rep):
 EMOTIONS = {"grateful", "offended", "angry", "scared"}  # the 4 of the MVP (GDD 4.11.5)
 ACTIVITIES = {"bench", "chat", "market", "greet", "observe", "dice"}  # GDD 4.11.3
 ACTIVITY_SPOTS = {"bench", "chat", "dice", "stalls", "doors", "none"}
-SOCIAL_KINDS = {"bench", "chat", "dice"}
+SOCIAL_KINDS = {"bench", "chat", "dice"} | {"well", "atrium", "tavern", "washhouse", "bridge", "gate", "square"}  # + 04f 4.24.2
 WORKPLACE_KINDS = {"tile", "stall", "shop"}
 MEV_EFFECTS = {"sell", "skill_check", "leave", "emotion", "relation", "pay", "loyalty", "absent", "refund_wage", "steal",
                "nothing", "reputation"}
 MEV_CONDITIONS = {"counter_sales", "has_employees", "has_goods", "has_products"}
 MEV_SCOPES = {"building", "character", "family"}
-TOWN_STATES = {"home", "walking", "working", "market", "strolling", "social", "customer"}
+TOWN_STATES = {"home", "walking", "working", "market", "strolling", "social", "customer"} | {"guarding"}  # + 04f 4.24.4: a guard at its post or on its round
 
 
 def _range_ok(v, lo=0):
@@ -1073,6 +1073,12 @@ def check_h7(maps_raw, strings, rep):
             for t in sp.get("slots", []):
                 if not (isinstance(t, list) and len(t) == 2 and walkable(*t)):
                     rep.error(wmap, f"social_points/{sp.get('id')}: hueco {t} no transitable")
+        for pt in m.get("patrols", []):  # 04f 4.24.4: the night watch's rounds
+            if not ID_RE.match(str(pt.get("id", ""))) or len(pt.get("tiles", [])) < 2:
+                rep.error(wmap, f"patrols/{pt.get('id')}: id snake_case y 2 casillas o más")
+            for t in pt.get("tiles", []):
+                if not (isinstance(t, list) and len(t) == 2 and walkable(*t)):
+                    rep.error(wmap, f"patrols/{pt.get('id')}: casilla {t} no transitable")
         ids = set()
         for wp in m.get("workplaces", []):
             wid = wp.get("id")
@@ -2587,6 +2593,9 @@ def main():
     check_h12(items, recipes, buildings, maps, strings, rep)
     check_region(items, strings, rep)
     validate_fiestas.check_festivals(DATA, items, recipes, strings, check_text, load_json, rep)
+    sys.path.insert(0, os.path.join(ROOT, "tools", "life"))
+    import validate_life  # noqa: E402 vida (04f 4.24): data/life/*.json
+    validate_life.check(items, strings, rep, DATA, ROOT, SOCIAL_KINDS, check_text)
     check_tutorial(strings, set(load_kind("starts", rep)),
                    {n[:-5] for n in os.listdir(os.path.join(DATA, "scenarios")) if n.endswith(".json") and not n.startswith("_")},
                    items, buildings, load_kind("maps", rep), rep)
@@ -2689,9 +2698,9 @@ def main():
                 rep.error(f"scenarios/{name}", f"{cid}: position debe ser [col, fila]")
             elif not maps[map_id](*pos):
                 rep.error(f"scenarios/{name}", f"{cid} está en {pos}, que no es una casilla transitable de {map_id}")
-            for t in (ch.get("path") or []) if map_id else []:
-                if not (isinstance(t, list) and len(t) == 2 and maps[map_id](*t)):
-                    rep.error(f"scenarios/{name}", f"{cid}: la ruta pasa por {t}, que no es transitable")
+            for pt in (ch.get("path") or []) if map_id else []:  # (not t: t holds the tables, counted below)
+                if not (isinstance(pt, list) and len(pt) == 2 and maps[map_id](*pt)):
+                    rep.error(f"scenarios/{name}", f"{cid}: la ruta pasa por {pt}, que no es transitable")
                     break
 
     validate_structure.check(rep)

@@ -17,7 +17,7 @@ extends PanelContainer
 signal closed
 signal notice_clicked(notice: Dictionary)
 
-const TABS: Array[String] = ["today", "days", "buildings", "debts", "notices", "reputation"]
+const TABS: Array[String] = ["today", "days", "buildings", "debts", "notices", "reputation", "rumors"]
 
 var order_sink: Callable = Callable()
 var sim: Sim
@@ -127,6 +127,8 @@ func refresh(force: bool = false) -> void:
 			_fill_notices(data)
 		"reputation":
 			_fill_reputation(data)
+		"rumors":  # vida (04f 4.24.2): the book of rumours
+			RumorBook.fill(%Content as VBoxContainer, sim)
 
 
 func _data() -> Variant:
@@ -146,6 +148,8 @@ func _data() -> Variant:
 			return {"reputation": Reputation.of(sim.state, family), "classes": f.get("class_reputation", {}),
 				"title": Titles.current(sim, family), "log": f.get("reputation_log", []),
 				"next": Titles.next_of(sim, family)}
+		"rumors":
+			return Rumors.heard(sim.state).size()
 	return {}
 
 

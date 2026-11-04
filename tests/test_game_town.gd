@@ -52,12 +52,13 @@ func test_bubble_of_activity_and_emotion_first() -> void:
 	sim.run_minutes(100)
 	var social := ""
 	for id: String in Population.townsfolk(sim.state):
-		if str(TownLife.view(sim, id)["state"]) == "social" and str(TownLife.view(sim, id)["activity"]) != "greet":
+		if str(TownLife.view(sim, id)["state"]) == "social" and str(TownLife.view(sim, id)["activity"]) != "greet" \
+				and Rumors.told_by(sim.state, id).is_empty():  # vida: one telling a rumour shows «!» (04f 4.24.2)
 			social = id
 			break
 	check(social != "", "somebody socialises at 20:20")
 	var act := str(TownLife.view(sim, social)["activity"])
-	eq(SimQuery.bubble_of(sim, social), str(cat.town["activities"][act]["bubble"]), "the activity's bubble")
+	eq(SimQuery.bubble_of(sim, social), str(TownLife.view(sim, social)["bubble"]), "the activity's bubble (%s)" % act)
 	Emotions.add(sim, social, "angry", FAM)
 	eq(SimQuery.bubble_of(sim, social), "emotion_angry", "an emotion goes first (4.11.5)")
 	var cv := CharacterView.new()

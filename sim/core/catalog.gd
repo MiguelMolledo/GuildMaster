@@ -52,6 +52,7 @@ var trade: Dictionary = {}       # data/world/trade.json: travel, city markets, 
 var festivals: Dictionary = {}   # data/festivals.json: the festival calendar (4.25, docs/gdd/04f_vida_y_fiestas.md)
 var festival_contracts: Dictionary = {}  # data/contracts/festivals.json (kind festival): taken out of contracts() (4.25.4)
 var combat: Dictionary = {}      # data/combat.json: the duel «a tres tiempos» (draft, 04e; nothing in the sim uses it yet)
+var life_tables: Dictionary = {}  # vida (04f 4.24): data/life/<file>.json by file name: life, activities, rumors, incidents
 ## Población: data/portraits.json, the ids of the portrait pool (exported from assets/art/portraits/index.json by
 ## tools/art/portraits_catalog.py; the sim depends on data/ only): {by: {"sex|age|type": [ids sorted]}, fallback: {type:
 ## {age: type}}, ages, types, count}. Empty without it: nobody gets a portrait id (the view keeps the greybox).
@@ -94,6 +95,8 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 		if str(c.tables["contracts"][id].get("kind", "")) == "festival":
 			c.festival_contracts = c.tables["contracts"][id]
 			c.tables["contracts"].erase(id)
+	for f: String in ["life", "activities", "rumors", "incidents"]:  # vida (04f 4.24): data/life/
+		c.life_tables[f] = c._load_json(root_dir.path_join("life/%s.json" % f))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
