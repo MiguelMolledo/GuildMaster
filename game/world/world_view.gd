@@ -157,6 +157,7 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 			objects().add_child(p)
 			_props[t] = p
 			n_blocks += 1
+	n_blocks += _add_decor(c.maps().get(s.map_id, {}).get("decor", {}), filler, owned)
 	n_blocks += _add_filler(filler)
 	n_blocks += _add_border_trees()
 	_add_town_decor(s.map_id)
@@ -229,7 +230,12 @@ func _add_buildings() -> Dictionary:
 		if variants.get(scene_id) is Array and not (variants[scene_id] as Array).is_empty():
 			var looks_of: Array = variants[scene_id]  # one of the type's looks, by its origin tile (same every game)
 			scene_id = str(looks_of[_tile_hash(Vector2i(int(o[0]), int(o[1]))) % looks_of.size()])
+		var facing := _door_facing(b, scene_id)
+		if str(facing["scene"]) != scene_id:
+			scene_id = str(facing["scene"])
 		var visual := VisualPaths.instantiate("buildings", scene_id)
+		if bool(facing["flip"]):
+			visual.scale.x = -1.0  # the drawn door on the side of the map's door (mirrored around its Feet)
 		var greybox := visual.get_node_or_null("Greybox")
 		if greybox != null and greybox.has_method("apply_footprint"):
 			greybox.call("apply_footprint", Vector2i(int(f[0]), int(f[1])))
@@ -272,6 +278,93 @@ func _add_buildings() -> Dictionary:
 		if scaffold != null:
 			scaffold.visible = false
 	return tiles
+
+
+## Which look of a building puts its drawn door on the side of its map door: {"scene", "flip"}. Each scene says where
+## it draws its door with its Door marker (VisualPaths.door_of: SW = the face that looks to +row, SE = +col, NE and
+## NW the hidden ones). Tried in order: the scene as drawn, mirrored (if its marker allows: mirroring swaps SW/SE and
+## NE/NW), its back view (the marker's "back") and the back view mirrored; none fits: the scene as it is
+## (tools/city/ciudad.py validar lists those).
+const DOOR_SIDES: Dictionary = {"SW": Vector2i(0, 1), "SE": Vector2i(1, 0), "NE": Vector2i(0, -1), "NW": Vector2i(-1, 0)}
+const MIRRORED_SIDE: Dictionary = {"SW": "SE", "SE": "SW", "NE": "NW", "NW": "NE"}
+
+
+func _door_facing(b: Dictionary, scene_id: String) -> Dictionary:
+	var out := {"scene": scene_id, "flip": false}
+	var d: Array = b.get("door", [])
+	var o: Array = b.get("origin", [0, 0])
+	var f: Array = b.get("footprint", [1, 1])
+	if d.size() != 2:
+		return out
+	var door := Vector2i(int(d[0]), int(d[1]))
+	var side := ""
+	for s: String in DOOR_SIDES:
+		var inner: Vector2i = door - (DOOR_SIDES[s] as Vector2i)
+		if inner.x >= int(o[0]) and inner.x < int(o[0]) + int(f[0]) and inner.y >= int(o[1]) and inner.y < int(o[1]) + int(f[1]):
+			side = s
+			break
+	if side == "":
+		return out
+	var front := VisualPaths.door_of("buildings", scene_id)
+	if front.is_empty():
+		return out
+	var tries: Array = [scene_id]
+	if str(front["back"]) != "":
+		tries.append(str(front["back"]))
+	for sc: String in tries:
+		var m := VisualPaths.door_of("buildings", sc)
+		if m.is_empty():
+			continue
+		for flip: bool in [false, true]:
+			if flip and not bool(m["mirror"]):
+				continue
+			var drawn := str(MIRRORED_SIDE[str(m["side"])]) if flip else str(m["side"])
+			if drawn == side:
+				out = {"scene": sc, "flip": flip}
+				if flip or sc != scene_id:
+					ViewConfig.info("WorldView", "building %s: door %s on %s -> %s%s" % [b.get("id", ""), door, side,
+						sc, " (mirrored)" if flip else ""])
+				return out
+	return out
+
+
+## The fal facades' states (tools/city/enchufar_fachadas.py): a building scene with LookConstruction / LookDamaged
+## (hidden Sprite2D) shows their texture on its Sprite while it is under upgrade works or damaged (state "damaged",
+## unpaid upkeep), and its own texture otherwise; with LookConstruction the greybox scaffold (Works) stays hidden
+## (refresh_upgrades).
+## Only the texture changes, so see-through and clicks keep using Sprite. Cheap: a lookup per building per frame.
+func _apply_looks() -> void:
+	for id: String in _building_visuals:
+		var v: Node2D = _building_visuals[id]
+		var spr := v.get_node_or_null("Sprite") as Sprite2D
+		if spr == null:
+			continue
+		if not spr.has_meta("look_normal"):
+			spr.set_meta("look_normal", spr.texture)
+		var b: Dictionary = state.buildings.get(id, {})
+		var look := "normal"
+		if str(b.get("state", "normal")) == "damaged":
+			look = "damaged"
+		elif b.get("upgrade_work") is Dictionary and not (b["upgrade_work"] as Dictionary).is_empty():
+			look = "construction"
+		var node := {"construction": "LookConstruction", "damaged": "LookDamaged"}.get(look, "") as String
+		var src := v.get_node_or_null(node) as Sprite2D if node != "" else null
+		var tex: Texture2D = src.texture if src != null else spr.get_meta("look_normal")
+		if spr.texture != tex:
+			spr.texture = tex
+			ViewConfig.info("WorldView", "building %s looks %s" % [id, look if src != null else "normal"])
+
+
+## Whether the map shows `building` under works: its greybox scaffold (Works) or, on a fal facade, its works look
+## (LookConstruction on the Sprite, _apply_looks).
+func works_shown(building: String) -> bool:
+	var v: Node2D = _building_visuals.get(building, null)
+	if v == null:
+		return false
+	var scaffold := v.get_node_or_null("Works") as CanvasItem
+	var look := v.get_node_or_null("LookConstruction") as Sprite2D
+	var spr := v.get_node_or_null("Sprite") as Sprite2D
+	return (scaffold != null and scaffold.visible) or (look != null and spr != null and spr.texture == look.texture)
 
 
 ## Whether the sign of `building` is shown now (hover-only signs: while hovered or picked).
@@ -327,7 +420,9 @@ func refresh_upgrades() -> void:
 			ViewConfig.info("WorldView", "works %s (building=%s, upgrade=%s)" % ["on" if not w.is_empty() else "off", id,
 				str(w.get("upgrade", ""))])
 		bar.visible = not w.is_empty()
-		if scaffold != null:
+		var fal_works := (_building_visuals.get(id) as Node) != null and \
+			(_building_visuals[id] as Node).get_node_or_null("LookConstruction") != null
+		if scaffold != null and not fal_works:  # a fal facade draws its works itself (_apply_looks)
 			scaffold.visible = not w.is_empty()
 		if not w.is_empty():
 			bar.progress = float(w.get("progress", 0.0))
@@ -335,6 +430,7 @@ func refresh_upgrades() -> void:
 		var idle: Node2D = _idle_marks.get(id, null)
 		if idle != null:
 			idle.position = bar.position + Vector2(0, -16 if bar.visible else -2)
+	_apply_looks()
 	for id: String in _building_visuals:
 		var ups := (_building_visuals[id] as Node).get_node_or_null("Upgrades")
 		if ups == null or ups.get_child_count() == 0:
@@ -467,6 +563,82 @@ func _add_filler(tiles: Dictionary) -> int:
 	return placed
 
 
+## The map's dressing made by the town builder (data/maps "decor", tools/city/ciudad.py, docs/protocolos/
+## generar-ciudad.md): filler lots (house / yard / single: a scene on the centre of its tiles, mirrored if `flip`,
+## registered as the prop of each tile and taken out of `filler`) and props (lantern / prop / fence: a scene on the
+## tile's centre + `off` pixels). An item with "site" belongs to a map site: its lots dress the site's footprint in a
+## game without that building, its props (a workshop's barrels) only show with it. Purely visual, the same every game. A lot whose tiles are not all free filler (a
+## building of this game stands there) or a prop on a building's tiles is skipped; the filler left falls back to
+## _add_filler. Returns how many visuals were placed.
+func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int:
+	var items: Array = decor.get("items", [])
+	if items.is_empty():
+		return 0
+	# the map sites with a building in this game (same origin and type: sites on one plot are alternatives, H12) and
+	# the plots with any building: an item with "site" belongs to a site (its lots dress the whole plot)
+	var built := {}
+	var plot_built := {}
+	var placed := {}
+	for id: String in state.buildings:
+		var o: Array = state.buildings[id].get("origin", [])
+		if o.size() == 2:
+			placed["%d,%d,%s" % [int(o[0]), int(o[1]), state.buildings[id].get("type", "")]] = true
+			plot_built["%d,%d" % [int(o[0]), int(o[1])]] = true
+	var sites: Dictionary = catalog.maps().get(state.map_id, {}).get("buildings", {})
+	for sid: String in sites:
+		var o: Array = sites[sid].get("origin", [])
+		if o.size() == 2 and placed.has("%d,%d,%s" % [int(o[0]), int(o[1]), sites[sid].get("type", "")]):
+			built[sid] = true
+		if o.size() == 2 and plot_built.has("%d,%d" % [int(o[0]), int(o[1])]):
+			plot_built[sid] = true
+	var n := 0
+	var skipped := 0
+	var kinds := {}
+	for it: Dictionary in items:
+		var kind := str(it.get("kind", ""))
+		var site := str(it.get("site", ""))
+		if site != "":
+			var is_lot := kind in ["house", "yard", "single"]
+			# a site's lots only while its plot is empty; a site's props (by its door) only with that building
+			if (is_lot and plot_built.has(site)) or (not is_lot and not built.has(site)):
+				continue
+		var at: Array = it.get("at", [0, 0])
+		var size: Array = it.get("size", [1, 1])
+		var flip := bool(it.get("flip", false))
+		var id := str(it.get("id", ""))
+		var tiles: Array = []
+		for dr: int in int(size[1]):
+			for dc: int in int(size[0]):
+				tiles.append(Vector2i(int(at[0]) + dc, int(at[1]) + dr))
+		if kind in ["house", "yard", "single"]:
+			var ok := true
+			for t: Vector2i in tiles:
+				if not filler.has(t):
+					ok = false
+			if not ok:
+				skipped += 1
+				continue
+			n += _place_filler(id, tiles, flip)
+			for t: Vector2i in tiles:
+				filler.erase(t)
+		else:
+			var t0: Vector2i = tiles[0]
+			if owned.has(t0) and kind != "prop":
+				skipped += 1
+				continue
+			var off: Array = it.get("off", [0, 0])
+			var p := VisualPaths.instantiate("props", id)
+			if flip:
+				p.scale.x = -1.0  # mirrored around its Feet
+			VisualPaths.place(p, Iso.tile_to_world(t0) + Vector2(float(off[0]), float(off[1])))
+			objects().add_child(p)
+			n += 1
+		kinds[kind] = int(kinds.get(kind, 0)) + 1
+	ViewConfig.info("WorldView", "decor: %d visuals %s (skipped %d: a building of this game stands there)" % [n, kinds,
+		skipped])
+	return n
+
+
 ## The tiles of a w×h lot whose top-left corner is `at`, if all of them are free; else [].
 func _lot_at(free: Dictionary, at: Vector2i, size: Vector2i) -> Array:
 	var out: Array = []
@@ -555,7 +727,8 @@ func _add_town_decor(map_id: String) -> void:
 	ViewConfig.info("WorldView", "town decor %s: %d pieces" % [map_id, n])
 
 
-## H9: the town hall (data/maps "town_hall", game/visuals/buildings/town_hall.tscn) in the middle of its footprint;
+## H9: the town hall (data/maps "town_hall", game/visuals/buildings/town_hall.tscn, or town_hall_back when its service
+## tile, its door, is on a hidden face: _door_facing) in the middle of its footprint;
 ## registered as the prop of its sign tile (the sign and the click use its height) and its tiles as owned.
 func _add_town_hall(owned: Dictionary) -> void:
 	for svc: Dictionary in _services:
@@ -566,7 +739,12 @@ func _add_town_hall(owned: Dictionary) -> void:
 			owned[t] = true
 			centre += Iso.tile_to_world(t)
 		centre /= maxf(1.0, float((svc["tiles"] as Array).size()))
-		var v := VisualPaths.instantiate("buildings", "town_hall")
+		var th: Dictionary = catalog.maps().get(state.map_id, {}).get("town_hall", {})
+		var facing := _door_facing({"id": "town_hall", "door": th.get("service", []), "origin": th.get("origin", [0, 0]),
+			"footprint": th.get("footprint", [1, 1])}, "town_hall")
+		var v := VisualPaths.instantiate("buildings", str(facing["scene"]))
+		if bool(facing["flip"]):
+			v.scale.x = -1.0
 		v.name = "town_hall_visual"
 		VisualPaths.place(v, centre)
 		objects().add_child(v)
@@ -701,6 +879,7 @@ func _process(_delta: float) -> void:
 
 ## Follows the state: new or dead walkers, positions, the day/night tint. `frac` = how far towards the next step.
 func sync(frac: float) -> void:
+	_apply_looks()
 	if catalog != null:  # the fields change with the season (data/view.json "seasonal_tiles"; a no-op if unchanged)
 		ground().set_season(Clock.season(int(state.clock.get("minute", 0)), catalog.time))
 	_talker = _pick_talker()

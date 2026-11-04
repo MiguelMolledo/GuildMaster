@@ -22,13 +22,16 @@ func test_free_blocks_become_house_lots_and_yards() -> void:
 	var yards: Array = []
 	for th: Array in cfg["yard_themes"]:
 		yards.append_array(th)
-	# the 6×4 block north of the plaza (cols 17-22, rows 8-11): two 3×4 lots, one house each
-	var west := v.prop_at(Vector2i(17, 8))
-	var east := v.prop_at(Vector2i(20, 8))
+	# the 6×4 block north of the plaza (cols 17-22, rows 8-11): the town builder's decor (data/maps "decor",
+	# tools/city/) puts two 3×3 houses on the plaza side (rows 9-11, doors to +row) and the yards behind (row 8)
+	var west := v.prop_at(Vector2i(17, 9))
+	var east := v.prop_at(Vector2i(20, 9))
 	check(houses.has(_id(west)) and houses.has(_id(east)), "two houses on the 6×4 block: %s, %s" % [_id(west), _id(east)])
 	check(west != east, "one visual per lot")
 	eq(v.prop_at(Vector2i(19, 11)), west, "every tile of a lot points to its house")
-	var centre := (Iso.tile_to_world(Vector2i(17, 8)) + Iso.tile_to_world(Vector2i(19, 11))) / 2.0
+	for c: int in range(17, 23):
+		check(yards.has(_id(v.prop_at(Vector2i(c, 8)))), "yard behind the houses at (%d, 8)" % c)
+	var centre := (Iso.tile_to_world(Vector2i(17, 9)) + Iso.tile_to_world(Vector2i(19, 11))) / 2.0
 	eq(west.position + VisualPaths.feet(west) * west.scale, centre, "the house stands on the lot's centre")
 	# the 2×3 strip beside the forge is too narrow for a house: yards (low props, never over the forge's base)
 	for t: Vector2i in [Vector2i(28, 20), Vector2i(29, 22)]:
@@ -189,7 +192,7 @@ func test_houses_mix_their_looks() -> void:
 	var seen := {}
 	for id: String in v.state.buildings:
 		if str(v.state.buildings[id]["type"]) == "house":
-			var n := _id(v.building_visual(id))
+			var n := _id(v.building_visual(id)).trim_suffix("_back")  # seen from behind when its door is hidden
 			check(looks.has(n), "%s is one of the house looks (%s)" % [id, n])
 			seen[n] = true
 	check(seen.size() >= 3, "the town's houses are not all the same: %s" % [seen.keys()])

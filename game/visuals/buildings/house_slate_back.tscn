@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://q2bc1s4qh8qj"]
+
+[ext_resource type="Script" uid="uid://dclcjwcrf4upw" path="res://game/visuals/greybox/greybox_blocks.gd" id="1_greybox"]
+[ext_resource type="Texture2D" uid="uid://b261w5a4bhp1m" path="res://assets/art/buildings/escala_b/house_e_back.png" id="2_sprite_b"]
+
+[node name="HouseSlateBack" type="Node2D"]
+editor_description = "house_slate seen from behind (no door on its visible faces; the sprite of the filler house lot_house_e_back). WorldView._door_facing uses it when the map door of a house with this look is on a hidden face (its Door marker: NE, and the front scene's metadata/back)."
+y_sort_enabled = true
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -88)
+
+[node name="Door" type="Marker2D" parent="."]
+editor_description = "Threshold of the drawn door (docs/protocolos/generar-ciudad.md §Puertas): the generator, the validator and WorldView read where the door is from here (data/building_sprites.json is exported from it: python3 tools/city/sprites_catalog.py). side = face of the footprint (SW, SE, NE, NW), tile = door tile from the footprint origin."
+position = Vector2(29, -18)
+metadata/side = "NE"
+metadata/tile = Vector2i(1, -1)
+metadata/footprint = Vector2i(3, 3)
+metadata/mirror = true
+metadata/back = ""
+metadata/front = "house_slate"
+
+
+[node name="Greybox" type="Node2D" parent="."]
+visible = false
+y_sort_enabled = true
+script = ExtResource("1_greybox")
+footprint = Vector2i(3, 3)
+height = 40.0
+color = Color(0.419607843, 0.290196078, 0.22745098, 1)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_sprite_b")
+centered = false
+offset = Vector2(-96, -152)
+editor_description = "Back view (tools/city/sprites_ciudad.py back), same size and Feet as the front."

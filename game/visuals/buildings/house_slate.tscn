@@ -13,6 +13,17 @@ y_sort_enabled = true
 [node name="Top" type="Marker2D" parent="."]
 position = Vector2(0, -88)
 
+[node name="Door" type="Marker2D" parent="."]
+editor_description = "Threshold of the drawn door (docs/protocolos/generar-ciudad.md §Puertas): the generator, the validator and WorldView read where the door is from here (data/building_sprites.json is exported from it: python3 tools/city/sprites_catalog.py). side = face of the footprint (SW, SE, NE, NW), tile = door tile from the footprint origin."
+position = Vector2(-29, 18)
+metadata/side = "SW"
+metadata/tile = Vector2i(1, 3)
+metadata/footprint = Vector2i(3, 3)
+metadata/mirror = true
+metadata/back = "house_slate_back"
+metadata/front = ""
+
+
 [node name="Greybox" type="Node2D" parent="."]
 visible = false
 y_sort_enabled = true

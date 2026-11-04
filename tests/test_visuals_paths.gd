@@ -79,7 +79,9 @@ func test_world_view_builds_from_the_scenes() -> void:
 	var r := NewGame.from_scenario("town_e_start")
 	v.setup(r["state"], cat)
 	var forge := v.building_visual("bld_0001")
-	check(forge != null and str(forge.scene_file_path).ends_with("buildings/forge.tscn"), "the forge is its scene")
+	# its scene, or its back view when the map door is on a hidden face (town_e: north, WorldView._door_facing)
+	check(forge != null and (str(forge.scene_file_path).ends_with("buildings/forge.tscn") or
+		str(forge.scene_file_path).ends_with("buildings/forge_back.tscn")), "the forge is its scene")
 	eq(v.sign_of("bld_0001").position.y, (forge.position + VisualPaths.feet(forge)).y - VisualPaths.top_height(forge, 48.0) - 20.0,
 		"the sign hangs 20 px over the Top marker")
 	var stall := v.prop_at(Vector2i(16, 14))

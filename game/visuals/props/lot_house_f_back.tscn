@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlhluh24cwvdl"]
+
+[ext_resource type="Texture2D" uid="uid://cxuhlgjwflh6w" path="res://assets/art/buildings/escala_b/house_f_back.png" id="1_tex"]
+
+[node name="LotHouseFBack" type="Node2D"]
+editor_description = "Back view of the filler house lot_house_f (same size and Feet, no door: tools/city/sprites_ciudad.py back from a fal edit). The town builder (tools/city/, docs/protocolos/generar-ciudad.md) puts it on a lot whose street lies behind the house (door on a hidden face); mirrored when the street is to the north-west."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -104)
+
+[node name="Door" type="Marker2D" parent="."]
+editor_description = "Threshold of the drawn door (docs/protocolos/generar-ciudad.md §Puertas): the generator, the validator and WorldView read where the door is from here (data/building_sprites.json is exported from it: python3 tools/city/sprites_catalog.py). side = face of the footprint (SW, SE, NE, NW), tile = door tile from the footprint origin."
+position = Vector2(42, -15)
+metadata/side = "NE"
+metadata/tile = Vector2i(1, -1)
+metadata/footprint = Vector2i(3, 3)
+metadata/mirror = true
+metadata/back = ""
+metadata/front = "lot_house_f"
+
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-96, -174)

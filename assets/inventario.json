@@ -616,15 +616,107 @@
     {
       "id": "prop_lantern",
       "tipo": "prop",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
-        "H2"
+        "H2",
+        "ciudad"
       ],
       "ruta": "assets/art/props/lantern.png",
-      "origen": null,
+      "origen": "fal-ai/nano-banana-2/edit (referencia props/sign_post.png ×4): «a medieval street lantern: tall thin dark wooden post, iron bracket, small black iron lantern with warm yellow panes»; recorte y paleta de sign_post+torch con tools/city/sprites_ciudad.py lantern",
       "origen_previo": "guild:assets/sprites/props/lantern",
+      "coste_gen": 1,
+      "notas": "Farola de las calles (props/lantern.tscn, 32×64, figura 27×60). La pone el constructor de ciudades (tools/city/) cada pocas casillas y en los cruces. 0,08 USD (tools/city/fal_gasto.json)."
+    },
+    {
+      "id": "prop_fence",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "ciudad"
+      ],
+      "ruta": "assets/art/props/fence.png",
+      "origen": "Pillow (tools/city/sprites_ciudad.py fence)",
+      "origen_previo": null,
       "coste_gen": 0,
-      "notas": ""
+      "notas": "Tramo de valla de madera sobre el borde de una casilla (36×42, dibujado \\ ; la escena se refleja para /). Vallas de los campos del constructor de ciudades (props/fence.tscn). Placeholder dibujado por código."
+    },
+    {
+      "id": "bld_house_a_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_a_back.png",
+      "origen": "fal-ai/nano-banana-2/edit (referencia escala_b/house_a.png ×4): «the same isometric house seen from behind: remove the front door…»; reducido a la paleta de la casa con tools/city/sprites_ciudad.py back",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "Casa de relleno house_a vista de espaldas (sin puerta en las caras visibles, misma silueta y Feet): props/lot_house_a_back.tscn. 0,08 USD."
+    },
+    {
+      "id": "bld_house_b_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_b_back.png",
+      "origen": "fal-ai/nano-banana-2/edit (referencia escala_b/house_b.png ×4): «the same isometric house seen from behind: remove the front door…»; reducido a la paleta de la casa con tools/city/sprites_ciudad.py back",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "Casa de relleno house_b vista de espaldas (sin puerta en las caras visibles, misma silueta y Feet): props/lot_house_b_back.tscn, y la casa de vecinos house_tall de espaldas (buildings/house_tall_back.tscn). 0,08 USD."
+    },
+    {
+      "id": "bld_house_c_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_c_back.png",
+      "origen": "fal-ai/nano-banana-2/edit (referencia escala_b/house_c.png ×4): «the same isometric house seen from behind: remove the front door…»; reducido a la paleta de la casa con tools/city/sprites_ciudad.py back",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "Casa de relleno house_c vista de espaldas (sin puerta en las caras visibles, misma silueta y Feet): props/lot_house_c_back.tscn. 0,08 USD."
+    },
+    {
+      "id": "bld_house_d_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_d_back.png",
+      "origen": "fal-ai/nano-banana-2/edit (referencia escala_b/house_d.png ×4): «the same isometric house seen from behind: remove the front door…»; reducido a la paleta de la casa con tools/city/sprites_ciudad.py back",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "Casa de relleno house_d vista de espaldas (sin puerta en las caras visibles, misma silueta y Feet): props/lot_house_d_back.tscn. 0,08 USD."
+    },
+    {
+      "id": "bld_house_e_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_e_back.png",
+      "origen": "fal-ai/nano-banana-2/edit (referencia escala_b/house_e.png ×4): «the same isometric house seen from behind: remove the front door…»; reducido a la paleta de la casa con tools/city/sprites_ciudad.py back",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "Casa de relleno house_e vista de espaldas (sin puerta en las caras visibles, misma silueta y Feet): props/lot_house_e_back.tscn, y la casa de vecinos house_slate de espaldas (buildings/house_slate_back.tscn). 0,08 USD."
+    },
+    {
+      "id": "bld_house_f_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "ciudad"
+      ],
+      "ruta": "assets/art/buildings/escala_b/house_f_back.png",
+      "origen": "fal-ai/nano-banana-2/edit (referencia escala_b/house_f.png ×4): «the same isometric house seen from behind: remove the front door…»; reducido a la paleta de la casa con tools/city/sprites_ciudad.py back",
+      "origen_previo": null,
+      "coste_gen": 1,
+      "notas": "Casa de relleno house_f vista de espaldas (sin puerta en las caras visibles, misma silueta y Feet): props/lot_house_f_back.tscn, y la casa de vecinos house_ochre de espaldas (buildings/house_ochre_back.tscn). 0,08 USD."
     },
     {
       "id": "prop_scaffolding",
@@ -3936,7 +4028,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "Fachada redibujada del edificio armory, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/armory.png: para usarla, en game/visuals/buildings/armory.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: armory_construction.png, armory_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+      "notas": "Fachada redibujada del edificio armory, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/armory.png: para usarla, en game/visuals/buildings/armory.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: armory_construction.png, armory_damaged.png (mismo lienzo). Sin cablear: la decide la integración. En escena desde 2026-11-04: Sprite de game/visuals/buildings/armory.tscn (obras y dañada en LookConstruction / LookDamaged; la de escala B queda en SpriteEscalaB)."
     },
     {
       "id": "bld_forge_fal",
@@ -3950,7 +4042,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "Fachada redibujada del edificio forge, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/forge.png: para usarla, en game/visuals/buildings/forge.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: forge_construction.png, forge_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+      "notas": "Fachada redibujada del edificio forge, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/forge.png: para usarla, en game/visuals/buildings/forge.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: forge_construction.png, forge_damaged.png (mismo lienzo). Sin cablear: la decide la integración. En escena desde 2026-11-04: Sprite de game/visuals/buildings/forge.tscn (obras y dañada en LookConstruction / LookDamaged; la de escala B queda en SpriteEscalaB)."
     },
     {
       "id": "bld_house_fal",
@@ -3964,7 +4056,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "Fachada redibujada del edificio house, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/house.png: para usarla, en game/visuals/buildings/house.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: house_construction.png, house_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+      "notas": "Fachada redibujada del edificio house, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/house.png: para usarla, en game/visuals/buildings/house.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: house_construction.png, house_damaged.png (mismo lienzo). Sin cablear: la decide la integración. En escena desde 2026-11-04: Sprite de game/visuals/buildings/house.tscn (obras y dañada en LookConstruction / LookDamaged; la de escala B queda en SpriteEscalaB)."
     },
     {
       "id": "bld_carpentry_fal",
@@ -3978,7 +4070,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "Fachada redibujada del edificio carpentry, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/carpentry.png: para usarla, en game/visuals/buildings/carpentry.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: carpentry_construction.png, carpentry_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+      "notas": "Fachada redibujada del edificio carpentry, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/carpentry.png: para usarla, en game/visuals/buildings/carpentry.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: carpentry_construction.png, carpentry_damaged.png (mismo lienzo). Sin cablear: la decide la integración. En escena desde 2026-11-04: Sprite de game/visuals/buildings/carpentry.tscn (obras y dañada en LookConstruction / LookDamaged; la de escala B queda en SpriteEscalaB)."
     },
     {
       "id": "bld_masonry_fal",
@@ -3992,7 +4084,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "Fachada redibujada del edificio masonry, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/masonry.png: para usarla, en game/visuals/buildings/masonry.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: masonry_construction.png, masonry_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+      "notas": "Fachada redibujada del edificio masonry, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/masonry.png: para usarla, en game/visuals/buildings/masonry.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: masonry_construction.png, masonry_damaged.png (mismo lienzo). Sin cablear: la decide la integración. En escena desde 2026-11-04: Sprite de game/visuals/buildings/masonry.tscn (obras y dañada en LookConstruction / LookDamaged; la de escala B queda en SpriteEscalaB)."
     },
     {
       "id": "bld_tailor_shop_fal",
@@ -4006,7 +4098,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su sprite de escala B ×4) + image2pixel a escala 4 (tools/art/fal_fachadas.py)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "Fachada redibujada del edificio tailor_shop, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/tailor_shop.png: para usarla, en game/visuals/buildings/tailor_shop.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: tailor_shop_construction.png, tailor_shop_damaged.png (mismo lienzo). Sin cablear: la decide la integración."
+      "notas": "Fachada redibujada del edificio tailor_shop, estado normal, con el mismo lienzo y ancla que assets/art/buildings/escala_b/tailor_shop.png: para usarla, en game/visuals/buildings/tailor_shop.tscn poner esta textura en el nodo Sprite (sin mover Feet ni el offset). Estados: tailor_shop_construction.png, tailor_shop_damaged.png (mismo lienzo). Sin cablear: la decide la integración. En escena desde 2026-11-04: Sprite de game/visuals/buildings/tailor_shop.tscn (obras y dañada en LookConstruction / LookDamaged; la de escala B queda en SpriteEscalaB)."
     },
     {
       "id": "portrait_pool_f_adult_artisan",
@@ -5404,7 +5496,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "El edificio armory de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/armory.tscn). Estados: armory_back_construction.png, armory_back_damaged.png. Sin cablear."
+      "notas": "El edificio armory de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/armory.tscn). Estados: armory_back_construction.png, armory_back_damaged.png. Sin cablear. En escena desde 2026-11-04: game/visuals/buildings/armory_back.tscn, con su marcador Door."
     },
     {
       "id": "bld_forge_back",
@@ -5419,7 +5511,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "El edificio forge de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/forge.tscn). Estados: forge_back_construction.png, forge_back_damaged.png. Sin cablear."
+      "notas": "El edificio forge de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/forge.tscn). Estados: forge_back_construction.png, forge_back_damaged.png. Sin cablear. En escena desde 2026-11-04: game/visuals/buildings/forge_back.tscn, con su marcador Door."
     },
     {
       "id": "bld_house_back",
@@ -5434,7 +5526,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "El edificio house de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/house.tscn). Estados: house_back_construction.png, house_back_damaged.png. Sin cablear."
+      "notas": "El edificio house de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/house.tscn). Estados: house_back_construction.png, house_back_damaged.png. Sin cablear. En escena desde 2026-11-04: game/visuals/buildings/house_back.tscn, con su marcador Door."
     },
     {
       "id": "bld_carpentry_back",
@@ -5449,7 +5541,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "El edificio carpentry de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/carpentry.tscn). Estados: carpentry_back_construction.png, carpentry_back_damaged.png. Sin cablear."
+      "notas": "El edificio carpentry de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/carpentry.tscn). Estados: carpentry_back_construction.png, carpentry_back_damaged.png. Sin cablear. En escena desde 2026-11-04: game/visuals/buildings/carpentry_back.tscn, con su marcador Door."
     },
     {
       "id": "bld_masonry_back",
@@ -5464,7 +5556,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "El edificio masonry de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/masonry.tscn). Estados: masonry_back_construction.png, masonry_back_damaged.png. Sin cablear."
+      "notas": "El edificio masonry de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/masonry.tscn). Estados: masonry_back_construction.png, masonry_back_damaged.png. Sin cablear. En escena desde 2026-11-04: game/visuals/buildings/masonry_back.tscn, con su marcador Door."
     },
     {
       "id": "bld_town_hall_back",
@@ -5479,7 +5571,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
       "coste_gen": 0,
       "coste_usd": 0.08,
-      "notas": "El edificio town_hall de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/town_hall.tscn). Estados: —. Sin cablear."
+      "notas": "El edificio town_hall de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/town_hall.tscn). Estados: —. Sin cablear. En escena desde 2026-11-04: game/visuals/buildings/town_hall_back.tscn, con su marcador Door."
     },
     {
       "id": "bld_tailor_shop_back",
@@ -5494,7 +5586,7 @@
       "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) + image2pixel (tools/art/fal_fachadas.py --estado back)",
       "coste_gen": 0,
       "coste_usd": 0.24,
-      "notas": "El edificio tailor_shop de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/tailor_shop.tscn). Estados: tailor_shop_back_construction.png, tailor_shop_back_damaged.png. Sin cablear."
+      "notas": "El edificio tailor_shop de espaldas: sin puerta, portón ni escaparate en las caras visibles, para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa <edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente (offset del Sprite de game/visuals/buildings/tailor_shop.tscn). Estados: tailor_shop_back_construction.png, tailor_shop_back_damaged.png. Sin cablear. En escena desde 2026-11-04: game/visuals/buildings/tailor_shop_back.tscn, con su marcador Door."
     }
   ]
 }

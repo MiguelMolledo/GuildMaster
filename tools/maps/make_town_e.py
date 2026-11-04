@@ -18,8 +18,29 @@ H7: the living town (GDD 4.11.3, docs/contratos/h7_ciudad.md): "social_points" (
   point of 3 in the plaza; each slot a walkable tile) and "workplaces" (the townsfolk's trades: the 3 market stalls,
   the armory, church, town hall, fields, river, well and gates; TownLife.assign_occupations gives them in this order to
   the adult townsfolk by id). town_e_start is a v8 save.
+H12: the workshops of the other trades (workshop_carpentry, workshop_masonry, workshop_tailor) and the clothier's and
+  goods stalls. town_e_start does not place them (it is the H7 sandbox): their footprints get the decor's lots.
+Town builder: "decor", the cosmetic dressing by the rules of tools/city/reglas.json (docs/protocolos/generar-ciudad.md).
+This script is the source of data/maps/town_e.json and data/scenarios/town_e_start.json and rebuilds both byte for
+byte. --check writes nothing: it exits with 1 (and says which file) if either differs from what it would write, e.g.
+after editing the map by hand (then bring the change here) or the town builder's rules (then re-run without --check).
 """
-import json, os
+import json, os, sys
+
+CHECK = "--check" in sys.argv[1:]
+_DIFF = []
+
+
+def _emit(rel, text):
+    """Writes ROOT/rel, or with --check compares it with what is there."""
+    path = os.path.join(ROOT, rel)
+    if CHECK:
+        old = open(path, encoding="utf-8").read() if os.path.exists(path) else None
+        if old != text:
+            _DIFF.append(rel)
+        return
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 W = H = 40
@@ -80,10 +101,17 @@ g[18][19] = "#"
 rect(15, 18, 24, 19, "P")
 g[18][19] = "#"
 
-# market stalls and the contract board (H3): one blocked tile each, served from the tile in front (towards the street)
-STALLS = {"resources": [16, 14], "food": [19, 14], "materials": [22, 14]}
+# H12: the workshops of the other trades (carpentry and masonry 3x4 south of the bottom lane, tailor's 3x3 east of
+# the town hall), doors on the lane or the grass in front
+rect(14, 34, 16, 37, "#")
+rect(19, 34, 21, 37, "#")
+rect(23, 30, 25, 32, "#")
+# market stalls and the contract board (H3): one blocked tile each, served from the tile in front (towards the street);
+# H12: the clothier's and the goods stalls on the west edge of the plaza, served from the tile to their east
+STALLS = {"resources": ([16, 14], [16, 15]), "food": ([19, 14], [19, 15]), "materials": ([22, 14], [22, 15]),
+          "clothier": ([15, 16], [16, 16]), "goods": ([15, 20], [16, 20])}
 BOARD = [16, 22]
-for t in STALLS.values():
+for t, _ in STALLS.values():
     g[t[1]][t[0]] = "S"
 g[BOARD[1]][BOARD[0]] = "N"
 
@@ -95,7 +123,7 @@ town = {
     "size": [W, H],
     "rows": rows,
     "spawns": {"player": [20, 21], "market": [19, 16], "east_gate": [39, 18], "west_gate": [0, 19]},
-    "stalls": {k: {"tile": t, "service": [t[0], t[1] + 1]} for k, t in STALLS.items()},
+    "stalls": {k: {"tile": t, "service": sv} for k, (t, sv) in STALLS.items()},
     "board": {"tile": BOARD, "service": [BOARD[0], BOARD[1] - 1]},
     # H9 (docs/contratos/h9_titulos.md): the town hall on the south block of the plaza; titles are asked for on its
     # service tile (like the board). A map site, not a building of the state.
@@ -103,6 +131,15 @@ town = {
     "buildings": {
         "player_forge": {"type": "forge", "origin": [25, 20], "door": [26, 19]},
         "rival_forge": {"type": "forge", "origin": [9, 20], "door": [10, 19]},
+        # H12 (1b): the rival of the player's own trade takes the player forge's plot when the player is not the
+        # smith (data/starts rival.building.site); alternatives of player_forge, never built together with it
+        "rival_carpentry": {"type": "carpentry", "origin": [25, 20], "door": [26, 19]},
+        "rival_masonry": {"type": "masonry", "origin": [25, 20], "door": [26, 19]},
+        "rival_tailor": {"type": "tailor_shop", "origin": [25, 20], "door": [26, 19]},
+        # H12: the workshops of the competitor families (data/starts competitors) and of the other trades' starts
+        "workshop_carpentry": {"type": "carpentry", "origin": [14, 34], "door": [15, 33]},
+        "workshop_masonry": {"type": "masonry", "origin": [19, 34], "door": [20, 33]},
+        "workshop_tailor": {"type": "tailor_shop", "origin": [23, 30], "door": [24, 29]},
         "armory": {"type": "armory", "origin": [25, 14], "door": [24, 16], "owner": ""},
     },
 }
@@ -192,9 +229,14 @@ for home, fam_name, c1, c2, members in POP:
         n += 1
     town["population"].append({"home": home, "family_name": fam_name, "gold": 20,
                                "colors": {"primary": c1, "secondary": c2}, "members": people})
-with open(os.path.join(ROOT, "data/maps/town_e.json"), "w") as f:
-    json.dump(town, f, indent=1, ensure_ascii=False)
-    f.write("\n")
+# The cosmetic dressing (filler houses facing the street, yards, lanterns, props, fences), by the rules of the town
+# builder (tools/city/, docs/protocolos/generar-ciudad.md): only the game draws it, the sim never reads it.
+import sys  # noqa: E402
+sys.path.insert(0, os.path.join(ROOT, "tools", "city"))
+sys.dont_write_bytecode = True
+import citylib  # noqa: E402
+town["decor"] = citylib.dress(citylib.Map(town, citylib.Catalog()))
+_emit("data/maps/town_e.json", citylib.dumps_map(town))
 
 def inv(limit_kind, limit, stacks=None):
     return {"limit_kind": limit_kind, "limit": limit, "stacks": stacks or []}
@@ -297,7 +339,12 @@ for hh in town["population"]:
     scenario["families"][fid] = fam_(fid, hh["family_name"], "ai", members, hh["colors"], hh["gold"])
     scenario["buildings"][bid] = bld_(bid, hh["home"], fid, (), stacks=0)
 
-with open(os.path.join(ROOT, "data/scenarios/town_e_start.json"), "w") as f:
-    json.dump(scenario, f, indent=2, ensure_ascii=False)
-    f.write("\n")
-print("\n".join(rows))
+_emit("data/scenarios/town_e_start.json", json.dumps(scenario, indent=2, ensure_ascii=False) + "\n")
+if CHECK:
+    if _DIFF:
+        print("make_town_e --check: estos ficheros no son lo que escribe este script: " + ", ".join(_DIFF) +
+              ". Si el cambio es bueno, llévalo al script; si las reglas de tools/city cambiaron, ejecútalo sin --check.")
+        sys.exit(1)
+    print("make_town_e --check: data/maps/town_e.json y data/scenarios/town_e_start.json, idénticos")
+if not CHECK:
+    print("\n".join(rows))
