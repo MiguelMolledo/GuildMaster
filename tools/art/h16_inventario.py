@@ -87,6 +87,70 @@ def tavern():
     return out
 
 
+def games_and_forge():
+    out = []
+    G = "assets/art/ui/games/"
+    if os.path.exists(os.path.join(ROOT, G + "naipes/oros_1.png")):
+        out.append({"id": "ui_game_naipes", "tipo": "ui", "estado": "sprite", "para": ["H16", "juegos"],
+                    "ruta": G + "naipes/",
+                    "origen": "fal: nano-banana-2/edit (los 4 palos y 12 figuras) + image2pixel; cartas compuestas con "
+                              "Pillow (tools/art/juegos_taberna.py)", "coste_gen": 0, "coste_usd": 0.32,
+                    "notas": "Baraja de 40 de 4 palos (04f §4.26.8), al estilo de los naipes antiguos: "
+                             "<oros|copas|espadas|bastos>_<1-7|10|11|12>.png (48×72, número en las esquinas, la "
+                             "disposición de los palos de la baraja española; 10 sota, 11 caballo, 12 rey), back.png "
+                             "(reverso), slot.png (hueco), suit_<palo>.png (32) y small/ (16)."})
+    if os.path.exists(os.path.join(ROOT, G + "dados/d1.png")):
+        out.append({"id": "ui_game_dados", "tipo": "ui", "estado": "sprite", "para": ["H16", "juegos"],
+                    "ruta": G + "dados/", "origen": "dibujado (Pillow, tools/art/juegos_taberna.py dados)",
+                    "coste_gen": 0, "notas": "Dados de hueso (04f §4.26.7): d1-d6.png (24×24, cara de arriba, "
+                                             "puntos exactos) y shadow.png."})
+    if os.path.exists(os.path.join(ROOT, G + "mesa/mesa.png")):
+        out.append({"id": "ui_game_mesa", "tipo": "ui", "estado": "sprite", "para": ["H16", "juegos"],
+                    "ruta": G + "mesa/mesa.png",
+                    "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel",
+                    "coste_gen": 0, "coste_usd": 0.08,
+                    "notas": "Fondo de mesa de taberna para dados y naipes, visto desde arriba, el centro libre: "
+                             "960×540 (480×270 ×2)."})
+    F = "assets/art/ui/forge/"
+    if os.path.exists(os.path.join(ROOT, F + "iron_cherry.png")):
+        out.append({"id": "ui_forge_live", "tipo": "ui", "estado": "sprite", "para": ["H17", "forja"],
+                    "ruta": F,
+                    "origen": "fal: nano-banana-2/edit (ref: el kit de la forja ×4) + image2pixel "
+                              "(tools/art/fal_forja_viva.py); calores y golpes, con Pillow", "coste_gen": 0,
+                    "coste_usd": 0.16,
+                    "notas": "Forja viva (03b §3b.2). Calentar: iron_cold y iron_<dark_red|cherry|orange|yellow|"
+                             "white>.png (64×64, la misma barra con rampas fijas) y hearth.png (la fragua). Batir: "
+                             "strike_<strong|measured|finish>.png (80×96: el martillo arriba, a media altura o en la "
+                             "barra, con chispas según el golpe), anvil.png y hammer.png sueltos para animarlos. "
+                             "Templar: quench_<water|oil|air>.png (64×64)."})
+        out.append({"id": "ui_icon_forge_traits", "tipo": "ui", "estado": "sprite", "para": ["H17", "forja"],
+                    "ruta": F + "trait_oil_tempered.png",
+                    "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+                    "coste_gen": 0, "coste_usd": 0.08,
+                    "notas": "Iconos de rasgos de pieza (03b §3b.2): trait_<oil_tempered|fine_edge|master_mark|"
+                             "masterwork>.png (32×32) y small/ (16×16): templada al aceite, filo fino, marca del "
+                             "maestro y obra maestra."})
+    return out
+
+
+def props():
+    sys.path.insert(0, HERE)
+    import fal_props_fiesta as fpf
+    out = []
+    for pid, ((fw, fh), _, what) in fpf.PROPS.items():
+        png = f"assets/art/props/fiesta/{pid}.png"
+        if not os.path.exists(os.path.join(ROOT, png)):
+            continue
+        out.append({"id": "prop_fiesta_" + pid, "tipo": "prop", "estado": "sprite", "para": ["H16", "fiestas"],
+                    "ruta": png,
+                    "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/"
+                              "fal_props_fiesta.py)", "coste_gen": 0, "coste_usd": 0.02,
+                    "notas": f"Decoración de fiesta (04f §4.25.3): {what}. Huella {fw}×{fh} casillas. Escena "
+                             f"game/visuals/props/fiesta/{pid}.tscn (Feet en el centro de la huella, Top, Sprite; "
+                             f"metadata/footprint en la raíz)."})
+    return out
+
+
 def apply(entries):
     raw = open(INV).read()
     d = json.loads(raw)
@@ -109,7 +173,7 @@ def apply(entries):
 
 
 def main():
-    apply(illustrations() + tavern())
+    apply(illustrations() + tavern() + games_and_forge() + props())
 
 
 if __name__ == "__main__":

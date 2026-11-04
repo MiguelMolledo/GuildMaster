@@ -84,11 +84,33 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Iron" type="ColorRect" parent="Panel/VBox/HeatBox"]
+[node name="Hearth" type="TextureRect" parent="Panel/VBox/HeatBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(72, 40)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+size_flags_vertical = 4
+stretch_mode = 5
+
+[node name="IronBox" type="Control" parent="Panel/VBox/HeatBox"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Iron" type="ColorRect" parent="Panel/VBox/HeatBox/IronBox"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 color = Color(0.42, 0.1, 0.07, 1)
+
+[node name="IronArt" type="TextureRect" parent="Panel/VBox/HeatBox/IronBox"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
 
 [node name="HeatText" type="VBoxContainer" parent="Panel/VBox/HeatBox"]
 layout_mode = 2
@@ -119,37 +141,49 @@ size_flags_vertical = 4
 theme_type_variation = &"PrimaryButton"
 text = "Sacar"
 
-[node name="StrikeBox" type="VBoxContainer" parent="Panel/VBox"]
+[node name="StrikeBox" type="HBoxContainer" parent="Panel/VBox"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 8
 
-[node name="Template" type="HBoxContainer" parent="Panel/VBox/StrikeBox"]
+[node name="StrikeArt" type="TextureRect" parent="Panel/VBox/StrikeBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 96)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="StrikeRight" type="VBoxContainer" parent="Panel/VBox/StrikeBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Template" type="HBoxContainer" parent="Panel/VBox/StrikeBox/StrikeRight"]
 unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
-[node name="TemplateHint" type="Label" parent="Panel/VBox/StrikeBox"]
+[node name="TemplateHint" type="Label" parent="Panel/VBox/StrikeBox/StrikeRight"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"DimLabel"
 horizontal_alignment = 1
 
-[node name="Strikes" type="HBoxContainer" parent="Panel/VBox/StrikeBox"]
+[node name="Strikes" type="HBoxContainer" parent="Panel/VBox/StrikeBox/StrikeRight"]
 layout_mode = 2
 alignment = 1
 
-[node name="Strike_strong" type="Button" parent="Panel/VBox/StrikeBox/Strikes"]
+[node name="Strike_strong" type="Button" parent="Panel/VBox/StrikeBox/StrikeRight/Strikes"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "strong"
 
-[node name="Strike_measured" type="Button" parent="Panel/VBox/StrikeBox/Strikes"]
+[node name="Strike_measured" type="Button" parent="Panel/VBox/StrikeBox/StrikeRight/Strikes"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "measured"
 
-[node name="Strike_finish" type="Button" parent="Panel/VBox/StrikeBox/Strikes"]
+[node name="Strike_finish" type="Button" parent="Panel/VBox/StrikeBox/StrikeRight/Strikes"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "finish"
@@ -196,6 +230,11 @@ custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 theme_type_variation = &"BodyLabel"
 autowrap_mode = 3
+
+[node name="Traits" type="HBoxContainer" parent="Panel/VBox/WaitBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
 
 [node name="Foot" type="HBoxContainer" parent="Panel/VBox"]
 layout_mode = 2

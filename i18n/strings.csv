@@ -2980,3 +2980,4 @@ unlock.rumors,rumours,los rumores
 unlock.rumors.desc,"At the well, the square and the church door people talk: some rumours are worth gold. The book (L) keeps the ones you hear.","En el pozo, la plaza y la puerta de la iglesia la gente habla: algunos rumores valen oro. El libro (L) guarda los que oyes."
 objective.hear_rumors,Hear three rumours,Oye tres rumores
 objective.defend_town,Take part in an incident of the town,Interviene en un suceso de la villa
+live.trait.masterwork,masterwork,obra maestra

@@ -9,15 +9,20 @@ extends Control
 ## colour's pace on screen is presentation (data/live_forge.json heat_seconds_per_color, real seconds); the verdict is
 ## the sim's. While it is open the game runs at ×1 (the session's speed comes back when it closes).
 ## Keys: Espacio = Sacar; 1 / 2 / 3 = the strikes or the media; Esc = Resolver sin jugar (then closes).
-## Art by VisualPaths (icons icon_live_<id>, the masterwork's illustration events/masterwork) with visible greybox.
+## Art by VisualPaths.forge_art (assets/art/ui/forge/: the hearth, the iron of each colour, the strike on the anvil, the
+## media of the quench and the trait icons), each with a visible placeholder (the iron's own colour, a flat box) until
+## its file exists; the masterwork's illustration events/masterwork.
 
 signal closed
 signal stage_shown(stage: String)   # the smoke script takes its captures here
 
 const HEAT_TONES: Dictionary = {"dark_red": "#6b1a12", "cherry": "#b3261e", "orange": "#e0701c", "yellow": "#f2c94c",
 	"white": "#f4efe0"}
+const TRAIT_COLORS: Dictionary = {"oil_tempered": "#7a5a2a", "hard": "#4a6a8a", "soft": "#a8b0b8",
+	"fine_edge": "#b8b8b0", "master_mark": "#c8a84e", "masterwork": "#c8a84e"}
 const ICON_COLORS: Dictionary = {"strong": "#8a2a1e", "measured": "#7a6a4a", "finish": "#c8a84e", "water": "#4a6a8a",
 	"oil": "#7a5a2a", "air": "#a8b0b8"}
+const BLOCKS_CARDS: StringName = &"blocks_unlock_cards"   # while open, the unlock cards wait (UnlockCard)
 const KEYS_STRIKE: Array[String] = ["strong", "measured", "finish"]
 const KEYS_QUENCH: Array[String] = ["water", "oil", "air"]
 
@@ -73,6 +78,7 @@ func open_for(s: Sim, bld: String, zone_id: String) -> void:
 	(%Masterwork as PageCard).visible = false
 	_texts()
 	visible = true
+	add_to_group(BLOCKS_CARDS)
 	var g := get_node_or_null("/root/Game")
 	if g != null and _speed_before == 0:
 		_speed_before = int(g.get("speed"))
@@ -92,6 +98,7 @@ func close() -> void:
 			open_for(sim, building, zone)
 			return
 	visible = false
+	remove_from_group(BLOCKS_CARDS)
 	(%Masterwork as PageCard).visible = false
 	var g := get_node_or_null("/root/Game")
 	if g != null and _speed_before > 0:
@@ -113,16 +120,15 @@ func _texts() -> void:
 		var b := get_node("%Strike_" + k) as Button
 		b.text = SimQuery.t_("live.strike." + k)
 		b.tooltip_text = SimQuery.t_("live.strike." + k + ".tip")
-		b.icon = _icon(k)
+		b.icon = VisualPaths.forge_art("hammer", Vector2i(32, 32), Color(str(ICON_COLORS.get(k, "#888888"))))
+		b.add_theme_constant_override("icon_max_width", 16)   # the strike itself shows on the anvil (StrikeArt)
 	for k: String in KEYS_QUENCH:
 		var b := get_node("%Quench_" + k) as Button
 		b.text = SimQuery.t_("live.quench." + k)
 		b.tooltip_text = SimQuery.t_("live.quench." + k + ".tip")
-		b.icon = _icon(k)
-
-
-func _icon(id: String) -> Texture2D:
-	return VisualPaths.forge_icon("live_" + id, Color(str(ICON_COLORS.get(id, "#888888"))))
+		b.icon = VisualPaths.forge_art("quench_" + k, Vector2i(64, 64), Color(str(ICON_COLORS.get(k, "#888888"))))
+		b.add_theme_constant_override("icon_max_width", 32)
+	(%Hearth as TextureRect).texture = VisualPaths.forge_art("hearth", Vector2i(64, 64), Color("#5a2a14"))
 
 
 func _heat_seconds() -> float:
@@ -167,6 +173,8 @@ func refresh() -> void:
 			var cols := _colours()
 			var c := str(cols[clampi(heat_index, 0, cols.size() - 1)]) if not cols.is_empty() else ""
 			(%Iron as ColorRect).color = Color(str(HEAT_TONES.get(c, "#888888")))
+			var iron := VisualPaths.forge_art("iron_" + c, Vector2i(64, 64), Color(str(HEAT_TONES.get(c, "#888888"))))
+			(%IronArt as TextureRect).texture = iron   # the placeholder is the colour itself
 			(%HeatName as Label).text = SimQuery.t_("live.heat." + c)
 			var hint := ""
 			if c == str(v.get("near_heat", "")) and c != "":
@@ -178,6 +186,10 @@ func refresh() -> void:
 				if know.has("heat") else SimQuery.t_("live.unknown_heat")
 		"strike":
 			_draw_template(v)
+			var done: Array = v.get("strikes", [])
+			var art := "strike_" + str(done.back()) if not done.is_empty() else "anvil"
+			(%StrikeArt as TextureRect).texture = VisualPaths.forge_art(art, Vector2i(80, 96), Color(str(
+				ICON_COLORS.get(str(done.back()) if not done.is_empty() else "", "#4a4a4a"))))
 		"quench":
 			var need := SimQuery.t_(str(v.get("hint_key", ""))) if str(v.get("hint_key", "")) != "" else ""
 			var spec: Dictionary = v.get("spec", {})
@@ -190,6 +202,7 @@ func refresh() -> void:
 			(%WaitLabel as Label).text = SimQuery.t_("live.waiting")
 		"result":
 			(%WaitLabel as Label).text = _result_text()
+	_draw_traits(stage)
 	if stage != shown_stage:
 		shown_stage = stage
 		ViewConfig.info("LiveForge", "stage %s (recipe=%s)" % [stage, recipe])
@@ -222,6 +235,36 @@ func _draw_template(v: Dictionary) -> void:
 			l.theme_type_variation = &"DimLabel"
 	(%TemplateHint as Label).text = SimQuery.t_("live.template_seen") if str((v.get("template", [""]) as Array).front()) != "" \
 		else SimQuery.t_("live.template_hidden")
+
+
+## The result's trait icons (and the masterwork's), 32 px with their name as tooltip.
+func _draw_traits(stage: String) -> void:
+	var row := %Traits as HBoxContainer
+	var want: Array = (result.get("traits", []) as Array).duplicate() if stage == "result" else []
+	if stage == "result" and str(result.get("masterwork", "")) != "":
+		want.append("masterwork")
+	if stage == "done":
+		want = ["_cold"]   # quenched: the cold piece waits for the cycle to end
+	var key := ",".join(want.map(func(t: Variant) -> String: return str(t)))
+	if row.get_meta("key", "") == key:
+		return
+	row.set_meta("key", key)
+	for c: Node in row.get_children():
+		row.remove_child(c)
+		c.queue_free()
+	row.visible = not want.is_empty()
+	for t: Variant in want:
+		var r := TextureRect.new()
+		r.name = "Trait_" + str(t)
+		r.texture = VisualPaths.forge_art("trait_" + str(t), Vector2i(32, 32), Color(str(TRAIT_COLORS.get(str(t), "#888888"))))
+		if str(t) == "_cold":
+			r.texture = VisualPaths.forge_art("iron_cold", Vector2i(64, 64), Color("#5a5a5a"))
+			r.custom_minimum_size = Vector2(64, 64)
+		r.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+		if str(t) != "_cold":
+			r.custom_minimum_size = Vector2(32, 32)
+			r.tooltip_text = SimQuery.t_("live.trait." + str(t))
+		row.add_child(r)
 
 
 func _result_text() -> String:

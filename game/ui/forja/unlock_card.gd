@@ -4,7 +4,7 @@ extends PageCard
 ## something for the player's family (event unlocked), a PageCard «Carta» with its illustration (events/unlock_<id>,
 ## from the art branch; without it the card goes without), what it is, the goal it brings and, when the tutorial
 ## hints are on and it has one, «Ver capítulo» (its tutorial chapter). It does not pause; closing it gives
-## unlock_seen {what: card}. One at a time: the next waits. Listens to Events itself (like EventCard); gives only the
+## unlock_seen {what: card}. One at a time: the next waits, and so do they while the Forja viva is open. Listens to Events itself (like EventCard); gives only the
 ## unlock_seen order, through Game.give.
 
 signal chapter_requested(chapter: String)
@@ -36,10 +36,22 @@ func show_for(sim: Sim, fam: String, id: String) -> void:
 	var d := data_for(sim, id)
 	if d.is_empty():
 		return
-	if visible:
+	if visible or _blocked():
 		_queue.append(d)
 		return
 	_show(d)
+
+
+## A screen that should not be covered is open (the Forja viva while a piece is forged): the cards wait.
+func _blocked() -> bool:
+	return is_inside_tree() and get_tree().get_nodes_in_group(LiveForgeScreen.BLOCKS_CARDS).any(
+		func(n: Node) -> bool: return (n as CanvasItem).visible)
+
+
+func _process(delta: float) -> void:
+	super._process(delta)
+	if not visible and not _queue.is_empty() and not _blocked():
+		_show(_queue.pop_front())
 
 
 func _show(d: Dictionary) -> void:
