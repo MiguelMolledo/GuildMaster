@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://6kb846jjysv1"]
+
+[ext_resource type="Texture2D" uid="uid://dkv2orxfcqwnc" path="res://assets/art/props/fiesta/farolillo.png" id="1_tex"]
+
+[node name="Farolillo" type="Node2D"]
+editor_description = "Festival prop (docs/gdd/04f_vida_y_fiestas.md §4.25.3; tools/art/fal_props_fiesta.py): a small wooden post with a glowing paper festival lantern hanging from it. Feet = the centre of its footprint (metadata/footprint, in tiles: columns x rows); small props stand on their base. Move or swap the sprite here."
+metadata/footprint = Vector2i(1, 1)
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -39)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-10, -41)
