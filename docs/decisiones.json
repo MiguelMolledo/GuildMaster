@@ -358,8 +358,8 @@
   "pendientes": [
     {
       "tema": "D9 Nombre del mapa EA",
-      "detalle": "Sin propuesta.",
-      "opciones": ""
+      "detalle": "Propuesta (rama mundo, 2026-11-04, docs/gdd/09b_region.md §9b.9): si el mapa EA es la capital de la región (P-R1, O-R1), Bellcaire. Pendiente del owner.",
+      "opciones": "Bellcaire · Castellnou de Mercat · Santa Maria del Mercadal"
     },
     {
       "tema": "D16 Mostrador y demanda",
@@ -413,6 +413,11 @@
       "tema": "Pulido del MVP (provisional)",
       "detalle": "Trampa de pobreza: con 0 de oro y sin material, la deuda de mantenimiento (D15) se come las ventas hasta el embargo; es de balance. Multa: se deja 30 de oro y lo demás pasa a préstamo a 8 días. Contrabando: el mostrador cobra el doble con Secretos 3. Casillas tapadas: Mayús + clic derecho, o el clic normal si el edificio está transparente.",
       "opciones": "Confirmar o cambiar las cifras; la trampa de pobreza se decide con el balance."
+    },
+    {
+      "tema": "P-R1 Región en vez de un solo mapa EA",
+      "detalle": "La capital es el mapa EA de 80×80 (A + C); los demás asentamientos, de 32×32 a 48×48; town_e sigue como rebanada; solo la ciudad de casa se simula entera. Preguntas O-R1 a O-R10 en docs/gdd/09b_region.md §9b.8.",
+      "opciones": "(a) capital grande y el resto pequeños · (b) todos iguales · (c) un mapa y destinos abstractos"
     }
   ],
   "proximos_pasos": [

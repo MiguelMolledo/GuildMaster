@@ -4,7 +4,7 @@
   python3 tools/city/ciudad.py vestir <map>            dress a map by rules (data/maps/<map>.json "decor")
   python3 tools/city/ciudad.py validar [map...]        coherence of every map (or the given ones); exit 1 on errors
   python3 tools/city/ciudad.py vista <map> [--out PNG] preview PNG (reports/ciudad/<map>.png) without the game
-  python3 tools/city/ciudad.py generar --id <id> --layout <calle|plaza|cruce|rio> --seed <n> [--size 40x40]
+  python3 tools/city/ciudad.py generar --id <id> --layout <calle|plaza|cruce|rio|aldea|abadia> --seed <n> [--size 40x40] [--households N] ...
                                                        generate a town (generator.py), dress it, validate, preview
 
 Maps whose id is in STRICT (or any map made by `generar`: "generated" in the map) get every rule as an error; the

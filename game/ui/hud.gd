@@ -30,6 +30,7 @@ signal focus_requested(target: String)  # a notice was clicked: centre on this b
 signal deselect_requested               # ESC with only a building picked: the world forgets it
 signal pause_menu_requested             # ESC with nothing open, or the Menu button (docs/ui/02: the pause menu)
 signal tutorial_requested(chapter: String)  # a chapter picked in the help (docs/ui/05_tutorial.md §2)
+signal region_requested                  # R: the map of the region (docs/gdd/09b_region.md; the app opens it)
 
 const GOLD_ICON: String = "icon_oro"
 
@@ -445,6 +446,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		toggle_trial()
 	elif HudKeys.pressed(event, "build_mode"):
 		_build_denied()
+	elif HudKeys.pressed(event, "region_map") and not interior_open:
+		region_requested.emit()
 	elif event.is_action_pressed("pause_toggle"):
 		_game.toggle_pause()
 	else:

@@ -25,12 +25,22 @@ para vestir `town_e`, para generar y para validar. El juego solo lee el JSON.
 
 ```bash
 python3 tools/city/ciudad.py generar --id town_road --layout calle --seed 1 [--size 40x40] [--start artisan_blacksmith]
+    [--households N] [--fields N] [--reach N] [--filler N] [--trees X]
 /opt/homebrew/bin/godot --headless --path . -s tools/scenarios/make_city_scenarios.gd -- --maps=town_road
 python3 tools/city/ciudad.py validar town_road
 ```
 
-- `--layout`: `calle` (pueblo-calle, como town_e), `plaza` (plaza mayor con cuatro calles radiales y una ronda),
-  `cruce` (dos caminos que cruzan el mapa, la plaza en una esquina del cruce) o `rio` (villa de río con puente).
+- `--layout`: `calle` (pueblo-calle, como town_e), `plaza` (plaza mayor con cuatro calles radiales y una ronda; en
+  mapas de 60 o más, más anillos cada 9 casillas, el primero de calle), `cruce` (dos caminos que cruzan el mapa, la
+  plaza en una esquina del cruce), `rio` (villa de río con puente), `aldea` (un camino por la plaza y dos caminos de
+  tierra hacia los campos; para mapas pequeños, desde 30×30) o `abadia` (la plaza es el atrio de la abadía, una ronda
+  de calle la rodea de cerca y dentro quedan los edificios y huertos; el camino entra por el oeste y sale de tierra
+  por el este).
+- **Perfil del pueblo** (todo opcional; sin nada, lo de `reglas.json generator`): `--households N` (hogares, una casa
+  cada uno: los primeros, los de town_e tal cual; a partir del noveno, otra vez los de town_e con solo `gold`, `rank`
+  y `stats`, y el reparto pone apellido, colores, nombres, sexo, edad y aspecto, `docs/contratos/poblacion.md`),
+  `--fields N` (campos), `--reach N` (hasta dónde llega el relleno desde la plaza), `--filler N` (manzanas de relleno
+  como mucho) y `--trees X` (densidad de árboles). El perfil queda en `"generated".profile` del mapa.
 - `--seed`: misma semilla, mismo trazado y mismo tamaño = mismo fichero, byte a byte. El id no cuenta: puedes
   probar en `--out tmp/x` y luego generar con el id bueno.
 - `--start` (repetible): de qué inicios salen los solares obligatorios. Sin él, los cuatro del Artesano
@@ -48,6 +58,24 @@ python3 tools/city/ciudad.py validar town_road
   `town_e` no se genera: su fuente es `tools/maps/make_town_e.py` (trazado, solares, población y, al final, el
   vestido por reglas). Tras tocar el mapa o las reglas, `python3 tools/maps/make_town_e.py`; el paso `town_e` de la
   QA (`--check`) falla si el fichero y el script no coinciden.
+
+### Los mapas de la región
+
+Cada asentamiento de `data/world/region.json` (`docs/gdd/09b_region.md`) tiene su mapa. La villa es `town_e` (a mano);
+los demás se generaron así (mismo comando, mismo fichero):
+
+| Asentamiento | Mapa | Comando (`python3 tools/city/ciudad.py generar …`) |
+|---|---|---|
+| Capital (maqueta del mapa EA) | `region_capital` | `--id region_capital --layout plaza --seed 1 --size 80x80 --households 16 --fields 6 --reach 30 --filler 160` |
+| Puerto de río | `region_port` | `--id region_port --layout rio --seed 1 --size 48x48 --households 10 --reach 20 --filler 70` |
+| Mina y cantera | `region_quarry` | `--id region_quarry --layout cruce --seed 1 --size 40x40 --households 6 --fields 2 --filler 30 --trees 0.16 --start artisan_blacksmith` |
+| Aldea | `region_hamlet` | `--id region_hamlet --layout aldea --seed 1 --size 32x32 --households 4 --fields 6 --reach 9 --filler 8 --trees 0.1 --start artisan_blacksmith` |
+| Abadía | `region_abbey` | `--id region_abbey --layout abadia --seed 1 --size 36x36 --households 4 --fields 4 --reach 9 --filler 20 --trees 0.2 --start artisan_blacksmith` |
+
+Después, sus escenarios: `/opt/homebrew/bin/godot --headless --path . -s tools/scenarios/make_city_scenarios.gd --
+--maps=region_capital,region_port,region_quarry,region_hamlet,region_abbey`. Si cambias el tamaño o las casas de un
+mapa, cambia también `map_size` y `households` de su asentamiento en `region.json` (el validador lo comprueba).
+Todos llevan los solares del inicio del herrero porque su escenario juega `artisan_blacksmith`.
 
 ### Los pasos del generador
 

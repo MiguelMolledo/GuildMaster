@@ -1,0 +1,1311 @@
+{
+ "id": "region_port",
+ "name_key": "map.region_port",
+ "size": [
+  48,
+  48
+ ],
+ "rows": [
+  "TT........T....TT.TTTTTT..........ww....TT......",
+  "TT.......T........TT..T...ffffff,.ww..TTTT....TT",
+  "...T..T..T.....T...TT..T..ffffff,.ww..........TT",
+  "T.T....T.TT.T.....T.T.....ffffff,.ww.......T.TTT",
+  "T.........................ffffff,.ww..T..T...TTT",
+  "................................,.ww.....T....TT",
+  ".............ffffff.ffffff......,.ww...T..T.....",
+  "...###.###...ffffff.ffffff.###..,.ww....T.......",
+  "...###.###...ffffff.ffffff.###..,.ww..T...T.....",
+  "...###.###...ffffff.ffffff.###..,.ww....T.......",
+  "...=,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.ww..T.........",
+  "...=...............####.####....,.ww....T....T..",
+  "...=####...........####.####.###,.ww........TTT.",
+  "...=####....######.####.####.###,.ww....T.TT....",
+  "...=####....######.####.####.###,.ww............",
+  "...=####....######..............,.ww..........T.",
+  "...=........######..............,.ww...........T",
+  "...=............................,.ww............",
+  "...=.......PPPPPPPPPP...........,.ww..........TT",
+  "...=...###.PSPPSPPSPP.###.###...,.ww.###......TT",
+  "...=...###.PPPPPPPPPP.###.###...,.ww.###.###...T",
+  "...=...###.SPPPPPPPPP.###.###...,.ww.###.###....",
+  "...=...###.PPPPPPPPPP.###.###...,.ww.###.###....",
+  "===========PPPP#PPPPP=============bb============",
+  "===========PPPPPPPPPP=============bb============",
+  "...=.......SPPPPPPPPP.###.......,.ww............",
+  "...=...###.PPPPPPPPPP.###....###,.ww............",
+  "...=...###.PNPPPPPPPP.###....###,.ww........T...",
+  "...=...###.PPPPPPPPPP........###,.ww..T..T.TT...",
+  "...=...###.PPPPPPPPPP...........,.ww........T...",
+  "...=.........................###,.ww..T...TT....",
+  "...=.........................###,.ww...T...T....",
+  "...=.........................###,.ww.....T....T.",
+  "...=.###.###.###.###.###.###....,.ww..T......TT.",
+  "...=.###.###.###.###.###.###....,.ww...T..T.T...",
+  "...=.###.###.###.###.###.###....,.ww..TT........",
+  "...=,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.ww.......T..T.",
+  "...###.###.###.###.###..........,.ww......TT....",
+  "...###.###.###.###.###..........,.ww............",
+  "...###.###.###.###.###..........,.ww..........T.",
+  "..........................ffffff,.ww..T.....T..T",
+  "..........................ffffff,.ww..T.....T.T.",
+  "..........................ffffff,.ww......T..T..",
+  ".......................T..ffffff,.ww............",
+  ".....T............T..T..........,.ww..T.T...T...",
+  "T...T......TT...T......T........,.ww........T.T.",
+  "........T......T.......TT....T..,.ww..T......T..",
+  "T.T......TT..T.............T......ww....T.T.T..."
+ ],
+ "spawns": {
+  "player": [
+   16,
+   26
+  ],
+  "market": [
+   15,
+   21
+  ],
+  "west_gate": [
+   0,
+   24
+  ],
+  "east_gate": [
+   47,
+   23
+  ]
+ },
+ "stalls": {
+  "resources": {
+   "tile": [
+    12,
+    19
+   ],
+   "service": [
+    12,
+    20
+   ]
+  },
+  "food": {
+   "tile": [
+    15,
+    19
+   ],
+   "service": [
+    15,
+    20
+   ]
+  },
+  "materials": {
+   "tile": [
+    18,
+    19
+   ],
+   "service": [
+    18,
+    20
+   ]
+  },
+  "clothier": {
+   "tile": [
+    11,
+    21
+   ],
+   "service": [
+    12,
+    21
+   ]
+  },
+  "goods": {
+   "tile": [
+    11,
+    25
+   ],
+   "service": [
+    12,
+    25
+   ]
+  }
+ },
+ "board": {
+  "tile": [
+   12,
+   27
+  ],
+  "service": [
+   12,
+   26
+  ]
+ },
+ "town_hall": {
+  "origin": [
+   12,
+   13
+  ],
+  "footprint": [
+   6,
+   4
+  ],
+  "tile": [
+   14,
+   16
+  ],
+  "service": [
+   14,
+   17
+  ]
+ },
+ "buildings": {
+  "armory": {
+   "type": "armory",
+   "origin": [
+    7,
+    26
+   ],
+   "door": [
+    10,
+    27
+   ],
+   "owner": ""
+  },
+  "house_01": {
+   "type": "house",
+   "origin": [
+    5,
+    33
+   ],
+   "door": [
+    6,
+    36
+   ]
+  },
+  "house_02": {
+   "type": "house",
+   "origin": [
+    9,
+    33
+   ],
+   "door": [
+    10,
+    36
+   ]
+  },
+  "house_03": {
+   "type": "house",
+   "origin": [
+    13,
+    33
+   ],
+   "door": [
+    14,
+    36
+   ]
+  },
+  "house_04": {
+   "type": "house",
+   "origin": [
+    17,
+    33
+   ],
+   "door": [
+    18,
+    36
+   ]
+  },
+  "house_05": {
+   "type": "house",
+   "origin": [
+    21,
+    33
+   ],
+   "door": [
+    22,
+    36
+   ]
+  },
+  "house_06": {
+   "type": "house",
+   "origin": [
+    25,
+    33
+   ],
+   "door": [
+    26,
+    36
+   ]
+  },
+  "house_07": {
+   "type": "house",
+   "origin": [
+    29,
+    12
+   ],
+   "door": [
+    32,
+    13
+   ]
+  },
+  "house_08": {
+   "type": "house",
+   "origin": [
+    29,
+    26
+   ],
+   "door": [
+    32,
+    27
+   ]
+  },
+  "house_09": {
+   "type": "house",
+   "origin": [
+    29,
+    30
+   ],
+   "door": [
+    32,
+    31
+   ]
+  },
+  "house_10": {
+   "type": "house",
+   "origin": [
+    3,
+    7
+   ],
+   "door": [
+    4,
+    10
+   ]
+  },
+  "player_forge": {
+   "type": "forge",
+   "origin": [
+    7,
+    19
+   ],
+   "door": [
+    8,
+    23
+   ]
+  },
+  "rival_carpentry": {
+   "type": "carpentry",
+   "origin": [
+    7,
+    19
+   ],
+   "door": [
+    8,
+    23
+   ]
+  },
+  "rival_forge": {
+   "type": "forge",
+   "origin": [
+    22,
+    19
+   ],
+   "door": [
+    23,
+    23
+   ]
+  },
+  "rival_masonry": {
+   "type": "masonry",
+   "origin": [
+    7,
+    19
+   ],
+   "door": [
+    8,
+    23
+   ]
+  },
+  "rival_tailor": {
+   "type": "tailor_shop",
+   "origin": [
+    7,
+    20
+   ],
+   "door": [
+    8,
+    23
+   ]
+  },
+  "workshop_carpentry": {
+   "type": "carpentry",
+   "origin": [
+    26,
+    19
+   ],
+   "door": [
+    27,
+    23
+   ]
+  },
+  "workshop_masonry": {
+   "type": "masonry",
+   "origin": [
+    37,
+    19
+   ],
+   "door": [
+    38,
+    23
+   ]
+  },
+  "workshop_tailor": {
+   "type": "tailor_shop",
+   "origin": [
+    41,
+    20
+   ],
+   "door": [
+    42,
+    23
+   ]
+  }
+ },
+ "social_points": [
+  {
+   "id": "bench_w",
+   "kind": "bench",
+   "slots": [
+    [
+     11,
+     28
+    ],
+    [
+     11,
+     29
+    ]
+   ]
+  },
+  {
+   "id": "bench_e",
+   "kind": "bench",
+   "slots": [
+    [
+     20,
+     27
+    ],
+    [
+     20,
+     28
+    ]
+   ]
+  },
+  {
+   "id": "bench_n",
+   "kind": "bench",
+   "slots": [
+    [
+     20,
+     18
+    ],
+    [
+     20,
+     19
+    ]
+   ]
+  },
+  {
+   "id": "chat_well",
+   "kind": "chat",
+   "slots": [
+    [
+     14,
+     22
+    ],
+    [
+     16,
+     22
+    ],
+    [
+     17,
+     23
+    ]
+   ]
+  },
+  {
+   "id": "chat_board",
+   "kind": "chat",
+   "slots": [
+    [
+     13,
+     26
+    ],
+    [
+     13,
+     27
+    ],
+    [
+     14,
+     27
+    ]
+   ]
+  },
+  {
+   "id": "dice_plaza",
+   "kind": "dice",
+   "slots": [
+    [
+     17,
+     27
+    ],
+    [
+     18,
+     27
+    ],
+    [
+     18,
+     28
+    ]
+   ]
+  }
+ ],
+ "workplaces": [
+  {
+   "id": "gate_west",
+   "kind": "tile",
+   "tile": [
+    1,
+    24
+   ]
+  },
+  {
+   "id": "stall_food",
+   "kind": "stall",
+   "tile": [
+    15,
+    18
+   ],
+   "stall": "food"
+  },
+  {
+   "id": "field_a",
+   "kind": "tile",
+   "tile": [
+    14,
+    7
+   ]
+  },
+  {
+   "id": "field_b",
+   "kind": "tile",
+   "tile": [
+    21,
+    7
+   ]
+  },
+  {
+   "id": "river_bank",
+   "kind": "tile",
+   "tile": [
+    33,
+    20
+   ]
+  },
+  {
+   "id": "stall_materials",
+   "kind": "stall",
+   "tile": [
+    18,
+    18
+   ],
+   "stall": "materials"
+  },
+  {
+   "id": "gate_east",
+   "kind": "tile",
+   "tile": [
+    46,
+    23
+   ]
+  },
+  {
+   "id": "well",
+   "kind": "tile",
+   "tile": [
+    16,
+    24
+   ]
+  },
+  {
+   "id": "church_a",
+   "kind": "tile",
+   "tile": [
+    11,
+    14
+   ]
+  },
+  {
+   "id": "stall_resources",
+   "kind": "stall",
+   "tile": [
+    12,
+    18
+   ],
+   "stall": "resources"
+  },
+  {
+   "id": "armory",
+   "kind": "shop",
+   "tile": [
+    10,
+    27
+   ],
+   "building": "armory",
+   "stall": "armory"
+  },
+  {
+   "id": "church_b",
+   "kind": "tile",
+   "tile": [
+    18,
+    14
+   ]
+  },
+  {
+   "id": "field_c",
+   "kind": "tile",
+   "tile": [
+    27,
+    41
+   ]
+  },
+  {
+   "id": "field_d",
+   "kind": "tile",
+   "tile": [
+    27,
+    2
+   ]
+  },
+  {
+   "id": "townhall_a",
+   "kind": "tile",
+   "tile": [
+    12,
+    17
+   ]
+  },
+  {
+   "id": "townhall_b",
+   "kind": "tile",
+   "tile": [
+    16,
+    17
+   ]
+  }
+ ],
+ "population": [
+  {
+   "home": "house_01",
+   "family_name": "Soler",
+   "gold": 20,
+   "colors": {
+    "primary": "#7a5230",
+    "secondary": "#d8c8a0"
+   },
+   "members": [
+    {
+     "name": "Joan",
+     "female": false,
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 18,
+     "visual": {
+      "hair": 0,
+      "skin": 0
+     }
+    },
+    {
+     "name": "Agnès",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 23,
+     "visual": {
+      "hair": 5,
+      "skin": 3
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_02",
+   "family_name": "Puig",
+   "gold": 20,
+   "colors": {
+    "primary": "#4a6a8a",
+    "secondary": "#e0d0b0"
+   },
+   "members": [
+    {
+     "name": "Pau",
+     "female": false,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 28,
+     "visual": {
+      "hair": 4,
+      "skin": 2
+     }
+    },
+    {
+     "name": "Clara",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 20,
+     "visual": {
+      "hair": 3,
+      "skin": 1
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_03",
+   "family_name": "Roca",
+   "gold": 20,
+   "colors": {
+    "primary": "#6a6a6a",
+    "secondary": "#c0a060"
+   },
+   "members": [
+    {
+     "name": "Arnau",
+     "female": false,
+     "rank": "master",
+     "stats": {
+      "charisma": 4,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 8,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 25,
+     "visual": {
+      "hair": 2,
+      "skin": 0
+     }
+    },
+    {
+     "name": "Elisenda",
+     "female": true,
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 30,
+     "visual": {
+      "hair": 1,
+      "skin": 3
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_04",
+   "family_name": "Vila",
+   "gold": 20,
+   "colors": {
+    "primary": "#8a7a3a",
+    "secondary": "#3a3a4a"
+   },
+   "members": [
+    {
+     "name": "Martí",
+     "female": false,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 22,
+     "visual": {
+      "hair": 0,
+      "skin": 2
+     }
+    },
+    {
+     "name": "Blanca",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 27,
+     "visual": {
+      "hair": 5,
+      "skin": 1
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_05",
+   "family_name": "Serra",
+   "gold": 20,
+   "colors": {
+    "primary": "#5a3a5a",
+    "secondary": "#d0b890"
+   },
+   "members": [
+    {
+     "name": "Guillem",
+     "female": false,
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 6,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 6,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 19,
+     "visual": {
+      "hair": 4,
+      "skin": 0
+     }
+    },
+    {
+     "name": "Sança",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 4,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 24,
+     "visual": {
+      "hair": 3,
+      "skin": 3
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_06",
+   "family_name": "Font",
+   "gold": 20,
+   "colors": {
+    "primary": "#3a6a6a",
+    "secondary": "#e8d8b8"
+   },
+   "members": [
+    {
+     "name": "Jaume",
+     "female": false,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 29,
+     "visual": {
+      "hair": 2,
+      "skin": 2
+     }
+    },
+    {
+     "name": "Margarida",
+     "female": true,
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 5,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 21,
+     "visual": {
+      "hair": 1,
+      "skin": 1
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_07",
+   "family_name": "Pons",
+   "gold": 20,
+   "colors": {
+    "primary": "#7a3a2a",
+    "secondary": "#b0b0a0"
+   },
+   "members": [
+    {
+     "name": "Ramon",
+     "female": false,
+     "rank": "master",
+     "stats": {
+      "charisma": 3,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 7,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 26,
+     "visual": {
+      "hair": 0,
+      "skin": 0
+     }
+    },
+    {
+     "name": "Isabel",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 18,
+     "visual": {
+      "hair": 5,
+      "skin": 3
+     }
+    }
+   ]
+  },
+  {
+   "home": "house_08",
+   "family_name": "Mas",
+   "gold": 20,
+   "colors": {
+    "primary": "#4a5a2a",
+    "secondary": "#d8b878"
+   },
+   "members": [
+    {
+     "name": "Berenguer",
+     "female": false,
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 4,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 23,
+     "visual": {
+      "hair": 4,
+      "skin": 2
+     }
+    },
+    {
+     "name": "Violant",
+     "female": true,
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     },
+     "age": 28,
+     "visual": {
+      "hair": 3,
+      "skin": 1
+     }
+    }
+   ]
+  },
+  {
+   "gold": 20,
+   "members": [
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    }
+   ],
+   "home": "house_09"
+  },
+  {
+   "gold": 20,
+   "members": [
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    }
+   ],
+   "home": "house_10"
+  }
+ ],
+ "generated": {
+  "layout": "rio",
+  "seed": 1,
+  "size": [
+   48,
+   48
+  ],
+  "tool": "tools/city/ciudad.py generar",
+  "starts": [
+   "artisan_blacksmith",
+   "artisan_carpenter",
+   "artisan_mason",
+   "artisan_tailor"
+  ],
+  "profile": {
+   "households": 10,
+   "max_filler": 70,
+   "town_reach": 20
+  }
+ },
+ "decor": {
+  "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
+  "items": [
+   {"kind": "house", "id": "lot_house_e", "at": [7, 7], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "house", "id": "lot_house_a", "at": [27, 7], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "house", "id": "lot_house_d_back", "at": [19, 11], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "yard", "id": "yard_cart", "at": [22, 11]},
+   {"kind": "yard", "id": "yard_plain", "at": [22, 12]},
+   {"kind": "yard", "id": "yard_sacks", "at": [22, 13]},
+   {"kind": "yard", "id": "yard_plain", "at": [19, 14]},
+   {"kind": "yard", "id": "yard_plain", "at": [20, 14]},
+   {"kind": "yard", "id": "yard_plain", "at": [21, 14]},
+   {"kind": "yard", "id": "yard_plain", "at": [22, 14]},
+   {"kind": "house", "id": "lot_house_f_back", "at": [24, 11], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "yard", "id": "yard_plain", "at": [27, 11]},
+   {"kind": "yard", "id": "yard_plain", "at": [27, 12]},
+   {"kind": "yard", "id": "yard_plain", "at": [27, 13]},
+   {"kind": "yard", "id": "yard_plain", "at": [24, 14]},
+   {"kind": "yard", "id": "yard_plain", "at": [25, 14]},
+   {"kind": "yard", "id": "yard_plain", "at": [26, 14]},
+   {"kind": "yard", "id": "yard_sacks", "at": [27, 14]},
+   {"kind": "house", "id": "lot_house_e_back", "at": [4, 12], "size": [3, 3], "flip": true, "facing": [-1, 0]},
+   {"kind": "yard", "id": "yard_barrels", "at": [7, 12]},
+   {"kind": "yard", "id": "yard_plain", "at": [7, 13]},
+   {"kind": "yard", "id": "yard_plain", "at": [7, 14]},
+   {"kind": "yard", "id": "yard_plain", "at": [4, 15]},
+   {"kind": "yard", "id": "yard_plain", "at": [5, 15]},
+   {"kind": "yard", "id": "yard_sacks", "at": [6, 15]},
+   {"kind": "yard", "id": "yard_plain", "at": [7, 15]},
+   {"kind": "single", "id": "well", "at": [15, 23]},
+   {"kind": "house", "id": "lot_house_f_back", "at": [22, 25], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "house", "id": "lot_house_a_back", "at": [3, 37], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "house", "id": "lot_house_a_back", "at": [7, 37], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "house", "id": "lot_house_a_back", "at": [11, 37], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "house", "id": "lot_house_c_back", "at": [15, 37], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "house", "id": "lot_house_e_back", "at": [19, 37], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "lantern", "id": "lantern", "at": [1, 22], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [25, 22], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [31, 22], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [40, 22], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [46, 22], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [6, 25], "off": [10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [2, 10], "off": [10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [4, 16], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [4, 27], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [4, 33], "off": [-10, -5]},
+   {"kind": "prop", "id": "barrel", "at": [9, 28], "off": [13, 7], "site": "armory"},
+   {"kind": "prop", "id": "crate", "at": [9, 26], "off": [13, 7], "site": "armory"},
+   {"kind": "prop", "id": "barrel", "at": [9, 22], "off": [-13, 7], "site": "player_forge"},
+   {"kind": "prop", "id": "crate", "at": [7, 22], "off": [-13, 7], "site": "player_forge"},
+   {"kind": "prop", "id": "barrel", "at": [24, 22], "off": [-13, 7], "site": "rival_forge"},
+   {"kind": "prop", "id": "crate", "at": [22, 22], "off": [-13, 7], "site": "rival_forge"},
+   {"kind": "prop", "id": "crate", "at": [28, 22], "off": [-13, 7], "site": "workshop_carpentry"},
+   {"kind": "prop", "id": "crate", "at": [26, 22], "off": [-13, 7], "site": "workshop_carpentry"},
+   {"kind": "prop", "id": "crate", "at": [39, 22], "off": [-13, 7], "site": "workshop_masonry"},
+   {"kind": "prop", "id": "barrel", "at": [37, 22], "off": [-13, 7], "site": "workshop_masonry"},
+   {"kind": "prop", "id": "crate", "at": [43, 22], "off": [-13, 7], "site": "workshop_tailor"},
+   {"kind": "prop", "id": "grain_sack", "at": [41, 22], "off": [-13, 7], "site": "workshop_tailor"},
+   {"kind": "prop", "id": "crate", "at": [10, 21]},
+   {"kind": "prop", "id": "grain_sack", "at": [16, 18]},
+   {"kind": "prop", "id": "cart", "at": [10, 25]},
+   {"kind": "prop", "id": "cart", "at": [19, 18]},
+   {"kind": "prop", "id": "cart", "at": [11, 18]},
+   {"kind": "prop", "id": "bench", "at": [20, 29], "off": [-10, 5], "flip": true},
+   {"kind": "prop", "id": "bench", "at": [15, 29], "off": [-10, 5], "flip": true},
+   {"kind": "prop", "id": "bench", "at": [15, 24], "off": [10, -5], "flip": true},
+   {"kind": "prop", "id": "bench", "at": [20, 25], "off": [10, 5]},
+   {"kind": "fence", "id": "fence", "at": [26, 1], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [26, 1], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [27, 1], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [28, 1], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [29, 1], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [30, 1], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [31, 1], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [31, 1], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [26, 2], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [31, 2], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [26, 3], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [31, 3], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [26, 4], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [26, 4], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [27, 4], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [28, 4], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [29, 4], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [30, 4], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [31, 4], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [31, 4], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [13, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [13, 6], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [14, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [15, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [16, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [17, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [18, 6], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [18, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [20, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [20, 6], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [21, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [22, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [23, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [24, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [25, 6], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [25, 6], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [13, 7], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [18, 7], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [20, 7], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [25, 7], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [13, 8], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [18, 8], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [20, 8], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [25, 8], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [13, 9], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [14, 9], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [15, 9], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [16, 9], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [17, 9], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [18, 9], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [20, 9], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [20, 9], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [21, 9], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [22, 9], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [23, 9], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [25, 9], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [25, 9], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [26, 40], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [26, 40], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [27, 40], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [28, 40], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [29, 40], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [30, 40], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [31, 40], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [31, 40], "off": [14, -7]},
+   {"kind": "fence", "id": "fence", "at": [26, 41], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [31, 41], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [26, 42], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [31, 42], "off": [14, 7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [26, 43], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [26, 43], "off": [-14, -7], "flip": true},
+   {"kind": "fence", "id": "fence", "at": [27, 43], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [28, 43], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [29, 43], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [30, 43], "off": [-14, 7]},
+   {"kind": "fence", "id": "fence", "at": [31, 43], "off": [-14, 7]},
+   {"kind": "house", "id": "lot_house_e_back", "at": [7, 26], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "armory"},
+   {"kind": "yard", "id": "yard_sacks", "at": [7, 29], "site": "armory"},
+   {"kind": "yard", "id": "yard_barrels", "at": [8, 29], "site": "armory"},
+   {"kind": "yard", "id": "yard_plain", "at": [9, 29], "site": "armory"},
+   {"kind": "house", "id": "lot_house_e", "at": [5, 33], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_01"},
+   {"kind": "house", "id": "lot_house_f", "at": [9, 33], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_02"},
+   {"kind": "house", "id": "lot_house_b", "at": [13, 33], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_03"},
+   {"kind": "house", "id": "lot_house_e", "at": [17, 33], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_04"},
+   {"kind": "house", "id": "lot_house_b", "at": [21, 33], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_05"},
+   {"kind": "house", "id": "lot_house_c", "at": [25, 33], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_06"},
+   {"kind": "house", "id": "lot_house_d", "at": [29, 12], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_07"},
+   {"kind": "house", "id": "lot_house_e", "at": [29, 26], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_08"},
+   {"kind": "house", "id": "lot_house_c", "at": [29, 30], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_09"},
+   {"kind": "house", "id": "lot_house_c", "at": [3, 7], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_10"},
+   {"kind": "house", "id": "lot_house_b", "at": [7, 20], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "player_forge"},
+   {"kind": "yard", "id": "yard_plain", "at": [7, 19], "site": "player_forge"},
+   {"kind": "yard", "id": "yard_sacks", "at": [8, 19], "site": "player_forge"},
+   {"kind": "yard", "id": "yard_plain", "at": [9, 19], "site": "player_forge"},
+   {"kind": "house", "id": "lot_house_e", "at": [22, 20], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "rival_forge"},
+   {"kind": "yard", "id": "yard_plot", "at": [22, 19], "site": "rival_forge"},
+   {"kind": "yard", "id": "yard_plot", "at": [23, 19], "site": "rival_forge"},
+   {"kind": "yard", "id": "yard_plot", "at": [24, 19], "site": "rival_forge"},
+   {"kind": "house", "id": "lot_house_c", "at": [26, 20], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_carpentry"},
+   {"kind": "yard", "id": "yard_crates", "at": [26, 19], "site": "workshop_carpentry"},
+   {"kind": "yard", "id": "yard_plain", "at": [27, 19], "site": "workshop_carpentry"},
+   {"kind": "yard", "id": "yard_plain", "at": [28, 19], "site": "workshop_carpentry"},
+   {"kind": "house", "id": "lot_house_b", "at": [37, 20], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_masonry"},
+   {"kind": "yard", "id": "yard_plain", "at": [37, 19], "site": "workshop_masonry"},
+   {"kind": "yard", "id": "yard_sacks", "at": [38, 19], "site": "workshop_masonry"},
+   {"kind": "yard", "id": "yard_plain", "at": [39, 19], "site": "workshop_masonry"},
+   {"kind": "house", "id": "lot_house_f", "at": [41, 20], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_tailor"}
+  ]
+ }
+}

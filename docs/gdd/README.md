@@ -16,6 +16,7 @@ Si lo jugado choca con el diseño, gana lo jugado: se cambia aquí en el mismo c
 - [7. Testing y verificación (el sistema de Wizards Broke It)](07_testing.md)
 - [8. Proceso de desarrollo con agentes](08_proceso.md)
 - [9. Ciudades: estilos de referencia y cómo replicarlos con PixelLab](09_ciudades.md)
+- [9b. La región: varias ciudades y pueblos (propuesta)](09b_region.md)
 - [10. Plan de reconstrucción por hitos](10_hitos.md)
 - [11. Reglas para el agente (semilla del `CLAUDE.md` del repo nuevo)](11_reglas_agente.md)
 - [12. Decisiones (tomadas el 2026-11-01 y pendientes)](12_decisiones.md)

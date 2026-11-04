@@ -14972,5 +14972,32 @@
   "imagenes": 1,
   "usd": 0.0004,
   "que": "image2pixel masonry_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T13:13:08",
+  "tanda": "mundo",
+  "pieza": "region",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "region_map_v1"
+ },
+ {
+  "fecha": "2026-11-04T13:13:55",
+  "tanda": "mundo",
+  "pieza": "region",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "region_map_v2"
+ },
+ {
+  "fecha": "2026-11-04T13:14:58",
+  "tanda": "mundo",
+  "pieza": "region",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0078,
+  "que": "image2pixel region_map_v1_i2p.png"
  }
 ]

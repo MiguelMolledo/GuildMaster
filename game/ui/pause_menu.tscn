@@ -74,6 +74,12 @@ layout_mode = 2
 text = "--"
 unique_name_in_owner = true
 
+[node name="RegionButton" type="Button" parent="Center/Panel/VBox"]
+custom_minimum_size = Vector2(190, 20)
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
 [node name="Sep2" type="HSeparator" parent="Center/Panel/VBox"]
 theme_type_variation = &"DividerSeparator"
 layout_mode = 2

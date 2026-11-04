@@ -167,6 +167,12 @@ static func icon_small(item_id: String) -> Texture2D:
 ## (240×135, cards) or <id>_192.png (192×108, notices), from the art branch; until it arrives, the pilot copy of the
 ## page kit assets/art/ui/page_kit/piloto/<kind singular>_<id>[_192].png. null = no illustration (the card goes
 ## without it).
+## The illustrated parchment of a region (data/world/region.json id; tools/art/fal_region.py): null if missing.
+static func region_map(region_id: String) -> Texture2D:
+	var p := "%s/region/%s_map.png" % [ART_ROOT, region_id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
 static func illustration(kind: String, id: String, small: bool = false) -> Texture2D:
 	var suffix := "_192" if small else ""
 	for p: String in ["%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, id, suffix],

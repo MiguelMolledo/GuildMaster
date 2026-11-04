@@ -2316,3 +2316,63 @@ tutorial.ui.help_done,done,hecho
 tutorial.ui.help_other_trade,Only in a game of this trade,Solo en una partida de este oficio
 tutorial.ui.options_hints,First-time hints,Pistas de primera vez
 tutorial.ui.options_guided,Guided tutorial: only the highlight,Tutorial guiado: solo lo resaltado
+region.name,Valldaura,Valldaura
+region.villa,Vilarrasa,Vilarrasa
+region.capital,Bellcaire,Bellcaire
+region.port,Portvell,Portvell
+region.quarry,Peñarroja,Peñarroja
+region.hamlet,Vilablat,Vilablat
+region.abbey,Montsacre,Montsacre
+region.kind.villa,Market village (your home),Villa (tu casa)
+region.kind.capital,Capital of the region,Capital de la región
+region.kind.port,River port,Puerto de río
+region.kind.quarry,Mining and quarry town,Pueblo minero y cantero
+region.kind.hamlet,Farming hamlet,Aldea agrícola
+region.kind.abbey,Abbey,Abadía
+region.villa.specialty,The four trades of the Artisan; your forge,Los cuatro oficios del Artesano; tu forja
+region.capital.specialty,"Cloth, fine clothes and the notaries' documents","Telas, ropa fina y documentos de notario"
+region.port.specialty,"Timber floated down the Daura, planks and barrels","Madera bajada por el Daura, tablones y barriles"
+region.quarry.specialty,"Iron ore, charcoal and stone","Mena de hierro, carbón y piedra"
+region.hamlet.specialty,"Wheat, flour, bread and wool","Trigo, harina, pan y lana"
+region.abbey.specialty,"Herbs, bandages and the scriptorium's copies","Hierbas, vendas y las copias del escritorio"
+region.villa.rulers,The Mayor and the council of the houses,El Alcalde y el concejo de las casas
+region.capital.rulers,A council of patricians; the Exchange signs the treaties,Un concejo de patricios; la Lonja firma los tratados
+region.port.rulers,The Boatmen's Brotherhood and its prior,La Cofradía de barqueros y su prior
+region.quarry.rulers,A house of barons with the mine's grant,Una casa de barones con la concesión de la mina
+region.hamlet.rulers,The village bailiff; the abbey owns the land,El batlle de la aldea; las tierras son de la abadía
+region.abbey.rulers,The abbot and his cellarer,El abad y su cillerero
+region.terrain.road,cart track,camino de carros
+region.terrain.royal_road,royal road,camino real
+region.terrain.river,towpath along the river,camino de sirga
+region.terrain.mountain,mountain path,sendero de montaña
+region.terrain.ridge,ridge path,sendero de cresta
+region.terrain.forest,forest road,camino del bosque
+region.terrain.ford,ford,vado
+region.event.snow,Snow in the passes,Nieve en los pasos
+region.event.flood,The Daura in flood,Crecida del Daura
+ui.region.title,Map of the region,Mapa de la región
+ui.region.hint,Hover or click a town to see its card,Pasa por encima o pulsa una población para ver su ficha
+ui.region.size,Size,Tamaño
+ui.region.size_value,%d households · ~%d souls,%d casas · ~%d almas
+ui.region.specialty,Specialty,Especialidad
+ui.region.distance,Distance,Distancia
+ui.region.distance_value,%d h from %s,%d h desde %s
+ui.region.here,You are here,Estás aquí
+ui.region.rulers,Who rules,Quién manda
+ui.region.cheap,Cheap here,Barato aquí
+ui.region.dear,Pays well,Paga bien
+ui.region.route,%s · %d h · risk %d/5,%s · %d h · riesgo %d/5
+ui.region.route_cut,Cut: %s,Cortada: %s
+ui.region.travel,Travel,Viajar
+ui.region.soon,Coming soon,Próximamente
+ui.region.travel_tip,Travelling between towns arrives in a later version,Los viajes entre ciudades llegan en una versión futura
+ui.region.back,Back,Volver
+ui.pause.region,Map of the region,Mapa de la región
+ui.key.r,R,R
+hud.region_tip,Map of the region (key R),Mapa de la región (tecla R)
+map.region_capital,Capital (mock-up),Capital (maqueta)
+map.region_port,River port,Puerto de río
+map.region_quarry,Quarry town,Pueblo cantero
+map.region_hamlet,Hamlet,Aldea
+map.region_abbey,Abbey,Abadía
+ui.region.unreachable,no open road now,sin camino abierto ahora

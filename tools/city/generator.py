@@ -1,7 +1,8 @@
 """Town generator (docs/protocolos/generar-ciudad.md §Generar). Offline, deterministic (seed -> same map).
 
-  python3 tools/city/ciudad.py generar --id <id> --layout <calle|plaza|cruce|rio> --seed <n> [--size 40x40]
-                                       [--start artisan_blacksmith] [--out DIR]
+  python3 tools/city/ciudad.py generar --id <id> --layout <calle|plaza|cruce|rio|aldea|abadia> --seed <n>
+                                       [--size 40x40] [--start artisan_blacksmith] [--out DIR] [--households N]
+                                       [--fields N] [--reach N] [--filler N] [--trees X]
 
 Steps: 1 streets and plaza (the layout), 2 the plaza's market (the template of town_e: stalls, board, well, benches,
 chat and dice points), the town hall and the armory around it, 3 parcels along the streets (door always on the
@@ -127,6 +128,25 @@ def layout_plaza(rng, w, h):
         for c in (c0, c1):
             if p.at(c, r) == ".":
                 p.put(c, r, ",")
+    # a big town (60 tiles or more, the capital): more rings of streets round the first, every 9 tiles, while they
+    # fit; the 40x40 towns never get here (same file as before)
+    k = 1
+    while w >= 60 and h >= 60:
+        g = ring + 9 * k
+        c0, r0 = px - g, py - g + 1
+        c1, r1 = px + PLAZA_W - 1 + g, py + PLAZA_H - 1 + g - 1
+        if c0 < 3 or r0 < 3 or c1 > w - 4 or r1 > h - 4:
+            break
+        ch = "=" if k == 1 else ","
+        for c in range(c0, c1 + 1):
+            for r in (r0, r1):
+                if p.at(c, r) in (".", ","):
+                    p.put(c, r, ch)
+        for r in range(r0, r1 + 1):
+            for c in (c0, c1):
+                if p.at(c, r) in (".", ","):
+                    p.put(c, r, ch)
+        k += 1
     return p
 
 
@@ -173,7 +193,49 @@ def layout_rio(rng, w, h):
     return p
 
 
-LAYOUTS = {"calle": layout_calle, "plaza": layout_plaza, "cruce": layout_cruce, "rio": layout_rio}
+def layout_aldea(rng, w, h):
+    """Hamlet (aldea, small maps from 30x30): one main road across the map through the plaza (the village green with
+    its stalls), two short dirt lanes across it on either side that lead to the fields; nothing else."""
+    p = Plan(w, h)
+    px, py = _plaza_centre(p, rng, w // 2, h // 2)
+    y0 = py + 5
+    p.rect(0, y0, w - 1, y0 + 1, "=", main=True)
+    p.gates = [("west_gate", (0, y0 + 1)), ("east_gate", (w - 1, y0))]
+    lw = max(2, px - 6 + rng.randint(-1, 0))
+    le = min(w - 3, px + PLAZA_W + 5 + rng.randint(0, 1))
+    for x in (lw, le):
+        p.rect(x, max(1, py - 6), x, min(h - 2, y0 + 10), ",")
+    return p
+
+
+def layout_abadia(rng, w, h):
+    """Abbey (abadia): the plaza is the open court before the abbey church (the town hall north of it is the chapter
+    house); a precinct lane (=) runs round the plaza at a short distance, the abbey's buildings and gardens fill the
+    ring between them; the road comes in from the west gate to the plaza and a dirt lane leaves by the east gate;
+    outside the precinct, orchards (trees) and fields."""
+    p = Plan(w, h)
+    px, py = _plaza_centre(p, rng, w // 2, h // 2)
+    y0 = py + 5
+    g = 5 + rng.randint(0, 1)
+    c0, r0 = max(2, px - g), max(2, py - g - 1)
+    c1, r1 = min(w - 3, px + PLAZA_W - 1 + g), min(h - 3, py + PLAZA_H - 1 + g)
+    p.rect(0, y0, px - 1, y0 + 1, "=", main=True)  # the road from the west gate to the plaza
+    for c in range(c0, c1 + 1):
+        for r in (r0, r1):
+            if p.at(c, r) == ".":
+                p.put(c, r, "=")
+    for r in range(r0, r1 + 1):
+        for c in (c0, c1):
+            if p.at(c, r) == ".":
+                p.put(c, r, "=")
+    p.rect(c1 + 1, y0, w - 1, y0, ",")  # the lane out by the east gate
+    p.rect(px + PLAZA_W, y0, c1 - 1, y0, ",")  # and from the plaza to the precinct lane
+    p.gates = [("west_gate", (0, y0 + 1)), ("east_gate", (w - 1, y0))]
+    return p
+
+
+LAYOUTS = {"calle": layout_calle, "plaza": layout_plaza, "cruce": layout_cruce, "rio": layout_rio,
+           "aldea": layout_aldea, "abadia": layout_abadia}
 
 
 # --- the town --------------------------------------------------------------------------------------------------
@@ -301,10 +363,13 @@ def site_door(cat, typ, rect, d):
     return (rect[0] + tile[0], rect[1] + tile[1]), True
 
 
-def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None):
+def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None, households=None, profile=None):
+    """profile: overrides of reglas.json generator (fields, town_reach, max_filler, tree_density) for this town;
+    households: how many households live in it (default: as many as population_from has)."""
     cat = cat or citylib.Catalog()
     rl = citylib.rules()
-    gen = rl.get("generator", {})
+    gen = dict(rl.get("generator", {}))
+    gen.update(profile or {})
     rng = random.Random(f"{layout}:{seed}:{w}x{h}")
     p = LAYOUTS[layout](rng, w, h)
     px, py = p.plaza
@@ -389,8 +454,9 @@ def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None):
             plots.append([rect, d, set(used_by)])
         sites[sid] = {"type": typ, "origin": [rect[0], rect[1]], "door": list(site_door(cat, typ, rect, d)[0])}
     pop = citylib.load_json(os.path.join(citylib.DATA, "maps", gen.get("population_from", "town_e") + ".json"))
-    households = pop.get("population", [])
-    n_houses = max(len(households), int(gen.get("houses", 8)))
+    households = population_of(pop.get("population", []), households)
+    n_houses = len(households) if profile and "households" in profile else max(len(households),
+                                                                                int(gen.get("houses", 8)))
     homes = []
     for i in range(n_houses):
         got = place(cat.footprints["house"], prefer_main=False, typ="house")
@@ -445,9 +511,29 @@ def build(map_id, layout, seed, w=40, h=40, start_ids=None, cat=None):
             "generated": {"layout": layout, "seed": seed, "size": [w, h], "tool": "tools/city/ciudad.py generar",
                           "starts": start_ids or ["artisan_blacksmith", "artisan_carpenter", "artisan_mason",
                                                   "artisan_tailor"]}}
+    if profile:
+        data["generated"]["profile"] = {k: profile[k] for k in sorted(profile)}
     m = citylib.Map(data, cat)
     data["decor"] = citylib.dress(m, rl)
     return data
+
+
+def population_of(base, n):
+    """The households of a generated town: the first n of `base` (population_from's, copied as they are); past its
+    end, `base` again in its order with only what weighs on the balance (rank, stats, the household's gold): the cast
+    (sim/meta/cast.gd, docs/contratos/poblacion.md) gives them name, sex, age and look, in the fixed cast too."""
+    if n is None:
+        return [json.loads(json.dumps(hh)) for hh in base]
+    out = []
+    for i in range(n):
+        hh = base[i % len(base)]
+        if i < len(base):
+            out.append(json.loads(json.dumps(hh)))
+            continue
+        e = {"gold": hh.get("gold", 0),
+             "members": [{"rank": m["rank"], "stats": json.loads(json.dumps(m["stats"]))} for m in hh["members"]]}
+        out.append(e)
+    return out
 
 
 def _fields(p, rng, taken, roads, pc, reach, n):
@@ -610,10 +696,17 @@ def main(argv):
     ap.add_argument("--size", default="40x40")
     ap.add_argument("--start", action="append", default=[])
     ap.add_argument("--out", default="")
+    ap.add_argument("--households", type=int, default=None, help="households (one house each); default: town_e's")
+    ap.add_argument("--fields", type=int, default=None)
+    ap.add_argument("--reach", type=int, default=None, help="how far from the plaza filler blocks go (tiles)")
+    ap.add_argument("--filler", type=int, default=None, help="most filler blocks")
+    ap.add_argument("--trees", type=float, default=None, help="tree density")
     a = ap.parse_args(argv)
     w, h = (int(x) for x in a.size.lower().split("x"))
+    profile = {k: v for k, v in (("households", a.households), ("fields", a.fields), ("town_reach", a.reach),
+                                 ("max_filler", a.filler), ("tree_density", a.trees)) if v is not None}
     cat = citylib.Catalog()
-    data = build(a.id, a.layout, a.seed, w, h, a.start or None, cat)
+    data = build(a.id, a.layout, a.seed, w, h, a.start or None, cat, a.households, profile or None)
     if a.out:
         os.makedirs(a.out, exist_ok=True)
         path = os.path.join(a.out, a.id + ".json")
