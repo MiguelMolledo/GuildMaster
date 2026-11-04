@@ -1,12 +1,13 @@
 extends Node
 ## Scripted capture of the H12 artisan trades (--smoke-script=oficios; through `grimoire heavy` with --always-on-top):
 ## the new game screen with the trade buttons (the carpenter chosen), then a new game as each of carpenter, mason and
-## tailor: the street of the workshops south of the plaza, its interior, and its interior with every upgrade of its
+## tailor: the street of the workshops south of the plaza, the rival of its trade by the plaza, its interior, and its interior with every upgrade of its
 ## tree marked as done (capture only: the state is edited directly). Shots reports/shots/oficios_<what>.png. Prints
 ## "[SmokeOficios] ok|FAIL ..."; quits with 1 on a FAIL or a timeout.
 
 const BLD := "bld_0001"
 const STREET := Vector2i(20, 32)
+const RIVAL_LOT := Vector2i(24, 21)  # the lot by the plaza: the player's forge, or the rival of the other trades
 
 var app: Node = null
 var timeout: float = 90.0
@@ -20,6 +21,7 @@ var _steps: Array = []  # [shot name, prepare: Callable]
 func _ready() -> void:
 	for p: String in ["carpenter", "mason", "tailor"]:
 		_steps.append(["calle_" + p, func() -> void: _start(p)])
+		_steps.append(["rival_" + p, func() -> void: app.world().camera().center_on(Iso.tile_to_world(RIVAL_LOT))])
 		_steps.append(["interior_" + p, func() -> void: app.open_interior(BLD, true)])
 		_steps.append(["mejoras_" + p, func() -> void: _all_upgrades()])
 	_steps.push_front(["partida_nueva", func() -> void: _new_game_screen()])

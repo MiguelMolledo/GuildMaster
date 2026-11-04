@@ -82,9 +82,15 @@ func test_one_workshop_of_each_trade_in_town_e() -> void:
 			check(not origins.has(key), "%s: one building per site (%s)" % [start, key])
 			origins[key] = true
 			types[str(bld["type"])] = int(types.get(str(bld["type"]), 0)) + 1
-		for ty: String in ["carpentry", "masonry", "tailor_shop"]:
-			eq(int(types.get(ty, 0)), 1, "%s: one %s" % [start, ty])
-		check(int(types.get("forge", 0)) >= 1, "%s: the forge of the rival smith" % start)
+		var own := str(cat.buildings().keys().filter(func(b: String) -> bool:
+			return b == str(cat.starts()[start]["building"]["type"]))[0])
+		for ty: String in ["forge", "carpentry", "masonry", "tailor_shop"]:
+			eq(int(types.get(ty, 0)), 2 if ty == own else 1, "%s: %s (the player's trade twice: its rival)" % [start, ty])
+		var rival := ""
+		for f: String in st.families:
+			if str(st.families[f].get("ai_profile", "")) == "rival_smith":
+				rival = f
+		eq(str(_home_of(st, rival).get("type", "")), own, "%s: the rival (GDD 4.5.5) is of the player's trade" % start)
 		for f: String in _ai_families(st):
 			var home := _home_of(st, f)
 			check(not home.is_empty(), "%s: AI family %s has its workshop" % [start, f])

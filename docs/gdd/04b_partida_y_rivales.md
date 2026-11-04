@@ -4,7 +4,7 @@ Continúa la sección 4 ([04_diseno_de_juego.md](04_diseno_de_juego.md)). Aproba
 
 ### 4.16 Inicio de partida
 
-**Partida nueva:** se elige dificultad (4.23), se crea el personaje (4.2.2: nombre, género, 5 puntos libres) y los colores de la familia (4.10.9). La partida empieza al amanecer del día 1 de primavera del año 1. Desde H12 se elige también el oficio dentro del Artesano (herrero, carpintero, albañil o sastre): cada uno tiene su inicio (`data/starts/artisan_<oficio>.json`) con las mismas cifras que el del herrero (30 de oro, deuda por dificultad, 2 encargos guionizados de su oficio) y su taller en su solar de town_e. El nombre, el apellido y el aspecto que propone la pantalla, y la gente del pueblo, salen del reparto generado (4.11.1); el botón **«Otra familia»** vuelve a tirarlo con otra sub-semilla del reparto sin cambiar la semilla del mundo.
+**Partida nueva:** se elige dificultad (4.23), se crea el personaje (4.2.2: nombre, género, 5 puntos libres) y los colores de la familia (4.10.9). La partida empieza al amanecer del día 1 de primavera del año 1. Desde H12 se elige también el oficio dentro del Artesano (herrero, carpintero, albañil o sastre): cada uno tiene su inicio (`data/starts/artisan_<oficio>.json`) con las mismas cifras que el del herrero (30 de oro, deuda por dificultad, 2 encargos guionizados de su oficio), su taller en su solar de town_e y un rival de su mismo oficio (4.5.5). El nombre, el apellido y el aspecto que propone la pantalla, y la gente del pueblo, salen del reparto generado (4.11.1); el botón **«Otra familia»** vuelve a tirarlo con otra sub-semilla del reparto sin cambiar la semilla del mundo.
 
 **Condiciones de inicio (Artesano / Herrero, dificultad Normal)** [balance]:
 
