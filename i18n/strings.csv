@@ -2433,3 +2433,22 @@ combat.result.effects.yielded_you,Reputation −8|No wound|If it was for love: �
 combat.result.effects.yielded_rival,Reputation +5|%s: reputation −8,Reputación +5|%s: reputación −8
 reason.no_breath,Not enough breath,Te falta aliento
 combat.ui.over,The duel is over,El duelo ha terminado
+hito.abbey_church,Abbey church,Iglesia abacial
+hito.barn,Barn,Pajar
+hito.cathedral,Cathedral,Catedral
+hito.church,Church,Iglesia
+hito.cloister,Cloister,Claustro
+hito.crane,Crane,Grúa
+hito.customs,Customs house,Aduana
+hito.exchange,Exchange,Lonja
+hito.gate_tower,Gate tower,Torre de la puerta
+hito.guesthouse,Guesthouse,Hospedería
+hito.mine,Mine,Boca de la mina
+hito.quarry,Quarry,Cantera
+hito.shipyard,Shipyard,Astillero
+hito.smelter,Smelter,Fundición
+hito.spoil,Spoil heap,Escombrera
+hito.threshing,Threshing floor,Era
+hito.wall_tower,Wall tower,Torre de la muralla
+hito.warehouse,Warehouse,Almacén
+hito.watermill,Watermill,Molino

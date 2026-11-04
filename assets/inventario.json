@@ -5713,6 +5713,388 @@
       "origen_previo": null,
       "coste_gen": 0,
       "notas": "Ilustración de la carta de resultado (240×135, PageCard «card»): victoria, derrota y tablas en la plaza al alba. Candidata a fal con el kit de página."
+    },
+    {
+      "id": "prop_rowboat",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_capital",
+        "region_port"
+      ],
+      "ruta": "game/visuals/props/rowboat.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Barca: cosmético, sobre el agua. Huella 2×1 casillas (a lo largo del río). Hoy, casco greybox (game/visuals/props/boat.tscn, game/world/boat_view.gd). Para el sprite: game/visuals/props/rowboat.tscn. Mapas: region_capital, region_port."
+    },
+    {
+      "id": "prop_ship",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_capital",
+        "region_port"
+      ],
+      "ruta": "game/visuals/props/ship.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Barco amarrado (coca de río): cosmético, sobre el agua. Huella 4×2 casillas (a lo largo del río). Hoy, casco greybox (game/visuals/props/boat.tscn, game/world/boat_view.gd). Para el sprite: game/visuals/props/ship.tscn. Mapas: region_capital, region_port."
+    },
+    {
+      "id": "prop_house_block",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_capital",
+        "region_port",
+        "region_quarry"
+      ],
+      "ruta": "game/visuals/props/house_block.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Casas de relleno de las ciudades orgánicas en lotes de 2×2, 2×3, 3×2, 3×4, 4×3 casillas (las de 3×3 usan lot_house_*). Hoy, bloque greybox del color del tejado de su barrio (game/visuals/props/house_block.tscn). Para el sprite: una casa por tamaño con su Door y su vista de espaldas, y que citylib.dress la elija como las de 3×3. Mapas: region_capital, region_port, region_quarry."
+    },
+    {
+      "id": "hito_abbey_church",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_abbey"
+      ],
+      "ruta": "game/visuals/props/abbey_church.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: iglesia abacial. Huella 9×5 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 112 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/abbey_church.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_abbey. El sim no lo lee."
+    },
+    {
+      "id": "hito_barn",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_hamlet"
+      ],
+      "ruta": "game/visuals/props/barn.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: pajar. Huella 3×4 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 40 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/barn.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_hamlet. El sim no lo lee."
+    },
+    {
+      "id": "hito_cathedral",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_capital"
+      ],
+      "ruta": "game/visuals/props/cathedral.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: catedral. Huella 12×7 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 128 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/cathedral.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital. El sim no lo lee."
+    },
+    {
+      "id": "hito_church",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_capital"
+      ],
+      "ruta": "game/visuals/props/church.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: iglesia del arrabal. Huella 4×6 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 72 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/church.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital. El sim no lo lee."
+    },
+    {
+      "id": "hito_cloister",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_abbey"
+      ],
+      "ruta": "game/visuals/props/cloister.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: claustro. Huella 6×6 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 40 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/cloister.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_abbey. El sim no lo lee."
+    },
+    {
+      "id": "hito_crane",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_capital",
+        "region_port"
+      ],
+      "ruta": "game/visuals/props/crane.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: grúa de madera del muelle. Huella 1×1 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 88 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/crane.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee."
+    },
+    {
+      "id": "hito_customs",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_capital",
+        "region_port"
+      ],
+      "ruta": "game/visuals/props/customs.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: aduana. Huella 3×3, 4×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 52 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/customs.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee."
+    },
+    {
+      "id": "hito_exchange",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_capital",
+        "region_port"
+      ],
+      "ruta": "game/visuals/props/exchange.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: lonja. Huella 4×5, 7×4 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 64 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/exchange.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee."
+    },
+    {
+      "id": "hito_gate_tower",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_abbey",
+        "region_capital"
+      ],
+      "ruta": "game/visuals/props/gate_tower.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: torre de una puerta de la muralla. Huella 2×2 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 64 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/gate_tower.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_abbey, region_capital. El sim no lo lee."
+    },
+    {
+      "id": "hito_guesthouse",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_abbey"
+      ],
+      "ruta": "game/visuals/props/guesthouse.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: hospedería de la abadía. Huella 3×4 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 44 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/guesthouse.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_abbey. El sim no lo lee."
+    },
+    {
+      "id": "hito_mine",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_quarry"
+      ],
+      "ruta": "game/visuals/props/mine.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: boca de la mina. Huella 3×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 40 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/mine.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_quarry. El sim no lo lee."
+    },
+    {
+      "id": "hito_quarry",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_quarry"
+      ],
+      "ruta": "game/visuals/props/quarry.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: cantera (el hueco escalonado en la roca). Huella 7×5 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 10 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/quarry.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_quarry. El sim no lo lee."
+    },
+    {
+      "id": "hito_shipyard",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_port"
+      ],
+      "ruta": "game/visuals/props/shipyard.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: astillero. Huella 5×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 30 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/shipyard.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_port. El sim no lo lee."
+    },
+    {
+      "id": "hito_smelter",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_quarry"
+      ],
+      "ruta": "game/visuals/props/smelter.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: fundición. Huella 3×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 46 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/smelter.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_quarry. El sim no lo lee."
+    },
+    {
+      "id": "hito_spoil",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_quarry"
+      ],
+      "ruta": "game/visuals/props/spoil.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: escombrera. Huella 3×3, 4×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 20 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/spoil.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_quarry. El sim no lo lee."
+    },
+    {
+      "id": "hito_threshing",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_hamlet"
+      ],
+      "ruta": "game/visuals/props/threshing.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: era de trillar. Huella 3×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 3 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/threshing.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_hamlet. El sim no lo lee."
+    },
+    {
+      "id": "hito_wall_tower",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_capital"
+      ],
+      "ruta": "game/visuals/props/wall_tower.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: torre de la muralla. Huella 2×2 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 80 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/wall_tower.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital. El sim no lo lee."
+    },
+    {
+      "id": "hito_warehouse",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_capital",
+        "region_port"
+      ],
+      "ruta": "game/visuals/props/warehouse.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: almacén del puerto. Huella 3×4, 3×5, 4×3, 5×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 48 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/warehouse.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_capital, region_port. El sim no lo lee."
+    },
+    {
+      "id": "hito_watermill",
+      "tipo": "edificio",
+      "estado": "falta",
+      "para": [
+        "ciudades2",
+        "region_hamlet"
+      ],
+      "ruta": "game/visuals/props/watermill.tscn",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Hito de la ciudad: molino de agua. Huella 3×3 casillas (filas y columnas del mapa; puede ir girado: el sprite necesita las dos orientaciones o reflejo), alto del bloque 52 px. Hoy es un bloque greybox (game/visuals/props/hito.tscn, tamaño, color y etiqueta de data/maps «landmarks»). Para el sprite: crear game/visuals/props/watermill.tscn (Feet en el centro de la huella) y el juego lo usa en vez del bloque. Mapas: region_hamlet. El sim no lo lee."
+    },
+    {
+      "id": "tile_dock",
+      "tipo": "tile",
+      "estado": "falta",
+      "para": [
+        "ciudades2"
+      ],
+      "ruta": "assets/art/tiles/dock.png",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Suelo de muelle (casilla m, transitable): rombo 64×32 como los demás de assets/art/tiles/. Hasta entonces, el color greybox de data/tiles.json."
+    },
+    {
+      "id": "tile_ford",
+      "tipo": "tile",
+      "estado": "falta",
+      "para": [
+        "ciudades2"
+      ],
+      "ruta": "assets/art/tiles/ford.png",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Suelo de vado (casilla v, transitable, lento): rombo 64×32 como los demás de assets/art/tiles/. Hasta entonces, el color greybox de data/tiles.json."
+    },
+    {
+      "id": "tile_wall",
+      "tipo": "tile",
+      "estado": "falta",
+      "para": [
+        "ciudades2"
+      ],
+      "ruta": "assets/art/tiles/wall.png",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Suelo de muralla (casilla M, bloqueada; hoy bloque greybox props/wall.tscn por casilla): rombo 64×32 como los demás de assets/art/tiles/. Hasta entonces, el color greybox de data/tiles.json."
+    },
+    {
+      "id": "tile_rock",
+      "tipo": "tile",
+      "estado": "falta",
+      "para": [
+        "ciudades2"
+      ],
+      "ruta": "assets/art/tiles/rock.png",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Suelo de roca de la sierra (casilla R, bloqueada; hoy bloque greybox props/rock.tscn por casilla): rombo 64×32 como los demás de assets/art/tiles/. Hasta entonces, el color greybox de data/tiles.json."
+    },
+    {
+      "id": "tile_landmark",
+      "tipo": "tile",
+      "estado": "falta",
+      "para": [
+        "ciudades2"
+      ],
+      "ruta": "assets/art/tiles/landmark.png",
+      "origen": "",
+      "origen_previo": "",
+      "coste_gen": 0,
+      "notas": "Suelo de suelo bajo un hito (casilla H, bloqueada; lo tapa el hito): rombo 64×32 como los demás de assets/art/tiles/. Hasta entonces, el color greybox de data/tiles.json."
     }
   ]
 }

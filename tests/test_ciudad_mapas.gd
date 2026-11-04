@@ -76,3 +76,51 @@ func test_every_artisan_start_plays_on_every_generated_town() -> void:
 					var key := "%s,%s" % [bb["origin"][0], bb["origin"][1]]
 					check(not types.has(key), "%s on %s: one building per plot (%s)" % [start_id, id, key])
 					types[key] = true
+
+
+func test_the_view_draws_the_landmarks_and_boats_of_an_organic_town() -> void:
+	# tools/city/organic.py: the landmarks (map "landmarks", "H" tiles) and the boats (map "boats", on the water) are
+	# drawn as blocks of their footprint; filler houses of other lot sizes as house blocks
+	var m: Dictionary = cat.maps().get("region_port", {})
+	var v: WorldView = (load("res://game/world/world_view.tscn") as PackedScene).instantiate()
+	v.setup(NewGame.from_scenario("region_port_start")["state"], cat)
+	var marks := 0
+	var boats := 0
+	var blocks := 0
+	for c: Node in v.objects().get_children():
+		var scene := str(c.scene_file_path).get_file().get_basename()
+		if scene == "hito":
+			marks += 1
+		elif scene == "boat":
+			boats += 1
+		elif scene == "house_block":
+			blocks += 1
+	eq(marks, (m.get("landmarks", []) as Array).size(), "one block per landmark of region_port")
+	eq(boats, (m.get("boats", []) as Array).size(), "one boat per boat of region_port")
+	check(blocks > 0, "house blocks of mixed lot sizes (%d)" % blocks)
+	var signs := 0
+	for c: Node in v.overlay().get_children():
+		if str(c.name).begins_with("sign_"):
+			signs += 1
+	check(signs > 0, "the landmarks' names on signs (%d)" % signs)
+	v.free()
+
+
+func test_the_new_tile_kinds_walk_as_the_table_says() -> void:
+	# piers and fords are walkable, walls, rock and landmark tiles are not (data/tiles.json; no rule of the sim changes)
+	eq(cat.tile_kind_of_char("m"), "dock", "m is a pier")
+	check(cat.tiles["dock"]["walk_cost"] != null and cat.tiles["ford"]["walk_cost"] != null, "piers and fords walk")
+	for k: String in ["wall", "rock", "landmark"]:
+		check(cat.tiles[k]["walk_cost"] == null, "%s blocks" % k)
+	var g := Grid.of(cat, "region_port")
+	var m: Dictionary = cat.maps()["region_port"]
+	var from: Array = m["spawns"]["player"]
+	var pier := Vector2i(-1, -1)
+	var rows: Array = m["rows"]
+	for r: int in rows.size():
+		var c := str(rows[r]).find("m")
+		if c >= 0:
+			pier = Vector2i(c, r)
+			break
+	check(pier.x >= 0, "region_port has piers")
+	check(not Pathfinder.find(g, Vector2i(int(from[0]), int(from[1])), pier).is_empty(), "a path from the plaza onto a pier")

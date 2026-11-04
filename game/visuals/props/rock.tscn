@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq4fy5djkfril"]
+
+[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+
+[node name="Rock" type="Node2D"]
+editor_description = "One tile of the sierra (tile kind rock, R): WorldView puts it on every rock tile."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -34)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_block")
+height = 34.0
+color = Color(0.43, 0.4, 0.36, 1)

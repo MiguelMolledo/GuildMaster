@@ -30,6 +30,10 @@ signal manage_requested(building_id: String)  # double click on a building (GDD 
 signal service_requested(actor: String, kind: String, id: String, service: Vector2i)
 signal npc_picked(char_id: String)  # H7: a click on somebody who is not of the player's family (their sheet)
 
+const BLOCK_HOUSE: String = "house_block"  # a filler house of any lot size but 3x3 (tools/city/organic.py)
+const LANDMARK_SCENE: String = "hito"  # the generic block of a landmark without its own scene
+const BOAT_SCENE: String = "boat"
+
 var order_sink: Callable = Callable()  # who receives the orders: Game.give in the game, a test's own in the tests
 var state: WorldState
 var catalog: Catalog
@@ -610,6 +614,10 @@ func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int
 		for dr: int in int(size[1]):
 			for dc: int in int(size[0]):
 				tiles.append(Vector2i(int(at[0]) + dc, int(at[1]) + dr))
+		if kind in ["landmark", "boat"]:
+			n += _add_mark(it, tiles)
+			kinds[kind] = int(kinds.get(kind, 0)) + 1
+			continue
 		if kind in ["house", "yard", "single"]:
 			var ok := true
 			for t: Vector2i in tiles:
@@ -618,7 +626,16 @@ func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int
 			if not ok:
 				skipped += 1
 				continue
-			n += _place_filler(id, tiles, flip)
+			if id == BLOCK_HOUSE:
+				var hb := VisualPaths.instantiate("props", id)
+				_size_block(hb, Vector2i(int(size[0]), int(size[1])), str(it.get("color", "")), float(it.get("height", 0)))
+				VisualPaths.place(hb, _centre_of(tiles))
+				objects().add_child(hb)
+				for t: Vector2i in tiles:
+					_props[t] = hb
+				n += 1
+			else:
+				n += _place_filler(id, tiles, flip)
 			for t: Vector2i in tiles:
 				filler.erase(t)
 		else:
@@ -637,6 +654,58 @@ func _add_decor(decor: Dictionary, filler: Dictionary, owned: Dictionary) -> int
 	ViewConfig.info("WorldView", "decor: %d visuals %s (skipped %d: a building of this game stands there)" % [n, kinds,
 		skipped])
 	return n
+
+
+## A landmark or a boat of the decor (tools/city/organic.py: data/maps "landmarks" and "boats", purely cosmetic: the
+## sim never reads them; their tiles are blocked "H" tiles or water). The scene of its type if there is one
+## (game/visuals/props/<type>.tscn: its sprite, when it is made), else the generic block (props/hito.tscn,
+## props/boat.tscn) sized to its footprint with its colour and height; a landmark's name on a sign above it.
+func _add_mark(it: Dictionary, tiles: Array) -> int:
+	var kind := str(it.get("kind", ""))
+	var id := str(it.get("id", ""))
+	var own := VisualPaths.has_scene("props", id)
+	var p := VisualPaths.instantiate("props", id if own else (LANDMARK_SCENE if kind == "landmark" else BOAT_SCENE))
+	var size: Array = it.get("size", [1, 1])
+	if not own:
+		_size_block(p, Vector2i(int(size[0]), int(size[1])), str(it.get("color", "")), float(it.get("height", 0)))
+	var centre := _centre_of(tiles)
+	VisualPaths.place(p, centre)
+	p.name = "%s_%d_%d" % [id, tiles[0].x, tiles[0].y]
+	objects().add_child(p)
+	if kind == "landmark":
+		for t: Vector2i in tiles:
+			_props[t] = p
+		var label := str(it.get("label", ""))
+		if label != "" and int(size[0]) * int(size[1]) > 1:
+			var sg := BuildingMarks.Sign.new()
+			sg.setup(SimQuery.t_(label), ViewConfig.color("#c8b08a"))
+			sg.position = (centre + Vector2(0, -VisualPaths.top_height(p, 48.0) - 16)).round()
+			sg.name = "sign_" + str(p.name)
+			overlay().add_child(sg)
+	return 1
+
+
+## Sizes a generic block scene (its "Greybox": GreyboxBlocks or BoatView) to a footprint, colour and height.
+func _size_block(p: Node2D, foot: Vector2i, color: String, height: float) -> void:
+	var g := p.get_node_or_null("Greybox")
+	if g == null:
+		return
+	if color != "":
+		g.set("color", ViewConfig.color(color))
+	if height > 0.0:
+		g.set("height", height)
+		var top := p.get_node_or_null("Top") as Node2D
+		if top != null:
+			top.position.y = -height
+	if g.has_method("apply_footprint"):
+		g.call("apply_footprint", foot)
+
+
+func _centre_of(tiles: Array) -> Vector2:
+	var centre := Vector2.ZERO
+	for t: Vector2i in tiles:
+		centre += Iso.tile_to_world(t)
+	return centre / maxf(1.0, float(tiles.size()))
 
 
 ## The tiles of a w×h lot whose top-left corner is `at`, if all of them are free; else [].
