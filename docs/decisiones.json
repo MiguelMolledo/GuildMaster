@@ -401,6 +401,12 @@
       "tema": "Combate: duelo a tres tiempos (O-C1–O-C12)",
       "decision": "Aprobadas las recomendaciones de 04e §4e.9: el duelo entra ya como mecánica social del Artesano, solo a primera sangre (hasta la rendición, con la salud de 4.22); el lance sustituye a los asaltos de 4.22.6.1; a muerte bloqueado; el retado elige armas; lee Empatía contra Arte Marcial; la IA rival solo responde retos hasta revisar 04c; rechazar es gratis 2+ títulos por encima; iniciativa a ciegas y luego alterna; resolver sin jugar = jugar siguiendo la pista; cualquier pretendiente reta, sea cual sea su sexo. Guardado del duelo: v15; 4.22 pasa a v17.",
       "por_que": "El owner: «me parece bien lo que comentas, dale caña»."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Interiores II (04g)",
+      "decision": "Sótano, planta baja y planta alta (la guarida del Pícaro tendrá en el sótano jaula para secuestrados y contrabando); clientes que aparecen con fundido; paredes del frente bajas y las interiores transparentes cuando estás detrás. Clientela en dos capas: vecinos con su agenda y clientela de la comarca que viene por la fama del negocio, con dinero de fuera y precio máximo (04g §4.6.5.7).",
+      "por_que": "Owner: «hasta dos plantas y un sótano… clientes que aparezcan con fade in… que los atraigan porque el negocio es famoso, no porque necesiten nada… me parece bien»."
     }
   ],
   "pendientes": [
@@ -481,11 +487,6 @@
       "tema": "Diversión y ritmo (03b §3b.7, O-D1–O-D5)",
       "detalle": "Se construye con las recomendaciones: Forja viva de 3 decisiones con Resolver sin jugar; desbloqueos por hito y calendario con carta; Saltar hasta…; obras maestras con nombre; encargos con especificaciones.",
       "opciones": "Ver 03b §3b.7."
-    },
-    {
-      "tema": "Interiores II (04g §4.6.5.7, O-I1–O-I3)",
-      "detalle": "Se construye con las recomendaciones: hasta dos plantas más desniveles; clientes que aparecen con fundido y burbuja de pedido; paredes del frente bajas y las interiores transparentes cuando estás detrás.",
-      "opciones": "Ver 04g §4.6.5.7."
     }
   ],
   "proximos_pasos": [

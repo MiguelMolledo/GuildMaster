@@ -55,7 +55,10 @@ Cada interior es un fichero de datos (`data/interiors/<edificio>.json`), no una 
 - **Niveles:**
   - **desniveles** de un escalón dentro de una planta (una tarima del mostrador, el foso de la fragua), que se
     salvan andando;
-  - y **plantas** (planta baja y planta alta, como mucho dos), unidas por una **escalera**.
+  - **plantas**: sótano, planta baja y planta alta (O-I1, owner), unidas por **escaleras**. El sótano es para la
+    bodega de la taberna, el almacén frío y, cuando llegue el Pícaro (4.22), la **guarida**: una **jaula** para los
+    secuestrados (4.24.5 y 4.22.6.6) y el escondite del **contrabando** (mercancía robada, `@stolen`, 4.22.6.4),
+    con trampilla oculta (una inspección puede encontrarla).
 - **Puestos y puntos de acción** con su sitio:
   - los puestos del sim (horno, yunque, barra, cocina, camas);
   - los **sitios de clientes**: cola del mostrador, mesas, sitios de espera y camas.
@@ -114,15 +117,43 @@ contento o, si se le acaba la paciencia, se va con una queja.
 | Carpintería | taller con banco y sierra, patio de tablones, tienda pequeña | vivienda |
 | Cantería | patio de bloques con tarima de trabajo, cobertizo | — |
 | Sastrería | taller con mesa de corte y telar, tienda con probador | vivienda |
-| Taberna-Posada | salón con barra, mesas, chimenea y rincón del juglar; cocina; bodega (un escalón abajo) | habitaciones de la posada |
+| Taberna-Posada | salón con barra, mesas, chimenea y rincón del juglar; cocina | habitaciones de la posada; **sótano**: bodega |
 | Ayuntamiento | sala del concejo, archivo, despacho del Alcalde | — |
 | Tribunal | sala con estrado, banco del acusado y banco de testigos | — |
 | Casa de la familia | hogar, cocina y mesa | dormitorios |
+| Guarida de ladrones (4.22) | taller del perista, mesa de juego | — ; **sótano**: jaula de los secuestrados y contrabando tras una trampilla |
 
-### 4.6.5.7 Preguntas para el owner
+### 4.6.5.7 De dónde salen los clientes (sin romper la vida del pueblo)
+
+El owner pregunta cómo tener clientes en todos los negocios a la vez que se respeta la vida del pueblo, si es difícil
+equilibrarlo y si los NPC que no son competidores deberían tener dinero ilimitado y venir porque el negocio es famoso,
+no porque necesiten algo. La respuesta es **dos capas de clientes**:
+
+| Capa | Quiénes | Cuántos | De dónde sale su dinero | Cómo se ven |
+|---|---|---|---|---|
+| **Vecinos** | Los 20-32 habitantes de la villa, con su agenda (4.24.1) | Pocos: los que su agenda manda (hambre → la taberna, «ir a la compra» → la tienda) | Su bolsa (como hoy) | Andan por la calle hasta tu puerta y dentro aparecen en su sitio. Tienen nombre, y atenderles bien sube la relación |
+| **Clientela de la comarca** | Gente de las aldeas y caseríos de alrededor, de paso o de otras ciudades: no son habitantes del mapa | La mayoría. Salen de la **demanda** del negocio, no de la población | **De fuera** (P4, 4.19): su bolsa no se simula, pero tienen un **precio máximo** que están dispuestos a pagar | Aparecen dentro con un fundido (O-I2) y desaparecen al irse. Llevan ropa de aldea o de viaje; no cuentan en la población ni pasean por la villa |
+
+- **Lo que se equilibra no es su dinero, sino cuántos vienen y cuánto aceptan pagar.** Para cada negocio:
+  ```
+  clientes_día(b)   = base(oficio) × fama(b) × reputación(familia) × estación × fiesta × reparto(competencia)
+  precio_máximo(c)  = precio_ref(objeto) × calidad × (1 + fama(b) × 0,1) × gusto(grupo)
+  ```
+  `base(oficio)` está en los datos (`data/services.json` y la configuración del mostrador de 4.5.4); el reparto se
+  hace con el rival y los demás proveedores por la fórmula de atractivo de 4.22.3.2. Así **vienen porque el negocio es
+  famoso** (fama, calidad, precio), y no porque un vecino concreto lo necesite, como propone el owner.
+- **No es difícil de equilibrar**, porque es como se ha hecho desde H12: cada oficio tiene su bot y su diana de oro
+  neto por día. Una clientela nueva solo cambia `base(oficio)`, y se ajusta midiendo con el bot de ese oficio.
+- **La vida del pueblo se respeta:** los vecinos siguen su agenda. Los de la comarca no ocupan casas, ni comen ni
+  duermen en el pueblo (salvo los forasteros de 4.24.3, que duermen en la posada). Las tiendas se llenan sin vaciar la
+  plaza.
+- **Fiestas y feria:** suben las dos capas (más forasteros y más comarca), que es justo lo que se espera del día de
+  feria.
+
+### 4.6.5.8 Preguntas para el owner (decididas el 2026-11-04)
 
 | # | Pregunta | Opciones | Recomendación |
 |---|---|---|---|
-| **O-I1** | ¿Cuántas plantas? | (a) Como mucho dos (baja y alta) más desniveles de un escalón. (b) Sótano, baja y alta. (c) Una sola planta con desniveles | **(a)**; la bodega de la taberna, como desnivel de la planta baja |
-| **O-I2** | Clientes que aparecen | (a) Sí, de momento, con fundido y burbuja. (b) Que anden ya | **(a)**, como propone el owner |
-| **O-I3** | Paredes | (a) Las del frente, bajas siempre, y las interiores transparentes cuando estás detrás. (b) Todas bajas siempre | **(a)** |
+| **O-I1** | ¿Cuántas plantas? | (a) Como mucho dos (baja y alta) más desniveles de un escalón. (b) Sótano, baja y alta. (c) Una sola planta con desniveles | **Owner: (b)**, sótano, baja y alta; en el sótano del Pícaro, la jaula y el contrabando |
+| **O-I2** | Clientes que aparecen | (a) Sí, de momento, con fundido y burbuja. (b) Que anden ya | **Owner: (a)**, con fundido |
+| **O-I3** | Paredes | (a) Las del frente, bajas siempre, y las interiores transparentes cuando estás detrás. (b) Todas bajas siempre | **Owner: (a)** |
