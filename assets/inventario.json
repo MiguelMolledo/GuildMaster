@@ -6265,6 +6265,188 @@
       "coste_gen": 0,
       "coste_usd": 0.04,
       "notas": "Carro de caravana de bueyes, de perfil mirando al este (al oeste, reflejado), 56×34 a la densidad del pergamino. Variante caravan_cart.png (carreta de mula, 48×24). Cableado: las caravanas de la familia en el mapa regional (VisualPaths.region_caravan, reflejada hacia el oeste; por defecto la de bueyes, CARAVAN_VARIANT)."
+    },
+    {
+      "id": "illus_semana_santa",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/semana_santa.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Semana Santa (04f §4.25.1), 240×135, y semana_santa_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_mayos_corpus",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/mayos_corpus.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de los Mayos y el Corpus (04f §4.25.1), 240×135, y mayos_corpus_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_san_juan",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/san_juan.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de San Juan (04f §4.25.1), 240×135, y san_juan_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_siega_feria",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/siega_feria.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la siega y la feria (04f §4.25.1), 240×135, y siega_feria_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_san_miguel",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/san_miguel.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de San Miguel y la vendimia (04f §4.25.1), 240×135, y san_miguel_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_matanza",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/matanza.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Todos los Santos y San Martín (la matanza) (04f §4.25.1), 240×135, y matanza_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_navidad",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/navidad.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Navidad (04f §4.25.1), 240×135, y navidad_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_carnaval",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/carnaval.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de Carnaval (04f §4.25.1), 240×135, y carnaval_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_altercado",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/altercado.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el altercado (04f §4.24.5), 240×135, y altercado_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_asalto_bandidos",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/asalto_bandidos.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el asalto de bandidos (04f §4.24.5), 240×135, y asalto_bandidos_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_secuestro",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/secuestro.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el secuestro (04f §4.24.5), 240×135, y secuestro_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_rescate",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/rescate.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el rescate (04f §4.24.5), 240×135, y rescate_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_ladron",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "sucesos"
+      ],
+      "ruta": "assets/art/illustrations/events/ladron.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el ladrón nocturno (04f §4.24.5), 240×135, y ladron_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
     }
   ]
 }
