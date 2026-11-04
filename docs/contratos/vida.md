@@ -74,7 +74,9 @@ Crónica: `altercation`, `bandit_raid`, `kidnapping`, `kidnapping_end`.
 - `LifeQuery` (`game/life/life_query.gd`): burbuja (`rumor`, `fight`, la del forastero, `wave` del guardia), frase del
   rumor cuando la familia está cerca, libro de rumores, farol.
 - `IncidentCard` + `IncidentPage` (`game/ui/life/`): la carta de PageCard; ilustración por
-  `VisualPaths.illustration("events", <id>)`, greybox rayado con etiqueta si falta.
+  `VisualPaths.illustration("events", <nombre>)` con el nombre del arte (`IncidentPage.ART_ALIAS`: altercation →
+  `altercado`, bandit_raid → `asalto_bandidos`, kidnapping → `secuestro`; inventario `illus_<nombre>`), greybox rayado
+  con etiqueta si falta.
 - `RumorBook`: pestaña «Rumores» del libro de cuentas.
 - Burbujas nuevas en `game/visuals/bubbles/` (`water`, `wash`, `pray`, `play`, `show`, `alms`, `rumor`, `fight`) y
   el farol `game/visuals/props/hand_lantern.tscn`.

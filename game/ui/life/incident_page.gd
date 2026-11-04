@@ -2,11 +2,14 @@ class_name IncidentPage
 extends RefCounted
 ## The page of an incident with a card for the player's family (docs/gdd/04f_vida_y_fiestas.md §4.24.5, principle 5:
 ## its card, its notice and its chronicle): the data for PageCard. The illustration (VisualPaths.illustration
-## "events", the incident's id; a visible greybox with its label while the art is missing), what happens, the figures
+## "events", the art's name of the incident: ART_ALIAS; a visible greybox with its label while the art is missing), what happens, the figures
 ## (the band, the ransom) and one button per choice the card offers, the one it takes by default marked, a choice the
 ## family cannot take now off with the reason (Incidents.choice_block). Presentation only.
 
 const SIZE: Vector2i = Vector2i(240, 135)
+## The names the art uses for the incidents' ids (the art keeps its names, as in assets/inventario.json illus_<name>):
+## assets/art/illustrations/events/<name>[_192].png.
+const ART_ALIAS: Dictionary = {"altercation": "altercado", "bandit_raid": "asalto_bandidos", "kidnapping": "secuestro"}
 
 
 static func data_for(sim: Sim, inc: Dictionary, actor: String) -> Dictionary:
@@ -14,7 +17,7 @@ static func data_for(sim: Sim, inc: Dictionary, actor: String) -> Dictionary:
 	var def := str(inc.get("def", ""))
 	var p := text_params(sim, inc)
 	var blocks: Array = []
-	var img := VisualPaths.illustration("events", def)
+	var img := VisualPaths.illustration("events", str(ART_ALIAS.get(def, def)))
 	if img == null:
 		img = greybox()
 		blocks.append({"type": "paragraph", "text": SimQuery.t_("ui.life.art_missing") % def})
