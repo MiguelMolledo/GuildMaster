@@ -151,6 +151,30 @@ def props():
     return out
 
 
+def characters():
+    """Los personajes nuevos de H16 (paletas de looks.json sobre los sprites de hoy) y los animales (sin hacer)."""
+    out = []
+    looks = os.path.join(ROOT, "assets/art/characters/looks.json")
+    if os.path.exists(looks):
+        for lid, e in json.load(open(looks))["looks"].items():
+            out.append({"id": "chr_h16_" + lid, "tipo": "npc", "estado": "greybox", "para": ["H16", "fiestas"],
+                        "ruta": "assets/art/characters/looks.json",
+                        "origen": "paleta del shader de identidad sobre " + "/".join(sorted(set(e["base"].values())))
+                                  + " (tools/art/looks_h16.py)", "coste_gen": 0,
+                        "notas": f"{e['note'][0].upper() + e['note'][1:]} (04f §4.28.3). Hasta PixelLab (15-nov) es el "
+                                 f"sprite de {e['base']['m']}/{e['base']['f']} teñido: primary {e['primary']}, "
+                                 f"secondary {e['secondary']}" + (f", pelo {e['hair']}" if e["hair"] else "") +
+                                 ". Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."})
+    for aid, what in (("pig", "cerdo (la matanza)"), ("bull", "toro (los toros)"),
+                      ("horse", "caballo (la carrera, el torneo y la liza)"), ("sheep", "oveja (la feria de ganado)")):
+        out.append({"id": "chr_animal_" + aid, "tipo": "npc", "estado": "falta", "para": ["H16", "fiestas"],
+                    "ruta": f"assets/art/characters/animal_{aid}/", "origen": None, "coste_gen": 0,
+                    "notas": f"Animal: {what} (04f §4.25-4.26). PixelLab create_character cuadrúpedo, andar e idle "
+                             "en 8 direcciones, en el ciclo del 15-nov: assets/art/MANIFEST.md, «Lista de la compra · "
+                             "PixelLab» (11)."})
+    return out
+
+
 def apply(entries):
     raw = open(INV).read()
     d = json.loads(raw)
@@ -173,7 +197,7 @@ def apply(entries):
 
 
 def main():
-    apply(illustrations() + tavern() + games_and_forge() + props())
+    apply(illustrations() + tavern() + games_and_forge() + props() + characters())
 
 
 if __name__ == "__main__":

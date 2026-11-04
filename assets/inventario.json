@@ -6922,6 +6922,314 @@
       "coste_gen": 0,
       "coste_usd": 0.02,
       "notas": "Decoración de fiesta (04f §4.25.3): a square livestock pen of wooden rails with a gate and some straw inside, empty. Huella 3×3 casillas. Escena game/visuals/props/fiesta/corral.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "illus_visita_marques",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/visita_marques.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la visita del marqués (04f §4.25.2), 240×135, y visita_marques_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_boda_rica",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/boda_rica.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la boda de una familia noble o rica (04f §4.25.2), 240×135, y boda_rica_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_boda_vecinos",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/boda_vecinos.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la boda de vecinos (04f §4.25.2), 240×135, y boda_vecinos_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_torneo",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/torneo.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el torneo (04f §4.25.2), 240×135, y torneo_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_comicos",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/comicos.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la compañía de cómicos (04f §4.25.2), 240×135, y comicos_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_predicador",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/predicador.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el predicador (04f §4.25.2), 240×135, y predicador_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_romeria",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/romeria.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la romería a Montsacre (04f §4.25.2), 240×135, y romeria_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_rogativa",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/rogativa.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la rogativa (04f §4.25.2), 240×135, y rogativa_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_feria_ganado",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/feria_ganado.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la feria de ganado (04f §4.25.2), 240×135, y feria_ganado_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "chr_h16_guard",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre worker_f/worker_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Guardia de la villa: librea azul del concejo con ribete dorado (sin armadura hasta PixelLab) (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de worker_m/worker_f teñido: primary #33508a, secondary #c8a84e. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_bandit",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Bandido: ropa parda y oscura (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #3a362c, secondary #5c4630. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_minstrel",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Juglar: rojo y amarillo, de colores vivos (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #c04040, secondary #e2c040. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_foreign_merchant",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Mercader forastero: morado y tostado, ropa de otra ciudad (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #5e3a80, secondary #d8bc8c. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_pilgrim",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Peregrino: capa parda y esclavina clara (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #7c6c52, secondary #d8d0b8. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_noble",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre worker_f/worker_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Noble: carmesí y oro (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de worker_m/worker_f teñido: primary #861a28, secondary #e2c070. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_retinue",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre worker_f/worker_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Séquito del noble: librea azul y blanca (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de worker_m/worker_f teñido: primary #24448a, secondary #e6e6e6. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_beggar",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Mendigo: harapos pardos y pelo gris (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #5e5440, secondary #4c4434, pelo #8a8478. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_crier",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Pregonero: verde de la villa con ribete amarillo (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #2a6a3a, secondary #e2c040. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_bookmaker",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Corredor de apuestas: granate con dorado (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #5a2a2a, secondary #c8a84e. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_animal_pig",
+      "tipo": "npc",
+      "estado": "falta",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/animal_pig/",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Animal: cerdo (la matanza) (04f §4.25-4.26). PixelLab create_character cuadrúpedo, andar e idle en 8 direcciones, en el ciclo del 15-nov: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (11)."
+    },
+    {
+      "id": "chr_animal_bull",
+      "tipo": "npc",
+      "estado": "falta",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/animal_bull/",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Animal: toro (los toros) (04f §4.25-4.26). PixelLab create_character cuadrúpedo, andar e idle en 8 direcciones, en el ciclo del 15-nov: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (11)."
+    },
+    {
+      "id": "chr_animal_horse",
+      "tipo": "npc",
+      "estado": "falta",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/animal_horse/",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Animal: caballo (la carrera, el torneo y la liza) (04f §4.25-4.26). PixelLab create_character cuadrúpedo, andar e idle en 8 direcciones, en el ciclo del 15-nov: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (11)."
+    },
+    {
+      "id": "chr_animal_sheep",
+      "tipo": "npc",
+      "estado": "falta",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/animal_sheep/",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Animal: oveja (la feria de ganado) (04f §4.25-4.26). PixelLab create_character cuadrúpedo, andar e idle en 8 direcciones, en el ciclo del 15-nov: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (11)."
     }
   ]
 }

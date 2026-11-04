@@ -542,6 +542,21 @@ de ida y vuelta desde la versión de antes.
   toneles, camas y rincón del juglar) e iconos de platos.
 - **Minijuegos:** la pantalla de cada uno (fondos y piezas: liza, caballos de perfil, anilla, dados, naipes de 4
   palos, mesa de taberna), con sus iconos.
+- **Hecho (rama arte-fal-2, 2026-11-04; ids y medidas en `assets/inventario.json`):**
+  - Ilustraciones de las 8 fiestas, los 9 eventos y los 5 sucesos en `assets/art/illustrations/events/<id>.png` y
+    `<id>_192.png`.
+  - Los 14 props de fiesta en `assets/art/props/fiesta/` con su escena en `game/visuals/props/fiesta/`. La huella va
+    en `metadata/footprint` del nodo raíz.
+  - La Taberna-Posada, delante y detrás, en `assets/art/buildings/fal/tavern_inn[_back].png`. Huella y puerta de la
+    carpintería; el lienzo es 20 px más alto: `Sprite` con `offset (-104, -158)`.
+  - El interior, en `assets/art/interiors/tavern/`.
+  - Los iconos de platos, en `assets/art/ui/icons/food_<id>.png`.
+  - Dados, naipes y mesa, en `assets/art/ui/games/`.
+  - La Forja viva de 03b §3b.2, en `assets/art/ui/forge/`. «Batir» lleva los golpes fuerte, medido y de acabado.
+  - Los personajes, como paletas del shader en `assets/art/characters/looks.json`.
+  - Las demás pantallas de minijuego, los sprites de personaje y los animales esperan: las pantallas, a que sus
+    workers digan qué piezas usan; los sprites y los animales, al ciclo de PixelLab del 15-nov (lista en
+    `assets/art/MANIFEST.md`).
 
 #### 4.28.4 Pruebas, bots y dianas
 

@@ -16907,5 +16907,185 @@
   "imagenes": 1,
   "usd": 0.0004,
   "que": "image2pixel q2b_corral_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T23:02:54",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_boda_rica"
+ },
+ {
+  "fecha": "2026-11-04T23:02:55",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_boda_vecinos"
+ },
+ {
+  "fecha": "2026-11-04T23:02:56",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_visita_marques"
+ },
+ {
+  "fecha": "2026-11-04T23:02:56",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_torneo"
+ },
+ {
+  "fecha": "2026-11-04T23:03:21",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_predicador"
+ },
+ {
+  "fecha": "2026-11-04T23:03:22",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_rogativa"
+ },
+ {
+  "fecha": "2026-11-04T23:03:24",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_comicos"
+ },
+ {
+  "fecha": "2026-11-04T23:03:30",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_romeria"
+ },
+ {
+  "fecha": "2026-11-04T23:03:46",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_feria_ganado"
+ },
+ {
+  "fecha": "2026-11-04T23:04:29",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0068,
+  "que": "image2pixel ev_visita_marques_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:34",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel ev_boda_rica_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:39",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_boda_vecinos_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:44",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_torneo_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:48",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_comicos_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:53",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel ev_predicador_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:59",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel ev_romeria_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:05:06",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0007,
+  "que": "image2pixel ev_rogativa_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:05:12",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0006,
+  "que": "image2pixel ev_feria_ganado_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:05:43",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_boda_vecinos"
+ },
+ {
+  "fecha": "2026-11-04T23:05:49",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0007,
+  "que": "image2pixel ev_boda_vecinos_i2p.png"
  }
 ]

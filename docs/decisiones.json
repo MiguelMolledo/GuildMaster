@@ -371,6 +371,12 @@
       "tema": "Combate: duelo a tres tiempos (O-C1–O-C12)",
       "decision": "Aprobadas las recomendaciones de 04e §4e.9: el duelo entra ya como mecánica social del Artesano, solo a primera sangre (hasta la rendición, con la salud de 4.22); el lance sustituye a los asaltos de 4.22.6.1; a muerte bloqueado; el retado elige armas; lee Empatía contra Arte Marcial; la IA rival solo responde retos hasta revisar 04c; rechazar es gratis 2+ títulos por encima; iniciativa a ciegas y luego alterna; resolver sin jugar = jugar siguiendo la pista; cualquier pretendiente reta, sea cual sea su sexo. Guardado del duelo: v15; 4.22 pasa a v17.",
       "por_que": "El owner: «me parece bien lo que comentas, dale caña»."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Arte de H16-H17 (04f §4.28.3 y 03b §3b.2): cómo se entrega",
+      "decision": "(1) Batir en la Forja viva: los «3 golpes» son las tres clases de golpe de 03b (fuerte, medido y de acabado: strike_strong/measured/finish), con el yunque y el martillo también sueltos para animarlos; no tres fotogramas de un golpe. (2) La Taberna-Posada usa la huella y la puerta de la carpintería (3×4, Door (-40, 12)), pero su lienzo es 20 px más alto por las dos plantas (192×230, Sprite offset (-104, -158)). (3) Los props de fiesta llevan la huella en metadata/footprint del nodo raíz (no tienen Door) y Feet en el centro del rombo de la huella. (4) Los naipes (48×72) y los dados se componen con Pillow sobre piezas de fal (palos y figuras), para que el número de palos y de puntos sea exacto. (5) Los personajes nuevos van, hasta PixelLab, como paletas del shader de identidad en assets/art/characters/looks.json (sprite base por sexo y colores de ropa), fuera de data/ para no pisar al worker de vida.",
+      "por_que": "Lo pedía el encargo o lo exige el juego: legibilidad (golpes que se distinguen), encajar en las escenas que ya existen (lienzo, ancla, puerta y huella) y exactitud donde el modelo falla (contar palos y puntos)."
     }
   ],
   "pendientes": [

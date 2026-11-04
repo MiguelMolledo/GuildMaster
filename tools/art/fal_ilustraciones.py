@@ -202,6 +202,30 @@ PIECES = {
                                        "man from his horse, a ransom letter with a wax seal pinned to a tree.")),
     "ev_rescate": ("ev", TITLE, card("RESCUE. Town guards and hired mercenaries storm a bandits' hideout of tents "
                                      "in the woods at dawn and free a tied-up captive.")),
+    "ev_visita_marques": ("ev", TITLE, card("VISIT OF THE MARQUIS. A marquis on horseback with his liveried retinue "
+                                            "rides under a green triumphal arch into the decorated main street, the "
+                                            "council bowing, faces lit and visible.")),
+    "ev_boda_rica": ("ev", TITLE, card("NOBLE WEDDING. A rich couple in velvet and gold leave the church under "
+                                       "showers of petals, guests in fine clothes, a banquet being laid out; faces "
+                                       "visible.")),
+    "ev_boda_vecinos": ("ev", TITLE, card("VILLAGE WEDDING. At dusk, lit by warm lanterns and a bonfire, a simple young "
+                                          "couple dance in the square with their neighbours, a bagpipe and a "
+                                          "tambourine, a dowry chest by a door; every figure lit with visible faces "
+                                          "and clothes, no dark silhouettes.")),
+    "ev_torneo": ("ev", TITLE, card("TOURNAMENT. Two mounted knights with lances charge each other along a striped "
+                                    "tilt barrier, banners and a crowded wooden stand behind them.")),
+    "ev_comicos": ("ev", TITLE, card("TRAVELLING PLAYERS. A company of comic actors in masks and bright costumes "
+                                     "performs on a wooden stage in the square, villagers laughing in front.")),
+    "ev_predicador": ("ev", TITLE, card("THE PREACHER. A fiery friar preaches from the steps of the cross in the "
+                                        "square, a crowd listening, a small pile of dice and fine cloth burning in a "
+                                        "brazier beside him.")),
+    "ev_romeria": ("ev", TITLE, card("PILGRIMAGE TO MONTSACRE. A long line of villagers with staffs and banners "
+                                     "walks up a mountain path towards a stone abbey, a picnic of bread and wine "
+                                     "on the grass.")),
+    "ev_rogativa": ("ev", TITLE, card("ROGATION. At dusk a procession carries a saint's statue through parched "
+                                      "brown fields under a hot hazy sky, praying for rain.")),
+    "ev_feria_ganado": ("ev", TITLE, card("CATTLE FAIR. Pens of cows, sheep and horses outside the town walls, "
+                                          "farmers haggling and shaking hands, a horse being shown at a trot.")),
     "ev_ladron": ("ev", TITLE, card("NIGHT THIEF. Under the moon a thief climbs out of a workshop window with a "
                                     "full sack, a cat watching from the roof.")),
     # pantallas (960×540)
