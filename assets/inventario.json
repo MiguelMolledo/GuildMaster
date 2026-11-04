@@ -6880,6 +6880,202 @@
       "coste_gen": 0,
       "coste_usd": 0.08,
       "notas": "Iconos de rasgos de pieza (03b §3b.2): trait_<oil_tempered|fine_edge|master_mark|masterwork>.png (32×32) y small/ (16×16): templada al aceite, filo fino, marca del maestro y obra maestra."
+    },
+    {
+      "id": "prop_fiesta_banderola",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/banderola.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a tall thin wooden pole with a long swallow-tailed pennant in red and yellow. Huella 1×1 casillas. Escena game/visuals/props/fiesta/banderola.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_pendon",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/pendon.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a vertical cloth banner in deep red with a gold border hanging from a short wooden crossbar, to hang on a wall. Huella 1×1 casillas. Escena game/visuals/props/fiesta/pendon.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_farolillo",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/farolillo.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a small wooden post with a glowing paper festival lantern hanging from it. Huella 1×1 casillas. Escena game/visuals/props/fiesta/farolillo.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_hoguera",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/hoguera.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a festival bonfire: a stack of logs with big orange flames and sparks. Huella 1×1 casillas. Escena game/visuals/props/fiesta/hoguera.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_mayo",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/mayo.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a tall maypole: a straight tree trunk with a green leafy crown at the top and long coloured ribbons hanging down. Huella 1×1 casillas. Escena game/visuals/props/fiesta/mayo.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_guirnalda",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/guirnalda.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a festive garland of small triangular coloured flags strung between two short wooden posts. Huella 2×1 casillas. Escena game/visuals/props/fiesta/guirnalda.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_mesa_larga",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/mesa_larga.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a long wooden banquet table with two benches, bread, jugs and plates on it. Huella 3×1 casillas. Escena game/visuals/props/fiesta/mesa_larga.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_puesto_feria",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/puesto_feria.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a fair market stall with a striped red and yellow cloth awning, a wooden counter with goods. Huella 2×2 casillas. Escena game/visuals/props/fiesta/puesto_feria.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_cerco_carros",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/cerco_carros.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a barrier of two wooden farm carts tipped on their sides and tied together, a section of the ring for a bull run. Huella 2×1 casillas. Escena game/visuals/props/fiesta/cerco_carros.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_belen",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/belen.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a nativity scene: a small wooden stable with straw, figures of Mary, Joseph and the child in the manger, an ox and a donkey. Huella 2×2 casillas. Escena game/visuals/props/fiesta/belen.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_tablado",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/tablado.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a raised wooden theatre stage of planks for travelling players, with a painted cloth backdrop on poles. Huella 3×2 casillas. Escena game/visuals/props/fiesta/tablado.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_arco_triunfal",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/arco_triunfal.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a festive triumphal arch over a street, made of wooden posts covered with green branches, flowers and banners, wide enough for a cart. Huella 3×1 casillas. Escena game/visuals/props/fiesta/arco_triunfal.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_liza",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/liza.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a jousting tilt barrier: a long low wooden fence painted in stripes with small pennants, the list for a joust. Huella 4×1 casillas. Escena game/visuals/props/fiesta/liza.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_corral",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/corral.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a square livestock pen of wooden rails with a gate and some straw inside, empty. Huella 3×3 casillas. Escena game/visuals/props/fiesta/corral.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
     }
   ]
 }

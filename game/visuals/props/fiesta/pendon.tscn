@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4vilulcvbkbt"]
+
+[ext_resource type="Texture2D" uid="uid://ckammtcdul8dq" path="res://assets/art/props/fiesta/pendon.png" id="1_tex"]
+
+[node name="Pendon" type="Node2D"]
+editor_description = "Festival prop (docs/gdd/04f_vida_y_fiestas.md §4.25.3; tools/art/fal_props_fiesta.py): a vertical cloth banner in deep red with a gold border hanging from a short wooden crossbar, to hang on a wall. Feet = the centre of its footprint (metadata/footprint, in tiles: columns x rows); small props stand on their base. Move or swap the sprite here."
+metadata/footprint = Vector2i(1, 1)
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -44)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-14, -46)
