@@ -25,6 +25,7 @@ extends Node
 ## customer at the counter.
 ## H14: --smoke-script=ia_familiar: the family AI panel, a spouse trading on her own, low needs.
 ## H13: --smoke-script=eventos: the notices and the clock line of the global events, the market's price reason, the book.
+## Page kit: --smoke-script=pagina: the card of a global event that starts and the other templates of PageCard.
 ## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## H12: --smoke-script=oficios: the trade buttons of the new game screen and the workshop of each artisan trade.
 ## Población: --smoke-script=poblacion: the new game screen and «Otra familia», then the sheets of a townsman, a
@@ -56,7 +57,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"economia": "res://game/smoke/smoke_economia.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
 	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd",
-	"poblacion": "res://game/smoke/smoke_poblacion.gd"}
+	"poblacion": "res://game/smoke/smoke_poblacion.gd", "pagina": "res://game/smoke/smoke_pagina.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView

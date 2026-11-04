@@ -1,0 +1,9819 @@
+{
+ "version": 1,
+ "sizes": {
+  "bust": 64,
+  "face": 32
+ },
+ "ages": {
+  "child": [
+   6,
+   11
+  ],
+  "youth": [
+   12,
+   17
+  ],
+  "adult": [
+   18,
+   44
+  ],
+  "mature": [
+   45,
+   59
+  ],
+  "elder": [
+   60,
+   null
+  ]
+ },
+ "types": [
+  "artisan",
+  "commoner",
+  "merchant",
+  "noble",
+  "clergy",
+  "guard",
+  "scholar",
+  "farmer",
+  "rogue"
+ ],
+ "fallback": {
+  "clergy": {
+   "child": "commoner"
+  },
+  "scholar": {
+   "child": "merchant"
+  },
+  "guard": {
+   "child": "commoner",
+   "youth": "commoner",
+   "elder": "commoner"
+  }
+ },
+ "regions": {
+  "hair": 50,
+  "skin": 100,
+  "primary": 150,
+  "secondary": 200
+ },
+ "portraits": [
+  {
+   "id": "f_adult_artisan_01",
+   "sex": "f",
+   "age": "adult",
+   "type": "artisan",
+   "file": "f/adult/artisan/f_adult_artisan_01.png",
+   "face": "f/adult/artisan/f_adult_artisan_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "braids",
+    "freckles"
+   ]
+  },
+  {
+   "id": "f_adult_artisan_02",
+   "sex": "f",
+   "age": "adult",
+   "type": "artisan",
+   "file": "f/adult/artisan/f_adult_artisan_02.png",
+   "face": "f/adult/artisan/f_adult_artisan_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_adult_artisan_03",
+   "sex": "f",
+   "age": "adult",
+   "type": "artisan",
+   "file": "f/adult/artisan/f_adult_artisan_03.png",
+   "face": "f/adult/artisan/f_adult_artisan_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_adult_artisan_04",
+   "sex": "f",
+   "age": "adult",
+   "type": "artisan",
+   "file": "f/adult/artisan/f_adult_artisan_04.png",
+   "face": "f/adult/artisan/f_adult_artisan_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_adult_artisan_05",
+   "sex": "f",
+   "age": "adult",
+   "type": "artisan",
+   "file": "f/adult/artisan/f_adult_artisan_05.png",
+   "face": "f/adult/artisan/f_adult_artisan_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "braids"
+   ]
+  },
+  {
+   "id": "f_adult_artisan_06",
+   "sex": "f",
+   "age": "adult",
+   "type": "artisan",
+   "file": "f/adult/artisan/f_adult_artisan_06.png",
+   "face": "f/adult/artisan/f_adult_artisan_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_adult_artisan_07",
+   "sex": "f",
+   "age": "adult",
+   "type": "artisan",
+   "file": "f/adult/artisan/f_adult_artisan_07.png",
+   "face": "f/adult/artisan/f_adult_artisan_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "artisan_adult_f"
+  },
+  {
+   "id": "f_adult_artisan_08",
+   "sex": "f",
+   "age": "adult",
+   "type": "artisan",
+   "file": "f/adult/artisan/f_adult_artisan_08.png",
+   "face": "f/adult/artisan/f_adult_artisan_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "worker_adult_f"
+  },
+  {
+   "id": "f_adult_clergy_01",
+   "sex": "f",
+   "age": "adult",
+   "type": "clergy",
+   "file": "f/adult/clergy/f_adult_clergy_01.png",
+   "face": "f/adult/clergy/f_adult_clergy_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "veil",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_adult_clergy_02",
+   "sex": "f",
+   "age": "adult",
+   "type": "clergy",
+   "file": "f/adult/clergy/f_adult_clergy_02.png",
+   "face": "f/adult/clergy/f_adult_clergy_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "scar",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_adult_clergy_03",
+   "sex": "f",
+   "age": "adult",
+   "type": "clergy",
+   "file": "f/adult/clergy/f_adult_clergy_03.png",
+   "face": "f/adult/clergy/f_adult_clergy_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "curly",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_adult_clergy_04",
+   "sex": "f",
+   "age": "adult",
+   "type": "clergy",
+   "file": "f/adult/clergy/f_adult_clergy_04.png",
+   "face": "f/adult/clergy/f_adult_clergy_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "veil"
+   ]
+  },
+  {
+   "id": "f_adult_clergy_05",
+   "sex": "f",
+   "age": "adult",
+   "type": "clergy",
+   "file": "f/adult/clergy/f_adult_clergy_05.png",
+   "face": "f/adult/clergy/f_adult_clergy_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids"
+   ]
+  },
+  {
+   "id": "f_adult_clergy_06",
+   "sex": "f",
+   "age": "adult",
+   "type": "clergy",
+   "file": "f/adult/clergy/f_adult_clergy_06.png",
+   "face": "f/adult/clergy/f_adult_clergy_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "curly",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_adult_commoner_01",
+   "sex": "f",
+   "age": "adult",
+   "type": "commoner",
+   "file": "f/adult/commoner/f_adult_commoner_01.png",
+   "face": "f/adult/commoner/f_adult_commoner_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "headscarf",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_adult_commoner_02",
+   "sex": "f",
+   "age": "adult",
+   "type": "commoner",
+   "file": "f/adult/commoner/f_adult_commoner_02.png",
+   "face": "f/adult/commoner/f_adult_commoner_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "f_adult_commoner_03",
+   "sex": "f",
+   "age": "adult",
+   "type": "commoner",
+   "file": "f/adult/commoner/f_adult_commoner_03.png",
+   "face": "f/adult/commoner/f_adult_commoner_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_adult_commoner_04",
+   "sex": "f",
+   "age": "adult",
+   "type": "commoner",
+   "file": "f/adult/commoner/f_adult_commoner_04.png",
+   "face": "f/adult/commoner/f_adult_commoner_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_adult_commoner_05",
+   "sex": "f",
+   "age": "adult",
+   "type": "commoner",
+   "file": "f/adult/commoner/f_adult_commoner_05.png",
+   "face": "f/adult/commoner/f_adult_commoner_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_adult_commoner_06",
+   "sex": "f",
+   "age": "adult",
+   "type": "commoner",
+   "file": "f/adult/commoner/f_adult_commoner_06.png",
+   "face": "f/adult/commoner/f_adult_commoner_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly"
+   ]
+  },
+  {
+   "id": "f_adult_commoner_07",
+   "sex": "f",
+   "age": "adult",
+   "type": "commoner",
+   "file": "f/adult/commoner/f_adult_commoner_07.png",
+   "face": "f/adult/commoner/f_adult_commoner_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_adult_f_1"
+  },
+  {
+   "id": "f_adult_commoner_08",
+   "sex": "f",
+   "age": "adult",
+   "type": "commoner",
+   "file": "f/adult/commoner/f_adult_commoner_08.png",
+   "face": "f/adult/commoner/f_adult_commoner_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_adult_f_2"
+  },
+  {
+   "id": "f_adult_farmer_01",
+   "sex": "f",
+   "age": "adult",
+   "type": "farmer",
+   "file": "f/adult/farmer/f_adult_farmer_01.png",
+   "face": "f/adult/farmer/f_adult_farmer_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_adult_farmer_02",
+   "sex": "f",
+   "age": "adult",
+   "type": "farmer",
+   "file": "f/adult/farmer/f_adult_farmer_02.png",
+   "face": "f/adult/farmer/f_adult_farmer_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_adult_farmer_03",
+   "sex": "f",
+   "age": "adult",
+   "type": "farmer",
+   "file": "f/adult/farmer/f_adult_farmer_03.png",
+   "face": "f/adult/farmer/f_adult_farmer_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_adult_farmer_04",
+   "sex": "f",
+   "age": "adult",
+   "type": "farmer",
+   "file": "f/adult/farmer/f_adult_farmer_04.png",
+   "face": "f/adult/farmer/f_adult_farmer_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "freckles",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_adult_farmer_05",
+   "sex": "f",
+   "age": "adult",
+   "type": "farmer",
+   "file": "f/adult/farmer/f_adult_farmer_05.png",
+   "face": "f/adult/farmer/f_adult_farmer_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_adult_farmer_06",
+   "sex": "f",
+   "age": "adult",
+   "type": "farmer",
+   "file": "f/adult/farmer/f_adult_farmer_06.png",
+   "face": "f/adult/farmer/f_adult_farmer_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly"
+   ]
+  },
+  {
+   "id": "f_adult_farmer_07",
+   "sex": "f",
+   "age": "adult",
+   "type": "farmer",
+   "file": "f/adult/farmer/f_adult_farmer_07.png",
+   "face": "f/adult/farmer/f_adult_farmer_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "patron_adult_f"
+  },
+  {
+   "id": "f_adult_guard_01",
+   "sex": "f",
+   "age": "adult",
+   "type": "guard",
+   "file": "f/adult/guard/f_adult_guard_01.png",
+   "face": "f/adult/guard/f_adult_guard_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids"
+   ]
+  },
+  {
+   "id": "f_adult_guard_02",
+   "sex": "f",
+   "age": "adult",
+   "type": "guard",
+   "file": "f/adult/guard/f_adult_guard_02.png",
+   "face": "f/adult/guard/f_adult_guard_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "coif",
+    "freckles",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_adult_guard_03",
+   "sex": "f",
+   "age": "adult",
+   "type": "guard",
+   "file": "f/adult/guard/f_adult_guard_03.png",
+   "face": "f/adult/guard/f_adult_guard_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "hat",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_adult_guard_04",
+   "sex": "f",
+   "age": "adult",
+   "type": "guard",
+   "file": "f/adult/guard/f_adult_guard_04.png",
+   "face": "f/adult/guard/f_adult_guard_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "curly",
+    "hood",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_adult_guard_05",
+   "sex": "f",
+   "age": "adult",
+   "type": "guard",
+   "file": "f/adult/guard/f_adult_guard_05.png",
+   "face": "f/adult/guard/f_adult_guard_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_adult_guard_06",
+   "sex": "f",
+   "age": "adult",
+   "type": "guard",
+   "file": "f/adult/guard/f_adult_guard_06.png",
+   "face": "f/adult/guard/f_adult_guard_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids",
+    "coif"
+   ]
+  },
+  {
+   "id": "f_adult_merchant_01",
+   "sex": "f",
+   "age": "adult",
+   "type": "merchant",
+   "file": "f/adult/merchant/f_adult_merchant_01.png",
+   "face": "f/adult/merchant/f_adult_merchant_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_adult_merchant_02",
+   "sex": "f",
+   "age": "adult",
+   "type": "merchant",
+   "file": "f/adult/merchant/f_adult_merchant_02.png",
+   "face": "f/adult/merchant/f_adult_merchant_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_adult_merchant_03",
+   "sex": "f",
+   "age": "adult",
+   "type": "merchant",
+   "file": "f/adult/merchant/f_adult_merchant_03.png",
+   "face": "f/adult/merchant/f_adult_merchant_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hat",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_adult_merchant_04",
+   "sex": "f",
+   "age": "adult",
+   "type": "merchant",
+   "file": "f/adult/merchant/f_adult_merchant_04.png",
+   "face": "f/adult/merchant/f_adult_merchant_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_adult_merchant_05",
+   "sex": "f",
+   "age": "adult",
+   "type": "merchant",
+   "file": "f/adult/merchant/f_adult_merchant_05.png",
+   "face": "f/adult/merchant/f_adult_merchant_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "f_adult_merchant_06",
+   "sex": "f",
+   "age": "adult",
+   "type": "merchant",
+   "file": "f/adult/merchant/f_adult_merchant_06.png",
+   "face": "f/adult/merchant/f_adult_merchant_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_adult_merchant_07",
+   "sex": "f",
+   "age": "adult",
+   "type": "merchant",
+   "file": "f/adult/merchant/f_adult_merchant_07.png",
+   "face": "f/adult/merchant/f_adult_merchant_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [],
+   "from": "rival_adult_f_1"
+  },
+  {
+   "id": "f_adult_merchant_08",
+   "sex": "f",
+   "age": "adult",
+   "type": "merchant",
+   "file": "f/adult/merchant/f_adult_merchant_08.png",
+   "face": "f/adult/merchant/f_adult_merchant_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rival_adult_f_2"
+  },
+  {
+   "id": "f_adult_merchant_09",
+   "sex": "f",
+   "age": "adult",
+   "type": "merchant",
+   "file": "f/adult/merchant/f_adult_merchant_09.png",
+   "face": "f/adult/merchant/f_adult_merchant_09_32.png",
+   "recolor": [
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rival_adult_f_3"
+  },
+  {
+   "id": "f_adult_merchant_10",
+   "sex": "f",
+   "age": "adult",
+   "type": "merchant",
+   "file": "f/adult/merchant/f_adult_merchant_10.png",
+   "face": "f/adult/merchant/f_adult_merchant_10_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rival_adult_f_5"
+  },
+  {
+   "id": "f_adult_noble_01",
+   "sex": "f",
+   "age": "adult",
+   "type": "noble",
+   "file": "f/adult/noble/f_adult_noble_01.png",
+   "face": "f/adult/noble/f_adult_noble_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly"
+   ]
+  },
+  {
+   "id": "f_adult_noble_02",
+   "sex": "f",
+   "age": "adult",
+   "type": "noble",
+   "file": "f/adult/noble/f_adult_noble_02.png",
+   "face": "f/adult/noble/f_adult_noble_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "freckles",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_adult_noble_03",
+   "sex": "f",
+   "age": "adult",
+   "type": "noble",
+   "file": "f/adult/noble/f_adult_noble_03.png",
+   "face": "f/adult/noble/f_adult_noble_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "f_adult_noble_04",
+   "sex": "f",
+   "age": "adult",
+   "type": "noble",
+   "file": "f/adult/noble/f_adult_noble_04.png",
+   "face": "f/adult/noble/f_adult_noble_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_adult_noble_05",
+   "sex": "f",
+   "age": "adult",
+   "type": "noble",
+   "file": "f/adult/noble/f_adult_noble_05.png",
+   "face": "f/adult/noble/f_adult_noble_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_adult_noble_06",
+   "sex": "f",
+   "age": "adult",
+   "type": "noble",
+   "file": "f/adult/noble/f_adult_noble_06.png",
+   "face": "f/adult/noble/f_adult_noble_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_adult_noble_07",
+   "sex": "f",
+   "age": "adult",
+   "type": "noble",
+   "file": "f/adult/noble/f_adult_noble_07.png",
+   "face": "f/adult/noble/f_adult_noble_07_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [],
+   "from": "dignitary"
+  },
+  {
+   "id": "f_adult_rogue_01",
+   "sex": "f",
+   "age": "adult",
+   "type": "rogue",
+   "file": "f/adult/rogue/f_adult_rogue_01.png",
+   "face": "f/adult/rogue/f_adult_rogue_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "hood",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_adult_rogue_02",
+   "sex": "f",
+   "age": "adult",
+   "type": "rogue",
+   "file": "f/adult/rogue/f_adult_rogue_02.png",
+   "face": "f/adult/rogue/f_adult_rogue_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_adult_rogue_03",
+   "sex": "f",
+   "age": "adult",
+   "type": "rogue",
+   "file": "f/adult/rogue/f_adult_rogue_03.png",
+   "face": "f/adult/rogue/f_adult_rogue_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf",
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_adult_rogue_04",
+   "sex": "f",
+   "age": "adult",
+   "type": "rogue",
+   "file": "f/adult/rogue/f_adult_rogue_04.png",
+   "face": "f/adult/rogue/f_adult_rogue_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_adult_rogue_05",
+   "sex": "f",
+   "age": "adult",
+   "type": "rogue",
+   "file": "f/adult/rogue/f_adult_rogue_05.png",
+   "face": "f/adult/rogue/f_adult_rogue_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_adult_rogue_06",
+   "sex": "f",
+   "age": "adult",
+   "type": "rogue",
+   "file": "f/adult/rogue/f_adult_rogue_06.png",
+   "face": "f/adult/rogue/f_adult_rogue_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_adult_rogue_07",
+   "sex": "f",
+   "age": "adult",
+   "type": "rogue",
+   "file": "f/adult/rogue/f_adult_rogue_07.png",
+   "face": "f/adult/rogue/f_adult_rogue_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rival_adult_f_4"
+  },
+  {
+   "id": "f_adult_rogue_08",
+   "sex": "f",
+   "age": "adult",
+   "type": "rogue",
+   "file": "f/adult/rogue/f_adult_rogue_08.png",
+   "face": "f/adult/rogue/f_adult_rogue_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rogue_adult_f"
+  },
+  {
+   "id": "f_adult_scholar_01",
+   "sex": "f",
+   "age": "adult",
+   "type": "scholar",
+   "file": "f/adult/scholar/f_adult_scholar_01.png",
+   "face": "f/adult/scholar/f_adult_scholar_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "curly",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_adult_scholar_02",
+   "sex": "f",
+   "age": "adult",
+   "type": "scholar",
+   "file": "f/adult/scholar/f_adult_scholar_02.png",
+   "face": "f/adult/scholar/f_adult_scholar_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_adult_scholar_03",
+   "sex": "f",
+   "age": "adult",
+   "type": "scholar",
+   "file": "f/adult/scholar/f_adult_scholar_03.png",
+   "face": "f/adult/scholar/f_adult_scholar_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_adult_scholar_04",
+   "sex": "f",
+   "age": "adult",
+   "type": "scholar",
+   "file": "f/adult/scholar/f_adult_scholar_04.png",
+   "face": "f/adult/scholar/f_adult_scholar_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "long_hair",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_adult_scholar_05",
+   "sex": "f",
+   "age": "adult",
+   "type": "scholar",
+   "file": "f/adult/scholar/f_adult_scholar_05.png",
+   "face": "f/adult/scholar/f_adult_scholar_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_adult_scholar_06",
+   "sex": "f",
+   "age": "adult",
+   "type": "scholar",
+   "file": "f/adult/scholar/f_adult_scholar_06.png",
+   "face": "f/adult/scholar/f_adult_scholar_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hat",
+    "hood",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_adult_scholar_07",
+   "sex": "f",
+   "age": "adult",
+   "type": "scholar",
+   "file": "f/adult/scholar/f_adult_scholar_07.png",
+   "face": "f/adult/scholar/f_adult_scholar_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "scholar_adult_f"
+  },
+  {
+   "id": "f_child_artisan_01",
+   "sex": "f",
+   "age": "child",
+   "type": "artisan",
+   "file": "f/child/artisan/f_child_artisan_01.png",
+   "face": "f/child/artisan/f_child_artisan_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_child_artisan_02",
+   "sex": "f",
+   "age": "child",
+   "type": "artisan",
+   "file": "f/child/artisan/f_child_artisan_02.png",
+   "face": "f/child/artisan/f_child_artisan_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "headscarf",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_child_artisan_03",
+   "sex": "f",
+   "age": "child",
+   "type": "artisan",
+   "file": "f/child/artisan/f_child_artisan_03.png",
+   "face": "f/child/artisan/f_child_artisan_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_child_artisan_04",
+   "sex": "f",
+   "age": "child",
+   "type": "artisan",
+   "file": "f/child/artisan/f_child_artisan_04.png",
+   "face": "f/child/artisan/f_child_artisan_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_child_artisan_05",
+   "sex": "f",
+   "age": "child",
+   "type": "artisan",
+   "file": "f/child/artisan/f_child_artisan_05.png",
+   "face": "f/child/artisan/f_child_artisan_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles"
+   ]
+  },
+  {
+   "id": "f_child_artisan_06",
+   "sex": "f",
+   "age": "child",
+   "type": "artisan",
+   "file": "f/child/artisan/f_child_artisan_06.png",
+   "face": "f/child/artisan/f_child_artisan_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "freckles",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_child_artisan_07",
+   "sex": "f",
+   "age": "child",
+   "type": "artisan",
+   "file": "f/child/artisan/f_child_artisan_07.png",
+   "face": "f/child/artisan/f_child_artisan_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "artisan_child_f"
+  },
+  {
+   "id": "f_child_commoner_01",
+   "sex": "f",
+   "age": "child",
+   "type": "commoner",
+   "file": "f/child/commoner/f_child_commoner_01.png",
+   "face": "f/child/commoner/f_child_commoner_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "freckles",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_child_commoner_02",
+   "sex": "f",
+   "age": "child",
+   "type": "commoner",
+   "file": "f/child/commoner/f_child_commoner_02.png",
+   "face": "f/child/commoner/f_child_commoner_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_child_commoner_03",
+   "sex": "f",
+   "age": "child",
+   "type": "commoner",
+   "file": "f/child/commoner/f_child_commoner_03.png",
+   "face": "f/child/commoner/f_child_commoner_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_child_commoner_04",
+   "sex": "f",
+   "age": "child",
+   "type": "commoner",
+   "file": "f/child/commoner/f_child_commoner_04.png",
+   "face": "f/child/commoner/f_child_commoner_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_child_commoner_05",
+   "sex": "f",
+   "age": "child",
+   "type": "commoner",
+   "file": "f/child/commoner/f_child_commoner_05.png",
+   "face": "f/child/commoner/f_child_commoner_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_child_commoner_06",
+   "sex": "f",
+   "age": "child",
+   "type": "commoner",
+   "file": "f/child/commoner/f_child_commoner_06.png",
+   "face": "f/child/commoner/f_child_commoner_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_child_commoner_07",
+   "sex": "f",
+   "age": "child",
+   "type": "commoner",
+   "file": "f/child/commoner/f_child_commoner_07.png",
+   "face": "f/child/commoner/f_child_commoner_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_child_f"
+  },
+  {
+   "id": "f_child_farmer_01",
+   "sex": "f",
+   "age": "child",
+   "type": "farmer",
+   "file": "f/child/farmer/f_child_farmer_01.png",
+   "face": "f/child/farmer/f_child_farmer_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_child_farmer_02",
+   "sex": "f",
+   "age": "child",
+   "type": "farmer",
+   "file": "f/child/farmer/f_child_farmer_02.png",
+   "face": "f/child/farmer/f_child_farmer_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "f_child_farmer_03",
+   "sex": "f",
+   "age": "child",
+   "type": "farmer",
+   "file": "f/child/farmer/f_child_farmer_03.png",
+   "face": "f/child/farmer/f_child_farmer_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_child_farmer_04",
+   "sex": "f",
+   "age": "child",
+   "type": "farmer",
+   "file": "f/child/farmer/f_child_farmer_04.png",
+   "face": "f/child/farmer/f_child_farmer_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_child_farmer_05",
+   "sex": "f",
+   "age": "child",
+   "type": "farmer",
+   "file": "f/child/farmer/f_child_farmer_05.png",
+   "face": "f/child/farmer/f_child_farmer_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_child_farmer_06",
+   "sex": "f",
+   "age": "child",
+   "type": "farmer",
+   "file": "f/child/farmer/f_child_farmer_06.png",
+   "face": "f/child/farmer/f_child_farmer_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_child_farmer_07",
+   "sex": "f",
+   "age": "child",
+   "type": "farmer",
+   "file": "f/child/farmer/f_child_farmer_07.png",
+   "face": "f/child/farmer/f_child_farmer_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "patron_child_f"
+  },
+  {
+   "id": "f_child_merchant_01",
+   "sex": "f",
+   "age": "child",
+   "type": "merchant",
+   "file": "f/child/merchant/f_child_merchant_01.png",
+   "face": "f/child/merchant/f_child_merchant_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "scar"
+   ]
+  },
+  {
+   "id": "f_child_merchant_02",
+   "sex": "f",
+   "age": "child",
+   "type": "merchant",
+   "file": "f/child/merchant/f_child_merchant_02.png",
+   "face": "f/child/merchant/f_child_merchant_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "hat"
+   ]
+  },
+  {
+   "id": "f_child_merchant_03",
+   "sex": "f",
+   "age": "child",
+   "type": "merchant",
+   "file": "f/child/merchant/f_child_merchant_03.png",
+   "face": "f/child/merchant/f_child_merchant_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "f_child_merchant_04",
+   "sex": "f",
+   "age": "child",
+   "type": "merchant",
+   "file": "f/child/merchant/f_child_merchant_04.png",
+   "face": "f/child/merchant/f_child_merchant_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_child_merchant_05",
+   "sex": "f",
+   "age": "child",
+   "type": "merchant",
+   "file": "f/child/merchant/f_child_merchant_05.png",
+   "face": "f/child/merchant/f_child_merchant_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids"
+   ]
+  },
+  {
+   "id": "f_child_merchant_06",
+   "sex": "f",
+   "age": "child",
+   "type": "merchant",
+   "file": "f/child/merchant/f_child_merchant_06.png",
+   "face": "f/child/merchant/f_child_merchant_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_child_merchant_07",
+   "sex": "f",
+   "age": "child",
+   "type": "merchant",
+   "file": "f/child/merchant/f_child_merchant_07.png",
+   "face": "f/child/merchant/f_child_merchant_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "scholar_child_f"
+  },
+  {
+   "id": "f_child_noble_01",
+   "sex": "f",
+   "age": "child",
+   "type": "noble",
+   "file": "f/child/noble/f_child_noble_01.png",
+   "face": "f/child/noble/f_child_noble_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly"
+   ]
+  },
+  {
+   "id": "f_child_noble_02",
+   "sex": "f",
+   "age": "child",
+   "type": "noble",
+   "file": "f/child/noble/f_child_noble_02.png",
+   "face": "f/child/noble/f_child_noble_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_child_noble_03",
+   "sex": "f",
+   "age": "child",
+   "type": "noble",
+   "file": "f/child/noble/f_child_noble_03.png",
+   "face": "f/child/noble/f_child_noble_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hat"
+   ]
+  },
+  {
+   "id": "f_child_noble_04",
+   "sex": "f",
+   "age": "child",
+   "type": "noble",
+   "file": "f/child/noble/f_child_noble_04.png",
+   "face": "f/child/noble/f_child_noble_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles"
+   ]
+  },
+  {
+   "id": "f_child_noble_05",
+   "sex": "f",
+   "age": "child",
+   "type": "noble",
+   "file": "f/child/noble/f_child_noble_05.png",
+   "face": "f/child/noble/f_child_noble_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_child_noble_06",
+   "sex": "f",
+   "age": "child",
+   "type": "noble",
+   "file": "f/child/noble/f_child_noble_06.png",
+   "face": "f/child/noble/f_child_noble_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_child_rogue_01",
+   "sex": "f",
+   "age": "child",
+   "type": "rogue",
+   "file": "f/child/rogue/f_child_rogue_01.png",
+   "face": "f/child/rogue/f_child_rogue_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_child_rogue_02",
+   "sex": "f",
+   "age": "child",
+   "type": "rogue",
+   "file": "f/child/rogue/f_child_rogue_02.png",
+   "face": "f/child/rogue/f_child_rogue_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_child_rogue_03",
+   "sex": "f",
+   "age": "child",
+   "type": "rogue",
+   "file": "f/child/rogue/f_child_rogue_03.png",
+   "face": "f/child/rogue/f_child_rogue_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_child_rogue_04",
+   "sex": "f",
+   "age": "child",
+   "type": "rogue",
+   "file": "f/child/rogue/f_child_rogue_04.png",
+   "face": "f/child/rogue/f_child_rogue_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_child_rogue_05",
+   "sex": "f",
+   "age": "child",
+   "type": "rogue",
+   "file": "f/child/rogue/f_child_rogue_05.png",
+   "face": "f/child/rogue/f_child_rogue_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_child_rogue_06",
+   "sex": "f",
+   "age": "child",
+   "type": "rogue",
+   "file": "f/child/rogue/f_child_rogue_06.png",
+   "face": "f/child/rogue/f_child_rogue_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "f_child_rogue_07",
+   "sex": "f",
+   "age": "child",
+   "type": "rogue",
+   "file": "f/child/rogue/f_child_rogue_07.png",
+   "face": "f/child/rogue/f_child_rogue_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rogue_child_f"
+  },
+  {
+   "id": "f_elder_artisan_01",
+   "sex": "f",
+   "age": "elder",
+   "type": "artisan",
+   "file": "f/elder/artisan/f_elder_artisan_01.png",
+   "face": "f/elder/artisan/f_elder_artisan_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "curly"
+   ]
+  },
+  {
+   "id": "f_elder_artisan_02",
+   "sex": "f",
+   "age": "elder",
+   "type": "artisan",
+   "file": "f/elder/artisan/f_elder_artisan_02.png",
+   "face": "f/elder/artisan/f_elder_artisan_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_elder_artisan_03",
+   "sex": "f",
+   "age": "elder",
+   "type": "artisan",
+   "file": "f/elder/artisan/f_elder_artisan_03.png",
+   "face": "f/elder/artisan/f_elder_artisan_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "long_hair",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_elder_artisan_04",
+   "sex": "f",
+   "age": "elder",
+   "type": "artisan",
+   "file": "f/elder/artisan/f_elder_artisan_04.png",
+   "face": "f/elder/artisan/f_elder_artisan_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_elder_artisan_05",
+   "sex": "f",
+   "age": "elder",
+   "type": "artisan",
+   "file": "f/elder/artisan/f_elder_artisan_05.png",
+   "face": "f/elder/artisan/f_elder_artisan_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "apron",
+    "curly",
+    "freckles"
+   ]
+  },
+  {
+   "id": "f_elder_artisan_06",
+   "sex": "f",
+   "age": "elder",
+   "type": "artisan",
+   "file": "f/elder/artisan/f_elder_artisan_06.png",
+   "face": "f/elder/artisan/f_elder_artisan_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_elder_artisan_07",
+   "sex": "f",
+   "age": "elder",
+   "type": "artisan",
+   "file": "f/elder/artisan/f_elder_artisan_07.png",
+   "face": "f/elder/artisan/f_elder_artisan_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "artisan_elder_f"
+  },
+  {
+   "id": "f_elder_clergy_01",
+   "sex": "f",
+   "age": "elder",
+   "type": "clergy",
+   "file": "f/elder/clergy/f_elder_clergy_01.png",
+   "face": "f/elder/clergy/f_elder_clergy_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids",
+    "veil",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_elder_clergy_02",
+   "sex": "f",
+   "age": "elder",
+   "type": "clergy",
+   "file": "f/elder/clergy/f_elder_clergy_02.png",
+   "face": "f/elder/clergy/f_elder_clergy_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "curly",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_elder_clergy_03",
+   "sex": "f",
+   "age": "elder",
+   "type": "clergy",
+   "file": "f/elder/clergy/f_elder_clergy_03.png",
+   "face": "f/elder/clergy/f_elder_clergy_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_elder_clergy_04",
+   "sex": "f",
+   "age": "elder",
+   "type": "clergy",
+   "file": "f/elder/clergy/f_elder_clergy_04.png",
+   "face": "f/elder/clergy/f_elder_clergy_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "veil"
+   ]
+  },
+  {
+   "id": "f_elder_clergy_05",
+   "sex": "f",
+   "age": "elder",
+   "type": "clergy",
+   "file": "f/elder/clergy/f_elder_clergy_05.png",
+   "face": "f/elder/clergy/f_elder_clergy_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_elder_clergy_06",
+   "sex": "f",
+   "age": "elder",
+   "type": "clergy",
+   "file": "f/elder/clergy/f_elder_clergy_06.png",
+   "face": "f/elder/clergy/f_elder_clergy_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_elder_commoner_01",
+   "sex": "f",
+   "age": "elder",
+   "type": "commoner",
+   "file": "f/elder/commoner/f_elder_commoner_01.png",
+   "face": "f/elder/commoner/f_elder_commoner_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_elder_commoner_02",
+   "sex": "f",
+   "age": "elder",
+   "type": "commoner",
+   "file": "f/elder/commoner/f_elder_commoner_02.png",
+   "face": "f/elder/commoner/f_elder_commoner_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly"
+   ]
+  },
+  {
+   "id": "f_elder_commoner_03",
+   "sex": "f",
+   "age": "elder",
+   "type": "commoner",
+   "file": "f/elder/commoner/f_elder_commoner_03.png",
+   "face": "f/elder/commoner/f_elder_commoner_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "long_hair",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_elder_commoner_04",
+   "sex": "f",
+   "age": "elder",
+   "type": "commoner",
+   "file": "f/elder/commoner/f_elder_commoner_04.png",
+   "face": "f/elder/commoner/f_elder_commoner_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_elder_commoner_05",
+   "sex": "f",
+   "age": "elder",
+   "type": "commoner",
+   "file": "f/elder/commoner/f_elder_commoner_05.png",
+   "face": "f/elder/commoner/f_elder_commoner_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_commoner_06",
+   "sex": "f",
+   "age": "elder",
+   "type": "commoner",
+   "file": "f/elder/commoner/f_elder_commoner_06.png",
+   "face": "f/elder/commoner/f_elder_commoner_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_elder_commoner_07",
+   "sex": "f",
+   "age": "elder",
+   "type": "commoner",
+   "file": "f/elder/commoner/f_elder_commoner_07.png",
+   "face": "f/elder/commoner/f_elder_commoner_07_32.png",
+   "recolor": [
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_elder_f_1"
+  },
+  {
+   "id": "f_elder_commoner_08",
+   "sex": "f",
+   "age": "elder",
+   "type": "commoner",
+   "file": "f/elder/commoner/f_elder_commoner_08.png",
+   "face": "f/elder/commoner/f_elder_commoner_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_elder_f_2"
+  },
+  {
+   "id": "f_elder_farmer_01",
+   "sex": "f",
+   "age": "elder",
+   "type": "farmer",
+   "file": "f/elder/farmer/f_elder_farmer_01.png",
+   "face": "f/elder/farmer/f_elder_farmer_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_elder_farmer_02",
+   "sex": "f",
+   "age": "elder",
+   "type": "farmer",
+   "file": "f/elder/farmer/f_elder_farmer_02.png",
+   "face": "f/elder/farmer/f_elder_farmer_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "f_elder_farmer_03",
+   "sex": "f",
+   "age": "elder",
+   "type": "farmer",
+   "file": "f/elder/farmer/f_elder_farmer_03.png",
+   "face": "f/elder/farmer/f_elder_farmer_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly"
+   ]
+  },
+  {
+   "id": "f_elder_farmer_04",
+   "sex": "f",
+   "age": "elder",
+   "type": "farmer",
+   "file": "f/elder/farmer/f_elder_farmer_04.png",
+   "face": "f/elder/farmer/f_elder_farmer_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_elder_farmer_05",
+   "sex": "f",
+   "age": "elder",
+   "type": "farmer",
+   "file": "f/elder/farmer/f_elder_farmer_05.png",
+   "face": "f/elder/farmer/f_elder_farmer_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_elder_farmer_06",
+   "sex": "f",
+   "age": "elder",
+   "type": "farmer",
+   "file": "f/elder/farmer/f_elder_farmer_06.png",
+   "face": "f/elder/farmer/f_elder_farmer_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_elder_farmer_07",
+   "sex": "f",
+   "age": "elder",
+   "type": "farmer",
+   "file": "f/elder/farmer/f_elder_farmer_07.png",
+   "face": "f/elder/farmer/f_elder_farmer_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "patron_elder_f"
+  },
+  {
+   "id": "f_elder_merchant_01",
+   "sex": "f",
+   "age": "elder",
+   "type": "merchant",
+   "file": "f/elder/merchant/f_elder_merchant_01.png",
+   "face": "f/elder/merchant/f_elder_merchant_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "glasses"
+   ]
+  },
+  {
+   "id": "f_elder_merchant_02",
+   "sex": "f",
+   "age": "elder",
+   "type": "merchant",
+   "file": "f/elder/merchant/f_elder_merchant_02.png",
+   "face": "f/elder/merchant/f_elder_merchant_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "f_elder_merchant_03",
+   "sex": "f",
+   "age": "elder",
+   "type": "merchant",
+   "file": "f/elder/merchant/f_elder_merchant_03.png",
+   "face": "f/elder/merchant/f_elder_merchant_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "glasses",
+    "hat",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_elder_merchant_04",
+   "sex": "f",
+   "age": "elder",
+   "type": "merchant",
+   "file": "f/elder/merchant/f_elder_merchant_04.png",
+   "face": "f/elder/merchant/f_elder_merchant_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "glasses",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_merchant_05",
+   "sex": "f",
+   "age": "elder",
+   "type": "merchant",
+   "file": "f/elder/merchant/f_elder_merchant_05.png",
+   "face": "f/elder/merchant/f_elder_merchant_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly"
+   ]
+  },
+  {
+   "id": "f_elder_merchant_06",
+   "sex": "f",
+   "age": "elder",
+   "type": "merchant",
+   "file": "f/elder/merchant/f_elder_merchant_06.png",
+   "face": "f/elder/merchant/f_elder_merchant_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "glasses",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_elder_noble_01",
+   "sex": "f",
+   "age": "elder",
+   "type": "noble",
+   "file": "f/elder/noble/f_elder_noble_01.png",
+   "face": "f/elder/noble/f_elder_noble_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly"
+   ]
+  },
+  {
+   "id": "f_elder_noble_02",
+   "sex": "f",
+   "age": "elder",
+   "type": "noble",
+   "file": "f/elder/noble/f_elder_noble_02.png",
+   "face": "f/elder/noble/f_elder_noble_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_elder_noble_03",
+   "sex": "f",
+   "age": "elder",
+   "type": "noble",
+   "file": "f/elder/noble/f_elder_noble_03.png",
+   "face": "f/elder/noble/f_elder_noble_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hat"
+   ]
+  },
+  {
+   "id": "f_elder_noble_04",
+   "sex": "f",
+   "age": "elder",
+   "type": "noble",
+   "file": "f/elder/noble/f_elder_noble_04.png",
+   "face": "f/elder/noble/f_elder_noble_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_elder_noble_05",
+   "sex": "f",
+   "age": "elder",
+   "type": "noble",
+   "file": "f/elder/noble/f_elder_noble_05.png",
+   "face": "f/elder/noble/f_elder_noble_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_elder_noble_06",
+   "sex": "f",
+   "age": "elder",
+   "type": "noble",
+   "file": "f/elder/noble/f_elder_noble_06.png",
+   "face": "f/elder/noble/f_elder_noble_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "jewellery",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_elder_rogue_01",
+   "sex": "f",
+   "age": "elder",
+   "type": "rogue",
+   "file": "f/elder/rogue/f_elder_rogue_01.png",
+   "face": "f/elder/rogue/f_elder_rogue_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_rogue_02",
+   "sex": "f",
+   "age": "elder",
+   "type": "rogue",
+   "file": "f/elder/rogue/f_elder_rogue_02.png",
+   "face": "f/elder/rogue/f_elder_rogue_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_rogue_03",
+   "sex": "f",
+   "age": "elder",
+   "type": "rogue",
+   "file": "f/elder/rogue/f_elder_rogue_03.png",
+   "face": "f/elder/rogue/f_elder_rogue_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_rogue_04",
+   "sex": "f",
+   "age": "elder",
+   "type": "rogue",
+   "file": "f/elder/rogue/f_elder_rogue_04.png",
+   "face": "f/elder/rogue/f_elder_rogue_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hood",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_elder_rogue_05",
+   "sex": "f",
+   "age": "elder",
+   "type": "rogue",
+   "file": "f/elder/rogue/f_elder_rogue_05.png",
+   "face": "f/elder/rogue/f_elder_rogue_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_rogue_06",
+   "sex": "f",
+   "age": "elder",
+   "type": "rogue",
+   "file": "f/elder/rogue/f_elder_rogue_06.png",
+   "face": "f/elder/rogue/f_elder_rogue_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_rogue_07",
+   "sex": "f",
+   "age": "elder",
+   "type": "rogue",
+   "file": "f/elder/rogue/f_elder_rogue_07.png",
+   "face": "f/elder/rogue/f_elder_rogue_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rogue_elder_f"
+  },
+  {
+   "id": "f_elder_scholar_01",
+   "sex": "f",
+   "age": "elder",
+   "type": "scholar",
+   "file": "f/elder/scholar/f_elder_scholar_01.png",
+   "face": "f/elder/scholar/f_elder_scholar_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "curly",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_scholar_02",
+   "sex": "f",
+   "age": "elder",
+   "type": "scholar",
+   "file": "f/elder/scholar/f_elder_scholar_02.png",
+   "face": "f/elder/scholar/f_elder_scholar_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_scholar_03",
+   "sex": "f",
+   "age": "elder",
+   "type": "scholar",
+   "file": "f/elder/scholar/f_elder_scholar_03.png",
+   "face": "f/elder/scholar/f_elder_scholar_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "glasses",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_scholar_04",
+   "sex": "f",
+   "age": "elder",
+   "type": "scholar",
+   "file": "f/elder/scholar/f_elder_scholar_04.png",
+   "face": "f/elder/scholar/f_elder_scholar_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_scholar_05",
+   "sex": "f",
+   "age": "elder",
+   "type": "scholar",
+   "file": "f/elder/scholar/f_elder_scholar_05.png",
+   "face": "f/elder/scholar/f_elder_scholar_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "glasses",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_elder_scholar_06",
+   "sex": "f",
+   "age": "elder",
+   "type": "scholar",
+   "file": "f/elder/scholar/f_elder_scholar_06.png",
+   "face": "f/elder/scholar/f_elder_scholar_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "glasses",
+    "hat",
+    "hood",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_elder_scholar_07",
+   "sex": "f",
+   "age": "elder",
+   "type": "scholar",
+   "file": "f/elder/scholar/f_elder_scholar_07.png",
+   "face": "f/elder/scholar/f_elder_scholar_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "scholar_elder_f"
+  },
+  {
+   "id": "f_mature_artisan_01",
+   "sex": "f",
+   "age": "mature",
+   "type": "artisan",
+   "file": "f/mature/artisan/f_mature_artisan_01.png",
+   "face": "f/mature/artisan/f_mature_artisan_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron"
+   ]
+  },
+  {
+   "id": "f_mature_artisan_02",
+   "sex": "f",
+   "age": "mature",
+   "type": "artisan",
+   "file": "f/mature/artisan/f_mature_artisan_02.png",
+   "face": "f/mature/artisan/f_mature_artisan_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_mature_artisan_03",
+   "sex": "f",
+   "age": "mature",
+   "type": "artisan",
+   "file": "f/mature/artisan/f_mature_artisan_03.png",
+   "face": "f/mature/artisan/f_mature_artisan_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_mature_artisan_04",
+   "sex": "f",
+   "age": "mature",
+   "type": "artisan",
+   "file": "f/mature/artisan/f_mature_artisan_04.png",
+   "face": "f/mature/artisan/f_mature_artisan_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_mature_artisan_05",
+   "sex": "f",
+   "age": "mature",
+   "type": "artisan",
+   "file": "f/mature/artisan/f_mature_artisan_05.png",
+   "face": "f/mature/artisan/f_mature_artisan_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron"
+   ]
+  },
+  {
+   "id": "f_mature_artisan_06",
+   "sex": "f",
+   "age": "mature",
+   "type": "artisan",
+   "file": "f/mature/artisan/f_mature_artisan_06.png",
+   "face": "f/mature/artisan/f_mature_artisan_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_mature_artisan_07",
+   "sex": "f",
+   "age": "mature",
+   "type": "artisan",
+   "file": "f/mature/artisan/f_mature_artisan_07.png",
+   "face": "f/mature/artisan/f_mature_artisan_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "artisan_mature_f"
+  },
+  {
+   "id": "f_mature_artisan_08",
+   "sex": "f",
+   "age": "mature",
+   "type": "artisan",
+   "file": "f/mature/artisan/f_mature_artisan_08.png",
+   "face": "f/mature/artisan/f_mature_artisan_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "worker_mature_f"
+  },
+  {
+   "id": "f_mature_clergy_01",
+   "sex": "f",
+   "age": "mature",
+   "type": "clergy",
+   "file": "f/mature/clergy/f_mature_clergy_01.png",
+   "face": "f/mature/clergy/f_mature_clergy_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "veil",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_mature_clergy_02",
+   "sex": "f",
+   "age": "mature",
+   "type": "clergy",
+   "file": "f/mature/clergy/f_mature_clergy_02.png",
+   "face": "f/mature/clergy/f_mature_clergy_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "curly",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_mature_clergy_03",
+   "sex": "f",
+   "age": "mature",
+   "type": "clergy",
+   "file": "f/mature/clergy/f_mature_clergy_03.png",
+   "face": "f/mature/clergy/f_mature_clergy_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids",
+    "freckles",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_mature_clergy_04",
+   "sex": "f",
+   "age": "mature",
+   "type": "clergy",
+   "file": "f/mature/clergy/f_mature_clergy_04.png",
+   "face": "f/mature/clergy/f_mature_clergy_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "curly",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_mature_clergy_05",
+   "sex": "f",
+   "age": "mature",
+   "type": "clergy",
+   "file": "f/mature/clergy/f_mature_clergy_05.png",
+   "face": "f/mature/clergy/f_mature_clergy_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids"
+   ]
+  },
+  {
+   "id": "f_mature_clergy_06",
+   "sex": "f",
+   "age": "mature",
+   "type": "clergy",
+   "file": "f/mature/clergy/f_mature_clergy_06.png",
+   "face": "f/mature/clergy/f_mature_clergy_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids",
+    "freckles",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_mature_commoner_01",
+   "sex": "f",
+   "age": "mature",
+   "type": "commoner",
+   "file": "f/mature/commoner/f_mature_commoner_01.png",
+   "face": "f/mature/commoner/f_mature_commoner_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "headscarf",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_mature_commoner_02",
+   "sex": "f",
+   "age": "mature",
+   "type": "commoner",
+   "file": "f/mature/commoner/f_mature_commoner_02.png",
+   "face": "f/mature/commoner/f_mature_commoner_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids"
+   ]
+  },
+  {
+   "id": "f_mature_commoner_03",
+   "sex": "f",
+   "age": "mature",
+   "type": "commoner",
+   "file": "f/mature/commoner/f_mature_commoner_03.png",
+   "face": "f/mature/commoner/f_mature_commoner_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_mature_commoner_04",
+   "sex": "f",
+   "age": "mature",
+   "type": "commoner",
+   "file": "f/mature/commoner/f_mature_commoner_04.png",
+   "face": "f/mature/commoner/f_mature_commoner_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_mature_commoner_05",
+   "sex": "f",
+   "age": "mature",
+   "type": "commoner",
+   "file": "f/mature/commoner/f_mature_commoner_05.png",
+   "face": "f/mature/commoner/f_mature_commoner_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_commoner_06",
+   "sex": "f",
+   "age": "mature",
+   "type": "commoner",
+   "file": "f/mature/commoner/f_mature_commoner_06.png",
+   "face": "f/mature/commoner/f_mature_commoner_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_mature_commoner_07",
+   "sex": "f",
+   "age": "mature",
+   "type": "commoner",
+   "file": "f/mature/commoner/f_mature_commoner_07.png",
+   "face": "f/mature/commoner/f_mature_commoner_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_mature_f_1"
+  },
+  {
+   "id": "f_mature_commoner_08",
+   "sex": "f",
+   "age": "mature",
+   "type": "commoner",
+   "file": "f/mature/commoner/f_mature_commoner_08.png",
+   "face": "f/mature/commoner/f_mature_commoner_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_mature_f_2"
+  },
+  {
+   "id": "f_mature_farmer_01",
+   "sex": "f",
+   "age": "mature",
+   "type": "farmer",
+   "file": "f/mature/farmer/f_mature_farmer_01.png",
+   "face": "f/mature/farmer/f_mature_farmer_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_mature_farmer_02",
+   "sex": "f",
+   "age": "mature",
+   "type": "farmer",
+   "file": "f/mature/farmer/f_mature_farmer_02.png",
+   "face": "f/mature/farmer/f_mature_farmer_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_mature_farmer_03",
+   "sex": "f",
+   "age": "mature",
+   "type": "farmer",
+   "file": "f/mature/farmer/f_mature_farmer_03.png",
+   "face": "f/mature/farmer/f_mature_farmer_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_mature_farmer_04",
+   "sex": "f",
+   "age": "mature",
+   "type": "farmer",
+   "file": "f/mature/farmer/f_mature_farmer_04.png",
+   "face": "f/mature/farmer/f_mature_farmer_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "headscarf",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_mature_farmer_05",
+   "sex": "f",
+   "age": "mature",
+   "type": "farmer",
+   "file": "f/mature/farmer/f_mature_farmer_05.png",
+   "face": "f/mature/farmer/f_mature_farmer_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_mature_farmer_06",
+   "sex": "f",
+   "age": "mature",
+   "type": "farmer",
+   "file": "f/mature/farmer/f_mature_farmer_06.png",
+   "face": "f/mature/farmer/f_mature_farmer_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids"
+   ]
+  },
+  {
+   "id": "f_mature_farmer_07",
+   "sex": "f",
+   "age": "mature",
+   "type": "farmer",
+   "file": "f/mature/farmer/f_mature_farmer_07.png",
+   "face": "f/mature/farmer/f_mature_farmer_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "patron_mature_f"
+  },
+  {
+   "id": "f_mature_guard_01",
+   "sex": "f",
+   "age": "mature",
+   "type": "guard",
+   "file": "f/mature/guard/f_mature_guard_01.png",
+   "face": "f/mature/guard/f_mature_guard_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids",
+    "freckles",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_mature_guard_02",
+   "sex": "f",
+   "age": "mature",
+   "type": "guard",
+   "file": "f/mature/guard/f_mature_guard_02.png",
+   "face": "f/mature/guard/f_mature_guard_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "coif",
+    "curly"
+   ]
+  },
+  {
+   "id": "f_mature_guard_03",
+   "sex": "f",
+   "age": "mature",
+   "type": "guard",
+   "file": "f/mature/guard/f_mature_guard_03.png",
+   "face": "f/mature/guard/f_mature_guard_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "f_mature_guard_04",
+   "sex": "f",
+   "age": "mature",
+   "type": "guard",
+   "file": "f/mature/guard/f_mature_guard_04.png",
+   "face": "f/mature/guard/f_mature_guard_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "curly",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_guard_05",
+   "sex": "f",
+   "age": "mature",
+   "type": "guard",
+   "file": "f/mature/guard/f_mature_guard_05.png",
+   "face": "f/mature/guard/f_mature_guard_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids"
+   ]
+  },
+  {
+   "id": "f_mature_guard_06",
+   "sex": "f",
+   "age": "mature",
+   "type": "guard",
+   "file": "f/mature/guard/f_mature_guard_06.png",
+   "face": "f/mature/guard/f_mature_guard_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "braids",
+    "coif"
+   ]
+  },
+  {
+   "id": "f_mature_merchant_01",
+   "sex": "f",
+   "age": "mature",
+   "type": "merchant",
+   "file": "f/mature/merchant/f_mature_merchant_01.png",
+   "face": "f/mature/merchant/f_mature_merchant_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_mature_merchant_02",
+   "sex": "f",
+   "age": "mature",
+   "type": "merchant",
+   "file": "f/mature/merchant/f_mature_merchant_02.png",
+   "face": "f/mature/merchant/f_mature_merchant_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "glasses",
+    "hat",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_mature_merchant_03",
+   "sex": "f",
+   "age": "mature",
+   "type": "merchant",
+   "file": "f/mature/merchant/f_mature_merchant_03.png",
+   "face": "f/mature/merchant/f_mature_merchant_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hat"
+   ]
+  },
+  {
+   "id": "f_mature_merchant_04",
+   "sex": "f",
+   "age": "mature",
+   "type": "merchant",
+   "file": "f/mature/merchant/f_mature_merchant_04.png",
+   "face": "f/mature/merchant/f_mature_merchant_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_merchant_05",
+   "sex": "f",
+   "age": "mature",
+   "type": "merchant",
+   "file": "f/mature/merchant/f_mature_merchant_05.png",
+   "face": "f/mature/merchant/f_mature_merchant_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "scar"
+   ]
+  },
+  {
+   "id": "f_mature_merchant_06",
+   "sex": "f",
+   "age": "mature",
+   "type": "merchant",
+   "file": "f/mature/merchant/f_mature_merchant_06.png",
+   "face": "f/mature/merchant/f_mature_merchant_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "glasses",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_mature_merchant_07",
+   "sex": "f",
+   "age": "mature",
+   "type": "merchant",
+   "file": "f/mature/merchant/f_mature_merchant_07.png",
+   "face": "f/mature/merchant/f_mature_merchant_07_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [],
+   "from": "market_inspector"
+  },
+  {
+   "id": "f_mature_noble_01",
+   "sex": "f",
+   "age": "mature",
+   "type": "noble",
+   "file": "f/mature/noble/f_mature_noble_01.png",
+   "face": "f/mature/noble/f_mature_noble_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_mature_noble_02",
+   "sex": "f",
+   "age": "mature",
+   "type": "noble",
+   "file": "f/mature/noble/f_mature_noble_02.png",
+   "face": "f/mature/noble/f_mature_noble_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "jewellery",
+    "long_hair",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_mature_noble_03",
+   "sex": "f",
+   "age": "mature",
+   "type": "noble",
+   "file": "f/mature/noble/f_mature_noble_03.png",
+   "face": "f/mature/noble/f_mature_noble_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "f_mature_noble_04",
+   "sex": "f",
+   "age": "mature",
+   "type": "noble",
+   "file": "f/mature/noble/f_mature_noble_04.png",
+   "face": "f/mature/noble/f_mature_noble_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids"
+   ]
+  },
+  {
+   "id": "f_mature_noble_05",
+   "sex": "f",
+   "age": "mature",
+   "type": "noble",
+   "file": "f/mature/noble/f_mature_noble_05.png",
+   "face": "f/mature/noble/f_mature_noble_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "freckles",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_mature_noble_06",
+   "sex": "f",
+   "age": "mature",
+   "type": "noble",
+   "file": "f/mature/noble/f_mature_noble_06.png",
+   "face": "f/mature/noble/f_mature_noble_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_mature_rogue_01",
+   "sex": "f",
+   "age": "mature",
+   "type": "rogue",
+   "file": "f/mature/rogue/f_mature_rogue_01.png",
+   "face": "f/mature/rogue/f_mature_rogue_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_rogue_02",
+   "sex": "f",
+   "age": "mature",
+   "type": "rogue",
+   "file": "f/mature/rogue/f_mature_rogue_02.png",
+   "face": "f/mature/rogue/f_mature_rogue_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_rogue_03",
+   "sex": "f",
+   "age": "mature",
+   "type": "rogue",
+   "file": "f/mature/rogue/f_mature_rogue_03.png",
+   "face": "f/mature/rogue/f_mature_rogue_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "headscarf",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_rogue_04",
+   "sex": "f",
+   "age": "mature",
+   "type": "rogue",
+   "file": "f/mature/rogue/f_mature_rogue_04.png",
+   "face": "f/mature/rogue/f_mature_rogue_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_rogue_05",
+   "sex": "f",
+   "age": "mature",
+   "type": "rogue",
+   "file": "f/mature/rogue/f_mature_rogue_05.png",
+   "face": "f/mature/rogue/f_mature_rogue_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_rogue_06",
+   "sex": "f",
+   "age": "mature",
+   "type": "rogue",
+   "file": "f/mature/rogue/f_mature_rogue_06.png",
+   "face": "f/mature/rogue/f_mature_rogue_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_rogue_07",
+   "sex": "f",
+   "age": "mature",
+   "type": "rogue",
+   "file": "f/mature/rogue/f_mature_rogue_07.png",
+   "face": "f/mature/rogue/f_mature_rogue_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rogue_mature_f"
+  },
+  {
+   "id": "f_mature_scholar_01",
+   "sex": "f",
+   "age": "mature",
+   "type": "scholar",
+   "file": "f/mature/scholar/f_mature_scholar_01.png",
+   "face": "f/mature/scholar/f_mature_scholar_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "coif",
+    "glasses",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_scholar_02",
+   "sex": "f",
+   "age": "mature",
+   "type": "scholar",
+   "file": "f/mature/scholar/f_mature_scholar_02.png",
+   "face": "f/mature/scholar/f_mature_scholar_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_scholar_03",
+   "sex": "f",
+   "age": "mature",
+   "type": "scholar",
+   "file": "f/mature/scholar/f_mature_scholar_03.png",
+   "face": "f/mature/scholar/f_mature_scholar_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_scholar_04",
+   "sex": "f",
+   "age": "mature",
+   "type": "scholar",
+   "file": "f/mature/scholar/f_mature_scholar_04.png",
+   "face": "f/mature/scholar/f_mature_scholar_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_mature_scholar_05",
+   "sex": "f",
+   "age": "mature",
+   "type": "scholar",
+   "file": "f/mature/scholar/f_mature_scholar_05.png",
+   "face": "f/mature/scholar/f_mature_scholar_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "glasses",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_scholar_06",
+   "sex": "f",
+   "age": "mature",
+   "type": "scholar",
+   "file": "f/mature/scholar/f_mature_scholar_06.png",
+   "face": "f/mature/scholar/f_mature_scholar_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_mature_scholar_07",
+   "sex": "f",
+   "age": "mature",
+   "type": "scholar",
+   "file": "f/mature/scholar/f_mature_scholar_07.png",
+   "face": "f/mature/scholar/f_mature_scholar_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "scholar_mature_f"
+  },
+  {
+   "id": "f_youth_artisan_01",
+   "sex": "f",
+   "age": "youth",
+   "type": "artisan",
+   "file": "f/youth/artisan/f_youth_artisan_01.png",
+   "face": "f/youth/artisan/f_youth_artisan_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_youth_artisan_02",
+   "sex": "f",
+   "age": "youth",
+   "type": "artisan",
+   "file": "f/youth/artisan/f_youth_artisan_02.png",
+   "face": "f/youth/artisan/f_youth_artisan_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_youth_artisan_03",
+   "sex": "f",
+   "age": "youth",
+   "type": "artisan",
+   "file": "f/youth/artisan/f_youth_artisan_03.png",
+   "face": "f/youth/artisan/f_youth_artisan_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_youth_artisan_04",
+   "sex": "f",
+   "age": "youth",
+   "type": "artisan",
+   "file": "f/youth/artisan/f_youth_artisan_04.png",
+   "face": "f/youth/artisan/f_youth_artisan_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_youth_artisan_05",
+   "sex": "f",
+   "age": "youth",
+   "type": "artisan",
+   "file": "f/youth/artisan/f_youth_artisan_05.png",
+   "face": "f/youth/artisan/f_youth_artisan_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids"
+   ]
+  },
+  {
+   "id": "f_youth_artisan_06",
+   "sex": "f",
+   "age": "youth",
+   "type": "artisan",
+   "file": "f/youth/artisan/f_youth_artisan_06.png",
+   "face": "f/youth/artisan/f_youth_artisan_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "jewellery",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_youth_artisan_07",
+   "sex": "f",
+   "age": "youth",
+   "type": "artisan",
+   "file": "f/youth/artisan/f_youth_artisan_07.png",
+   "face": "f/youth/artisan/f_youth_artisan_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "artisan_youth_f"
+  },
+  {
+   "id": "f_youth_clergy_01",
+   "sex": "f",
+   "age": "youth",
+   "type": "clergy",
+   "file": "f/youth/clergy/f_youth_clergy_01.png",
+   "face": "f/youth/clergy/f_youth_clergy_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "veil"
+   ]
+  },
+  {
+   "id": "f_youth_clergy_02",
+   "sex": "f",
+   "age": "youth",
+   "type": "clergy",
+   "file": "f/youth/clergy/f_youth_clergy_02.png",
+   "face": "f/youth/clergy/f_youth_clergy_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "freckles",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_youth_clergy_03",
+   "sex": "f",
+   "age": "youth",
+   "type": "clergy",
+   "file": "f/youth/clergy/f_youth_clergy_03.png",
+   "face": "f/youth/clergy/f_youth_clergy_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "freckles",
+    "long_hair",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_youth_clergy_04",
+   "sex": "f",
+   "age": "youth",
+   "type": "clergy",
+   "file": "f/youth/clergy/f_youth_clergy_04.png",
+   "face": "f/youth/clergy/f_youth_clergy_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "curly",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_youth_clergy_05",
+   "sex": "f",
+   "age": "youth",
+   "type": "clergy",
+   "file": "f/youth/clergy/f_youth_clergy_05.png",
+   "face": "f/youth/clergy/f_youth_clergy_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "freckles",
+    "veil"
+   ]
+  },
+  {
+   "id": "f_youth_clergy_06",
+   "sex": "f",
+   "age": "youth",
+   "type": "clergy",
+   "file": "f/youth/clergy/f_youth_clergy_06.png",
+   "face": "f/youth/clergy/f_youth_clergy_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "veil"
+   ]
+  },
+  {
+   "id": "f_youth_commoner_01",
+   "sex": "f",
+   "age": "youth",
+   "type": "commoner",
+   "file": "f/youth/commoner/f_youth_commoner_01.png",
+   "face": "f/youth/commoner/f_youth_commoner_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_youth_commoner_02",
+   "sex": "f",
+   "age": "youth",
+   "type": "commoner",
+   "file": "f/youth/commoner/f_youth_commoner_02.png",
+   "face": "f/youth/commoner/f_youth_commoner_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly"
+   ]
+  },
+  {
+   "id": "f_youth_commoner_03",
+   "sex": "f",
+   "age": "youth",
+   "type": "commoner",
+   "file": "f/youth/commoner/f_youth_commoner_03.png",
+   "face": "f/youth/commoner/f_youth_commoner_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_youth_commoner_04",
+   "sex": "f",
+   "age": "youth",
+   "type": "commoner",
+   "file": "f/youth/commoner/f_youth_commoner_04.png",
+   "face": "f/youth/commoner/f_youth_commoner_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_youth_commoner_05",
+   "sex": "f",
+   "age": "youth",
+   "type": "commoner",
+   "file": "f/youth/commoner/f_youth_commoner_05.png",
+   "face": "f/youth/commoner/f_youth_commoner_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_youth_commoner_06",
+   "sex": "f",
+   "age": "youth",
+   "type": "commoner",
+   "file": "f/youth/commoner/f_youth_commoner_06.png",
+   "face": "f/youth/commoner/f_youth_commoner_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_youth_commoner_07",
+   "sex": "f",
+   "age": "youth",
+   "type": "commoner",
+   "file": "f/youth/commoner/f_youth_commoner_07.png",
+   "face": "f/youth/commoner/f_youth_commoner_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_youth_f"
+  },
+  {
+   "id": "f_youth_farmer_01",
+   "sex": "f",
+   "age": "youth",
+   "type": "farmer",
+   "file": "f/youth/farmer/f_youth_farmer_01.png",
+   "face": "f/youth/farmer/f_youth_farmer_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_youth_farmer_02",
+   "sex": "f",
+   "age": "youth",
+   "type": "farmer",
+   "file": "f/youth/farmer/f_youth_farmer_02.png",
+   "face": "f/youth/farmer/f_youth_farmer_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "curly",
+    "hat",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_youth_farmer_03",
+   "sex": "f",
+   "age": "youth",
+   "type": "farmer",
+   "file": "f/youth/farmer/f_youth_farmer_03.png",
+   "face": "f/youth/farmer/f_youth_farmer_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "f_youth_farmer_04",
+   "sex": "f",
+   "age": "youth",
+   "type": "farmer",
+   "file": "f/youth/farmer/f_youth_farmer_04.png",
+   "face": "f/youth/farmer/f_youth_farmer_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "f_youth_farmer_05",
+   "sex": "f",
+   "age": "youth",
+   "type": "farmer",
+   "file": "f/youth/farmer/f_youth_farmer_05.png",
+   "face": "f/youth/farmer/f_youth_farmer_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "scar",
+    "wimple"
+   ]
+  },
+  {
+   "id": "f_youth_farmer_06",
+   "sex": "f",
+   "age": "youth",
+   "type": "farmer",
+   "file": "f/youth/farmer/f_youth_farmer_06.png",
+   "face": "f/youth/farmer/f_youth_farmer_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids"
+   ]
+  },
+  {
+   "id": "f_youth_farmer_07",
+   "sex": "f",
+   "age": "youth",
+   "type": "farmer",
+   "file": "f/youth/farmer/f_youth_farmer_07.png",
+   "face": "f/youth/farmer/f_youth_farmer_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "patron_youth_f"
+  },
+  {
+   "id": "f_youth_merchant_01",
+   "sex": "f",
+   "age": "youth",
+   "type": "merchant",
+   "file": "f/youth/merchant/f_youth_merchant_01.png",
+   "face": "f/youth/merchant/f_youth_merchant_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "f_youth_merchant_02",
+   "sex": "f",
+   "age": "youth",
+   "type": "merchant",
+   "file": "f/youth/merchant/f_youth_merchant_02.png",
+   "face": "f/youth/merchant/f_youth_merchant_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "f_youth_merchant_03",
+   "sex": "f",
+   "age": "youth",
+   "type": "merchant",
+   "file": "f/youth/merchant/f_youth_merchant_03.png",
+   "face": "f/youth/merchant/f_youth_merchant_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "f_youth_merchant_04",
+   "sex": "f",
+   "age": "youth",
+   "type": "merchant",
+   "file": "f/youth/merchant/f_youth_merchant_04.png",
+   "face": "f/youth/merchant/f_youth_merchant_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_youth_merchant_05",
+   "sex": "f",
+   "age": "youth",
+   "type": "merchant",
+   "file": "f/youth/merchant/f_youth_merchant_05.png",
+   "face": "f/youth/merchant/f_youth_merchant_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_youth_merchant_06",
+   "sex": "f",
+   "age": "youth",
+   "type": "merchant",
+   "file": "f/youth/merchant/f_youth_merchant_06.png",
+   "face": "f/youth/merchant/f_youth_merchant_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_youth_noble_01",
+   "sex": "f",
+   "age": "youth",
+   "type": "noble",
+   "file": "f/youth/noble/f_youth_noble_01.png",
+   "face": "f/youth/noble/f_youth_noble_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "freckles"
+   ]
+  },
+  {
+   "id": "f_youth_noble_02",
+   "sex": "f",
+   "age": "youth",
+   "type": "noble",
+   "file": "f/youth/noble/f_youth_noble_02.png",
+   "face": "f/youth/noble/f_youth_noble_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_youth_noble_03",
+   "sex": "f",
+   "age": "youth",
+   "type": "noble",
+   "file": "f/youth/noble/f_youth_noble_03.png",
+   "face": "f/youth/noble/f_youth_noble_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hat"
+   ]
+  },
+  {
+   "id": "f_youth_noble_04",
+   "sex": "f",
+   "age": "youth",
+   "type": "noble",
+   "file": "f/youth/noble/f_youth_noble_04.png",
+   "face": "f/youth/noble/f_youth_noble_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles"
+   ]
+  },
+  {
+   "id": "f_youth_noble_05",
+   "sex": "f",
+   "age": "youth",
+   "type": "noble",
+   "file": "f/youth/noble/f_youth_noble_05.png",
+   "face": "f/youth/noble/f_youth_noble_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery",
+    "long_hair",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_youth_noble_06",
+   "sex": "f",
+   "age": "youth",
+   "type": "noble",
+   "file": "f/youth/noble/f_youth_noble_06.png",
+   "face": "f/youth/noble/f_youth_noble_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "f_youth_rogue_01",
+   "sex": "f",
+   "age": "youth",
+   "type": "rogue",
+   "file": "f/youth/rogue/f_youth_rogue_01.png",
+   "face": "f/youth/rogue/f_youth_rogue_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_youth_rogue_02",
+   "sex": "f",
+   "age": "youth",
+   "type": "rogue",
+   "file": "f/youth/rogue/f_youth_rogue_02.png",
+   "face": "f/youth/rogue/f_youth_rogue_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "f_youth_rogue_03",
+   "sex": "f",
+   "age": "youth",
+   "type": "rogue",
+   "file": "f/youth/rogue/f_youth_rogue_03.png",
+   "face": "f/youth/rogue/f_youth_rogue_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "headscarf",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_youth_rogue_04",
+   "sex": "f",
+   "age": "youth",
+   "type": "rogue",
+   "file": "f/youth/rogue/f_youth_rogue_04.png",
+   "face": "f/youth/rogue/f_youth_rogue_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_youth_rogue_05",
+   "sex": "f",
+   "age": "youth",
+   "type": "rogue",
+   "file": "f/youth/rogue/f_youth_rogue_05.png",
+   "face": "f/youth/rogue/f_youth_rogue_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_youth_rogue_06",
+   "sex": "f",
+   "age": "youth",
+   "type": "rogue",
+   "file": "f/youth/rogue/f_youth_rogue_06.png",
+   "face": "f/youth/rogue/f_youth_rogue_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_youth_rogue_07",
+   "sex": "f",
+   "age": "youth",
+   "type": "rogue",
+   "file": "f/youth/rogue/f_youth_rogue_07.png",
+   "face": "f/youth/rogue/f_youth_rogue_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rogue_youth_f"
+  },
+  {
+   "id": "f_youth_scholar_01",
+   "sex": "f",
+   "age": "youth",
+   "type": "scholar",
+   "file": "f/youth/scholar/f_youth_scholar_01.png",
+   "face": "f/youth/scholar/f_youth_scholar_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_youth_scholar_02",
+   "sex": "f",
+   "age": "youth",
+   "type": "scholar",
+   "file": "f/youth/scholar/f_youth_scholar_02.png",
+   "face": "f/youth/scholar/f_youth_scholar_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "braids",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_youth_scholar_03",
+   "sex": "f",
+   "age": "youth",
+   "type": "scholar",
+   "file": "f/youth/scholar/f_youth_scholar_03.png",
+   "face": "f/youth/scholar/f_youth_scholar_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "f_youth_scholar_04",
+   "sex": "f",
+   "age": "youth",
+   "type": "scholar",
+   "file": "f/youth/scholar/f_youth_scholar_04.png",
+   "face": "f/youth/scholar/f_youth_scholar_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "scar"
+   ]
+  },
+  {
+   "id": "f_youth_scholar_05",
+   "sex": "f",
+   "age": "youth",
+   "type": "scholar",
+   "file": "f/youth/scholar/f_youth_scholar_05.png",
+   "face": "f/youth/scholar/f_youth_scholar_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "f_youth_scholar_06",
+   "sex": "f",
+   "age": "youth",
+   "type": "scholar",
+   "file": "f/youth/scholar/f_youth_scholar_06.png",
+   "face": "f/youth/scholar/f_youth_scholar_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "f_youth_scholar_07",
+   "sex": "f",
+   "age": "youth",
+   "type": "scholar",
+   "file": "f/youth/scholar/f_youth_scholar_07.png",
+   "face": "f/youth/scholar/f_youth_scholar_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "scholar_youth_f"
+  },
+  {
+   "id": "m_adult_artisan_01",
+   "sex": "m",
+   "age": "adult",
+   "type": "artisan",
+   "file": "m/adult/artisan/m_adult_artisan_01.png",
+   "face": "m/adult/artisan/m_adult_artisan_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "beard",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_adult_artisan_02",
+   "sex": "m",
+   "age": "adult",
+   "type": "artisan",
+   "file": "m/adult/artisan/m_adult_artisan_02.png",
+   "face": "m/adult/artisan/m_adult_artisan_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard"
+   ]
+  },
+  {
+   "id": "m_adult_artisan_03",
+   "sex": "m",
+   "age": "adult",
+   "type": "artisan",
+   "file": "m/adult/artisan/m_adult_artisan_03.png",
+   "face": "m/adult/artisan/m_adult_artisan_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "beard",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_adult_artisan_04",
+   "sex": "m",
+   "age": "adult",
+   "type": "artisan",
+   "file": "m/adult/artisan/m_adult_artisan_04.png",
+   "face": "m/adult/artisan/m_adult_artisan_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_artisan_05",
+   "sex": "m",
+   "age": "adult",
+   "type": "artisan",
+   "file": "m/adult/artisan/m_adult_artisan_05.png",
+   "face": "m/adult/artisan/m_adult_artisan_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "coif",
+    "curly",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_artisan_06",
+   "sex": "m",
+   "age": "adult",
+   "type": "artisan",
+   "file": "m/adult/artisan/m_adult_artisan_06.png",
+   "face": "m/adult/artisan/m_adult_artisan_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "headscarf",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_adult_artisan_07",
+   "sex": "m",
+   "age": "adult",
+   "type": "artisan",
+   "file": "m/adult/artisan/m_adult_artisan_07.png",
+   "face": "m/adult/artisan/m_adult_artisan_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "artisan_adult_m"
+  },
+  {
+   "id": "m_adult_artisan_08",
+   "sex": "m",
+   "age": "adult",
+   "type": "artisan",
+   "file": "m/adult/artisan/m_adult_artisan_08.png",
+   "face": "m/adult/artisan/m_adult_artisan_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "worker_adult_m"
+  },
+  {
+   "id": "m_adult_clergy_01",
+   "sex": "m",
+   "age": "adult",
+   "type": "clergy",
+   "file": "m/adult/clergy/m_adult_clergy_01.png",
+   "face": "m/adult/clergy/m_adult_clergy_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_adult_clergy_02",
+   "sex": "m",
+   "age": "adult",
+   "type": "clergy",
+   "file": "m/adult/clergy/m_adult_clergy_02.png",
+   "face": "m/adult/clergy/m_adult_clergy_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "freckles",
+    "hood",
+    "stubble",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_adult_clergy_03",
+   "sex": "m",
+   "age": "adult",
+   "type": "clergy",
+   "file": "m/adult/clergy/m_adult_clergy_03.png",
+   "face": "m/adult/clergy/m_adult_clergy_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "stubble",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_adult_clergy_04",
+   "sex": "m",
+   "age": "adult",
+   "type": "clergy",
+   "file": "m/adult/clergy/m_adult_clergy_04.png",
+   "face": "m/adult/clergy/m_adult_clergy_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "hat",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_adult_clergy_05",
+   "sex": "m",
+   "age": "adult",
+   "type": "clergy",
+   "file": "m/adult/clergy/m_adult_clergy_05.png",
+   "face": "m/adult/clergy/m_adult_clergy_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "stubble",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_adult_clergy_06",
+   "sex": "m",
+   "age": "adult",
+   "type": "clergy",
+   "file": "m/adult/clergy/m_adult_clergy_06.png",
+   "face": "m/adult/clergy/m_adult_clergy_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "freckles",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_adult_commoner_01",
+   "sex": "m",
+   "age": "adult",
+   "type": "commoner",
+   "file": "m/adult/commoner/m_adult_commoner_01.png",
+   "face": "m/adult/commoner/m_adult_commoner_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_commoner_02",
+   "sex": "m",
+   "age": "adult",
+   "type": "commoner",
+   "file": "m/adult/commoner/m_adult_commoner_02.png",
+   "face": "m/adult/commoner/m_adult_commoner_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_adult_commoner_03",
+   "sex": "m",
+   "age": "adult",
+   "type": "commoner",
+   "file": "m/adult/commoner/m_adult_commoner_03.png",
+   "face": "m/adult/commoner/m_adult_commoner_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_adult_commoner_04",
+   "sex": "m",
+   "age": "adult",
+   "type": "commoner",
+   "file": "m/adult/commoner/m_adult_commoner_04.png",
+   "face": "m/adult/commoner/m_adult_commoner_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_adult_commoner_05",
+   "sex": "m",
+   "age": "adult",
+   "type": "commoner",
+   "file": "m/adult/commoner/m_adult_commoner_05.png",
+   "face": "m/adult/commoner/m_adult_commoner_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "coif"
+   ]
+  },
+  {
+   "id": "m_adult_commoner_06",
+   "sex": "m",
+   "age": "adult",
+   "type": "commoner",
+   "file": "m/adult/commoner/m_adult_commoner_06.png",
+   "face": "m/adult/commoner/m_adult_commoner_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_adult_commoner_07",
+   "sex": "m",
+   "age": "adult",
+   "type": "commoner",
+   "file": "m/adult/commoner/m_adult_commoner_07.png",
+   "face": "m/adult/commoner/m_adult_commoner_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_adult_m_1"
+  },
+  {
+   "id": "m_adult_commoner_08",
+   "sex": "m",
+   "age": "adult",
+   "type": "commoner",
+   "file": "m/adult/commoner/m_adult_commoner_08.png",
+   "face": "m/adult/commoner/m_adult_commoner_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_adult_m_2"
+  },
+  {
+   "id": "m_adult_farmer_01",
+   "sex": "m",
+   "age": "adult",
+   "type": "farmer",
+   "file": "m/adult/farmer/m_adult_farmer_01.png",
+   "face": "m/adult/farmer/m_adult_farmer_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hat",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_adult_farmer_02",
+   "sex": "m",
+   "age": "adult",
+   "type": "farmer",
+   "file": "m/adult/farmer/m_adult_farmer_02.png",
+   "face": "m/adult/farmer/m_adult_farmer_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_adult_farmer_03",
+   "sex": "m",
+   "age": "adult",
+   "type": "farmer",
+   "file": "m/adult/farmer/m_adult_farmer_03.png",
+   "face": "m/adult/farmer/m_adult_farmer_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_adult_farmer_04",
+   "sex": "m",
+   "age": "adult",
+   "type": "farmer",
+   "file": "m/adult/farmer/m_adult_farmer_04.png",
+   "face": "m/adult/farmer/m_adult_farmer_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "m_adult_farmer_05",
+   "sex": "m",
+   "age": "adult",
+   "type": "farmer",
+   "file": "m/adult/farmer/m_adult_farmer_05.png",
+   "face": "m/adult/farmer/m_adult_farmer_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "freckles",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_adult_farmer_06",
+   "sex": "m",
+   "age": "adult",
+   "type": "farmer",
+   "file": "m/adult/farmer/m_adult_farmer_06.png",
+   "face": "m/adult/farmer/m_adult_farmer_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_adult_farmer_07",
+   "sex": "m",
+   "age": "adult",
+   "type": "farmer",
+   "file": "m/adult/farmer/m_adult_farmer_07.png",
+   "face": "m/adult/farmer/m_adult_farmer_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "patron_adult_m"
+  },
+  {
+   "id": "m_adult_guard_01",
+   "sex": "m",
+   "age": "adult",
+   "type": "guard",
+   "file": "m/adult/guard/m_adult_guard_01.png",
+   "face": "m/adult/guard/m_adult_guard_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "freckles",
+    "helmet",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_adult_guard_02",
+   "sex": "m",
+   "age": "adult",
+   "type": "guard",
+   "file": "m/adult/guard/m_adult_guard_02.png",
+   "face": "m/adult/guard/m_adult_guard_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "coif",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_guard_03",
+   "sex": "m",
+   "age": "adult",
+   "type": "guard",
+   "file": "m/adult/guard/m_adult_guard_03.png",
+   "face": "m/adult/guard/m_adult_guard_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "freckles",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_adult_guard_04",
+   "sex": "m",
+   "age": "adult",
+   "type": "guard",
+   "file": "m/adult/guard/m_adult_guard_04.png",
+   "face": "m/adult/guard/m_adult_guard_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "helmet"
+   ]
+  },
+  {
+   "id": "m_adult_guard_05",
+   "sex": "m",
+   "age": "adult",
+   "type": "guard",
+   "file": "m/adult/guard/m_adult_guard_05.png",
+   "face": "m/adult/guard/m_adult_guard_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_adult_guard_06",
+   "sex": "m",
+   "age": "adult",
+   "type": "guard",
+   "file": "m/adult/guard/m_adult_guard_06.png",
+   "face": "m/adult/guard/m_adult_guard_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "eyepatch",
+    "helmet",
+    "long_hair",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_guard_07",
+   "sex": "m",
+   "age": "adult",
+   "type": "guard",
+   "file": "m/adult/guard/m_adult_guard_07.png",
+   "face": "m/adult/guard/m_adult_guard_07_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [],
+   "from": "constable"
+  },
+  {
+   "id": "m_adult_merchant_01",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_01.png",
+   "face": "m/adult/merchant/m_adult_merchant_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_adult_merchant_02",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_02.png",
+   "face": "m/adult/merchant/m_adult_merchant_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_merchant_03",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_03.png",
+   "face": "m/adult/merchant/m_adult_merchant_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_adult_merchant_04",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_04.png",
+   "face": "m/adult/merchant/m_adult_merchant_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_adult_merchant_05",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_05.png",
+   "face": "m/adult/merchant/m_adult_merchant_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_adult_merchant_06",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_06.png",
+   "face": "m/adult/merchant/m_adult_merchant_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_adult_merchant_07",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_07.png",
+   "face": "m/adult/merchant/m_adult_merchant_07_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [],
+   "from": "foreigner"
+  },
+  {
+   "id": "m_adult_merchant_08",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_08.png",
+   "face": "m/adult/merchant/m_adult_merchant_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rival_adult_m_1"
+  },
+  {
+   "id": "m_adult_merchant_09",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_09.png",
+   "face": "m/adult/merchant/m_adult_merchant_09_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rival_adult_m_2"
+  },
+  {
+   "id": "m_adult_merchant_10",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_10.png",
+   "face": "m/adult/merchant/m_adult_merchant_10_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rival_adult_m_3"
+  },
+  {
+   "id": "m_adult_merchant_11",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_11.png",
+   "face": "m/adult/merchant/m_adult_merchant_11_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rival_adult_m_5"
+  },
+  {
+   "id": "m_adult_merchant_12",
+   "sex": "m",
+   "age": "adult",
+   "type": "merchant",
+   "file": "m/adult/merchant/m_adult_merchant_12.png",
+   "face": "m/adult/merchant/m_adult_merchant_12_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [],
+   "from": "tax_collector"
+  },
+  {
+   "id": "m_adult_noble_01",
+   "sex": "m",
+   "age": "adult",
+   "type": "noble",
+   "file": "m/adult/noble/m_adult_noble_01.png",
+   "face": "m/adult/noble/m_adult_noble_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard"
+   ]
+  },
+  {
+   "id": "m_adult_noble_02",
+   "sex": "m",
+   "age": "adult",
+   "type": "noble",
+   "file": "m/adult/noble/m_adult_noble_02.png",
+   "face": "m/adult/noble/m_adult_noble_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_adult_noble_03",
+   "sex": "m",
+   "age": "adult",
+   "type": "noble",
+   "file": "m/adult/noble/m_adult_noble_03.png",
+   "face": "m/adult/noble/m_adult_noble_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_adult_noble_04",
+   "sex": "m",
+   "age": "adult",
+   "type": "noble",
+   "file": "m/adult/noble/m_adult_noble_04.png",
+   "face": "m/adult/noble/m_adult_noble_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_adult_noble_05",
+   "sex": "m",
+   "age": "adult",
+   "type": "noble",
+   "file": "m/adult/noble/m_adult_noble_05.png",
+   "face": "m/adult/noble/m_adult_noble_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "freckles",
+    "jewellery",
+    "scar"
+   ]
+  },
+  {
+   "id": "m_adult_noble_06",
+   "sex": "m",
+   "age": "adult",
+   "type": "noble",
+   "file": "m/adult/noble/m_adult_noble_06.png",
+   "face": "m/adult/noble/m_adult_noble_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_adult_rogue_01",
+   "sex": "m",
+   "age": "adult",
+   "type": "rogue",
+   "file": "m/adult/rogue/m_adult_rogue_01.png",
+   "face": "m/adult/rogue/m_adult_rogue_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_adult_rogue_02",
+   "sex": "m",
+   "age": "adult",
+   "type": "rogue",
+   "file": "m/adult/rogue/m_adult_rogue_02.png",
+   "face": "m/adult/rogue/m_adult_rogue_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hood",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_rogue_03",
+   "sex": "m",
+   "age": "adult",
+   "type": "rogue",
+   "file": "m/adult/rogue/m_adult_rogue_03.png",
+   "face": "m/adult/rogue/m_adult_rogue_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "freckles",
+    "headscarf",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_adult_rogue_04",
+   "sex": "m",
+   "age": "adult",
+   "type": "rogue",
+   "file": "m/adult/rogue/m_adult_rogue_04.png",
+   "face": "m/adult/rogue/m_adult_rogue_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_adult_rogue_05",
+   "sex": "m",
+   "age": "adult",
+   "type": "rogue",
+   "file": "m/adult/rogue/m_adult_rogue_05.png",
+   "face": "m/adult/rogue/m_adult_rogue_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hood",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_rogue_06",
+   "sex": "m",
+   "age": "adult",
+   "type": "rogue",
+   "file": "m/adult/rogue/m_adult_rogue_06.png",
+   "face": "m/adult/rogue/m_adult_rogue_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "eyepatch",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_adult_rogue_07",
+   "sex": "m",
+   "age": "adult",
+   "type": "rogue",
+   "file": "m/adult/rogue/m_adult_rogue_07.png",
+   "face": "m/adult/rogue/m_adult_rogue_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rival_adult_m_4"
+  },
+  {
+   "id": "m_adult_rogue_08",
+   "sex": "m",
+   "age": "adult",
+   "type": "rogue",
+   "file": "m/adult/rogue/m_adult_rogue_08.png",
+   "face": "m/adult/rogue/m_adult_rogue_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [],
+   "from": "rogue_adult_m"
+  },
+  {
+   "id": "m_adult_scholar_01",
+   "sex": "m",
+   "age": "adult",
+   "type": "scholar",
+   "file": "m/adult/scholar/m_adult_scholar_01.png",
+   "face": "m/adult/scholar/m_adult_scholar_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_adult_scholar_02",
+   "sex": "m",
+   "age": "adult",
+   "type": "scholar",
+   "file": "m/adult/scholar/m_adult_scholar_02.png",
+   "face": "m/adult/scholar/m_adult_scholar_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_scholar_03",
+   "sex": "m",
+   "age": "adult",
+   "type": "scholar",
+   "file": "m/adult/scholar/m_adult_scholar_03.png",
+   "face": "m/adult/scholar/m_adult_scholar_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hat",
+    "hood",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_scholar_04",
+   "sex": "m",
+   "age": "adult",
+   "type": "scholar",
+   "file": "m/adult/scholar/m_adult_scholar_04.png",
+   "face": "m/adult/scholar/m_adult_scholar_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_adult_scholar_05",
+   "sex": "m",
+   "age": "adult",
+   "type": "scholar",
+   "file": "m/adult/scholar/m_adult_scholar_05.png",
+   "face": "m/adult/scholar/m_adult_scholar_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hood",
+    "long_hair",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_adult_scholar_06",
+   "sex": "m",
+   "age": "adult",
+   "type": "scholar",
+   "file": "m/adult/scholar/m_adult_scholar_06.png",
+   "face": "m/adult/scholar/m_adult_scholar_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "curly",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_adult_scholar_07",
+   "sex": "m",
+   "age": "adult",
+   "type": "scholar",
+   "file": "m/adult/scholar/m_adult_scholar_07.png",
+   "face": "m/adult/scholar/m_adult_scholar_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "scholar_adult_m"
+  },
+  {
+   "id": "m_child_artisan_01",
+   "sex": "m",
+   "age": "child",
+   "type": "artisan",
+   "file": "m/child/artisan/m_child_artisan_01.png",
+   "face": "m/child/artisan/m_child_artisan_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_child_artisan_02",
+   "sex": "m",
+   "age": "child",
+   "type": "artisan",
+   "file": "m/child/artisan/m_child_artisan_02.png",
+   "face": "m/child/artisan/m_child_artisan_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_child_artisan_03",
+   "sex": "m",
+   "age": "child",
+   "type": "artisan",
+   "file": "m/child/artisan/m_child_artisan_03.png",
+   "face": "m/child/artisan/m_child_artisan_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_child_artisan_04",
+   "sex": "m",
+   "age": "child",
+   "type": "artisan",
+   "file": "m/child/artisan/m_child_artisan_04.png",
+   "face": "m/child/artisan/m_child_artisan_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly"
+   ]
+  },
+  {
+   "id": "m_child_artisan_05",
+   "sex": "m",
+   "age": "child",
+   "type": "artisan",
+   "file": "m/child/artisan/m_child_artisan_05.png",
+   "face": "m/child/artisan/m_child_artisan_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_child_artisan_06",
+   "sex": "m",
+   "age": "child",
+   "type": "artisan",
+   "file": "m/child/artisan/m_child_artisan_06.png",
+   "face": "m/child/artisan/m_child_artisan_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "m_child_artisan_07",
+   "sex": "m",
+   "age": "child",
+   "type": "artisan",
+   "file": "m/child/artisan/m_child_artisan_07.png",
+   "face": "m/child/artisan/m_child_artisan_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "artisan_child_m"
+  },
+  {
+   "id": "m_child_commoner_01",
+   "sex": "m",
+   "age": "child",
+   "type": "commoner",
+   "file": "m/child/commoner/m_child_commoner_01.png",
+   "face": "m/child/commoner/m_child_commoner_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_child_commoner_02",
+   "sex": "m",
+   "age": "child",
+   "type": "commoner",
+   "file": "m/child/commoner/m_child_commoner_02.png",
+   "face": "m/child/commoner/m_child_commoner_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_child_commoner_03",
+   "sex": "m",
+   "age": "child",
+   "type": "commoner",
+   "file": "m/child/commoner/m_child_commoner_03.png",
+   "face": "m/child/commoner/m_child_commoner_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_child_commoner_04",
+   "sex": "m",
+   "age": "child",
+   "type": "commoner",
+   "file": "m/child/commoner/m_child_commoner_04.png",
+   "face": "m/child/commoner/m_child_commoner_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_child_commoner_05",
+   "sex": "m",
+   "age": "child",
+   "type": "commoner",
+   "file": "m/child/commoner/m_child_commoner_05.png",
+   "face": "m/child/commoner/m_child_commoner_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif"
+   ]
+  },
+  {
+   "id": "m_child_commoner_06",
+   "sex": "m",
+   "age": "child",
+   "type": "commoner",
+   "file": "m/child/commoner/m_child_commoner_06.png",
+   "face": "m/child/commoner/m_child_commoner_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_child_commoner_07",
+   "sex": "m",
+   "age": "child",
+   "type": "commoner",
+   "file": "m/child/commoner/m_child_commoner_07.png",
+   "face": "m/child/commoner/m_child_commoner_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_child_m"
+  },
+  {
+   "id": "m_child_farmer_01",
+   "sex": "m",
+   "age": "child",
+   "type": "farmer",
+   "file": "m/child/farmer/m_child_farmer_01.png",
+   "face": "m/child/farmer/m_child_farmer_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_child_farmer_02",
+   "sex": "m",
+   "age": "child",
+   "type": "farmer",
+   "file": "m/child/farmer/m_child_farmer_02.png",
+   "face": "m/child/farmer/m_child_farmer_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_child_farmer_03",
+   "sex": "m",
+   "age": "child",
+   "type": "farmer",
+   "file": "m/child/farmer/m_child_farmer_03.png",
+   "face": "m/child/farmer/m_child_farmer_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "scar"
+   ]
+  },
+  {
+   "id": "m_child_farmer_04",
+   "sex": "m",
+   "age": "child",
+   "type": "farmer",
+   "file": "m/child/farmer/m_child_farmer_04.png",
+   "face": "m/child/farmer/m_child_farmer_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "m_child_farmer_05",
+   "sex": "m",
+   "age": "child",
+   "type": "farmer",
+   "file": "m/child/farmer/m_child_farmer_05.png",
+   "face": "m/child/farmer/m_child_farmer_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_child_farmer_06",
+   "sex": "m",
+   "age": "child",
+   "type": "farmer",
+   "file": "m/child/farmer/m_child_farmer_06.png",
+   "face": "m/child/farmer/m_child_farmer_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_child_farmer_07",
+   "sex": "m",
+   "age": "child",
+   "type": "farmer",
+   "file": "m/child/farmer/m_child_farmer_07.png",
+   "face": "m/child/farmer/m_child_farmer_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "patron_child_m"
+  },
+  {
+   "id": "m_child_merchant_01",
+   "sex": "m",
+   "age": "child",
+   "type": "merchant",
+   "file": "m/child/merchant/m_child_merchant_01.png",
+   "face": "m/child/merchant/m_child_merchant_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_child_merchant_02",
+   "sex": "m",
+   "age": "child",
+   "type": "merchant",
+   "file": "m/child/merchant/m_child_merchant_02.png",
+   "face": "m/child/merchant/m_child_merchant_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_child_merchant_03",
+   "sex": "m",
+   "age": "child",
+   "type": "merchant",
+   "file": "m/child/merchant/m_child_merchant_03.png",
+   "face": "m/child/merchant/m_child_merchant_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_child_merchant_04",
+   "sex": "m",
+   "age": "child",
+   "type": "merchant",
+   "file": "m/child/merchant/m_child_merchant_04.png",
+   "face": "m/child/merchant/m_child_merchant_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_child_merchant_05",
+   "sex": "m",
+   "age": "child",
+   "type": "merchant",
+   "file": "m/child/merchant/m_child_merchant_05.png",
+   "face": "m/child/merchant/m_child_merchant_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "scar"
+   ]
+  },
+  {
+   "id": "m_child_merchant_06",
+   "sex": "m",
+   "age": "child",
+   "type": "merchant",
+   "file": "m/child/merchant/m_child_merchant_06.png",
+   "face": "m/child/merchant/m_child_merchant_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_child_merchant_07",
+   "sex": "m",
+   "age": "child",
+   "type": "merchant",
+   "file": "m/child/merchant/m_child_merchant_07.png",
+   "face": "m/child/merchant/m_child_merchant_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "scholar_child_m"
+  },
+  {
+   "id": "m_child_noble_01",
+   "sex": "m",
+   "age": "child",
+   "type": "noble",
+   "file": "m/child/noble/m_child_noble_01.png",
+   "face": "m/child/noble/m_child_noble_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_child_noble_02",
+   "sex": "m",
+   "age": "child",
+   "type": "noble",
+   "file": "m/child/noble/m_child_noble_02.png",
+   "face": "m/child/noble/m_child_noble_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery",
+    "scar"
+   ]
+  },
+  {
+   "id": "m_child_noble_03",
+   "sex": "m",
+   "age": "child",
+   "type": "noble",
+   "file": "m/child/noble/m_child_noble_03.png",
+   "face": "m/child/noble/m_child_noble_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_child_noble_04",
+   "sex": "m",
+   "age": "child",
+   "type": "noble",
+   "file": "m/child/noble/m_child_noble_04.png",
+   "face": "m/child/noble/m_child_noble_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_child_noble_05",
+   "sex": "m",
+   "age": "child",
+   "type": "noble",
+   "file": "m/child/noble/m_child_noble_05.png",
+   "face": "m/child/noble/m_child_noble_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_child_noble_06",
+   "sex": "m",
+   "age": "child",
+   "type": "noble",
+   "file": "m/child/noble/m_child_noble_06.png",
+   "face": "m/child/noble/m_child_noble_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_child_rogue_01",
+   "sex": "m",
+   "age": "child",
+   "type": "rogue",
+   "file": "m/child/rogue/m_child_rogue_01.png",
+   "face": "m/child/rogue/m_child_rogue_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_child_rogue_02",
+   "sex": "m",
+   "age": "child",
+   "type": "rogue",
+   "file": "m/child/rogue/m_child_rogue_02.png",
+   "face": "m/child/rogue/m_child_rogue_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_child_rogue_03",
+   "sex": "m",
+   "age": "child",
+   "type": "rogue",
+   "file": "m/child/rogue/m_child_rogue_03.png",
+   "face": "m/child/rogue/m_child_rogue_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_child_rogue_04",
+   "sex": "m",
+   "age": "child",
+   "type": "rogue",
+   "file": "m/child/rogue/m_child_rogue_04.png",
+   "face": "m/child/rogue/m_child_rogue_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_child_rogue_05",
+   "sex": "m",
+   "age": "child",
+   "type": "rogue",
+   "file": "m/child/rogue/m_child_rogue_05.png",
+   "face": "m/child/rogue/m_child_rogue_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_child_rogue_06",
+   "sex": "m",
+   "age": "child",
+   "type": "rogue",
+   "file": "m/child/rogue/m_child_rogue_06.png",
+   "face": "m/child/rogue/m_child_rogue_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_child_rogue_07",
+   "sex": "m",
+   "age": "child",
+   "type": "rogue",
+   "file": "m/child/rogue/m_child_rogue_07.png",
+   "face": "m/child/rogue/m_child_rogue_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rogue_child_m"
+  },
+  {
+   "id": "m_elder_artisan_01",
+   "sex": "m",
+   "age": "elder",
+   "type": "artisan",
+   "file": "m/elder/artisan/m_elder_artisan_01.png",
+   "face": "m/elder/artisan/m_elder_artisan_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "beard"
+   ]
+  },
+  {
+   "id": "m_elder_artisan_02",
+   "sex": "m",
+   "age": "elder",
+   "type": "artisan",
+   "file": "m/elder/artisan/m_elder_artisan_02.png",
+   "face": "m/elder/artisan/m_elder_artisan_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_artisan_03",
+   "sex": "m",
+   "age": "elder",
+   "type": "artisan",
+   "file": "m/elder/artisan/m_elder_artisan_03.png",
+   "face": "m/elder/artisan/m_elder_artisan_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "freckles",
+    "hat",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_artisan_04",
+   "sex": "m",
+   "age": "elder",
+   "type": "artisan",
+   "file": "m/elder/artisan/m_elder_artisan_04.png",
+   "face": "m/elder/artisan/m_elder_artisan_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_artisan_05",
+   "sex": "m",
+   "age": "elder",
+   "type": "artisan",
+   "file": "m/elder/artisan/m_elder_artisan_05.png",
+   "face": "m/elder/artisan/m_elder_artisan_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "beard",
+    "coif"
+   ]
+  },
+  {
+   "id": "m_elder_artisan_06",
+   "sex": "m",
+   "age": "elder",
+   "type": "artisan",
+   "file": "m/elder/artisan/m_elder_artisan_06.png",
+   "face": "m/elder/artisan/m_elder_artisan_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "freckles",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "m_elder_artisan_07",
+   "sex": "m",
+   "age": "elder",
+   "type": "artisan",
+   "file": "m/elder/artisan/m_elder_artisan_07.png",
+   "face": "m/elder/artisan/m_elder_artisan_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "artisan_elder_m"
+  },
+  {
+   "id": "m_elder_clergy_01",
+   "sex": "m",
+   "age": "elder",
+   "type": "clergy",
+   "file": "m/elder/clergy/m_elder_clergy_01.png",
+   "face": "m/elder/clergy/m_elder_clergy_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "stubble",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_elder_clergy_02",
+   "sex": "m",
+   "age": "elder",
+   "type": "clergy",
+   "file": "m/elder/clergy/m_elder_clergy_02.png",
+   "face": "m/elder/clergy/m_elder_clergy_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "hood",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_elder_clergy_03",
+   "sex": "m",
+   "age": "elder",
+   "type": "clergy",
+   "file": "m/elder/clergy/m_elder_clergy_03.png",
+   "face": "m/elder/clergy/m_elder_clergy_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_elder_clergy_04",
+   "sex": "m",
+   "age": "elder",
+   "type": "clergy",
+   "file": "m/elder/clergy/m_elder_clergy_04.png",
+   "face": "m/elder/clergy/m_elder_clergy_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "hat",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_elder_clergy_05",
+   "sex": "m",
+   "age": "elder",
+   "type": "clergy",
+   "file": "m/elder/clergy/m_elder_clergy_05.png",
+   "face": "m/elder/clergy/m_elder_clergy_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_elder_clergy_06",
+   "sex": "m",
+   "age": "elder",
+   "type": "clergy",
+   "file": "m/elder/clergy/m_elder_clergy_06.png",
+   "face": "m/elder/clergy/m_elder_clergy_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "freckles",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_elder_commoner_01",
+   "sex": "m",
+   "age": "elder",
+   "type": "commoner",
+   "file": "m/elder/commoner/m_elder_commoner_01.png",
+   "face": "m/elder/commoner/m_elder_commoner_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "beard",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_elder_commoner_02",
+   "sex": "m",
+   "age": "elder",
+   "type": "commoner",
+   "file": "m/elder/commoner/m_elder_commoner_02.png",
+   "face": "m/elder/commoner/m_elder_commoner_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_elder_commoner_03",
+   "sex": "m",
+   "age": "elder",
+   "type": "commoner",
+   "file": "m/elder/commoner/m_elder_commoner_03.png",
+   "face": "m/elder/commoner/m_elder_commoner_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_commoner_04",
+   "sex": "m",
+   "age": "elder",
+   "type": "commoner",
+   "file": "m/elder/commoner/m_elder_commoner_04.png",
+   "face": "m/elder/commoner/m_elder_commoner_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_elder_commoner_05",
+   "sex": "m",
+   "age": "elder",
+   "type": "commoner",
+   "file": "m/elder/commoner/m_elder_commoner_05.png",
+   "face": "m/elder/commoner/m_elder_commoner_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_elder_commoner_06",
+   "sex": "m",
+   "age": "elder",
+   "type": "commoner",
+   "file": "m/elder/commoner/m_elder_commoner_06.png",
+   "face": "m/elder/commoner/m_elder_commoner_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_elder_commoner_07",
+   "sex": "m",
+   "age": "elder",
+   "type": "commoner",
+   "file": "m/elder/commoner/m_elder_commoner_07.png",
+   "face": "m/elder/commoner/m_elder_commoner_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_elder_m_1"
+  },
+  {
+   "id": "m_elder_commoner_08",
+   "sex": "m",
+   "age": "elder",
+   "type": "commoner",
+   "file": "m/elder/commoner/m_elder_commoner_08.png",
+   "face": "m/elder/commoner/m_elder_commoner_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_elder_m_2"
+  },
+  {
+   "id": "m_elder_farmer_01",
+   "sex": "m",
+   "age": "elder",
+   "type": "farmer",
+   "file": "m/elder/farmer/m_elder_farmer_01.png",
+   "face": "m/elder/farmer/m_elder_farmer_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_elder_farmer_02",
+   "sex": "m",
+   "age": "elder",
+   "type": "farmer",
+   "file": "m/elder/farmer/m_elder_farmer_02.png",
+   "face": "m/elder/farmer/m_elder_farmer_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_elder_farmer_03",
+   "sex": "m",
+   "age": "elder",
+   "type": "farmer",
+   "file": "m/elder/farmer/m_elder_farmer_03.png",
+   "face": "m/elder/farmer/m_elder_farmer_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_elder_farmer_04",
+   "sex": "m",
+   "age": "elder",
+   "type": "farmer",
+   "file": "m/elder/farmer/m_elder_farmer_04.png",
+   "face": "m/elder/farmer/m_elder_farmer_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "headscarf"
+   ]
+  },
+  {
+   "id": "m_elder_farmer_05",
+   "sex": "m",
+   "age": "elder",
+   "type": "farmer",
+   "file": "m/elder/farmer/m_elder_farmer_05.png",
+   "face": "m/elder/farmer/m_elder_farmer_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "bald",
+    "freckles",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_elder_farmer_06",
+   "sex": "m",
+   "age": "elder",
+   "type": "farmer",
+   "file": "m/elder/farmer/m_elder_farmer_06.png",
+   "face": "m/elder/farmer/m_elder_farmer_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "bald",
+    "hat",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_farmer_07",
+   "sex": "m",
+   "age": "elder",
+   "type": "farmer",
+   "file": "m/elder/farmer/m_elder_farmer_07.png",
+   "face": "m/elder/farmer/m_elder_farmer_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "patron_elder_m"
+  },
+  {
+   "id": "m_elder_merchant_01",
+   "sex": "m",
+   "age": "elder",
+   "type": "merchant",
+   "file": "m/elder/merchant/m_elder_merchant_01.png",
+   "face": "m/elder/merchant/m_elder_merchant_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "glasses"
+   ]
+  },
+  {
+   "id": "m_elder_merchant_02",
+   "sex": "m",
+   "age": "elder",
+   "type": "merchant",
+   "file": "m/elder/merchant/m_elder_merchant_02.png",
+   "face": "m/elder/merchant/m_elder_merchant_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "glasses",
+    "hat",
+    "scar",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_elder_merchant_03",
+   "sex": "m",
+   "age": "elder",
+   "type": "merchant",
+   "file": "m/elder/merchant/m_elder_merchant_03.png",
+   "face": "m/elder/merchant/m_elder_merchant_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "glasses",
+    "hat",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_merchant_04",
+   "sex": "m",
+   "age": "elder",
+   "type": "merchant",
+   "file": "m/elder/merchant/m_elder_merchant_04.png",
+   "face": "m/elder/merchant/m_elder_merchant_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "glasses",
+    "hat",
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_elder_merchant_05",
+   "sex": "m",
+   "age": "elder",
+   "type": "merchant",
+   "file": "m/elder/merchant/m_elder_merchant_05.png",
+   "face": "m/elder/merchant/m_elder_merchant_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "beard",
+    "glasses"
+   ]
+  },
+  {
+   "id": "m_elder_merchant_06",
+   "sex": "m",
+   "age": "elder",
+   "type": "merchant",
+   "file": "m/elder/merchant/m_elder_merchant_06.png",
+   "face": "m/elder/merchant/m_elder_merchant_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "freckles",
+    "glasses",
+    "jewellery",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_noble_01",
+   "sex": "m",
+   "age": "elder",
+   "type": "noble",
+   "file": "m/elder/noble/m_elder_noble_01.png",
+   "face": "m/elder/noble/m_elder_noble_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_noble_02",
+   "sex": "m",
+   "age": "elder",
+   "type": "noble",
+   "file": "m/elder/noble/m_elder_noble_02.png",
+   "face": "m/elder/noble/m_elder_noble_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "beard",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_elder_noble_03",
+   "sex": "m",
+   "age": "elder",
+   "type": "noble",
+   "file": "m/elder/noble/m_elder_noble_03.png",
+   "face": "m/elder/noble/m_elder_noble_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "bald",
+    "beard",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_elder_noble_04",
+   "sex": "m",
+   "age": "elder",
+   "type": "noble",
+   "file": "m/elder/noble/m_elder_noble_04.png",
+   "face": "m/elder/noble/m_elder_noble_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_noble_05",
+   "sex": "m",
+   "age": "elder",
+   "type": "noble",
+   "file": "m/elder/noble/m_elder_noble_05.png",
+   "face": "m/elder/noble/m_elder_noble_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery",
+    "long_hair",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_noble_06",
+   "sex": "m",
+   "age": "elder",
+   "type": "noble",
+   "file": "m/elder/noble/m_elder_noble_06.png",
+   "face": "m/elder/noble/m_elder_noble_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "beard",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_elder_noble_07",
+   "sex": "m",
+   "age": "elder",
+   "type": "noble",
+   "file": "m/elder/noble/m_elder_noble_07.png",
+   "face": "m/elder/noble/m_elder_noble_07_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [],
+   "from": "judge"
+  },
+  {
+   "id": "m_elder_rogue_01",
+   "sex": "m",
+   "age": "elder",
+   "type": "rogue",
+   "file": "m/elder/rogue/m_elder_rogue_01.png",
+   "face": "m/elder/rogue/m_elder_rogue_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_elder_rogue_02",
+   "sex": "m",
+   "age": "elder",
+   "type": "rogue",
+   "file": "m/elder/rogue/m_elder_rogue_02.png",
+   "face": "m/elder/rogue/m_elder_rogue_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hood",
+    "moustache",
+    "scar"
+   ]
+  },
+  {
+   "id": "m_elder_rogue_03",
+   "sex": "m",
+   "age": "elder",
+   "type": "rogue",
+   "file": "m/elder/rogue/m_elder_rogue_03.png",
+   "face": "m/elder/rogue/m_elder_rogue_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "eyepatch",
+    "headscarf",
+    "hood",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_rogue_04",
+   "sex": "m",
+   "age": "elder",
+   "type": "rogue",
+   "file": "m/elder/rogue/m_elder_rogue_04.png",
+   "face": "m/elder/rogue/m_elder_rogue_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "beard",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_elder_rogue_05",
+   "sex": "m",
+   "age": "elder",
+   "type": "rogue",
+   "file": "m/elder/rogue/m_elder_rogue_05.png",
+   "face": "m/elder/rogue/m_elder_rogue_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "beard",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_elder_rogue_06",
+   "sex": "m",
+   "age": "elder",
+   "type": "rogue",
+   "file": "m/elder/rogue/m_elder_rogue_06.png",
+   "face": "m/elder/rogue/m_elder_rogue_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "freckles",
+    "hood",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_rogue_07",
+   "sex": "m",
+   "age": "elder",
+   "type": "rogue",
+   "file": "m/elder/rogue/m_elder_rogue_07.png",
+   "face": "m/elder/rogue/m_elder_rogue_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rogue_elder_m"
+  },
+  {
+   "id": "m_elder_scholar_01",
+   "sex": "m",
+   "age": "elder",
+   "type": "scholar",
+   "file": "m/elder/scholar/m_elder_scholar_01.png",
+   "face": "m/elder/scholar/m_elder_scholar_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "glasses",
+    "hood",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_scholar_02",
+   "sex": "m",
+   "age": "elder",
+   "type": "scholar",
+   "file": "m/elder/scholar/m_elder_scholar_02.png",
+   "face": "m/elder/scholar/m_elder_scholar_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "glasses",
+    "hood",
+    "long_hair",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_elder_scholar_03",
+   "sex": "m",
+   "age": "elder",
+   "type": "scholar",
+   "file": "m/elder/scholar/m_elder_scholar_03.png",
+   "face": "m/elder/scholar/m_elder_scholar_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "beard",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_elder_scholar_04",
+   "sex": "m",
+   "age": "elder",
+   "type": "scholar",
+   "file": "m/elder/scholar/m_elder_scholar_04.png",
+   "face": "m/elder/scholar/m_elder_scholar_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "beard",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_elder_scholar_05",
+   "sex": "m",
+   "age": "elder",
+   "type": "scholar",
+   "file": "m/elder/scholar/m_elder_scholar_05.png",
+   "face": "m/elder/scholar/m_elder_scholar_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_elder_scholar_06",
+   "sex": "m",
+   "age": "elder",
+   "type": "scholar",
+   "file": "m/elder/scholar/m_elder_scholar_06.png",
+   "face": "m/elder/scholar/m_elder_scholar_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "glasses",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_elder_scholar_07",
+   "sex": "m",
+   "age": "elder",
+   "type": "scholar",
+   "file": "m/elder/scholar/m_elder_scholar_07.png",
+   "face": "m/elder/scholar/m_elder_scholar_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "scholar_elder_m"
+  },
+  {
+   "id": "m_mature_artisan_01",
+   "sex": "m",
+   "age": "mature",
+   "type": "artisan",
+   "file": "m/mature/artisan/m_mature_artisan_01.png",
+   "face": "m/mature/artisan/m_mature_artisan_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "beard"
+   ]
+  },
+  {
+   "id": "m_mature_artisan_02",
+   "sex": "m",
+   "age": "mature",
+   "type": "artisan",
+   "file": "m/mature/artisan/m_mature_artisan_02.png",
+   "face": "m/mature/artisan/m_mature_artisan_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_mature_artisan_03",
+   "sex": "m",
+   "age": "mature",
+   "type": "artisan",
+   "file": "m/mature/artisan/m_mature_artisan_03.png",
+   "face": "m/mature/artisan/m_mature_artisan_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "beard",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_mature_artisan_04",
+   "sex": "m",
+   "age": "mature",
+   "type": "artisan",
+   "file": "m/mature/artisan/m_mature_artisan_04.png",
+   "face": "m/mature/artisan/m_mature_artisan_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald"
+   ]
+  },
+  {
+   "id": "m_mature_artisan_05",
+   "sex": "m",
+   "age": "mature",
+   "type": "artisan",
+   "file": "m/mature/artisan/m_mature_artisan_05.png",
+   "face": "m/mature/artisan/m_mature_artisan_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "apron",
+    "coif",
+    "curly",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_mature_artisan_06",
+   "sex": "m",
+   "age": "mature",
+   "type": "artisan",
+   "file": "m/mature/artisan/m_mature_artisan_06.png",
+   "face": "m/mature/artisan/m_mature_artisan_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "m_mature_artisan_07",
+   "sex": "m",
+   "age": "mature",
+   "type": "artisan",
+   "file": "m/mature/artisan/m_mature_artisan_07.png",
+   "face": "m/mature/artisan/m_mature_artisan_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "artisan_mature_m"
+  },
+  {
+   "id": "m_mature_artisan_08",
+   "sex": "m",
+   "age": "mature",
+   "type": "artisan",
+   "file": "m/mature/artisan/m_mature_artisan_08.png",
+   "face": "m/mature/artisan/m_mature_artisan_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "worker_mature_m"
+  },
+  {
+   "id": "m_mature_clergy_01",
+   "sex": "m",
+   "age": "mature",
+   "type": "clergy",
+   "file": "m/mature/clergy/m_mature_clergy_01.png",
+   "face": "m/mature/clergy/m_mature_clergy_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "moustache",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_mature_clergy_02",
+   "sex": "m",
+   "age": "mature",
+   "type": "clergy",
+   "file": "m/mature/clergy/m_mature_clergy_02.png",
+   "face": "m/mature/clergy/m_mature_clergy_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "hood",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_mature_clergy_03",
+   "sex": "m",
+   "age": "mature",
+   "type": "clergy",
+   "file": "m/mature/clergy/m_mature_clergy_03.png",
+   "face": "m/mature/clergy/m_mature_clergy_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_mature_clergy_04",
+   "sex": "m",
+   "age": "mature",
+   "type": "clergy",
+   "file": "m/mature/clergy/m_mature_clergy_04.png",
+   "face": "m/mature/clergy/m_mature_clergy_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "freckles",
+    "hat",
+    "moustache",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_mature_clergy_05",
+   "sex": "m",
+   "age": "mature",
+   "type": "clergy",
+   "file": "m/mature/clergy/m_mature_clergy_05.png",
+   "face": "m/mature/clergy/m_mature_clergy_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_mature_clergy_06",
+   "sex": "m",
+   "age": "mature",
+   "type": "clergy",
+   "file": "m/mature/clergy/m_mature_clergy_06.png",
+   "face": "m/mature/clergy/m_mature_clergy_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_mature_clergy_07",
+   "sex": "m",
+   "age": "mature",
+   "type": "clergy",
+   "file": "m/mature/clergy/m_mature_clergy_07.png",
+   "face": "m/mature/clergy/m_mature_clergy_07_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [],
+   "from": "priest"
+  },
+  {
+   "id": "m_mature_commoner_01",
+   "sex": "m",
+   "age": "mature",
+   "type": "commoner",
+   "file": "m/mature/commoner/m_mature_commoner_01.png",
+   "face": "m/mature/commoner/m_mature_commoner_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "curly",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_mature_commoner_02",
+   "sex": "m",
+   "age": "mature",
+   "type": "commoner",
+   "file": "m/mature/commoner/m_mature_commoner_02.png",
+   "face": "m/mature/commoner/m_mature_commoner_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_mature_commoner_03",
+   "sex": "m",
+   "age": "mature",
+   "type": "commoner",
+   "file": "m/mature/commoner/m_mature_commoner_03.png",
+   "face": "m/mature/commoner/m_mature_commoner_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_mature_commoner_04",
+   "sex": "m",
+   "age": "mature",
+   "type": "commoner",
+   "file": "m/mature/commoner/m_mature_commoner_04.png",
+   "face": "m/mature/commoner/m_mature_commoner_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_mature_commoner_05",
+   "sex": "m",
+   "age": "mature",
+   "type": "commoner",
+   "file": "m/mature/commoner/m_mature_commoner_05.png",
+   "face": "m/mature/commoner/m_mature_commoner_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_mature_commoner_06",
+   "sex": "m",
+   "age": "mature",
+   "type": "commoner",
+   "file": "m/mature/commoner/m_mature_commoner_06.png",
+   "face": "m/mature/commoner/m_mature_commoner_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hat",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_mature_commoner_07",
+   "sex": "m",
+   "age": "mature",
+   "type": "commoner",
+   "file": "m/mature/commoner/m_mature_commoner_07.png",
+   "face": "m/mature/commoner/m_mature_commoner_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_mature_m_1"
+  },
+  {
+   "id": "m_mature_commoner_08",
+   "sex": "m",
+   "age": "mature",
+   "type": "commoner",
+   "file": "m/mature/commoner/m_mature_commoner_08.png",
+   "face": "m/mature/commoner/m_mature_commoner_08_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_mature_m_2"
+  },
+  {
+   "id": "m_mature_farmer_01",
+   "sex": "m",
+   "age": "mature",
+   "type": "farmer",
+   "file": "m/mature/farmer/m_mature_farmer_01.png",
+   "face": "m/mature/farmer/m_mature_farmer_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "hat",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_mature_farmer_02",
+   "sex": "m",
+   "age": "mature",
+   "type": "farmer",
+   "file": "m/mature/farmer/m_mature_farmer_02.png",
+   "face": "m/mature/farmer/m_mature_farmer_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_mature_farmer_03",
+   "sex": "m",
+   "age": "mature",
+   "type": "farmer",
+   "file": "m/mature/farmer/m_mature_farmer_03.png",
+   "face": "m/mature/farmer/m_mature_farmer_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_mature_farmer_04",
+   "sex": "m",
+   "age": "mature",
+   "type": "farmer",
+   "file": "m/mature/farmer/m_mature_farmer_04.png",
+   "face": "m/mature/farmer/m_mature_farmer_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "headscarf",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_mature_farmer_05",
+   "sex": "m",
+   "age": "mature",
+   "type": "farmer",
+   "file": "m/mature/farmer/m_mature_farmer_05.png",
+   "face": "m/mature/farmer/m_mature_farmer_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_mature_farmer_06",
+   "sex": "m",
+   "age": "mature",
+   "type": "farmer",
+   "file": "m/mature/farmer/m_mature_farmer_06.png",
+   "face": "m/mature/farmer/m_mature_farmer_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "curly",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_mature_farmer_07",
+   "sex": "m",
+   "age": "mature",
+   "type": "farmer",
+   "file": "m/mature/farmer/m_mature_farmer_07.png",
+   "face": "m/mature/farmer/m_mature_farmer_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "patron_mature_m"
+  },
+  {
+   "id": "m_mature_guard_01",
+   "sex": "m",
+   "age": "mature",
+   "type": "guard",
+   "file": "m/mature/guard/m_mature_guard_01.png",
+   "face": "m/mature/guard/m_mature_guard_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "eyepatch",
+    "helmet",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_mature_guard_02",
+   "sex": "m",
+   "age": "mature",
+   "type": "guard",
+   "file": "m/mature/guard/m_mature_guard_02.png",
+   "face": "m/mature/guard/m_mature_guard_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "coif",
+    "eyepatch",
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_mature_guard_03",
+   "sex": "m",
+   "age": "mature",
+   "type": "guard",
+   "file": "m/mature/guard/m_mature_guard_03.png",
+   "face": "m/mature/guard/m_mature_guard_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "eyepatch",
+    "hat",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_mature_guard_04",
+   "sex": "m",
+   "age": "mature",
+   "type": "guard",
+   "file": "m/mature/guard/m_mature_guard_04.png",
+   "face": "m/mature/guard/m_mature_guard_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "beard",
+    "curly",
+    "freckles",
+    "helmet"
+   ]
+  },
+  {
+   "id": "m_mature_guard_05",
+   "sex": "m",
+   "age": "mature",
+   "type": "guard",
+   "file": "m/mature/guard/m_mature_guard_05.png",
+   "face": "m/mature/guard/m_mature_guard_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_mature_guard_06",
+   "sex": "m",
+   "age": "mature",
+   "type": "guard",
+   "file": "m/mature/guard/m_mature_guard_06.png",
+   "face": "m/mature/guard/m_mature_guard_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "helmet",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_mature_guard_07",
+   "sex": "m",
+   "age": "mature",
+   "type": "guard",
+   "file": "m/mature/guard/m_mature_guard_07.png",
+   "face": "m/mature/guard/m_mature_guard_07_32.png",
+   "recolor": [
+    "skin"
+   ],
+   "traits": [],
+   "from": "captain"
+  },
+  {
+   "id": "m_mature_merchant_01",
+   "sex": "m",
+   "age": "mature",
+   "type": "merchant",
+   "file": "m/mature/merchant/m_mature_merchant_01.png",
+   "face": "m/mature/merchant/m_mature_merchant_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard"
+   ]
+  },
+  {
+   "id": "m_mature_merchant_02",
+   "sex": "m",
+   "age": "mature",
+   "type": "merchant",
+   "file": "m/mature/merchant/m_mature_merchant_02.png",
+   "face": "m/mature/merchant/m_mature_merchant_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_mature_merchant_03",
+   "sex": "m",
+   "age": "mature",
+   "type": "merchant",
+   "file": "m/mature/merchant/m_mature_merchant_03.png",
+   "face": "m/mature/merchant/m_mature_merchant_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "glasses",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_mature_merchant_04",
+   "sex": "m",
+   "age": "mature",
+   "type": "merchant",
+   "file": "m/mature/merchant/m_mature_merchant_04.png",
+   "face": "m/mature/merchant/m_mature_merchant_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "freckles",
+    "hat",
+    "hood",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_mature_merchant_05",
+   "sex": "m",
+   "age": "mature",
+   "type": "merchant",
+   "file": "m/mature/merchant/m_mature_merchant_05.png",
+   "face": "m/mature/merchant/m_mature_merchant_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_mature_merchant_06",
+   "sex": "m",
+   "age": "mature",
+   "type": "merchant",
+   "file": "m/mature/merchant/m_mature_merchant_06.png",
+   "face": "m/mature/merchant/m_mature_merchant_06_32.png",
+   "recolor": [
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "beard",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_mature_merchant_07",
+   "sex": "m",
+   "age": "mature",
+   "type": "merchant",
+   "file": "m/mature/merchant/m_mature_merchant_07.png",
+   "face": "m/mature/merchant/m_mature_merchant_07_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [],
+   "from": "councillor"
+  },
+  {
+   "id": "m_mature_merchant_08",
+   "sex": "m",
+   "age": "mature",
+   "type": "merchant",
+   "file": "m/mature/merchant/m_mature_merchant_08.png",
+   "face": "m/mature/merchant/m_mature_merchant_08_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [],
+   "from": "mayor"
+  },
+  {
+   "id": "m_mature_noble_01",
+   "sex": "m",
+   "age": "mature",
+   "type": "noble",
+   "file": "m/mature/noble/m_mature_noble_01.png",
+   "face": "m/mature/noble/m_mature_noble_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_mature_noble_02",
+   "sex": "m",
+   "age": "mature",
+   "type": "noble",
+   "file": "m/mature/noble/m_mature_noble_02.png",
+   "face": "m/mature/noble/m_mature_noble_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_mature_noble_03",
+   "sex": "m",
+   "age": "mature",
+   "type": "noble",
+   "file": "m/mature/noble/m_mature_noble_03.png",
+   "face": "m/mature/noble/m_mature_noble_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "beard",
+    "hat"
+   ]
+  },
+  {
+   "id": "m_mature_noble_04",
+   "sex": "m",
+   "age": "mature",
+   "type": "noble",
+   "file": "m/mature/noble/m_mature_noble_04.png",
+   "face": "m/mature/noble/m_mature_noble_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_mature_noble_05",
+   "sex": "m",
+   "age": "mature",
+   "type": "noble",
+   "file": "m/mature/noble/m_mature_noble_05.png",
+   "face": "m/mature/noble/m_mature_noble_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_mature_noble_06",
+   "sex": "m",
+   "age": "mature",
+   "type": "noble",
+   "file": "m/mature/noble/m_mature_noble_06.png",
+   "face": "m/mature/noble/m_mature_noble_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "jewellery",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_mature_rogue_01",
+   "sex": "m",
+   "age": "mature",
+   "type": "rogue",
+   "file": "m/mature/rogue/m_mature_rogue_01.png",
+   "face": "m/mature/rogue/m_mature_rogue_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "beard",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_mature_rogue_02",
+   "sex": "m",
+   "age": "mature",
+   "type": "rogue",
+   "file": "m/mature/rogue/m_mature_rogue_02.png",
+   "face": "m/mature/rogue/m_mature_rogue_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "eyepatch",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_mature_rogue_03",
+   "sex": "m",
+   "age": "mature",
+   "type": "rogue",
+   "file": "m/mature/rogue/m_mature_rogue_03.png",
+   "face": "m/mature/rogue/m_mature_rogue_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "headscarf",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_mature_rogue_04",
+   "sex": "m",
+   "age": "mature",
+   "type": "rogue",
+   "file": "m/mature/rogue/m_mature_rogue_04.png",
+   "face": "m/mature/rogue/m_mature_rogue_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_mature_rogue_05",
+   "sex": "m",
+   "age": "mature",
+   "type": "rogue",
+   "file": "m/mature/rogue/m_mature_rogue_05.png",
+   "face": "m/mature/rogue/m_mature_rogue_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_mature_rogue_06",
+   "sex": "m",
+   "age": "mature",
+   "type": "rogue",
+   "file": "m/mature/rogue/m_mature_rogue_06.png",
+   "face": "m/mature/rogue/m_mature_rogue_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_mature_rogue_07",
+   "sex": "m",
+   "age": "mature",
+   "type": "rogue",
+   "file": "m/mature/rogue/m_mature_rogue_07.png",
+   "face": "m/mature/rogue/m_mature_rogue_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [],
+   "from": "rogue_mature_m"
+  },
+  {
+   "id": "m_mature_scholar_01",
+   "sex": "m",
+   "age": "mature",
+   "type": "scholar",
+   "file": "m/mature/scholar/m_mature_scholar_01.png",
+   "face": "m/mature/scholar/m_mature_scholar_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "hood",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_mature_scholar_02",
+   "sex": "m",
+   "age": "mature",
+   "type": "scholar",
+   "file": "m/mature/scholar/m_mature_scholar_02.png",
+   "face": "m/mature/scholar/m_mature_scholar_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "hood",
+    "long_hair"
+   ]
+  },
+  {
+   "id": "m_mature_scholar_03",
+   "sex": "m",
+   "age": "mature",
+   "type": "scholar",
+   "file": "m/mature/scholar/m_mature_scholar_03.png",
+   "face": "m/mature/scholar/m_mature_scholar_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "beard",
+    "curly",
+    "glasses",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_mature_scholar_04",
+   "sex": "m",
+   "age": "mature",
+   "type": "scholar",
+   "file": "m/mature/scholar/m_mature_scholar_04.png",
+   "face": "m/mature/scholar/m_mature_scholar_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_mature_scholar_05",
+   "sex": "m",
+   "age": "mature",
+   "type": "scholar",
+   "file": "m/mature/scholar/m_mature_scholar_05.png",
+   "face": "m/mature/scholar/m_mature_scholar_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "glasses",
+    "hood",
+    "moustache"
+   ]
+  },
+  {
+   "id": "m_mature_scholar_06",
+   "sex": "m",
+   "age": "mature",
+   "type": "scholar",
+   "file": "m/mature/scholar/m_mature_scholar_06.png",
+   "face": "m/mature/scholar/m_mature_scholar_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "bald",
+    "hat",
+    "hood",
+    "stubble"
+   ]
+  },
+  {
+   "id": "m_mature_scholar_07",
+   "sex": "m",
+   "age": "mature",
+   "type": "scholar",
+   "file": "m/mature/scholar/m_mature_scholar_07.png",
+   "face": "m/mature/scholar/m_mature_scholar_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "scholar_mature_m"
+  },
+  {
+   "id": "m_youth_artisan_01",
+   "sex": "m",
+   "age": "youth",
+   "type": "artisan",
+   "file": "m/youth/artisan/m_youth_artisan_01.png",
+   "face": "m/youth/artisan/m_youth_artisan_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_youth_artisan_02",
+   "sex": "m",
+   "age": "youth",
+   "type": "artisan",
+   "file": "m/youth/artisan/m_youth_artisan_02.png",
+   "face": "m/youth/artisan/m_youth_artisan_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_artisan_03",
+   "sex": "m",
+   "age": "youth",
+   "type": "artisan",
+   "file": "m/youth/artisan/m_youth_artisan_03.png",
+   "face": "m/youth/artisan/m_youth_artisan_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_youth_artisan_04",
+   "sex": "m",
+   "age": "youth",
+   "type": "artisan",
+   "file": "m/youth/artisan/m_youth_artisan_04.png",
+   "face": "m/youth/artisan/m_youth_artisan_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "scar"
+   ]
+  },
+  {
+   "id": "m_youth_artisan_05",
+   "sex": "m",
+   "age": "youth",
+   "type": "artisan",
+   "file": "m/youth/artisan/m_youth_artisan_05.png",
+   "face": "m/youth/artisan/m_youth_artisan_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif"
+   ]
+  },
+  {
+   "id": "m_youth_artisan_06",
+   "sex": "m",
+   "age": "youth",
+   "type": "artisan",
+   "file": "m/youth/artisan/m_youth_artisan_06.png",
+   "face": "m/youth/artisan/m_youth_artisan_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "m_youth_artisan_07",
+   "sex": "m",
+   "age": "youth",
+   "type": "artisan",
+   "file": "m/youth/artisan/m_youth_artisan_07.png",
+   "face": "m/youth/artisan/m_youth_artisan_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "artisan_youth_m"
+  },
+  {
+   "id": "m_youth_clergy_01",
+   "sex": "m",
+   "age": "youth",
+   "type": "clergy",
+   "file": "m/youth/clergy/m_youth_clergy_01.png",
+   "face": "m/youth/clergy/m_youth_clergy_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_youth_clergy_02",
+   "sex": "m",
+   "age": "youth",
+   "type": "clergy",
+   "file": "m/youth/clergy/m_youth_clergy_02.png",
+   "face": "m/youth/clergy/m_youth_clergy_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_youth_clergy_03",
+   "sex": "m",
+   "age": "youth",
+   "type": "clergy",
+   "file": "m/youth/clergy/m_youth_clergy_03.png",
+   "face": "m/youth/clergy/m_youth_clergy_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_youth_clergy_04",
+   "sex": "m",
+   "age": "youth",
+   "type": "clergy",
+   "file": "m/youth/clergy/m_youth_clergy_04.png",
+   "face": "m/youth/clergy/m_youth_clergy_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_youth_clergy_05",
+   "sex": "m",
+   "age": "youth",
+   "type": "clergy",
+   "file": "m/youth/clergy/m_youth_clergy_05.png",
+   "face": "m/youth/clergy/m_youth_clergy_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_youth_clergy_06",
+   "sex": "m",
+   "age": "youth",
+   "type": "clergy",
+   "file": "m/youth/clergy/m_youth_clergy_06.png",
+   "face": "m/youth/clergy/m_youth_clergy_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "freckles",
+    "tonsure"
+   ]
+  },
+  {
+   "id": "m_youth_commoner_01",
+   "sex": "m",
+   "age": "youth",
+   "type": "commoner",
+   "file": "m/youth/commoner/m_youth_commoner_01.png",
+   "face": "m/youth/commoner/m_youth_commoner_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_youth_commoner_02",
+   "sex": "m",
+   "age": "youth",
+   "type": "commoner",
+   "file": "m/youth/commoner/m_youth_commoner_02.png",
+   "face": "m/youth/commoner/m_youth_commoner_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_youth_commoner_03",
+   "sex": "m",
+   "age": "youth",
+   "type": "commoner",
+   "file": "m/youth/commoner/m_youth_commoner_03.png",
+   "face": "m/youth/commoner/m_youth_commoner_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_commoner_04",
+   "sex": "m",
+   "age": "youth",
+   "type": "commoner",
+   "file": "m/youth/commoner/m_youth_commoner_04.png",
+   "face": "m/youth/commoner/m_youth_commoner_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_youth_commoner_05",
+   "sex": "m",
+   "age": "youth",
+   "type": "commoner",
+   "file": "m/youth/commoner/m_youth_commoner_05.png",
+   "face": "m/youth/commoner/m_youth_commoner_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "scar"
+   ]
+  },
+  {
+   "id": "m_youth_commoner_06",
+   "sex": "m",
+   "age": "youth",
+   "type": "commoner",
+   "file": "m/youth/commoner/m_youth_commoner_06.png",
+   "face": "m/youth/commoner/m_youth_commoner_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_youth_commoner_07",
+   "sex": "m",
+   "age": "youth",
+   "type": "commoner",
+   "file": "m/youth/commoner/m_youth_commoner_07.png",
+   "face": "m/youth/commoner/m_youth_commoner_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "townsfolk_youth_m"
+  },
+  {
+   "id": "m_youth_farmer_01",
+   "sex": "m",
+   "age": "youth",
+   "type": "farmer",
+   "file": "m/youth/farmer/m_youth_farmer_01.png",
+   "face": "m/youth/farmer/m_youth_farmer_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_youth_farmer_02",
+   "sex": "m",
+   "age": "youth",
+   "type": "farmer",
+   "file": "m/youth/farmer/m_youth_farmer_02.png",
+   "face": "m/youth/farmer/m_youth_farmer_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_farmer_03",
+   "sex": "m",
+   "age": "youth",
+   "type": "farmer",
+   "file": "m/youth/farmer/m_youth_farmer_03.png",
+   "face": "m/youth/farmer/m_youth_farmer_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_farmer_04",
+   "sex": "m",
+   "age": "youth",
+   "type": "farmer",
+   "file": "m/youth/farmer/m_youth_farmer_04.png",
+   "face": "m/youth/farmer/m_youth_farmer_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "headscarf"
+   ]
+  },
+  {
+   "id": "m_youth_farmer_05",
+   "sex": "m",
+   "age": "youth",
+   "type": "farmer",
+   "file": "m/youth/farmer/m_youth_farmer_05.png",
+   "face": "m/youth/farmer/m_youth_farmer_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_farmer_06",
+   "sex": "m",
+   "age": "youth",
+   "type": "farmer",
+   "file": "m/youth/farmer/m_youth_farmer_06.png",
+   "face": "m/youth/farmer/m_youth_farmer_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_youth_farmer_07",
+   "sex": "m",
+   "age": "youth",
+   "type": "farmer",
+   "file": "m/youth/farmer/m_youth_farmer_07.png",
+   "face": "m/youth/farmer/m_youth_farmer_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "patron_youth_m"
+  },
+  {
+   "id": "m_youth_guard_01",
+   "sex": "m",
+   "age": "youth",
+   "type": "guard",
+   "file": "m/youth/guard/m_youth_guard_01.png",
+   "face": "m/youth/guard/m_youth_guard_01_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_youth_guard_02",
+   "sex": "m",
+   "age": "youth",
+   "type": "guard",
+   "file": "m/youth/guard/m_youth_guard_02.png",
+   "face": "m/youth/guard/m_youth_guard_02_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_guard_03",
+   "sex": "m",
+   "age": "youth",
+   "type": "guard",
+   "file": "m/youth/guard/m_youth_guard_03.png",
+   "face": "m/youth/guard/m_youth_guard_03_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": [
+    "freckles"
+   ]
+  },
+  {
+   "id": "m_youth_guard_04",
+   "sex": "m",
+   "age": "youth",
+   "type": "guard",
+   "file": "m/youth/guard/m_youth_guard_04.png",
+   "face": "m/youth/guard/m_youth_guard_04_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_guard_05",
+   "sex": "m",
+   "age": "youth",
+   "type": "guard",
+   "file": "m/youth/guard/m_youth_guard_05.png",
+   "face": "m/youth/guard/m_youth_guard_05_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_guard_06",
+   "sex": "m",
+   "age": "youth",
+   "type": "guard",
+   "file": "m/youth/guard/m_youth_guard_06.png",
+   "face": "m/youth/guard/m_youth_guard_06_32.png",
+   "recolor": [
+    "hair",
+    "skin"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_merchant_01",
+   "sex": "m",
+   "age": "youth",
+   "type": "merchant",
+   "file": "m/youth/merchant/m_youth_merchant_01.png",
+   "face": "m/youth/merchant/m_youth_merchant_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_merchant_02",
+   "sex": "m",
+   "age": "youth",
+   "type": "merchant",
+   "file": "m/youth/merchant/m_youth_merchant_02.png",
+   "face": "m/youth/merchant/m_youth_merchant_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_youth_merchant_03",
+   "sex": "m",
+   "age": "youth",
+   "type": "merchant",
+   "file": "m/youth/merchant/m_youth_merchant_03.png",
+   "face": "m/youth/merchant/m_youth_merchant_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_youth_merchant_04",
+   "sex": "m",
+   "age": "youth",
+   "type": "merchant",
+   "file": "m/youth/merchant/m_youth_merchant_04.png",
+   "face": "m/youth/merchant/m_youth_merchant_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_merchant_05",
+   "sex": "m",
+   "age": "youth",
+   "type": "merchant",
+   "file": "m/youth/merchant/m_youth_merchant_05.png",
+   "face": "m/youth/merchant/m_youth_merchant_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_merchant_06",
+   "sex": "m",
+   "age": "youth",
+   "type": "merchant",
+   "file": "m/youth/merchant/m_youth_merchant_06.png",
+   "face": "m/youth/merchant/m_youth_merchant_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_youth_noble_01",
+   "sex": "m",
+   "age": "youth",
+   "type": "noble",
+   "file": "m/youth/noble/m_youth_noble_01.png",
+   "face": "m/youth/noble/m_youth_noble_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_noble_02",
+   "sex": "m",
+   "age": "youth",
+   "type": "noble",
+   "file": "m/youth/noble/m_youth_noble_02.png",
+   "face": "m/youth/noble/m_youth_noble_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_youth_noble_03",
+   "sex": "m",
+   "age": "youth",
+   "type": "noble",
+   "file": "m/youth/noble/m_youth_noble_03.png",
+   "face": "m/youth/noble/m_youth_noble_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat"
+   ]
+  },
+  {
+   "id": "m_youth_noble_04",
+   "sex": "m",
+   "age": "youth",
+   "type": "noble",
+   "file": "m/youth/noble/m_youth_noble_04.png",
+   "face": "m/youth/noble/m_youth_noble_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": []
+  },
+  {
+   "id": "m_youth_noble_05",
+   "sex": "m",
+   "age": "youth",
+   "type": "noble",
+   "file": "m/youth/noble/m_youth_noble_05.png",
+   "face": "m/youth/noble/m_youth_noble_05_32.png",
+   "recolor": [
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_youth_noble_06",
+   "sex": "m",
+   "age": "youth",
+   "type": "noble",
+   "file": "m/youth/noble/m_youth_noble_06.png",
+   "face": "m/youth/noble/m_youth_noble_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "jewellery"
+   ]
+  },
+  {
+   "id": "m_youth_rogue_01",
+   "sex": "m",
+   "age": "youth",
+   "type": "rogue",
+   "file": "m/youth/rogue/m_youth_rogue_01.png",
+   "face": "m/youth/rogue/m_youth_rogue_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_rogue_02",
+   "sex": "m",
+   "age": "youth",
+   "type": "rogue",
+   "file": "m/youth/rogue/m_youth_rogue_02.png",
+   "face": "m/youth/rogue/m_youth_rogue_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_rogue_03",
+   "sex": "m",
+   "age": "youth",
+   "type": "rogue",
+   "file": "m/youth/rogue/m_youth_rogue_03.png",
+   "face": "m/youth/rogue/m_youth_rogue_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary"
+   ],
+   "traits": [
+    "headscarf",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_rogue_04",
+   "sex": "m",
+   "age": "youth",
+   "type": "rogue",
+   "file": "m/youth/rogue/m_youth_rogue_04.png",
+   "face": "m/youth/rogue/m_youth_rogue_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_rogue_05",
+   "sex": "m",
+   "age": "youth",
+   "type": "rogue",
+   "file": "m/youth/rogue/m_youth_rogue_05.png",
+   "face": "m/youth/rogue/m_youth_rogue_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_rogue_06",
+   "sex": "m",
+   "age": "youth",
+   "type": "rogue",
+   "file": "m/youth/rogue/m_youth_rogue_06.png",
+   "face": "m/youth/rogue/m_youth_rogue_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_rogue_07",
+   "sex": "m",
+   "age": "youth",
+   "type": "rogue",
+   "file": "m/youth/rogue/m_youth_rogue_07.png",
+   "face": "m/youth/rogue/m_youth_rogue_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "rogue_youth_m"
+  },
+  {
+   "id": "m_youth_scholar_01",
+   "sex": "m",
+   "age": "youth",
+   "type": "scholar",
+   "file": "m/youth/scholar/m_youth_scholar_01.png",
+   "face": "m/youth/scholar/m_youth_scholar_01_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "coif",
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_scholar_02",
+   "sex": "m",
+   "age": "youth",
+   "type": "scholar",
+   "file": "m/youth/scholar/m_youth_scholar_02.png",
+   "face": "m/youth/scholar/m_youth_scholar_02_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "freckles",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_scholar_03",
+   "sex": "m",
+   "age": "youth",
+   "type": "scholar",
+   "file": "m/youth/scholar/m_youth_scholar_03.png",
+   "face": "m/youth/scholar/m_youth_scholar_03_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_scholar_04",
+   "sex": "m",
+   "age": "youth",
+   "type": "scholar",
+   "file": "m/youth/scholar/m_youth_scholar_04.png",
+   "face": "m/youth/scholar/m_youth_scholar_04_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_scholar_05",
+   "sex": "m",
+   "age": "youth",
+   "type": "scholar",
+   "file": "m/youth/scholar/m_youth_scholar_05.png",
+   "face": "m/youth/scholar/m_youth_scholar_05_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "hood",
+    "scar"
+   ]
+  },
+  {
+   "id": "m_youth_scholar_06",
+   "sex": "m",
+   "age": "youth",
+   "type": "scholar",
+   "file": "m/youth/scholar/m_youth_scholar_06.png",
+   "face": "m/youth/scholar/m_youth_scholar_06_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [
+    "curly",
+    "hat",
+    "hood"
+   ]
+  },
+  {
+   "id": "m_youth_scholar_07",
+   "sex": "m",
+   "age": "youth",
+   "type": "scholar",
+   "file": "m/youth/scholar/m_youth_scholar_07.png",
+   "face": "m/youth/scholar/m_youth_scholar_07_32.png",
+   "recolor": [
+    "hair",
+    "skin",
+    "primary",
+    "secondary"
+   ],
+   "traits": [],
+   "from": "scholar_youth_m"
+  }
+ ]
+}

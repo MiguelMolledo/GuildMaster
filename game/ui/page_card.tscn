@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bcva2b5m5mmhg"]
+
+[ext_resource type="Script" uid="uid://bhwrct18mvd5l" path="res://game/ui/page_card.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+
+[node name="PageCard" type="PanelContainer"]
+visible = false
+offset_right = 400.0
+offset_bottom = 240.0
+mouse_filter = 0
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Body" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Column" type="VBoxContainer" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Decor" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2

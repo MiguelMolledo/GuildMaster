@@ -18,3 +18,12 @@ pixellab-pip-generations/*
 # ElevenLabs: descargas en bruto (tools/audio/eleven.py; se pasan a assets/audio/ con tools/audio/master.py)
 audio-generations/*
 !audio-generations/.gdignore
+
+# Arte con fal: crudos, mapas, pixelados intermedios y vistas fuera del repo
+# ($GUILDMASTER_ARTE_CRUDOS, por defecto ~/Code/GuildMaster-arte-crudos; ver tools/art/fal_rutas.py)
+assets/art/fal_produccion/
+assets/art/fal_piloto/*/crudo/
+assets/art/fal_piloto/*/celdas/
+assets/art/fal_piloto/*/local/
+assets/art/fal_piloto/*/i2p/
+assets/art/fal_piloto/_refs/
