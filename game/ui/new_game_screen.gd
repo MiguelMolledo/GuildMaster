@@ -36,7 +36,6 @@ var proposal: Dictionary = {}    # Cast.proposal of the start: {name_m, name_f, 
 ## Who builds the state (NewGame.from_start by default; the tests watch the call).
 var from_start: Callable = NewGame.from_start
 var _bound: bool = false
-var _portrait: Portrait = null
 
 
 func _bind() -> void:
@@ -344,8 +343,8 @@ func set_color(is_primary: bool, hex: String) -> void:
 	_update_preview()
 
 
-## The preview: the portrait in the family's colours with the primary as its border, the name, age, trade and title,
-## what the start gives and the shield.
+## The preview: the portrait in the family's colours in its picture frame (the colours on its plaque), the name,
+## age, trade and title, what the start gives and the shield.
 func _update_preview() -> void:
 	if catalog == null or not is_inside_tree():
 		return
@@ -354,22 +353,11 @@ func _update_preview() -> void:
 	var vis: Dictionary = proposal.get("visual", defaults.get("visual", {}))
 	var pk := "portrait_f" if female else "portrait_m"  # población: the proposal has one portrait per sex
 	var pt: Dictionary = vis.get(pk, {}) if vis.get(pk) is Dictionary else {}
-	if _portrait == null:
-		var n := VisualPaths.instantiate("characters", "portrait")
-		n.name = "Portrait"
-		(%PortraitHolder as Node2D).add_child(n)
-		_portrait = n as Portrait
-	if _portrait != null:
-		_portrait.set_identity({"hair": Identity.hair_color(int(vis.get("hair", 0))),
-			"skin": Identity.skin_color(int(vis.get("skin", 0))), "primary": ViewConfig.color(primary),
-			"secondary": ViewConfig.color(secondary), "female": female, "dead": false,
-			"portrait": {"id": str(pt.get("id", "")), "type": str(pt.get("type", "artisan")), "seed": 1,
-				"stage": Identity.stage(int(protagonist().get("age", 20)))}})
-	var border := (%PortraitBorder as Panel).get_theme_stylebox("panel") as StyleBoxFlat
-	if border != null:
-		border = border.duplicate() as StyleBoxFlat
-		border.border_color = ViewConfig.color(primary)
-		(%PortraitBorder as Panel).add_theme_stylebox_override("panel", border)
+	(%PortraitFrame as PortraitFrame).show_identity({"hair": Identity.hair_color(int(vis.get("hair", 0))),
+		"skin": Identity.skin_color(int(vis.get("skin", 0))), "primary": ViewConfig.color(primary),
+		"secondary": ViewConfig.color(secondary), "female": female, "dead": false,
+		"portrait": {"id": str(pt.get("id", "")), "type": str(pt.get("type", "artisan")), "seed": 1,
+			"stage": Identity.stage(int(protagonist().get("age", 20)))}}, {"controlled": true})
 	(%ShieldTop as ColorRect).color = ViewConfig.color(primary)
 	(%ShieldBottom as ColorRect).color = ViewConfig.color(secondary)
 	var ch := choices()

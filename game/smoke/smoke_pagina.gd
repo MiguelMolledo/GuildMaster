@@ -3,8 +3,9 @@ extends Node
 ## heavy` with the engine's --always-on-top). season_events at 23:50: the game runs past midnight and the next day's
 ## roll starts an event; its card shows by itself (kit_pagina_evento). Then the war's card (kit_pagina_guerra), and the
 ## other templates of PageCard over the same town: the notice (kit_pagina_aviso), the sheet (kit_pagina_ficha) and the
-## plate (kit_pagina_lamina), and the wedding card on the kit (kit_pagina_boda). Every shot checks on screen that no text of the page leaves its safe area and prints
-## the count. Quits when done (1 if a text is outside), or after `timeout` seconds.
+## plate (kit_pagina_lamina), and the wedding card on the kit (kit_pagina_boda). Every shot checks on screen that no
+## text of the page leaves its safe area and that the title's ribbon sits on the page's top edge with its text on the
+## cloth, and prints the count. Quits when done (1 if a text is outside), or after `timeout` seconds.
 
 const SCENARIO: String = "season_events"
 const DAY: int = 1440
@@ -45,10 +46,29 @@ func _check(card: PageCard, shot: String) -> void:
 		r.size - Vector2(float(s["left"]) + float(s["right"]), float(s["top"]) + float(s["bottom"])))
 	var n := 0
 	var out := 0
+	var ribbon := card.get_node("%Decor").get_node_or_null("Ribbon") as Control
+	if ribbon is PanelContainer:  # the title's ribbon on the top edge: above the parchment, its text on the cloth
+		var rr := ribbon.get_global_rect()
+		var st := ribbon.get_theme_stylebox("panel")
+		var cloth := Rect2(rr.position + Vector2(st.content_margin_left, st.content_margin_top), rr.size - Vector2(
+			st.content_margin_left + st.content_margin_right, st.content_margin_top + st.content_margin_bottom))
+		var lt := ribbon.get_node("RibbonText") as Label
+		var tw := lt.get_theme_font("font").get_string_size(lt.text, HORIZONTAL_ALIGNMENT_LEFT, -1,
+			lt.get_theme_font_size("font_size")).x
+		var on_edge := rr.position.y < r.position.y and rr.end.y > r.position.y
+		var fits := cloth.grow(0.5).encloses(lt.get_global_rect()) and (tw <= cloth.size.x + 0.5 or
+			lt.autowrap_mode != TextServer.AUTOWRAP_OFF)
+		if not on_edge or not fits:
+			out += 1
+		print("[SmokePagina] %s: cinta %s sobre el borde=%s (sobresale %d), texto «%s» %s ancho %d en el paño %s: %s" % [
+			shot, rr, on_edge, int(r.position.y - rr.position.y), lt.text, lt.theme_type_variation, int(tw), cloth,
+			"cabe" if fits else "NO CABE"])
 	var stack: Array = [card]
 	while not stack.is_empty():
 		var x: Node = stack.pop_back()
 		stack.append_array(x.get_children())
+		if ribbon is PanelContainer and ribbon.is_ancestor_of(x):
+			continue
 		if (x is Label or x is Button) and (x as Control).is_visible_in_tree() and str(x.get("text")) != "":
 			n += 1
 			var g := (x as Control).get_global_rect()

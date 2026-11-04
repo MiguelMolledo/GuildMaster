@@ -3,13 +3,8 @@
 [ext_resource type="Script" uid="uid://bssmtfifygew8" path="res://game/ui/portrait_frame.gd" id="1_frame"]
 [ext_resource type="Texture2D" uid="uid://c16lw1kwl6se" path="res://assets/art/ui/icons/small/icon_crown.png" id="2_crown"]
 
-[sub_resource type="StyleBoxFlat" id="ring"]
-draw_center = false
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.55, 0.18, 0.18, 1)
+[sub_resource type="StyleBoxFlat" id="plaque"]
+bg_color = Color(0.101961, 0.0705882, 0.0352941, 1)
 
 [sub_resource type="StyleBoxFlat" id="key_box"]
 bg_color = Color(0.101961, 0.0705882, 0.0352941, 1)
@@ -41,16 +36,6 @@ color = Color(0.164706, 0.121569, 0.0784314, 1)
 unique_name_in_owner = true
 position = Vector2(3, 3)
 
-[node name="Ring" type="Panel" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 35.0
-offset_bottom = 35.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("ring")
-
 [node name="Border" type="Panel" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
@@ -61,6 +46,36 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_type_variation = &"FrameNormal"
+
+[node name="Plaque" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 13.0
+offset_top = 33.0
+offset_right = 25.0
+offset_bottom = 38.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("plaque")
+
+[node name="PlaqueTop" type="ColorRect" parent="Plaque"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 11.0
+offset_bottom = 3.0
+mouse_filter = 2
+color = Color(0.55, 0.18, 0.18, 1)
+
+[node name="PlaqueLow" type="ColorRect" parent="Plaque"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 11.0
+offset_bottom = 4.0
+mouse_filter = 2
+color = Color(0.784314, 0.658824, 0.305882, 1)
 
 [node name="Crown" type="TextureRect" parent="."]
 unique_name_in_owner = true

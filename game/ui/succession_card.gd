@@ -110,7 +110,7 @@ func _portrait(slot: Control, st: WorldState, chr: String, flags: Dictionary) ->
 	SocialKit.clear(slot)
 	if st.characters.has(chr):
 		var p := SocialKit.portrait(st, chr, flags)
-		p.scale = Vector2(2, 2)
+		p.set("big", true)  # the portrait ×2 in the big picture frame
 		slot.add_child(p)
 
 
