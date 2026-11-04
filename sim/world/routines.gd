@@ -35,7 +35,7 @@ static func step(sim: Sim) -> void:
 static func _step_one(sim: Sim, chr: String, now: int, phase: String) -> void:
 	var st := sim.state
 	var ch: Dictionary = st.characters[chr]
-	if not bool(ch.get("alive", true)):
+	if not bool(ch.get("alive", true)) or Region.is_away(st, chr):  # viajes: the carter of a caravan is away
 		return
 	if not ch.get("routine") is Dictionary:
 		ch["routine"] = {}

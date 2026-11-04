@@ -78,7 +78,14 @@ static func _book_sale(sim: Sim, c: String, fam: String, actor: String, item: St
 		Money.change(sim, fam, -int(r["tariff"]), Money.TAXES, "tariff:" + c, "", actor, true)
 	Region.stat(sim, fam, "city_sales_gold", int(r["total"]))
 	Region.stat(sim, fam, "city_sales_units", int(r["sold"]))
-	Region.add_reputation(sim, c, fam, int(sim.catalog.trade.get("reputation", {}).get("sale", 0)), "sale")
+	# every sale_units units sold there (counted across sales) give «sale» reputation
+	var cfg: Dictionary = sim.catalog.trade.get("reputation", {})
+	var per := maxi(1, int(cfg.get("sale_units", 4)))
+	var key := "units_" + c
+	var before := int((Region.ensure(sim)["stats"] as Dictionary).get(fam, {}).get(key, 0))
+	Region.stat(sim, fam, key, int(r["sold"]))
+	var steps := (before + int(r["sold"])) / per - before / per
+	Region.add_reputation(sim, c, fam, steps * int(cfg.get("sale", 0)), "sale")
 	sim.events.append({"type": "city_sold", "actor": actor, "family": fam, "city": c, "item": item, "qty": r["sold"],
 		"total": r["total"], "tariff": r["tariff"], "quota": r["quota"]})
 	if OS.is_debug_build():

@@ -13,14 +13,15 @@
     "use_home_demand_rules": true
   },
   "reputation": {
-    "_doc": "Reputation of each family in each settlement away from home (O-R7 a), in [min, max], 0 at first. Home's reputation (4.10.5) never moves with it.",
+    "_doc": "Reputation of each family in each settlement away from home (O-R7 a), in [min, max], 0 at first. Home's reputation (4.10.5) never moves with it. sale: what each sale_units units sold there give (counted across sales).",
     "min": -100,
     "max": 100,
     "contract_done": 3,
     "contract_failed": -2,
     "treaty_kept": 2,
     "treaty_broken": -10,
-    "sale": 0
+    "sale": 1,
+    "sale_units": 2
   },
   "board": {
     "_doc": "Contracts of the cities (9b.5, «encargos de fuera»): at dawn each city may post one (chance) while it has fewer than max_open; the item is one of its «dear» items (or of its dear goods groups), qty in [qty_min, qty_max], the reward = base_price × qty × reward_mult, due in days_min..days_max days. Accepting needs to be there (or a caravan heading there); delivering, the goods there (the traveller or a caravan). Rolls keyed by city and day.",
@@ -50,7 +51,7 @@
     "kinds": {
       "exemption": {"title": "patrician", "reputation": 20, "seasons": 4, "fee": 60},
       "exclusivity": {"title": "baron", "reputation": 40, "seasons": 2, "fee": 150},
-      "quota": {"title": "citizen", "reputation": 10, "seasons": 4, "fee": 20, "qty": 4, "price_mult": 1.2, "penalty": 20}
+      "quota": {"title": "citizen", "reputation": 5, "seasons": 4, "fee": 20, "qty": 4, "price_mult": 1.2, "penalty": 20}
     },
     "town_kinds": ["exemption"],
     "council_yes_affinity": 0,

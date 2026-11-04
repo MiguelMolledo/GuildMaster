@@ -1,0 +1,108 @@
+{
+  "id": "travel",
+  "name_key": "tutorial.chapter.travel",
+  "desc_key": "tutorial.chapter.travel.desc",
+  "test": {
+    "scenario": "travel_start"
+  },
+  "steps": [
+    {
+      "id": "open",
+      "text": "tutorial.travel.open",
+      "target": {
+        "ui": "StatusBar"
+      },
+      "done": {
+        "ui": "panel_opened",
+        "match": {
+          "panel": "RegionScreen"
+        }
+      },
+      "advance": "action"
+    },
+    {
+      "id": "card",
+      "text": "tutorial.travel.card",
+      "target": {
+        "ui": "Marker_hamlet",
+        "in": "RegionScreen"
+      },
+      "done": {
+        "state": "panel_prop",
+        "panel": "RegionScreen",
+        "prop": "selected",
+        "value": "hamlet"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "go",
+      "text": "tutorial.travel.go",
+      "target": {
+        "ui": "Button_travel",
+        "in": "RegionScreen"
+      },
+      "done": {
+        "sim": "trip_started"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "road",
+      "text": "tutorial.travel.road",
+      "target": {
+        "ui": "Hint",
+        "in": "RegionScreen"
+      },
+      "done": {
+        "ui": "panel_opened",
+        "match": {
+          "panel": "CityScreen"
+        }
+      },
+      "advance": "action"
+    },
+    {
+      "id": "market",
+      "text": "tutorial.travel.market",
+      "target": {
+        "ui": "Body",
+        "in": "CityScreen"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "treaties",
+      "text": "tutorial.travel.treaties",
+      "target": {
+        "ui": "Tab_treaties",
+        "in": "CityScreen"
+      },
+      "done": {
+        "state": "panel_prop",
+        "panel": "CityScreen",
+        "prop": "tab",
+        "value": "treaties"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "home",
+      "text": "tutorial.travel.home",
+      "target": {
+        "ui": "ReturnButton",
+        "in": "CityScreen"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "caravans",
+      "text": "tutorial.travel.caravans",
+      "target": {
+        "ui": "MapButton",
+        "in": "CityScreen"
+      },
+      "advance": "next"
+    }
+  ]
+}

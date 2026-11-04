@@ -14,7 +14,8 @@
     "seasons",
     "trade_carpenter",
     "trade_mason",
-    "trade_tailor"
+    "trade_tailor",
+    "travel"
   ],
   "openers": {
     "LedgerPanel": {
@@ -195,7 +196,10 @@
     "OfficeCard",
     "ConfirmModal",
     "WeddingCard",
-    "SuccessionCard"
+    "SuccessionCard",
+    "RegionScreen",
+    "CityScreen",
+    "CaravanScreen"
   ],
   "hints": [
     {
@@ -453,6 +457,44 @@
         "ui": "Card"
       },
       "text": "tutorial.hint.inheritance"
+    },
+    {
+      "id": "first_trip",
+      "when": {
+        "state": "panel_open",
+        "is": "CityScreen"
+      },
+      "target": {
+        "ui": "Tabs",
+        "in": "CityScreen"
+      },
+      "text": "tutorial.hint.first_trip"
+    },
+    {
+      "id": "first_caravan",
+      "when": {
+        "state": "panel_open",
+        "is": "CaravanScreen"
+      },
+      "target": {
+        "ui": "Form",
+        "in": "CaravanScreen"
+      },
+      "text": "tutorial.hint.first_caravan"
+    },
+    {
+      "id": "first_treaty",
+      "when": {
+        "state": "panel_prop",
+        "panel": "CityScreen",
+        "prop": "tab",
+        "value": "treaties"
+      },
+      "target": {
+        "ui": "Body",
+        "in": "CityScreen"
+      },
+      "text": "tutorial.hint.first_treaty"
     }
   ],
   "look": {

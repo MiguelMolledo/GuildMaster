@@ -3,11 +3,17 @@ extends MenuScreen
 ## «Mapa de la región» (docs/gdd/09b_region.md §9b.7): the illustrated parchment of the region with its settlements,
 ## the routes between them (cut ones in red while a world event in force cuts them, data/world/region.json cut_by) and
 ## their names; hovering or clicking a settlement shows its card (PageCard «card»: kind, size, distance from home,
-## specialty, who rules, what is cheap and what pays well, its routes) with «Viajar» off and «Próximamente». The
-## distance counts only the routes open now.
-## Opened from the pause menu or with R in the HUD (the app); while open the game is paused, as it was before on
-## closing. View only: reads RegionView and the state, gives no orders, saves nothing. Esc closes the card, then the
-## screen (back_requested).
+## specialty, who rules, what is cheap and what pays well, its routes). The distance counts only the routes open now.
+## Viajes (09b.5): the card's buttons travel (with or without escort: Travel.can_travel says why not), come back
+## home, open the page of the city where the active person is (city_requested) or let the Mayor propose a town
+## treaty; «Caravanas» opens the caravans panel (caravans_requested). The family's travellers (its emblem) and carts
+## move along their routes while the clock runs; when the active person arrives, city_requested.
+## Opened from the pause menu or with R in the HUD (the app); while open the game is paused as it was before on
+## closing, unless someone of the family is on the road (then it runs, to watch them). Reads the state and gives the
+## orders through `order_sink` (Game.give); saves nothing. Esc closes the card, then the screen (back_requested).
+
+signal city_requested(city: String)
+signal caravans_requested
 
 const PAGE_CARD: PackedScene = preload("res://game/ui/page_card.tscn")
 const INK := Color("#2a1f14")
@@ -22,6 +28,8 @@ const BOTTOM: float = 46.0          # the card stays above the Back button
 
 var game: Node = null
 var sim: Sim = null                 # tests set it; else Game.sim on opening
+var actor: String = ""              # who travels (the app sets the HUD's active person; else the family head)
+var order_sink: Callable = Callable()  # where the orders go (Game.give; tests: a list)
 var home: String = ""
 var hours: Dictionary = {}          # settlement -> game hours from home
 var cut: Dictionary = {}            # route id -> [event ids in force that cut it]
@@ -32,6 +40,7 @@ var _was_paused: bool = false
 var _open: bool = false
 var _bound: bool = false
 var _card: PageCard = null
+var _was_on_road: bool = false      # the actor was on the road at the last frame (arrival -> city_requested)
 
 var _map: TextureRect = null
 var _layer: Control = null
@@ -59,6 +68,8 @@ func _bind() -> void:
 		selected = ""
 		pinned = false
 		_layer.queue_redraw())
+	_card.button_pressed.connect(_on_card_button)
+	(%CaravansButton as Button).pressed.connect(func() -> void: caravans_requested.emit())
 
 
 ## Pauses (remembering the pause it found) and shows the map.
@@ -67,7 +78,9 @@ func open() -> void:
 	if not _open:
 		_open = true
 		_was_paused = bool(game.get("paused")) if game != null else false
-		if game != null and game.has_method("set_paused"):
+		if sim == null and game != null:
+			sim = game.get("sim") as Sim
+		if game != null and game.has_method("set_paused") and not _family_on_road():
 			game.call("set_paused", true)
 	super()
 
@@ -93,11 +106,16 @@ func _refresh() -> void:
 		sim = game.get("sim") as Sim
 	var reg := RegionView.data()
 	home = RegionView.home_of(sim.state.map_id if sim != null else "")
+	if sim != null and (actor == "" or not sim.state.characters.has(actor)):
+		actor = Kin.head(sim.state, SimQuery.player_family(sim.state))
+	_was_on_road = _on_road(actor)
 	cut = RegionView.cut_routes(sim)
 	hours = RegionView.hours_from(home, cut.keys())   # over the routes open now
 	_map.texture = VisualPaths.region_map(str(reg.get("id", "")))
 	(%Title as Label).text = "%s · %s" % [SimQuery.t_("ui.region.title"), SimQuery.t_(str(reg.get("name_key", "")))]
-	(%Hint as Label).text = SimQuery.t_("ui.region.hint")
+	(%Hint as Label).text = status_text()
+	(%CaravansButton as Button).text = SimQuery.t_("ui.region.caravans")
+	(%CaravansButton as Button).icon = VisualPaths.region_icon("caravan")
 	(%BackButton as Button).text = SimQuery.t_("ui.region.back")
 	MenuKit.add_hint(%BackButton as Button, SimQuery.t_("ui.key.esc"))
 	_build_markers()
@@ -105,6 +123,59 @@ func _refresh() -> void:
 	if OS.is_debug_build():
 		print("[RegionScreen] abre: casa=%s, %d asentamientos, %d rutas, cortadas=%s, horas=%s" % [home,
 			RegionView.settlements().size(), RegionView.routes().size(), cut, hours])
+
+
+## One line under the title: where the active person is (on the road, in a city) or the hint.
+func status_text() -> String:
+	if sim == null or actor == "":
+		return SimQuery.t_("ui.region.hint")
+	var name := str(sim.state.characters.get(actor, {}).get("name", ""))
+	var p := Travel.progress(sim, actor)
+	if p.is_empty():
+		return SimQuery.t_("ui.region.hint")
+	if str(p["state"]) == "city":
+		return SimQuery.t_("ui.region.status_city") % [name, _city_name(str(p["at"]))]
+	return SimQuery.t_("ui.region.status_road") % [name, _city_name(str(p["to"])), ceili(float(p["minutes_left"]) / 60.0)]
+
+
+func _city_name(id: String) -> String:
+	return SimQuery.t_(str(RegionView.settlement(id).get("name_key", id)))
+
+
+func _on_road(who: String) -> bool:
+	return sim != null and str(Travel.trip(sim.state, who).get("state", "")) == "road"
+
+
+## Someone of the player's family on the road, or one of its caravans out: the clock keeps running on the map.
+func _family_on_road() -> bool:
+	if sim == null or sim.state.region.is_empty():
+		return false
+	var fam := SimQuery.player_family(sim.state)
+	for t: Dictionary in (sim.state.region.get("trips", {}) as Dictionary).values():
+		if str(t.get("family", "")) == fam and str(t.get("state", "")) == "road":
+			return true
+	for c: Dictionary in sim.state.region.get("caravans", []):
+		if str(c.get("family", "")) == fam:
+			return true
+	return false
+
+
+func _process(_delta: float) -> void:
+	if not visible or sim == null:
+		return
+	if _family_on_road():
+		_layer.queue_redraw()
+		(%Hint as Label).text = status_text()
+	var road := _on_road(actor)
+	if _was_on_road and not road:
+		var c := Travel.in_city(sim.state, actor)
+		_was_on_road = false
+		(%Hint as Label).text = status_text()
+		if c != "":
+			if OS.is_debug_build():
+				print("[RegionScreen] %s llega a %s: abre su página" % [actor, c])
+			city_requested.emit(c)
+	_was_on_road = road
 
 
 func default_focus() -> Control:
@@ -181,6 +252,65 @@ func _draw_layer() -> void:
 		_layer.draw_circle(p, r + 1.5, INK)
 		_layer.draw_circle(p, r, GOLD if id == home else WAX)
 		_layer.draw_circle(p, r * 0.45, INK if id == home else Color(WAX.lightened(0.25)))
+	_draw_travellers()
+
+
+## The family's people on the road (its emblem, with the family's colour under it) and its carts, on their route.
+func _draw_travellers() -> void:
+	if sim == null or sim.state.region.is_empty():
+		return
+	var fam := SimQuery.player_family(sim.state)
+	var colors: Dictionary = sim.state.families.get(fam, {}).get("colors", {})
+	var tint := Color(str(colors.get("primary", "#8a2a1e")))
+	var emblem := VisualPaths.region_emblem()
+	var cart := VisualPaths.region_cart()
+	for chr: String in (sim.state.region.get("trips", {}) as Dictionary):
+		var t: Dictionary = sim.state.region["trips"][chr]
+		if str(t.get("family", "")) != fam:
+			continue
+		var p := Travel.progress(sim, chr)
+		var at := _position_of(p)
+		_layer.draw_circle(at, 9.0, INK)
+		_layer.draw_circle(at, 8.0, tint)
+		if VisualPaths.is_placeholder(emblem):  # until the emblem's art lands: the family's colour in a gold ring
+			_layer.draw_arc(at, 6.0, 0.0, TAU, 16, GOLD, 2.0)
+		else:
+			_layer.draw_texture(emblem, at - Vector2(emblem.get_size()) / 2.0)
+	for c: Dictionary in sim.state.region.get("caravans", []):
+		if str(c.get("family", "")) != fam:
+			continue
+		var at := _position_of(Caravans.progress(sim, c)) + Vector2(0, 10)
+		_layer.draw_texture(cart, at - Vector2(cart.get_size()) / 2.0)
+
+
+## Where a trip or a caravan is on the map: on its route's polyline at its progress (from -> next), or on the seal
+## of the settlement where it stays.
+func _position_of(p: Dictionary) -> Vector2:
+	if str(p.get("state", "")) != "road":
+		var s := RegionView.settlement(str(p.get("at", "")))
+		return Vector2(s["pos"][0], s["pos"][1]) + Vector2(0, -14) if not s.is_empty() else Vector2.ZERO
+	var r := {}
+	for x: Dictionary in RegionView.routes():
+		if str(x["id"]) == str(p["route"]):
+			r = x
+	var pts := RegionView.route_points(r)
+	if str(r.get("a", "")) != str(p["from"]):
+		pts.reverse()
+	return _along(pts, float(p["progress"]))
+
+
+## The point at fraction `f` (0..1) of a polyline's length.
+static func _along(pts: PackedVector2Array, f: float) -> Vector2:
+	var total := 0.0
+	for i: int in pts.size() - 1:
+		total += pts[i].distance_to(pts[i + 1])
+	var left := total * clampf(f, 0.0, 1.0)
+	for i: int in pts.size() - 1:
+		var d := pts[i].distance_to(pts[i + 1])
+		if left <= d and d > 0.0:
+			return pts[i].lerp(pts[i + 1], left / d)
+		left -= d
+	return pts[pts.size() - 1]
 
 
 ## The point halfway along a polyline.
@@ -254,8 +384,70 @@ func card_data(id: String) -> Dictionary:
 	blocks.append({"type": "divider"})
 	blocks.append({"type": "effects", "items": lines})
 	return {"template": "card", "title": _t(str(s.get("name_key", id))), "sticky": true, "blocks": blocks,
-		"buttons": [{"id": "travel", "text": "%s · %s" % [_t("ui.region.travel"), _t("ui.region.soon")],
-			"disabled": true, "tip": _t("ui.region.travel_tip")}]}
+		"buttons": card_buttons(id)}
+
+
+## The card's buttons for settlement `id` and the active person: travel (with or without escort: off with the reason
+## while it cannot), back home, see the city (the one where the person is), and the Mayor's town treaty.
+func card_buttons(id: String) -> Array:
+	var out: Array = []
+	if sim == null or actor == "":
+		return out
+	var here := Travel.in_city(sim.state, actor)
+	var road := _on_road(actor)
+	if id == here:
+		out.append({"id": "city", "text": _t("ui.region.see_city"), "primary": true})
+	if id == home and here != "":
+		out.append(_travel_button("return", _t("ui.region.return"), home, false))
+	elif id != home and id != here and not road:
+		out.append(_travel_button("travel", _t("ui.region.travel"), id, false))
+		out.append(_travel_button("travel_escort", _t("ui.region.travel_escort") % int(
+			sim.catalog.trade.get("travel", {}).get("escort_cost", 20)), id, true))
+	if id != home and here == "" and not road and actor in Offices.holders(sim, "mayor"):
+		var fam := str(sim.state.characters[actor].get("family", ""))
+		var why := Treaties.can_sign(sim, fam, id, "exemption", "", "town")
+		out.append({"id": "town_treaty", "text": _t("ui.region.town_treaty"), "disabled": why != "",
+			"tip": SimQuery.reason_text(why) if why != "" else _t("ui.region.town_treaty_tip")})
+	return out
+
+
+func _travel_button(bid: String, text: String, to: String, escort: bool) -> Dictionary:
+	var why := Travel.can_travel(sim, actor, to, escort)
+	var tip := SimQuery.reason_text(why) if why != "" else _t("ui.region.travel_tip_on")
+	return {"id": bid, "text": text, "disabled": why != "", "tip": tip, "primary": bid == "travel"}
+
+
+## A button of the card: its order to the sim (or the city page).
+func _on_card_button(bid: String) -> void:
+	var to := selected
+	if OS.is_debug_build():
+		print("[RegionScreen] botón %s en la ficha de %s (actor %s)" % [bid, to, actor])
+	match bid:
+		"travel", "travel_escort":
+			_give({"type": "travel", "actor": actor, "to": to, "escort": bid == "travel_escort"})
+			_run_clock()
+		"return":
+			_give({"type": "return", "actor": actor})
+			_run_clock()
+		"city":
+			city_requested.emit(Travel.in_city(sim.state, actor))
+		"town_treaty":
+			_give({"type": "propose_town_treaty", "actor": actor, "city": to, "kind": "exemption"})
+
+
+func _give(o: Dictionary) -> void:
+	if order_sink.is_valid():
+		order_sink.call(o)
+	elif game != null and game.has_method("give"):
+		game.call("give", o)
+
+
+## After setting out, the clock runs while the map is open (to watch the trip); closing it leaves it running.
+func _run_clock() -> void:
+	_was_paused = false
+	if game != null and game.has_method("set_paused"):
+		game.call("set_paused", false)
+	_was_on_road = true
 
 
 static func _t(key: String) -> String:

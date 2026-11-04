@@ -1,0 +1,14 @@
+{
+  "fecha": "2026-11-04",
+  "titulo": "Viajar y comerciar por Valldaura",
+  "que": "Ya se puede salir de casa. Con el título de Ciudadano, el mapa de la región (R o Esc → Mapa de la región) deja viajar a las otras cinco poblaciones: por el camino abierto más corto, con sus horas (×1,5 en guerra), su peaje, la escolta opcional y el riesgo de bandidos (un asalto se lleva la carga; la herida llegará con la salud de 4.22). Mientras viajas, el emblema de la familia avanza por la ruta, el control pasa al siguiente del grupo y en casa siguen los empleados y las directivas. Al llegar se abre la página de la ciudad: su mercado con sus propios precios (demanda propia, lo que produce barato y lo que paga caro, sus eventos) y su arancel; sus encargos; tu reputación allí; y la mesa de tratados (exención de aranceles, exclusividad de una mercancía y cuota fija, con título, reputación, cuota y castigo si no cumples). Con un carro y un empleado de carretero, las caravanas comercian sin salir de casa: carga con precio mínimo, lista de compra con precio máximo, escolta. El Alcalde puede firmar la exención para toda la villa si el concejo vota sí. Las ciudades lejanas viven solas sin coste: su demanda, sus eventos y sus encargos avanzan al alba; nieve y crecida cortan caminos según la estación; las familias IA mandan caravanas abstractas que bajan precios fuera. Nada de esto toca la partida de quien no viaja (las dianas de siempre salen iguales). Guardado v16. Nuevo capítulo del tutorial «Viajar y comerciar» y pistas de primera vez.",
+  "como_probar": "Jugar con el escenario de prueba: /opt/homebrew/bin/godot --path . -- --scenario=travel_start (la familia ya es ciudadana): R, pulsar una población, Viajar; en la ciudad, Mercado / Encargos / Tratados; Mapa de la región → Caravanas. Captura guionizada: grimoire heavy --timeout 5m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=viajes. Pruebas: godot --headless --path . -s tests/run_tests.gd -- --only=test_viajes. Bot: godot --headless --path . -s tools/sim_runner.gd -- --scenario=travel_start --bots=merchant --days=16 --seeds=10.",
+  "capturas": [
+    "docs/novedades/viajes_ficha.png",
+    "docs/novedades/viajes_camino.png",
+    "docs/novedades/viajes_mercado.png",
+    "docs/novedades/viajes_tratados.png",
+    "docs/novedades/viajes_caravanas.png",
+    "docs/novedades/viajes_caravana_mapa.png"
+  ]
+}

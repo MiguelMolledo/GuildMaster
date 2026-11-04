@@ -1,7 +1,7 @@
 extends "res://tests/test_case.gd"
 ## The region (docs/gdd/09b_region.md): data/world/region.json read by the view (RegionView) and the «Mapa de la
 ## región» screen (RegionScreen): home, distances over the open routes, the routes a world event cuts, the card of a
-## settlement with «Viajar» off. View only: opening the map changes nothing of the state but the pause.
+## settlement: «Viajar» off with the reason for a commoner, on for a citizen, and its order through order_sink.
 
 var cat := Catalog.load_from()
 
@@ -45,25 +45,36 @@ func test_the_war_cuts_its_routes_and_nothing_else() -> void:
 	eq(keys, ["r2", "r3", "r4"], "the war cuts the routes with war in cut_by")
 
 
-func test_the_card_shows_the_settlement_and_travel_is_off() -> void:
+func test_the_card_travels_only_with_the_citizen_title() -> void:
 	var sim := _sim()
-	var before := JSON.stringify(sim.state.to_dict())
 	var sc := (load("res://game/ui/region_screen.tscn") as PackedScene).instantiate() as RegionScreen
 	sc.sim = sim
+	var given: Array = []
+	sc.order_sink = func(o: Dictionary) -> void: given.append(o)
 	sc.open()
 	eq(sc.home, "villa", "home is the villa")
 	eq(sc.markers.size(), 6, "a seal per settlement")
 	var d := sc.card_data("quarry")
 	eq(str(d["template"]), "card", "a PageCard card")
 	var b: Dictionary = (d["buttons"] as Array)[0]
-	check(bool(b["disabled"]), "«Viajar» is off")
-	check(str(b["text"]).contains(SimQuery.t_("ui.region.soon")), "and says «Próximamente»")
+	eq(str(b["id"]), "travel", "the first button travels")
+	check(bool(b["disabled"]), "a commoner cannot travel")
+	eq(str(b["tip"]), SimQuery.reason_text("title_needed"), "and the tip says why")
+	var fam := SimQuery.player_family(sim.state)
+	sim.state.families[fam]["title"] = "citizen"
+	b = (sc.card_data("quarry")["buttons"] as Array)[0]
+	check(not bool(b["disabled"]), "a citizen can")
+	var before := sim.state.to_dict()
 	sc.show_card("capital", true)
-	eq(sc.selected, "capital", "the capital's card is open")
+	sc._on_card_button("travel")
+	eq(given.size(), 1, "the button gives one order")
+	eq(str(given[0]["type"]), "travel", "travel")
+	eq(str(given[0]["to"]), "capital", "to the capital")
 	var card := sc.get_node("SettlementCard") as PageCard
 	check(card.visible, "the card is shown")
-	var tb := card.find_child("Button_travel", true, false) as Button
-	check(tb != null and tb.disabled, "its travel button is drawn off")
+	var after := sim.state.to_dict()
+	before.erase("region")
+	after.erase("region")
+	eq(JSON.stringify(after), JSON.stringify(before), "the map gives orders, it changes nothing of the state itself")
 	sc.close()
-	eq(JSON.stringify(sim.state.to_dict()), before, "opening the map changes nothing of the state")
 	sc.free()

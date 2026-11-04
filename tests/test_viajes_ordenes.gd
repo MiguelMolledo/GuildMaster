@@ -110,7 +110,7 @@ func test_a_quota_is_paid_at_its_price_and_breaks_if_short() -> void:
 	sim.step([{"type": "travel", "actor": hero, "to": "hamlet"}])
 	_until(sim, func() -> bool: return Travel.in_city(st, hero) == "hamlet")
 	eq(str(Orders.apply(sim, {"type": "sign_treaty", "actor": hero, "kind": "quota", "item": "hoe"})["reason"]),
-		"reputation_needed", "a quota needs reputation 10 there")
+		"reputation_needed", "a quota needs reputation there (5)")
 	(st.region["cities"]["hamlet"]["reputation"] as Dictionary)[fam] = 10
 	check(bool(Orders.apply(sim, {"type": "sign_treaty", "actor": hero, "kind": "quota", "item": "hoe"})["ok"]),
 		"signed: the hamlet pays well for hoes")

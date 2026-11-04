@@ -5713,6 +5713,170 @@
       "origen_previo": null,
       "coste_gen": 0,
       "notas": "Ilustración de la carta de resultado (240×135, PageCard «card»): victoria, derrota y tablas en la plaza al alba. Candidata a fal con el kit de página."
+    },
+    {
+      "id": "ui_city_art_villa",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "viajes",
+        "region"
+      ],
+      "ruta": "assets/art/region/cities/villa.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Ilustración de la página de Vilarrasa (CityScreen, docs/gdd/09b_region.md), 240×135, en la línea de las cartas de evento. Mientras falte, VisualPaths.city_art da un recuadro provisional con el nombre."
+    },
+    {
+      "id": "ui_city_art_capital",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "viajes",
+        "region"
+      ],
+      "ruta": "assets/art/region/cities/capital.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Ilustración de la página de Bellcaire (CityScreen, docs/gdd/09b_region.md), 240×135, en la línea de las cartas de evento. Mientras falte, VisualPaths.city_art da un recuadro provisional con el nombre."
+    },
+    {
+      "id": "ui_city_art_port",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "viajes",
+        "region"
+      ],
+      "ruta": "assets/art/region/cities/port.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Ilustración de la página de Portvell (CityScreen, docs/gdd/09b_region.md), 240×135, en la línea de las cartas de evento. Mientras falte, VisualPaths.city_art da un recuadro provisional con el nombre."
+    },
+    {
+      "id": "ui_city_art_quarry",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "viajes",
+        "region"
+      ],
+      "ruta": "assets/art/region/cities/quarry.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Ilustración de la página de Peñarroja (CityScreen, docs/gdd/09b_region.md), 240×135, en la línea de las cartas de evento. Mientras falte, VisualPaths.city_art da un recuadro provisional con el nombre."
+    },
+    {
+      "id": "ui_city_art_hamlet",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "viajes",
+        "region"
+      ],
+      "ruta": "assets/art/region/cities/hamlet.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Ilustración de la página de Vilablat (CityScreen, docs/gdd/09b_region.md), 240×135, en la línea de las cartas de evento. Mientras falte, VisualPaths.city_art da un recuadro provisional con el nombre."
+    },
+    {
+      "id": "ui_city_art_abbey",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "viajes",
+        "region"
+      ],
+      "ruta": "assets/art/region/cities/abbey.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Ilustración de la página de Montsacre (CityScreen, docs/gdd/09b_region.md), 240×135, en la línea de las cartas de evento. Mientras falte, VisualPaths.city_art da un recuadro provisional con el nombre."
+    },
+    {
+      "id": "ui_region_emblem",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "viajes",
+        "region"
+      ],
+      "ruta": "assets/art/region/emblem.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Emblema de la familia en el mapa de la región mientras viaja, 24×24 con transparencia (va sobre un círculo del color de la familia). Mientras falte: un aro dorado (VisualPaths.region_emblem)."
+    },
+    {
+      "id": "ui_region_cart",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "viajes",
+        "region"
+      ],
+      "ruta": "assets/art/region/cart.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Carro de una caravana en el mapa de la región, 24×16 con transparencia. Mientras falte: una caja marrón (VisualPaths.region_cart)."
+    },
+    {
+      "id": "icon_tariff",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "viajes"
+      ],
+      "ruta": "assets/art/ui/icons/small/icon_tariff.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Icono de arancel (16×16; y su versión de 32 en assets/art/ui/icons/icon_tariff.png) para la página de la ciudad y las caravanas. Mientras falte: un cuadrado de color (VisualPaths.region_icon)."
+    },
+    {
+      "id": "icon_treaty",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "viajes"
+      ],
+      "ruta": "assets/art/ui/icons/small/icon_treaty.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Icono de tratado (16×16; y su versión de 32 en assets/art/ui/icons/icon_treaty.png) para la página de la ciudad y las caravanas. Mientras falte: un cuadrado de color (VisualPaths.region_icon)."
+    },
+    {
+      "id": "icon_caravan",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "viajes"
+      ],
+      "ruta": "assets/art/ui/icons/small/icon_caravan.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Icono de caravana (16×16; y su versión de 32 en assets/art/ui/icons/icon_caravan.png) para la página de la ciudad y las caravanas. Mientras falte: un cuadrado de color (VisualPaths.region_icon)."
+    },
+    {
+      "id": "icon_city_reputation",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "viajes"
+      ],
+      "ruta": "assets/art/ui/icons/small/icon_city_reputation.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Icono de reputación en una ciudad (16×16; y su versión de 32 en assets/art/ui/icons/icon_city_reputation.png) para la página de la ciudad y las caravanas. Mientras falte: un cuadrado de color (VisualPaths.region_icon)."
     }
   ]
 }

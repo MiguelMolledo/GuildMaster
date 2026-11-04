@@ -67,7 +67,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
 	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
-	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade}
+	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "merchant": BotMerchant}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
@@ -77,6 +77,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
 	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
+	# merchant: travels to the capital, sells there, takes contracts, signs a quota, sends a caravan (viajes, 09b)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
 const YEAR_DAYS: int = 8  # D1(b): 1 year = 8 days
@@ -449,6 +450,13 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 	for ev: Dictionary in sim.state.events_active:
 		if int(ev.get("end", 0)) <= int(sim.state.clock["minute"]):
 			m["events_overdue"] = int(m["events_overdue"]) + 1
+	if player != "":  # viajes (09b): the region's counters of the player's family (trips, sales away, caravans, treaties)
+		var rs: Dictionary = (sim.state.region.get("stats", {}) as Dictionary).get(player, {})
+		for k: String in ["arrivals", "returns", "ambushes", "city_sales_gold", "city_sales_units", "city_buys_gold",
+				"city_contracts_done", "caravans_sent", "caravans_arrived", "caravans_back", "caravan_ambushes",
+				"treaties_signed", "treaties_broken"]:
+			m["trv_" + k] = int(rs.get(k, 0))
+		m["gold_end"] = Money.gold(sim.state, player)
 	m["ledger_mismatch"] = 0
 	for f: String in sim.state.families:
 		if Money.gold(sim.state, f) - Ledger.total(sim.state, f) != int(gold0.get(f, 0)):
