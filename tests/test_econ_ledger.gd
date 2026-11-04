@@ -126,5 +126,5 @@ func test_conservation_random_clicker_10_days() -> void:
 	check(refused > 100, "the bot gave plenty of nonsense (%d refused)" % refused)
 	check(not sim.state.ledger["entries"].is_empty(), "gold moved")
 	for f: String in sim.state.families:
-		eq(Money.gold(sim.state, f) - int(before[f]), Ledger.total(sim.state, f), "%s: entries = change of gold" % f)
+		eq(Money.gold(sim.state, f) - int(before.get(f, 0)), Ledger.total(sim.state, f), "%s: entries = change of gold" % f)  # vida: families made later start at 0
 		check(Money.gold(sim.state, f) >= 0, "%s: never below 0" % f)

@@ -75,4 +75,4 @@ func test_ledger_adds_up_to_the_gold() -> void:
 		sums[e["family"]] = int(sums.get(e["family"], 0)) + int(e["amount"])
 	check(not sim.state.ledger["entries"].is_empty(), "the smith bot spent something")
 	for f: String in sim.state.families:
-		eq(Money.gold(sim.state, f) - int(before[f]), int(sums.get(f, 0)), "%s: entries = change of gold" % f)
+		eq(Money.gold(sim.state, f) - int(before.get(f, 0)), int(sums.get(f, 0)), "%s: entries = change of gold" % f)  # vida: the watch's family comes later

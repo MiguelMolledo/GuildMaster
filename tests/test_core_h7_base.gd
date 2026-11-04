@@ -51,7 +51,7 @@ func test_v7_save_migrates_to_v8() -> void:
 		eq(str(st.characters[id]["occupation"]), "", "%s: no trade yet" % id)
 		eq(st.characters[id]["town"], {}, "%s: empty town memory" % id)
 	eq(st.microevents, {"active": [], "pending": [], "cooldowns": {}, "last_day": {}}, "no microevents")
-	eq(st.town, {"counters": {}}, "no counters")
+	eq(st.town.get("counters"), {}, "no counters")  # vida (v17) adds its blocks to town: only the counters are H7's
 	TownLife.assign_occupations(st, cat)
 	var folk := _townsfolk(st)
 	check(folk.size() >= 15, "15-20 townsfolk (%d)" % folk.size())

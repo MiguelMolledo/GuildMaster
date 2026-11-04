@@ -49,6 +49,7 @@ var cast: Dictionary = {}        # data/cast.json: the generated cast of a new g
 var region: Dictionary = {}      # data/world/region.json: the settlements and routes of the region (09b)
 var trade: Dictionary = {}       # data/world/trade.json: travel, city markets, caravans, treaties, regional events (09b)
 var combat: Dictionary = {}      # data/combat.json: the duel «a tres tiempos» (draft, 04e; nothing in the sim uses it yet)
+var life_tables: Dictionary = {}  # vida (04f 4.24): data/life/<file>.json by file name: life, activities, rumors, incidents
 ## Población: data/portraits.json, the ids of the portrait pool (exported from assets/art/portraits/index.json by
 ## tools/art/portraits_catalog.py; the sim depends on data/ only): {by: {"sex|age|type": [ids sorted]}, fallback: {type:
 ## {age: type}}, ages, types, count}. Empty without it: nobody gets a portrait id (the view keeps the greybox).
@@ -86,6 +87,8 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.region = c._load_json(root_dir.path_join("world/region.json"))
 	c.trade = c._load_json(root_dir.path_join("world/trade.json"))
 	c.portrait_pool = c._load_json(root_dir.path_join("portraits.json"))
+	for f: String in ["life", "activities", "rumors", "incidents"]:  # vida (04f 4.24): data/life/
+		c.life_tables[f] = c._load_json(root_dir.path_join("life/%s.json" % f))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]

@@ -17,7 +17,7 @@ func orders(sim: Sim) -> Array:
 	for id: String in sim.state.characters:
 		var ch: Dictionary = sim.state.characters[id]
 		if not bool(ch.get("alive", true)) or not (ch.get("path", []) as Array).is_empty() \
-				or str(ch.get("location", "")) != "":
+				or str(ch.get("location", "")) != "" or Life.offstage(sim.state, id):  # vida: not on the map
 			continue
 		if sim.state.rng.randf() >= CHANCE_PER_MINUTE:
 			continue
