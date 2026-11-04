@@ -1,0 +1,85 @@
+{
+  "id": "titles",
+  "name_key": "tutorial.chapter.titles",
+  "desc_key": "tutorial.chapter.titles.desc",
+  "test": {
+    "start": "artisan_blacksmith"
+  },
+  "steps": [
+    {
+      "id": "card",
+      "text": "tutorial.titles.card",
+      "target": {
+        "ui": "FamilyTitle"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "open",
+      "text": "tutorial.titles.open",
+      "target": {
+        "ui": "LedgerButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "LedgerPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "rep_tab",
+      "text": "tutorial.titles.rep_tab",
+      "target": {
+        "ui": "Reputation",
+        "in": "LedgerPanel"
+      },
+      "done": {
+        "state": "panel_prop",
+        "panel": "LedgerPanel",
+        "prop": "tab",
+        "value": "reputation"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "rep",
+      "text": "tutorial.titles.rep",
+      "target": {
+        "ui": "Content",
+        "in": "LedgerPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "hall",
+      "text": "tutorial.titles.hall",
+      "target": {
+        "world": "service",
+        "id": "town_hall"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "TownHallPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "ladder",
+      "text": "tutorial.titles.ladder",
+      "target": {
+        "ui": "Ladder",
+        "in": "TownHallPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "req",
+      "text": "tutorial.titles.req",
+      "target": {
+        "ui": "ReqList",
+        "in": "TownHallPanel"
+      },
+      "advance": "next"
+    }
+  ]
+}

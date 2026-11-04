@@ -1,0 +1,91 @@
+{
+  "id": "family",
+  "name_key": "tutorial.chapter.family",
+  "desc_key": "tutorial.chapter.family.desc",
+  "test": {
+    "start": "artisan_blacksmith"
+  },
+  "steps": [
+    {
+      "id": "open",
+      "text": "tutorial.family.open",
+      "target": {
+        "ui": "TreeButton",
+        "in": "StatusBar"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "FamilyTreePanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "canvas",
+      "text": "tutorial.family.canvas",
+      "target": {
+        "ui": "Canvas",
+        "in": "FamilyTreePanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "heads",
+      "text": "tutorial.family.heads",
+      "target": {
+        "ui": "Heads",
+        "in": "FamilyTreePanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "goals",
+      "text": "tutorial.family.goals",
+      "target": {
+        "ui": "Goals",
+        "in": "FamilyTreePanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "sheet",
+      "text": "tutorial.family.sheet",
+      "target": {
+        "ui": "InventoryButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "CharacterPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "court",
+      "text": "tutorial.family.court",
+      "target": {
+        "ui": "CourtButton",
+        "in": "CharacterPanel"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "CourtshipPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "courtship",
+      "text": "tutorial.family.courtship",
+      "target": {
+        "ui": "CourtshipPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "heir",
+      "text": "tutorial.family.heir",
+      "target": {
+        "ui": "GroupBar"
+      },
+      "advance": "next"
+    }
+  ]
+}

@@ -4,13 +4,15 @@ extends MenuScreen
 ## once (Settings, user://settings.cfg; never in the game). Sound: one slider per bus and "lower the sound when the
 ## window is not active"; language; display: full screen (F11), whole scale (only the ones that fit the screen; the
 ## others off with the reason), text size (decision 1: Large = bold and more line spacing); game: speed on load,
-## which notices pop up, pause when the window loses the focus, the help line, objective hints. "Defaults" without
+## which notices pop up, pause when the window loses the focus, the help line, objective hints, the tutorial's
+## first-time hints and its guided mode (docs/ui/05_tutorial.md). "Defaults" without
 ## confirmation. The choices of a row are its buttons in the order of Settings.CHOICES.
 
 const SLIDERS: Dictionary = {"audio/master": "Master", "audio/music": "Music", "audio/sfx": "Sfx",
 	"audio/ambient": "Ambient", "audio/voice": "Voice", "audio/ui": "Ui"}
 const CHECKS: Dictionary = {"audio/mute_unfocused": "MuteUnfocused", "display/fullscreen": "Fullscreen",
-	"game/pause_unfocused": "PauseUnfocused", "game/help_line": "HelpLine", "game/objective_hints": "ObjectiveHints"}
+	"game/pause_unfocused": "PauseUnfocused", "game/help_line": "HelpLine", "game/objective_hints": "ObjectiveHints",
+	"game/tutorial_hints": "TutorialHints", "game/tutorial_guided": "TutorialGuided"}
 const ROWS: Dictionary = {"lang/locale": "Locale", "display/scale": "Scale", "display/text": "Text",
 	"game/load_speed": "LoadSpeed", "game/notices": "Notices"}
 
@@ -133,6 +135,8 @@ func _texts() -> void:
 	(%PauseUnfocused as CheckBox).text = SimQuery.t_("ui.options.pause_unfocused")
 	(%HelpLine as CheckBox).text = SimQuery.t_("ui.options.help_line")
 	(%ObjectiveHints as CheckBox).text = SimQuery.t_("ui.options.objective_hints")
+	(%TutorialHints as CheckBox).text = SimQuery.t_("tutorial.ui.options_hints")    # docs/ui/05_tutorial.md §2
+	(%TutorialGuided as CheckBox).text = SimQuery.t_("tutorial.ui.options_guided")
 	(%DefaultsButton as Button).text = SimQuery.t_("ui.options.defaults")
 	(%AppliedNote as Label).text = SimQuery.t_("ui.options.applied")
 	(%BackButton as Button).text = SimQuery.t_("ui.menu.back")

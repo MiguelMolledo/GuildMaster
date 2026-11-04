@@ -18,6 +18,7 @@ const DEFAULT_SCENARIO: String = "town_e_start"
 
 signal started  # a new state is loaded (start, load): views rebuild
 signal saved(slot: String)  # a slot (or the autosave) was written: the app adds its thumbnail
+signal order_given(order: Dictionary)  # an order was given (the tutorial listens: docs/ui/05_tutorial.md §4.3)
 
 var sim: Sim
 var speed: int = 1
@@ -114,6 +115,7 @@ func give(order: Dictionary) -> void:
 	if paused:
 		o["queued"] = true
 	_pending.append(o)
+	order_given.emit(order)
 
 
 ## The orders queued for the next step (read only: tests and debugging).

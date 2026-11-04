@@ -444,6 +444,16 @@ layout_mode = 2
 text = "--"
 unique_name_in_owner = true
 
+[node name="TutorialHints" type="CheckBox" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
+[node name="TutorialGuided" type="CheckBox" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+text = "--"
+unique_name_in_owner = true
+
 [node name="Space" type="Control" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2

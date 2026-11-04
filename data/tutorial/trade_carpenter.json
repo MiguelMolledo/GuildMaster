@@ -1,0 +1,72 @@
+{
+  "id": "trade_carpenter",
+  "name_key": "tutorial.chapter.trade_carpenter",
+  "desc_key": "tutorial.chapter.trade_carpenter.desc",
+  "requires": {
+    "state": "profession",
+    "is": "carpenter"
+  },
+  "test": {
+    "start": "artisan_carpenter"
+  },
+  "steps": [
+    {
+      "id": "enter",
+      "text": "tutorial.trade_carpenter.enter",
+      "target": {
+        "world": "building",
+        "id": "$workshop"
+      },
+      "done": {
+        "state": "interior",
+        "is": "$workshop"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "first",
+      "text": "tutorial.trade_carpenter.first",
+      "target": {
+        "world": "station",
+        "id": "sawhorse"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "StationMenu",
+        "zone": "sawhorse"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "recipe",
+      "text": "tutorial.trade_carpenter.recipe",
+      "target": {
+        "ui": "Row_carpentry_planks",
+        "in": "StationMenu",
+        "opener": {
+          "world": "station",
+          "id": "sawhorse"
+        }
+      },
+      "advance": "next"
+    },
+    {
+      "id": "second",
+      "text": "tutorial.trade_carpenter.second",
+      "target": {
+        "world": "station",
+        "id": "workbench"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "stall",
+      "text": "tutorial.trade_carpenter.stall",
+      "target": {
+        "world": "service",
+        "id": "goods"
+      },
+      "advance": "next"
+    }
+  ]
+}
