@@ -7,7 +7,7 @@ extends GameBoard
 
 const SUIT_COLOR: Dictionary = {"oros": Color(0.85, 0.68, 0.24), "copas": Color(0.72, 0.2, 0.18),
 	"espadas": Color(0.3, 0.45, 0.72), "bastos": Color(0.36, 0.55, 0.28)}
-const CARD: Vector2 = Vector2(30, 44)
+const CARD: Vector2 = Vector2(48, 72)  # the art's size (assets/art/ui/games/naipes/, ui_game_naipes): whole pixels
 
 var _shown: int = 0
 var _word: Dictionary = {}     # {side, text}: what is being said now
@@ -91,34 +91,52 @@ func _draw() -> void:
 	var other := 1 - me
 	var hand_me: Array = em.hand(me)
 	var hand_ot: Array = em.hand(other)
-	var x0 := 20.0
+	var x0 := 8.0
+	var top := 4.0
+	var low := size.y - CARD.y - 4.0
 	# the rival's cards (top) and mine (bottom); a card already played to a baza is shown there instead
 	for i: int in 3:
 		var shown_ot := m.over() and not playing and int(m.d["folded"]) < 0 and _shown >= m.log_entries().size()
 		if i >= nb:
-			card(Vector2(x0 + i * 36, 8), str(hand_ot[i]), shown_ot)
-			card(Vector2(x0 + i * 36, size.y - CARD.y - 8), str(hand_me[i]), true)
-	text(Vector2(x0, 8 + CARD.y + 14), who(other), DIM, 8)
-	text(Vector2(x0, size.y - CARD.y - 14), who(me), GOLD, 8)
-	# the three bazas in the middle
+			card(Vector2(x0 + i * (CARD.x + 4), top), str(hand_ot[i]), shown_ot)
+			card(Vector2(x0 + i * (CARD.x + 4), low), str(hand_me[i]), true)
+	# between the hands: the stake and who is mano
+	var lv := int(v.get("level", 0))
+	text(Vector2(x0, size.y / 2.0 + 2), tr("games.ui.stake_now") % lv, GOLD, 16)
+	text(Vector2(x0, size.y / 2.0 + 12), tr("games.envite.ui.mano") % who(int(v.get("mano", 0))), DIM, 8)
+	# the three bazas: the rival's card over mine, the empty slot until it is uncovered
+	var bx0 := x0 + 3 * (CARD.x + 4) + 20.0
 	for i: int in 3:
-		var bx := 150.0 + i * 64.0
+		var bx := bx0 + i * (CARD.x + 8)
 		text(Vector2(bx, size.y / 2.0 + 4), tr("games.envite.ui.baza") % (i + 1), DIM, 8)
 		if i < nb:
 			var b: Dictionary = bz[i]
 			var cs: Array = b["cards"]
 			var w := int(b["winner"])
-			card(Vector2(bx, 22), str(cs[other]), true, w == other)
-			card(Vector2(bx, size.y - CARD.y - 22), str(cs[me]), true, w == me)
-			text(Vector2(bx + CARD.x + 4, size.y / 2.0 + 4), tr("games.envite.ui.parda") if w < 0 else "", DIM, 8)
-	# the stake
-	var lv := int(v.get("level", 0))
-	text(Vector2(size.x - 10, 22), tr("games.ui.stake_now") % lv, GOLD, 16, -1.0, HORIZONTAL_ALIGNMENT_RIGHT)
-	text(Vector2(size.x - 10, 40), tr("games.envite.ui.mano") % who(int(v.get("mano", 0))), DIM, 8, -1.0,
-		HORIZONTAL_ALIGNMENT_RIGHT)
-	if not _word.is_empty():
-		var y := 8.0 + CARD.y + 34.0 if int(_word["side"]) == other else size.y - CARD.y - 34.0
-		text(Vector2(x0, y), str(_word["text"]), INK, 16)
+			card(Vector2(bx, top), str(cs[other]), true, w == other)
+			card(Vector2(bx, low), str(cs[me]), true, w == me)
+			if w < 0:
+				text(Vector2(bx + CARD.x, size.y / 2.0 + 4), tr("games.envite.ui.parda"), DIM, 8, -1.0, HORIZONTAL_ALIGNMENT_RIGHT)
+		else:
+			slot(Vector2(bx, top))
+			slot(Vector2(bx, low))
+	if not _word.is_empty():  # what one says, over his own cards
+		var y := top + CARD.y / 2.0 if int(_word["side"]) == other else low + CARD.y / 2.0
+		var f := get_theme_default_font()
+		var wtxt := str(_word["text"])
+		var ww := f.get_string_size(wtxt, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x if f != null else 80.0
+		draw_rect(Rect2(Vector2(x0 + 4, y - 14), Vector2(ww + 12, 20)), Color(0.08, 0.06, 0.04, 0.85))
+		text(Vector2(x0 + 10, y + 1), wtxt, INK, 16)
+
+
+## The empty place of a baza not uncovered yet (slot.png, or a dim outline).
+func slot(at: Vector2) -> void:
+	var tex := VisualPaths.game_art("naipes", "slot")
+	if tex != null:
+		draw_texture_rect(tex, Rect2(at, CARD), false)
+	else:
+		draw_rect(Rect2(at, CARD), Color(0, 0, 0, 0.2))
+		draw_rect(Rect2(at, CARD), Color(0.5, 0.45, 0.35, 0.5), false, 1.0)
 
 
 func info_busy() -> Dictionary:

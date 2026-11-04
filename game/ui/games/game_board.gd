@@ -116,11 +116,27 @@ func who(side: int) -> String:
 
 # --- Drawing helpers -------------------------------------------------------------------------------------------------
 
-## A fixed piece of art at `r`, or its greybox with a label (and the id noted in `missing`).
+## A fixed piece of art filling `r` (cropped to its proportions, never stretched), or its greybox with a label (and the
+## id noted in `missing`).
 func art_or_box(game: String, id: String, r: Rect2, color: Color, label: String = "") -> void:
 	var tex := VisualPaths.game_art(game, id)
 	if tex != null:
-		draw_texture_rect(tex, r, false)
+		# fill the rect at a whole scale when the art is big enough (the boards' backgrounds come at ×2: ½ = its native
+		# pixels; else 1:1), cropped from the bottom centre; a smaller art fills it keeping its proportions
+		var ts := tex.get_size()
+		var src := Rect2(Vector2.ZERO, ts)
+		var k := 2.0 if ts.x >= r.size.x * 2.0 and ts.y >= r.size.y * 2.0 else (1.0 if ts.x >= r.size.x and ts.y >= r.size.y else 0.0)
+		if k > 0.0:
+			src.size = r.size * k
+			src.position = Vector2((ts.x - src.size.x) / 2.0, ts.y - src.size.y)
+		elif ts.x / ts.y > r.size.x / r.size.y:
+			src.size.x = ts.y * r.size.x / r.size.y
+			src.position.x = (ts.x - src.size.x) / 2.0
+		else:
+			src.size.y = ts.x * r.size.y / r.size.x
+			src.position.y = ts.y - src.size.y
+		draw_texture_rect_region(tex, r, src)
+		draw_rect(r, Color(0, 0, 0, 0.18))  # a veil: the board's texts read over the art
 		return
 	if not "%s/%s" % [game, id] in missing:
 		missing.append("%s/%s" % [game, id])
@@ -163,6 +179,9 @@ func die(at: Vector2, n: int, side: float = 18.0, hot: bool = false) -> void:
 		return
 	var tex := VisualPaths.game_art("dice", "die_%d" % n)
 	if tex != null:
+		var sh := VisualPaths.game_art("dice", "shadow")
+		if sh != null:
+			draw_texture_rect(sh, Rect2(at + Vector2(0, side * 0.8), Vector2(side, side / 3.0)), false)
 		draw_texture_rect(tex, r, false)
 	else:
 		if not "dice/die" in missing:

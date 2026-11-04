@@ -51,6 +51,21 @@ por juego en `game/ui/games/board_<juego>.gd` (`GameBoard`).
 | Toros | La plaza cerrada con carros, el toro, el mozo de turno y los aplausos de cada uno | La embestida, el quiebro o la huida tras los carros, y lo que dio |
 | Apuestas | El corredor: la probabilidad y la cuota de cada uno en el pergamino; «Por: …» recorre los participantes, «Apuesta: n» las cantidades, «Apostar (paga x)» y «Sin apuesta» | Con `watch`, después se mira la partida |
 
+## Arte (por `VisualPaths.game_art`, con caída a greybox con etiqueta)
+
+| Pieza | Fichero | Estado |
+|---|---|---|
+| Mesa de taberna (dados, naipes, pulso) | `assets/art/ui/games/mesa/mesa.png` (960×540, a ×2) | **hecha** (`ui_game_mesa`) |
+| Dados y su sombra | `assets/art/ui/games/dados/d1-d6.png` (24×24; ×2 en el azar), `shadow.png` | **hecha** (`ui_game_dados`) |
+| Naipes, reverso, hueco | `assets/art/ui/games/naipes/<palo>_<n>.png`, `back.png`, `slot.png` (48×72) | **hecha** (`ui_game_naipes`) |
+| Cubilete | `dados/cup.png` (24×24) | falta |
+| Justa, sortija, carrera, toros, torneo, peleas | `joust/`, `sortija/`, `race/`, `bulls/`, `tourney/`, `fight/` | faltan (inventario `ui_games_*`) |
+
+- Los fondos se pintan a escala entera: con arte a ×2 (como la mesa) se recorta abajo y en el centro a ½, píxel
+  exacto; nunca se estira. Encima, un velo del 18 % para que se lean los textos del tablero.
+- `VisualPaths` guarda las texturas del tablero (`_game_art`): una textura cargada dentro de `_draw` y soltada se
+  libera antes de pintarse y sale blanca.
+
 ## Probarlo
 
 - `godot --path . -- --games-test=<azar|mayor|pulso|envite|tourney|joust|sortija|race|bulls|apuestas>` (sobre la partida en pausa, contra el herrero rival; la orden

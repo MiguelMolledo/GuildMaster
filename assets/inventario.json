@@ -6813,30 +6813,269 @@
       "notas": "Personaje de la ciudad viva II (04f §4.28.3): bandido de capucha oscura y capa raída, con garrote o cuchillo. Hasta el ciclo de PixelLab del 15-nov se tiñe el townsfolk con el shader de identidad (colores de fam_watch / fam_bandits en data/life/life.json)."
     },
     {
-      "id": "ui_games_dice_table",
+      "id": "ui_game_naipes",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
+        "H16",
         "juegos"
       ],
-      "ruta": "assets/art/ui/games/dice/table.png",
-      "origen": null,
-      "origen_previo": null,
+      "ruta": "assets/art/ui/games/naipes/",
+      "origen": "fal: nano-banana-2/edit (los 4 palos y 12 figuras) + image2pixel; cartas compuestas con Pillow (tools/art/juegos_taberna.py)",
       "coste_gen": 0,
-      "notas": "Juegos (04f §4.26.7, 4.28.3): el fondo del tablero de los dados, una mesa de taberna con tapete o tablero de tafurería vista desde arriba, 404×180 (lo que ocupa el tablero en GameScreen). Sin texto. Lo lee VisualPaths.game_art(\"dice\", \"table\"); hasta que exista, greybox verde con su etiqueta."
+      "coste_usd": 0.32,
+      "notas": "Baraja de 40 de 4 palos (04f §4.26.8), al estilo de los naipes antiguos: <oros|copas|espadas|bastos>_<1-7|10|11|12>.png (48×72, número en las esquinas, la disposición de los palos de la baraja española; 10 sota, 11 caballo, 12 rey), back.png (reverso), slot.png (hueco), suit_<palo>.png (32) y small/ (16). Cableado (rama juegos): VisualPaths.game_art (alias GAME_ART_ALIAS: la mesa es el tablero de los dados, los naipes y el pulso; dice/die_<n> → dados/d<n>); naipes a 48×72 y dados a 24 (×2 en el azar), sin escalar a medias."
     },
     {
-      "id": "ui_games_dice_faces",
+      "id": "ui_game_dados",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
+        "H16",
         "juegos"
       ],
-      "ruta": "assets/art/ui/games/dice/die_1.png",
-      "origen": null,
-      "origen_previo": null,
+      "ruta": "assets/art/ui/games/dados/",
+      "origen": "dibujado (Pillow, tools/art/juegos_taberna.py dados)",
       "coste_gen": 0,
-      "notas": "Juegos: las seis caras de un dado de hueso, die_1.png … die_6.png, 32×32 cada una (se dibujan a 30 y 20 px; Nearest). VisualPaths.game_art(\"dice\", \"die_<n>\"); hasta que existan, el dado se dibuja por código con sus puntos."
+      "notas": "Dados de hueso (04f §4.26.7): d1-d6.png (24×24, cara de arriba, puntos exactos) y shadow.png. Cableado (rama juegos): VisualPaths.game_art (alias GAME_ART_ALIAS: la mesa es el tablero de los dados, los naipes y el pulso; dice/die_<n> → dados/d<n>); naipes a 48×72 y dados a 24 (×2 en el azar), sin escalar a medias."
+    },
+    {
+      "id": "ui_game_mesa",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "juegos"
+      ],
+      "ruta": "assets/art/ui/games/mesa/mesa.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Fondo de mesa de taberna para dados y naipes, visto desde arriba, el centro libre: 960×540 (480×270 ×2). Cableado (rama juegos): VisualPaths.game_art (alias GAME_ART_ALIAS: la mesa es el tablero de los dados, los naipes y el pulso; dice/die_<n> → dados/d<n>); naipes a 48×72 y dados a 24 (×2 en el azar), sin escalar a medias."
+    },
+    {
+      "id": "ui_forge_live",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "forja"
+      ],
+      "ruta": "assets/art/ui/forge/",
+      "origen": "fal: nano-banana-2/edit (ref: el kit de la forja ×4) + image2pixel (tools/art/fal_forja_viva.py); calores y golpes, con Pillow",
+      "coste_gen": 0,
+      "coste_usd": 0.16,
+      "notas": "Forja viva (03b §3b.2). Calentar: iron_cold y iron_<dark_red|cherry|orange|yellow|white>.png (64×64, la misma barra con rampas fijas) y hearth.png (la fragua). Batir: strike_<strong|measured|finish>.png (80×96: el martillo arriba, a media altura o en la barra, con chispas según el golpe), anvil.png y hammer.png sueltos para animarlos. Templar: quench_<water|oil|air>.png (64×64)."
+    },
+    {
+      "id": "ui_icon_forge_traits",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "forja"
+      ],
+      "ruta": "assets/art/ui/forge/trait_oil_tempered.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Iconos de rasgos de pieza (03b §3b.2): trait_<oil_tempered|fine_edge|master_mark|masterwork>.png (32×32) y small/ (16×16): templada al aceite, filo fino, marca del maestro y obra maestra."
+    },
+    {
+      "id": "prop_fiesta_banderola",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/banderola.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a tall thin wooden pole with a long swallow-tailed pennant in red and yellow. Huella 1×1 casillas. Escena game/visuals/props/fiesta/banderola.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_pendon",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/pendon.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a vertical cloth banner in deep red with a gold border hanging from a short wooden crossbar, to hang on a wall. Huella 1×1 casillas. Escena game/visuals/props/fiesta/pendon.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_farolillo",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/farolillo.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a small wooden post with a glowing paper festival lantern hanging from it. Huella 1×1 casillas. Escena game/visuals/props/fiesta/farolillo.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_hoguera",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/hoguera.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a festival bonfire: a stack of logs with big orange flames and sparks. Huella 1×1 casillas. Escena game/visuals/props/fiesta/hoguera.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_mayo",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/mayo.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a tall maypole: a straight tree trunk with a green leafy crown at the top and long coloured ribbons hanging down. Huella 1×1 casillas. Escena game/visuals/props/fiesta/mayo.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_guirnalda",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/guirnalda.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a festive garland of small triangular coloured flags strung between two short wooden posts. Huella 2×1 casillas. Escena game/visuals/props/fiesta/guirnalda.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_mesa_larga",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/mesa_larga.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a long wooden banquet table with two benches, bread, jugs and plates on it. Huella 3×1 casillas. Escena game/visuals/props/fiesta/mesa_larga.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_puesto_feria",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/puesto_feria.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a fair market stall with a striped red and yellow cloth awning, a wooden counter with goods. Huella 2×2 casillas. Escena game/visuals/props/fiesta/puesto_feria.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_cerco_carros",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/cerco_carros.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a barrier of two wooden farm carts tipped on their sides and tied together, a section of the ring for a bull run. Huella 2×1 casillas. Escena game/visuals/props/fiesta/cerco_carros.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_belen",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/belen.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a nativity scene: a small wooden stable with straw, figures of Mary, Joseph and the child in the manger, an ox and a donkey. Huella 2×2 casillas. Escena game/visuals/props/fiesta/belen.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_tablado",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/tablado.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a raised wooden theatre stage of planks for travelling players, with a painted cloth backdrop on poles. Huella 3×2 casillas. Escena game/visuals/props/fiesta/tablado.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_arco_triunfal",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/arco_triunfal.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a festive triumphal arch over a street, made of wooden posts covered with green branches, flowers and banners, wide enough for a cart. Huella 3×1 casillas. Escena game/visuals/props/fiesta/arco_triunfal.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_liza",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/liza.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a jousting tilt barrier: a long low wooden fence painted in stripes with small pennants, the list for a joust. Huella 4×1 casillas. Escena game/visuals/props/fiesta/liza.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
+    },
+    {
+      "id": "prop_fiesta_corral",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/corral.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_props_fiesta.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Decoración de fiesta (04f §4.25.3): a square livestock pen of wooden rails with a gate and some straw inside, empty. Huella 3×3 casillas. Escena game/visuals/props/fiesta/corral.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
     },
     {
       "id": "ui_games_dice_cup",
@@ -6845,24 +7084,11 @@
       "para": [
         "juegos"
       ],
-      "ruta": "assets/art/ui/games/dice/cup.png",
+      "ruta": "assets/art/ui/games/dados/cup.png",
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Juegos: el cubilete de cuero boca abajo que tapa el dado oculto de «a la mayor», 24×24. VisualPaths.game_art(\"dice\", \"cup\"); hasta que exista, un cuadro con «?»."
-    },
-    {
-      "id": "ui_games_pulso_table",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "juegos"
-      ],
-      "ruta": "assets/art/ui/games/pulso/table.png",
-      "origen": null,
-      "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Juegos (04f §4.26.9): la mesa de taberna del pulso, de frente y algo desde arriba, con sitio en el centro para los dos antebrazos (que se dibujan por código), 404×180. VisualPaths.game_art(\"pulso\", \"table\")."
+      "notas": "Juegos (04f §4.26.7): el cubilete de cuero boca abajo que tapa el dado oculto de «a la mayor», 24×24 (como los dados de ui_game_dados). Pieza a 1:1, sin texto."
     },
     {
       "id": "icon_game_azar",
@@ -6943,45 +7169,6 @@
       "notas": "Juegos: lámina del resultado del pulso (dos hombres echando un pulso en la taberna, parroquianos alrededor), 240×135 y _192 192×108."
     },
     {
-      "id": "ui_games_naipes_table",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "juegos"
-      ],
-      "ruta": "assets/art/ui/games/naipes/table.png",
-      "origen": null,
-      "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Juegos (04f §4.26.8): la mesa del envite, tapete o madera de taberna desde arriba, 404×180. VisualPaths.game_art(\"naipes\", \"table\")."
-    },
-    {
-      "id": "ui_games_naipes_cards",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "juegos"
-      ],
-      "ruta": "assets/art/ui/games/naipes/oros_1.png",
-      "origen": null,
-      "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Juegos: la baraja de 40 naipes de cuatro palos al estilo del s. XIV-XV (oros, copas, espadas, bastos; 1-7, sota 10, caballo 11, rey 12), <palo>_<n>.png, 30×44 cada uno (Nearest). VisualPaths.game_art(\"naipes\", \"<palo>_<n>\"); hasta que existan, una carta greybox con el número y el color del palo."
-    },
-    {
-      "id": "ui_games_naipes_back",
-      "tipo": "ui",
-      "estado": "falta",
-      "para": [
-        "juegos"
-      ],
-      "ruta": "assets/art/ui/games/naipes/back.png",
-      "origen": null,
-      "origen_previo": null,
-      "coste_gen": 0,
-      "notas": "Juegos: el reverso de los naipes, 30×44. VisualPaths.game_art(\"naipes\", \"back\")."
-    },
-    {
       "id": "ui_games_tourney_list",
       "tipo": "ui",
       "estado": "falta",
@@ -6992,7 +7179,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Juegos (04f §4.26.2): fondo del torneo de lucha, la liza o el palenque de tierra con el público detrás, apagado para que se lean el cuadro (izquierda) y el combate (derecha), 404×180. VisualPaths.game_art(\"tourney\", \"list\")."
+      "notas": "Juegos (04f §4.26.2): el palenque del torneo de lucha (tierra apisonada, empalizada, público), apagado a la izquierda para leer el cuadro. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "icon_game_envite",
@@ -7083,7 +7270,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Juegos (04f §4.26.1): la liza de la justa vista de lado, con la tela (la barrera) en el centro y el público y los pendones detrás, apagada para que se lean los jinetes y los puntos, 404×180. VisualPaths.game_art(\"joust\", \"lists\")."
+      "notas": "Juegos (04f §4.26.1): la liza de la justa vista de lado, la tela (barrera baja de madera) a lo ancho a media altura, público y pendones al fondo, suelo de tierra; deja libre la franja central para los jinetes. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "ui_games_joust_horse",
@@ -7096,7 +7283,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Juegos: caballo de justa con gualdrapa, de perfil mirando al este (al oeste se refleja), 48×32, sin jinete (el jinete y la lanza se dibujan por código). VisualPaths.game_art(\"joust\", \"horse\")."
+      "notas": "Juegos: caballo de justa con gualdrapa y jinete armado con la lanza en ristre, de perfil mirando al este (al oeste se refleja), 48×32; y horse_fallen.png (el jinete en el suelo), 48×32. Pieza a 1:1, sin texto."
     },
     {
       "id": "ui_games_sortija_lane",
@@ -7109,7 +7296,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Juegos (04f §4.26.3): la calle de la sortija con su travesaño y tres postes de señal, 404×180 (la anilla y el jinete se dibujan por código). VisualPaths.game_art(\"sortija\", \"lane\")."
+      "notas": "Juegos (04f §4.26.3): la calle de la sortija de lado: suelo de tierra, un travesaño alto del que cuelga la anilla en el centro y tres postes de señal a lo largo; el jinete y la anilla se dibujan encima. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "ui_games_race_track",
@@ -7122,7 +7309,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Juegos (04f §4.26.4): el camino de la carrera desde arriba (salida, recta, la curva del molino con el molino al lado y la meta), 404×180. VisualPaths.game_art(\"race\", \"track\")."
+      "notas": "Juegos (04f §4.26.4): el camino de la carrera desde arriba, cuatro tramos de izquierda a derecha (salida, recta, la curva del molino con el molino al lado, meta con el palio), con sitio para 4-6 calles. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "ui_games_race_horse",
@@ -7135,7 +7322,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Juegos: caballo al galope con jinete, de perfil al este, 28×18 (se tiñe el jinete por código). VisualPaths.game_art(\"race\", \"horse\")."
+      "notas": "Juegos: caballo al galope con jinete, de perfil al este, 28×18, 4 fotogramas en tira (horse.png 112×18) si se puede; la ropa del jinete en un gris neutro (se tiñe por código). Pieza a 1:1, sin texto."
     },
     {
       "id": "ui_games_bulls_plaza",
@@ -7148,7 +7335,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Juegos (04f §4.26.5): la plaza cerrada con carros vista desde arriba, el público en los balcones, 404×180. VisualPaths.game_art(\"bulls\", \"plaza\")."
+      "notas": "Juegos (04f §4.26.5): la plaza cerrada con carros vista desde arriba (un círculo de carros), suelo de tierra, gente en balcones alrededor; centro libre. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "ui_games_bulls_bull",
@@ -7161,7 +7348,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Juegos: el toro embistiendo, de perfil al este, 36×24. VisualPaths.game_art(\"bulls\", \"bull\")."
+      "notas": "Juegos: el toro de perfil al este, 36×24 (y bull_charge.png, cabeza baja embistiendo, 36×24); el mozo es el sprite de personaje de siempre. Pieza a 1:1, sin texto."
     },
     {
       "id": "icon_game_joust",
@@ -7278,7 +7465,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Juegos (04f §4.24.5, §4.26): fondo de las peleas de la ciudad (el rescate de un secuestro y el altercado al que se apuesta): una calle o un claro de noche con antorchas, apagado para que se lean los dos bandos y el combate, 404×180. VisualPaths.game_art(\"fight\", \"street\")."
+      "notas": "Juegos (04f §4.24.5): una calle o claro de noche con antorchas para las peleas de la ciudad (el rescate y el altercado). Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     }
   ]
 }

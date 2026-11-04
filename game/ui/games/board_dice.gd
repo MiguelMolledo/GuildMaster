@@ -84,14 +84,14 @@ func _draw_azar() -> void:
 		text(Vector2(x, 70), str(c) if c > 0 else "—", GOLD if c > 0 else DIM, 32, -1.0, al)
 	# the throw in the middle
 	var cur: Array = _rolling if playing and not _rolling.is_empty() else ((th[shown - 1]["dice"] as Array) if shown > 0 else [])
-	var side := 30.0
+	var side := 48.0  # the 24 px dice ×2 (whole pixels)
 	var x0 := w / 2.0 - (side * 3 + 16) / 2.0
 	for i: int in cur.size():
-		die(Vector2(x0 + i * (side + 8), 62), int(cur[i]), side)
+		die(Vector2(x0 + i * (side + 8), 54), int(cur[i]), side)
 	if not cur.is_empty() and not (playing and _t / _step_time < 0.7):
 		var t := GameRules.total(cur)
 		var hot := t in [int(known[0]), int(known[1])] and int(known[0]) > 0 and int(known[1]) > 0
-		text(Vector2(0, 116), tr("games.azar.ui.total") % t, GOLD if hot else INK, 16, w, HORIZONTAL_ALIGNMENT_CENTER)
+		text(Vector2(0, 122), tr("games.azar.ui.total") % t, GOLD if hot else INK, 16, w, HORIZONTAL_ALIGNMENT_CENTER)
 	# the earlier throws, small
 	var y := 134.0
 	var xs := 10.0
@@ -138,7 +138,7 @@ func _draw_mayor() -> void:
 				th[th.size() - 1 - i] = 0
 		for i: int in th.size():
 			var hidden := int(th[i]) == 0
-			die(Vector2(150 + i * 26, y + (row - 4) / 2.0 - 10), int(th[i]), 20.0, false)
+			die(Vector2(150 + i * 28, y + (row - 4) / 2.0 - 12), int(th[i]), 24.0, false)
 			if hidden and j != me:
 				pass
 		var tot := GameRules.total(th)
