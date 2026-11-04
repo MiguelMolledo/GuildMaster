@@ -24,6 +24,9 @@ const GOLD := Color("#c8a84e")
 const PAPER := Color("#d4b896")
 const RADIUS := {"capital": 9.0, "villa": 7.0}  # the rest 6
 const CARD_GAP: float = 14.0
+const IDENTITY_SHADER: Shader = preload("res://game/visuals/characters/identity_swap.gdshader")
+const TOKEN_VARIANT: String = "banner"   # the family's token on the map (VisualPaths.region_token: banner | shield)
+const CARAVAN_VARIANT: String = "ox"     # the caravan on the map (VisualPaths.region_caravan: ox | cart)
 const BOTTOM: float = 46.0          # the card stays above the Back button
 
 var game: Node = null
@@ -87,6 +90,8 @@ func open() -> void:
 
 ## Hides the map and puts the pause back as it was.
 func close() -> void:
+	if OS.is_debug_build() and visible:
+		print("[RegionScreen] close from: %s" % [get_stack().slice(1, 4).map(func(f: Dictionary) -> String: return "%s:%d" % [f["source"].get_file(), f["line"]])])
 	super()
 	if _card != null:
 		_card.close()
@@ -255,32 +260,90 @@ func _draw_layer() -> void:
 	_draw_travellers()
 
 
-## The family's people on the road (its emblem, with the family's colour under it) and its carts, on their route.
+## The family's people on the road and its caravans, on their route: the token (the banner, its cloth in the family's
+## colours through identity_swap.gdshader, feet on the road) and the caravan (facing where it goes), as nodes over the
+## layer; without their art, a seal of the family's colour and a box drawn on the layer.
 func _draw_travellers() -> void:
 	if sim == null or sim.state.region.is_empty():
+		_sync_tokens({})
 		return
 	var fam := SimQuery.player_family(sim.state)
 	var colors: Dictionary = sim.state.families.get(fam, {}).get("colors", {})
 	var tint := Color(str(colors.get("primary", "#8a2a1e")))
-	var emblem := VisualPaths.region_emblem()
-	var cart := VisualPaths.region_cart()
+	var token := VisualPaths.region_token(TOKEN_VARIANT)
+	var cart := VisualPaths.region_caravan(CARAVAN_VARIANT)
+	var want := {}   # node name -> {tex, at (feet), flip, tint}
 	for chr: String in (sim.state.region.get("trips", {}) as Dictionary):
 		var t: Dictionary = sim.state.region["trips"][chr]
 		if str(t.get("family", "")) != fam:
 			continue
 		var p := Travel.progress(sim, chr)
 		var at := _position_of(p)
-		_layer.draw_circle(at, 9.0, INK)
-		_layer.draw_circle(at, 8.0, tint)
-		if VisualPaths.is_placeholder(emblem):  # until the emblem's art lands: the family's colour in a gold ring
+		if VisualPaths.is_placeholder(token):
+			_layer.draw_circle(at, 9.0, INK)
+			_layer.draw_circle(at, 8.0, tint)
 			_layer.draw_arc(at, 6.0, 0.0, TAU, 16, GOLD, 2.0)
 		else:
-			_layer.draw_texture(emblem, at - Vector2(emblem.get_size()) / 2.0)
+			want["Token_" + chr] = {"tex": token, "at": at + Vector2(0, 4), "flip": false, "family": true}
 	for c: Dictionary in sim.state.region.get("caravans", []):
 		if str(c.get("family", "")) != fam:
 			continue
-		var at := _position_of(Caravans.progress(sim, c)) + Vector2(0, 10)
-		_layer.draw_texture(cart, at - Vector2(cart.get_size()) / 2.0)
+		var p := Caravans.progress(sim, c)
+		# on the road, just under its route; stopped in a town, beside its seal (clear of the token and the name)
+		var at := _position_of(p) + (Vector2(0, 4) if str(p.get("state", "")) == "road" else Vector2(30, 14))
+		if VisualPaths.is_placeholder(cart):
+			_layer.draw_texture(cart, at - Vector2(cart.get_size()) / 2.0)
+		else:
+			want["Caravan_" + str(c["id"])] = {"tex": cart, "at": at,   # wheels on the road
+				"flip": _heading_west(p), "family": false}
+	_sync_tokens(want)
+
+
+## Whether a caravan on the road goes west (its sprite faces east: mirrored).
+func _heading_west(p: Dictionary) -> bool:
+	if str(p.get("state", "")) != "road":
+		return false
+	var a := _position_of(p)
+	var q := p.duplicate()
+	q["progress"] = minf(1.0, float(p["progress"]) + 0.05)
+	return _position_of(q).x < a.x - 0.01
+
+
+## Keeps one TextureRect per token and caravan in `want` (created, moved, freed), feet at its point.
+func _sync_tokens(want: Dictionary) -> void:
+	var box := get_node_or_null("Tokens") as Control
+	if box == null:
+		box = Control.new()
+		box.name = "Tokens"
+		box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(box)
+		move_child(box, _layer.get_index() + 1)
+	for c: Node in box.get_children():
+		if not want.has(str(c.name)):
+			box.remove_child(c)
+			c.queue_free()
+	var fam := SimQuery.player_family(sim.state) if sim != null else ""
+	var colors: Dictionary = sim.state.families.get(fam, {}).get("colors", {}) if sim != null else {}
+	for n: String in want:
+		var w: Dictionary = want[n]
+		var r := box.get_node_or_null(n) as TextureRect
+		if r == null:
+			r = TextureRect.new()
+			r.name = n
+			r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			r.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			if bool(w["family"]):
+				var mat := ShaderMaterial.new()
+				mat.shader = IDENTITY_SHADER
+				mat.set_shader_parameter("primary", Color(str(colors.get("primary", "#8a2a1e"))))
+				mat.set_shader_parameter("secondary", Color(str(colors.get("secondary", "#c8a84e"))))
+				r.material = mat
+			box.add_child(r)
+		var tex: Texture2D = w["tex"]
+		r.texture = tex
+		r.size = tex.get_size()
+		r.flip_h = bool(w["flip"])
+		r.position = (Vector2(w["at"]) - Vector2(tex.get_width() / 2.0, tex.get_height())).round()
 
 
 ## Where a trip or a caravan is on the map: on its route's polyline at its progress (from -> next), or on the seal

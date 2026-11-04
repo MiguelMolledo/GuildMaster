@@ -41,6 +41,7 @@ var ending: Dictionary = {}        # {} while the game goes on; {kind, family, m
 # H7 (docs/contratos/h7_ciudad.md): the living town. Characters get occupation and town (SaveFile._step 7 -> 8).
 var microevents: Dictionary = {"active": [], "pending": [], "cooldowns": {}, "last_day": {}}  # GDD 4.20: Microevents
 var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD 4.5.4): Counter
+var duels: Dictionary = {"open": {}, "closed": []}  # duels of honour: id -> duel open, the last closed (04e): Duels
 # H4 (docs/contratos/h4_empleados.md): no new root fields. Characters get home, rank, job, hire_bans and routine;
 # buildings get employee_slots and queue (SaveFile._step 4 -> 5).
 # H5 (docs/contratos/h5_mejoras.md): no new root fields. Buildings get upgrades, upgrade_work and inspection
@@ -63,7 +64,9 @@ var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD
 # [{id, def, start, end, by}] (SaveFile._step 12 -> 13). The season is not state: Clock derives it from the minute.
 # Población (docs/contratos/poblacion.md): the new root cast {mode fixed | random, seed, map} (births and newcomers
 # draw their names and looks from it) and characters' visual gets portrait {type, variant} (SaveFile._step 13 -> 14).
-# v15 is the duel's (its own step). Viajes (docs/gdd/09b_region.md §9b.6): the new root region {cities {id: {demand,
+# Duelo (docs/gdd/04e_combate.md, docs/contratos/duelo.md): the new root duels {open: {id -> duel}, closed: [duel]}
+# (SaveFile._to_v15, step 14 -> 15).
+# Viajes (docs/gdd/09b_region.md §9b.6): the new root region {cities {id: {demand,
 # events, board, reputation}}, events, treaties, trips, caravans, carts, contracts, ...}, {} until Region.ensure fills it
 # (SaveFile.to_v16, step 15 -> 16).
 
@@ -108,6 +111,7 @@ func to_dict() -> Dictionary:
 		"ending": ending,
 		"microevents": microevents,
 		"town": town,
+		"duels": duels,
 	}
 
 
@@ -151,6 +155,7 @@ static func from_dict(src: Dictionary) -> WorldState:
 	s.ending = d.get("ending", {})
 	s.microevents = d.get("microevents", {"active": [], "pending": [], "cooldowns": {}, "last_day": {}})
 	s.town = d.get("town", {"counters": {}})
+	s.duels = d.get("duels", {"open": {}, "closed": []})
 	return s
 
 

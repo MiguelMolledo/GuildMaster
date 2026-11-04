@@ -1,6 +1,12 @@
 {
   "tomadas": [
     {
+      "fecha": "2026-11-04",
+      "tema": "Duelo en la partida y ajuste del lance (duelo2)",
+      "decision": "El duelo entra en la partida según 04e (O-C1..O-C12): retos con causa (ofensa de H7, pretendiente rival de H8, rival del oficio), solo a primera sangre, respuesta de los NPC que nunca retan, duelo a las 06:00 del día siguiente en la plaza con los duelistas reservados desde las 05:30, incomparecencia, testigos y consecuencias de §4e.5, pelea sin reto como hecho brawl con testigos; guardado v15 (SaveFile._to_v15). Ajuste [balance] del lance: Golpe gasta 1 (era 2), Parada recupera 2 (era 1), ventaja del toque 15 (era 30), espada +25 (era 20), herramienta +10 (era 5).",
+      "por_que": "Medido con tools/duel_bench.gd: con Constitución 3 el 30 % de los lances acababan sin nada (ahora 19 %) y la espada apenas ganaba a puño limpio (46/44, ahora 54/38); las políticas fijas siguen perdiendo y «Resolver sin jugar» sigue igual que seguir la pista. Las dianas de antes no se mueven: ningún bot de antes ni ningún NPC reta."
+    },
+    {
       "fecha": "2026-04-13",
       "tema": "Juego",
       "decision": "Simulador de vida y dinastía medieval (inspirado en The Guild II/III), PC Steam Early Access.",
@@ -425,6 +431,11 @@
       "tema": "Pulido del MVP (provisional)",
       "detalle": "Trampa de pobreza: con 0 de oro y sin material, la deuda de mantenimiento (D15) se come las ventas hasta el embargo; es de balance. Multa: se deja 30 de oro y lo demás pasa a préstamo a 8 días. Contrabando: el mostrador cobra el doble con Secretos 3. Casillas tapadas: Mayús + clic derecho, o el clic normal si el edificio está transparente.",
       "opciones": "Confirmar o cambiar las cifras; la trampa de pobreza se decide con el balance."
+    },
+    {
+      "tema": "Duelo: O-C13..O-C17 (docs/gdd/04e_combate.md §4e.9)",
+      "detalle": "Nuevas tras ponerlo en la partida: puntos de dinastía por duelos (O-C13), la calumnia como causa (O-C14), llevar solo al duelista a la plaza al alba (O-C15), «Pelear sin reto» en la carta (O-C16) y si los vecinos ofendidos por el jugador pueden retarle (O-C17).",
+      "opciones": "Ver 04e §4e.9."
     }
   ],
   "proximos_pasos": [
@@ -436,7 +447,7 @@
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner.",
     {
       "tema": "Viajes: lo que queda (rama viajes, 2026-11-04)",
-      "detalle": "H13: O-R1 (la capital Bellcaire como casa por defecto, elegible al empezar, cuando exista su mapa EA) y O-R9 (población proporcional a las casas; hoy max_total 20 para todos). H12.3: el asalto en el camino hiere al viajero o al carretero (hoy solo se lleva la carga). Arte pendiente del worker de arte: ilustración de cada ciudad (240×135), emblema y carro del mapa regional, iconos de arancel, tratado, caravana y reputación de ciudad (assets/inventario.json, «falta»)."
+      "detalle": "H13: O-R1 (la capital Bellcaire como casa por defecto, elegible al empezar, cuando exista su mapa EA) y O-R9 (población proporcional a las casas; hoy max_total 20 para todos). H12.3: el asalto en el camino hiere al viajero o al carretero (hoy solo se lleva la carga)."
     }
   ]
 }

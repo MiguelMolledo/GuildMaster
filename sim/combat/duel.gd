@@ -46,6 +46,15 @@ static func _log() -> bool:
 	return verbose and OS.is_debug_build()
 
 
+## A Duel over data that already exists (a duel kept in the state: state.duels.open[id].duel). The Duel works on that
+## same dictionary, so the state changes with it.
+static func wrap(combat: Dictionary, data: Dictionary) -> Duel:
+	var du := Duel.new()
+	du.cfg = combat
+	du.d = data
+	return du
+
+
 ## The figures of the kind of this duel.
 func kind() -> Dictionary:
 	return (cfg.get("kinds", {}) as Dictionary).get(str(d["kind"]), {})

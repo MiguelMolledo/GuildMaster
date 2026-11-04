@@ -62,11 +62,45 @@ ICONS = {
     "emotion_scared": ("ui/bubbles/emotion_scared.png", "speech bubble with a blue sweat drop and a small white "
                                                         "exclamation mark inside"),
 }
+# Duelo (docs/gdd/04e_combate.md §4e.8, docs/ui/mecanicas/combate.md §8): assets/art/ui/icons/duel/icon_<acción>.png
+DUEL = {
+    "duel_strike": ("ui/icons/duel/icon_strike.png", "a sword slashing diagonally down with a short motion arc"),
+    "duel_parry": ("ui/icons/duel/icon_parry.png", "a round wooden buckler shield with an iron boss blocking a sword "
+                                                  "blade, a small spark where they meet"),
+    "duel_feint": ("ui/icons/duel/icon_feint.png", "a sword drawn with a curved dotted arrow looping back around it, "
+                                                  "a deceptive move"),
+    "duel_surrender": ("ui/icons/duel/icon_surrender.png", "a small white cloth flag on a short wooden stick"),
+    "duel_auto": ("ui/icons/duel/icon_auto.png", "a brass hourglass with two small crossed swords behind it"),
+    "duel_breath": ("ui/icons/duel/icon_breath.png", "a puff of pale blue breath with two curling wind lines"),
+    "duel_touch": ("ui/icons/duel/icon_touch.png", "a red drop of blood above a short sword tip"),
+    "duel_challenge": ("ui/icons/duel/icon_challenge.png", "a thrown leather gauntlet glove lying on the ground"),
+}
+# Región y viajes (docs/gdd/09b_region.md §9b.5): assets/art/ui/icons/icon_<nombre>.png
+REGION = {
+    "tariff": ("ui/icons/icon_tariff.png", "a toll: a small striped wooden barrier with a stack of gold coins"),
+    "treaty": ("ui/icons/icon_treaty.png", "a rolled parchment treaty with a red wax seal and a ribbon"),
+    "caravan": ("ui/icons/icon_caravan.png", "a covered merchant wagon with a canvas top and two wooden wheels, "
+                                             "side view"),
+    "city_reputation": ("ui/icons/icon_city_reputation.png", "a small stone town gate tower with a gold star above "
+                                                             "it"),
+}
+ICONS.update(DUEL)
+ICONS.update(REGION)
+
 GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashlar", "grindstone", "trough"],
          "i3": ["millstone", "statue", "gavel", "ballot_box"], "i4": ["reputation", "menu", "save", "load"],
          "b1": ["emotion_grateful", "emotion_offended", "emotion_angry", "emotion_scared"],
          "i5": ["parcels"],
-         "i6": ["grindstone"]}  # repetida: la de i2 salió ilegible (la última rejilla manda)
+         "i6": ["grindstone"],
+         "d1": ["duel_strike", "duel_parry", "duel_feint", "duel_surrender"],
+         "d2": ["duel_auto", "duel_breath", "duel_touch", "duel_challenge"],
+         "r1": ["tariff", "treaty", "caravan", "city_reputation"],
+         "r2": ["tariff", "duel_breath"]}  # repetidas: el arancel no se leía y el aliento era una mancha  # repetida: la de i2 salió ilegible (la última rejilla manda)
+REDO_2 = {
+    "tariff": "a toll gate: a horizontal red and white striped wooden barrier pole on a post, with a small stack "
+              "of gold coins in front of it",
+    "duel_breath": "three curved pale blue wind swirls, like a gust of breath, clearly drawn lines",
+}
 REDO = {"grindstone": "an upright round grey grinding stone wheel mounted on its axle in a simple wooden A-frame "
                       "stand, a crank handle on the axle, seen from the side, clearly a wheel"}
 POS = ["Top-left", "Top-right", "Bottom-left", "Bottom-right"]
@@ -86,7 +120,7 @@ def ref_sheet(kind):
 
 
 def prompt(ids, bubbles):
-    what = " ".join(f"{pos}: {REDO.get(i, ICONS[i][1]) if len(ids) == 1 else ICONS[i][1]}." for pos, i in zip(POS, ids))
+    what = " ".join(f"{pos}: {REDO.get(i, ICONS[i][1]) if len(ids) == 1 else REDO_2.get(i, ICONS[i][1]) if len(ids) == 2 else ICONS[i][1]}." for pos, i in zip(POS, ids))
     if len(ids) < 4:
         what += " The other cells stay plain white."
     kind = "speech-bubble icons with a symbol" if bubbles else "item icons"
@@ -162,6 +196,7 @@ def proc(g, cell_ids):
         out = outline(out)
         rel = ICONS[iid][0]
         os.makedirs(os.path.join(P, "natural"), exist_ok=True)
+        os.makedirs(os.path.dirname(os.path.join(ART, rel)), exist_ok=True)
         out.save(os.path.join(ART, rel))
         small = dg.half(out)
         small = dg.pad_to(small, 16, 16, anchor_bottom=False) if small.width <= 16 and small.height <= 16 else \

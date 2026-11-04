@@ -73,6 +73,8 @@ func _process(delta: float) -> void:
 				_go("card")
 		"card":
 			if _t > 0.6:
+				if not _region().visible:   # a stray key (Esc) to the always-on-top window may close it: open again
+					app.call("open_region")
 				_region().show_card("hamlet", true)
 				_go("card_shot")
 		"card_shot":

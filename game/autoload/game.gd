@@ -118,6 +118,23 @@ func give(order: Dictionary) -> void:
 	order_given.emit(order)
 
 
+## Duelo (docs/ui/mecanicas/combate.md §2): applies `order` now, in pause too, by running one sim step with it (and
+## whatever was pending): a lance is one game minute, recorded like any order, and its events are published at once.
+## Only the duel screen uses it (the game is paused while it is open). Returns the step's events.
+func step_now(order: Dictionary) -> Array:
+	if sim == null or orders_locked:
+		return []
+	var orders := _pending
+	_pending = []
+	var o := order.duplicate(true)
+	o.erase("queued")
+	orders.append(o)
+	order_given.emit(order)
+	var events := sim.step(orders)
+	get_node("/root/Events").publish(events)
+	return events
+
+
 ## The orders queued for the next step (read only: tests and debugging).
 func pending() -> Array:
 	return _pending.duplicate(true)

@@ -13,8 +13,9 @@ idle_town, 2 semillas), kin (H14: un familiar con Comerciar aprovisiona la forja
 80 días, de artisan_expert con estaciones y eventos globales, sin bloqueos; 2 semillas), carpenter / mason /
 tailor (H12: el novato de cada oficio del Artesano en su partida nueva real en Normal, 10 semillas × 10 días; las 30
 semillas y las tres dificultades, a mano), cast (población: el novato con repartos generados, --cast=random, 10
-semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), merchant (viajes: el bot comerciante en
-travel_start, 10 semillas × 16 días). Con --visual, además smoke (capturas con ventana, por
+semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), duel (duelo: el bot duelista desde
+duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días). Con
+--visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
 """
 import os
@@ -50,6 +51,7 @@ STEPS = [
      for p in ("carpenter", "mason", "tailor")] + [
     ("cast", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=artisan_novice", "--days=10",
                   "--seeds=10", "--cast=random", "--tag=cast_random"]),
+    ("duel", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=duel_ready", "--bots=duelist", "--days=8", "--seeds=3"]),
     ("merchant", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=travel_start", "--bots=merchant", "--days=16",
                       "--seeds=10"]),
 ]

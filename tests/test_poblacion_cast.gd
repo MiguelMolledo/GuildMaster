@@ -280,7 +280,7 @@ func test_a_bigger_town_scales() -> void:
 
 func test_save_round_trip_keeps_the_cast() -> void:
 	var st := _game("artisan_blacksmith", 8)
-	check(WorldState.VERSION >= 14, "v14 or later (the cast arrived with v14)")
+	check(WorldState.VERSION >= 14, "v14 or later (the cast arrived with v14; duelo v15, viajes v16)")
 	var back: WorldState = SaveFile.from_text(JSON.stringify(st.to_dict()))["state"]
 	eq(SaveFile.canonical(back.to_dict()), SaveFile.canonical(st.to_dict()), "the cast and the portraits come back")
 	eq(back.cast, st.cast, "the cast seed and mode")
@@ -297,7 +297,7 @@ func test_migration_from_v13() -> void:
 	var r := SaveFile.from_text(JSON.stringify(d))
 	check(r["ok"], "a v13 game loads")
 	var back: WorldState = r["state"]
-	eq(back.version, WorldState.VERSION, "migrated to the current version (v14 brought the cast)")
+	eq(back.version, WorldState.VERSION, "migrated to the current version")
 	eq(str(back.cast["mode"]), "fixed", "a game from before keeps the fixed cast (old births and newcomers)")
 	eq(str(back.characters["chr_0001"]["visual"]["portrait"]["type"]), "artisan", "the protagonist: the family's class")
 	eq(str(back.characters["chr_0002"]["visual"]["portrait"]["type"]), "artisan", "the rival smith")

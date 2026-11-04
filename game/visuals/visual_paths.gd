@@ -173,32 +173,43 @@ static func region_map(region_id: String) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
-## Viajes: the art of the region (assets/inventario.json, «falta» until the art worker draws it). Each returns the
-## file when it is there and else a visible placeholder (a flat box of the given colour with a dark border), so the
-## art shows up when it lands without touching code.
-##   city_art(id): the illustration of a settlement's page, 240×135 (assets/art/region/cities/<id>.png)
-##   region_emblem(): the family's emblem on the region map, 24×24 (assets/art/region/emblem.png)
-##   region_cart(): the cart of a caravan on the region map, 24×16 (assets/art/region/cart.png)
-##   region_icon(id): tariff | treaty | caravan | city_reputation, 16×16 (assets/art/ui/icons/small/icon_<id>.png)
+## Viajes: the art of the region (assets/inventario.json). Each returns the file when it is there and else a visible
+## placeholder (a flat box of the given colour with a dark border), so a missing piece still shows.
+##   city_art(id): the illustration of a settlement's page, 240×135 (illus_city_<id>:
+##     assets/art/illustrations/city_<id>.png)
+##   region_token(variant): the family's token on the region map, 24×44, feet at the bottom centre; its cloth is keyed
+##     for identity_swap.gdshader (ui_region_family_token: assets/art/region/family_token.png, the banner by default;
+##     «shield»: family_token_shield.png)
+##   region_caravan(variant): a caravan on the region map, facing east (mirrored to go west) (ui_region_caravan:
+##     assets/art/region/caravan.png, 56×34, the ox cart by default; «cart»: caravan_cart.png, 48×24)
+##   region_icon(id): tariff | treaty | caravan | city_reputation (ui_icon_<id>: assets/art/ui/icons/icon_<id>.png,
+##     32×32; small: its small/ 16×16)
 const REGION_ICONS: Dictionary = {"tariff": "#c8a84e", "treaty": "#8a2a1e", "caravan": "#7a5230",
 	"city_reputation": "#4a6a8a"}
 static var _placeholders: Dictionary = {}
 
 
+const TOKEN_FILES: Dictionary = {"banner": "family_token", "shield": "family_token_shield"}
+const CARAVAN_FILES: Dictionary = {"ox": "caravan", "cart": "caravan_cart"}
+
+
 static func city_art(id: String) -> Texture2D:
-	return _art_or("%s/region/cities/%s.png" % [ART_ROOT, id], Vector2i(240, 135), Color("#a08a64"))
+	return _art_or("%s/illustrations/city_%s.png" % [ART_ROOT, id], Vector2i(240, 135), Color("#a08a64"))
 
 
-static func region_emblem() -> Texture2D:
-	return _art_or("%s/region/emblem.png" % ART_ROOT, Vector2i(24, 24), Color("#c8a84e"))
+static func region_token(variant: String = "banner") -> Texture2D:
+	return _art_or("%s/region/%s.png" % [ART_ROOT, str(TOKEN_FILES.get(variant, "family_token"))], Vector2i(24, 44),
+		Color("#c8a84e"))
 
 
-static func region_cart() -> Texture2D:
-	return _art_or("%s/region/cart.png" % ART_ROOT, Vector2i(24, 16), Color("#7a5230"))
+static func region_caravan(variant: String = "ox") -> Texture2D:
+	return _art_or("%s/region/%s.png" % [ART_ROOT, str(CARAVAN_FILES.get(variant, "caravan"))], Vector2i(56, 34),
+		Color("#7a5230"))
 
 
-static func region_icon(id: String) -> Texture2D:
-	return _art_or("%s/ui/icons/small/icon_%s.png" % [ART_ROOT, id], Vector2i(16, 16),
+static func region_icon(id: String, small: bool = true) -> Texture2D:
+	var size := 16 if small else 32
+	return _art_or("%s/ui/icons/%sicon_%s.png" % [ART_ROOT, "small/" if small else "", id], Vector2i(size, size),
 		Color(str(REGION_ICONS.get(id, "#888888"))))
 
 
@@ -234,6 +245,49 @@ static func illustration(kind: String, id: String, small: bool = false) -> Textu
 		if ResourceLoader.exists(p):
 			return load(p) as Texture2D
 	return null
+
+
+## Duelo (docs/ui/mecanicas/combate.md §8): the frames of a duel effect (strike, parry, feint, hit) from
+## assets/art/vfx/duel_<kind>/: a horizontal strip duel_<kind>.png of square frames (its height), or numbered frames
+## duel_<kind>_01.png, _02.png... [] until they exist: the arena draws its provisional effect by code.
+static func duel_vfx(kind: String) -> Array[Texture2D]:
+	var out: Array[Texture2D] = []
+	var dir := "%s/vfx/duel_%s" % [ART_ROOT, kind]
+	var strip := "%s/duel_%s.png" % [dir, kind]
+	if ResourceLoader.exists(strip):
+		var t := load(strip) as Texture2D
+		var h := t.get_height()
+		var n := maxi(1, t.get_width() / maxi(1, h))
+		for i: int in n:
+			var a := AtlasTexture.new()
+			a.atlas = t
+			a.region = Rect2(i * h, 0, h, h)
+			out.append(a)
+		return out
+	for i: int in range(1, 17):
+		var p := "%s/duel_%s_%02d.png" % [dir, kind, i]
+		if not ResourceLoader.exists(p):
+			break
+		out.append(load(p) as Texture2D)
+	return out
+
+
+## Duelo: the icon of a duel action or figure (strike, parry, feint, yield, breath, touch): assets/art/ui/icons/duel/
+## <id>.png (32) or small/<id>.png (16). null until it exists: the buttons and bars go without it.
+static func duel_icon(id: String, small: bool = false) -> Texture2D:
+	var p := "%s/ui/icons/duel/%s%s.png" % [ART_ROOT, "small/" if small else "", id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## Duelo: the illustration of a duel card (won, lost, draw, challenge): the page kit's place
+## (assets/art/illustrations/duel/<id>.png, illustration()) or the one assets/inventario.json reserves
+## (assets/art/ui/illustrations/duel/<id>.png). null = the card goes without it.
+static func duel_illustration(id: String) -> Texture2D:
+	var t := illustration("duel", id)
+	if t != null:
+		return t
+	var p := "%s/ui/illustrations/duel/%s.png" % [ART_ROOT, id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
 ## The ground texture of a tile kind (data/tiles.json): assets/art/tiles/<kind>.png (null until it exists: the ground

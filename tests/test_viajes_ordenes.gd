@@ -199,3 +199,23 @@ func test_a_city_contract_is_taken_and_delivered_there() -> void:
 	check(bool(Orders.apply(sim, {"type": "city_deliver", "actor": hero, "contract": "rct_9001"})["ok"]), "delivered")
 	eq(Money.gold(st, fam), g + 50, "paid")
 	eq(Region.reputation(sim, "hamlet", fam), 3, "reputation there +3")
+
+
+func test_a_duel_and_a_trip_exclude_each_other() -> void:
+	var sim := _game()
+	var st := sim.state
+	var hero := _hero(sim)
+	var other := ""
+	for c: String in Region._sorted_keys(st.characters):
+		if str(st.characters[c].get("family", "")) != SimQuery.player_family(st) and Kin.alive(st, c) \
+				and Kin.is_adult(sim, c):
+			other = c
+			break
+	(st.duels["open"] as Dictionary)["dul_9001"] = {"id": "dul_9001", "challenger": other, "challenged": hero,
+		"status": "pending", "called": false}
+	eq(Travel.can_travel(sim, hero, "hamlet"), "busy", "a duel pending: no trip")
+	(st.duels["open"] as Dictionary).erase("dul_9001")
+	sim.step([{"type": "travel", "actor": hero, "to": "hamlet"}])
+	check(Region.is_away(st, hero), "away")
+	eq(Duels.challenge_status(sim, other, hero, "", "first_blood", false), "busy", "nobody challenges a traveller")
+	eq(Duels.challenge_status(sim, hero, other, "", "first_blood", false), "busy", "nor does a traveller challenge")

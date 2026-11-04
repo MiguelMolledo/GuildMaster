@@ -15,6 +15,7 @@
     "trade_carpenter",
     "trade_mason",
     "trade_tailor",
+    "duel",
     "travel"
   ],
   "openers": {
@@ -197,6 +198,8 @@
     "ConfirmModal",
     "WeddingCard",
     "SuccessionCard",
+    "DuelScreen",
+    "DuelCard",
     "RegionScreen",
     "CityScreen",
     "CaravanScreen"
@@ -457,6 +460,41 @@
         "ui": "Card"
       },
       "text": "tutorial.hint.inheritance"
+    },
+    {
+      "id": "duel_button",
+      "when": {
+        "state": "node_visible",
+        "is": "DuelButton"
+      },
+      "target": {
+        "ui": "DuelButton",
+        "in": "NpcPanel"
+      },
+      "text": "tutorial.hint.duel_button"
+    },
+    {
+      "id": "duel_card",
+      "when": {
+        "state": "panel_open",
+        "is": "DuelCard"
+      },
+      "target": {
+        "ui": "DuelCard"
+      },
+      "text": "tutorial.hint.duel_card"
+    },
+    {
+      "id": "duel_screen",
+      "when": {
+        "state": "panel_open",
+        "is": "DuelScreen"
+      },
+      "target": {
+        "ui": "Gesture",
+        "in": "DuelScreen"
+      },
+      "text": "tutorial.hint.duel_screen"
     },
     {
       "id": "first_trip",

@@ -92,6 +92,8 @@ static func can_send(sim: Sim, o: Dictionary) -> String:
 		return "not_your_employee"
 	if Region.is_away(st, driver):
 		return "driver_away"
+	if not Duels.of_character(st, driver).is_empty():
+		return "busy"  # duelo: a carter with a duel pending stays
 	if not st.buildings.has(bld):
 		return "unknown_building"
 	if str(st.buildings[bld].get("owner", "")) != fam:

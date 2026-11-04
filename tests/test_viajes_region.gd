@@ -33,12 +33,35 @@ func test_a_save_from_before_migrates_to_v16_with_an_empty_region() -> void:
 	var sim := Sim.new(st, cat)
 	sim.step()
 	check((st.region as Dictionary).has("cities"), "the first step fills the region from data/world/region.json")
+	# from v14: neither the duel's root (v15) nor the region (v16); both steps chain
+	var v14 := sim.state.to_dict()
+	v14["version"] = 14
+	v14.erase("duels")
+	v14.erase("region")
+	var m14 := SaveFile.migrate(v14)
+	check(bool(m14["ok"]), "a v14 dictionary migrates")
+	eq(int(m14["data"]["version"]), WorldState.VERSION, "to the current version")
+	eq(m14["data"]["duels"], {"open": {}, "closed": []}, "14 -> 15 (duelo) adds the duels")
+	eq(m14["data"]["region"], {}, "15 -> 16 (viajes) adds the region")
+	var b14 := SaveFile.from_text(JSON.stringify(v14))
+	check(bool(b14["ok"]), "a v14 save loads")
+	eq(SaveFile.canonical(WorldState.from_dict(SaveFile.migrate(JSON.parse_string(JSON.stringify(
+		(b14["state"] as WorldState).to_dict())))["data"]).to_dict()), SaveFile.canonical((b14["state"] as WorldState).to_dict()),
+		"and saved again it comes back the same")
+	# from v15: the duels it had stay, the region is added
 	var v15 := sim.state.to_dict()
 	v15["version"] = 15
+	v15["duels"] = {"open": {}, "closed": [{"id": "dul_0001", "status": "closed"}]}
 	v15.erase("region")
 	var m := SaveFile.migrate(v15)
 	check(bool(m["ok"]), "a v15 dictionary migrates")
 	eq(m["data"]["region"], {}, "15 -> 16 adds the region")
+	eq((m["data"]["duels"]["closed"] as Array).size(), 1, "and keeps the duels of v15")
+	var b15 := SaveFile.from_text(JSON.stringify(v15))
+	check(bool(b15["ok"]), "a v15 save loads")
+	var again := SaveFile.from_text(JSON.stringify((b15["state"] as WorldState).to_dict()))
+	eq(SaveFile.canonical((again["state"] as WorldState).to_dict()), SaveFile.canonical((b15["state"] as WorldState).to_dict()),
+		"a v15 save loaded and saved comes back the same")
 	eq(SaveFile.to_v16({"version": 14})["region"], {}, "to_v16 needs nothing of v15")
 
 

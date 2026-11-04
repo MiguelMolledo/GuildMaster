@@ -33,7 +33,7 @@ static func unlock_reason(sim: Sim, fam: String) -> String:
 	return ""
 
 
-## "" if `actor` may set out now for `to`, else why: unknown_actor, dead, banished, not_adult, employee, no_family,
+## "" if `actor` may set out now for `to`, else why: unknown_actor, dead, banished, not_adult, employee, busy (a duel), no_family,
 ## title_needed, on_the_road, unknown_city, already_there, no_open_route, not_enough_gold.
 static func can_travel(sim: Sim, actor: String, to: String, escort: bool = false) -> String:
 	var st := sim.state
@@ -48,6 +48,8 @@ static func can_travel(sim: Sim, actor: String, to: String, escort: bool = false
 		return "not_adult"
 	if ch.get("job") is Dictionary:
 		return "employee"
+	if not Duels.of_character(st, actor).is_empty():
+		return "busy"  # duelo: a duel pending or under way keeps it at home
 	var fam := str(ch.get("family", ""))
 	if not st.families.has(fam):
 		return "no_family"

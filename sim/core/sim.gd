@@ -27,9 +27,11 @@ func step(orders: Array = []) -> Array:
 	# The AI families give their orders like a bot, after the outside ones and on the same state (H3, GDD 4.5.5).
 	# Not recorded: they come out of the state, so a replay gives them again.
 	for o: Dictionary in RivalAI.orders(self):
-		_give(o)
+		if not _held(o):
+			_give(o)
 	for o: Dictionary in FamilyAI.orders(self):  # H8: the AI families court, marry and bring the spouse home
-		_give(o)
+		if not _held(o):
+			_give(o)
 	Clock.tick(state, catalog.time, events)
 	# Systems, in a fixed order (GDD 05 §5.4). Each milestone adds its own here: routines, production, customers...
 	OrderQueue.step(self)   # starts the next queued order of each idle actor
@@ -45,6 +47,7 @@ func step(orders: Array = []) -> Array:
 	# H4 · employees (docs/contratos/h4_empleados.md)
 	Staff.step(self)        # at dawn: day counted, leavers, hires start, wages, loyalty, quit/theft, promotions
 	Microevents.step(self)  # H7: dawn roll, the night thief, cards that time out (default choice)
+	Duels.step(self)        # duelo: NPC answers, the call to the ground at dawn, the start, played duels' timeout
 	Routines.step(self)     # employees: home -> work at dawn, work -> home at dusk (real orders, Sim.give)
 	TownLife.step(self)     # H7: the townsfolk's day (trade, breaks, market, dusk activities, home at night)
 	Counter.step(self)      # H7: customers at the shop counters
@@ -74,7 +77,18 @@ func step(orders: Array = []) -> Array:
 ## An order given by a system for the characters it moves (H4: Routines, WorkQueue), during its step: applied now,
 ## like one from outside (a refusal leaves order_refused in the events). Not recorded: it comes out of the state.
 func give(o: Dictionary) -> void:
-	_give(o)
+	if not _held(o):
+		_give(o)
+
+
+## Duelo: a system's order for somebody a duel holds (from the call to the ground to its end) is not given; the duel's
+## own orders ("by_duel": true) are. The player's orders do not pass through here (step's orders).
+func _held(o: Dictionary) -> bool:
+	if bool(o.get("by_duel", false)) or not Duels.holds(state, str(o.get("actor", ""))):
+		return false
+	if OS.is_debug_build():
+		print("[Duels] orden de sistema %s para %s retenida por el duelo" % [o.get("type", ""), o.get("actor", "")])
+	return true
 
 
 func _give(o: Dictionary) -> void:
