@@ -279,8 +279,7 @@ CREDITS = [
     ("Hecho con", ["Godot 4.7 · GDScript", "Claude Code (agentes de Grimoire)"]),
     ("Arte", ["PixelLab y piezas a mano (Pillow)", "Arte reutilizado de Guild Renew"]),
     ("Sonido y voces", ["ElevenLabs"]),
-    ("Letras", ["Pixel Operator · Jayvee Enaguas (CC0)", "Jacquarda Bastarda 9 y Jacquard 24 · The Soft Type Project (OFL)",
-                "Silkscreen · Jason Kottke (OFL)"]),
+    ("Letras", ["Pixel Operator · Jayvee Enaguas (CC0)", "Jacquard 24 · The Soft Type Project (OFL)"]),
 ]
 
 

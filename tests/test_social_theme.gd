@@ -65,3 +65,28 @@ func test_cannot_be_undone_shows_once() -> void:
 	check((m.get_node("%Warn") as Label).visible, "and the warning line says it")
 	m.free()
 	TranslationServer.set_locale(before)
+
+
+## The menus' confirmation (quit, overwrite: ConfirmDialog) and every button with a key name (MenuKit.add_hint) leave
+## the key its room: on entering the tree the button is wide enough that its centred text never reaches the hint.
+func test_menu_buttons_leave_room_for_the_key() -> void:
+	var before := TranslationServer.get_locale()
+	TranslationServer.set_locale("es")
+	var d := (load("res://game/ui/confirm_dialog.tscn") as PackedScene).instantiate() as ConfirmDialog
+	d.ask("¿Salir al título?", "Se pierde lo jugado.", [{"id": "cancel", "text": "Cancelar", "hint": "Esc"},
+		{"id": "discard", "text": "Sin guardar"}, {"id": "save", "text": "Guardar y salir", "primary": true}])
+	var c := d.button("cancel")
+	check(c != null and c.get_node_or_null("Hint") != null, "Cancel has its key")
+	if c != null:
+		check(not c.tree_entered.get_connections().is_empty(), "it fits itself when it enters the tree")
+		MenuKit.fit_hint(c)  # what entering the tree does (the tests run without a tree)
+		var text_w := float(c.get_meta("fit_text_w", 0.0))
+		var hint_w := float(c.get_meta("fit_hint_w", 0.0))
+		check(text_w > 0.0 and hint_w > 0.0, "measured in the theme's fonts (%.0f, %.0f)" % [text_w, hint_w])
+		check((c.get_combined_minimum_size().x - text_w) / 2.0 >= hint_w + 6.0,
+			"«Cancelar» leaves «Esc» its room (%.0f wide, text %.0f, key %.0f)" % [c.get_combined_minimum_size().x, text_w,
+			hint_w])
+	var plain := d.button("discard")
+	check(plain != null and plain.custom_minimum_size.x == 104.0, "a button without a key keeps its size")
+	d.free()
+	TranslationServer.set_locale(before)

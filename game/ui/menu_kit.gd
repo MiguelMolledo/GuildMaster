@@ -16,7 +16,8 @@ static func button(text: String, hint: String = "", variation: StringName = &"")
 	return b
 
 
-## The small key name at the bottom right of a button ("Esc", "F5", "Intro").
+## The small key name at the bottom right of a button ("Esc", "F5", "Intro"). The button widens so its centred text
+## never runs into it (fit_hint, once the button is in the tree and its fonts are the theme's).
 static func add_hint(b: Button, hint: String) -> Label:
 	var l := b.get_node_or_null("Hint") as Label
 	if l == null:
@@ -36,7 +37,30 @@ static func add_hint(b: Button, hint: String) -> Label:
 		l.offset_bottom = -1.0
 		b.add_child(l)
 	l.text = hint
+	if b.is_inside_tree():
+		fit_hint(b)
+	elif not b.tree_entered.is_connected(fit_hint):
+		b.tree_entered.connect(fit_hint.bind(b), CONNECT_ONE_SHOT)
 	return l
+
+
+## Widens `b` (never narrows it below `min_w`, or its current minimum) so its centred text keeps the hint's width plus
+## air on both sides: the key name at the bottom right never touches the text. Leaves the measures in metas
+## (fit_text_w, fit_hint_w) for the tests.
+static func fit_hint(b: Button, min_w: float = -1.0) -> void:
+	var font := b.get_theme_font("font")
+	var size := b.get_theme_font_size("font_size")
+	var hint := b.get_node_or_null("Hint") as Label
+	var text_w := font.get_string_size(b.text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x if font != null else 0.0
+	var hint_w := 0.0
+	if hint != null and hint.text != "":
+		var hf := hint.get_theme_font("font")
+		hint_w = hf.get_string_size(hint.text, HORIZONTAL_ALIGNMENT_LEFT, -1, hint.get_theme_font_size("font_size")).x \
+			if hf != null else 0.0
+	var need := ceilf(text_w + 2.0 * (hint_w + 6.0)) + 4.0 if hint_w > 0.0 else 0.0
+	b.custom_minimum_size.x = maxf(b.custom_minimum_size.x if min_w < 0.0 else min_w, need)
+	b.set_meta("fit_text_w", text_w)
+	b.set_meta("fit_hint_w", hint_w)
 
 
 static func label(text: String, variation: StringName = &"BodyLabel") -> Label:

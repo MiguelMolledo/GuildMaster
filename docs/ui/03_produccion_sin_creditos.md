@@ -70,8 +70,8 @@ Se copian a `assets/art/…` con `"origen": "guild-renew"` en el inventario. El 
 ### 1.4 Fuentes libres
 
 Solo OFL o CC0, con la licencia junto al fichero (`<fuente>_ofl.txt`, `pixel_operator_cc0.txt`), su fila en el
-inventario y su línea en los créditos (02, sección 5). Hoy: Pixel Operator (CC0), Jacquarda Bastarda 9, Jacquard 24,
-Tiny5, VT323, Silkscreen (OFL). Las que no tienen un glifo que usa el juego se completan con `glifos_extra.py` solo si
+inventario y su línea en los créditos (02, sección 5). Hoy las usa el juego: Pixel Operator (CC0) y Jacquard 24
+(OFL); Tiny5, VT323 y Silkscreen (OFL) están en la carpeta sin usar. Jacquarda Bastarda 9 se borró el 2026-11-04. Las que no tienen un glifo que usa el juego se completan con `glifos_extra.py` solo si
 la licencia lo permite (CC0 sí; en OFL, una versión modificada no puede llevar el nombre reservado: no se tocan).
 
 ### 1.5 Paquetes CC0 de terceros
@@ -142,7 +142,7 @@ Al pedir: saldo antes y después en `assets/art/MANIFEST.md`, cada asset con su 
 
 **Letras:** en el theme, `Default Font` (y `Button → fonts → font`, `Label → fonts → font`) apunta al `.ttf`. Al importar
 una fuente pixel nueva (pestaña Import con el fichero elegido): `Antialiasing` = None, `Hinting` = None,
-`Subpixel Positioning` = Disabled, «Reimport». Usar solo su tamaño nítido (Pixel Operator 16, Jacquarda 13…).
+`Subpixel Positioning` = Disabled, «Reimport». Usar solo su tamaño nítido (Pixel Operator 16, Jacquard 24…).
 
 Lo mismo, resumido, está en la fila «Paneles de la UI» de `docs/protocolos/editar-a-mano.md`.
 
