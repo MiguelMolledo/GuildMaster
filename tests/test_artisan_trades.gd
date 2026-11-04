@@ -14,7 +14,7 @@ var cat := Catalog.load_from()
 
 
 func _new(prof: String, difficulty: String = "normal", world_seed: int = 1) -> WorldState:
-	var r := NewGame.from_start(cat, "artisan_" + prof, difficulty, {}, world_seed)
+	var r := NewGame.from_start(cat, "artisan_" + prof, difficulty, {"cast": "fixed"}, world_seed)
 	check(r["ok"], "artisan_%s starts: %s" % [prof, r.get("error", "")])
 	return r["state"]
 
@@ -73,7 +73,7 @@ func test_a_new_game_as_each_trade() -> void:
 
 func test_one_workshop_of_each_trade_in_town_e() -> void:
 	for start: String in ["artisan_blacksmith", "artisan_carpenter", "artisan_mason", "artisan_tailor"]:
-		var st: WorldState = NewGame.from_start(cat, start, "normal", {}, 1)["state"]
+		var st: WorldState = NewGame.from_start(cat, start, "normal", {"cast": "fixed"}, 1)["state"]
 		var types := {}
 		var origins := {}
 		for b: String in st.buildings:
@@ -99,7 +99,7 @@ func test_one_workshop_of_each_trade_in_town_e() -> void:
 
 
 func test_the_ids_of_the_blacksmith_start_do_not_move() -> void:
-	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"]
+	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"]
 	eq([str(st.buildings["bld_0001"]["type"]), str(st.buildings["bld_0002"]["type"])], ["forge", "forge"],
 		"player forge, then the rival's")
 	eq(str(st.families["fam_0002"]["ai_profile"]), "rival_smith", "the rival smith is still fam_0002")
@@ -113,7 +113,7 @@ func test_the_ids_of_the_blacksmith_start_do_not_move() -> void:
 
 func test_competitors_follow_the_difficulty_and_never_ask_for_titles() -> void:
 	for lvl: String in ["easy", "hard"]:
-		var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", lvl, {}, 1)["state"]
+		var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", lvl, {"cast": "fixed"}, 1)["state"]
 		for f: String in _ai_families(st):
 			eq(int(st.characters[str(st.families[f]["head"])]["stats"]["craft"]),
 				int(cat.difficulty_levels(lvl)["rival_craft"]), "%s %s: craft of the difficulty" % [lvl, f])
@@ -124,7 +124,7 @@ func test_competitors_follow_the_difficulty_and_never_ask_for_titles() -> void:
 
 func test_the_board_draws_from_the_players_trade() -> void:
 	for p: String in ["blacksmith", "carpenter", "mason", "tailor"]:
-		var st: WorldState = NewGame.from_start(cat, "artisan_" + p, "normal", {}, 3)["state"]
+		var st: WorldState = NewGame.from_start(cat, "artisan_" + p, "normal", {"cast": "fixed"}, 3)["state"]
 		var sim := Sim.new(st, cat)
 		eq(Contracts.board_tables(sim), [p], "%s: only its table" % p)
 		st.contracts["board"] = []
@@ -133,7 +133,7 @@ func test_the_board_draws_from_the_players_trade() -> void:
 			for c: Dictionary in st.contracts["board"]:
 				if str(c["id"]) == id:
 					eq(str(Contracts.table_for_item(cat, str(c["item"])).get("profession", "")), p, "%s: random contract of its trade" % p)
-	var st2: WorldState = NewGame.from_start(cat, "artisan_carpenter", "normal", {}, 3)["state"]
+	var st2: WorldState = NewGame.from_start(cat, "artisan_carpenter", "normal", {"cast": "fixed"}, 3)["state"]
 	st2.characters[HERO]["profession"] = ""
 	eq(Contracts.board_tables(Sim.new(st2, cat)).size(), cat.contracts().size(), "no trade: every table")
 
@@ -198,7 +198,7 @@ func test_the_upgrade_tree_of_each_trade() -> void:
 
 
 func test_a_day_of_the_town_with_every_workshop() -> void:
-	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 2)["state"]
+	var st: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 2)["state"]
 	var sim := Sim.new(st, cat)
 	var comps := _ai_families(st)
 	var made := {}
@@ -237,11 +237,16 @@ func test_new_game_screen_offers_the_trades() -> void:
 		return NewGame.from_start(c, start, diff, ch, sd)
 	(box.get_node("Carpenter") as Button).pressed.emit()
 	eq(s.start_id, "artisan_carpenter", "the carpenter's start")
-	eq((s.get_node("%NameEdit") as LineEdit).text, "Martín", "its default name")
-	eq((s.get_node("%FamilyEdit") as LineEdit).text, "Carpintero", "its default family")
+	# población: the name and family proposed are the cast's (Cast.proposal of the screen's seed and start)
+	var pro := Cast.proposal(cat, cat.starts()["artisan_carpenter"], "random", s.cast_seed())
+	eq((s.get_node("%NameEdit") as LineEdit).text, str(pro["name_m"]), "its proposed name")
+	eq((s.get_node("%FamilyEdit") as LineEdit).text, str(pro["family_name"]), "its proposed family")
+	check(str(pro["family_name"]) in (cat.cast["surnames"]["trade"]["carpenter"] as Array), "a carpenter's surname")
 	(box.get_node("Tailor") as Button).pressed.emit()
 	eq(s.start_id, "artisan_tailor", "the tailor's")
-	check(s.female, "Elvira")
+	check(s.female, "the tailor's start is a woman")
+	eq((s.get_node("%NameEdit") as LineEdit).text,
+		str(Cast.proposal(cat, cat.starts()["artisan_tailor"], "random", s.cast_seed())["name_f"]), "her proposed name")
 	(s.get_node("%FamilyEdit") as LineEdit).text = "Mora"
 	(box.get_node("Mason") as Button).pressed.emit()
 	eq((s.get_node("%FamilyEdit") as LineEdit).text, "Mora", "a family the player typed stays")
@@ -249,4 +254,42 @@ func test_new_game_screen_offers_the_trades() -> void:
 	eq(calls.size(), 1, "from_start called")
 	if not calls.is_empty():
 		eq(calls[0][0], "artisan_mason", "with the mason's start")
+	s.free()
+
+
+func test_new_game_screen_another_family() -> void:
+	# Población: «Otra familia» rolls the cast again (name, family name, look and the town), the world seed stays.
+	var s: NewGameScreen = (load("res://game/ui/new_game_screen.tscn") as PackedScene).instantiate()
+	s.setup(cat, 7)
+	var start: Dictionary = cat.starts()["artisan_blacksmith"]
+	var first := Cast.proposal(cat, start, "random", Cast.sub_seed(7, 0))
+	eq((s.get_node("%NameEdit") as LineEdit).text, str(first["name_m"]), "the first proposal")
+	eq((s.get_node("%FamilyEdit") as LineEdit).text, str(first["family_name"]), "and its family")
+	var btn := s.get_node("%RerollButton") as Button
+	eq(btn.text, SimQuery.t_("ui.new_game.reroll"), "the button")
+	btn.pressed.emit()
+	var second := Cast.proposal(cat, start, "random", Cast.sub_seed(7, 1))
+	eq(s.cast_roll, 1, "one more roll")
+	eq((s.get_node("%NameEdit") as LineEdit).text, str(second["name_m"]), "another name")
+	eq((s.get_node("%FamilyEdit") as LineEdit).text, str(second["family_name"]), "another family")
+	(s.get_node("%Female") as Button).pressed.emit()
+	eq((s.get_node("%NameEdit") as LineEdit).text, str(second["name_f"]), "a woman: the female name of the proposal")
+	(s.get_node("%NameEdit") as LineEdit).text = "Oria"
+	(s.get_node("%Male") as Button).pressed.emit()
+	eq((s.get_node("%NameEdit") as LineEdit).text, "Oria", "a name the player typed stays when the sex changes")
+	var calls: Array = []
+	s.from_start = func(c: Catalog, st: String, diff: String, ch: Dictionary, sd: int) -> Dictionary:
+		calls.append([ch, sd])
+		return NewGame.from_start(c, st, diff, ch, sd)
+	var started: Array = []
+	s.started.connect(func(w: WorldState) -> void: started.append(w))
+	s.start_game()
+	eq(int(calls[0][1]), 7, "the same world seed")
+	eq(int(calls[0][0]["cast_seed"]), Cast.sub_seed(7, 1), "the cast seed of the roll")
+	var st: WorldState = started[0]
+	eq(str(st.families["fam_0001"]["name"]), str(second["family_name"]), "the game takes the family proposed")
+	var other: WorldState = NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast_seed": Cast.sub_seed(7, 0)}, 7)["state"]
+	check(str(st.characters["chr_0003"]["name"]) + str(st.families["fam_0003"]["name"]) !=
+		str(other.characters["chr_0003"]["name"]) + str(other.families["fam_0003"]["name"]), "and other neighbours")
+	eq(str(st.rng.state), str(other.rng.state), "the world's rng is the same")
 	s.free()

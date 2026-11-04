@@ -33,7 +33,7 @@ func _homes_ok(sim: Sim, label: String) -> void:
 
 
 func test_a_townsperson_marrying_into_the_player_family_moves_in() -> void:
-	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"], cat)
+	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"], cat)
 	var st := sim.state
 	var wife := _townsperson(sim, "Agnès")
 	var old := str(st.characters[wife]["home"])
@@ -47,7 +47,7 @@ func test_a_townsperson_marrying_into_the_player_family_moves_in() -> void:
 
 
 func test_a_townsfolk_wedding_moves_the_bride_to_the_groom_house() -> void:
-	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)["state"], cat)
+	var sim := Sim.new(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)["state"], cat)
 	var st := sim.state
 	var groom := _townsperson(sim, "Joan")
 	var bride := _townsperson(sim, "Clara")

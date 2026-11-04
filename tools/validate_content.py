@@ -684,8 +684,8 @@ def check_h8(strings, rep):
     view = load_json(os.path.join(DATA, "view.json"), rep) or {}
     pal = view.get("palette", {})
     for k in ("hair", "skin"):
-        if not isinstance(pal.get(k), list) or len(pal[k]) != tones[k]:
-            rep.error("view.json", f"palette.{k} debe tener {tones[k]} colores (data/family.json visual)")
+        if not isinstance(pal.get(k), list) or len(pal[k]) < tones[k]:
+            rep.error("view.json", f"palette.{k} debe tener al menos {tones[k]} colores (data/family.json visual)")
     if not isinstance(fam.get("group", {}).get("max"), int) or fam["group"]["max"] < 1:
         rep.error(w, "group.max debe ser un entero >= 1")
     ro = fam.get("routine", {})
@@ -722,7 +722,8 @@ def check_h8(strings, rep):
         check_text("score.json", f"score.{k}", strings, rep)
     if not isinstance(score.get("wealth", {}).get("gold_per_point"), int):
         rep.error("score.json", "wealth.gold_per_point debe ser entero")
-    return tones
+    # población: a generated cast uses the whole palette (data/cast.json look), the fixed one its first tones
+    return {k: max(tones[k], len(pal.get(k, []))) for k in ("hair", "skin")}
 
 
 def check_h8_scenario(w, d, buildings, tones, rep):
@@ -767,6 +768,137 @@ def check_h8_scenario(w, d, buildings, tones, rep):
             rep.error(w, f"{fid}: heir {f['heir']} desconocido")
         if not isinstance(f.get("generation"), int) or f["generation"] < 1:
             rep.error(w, f"{fid}: generation debe ser un entero >= 1")
+
+
+HEX_RE = re.compile(r"^#[0-9a-fA-F]{6}$")
+CAST_MIN_NAMES = 60      # por sexo: con 16 se repetían enseguida
+CAST_MIN_SURNAMES = 80
+
+
+def check_cast(rep):
+    """Población (sim/meta/cast.gd, docs/contratos/poblacion.md): data/cast.json. Nombres por sexo (>= 60, sin
+    repetir), apellidos generales (>= 80) y de oficio (por profesión conocida), sin repetir entre listas; rangos de
+    edad [mín, máx] por papel (las del pueblo dentro de lo que permite la boda); personalidad sobre atributos
+    conocidos; tonos de pelo y piel dentro de la paleta de data/view.json; parejas de colores de ropa válidas y
+    bastantes para las familias IA de cada inicio; tipos de retrato por papel y etapas por edad ascendentes."""
+    w = "cast.json"
+    c = load_json(os.path.join(DATA, "cast.json"), rep)
+    if c is None:
+        return
+    names = c.get("names", {})
+    for k in ("male", "female"):
+        lst = names.get(k)
+        if not isinstance(lst, list) or not all(isinstance(n, str) and n.strip() == n and n for n in lst):
+            rep.error(w, f"names.{k} debe ser una lista de nombres")
+            continue
+        if len(lst) < CAST_MIN_NAMES:
+            rep.error(w, f"names.{k}: {len(lst)} nombres, hacen falta >= {CAST_MIN_NAMES}")
+        dup = sorted({n for n in lst if lst.count(n) > 1})
+        if dup:
+            rep.error(w, f"names.{k} repetidos: {dup}")
+    both = set(names.get("male", [])) & set(names.get("female", []))
+    if both:
+        rep.error(w, f"nombres en las dos listas: {sorted(both)}")
+    sn = c.get("surnames", {})
+    gen = sn.get("general", [])
+    if not isinstance(gen, list) or len(gen) < CAST_MIN_SURNAMES:
+        rep.error(w, f"surnames.general: hacen falta >= {CAST_MIN_SURNAMES} apellidos")
+        gen = gen if isinstance(gen, list) else []
+    seen = {}
+    profs = set(load_kind("professions", rep))
+    for where, lst in [("general", gen)] + [(f"trade.{p}", l) for p, l in sn.get("trade", {}).items()]:
+        if where.startswith("trade.") and where[6:] not in profs:
+            rep.error(w, f"surnames.{where}: profesión desconocida")
+        for n in lst if isinstance(lst, list) else []:
+            if not isinstance(n, str) or not n.strip():
+                rep.error(w, f"surnames.{where}: apellido vacío")
+            elif n in seen:
+                rep.error(w, f"surnames: «{n}» en {seen[n]} y en {where}")
+            else:
+                seen[n] = where
+    fam = load_json(os.path.join(DATA, "family.json"), rep) or {}
+    town = load_json(os.path.join(DATA, "town.json"), rep) or {}
+    ages = c.get("ages", {})
+    for role in ("rival", "competitor", "competitor_spouse", "townsfolk"):
+        a = ages.get(role)
+        if not (isinstance(a, list) and len(a) == 2 and all(isinstance(x, int) for x in a) and 0 <= a[0] <= a[1]):
+            rep.error(w, f"ages.{role} debe ser [mín, máx] en años enteros")
+    tf = ages.get("townsfolk", [0, 0])
+    major = fam.get("life", {}).get("majority_age", 16)
+    mother_max = fam.get("children", {}).get("mother_max_age", 45) - 5
+    if isinstance(tf, list) and len(tf) == 2 and (tf[0] < major or tf[1] > mother_max):
+        rep.error(w, f"ages.townsfolk {tf}: fuera de [{major}, {mother_max}] (mayoría de edad; bodas del pueblo)")
+    pers = c.get("personality", {})
+    for k in pers.get("stats", []):
+        if k not in STAT_IDS:
+            rep.error(w, f"personality.stats: atributo desconocido {k}")
+    if not isinstance(pers.get("jitter"), int) or pers["jitter"] < 0:
+        rep.error(w, "personality.jitter debe ser un entero >= 0")
+    view = load_json(os.path.join(DATA, "view.json"), rep) or {}
+    pal = view.get("palette", {})
+    look = c.get("look", {})
+    for k in ("hair", "skin"):
+        idx = look.get(k)
+        n = len(pal.get(k, []))
+        if not isinstance(idx, list) or not idx or not all(isinstance(i, int) and 0 <= i < n for i in idx):
+            rep.error(w, f"look.{k}: índices de data/view.json palette.{k} (0..{n - 1})")
+    kr = look.get("kin_resemblance")
+    if not isinstance(kr, (int, float)) or not 0 <= kr <= 1:
+        rep.error(w, "look.kin_resemblance debe estar en [0, 1]")
+    pairs = c.get("family_colors", {}).get("pairs", [])
+    if not all(isinstance(pp, list) and len(pp) == 2 and all(isinstance(x, str) and HEX_RE.match(x) for x in pp) for pp in pairs):
+        rep.error(w, "family_colors.pairs: [[\"#rrggbb\", \"#rrggbb\"], ...]")
+    prim = [pp[0] for pp in pairs if isinstance(pp, list) and pp]
+    if len(set(prim)) != len(prim):
+        rep.error(w, "family_colors.pairs: color principal repetido (las familias se distinguen por él)")
+    maps = load_kind("maps", rep)
+    for sid, st in load_kind("starts", rep).items():
+        need = (1 if st.get("rival") else 0) + len(st.get("competitors", [])) + len(maps.get(st.get("map"), {}).get("population", []))
+        if len(pairs) < need + 2:
+            rep.error(w, f"family_colors.pairs: {len(pairs)} parejas; el inicio {sid} tiene {need} familias IA (+2 de margen por el color del jugador)")
+    po = c.get("portraits", {})
+    pool = load_json(os.path.join(ROOT, "assets", "art", "portraits", "index.json"), rep) if os.path.exists(
+        os.path.join(ROOT, "assets", "art", "portraits", "index.json")) else None
+    if pool is not None:
+        wp = "assets/art/portraits/index.json"
+        if pool.get("version") != 1:
+            rep.error(wp, "versión 1 (assets/art/portraits/README.md)")
+        for t in po.get("types", []):
+            if t not in pool.get("types", []):
+                rep.error(w, f"portraits.types: {t} no es un tipo del pool")
+        bands = pool.get("ages", {})
+        prev = -1
+        for stg in po.get("stages", []):
+            b = bands.get(stg.get("id"))
+            if not b or (b[1] is not None and b[1] != stg.get("to_age")) or b[0] > prev + 1 + (6 if prev < 0 else 0):
+                rep.error(w, f"portraits.stages.{stg.get('id')}: no casa con las franjas del pool {b}")
+            prev = stg.get("to_age", prev)
+        have = {(e.get("sex"), e.get("age"), e.get("type")) for e in pool.get("portraits", [])}
+        for sex in ("m", "f"):
+            for b in bands:
+                if (sex, b, "commoner") not in have:
+                    rep.error(wp, f"falta commoner {sex} {b} (el último recurso del reparto)")
+    ptypes = po.get("types", [])
+    if not ptypes or not all(isinstance(t, str) and ID_RE.match(t) for t in ptypes):
+        rep.error(w, "portraits.types: los tipos sociales del pool de retratos (ids snake_case)")
+    if "commoner" not in ptypes:
+        rep.error(w, "portraits.types debe tener commoner (existe en todas las edades y sexos del pool)")
+    for role in ("rival", "competitor", "townsfolk", "newcomer"):
+        if po.get("roles", {}).get(role) not in ptypes:
+            rep.error(w, f"portraits.roles.{role}: un tipo de portraits.types")
+    for cls in ("artisan", "patron", "scholar", "rogue"):
+        if po.get("classes", {}).get(cls) not in ptypes:
+            rep.error(w, f"portraits.classes.{cls}: un tipo de portraits.types")
+    if [stg.get("id") for stg in po.get("stages", [])] != ["child", "youth", "adult", "mature", "elder"]:
+        rep.error(w, "portraits.stages: las franjas del pool (child, youth, adult, mature, elder), en orden")
+    last = -1
+    for stg in po.get("stages", []):
+        if not ID_RE.match(str(stg.get("id", ""))) or not isinstance(stg.get("to_age"), int) or stg["to_age"] <= last:
+            rep.error(w, f"portraits.stages: {stg} debe ser {{id, to_age}} con to_age creciente")
+        else:
+            last = stg["to_age"]
+    if last < fam.get("life", {}).get("death", {}).get("certain_age", 75):
+        rep.error(w, "portraits.stages: la última etapa debe llegar a la edad de muerte segura")
 
 
 EMOTIONS = {"grateful", "offended", "angry", "scared"}  # the 4 of the MVP (GDD 4.11.5)
@@ -2108,6 +2240,7 @@ def main():
     ranks, roles = check_h4(buildings, recipes, maps, strings, rep)
     check_h5(items, recipes, buildings, ranks, strings, rep)
     tones = check_h8(strings, rep)
+    check_cast(rep)
     workplaces = check_h7(load_kind("maps", rep), strings, rep)
     titles = check_h9(load_kind("maps", rep), strings, rep)
     offices = check_h10(titles, strings, rep)

@@ -77,7 +77,7 @@ func test_round_trip_with_titles_and_reputation() -> void:
 
 
 func test_new_game_families_have_titles() -> void:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {}, 1)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)
 	check(r["ok"], "new game")
 	var st: WorldState = r["state"]
 	for f: String in st.families:

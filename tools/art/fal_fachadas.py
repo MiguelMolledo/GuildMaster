@@ -10,6 +10,10 @@ la posición (±8 px) para que la silueta case con la vieja. Resultado con el mi
 Obras y dañado (--estado construction|damaged): /edit sobre la fachada nueva, mismo lienzo:
 assets/art/buildings/fal/<id>_construction.png y <id>_damaged.png (contrato de docs/ASSETS.md).
 
+De espaldas (--estado back, y back_construction / back_damaged sobre la de espaldas): el mismo edificio visto desde
+el otro lado, sin puerta en las caras visibles, para la puerta del sim en una cara oculta (el constructor de
+ciudades usa <edificio>_back si existe). assets/art/buildings/fal/<id>_back.png (+ _back_construction, _back_damaged).
+
 Uso: FAL_TANDA=extra python3 tools/art/fal_fachadas.py gen|proc [--solo id,id] [--modelo nano2|nanopro]
                                                        [--estado construction|damaged]
 """
@@ -43,6 +47,7 @@ BUILDINGS = {
                  "and a sawhorse outside, and a hanging wooden sign with a saw symbol",
     "masonry": "a stonemason's workshop of rough grey stone with a slate roof, cut stone blocks stacked outside and "
                "a hanging sign with a hammer-and-chisel symbol",
+    "town_hall": "the town hall: a noble stone house with a tower and a banner",
     "tailor_shop": "a tailor's shop: timber-framed with a terracotta roof, clothes hanging on a rail in the open "
                    "shop front and a hanging sign with a pair of scissors (replace the word on the sign with the "
                    "scissors symbol)",
@@ -58,15 +63,38 @@ STATES = {
 }
 
 
+BACK = ("the SAME building seen from the OPPOSITE side, as if it were turned 180 degrees on its footprint: we now "
+        "see its back wall and its other side wall, with the same materials, roof, chimney and base. The entrance "
+        "door, the gate, the shop front and the sign are on the far side and must NOT be visible: the two visible "
+        "walls are closed walls with NO doors, NO gates, NO big openings and NO wooden door panels; they only have windows, timber or stone, and back details (a woodpile, barrels or crates; no shed, no small doors or openings of any kind)")
+
+
+def base_of(bid, state=""):
+    """Sprite del que parte cada estado: la fachada fal (o la de escala B si no hay), o la de espaldas fal."""
+    if state.startswith("back_"):
+        return os.path.join(OUT, bid + "_back.png")
+    if state:
+        p = os.path.join(OUT, bid + ".png")
+        return p if os.path.exists(p) or state != "back" else os.path.join(OLD, bid + ".png")
+    return os.path.join(OLD, bid + ".png")
+
+
+def grid(bid, state=""):
+    """(lienzo, escala): 256 a ×4 o, si el sprite pasa de 240 px, 512 a ×2; la imagen siempre es de 1024."""
+    im = Image.open(base_of(bid, state))
+    return (512, 2) if max(im.size) > 240 else (CANVAS, 4)
+
+
 def ref(bid, state=""):
-    base = os.path.join(OUT, bid + ".png") if state else os.path.join(OLD, bid + ".png")
+    base = base_of(bid, state)
     im = Image.open(base).convert("RGBA")
-    ox, oy = (CANVAS - im.width) // 2, (CANVAS - im.height) // 2
-    c = Image.new("RGBA", (CANVAS, CANVAS), (255, 255, 255, 255))
+    cv, k = grid(bid, state)
+    ox, oy = (cv - im.width) // 2, (cv - im.height) // 2
+    c = Image.new("RGBA", (cv, cv), (255, 255, 255, 255))
     c.alpha_composite(im, (ox, oy))
     p = os.path.join(P, "ref", bid + ("_" + state if state else "") + ".png")
     os.makedirs(os.path.dirname(p), exist_ok=True)
-    c.convert("RGB").resize((CANVAS * 4, CANVAS * 4), Image.NEAREST).save(p)
+    c.convert("RGB").resize((cv * k, cv * k), Image.NEAREST).save(p)
     return p, (ox, oy, im.width, im.height)
 
 
@@ -82,10 +110,20 @@ def prompt(bid):
 
 
 def state_prompt(bid, state):
+    k = grid(bid, state)[1]
+    if state == "back":
+        what = BACK
+    elif state.startswith("back_"):
+        what = (STATES[state[5:]].replace("a broken door", "a broken window shutter") +
+                ", seen from the back: no door, gate, shop front or sign on the visible walls; the scaffolding stays "
+                "inside the same outline as the building, not wider")
+    else:
+        what = STATES[state]
     return ("The attached image is a finished building sprite from our isometric 2:1 pixel art game, shown enlarged "
-            "4x on white (every art pixel is a 4x4 block). Draw " + STATES[state] + ". Keep EXACTLY the same "
-            "position in the frame, footprint, base, size, projection, palette, outline and 4x4 pixel blocks, so it "
-            "can replace the sprite in place: do not zoom in or move the building. No text. Keep the plain flat "
+            f"{k}x on white (every art pixel is a {k}x{k} block). Draw " + what + ". Keep EXACTLY the same "
+            f"position in the frame, footprint, base, size, projection, palette, outline and {k}x{k} pixel blocks, so it "
+            "can replace the sprite in place: do not zoom in or move the building; it must occupy exactly the same "
+            "area as in the reference, with the same wide white margin around it. No text. Keep the plain flat "
             "white background.")
 
 
@@ -153,9 +191,10 @@ def proc(bid, name, state=""):
         print("falta", raw)
         return
     _, (ox, oy, w, h) = ref(bid, state)
-    im = Image.open(raw).convert("RGBA").resize((CANVAS * 4, CANVAS * 4))
+    cv, k = grid(bid, state)
+    im = Image.open(raw).convert("RGBA").resize((cv * k, cv * k))
     keyed = fp.key_background(im, "white", 22)
-    if state == "construction":
+    if state in ("construction", "back_construction"):
         keyed = holes(keyed)
     src = os.path.join(P, "celdas", name + ".png")
     os.makedirs(os.path.dirname(src), exist_ok=True)
@@ -164,21 +203,21 @@ def proc(bid, name, state=""):
     if not os.path.exists(dst):
         import fal_piloto
         os.makedirs(os.path.dirname(dst), exist_ok=True)
-        fal_piloto.pixel(SimpleNamespace(piece="fachadas", src=src, dst=dst, colors=48, scale=4, palette="",
+        fal_piloto.pixel(SimpleNamespace(piece="fachadas", src=src, dst=dst, colors=48, scale=k, palette="",
                                          transparent=True))
     up = Image.open(dst).convert("RGBA")
     meta = json.load(open(dst + ".json"))
-    s = int(meta.get("pixel_scale") or 4)
+    s = int(meta.get("pixel_scale") or k)
     nat = up.resize((up.width // s, up.height // s), Image.NEAREST)
-    full = Image.new("RGBA", (CANVAS, CANVAS), (0, 0, 0, 0))
+    full = Image.new("RGBA", (cv, cv), (0, 0, 0, 0))
     full.alpha_composite(nat, (0, 0))
     full.putalpha(full.getchannel("A").point(lambda v: 255 if v > 127 else 0))
-    old = Image.open(os.path.join(OUT if state else OLD, bid + ".png")).convert("RGBA")
-    oldc = Image.new("RGBA", (CANVAS, CANVAS), (0, 0, 0, 0))
+    old = Image.open(base_of(bid, state)).convert("RGBA")
+    oldc = Image.new("RGBA", (cv, cv), (0, 0, 0, 0))
     oldc.alpha_composite(old, (ox, oy))
     best = max(((iou(oldc, full, dx, dy), dx, dy) for dy in range(-8, 9) for dx in range(-8, 9)))
     score, dx, dy = best
-    shifted = Image.new("RGBA", (CANVAS, CANVAS), (0, 0, 0, 0))
+    shifted = Image.new("RGBA", (cv, cv), (0, 0, 0, 0))
     shifted.alpha_composite(full, (dx, dy))
     out = shifted.crop((ox, oy, ox + w, oy + h))
     os.makedirs(OUT, exist_ok=True)
@@ -200,7 +239,8 @@ def main():
     ap.add_argument("cmd", choices=["gen", "proc"])
     ap.add_argument("--solo", default="")
     ap.add_argument("--modelo", default="nano2")
-    ap.add_argument("--estado", default="", choices=["", "construction", "damaged"])
+    ap.add_argument("--estado", default="", choices=["", "construction", "damaged", "back", "back_construction",
+                                                     "back_damaged"])
     a = ap.parse_args()
     ids = [x for x in a.solo.split(",") if x] or list(BUILDINGS)
     for bid in ids:

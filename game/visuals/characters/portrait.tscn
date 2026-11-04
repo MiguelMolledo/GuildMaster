@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://g6mtpq1w0wm"]
+[gd_scene load_steps=4 format=3 uid="uid://g6mtpq1w0wm"]
 
 [ext_resource type="Script" uid="uid://chfs61yfmqhb4" path="res://game/visuals/characters/portrait.gd" id="1_portrait"]
+[ext_resource type="Shader" uid="uid://5lswoa5bnr21" path="res://game/visuals/characters/identity_swap.gdshader" id="2_swap"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_art"]
+resource_local_to_scene = true
+shader = ExtResource("2_swap")
 
 [node name="Portrait" type="Node2D"]
 script = ExtResource("1_portrait")
@@ -45,6 +50,12 @@ polygon = PackedVector2Array(18, 14, 20, 14, 20, 15, 18, 15)
 [node name="Hair" type="Polygon2D" parent="Greybox"]
 color = Color(0.35, 0.23, 0.13, 1)
 polygon = PackedVector2Array(9, 12, 9, 9, 12, 5, 20, 5, 23, 9, 23, 12, 20, 9, 12, 9)
+
+[node name="Art" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+material = SubResource("ShaderMaterial_art")
+centered = false
 
 [node name="Cross" type="Node2D" parent="."]
 visible = false

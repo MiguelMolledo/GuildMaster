@@ -30,7 +30,11 @@ OWN = {"mayor": ["H10", "cargos"], "judge": ["H11", "tribunal"], "priest": ["H12
        "foreigner": ["H12", "forasteros"]}
 CARD_FOR = {"card_wedding": ["H8", "boda"], "card_birth": ["H8", "familia"], "card_death": ["H8", "familia"],
             "card_trial": ["H11", "tribunal"], "card_verdict": ["H11", "tribunal"], "card_election": ["H10", "cargos"],
-            "card_title": ["H9", "títulos"]}
+            "card_title": ["H9", "títulos"], "card_succession": ["H8", "familia"],
+            "card_proposal": ["H8", "cortejo"], "card_accusation": ["H11", "tribunal"],
+            "card_title_citizen": ["H9", "títulos"], "card_title_patrician": ["H9", "títulos"],
+            "card_title_baron": ["H9", "títulos"], "card_title_noble": ["H9", "títulos"],
+            "card_verdict_guilty": ["H11", "tribunal"], "card_verdict_innocent": ["H11", "tribunal"]}
 KEY_NOTE = ("Colores clave de GDD 4.10.9 codificados como los sprites de personaje (alfa 254, región en el azul: 50 "
             "pelo con barba y cejas, 100 piel con labios y cuello, 150 ropa principal, 200 ropa secundaria; brillo en "
             "el rojo): se pinta con game/visuals/characters/identity_swap.gdshader. Fondo transparente (lo pone el "
@@ -135,6 +139,22 @@ def extras(d, by_id):
         base = d["assets"][by_id["bld_" + bid]]
         if "buildings/fal/" not in base["notas"]:
             base["notas"] += f" Candidata fal (2026-11-03): {path} (mismo lienzo y ancla; entrada bld_{bid}_fal)."
+    for bid in list(ffa.BUILDINGS):
+        path = f"assets/art/buildings/fal/{bid}_back.png"
+        if not os.path.exists(os.path.join(ROOT, path)) or "bld_" + bid not in by_id:
+            continue
+        states = [s for s in ("construction", "damaged")
+                  if os.path.exists(os.path.join(ROOT, f"assets/art/buildings/fal/{bid}_back_{s}.png"))]
+        new.append({"id": f"bld_{bid}_back", "tipo": "edificio", "estado": "sprite",
+                    "para": d["assets"][by_id["bld_" + bid]]["para"] + ["ciudades"], "ruta": path,
+                    "origen": "fal: nano-banana-2/edit con una sola referencia (su fachada fal, o la de escala B, ×4) "
+                              "+ image2pixel (tools/art/fal_fachadas.py --estado back)",
+                    "coste_gen": 0, "coste_usd": round(0.08 * (1 + len(states)), 2),
+                    "notas": f"El edificio {bid} de espaldas: sin puerta, portón ni escaparate en las caras visibles, "
+                             f"para cuando la puerta del sim cae en una cara oculta (el constructor de ciudades usa "
+                             f"<edificio>_back; -fila tal cual, -columna reflejado). Mismo lienzo y ancla que el frente "
+                             f"(offset del Sprite de game/visuals/buildings/{bid}.tscn). Estados: " +
+                             (", ".join(f"{bid}_back_{s}.png" for s in states) or "—") + ". Sin cablear."})
     return new
 
 

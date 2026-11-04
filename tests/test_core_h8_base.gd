@@ -77,18 +77,18 @@ func test_round_trip_with_h8_state() -> void:
 
 
 func test_new_game_has_ages_tones_and_a_head() -> void:
-	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"visual": {"hair": 4, "skin": 2}}, 7)
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed", "visual": {"hair": 4, "skin": 2}}, 7)
 	check(r["ok"], "new game")
 	var sim := Sim.new(r["state"], cat)
 	var st := sim.state
 	eq(Kin.age(sim, HERO), 20, "the protagonist is 20 (4.16)")
-	eq(st.characters[HERO]["visual"], {"hair": 4, "skin": 2}, "the chosen tones")
+	eq([st.characters[HERO]["visual"]["hair"], st.characters[HERO]["visual"]["skin"]], [4, 2], "the chosen tones")
 	eq([str(st.families[FAM]["head"]), str(st.families[FAM]["founder"]), int(st.families[FAM]["generation"])],
 		[HERO, HERO, 1], "head and founder")
 	eq(st.characters[HERO]["schedule"], null, "the founder starts without routine (provisional)")
 	eq(Kin.age(sim, "chr_0002"), 35, "the rival smith is 35")
 	eq(Kin.group(st, FAM), [HERO], "the group is the protagonist")
-	eq(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"visual": {"hair": -1}}, 7)["ok"], false, "bad tones")
+	eq(NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed", "visual": {"hair": -1}}, 7)["ok"], false, "bad tones")
 	var adults := 0
 	for id: String in st.characters:
 		if str(st.characters[id].get("home", "")) != "":

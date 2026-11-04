@@ -11,7 +11,7 @@ var cat := Catalog.load_from()
 
 
 func _sim(difficulty: String = "normal") -> Sim:
-	return Sim.new(NewGame.from_start(cat, "artisan_blacksmith", difficulty, {}, 1)["state"], cat)
+	return Sim.new(NewGame.from_start(cat, "artisan_blacksmith", difficulty, {"cast": "fixed"}, 1)["state"], cat)
 
 
 func _loan(sim: Sim) -> Dictionary:

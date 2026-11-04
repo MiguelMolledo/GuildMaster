@@ -12,7 +12,8 @@ días; las dianas goldflow de días 9-24 se corren a mano con 30 semillas), town
 idle_town, 2 semillas), kin (H14: un familiar con Comerciar aprovisiona la forja, 3 semillas), events (H13: 10 años,
 80 días, de artisan_expert con estaciones y eventos globales, sin bloqueos; 2 semillas), carpenter / mason /
 tailor (H12: el novato de cada oficio del Artesano en su partida nueva real en Normal, 10 semillas × 10 días; las 30
-semillas y las tres dificultades, a mano). Con --visual, además smoke (capturas con ventana, por
+semillas y las tres dificultades, a mano), cast (población: el novato con repartos generados, --cast=random, 10
+semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo). Con --visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
 """
 import os
@@ -45,7 +46,10 @@ STEPS = [
     ("events", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=events", "--days=80",
                     "--seeds=2"]),
 ] + [(p, G + ["-s", "tools/sim_runner.gd", "--", f"--start=artisan_{p}", f"--bots={p}_novice", "--days=10", "--seeds=10"])
-     for p in ("carpenter", "mason", "tailor")]
+     for p in ("carpenter", "mason", "tailor")] + [
+    ("cast", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=artisan_novice", "--days=10",
+                  "--seeds=10", "--cast=random", "--tag=cast_random"]),
+]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]
 
