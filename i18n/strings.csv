@@ -2094,6 +2094,8 @@ ui.families.f_title,Became %s (day %d),Subió a %s (día %d)
 ui.families.f_office,Won %s (day %d),Ganó %s (día %d)
 ui.families.f_wedding,A wedding (day %d),Una boda (día %d)
 ui.families.f_fact,"%s (day %d, public)","%s (día %d, público)"
+help.key.tutorial,Tab · Shift+Tab,Tab · Mayús+Tab
+help.key.tutorial_do,"Tutorial: skip the step · the chapter (Backspace repeats it)","Tutorial: saltar el paso · el capítulo (Retroceso lo repite)"
 ui.event_card.ok,Understood,Entendido
 ui.event_card.declared,"Declared by %s, the mayor.","Lo declara %s, el Alcalde."
 ui.event_card.lasts_season,Lasts %d season,Dura %d estación
@@ -2113,3 +2115,198 @@ event.good_harvest.story,The granaries are full to the roof. Food is cheap this 
 event.festival.story,"Music, stalls and dancing in the square: the town is in the street and spends.","Música, puestos y baile en la plaza: el pueblo está en la calle y gasta."
 event.religious_feast.story,The bells call to mass. Few people shop and every table wants bread and meat.,Las campanas llaman a misa. Poca gente compra y todas las mesas quieren pan y carne.
 event.dignitary_visit.story,A noble's retinue arrives in town. Strangers with full purses fill the shops.,Llega a la villa el séquito de un noble. Forasteros con la bolsa llena llenan las tiendas.
+tutorial.chapter.first_steps,First steps,Primeros pasos
+tutorial.chapter.first_steps.desc,"Pick and move your character, the time and the speed, go into your workshop.","Elegir y mover a tu personaje, la hora y la velocidad, entrar en tu taller."
+tutorial.first_steps.welcome,This is {town}. I will show you the basics step by step; the game waits paused while you read.,Esto es {town}. Te enseño lo básico paso a paso; el juego espera en pausa mientras lees.
+tutorial.first_steps.camera,"Move the camera: WASD or the arrows, or drag with the middle mouse button.","Mueve la cámara: WASD o las flechas, o arrastra con el botón central del ratón."
+tutorial.first_steps.zoom,The mouse wheel zooms in and out.,La rueda del ratón acerca y aleja la vista.
+tutorial.first_steps.select,"Your protagonist: {head}. A left click picks someone of your family (or keys 1, 2 and 3); on a townsperson, it opens their sheet.","Tu protagonista: {head}. Con clic izquierdo eliges a alguien de tu familia (o con 1, 2 y 3); sobre un vecino, abres su ficha."
+tutorial.first_steps.group,"Top left, your group: up to three family members, keys 1, 2 and 3. Next to them, the whole family's gold.","Arriba a la izquierda, tu grupo: hasta tres familiares, con las teclas 1, 2 y 3. Al lado, el oro de toda la familia."
+tutorial.first_steps.clock,"Here are the time, the day and the season. A game day goes by in a few minutes.","Aquí la hora, el día y la estación. Un día de juego pasa en unos minutos."
+tutorial.first_steps.resume,Press Space (or this button) to let time run. Space again stops it.,Pulsa Espacio (o este botón) para que corra el tiempo. Espacio otra vez lo para.
+tutorial.first_steps.speed,Shift+2 (or ×2) runs twice as fast. Try ×2.,Mayús+2 (o ×2) va el doble de rápido. Prueba ×2.
+tutorial.first_steps.walk,Now right click on the ground: {head} walks there.,"Ahora, clic derecho en el suelo: {head} va andando hasta allí."
+tutorial.first_steps.workshop,This is your {workshop}. Right click on it to go in.,Esta es tu {workshop}. Clic derecho sobre ella para entrar.
+tutorial.first_steps.bar,"Inside, at the bottom, the workshop's bar: Production (P), Storage (A), Staff (E), Upgrades (M) and Exit.","Dentro, abajo, la barra del taller: Producción (P), Almacén (A), Empleados (E), Mejoras (M) y Salir."
+tutorial.first_steps.objective,"On the left, your objective now. If in doubt, F1 opens the help, and from it you can replay any chapter.","A la izquierda, tu objetivo de ahora. Si dudas, F1 abre la ayuda y desde ella repites cualquier capítulo."
+tutorial.chapter.produce,Producing,Producir
+tutorial.chapter.produce.desc,"Recipes, stations and quality: from iron to a sword.","Recetas, puestos y calidad: de hierro a espada."
+tutorial.produce.furnace,Each station makes its own recipes. The furnace smelts iron into ingots.,Cada puesto hace sus recetas. El horno funde el hierro en lingotes.
+tutorial.produce.furnace_menu,Right click on the furnace: its menu.,Clic derecho en el horno: su menú.
+tutorial.produce.modes,"Fast, normal or careful: careful takes longer and comes out better.","Rápido, normal o con cuidado: con cuidado tarda más y sale mejor."
+tutorial.produce.ingot,Pick the iron ingot: {head} gets to work.,Elige el lingote de hierro: {head} se pone a trabajar.
+tutorial.produce.wait_ingots,The bar over the furnace moves on. A sword needs two ingots: wait until you have them (Shift+3 speeds up).,La barra sobre el horno avanza. Una espada pide dos lingotes: espera a tenerlos (Mayús+3 acelera).
+tutorial.produce.anvil_menu,Done. Now right click on the anvil.,Ya están. Ahora clic derecho en el yunque.
+tutorial.produce.careful,Choose Careful: the sword will come out better.,Elige Con cuidado: la espada saldrá mejor.
+tutorial.produce.quality,"The expected quality: it depends on your craft, the tool and the mode.","La calidad esperada: depende de tu oficio, de la herramienta y del modo."
+tutorial.produce.sword,Pick the sword.,Elige la espada.
+tutorial.produce.touch,"The anvil blinks! Left click on it now: master touch, better quality.","¡El yunque parpadea! Clic izquierdo en él ahora: toque de maestro, más calidad."
+tutorial.produce.storage,The sword is in the storage. Open it (A).,La espada está en el almacén. Ábrelo (A).
+tutorial.produce.result,"Here it is, with its quality. The next chapter shows how to sell it.","Aquí está, con su calidad. El siguiente capítulo enseña a venderla."
+tutorial.chapter.market,Selling and buying,Vender y comprar
+tutorial.chapter.market.desc,"The market, the demand and the delivery errand.","El mercado, la demanda y el recado de entrega."
+tutorial.market.armory,The Armory buys weapons and tools. Sell there what you carry.,La Armería compra armas y herramientas. Vende allí lo que lleves encima.
+tutorial.market.take,"To sell it you must carry it: in your workshop's storage, a click on the sword takes it.","Para vender hay que llevarlo encima: en el almacén de tu taller, clic en la espada la coge."
+tutorial.market.enter,Right click on the Armory: {head} walks there and goes in.,Clic derecho en la Armería: {head} va y entra.
+tutorial.market.counter,Click on the counter to trade.,Clic en el mostrador para comerciar.
+tutorial.market.sell_tab,Sell tab.,Pestaña Vender.
+tutorial.market.sell_list,"What you carry, with its price. Each sale lowers the demand; it recovers at dawn.","Lo que llevas, con su precio. Cada venta baja la demanda; al alba se recupera."
+tutorial.market.leave,Go back out (Exit or Esc).,Sal a la calle (Salir o Esc).
+tutorial.market.resources,The Resources stall sells iron and coal. Right click on it: you walk there and it opens.,El puesto de Recursos vende hierro y carbón. Clic derecho sobre él: vas y se abre.
+tutorial.market.errand,Errand: they bring it to your workshop for a surcharge and you carry no weight. Order something.,Recado: te lo llevan a tu taller por un recargo y no cargas peso. Encarga algo.
+tutorial.market.done,"Buy cheap, sell when the demand is high. The book (L) writes down every coin.","Compra barato, vende cuando la demanda esté alta. El libro (L) apunta cada moneda."
+tutorial.chapter.debt,Debt and account book,Deuda y libro de cuentas
+tutorial.chapter.debt.desc,"How much you owe, when it is due and where to pay.","Cuánto debes, cuándo vence y dónde se paga."
+tutorial.debt.debt_box,"You start with a debt: the figure, what is paid and the days left.","Empiezas con una deuda: la cifra, lo pagado y los días que quedan."
+tutorial.debt.open,Open the account book: L or this button.,Abre el libro de cuentas: L o este botón.
+tutorial.debt.today,"Tabs: today, the last days, each building, debts, notices and reputation.","Pestañas: hoy, los últimos días, cada edificio, deudas, avisos y reputación."
+tutorial.debt.debts,Debts tab.,Pestaña Deudas.
+tutorial.debt.pay,"Pay here when you have gold. If it falls due unpaid: −10 reputation and an extension with a surcharge; then, seizure.","Paga aquí cuando tengas oro. Si vence sin pagar: −10 de reputación y una prórroga con recargo; después, embargo."
+tutorial.debt.notices,"Notices: everything that happened, also what is no longer on screen.","Avisos: todo lo que ha pasado, también lo que ya no está en pantalla."
+tutorial.chapter.staff,Staff,Empleados
+tutorial.chapter.staff.desc,"Hiring, ranks and the production queue.","Contratar, rangos y la cola de producción."
+tutorial.staff.manage,Double click on your {workshop}: you manage it without walking there.,Doble clic en tu {workshop}: la gestionas sin ir andando.
+tutorial.staff.open,Staff (E).,Empleados (E).
+tutorial.staff.staff_tab,"Your staff: who works, their rank, their loyalty and their wage.","Tu plantilla: quién trabaja, su rango, su lealtad y su sueldo."
+tutorial.staff.hire_tab,Hire tab.,Pestaña Contratar.
+tutorial.staff.ranks,Each rank costs more a day and works faster.,Cada rango cobra más al día y trabaja más rápido.
+tutorial.staff.list,The candidates. Hire: one click arms the button and the second confirms.,Los candidatos. Contratar: un clic arma el botón y el segundo confirma.
+tutorial.staff.production,Employees work through the Production queue (P).,Los empleados trabajan la cola de Producción (P).
+tutorial.staff.queue_tab,Queue tab.,Pestaña Cola.
+tutorial.staff.add,Choose what to make and how many; the loop repeats it forever.,Elige qué fabricar y cuántos; el bucle lo repite sin fin.
+tutorial.chapter.upgrades,Upgrades,Mejoras
+tutorial.chapter.upgrades.desc,The upgrade tree and the works.,El árbol de mejoras y las obras.
+tutorial.upgrades.manage,Double click on your {workshop} to manage it.,Doble clic en tu {workshop} para gestionarla.
+tutorial.upgrades.open,Upgrades (M).,Mejoras (M).
+tutorial.upgrades.grid,Eight branches of three levels. Each square is an upgrade; the lower ones need the upper ones.,"Ocho ramas de tres niveles. Cada casilla, una mejora; las de abajo piden las de arriba."
+tutorial.upgrades.detail,"The detail: what it changes, what it costs and what is missing.","El detalle: lo que cambia, lo que cuesta y lo que falta."
+tutorial.upgrades.buy,Buying starts a work: the workshop stops while it lasts.,Comprar abre una obra: el taller para mientras dura.
+tutorial.chapter.family,"Family, courtship and inheritance","Familia, cortejo y herencia"
+tutorial.chapter.family.desc,"The tree, the heir and how to find a partner.","El árbol, el heredero y cómo buscar pareja."
+tutorial.family.open,Your family tree: F or this button.,El árbol de tu familia: F o este botón.
+tutorial.family.canvas,"Your family: the head, their partner and the children. The crown marks the heir: if the head dies, they get everything. Click on someone to see their sheet.","Tu familia: el cabeza, su pareja y los hijos. La corona marca a quien hereda: si muere el cabeza, lo recibe todo. Clic en alguien para ver su ficha."
+tutorial.family.heads,Dynasty tab: the heads your house has had and how many days each one ruled.,Pestaña Dinastía: los cabezas que ha tenido tu casa y cuántos días mandó cada uno.
+tutorial.family.goals,"Your dynasty's goals: five generations, a fortune, the mayoralty.","Las metas de tu dinastía: cinco generaciones, una fortuna, la alcaldía."
+tutorial.family.sheet,The sheet of whoever you have picked: I.,La ficha de quien tienes elegido: I.
+tutorial.family.court,Court: look for a partner among the town's singles.,Cortejar: busca pareja entre los solteros del pueblo.
+tutorial.family.courtship,"Talking every day and giving gifts raises the affinity. With enough, you propose and there is a wedding.","Conversar cada día y regalar sube la afinidad. Con bastante, pides su mano y hay boda."
+tutorial.family.heir,Children who turn 16 join your group. Look after the heir: your dynasty goes on with them.,Los hijos que cumplen 16 entran en tu grupo. Cuida de quien herede: tu dinastía sigue con su línea.
+tutorial.chapter.titles,Titles and reputation,Títulos y reputación
+tutorial.chapter.titles.desc,What reputation gives and how to ask for a title.,Qué da la reputación y cómo se pide un título.
+tutorial.titles.card,Your family's title and its reputation.,El título de tu familia y su reputación.
+tutorial.titles.open,Reputation is kept in the book: L.,La reputación se lleva en el libro: L.
+tutorial.titles.rep_tab,Reputation tab.,Pestaña Reputación.
+tutorial.titles.rep,"It goes up with contracts done, fair sales and wages paid; down with overdue debts, fines and insults.","Sube con encargos cumplidos, ventas justas y sueldos pagados; baja con deudas vencidas, multas e insultos."
+tutorial.titles.hall,"The town hall, south of the plaza. Right click on it with someone picked.","El Ayuntamiento, al sur de la plaza. Clic derecho sobre él con alguien elegido."
+tutorial.titles.ladder,The ladder of titles: each one opens more buildings and offices.,La escalera de títulos: cada uno abre más edificios y cargos.
+tutorial.titles.req,"What the next one asks for: reputation, gold and businesses. You pay here.","Lo que pide el siguiente: reputación, oro y negocios. Se paga aquí."
+tutorial.chapter.offices,Offices and elections,Cargos y elecciones
+tutorial.chapter.offices.desc,"Who rules, when people vote and what powers an office gives.","Quién gobierna, cuándo se vota y qué poderes da un cargo."
+tutorial.offices.open,The town's offices: O.,Los cargos del pueblo: O.
+tutorial.offices.chart,Who holds each office and until when. Each title opens new offices.,Quién ocupa cada cargo y hasta cuándo. Cada título abre cargos nuevos.
+tutorial.offices.calendar,You must sign up before winter; winter is the campaign and the vote is at the change of year.,Hay que inscribirse antes del invierno; el invierno es la campaña y se vota al cambiar de año.
+tutorial.offices.powers,"An office pays every day and gives powers: move a price, fine, set the tax…","Un cargo paga cada día y da poderes: mover un precio, multar, fijar el impuesto…"
+tutorial.chapter.court,Court,Tribunal
+tutorial.chapter.court.desc,How you end up in court and how to win.,Cómo se llega a juicio y cómo se gana.
+tutorial.court.why,"An inspection, a bribe found out or an accusation takes you to court.","Una inspección, un soborno descubierto o una acusación te llevan a juicio."
+tutorial.court.button,You have an open trial: J or this button.,Tienes un juicio abierto: J o este botón.
+tutorial.court.balance,Whoever weighs more at the end wins: your rhetoric and witnesses against theirs and the proofs.,Gana quien más pese al final: tu retórica y tus testigos contra los suyos y las pruebas.
+tutorial.court.witnesses,"Before the hearing, convince, bribe or threaten the witnesses in person.","Antes de la vista, convence, soborna o amenaza a los testigos en persona."
+tutorial.court.accuse,As a Citizen you can accuse another family from the sheet of one of its members.,Siendo Ciudadano puedes acusar tú a otra familia desde la ficha de uno de los suyos.
+tutorial.chapter.seasons,Seasons and events,Estaciones y eventos
+tutorial.chapter.seasons.desc,How prices change with the season and the events.,Cómo cambian los precios con la estación y los eventos.
+tutorial.seasons.date,The day and the season. Each season moves the prices: in winter food goes up.,El día y la estación. Cada estación mueve los precios: en invierno la comida sube.
+tutorial.seasons.event,An event in force and how long it has left. Hover to see them all.,Un evento en curso y lo que le queda. Pasa el ratón para verlos todos.
+tutorial.seasons.open,The book (L) explains each price.,El libro (L) explica cada precio.
+tutorial.seasons.today,Today tab.,Pestaña Hoy.
+tutorial.seasons.prices,The reason for each price: the season and the events.,El motivo de cada precio: la estación y los eventos.
+tutorial.chapter.trade_carpenter,Trade: carpenter,Oficio: carpintero
+tutorial.chapter.trade_carpenter.desc,Your carpentry: its two stations and where it sells.,Tu carpintería: sus dos puestos y dónde se vende.
+tutorial.trade_carpenter.enter,Your carpentry. Right click to go in (or double click to manage it).,Tu carpintería. Clic derecho para entrar (o doble clic para gestionarla).
+tutorial.trade_carpenter.first,The sawhorse saws the wood. Right click on it.,El caballete sierra la madera. Clic derecho sobre él.
+tutorial.trade_carpenter.recipe,Planks: the base of everything else.,Tablas: la base de todo lo demás.
+tutorial.trade_carpenter.second,"At the workbench, planks become barrels, chests and cabinets.","En el banco, las tablas se vuelven barriles, arcones y armarios."
+tutorial.trade_carpenter.stall,It sells at the Goods stall; wood is bought at Resources.,Se vende en el puesto de Enseres; la madera se compra en Recursos.
+tutorial.chapter.trade_mason,Trade: mason,Oficio: albañil
+tutorial.chapter.trade_mason.desc,Your masonry: its two stations and where it sells.,Tu cantería: sus dos puestos y dónde se vende.
+tutorial.trade_mason.enter,Your masonry. Right click to go in (or double click to manage it).,Tu cantería. Clic derecho para entrar (o doble clic para gestionarla).
+tutorial.trade_mason.first,The cutting bench makes ashlars from stone. Right click on it.,El banco de corte saca sillares de la piedra. Clic derecho sobre él.
+tutorial.trade_mason.recipe,Ashlars: nearly every piece needs them.,Sillares: los piden casi todas las piezas.
+tutorial.trade_mason.second,"At the carving bench: grindstones, troughs and millstones.","En el banco de tallar: piedras de afilar, abrevaderos y muelas."
+tutorial.trade_mason.stall,It sells at the Goods stall; stone is bought at Resources.,Se vende en el puesto de Enseres; la piedra se compra en Recursos.
+tutorial.chapter.trade_tailor,Trade: tailor,Oficio: sastre
+tutorial.chapter.trade_tailor.desc,Your tailor's shop: its two stations and where it sells.,Tu sastrería: sus dos puestos y dónde se vende.
+tutorial.trade_tailor.enter,Your tailor's shop. Right click to go in (or double click to manage it).,Tu sastrería. Clic derecho para entrar (o doble clic para gestionarla).
+tutorial.trade_tailor.first,The loom weaves wool into cloth. Right click on it.,El telar teje la lana en tela. Clic derecho sobre él.
+tutorial.trade_tailor.recipe,Cloth: the base of every garment.,Tela: la base de toda la ropa.
+tutorial.trade_tailor.second,"At the sewing table: work clothes, cloaks and common clothes.","En la mesa de costura: ropa de trabajo, capas y ropa común."
+tutorial.trade_tailor.stall,It sells at the Clothier; wool is bought at Resources.,Se vende en la Ropería; la lana se compra en Recursos.
+tutorial.hint.inside,Right click on a station: work here.,Clic derecho en un puesto: trabajar aquí.
+tutorial.hint.master_touch,The station blinks: left click for the master touch.,El puesto parpadea: clic izquierdo para el toque de maestro.
+tutorial.hint.storage,"Click: take. What you carry, below.","Clic: coger. Lo que llevas encima, abajo."
+tutorial.hint.production,Choose what to make and how many in the Queue tab: employees work it.,Elige qué fabricar y cuántos en la pestaña Cola: los empleados la trabajan.
+tutorial.hint.market,Each sale lowers the demand; it recovers at dawn.,Cada venta baja la demanda; al alba se recupera.
+tutorial.hint.ledger,"Your gold day by day, your debts and the notices that left the screen.","Tu oro día a día, tus deudas y los avisos que se fueron de la pantalla."
+tutorial.hint.staff,Each rank costs more and works faster: check the table before hiring.,Cada rango cobra más y trabaja más rápido: mira la tabla antes de contratar.
+tutorial.hint.upgrades,Upgrades stop the workshop while the work lasts.,Las mejoras paran el taller mientras dura la obra.
+tutorial.hint.tree,The heir gets everything if the head dies. Change it in their sheet.,El heredero recibe todo si muere el cabeza. Cámbialo en su ficha.
+tutorial.hint.courtship,With high affinity you can propose. Talking every day and gifts raise it.,Con afinidad alta puedes pedir su mano. Conversar cada día y regalar la suben.
+tutorial.hint.npc,What you do changes the relationship and the prices they give you.,Lo que hagas cambia la relación y los precios que te pone.
+tutorial.hint.microevent,"Time does not stop: if you do not choose, the marked one applies.","El tiempo no se para: si no eliges, se aplica la marcada."
+tutorial.hint.town_hall,"Each title opens more buildings and offices; you ask for it here, paying gold.",Cada título abre más edificios y cargos; se pide aquí pagando oro.
+tutorial.hint.offices,Sign up before winter: winter is the campaign and the vote is at the change of year.,Inscríbete antes del invierno: la campaña es el invierno y se vota al cambiar de año.
+tutorial.hint.families,"Rivalry rises if you take their sales, plots or offices, and drops with time and gifts.","La rivalidad sube si les quitas ventas, parcelas o cargos, y baja con el tiempo y los regalos."
+tutorial.hint.trial,"You are on trial. Until the hearing, win witnesses over: J opens the trial.","Te han llevado a juicio. Hasta la vista, gana testigos a tu favor: J abre el juicio."
+tutorial.hint.trial_panel,Whoever weighs more at the end of the hearing wins.,Gana quien más pese al final de la vista.
+tutorial.hint.world_event,An event changes prices and demand while it lasts. Hover here to see how long is left.,Un evento cambia precios y demanda mientras dura. Pasa el ratón por aquí para ver cuánto queda.
+tutorial.hint.wedding,A wedding! Your partner joins your group: pick them with their number.,¡Boda! Tu pareja entra en tu grupo: elígela con su número.
+tutorial.hint.birth,A child is born. In the tree (F) you choose their school when they grow.,Ha nacido un hijo. En el árbol (F) eliges su escuela cuando crezca.
+tutorial.hint.inheritance,The heir takes over: you now play as them.,Quien hereda toma el mando: ahora juegas con su personaje.
+tutorial.open.ledgerpanel,Open the account book: L or this button.,Abre el libro de cuentas: L o este botón.
+tutorial.open.familytreepanel,Open the family tree: F or this button.,Abre el árbol de la familia: F o este botón.
+tutorial.open.characterpanel,Open the sheet of whoever is picked: I or this button.,Abre la ficha de quien tienes elegido: I o este botón.
+tutorial.open.officespanel,Open the offices: O or this button.,Abre los cargos: O o este botón.
+tutorial.open.trialpanel,Open the trial: J or this button.,Abre el juicio: J o este botón.
+tutorial.open.courtshippanel,Open the courtship from the sheet.,Abre el cortejo desde la ficha.
+tutorial.open.kinaipanel,Open the AI from the sheet.,Abre la IA desde la ficha.
+tutorial.open.townhallpanel,Go to the town hall: right click on it.,Ve al Ayuntamiento: clic derecho sobre él.
+tutorial.open.boardpanel,Go to the board: right click on it.,Ve al tablón: clic derecho sobre él.
+tutorial.open.productionpanel,Open Production: P or this button.,Abre Producción: P o este botón.
+tutorial.open.storagepanel,Open the storage: A or this button.,Abre el almacén: A o este botón.
+tutorial.open.staffpanel,Open Staff: E or this button.,Abre Empleados: E o este botón.
+tutorial.open.upgradepanel,Open Upgrades: M or this button.,Abre Mejoras: M o este botón.
+tutorial.open.stationmenu,Right click on the station: its menu opens.,Clic derecho en el puesto: se abre su menú.
+tutorial.open.dynastypage,Dynasty tab.,Pestaña Dinastía.
+tutorial.open.treepage,Tree tab.,Pestaña Árbol.
+tutorial.open.queuepage,Queue tab.,Pestaña Cola.
+tutorial.open.nowpage,Now tab.,Pestaña Ahora.
+tutorial.open.recipespage,Recipes tab.,Pestaña Recetas.
+tutorial.open.selllist,Sell tab.,Pestaña Vender.
+tutorial.open.buylist,Buy tab.,Pestaña Comprar.
+tutorial.open.interior,Go into your workshop: right click on it (or double click to manage it).,Entra en tu taller: clic derecho sobre él (o doble clic para gestionarlo).
+tutorial.open.town,Go back out: Exit or Esc.,Sal a la calle: Salir o Esc.
+tutorial.open.armory,Go into the Armory: right click on it.,Entra en la Armería: clic derecho sobre ella.
+tutorial.open.counter,Click on the counter to trade.,Clic en el mostrador para comerciar.
+tutorial.open.resources,Go to the Resources stall: right click on it.,Ve al puesto de Recursos: clic derecho sobre él.
+tutorial.ui.next,Next,Siguiente
+tutorial.ui.skip_step,Skip (Tab),Saltar (Tab)
+tutorial.ui.skip_chapter,Skip chapter,Saltar capítulo
+tutorial.ui.got_it,Got it,Entendido
+tutorial.ui.never,Do not show again,No volver a mostrar
+tutorial.ui.step,{chapter} · {n}/{total},{chapter} · {n}/{total}
+tutorial.ui.waiting,Do it to go on,Hazlo para seguir
+tutorial.ui.hint,First time,Primera vez
+tutorial.ui.chapter_done,Chapter done.,Capítulo terminado.
+tutorial.ui.chapter_done_body,Next: {next}.,El siguiente: {next}.
+tutorial.ui.all_done,You have seen every chapter. F1 replays any of them.,Has visto todos los capítulos. F1 repite cualquiera.
+tutorial.ui.next_chapter,Next chapter,Siguiente capítulo
+tutorial.ui.close,Close,Cerrar
+tutorial.ui.keys,Tab: skip step · Shift+Tab: skip chapter · Backspace: repeat,Tab: saltar paso · Mayús+Tab: saltar capítulo · Retroceso: repetir
+tutorial.ui.new_game,With tutorial,Con tutorial
+tutorial.ui.new_game_tip,"The game explains itself step by step, starting with the first chapter. You can replay any chapter from the help (F1).","El juego se explica paso a paso, empezando por el primer capítulo. Desde la ayuda (F1) repites cualquier capítulo."
+tutorial.ui.help_title,Tutorial,Tutorial
+tutorial.ui.help_hint,Click a chapter to play it now.,Clic en un capítulo para hacerlo ahora.
+tutorial.ui.help_done,done,hecho
+tutorial.ui.help_other_trade,Only in a game of this trade,Solo en una partida de este oficio
+tutorial.ui.options_hints,First-time hints,Pistas de primera vez
+tutorial.ui.options_guided,Guided tutorial: only the highlight,Tutorial guiado: solo lo resaltado

@@ -6,7 +6,8 @@ extends MenuScreen
 ## preview (portrait with the family border, "Hugo de los Herrero", age, trade and title, what they start with and the
 ## family shield in its two colours). Right: the stats (name, −, value, +; the free points; "−" off at the base: points
 ## only go up, D5) and, for the stat under the pointer or the focus, what it does. Start (Enter) is off with its
-## reason next to it while the name or the family is missing; Back (Esc) returns to the title.
+## reason next to it while the name or the family is missing; Back (Esc) returns to the title. «Con tutorial» (ticked
+## the first time, Settings tutorial/asked) makes the app start the tutorial's first chapter (docs/ui/05_tutorial.md).
 ## Start -> NewGame.from_start(catalog, start, difficulty, choices, seed); on success emits `started(state)` (the app
 ## starts the game with it).
 ## H12: the trade inside the class (GDD 4.2.1), buttons in the header (data/professions/ of the start's class, in
@@ -101,6 +102,10 @@ func setup(c: Catalog, seed_value: int) -> void:
 	(%ColorNote as Label).text = SimQuery.t_("ui.new_game.color_note")
 	(%StartInfo as Label).text = SimQuery.t_("ui.new_game.start_info")
 	(%StartButton as Button).text = SimQuery.t_("ui.new_game.start")
+	# docs/ui/05_tutorial.md §2: «Con tutorial», ticked the first time a game is started
+	(%TutorialCheck as CheckBox).text = SimQuery.t_("tutorial.ui.new_game")
+	(%TutorialCheck as CheckBox).tooltip_text = SimQuery.t_("tutorial.ui.new_game_tip")
+	(%TutorialCheck as CheckBox).button_pressed = not bool(Settings.value("tutorial/asked"))
 	MenuKit.add_hint(%StartButton as Button, SimQuery.t_("ui.key.enter"))
 	(%BackButton as Button).text = SimQuery.t_("ui.menu.back")
 	MenuKit.add_hint(%BackButton as Button, SimQuery.t_("ui.key.esc"))
@@ -121,6 +126,11 @@ func setup(c: Catalog, seed_value: int) -> void:
 	_update_start()
 	ViewConfig.info("NewGame", "setup (start=%s, difficulty=%s, free_points=%d, seed=%d)" % [start_id, difficulty,
 		free_points(), world_seed])
+
+
+## «Con tutorial» is ticked (the app starts the first chapter).
+func with_tutorial() -> bool:
+	return (get_node("%TutorialCheck") as CheckBox).button_pressed
 
 
 ## The name field, with the caret at its end.
