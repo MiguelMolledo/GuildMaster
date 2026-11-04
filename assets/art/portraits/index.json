@@ -1995,7 +1995,8 @@
    "recolor": [
     "hair",
     "skin",
-    "primary"
+    "primary",
+    "secondary"
    ],
    "traits": [
     "apron",
@@ -6964,7 +6965,8 @@
    "recolor": [
     "hair",
     "skin",
-    "primary"
+    "primary",
+    "secondary"
    ],
    "traits": [
     "beard",
@@ -7190,7 +7192,8 @@
    "recolor": [
     "hair",
     "skin",
-    "primary"
+    "primary",
+    "secondary"
    ],
    "traits": [
     "bald",
@@ -7342,7 +7345,8 @@
    "recolor": [
     "hair",
     "skin",
-    "primary"
+    "primary",
+    "secondary"
    ],
    "traits": [
     "moustache"
@@ -7358,7 +7362,8 @@
    "recolor": [
     "hair",
     "skin",
-    "primary"
+    "primary",
+    "secondary"
    ],
    "traits": [
     "beard",
@@ -7375,7 +7380,8 @@
    "recolor": [
     "hair",
     "skin",
-    "primary"
+    "primary",
+    "secondary"
    ],
    "traits": [
     "bald",
