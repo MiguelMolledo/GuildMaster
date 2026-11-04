@@ -109,8 +109,8 @@ guardan en `user://settings.cfg` (no en la partida). **Cierra:** Volver (Esc).
 ![Créditos](maquetas/menu_creditos.png)
 
 Un pergamino con el logotipo, secciones en gótica y nombres en tinta, el sello al pie. Incluye **las licencias de las
-fuentes** (obligatorio en OFL: el nombre y la licencia; CC0 no lo exige pero se agradece): Pixel Operator (Jayvee
-Enaguas, CC0), Jacquarda Bastarda 9 y Jacquard 24 (The Soft Type Project, OFL), Silkscreen (Jason Kottke, OFL).
+fuentes** (obligatorio en OFL: el nombre y la licencia; CC0 no lo exige pero se agradece): las que usa el juego, Pixel Operator
+(Jayvee Enaguas, CC0) y Jacquard 24 (The Soft Type Project, OFL).
 Los textos salen de i18n; los nombres propios, de un `data/credits.json` (propuesta).
 
 ## 6. Menú de pausa

@@ -173,8 +173,21 @@ func test_credits_name_the_fonts_and_their_licences() -> void:
 		if n is Label:
 			texts.append((n as Label).text)
 	var all := "\n".join(texts)
-	for want: String in ["Pixel Operator", "(CC0)", "Jacquard 24", "(OFL)", "Silkscreen", "Miguel Molledo"]:
+	for want: String in ["Pixel Operator", "(CC0)", "Jacquard 24", "(OFL)", "Miguel Molledo"]:
 		check(all.contains(want), "credits mention %s" % want)
+	# exactly the fonts the game uses: every family of the theme is credited, and none it does not use
+	var th := load("res://game/ui/greybox_theme.tres") as Theme
+	var families: Dictionary = {}
+	for type: StringName in th.get_font_type_list():
+		for fname: StringName in th.get_font_list(type):
+			var ff := th.get_font(fname, type) as FontFile
+			if ff != null:
+				families[ff.get_font_name()] = true
+	check(not families.is_empty(), "the theme's fonts (%s)" % [families.keys()])
+	for fam: Variant in families:
+		check(all.contains(str(fam).replace(" 8", "")), "credits name %s, used by the theme" % fam)
+	for unused: String in ["Silkscreen", "Jacquarda", "Tiny5", "VT323"]:
+		check(not all.contains(unused), "credits do not name %s, which the game does not use" % unused)
 	c.free()
 
 

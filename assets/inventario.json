@@ -1012,10 +1012,10 @@
       "para": [
         "UI"
       ],
-      "ruta": "assets/art/ui/fonts/jacquarda_bastarda_9.ttf",
+      "ruta": "assets/art/ui/fonts/jacquard_24.ttf",
       "origen": "libre (OFL)",
       "coste_gen": 0,
-      "notas": "Jacquarda Bastarda 9 (The Soft Type Project, SIL OFL 1.1; licencia al lado). Letra gótica pixel para títulos de panel y pantallas, a 13 px: variación TitleLabel del theme. Jacquard 24 (misma licencia, jacquard_24.ttf) para el logotipo y el título del final, a 43 px."
+      "notas": "Jacquard 24 (The Soft Type Project, SIL OFL 1.1; jacquard_24_ofl.txt al lado). Gótica de los títulos a 24 px (TitleLabel, InkTitleLabel, PageTitle, la cinta del kit de página PageRibbon, GothicTitle) y del logotipo a 43 px. Sustituye desde el 2026-11-04 a Jacquarda Bastarda 9, que se emborronaba a 13 px y se borró del repo."
     },
     {
       "id": "ui_font_candidates",
