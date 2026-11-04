@@ -1,0 +1,76 @@
+{
+  "id": "debt",
+  "name_key": "tutorial.chapter.debt",
+  "desc_key": "tutorial.chapter.debt.desc",
+  "test": {
+    "start": "artisan_blacksmith"
+  },
+  "steps": [
+    {
+      "id": "debt_box",
+      "text": "tutorial.debt.debt_box",
+      "target": {
+        "ui": "DebtBox"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "open",
+      "text": "tutorial.debt.open",
+      "target": {
+        "ui": "LedgerButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "LedgerPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "today",
+      "text": "tutorial.debt.today",
+      "target": {
+        "ui": "Tabs",
+        "in": "LedgerPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "debts",
+      "text": "tutorial.debt.debts",
+      "target": {
+        "ui": "Debts",
+        "in": "LedgerPanel"
+      },
+      "done": {
+        "state": "panel_prop",
+        "panel": "LedgerPanel",
+        "prop": "tab",
+        "value": "debts"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "pay",
+      "text": "tutorial.debt.pay",
+      "target": {
+        "ui": "*_pay",
+        "in": "LedgerPanel",
+        "opener": {
+          "ui": "Debts",
+          "in": "LedgerPanel"
+        }
+      },
+      "advance": "next"
+    },
+    {
+      "id": "notices",
+      "text": "tutorial.debt.notices",
+      "target": {
+        "ui": "Notices",
+        "in": "LedgerPanel"
+      },
+      "advance": "next"
+    }
+  ]
+}

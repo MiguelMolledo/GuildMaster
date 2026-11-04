@@ -1,0 +1,202 @@
+{
+  "id": "produce",
+  "name_key": "tutorial.chapter.produce",
+  "desc_key": "tutorial.chapter.produce.desc",
+  "test": {
+    "start": "artisan_blacksmith"
+  },
+  "steps": [
+    {
+      "id": "furnace",
+      "text": "tutorial.produce.furnace",
+      "target": {
+        "world": "station",
+        "id": "furnace"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "furnace_menu",
+      "text": "tutorial.produce.furnace_menu",
+      "target": {
+        "world": "station",
+        "id": "furnace"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "StationMenu",
+        "zone": "furnace"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "modes",
+      "text": "tutorial.produce.modes",
+      "target": {
+        "ui": "Modes",
+        "in": "StationMenu",
+        "opener": {
+          "world": "station",
+          "id": "furnace"
+        }
+      },
+      "advance": "next"
+    },
+    {
+      "id": "ingot",
+      "text": "tutorial.produce.ingot",
+      "target": {
+        "ui": "Row_forge_ingot",
+        "in": "StationMenu",
+        "opener": {
+          "world": "station",
+          "id": "furnace"
+        }
+      },
+      "done": {
+        "ui": "order_given",
+        "match": {
+          "type": "work_at",
+          "recipe": "forge_ingot"
+        }
+      },
+      "advance": "action"
+    },
+    {
+      "id": "wait_ingots",
+      "text": "tutorial.produce.wait_ingots",
+      "target": {
+        "world": "station",
+        "id": "furnace"
+      },
+      "done": {
+        "state": "storage_has",
+        "item": "iron_ingot",
+        "qty": 2
+      },
+      "advance": "action"
+    },
+    {
+      "id": "anvil_menu",
+      "text": "tutorial.produce.anvil_menu",
+      "target": {
+        "world": "station",
+        "id": "anvil"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "StationMenu",
+        "zone": "anvil"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "careful",
+      "text": "tutorial.produce.careful",
+      "target": {
+        "ui": "CarefulButton",
+        "in": "StationMenu",
+        "opener": {
+          "world": "station",
+          "id": "anvil"
+        }
+      },
+      "done": {
+        "state": "panel_prop",
+        "panel": "StationMenu",
+        "prop": "mode",
+        "value": "careful"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "quality",
+      "text": "tutorial.produce.quality",
+      "target": {
+        "ui": "QualityBox",
+        "in": "StationMenu",
+        "opener": {
+          "world": "station",
+          "id": "anvil"
+        }
+      },
+      "advance": "next"
+    },
+    {
+      "id": "sword",
+      "text": "tutorial.produce.sword",
+      "target": {
+        "ui": "Row_forge_sword",
+        "in": "StationMenu",
+        "opener": {
+          "world": "station",
+          "id": "anvil"
+        }
+      },
+      "done": {
+        "ui": "order_given",
+        "match": {
+          "type": "work_at",
+          "recipe": "forge_sword"
+        }
+      },
+      "advance": "action"
+    },
+    {
+      "id": "touch",
+      "text": "tutorial.produce.touch",
+      "target": {
+        "world": "station",
+        "id": "anvil"
+      },
+      "when": {
+        "sim": "master_window",
+        "match": {
+          "open": true,
+          "zone": "anvil"
+        }
+      },
+      "done": [
+        {
+          "sim": "master_touch_done",
+          "match": {
+            "zone": "anvil"
+          }
+        },
+        {
+          "sim": "work_done",
+          "match": {
+            "item": "sword"
+          }
+        }
+      ],
+      "advance": "action"
+    },
+    {
+      "id": "storage",
+      "text": "tutorial.produce.storage",
+      "target": {
+        "ui": "StorageButton"
+      },
+      "when": {
+        "state": "storage_has",
+        "item": "sword",
+        "qty": 1
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "StoragePanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "result",
+      "text": "tutorial.produce.result",
+      "target": {
+        "ui": "BuildingGrid",
+        "in": "StoragePanel"
+      },
+      "advance": "next"
+    }
+  ]
+}

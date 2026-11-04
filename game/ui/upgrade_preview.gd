@@ -9,6 +9,8 @@ extends SubViewportContainer
 ## Reads only the sim (SimQuery.upgrade_visual_nodes, the building's zones) and the catalog; gives no orders.
 
 const GOLD := Color(1.0, 0.85, 0.35)
+const PULSE_SECONDS: float = 0.6          # each half of the pulse
+const MAX_PULSE_TIME_SCALE: float = 8.0   # above it the lit node stays gold without pulsing
 
 var sim: Sim
 var building: String = ""
@@ -140,10 +142,18 @@ func _light(n: Node2D) -> void:
 	if n == null:
 		return
 	n.modulate = GOLD
-	if is_inside_tree():
-		_tween = create_tween().set_loops()
-		_tween.tween_property(n, "modulate", Color(1.35, 1.2, 0.7), 0.6)
-		_tween.tween_property(n, "modulate", GOLD, 0.6)
+	if is_inside_tree() and pulse_allowed(n, Engine.time_scale):
+		# bound to the node: it stops while the node is out of the tree and dies with it (a room freed by setup()
+		# left an endless loop of zero length behind: «Infinite loop detected»)
+		_tween = create_tween().bind_node(n).set_loops()
+		_tween.tween_property(n, "modulate", Color(1.35, 1.2, 0.7), PULSE_SECONDS)
+		_tween.tween_property(n, "modulate", GOLD, PULSE_SECONDS)
+
+
+## Whether the gold pulse may run on `n`: it is in the tree and time is not sped up so much that a whole loop would fit
+## in one frame (then it stays lit, still).
+static func pulse_allowed(n: Node, time_scale: float) -> bool:
+	return n != null and is_instance_valid(n) and n.is_inside_tree() and time_scale > 0.0 and time_scale <= MAX_PULSE_TIME_SCALE
 
 
 func _unlight() -> void:

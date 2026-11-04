@@ -1,0 +1,131 @@
+{
+  "id": "first_steps",
+  "name_key": "tutorial.chapter.first_steps",
+  "desc_key": "tutorial.chapter.first_steps.desc",
+  "test": {
+    "start": "artisan_blacksmith"
+  },
+  "steps": [
+    {
+      "id": "welcome",
+      "text": "tutorial.first_steps.welcome",
+      "advance": "next",
+      "pause": true
+    },
+    {
+      "id": "camera",
+      "text": "tutorial.first_steps.camera",
+      "target": {
+        "zone": "view"
+      },
+      "done": {
+        "state": "camera_moved",
+        "px": 48
+      },
+      "advance": "action"
+    },
+    {
+      "id": "zoom",
+      "text": "tutorial.first_steps.zoom",
+      "target": {
+        "zone": "view"
+      },
+      "done": {
+        "ui": "zoom_changed"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "select",
+      "text": "tutorial.first_steps.select",
+      "target": {
+        "world": "character",
+        "id": "$head"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "group",
+      "text": "tutorial.first_steps.group",
+      "target": {
+        "ui": "GroupBar"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "clock",
+      "text": "tutorial.first_steps.clock",
+      "target": {
+        "ui": "ClockPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "resume",
+      "text": "tutorial.first_steps.resume",
+      "target": {
+        "ui": "PauseButton"
+      },
+      "done": {
+        "state": "paused",
+        "is": false
+      },
+      "advance": "action"
+    },
+    {
+      "id": "speed",
+      "text": "tutorial.first_steps.speed",
+      "target": {
+        "ui": "Speeds"
+      },
+      "done": {
+        "state": "speed",
+        "is": 2
+      },
+      "advance": "action"
+    },
+    {
+      "id": "walk",
+      "text": "tutorial.first_steps.walk",
+      "target": {
+        "zone": "view"
+      },
+      "done": {
+        "ui": "order_given",
+        "match": {
+          "type": "move_to"
+        }
+      },
+      "advance": "action"
+    },
+    {
+      "id": "workshop",
+      "text": "tutorial.first_steps.workshop",
+      "target": {
+        "world": "building",
+        "id": "$workshop"
+      },
+      "done": {
+        "state": "interior",
+        "is": "$workshop"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "bar",
+      "text": "tutorial.first_steps.bar",
+      "target": {
+        "ui": "BuildingBar"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "objective",
+      "text": "tutorial.first_steps.objective",
+      "target": {
+        "ui": "ObjectivePanel"
+      },
+      "advance": "next"
+    }
+  ]
+}

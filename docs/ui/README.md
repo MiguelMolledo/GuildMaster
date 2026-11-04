@@ -18,6 +18,7 @@ con el kit real (`tools/ui/maqueta.py`, ver [tools/ui/README.md](../../tools/ui/
 | 02 | [02_menu_inicial.md](02_menu_inicial.md) | Título, partida nueva, cargar/guardar, opciones, créditos, salir, fin de partida | kit | borrador |
 | 03 | [03_produccion_sin_creditos.md](03_produccion_sin_creditos.md) | Cómo se hace la UI sin créditos, lista de la compra de PixelLab (15-nov), cómo editar piezas en Godot | kit | borrador |
 | 04 | [04_kit_de_pagina.md](04_kit_de_pagina.md) | Kit de página para las ventanas narrativas: huecos en píxel (pergamino, marcos, cinta, separador, máscaras), plantillas Carta, Lámina, Ficha y aviso, a qué ventana va cada una | kit-página | borrador |
+| 05 | [05_tutorial.md](05_tutorial.md) | Tutorial interactivo: capítulos guiados y pistas de primera vez; disparadores, objetivos de resaltado, abridores, foco y tarjeta (aviso corto del kit), progreso en los ajustes | tutorial | borrador |
 
 ### Mecánicas · economía (worker «mecánicas-economía»)
 

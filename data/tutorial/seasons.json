@@ -1,0 +1,70 @@
+{
+  "id": "seasons",
+  "name_key": "tutorial.chapter.seasons",
+  "desc_key": "tutorial.chapter.seasons.desc",
+  "test": {
+    "scenario": "season_events"
+  },
+  "steps": [
+    {
+      "id": "date",
+      "text": "tutorial.seasons.date",
+      "target": {
+        "ui": "DateLabel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "event",
+      "text": "tutorial.seasons.event",
+      "target": {
+        "ui": "EventLabel"
+      },
+      "advance": "next",
+      "if": {
+        "state": "event_active",
+        "is": true
+      }
+    },
+    {
+      "id": "open",
+      "text": "tutorial.seasons.open",
+      "target": {
+        "ui": "LedgerButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "LedgerPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "today",
+      "text": "tutorial.seasons.today",
+      "target": {
+        "ui": "Today",
+        "in": "LedgerPanel"
+      },
+      "done": {
+        "state": "panel_prop",
+        "panel": "LedgerPanel",
+        "prop": "tab",
+        "value": "today"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "prices",
+      "text": "tutorial.seasons.prices",
+      "target": {
+        "ui": "SeasonPrices",
+        "in": "LedgerPanel",
+        "opener": {
+          "ui": "Today",
+          "in": "LedgerPanel"
+        }
+      },
+      "advance": "next"
+    }
+  ]
+}
