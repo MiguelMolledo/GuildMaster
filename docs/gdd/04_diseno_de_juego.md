@@ -311,6 +311,8 @@ SERVICIOS: Taberna, Posada, Scriptorium, Banco (sin materia prima)
 
 #### 4.4.5 Trabajar a mano: modo y toque de maestro
 
+> Propuesta de sustitución del toque de maestro por la «Forja viva» (calentar, batir, templar) en [03b_diversion_y_ritmo.md](03b_diversion_y_ritmo.md) §3b.2.
+
 Cuando un personaje **controlado por el jugador** trabaja en un puesto (orden `WorkAt`), no se limita a esperar la barra: elige **cómo** trabaja y puede intervenir durante el ciclo.
 
 | Modo | Duración | Calidad (tabla de 4.4.2) | Para qué |
@@ -682,6 +684,8 @@ Hay que reconocer a los tuyos (y a cada familia rival) de un vistazo, sin capas 
 
 ### 4.11 Ciudad viva: NPC
 
+> Ampliada en [04f_vida_y_fiestas.md](04f_vida_y_fiestas.md) (4.24-4.27, 2026-11-04): agenda de actividades con necesidades, puntos de reunión y rumores, más población y forasteros, guardia, sucesos, fiestas, juegos y la Taberna-Posada.
+
 #### 4.11.1 Población
 
 - MVP: 15-20 NPC con rutina. EA: 30-40 NPC y 5 familias rivales.
@@ -844,6 +848,8 @@ Las intrigas son la base del Pícaro y de los ataques de las familias rivales: e
 Espionaje (observar NPC, descubrir secretos), sabotaje de negocios, chantaje, falsificar pruebas, envenenar, incendiar, sicarios. Acciones nocturnas del Pícaro: robar edificio, espiar rival, contrabando, emboscada, sobornar guardia. Peligros nocturnos: ladrones NPC asaltan si caminas solo de noche fuera de zona segura; ser visto en la zona criminal baja la reputación con la nobleza; guardias patrullan.
 
 ### 4.13 Eventos y estaciones [EA]
+
+> El calendario de fiestas, los eventos de la ciudad (visita del marqués, bodas, torneos…) y los sucesos (altercados, bandidos, secuestros) están en [04f_vida_y_fiestas.md](04f_vida_y_fiestas.md) §4.24.5 y §4.25.
 
 | Evento | Efecto | Duración [balance] (1 estación = 2 días) |
 |---|---|---|

@@ -27,6 +27,8 @@ Reputación + título → más edificios, cargos, mejor matrimonio
 Familia → más manos controlables → heredero → siguiente generación
 ```
 
+> Revisión del bucle (2026-11-04): qué es divertido, qué es solo una barra y el calendario de desbloqueos, en [03b_diversion_y_ritmo.md](03b_diversion_y_ritmo.md).
+
 ### 3.3 Fases del producto
 
 | Fase | Contenido | Criterio de salida |

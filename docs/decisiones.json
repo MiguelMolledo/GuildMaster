@@ -436,6 +436,16 @@
       "tema": "Duelo: O-C13..O-C17 (docs/gdd/04e_combate.md §4e.9)",
       "detalle": "Nuevas tras ponerlo en la partida: puntos de dinastía por duelos (O-C13), la calumnia como causa (O-C14), llevar solo al duelista a la plaza al alba (O-C15), «Pelear sin reto» en la carta (O-C16) y si los vecinos ofendidos por el jugador pueden retarle (O-C17).",
       "opciones": "Ver 04e §4e.9."
+    },
+    {
+      "tema": "Ciudad viva II y fiestas (04f §4.29, O-V1–O-V10)",
+      "detalle": "Se construye con las recomendaciones mientras el owner no diga otra cosa: patronales de 4.25.1; town_e a 32 habitantes (medido); secuestros raros también de familiares (nunca el cabeza ni niños, desde el año 2); bandidos solo al borde y con aviso; toros sin heridas; sin incendios por ahora; Taberna-Posada para cualquier familia; juego con dinero con tope de 50; segunda taberna en otra ciudad más adelante; dados cargados para cualquiera.",
+      "opciones": "Ver 04f §4.29."
+    },
+    {
+      "tema": "Diversión y ritmo (03b §3b.7, O-D1–O-D5)",
+      "detalle": "Se construye con las recomendaciones: Forja viva de 3 decisiones con Resolver sin jugar; desbloqueos por hito y calendario con carta; Saltar hasta…; obras maestras con nombre; encargos con especificaciones.",
+      "opciones": "Ver 03b §3b.7."
     }
   ],
   "proximos_pasos": [
