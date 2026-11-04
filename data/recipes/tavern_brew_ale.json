@@ -1,0 +1,22 @@
+{
+  "id": "tavern_brew_ale",
+  "name_key": "recipe.tavern_brew_ale",
+  "building": "tavern_inn",
+  "zone": "kitchen",
+  "inputs": [
+    {
+      "item": "wheat",
+      "qty": 3
+    },
+    {
+      "item": "wood",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "ale",
+    "qty": 8
+  },
+  "duration_hours": 3.0,
+  "min_craft": 1
+}

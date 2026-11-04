@@ -1,0 +1,33 @@
+{
+  "id": "tavern_inn_kitchen_3",
+  "name_key": "upgrade.tavern_inn_kitchen_3",
+  "tree": "tavern_inn",
+  "branch": "inn_kitchen",
+  "level": 3,
+  "cost": {
+    "gold": 90,
+    "items": [
+      {
+        "item": "stone",
+        "qty": 6
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_kitchen_2"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "inn_cold_pantry"
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_pantry",
+    "exterior_overlay": null
+  }
+}

@@ -54,6 +54,7 @@ func step(orders: Array = []) -> Array:
 	Schedules.step(self)    # H8: the family's routines and the Work directive (real orders, Sim.give)
 	WorkQueue.step(self)    # hands the queue's next unit to each free employee at its station (work_at)
 	Production.step(self)   # work cycles, master-touch windows
+	Inn.step(self)          # posada (04f §4.27): the Taberna-Posada's night turn, guests, rooms, fame
 	Courtship.step(self)    # H8: +affinity for working at the same building (reads work_done)
 	Market.step(self)       # errands arriving; demand recovery at dawn
 	Region.step(self)       # viajes (09b): trips, caravans; the cities' demand, events, contracts; treaties by season

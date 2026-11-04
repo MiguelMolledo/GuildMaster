@@ -454,7 +454,8 @@ static func _doors(sim: Sim) -> Array:
 	ids.sort()
 	for b: String in ids:
 		var bld: Dictionary = sim.state.buildings[b]
-		if str(bld.get("type", "")) != "house" and (bld.get("door", []) as Array).size() == 2:
+		if str(bld.get("type", "")) != "house" and (bld.get("door", []) as Array).size() == 2 \
+				and not bool(bld.get("for_sale", false)):  # posada: an empty building for sale is not one
 			out.append((bld["door"] as Array).duplicate())
 	return out
 

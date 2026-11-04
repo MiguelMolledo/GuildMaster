@@ -1,0 +1,29 @@
+{
+  "_doc": "Demanda de servicios (docs/gdd/04d_otras_clases.md 4.22.3.2), adelantada lo justo para la Taberna-Posada (04f §4.27): tavern (comer o beber) e inn (cama). visits_per_adult: visitas por adulto del pueblo y noche; elasticity y no_go: la fórmula de elección de proveedor; price_range: lo que puede fijar el dueño sobre el precio de referencia; patience_minutes: la de 4.22.3.2 (cada grupo de data/inn/clientele.json lleva la suya). Los demás servicios (doctor, mass, letter, loan) llegan con 4.22. [balance]",
+  "elasticity": 1.5,
+  "no_go": 0.5,
+  "price_range": [
+    0.5,
+    2.0
+  ],
+  "reputation_cap": 0.3,
+  "reputation_divisor": 1000,
+  "services": {
+    "tavern": {
+      "visits_per_adult": 0.25,
+      "patience_minutes": 60,
+      "providers": [
+        "tavern_inn"
+      ]
+    },
+    "inn": {
+      "visits_per_adult": 0.0,
+      "only": "visitors",
+      "ref_price": 12,
+      "patience_minutes": 60,
+      "providers": [
+        "tavern_inn"
+      ]
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "_doc": "Reglas de la Taberna-Posada (docs/gdd/04f_vida_y_fiestas.md §4.27) [balance]. hours: abre al empezar la fase open_phase y cierra a close_hour (del día siguiente); las llegadas se reparten hasta last_arrival_before_close minutos antes del cierre, con su pico en arrival_peak (fracción del turno, reparto triangular). seats: plazas de las mesas al empezar (+ inn_seats). beds: camas (+ inn_beds); make_bed_minutes: lo que tarda hacer una cama. menu_slots: platos de la carta al empezar (+ inn_menu_slots). quality_mult: lo que paga de más un plato bueno o excelente (4.22.4.5). staff: minutos por servicio según el rol, divididos por el ritmo del rango (1 + (speed - 1) × rank_speed_share); hand_serve_minutes: lo que ocupa al que sirve a mano. fame: 0-5; per_satisfied, per_excellent, per_complaint, per_fight, per_dirty_bed por noche; max_gain_per_night. ambience: base y lo que resta una pelea sin portero (broken_days). satisfaction: tip_rate (propina máxima sobre la cuenta) y su reparto. incidents: pelea (fight), irse sin pagar (dash, por grupo en clientele), juglar, rumor y partida. license: la de tafurería (60 de oro, 1 año = 8 días). spoil_share: lo que se echa a perder al amanecer de la comida cocinada sin despensa fría. test_visitors: el generador mínimo de forasteros de prueba (se apaga cuando llega el de vida, 4.24.3: enabled false).",
+  "hours": {
+    "open_phase": "dusk",
+    "close_hour": 2,
+    "last_arrival_before_close": 60,
+    "arrival_peak": 0.35
+  },
+  "seats": 8,
+  "beds": 4,
+  "make_bed_minutes": 20,
+  "menu_slots": 6,
+  "default_menu": [
+    "ale",
+    "bread",
+    "garlic_soup",
+    "stew"
+  ],
+  "quality_mult": [
+    1.0,
+    1.15,
+    1.3
+  ],
+  "staff": {
+    "open_before_minutes": 30,
+    "serve_drink_minutes": 6,
+    "serve_food_minutes": 9,
+    "both_roles_mult": 1.5,
+    "rank_speed_share": 0.5,
+    "hand_serve_minutes": 2,
+    "kin_server_rank": "journeyman"
+  },
+  "guest": {
+    "decide_minutes": [
+      2,
+      5
+    ],
+    "drink_minutes": [
+      20,
+      35
+    ],
+    "food_minutes": [
+      30,
+      50
+    ],
+    "between_rounds_minutes": [
+      10,
+      25
+    ]
+  },
+  "fame": {
+    "start": 0.0,
+    "max": 5.0,
+    "per_satisfied": 0.02,
+    "per_excellent": 0.02,
+    "per_complaint": -0.04,
+    "per_fight": -0.3,
+    "per_dirty_bed": -0.05,
+    "max_gain_per_night": 0.25,
+    "satisfied_at": 0.6
+  },
+  "ambience": {
+    "base": 1,
+    "broken_days": 1,
+    "fight_penalty": 1,
+    "max": 5
+  },
+  "satisfaction": {
+    "tip_rate": 0.25,
+    "wait_share": 0.6,
+    "quality_share": 0.25,
+    "ambience_share": 0.15,
+    "minstrel_bonus": 0.1
+  },
+  "incidents": {
+    "fight": {
+      "base": 0.06,
+      "per_soldier": 0.05,
+      "per_gambler": 0.02,
+      "after_hour": 22,
+      "leave_unpaid": [
+        1,
+        2
+      ],
+      "porter_stops": true,
+      "night_watch_mult": 0.5
+    },
+    "dash": {
+      "chase_base": 0.35,
+      "chase_per_dexterity": 0.05,
+      "night_watch_stops": true
+    },
+    "minstrel": {
+      "chance": 0.35,
+      "arrivals_mult": 1.2
+    },
+    "rumor": {
+      "min_loyalty": 60,
+      "min_served_by_kin": 4
+    },
+    "game_offer": {
+      "chance": 0.5,
+      "house_cut": [
+        2,
+        6
+      ]
+    },
+    "pilgrims_after_fight_days": 2,
+    "pilgrims_after_fight_mult": 0.3
+  },
+  "license": {
+    "cost": 60,
+    "days": 8
+  },
+  "spoil_share": 0.2,
+  "history_keep": 16,
+  "test_visitors": {
+    "enabled": true,
+    "per_day": [
+      2,
+      4
+    ],
+    "_doc": "Forasteros de prueba hasta que llegue el generador de vida (4.24.3): cuántos pasan por el pueblo cada día; clientele.json decide a qué grupo van (visitor_share)."
+  }
+}

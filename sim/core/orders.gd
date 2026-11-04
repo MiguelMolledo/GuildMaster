@@ -174,6 +174,21 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Treaties.order_propose_town(sim, order)
 		"cancel_treaty":
 			return Treaties.order_cancel(sim, order)
+		# Posada · the Taberna-Posada (sim/inn/inn.gd, docs/gdd/04f_vida_y_fiestas.md §4.27)
+		"buy_building":
+			return Inn.order_buy_building(sim, order)
+		"inn_set_menu":
+			return Inn.order_set_menu(sim, order)
+		"inn_set_price":
+			return Inn.order_set_price(sim, order)
+		"inn_set_special":
+			return Inn.order_set_special(sim, order)
+		"inn_buy_license":
+			return Inn.order_buy_license(sim, order)
+		"inn_serve":
+			return Inn.order_serve(sim, order)
+		"inn_make_bed":
+			return Inn.order_make_bed(sim, order)
 	return fail("unknown_order")
 
 
@@ -185,7 +200,8 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"resolve_microevent", "run_for_office", "use_office_power", "accuse", "trial_cross", "trial_rest", "trial_verdict",
 	"duel_answer", "duel_withdraw", "duel_move", "duel_auto",
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
-	"city_accept", "city_deliver", "sign_treaty"]
+	"city_accept", "city_deliver", "sign_treaty",
+	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license"]  # posada (Inn.MANAGEMENT)
 
 
 static func is_management(type: String) -> bool:

@@ -106,6 +106,9 @@ g[18][19] = "#"
 rect(14, 34, 16, 37, "#")
 rect(19, 34, 21, 37, "#")
 rect(23, 30, 25, 32, "#")
+# Posada (docs/gdd/04f_vida_y_fiestas.md §4.27): the Taberna-Posada for sale, 4x4 on the meadow south of the bottom lane
+# (cols 26-29 x rows 34-37), door on the lane at (27, 33). A new game places it without owner (NewGame, for_sale).
+rect(26, 34, 29, 37, "#")
 # market stalls and the contract board (H3): one blocked tile each, served from the tile in front (towards the street);
 # H12: the clothier's and the goods stalls on the west edge of the plaza, served from the tile to their east
 STALLS = {"resources": ([16, 14], [16, 15]), "food": ([19, 14], [19, 15]), "materials": ([22, 14], [22, 15]),
@@ -141,6 +144,8 @@ town = {
         "workshop_masonry": {"type": "masonry", "origin": [19, 34], "door": [20, 33]},
         "workshop_tailor": {"type": "tailor_shop", "origin": [23, 30], "door": [24, 29]},
         "armory": {"type": "armory", "origin": [25, 14], "door": [24, 16], "owner": ""},
+        # Posada: on sale until a family buys it (buy_building); new games only (the scenarios of before have none)
+        "tavern_inn": {"type": "tavern_inn", "origin": [26, 34], "door": [27, 33], "for_sale": True},
     },
 }
 

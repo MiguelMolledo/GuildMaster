@@ -1,0 +1,234 @@
+{
+  "_doc": "Los grupos de clientes de la Taberna-Posada (04f §4.27.2) [balance]. source: townsfolk (los adultos del pueblo × data/services.json tavern.visits_per_adult), visitors (los forasteros del día × visitor_share: hoy el generador de prueba de data/inn/inn.json test_visitors; con vida, state.town.visitors) o base (per_night [mín, máx] a plena atracción: soldados de paso y la guardia, nobles de viaje, jugadores). drinks/foods: lo que piden, en su orden de gusto (eligen al azar entre los que están en la carta y en el almacén, con peso 3-2-1 por ese orden); food_share: la parte de rondas de comida; rounds: rondas por visita; patience: minutos que esperan a que les sirvan; max_price_mult: por encima de ese precio medio no vienen; bed: probabilidad de pedir cama; dash: probabilidad de irse sin pagar. requires: lo que les hace falta para venir (beds_free, bed_price {max}, fame {min}, ambience {min}, good_wine, dish {dish}, gaming_table, license); si falta algo, el panel Clientela lo dice. stable_mult: con establo; good_room: piden la habitación buena; dislikes_soldiers: con más soldados que esto su satisfacción baja; fights: cuentan para la pelea; gambles: dejan la parte de la casa si hay licencia; likes_fame: atracción × (1 + likes_fame × fama). party: cuántos llegan juntos en cada visita (un corrillo, la escolta o el séquito); el panel cuenta personas.",
+  "order": [
+    "locals",
+    "merchants",
+    "pilgrims",
+    "soldiers",
+    "nobles",
+    "gamblers"
+  ],
+  "groups": {
+    "locals": {
+      "source": "townsfolk",
+      "drinks": [
+        "ale",
+        "cider",
+        "wine"
+      ],
+      "foods": [
+        "garlic_soup",
+        "stew",
+        "meat_pie",
+        "sausage",
+        "sweets",
+        "bread"
+      ],
+      "food_share": 0.4,
+      "rounds": [
+        1,
+        3
+      ],
+      "patience": 30,
+      "max_price_mult": 1.3,
+      "bed": 0.0,
+      "dash": 0.02,
+      "requires": [],
+      "likes_fame": 0.05,
+      "party": [
+        1,
+        3
+      ]
+    },
+    "merchants": {
+      "source": "visitors",
+      "visitor_share": 0.55,
+      "drinks": [
+        "wine",
+        "ale"
+      ],
+      "foods": [
+        "stew",
+        "meat_pie",
+        "roast_lamb",
+        "sausage"
+      ],
+      "food_share": 0.6,
+      "rounds": [
+        1,
+        3
+      ],
+      "patience": 45,
+      "max_price_mult": 1.6,
+      "bed": 0.9,
+      "dash": 0.01,
+      "requires": [
+        {
+          "kind": "beds_free"
+        },
+        {
+          "kind": "fame",
+          "min": 1
+        }
+      ],
+      "stable_mult": 1.5,
+      "likes_fame": 0.1,
+      "party": [
+        1,
+        2
+      ]
+    },
+    "pilgrims": {
+      "source": "visitors",
+      "visitor_share": 0.25,
+      "drinks": [
+        "cider",
+        "ale"
+      ],
+      "foods": [
+        "garlic_soup",
+        "bread"
+      ],
+      "food_share": 0.7,
+      "rounds": [
+        1,
+        2
+      ],
+      "patience": 40,
+      "max_price_mult": 1.1,
+      "bed": 1.0,
+      "dash": 0.0,
+      "requires": [
+        {
+          "kind": "beds_free"
+        },
+        {
+          "kind": "bed_price",
+          "max": 1.0
+        }
+      ],
+      "likes_fame": 0.0,
+      "party": [
+        1,
+        2
+      ]
+    },
+    "soldiers": {
+      "source": "base",
+      "per_night": [
+        1,
+        3
+      ],
+      "drinks": [
+        "ale"
+      ],
+      "foods": [
+        "sausage",
+        "stew",
+        "bread"
+      ],
+      "food_share": 0.25,
+      "rounds": [
+        2,
+        4
+      ],
+      "patience": 35,
+      "max_price_mult": 1.4,
+      "bed": 0.0,
+      "dash": 0.04,
+      "requires": [
+        {
+          "kind": "dish",
+          "dish": "ale"
+        }
+      ],
+      "fights": true,
+      "likes_fame": 0.0,
+      "party": [
+        2,
+        3
+      ]
+    },
+    "nobles": {
+      "source": "base",
+      "per_night": [
+        0,
+        2
+      ],
+      "drinks": [
+        "wine"
+      ],
+      "foods": [
+        "roast_lamb",
+        "sweets",
+        "meat_pie"
+      ],
+      "food_share": 0.6,
+      "rounds": [
+        1,
+        2
+      ],
+      "patience": 50,
+      "max_price_mult": 2.0,
+      "bed": 0.8,
+      "dash": 0.0,
+      "requires": [
+        {
+          "kind": "fame",
+          "min": 3
+        },
+        {
+          "kind": "ambience",
+          "min": 3
+        },
+        {
+          "kind": "good_wine"
+        }
+      ],
+      "good_room": true,
+      "dislikes_soldiers": 2,
+      "likes_fame": 0.15,
+      "party": [
+        1,
+        3
+      ]
+    },
+    "gamblers": {
+      "source": "base",
+      "per_night": [
+        1,
+        3
+      ],
+      "drinks": [
+        "ale",
+        "wine"
+      ],
+      "foods": [
+        "bread"
+      ],
+      "food_share": 0.2,
+      "rounds": [
+        2,
+        3
+      ],
+      "patience": 40,
+      "max_price_mult": 1.5,
+      "bed": 0.0,
+      "dash": 0.08,
+      "requires": [
+        {
+          "kind": "gaming_table"
+        },
+        {
+          "kind": "license"
+        }
+      ],
+      "gambles": true,
+      "likes_fame": 0.0,
+      "party": [
+        1,
+        2
+      ]
+    }
+  }
+}

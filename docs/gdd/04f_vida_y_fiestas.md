@@ -424,6 +424,19 @@ cuando llegue 4.22. Hasta entonces, la familia que compra la taberna la lleva co
 | **Clientela** por grupos, y al pasar por un grupo que no viene se ve por qué | **Clientela** de 4.27.2, con el «por qué no vienen» (precio, carta, ambiente, fama o reputación) |
 | Mejoras como el **bardo** o la **pizarra de la carta**, que suben las ventas en la zona | Las mejoras de 4.27.5 (juglar, pizarra, chimenea, habitaciones), cada una con su efecto en cifras |
 | Mudar la taberna a otra región al mejorarla | Más adelante, **abrir una segunda taberna en otra ciudad** de Valldaura (09b) [propuesta, O-V9] |
+| El **equipo** sube la comodidad, la seguridad y la capacidad del local, y cada facción quiere su nivel de cada una | Tres cifras del local en el panel: **ambiente** (0-5, sube con chimenea y tapices, baja un día tras una pelea sin portero), **plazas** (las mesas) y **seguridad** (portero, cerradura, cuarto del portero); cada grupo pide la suya (los nobles, ambiente 3) |
+| El **prestigio** del negocio se gana atendiendo bien y abre equipo mejor | La **fama** (0-5): +0,02 por cliente satisfecho, +0,02 por plato excelente, −0,04 por queja, −0,3 por pelea, −0,05 por cama sin hacer, como mucho +0,25 por noche; abre grupos (mercaderes con 1, nobles con 3) |
+| Precios y **promociones** según la clientela que quieres | Precio de cada plato de 0,5× a 2× y el **plato de la casa** (×1,15 de atracción para los grupos a los que les gusta) |
+| La **seguridad baja** atrae a facciones poco recomendables; los porteros (y los osos) paran peleas | Los soldados (y los jugadores) suben la probabilidad de **pelea**; el **portero** la para; sin él se rompen muebles y los peregrinos no vuelven en 2 noches |
+| El **parte del turno** cuenta lo que pasó cada noche y los sucesos notables | La **carta del resumen** a las 02:00 (4.27.4) y la pestaña Turno con el historial de las últimas noches |
+| El personal gana experiencia y desbloquea platos y bebidas | Los empleados ascienden con su rango (4.7.2): un oficial rinde el doble que un aprendiz en la cocina y sirve 1,5 veces más rápido |
+| Rivalidad, espías y sabotaje entre tabernas | [POST-MVP] cuando haya una taberna rival (un proveedor NPC de 4.22.3.2) y el espionaje de 4.22.6.5 |
+
+Fuentes consultadas (2026-11-04; ideas, no texto): la página de Steam de *Wartales – The Tavern Opens!*
+(store.steampowered.com/app/2903960), la guía de Pro Game Guides «Wartales The Tavern Opens tavern guide: management,
+shifts & more» (progameguides.com/wartales/wartales-the-tavern-opens-tavern-guide-management-shifts-more/), el análisis
+de EIP «Open for business» (eip.gg/reviews/open-for-business-wartales-the-tavern-opens-dlc/) y las notas del parche en
+SteamDB (steamdb.info/patchnotes/14097948).
 
 #### 4.27.2 Clientela
 
@@ -498,6 +511,33 @@ Cada noche llegan clientes de **grupos** distintos. Cada grupo tiene sus gustos 
   jugadores del torneo.
 
 ---
+
+#### 4.27.7 Cómo quedó construido (rama posada, 2026-11-04)
+
+> [!NOTE]
+> Reglas en `sim/inn/` (Inn, InnClientele, InnStaff, InnRumors), cifras en `data/inn/` (inn.json, menu.json,
+> clientele.json) y `data/services.json`, el edificio en `data/buildings/tavern_inn.json`, el árbol en
+> `data/upgrades/tavern_inn/`, la vista en `game/inn/` (capa de huéspedes del interior, panel, carta del resumen),
+> el bot `innkeeper` (`sim/bots/bot_innkeeper.gd`) y los escenarios `innkeeper_start` e `inn_night`
+> (`tools/scenarios/make_inn_scenarios.gd`). Guardado v19 (`SaveFile._to_v19`).
+
+Lo que precisa o cambia respecto a lo de arriba (apuntado en `docs/decisiones.json`):
+
+| # | Qué | Por qué |
+|---|---|---|
+| T1 | **Se compra la del pueblo; construirla llega con H6.** Cada mapa tiene un solar con su Taberna-Posada **en venta** (`for_sale`, 320 de oro, orden `buy_building`); en `town_e`, el prado al sur del callejón de abajo. Solo en partidas nuevas (los guardados y escenarios de antes no la tienen). | La construcción en parcelas (4.9) no existe todavía; comprar la de la villa da el segundo negocio de O-V7 (a) sin inventar H6. |
+| T2 | **El tope de edificios por título (4.9) no se aplica** a la taberna: un Plebeyo puede tenerla. | H6 es quien aplica `max_buildings`; aplicarlo ahora dejaría a la taberna fuera del Artesano que empieza. Pregunta nueva O-V11. |
+| T3 | **Turnos por rol:** barra y mesas trabajan de noche (de 30 min antes de abrir a las 02:00); cocina y habitaciones, de día (`work_schedule` del edificio). 3 plazas de empleado (barra, cocina, habitaciones) y la cuarta (mozo de mesas) con «Más mesas». El portero es la mejora, no un empleado. | La cocina tiene que tener la comida hecha al abrir y las camas se hacen por la mañana (4.27.4). |
+| T4 | **Los clientes vienen en corrillo** (`party` por grupo: vecinos 1-3, soldados 2-3...) y eligen al azar entre lo que les gusta y hay (peso 3-2-1 por su orden de gusto). Los grupos sin fuente (soldados, nobles, jugadores) tienen `per_night`. Los forasteros salen del generador de prueba (2-4 al día) hasta que llegue el de vida. | Con una visita por persona salían ~10 clientes por noche: ni se llenaba el salón ni pagaba una casa con tres empleados. Con corrillos, ~20 por noche (los bots). |
+| T5 | **Platos sin hierbas:** sopa de ajo = pan + trigo; olla = carne + trigo ×2; cordero = carne ×3; embutido = carne ×2 + trigo. El pan sale a 12. | En `town_e` no hay puesto de boticario: las hierbas no se pueden comprar. Con el pan a 10 se perdía dinero (se compra a 6-8). |
+| T6 | **La comida cocinada se estropea** al amanecer (20 %) salvo con la despensa fría; la bebida y el pan, no. | Es lo que da sentido a la despensa fría del árbol (4.27.5). |
+| T7 | **Ramas del árbol:** Salón, Cocina, Bodega, Habitaciones, Ambiente (ramas nuevas `inn_*`) y Seguridad (la de la Forja). Toneles = producción ×1,25 + 4 pilas; vino de reserva y cueva = el vino sale +1 / +2 de calidad; pizarra = +10 % de clientes y +2 platos; asador = +2 platos. | El árbol de 4.27.5 en las piezas de efecto que ya existen (H5) más los efectos `inn_*`. |
+| T8 | **Durante las obras se sirve**, pero la cocina no cocina (la regla de 4.8). | Cerrar la taberna dos días por cada mejora la hundía. |
+| T9 | **Plato de la casa** (de las promociones de Wartales). | Una decisión barata y legible sobre la clientela. |
+| T10 | **Ganchos:** la partida que propone un forastero (`inn_game_offer`) espera a los juegos (4.26); hasta entonces la casa se queda su parte con la licencia. Los rumores (InnRumors: precio de fuera, evento en curso, deuda de un rival) esperan al libro de rumores de vida (4.24.2). `Inn.arrive()` es la puerta para los vecinos de verdad de la agenda de vida (4.24.1). | El orden de los bloques (4.28.5). |
+
+**Medido** (bot `innkeeper`, `innkeeper_start`, Normal, 16 días, 10 semillas, con eventos globales): ver la diana
+`innkeeper` de `data/targets.json`.
 
 ### 4.28 Lo que hace falta para construirlo
 
@@ -586,3 +626,5 @@ Cada una lleva la recomendación con la que se construye si no se dice otra cosa
 | **O-V8** | Juego con dinero de verdad | (a) Sí, con margen de la casa y tope por apuesta. (b) Solo por reputación | **(a)**, con tope de 50 por apuesta y aviso si pierdes más de 100 en un día |
 | **O-V9** | Segunda taberna en otra ciudad | (a) Más adelante, cuando se pueda cargar otra ciudad (O-R3). (b) Nunca | **(a)** |
 | **O-V10** | Dados cargados y trampas para cualquiera | (a) Solo el Pícaro (4.22). (b) Cualquiera que los compre | **(b)**, con el riesgo de que te pillen; el Pícaro tendrá ventaja |
+| **O-V11** | ¿La Taberna-Posada cuenta para el tope de edificios por título (4.9)? | (a) No: es el segundo negocio de cualquiera. (b) Sí, cuando llegue H6: un Plebeyo tendría que ser Ciudadano para comprarla | **(a)** de momento (T2); con H6, decidir si el tope de Plebeyo pasa a 2 |
+| **O-V12** | ¿Se puede construir una segunda taberna en un solar? | (a) Con H6 (parcelas de producción). (b) Nunca: una por villa | **(a)**, y entonces la del pueblo entra como proveedor NPC (4.22.3.2), la rival |

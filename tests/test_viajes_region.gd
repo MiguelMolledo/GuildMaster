@@ -28,7 +28,7 @@ func test_a_save_from_before_migrates_to_v16_with_an_empty_region() -> void:
 	check(bool(old["ok"]), "an old scenario loads")
 	var st: WorldState = old["state"]
 	eq(st.version, WorldState.VERSION, "migrated to the current version")
-	eq(WorldState.VERSION, 16, "travel is v16")
+	check(WorldState.VERSION >= 16, "travel is v16 (posada: v19 since)")
 	eq(st.region, {}, "nothing travelled before: an empty region")
 	var sim := Sim.new(st, cat)
 	sim.step()

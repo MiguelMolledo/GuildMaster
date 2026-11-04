@@ -1,0 +1,38 @@
+{
+  "id": "tavern_inn_ambience_3",
+  "name_key": "upgrade.tavern_inn_ambience_3",
+  "tree": "tavern_inn",
+  "branch": "inn_ambience",
+  "level": 3,
+  "cost": {
+    "gold": 90,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 6
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_ambience_2"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "gaming_table",
+      "like": "tables"
+    },
+    {
+      "kind": "inn_gaming_table"
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": null
+  }
+}

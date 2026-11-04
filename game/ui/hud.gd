@@ -99,6 +99,7 @@ const GOLD_ICON: String = "icon_oro"
 @onready var _building_name: Label = %BuildingName
 @onready var _building_hint: Label = %BuildingHint
 @onready var _manage_button: Button = %ManageButton
+@onready var _buy_button: Button = %BuyButton  # posada: a building for sale (the Taberna-Posada, buy_building)
 @onready var _selection_action: Button = %SelectionAction
 # 7 · notices, toast, cards, help
 @onready var _notice_popups: VBoxContainer = %NoticePopups
@@ -180,6 +181,10 @@ func _ready() -> void:
 	_manage_button.text = tr("hud.manage")
 	_manage_button.tooltip_text = tr("hud.manage_tip")
 	_manage_button.pressed.connect(func() -> void: manage_pressed.emit(building_id))
+	_buy_button.pressed.connect(func() -> void:
+		var who := active_person()
+		if who != "" and _game != null:
+			_game.give({"type": "buy_building", "actor": who, "building": building_id}))
 	_selection_action.pressed.connect(toggle_character_panel)
 	_toast_label.visible = false
 	# panels: the orders go to Game; one management panel at a time (ManageSlot)
@@ -342,6 +347,10 @@ func _show_building(sim: Sim) -> void:
 			_building_hint.text = tr("hud.building_idle") % (SimQuery.reason_text(why) if why != "" else
 				tr("hud.building_idle_unknown"))
 			color = "aviso"
+	elif bool(sim.state.buildings[building_id].get("for_sale", false)):
+		icon = "icon_llave"   # posada: for sale (the Taberna-Posada), bought with the Buy button
+		_building_hint.text = tr("hud.building_for_sale") % Inn.sale_price(sim, building_id)
+		color = "oro"
 	elif SimQuery.is_public(sim.state, sim.catalog, building_id):
 		icon = "icon_serving"
 		_building_hint.text = tr("hud.building_public")
@@ -352,6 +361,13 @@ func _show_building(sim: Sim) -> void:
 	_manage_button.disabled = not own
 	_manage_button.visible = own  # another family's building cannot be managed (GDD 4.5.5)
 	_selection_action.visible = false
+	var sale := bool(sim.state.buildings[building_id].get("for_sale", false))
+	_buy_button.visible = sale
+	if sale:
+		var price := Inn.sale_price(sim, building_id)
+		_buy_button.text = tr("hud.buy_building") % price
+		_buy_button.disabled = not Money.can_pay(sim.state, family(), price)
+		_buy_button.tooltip_text = tr("hud.buy_building_tip")
 
 
 ## The selected person (alive) or "".
@@ -369,6 +385,7 @@ func _show_person(sim: Sim, who: String) -> void:
 	_building_hint.add_theme_color_override("font_color", token("texto_tenue"))
 	_selection_icon.texture = UiIcons.ui("icon_working" if not lines.is_empty() else "icon_idle", false)
 	_manage_button.visible = false
+	_buy_button.visible = false
 	_selection_action.visible = str(ch.get("controlled_by", "")) == "human"
 	_selection_action.text = tr("hud.inventory")
 	_selection_action.tooltip_text = tr("hud.inventory_tip")

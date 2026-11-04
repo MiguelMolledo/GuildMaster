@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl2eyos4mpedx"]
+
+[ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="1_block"]
+[ext_resource type="Script" uid="uid://b2swscgjan4v4" path="res://game/inn/art_slot.gd" id="2_slot"]
+
+[node name="Rooms" type="Node2D"]
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -38)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_block")
+color = Color(0.3529, 0.2902, 0.4157, 1)
+height = 18.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+script = ExtResource("2_slot")
+id = "rooms"
+label = NodePath("")
+bottom = 12.0
+editor_description = "assets/art/interiors/tavern/rooms.png (VisualPaths.inn_art). Until it exists the Greybox and the Label show."

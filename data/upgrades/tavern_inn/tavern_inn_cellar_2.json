@@ -1,0 +1,34 @@
+{
+  "id": "tavern_inn_cellar_2",
+  "name_key": "upgrade.tavern_inn_cellar_2",
+  "tree": "tavern_inn",
+  "branch": "inn_cellar",
+  "level": 2,
+  "cost": {
+    "gold": 90,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 4
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_cellar_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "inn_wine_quality",
+      "amount": 1
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_reserve",
+    "exterior_overlay": null
+  }
+}

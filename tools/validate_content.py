@@ -65,7 +65,7 @@ DIFF_LEVERS = {"start_debt": int, "rival_craft": int, "rival_sell_min_demand": (
 STATS = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution", "rhetoric", "stealth"]
 MATCH_OPS = {"gte", "lte", "ne"}
 ZONE_KINDS = {"craft", "sales", "storage", "service"}
-NIGHT = {"none", "manual_only", "always"}
+NIGHT = {"none", "manual_only", "always", "employees"}  # posada: employees = sus empleados trabajan de noche (4.22.4.5)
 PHASES = ["dawn", "day", "dusk", "night"]
 ROAD_KINDS = {"street", "plaza", "bridge"}  # la red de calles: debe ser una sola pieza
 
@@ -606,7 +606,7 @@ UPGRADES = {}  # H5: id -> upgrade (data/upgrades/<tree>/<id>.json), loaded firs
 EFFECT_VALUES = {"mult", "amount", "zone", "recipe", "rank", "flag"}
 EFFECT_STACKS = {"branch_top", "all"}
 EFFECT_WHEN = {"query", "complete"}
-EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none"}
+EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none", "inn"}
 
 
 def load_upgrades(rep):
@@ -1964,7 +1964,10 @@ def check_h5(items, recipes, buildings, ranks, strings, rep):
         if loops(id_, frozenset()):
             rep.error(f"upgrades/{UPGRADES[id_]['tree']}/{id_}", "los requisitos vuelven a ella (ciclo)")
     for tree, ids in sorted(trees.items()):
+        used = {UPGRADES[i]["branch"] for i in ids}  # posada: cada árbol avisa solo de las ramas que usa
         for br in branches:
+            if br not in used:
+                continue
             for lv in range(1, levels + 1):
                 if (tree, br, lv) not in slot:
                     rep.warn(f"upgrades/{tree}", f"falta el nivel {lv} de la rama {br}")
@@ -2686,9 +2689,9 @@ def main():
                 rep.error(f"scenarios/{name}", f"{cid}: position debe ser [col, fila]")
             elif not maps[map_id](*pos):
                 rep.error(f"scenarios/{name}", f"{cid} está en {pos}, que no es una casilla transitable de {map_id}")
-            for t in (ch.get("path") or []) if map_id else []:
-                if not (isinstance(t, list) and len(t) == 2 and maps[map_id](*t)):
-                    rep.error(f"scenarios/{name}", f"{cid}: la ruta pasa por {t}, que no es transitable")
+            for step in (ch.get("path") or []) if map_id else []:  # posada: «step», not «t» (t = the kinds, below)
+                if not (isinstance(step, list) and len(step) == 2 and maps[map_id](*step)):
+                    rep.error(f"scenarios/{name}", f"{cid}: la ruta pasa por {step}, que no es transitable")
                     break
 
     validate_structure.check(rep)

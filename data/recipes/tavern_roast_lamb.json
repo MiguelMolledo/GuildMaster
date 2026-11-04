@@ -1,0 +1,19 @@
+{
+  "id": "tavern_roast_lamb",
+  "name_key": "recipe.tavern_roast_lamb",
+  "building": "tavern_inn",
+  "zone": "kitchen",
+  "inputs": [
+    {
+      "item": "meat",
+      "qty": 3
+    }
+  ],
+  "output": {
+    "item": "roast_lamb",
+    "qty": 2
+  },
+  "duration_hours": 2.0,
+  "min_craft": 4,
+  "requires_upgrade": "tavern_inn_kitchen_2"
+}

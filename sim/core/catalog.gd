@@ -53,6 +53,10 @@ var combat: Dictionary = {}      # data/combat.json: the duel «a tres tiempos»
 ## tools/art/portraits_catalog.py; the sim depends on data/ only): {by: {"sex|age|type": [ids sorted]}, fallback: {type:
 ## {age: type}}, ages, types, count}. Empty without it: nobody gets a portrait id (the view keeps the greybox).
 var portrait_pool: Dictionary = {}
+## Posada (docs/gdd/04f_vida_y_fiestas.md §4.27): data/inn/inn.json (rules), menu.json (the dishes) and clientele.json
+## (the groups of customers); data/services.json, the demand of services of 4.22.3.2 (tavern and inn, for now).
+var inn: Dictionary = {}
+var services: Dictionary = {}
 var errors: PackedStringArray = []  # files that could not be read
 var _goods_index: Dictionary = {}  # H13: item -> [goods groups] (goods_of)
 var _goods_built: bool = false
@@ -86,6 +90,10 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.region = c._load_json(root_dir.path_join("world/region.json"))
 	c.trade = c._load_json(root_dir.path_join("world/trade.json"))
 	c.portrait_pool = c._load_json(root_dir.path_join("portraits.json"))
+	c.inn = {"rules": c._load_json(root_dir.path_join("inn/inn.json")),  # posada (04f §4.27)
+		"menu": c._load_json(root_dir.path_join("inn/menu.json")),
+		"clientele": c._load_json(root_dir.path_join("inn/clientele.json"))}
+	c.services = c._load_json(root_dir.path_join("services.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]

@@ -1,0 +1,36 @@
+{
+  "id": "tavern_inn_hall_1",
+  "name_key": "upgrade.tavern_inn_hall_1",
+  "tree": "tavern_inn",
+  "branch": "inn_hall",
+  "level": 1,
+  "cost": {
+    "gold": 60,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 6
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "inn_seats",
+      "amount": 4
+    },
+    {
+      "kind": "max_employees",
+      "amount": 1
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_more_tables",
+    "exterior_overlay": null
+  }
+}
