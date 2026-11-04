@@ -60,3 +60,22 @@ func test_the_screen_plays_a_duel_of_the_game() -> void:
 	screen._auto_finish()
 	check(Duels.open_duels(sim.state).is_empty(), "«Resolver sin jugar» closes it in the sim")
 	screen.free()
+
+
+func test_the_duel_art_is_found_with_its_names() -> void:
+	# arte-fal-2 keeps its names (icon_<name>, victory / defeat, _192); VisualPaths maps the duel's ids to them
+	for id: String in ["strike", "parry", "feint", "yield", "auto", "breath", "touch", "challenge"]:
+		check(VisualPaths.duel_icon(id) != null, "icon %s (32)" % id)
+		check(VisualPaths.duel_icon(id, true) != null, "icon %s (16)" % id)
+	for id: String in ["won", "lost", "draw", "challenge"]:
+		var big := VisualPaths.duel_illustration(id)
+		var small := VisualPaths.duel_illustration(id, true)
+		check(big != null and big.get_size() == Vector2(240, 135), "card illustration %s 240×135" % id)
+		check(small != null and small.get_size() == Vector2(192, 108), "notice illustration %s 192×108" % id)
+	for kind: String in ["strike", "parry", "feint", "hit"]:
+		var v := VisualPaths.duel_vfx(kind)
+		var meta: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(
+			"res://assets/art/vfx/duel_%s/duel_%s.json" % [kind, kind]))
+		eq((v["frames"] as Array).size(), int(meta["frames"]) - int(meta.get("start_frame", 0)), "%s: its frames" % kind)
+		eq(v["size"], Vector2(int(meta["frame_w"]), int(meta["frame_h"])), "%s: the frame size of its .json" % kind)
+		eq(v["offset"], Vector2(int(meta["offset"]["x"]), int(meta["offset"]["y"])), "%s: the offset from the feet" % kind)

@@ -160,8 +160,12 @@ func _answer_card(e: Dictionary) -> void:
 		blocks.append({"type": "paragraph", "text": tr("combat.card.accepted_go") % int(Duels.cfg(_sim()).get("call_before", 30))})
 	else:
 		blocks.append({"type": "paragraph", "text": tr("combat.card.refused") % rival})
-	card.show_page({"template": "notice", "title": tr("combat.card.answer_yes" if accept else "combat.card.answer_no") % rival,
-		"blocks": blocks, "buttons": [{"id": "ok", "text": tr("combat.ui.close"), "primary": true}]})
+	var page := {"template": "notice", "title": tr("combat.card.answer_yes" if accept else "combat.card.answer_no") % rival,
+		"blocks": blocks, "buttons": [{"id": "ok", "text": tr("combat.ui.close"), "primary": true}]}
+	var ill := VisualPaths.duel_illustration("challenge", true)
+	if ill != null:
+		page["image"] = ill
+	card.show_page(page)
 
 
 func _no_show_card(e: Dictionary) -> void:
@@ -169,8 +173,12 @@ func _no_show_card(e: Dictionary) -> void:
 	var absent := str(e.get("absent", ""))
 	var mine := absent != "" and str(_sim().state.characters.get(absent, {}).get("family", "")) == fam
 	var key := "combat.card.no_show_you" if mine else ("combat.card.no_show_rival" if absent != "" else "combat.card.cancelled")
-	card.show_page({"template": "notice", "title": tr("combat.card.no_show_title"), "blocks": [
-		{"type": "paragraph", "text": tr(key)}], "buttons": [{"id": "ok", "text": tr("combat.ui.close"), "primary": true}]})
+	var page := {"template": "notice", "title": tr("combat.card.no_show_title"), "blocks": [
+		{"type": "paragraph", "text": tr(key)}], "buttons": [{"id": "ok", "text": tr("combat.ui.close"), "primary": true}]}
+	var ill := VisualPaths.duel_illustration("defeat" if mine else ("victory" if absent != "" else "draw"), true)
+	if ill != null:
+		page["image"] = ill
+	card.show_page(page)
 
 
 func _open_screen(id: String) -> void:

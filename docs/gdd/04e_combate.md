@@ -407,12 +407,17 @@ La pantalla es la misma (§8), con el botón de la acción extra y el inventario
   [docs/ui/mecanicas/combate.md](../ui/mecanicas/combate.md).
 - **Probarlo:** `godot --path . -- --scenario=duel_ready` (el rival te acaba de insultar, a tu lado en la plaza). Capturas:
   `--smoke-script=duelo_partida` (todo el flujo) y `--smoke-script=duel` (el prototipo de `--duel-test`, que sigue).
-- **Arte** (`assets/inventario.json`, `para: duelo`), con caída a lo provisional sin tocar código (`VisualPaths`):
-  efectos `assets/art/vfx/duel_<strike|parry|feint|hit>/duel_<id>.png` (tira horizontal de fotogramas cuadrados) o
-  `duel_<id>_01.png…`; iconos `assets/art/ui/icons/duel/<strike|parry|feint|yield|breath|touch>.png` y `small/<id>.png`;
-  ilustraciones de carta `assets/art/illustrations/duel/<won|lost|draw|challenge>.png` (o
-  `assets/art/ui/illustrations/duel/`). Las poses (`chr_duel_poses`) esperan a PixelLab (15-nov): hoy `forge`, `work` e
-  `idle`, y la escena lo dice («Arte provisional…»).
+- **Arte** (`assets/inventario.json`, `para: duelo`; llegó con `arte-fal-2` el 2026-11-04), por `VisualPaths`, que traduce
+  los ids del duelo a los nombres del arte sin renombrarlo (`DUEL_ICON_ALIAS`, `DUEL_ILLUSTRATION_ALIAS`):
+  - efectos `assets/art/vfx/duel_<strike|parry|feint|hit>/duel_<id>.png` con su `duel_<id>.json` (fotogramas, tamaño, fps,
+    desplazamiento de la esquina respecto a los pies, `facing` e): cada duelista dibuja el de su acción a sus pies (×2, como
+    la figura; el del oeste reflejado) y el toque sale a los pies de quien lo recibe;
+  - iconos `assets/art/ui/icons/duel/icon_<strike|parry|feint|surrender|auto|breath|touch|challenge>.png` y `small/`: los
+    botones (Rendirse = `surrender`, Resolver sin jugar = `auto`), las barras de toques y aliento, «Retar a duelo…» (`challenge`);
+  - láminas `assets/art/ui/illustrations/duel/<victory|defeat|draw|challenge>.png` (240×135, cartas: resultado y reto) y
+    `_192` (192×108, avisos: respuesta e incomparecencia).
+  Sin el arte, la caída de siempre (dibujo por código, sin icono, sin lámina). Las poses (`chr_duel_poses`) esperan a
+  PixelLab (15-nov): hoy `forge`, `work` e `idle`, y la escena lo dice («Arte provisional: faltan las poses del duelo»).
 
 ---
 
