@@ -74,6 +74,9 @@ func _process(delta: float) -> void:
 		"new_game_shot":
 			if _t > 0.4:
 				_shot("partida_nueva")
+				# without the tutorial: its first step pauses the game, the clock would not move and «quitting with
+				# something unsaved» would have nothing unsaved (the tutorial has its own script, --smoke-script=tutorial)
+				(app.new_game_screen().get_node("%TutorialCheck") as CheckBox).button_pressed = false
 				(app.new_game_screen().get_node("%StartButton") as Button).pressed.emit()
 				_go("playing")
 		"playing":
@@ -131,8 +134,13 @@ func _process(delta: float) -> void:
 				_go("quit_shot")
 		"quit_shot":
 			if _t > 0.5:
+				var discard := (pause.get_node("%Confirm") as ConfirmDialog).button("discard")
+				if discard == null:  # no question: nothing was unsaved (the clock did not move)
+					print("[SmokeMenu] FAIL no quit question (unsaved=%s)" % Game.unsaved())
+					get_tree().quit(1)
+					return
 				_shot("salir")
-				(pause.get_node("%Confirm") as ConfirmDialog).button("discard").pressed.emit()
+				discard.pressed.emit()
 				_go("title")
 		"title":
 			if _t > 1.0:
