@@ -458,8 +458,9 @@ func _step_card(st: Dictionary, args: Dictionary) -> Dictionary:
 	var ch: Dictionary = chapters.get(chapter_id, {})
 	var a := args.duplicate()
 	a.merge({"chapter": tr(str(ch.get("name_key", ""))), "n": index + 1, "total": steps.size()}, true)
-	var d := {"step": _t("tutorial.ui.step", a), "body": _t(str(st.get("text", "")), args),
-		"foot": _t("tutorial.ui.keys")}
+	# the chapter on the ribbon (its short name if it has one: one line in the notice), the step count in the card
+	var d := {"step": ribbon_name(chapter_id), "count": _t("tutorial.ui.step", a), "body": _t(str(st.get("text", "")),
+		args), "foot": _t("tutorial.ui.keys")}
 	if bool(focus.get("opener", false)) and str(focus.get("text", "")) != "":
 		d["lead"] = _t(str(focus["text"]), args)
 	if str(st.get("advance", "")) == "next":
@@ -472,13 +473,21 @@ func _step_card(st: Dictionary, args: Dictionary) -> Dictionary:
 	return d
 
 
+## The chapter's name for the ribbon: `<name_key>.short` when i18n has it (a long name would not fit one line of the
+## notice's ribbon), else the name.
+func ribbon_name(id: String) -> String:
+	var key := str(chapters.get(id, {}).get("name_key", ""))
+	var short := tr(key + ".short")
+	return short if short != key + ".short" else tr(key)
+
+
 func _end_card(args: Dictionary) -> Dictionary:
 	var ch: Dictionary = chapters.get(chapter_id, {})
 	var nxt := next_chapter(chapter_id)
 	var a := args.duplicate()
 	a["chapter"] = tr(str(ch.get("name_key", "")))
 	a["next"] = tr(str(chapters.get(nxt, {}).get("name_key", ""))) if nxt != "" else ""
-	var d := {"step": str(a["chapter"]),   # the chapter's name on the ribbon (a long one would not fit in it)
+	var d := {"step": ribbon_name(chapter_id),   # the chapter's name on the ribbon (the short one if it has it)
 		"body": tr("tutorial.ui.chapter_done") + " " + (_t("tutorial.ui.chapter_done_body", a) if nxt != ""
 			else tr("tutorial.ui.all_done"))}
 	var buttons: Array = []

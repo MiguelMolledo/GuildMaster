@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=73 format=3 uid="uid://bsmlccu1dtv2v"]
+[gd_resource type="Theme" load_steps=72 format=3 uid="uid://bsmlccu1dtv2v"]
 
 [ext_resource type="Texture2D" uid="uid://55w2uwcmn4ky" path="res://assets/art/ui/theme/panel.png" id="panel"]
 [ext_resource type="Texture2D" uid="uid://bqd15odjsdvmm" path="res://assets/art/ui/theme/button_normal.png" id="button_normal"]
@@ -20,7 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://dy4qxp5bs02j8" path="res://assets/art/ui/theme/portrait_normal.png" id="portrait_normal"]
 [ext_resource type="Texture2D" uid="uid://epq8rspeu8ci" path="res://assets/art/ui/theme/portrait_active.png" id="portrait_active"]
 [ext_resource type="Texture2D" uid="uid://clyh36iw31dvg" path="res://assets/art/ui/theme/portrait_dim.png" id="portrait_dim"]
-[ext_resource type="FontFile" uid="uid://d2cgns7quqhfv" path="res://assets/art/ui/fonts/jacquarda_bastarda_9.ttf" id="font_title"]
 [ext_resource type="FontFile" uid="uid://8xsoepol553f" path="res://assets/art/ui/fonts/pixel_operator.ttf" id="font_body"]
 [ext_resource type="FontFile" uid="uid://6ldjcabjkexb" path="res://assets/art/ui/fonts/pixel_operator_bold.ttf" id="font_bold"]
 [ext_resource type="FontFile" uid="uid://b7a6boimjai6i" path="res://assets/art/ui/fonts/pixel_operator_8.ttf" id="font_small"]
@@ -629,8 +628,12 @@ HSlider/styles/grabber_area_highlight = SubResource("slider_fill")
 TitleLabel/base_type = &"Label"
 TitleLabel/colors/font_color = Color(0.784314, 0.658824, 0.305882, 1)
 TitleLabel/constants/line_spacing = -4
-TitleLabel/fonts/font = ExtResource("font_title")
-TitleLabel/font_sizes/font_size = 13
+TitleLabel/fonts/font = ExtResource("font_gothic")
+TitleLabel/font_sizes/font_size = 24
+SectionTitle/base_type = &"Label"
+SectionTitle/colors/font_color = Color(0.784314, 0.658824, 0.305882, 1)
+SectionTitle/fonts/font = ExtResource("font_bold")
+SectionTitle/font_sizes/font_size = 16
 BodyLabel/base_type = &"Label"
 BodyLabel/fonts/font = ExtResource("font_body")
 BodyLabel/font_sizes/font_size = 16
@@ -666,8 +669,8 @@ InkLabel/font_sizes/font_size = 16
 InkTitleLabel/base_type = &"Label"
 InkTitleLabel/colors/font_color = Color(0.360784, 0.227451, 0.117647, 1)
 InkTitleLabel/constants/line_spacing = 0
-InkTitleLabel/fonts/font = ExtResource("font_title")
-InkTitleLabel/font_sizes/font_size = 13
+InkTitleLabel/fonts/font = ExtResource("font_gothic")
+InkTitleLabel/font_sizes/font_size = 24
 DividerSeparator/base_type = &"HSeparator"
 DividerSeparator/constants/separation = 3
 DividerSeparator/styles/separator = SubResource("divider_box")
@@ -754,8 +757,8 @@ VoteTrack/colors/track = Color(0.2, 0.18, 0.16, 1)
 TutorialTitle/base_type = &"Label"
 TutorialTitle/colors/font_color = Color(0.360784, 0.227451, 0.117647, 1)
 TutorialTitle/constants/line_spacing = 0
-TutorialTitle/fonts/font = ExtResource("font_title")
-TutorialTitle/font_sizes/font_size = 13
+TutorialTitle/fonts/font = ExtResource("font_bold")
+TutorialTitle/font_sizes/font_size = 16
 TutorialStep/base_type = &"Label"
 TutorialStep/colors/font_color = Color(0.360784, 0.227451, 0.117647, 1)
 TutorialStep/constants/line_spacing = 1
@@ -789,8 +792,8 @@ PageBad/font_sizes/font_size = 16
 PageTitle/base_type = &"Label"
 PageTitle/colors/font_color = Color(0.243137, 0.156863, 0.0784314, 1)
 PageTitle/constants/line_spacing = 0
-PageTitle/fonts/font = ExtResource("font_title")
-PageTitle/font_sizes/font_size = 13
+PageTitle/fonts/font = ExtResource("font_gothic")
+PageTitle/font_sizes/font_size = 24
 PageRibbon/base_type = &"Label"
 PageRibbon/colors/font_color = Color(0.94902, 0.847059, 0.501961, 1)
 PageRibbon/colors/font_outline_color = Color(0.101961, 0.0705882, 0.0352941, 1)

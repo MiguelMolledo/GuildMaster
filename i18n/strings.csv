@@ -343,7 +343,7 @@ ui.board.deliver,Deliver,Entregar
 ui.board.deliver_tip,Hand over the pieces you carry and get paid,Entregar las piezas que llevas y cobrar
 ui.board.abandon,Abandon,Abandonar
 ui.board.abandon_tip,"Counts as failed: reputation −5, the client is angry","Cuenta como incumplido: reputación −5, el cliente se enfada"
-ui.ledger.title,Account book · %s,Libro de cuentas · %s
+ui.ledger.title,Account book,Libro de cuentas
 ui.ledger.tab.today,Today,Hoy
 ui.ledger.tab.days,By day,Por día
 ui.ledger.tab.buildings,By building,Por edificio
@@ -2160,6 +2160,7 @@ tutorial.market.resources,The Resources stall sells iron and coal. Right click o
 tutorial.market.errand,Errand: they bring it to your workshop for a surcharge and you carry no weight. Order something.,Recado: te lo llevan a tu taller por un recargo y no cargas peso. Encarga algo.
 tutorial.market.done,"Buy cheap, sell when the demand is high. The book (L) writes down every coin.","Compra barato, vende cuando la demanda esté alta. El libro (L) apunta cada moneda."
 tutorial.chapter.debt,Debt and account book,Deuda y libro de cuentas
+tutorial.chapter.debt.short,Debt and books,Deuda y cuentas
 tutorial.chapter.debt.desc,"How much you owe, when it is due and where to pay.","Cuánto debes, cuándo vence y dónde se paga."
 tutorial.debt.debt_box,"You start with a debt: the figure, what is paid and the days left.","Empiezas con una deuda: la cifra, lo pagado y los días que quedan."
 tutorial.debt.open,Open the account book: L or this button.,Abre el libro de cuentas: L o este botón.
@@ -2186,6 +2187,7 @@ tutorial.upgrades.grid,Eight branches of three levels. Each square is an upgrade
 tutorial.upgrades.detail,"The detail: what it changes, what it costs and what is missing.","El detalle: lo que cambia, lo que cuesta y lo que falta."
 tutorial.upgrades.buy,Buying starts a work: the workshop stops while it lasts.,Comprar abre una obra: el taller para mientras dura.
 tutorial.chapter.family,"Family, courtship and inheritance","Familia, cortejo y herencia"
+tutorial.chapter.family.short,Family and heirs,Familia y herencia
 tutorial.chapter.family.desc,"The tree, the heir and how to find a partner.","El árbol, el heredero y cómo buscar pareja."
 tutorial.family.open,Your family tree: F or this button.,El árbol de tu familia: F o este botón.
 tutorial.family.canvas,"Your family: the head, their partner and the children. The crown marks the heir: if the head dies, they get everything. Click on someone to see their sheet.","Tu familia: el cabeza, su pareja y los hijos. La corona marca a quien hereda: si muere el cabeza, lo recibe todo. Clic en alguien para ver su ficha."
@@ -2297,7 +2299,7 @@ tutorial.ui.skip_step,Skip (Tab),Saltar (Tab)
 tutorial.ui.skip_chapter,Skip chapter,Saltar capítulo
 tutorial.ui.got_it,Got it,Entendido
 tutorial.ui.never,Do not show again,No volver a mostrar
-tutorial.ui.step,{chapter} · {n}/{total},{chapter} · {n}/{total}
+tutorial.ui.step,Step {n} of {total},Paso {n} de {total}
 tutorial.ui.waiting,Do it to go on,Hazlo para seguir
 tutorial.ui.hint,First time,Primera vez
 tutorial.ui.chapter_done,Chapter done.,Capítulo terminado.

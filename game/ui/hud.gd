@@ -136,6 +136,7 @@ func _ready() -> void:
 	_game = get_node_or_null("/root/Game")
 	HudKeys.ensure()
 	UiFeel.install(get_tree())
+	TitleFit.install(get_tree())   # a panel title that does not fit in gothic takes the small letter
 	_title_label.text = tr("app.title")
 	_paused_label.text = tr("hud.paused")
 	# 2 · status bar: icon + key on each button (docs/ui/01 §4, zone 2)

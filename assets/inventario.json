@@ -2389,7 +2389,7 @@
       "origen": "Pillow (tools/art/marco_retrato.py) con la paleta de page_kit/plate_frame",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Marco de cuadro de los retratos (PortraitFrame): frame_s_* 38×38 (listón 3, retrato 32) y frame_l_* 76×76 (listón 6, retrato 64), acabados gold (activo), wood (controlable) y dark (los demás). 9 trozos con el remate de la esquina de margen (5 y 9). Sustituye a los marcos portrait_normal/active/dim del theme en los retratos (siguen para otros usos)."
+      "notas": "Marco de cuadro de los retratos (PortraitFrame): frame_s_* 38×38 (listón 3, retrato 32) y frame_l_* 82×82 (listón 9 tallado: cuentas, doble filete, tacos con diamante y hojas; retrato 64), acabados gold (activo), wood (controlable) y dark (los demás). 9 trozos con el remate de la esquina de margen (5 y 9). Sustituye a los marcos portrait_normal/active/dim del theme en los retratos (siguen para otros usos)."
     },
     {
       "id": "ui_page_pilot_art",

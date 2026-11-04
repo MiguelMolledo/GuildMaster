@@ -46,7 +46,7 @@ func build() -> void:
 	for sec: Array in KEYS:
 		var col := get_node("%KeysRight" if int(sec[0]) == 1 else "%KeysLeft") as VBoxContainer
 		var t := Label.new()
-		t.theme_type_variation = &"InkTitleLabel"
+		t.theme_type_variation = &"InkBold"
 		t.text = tr(str(sec[1]))
 		col.add_child(t)
 		for k: String in sec[2]:
@@ -58,7 +58,7 @@ func build() -> void:
 		l.custom_minimum_size = Vector2(WIDTH, 0)
 		if k.begins_with("#"):
 			l.text = tr(k.substr(1))
-			l.theme_type_variation = &"InkTitleLabel"
+			l.theme_type_variation = &"InkBold"
 		else:
 			l.text = "· " + tr(k)
 			l.theme_type_variation = &"InkLabel"

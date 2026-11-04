@@ -100,7 +100,7 @@ func _row(e: Dictionary, now: int) -> PanelContainer:
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	info.add_theme_constant_override("separation", 0)
 	h.add_child(info)
-	info.add_child(MenuKit.label(_slot_name(slot), &"TitleLabel"))
+	info.add_child(MenuKit.label(_slot_name(slot), &"SectionTitle"))
 	if bool(e["ok"]):
 		var hd: Dictionary = e["header"]
 		var who := MenuKit.label(MenuKit.who_label(hd, time_config), &"BodyLabel")

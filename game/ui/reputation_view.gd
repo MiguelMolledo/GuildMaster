@@ -19,7 +19,7 @@ static func fill(box: VBoxContainer, sim: Sim, fam: String) -> void:
 	var head := HBoxContainer.new()
 	head.name = "rep_global"
 	head.add_theme_constant_override("separation", 8)
-	head.add_child(SocialKit.label(SimQuery.t_("ui.rep.title"), &"TitleLabel", "Name"))
+	head.add_child(SocialKit.label(SimQuery.t_("ui.rep.title"), &"SectionTitle", "Name"))
 	var v := SocialKit.label(str(rep), &"GoldLabel" if rep >= 0 else &"ReasonLabel", "Value")
 	head.add_child(v)
 	var trend := 0

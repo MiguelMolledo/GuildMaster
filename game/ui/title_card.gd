@@ -2,8 +2,8 @@ class_name TitleCard
 extends PanelContainer
 ## The title ceremony (GDD 4.12.2, H9; docs/ui/mecanicas/titulos_y_reputacion.md §3): when the player's family gets a
 ## title at the town hall (title_granted), a card in the middle of the screen with the family's colours as two
-## banners, the sealing-wax seal with the title's initial, the new title in large gothic, who received it, what it
-## opens, and the ladder of titles with the new step lit. A click (or the button) closes it; it also closes by itself
+## banners, the portrait of who received it in the gilded frame, the sealing-wax seal with the title's initial, the new
+## title in large gothic, who received it, what it opens, and the ladder of titles with the new step lit. A click (or the button) closes it; it also closes by itself
 ## after `seconds` real seconds (data/view.json "title_card_seconds"). Reads only; gives no orders.
 
 var _left: float = 0.0
@@ -33,6 +33,14 @@ func show_for(sim: Sim, e: Dictionary) -> void:
 		str(e.get("from", "")))
 	(%BannerRight as ColorRect).color = (%Banner as ColorRect).color
 	(%Initial as Label).text = SimQuery.title_name(title).substr(0, 1).to_upper()
+	var slot := %PortraitSlot as Control  # who receives it, ×2 in the gilded frame (a celebration)
+	SocialKit.clear(slot)
+	var actor := str(e.get("actor", ""))
+	if st.characters.has(actor):
+		var p := SocialKit.portrait(st, actor, {"gold": true})
+		p.set("big", true)
+		slot.add_child(p)
+	(%PortraitBox as Control).visible = slot.get_child_count() > 0
 	var box := %Ladder as HBoxContainer
 	for c: Node in box.get_children():
 		box.remove_child(c)

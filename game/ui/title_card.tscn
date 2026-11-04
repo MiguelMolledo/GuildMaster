@@ -53,6 +53,16 @@ layout_mode = 2
 color = Color(0.545, 0.18, 0.18, 1)
 unique_name_in_owner = true
 
+[node name="PortraitBox" type="CenterContainer" parent="VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PortraitSlot" type="Control" parent="VBox/PortraitBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(82, 82)
+layout_mode = 2
+mouse_filter = 2
+
 [node name="SealBox" type="CenterContainer" parent="VBox"]
 layout_mode = 2
 

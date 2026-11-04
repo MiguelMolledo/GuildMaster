@@ -57,7 +57,7 @@ func open_for(s: Sim, fam: String, who: String, start_tab: String = "") -> void:
 	sim = s
 	family = fam
 	actor = who
-	(%Title as Label).text = SimQuery.t_("ui.ledger.title") % str(s.state.families.get(fam, {}).get("name", fam))
+	(%Title as Label).text = SimQuery.t_("ui.ledger.title")   # always the own family's book: its name is not needed
 	for t: String in TABS:
 		tab_button(t).text = SimQuery.t_("ui.ledger.tab." + t)
 	_count_unread()
