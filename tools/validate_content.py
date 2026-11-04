@@ -857,26 +857,29 @@ def check_cast(rep):
         if len(pairs) < need + 2:
             rep.error(w, f"family_colors.pairs: {len(pairs)} parejas; el inicio {sid} tiene {need} familias IA (+2 de margen por el color del jugador)")
     po = c.get("portraits", {})
-    pool = load_json(os.path.join(ROOT, "assets", "art", "portraits", "index.json"), rep) if os.path.exists(
-        os.path.join(ROOT, "assets", "art", "portraits", "index.json")) else None
-    if pool is not None:
-        wp = "assets/art/portraits/index.json"
-        if pool.get("version") != 1:
-            rep.error(wp, "versión 1 (assets/art/portraits/README.md)")
+    # data/portraits.json: the sim's catalog of the pool, exported from assets/art/portraits/index.json (ids, no paths)
+    wp = "portraits.json"
+    pool = load_json(os.path.join(DATA, "portraits.json"), rep) or {}
+    if os.path.exists(os.path.join(ROOT, "assets", "art", "portraits", "index.json")):
+        sys.path.insert(0, os.path.join(ROOT, "tools", "art"))
+        import portraits_catalog
+        want = portraits_catalog.expected()
+        if {k: v for k, v in pool.items() if k != "_doc"} != {k: v for k, v in want.items() if k != "_doc"}:
+            rep.error(wp, "no coincide con assets/art/portraits/index.json: python3 tools/art/portraits_catalog.py")
+    elif pool:
+        rep.error(wp, "no hay assets/art/portraits/index.json del que salga")
+    if pool:
         for t in po.get("types", []):
             if t not in pool.get("types", []):
                 rep.error(w, f"portraits.types: {t} no es un tipo del pool")
         bands = pool.get("ages", {})
-        prev = -1
         for stg in po.get("stages", []):
             b = bands.get(stg.get("id"))
-            if not b or (b[1] is not None and b[1] != stg.get("to_age")) or b[0] > prev + 1 + (6 if prev < 0 else 0):
+            if not b or (b[1] is not None and b[1] != stg.get("to_age")):
                 rep.error(w, f"portraits.stages.{stg.get('id')}: no casa con las franjas del pool {b}")
-            prev = stg.get("to_age", prev)
-        have = {(e.get("sex"), e.get("age"), e.get("type")) for e in pool.get("portraits", [])}
         for sex in ("m", "f"):
             for b in bands:
-                if (sex, b, "commoner") not in have:
+                if not pool.get("by", {}).get(f"{sex}|{b}|commoner"):
                     rep.error(wp, f"falta commoner {sex} {b} (el último recurso del reparto)")
     ptypes = po.get("types", [])
     if not ptypes or not all(isinstance(t, str) and ID_RE.match(t) for t in ptypes):
