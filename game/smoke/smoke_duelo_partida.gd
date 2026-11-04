@@ -3,8 +3,8 @@ extends Node
 ## heavy` with the engine's --always-on-top). Scenario duel_ready (the rival smith has just insulted Hugo, both in the
 ## street by the plaza): the rival's sheet with «Retar a duelo…» (duelp_ficha), the challenge card (duelp_carta), the
 ## order given from its button, the rival's answer card (duelp_respuesta), the dawn's notice and Hugo walking to the
-## plaza (duelp_alba), the duel screen opened by itself with the game paused (duelp_pantalla), two lances played with
-## the keys' actions (duelp_lance_1, _2), «Resolver sin jugar» and the result card with what changed (duelp_resultado),
+## plaza (duelp_alba), the duel screen opened by itself with the game paused (duelp_pantalla), four lances played with
+## strike, feint and the gesture's answer (duelp_lance_1.._4, mid-effect), «Resolver sin jugar» and the result card with what changed (duelp_resultado),
 ## and the game after it (duelp_despues: the notices). Checks that each piece is on screen; quits with 1 if one is
 ## missing or on timeout.
 
@@ -125,20 +125,23 @@ func _process(delta: float) -> void:
 				_go("lance")
 		"lance":
 			if _t > 0.3 and not d.screen.busy:
-				if d.screen.duel.over() or _lances >= 2:
+				if d.screen.duel.over() or _lances >= 4:
 					d.screen._auto_finish()
 					_go("result")
 					return
 				var v := d.screen.duel.view(d.screen.player)
-				var act := "parry"
-				if str(v["role"]) == "read":
+				# every effect of the art once: strike, feint, then the gesture's answer
+				var act: String = ["strike", "feint", "parry", "strike"][_lances]
+				if str(v["role"]) == "read" and _lances >= 2:
 					var best := CombatRules.counter_of(d.screen.cfg, str(v["cue"]))
 					act = best if best in (v["allowed"] as Array) else "parry"
+				if not act in (v["allowed"] as Array):
+					act = "parry"
 				d.screen._choose(act)
 				_lances += 1
 				_go("lance_shot")
 		"lance_shot":
-			if _t > 0.25:
+			if _t > 0.3:  # mid-effect: the action's and, on a touch, the hit's
 				app.save_shot("duelp_lance_%d" % _lances)
 				_go("lance")
 		"result":

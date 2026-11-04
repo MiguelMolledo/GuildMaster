@@ -182,46 +182,64 @@ static func illustration(kind: String, id: String, small: bool = false) -> Textu
 	return null
 
 
-## Duelo (docs/ui/mecanicas/combate.md §8): the frames of a duel effect (strike, parry, feint, hit) from
-## assets/art/vfx/duel_<kind>/: a horizontal strip duel_<kind>.png of square frames (its height), or numbered frames
-## duel_<kind>_01.png, _02.png... [] until they exist: the arena draws its provisional effect by code.
-static func duel_vfx(kind: String) -> Array[Texture2D]:
-	var out: Array[Texture2D] = []
+## Duelo (docs/ui/mecanicas/combate.md §8): the names the art uses for the duel's ids (the art keeps its names, as in
+## assets/inventario.json): icons icon_<name>.png, illustrations <name>[_192].png.
+const DUEL_ICON_ALIAS: Dictionary = {"yield": "surrender"}
+const DUEL_ILLUSTRATION_ALIAS: Dictionary = {"won": "victory", "win": "victory", "lost": "defeat", "lose": "defeat"}
+
+
+## Duelo: a duel effect (strike, parry, feint, hit) from assets/art/vfx/duel_<kind>/: the strip duel_<kind>.png and its
+## duel_<kind>.json (frames, frame_w, frame_h, fps, loop, start_frame, offset {x, y}: the frame's top-left from the
+## feet of who does it, facing: the side it looks to; the other side is drawn mirrored). {frames: [Texture2D], fps,
+## loop, offset: Vector2, facing} or {} until it exists (the arena draws its provisional effect by code). Without the
+## .json, square frames of the strip's height centred over the feet.
+static func duel_vfx(kind: String) -> Dictionary:
 	var dir := "%s/vfx/duel_%s" % [ART_ROOT, kind]
 	var strip := "%s/duel_%s.png" % [dir, kind]
-	if ResourceLoader.exists(strip):
-		var t := load(strip) as Texture2D
-		var h := t.get_height()
-		var n := maxi(1, t.get_width() / maxi(1, h))
-		for i: int in n:
-			var a := AtlasTexture.new()
-			a.atlas = t
-			a.region = Rect2(i * h, 0, h, h)
-			out.append(a)
-		return out
-	for i: int in range(1, 17):
-		var p := "%s/duel_%s_%02d.png" % [dir, kind, i]
-		if not ResourceLoader.exists(p):
-			break
-		out.append(load(p) as Texture2D)
-	return out
+	if not ResourceLoader.exists(strip):
+		return {}
+	var t := load(strip) as Texture2D
+	var meta: Dictionary = {}
+	var jp := "%s/duel_%s.json" % [dir, kind]
+	if FileAccess.file_exists(jp):
+		var j: Variant = JSON.parse_string(FileAccess.get_file_as_string(jp))
+		if j is Dictionary:
+			meta = j
+	var fh := int(meta.get("frame_h", t.get_height()))
+	var fw := int(meta.get("frame_w", fh))
+	var n := int(meta.get("frames", maxi(1, t.get_width() / maxi(1, fw))))
+	var frames: Array[Texture2D] = []
+	for i: int in range(int(meta.get("start_frame", 0)), n):
+		var a := AtlasTexture.new()
+		a.atlas = t
+		a.region = Rect2(i * fw, 0, fw, fh)
+		frames.append(a)
+	var off: Dictionary = meta.get("offset", {"x": -fw / 2, "y": -fh})
+	return {"frames": frames, "fps": float(meta.get("fps", 12)), "loop": bool(meta.get("loop", false)),
+		"offset": Vector2(float(off.get("x", 0)), float(off.get("y", 0))), "size": Vector2(fw, fh),
+		"facing": str(meta.get("facing", "e"))}
 
 
-## Duelo: the icon of a duel action or figure (strike, parry, feint, yield, breath, touch): assets/art/ui/icons/duel/
-## <id>.png (32) or small/<id>.png (16). null until it exists: the buttons and bars go without it.
+## Duelo: the icon of a duel action or figure (strike, parry, feint, yield, auto, breath, touch, challenge):
+## assets/art/ui/icons/duel/icon_<name>.png (32) or small/icon_<name>.png (16). null until it exists.
 static func duel_icon(id: String, small: bool = false) -> Texture2D:
-	var p := "%s/ui/icons/duel/%s%s.png" % [ART_ROOT, "small/" if small else "", id]
-	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+	var name := str(DUEL_ICON_ALIAS.get(id, id))
+	for f: String in ["icon_" + name, name]:
+		var p := "%s/ui/icons/duel/%s%s.png" % [ART_ROOT, "small/" if small else "", f]
+		if ResourceLoader.exists(p):
+			return load(p) as Texture2D
+	return null
 
 
-## Duelo: the illustration of a duel card (won, lost, draw, challenge): the page kit's place
-## (assets/art/illustrations/duel/<id>.png, illustration()) or the one assets/inventario.json reserves
-## (assets/art/ui/illustrations/duel/<id>.png). null = the card goes without it.
-static func duel_illustration(id: String) -> Texture2D:
-	var t := illustration("duel", id)
+## Duelo: the illustration of a duel card (won/victory, lost/defeat, draw, challenge): 240×135 for cards, `small`
+## 192×108 (<name>_192) for notices. The page kit's place (assets/art/illustrations/duel/, illustration()) or the one
+## assets/inventario.json reserves (assets/art/ui/illustrations/duel/). null = the card goes without it.
+static func duel_illustration(id: String, small: bool = false) -> Texture2D:
+	var name := str(DUEL_ILLUSTRATION_ALIAS.get(id, id))
+	var t := illustration("duel", name, small)
 	if t != null:
 		return t
-	var p := "%s/ui/illustrations/duel/%s.png" % [ART_ROOT, id]
+	var p := "%s/ui/illustrations/duel/%s%s.png" % [ART_ROOT, name, "_192" if small else ""]
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 

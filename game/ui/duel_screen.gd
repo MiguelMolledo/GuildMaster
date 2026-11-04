@@ -164,6 +164,10 @@ func _setup(state: WorldState, a: String, b: String) -> void:
 	for act: String in _buttons:
 		(_buttons[act] as Button).icon = VisualPaths.duel_icon(act, true)
 	_yield.icon = VisualPaths.duel_icon("yield", true)
+	_auto.icon = VisualPaths.duel_icon("auto", true)
+	for i: int in 2:
+		_touches[i].icon = VisualPaths.duel_icon("touch", true)
+		_breath[i].icon = VisualPaths.duel_icon("breath", true)
 	_arena.setup(_chars, _families)
 	visible = true
 	UiAnim.panel_in(get_node("%Frame") as Control)

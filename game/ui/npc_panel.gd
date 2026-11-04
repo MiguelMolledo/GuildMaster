@@ -278,6 +278,7 @@ func _duel_button() -> Button:
 	var b := Button.new()
 	b.name = "DuelButton"
 	b.text = SimQuery.t_("ui.npc.duel")
+	b.icon = VisualPaths.duel_icon("challenge", true)
 	b.focus_mode = Control.FOCUS_NONE
 	b.theme_type_variation = &"BodyButton"
 	b.disabled = why != ""
