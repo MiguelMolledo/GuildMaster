@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnkyq6aaj23bi"]
+
+[ext_resource type="Texture2D" uid="uid://boqh43m1bxkoj" path="res://assets/art/props/lantern.png" id="1_tex"]
+
+[node name="Lantern" type="Node2D"]
+editor_description = "Street lantern (prop_lantern, fal edit + tools/city/sprites_ciudad.py lantern). The town builder (tools/city/) puts one every few tiles along the streets and at the crossings, beside the street, never on it nor on a door. The sprite's base sits on Feet."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -58)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-16, -61)

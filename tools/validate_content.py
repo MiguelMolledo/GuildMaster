@@ -109,7 +109,7 @@ def check_maps(rep):
         if bad:
             continue
 
-        def walk(c, r):
+        def walk(c, r, rows=rows, size=size):  # bound now: one walk per map (data/maps has several)
             return 0 <= c < size[0] and 0 <= r < size[1] and tiles[by_char[rows[r][c]]].get("walk_cost") is not None
 
         for name, pos in (m.get("spawns") or {}).items():
@@ -853,6 +853,19 @@ def check_cast(rep):
         rep.error(w, "family_colors.pairs: color principal repetido (las familias se distinguen por él)")
     maps = load_kind("maps", rep)
     for sid, st in load_kind("starts", rep).items():
+        # fixed cast: no two families of a start (player, rival, competitors, the map's houses) share a surname
+        houses = [("defaults", (st.get("defaults") or {}).get("family_name"))]
+        if st.get("rival"):
+            houses.append(("rival", st["rival"].get("family_name")))
+        houses += [(f"competitors[{i}]", c.get("family_name")) for i, c in enumerate(st.get("competitors", []))]
+        houses += [(f"casa {h.get('home')} de {st.get('map')}", h.get("family_name"))
+                   for h in maps.get(st.get("map"), {}).get("population", []) if h.get("family_name")]
+        seen_fam = {}
+        for where, fname in houses:
+            if fname in seen_fam:
+                rep.error(f"starts/{sid}", f"apellido «{fname}» repetido: {seen_fam[fname]} y {where} (reparto fijo)")
+            elif fname:
+                seen_fam[fname] = where
         need = (1 if st.get("rival") else 0) + len(st.get("competitors", [])) + len(maps.get(st.get("map"), {}).get("population", []))
         if len(pairs) < need + 2:
             rep.error(w, f"family_colors.pairs: {len(pairs)} parejas; el inicio {sid} tiene {need} familias IA (+2 de margen por el color del jugador)")

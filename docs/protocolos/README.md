@@ -7,6 +7,7 @@ Paso a paso para añadir contenido sin tocar código. Cada protocolo termina con
 - [crear-receta.md](crear-receta.md)
 - [crear-edificio.md](crear-edificio.md)
 - [generar-arte-pixellab.md](generar-arte-pixellab.md) (solo con encargo: gasta créditos)
+- [generar-ciudad.md](generar-ciudad.md): vestir un mapa por reglas y generar ciudades nuevas (tools/city/)
 
 Llegarán con sus hitos: crear-mejora (H5), crear-npc (H7), crear-mapa (H1/H6), crear-cargo (H10), crear-evento (H7/H13),
 crear-profesion (H12).

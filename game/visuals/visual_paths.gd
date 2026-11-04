@@ -12,7 +12,8 @@ extends RefCounted
 ##
 ## Every visual scene has a Marker2D "Feet" (the point that rests on the anchor: a tile centre, the centre of a
 ## footprint, a walker's feet) and may have a Marker2D "Top" (how high it stands: where the sign, the bar or the name
-## goes, and the height of its click area).
+## goes, and the height of its click area). Buildings and filler houses also have a Marker2D "Door" on the threshold
+## of the drawn door, with its metadata (door_of; docs/protocolos/generar-ciudad.md §Puertas).
 
 const ROOT: String = "res://game/visuals"
 const KINDS: Array[String] = ["buildings", "interiors", "stations", "props", "characters", "bubbles"]
@@ -23,6 +24,7 @@ const AUDIO_EXTENSIONS: Array[String] = ["ogg", "wav"]
 
 static var _cache: Dictionary = {}       # path -> PackedScene (or null when it does not exist)
 static var _warned: Dictionary = {}      # "kind/id" -> true (the fallback is reported once)
+static var _doors: Dictionary = {}       # "kind/id" -> door_of() (scenes do not change while the game runs)
 
 
 ## res://game/visuals/<kind>/<id>.tscn (whether it exists or not).
@@ -209,3 +211,26 @@ static func _load(path: String) -> PackedScene:
 	var ps: PackedScene = load(path) as PackedScene if ResourceLoader.exists(path) else null
 	_cache[path] = ps
 	return ps
+
+
+
+## The drawn door of <kind>/<id>.tscn, from its Marker2D "Door" (tools/city/marcar_puertas.py; exported for the town
+## tools to data/building_sprites.json): {side: "SW"|"SE"|"NE"|"NW" (the face of the footprint: SW looks to +row, SE
+## to +col, NE to -row, NW to -col), tile: Vector2i (the door's tile from the footprint's origin), footprint:
+## Vector2i, mirror: bool (may be mirrored), back / front: the scene id seen from the other side ("" if none),
+## position: Vector2 (the threshold from Feet)}, or {} without a marker.
+static func door_of(kind: String, id: String) -> Dictionary:
+	var key := "%s/%s" % [kind, id]
+	if _doors.has(key):
+		return _doors[key]
+	var out := {}
+	if has_scene(kind, id):
+		var n := instantiate(kind, id)
+		var m := n.get_node_or_null("Door") as Marker2D
+		if m != null:
+			out = {"side": str(m.get_meta("side", "")), "tile": m.get_meta("tile", Vector2i.ZERO),
+				"footprint": m.get_meta("footprint", Vector2i.ONE), "mirror": bool(m.get_meta("mirror", false)),
+				"back": str(m.get_meta("back", "")), "front": str(m.get_meta("front", "")), "position": m.position}
+		n.free()
+	_doors[key] = out
+	return out

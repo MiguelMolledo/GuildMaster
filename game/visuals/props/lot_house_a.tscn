@@ -11,6 +11,17 @@ editor_description = "Filler house of the town's blocks (map tiles #): WorldView
 [node name="Top" type="Marker2D" parent="."]
 position = Vector2(0, -88)
 
+[node name="Door" type="Marker2D" parent="."]
+editor_description = "Threshold of the drawn door (docs/protocolos/generar-ciudad.md §Puertas): the generator, the validator and WorldView read where the door is from here (data/building_sprites.json is exported from it: python3 tools/city/sprites_catalog.py). side = face of the footprint (SW, SE, NE, NW), tile = door tile from the footprint origin."
+position = Vector2(-29, 18)
+metadata/side = "SW"
+metadata/tile = Vector2i(1, 3)
+metadata/footprint = Vector2i(3, 3)
+metadata/mirror = true
+metadata/back = "lot_house_a_back"
+metadata/front = ""
+
+
 [node name="Sprite" type="Sprite2D" parent="."]
 editor_description = "Scale B (docs/arte/escala.md, tools/art/escala_b.py): Guild Renew sprite with taller floors and door, 1:1, base on Feet. The sprite of before is SpriteAntes (hidden)."
 texture_filter = 1

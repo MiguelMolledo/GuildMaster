@@ -1,0 +1,58 @@
+[
+ {
+  "fecha": "2026-11-03T21:38:17",
+  "pieza": "lantern",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "lantern_v1"
+ },
+ {
+  "fecha": "2026-11-03T21:38:18",
+  "pieza": "back_houses",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_a_back_v1"
+ },
+ {
+  "fecha": "2026-11-03T21:40:02",
+  "pieza": "back_houses",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_b_back_v1"
+ },
+ {
+  "fecha": "2026-11-03T21:40:19",
+  "pieza": "back_houses",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_c_back_v1"
+ },
+ {
+  "fecha": "2026-11-03T21:40:34",
+  "pieza": "back_houses",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_d_back_v1"
+ },
+ {
+  "fecha": "2026-11-03T21:40:48",
+  "pieza": "back_houses",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_e_back_v1"
+ },
+ {
+  "fecha": "2026-11-03T21:41:04",
+  "pieza": "back_houses",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "house_f_back_v1"
+ }
+]

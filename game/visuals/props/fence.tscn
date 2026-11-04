@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dshtwekbj5oet"]
+
+[ext_resource type="Texture2D" uid="uid://bpkso1mhsi34t" path="res://assets/art/props/fence.png" id="1_tex"]
+
+[node name="Fence" type="Node2D"]
+editor_description = "One fence segment along a tile edge, drawn as \\ (the col axis); the town builder (tools/city/) mirrors it for the / edges. Feet = the middle of the edge. Drawn by code (tools/city/sprites_ciudad.py fence)."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -24)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-17, -30)

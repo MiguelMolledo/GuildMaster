@@ -1,18 +1,36 @@
-[gd_scene load_steps=15 format=3 uid="uid://oglue7gwadga"]
+[gd_scene load_steps=17 format=3 uid="uid://oglue7gwadga"]
 
 [ext_resource type="Script" uid="uid://dclcjwcrf4upw" path="res://game/visuals/greybox/greybox_blocks.gd" id="1_greybox"]
+
 [ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="2_block"]
+
 [ext_resource type="Script" uid="uid://4ajbo4o6uuuw" path="res://game/visuals/greybox/greybox_masonry.gd" id="3_masonry"]
+
 [ext_resource type="Texture2D" uid="uid://crfbb8caxfuin" path="res://assets/art/buildings/escala_b/carpentry.png" id="4_sprite_b"]
+
 [ext_resource type="Texture2D" uid="uid://cj0na7fajw00y" path="res://assets/art/buildings/forge_works.png" id="art_works"]
+
 [ext_resource type="Texture2D" uid="uid://cmavdvnmnbvr3" path="res://assets/art/buildings/escala_b/forge_works.png" id="art_works_b"]
+
 [ext_resource type="Texture2D" uid="uid://c5p3narun8mwq" path="res://assets/art/buildings/forge_plinth.png" id="art_plinth"]
+
 [ext_resource type="Texture2D" uid="uid://d3ncg4s0e1yd8" path="res://assets/art/buildings/forge_plinth_noble.png" id="art_plinth_noble"]
+
 [ext_resource type="Texture2D" uid="uid://ds7cgxfolkrtl" path="res://assets/art/props/banner.png" id="art_banner"]
+
 [ext_resource type="Texture2D" uid="uid://du085vdphq8dj" path="res://assets/art/props/trade_sign.png" id="art_sign"]
+
 [ext_resource type="Texture2D" uid="uid://cdckpgk18ed8x" path="res://assets/art/props/lock.png" id="art_lock"]
+
 [ext_resource type="Texture2D" uid="uid://mgj8ygk11mpu" path="res://assets/art/props/shop_window.png" id="art_window"]
+
 [ext_resource type="Texture2D" uid="uid://b1c7lhhs80a57" path="res://assets/art/props/garden.png" id="art_garden"]
+
+[ext_resource type="Texture2D" uid="uid://n57p7thlyr1n" path="res://assets/art/buildings/fal/carpentry.png" id="fal_n"]
+
+[ext_resource type="Texture2D" uid="uid://blmgasmpoco1x" path="res://assets/art/buildings/fal/carpentry_construction.png" id="fal_c"]
+
+[ext_resource type="Texture2D" uid="uid://btux18d4y1u5f" path="res://assets/art/buildings/fal/carpentry_damaged.png" id="fal_d"]
 
 [node name="Carpentry" type="Node2D"]
 y_sort_enabled = true
@@ -21,6 +39,16 @@ y_sort_enabled = true
 
 [node name="Top" type="Marker2D" parent="."]
 position = Vector2(0, -92)
+
+[node name="Door" type="Marker2D" parent="."]
+editor_description = "Threshold of the drawn door (docs/protocolos/generar-ciudad.md §Puertas): the generator, the validator and WorldView read where the door is from here (data/building_sprites.json is exported from it: python3 tools/city/sprites_catalog.py). side = face of the footprint (SW, SE, NE, NW), tile = door tile from the footprint origin."
+position = Vector2(-40, 12)
+metadata/side = "SW"
+metadata/tile = Vector2i(1, 4)
+metadata/footprint = Vector2i(3, 4)
+metadata/mirror = true
+metadata/back = "carpentry_back"
+metadata/front = ""
 
 [node name="Greybox" type="Node2D" parent="."]
 visible = false
@@ -32,11 +60,34 @@ color = Color(0.48627451, 0.498039216, 0.533333333, 1)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+texture = ExtResource("fal_n")
+centered = false
+offset = Vector2(-104, -138)
+editor_description = "fal facade (assets/art/buildings/fal/, docs/arte/fal_produccion.md): same canvas and anchor as scale B. While the building is under works or damaged WorldView puts the texture of LookConstruction / LookDamaged here. The scale B sprite is SpriteEscalaB (hidden)."
+
+[node name="SpriteEscalaB" type="Sprite2D" parent="."]
+visible = false
+editor_description = "Scale B sprite before the fal facade. To go back: put this texture on Sprite and delete LookConstruction / LookDamaged."
+texture_filter = 1
 texture = ExtResource("4_sprite_b")
 centered = false
 offset = Vector2(-104, -138)
-editor_description = "H12 derived placeholder (tools/art/oficios_h12.py): Guild Renew sprite at scale B with the trade sign and a yard prop. Replace with the PixelLab facade (assets/art/MANIFEST.md, shopping list)."
 
+[node name="LookConstruction" type="Sprite2D" parent="."]
+visible = false
+editor_description = "Texture of Sprite while the building is under works (WorldView._apply_looks); never shown itself."
+texture_filter = 1
+texture = ExtResource("fal_c")
+centered = false
+offset = Vector2(-104, -138)
+
+[node name="LookDamaged" type="Sprite2D" parent="."]
+visible = false
+editor_description = "Texture of Sprite while the building is damaged (WorldView._apply_looks); never shown itself."
+texture_filter = 1
+texture = ExtResource("fal_d")
+centered = false
+offset = Vector2(-104, -138)
 
 [node name="Upgrades" type="Node2D" parent="."]
 y_sort_enabled = true

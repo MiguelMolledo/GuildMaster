@@ -1,5 +1,5 @@
 {
- "_doc": "Today's cast (main without the generator: a590c3b, with the same-trade rivals of H12 1b) of each start with seed 1: per character [id, name, female, birth_day, hair, skin, family name, primary, secondary]. The fixed cast must give exactly this (tests/test_poblacion_cast.gd).",
+ "_doc": "Today's cast (main without the generator: a590c3b, with the same-trade rivals of H12 1b; the carpenter rival renamed Serra -> Fuster, a house of the map is Serra) of each start with seed 1: per character [id, name, female, birth_day, hair, skin, family name, primary, secondary]. The fixed cast must give exactly this (tests/test_poblacion_cast.gd).",
  "artisan_blacksmith": [
   [
    "chr_0001",
@@ -285,7 +285,7 @@
    -280,
    2,
    2,
-   "Serra",
+   "Fuster",
    "#6b4a2e",
    "#a8b0b8"
   ],
