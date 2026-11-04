@@ -25,6 +25,8 @@ extends Node
 ## H7: --smoke-script=ciudad: the plaza at dusk, the town at night, a townsperson's sheet, a microevent card and a
 ## customer at the counter.
 ## H14: --smoke-script=ia_familiar: the family AI panel, a spouse trading on her own, low needs.
+## Vida (04f 4.24): --smoke-script=vida: the plaza at dusk with corrillos and rumours, the watch at the gate, the night
+## round with lanterns, a brawl, the kidnapping's card and the book of rumours.
 ## H13: --smoke-script=eventos: the notices and the clock line of the global events, the market's price reason, the book.
 ## Page kit: --smoke-script=pagina: the card of a global event that starts and the other templates of PageCard.
 ## Region: --smoke-script=region: the map of the region from the pause menu and from R, its cards, the war's cut routes.
@@ -67,7 +69,8 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd", "viajes": "res://game/smoke/smoke_viajes.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
 	"duel": "res://game/smoke/smoke_duel.gd", "duelo_partida": "res://game/smoke/smoke_duelo_partida.gd",
-	"forja_viva": "res://game/smoke/smoke_forja_viva.gd", "ritmo": "res://game/smoke/smoke_ritmo.gd"}
+	"forja_viva": "res://game/smoke/smoke_forja_viva.gd", "ritmo": "res://game/smoke/smoke_ritmo.gd",
+	"vida": "res://game/smoke/smoke_vida.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
 const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"

@@ -469,6 +469,184 @@
      17
     ]
    ]
+  },
+  {
+   "id": "meet_well",
+   "kind": "well",
+   "slots": [
+    [
+     25,
+     12
+    ],
+    [
+     24,
+     13
+    ],
+    [
+     26,
+     13
+    ]
+   ]
+  },
+  {
+   "id": "meet_atrium",
+   "kind": "atrium",
+   "slots": [
+    [
+     23,
+     1
+    ],
+    [
+     22,
+     1
+    ],
+    [
+     24,
+     1
+    ],
+    [
+     21,
+     1
+    ],
+    [
+     25,
+     1
+    ]
+   ]
+  },
+  {
+   "id": "meet_washhouse",
+   "kind": "washhouse",
+   "slots": [
+    [
+     24,
+     29
+    ],
+    [
+     22,
+     28
+    ],
+    [
+     25,
+     29
+    ],
+    [
+     26,
+     29
+    ]
+   ]
+  },
+  {
+   "id": "meet_bridge",
+   "kind": "bridge",
+   "slots": [
+    [
+     32,
+     31
+    ],
+    [
+     32,
+     33
+    ],
+    [
+     33,
+     31
+    ]
+   ]
+  },
+  {
+   "id": "meet_east_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     45,
+     18
+    ],
+    [
+     44,
+     19
+    ],
+    [
+     45,
+     20
+    ]
+   ]
+  },
+  {
+   "id": "meet_north_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     31,
+     1
+    ],
+    [
+     30,
+     2
+    ],
+    [
+     32,
+     2
+    ]
+   ]
+  },
+  {
+   "id": "meet_south_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     28,
+     44
+    ],
+    [
+     27,
+     45
+    ],
+    [
+     29,
+     45
+    ]
+   ]
+  },
+  {
+   "id": "meet_west_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     3,
+     13
+    ],
+    [
+     2,
+     14
+    ],
+    [
+     1,
+     12
+    ]
+   ]
+  },
+  {
+   "id": "meet_square",
+   "kind": "square",
+   "slots": [
+    [
+     23,
+     10
+    ],
+    [
+     25,
+     10
+    ],
+    [
+     23,
+     12
+    ],
+    [
+     22,
+     8
+    ]
+   ]
   }
  ],
  "workplaces": [
@@ -1384,6 +1562,46 @@
   ],
   "lots": "26,20,2,3,afores;20,20,2,2,ribera;35,13,2,2,ribera;26,24,2,2,afores;37,10,2,2,ribera;34,22,2,2,ribera;12,6,2,2,afores;11,12,3,2,ribera;10,15,2,2,ribera;40,15,3,2,ribera;8,8,3,3,afores;38,21,2,2,ribera;37,24,3,2,ribera;9,21,2,2,ribera;5,12,3,3,ribera;42,21,2,2,afores;5,16,2,3,ribera;41,24,2,3,ribera;2,15,2,2,afores;19,39,2,3,afores;32,39,3,3,afores;28,40,2,2,afores;23,40,3,2,afores;24,43,3,2,afores;20,43,3,2,afores;12,40,3,3,afores;16,43,3,2,afores;30,43,2,2,afores"
  },
+ "patrols": [
+  {
+   "id": "patrol_main",
+   "tiles": [
+    [
+     43,
+     18
+    ],
+    [
+     24,
+     11
+    ],
+    [
+     31,
+     3
+    ]
+   ]
+  },
+  {
+   "id": "patrol_plaza",
+   "tiles": [
+    [
+     18,
+     2
+    ],
+    [
+     31,
+     2
+    ],
+    [
+     31,
+     19
+    ],
+    [
+     18,
+     19
+    ]
+   ]
+  }
+ ],
  "decor": {
   "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
   "items": [

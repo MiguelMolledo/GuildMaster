@@ -30,7 +30,11 @@ static func def(sim: Sim, id: String) -> Dictionary:
 ## the answer in unlocks._ready at load).
 static func ready(sim: Sim, d: Dictionary) -> bool:
 	var req := str(d.get("requires", ""))
-	return req == "" or bool((sim.catalog.unlocks.get("_ready", {}) as Dictionary).get(req, false))
+	if req == "":
+		return true
+	if not bool((sim.catalog.unlocks.get("_ready", {}) as Dictionary).get(req, false)):
+		return false
+	return not req.begins_with("life/") or Life.on(sim)  # vida: its rumours and incidents only with the town alive
 
 
 ## Whether `id` is open for `fam` (a family that is not the human's, or a game from before v20, has everything open).
@@ -228,7 +232,10 @@ static func _family_of(st: WorldState, e: Dictionary) -> String:
 	var fam := str(e.get("family", ""))
 	if fam != "":
 		return fam
-	return Money.family_of(st, str(e.get("actor", "")))
+	var who := str(e.get("actor", ""))
+	if who == "":
+		who = str(e.get("character", ""))  # vida: rumor_heard names who heard it
+	return Money.family_of(st, who)
 
 
 static func _human_families(st: WorldState) -> Array:

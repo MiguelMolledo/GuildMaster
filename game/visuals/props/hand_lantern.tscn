@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7gngdit1w78o"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_glow"]
+blend_mode = 1
+
+[node name="HandLantern" type="Node2D"]
+editor_description = "The lantern a guard carries on the night round (04f 4.24.4). Feet = the guard's hand; Greybox until the art arrives (assets/art/props/hand_lantern.png): add a Sprite like lantern.tscn and hide the Greybox. Glow: an additive halo that shows through the night tint."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="Greybox" type="Node2D" parent="."]
+
+[node name="Glow" type="Polygon2D" parent="Greybox"]
+material = SubResource("CanvasItemMaterial_glow")
+color = Color(1, 0.7, 0.3, 0.22)
+polygon = PackedVector2Array(0, -38, 19, -31, 27, -12, 19, 7, 0, 14, -19, 7, -27, -12, -19, -31)
+
+[node name="GlowInner" type="Polygon2D" parent="Greybox"]
+material = SubResource("CanvasItemMaterial_glow")
+color = Color(1, 0.78, 0.4, 0.4)
+polygon = PackedVector2Array(0, -24, 11, -20, 15, -9, 11, 2, 0, 6, -11, 2, -15, -9, -11, -20)
+
+[node name="Body" type="Polygon2D" parent="Greybox"]
+color = Color(1, 0.85, 0.4, 1)
+polygon = PackedVector2Array(-2, -11, 2, -11, 3, -9, 3, -4, 2, -3, -2, -3, -3, -4, -3, -9)
+
+[node name="Outline" type="Line2D" parent="Greybox"]
+points = PackedVector2Array(-2, -11, 2, -11, 3, -9, 3, -4, 2, -3, -2, -3, -3, -4, -3, -9)
+closed = true
+width = 1.0
+default_color = Color(0.2, 0.12, 0.05, 1)

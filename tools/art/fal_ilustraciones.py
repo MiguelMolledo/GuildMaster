@@ -169,6 +169,41 @@ PIECES = {
     "city_abbey": ("city", TITLE, card("MONTSACRE, a walled abbey high on a mountain slope: a stone church with a "
                                        "bell tower, a cloister under construction with scaffolding, herb gardens, "
                                        "monks in brown habits, a path up from the forest.")),
+    # H16 · fiestas (04f §4.25.1), sucesos (§4.24.5) y eventos (§4.25.2): assets/art/illustrations/events/<id>.png
+    "ev_semana_santa": ("ev", TITLE, card("HOLY WEEK. A spring morning procession of hooded penitents carrying tall "
+                                          "candles and a carved religious float along the main street towards the "
+                                          "church, townsfolk watching in silence.")),
+    "ev_mayos_corpus": ("ev", TITLE, card("MAY POLE AND CORPUS CHRISTI. In the square a tall decorated may tree with "
+                                          "ribbons, girls singing around it, and the Corpus procession with a golden "
+                                          "monstrance under a canopy and banners.")),
+    "ev_san_juan": ("ev", TITLE, card("MIDSUMMER NIGHT OF SAINT JOHN. Big bonfires in the square at night, young "
+                                      "villagers leaping over the flames, others dancing, sparks rising into a starry "
+                                      "sky.")),
+    "ev_siega_feria": ("ev", TITLE, card("HARVEST FAIR. A summer fair outside the town: merchant stalls with striped "
+                                         "colourful awnings, cattle and sheep pens, a puppet show, sheaves of wheat "
+                                         "stacked, crowds.")),
+    "ev_san_miguel": ("ev", TITLE, card("SAINT MICHAEL AND THE GRAPE HARVEST. Autumn: villagers treading grapes in a "
+                                        "big wooden vat, baskets of grapes, new barrels, vineyards on the hills.")),
+    "ev_matanza": ("ev", TITLE, card("SAINT MARTIN'S FEAST. A common autumn banquet in the square: long tables, "
+                                     "people making sausages, hams and strings of sausages hanging to cure, steaming "
+                                     "cauldrons, roasting chestnuts. No blood.")),
+    "ev_navidad": ("ev", TITLE, card("CHRISTMAS. Midnight mass at the snowy stone church, a nativity scene in the "
+                                     "candlelit porch, villagers in warm cloaks arriving with lanterns.")),
+    "ev_carnaval": ("ev", TITLE, card("CARNIVAL. A winter street full of masked revellers dancing, a straw effigy "
+                                      "carried on poles, a man dressed as the mayor being mocked, music and "
+                                      "confetti of straw.")),
+    "ev_altercado": ("ev", TITLE, card("BRAWL. At dusk outside the tavern two men fight with fists, a ring of "
+                                       "onlookers shouting, an overturned stool, a town guard with a lantern "
+                                       "running in.")),
+    "ev_asalto_bandidos": ("ev", TITLE, card("BANDIT RAID. At night, three hooded bandits break the lock of a "
+                                             "storehouse at the edge of the town, one carrying a sack, a dog "
+                                             "barking, a guard's lantern far away.")),
+    "ev_secuestro": ("ev", TITLE, card("KIDNAPPING. On a forest road at night masked bandits drag a richly dressed "
+                                       "man from his horse, a ransom letter with a wax seal pinned to a tree.")),
+    "ev_rescate": ("ev", TITLE, card("RESCUE. Town guards and hired mercenaries storm a bandits' hideout of tents "
+                                     "in the woods at dawn and free a tied-up captive.")),
+    "ev_ladron": ("ev", TITLE, card("NIGHT THIEF. Under the moon a thief climbs out of a workshop window with a "
+                                    "full sack, a cat watching from the roof.")),
     # pantallas (960×540)
     "screen_loading_1": ("screen", TITLE, STYLE + "a loading screen illustration: a guild master's desk seen from above "
                          "at an angle, an open ledger, a quill and inkpot, a candle, stacks of coins and a hand-drawn "
@@ -248,6 +283,13 @@ def proc(pid):
             prev.alpha_composite(logo, ((480 - logo.width) // 2, 36))
             os.makedirs(os.path.join(P, "vista"), exist_ok=True)
             prev.resize((960, 540), Image.NEAREST).save(os.path.join(P, "vista", pid + "_con_logo.png"))
+    elif kind == "ev":  # H16: assets/art/illustrations/events/<id>.png (240×135) y <id>_192.png (192×108)
+        pal = i2p_palette(src, pid, 32)
+        d = os.path.join(OUT, "events")
+        os.makedirs(d, exist_ok=True)
+        name = pid[len("ev_"):]
+        reduce(im, (240, 135), pal).save(os.path.join(d, name + ".png"))
+        reduce(im, (192, 108), pal).save(os.path.join(d, name + "_192.png"))
     elif kind == "duel":  # la ruta que ya tenía el inventario (ill_duel_result): ui/illustrations/duel/<nombre>
         pal = i2p_palette(src, pid, 32)
         d = os.path.join(ROOT, "assets", "art", "ui", "illustrations", "duel")

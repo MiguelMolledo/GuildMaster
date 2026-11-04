@@ -93,6 +93,18 @@ evento(a)   = lo que pida la fiesta del día (la procesión ×5, el baile ×3, e
 - **Ninguna regla de economía cambia**, salvo «Ir a la compra», que ya existe como demanda del mercado. Las demás
   actividades son vida que se ve y necesidades que se mueven. La taberna (4.27) es lo único que cobra.
 
+> [!NOTE]
+> **Construido (rama vida, 2026-11-04; contrato `docs/contratos/vida.md`).** `data/life/activities.json` con 17
+> actividades: las de la tabla más **Comer en casa** (12-15 h, sube el hambre: sin ella nadie comía de día) y
+> **Recados** (la de leña: va a una puerta y vuelve). «Ir a la compra» recorre 2-3 puestos elegidos por la demanda que
+> ya calcula el mercado (`Market.effective_demand`) y sube el hambre; no compra nada (ningún flujo de oro nuevo:
+> probado). Las necesidades se guardan en décimas (enteros) y bajan cada hora entera; la noche en casa repone descanso
+> y hambre. El descanso del trabajo es la probabilidad por hora de H7 (`data/town.json` routine; ×2 los ancianos); el
+> día de guardar sube al 70 %. Los niños salen a jugar de día. «Fe alta» = un 30 % de vecinos «piadosos», sacados por
+> persona. Todo cuelga de un interruptor (`data/life/life.json` `enabled`): las dianas de antes corren con la vida
+> apagada (`_no_life`, principio 4) y salen idénticas. Coste medido: 1,73 ms por paso en el bench (1,37 sin la vida,
+> con la máquina cargada; diana < 2 ms).
+
 #### 4.24.2 Puntos de reunión y rumores
 
 **Puntos de reunión** (`social_points` del mapa, con un `kind` nuevo), donde se forman corrillos de 2 a 5:
@@ -118,6 +130,20 @@ marqués para San Juan», «En Portvell pagan bien las espadas», «Anoche asalt
 - La taberna es el mejor sitio para oírlos (4.27.6).
 - Los rumores son vista y libro: el sim solo guarda cuáles has oído (para no repetir).
 
+> [!NOTE]
+> **Construido.** Kinds nuevos de `social_points`: `well`, `atrium`, `tavern`, `washhouse`, `bridge`, `gate` y `square`
+> (la plaza abierta, para niños, juglares y buhoneros), con huecos de 2 a 5. Los pone `tools/city/citylib.add_life` en
+> el generador, en las ciudades orgánicas (`region_*`) y en `make_town_e.py`, después del decor y nunca encima (town_e
+> conserva sus seis puntos de H7 y H7 solo pasea por los suyos: sus dianas no se mueven); para un mapa ya hecho,
+> `ciudad.py reunion`. **Cambio:** el corrillo cuenta su rumor **en cuanto se forma** (cada 10 min; uno por punto
+> mientras dura la burbuja, 50 min) y no una vez por hora (con la hora en punto se deshacían antes de hablar). Lo oye
+> cualquiera de la familia del jugador a ≤ 4 casillas (no solo el seleccionado), una vez por rumor. El libro es la
+> pestaña **«Rumores» del libro de cuentas**, con el día, el sitio y la marca «Útil». Fuentes (`data/life/rumors.json`):
+> la crónica de los últimos 4 días (bodas, nacimientos, muertes, títulos, cargos, condenas, peleas, duelos, asaltos y
+> secuestros), las deudas de otras familias, los precios de otra población, las elecciones abiertas, los eventos en
+> vigor, el tablón, el último forastero, lo que cuenta un mercader de su ciudad y los bandidos vistos la víspera de un
+> asalto. Una noticia ya oída se cuenta menos (×0,25).
+
 #### 4.24.3 Más población y forasteros
 
 - **Población fija** (`data/town.json` → `population`): `max_total` pasa de 20 a **una cifra por mapa, 5 por casa**
@@ -140,6 +166,17 @@ marqués para San Juan», «En Portvell pagan bien las espadas», «Anoche asalt
 - Son personajes temporales de `fam_visitors`, como dice 4.22.3.6. `state.town.visitors` guarda los vivos (tope
   12, o 30 en la feria).
 
+> [!NOTE]
+> **Construido.** Tope de vecinos por mapa: `data/life/life.json` → `population` (5 por casa hasta 32; un mapa puede
+> fijar `population_max`), solo con la vida encendida. **Medido (O-V2):** town_e pasa de 16 a 21 vecinos en 10 años,
+> 29 en 20 y 30-32 desde el año 30, con 6 solteras fértiles al final; en las partidas de 10-24 días de las dianas de
+> economía el tope casi no se alcanza. La diana de H7 (`town_population` [14, 22]) no cambia (se mide con la vida
+> apagada); la nueva `town_population_life` propone [14, 32], **pendiente del owner**. Forasteros: 2-4 al día
+> (medido 3,25), de una población de la región con su ropa (`city_dress`, el shader de identidad), entran por una
+> puerta, siguen el plan de su tipo (`visitors.kinds`) y **se van al atardecer** por la misma puerta (dormirán en la
+> posada cuando exista: 4.27); al irse salen del estado. El juglar monta un espectáculo en la plaza y los vecinos van a
+> mirarlo. Limosna: orden `give_alms` (1 de oro, +1 de reputación una vez al día por familia).
+
 #### 4.24.4 La guardia
 
 Adelanta 4.22.6.2 lo justo para la vida de la ciudad. Lo demás (detención por delitos del jugador o el Alguacil
@@ -157,6 +194,15 @@ eligiendo patrullas) llega con 4.22.
   la pelea (4.24.5) o se enfrentan a los bandidos.
 - **El concejo paga** la guardia (no sale en ningún libro, O7 de 4.22). Un cargo de Alguacil (H10) tiene, como
   poder pasivo, +1 guardia de noche [propuesta].
+
+> [!NOTE]
+> **Construido.** `fam_watch` (como `fam_visitors` y `fam_bandits`: familias de servicio, `controlled_by: town`; no se
+> contratan, no se casan ni cuentan como vecinos) con cinco guardias: dos de puerta (puesto a 3 casillas dentro de la
+> puerta, en la calle; saludan al forastero que entra), dos de ronda por las `patrols` del mapa (`patrol_main` de
+> puerta a puerta por la plaza y `patrol_plaza`, que pone `citylib.add_life`), con farol de mano, y uno en la plaza en
+> fiesta. El Alguacil es el cargo `constable` (+1 de noche si está ocupado). Fuera de turno no están en el mapa (el
+> cuerpo de guardia es la puerta del ayuntamiento). Un grito a ≤ 12 casillas los manda; «dar la alarma» los llama a
+> todos. Librea: `watch.livery` (rojo oscuro y oro), teñida con el shader hasta el arte del 15-nov.
 
 #### 4.24.5 Sucesos: altercados, bandidos y secuestros
 
@@ -178,6 +224,22 @@ escenarios de las dianas** (`_no_events`), con su carta, su aviso y su entrada e
   almacén.
 - **Los bandidos vienen de algún sitio.** Salen del Nido de la ruta con más riesgo (09b) y la IA del Bandido de
   4.22 los reutilizará. Si la guardia los vence, el Nido queda «escarmentado» y no vuelven en 1 año.
+
+> [!NOTE]
+> **Construido.** **Cambio de sitio:** van en `data/life/incidents.json`, no en `data/events.json` (WorldEvents tira
+> por cada definición de events.json y un suceso nuevo movería sus tiradas y su `max_active`); los eventos los
+> multiplican con `{kind: incident, id, mult}`. **Altercado:** entre 18 y 22 h (no hasta las 02:00: de noche están
+> todos en casa y salían 0,12 al día; ahora ~0,46), dos vecinos o un soldado de paso cerca de la taberna o de un punto
+> de la plaza; pelea con `Duel.auto` a primera sangre y a puño; mirones; la guardia que llega la para y multa 10-20 al
+> que empezó (hecho «brawl» si es de una familia jugadora). **Asalto:** se tira al alba del día anterior para que ese
+> día haya aviso y rumor (riesgo justo); va a un edificio del borde (el tercio más alejado de la plaza, O-V4 a) con
+> peso 1 − su Seguridad; 2-4 bandidos entran por la puerta más cercana; la carta (Defender, Alarma, Esconderse) sale al
+> llegar a la puerta; topes del 10 % del oro y 3 piezas (comprobados por el bot `guard_watch`). **Secuestro:** se tira
+> al alba del mismo día, entre las 17 y las 02 h (para que haya nobles forasteros antes de irse); víctimas con peso
+> sobre todos los tipos (un tipo sin nadie = no hay secuestro: los familiares del jugador, ~8 % de las tiradas);
+> la víctima queda fuera del mapa (`captive`, como de viaje). **Pendiente:** jugar la cadena del rescate en la
+> pantalla del duelo (hoy se resuelve sin jugar, con las mismas probabilidades) y apostar sobre un altercado (4.26.6,
+> bloque Juegos).
 
 ---
 
@@ -507,8 +569,9 @@ Cada noche llegan clientes de **grupos** distintos. Cada grupo tiene sus gustos 
 |---|---|
 | `data/life/activities.json` | Actividades de 4.24.1 con dónde, cuándo, quién, duración, necesidades y burbuja |
 | `data/life/rumors.json` | Plantillas de rumores por tipo de hecho, con sus variables |
-| `data/town.json` → `population`, `visitors`, `guards`, `patrols` | Población por mapa, forasteros (4.24.3) y guardia (4.24.4) |
-| `data/events.json` (sucesos) | Altercado, asalto, secuestro e incendio, con flujo `events_city` |
+| `data/life/life.json` → `needs`, `agenda`, `meeting`, `population`, `visitors`, `watch` (construido: en vez de `data/town.json`) | Necesidades, puntos de reunión, población por mapa, forasteros (4.24.3) y guardia (4.24.4) |
+| `data/maps/*.json` → `social_points` (kinds nuevos), `patrols`, `population_max` | Puntos de reunión y rondas (los pone `tools/city/citylib.add_life`) |
+| `data/life/incidents.json` (sucesos; construido: no en `data/events.json`) | Altercado, asalto y secuestro, con flujo `events_city` (el incendio no: O-V6 b) |
 | `data/festivals.json` | Las fiestas fijas y variables de 4.25 con sus efectos de sim y de vista |
 | `data/contracts/festivals.json` | Encargos de fiesta y de boda por evento y oficio (4.25.4) |
 | `data/games.json` | Cifras de los minijuegos de 4.26 |
@@ -519,7 +582,7 @@ Cada noche llegan clientes de **grupos** distintos. Cada grupo tiene sus gustos 
 
 | Versión | Qué | Bloque |
 |---|---|---|
-| **v17** | Vida: necesidades de los NPC, forasteros vivos, guardias, rumores oídos y sucesos en curso (secuestro pendiente) | `town.life`, `town.visitors`, `town.watch`, `rumors_heard`, `incidents` |
+| **v17** | Vida: necesidades de los NPC, forasteros vivos, guardias, rumores oídos y sucesos en curso (secuestro pendiente) | `town.life`, `town.visitors`, `town.watch`, `town.rumors`, `town.incidents` (construido: todo bajo `town`, sin campos nuevos en la raíz) |
 | **v18** | Fiestas: calendario del año, fiesta en curso, patrocinios, encargos de fiesta y competiciones programadas | `festivals` |
 | **v19** | Taberna-Posada: carta, precios, fama, camas, licencia, mejoras y turno en curso | por edificio |
 | v20 | Diversión y ritmo (03b): desbloqueos vistos, obras maestras con nombre, recetas aprendidas | `unlocks`, `masterworks` |
@@ -555,6 +618,10 @@ de ida y vuelta desde la versión de antes.
   - `gambler` apuesta y juega a dados y naipes, con su diana: pierde de media lo que marca el margen de la casa, ni
     más ni menos;
   - `guard_watch` corre noches con asaltos y comprueba que la guardia responde y que nunca se pierde más del tope.
+    **Construido:** desde `life_bandits` (año 2, asaltos ×5), 16 días; diana propuesta en `data/targets.json`
+    `guard_watch` (5 asaltos por semilla, la alarma siempre trae a la guardia, nunca más del 10 % del oro ni de 3
+    piezas, 0 órdenes rechazadas y el libro cuadra). Un escenario por suceso: `life_altercation`, `life_bandits`,
+    `life_kidnap` (más `life_plaza`, `life_gate` y `life_night` para las capturas).
 - **Bancos de los minijuegos** (como `tools/duel_bench.gd`): «Resolver sin jugar» es igual que jugar bien, jugar al
   azar pierde y las políticas fijas pierden.
 

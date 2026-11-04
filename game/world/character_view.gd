@@ -60,6 +60,9 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	female = bool(ch.get("female", false))
 	selectable = str(ch.get("controlled_by", "")) == "human"
 	var colors: Dictionary = family.get("colors", {})
+	var dress: Variant = (ch.get("visual", {}) as Dictionary).get("dress") if ch.get("visual") is Dictionary else null
+	if dress is Dictionary:  # vida (04f 4.24.3): a visitor wears the clothes of its town (the identity shader paints them)
+		colors = dress
 	primary = ViewConfig.color(str(colors.get("primary", "#808080")))
 	secondary = ViewConfig.color(str(colors.get("secondary", "#c0c0c0")))
 	var cfg: Dictionary = ViewConfig.value("character", {})
@@ -104,8 +107,11 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	badge_border = ViewConfig.color(str(cfg.get("badge_own_border", "#ffd84c")))
 	_name_label = Label.new()
 	_name_label.text = str(ch.get("name", char_id))
-	if not selectable and str(family.get("name", "")) != "":
-		_name_label.text = "%s · %s" % [str(ch.get("name", char_id)), str(family["name"])]
+	var fam_name := str(family.get("name", ""))
+	if fam_name == "" and str(family.get("name_key", "")) != "":  # vida: the town's watch, visitors and bandits
+		fam_name = SimQuery.t_(str(family["name_key"]))
+	if not selectable and fam_name != "":
+		_name_label.text = "%s · %s" % [str(ch.get("name", char_id)), fam_name]
 	_name_label.add_theme_font_size_override("font_size", 10)
 	_name_label.add_theme_color_override("font_color", Color(1.0, 0.95, 0.8))
 	_name_label.add_theme_color_override("font_outline_color", Color(0.1, 0.07, 0.05))
@@ -189,6 +195,27 @@ func set_bubble_shift(dx: float) -> void:
 	bubble_shift = dx
 	if _bubble != null:
 		VisualPaths.place(_bubble, Vector2(dx, -fig_height - 12))
+
+
+var _lantern: Node2D = null
+
+
+## Vida (04f 4.24.4): the lantern in the hand of a guard on the night round (game/visuals/props/hand_lantern.tscn).
+func set_lantern(on: bool) -> void:
+	if on == (_lantern != null):
+		return
+	if not on:
+		_lantern.queue_free()
+		_lantern = null
+		return
+	_lantern = VisualPaths.instantiate("props", "hand_lantern")
+	_lantern.name = "Lantern"
+	VisualPaths.place(_lantern, Vector2(6, -fig_height * 0.45))
+	add_child(_lantern)
+
+
+func has_lantern() -> bool:
+	return _lantern != null
 
 
 ## H7: a phrase over the bubble ("" = none): what a townsperson says when the selected person is near (GDD 4.11.3).

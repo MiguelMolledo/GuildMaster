@@ -238,9 +238,13 @@ campos de v17-v19.
   `unlock_seen` con `what: now`), y las partidas de antes de v20 lo tienen todo abierto.
 - **Carta «Nuevo: …»** (`UnlockCard`, del kit de página): qué es, la meta que trae y «Ver capítulo» si las pistas
   están encendidas. No pausa; al cerrarla queda leída. Lámina `events/unlock_<id>` del arte cuando llegue.
-- **Ganchos:** la primera fiesta y la feria (`festivals`), la taberna (`tavern`) y los sucesos (`incidents`) están
-  en la tabla con su meta y se activan solos cuando exista su `data/<id>.json` o `data/<id>/` (lo que traigan las
-  ramas de vida, fiestas y posada al juntarse; si el nombre de su fichero es otro, se cambia `requires`).
+- **Ganchos:** la primera fiesta y la feria (`festivals`) y la taberna (`tavern`) están en la tabla con su meta y se
+  activan solos cuando exista su `data/<id>.json` o `data/<id>/` (lo que traigan las ramas de fiestas y posada al
+  juntarse; si el nombre de su fichero es otro, se cambia `requires`). Con vida ya en main (2026-11-04) se engancharon
+  los **sucesos** (`life/incidents`, desde el día 9, meta «Interviene en un suceso de la villa») y un desbloqueo nuevo,
+  los **rumores** (`life/rumors`, día 5, marca en el libro, meta «Oye tres rumores»): la taberna de 3b.4 traía los
+  rumores, pero en vida se oyen en los corrillos, así que llegan antes y la taberna queda para dados y naipes. Los
+  ganchos de `life/` esperan además a que la ciudad viva esté encendida (`data/life/life.json`).
 - **Cambios en la tabla de 3b.4:** la obra maestra se desbloquea cuando sale la primera (ver arriba); el tribunal,
   cuando hay un juicio o una acusación (no hay todavía una medida de «rival hostil» en el sim); cargos y tratados,
   con el título de Patricio (el de Ciudadano ya trae viajar y el duelo); «boda e hijos» y «caravanas» van juntos

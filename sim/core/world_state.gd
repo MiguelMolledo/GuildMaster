@@ -73,6 +73,10 @@ var masterworks: Dictionary = {"pieces": [], "learned": {}}  # pieces [masterwor
 # Viajes (docs/gdd/09b_region.md §9b.6): the new root region {cities {id: {demand,
 # events, board, reputation}}, events, treaties, trips, caravans, carts, contracts, ...}, {} until Region.ensure fills it
 # (SaveFile.to_v16, step 15 -> 16).
+# Vida (docs/gdd/04f_vida_y_fiestas.md §4.24, docs/contratos/vida.md): no new root fields. town gets life, visitors,
+# watch, rumors and incidents (Life.ensure); characters get town.needs (the townsfolk) and, the temporary ones of the
+# service families (fam_watch, fam_visitors, fam_bandits), guard / visitor / bandit, offstage and captive
+# (SaveFile._to_v17, step 16 -> 17).
 # Diversión y ritmo (docs/gdd/03b_diversion_y_ritmo.md): the new roots unlocks {fam: {id: {minute, seen}}} and
 # masterworks {pieces, learned} (SaveFile._to_v20, step 19 -> 20; v17-v19 belong to the city life branches).
 

@@ -314,6 +314,8 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 			_to_v15(data)
 		15:  # 15 -> 16 (viajes, docs/gdd/09b_region.md)
 			data = to_v16(data)
+		16:  # 16 -> 17 (vida, docs/gdd/04f_vida_y_fiestas.md §4.24)
+			data = _to_v17(data)
 		19:  # 19 -> 20 (diversión y ritmo, docs/gdd/03b_diversion_y_ritmo.md)
 			data = _to_v20(data)
 	return data
@@ -326,6 +328,27 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 static func to_v16(data: Dictionary) -> Dictionary:
 	if not data.get("region") is Dictionary:
 		data["region"] = {}
+	return data
+
+
+## 16 -> 17 (vida, docs/gdd/04f_vida_y_fiestas.md §4.28.2): the town gets the blocks of the living town II (life,
+## visitors, watch, rumors, incidents), empty: a game from before had no visitors, guards, rumours heard nor incidents;
+## the watch is made at the next step (Watch) and the townsfolk's needs when they first choose (Agenda). Depends on no
+## field of another new version: it runs after to_v16 (15 -> 16) or on its own.
+static func _to_v17(data: Dictionary) -> Dictionary:
+	if not data.get("town") is Dictionary:
+		data["town"] = {"counters": {}}
+	var t: Dictionary = data["town"]
+	if not t.get("life") is Dictionary:
+		t["life"] = {"spectacles": [], "cries": []}
+	if not t.get("visitors") is Dictionary:
+		t["visitors"] = {"alive": [], "planned": [], "alms": {}}
+	if not t.get("watch") is Dictionary:
+		t["watch"] = {"guards": {}, "dispatch": {}}
+	if not t.get("rumors") is Dictionary:
+		t["rumors"] = {"heard": [], "told": {}}
+	if not t.get("incidents") is Dictionary:
+		t["incidents"] = {"active": [], "closed": [], "planned": [], "nests": {}, "last": {}, "warned": {}}
 	return data
 
 

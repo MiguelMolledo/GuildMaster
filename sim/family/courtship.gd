@@ -96,6 +96,8 @@ static func _reason(sim: Sim, actor: String, target: String, near: bool) -> Stri
 		return "not_single"
 	if str(a.get("family", "")) == str(t.get("family", "")):
 		return "same_family"
+	if Life.is_service(st, str(t.get("family", ""))) or Life.is_service(st, str(a.get("family", ""))):
+		return "passing_through"  # vida (04f 4.24): a guard, a visitor or a bandit is not courted
 	var cfg: Dictionary = sim.catalog.family.get("courtship", {})
 	if bool(cfg.get("opposite_sex", true)) and bool(a.get("female", false)) == bool(t.get("female", false)):
 		return "same_sex"
@@ -275,7 +277,7 @@ static func candidates(sim: Sim, actor: String) -> Array:
 	ids.sort()
 	for id: String in ids:
 		var why := _reason(sim, actor, id, false)
-		if why in ["unknown_target", "dead", "too_young", "not_single", "same_family", "same_sex"]:
+		if why in ["unknown_target", "dead", "too_young", "not_single", "same_family", "same_sex", "passing_through"]:
 			continue
 		var ch: Dictionary = st.characters[id]
 		out.append({"character": id, "name": str(ch.get("name", "")), "female": bool(ch.get("female", false)),

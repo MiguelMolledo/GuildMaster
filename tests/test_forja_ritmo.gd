@@ -153,3 +153,21 @@ func test_skip_until_dawn_and_a_notice_cuts_it() -> void:
 	g.give({"type": "wait", "actor": HUGO})
 	eq(str(g.skip_kind), "", "an order of the player cuts it")
 	g.free()
+
+
+## The hooks of vida (merged 2026-11-04): rumours and incidents open only with the living town on.
+func test_life_hooks_follow_the_living_town() -> void:
+	var sim := _new_game()
+	sim.step()
+	var on := Life.on(sim)
+	eq(Unlocks.ready(sim, Unlocks.def(sim, "rumors")), on, "rumours: ready with the town alive")
+	eq(Unlocks.ready(sim, Unlocks.def(sim, "incidents")), on, "incidents: the same")
+	check(not Unlocks.ready(sim, Unlocks.def(sim, "tavern")), "the tavern still waits for the inn")
+	sim.state.clock["minute"] = 4 * Clock.MINUTES_PER_DAY + 60
+	sim.events = []
+	Unlocks.step(sim)
+	eq(Unlocks.is_open(sim.state, FAM, "rumors"), on, "day 5: the rumours (with the town alive)")
+	if on:
+		sim.events = [{"type": "rumor_heard", "character": HUGO, "rumor": "r", "key": "k"}]
+		OpenGoals.step(sim)
+		eq(int(sim.state.unlocks[FAM]["_goals"]["hear_rumors"]["have"][0]), 1, "a rumour heard by Hugo counts")

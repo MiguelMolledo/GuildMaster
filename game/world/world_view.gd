@@ -977,7 +977,8 @@ func sync(frac: float) -> void:
 				if not v.selectable:
 					select("")
 		v.visible = str(ch.get("location", "")) == "" and not Tribunal.is_banished(state, id) \
-			and not Region.is_away(state, id)  # H11: banished: away; viajes: on a trip or driving a caravan
+			and not Region.is_away(state, id) and not Life.offstage(state, id)  # H11: banished: away; viajes: on a trip
+		# or driving a caravan; vida: a guard off duty, a visitor or a bandit not there, a captive
 		v.follow(ch, _minutes_per_tile, frac)
 		v.follow_badge(state, _player_family)
 		_follow_town(id, v)
@@ -1120,7 +1121,9 @@ func _follow_town(id: String, v: CharacterView) -> void:
 		var src: Dictionary = sim.state.families.get(str(emos[0]["source"]), {})
 		v.set_bubble_mark(ViewConfig.color(str(src.get("colors", {}).get("primary", "#808080"))),
 			float(emos[0]["intensity"]) / 100.0)
-	v.set_phrase(SimQuery.town_phrase(sim, id, selected_id) if id == _talker else "")
+	var rumor := LifeQuery.phrase_of(sim, id)  # vida (04f 4.24.2): the rumour a corrillo tells, when the player is near
+	v.set_phrase(rumor if rumor != "" else (SimQuery.town_phrase(sim, id, selected_id) if id == _talker else ""))
+	v.set_lantern(LifeQuery.lantern(sim, id))  # vida (04f 4.24.4): the night round carries a lantern
 
 
 func select(id: String) -> void:

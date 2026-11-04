@@ -10,6 +10,7 @@ extends SceneTree
 ## The grid of the map is built before timing (a one-off load cost, printed apart).
 ## --runs=n: plays the same (deterministic) game n times, forgetting the remembered routes between runs, and keeps
 ##   for each step its least time: filters out the moments the OS takes the CPU away on a busy machine.
+## --life=off: without the living town II (data/life/life.json enabled), to compare its cost (04f 4.24.1).
 ## Prints ms per step (mean, 99th percentile and worst, with the minute of the worst) and exits with 1 if the mean is
 ## over the target (the worst step is reported, not enforced: it is noisy on a busy machine).
 
@@ -35,6 +36,8 @@ func _init() -> void:
 		elif a.begins_with("--runs="):
 			runs = maxi(1, a.substr(7).to_int())
 	var cat := Catalog.load_from()
+	if "--life=off" in OS.get_cmdline_user_args():  # vida (04f 4.24): the cost without the living town II
+		cat.life_tables.get("life", {})["enabled"] = false
 	var steps := days * Clock.MINUTES_PER_DAY
 	var best := PackedInt64Array()  # per step, the least time over the runs
 	best.resize(steps)
