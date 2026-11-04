@@ -1,5 +1,32 @@
 [
   {
+    "fecha": "2026-11-04",
+    "titulo": "Los retratos, en un marco de cuadro",
+    "que": "Queja del owner: los retratos iban en un cuadrado con borde. Ahora PortraitFrame, el componente que usan todos (HUD, carta de boda y de sucesión, ficha de personaje y de vecino, árbol familiar, cortejo, empleados, cargos, juicio, rivales, final), los pone en un marco de cuadro de madera tallada con filete y remates dorados en las esquinas: dorado entero si es el activo, madera con filete de oro si se controla, madera con filete de bronce los demás. Dos tamaños dibujados a su medida con Pillow (tools/art/marco_retrato.py, paleta del marco de la Lámina; sus esquinas de 32 px no cabían a 32-64): 38 para el retrato de 32 y 76 para el de 64; la boda, la sucesión, la ficha del árbol y la Partida nueva usan el grande en vez de escalar el pequeño ×2. La Partida nueva, que pintaba su retrato con un borde propio, pasa a PortraitFrame. El color de la familia, que iba en el anillo interior, va ahora en una placa al pie del marco (principal sobre una franja de la secundaria). El marco no tapa la cara ni recorta el retrato: solo los remates entran en sus esquinas. No cambia qué imagen sale (población). Gasto: 0.",
+    "como_probar": "Partida nueva y mirar el HUD arriba a la izquierda; abrir la ficha (I) y el árbol (F). Capturas: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=pagina (boda), --smoke-script=paneles (ficha) y --smoke-script=social (árbol, sucesión, vecino, cortejo, cargos, juicio). Pruebas: godot --headless --path . -s tests/run_tests.gd -- --only=test_ui_portrait_frame. Redibujar el marco: python3 tools/art/marco_retrato.py.",
+    "capturas": [
+      "docs/novedades/kit_pagina_boda.png",
+      "docs/novedades/retrato_marco_ficha.png",
+      "docs/novedades/retrato_marco_arbol.png",
+      "docs/novedades/retrato_marco_sucesion.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-04",
+    "titulo": "La cinta del título se lee y va sobre el borde de la carta",
+    "que": "Queja del owner: el título de la cinta (Jacquarda Bastarda 9 a 13) casi no se leía y la cinta iba dentro de la carta. Ahora el título va en Jacquard 24 a 24, la gótica del logotipo, en dorado con sombra de 1 px (hoja comparativa con Pixel Operator Bold 16 y Jacquarda a ×2 en docs/novedades/cinta_letras.png). La cinta va centrada arriba y montada sobre el borde superior en las cuatro plantillas de PageCard (Carta, Lámina, Ficha y aviso corto): la mitad sobresale del pergamino y el contenido empieza justo debajo, sin hueco; con ilustración, la cinta sigue encima y la ilustración debajo. El texto usa todo el paño liso de la cinta (medida nueva `cloth` en kit.json). Si un título no cabe, pasa a Pixel Operator Bold 16 en una línea y luego en dos (los pasos largos del tutorial); lo que no cabe ni así se corta con «…». El tutorial deja sitio arriba para la cinta. Sin cambios en el sim, sin gasto.",
+    "como_probar": "Escenario season_events y esperar a las 00:00 (sale la Festividad religiosa): /opt/homebrew/bin/godot --path . -- --scenario=season_events. Capturas: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=pagina (comprueba en pantalla que la cinta sobresale por arriba y que su texto cabe en el paño) y --smoke-script=tutorial --dev-time. Pruebas: godot --headless --path . -s tests/run_tests.gd -- --only=test_ui_page_card.",
+    "capturas": [
+      "docs/novedades/kit_pagina_evento.png",
+      "docs/novedades/kit_pagina_guerra.png",
+      "docs/novedades/kit_pagina_boda.png",
+      "docs/novedades/kit_pagina_aviso.png",
+      "docs/novedades/kit_pagina_ficha.png",
+      "docs/novedades/kit_pagina_lamina.png",
+      "docs/novedades/cinta_letras.png"
+    ]
+  },
+  {
     "fecha": "2026-11-03",
     "titulo": "Población variada: cada partida, otra gente",
     "que": "Cada partida nueva reparte con su semilla quién vive en el pueblo (data/cast.json, sim/meta/cast.gd): nombres de pila (74 de hombre y 71 de mujer, catalanes y castellanos medievales), apellidos de casa (94 generales y 27 de oficio: el herrero rival se apellida Ferrer, Herrador, Farré…), edades dentro del rango de cada papel, pelo y piel (10 tonos de pelo y 6 de piel; los vecinos de una casa se parecen), retrato base del pool de 566 retratos (index.json v1: la persona guarda el id de su retrato, de su tipo social, sexo y franja de edad, sin repetir cara en el pueblo; al cambiar de franja recibe otro de la nueva y el pelo encanece), colores de ropa de las familias IA (lejos del color que elige el jugador) y la personalidad de los vecinos (carisma, empatía y destreza ±1). Lo que pesa en el balance no cambia: atributos del protagonista, del rival y de los competidores, oro, deuda, edificios, oficios, rangos y el orden de edad de los vecinos (los cargos siguen yendo a los mismos). Los recién nacidos y los recién llegados sacan del reparto un nombre que no lleva nadie vivo. En Partida nueva, «Otra familia» propone otro nombre, apellido y aspecto (y otro pueblo) sin cambiar la semilla del mundo. Las pruebas, los escenarios y las dianas usan el «reparto fijo», idéntico al de antes. Guardado v14 con migración. Cada ciudad saca su propia gente (el mapa entra en la semilla).",
