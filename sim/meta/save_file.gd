@@ -109,8 +109,7 @@ static func migrate(d: Dictionary) -> Dictionary:
 const MIGRATION_AGE: int = 25
 ## v11 -> v12: the needs of everybody (H14, data/family.json needs.start) [provisional].
 const NEEDS_START: int = 80
-## v13 -> v14: the portrait numbers and the class -> type of data/cast.json portraits (the save has no catalog).
-const MIGRATION_PORTRAIT_VARIANTS: int = 6
+## v13 -> v14: the class -> portrait type of data/cast.json portraits.classes (the save has no catalog).
 const MIGRATION_CLASS_TYPES: Dictionary = {"artisan": "artisan", "patron": "farmer", "scholar": "scholar", "rogue": "rogue"}
 
 
@@ -295,7 +294,8 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 			data["events_active"] = kept
 		13:  # 13 -> 14 (población, docs/contratos/poblacion.md): the cast of a game from before was the fixed one (its
 			# births and newcomers keep the H7/H8 names). Each character's visual gets its base portrait: the type of its
-			# family (Cast.family_type) and a portrait number from its id (MIGRATION_PORTRAIT_VARIANTS, data/cast.json).
+			# family (Cast.family_type) and no id yet: the pool is not in the save (the view shows one of its type meanwhile;
+			# Cast.grow_portraits fixes it at the next year change).
 			if not data.get("cast") is Dictionary:
 				data["cast"] = {"mode": "fixed", "seed": 0, "map": str(data.get("map_id", ""))}
 			var fams: Dictionary = data.get("families", {}) if data.get("families") is Dictionary else {}
@@ -309,8 +309,7 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 						type = str(MIGRATION_CLASS_TYPES.get(str(f.get("class", "artisan")), "artisan"))
 					elif str(f.get("ai_profile", "")) != "":
 						type = "artisan"
-					c["visual"]["portrait"] = {"type": type,
-						"variant": str(c.get("id", "")).get_slice("_", 1).to_int() % MIGRATION_PORTRAIT_VARIANTS + 1}
+					c["visual"]["portrait"] = {"id": "", "type": type}  # the id: Cast.grow_portraits at the next year
 	return data
 
 

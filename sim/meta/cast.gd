@@ -111,7 +111,6 @@ static func households(ctx: Dictionary, map: Dictionary) -> Array:
 				for k: String in ["hair", "skin"]:
 					if (p["visual"] as Dictionary).has(k):
 						vis[k] = int(p["visual"][k])
-			vis["portrait"] = _portrait(ctx, _role_type(ctx, "townsfolk"), pk)
 			m["visual"] = vis
 			m["stats"] = (p.get("stats", {}) as Dictionary).duplicate() if fixed else _personality(ctx, p.get("stats", {}), pk)
 			(fam["members"] as Array).append(m)
@@ -120,6 +119,11 @@ static func households(ctx: Dictionary, map: Dictionary) -> Array:
 		i += 1
 	if str(ctx["mode"]) != FIXED:
 		_keep_age_order(ctx, map, out)
+	for h: int in out.size():  # the portraits once the ages are final (the band comes from the age)
+		for k: int in (out[h]["members"] as Array).size():
+			var m: Dictionary = out[h]["members"][k]
+			m["visual"]["portrait"] = _portrait(ctx, _role_type(ctx, "townsfolk"), "hh|%d|%d" % [h, k], int(m["age"]),
+				bool(m["female"]))
 	return out
 
 
@@ -159,7 +163,7 @@ static func _keep_age_order(ctx: Dictionary, map: Dictionary, gen: Array) -> voi
 static func _context(catalog: Catalog, mode: String, cast_seed: int, map_id: String, player_primary: String) -> Dictionary:
 	var cfg: Dictionary = catalog.cast
 	return {"catalog": catalog, "cfg": cfg, "mode": mode if mode in MODES else RANDOM, "seed": cast_seed, "map": map_id,
-		"look": cfg.get("look", {}), "names": {}, "surnames": {}, "decks": {}, "colors_used": {},
+		"look": cfg.get("look", {}), "names": {}, "surnames": {}, "decks": {}, "colors_used": {}, "faces": {},
 		"player_primary": player_primary}
 
 
@@ -185,7 +189,10 @@ static func _protagonist(ctx: Dictionary, start: Dictionary) -> Dictionary:
 	var d: Dictionary = start.get("defaults", {})
 	var cls := str(start.get("class", "artisan"))
 	var vis := _look(ctx, "pro")
-	vis["portrait"] = _portrait(ctx, str(ctx["cfg"].get("portraits", {}).get("classes", {}).get(cls, "artisan")), "pro")
+	var ptype := str(ctx["cfg"].get("portraits", {}).get("classes", {}).get(cls, "artisan"))
+	var age := int(start.get("protagonist", {}).get("age", 20))
+	vis["portrait_m"] = _portrait(ctx, ptype, "pro", age, false)  # NewGame._choices keeps the one of the chosen sex
+	vis["portrait_f"] = _portrait(ctx, ptype, "pro", age, true)
 	if str(ctx["mode"]) == FIXED:
 		var dv: Dictionary = d.get("visual", {})
 		for k: String in ["hair", "skin"]:
@@ -217,10 +224,10 @@ static func _person(ctx: Dictionary, src: Dictionary, role: String, key: String)
 		for k: String in ["hair", "skin"]:
 			if (src["visual"] as Dictionary).has(k):
 				vis[k] = int(src["visual"][k])
-	vis["portrait"] = _portrait(ctx, _role_type(ctx, role.trim_suffix("_spouse")), key)
+	var age := int(src.get("age", 30)) if fixed and src.has("age") else _age(ctx, role, key, int(src.get("age", 30)))
+	vis["portrait"] = _portrait(ctx, _role_type(ctx, role.trim_suffix("_spouse")), key, age, female)
 	return {"name": str(src.get("name", "")) if fixed and src.has("name") else _name(ctx, female), "female": female,
-		"age": int(src.get("age", 30)) if fixed and src.has("age") else _age(ctx, role, key, int(src.get("age", 30))),
-		"visual": vis}
+		"age": age, "visual": vis}
 
 
 static func _put_family(dst: Dictionary, gen: Dictionary) -> void:
@@ -345,9 +352,10 @@ static func _role_type(ctx: Dictionary, role: String) -> String:
 	return str(ctx["cfg"].get("portraits", {}).get("roles", {}).get(role, "commoner"))
 
 
-static func _portrait(ctx: Dictionary, type: String, key: String) -> Dictionary:
-	var n := maxi(1, int(ctx["cfg"].get("portraits", {}).get("variants", 1)))
-	return {"type": type, "variant": _rng(ctx, key + "|portrait").randi_range(1, n)}
+static func _portrait(ctx: Dictionary, type: String, key: String, age: int, female: bool) -> Dictionary:
+	var id := pick_portrait(ctx["catalog"], type, age, female, _rng(ctx, key + "|portrait"), 0, ctx["faces"])
+	ctx["faces"][id] = true  # dealt like the names: no two people of the cast share a face while the pool lasts
+	return {"id": id, "type": type}
 
 
 ## The stream of one draw: the cast seed, the map and the key. Never state.rng: no other roll moves.
@@ -382,7 +390,7 @@ static func newborn(sim: Sim, key: String, female: bool, mother: Dictionary, fat
 	if mode_of(st) == FIXED:
 		var names: Array = cfg.get("names", {}).get("female" if female else "male", ["?"])
 		var vis := Births.child_visual(sim, mother.get("visual", {}), father.get("visual", {}), key)
-		vis["portrait"] = _later_portrait(sim, ptype, key)
+		vis["portrait"] = _later_portrait(sim, ptype, key, 0, female)
 		return {"name": str(names[Kin.randi_range(st, key + "|name", 0, names.size() - 1)]), "visual": vis}
 	var vis := {}
 	var chance := float(cfg.get("children", {}).get("new_tone_chance", 0.1))
@@ -394,12 +402,12 @@ static func newborn(sim: Sim, key: String, female: bool, mother: Dictionary, fat
 		else:
 			var from: Dictionary = mother.get("visual", {}) if Kin.roll(st, "%s|%s|parent" % [key, k]) < 0.5 else father.get("visual", {})
 			vis[k] = int(from.get(k, 0))
-	vis["portrait"] = _later_portrait(sim, ptype, key)
+	vis["portrait"] = _later_portrait(sim, ptype, key, 0, female)
 	return {"name": fresh_name(sim, key, female), "visual": vis}
 
 
 ## Name and look of a newcomer (Population._arrive): {name, hair, skin, portrait}. Fixed cast: the H7 draw as it was.
-static func newcomer(sim: Sim, key: String, female: bool) -> Dictionary:
+static func newcomer(sim: Sim, key: String, female: bool, age: int = 20) -> Dictionary:
 	var st := sim.state
 	var ptype := str(sim.catalog.cast.get("portraits", {}).get("roles", {}).get("newcomer", "commoner"))
 	if mode_of(st) == FIXED:
@@ -408,14 +416,14 @@ static func newcomer(sim: Sim, key: String, female: bool) -> Dictionary:
 		return {"name": str(names[Kin.randi_range(st, key + "|name", 0, names.size() - 1)]),
 			"hair": Kin.randi_range(st, key + "|hair", 0, int(vis.get("hair_tones", 6)) - 1),
 			"skin": Kin.randi_range(st, key + "|skin", 0, int(vis.get("skin_tones", 4)) - 1),
-			"portrait": _later_portrait(sim, ptype, key)}
+			"portrait": _later_portrait(sim, ptype, key, age, female)}
 	var look: Dictionary = sim.catalog.cast.get("look", {})
 	var hair: Array = look.get("hair", [0])
 	var skin: Array = look.get("skin", [0])
 	return {"name": fresh_name(sim, key, female),
 		"hair": int(hair[_later_rng(st, key + "|hair").randi_range(0, hair.size() - 1)]),
 		"skin": int(skin[_later_rng(st, key + "|skin").randi_range(0, skin.size() - 1)]),
-		"portrait": _later_portrait(sim, ptype, key)}
+		"portrait": _later_portrait(sim, ptype, key, age, female)}
 
 
 ## A given name of data/cast.json no living person has (from a starting point drawn with the cast seed); if all are
@@ -441,12 +449,90 @@ static func mode_of(st: WorldState) -> String:
 	return str(st.cast.get("mode", FIXED))
 
 
-static func _later_portrait(sim: Sim, type: String, key: String) -> Dictionary:
-	var n := maxi(1, int(sim.catalog.cast.get("portraits", {}).get("variants", 1)))
-	return {"type": type, "variant": _later_rng(sim.state, key + "|portrait").randi_range(1, n)}
+static func _later_portrait(sim: Sim, type: String, key: String, age: int, female: bool) -> Dictionary:
+	return {"id": pick_portrait(sim.catalog, type, age, female, _later_rng(sim.state, key + "|portrait"), 0,
+		faces_alive(sim.state)), "type": type}
+
+
+## The portrait ids of the living (a newborn or a newcomer gets another while the pool has one).
+static func faces_alive(st: WorldState) -> Dictionary:
+	var out := {}
+	for c: Dictionary in st.characters.values():
+		if bool(c.get("alive", true)) and c.get("visual") is Dictionary and c["visual"].get("portrait") is Dictionary:
+			out[str(c["visual"]["portrait"].get("id", ""))] = true
+	return out
 
 
 static func _later_rng(st: WorldState, key: String) -> RandomNumberGenerator:
 	var r := RandomNumberGenerator.new()
 	r.seed = ("%d|%s|later|%s" % [int(st.cast.get("seed", 0)), str(st.cast.get("map", "")), key]).hash()
 	return r
+
+
+# --- Portraits of the pool (Catalog.portrait_pool, assets/art/portraits/README.md) ---------------------------------
+
+## The age band of `age` (data/cast.json portraits.stages, the pool's: under 6 is child).
+static func stage_of(catalog: Catalog, age: int) -> String:
+	var stages: Array = catalog.cast.get("portraits", {}).get("stages", [])
+	for st: Dictionary in stages:
+		if age <= int(st.get("to_age", 0)):
+			return str(st.get("id", "adult"))
+	return str((stages.back() as Dictionary).get("id", "adult")) if not stages.is_empty() else "adult"
+
+
+## A portrait id of the pool for somebody of social `type`, `age` and sex: the candidates of sex + band + type; with
+## none, the index's fallback[type][band], then commoner (the README: it exists in every band and sex). With
+## `prefer_nn` > 0 the one of that number if it is a candidate (a face that "grows"), else one drawn with `r` among
+## those not in `taken` (all of them if every one is taken). "" without a pool.
+static func pick_portrait(catalog: Catalog, type: String, age: int, female: bool, r: RandomNumberGenerator,
+		prefer_nn: int = 0, taken: Dictionary = {}) -> String:
+	var pool: Dictionary = catalog.portrait_pool
+	if pool.is_empty():
+		return ""
+	var band := stage_of(catalog, age)
+	var sex := "f" if female else "m"
+	var cands: Array = []
+	var fb: Variant = (pool.get("fallback", {}) as Dictionary).get(type, {})
+	for t: String in [type, str(fb.get(band, "")) if fb is Dictionary else "", "commoner"]:
+		cands = (pool["by"] as Dictionary).get("%s|%s|%s" % [sex, band, t], [])
+		if not cands.is_empty():
+			break
+	if cands.is_empty():
+		return ""
+	var free: Array = cands.filter(func(c: Variant) -> bool: return not taken.has(str(c)))
+	if free.is_empty():
+		free = cands
+	var pick := str(free[r.randi_range(0, free.size() - 1)])
+	if prefer_nn > 0:
+		for c: Variant in cands:
+			if str(c).get_slice("_", str(c).get_slice_count("_") - 1).to_int() == prefer_nn:
+				return str(c)
+	return pick
+
+
+## At year_changed (Population.step): who has changed age band gets a portrait of the new one (the same number if the
+## band has it); an empty id (a game from before v14) gets one. Keyed on the cast seed: no other roll moves.
+static func grow_portraits(sim: Sim) -> void:
+	var st := sim.state
+	var year := Clock.year(int(st.clock["minute"]), sim.catalog.time)
+	var ids: Array = st.characters.keys()
+	ids.sort()
+	for id: String in ids:
+		var ch: Dictionary = st.characters[id]
+		if not bool(ch.get("alive", true)) or not ch.get("visual") is Dictionary:
+			continue
+		var vis: Dictionary = ch["visual"]
+		var pt: Dictionary = vis.get("portrait", {}) if vis.get("portrait") is Dictionary else {}
+		var old := str(pt.get("id", ""))
+		var age := Kin.age(sim, id)
+		var band := stage_of(sim.catalog, age)
+		if old != "" and old.get_slice("_", 1) == band:
+			continue
+		var type := str(pt.get("type", family_type(st, str(ch.get("family", "")), sim.catalog)))
+		var nn := old.get_slice("_", old.get_slice_count("_") - 1).to_int() if old != "" else 0
+		var nid := pick_portrait(sim.catalog, type, age, bool(ch.get("female", false)),
+			_later_rng(st, "grow|%s|%d" % [id, year]), nn, faces_alive(st))
+		if nid != "" and nid != old:
+			vis["portrait"] = {"id": nid, "type": type}
+			if OS.is_debug_build():
+				print("[Cast] %s «%s» cambia de retrato: %s -> %s (%d años)" % [id, ch.get("name", ""), old, nid, age])

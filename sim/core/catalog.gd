@@ -46,9 +46,35 @@ var politics: Dictionary = {}    # data/politics.json: reputation rules and clas
 var seasons: Dictionary = {}     # data/seasons.json: goods groups, price and production by season (H13, GDD 4.5.3, 4.13)
 var events: Dictionary = {}      # data/events.json: the global events (H13, GDD 4.13): rules and events by id
 var cast: Dictionary = {}        # data/cast.json: the generated cast of a new game (names, surnames, ages, look, portraits)
+## Población: the ids of the portrait pool (assets/art/portraits/index.json v1, its README): {"by": {"sex|age|type":
+## [ids sorted]}, "fallback": {type: {age: type}}, "count": n}. Only ids (never its file paths: those stay in
+## game/visuals/visual_paths.gd). Empty without the index: nobody gets a portrait id (the view keeps the greybox).
+var portrait_pool: Dictionary = {}
+const PORTRAIT_INDEX: String = "res://assets/art/portraits/index.json"
 var errors: PackedStringArray = []  # files that could not be read
 var _goods_index: Dictionary = {}  # H13: item -> [goods groups] (goods_of)
 var _goods_built: bool = false
+
+
+## The ids of a portrait pool index of version 1 ({} without it or with another version).
+static func load_portrait_pool(path: String) -> Dictionary:
+	if not FileAccess.file_exists(path):
+		return {}
+	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not d is Dictionary or int((d as Dictionary).get("version", 0)) != 1:
+		return {}
+	var by := {}
+	var n := 0
+	for e: Variant in (d as Dictionary).get("portraits", []):
+		if e is Dictionary and str(e.get("id", "")) != "":
+			var k := "%s|%s|%s" % [e.get("sex", ""), e.get("age", ""), e.get("type", "")]
+			if not by.has(k):
+				by[k] = []
+			(by[k] as Array).append(str(e["id"]))
+			n += 1
+	for k: String in by:
+		(by[k] as Array).sort()
+	return {"by": by, "fallback": (d as Dictionary).get("fallback", {}), "count": n}
 
 
 static func load_from(root_dir: String = "res://data", dev_time: bool = false) -> Catalog:
@@ -75,6 +101,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.seasons = c._load_json(root_dir.path_join("seasons.json"))
 	c.events = c._load_json(root_dir.path_join("events.json"))
 	c.cast = c._load_json(root_dir.path_join("cast.json"))
+	c.portrait_pool = load_portrait_pool(PORTRAIT_INDEX)
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]

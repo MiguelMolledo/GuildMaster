@@ -155,8 +155,7 @@ func test_ages_and_looks_in_their_ranges() -> void:
 				eq(str(c["visual"]["portrait"]["type"]), "artisan", "the protagonist's portrait is of the class")
 			check(int(c["visual"]["hair"]) in (cfg["look"]["hair"] as Array), "%s hair in the cast's tones" % id)
 			check(int(c["visual"]["skin"]) in (cfg["look"]["skin"] as Array), "%s skin in the cast's tones" % id)
-			var v := int(c["visual"]["portrait"]["variant"])
-			check(v >= 1 and v <= int(cfg["portraits"]["variants"]), "%s portrait number %d" % [id, v])
+			_check_portrait(st, id, age)
 
 
 func test_family_colors_are_distinct_and_far_from_the_player() -> void:
@@ -303,23 +302,86 @@ func test_migration_from_v13() -> void:
 	eq(str(back.characters["chr_0001"]["visual"]["portrait"]["type"]), "artisan", "the protagonist: the family's class")
 	eq(str(back.characters["chr_0002"]["visual"]["portrait"]["type"]), "artisan", "the rival smith")
 	eq(str(back.characters["chr_0003"]["visual"]["portrait"]["type"]), "commoner", "a townsperson")
-	eq(int(back.characters["chr_0003"]["visual"]["portrait"]["variant"]), 4, "the portrait number from the id (3 % 6 + 1)")
+	eq(str(back.characters["chr_0003"]["visual"]["portrait"]["id"]), "", "no id yet (the pool is not in the save)")
+	check(Identity.portrait_texture(Identity.of(back, "chr_0003")) != null, "the view shows one of its type meanwhile")
+	var sim := Sim.new(back, cat)
+	Cast.grow_portraits(sim)
+	check(str(back.characters["chr_0003"]["visual"]["portrait"]["id"]).begins_with("m_adult_commoner_"),
+		"the next year change gives it its id (%s)" % back.characters["chr_0003"]["visual"]["portrait"]["id"])
 	eq(int(back.characters["chr_0003"]["visual"]["hair"]), int(st.characters["chr_0003"]["visual"]["hair"]), "tones kept")
 
 
-func test_portrait_resolution_follows_the_pool_index() -> void:
-	# The view (game/visuals/visual_paths.gd) reads the pool's index v1: candidates by sex, age band and type; the
-	# person's number nn; the index's fallback and the commoner of the band. Here with the pilot's stand-in index.
-	var idx := VisualPaths.portrait_index("res://assets/art/portraits_pilot")
-	eq(int(idx.get("version", 0)), 1, "an index of version 1")
-	var a := VisualPaths.portrait("artisan", "adult", false, 2, 32)
-	check(a != null and a.resource_path.ends_with("worker_adult_m_32.png"), "m_adult_artisan_02 for nn 2 (%s)" % a)
-	var b := VisualPaths.portrait("artisan", "adult", false, 3, 64)
-	check(b != null and b.resource_path.ends_with("rival_adult_m_1.png"), "the bust of m_adult_artisan_03 (%s)" % b)
-	var c := VisualPaths.portrait("clergy", "elder", true, 1, 32)
-	check(c != null and c.resource_path.ends_with("townsfolk_elder_f_1_32.png"), "no clergy: the commoner of the band")
-	var d := VisualPaths.portrait("artisan", "adult", false, 6, 32)
-	check(d != null, "a number the pool does not have yet falls on a guaranteed one")
+## The portrait of `id` is a pool id of its sex and age band, of its type or of the index's fallback / commoner.
+func _check_portrait(st: WorldState, id: String, age: int) -> void:
+	var c: Dictionary = st.characters[id]
+	var pid := str(c["visual"]["portrait"]["id"])
+	var band := Cast.stage_of(cat, age)
+	var sex := "f" if bool(c["female"]) else "m"
+	check(pid.begins_with("%s_%s_" % [sex, band]), "%s: portrait %s of its sex and band (%s %s)" % [id, pid, sex, band])
+	var t := pid.substr(("%s_%s_" % [sex, band]).length()).get_slice("_", 0)
+	var type := str(c["visual"]["portrait"]["type"])
+	var fb := str(cat.portrait_pool["fallback"].get(type, {}).get(band, ""))
+	check(t in [type, fb, "commoner"], "%s: %s is of its type %s (or its fallback)" % [id, pid, type])
+	check(pid in ((cat.portrait_pool["by"] as Dictionary).get("%s|%s|%s" % [sex, band, t], []) as Array), "%s in the pool" % pid)
+
+
+func test_portrait_ids_come_from_the_pool() -> void:
+	eq(cat.portrait_pool["count"], 566, "the pool's 566 portraits")
+	var seen := {}
+	for sd: int in range(1, 11):
+		var st := _game("artisan_blacksmith", sd)
+		var sim := Sim.new(st, cat)
+		var faces := {}
+		for id: String in st.characters:
+			_check_portrait(st, id, Kin.age(sim, id))
+			var pid := str(st.characters[id]["visual"]["portrait"]["id"])
+			check(not faces.has(pid), "seed %d: %s and %s share the face %s" % [sd, id, faces.get(pid, ""), pid])
+			faces[pid] = id
+			seen[pid] = true
+	# town_e uses 4 combinations (adult m/f, commoner and artisan) of 8 faces each: nearly all 32 come out in 10 games
+	check(seen.size() >= 28, "most faces of those combinations in 10 games (%d of 32)" % seen.size())
+	# A girl of a guard family at 15: the index sends her to commoner; a scholar child to merchant.
+	var r := RandomNumberGenerator.new()
+	r.seed = 1
+	check(Cast.pick_portrait(cat, "guard", 15, true, r).begins_with("f_youth_commoner_"), "guard girl of 15: commoner")
+	check(Cast.pick_portrait(cat, "scholar", 8, false, r).begins_with("m_child_merchant_"), "scholar boy of 8: merchant")
+	check(Cast.pick_portrait(cat, "artisan", 3, false, r).begins_with("m_child_artisan_"), "under 6: child")
+	eq(Cast.pick_portrait(cat, "artisan", 30, false, r, 4), "m_adult_artisan_04", "the number asked for if the band has it")
+
+
+func test_portraits_grow_with_age() -> void:
+	var st := _game("artisan_blacksmith", 4)
+	var sim := Sim.new(st, cat)
+	st.clock["minute"] = int(st.clock["minute"]) + Clock.MINUTES_PER_DAY
+	var kid := Births.born(sim, "chr_0020", "chr_0019")
+	var first := str(st.characters[kid]["visual"]["portrait"]["id"])
+	check(first.get_slice("_", 1) == "child", "a newborn has a child's portrait (%s)" % first)
+	eq(str(st.characters[kid]["visual"]["portrait"]["type"]), "artisan", "of its father's type (a workshop family)")
+	var dpy := Clock.days_per_year(cat.time)
+	st.characters[kid]["birth_day"] = int(st.characters[kid]["birth_day"]) - 12 * dpy  # 12 years old now
+	Cast.grow_portraits(sim)
+	var grown := str(st.characters[kid]["visual"]["portrait"]["id"])
+	check(grown.get_slice("_", 1) == "youth", "at 12 a youth's portrait (%s)" % grown)
+	eq(grown.get_slice("_", 4), first.get_slice("_", 4), "the same number (the pool has 6+ of every band)")
+	Cast.grow_portraits(sim)
+	eq(str(st.characters[kid]["visual"]["portrait"]["id"]), grown, "the same band: the same portrait")
+	var adult_before := str(st.characters["chr_0019"]["visual"]["portrait"]["id"])
+	Cast.grow_portraits(sim)
+	eq(str(st.characters["chr_0019"]["visual"]["portrait"]["id"]), adult_before, "an adult keeps his")
+
+
+func test_portrait_resolution_in_the_view() -> void:
+	# The view (game/visuals/visual_paths.gd) turns the id into the pool's face (32) or bust (64).
+	var f := VisualPaths.portrait_file("f_mature_merchant_03", 32)
+	check(f != null and f.resource_path.ends_with("f/mature/merchant/f_mature_merchant_03_32.png"), "the face (%s)" % f)
+	var b := VisualPaths.portrait_file("f_mature_merchant_03", 64)
+	check(b != null and b.resource_path.ends_with("f/mature/merchant/f_mature_merchant_03.png"), "the bust (%s)" % b)
+	eq(VisualPaths.portrait_file("no_such_id"), null, "an unknown id: the greybox")
+	var st := _game("artisan_blacksmith", 2)
+	var who := Identity.of(st, "chr_0003")
+	eq(str(who["portrait"]["id"]), str(st.characters["chr_0003"]["visual"]["portrait"]["id"]), "Identity passes the id")
+	check(Identity.portrait_texture(who) != null, "and the view finds its texture")
+	check(VisualPaths.portrait("clergy", "child", true, 3) != null, "without an id: the index's fallback (clergy child)")
 	eq(Identity.stage(5), "child", "under 6: child")
 	eq([Identity.stage(11), Identity.stage(12), Identity.stage(17), Identity.stage(18), Identity.stage(44),
 		Identity.stage(45), Identity.stage(59), Identity.stage(60)],

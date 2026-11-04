@@ -223,8 +223,9 @@ static func _choices(start: Dictionary, choices: Dictionary, pro: Dictionary) ->
 		if not (typeof(v) in [TYPE_INT, TYPE_FLOAT]) or int(v) < 0:
 			return {}
 	var vis := {"hair": int(visual.get("hair", 0)), "skin": int(visual.get("skin", 0))}
-	if pv.get("portrait") is Dictionary:
-		vis["portrait"] = (pv["portrait"] as Dictionary).duplicate()
+	var pk := "portrait_f" if female else "portrait_m"
+	if pv.get(pk) is Dictionary:  # población: the proposal has one portrait per sex
+		vis["portrait"] = (pv[pk] as Dictionary).duplicate()
 	return {"name": name, "female": female, "family_name": family_name,
 		"colors": {"primary": str(colors["primary"]), "secondary": str(colors["secondary"])}, "stats": stats,
 		"visual": vis}

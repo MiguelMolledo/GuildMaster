@@ -26,6 +26,7 @@ static func step(sim: Sim) -> void:
 	if year_change:
 		_come_of_age(sim)
 		_newcomers(sim)
+		Cast.grow_portraits(sim)  # población: a new age band, a portrait of it
 	if dawn:
 		_weddings(sim)
 
@@ -165,10 +166,10 @@ static func _arrive(sim: Sim, house: String, today: int, n: int) -> String:
 			else:
 				men += 1
 	var female := women < men or (women == men and Kin.roll(st, key + "|sex") < 0.5)
-	var nc := Cast.newcomer(sim, key, female)  # población: name and look from the game's cast
-	var name := str(nc["name"])
 	var span: Array = cfg.get("newcomer_age", [18, 24])
 	var age := Kin.randi_range(st, key + "|age", int(span[0]), int(span[1]))
+	var nc := Cast.newcomer(sim, key, female, age)  # población: name and look from the game's cast
+	var name := str(nc["name"])
 	var stats := {}
 	for k: String in ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution",
 			"rhetoric", "stealth"]:

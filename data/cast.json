@@ -39,8 +39,7 @@
     "min_distance": 0.25
   },
   "portraits": {
-    "_doc": "Base portrait of each person (the pool of assets/art/portraits/index.json v1, README there): visual.portrait = {type, variant}. type: the social type of the pool (artisan, commoner, merchant, noble, clergy, guard, scholar, farmer, rogue): the protagonist's family by its class (classes), the rival and competitors and the townsfolk by roles; a child takes its father's. variant: the portrait number nn (1..variants) of the pool's ids <sex>_<age>_<type>_<nn>, kept for life: when the age band changes the view takes the same nn of the new band (the id is derived, so adding portraits to the pool never changes a saved face). stages: the pool's age bands (the first whose to_age >= age; under 6 is child).",
-    "variants": 6,
+    "_doc": "Base portrait of each person, from the pool of assets/art/portraits/index.json v1 (its README; Catalog.portrait_pool reads only its ids): visual.portrait = {id, type}. id: the pool's portrait (<sex>_<band>_<type>_<nn>), drawn with the cast seed among the candidates of the person's sex, age band and type (with none: the index's fallback, then commoner); kept until the age band changes, then Cast.grow_portraits takes one of the new band, the same nn if it has it (adding portraits to the pool never changes a saved one). type: the person's social type (artisan, commoner, merchant, noble, clergy, guard, scholar, farmer, rogue), kept so the next band is drawn from it even when the id came from a fallback: the protagonist's family by its class (classes), the rival, the competitors and the townsfolk by roles; a child takes its father's. stages: the pool's age bands (the first whose to_age >= age; under 6 is child).",
     "classes": {
       "artisan": "artisan",
       "patron": "farmer",

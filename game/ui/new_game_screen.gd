@@ -342,7 +342,8 @@ func _update_preview() -> void:
 	var start: Dictionary = catalog.starts().get(start_id, {})
 	var defaults: Dictionary = start.get("defaults", {})
 	var vis: Dictionary = proposal.get("visual", defaults.get("visual", {}))
-	var pt: Dictionary = vis.get("portrait", {}) if vis.get("portrait") is Dictionary else {}
+	var pk := "portrait_f" if female else "portrait_m"  # población: the proposal has one portrait per sex
+	var pt: Dictionary = vis.get(pk, {}) if vis.get(pk) is Dictionary else {}
 	if _portrait == null:
 		var n := VisualPaths.instantiate("characters", "portrait")
 		n.name = "Portrait"
@@ -352,7 +353,7 @@ func _update_preview() -> void:
 		_portrait.set_identity({"hair": Identity.hair_color(int(vis.get("hair", 0))),
 			"skin": Identity.skin_color(int(vis.get("skin", 0))), "primary": ViewConfig.color(primary),
 			"secondary": ViewConfig.color(secondary), "female": female, "dead": false,
-			"portrait": {"type": str(pt.get("type", "artisan")), "variant": int(pt.get("variant", 1)),
+			"portrait": {"id": str(pt.get("id", "")), "type": str(pt.get("type", "artisan")), "seed": 1,
 				"stage": Identity.stage(int(protagonist().get("age", 20)))}})
 	var border := (%PortraitBorder as Panel).get_theme_stylebox("panel") as StyleBoxFlat
 	if border != null:

@@ -17,7 +17,7 @@ static func skin_color(index: int) -> Color:
 
 
 ## {hair, skin, primary, secondary, female, dead, portrait} of a character from the state. portrait (población):
-## {type, stage, variant} of its base portrait; the stage comes from its age now (the portrait changes with age), the
+## {id, type, stage, seed}: the pool id it keeps (Cast; "" in a game from before v14 until its next year); the stage comes from its age now (the portrait changes with age), the
 ## age of its death for the dead. The hair greys with the band (greyed).
 static func of(state: WorldState, chr: String) -> Dictionary:
 	var ch: Dictionary = state.characters.get(chr, {})
@@ -34,8 +34,7 @@ static func of(state: WorldState, chr: String) -> Dictionary:
 		"primary": ViewConfig.color(str(colors.get("primary", "#808080"))),
 		"secondary": ViewConfig.color(str(colors.get("secondary", "#c0c0c0"))),
 		"female": bool(ch.get("female", false)), "dead": not bool(ch.get("alive", true)),
-		"portrait": {"type": ptype, "variant": int(pt.get("variant", str(chr).get_slice("_", 1).to_int() % 6 + 1)),
-			"stage": stg}}
+		"portrait": {"id": str(pt.get("id", "")), "type": ptype, "stage": stg, "seed": str(chr).get_slice("_", 1).to_int()}}
 
 
 ## The hair with the grey of its age band (data/view.json portraits.greying: the art paints no grey hair).
@@ -58,8 +57,10 @@ static func portrait_texture(id: Dictionary, size: int = 32) -> Texture2D:
 	var pt: Dictionary = id.get("portrait", {}) if id.get("portrait") is Dictionary else {}
 	if pt.is_empty():
 		return null
+	if str(pt.get("id", "")) != "":
+		return VisualPaths.portrait_file(str(pt["id"]), size)
 	return VisualPaths.portrait(str(pt.get("type", "commoner")), str(pt.get("stage", "adult")),
-		bool(id.get("female", false)), int(pt.get("variant", 1)), size)
+		bool(id.get("female", false)), int(pt.get("seed", 0)), size)
 
 
 static func _type_of(fam: Dictionary) -> String:

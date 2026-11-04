@@ -10,7 +10,7 @@ Rama `poblacion` (2026-11-03). Código: `sim/meta/cast.gd` (`Cast`); datos: `dat
 | Nombres de pila y apellido de casa: protagonista (propuesta), rival, competidores, vecinos | Atributos del protagonista, del rival y de los competidores |
 | Edad del rival (34-36), de los competidores (33-44), de sus parejas (31-41) y de los vecinos (18-30) | Edad del protagonista (la del inicio) |
 | Sexo cuando el dato no lo fija (en town_e todos lo fijan) | Sexo del rival, de los competidores y de sus parejas |
-| Pelo, piel, retrato base `{type, variant}`, colores de ropa de las familias IA | Oro, deuda, edificios, encargos, perfiles IA, oficios |
+| Pelo, piel, retrato base `{id, type}` del pool, colores de ropa de las familias IA | Oro, deuda, edificios, encargos, perfiles IA, oficios |
 | Personalidad de los vecinos: carisma, empatía y destreza ±1 | Rango, oficio y el resto de atributos de los vecinos |
 
 **Orden de edad.** Los cargos van al mayor de cada casa con título (`Offices.setup`) y el heredero es el hijo
@@ -32,39 +32,39 @@ mismos vecinos ocupan los mismos cargos con cualquier reparto.
 ## Estado (guardado v14)
 
 - Raíz `cast: {mode, seed, map}`.
-- `character.visual.portrait: {type, variant}`. `type`: tipo social del pool de retratos (`artisan`, `commoner`,
-  `merchant`, `noble`, `clergy`, `guard`, `scholar`, `farmer`, `rogue`): la familia del jugador por su clase
+- `character.visual.portrait: {id, type}`. `id`: el retrato del pool (`<sexo>_<franja>_<tipo>_<nn>`), elegido con la
+  semilla del reparto entre los candidatos de su sexo, franja y tipo (sin ninguno, el `fallback` del índice y después
+  `commoner`), sin repetir cara dentro del reparto mientras el pool tenga. `type`: su tipo social (`artisan`,
+  `commoner`, `merchant`, `noble`, `clergy`, `guard`, `scholar`, `farmer`, `rogue`): la familia del jugador por su clase
   (`portraits.classes`: artisan → artisan, patron → farmer, scholar → scholar, rogue → rogue), el rival y los
-  competidores `artisan`, vecinos y recién llegados `commoner`; un hijo toma el del padre. `variant`: el número `nn`
-  del retrato (1-6), para toda la vida.
+  competidores `artisan`, vecinos y recién llegados `commoner`; un hijo toma el del padre. Se guarda aparte porque el
+  id puede venir de un `fallback` (una niña `scholar` lleva un `merchant`) y la franja siguiente se elige del tipo.
 - Migración 13 → 14: `cast = {mode: "fixed", seed: 0, map}` (los nacimientos y llegadas de una partida vieja siguen
-  como antes) y a cada personaje su retrato: tipo por su familia, `nn` = número de su id % 6 + 1.
+  como antes) y a cada personaje `{id: "", type}` por su familia (el guardado no tiene el pool): la vista enseña uno
+  de su tipo mientras tanto y `Cast.grow_portraits` le da su id en el siguiente cambio de año.
 
 ## Después del inicio
 
 - Nacimientos (`Births.born` → `Cast.newborn`) y recién llegados (`Population._arrive` → `Cast.newcomer`): con reparto
   fijo, la tirada de H7/H8 (`data/family.json names`, mismas claves); con reparto generado, un nombre de
-  `data/cast.json` que no lleve nadie vivo y tonos de `look`.
+  `data/cast.json` que no lleve nadie vivo y tonos de `look`. En los dos, un retrato del pool que no lleve nadie vivo.
+- Al cambiar de año (`Population.step` → `Cast.grow_portraits`), quien cambia de franja recibe un retrato de la nueva,
+  el mismo `nn` si lo hay (el pool tiene del 01 al 06 en todas las combinaciones).
 
 ## Retratos (vista)
 
-Formato del pool: `assets/art/portraits/README.md` e `index.json` versión 1 (rama arte-fal, 6235a56).
+Pool: `assets/art/portraits/index.json` versión 1 y su README (566 retratos, 81 combinaciones de 6 a 12 caras).
 
-- `Identity.of` añade `portrait: {type, stage, variant}`. La franja sale de la edad de ahora y cambia al envejecer
-  (`data/cast.json portraits.stages`, las del pool: child ≤11, youth 12-17, adult 18-44, mature 45-59, elder 60+;
-  menos de 6, child).
-- `VisualPaths.portrait(type, stage, female, nn, size)` lee `index.json`: candidatos de sexo + franja + tipo; sin
-  ninguno, `fallback[tipo][franja]` del índice; después, los tipos de `data/view.json portraits.fallback`
-  (`commoner`, que existe siempre). Elige el id `<sexo>_<franja>_<tipo>_<nn>`. **Se guarda el `nn`, no el id ni la
-  posición en la lista**: el id es `nn` + sexo + franja + tipo, así que al cambiar de franja «crece» el mismo `nn`
-  (lo que propone el README) y añadir retratos al pool no cambia una cara guardada. Si el pool aún no tiene ese
-  `nn` (`_05`, `_06`), toma uno de los garantizados (1-4); esa cara cambiaría el día que llegue el que falta.
-  Cara de 32 para `size` 32 y busto de 64 para 64.
+- El sim lee del índice solo ids, sexo, franja, tipo y `fallback` (`Catalog.portrait_pool`); las rutas, solo
+  `VisualPaths.portrait_file(id, size)`: la cara de 32 para `size` 32, el busto de 64 para 64.
+- Franjas (`data/cast.json portraits.stages`, las del pool): child ≤11 (menos de 6 también), youth 12-17, adult
+  18-44, mature 45-59, elder 60+. El validador comprueba que casan con el índice y que existe `commoner` en todas.
+- `Identity.of` pasa `portrait: {id, type, stage, seed}`; sin id (partida vieja hasta su año siguiente),
+  `VisualPaths.portrait(type, stage, sexo, seed)` elige uno estable del índice con el mismo orden de reserva.
 - Canas: el dibujo no las trae; `Identity.greyed` mezcla el pelo con gris según la franja (`data/view.json
   portraits.greying`: mature 0,3, elder 0,75).
-- Ropa fija (clérigo, guardia…): si el retrato no codifica `primary`/`secondary`, el shader no la tiñe.
-- Mientras el pool no esté en main, sirve `assets/art/portraits_pilot/index.json` (el mismo formato, con los 8 del
-  piloto ya codificados). Se borra la carpeta cuando llegue el bueno.
+- Zonas: el shader solo pinta los píxeles marcados; si una toca o un casco tapan el pelo, o la ropa es fija, no se
+  tiñen (el `recolor` del índice lo cuenta, el juego no lo necesita).
 - La barba es la región de pelo de los colores clave (4.10.9): toma el tono del pelo.
 
 ## Varias ciudades
