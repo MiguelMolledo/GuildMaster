@@ -177,7 +177,9 @@ el guion `--smoke-script=duelo_partida`.
 - [ ] Responder retos (Aceptar / Rechazar / Proponer otro tipo): cuando los NPC reten (O-C7, O-C17).
 - [ ] Confirmación de Rendirse: con «hasta la rendición» (O-C4).
 - [ ] Testigos en la escena (siluetas detrás) y el padrino de cada lado.
-- [ ] Arte y sonido de §8 (los efectos, iconos e ilustración se ven solos cuando lleguen: `VisualPaths.duel_*`).
+- [x] Efectos, iconos y láminas de `arte-fal-2` conectados (`VisualPaths.duel_vfx` lee el `.json` de cada efecto; alias de
+  nombres en `VisualPaths`). Capturas `docs/novedades/duelp_lance_1..3.png`, `duelp_carta.png`, `duelp_resultado.png`.
+- [ ] Poses (PixelLab, 15-nov) y sonido de §8.
 
 ## 10. Criterios de aceptación
 

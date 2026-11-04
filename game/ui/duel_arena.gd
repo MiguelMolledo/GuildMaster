@@ -21,8 +21,8 @@ const MISSING_ART: String = "duel_poses"
 const VFX: Dictionary = {"slash": "strike", "spark": "parry", "swirl": "feint", "hit": "hit"}
 
 var fighters: Array[CharacterView] = []
-var _fx: Array = []                 # [{kind, at, t, frames}]
-var _frames: Dictionary = {}        # effect kind -> [Texture2D] (empty: drawn by code)
+var _fx: Array = []                 # code-drawn: [{kind, at, t}]; with art: [{anim, who, mirror, elapsed, t}]
+var _frames: Dictionary = {}        # code effect kind -> VisualPaths.duel_vfx of its art id ({} = drawn by code)
 var _words: Label = null
 var _missing: Label = null
 
@@ -47,7 +47,7 @@ func _ensure() -> void:
 	_missing.theme_type_variation = &"WarningLabel"
 	for k: String in VFX:
 		_frames[k] = VisualPaths.duel_vfx(str(VFX[k]))
-	var all_fx := _frames.values().all(func(f: Array) -> bool: return not f.is_empty())
+	var all_fx := _frames.values().all(func(f: Dictionary) -> bool: return not f.is_empty())
 	_missing.text = tr("combat.ui.missing_poses" if all_fx else "combat.ui.missing_art")
 	_missing.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_missing)
@@ -106,8 +106,16 @@ func play(rec: Dictionary, fast: bool = false) -> void:
 				UiAnim.lunge(fighters[i], -6.0 * dir, [1.0, 1.0, 0.5, 0.0] as Array[float])
 	var w := int(rec.get("winner", -1))
 	var mid := Vector2(size.x / 2.0, FEET_Y - 40.0)
-	var kind := "spark" if "parry" in acts else ("slash" if "strike" in acts else "swirl")
-	_fx.append({"kind": kind, "at": mid, "t": FX_SECONDS, "frames": _frames.get(kind, [])})
+	var drawn := false
+	for i: int in fighters.size():  # the art: each one's effect at its own feet, the west one mirrored
+		var a := str(acts[i])
+		var code := {"strike": "slash", "parry": "spark", "feint": "swirl"}.get(a, "") as String
+		var anim: Dictionary = _frames.get(code, {})
+		if not anim.is_empty():
+			_add_anim(anim, i)
+		elif code != "" and not drawn:  # no art for it: the provisional one, once, in the middle
+			_fx.append({"kind": code, "at": mid, "t": FX_SECONDS})
+			drawn = true
 	var how := str(rec.get("how", "even"))
 	var word := tr("combat.how.%s" % how)
 	if w >= 0:
@@ -115,13 +123,24 @@ func play(rec: Dictionary, fast: bool = false) -> void:
 		var hit := fighters[1 - w]
 		get_tree().create_timer(0.22).timeout.connect(func() -> void:
 			UiAnim.recoil(hit, (-10.0 if w == 1 else 10.0))
-			_fx.append({"kind": "hit", "at": hit.position + Vector2(0, -34), "t": FX_SECONDS,
-				"frames": _frames.get("hit", [])}))
+			var anim: Dictionary = _frames.get("hit", {})
+			if not anim.is_empty():
+				_add_anim(anim, 1 - w)
+			else:
+				_fx.append({"kind": "hit", "at": hit.position + Vector2(0, -34), "t": FX_SECONDS}))
 	_show_word(word)
 	set_process(true)
 	get_tree().create_timer(seconds).timeout.connect(func() -> void:
 		idle()
 		lance_shown.emit())
+
+
+## An effect of the art on fighter `who` (its feet, followed while it lunges), for the frames' time.
+func _add_anim(anim: Dictionary, who: int) -> void:
+	var frames: Array = anim["frames"]
+	var facing := "e" if who == 0 else "w"
+	_fx.append({"anim": anim, "who": who, "mirror": facing != str(anim.get("facing", "e")), "elapsed": 0.0,
+		"t": float(frames.size()) / maxf(1.0, float(anim.get("fps", 12)))})
 
 
 func _show_word(text: String) -> void:
@@ -139,6 +158,8 @@ func _show_word(text: String) -> void:
 func _process(delta: float) -> void:
 	for f: Dictionary in _fx:
 		f["t"] = float(f["t"]) - delta
+		if f.has("anim"):
+			f["elapsed"] = float(f["elapsed"]) + delta
 	_fx = _fx.filter(func(f: Dictionary) -> bool: return float(f["t"]) > 0.0)
 	queue_redraw()
 	if _fx.is_empty():
@@ -149,14 +170,18 @@ func _draw() -> void:
 	draw_rect(Rect2(Vector2(0, FEET_Y - 2), Vector2(size.x, size.y - FEET_Y + 2)), Color(0.16, 0.12, 0.09, 0.6))
 	draw_line(Vector2(0, FEET_Y - 2), Vector2(size.x, FEET_Y - 2), Color(0.35, 0.27, 0.18), 1.0)
 	for f: Dictionary in _fx:
+		if f.has("anim"):  # the effect's art: frame by its fps, its top-left at offset from the feet, ×2 like the figures
+			var anim: Dictionary = f["anim"]
+			var frames: Array = anim["frames"]
+			var i := clampi(floori(float(f["elapsed"]) * float(anim["fps"])), 0, frames.size() - 1)
+			var feet := fighters[int(f["who"])].position if int(f["who"]) < fighters.size() else Vector2.ZERO
+			var sx := -1.0 if bool(f["mirror"]) else 1.0
+			draw_set_transform(feet.round(), 0.0, Vector2(sx * SCALE, SCALE))
+			draw_texture_rect(frames[i] as Texture2D, Rect2(anim["offset"], anim["size"]), false)
+			draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+			continue
 		var at: Vector2 = f["at"]
 		var k := float(f["t"]) / FX_SECONDS
-		var frames: Array = f.get("frames", [])
-		if not frames.is_empty():  # the effect's art: its frames over the effect's time, centred, ×2 like the figures
-			var tex: Texture2D = frames[clampi(floori((1.0 - k) * frames.size()), 0, frames.size() - 1)]
-			var sz := tex.get_size() * SCALE
-			draw_texture_rect(tex, Rect2((at - sz / 2.0).round(), sz), false)
-			continue
 		var r := roundf(4.0 + (1.0 - k) * 10.0)
 		match str(f["kind"]):
 			"slash":
