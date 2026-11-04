@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnp0pj3ei22f3"]
+
+[ext_resource type="Script" uid="uid://dclcjwcrf4upw" path="res://game/visuals/greybox/greybox_blocks.gd" id="1_gb"]
+
+[node name="HouseBlock" type="Node2D"]
+y_sort_enabled = true
+editor_description = "Filler house of any lot size but 3x3 (tools/city/organic.py: the planned lots of the organic towns): a greybox block sized to its lot, in its district's roof colour, until house sprites of those sizes exist."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -40)
+
+[node name="Greybox" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_gb")
+footprint = Vector2i(2, 3)
+height = 40.0
+color = Color(0.48, 0.3, 0.23, 1)

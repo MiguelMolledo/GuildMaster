@@ -5,7 +5,7 @@ extends Node
 ## camera on the plaza, the centre and the four quarters of the map, and a shot of each
 ## (reports/shots/mapa_<map id>_<place>.png; mapa_<scenario>_<place>.png when the scenario is not <map id>_start). Made to check the town builder's dressing (tools/city/,
 ## docs/protocolos/generar-ciudad.md): houses facing the street, lanterns, props, fences. Quits when done, or after
-## `timeout` seconds.
+## `timeout` seconds. --smoke-at=<map>:<name>:<col>:<row>,... adds places (mapa_<map>_<name>.png).
 
 var app: Node = null
 var timeout: float = 120.0
@@ -15,12 +15,15 @@ var _scenarios: PackedStringArray = ["town_e_start"]
 var _s: int = -1
 var _places: Array = []
 var _i: int = 0
+var _extra: PackedStringArray = []  # --smoke-at=<map>:<name>:<col>:<row>,... more places to shoot
 
 
 func _ready() -> void:
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--smoke-maps="):
 			_scenarios = a.substr(13).split(",", false)
+		if a.begins_with("--smoke-at="):
+			_extra = a.substr(11).split(",", false)
 	print("[SmokeMapa] start (%s)" % [_scenarios])
 
 
@@ -79,6 +82,11 @@ func _next_scenario() -> void:
 	_places = [["plaza", Vector2i(roundi(plaza.x), roundi(plaza.y))], ["centro", Vector2i(w / 2, h / 2)],
 		["no", Vector2i(w / 4, h / 4)], ["ne", Vector2i(3 * w / 4, h / 4)], ["so", Vector2i(w / 4, 3 * h / 4)],
 		["se", Vector2i(3 * w / 4, 3 * h / 4)]]
+	# extra places of this map (--smoke-at=<map>:<name>:<col>:<row>,...: the port, the cathedral...)
+	for spec: String in _extra:
+		var part := spec.split(":")
+		if part.size() == 4 and part[0] == Game.sim.state.map_id:
+			_places.append([part[1], Vector2i(int(part[2]), int(part[3]))])
 	_i = 0
 	_look()
 

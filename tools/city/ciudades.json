@@ -1,0 +1,2059 @@
+{
+ "_doc": "Plans of the organic towns of the region (tools/city/organic.py, docs/protocolos/generar-ciudad.md §Ciudades orgánicas). Coordinates in tiles [col, row] of the map; sizes [cols, rows]. Change a number and run python3 tools/city/ciudad.py region <id> (then the scenarios: tools/scenarios/make_city_scenarios.gd). Same plan, same map.",
+ "region_port": {
+  "size": [
+   48,
+   48
+  ],
+  "seed": 1,
+  "households": 10,
+  "style": "C",
+  "plaza": {
+   "centre": [
+    22,
+    15
+   ],
+   "bulge": 2.0
+  },
+  "rivers": [
+   {
+    "path": [
+     [
+      -3,
+      31
+     ],
+     [
+      10,
+      33
+     ],
+     [
+      22,
+      31
+     ],
+     [
+      34,
+      34
+     ],
+     [
+      51,
+      32
+     ]
+    ],
+    "width": 7,
+    "wobble": 0.6
+   }
+  ],
+  "roads": [
+   {
+    "gate": "west_gate",
+    "path": [
+     [
+      0,
+      15
+     ],
+     [
+      4,
+      15
+     ],
+     [
+      10,
+      14
+     ],
+     [
+      17,
+      14.5
+     ]
+    ],
+    "width": 2
+   },
+   {
+    "gate": "east_gate",
+    "path": [
+     [
+      47,
+      21
+     ],
+     [
+      43,
+      21
+     ],
+     [
+      36,
+      18
+     ],
+     [
+      27,
+      15
+     ]
+    ],
+    "width": 2
+   },
+   {
+    "gate": "south_gate",
+    "path": [
+     [
+      25,
+      47
+     ],
+     [
+      24,
+      42
+     ],
+     [
+      23,
+      35
+     ],
+     [
+      22,
+      27
+     ],
+     [
+      21,
+      21
+     ]
+    ],
+    "width": 2
+   },
+   {
+    "gate": "north_gate",
+    "path": [
+     [
+      29,
+      0
+     ],
+     [
+      28,
+      4
+     ],
+     [
+      26,
+      8
+     ]
+    ],
+    "width": 2,
+    "main": false
+   },
+   {
+    "name": "baixada_moll",
+    "path": [
+     [
+      9,
+      15.5
+     ],
+     [
+      8,
+      19
+     ],
+     [
+      7.5,
+      23
+     ],
+     [
+      8,
+      27
+     ]
+    ],
+    "width": 1.2,
+    "main": false
+   },
+   {
+    "name": "carrer_ribera",
+    "path": [
+     [
+      17,
+      21.5
+     ],
+     [
+      14,
+      23
+     ],
+     [
+      11,
+      22.5
+     ],
+     [
+      3,
+      22
+     ]
+    ],
+    "width": 1.2,
+    "main": false
+   },
+   {
+    "name": "carrer_alt",
+    "path": [
+     [
+      3,
+      9
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      12,
+      9
+     ]
+    ],
+    "width": 1.2,
+    "main": false
+   },
+   {
+    "name": "costa_est",
+    "path": [
+     [
+      28,
+      21
+     ],
+     [
+      33,
+      22.5
+     ],
+     [
+      40,
+      24
+     ],
+     [
+      45,
+      24
+     ]
+    ],
+    "width": 1.2,
+    "main": false
+   }
+  ],
+  "port": {
+   "quay": {
+    "cols": [
+     3,
+     44
+    ],
+    "bank": "north",
+    "width": 2
+   },
+   "piers": 5,
+   "pier_len": 3,
+   "spacing": 6,
+   "boats": 4,
+   "boat": [
+    4,
+    2
+   ],
+   "rowboats": 3,
+   "crane": {
+    "height": 88,
+    "color": "#7a5530"
+   }
+  },
+  "landmarks": [
+   {
+    "type": "exchange",
+    "size": [
+     5,
+     4
+    ],
+    "near": [
+     31,
+     25
+    ],
+    "height": 56,
+    "color": "#b08a5a"
+   },
+   {
+    "type": "warehouse",
+    "size": [
+     4,
+     3
+    ],
+    "near": [
+     12,
+     25
+    ],
+    "height": 48,
+    "color": "#8a5a3a"
+   },
+   {
+    "type": "warehouse",
+    "size": [
+     4,
+     3
+    ],
+    "near": [
+     38,
+     26
+    ],
+    "height": 48,
+    "color": "#8a5a3a"
+   },
+   {
+    "type": "warehouse",
+    "size": [
+     4,
+     3
+    ],
+    "near": [
+     6,
+     26
+    ],
+    "height": 48,
+    "color": "#8a5a3a"
+   },
+   {
+    "type": "customs",
+    "size": [
+     3,
+     3
+    ],
+    "near": [
+     26,
+     25
+    ],
+    "height": 52,
+    "color": "#a07850"
+   },
+   {
+    "type": "shipyard",
+    "size": [
+     5,
+     3
+    ],
+    "near": [
+     9,
+     38
+    ],
+    "front": "water",
+    "height": 30,
+    "color": "#9a7040"
+   }
+  ],
+  "districts": [
+   {
+    "id": "ribera",
+    "centre": [
+     24,
+     23
+    ],
+    "radius": [
+     25,
+     7
+    ],
+    "roof": "#8a3b2a",
+    "density": {
+     "fill": 1.0,
+     "touch": true,
+     "lot_sizes": [
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       2,
+       4
+      ]
+     ],
+     "backyard": 1,
+     "patios": 0.5,
+     "blocks": 0.9,
+     "block_max": 40
+    },
+    "streets": {
+     "every": 5,
+     "p": 0.8,
+     "gap": 6,
+     "max_len": 14,
+     "min_len": 4,
+     "width": 1.2,
+     "ch": "=",
+     "clear": 3,
+     "turn": 18
+    },
+    "alleys": {
+     "every": 5,
+     "p": 0.6,
+     "gap": 3,
+     "max_len": 7,
+     "min_len": 3,
+     "width": 1,
+     "ch": "="
+    }
+   },
+   {
+    "id": "alta",
+    "centre": [
+     24,
+     11
+    ],
+    "radius": [
+     22,
+     9
+    ],
+    "roof": "#6a4a3a",
+    "density": {
+     "fill": 0.85,
+     "touch": true,
+     "lot_sizes": [
+      [
+       3,
+       3
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       4,
+       3
+      ]
+     ],
+     "backyard": 1,
+     "patios": 0.3,
+     "blocks": 0.6,
+     "block_max": 24
+    },
+    "streets": {
+     "every": 7,
+     "p": 0.75,
+     "gap": 7,
+     "max_len": 18,
+     "min_len": 5,
+     "width": 1.2,
+     "ch": "=",
+     "turn": 18,
+     "clear": 3
+    },
+    "alleys": {
+     "every": 6,
+     "p": 0.4,
+     "gap": 3,
+     "max_len": 8,
+     "min_len": 3,
+     "width": 1,
+     "ch": ","
+    }
+   },
+   {
+    "id": "otra_orilla",
+    "centre": [
+     24,
+     42
+    ],
+    "radius": [
+     18,
+     6
+    ],
+    "roof": "#7a5a3a",
+    "density": {
+     "fill": 0.6,
+     "lot_sizes": [
+      [
+       3,
+       3
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       2,
+       2
+      ]
+     ],
+     "backyard": 1
+    },
+    "streets": {
+     "every": 8,
+     "p": 0.6,
+     "gap": 7,
+     "max_len": 14,
+     "min_len": 5,
+     "width": 1.2,
+     "ch": ","
+    }
+   }
+  ],
+  "fields": {
+   "count": 4,
+   "cell": 9
+  },
+  "trees": 0.12,
+  "gardens": 0.05
+ },
+ "region_capital": {
+  "size": [
+   80,
+   80
+  ],
+  "seed": 1,
+  "households": 16,
+  "style": "A+C",
+  "plaza": {
+   "centre": [
+    38,
+    30
+   ],
+   "bulge": 3.0
+  },
+  "rivers": [
+   {
+    "path": [
+     [
+      -3,
+      61
+     ],
+     [
+      14,
+      64
+     ],
+     [
+      30,
+      60
+     ],
+     [
+      46,
+      63
+     ],
+     [
+      62,
+      59
+     ],
+     [
+      83,
+      62
+     ]
+    ],
+    "width": 8,
+    "wobble": 0.7
+   }
+  ],
+  "walls": {
+   "centre": [
+    40,
+    35
+   ],
+   "radius": [
+    29,
+    27
+   ],
+   "wobble": 0.06,
+   "towers_every": 12,
+   "tower": [
+    2,
+    2
+   ],
+   "tower_height": 80
+  },
+  "roads": [
+   {
+    "gate": "west_gate",
+    "path": [
+     [
+      0,
+      30
+     ],
+     [
+      5,
+      30
+     ],
+     [
+      14,
+      29.5
+     ],
+     [
+      24,
+      29
+     ],
+     [
+      32,
+      29.5
+     ]
+    ],
+    "width": 2.2
+   },
+   {
+    "gate": "east_gate",
+    "path": [
+     [
+      79,
+      50
+     ],
+     [
+      74,
+      49
+     ],
+     [
+      68,
+      45
+     ],
+     [
+      60,
+      38
+     ],
+     [
+      52,
+      33
+     ],
+     [
+      43,
+      30
+     ]
+    ],
+    "width": 2.2
+   },
+   {
+    "gate": "north_gate",
+    "path": [
+     [
+      47,
+      0
+     ],
+     [
+      46,
+      6
+     ],
+     [
+      44,
+      14
+     ],
+     [
+      42.5,
+      20
+     ],
+     [
+      42.5,
+      24
+     ]
+    ],
+    "width": 2
+   },
+   {
+    "gate": "south_gate",
+    "path": [
+     [
+      44,
+      79
+     ],
+     [
+      44,
+      72
+     ],
+     [
+      43,
+      66
+     ],
+     [
+      42,
+      58
+     ],
+     [
+      40,
+      46
+     ],
+     [
+      38,
+      36.5
+     ]
+    ],
+    "width": 2.2
+   },
+   {
+    "name": "carrer_argenters",
+    "path": [
+     [
+      24,
+      29
+     ],
+     [
+      22,
+      38
+     ],
+     [
+      24,
+      46
+     ],
+     [
+      28,
+      53
+     ]
+    ],
+    "width": 1.4,
+    "main": false
+   },
+   {
+    "name": "ronda_nord",
+    "path": [
+     [
+      26,
+      20
+     ],
+     [
+      30,
+      15
+     ],
+     [
+      38,
+      12
+     ],
+     [
+      46,
+      13
+     ]
+    ],
+    "width": 1.4,
+    "main": false
+   },
+   {
+    "name": "carrer_nou",
+    "path": [
+     [
+      60,
+      38
+     ],
+     [
+      64,
+      30
+     ],
+     [
+      66,
+      22
+     ]
+    ],
+    "width": 1.4,
+    "main": false
+   }
+  ],
+  "port": {
+   "quay": {
+    "cols": [
+     18,
+     64
+    ],
+    "bank": "north",
+    "width": 2
+   },
+   "piers": 6,
+   "pier_len": 3,
+   "spacing": 7,
+   "boats": 5,
+   "boat": [
+    4,
+    2
+   ],
+   "rowboats": 4,
+   "crane": {
+    "height": 88,
+    "color": "#7a5530"
+   }
+  },
+  "landmarks": [
+   {
+    "type": "cathedral",
+    "size": [
+     12,
+     7
+    ],
+    "near": [
+     52,
+     20
+    ],
+    "height": 128,
+    "color": "#c9b899",
+    "parvis": 3,
+    "inside_wall": true,
+    "reach": 10
+   },
+   {
+    "type": "exchange",
+    "size": [
+     7,
+     4
+    ],
+    "near": [
+     36,
+     55
+    ],
+    "height": 64,
+    "color": "#b08a5a"
+   },
+   {
+    "type": "customs",
+    "size": [
+     4,
+     3
+    ],
+    "near": [
+     46,
+     55
+    ],
+    "height": 52,
+    "color": "#a07850"
+   },
+   {
+    "type": "warehouse",
+    "size": [
+     5,
+     3
+    ],
+    "near": [
+     26,
+     56
+    ],
+    "height": 48,
+    "color": "#8a5a3a"
+   },
+   {
+    "type": "warehouse",
+    "size": [
+     5,
+     3
+    ],
+    "near": [
+     54,
+     56
+    ],
+    "height": 48,
+    "color": "#8a5a3a"
+   },
+   {
+    "type": "warehouse",
+    "size": [
+     5,
+     3
+    ],
+    "near": [
+     60,
+     55
+    ],
+    "height": 48,
+    "color": "#8a5a3a"
+   },
+   {
+    "type": "church",
+    "size": [
+     6,
+     4
+    ],
+    "near": [
+     48,
+     70
+    ],
+    "height": 72,
+    "color": "#bba98a",
+    "outside_wall": true
+   }
+  ],
+  "districts": [
+   {
+    "id": "mercaders",
+    "centre": [
+     55,
+     42
+    ],
+    "radius": [
+     15,
+     15
+    ],
+    "inside_wall": true,
+    "roof": "#8a3b2a",
+    "streets": {
+     "every": 8,
+     "p": 0.8,
+     "gap": 8,
+     "max_len": 18,
+     "min_len": 4,
+     "width": 1.2,
+     "ch": "=",
+     "clear": 4
+    },
+    "alleys": {
+     "every": 5,
+     "p": 0.35,
+     "gap": 4,
+     "max_len": 8,
+     "min_len": 3,
+     "width": 1,
+     "ch": "=",
+     "clear": 2
+    },
+    "density": {
+     "fill": 0.95,
+     "touch": true,
+     "lot_sizes": [
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       4
+      ]
+     ],
+     "backyard": 1,
+     "patios": 0.5,
+     "blocks": 0.9,
+     "block_max": 40
+    }
+   },
+   {
+    "id": "menestrals",
+    "centre": [
+     23,
+     38
+    ],
+    "radius": [
+     13,
+     18
+    ],
+    "inside_wall": true,
+    "roof": "#7a5a3a",
+    "streets": {
+     "every": 8,
+     "p": 0.8,
+     "gap": 8,
+     "max_len": 18,
+     "min_len": 4,
+     "width": 1.2,
+     "ch": "=",
+     "clear": 4
+    },
+    "alleys": {
+     "every": 5,
+     "p": 0.35,
+     "gap": 4,
+     "max_len": 8,
+     "min_len": 3,
+     "width": 1,
+     "ch": ",",
+     "clear": 2
+    },
+    "density": {
+     "fill": 0.95,
+     "touch": true,
+     "lot_sizes": [
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       4
+      ]
+     ],
+     "backyard": 1,
+     "patios": 0.5,
+     "blocks": 0.9,
+     "block_max": 40
+    }
+   },
+   {
+    "id": "vila",
+    "centre": [
+     40,
+     33
+    ],
+    "radius": [
+     31,
+     29
+    ],
+    "inside_wall": true,
+    "roof": "#6a4a3a",
+    "streets": {
+     "every": 8,
+     "p": 0.8,
+     "gap": 8,
+     "max_len": 18,
+     "min_len": 4,
+     "width": 1.2,
+     "ch": "=",
+     "clear": 4
+    },
+    "alleys": {
+     "every": 5,
+     "p": 0.35,
+     "gap": 4,
+     "max_len": 8,
+     "min_len": 3,
+     "width": 1,
+     "ch": "=",
+     "clear": 2
+    },
+    "density": {
+     "fill": 0.95,
+     "touch": true,
+     "lot_sizes": [
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       4
+      ]
+     ],
+     "backyard": 1,
+     "patios": 0.5,
+     "blocks": 0.9,
+     "block_max": 40
+    }
+   },
+   {
+    "id": "raval_oest",
+    "centre": [
+     4,
+     30
+    ],
+    "radius": [
+     9,
+     13
+    ],
+    "outside_wall": true,
+    "roof": "#7a6040",
+    "streets": {
+     "every": 8,
+     "p": 0.8,
+     "gap": 6,
+     "max_len": 12,
+     "min_len": 4,
+     "width": 1,
+     "ch": ","
+    },
+    "density": {
+     "fill": 0.55,
+     "lot_sizes": [
+      [
+       3,
+       3
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       2
+      ]
+     ],
+     "backyard": 1
+    }
+   },
+   {
+    "id": "raval_sud",
+    "centre": [
+     44,
+     71
+    ],
+    "radius": [
+     18,
+     8
+    ],
+    "outside_wall": true,
+    "roof": "#7a6040",
+    "streets": {
+     "every": 8,
+     "p": 0.8,
+     "gap": 6,
+     "max_len": 12,
+     "min_len": 4,
+     "width": 1,
+     "ch": ","
+    },
+    "density": {
+     "fill": 0.55,
+     "lot_sizes": [
+      [
+       3,
+       3
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       2,
+       2
+      ]
+     ],
+     "backyard": 1
+    }
+   }
+  ],
+  "fields": {
+   "count": 7,
+   "cell": 10
+  },
+  "trees": 0.1,
+  "gardens": 0.04
+ },
+ "region_quarry": {
+  "size": [
+   40,
+   40
+  ],
+  "seed": 1,
+  "households": 6,
+  "style": "B",
+  "starts": [
+   "artisan_blacksmith"
+  ],
+  "plaza": {
+   "centre": [
+    16,
+    22
+   ],
+   "bulge": 1.5
+  },
+  "rock": {
+   "edge": "north",
+   "depth": 8,
+   "wobble": 2.5,
+   "spurs": [
+    {
+     "at": 33,
+     "depth": 5,
+     "half": 6
+    },
+    {
+     "at": 3,
+     "depth": 3,
+     "half": 4
+    }
+   ]
+  },
+  "rivers": [
+   {
+    "path": [
+     [
+      31,
+      -2
+     ],
+     [
+      30,
+      8
+     ],
+     [
+      27,
+      16
+     ],
+     [
+      25,
+      24
+     ],
+     [
+      23,
+      32
+     ],
+     [
+      22,
+      42
+     ]
+    ],
+    "width": 2.4,
+    "wobble": 0.3
+   }
+  ],
+  "roads": [
+   {
+    "gate": "west_gate",
+    "path": [
+     [
+      0,
+      21
+     ],
+     [
+      5,
+      21.5
+     ],
+     [
+      10,
+      21.5
+     ]
+    ],
+    "width": 2
+   },
+   {
+    "gate": "east_gate",
+    "path": [
+     [
+      39,
+      25
+     ],
+     [
+      34,
+      25.5
+     ],
+     [
+      28,
+      24
+     ],
+     [
+      21.5,
+      22
+     ]
+    ],
+    "width": 2
+   },
+   {
+    "gate": "south_gate",
+    "path": [
+     [
+      17,
+      39
+     ],
+     [
+      18,
+      34
+     ],
+     [
+      16,
+      28.5
+     ]
+    ],
+    "width": 2
+   },
+   {
+    "name": "carrer_mina",
+    "path": [
+     [
+      21,
+      22
+     ],
+     [
+      24,
+      19
+     ],
+     [
+      27,
+      17
+     ]
+    ],
+    "width": 1.2,
+    "main": false
+   }
+  ],
+  "lanes": [
+   {
+    "path": [
+     [
+      20,
+      16
+     ],
+     [
+      21,
+      13
+     ],
+     [
+      21,
+      10.5
+     ]
+    ],
+    "ch": ","
+   },
+   {
+    "path": [
+     [
+      10,
+      17
+     ],
+     [
+      8,
+      13
+     ],
+     [
+      6,
+      11
+     ]
+    ],
+    "ch": ","
+   },
+   {
+    "path": [
+     [
+      17,
+      33
+     ],
+     [
+      21,
+      36
+     ],
+     [
+      27,
+      34.5
+     ],
+     [
+      33,
+      37
+     ],
+     [
+      39,
+      36
+     ]
+    ],
+    "ch": ",",
+    "ford": true
+   }
+  ],
+  "landmarks": [
+   {
+    "type": "mine",
+    "size": [
+     3,
+     3
+    ],
+    "near": [
+     21,
+     8
+    ],
+    "on": [
+     ".",
+     "R"
+    ],
+    "front": "any",
+    "front_share": 0.3,
+    "height": 40,
+    "color": "#3a302a",
+    "reach": 6
+   },
+   {
+    "type": "quarry",
+    "size": [
+     7,
+     5
+    ],
+    "near": [
+     5,
+     8
+    ],
+    "on": [
+     ".",
+     "R"
+    ],
+    "front": "any",
+    "height": 10,
+    "color": "#b0a898",
+    "reach": 6
+   },
+   {
+    "type": "spoil",
+    "size": [
+     3,
+     3
+    ],
+    "near": [
+     31,
+     13
+    ],
+    "on": [
+     ".",
+     "R"
+    ],
+    "front": "any",
+    "height": 24,
+    "color": "#7a7266",
+    "count": 2,
+    "reach": 7
+   },
+   {
+    "type": "spoil",
+    "size": [
+     4,
+     3
+    ],
+    "near": [
+     11,
+     11
+    ],
+    "on": [
+     ".",
+     "R"
+    ],
+    "front": "any",
+    "height": 20,
+    "color": "#8a8276",
+    "reach": 5
+   },
+   {
+    "type": "smelter",
+    "size": [
+     3,
+     3
+    ],
+    "near": [
+     25,
+     16
+    ],
+    "height": 46,
+    "color": "#6a4a3a",
+    "reach": 6
+   }
+  ],
+  "districts": [
+   {
+    "id": "poble",
+    "centre": [
+     17,
+     23
+    ],
+    "radius": [
+     13,
+     10
+    ],
+    "roof": "#7c776e",
+    "streets": {
+     "every": 6,
+     "p": 0.8,
+     "gap": 5,
+     "max_len": 12,
+     "min_len": 4,
+     "width": 1.2,
+     "ch": "=",
+     "turn": 20,
+     "axis_bias": 0.4
+    },
+    "alleys": {
+     "every": 5,
+     "p": 0.5,
+     "gap": 3,
+     "max_len": 8,
+     "min_len": 3,
+     "width": 1,
+     "ch": ","
+    },
+    "density": {
+     "fill": 0.85,
+     "touch": true,
+     "lot_sizes": [
+      [
+       3,
+       3
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       2,
+       2
+      ]
+     ],
+     "backyard": 1,
+     "patios": 0.5,
+     "blocks": 0.5,
+     "block_max": 20
+    }
+   }
+  ],
+  "fields": {
+   "count": 2,
+   "cell": 8
+  },
+  "trees": 0.16,
+  "gardens": 0.05
+ },
+ "region_hamlet": {
+  "size": [
+   32,
+   32
+  ],
+  "seed": 1,
+  "households": 4,
+  "style": "E",
+  "starts": [
+   "artisan_blacksmith"
+  ],
+  "plaza": {
+   "centre": [
+    13,
+    15
+   ],
+   "bulge": 1.0
+  },
+  "rivers": [
+   {
+    "path": [
+     [
+      25,
+      -2
+     ],
+     [
+      24,
+      8
+     ],
+     [
+      26,
+      16
+     ],
+     [
+      24,
+      24
+     ],
+     [
+      25,
+      34
+     ]
+    ],
+    "width": 2.2,
+    "wobble": 0.3
+   }
+  ],
+  "roads": [
+   {
+    "gate": "west_gate",
+    "path": [
+     [
+      0,
+      14
+     ],
+     [
+      4,
+      14.5
+     ],
+     [
+      7.5,
+      14.5
+     ]
+    ],
+    "width": 2
+   },
+   {
+    "gate": "east_gate",
+    "path": [
+     [
+      31,
+      16
+     ],
+     [
+      27,
+      15.5
+     ],
+     [
+      22,
+      15
+     ],
+     [
+      18,
+      14.5
+     ]
+    ],
+    "width": 2
+   }
+  ],
+  "lanes": [
+   {
+    "path": [
+     [
+      13,
+      21
+     ],
+     [
+      12,
+      26
+     ],
+     [
+      10,
+      31
+     ]
+    ],
+    "ch": ","
+   },
+   {
+    "path": [
+     [
+      17,
+      9
+     ],
+     [
+      19,
+      5
+     ],
+     [
+      18,
+      0
+     ]
+    ],
+    "ch": ","
+   },
+   {
+    "path": [
+     [
+      18,
+      21
+     ],
+     [
+      23,
+      24
+     ],
+     [
+      31,
+      26
+     ]
+    ],
+    "ch": ",",
+    "ford": true
+   },
+   {
+    "path": [
+     [
+      7,
+      20
+     ],
+     [
+      3,
+      24
+     ],
+     [
+      0,
+      28
+     ]
+    ],
+    "ch": ","
+   }
+  ],
+  "landmarks": [
+   {
+    "type": "watermill",
+    "size": [
+     3,
+     3
+    ],
+    "near": [
+     22,
+     19
+    ],
+    "front": "water",
+    "front_share": 0.3,
+    "height": 52,
+    "color": "#9a7a50",
+    "reach": 6
+   },
+   {
+    "type": "threshing",
+    "size": [
+     3,
+     3
+    ],
+    "near": [
+     4,
+     26
+    ],
+    "front": "any",
+    "height": 3,
+    "color": "#c8b070",
+    "reach": 6
+   },
+   {
+    "type": "threshing",
+    "size": [
+     3,
+     3
+    ],
+    "near": [
+     19,
+     26
+    ],
+    "front": "any",
+    "height": 3,
+    "color": "#c8b070",
+    "reach": 6
+   },
+   {
+    "type": "barn",
+    "size": [
+     4,
+     3
+    ],
+    "near": [
+     5,
+     8
+    ],
+    "height": 40,
+    "color": "#8a5a30",
+    "reach": 6
+   }
+  ],
+  "districts": [
+   {
+    "id": "aldea",
+    "centre": [
+     13,
+     15
+    ],
+    "radius": [
+     8,
+     7
+    ],
+    "roof": "#8a6a3a",
+    "streets": {
+     "every": 8,
+     "p": 0.6,
+     "gap": 6,
+     "max_len": 10,
+     "min_len": 4,
+     "width": 1,
+     "ch": ","
+    },
+    "density": {
+     "fill": 0.6,
+     "lot_sizes": [
+      [
+       3,
+       3
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       2,
+       3
+      ]
+     ],
+     "backyard": 1,
+     "setback": 1
+    }
+   }
+  ],
+  "fields": {
+   "count": 6,
+   "cell": 7,
+   "min_size": 12
+  },
+  "trees": 0.1,
+  "gardens": 0.06
+ },
+ "region_abbey": {
+  "size": [
+   36,
+   36
+  ],
+  "seed": 1,
+  "households": 4,
+  "style": "B",
+  "starts": [
+   "artisan_blacksmith"
+  ],
+  "plaza": {
+   "centre": [
+    11,
+    18
+   ],
+   "bulge": 1.0
+  },
+  "walls": {
+   "centre": [
+    26,
+    18
+   ],
+   "radius": [
+    9.5,
+    12.5
+   ],
+   "wobble": 0.04,
+   "towers_every": 0,
+   "tower": [
+    2,
+    2
+   ],
+   "tower_height": 64
+  },
+  "pond": {
+   "at": [
+    31,
+    27
+   ],
+   "size": [
+    4,
+    3
+   ]
+  },
+  "roads": [
+   {
+    "gate": "west_gate",
+    "path": [
+     [
+      0,
+      17
+     ],
+     [
+      3,
+      17.5
+     ],
+     [
+      5.5,
+      17.5
+     ]
+    ],
+    "width": 2
+   },
+   {
+    "name": "entrada",
+    "path": [
+     [
+      16,
+      17.5
+     ],
+     [
+      19,
+      17.5
+     ],
+     [
+      23,
+      17.5
+     ]
+    ],
+    "width": 1.6,
+    "main": false
+   },
+   {
+    "gate": "east_gate",
+    "path": [
+     [
+      35,
+      4
+     ],
+     [
+      30,
+      3.5
+     ],
+     [
+      22,
+      4
+     ],
+     [
+      15,
+      8
+     ],
+     [
+      15.5,
+      12
+     ]
+    ],
+    "width": 1.6
+   }
+  ],
+  "lanes": [
+   {
+    "path": [
+     [
+      11,
+      24
+     ],
+     [
+      12,
+      29
+     ],
+     [
+      14,
+      35
+     ]
+    ],
+    "ch": ","
+   }
+  ],
+  "landmarks": [
+   {
+    "type": "abbey_church",
+    "size": [
+     9,
+     5
+    ],
+    "near": [
+     26,
+     12
+    ],
+    "height": 112,
+    "color": "#c9b899",
+    "inside_wall": true,
+    "reach": 6
+   },
+   {
+    "type": "cloister",
+    "size": [
+     6,
+     6
+    ],
+    "near": [
+     27,
+     21
+    ],
+    "front": "any",
+    "height": 40,
+    "color": "#b8a890",
+    "inside_wall": true,
+    "reach": 6
+   },
+   {
+    "type": "guesthouse",
+    "size": [
+     4,
+     3
+    ],
+    "near": [
+     20,
+     22
+    ],
+    "height": 44,
+    "color": "#a08060",
+    "inside_wall": true,
+    "reach": 8,
+    "front": "any"
+   }
+  ],
+  "plots": [
+   {
+    "near": [
+     29,
+     10
+    ],
+    "size": [
+     4,
+     3
+    ],
+    "inside_wall": true,
+    "reach": 8
+   }
+  ],
+  "districts": [
+   {
+    "id": "burg",
+    "centre": [
+     9,
+     18
+    ],
+    "radius": [
+     9,
+     13
+    ],
+    "outside_wall": true,
+    "roof": "#7c776e",
+    "streets": {
+     "every": 6,
+     "p": 0.8,
+     "gap": 5,
+     "max_len": 10,
+     "min_len": 4,
+     "width": 1.2,
+     "ch": "="
+    },
+    "alleys": {
+     "every": 5,
+     "p": 0.5,
+     "gap": 3,
+     "max_len": 8,
+     "min_len": 3,
+     "width": 1,
+     "ch": ","
+    },
+    "density": {
+     "fill": 0.8,
+     "lot_sizes": [
+      [
+       3,
+       3
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       2
+      ]
+     ],
+     "backyard": 1
+    }
+   },
+   {
+    "id": "recinte",
+    "centre": [
+     26,
+     18
+    ],
+    "radius": [
+     10,
+     13
+    ],
+    "inside_wall": true,
+    "roof": "#8a7a60",
+    "streets": {
+     "every": 6,
+     "p": 0.5,
+     "gap": 4,
+     "max_len": 8,
+     "min_len": 4,
+     "width": 1,
+     "ch": ","
+    }
+   }
+  ],
+  "fields": {
+   "count": 3,
+   "cell": 7,
+   "min_size": 10
+  },
+  "trees": 0.2,
+  "gardens": 0.06
+ }
+}

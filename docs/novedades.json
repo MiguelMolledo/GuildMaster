@@ -1,6 +1,22 @@
 [
   {
     "fecha": "2026-11-04",
+    "titulo": "Planos de Valldaura v2: ciudades orgánicas, río navegable y puertos",
+    "que": "Los cinco asentamientos de la región se rehacen con un generador nuevo (tools/city/organic.py) que sigue un plano por ciudad (tools/city/ciudades.json). Calles mayores en curva desde las puertas, calles secundarias que crecen en ángulos variados y callejones; plaza de forma irregular; manzanas irregulares con casas de tamaños mezclados (2×2 a 3×4) mirando a la calle y patios detrás. El Daura es ancho (7-8 casillas) con puentes de piedra; Portvell y Bellcaire tienen sección del puerto: muelle a lo largo de la orilla, embarcaderos transitables sobre el agua, barcos amarrados y barcas, lonja, aduana, almacenes y grúa. Bellcaire con muralla, torres y puertas, catedral con atrio junto a la plaza, barrios de mercaderes y menestrales y dos arrabales sueltos. Peñarroja con la sierra, la boca de la mina, la cantera, las escombreras y la fundición; Vilablat con arroyo, vado, molino de agua, eras y campos grandes; Montsacre con el recinto amurallado, la iglesia abacial, el claustro, la hospedería y el huerto. Los hitos son bloques isométricos con su color y su nombre que el sim no lee, listos para cambiar por un sprite. La densidad de cada barrio es un número del plano. El validador comprueba además que el río solo se cruza por puentes o vados, que los muelles tocan agua y tierra, que los barcos van en el agua y que nada pisa la huella de un hito.",
+    "como_probar": "Vista previa de cada ciudad: python3 tools/city/ciudad.py region (reports/ciudad/<mapa>.png). En el juego: /opt/homebrew/bin/godot --path . -- --scenario=region_capital_start (o region_port_start, region_quarry_start, region_hamlet_start, region_abbey_start). Capturas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=mapa --smoke-maps=region_capital_start,region_port_start.",
+    "capturas": [
+      "docs/arte/ciudades_v2/region_capital.png",
+      "docs/arte/ciudades_v2/region_port.png",
+      "docs/arte/ciudades_v2/region_quarry.png",
+      "docs/arte/ciudades_v2/region_hamlet.png",
+      "docs/arte/ciudades_v2/region_abbey.png",
+      "docs/arte/ciudades_v2/juego_region_port_puerto.jpg",
+      "docs/arte/ciudades_v2/juego_region_capital_puerto.jpg",
+      "docs/arte/ciudades_v2/juego_region_capital_muralla.jpg"
+    ]
+  },
+  {
+    "fecha": "2026-11-04",
     "titulo": "El mundo: la región de Valldaura y su mapa",
     "que": "La partida ya no vive en un solo pueblo aislado: la villa del jugador forma parte de una región de seis asentamientos con identidad propia (diseño en docs/gdd/09b_region.md, propuesta P-R1 pendiente del owner): Vilarrasa (la villa, town_e), Bellcaire (la capital, maqueta de 80×80 que el mapa EA de H13 sustituirá), Portvell (puerto de río), Peñarroja (mina y cantera), Vilablat (aldea) y Montsacre (abadía), unidos por siete rutas con sus horas, terreno, riesgo de bandidos y los eventos que las cortan. Cada asentamiento tiene su mapa generado con el constructor de ciudades (dos trazados nuevos, aldea y abadía, y el número de casas por mapa) y su escenario de prueba. Nueva pantalla «Mapa de la región» (menú de pausa o tecla R): un pergamino ilustrado con los asentamientos, las rutas y sus nombres; al pasar o pulsar una población sale su ficha (tamaño, distancia desde casa por las rutas abiertas, especialidad, quién manda, qué es barato y qué se paga bien, sus rutas); con la guerra en curso, las rutas que corta salen tachadas en rojo. Viajar todavía no: el botón sale deshabilitado con «Próximamente». Los viajes, las caravanas, los aranceles y los tratados mercantiles están diseñados (con diez preguntas O-R para el owner), no implementados: no cambia ninguna regla del sim ni el guardado.",
     "como_probar": "Jugar (/opt/homebrew/bin/godot --path . o jugar.command): en la partida, Esc → «Mapa de la región», o la tecla R; pasar el ratón por las poblaciones y pulsar una. Captura guionizada: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=region. Otra ciudad: /opt/homebrew/bin/godot --path . -- --scenario=region_capital_start (también region_port_start, region_quarry_start, region_hamlet_start, region_abbey_start). Pruebas: godot --headless --path . -s tests/run_tests.gd -- --only=test_region.",

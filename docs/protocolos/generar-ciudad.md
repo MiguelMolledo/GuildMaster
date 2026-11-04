@@ -9,6 +9,7 @@ calle, patios detrás, farolas, barriles, carros, bancos, vallas) y **genera** c
 | `tools/city/ciudad.py` | La entrada: `vestir`, `validar`, `vista`, `generar` |
 | `tools/city/citylib.py` | El modelo del mapa, las reglas del vestido (`dress`) y el validador (`validate`) |
 | `tools/city/generator.py` | Los trazados y los pasos del generador |
+| `tools/city/organic.py`, `tools/city/ciudades.json` | Las ciudades orgánicas de la región y sus planos (§1b) |
 | `tools/city/preview.py` | La vista previa en PNG (plano + boceto isométrico), sin abrir el juego |
 | `tools/city/reglas.json` | Las cifras de las reglas (cada cuántas casillas una farola, qué props van en cada taller…) |
 | `tools/city/sprites_ciudad.py`, `fal_ciudad.py` | Los sprites del constructor (farola, valla, casas de espaldas) y su gasto en fal |
@@ -62,22 +63,105 @@ python3 tools/city/ciudad.py validar town_road
 ### Los mapas de la región
 
 Cada asentamiento de `data/world/region.json` (`docs/gdd/09b_region.md`) tiene su mapa. La villa es `town_e` (a mano);
-los demás se generaron así (mismo comando, mismo fichero):
+los otros cinco son **ciudades orgánicas** (§1b): sus planos están en `tools/city/ciudades.json` y se hacen con
+`python3 tools/city/ciudad.py region [id...]`. Los cuatro mapas de ejemplo (`town_road`, `town_square`,
+`town_crossroads`, `town_river`) siguen con los trazados de rejilla de esta sección.
 
-| Asentamiento | Mapa | Comando (`python3 tools/city/ciudad.py generar …`) |
-|---|---|---|
-| Capital (maqueta del mapa EA) | `region_capital` | `--id region_capital --layout plaza --seed 1 --size 80x80 --households 16 --fields 6 --reach 30 --filler 160` |
-| Puerto de río | `region_port` | `--id region_port --layout rio --seed 1 --size 48x48 --households 10 --reach 20 --filler 70` |
-| Mina y cantera | `region_quarry` | `--id region_quarry --layout cruce --seed 1 --size 40x40 --households 6 --fields 2 --filler 30 --trees 0.16 --start artisan_blacksmith` |
-| Aldea | `region_hamlet` | `--id region_hamlet --layout aldea --seed 1 --size 32x32 --households 4 --fields 6 --reach 9 --filler 8 --trees 0.1 --start artisan_blacksmith` |
-| Abadía | `region_abbey` | `--id region_abbey --layout abadia --seed 1 --size 36x36 --households 4 --fields 4 --reach 9 --filler 20 --trees 0.2 --start artisan_blacksmith` |
+| Asentamiento | Mapa | Estilo | Qué lo define en el plano |
+|---|---|---|---|
+| Bellcaire (capital) | `region_capital` 80×80 | A + C | Muralla con torres y cuatro puertas, catedral con atrio junto a la plaza, el Daura de 8 casillas al sur con muelles, lonja, aduana, almacenes, grúa y barcos; barrios de mercaderes, menestrales y la vila dentro; dos arrabales fuera (oeste y al otro lado del puente) |
+| Portvell (puerto) | `region_port` 48×48 | C | El río de 7 casillas con el muelle a lo largo de la orilla norte, cinco embarcaderos, barcos y barcas, lonja, aduana, tres almacenes, grúa; el astillero en la otra orilla; casas estrechas apretadas en la ribera |
+| Peñarroja (mina y cantera) | `region_quarry` 40×40 | B | La sierra al norte (casillas de roca), la boca de la mina, la cantera, tres escombreras y la fundición; un torrente con su puente y un vado |
+| Vilablat (aldea) | `region_hamlet` 32×32 | E | Casas sueltas con huerto delante, el arroyo con puente y vado, el molino de agua, dos eras, el pajar y campos grandes con caminos de tierra |
+| Montsacre (abadía) | `region_abbey` 36×36 | B | El recinto amurallado con su puerta: iglesia abacial, claustro, hospedería, huerto y estanque; el burgo con la plaza fuera del recinto |
 
-Después, sus escenarios: `/opt/homebrew/bin/godot --headless --path . -s tools/scenarios/make_city_scenarios.gd --
+Después de generar, sus escenarios: `/opt/homebrew/bin/godot --headless --path . -s tools/scenarios/make_city_scenarios.gd --
 --maps=region_capital,region_port,region_quarry,region_hamlet,region_abbey`. Si cambias el tamaño o las casas de un
 mapa, cambia también `map_size` y `households` de su asentamiento en `region.json` (el validador lo comprueba).
 Todos llevan los solares del inicio del herrero porque su escenario juega `artisan_blacksmith`.
 
-### Los pasos del generador
+## 1b. Ciudades orgánicas (`tools/city/organic.py`)
+
+Una ciudad orgánica no tiene trazado fijo: su **plano** es un bloque de `tools/city/ciudades.json` y el generador lo
+sigue paso a paso (terreno, plaza, calles mayores, muralla, puerto, hitos, calles que crecen, solares del sim, casas,
+campos, bosques). Mismo plano y misma semilla, mismo fichero. Las coordenadas son casillas `[columna, fila]`.
+
+```bash
+python3 tools/city/ciudad.py region region_port          # una (o todas sin id); --out tmp/x para probar sin tocar data/
+python3 tools/city/ciudad.py validar region_port
+```
+
+Sale `data/maps/<id>.json` y su vista previa `reports/ciudad/<id>.png` (plano y boceto isométrico con los volúmenes).
+
+### Los parámetros del plano
+
+| Clave | Qué es | Valores |
+|---|---|---|
+| `size`, `seed`, `households`, `starts`, `style` | Tamaño, semilla, hogares (una casa del sim cada uno), inicios cuyos solares lleva, estilo del GDD 9.2 | `seed` cambia las curvas y el reparto, no el plan |
+| `plaza.centre`, `plaza.bulge` | Dónde va la plaza del mercado (la de town_e, 10×12) y cuánto se ensancha de forma irregular | `bulge` 1 (casi rectangular) a 3 (plaza grande y redondeada) |
+| `rivers[]` | Ríos y arroyos: `path` (puntos por los que pasa, curva suave), `width` (casillas), `wobble` (cuánto varía la anchura) | Río navegable 6-8; arroyo 2-3 |
+| `pond` | Estanque: `at`, `size` | |
+| `rock` | La sierra en un borde: `edge` (`north`), `depth`, `wobble`, `spurs` (estribaciones: `at` columna, `depth`, `half`) | |
+| `roads[]` | Calles mayores y secundarias con nombre: `path`, `width` (2-2,2 mayor; 1,2-1,6 secundaria), `gate` (la puerta del mapa: `west_gate` y `east_gate` hacen falta), `main` | Al cruzar el agua se hace un puente de piedra (`b`) |
+| `lanes[]` | Caminos de tierra (`,`): `path`, `ford: true` hace un vado (`v`) donde cruzan un arroyo | |
+| `walls` | Muralla: `centre`, `radius` [rx, ry], `wobble`, `towers_every` (una torre cada N casillas de muro), `tower` (huella), `tower_height`, `from` (casilla desde la que se mide el interior; por defecto el centro) | Se abre donde pasa una calle mayor (las puertas, con sus torres) y termina en la orilla |
+| `port` | Puerto: `quay.cols` [desde, hasta], `quay.bank` (`north`/`south`), `quay.width` (el muelle de calle), `piers` (embarcaderos), `pier_len`, `pier_width`, `spacing`, `boats` (barcos amarrados), `boat` (huella), `rowboats` (barcas), `crane` (`height`, `color`) | Los embarcaderos nunca pasan de media anchura: queda canal |
+| `landmarks[]` | Hitos (§1c): `type`, `size`, `near` (dónde buscarle sitio), `reach`, `front` (`road`, `water`, `rock`, `any`: a qué da su frente), `front_share`, `rotate`, `on` (casillas que puede ocupar: `.`, y `R` para la mina o la cantera), `inside_wall`/`outside_wall`, `parvis` (casillas de atrio delante), `count`, `height` (px), `color`, `stage` (`early` antes de las calles, `mid`, `late`) | |
+| `plots[]` | Huertos en un sitio concreto (el de la abadía): como un hito, pero de campo | |
+| `districts[]` | Barrios (§1d): `id`, `centre`, `radius`, `inside_wall`/`outside_wall`, `roof` (color de sus casas), `streets`, `alleys`, `density` | El primero que contiene una casilla se la queda |
+| `fields` | Campos fuera de la ciudad: `count`, `cell` (tamaño aproximado de cada campo), `min_size`, `lanes` | Celdas irregulares con un camino alrededor |
+| `trees`, `gardens` | Bosque fuera (en manchas) y árboles sueltos en los huertos de dentro | 0-0,3 |
+
+### 1c. Hitos
+
+Un hito es un edificio que define el sitio y que **el sim no lee**: la catedral, la lonja, los almacenes, la grúa, la
+mina, la cantera, el molino, el claustro, las torres de la muralla... En el mapa va en `"landmarks"`
+(`type`, `origin`, `size`, `height`, `color`, `label`) y sus casillas son `H` (bloqueadas): nada del sim ni del
+decor puede pisarlas. En el juego se ve como un bloque isométrico de su huella, su color y su altura, con su nombre
+(`i18n` `hito.<type>`) encima. **Para ponerle sprite** basta crear `game/visuals/props/<type>.tscn` (con `Feet` en el
+centro de la huella): el juego usa esa escena en vez del bloque genérico (`props/hito.tscn`). Están en
+`assets/inventario.json` como `hito_<type>` («falta», con su huella). Los barcos (`"boats"`, sobre el agua) igual,
+con `props/boat.tscn` de bloque genérico.
+
+### 1d. Barrios y densidad
+
+Cada barrio crece sus propias calles y se llena con su densidad. Para que el owner pida «más denso» o «más suelto»
+se cambian estos números:
+
+| Clave | Qué hace | Denso (Bellcaire dentro) | Suelto (aldea) |
+|---|---|---|---|
+| `streets.every` | Cada cuántas casillas sale una calle de otra | 6-8 | 8-10 |
+| `streets.p` | Probabilidad de que salga | 0,8 | 0,6 |
+| `streets.gap` / `clear` | Fondo mínimo de manzana / distancia mínima entre dos calles casi paralelas | 8 / 4 | 6 / 3 |
+| `streets.max_len`, `min_len`, `turn`, `axis_bias` | Largo de cada calle, cuánto se curva al avanzar (grados por paso) y cuánto tiende a los ejes (0 libre, 1 recta) | | |
+| `streets.width`, `ch` | Anchura (1 callejón, 1,2-1,6 calle) y casilla (`=` calle, `,` tierra) | 1,2 `=` | 1 `,` |
+| `alleys` | Igual que `streets`, para los callejones que salen de las calles | `p` 0,35-0,5 | sin |
+| `density.fill` | Parte de la fachada a la calle que se construye | 0,95 | 0,5-0,6 |
+| `density.lot_sizes` | Tamaños de casa (a lo largo de la calle × fondo); 3×3 tiene sprite, el resto bloque | 2×3, 3×3, 3×2, 2×2, 3×4 | 3×3, 3×2, 2×3 |
+| `density.touch` | Casas pegadas (hileras) o con un hueco entre ellas | `true` | `false` |
+| `density.backyard` | Filas de patio detrás de cada casa | 1 | 1 |
+| `density.setback` | Casillas de huerto entre la casa y la calle | 0 | 1 |
+| `density.blocks`, `block_max` | Probabilidad de cerrar con patios una manzana pequeña (hasta `block_max` casillas) | 0,9 / 40 | sin |
+| `density.patios` | Probabilidad de que la hierba encerrada entre casas se vuelva patio | 0,5 | sin |
+
+**Pedidos en lenguaje normal → cambio en `ciudades.json`** (luego `ciudad.py region <id>` y los escenarios):
+
+| Pedido | Cambio |
+|---|---|
+| «Más denso» en un barrio | `density.fill` ↑ (hasta 1), `touch: true`, `blocks` ↑, `streets.every` ↓ |
+| «Más suelto» | `fill` ↓ (0,5), `touch: false`, `setback: 1`, `blocks: 0` |
+| «Más calles» / «menos calles» | `streets.every` ↓ / ↑, `streets.p` ↑ / ↓ |
+| «Calles más torcidas» | `streets.turn` ↑ (14 → 22), `axis_bias` ↓ (0,55 → 0,3) |
+| «Manzanas más grandes» | `streets.gap` y `clear` ↑ |
+| «Casas más grandes» | `lot_sizes` con 3×4, 4×3 delante |
+| «El río más ancho» | `rivers[].width` ↑ (y `port.pier_len` como mucho la mitad menos uno) |
+| «Más barcos» / «más muelles» | `port.boats`, `port.rowboats`, `port.piers` ↑, `port.spacing` ↓ |
+| «La catedral más grande» o «en otro sitio» | Su `size` / su `near` en `landmarks` |
+| «Muralla más grande» | `walls.radius` ↑ (los barrios con `inside_wall` crecen con ella) |
+| «Más campos» / «campos más grandes» | `fields.count` / `fields.cell` ↑ |
+| «Otra calle hacia el puerto» | Una entrada más en `roads` con `main: false` |
+
+### Los pasos del generador de rejilla (§1)
 
 1. **Calles y plaza** (el trazado): las calles principales (`=`, dos de ancho, salen del mapa por las puertas), las
    secundarias (`=` de uno o caminos de tierra `,`) y la plaza de 10×12.
@@ -115,6 +199,10 @@ todo es error; en `town_e` (hecho a mano) lo que su trazado antiguo incumple que
 | Farolas cada N | Cada casilla de calle tiene una farola a `lanterns.every` casillas o menos |
 | La población cabe | Cada hogar en una casa del mapa distinta, como mucho `house_capacity` por casa, y el total cabe |
 | El vestido | Cubre cada `#` libre una sola vez; cada casa de relleno mira a una calle y su sprite y su giro casan con su puerta; ninguna pieza pisa una puerta, un camino (`=`, `,`, `b`), un servicio, un punto social, un spawn ni un oficio; lo mismo para la decoración a mano de `game/visuals/towns/<mapa>.tscn` |
+| El agua se cruza por puentes o vados | En las ciudades orgánicas, las casillas del cauce de cada río (`"generated".rivers`: su curva y su núcleo) son agua, puente, vado o embarcadero; cada puente y cada vado une dos orillas |
+| Muelles | Cada embarcadero (`m`) toca el agua y la tierra, y cada casilla suya está sobre el agua |
+| Barcos en el agua | Cada barco (`"boats"`) solo sobre casillas de agua y sin cruzarse con otro |
+| Hitos | Cada hito (`"landmarks"`) sobre casillas `H` y dibujado por el decor; toda casilla `H` es de un hito; ningún solar, puesto, servicio ni pieza del decor pisa su huella |
 | Puertas en caras ocultas (aviso) | Un edificio del sim con la puerta hacia -fila o -columna y sin escena `<id>_back`: su sprite dibuja la puerta en la otra cara |
 | Marcadores de puerta | Cada escena de `game/visuals/buildings/` y cada casa de relleno tiene su `Door`, y `data/building_sprites.json` dice lo mismo (`sprites_catalog.check`) |
 | Puerta dibujada = puerta del mapa | Para cada edificio del sim, el lado y la casilla de la puerta que dibuja su escena (con el reflejo o la vista de espaldas que elija el juego) son los de `door` del mapa; en las casas de relleno, el lado es el de su calle y la casilla de delante de la puerta es transitable |

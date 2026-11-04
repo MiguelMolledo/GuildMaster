@@ -367,6 +367,43 @@ def dress(m, rl=None):
     reach = rl["filler"]["street_reach"]
     placed = []  # (lot, base)
 
+    planned = planned_lots(m.d)  # organic towns (tools/city/organic.py): the house lots the generator drew
+    roofs = {d["id"]: d.get("roof", "") for d in (m.d.get("generated") or {}).get("districts", [])}
+
+    def dress_planned(group, out):
+        """The planned house lots of one block (mixed sizes: 3x3 a sprite house, any other size a house block of
+        its district's roof colour), then the yards."""
+        block = set(group)
+        left = set(group)
+        for (c, r, w, h, dist) in planned:
+            tiles = [(c + dc, r + dr) for dr in range(h) for dc in range(w)]
+            if not all(u in left for u in tiles):
+                continue
+            lot = (c, r, w, h)
+            f = lot_facing(m, lot, block, reach)
+            if f is None:
+                continue
+            for u in tiles:
+                left.discard(u)
+            if (w, h) == (lw, lh):
+                k = tile_hash(c, r) % len(houses)
+                touching = {b for (pl, b) in placed if _touch(pl, lot)}
+                for _ in range(len(houses)):
+                    if houses[k] not in touching:
+                        break
+                    k = (k + 1) % len(houses)
+                placed.append((lot, houses[k]))
+                sid, flip = house_scene(m.cat, houses[k], f[1])
+                out.append({"kind": "house", "id": sid, "at": [c, r], "size": [w, h], "flip": flip,
+                            "facing": list(f[1])})
+            else:
+                it = {"kind": "house", "id": BLOCK_HOUSE, "at": [c, r], "size": [w, h], "facing": list(f[1]),
+                      "height": 26 + 6 * min(w, h) + tile_hash(c, r, 9) % 12}
+                if roofs.get(dist):
+                    it["color"] = roofs[dist]
+                out.append(it)
+        return left
+
     def dress_group(group, out, site=""):
         """House lots and yards of one block (a group of building tiles) into `out`; site: the alternative look of a
         map site's footprint, drawn only in a game without that building."""
@@ -376,7 +413,9 @@ def dress(m, rl=None):
             out.append({"kind": "single", "id": single, "at": list(group[0])})
             return
         left = set(group)
-        while True:
+        if planned and not site:
+            left = dress_planned(group, out)
+        while not (planned and not site):
             best = None
             for t in group:
                 lot = (t[0], t[1], lw, lh)
@@ -602,7 +641,32 @@ def dress(m, rl=None):
             if d[1] == 0:
                 it["flip"] = True
             items.append(it)
+    # 6. the landmarks (map "landmarks") and the boats (map "boats"): blocks of their footprint, purely cosmetic
+    for e in m.d.get("landmarks") or []:
+        it = {"kind": "landmark", "id": e["type"], "at": list(e["origin"]), "size": list(e["size"]),
+              "height": e.get("height", 48), "color": e.get("color", "#9a7a5a")}
+        if e.get("label"):
+            it["label"] = e["label"]
+        items.append(it)
+    for e in m.d.get("boats") or []:
+        items.append({"kind": "boat", "id": e["type"], "at": list(e["origin"]), "size": list(e["size"]),
+                      "color": e.get("color", "#6b4a2a")})
     return {"_doc": rl["_decor_doc"], "items": items + alt}
+
+
+BLOCK_HOUSE = "house_block"  # a filler house of any size but 3x3: a greybox block until its sprite exists
+LANDMARK_SCENE = "hito"  # the generic block of a landmark without its own scene (game/visuals/props/<type>.tscn)
+BOAT_SCENE = "boat"
+
+
+def planned_lots(d):
+    """[(c, r, w, h, district)] of "generated".lots ("c,r,w,h,district;..."), in the generator's order."""
+    raw = (d.get("generated") or {}).get("lots", "")
+    out = []
+    for part in raw.split(";") if raw else []:
+        c, r, w, h, dist = part.split(",")
+        out.append((int(c), int(r), int(w), int(h), dist))
+    return out
 
 
 def _touch(a, b):
@@ -802,6 +866,8 @@ def validate(m, strict=False, hand_decor=None):
     if max_total > n_houses * cap and m.d.get("population"):
         soft(f"la ciudad puede crecer a {max_total} vecinos y solo caben {n_houses * cap} en {n_houses} casas")
     rep.note(f"{len(m.d.get('population') or [])} hogares, {people} vecinos, {n_houses} casas (caben {n_houses * cap})")
+    if strict:  # the hand-made town_e keeps its old bridge as it is
+        _check_water(m, rep, soft)
     # the decor
     decor = (m.d.get("decor") or {}).get("items")
     if decor is None:
@@ -813,14 +879,22 @@ def validate(m, strict=False, hand_decor=None):
     alt_covered = {}  # site -> {tile: item}: the footprint of a site dressed for a game without that building
     n_kind = {}
     lantern_at = []
+    decor_marks = []
     for i, it in enumerate(decor):
         k = it.get("kind", "")
         n_kind[k] = n_kind.get(k, 0) + 1
         at = tuple(it["at"])
         w, h = it.get("size", [1, 1])
         tiles = [(at[0] + dc, at[1] + dr) for dr in range(h) for dc in range(w)]
-        if not os.path.exists(os.path.join(ROOT, "game", "visuals", "props", it["id"] + ".tscn")):
+        scene_ok = os.path.exists(os.path.join(ROOT, "game", "visuals", "props", it["id"] + ".tscn"))
+        if k in ("landmark", "boat"):  # their own scene when the sprite exists, else the generic block
+            fallback = LANDMARK_SCENE if k == "landmark" else BOAT_SCENE
+            scene_ok = scene_ok or os.path.exists(os.path.join(ROOT, "game", "visuals", "props", fallback + ".tscn"))
+        if not scene_ok:
             rep.error(f"decor[{i}]: no hay escena game/visuals/props/{it['id']}.tscn")
+        if k in ("landmark", "boat"):
+            decor_marks.append((i, it))
+            continue
         if k in ("house", "yard", "single"):
             site = it.get("site", "")
             area = m.sites[site]["tiles"] if site in m.sites else free
@@ -838,6 +912,13 @@ def validate(m, strict=False, hand_decor=None):
                 fr = lot_facing_dir(m, lot, f, set(area), rl["filler"]["street_reach"])
                 if not fr:
                     rep.error(f"decor[{i}] casa {it['id']} en {at}: su puerta (hacia {_dir_name(f)}) no da a una calle")
+                if it["id"] == BLOCK_HOUSE:  # a block: its door is the middle of its street side
+                    fl = front_line(lot, f)
+                    dt = fl[len(fl) // 2]
+                    if not m.walkable(dt):
+                        rep.error(f"decor[{i}] casa {it['id']} en {at}: delante de su puerta, {dt}, no se puede pasar "
+                                  f"({m.kind(dt)})")
+                    continue
                 e = m.cat.sprites.get("props/" + it["id"])
                 if e is None:
                     rep.error(f"decor[{i}] casa {it['id']}: su escena no tiene marcador Door")
@@ -882,6 +963,7 @@ def validate(m, strict=False, hand_decor=None):
         if gaps:
             soft(f"{len(gaps)} casillas de calle sin farola a {every} o menos (la primera {gaps[0]})")
     rep.note("decor: " + ", ".join(f"{k} {v}" for k, v in sorted(n_kind.items())))
+    _check_marks(m, rep, decor, decor_marks, covered, soft)
     # the hand-placed decoration of game/visuals/towns/<id>.tscn
     for name, (x, y) in (hand_decor or []):
         t = to_tile(x, y)
@@ -890,6 +972,134 @@ def validate(m, strict=False, hand_decor=None):
         if m.is_path(t):
             rep.error(f"towns/{rep.map_id}.tscn {name} en {t}: encima de un camino")
     return rep
+
+
+def _land(m, t):
+    """Walkable ground that is not water, a pier, a bridge nor a ford."""
+    return m.walkable(t) and m.kind(t) not in ("dock", "bridge", "ford")
+
+
+def _check_water(m, rep, soft):
+    """The water rules (docs/protocolos/generar-ciudad.md §Reglas): the river is crossed only by bridges and fords
+    (its core, the tiles within "generated".rivers core of its course, is water, bridge, ford or pier), every bridge
+    and ford joins two banks, every pier stands in the water and touches the land."""
+    for rv in (m.d.get("generated") or {}).get("rivers", []):
+        pts = [tuple(p) for p in rv["path"]]
+        core = float(rv.get("core", 1.0))
+        bad = []
+        for t in m.all_tiles():
+            if _dist_poly(t[0], t[1], pts) <= core and m.kind(t) not in ("water", "bridge", "ford", "dock"):
+                bad.append(t)
+        if bad:
+            rep.error(f"el río se cruza sin puente ni vado: {len(bad)} casillas de su cauce son {m.kind(bad[0])} "
+                      f"(la primera {bad[0]})")
+    for kind, what in (("bridge", "puente"), ("ford", "vado")):
+        tiles = {t for t in m.all_tiles() if m.kind(t) == kind}
+        for g in groups_of(tiles):
+            gs = set(g)
+            if not any(m.kind((t[0] + d[0], t[1] + d[1])) == "water" for t in g for d in DIRS):
+                soft(f"el {what} de {g[0]} no pasa sobre el agua")
+            banks = {(t[0] + d[0], t[1] + d[1]) for t in g for d in DIRS} - gs
+            banks = {u for u in banks if _land(m, u)}
+            if len(groups_of8(banks)) < 2:
+                rep.error(f"el {what} de {g[0]} no une dos orillas")
+    docks = {t for t in m.all_tiles() if m.kind(t) == "dock"}
+    for g in groups_of(docks):
+        if not any(m.kind((t[0] + d[0], t[1] + d[1])) == "water" for t in g for d in DIRS):
+            rep.error(f"el muelle de {g[0]} no toca el agua")
+        if not any(_land(m, (t[0] + d[0], t[1] + d[1])) for t in g for d in DIRS):
+            rep.error(f"el muelle de {g[0]} no toca la tierra")
+        for t in g:
+            if not any(m.kind((t[0] + dc, t[1] + dr)) == "water" for dc in (-1, 0, 1) for dr in (-1, 0, 1)):
+                rep.error(f"la casilla {t} del muelle no está sobre el agua")
+
+
+def _check_marks(m, rep, decor, marks, covered, soft):
+    """Landmarks and boats: each landmark of the map (its "landmarks") on "H" tiles drawn once by the decor, nothing
+    of the map or the decor on its footprint; every "H" tile in a landmark; boats on the water only, apart."""
+    lm_tiles = {}
+    for j, e in enumerate(m.d.get("landmarks") or []):
+        c, r = e["origin"]
+        w, h = e["size"]
+        for t in [(c + dc, r + dr) for dr in range(h) for dc in range(w)]:
+            if t in lm_tiles:
+                rep.error(f"hito {e['type']} en {e['origin']}: pisa la huella del hito {lm_tiles[t]}")
+            lm_tiles[t] = f"{e['type']} {e['origin']}"
+            if m.kind(t) != "landmark":
+                rep.error(f"hito {e['type']} en {e['origin']}: su casilla {t} es {m.kind(t)}, no H")
+    stray = sorted(t for t in m.all_tiles() if m.kind(t) == "landmark" and t not in lm_tiles)
+    if stray:
+        rep.error(f"{len(stray)} casillas H sin hito (la primera {stray[0]})")
+    drawn = {}
+    for i, it in marks:
+        if it["kind"] != "landmark":
+            continue
+        drawn[(tuple(it["at"]), tuple(it.get("size", [1, 1])))] = i
+    for e in m.d.get("landmarks") or []:
+        if (tuple(e["origin"]), tuple(e["size"])) not in drawn:
+            soft(f"hito {e['type']} en {e['origin']}: el decor no lo dibuja (python3 tools/city/ciudad.py vestir)")
+    for i, it in enumerate(decor):
+        if it["kind"] in ("landmark", "boat"):
+            continue
+        x, y = to_world(*it["at"])
+        off = it.get("off", [0, 0])
+        w, h = it.get("size", [1, 1])
+        tiles = {(it["at"][0] + dc, it["at"][1] + dr) for dr in range(h) for dc in range(w)}
+        tiles.add(to_tile(x + off[0], y + off[1]))
+        hit = sorted(t for t in tiles if t in lm_tiles)
+        if hit:
+            rep.error(f"decor[{i}] {it['id']} en {hit[0]}: pisa la huella del hito {lm_tiles[hit[0]]}")
+    for sid, s in sorted(m.sites.items()):
+        hit = sorted(t for t in s["tiles"] if t in lm_tiles)
+        if hit:
+            rep.error(f"{sid}: su huella pisa el hito {lm_tiles[hit[0]]} en {hit[0]}")
+    for kind, sid, tile, svc in m.services():
+        if tile in lm_tiles or svc in lm_tiles:
+            rep.error(f"{kind} {sid}: encima del hito {lm_tiles.get(tile) or lm_tiles.get(svc)}")
+    boat_at = {}
+    for j, e in enumerate(m.d.get("boats") or []):
+        c, r = e["origin"]
+        w, h = e["size"]
+        for t in [(c + dc, r + dr) for dr in range(h) for dc in range(w)]:
+            if m.kind(t) != "water":
+                rep.error(f"barco {e['type']} en {e['origin']}: su casilla {t} no es agua ({m.kind(t) or 'fuera'})")
+            if t in boat_at:
+                rep.error(f"barco {e['type']} en {e['origin']}: se cruza con el barco {boat_at[t]}")
+            boat_at[t] = f"{e['type']} {e['origin']}"
+    n_lm, n_b = len(m.d.get("landmarks") or []), len(m.d.get("boats") or [])
+    if n_lm or n_b:
+        rep.note(f"hitos: {n_lm}; barcos: {n_b}")
+
+
+def groups_of8(tiles):
+    """Connected groups (8-neighbourhood) of a set of tiles."""
+    seen, out = set(), []
+    for t in sorted(tiles, key=lambda t: (t[1], t[0])):
+        if t in seen:
+            continue
+        g, stack = [], [t]
+        seen.add(t)
+        while stack:
+            u = stack.pop()
+            g.append(u)
+            for dc in (-1, 0, 1):
+                for dr in (-1, 0, 1):
+                    v = (u[0] + dc, u[1] + dr)
+                    if v in tiles and v not in seen:
+                        seen.add(v)
+                        stack.append(v)
+        out.append(g)
+    return out
+
+
+def _dist_poly(x, y, pts):
+    best = 1e9
+    for (ax, ay), (bx, by) in zip(pts, pts[1:]):
+        vx, vy = bx - ax, by - ay
+        L = vx * vx + vy * vy
+        t = 0.0 if L == 0 else max(0.0, min(1.0, ((x - ax) * vx + (y - ay) * vy) / L))
+        best = min(best, ((x - ax - t * vx) ** 2 + (y - ay - t * vy) ** 2) ** 0.5)
+    return best
 
 
 def lot_facing_dir(m, lot, d, block, reach):

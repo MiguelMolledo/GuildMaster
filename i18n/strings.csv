@@ -2556,3 +2556,22 @@ tutorial.hint.first_trip,"Your first town away from home: each one has its own p
 tutorial.hint.first_caravan,"Choose the town, the storage it loads from and the carter; below a minimum price a cargo line does not sell.","Elige la población, el almacén del que carga y el carretero; por debajo del precio mínimo una línea de carga no se vende."
 tutorial.hint.first_treaty,A treaty asks for a title and reputation in this town; a quota you do not fill breaks and costs a fine.,Un tratado pide un título y reputación en esta población; una cuota que no cumples se rompe y cuesta una multa.
 ui.city.close,Close,Cerrar
+hito.abbey_church,Abbey church,Iglesia abacial
+hito.barn,Barn,Pajar
+hito.cathedral,Cathedral,Catedral
+hito.church,Church,Iglesia
+hito.cloister,Cloister,Claustro
+hito.crane,Crane,Grúa
+hito.customs,Customs house,Aduana
+hito.exchange,Exchange,Lonja
+hito.gate_tower,Gate tower,Torre de la puerta
+hito.guesthouse,Guesthouse,Hospedería
+hito.mine,Mine,Boca de la mina
+hito.quarry,Quarry,Cantera
+hito.shipyard,Shipyard,Astillero
+hito.smelter,Smelter,Fundición
+hito.spoil,Spoil heap,Escombrera
+hito.threshing,Threshing floor,Era
+hito.wall_tower,Wall tower,Torre de la muralla
+hito.warehouse,Warehouse,Almacén
+hito.watermill,Watermill,Molino
