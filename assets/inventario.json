@@ -6447,6 +6447,216 @@
       "coste_gen": 0,
       "coste_usd": 0.08,
       "notas": "Ilustración de el ladrón nocturno (04f §4.24.5), 240×135, y ladron_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "bld_tavern_inn",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/buildings/fal/tavern_inn.png",
+      "origen": "fal: nano-banana-2/edit (ref: la fachada fal de la carpintería, mismo lienzo y puerta) + image2pixel (tools/art/fal_fachadas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.24,
+      "notas": "Taberna-Posada (04f §4.27): dos plantas con entramado, cartel con una jarra (sin letras), toneles, banco y un cobertizo de establo. Huella 3×4 como la carpintería. Lienzo 192×230 (20 px más alto que el de la carpintería): en la escena, Sprite offset (-104, -158) y Door (-40, 12), los pies como la carpintería. 2 intentos descartados (tejado cortado; la referencia grande, ampliada)."
+    },
+    {
+      "id": "bld_tavern_inn_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/buildings/fal/tavern_inn_back.png",
+      "origen": "fal: nano-banana-2/edit (ref: tavern_inn.png) + image2pixel (tools/art/fal_fachadas.py --estado back)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "La Taberna-Posada de espaldas, sin puerta en las caras visibles (para la puerta del sim en una cara oculta). Mismo lienzo y ancla que tavern_inn.png."
+    },
+    {
+      "id": "int_tavern",
+      "tipo": "interior",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/interiors/tavern/",
+      "origen": "fal: nano-banana-2/edit (ref: el kit de la forja ×4) + image2pixel (tools/art/fal_taberna.py); suelo con Pillow; paredes, copia de la carpintería",
+      "coste_gen": 0,
+      "coste_usd": 0.16,
+      "notas": "Kit de interior de la Taberna-Posada (04f §4.27.4): bar (80×72), table, bench, barrel, kitchen, fireplace, minstrel_corner (64×64), bed (80×72), con los pies abajo en el centro como los de la forja; floor.png (tablas, 64×32, tesela) y wall_ne/nw, wall_door_ne/nw (32×52, de la carpintería)."
+    },
+    {
+      "id": "ui_icon_food_beer",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_beer.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: cerveza (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_strong_beer",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_strong_beer.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: cerveza fuerte (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_wine",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_wine.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: vino (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_good_wine",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_good_wine.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: vino bueno (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_cider",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_cider.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: sidra (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_bread",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_bread.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: pan (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_garlic_soup",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_garlic_soup.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: sopa de ajo (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_empanada",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_empanada.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: empanada (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_stew",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_stew.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: olla (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_roast_lamb",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_roast_lamb.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: cordero asado (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_sausage",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_sausage.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: embutido (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
+    },
+    {
+      "id": "ui_icon_food_sweets",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "posada"
+      ],
+      "ruta": "assets/art/ui/icons/food_sweets.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de la carta de la taberna: dulces de Navidad (04f §4.27.3), 32×32 y small/ (16×16). Para el bocadillo del pedido y la carta."
     }
   ]
 }
