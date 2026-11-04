@@ -50,6 +50,7 @@ func step(orders: Array = []) -> Array:
 	Duels.step(self)        # duelo: NPC answers, the call to the ground at dawn, the start, played duels' timeout
 	Routines.step(self)     # employees: home -> work at dawn, work -> home at dusk (real orders, Sim.give)
 	TownLife.step(self)     # H7: the townsfolk's day (trade, breaks, market, dusk activities, home at night)
+	Life.step(self)         # vida (04f 4.24): visitors, incidents, the watch, rumours (data/life/life.json enabled)
 	Counter.step(self)      # H7: customers at the shop counters
 	Schedules.step(self)    # H8: the family's routines and the Work directive (real orders, Sim.give)
 	WorkQueue.step(self)    # hands the queue's next unit to each free employee at its station (work_at)

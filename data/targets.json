@@ -16,6 +16,32 @@
     "idle_town",
     "kin_trader"
   ],
+  "_no_life_doc": "Vida (04f 4.24, principio 4): estos bots miden dianas fijadas antes de la ciudad viva II (agenda, corrillos, forasteros, guardia y sucesos) y corren con data/life/life.json enabled = false: la ciudad es la de H7 tal cual y sus números no se mueven. La vida se mide en guard_watch (y en el bench). Para medir uno de estos con la vida: --life=on.",
+  "_no_life": [
+    "idle",
+    "idle_rival",
+    "wanderer",
+    "smith",
+    "random_clicker",
+    "artisan_novice",
+    "carpenter_novice",
+    "mason_novice",
+    "tailor_novice",
+    "artisan_expert",
+    "artisan_expert_0",
+    "artisan_expert_1",
+    "artisan_expert_2",
+    "dynasty",
+    "idle_town",
+    "expert_titles",
+    "idle_titles",
+    "politician",
+    "crook",
+    "kin_trader",
+    "events",
+    "duelist",
+    "merchant"
+  ],
   "idle": {
     "days": [
       3,
@@ -693,6 +719,62 @@
       "trv_treaties_signed": [
         0.6,
         null
+      ]
+    }
+  },
+  "town_population_life": {
+    "_doc": "Vida (04f 4.24.3, O-R9 b, O-V2 a): tests/test_life_population.gd, como town_population pero con la vida encendida: el tope de vecinos del mapa es 5 por casa hasta 32 (town_e, 8 casas: 32; con la vida apagada sigue en 20 y town_population no cambia). Medido (2026-11-04, semilla 1, 60 años): de 16 a 21 en 10 años, 29 en 20 y 30-32 desde el año 30. Banda propuesta [14, 32] (la de H7 es [14, 22]): pendiente del visto bueno del owner.",
+    "years": [
+      60,
+      null
+    ],
+    "townsfolk": [
+      14,
+      32
+    ],
+    "fertile_singles": [
+      2,
+      null
+    ]
+  },
+  "guard_watch": {
+    "_doc": "Vida (04f 4.28.4): bot guard_watch (sim/bots/bot_guard_watch.gd) desde el escenario life_bandits (día 9, año 2, asaltos ×5 por town.incidents.mult), 16 días. Da la alarma en cada asalto a su casa (la guardia debe llegar siempre), mira las peleas y paga un secuestro si puede. Comprueba que la guardia responde y que nunca se pierde más del tope (10 % del oro, 3 piezas), sin órdenes rechazadas ni descuadre del libro. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=life_bandits --bots=guard_watch --days=16 --seeds=5 (en run_all, paso life, 3 semillas). Medido (2026-11-04, 5 semillas): 5 asaltos por semilla, la guardia llamada en 3-5, repelidos 0-5, el suyo siempre atendido; peor pérdida 10 % del oro y 0 piezas (las casas del borde no tienen almacén); 6-9 peleas, 2-4 separadas por la guardia. Banda propuesta.",
+    "days": [
+      16,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "raids": [
+      3,
+      null
+    ],
+    "raid_gold_share_max": [
+      0,
+      0.1
+    ],
+    "raid_items_max": [
+      0,
+      3
+    ],
+    "player_raids_arrived_share": [
+      1,
+      1
+    ],
+    "altercations": [
+      2,
+      null
+    ],
+    "_mean": {
+      "raids_called_share": [
+        0.6,
+        1.0
       ]
     }
   }

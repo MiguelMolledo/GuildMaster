@@ -2667,3 +2667,139 @@ tutorial.hint.duel_screen,"Read the gesture and how reliable it is. Strike beats
 combat.card.for.offense,For the insult,Por la ofensa
 combat.card.for.courtship,For %s,Por %s
 combat.card.for.rivalry,For the trade,Por el oficio
+rumor.wedding,They say {name} has married {spouse}.,Dicen que {name} se ha casado con {spouse}.
+rumor.birth,A child was born in the {family} house.,Ha nacido una criatura en casa de los {family}.
+rumor.death,"Did you hear? {name}, of the {family}, has died.","¿Sabéis que ha muerto {name}, de los {family}?"
+rumor.title,"The {family} are {title} now, who would have thought it!","Los {family} ya son {title}, ¡quién lo diría!"
+rumor.office,They say {name} has won the office of {office}.,Dicen que {name} ha ganado el cargo de {office}.
+rumor.sentence,The court has sentenced one of the {family}.,El tribunal ha condenado a uno de los {family}.
+rumor.brawl,Last night {name} and {target} came to blows.,Anoche {name} y {target} llegaron a las manos.
+rumor.duel,{name} fought a duel with {rival}.,{name} se batió en duelo con {rival}.
+rumor.raid,The bandits coming down {place} broke into a house of the {family}.,Los bandidos que bajan por {place} asaltaron una casa de los {family}.
+rumor.kidnap,"They took {victim}, of the {family}, towards {place}.","Se llevaron a {victim}, de los {family}, hacia {place}."
+rumor.debt,They say the {family} owe {amount} gold to the moneylender.,Dicen que los {family} deben {amount} de oro al prestamista.
+rumor.prices,"In {city} they pay well for {item}, better than here.","En {city} pagan bien {item}, mejor que aquí."
+rumor.election,There will be elections for {office} on day {day}.,Habrá elecciones a {office} el día {day}.
+rumor.event,They say «{event}» will last {days} more days.,Dicen que lo de «{event}» durará aún {days} días.
+rumor.contract,The board asks for {qty} of {item}: it pays {pay}.,En el tablón piden {qty} de {item}: pagan {pay}.
+rumor.visitor,"{name} has arrived, a {kind} from {city}.","Ha llegado {name}, {kind} de {city}."
+rumor.visitor_prices,"{name}, who trades from {city}, says {item} sells well there.","{name}, que viene a comerciar desde {city}, dice que allí se paga bien {item}."
+rumor.bandits_seen,Bandits were seen by {place}. Bar your doors tonight.,Han visto bandidos por {place}. Atrancad las puertas esta noche.
+visitor.merchant,merchant,mercader
+visitor.pilgrim,pilgrim,peregrino
+visitor.peddler,pedlar,buhonero
+visitor.minstrel,minstrel,juglar
+visitor.soldier,soldier on the road,soldado de paso
+visitor.noble,travelling noble,noble de viaje
+visitor.beggar,beggar,mendigo
+family.watch,Town watch,Guardia de la villa
+family.visitors,Visitors,Forasteros
+family.bandits,Bandits,Bandidos
+nest.r1,the Vilablat track,el camino de Vilablat
+nest.r2,the royal road to Bellcaire,el camino real de Bellcaire
+nest.r3,the Daura towpath,la sirga del Daura
+nest.r4,the Coll de la Venta,el Coll de la Venta
+nest.r5,the Montsacre ridge,la cresta de Montsacre
+nest.r6,the Portvell woods,el bosque de Portvell
+nest.r7,the Bellcaire ford,el vado de Bellcaire
+nest.road,the roads,los caminos
+notice.life.bandits_seen,There is talk of bandits by {place}: keep watch tonight.,"Se habla de bandidos por {place}: esta noche, atención."
+notice.life.altercation,A fight! {a} and {b} have come to blows.,¡Pelea! {a} y {b} han llegado a las manos.
+notice.life.altercation_watch,The watch parts {a} and {b}: a fine of {fine} for the one who started it.,La guardia separa a {a} y {b}: multa de {fine} al que empezó.
+notice.life.altercation_separated,You parted {a} and {b}.,Has separado a {a} y {b}.
+notice.life.altercation_fought,{a} and {b} fought it out; it has calmed down.,{a} y {b} se han pegado; ya se ha calmado la cosa.
+notice.life.bandit_raid,Bandits at {building}! {band} men are forcing the door.,¡Bandidos en {building}! {band} hombres fuerzan la puerta.
+notice.life.raid_watch,The watch drives the bandits away from {building}.,La guardia ahuyenta a los bandidos de {building}.
+notice.life.raid_defenders,Your people drive the bandits away from {building}.,Los tuyos ahuyentan a los bandidos de {building}.
+notice.life.raid_robbed,The bandits take {items} pieces and {gold} gold from {building}.,Los bandidos se llevan {items} piezas y {gold} de oro de {building}.
+notice.life.kidnapping,{name} ({family}) has been taken. They want {ransom} gold at {place}.,Se han llevado a {name} ({family}). Piden {ransom} de oro en {place}.
+notice.life.kidnap_paid,{name} is free: the ransom was paid.,{name} está libre: se pagó el rescate.
+notice.life.kidnap_rescued,{name} has been rescued.,{name} ha sido rescatado.
+notice.life.kidnap_ransomed,{name} is free: their people paid.,{name} está libre: los suyos pagaron.
+notice.life.kidnap_abandoned,"{name} came back on their own, frightened. Nobody paid for them.","{name} ha vuelto por su cuenta, asustado. Nadie pagó por él."
+notice.life.kidnap_gone,{name} is no longer held.,{name} ya no está retenido.
+incident.altercation,A street fight,Pelea en la calle
+incident.altercation.story,"{a} and {b} are at it in the middle of the street, fists up. A ring of onlookers forms; someone has gone for the watch.",{a} y {b} se pegan en mitad de la calle. Se forma un corro de mirones; alguien ha ido a por la guardia.
+incident.bandit_raid,Bandits at night,Asalto de bandidos
+incident.bandit_raid.story,The dogs bark. {band} bandits come down {place} and force the door of {building}.,Ladran los perros. {band} bandidos bajados por {place} fuerzan la puerta de {building}.
+incident.kidnapping,A kidnapping,Secuestro
+incident.kidnapping.story,"{name}, of the {family}, has been taken towards {place}. The note asks for {ransom} gold within two days.","Se han llevado a {name}, de los {family}, hacia {place}. La nota pide {ransom} de oro en dos días."
+incident.choice.separate,Part them,Separarlos
+incident.choice.separate.tip,Charisma or Martial against their anger: reputation and their regard if it works.,Carisma o Arte Marcial contra la rabia: reputación y aprecio de los dos si sale bien.
+incident.choice.watch,Watch,Mirar
+incident.choice.watch.tip,Let them be: the watch may come.,Dejarlos: quizá llegue la guardia.
+incident.choice.defend,Defend,Defender
+incident.choice.defend.tip,"Your people fight the bandits, one against one (without wounds: the loser is frightened).","Los tuyos pelean con los bandidos, uno contra uno (sin heridas: el que pierde, asustado)."
+incident.choice.alarm,Alarm,Alarma
+incident.choice.alarm.tip,The watch comes in 10-20 minutes.,La guardia llega en 10-20 minutos.
+incident.choice.hide,Hide,Esconderse
+incident.choice.hide.tip,They take what they find: at most 3 pieces or a tenth of the gold.,Se llevan lo que encuentren: como mucho 3 piezas o la décima parte del oro.
+incident.choice.pay,Pay,Pagar
+incident.choice.pay.tip,{ransom} gold: they let them go.,{ransom} de oro: lo sueltan.
+incident.choice.negotiate,Bargain,Negociar
+incident.choice.negotiate.tip,"Rhetoric against the leader: -30 % if it works, +50 % if not.","Retórica contra el jefe: −30 % si sale bien, +50 % si no."
+incident.choice.rescue,Rescue,Rescatar
+incident.choice.rescue.tip,"Hire {n} men ({cost} gold) and go to {place}: a chain of fights, resolved without playing.","Contratar {n} hombres ({cost} de oro) e ir a {place}: combates en cadena, resueltos sin jugar."
+incident.choice.nothing,Let it be,Dejarlo
+incident.choice.nothing.tip,"If they are yours, they come back in 4 days, frightened, and the town will talk.","Si es de los tuyos, vuelve a los 4 días, asustado, y el pueblo murmurará."
+ui.incident.default,By default: %s,Si no eliges: %s
+ui.incident.ransom,Ransom,Rescate
+ui.incident.band,Bandits,Bandidos
+ui.incident.close,Later,Luego
+reason.too_late,It is over,Ya ha terminado
+reason.unknown_incident,That is over,Ese suceso ya no está
+reason.not_a_beggar,Not a beggar,No es un mendigo
+reason.already_negotiated,You already negotiated,Ya habéis negociado
+reason.already_tried,You already tried,Ya lo intentasteis
+rep.reason.alms,Alms,Limosna
+rep.reason.separated_brawl,Parted a fight,Separó una pelea
+rep.reason.rescued,Rescued a captive,Rescató a un secuestrado
+rep.reason.kidnap_unpaid,Did not pay for their own,No pagó por los suyos
+need.faith,Faith,Fe
+life.activity.work,Working,Trabajar
+life.activity.shopping,Shopping,Ir a la compra
+life.activity.water,Fetching water,Por agua
+life.activity.wash,Washing,Lavar
+life.activity.errand,Errands,Recados
+life.activity.mass,Mass,Misa
+life.activity.chat,Chatting in a group,Charlar en corrillo
+life.activity.bench,Sitting,Sentarse
+life.activity.tavern,At the tavern,Taberna
+life.activity.dice,Dice,Dados
+life.activity.visit,Visiting family,Visitar a la familia
+life.activity.play,Playing,Jugar
+life.activity.stroll,Strolling,Pasear
+life.activity.court,Courting,Cortejar
+life.activity.watch_show,Watching a show,Mirar el espectáculo
+life.activity.eat_home,Lunch at home,Comer en casa
+life.activity.sleep,Sleeping,Dormir
+life.point.chat,the plaza,la plaza
+life.point.well,the well,el pozo
+life.point.atrium,the church porch,el atrio
+life.point.tavern,the tavern door,la puerta de la taberna
+life.point.washhouse,the washing place,el lavadero
+life.point.bridge,the bridge,el puente
+life.point.gate,the town gate,la puerta de la villa
+life.point.square,the plaza,la plaza
+life.point.bench,a bench,un banco
+life.point.dice,the dice table,la mesa de dados
+ui.ledger.tab.rumors,Rumours,Rumores
+ui.rumors.empty,"You have heard nothing yet. Walk past the groups that gather at the well, the church porch, the gates or the washing place.","Aún no has oído nada. Pasa cerca de los corrillos del pozo, el atrio, las puertas o el lavadero."
+ui.rumors.where,Day %d · %s,Día %d · %s
+ui.rumors.useful,Useful,Útil
+ui.rumors.count,%d rumours heard,%d rumores oídos
+ui.life.guard,Town watch · %s,Guardia de la villa · %s
+ui.life.visitor,%s from %s,%s de %s
+ui.life.role.gate,gate,puerta
+ui.life.role.night,night round,ronda de noche
+ui.life.role.festival,plaza,plaza
+ui.life.alms,Give alms (1 gold),Dar limosna (1 de oro)
+ui.life.art_missing,[Placeholder illustration: %s],[Ilustración provisional: %s]
+visitor.merchant.f,merchant,mercadera
+visitor.pilgrim.f,pilgrim,peregrina
+visitor.peddler.f,pedlar,buhonera
+visitor.minstrel.f,minstrel,juglaresa
+visitor.soldier.f,soldier on the road,soldado de paso
+visitor.noble.f,travelling noblewoman,noble de viaje
+visitor.beggar.f,beggar,mendiga
+reason.passing_through,Only passing through the town,Está de paso por la villa

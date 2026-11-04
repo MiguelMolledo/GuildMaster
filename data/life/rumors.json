@@ -1,0 +1,21 @@
+{
+  "_doc": "Rumores de los corrillos (docs/gdd/04f_vida_y_fiestas.md §4.24.2; docs/contratos/vida.md). Cada plantilla habla de algo que ha pasado de verdad (la crónica, los últimos meeting.lookback_days días) o que va a pasar o está pasando (elecciones abiertas, eventos en vigor, el tablón, préstamos de otras familias, los precios de otra población, los forasteros, el aviso de bandidos de la víspera). source: de dónde sale; kinds: los hechos de la crónica que la disparan (source chronicle); topic: de qué trata (meeting.kinds[*].topics: en esos puntos ×topic_mult); weight: su peso al elegir; useful: da información que sirve al jugador (sale marcada en el libro). text_key: el texto (i18n, con {variables}). Los rumores son vista y libro: el sim solo guarda los oídos (town.rumors.heard).",
+  "wedding": {"source": "chronicle", "kinds": ["wedding"], "topic": "wedding", "weight": 1.0, "useful": false, "text_key": "rumor.wedding"},
+  "birth": {"source": "chronicle", "kinds": ["birth"], "topic": "birth", "weight": 0.8, "useful": false, "text_key": "rumor.birth"},
+  "death": {"source": "chronicle", "kinds": ["death"], "topic": "death", "weight": 1.2, "useful": false, "text_key": "rumor.death"},
+  "title": {"source": "chronicle", "kinds": ["title"], "topic": "wedding", "weight": 0.8, "useful": false, "text_key": "rumor.title"},
+  "office": {"source": "chronicle", "kinds": ["office_won"], "topic": "prices", "weight": 0.8, "useful": false, "text_key": "rumor.office"},
+  "sentence": {"source": "chronicle", "kinds": ["sentence"], "topic": "trial", "weight": 1.2, "useful": false, "text_key": "rumor.sentence"},
+  "brawl": {"source": "chronicle", "kinds": ["brawl", "altercation"], "topic": "incident", "weight": 1.0, "useful": false, "text_key": "rumor.brawl"},
+  "duel": {"source": "chronicle", "kinds": ["duel"], "topic": "duel", "weight": 1.0, "useful": false, "text_key": "rumor.duel"},
+  "raid": {"source": "chronicle", "kinds": ["bandit_raid"], "topic": "incident", "weight": 1.6, "useful": false, "text_key": "rumor.raid"},
+  "kidnap": {"source": "chronicle", "kinds": ["kidnapping"], "topic": "incident", "weight": 1.6, "useful": false, "text_key": "rumor.kidnap"},
+  "debt": {"source": "loans", "topic": "debt", "weight": 1.0, "useful": true, "text_key": "rumor.debt"},
+  "prices": {"source": "city_prices", "topic": "prices", "weight": 1.2, "useful": true, "text_key": "rumor.prices"},
+  "election": {"source": "elections", "topic": "prices", "weight": 1.0, "useful": true, "text_key": "rumor.election"},
+  "event": {"source": "events", "topic": "road", "weight": 0.8, "useful": true, "text_key": "rumor.event"},
+  "contract": {"source": "board", "topic": "prices", "weight": 0.8, "useful": true, "text_key": "rumor.contract"},
+  "visitor": {"source": "visitors", "topic": "visitor", "weight": 0.8, "useful": false, "text_key": "rumor.visitor"},
+  "visitor_prices": {"source": "visitor_prices", "topic": "prices", "weight": 1.4, "useful": true, "text_key": "rumor.visitor_prices"},
+  "bandits_seen": {"source": "warning", "topic": "road", "weight": 3.0, "useful": true, "text_key": "rumor.bandits_seen"}
+}

@@ -488,6 +488,8 @@ static func _product_of(sim: Sim, f: String) -> String:
 ## Whether character `chr` is away from home (on a trip, or the carter of a caravan): off the map, acts only through
 ## the region's orders.
 static func is_away(st: WorldState, chr: String) -> bool:
+	if Life.is_captive(st, chr):  # vida (04f 4.24.5): held by the bandits, like away: off the map, no orders
+		return true
 	var r: Dictionary = st.region
 	if r.is_empty():
 		return false

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://xi1wsnk76ipo"]
+
+[ext_resource type="PackedScene" uid="uid://bcva2b5m5mmhg" path="res://game/ui/page_card.tscn" id="1_page"]
+[ext_resource type="Script" uid="uid://nh1kocc7fdsq" path="res://game/ui/life/incident_card.gd" id="2_script"]
+
+[node name="IncidentCard" instance=ExtResource("1_page")]
+script = ExtResource("2_script")
