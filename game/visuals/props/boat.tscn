@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc3mvyxng3l5r"]
+
+[ext_resource type="Script" uid="uid://dah4sdr14eyjb" path="res://game/world/boat_view.gd" id="1_boat"]
+
+[node name="Boat" type="Node2D"]
+editor_description = "Generic boat of the town builder (data/maps \"boats\": ships moored by the piers, rowboats on the river). Cosmetic, on the water. A boat type with its own scene (props/<type>.tscn) is drawn with that one instead."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_boat")

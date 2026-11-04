@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://qy3ovuxk5ib7"]
+
+[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+
+[node name="Wall" type="Node2D"]
+editor_description = "One tile of a town or precinct wall (tile kind wall, M): WorldView puts it on every wall tile."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -44)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_block")
+height = 44.0
+color = Color(0.54, 0.52, 0.47, 1)

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://ydi75dirf1bh"]
+
+[ext_resource type="Script" uid="uid://dclcjwcrf4upw" path="res://game/visuals/greybox/greybox_blocks.gd" id="1_gb"]
+
+[node name="Hito" type="Node2D"]
+y_sort_enabled = true
+editor_description = "Generic landmark of the town builder (data/maps \"landmarks\", tools/city/organic.py): a greybox block that WorldView sizes to the landmark's footprint, with its colour and height. A landmark with its own scene (props/<type>.tscn, its sprite) is drawn with that one instead."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -48)
+
+[node name="Greybox" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_gb")
+footprint = Vector2i(2, 2)
+height = 48.0
+color = Color(0.6, 0.48, 0.35, 1)

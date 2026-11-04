@@ -1,5 +1,5 @@
 {
-  "_doc": "Tile kinds of the town grid (GDD 05 §5.4, D3). walk_cost: path cost of entering the tile (null = blocked). color: greybox colour until the art arrives. The 1-char codes are what data/maps/*.json rows use. H3: stall (market stall) and board (contract board) are blocked tiles served from the tile the map declares as their service tile.",
+  "_doc": "Tile kinds of the town grid (GDD 05 §5.4, D3). walk_cost: path cost of entering the tile (null = blocked). color: greybox colour until the art arrives. The 1-char codes are what data/maps/*.json rows use. H3: stall (market stall) and board (contract board) are blocked tiles served from the tile the map declares as their service tile. Town builder (tools/city/, docs/protocolos/generar-ciudad.md): dock = a pier over the water (walkable), ford = a shallow crossing of a stream (walkable, slow), wall = town or precinct wall, rock = the sierra, landmark = the footprint of a cosmetic landmark (cathedral, warehouse, mine...: data/maps \"landmarks\", drawn by the view, never read by the sim).",
   "tiles": {
     "grass":    {"char": ".", "walk_cost": 10,   "color": "#5f8a3a"},
     "street":   {"char": "=", "walk_cost": 1,    "color": "#9a8f7e"},
@@ -11,6 +11,11 @@
     "water":    {"char": "w", "walk_cost": null, "color": "#3d6e9e"},
     "tree":     {"char": "T", "walk_cost": null, "color": "#2f5a2a"},
     "stall":    {"char": "S", "walk_cost": null, "color": "#b0703a"},
-    "board":    {"char": "N", "walk_cost": null, "color": "#7a5530"}
+    "board":    {"char": "N", "walk_cost": null, "color": "#7a5530"},
+    "dock":     {"char": "m", "walk_cost": 1,    "color": "#8a6a44"},
+    "ford":     {"char": "v", "walk_cost": 6,    "color": "#6f8fa8"},
+    "wall":     {"char": "M", "walk_cost": null, "color": "#57524a"},
+    "rock":     {"char": "R", "walk_cost": null, "color": "#6e665c"},
+    "landmark": {"char": "H", "walk_cost": null, "color": "#4a3f36"}
   }
 }

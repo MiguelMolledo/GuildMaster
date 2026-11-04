@@ -6,6 +6,8 @@
   python3 tools/city/ciudad.py vista <map> [--out PNG] preview PNG (reports/ciudad/<map>.png) without the game
   python3 tools/city/ciudad.py generar --id <id> --layout <calle|plaza|cruce|rio|aldea|abadia> --seed <n> [--size 40x40] [--households N] ...
                                                        generate a town (generator.py), dress it, validate, preview
+  python3 tools/city/ciudad.py region [id...] [--out DIR]
+                                                       the organic towns of tools/city/ciudades.json (organic.py)
 
 Maps whose id is in STRICT (or any map made by `generar`: "generated" in the map) get every rule as an error; the
 hand-made town_e keeps the rules its old layout breaks (sim doors on hidden faces) as warnings: the targets of the
@@ -71,6 +73,11 @@ def main(argv):
     if cmd == "generar":
         import generator
         return generator.main(rest)
+    if cmd == "region":
+        import organic
+        out = rest[rest.index("--out") + 1] if "--out" in rest else ""
+        ids = [a for a in rest if not a.startswith("--") and a != out]
+        return organic.main(ids, out)
     print(__doc__)
     return 1
 
