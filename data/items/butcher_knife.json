@@ -1,0 +1,11 @@
+{
+  "id": "butcher_knife",
+  "name_key": "item.butcher_knife",
+  "gender": "m",
+  "category": "product",
+  "weight": 1.0,
+  "max_stack": 20,
+  "base_price": 30,
+  "market_stall": null,
+  "to_order": true
+}

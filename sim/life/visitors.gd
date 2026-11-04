@@ -67,7 +67,7 @@ static func _plan_day(sim: Sim, today: int) -> void:
 		return
 	var span: Array = c.get("per_day", [2, 4])
 	var n := Kin.randi_range(st, "life|vis|n|%d" % today, int(span[0]), int(span[1]))
-	if Life.festival(sim):
+	if Life.festival(sim) and not Festivals.on_today(sim):  # fiestas: a feast of the calendar brings its own
 		n *= int(c.get("festival_mult", 3))
 	n = roundi(float(n) * Life.event_mult(sim, "visitors"))
 	var cities: Array = []
@@ -95,12 +95,13 @@ static func _kind(sim: Sim, key: String) -> String:
 	var kinds: Dictionary = cfg(sim).get("kinds", {})
 	var names: Array = kinds.keys()
 	names.sort()
+	var fest := Festivals.today_kinds(sim)  # fiestas (04f 4.25.3): the kinds the feast of the day brings weigh double
 	var total := 0.0
 	for k: String in names:
-		total += float(kinds[k].get("weight", 0))
+		total += float(kinds[k].get("weight", 0)) * (2.0 if k in fest else 1.0)
 	var r := Kin.roll(sim.state, key + "|kind") * total
 	for k: String in names:
-		r -= float(kinds[k].get("weight", 0))
+		r -= float(kinds[k].get("weight", 0)) * (2.0 if k in fest else 1.0)
 		if r < 0.0:
 			return k
 	return str(names[names.size() - 1])

@@ -135,6 +135,8 @@ static func choose_recipe(sim: Sim, actor: String, home: String) -> String:
 	var best := ""
 	var best_m := 0
 	for rid: String in _home_recipes(sim, actor, home):
+		if str(sim.catalog.recipes()[rid].get("kind", "craft")) == "commission":  # 4.25.4: made to order only
+			continue
 		var m := margin(sim, rid)
 		if m > best_m:
 			best = rid
@@ -272,6 +274,8 @@ static func _t_contracts(sim: Sim, fam: String, actor: String, home: String, pro
 		return {}
 	for c: Dictionary in sim.state.contracts.get("board", []):
 		if str(c.get("script", "")) != "" and not bool(profile.get("accepts_scripted_contracts", false)):
+			continue
+		if bool(c.get("race", false)) and FestivalContracts.status(sim, fam, c) != "":  # 4.25.4: taken or its own
 			continue
 		if makes_in_time(sim, fam, actor, home, profile, c):
 			return _at_board_then(sim, actor, {"type": "accept_contract", "actor": actor, "contract": str(c["id"])})

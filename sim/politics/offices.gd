@@ -325,7 +325,8 @@ static func _taxes(sim: Sim) -> void:
 	var fams: Array = sales.keys()
 	fams.sort()
 	for f: String in fams:
-		var tax := mini(roundi(float(sales[f]) * float(pct) / 100.0 * _tax_mult(sim, f)), Money.gold(st, f))
+		var tax := mini(roundi(float(sales[f]) * float(pct) / 100.0 * _tax_mult(sim, f) * Festivals.home_tax_mult(sim,
+			yday)), Money.gold(st, f))  # fiestas (4.25.3): the feria franca pays no tax
 		if tax > 0 and Money.change(sim, f, -tax, Money.TAXES, "tax_day_%d" % yday):
 			total += tax
 			sim.events.append({"type": "tax_collected", "family": f, "amount": tax, "sales": int(sales[f]), "percent": pct})
@@ -481,6 +482,8 @@ static func power_status(sim: Sim, actor: String, power: String, args: Dictionar
 			if not ev in WorldEvents.declarable(sim):
 				return "bad_args"
 			return WorldEvents.can_start(sim, ev)
+		"organize_festival":  # fiestas (04f 4.25.5): bulls or a joust in a feast
+			return Festivals.organize_reason(sim, actor, args)
 	return ""
 
 
@@ -525,6 +528,8 @@ static func order_power(sim: Sim, o: Dictionary) -> Dictionary:
 			Tribunal.use_power(sim, actor, power, args)
 		"declare_event":  # H13: starts now; WorldEvents gives the notices
 			WorldEvents.start(sim, str(args["event"]), actor)
+		"organize_festival":  # fiestas (04f 4.25.5)
+			Festivals.organize(sim, actor, args)
 		"set_tax":
 			st.offices[office]["settings"]["tax_percent"] = int(args["percent"])
 			params.merge({"percent": int(args["percent"])})

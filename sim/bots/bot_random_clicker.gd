@@ -38,7 +38,7 @@ func orders(sim: Sim) -> Array:
 			if type != "go_to_station":
 				o["building"] = _pick(rng, _sorted(st.buildings.keys()))
 			if type == "work_at":
-				o["recipe"] = _pick(rng, _sorted(sim.catalog.recipes().keys()))
+				o["recipe"] = _pick(rng, _sorted(_recipes(sim)))
 				o["mode"] = _pick(rng, _sorted((sim.catalog.production.get("modes", {}) as Dictionary).keys()))
 		"equip":
 			o.merge({"item": _item(sim), "quality": _quality(rng)})
@@ -80,7 +80,7 @@ func orders(sim: Sim) -> Array:
 				entries.append(str(e.get("id", "")))
 			match type:
 				"queue_add":
-					o.merge({"recipe": _pick(rng, _sorted(sim.catalog.recipes().keys())),
+					o.merge({"recipe": _pick(rng, _sorted(_recipes(sim))),
 						"qty": _pick(rng, ["1", "5", "10", "-1", "0"]).to_int()})
 				"queue_remove", "queue_move":
 					o["entry"] = _pick(rng, entries)
@@ -102,7 +102,8 @@ func _pick(rng: RandomNumberGenerator, from: Array) -> String:
 
 
 func _item(sim: Sim) -> String:
-	return _pick(sim.state.rng, _sorted(sim.catalog.items().keys()))
+	return _pick(sim.state.rng, _sorted(sim.catalog.items().keys().filter(func(i: Variant) -> bool:
+		return not bool(sim.catalog.items()[i].get("to_order", false)))))  # fiestas: as before the festival pieces
 
 
 func _quality(rng: RandomNumberGenerator) -> int:
@@ -119,3 +120,9 @@ func _sorted(a: Array) -> Array:
 		out.append(str(x))
 	out.sort()
 	return out
+
+
+## The recipes it clicks at random: all but the festival pieces made to order (fiestas, 4.25.4), as before them.
+func _recipes(sim: Sim) -> Array:
+	return sim.catalog.recipes().keys().filter(func(r: Variant) -> bool:
+		return str(sim.catalog.recipes()[r].get("kind", "craft")) != "commission")

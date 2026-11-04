@@ -2667,6 +2667,224 @@ tutorial.hint.duel_screen,"Read the gesture and how reliable it is. Strike beats
 combat.card.for.offense,For the insult,Por la ofensa
 combat.card.for.courtship,For %s,Por %s
 combat.card.for.rivalry,For the trade,Por el oficio
+festival.holy_week,Holy Week,Semana Santa
+festival.holy_week.story,"Lent ends and Easter comes: penitents in procession, high mass, and the Easter lamb at dusk.","Acaba la Cuaresma y llega la Pascua: penitentes en procesión, misa mayor y, al atardecer, el cordero de Pascua."
+festival.mayday_corpus,The Mayos and Corpus,Los Mayos y el Corpus
+festival.mayday_corpus.story,"The maypole goes up in the square and the coplas are sung; Corpus brings the monstrance through the streets and, if someone pays, the bulls.","Se planta el mayo en la plaza y se cantan coplas; el Corpus saca la custodia por las calles y, si alguien lo paga, los toros."
+festival.st_john,St John's Eve,La noche de San Juan
+festival.st_john.story,"The shortest night: bonfires, a verbena, jumping the fire and the water of St John.","La noche más corta: hogueras, verbena, saltar el fuego y el agua de San Juan."
+festival.harvest_fair,The harvest fair,La siega y la feria
+festival.harvest_fair.story,"The harvest is in. The yearly fair, by royal privilege: merchants from all the region, cattle and puppeteers. No tax on sales.","Se acaba la siega. La feria del año, con privilegio real: mercaderes de toda la comarca, ganado y titiriteros. Feria franca: sin impuestos."
+festival.st_michael,St Michael and the vintage,San Miguel y la vendimia
+festival.st_michael.story,"Contracts and rents fall due, and the grapes are trodden.","Vencen contratos y rentas, y se pisa la uva."
+festival.all_saints_matanza,All Saints and the matanza,Todos los Santos y la matanza
+festival.all_saints_matanza.story,"The dead are remembered and, by St Martin, the town kills the pig, makes sausage and eats together.","Se recuerda a los difuntos y, por San Martín, el pueblo mata el cerdo, hace embutido y come junto."
+festival.christmas,Christmas,Navidad
+festival.christmas.story,"Midnight mass, the nativity in the atrium, aguinaldos and a feast at home.","Misa del gallo, el belén en el atrio, aguinaldos y banquete en casa."
+festival.carnival,Carnival,Carnaval
+festival.carnival.story,"Before Lent: masks, excess, the rooster and jokes on the authorities.","Antes de la Cuaresma: máscaras, excesos, el gallo y burlas a las autoridades."
+festival.marquis_visit,The marquis's visit,La visita del marqués
+festival.marquis_visit.story,"The marquis comes with his retinue: a triumphal arch, a banquet of honour and the town's gift.","Llega el marqués con su séquito: arco triunfal, banquete de honor y el regalo de la villa."
+festival.noble_wedding,A noble wedding,Una boda principal
+festival.noble_wedding.story,"Two good houses marry: banquet, guests from outside, dance and gifts for the couple.","Se casan dos casas principales: banquete, invitados de fuera, baile y regalos para los novios."
+festival.neighbours_wedding,The neighbours' wedding,Boda de vecinos
+festival.neighbours_wedding.story,Two neighbours marry: a merienda and a dance in the square.,Se casan dos vecinos: merienda y baile en la plaza.
+festival.tournament,The tournament,El torneo
+festival.tournament.story,"Jousts in the lists and a fighting tournament, with prizes and bets.","Justas en la liza y torneo de lucha, con premios y apuestas."
+festival.comedians,The comedians,Los cómicos
+festival.comedians.story,A troupe of comedians plays in the square.,Una compañía de cómicos representa en la plaza.
+festival.preacher,The preacher,El predicador
+festival.preacher.story,"A preacher speaks in the square: faith rises, gambling is frowned upon and some finery burns.","Un predicador habla en la plaza: sube la fe, el juego está mal visto y se quema algo de lujo."
+festival.pilgrimage,The pilgrimage to Montsacre,La romería a Montsacre
+festival.pilgrimage.story,The town walks to the abbey for its founder's feast; the monastery holds a banquet.,La villa camina a la abadía por la fiesta de su fundador; el monasterio da un banquete.
+festival.rogation,The rogation,La rogativa
+festival.rogation.story,A procession asking for rain.,Procesión pidiendo lluvia.
+festival.cattle_fair,The cattle fair,La feria de ganado
+festival.cattle_fair.story,"Cattle, carts and horses for sale, and a horse race.","Ganado, carros y caballos a la venta, y una carrera de caballos."
+festival.what.mass,Mass,Misa
+festival.what.procession,Procession,Procesión
+festival.what.easter_feast,Easter lamb,El cordero de Pascua
+festival.what.maypole,The maypole goes up,Se planta el mayo
+festival.what.corpus_procession,Corpus procession,Procesión del Corpus
+festival.what.bulls,The bulls,Los toros
+festival.what.dance,Dance,Baile
+festival.what.bonfires,Bonfires,Hogueras
+festival.what.st_john_water,St John's water,El agua de San Juan
+festival.what.fair_opens,The fair opens,Abre la feria
+festival.what.cattle,Cattle market,Mercado de ganado
+festival.what.horse_race,Horse race,Carrera de caballos
+festival.what.minstrels,Minstrels,Juglares
+festival.what.rents_due,Rents fall due,Vencen las rentas
+festival.what.grape_treading,Grape treading,Se pisa la uva
+festival.what.cemetery,Visit to the cemetery,Visita al cementerio
+festival.what.matanza,The matanza,La matanza
+festival.what.common_banquet,Common banquet,Banquete común
+festival.what.chestnuts,Chestnuts,Castañas
+festival.what.midnight_mass,Midnight mass,Misa del gallo
+festival.what.aguinaldos,Aguinaldos,Aguinaldos
+festival.what.christmas_feast,Christmas feast,Banquete de Navidad
+festival.what.masks,Masks,Máscaras
+festival.what.the_rooster,The rooster,El gallo
+festival.what.reception,Reception,Recibimiento
+festival.what.audience,Audience,Audiencia
+festival.what.honour_banquet,Banquet of honour,Banquete de honor
+festival.what.wedding_mass,Wedding mass,Misa de bodas
+festival.what.wedding_banquet,Wedding banquet,Banquete de bodas
+festival.what.joust,Joust,Justa
+festival.what.fight_tournament,Fighting tournament,Torneo de lucha
+festival.what.prize,Prizes,Premios
+festival.what.play,The play,La representación
+festival.what.sermon,Sermon,Sermón
+festival.what.pilgrims_leave,The pilgrims leave,Salen los romeros
+festival.what.monastery_banquet,Monastery banquet,Banquete del monasterio
+festival.what.pilgrims_back,The pilgrims return,Vuelven los romeros
+festival.what.rogation_procession,Rogation procession,Procesión de rogativa
+festival_contract.cart_ring,the ring of carts for the bulls,el cerco de carros para los toros
+festival_contract.bullpen_bars,bars for the bullpen,barrotes del toril
+festival_contract.awnings,awnings for the stalls,toldos de los puestos
+festival_contract.ironwork,ironwork for the presses,herrajes de las prensas
+festival_contract.long_tables,long tables and benches,mesas largas y bancos
+festival_contract.salting_trough,the salting trough,el saladero
+festival_contract.aprons,aprons,delantales
+festival_contract.common_banquet,the common banquet,el banquete común
+festival_contract.nativity,the nativity and toys,el belén y juguetes
+festival_contract.feast_clothes,feast clothes,ropa de fiesta
+festival_contract.costumes,costumes,disfraces
+festival_contract.town_gift,the town's gift,el regalo de la villa
+festival_contract.tribune,the tribune,la tribuna
+festival_contract.council_clothes,the council's clothes,vestidos del concejo
+festival_contract.honour_banquet,the banquet of honour,el banquete de honor
+festival_contract.groom_gift,a gift for the groom,el regalo al novio
+festival_contract.groom_doublet,the groom's doublet,el jubón del novio
+festival_contract.wedding_banquet,the wedding banquet,el banquete de bodas
+festival_contract.cart_shoes,shoes for the cart,herraduras para el carro
+festival_contract.plain_chest,a plain chest,un arcón sencillo
+festival_contract.plain_dress,a plain dress,un vestido sencillo
+festival_contract.merienda,the merienda,la merienda
+festival_contract.lists,the lists,la liza
+festival_contract.surcoats,surcoats,sobrevestas
+festival_contract.boards,the boards,el tablado
+festival_contract.choir_stalls,the choir stalls,la sillería del coro
+festival_contract.cloister,stone for the cloister,piedra para el claustro
+festival_contract.altar_cloths,altar cloths,paños de altar
+festival_contract.pilgrim_bread,the pilgrims' bread,el pan de la romería
+festival_contract.drinking_trough,a drinking trough,un abrevadero
+client.town_council,The town council,El concejo
+client.fair_warden,The fair warden,El alcaide de la feria
+client.groom_family,The groom's family,La familia del novio
+client.tourney_herald,The tourney herald,El heraldo del torneo
+client.comedians,The comedians,Los cómicos
+client.marquis_steward,The marquis's steward,El mayordomo del marqués
+item.decorative_sword,Ceremonial sword,Espada de regalo
+item.wedding_dress,Wedding dress,Vestido de novia
+item.doublet,Doublet,Jubón
+item.banner,Banner,Pendón
+item.dowry_chest,Dowry chest,Arcón de dote
+item.marriage_bed,Marriage bed,Cama nupcial
+item.tourney_lance,Tourney lance,Lanza de torneo
+item.stage,Stage,Tablado
+item.triumphal_arch,Triumphal arch,Arco triunfal
+item.feast,Feast,Banquete
+item.horseshoe,Horseshoes,Herraduras
+item.butcher_knife,Butcher's knife,Cuchillo de matarife
+item.candlestick,Candlestick,Candelabro
+recipe.forge_decorative_sword,Forge a ceremonial sword,Forjar una espada de regalo
+recipe.forge_horseshoe,Forge horseshoes,Forjar herraduras
+recipe.forge_butcher_knife,Forge a butcher's knife,Forjar un cuchillo de matarife
+recipe.forge_candlestick,Forge a candlestick,Forjar un candelabro
+recipe.tailor_wedding_dress,Sew a wedding dress,Coser un vestido de novia
+recipe.tailor_doublet,Sew a doublet,Coser un jubón
+recipe.tailor_banner,Sew a banner,Coser un pendón
+recipe.carpentry_dowry_chest,Make a dowry chest,Hacer un arcón de dote
+recipe.carpentry_marriage_bed,Make a marriage bed,Hacer una cama nupcial
+recipe.carpentry_tourney_lance,Make a tourney lance,Hacer una lanza de torneo
+recipe.carpentry_stage,Build a stage,Montar un tablado
+recipe.masonry_triumphal_arch,Carve a triumphal arch,Labrar un arco triunfal
+goods.horses,horses and carts,caballos y carros
+notice.festival_eve,Town crier: {festival} begins at {when} tomorrow. {contracts} festival contracts on the board.,"Pregón: mañana a las {when}, {festival}. {contracts} encargos de fiesta en el tablón."
+notice.festival_started,{festival} begins,Empieza {festival}
+notice.festival_started_sponsored,"{festival} begins, thanks to {sponsors}","Empieza {festival}, gracias a {sponsors}"
+notice.festival_ended,{festival} is over,Se acabó {festival}
+notice.festival_sponsored,{family} pays the {part} of {festival},{family} paga {part} de {festival}
+notice.festival_organized,"{name}, the mayor, organizes {part} for {festival}","{name}, el Alcalde, organiza {part} para {festival}"
+notice.festival_wedding_offer,A wedding in the family: pay the banquet ({gold} gold) on the festival card and the town celebrates it,"Boda en la familia: si pagas el banquete ({gold} de oro), la villa la celebra"
+notice.festival_contract_lost,{family} delivered the {item} first: you lose the contract,{family} entregó antes: pierdes el encargo de {item}
+notice.city_fair_eve,"Tomorrow, fair in {city}: no tariff and no toll on the way","Mañana, feria en {city}: sin arancel y sin portazgo en el camino"
+reason.festivals_off,There are no festivals,No hay fiestas
+reason.unknown_festival,That festival is not announced,Esa fiesta no está anunciada
+reason.bad_part,That cannot be sponsored,Eso no se puede patrocinar
+reason.already_sponsored,You already pay for that,Eso ya lo pagas
+reason.no_wedding,There is no wedding to celebrate,No hay boda que celebrar
+reason.already_organized,Already organized,Ya está organizado
+reason.contract_mine,You already took it,Ya lo has aceptado
+reason.own_festival,It is for your own wedding,Es para tu propia boda
+reason.too_many_festival_contracts,Too many festival contracts,Demasiados encargos de fiesta
+power.organize_festival,Organize a festival,Organizar una fiesta
+ui.offices.organize,Organize %s in %s,Organizar %s en %s
+festival.part.banquet,The banquet,El banquete
+festival.part.music,The music,La música
+festival.part.bulls,The bulls,Los toros
+festival.part.joust,A joust,Una justa
+spectacle.bulls,Running the bulls,Correr los toros
+spectacle.horse_race,Horse race,Carrera de caballos
+spectacle.minstrels,Minstrels,Juglares
+spectacle.joust,Joust,Justa
+spectacle.fight_tournament,Fighting tournament,Torneo de lucha
+spectacle.comedians,The comedians,Los cómicos
+ui.festival_card.ok,Understood,Entendido
+ui.festival_card.eve_ribbon,Town crier,Pregón
+ui.festival_card.tomorrow,"Tomorrow, %s","Mañana, %s"
+ui.festival_card.today,"Today, %s","Hoy, %s"
+ui.festival_card.schedule,The day,El día
+ui.festival_card.line,%s · %s,%s · %s
+ui.festival_card.contracts,%d festival contracts on the board,%d encargos de fiesta en el tablón
+ui.festival_card.no_contracts,No contracts for this one,Esta no trae encargos
+ui.festival_card.thanks,Thanks to %s,Gracias a %s
+ui.festival_card.sponsor,Pay %s (%d),Pagar %s (%d)
+ui.festival_card.sponsor_tip,Reputation and the gratitude of the neighbours,Reputación y el agradecimiento de los vecinos
+ui.festival_card.host_wedding,Pay the banquet (%d),Pagar el banquete (%d)
+ui.festival_card.plain_wedding,A plain wedding,Boda sencilla
+ui.festival_card.wedding_title,The wedding,La boda
+ui.festival_card.wedding_body,"%s and %s are married. If you pay the banquet, the town celebrates: guests, dance, contracts for every trade and reputation.","%s y %s se han casado. Si pagas el banquete, la villa lo celebra: invitados, baile, encargos para cada oficio y reputación."
+ui.festival_card.poor,Nobody pays for it yet: a poorer feast,Nadie la paga todavía: una fiesta más pobre
+ui.festival_card.fx_holy_day,Holy day: workshops ×%s in the morning,Día de guardar: talleres ×%s por la mañana
+ui.festival_card.fx_tariff,Free fair: no tax on sales,Feria franca: sin impuestos de venta
+ui.festival_card.fx_route_bonus,No toll on the roads,Sin portazgo en los caminos
+ui.festival_card.fx_stalls,%d stalls of outsiders,%d puestos de forasteros
+ui.festival_card.fx_visitors,Visitors ×%s,Forasteros ×%s
+ui.festival_card.fx_service,Tavern ×%s,Taberna ×%s
+ui.festival_card.fx_spectacle,At %02d:00: %s,A las %02d:00: %s
+ui.festival_card.fx_incident,Brawls ×%s,Peleas ×%s
+ui.festival_card.fx_emotion,"The neighbours, grateful to whoever pays","Los vecinos, agradecidos con quien la pague"
+ui.festival_card.fx_reputation_mayor,The mayor's reputation %+d,Reputación del Alcalde %+d
+ui.festival_card.fx_aguinaldo,Aguinaldo: +%d loyalty to the employee who gets one,Aguinaldo: +%d de lealtad al empleado que lo reciba
+ui.festival_card.fx_need,Faith +%d,Fe +%d
+ui.festival_card.fx_routine,The town: %s,El pueblo: %s
+ui.festival_card.contract_line,%s: %s,%s: %s
+ui.festival_card.board_tag,Festival · %s,Fiesta · %s
+ui.festival_card.prestige,Prestige: reputation +%d,Prestigio: reputación +%d
+region.feast.st_martin,St Martin,Sant Martí
+region.feast.st_george,"St George, with jousts","Sant Jordi, con justas"
+region.feast.our_lady_carmen,"Our Lady of Carmen, a procession of boats","La Virgen del Carmen, procesión de barcas"
+region.feast.st_barbara,"St Barbara, the miners' patron","Santa Bárbara, patrona de los mineros"
+region.feast.st_isidore,"St Isidore, the blessing of the fields","San Isidro, bendición de los campos"
+region.feast.founder_saint,"The founder saint, a pilgrimage","El santo fundador, romería"
+region.game.bulls,bulls,toros
+region.game.joust,jousts,justas
+region.game.ring,the ring,la sortija
+region.game.boat_procession,boats,barcas
+region.game.arm_wrestling,arm wrestling,pulsos
+region.game.horse_race,horse race,carrera de caballos
+region.game.pilgrimage,pilgrimage,romería
+ui.city.feasts,Feasts,Fiestas
+ui.city.patron,Patron feast: %s (%s),Patronal: %s (%s)
+ui.city.fair,"Fair: %s · no tariff, no toll %d d before","Feria: %s · sin arancel, sin portazgo %d d antes"
+ui.city.feast_games,Games: %s,Juegos: %s
+ui.city.feast_today,Today!,¡Hoy!
+ui.region.feast_soon,Feast %s,Fiesta %s
+ui.festival.day_of_year,%s %d,%s %d
+price.festival,%s: %s ×%s,%s: %s ×%s
+ui.region.fair,Fair,Feria
 rumor.wedding,They say {name} has married {spouse}.,Dicen que {name} se ha casado con {spouse}.
 rumor.birth,A child was born in the {family} house.,Ha nacido una criatura en casa de los {family}.
 rumor.death,"Did you hear? {name}, of the {family}, has died.","¿Sabéis que ha muerto {name}, de los {family}?"

@@ -1,0 +1,11 @@
+{
+  "id": "wedding_dress",
+  "name_key": "item.wedding_dress",
+  "gender": "m",
+  "category": "product",
+  "weight": 4.0,
+  "max_stack": 20,
+  "base_price": 320,
+  "market_stall": null,
+  "to_order": true
+}

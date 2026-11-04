@@ -1,0 +1,23 @@
+{
+  "id": "tailor_wedding_dress",
+  "name_key": "recipe.tailor_wedding_dress",
+  "kind": "commission",
+  "building": "tailor_shop",
+  "zone": "sewing_table",
+  "inputs": [
+    {
+      "item": "cloth",
+      "qty": 4
+    },
+    {
+      "item": "wool",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "wedding_dress",
+    "qty": 1
+  },
+  "duration_hours": 6.0,
+  "min_craft": 5
+}
