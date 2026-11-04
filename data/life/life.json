@@ -1,0 +1,90 @@
+{
+  "_doc": "La ciudad viva II (docs/gdd/04f_vida_y_fiestas.md §4.24; docs/contratos/vida.md). Catalog.life_tables.life. enabled: el interruptor de todo el bloque (agenda, corrillos y rumores, forasteros, guardia y sucesos); apagado, la ciudad es la de H7 tal cual (las dianas anteriores corren así: data/targets.json _no_life; sim_runner lo apaga para esos bots). Minutos y horas de juego; probabilidades en [0, 1]. [balance] en el GDD: se ajusta con bots.",
+  "enabled": true,
+  "_needs_doc": "4.24.1. Necesidades de los vecinos (no las de la familia del jugador, que son las de H14 en data/family.json): 0-100, guardadas en décimas (enteros: un float no vuelve idéntico de un guardado) en character.town.needs con su minuto (needs_at); bajan per_hour décimas cada hora, se calculan al decidir. start: al encender la vida. night: al empezar su día, lo que suben la noche en casa (dormir, cenar y desayunar). pious_share: la parte de los vecinos «de mucha fe» (gusto por la misa), sacada por persona con su clave.",
+  "needs": {
+    "ids": ["hunger", "rest", "social", "fun", "faith"],
+    "start": 700,
+    "per_hour": {"hunger": 20, "rest": 15, "social": 10, "fun": 10, "faith": 5},
+    "night": {"rest": 1000, "hunger": 450},
+    "pious_share": 0.3
+  },
+  "_agenda_doc": "4.24.1. utilidad(a) = (base + Σ urgencia(n) × sube(a, n) / raise_scale) × gusto × hora × evento × grupo − distancia × distance_cost; urgencia(n) = ((100 − n) / 100) ^ 2. gusto = liking_mult si el rasgo cuadra (stat_min o más; Fe alta = piadoso). random_share de las veces se elige al azar entre las random_top mejores. Trabajar es obligatorio de DÍA: cada hora en punto, con la probabilidad de descanso de data/town.json routine (break_chance_per_hour, ×elder_break_mult los ancianos), se elige una actividad de descanso (break: true) en vez del trabajo; el día de guardar (holy_day) work_mult. elder_age: desde esta edad, anciano. children_play: los niños salen a jugar de DÍA (H7 los dejaba en casa).",
+  "agenda": {
+    "raise_scale": 20,
+    "distance_cost": 0.02,
+    "liking_mult": 1.4,
+    "stat_min": 7,
+    "random_share": 0.12,
+    "random_top": 3,
+    "elder_age": 55,
+    "elder_break_mult": 2.0,
+    "holy_day_work_mult": 0.3,
+    "children_play": true
+  },
+  "_meeting_doc": "4.24.2. Puntos de reunión: social_points del mapa con estos kinds (además de bench, chat y dice de H7, que siguen). kinds: los de cada punto, con el ambiente (topics: de qué fuentes de rumor se habla más allí, ×topic_mult). corrillo: de min a max personas en un punto; con min presentes sale un rumor (uno por corrillo y por hora). hear_tiles: un personaje de la familia del jugador a esta distancia lo oye (queda en el libro de rumores). keep_heard: los últimos oídos que se guardan. bubble_minutes: lo que dura la burbuja del rumor (y hasta entonces ese punto no cuenta otro). tell_every: cada cuántos minutos se mira si se ha formado un corrillo. lookback_days: los días de crónica de los que se habla. heard_mult: un rumor que la familia del jugador ya oyó se cuenta menos (noticia vieja).",
+  "meeting": {
+    "kinds": {
+      "chat": {"topics": ["prices", "wedding"]},
+      "well": {"topics": ["prices", "wedding"]},
+      "atrium": {"topics": ["death", "birth", "faith"]},
+      "tavern": {"topics": ["incident", "duel", "visitor"]},
+      "washhouse": {"topics": ["wedding", "debt", "birth", "trial"]},
+      "bridge": {"topics": ["wedding", "visitor"]},
+      "gate": {"topics": ["incident", "prices", "visitor", "road"]},
+      "square": {"topics": []}
+    },
+    "topic_mult": 3.0,
+    "corrillo": {"min": 2, "max": 5},
+    "hear_tiles": 4,
+    "keep_heard": 60,
+    "bubble_minutes": 50,
+    "tell_every": 10,
+    "lookback_days": 4,
+    "heard_mult": 0.25
+  },
+  "_population_doc": "4.24.3 (O-R9 b, O-V2): el tope de vecinos (max_total) de un mapa es per_house por casa, hasta cap; un mapa puede fijar el suyo (data/maps population_max). Sustituye a data/town.json population.max_total solo con la vida encendida (las dianas de antes corren con 20).",
+  "population": {"per_house": 5, "cap": 32},
+  "_visitors_doc": "4.24.3 (4.22.3.6 adelantado). Forasteros: per_day [mín, máx] al día (×festival_mult en fiesta), que llegan de DÍA entre arrive_hours por una puerta del mapa desde una población de la región (data/world/region.json, la villa no) y se van al ATARDECER por la misma puerta (duermen en la posada cuando la haya: 4.27). max_alive: tope de vivos (feria: fair_max). kinds: peso, bolsa [mín, máx] de oro (cosmética: no entra en ningún libro), stats y su plan (lista de paradas: spot y minutos). city_dress: la ropa (primary, secondary) de cada población, que el shader de identidad pinta. alms: dar limosna al mendigo cuesta gold y sube la reputación reputation (una vez al día por familia).",
+  "visitors": {
+    "per_day": [2, 4],
+    "festival_mult": 3,
+    "arrive_hours": [8, 13],
+    "max_alive": 12,
+    "fair_max": 30,
+    "age": [20, 50],
+    "kinds": {
+      "merchant": {"weight": 30, "purse": [40, 120], "stats": {"negotiation": 7, "charisma": 5}, "plan": [["stalls", 60], ["meet", 60], ["stalls", 60]], "rumor": "visitor_prices"},
+      "pilgrim": {"weight": 20, "purse": [10, 30], "stats": {"empathy": 5}, "plan": [["atrium", 180], ["bench", 90]]},
+      "peddler": {"weight": 15, "purse": [20, 50], "stats": {"negotiation": 6}, "plan": [["square", 360]], "bubble": "shop"},
+      "minstrel": {"weight": 10, "purse": [5, 20], "stats": {"charisma": 8}, "plan": [["square", 150], ["meet", 60]], "spectacle": "minstrel"},
+      "soldier": {"weight": 10, "purse": [15, 40], "stats": {"martial": 6, "constitution": 6}, "plan": [["tavern", 120], ["dice", 120], ["meet", 60]]},
+      "noble": {"weight": 5, "purse": [80, 200], "stats": {"rhetoric": 7, "charisma": 6}, "plan": [["stalls", 60], ["bench", 90]], "rank": "noble"},
+      "beggar": {"weight": 10, "purse": [0, 0], "stats": {"empathy": 3}, "plan": [["atrium", 420]], "bubble": "alms"}
+    },
+    "city_dress": {
+      "capital": {"primary": "#3a4a8a", "secondary": "#d8c070"},
+      "port": {"primary": "#2f6f7a", "secondary": "#e0d8c0"},
+      "quarry": {"primary": "#6a3a2a", "secondary": "#9a9a90"},
+      "hamlet": {"primary": "#6a7a3a", "secondary": "#d8c8a0"},
+      "abbey": {"primary": "#4a3a2a", "secondary": "#c8b890"}
+    },
+    "alms": {"gold": 1, "reputation": 1}
+  },
+  "_watch_doc": "4.24.4 (4.22.6.2 adelantado). La guardia de la villa (familia fam_watch, la crea Watch al encenderse la vida): gate de DÍA (uno en cada puerta principal, las dos primeras de gates), night de patrulla de NOCHE por las rutas patrols del mapa, festival en la plaza en día de fiesta. stats, equipment y livery (los colores del concejo). Fuera de turno no están en el mapa (en el cuerpo de guardia). respond_tiles: un grito, un altercado o un asalto a esta distancia hace que vayan; reach_tiles: a esta distancia han llegado. alguacil_office: con este cargo ocupado, +1 de noche [propuesta]. patrol_wait_minutes: se paran en cada punto de la ronda.",
+  "watch": {
+    "gate": 2,
+    "night": 2,
+    "festival": 1,
+    "gates": ["west_gate", "east_gate"],
+    "stats": {"martial": 6, "constitution": 6, "dexterity": 5, "empathy": 4, "charisma": 4, "rhetoric": 3, "negotiation": 3, "craft": 2, "arcane": 1, "stealth": 3},
+    "equipment": {"tool": "sword", "clothes": "armor"},
+    "livery": {"primary": "#7a2a2a", "secondary": "#d8b050"},
+    "age": [24, 40],
+    "respond_tiles": 12,
+    "reach_tiles": 1,
+    "patrol_wait_minutes": 10,
+    "alguacil_office": "constable",
+    "greet_minutes": 10
+  }
+}

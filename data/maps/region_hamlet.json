@@ -350,6 +350,148 @@
      17
     ]
    ]
+  },
+  {
+   "id": "meet_well",
+   "kind": "well",
+   "slots": [
+    [
+     14,
+     13
+    ],
+    [
+     16,
+     13
+    ],
+    [
+     15,
+     14
+    ]
+   ]
+  },
+  {
+   "id": "meet_atrium",
+   "kind": "atrium",
+   "slots": [
+    [
+     13,
+     1
+    ],
+    [
+     12,
+     1
+    ],
+    [
+     14,
+     1
+    ],
+    [
+     11,
+     1
+    ],
+    [
+     15,
+     1
+    ]
+   ]
+  },
+  {
+   "id": "meet_washhouse",
+   "kind": "washhouse",
+   "slots": [
+    [
+     22,
+     9
+    ],
+    [
+     23,
+     10
+    ],
+    [
+     22,
+     11
+    ],
+    [
+     21,
+     7
+    ]
+   ]
+  },
+  {
+   "id": "meet_east_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     28,
+     27
+    ],
+    [
+     29,
+     28
+    ],
+    [
+     28,
+     26
+    ]
+   ]
+  },
+  {
+   "id": "meet_north_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     19,
+     1
+    ],
+    [
+     18,
+     2
+    ],
+    [
+     20,
+     2
+    ]
+   ]
+  },
+  {
+   "id": "meet_west_gate",
+   "kind": "gate",
+   "slots": [
+    [
+     3,
+     16
+    ],
+    [
+     2,
+     17
+    ],
+    [
+     1,
+     17
+    ]
+   ]
+  },
+  {
+   "id": "meet_square",
+   "kind": "square",
+   "slots": [
+    [
+     14,
+     14
+    ],
+    [
+     16,
+     14
+    ],
+    [
+     14,
+     11
+    ],
+    [
+     16,
+     11
+    ]
+   ]
   }
  ],
  "workplaces": [
@@ -790,6 +932,46 @@
   ],
   "lots": "21,12,2,2,aldea"
  },
+ "patrols": [
+  {
+   "id": "patrol_main",
+   "tiles": [
+    [
+     27,
+     26
+    ],
+    [
+     13,
+     10
+    ],
+    [
+     19,
+     3
+    ]
+   ]
+  },
+  {
+   "id": "patrol_plaza",
+   "tiles": [
+    [
+     10,
+     6
+    ],
+    [
+     20,
+     6
+    ],
+    [
+     20,
+     18
+    ],
+    [
+     9,
+     19
+    ]
+   ]
+  }
+ ],
  "decor": {
   "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
   "items": [

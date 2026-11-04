@@ -3,6 +3,7 @@
 
   python3 tools/city/ciudad.py vestir <map>            dress a map by rules (data/maps/<map>.json "decor")
   python3 tools/city/ciudad.py validar [map...]        coherence of every map (or the given ones); exit 1 on errors
+  python3 tools/city/ciudad.py reunion [map...]        add the meeting points and patrols of 04f 4.24 a map lacks
   python3 tools/city/ciudad.py vista <map> [--out PNG] preview PNG (reports/ciudad/<map>.png) without the game
   python3 tools/city/ciudad.py generar --id <id> --layout <calle|plaza|cruce|rio|aldea|abadia> --seed <n> [--size 40x40] [--households N] ...
                                                        generate a town (generator.py), dress it, validate, preview
@@ -34,6 +35,19 @@ def vestir(map_id):
     return m
 
 
+def reunion(ids):
+    """04f 4.24.2 / 4.24.4: the meeting points and the patrols each map lacks (town_e: tools/maps/make_town_e.py)."""
+    cat = citylib.Catalog()
+    mdir = os.path.join(citylib.DATA, "maps")
+    ids = ids or sorted(f[:-5] for f in os.listdir(mdir) if f.endswith(".json") and not f.startswith("_") and f != "town_e.json")
+    for mid in ids:
+        d = citylib.load_json(os.path.join(mdir, mid + ".json"))
+        added = citylib.add_life(d, cat)
+        citylib.save_map(d)
+        print(f"reunion {mid}: {added}")
+    return validar(ids, True)
+
+
 def validar(ids, quiet=False):
     cat = citylib.Catalog()
     mdir = os.path.join(citylib.DATA, "maps")
@@ -62,6 +76,8 @@ def main(argv):
     if cmd == "vestir":
         vestir(rest[0])
         return validar([rest[0]])
+    if cmd == "reunion":
+        return reunion([a for a in rest if not a.startswith("--")])
     if cmd == "validar":
         quiet = "--quiet" in rest
         return validar([a for a in rest if not a.startswith("--")], quiet)
