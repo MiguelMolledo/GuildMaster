@@ -116,3 +116,33 @@ func test_a_site_without_its_building_gets_its_own_dressing() -> void:
 					check(false, "the carpentry's %s at %s is not drawn without the carpentry" % [it["id"], t])
 	check(lots >= 2, "the carpentry site has its own lots (%d)" % lots)
 	v.free()
+
+
+func test_the_rival_of_the_same_trade_takes_the_forge_plot_cleanly() -> void:
+	# H12 1b: in the carpenter's game rival_carpentry stands on player_forge's plot (25, 20): the plot's reserve
+	# lots are not drawn over it, nor the forge's barrels and crates; the carpentry draws where its door is
+	for start: String in ["artisan_carpenter", "artisan_mason", "artisan_tailor"]:
+		var r := NewGame.from_start(cat, start, "normal", {}, 1)
+		check(bool(r["ok"]), "%s starts" % start)
+		if not r["ok"]:
+			continue
+		var v: WorldView = (load("res://game/world/world_view.tscn") as PackedScene).instantiate()
+		v.setup(r["state"], cat)
+		var on_plot := ""
+		for id: String in v.state.buildings:
+			var o: Array = v.state.buildings[id]["origin"]
+			if int(o[0]) == 25 and int(o[1]) == 20:
+				on_plot = id
+		check(on_plot != "", "%s: a building on the forge's plot" % start)
+		var footprint: Array = v.state.buildings.get(on_plot, {}).get("footprint", [3, 4])
+		for dr: int in int(footprint[1]):
+			for dc: int in int(footprint[0]):
+				eq(v.prop_at(Vector2i(25 + dc, 20 + dr)), null, "%s: no filler on the rival's tile %s" % [start,
+					Vector2i(25 + dc, 20 + dr)])
+		for it: Dictionary in cat.maps()["town_e"]["decor"]["items"]:
+			if str(it.get("site", "")) == "player_forge" and str(it["kind"]) == "prop":
+				var t := Vector2i(int(it["at"][0]), int(it["at"][1]))
+				for c: Node in v.objects().get_children():
+					check(not (_id(c) == str(it["id"]) and Iso.world_to_tile((c as Node2D).position + VisualPaths.feet(c as Node2D)) == t),
+						"%s: the forge's %s is not drawn" % [start, it["id"]])
+		v.free()
