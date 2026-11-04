@@ -182,6 +182,9 @@ def _iso(img, m, data, color, ox, oy, hw=8):
                 vol[t] = (3 * k, _hex(it.get("color", "#6b4a2a")))
             if it["id"] == "ship":
                 labels.append((tiles, 3 * k, "|mast"))
+    gc = m.cat.view.get("ground_corners", {})
+    corners = {k: v for k, v in gc.get("kinds", {}).items() if not k.startswith("_")}
+    fill = float(gc.get("fill", 0.75))
     order = sorted(m.all_tiles(), key=lambda t: (t[0] + t[1], t[0]))
     for (c, r) in order:
         kd = m.kind((c, r))
@@ -207,6 +210,18 @@ def _iso(img, m, data, color, ox, oy, hw=8):
             d.polygon([(sx + hw, sy - top), (sx, sy + hh - top), (sx, sy + hh), (sx + hw, sy)], fill=dark)
             col = tuple(min(255, int(v * 1.08)) for v in col[:3]) + (255,)
         d.polygon(dia, fill=col)
+        if not top:  # the corners of data/view.json ground_corners: a diagonal stair of street drawn smooth
+            for over, under in corners.items():
+                if kd not in under:
+                    continue
+                pts = {"t": (sx, sy - hh), "r": (sx + hw, sy), "b": (sx, sy + hh), "l": (sx - hw, sy)}
+                for corner, (da, db), (va, vb) in (("r", ((0, -1), (1, 0)), ("t", "b")), ("b", ((1, 0), (0, 1)), ("r", "l")),
+                                                   ("l", ((0, 1), (-1, 0)), ("b", "t")), ("t", ((-1, 0), (0, -1)), ("l", "r"))):
+                    if m.kind((c + da[0], r + da[1])) == over and m.kind((c + db[0], r + db[1])) == over:
+                        cx_, cy_ = pts[corner]
+                        tri = [pts[corner]] + [(cx_ + (pts[v][0] - cx_) * fill, cy_ + (pts[v][1] - cy_) * fill)
+                                               for v in (va, vb)]
+                        d.polygon(tri, fill=color.get(over, (255, 0, 255, 255)))
     for it in items:
         if it["kind"] == "lantern":
             c, r = it["at"]

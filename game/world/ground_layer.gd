@@ -17,6 +17,7 @@ var _season: String = ""
 var _base_tex: Dictionary = {}  # kind -> its plain texture (assets/art/tiles/<kind>.png), for the seasonal kinds
 var _edges: Array = []   # [[Vector2i, Texture2D, Color modulate]], drawn after every tile
 var _border: Array = []  # [[Vector2i, kind, Color modulate, distance]] (border_cells)
+var _corners: Array = []  # [[PackedVector2Array triangle, Texture2D or null, Color, Vector2 tile top-left]] (ground_corners)
 
 
 ## Rows of the map (rows[row][col]) + the catalog's tile kinds.
@@ -24,6 +25,7 @@ func build(rows: Array, catalog: Catalog) -> void:
 	_tiles.clear()
 	_edges.clear()
 	_border.clear()
+	_corners.clear()
 	var colour := {}   # kind -> greybox colour
 	var tex := {}      # kind -> Texture2D
 	var kind_by_char := {}
@@ -90,13 +92,57 @@ func build(rows: Array, catalog: Catalog) -> void:
 				var key := "%s|%s" % [kind, side]
 				if other != "" and against.has(other) and edge_tex.has(key):
 					_edges.append([Vector2i(c, r), edge_tex[key], mod])
-	ViewConfig.info("GroundLayer", "build: %d tiles (%d in the border ring of %d), %d kinds with art (%s), %d edges" % [
-		_tiles.size(), _border.size(), ring, tex.size(), ", ".join(PackedStringArray(tex.keys())), _edges.size()])
+	_build_corners(h, w, kind_at, colour, tex)
+	ViewConfig.info("GroundLayer", "build: %d tiles (%d in the border ring of %d), %d kinds with art (%s), %d edges, %d corners" % [
+		_tiles.size(), _border.size(), ring, tex.size(), ", ".join(PackedStringArray(tex.keys())), _edges.size(),
+		_corners.size()])
 	var keep := _season
 	_season = ""
 	if keep != "":
 		set_season(keep)
 	queue_redraw()
+
+
+## Corners (data/view.json "ground_corners"): on a tile of a kind of `kinds[over]` whose neighbours on two
+## sides that meet at a corner are both of kind `over` (a street going round it, a diagonal street drawn as a stair
+## of tiles), a triangle of `over` is painted over that corner, `fill` of the way along its two sides: the stair
+## reads as one smooth diagonal ribbon. Purely visual (the grid and the paths do not change).
+func _build_corners(h: int, w: int, kind_at: Callable, colour: Dictionary, tex: Dictionary) -> void:
+	var cfg: Dictionary = ViewConfig.value("ground_corners", {})
+	var kinds: Dictionary = cfg.get("kinds", {})
+	if kinds.is_empty() or h == 0:
+		return
+	var f := float(cfg.get("fill", 0.75))
+	var hw := Iso.TILE_W / 2.0
+	var hh := Iso.TILE_H / 2.0
+	# the four corners of a tile's diamond, each between two sides: [corner, side a, side b, vertex a, vertex b]
+	var top := Vector2(0, -hh)
+	var right := Vector2(hw, 0)
+	var bottom := Vector2(0, hh)
+	var left := Vector2(-hw, 0)
+	var corners := [[right, SIDES["ne"], SIDES["se"], top, bottom], [bottom, SIDES["se"], SIDES["sw"], right, left],
+		[left, SIDES["sw"], SIDES["nw"], bottom, top], [top, SIDES["nw"], SIDES["ne"], left, right]]
+	for r: int in h:
+		for c: int in w:
+			var here: String = kind_at.call(c, r)
+			for over: String in kinds:
+				if over.begins_with("_") or not (kinds[over] as Array).has(here):
+					continue
+				for k: Array in corners:
+					var a: Vector2i = Vector2i(c, r) + (k[1] as Vector2i)
+					var b: Vector2i = Vector2i(c, r) + (k[2] as Vector2i)
+					if kind_at.call(a.x, a.y) != over or kind_at.call(b.x, b.y) != over:
+						continue
+					var p := Iso.tile_to_world(Vector2i(c, r))
+					var corner: Vector2 = k[0]
+					var tri := PackedVector2Array([p + corner, p + corner + ((k[3] as Vector2) - corner) * f,
+						p + corner + ((k[4] as Vector2) - corner) * f])
+					_corners.append([tri, tex.get(over, null), colour.get(over, Color.MAGENTA), p - Vector2(hw, hh)])
+
+
+## How many corner pieces the ground draws (the tests count them).
+func corner_count() -> int:
+	return _corners.size()
 
 
 ## How many edge pieces the ground draws (the tests count them).
@@ -157,5 +203,17 @@ func _draw() -> void:
 			continue
 		draw_colored_polygon(PackedVector2Array([p + Vector2(0, -hh), p + Vector2(hw, 0), p + Vector2(0, hh),
 			p + Vector2(-hw, 0)]), (t[1] as Color) * mod)
+	for cn: Array in _corners:
+		var tri: PackedVector2Array = cn[0]
+		var tx: Texture2D = cn[1]
+		if tx == null:
+			draw_colored_polygon(tri, cn[2])
+			continue
+		var o: Vector2 = cn[3]
+		var size := Vector2(tx.get_width(), tx.get_height())
+		var uvs := PackedVector2Array()
+		for q: Vector2 in tri:
+			uvs.append((q - o) / size)
+		draw_polygon(tri, PackedColorArray([Color.WHITE, Color.WHITE, Color.WHITE]), uvs, tx)
 	for e: Array in _edges:
 		draw_texture(e[1], Iso.tile_to_world(e[0]) - Vector2(hw, hh), e[2])

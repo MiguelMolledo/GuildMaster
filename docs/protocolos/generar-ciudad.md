@@ -64,7 +64,8 @@ python3 tools/city/ciudad.py validar town_road
 
 Cada asentamiento de `data/world/region.json` (`docs/gdd/09b_region.md`) tiene su mapa. La villa es `town_e` (a mano);
 los otros cinco son **ciudades orgánicas** (§1b): sus planos están en `tools/city/ciudades.json` y se hacen con
-`python3 tools/city/ciudad.py region [id...]`. Los cuatro mapas de ejemplo (`town_road`, `town_square`,
+`python3 tools/city/ciudad.py region [id...]`. Bellcaire, Portvell, Peñarroja y Vilablat toman su esqueleto de un
+plano dibujado con fal (§1e, `"use": "imagen"`); Montsacre crece del plan (`"procedural"`). Los cuatro mapas de ejemplo (`town_road`, `town_square`,
 `town_crossroads`, `town_river`) siguen con los trazados de rejilla de esta sección.
 
 | Asentamiento | Mapa | Estilo | Qué lo define en el plano |
@@ -160,6 +161,104 @@ se cambian estos números:
 | «Muralla más grande» | `walls.radius` ↑ (los barrios con `inside_wall` crecen con ella) |
 | «Más campos» / «campos más grandes» | `fields.count` / `fields.cell` ↑ |
 | «Otra calle hacia el puerto» | Una entrada más en `roads` con `main: false` |
+
+### 1e. Desde un plano dibujado (fal → rejilla → generador)
+
+La forma de una ciudad puede salir de un **plano semántico** visto desde arriba: una imagen en colores planos que
+significan algo (`tools/city/paleta_planos.json`: calles gris, plazas beige, agua azul, casas rojo, muralla negro,
+campos amarillo, bosque verde oscuro, roca gris pardo, embarcaderos marrón y cada hito su color: iglesia morado,
+lonja naranja, almacenes cian, mina magenta, cantera gris muy claro, claustro blanco, molino rosa). La forma la pone
+el dibujo y la coherencia el generador.
+
+```bash
+python3 tools/city/fal_planos.py gen region_port --name v1 [--count 2]   # fal nano-banana-2, 0,08 USD por imagen
+python3 tools/city/desde_imagen.py docs/arte/ciudades_v2/fal/region_port.png --size 48x48   # la rejilla, para mirarla
+python3 tools/city/ciudad.py region region_port --variante imagen --out tmp/x                 # probar sin tocar data/
+```
+
+1. **El dibujo** (`fal_planos.py`). El prompt de cada ciudad es su bloque `fal` de `ciudades.json` (`brief`: qué
+   hay y dónde; `classes`: los colores que puede usar) más la paleta, la regla de colores planos (sin sombras, sin
+   texto) y el tamaño de nuestra plaza de mercado en proporción al mapa (la del sim mide 10×12 casillas: si el
+   dibujo la hace pequeña, la plantilla se come sus calles). **Mejor solo con texto**: con el boceto anterior de
+   referencia el modelo copia la rejilla. Cada llamada queda en `tools/city/fal_gasto.json` y
+   `assets/art/MANIFEST.md`; las elegidas, en `docs/arte/ciudades_v2/fal/<mapa>.png`.
+2. **La rejilla** (`desde_imagen.py`). Cada píxel va al color más cercano de la paleta; cada casilla a una clase
+   por la parte de sus píxeles, con prioridades porque lo fino de un plano no llena nunca una casilla: agua ≥ 0,45,
+   muralla ≥ 0,12, un hito ≥ 0,35, embarcadero ≥ 0,22, calle ≥ 0,28, plaza ≥ 0,4; si no, la clase con más
+   píxeles.
+3. **El esqueleto** (`tools/city/esqueleto.py`, un plan con `"skeleton"` y `"use": "imagen"`). Del dibujo se toman
+   el agua, las calles, las plazas, la muralla, los hitos, los campos, el bosque, la roca y dónde hay casas, y se
+   limpian:
+   - la muralla se cierra a partir del dibujo (la distancia mediana al muro en cada dirección desde su centro),
+     acaba en la orilla, se abre donde la cruza una calle (puertas con sus torres) y, si deja dentro suelo al que
+     no se llega, se le abre una puerta;
+   - los embarcaderos lejos del agua (contornos marrones de las casas) se quitan;
+   - los hitos dibujados se colocan antes que nada: su propio rectángulo si tiene el tamaño del plan, si no, el
+     tamaño del plan junto a su mancha; la plantilla del mercado (plaza, ayuntamiento, armería) va lo más cerca de la
+     plaza dibujada, en tierra;
+   - las calles sueltas se unen a la red de la plaza por el camino más corto (cruzando el agua como puente si
+     hace falta) o se quitan; dos calles que solo se tocan en diagonal reciben la casilla de al lado; el cauce del
+     río se mide columna a columna y se cierra donde el dibujo lo corta; una calle sobre el agua es un puente; un
+     puente que no une dos orillas vuelve a ser agua; entre campo y calle queda un arcén de hierba (las farolas);
+     las puertas del mapa son las calles que llegan a los bordes (si no llega ninguna al oeste o al este, se tiende
+     una).
+4. **El generador** pone lo demás con sus reglas de siempre: los solares del sim (prefiriendo donde el dibujo tiene
+   casas), las casas de relleno con la puerta a la calle (en las casas del dibujo y hasta `reach` casillas
+   alrededor; los campos pegados al pueblo pasan a huertos), los barcos junto a los embarcaderos dibujados, la grúa,
+   el decor y la validación (0 errores).
+
+**El bloque `skeleton`**: `image`, `types` (clase del dibujo → tipo de hito, p. ej. `{"church": "abbey_church"}`),
+`districts` (cada uno con `when`: `inside`/`outside` de la muralla, `dense`/`loose` según lo apretado del dibujo, o
+`any`; `roof` y `density` como en §1d), `reach` (cuántas casillas alrededor de las casas dibujadas pueden llevar
+casas, 3), `walls` (`towers_every`, `tower`, `tower_height`), `boats`, `boat`, `rowboats`, `crane`.
+
+**Qué sale de cada uno** (2026-11-04, comparadas una a una en la galería «Planos de Valldaura v2»):
+
+| Ciudad | Se queda | Por qué |
+|---|---|---|
+| Bellcaire | imagen | La muralla cerrada siguiendo el dibujo, calles en abanico hacia la plaza, la catedral junto a ella, el muelle con lonja y almacenes, el arrabal al otro lado del puente |
+| Portvell | imagen | Más denso y ocupa el mapa; calles curvas bajando al muelle |
+| Peñarroja | imagen | La mina al final de su camino, la cantera y las escombreras donde las puso el dibujo |
+| Vilablat | imagen | Los campos grandes e irregulares de la aldea |
+| Montsacre | procedural | En 36×36 la plantilla del mercado, los talleres y el recinto no caben como en el dibujo: se perdían el claustro y la hospedería |
+
+**Límites**: el modelo tiende a ciudades redondas de calles radiales (anillo y radios); la plaza del sim, de
+10×12, ocupa mucho en los mapas pequeños y borra lo que el dibujo tenía allí; las líneas finas de parcela del dibujo
+se pierden (lo que es bueno: las parcelas las pone el generador).
+
+### 1f. Reglas de lo orgánico
+
+Qué hace que una villa medieval no parezca una cuadrícula, sacado de planos reales (Girona, Besalú, Montblanc,
+Peratallada, Pals, Santillana, Ávila, Carcassonne, Rothenburg, Brujas, Lübeck) y de la morfología urbana (Conzen:
+calles, parcelas y edificios), y cómo lo traduce el constructor:
+
+| Regla | En los planos reales | En el constructor |
+|---|---|---|
+| Las calles siguen el terreno y los caminos viejos | La calle mayor es el camino que ya pasaba (Santillana: dos calles que se juntan ante la colegiata); en ladera, las calles van por curvas de nivel y las cuestas las cortan (Montblanc sube hacia Santa María; Girona, la Força Vella) | `roads` en curva desde las puertas; `rock` y el río desvían el crecimiento; `axis_bias` y `turn` para que las calles se curven sin ir en escalera |
+| La plaza está en el cruce o ante la iglesia | El mercado nace donde se cruzan los caminos o delante de la iglesia (Montblanc, la plaza Mayor porticada; Ávila, el Mercado Chico dentro y el Mercado Grande fuera de la puerta) | La plaza del mercado y la catedral con su atrio (`parvis`) juntas; las calles mayores llegan a sus esquinas |
+| Manzanas largas y estrechas | Parcelas en tira (*burgage plots*) con la casa a la calle y el huerto detrás; en una calle sola, espina de pez | `lot_sizes` estrechos (2×3, 2×4) a lo largo de la calle, `backyard`, patios que cierran la manzana (`blocks`) |
+| Cruces en ángulo no recto y jerarquía | Calle mayor, calles que salen de ella y callejones; las calles se encuentran como pueden (Rothenburg, el Plönlein: una calle que se abre en dos) | Ramas a 62-118° de su calle, `streets` y `alleys` por barrio; nunca dos calles casi paralelas más cerca que `clear` |
+| La muralla marca el borde y el arrabal queda fuera | La muralla cierra el núcleo (Ávila, 2,5 km, nueve puertas; Montblanc, más de veinte torres); fuera, junto a las puertas, el arrabal de oficios y huertas; a veces las casas son la muralla (Peratallada) | `walls` con puertas donde pasan las calles y torres; barrios `inside_wall` apretados y `outside_wall` sueltos junto a las puertas |
+| La ciudad crece en anillos | Rothenburg y Carcassonne: la muralla vieja queda dentro y la nueva más fuera | Varios barrios concéntricos con distinta densidad (se puede pedir una ronda donde estaba la muralla vieja) |
+| El río ordena el puerto | Brujas: los canales y el Markt junto al agua, la grúa del muelle; Lübeck: calles que bajan perpendiculares al Trave, almacenes en la orilla y pasajes (*Gänge*) dentro de las manzanas | El muelle a lo largo de la orilla, embarcaderos perpendiculares, almacenes y lonja con su frente al agua, calles de bajada al muelle |
+| El puente es un sitio | Besalú: el puente fortificado es la entrada; el arrabal nace al otro lado | Un puente por calle mayor; el barrio de la otra orilla suelto |
+
+Fuentes: [Atherstone (plaza junto a la iglesia)](https://www.ourwarwickshire.org.uk/?p=40563),
+[parcelas en tira de Hungerford](https://www.hungerfordvirtualmuseum.co.uk/index.php/10-themes/954-burgage-plots),
+[Leighton Buzzard](https://bedsarchives.bedford.gov.uk/CommunityArchives/LeightonBuzzard/MedievalLeightonBuzzard.aspx),
+[Montblanc](https://www.femturisme.cat/ca/pobles/montblanc),
+[pueblos medievales de Cataluña (Peratallada, Besalú)](https://naciodigital.cat/societat/pobles-medievals-catalunya.html),
+[la muralla de Ávila](https://muralladeavila.com/en/history/the-mediaeval-walls-12th-15th-centuries),
+[Brujas, centro histórico](https://geographyworlds.com/blog/old-town-bruges-unesco-world-heritage/),
+[el Plönlein de Rothenburg](https://explorial.com/de/sights/rothenburg-plonlein-de/).
+
+### 1g. La escalera de las calles en diagonal
+
+En una rejilla, una calle en diagonal es una escalera de casillas. En el juego, `GroundLayer` la suaviza
+(`data/view.json` `ground_corners`): en una casilla de hierba, tierra o campo cuyos dos vecinos de lados que se
+juntan en una esquina son calle, pinta un triángulo de calle sobre esa esquina (`fill` = qué parte de sus dos lados
+cubre: 0,75). La escalera se lee como una cinta continua y las esquinas de las manzanas salen achaflanadas. Solo es
+pintado: la rejilla, los caminos y el sim no cambian. La vista previa hace lo mismo en su boceto isométrico.
 
 ### Los pasos del generador de rejilla (§1)
 

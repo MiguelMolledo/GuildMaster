@@ -54,5 +54,101 @@
   "imagenes": 1,
   "usd": 0.08,
   "que": "house_f_back_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:48:59",
+  "pieza": "plano_region_port",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "texto_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:49:14",
+  "pieza": "plano_region_port",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ref_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:49:38",
+  "pieza": "plano_region_port",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "texto_v2"
+ },
+ {
+  "fecha": "2026-11-04T16:49:51",
+  "pieza": "plano_region_capital",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 2,
+  "usd": 0.16,
+  "que": "texto_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:50:05",
+  "pieza": "plano_region_quarry",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 2,
+  "usd": 0.16,
+  "que": "texto_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:50:19",
+  "pieza": "plano_region_hamlet",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 2,
+  "usd": 0.16,
+  "que": "texto_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:50:34",
+  "pieza": "plano_region_abbey",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 2,
+  "usd": 0.16,
+  "que": "texto_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:56:12",
+  "pieza": "plano_region_port",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 2,
+  "usd": 0.16,
+  "que": "plaza_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:56:43",
+  "pieza": "plano_region_capital",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 2,
+  "usd": 0.16,
+  "que": "plaza_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:56:56",
+  "pieza": "plano_region_quarry",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 2,
+  "usd": 0.16,
+  "que": "plaza_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:57:10",
+  "pieza": "plano_region_hamlet",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 2,
+  "usd": 0.16,
+  "que": "plaza_v1"
+ },
+ {
+  "fecha": "2026-11-04T16:57:23",
+  "pieza": "plano_region_abbey",
+  "modelo": "fal-ai/nano-banana-2",
+  "imagenes": 2,
+  "usd": 0.16,
+  "que": "plaza_v1"
  }
 ]
