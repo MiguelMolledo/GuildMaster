@@ -33,7 +33,7 @@ OUT = fr_.PILOTO_REPO
 LEDGER = fr_.LEDGER
 # Tope por tanda: el piloto (3 USD) y la producción de retratos, eventos, pantallas y cartas (8 USD, 2026-11-03).
 TANDA = os.environ.get("FAL_TANDA", "piloto")
-CAPS = {"piloto": 3.0, "produccion": 8.0, "extra": 100.0, "pool": 100.0, "tanda4": 100.0, "espaldas": 100.0, "mundo": 100.0}  # extra: sin tope del owner (2026-11-03); 100 es solo un freno
+CAPS = {"piloto": 3.0, "produccion": 8.0, "extra": 100.0, "pool": 100.0, "tanda4": 100.0, "espaldas": 100.0, "mundo": 100.0, "duelo_region": 100.0}  # extra: sin tope del owner (2026-11-03); 100 es solo un freno
 CAP = CAPS[TANDA]
 
 MODELS = {

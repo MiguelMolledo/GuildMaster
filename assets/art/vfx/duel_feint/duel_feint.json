@@ -1,0 +1,14 @@
+{
+ "frames": 7,
+ "frame_w": 24,
+ "frame_h": 39,
+ "fps": 16,
+ "loop": false,
+ "start_frame": 0,
+ "offset": {
+  "x": 9,
+  "y": -42
+ },
+ "facing": "e",
+ "made_with": "PixelLab vfx_workbench (My effects 19726734-c906-4662-9372-f72ea3016029)"
+}

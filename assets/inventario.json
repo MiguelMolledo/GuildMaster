@@ -5613,7 +5613,7 @@
       "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Poses del duelo (docs/gdd/04e_combate.md §4e.8, docs/ui/mecanicas/combate.md §8) para artisan_m/f, worker_m/f y townsfolk_m/f, de perfil e y w: guardia, golpe, parada, finta, tocado y rendido. Hoy el prototipo usa forge (golpe), work (finta) e idle (parada) y lo marca en pantalla. PixelLab animate_character en el ciclo del 15-nov.",
+      "notas": "Poses del duelo (docs/gdd/04e_combate.md §4e.8, docs/ui/mecanicas/combate.md §8) para artisan_m/f, worker_m/f y townsfolk_m/f, de perfil e y w: guardia, golpe, parada, finta, tocado y rendido. Hoy el prototipo usa forge (golpe), work (finta) e idle (parada) y lo marca en pantalla. PixelLab animate_character en el ciclo del 15-nov. Lista para pedir (personajes de PixelLab, plantillas y acciones a medida, ~40 generaciones) en §8 de docs/ui/mecanicas/combate.md.",
       "animaciones": {
         "idle": "falta",
         "walk": "falta",
@@ -5627,92 +5627,94 @@
     {
       "id": "vfx_duel_strike",
       "tipo": "vfx",
-      "estado": "falta",
+      "estado": "animado",
       "para": [
         "duelo"
       ],
       "ruta": "assets/art/vfx/duel_strike/",
-      "origen": null,
+      "origen": "pixellab vfx_workbench",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Tajo del golpe (hoy: dos líneas por código en DuelArena). Gratis con vfx_workbench.",
+      "notas": "Tajo del golpe: tira duel_strike.png de 8 fotogramas de 54×51 a 16 fps, una vez (no en bucle), y duel_strike.json con el desplazamiento respecto a los pies mirando al este (al oeste, reflejado). Gratis, sin generaciones; editable en «My effects» de pixellab.ai (tools/art/vfx_duelo.py). Sin cablear (DuelArena lo dibuja hoy por código).",
       "animaciones": {
-        "loop": "falta"
+        "loop": "animado"
       }
     },
     {
       "id": "vfx_duel_parry",
       "tipo": "vfx",
-      "estado": "falta",
+      "estado": "animado",
       "para": [
         "duelo"
       ],
       "ruta": "assets/art/vfx/duel_parry/",
-      "origen": null,
+      "origen": "pixellab vfx_workbench",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Chispa de la parada (hoy: aspa amarilla por código). Gratis con vfx_workbench.",
+      "notas": "Chispa de la parada: tira duel_parry.png de 6 fotogramas de 47×47 a 11 fps, una vez (no en bucle), y duel_parry.json con el desplazamiento respecto a los pies mirando al este (al oeste, reflejado). Gratis, sin generaciones; editable en «My effects» de pixellab.ai (tools/art/vfx_duelo.py). Sin cablear (DuelArena lo dibuja hoy por código).",
       "animaciones": {
-        "loop": "falta"
+        "loop": "animado"
       }
     },
     {
       "id": "vfx_duel_feint",
       "tipo": "vfx",
-      "estado": "falta",
+      "estado": "animado",
       "para": [
         "duelo"
       ],
       "ruta": "assets/art/vfx/duel_feint/",
-      "origen": null,
+      "origen": "pixellab vfx_workbench",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Estela de la finta (hoy: arco azul por código). Gratis con vfx_workbench.",
+      "notas": "Estela de la finta: tira duel_feint.png de 7 fotogramas de 24×39 a 16 fps, una vez (no en bucle), y duel_feint.json con el desplazamiento respecto a los pies mirando al este (al oeste, reflejado). Gratis, sin generaciones; editable en «My effects» de pixellab.ai (tools/art/vfx_duelo.py). Sin cablear (DuelArena lo dibuja hoy por código).",
       "animaciones": {
-        "loop": "falta"
+        "loop": "animado"
       }
     },
     {
       "id": "vfx_duel_hit",
       "tipo": "vfx",
-      "estado": "falta",
+      "estado": "animado",
       "para": [
         "duelo"
       ],
       "ruta": "assets/art/vfx/duel_hit/",
-      "origen": null,
+      "origen": "pixellab vfx_workbench",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Toque recibido (hoy: círculo rojo y parpadeo). Gratis con vfx_workbench.",
+      "notas": "Toque recibido: tira duel_hit.png de 5 fotogramas de 36×33 a 16 fps, una vez (no en bucle), y duel_hit.json con el desplazamiento respecto a los pies mirando al este (al oeste, reflejado). Gratis, sin generaciones; editable en «My effects» de pixellab.ai (tools/art/vfx_duelo.py). Sin cablear (DuelArena lo dibuja hoy por código).",
       "animaciones": {
-        "loop": "falta"
+        "loop": "animado"
       }
     },
     {
       "id": "icon_duel_actions",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "duelo"
       ],
       "ruta": "assets/art/ui/icons/duel/",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Iconos de Golpe, Parada, Finta, Rendirse, aliento y toque (32 y 16 px) para los botones y las barras del duelo. Hoy: texto y cuadros de color."
+      "notas": "icon_<strike|parry|feint|surrender|auto|breath|touch|challenge>.png (32×32) y small/ (16×16): Golpe, Parada, Finta, Rendirse, Resolver sin jugar, aliento, toque y reto. Sin cablear (hoy, texto y cuadros).",
+      "coste_usd": 0.2
     },
     {
       "id": "ill_duel_result",
       "tipo": "ui",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "duelo"
       ],
       "ruta": "assets/art/ui/illustrations/duel/",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Ilustración de la carta de resultado (240×135, PageCard «card»): victoria, derrota y tablas en la plaza al alba. Candidata a fal con el kit de página."
+      "notas": "victory, defeat, draw (carta de resultado) y challenge (carta de reto), cada una a 240×135 (<nombre>.png) y 192×108 (<nombre>_192.png). Sin cablear.",
+      "coste_usd": 0.4
     },
     {
       "id": "prop_rowboat",
@@ -6095,6 +6097,174 @@
       "origen_previo": "",
       "coste_gen": 0,
       "notas": "Suelo de suelo bajo un hito (casilla H, bloqueada; lo tapa el hito): rombo 64×32 como los demás de assets/art/tiles/. Hasta entonces, el color greybox de data/tiles.json."
+    },
+    {
+      "id": "illus_city_villa",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "ciudades"
+      ],
+      "ruta": "assets/art/illustrations/city_villa.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la página de ciudad de Vilarrasa (villa del jugador, pueblo-calle) (data/world/region.json, id villa), 240×135. Sin cablear."
+    },
+    {
+      "id": "illus_city_capital",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "ciudades"
+      ],
+      "ruta": "assets/art/illustrations/city_capital.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la página de ciudad de Bellcaire (capital, mercado y catedral) (data/world/region.json, id capital), 240×135. Sin cablear."
+    },
+    {
+      "id": "illus_city_port",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "ciudades"
+      ],
+      "ruta": "assets/art/illustrations/city_port.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la página de ciudad de Portvell (puerto de río) (data/world/region.json, id port), 240×135. Sin cablear."
+    },
+    {
+      "id": "illus_city_quarry",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "ciudades"
+      ],
+      "ruta": "assets/art/illustrations/city_quarry.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la página de ciudad de Peñarroja (mina y cantera) (data/world/region.json, id quarry), 240×135. Sin cablear."
+    },
+    {
+      "id": "illus_city_hamlet",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "ciudades"
+      ],
+      "ruta": "assets/art/illustrations/city_hamlet.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la página de ciudad de Vilablat (aldea de trigo y molino) (data/world/region.json, id hamlet), 240×135. Sin cablear."
+    },
+    {
+      "id": "illus_city_abbey",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "ciudades"
+      ],
+      "ruta": "assets/art/illustrations/city_abbey.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la página de ciudad de Montsacre (abadía en la sierra) (data/world/region.json, id abbey), 240×135. Sin cablear."
+    },
+    {
+      "id": "ui_icon_tariff",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "viajes"
+      ],
+      "ruta": "assets/art/ui/icons/icon_tariff.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de arancel (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_treaty",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "viajes"
+      ],
+      "ruta": "assets/art/ui/icons/icon_treaty.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de tratado (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_caravan",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "viajes"
+      ],
+      "ruta": "assets/art/ui/icons/icon_caravan.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de caravana (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_icon_city_reputation",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "viajes"
+      ],
+      "ruta": "assets/art/ui/icons/icon_city_reputation.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "Icono de reputación de ciudad (docs/gdd/09b_region.md §9b.5), 32×32 y small/ (16×16). Sin cablear."
+    },
+    {
+      "id": "ui_region_family_token",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "viajes"
+      ],
+      "ruta": "assets/art/region/family_token.png",
+      "origen": "fal: nano-banana-2/edit (ref: el pergamino de Valldaura) + image2pixel (tools/art/fal_region_piezas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Ficha de la familia que viaja por el mapa regional: estandarte de tela en un mástil, 24×44 a la densidad del pergamino (12×22 de arte ×2), pies abajo en el centro. La tela lleva los colores de la familia codificados (alfa 254, azul 150 principal y 200 secundario): se pinta con identity_swap.gdshader. Variante family_token_shield.png (escudo). Sin cablear."
+    },
+    {
+      "id": "ui_region_caravan",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "region",
+        "viajes"
+      ],
+      "ruta": "assets/art/region/caravan.png",
+      "origen": "fal: nano-banana-2/edit (ref: el pergamino de Valldaura) + image2pixel (tools/art/fal_region_piezas.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "Carro de caravana de bueyes, de perfil mirando al este (al oeste, reflejado), 56×34 a la densidad del pergamino. Variante caravan_cart.png (carreta de mula, 48×24). Sin cablear."
     }
   ]
 }
