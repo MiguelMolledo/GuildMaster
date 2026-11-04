@@ -39,20 +39,21 @@
     "min_distance": 0.25
   },
   "portraits": {
-    "_doc": "Base portrait of each person (assets/art/portraits/<type>_<stage>_<m|f>[_<n>], tools/art/fal_retratos.py): visual.portrait = {type, variant}. type by role: the protagonist's family takes the start's class (artisan, patron, scholar, rogue), the rival and competitors rival, the townsfolk townsfolk; a child takes its father's. variant: a number in [0, variants) the view turns into one of the variants that exist for the type, stage and sex. stage by age (the portrait changes with age like the sprite): the first whose to_age >= age.",
-    "variants": 100,
-    "roles": {
-      "rival": "rival",
-      "competitor": "rival",
-      "townsfolk": "townsfolk",
-      "newcomer": "townsfolk"
+    "_doc": "Base portrait of each person (the pool of assets/art/portraits/index.json v1, README there): visual.portrait = {type, variant}. type: the social type of the pool (artisan, commoner, merchant, noble, clergy, guard, scholar, farmer, rogue): the protagonist's family by its class (classes), the rival and competitors and the townsfolk by roles; a child takes its father's. variant: the portrait number nn (1..variants) of the pool's ids <sex>_<age>_<type>_<nn>, kept for life: when the age band changes the view takes the same nn of the new band (the id is derived, so adding portraits to the pool never changes a saved face). stages: the pool's age bands (the first whose to_age >= age; under 6 is child).",
+    "variants": 6,
+    "classes": {
+      "artisan": "artisan",
+      "patron": "farmer",
+      "scholar": "scholar",
+      "rogue": "rogue"
     },
-    "stages": [
-      {"id": "child", "to_age": 7},
-      {"id": "youth", "to_age": 15},
-      {"id": "adult", "to_age": 44},
-      {"id": "mature", "to_age": 54},
-      {"id": "elder", "to_age": 200}
-    ]
+    "roles": {
+      "rival": "artisan",
+      "competitor": "artisan",
+      "townsfolk": "commoner",
+      "newcomer": "commoner"
+    },
+    "types": ["artisan", "commoner", "merchant", "noble", "clergy", "guard", "scholar", "farmer", "rogue"],
+    "stages": [{"id": "child", "to_age": 11}, {"id": "youth", "to_age": 17}, {"id": "adult", "to_age": 44}, {"id": "mature", "to_age": 59}, {"id": "elder", "to_age": 200}]
   }
 }

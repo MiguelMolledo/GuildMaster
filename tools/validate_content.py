@@ -857,9 +857,19 @@ def check_cast(rep):
     po = c.get("portraits", {})
     if not isinstance(po.get("variants"), int) or po["variants"] < 1:
         rep.error(w, "portraits.variants debe ser un entero >= 1")
+    ptypes = po.get("types", [])
+    if not ptypes or not all(isinstance(t, str) and ID_RE.match(t) for t in ptypes):
+        rep.error(w, "portraits.types: los tipos sociales del pool de retratos (ids snake_case)")
+    if "commoner" not in ptypes:
+        rep.error(w, "portraits.types debe tener commoner (existe en todas las edades y sexos del pool)")
     for role in ("rival", "competitor", "townsfolk", "newcomer"):
-        if not ID_RE.match(str(po.get("roles", {}).get(role, ""))):
-            rep.error(w, f"portraits.roles.{role}: tipo de retrato (id snake_case)")
+        if po.get("roles", {}).get(role) not in ptypes:
+            rep.error(w, f"portraits.roles.{role}: un tipo de portraits.types")
+    for cls in ("artisan", "patron", "scholar", "rogue"):
+        if po.get("classes", {}).get(cls) not in ptypes:
+            rep.error(w, f"portraits.classes.{cls}: un tipo de portraits.types")
+    if [stg.get("id") for stg in po.get("stages", [])] != ["child", "youth", "adult", "mature", "elder"]:
+        rep.error(w, "portraits.stages: las franjas del pool (child, youth, adult, mature, elder), en orden")
     last = -1
     for stg in po.get("stages", []):
         if not ID_RE.match(str(stg.get("id", ""))) or not isinstance(stg.get("to_age"), int) or stg["to_age"] <= last:

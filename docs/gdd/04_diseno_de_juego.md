@@ -678,7 +678,7 @@ Hay que reconocer a los tuyos (y a cada familia rival) de un vistazo, sin capas 
 - El mismo intercambio se aplica a los **retratos** (HUD, árbol, contratación) y al color del borde del retrato.
 - Rasgos de forma (barba, peinado, complementos) necesitan capas: quedan para la customización por capas [POST-MVP].
 - Coste de arte: ninguna generación extra; lo que exige es que los sprites respeten los colores clave (8.4, 9.6).
-- **Retrato base** (población, 2026-11-03): cada persona tiene un retrato base de su tipo social (la clase de la familia del jugador, `rival`, `townsfolk`…), su sexo y su franja de edad (niño, joven, adulto, maduro, anciano), con las zonas de pelo (barba incluida), piel y ropa en los colores clave; el retrato cambia de franja al envejecer, como el sprite. Lo reparte el generador de población (4.11.1, `docs/contratos/poblacion.md`).
+- **Retrato base** (población, 2026-11-03): cada persona tiene un retrato base de su tipo social (artesano, vecino humilde, mercader, noble, clérigo, guardia, erudito, granjero, pícaro), su sexo y su franja de edad (niño ≤11, joven 12-17, adulto 18-44, maduro 45-59, anciano 60+), con las zonas de pelo (barba incluida), piel y ropa en los colores clave; el retrato cambia de franja al envejecer, como el sprite, y el pelo encanece con la edad. Lo reparte el generador de población (4.11.1, `docs/contratos/poblacion.md`).
 
 ### 4.11 Ciudad viva: NPC
 

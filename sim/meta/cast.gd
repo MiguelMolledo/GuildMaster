@@ -28,7 +28,7 @@ static func sub_seed(world_seed: int, roll: int = 0) -> int:
 ## The cast of `start` on `map` (only cosmetic fields): {protagonist {name_m, name_f, family_name, visual},
 ## rival {family_name, colors, character {name, female, age, visual}}, competitors [{family_name, colors, character,
 ## spouse}], households [{family_name, colors, members [{name, female, age, visual, stats}]}]}; visual = {hair, skin,
-## portrait {type, variant}}. player_primary: the colour the player chose (no AI family gets one close to it).
+## portrait {type, variant}} (variant: the pool's portrait number nn, data/cast.json portraits). player_primary: the colour the player chose (no AI family gets one close to it).
 static func generate(catalog: Catalog, start: Dictionary, map: Dictionary, mode: String, cast_seed: int,
 		player_primary: String = "") -> Dictionary:
 	var ctx := _context(catalog, mode, cast_seed, str(map.get("id", "")), player_primary)
@@ -185,7 +185,7 @@ static func _protagonist(ctx: Dictionary, start: Dictionary) -> Dictionary:
 	var d: Dictionary = start.get("defaults", {})
 	var cls := str(start.get("class", "artisan"))
 	var vis := _look(ctx, "pro")
-	vis["portrait"] = _portrait(ctx, cls, "pro")
+	vis["portrait"] = _portrait(ctx, str(ctx["cfg"].get("portraits", {}).get("classes", {}).get(cls, "artisan")), "pro")
 	if str(ctx["mode"]) == FIXED:
 		var dv: Dictionary = d.get("visual", {})
 		for k: String in ["hair", "skin"]:
@@ -342,12 +342,12 @@ static func _personality(ctx: Dictionary, stats: Dictionary, key: String) -> Dic
 
 
 static func _role_type(ctx: Dictionary, role: String) -> String:
-	return str(ctx["cfg"].get("portraits", {}).get("roles", {}).get(role, "townsfolk"))
+	return str(ctx["cfg"].get("portraits", {}).get("roles", {}).get(role, "commoner"))
 
 
 static func _portrait(ctx: Dictionary, type: String, key: String) -> Dictionary:
 	var n := maxi(1, int(ctx["cfg"].get("portraits", {}).get("variants", 1)))
-	return {"type": type, "variant": _rng(ctx, key + "|portrait").randi_range(0, n - 1)}
+	return {"type": type, "variant": _rng(ctx, key + "|portrait").randi_range(1, n)}
 
 
 ## The stream of one draw: the cast seed, the map and the key. Never state.rng: no other roll moves.
@@ -359,15 +359,16 @@ static func _rng(ctx: Dictionary, key: String) -> RandomNumberGenerator:
 
 # --- After the start: births and newcomers (Births.born, Population._arrive) ---------------------------------------
 
-## The portrait type of somebody of family `fam` with no other say: the class of the human family, rival for an AI
-## family with a profile, townsfolk for the rest (also SaveFile's migration to v14).
-static func family_type(st: WorldState, fam: String) -> String:
+## The portrait type of somebody of family `fam` with no other say: the type of the human family's class, artisan for
+## an AI family with a profile (the workshops), commoner for the rest (SaveFile's migration to v14 does the same).
+static func family_type(st: WorldState, fam: String, catalog: Catalog = null) -> String:
 	var f: Dictionary = st.families.get(fam, {})
+	var po: Dictionary = catalog.cast.get("portraits", {}) if catalog != null else {}
 	if str(f.get("controlled_by", "")) == "human":
-		return str(f.get("class", "artisan"))
+		return str(po.get("classes", SaveFile.MIGRATION_CLASS_TYPES).get(str(f.get("class", "artisan")), "artisan"))
 	if str(f.get("ai_profile", "")) != "":
-		return "rival"
-	return "townsfolk"
+		return str(po.get("roles", {}).get("rival", "artisan"))
+	return str(po.get("roles", {}).get("townsfolk", "commoner"))
 
 
 ## Name and look of a child born today (Births.born) to `mother` and `father` of family `fam`. Fixed cast: the H8 draw
@@ -376,8 +377,8 @@ static func family_type(st: WorldState, fam: String) -> String:
 static func newborn(sim: Sim, key: String, female: bool, mother: Dictionary, father: Dictionary, fam: String) -> Dictionary:
 	var st := sim.state
 	var cfg: Dictionary = sim.catalog.family
-	var ptype := str(father.get("visual", {}).get("portrait", {}).get("type", family_type(st, fam))) \
-		if father.get("visual") is Dictionary and father["visual"].get("portrait") is Dictionary else family_type(st, fam)
+	var ptype := str(father.get("visual", {}).get("portrait", {}).get("type", family_type(st, fam, sim.catalog))) \
+		if father.get("visual") is Dictionary and father["visual"].get("portrait") is Dictionary else family_type(st, fam, sim.catalog)
 	if mode_of(st) == FIXED:
 		var names: Array = cfg.get("names", {}).get("female" if female else "male", ["?"])
 		var vis := Births.child_visual(sim, mother.get("visual", {}), father.get("visual", {}), key)
@@ -400,7 +401,7 @@ static func newborn(sim: Sim, key: String, female: bool, mother: Dictionary, fat
 ## Name and look of a newcomer (Population._arrive): {name, hair, skin, portrait}. Fixed cast: the H7 draw as it was.
 static func newcomer(sim: Sim, key: String, female: bool) -> Dictionary:
 	var st := sim.state
-	var ptype := str(sim.catalog.cast.get("portraits", {}).get("roles", {}).get("newcomer", "townsfolk"))
+	var ptype := str(sim.catalog.cast.get("portraits", {}).get("roles", {}).get("newcomer", "commoner"))
 	if mode_of(st) == FIXED:
 		var names: Array = sim.catalog.family.get("names", {}).get("female" if female else "male", ["?"])
 		var vis: Dictionary = sim.catalog.family.get("visual", {})
@@ -442,7 +443,7 @@ static func mode_of(st: WorldState) -> String:
 
 static func _later_portrait(sim: Sim, type: String, key: String) -> Dictionary:
 	var n := maxi(1, int(sim.catalog.cast.get("portraits", {}).get("variants", 1)))
-	return {"type": type, "variant": _later_rng(sim.state, key + "|portrait").randi_range(0, n - 1)}
+	return {"type": type, "variant": _later_rng(sim.state, key + "|portrait").randi_range(1, n)}
 
 
 static func _later_rng(st: WorldState, key: String) -> RandomNumberGenerator:

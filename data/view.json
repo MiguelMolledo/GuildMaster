@@ -125,8 +125,9 @@
     "border_active": "#ffd84c"
   },
   "portraits": {
-    "_doc": "Población: base portraits (data/cast.json portraits, game/visuals/visual_paths.gd portrait). fallback: the types tried in order when a person's type has no art for its stage and sex (the greybox after them).",
-    "fallback": ["townsfolk", "artisan", "worker"]
+    "_doc": "Población: base portraits (data/cast.json portraits; the pool's assets/art/portraits/index.json and its fallback, game/visuals/visual_paths.gd portrait). fallback: the types tried in order when neither the person's type nor the index's fallback has art for its age band and sex (the greybox after them). greying: how much the hair goes to grey (0..1) by age band; the art does not paint grey hair, the game does (the index's README, point 5).",
+    "fallback": ["commoner", "artisan"],
+    "greying": {"grey": "#d8d0c0", "mature": 0.3, "elder": 0.75}
   },
   "upgrades": {
     "_doc": "H5 upgrade tree (GDD 4.8): latest_only_branches = branches whose visuals replace each other (only the highest finished level is shown; the rest show every finished level). status colours of the tree panel's cells (owned, in_works, available, blocked). works: the bar over a building under construction on the map (back, fill, text) and the panel's bar. The scaffold itself is the node Works of game/visuals/buildings/<type>.tscn.",

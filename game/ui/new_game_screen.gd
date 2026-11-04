@@ -352,7 +352,7 @@ func _update_preview() -> void:
 		_portrait.set_identity({"hair": Identity.hair_color(int(vis.get("hair", 0))),
 			"skin": Identity.skin_color(int(vis.get("skin", 0))), "primary": ViewConfig.color(primary),
 			"secondary": ViewConfig.color(secondary), "female": female, "dead": false,
-			"portrait": {"type": str(pt.get("type", start.get("class", "artisan"))), "variant": int(pt.get("variant", 0)),
+			"portrait": {"type": str(pt.get("type", "artisan")), "variant": int(pt.get("variant", 1)),
 				"stage": Identity.stage(int(protagonist().get("age", 20)))}})
 	var border := (%PortraitBorder as Panel).get_theme_stylebox("panel") as StyleBoxFlat
 	if border != null:

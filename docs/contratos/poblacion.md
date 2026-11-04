@@ -32,11 +32,13 @@ mismos vecinos ocupan los mismos cargos con cualquier reparto.
 ## Estado (guardado v14)
 
 - Raíz `cast: {mode, seed, map}`.
-- `character.visual.portrait: {type, variant}`. `type`: la clase de la familia del jugador (`artisan`…), `rival`
-  (rival y competidores), `townsfolk` (vecinos y recién llegados); un hijo toma el del padre. `variant` en
-  `[0, portraits.variants)`.
+- `character.visual.portrait: {type, variant}`. `type`: tipo social del pool de retratos (`artisan`, `commoner`,
+  `merchant`, `noble`, `clergy`, `guard`, `scholar`, `farmer`, `rogue`): la familia del jugador por su clase
+  (`portraits.classes`: artisan → artisan, patron → farmer, scholar → scholar, rogue → rogue), el rival y los
+  competidores `artisan`, vecinos y recién llegados `commoner`; un hijo toma el del padre. `variant`: el número `nn`
+  del retrato (1-6), para toda la vida.
 - Migración 13 → 14: `cast = {mode: "fixed", seed: 0, map}` (los nacimientos y llegadas de una partida vieja siguen
-  como antes) y a cada personaje su retrato: tipo por su familia, variante por el número de su id.
+  como antes) y a cada personaje su retrato: tipo por su familia, `nn` = número de su id % 6 + 1.
 
 ## Después del inicio
 
@@ -46,12 +48,23 @@ mismos vecinos ocupan los mismos cargos con cualquier reparto.
 
 ## Retratos (vista)
 
-- `Identity.of` añade `portrait: {type, stage, variant}`; la etapa sale de la edad de ahora (cambia al envejecer):
-  `data/cast.json portraits.stages` (child ≤7, youth ≤15, adult ≤44, mature ≤54, elder).
-- `VisualPaths.portrait(type, stage, female, variant, size)`: `assets/art/portraits/<type>_<stage>_<m|f>[_<n>]`
-  (`_32` para 32 px), la variante `variant % nº de variantes que existan`; si no hay, los tipos de
-  `data/view.json portraits.fallback`; sin ninguno, el greybox. Mientras los retratos de producción no estén en main,
-  sirven los 8 del piloto en `assets/art/portraits_pilot/` (mismos nombres; se borra la carpeta al llegar los buenos).
+Formato del pool: `assets/art/portraits/README.md` e `index.json` versión 1 (rama arte-fal, 6235a56).
+
+- `Identity.of` añade `portrait: {type, stage, variant}`. La franja sale de la edad de ahora y cambia al envejecer
+  (`data/cast.json portraits.stages`, las del pool: child ≤11, youth 12-17, adult 18-44, mature 45-59, elder 60+;
+  menos de 6, child).
+- `VisualPaths.portrait(type, stage, female, nn, size)` lee `index.json`: candidatos de sexo + franja + tipo; sin
+  ninguno, `fallback[tipo][franja]` del índice; después, los tipos de `data/view.json portraits.fallback`
+  (`commoner`, que existe siempre). Elige el id `<sexo>_<franja>_<tipo>_<nn>`. **Se guarda el `nn`, no el id ni la
+  posición en la lista**: el id es `nn` + sexo + franja + tipo, así que al cambiar de franja «crece» el mismo `nn`
+  (lo que propone el README) y añadir retratos al pool no cambia una cara guardada. Si el pool aún no tiene ese
+  `nn` (`_05`, `_06`), toma uno de los garantizados (1-4); esa cara cambiaría el día que llegue el que falta.
+  Cara de 32 para `size` 32 y busto de 64 para 64.
+- Canas: el dibujo no las trae; `Identity.greyed` mezcla el pelo con gris según la franja (`data/view.json
+  portraits.greying`: mature 0,3, elder 0,75).
+- Ropa fija (clérigo, guardia…): si el retrato no codifica `primary`/`secondary`, el shader no la tiñe.
+- Mientras el pool no esté en main, sirve `assets/art/portraits_pilot/index.json` (el mismo formato, con los 8 del
+  piloto ya codificados). Se borra la carpeta cuando llegue el bueno.
 - La barba es la región de pelo de los colores clave (4.10.9): toma el tono del pelo.
 
 ## Varias ciudades

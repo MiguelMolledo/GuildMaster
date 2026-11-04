@@ -146,17 +146,17 @@ func test_ages_and_looks_in_their_ranges() -> void:
 			var age := Kin.age(sim, id)
 			if TownLife.is_household(st, str(c["family"])):
 				check(age >= int(tf[0]) and age <= int(tf[1]), "%s townsperson age %d in %s" % [id, age, tf])
-				eq(str(c["visual"]["portrait"]["type"]), "townsfolk", "%s: townsfolk portrait" % id)
+				eq(str(c["visual"]["portrait"]["type"]), "commoner", "%s: a commoner's portrait" % id)
 			elif id == "chr_0002":
 				check(age >= int(rv[0]) and age <= int(rv[1]), "the rival's age %d in %s" % [age, rv])
-				eq(str(c["visual"]["portrait"]["type"]), "rival", "the rival's portrait type")
+				eq(str(c["visual"]["portrait"]["type"]), "artisan", "the rival smith's portrait type")
 			elif str(f["controlled_by"]) == "human":
 				eq(age, 20, "the protagonist keeps the start's age")
 				eq(str(c["visual"]["portrait"]["type"]), "artisan", "the protagonist's portrait is of the class")
 			check(int(c["visual"]["hair"]) in (cfg["look"]["hair"] as Array), "%s hair in the cast's tones" % id)
 			check(int(c["visual"]["skin"]) in (cfg["look"]["skin"] as Array), "%s skin in the cast's tones" % id)
 			var v := int(c["visual"]["portrait"]["variant"])
-			check(v >= 0 and v < int(cfg["portraits"]["variants"]), "%s portrait variant %d" % [id, v])
+			check(v >= 1 and v <= int(cfg["portraits"]["variants"]), "%s portrait number %d" % [id, v])
 
 
 func test_family_colors_are_distinct_and_far_from_the_player() -> void:
@@ -229,7 +229,7 @@ func test_newcomers_take_name_and_look_from_the_cast() -> void:
 			if bool(other.get("alive", true)) and str(other["name"]) == str(c["name"]):
 				same += 1
 		eq(same, 1, "newcomer «%s»: a name nobody else alive has" % c["name"])
-		eq(str(c["visual"]["portrait"]["type"]), "townsfolk", "a newcomer is a townsperson")
+		eq(str(c["visual"]["portrait"]["type"]), "commoner", "a newcomer is a commoner")
 		check(int(c["visual"]["hair"]) in (cat.cast["look"]["hair"] as Array), "its hair is a cast tone")
 
 
@@ -301,7 +301,29 @@ func test_migration_from_v13() -> void:
 	eq(back.version, 14, "migrated to v14")
 	eq(str(back.cast["mode"]), "fixed", "a game from before keeps the fixed cast (old births and newcomers)")
 	eq(str(back.characters["chr_0001"]["visual"]["portrait"]["type"]), "artisan", "the protagonist: the family's class")
-	eq(str(back.characters["chr_0002"]["visual"]["portrait"]["type"]), "rival", "the rival")
-	eq(str(back.characters["chr_0003"]["visual"]["portrait"]["type"]), "townsfolk", "a townsperson")
-	eq(int(back.characters["chr_0003"]["visual"]["portrait"]["variant"]), 3, "the variant from the id")
+	eq(str(back.characters["chr_0002"]["visual"]["portrait"]["type"]), "artisan", "the rival smith")
+	eq(str(back.characters["chr_0003"]["visual"]["portrait"]["type"]), "commoner", "a townsperson")
+	eq(int(back.characters["chr_0003"]["visual"]["portrait"]["variant"]), 4, "the portrait number from the id (3 % 6 + 1)")
 	eq(int(back.characters["chr_0003"]["visual"]["hair"]), int(st.characters["chr_0003"]["visual"]["hair"]), "tones kept")
+
+
+func test_portrait_resolution_follows_the_pool_index() -> void:
+	# The view (game/visuals/visual_paths.gd) reads the pool's index v1: candidates by sex, age band and type; the
+	# person's number nn; the index's fallback and the commoner of the band. Here with the pilot's stand-in index.
+	var idx := VisualPaths.portrait_index("res://assets/art/portraits_pilot")
+	eq(int(idx.get("version", 0)), 1, "an index of version 1")
+	var a := VisualPaths.portrait("artisan", "adult", false, 2, 32)
+	check(a != null and a.resource_path.ends_with("worker_adult_m_32.png"), "m_adult_artisan_02 for nn 2 (%s)" % a)
+	var b := VisualPaths.portrait("artisan", "adult", false, 3, 64)
+	check(b != null and b.resource_path.ends_with("rival_adult_m_1.png"), "the bust of m_adult_artisan_03 (%s)" % b)
+	var c := VisualPaths.portrait("clergy", "elder", true, 1, 32)
+	check(c != null and c.resource_path.ends_with("townsfolk_elder_f_1_32.png"), "no clergy: the commoner of the band")
+	var d := VisualPaths.portrait("artisan", "adult", false, 6, 32)
+	check(d != null, "a number the pool does not have yet falls on a guaranteed one")
+	eq(Identity.stage(5), "child", "under 6: child")
+	eq([Identity.stage(11), Identity.stage(12), Identity.stage(17), Identity.stage(18), Identity.stage(44),
+		Identity.stage(45), Identity.stage(59), Identity.stage(60)],
+		["child", "youth", "youth", "adult", "adult", "mature", "mature", "elder"], "the pool's age bands")
+	var black := Color(0.1, 0.1, 0.1)
+	eq(Identity.greyed(black, "adult"), black, "an adult keeps the hair")
+	check(Identity.greyed(black, "elder").v > Identity.greyed(black, "mature").v, "the elder greys more than the mature")

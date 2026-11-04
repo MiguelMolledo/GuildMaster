@@ -109,8 +109,9 @@ static func migrate(d: Dictionary) -> Dictionary:
 const MIGRATION_AGE: int = 25
 ## v11 -> v12: the needs of everybody (H14, data/family.json needs.start) [provisional].
 const NEEDS_START: int = 80
-## v13 -> v14: the portrait variants of data/cast.json portraits.variants (the save has no catalog).
-const MIGRATION_PORTRAIT_VARIANTS: int = 100
+## v13 -> v14: the portrait numbers and the class -> type of data/cast.json portraits (the save has no catalog).
+const MIGRATION_PORTRAIT_VARIANTS: int = 6
+const MIGRATION_CLASS_TYPES: Dictionary = {"artisan": "artisan", "patron": "farmer", "scholar": "scholar", "rogue": "rogue"}
 
 
 static func _step(from_version: int, data: Dictionary) -> Dictionary:
@@ -294,7 +295,7 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 			data["events_active"] = kept
 		13:  # 13 -> 14 (población, docs/contratos/poblacion.md): the cast of a game from before was the fixed one (its
 			# births and newcomers keep the H7/H8 names). Each character's visual gets its base portrait: the type of its
-			# family (Cast.family_type) and a variant from its id number (MIGRATION_PORTRAIT_VARIANTS, data/cast.json).
+			# family (Cast.family_type) and a portrait number from its id (MIGRATION_PORTRAIT_VARIANTS, data/cast.json).
 			if not data.get("cast") is Dictionary:
 				data["cast"] = {"mode": "fixed", "seed": 0, "map": str(data.get("map_id", ""))}
 			var fams: Dictionary = data.get("families", {}) if data.get("families") is Dictionary else {}
@@ -303,13 +304,13 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 					c["visual"] = {"hair": 0, "skin": 0}
 				if not (c["visual"] as Dictionary).get("portrait") is Dictionary:
 					var f: Dictionary = fams.get(str(c.get("family", "")), {})
-					var type := "townsfolk"
+					var type := "commoner"
 					if str(f.get("controlled_by", "")) == "human":
-						type = str(f.get("class", "artisan"))
+						type = str(MIGRATION_CLASS_TYPES.get(str(f.get("class", "artisan")), "artisan"))
 					elif str(f.get("ai_profile", "")) != "":
-						type = "rival"
+						type = "artisan"
 					c["visual"]["portrait"] = {"type": type,
-						"variant": str(c.get("id", "")).get_slice("_", 1).to_int() % MIGRATION_PORTRAIT_VARIANTS}
+						"variant": str(c.get("id", "")).get_slice("_", 1).to_int() % MIGRATION_PORTRAIT_VARIANTS + 1}
 	return data
 
 

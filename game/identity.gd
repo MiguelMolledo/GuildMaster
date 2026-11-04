@@ -18,7 +18,7 @@ static func skin_color(index: int) -> Color:
 
 ## {hair, skin, primary, secondary, female, dead, portrait} of a character from the state. portrait (población):
 ## {type, stage, variant} of its base portrait; the stage comes from its age now (the portrait changes with age), the
-## age of its death for the dead.
+## age of its death for the dead. The hair greys with the band (greyed).
 static func of(state: WorldState, chr: String) -> Dictionary:
 	var ch: Dictionary = state.characters.get(chr, {})
 	var fam: Dictionary = state.families.get(str(ch.get("family", "")), {})
@@ -29,12 +29,19 @@ static func of(state: WorldState, chr: String) -> Dictionary:
 		at = int(ch["death_day"]) * Clock.MINUTES_PER_DAY
 	var pt: Dictionary = vis.get("portrait", {}) if vis.get("portrait") is Dictionary else {}
 	var ptype := str(pt.get("type", "")) if not pt.is_empty() else _type_of(fam)
-	return {"hair": hair_color(int(vis.get("hair", 0))), "skin": skin_color(int(vis.get("skin", 0))),
+	var stg := stage(Clock.age_years(int(ch.get("birth_day", 0)), at, _time()))
+	return {"hair": greyed(hair_color(int(vis.get("hair", 0))), stg), "skin": skin_color(int(vis.get("skin", 0))),
 		"primary": ViewConfig.color(str(colors.get("primary", "#808080"))),
 		"secondary": ViewConfig.color(str(colors.get("secondary", "#c0c0c0"))),
 		"female": bool(ch.get("female", false)), "dead": not bool(ch.get("alive", true)),
-		"portrait": {"type": ptype, "variant": int(pt.get("variant", str(chr).get_slice("_", 1).to_int())),
-			"stage": stage(Clock.age_years(int(ch.get("birth_day", 0)), at, _time()))}}
+		"portrait": {"type": ptype, "variant": int(pt.get("variant", str(chr).get_slice("_", 1).to_int() % 6 + 1)),
+			"stage": stg}}
+
+
+## The hair with the grey of its age band (data/view.json portraits.greying: the art paints no grey hair).
+static func greyed(hair: Color, stg: String) -> Color:
+	var g: Dictionary = (ViewConfig.value("portraits", {}) as Dictionary).get("greying", {})
+	return hair.lerp(ViewConfig.color(str(g.get("grey", "#d8d0c0"))), clampf(float(g.get(stg, 0.0)), 0.0, 1.0))
 
 
 ## The portrait stage of `age` (data/cast.json portraits.stages: the first whose to_age >= age).
@@ -51,14 +58,15 @@ static func portrait_texture(id: Dictionary, size: int = 32) -> Texture2D:
 	var pt: Dictionary = id.get("portrait", {}) if id.get("portrait") is Dictionary else {}
 	if pt.is_empty():
 		return null
-	return VisualPaths.portrait(str(pt.get("type", "townsfolk")), str(pt.get("stage", "adult")),
-		bool(id.get("female", false)), int(pt.get("variant", 0)), size)
+	return VisualPaths.portrait(str(pt.get("type", "commoner")), str(pt.get("stage", "adult")),
+		bool(id.get("female", false)), int(pt.get("variant", 1)), size)
 
 
 static func _type_of(fam: Dictionary) -> String:
+	var po: Dictionary = _cast().get("portraits", {})
 	if str(fam.get("controlled_by", "")) == "human":
-		return str(fam.get("class", "artisan"))
-	return "rival" if str(fam.get("ai_profile", "")) != "" else "townsfolk"
+		return str(po.get("classes", {}).get(str(fam.get("class", "artisan")), "artisan"))
+	return str(po.get("roles", {}).get("rival" if str(fam.get("ai_profile", "")) != "" else "townsfolk", "commoner"))
 
 
 static var _cast_cfg: Dictionary = {}

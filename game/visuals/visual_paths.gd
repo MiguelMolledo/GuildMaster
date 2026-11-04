@@ -89,45 +89,72 @@ static func character_id(ch: Dictionary, family: Dictionary) -> String:
 	return "%s_%s" % [role, "f" if bool(ch.get("female", false)) else "m"]
 
 
-## Población: the base portrait of a person (data/cast.json portraits; tools/art/fal_retratos.py): the art of
-## <type>_<stage>_<m|f> in assets/art/portraits/ (<id>_32.png for `size` 32, <id>.png for 64), variant `variant` among
-## the ones that exist (numbered _1, _2... or one unnumbered); if that type has none for the stage and sex, the types
-## of data/view.json portraits.fallback in order. While the production portraits are not in main, the fal pilot ones
-## (assets/art/portraits_pilot/, same names) stand in. null without any: the portrait keeps its greybox.
-static func portrait(type: String, stage: String, female: bool, variant: int, size: int = 32) -> Texture2D:
-	var types: Array = [type]
-	for t: Variant in (ViewConfig.value("portraits", {}) as Dictionary).get("fallback", []):
-		if not str(t) in types:
-			types.append(str(t))
-	for t: String in types:
-		var base := "%s_%s_%s" % [t, stage, "f" if female else "m"]
-		for dir: String in PORTRAIT_DIRS:
-			var found := portrait_variants(dir, base, size)
-			if not found.is_empty():
-				return load(found[posmod(variant, found.size())]) as Texture2D
+## Población: the base portrait of a person from the pool's index (assets/art/portraits/index.json v1, its README):
+## the candidates of `sex` + `age` (band) + `type`; without any, the index's fallback[type][age], then the types of
+## data/view.json portraits.fallback (commoner exists in every band and sex). Of them, the one numbered `nn` (the id
+## <sex>_<age>_<type>_<nn>, kept by the person for life); if the pool has no such number yet, a guaranteed one (1..4),
+## else the candidates in id order. `size` 32 = the face, 64 = the bust. While the production pool is not in main,
+## the fal pilot's index (assets/art/portraits_pilot/index.json) stands in. null without any: the greybox.
+static func portrait(type: String, stage: String, female: bool, nn: int, size: int = 32) -> Texture2D:
+	for dir: String in PORTRAIT_DIRS:
+		var idx := portrait_index(dir)
+		if idx.is_empty():
+			continue
+		var sex := "f" if female else "m"
+		var types: Array = [type]
+		var fb: Variant = (idx.get("fallback", {}) as Dictionary).get(type, {})
+		if fb is Dictionary and (fb as Dictionary).has(stage):
+			types.append(str(fb[stage]))
+		for t: Variant in (ViewConfig.value("portraits", {}) as Dictionary).get("fallback", ["commoner"]):
+			if not str(t) in types:
+				types.append(str(t))
+		for t: String in types:
+			var found: Array = (idx["_by"] as Dictionary).get("%s|%s|%s" % [sex, stage, t], [])
+			if found.is_empty():
+				continue
+			var pick: Dictionary = found[posmod(nn - 1, found.size())]
+			for want: int in [nn, (posmod(nn - 1, 4)) + 1]:
+				var id := "%s_%s_%s_%02d" % [sex, stage, t, want]
+				for e: Dictionary in found:
+					if str(e.get("id", "")) == id:
+						pick = e
+						break
+				if str(pick.get("id", "")) == id:
+					break
+			var rel := str(pick.get("face" if size <= 32 else "file", pick.get("file", "")))
+			var path := dir.path_join(rel)
+			if ResourceLoader.exists(path):
+				return load(path) as Texture2D
 	return null
 
 
 const PORTRAIT_DIRS: Array[String] = ["res://assets/art/portraits", "res://assets/art/portraits_pilot"]
-static var _portrait_cache: Dictionary = {}  # "dir/base/size" -> [paths]
+static var _portrait_index: Dictionary = {}  # dir -> the index with "_by": {"sex|age|type": [entries sorted by id]}
 
 
-## The files of portrait `base` in `dir`: the unnumbered one, else _1, _2... while they exist.
-static func portrait_variants(dir: String, base: String, size: int) -> PackedStringArray:
-	var key := "%s/%s/%d" % [dir, base, size]
-	if _portrait_cache.has(key):
-		return _portrait_cache[key]
-	var suffix := "_32" if size <= 32 else ""
-	var out := PackedStringArray()
-	var plain := "%s/%s%s.png" % [dir, base, suffix]
-	if ResourceLoader.exists(plain):
-		out.append(plain)
-	for i: int in range(1, 20):
-		var p := "%s/%s_%d%s.png" % [dir, base, i, suffix]
-		if not ResourceLoader.exists(p):
-			break
-		out.append(p)
-	_portrait_cache[key] = out
+## The pool's index.json of `dir` ({} without one), with its entries grouped by sex, age band and type.
+static func portrait_index(dir: String) -> Dictionary:
+	if _portrait_index.has(dir):
+		return _portrait_index[dir]
+	var out := {}
+	var path := dir.path_join("index.json")
+	if FileAccess.file_exists(path):
+		var d: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+		if d is Dictionary and int((d as Dictionary).get("version", 0)) == 1:
+			out = d
+			var by := {}
+			for e: Variant in out.get("portraits", []):
+				if e is Dictionary:
+					var k := "%s|%s|%s" % [e.get("sex", ""), e.get("age", ""), e.get("type", "")]
+					if not by.has(k):
+						by[k] = []
+					(by[k] as Array).append(e)
+			for k: String in by:
+				(by[k] as Array).sort_custom(func(x: Dictionary, y: Dictionary) -> bool: return str(x["id"]) < str(y["id"]))
+			out["_by"] = by
+		elif OS.is_debug_build():
+			print("[Visuals] %s: not an index of version 1" % path)
+	_portrait_index[dir] = out
 	return out
 
 
