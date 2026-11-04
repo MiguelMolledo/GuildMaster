@@ -201,17 +201,18 @@ func test_the_map_shows_the_scaffold_and_the_works_bar() -> void:
 	var w := _world(sim)
 	var scaffold := w.scaffold_of(BLD)
 	check(scaffold != null, "the forge scene has its Works node")
-	check(scaffold != null and scaffold.visible, "the scaffold shows while under works")
+	# the fal facade draws the works itself (LookConstruction, WorldView._apply_looks): scaffold or works facade
+	check(w.works_shown(BLD), "the works show while under works")
 	var bar := w.works_bar_of(BLD)
 	check(bar != null and bar.visible, "the works bar shows")
 	near(bar.progress, 0.5, 0.01, "half way")
 	check(bar.text().contains("12"), "the time left (%s)" % bar.text())
 	Upgrades.complete(sim, BLD, "forge_capacity_2")
 	w.refresh_upgrades()
-	check(not scaffold.visible and not bar.visible, "scaffold and bar go away when the works end")
+	check(not w.works_shown(BLD) and not bar.visible, "the works and the bar go away when the works end")
 	w.free()
 	var plain := _world(_sim("forge_upgrades"))
-	check(not plain.scaffold_of(BLD).visible and not plain.works_bar_of(BLD).visible, "no scaffold without works")
+	check(not plain.works_shown(BLD) and not plain.works_bar_of(BLD).visible, "no works without works")
 	plain.free()
 
 
@@ -315,7 +316,7 @@ func test_buying_from_the_panel_starts_the_works_and_the_visual_appears_at_the_e
 	eq(p.status_of("forge_capacity_2"), "in_works", "the panel shows it under construction")
 	check((p.get_node("%WorksBox") as Control).visible, "with its works bar")
 	w.refresh_upgrades()
-	check(w.scaffold_of(BLD).visible and w.works_bar_of(BLD).visible, "the scaffold goes up on the map")
+	check(w.works_shown(BLD) and w.works_bar_of(BLD).visible, "the works go up on the map")
 	var end := int(Upgrades.work(sim.state, BLD).get("end", 0))
 	var guard := 0
 	while int(sim.state.clock["minute"]) < end and guard < 3000:
@@ -325,7 +326,7 @@ func test_buying_from_the_panel_starts_the_works_and_the_visual_appears_at_the_e
 	v.sync()
 	w.refresh_upgrades()
 	check(v.upgrade_visual("upgrade_storage_shelves").visible, "the shelves appear inside")
-	check(not w.scaffold_of(BLD).visible and not w.works_bar_of(BLD).visible, "the scaffold comes down")
+	check(not w.works_shown(BLD) and not w.works_bar_of(BLD).visible, "the works come down")
 	var found := false
 	for n: Dictionary in Notices.list(sim, "fam_0001"):
 		if str(n.get("key", "")) == "notice.upgrade_done":

@@ -19,7 +19,7 @@ metadata/side = "SW"
 metadata/tile = Vector2i(2, 4)
 metadata/footprint = Vector2i(6, 4)
 metadata/mirror = false
-metadata/back = ""
+metadata/back = "town_hall_back"
 metadata/front = ""
 
 

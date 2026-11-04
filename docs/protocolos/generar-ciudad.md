@@ -13,7 +13,8 @@ calle, patios detrás, farolas, barriles, carros, bancos, vallas) y **genera** c
 | `tools/city/reglas.json` | Las cifras de las reglas (cada cuántas casillas una farola, qué props van en cada taller…) |
 | `tools/city/sprites_ciudad.py`, `fal_ciudad.py` | Los sprites del constructor (farola, valla, casas de espaldas) y su gasto en fal |
 | `tools/city/sprites_catalog.py` | Exporta `data/building_sprites.json` de los marcadores `Door` de las escenas (y lo comprueba) |
-| `tools/city/proponer_puerta.py`, `marcar_puertas.py` | Ayuda de una vez al importar un sprite: propone la puerta; escribe el marcador |
+| `tools/city/proponer_puerta.py`, `marcar_puertas.py` | Ayuda de una vez al importar un sprite: propone la puerta; escribe el marcador (`--update` lo reescribe) |
+| `tools/city/enchufar_fachadas.py` | Pone las fachadas fal en las escenas de los edificios (frente, obras, dañada) y crea sus `_back` |
 | `tools/scenarios/make_city_scenarios.gd` | Un escenario de prueba `<mapa>_start` por cada ciudad generada |
 
 Por qué Python: las herramientas offline del repo ya lo son (`validate_content.py`, `arte.py`, `make_town_e.py`),
@@ -101,7 +102,7 @@ de la puerta dibujada, con estos metadatos:
 | `side` | La cara de la huella: **SW** (mira a +fila, abajo a la izquierda), **SE** (+columna, abajo a la derecha), **NE** (-fila) y **NW** (-columna); las dos últimas no las ve la cámara |
 | `tile` | La casilla de la puerta desde el origen de la huella (fuera de la huella, en ese lado) |
 | `footprint` | La huella para la que está dibujado el sprite |
-| `mirror` | Si puede reflejarse (no lleva texto: la sastrería, no) |
+| `mirror` | Si puede reflejarse (no lleva texto; hoy todos salvo el ayuntamiento) |
 | `back` / `front` | La misma escena vista desde el otro lado (`""` si no hay) |
 
 - **El reflejo no lleva marcador propio**: x → -x cambia columnas por filas, así que SW ↔ SE y NE ↔ NW, y la casilla
@@ -119,9 +120,12 @@ de la puerta dibujada, con estos metadatos:
   cualquier escena con un `Door`; hoy no hace falta ninguno más (el portalón de la carpintería es su `Door`; las
   farolas y los props se apoyan en su `Feet`).
 
-En town_e el juego dibuja de espaldas las tres casas de vecinos cuyo aspecto tiene `back`
-(`house_slate_back`, `house_ochre_back`, `house_tall_back`); el resto de edificios del sim con la puerta en una cara
-oculta queda como aviso hasta que tengan su vista de espaldas. El generador pone cada edificio donde una de sus
+Todos los edificios del sim tienen su vista de espaldas (`<id>_back`, fachadas fal de `assets/art/buildings/fal/`
+puestas por `tools/city/enchufar_fachadas.py`, y las casas de vecinos `house_slate_back`, `house_ochre_back`,
+`house_tall_back`); el ayuntamiento también elige frente o espalda por su casilla de servicio. Las fachadas fal llevan
+sus estados en dos nodos ocultos, `LookConstruction` y `LookDamaged`: `WorldView._apply_looks` pone su textura en el
+`Sprite` mientras el edificio está en obras (una mejora en curso) o dañado (mantenimiento sin pagar). La de escala B
+queda en `SpriteEscalaB` para volver atrás. El generador pone cada edificio donde una de sus
 vistas dibuja la puerta en una cara que la cámara ve, y escribe en el mapa la casilla de puerta que dice su marcador.
 
 ## 3. Reglas de mobiliario

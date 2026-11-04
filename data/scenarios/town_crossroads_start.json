@@ -584,7 +584,7 @@
 		"bld_0013": {
 			"door": [
 				23,
-				7
+				34
 			],
 			"employee_slots": 1,
 			"footprint": [
@@ -617,7 +617,7 @@
 			},
 			"origin": [
 				20,
-				5
+				32
 			],
 			"owner": "fam_0012",
 			"queue": {
@@ -653,7 +653,7 @@
 		"bld_0014": {
 			"door": [
 				23,
-				37
+				7
 			],
 			"employee_slots": 1,
 			"footprint": [
@@ -681,7 +681,7 @@
 			},
 			"origin": [
 				20,
-				36
+				6
 			],
 			"owner": "fam_0013",
 			"queue": {
@@ -2271,7 +2271,7 @@
 			"path": [],
 			"position": [
 				23,
-				7
+				34
 			],
 			"profession": "mason",
 			"rank": "",
@@ -2348,7 +2348,7 @@
 			"path": [],
 			"position": [
 				23,
-				7
+				34
 			],
 			"profession": "",
 			"rank": "",
@@ -2425,7 +2425,7 @@
 			"path": [],
 			"position": [
 				23,
-				37
+				7
 			],
 			"profession": "tailor",
 			"rank": "",
@@ -2500,7 +2500,7 @@
 			"path": [],
 			"position": [
 				23,
-				37
+				7
 			],
 			"profession": "",
 			"rank": "",

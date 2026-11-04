@@ -328,6 +328,45 @@ func _door_facing(b: Dictionary, scene_id: String) -> Dictionary:
 	return out
 
 
+## The fal facades' states (tools/city/enchufar_fachadas.py): a building scene with LookConstruction / LookDamaged
+## (hidden Sprite2D) shows their texture on its Sprite while it is under upgrade works or damaged (state "damaged",
+## unpaid upkeep), and its own texture otherwise; with LookConstruction the greybox scaffold (Works) stays hidden
+## (refresh_upgrades).
+## Only the texture changes, so see-through and clicks keep using Sprite. Cheap: a lookup per building per frame.
+func _apply_looks() -> void:
+	for id: String in _building_visuals:
+		var v: Node2D = _building_visuals[id]
+		var spr := v.get_node_or_null("Sprite") as Sprite2D
+		if spr == null:
+			continue
+		if not spr.has_meta("look_normal"):
+			spr.set_meta("look_normal", spr.texture)
+		var b: Dictionary = state.buildings.get(id, {})
+		var look := "normal"
+		if str(b.get("state", "normal")) == "damaged":
+			look = "damaged"
+		elif b.get("upgrade_work") is Dictionary and not (b["upgrade_work"] as Dictionary).is_empty():
+			look = "construction"
+		var node := {"construction": "LookConstruction", "damaged": "LookDamaged"}.get(look, "") as String
+		var src := v.get_node_or_null(node) as Sprite2D if node != "" else null
+		var tex: Texture2D = src.texture if src != null else spr.get_meta("look_normal")
+		if spr.texture != tex:
+			spr.texture = tex
+			ViewConfig.info("WorldView", "building %s looks %s" % [id, look if src != null else "normal"])
+
+
+## Whether the map shows `building` under works: its greybox scaffold (Works) or, on a fal facade, its works look
+## (LookConstruction on the Sprite, _apply_looks).
+func works_shown(building: String) -> bool:
+	var v: Node2D = _building_visuals.get(building, null)
+	if v == null:
+		return false
+	var scaffold := v.get_node_or_null("Works") as CanvasItem
+	var look := v.get_node_or_null("LookConstruction") as Sprite2D
+	var spr := v.get_node_or_null("Sprite") as Sprite2D
+	return (scaffold != null and scaffold.visible) or (look != null and spr != null and spr.texture == look.texture)
+
+
 ## Whether the sign of `building` is shown now (hover-only signs: while hovered or picked).
 func sign_shown(building: String) -> bool:
 	var sg: Node2D = _signs.get(building, null)
@@ -381,7 +420,9 @@ func refresh_upgrades() -> void:
 			ViewConfig.info("WorldView", "works %s (building=%s, upgrade=%s)" % ["on" if not w.is_empty() else "off", id,
 				str(w.get("upgrade", ""))])
 		bar.visible = not w.is_empty()
-		if scaffold != null:
+		var fal_works := (_building_visuals.get(id) as Node) != null and \
+			(_building_visuals[id] as Node).get_node_or_null("LookConstruction") != null
+		if scaffold != null and not fal_works:  # a fal facade draws its works itself (_apply_looks)
 			scaffold.visible = not w.is_empty()
 		if not w.is_empty():
 			bar.progress = float(w.get("progress", 0.0))
@@ -389,6 +430,7 @@ func refresh_upgrades() -> void:
 		var idle: Node2D = _idle_marks.get(id, null)
 		if idle != null:
 			idle.position = bar.position + Vector2(0, -16 if bar.visible else -2)
+	_apply_looks()
 	for id: String in _building_visuals:
 		var ups := (_building_visuals[id] as Node).get_node_or_null("Upgrades")
 		if ups == null or ups.get_child_count() == 0:
@@ -685,7 +727,8 @@ func _add_town_decor(map_id: String) -> void:
 	ViewConfig.info("WorldView", "town decor %s: %d pieces" % [map_id, n])
 
 
-## H9: the town hall (data/maps "town_hall", game/visuals/buildings/town_hall.tscn) in the middle of its footprint;
+## H9: the town hall (data/maps "town_hall", game/visuals/buildings/town_hall.tscn, or town_hall_back when its service
+## tile, its door, is on a hidden face: _door_facing) in the middle of its footprint;
 ## registered as the prop of its sign tile (the sign and the click use its height) and its tiles as owned.
 func _add_town_hall(owned: Dictionary) -> void:
 	for svc: Dictionary in _services:
@@ -696,7 +739,12 @@ func _add_town_hall(owned: Dictionary) -> void:
 			owned[t] = true
 			centre += Iso.tile_to_world(t)
 		centre /= maxf(1.0, float((svc["tiles"] as Array).size()))
-		var v := VisualPaths.instantiate("buildings", "town_hall")
+		var th: Dictionary = catalog.maps().get(state.map_id, {}).get("town_hall", {})
+		var facing := _door_facing({"id": "town_hall", "door": th.get("service", []), "origin": th.get("origin", [0, 0]),
+			"footprint": th.get("footprint", [1, 1])}, "town_hall")
+		var v := VisualPaths.instantiate("buildings", str(facing["scene"]))
+		if bool(facing["flip"]):
+			v.scale.x = -1.0
 		v.name = "town_hall_visual"
 		VisualPaths.place(v, centre)
 		objects().add_child(v)
@@ -831,6 +879,7 @@ func _process(_delta: float) -> void:
 
 ## Follows the state: new or dead walkers, positions, the day/night tint. `frac` = how far towards the next step.
 func sync(frac: float) -> void:
+	_apply_looks()
 	if catalog != null:  # the fields change with the season (data/view.json "seasonal_tiles"; a no-op if unchanged)
 		ground().set_season(Clock.season(int(state.clock.get("minute", 0)), catalog.time))
 	_talker = _pick_talker()

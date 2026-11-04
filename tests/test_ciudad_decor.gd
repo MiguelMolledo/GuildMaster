@@ -63,7 +63,9 @@ func test_a_house_whose_door_is_hidden_is_seen_from_behind() -> void:
 		if str(b["type"]) == "forge" and b["origin"] == [25, 20]:
 			ids["forge"] = id
 	eq(_id(v.building_visual(str(ids["ne"]))), "house_ochre_back", "house_ne is drawn from behind")
-	eq(v.building_visual(str(ids["forge"])).scale.x, 1.0, "the forge (no back view yet) stays as it was")
+	# the player's forge: door (26, 19) on its NE face; the forge draws its door on SE, so its back (NW) mirrored
+	eq(_id(v.building_visual(str(ids["forge"]))), "forge_back", "the forge is drawn from behind")
+	eq(v.building_visual(str(ids["forge"])).scale.x, -1.0, "mirrored: its back view's door is on NW")
 	v.free()
 
 
@@ -79,8 +81,11 @@ func test_door_on_the_other_visible_face_mirrors_the_building() -> void:
 	b["door"] = [13, 11]
 	eq(v._door_facing(b, "tailor_shop"), {"scene": "tailor_shop", "flip": false}, "the tailor's door is drawn on +col")
 	b["door"] = [11, 13]
-	eq(v._door_facing(b, "tailor_shop"), {"scene": "tailor_shop", "flip": false},
-		"the tailor's sign has text: never mirrored (its Door marker: mirror = false)")
+	eq(v._door_facing(b, "tailor_shop"), {"scene": "tailor_shop", "flip": true},
+		"the fal tailor's sign has no text: mirrored for a door on SW (its Door marker: mirror = true)")
+	b["door"] = [11, 9]
+	eq(v._door_facing(b, "tailor_shop"), {"scene": "tailor_shop_back", "flip": true},
+		"door on NE: its back view (door on NW) mirrored")
 	v.free()
 
 
@@ -146,3 +151,42 @@ func test_the_rival_of_the_same_trade_takes_the_forge_plot_cleanly() -> void:
 					check(not (_id(c) == str(it["id"]) and Iso.world_to_tile((c as Node2D).position + VisualPaths.feet(c as Node2D)) == t),
 						"%s: the forge's %s is not drawn" % [start, it["id"]])
 		v.free()
+
+
+func test_fal_facades_show_works_and_damage() -> void:
+	# the fal facades (tools/city/enchufar_fachadas.py): the Sprite takes LookConstruction while under upgrade works
+	# and LookDamaged while damaged, its own texture otherwise
+	var v := _view()
+	var forge := ""
+	for id: String in v.state.buildings:
+		if str(v.state.buildings[id]["type"]) == "forge" and v.state.buildings[id]["origin"] == [25, 20]:
+			forge = id
+	var vis := v.building_visual(forge)
+	var spr := vis.get_node("Sprite") as Sprite2D
+	var normal := spr.texture
+	check(vis.get_node_or_null("LookConstruction") != null and vis.get_node_or_null("LookDamaged") != null,
+		"the forge's scene has its two states")
+	v.state.buildings[forge]["state"] = "damaged"
+	v.sync(0.0)
+	eq(spr.texture, (vis.get_node("LookDamaged") as Sprite2D).texture, "damaged: the damaged facade")
+	v.state.buildings[forge]["state"] = "normal"
+	v.state.buildings[forge]["upgrade_work"] = {"upgrade": "x", "actor": "", "start": 0, "end": 60}
+	v.sync(0.0)
+	eq(spr.texture, (vis.get_node("LookConstruction") as Sprite2D).texture, "under works: the works facade")
+	v.state.buildings[forge]["upgrade_work"] = null
+	v.sync(0.0)
+	eq(spr.texture, normal, "back to normal")
+	v.free()
+
+
+func test_the_town_hall_is_seen_from_behind_when_its_door_is_hidden() -> void:
+	# town_e's town hall is served from (20, 25), on its NE (hidden) face: the back view
+	var v := _view()
+	var th: Node = null
+	for c: Node in v.objects().get_children():
+		if str(c.name) == "town_hall_visual":
+			th = c
+	check(th != null, "the town hall is drawn")
+	if th != null:
+		eq(_id(th), "town_hall_back", "seen from behind")
+	v.free()
