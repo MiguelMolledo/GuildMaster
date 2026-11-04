@@ -43,6 +43,15 @@
     "water": ["grass", "street", "plaza", "dirt", "field", "building", "tree", "stall", "board", "wall", "rock", "landmark"],
     "bridge": ["water"]
   },
+  "ground_corners": {
+    "_doc": "GroundLayer: on a tile of a listed kind whose two neighbours on sides that meet at a corner are both of the key kind (a diagonal street drawn as a stair of tiles), a triangle of the key kind is painted over that corner, `fill` of the way along its two sides, so the stair reads as one smooth ribbon. Purely visual. Remove a kind (or the block) to drop it.",
+    "fill": 0.75,
+    "kinds": {
+      "street": ["grass", "dirt", "field", "tree", "building"],
+      "plaza": ["grass", "dirt", "building"],
+      "dirt": ["grass", "field"]
+    }
+  },
   "map_border": {
     "_doc": "A ring of tiles around the map, outside the playable grid and purely visual (GroundLayer + WorldView._add_border_trees): `ground` everywhere except the kinds of `extend` that reach the map's edge (they carry on outwards: streets, the river); from `fade_from` tiles out it darkens towards `fade_to` (the background). Trees of `trees` (scene ids of game/visuals/props/, weights = repeat) from `tree_from` tiles out, with a chance per tile growing from tree_density[0] to tree_density[1] at the outer edge. tiles = 0 removes the border.",
     "tiles": 9,

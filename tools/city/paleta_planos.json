@@ -1,0 +1,23 @@
+{
+ "_doc": "Semantic palette of the top-down town plans (tools/city/fal_planos.py asks fal for them, tools/city/desde_imagen.py reads them back into the grid; docs/protocolos/generar-ciudad.md §1e). Each class: its flat colour in the image, the words the prompt uses and, for a landmark, the landmark type of data/maps \"landmarks\". A pixel goes to the class of the nearest colour (within max_dist); a tile to the class most of its pixels have.",
+ "max_dist": 120,
+ "classes": {
+  "grass":     {"rgb": [140, 200, 100], "words": "open grass and gardens: light green"},
+  "street":    {"rgb": [128, 128, 128], "words": "streets, lanes and alleys: medium grey"},
+  "plaza":     {"rgb": [235, 215, 160], "words": "market squares and church squares: beige"},
+  "water":     {"rgb": [30, 90, 200],   "words": "river and water: blue"},
+  "building":  {"rgb": [200, 40, 30],   "words": "ordinary houses and workshops: red"},
+  "wall":      {"rgb": [0, 0, 0],       "words": "town walls and towers: black"},
+  "field":     {"rgb": [240, 210, 50],  "words": "farm fields: yellow"},
+  "forest":    {"rgb": [20, 80, 30],    "words": "woods: dark green"},
+  "dock":      {"rgb": [140, 85, 40],   "words": "wooden piers and quays over the water: brown"},
+  "rock":      {"rgb": [110, 100, 90],  "words": "bare rock of the mountain: dark brownish grey"},
+  "church":    {"rgb": [130, 0, 200],   "words": "the church or cathedral: purple", "landmark": "cathedral"},
+  "exchange":  {"rgb": [255, 140, 0],   "words": "the exchange hall (lonja): orange", "landmark": "exchange"},
+  "warehouse": {"rgb": [0, 190, 190],   "words": "harbour warehouses: cyan", "landmark": "warehouse"},
+  "mine":      {"rgb": [255, 0, 255],   "words": "the mine entrance: magenta", "landmark": "mine"},
+  "quarry":    {"rgb": [220, 220, 220], "words": "the stone quarry pit: very light grey", "landmark": "quarry"},
+  "cloister":  {"rgb": [255, 255, 255], "words": "the cloister: white", "landmark": "cloister"},
+  "mill":      {"rgb": [255, 120, 160], "words": "the water mill: pink", "landmark": "watermill"}
+ }
+}
