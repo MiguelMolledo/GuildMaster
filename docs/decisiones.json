@@ -353,6 +353,18 @@
       "tema": "H13 · guerra regional",
       "decision": "La guerra regional sube el precio de las armas ×1,5 en vez de ×2 (data/events.json, GDD 4.5.3 y 4.13). Probabilidades, cifras y producción por estación sin cambios. Las dianas largas siguen midiéndose sin eventos (_no_events); con eventos fallan solo casos de cola (novato normal semillas 1 y 12 con guerra; experto semilla 15 con cinco eventos).",
       "por_que": "Aprobado por el owner a propuesta del worker de H13: con ×2 el rival inactivo llegaba a 763 de oro al día 10 en guerra (269 con ×1,5) y rompía el balance."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Región de Valldaura (P-R1, O-R1–O-R10, D9)",
+      "decision": "Aprobadas todas las recomendaciones de 09b.8: la capital Bellcaire es el mapa EA de 80×80 y los demás asentamientos son pequeños; casa elegible al empezar, capital por defecto en EA (cuando exista su mapa); viajar con el título de Ciudadano y caravanas con carro; viaje abstracto con página de la ciudad (cargar otra ciudad, después de EA); viaje propio y caravanas con carretero; aranceles por ciudad; tratados de familia y del Alcalde; reputación por ciudad; nieve y crecida al llegar los viajes; población proporcional a las casas; nombres de 9b.9 y D9 = Bellcaire. Guardado de los viajes: v16.",
+      "por_que": "El owner: «me parece bien lo que comentas, dale caña»."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Combate: duelo a tres tiempos (O-C1–O-C12)",
+      "decision": "Aprobadas las recomendaciones de 04e §4e.9: el duelo entra ya como mecánica social del Artesano, solo a primera sangre (hasta la rendición, con la salud de 4.22); el lance sustituye a los asaltos de 4.22.6.1; a muerte bloqueado; el retado elige armas; lee Empatía contra Arte Marcial; la IA rival solo responde retos hasta revisar 04c; rechazar es gratis 2+ títulos por encima; iniciativa a ciegas y luego alterna; resolver sin jugar = jugar siguiendo la pista; cualquier pretendiente reta, sea cual sea su sexo. Guardado del duelo: v15; 4.22 pasa a v17.",
+      "por_que": "El owner: «me parece bien lo que comentas, dale caña»."
     }
   ],
   "pendientes": [
@@ -413,16 +425,6 @@
       "tema": "Pulido del MVP (provisional)",
       "detalle": "Trampa de pobreza: con 0 de oro y sin material, la deuda de mantenimiento (D15) se come las ventas hasta el embargo; es de balance. Multa: se deja 30 de oro y lo demás pasa a préstamo a 8 días. Contrabando: el mostrador cobra el doble con Secretos 3. Casillas tapadas: Mayús + clic derecho, o el clic normal si el edificio está transparente.",
       "opciones": "Confirmar o cambiar las cifras; la trampa de pobreza se decide con el balance."
-    },
-    {
-      "tema": "P-R1 Región en vez de un solo mapa EA",
-      "detalle": "La capital es el mapa EA de 80×80 (A + C); los demás asentamientos, de 32×32 a 48×48; town_e sigue como rebanada; solo la ciudad de casa se simula entera. Preguntas O-R1 a O-R10 en docs/gdd/09b_region.md §9b.8.",
-      "opciones": "(a) capital grande y el resto pequeños · (b) todos iguales · (c) un mapa y destinos abstractos"
-    },
-    {
-      "tema": "Gate O-C · Combate: duelo «a tres tiempos» (docs/gdd/04e_combate.md)",
-      "detalle": "Borrador 2026-11-04 con prototipo jugable aparte (--duel-test) y reglas puras en sim/combat/ (data/combat.json), sin conectar a la partida ni al guardado. Doce decisiones O-C1..O-C12 con opciones y recomendación en 04e §4e.9: cuándo entra (O-C1), una sola resolución que sustituya a los asaltos de 4.22.6.1 (O-C2), duelo a muerte bloqueado (O-C3), herida (O-C4), armas (O-C5), atributo de lectura (O-C6), la IA rival reta (O-C7), coste de rechazar (O-C8), iniciativa (O-C9), «Resolver sin jugar» (O-C10), tipos (O-C11), dama o caballero (O-C12).",
-      "opciones": "Ver 04e §4e.9."
     }
   ],
   "proximos_pasos": [
