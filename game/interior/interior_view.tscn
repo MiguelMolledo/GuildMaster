@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://biwpwuxm5tjd6" path="res://game/ui/station_menu.tscn" id="5_menu"]
 [ext_resource type="PackedScene" uid="uid://ptqmgtgtwtqy" path="res://game/ui/staff_panel.tscn" id="6_staff"]
 [ext_resource type="PackedScene" uid="uid://32e6ny8ffe0t" path="res://game/ui/upgrade_panel.tscn" id="7_upgrades"]
+[ext_resource type="PackedScene" uid="uid://54f0s4t8k5oc" path="res://game/ui/forja/live_forge_screen.tscn" id="8_live"]
 
 [node name="InteriorView" type="Node2D"]
 visible = false
@@ -276,3 +277,7 @@ layout_mode = 2
 [node name="StationMenu" parent="Ui/Root" instance=ExtResource("5_menu")]
 unique_name_in_owner = true
 layout_mode = 0
+
+[node name="LiveForgeScreen" parent="Ui/Root" instance=ExtResource("8_live")]
+unique_name_in_owner = true
+layout_mode = 1

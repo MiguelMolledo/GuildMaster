@@ -52,9 +52,13 @@ tiene que ser corto, legible, con decisiones, y dar algo que los empleados no da
 2 mal) y la pieza puede ganar **rasgos**: «templada al aceite» (+durabilidad), «filo fino», «con marca del maestro».
 
 - **«Resolver sin jugar»** (o el modo normal de hoy) sigue estando: da la calidad media de la Artesanía, como ahora.
-  El minijuego solo es **mejor** cuando lo haces bien (como el duelo, O-C10: jugar mal no es peor que no jugar).
+  El minijuego solo es **mejor** cuando lo haces bien. Como en el duelo (O-C10), jugar mal pierde: con dos
+  decisiones mal la pieza baja un escalón (corregido al construirlo, 2026-11-04: antes decía «jugar mal no es peor
+  que no jugar», que contradecía el −1 de arriba y O-C10).
 - **Los empleados** siguen con la barra. Es su trabajo, y el jugador decide qué hacen en la cola.
-- **La marca del maestro:** con Artesanía ≥ 7 y las tres decisiones bien, una pieza puede salir **obra maestra**:
+- **La marca del maestro:** con Artesanía ≥ 7 y las tres decisiones bien, una pieza puede salir **obra maestra**
+  (un 10 % de las veces [balance]; el nombre, la crónica y la pieza excelente están construidos; la venta a nobles,
+  el regalo y la ventaja en justas y duelo son ganchos que esperan a esos sistemas, §3b.8):
   tiene nombre («La espada de San Martín de los Molledo»), queda en la crónica, se vende a nobles por ×3, es el
   regalo perfecto para la visita del marqués o una boda (4.25.4) y se puede usar en las justas y en el duelo (+1
   ventaja).
@@ -120,7 +124,8 @@ Recordatorio: 1 año = 8 días = 40 min reales.
 | Año 2 · desde el día 9 | **Sucesos** de la ciudad: altercados (antes también, pero raros), bandidos y la primera visita del marqués posible | calendario | «Defiende la villa» |
 | Año 2-3 · 80-120 min | **Boda e hijos**, **caravanas** (carro), **encargos de boda rica** | boda o carro | «Forja la espada del novio» |
 | Año 3 · 2 h | **Cargos** (concejal), **tratados** (con Patricio), **torneo** | título | «Gana una elección», «Firma un tratado» |
-| Año 3-5 · 2-3 h | **Tribunal** contra el rival, **secuestros**, **obra maestra** con nombre | Artesanía 7 o un rival hostil | «Forja una obra maestra», «Lleva a juicio al rival» |
+| Año 3-5 · 2-3 h | **Tribunal** contra el rival, **secuestros** | un rival hostil | «Lleva a juicio al rival» |
+| Cuando salga (desde el día 1 si se juega bien) | **Obra maestra** con nombre | la primera obra maestra (Artesanía ≥ 7 y las tres decisiones bien) | «Forja una obra maestra» |
 | Generación 2 · ~17 h | **Heredero**: el hijo forja con su propia Artesanía (aprendida contigo) | muerte o retiro | metas de dinastía (4.17) |
 
 **Cómo se ve el desbloqueo:** una carta del kit de página («Nuevo: la feria»), una marca en el HUD en el botón o
@@ -156,3 +161,64 @@ panel nuevo, el capítulo del tutorial (si están activadas las pistas) y una me
 | **O-D3** | «Saltar hasta…» | (a) Sí, a ×8 hasta el próximo evento, el amanecer o el fin de la cola. (b) No | **(a)** |
 | **O-D4** | Obras maestras con nombre | (a) Sí, con Artesanía ≥ 7, con nombre y en la crónica. (b) No | **(a)** |
 | **O-D5** | Encargos con especificaciones | (a) Sí, con variantes de receta (largo, guarnición, temple). (b) Solo calidad, como hoy | **(a)** |
+
+### 3b.8 Cómo se ha construido (rama forja, 2026-11-04)
+
+Lo que cambió al construirlo, con su porqué (también en `docs/decisiones.json`):
+
+**Forja viva (§3b.2, O-D1 a, O-D4 a).** Reglas en `sim/forge/live_forge.gd`, cifras en `data/live_forge.json`.
+
+- Es un **modo de trabajo** más, `live`, de `work_at`: solo para quien controla el jugador y solo en las recetas
+  que lo tienen (martillo, espada y armadura; el lingote y el acero no se baten). En el yunque de la forja el
+  tercer botón del menú del puesto pasa de «Con cuidado» a **«Forja viva»**. El modo `careful` y el toque de
+  maestro siguen en el sim, para los bots, las partidas guardadas y los otros oficios, que no tienen Forja viva
+  (las dianas de `data/targets.json` no se mueven: los bots siguen con `normal` y `careful`).
+- Las tres decisiones son órdenes `live_forge` (paso `heat`, `strike`, `quench` o `skip`), que se aplican al momento
+  (van con las de gestión) y quedan en la grabación de la partida, así que se reproducen. El color que se ve
+  avanzar en la fragua es de la pantalla (2,4 s reales por tono); lo que sí es del sim es si el color sacado es el
+  bueno.
+- Cada decisión sale **bien, cerca o mal**: el color bueno está bien, el de al lado está cerca y los demás (y el
+  blanco, quemado) están mal; los golpes iguales a la plantilla están bien, con uno distinto cerca y con más, mal; el
+  temple bueno está bien y cualquier otro, mal. Una decisión que no se toma cuenta como «cerca». Las tres bien suben
+  un escalón y dos o más mal lo bajan.
+- **Sin decidir nada, la pieza sale exactamente como en el modo normal**: se tiran los mismos dados en el mismo
+  orden. El banco de `tests/test_forja_live.gd` (60 martillos, Artesanía 7) lo mide: normal 1,07, sin jugar 1,07
+  (pieza a pieza igual), bien jugado 1,83 y mal jugado 0,33.
+- Si el ciclo termina con decisiones pendientes, espera **media hora de juego** [balance] y luego se resuelve con lo
+  decidido. Un ciclo de Forja viva solo se repite en Forja viva si se jugó hasta el temple; si no, sigue en normal
+  (así quien se va a otra cosa no se queda con la forja esperando).
+- Mientras la pantalla está abierta el juego va a ×1, y al cerrarla vuelve la velocidad que había. Esc es «Resolver
+  sin jugar» y, en el resultado, «Seguir» (pasa a la pieza siguiente si la forja ya la empezó).
+- **Pistas por Artesanía:** con 4 o más, «ya casi» un tono antes del bueno; con 7 o más, la plantilla de golpes se
+  ve antes de batir. Lo que se acierta queda en la **ficha** de la familia (`masterworks.learned`): el color, la
+  plantilla y el temple de cada receta, y la pantalla lo recuerda.
+- **Rasgos:** templada al aceite, templada al agua, enfriada al aire, filo fino y con marca del maestro. Salen en el
+  resultado y en la obra maestra; no cambian reglas hasta que exista la durabilidad (gancho).
+- **Obra maestra:** Artesanía ≥ 7 (la del personaje) y las tres bien, y entonces una tirada del 10 % [balance]. Sale
+  excelente, con nombre («La espada de Santa Inés de los Herrero»: un santo de `patrons` y el apellido de la
+  familia), entra en la crónica (`masterwork`), en `masterworks.pieces` y en el registro de avisos, y la pieza va al
+  almacén como excelente. El Hugo del inicio ya tiene Artesanía 7, así que la obra maestra puede salir desde el
+  primer día (rara); por eso en §3b.4 su desbloqueo es «la primera que salga» y no el año 3-5. Venderla a nobles
+  ×3, regalarla en una visita o una boda y la ventaja en justas y duelo quedan como ganchos para cuando lleguen esos
+  sistemas: hoy la pieza del almacén es una espada excelente más.
+
+**Encargos con especificaciones (§3b.3, O-D5 a).** En `data/contracts/blacksmith.json` (`specs`, `spec_chance`
+0,35, `spec_bonus` 0,3 [balance]) y `data/live_forge.json` (`variants`, `recipe_axes`).
+
+- Algunos encargos del tablón piden una variante: hoja **corta o larga**, guarnición **sencilla o labrada** y un
+  **temple**. El cliente lo dice con palabras en el tablón («Un caballero zurdo quiere una espada larga y ligera,
+  que no se rompa»): elegir la variante es el puzle.
+- **Es una prima, no un castigo:** cada pieza hecha a medida cobra un 30 % más al entregarla; una pieza normal se
+  sigue aceptando a la paga normal. Así nadie pierde un encargo por no jugar y los bots no cambian.
+- Se hace desde el menú del puesto («Para el encargo de…» y la variante) o en la Forja viva, donde el temple lo
+  decide el cubo. La hoja larga tarda ×1,15 y añade un golpe medido; la guarnición labrada tarda ×1,25 y añade uno de
+  acabado.
+- La pieza que cumple (y llega a la calidad mínima) se **aparta para el encargo** (`contract.made`) y no va al
+  almacén; la que no cumple va al almacén como cualquier otra. Al entregar, las apartadas van primero; si el encargo
+  vence o se abandona, vuelven al almacén.
+- Qué encargo pide variante sale de un azar propio (la semilla de la partida y el id del encargo): `state.rng` no se
+  mueve y las dianas de hoy salen iguales.
+
+**Guardado v20** (`SaveFile._to_v20`): las raíces `unlocks` y `masterworks` (`pieces`, `learned`). Una partida de
+antes recibe todos los desbloqueos como vistos (ya lo tenía todo abierto) y ninguna obra maestra. No depende de los
+campos de v17-v19.

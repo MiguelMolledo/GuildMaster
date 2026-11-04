@@ -72,11 +72,15 @@ static func order_deliver(sim: Sim, o: Dictionary) -> Dictionary:
 	var item := str(c["item"])
 	var qty := int(c["qty"])
 	var min_q := int(c.get("min_quality", 0))
-	if count_valid(bag, item, min_q) < qty:
+	var kept := mini(qty, LiveForge.crate_units(c, min_q))  # 03b §3b.3: the pieces made to its spec go first
+	if count_valid(bag, item, min_q) < qty - kept:
 		return Orders.fail("missing_items")
-	if not Money.change(sim, fam, int(c["pay"]), Money.CONTRACTS, id, "", actor):
+	var extra := LiveForge.spec_bonus(c, kept)
+	if not Money.change(sim, fam, int(c["pay"]) + extra, Money.CONTRACTS, id, "", actor):
 		return Orders.fail("unknown_family")
-	var left := qty
+	LiveForge.take_crate(c, kept)
+	LiveForge.return_crate(sim, c)
+	var left := qty - kept
 	for q: int in Inventory.QUALITIES:
 		if q < min_q or left == 0:
 			continue
@@ -89,8 +93,11 @@ static func order_deliver(sim: Sim, o: Dictionary) -> Dictionary:
 	_reputation(sim, fam, int(t.get("reward_reputation", 0)), "contract_done")
 	_relation(sim, fam, str(c["client"]), int(t.get("reward_relation", 0)))
 	sim.events.append({"type": "contract_delivered", "actor": actor, "family": fam, "contract": id,
-		"client": str(c["client"]), "item": item, "qty": qty, "min_quality": min_q, "pay": int(c["pay"]),
+		"client": str(c["client"]), "item": item, "qty": qty, "min_quality": min_q, "pay": int(c["pay"]) + extra,
 		"script": str(c.get("script", ""))})
+	if kept > 0:
+		sim.events.append({"type": "spec_delivered", "actor": actor, "family": fam, "contract": id, "units": kept,
+			"extra": extra})
 	if OS.is_debug_build():
 		print("[Contracts] %s (%s) entrega %s: %d× %s, cobra %d" % [actor, fam, id, qty, item, int(c["pay"])])
 	return Orders.ok()
@@ -169,8 +176,10 @@ static func post_random(sim: Sim) -> String:
 		min_q = int(mqs[st.rng.randi_range(0, mqs.size() - 1)])
 	var dr: Array = t.get("deadline_days", [1, 1])
 	var days := st.rng.randi_range(int(dr[0]), int(dr[1]))
-	return post(sim, {"client": client, "item": str(it["item"]), "qty": qty, "min_quality": min_q,
+	var cid := post(sim, {"client": client, "item": str(it["item"]), "qty": qty, "min_quality": min_q,
 		"deadline_days": days})
+	LiveForge.attach_spec(sim, cid, t)  # 03b §3b.3: some ask for a variant (an RNG of its own: state.rng stays)
+	return cid
 
 
 ## Puts a contract on the board: `def` = {client, item, qty, min_quality, deadline_days, script?}. The pay is fixed
@@ -233,7 +242,7 @@ static func board_view(sim: Sim, actor: String) -> Dictionary:
 		if s == "" and not out["at_board"]:
 			s = "not_at_board"
 		if s == "" and count_valid(sim.state.characters[actor]["inventory"], str(c["item"]),
-				int(c.get("min_quality", 0))) < int(c["qty"]):
+				int(c.get("min_quality", 0))) < int(c["qty"]) - LiveForge.crate_units(c, int(c.get("min_quality", 0))):
 			s = "missing_items"
 		v["status"] = s if s != "" else "ok"
 		v["hours_left"] = ceili(maxf(0.0, float(int(c["due"]) - now)) / 60.0)
@@ -324,6 +333,7 @@ static func _fail(sim: Sim, i: int, reason: String) -> void:
 	var accepted: Array = sim.state.contracts["accepted"]
 	var c: Dictionary = accepted[i]
 	accepted.remove_at(i)
+	LiveForge.return_crate(sim, c)  # 03b §3b.3: the pieces kept for it go back to the storage
 	var fam := str(c.get("family", ""))
 	var client := str(c["client"])
 	var t := table_for_item(sim.catalog, str(c["item"]))

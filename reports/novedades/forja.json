@@ -1,0 +1,14 @@
+{
+  "fecha": "2026-11-04",
+  "titulo": "Forja viva: forjar a mano en tres decisiones, obras maestras con nombre y encargos con variante",
+  "que": "En el yunque de la forja, el tercer modo es ahora «Forja viva»: la pieza se forja a mano en una pantalla corta sobre el interior. Calentar (el hierro cambia de color en la fragua y lo sacas cuando quieres: la espada quiere rojo cereza), batir (tres o cuatro golpes fuertes, medidos o de acabado contra la plantilla de la receta, que con Artesanía 7 se ve antes) y templar (agua, aceite o al aire). Las tres bien suben un escalón de calidad; dos mal lo bajan; «Resolver sin jugar» (Esc) da exactamente lo de hoy. La ficha recuerda lo aprendido. Con Artesanía 7 y las tres bien, una de cada diez sale obra maestra con nombre («La espada de Santa Inés de los Herrero»), que queda en la crónica. Algunos encargos del tablón piden variante (hoja larga o corta, guarnición sencilla o labrada, temple), dicha con palabras: hecha a medida cobra un 30 % más; una pieza normal se sigue aceptando. Los empleados y los bots siguen igual (dianas intactas). Guardado v20.",
+  "como_probar": "Partida nueva de herrero: entra en la forja, clic derecho en el yunque → «Forja viva» → espada. O el escenario: --scenario=forge_live_ready. Capturas: grimoire heavy -- godot --path . -- --smoke-script=forja_viva --scenario=forge_live_ready --dev-time. Banco: godot --headless --path . -s tests/run_tests.gd -- --only=forja_live.",
+  "capturas": [
+    "docs/novedades/forja_fv_menu.png",
+    "docs/novedades/forja_fv_calentar.png",
+    "docs/novedades/forja_fv_batir.png",
+    "docs/novedades/forja_fv_templar.png",
+    "docs/novedades/forja_fv_resultado.png",
+    "docs/novedades/forja_fv_obra_maestra.png"
+  ]
+}

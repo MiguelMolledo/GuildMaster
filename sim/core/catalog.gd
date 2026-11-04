@@ -49,6 +49,7 @@ var cast: Dictionary = {}        # data/cast.json: the generated cast of a new g
 var region: Dictionary = {}      # data/world/region.json: the settlements and routes of the region (09b)
 var trade: Dictionary = {}       # data/world/trade.json: travel, city markets, caravans, treaties, regional events (09b)
 var combat: Dictionary = {}      # data/combat.json: the duel «a tres tiempos» (draft, 04e; nothing in the sim uses it yet)
+var live_forge: Dictionary = {}  # data/live_forge.json: Forja viva (03b §3b.2), variants of §3b.3
 ## Población: data/portraits.json, the ids of the portrait pool (exported from assets/art/portraits/index.json by
 ## tools/art/portraits_catalog.py; the sim depends on data/ only): {by: {"sex|age|type": [ids sorted]}, fallback: {type:
 ## {age: type}}, ages, types, count}. Empty without it: nobody gets a portrait id (the view keeps the greybox).
@@ -83,6 +84,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.events = c._load_json(root_dir.path_join("events.json"))
 	c.cast = c._load_json(root_dir.path_join("cast.json"))
 	c.combat = c._load_json(root_dir.path_join("combat.json"))
+	c.live_forge = c._load_json(root_dir.path_join("live_forge.json"))
 	c.region = c._load_json(root_dir.path_join("world/region.json"))
 	c.trade = c._load_json(root_dir.path_join("world/trade.json"))
 	c.portrait_pool = c._load_json(root_dir.path_join("portraits.json"))

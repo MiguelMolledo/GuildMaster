@@ -91,6 +91,11 @@ func station_menu() -> StationMenu:
 	return get_node("%StationMenu")
 
 
+## Forja viva (03b §3b.2): the short screen of a piece forged by hand.
+func live_screen() -> LiveForgeScreen:
+	return get_node("%LiveForgeScreen")
+
+
 func storage_panel() -> StoragePanel:
 	return get_node("%StoragePanel")
 
@@ -176,6 +181,8 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	# a shop is not managed: only the way out (and its counter opens the market panel)
 	for n: String in ["StorageButton", "ProductionButton", "UpgradesButton", "StaffButton"]:
 		(get_node("%" + n) as Button).visible = shop_stall == ""
+	live_screen().order_sink = _give
+	live_screen().close()
 	station_menu().order_sink = _give
 	if not station_menu().production_requested.is_connected(show_production):
 		station_menu().production_requested.connect(show_production.bind(true))
@@ -612,6 +619,9 @@ func is_door(screen: Vector2) -> bool:
 # --- input -----------------------------------------------------------------------------------------------------------
 
 func _unhandled_input(event: InputEvent) -> void:
+	if visible and live_screen().handle_key(event):
+		get_viewport().set_input_as_handled()
+		return
 	if visible and (handle_input(event) or handle_keys(event)):
 		get_viewport().set_input_as_handled()
 
@@ -760,6 +770,9 @@ func show_upgrades(on: bool) -> void:
 
 ## ESC: closes the top thing open here (menu, then panel). False if there was nothing to close.
 func close_top() -> bool:
+	if live_screen().visible:
+		live_screen().handle_key(_esc())   # Esc: Resolver sin jugar, or close the result
+		return true
 	if station_menu().visible:
 		station_menu().close()
 		return true
@@ -793,6 +806,11 @@ func request_exit() -> void:
 func on_sim_event(e: Dictionary) -> void:
 	if str(e.get("building", "")) != building:
 		return
+	live_screen().on_sim_event(e)
+	if str(e.get("type", "")) == "work_started" and str(e.get("mode", "")) == LiveForge.MODE \
+			and str(e.get("actor", "")) == actor() and not live_screen().visible:
+		station_menu().close()
+		live_screen().open_for(sim, building, str(e.get("zone", "")))   # Forja viva: the piece is forged by hand
 	var sv := station_view(str(e.get("zone", "")))
 	match str(e.get("type", "")):
 		"master_touch_done":
@@ -814,3 +832,10 @@ func _give(o: Dictionary) -> void:
 	ViewConfig.info("Interior", "order %s" % [o])
 	if order_sink.is_valid():
 		order_sink.call(o)
+
+
+static func _esc() -> InputEventKey:
+	var k := InputEventKey.new()
+	k.keycode = KEY_ESCAPE
+	k.pressed = true
+	return k

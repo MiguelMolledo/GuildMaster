@@ -311,7 +311,9 @@ SERVICIOS: Taberna, Posada, Scriptorium, Banco (sin materia prima)
 
 #### 4.4.5 Trabajar a mano: modo y toque de maestro
 
-> Propuesta de sustitución del toque de maestro por la «Forja viva» (calentar, batir, templar) en [03b_diversion_y_ritmo.md](03b_diversion_y_ritmo.md) §3b.2.
+> Para quien trabaja a mano en el yunque de la forja, la «Forja viva» (calentar, batir, templar) sustituye al modo
+> con cuidado y su toque de maestro: [03b_diversion_y_ritmo.md](03b_diversion_y_ritmo.md) §3b.2 y §3b.8. Lo de abajo
+> sigue igual para los otros oficios, los bots y las partidas guardadas.
 
 Cuando un personaje **controlado por el jugador** trabaja en un puesto (orden `WorkAt`), no se limita a esperar la barra: elige **cómo** trabaja y puede intervenir durante el ciclo.
 

@@ -2667,3 +2667,176 @@ tutorial.hint.duel_screen,"Read the gesture and how reliable it is. Strike beats
 combat.card.for.offense,For the insult,Por la ofensa
 combat.card.for.courtship,For %s,Por %s
 combat.card.for.rivalry,For the trade,Por el oficio
+ui.station.mode_live,Live forge,Forja viva
+ui.station.with_live,by hand,a mano
+ui.station.spec_none,Not for a contract,Sin encargo
+ui.station.spec_for,For %s: %s,Para %s: %s
+live.title,Live forge · %s,Forja viva · %s
+live.step.heat,1 Heat,1 Calentar
+live.step.strike,2 Strike,2 Batir
+live.step.quench,3 Quench,3 Templar
+live.pull,Pull it out (Space),Sacar (Espacio)
+live.skip,Resolve without playing (Esc),Resolver sin jugar (Esc)
+live.close,Go on,Seguir
+live.heat.dark_red,Dark red,Rojo oscuro
+live.heat.cherry,Cherry red,Rojo cereza
+live.heat.orange,Orange,Naranja
+live.heat.yellow,Yellow,Amarillo
+live.heat.white,White: burnt!,Blanco: ¡quemado!
+live.heat.near,Almost…,Ya casi…
+live.heat.burnt,Too late: the iron burns.,Tarde: el hierro se quema.
+live.known_heat,Your sheet: %s,Tu ficha: %s
+live.unknown_heat,Pull it when you think the colour is right.,Sácalo cuando creas que tiene el color bueno.
+live.strike.strong,Strong (1),Fuerte (1)
+live.strike.measured,Measured (2),Medido (2)
+live.strike.finish,Finishing (3),De acabado (3)
+live.strike.strong.tip,Shapes fast; may crack the piece.,Da forma rápido; puede agrietar la pieza.
+live.strike.measured.tip,Steady shaping.,Forma pausada.
+live.strike.finish.tip,Fine finishing blows.,Golpes finos de acabado.
+live.strike.strong.short,Strong,Fuerte
+live.strike.measured.short,Measured,Medido
+live.strike.finish.short,Finish,Acabado
+live.template_seen,Follow the template.,Sigue la plantilla.
+live.template_hidden,"The template shows with more Craft, or once you learn it.",La plantilla se ve con más Artesanía o cuando la aprendes.
+live.quench.water,Water (1),Agua (1)
+live.quench.oil,Oil (2),Aceite (2)
+live.quench.air,Air (3),Al aire (3)
+live.quench.water.tip,"Hard, brittle.","Dura, frágil."
+live.quench.oil.tip,Balanced.,Equilibrada.
+live.quench.air.tip,Soft.,Blanda.
+live.known_quench,Your sheet: %s,Tu ficha: %s
+live.hint.forge_hammer,A hammer has to be hard: it lives hitting iron.,Un martillo tiene que ser duro: vive golpeando hierro.
+live.hint.forge_sword,A sword has to bend without breaking.,Una espada tiene que doblarse sin romperse.
+live.hint.forge_armor,"Armour has to give a little, not crack.","Una armadura tiene que ceder un poco, no agrietarse."
+live.waiting,Done by hand. The piece finishes on its own…,Hecho a mano. La pieza termina sola…
+live.result,Out: %s,Sale: %s
+live.steps_up,Well done: one step up.,Bien hecha: sube un escalón.
+live.steps_down,Badly done: one step down.,Mal hecha: baja un escalón.
+live.steps_same,As your Craft gives.,Lo que da tu Artesanía.
+live.trait.oil_tempered,oil-tempered,templada al aceite
+live.trait.hard,water-hardened,templada al agua
+live.trait.soft,air-cooled,enfriada al aire
+live.trait.fine_edge,fine edge,filo fino
+live.trait.master_mark,master's mark,con marca del maestro
+live.masterwork.title,A masterwork,Obra maestra
+live.masterwork.body,"It goes into the chronicle with its name, and into the storage as an excellent piece.","Queda en la crónica con su nombre y en el almacén como pieza excelente."
+live.variant.length.short,Short blade,Hoja corta
+live.variant.length.long,Long blade,Hoja larga
+live.variant.guard.plain,Plain guard,Guarnición sencilla
+live.variant.guard.carved,Carved guard,Guarnición labrada
+live.variant.temper.water,Water temper,Temple al agua
+live.variant.temper.oil,Oil temper,Temple al aceite
+live.variant.temper.air,Air cooled,Enfriada al aire
+masterwork.name.sword,The %s sword of the %s,La espada de %s de los %s
+masterwork.name.hammer,The %s hammer of the %s,El martillo de %s de los %s
+masterwork.name.armor,The %s armour of the %s,La armadura de %s de los %s
+masterwork.patron.san_martin,San Martín,San Martín
+masterwork.patron.santa_eulalia,Santa Eulalia,Santa Eulalia
+masterwork.patron.san_jorge,San Jorge,San Jorge
+masterwork.patron.santa_lucia,Santa Lucía,Santa Lucía
+masterwork.patron.san_roque,San Roque,San Roque
+masterwork.patron.santa_barbara,Santa Bárbara,Santa Bárbara
+masterwork.patron.san_isidro,San Isidro,San Isidro
+masterwork.patron.santa_ines,Santa Inés,Santa Inés
+notice.masterwork,A masterwork at the forge: a {item} of the {family_name}. It goes into the chronicle.,Obra maestra en la forja: una pieza de {item} de los {family_name}. Queda en la crónica.
+spec.left_knight.desc,"A left-handed knight wants a long, light sword that will not break.","Un caballero zurdo quiere una espada larga y ligera, que no se rompa."
+spec.noble_gala.desc,"A noble wants a short gala sword with a carved guard, flexible.","Un noble quiere una espada corta de gala, con la guarnición labrada y que ceda sin romperse."
+spec.watch_blade.desc,"The watch wants short, plain, hard blades.","La guardia quiere hojas cortas, sencillas y duras."
+spec.quarry_hammer.desc,The quarry wants hammers as hard as the stone.,La cantera quiere martillos tan duros como la piedra.
+spec.rider_armor.desc,A rider wants plain armour that gives with the horse.,Un jinete quiere una armadura sencilla que ceda con el caballo.
+spec.parade_armor.desc,"A parade armour: carved, balanced.",Una armadura de desfile: labrada y equilibrada.
+ui.board.spec,Asks for: %s (+%d if made to it),Pide: %s (+%d si se hace a medida)
+reason.no_live_forge,This piece is not forged by hand,Esta pieza no se forja a mano
+reason.not_by_hand,Only your people forge by hand,Solo los tuyos forjan a mano
+reason.not_live,Not forging by hand,No se está forjando a mano
+reason.live_done,Already decided,Ya está decidido
+reason.wrong_step,Not that step now,Ahora no toca ese paso
+reason.unknown_step,Unknown step,Paso desconocido
+reason.no_spec,That contract asks for nothing special,Ese encargo no pide nada especial
+reason.wrong_item,That contract wants another piece,Ese encargo pide otra pieza
+reason.bad_variant,Not a variant of that piece,No es una variante de esa pieza
+tutorial.produce.live_mode,"Choose Live forge: you forge the sword yourself, in three steps.","Elige Forja viva: la espada la forjas tú, en tres pasos."
+tutorial.produce.live_forge,"Pull the iron at cherry red, strike following the template and quench it in oil. Esc: resolve without playing.","Saca el hierro en rojo cereza, bate siguiendo la plantilla y témplala al aceite. Esc: resolver sin jugar."
+tutorial.hint.live_forge,"Heat, strike, quench: done well, the piece goes up a step. Esc resolves it as always.","Calentar, batir, templar: bien hecho, la pieza sube un escalón. Esc la resuelve como siempre."
+unlock.new,New: %s,Nuevo: %s
+unlock.chapter,See the chapter,Ver capítulo
+unlock.ok,Got it,Entendido
+unlock.goal,Goal: %s,Meta: %s
+notice.unlocked,New: {what},Nuevo: {what}
+unlock.live_forge,the live forge,la Forja viva
+unlock.live_forge.desc,"Forge by hand: heat, strike and quench.","Forja a mano: calienta, bate y templa."
+unlock.contracts,contracts and errands,los encargos y el recado
+unlock.contracts.desc,The board in the square posts contracts that pay better than the market. And with «Buy and send to…» the goods walk home on their own.,El tablón de la plaza publica encargos que pagan mejor que el mercado. Y con «Comprar y enviar a…» la mercancía llega sola a casa.
+unlock.counter,your shop counter,tu mostrador
+unlock.counter.desc,"With the «Shop counter» upgrade customers come in and buy at your forge, without going to the square.","Con la mejora «Mostrador de venta» los clientes entran y compran en tu forja, sin ir a la plaza."
+unlock.first_festival,the first festival,la primera fiesta
+unlock.first_festival.desc,"The town celebrates: more people in the street, big orders and your counter full.","El pueblo está de fiesta: más gente en la calle, grandes encargos y tu mostrador lleno."
+unlock.staff,your first employee,tu primer empleado
+unlock.staff.desc,Hire an apprentice: employees do the volume while your hands make the pieces that matter. Give them a queue.,Contrata a un aprendiz: los empleados hacen el volumen y tus manos las piezas que importan. Ponle una cola.
+unlock.rival,the rival smith,el herrero rival
+unlock.rival.desc,"Bernat has noticed you: you sold more than him. Now the price war starts: lower, hold or specialise.","Bernat se ha fijado en ti: has vendido más que él. Empieza la guerra de precios: bajar, aguantar o especializarse."
+unlock.upgrades,the forge's upgrades,las mejoras de la forja
+unlock.upgrades.desc,"With some savings you can improve the forge: faster, better pieces, a counter. Each upgrade shows.","Con unos ahorros puedes mejorar la forja: más rápida, mejores piezas, un mostrador. Cada mejora se ve."
+unlock.fair,the fair,la feria
+unlock.fair.desc,"Strangers, rumours and the horse race: sell, listen and bet.","Forasteros, rumores y la carrera de caballos: vende, escucha y apuesta."
+unlock.tavern,the tavern,la taberna
+unlock.tavern.desc,"Dice, cards and rumours at someone else's tavern.","Dados, naipes y rumores en la taberna de otro."
+unlock.debt,the year's debt,la deuda del año
+unlock.debt.desc,The moneylender wants his 200 before the year ends. The book (L) tells you how you stand.,El prestamista quiere sus 200 antes de que acabe el año. El libro (L) te dice cómo vas.
+unlock.courtship,courtship,el cortejo
+unlock.courtship.desc,"Time to think of a family: talk to someone every day, give gifts and, with enough affinity, ask for their hand.","Es hora de pensar en una familia: habla con alguien cada día, regala y, con afinidad, pide su mano."
+unlock.citizen,the citizen's title,el título de Ciudadano
+unlock.citizen.desc,"As a citizen you can travel through Valldaura, take on duels and open a second business.","Como ciudadano puedes viajar por Valldaura, aceptar duelos y abrir un segundo negocio."
+unlock.incidents,the town's incidents,los sucesos de la villa
+unlock.incidents.desc,"Brawls, bandits and the marquis's visit: the town needs someone.","Peleas, bandidos y la visita del marqués: la villa necesita a alguien."
+unlock.family_trade,family and caravans,la familia y las caravanas
+unlock.family_trade.desc,With a spouse or a cart the business grows beyond your hands: family members work and caravans travel.,Con pareja o con carro el negocio crece más allá de tus manos: la familia trabaja y las caravanas viajan.
+unlock.offices,offices and treaties,los cargos y los tratados
+unlock.offices.desc,Your title lets you run for the council and sign treaties: power is also a trade.,Tu título te deja presentarte al concejo y firmar tratados: el poder también es un oficio.
+unlock.court,the court,el tribunal
+unlock.court.desc,Somebody went to court. Win witnesses before the hearing: whoever weighs more wins.,Alguien ha ido a juicio. Gana testigos antes de la vista: gana quien más pese.
+unlock.masterwork,the masterwork,la obra maestra
+unlock.masterwork.desc,"Three decisions right at the forge. With Craft 7 or more, a piece forged well may come out a masterwork, with its name in the chronicle.","Tres decisiones bien en la forja. Con Artesanía 7 o más, una pieza bien forjada puede salir obra maestra, con su nombre en la crónica."
+unlock.heir,the heir,el heredero
+unlock.heir.desc,"The new head forges with their own Craft, learned with you.","El nuevo cabeza forja con su propia Artesanía, aprendida contigo."
+objective.hire_apprentice,Hire an apprentice and give them a queue,Contrata a un aprendiz y ponle una cola
+objective.outsell_rival,Outsell the rival smith one day,Gana al rival en ventas un día
+objective.first_upgrade,Make your first upgrade,Haz tu primera mejora
+objective.court_someone,Court someone,Corteja a alguien
+objective.first_trip,Travel to another town,Viaja a otra villa
+objective.run_for_office,Run for an office,Preséntate a un cargo
+objective.forge_masterwork,Forge a masterwork,Forja una obra maestra
+hud.goals,Goals,Metas
+hud.goal.short,Today,Hoy
+hud.goal.medium,This season,Esta estación
+hud.goal.long,This year,Este año
+hud.goal.dynasty,Dynasty,Dinastía
+hud.skip,Skip until…,Saltar hasta…
+hud.skip_tip,×8 until something happens (any notice stops it),×8 hasta que pase algo (cualquier aviso lo corta)
+hud.skip.event,the next event,el próximo evento
+hud.skip.dawn,dawn,el amanecer
+hud.skip.queue,the queue ends,que acabe la cola
+hud.skip.on,Skipping until %s… (×8),Saltando hasta %s… (×8)
+hud.skip.stopped,Stopped: %s,Parado: %s
+hud.skip.cancel,Stop,Parar
+hud.new,New,Nuevo
+reason.unknown_unlock,Unknown unlock,Desbloqueo desconocido
+reason.not_unlocked,Not unlocked yet,Aún no está desbloqueado
+hud.skip.why.notice,a notice,un aviso
+hud.skip.why.unlocked,something new,algo nuevo
+hud.skip.why.world_event_started,an event in the town,un evento en la villa
+hud.skip.why.microevent_started,something happens,algo pasa
+hud.skip.why.duel_challenged,a challenge,un reto
+hud.skip.why.dawn,dawn,el amanecer
+hud.skip.why.work_done,a piece is done,una pieza terminada
+hud.skip.why.contract_posted,a new contract,un encargo nuevo
+hud.skip.why.errand_arrived,an errand arrived,llegó un recado
+hud.skip.why.building_entered,someone arrived,alguien llegó
+hud.skip.why.character_arrived,someone arrived,alguien llegó
+hud.skip.why.live_forge_done,a piece by hand,una pieza a mano
+hud.skip.why.employee_started,an employee starts,empieza un empleado
+hud.skip.why.phase,the time of day changed,cambió la hora del día
+hud.skip.why.queue,the queue ended,acabó la cola
+hud.skip.why.max,a whole day went by,pasó un día entero
+hud.skip.why.speed,speed changed,cambió la velocidad
+hud.skip.why.paused,paused,en pausa

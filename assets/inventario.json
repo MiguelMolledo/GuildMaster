@@ -6265,6 +6265,104 @@
       "coste_gen": 0,
       "coste_usd": 0.04,
       "notas": "Carro de caravana de bueyes, de perfil mirando al este (al oeste, reflejado), 56×34 a la densidad del pergamino. Variante caravan_cart.png (carreta de mula, 48×24). Cableado: las caravanas de la familia en el mapa regional (VisualPaths.region_caravan, reflejada hacia el oeste; por defecto la de bueyes, CARAVAN_VARIANT)."
+    },
+    {
+      "id": "ui_icon_live_strong",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "forja_viva",
+        "03b"
+      ],
+      "ruta": "assets/art/ui/icons/icon_live_strong.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Icono de la Forja viva (docs/gdd/03b_diversion_y_ritmo.md §3b.2): golpe fuerte (martillazo con chispas). 32×32 y small/ (16×16). Cableado: botones de batir y templar de game/ui/forja/live_forge_screen.gd (VisualPaths.forge_icon, small; provisional: cuadro de color con borde)."
+    },
+    {
+      "id": "ui_icon_live_measured",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "forja_viva",
+        "03b"
+      ],
+      "ruta": "assets/art/ui/icons/icon_live_measured.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Icono de la Forja viva (docs/gdd/03b_diversion_y_ritmo.md §3b.2): golpe medido. 32×32 y small/ (16×16). Cableado: botones de batir y templar de game/ui/forja/live_forge_screen.gd (VisualPaths.forge_icon, small; provisional: cuadro de color con borde)."
+    },
+    {
+      "id": "ui_icon_live_finish",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "forja_viva",
+        "03b"
+      ],
+      "ruta": "assets/art/ui/icons/icon_live_finish.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Icono de la Forja viva (docs/gdd/03b_diversion_y_ritmo.md §3b.2): golpe de acabado (martillo pequeño). 32×32 y small/ (16×16). Cableado: botones de batir y templar de game/ui/forja/live_forge_screen.gd (VisualPaths.forge_icon, small; provisional: cuadro de color con borde)."
+    },
+    {
+      "id": "ui_icon_live_water",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "forja_viva",
+        "03b"
+      ],
+      "ruta": "assets/art/ui/icons/icon_live_water.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Icono de la Forja viva (docs/gdd/03b_diversion_y_ritmo.md §3b.2): temple al agua (cubo de agua con vapor). 32×32 y small/ (16×16). Cableado: botones de batir y templar de game/ui/forja/live_forge_screen.gd (VisualPaths.forge_icon, small; provisional: cuadro de color con borde)."
+    },
+    {
+      "id": "ui_icon_live_oil",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "forja_viva",
+        "03b"
+      ],
+      "ruta": "assets/art/ui/icons/icon_live_oil.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Icono de la Forja viva (docs/gdd/03b_diversion_y_ritmo.md §3b.2): temple al aceite (cubo de aceite con llama). 32×32 y small/ (16×16). Cableado: botones de batir y templar de game/ui/forja/live_forge_screen.gd (VisualPaths.forge_icon, small; provisional: cuadro de color con borde)."
+    },
+    {
+      "id": "ui_icon_live_air",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "forja_viva",
+        "03b"
+      ],
+      "ruta": "assets/art/ui/icons/icon_live_air.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Icono de la Forja viva (docs/gdd/03b_diversion_y_ritmo.md §3b.2): enfriado al aire (pieza colgada, aire). 32×32 y small/ (16×16). Cableado: botones de batir y templar de game/ui/forja/live_forge_screen.gd (VisualPaths.forge_icon, small; provisional: cuadro de color con borde)."
+    },
+    {
+      "id": "illus_event_masterwork",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "forja_viva",
+        "03b"
+      ],
+      "ruta": "assets/art/illustrations/events/masterwork.png",
+      "origen": "",
+      "coste_gen": 0,
+      "coste_usd": 0,
+      "notas": "Lámina de la carta «Obra maestra» (03b §3b.2): una espada recién templada sobre el yunque, con el sello del maestro, luz de fragua. 240×135 y masterwork_192.png (192×108). Cableado: LiveForgeScreen._show_masterwork (VisualPaths.illustration(\"events\", \"masterwork\"); sin ella, la carta va sin lámina)."
     }
   ]
 }

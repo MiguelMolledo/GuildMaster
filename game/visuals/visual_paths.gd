@@ -366,3 +366,10 @@ static func door_of(kind: String, id: String) -> Dictionary:
 		n.free()
 	_doors[key] = out
 	return out
+
+
+## Forja viva y desbloqueos (docs/gdd/03b_diversion_y_ritmo.md): an icon of the live forge or of the unlocks
+## (assets/art/ui/icons/icon_<id>.png, 32×32; small/ 16×16), or a visible placeholder of `color` until it arrives.
+static func forge_icon(id: String, color: Color, small: bool = true) -> Texture2D:
+	var size := 16 if small else 32
+	return _art_or("%s/ui/icons/%sicon_%s.png" % [ART_ROOT, "small/" if small else "", id], Vector2i(size, size), color)

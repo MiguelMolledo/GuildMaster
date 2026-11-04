@@ -371,6 +371,18 @@
       "tema": "Combate: duelo a tres tiempos (O-C1–O-C12)",
       "decision": "Aprobadas las recomendaciones de 04e §4e.9: el duelo entra ya como mecánica social del Artesano, solo a primera sangre (hasta la rendición, con la salud de 4.22); el lance sustituye a los asaltos de 4.22.6.1; a muerte bloqueado; el retado elige armas; lee Empatía contra Arte Marcial; la IA rival solo responde retos hasta revisar 04c; rechazar es gratis 2+ títulos por encima; iniciativa a ciegas y luego alterna; resolver sin jugar = jugar siguiendo la pista; cualquier pretendiente reta, sea cual sea su sexo. Guardado del duelo: v15; 4.22 pasa a v17.",
       "por_que": "El owner: «me parece bien lo que comentas, dale caña»."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Forja viva (03b §3b.2, O-D1 a, O-D4 a)",
+      "decision": "Construida como modo de trabajo `live` (sim/forge/live_forge.gd, data/live_forge.json): calentar, batir y templar como órdenes live_forge que se aplican al momento y quedan en la grabación; cada decisión sale bien, cerca o mal; tres bien +1 escalón, dos mal −1; sin decidir nada, exactamente el modo normal (mismos dados). En el yunque de la forja el tercer botón pasa de «Con cuidado» a «Forja viva»; `careful` y el toque de maestro siguen en el sim para los bots, los guardados y los otros oficios. Gracia de 0,5 h al final del ciclo; solo se repite en Forja viva si se jugó hasta el temple. La pantalla pone ×1 mientras está abierta. Obra maestra: Artesanía ≥ 7, las tres bien y una tirada del 10 % [balance]; con nombre (santo + apellido), en la crónica y en masterworks.pieces; la venta a nobles ×3, el regalo y la ventaja en justas y duelo quedan como ganchos.",
+      "por_que": "El owner temía que forjar fuera mirar una barra. Cambios sobre el diseño: (1) 03b decía «jugar mal no es peor que no jugar», que contradecía el −1 con dos mal y O-C10 («jugar mal pierde»): se sigue O-C10. (2) El Hugo del inicio ya tiene Artesanía 7, así que la obra maestra no puede esperar al año 3-5: su desbloqueo pasa a «la primera que salga» y la probabilidad baja al 10 % para que sea rara. (3) Los rasgos son descriptivos hasta que exista la durabilidad. Banco (tests/test_forja_live.gd, 60 martillos, Artesanía 7): normal 1,07 · sin jugar 1,07 · bien 1,83 · mal 0,33."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Encargos con especificaciones (03b §3b.3, O-D5 a)",
+      "decision": "Algunos encargos del herrero (spec_chance 0,35 [balance]) piden variante: hoja corta o larga, guarnición sencilla o labrada y temple, dicho con palabras en el tablón. Cada pieza hecha a medida cobra +30 % [balance] (spec_pay) al entregarla; una pieza normal se sigue aceptando a la paga normal. Las que cumplen se apartan para el encargo (contract.made) y vuelven al almacén si el encargo falla. Hoja larga ×1,15 y un golpe medido más; guarnición labrada ×1,25 y un golpe de acabado más.",
+      "por_que": "«Tensión, no castigo» (§3b.5.5) y las dianas: como prima, ni el jugador que no juega ni los bots pierden nada. Qué encargo pide variante sale de un azar propio (semilla de la partida + id del encargo), no de state.rng, para que las dianas de hoy salgan iguales."
     }
   ],
   "pendientes": [

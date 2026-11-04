@@ -1,0 +1,226 @@
+[gd_scene format=3 uid="uid://54f0s4t8k5oc"]
+
+[ext_resource type="Script" uid="uid://bmcf78bb70q3g" path="res://game/ui/forja/live_forge_screen.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://bcva2b5m5mmhg" path="res://game/ui/page_card.tscn" id="3_card"]
+
+[node name="LiveForgeScreen" type="Control"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Panel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -196.0
+offset_right = 180.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"DarkPanel"
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Head" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/VBox/Head"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SectionTitle"
+text = "Forja viva"
+
+[node name="Progress" type="ProgressBar" parent="Panel/VBox/Head"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 8)
+layout_mode = 2
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="Steps" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="StepHeat" type="Label" parent="Panel/VBox/Steps"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "1 Calentar"
+
+[node name="StepStrike" type="Label" parent="Panel/VBox/Steps"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "2 Batir"
+
+[node name="StepQuench" type="Label" parent="Panel/VBox/Steps"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "3 Templar"
+
+[node name="Sep" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="HeatBox" type="HBoxContainer" parent="Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Iron" type="ColorRect" parent="Panel/VBox/HeatBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 40)
+layout_mode = 2
+color = Color(0.42, 0.1, 0.07, 1)
+
+[node name="HeatText" type="VBoxContainer" parent="Panel/VBox/HeatBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HeatName" type="Label" parent="Panel/VBox/HeatBox/HeatText"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "Rojo oscuro"
+
+[node name="HeatHint" type="Label" parent="Panel/VBox/HeatBox/HeatText"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+
+[node name="HeatKnown" type="Label" parent="Panel/VBox/HeatBox/HeatText"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+autowrap_mode = 3
+
+[node name="PullButton" type="Button" parent="Panel/VBox/HeatBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"PrimaryButton"
+text = "Sacar"
+
+[node name="StrikeBox" type="VBoxContainer" parent="Panel/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Template" type="HBoxContainer" parent="Panel/VBox/StrikeBox"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="TemplateHint" type="Label" parent="Panel/VBox/StrikeBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+horizontal_alignment = 1
+
+[node name="Strikes" type="HBoxContainer" parent="Panel/VBox/StrikeBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Strike_strong" type="Button" parent="Panel/VBox/StrikeBox/Strikes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "strong"
+
+[node name="Strike_measured" type="Button" parent="Panel/VBox/StrikeBox/Strikes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "measured"
+
+[node name="Strike_finish" type="Button" parent="Panel/VBox/StrikeBox/Strikes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "finish"
+
+[node name="QuenchBox" type="VBoxContainer" parent="Panel/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="QuenchNeed" type="Label" parent="Panel/VBox/QuenchBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+autowrap_mode = 3
+
+[node name="Media" type="HBoxContainer" parent="Panel/VBox/QuenchBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Quench_water" type="Button" parent="Panel/VBox/QuenchBox/Media"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "water"
+
+[node name="Quench_oil" type="Button" parent="Panel/VBox/QuenchBox/Media"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "oil"
+
+[node name="Quench_air" type="Button" parent="Panel/VBox/QuenchBox/Media"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "air"
+
+[node name="WaitBox" type="VBoxContainer" parent="Panel/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="WaitLabel" type="Label" parent="Panel/VBox/WaitBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+autowrap_mode = 3
+
+[node name="Foot" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+alignment = 2
+
+[node name="SkipButton" type="Button" parent="Panel/VBox/Foot"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resolver sin jugar"
+
+[node name="CloseButton" type="Button" parent="Panel/VBox/Foot"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "Seguir"
+
+[node name="Masterwork" parent="." instance=ExtResource("3_card")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2

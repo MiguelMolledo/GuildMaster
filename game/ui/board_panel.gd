@@ -92,7 +92,8 @@ static func family_stock(s: Sim, fam: String, item: String, min_quality: int) ->
 ## What the actor carries of a contract's item.
 func carried(c: Dictionary) -> int:
 	var inv: Dictionary = sim.state.characters.get(actor, {}).get("inventory", {})
-	return Contracts.count_valid(inv, str(c.get("item", "")), int(c.get("min_quality", 0))) if not inv.is_empty() else 0
+	var kept := LiveForge.crate_units(c, int(c.get("min_quality", 0)))  # 03b §3b.3: made to its spec, kept for it
+	return kept + (Contracts.count_valid(inv, str(c.get("item", "")), int(c.get("min_quality", 0))) if not inv.is_empty() else 0)
 
 
 func _quality_text(c: Dictionary) -> String:
@@ -231,6 +232,12 @@ func _fill_open(grid: GridContainer, rows: Array, fam: String) -> void:
 		var terms := SocialKit.label(_quality_text(c), &"InkLabel", "Quality")
 		terms.clip_text = true
 		row.add_child(terms)
+		if c.get("spec") is Dictionary and not (c["spec"] as Dictionary).is_empty():  # 03b §3b.3
+			var sp := SocialKit.label(SimQuery.t_("ui.board.spec") % [SimQuery.t_("spec.%s.desc" % str(c["spec"].get(
+				"id", ""))), int(c.get("spec_pay", 0))], &"InkLabel", "Spec")
+			sp.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			sp.custom_minimum_size = Vector2(140, 0)
+			row.add_child(sp)
 		var line := HBoxContainer.new()
 		line.name = "Line"
 		line.add_child(_gold(int(c.get("pay", 0)), &"InkBold"))

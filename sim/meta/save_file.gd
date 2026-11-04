@@ -314,6 +314,8 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 			_to_v15(data)
 		15:  # 15 -> 16 (viajes, docs/gdd/09b_region.md)
 			data = to_v16(data)
+		19:  # 19 -> 20 (diversión y ritmo, docs/gdd/03b_diversion_y_ritmo.md)
+			data = _to_v20(data)
 	return data
 
 
@@ -324,6 +326,24 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 static func to_v16(data: Dictionary) -> Dictionary:
 	if not data.get("region") is Dictionary:
 		data["region"] = {}
+	return data
+
+
+## 19 -> 20 (diversión y ritmo, docs/gdd/03b_diversion_y_ritmo.md): the roots «unlocks» and «masterworks». A game
+## from before had already played with everything open: its families get every unlock of data/unlocks.json as seen
+## the first time Unlocks.step runs («grandfathered» in the family's entry; the save has no catalog), so nothing it
+## already used hides from it. No named masterworks and nothing learned. Depends on no field of v17-v19: it chains
+## behind any of them or on its own.
+static func _to_v20(data: Dictionary) -> Dictionary:
+	if not data.get("unlocks") is Dictionary:
+		var u := {}
+		var fams: Dictionary = data.get("families", {}) if data.get("families") is Dictionary else {}
+		for f: Variant in fams.keys():
+			if str((fams[f] as Dictionary).get("controlled_by", "")) == "human":
+				u[str(f)] = {"_all": {"minute": -1, "seen": true}}
+		data["unlocks"] = u
+	if not data.get("masterworks") is Dictionary:
+		data["masterworks"] = {"pieces": [], "learned": {}}
 	return data
 
 
