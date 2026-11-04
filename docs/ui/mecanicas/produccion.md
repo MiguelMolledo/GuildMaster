@@ -134,8 +134,8 @@ coste de las entradas va en el mercado (ver [mercado_y_libro.md](mercado_y_libro
 
 ## 6. Maqueta
 
-- Hoy: [produccion_hoy.png](../maquetas/produccion_hoy.png). Puestos como texto («Horno: libre»), una entrada
-  «Fundir lingote · 0/5» sin estado visible, desplegable de recetas y botones.
+- Hoy (rama ui-economia, `--smoke-script=economia --eco=produccion`): [produccion_hoy_ahora.png](../maquetas/produccion_hoy_ahora.png),
+  [produccion_hoy_cola.png](../maquetas/produccion_hoy_cola.png) y [produccion_hoy_recetas.png](../maquetas/produccion_hoy_recetas.png).
 - Propuesta (guion `docs/ui/maquetas/src/produccion.py`):
   - [produccion.png](../maquetas/produccion.png): pestaña *Cola*, con una entrada trabajando y su dependencia (1, 2), una
     saltada con su motivo (3), la rejilla de recetas con +1 / +5 / +10 / +siempre (4) y los interruptores (5);
@@ -215,10 +215,26 @@ Tareas:
 ## 10. Criterios de aceptación
 
 - [ ] Con Joan en el horno fundiendo para una espada de la cola, la entrada «Espada» dice «antes: 2 lingotes».
-- [ ] Sin hierro en el almacén, las dos pestañas enseñan «Cola parada: falta hierro» sin pasar el ratón, y la
+- [x] Sin hierro en el almacén, las dos pestañas enseñan «Cola parada: falta hierro» sin pasar el ratón, y la
       barra del interior lleva `!`.
-- [ ] La pestaña «Recetas» da la misma duración que tarda de verdad un oficial (comprobado con un ciclo a ×4).
-- [ ] Bucle y Pausa dicen su estado con palabras.
-- [ ] Añadir «Espada ×5» son 2 clics (receta + «+5»).
-- [ ] Ninguna fila se corta a 960×540 con 3 puestos, 5 entradas y la franja de aviso a la vez (la lista de la cola
+- [x] La pestaña «Recetas» da la misma duración que tarda de verdad un oficial (comprobado con un ciclo a ×4).
+- [x] Bucle y Pausa dicen su estado con palabras.
+- [x] Añadir «Espada ×5» son 2 clics (receta + «+5»).
+- [x] Ninguna fila se corta a 960×540 con 3 puestos, 5 entradas y la franja de aviso a la vez (la lista de la cola
       hace scroll; la rejilla y los botones de añadir quedan fijos abajo).
+
+## Implementado (rama ui-economia, 2026-11-03)
+
+- Pestañas *Ahora · Cola · Recetas* en la zona 5. *Ahora*: fila por puesto con quién, receta, modo, barra con el tramo
+  del toque, tiempo que falta y *Parar*; «da para N» (`WorkQueue.can_make`, lectura nueva). *Cola*: entradas con icono,
+  `hechas/total`, barra, estado en palabras (en curso, en espera, saltada: motivo), ↑ ↓ x; *Bucle: sí/no* y *Pausa:
+  sí/no*; rejilla de recetas fija abajo con la elegida, su duración y +1 / +5 / +10 / +siempre. *Recetas*: cadena del
+  edificio, entradas → salida, duración para ti y por rango (`Production.rank_cycle_minutes`, lectura nueva), calidad y
+  precio de hoy. Franja roja de cola parada en *Ahora* y *Cola* con el panel que lo arregla.
+
+Falta (el sim no lo da y es más que una lectura):
+- Dependencias por entrada («antes: 2 lingotes»): la resolución es interna de `WorkQueue._assign`; hace falta `deps` en
+  la vista, en su hito.
+- «Hoy: 3 lingotes · 1 espada buena»: el estado no guarda lo terminado en el día (`done_today`).
+- `sfx_queue_done`: sin créditos de audio en esta fase.
+- «Joan empieza el día 3» y el brillo de la receta nueva por mejora: sin hacer.

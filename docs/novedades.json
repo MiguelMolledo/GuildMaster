@@ -1,5 +1,77 @@
 [
   {
+    "fecha": "2026-11-04",
+    "titulo": "Arte con fal: 566 retratos, ilustraciones, iconos y fachadas",
+    "que": "Entra el arte que no es sprite animado, generado con fal y pasado a píxel: un pool de 566 retratos (sexo × 5 franjas de edad × 9 tipos sociales, de 6 a 12 caras por combinación) con colores clave para teñir piel, pelo y ropa por familia; 10 eventos y 4 estaciones a 240×135 y 192×108; cartas de boda, nacimiento, muerte, juicio, veredicto, elección y título; pantallas de título, carga y final; 10 iconos de objeto que estaban en greybox, 7 de UI y 4 burbujas de emoción; y las 6 fachadas de los edificios (normal, en obras y dañada), aún sin enchufar. Los crudos quedan fuera de git. Gasto total en fal hasta aquí: 28,87 USD.",
+    "como_probar": "Abre la galería en Grimoire (art_01m6hsw6m7dx7ytd2sgy y art_01m6hsw6ms0kndsbsvh2) o mira assets/art/portraits/index.json. En el juego ya se ven los iconos nuevos en mercado e inventario; los retratos entran con la rama de población.",
+    "capturas": [
+      "docs/novedades/arte_fal_muestra.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-03",
+    "titulo": "Kit de página: cartas, láminas y fichas (y la carta de los eventos globales)",
+    "que": "Nuevo kit para las ventanas narrativas, inspirado en el kit de Publicación de RolApp y pasado a pixel art (docs/ui/04_kit_de_pagina.md). Piezas generadas con fal (nano-banana-2/edit con el kit actual de referencia, pasadas a su rejilla nativa con image2pixel y a la paleta de la UI): pergamino rasgado claro (apaisado y vertical), cuero oscuro, marco de cuadro, marco de caja, esquina, cinta del título, separador, cartucho y dos texturas repetibles; máscaras de pincel tramadas y velo gratis (Pillow). tools/art/kit_pagina.py mide el corte de 9 trozos desde el alfa y la zona segura de cada fondo, y lo escribe en assets/art/ui/page_kit/kit.json. Componente PageCard (game/ui/page_card.gd) con cuatro plantillas: Carta (ilustración fundida arriba, título en cinta, cuerpo, sello y botones), Lámina (ilustración ×2 en el marco de cuadro, texto sobre el velo), Ficha (retrato ×2 fundido a un lado) y aviso corto; bloques de párrafo, efectos, cifras en cartucho, cita en caja y retratos; las variantes se alternan carta a carta y una pieza que falta cae a la del theme. Primera ventana real: al empezar un evento global (o declararlo el Alcalde) sale su carta con la ilustración (guerra y fiesta, del piloto), el nombre en la cinta, qué cambia, cuánto dura y «Entendido»; si llegan dos, la segunda espera; no pausa y el aviso de siempre sigue saliendo. La carta de boda pasa al kit. Variaciones nuevas Page* en el theme (tinta, verde y lacre legibles sobre papel). Sin cambios en el sim. Gasto: 1,25 USD.",
+    "como_probar": "Escenario season_events (a medianoche empieza una festividad): /opt/homebrew/bin/godot --path . -- --scenario=season_events y esperar a las 00:00; o declarar una fiesta como Alcalde. Captura guionizada de las cuatro plantillas y la boda: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=pagina (comprueba en pantalla que ningún texto sale de la zona segura). Pruebas: godot --headless --path . -s tests/run_tests.gd -- --only=test_ui_page_card. Regenerar medidas: python3 tools/art/kit_pagina.py measure.",
+    "capturas": [
+      "docs/novedades/kit_pagina_guerra.png",
+      "docs/novedades/kit_pagina_evento.png",
+      "docs/novedades/kit_pagina_boda.png",
+      "docs/novedades/kit_pagina_lamina.png",
+      "docs/novedades/kit_pagina_ficha.png",
+      "docs/novedades/kit_pagina_aviso.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-03",
+    "titulo": "Interfaz nueva (2/2, parte 1): los paneles de economía por dentro",
+    "que": "Los paneles de la forja se rehacen con su documento de docs/ui/mecanicas. Menú del puesto en una sola caja con los tres modos, el tiempo de cada receta y por qué no se puede; la barra del puesto con la ventana del toque; marcas numeradas de las órdenes en pausa; la rutina como franja del día. Producción con pestañas Ahora · Cola · Recetas y la franja roja cuando la cola se para. El almacén en casillas (con la fila bloqueada de la mejora) y la ficha del personaje con lo que da cada pieza de equipo. Mercado con la demanda escrita en cada fila, el recado con su recargo y tiempo, y vender con la suma unidad a unidad; el libro con el neto de hoy, el gráfico por día y la tarjeta de deuda con previsión. Empleados con la tabla de rangos, lo que cada candidato puede hacer, contratar con segundo clic, la lealtad con sus tramos y el ascenso pendiente arriba. Mejoras en el panel ancho y más visual: iconos de rama, la miniatura del mueble que pone cada mejora y una vista del edificio con la pieza nueva en dorado; coste material a material y requisitos con su estado. Comprar una mejora, despedir o pagar dejando el oro bajo el cobro del alba piden confirmación en la caja común (Intro confirma, Esc cancela).",
+    "como_probar": "Partida nueva como herrero. Entra en la forja: clic derecho en el yunque (menú), P (producción), A (almacén), E (empleados: contrata a alguien con dos clics), M (mejoras: pasa el ratón por Reputación comercial y elige Segundo yunque). I abre la ficha. Camina al puesto de Recursos y compra; L abre el libro. Con ventana, todo seguido: grimoire heavy --timeout 4m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=economia (o --eco=forja,produccion,almacen,mercado,empleados,mejoras para una parte).",
+    "capturas": [
+      "docs/ui/maquetas/forja_interior_hoy_menu.png",
+      "docs/ui/maquetas/forja_interior_hoy_barra.png",
+      "docs/ui/maquetas/forja_interior_hoy_pausa.png",
+      "docs/ui/maquetas/forja_interior_hoy_rutina.png",
+      "docs/ui/maquetas/produccion_hoy_ahora.png",
+      "docs/ui/maquetas/produccion_hoy_cola.png",
+      "docs/ui/maquetas/produccion_hoy_recetas.png",
+      "docs/ui/maquetas/almacen_y_personaje_hoy.png",
+      "docs/ui/maquetas/almacen_y_personaje_hoy_ficha.png",
+      "docs/ui/maquetas/mercado_y_libro_hoy_puesto.png",
+      "docs/ui/maquetas/mercado_y_libro_hoy_vender.png",
+      "docs/ui/maquetas/mercado_y_libro_hoy_deuda.png",
+      "docs/ui/maquetas/mercado_y_libro_hoy_libro.png",
+      "docs/ui/maquetas/mercado_y_libro_hoy_dias.png",
+      "docs/ui/maquetas/mercado_y_libro_hoy_confirmar.png",
+      "docs/ui/maquetas/empleados_hoy_contratar.png",
+      "docs/ui/maquetas/empleados_hoy_plantilla.png",
+      "docs/ui/maquetas/empleados_hoy_despedir.png",
+      "docs/ui/maquetas/mejoras_hoy.png",
+      "docs/ui/maquetas/mejoras_hoy_obra.png",
+      "docs/ui/maquetas/mejoras_hoy_confirmar.png",
+      "docs/ui/maquetas/mejoras_hoy_fachada.png",
+      "docs/ui/maquetas/hud_hoy_confirmacion.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-03",
+    "titulo": "Paneles sociales con la interfaz nueva",
+    "que": "Los paneles sociales siguen sus documentos de docs/ui/mecanicas. Ficha de vecino con retrato, relación como barra con palabra y número, emociones hacia tu familia con lo que hacen, el motivo de cada botón apagado escrito y la sección de cortejo; tablón con notas de pergamino que dicen si ya puedes cumplirlas; microeventos con botones de dos líneas cuyos efectos salen del dato; burbujas con el color de la familia. Árbol de familia con insignias, banda «sin heredero», pestaña Dinastía y ficha con barras; carta de sucesión (pausa hasta continuar); tarjetas de nacimiento, mayoría de edad, muerte y escuela. Cortejo con filtros, marca de 80 y «destaca en»; carta de boda. Ayuntamiento con escalera de títulos, requisitos en barras, quién aprueba y modo consulta con «Ir allí»; reputación agrupada; ceremonia con sello. Organigrama con asientos y retratos, calendario de la elección, campaña con sondeo por bandas y poderes con enfriamiento. Juicio con retratos, «dicen tener pruebas», lo que va pasando en la vista y veredicto en sello. Panel de familias (G) con lo público de cada una. Todo lo irreversible pide confirmación con su coste o su riesgo.",
+    "como_probar": "En la partida, clic en un vecino (ficha), F (árbol), O (cargos), G (familias), J (juicio). Capturas de todos: grimoire heavy --timeout 5m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=social (reports/shots/<doc>_hoy_*.png).",
+    "capturas": [
+      "docs/ui/maquetas/ciudad_viva_hoy_ficha.png",
+      "docs/ui/maquetas/ciudad_viva_hoy_tablon.png",
+      "docs/ui/maquetas/ciudad_viva_hoy_microevento.png",
+      "docs/ui/maquetas/familia_hoy_arbol.png",
+      "docs/ui/maquetas/familia_hoy_sucesion.png",
+      "docs/ui/maquetas/cortejo_y_boda_hoy_panel.png",
+      "docs/ui/maquetas/titulos_y_reputacion_hoy_ayuntamiento.png",
+      "docs/ui/maquetas/cargos_y_elecciones_hoy_campana.png",
+      "docs/ui/maquetas/tribunal_hoy_vista.png",
+      "docs/ui/maquetas/rivales_hoy_ficha.png"
+    ]
+  },
+  {
     "fecha": "2026-11-03",
     "titulo": "H12 (1): carpintero, albañil y sastre",
     "que": "El Artesano ya tiene sus cuatro oficios. En Partida nueva se elige el oficio en la cabecera (Herrero, Carpintero, Albañil, Sastre): cada uno empieza con las mismas cifras que el herrero (30 de oro, la deuda de la dificultad, dos encargos guionizados de su oficio y su cadena de objetivos) en su propio taller con vivienda. La Carpintería (caballete y banco: tablas, barriles, arcones, armarios y, con Producción 3, ruedas de carro), la Cantería (banco de corte y banco de tallar: sillares, piedras de afilar, abrevaderos, muelas y, con Producción 3, estatuas) y la Sastrería (telar y mesa de costura: tela, ropa de trabajo, capas de viaje, ropa común y, con Producción 3, ropa fina) copian la Forja: recetas con calidad, mostrador, empleados con su rol por puesto y un árbol de 8 ramas × 3 niveles con las mismas cifras. La materia prima (madera, piedra, lana, hierro para herrajes) se compra en Recursos. Los productos se venden en dos puestos nuevos de la plaza, Ropería y Enseres (provisionales). En town_e hay un taller de cada oficio al sur de la plaza: el tuyo, y los demás de familias IA que juegan como el herrero rival (sin títulos, cargos ni acusaciones). El tablón da encargos del oficio del jugador. Arte sin créditos: fachadas derivadas de Guild Renew, puestos, muebles e iconos dibujados (placeholder; lista de la compra de PixelLab en assets/art/MANIFEST.md).",

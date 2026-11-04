@@ -248,6 +248,58 @@ static func trade_price(sim: Sim, actor: String, stall: String, item: String, qu
 	return p if m == 1.0 else roundi(float(p) * m)
 
 
+## What selling `qty` of `item` at `quality` at `stall` would give now, unit by unit as order_sell pays it (each unit at
+## the demand the one before left): {prices: [int], total, demand_after}. Read only: the state is put back as it was.
+static func sell_preview(sim: Sim, actor: String, stall: String, item: String, quality: int, qty: int) -> Dictionary:
+	var had_table := sim.state.market.has("demand")
+	var table: Dictionary = sim.state.market.get("demand", {})
+	var had := table.has(item)
+	var before := float(table.get(item, 0.0))
+	var drop := float(_demand_cfg(sim).get("drop_per_unit", 0.05))
+	var prices: Array = []
+	var total := 0
+	for n: int in maxi(0, qty):
+		var p := trade_price(sim, actor, stall, item, quality, "sell")
+		prices.append(p)
+		total += p
+		_set_demand(sim, item, demand(sim, item) - drop, false)
+	var after := demand(sim, item)
+	if not had_table:
+		sim.state.market.erase("demand")
+	elif had:
+		sim.state.market["demand"][item] = before
+	else:
+		(sim.state.market["demand"] as Dictionary).erase(item)
+	return {"prices": prices, "total": total, "demand_after": after}
+
+
+## The demand of `item` after the next dawn's recovery (towards demand.rest by recover_per_day), as _recover_demand.
+static func demand_tomorrow(sim: Sim, item: String) -> float:
+	var cfg := _demand_cfg(sim)
+	var rest := float(cfg.get("rest", 1.0))
+	var step_by := float(cfg.get("recover_per_day", 0.1))
+	var now := demand(sim, item)
+	return minf(now + step_by, rest) if now < rest else maxf(now - step_by, rest)
+
+
+## The unit sell price of `item` at `quality` once the demand is `d` (the same formula as price, with that demand).
+## Read only: the demand is set for the call and put back.
+static func sell_price_at(sim: Sim, item: String, quality: int, d: float) -> int:
+	var had_table := sim.state.market.has("demand")
+	var table: Dictionary = sim.state.market.get("demand", {})
+	var had := table.has(item)
+	var before := float(table.get(item, 0.0))
+	_set_demand(sim, item, d, false)
+	var p := price(sim, item, quality, "sell")
+	if not had_table:
+		sim.state.market.erase("demand")
+	elif had:
+		sim.state.market["demand"][item] = before
+	else:
+		(sim.state.market["demand"] as Dictionary).erase(item)
+	return p
+
+
 ## The surcharge of an errand over a purchase of `cost` gold: round(cost × errand.surcharge).
 static func errand_surcharge(sim: Sim, cost: int) -> int:
 	return roundi(cost * float(sim.catalog.market.get("errand", {}).get("surcharge", 0.2)))

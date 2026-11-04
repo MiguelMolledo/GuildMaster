@@ -1,8 +1,22 @@
 class_name StationMenu
 extends PanelContainer
-## Context menu of a station (right click in an interior, GDD 4.4.5 / 4.6.4): Work fast / Work / Work carefully, then
-## the station's recipes from Production.recipe_options (lock if "locked", disabled if "missing_inputs" or "no_room",
-## the reason in the tooltip) -> work_at. Stop -> stop_work. It only gives orders; the sim decides.
+## Context menu of a station (right click in an interior, docs/ui/mecanicas/forja_interior.md §4.1; GDD 4.4.5, 4.6.4):
+## one box. On top the station and who works (name · Artesanía), then the mode as a selector of three (Fast / Normal /
+## Careful; the chosen one is remembered for that person and station) with what it does in one line, the station's
+## recipes (Production.recipe_options) one per row: the output's icon, the name, each input as icon + have/need (red
+## when short) and the real duration (Production.owner_cycle_minutes); a recipe that cannot be made is disabled with its
+## reason written under it ("Falta 1 lingote de hierro", "El almacén está lleno", "Artesanía 6 (tienes 4)", "Necesita
+## Forja de maestro"). Under them the chances of each quality for the recipe under the mouse (or the first one that can
+## be made), Production.quality_view, and the right tool's bonus. Stop (stop_work) and "Trabajando: espada 40 %" when
+## the person works here. Without anybody of the family inside (management): the job of the station and "Entra con un
+## personaje para trabajar aquí" with a Production button; somebody else at the station: "Ocupado por ...". A click
+## on a recipe gives work_at. It only gives orders; the sim decides.
+
+signal production_requested   # the Production button (management mode): the interior opens its panel
+
+const QUALITY_TOKENS: Array[String] = ["texto_tenue", "pergamino", "oro"]   # normal, good, excellent
+
+static var _remembered: Dictionary = {}   # "actor|building|zone" -> mode
 
 var order_sink: Callable = Callable()
 var sim: Sim
@@ -10,9 +24,8 @@ var actor: String = ""
 var building: String = ""
 var zone: String = ""
 var mode: String = ""
-
-
 var _bound: bool = false
+var _focus_recipe: String = ""
 
 
 func _ready() -> void:
@@ -27,28 +40,31 @@ func _bind() -> void:
 	(%NormalButton as Button).pressed.connect(choose_mode.bind("normal"))
 	(%CarefulButton as Button).pressed.connect(choose_mode.bind("careful"))
 	(%StopButton as Button).pressed.connect(stop)
-	(%BackButton as Button).pressed.connect(func() -> void: _show_modes())
+	(%ProductionButton as Button).pressed.connect(func() -> void:
+		close()
+		production_requested.emit())
 
 
-## Opens the menu of `zone` for `actor` ("" = nobody of the family inside: nothing to order) at `at` (screen).
+## Opens the menu of `zone` for `actor` ("" = nobody of the family inside: management) at `at` (screen).
 func open_for(s: Sim, who: String, bld: String, zone_id: String, at: Vector2 = Vector2.ZERO) -> void:
 	_bind()
 	sim = s
 	actor = who
 	building = bld
 	zone = zone_id
-	mode = ""
+	mode = str(_remembered.get(_key(), "normal"))
+	_focus_recipe = ""
 	(%Title as Label).text = SimQuery.zone_name(zone_id)
-	(%FastButton as Button).text = SimQuery.t_("ui.station.work_fast")
-	(%NormalButton as Button).text = SimQuery.t_("ui.station.work")
-	(%CarefulButton as Button).text = SimQuery.t_("ui.station.work_careful")
+	(%FastButton as Button).text = SimQuery.t_("ui.station.mode_fast")
+	(%NormalButton as Button).text = SimQuery.t_("ui.station.mode_normal")
+	(%CarefulButton as Button).text = SimQuery.t_("ui.station.mode_careful")
 	(%StopButton as Button).text = SimQuery.t_("ui.station.stop")
-	(%BackButton as Button).text = SimQuery.t_("ui.back")
-	_show_modes()
+	(%ProductionButton as Button).text = SimQuery.t_("ui.interior.production")
+	refresh()
 	position = at
 	reset_size()
 	visible = true
-	ViewConfig.info("StationMenu", "open (building=%s, zone=%s, actor=%s, recipes=%d)" % [bld, zone_id, who,
+	ViewConfig.info("StationMenu", "open (building=%s, zone=%s, actor=%s, mode=%s, recipes=%d)" % [bld, zone_id, who, mode,
 		recipe_options().size()])
 
 
@@ -56,84 +72,281 @@ func close() -> void:
 	visible = false
 
 
+func _key() -> String:
+	return "%s|%s|%s" % [actor, building, zone]
+
+
 func recipe_options() -> Array:
-	if sim == null:
+	if sim == null or actor == "":
 		return []
 	return SimQuery.recipe_options(sim, actor, building, zone)
 
 
-## The station where `actor` works in this building ("" if none): Stop is offered then.
+## The station where `actor` has a job in this building ("" if none): Stop is offered then.
 func _actor_job_zone() -> String:
 	if sim == null or actor == "":
 		return ""
 	return Production.job_zone(sim, actor, building)
 
 
-func _show_modes() -> void:
-	mode = ""
-	var hint := %Hint as Label
-	var options := recipe_options()
-	var can_work := actor != "" and not options.is_empty()
-	hint.visible = not can_work
+## Picks the mode (the selector) and redraws the recipes with its durations and chances. It does not give an order.
+func choose_mode(m: String) -> void:
+	mode = m
+	if actor != "":
+		_remembered[_key()] = m
+	ViewConfig.info("StationMenu", "mode %s (zone=%s)" % [m, zone])
+	refresh()
+
+
+## Everything the box shows, from the sim.
+func refresh() -> void:
+	if sim == null:
+		return
+	var ch: Dictionary = sim.state.characters.get(actor, {})
+	var job := SimQuery.job_view(sim, building, zone)
+	var other := str(job.get("actor", "")) if not job.is_empty() and str(job.get("actor", "")) != actor else ""
+	(%Who as Label).text = SimQuery.t_("ui.station.who") % [str(ch.get("name", "")), int(ch.get("stats", {}).get("craft", 0))] \
+		if actor != "" else ""
+	var why := Production.may_work(sim, actor, building) if actor != "" else ""
+	var hint := ""
 	if actor == "":
-		hint.text = SimQuery.t_("ui.station.no_actor")
-	elif options.is_empty():
-		hint.text = SimQuery.t_("ui.station.no_recipes")
-	for b: String in ["FastButton", "NormalButton", "CarefulButton"]:
-		(get_node("%" + b) as Button).visible = can_work
+		hint = SimQuery.t_("ui.station.enter_to_work")
+	elif other != "":
+		hint = SimQuery.t_("ui.station.busy_by") % [_name(other), SimQuery.recipe_name(sim.catalog, str(job["recipe"])),
+			roundi(float(job.get("progress", 0.0)) * 100.0)]
+	elif why != "":
+		hint = _reason_line(why)
+	elif recipe_options().is_empty():
+		hint = SimQuery.t_("ui.station.no_recipes")
+	(%Hint as Label).text = hint
+	(%Hint as Label).visible = hint != ""
+	var can_pick := actor != "" and other == "" and why == ""
+	for pair: Array in [["fast", "%FastButton"], ["normal", "%NormalButton"], ["careful", "%CarefulButton"]]:
+		var b := get_node(str(pair[1])) as Button
+		b.set_pressed_no_signal(str(pair[0]) == mode)
+		b.disabled = not can_pick
+	(%Modes as Control).visible = actor != ""
+	(%ModeLine as Label).visible = actor != ""
+	(%ModeLine as Label).text = _mode_line()
+	_build_recipes(can_pick)
+	_show_quality()
+	var mine := _actor_job_zone() == zone and actor != ""
 	(%StopButton as Button).visible = _actor_job_zone() != ""
-	(%Modes as Control).visible = true
-	(%Recipes as Control).visible = false
+	(%ProductionButton as Button).visible = actor == ""
+	var line := ""
+	if not job.is_empty() and (mine or actor == ""):
+		line = SimQuery.t_("ui.station.working") % [SimQuery.recipe_name(sim.catalog, str(job["recipe"])),
+			roundi(float(job.get("progress", 0.0)) * 100.0)]
+		if actor == "":
+			line = _name(str(job["actor"])) + " · " + line
+	(%JobLine as Label).text = line
+	(%Foot as Control).visible = (%StopButton as Button).visible or (%ProductionButton as Button).visible or line != ""
 	reset_size()
 
 
-## Second step: the station's recipes for `m` (fast / normal / careful).
-func choose_mode(m: String) -> void:
-	mode = m
-	(%RecipesTitle as Label).text = SimQuery.t_("ui.station.choose_recipe") % SimQuery.mode_name(m)
+func _name(id: String) -> String:
+	return str(sim.state.characters.get(id, {}).get("name", id))
+
+
+## "×1,0 tiempo · calidad con tu Artesanía (7)" (+ "· + toque de maestro" when careful).
+func _mode_line() -> String:
+	if sim == null or actor == "":
+		return ""
+	var q := Production.quality_view(sim, actor, building, mode)
+	var out := SimQuery.t_("ui.station.mode_line") % [String.num(float(q.get("minutes_mult", 1.0)), 1).replace(".", ","),
+		int(q.get("craft", 0))]
+	if bool(q.get("touch", false)):
+		out += " · " + SimQuery.t_("ui.station.with_touch")
+	return out
+
+
+func _build_recipes(can_pick: bool) -> void:
 	var list := %RecipeList as VBoxContainer
 	for c: Node in list.get_children():
 		list.remove_child(c)
 		c.queue_free()
+	(%Recipes as Control).visible = actor != ""
+	(%Sep as Control).visible = actor != ""
 	for opt: Dictionary in recipe_options():
-		var rid := str(opt.get("recipe", ""))
-		var status := str(opt.get("status", "ok"))
-		var b := Button.new()
-		b.name = rid
-		b.focus_mode = Control.FOCUS_NONE
-		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		b.text = SimQuery.recipe_name(sim.catalog, rid) + "  " + _inputs_text(rid)
-		b.disabled = status != "ok"
-		b.tooltip_text = _status_tip(rid, status)
-		if status == "locked":
-			b.icon = UiIcons.lock()
-		b.pressed.connect(choose_recipe.bind(rid))
-		list.add_child(b)
-	(%Modes as Control).visible = false
-	(%Recipes as Control).visible = true
-	reset_size()
+		list.add_child(_recipe_row(opt, can_pick))
 
 
-func recipe_buttons() -> Array:
-	return (%RecipeList as VBoxContainer).get_children()
-
-
-func _inputs_text(rid: String) -> String:
+## One recipe: [icon] Name · inputs have/need · duration, and the reason under it when it cannot be made.
+func _recipe_row(opt: Dictionary, can_pick: bool) -> VBoxContainer:
+	var rid := str(opt.get("recipe", ""))
+	var status := str(opt.get("status", "ok"))
+	var reason := str(opt.get("reason", ""))
 	var rec: Dictionary = sim.catalog.recipes().get(rid, {})
-	var parts: PackedStringArray = []
-	for i: Dictionary in rec.get("inputs", []):
-		parts.append("%d %s" % [int(i.get("qty", 0)), SimQuery.item_name(sim.catalog, str(i.get("item", "")))])
-	return "(" + ", ".join(parts) + ")"
+	var box := VBoxContainer.new()
+	box.name = "Row_" + rid
+	box.add_theme_constant_override("separation", 0)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 4)
+	box.add_child(row)
+	var b := Button.new()
+	b.name = rid
+	b.focus_mode = Control.FOCUS_NONE
+	b.flat = true
+	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	b.text = SimQuery.recipe_name(sim.catalog, rid)
+	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	b.clip_text = true
+	b.icon = UiIcons.lock() if status == "locked" else VisualPaths.icon_small(str(rec.get("output", {}).get("item", "")))
+	b.disabled = status != "ok" or not can_pick
+	b.tooltip_text = _status_tip(rid, status, reason)
+	b.pressed.connect(choose_recipe.bind(rid))
+	b.mouse_entered.connect(func() -> void:
+		_focus_recipe = rid
+		_show_quality())
+	row.add_child(b)
+	if status != "locked":
+		var stock: Dictionary = opt.get("stock", {})
+		for inp: Dictionary in rec.get("inputs", []):
+			var item := str(inp.get("item", ""))
+			var have := int(stock.get(item, 0))
+			var need := int(inp.get("qty", 0))
+			var icon := UiIcons.item_rect(item)
+			if icon != null:
+				row.add_child(icon)
+			var l := Label.new()
+			l.text = "%d/%d" % [have, need]
+			l.theme_type_variation = &"ReasonLabel" if have < need else &""
+			row.add_child(l)
+		var d := Label.new()
+		d.name = "Duration"
+		d.text = SimQuery.duration_label(Production.owner_cycle_minutes(sim, building, rec, mode))
+		d.custom_minimum_size = Vector2(44, 0)
+		d.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		row.add_child(d)
+	var why := _recipe_reason(rid, status, reason, opt)
+	if why != "":
+		var r := Label.new()
+		r.name = "Reason"
+		r.text = why
+		r.theme_type_variation = &"ReasonLabel"
+		r.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		r.custom_minimum_size = Vector2(260, 0)
+		if status == "locked":
+			r.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		box.add_child(r)
+	return box
 
 
-func _status_tip(rid: String, status: String) -> String:
+## The reason of a recipe that cannot be made, in words with its figures (_comun.md, "Motivos de rechazo").
+func _recipe_reason(rid: String, status: String, reason: String, opt: Dictionary) -> String:
+	var rec: Dictionary = sim.catalog.recipes().get(rid, {})
+	match reason:
+		"skill_too_low":
+			return SimQuery.t_("ui.station.needs_craft") % [int(rec.get("min_craft", 0)),
+				int(sim.state.characters.get(actor, {}).get("stats", {}).get("craft", 0))]
+		"needs_upgrade":
+			return SimQuery.t_("ui.station.needs_upgrade") % SimQuery.upgrade_name(sim.catalog, str(rec.get("requires_upgrade", "")))
+		"missing_inputs":
+			var stock: Dictionary = opt.get("stock", {})
+			var parts: PackedStringArray = []
+			for inp: Dictionary in rec.get("inputs", []):
+				var short := int(inp.get("qty", 0)) - int(stock.get(str(inp.get("item", "")), 0))
+				if short > 0:
+					parts.append("%d × %s" % [short, SimQuery.item_name(sim.catalog, str(inp.get("item", ""))).to_lower()])
+			return SimQuery.t_("ui.station.missing") % ", ".join(parts)
+		"storage_full":
+			return SimQuery.t_("ui.recipe.no_room")
+	return "" if status == "ok" else SimQuery.reason_text(reason)
+
+
+func _reason_line(why: String) -> String:
+	if why == "under_works":
+		var w := SimQuery.upgrade_works(sim, building)
+		if not w.is_empty():
+			return SimQuery.t_("ui.interior.works") % [SimQuery.upgrade_name(sim.catalog, str(w.get("upgrade", ""))),
+				SimQuery.minutes_left_label(int(w.get("minutes_left", 0)))]
+	return SimQuery.reason_text(why)
+
+
+## The chances of each quality for the recipe under the mouse, else the first one that can be made.
+func _show_quality() -> void:
+	var box := %QualityBox as Control
+	var options := recipe_options()
+	var rid := _focus_recipe
+	if rid == "":
+		for opt: Dictionary in options:
+			if str(opt.get("status", "")) == "ok":
+				rid = str(opt["recipe"])
+				break
+	if rid == "" and not options.is_empty() and str(options[0].get("status", "")) != "locked":
+		rid = str(options[0]["recipe"])
+	box.visible = actor != "" and rid != ""
+	if not box.visible:
+		return
+	var rec: Dictionary = sim.catalog.recipes().get(rid, {})
+	var q := Production.quality_view(sim, actor, building, mode)
+	var chances: Array = q.get("chances", [100, 0, 0])
+	var item := str(rec.get("output", {}).get("item", ""))
+	(%QualityTitle as Label).text = SimQuery.t_("ui.station.quality") % SimQuery.item_name(sim.catalog, item).to_lower()
+	(%QualityNumbers as Label).text = "%d · %d · %d %%" % [int(chances[0]), int(chances[1]), int(chances[2])]
+	var bar := %QualityBar as HBoxContainer
+	for c: Node in bar.get_children():
+		bar.remove_child(c)
+		c.queue_free()
+	for i: int in 3:
+		if int(chances[i]) <= 0:
+			continue
+		var seg := ColorRect.new()
+		seg.name = "Q%d" % i
+		seg.color = Color.html(_token(QUALITY_TOKENS[i]))
+		seg.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		seg.size_flags_stretch_ratio = float(chances[i])
+		seg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		seg.tooltip_text = SimQuery.quality_name(i)
+		bar.add_child(seg)
+	var tool_line := %ToolLine as Label
+	tool_line.visible = bool(q.get("tool", false))
+	if tool_line.visible:
+		var tool := str(sim.catalog.buildings().get(str(sim.state.buildings[building].get("type", "")), {}).get("tool", ""))
+		tool_line.text = SimQuery.t_("ui.station.tool_bonus") % [SimQuery.item_name(sim.catalog, tool).to_lower(),
+			roundi(float(q.get("tool_chance", 0.0)) * 100.0)]
+
+
+## The quality chances shown now ([normal, good, excellent] in %), for the tests.
+func shown_chances() -> Array:
+	var t := (%QualityNumbers as Label).text.replace(" %", "")
+	var out: Array = []
+	for p: String in t.split(" · "):
+		out.append(p.to_int())
+	return out
+
+
+static func _token(id: String) -> String:
+	var d: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://tools/ui/tokens.json"))
+	return str((d as Dictionary).get("color", {}).get(id, "#ece4d2")) if d is Dictionary else "#ece4d2"
+
+
+## The recipe buttons, one per recipe (named by its id).
+func recipe_buttons() -> Array:
+	var out: Array = []
+	for row: Node in (%RecipeList as VBoxContainer).get_children():
+		var b := row.get_child(0).get_child(0) as Button
+		out.append(b)
+	return out
+
+
+## The reason line under a recipe ("" if it can be made), for the tests.
+func reason_of(rid: String) -> String:
+	var row := (%RecipeList as VBoxContainer).get_node_or_null("Row_" + rid)
+	var l := row.get_node_or_null("Reason") as Label if row != null else null
+	return l.text if l != null else ""
+
+
+func _status_tip(rid: String, status: String, reason: String) -> String:
 	var rec: Dictionary = sim.catalog.recipes().get(rid, {})
 	var out := SimQuery.recipe_name(sim.catalog, rid)
-	var hours := float(rec.get("duration_hours", 0.0))
-	out += "\n" + SimQuery.t_("ui.recipe.duration") % hours
+	out += "\n" + SimQuery.t_("ui.recipe.duration") % float(rec.get("duration_hours", 0.0))
 	match status:
 		"locked":
-			out += "\n" + SimQuery.t_("ui.recipe.locked") % int(rec.get("min_craft", 0))
+			if reason == "needs_upgrade":
+				out += "\n" + SimQuery.reason_text(reason)
+			else:
+				out += "\n" + SimQuery.t_("ui.recipe.locked") % int(rec.get("min_craft", 0))
 		"missing_inputs":
 			out += "\n" + SimQuery.t_("ui.recipe.missing_inputs")
 		"no_room":

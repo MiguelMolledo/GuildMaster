@@ -104,6 +104,19 @@ static func icon_small(item_id: String) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
+## The illustration of a narrative page (docs/ui/04_kit_de_pagina.md): assets/art/illustrations/<kind>/<id>.png
+## (240×135, cards) or <id>_192.png (192×108, notices), from the art branch; until it arrives, the pilot copy of the
+## page kit assets/art/ui/page_kit/piloto/<kind singular>_<id>[_192].png. null = no illustration (the card goes
+## without it).
+static func illustration(kind: String, id: String, small: bool = false) -> Texture2D:
+	var suffix := "_192" if small else ""
+	for p: String in ["%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, id, suffix],
+			"%s/ui/page_kit/piloto/%s_%s%s.png" % [ART_ROOT, kind.trim_suffix("s"), id, suffix]]:
+		if ResourceLoader.exists(p):
+			return load(p) as Texture2D
+	return null
+
+
 ## The ground texture of a tile kind (data/tiles.json): assets/art/tiles/<kind>.png (null until it exists: the ground
 ## keeps the kind's greybox colour).
 static func tile(kind: String) -> Texture2D:

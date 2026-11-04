@@ -88,7 +88,7 @@ func test_item_icons_for_lists() -> void:
 	if r != null:
 		eq(r.texture.get_size(), Vector2(16, 16), "16×16")
 		r.free()
-	eq(UiIcons.item_rect("steel"), null, "no icon yet: no rect")
+	eq(UiIcons.item_rect("item_without_icon"), null, "no icon yet: no rect")
 
 
 func test_trees_take_one_of_their_looks() -> void:

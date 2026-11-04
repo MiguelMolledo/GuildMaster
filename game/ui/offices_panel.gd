@@ -17,8 +17,6 @@ extends PanelContainer
 
 signal closed
 
-const RANK_COLORS: Dictionary = {"mayor": Color(0.94902, 0.847059, 0.501961), "major": Color(0.85, 0.7, 0.42),
-	"middle": Color(0.72, 0.74, 0.78), "minor": Color(0.72, 0.52, 0.32)}
 const ROWS: Array = [["mayor"], ["councillor"], ["judge", "constable"], ["tax_collector", "market_inspector"]]
 
 var order_sink: Callable = Callable()
@@ -228,8 +226,8 @@ func _seat(row: Dictionary, i: int, my_fam: String) -> Control:
 	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var top := HBoxContainer.new()
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var n := SocialKit.label(SimQuery.office_name(o), &"BoldLabel", "Name")
-	n.add_theme_color_override("font_color", RANK_COLORS.get(str(row["rank"]), Color.WHITE) if o != "mayor" else RANK_COLORS["mayor"])
+	var n := SocialKit.label(SimQuery.office_name(o), SocialKit.OFFICE_VARIATIONS.get("mayor" if o == "mayor" else str(row["rank"]),
+		&"BoldLabel"), "Name")
 	n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	n.clip_text = true
 	top.add_child(n)

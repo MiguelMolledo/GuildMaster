@@ -26,6 +26,7 @@ extends Node
 ## customer at the counter.
 ## H14: --smoke-script=ia_familiar: the family AI panel, a spouse trading on her own, low needs.
 ## H13: --smoke-script=eventos: the notices and the clock line of the global events, the market's price reason, the book.
+## Page kit: --smoke-script=pagina: the card of a global event that starts and the other templates of PageCard.
 ## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## H12: --smoke-script=oficios: the trade buttons of the new game screen and the workshop of each artisan trade.
 ## --smoke-script=menu: every menu screen (title, new game, pause, save, load, options, quit, credits, ending).
@@ -52,9 +53,10 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"cargos": "res://game/smoke/smoke_cargos.gd", "tribunal": "res://game/smoke/smoke_tribunal.gd",
 	"escala": "res://game/smoke/smoke_escala.gd", "ia_familiar": "res://game/smoke/smoke_ia_familiar.gd",
 	"hud": "res://game/smoke/smoke_hud.gd", "paneles": "res://game/smoke/smoke_paneles.gd",
+	"economia": "res://game/smoke/smoke_economia.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
 	"oficios": "res://game/smoke/smoke_oficios.gd", "social": "res://game/smoke/smoke_social.gd",
-	"mapa": "res://game/smoke/smoke_mapa.gd"}
+	"pagina": "res://game/smoke/smoke_pagina.gd", "mapa": "res://game/smoke/smoke_mapa.gd"}
 
 @onready var _background: ColorRect = %Background
 @onready var _world: WorldView = %WorldView
