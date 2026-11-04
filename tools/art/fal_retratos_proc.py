@@ -152,6 +152,9 @@ def build(cell, mask, s, size, nat, own):
                             changed = True
     natural = canvas.copy()
     allowed = {HAIR, SKIN} if own else {HAIR, SKIN, PRIMARY, SECONDARY}
+    opaque = [[bool(cp[x, y][3]) for x in range(size)] for y in range(size)]
+    clean_regions(reg, opaque, size)
+    cloth_out_of_hair(reg, cp, size, own)
     vals = {k: [] for k in allowed}
     for y in range(size):
         for x in range(size):
@@ -159,6 +162,17 @@ def build(cell, mask, s, size, nat, own):
                 vals[reg[y][x]].append(lum(cp[x, y]))
     refs = {k: (sorted(v)[len(v) // 2] if v else 128.0) for k, v in vals.items()}
     counts = {k: 0 for k in allowed}
+    # oscuros por debajo del umbral de contorno: en el borde de una zona (tocan otra zona o el fondo) son el contorno
+    # y se quedan negros; dentro del pelo o de la ropa son líneas o sombra del dibujo (rizos, moños, pliegues, un pelo
+    # negro entero) y se tiñen como el resto, con un brillo mínimo, para que no salgan como motas negras con un tono
+    # claro
+    thr = {HAIR: 18, SKIN: 18, PRIMARY: 15, SECONDARY: 15}
+    DARK_LINE = 0.35
+
+    def on_edge(x, y, k):
+        return any(not (0 <= x + dx < size and 0 <= y + dy < size) or not opaque[y + dy][x + dx]
+                   or reg[y + dy][x + dx] != k for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+    shades = {}
     for y in range(size):
         for x in range(size):
             r, g, b, a = cp[x, y]
@@ -166,13 +180,88 @@ def build(cell, mask, s, size, nat, own):
             if not a or k not in allowed:
                 continue
             L = lum((r, g, b))
-            if L < (15 if k in (PRIMARY, SECONDARY) else 18):  # contorno: se queda negro
+            if L < thr[k] and (k == SKIN or on_edge(x, y, k)):  # contorno (y ojos y boca en la piel): negro
                 continue
             shade = L / max(1.0, refs[k])
-            shade = min(2.0, 1.0 + (shade - 1.0) * (0.5 if k == HAIR else 0.8))
-            cp[x, y] = (int(round(shade * 127.5)), 0, k * 50, 254)
-            counts[k] += 1
+            soft = (0.5 if refs[HAIR] > 40 else 0.9) if k == HAIR else 0.8  # un pelo negro tiene poco matiz: no se aplana
+            shade = min(2.0, 1.0 + (shade - 1.0) * soft)
+            if L < thr[k]:  # oscuro de dentro: relativo a su zona (un pelo negro entero sale del tono de la familia)
+                shade = max(DARK_LINE, shade)
+            shades[(x, y)] = (k, shade)
+    # luz suelta: si un píxel brilla mucho más que la mediana de sus vecinos de la misma zona, toma la mediana (las
+    # motas blancas al teñir con un tono claro); los oscuros no se tocan: son el dibujo
+    out = {}
+    for (x, y), (k, sh) in shades.items():
+        nb = sorted(shades[(x + dx, y + dy)][1] for dx in (-1, 0, 1) for dy in (-1, 0, 1)
+                    if (dx or dy) and (x + dx, y + dy) in shades and shades[(x + dx, y + dy)][0] == k)
+        if len(nb) >= 4 and sh > nb[len(nb) // 2] + 0.45:  # solo las luces sueltas; los oscuros son detalle
+            sh = nb[len(nb) // 2]
+        out[(x, y)] = (k, sh)
+    for (x, y), (k, sh) in out.items():
+        cp[x, y] = (int(round(sh * 127.5)), 0, k * 50, 254)
+        counts[k] += 1
     return natural, canvas, counts
+
+
+def cloth_out_of_hair(reg, cp, size, own):
+    """Toca o pañuelo que el mapa marcó como pelo: si el pelo es poco saturado (negro, gris, blanco), sus píxeles de
+    color tela (marrón u ocre saturado y claro) pasan a ropa secundaria (o sin zona en los cargos y únicos)."""
+    hair = [(x, y) for y in range(size) for x in range(size) if reg[y][x] == HAIR and cp[x, y][3]]
+    if len(hair) < 20:
+        return 0
+    hsv = {q: colorsys.rgb_to_hsv(*(c / 255 for c in cp[q[0], q[1]][:3])) for q in hair}
+    sats = sorted(v[1] for v in hsv.values())
+    if sats[len(sats) // 2] > 0.3:  # pelo castaño, rubio o pelirrojo: no se distingue de la tela por el color
+        return 0
+    moved = 0
+    for (x, y), (h, sat, v) in hsv.items():
+        if sat > 0.45 and v > 0.3 and 15 <= h * 360 <= 55:
+            reg[y][x] = 0 if own else SECONDARY
+            moved += 1
+    return moved
+
+
+def clean_regions(reg, opaque, size, max_island=3, max_gap=2):
+    """Islas de 1-3 px de una zona dentro de otra: pasan a la zona vecina mayoritaria (8 vecinos). Huecos sin zona
+    de 1-2 px rodeados por una sola zona de pelo o ropa: pasan a esa zona (en la piel no: son ojos y boca)."""
+    seen = [[False] * size for _ in range(size)]
+    for y0 in range(size):
+        for x0 in range(size):
+            if seen[y0][x0] or not opaque[y0][x0]:
+                continue
+            lab = reg[y0][x0]
+            comp, st = [], [(x0, y0)]
+            seen[y0][x0] = True
+            while st:
+                x, y = st.pop()
+                comp.append((x, y))
+                for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+                    if 0 <= nx < size and 0 <= ny < size and not seen[ny][nx] and opaque[ny][nx] \
+                            and reg[ny][nx] == lab:
+                        seen[ny][nx] = True
+                        st.append((nx, ny))
+            limit = max_island if lab else max_gap
+            if len(comp) > limit:
+                continue
+            cs = set(comp)
+            near = {}
+            for x, y in comp:
+                for dx in (-1, 0, 1):
+                    for dy in (-1, 0, 1):
+                        nx, ny = x + dx, y + dy
+                        if (dx or dy) and 0 <= nx < size and 0 <= ny < size and (nx, ny) not in cs \
+                                and opaque[ny][nx]:
+                            near[reg[ny][nx]] = near.get(reg[ny][nx], 0) + 1
+            if not near:
+                continue
+            best = max(near.items(), key=lambda kv: kv[1])[0]
+            if lab:
+                if best != lab:
+                    for x, y in comp:
+                        reg[y][x] = best
+            elif len(near) == 1 and best in (HAIR, PRIMARY, SECONDARY):
+                for x, y in comp:
+                    reg[y][x] = best
 
 
 def cells_of(path):
