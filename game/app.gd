@@ -66,7 +66,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"poblacion": "res://game/smoke/smoke_poblacion.gd", "pagina": "res://game/smoke/smoke_pagina.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
-	"duel": "res://game/smoke/smoke_duel.gd"}
+	"duel": "res://game/smoke/smoke_duel.gd", "duelo_partida": "res://game/smoke/smoke_duelo_partida.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
 const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"
@@ -99,6 +99,7 @@ var _menu_from: String = ""        # where the save / load / options / credits s
 var _after_save: String = ""       # "title" | "quit": the pause menu's "Save and quit" (after the save screen)
 var _pause_shot: Image = null      # what was seen when the pause menu opened (the thumbnail of a save)
 var _busy: bool = false            # a load or save is under way (the hourglass is shown)
+var _duels: DuelDirector = null    # duelo: cards and screen of the player's duels
 
 
 func _ready() -> void:
@@ -150,6 +151,10 @@ func _ready() -> void:
 		if _tutorial.ctx != null:
 			_tutorial.ctx.clear_cache())
 	_bind_tutorial(script_id)
+	_duels = DuelDirector.new()  # duelo: the challenge and answer cards and the duel screen (docs/ui/mecanicas/combate.md)
+	_duels.name = "DuelDirector"
+	add_child(_duels)
+	_duels.setup(get_node("CardsLayer"), Game.give)
 	if script_id != "":
 		_shots_left = 0
 		if SMOKE_SCRIPTS.has(script_id):
@@ -202,6 +207,10 @@ func open_duel_test() -> DuelScreen:
 	screen.open_test(st, Data.catalog.combat, a, b, kind, weapon, maxi(st.world_seed, 1))
 	Log.info("App", "duel test: %s contra %s (%s, arma %s)" % [a, b, kind, weapon if weapon != "" else "la suya"])
 	return screen
+
+
+func duels() -> DuelDirector:
+	return _duels
 
 
 ## The tutorial reads the game through AppTutorialContext; the sim's events reach it from here.

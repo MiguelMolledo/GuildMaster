@@ -2452,3 +2452,95 @@ hito.threshing,Threshing floor,Era
 hito.wall_tower,Wall tower,Torre de la muralla
 hito.warehouse,Warehouse,Almacén
 hito.watermill,Watermill,Molino
+reason.no_cause,"No reason to challenge: an insult, a rival suitor or the rival of your trade","No hay motivo para retar: un insulto, un pretendiente rival o el rival de tu oficio"
+reason.wounded,Wounded,Está herido
+reason.cooldown,They fought not long ago: wait a season,Se batieron hace poco: espera una estación
+reason.kind_locked,That kind of duel is not allowed,Ese tipo de duelo no está permitido
+reason.unknown_duel,No such duel,No hay tal duelo
+reason.not_challenged,Only the challenged answers,Solo responde el retado
+reason.already_answered,Already answered,Ya ha respondido
+reason.bad_answer,Accept or refuse,Acepta o rechaza
+reason.not_challenger,Only the challenger can withdraw,Solo puede retirarlo quien retó
+reason.already_fighting,The duel has begun,El duelo ya ha empezado
+reason.not_fighting,The duel is not being fought,El duelo no se está librando
+reason.not_your_side,That is not your duellist,Ese no es tu duelista
+reason.duel_over,The duel is over,El duelo ha terminado
+reason.already_chosen,Already chosen for this lance,Ya has elegido en este lance
+reason.cannot_yield,Nobody yields in a duel to first blood,En un duelo a primera sangre nadie se rinde
+reason.bad_action,"Strike, parry or feint","Golpe, parada o finta"
+rep.reason.duel_win,Won a duel,Duelo ganado
+rep.reason.duel_lose,Lost a duel,Duelo perdido
+rep.reason.duel_draw,A drawn duel,Duelo en tablas
+rep.reason.duel_yield,Yielded in a duel,Rendición en un duelo
+rep.reason.duel_refuse,Refused a challenge,Reto rechazado
+rep.reason.duel_no_show,Did not show up for a duel,No se presentó al duelo
+rep.reason.duel_no_show_rival,The rival did not show up,El rival no se presentó
+rep.reason.duel_withdraw,Withdrew a challenge,Reto retirado
+rep.reason.duel_challenge_refused,The challenged refused,El retado no aceptó
+rep.reason.duel_brawl,A brawl,Pelea sin reto
+notice.duel_challenged,{rival} challenges you to a duel,{rival} te reta a duelo
+notice.duel_accepted,"{rival} accepts the duel: day {day} at {time}, in the plaza","{rival} acepta el duelo: el día {day} a las {time}, en la plaza"
+notice.duel_refused,The challenge with {rival} is refused,El reto con {rival} queda rechazado
+notice.duel_withdrawn,The challenge to {rival} is withdrawn,El reto a {rival} queda retirado
+notice.duel_call,Duel with {rival} at {time}: to the plaza,Duelo con {rival} a las {time}: a la plaza
+notice.duel_won,You beat {rival} in a duel ({touches}),Has ganado el duelo a {rival} ({touches})
+notice.duel_lost,{rival} beat you in a duel ({touches}),{rival} te ha ganado el duelo ({touches})
+notice.duel_draw,Duel with {rival}: a draw ({touches}),Duelo con {rival}: tablas ({touches})
+notice.duel_yielded,You yielded to {rival},Te has rendido ante {rival}
+notice.duel_no_show_you,You did not show up for the duel with {rival}: you lose,No te has presentado al duelo con {rival}: lo pierdes
+notice.duel_no_show_rival,{rival} did not show up for the duel: you win,{rival} no se ha presentado al duelo: lo ganas
+notice.duel_cancelled,Neither of you showed up for the duel with {rival},Ni tú ni {rival} os presentasteis al duelo
+notice.duel_brawl,A brawl with {rival} ({witnesses} witnesses),Pelea sin reto con {rival} ({witnesses} testigos)
+ui.ending.fact.duel,"Duel with %s (%s), day %d","Duelo con %s (%s), día %d"
+combat.cause.offense,an insult,una ofensa
+combat.cause.courtship,the love of %s,el amor de %s
+combat.cause.rivalry,the rivalry of the trade,la rivalidad del oficio
+combat.result_word.won,won,ganado
+combat.result_word.lost,lost,perdido
+combat.result_word.draw,a draw,tablas
+combat.result_word.refused,refused,rechazado
+combat.result_word.withdrawn,withdrawn,retirado
+combat.result_word.no_show,nobody came,sin comparecencia
+combat.ui.missing_poses,Provisional art: the duel poses are missing,Arte provisional: faltan las poses del duelo
+ui.npc.duel,Challenge to a duel…,Retar a duelo…
+ui.npc.duel_tip,"A duel to first blood at the next dawn, in the plaza: the card says why and what is at stake","Un duelo a primera sangre al alba siguiente, en la plaza: la carta dice por qué y qué te juegas"
+combat.card.title,Challenge %s,Retar a %s
+combat.card.when,"A duel to first blood with %s, at the next dawn in the plaza (06:00).","Duelo a primera sangre con %s, al alba siguiente en la plaza (06:00)."
+combat.card.odds,Your chances,Tus opciones
+combat.card.band_good,good (%d %%),buenas (%d %%)
+combat.card.band_even,even (%d %%),parejas (%d %%)
+combat.card.band_bad,poor (%d %%),malas (%d %%)
+combat.card.witnesses,Witnesses now,Testigos ahora
+combat.card.if_win,If you win: reputation %s (twice with 3 or more witnesses),Si ganas: reputación %s (el doble con 3 o más testigos)
+combat.card.if_lose,If you lose: reputation %s,Si pierdes: reputación %s
+combat.card.if_refuse,If %s refuses in front of witnesses: their reputation %s,Si %s rechaza ante testigos: su reputación %s
+combat.card.if_refuse_unseen,"Nobody sees it: if %s refuses, it costs them nothing","Nadie lo ve: si %s rechaza, no le cuesta nada"
+combat.card.no_show,"If you are not in the plaza at the hour, you lose the duel.","Si no estás en la plaza a la hora, pierdes el duelo."
+combat.card.brawl,"Fight, no challenge",Pelear sin reto
+combat.card.answer_yes,%s accepts the duel,%s acepta el duelo
+combat.card.answer_no,%s refuses the challenge,%s rechaza el reto
+combat.card.accepted,"Day %d at %02d:00, in the plaza.","El día %d a las %02d:00, en la plaza."
+combat.card.accepted_go,"Your duellist goes there alone %d minutes before; if they are not there at the hour, they lose.","Tu duelista irá solo %d minutos antes; si no está allí a la hora, pierde."
+combat.card.refused,%s will not fight. Whoever saw the challenge will remember it.,%s no quiere batirse. Quien vio el reto lo recordará.
+combat.card.no_show_title,A duel without a duel,Duelo sin duelo
+combat.card.no_show_you,"You were not in the plaza at the hour: you lose the duel, and it costs honour.",No estabas en la plaza a la hora: pierdes el duelo y te cuesta honor.
+combat.card.no_show_rival,Your rival did not come: you win the duel.,Tu rival no se ha presentado: ganas el duelo.
+combat.card.cancelled,Neither of you came: the duel is off.,Ninguno de los dos se presentó: no hay duelo.
+combat.result.applied,What has changed:,Lo que ha cambiado:
+combat.result.nothing,Nothing else,Nada más
+combat.result.rep,Reputation %s,Reputación %s
+combat.result.relation,Relation with %s %s,Relación con %s %s
+combat.result.affinity,Affinity with %s %s,Afinidad con %s %s
+tutorial.chapter.duel,Duels,Duelo
+tutorial.chapter.duel.desc,"Challenge whoever insults you, a rival suitor or the rival of your trade, and win at dawn.","Reta a quien te ofende, a un pretendiente rival o al rival de tu oficio, y gana al alba."
+tutorial.duel.why,"This game is not about fighting, but honour counts: you may challenge whoever insulted you, a rival suitor or the rival of your trade. Refusing in front of witnesses costs reputation.","El juego no va de pelear, pero el honor cuenta: puedes retar a quien te ha ofendido, a un pretendiente rival o al rival de tu oficio. Rechazar un reto ante testigos cuesta reputación."
+tutorial.duel.sheet,Click the rival of your trade to open their sheet.,Haz clic en el rival de tu oficio para abrir su ficha.
+tutorial.duel.button,"«Challenge to a duel…»: the card says why, your chances and what is at stake.","«Retar a duelo…»: la carta dice el motivo, tus opciones y lo que te juegas."
+tutorial.duel.dawn,"If they accept, the duel is at the next dawn in the plaza. Your duellist goes there alone: if they are not there at the hour, they lose.","Si acepta, el duelo es al alba siguiente en la plaza. Tu duelista irá solo: si no está allí a la hora, pierde."
+tutorial.duel.read,"In the duel, read the gesture: strike beats feint, feint beats parry, parry beats strike. «Resolver sin jugar» is as good as following the gesture.","En el duelo, lee el gesto: Golpe gana a Finta, Finta a Parada y Parada a Golpe. «Resolver sin jugar» rinde lo mismo que seguir la pista."
+tutorial.hint.duel_button,"With a reason (an insult, a rival suitor, the rival of your trade) you can challenge them to a duel.","Con un motivo (una ofensa, un pretendiente rival, el rival de tu oficio) puedes retarle a duelo."
+tutorial.hint.duel_card,"More witnesses, more honour: a public duel counts double, and so does refusing it.","Cuantos más testigos, más honor: un duelo público cuenta el doble, y rechazarlo también."
+tutorial.hint.duel_screen,"Read the gesture and how reliable it is. Strike beats feint, feint beats parry, parry beats strike; parrying recovers breath.","Lee el gesto y cuánto fiarte de él. Golpe gana a Finta, Finta a Parada, Parada a Golpe; parar recupera aliento."
+combat.card.for.offense,For the insult,Por la ofensa
+combat.card.for.courtship,For %s,Por %s
+combat.card.for.rivalry,For the trade,Por el oficio

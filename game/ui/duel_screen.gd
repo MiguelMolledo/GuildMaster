@@ -1,15 +1,17 @@
 class_name DuelScreen
 extends Control
 ## The duel screen «a tres tiempos» (docs/ui/mecanicas/combate.md; rules: docs/gdd/04e_combate.md, sim/combat/).
-## PROTOTYPE: not wired to the game. It opens over a paused game from --duel-test or --smoke-script=duel, builds the
-## two fighters from the state (stats, equipment) and plays a Duel with the player on side 0; nothing is saved and no
-## consequence is applied (the result card lists the proposed ones). When the design is approved the choices become the
-## order `duel_move` (Orders.apply) and the Duel lives in the state; this screen would then only read it.
+## In the game (open_game, from DuelDirector when a duel of the player's family starts): it reads the duel kept in the
+## state (Duels, state.duels.open[id].duel) and gives the orders duel_move / duel_auto through `give` (Game.step_now:
+## one lance = one game minute, applied at once while the game is paused); the result card lists the consequences the
+## sim applied. The prototype (open_test, --duel-test): a Duel of its own, nothing saved, the proposed consequences.
 ##
 ## What it shows: the two portraits (PortraitFrame) and sprites (DuelArena), touches and breath of each (DuelPips), the
 ## lance and who leads, the gesture of the rival with its reliability (or how well the rival reads you), the three
 ## actions with their breath cost (keys 1, 2, 3; disabled without breath), Rendirse (R, only in duels that allow it),
-## Resolver sin jugar (A), the last lances, and the result on a PageCard. Esc closes it.
+## Resolver sin jugar (A), the last lances, and the result on a PageCard. Esc: in the game, Resolver sin jugar (a duel
+## is not left half fought); in the prototype, it closes. Icons and the card's illustration from VisualPaths when the
+## art exists (duel_icon, duel_illustration).
 
 signal closed
 signal lance_done(index: int)   # a lance's animation ended (the smoke script takes its capture)
@@ -26,28 +28,67 @@ var _chars: Array = []
 var _families: Array = []
 var _shown: int = 0
 var _args: Dictionary = {}
+var game_mode: bool = false
+var duel_id: String = ""
+var _give: Callable = Callable()       # Game.step_now: the order now, its step's events back
+var _sim: Sim = null
+var _effects: Array = []               # what the sim applied when it closed (reputation, relation, affinity events)
 
-@onready var _header: Label = %Header
-@onready var _sub: Label = %Sub
-@onready var _arena: DuelArena = %Arena
-@onready var _portraits: Array[PortraitFrame] = [%LeftPortrait, %RightPortrait]
-@onready var _names: Array[Label] = [%LeftName, %RightName]
-@onready var _touches: Array[DuelPips] = [%LeftTouches, %RightTouches]
-@onready var _breath: Array[DuelPips] = [%LeftBreath, %RightBreath]
-@onready var _breath_text: Array[Label] = [%LeftBreathText, %RightBreathText]
-@onready var _weapons: Array[Label] = [%LeftWeapon, %RightWeapon]
-@onready var _g_title: Label = %GestureTitle
-@onready var _g_text: Label = %GestureText
-@onready var _g_read: Label = %Reliability
-@onready var _buttons: Dictionary = {"strike": %Strike, "parry": %Parry, "feint": %Feint}
-@onready var _yield: Button = %Yield
-@onready var _auto: Button = %Auto
-@onready var _log: Label = %Log
-@onready var _result: PageCard = %Result
+var _header: Label = null
+var _sub: Label = null
+var _arena: DuelArena = null
+var _portraits: Array[PortraitFrame] = []
+var _names: Array[Label] = []
+var _touches: Array[DuelPips] = []
+var _breath: Array[DuelPips] = []
+var _breath_text: Array[Label] = []
+var _weapons: Array[Label] = []
+var _g_title: Label = null
+var _g_text: Label = null
+var _g_read: Label = null
+var _buttons: Dictionary = {}
+var _yield: Button = null
+var _auto: Button = null
+var _log: Label = null
+var _result: PageCard = null
+var _bound: bool = false
+var _wired: bool = false
+
+
+## The nodes of the scene (also outside the tree: the tests).
+func _bind() -> void:
+	if _bound:
+		return
+	_bound = true
+	_header = get_node("%Header") as Label
+	_sub = get_node("%Sub") as Label
+	_arena = get_node("%Arena") as DuelArena
+	_portraits = [get_node("%LeftPortrait") as PortraitFrame, get_node("%RightPortrait") as PortraitFrame]
+	_names = [get_node("%LeftName") as Label, get_node("%RightName") as Label]
+	_touches = [get_node("%LeftTouches") as DuelPips, get_node("%RightTouches") as DuelPips]
+	_breath = [get_node("%LeftBreath") as DuelPips, get_node("%RightBreath") as DuelPips]
+	_breath_text = [get_node("%LeftBreathText") as Label, get_node("%RightBreathText") as Label]
+	_weapons = [get_node("%LeftWeapon") as Label, get_node("%RightWeapon") as Label]
+	_g_title = get_node("%GestureTitle") as Label
+	_g_text = get_node("%GestureText") as Label
+	_g_read = get_node("%Reliability") as Label
+	_buttons = {"strike": get_node("%Strike"), "parry": get_node("%Parry"), "feint": get_node("%Feint")}
+	_yield = get_node("%Yield") as Button
+	_auto = get_node("%Auto") as Button
+	_log = get_node("%Log") as Label
+	_result = get_node("%Result") as PageCard
 
 
 func _ready() -> void:
 	visible = false
+	_wire()
+
+
+func _wire() -> void:
+	if _wired:
+		return
+	_wired = true
+	_bind()
 	MenuKit.add_hint(_buttons["strike"], "1")
 	MenuKit.add_hint(_buttons["parry"], "2")
 	MenuKit.add_hint(_buttons["feint"], "3")
@@ -61,21 +102,47 @@ func _ready() -> void:
 	_result.button_pressed.connect(_on_result_button)
 
 
-## A fighter for the rules from a character of the state: its stats and kit (weapon: a weapons id that overrides the
-## equipped one, "" = what it carries).
-static func fighter_of(combat: Dictionary, state: WorldState, chr: String, weapon: String = "") -> Dictionary:
-	var ch: Dictionary = state.characters.get(chr, {})
-	var eq: Dictionary = ch.get("equipment", {}) if ch.get("equipment") is Dictionary else {}
-	var w := weapon if weapon != "" else CombatRules.weapon_for(combat, eq)
-	return CombatRules.fighter(chr, ch.get("stats", {}), w, CombatRules.armored(combat, eq))
-
-
-## Opens a test duel between characters `a` (the player, challenger) and `b` of `state`.
+## Opens a test duel between characters `a` (the player, challenger) and `b` of `state` (the prototype).
 func open_test(state: WorldState, combat: Dictionary, a: String, b: String, kind: String = "first_blood",
 		weapon: String = "", seed: int = 1) -> void:
 	_args = {"a": a, "b": b, "kind": kind, "weapon": weapon, "seed": seed}
-	_state = state
+	game_mode = false
 	cfg = combat
+	player = 0
+	var fa := CombatRules.fighter(a, state.characters.get(a, {}).get("stats", {}),
+		weapon if weapon != "" else CombatRules.weapon_for(cfg, state.characters.get(a, {}).get("equipment", {})))
+	var fb := CombatRules.fighter(b, state.characters.get(b, {}).get("stats", {}),
+		weapon if weapon != "" else CombatRules.weapon_for(cfg, state.characters.get(b, {}).get("equipment", {})))
+	duel = Duel.create(cfg, "duel_test_%d" % seed, seed, fa, fb, kind, player)
+	_wire()
+	_setup(state, a, b)
+	if OS.is_debug_build():
+		print("[DuelScreen] abre (prueba): %s contra %s, %s, arma %s, semilla %d" % [_full_name(0), _full_name(1), kind,
+			weapon if weapon != "" else "la suya", seed])
+
+
+## Opens the duel `id` of the game, fought now by the player's side; `give` applies an order at once (Game.step_now).
+func open_game(sim: Sim, id: String, give: Callable) -> void:
+	var rec := Duels.duel_of(sim.state, id)
+	if rec.is_empty() or (rec.get("duel", {}) as Dictionary).is_empty():
+		return
+	game_mode = true
+	duel_id = id
+	_sim = sim
+	_give = give
+	cfg = sim.catalog.combat
+	duel = Duel.wrap(cfg, rec["duel"])
+	player = maxi(0, int(rec["player_side"]))
+	_effects.clear()
+	_wire()
+	_setup(sim.state, str(rec["challenger"]), str(rec["challenged"]))
+	if OS.is_debug_build():
+		print("[DuelScreen] abre (partida): %s, %s contra %s, jugador en el lado %d" % [id, _full_name(0), _full_name(1),
+			player])
+
+
+func _setup(state: WorldState, a: String, b: String) -> void:
+	_state = state
 	_chars.clear()
 	_families.clear()
 	for chr: String in [a, b]:
@@ -83,9 +150,7 @@ func open_test(state: WorldState, combat: Dictionary, a: String, b: String, kind
 		ch["id"] = chr
 		_chars.append(ch)
 		_families.append(state.families.get(str(ch.get("family", "")), {}))
-	duel = Duel.create(cfg, "duel_test_%d" % seed, seed, fighter_of(cfg, state, a, weapon),
-		fighter_of(cfg, state, b, weapon), kind, player)
-	_shown = 0
+	_shown = duel.lances_log().size() if game_mode else 0
 	busy = false
 	_result.visible = false
 	for i: int in 2:
@@ -96,12 +161,12 @@ func open_test(state: WorldState, combat: Dictionary, a: String, b: String, kind
 		_breath[i].max_value = CombatRules.breath_max(cfg, duel.fighter(i))
 		_weapons[i].text = tr("combat.weapon.%s" % str(duel.fighter(i)["weapon"])) + \
 			(" · " + tr("combat.ui.armor") if bool(duel.fighter(i)["armor"]) else "")
+	for act: String in _buttons:
+		(_buttons[act] as Button).icon = VisualPaths.duel_icon(act, true)
+	_yield.icon = VisualPaths.duel_icon("yield", true)
 	_arena.setup(_chars, _families)
 	visible = true
-	UiAnim.panel_in(%Frame)
-	if OS.is_debug_build():
-		print("[DuelScreen] abre: %s contra %s, %s, arma %s, semilla %d" % [_full_name(0), _full_name(1), kind,
-			weapon if weapon != "" else "la suya", seed])
+	UiAnim.panel_in(get_node("%Frame") as Control)
 	_refresh()
 
 
@@ -188,7 +253,11 @@ func _log_text() -> String:
 func _choose(action: String) -> void:
 	if busy or duel == null or duel.over():
 		return
-	var r := duel.choose(player, action)
+	var r := {"ok": true, "reason": ""}
+	if game_mode:
+		r = _order({"type": "duel_move", "actor": _me(), "duel": duel_id, "action": action})
+	else:
+		r = duel.choose(player, action)
 	if OS.is_debug_build():
 		print("[DuelScreen] elige %s -> %s" % [action, "ok" if bool(r["ok"]) else str(r["reason"])])
 	if not bool(r["ok"]):
@@ -200,8 +269,39 @@ func _choose(action: String) -> void:
 func _auto_finish() -> void:
 	if busy or duel == null or duel.over():
 		return
-	duel.auto_finish()
+	if game_mode:
+		_order({"type": "duel_auto", "actor": _me(), "duel": duel_id})
+	else:
+		duel.auto_finish()
 	_play_pending(true)
+
+
+## The player's duellist.
+func _me() -> String:
+	return str((_chars[player] as Dictionary).get("id", ""))
+
+
+## Gives `o` now (Game.step_now) and keeps what the duel left for the player's family: {ok, reason}.
+func _order(o: Dictionary) -> Dictionary:
+	if not _give.is_valid():
+		return {"ok": false, "reason": "no_game"}
+	var events: Array = _give.call(o)
+	var fam := str((_chars[player] as Dictionary).get("family", ""))
+	for e: Dictionary in events:
+		var t := str(e.get("type", ""))
+		if t == "order_refused" and str(e.get("order", "")) == str(o["type"]):
+			return {"ok": false, "reason": str(e.get("reason", ""))}
+		if t == "reputation_changed" and str(e.get("family", "")) == fam and str(e.get("reason", "")).begins_with("duel_"):
+			_effects.append({"text": tr("combat.result.rep") % SocialKit.signed(int(e["amount"])),
+				"sign": "+" if int(e["amount"]) > 0 else "-"})
+		elif t == "relation_changed" and str(e.get("reason", "")).begins_with("duel_") and _me() in [str(e["actor"]),
+				str(e["target"])]:
+			_effects.append({"text": tr("combat.result.relation") % [_first(1 - player), SocialKit.signed(int(e["amount"]))],
+				"sign": "+" if int(e["amount"]) > 0 else "-"})
+		elif t == "affinity_changed" and str(e.get("actor", "")) == _me() and str(e.get("reason", "")).begins_with("duel_"):
+			_effects.append({"text": tr("combat.result.affinity") % [str(_state.characters.get(str(e["target"]), {}).get(
+				"name", "")), SocialKit.signed(int(e["amount"]))], "sign": "+" if int(e["amount"]) > 0 else "-"})
+	return {"ok": true, "reason": ""}
 
 
 ## Animates the lances not shown yet, one after the other, then the result if the duel is over.
@@ -234,18 +334,32 @@ func _show_result() -> void:
 		key = "yielded_you" if int(r["yielded"]) == player else "yielded_rival"
 	var t: Array = r["touches"]
 	var effects: Array = []
-	for e: String in (tr("combat.result.effects.%s" % key)).split("|"):
-		effects.append({"text": e.replace("%s", _first(rival)), "sign": "+" if e.contains("+") else ("-" if e.contains("−") else "")})
-	_result.show_page({"template": "card", "title": tr("combat.result.%s" % key), "sticky": true,
+	var intro := tr("combat.result.proposal")
+	if game_mode:
+		effects = _effects.duplicate()
+		intro = tr("combat.result.applied")
+		if effects.is_empty():
+			effects.append({"text": tr("combat.result.nothing"), "sign": ""})
+	else:
+		for e: String in (tr("combat.result.effects.%s" % key)).split("|"):
+			effects.append({"text": e.replace("%s", _first(rival)), "sign": "+" if e.contains("+") else ("-" if e.contains("−") else "")})
+	var buttons: Array = [{"id": "close", "text": tr("combat.ui.close"), "primary": true}]
+	if not game_mode:
+		buttons = [{"id": "again", "text": tr("combat.ui.again"), "primary": true}, {"id": "close", "text": tr("combat.ui.close")}]
+	var page := {"template": "card", "title": tr("combat.result.%s" % key), "sticky": true,
 		"blocks": [
 			{"type": "paragraph", "text": tr("combat.result.text") % [_first(player), int(t[player]), int(t[rival]),
 				_first(rival), int(r["lances"])]},
 			{"type": "figures", "items": [{"label": tr("combat.ui.touches"), "value": "%d–%d" % [int(t[player]), int(t[rival])]},
 				{"label": tr("combat.ui.lances"), "value": str(int(r["lances"]))}]},
 			{"type": "divider"},
-			{"type": "paragraph", "text": tr("combat.result.proposal")},
+			{"type": "paragraph", "text": intro},
 			{"type": "effects", "items": effects}],
-		"buttons": [{"id": "again", "text": tr("combat.ui.again"), "primary": true}, {"id": "close", "text": tr("combat.ui.close")}]})
+		"buttons": buttons}
+	var ill := VisualPaths.duel_illustration("won" if key in ["win", "yielded_rival"] else ("draw" if key == "draw" else "lost"))
+	if ill != null:
+		page["image"] = ill
+	_result.show_page(page)
 	if OS.is_debug_build():
 		print("[DuelScreen] resultado: %s (%s), toques %s, lances %d" % [key, r["end"], t, int(r["lances"])])
 	finished.emit(r)
@@ -270,7 +384,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		return
 	var k := (event as InputEventKey).physical_keycode
 	if k == KEY_ESCAPE:
-		close()
+		if game_mode and not duel.over():
+			_auto_finish()
+		elif not busy:
+			close()
 	elif _result.visible:
 		pass
 	elif KEYS.has(k):

@@ -67,7 +67,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
 	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
-	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade}
+	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
@@ -77,6 +77,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
 	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
+	# duelist: challenges the rival of the trade by the rules and plays its duels (duelo, --scenario=duel_ready)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
 const YEAR_DAYS: int = 8  # D1(b): 1 year = 8 days
@@ -276,9 +277,34 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 		m[k] = 0
 	for k: String in sim.catalog.world_events():
 		m["ev_" + k] = 0
+	for k: String in ["duels_challenged", "duels_fought", "duels_won", "duels_lost", "duel_draws", "duel_no_show",
+			"duels_refused", "brawls"]:  # duelo (docs/contratos/duelo.md)
+		m[k] = 0
 	for i: int in days * Clock.MINUTES_PER_DAY:
 		for e: Dictionary in sim.step(bot.orders(sim)):
 			match str(e["type"]):
+				"duel_challenged":
+					if str(e.get("family", "")) == player:
+						m["duels_challenged"] = int(m["duels_challenged"]) + 1
+				"duel_brawl":
+					if str(e.get("family", "")) == player:
+						m["brawls"] = int(m["brawls"]) + 1
+				"duel_finished":
+					if str(e.get("family", "")) == player or str(e.get("target_family", "")) == player:
+						var oc := str(e.get("outcome", ""))
+						var w := str(e.get("winner", ""))
+						if oc in ["fought", "yielded"]:
+							m["duels_fought"] = int(m["duels_fought"]) + 1
+							var mine := w != "" and str(sim.state.characters.get(w, {}).get("family", "")) == player
+							m["duels_won" if mine else "duels_lost"] = int(m["duels_won" if mine else "duels_lost"]) + 1
+						elif oc == "draw":
+							m["duels_fought"] = int(m["duels_fought"]) + 1
+							m["duel_draws"] = int(m["duel_draws"]) + 1
+						elif oc == "refused":
+							m["duels_refused"] = int(m["duels_refused"]) + 1
+						elif oc == "no_show" and str(e.get("absent", "")) != "" and \
+								str(sim.state.characters.get(str(e["absent"]), {}).get("family", "")) == player:
+							m["duel_no_show"] = int(m["duel_no_show"]) + 1
 				"order_refused":
 					m["refused_orders"] += 1
 					m["refused_unreachable" if str(e["reason"]) == "unreachable" else "refused_other"] += 1

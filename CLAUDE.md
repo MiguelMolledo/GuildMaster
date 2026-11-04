@@ -111,6 +111,9 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
   los datos) salvo `--cast=random` (con `--tag`; en `run_all`, paso cast). Contrato: `docs/contratos/poblacion.md`.
   Captura: `--smoke-script=poblacion --seed=<n>`. Al cambiar el pool de retratos (`assets/art/portraits/index.json`):
   `python3 tools/art/portraits_catalog.py` (exporta `data/portraits.json`; el validador comprueba que coinciden).
+- Duelo (al tocar `data/combat.json`, `sim/combat/` o la IA rival): `godot --headless --path . -s tools/sim_runner.gd --
+  --scenario=duel_ready --bots=duelist --days=8 --seeds=5` (en `run_all`, paso duel) y el banco del lance
+  `godot --headless --path . -s tools/duel_bench.gd`. Capturas: `--smoke-script=duelo_partida`. Contrato: `docs/contratos/duelo.md`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

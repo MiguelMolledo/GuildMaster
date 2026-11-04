@@ -619,5 +619,38 @@
       0,
       3
     ]
+  },
+  "duelist": {
+    "_doc": "Duelo (docs/gdd/04e_combate.md §4e.6, docs/contratos/duelo.md): bot duelist desde el escenario duel_ready (el rival le acaba de insultar). Reta al rival del oficio cada vez que puede (enfriamiento de 1 estación), deja que el sim lo lleve a la plaza al alba y juega siguiendo la pista. En 8 días: ninguna orden rechazada, nunca falta a un duelo ni pelea fuera de las reglas, se bate al menos 2 veces de media y gana alguno (el rival le aventaja: ~30 % por duelo con tablas). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=duel_ready --bots=duelist --days=8 --seeds=5 (en run_all, paso duel, 3 semillas). Medido (2026-11-04, 5 semillas): 3 duelos por semilla, 1,2 ganados de media, 0 incomparecencias.",
+    "days": [
+      8,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "duel_no_show": [
+      0,
+      0
+    ],
+    "brawls": [
+      0,
+      0
+    ],
+    "_mean": {
+      "duels_fought": [
+        2.0,
+        null
+      ],
+      "duels_won": [
+        0.5,
+        2.5
+      ]
+    }
   }
 }

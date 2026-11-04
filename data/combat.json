@@ -3,11 +3,11 @@
   "actions": {
     "strike": {
       "beats": "feint",
-      "breath": 2
+      "breath": 1
     },
     "parry": {
       "beats": "strike",
-      "breath": -1
+      "breath": -2
     },
     "feint": {
       "beats": "parry",
@@ -30,7 +30,7 @@
     "stat": "martial",
     "base": 50,
     "step": 5,
-    "advantage": 30
+    "advantage": 15
   },
   "clash": {
     "stat": "martial",
@@ -54,13 +54,13 @@
     },
     "tool": {
       "edge": "strike",
-      "touch": 5,
+      "touch": 10,
       "tie": 10,
       "breath": 0
     },
     "sword": {
       "edge": "strike",
-      "touch": 20,
+      "touch": 25,
       "tie": 20,
       "breath": 0
     },
@@ -97,7 +97,7 @@
       "lances": 11,
       "wound": true,
       "can_yield": true,
-      "locked": false
+      "locked": true
     },
     "to_death": {
       "touches": 4,
@@ -122,5 +122,93 @@
   },
   "armor_items": [
     "armor"
-  ]
+  ],
+  "challenge": {
+    "_doc": "Duels in the game (docs/gdd/04e_combate.md §4e.3-§4e.5, sim/combat/duels.gd) [balance]. causes: offense (the actor or an adult of their family holds one of offense_states towards the target's family: an insult or threat of H7), courtship (both court the same single adult with affinity >= courtship_min_affinity: «about» is the one with the highest of the two), rivalry (the families own a building of the same type: the trade's rival). min_age, cooldown_days (the same pair, after a closed duel), kinds_allowed (O-C11: first blood for now). The challenged answers before the next dawn (answer_hour); the duel is at hour (minute of the day) of the day after accepting, at the map spawn named in ground (the first that exists); call_before minutes before it both are sent there. present_tiles: how near the ground counts as being there; witness_tiles: who sees it (and who saw the challenge, near the challenger); public_witnesses: from how many it is public (consequences.public_mult). fight_timeout: game minutes a played duel may stay open (then the AI plays the rest). The NPC answer (ai_answer): accept when its chance of winning (samples automatic duels) >= accept_min + (risk_aversion - 0.5) x risk_step, or when it is short of that by less than near_miss and refusing would cost it reputation; refuses for free with title_gap_free or more title steps above the challenger (O-C8).",
+    "causes": [
+      "offense",
+      "courtship",
+      "rivalry"
+    ],
+    "offense_states": [
+      "offended",
+      "angry"
+    ],
+    "courtship_min_affinity": 40,
+    "min_age": 16,
+    "cooldown_days": 2,
+    "kinds_allowed": [
+      "first_blood"
+    ],
+    "answer_hour": 360,
+    "hour": 360,
+    "call_before": 30,
+    "ground": [
+      "duel_ground",
+      "market"
+    ],
+    "present_tiles": 3,
+    "witness_tiles": 8,
+    "public_witnesses": 3,
+    "fight_timeout": 120,
+    "weapons_order": [
+      "sword",
+      "tool",
+      "fists"
+    ],
+    "keep_closed": 20
+  },
+  "ai_answer": {
+    "samples": 40,
+    "accept_min": 0.4,
+    "risk_step": 0.4,
+    "near_miss": 0.1,
+    "title_gap_free": 2
+  },
+  "consequences": {
+    "_doc": "What a duel leaves (04e §4e.5) [balance]. Reputation is the honour (Reputation.change, reason duel_<outcome>); a public duel (>= public_witnesses) doubles it; a gain is weighted by the rival's title: 1 + title_weight_step per step of the rival above you, at most title_weight_max. relation: the permanent relation between the two. refuse: the refuser loses reputation only if somebody saw the challenge; the challenger gains challenger. no_show: who did not come. courtship (cause courtship, with «about»): affinity of each duellist with the courted one. brawl (fighting outside the rules, order duel_brawl): a public fact with charge for the attacker's family when somebody saw it, reputation and relation.",
+    "win": {
+      "reputation": 5,
+      "relation": -10
+    },
+    "lose": {
+      "reputation": -2,
+      "relation": -5
+    },
+    "draw": {
+      "reputation": 1,
+      "relation": 5
+    },
+    "yield": {
+      "reputation": -8,
+      "relation": -5
+    },
+    "refuse": {
+      "reputation": -10,
+      "relation": -10,
+      "challenger": 2
+    },
+    "no_show": {
+      "reputation": -10,
+      "relation": -10
+    },
+    "withdraw": {
+      "reputation": -5,
+      "relation": 0
+    },
+    "public_mult": 2,
+    "title_weight_step": 0.5,
+    "title_weight_max": 2.0,
+    "courtship": {
+      "winner": 15,
+      "loser_fought": 5,
+      "yield_or_refuse": -15,
+      "draw": 5
+    },
+    "brawl": {
+      "charge": "brawl",
+      "reputation": -5,
+      "relation": -15
+    }
+  }
 }

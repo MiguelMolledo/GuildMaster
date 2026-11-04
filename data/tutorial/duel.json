@@ -1,0 +1,47 @@
+{
+  "id": "duel",
+  "name_key": "tutorial.chapter.duel",
+  "desc_key": "tutorial.chapter.duel.desc",
+  "test": {
+    "scenario": "duel_ready"
+  },
+  "steps": [
+    {
+      "id": "why",
+      "text": "tutorial.duel.why",
+      "advance": "next"
+    },
+    {
+      "id": "sheet",
+      "text": "tutorial.duel.sheet",
+      "done": {
+        "state": "panel_open",
+        "is": "NpcPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "button",
+      "text": "tutorial.duel.button",
+      "target": {
+        "ui": "DuelButton",
+        "in": "NpcPanel"
+      },
+      "advance": "next",
+      "if": {
+        "state": "panel_open",
+        "is": "NpcPanel"
+      }
+    },
+    {
+      "id": "dawn",
+      "text": "tutorial.duel.dawn",
+      "advance": "next"
+    },
+    {
+      "id": "read",
+      "text": "tutorial.duel.read",
+      "advance": "next"
+    }
+  ]
+}

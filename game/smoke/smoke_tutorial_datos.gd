@@ -6,7 +6,7 @@ extends Node
 ## double click, another building entered and a stall visited walking there with the game running, the station's
 ## menu) and it looks again, up to MAX_TRIES (a walk waits longer). A step whose "if" fails is skipped. Shots of the
 ## first and the last step of chapters 3 on (reports/shots/tut_<chapter>_primero.png / _ultimo.png). Prints one line
-## per step and a summary; quits with 1 if any step does not find its target.
+## per step and a summary; quits with 1 if any step does not find its target. --tutorial-chapters=a,b checks only those.
 
 const MAX_TRIES: int = 6
 const SETTLE: float = 0.5      # after showing a step
@@ -42,6 +42,10 @@ func _process(delta: float) -> void:
 			_tut = app.tutorial()
 			_tut.memory["game/tutorial_hints"] = false
 			_queue = _tut.chapter_ids()
+			for a: String in OS.get_cmdline_user_args():  # --tutorial-chapters=a,b: only those (a new chapter's check)
+				if a.begins_with("--tutorial-chapters="):
+					var only := a.substr(20).split(",", false)
+					_queue = _queue.filter(func(c: Variant) -> bool: return str(c) in only)
 			_stage = "chapter"
 		"chapter":
 			if _queue.is_empty():

@@ -28,10 +28,12 @@ func _init() -> void:
 			print("[DuelBench] --set %s = %s" % [kv[0], kv[1]])
 	Duel.verbose = false
 	print("[DuelBench] %d duelos por fila, tipo %s" % [n, kind])
-	print("| Duelo (retador vs retado) | Gana | Pierde | Tablas | Lances |")
-	print("|---|---|---|---|---|")
+	print("| Duelo (retador vs retado) | Gana | Pierde | Tablas | Lances | Sin nada |")
+	print("|---|---|---|---|---|---|")
 	var plain := {"martial": 3, "empathy": 3, "constitution": 5}
 	_row("Iguales (3/3, puños)", _f(plain), _f(plain))
+	var weak := {"martial": 3, "empathy": 3, "constitution": 3}
+	_row("Iguales con Constitución 3 (el arenero)", _f(weak), _f(weak))
 	_row("Arte Marcial 5 vs 3", _f(plain, {"martial": 5}), _f(plain))
 	_row("Arte Marcial 7 vs 3", _f(plain, {"martial": 7}), _f(plain))
 	_row("Empatía 7 vs 3", _f(plain, {"empathy": 7}), _f(plain))
@@ -49,8 +51,8 @@ func _init() -> void:
 		_f({"martial": 7, "empathy": 5, "constitution": 5}, {}, "sword"),
 		_f({"martial": 6, "empathy": 5, "constitution": 6}, {}, "sword", true))
 	print("")
-	print("| Jugador (iguales 3/3) contra la IA | Gana | Pierde | Tablas | Lances |")
-	print("|---|---|---|---|---|")
+	print("| Jugador (iguales 3/3) contra la IA | Gana | Pierde | Tablas | Lances | Sin nada |")
+	print("|---|---|---|---|---|---|")
 	var a := _f(plain)
 	var b := _f(plain)
 	_row("Resolver sin jugar", a, b)
@@ -72,20 +74,24 @@ func _row(label: String, a: Dictionary, b: Dictionary, policy: String = "") -> v
 	var w := 0
 	var l := 0
 	var lances := 0
+	var even := 0
 	for s in n:
-		var r: Dictionary
+		var du: Duel
 		if policy == "":
-			r = Duel.auto(cfg, "b%d" % s, 5000 + s, a, b, kind)
+			du = Duel.create(cfg, "b%d" % s, 5000 + s, a, b, kind, -1)
 		else:
-			r = _play(5000 + s, a, b, policy)
+			du = _play(5000 + s, a, b, policy)
+		var r := du.result()
 		w += int(int(r["winner"]) == 0)
 		l += int(int(r["winner"]) == 1)
 		lances += int(r["lances"])
-	print("| %s | %d %% | %d %% | %d %% | %.1f |" % [label, roundi(100.0 * w / n), roundi(100.0 * l / n),
-		roundi(100.0 * (n - w - l) / n), float(lances) / n])
+		for rec: Dictionary in du.lances_log():
+			even += int(str(rec["how"]) == "even")
+	print("| %s | %d %% | %d %% | %d %% | %.1f | %d %% |" % [label, roundi(100.0 * w / n), roundi(100.0 * l / n),
+		roundi(100.0 * (n - w - l) / n), float(lances) / n, roundi(100.0 * even / maxi(lances, 1))])
 
 
-func _play(seed: int, a: Dictionary, b: Dictionary, policy: String) -> Dictionary:
+func _play(seed: int, a: Dictionary, b: Dictionary, policy: String) -> Duel:
 	var du := Duel.create(cfg, "b%d" % (seed - 5000), seed, a, b, kind, 0)
 	var guard := 0
 	while not du.over() and guard < 64:
@@ -102,4 +108,4 @@ func _play(seed: int, a: Dictionary, b: Dictionary, policy: String) -> Dictionar
 			_:
 				act = policy if policy in (v["allowed"] as Array) else "parry"
 		du.choose(0, act)
-	return du.result()
+	return du

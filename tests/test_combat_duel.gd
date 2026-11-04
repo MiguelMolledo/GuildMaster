@@ -148,13 +148,16 @@ func test_breath_costs_and_limits() -> void:
 	eq(mx, int(cfg["breath"]["base"]) + floori(5 * float(cfg["breath"]["per_constitution"])) + fists, "fists: extra breath")
 	eq(CombatRules.breath_max(cfg, _f("a", 3, 3, 5, "sword")), mx - fists, "a sword: no extra breath")
 	eq(CombatRules.allowed(cfg, 0), ["parry"] as Array[String], "without breath, only parry")
-	check(not CombatRules.can_afford(cfg, 1, "strike"), "strike needs 2")
-	check(CombatRules.can_afford(cfg, 1, "feint"), "feint needs 1")
-	eq(CombatRules.breath_after(cfg, f, 3, "strike"), 1, "strike spends 2")
+	var strike := CombatRules.cost(cfg, "strike")
+	var parry := -CombatRules.cost(cfg, "parry")
+	check(strike > 0 and parry > 0, "strike costs, parry recovers")
+	check(not CombatRules.can_afford(cfg, strike - 1, "strike"), "strike needs its cost")
+	check(CombatRules.can_afford(cfg, CombatRules.cost(cfg, "feint"), "feint"), "feint needs its cost")
+	eq(CombatRules.breath_after(cfg, f, 3, "strike"), 3 - strike, "strike spends its cost")
 	eq(CombatRules.breath_after(cfg, f, mx, "parry"), mx, "parry recovers, never above the max")
-	eq(CombatRules.breath_after(cfg, f, 0, "parry"), 1, "parry recovers 1")
+	eq(CombatRules.breath_after(cfg, f, 0, "parry"), mini(parry, mx), "parry recovers its figure")
 	var du := Duel.create(cfg, "br", 7, _f("a", 3, 3, 0, "sword"), _f("b"), "first_blood", 0)
-	du.d["breath"][0] = 1
+	du.d["breath"][0] = strike - 1
 	eq(str(du.choose(0, "strike")["reason"]), "no_breath", "the duel refuses a strike without breath")
 
 
@@ -175,7 +178,9 @@ func test_ends_at_touches_or_lances() -> void:
 
 
 func test_yield() -> void:
-	var du := Duel.create(cfg, "y", 3, _f("a"), _f("b"), "surrender", 0)
+	var open_cfg: Dictionary = cfg.duplicate(true)  # O-C11: until one yields is locked for now; the rule stays
+	open_cfg["kinds"]["surrender"]["locked"] = false
+	var du := Duel.create(open_cfg, "y", 3, _f("a"), _f("b"), "surrender", 0)
 	check(bool(du.view(0)["can_yield"]), "a duel to surrender lets you yield")
 	du.choose(0, "yield")
 	var r := du.result()
@@ -235,3 +240,19 @@ func test_weapon_from_equipment() -> void:
 	eq(CombatRules.weapon_for(cfg, {"tool": {"item": "hammer", "quality": 0}}), "tool", "a hammer is a tool")
 	eq(CombatRules.weapon_for(cfg, {"tool": null}), "fists", "nothing: fists")
 	check(CombatRules.armored(cfg, {"clothes": {"item": "armor", "quality": 0}}), "armour")
+
+
+func test_balance_the_sword_tilts_and_weak_breath_does_not_stall() -> void:
+	# duelo2 (04e §4e.2.8): measured with tools/duel_bench.gd; the floors leave room for the seeds
+	var sword := _rate(_f("a", 3, 3, 5, "sword"), _f("b"))
+	print("[TestDuel] espada vs puños: %s" % sword)
+	check(float(sword["win"]) - float(sword["lose"]) >= 0.08, "a sword is an advantage over fists")
+	var even := 0
+	var lances := 0
+	for s in 600:
+		var du := Duel.create(cfg, "c3_%d" % s, 300 + s, _f("a", 3, 3, 3), _f("b", 3, 3, 3), "first_blood", -1)
+		for r: Dictionary in du.lances_log():
+			even += int(str(r["how"]) == "even")
+			lances += 1
+	print("[TestDuel] Constitución 3: %.2f de lances sin nada" % (float(even) / lances))
+	check(float(even) / lances <= 0.24, "Constitution 3: few lances where nothing happens")

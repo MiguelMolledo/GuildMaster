@@ -1,11 +1,12 @@
 # Combate · la pantalla del duelo
 
-> Dueño: duelo · Estado: borrador (prototipo jugable aparte, sin conectar a la partida) · Fecha: 2026-11-04
+> Dueño: duelo · Estado: en la partida (rama duelo2) · Fecha: 2026-11-04
 > Guía de estilo: [00_lenguaje_visual.md](../00_lenguaje_visual.md) · Zonas y reglas del HUD: [01_hud.md](../01_hud.md) ·
 > Reglas: [04e_combate.md](../../gdd/04e_combate.md) · Convenciones: [_comun.md](_comun.md), [_social.md](_social.md)
 
 La ventana que 04d (4.22.6.13) marcaba como «falta». Sirve para el duelo de honor y, con las variantes de 4e.7, para
-los combates del Pícaro. Hoy se abre solo con `--duel-test` o `--smoke-script=duel` (§9).
+los combates del Pícaro. En la partida se abre sola a la hora del duelo; el prototipo sigue en `--duel-test` (§9).
+Contrato: [docs/contratos/duelo.md](../../contratos/duelo.md).
 
 ---
 
@@ -18,11 +19,18 @@ los combates del Pícaro. Hoy se abre solo con `--duel-test` o `--smoke-script=d
 
 ## 2. Cómo se abre y se cierra
 
-- Abrir (cuando se conecte): al empezar un duelo en el que juega alguien de tu familia, a la hora y en el sitio
-  (04e §4e.3.3). Hoy: `--duel-test` (sobre la partida de prueba en pausa).
+- **Antes:** «Retar a duelo…» en la ficha de una persona de otra familia (apagado con su motivo: sin motivo, enfriamiento,
+  ya tiene un duelo…) abre la **carta de reto** (`DuelCard`, PageCard): tipo, hora y sitio, tus opciones en banda con el %,
+  testigos de ahora, lo que ganas o pierdes, qué le cuesta rechazar, «si no estás a la hora, pierdes»; un botón por causa
+  («Por la ofensa», «Por el oficio», «Por Clara»), «Pelear sin reto» si estás al alcance, Cerrar. Lejos, el personaje va
+  andando y reta al llegar. La **respuesta** llega en otra carta («Bernat acepta el duelo: el día 2 a las 06:00»), y a las
+  05:30 un aviso urgente («Duelo con Bernat a las 06:00: a la plaza»).
+- **Abrir:** a las 06:00, si los dos están en la plaza, la pantalla se abre sola. Si no estás, carta de incomparecencia.
+  Prototipo: `--duel-test` (sobre la partida de prueba en pausa).
 - **Pausa automática** mientras está abierta, como la vista oral del tribunal (H11): el duelo no corre contra el reloj.
-- Cerrar: al acabar, con la carta de resultado («Cerrar»). **Esc** a medio duelo: hoy cierra el prototipo; en la partida
-  será «Resolver sin jugar» (no se puede abandonar un duelo sin perderlo).
+- Cerrar: al acabar, con la carta de resultado («Cerrar»): la partida vuelve a la pausa en que estaba. **Esc** a medio
+  duelo: en la partida, «Resolver sin jugar» (no se abandona un duelo); en el prototipo, cierra.
+- Cada lance es una orden que se aplica al momento aunque la partida esté en pausa (`Game.step_now`: un minuto de juego).
 - Teclas: **1** Golpe, **2** Parada, **3** Finta, **R** Rendirse (solo hasta la rendición), **A** Resolver sin jugar.
   Las teclas salen en la esquina de cada botón (`MenuKit.add_hint`).
 
@@ -51,8 +59,9 @@ los combates del Pícaro. Hoy se abre solo con `--duel-test` o `--smoke-script=d
 | Resolver sin jugar (A) | `{"type": "duel_auto", "actor", "duel"}` | Siempre | Durante la animación | No |
 | Otro duelo / Cerrar (carta) | — (prototipo) | — | — | — |
 
-Hoy el prototipo llama a `Duel.choose()` / `Duel.auto_finish()` directamente (no hay partida que guardar); al conectarlo,
-la pantalla solo dará esas órdenes y leerá `state.duels[id]`.
+En la partida la pantalla solo da esas órdenes y lee `state.duels.open[id].duel`; el prototipo llama a `Duel.choose()` /
+`Duel.auto_finish()` sobre un duelo propio. La carta de resultado de la partida enseña **lo que el sim aplicó**
+(reputación, relación, afinidad); la del prototipo, lo propuesto.
 
 ## 5. Estados especiales
 
@@ -159,13 +168,16 @@ Hecho (prototipo, rama `duelo`): `game/ui/duel_screen.tscn` + `duel_screen.gd`, 
 `UiAnim.lunge` / `UiAnim.recoil`, `App.open_duel_test()` (`--duel-test`, `--duel-kind`, `--duel-weapon`,
 `--duel-rival`), el bot `game/smoke/smoke_duel.gd` (`--smoke-script=duel [--duel-again]`).
 
-Pendiente al conectarlo (tras el Gate O-C):
-- [ ] La pantalla da `duel_move` / `duel_auto` por `Game.give` en vez de llamar a `Duel`.
-- [ ] Carta de reto y respuesta (Aceptar / Rechazar / Proponer otro tipo) con el coste de rechazar a la vista.
-- [ ] Confirmación de Rendirse; Esc = Resolver sin jugar.
+Hecho en duelo2: `game/ui/duel_director.gd`, el modo partida de la pantalla, «Retar a duelo…» en la ficha, las cartas,
+el guion `--smoke-script=duelo_partida`.
+- [x] La pantalla da `duel_move` / `duel_auto` (por `Game.step_now`).
+- [x] Carta de reto y de respuesta, con el coste de rechazar a la vista.
+- [x] Esc = Resolver sin jugar.
+- [x] Consecuencias reales en la carta.
+- [ ] Responder retos (Aceptar / Rechazar / Proponer otro tipo): cuando los NPC reten (O-C7, O-C17).
+- [ ] Confirmación de Rendirse: con «hasta la rendición» (O-C4).
 - [ ] Testigos en la escena (siluetas detrás) y el padrino de cada lado.
-- [ ] Consecuencias reales en la carta (hoy: «propuesta, sin aplicar»).
-- [ ] Arte y sonido de §8.
+- [ ] Arte y sonido de §8 (los efectos, iconos e ilustración se ven solos cuando lleguen: `VisualPaths.duel_*`).
 
 ## 10. Criterios de aceptación
 
@@ -176,4 +188,6 @@ Pendiente al conectarlo (tras el Gate O-C):
 - [x] Al acabar sale la carta de resultado con los toques, los lances y las consecuencias propuestas
   (`duelo_resultado.png`).
 - [x] «Resolver sin jugar» acaba el duelo y saca la carta (`--duel-again`, `duel_auto_result`).
-- [ ] Con un duelo de la partida (cuando se conecte), la pantalla se abre sola a la hora con pausa automática.
+- [x] Con un duelo de la partida, la pantalla se abre sola a la hora con pausa automática (`docs/novedades/duelp_pantalla.png`).
+- [x] Desde la ficha del rival, «Retar a duelo…» abre la carta con las causas (`duelp_ficha.png`, `duelp_carta.png`).
+- [x] La respuesta del rival y el aviso de las 05:30 (`duelp_respuesta.png`, `duelp_alba.png`).

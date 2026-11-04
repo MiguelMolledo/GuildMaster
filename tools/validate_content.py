@@ -1498,6 +1498,20 @@ def check_h14(strings, rep):
     check_text("i18n/reason", "reason.directive_not_ready", strings, rep)
 
 
+DUEL_CAUSES = {"offense", "courtship", "rivalry"}
+DUEL_REASONS = ["no_cause", "too_young", "wounded", "busy", "cooldown", "kind_locked", "too_far", "unknown_duel",
+                "not_challenged", "already_answered", "bad_answer", "not_challenger", "already_fighting", "not_fighting",
+                "not_your_side", "duel_over", "already_chosen", "no_breath", "cannot_yield", "bad_action"]
+DUEL_NOTICES = ["duel_challenged", "duel_accepted", "duel_refused", "duel_withdrawn", "duel_call", "duel_won",
+                "duel_lost", "duel_draw", "duel_yielded", "duel_no_show_you", "duel_no_show_rival", "duel_cancelled",
+                "duel_brawl"]
+
+
+def CHARGES_OF(rep):
+    j = load_json(os.path.join(DATA, "justice.json"), rep) or {}
+    return set((j.get("charges") or {}).keys())
+
+
 def check_combat(items, strings, rep):
     """Duelo «a tres tiempos» (docs/gdd/04e_combate.md, borrador): data/combat.json. Las tres acciones forman un ciclo
     (cada una gana a otra distinta), costes de aliento enteros y Parada sin coste; lectura con min <= base <= max en
@@ -1577,6 +1591,54 @@ def check_combat(items, strings, rep):
     for it in c.get("armor_items") or []:
         if it not in items:
             rep.error(w, f"armor_items: objeto desconocido {it}")
+    # Duelo en la partida (docs/contratos/duelo.md): el reto, la respuesta de los NPC y las consecuencias.
+    ch = c.get("challenge") or {}
+    for x in ch.get("causes") or []:
+        if x not in DUEL_CAUSES:
+            rep.error(w, f"challenge.causes: causa desconocida {x}")
+        check_text(w, f"combat.cause.{x}", strings, rep)
+    if not ch.get("causes"):
+        rep.error(w, "challenge.causes: al menos una causa")
+    for x in ("courtship_min_affinity", "min_age", "cooldown_days", "answer_hour", "hour", "call_before", "present_tiles",
+              "witness_tiles", "public_witnesses", "fight_timeout", "keep_closed"):
+        if not isinstance(ch.get(x), int) or ch[x] < 0:
+            rep.error(w, f"challenge.{x}: entero >= 0")
+    for x in ("answer_hour", "hour"):
+        if isinstance(ch.get(x), int) and not 0 <= ch[x] < 1440:
+            rep.error(w, f"challenge.{x}: minuto del día en [0, 1440)")
+    for k in ch.get("kinds_allowed") or []:
+        if k not in (c.get("kinds") or {}) or (c["kinds"][k] or {}).get("locked"):
+            rep.error(w, f"challenge.kinds_allowed: {k} no existe o está bloqueado")
+    for x in ch.get("weapons_order") or []:
+        if x not in weapons:
+            rep.error(w, f"challenge.weapons_order: arma desconocida {x}")
+    if not ch.get("ground"):
+        rep.error(w, "challenge.ground: los spawns del mapa donde se celebra (el primero que exista)")
+    for mid, m in load_kind("maps", rep).items():
+        if not any(g in (m.get("spawns") or {}) for g in ch.get("ground") or []):
+            rep.error(f"maps/{mid}", f"sin sitio para los duelos: ningún spawn de {ch.get('ground')}")
+    aa = c.get("ai_answer") or {}
+    for x in ("accept_min", "risk_step", "near_miss"):
+        if not isinstance(aa.get(x), (int, float)) or not 0 <= aa[x] <= 1:
+            rep.error(w, f"ai_answer.{x} en [0, 1]")
+    for x in ("samples", "title_gap_free"):
+        if not isinstance(aa.get(x), int) or aa[x] < 1:
+            rep.error(w, f"ai_answer.{x}: entero >= 1")
+    co = c.get("consequences") or {}
+    for x in ("win", "lose", "draw", "yield", "refuse", "no_show", "withdraw"):
+        if not isinstance((co.get(x) or {}).get("reputation"), int) or not isinstance((co.get(x) or {}).get("relation"), int):
+            rep.error(w, f"consequences.{x}: reputation y relation enteros")
+        check_text(w, f"rep.reason.duel_{x}", strings, rep)
+    for x in ("duel_no_show_rival", "duel_challenge_refused", "duel_brawl"):
+        check_text(w, f"rep.reason.{x}", strings, rep)
+    if not isinstance(co.get("public_mult"), int) or co["public_mult"] < 1:
+        rep.error(w, "consequences.public_mult: entero >= 1")
+    if (co.get("brawl") or {}).get("charge") not in CHARGES_OF(rep):
+        rep.error(w, "consequences.brawl.charge: un cargo de data/justice.json")
+    for x in DUEL_REASONS:
+        check_text("i18n/reason", "reason." + x, strings, rep)
+    for x in DUEL_NOTICES:
+        check_text("i18n/notice", "notice." + x, strings, rep)
 
 
 H13_NOTICES = ["event_started", "event_declared", "event_ended"]

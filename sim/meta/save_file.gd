@@ -310,7 +310,22 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 					elif str(f.get("ai_profile", "")) != "":
 						type = "artisan"
 					c["visual"]["portrait"] = {"id": "", "type": type}  # the id: Cast.grow_portraits at the next year
+		14:  # 14 -> 15 (duelo, docs/gdd/04e_combate.md)
+			_to_v15(data)
 	return data
+
+
+## v14 -> v15 (duelo, docs/contratos/duelo.md): the root duels {open, closed}; a game from before had none. Its own
+## function so the next steps (v16 travels, v17 the other classes of 4.22) chain behind it.
+static func _to_v15(data: Dictionary) -> void:
+	var d: Variant = data.get("duels")
+	if not d is Dictionary:
+		data["duels"] = {"open": {}, "closed": []}
+		return
+	if not (d as Dictionary).get("open") is Dictionary:
+		d["open"] = {}
+	if not (d as Dictionary).get("closed") is Array:
+		d["closed"] = []
 
 
 ## The same text for the same content, whatever the number types: what hashes and comparisons use.

@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 14
+const VERSION: int = 15
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -40,6 +40,7 @@ var ending: Dictionary = {}        # {} while the game goes on; {kind, family, m
 # H7 (docs/contratos/h7_ciudad.md): the living town. Characters get occupation and town (SaveFile._step 7 -> 8).
 var microevents: Dictionary = {"active": [], "pending": [], "cooldowns": {}, "last_day": {}}  # GDD 4.20: Microevents
 var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD 4.5.4): Counter
+var duels: Dictionary = {"open": {}, "closed": []}  # duels of honour: id -> duel open, the last closed (04e): Duels
 # H4 (docs/contratos/h4_empleados.md): no new root fields. Characters get home, rank, job, hire_bans and routine;
 # buildings get employee_slots and queue (SaveFile._step 4 -> 5).
 # H5 (docs/contratos/h5_mejoras.md): no new root fields. Buildings get upgrades, upgrade_work and inspection
@@ -62,6 +63,8 @@ var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD
 # [{id, def, start, end, by}] (SaveFile._step 12 -> 13). The season is not state: Clock derives it from the minute.
 # Población (docs/contratos/poblacion.md): the new root cast {mode fixed | random, seed, map} (births and newcomers
 # draw their names and looks from it) and characters' visual gets portrait {type, variant} (SaveFile._step 13 -> 14).
+# Duelo (docs/gdd/04e_combate.md, docs/contratos/duelo.md): the new root duels {open: {id -> duel}, closed: [duel]}
+# (SaveFile._to_v15, step 14 -> 15).
 
 
 func seed_rng(s: int) -> void:
@@ -103,6 +106,7 @@ func to_dict() -> Dictionary:
 		"ending": ending,
 		"microevents": microevents,
 		"town": town,
+		"duels": duels,
 	}
 
 
@@ -145,6 +149,7 @@ static func from_dict(src: Dictionary) -> WorldState:
 	s.ending = d.get("ending", {})
 	s.microevents = d.get("microevents", {"active": [], "pending": [], "cooldowns": {}, "last_day": {}})
 	s.town = d.get("town", {"counters": {}})
+	s.duels = d.get("duels", {"open": {}, "closed": []})
 	return s
 
 

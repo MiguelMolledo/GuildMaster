@@ -14,7 +14,8 @@ extends RefCounted
 ## (docs/contratos/h8_familia.md); H7: npc_talk, npc_gift, npc_flatter, npc_insult, npc_threaten, resolve_microevent
 ## (docs/contratos/h7_ciudad.md); H9: request_title (docs/contratos/h9_titulos.md); H10: run_for_office,
 ## campaign_action, use_office_power (docs/contratos/h10_cargos.md); H11: accuse, witness_action, trial_cross,
-## trial_rest, trial_verdict (docs/contratos/h11_tribunal.md). Each milestone adds
+## trial_rest, trial_verdict (docs/contratos/h11_tribunal.md); duelo: duel_challenge, duel_answer, duel_withdraw,
+## duel_move, duel_auto, duel_brawl (docs/contratos/duelo.md). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -137,6 +138,19 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Tribunal.order_rest(sim, order)
 		"trial_verdict":
 			return Tribunal.order_verdict(sim, order)
+		# Duelo · duels of honour (sim/combat/duels.gd, docs/contratos/duelo.md)
+		"duel_challenge":
+			return Duels.order_challenge(sim, order)
+		"duel_answer":
+			return Duels.order_answer(sim, order)
+		"duel_withdraw":
+			return Duels.order_withdraw(sim, order)
+		"duel_move":
+			return Duels.order_move(sim, order)
+		"duel_auto":
+			return Duels.order_auto(sim, order)
+		"duel_brawl":
+			return Duels.order_brawl(sim, order)
 	return fail("unknown_order")
 
 
@@ -145,7 +159,8 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role", "queue_add", "queue_remove",
 	"queue_move", "queue_loop", "queue_pause", "repay_loan", "read_notices", "abandon_contract", "buy_upgrade",
 	"designate_heir", "school_choice", "assign_building", "close_dynasty", "set_schedule", "set_directives",
-	"resolve_microevent", "run_for_office", "use_office_power", "accuse", "trial_cross", "trial_rest", "trial_verdict"]
+	"resolve_microevent", "run_for_office", "use_office_power", "accuse", "trial_cross", "trial_rest", "trial_verdict",
+	"duel_answer", "duel_withdraw", "duel_move", "duel_auto"]
 
 
 static func is_management(type: String) -> bool:
