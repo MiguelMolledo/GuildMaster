@@ -739,6 +739,36 @@
       "tema": "Plantillas: empezar en cualquier ciudad de la región y su población por el bench",
       "decision": "Partida nueva ofrece «Dónde empiezas» (Vilarrasa por defecto y las cinco de Valldaura; también --start-city=<id>): NewGame.from_start con choices.city juega el mismo inicio en el mapa de esa ciudad; sin ciudad o con Vilarrasa la partida es la de siempre, byte a byte (las dianas no se mueven). Peñarroja, Vilablat y Montsacre se regeneran con el generador para llevar los solares de los cuatro oficios (hitos y puntos de reunión idénticos). Cada ciudad empieza llena con per_house del plan (tools/city/ciudades.json) y su population_max: el objetivo era 5 por casa, recortado a lo que aguanta el bench (wanderer, vida encendida, mejor de 3 pasadas, intercalado con Vilarrasa como referencia porque la máquina estaba cargada: Vilarrasa dio 1,87-2,37 ms): Vilablat 5 (20 vecinos, 2,00 ms), Montsacre 5 (20, 2,04), Peñarroja 3 (18, 2,27; con 4, 2,44), Portvell 2 (20, 2,32; con 5, 4,30), Bellcaire 2 (32, la de antes: 4,13 ms; no aguanta con ninguna, ni con 1 por casa: 2,99). El peor paso pasa de 8 ms en todas, Vilarrasa incluida (16-20 ms con esta carga).",
       "por_que": "El coste del bench crece con los personajes (~0,08 ms cada uno en un mapa de 40×40, más en el de 80×80 por las rutas largas del A*): con la diana de 2 ms caben unos 25 personajes. Para que Bellcaire aguante con muchos vecinos hace falta abaratar las rutas, no quitar gente (pendiente de decidir)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Hugo v3: proporciones de adulto",
+      "decision": "Se mantienen las proporciones del v3 (cabeza de adulto, cara de 9×6 px a escala B); no se agranda la cabeza. A zoom 1 el personaje se lee por silueta, color de ropa y nombre; la cara, en el retrato y a zoom 2. Retoque a mano de ojos, boca y barbilla hecho (arte-fal-2 2786313). El v3 se cablea entero (idle, andar, forjar) cuando haya 8 generaciones de PixelLab para el andar; hasta entonces, nada más de arte: prioridad gameplay.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Decide el manager tras ver las comparativas a zoom 1 y 2."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 13 · fama de un taller",
+      "decision": "como la de la taberna, 0,5-2,0; sube con la calidad media de lo vendido en los últimos 4 días, obras maestras, encargos cumplidos y concursos ganados; baja con encargos incumplidos y quejas. Se define en 04g §4.6.5.7.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 14 · clientela de la comarca en los talleres",
+      "decision": "una sola implementación para mostrador y taberna (la de interiores, sim/town/clientele.gd, y la de la posada se unifican); se enciende cuando sus cifras por oficio estén medidas con los bots de cada oficio y el mostrador deje ≥2× salario (punto 8).",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 15 · bolsa de los hogares",
+      "decision": "los vecinos con trabajo cobran un jornal diario a la bolsa de su casa (según oficio), y la comida se paga de ella; el gasto en la taberna es discrecional. Diana: 6-12 vecinos por noche en la taberna un día normal.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Montsacre: dentro y fuera sin muralla de villa",
+      "decision": "El recinto de la abadía no es edificable (tierra de la Iglesia). En ciudades sin muralla de villa, «dentro» es el núcleo a un radio andando de la plaza (cifra en tools/city/reglas.json), con guardia y precio de situación de dentro.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
     }
   ],
   "pendientes": [
