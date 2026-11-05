@@ -1,0 +1,37 @@
+{
+  "id": "tavern_inn_hall_2",
+  "name_key": "upgrade.tavern_inn_hall_2",
+  "tree": "tavern_inn",
+  "branch": "inn_hall",
+  "level": 2,
+  "cost": {
+    "gold": 90,
+    "items": [
+      {
+        "item": "stone",
+        "qty": 6
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_hall_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "inn_ambience",
+      "amount": 1
+    },
+    {
+      "kind": "inn_hearth"
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_hearth",
+    "exterior_overlay": null
+  }
+}

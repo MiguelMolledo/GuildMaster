@@ -1,0 +1,32 @@
+{
+  "id": "tavern_inn_kitchen_1",
+  "name_key": "upgrade.tavern_inn_kitchen_1",
+  "tree": "tavern_inn",
+  "branch": "inn_kitchen",
+  "level": 1,
+  "cost": {
+    "gold": 45,
+    "items": [
+      {
+        "item": "stone",
+        "qty": 4
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 0.5,
+  "effects": [
+    {
+      "kind": "unlock_recipe",
+      "recipe": "tavern_bake_bread"
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_oven",
+    "exterior_overlay": null
+  }
+}

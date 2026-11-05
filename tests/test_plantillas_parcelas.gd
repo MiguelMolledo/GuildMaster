@@ -81,3 +81,26 @@ func test_the_view_draws_lots_ruins_and_the_sale_sign() -> void:
 				stakes += 1
 		eq(stakes, 4 * int(kinds.get("lot", 0)), "%s: four stakes a lot" % city)
 		v.free()
+
+
+func test_the_festival_decoration_keeps_off_the_plots_and_the_dressing() -> void:
+	for city: String in NewGame.cities(cat):
+		var st := _game(city)
+		var m: Dictionary = cat.maps()[st.map_id]
+		var keep := {}
+		for p: Dictionary in m.get("plots", []):
+			if str(p["state"]) in ["lot", "ruin"]:
+				for t: Vector2i in PlotLayer.tiles_of(p):
+					keep[t] = "plot " + str(p["id"])
+		for it: Dictionary in m.get("decor", {}).get("items", []):
+			if str(it.get("kind", "")) == "single":  # the well
+				keep[Vector2i(int(it["at"][0]), int(it["at"][1]))] = "decor " + str(it["id"])
+		for svc: Dictionary in SimQuery.map_services(st, cat):  # the stalls, the board, the town hall
+			keep[svc["tile"]] = "service"
+		var sites := FestivalLayer.sites(st, cat)
+		var bad: Array = []
+		for where: String in sites:
+			for t: Vector2i in sites[where]:
+				if keep.has(t):
+					bad.append("%s %s: %s" % [where, t, keep[t]])
+		eq(bad, [], "%s: no festival site on a plot, the well or a stall" % city)

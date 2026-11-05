@@ -157,7 +157,12 @@ static func _step_one(sim: Sim, v: String, now: int, phase: String) -> void:
 	var t: Dictionary = ch["town"]
 	if Incidents.holds(st, v) or Life.is_captive(st, v):
 		return  # in a brawl, or held by the bandits
+	if str(vis.get("lodging", "")) != "" and Inn.lodger_step(sim, v, now):
+		return  # posada: it sleeps at the Taberna-Posada (Inn.lodge); at dawn Inn sends it on its way
 	if phase in ["dusk", "night"] and not bool(vis.get("leaving", false)):
+		if Inn.lodge(sim, v):
+			_end_show(sim, v)
+			return  # posada (04f §4.27): a bed at the inn, it stays the night
 		_leave(sim, v)
 	if bool(vis.get("leaving", false)):
 		var gate: Array = Life.gates(sim).get(str(vis.get("gate", "")), Life.plaza(sim))
@@ -175,6 +180,8 @@ static func _step_one(sim: Sim, v: String, now: int, phase: String) -> void:
 		t.erase("activity")
 		_end_show(sim, v)
 		if i >= plan.size():
+			if Inn.lodge(sim, v):
+				return  # posada: done for the day, it waits at the inn's door for a bed
 			_leave(sim, v)
 			return
 		var spot := _stop_tile(sim, v, str(plan[i][0]), "life|vstop|%s|%d" % [v, i])

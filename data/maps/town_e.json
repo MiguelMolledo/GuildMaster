@@ -40,10 +40,10 @@
   ".ffffff=fffff..........###.....=...ww...",
   ".,,,,,,=,,,,,..........###.....=...ww...",
   ".ffffff,,,,,,,,,,,,,,,,,,,,,,,,,...ww..T",
-  ".ffffffffffff.###..###.............ww...",
-  ".ffffffffffff.###..###.............ww...",
-  ".ffffffffffff.###..###.............ww...",
-  ".ffffffffffff.###..###.............wwT..",
+  ".ffffffffffff.###..###....###......ww...",
+  ".ffffffffffff.###..###....###......ww...",
+  ".ffffffffffff.###..###....###......ww...",
+  ".ffffffffffff.###..###....###......wwT..",
   ".................................T.ww...",
   "...................................ww..."
  ],
@@ -245,6 +245,18 @@
     16
    ],
    "owner": ""
+  },
+  "tavern_inn": {
+   "type": "tavern_inn",
+   "origin": [
+    26,
+    34
+   ],
+   "door": [
+    27,
+    33
+   ],
+   "for_sale": true
   },
   "house_w_north": {
    "type": "house",
@@ -473,6 +485,32 @@
     [
      18,
      14
+    ]
+   ]
+  },
+  {
+   "id": "meet_tavern",
+   "kind": "tavern",
+   "slots": [
+    [
+     27,
+     32
+    ],
+    [
+     26,
+     33
+    ],
+    [
+     28,
+     33
+    ],
+    [
+     26,
+     32
+    ],
+    [
+     28,
+     32
     ]
    ]
   },
@@ -1233,15 +1271,15 @@
    "side": "inside",
    "zone": "housing",
    "origin": [
-    27,
+    21,
     31
    ],
    "size": [
-    3,
+    2,
     2
    ],
    "front": [
-    27,
+    21,
     33
    ],
    "location": 0.23
@@ -1256,7 +1294,7 @@
     34
    ],
    "size": [
-    3,
+    2,
     3
    ],
    "front": [
@@ -1309,18 +1347,18 @@
    "side": "outside",
    "zone": "rustic",
    "origin": [
-    27,
-    34
+    20,
+    3
    ],
    "size": [
     3,
     3
    ],
    "front": [
-    27,
-    33
+    20,
+    6
    ],
-   "location": 0.23
+   "location": 0.3
   },
   {
    "id": "plot_08",
@@ -1339,7 +1377,7 @@
     26,
     19
    ],
-   "location": 0.77,
+   "location": 0.78,
    "site": "player_forge",
    "for_sale": false
   },
@@ -1360,7 +1398,7 @@
     10,
     19
    ],
-   "location": 0.69,
+   "location": 0.68,
    "site": "rival_forge",
    "for_sale": false
   },
@@ -1381,7 +1419,7 @@
     33,
     18
    ],
-   "location": 0.64,
+   "location": 0.63,
    "site": "house_e_north",
    "for_sale": false
   },
@@ -1570,7 +1608,7 @@
     15,
     33
    ],
-   "location": 0.29,
+   "location": 0.28,
    "site": "workshop_carpentry",
    "for_sale": true
   },
@@ -1829,6 +1867,10 @@
    {"kind": "yard", "id": "yard_plot_sack", "at": [9, 23], "site": "rival_forge"},
    {"kind": "yard", "id": "yard_plot", "at": [10, 23], "site": "rival_forge"},
    {"kind": "yard", "id": "yard_plot", "at": [11, 23], "site": "rival_forge"},
+   {"kind": "house", "id": "lot_house_c_back", "at": [26, 34], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "tavern_inn"},
+   {"kind": "yard", "id": "yard_plain", "at": [26, 37], "site": "tavern_inn"},
+   {"kind": "yard", "id": "yard_plain", "at": [27, 37], "site": "tavern_inn"},
+   {"kind": "yard", "id": "yard_crates", "at": [28, 37], "site": "tavern_inn"},
    {"kind": "house", "id": "lot_house_b_back", "at": [14, 34], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "workshop_carpentry"},
    {"kind": "yard", "id": "yard_plot", "at": [14, 37], "site": "workshop_carpentry"},
    {"kind": "yard", "id": "yard_plot", "at": [15, 37], "site": "workshop_carpentry"},

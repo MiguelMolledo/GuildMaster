@@ -68,7 +68,7 @@ por juego en `game/ui/games/board_<juego>.gd` (`GameBoard`).
 
 ## Probarlo
 
-- `godot --path . -- --games-test=<azar|mayor|pulso|envite|tourney|joust|sortija|race|bulls|apuestas>` (sobre la partida en pausa, contra el herrero rival; la orden
+- `godot --path . -- --games-test=<azar|mayor|pulso|envite|tourney|joust|sortija|race|bulls|apuestas|rescue|brawl|fair_bet|festival_joust>` (sobre la partida en pausa, contra el herrero rival; la orden
   va al sim de verdad). `--games-stake=`, `--games-opponents=preset:regular_cheat,…`, `--games-house=<edificio>`.
 - Capturas: `--smoke-script=juegos [--smoke-games=…]` → `reports/shots/juegos_<juego>_1` (antes de decidir), `_2` (el
   momento clave, a media animación) y `_3` (el resultado).

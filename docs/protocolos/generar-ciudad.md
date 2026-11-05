@@ -324,6 +324,8 @@ rejilla, los solares y los puntos de reunión no se mueven, así que ninguna dia
   (`min_outside`), de 1 a 3 ruinas y la válvula de 4.9 (`valve`: 2 parcelas libres —solares y ruinas— de cada zona).
   Además, que ninguna pise un edificio, una puerta, un servicio, un punto social, una casilla de oficio o una casa de
   relleno, que no se solapen, que se entre desde la plaza, que su lado sea el que dice y que las rústicas vayan fuera.
+- La decoración de las fiestas (`FestivalLayer.sites`) no se pone en solares ni ruinas, como no se pone en la
+  decoración del mapa (el pozo), los puestos, el tablón, las puertas ni los puntos de reunión.
 - En venta: `for_sale` talleres, los mejor situados que no estén en `never_for_sale` (la forja del jugador y la del
   rival del herrero).
 - Repartirlas otra vez: `python3 tools/city/ciudad.py parcelas [mapa…]` (las ciudades de `ciudades.json` se

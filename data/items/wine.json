@@ -1,0 +1,11 @@
+{
+  "id": "wine",
+  "name_key": "item.wine",
+  "gender": "m",
+  "category": "consumable",
+  "weight": 1.0,
+  "max_stack": 10,
+  "base_price": 7,
+  "market_stall": "food",
+  "_doc": "Vino (de Portvell o de la abadía, 09b): se compra en el puesto de comida. La Bodega lo sirve bueno o excelente (inn_wine_quality)."
+}

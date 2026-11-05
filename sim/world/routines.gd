@@ -44,6 +44,13 @@ static func _step_one(sim: Sim, chr: String, now: int, phase: String) -> void:
 	var work := Staff.employer(st, chr)
 	var loc := str(ch.get("location", ""))
 	var want := "home"
+	var inn_shift := InnStaff.shift(sim, chr, work)  # posada: the Taberna-Posada's employees work the night (4.22.4.5)
+	if inn_shift == "night":
+		if Staff.is_active(sim, chr) and InnStaff.on_duty(sim, now):
+			_go(sim, chr, r, work, "at_work", "to_work", now)
+		else:
+			_go(sim, chr, r, str(ch.get("home", "")), "home", "to_home", now)
+		return
 	if Staff.is_active(sim, chr) and phase in (sched.get("work_phases", ["dawn", "day"]) as Array):
 		var today := Clock.day(now)
 		if int(r.get("day", -1)) != today:

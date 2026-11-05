@@ -1,0 +1,11 @@
+{
+  "id": "ale",
+  "name_key": "item.ale",
+  "gender": "f",
+  "category": "consumable",
+  "weight": 1.0,
+  "max_stack": 10,
+  "base_price": 4,
+  "market_stall": "food",
+  "_doc": "Cerveza: se elabora en la cocina (tavern_brew_ale) o se compra en el puesto de comida."
+}
