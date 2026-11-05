@@ -1,7 +1,7 @@
 {
   "id": "festivals",
   "kind": "festival",
-  "_doc": "4.25.4 · encargos de fiesta y de boda, por fiesta (las tablas que nombra data/festivals.json contracts) y oficio. No es una tabla del tablón de cada día (kind festival: Catalog la aparta de contracts()). Cada entrada: profession (la del oficio que lo fabrica; any = cualquiera que lo lleve, la comida), item, qty, min_quality (0 normal, 1 buena, 2 excelente), client, what (qué es en la fiesta: el texto festival_contract.<what>), needs (solo si esa parte de la fiesta está patrocinada u organizada), y opcionales premium, reputation, relation, chronicle (el que lo cumple sale en la crónica). Salen con el pregón (notice_days antes) y vencen a due_hour del día de la fiesta. Carrera: varias familias pueden aceptarlo; el primero que lo entrega con la calidad pedida se lo lleva y los demás lo pierden sin penalización. Se publica una entrada solo si alguna familia (la del jugador o una IA con perfil) tiene el taller de ese oficio; las de any, siempre. Cifras [balance].",
+  "_doc": "4.25.4 · encargos de fiesta y de boda, por fiesta (las tablas que nombra data/festivals.json contracts) y oficio. No es una tabla del tablón de cada día (kind festival: Catalog la aparta de contracts()). Cada entrada: profession (la del oficio que lo fabrica; any = cualquiera que lo lleve, la comida), item, qty, min_quality (0 normal, 1 buena, 2 excelente), client, what (qué es en la fiesta: el texto festival_contract.<what>), needs (solo si esa parte de la fiesta está patrocinada u organizada), y opcionales premium, reputation, relation, chronicle (el que lo cumple sale en la crónica). Salen con el pregón (notice_days antes) y vencen a due_hour del día de la fiesta. Carrera: varias familias pueden aceptarlo; el primero que lo entrega con la calidad pedida se lo lleva y los demás lo pierden sin penalización. Se publica una entrada solo si alguna familia (la del jugador o una IA con perfil) tiene el taller de ese oficio; las de any, siempre. Cifras [balance]. El regalo de la villa ya no es un encargo: lo elige el Alcalde entre las piezas ofrecidas (festivals.json rules.gift).",
   "defaults": {
     "premium": 0.6,
     "reputation": 2,
@@ -231,17 +231,6 @@
       }
     ],
     "marquis_visit": [
-      {
-        "profession": "blacksmith",
-        "item": "decorative_sword",
-        "qty": 1,
-        "min_quality": 2,
-        "client": "town_council",
-        "what": "town_gift",
-        "reputation": 8,
-        "relation": 20,
-        "chronicle": true
-      },
       {
         "profession": "mason",
         "item": "triumphal_arch",

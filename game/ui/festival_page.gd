@@ -16,7 +16,58 @@ static func data_for(sim: Sim, e: Dictionary, fam: String = "") -> Dictionary:
 			return _feast(sim, e, fam)
 		"festival_wedding_offer":
 			return _wedding(sim, e)
+		"festival_gift_offers":
+			return _gift_offers(sim, e)
+		"festival_gift_chosen", "festival_contest", "festival_audience":
+			return _result(sim, e)
 	return {}
+
+
+## The mayor's card: the pieces offered for the town's gift, one button each (festival_choose_gift).
+static func _gift_offers(sim: Sim, e: Dictionary) -> Dictionary:
+	var inst := Festivals.find(sim, str(e.get("festival", "")))
+	if inst.is_empty():
+		return {}
+	var buttons: Array = []
+	var lines: Array = []
+	var offers: Array = inst.get("gift_offers", [])
+	for i: int in mini(offers.size(), 4):
+		var o: Dictionary = offers[i]
+		var t := SimQuery.t_("ui.festival_card.offer_line") % [SimQuery.item_name(sim.catalog, str(o["item"])),
+			SimQuery.quality_name(int(o["quality"])), str(sim.state.families.get(str(o["family"]), {}).get("name", ""))]
+		lines.append({"text": t, "sign": ""})
+		buttons.append({"id": "choose:%d" % i, "text": SimQuery.t_("ui.festival_card.choose") % (i + 1), "primary": i == 0})
+	return {"template": "card", "title": SimQuery.t_("ui.festival_card.gift_title"),
+		"image": VisualPaths.illustration_or_greybox("events", str(inst["def"])),
+		"blocks": [{"type": "paragraph", "text": SimQuery.t_("ui.festival_card.gift_body")}, {"type": "effects", "items": lines}],
+		"buttons": buttons, "sticky": true, "festival": str(inst["def"]), "instance": str(inst["id"])}
+
+
+## The outcome of the town's gift, the quality contest or the player's audience.
+static func _result(sim: Sim, e: Dictionary) -> Dictionary:
+	var t := str(e.get("type", ""))
+	var fam_name := str(sim.state.families.get(str(e.get("family", "")), {}).get("name", ""))
+	var text := ""
+	var title := ""
+	match t:
+		"festival_gift_chosen":
+			title = SimQuery.t_("ui.festival_card.gift_title")
+			text = SimQuery.t_("ui.festival_card.gift_result") % [SimQuery.item_name(sim.catalog, str(e.get("item", ""))),
+				fam_name, int(e.get("pay", 0))]
+		"festival_contest":
+			title = SimQuery.t_("ui.festival_card.contest_title")
+			text = SimQuery.t_("ui.festival_card.contest_result") % [fam_name, SimQuery.item_name(sim.catalog,
+				str(e.get("item", ""))), SimQuery.quality_name(int(e.get("quality", 0))), int(e.get("entries", 0)),
+				int(e.get("prize", 0))]
+		"festival_audience":
+			title = SimQuery.t_("ui.festival_card.audience_title")
+			var got := str(e.get("granted", ""))
+			text = SimQuery.t_("ui.festival_card.audience_ok") % SimQuery.t_("festival.privilege." + got) if got != "" \
+				else SimQuery.t_("ui.festival_card.audience_no")
+	return {"template": "card", "title": title, "image": VisualPaths.illustration_or_greybox("events", str(e.get("def", ""))),
+		"blocks": [{"type": "paragraph", "text": text}], "buttons": [{"id": "ok", "text": SimQuery.t_("ui.festival_card.ok"),
+		"primary": true}], "seconds": float(ViewConfig.value("event_card_seconds", 12.0)), "festival": str(e.get("def", "")),
+		"instance": str(e.get("festival", ""))}
 
 
 static func _feast(sim: Sim, e: Dictionary, fam: String) -> Dictionary:
@@ -59,6 +110,8 @@ static func _feast(sim: Sim, e: Dictionary, fam: String) -> Dictionary:
 		tail += ". " + SimQuery.t_("ui.festival_card.poor")
 	blocks.append({"type": "paragraph", "text": tail})
 	var buttons: Array = [{"id": "ok", "text": SimQuery.t_("ui.festival_card.ok"), "primary": true}]
+	if fam != "" and not inst.is_empty():
+		buttons.append_array(_court_buttons(sim, inst, fam))
 	if eve and fam != "" and not inst.is_empty():
 		for part: String in Festivals.sponsor_parts(sim, inst):
 			if part in (inst.get("sponsors", {}).get(fam, []) as Array):
@@ -90,6 +143,35 @@ static func _wedding(sim: Sim, e: Dictionary) -> Dictionary:
 			{"id": "host_wedding", "text": SimQuery.t_("ui.festival_card.host_wedding") % gold, "primary": true,
 				"disabled": Money.gold(sim.state, fam) < gold}],
 		"sticky": true, "festival": "noble_wedding", "instance": ""}
+
+
+## The buttons of the feast's court for `fam` (owner, 2026-11-05): offer a piece for the town's gift, ask the marquis
+## for an audience (one button per privilege it may grant), present a piece to the quality contest. Only what the
+## family may still do (in time, not done yet, a piece to bring).
+static func _court_buttons(sim: Sim, inst: Dictionary, fam: String) -> Array:
+	var out: Array = []
+	var now := int(sim.state.clock["minute"])
+	var actor := SimQuery.family_actor(sim.state, fam)
+	var gifts: Array = Festivals.rules(sim).get("gift", {}).get("items", [])
+	var g := FestivalCourt.effect(sim, inst, "town_gift")
+	if not g.is_empty() and now < FestivalCourt._deadline(inst, g) and not FestivalCourt._entered(inst.get("gift_offers", []), fam):
+		var p := FestivalCourt.best_piece(sim, fam, actor, gifts)
+		if not p.is_empty():
+			out.append({"id": "offer_gift", "text": SimQuery.t_("ui.festival_card.offer_gift") % SimQuery.item_name(sim.catalog,
+				str(p["item"])), "tip": SimQuery.t_("ui.festival_card.offer_gift_tip")})
+	var a := FestivalCourt.effect(sim, inst, "audience")
+	if not a.is_empty() and now < FestivalCourt._deadline(inst, a) and FestivalCourt.title_ok(sim, fam) \
+			and not FestivalCourt._entered(inst.get("audience", []), fam) and not FestivalCourt.best_piece(sim, fam, actor, gifts).is_empty():
+		for priv: String in FestivalCourt.privileges_open(sim):
+			out.append({"id": "audience:" + priv, "text": SimQuery.t_("ui.festival_card.audience") % SimQuery.t_(
+				"festival.privilege." + priv), "tip": SimQuery.t_("ui.festival_card.audience_tip")})
+	var c := FestivalCourt.effect(sim, inst, "contest")
+	if not c.is_empty() and now < FestivalCourt._deadline(inst, c) and not FestivalCourt._entered(inst.get("contest", []), fam):
+		var p := FestivalCourt.best_piece(sim, fam, actor, [])
+		if not p.is_empty():
+			out.append({"id": "contest", "text": SimQuery.t_("ui.festival_card.contest") % SimQuery.item_name(sim.catalog,
+				str(p["item"])), "tip": SimQuery.t_("ui.festival_card.contest_tip") % int(c.get("prize", 0))})
+	return out
 
 
 ## One effect of data/festivals.json as {text, sign} ({} for the ones the card does not tell: the life block's routine).
@@ -131,6 +213,13 @@ static func effect_line(sim: Sim, f: Dictionary) -> Dictionary:
 			return {"text": SimQuery.t_("ui.festival_card.fx_aguinaldo") % int(f.get("loyalty", 0)), "sign": "+"}
 		"need":
 			return {"text": SimQuery.t_("ui.festival_card.fx_need") % int(f.get("amount", 0)), "sign": "+"}
+		"town_gift":
+			return {"text": SimQuery.t_("ui.festival_card.fx_town_gift") % (int(f.get("hour", 10)) % 24), "sign": ""}
+		"audience":
+			return {"text": SimQuery.t_("ui.festival_card.fx_audience") % (int(f.get("hour", 12)) % 24), "sign": ""}
+		"contest":
+			return {"text": SimQuery.t_("ui.festival_card.fx_contest") % [int(f.get("hour", 18)) % 24, int(f.get("prize", 0))],
+				"sign": "+"}
 	return {}
 
 
@@ -141,4 +230,13 @@ static func order_for(button: String, d: Dictionary, actor: String) -> Dictionar
 			"part": button.substr(8)}
 	if button == "host_wedding":
 		return {"type": "festival_host_wedding", "actor": actor}
+	var f := str(d.get("instance", ""))
+	if button == "offer_gift":
+		return {"type": "festival_offer_gift", "actor": actor, "festival": f}
+	if button == "contest":
+		return {"type": "festival_enter_contest", "actor": actor, "festival": f}
+	if button.begins_with("audience:"):
+		return {"type": "festival_audience", "actor": actor, "festival": f, "privilege": button.substr(9)}
+	if button.begins_with("choose:"):
+		return {"type": "festival_choose_gift", "actor": actor, "festival": f, "offer": button.substr(7).to_int()}
 	return {}

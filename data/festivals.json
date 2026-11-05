@@ -81,7 +81,58 @@
         ],
         "gate_margin": 1
       }
-    }
+    },
+    "_gift_doc": "4.25.2 (owner, 2026-11-05) · el regalo de la villa: con la visita del marqués (efecto town_gift) las familias ofrecen una pieza de items hasta choose_hour; el Alcalde elige (el jugador si es suyo el cargo; si no elige, o el cargo es de la IA o de un vecino, la mejor por calidad y luego valor); la villa la paga a pay_mult de su valor y da reputación, relación con el concejo y una línea en la crónica. Las demás vuelven a su dueño al acabar la fiesta.",
+    "gift": {
+      "items": [
+        "decorative_sword",
+        "statue",
+        "fine_clothes",
+        "candlestick",
+        "armor",
+        "sword",
+        "cabinet",
+        "dowry_chest",
+        "wedding_dress",
+        "doublet"
+      ],
+      "pay_mult": 1.5,
+      "reputation": 8,
+      "relation": 15
+    },
+    "_audience_doc": "4.25.2 · la audiencia del marqués (efecto audience): las familias con título min_title o más la piden con un regalo (una pieza de gift.items, que se queda el marqués) y una tirada de Retórica: base + per_rhetoric × Retórica + per_value × valor del regalo, hasta max. Si sale, el privilegio que pidió: title_favour (el próximo título pide reputation_mult de la reputación y cuesta gold_mult del oro), exemption (sin arancel en city durante days días), minor_office (un cargo menor vacante sin elección; solo si hay alguno). Reputación y crónica en los dos casos.",
+    "audience": {
+      "min_title": "citizen",
+      "base": 0.2,
+      "per_rhetoric": 0.06,
+      "per_value": 0.0015,
+      "max": 0.9,
+      "success_reputation": 5,
+      "fail_reputation": 0,
+      "privileges": {
+        "title_favour": {
+          "reputation_mult": 0.8,
+          "gold_mult": 0.5
+        },
+        "exemption": {
+          "city": "capital",
+          "days": 8
+        },
+        "minor_office": {}
+      }
+    },
+    "_ai_sponsor_doc": "4.25.5 (owner, 2026-11-05) · las familias rivales (IA con perfil) patrocinan como mucho per_year fiestas grandes al año si les sobra el oro (gold_reserve del perfil + spare después de pagar), con una tirada por fiesta (chance). Cada parte la paga una sola familia: la primera que llega (compite con el patrocinio del jugador).",
+    "ai_sponsor": {
+      "per_year": 1,
+      "spare": 150,
+      "chance": 0.6,
+      "parts": [
+        "banquet",
+        "music",
+        "bulls"
+      ]
+    },
+    "_contest_doc": "Concurso de calidad (owner, 2026-11-05; efecto contest de la feria): los artesanos presentan su mejor pieza (un producto con calidad) antes de hour; gana la de más calidad (empate: la de más valor; después, la primera presentada): prize de oro, reputation y la crónica. Las piezas vuelven a su dueño al acabar la fiesta. La IA con perfil presenta su mejor pieza sola."
   },
   "festivals": {
     "holy_week": {
@@ -394,6 +445,10 @@
           "what": "horse_race"
         },
         {
+          "hour": 18,
+          "what": "quality_contest"
+        },
+        {
           "hour": 21,
           "what": "minstrels"
         }
@@ -455,6 +510,13 @@
           "share": 0.4,
           "toward": "sponsors",
           "at": "end"
+        },
+        {
+          "kind": "contest",
+          "id": "quality",
+          "hour": 18,
+          "prize": 60,
+          "reputation": 6
         }
       ],
       "contracts": "harvest_fair",
@@ -859,6 +921,14 @@
           "share": 0.3,
           "toward": "sponsors",
           "at": "end"
+        },
+        {
+          "kind": "town_gift",
+          "hour": 10
+        },
+        {
+          "kind": "audience",
+          "hour": 12
         }
       ],
       "contracts": "marquis_visit",

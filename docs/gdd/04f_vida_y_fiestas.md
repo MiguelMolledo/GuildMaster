@@ -405,6 +405,22 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
   Verano 1, Montsacre en Otoño 1, Peñarroja en Invierno 1, Vilablat en Primavera 2); la de Vilarrasa es la de la siega
   (Verano 2). Durante la feria: arancel 0 en esa ciudad, sin portazgo en sus caminos desde el día antes y su demanda
   sube. Son puro calendario (no se guardan).
+- **Regalo de la villa, audiencia, concurso y patrocinios de la IA** (owner, 2026-11-05; `sim/fest/festival_court.gd`,
+  efectos `town_gift`, `audience` y `contest`, cifras en `rules.gift`, `rules.audience`, `rules.ai_sponsor`):
+  - El regalo de la villa ya no es un encargo de carrera: las familias ofrecen una pieza (`rules.gift.items`) hasta las
+    10:00 de la visita; el Alcalde elige (el jugador, con la carta que le llega una hora antes; si no elige, o el cargo
+    es de la IA o de un vecino, la mejor por calidad y luego valor). La villa la paga a ×1,5 de su valor, con
+    reputación, relación con el concejo y la crónica. Las demás piezas vuelven a casa al acabar.
+  - Audiencia (12:00): Ciudadano o más, con un regalo que se queda el marqués y una tirada (0,2 + 0,06 × Retórica +
+    0,0015 × valor del regalo, hasta 0,9). Privilegios: favor para el próximo título (pide el 80 % de la reputación y
+    cuesta la mitad; se gasta al pedirlo), sin arancel en Bellcaire un año, o un cargo menor vacante sin elección.
+    «−1 año al próximo título» del diseño no existe en el juego (los títulos no piden años): es el favor.
+  - Concurso de calidad en la feria (18:00): gana la pieza de más calidad (luego valor, luego la primera presentada):
+    60 de oro, reputación +6 y la crónica. Las piezas vuelven al acabar.
+  - La IA con perfil trae su mejor pieza sola (si la tiene) y patrocina una fiesta grande al año como mucho, si le
+    sobra el oro (reserva del perfil + 150) y sale su tirada. Cada parte del patrocinio la paga una sola familia: la
+    primera que llega (`part_taken`), así compite con el jugador. No hay «módulo de reputación» de 04c en el código:
+    la regla vive en las fiestas y lee el perfil.
 - **Los corrales, a las afueras** (2026-11-05, owner): las ferias de ganado se hacían fuera, junto al camino. El sitio
   `outskirts` de la vista (`data/festivals.json` `rules.view_sites.outskirts`) es el prado libre más cercano a una
   puerta del mapa (spawns `*_gate`, a 10 casillas o menos), y toda la huella del prop tiene que caer en prado: nunca en

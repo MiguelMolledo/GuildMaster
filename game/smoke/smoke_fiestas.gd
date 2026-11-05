@@ -176,5 +176,51 @@ func _process(delta: float) -> void:
 				print("[SmokeFiestas] tablón: %s" % [open.map(func(c: Dictionary) -> String:
 					return "%s %s q%d %s" % [c["id"], c["item"], int(c["min_quality"]), c.get("festival_def", "")])])
 				app.save_shot("fiesta_boda_tablon")
+				app.hud().board_panel().close()
+				_go("court")
+		"court":  # the marquis: the player is the mayor and a citizen; offers from both houses
+			var sim: Sim = Game.sim
+			var fam := SimQuery.player_family(sim.state)
+			Offices.take(sim, "mayor", 0, _who)
+			sim.state.families[fam]["title"] = "citizen"
+			sim.state.festivals = Festivals.new_block()
+			sim.state.festivals["planned_day"] = 20
+			sim.state.clock["minute"] = 19 * DAY + 13 * 60
+			_inst = Festivals._schedule(sim, "marquis_visit", 21, "smoke")
+			sim.events = []
+			Festivals.step(sim)
+			var rival := ""
+			for f: String in Festivals._sorted_keys(sim.state.families):
+				if str(sim.state.families[f].get("ai_profile", "")) != "":
+					rival = f
+					break
+			var rh := Kin.head(sim.state, rival)
+			Inventory.add(sim.state.characters[rh]["inventory"], sim.catalog, "decorative_sword", 2, 1)
+			Inventory.add(sim.state.characters[_who]["inventory"], sim.catalog, "sword", 1, 1)
+			Inventory.add(sim.state.characters[_who]["inventory"], sim.catalog, "fine_clothes", 2, 1)
+			Orders.apply(sim, {"type": "festival_offer_gift", "actor": rh, "festival": _inst})
+			Orders.apply(sim, {"type": "festival_offer_gift", "actor": _who, "festival": _inst, "item": "sword"})
+			_card("festival_eve")
+			_go("court_card")
+		"court_card":
+			if _t > 0.5:
+				app.save_shot("fiesta_marques_carta")
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("close")
+				card.call("show_festival", Game.sim, {"type": "festival_gift_offers", "festival": _inst,
+					"def": "marquis_visit", "mayor": _who, "offers": 2})
+				_go("gift_card")
+		"gift_card":
+			if _t > 0.5:
+				app.save_shot("fiesta_regalo_villa")
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("close")
+				card.call("show_festival", Game.sim, {"type": "festival_contest", "festival": "", "def": "harvest_fair",
+					"family": SimQuery.player_family(Game.sim.state), "item": "decorative_sword", "quality": 2,
+					"prize": 60, "entries": 3})
+				_go("contest_card")
+		"contest_card":
+			if _t > 0.5:
+				app.save_shot("fiesta_concurso")
 				_go("done")
 				get_tree().quit()

@@ -2,6 +2,12 @@
   "tomadas": [
     {
       "fecha": "2026-11-05",
+      "tema": "Fiestas: regalo de la villa, audiencia, concurso de calidad y patrocinios de la IA (construido)",
+      "decision": "Construidas las decisiones del owner del 2026-11-05 (04f §4.25.7): regalo elegido por el Alcalde entre las piezas ofrecidas (la IA o nadie: la mejor por calidad y valor); audiencia con regalo y tirada de Retórica, con tres privilegios (favor para el próximo título en vez de «−1 año», que el juego no tiene; exención en Bellcaire un año; cargo menor vacante); concurso de calidad en la feria (60 de oro y +6 de reputación); la IA patrocina como mucho una fiesta grande al año y cada parte la paga una sola familia. Campos opcionales en v18 (sin versión nueva: ausentes = vacíos).",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas…»."
+    },
+    {
+      "fecha": "2026-11-05",
       "tema": "Fiestas: los corrales de la feria, a las afueras",
       "decision": "Los corrales (y el ganado) de la feria y de la feria de ganado se ponen en el prado libre más cercano a una puerta de la villa, nunca en caminos ni puertas, con una regla de la capa de decoración (rules.view_sites.outskirts: ground grass, radius 10, gate_margin 1) que vale para cualquier mapa con puertas.",
       "por_que": "El owner: las ferias de ganado se hacían a las afueras, junto al camino; en la plaza de town_e no cabían."

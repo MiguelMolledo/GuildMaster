@@ -26,7 +26,7 @@ extends RefCounted
 ## written, every multiplier is 1.
 
 const SIM_EFFECTS: Array[String] = ["demand", "price", "customers", "production", "holy_day", "tariff", "route_bonus",
-	"stalls", "emotion", "reputation", "aguinaldo"]
+	"stalls", "emotion", "reputation", "aguinaldo", "town_gift", "audience", "contest"]
 const HOOK_EFFECTS: Array[String] = ["service", "visitors", "routine", "need", "spectacle", "incident"]
 const GROUP_EFFECTS: Array[String] = ["demand", "price", "production"]
 const SIZES: Array[String] = ["big", "small"]
@@ -122,6 +122,7 @@ static func _tick(sim: Sim, now: int) -> void:
 	var still: Array = []
 	for inst: Dictionary in f["active"]:
 		_spectacles(sim, inst, now)
+		FestivalCourt.tick(sim, inst, now)  # the town's gift, the audience, the quality contest at their hour
 		if now >= int(inst["end"]):
 			_end(sim, inst)
 		else:
@@ -253,6 +254,8 @@ static func _announce(sim: Sim, inst: Dictionary) -> void:
 	inst["announced"] = true
 	var d := def_of(sim, str(inst["def"]))
 	FestivalContracts.post_for(sim, inst)
+	FestivalCourt.ai_sponsor(sim, inst)   # the AI families' sponsoring (owner, 2026-11-05)
+	FestivalCourt.ai_entries(sim, inst)   # their gifts, audiences and contest pieces
 	sim.events.append({"type": "festival_eve", "id": str(inst["id"]), "def": str(inst["def"]), "day": int(inst["day"]),
 		"start": int(inst["start"]), "end": int(inst["end"]), "contracts": (inst["contracts"] as Array).size()})
 	var params := {"festival": str(inst["def"]), "when": _when_text(sim, inst), "contracts": (inst["contracts"] as Array).size()}
@@ -310,6 +313,7 @@ static func _spectacles(sim: Sim, inst: Dictionary, now: int) -> void:
 
 static func _end(sim: Sim, inst: Dictionary) -> void:
 	_apply_at(sim, inst, "end")
+	FestivalCourt.give_back(sim, inst)  # the offered and presented pieces that stayed go home
 	var f: Dictionary = sim.state.festivals
 	var h: Array = f["history"]
 	h.append(inst)
@@ -404,6 +408,14 @@ static func _part_ok(inst: Dictionary, e: Dictionary) -> bool:
 	return need == "" or part_on(inst, need)
 
 
+## The family that pays `part` of `inst` ("" if nobody yet).
+static func part_taken_by(inst: Dictionary, part: String) -> String:
+	for fam: Variant in inst.get("sponsors", {}):
+		if part in (inst["sponsors"][fam] as Array):
+			return str(fam)
+	return ""
+
+
 static func part_on(inst: Dictionary, part: String) -> bool:
 	if (inst.get("organized", {}) as Dictionary).has(part):
 		return true
@@ -488,6 +500,8 @@ static func order_sponsor(sim: Sim, o: Dictionary) -> Dictionary:
 	var fam := str(sim.state.characters[actor].get("family", ""))
 	if part in (inst["sponsors"].get(fam, []) as Array):
 		return Orders.fail("already_sponsored")
+	if part_taken_by(inst, part) != "":
+		return Orders.fail("part_taken")  # each part, one family: the AI families compete for it (owner, 2026-11-05)
 	var gold := int(def.get("gold", 0))
 	if not Money.change(sim, fam, -gold, Money.DONATIONS, str(inst["id"]), "", actor):
 		return Orders.fail("not_enough_gold")
