@@ -3945,6 +3945,10 @@ ui.order.propose_town_treaty,Propose a treaty,Proponer un tratado
 ui.order.cancel_treaty,Cancel a treaty,Romper un tratado
 ui.order.festival_sponsor,Sponsor the feast,Patrocinar la fiesta
 ui.order.festival_host_wedding,Pay the wedding banquet,Pagar el banquete de boda
+ui.order.festival_offer_gift,Offer the town a gift,Ofrecer un regalo a la villa
+ui.order.festival_choose_gift,Choose the town's gift,Elegir el regalo de la villa
+ui.order.festival_audience,Ask the marquis for an audience,Pedir audiencia al marqués
+ui.order.festival_enter_contest,Enter the quality contest,Presentarse al concurso de calidad
 ui.order.game_play,Play a game,Jugar una partida
 ui.order.game_bet,Place a bet,Apostar
 ui.order.resolve_incident,Answer an incident,Responder a un suceso
