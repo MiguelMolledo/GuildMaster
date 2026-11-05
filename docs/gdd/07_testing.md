@@ -71,6 +71,15 @@ toca la de ellos, para que sus dianas no cambien:
 - **El primer viaje** (Equilibrio 7). Guarda sus mejores espadas (excelentes, buenas y normales) hasta tener 3, como si
   fueran de un encargo, y las vende allí todas: la capital paga la calidad.
 - **Sin salida** (Equilibrio 2). Pide el préstamo de urgencia en cuanto se lo ofrecen (el caótico, a veces).
+- **La cuota de un tratado** (Equilibrio 7, 2026-11-05). Solo la firma si puede servirla (un empleado de carretero y un
+  carro o el oro para él); con ella en vigor, cada estación aparta las espadas que pide (las normales primero; las buenas
+  siguen yendo a la capital por la prima), compra el carro y las manda por caravana. Antes la firmaba y la rompía en 3 de
+  4 semillas. `BOT_VARS=quota_caravans=0` juega como antes.
+
+Y en `artisan_expert` (2026-11-05, la orden rechazada de 1 de 16 partidas): el minuto en que compra una mejora, que se
+lleva sus materiales del almacén, no planea trabajo; antes pedía forjar con los lingotes que la mejora acababa de coger
+(work_at → missing_inputs). Es un hábito del bot, no un hueco del juego: la pantalla ya da el motivo. Es otra que la del
+regateo en el mostrador (transfer → not_enough), que se arregló en el propio full_player (fb1e423, rama jugador).
 
 `tools/full_player.gd` acepta además `--set=<tabla>.<clave>=<json>` como `sim_runner` (con `--tag`), para medir un
 punto apagando los demás (rama equilibrio, `tools/equilibrio/measure.py`).

@@ -48,6 +48,7 @@ var duelist: BotDuelist = BotDuelist.new()
 var merchant: BotMerchant = BotMerchant.new()
 
 var goals: int = 1                    # trials (BOT_VARS=goals=0): 0 = never leaves the business for a goal
+var quota_caravans: int = 1          # equilibrio (BOT_VARS=quota_caravans=0): 0 = signs and breaks the quota, as before
 var titles_early: int = 1             # Equilibrio 3 (BOT_VARS=titles_early=0): 0 = asks Citizen after the plan, as before
 var focus: String = "business"        # what the head's body does: business | court | duel | travel
 var why_not: Dictionary = {}          # mechanic -> why it did not use it the last time it looked
@@ -67,6 +68,7 @@ var _mev_done: Dictionary = {}
 var _next_accuse: int = -1
 var _next_family: int = -1
 var _start_day: int = -1
+var _quota_hold: int = 0             # swords kept for the quota's caravan this season (normal ones first)
 var _trip_hold: bool = false          # Equilibrio 7: keeps swords for the first trip (the market at home takes them all)
 
 
@@ -298,6 +300,10 @@ func _caravan(sim: Sim) -> Dictionary:
 	if Travel.unlock_reason(sim, _fam_id) != "":
 		why_not["caravans"] = "title_needed"
 		return {}
+	if quota_caravans == 1:
+		var qo := _quota_caravan(sim)
+		if not qo.is_empty() or _quota_hold > 0:
+			return qo
 	var spare := _spare_swords(sim)
 	var cart_price := int(sim.catalog.trade.get("caravans", {}).get("cart_price", 120))
 	if Caravans.carts(sim, _fam_id) == 0:
@@ -327,6 +333,67 @@ func _caravan(sim: Sim) -> Dictionary:
 	_use("caravans")
 	_note(sim, "caravan", "%d swords to %s" % [spare, CITY])
 	return o
+
+
+## Equilibrio 7 (a quota signed): this season's swords for the capital are gathered (kept from the market, the normal
+## ones first; the good ones still go there by the trip's premium) and sent by caravan with an employee as carter (one
+## is enough: the quota pays 1,2 × the base price, no tariff); a cart is bought for it. {} while gathering.
+func _quota_caravan(sim: Sim) -> Dictionary:
+	var st := sim.state
+	_quota_hold = 0
+	var q := Treaties.quota_of(sim, CITY, _fam_id, "sword")
+	if q.is_empty():
+		return {}
+	var left := int(q["qty"]) - int(q.get("delivered", 0))
+	if left <= 0 or Caravans.busy_carts(sim, _fam_id) > 0:
+		return {}  # delivered this season, or the cart is already on the road with them
+	_quota_hold = left
+	var inv: Dictionary = st.buildings[FORGE]["inventory"]
+	var held := _quota_hold
+	_quota_hold = 0
+	var keep := _reserved(sim)
+	_quota_hold = held
+	var cargo: Array = []
+	var have := 0
+	for qu: int in [Inventory.NORMAL, Inventory.GOOD, Inventory.EXCELLENT]:
+		var n := mini(left - have, maxi(0, Inventory.count(inv, "sword", qu) - int(keep.get("sword|%d" % qu, 0))))
+		if n > 0:
+			cargo.append({"item": "sword", "quality": qu, "qty": n, "min_price": 0})
+			have += n
+	if have < left:
+		why_not["caravans"] = "gathering_quota"
+		return {}
+	if Caravans.carts(sim, _fam_id) == 0:
+		var cart_price := int(sim.catalog.trade.get("caravans", {}).get("cart_price", 120))
+		if Money.gold(st, _fam_id) < cart_price + _reserve(sim):
+			why_not["caravans"] = "cart_too_dear"
+			return {}
+		_use("caravans")
+		_note(sim, "buy_cart", "quota")
+		return {"type": "buy_cart", "actor": ACTOR}
+	var staff := _active_staff(sim)
+	if staff.is_empty():
+		why_not["caravans"] = "no_spare_carter"
+		return {}
+	staff.sort()
+	var o := {"type": "caravan_send", "actor": ACTOR, "driver": str(staff[-1]), "building": FORGE, "city": CITY,
+		"cargo": cargo, "buy": [], "escort": false}
+	var why := Caravans.can_send(sim, o)
+	if why != "":
+		why_not["caravans"] = why
+		return {}
+	_quota_hold = 0
+	_use("caravans")
+	_note(sim, "caravan", "quota: %d swords to %s" % [left, CITY])
+	return o
+
+
+## Whether the family can serve a quota (Equilibrio 7): a cart or the gold for one, and an employee to drive it.
+func _can_serve_quota(sim: Sim) -> bool:
+	if _active_staff(sim).is_empty():
+		return false
+	var cart_price := int(sim.catalog.trade.get("caravans", {}).get("cart_price", 120))
+	return Caravans.carts(sim, _fam_id) > 0 or Money.gold(sim.state, _fam_id) >= cart_price + _reserve(sim)
 
 
 ## Normal swords in the storage the market would not take now (demand below the expert's bar), less the contracts'.
@@ -642,6 +709,8 @@ func _away(sim: Sim) -> Array:
 			return [{"type": "city_sell", "actor": ACTOR, "item": "sword", "quality": q, "qty": swords}]
 	if Treaties.quota_of(sim, CITY, _fam_id, "sword").is_empty():
 		var why := Treaties.can_sign(sim, _fam_id, CITY, "quota", "sword")
+		if why == "" and quota_caravans == 1 and not _can_serve_quota(sim):
+			why = "cannot_serve_quota"  # equilibrio: a quota it cannot deliver would only break
 		if why == "":
 			_use("treaties")
 			_note(sim, "treaty", "quota sword " + CITY)
@@ -668,6 +737,15 @@ func _trip_swords(sim: Sim) -> int:
 ## the market like a contract's.
 func _reserved(sim: Sim) -> Dictionary:
 	var out := super._reserved(sim)
+	if _quota_hold > 0:  # the quota's swords (Equilibrio 7), the normal ones first
+		var qleft := _quota_hold
+		var qinv: Dictionary = sim.state.buildings[FORGE]["inventory"]
+		for q: int in [Inventory.NORMAL, Inventory.GOOD, Inventory.EXCELLENT]:
+			var key := "sword|%d" % q
+			var take := mini(qleft, maxi(0, Inventory.count(qinv, "sword", q) - int(out.get(key, 0))))
+			if take > 0:
+				out[key] = int(out.get(key, 0)) + take
+				qleft -= take
 	if not _trip_hold:
 		return out
 	var left := TRIP_SWORDS

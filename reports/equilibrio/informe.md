@@ -47,3 +47,11 @@ resúmenes completos en `00_base_*.json`, `all1-3.json`, `fun1-2.json`, `eq10_*.
 | D16 · 8 | Demanda del mostrador; mostrador con un empleado | ×0,38 del salario | ×0,34 (D16 le quita un poco); la demanda de la espada no se mueve: el mostrador vende muy poco. La diana ×2 espera la clientela de comarca de interiores |
 | D19 | «Retirarse» | apagado | encendido, con confirmación y pantalla final (prueba de la UI y capturas) |
 | Punto 13 · ritmo | La banda con fiestas pasa a diana | propuesta | diana; pacing en `_festivals`, fuera de `_no_life`; 0 fallos |
+
+## Después de la revisión (2026-11-05)
+
+| Cosa | Causa | Arreglo | Medido |
+|---|---|---|---|
+| La orden rechazada (1 de 16 partidas) | Del bot: `artisan_expert` compraba `forge_production_2` (se lleva 5 lingotes del almacén) y en el mismo minuto pedía forjar un martillo con esos lingotes → `work_at` / `missing_inputs` (reproducido: semilla 1, día 14, minuto 21290). No es un hueco del juego: la pantalla ya da el motivo | El minuto en que compra una mejora no planea trabajo | Semilla 1 sin rechazos; 8 partidas de 3 años, 0 órdenes rechazadas |
+| Caravanas a 0 | Solo salían con espadas que la villa no quería (nunca sobran), y la cuota se firmaba y se rompía (3 de 4 semillas) | Con cuota firmada, full_player aparta cada estación sus espadas, compra el carro y las manda; firma solo si puede servirla | Caravanas 0 → 1,5 (5, 1, 0, 2); ventas en la capital hasta 2.259; cuotas rotas 3/4 → 1/4; neto año 2 24 → 39/día, año 3 98 → 86, oro final 990 → 957. Ninguna banda cambia |
+
