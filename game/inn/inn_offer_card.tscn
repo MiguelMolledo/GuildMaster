@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://beh0o2soy0ffb"]
+
+[ext_resource type="PackedScene" uid="uid://bcva2b5m5mmhg" path="res://game/ui/page_card.tscn" id="1_page"]
+[ext_resource type="Script" uid="uid://bjbgg7wb0p5x4" path="res://game/inn/inn_offer_card.gd" id="2_script"]
+
+[node name="InnOfferCard" instance=ExtResource("1_page")]
+script = ExtResource("2_script")

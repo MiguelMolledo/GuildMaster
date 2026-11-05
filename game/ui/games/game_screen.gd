@@ -376,8 +376,11 @@ func _refresh() -> void:
 	var g := str(spec["game"])
 	(get_node("%Header") as Label).text = tr("games.%s.name" % g)
 	var sub := tr("games.ui.sub_stake") % int(spec["stake"]) if int(spec["stake"]) > 0 else tr("games.ui.sub_free")
-	if str((spec["opts"] as Dictionary).get("house", "")) != "":
-		sub += " · " + tr("games.ui.in_house") % roundi(m.rake() * 100.0)
+	var house := str((spec["opts"] as Dictionary).get("house", ""))
+	if house != "":
+		var own := _state != null and Money.family_of(_state, house) != "" \
+			and Money.family_of(_state, house) == str((spec["players"] as Array)[0].get("family", ""))
+		sub += " · " + (tr("games.ui.in_own_house") if own else tr("games.ui.in_house") % roundi(m.rake() * 100.0))
 	(get_node("%Sub") as Label).text = sub
 	_board.show_view(m, v, _names)
 	_follow_rival(v)

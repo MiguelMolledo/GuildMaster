@@ -28,7 +28,8 @@
     "judge_scandal": "corruption",
     "fabrication": "corruption",
     "investigation": "tax_evasion",
-    "cheat": "cheat"
+    "cheat": "cheat",
+    "illegal_gaming": "minor_fraud"
   },
   "trial": {
     "witnesses": [3, 5],
