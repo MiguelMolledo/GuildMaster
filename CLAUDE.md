@@ -114,25 +114,34 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Duelo (al tocar `data/combat.json`, `sim/combat/` o la IA rival): `godot --headless --path . -s tools/sim_runner.gd --
   --scenario=duel_ready --bots=duelist --days=8 --seeds=5` (en `run_all`, paso duel) y el banco del lance
   `godot --headless --path . -s tools/duel_bench.gd`. Capturas: `--smoke-script=duelo_partida`. Contrato: `docs/contratos/duelo.md`.
+- Juegos (al tocar `data/games.json` o `sim/games/`): el banco `godot --headless --path . -s tools/games_bench.gd
+  [-- --only=azar,pulso]` (04f §4.26.10), las pruebas `--only=test_games` y las capturas `--smoke-script=juegos
+  [--smoke-games=…]`; a mano `--games-test=<juego>`. Contrato: `docs/contratos/juegos.md`.
 - Fiestas (04f 4.25, al tocar `data/festivals.json`, `data/contracts/festivals.json`, `sim/fest/` o los encargos):
   `godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=festive --days=8 --seeds=3` (un
   año con todas las fiestas, sus encargos y sin bloqueos; en `run_all`, pasos festive y bench_fair). Las demás dianas corren
   sin fiestas (`data/targets.json` `_festivals`; `--festivals=on` para medirlas con ellas). Captura: `--smoke-script=fiestas`.
-- Juegos (al tocar `data/games.json` o `sim/games/`): el banco `godot --headless --path . -s tools/games_bench.gd
-  [-- --only=azar,pulso]` (04f §4.26.10), las pruebas `--only=test_games` y las capturas `--smoke-script=juegos
-  [--smoke-games=…]`; a mano `--games-test=<juego>`. Contrato: `docs/contratos/juegos.md`.
 - Vida (04f 4.24, al tocar `data/life/`, `sim/life/`, `TownLife` o los puntos de los mapas): todo cuelga de
   `data/life/life.json` `enabled`; las dianas de antes corren con la vida apagada (`data/targets.json` `_no_life`;
   `--life=on` para medirlas con ella). Pruebas `-- --only=test_life`; bot `godot --headless --path . -s
   tools/sim_runner.gd -- --scenario=life_bandits --bots=guard_watch --days=16 --seeds=5` (en `run_all`, paso life);
   coste `tools/sim_bench.gd [-- --life=off]`; puntos y rondas de un mapa `python3 tools/city/ciudad.py reunion <mapa>`;
   escenarios `tools/scenarios/make_life_scenarios.gd`. Captura: `--smoke-script=vida`. Contrato: `docs/contratos/vida.md`.
+- Jugador completo (07 §7.4, toda la partida con todo encendido; al tocar cualquier sistema que se juegue junto a otros):
+  `godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 [--bot=chaos_player] [--generation]` y
+  `python3 tools/full_report.py` → `reports/full_player/index.html` (en `run_all`, pasos full, chaos y full_html; de
+  noche, `python3 tools/qa/noche.py`). Dianas `full_player` / `chaos_player`.
+- Taberna-Posada (al tocar `data/inn/`, `data/services.json`, `sim/inn/` o su árbol): `godot --headless --path . -s
+  tools/sim_runner.gd -- --scenario=innkeeper_start --bots=innkeeper --days=16 --seeds=10` (diana `innkeeper`; en
+  `run_all`, paso inn, 5 semillas). Escenarios `innkeeper_start` e `inn_night` (`tools/scenarios/make_inn_scenarios.gd`).
+  Captura: `--smoke-script=posada`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**
   `--always-on-top` porque macOS deja de dibujar una ventana tapada y la captura repite un fotograma viejo. Guion de la forja:
   `--smoke-script=forja`.
-- Opciones del juego (tras `--`): `--scenario=<id>` (por defecto `town_e_start`), `--seed=<n>`, `--dev-time` (días de 30 s),
+- Opciones del juego (tras `--`): `--scenario=<id>` (por defecto `town_e_start`), `--start-city=<id>` (Partida nueva con
+  esa ciudad de la región en «Dónde empiezas»), `--seed=<n>`, `--dev-time` (días de 30 s),
   `--lang=es|en`, `--at=HH:MM`, `--smoke`, `--smoke-script=<id>`, `--gallery`.
 - Contratos entre zonas de cada hito: `docs/contratos/` (los subgrims trabajan contra ellos).
 

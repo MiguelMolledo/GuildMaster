@@ -1,0 +1,36 @@
+{
+  "id": "tavern_inn_ambience_1",
+  "name_key": "upgrade.tavern_inn_ambience_1",
+  "tree": "tavern_inn",
+  "branch": "inn_ambience",
+  "level": 1,
+  "cost": {
+    "gold": 30,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 2
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 0.5,
+  "effects": [
+    {
+      "kind": "inn_customers",
+      "amount": 0.1
+    },
+    {
+      "kind": "inn_menu_slots",
+      "amount": 2
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_menu_board",
+    "exterior_overlay": null
+  }
+}

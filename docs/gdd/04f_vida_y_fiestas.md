@@ -302,7 +302,7 @@ Caen al azar (flujo `events_city`) o los declara el Alcalde (poder `declare_even
 | `route_bonus {route, days}` | ruta temporal: la feria de Bellcaire invita y el portazgo a Bellcaire es 0 durante 2 días | 09b |
 | `contracts {table}` | abre los encargos de fiesta (4.25.4) | 4.5.6 |
 | `emotion {id, share}` | «inspirado» al 50 % tras la fiesta | 4.11.5 |
-| `spectacle {id}` | toros, justa, cómicos, carrera | nuevo (4.26) |
+| `spectacle {id}` | toros, justa, cómicos, carrera | nuevo (4.26); los que son juegos se corren a su hora y se puede apostar o apuntarse (`docs/contratos/juegos.md` §5 ter) |
 | `incident {id, mult}` | altercados ×3 en Carnaval | 4.24.5 |
 | `reputation {who, amount}` | el que patrocina +; el Alcalde −2 en Carnaval | sí |
 
@@ -706,13 +706,15 @@ claves y aplica el oro. La API para las Fiestas y la Posada (quién juega, apues
 contrato [docs/contratos/juegos.md](../contratos/juegos.md):
 
 Juegos construidos: `azar`, `mayor`, `pulso`, `envite`, `tourney`, `joust`, `sortija`, `race`, `bulls` (y apuestas sobre
-cualquiera). Para abrir cada uno: `godot --path . -- --games-test=<juego>` (y `apuestas`: el corredor).
+cualquiera). Para abrir cada uno: `godot --path . -- --games-test=<juego>` (y `apuestas`: el corredor; `fair_bet`:
+apostar a la carrera de la feria; `festival_joust`: la justa del torneo que organiza el Alcalde).
 
 | Quién llama | Cómo |
 |---|---|
 | La pantalla (el jugador) | `GameScreen.open({actor, game, opponents, stake, opts})` → al acabar, `game_play` con las jugadas |
 | «Resolver sin jugar» | El mismo `game_play` con las jugadas hasta ese momento y `auto: true` |
 | Una competición sin el jugador (fiestas) | `Games.auto(cat.games, spec)`: ganador y clasificación sin tocar nada |
+| Las fiestas (espectáculo a su hora) | `FestivalGames.on_spectacle`: se corre sola, o llama al apuntado (`game_enter`) a jugarla; las apuestas de la feria (`game_bet` con `festival`) se pagan con su resultado |
 | Las cuotas (§4.26.6) | `Games.win_odds(cat.games, spec, n)`: n partidas automáticas con sus propias claves |
 | La Posada (mesa de juego) | La pantalla con `opts.house` = la taberna (su parte de la casa) y `opts.event` = el turno |
 
@@ -772,6 +774,19 @@ cuando llegue 4.22. Hasta entonces, la familia que compra la taberna la lleva co
 | **Clientela** por grupos, y al pasar por un grupo que no viene se ve por qué | **Clientela** de 4.27.2, con el «por qué no vienen» (precio, carta, ambiente, fama o reputación) |
 | Mejoras como el **bardo** o la **pizarra de la carta**, que suben las ventas en la zona | Las mejoras de 4.27.5 (juglar, pizarra, chimenea, habitaciones), cada una con su efecto en cifras |
 | Mudar la taberna a otra región al mejorarla | Más adelante, **abrir una segunda taberna en otra ciudad** de Valldaura (09b) [propuesta, O-V9] |
+| El **equipo** sube la comodidad, la seguridad y la capacidad del local, y cada facción quiere su nivel de cada una | Tres cifras del local en el panel: **ambiente** (0-5, sube con chimenea y tapices, baja un día tras una pelea sin portero), **plazas** (las mesas) y **seguridad** (portero, cerradura, cuarto del portero); cada grupo pide la suya (los nobles, ambiente 3) |
+| El **prestigio** del negocio se gana atendiendo bien y abre equipo mejor | La **fama** (0-5): +0,02 por cliente satisfecho, +0,02 por plato excelente, −0,04 por queja, −0,3 por pelea, −0,05 por cama sin hacer, como mucho +0,25 por noche; abre grupos (mercaderes con 1, nobles con 3) |
+| Precios y **promociones** según la clientela que quieres | Precio de cada plato de 0,5× a 2× y el **plato de la casa** (×1,15 de atracción para los grupos a los que les gusta) |
+| La **seguridad baja** atrae a facciones poco recomendables; los porteros (y los osos) paran peleas | Los soldados (y los jugadores) suben la probabilidad de **pelea**; el **portero** la para; sin él se rompen muebles y los peregrinos no vuelven en 2 noches |
+| El **parte del turno** cuenta lo que pasó cada noche y los sucesos notables | La **carta del resumen** a las 02:00 (4.27.4) y la pestaña Turno con el historial de las últimas noches |
+| El personal gana experiencia y desbloquea platos y bebidas | Los empleados ascienden con su rango (4.7.2): un oficial rinde el doble que un aprendiz en la cocina y sirve 1,5 veces más rápido |
+| Rivalidad, espías y sabotaje entre tabernas | [POST-MVP] cuando haya una taberna rival (un proveedor NPC de 4.22.3.2) y el espionaje de 4.22.6.5 |
+
+Fuentes consultadas (2026-11-04; ideas, no texto): la página de Steam de *Wartales – The Tavern Opens!*
+(store.steampowered.com/app/2903960), la guía de Pro Game Guides «Wartales The Tavern Opens tavern guide: management,
+shifts & more» (progameguides.com/wartales/wartales-the-tavern-opens-tavern-guide-management-shifts-more/), el análisis
+de EIP «Open for business» (eip.gg/reviews/open-for-business-wartales-the-tavern-opens-dlc/) y las notas del parche en
+SteamDB (steamdb.info/patchnotes/14097948).
 
 #### 4.27.2 Clientela
 
@@ -846,6 +861,34 @@ Cada noche llegan clientes de **grupos** distintos. Cada grupo tiene sus gustos 
   jugadores del torneo.
 
 ---
+
+#### 4.27.7 Cómo quedó construido (rama posada, 2026-11-04)
+
+> [!NOTE]
+> Reglas en `sim/inn/` (Inn, InnClientele, InnStaff, InnRumors), cifras en `data/inn/` (inn.json, menu.json,
+> clientele.json) y `data/services.json`, el edificio en `data/buildings/tavern_inn.json`, el árbol en
+> `data/upgrades/tavern_inn/`, la vista en `game/inn/` (capa de huéspedes del interior, panel, carta del resumen),
+> el bot `innkeeper` (`sim/bots/bot_innkeeper.gd`) y los escenarios `innkeeper_start` e `inn_night`
+> (`tools/scenarios/make_inn_scenarios.gd`). Guardado v19 (`SaveFile._to_v19`).
+
+Lo que precisa o cambia respecto a lo de arriba (apuntado en `docs/decisiones.json`):
+
+| # | Qué | Por qué |
+|---|---|---|
+| T1 | **Se compra la del pueblo; construirla llega con H6.** Cada mapa tiene un solar con su Taberna-Posada **en venta** (`for_sale`, 320 de oro, orden `buy_building`); en `town_e`, el prado al sur del callejón de abajo. Solo en partidas nuevas (los guardados y escenarios de antes no la tienen). **Huella 3×4**, la de la carpintería, como su arte (fachada fal de 192×230); 4.22.4.5 proponía 4×4 la Taberna y 4×5 la Posada, que son un solo edificio aquí. | La construcción en parcelas (4.9) no existe todavía; comprar la de la villa da el segundo negocio de O-V7 (a) sin inventar H6. |
+| T2 | **El tope de edificios por título (4.9) no se aplica** a la taberna: un Plebeyo puede tenerla. | H6 es quien aplica `max_buildings`; aplicarlo ahora dejaría a la taberna fuera del Artesano que empieza. Decidido por el owner (O-V11 a, 2026-11-05). |
+| T3 | **Turnos por rol:** barra y mesas trabajan de noche (de 30 min antes de abrir a las 02:00); cocina y habitaciones, de día (`work_schedule` del edificio). 3 plazas de empleado (barra, cocina, habitaciones) y la cuarta (mozo de mesas) con «Más mesas». El portero es la mejora, no un empleado. | La cocina tiene que tener la comida hecha al abrir y las camas se hacen por la mañana (4.27.4). |
+| T4 | **Los clientes vienen en corrillo** (`party` por grupo: vecinos 1-3, soldados 2-3...) y eligen al azar entre lo que les gusta y hay (peso 3-2-1 por su orden de gusto). Los grupos sin fuente (soldados, nobles, jugadores) tienen `per_night`. Con la vida encendida, los forasteros son los de vida: los de los tipos de cada grupo (`visitor_kinds`: mercader y buhonero → mercaderes, peregrino, soldado, noble) que piden cama y la encuentran se quedan a dormir al acabar su plan o al atardecer (`Inn.lodge`, gancho en `Visitors._step_one`), esperan a la puerta a que abra, entran como clientes con su cama pagada y salen al amanecer hacia su puerta; el generador de prueba (2-4 al día) solo corre con la vida apagada. | Con una visita por persona salían ~10 clientes por noche: ni se llenaba el salón ni pagaba una casa con tres empleados. Con corrillos, ~20 por noche (los bots). |
+| T4b | **Dos capas de clientela (04g §4.6.5.7):** los **Vecinos** son los de verdad: los que su agenda de vida manda a la taberna llegan a la puerta y, si está abierta, hay sitio y llevan dinero para algo de la carta, entran con su nombre (`Inn.neighbour_in`, gancho en `Agenda._go`), pagan de la bolsa de su casa, atenderles bien sube su relación con la familia (+2) y al irse vuelven a su agenda (una vez por salida, 2 h de descanso); son pocos (~2 por noche: casi todas las casas tienen 0-5 de oro). El resto es la **Gente de la comarca** (antes «Artesanos y vecinos»: 5-9 visitas por noche a plena atracción, en corrillo), con dinero de fuera (P4), y los grupos de paso (mercaderes, peregrinos, soldados, nobles, jugadores). Cada cliente tiene su **precio máximo** (ref × calidad × (1 + fama × 0,1) × el de su grupo): si nada de la carta lo cumple, se va («muy caro»). Las fiestas suben las dos capas (`Festivals.hook_mult(service, tavern)`: San Juan y Carnaval ×2, feria ×3) y los platos de temporada cuentan el día de su fiesta. No encontrar sitio no resta fama. | Lo decidió el owner en 04g: los vecinos van por su agenda y pagan de su bolsa; la mayoría viene por la fama del negocio, con dinero de fuera. |
+| T5 | **Platos sin hierbas:** sopa de ajo = pan + trigo; olla = carne + trigo ×2; cordero = carne ×3; embutido = carne ×2 + trigo. El pan sale a 12. | En `town_e` no hay puesto de boticario: las hierbas no se pueden comprar. Con el pan a 10 se perdía dinero (se compra a 6-8). |
+| T6 | **La comida cocinada se estropea** al amanecer (20 %) salvo con la despensa fría; la bebida y el pan, no. | Es lo que da sentido a la despensa fría del árbol (4.27.5). |
+| T7 | **Ramas del árbol:** Salón, Cocina, Bodega, Habitaciones, Ambiente (ramas nuevas `inn_*`) y Seguridad (la de la Forja). Toneles = producción ×1,25 + 4 pilas; vino de reserva y cueva = el vino sale +1 / +2 de calidad; pizarra = +10 % de clientes y +2 platos; asador = +2 platos. | El árbol de 4.27.5 en las piezas de efecto que ya existen (H5) más los efectos `inn_*`. |
+| T8 | **Durante las obras se sirve**, pero la cocina no cocina (la regla de 4.8). | Cerrar la taberna dos días por cada mejora la hundía. |
+| T9 | **Plato de la casa** (de las promociones de Wartales). | Una decisión barata y legible sobre la clientela. |
+| T10 | **Ganchos:** la partida que propone un forastero (`inn_game_offer`) espera a los juegos (4.26); hasta entonces la casa se queda su parte con la licencia. Los rumores de la barra son ya los de vida (`Rumors.candidates`, con los temas del punto `tavern` y los útiles ×2) y quedan en el libro de rumores (`town.rumors.heard`, punto `inn:<edificio>`); sin vida, los tres de antes (precio de fuera, evento en curso, deuda de un rival). `Inn.arrive()` es la puerta para los vecinos de verdad de la agenda de vida (4.24.1). | El orden de los bloques (4.28.5). |
+
+**Medido** (bot `innkeeper`, `innkeeper_start`, Normal, 16 días, 10 semillas, con eventos globales): ver la diana
+`innkeeper` de `data/targets.json`.
 
 ### 4.28 Lo que hace falta para construirlo
 
@@ -957,13 +1000,15 @@ Cada una lleva la recomendación con la que se construye si no se dice otra cosa
 | **O-V8** | Juego con dinero de verdad | (a) Sí, con margen de la casa y tope por apuesta. (b) Solo por reputación | **(a)**, con tope de 50 por apuesta y aviso si pierdes más de 100 en un día |
 | **O-V9** | Segunda taberna en otra ciudad | (a) Más adelante, cuando se pueda cargar otra ciudad (O-R3). (b) Nunca | **(a)** |
 | **O-V10** | Dados cargados y trampas para cualquiera | (a) Solo el Pícaro (4.22). (b) Cualquiera que los compre | **(b)**, con el riesgo de que te pillen; el Pícaro tendrá ventaja |
+| **O-V11** | ¿La Taberna-Posada cuenta para el tope de edificios por título (4.9)? | (a) No: es el segundo negocio de cualquiera. (b) Sí, cuando llegue H6: un Plebeyo tendría que ser Ciudadano para comprarla | **Owner (2026-11-05): (a)**, no cuenta para el tope |
+| **O-V12** | ¿Se puede construir una segunda taberna en un solar? | (a) Con H6 (parcelas de producción). (b) Nunca: una por villa | **Owner (2026-11-05): (a)**: con H6, una segunda en un solar, y la del pueblo pasa a ser la rival (4.22.3.2) |
 
-**Nuevas (rama juegos, para el owner):**
+**Nuevas (rama juegos):**
 
 | # | Pregunta | Opciones | Recomendación |
 |---|---|---|---|
-| **O-V11** | Apuestas en el torneo de lucha | (a) Una al ganador del torneo (hoy). (b) Una por combate, entre ronda y ronda | **(a)** hasta que el torneo viva en el calendario de las Fiestas (con su guardado); luego **(b)** |
-| **O-V12** | La justa: ¿dos decisiones (apuntar y cubrirse) o una postura? | (a) Una postura de tres en triángulo (hoy, medido). (b) Las dos por separado (más fiel, la IA no castiga costumbres en tres pasadas) | **(a)** |
-| **O-V13** | Envite de varios jugadores en la mesa de la Posada | (a) Uno contra uno (hoy). (b) Hasta cuatro (cambia las cuentas del farol) | **(a)** ahora; **(b)** con la Posada si se pide |
-| **O-V14** | Caballos y lanza de torneo como objetos | (a) Alquilados al entrar (hoy: 10 la justa, 5 la sortija y la carrera). (b) Objetos que se compran (D8) y la lanza del carpintero (encargo de fiesta) | **(a)** hasta D8; **(b)** con las piezas de las Fiestas |
+| **O-V13** | Apuestas en el torneo de lucha | (a) Una al ganador del torneo (hoy). (b) Una por combate, entre ronda y ronda | **Owner (2026-11-05): la recomendación** — **(a)** hasta que el torneo viva en el calendario de las Fiestas (con su guardado); luego **(b)** |
+| **O-V14** | La justa: ¿dos decisiones (apuntar y cubrirse) o una postura? | (a) Una postura de tres en triángulo (hoy, medido). (b) Las dos por separado (más fiel, la IA no castiga costumbres en tres pasadas) | **Owner (2026-11-05): la recomendación** — **(a)** |
+| **O-V15** | Envite de varios jugadores en la mesa de la Posada | (a) Uno contra uno (hoy). (b) Hasta cuatro (cambia las cuentas del farol) | **Owner (2026-11-05): la recomendación** — **(a)** ahora; **(b)** con la Posada si se pide |
+| **O-V16** | Caballos y lanza de torneo como objetos | (a) Alquilados al entrar (hoy: 10 la justa, 5 la sortija y la carrera). (b) Objetos que se compran (D8) y la lanza del carpintero (encargo de fiesta) | **Owner (2026-11-05): la recomendación** — **(a)** hasta D8; **(b)** con las piezas de las Fiestas |
 

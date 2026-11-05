@@ -166,7 +166,6 @@ func test_life_hooks_follow_the_living_town() -> void:
 	var on := Life.on(sim)
 	eq(Unlocks.ready(sim, Unlocks.def(sim, "rumors")), on, "rumours: ready with the town alive")
 	eq(Unlocks.ready(sim, Unlocks.def(sim, "incidents")), on, "incidents: the same")
-	check(not Unlocks.ready(sim, Unlocks.def(sim, "tavern")), "the tavern still waits for the inn")
 	sim.state.clock["minute"] = 4 * Clock.MINUTES_PER_DAY + 60
 	sim.events = []
 	Unlocks.step(sim)
@@ -175,3 +174,29 @@ func test_life_hooks_follow_the_living_town() -> void:
 		sim.events = [{"type": "rumor_heard", "character": HUGO, "rumor": "r", "key": "k"}]
 		OpenGoals.step(sim)
 		eq(int(sim.state.unlocks[FAM]["_goals"]["hear_rumors"]["have"][0]), 1, "a rumour heard by Hugo counts")
+
+
+## The hook of the inn (posada, merged 2026-11-05): the tavern's unlock comes on day 5 and its goal is to buy it.
+func test_tavern_hook_follows_the_inn() -> void:
+	var sim := _new_game()
+	sim.step()
+	check(Unlocks.ready(sim, Unlocks.def(sim, "tavern")), "the inn exists: the tavern's unlock is ready")
+	sim.state.clock["minute"] = 4 * Clock.MINUTES_PER_DAY + 60
+	sim.events = []
+	Unlocks.step(sim)
+	check(Unlocks.is_open(sim.state, FAM, "tavern"), "day 5: the tavern for sale")
+	sim.events = [{"type": "building_bought", "family": FAM, "building": "bld_x", "actor": HUGO, "price": 1}]
+	OpenGoals.step(sim)
+	check(bool(sim.state.unlocks[FAM]["_goals"]["open_tavern"]["done"]), "bought: «Abre tu taberna» done")
+
+
+## v19 (posada) -> v20: a save of the inn's version gets the roots of the unlocks behind _to_v19.
+func test_v19_save_migrates_to_v20() -> void:
+	var d: Dictionary = NewGame.from_scenario("town_e_start", 2)["state"].to_dict()
+	d.erase("unlocks")
+	d.erase("masterworks")
+	d["version"] = 19
+	var m := SaveFile.migrate(d)
+	check(m["ok"], "migrates")
+	eq(int(m["data"]["version"]), 20, "to v20")
+	check((m["data"]["unlocks"] as Dictionary).has(FAM), "everything open for the family of before")

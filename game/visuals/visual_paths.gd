@@ -156,6 +156,39 @@ static func icon(item_id: String) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
+## Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, art list of 4.28.3): the Taberna-Posada's art by kind and id, or null
+## while it is missing (the scene keeps its greybox with a label, game/inn/art_slot.gd). Kinds: "building" ->
+## assets/art/buildings/fal/<id>.png (tavern_inn, tavern_inn_back); "interior" -> assets/art/interiors/tavern/<id>.png
+## (floor, wall_ne, wall_nw, wall_door_ne, wall_door_nw, the stations bar, kitchen, tables, rooms, storage,
+## minstrel_corner, gaming_table and the upgrade pieces by their visual node). The dishes are items: their icons are
+## icon() / icon_small().
+const INN_ART: Dictionary = {"building": "buildings/fal", "interior": "interiors/tavern"}
+
+
+## Posada: the menu's icons of the art (assets/art/ui/icons/food_<id>.png, 32×32, and small/ 16×16) by dish of
+## data/inn/menu.json; a good or excellent ale is the strong beer and the wine the good wine. null if missing (the
+## caller falls back to the item's icon, then to a disc with its letters).
+const INN_DISH_ICONS: Dictionary = {"ale": "beer", "cider": "cider", "wine": "wine", "bread": "bread",
+	"garlic_soup": "garlic_soup", "meat_pie": "empanada", "stew": "stew", "roast_lamb": "roast_lamb", "sausage": "sausage",
+	"sweets": "sweets"}
+const INN_DISH_GOOD: Dictionary = {"ale": "strong_beer", "wine": "good_wine"}
+
+
+static func inn_dish_icon(dish: String, good: bool = false, small: bool = true) -> Texture2D:
+	var id := str(INN_DISH_GOOD.get(dish, "")) if good and INN_DISH_GOOD.has(dish) else str(INN_DISH_ICONS.get(dish, ""))
+	if id == "":
+		return null
+	var p := "%s/ui/icons/%sfood_%s.png" % [ART_ROOT, "small/" if small else "", id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+static func inn_art(kind: String, id: String) -> Texture2D:
+	if not INN_ART.has(kind) or id == "":
+		return null
+	var p := "%s/%s/%s.png" % [ART_ROOT, INN_ART[kind], id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
 ## The small icon of an item for the UI lists (10 px font): assets/art/icons/small/<item_id>.png, 16×16, made from
 ## the 32×32 one by tools/art/derivar_guild.py (null until it exists).
 static func icon_small(item_id: String) -> Texture2D:

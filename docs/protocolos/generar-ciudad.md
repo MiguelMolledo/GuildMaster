@@ -99,6 +99,7 @@ Sale `data/maps/<id>.json` y su vista previa `reports/ciudad/<id>.png` (plano y 
 | Clave | Qué es | Valores |
 |---|---|---|
 | `size`, `seed`, `households`, `starts`, `style` | Tamaño, semilla, hogares (una casa del sim cada uno), inicios cuyos solares lleva, estilo del GDD 9.2 | `seed` cambia las curvas y el reparto, no el plan |
+| `per_house`, `population_max` | Plantillas: vecinos por casa desde el inicio (los que faltan, con rango y atributos de los de town_e; el reparto les pone el resto) y el tope del mapa (por defecto, los que salen) | `per_house` 5 = `data/life/life.json population.per_house`; menos si el bench no lo aguanta |
 | `plaza.centre`, `plaza.bulge` | Dónde va la plaza del mercado (la de town_e, 10×12) y cuánto se ensancha de forma irregular | `bulge` 1 (casi rectangular) a 3 (plaza grande y redondeada) |
 | `rivers[]` | Ríos y arroyos: `path` (puntos por los que pasa, curva suave), `width` (casillas), `wobble` (cuánto varía la anchura) | Río navegable 6-8; arroyo 2-3 |
 | `pond` | Estanque: `at`, `size` | |
@@ -294,7 +295,8 @@ Después del decor, `citylib.add_life` añade a cada mapa lo que le falte (el ge
   plaza abierta). Para poner uno a mano: un `social_point` con su `id` (snake_case), su `kind` y sus `slots`.
 - **Rondas** (`patrols`: `[{id, tiles}]`): `patrol_main` de puerta a puerta pasando por la plaza y `patrol_plaza`
   por sus esquinas. Cada casilla, transitable y alcanzable desde la plaza (el validador lo comprueba).
-- `population_max` (opcional): el tope de vecinos del mapa con la vida encendida (si no, 5 por casa hasta 32).
+- `population_max` (opcional): el tope de vecinos del mapa con la vida encendida (si no, 5 por casa hasta 32). Las
+  ciudades de la región lo traen del plan (`per_house` × casas, o su `population_max`): empiezan llenas.
 
 H7 solo usa `bench`, `chat` y `dice`: un punto nuevo no cambia el día de H7 ni sus dianas.
 

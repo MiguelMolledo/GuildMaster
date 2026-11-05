@@ -1,0 +1,34 @@
+{
+  "id": "tavern_inn_security_2",
+  "name_key": "upgrade.tavern_inn_security_2",
+  "tree": "tavern_inn",
+  "branch": "security",
+  "level": 2,
+  "cost": {
+    "gold": 60,
+    "items": [
+      {
+        "item": "iron_ingot",
+        "qty": 1
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_security_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 0.5,
+  "effects": [
+    {
+      "kind": "protection",
+      "amount": 1
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_cellar_lock",
+    "exterior_overlay": null
+  }
+}

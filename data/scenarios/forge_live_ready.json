@@ -718,6 +718,69 @@
 					"occupant": ""
 				}
 			}
+		},
+		"bld_0015": {
+			"door": [
+				27,
+				33
+			],
+			"employee_slots": 3,
+			"footprint": [
+				3,
+				4
+			],
+			"for_sale": true,
+			"id": "bld_0015",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 14,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				26,
+				34
+			],
+			"owner": "",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "tavern_inn",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {
+				"bar": {
+					"job": null,
+					"occupant": ""
+				},
+				"kitchen": {
+					"job": null,
+					"occupant": ""
+				},
+				"rooms": {
+					"job": null,
+					"occupant": ""
+				},
+				"storage": {
+					"job": null,
+					"occupant": ""
+				},
+				"tables": {
+					"job": null,
+					"occupant": ""
+				}
+			}
 		}
 	},
 	"cast": {
@@ -3062,7 +3125,7 @@
 		"pending": []
 	},
 	"next_ids": {
-		"bld": 15,
+		"bld": 16,
 		"chr": 25,
 		"ctr": 3,
 		"fam": 14,

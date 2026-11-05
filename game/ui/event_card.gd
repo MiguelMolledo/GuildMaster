@@ -52,6 +52,11 @@ func _on_button(id: String) -> void:
 		return
 	var sim: Sim = g.get("sim")
 	var actor := SimQuery.family_actor(sim.state, SimQuery.player_family(sim.state))
+	var app := get_node_or_null("/root/App")
+	if id.begins_with("bet:") and app != null and app.has_method("open_game"):  # juegos: the bookmaker of the feast
+		app.call("open_game", {"game": str(FestivalGames.spectacle_cfg(sim, id.substr(4)).get("game", "")), "actor": actor,
+			"festival": str(data.get("instance", "")), "spectacle": id.substr(4)})
+		return
 	var o := FestivalPage.order_for(id, data, actor)
 	if o.is_empty():
 		return

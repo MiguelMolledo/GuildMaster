@@ -1,0 +1,11 @@
+{
+  "id": "open_tavern",
+  "name_key": "objective.open_tavern",
+  "_doc": "Open goal of an unlock (03b §3b.5.1, data/unlocks.json): it counts the events of the family while it is shown. building_bought: the Taberna-Posada of the square is the building for sale (posada, 04f §4.27).",
+  "conditions": [
+    {
+      "event": "building_bought",
+      "count": 1
+    }
+  ]
+}

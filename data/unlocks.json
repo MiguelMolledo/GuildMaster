@@ -210,9 +210,9 @@
       "mark": "",
       "ui": [],
       "chapter": "",
-      "goal": "",
+      "goal": "open_tavern",
       "horizon": "medium",
-      "requires": "tavern"
+      "requires": "inn"
     },
     {
       "id": "debt",

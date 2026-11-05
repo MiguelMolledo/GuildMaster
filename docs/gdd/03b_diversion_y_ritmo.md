@@ -238,8 +238,11 @@ campos de v17-v19.
   `unlock_seen` con `what: now`), y las partidas de antes de v20 lo tienen todo abierto.
 - **Carta «Nuevo: …»** (`UnlockCard`, del kit de página): qué es, la meta que trae y «Ver capítulo» si las pistas
   están encendidas. No pausa; al cerrarla queda leída. Lámina `events/unlock_<id>` del arte cuando llegue.
-- **Ganchos:** la taberna (`tavern`) está en la tabla y se activará cuando exista su `data/<id>.json` o
-  `data/<id>/` (lo que traiga la rama de la posada). Con fiestas en main (2026-11-05) se engancharon la **primera
+- **Ganchos:** con la posada en main (2026-11-05) se enganchó la **taberna** (`requires: inn`, `data/inn/`): en
+  town_e la Taberna-Posada no es «la taberna de otro» de 3b.4, sino un edificio **en venta** que cualquiera puede
+  comprar, sin título. Por eso el desbloqueo llega en otoño (día 5, la víspera de San Martín), presenta la taberna en
+  venta como segundo negocio y trae la meta «Abre tu taberna» (`building_bought`); la fila de Ciudadano de 3b.4 sigue
+  nombrando el segundo negocio, que ya no necesita el título. Con fiestas en main (2026-11-05) se engancharon la **primera
   fiesta** (cuando empieza la primera fiesta de la villa, `festival_started` de cualquiera, día 2 en una partida
   nueva; meta «Cumple un encargo de la fiesta») y la **feria** (cuando empieza `harvest_fair`, día 4; meta «Vende 5
   piezas en la feria»), solo con el calendario de fiestas encendido (`data/festivals.json` `enabled`). Con vida ya en main (2026-11-04) se engancharon

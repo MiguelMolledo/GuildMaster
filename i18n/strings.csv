@@ -1810,6 +1810,15 @@ ui.new_game.preview_start.artisan_tailor,"A tailor's shop with a home, %d gold a
 stall.clothier,Clothier,Ropería
 stall.goods,Goods,Enseres
 ui.new_game.profession,Trade,Oficio
+ui.new_game.where,Where you start,Dónde empiezas
+ui.new_game.city_name,%s · %s · %d townsfolk,%s · %s · %d vecinos
+ui.new_game.city_off,%s has no workshop for this trade,%s no tiene taller de este oficio
+ui.new_game.city_line.villa,"Your home town: the high street, the market square and two gates. The usual game.","Tu villa: la calle mayor, la plaza del mercado y dos puertas. La partida de siempre."
+ui.new_game.city_line.capital,"Walled, on the Daura: cathedral, exchange, quays and four gates. The most crowded.","Amurallada junto al Daura: catedral, lonja, muelles y cuatro puertas. La más poblada."
+ui.new_game.city_line.port,"A river port: quays, warehouses, customs and a shipyard; four gates and a bridge.","Puerto de río: muelles, almacenes, aduana y astillero; cuatro puertas y un puente."
+ui.new_game.city_line.quarry,"At the foot of the sierra: the mine, the quarry and the smelter; two gates.","Al pie de la sierra: la mina, la cantera y la fundición; dos puertas."
+ui.new_game.city_line.hamlet,"A farming hamlet: the watermill, the barn and the threshing floors; three roads.","Aldea de campo: el molino de agua, el granero y las eras; tres caminos."
+ui.new_game.city_line.abbey,"In the shadow of the abbey: the church, the cloister and the guesthouse; a small burgh.","A la sombra de la abadía: la iglesia, el claustro y la hospedería; un burgo pequeño."
 relation_band.enemy,Enemy,Enemigo
 relation_band.hostile,Hostile,Hostil
 relation_band.cold,Cold,Frío
@@ -2779,8 +2788,8 @@ unlock.upgrades,the forge's upgrades,las mejoras de la forja
 unlock.upgrades.desc,"With some savings you can improve the forge: faster, better pieces, a counter. Each upgrade shows.","Con unos ahorros puedes mejorar la forja: más rápida, mejores piezas, un mostrador. Cada mejora se ve."
 unlock.fair,the fair,la feria
 unlock.fair.desc,"Strangers, rumours and the horse race: sell, listen and bet. The fair's contracts pay well.","Forasteros, rumores y la carrera de caballos: vende, escucha y apuesta. Los encargos de la feria pagan bien."
-unlock.tavern,the tavern,la taberna
-unlock.tavern.desc,"Dice, cards and rumours at someone else's tavern.","Dados, naipes y rumores en la taberna de otro."
+unlock.tavern,the Taberna-Posada,la Taberna-Posada
+unlock.tavern.desc,"The tavern of the square is for sale. Buy it and it is your second business: food, beds for strangers, rumours at the bar and games.","La taberna de la plaza está en venta. Cómprala y será tu segundo negocio: comidas, camas para forasteros, rumores en la barra y partidas."
 unlock.debt,the year's debt,la deuda del año
 unlock.debt.desc,The moneylender wants his 200 before the year ends. The book (L) tells you how you stand.,El prestamista quiere sus 200 antes de que acabe el año. El libro (L) te dice cómo vas.
 unlock.courtship,courtship,el cortejo
@@ -3584,3 +3593,199 @@ games.rescue.result.won,The captive comes home,El cautivo vuelve a casa
 games.rescue.result.lost,No second try at a rescue,No hay otro intento de rescate
 games.rescue.ui.bout,%s beats %s,%s vence a %s
 games.rescue.ui.draw,%s and %s: both out,%s y %s: los dos fuera
+reason.unknown_spectacle,No such competition in this feast,Esa competición no está en la fiesta
+reason.already_entered,Already entered,Ya estás inscrito
+reason.bet_placed,You have bet on it: you cannot enter,Has apostado en ella: no puedes inscribirte
+reason.not_called,It is not your turn in that competition,No te toca esa competición
+ui.festival_card.enter,Enter: %s,Inscribirse: %s
+ui.festival_card.enter_tip,"You will fight it at its hour (the entry fee, if any, is paid then)","La lucharás a su hora (la entrada, si la hay, se paga entonces)"
+ui.festival_card.bet,Bet: %s,Apostar: %s
+ui.festival_card.bet_tip,"The bookmaker's odds; paid when it is run, back if it never is",Las cuotas del corredor; se paga cuando se corra y se devuelve si no llega a correrse
+games.preset.fighter_watchman,The watchman of the gate,El vigía de la puerta
+games.preset.rider_pilgrim,A pilgrim on his nag,Un peregrino en su rocín
+games.preset.mozo_tanner,Lluc the tanner,Lluc el curtidor
+building.tavern_inn,Tavern-Inn,Taberna-Posada
+item.ale,Ale,Cerveza
+item.cider,Cider,Sidra
+item.wine,Wine,Vino
+item.meat,Meat,Carne
+item.garlic_soup,Garlic soup,Sopa de ajo
+item.meat_pie,Meat pie,Empanada
+item.stew,Stew,Olla
+item.roast_lamb,Roast lamb,Cordero asado
+item.sausage,Sausage,Embutido
+item.sweets,Christmas sweets,Dulces de Navidad
+recipe.tavern_brew_ale,Brew ale,Elaborar cerveza
+recipe.tavern_garlic_soup,Garlic soup,Sopa de ajo
+recipe.tavern_stew,Stew,Olla
+recipe.tavern_meat_pie,Meat pie,Empanada
+recipe.tavern_bake_bread,Bake bread,Hornear pan
+recipe.tavern_roast_lamb,Roast lamb,Cordero asado
+recipe.tavern_sausage,Sausage,Embutido
+recipe.tavern_sweets,Christmas sweets,Dulces de Navidad
+upgrade.tavern_inn_hall_1,More tables,Más mesas
+upgrade.tavern_inn_hall_2,Hearth,Chimenea
+upgrade.tavern_inn_hall_3,Tapestries and fine tableware,Tapices y vajilla buena
+upgrade.tavern_inn_kitchen_1,Bread oven,Horno de pan
+upgrade.tavern_inn_kitchen_2,Spit roast,Asador
+upgrade.tavern_inn_kitchen_3,Cold pantry,Despensa fría
+upgrade.tavern_inn_cellar_1,Barrels,Toneles
+upgrade.tavern_inn_cellar_2,Reserve wine,Vino de reserva
+upgrade.tavern_inn_cellar_3,Ageing cave,Cueva de crianza
+upgrade.tavern_inn_rooms_1,Four more beds,Cuatro camas más
+upgrade.tavern_inn_rooms_2,Good room,Habitación buena
+upgrade.tavern_inn_rooms_3,Stable,Establo
+upgrade.tavern_inn_ambience_1,Menu board,Pizarra de la carta
+upgrade.tavern_inn_ambience_2,Minstrel's corner,Rincón del juglar
+upgrade.tavern_inn_ambience_3,Gaming table,Mesa de juego
+upgrade.tavern_inn_security_1,Doorman,Portero
+upgrade.tavern_inn_security_2,Cellar lock,Cerradura de la bodega
+upgrade.tavern_inn_security_3,Doorman's room,Cuarto del portero
+effect.inn_seats,+{amount} seats,+{amount} plazas
+effect.inn_beds,+{amount} beds,+{amount} camas
+effect.inn_ambience,ambience +{amount},ambiente +{amount}
+effect.inn_menu_slots,+{amount} dishes on the menu,+{amount} platos en la carta
+effect.inn_customers,customers in the street +{amount},clientes de la calle +{amount}
+effect.inn_wine_quality,wine served +{amount} quality,el vino sale +{amount} de calidad
+effect.inn_hearth,in winter ×1.3 customers,"en invierno ×1,3 clientes"
+effect.inn_fine_hall,fine hall: nobles come,salón fino: vienen nobles
+effect.inn_cold_pantry,cooked food does not spoil,la comida no se echa a perder
+effect.inn_good_room,"a good room (nobles, ×2 price)","una habitación buena (nobles, ×2 de precio)"
+effect.inn_stable,caravans: more merchants,caravanas: más mercaderes
+effect.inn_minstrel,a minstrel plays some nights,un juglar toca algunas noches
+effect.inn_gaming_table,gaming table (with licence),mesa de juego (con licencia)
+effect.inn_porter,the doorman stops fights,el portero para las peleas
+effect.inn_night_watch,night watch: no one leaves without paying,vigilancia: nadie se va sin pagar
+branch.inn_hall,Hall,Salón
+branch.inn_kitchen,Kitchen,Cocina
+branch.inn_cellar,Cellar,Bodega
+branch.inn_rooms,Rooms,Habitaciones
+branch.inn_ambience,Ambience,Ambiente
+ui.zone.bar,Bar,Barra
+ui.zone.kitchen,Kitchen,Cocina
+ui.zone.tables,Tables,Mesas
+ui.zone.rooms,Rooms,Habitaciones
+ui.zone.minstrel_corner,Minstrel's corner,Rincón del juglar
+ui.zone.gaming_table,Gaming table,Mesa de juego
+reason.not_an_inn,That is not a tavern,Eso no es una taberna
+reason.not_for_sale,It is not for sale,No está en venta
+reason.not_waiting,Nobody waits there,Ahí no espera nadie
+reason.sold_out,Sold out,Se ha acabado
+reason.not_on_menu,Not on the menu,No está en la carta
+reason.menu_full,The menu is full,La carta está llena
+reason.bad_menu,That menu is not valid,Esa carta no vale
+reason.bad_price,Price out of range (0.5× to 2×),"Precio fuera de rango (de 0,5× a 2×)"
+reason.unknown_dish,Unknown dish,Plato desconocido
+reason.already_licensed,You already have the licence,Ya tienes la licencia
+reason.not_dirty,That bed is made,Esa cama está hecha
+inn.group.locals,Craftsfolk and neighbours,Artesanos y vecinos
+inn.group.merchants,Merchants and travellers,Mercaderes y forasteros
+inn.group.pilgrims,Pilgrims,Peregrinos
+inn.group.soldiers,Soldiers and guards,Soldados y guardias
+inn.group.nobles,Nobles and their retinue,Nobles y su séquito
+inn.group.gamblers,Gamblers,Jugadores
+inn.rumor.price,They say %s fetches a good price in %s,Dicen que %s se paga bien en %s
+inn.rumor.event,They talk of %s,Se habla de %s
+inn.rumor.debt,They say the %s owe %d,Dicen que los %s deben %d
+ui.interior.inn,Tavern,Taberna
+ui.interior.inn_tip,"Clientele, menu, rooms and the night's turn","Clientela, carta, habitaciones y el turno de noche"
+ui.inn.tab.clientele,Clientele,Clientela
+ui.inn.tab.menu,Menu,Carta
+ui.inn.tab.rooms,Rooms,Habitaciones
+ui.inn.tab.turn,Turn,Turno
+ui.inn.figures,Fame %s %s · Ambience %d · %d seats · %d beds · %s,Fama %s %s · Ambiente %d · %d plazas · %d camas · %s
+ui.inn.open_now,Open: %d inside,Abierta: %d dentro
+ui.inn.closed_now,Closed: opens at %s,Cerrada: abre a las %s
+ui.inn.license_buy,Gaming licence (%d),Licencia de tafurería (%d)
+ui.inn.license_until,Licence until day %d,Licencia hasta el día %d
+ui.inn.license_tip,"From the council, for a year: dice and cards at your table, the house keeps its cut and the gamblers come.","Del concejo, por un año: dados y naipes en tu mesa, la casa se queda su parte y vienen los jugadores."
+ui.inn.hint.clientele,Hover nothing: each group says why it does not come.,Cada grupo dice por qué no viene.
+ui.inn.hint.menu,"Tick what is served, set its price; ★ the special of the house.",Marca lo que se sirve y su precio; ★ el plato de la casa.
+ui.inn.hint.rooms,A dirty bed is not let tonight: the maid makes them in the morning.,Una cama sin hacer no se alquila: la criada las hace por la mañana.
+ui.inn.hint.turn,The night's summary comes at 02:00.,El resumen de la noche llega a las 02:00.
+ui.inn.clientele_now,Tonight (came · served · left):,Esta noche (vinieron · servidos · se fueron):
+ui.inn.clientele_last,Last night (came · served · left) and tonight's outlook:,Anoche (vinieron · servidos · se fueron) y lo que se espera hoy:
+ui.inn.group_line,%s: %d · %d · %d,%s: %d · %d · %d
+ui.inn.expected,about %s tonight,unos %s esta noche
+ui.inn.why_not,They do not come: %s,No vienen: %s
+ui.inn.why.no_beds,no free beds,no hay camas libres
+ui.inn.why.beds_expensive,beds ×%s (they pay up to ×%s),camas a ×%s (pagan hasta ×%s)
+ui.inn.why.fame_low,fame %d of %d,fama %d de %d
+ui.inn.why.ambience_low,ambience %d of %d,ambiente %d de %d
+ui.inn.why.no_good_wine,no good wine,no hay vino bueno
+ui.inn.why.no_dish,no %s on the menu,no hay %s en la carta
+ui.inn.why.no_gaming_table,no gaming table,no hay mesa de juego
+ui.inn.why.no_license,no gaming licence,no hay licencia de tafurería
+ui.inn.why.nothing_liked,nothing they like on the menu,nada de lo que les gusta en la carta
+ui.inn.why.too_expensive,"too dear (×%s, they pay up to ×%s)",muy caro (×%s; pagan hasta ×%s)
+ui.inn.why.nobody_in_town,none in town today,hoy no hay ninguno en el pueblo
+ui.inn.menu_slots,Menu: %d of %d dishes,Carta: %d de %d platos
+ui.inn.season.spring,Easter,Pascua
+ui.inn.season.summer,summer,verano
+ui.inn.season.autumn,St Martin's,San Martín
+ui.inn.season.winter,Christmas,Navidad
+ui.inn.dish_line,%s · %d in store · %d,%s · %d en almacén · %d
+ui.inn.special_tip,The special of the house: more of those who like it come,El plato de la casa: vienen más de los que lo quieren
+ui.inn.bed_price,Bed: %d a night,Cama: %d la noche
+ui.inn.rooms_line,%d of %d beds free · %d a night,%d de %d camas libres · %d la noche
+ui.inn.bed_good,Good room %d,Habitación buena %d
+ui.inn.bed_n,Bed %d,Cama %d
+ui.inn.bed_state.made,made,hecha
+ui.inn.bed_state.occupied,occupied,ocupada
+ui.inn.bed_state.dirty,to be made,sin hacer
+ui.inn.bed_state.making,being made,haciéndose
+ui.inn.make_bed,Make,Hacer
+ui.inn.no_turn_yet,No night served yet.,Todavía no ha abierto ninguna noche.
+ui.inn.history,Last nights,Las últimas noches
+ui.inn.history_line,Day %d: %d guests · %d gold · %d beds · fame %s,Día %d: %d clientes · %d de oro · %d camas · fama %s
+ui.inn.sum.title,The night of day %d,La noche del día %d
+ui.inn.sum.total,Total,Total
+ui.inn.sum.guests,%d guests: %s.,%d clientes: %s.
+ui.inn.sum.nobody,nobody,nadie
+ui.inn.sum.dishes,Sold: %s,Vendido: %s
+ui.inn.sum.money,%d gold and %d in tips · %d beds (%d),%d de oro y %d de propinas · %d camas (%d)
+ui.inn.sum.house_cut,The house's cut of the game: %d,La parte de la casa en el juego: %d
+ui.inn.sum.complaints,Complaints: %s,Quejas: %s
+ui.inn.sum.none,none,ninguna
+ui.inn.sum.dirty_beds,%d beds were not made,%d camas estaban sin hacer
+ui.inn.sum.fame,Fame %s (now %s),Fama %s (ahora %s)
+ui.inn.sum.rumor,Heard at the bar: «%s»,Se oyó en la barra: «%s»
+ui.inn.complaint.full,no seat,sin sitio
+ui.inn.complaint.slow,too slow,tardó mucho
+ui.inn.complaint.sold_out,sold out,se acabó
+ui.inn.complaint.not_on_menu,not on the menu,no estaba en la carta
+ui.inn.complaint.no_bed,no bed,sin cama
+ui.inn.incident.fight,A fight broke the furniture: ambience −1 tomorrow,Una pelea rompió los muebles: ambiente −1 mañana
+ui.inn.incident.fight_stopped,The doorman stopped a fight,El portero paró una pelea
+ui.inn.incident.dash,Someone left without paying,Alguien se fue sin pagar
+ui.inn.incident.dash_caught,Someone tried to leave without paying and was caught,Alguien quiso irse sin pagar y lo pillaron
+ui.inn.incident.game_offer,A traveller proposed a game of dice,Un forastero propuso una partida de dados
+ui.inn.incident.minstrel,A minstrel filled the room,Un juglar llenó el local
+ui.inn.guest_seated,Still choosing,Aún está eligiendo
+ui.inn.guest_eating,Already served,Ya está servido
+ui.inn.guest_gone,Gone,Se ha ido
+ui.inn.nobody_to_serve,Nobody of the family is in the tavern,No hay nadie de la familia en la taberna
+ui.inn.bed_made,That bed is made,Esa cama está hecha
+ui.inn.bed_occupied,Someone sleeps there,Ahí duerme alguien
+ui.inn.bed_making,It is being made,Se está haciendo
+hud.building_for_sale,For sale: %d gold,En venta: %d de oro
+hud.buy_building,Buy (%d),Comprar (%d)
+hud.buy_building_tip,Buy it as a second business of the family,Comprarlo como segundo negocio de la familia
+tutorial.chapter.tavern,Your tavern,Tu taberna
+tutorial.chapter.tavern.desc,"Run the Tavern-Inn: the menu, the clientele, the night's turn, the rooms and the upgrades.","Lleva la Taberna-Posada: la carta, la clientela, el turno de noche, las habitaciones y las mejoras."
+tutorial.tavern.open,"This is your Tavern-Inn, the family's second business. Select it and press Manage.","Esta es tu Taberna-Posada, el segundo negocio de la familia. Selecciónala y pulsa Gestionar."
+tutorial.tavern.panel,"The Tavern button opens its panel: clientele, menu, rooms and the night's turn.","El botón Taberna abre su panel: clientela, carta, habitaciones y el turno de noche."
+tutorial.tavern.clientele,"Clientele: each group, how many come and, when one does not, why (fame, beds, the wine, the price).","Clientela: cada grupo, cuántos vienen y, si uno no viene, por qué (fama, camas, el vino, el precio)."
+tutorial.tavern.menu,Open the Menu tab.,Abre la pestaña Carta.
+tutorial.tavern.prices,"Tick what is served (6 dishes at first), set each price from 0.5× to 2× and pick the special of the house. A guest who asks for something sold out leaves without paying.","Marca lo que se sirve (6 platos al principio), pon cada precio de 0,5× a 2× y elige el plato de la casa. Quien pide algo que se ha acabado se va sin pagar."
+tutorial.tavern.staff,Hire by roles: a barkeeper (bar) and a waiter (tables) work the night; the cook (kitchen) and the maid (rooms) work by day.,"Contrata por roles: el tabernero (barra) y el mozo (mesas) trabajan de noche; el cocinero (cocina) y la criada (habitaciones), de día."
+tutorial.tavern.serve,"At dusk it opens. Click a guest who waits (the dish over the head, the bar is its patience) to serve them yourself.",Al atardecer abre. Haz clic en el cliente que espera (el plato sobre la cabeza; la barra es su paciencia) para servirle tú.
+tutorial.tavern.rooms,Rooms: a bed is paid on arrival and must be made in the morning; a dirty bed is not let.,Habitaciones: la cama se cobra al llegar y hay que hacerla por la mañana; una cama sin hacer no se alquila.
+tutorial.tavern.summary,"At 02:00 the turn closes with its summary: guests, dishes, income, tips, complaints and fame.","A las 02:00 el turno cierra con su resumen: clientes, platos, ingresos, propinas, quejas y fama."
+tutorial.tavern.upgrades,"Upgrades: tables, hearth, cellar, rooms, the minstrel, the doorman. Fame opens new guests: merchants at 1, nobles at 3.","Mejoras: mesas, chimenea, bodega, habitaciones, el juglar, el portero. La fama abre clientes nuevos: mercaderes con 1, nobles con 3."
+tutorial.open.innpanel,Open the tavern's panel,Abre el panel de la taberna
+inn.group.comarca,Folk from the countryside,Gente de la comarca
+inn.group.neighbours,Neighbours,Vecinos
+ui.inn.complaint.too_expensive,too dear,muy caro
+ui.inn.why.no_neighbours,no neighbour feels like the tavern tonight,ningún vecino tiene ganas de taberna esta noche
+objective.open_tavern,Open your tavern,Abre tu taberna

@@ -16,9 +16,16 @@
     "trade_mason",
     "trade_tailor",
     "duel",
-    "travel"
+    "travel",
+    "tavern"
   ],
   "openers": {
+    "InnPanel": {
+      "target": {
+        "ui": "InnButton"
+      },
+      "text": "tutorial.open.innpanel"
+    },
     "LedgerPanel": {
       "target": {
         "ui": "LedgerButton"
@@ -203,7 +210,8 @@
     "RegionScreen",
     "CityScreen",
     "CaravanScreen",
-    "LiveForgeScreen"
+    "LiveForgeScreen",
+    "InnPanel"
   ],
   "hints": [
     {

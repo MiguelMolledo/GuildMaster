@@ -141,3 +141,11 @@ func test_festival_props_have_their_scene_and_footprint() -> void:
 			used[str(d["prop"])] = true
 	for p: String in used:
 		check(VisualPaths.FESTIVAL_PROP_ALIAS.has(p) or p in ["bull", "pig", "sheep", "horse"], "%s: art or a known gap" % p)
+
+
+## Never on the map's dressing: the well in the middle of the plaza keeps its tile.
+func test_decoration_keeps_off_the_well() -> void:
+	var sim := _game()
+	var s := FestivalLayer.sites(sim.state, sim.catalog)
+	check(not Vector2i(19, 18) in (s["_free"] as Array), "the well's tile is not free ground")
+	check(not Vector2i(19, 18) in (s["plaza_center"] as Array), "nor the middle of the plaza")

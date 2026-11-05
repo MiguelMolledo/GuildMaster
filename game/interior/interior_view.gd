@@ -45,6 +45,7 @@ var _center: Vector2 = Vector2.ZERO
 var _zoom: int = 2
 var _bound: bool = false
 var _player_family: String = ""
+var _inn: InnLayer = null        # posada: the guests and the beds of a Taberna-Posada (null in other buildings)
 
 
 ## The layer that holds the interior scene (under the objects).
@@ -122,6 +123,15 @@ func upgrade_panel() -> UpgradePanel:
 	return get_node("%UpgradePanel")
 
 
+## Posada (04f §4.27): the Taberna-Posada's panel (Clientela, Carta, Habitaciones, Turno) and its room layer.
+func inn_panel() -> InnPanel:
+	return get_node("%InnPanel")
+
+
+func inn_layer() -> InnLayer:
+	return _inn
+
+
 func _bind() -> void:
 	if _bound:
 		return
@@ -130,6 +140,9 @@ func _bind() -> void:
 	(%ProductionButton as Button).toggled.connect(func(on: bool) -> void: show_production(on))
 	(%StaffButton as Button).toggled.connect(func(on: bool) -> void: show_staff(on))
 	(%UpgradesButton as Button).toggled.connect(func(on: bool) -> void: show_upgrades(on))
+	(%InnButton as Button).toggled.connect(func(on: bool) -> void: show_inn(on))
+	ManageSlot.join(inn_panel())
+	inn_panel().closed.connect(func() -> void: (%InnButton as Button).set_pressed_no_signal(false))
 	(%ExitButton as Button).pressed.connect(request_exit)
 	production_panel().panel_requested.connect(func(p: String) -> void:
 		if p == "staff":
@@ -214,9 +227,45 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	apply_unlocks()
 	for n: String in ["StorageButton", "ProductionButton", "StaffButton", "UpgradesButton"]:
 		(get_node("%" + n) as Button).set_pressed_no_signal(false)
+	_setup_inn(s, bld, who)
 	sync()
 	ViewConfig.info("Interior", "setup (building=%s, manage=%s, size=%s, door=%s, stations=%d, selected=%s)" % [bld,
 		manage_mode, size_tiles, door_tile, _stations.size(), who])
+
+
+## Posada: a Taberna-Posada gets its room layer (guests, beds) and its panel; any other building drops them.
+func _setup_inn(s: Sim, bld: String, who: String) -> void:
+	var is_inn := Inn.is_inn(s, bld)
+	(%InnButton as Button).visible = is_inn
+	(%InnButton as Button).set_pressed_no_signal(false)
+	(%InnButton as Button).text = SimQuery.t_("ui.interior.inn")
+	(%InnButton as Button).tooltip_text = SimQuery.t_("ui.interior.inn_tip") + " (T)"
+	inn_panel().order_sink = _give
+	inn_panel().close()
+	if _inn != null:
+		_inn.clear()
+		_inn.queue_free()
+		_inn = null
+	if not is_inn:
+		return
+	inn_panel().setup(s, bld, who)
+	_inn = InnLayer.new()
+	_inn.name = "InnLayer"
+	objects().add_child(_inn)
+	_inn.setup(s, bld, self)
+	_inn.message.connect(func(text: String) -> void:
+		var sv := station_view("bar")
+		if sv != null and text != "":
+			sv.flash(text))
+
+
+## The Taberna-Posada's panel (posada, 04f §4.27).
+func show_inn(on: bool) -> void:
+	(%InnButton as Button).set_pressed_no_signal(on)
+	if on:
+		inn_panel().open()
+	else:
+		inn_panel().close()
 
 
 ## The interior scene of `type`: its Kit gives the size and the door; each Marker2D under Stations becomes a
@@ -442,6 +491,7 @@ func select(id: String) -> void:
 	staff_panel().set_actor(id)
 	production_panel().set_actor(id)
 	upgrade_panel().set_actor(id)
+	inn_panel().set_actor(id)
 	ViewConfig.info("Interior", "selected %s" % (id if id != "" else "nobody"))
 	selection_changed.emit(id)
 
@@ -517,6 +567,8 @@ func sync() -> void:
 			sv.night = night
 			sv.queue_redraw()
 		sv.show_job(SimQuery.job_view(sim, building, z), str(zones.get(z, {}).get("occupant", "")) != "")
+	if _inn != null:
+		_inn.sync()
 	_refresh_marks()
 
 
@@ -641,6 +693,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func handle_keys(event: InputEvent) -> bool:
 	if sim == null or not event is InputEventKey or not event.is_pressed() or event.is_echo():
 		return false
+	if _inn != null and event is InputEventKey and (event as InputEventKey).keycode == KEY_T:
+		(%InnButton as Button).button_pressed = not (%InnButton as Button).button_pressed  # posada: T = the tavern
+		return true
 	for pair: Array in [["panel_production", "ProductionButton"], ["panel_storage", "StorageButton"],
 			["panel_staff", "StaffButton"], ["panel_upgrades", "UpgradesButton"]]:
 		if HudKeys.pressed(event, str(pair[0])):
@@ -663,6 +718,8 @@ func handle_input(event: InputEvent) -> bool:
 		var who := pick_character(mb.position)
 		if who != "":
 			select(who)
+			return true
+		if _inn != null and _inn.handle_click(screen_to_world(mb.position)):  # posada: serve a guest, make a bed
 			return true
 		var zone := pick_station(mb.position)
 		if zone != "":
@@ -798,6 +855,9 @@ func close_top() -> bool:
 		return true
 	if upgrade_panel().visible:
 		show_upgrades(false)
+		return true
+	if inn_panel().visible:
+		show_inn(false)
 		return true
 	return false
 

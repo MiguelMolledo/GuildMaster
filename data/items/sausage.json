@@ -1,0 +1,11 @@
+{
+  "id": "sausage",
+  "name_key": "item.sausage",
+  "gender": "m",
+  "category": "consumable",
+  "weight": 0.5,
+  "max_stack": 10,
+  "base_price": 4,
+  "market_stall": null,
+  "_doc": "Plato de temporada de la matanza (no se vende en el mercado)."
+}

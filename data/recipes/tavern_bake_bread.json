@@ -1,0 +1,19 @@
+{
+  "id": "tavern_bake_bread",
+  "name_key": "recipe.tavern_bake_bread",
+  "building": "tavern_inn",
+  "zone": "kitchen",
+  "inputs": [
+    {
+      "item": "flour",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "bread",
+    "qty": 3
+  },
+  "duration_hours": 1.0,
+  "min_craft": 1,
+  "requires_upgrade": "tavern_inn_kitchen_1"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "tavern_inn_cellar_3",
+  "name_key": "upgrade.tavern_inn_cellar_3",
+  "tree": "tavern_inn",
+  "branch": "inn_cellar",
+  "level": 3,
+  "cost": {
+    "gold": 150,
+    "items": [
+      {
+        "item": "stone",
+        "qty": 8
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_cellar_2"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "inn_wine_quality",
+      "amount": 1
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_cave",
+    "exterior_overlay": null
+  }
+}

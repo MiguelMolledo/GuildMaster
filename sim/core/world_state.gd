@@ -81,6 +81,10 @@ var masterworks: Dictionary = {"pieces": [], "learned": {}}  # pieces [masterwor
 # Fiestas (docs/gdd/04f_vida_y_fiestas.md 4.25, 4.28.2): the new root festivals {active, upcoming, history, cooldowns,
 # offers, planned_day}, {} until Festivals.ensure fills it; festival contracts live in contracts with their own fields
 # (SaveFile._to_v18, step 17 -> 18; 16 -> 17 is the life block's).
+# Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, v19): no new root fields. A building of type tavern_inn gets inn {menu,
+# prices, bed_price, special, fame, license_until, broken_until, pilgrims_scared_until, beds, night, last_turn, history,
+# rumors, seq} (Inn.ensure) and a building on sale for_sale (SaveFile._to_v19, step 18 -> 19). It chains behind v17 (vida)
+# and v18 (fiestas).
 # Diversión y ritmo (docs/gdd/03b_diversion_y_ritmo.md): the new roots unlocks {fam: {id: {minute, seen}}} and
 # masterworks {pieces, learned} (SaveFile._to_v20, step 19 -> 20; v17-v19 belong to the city life branches).
 

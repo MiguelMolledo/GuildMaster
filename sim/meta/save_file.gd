@@ -318,6 +318,8 @@ static func _step(from_version: int, data: Dictionary) -> Dictionary:
 			data = _to_v17(data)
 		17:  # 17 -> 18 (fiestas, 04f 4.25)
 			_to_v18(data)
+		18:  # 18 -> 19 (posada, docs/gdd/04f_vida_y_fiestas.md §4.27)
+			data = _to_v19(data)
 		19:  # 19 -> 20 (diversión y ritmo, docs/gdd/03b_diversion_y_ritmo.md)
 			data = _to_v20(data)
 	return data
@@ -366,6 +368,33 @@ static func _to_v17(data: Dictionary) -> Dictionary:
 	if not t.get("incidents") is Dictionary:
 		t["incidents"] = {"active": [], "closed": [], "planned": [], "nests": {}, "last": {}, "warned": {}}
 	return data
+
+
+## 18 -> 19 (posada, docs/gdd/04f_vida_y_fiestas.md §4.27, 4.28.2): the Taberna-Posada keeps its menu, prices, fame,
+## beds, licence, turn in progress and history in buildings[bld].inn. A game from before had no tavern (the map's site
+## for sale only comes with a new game): nothing to add; a tavern_inn building that arrives without inn (a hand-made
+## save) gets it from Inn.ensure at its first step. Every building's inn, if present, gets the keys it lacks (so a
+## draft of the format loads). Depends on no field of v17 or v18.
+static func _to_v19(data: Dictionary) -> Dictionary:
+	var blds: Variant = data.get("buildings")
+	if not blds is Dictionary:
+		return data
+	for b: Variant in (blds as Dictionary).values():
+		if not b is Dictionary or not (b as Dictionary).get("inn") is Dictionary:
+			continue
+		var inn: Dictionary = b["inn"]
+		for k: String in INN_DEFAULTS:
+			if not inn.has(k):
+				inn[k] = (INN_DEFAULTS[k] as Variant) if not (INN_DEFAULTS[k] is Array or INN_DEFAULTS[k] is Dictionary) \
+					else INN_DEFAULTS[k].duplicate(true)
+	return data
+
+
+## v19: the keys of buildings[bld].inn and their value when missing (the save has no catalog: the menu and the beds of
+## a new inn come from Inn.fresh_state).
+const INN_DEFAULTS: Dictionary = {"menu": [], "prices": {}, "bed_price": 1.0, "special": "", "fame": 0.0,
+	"license_until": -1, "broken_until": -1, "pilgrims_scared_until": -1, "beds": [], "night": {}, "last_turn": {},
+	"history": [], "rumors": [], "seq": 0}
 
 
 ## 19 -> 20 (diversión y ritmo, docs/gdd/03b_diversion_y_ritmo.md): the roots «unlocks» and «masterworks». A game
