@@ -6879,7 +6879,7 @@
       "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
       "coste_gen": 0,
       "coste_usd": 0.08,
-      "notas": "Iconos de rasgos de pieza (03b §3b.2): trait_<oil_tempered|fine_edge|master_mark|masterwork>.png (32×32) y small/ (16×16): templada al aceite, filo fino, marca del maestro y obra maestra."
+      "notas": "Iconos de rasgos de pieza (03b §3b.2): trait_<oil_tempered|water_tempered|air_cooled|fine_edge|master_mark|masterwork>.png (32×32) y small/ (16×16): templada al aceite, templada al agua, enfriada al aire, filo fino, marca del maestro y obra maestra."
     },
     {
       "id": "prop_fiesta_banderola",
@@ -7596,6 +7596,775 @@
       "origen": null,
       "coste_gen": 0,
       "notas": "Música de fiesta (romería: canto de peregrinos), en bucle. data/audio.json music music_fest_pilgrimage; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "illus_visita_marques",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/visita_marques.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la visita del marqués (04f §4.25.2), 240×135, y visita_marques_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_boda_rica",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/boda_rica.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la boda de una familia noble o rica (04f §4.25.2), 240×135, y boda_rica_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_boda_vecinos",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/boda_vecinos.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la boda de vecinos (04f §4.25.2), 240×135, y boda_vecinos_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_torneo",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/torneo.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el torneo (04f §4.25.2), 240×135, y torneo_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_comicos",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/comicos.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la compañía de cómicos (04f §4.25.2), 240×135, y comicos_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_predicador",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/predicador.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de el predicador (04f §4.25.2), 240×135, y predicador_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_romeria",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/romeria.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la romería a Montsacre (04f §4.25.2), 240×135, y romeria_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_rogativa",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/rogativa.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la rogativa (04f §4.25.2), 240×135, y rogativa_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "illus_feria_ganado",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/feria_ganado.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la feria de ganado (04f §4.25.2), 240×135, y feria_ganado_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
+    },
+    {
+      "id": "chr_h16_guard",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre worker_f/worker_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Guardia de la villa: librea azul del concejo con ribete dorado (sin armadura hasta PixelLab) (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de worker_m/worker_f teñido: primary #33508a, secondary #c8a84e. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_bandit",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Bandido: ropa parda y oscura (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #3a362c, secondary #5c4630. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_minstrel",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Juglar: rojo y amarillo, de colores vivos (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #c04040, secondary #e2c040. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_foreign_merchant",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Mercader forastero: morado y tostado, ropa de otra ciudad (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #5e3a80, secondary #d8bc8c. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_pilgrim",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Peregrino: capa parda y esclavina clara (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #7c6c52, secondary #d8d0b8. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_noble",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre worker_f/worker_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Noble: carmesí y oro (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de worker_m/worker_f teñido: primary #861a28, secondary #e2c070. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_retinue",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre worker_f/worker_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Séquito del noble: librea azul y blanca (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de worker_m/worker_f teñido: primary #24448a, secondary #e6e6e6. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_beggar",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Mendigo: harapos pardos y pelo gris (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #5e5440, secondary #4c4434, pelo #8a8478. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_crier",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Pregonero: verde de la villa con ribete amarillo (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #2a6a3a, secondary #e2c040. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_h16_bookmaker",
+      "tipo": "npc",
+      "estado": "greybox",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/looks.json",
+      "origen": "paleta del shader de identidad sobre townsfolk_f/townsfolk_m (tools/art/looks_h16.py)",
+      "coste_gen": 0,
+      "notas": "Corredor de apuestas: granate con dorado (04f §4.28.3). Hasta PixelLab (15-nov) es el sprite de townsfolk_m/townsfolk_f teñido: primary #5a2a2a, secondary #c8a84e. Lista para pedir: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (10)."
+    },
+    {
+      "id": "chr_animal_pig",
+      "tipo": "npc",
+      "estado": "falta",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/animal_pig/",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Animal: cerdo (la matanza) (04f §4.25-4.26). PixelLab create_character cuadrúpedo, andar e idle en 8 direcciones, en el ciclo del 15-nov: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (11)."
+    },
+    {
+      "id": "chr_animal_bull",
+      "tipo": "npc",
+      "estado": "falta",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/animal_bull/",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Animal: toro (los toros) (04f §4.25-4.26). PixelLab create_character cuadrúpedo, andar e idle en 8 direcciones, en el ciclo del 15-nov: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (11)."
+    },
+    {
+      "id": "chr_animal_horse",
+      "tipo": "npc",
+      "estado": "falta",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/animal_horse/",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Animal: caballo (la carrera, el torneo y la liza) (04f §4.25-4.26). PixelLab create_character cuadrúpedo, andar e idle en 8 direcciones, en el ciclo del 15-nov: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (11)."
+    },
+    {
+      "id": "chr_animal_sheep",
+      "tipo": "npc",
+      "estado": "falta",
+      "para": [
+        "H16",
+        "fiestas"
+      ],
+      "ruta": "assets/art/characters/animal_sheep/",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Animal: oveja (la feria de ganado) (04f §4.25-4.26). PixelLab create_character cuadrúpedo, andar e idle en 8 direcciones, en el ciclo del 15-nov: assets/art/MANIFEST.md, «Lista de la compra · PixelLab» (11)."
+    },
+    {
+      "id": "ui_games_dice_cup",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/games/dados/cup.png",
+      "origen": "dibujado (Pillow, tools/art/juegos_taberna.py cubilete)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "El cubilete de cuero boca abajo que tapa el dado oculto de «a la mayor» (04f §4.26.7), 24×24 como los dados, la boca abajo."
+    },
+    {
+      "id": "icon_game_azar",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/icons/game_azar.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono de el azar, 32×32 y small/game_azar.png 16×16. VisualPaths.game_icon(\"azar\").",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "icon_game_mayor",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/icons/game_mayor.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono de «a la mayor», 32×32 y small/game_mayor.png 16×16. VisualPaths.game_icon(\"mayor\").",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "icon_game_pulso",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/icons/game_pulso.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono de el pulso, 32×32 y small/game_pulso.png 16×16. VisualPaths.game_icon(\"pulso\").",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "ill_game_azar",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/illustrations/events/game_azar.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Lámina del resultado de el azar (04f §4.26), 240×135, y game_azar_192.png a 192×108. VisualPaths.game_illustration(\"game_azar\").",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ill_game_mayor",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/illustrations/events/game_mayor.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Lámina del resultado de «a la mayor» (04f §4.26), 240×135, y game_mayor_192.png a 192×108. VisualPaths.game_illustration(\"game_mayor\").",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ill_game_pulso",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/illustrations/events/game_pulso.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Lámina del resultado de el pulso (04f §4.26), 240×135, y game_pulso_192.png a 192×108. VisualPaths.game_illustration(\"game_pulso\").",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ui_games_tourney_list",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/games/tourney/list.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Fondo de tablero (04f §4.26): el palenque del torneo: tierra apisonada dentro de una empalizada, público y pendones; el tercio izquierdo, en sombra. 880×384 (440×192 ×2): el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "icon_game_envite",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/icons/game_envite.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono de el envite, 32×32 y small/game_envite.png 16×16. VisualPaths.game_icon(\"envite\").",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "icon_game_tourney",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/icons/game_tourney.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono de el torneo de lucha, 32×32 y small/game_tourney.png 16×16. VisualPaths.game_icon(\"tourney\").",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "icon_game_bets",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/icons/game_bets.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono de el corredor de apuestas, 32×32 y small/game_bets.png 16×16. VisualPaths.game_icon(\"bets\").",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "ill_game_envite",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/illustrations/events/game_envite.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Lámina del resultado de el envite (04f §4.26), 240×135, y game_envite_192.png a 192×108. VisualPaths.game_illustration(\"game_envite\").",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ill_game_tourney",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/illustrations/events/game_tourney.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Lámina del resultado de el torneo de lucha (04f §4.26), 240×135, y game_tourney_192.png a 192×108. VisualPaths.game_illustration(\"game_tourney\").",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "icon_loaded_dice",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "juegos"
+      ],
+      "ruta": "assets/art/icons/loaded_dice.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Juegos (04f §4.26.7, O-V10 b): el objeto «dados cargados» (dos dados de hueso con una mancha de plomo), 32×32 y small/loaded_dice.png 16×16, como los demás iconos de objeto (VisualPaths.icon)."
+    },
+    {
+      "id": "ui_games_joust_lists",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/games/joust/lists.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Fondo de tablero (04f §4.26): la liza de la justa de lado: la tela a media altura, el público y los pendones detrás. 880×384 (440×192 ×2): el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ui_games_joust_horse",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/games/joust/horse.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_juegos_sprites.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Caballo de justa con gualdrapa azul y oro y el caballero con la lanza en ristre, de perfil al este (al oeste se refleja), 48×32, y horse_fallen.png (48×32): el caballo sin jinete y el caballero en el suelo. Los pies, abajo; la figura ocupa ~35 de ancho, centrada.",
+      "coste_usd": 0.04
+    },
+    {
+      "id": "ui_games_sortija_lane",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/games/sortija/lane.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Fondo de tablero (04f §4.26): la calle de la sortija de lado: el arco con el travesaño en el centro, sin nada colgado (la anilla la pinta el tablero), y tres postes de señal. 880×384 (440×192 ×2): el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ui_games_race_track",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/games/race/track.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Fondo de tablero (04f §4.26): el camino de la carrera desde arriba, a casi toda la altura (sitio para 6 calles): salida a la izquierda, el molino abajo a dos tercios, el palio de la meta a la derecha. 404×192 ×2 = 808×384, para que el recorte no se coma la salida ni la meta. 808×384: el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ui_games_race_horse",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/games/race/horse.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_juegos_sprites.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Caballo al galope con jinete, de perfil al este: horse_run.png es la tira de 4 fotogramas (112×18, 28×18 cada uno) y horse.png el primero suelto (28×18, lo que dibuja el tablero de hoy). La ropa y la gorra del jinete, en gris neutro (r=g=b) para teñirla por código.",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ui_games_bulls_plaza",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/games/bulls/plaza.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Fondo de tablero (04f §4.26): la plaza cerrada con un círculo de carros desde arriba, con balcones alrededor; el centro, libre. 880×384 (440×192 ×2): el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ui_games_bulls_bull",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/games/bulls/bull.png",
+      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_juegos_sprites.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "El toro negro de perfil al este, 36×24, y bull_charge.png (36×24): embistiendo con la cabeza baja. Los pies, abajo.",
+      "coste_usd": 0.04
+    },
+    {
+      "id": "icon_game_joust",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/icons/game_joust.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono de la justa, 32×32 y small/game_joust.png 16×16. VisualPaths.game_icon(\"joust\").",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "icon_game_sortija",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/icons/game_sortija.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono de la sortija, 32×32 y small/game_sortija.png 16×16. VisualPaths.game_icon(\"sortija\").",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "icon_game_race",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/icons/game_race.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono de la carrera, 32×32 y small/game_race.png 16×16. VisualPaths.game_icon(\"race\").",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "icon_game_bulls",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/icons/game_bulls.png",
+      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono de correr el toro, 32×32 y small/game_bulls.png 16×16. VisualPaths.game_icon(\"bulls\").",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "ill_game_joust",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/illustrations/events/game_joust.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Lámina del resultado de la justa (04f §4.26), 240×135, y game_joust_192.png a 192×108. VisualPaths.game_illustration(\"game_joust\").",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ill_game_sortija",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/illustrations/events/game_sortija.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Lámina del resultado de la sortija (04f §4.26), 240×135, y game_sortija_192.png a 192×108. VisualPaths.game_illustration(\"game_sortija\").",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ill_game_race",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/illustrations/events/game_race.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Lámina del resultado de la carrera (04f §4.26), 240×135, y game_race_192.png a 192×108. VisualPaths.game_illustration(\"game_race\").",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ill_game_bulls",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/illustrations/events/game_bulls.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Lámina del resultado de correr el toro (04f §4.26), 240×135, y game_bulls_192.png a 192×108. VisualPaths.game_illustration(\"game_bulls\").",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "ui_games_fight_street",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "juegos",
+        "H16"
+      ],
+      "ruta": "assets/art/ui/games/fight/street.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Fondo de tablero (04f §4.26): una calle de noche con dos antorchas, para el rescate y el altercado. 880×384 (440×192 ×2): el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
+      "coste_usd": 0.08
+    },
+    {
+      "id": "illus_masterwork",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H17",
+        "forja"
+      ],
+      "ruta": "assets/art/illustrations/events/masterwork.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Lámina de la carta «Obra maestra» de la Forja viva (03b §3b.2): el maestro alza la espada recién hecha a la luz de la fragua, los aprendices miran. 240×135 y masterwork_192.png a 192×108."
     }
   ]
 }
