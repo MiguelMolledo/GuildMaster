@@ -15,7 +15,9 @@
     {"id": "abrir_dados", "say": "Los dados contra el herrero rival (por el arnés)", "harness_game": "azar", "until": "q.shown({'within': 'Actions', 'type': 'Button', 'enabled': true})", "timeout": 10},
     {"id": "jugada_raton", "say": "La primera jugada con el ratón", "click": {"within": "Actions", "type": "Button", "enabled": true}},
     {"id": "jugada_tecla", "say": "La siguiente con su tecla (1)", "when": "q.shown({'within': 'Actions', 'type': 'Button', 'enabled': true})", "key": "1", "soft": true},
-    {"id": "solo", "say": "A: que termine solo", "key": "A", "until": "q.visible('Result')", "timeout": 20, "fast": 4, "expect": ["q.flow_has('game_play')"]},
+    {"id": "espera_auto", "until": "not q.disabled({'node': 'Auto'}) or q.visible('Result')", "timeout": 10},
+    {"id": "solo", "say": "«Resolver sin jugar»", "until": "q.visible('Result')", "timeout": 20, "fast": 4, "click": {"node": "Auto"}, "when": "not q.disabled({'node': 'Auto'})"},
+    {"id": "jugada_dada", "say": "La partida se jugó (game_play)", "until": "q.visible('Result')", "timeout": 20, "fast": 4, "expect": ["q.flow_has('game_play')"]},
     {"id": "resultado", "say": "La carta del resultado: cerrar", "click": {"within": "Result", "prefix": "Button_", "index": 1}, "soft": true},
     {"id": "cerrado", "when": "q.shown({'node': 'Actions'})", "key": "Escape"}
   ]

@@ -3696,3 +3696,5 @@ ui.order.inn_make_bed,Make a bed,Hacer una cama
 hud.date_short,D%d · %s · y%d,D%d · %s · año %d
 hud.date_shortest,%s · year %d,%s · año %d
 hud.rep_tight,rep.%d,rep.%d
+ui.hud.map_not_inside,The region map is not available inside a building,El mapa de la región no está disponible dentro de un edificio
+ui.hud.camera_not_inside,The camera does not move inside a building,La cámara no se mueve dentro de un edificio

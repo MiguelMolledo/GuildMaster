@@ -57,8 +57,25 @@ func show_person(sim: Sim, chr: String, flags: Dictionary) -> void:
 	theme_type_variation = &"SelectedRow" if bool(flags.get("selected", false)) else &"RowPanel"
 
 
+func _enter_tree() -> void:
+	focus_mode = Control.FOCUS_ALL
+
+
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and (event as InputEventMouseButton).pressed \
 			and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 		picked.emit(char_id)
 		accept_event()
+	elif event.is_action_pressed("ui_accept"):   # the keyboard: Enter / Space on the focused person (verificación C13)
+		picked.emit(char_id)
+		accept_event()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_FOCUS_ENTER or what == NOTIFICATION_FOCUS_EXIT:
+		queue_redraw()
+
+
+func _draw() -> void:
+	if has_focus():
+		draw_rect(Rect2(Vector2.ZERO, size).grow(-1), Color("#f2d880"), false, 1.0)

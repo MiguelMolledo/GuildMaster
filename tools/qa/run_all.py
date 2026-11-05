@@ -78,7 +78,7 @@ STEPS = [
 # The interface (docs/gdd/07_testing.md §7.6): the "quick" flows played with real mouse and keyboard events, with a
 # window, each one through the queue of `grimoire heavy`; --night plays every flow and publishes the report.
 UI = [("ui", [sys.executable, "tools/verifica/verifica.py", "--window", "--flows=quick", "--timeout=300"])]
-NIGHT = [("ui_all", [sys.executable, "tools/verifica/verifica.py", "--window", "--flows=all", "--artifact"])]
+NIGHT = [("ui_all", [sys.executable, "tools/verifica/verifica.py", "--window", "--flows=all", "--both", "--artifact"])]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]
 

@@ -11,6 +11,8 @@ flujo, y escribe el informe para revisar reports/verifica/<fecha>/index.html (+ 
                  ventana: los mismos pasos y comprobaciones, sin capturas ni contraste.
   --flows=quick  los flujos marcados "quick" (primer día, contratar y cola, deuda, guardar y cargar): el paso `ui`
                  de tools/qa/run_all.py. --flows=all es el modo completo (para la noche).
+  --keys / --both  los mismos flujos con el teclado (cada clic sobre un control: Tab hasta él y Enter; el mapa y las
+                 salas siguen siendo del ratón), solos o además de los de ratón: la cobertura por teclado.
   --report-only  no juega: rehace el informe con los result.json que haya.
   --artifact     registra el informe en Grimoire (artifact.create; HTML con miniaturas por debajo de ~0,9 MB).
 
@@ -45,17 +47,20 @@ def flow_ids(which):
     return [x for x in which.split(",") if x]
 
 
-def run_flow(fid, window, out_dir, timeout):
+def run_flow(fid, window, out_dir, timeout, keys=False):
     """One Godot process for one flow. Returns (returncode, seconds, log tail)."""
     os.makedirs(HOME, exist_ok=True)
     os.makedirs(os.path.join(out_dir, fid), exist_ok=True)
     game = [GODOT, "--audio-driver", "Dummy"] + (["--always-on-top"] if window else ["--headless"]) + \
-        ["--path", ROOT, "--", f"--flow={fid}", f"--verifica-out={out_dir}", f"--flow-timeout={timeout}"]
+        ["--path", ROOT, "--", f"--flow={fid}", f"--verifica-out={out_dir}", f"--flow-timeout={timeout}"] + \
+        (["--flow-input=keys"] if keys else [])
     cmd = ["env", f"HOME={HOME}"] + game
     if window:
         cmd = ["grimoire", "heavy", "--timeout", f"{int(timeout / 60) + 2}m", "--"] + cmd
     t0 = time.time()
-    log_path = os.path.join(out_dir, fid, "godot.log")
+    sub = fid + ("__teclado" if keys else "")
+    os.makedirs(os.path.join(out_dir, sub), exist_ok=True)
+    log_path = os.path.join(out_dir, sub, "godot.log")
     with open(log_path, "w", encoding="utf-8") as log:
         try:
             p = subprocess.run(cmd, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=timeout + 240)
@@ -66,7 +71,7 @@ def run_flow(fid, window, out_dir, timeout):
         lines = f.read().splitlines()
     errors = [l for l in lines if l.startswith("SCRIPT ERROR") or l.startswith("ERROR")]
     if errors:
-        res_path = os.path.join(out_dir, fid, "result.json")
+        res_path = os.path.join(out_dir, sub, "result.json")
         if os.path.exists(res_path):
             with open(res_path, encoding="utf-8") as f:
                 res = json.load(f)
@@ -89,11 +94,15 @@ def main(argv):
     if "--report-only" not in argv:
         ids = flow_ids(which)
         print(f"verifica: {len(ids)} flujos {'con ventana' if window else 'sin ventana'} -> {out_dir}")
+        keys = "--keys" in argv or "--both" in argv
+        mouse = "--keys" not in argv
         for fid in ids:
-            rc, secs, tail = run_flow(fid, window, out_dir, timeout)
-            bad = rc != 0
-            failed += bad
-            print(f"  {'FALLA' if bad else 'ok   '} {fid:<20} {secs:6.1f} s  {tail[:100]}")
+            for k in ([False] if mouse else []) + ([True] if keys else []):
+                rc, secs, tail = run_flow(fid, window, out_dir, timeout, k)
+                bad = rc != 0
+                failed += bad
+                name = fid + (" (teclado)" if k else "")
+                print(f"  {'FALLA' if bad else 'ok   '} {name:<30} {secs:6.1f} s  {tail[:100]}")
     path, size = report.build(out_dir, sim_dir)
     print(f"verifica: informe {path} ({size / 1024:.0f} KB)")
     if "--artifact" in argv:

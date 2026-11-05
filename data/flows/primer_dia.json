@@ -14,6 +14,7 @@
     {"id": "velocidad", "say": "Mayús+3: ×4", "key": "@speed_3", "expect": ["q.speed() == 4"]},
     {"id": "andar", "say": "Clic derecho en una calle: anda hasta allí", "world": {"tile": [21, 16]}, "button": "right", "expect": ["q.order('move_to')"]},
     {"id": "a_la_forja", "say": "Clic derecho en la forja: entra", "world": {"own": "forge"}, "button": "right", "until": "q.interior() == q.own('forge') and q.location() == q.own('forge')", "timeout": 30, "fast": 4, "expect": ["q.order('enter_building')"]},
+    {"id": "ir_al_puesto", "say": "Clic izquierdo en el almacén: va hasta él", "station": "storage", "button": "left", "expect": ["q.order('go_to_station')"]},
     {"id": "menu_horno", "say": "Clic derecho en el horno: su menú", "station": "furnace", "button": "right", "expect": ["q.visible('StationMenu')"]},
     {"id": "modo_normal", "say": "Modo normal", "click": {"node": "NormalButton"}},
     {"id": "receta_lingote", "say": "La receta del lingote", "click": {"via": "RecipeList", "fn": "get_node", "args": ["Row_forge_ingot"], "type": "Button"}, "expect": ["q.order('work_at')", "not q.visible('StationMenu')"]},

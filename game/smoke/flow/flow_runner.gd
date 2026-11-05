@@ -24,6 +24,7 @@ var results: Array = []
 var flow_timeout: float = 600.0
 var _flow_t0: int = 0
 var _seed: int = 3
+var keys_mode: bool = false   # --flow-input=keys: every click on a control is done with Tab + Enter (verificación C13)
 
 
 func _ready() -> void:
@@ -47,6 +48,8 @@ func _ready() -> void:
 			_seed = a.substr(12).to_int()
 		elif a.begins_with("--flow-timeout="):
 			flow_timeout = a.substr(15).to_float()
+		elif a == "--flow-input=keys":
+			keys_mode = true
 	Game.order_given.connect(_on_order)
 	Events.sim_event.connect(func(e: Dictionary) -> void: q.step_events.append(e))
 	print("[Flow] start (flows=%s, window=%s, out=%s)" % [ids, windowed, out_root])
@@ -103,14 +106,15 @@ func _run(ids: Array) -> void:
 
 func _run_flow(id: String) -> Dictionary:
 	var flow := _load(id)
-	var dir := out_root.path_join(id)
+	var dir := out_root.path_join(id + ("__teclado" if keys_mode else ""))
 	DirAccess.make_dir_recursive_absolute(dir.path_join("vis"))
 	for f: String in DirAccess.get_files_at(dir):
 		if f.ends_with(".png"):
 			DirAccess.remove_absolute(dir.path_join(f))
 	for f: String in DirAccess.get_files_at(dir.path_join("vis")):
 		DirAccess.remove_absolute(dir.path_join("vis").path_join(f))
-	var res := {"id": id, "title": str(flow.get("title", id)), "about": str(flow.get("about", "")),
+	var res := {"id": id + ("__teclado" if keys_mode else ""), "input": "keys" if keys_mode else "mouse",
+		"title": str(flow.get("title", id)) + (" (teclado)" if keys_mode else ""), "about": str(flow.get("about", "")),
 		"window": windowed, "date": Time.get_datetime_string_from_system(), "ok": true, "steps": [], "orders": [],
 		"visual": [], "error": "", "seconds": 0.0, "start": flow.get("start", {}), "covers": flow.get("covers", [])}
 	if flow.is_empty():
@@ -204,6 +208,9 @@ func _start(s: Dictionary) -> String:
 			(screen as Control).call("close")
 		app.call("_enter_game")
 		app.hud().close_panels()
+		var toast := drv.node("ToastLabel") as CanvasItem
+		if toast != null:
+			toast.visible = false   # a toast of the step before must not count for the next one
 		var v: Node2D = app.world().view_of(str(app.world().selected_id))
 		if v != null:   # a fresh game starts with the camera on its person (the session's camera would stay elsewhere)
 			app.world().camera().center_on(v.position)
@@ -438,7 +445,8 @@ func signature() -> Dictionary:
 	return {"shown": shown, "speed": Game.speed, "paused": Game.paused, "selected": q.selected(),
 		"interior": app.interior_building, "camera": cam.round(),
 		"town_camera": (app.world().camera() as Node2D).position.round(), "zoom": app.world().camera().current_zoom(),
-		"tutorial": q.tutorial_step(), "fullscreen": Settings.value("display/fullscreen")}
+		"tutorial": q.tutorial_step(), "fullscreen": Settings.value("display/fullscreen"),
+		"toast": q.text("ToastText") if q.visible("ToastLabel") else ""}
 
 
 ## The difference between two signatures as short phrases ([] = nothing changed).
@@ -450,6 +458,8 @@ static func sig_diff(a: Dictionary, b: Dictionary) -> Array:
 	for n: String in a["shown"]:
 		if not (b["shown"] as Array).has(n):
 			out.append("cierra " + n)
+	if str(b.get("toast", "")) != "" and str(a.get("toast", "")) != str(b.get("toast", "")):
+		out.append("avisa «%s»" % str(b["toast"]).left(50))
 	for k: String in ["speed", "paused", "selected", "interior", "zoom", "tutorial", "fullscreen"]:
 		if str(a[k]) != str(b[k]):
 			out.append("%s %s→%s" % [k, a[k], b[k]])
@@ -481,7 +491,7 @@ func _key_audit(step: Dictionary) -> String:
 	var effects := sig_diff(before, signature())
 	var camera_key := bool(step.get("camera", false))
 	var other: Array = effects.filter(func(e: String) -> bool:
-		return not e.begins_with("mueve la cámara") and not e.begins_with("paused"))
+		return not e.begins_with("mueve la cámara") and not e.begins_with("paused") and not e.begins_with("avisa"))
 	var opened: Array = effects.filter(func(e: String) -> bool: return e.begins_with("abre"))
 	var moved := effects.any(func(e: String) -> bool: return e.begins_with("mueve la cámara"))
 	# a camera key that also does something else, or another key that opens two things or opens and changes more
@@ -536,6 +546,8 @@ func _act_once(step: Dictionary) -> String:
 		app.call("open_games_test", str(step["harness_game"]))
 		await get_tree().create_timer(0.4).timeout
 		return ""
+	if step.has("click") and keys_mode and not bool(step.get("mouse_only", false)):
+		return await drv.key_click(step["click"])
 	if step.has("click"):
 		return await drv.click(step["click"], "left", false)
 	if step.has("right_click"):
@@ -543,9 +555,14 @@ func _act_once(step: Dictionary) -> String:
 	if step.has("double_click"):
 		return await drv.click(step["double_click"], "left", true)
 	if step.has("spin"):
+		if keys_mode:
+			return await drv.key_spin(step["spin"], int(step.get("times", 1)), bool(step.get("up", true)))
 		return await drv.spin(step["spin"], int(step.get("times", 1)), bool(step.get("up", true)))
 	if step.has("popup"):
+		if keys_mode:
+			return await drv.key_popup_item(step["popup"], int(step.get("item", 0)))
 		return await drv.click_popup_item(step["popup"], int(step.get("item", 0)))
+
 	if step.has("key"):
 		return await drv.key(str(step["key"]), bool(step.get("shift", false)))
 	if step.has("hold"):

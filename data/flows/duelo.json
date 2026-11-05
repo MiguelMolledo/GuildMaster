@@ -17,7 +17,8 @@
     {"id": "parar", "say": "Botón Parar", "click": {"node": "Parry"}, "expect": ["q.order('duel_move')"]},
     {"id": "fintar", "say": "3: fintar", "key": "3", "soft": true},
     {"id": "espera_lance_2", "say": "Espera a que acabe el lance en curso", "until": "not q.disabled({'node': 'Parry'}) or q.visible('Result')", "timeout": 10},
-    {"id": "auto", "say": "A: que termine solo", "key": "A", "until": "q.visible('Result')", "timeout": 20, "fast": 4},
+    {"id": "espera_auto", "until": "not q.disabled({'node': 'Auto'}) or q.visible('Result')", "timeout": 10},
+    {"id": "auto", "say": "«Resolver sin jugar»", "until": "q.visible('Result')", "timeout": 20, "fast": 4, "click": {"node": "Auto"}},
     {"id": "cerrar", "say": "Esc cierra el resultado", "key": "Escape", "until": "not q.visible('DuelScreen')", "timeout": 6}
   ]
 }

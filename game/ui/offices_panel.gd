@@ -202,9 +202,15 @@ func _seat(row: Dictionary, i: int, my_fam: String) -> Control:
 	p.custom_minimum_size = Vector2(212, 40)
 	p.theme_type_variation = &"SelectedRow" if o == office else &"RowPanel"
 	p.mouse_filter = Control.MOUSE_FILTER_STOP
+	p.focus_mode = Control.FOCUS_ALL   # the keyboard: Tab to a seat, Enter picks it (verificación C13)
 	p.gui_input.connect(func(ev: InputEvent) -> void:
 		if ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed and (ev as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
-			pick(o))
+			pick(o)
+		elif ev.is_action_pressed("ui_accept"):
+			pick(o)
+			p.accept_event())
+	p.focus_entered.connect(func() -> void: p.theme_type_variation = &"SelectedRow")
+	p.focus_exited.connect(func() -> void: p.theme_type_variation = &"SelectedRow" if o == office else &"RowPanel")
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", 6)
 	h.mouse_filter = Control.MOUSE_FILTER_IGNORE

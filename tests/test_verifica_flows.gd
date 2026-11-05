@@ -8,7 +8,7 @@ const ACTIONS: Array[String] = ["click", "right_click", "double_click", "popup",
 	"station", "door", "wheel", "pan", "release_focus", "restart", "key_audit", "context_setup", "harness_game"]
 const KEYS: Array[String] = ["id", "say", "until", "timeout", "fast", "wait", "expect", "soft", "when", "shot", "button",
 	"double", "shift", "item", "times", "up", "frames", "context", "does", "may_do_nothing", "both", "camera", "settle",
-	"restore", "no_dismiss"]
+	"restore", "no_dismiss", "mouse_only"]
 
 
 func _flows() -> Array:
@@ -150,3 +150,24 @@ func test_every_order_has_a_queue_label() -> void:
 			continue
 		var key := "ui.order." + t
 		check(TranslationServer.translate(key) != key, "%s has its queue line" % t)
+
+
+## The keyboard (verificación C13): a button made without focus takes it; a SpinBox gives it to its field; a control
+## of the town (under a Node2D) is left alone.
+func test_key_nav_makes_the_interface_focusable() -> void:
+	var b := Button.new()
+	b.focus_mode = Control.FOCUS_NONE
+	KeyNav._apply(b)
+	eq(b.focus_mode, Control.FOCUS_ALL, "a button takes the focus")
+	var sb := SpinBox.new()
+	KeyNav._apply(sb)
+	eq(sb.focus_mode, Control.FOCUS_NONE, "the spin box itself does not")
+	eq(sb.get_line_edit().focus_mode, Control.FOCUS_ALL, "its field does")
+	var town := Node2D.new()
+	var w := Button.new()
+	w.focus_mode = Control.FOCUS_NONE
+	town.add_child(w)
+	KeyNav._apply(w)
+	eq(w.focus_mode, Control.FOCUS_NONE, "a control of the town is not the interface")
+	for n: Node in [b, sb, town]:
+		n.free()

@@ -9,7 +9,7 @@
     {"id": "mejoras", "say": "M: el árbol de mejoras", "key": "@panel_upgrades", "expect": ["q.visible('UpgradePanel')"]},
     {"id": "elegir", "say": "Clic en una mejora disponible", "click": {"via": "UpgradePanel", "fn": "cell_of", "args": ["=q.upgrade_available()"]}, "expect": ["q.drv.node('BuyButton').visible"]},
     {"id": "construir", "say": "Construir: pide confirmación", "click": {"node": "BuyButton"}, "expect": ["q.visible('ConfirmModal')"]},
-    {"id": "confirmar", "say": "Intro confirma", "key": "@confirm", "until": "q.upgrades('forge') > q.was('upgrades', 'forge')", "timeout": 6, "expect": ["q.order('buy_upgrade')", "q.gold() < q.was('gold')"]},
+    {"id": "confirmar", "say": "Confirmar con el botón del modal (con teclado: Tab y Enter)", "until": "q.upgrades('forge') > q.was('upgrades', 'forge')", "timeout": 6, "expect": ["q.order('buy_upgrade')", "q.gold() < q.was('gold')"], "click": {"within": "ConfirmModal", "node": "ConfirmButton"}},
     {"id": "esc", "key": "Escape", "expect": ["not q.visible('UpgradePanel')"]}
   ]
 }

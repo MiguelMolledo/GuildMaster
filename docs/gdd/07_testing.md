@@ -200,6 +200,12 @@ si choca) y `esc` (cada pantalla se cierra con Esc) dan la cobertura de teclas.
 3. Un flujo nuevo por cada mecánica nueva que se pueda tocar: si la rama añade una pantalla o una orden, añade (o
    amplía) su flujo y su motivo en `_coverage.json` si no necesita ratón o teclado.
 
+**Teclado** (`--flow-input=keys`; `verifica.py --keys` o `--both`): los mismos flujos, pero cada clic sobre un control
+se hace con Tab (y F6 para cambiar de zona) hasta él y Enter; las cantidades se escriben; el mapa y las salas siguen
+siendo del ratón (su motivo, en `_coverage.json`). Sus resultados van a `<flujo>__teclado/` y la cobertura junta las dos
+pasadas: una orden cuenta por teclado si algún flujo la dio con el teclado. El modo noche (`run_all --night`) juega las
+dos.
+
 Reglas: un solo Godot con ventana a la vez (`grimoire heavy`), y se cierra al acabar; los ajustes y las partidas
 guardadas de los flujos van a `tmp/verifica_home` (nunca a los del owner). Si un flujo descubre que algo no se puede
 hacer por la interfaz o se ve mal, es un hallazgo: se apunta en el informe, no se tapa en el flujo.

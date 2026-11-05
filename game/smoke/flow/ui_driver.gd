@@ -470,6 +470,12 @@ func click(spec: Variant, button: String = "left", double: bool = false) -> Stri
 		break
 	if c == null or not is_instance_valid(c) or not c.is_inside_tree():
 		return "%s: el panel no para de rehacer el botón" % JSON.stringify(spec)
+	for again: int in 3:   # a hover that is not under our point comes from the machine's own cursor: aim again
+		if h == null or is_inside(h, c) or is_inside(c, h) or h.get_global_rect().has_point(at):
+			break
+		await move_to(at + Vector2(1, 0), 1)
+		await move_to(at, 1)
+		h = hovered()
 	if h != null and not is_inside(h, c) and not is_inside(c, h):
 		return "%s: lo tapa %s (%s sobre %s)" % [path_of(c), path_of(h), _r(h.get_global_rect()), _r(c.get_global_rect())]
 	var got := {"pressed": false, "input": false}
@@ -574,4 +580,123 @@ func spin(spec: Variant, times: int = 1, up: bool = true) -> String:
 		await click_at(at)
 	if is_equal_approx(sb.value, before):
 		return "%s: la flecha %s no cambia el valor (sigue en %s)" % [path_of(sb), "arriba" if up else "abajo", before]
+	return ""
+
+
+# --- the keyboard path (verificación C13) ---------------------------------------------------------------------------
+
+## Presses the control of `spec` with the keyboard only: Tab (from nothing focused, KeyNav enters what is on top)
+## until the focus is on it, then Enter. Fails if Tab goes round without reaching it, or the control takes no focus.
+func key_click(spec: Variant, max_tabs: int = 160) -> String:
+	for attempt: int in 3:   # a panel that rebuilds its rows loses the focus: a person goes again (and it is noted)
+		var e := await _key_click_once(spec, max_tabs)
+		if not e.contains("rehízo"):
+			return e
+		notes.append(e + " · otra vez")
+	return "%s: el panel rehace sus controles y el foco se pierde" % JSON.stringify(spec)
+
+
+func _key_click_once(spec: Variant, max_tabs: int) -> String:
+	var f := find(spec)
+	if f.has("error"):
+		return str(f["error"])
+	var c: Control = f["node"]
+	var why := why_not_clickable(c)
+	if why != "":
+		return "%s: %s" % [path_of(c), why]
+	if c.focus_mode == Control.FOCUS_NONE:
+		return "%s: no toma el foco del teclado" % path_of(c)
+	var got := {"pressed": false}
+	var on_pressed := func() -> void: got["pressed"] = true
+	var reached := false
+	for zone: int in 6:   # Tab round the zone the focus is in; if it is not there, F6 to the next zone
+		var first: Control = null
+		for i: int in max_tabs:
+			var now := root.gui_get_focus_owner()
+			if now == c:
+				reached = true
+				break
+			if now != null and first == null:
+				first = now
+			elif now != null and now == first and i > 2:
+				break   # round the loop without it
+			await key("Tab")
+			if not is_instance_valid(c):
+				return "%s: el panel rehízo el control mientras se buscaba con Tab" % JSON.stringify(spec)
+		if reached:
+			break
+		await key("F6")
+	if not reached:
+		return "%s: con Tab y F6 no se llega" % path_of(c)
+	if c is BaseButton:
+		(c as BaseButton).pressed.connect(on_pressed)
+	await key("Enter")
+	if is_instance_valid(c) and c is BaseButton and (c as BaseButton).pressed.is_connected(on_pressed):
+		(c as BaseButton).pressed.disconnect(on_pressed)
+	_log("key_click", "%s «%s»" % [path_of(c) if is_instance_valid(c) else "(cerrado)", text_of(c).left(40) if is_instance_valid(c) else ""])
+	# a modal that takes Enter itself (the confirmation) closes instead of emitting the button's pressed: that counts
+	if is_instance_valid(c) and c is BaseButton and not bool(got["pressed"]) and not c is OptionButton \
+			and not c is MenuButton and c.is_visible_in_tree():
+		return "%s: Enter no lo pulsó" % path_of(c)
+	return ""
+
+
+## The keyboard path of an item of a MenuButton / OptionButton: focus it, Enter opens the list, Down to the item,
+## Enter picks it.
+func key_popup_item(menu: Variant, index: int) -> String:
+	var f := find(menu)
+	if f.has("error"):
+		return str(f["error"])
+	var pop: PopupMenu = null
+	if f["node"] is MenuButton:
+		pop = (f["node"] as MenuButton).get_popup()
+	elif f["node"] is OptionButton:
+		pop = (f["node"] as OptionButton).get_popup()
+	if pop == null:
+		return "%s no tiene menú" % path_of(f["node"])
+	if not pop.visible:
+		var e := await key_click(menu)
+		if e != "":
+			return e
+		await tree.process_frame
+	if not pop.visible:
+		return "%s: Enter no abre su menú" % path_of(f["node"])
+	var got := {"id": -1}
+	var cb := func(id: int) -> void: got["id"] = id
+	pop.id_pressed.connect(cb)
+	for i: int in index + 1:
+		await key("Down")
+	await key("Enter")
+	if is_instance_valid(pop) and pop.id_pressed.is_connected(cb):
+		pop.id_pressed.disconnect(cb)
+	if int(got["id"]) < 0:
+		return "la entrada %d del menú no se eligió con el teclado" % index
+	return ""
+
+
+## A SpinBox nudged with the keyboard: Tab to it, then Up `times`.
+func key_spin(spec: Variant, times: int = 1, up: bool = true) -> String:
+	var f := find(spec)
+	if f.has("error"):
+		return str(f["error"])
+	var sb := f["node"] as SpinBox
+	if sb == null:
+		return "%s no es un SpinBox" % path_of(f["node"])
+	var edit := sb.get_line_edit()
+	var before := sb.value
+	for i: int in 160:
+		if root.gui_get_focus_owner() == edit or root.gui_get_focus_owner() == sb:
+			break
+		await key("Tab")
+	if root.gui_get_focus_owner() != edit and root.gui_get_focus_owner() != sb:
+		return "%s: con Tab no se llega" % path_of(sb)
+	# a person writes the number: to the end of the field, delete it, type the new one, Enter
+	var want := clampi(int(before) + (times if up else -times), int(sb.min_value), int(sb.max_value))
+	await key("End")
+	for i: int in 6:
+		await key("BackSpace")
+	await type_text(str(want))
+	await key("Enter")
+	if is_equal_approx(sb.value, before):
+		return "%s: escribir %d y Enter no cambia el valor" % [path_of(sb), want]
 	return ""

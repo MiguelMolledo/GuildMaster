@@ -45,15 +45,15 @@
     {"id": "d_trials", "key_audit": "@trials", "context": "forja", "does": "juicio (solo con uno abierto)", "soft": true, "may_do_nothing": true},
     {"id": "d_help", "key_audit": "@help", "context": "forja", "does": "ayuda", "soft": true},
     {"id": "d_build_mode", "key_audit": "@build_mode", "context": "forja", "does": "modo construcción (H6)", "soft": true, "may_do_nothing": true},
-    {"id": "d_region_map", "key_audit": "@region_map", "context": "forja", "does": "nada dentro de un edificio (el mapa solo desde la ciudad)", "soft": true, "may_do_nothing": true},
+    {"id": "d_region_map", "key_audit": "@region_map", "context": "forja", "does": "avisa: el mapa no está dentro de un edificio", "soft": true},
     {"id": "d_pause_toggle", "key_audit": "@pause_toggle", "context": "forja", "does": "pausa", "soft": true},
     {"id": "d_panel_production", "key_audit": "@panel_production", "context": "forja", "does": "producción (solo dentro)", "soft": true},
     {"id": "d_panel_storage", "key_audit": "@panel_storage", "context": "forja", "does": "almacén (solo dentro)", "soft": true},
     {"id": "d_panel_staff", "key_audit": "@panel_staff", "context": "forja", "does": "empleados (solo dentro)", "soft": true},
     {"id": "d_panel_upgrades", "key_audit": "@panel_upgrades", "context": "forja", "does": "mejoras (solo dentro)", "soft": true},
-    {"id": "d_cam_W", "key_audit": "W", "context": "forja", "does": "la sala no se desplaza", "frames": 20, "soft": true, "camera": true, "may_do_nothing": true},
+    {"id": "d_cam_W", "key_audit": "W", "context": "forja", "does": "avisa: la cámara no se mueve dentro", "frames": 20, "soft": true, "camera": true},
     {"id": "d_cam_A", "key_audit": "A", "context": "forja", "does": "la sala no se desplaza (A abre el almacén: misma tecla que cam_left, sin choque dentro)", "frames": 20, "soft": true},
-    {"id": "d_cam_S", "key_audit": "S", "context": "forja", "does": "la sala no se desplaza", "frames": 20, "soft": true, "camera": true, "may_do_nothing": true},
-    {"id": "d_cam_D", "key_audit": "D", "context": "forja", "does": "la sala no se desplaza", "frames": 20, "soft": true, "camera": true, "may_do_nothing": true}
+    {"id": "d_cam_S", "key_audit": "S", "context": "forja", "does": "avisa: la cámara no se mueve dentro", "frames": 20, "soft": true, "camera": true},
+    {"id": "d_cam_D", "key_audit": "D", "context": "forja", "does": "avisa: la cámara no se mueve dentro", "frames": 20, "soft": true, "camera": true}
   ]
 }

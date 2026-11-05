@@ -138,6 +138,7 @@ func _ready() -> void:
 	_game = get_node_or_null("/root/Game")
 	HudKeys.ensure()
 	UiFeel.install(get_tree())
+	KeyNav.install(get_tree())   # the keyboard in menus, panels and cards (verificación C13)
 	TitleFit.install(get_tree())   # a panel title that does not fit in gothic takes the small letter
 	_title_label.text = tr("app.title")
 	_paused_label.text = tr("hud.paused")
@@ -370,7 +371,8 @@ func _show_building(sim: Sim) -> void:
 		var price := Inn.sale_price(sim, building_id)
 		_buy_button.text = tr("hud.buy_building") % price
 		_buy_button.disabled = not Money.can_pay(sim.state, family(), price)
-		_buy_button.tooltip_text = tr("hud.buy_building_tip")
+		_buy_button.tooltip_text = tr("ui.why.bet_gold") % [price, Money.gold(sim.state, family())] \
+			if _buy_button.disabled else tr("hud.buy_building_tip")   # an off button says why (verificación A7)
 
 
 ## The selected person (alive) or "".
@@ -468,6 +470,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_build_denied()
 	elif HudKeys.pressed(event, "region_map") and not interior_open:
 		region_requested.emit()
+	elif HudKeys.pressed(event, "region_map") and interior_open:
+		show_toast(tr("ui.hud.map_not_inside"))   # verificación C13: say it instead of doing nothing
+	elif interior_open and _camera_key(event):
+		show_toast(tr("ui.hud.camera_not_inside"))
 	elif event.is_action_pressed("pause_toggle"):
 		_game.toggle_pause()
 	else:
@@ -502,6 +508,17 @@ static func _refit(l: Label) -> void:
 				l.text = str(f)
 			return
 	l.text = str(forms[forms.size() - 1])
+
+
+## A camera key (WASD, arrows) that is not also a key of the building's panels (A is the storage there).
+func _camera_key(event: InputEvent) -> bool:
+	for a: String in ["cam_left", "cam_right", "cam_up", "cam_down"]:
+		if event.is_action_pressed(a, false, true):
+			for p: String in ["panel_production", "panel_storage", "panel_staff", "panel_upgrades"]:
+				if HudKeys.pressed(event, p):
+					return false
+			return true
+	return false
 
 
 func _speed_key(event: InputEvent) -> int:

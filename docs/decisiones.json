@@ -2,6 +2,12 @@
   "tomadas": [
     {
       "fecha": "2026-11-05",
+      "tema": "El teclado en la interfaz",
+      "decision": "Sí al camino por teclado en menús, paneles y cartas (KeyNav): todo control de la interfaz toma el foco; Tab entra en lo de arriba, flechas y Tab se mueven, Intro/Espacio pulsan, Esc cierra, F6 cambia de zona. El mapa y las salas, del ratón. Un clic no deja el foco; las flechas no mueven la cámara con foco; R y la cámara avisan dentro de un edificio. La A, sin cambios. El foco de los botones usa la pieza hover del kit; casillas y pestañas, un marco dorado.",
+      "por_que": "Decisión del manager (bloque C): meta de cobertura ratón ≥ 65 y teclado ≥ 60 órdenes."
+    },
+    {
+      "fecha": "2026-11-05",
       "tema": "La letra del mundo y los recortes",
       "decision": "Todos los rótulos de la ciudad y de las salas pasan por WorldLabels (game/world/world_labels.gd): Pixel Operator 16 (negrita en letreros y nombres) y Pixel Operator 8 en barras, insignias y burbujas, con contorno oscuro de 2 px; nunca la fuente por defecto de Godot ni tamaños intermedios. Los textos del HUD que no caben eligen una forma más corta (la entera, en el tooltip). La ayuda no queda bajo el velo del tutorial.",
       "por_que": "Verificación por la interfaz, bloque B del manager."

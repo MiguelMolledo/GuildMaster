@@ -1,6 +1,15 @@
 [
   {
     "fecha": "2026-11-05",
+    "titulo": "Todo con el teclado: menús, paneles y cartas con foco, Tab, flechas, Intro, Esc y F6",
+    "que": "Cada botón, casilla, desplegable, campo y control de los menús, paneles y cartas toma el foco (anillo o marco dorado), también los asientos del organigrama, las fichas del árbol y las pilas del almacén. Tab sin nada enfocado entra en lo de arriba (un modal, un menú, una partida, el panel abierto, la barra del HUD); Tab, Mayús+Tab y las flechas se mueven, Intro o Espacio pulsan, Esc cierra, F6 salta de zona (las cartas de la pila, el panel, la barra de la sala, la del HUD). Un clic de ratón no deja el foco (Espacio sigue siendo la pausa) y las flechas no mueven la cámara mientras hay foco. Dentro de un edificio, R y la cámara avisan «no disponible dentro». El mapa y las salas siguen siendo del ratón. La verificación juega todos los flujos también con el teclado (Tab y F6 hasta cada botón, Intro; las cantidades se escriben): 22 de 22 flujos en verde con ratón y con teclado; cobertura de las 85 órdenes: 66 por ratón y 66 por teclado (las de señalar en el mapa, con su motivo).",
+    "como_probar": "python3 tools/verifica/verifica.py --both --flows=all (o --window); en el juego: Tab, flechas, Intro y F6 en cualquier panel",
+    "capturas": [
+      "verifica_teclado_foco.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-05",
     "titulo": "Se ve mejor: la letra del proyecto en la ciudad y las salas, sin recortes y con contraste",
     "que": "Los ~700 rótulos de la ciudad y de las salas (letreros, nombres, frases, puestos, insignias, barras de obra y burbujas) usan ya la fuente del proyecto a su tamaño (Pixel Operator 16, negrita en letreros y nombres, Pixel Operator 8 en barras e insignias) con contorno oscuro, legibles a zoom 1. Sin recortes: la línea del modo del yunque se parte en dos, la fecha y la reputación del HUD eligen la forma que cabe (entera en el tooltip), «Ciudadano» sale entero en el ayuntamiento y el motivo de un testigo va a su línea. La ayuda ya no queda bajo el velo del tutorial. La boda rica y la de vecinos usan su ilustración (alias en VisualPaths); los rótulos greybox de mayo y guirnalda han desaparecido con el arte de fiestas (solo quedan los animales). El detector visual entiende el contorno y la sombra del texto, el fondo de un letrero y que un aviso bajo un modal grande espera.",
     "como_probar": "python3 tools/verifica/verifica.py --window --flows=primer_dia,tribunal,vecinos_familia (primer_dia pasa de 117 hallazgos visuales a 0)",
