@@ -1,7 +1,7 @@
 ## 4d. Sistemas propios de las otras clases: diseño detallado de 4.22 (Gate «Antes de H12»)
 
 Desarrolla 4.22 ([04b_partida_y_rivales.md](04b_partida_y_rivales.md#422-sistemas-propios-de-las-otras-clases-ea-diseñar-en-detalle-antes-de-h12)).
-**Estado: borrador para aprobar por el owner** (2026-11-03). Cuando lo apruebe, se apunta en `docs/decisiones.json` y se
+**Estado: aprobado por el owner el 2026-11-05** con todas sus recomendaciones (O1–O15); borrador del 2026-11-03. Cuando lo apruebe, se apunta en `docs/decisiones.json` y se
 marca el [Gate] en `docs/hitos.json`; sin eso no empieza H12 (10_hitos.md).
 
 Las cifras marcadas **[balance]** son valores iniciales: se ajustan con bots contra `data/targets.json`. Donde este

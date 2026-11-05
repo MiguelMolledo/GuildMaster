@@ -2,6 +2,7 @@
   "_doc": "The court (GDD 4.12.5, 4.8, 4.12.1, ap. A; docs/contratos/h11_tribunal.md) [balance]. charges: what one can be tried for and its severity (the GDD table's examples). sentences: what each severity costs (fine range in gold, ledger justice; confiscation = the goods of the implicated business's storage, until H6 brings property; office_loss = the office and one title down; banishment = banishment_days days out of the town) and its reputation. facts: the charge of each kind of fact (inspection: by the Secrets upgrade found: smuggling with illegal_profit, else tax_evasion). trial: witnesses [min, max]; disposition_band (relation with the accused minus relation with the accuser >= band: favor, <= -band: against); prep_days (1 season), hearing_hours; proofs of each source; the formula of ap. A; town_rhetoric (the town accuses with it when nobody holds the inspector's office); keep: closed trials kept. witness_actions: convince (rhetoric vs empathy), bribe (gold_base + gold_per_negotiation x the witness's negotiation; favor for sure; stealth vs empathy, a failure is a denunciation: extra charge), threaten (martial vs martial; failure: against and extra charge). cross: questioning a witness against at the hearing, once each (owner decision 2026-11-02; rhetoric vs empathy): its testimony then counts ok_weight times (success) or fail_weight times (failure) instead of once [provisional]. accuse: the title to accuse; fabricating proofs (stealth vs target; failure: reputation and a fact against the accuser); false_reputation: the accuser of a fabricated case that ends innocent. judge: a verdict against the scale costs honesty and risks a scandal (stealth vs target). honesty: the attitude changes (GDD 4.2.3: manipulating trials -20; the rest provisional).",
   "charges": {
     "brawl": {"severity": "light", "name_key": "charge.brawl"},
+    "cheat": {"severity": "light", "name_key": "charge.cheat"},
     "minor_fraud": {"severity": "light", "name_key": "charge.minor_fraud"},
     "tax_evasion": {"severity": "medium", "name_key": "charge.tax_evasion"},
     "smuggling": {"severity": "medium", "name_key": "charge.smuggling"},
@@ -26,7 +27,8 @@
     "witness_threat": "brawl",
     "judge_scandal": "corruption",
     "fabrication": "corruption",
-    "investigation": "tax_evasion"
+    "investigation": "tax_evasion",
+    "cheat": "cheat"
   },
   "trial": {
     "witnesses": [3, 5],
