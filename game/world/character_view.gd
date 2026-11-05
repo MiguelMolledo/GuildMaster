@@ -306,7 +306,7 @@ func set_phrase(text: String) -> void:
 		_phrase_label.z_index = MARKS_Z + 1
 		WorldLabels.style(_phrase_label, "phrase")
 		_phrase_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_phrase_label.size = Vector2(240, 14)
+		_phrase_label.size = Vector2(240, 14)   # the project's letter is wider (WorldLabels)
 		_phrase_label.position = Vector2(-120, -fig_height - 46 - turn_raise - phrase_raise)
 		_phrase_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_phrase_label)

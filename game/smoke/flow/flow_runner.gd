@@ -56,6 +56,12 @@ func _ready() -> void:
 	_run.call_deferred(ids)
 
 
+## With a window, the real mouse of the machine must not play: only the driver's events (UiDriver.DEVICE) go on.
+func _input(event: InputEvent) -> void:
+	if windowed and (event is InputEventMouse or event is InputEventKey) and not event.has_meta("flow_driver"):
+		get_viewport().set_input_as_handled()
+
+
 static func flow_ids() -> Array:
 	var out: Array = []
 	for f: String in DirAccess.get_files_at("res://data/flows"):
