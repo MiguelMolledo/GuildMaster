@@ -12,7 +12,8 @@ extends RefCounted
 ##   max_price   = base_price(item) × quality_mult × (1 + fame(b) × fame_price) × taste
 ##
 ## fame(b) is 1 until the fame of a building is defined (only the tavern has one, 4.27; pending for the shops). The
-## reputation of the family is inside appeal (not twice). Figures: data/town.json counter.clientele [balance]. Off
+## reputation of the family is inside appeal (not twice). Figures: data/town.json counter.clientele [balance], and the
+## provider choice's of data/services.json (elasticity, no_go, reputation cap and divisor), shared with the inn. Off
 ## by default (enabled false): the targets of today run without it, like the living town (_no_life); measure it with
 ## --set=town.counter.clientele.enabled=true. Served by the counter's server like the townsfolk (Counter.server_of),
 ## after serve_minutes, gone after patience_minutes. Called by Counter.step once per minute.
@@ -91,15 +92,17 @@ static func share(sim: Sim, bld: String) -> float:
 	for id: String in ids:
 		if str(sim.state.buildings[id].get("type", "")) == type and Counter.sells(sim, id):
 			total += appeal(sim, id)
-	return mine / maxf(0.0001, total + float(cfg(sim).get("no_go", 0.5)))
+	return mine / maxf(0.0001, total + float(sim.catalog.services.get("no_go", 0.5)))
 
 
+## The provider's appeal of 4.22.3.2 with the figures of data/services.json (the same as InnClientele.provider_share).
 static func appeal(sim: Sim, bld: String) -> float:
-	var k := cfg(sim)
+	var sv: Dictionary = sim.catalog.services
 	var fam := str(sim.state.buildings[bld].get("owner", ""))
 	var rep := float(sim.state.families.get(fam, {}).get("reputation", 0))
 	var price := maxf(0.1, Upgrades.mult(sim, bld, "price_multiplier"))
-	return pow(1.0 / price, float(k.get("elasticity", 1.5))) * (1.0 + minf(rep / 1000.0, float(k.get("rep_cap", 0.3)))) \
+	return pow(1.0 / price, float(sv.get("elasticity", 1.5))) \
+		* (1.0 + minf(rep / float(sv.get("reputation_divisor", 1000)), float(sv.get("reputation_cap", 0.3)))) \
 		* (1.0 + Upgrades.amount(sim, bld, "customer_bonus"))
 
 

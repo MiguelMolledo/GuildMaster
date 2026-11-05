@@ -242,8 +242,8 @@ def resolve(d, cat):
     for spots in d.get("customers", {}).values():
         for s in spots:
             keep.add((s.get("floor", 0), tuple(s["tile"])))
-    for s in d.get("idle", []):
-        keep.add((s["floor"], tuple(s["tile"])))
+    for s in d.get("idle", []) + d.get("seats", []) + d.get("beds", []):
+        keep.add((s.get("floor", 0), tuple(s["tile"])))
     for s in d.get("stairs", []):
         keep.add((s["floor"], tuple(s["from"])))
         keep.add((s["to_floor"], tuple(s["to"])))
@@ -403,10 +403,25 @@ def validate(b, d=None, cat=None):
     for s in d.get("idle", []):
         if (s["floor"], tuple(s["tile"])) not in reach:
             errs.append(f"{w}: el sitio de espera {s['floor']} {s['tile']} no se alcanza")
+    for kind in ("seats", "beds"):  # la Taberna-Posada (InnLayer): cada asiento y cada cama, en su sala y a mano
+        for i, s in enumerate(d.get(kind, [])):
+            k = (s.get("floor", 0), tuple(s["tile"]))
+            if k[1] not in lay.room_of.get(k[0], {}) or k[1] in lay.blocked.get(k[0], set()):
+                errs.append(f"{w}: {kind}[{i}] {k} fuera de las salas o tapado")
+            elif kind == "seats" and k not in reach:
+                errs.append(f"{w}: el asiento {i} {k} no se alcanza desde la puerta")
     for room in d["rooms"]:  # toda sala tiene alguna casilla a la que se llega
         fl = room["floor"]
         if not any((fl, t) in reach for t, rid in lay.room_of[fl].items() if rid == room["id"]):
             errs.append(f"{w}: no se llega a la sala {room['id']} (planta {fl}) desde la puerta")
+    import glob as _glob  # la misma paleta (§4.6.5.1): con fondos pintados, cada pieza usada lleva su copia con su paleta
+    if _glob.glob(os.path.join(ROOT, "assets", "art", "interiors", b, "room_*.png")):
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import remap_props
+        for pid in remap_props.used_props(d, cat):
+            if not os.path.exists(os.path.join(ROOT, "assets", "art", "interiors", b, "props", pid + ".png")):
+                errs.append(f"{w}: falta {pid} con la paleta de sus fondos: python3 tools/interiors/remap_props.py {b}")
+                break
     want = resolve(d, cat)
     if want != d.get("resolved", []):
         errs.append(f"{w}: las reglas no coinciden con resolved: python3 tools/interiors/interiores.py reglas {b}")
@@ -508,9 +523,11 @@ def backdrop_path(b, floor, room_id):
     return os.path.join(ROOT, "assets", "art", "interiors", b, f"room_{floor}_{room_id}.png")
 
 
-def _sprite(pid):
+def _sprite(pid, b=None):
+    """La pieza como la usa el interior `b` (con la paleta de sus fondos, tools/interiors/remap_props.py), si existe."""
     from PIL import Image
-    return Image.open(os.path.join(PROPS_ART, pid + ".png")).convert("RGBA")
+    own = os.path.join(ROOT, "assets", "art", "interiors", b, "props", pid + ".png") if b else ""
+    return Image.open(own if own and os.path.exists(own) else os.path.join(PROPS_ART, pid + ".png")).convert("RGBA")
 
 
 STATION_ART = {  # puestos sin pieza de la biblioteca: el sprite de su escena (game/visuals/stations/<zona>.tscn)
@@ -559,7 +576,7 @@ def render_floor(b, floor, d=None, upgrades=True, marks=False, dim=False):
             fx, fy = art[1]
         else:
             pr = cat[p["id"]]
-            spr = _sprite(p["id"])
+            spr = _sprite(p["id"], b)
             fx, fy = pr["feet"]
             if p.get("flip"):
                 spr = spr.transpose(Image.FLIP_LEFT_RIGHT)
@@ -577,7 +594,7 @@ def render_floor(b, floor, d=None, upgrades=True, marks=False, dim=False):
             continue
         p = {"id": s["prop"], "tile": s["tile"], "flip": s.get("flip", False)}
         pr = cat[s["prop"]]
-        spr = _sprite(s["prop"])
+        spr = _sprite(s["prop"], b)
         fx, fy = pr["feet"]
         if p["flip"]:
             spr = spr.transpose(Image.FLIP_LEFT_RIGHT)

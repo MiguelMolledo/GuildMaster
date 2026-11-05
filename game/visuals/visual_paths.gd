@@ -332,6 +332,15 @@ static func interior_prop(id: String) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
+## A library prop as it is used inside interior `type`: the copy with the palette of its painted rooms
+## (assets/art/interiors/<type>/props/<id>.png, tools/interiors/remap_props.py), else the library's.
+static func interior_prop_in(type: String, id: String) -> Texture2D:
+	var p := "%s/interiors/%s/props/%s.png" % [ART_ROOT, type, id]
+	if type != "" and ResourceLoader.exists(p):
+		return load(p) as Texture2D
+	return interior_prop(id)
+
+
 ## The painted room of an interior built from data (4.6.5.1): assets/art/interiors/<type>/room_<floor>_<room>.png, the
 ## size of the whole floor (tools/interiors/interiores.py canvas_box), or null until it is painted.
 static func interior_backdrop(type: String, level: int, room: String) -> Texture2D:

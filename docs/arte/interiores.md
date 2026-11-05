@@ -1,6 +1,6 @@
 # Interiores bonitos: referencias, análisis y piloto de la forja
 
-> Fecha: 2026-11-05 · Rama `interiores` · Diseño: `docs/gdd/04g_interiores.md` (§4.6.5) · Gasto: 6,51 USD de fal
+> Fecha: 2026-11-05 · Rama `interiores` · Diseño: `docs/gdd/04g_interiores.md` (§4.6.5) · Gasto: 7,57 USD de fal
 > (detalle en `assets/art/MANIFEST.md` y `assets/art/fal_piloto/gasto.json`, tanda `interiores`).
 > No cambia reglas del sim: solo cómo se monta y se ve un interior, y dónde se dibuja a la gente que el sim ya tiene.
 
@@ -193,8 +193,7 @@ las piezas de cada mejora por su nodo (`visual.interior_node`, como antes).
 
 ![La guarida: sótano y planta baja](interiores/guarida.png)
 
-**Lo que no hay todavía:** clientes de encargos (4.5.6), porque el sim no los tiene como personas; la taberna y su
-bodega (rama `posada`, aún no está en main; las piezas de la bodega ya están en la biblioteca).
+**Lo que no hay todavía:** clientes de encargos (4.5.6), porque el sim no los tiene como personas.
 
 ## 6. La forja de §4.6.5.6
 
@@ -226,8 +225,11 @@ casa y su planta alta.*
 | Cantería | patio de bloques con tarima de trabajo, cobertizo, tienda | — |
 | Sastrería | taller con telares y mesas de corte, tienda en L con probador | cocina y dormitorio |
 | Casa | hogar, cocina y mesa | dormitorio y cuarto de los hijos |
+| Taberna-Posada | salón con barra, mesas (16 asientos), chimenea, rincón del juglar y mesa de juego; cocina | dos habitaciones con 8 camas; **sótano**: la bodega con el almacén |
 
-Ya no queda ninguna escena de interior hecha a mano (solo `_generic.tscn`). Lo aprendido al pintar los fondos: el
+Ya no queda ninguna escena de interior hecha a mano (solo `_generic.tscn`). La taberna llegó con la rama `posada`: su
+`InnLayer` (huéspedes sentados y camas) lee los asientos y las camas que el montador saca de los datos (`seats`, `beds`)
+y solo dibuja los de la planta que se ve. Lo aprendido al pintar los fondos: el
 modelo respeta las paredes y la puerta de la plantilla, pero **confunde suelos de colores parecidos** (la plantilla
 usa ahora colores bien distintos y el texto dice qué color es cada suelo) y **no respeta las tarimas** (se dibujan con
 Pillow encima del fondo, exactas). El foso de la forja sí salió bien a la cuarta.
@@ -239,7 +241,22 @@ referencias para cuando lo tengan. Por interior nuevo: unos 0,2-0,6 USD de fondo
 para repasar el detalle y la paleta de los personajes frente a los fondos (§4.6.5.1). Apuntado en la lista de la
 compra de `assets/art/MANIFEST.md`.
 
-## 8. Cómo repetirlo
+## 8. Revisión con lupa: que case la estética (2026-11-05)
+
+El owner aprobó el camino C con una condición: «el tema es que case la estética». He revisado a nivel de píxel las
+capturas del juego y he medido lo que se ve:
+
+| Qué | Medida | Qué se hizo |
+|---|---|---|
+| Piezas de antes de las mejoras (Guild Renew y Pillow) | ΔE medio 10,5 a la paleta del fondo (las de fal, 7,1); tablas planas, grises fríos, otro sombreado | Repintadas las 24 con fal y la referencia de su sala (0,33 USD) |
+| Contorno | El 85 % del borde de las piezas por debajo de luminancia 35; en el fondo, ni el 2 % más oscuro baja de 44: se leían como pegatinas | Contorno selectivo en toda la biblioteca: el borde toma el color de la pieza oscurecido, más claro del lado de la luz, nunca más oscuro que el fondo |
+| Paleta | Las piezas iban con la paleta común de la biblioteca | Cada interior lleva sus piezas pasadas a la paleta de sus fondos (`tools/interiors/remap_props.py`): el 82-95 % de los píxeles; los acentos (rojos, brillos, llamas) se quedan. Pasar los fondos a la paleta común los empeoraba (ΔE 4,1 frente a 1,8) |
+| Luz | Piezas y fondos con la luz arriba a la izquierda; la luz por sala tiñe las dos cosas igual | Nada |
+| Sombras | Las piezas llevan su sombra tramada; el fondo, sombras suaves pintadas | Nada (se leen igual) |
+| **Personajes** | Planos al lado de los fondos: 2 tonos por color, contorno pardo uniforme, más claros, sin la luz de la sala | Apuntados para PixelLab el día 15 (lista de la compra, fila 14) |
+
+
+## 9. Cómo repetirlo
 
 ```bash
 python3 tools/art/fal_props.py gen && python3 tools/art/fal_props.py proc   # biblioteca (sin gasto si hay crudos)
@@ -250,6 +267,7 @@ python3 tools/interiors/interiores.py vista forge --marcas                    # 
 python3 tools/art/fal_salas.py gen forge 0 --tag v1                           # fondo de una planta (0,08 USD)
 python3 tools/art/fal_salas.py ver forge 0 --tag v1                           # encaje con la plantilla
 python3 tools/art/fal_salas.py proc forge 0 --tag v1                          # fondos por sala y paredes
+python3 tools/interiors/remap_props.py forge                                  # sus piezas con la paleta de sus fondos
 ```
 
 Los crudos quedan en `~/Code/GuildMaster-arte-crudos/fal_produccion/{interiores,props_interior,salas}/`. Capturas:

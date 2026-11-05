@@ -17,6 +17,7 @@ import json
 import os
 import random
 import shutil
+import sys
 
 from PIL import Image, ImageDraw
 
@@ -213,7 +214,12 @@ def main():
         floor_tile(kind).save(os.path.join(OUT, f"floor_{kind}.png"))
         made[f"floor_{kind}"] = ("structure", [1, 1], {"walkable": True}, f"suelo de respaldo {kind} (rombo 64×32)")
     legacy = {}
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import fal_props  # las que ya tienen pieza de fal no se copian de antes
+    redone = {p["id"] for p in fal_props.P}
     for pid, src, trade in LEGACY:
+        if pid in redone:
+            continue
         s = os.path.join(ROOT, "assets", "art", "interiors", src)
         shutil.copy(s, os.path.join(OUT, pid + ".png"))
         legacy[pid] = (src, trade)

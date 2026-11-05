@@ -46,6 +46,12 @@ static func attach(v: InteriorView, room: Node2D) -> InteriorStage:
 	if old != null:
 		v.remove_child(old)
 		old.queue_free()
+	var old_button := v.get_node_or_null("%Ui/Root/FloorButton")   # the floor button of the room before
+	if old_button == null:
+		old_button = v.get_node_or_null("%Ui/FloorButton")
+	if old_button != null:
+		old_button.get_parent().remove_child(old_button)
+		old_button.queue_free()
 	if room == null or not room.has_meta("interior_def"):
 		return null
 	# a wide interior may move its centre (data "center_offset", px), so the room leaves room to the panels
@@ -217,6 +223,8 @@ func tick(delta: float) -> void:
 		return
 	if not has_meta("center0"):
 		set_meta("center0", view.get("_center"))   # InteriorView.setup has placed the room by now
+		_apply_level(active)   # (and the InnLayer of a tavern exists now)
+		_place_button()        # (and the bar has its size)
 	_place_people(delta)
 	var want: int = active
 	if manual != null:
@@ -535,6 +543,9 @@ func _apply_level(level: int) -> void:
 		var c0: Vector2 = get_meta("center0")
 		view.set("_center", c0 + InteriorDefs.floor_offset(d, level) * 0.5)
 		view.camera().position = view.call("_camera_position")
+	var inn := view.objects().get_node_or_null("InnLayer")
+	if inn != null:
+		inn.set("shown_level", level)   # its beds and guests follow the floor shown
 	if _button != null:
 		_button.text = SimQuery.t_("ui.interior.floor_down" if level > 0 else "ui.interior.floor_up")
 	if OS.is_debug_build():
@@ -724,7 +735,9 @@ func attend_at(screen: Vector2) -> bool:
 
 
 func _make_button() -> void:
-	var ui := view.get_node_or_null("%Ui") as CanvasLayer
+	var ui: Node = view.get_node_or_null("%Ui/Root")   # under the themed root: the HUD's look
+	if ui == null:
+		ui = view.get_node_or_null("%Ui")
 	if ui == null:
 		return
 	_button = Button.new()
@@ -734,5 +747,16 @@ func _make_button() -> void:
 	_button.focus_mode = Control.FOCUS_NONE
 	_button.pressed.connect(func() -> void: show_level(0 if active > 0 else 1))
 	ui.add_child(_button)
-	_button.position = Vector2(view.viewport_size().x - 104, view.viewport_size().y - 72)
 	_button.size = Vector2(96, 18)
+	_place_button()
+
+
+## The floor button sits just over the building's bar, at its left (the HUD's zone: the panels never cover it).
+func _place_button() -> void:
+	if _button == null:
+		return
+	var bar := view.get_node_or_null("%BuildingBar") as Control
+	if bar != null and bar.size.x > 0.0:
+		_button.position = (bar.global_position + Vector2(0, -_button.size.y - 4)).round()
+	else:
+		_button.position = Vector2(view.viewport_size().x / 2.0 - 280, view.viewport_size().y - 72)

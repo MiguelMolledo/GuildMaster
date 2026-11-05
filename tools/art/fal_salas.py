@@ -54,7 +54,8 @@ HANG = {  # lo que cuelga de las paredes exteriores del fondo, por tipo de sala
 }
 REF_OF = {"forge": {0: "forge_b", 1: "house_b"}, "armory": {0: "armory_a"}, "carpentry": {0: "carpentry_b", 1: "house_b"},
           "masonry": {0: "masonry_a"}, "tailor_shop": {0: "tailor_shop_b", 1: "house_b"}, "house": {0: "house_b", 1: "house_a"},
-          "town_hall": {0: "town_hall_b"}, "court": {0: "court_a"}}
+          "town_hall": {0: "town_hall_b"}, "court": {0: "court_a"},
+          "tavern_inn": {-1: "tavern_b", 0: "tavern_a", 1: "house_b"}}
 
 
 def template_path(b, floor):

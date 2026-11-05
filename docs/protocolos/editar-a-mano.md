@@ -155,12 +155,13 @@ mapa (letreros, puertas, insignias, barras del interior, día/noche) en `data/vi
 edificio o un puesto, en el `Greybox` de su escena.
 
 ### Un interior por datos (la forja; 04g §4.6.5.2)
-Los interiores con fichero en `data/interiors/<tipo>.json` (forja, armería, carpintería, cantería, sastrería y casa) no
+Los interiores con fichero en `data/interiors/<tipo>.json` (forja, armería, carpintería, cantería, sastrería, casa y taberna) no
 tienen escena: los monta `game/interior/interior_builder.gd`.
 1. Edita el JSON: salas (`rooms`), puertas, desniveles, escaleras, puestos (`stations`: casilla, pieza de
    `data/props/interior.json` o la escena del puesto, y `stand`, donde se pone quien trabaja), sitios de clientes,
    sitios de espera, atrezo (`props`), reglas (`rules`) y las piezas de cada mejora (`upgrades`, por su nodo).
-2. `python3 tools/interiors/interiores.py reglas <tipo>` (coloca lo de las reglas) y `validar <tipo>` (0 errores).
+2. `python3 tools/interiors/interiores.py reglas <tipo>` (coloca lo de las reglas), `python3 tools/interiors/remap_props.py
+   <tipo>` (sus piezas con la paleta de sus fondos) y `validar <tipo>` (0 errores).
 3. `python3 tools/interiors/interiores.py vista <tipo> --marcas` para verlo sin abrir el juego.
 4. Si cambian las salas o las paredes, el fondo pintado ya no encaja: `python3 tools/art/fal_salas.py gen|ver|proc`.
 

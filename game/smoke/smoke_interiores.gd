@@ -36,6 +36,9 @@ func _ready() -> void:
 	_steps.append(["armory", func() -> void: _armory()])
 	_steps.append(["house", func() -> void: _house()])
 	_steps.append(["house_arriba", func() -> void: _upstairs()])
+	_steps.append(["tavern", func() -> void: _open_type("tavern_inn")])
+	_steps.append(["tavern_arriba", func() -> void: _level(1)])
+	_steps.append(["tavern_bodega", func() -> void: _level(-1)])
 	print("[SmokeInteriores] start (%d shots)" % _steps.size())
 
 
@@ -100,6 +103,26 @@ func _customer() -> void:
 	var now := int(st.clock["minute"])
 	st.town["clientele"] = {BLD: {"next_at": -1, "seq": 1, "waiting": [{"id": "cmc_%s_1" % BLD, "item": "armor",
 		"since": now - 30, "served_at": -1}]}}
+
+
+## The first building of type `type` in management mode.
+func _open_type(type: String) -> void:
+	app.close_interior()
+	var ids: Array = Game.sim.state.buildings.keys()
+	ids.sort()
+	for id: Variant in ids:
+		if str(Game.sim.state.buildings[id].get("type", "")) == type:
+			app.open_interior(str(id), true)
+			_check(true, "a %s in town: %s" % [type, id])
+			return
+	_check(false, "a %s in town" % type)
+
+
+func _level(level: int) -> void:
+	var stage := app.get("_interior").get_node_or_null("InteriorStage") as InteriorStage
+	_check(stage != null, "the interior has its stage")
+	if stage != null:
+		stage.show_level(level)
 
 
 func _upstairs() -> void:

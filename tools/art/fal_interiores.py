@@ -434,7 +434,8 @@ def proc_piezas():
         up = Image.open(dst).convert("RGBA")
         nat = up.resize((up.width // sc, up.height // sc), Image.NEAREST)
         nat.putalpha(nat.getchannel("A").point(lambda v: 255 if v > 127 else 0))
-        c = fic.outline(nat.crop(nat.getchannel("A").getbbox()))
+        import fal_props
+        c = fal_props.soft_outline(nat.crop(nat.getchannel("A").getbbox()))  # el contorno del fondo (04g §4.6.5.1)
         (w, h) = PIECES[pid][0]
         if c.width > w or c.height > h:
             k2 = min(w / c.width, h / c.height)

@@ -7319,10 +7319,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/engraving_bench.png",
-      "origen": "copia de assets/art/interiors/forge/upg_engraving.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g22_s_forge_a (ref: _referencias/forge_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "an engraver's workbench with small burins, a vice and a half-engraved blade",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7330,21 +7330,22 @@
           1
         ],
         "size": [
-          80,
-          72
+          36,
+          38
         ],
         "feet": [
-          40,
-          56
+          18,
+          25
         ],
-        "height": 56,
+        "height": 25,
         "walkable": false,
         "wall": false,
         "on_top": false,
         "hangs": false,
         "mirror": true,
         "trades": [
-          "forge"
+          "forge",
+          "all"
         ],
         "style": "common"
       }
@@ -7357,10 +7358,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/master_seal.png",
-      "origen": "copia de assets/art/interiors/forge/upg_seal.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g22_s_forge_a (ref: _referencias/forge_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a stone block with a big master smith's seal stamp and red wax",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7368,21 +7369,22 @@
           1
         ],
         "size": [
-          80,
-          72
+          37,
+          34
         ],
         "feet": [
-          40,
-          56
+          18,
+          22
         ],
-        "height": 56,
+        "height": 22,
         "walkable": false,
         "wall": false,
         "on_top": false,
         "hangs": false,
         "mirror": true,
         "trades": [
-          "forge"
+          "forge",
+          "all"
         ],
         "style": "common"
       }
@@ -7395,10 +7397,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/hidden_passage.png",
-      "origen": "copia de assets/art/interiors/forge/upg_passage.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g22_s_forge_a (ref: _referencias/forge_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a secret hatch in the floor with an iron ring, half hidden under straw",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7406,20 +7408,21 @@
           1
         ],
         "size": [
-          80,
-          72
+          48,
+          29
         ],
         "feet": [
-          40,
-          56
+          24,
+          19
         ],
-        "height": 56,
-        "walkable": false,
+        "height": 19,
+        "walkable": true,
         "wall": false,
         "on_top": false,
         "hangs": false,
         "mirror": true,
         "trades": [
+          "forge",
           "all"
         ],
         "style": "common"
@@ -7433,10 +7436,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/smuggler_cache.png",
-      "origen": "copia de assets/art/interiors/forge/upg_cache.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g22_s_forge_a (ref: _referencias/forge_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a pried-open floor plank showing hidden bundles of goods",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7444,20 +7447,21 @@
           1
         ],
         "size": [
-          80,
-          72
+          36,
+          30
         ],
         "feet": [
-          40,
-          56
+          18,
+          19
         ],
-        "height": 56,
+        "height": 19,
         "walkable": false,
         "wall": false,
         "on_top": false,
         "hangs": false,
         "mirror": true,
         "trades": [
+          "forge",
           "all"
         ],
         "style": "common"
@@ -7471,10 +7475,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/double_ledger.png",
-      "origen": "copia de assets/art/interiors/forge/upg_ledger.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g22_s_forge_a (ref: _referencias/forge_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a small desk with two ledger books, a quill and a candle",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7482,20 +7486,21 @@
           1
         ],
         "size": [
-          80,
-          72
+          33,
+          35
         ],
         "feet": [
-          40,
-          56
+          16,
+          23
         ],
-        "height": 56,
+        "height": 23,
         "walkable": false,
         "wall": false,
         "on_top": false,
         "hangs": false,
         "mirror": true,
         "trades": [
+          "forge",
           "all"
         ],
         "style": "common"
@@ -7509,10 +7514,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/master_bench.png",
-      "origen": "copia de assets/art/interiors/forge/upg_master_bench.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g22_s_forge_a (ref: _referencias/forge_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a heavy master's workbench with fine tools laid out on it",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7520,20 +7525,21 @@
           1
         ],
         "size": [
-          80,
-          72
+          40,
+          38
         ],
         "feet": [
-          40,
-          56
+          20,
+          25
         ],
-        "height": 56,
+        "height": 25,
         "walkable": false,
         "wall": false,
         "on_top": false,
         "hangs": false,
         "mirror": true,
         "trades": [
+          "forge",
           "all"
         ],
         "style": "common"
@@ -7547,10 +7553,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/frame_saw.png",
-      "origen": "copia de assets/art/interiors/carpentry/upg_frame_saw.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g23_s_carpentry_a (ref: _referencias/carpentry_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a big wooden frame saw standing on its stand",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7558,14 +7564,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          35,
+          45
         ],
         "feet": [
-          40,
-          56
+          17,
+          29
         ],
-        "height": 56,
+        "height": 29,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -7585,10 +7591,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/planes_rack.png",
-      "origen": "copia de assets/art/interiors/carpentry/upg_planes.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g23_s_carpentry_a (ref: _referencias/carpentry_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a wall rack with wood planes of several sizes",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7596,16 +7602,16 @@
           1
         ],
         "size": [
-          80,
-          72
+          30,
+          40
         ],
         "feet": [
-          40,
-          56
+          15,
+          26
         ],
-        "height": 56,
+        "height": 26,
         "walkable": false,
-        "wall": false,
+        "wall": true,
         "on_top": false,
         "hangs": false,
         "mirror": true,
@@ -7623,10 +7629,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/gouges.png",
-      "origen": "copia de assets/art/interiors/carpentry/upg_gouges.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g23_s_carpentry_a (ref: _referencias/carpentry_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a stool with a cloth roll of carving gouges",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7634,14 +7640,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          24,
+          28
         ],
         "feet": [
-          40,
-          56
+          12,
+          18
         ],
-        "height": 56,
+        "height": 18,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -7661,10 +7667,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/carpenter_mark.png",
-      "origen": "copia de assets/art/interiors/carpentry/upg_mark.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g23_s_carpentry_a (ref: _referencias/carpentry_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a branding iron and a stamp for marking wood on a block",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7672,14 +7678,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          33,
+          30
         ],
         "feet": [
-          40,
-          56
+          16,
+          19
         ],
-        "height": 56,
+        "height": 19,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -7699,10 +7705,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/master_carpenter_bench.png",
-      "origen": "copia de assets/art/interiors/carpentry/upg_master_bench.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g23_s_carpentry_a (ref: _referencias/carpentry_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a fine master carpenter's bench with a carved chair leg on it",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7710,14 +7716,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          39,
+          39
         ],
         "feet": [
-          40,
-          56
+          19,
+          25
         ],
-        "height": 56,
+        "height": 25,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -7737,10 +7743,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/vice_bench.png",
-      "origen": "copia de assets/art/interiors/carpentry/upg_vice_bench.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g23_s_carpentry_a (ref: _referencias/carpentry_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a sturdy short bench with a big wooden vice",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7748,14 +7754,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          38,
+          34
         ],
         "feet": [
-          40,
-          56
+          19,
+          22
         ],
-        "height": 56,
+        "height": 22,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -7775,10 +7781,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/mason_chisels.png",
-      "origen": "copia de assets/art/interiors/masonry/upg_chisels.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g24_s_masonry_b (ref: _referencias/masonry_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "an open box of mason's chisels, points and a mallet",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7786,14 +7792,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          24,
+          24
         ],
         "feet": [
-          40,
-          56
+          12,
+          15
         ],
-        "height": 56,
+        "height": 15,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -7813,10 +7819,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/mason_crane.png",
-      "origen": "copia de assets/art/interiors/masonry/upg_crane.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g24_s_masonry_b (ref: _referencias/masonry_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a small wooden hoist with a rope and a stone block hanging",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7824,14 +7830,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          52,
+          59
         ],
         "feet": [
-          40,
-          56
+          26,
+          42
         ],
-        "height": 56,
+        "height": 42,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -7851,10 +7857,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/mason_mark.png",
-      "origen": "copia de assets/art/interiors/masonry/upg_mark.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g24_s_masonry_b (ref: _referencias/masonry_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a dressed stone with a carved mason's mark",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7862,14 +7868,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          28,
+          29
         ],
         "feet": [
-          40,
-          56
+          14,
+          19
         ],
-        "height": 56,
+        "height": 19,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -7889,10 +7895,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/master_yard.png",
-      "origen": "copia de assets/art/interiors/masonry/upg_master_yard.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g24_s_masonry_b (ref: _referencias/masonry_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a master mason's tracing board with drawings on two trestles",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7900,14 +7906,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          50,
+          43
         ],
         "feet": [
-          40,
-          56
+          25,
+          28
         ],
-        "height": 56,
+        "height": 28,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -7927,10 +7933,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/mason_templates.png",
-      "origen": "copia de assets/art/interiors/masonry/upg_templates.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g24_s_masonry_b (ref: _referencias/masonry_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "wooden templates leaning on a trestle",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7938,14 +7944,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          45,
+          43
         ],
         "feet": [
-          40,
-          56
+          22,
+          28
         ],
-        "height": 56,
+        "height": 28,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -7965,10 +7971,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/mason_wedges.png",
-      "origen": "copia de assets/art/interiors/masonry/upg_wedges.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g24_s_masonry_b (ref: _referencias/masonry_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "iron wedges and feathers by a half-split stone",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -7976,14 +7982,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          28,
+          27
         ],
         "feet": [
-          40,
-          56
+          14,
+          17
         ],
-        "height": 56,
+        "height": 17,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -8003,10 +8009,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/tailor_dyes.png",
-      "origen": "copia de assets/art/interiors/tailor_shop/upg_dyes.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g25_s_tailor_shop_a (ref: _referencias/tailor_shop_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "two dye vats, one red and one blue, with dripping cloth",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -8014,14 +8020,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          41,
+          36
         ],
         "feet": [
-          40,
-          56
+          20,
+          23
         ],
-        "height": 56,
+        "height": 23,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -8041,10 +8047,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/tailor_master_table.png",
-      "origen": "copia de assets/art/interiors/tailor_shop/upg_master_table.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g25_s_tailor_shop_a (ref: _referencias/tailor_shop_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a fine small cutting table with a measuring rod and silk",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -8052,14 +8058,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          44,
+          36
         ],
         "feet": [
-          40,
-          56
+          22,
+          23
         ],
-        "height": 56,
+        "height": 23,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -8079,10 +8085,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/tailor_seal.png",
-      "origen": "copia de assets/art/interiors/tailor_shop/upg_seal.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g25_s_tailor_shop_a (ref: _referencias/tailor_shop_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a small table with the tailors' guild seal and wax",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -8090,14 +8096,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          36,
+          32
         ],
         "feet": [
-          40,
-          56
+          18,
+          21
         ],
-        "height": 56,
+        "height": 21,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -8117,10 +8123,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/tailor_shears.png",
-      "origen": "copia de assets/art/interiors/tailor_shop/upg_shears.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g25_s_tailor_shop_a (ref: _referencias/tailor_shop_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "big tailor's shears hanging on a wooden stand",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -8128,14 +8134,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          33,
+          43
         ],
         "feet": [
-          40,
-          56
+          16,
+          28
         ],
-        "height": 56,
+        "height": 28,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -8155,10 +8161,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/tailor_shuttle.png",
-      "origen": "copia de assets/art/interiors/tailor_shop/upg_shuttle.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g25_s_tailor_shop_a (ref: _referencias/tailor_shop_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a rack of loom shuttles and bobbins of thread",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -8166,14 +8172,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          35,
+          37
         ],
         "feet": [
-          40,
-          56
+          17,
+          24
         ],
-        "height": 56,
+        "height": 24,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -8193,10 +8199,10 @@
         "interiores"
       ],
       "ruta": "assets/art/props/interior/tailor_treadle.png",
-      "origen": "copia de assets/art/interiors/tailor_shop/upg_treadle.png (pieza de antes de una mejora; tools/art/props_estructura.py)",
+      "origen": "fal: nano-banana-2/edit, rejilla g25_s_tailor_shop_a (ref: _referencias/tailor_shop_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
       "coste_gen": 0,
-      "coste_usd": 0,
-      "notas": "Pieza de antes (Guild Renew o Pillow) para la mejora, hasta que tenga una nueva de la biblioteca.",
+      "coste_usd": 0.0089,
+      "notas": "a treadle spinning wheel with wool",
       "prop": {
         "category": "trade",
         "footprint": [
@@ -8204,14 +8210,14 @@
           1
         ],
         "size": [
-          80,
-          72
+          32,
+          40
         ],
         "feet": [
-          40,
-          56
+          16,
+          26
         ],
-        "height": 56,
+        "height": 26,
         "walkable": false,
         "wall": false,
         "on_top": false,
@@ -10737,6 +10743,20 @@
       "coste_gen": 0,
       "coste_usd": 0.16,
       "notas": "Interior por datos (docs/gdd/04g_interiores.md §4.6.5.6, data/interiors/house.json): hogar, cocina y mesa abajo; dormitorio de los padres y de los hijos arriba. Fondos pintados por sala y paredes entre salas sacadas de ellos (tools/art/fal_salas.py); piezas de assets/art/props/interior/."
+    },
+    {
+      "id": "int_tavern_inn",
+      "tipo": "interior",
+      "estado": "sprite",
+      "para": [
+        "interiores",
+        "posada"
+      ],
+      "ruta": "assets/art/interiors/tavern_inn/",
+      "origen": "fal: nano-banana-2/edit (fondos por planta sobre la plantilla del montador) + biblioteca de props",
+      "coste_gen": 0,
+      "coste_usd": 0.72,
+      "notas": "Interior por datos (docs/gdd/04g_interiores.md §4.6.5.6, data/interiors/tavern_inn.json): salón con barra, mesas, chimenea, rincón del juglar y mesa de juego, y cocina; arriba, dos habitaciones con 8 camas; en el sótano, la bodega con el almacén. Asientos y camas de InnLayer desde los datos. Fondos: sótano v3, planta baja v4, alta v1."
     },
     {
       "id": "bld_stall_clothier",

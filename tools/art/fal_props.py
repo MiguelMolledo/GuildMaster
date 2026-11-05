@@ -337,6 +337,45 @@ add("l", "court_a", "furniture", [
 TARGET.update({"trapdoor": 30, "trapdoor_open": 34, "ladder": 56, "contraband_pile": 36, "fence_table": 30,
                "dice_table": 24, "stolen_goods": 26, "wine_rack": 54, "chain_post": 50, "iron_cage": 96, "cask_row": 100,
                "cellar_stairs": 96, "smuggler_table": 100})
+# --- las piezas de antes de las mejoras (Guild Renew y Pillow), repintadas con la referencia de su sala: la lupa vio
+# que no casaban (ΔE medio 10,5 a la paleta del fondo frente a 7,1 de las de fal; otro contorno y otro sombreado) ----
+add("s", "forge_a", "trade", [
+    ("engraving_bench", "1x1", "", "an engraver's workbench with small burins, a vice and a half-engraved blade"),
+    ("master_seal", "1x1", "", "a stone block with a big master smith's seal stamp and red wax"),
+    ("hidden_passage", "1x1", "walk", "a secret hatch in the floor with an iron ring, half hidden under straw"),
+    ("smuggler_cache", "1x1", "", "a pried-open floor plank showing hidden bundles of goods"),
+    ("double_ledger", "1x1", "", "a small desk with two ledger books, a quill and a candle"),
+    ("master_bench", "1x1", "", "a heavy master's workbench with fine tools laid out on it"),
+], ["forge", "all"])
+add("s", "carpentry_a", "trade", [
+    ("frame_saw", "1x1", "", "a big wooden frame saw standing on its stand"),
+    ("planes_rack", "1x1", "wall", "a wall rack with wood planes of several sizes"),
+    ("gouges", "1x1", "", "a stool with a cloth roll of carving gouges"),
+    ("carpenter_mark", "1x1", "", "a branding iron and a stamp for marking wood on a block"),
+    ("master_carpenter_bench", "1x1", "", "a fine master carpenter's bench with a carved chair leg on it"),
+    ("vice_bench", "1x1", "", "a sturdy short bench with a big wooden vice"),
+], ["carpentry"])
+add("s", "masonry_b", "trade", [
+    ("mason_chisels", "1x1", "", "an open box of mason's chisels, points and a mallet"),
+    ("mason_crane", "1x1", "", "a small wooden hoist with a rope and a stone block hanging"),
+    ("mason_mark", "1x1", "", "a dressed stone with a carved mason's mark"),
+    ("master_yard", "1x1", "", "a master mason's tracing board with drawings on two trestles"),
+    ("mason_templates", "1x1", "", "wooden templates leaning on a trestle"),
+    ("mason_wedges", "1x1", "", "iron wedges and feathers by a half-split stone"),
+], ["masonry"])
+add("s", "tailor_shop_a", "trade", [
+    ("tailor_dyes", "1x1", "", "two dye vats, one red and one blue, with dripping cloth"),
+    ("tailor_master_table", "1x1", "", "a fine small cutting table with a measuring rod and silk"),
+    ("tailor_seal", "1x1", "", "a small table with the tailors' guild seal and wax"),
+    ("tailor_shears", "1x1", "", "big tailor's shears hanging on a wooden stand"),
+    ("tailor_shuttle", "1x1", "", "a rack of loom shuttles and bobbins of thread"),
+    ("tailor_treadle", "1x1", "", "a treadle spinning wheel with wool"),
+], ["tailor_shop"])
+TARGET.update({"engraving_bench": 34, "master_seal": 30, "hidden_passage": 30, "smuggler_cache": 26, "double_ledger": 32,
+               "master_bench": 34, "frame_saw": 44, "planes_rack": 36, "gouges": 26, "carpenter_mark": 26,
+               "master_carpenter_bench": 34, "vice_bench": 32, "mason_chisels": 22, "mason_crane": 56, "mason_mark": 26,
+               "master_yard": 38, "mason_templates": 40, "mason_wedges": 24, "tailor_dyes": 32, "tailor_master_table": 32,
+               "tailor_seal": 30, "tailor_shears": 40, "tailor_shuttle": 36, "tailor_treadle": 36})
 
 
 def grids():
@@ -546,13 +585,50 @@ def proc_one(g):
         if bb is None:
             out.append((p, None, "vacía tras pixelar"))
             continue
-        spr = fic.outline(nat.crop(bb))
+        spr = soft_outline(nat.crop(bb))
         spr = _shadow(spr, p)
         dstp = os.path.join(OUT, p["id"] + ".png")
         os.makedirs(OUT, exist_ok=True)
         spr.save(dstp)
         out.append((p, spr.size, ""))
     return out
+
+
+# El contorno «selectivo» (04g §4.6.5.1: el mismo contorno que el fondo): el borde de la silueta toma el color de la
+# propia pieza oscurecido, más claro del lado de la luz (arriba a la izquierda) que del de la sombra, y nunca más
+# oscuro que lo más oscuro del fondo pintado (luminancia ~40). Con el contorno negro de antes las piezas se leían
+# como pegatinas sobre el fondo (el 85 % del borde por debajo de 35).
+OUTLINE_LIGHT, OUTLINE_SHADE, OUTLINE_FLOOR = 0.62, 0.42, 38.0
+
+
+def soft_outline(im):
+    im = im.copy()
+    px = im.load()
+    w, h = im.size
+    out = {}
+    for y in range(h):
+        for x in range(w):
+            if px[x, y][3] < 128:
+                continue
+            open_ = [(dx, dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))
+                     if not (0 <= x + dx < w and 0 <= y + dy < h) or px[x + dx, y + dy][3] < 128]
+            if not open_:
+                continue
+            # el color de dentro: la media de los vecinos opacos que no son borde (o el propio)
+            inner = [px[x - dx, y - dy] for dx, dy in open_ if 0 <= x - dx < w and 0 <= y - dy < h
+                     and px[x - dx, y - dy][3] >= 128]
+            base = inner[0] if inner else px[x, y]
+            lit = any(d in ((-1, 0), (0, -1)) for d in open_) and not any(d in ((1, 0), (0, 1)) for d in open_)
+            k = OUTLINE_LIGHT if lit else OUTLINE_SHADE
+            c = [v * k for v in base[:3]]
+            lum = 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2]
+            if lum < OUTLINE_FLOOR:
+                f = OUTLINE_FLOOR / max(1.0, lum)
+                c = [min(255.0, v * f) for v in c] if lum > 4 else [OUTLINE_FLOOR * 0.9, OUTLINE_FLOOR * 0.75, OUTLINE_FLOOR * 0.6]
+            out[(x, y)] = tuple(int(v) for v in c) + (255,)
+    for (x, y), c in out.items():
+        px[x, y] = c
+    return im
 
 
 def _shadow(spr, p):

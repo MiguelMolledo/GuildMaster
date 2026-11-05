@@ -254,3 +254,37 @@ func test_every_interior_from_data_has_its_stations_and_upgrade_nodes() -> void:
 		check(room.get_node("Backdrops").get_children().all(func(h: Node) -> bool: return h.get_node_or_null("Painted") != null),
 			"%s: every room painted" % type)
 		room.free()
+
+
+func test_the_tavern_seats_below_and_beds_upstairs() -> void:
+	var sim := Sim.new(NewGame.from_scenario("innkeeper_start", 1)["state"], cat)
+	var t := ""
+	var ids: Array = sim.state.buildings.keys()
+	ids.sort()
+	for id: Variant in ids:
+		if str(sim.state.buildings[id].get("type", "")) == "tavern_inn":
+			t = str(id)
+			break
+	check(t != "", "the innkeeper's tavern")
+	var v: InteriorView = (load("res://game/interior/interior_view.tscn") as PackedScene).instantiate()
+	v.setup(sim, t, "", true)
+	check(v.room().has_meta("interior_def"), "the tavern is built from data/interiors/tavern_inn.json")
+	var inn := v.objects().get_node_or_null("InnLayer") as InnLayer
+	check(inn != null, "with its InnLayer")
+	if inn == null:
+		v.free()
+		return
+	var seats: Array = inn.get("_seat_level")
+	var beds: Array = inn.get("_bed_level")
+	eq(seats.size(), 16, "16 seats from the data")
+	eq(beds.size(), 8, "8 beds from the data")
+	check(seats.all(func(l: int) -> bool: return l == 0), "the seats in the hall, downstairs")
+	check(beds.all(func(l: int) -> bool: return l == 1), "the beds in the rooms, upstairs")
+	var s := _stage(v)
+	s.tick(0.0)
+	eq(int(inn.shown_level), 0, "it draws the ground floor's")
+	s.show_level(1)
+	eq(int(inn.shown_level), 1, "and the rooms' when the upper floor is shown")
+	s.show_level(-1)
+	eq(int(inn.shown_level), -1, "and nothing of either from the cellar")
+	v.free()

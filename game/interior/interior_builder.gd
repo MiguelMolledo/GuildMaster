@@ -16,6 +16,8 @@ extends RefCounted
 
 const LEVEL_Z: int = 10
 
+static var _type: String = ""   # the interior being built: its props come with the palette of its rooms
+
 
 ## The interior of `type`: built from data when data/interiors/<type>.json exists, else its scene.
 static func instantiate(type: String) -> Node2D:
@@ -26,6 +28,7 @@ static func instantiate(type: String) -> Node2D:
 
 
 static func build(type: String, d: Dictionary) -> Node2D:
+	_type = type
 	var root := Node2D.new()
 	root.name = type.to_pascal_case() + "Interior"
 	root.set_meta("interior_def", type)
@@ -89,6 +92,20 @@ static func build(type: String, d: Dictionary) -> Node2D:
 		u.set_meta("level", level)
 		u.z_index = level * LEVEL_Z
 		ups.add_child(u)
+	# the Taberna-Posada's seats and beds (InnLayer reads Seats/Seat00.. and Beds/Bed0..: 04f 4.27.4), on their floor
+	for pair: Array in [["seats", "Seats", "Seat%02d"], ["beds", "Beds", "Bed%d"]]:
+		var spots: Array = d.get(str(pair[0]), [])
+		if spots.is_empty():
+			continue
+		var holder := _node(root, str(pair[1]))
+		for si: int in spots.size():
+			var sp: Dictionary = spots[si]
+			var m := Marker2D.new()
+			m.name = str(pair[2]) % si
+			var lv := int(sp.get("floor", 0))
+			m.position = InteriorDefs.spot_world(d, lv, Vector2(float(sp["tile"][0]), float(sp["tile"][1])))
+			m.set_meta("level", lv)
+			holder.add_child(m)
 	root.set_meta("walls", walls)
 	if OS.is_debug_build():
 		print("[InteriorBuilder] %s: %d salas, %d paredes, %d puestos, %d piezas, %d mejoras" % [type,
@@ -118,7 +135,7 @@ static func _feet(d: Dictionary, p: Dictionary) -> Vector2:
 static func _prop(d: Dictionary, p: Dictionary, n: String, _rooms: Dictionary) -> Node2D:
 	var id := str(p.get("id", ""))
 	var pr := InteriorDefs.prop(id)
-	var tex := VisualPaths.interior_prop(id)
+	var tex := VisualPaths.interior_prop_in(_type, id)
 	if pr.is_empty() or tex == null:
 		if OS.is_debug_build():
 			print("[InteriorBuilder] pieza sin catálogo o sin sprite: %s" % id)
