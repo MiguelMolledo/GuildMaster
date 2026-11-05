@@ -108,7 +108,11 @@ no está hecha: lo que aquí se llama «plan» son las tareas de `RivalAI` (`ai_
   `ai_stalls`, `ai_weddings`, `ai_births`, `ai_contracts_accepted`, `ai_races_won_vs_player`, `contested_elections`.
 - **Del pueblo:** `npc_stalls`, `npc_hungry_share_max`, `npc_short_<necesidad>_max`, `town_weddings`,
   `town_births`, `town_deaths`, `townsfolk_end`, `visitors_per_day`, `watch_called`, `watch_arrived_share`.
-- **Del propio bot:** `bot_<medida>` (las de `festive`, `dynasty` y `guard_watch`: `bot_fest_*`, `bot_raids`...).
+- **Del propio bot:** `bot_<medida>` (las de `festive`, `dynasty` y `guard_watch`: `bot_fest_*`, `bot_raids`...; con
+  la taberna, las de `innkeeper`: `bot_inn_net_day`, `bot_inn_operating_day`, `bot_inn_fame`, `bot_inn_bed_share`,
+  `bot_inn_guests_night`, `bot_inn_complaints_night`, `bot_inn_fights`, `bot_inn_upgrades`, `bot_inn_licensed`).
+  Las mecánicas `tavern`, `games` y `bets` cuentan desde la posada y los juegos (órdenes `buy_building`, `inn_*`,
+  `game_enter`, `game_play`, `game_bet`; sucesos `building_bought`, `game_played`, `game_bet_settled`).
 
 ## `summary.json`
 

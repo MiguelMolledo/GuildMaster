@@ -40,12 +40,21 @@ const CARAVAN_MIN_PRICE: int = 30     # the caravan's minimum unit price in the 
 const CARAVAN_STAFF: int = 2          # employees it needs to spare one as carter
 const CART_SPARE: int = 150           # gold kept after buying a cart
 const ACCUSE_EVERY: int = 1440        # one look a day for a fact to accuse with
+const INN_SPARE: int = 200           # gold kept on top of the reserve after buying the Taberna-Posada
+const BET_STAKE: int = 5              # a bet at a festival's competition: the smallest stake (data/games.json stakes)
+const BET_SPARE: int = 100            # gold kept on top of the reserve before a bet
+const ENTER_EDGE: float = 1.2         # enters a festival competition when its chance beats the field's mean by this
+const ODDS_SAMPLES: int = 30          # automatic games of the estimate (Games.win_odds)
 const UTIL: Dictionary = {"court": 0.7, "travel": 0.5, "duel": 0.4, "business": 0.3}  # utility of each goal
 
 var dyn: BotDynasty = BotDynasty.new()
 var guard: BotGuardWatch = BotGuardWatch.new()
 var duelist: BotDuelist = BotDuelist.new()
 var merchant: BotMerchant = BotMerchant.new()
+var inn: BotInnkeeper = null          # posada (04f §4.27): the Taberna-Posada, run by a family member (the spouse)
+var _keeper: String = ""
+var _spectacles: Dictionary = {}      # "<festival>|<spectacle>" -> looked at (enter or bet decided)
+var _calls: Dictionary = {}           # festival matches it was called to and played
 
 var goals: int = 1                    # trials (BOT_VARS=goals=0): 0 = never leaves the business for a goal
 var focus: String = "business"        # what the head's body does: business | court | duel | travel
@@ -176,6 +185,8 @@ func _always(sim: Sim) -> Array:
 		var o := _accuse(sim)
 		if not o.is_empty():
 			out.append(o)
+	out.append_array(_festival_games(sim))
+	out.append_array(_inn(sim))
 	var suitor := dyn._suitor(sim)
 	if suitor != "" and suitor != ACTOR and not Region.is_away(st, suitor):  # the heir courts with its own body
 		for o: Dictionary in dyn.orders(sim):
@@ -655,6 +666,160 @@ func _city_contract(sim: Sim) -> bool:
 	return false
 
 
+# --- The second business and the games -------------------------------------------------------------------------
+
+## Posada (04f §4.27): once the forge runs as a business, with an adult of the family free to keep it (the spouse)
+## and gold for the price on top of the reserve, it buys the Taberna-Posada for sale and gives it to that member
+## (assign_building); from then on BotInnkeeper runs it with the keeper as its hero (management, the bar at dusk, the
+## beds, the kitchen's queue, the upgrades and the licence).
+func _inn(sim: Sim) -> Array:
+	var st := sim.state
+	if inn != null:
+		if not st.buildings.has(inn._tavern) or str(st.buildings[inn._tavern].get("owner", "")) != _fam_id:
+			inn = null
+			return []
+		if _keeper == "" or not Kin.alive(st, _keeper) or Region.is_away(st, _keeper) or _keeper == ACTOR:
+			_keeper = _free_adult(sim)
+			if _keeper == "":
+				why_not["tavern"] = "no_keeper"
+				return []
+			inn._hero = _keeper
+			_note(sim, "innkeeper", _keeper)
+			return [{"type": "assign_building", "actor": ACTOR, "character": _keeper, "building": inn._tavern}]
+		inn._hero = _keeper
+		var o: Array = []
+		var loc := str(st.characters[_keeper].get("location", ""))
+		for x: Dictionary in inn.orders(sim):
+			# BotInnkeeper's keeper starts in the tavern (innkeeper_start); this one may be at home: out first
+			if str(x.get("type", "")) == "enter_building" and str(x.get("actor", "")) == _keeper and loc != "" \
+					and loc != str(x.get("building", "")):
+				x = {"type": "exit_building", "actor": _keeper}
+			if str(x.get("type", "")) == "buy_upgrade" and Money.gold(st, _fam_id) < int(sim.catalog.upgrade(
+					str(x.get("upgrade", ""))).get("cost", {}).get("gold", 0)) + _reserve(sim) + INN_SPARE:
+				continue  # the tavern's upgrades never eat the forge's reserve (the purse is the family's)
+			o.append(x)
+		if not o.is_empty():
+			_use("tavern")
+		return o
+	if _now(sim) % 60 != 0:
+		return []
+	if not _business(sim):
+		why_not["tavern"] = "debt_first"
+		return []
+	if Titles.rank(sim, Titles.current(sim, _fam_id)) < Titles.rank(sim, "citizen"):
+		why_not["tavern"] = "title_needed"  # 03b §3b.4: the second business comes with Citizen (bought before, measured:
+		return []                           # the year 2 net falls to −52/day and Citizen never comes in 3 years)
+	var sale := ""
+	for b: String in _sorted_ids(st.buildings.keys()):
+		if bool(st.buildings[b].get("for_sale", false)) and str(st.buildings[b].get("owner", "")) == "" and Inn.is_inn(sim, b):
+			sale = b
+			break
+	if sale == "":
+		why_not["tavern"] = "none_for_sale"
+		return []
+	var keeper := _free_adult(sim)
+	if keeper == "":
+		why_not["tavern"] = "no_keeper"
+		return []
+	if Money.gold(st, _fam_id) < Inn.sale_price(sim, sale) + _reserve(sim) + INN_SPARE:
+		why_not["tavern"] = "gold_short"
+		return []
+	inn = BotInnkeeper.new()
+	inn._tavern = sale
+	inn._fam = _fam_id
+	inn._hero = keeper
+	_keeper = keeper
+	_use("tavern")
+	_note(sim, "buy_inn", "%s for %d, kept by %s" % [sale, Inn.sale_price(sim, sale), keeper])
+	return [{"type": "buy_building", "actor": ACTOR, "building": sale},
+		{"type": "assign_building", "actor": ACTOR, "character": keeper, "building": sale}]
+
+
+## An adult of the family's group other than the one who plays the forge, not employed, at home: the spouse first.
+func _free_adult(sim: Sim) -> String:
+	var st := sim.state
+	var sp := str(st.characters.get(ACTOR, {}).get("spouse", ""))
+	var list: Array = ([sp] if sp != "" else []) + Kin.group(st, _fam_id)
+	for c: Variant in list:
+		var id := str(c)
+		if id != ACTOR and Kin.alive(st, id) and Kin.is_adult(sim, id) and str(st.characters[id].get("family", "")) == _fam_id \
+				and not st.characters[id].get("job") is Dictionary and not Region.is_away(st, id):
+			return id
+	return ""
+
+
+## Juegos (04f §4.26) at the festivals: within the last day before a competition of a feast (FestivalGames), it enters
+## it when its chance beats the field's mean by ENTER_EDGE (Games.win_odds, the bookmaker's own estimate) and it meets
+## the title and the fee; else it bets BET_STAKE on the favourite while it has gold to spare. Called to its match, it
+## plays it («Resolver sin jugar»: game_play with auto).
+func _festival_games(sim: Sim) -> Array:
+	var st := sim.state
+	var out: Array = []
+	for e: Dictionary in sim.events:
+		if str(e.get("type", "")) == "festival_game_call" and str(e.get("family", "")) == _fam_id \
+				and not _calls.has(str(e.get("match", ""))):
+			_calls[str(e["match"])] = true
+			_use("games")
+			out.append({"type": "game_play", "actor": str(e["actor"]), "game": str(e["game"]),
+				"opponents": e.get("opponents", []), "stake": 0, "opts": {"event": str(e["festival"])},
+				"match": str(e["match"]), "auto": true})
+	if _now(sim) % 15 != 0:
+		return out
+	for sp: Dictionary in Festivals.spectacles(sim):
+		var key := "%s|%s" % [sp["festival"], sp["spectacle"]]
+		if _spectacles.has(key) or not FestivalGames.is_game(sim, str(sp["spectacle"])):
+			continue
+		var left := int(sp["at"]) - _now(sim)
+		if left <= 0 or left > Clock.MINUTES_PER_DAY:
+			continue
+		_spectacles[key] = true
+		var inst := Festivals.find(sim, str(sp["festival"]))
+		if inst.is_empty():
+			continue
+		var game := str(FestivalGames.spectacle_cfg(sim, str(sp["spectacle"])).get("game", ""))
+		var c: Dictionary = sim.catalog.games.get(game, {})
+		var why := ""
+		var title := str(c.get("requires", {}).get("title", ""))
+		if title != "" and Titles.rank(sim, Titles.current(sim, _fam_id)) < Titles.rank(sim, title):
+			why = "title_needed"
+		elif Money.gold(st, _fam_id) < int(c.get("entry_fee", 0)) + _reserve(sim):
+			why = "gold_short"
+		else:
+			var spec := FestivalGames.spec_for(sim, inst, str(sp["spectacle"]), ACTOR)
+			spec["match"] = str(spec["match"]) + "|fp"  # its own estimate's keys: the real match's dice stay unseen
+			var p := float(Games.win_odds(sim.catalog.games, spec, ODDS_SAMPLES).get(0, 0.0))
+			if p * float((spec["players"] as Array).size()) < ENTER_EDGE:
+				why = "low_chance_%.2f" % p
+		if why == "":
+			_note(sim, "game_enter", key)
+			out.append({"type": "game_enter", "actor": ACTOR, "festival": str(sp["festival"]),
+				"spectacle": str(sp["spectacle"])})
+			continue
+		why_not["games"] = why
+		if Money.gold(st, _fam_id) < _reserve(sim) + BET_SPARE + BET_STAKE:
+			why_not["bets"] = "gold_short"
+			continue
+		var fspec := FestivalGames.spec_for(sim, inst, str(sp["spectacle"]))
+		fspec["match"] = str(fspec["match"]) + "|fp"
+		var ch := Games.win_odds(sim.catalog.games, fspec, ODDS_SAMPLES)
+		var fav := 0
+		for k: Variant in ch:
+			if int(k) >= 0 and float(ch[k]) > float(ch.get(fav, 0.0)):
+				fav = int(k)
+		_use("bets")
+		out.append({"type": "game_bet", "actor": ACTOR, "festival": str(sp["festival"]), "spectacle": str(sp["spectacle"]),
+			"on": fav, "stake": BET_STAKE})
+	return out
+
+
+func _sorted_ids(a: Array) -> Array:
+	var out: Array = []
+	for x: Variant in a:
+		out.append(str(x))
+	out.sort()
+	return out
+
+
 # --- Bookkeeping for the report -----------------------------------------------------------------------------------
 
 func _use(mech: String) -> void:
@@ -680,6 +845,8 @@ func measures(sim: Sim) -> Dictionary:
 	for f: String in focus_minutes:
 		m["focus_%s_minutes" % f] = int(focus_minutes[f])
 	m["heads"] = heads.size()
+	if inn != null:  # posada: the innkeeper's own measures (inn_net_day, inn_fame, inn_bed_share...)
+		m.merge(inn.measures(sim))
 	return m
 
 

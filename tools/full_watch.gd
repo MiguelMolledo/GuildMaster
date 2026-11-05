@@ -216,7 +216,7 @@ func hour(sim: Sim, played: int) -> void:
 		_short[c] = row
 		need_n += 1
 		var job: Variant = st.characters[c].get("job")
-		if job is Dictionary and not Staff.is_active(sim, c):
+		if job is Dictionary and (not Staff.is_active(sim, c) or not InnStaff.in_shift(sim, c, str(job.get("building", "")))):
 			_sig.erase(c)  # an employee not started yet, sick or on a day off is not stalled
 			continue
 		_watch_still(sim, c, NPC_STALL_HOURS, now, played, npc_stalls, _npc_stalled, a)

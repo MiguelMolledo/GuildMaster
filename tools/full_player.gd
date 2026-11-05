@@ -40,13 +40,14 @@ const MECH: Dictionary = {"work_at": "forge_hand", "master_touch": "forge_hand",
 	"resolve_incident": "incidents", "give_alms": "incidents", "resolve_microevent": "microevents",
 	"unlock_seen": "unlocks", "buy_building": "tavern", "inn_set_menu": "tavern", "inn_set_price": "tavern",
 	"inn_set_special": "tavern", "inn_buy_license": "tavern", "inn_serve": "tavern", "inn_make_bed": "tavern",
-	"game_play": "games", "game_bet": "bets", "npc_talk": "town_talk", "npc_gift": "town_talk",
+	"game_play": "games", "game_bet": "bets", "game_enter": "games", "npc_talk": "town_talk", "npc_gift": "town_talk",
 	"npc_flatter": "town_talk", "npc_insult": "town_talk", "npc_threaten": "town_talk"}
 ## Event -> mechanic, when the event (of the player's family) is what shows the use.
 const MECH_EVENTS: Dictionary = {"counter_sold": "counter", "wedding": "wedding", "child_born": "children",
 	"inheritance": "inheritance", "festival_contract_done": "festival_contracts", "caravan_arrived": "caravans",
 	"treaty_signed": "treaties", "title_granted": "titles", "office_taken": "offices", "trial_opened": "tribunal",
-	"duel_finished": "duels", "trip_arrived": "travel"}
+	"duel_finished": "duels", "trip_arrived": "travel", "building_bought": "tavern", "game_played": "games",
+	"game_bet_settled": "bets"}
 ## The mechanics a whole game should touch, and the file that says the system is in the game (else "not_in_game").
 const MECHANICS: Dictionary = {"forge_hand": "", "live_forge": "res://data/live_forge.json", "queue": "",
 	"market": "", "counter": "", "contracts": "", "festival_contracts": "", "staff": "", "upgrades": "", "debt": "",
@@ -601,7 +602,9 @@ func _stalls(sim: Sim, fam: String, sig: Dictionary, stalled: Dictionary, rep: D
 	for c: String in who:
 		var ch: Dictionary = st.characters[c]
 		if not Kin.alive(st, c) or not Kin.is_adult(sim, c) or Region.is_away(st, c) \
-				or (ch.get("job") is Dictionary and not Staff.is_active(sim, c)):  # not started yet, a day off, sick
+				or (ch.get("job") is Dictionary and not Staff.is_active(sim, c)) \
+				or (ch.get("job") is Dictionary and not InnStaff.in_shift(sim, c, str(ch["job"].get("building", "")))):
+			# not started yet, a day off, sick, or out of its shift (the tavern's night shift sleeps by day)
 			sig.erase(c)
 			continue
 		var loc := str(ch.get("location", ""))
