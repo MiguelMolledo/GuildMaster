@@ -7,6 +7,13 @@ The PixelLab character 2ce0e22c-cc5d-4670-8f29-7626137ab905 (8 rotations, 2 gene
 does: 68 px frames with the feet at (34, 58) (the Sprite offset of artisan_m.tscn), the H8 identity keyed in
 (hair, skin, shirt = primary, trousers = secondary) with this sprite's own colour rules.
 
+Source frames, in the repo: assets/art/characters/artisan_m_v3/ (rotations/<direction>.png, 52 px, and
+forge_east/frame_NNN.png, 76 px; a .gdignore keeps Godot from importing them). The faces of the five directions
+that show one (south, south-east, east, west, south-west) and of the eight forge frames were retouched by hand with
+PixelLab's pixelart_workbench (no generations; docs/decisiones.json, 2026-11-05) so that they read at zoom 1 like the
+old Hugo's: pupils almost black and both eyes white + pupil, the mouth a shade darker, the line under the chin a
+shade darker than the neck. The untouched PixelLab download stays in the raw folder.
+
   python3 tools/art/hugo_v3.py fetch     # ZIP from PixelLab to ~/Code/GuildMaster-arte-crudos/pixellab/hugo_v3/
   python3 tools/art/hugo_v3.py strips    # idle_<dir> (the 8 rotations) and forge_se over the old strips
   python3 tools/art/hugo_v3.py preview   # keyed frames recoloured with sample identities (to the raw folder)
@@ -34,6 +41,7 @@ import personajes_guild as pg  # noqa: E402
 CHAR_ID = "2ce0e22c-cc5d-4670-8f29-7626137ab905"
 RAW = os.path.join(fr_.CRUDOS, "pixellab", "hugo_v3")
 OUT = os.path.join(pg.ART, "artisan_m")
+SRC = os.path.join(pg.ART, "artisan_m_v3")  # the source frames, retouched (see the module doc)
 FEET = (34, 58)  # in a 68 px frame (artisan_m.tscn: Sprite offset (-34, -58))
 BODY_X = (24, 41)  # the body's columns in the 68 px forge frames (the shirt, x 26-40); the hammer swings outside
 GDIRS = {"south": "s", "south-east": "se", "east": "e", "north-east": "ne", "north": "n", "north-west": "nw",
@@ -48,8 +56,8 @@ def is_skin(h, s, v, rel):
 def region(h, s, v, rel):
     if is_skin(h, s, v, rel):
         return pg.SKIN
-    if rel < 0.26 and (h <= 40 or h >= 340) and 0.25 <= s <= 0.75 and 0.1 <= v <= 0.45:
-        return pg.HAIR
+    if rel < 0.23 and (h <= 40 or h >= 340) and 0.25 <= s <= 0.75 and 0.1 <= v <= 0.45:
+        return pg.HAIR        # (to 0.23: the retouched jaw line, at 0.25, is skin shadow, not hair)
     if rel > 0.15 and ((15 <= h <= 70 and s < 0.2 and v > 0.25) or (s < 0.04 and v > 0.85)):
         return pg.PRIMARY      # the linen shirt, with its warm grey shadows (the hammer's greys are cool: h 200-220)
     if 195 <= h <= 235 and s > 0.25 and v > 0.15:
@@ -134,7 +142,7 @@ def fetch():
 
 def strips():
     rot = {GDIRS[os.path.basename(p)[:-4]]: Image.open(p).convert("RGBA")
-           for p in glob.glob(os.path.join(RAW, "Idle", "rotations", "*.png"))}
+           for p in glob.glob(os.path.join(SRC, "rotations", "*.png"))}
     rf = refs(rot["s"])
     # feet: the bottom of the figure, centred on the canvas (PixelLab centres the character)
     for d, im in rot.items():
@@ -144,7 +152,7 @@ def strips():
     # anvil PixelLab drew into it (the room has its own). The south-east clip (group 040fc3f3) faced the camera and
     # the hammer stayed at the hip: kept in the raw folder, not used.
     frames = [no_anvil(Image.open(p).convert("RGBA"), k) for k, p in enumerate(
-        sorted(glob.glob(os.path.join(RAW, "Idle", "animations", "forge_east", "east", "*.png"))))]
+        sorted(glob.glob(os.path.join(SRC, "forge_east", "*.png"))))]
     if frames:
         bottom = max(f.getbbox()[3] for f in frames)
         sheet = Image.new("RGBA", (pg.FRAME * len(frames), pg.FRAME), (0, 0, 0, 0))
