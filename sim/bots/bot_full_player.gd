@@ -95,6 +95,10 @@ func orders(sim: Sim) -> Array:
 		return out
 	focus_minutes[focus] = int(focus_minutes.get(focus, 0)) + 1
 	out.append_array(_always(sim))
+	for o: Dictionary in out:
+		if str(o.get("type", "")) == "resolve_microevent":  # a card answered may sell or move what the body would
+			_watch(sim)                                     # carry this same minute: the body waits a minute
+			return out
 	if Region.is_away(st, ACTOR):
 		_watch(sim)
 		out.append_array(_away(sim))

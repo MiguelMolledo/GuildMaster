@@ -59,7 +59,7 @@
   "max_bot_heads": 1.0,
   "max_bot_kidnaps": 0.0,
   "max_bot_kidnaps_free": 0.0,
-  "max_bot_ms_mean": 0.515,
+  "max_bot_ms_mean": 0.472,
   "max_bot_player_raids": 0.0,
   "max_bot_player_raids_arrived": 0.0,
   "max_bot_player_raids_arrived_share": 1.0,
@@ -125,8 +125,8 @@
   "max_roundtrips": 0.0,
   "max_staff_hungry_share_max": 0.819,
   "max_stalls": 8.0,
-  "max_step_ms_max": 174.895,
-  "max_step_ms_mean": 2.172,
+  "max_step_ms_max": 57.773,
+  "max_step_ms_mean": 2.006,
   "max_title_baron": 0.0,
   "max_title_baron_day": 25.0,
   "max_title_citizen": 1.0,
@@ -214,7 +214,7 @@
   "mean_bot_heads": 1.0,
   "mean_bot_kidnaps": 0.0,
   "mean_bot_kidnaps_free": 0.0,
-  "mean_bot_ms_mean": 0.45,
+  "mean_bot_ms_mean": 0.41,
   "mean_bot_player_raids": 0.0,
   "mean_bot_player_raids_arrived": 0.0,
   "mean_bot_player_raids_arrived_share": 1.0,
@@ -280,8 +280,8 @@
   "mean_roundtrips": 0.0,
   "mean_staff_hungry_share_max": 0.74,
   "mean_stalls": 6.0,
-  "mean_step_ms_max": 101.32,
-  "mean_step_ms_mean": 2.03,
+  "mean_step_ms_max": 49.39,
+  "mean_step_ms_mean": 1.87,
   "mean_title_baron": 0.0,
   "mean_title_baron_day": 25.0,
   "mean_title_citizen": 1.0,
@@ -369,7 +369,7 @@
   "min_bot_heads": 1.0,
   "min_bot_kidnaps": 0.0,
   "min_bot_kidnaps_free": 0.0,
-  "min_bot_ms_mean": 0.4,
+  "min_bot_ms_mean": 0.37,
   "min_bot_player_raids": 0.0,
   "min_bot_player_raids_arrived": 0.0,
   "min_bot_player_raids_arrived_share": 1.0,
@@ -435,8 +435,8 @@
   "min_roundtrips": 0.0,
   "min_staff_hungry_share_max": 0.653,
   "min_stalls": 4.0,
-  "min_step_ms_max": 42.694,
-  "min_step_ms_mean": 1.93,
+  "min_step_ms_max": 44.331,
+  "min_step_ms_mean": 1.789,
   "min_title_baron": 0.0,
   "min_title_baron_day": 25.0,
   "min_title_citizen": 1.0,
@@ -470,11 +470,26 @@
   "share_wed": 1.0
  },
  "bot": "full_player",
- "commit": "29c713a",
+ "commit": "8670290",
  "difficulty": "normal",
  "format_version": 2,
  "horizon": "3y",
  "misses": [],
+ "proposed_misses": [
+  "seed 1: ai_titled_families = 0 outside [1.0, <null>]",
+  "seed 2: ai_titled_families = 0 outside [1.0, <null>]",
+  "seed 3: ai_titled_families = 0 outside [1.0, <null>]",
+  "seed 1: ai_office_runs = 0 outside [1.0, <null>]",
+  "seed 2: ai_office_runs = 0 outside [1.0, <null>]",
+  "seed 3: ai_office_runs = 0 outside [1.0, <null>]",
+  "seed 1: ai_broke_days_max = 17 outside [0.0, 4.0]",
+  "seed 2: ai_broke_days_max = 21 outside [0.0, 4.0]",
+  "seed 3: ai_broke_days_max = 21 outside [0.0, 4.0]",
+  "seed 1: staff_hungry_share_max = 0.819 outside [0.0, 0.5]",
+  "seed 2: staff_hungry_share_max = 0.736 outside [0.0, 0.5]",
+  "seed 3: staff_hungry_share_max = 0.653 outside [0.0, 0.5]",
+  "seed 2: child_hungry_share_max = 0.88 outside [0.0, 0.5]"
+ ],
  "runs": [
   {
    "ai_attacks_vs_player": 0,
@@ -536,7 +551,7 @@
    "bot_heads": 1,
    "bot_kidnaps": 0,
    "bot_kidnaps_free": 0,
-   "bot_ms_mean": 0.431,
+   "bot_ms_mean": 0.393,
    "bot_player_raids": 0,
    "bot_player_raids_arrived": 0,
    "bot_player_raids_arrived_share": 1.0,
@@ -604,8 +619,8 @@
    "staff_hungry_share_max": 0.819,
    "stalls": 6,
    "state_hash": "966f4fea0233224a0ab60128647ab376",
-   "step_ms_max": 174.895,
-   "step_ms_mean": 2.172,
+   "step_ms_max": 57.773,
+   "step_ms_mean": 2.006,
    "title_baron": 0,
    "title_baron_day": 25,
    "title_citizen": 1,
@@ -694,7 +709,7 @@
    "bot_heads": 1,
    "bot_kidnaps": 0,
    "bot_kidnaps_free": 0,
-   "bot_ms_mean": 0.515,
+   "bot_ms_mean": 0.472,
    "bot_player_raids": 0,
    "bot_player_raids_arrived": 0,
    "bot_player_raids_arrived_share": 1.0,
@@ -762,8 +777,8 @@
    "staff_hungry_share_max": 0.736,
    "stalls": 8,
    "state_hash": "4e843426a7cf6dc9942e9b9f5e4e8538",
-   "step_ms_max": 86.364,
-   "step_ms_mean": 1.995,
+   "step_ms_max": 44.331,
+   "step_ms_mean": 1.802,
    "title_baron": 0,
    "title_baron_day": 25,
    "title_citizen": 1,
@@ -852,7 +867,7 @@
    "bot_heads": 1,
    "bot_kidnaps": 0,
    "bot_kidnaps_free": 0,
-   "bot_ms_mean": 0.4,
+   "bot_ms_mean": 0.37,
    "bot_player_raids": 0,
    "bot_player_raids_arrived": 0,
    "bot_player_raids_arrived_share": 1.0,
@@ -920,8 +935,8 @@
    "staff_hungry_share_max": 0.653,
    "stalls": 4,
    "state_hash": "ad074182c6409417c8a675618f7942c9",
-   "step_ms_max": 42.694,
-   "step_ms_mean": 1.93,
+   "step_ms_max": 46.07,
+   "step_ms_mean": 1.789,
    "title_baron": 0,
    "title_baron_day": 25,
    "title_citizen": 1,
@@ -960,7 +975,7 @@
  "source": "reports/full_player",
  "start": "artisan_blacksmith",
  "targets": {
-  "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche.",
+  "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche. Rivales y pueblo (tools/full_watch.gd, docs/contratos/informe_jugador_completo.md): ver _proposed_doc.",
   "_mean": {
    "net_year_1": [
     25.0,
@@ -972,6 +987,10 @@
    ]
   },
   "_needs_days": {
+   "ai_broke_days_max": 24.0,
+   "ai_contracts_accepted": 24.0,
+   "ai_office_runs": 24.0,
+   "ai_titled_families": 24.0,
    "debt_paid": 8.0,
    "debt_paid_day": 8.0,
    "game_over": 280.0,
@@ -981,8 +1000,32 @@
    "net_year_1": 8.0,
    "title_citizen": 24.0,
    "title_citizen_day": 24.0,
+   "townsfolk_end": 24.0,
    "wed": 24.0
   },
+  "_proposed": {
+   "ai_broke_days_max": [
+    0.0,
+    4.0
+   ],
+   "ai_office_runs": [
+    1.0,
+    null
+   ],
+   "ai_titled_families": [
+    1.0,
+    null
+   ],
+   "child_hungry_share_max": [
+    0.0,
+    0.5
+   ],
+   "staff_hungry_share_max": [
+    0.0,
+    0.5
+   ]
+  },
+  "_proposed_doc": "Dianas que pide el owner (2026-11-05) para los rivales y el pueblo, propuestas tras medir; hoy fallan y se informan sin tumbar la QA (summary.json proposed_misses): una familia IA sube de título en 3 años, se presenta a un cargo, no pasa más de 4 días sin oro (hoy 15-21 de 24: las carreras de encargos de fiesta la dejan a 0 y por debajo de su reserva no vuelve a comprar), y los empleados y los niños del pueblo no pasan hambre más de la mitad de las horas (hoy 65-82 % y 88 %). Medido (2026-11-05, 3 semillas × 3 años, full_player e idle_player): 0 títulos, 0 cargos y 0 ataques de la IA; 17-35 encargos aceptados por la IA; 0 órdenes de la IA rechazadas; la guardia llega siempre (mediana 0 min, máx 8); 4,5-5,7 forasteros al día; 14-16 vecinos al final; ningún vecino atascado. Pasan a dianas cuando H6 (04c) y la vida los arreglen. En una generación (semilla 2, 351 días) las cuatro familias IA pasan ~340 días sin oro y paradas; el pueblo crece de 16 a 32 vecinos (el tope de la vida) con 45 nacimientos y 25 muertes, y la guardia llega a las 362 llamadas.",
   "_share": {
    "had_child": [
     0.3,
@@ -997,6 +1040,14 @@
     null
    ]
   },
+  "ai_contracts_accepted": [
+   10.0,
+   null
+  ],
+  "ai_refused_per_family_year": [
+   0.0,
+   1.0
+  ],
   "debt_paid": [
    1.0,
    1.0
@@ -1025,6 +1076,14 @@
    14.0,
    null
   ],
+  "npc_hungry_share_max": [
+   0.0,
+   0.5
+  ],
+  "npc_stalls": [
+   0.0,
+   2.0
+  ],
   "off_map": [
    0.0,
    0.0
@@ -1040,6 +1099,18 @@
   "title_citizen_day": [
    1.0,
    24.0
+  ],
+  "townsfolk_end": [
+   10.0,
+   null
+  ],
+  "visitors_per_day": [
+   2.0,
+   6.0
+  ],
+  "watch_arrived_share": [
+   0.9,
+   1.0
   ]
  },
  "written": "2026-11-05"
