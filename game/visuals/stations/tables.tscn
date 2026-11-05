@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfb05131pp1mg"]
+[gd_scene load_steps=3 format=3 uid="uid://ba2bgxgyuebdm"]
 
 [ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="1_block"]
 [ext_resource type="Script" uid="uid://b2swscgjan4v4" path="res://game/inn/art_slot.gd" id="2_slot"]

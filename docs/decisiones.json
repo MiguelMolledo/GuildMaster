@@ -2,6 +2,11 @@
   "tomadas": [
     {
       "fecha": "2026-11-04",
+      "tema": "Posada + vida: forasteros que duermen y rumores de la barra",
+      "decision": "Con la vida encendida la Taberna-Posada recibe a los forasteros de verdad: los tipos de cada grupo (data/inn/clientele.json visitor_kinds) que piden cama y la encuentran se quedan a dormir al acabar su plan o al atardecer, esperan a la puerta, entran como clientes con su cama pagada y salen al amanecer (Inn.lodge / lodger_step, gancho en Visitors._step_one); los grupos de forasteros ya no se sortean aparte y el generador de prueba solo corre con la vida apagada. Los rumores de la barra son los de vida (Rumors.candidates, temas del punto tavern) y entran en el libro de rumores. Guardado: v17 (vida) → 17→18 reservado a fiestas → v19 (posada). El punto tavern que vida pone a la puerta de la taberna (citylib.add_life, ahora también en town_e) solo cuenta cuando la taberna tiene dueño (Inn.closed_for_sale en Life.points): con ella en venta o en escenarios sin ella, los vecinos vuelven a casa de noche como antes."
+    },
+    {
+      "fecha": "2026-11-04",
       "tema": "Posada: huella 3×4 y el arte de arte-fal-2",
       "decision": "La Taberna-Posada pasa de 4×4 a 3×4 (la huella de la carpintería) para usar su arte sin rehacerlo: fachada y espalda fal (192×230, Sprite offset (-104, -158), puertas SW (1, 4) y NE (1, -1)); en town_e, cols 26-28 × filas 34-37, puerta (27, 33) igual. El interior usa el kit de assets/art/interiors/tavern/ (suelo, paredes, barra, mesa, bancos, toneles, cocina, chimenea, cama, rincón del juglar) por VisualPaths.inn_art, y la carta los iconos food_* por VisualPaths.inn_dish_icon (cerveza fuerte y vino bueno para la calidad buena o mejor). Lo que no tiene arte sigue en greybox con etiqueta."
     },
@@ -15,6 +20,36 @@
       "fecha": "2026-11-04",
       "tema": "Posada: efectos nuevos, rol de servicio y el validador",
       "decision": "upgrade_rules.json gana las ramas inn_hall, inn_kitchen, inn_cellar, inn_rooms, inn_ambience y 15 efectos inn_* (lector «inn»); el validador avisa de los niveles que faltan solo en las ramas que usa cada árbol. night_production admite «employees». Un empleado con rol en un puesto de tipo «service» (barra, mesas, habitaciones) no recibe trabajo de la cola (WorkQueue) ni sale como parado: lo lleva su sistema (Inn). TownLife no manda a mirar a la puerta de un edificio en venta. El validador ya no pisa la variable de las clases al recorrer las rutas de los personajes de un escenario (fallo latente que destapó inn_night)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Vida (04f 4.24): un interruptor y las dianas de antes con la vida apagada",
+      "decision": "Toda la ciudad viva II (agenda, corrillos y rumores, forasteros, guardia y sucesos) cuelga de data/life/life.json enabled. Las dianas de data/targets.json se miden con ella apagada (lista _no_life, como _no_events de H13; --life=on para medirlas con ella) y salen idénticas a las de main (comparadas semilla a semilla). La vida se mide en el bot guard_watch, en tests/test_life_*.gd y en el bench (1,73 ms con la máquina cargada; 1,37 sin la vida).",
+      "por_que": "Principio 4 de 04f: los vecinos van a otros sitios y a otras horas, y eso cambia quién entra al mostrador, quién se casa y las rutas; con el sistema apagado los números de antes no se mueven."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Vida: los sucesos en data/life/incidents.json, no en data/events.json",
+      "decision": "Altercado, asalto y secuestro viven en data/life/incidents.json con su flujo (claves events_city|…). Los eventos de data/events.json solo los multiplican (efecto {kind: incident, id, mult}). El incendio no se construye (O-V6 b).",
+      "por_que": "WorldEvents tira por cada definición de events.json y respeta un max_active: un suceso nuevo allí movería las tiradas y los topes de los eventos de H13 (y sus dianas)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Vida: guardado v17 todo bajo town",
+      "decision": "v17 guarda town.life, town.visitors, town.watch, town.rumors (oídos) y town.incidents (en curso, planificados, nidos) en vez de rumors_heard e incidents en la raíz (4.28.2 decía raíz). SaveFile._to_v17 no depende de ningún campo de v18-v21.",
+      "por_que": "Sin campos nuevos en la raíz, WorldState.to_dict/from_dict no cambian: v18 (fiestas) y v19 (posada) se encadenan sin conflictos."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Vida: aviso antes de un asalto y corrillos que hablan al formarse",
+      "decision": "El asalto de una noche se tira al alba del día anterior: ese día hay aviso (notice.life.bandits_seen) y rumor «Han visto bandidos por …» (riesgo justo). El secuestro, al alba del mismo día. Un corrillo cuenta su rumor en cuanto se forma (cada 10 min, uno por punto mientras dura la burbuja: 50 min) en vez de una vez por hora; lo oye cualquiera de la familia del jugador a ≤ 4 casillas (no solo el seleccionado) y queda en la pestaña «Rumores» del libro de cuentas. Altercados entre 18 y 22 h (si sale la tirada, ocurre en cuanto haya dos fuera): medido ~0,46 al día (diseño ~0,5).",
+      "por_que": "Con una tirada por hora los corrillos se deshacían antes de hablar y casi nunca se oía nada; con 19-02 h los altercados caían de noche, con todos en casa, y salían 0,12 al día."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Vida: el rescate se resuelve sin jugar; las apuestas sobre un altercado, con Juegos",
+      "decision": "«Rescatar» contrata 0-3 ayudantes (15-30 cada uno), y la cadena de combates del duelo se resuelve sin jugar (Duel.auto, las mismas probabilidades que jugar bien, O-C10). Jugar la cadena en la pantalla del duelo y apostar sobre un altercado (4.26.6) quedan para el bloque de Juegos (el evento incident_fight lleva el ganador).",
+      "por_que": "La pantalla del duelo es de un combate; encadenar varios pide trabajo de UI del bloque Juegos."
     },
     {
       "fecha": "2026-11-04",
@@ -390,6 +425,11 @@
     }
   ],
   "pendientes": [
+    {
+      "tema": "O-V2 Población de town_e con la vida (banda nueva)",
+      "detalle": "Construido como recomienda O-V2 (a): con la vida encendida el tope es 5 por casa hasta 32 (data/life/life.json population; town_e: 32). Medido (semilla 1, 60 años saltando días): de 16 a 21 vecinos en 10 años, 29 en 20 y 30-32 desde el año 30, con 6 solteras fértiles al final. La diana de H7 (town_population [14, 22]) no cambia porque se mide con la vida apagada; la nueva town_population_life propone [14, 32]. En las partidas de 10-24 días (dianas de economía) el tope casi no llega a usarse. Pendiente del visto bueno del owner.",
+      "opciones": "(a) 32 · (b) 26 · (c) 20, como hoy"
+    },
     {
       "tema": "D9 Nombre del mapa EA",
       "detalle": "Propuesta (rama mundo, 2026-11-04, docs/gdd/09b_region.md §9b.9): si el mapa EA es la capital de la región (P-R1, O-R1), Bellcaire. Pendiente del owner.",

@@ -126,7 +126,7 @@ func _manage(sim: Sim, now: int) -> Array:
 	# upgrades in order, one works at a time
 	var next := _next_upgrade(sim)
 	if next != "" and Upgrades.status_of(sim, _hero, _tavern, next) == "available" \
-			and gold >= int(sim.catalog.upgrade(next).get("cost", {}).get("gold", 0)) + 2 * RESERVE:
+			and gold >= int(sim.catalog.upgrade(next).get("cost", {}).get("gold", 0)) + 3 * RESERVE:
 		out.append({"type": "buy_upgrade", "actor": _hero, "building": _tavern, "upgrade": next})
 		_upgrades_bought += 1
 	# the licence once the gaming table stands

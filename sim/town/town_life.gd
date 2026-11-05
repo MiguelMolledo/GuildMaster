@@ -105,6 +105,8 @@ static func assign_occupations(st: WorldState, catalog: Catalog) -> void:
 #   break (the activity is a day break), greet_until, retry_at, customer (bld, set by Counter)}
 
 const ACTIVITY_KEYS: Array[String] = ["activity", "spot", "slot", "target", "dur", "until", "wait_until", "stalls", "break"]
+## The kinds of social point H7 strolls to (the meeting points of 04f 4.24.2 came later: they leave H7's day as it was).
+const STROLL_KINDS: Array[String] = ["bench", "chat", "dice"]
 
 
 ## Once per minute, after Routines (Sim.step).
@@ -140,13 +142,26 @@ static func _step_one(sim: Sim, chr: String, now: int, phase: String, today: int
 	if int(t.get("adult_day", -1)) != today:  # ages change once a day at most: worked out once a day
 		t["adult"] = is_adult(st, sim.catalog, chr)
 		t["adult_day"] = today
+	var life := Life.on(sim)  # vida (04f 4.24.1): the agenda of needs and activities instead of H7's day
+	if life:
+		Agenda.group(sim, chr, t, today)
 	if not bool(t["adult"]):
+		if life:
+			Agenda.run_child(sim, chr, t, now, phase)
+			return
 		if bool(cfg.get("child_stays_home", true)):
 			_go_building(sim, chr, t, home, now)
 			_set_state(sim, chr, t, "home" if str(ch.get("location", "")) == home else "walking")
 		return
 	if int(t.get("day", -1)) != today:
 		_new_day(sim, chr, t, today, cfg)
+		if life:
+			Agenda.new_day(sim, t, now)
+	if phase == "night" and life:
+		t.erase("customer")
+		t.erase("greet_until")
+		Agenda.run(sim, chr, t, now, phase)
+		return
 	if phase == "night":
 		_clear_activity(t)
 		t.erase("customer")
@@ -165,6 +180,9 @@ static func _step_one(sim: Sim, chr: String, now: int, phase: String, today: int
 			_set_state(sim, chr, t, "walking")
 		return
 	t.erase("customer")
+	if life:
+		Agenda.run(sim, chr, t, now, phase)
+		return
 	match phase:
 		"dawn":
 			if now < int(t.get("leave_at", 0)):
@@ -242,7 +260,10 @@ static func _plan_work(sim: Sim, chr: String, t: Dictionary, now: int) -> void:
 
 ## Walks somewhere in the plaza when nothing else is free.
 static func _stroll(sim: Sim, chr: String, t: Dictionary, now: int) -> void:
-	var pts: Array = sim.catalog.maps().get(sim.state.map_id, {}).get("social_points", [])
+	var pts: Array = []
+	for p: Dictionary in sim.catalog.maps().get(sim.state.map_id, {}).get("social_points", []):
+		if str(p.get("kind", "")) in STROLL_KINDS:  # vida: the meeting points of 4.24.2 are not H7's strolls
+			pts.append(p)
 	if pts.is_empty():
 		_plan_home(sim, chr, t, now)
 		return
@@ -608,4 +629,6 @@ static func view(sim: Sim, chr: String) -> Dictionary:
 	var bubble := ""
 	if state in ["social", "market"] and shown != "":
 		bubble = str(sim.catalog.town.get("activities", {}).get(shown, {}).get("bubble", ""))
+		if not (sim.catalog.town.get("activities", {}) as Dictionary).has(shown):  # vida: data/life/activities.json
+			bubble = str(Agenda.acts(sim).get(shown, {}).get("bubble", ""))
 	return {"state": state, "activity": shown, "bubble": bubble, "occupation": occ}

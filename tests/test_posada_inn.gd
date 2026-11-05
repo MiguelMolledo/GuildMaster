@@ -353,3 +353,61 @@ func test_deterministic_with_the_bot() -> void:
 	_run(a, 1800, ba)
 	_run(b, 1800, bb)
 	eq(a.state_hash(), b.state_hash(), "same seed, same orders, same tavern")
+
+
+# --- Vida: visitors that sleep here, rumours at the bar -----------------------------------------------------------
+
+func test_a_visitor_sleeps_at_the_inn_and_leaves_at_dawn() -> void:
+	var sim := _start()
+	var t := _tavern(sim)
+	check(Life.on(sim), "the life block is on in a normal game")
+	_run_to(sim, Clock.MINUTES_PER_DAY + 14 * 60)
+	var alive := Visitors.alive(sim.state)
+	check(not alive.is_empty(), "visitors in town on day 1")
+	var v := str(alive[0])
+	var vis: Dictionary = sim.state.characters[v]["visitor"]
+	vis["kind"] = "pilgrim"  # pilgrims always ask for a bed (bed 1.0) and come with beds at ×0.9
+	check(Inn.lodge(sim, v), "a pilgrim with a free bed stays")
+	eq(str(vis["lodging"]), t, "at this inn")
+	var w := Inn.turn_window(sim, int(sim.state.clock["minute"]))
+	var ev := _run_to(sim, int(w[0]) + 120)
+	eq(_of(ev, "inn_lodger_in").size(), 1, "it came in when the inn opened")
+	check(Life.offstage(sim.state, v), "asleep: off the map")
+	var g := Inn.guest(sim, t, str(vis["guest"]))
+	eq(str(g.get("chr", "")), v, "the guest is the visitor itself")
+	check(int(g.get("bed", -1)) >= 0, "with its bed")
+	eq(_of(ev, "visitor_left").filter(func(e: Dictionary) -> bool: return str(e["character"]) == v).size(), 0,
+		"it did not leave at dusk")
+	ev = _run_to(sim, 2 * Clock.MINUTES_PER_DAY + 8 * 60)
+	eq(_of(ev, "inn_lodger_out").size(), 1, "out at dawn")
+	check(_of(ev, "visitor_left").any(func(e: Dictionary) -> bool: return str(e["character"]) == v) \
+		or not Life.offstage(sim.state, v), "back on the map, on its way out")
+
+
+func test_no_bed_no_lodging() -> void:
+	var sim := _start()
+	var t := _tavern(sim)
+	_run_to(sim, Clock.MINUTES_PER_DAY + 14 * 60)
+	var v := str(Visitors.alive(sim.state)[0])
+	sim.state.characters[v]["visitor"]["kind"] = "pilgrim"
+	for b: Dictionary in Inn.state_of(sim, t)["beds"]:
+		b["state"] = "dirty"
+	check(not Inn.lodge(sim, v), "no made bed: it goes")
+	sim.state.characters[v]["visitor"]["kind"] = "beggar"
+	Inn.state_of(sim, t)["beds"][0]["state"] = "made"
+	check(not Inn.lodge(sim, v), "a beggar does not take a room")
+
+
+func test_the_bar_rumour_is_a_real_one_and_goes_to_the_book() -> void:
+	var sim := _start()
+	var t := _tavern(sim)
+	_run(sim, 2 * Clock.MINUTES_PER_DAY)
+	var cands := Rumors.candidates(sim, int(sim.state.clock["minute"]))
+	var r := InnRumors.pick(sim, t, HERO)
+	if cands.is_empty():
+		eq(r, {}, "nothing true to tell: no rumour")
+		return
+	eq(str(r["kind"]), "life", "one of vida's rumours")
+	check(Rumors.heard(sim.state).any(func(h: Dictionary) -> bool: return str(h["point"]) == "inn:" + t),
+		"heard at the bar: in the book of rumours")
+	check(InnTurnPage.rumor_text(sim, r) != "", "it has its text")

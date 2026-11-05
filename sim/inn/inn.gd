@@ -218,7 +218,11 @@ static func open_turn(sim: Sim, bld: String, open_at: int, close_at: int) -> voi
 	var arrivals: Array = []
 	var locals := _local_pool(sim, bld)
 	var counts := {}
+	var groups_def: Dictionary = sim.catalog.inn.get("clientele", {}).get("groups", {})
 	for g: String in outlook:
+		if Life.on(sim) and str(groups_def.get(g, {}).get("source", "")) == "visitors":
+			counts[g] = 0
+			continue  # vida: the visitors come in person (lodge), not drawn here
 		var want_n := float(outlook[g]["expected"]) * mult
 		var n := int(floor(want_n))
 		if Kin.roll(st, "inn|frac|%s|%d|%s" % [bld, day, g]) < want_n - float(n):
@@ -324,7 +328,7 @@ static func _turn_minute(sim: Sim, bld: String, inn: Dictionary, now: int) -> vo
 
 ## A guest of `group` comes in (the turn's arrivals; the life block's townsfolk later): sits at a free seat or leaves
 ## («full»); asks for a bed at once if it wants one (paid on arrival, 4.22.4.5). Returns the guest id ("" if it left).
-static func arrive(sim: Sim, bld: String, group: String, chr: String = "") -> String:
+static func arrive(sim: Sim, bld: String, group: String, chr: String = "", wants_bed: bool = false) -> String:
 	var st := sim.state
 	var inn := ensure(sim, bld)
 	var night: Dictionary = inn["night"]
@@ -359,7 +363,7 @@ static func arrive(sim: Sim, bld: String, group: String, chr: String = "") -> St
 	if seat < 0:
 		_leave(sim, bld, g, "full", true)
 		return ""
-	if Kin.roll(st, "inn|bed|%s|%s" % [bld, gid]) < float(def.get("bed", 0.0)):
+	if wants_bed or Kin.roll(st, "inn|bed|%s|%s" % [bld, gid]) < float(def.get("bed", 0.0)):
 		_take_bed(sim, bld, inn, g, bool(def.get("good_room", false)))
 	return gid
 
@@ -715,7 +719,7 @@ static func close_turn(sim: Sim, bld: String) -> void:
 	inn["fame"] = snappedf(clampf(before + gain, 0.0, float(fc.get("max", 5.0))), 0.001)
 	var rumor := {}
 	if _hears_rumor(sim, bld, stats):
-		rumor = InnRumors.pick(sim, bld)
+		rumor = InnRumors.pick(sim, bld, str(st.families.get(str(st.buildings[bld].get("owner", "")), {}).get("head", "")))
 		if not rumor.is_empty():
 			var rr := rumor.duplicate()
 			rr["day"] = int(night["day"])
@@ -764,6 +768,7 @@ static func _dawn(sim: Sim, bld: String, inn: Dictionary) -> void:
 		if str(b.get("state", "")) == "occupied":
 			b["state"] = "dirty"
 			b["guest"] = ""
+	_wake_lodgers(sim, bld)
 	if Upgrades.flag(sim, bld, "inn_cold_pantry"):
 		return
 	var inv: Dictionary = sim.state.buildings[bld]["inventory"]
@@ -817,6 +822,119 @@ static func _start_bed(sim: Sim, bld: String, inn: Dictionary, i: int, by: Strin
 	var mins := maxi(1, roundi(float(rules(sim).get("make_bed_minutes", 20)) / maxf(pace, 0.25)))
 	inn["beds"][i] = {"state": "making", "guest": "", "until": int(sim.state.clock["minute"]) + mins, "by": by}
 	sim.events.append({"type": "inn_bed_making", "building": bld, "bed": i, "by": by})
+
+
+## Vida (Life.points): whether a «tavern» meeting point of the map stands at the site of a Taberna-Posada that nobody
+## owns (for sale, or not in this game: a scenario from before has no such building): then the townsfolk do not gather
+## there (an empty house), and the life of a game where nobody bought it is the one of vida. A point at no tavern_inn
+## site is left alone.
+static func closed_for_sale(sim: Sim, point: Dictionary) -> bool:
+	var slots: Array = point.get("slots", [])
+	if slots.is_empty():
+		return false
+	var at: Array = slots[0]
+	var near := func(door: Array) -> bool:
+		return door.size() == 2 and absi(int(door[0]) - int(at[0])) + absi(int(door[1]) - int(at[1])) <= 3
+	var site_door: Array = []
+	var sites: Dictionary = Life.map(sim).get("buildings", {})
+	for k: Variant in sites:
+		var m: Dictionary = sites[k]
+		if str(m.get("type", "")) == TYPE and near.call(m.get("door", [])):
+			site_door = m["door"]
+	if site_door.is_empty():
+		return false  # a tavern point that is not at a Taberna-Posada's site
+	for b: Variant in sim.state.buildings.values():
+		var bd: Dictionary = b
+		if str(bd.get("type", "")) == TYPE and near.call(bd.get("door", [])) and str(bd.get("owner", "")) != "":
+			return false
+	return true  # for sale, or not in this game (a scenario from before)
+
+
+# --- Lodgers: the visitors of vida that sleep here ------------------------------------------------------------------
+
+## Vida hook (docs/contratos/vida.md «Posada»; Visitors._step_one at dusk): `v`, a visitor about to leave town, stays
+## to sleep in an owned Taberna-Posada if its kind belongs to a group of the clientele that asks for a bed (bed, keyed
+## roll «inn|lodge|v|day»), the group may come (InnClientele: fame, bed price...) and there is a made bed. Then it walks
+## to the door (lodger_step) instead of to its gate. True if it stays.
+static func lodge(sim: Sim, v: String) -> bool:
+	var st := sim.state
+	var vis: Variant = st.characters.get(v, {}).get("visitor")
+	if not vis is Dictionary:
+		return false
+	var g := InnClientele.group_of_visitor(sim, str((vis as Dictionary).get("kind", "")))
+	if g == "":
+		return false
+	var def: Dictionary = sim.catalog.inn.get("clientele", {}).get("groups", {}).get(g, {})
+	var day := Clock.day(int(st.clock["minute"]))
+	if Kin.roll(st, "inn|lodge|%s|%d" % [v, day]) >= float(def.get("bed", 0.0)):
+		return false
+	var ids: Array = st.buildings.keys()
+	ids.sort()
+	for bld: String in ids:
+		if not is_inn(sim, bld) or str(st.buildings[bld].get("owner", "")) == "" or beds_free(sim, bld) <= 0:
+			continue
+		if not InnClientele._missing(sim, bld, def).is_empty():
+			continue
+		vis["lodging"] = bld
+		vis["lodging_group"] = g
+		var t: Variant = st.characters[v].get("town")
+		if t is Dictionary:
+			for k: String in ["spot", "slot", "activity"]:
+				(t as Dictionary).erase(k)
+		sim.events.append({"type": "inn_lodger_coming", "building": bld, "visitor": v, "group": g})
+		if OS.is_debug_build():
+			print("[Inn] el forastero %s (%s) se queda a dormir en %s" % [v, g, bld])
+		return true
+	return false
+
+
+## A lodger on its way: walks to the door; there, once the turn is open, it comes in as a guest with its bed (paid on
+## arrival) and leaves the map until dawn. No bed by then (taken meanwhile): it goes after all. True while it is the
+## inn's (Visitors leaves it alone).
+static func lodger_step(sim: Sim, v: String, now: int) -> bool:
+	var st := sim.state
+	var ch: Dictionary = st.characters[v]
+	var vis: Dictionary = ch["visitor"]
+	var bld := str(vis.get("lodging", ""))
+	if bld == "" or not st.buildings.has(bld):
+		return false
+	if bool(vis.get("lodged", false)):
+		return true  # asleep (offstage) until dawn
+	if not ch.get("town") is Dictionary:
+		ch["town"] = {}
+	var door: Array = st.buildings[bld].get("door", [])
+	if not TownLife._go_tile(sim, v, ch["town"], door, now):
+		TownLife._set_state(sim, v, ch["town"], "walking", "")
+		return true
+	if not is_open(sim, bld):
+		return true  # waits at the door for the opening
+	if beds_free(sim, bld) <= 0:
+		vis["lodging"] = ""
+		return false
+	var gid := arrive(sim, bld, str(vis.get("lodging_group", "merchants")), v, true)
+	if gid == "":
+		vis["lodging"] = ""
+		return false
+	vis["lodged"] = true
+	vis["guest"] = gid
+	Life.take_off(sim, v)
+	sim.events.append({"type": "inn_lodger_in", "building": bld, "visitor": v, "guest": gid})
+	return true
+
+
+## Dawn: the lodgers of `bld` come out of its door and take the road to their gate (Visitors walks them out).
+static func _wake_lodgers(sim: Sim, bld: String) -> void:
+	var st := sim.state
+	for v: String in Visitors.alive(st):
+		var vis: Variant = st.characters[v].get("visitor")
+		if not vis is Dictionary or str((vis as Dictionary).get("lodging", "")) != bld:
+			continue
+		if bool((vis as Dictionary).get("lodged", false)):
+			Life.put_on(sim, v, (st.buildings[bld].get("door", [0, 0]) as Array).duplicate())
+		vis["lodging"] = ""
+		vis["lodged"] = false
+		vis["leaving"] = true
+		sim.events.append({"type": "inn_lodger_out", "building": bld, "visitor": v})
 
 
 # --- Orders --------------------------------------------------------------------------------------------------------

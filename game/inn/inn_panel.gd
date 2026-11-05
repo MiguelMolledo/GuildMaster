@@ -159,6 +159,8 @@ func clientele_rows() -> Array:
 		var src: Dictionary = now_groups.get(g, last.get(g, {}))
 		var reasons: Array = []
 		for r: Dictionary in o.get("reasons", []):
+			if str(r.get("key", "")) == "nobody_in_town" and int(src.get("came", 0)) > 0:
+				continue  # the outlook is the opening's: one arrived later (a visitor that found a bed)
 			reasons.append(reason_text(r))
 		rows.append({"group": str(g), "name": SimQuery.t_("inn.group." + str(g)), "expected": float(o.get("expected", 0.0)),
 			"came": int(src.get("came", 0)), "served": int(src.get("served", 0)), "left": int(src.get("left", 0)),

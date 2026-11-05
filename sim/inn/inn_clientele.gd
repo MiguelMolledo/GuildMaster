@@ -102,6 +102,8 @@ static func base_count(sim: Sim, def: Dictionary) -> float:
 			var visits := float(sim.catalog.services.get("services", {}).get("tavern", {}).get("visits_per_adult", 0.25))
 			return float(town_adults(sim)) * visits
 		"visitors":
+			if Life.on(sim) and def.has("visitor_kinds"):  # vida: the real ones of its kinds still in town
+				return float(lodger_candidates(sim, def).size()) * float(def.get("bed", 1.0))
 			return float(visitors_today(sim)) * float(def.get("visitor_share", 0.0))
 	var span: Array = def.get("per_night", [0, 0])
 	return (float(span[0]) + float(span[1])) / 2.0
@@ -120,12 +122,32 @@ static func town_adults(sim: Sim) -> int:
 ## test generator is switched off in data/inn/inn.json (test_visitors.enabled false) and the living visitors count.
 static func visitors_today(sim: Sim) -> int:
 	var tv: Dictionary = sim.catalog.inn.get("rules", {}).get("test_visitors", {})
-	if not bool(tv.get("enabled", true)):
-		var v: Variant = sim.state.town.get("visitors")
-		return (v as Array).size() if v is Array else 0
+	if Life.on(sim) or not bool(tv.get("enabled", true)):
+		return Visitors.alive(sim.state).size()
 	var span: Array = tv.get("per_day", [2, 4])
 	var day := Clock.day(int(sim.state.clock["minute"]))
 	return Kin.randi_range(sim.state, "inn|visitors|%d" % day, int(span[0]), int(span[1]))
+
+
+## Vida: the visitors in town of the group's visitor_kinds that have not left (the ones already lodging count) (sorted).
+static func lodger_candidates(sim: Sim, def: Dictionary) -> Array:
+	var out: Array = []
+	var kinds: Array = def.get("visitor_kinds", [])
+	for v: String in Visitors.alive(sim.state):
+		var vis: Variant = sim.state.characters[v].get("visitor")
+		if vis is Dictionary and str((vis as Dictionary).get("kind", "")) in kinds \
+				and (str((vis as Dictionary).get("lodging", "")) != "" or not bool((vis as Dictionary).get("leaving", false))):
+			out.append(v)
+	return out
+
+
+## The group of the tavern's clientele a visitor of `kind` belongs to ("" if none: the beggar, the minstrel).
+static func group_of_visitor(sim: Sim, kind: String) -> String:
+	var groups: Dictionary = sim.catalog.inn.get("clientele", {}).get("groups", {})
+	for g: Variant in sim.catalog.inn.get("clientele", {}).get("order", []):
+		if kind in (groups.get(g, {}).get("visitor_kinds", []) as Array):
+			return str(g)
+	return ""
 
 
 ## The provider choice of 4.22.3.2 with one provider: P = a / (a + no_go), a = (1 / price)^elasticity × (1 + min(rep /

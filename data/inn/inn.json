@@ -120,6 +120,6 @@
       2,
       4
     ],
-    "_doc": "Forasteros de prueba hasta que llegue el generador de vida (4.24.3): cuántos pasan por el pueblo cada día; clientele.json decide a qué grupo van (visitor_share)."
+    "_doc": "Forasteros de prueba: solo con la vida apagada (data/life/life.json enabled false). Con ella, los forasteros son los de verdad (sim/life/visitors.gd) y los que encuentran cama duermen en la posada (Inn.lodge)."
   }
 }

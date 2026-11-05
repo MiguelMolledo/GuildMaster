@@ -1,5 +1,5 @@
 {
-  "_doc": "Los grupos de clientes de la Taberna-Posada (04f §4.27.2) [balance]. source: townsfolk (los adultos del pueblo × data/services.json tavern.visits_per_adult), visitors (los forasteros del día × visitor_share: hoy el generador de prueba de data/inn/inn.json test_visitors; con vida, state.town.visitors) o base (per_night [mín, máx] a plena atracción: soldados de paso y la guardia, nobles de viaje, jugadores). drinks/foods: lo que piden, en su orden de gusto (eligen al azar entre los que están en la carta y en el almacén, con peso 3-2-1 por ese orden); food_share: la parte de rondas de comida; rounds: rondas por visita; patience: minutos que esperan a que les sirvan; max_price_mult: por encima de ese precio medio no vienen; bed: probabilidad de pedir cama; dash: probabilidad de irse sin pagar. requires: lo que les hace falta para venir (beds_free, bed_price {max}, fame {min}, ambience {min}, good_wine, dish {dish}, gaming_table, license); si falta algo, el panel Clientela lo dice. stable_mult: con establo; good_room: piden la habitación buena; dislikes_soldiers: con más soldados que esto su satisfacción baja; fights: cuentan para la pelea; gambles: dejan la parte de la casa si hay licencia; likes_fame: atracción × (1 + likes_fame × fama). party: cuántos llegan juntos en cada visita (un corrillo, la escolta o el séquito); el panel cuenta personas.",
+  "_doc": "Los grupos de clientes de la Taberna-Posada (04f §4.27.2) [balance]. source: townsfolk (los adultos del pueblo × data/services.json tavern.visits_per_adult), visitors (los forasteros del día × visitor_share: hoy el generador de prueba de data/inn/inn.json test_visitors; con vida, state.town.visitors) o base (per_night [mín, máx] a plena atracción: soldados de paso y la guardia, nobles de viaje, jugadores). drinks/foods: lo que piden, en su orden de gusto (eligen al azar entre los que están en la carta y en el almacén, con peso 3-2-1 por ese orden); food_share: la parte de rondas de comida; rounds: rondas por visita; patience: minutos que esperan a que les sirvan; max_price_mult: por encima de ese precio medio no vienen; bed: probabilidad de pedir cama; dash: probabilidad de irse sin pagar. requires: lo que les hace falta para venir (beds_free, bed_price {max}, fame {min}, ambience {min}, good_wine, dish {dish}, gaming_table, license); si falta algo, el panel Clientela lo dice. stable_mult: con establo; good_room: piden la habitación buena; dislikes_soldiers: con más soldados que esto su satisfacción baja; fights: cuentan para la pelea; gambles: dejan la parte de la casa si hay licencia; likes_fame: atracción × (1 + likes_fame × fama). party: cuántos llegan juntos en cada visita (un corrillo, la escolta o el séquito); el panel cuenta personas. visitor_kinds: con la vida encendida (data/life/life.json), los forasteros de esos tipos (sim/life/visitors.gd) son los de verdad del grupo: al atardecer los que piden cama (bed) y la encuentran se quedan a dormir y entran como clientes (Inn.lodge); los de source visitors ya no se sortean aparte (el generador de prueba de inn.json solo corre con la vida apagada).",
   "order": [
     "locals",
     "merchants",
@@ -76,6 +76,10 @@
       "party": [
         1,
         2
+      ],
+      "visitor_kinds": [
+        "merchant",
+        "peddler"
       ]
     },
     "pilgrims": {
@@ -111,6 +115,9 @@
       "party": [
         1,
         2
+      ],
+      "visitor_kinds": [
+        "pilgrim"
       ]
     },
     "soldiers": {
@@ -147,6 +154,9 @@
       "party": [
         2,
         3
+      ],
+      "visitor_kinds": [
+        "soldier"
       ]
     },
     "nobles": {
@@ -191,6 +201,9 @@
       "party": [
         1,
         3
+      ],
+      "visitor_kinds": [
+        "noble"
       ]
     },
     "gamblers": {

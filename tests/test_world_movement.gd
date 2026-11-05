@@ -163,7 +163,7 @@ func test_determinism_with_movement() -> void:
 	var start := NewGame.from_scenario("town_e_start", 4)["state"] as WorldState
 	var moved := 0
 	for id: String in a.state.characters:
-		if a.state.characters[id]["position"] != start.characters[id]["position"]:
+		if start.characters.has(id) and a.state.characters[id]["position"] != start.characters[id]["position"]:  # vida: guards and visitors come later
 			moved += 1
 	check(moved > 0, "the wanderer moved people")
 

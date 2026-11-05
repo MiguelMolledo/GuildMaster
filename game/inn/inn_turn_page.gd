@@ -50,6 +50,8 @@ static func lines(sim: Sim, t: Dictionary) -> Array:
 
 ## A rumour as text: inn.rumor.<kind> with its args (items, cities and events by name).
 static func rumor_text(sim: Sim, r: Dictionary) -> String:
+	if str(r.get("kind", "")) == "life":
+		return LifeQuery.rumor_text(sim, r)  # vida's rumours (data/life/rumors.json)
 	var args: Array = (r.get("args", []) as Array).duplicate()
 	match str(r.get("kind", "")):
 		"price":

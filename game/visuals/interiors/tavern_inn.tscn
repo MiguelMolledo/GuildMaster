@@ -1,21 +1,21 @@
-[gd_scene load_steps=11 format=3 uid="uid://caj50q0hsr1kt"]
+[gd_scene load_steps=11 format=3 uid="uid://dusl0hinasllk"]
 
 [ext_resource type="Script" uid="uid://bym181u8o7u35" path="res://game/visuals/greybox/greybox_kit.gd" id="1_kit"]
 [ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="2_block"]
 [ext_resource type="Script" uid="uid://b2swscgjan4v4" path="res://game/inn/art_slot.gd" id="3_slot"]
-[ext_resource type="PackedScene" uid="uid://bcwfttr2d2os6" path="res://game/visuals/stations/bar.tscn" id="4_bar"]
-[ext_resource type="PackedScene" uid="uid://73wj5n7ovw8k" path="res://game/visuals/stations/kitchen.tscn" id="5_kitchen"]
+[ext_resource type="PackedScene" uid="uid://ccm4kp6h6rufs" path="res://game/visuals/stations/bar.tscn" id="4_bar"]
+[ext_resource type="PackedScene" uid="uid://b6ig4kxjnunge" path="res://game/visuals/stations/kitchen.tscn" id="5_kitchen"]
 [ext_resource type="PackedScene" uid="uid://bt8a0jyxyvvt2" path="res://game/visuals/stations/storage.tscn" id="6_storage"]
-[ext_resource type="PackedScene" uid="uid://bfb05131pp1mg" path="res://game/visuals/stations/tables.tscn" id="7_tables"]
-[ext_resource type="PackedScene" uid="uid://bgii3cfmhfsxd" path="res://game/visuals/stations/rooms.tscn" id="8_rooms"]
-[ext_resource type="PackedScene" uid="uid://d2uux3myyg8jx" path="res://game/visuals/stations/minstrel_corner.tscn" id="9_minstrel_corner"]
-[ext_resource type="PackedScene" uid="uid://dnw3450jhp0wm" path="res://game/visuals/stations/gaming_table.tscn" id="10_gaming_table"]
+[ext_resource type="PackedScene" uid="uid://ba2bgxgyuebdm" path="res://game/visuals/stations/tables.tscn" id="7_tables"]
+[ext_resource type="PackedScene" uid="uid://fbmtqpamdiqd" path="res://game/visuals/stations/rooms.tscn" id="8_rooms"]
+[ext_resource type="PackedScene" uid="uid://k4r2exhh5jq1" path="res://game/visuals/stations/minstrel_corner.tscn" id="9_minstrel_corner"]
+[ext_resource type="PackedScene" uid="uid://xduhwxaccjso" path="res://game/visuals/stations/gaming_table.tscn" id="10_gaming_table"]
 
 [node name="TavernInnInterior" type="Node2D"]
 
 [node name="Kit" type="Node2D" parent="."]
 script = ExtResource("1_kit")
-size = Vector2i(10, 8)
+size = Vector2i(11, 8)
 door = Vector2i(0, 4)
 floor_color = Color(0.4784, 0.3608, 0.2431, 1)
 wall_color = Color(0.2902, 0.2039, 0.1412, 1)
@@ -114,28 +114,28 @@ position = Vector2(-128.0, 128.0)
 editor_description = "The beds of the rooms (game/inn/inn_layer.gd): bed i = the i-th Marker2D (4 at the start, + inn_beds); bed 0 is the good room with inn_good_room."
 
 [node name="Bed0" type="Marker2D" parent="Beds"]
-position = Vector2(256.0, 160.0)
+position = Vector2(307.2, 166.4)
 
 [node name="Bed1" type="Marker2D" parent="Beds"]
-position = Vector2(224.0, 176.0)
+position = Vector2(278.4, 180.8)
 
 [node name="Bed2" type="Marker2D" parent="Beds"]
-position = Vector2(192.0, 192.0)
+position = Vector2(249.6, 195.2)
 
 [node name="Bed3" type="Marker2D" parent="Beds"]
-position = Vector2(160.0, 208.0)
+position = Vector2(220.8, 209.6)
 
 [node name="Bed4" type="Marker2D" parent="Beds"]
-position = Vector2(128.0, 224.0)
+position = Vector2(192.0, 224.0)
 
 [node name="Bed5" type="Marker2D" parent="Beds"]
-position = Vector2(96.0, 240.0)
+position = Vector2(163.2, 238.4)
 
 [node name="Bed6" type="Marker2D" parent="Beds"]
-position = Vector2(96.0, 208.0)
+position = Vector2(134.4, 252.8)
 
 [node name="Bed7" type="Marker2D" parent="Beds"]
-position = Vector2(64.0, 224.0)
+position = Vector2(105.6, 267.2)
 
 [node name="Decor" type="Node2D" parent="."]
 editor_description = "Furniture without rules (the art of the tavern; nothing shows while it is missing): benches by the big table, a barrel by the bar."

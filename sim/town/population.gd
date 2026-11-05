@@ -43,7 +43,24 @@ static func townsfolk(st: WorldState) -> Array:
 
 ## Whether a household couple may have a child: the town has fewer than max_total townsfolk.
 static func room_for_child(sim: Sim) -> bool:
-	return townsfolk(sim.state).size() < int(sim.catalog.town.get("population", {}).get("max_total", 20))
+	return townsfolk(sim.state).size() < max_total(sim)
+
+
+## The most townsfolk the town holds: data/town.json population.max_total; with the living town II on (04f 4.24.3,
+## O-R9 b, O-V2) the map's own figure: data/maps population_max, else data/life/life.json population.per_house per
+## house of the map, up to its cap.
+static func max_total(sim: Sim) -> int:
+	var base := int(sim.catalog.town.get("population", {}).get("max_total", 20))
+	if not Life.on(sim):
+		return base
+	var m: Dictionary = Life.map(sim)
+	if m.has("population_max"):
+		return int(m["population_max"])
+	var pc: Dictionary = Life.cfg(sim.catalog).get("population", {})
+	var houses := (m.get("population", []) as Array).size()
+	if houses <= 0:
+		return base
+	return mini(int(pc.get("cap", 32)), int(pc.get("per_house", 5)) * houses)
 
 
 ## The single adult townsfolk (no spouse alive).
