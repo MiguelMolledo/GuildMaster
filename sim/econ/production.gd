@@ -435,6 +435,8 @@ static func recipe_options(sim: Sim, actor: String, building: String, zone: Stri
 		var r: Dictionary = sim.catalog.recipes()[rid]
 		if str(r.get("building", "")) != str(bld.get("type", "")) or str(r.get("zone", "")) != kind:
 			continue
+		if str(r.get("kind", "craft")) == "commission" and not _commissioned(sim, actor, r):
+			continue  # fiestas (4.25.4): a festival piece shows once the family has accepted a contract that asks for it
 		var status := "ok"
 		var reason := _lock_reason(sim, ch, bld, r)
 		if reason != "":
@@ -451,6 +453,16 @@ static func recipe_options(sim: Sim, actor: String, building: String, zone: Stri
 			stock[str(inp["item"])] = Inventory.count(inv, str(inp["item"]))
 		out.append({"recipe": rid, "status": status, "reason": reason, "stock": stock})
 	return out
+
+
+## Whether the family of `actor` holds an accepted contract asking for the output of commission recipe `r`.
+static func _commissioned(sim: Sim, actor: String, r: Dictionary) -> bool:
+	var fam := Money.family_of(sim.state, actor)
+	var item := str(r.get("output", {}).get("item", ""))
+	for c: Dictionary in Contracts.accepted_of(sim, fam):
+		if str(c.get("item", "")) == item:
+			return true
+	return false
 
 
 ## The job at a station for the UI: {} or {actor, recipe, mode, progress 0..1, window_open, touched, blocked,

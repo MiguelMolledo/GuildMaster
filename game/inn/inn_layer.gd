@@ -10,7 +10,7 @@ extends Node2D
 
 signal message(text: String)
 
-const GROUP_COLORS: Dictionary = {"locals": ["#7a5230", "#d8c8a0"], "merchants": ["#2e4a6b", "#c8a84e"],
+const GROUP_COLORS: Dictionary = {"comarca": ["#6a5a2a", "#c8b890"], "neighbours": ["#7a5230", "#d8c8a0"], "merchants": ["#2e4a6b", "#c8a84e"],
 	"pilgrims": ["#6a6a5a", "#e0d8c0"], "soldiers": ["#8b2e2e", "#b8b8b0"], "nobles": ["#5a2e6b", "#e8c860"],
 	"gamblers": ["#2e5a3a", "#d0b070"]}
 const BED_COLORS: Dictionary = {"made": "#6a9a4a", "occupied": "#4a6a9a", "dirty": "#9a5a3a", "making": "#c8a84e"}

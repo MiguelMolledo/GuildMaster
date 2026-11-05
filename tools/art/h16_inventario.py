@@ -133,6 +133,24 @@ def games_and_forge():
     return out
 
 
+def props():
+    sys.path.insert(0, HERE)
+    import fal_props_fiesta as fpf
+    out = []
+    for pid, ((fw, fh), _, what) in fpf.PROPS.items():
+        png = f"assets/art/props/fiesta/{pid}.png"
+        if not os.path.exists(os.path.join(ROOT, png)):
+            continue
+        out.append({"id": "prop_fiesta_" + pid, "tipo": "prop", "estado": "sprite", "para": ["H16", "fiestas"],
+                    "ruta": png,
+                    "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/"
+                              "fal_props_fiesta.py)", "coste_gen": 0, "coste_usd": 0.02,
+                    "notas": f"Decoración de fiesta (04f §4.25.3): {what}. Huella {fw}×{fh} casillas. Escena "
+                             f"game/visuals/props/fiesta/{pid}.tscn (Feet en el centro de la huella, Top, Sprite; "
+                             f"metadata/footprint en la raíz)."})
+    return out
+
+
 def apply(entries):
     raw = open(INV).read()
     d = json.loads(raw)
@@ -155,7 +173,7 @@ def apply(entries):
 
 
 def main():
-    apply(illustrations() + tavern() + games_and_forge())
+    apply(illustrations() + tavern() + games_and_forge() + props())
 
 
 if __name__ == "__main__":

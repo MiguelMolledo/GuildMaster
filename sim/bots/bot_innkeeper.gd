@@ -111,7 +111,7 @@ func _manage(sim: Sim, now: int) -> Array:
 	var menu: Array = st.buildings[_tavern]["inn"]["menu"]
 	for d: String in COOK:
 		var rid: String = COOK[d]
-		if not d in menu or queued.has(rid) or Inn.stock(sim, _tavern, d) >= int(KEEP[d]):
+		if not d in menu or queued.has(rid) or Inn.stock(sim, _tavern, d) >= roundi(float(KEEP[d]) * maxf(1.0, Festivals.today_mult(sim, "service"))):
 			continue
 		if _has_inputs(sim, rid):
 			out.append({"type": "queue_add", "actor": _hero, "building": _tavern, "recipe": rid, "qty": 1})
@@ -236,7 +236,8 @@ func _shopping_list(sim: Sim) -> Array:
 	for d: String in KEEP:
 		if not d in menu:
 			continue
-		var deficit := int(KEEP[d]) - Inn.stock(sim, _tavern, d)
+		var feast := maxf(1.0, Festivals.today_mult(sim, "service"))  # fiestas: a feast day fills the house
+		var deficit := roundi(float(KEEP[d]) * feast) - Inn.stock(sim, _tavern, d)
 		if deficit <= 0:
 			continue
 		if COOK.has(d):

@@ -14,7 +14,8 @@
       "patience_minutes": 60,
       "providers": [
         "tavern_inn"
-      ]
+      ],
+      "_doc": "visits_per_adult: la de 4.22.3.2; la taberna la usa ya solo como referencia: los vecinos vienen por su agenda (vida) y el resto es la clientela de la comarca (data/inn/clientele.json, 04g §4.6.5.7)."
     },
     "inn": {
       "visits_per_adult": 0.0,

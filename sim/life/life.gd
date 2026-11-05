@@ -272,8 +272,8 @@ static var _ev_cache: Dictionary = {}
 
 ## The product of the active global events' effects of `kind` ("routine", "incident", "visitors") for `id`.
 static func event_mult(sim: Sim, kind: String, id: String = "") -> float:
-	if sim.state.events_active.is_empty():
-		return 1.0
+	if sim.state.events_active.is_empty():  # fiestas (04f 4.25.3): the festival of the day (1 when none)
+		return Festivals.today_mult(sim, kind) if kind == "visitors" else Festivals.hook_mult(sim, kind, id)
 	var ck := "%d|%d" % [sim.state.get_instance_id(), int(sim.state.clock["minute"])]
 	if ck != _ev_key:
 		_ev_key = ck
@@ -290,12 +290,15 @@ static func event_mult(sim: Sim, kind: String, id: String = "") -> float:
 			var target := str(fx.get("activity", fx.get("id", "")))
 			if target == "" or target == id:
 				m *= float(fx.get("mult", 1.0))
+	m *= Festivals.today_mult(sim, kind) if kind == "visitors" else Festivals.hook_mult(sim, kind, id)  # fiestas
 	_ev_cache[mk] = m
 	return m
 
 
 ## Whether today is a day of rest (an active event with a holy_day effect).
 static func holy_day(sim: Sim) -> bool:
+	if Festivals._holy_now(sim):  # fiestas (04f 4.25.1): the holy morning of Holy Week, All Saints, Christmas
+		return true
 	if sim.state.events_active.is_empty():
 		return false
 	for e: Dictionary in sim.state.events_active:
@@ -308,6 +311,8 @@ static func holy_day(sim: Sim) -> bool:
 
 ## Whether a festival is on (an event of the "festival" group or with the festival flag): visitors ×, the plaza guard.
 static func festival(sim: Sim) -> bool:
+	if Festivals.on_today(sim):  # fiestas (04f 4.25): a feast of the calendar today
+		return true
 	if sim.state.events_active.is_empty():
 		return false
 	for e: Dictionary in sim.state.events_active:

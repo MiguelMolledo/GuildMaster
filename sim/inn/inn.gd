@@ -16,7 +16,8 @@ extends RefCounted
 ## A guest: {id, group, chr, name_n, seat, state: seated | waiting | eating | gone, next_at, order, since, until,
 ##   rounds_left, bed: int (-1), quality, served_by, paid, tips}
 ## The buildings for sale: buildings[bld].for_sale = true (no owner) until buy_building.
-## Guests are not characters: they live in the turn (a link chr to a townsperson for the locals' names). The life block
+## Guests are not characters: they live in the turn (chr links the neighbours that come in person, 04g, and the lodging
+## visitors). The life block
 ## (4.24.1) will send real townsfolk through arrive().
 
 const TYPE: String = "tavern_inn"
@@ -216,11 +217,11 @@ static func open_turn(sim: Sim, bld: String, open_at: int, close_at: int) -> voi
 	var last := close_at - int(r.get("hours", {}).get("last_arrival_before_close", 60))
 	var span := maxi(1, last - open_at)
 	var arrivals: Array = []
-	var locals := _local_pool(sim, bld)
 	var counts := {}
 	var groups_def: Dictionary = sim.catalog.inn.get("clientele", {}).get("groups", {})
 	for g: String in outlook:
-		if Life.on(sim) and str(groups_def.get(g, {}).get("source", "")) == "visitors":
+		if str(groups_def.get(g, {}).get("source", "")) == "agenda" or (Life.on(sim) \
+				and str(groups_def.get(g, {}).get("source", "")) == "visitors"):
 			counts[g] = 0
 			continue  # vida: the visitors come in person (lodge), not drawn here
 		var want_n := float(outlook[g]["expected"]) * mult
@@ -234,9 +235,7 @@ static func open_turn(sim: Sim, bld: String, open_at: int, close_at: int) -> voi
 				float(r.get("hours", {}).get("arrival_peak", 0.35)))
 			var size := Kin.randi_range(st, "inn|party|%s|%d|%s|%d" % [bld, day, g, k], int(party[0]), int(party[1]))
 			for p: int in size:
-				var chr := ""
-				if g == "locals" and not locals.is_empty():
-					chr = str(locals[(Kin.randi_range(st, "inn|who|%s|%d|%d|%d" % [bld, day, k, p], 0, locals.size() - 1))])
+				var chr := ""  # the comarca and the travellers drawn here have no name in town (04g)
 				arrivals.append({"at": open_at + int(float(span) * u) + p, "group": g, "chr": chr, "k": k * 10 + p})
 				people += 1
 		counts[g] = people
@@ -286,18 +285,6 @@ static func _triangular(u: float, peak: float) -> float:
 	if u < c:
 		return sqrt(u * c)
 	return 1.0 - sqrt((1.0 - u) * (1.0 - c))
-
-
-## The townsfolk who may come as locals: adults that are not employees of this building, sorted.
-static func _local_pool(sim: Sim, bld: String) -> Array:
-	var out: Array = []
-	for id: Variant in sim.state.characters:
-		var s := str(id)
-		if TownLife.is_townsperson(sim.state, s) and TownLife.is_adult(sim.state, sim.catalog, s) \
-				and not Staff.works_at(sim.state, s, bld):
-			out.append(s)
-	out.sort()
-	return out
 
 
 ## One minute of the turn: arrivals, the guests' states, the staff serving, the incidents.
@@ -386,7 +373,7 @@ static func _decide(sim: Sim, bld: String, inn: Dictionary, g: Dictionary, now: 
 			if not str(d) in menu:
 				continue
 			on_menu = true
-			if stock(sim, bld, str(d)) > 0:
+			if stock(sim, bld, str(d)) > 0 and dish_price(sim, bld, str(d), best_quality(sim, bld, str(d))) <= max_price(sim, bld, g, str(d)):
 				var wgt := maxi(1, 3 - cands.size())
 				cands.append(str(d))
 				weights.append(wgt)
@@ -407,7 +394,46 @@ static func _decide(sim: Sim, bld: String, inn: Dictionary, g: Dictionary, now: 
 		g["until"] = now + roundi(pat)
 		sim.events.append({"type": "inn_guest_ordered", "building": bld, "guest": g["id"], "dish": pick})
 		return
-	_leave(sim, bld, g, "sold_out" if on_menu else "not_on_menu", true)
+	var why := "not_on_menu"
+	if on_menu:
+		why = "sold_out"
+		for lst: Variant in lists:
+			for d: Variant in lst:
+				if str(d) in menu and stock(sim, bld, str(d)) > 0:
+					why = "too_expensive"  # there was some, but dearer than what this client pays
+	_leave(sim, bld, g, why, why != "too_expensive" or not bool(g.get("neighbour", false)))
+
+
+## The quality the guest would get of `d` now (the best in the storage, with the cellar's bonus for the wine).
+static func best_quality(sim: Sim, bld: String, d: String) -> int:
+	var item := str(dish(sim, d).get("item", d))
+	var inv: Dictionary = sim.state.buildings[bld]["inventory"]
+	for q: int in [Inventory.EXCELLENT, Inventory.GOOD, Inventory.NORMAL]:
+		if Inventory.count(inv, item, q) > 0:
+			return mini(Inventory.EXCELLENT, q + (wine_quality(sim, bld) if bool(dish(sim, d).get("cellar", false)) else 0))
+	return Inventory.NORMAL
+
+
+## The most a guest pays for one `d` (04g §4.6.5.7): ref × the quality it would get × (1 + fame × max_price_fame) ×
+## the group's max_price_mult; a neighbour, besides, no more than its household's purse.
+static func max_price(sim: Sim, bld: String, g: Dictionary, d: String) -> int:
+	var cl: Dictionary = sim.catalog.inn.get("clientele", {})
+	var def: Dictionary = cl.get("groups", {}).get(str(g.get("group", "")), {})
+	var qm: Array = rules(sim).get("quality_mult", [1.0, 1.15, 1.3])
+	var q := best_quality(sim, bld, d)
+	var m := float(dish(sim, d).get("ref_price", 1)) * float(qm[clampi(q, 0, qm.size() - 1)]) \
+		* (1.0 + fame(sim, bld) * float(cl.get("max_price_fame", 0.1))) * float(def.get("max_price_mult", 2.0))
+	var top := roundi(m)
+	if bool(def.get("purse", false)):
+		top = mini(top, Money.gold(sim.state, _purse_family(sim, g)))
+	return top
+
+
+## The household that pays for a neighbour ("" for anybody else).
+static func _purse_family(sim: Sim, g: Dictionary) -> String:
+	if not bool(g.get("neighbour", false)):
+		return ""
+	return str(sim.state.characters.get(str(g.get("chr", "")), {}).get("family", ""))
 
 
 ## The employees on shift and the non-player family members at the bar serve the waiting guests, one each per
@@ -542,6 +568,16 @@ static func _pay(sim: Sim, bld: String, inn: Dictionary, g: Dictionary, now: int
 			_incident(sim, bld, "dash", {"group": str(g["group"])})
 			_leave(sim, bld, g, "dash", false)
 			return
+	var purse := _purse_family(sim, g)
+	if purse != "":  # 04g: a neighbour pays from its household's purse (the tip only if it has it)
+		tip = mini(tip, maxi(0, Money.gold(st, purse) - price))
+		if not Money.change(sim, purse, -(price + tip), Money.SERVICES, "inn_bill", bld, str(g["chr"])):
+			_leave(sim, bld, g, "no_money", false)
+			return
+		if s >= float(rules(sim).get("fame", {}).get("satisfied_at", 0.6)) and int(def.get("relation", 0)) != 0:
+			var head := str(st.families.get(fam, {}).get("head", ""))
+			if head != "":
+				Emotions.change_relation(sim, str(g["chr"]), head, int(def["relation"]), "inn_served")
 	Money.change(sim, fam, price + tip, Money.SERVICES, "inn_bill", bld)
 	stats["income"] = int(stats["income"]) + price
 	stats["tips"] = int(stats["tips"]) + tip
@@ -616,6 +652,74 @@ static func _leave(sim: Sim, bld: String, g: Dictionary, reason: String, complai
 			bg["left"] = int(bg.get("left", 0)) + 1
 	sim.events.append({"type": "inn_guest_left", "building": bld, "guest": str(g["id"]), "group": str(g["group"]),
 		"reason": reason})
+	if bool(g.get("neighbour", false)):
+		_neighbour_out(sim, bld, g, reason)
+
+
+## Vida hook (04g §4.6.5.7, the neighbours' layer; Agenda._go): townsperson `chr`, whose agenda chose the tavern and
+## has reached its meeting point at the door of an open Taberna-Posada, comes in as a guest with its name (leaves the
+## map while inside). True if it came in (the agenda waits for it: hosted).
+static func neighbour_in(sim: Sim, chr: String, t: Dictionary) -> bool:
+	if t.has("inn"):
+		return true
+	var st := sim.state
+	var now := int(st.clock["minute"])
+	if now < int(t.get("inn_after", -1)) or t.has("inn_tried"):
+		return false  # one try per outing, and a while after coming out (it chats at the door, vida's corrillo)
+	t["inn_tried"] = true
+	var at := Life.tile_of(st, chr)
+	var ids: Array = st.buildings.keys()
+	ids.sort()
+	for bld: String in ids:
+		if not is_inn(sim, bld) or not is_open(sim, bld) or str(st.buildings[bld].get("owner", "")) == "":
+			continue
+		var door: Array = st.buildings[bld].get("door", [])
+		if door.size() != 2 or Life.dist(at, door) > 4 or Staff.works_at(st, chr, bld):
+			continue
+		if guests(sim, bld).size() >= seats(sim, bld):
+			return false  # full: it stays at the door with the others (vida's corrillo)
+		var cheapest := -1
+		for d: Variant in state_of(sim, bld).get("menu", []):
+			var pr := dish_price(sim, bld, str(d), 0)
+			if cheapest < 0 or pr < cheapest:
+				cheapest = pr
+		if cheapest < 0 or Money.gold(st, str(st.characters[chr].get("family", ""))) < cheapest:
+			return false  # no money for anything on the menu: it chats at the door
+		var gid := arrive(sim, bld, "neighbours", chr)
+		if gid == "":
+			return false
+		guest(sim, bld, gid)["neighbour"] = true
+		t["inn"] = "%s|%s" % [bld, gid]
+		Life.take_off(sim, chr)
+		return true
+	return false
+
+
+## Minutes a neighbour does not come back in after leaving (it has had its night out).
+const NEIGHBOUR_REST: int = 120
+
+
+## Whether townsperson `chr` is inside a Taberna-Posada as a guest now (its agenda waits).
+static func hosting(st: WorldState, chr: String) -> bool:
+	var t: Variant = st.characters.get(chr, {}).get("town")
+	return t is Dictionary and (t as Dictionary).has("inn")
+
+
+## A neighbour leaves: back on the map at the door; the tavern is done for its agenda (its raises applied).
+static func _neighbour_out(sim: Sim, bld: String, g: Dictionary, reason: String) -> void:
+	var chr := str(g.get("chr", ""))
+	var ch: Dictionary = sim.state.characters.get(chr, {})
+	if ch.is_empty():
+		return
+	Life.put_on(sim, chr, (sim.state.buildings[bld].get("door", [0, 0]) as Array).duplicate())
+	var t: Variant = ch.get("town")
+	if t is Dictionary:
+		(t as Dictionary).erase("inn")
+		(t as Dictionary)["inn_after"] = int(sim.state.clock["minute"]) + NEIGHBOUR_REST
+		if reason in ["done", "closing"]:
+			Agenda.raise(sim, t, Agenda.acts(sim).get("tavern", {}).get("raises", {}), int(sim.state.clock["minute"]))
+			sim.events.append({"type": "activity_done", "character": chr, "activity": "tavern"})
+		Agenda._clear(t)
 
 
 ## A bed for the guest (the good room for whom asks for it, if built): paid at once; no bed = complaint no_bed.
@@ -708,8 +812,10 @@ static func close_turn(sim: Sim, bld: String) -> void:
 	var stats: Dictionary = night["stats"]
 	var fc: Dictionary = rules(sim).get("fame", {})
 	var complaints := 0
+	var ignored: Array = fc.get("complaints_not_fame", [])
 	for k: String in stats["complaints"]:
-		complaints += int(stats["complaints"][k])
+		if not k in ignored:
+			complaints += int(stats["complaints"][k])
 	var gain := float(fc.get("per_satisfied", 0.03)) * int(stats["satisfied"]) \
 		+ float(fc.get("per_excellent", 0.02)) * int(stats["excellent"]) \
 		+ float(fc.get("per_complaint", -0.04)) * complaints + float(fc.get("per_fight", -0.3)) * int(stats["fights"]) \

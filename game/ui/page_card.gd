@@ -494,6 +494,15 @@ func _masked(tex: Texture2D, mask_slot: String, scale: int, node_name: String) -
 	if m != null:
 		t.material = m
 	parts[mask_slot] = str(v.get("file", "")) if m != null else ""
+	if VisualPaths.is_placeholder(tex) and tex.has_meta("label"):  # a greybox says what it stands for (fiestas)
+		var l := Label.new()
+		l.name = "PlaceholderLabel"
+		l.text = "[%s]" % str(tex.get_meta("label"))
+		l.theme_type_variation = &"PageInkBold"
+		l.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		t.add_child(l)
 	return t
 
 

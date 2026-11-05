@@ -29,11 +29,15 @@ static func group_outlook(sim: Sim, bld: String, g: String) -> Dictionary:
 		reasons.append({"key": "nothing_liked", "args": []})
 	elif price > float(def.get("max_price_mult", 2.0)) + 0.001:
 		reasons.append({"key": "too_expensive", "args": [num(price), num(float(def.get("max_price_mult", 2.0)))]})
-	var base := base_count(sim, def)
+	var base := base_count(sim, def, bld)
 	var attraction := provider_share(sim, bld, price)
 	var taste := taste(sim, bld, g, def, liked)
 	var expected := 0.0 if not reasons.is_empty() else base * attraction * taste
-	if reasons.is_empty() and base <= 0.0:
+	if str(def.get("source", "")) == "agenda":
+		expected = base  # they are the ones on their way: the agenda already chose
+		if reasons.is_empty() and base <= 0.0:
+			reasons.append({"key": "no_neighbours", "args": []})
+	elif reasons.is_empty() and base <= 0.0:
 		reasons.append({"key": "nobody_in_town", "args": []})
 	return {"expected": expected, "came_ok": reasons.is_empty(), "reasons": reasons, "base": base,
 		"attraction": attraction, "taste": taste, "price": price}
@@ -96,8 +100,10 @@ static func menu_price_mult(sim: Sim, bld: String, def: Dictionary) -> float:
 
 
 ## How many of the group there are tonight before the attraction (the town's adults, the visitors, or the base mean).
-static func base_count(sim: Sim, def: Dictionary) -> float:
+static func base_count(sim: Sim, def: Dictionary, bld_hint: String = "") -> float:
 	match str(def.get("source", "base")):
+		"agenda":  # 04g: the neighbours that their agenda sends here come in person (Inn.neighbour_in)
+			return float(InnClientele.neighbours_coming(sim, bld_hint))
 		"townsfolk":
 			var visits := float(sim.catalog.services.get("services", {}).get("tavern", {}).get("visits_per_adult", 0.25))
 			return float(town_adults(sim)) * visits
@@ -127,6 +133,31 @@ static func visitors_today(sim: Sim) -> int:
 	var span: Array = tv.get("per_day", [2, 4])
 	var day := Clock.day(int(sim.state.clock["minute"]))
 	return Kin.randi_range(sim.state, "inn|visitors|%d" % day, int(span[0]), int(span[1]))
+
+
+## Vida (04g): the townsfolk whose agenda has the tavern as activity now (on their way, at its door or inside) and whose
+## household can pay the cheapest dish of `bld`'s menu (the others chat at the door: Inn.neighbour_in).
+static func neighbours_coming(sim: Sim, bld: String = "") -> int:
+	if not Life.on(sim):
+		return 0
+	var cheapest := 0
+	if bld != "":
+		cheapest = -1
+		for d: Variant in sim.state.buildings.get(bld, {}).get("inn", {}).get("menu", []):
+			var pr := Inn.dish_price(sim, bld, str(d), 0)
+			if cheapest < 0 or pr < cheapest:
+				cheapest = pr
+		if cheapest < 0:
+			return 0
+	var n := 0
+	for id: Variant in sim.state.characters:
+		var ch: Dictionary = sim.state.characters[id]
+		var t: Variant = ch.get("town")
+		if not t is Dictionary or str((t as Dictionary).get("activity", "")) != "tavern":
+			continue
+		if Inn.hosting(sim.state, str(id)) or Money.gold(sim.state, str(ch.get("family", ""))) >= cheapest:
+			n += 1
+	return n
 
 
 ## Vida: the visitors in town of the group's visitor_kinds that have not left (the ones already lodging count) (sorted).
@@ -176,7 +207,10 @@ static func taste(sim: Sim, bld: String, g: String, def: Dictionary, liked: Arra
 		t *= float(menu_cfg.get("special_mult", 1.15))
 	var season := Clock.season(int(sim.state.clock["minute"]), sim.catalog.time)
 	for d: String in liked:
-		if str(menu_cfg.get("dishes", {}).get(d, {}).get("season", "")) == season:
+		var dd: Dictionary = menu_cfg.get("dishes", {}).get(d, {})
+		var feast := str(dd.get("festival", ""))
+		var on := feast_today(sim, feast) if Festivals.enabled(sim) and feast != "" else str(dd.get("season", "")) == season
+		if on:
 			t *= float(menu_cfg.get("seasonal_mult", 1.5))
 			break
 	if def.has("stable_mult") and Upgrades.flag(sim, bld, "inn_stable"):
@@ -184,6 +218,7 @@ static func taste(sim: Sim, bld: String, g: String, def: Dictionary, liked: Arra
 	if season == "winter" and Upgrades.flag(sim, bld, "inn_hearth"):
 		t *= 1.3
 	t *= maxf(WorldEvents.customers_mult(sim), 0.0)
+	t *= maxf(Festivals.hook_mult(sim, "service", "tavern"), 0.0)  # fiestas: San Juan and Carnival ×2, the fair ×3
 	var day := Clock.day(int(sim.state.clock["minute"]))
 	if g == "pilgrims" and int(inn.get("pilgrims_scared_until", -1)) >= day:
 		t *= float(sim.catalog.inn.get("rules", {}).get("incidents", {}).get("pilgrims_after_fight_mult", 0.3))
@@ -194,3 +229,11 @@ static func taste(sim: Sim, bld: String, g: String, def: Dictionary, liked: Arra
 static func num(v: float) -> String:
 	var s := "%.1f" % v
 	return s.trim_suffix(".0")
+
+
+## Fiestas: whether the feast `id` of data/festivals.json is on today (running or to start today).
+static func feast_today(sim: Sim, id: String) -> bool:
+	for i: Dictionary in Festivals._today(sim):
+		if str(i.get("def", "")) == id:
+			return true
+	return false

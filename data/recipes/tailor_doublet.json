@@ -1,0 +1,23 @@
+{
+  "id": "tailor_doublet",
+  "name_key": "recipe.tailor_doublet",
+  "kind": "commission",
+  "building": "tailor_shop",
+  "zone": "sewing_table",
+  "inputs": [
+    {
+      "item": "cloth",
+      "qty": 2
+    },
+    {
+      "item": "wool",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "doublet",
+    "qty": 1
+  },
+  "duration_hours": 3.0,
+  "min_craft": 3
+}

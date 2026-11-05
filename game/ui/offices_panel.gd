@@ -501,6 +501,13 @@ func _fill_powers(powers: Array) -> void:
 						{"event": ev})
 					b.name = "Use_declare_event_" + ev
 					line.add_child(b)
+			"organize_festival":  # fiestas (04f 4.25.5): bulls or a joust in an announced feast
+				for inst: Dictionary in Festivals.announced(sim) + Festivals.active(sim):
+					for part: String in Festivals.organizable(sim, inst):
+						var b := _power_button(id, SimQuery.t_("ui.offices.organize") % [SimQuery.t_("festival.part." + part),
+							SimQuery.festival_name(str(inst["def"]))], {"festival": str(inst["id"]), "part": part})
+						b.name = "Use_organize_%s_%s" % [part, inst["id"]]
+						line.add_child(b)
 			_:
 				line.add_child(_power_button(id, SimQuery.t_("ui.offices.use"), {}))
 		var cd := int(p["cooldown_minutes"])

@@ -1,5 +1,5 @@
 {
-  "_doc": "La carta de la Taberna-Posada (04f §4.27.3) [balance]: cada plato es un objeto del almacén (item) que se sirve de uno en uno; kind drink (barra) o food (mozo de mesas); ref_price: el precio de referencia (el dueño fija de 0,5× a 2×, data/services.json price_range). spoils: comida cocinada que se echa a perder al amanecer sin despensa fría. cellar: la calidad que sirve la sube la Bodega (inn_wine_quality). season: plato de temporada, ×seasonal_mult de atracción en su estación para los grupos a los que les gusta (gancho de las fiestas: cuando llegue data/festivals.json, en su fiesta).",
+  "_doc": "La carta de la Taberna-Posada (04f §4.27.3) [balance]: cada plato es un objeto del almacén (item) que se sirve de uno en uno; kind drink (barra) o food (mozo de mesas); ref_price: el precio de referencia (el dueño fija de 0,5× a 2×, data/services.json price_range). spoils: comida cocinada que se echa a perder al amanecer sin despensa fría. cellar: la calidad que sirve la sube la Bodega (inn_wine_quality). season / festival: plato de temporada, ×seasonal_mult de atracción para los grupos a los que les gusta el día de su fiesta (data/festivals.json: Semana Santa, la matanza, Navidad); con las fiestas apagadas, en su estación.",
   "seasonal_mult": 1.5,
   "special_mult": 1.15,
   "dishes": {
@@ -47,19 +47,22 @@
       "kind": "food",
       "ref_price": 30,
       "spoils": true,
-      "season": "spring"
+      "season": "spring",
+      "festival": "holy_week"
     },
     "sausage": {
       "item": "sausage",
       "kind": "food",
       "ref_price": 12,
-      "season": "autumn"
+      "season": "autumn",
+      "festival": "all_saints_matanza"
     },
     "sweets": {
       "item": "sweets",
       "kind": "food",
       "ref_price": 10,
-      "season": "winter"
+      "season": "winter",
+      "festival": "christmas"
     }
   }
 }

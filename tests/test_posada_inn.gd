@@ -250,8 +250,8 @@ func test_clientele_says_why_groups_do_not_come() -> void:
 	check("no_good_wine" in keys.call("nobles"), "nobles: good wine")
 	check("fame_low" in keys.call("merchants"), "merchants: fame 0 of 1")
 	check("no_gaming_table" in keys.call("gamblers") and "no_license" in keys.call("gamblers"), "gamblers: table and licence")
-	check((o["locals"]["reasons"] as Array).is_empty(), "the locals come")
-	check(float(o["locals"]["expected"]) > 0.0, "some locals are expected")
+	check((o["comarca"]["reasons"] as Array).is_empty(), "the comarca comes")
+	check(float(o["comarca"]["expected"]) > 0.0, "some of the comarca are expected")
 	Orders.apply(sim, {"type": "inn_set_price", "actor": HERO, "building": t, "dish": "bed", "mult": 1.5})
 	o = InnClientele.outlook(sim, t)
 	check("beds_expensive" in keys.call("pilgrims"), "pilgrims: dear beds")
@@ -260,16 +260,16 @@ func test_clientele_says_why_groups_do_not_come() -> void:
 	check("no_dish" in keys.call("soldiers"), "soldiers: no ale")
 	Orders.apply(sim, {"type": "inn_set_price", "actor": HERO, "building": t, "dish": "wine", "mult": 2.0})
 	o = InnClientele.outlook(sim, t)
-	check("too_expensive" in keys.call("locals"), "locals: too dear")
+	check("too_expensive" in keys.call("comarca"), "comarca: too dear")
 
 
 func test_cheaper_menu_attracts_more() -> void:
 	var sim := _start()
 	var t := _tavern(sim)
-	var base := float(InnClientele.outlook(sim, t)["locals"]["expected"])
+	var base := float(InnClientele.outlook(sim, t)["comarca"]["expected"])
 	Orders.apply(sim, {"type": "inn_set_price", "actor": HERO, "building": t, "dish": "ale", "mult": 0.5})
 	Orders.apply(sim, {"type": "inn_set_price", "actor": HERO, "building": t, "dish": "cider", "mult": 0.5})
-	check(float(InnClientele.outlook(sim, t)["locals"]["expected"]) > base, "cheaper: more locals")
+	check(float(InnClientele.outlook(sim, t)["comarca"]["expected"]) > base, "cheaper: more from the comarca")
 
 
 # --- Licence, upgrades --------------------------------------------------------------------------------------------
@@ -411,3 +411,67 @@ func test_the_bar_rumour_is_a_real_one_and_goes_to_the_book() -> void:
 	check(Rumors.heard(sim.state).any(func(h: Dictionary) -> bool: return str(h["point"]) == "inn:" + t),
 		"heard at the bar: in the book of rumours")
 	check(InnTurnPage.rumor_text(sim, r) != "", "it has its text")
+
+
+
+# --- 04g: two layers of customers -----------------------------------------------------------------------------------
+
+func test_a_neighbour_whose_agenda_sends_it_comes_in_and_pays_from_its_purse() -> void:
+	var sim := _start()
+	var t := _tavern(sim)
+	var w := Inn.turn_window(sim, int(sim.state.clock["minute"]))
+	_run_to(sim, int(w[0]) + 5)
+	check(Inn.is_open(sim, t), "open")
+	var who := ""
+	for id: Variant in sim.state.characters:
+		if TownLife.is_townsperson(sim.state, str(id)) and TownLife.is_adult(sim.state, sim.catalog, str(id)) \
+				and not Staff.works_at(sim.state, str(id), t) and str(sim.state.characters[id].get("location", "")) == "":
+			who = str(id)
+			break
+	check(who != "", "a townsperson in the street")
+	var ch: Dictionary = sim.state.characters[who]
+	var door: Array = sim.state.buildings[t]["door"]
+	Life.put_on(sim, who, [int(door[0]), int(door[1]) - 1])
+	var tt: Dictionary = ch["town"]
+	tt["activity"] = "tavern"
+	var hh := str(ch["family"])
+	sim.state.families[hh]["gold"] = 40
+	check(Inn.neighbour_in(sim, who, tt), "at the door of the open tavern: in")
+	check(Inn.hosting(sim.state, who) and Life.offstage(sim.state, who), "inside, off the map")
+	var g := {}
+	for x: Dictionary in Inn.guests(sim, t):
+		if str(x.get("chr", "")) == who:
+			g = x
+	eq(str(g.get("group", "")), "neighbours", "a neighbour with its name")
+	var gold0 := Money.gold(sim.state, hh)
+	for i: int in 300:
+		var orders: Array = []
+		if str(g.get("state", "")) == "waiting":
+			orders.append({"type": "inn_serve", "actor": HERO, "building": t, "guest": str(g["id"])})
+		sim.step(orders)
+		if str(g.get("state", "")) == "gone":
+			break
+	eq(str(g.get("state", "")), "gone", "it went")
+	check(Money.gold(sim.state, hh) < gold0 or int(g.get("paid", 0)) == 0, "it paid from its household's purse")
+	check(not Inn.hosting(sim.state, who) and not Life.offstage(sim.state, who), "back in the street")
+
+
+func test_the_comarca_is_drawn_and_has_no_name_in_town() -> void:
+	var sim := _start()
+	var t := _tavern(sim)
+	var w := Inn.turn_window(sim, int(sim.state.clock["minute"]))
+	_run_to(sim, int(w[0]) + 1)
+	var arr: Array = Inn.state_of(sim, t)["night"]["arrivals"]
+	check(arr.any(func(a: Dictionary) -> bool: return str(a["group"]) == "comarca"), "the comarca comes")
+	check(arr.all(func(a: Dictionary) -> bool: return str(a.get("chr", "")) == ""), "nobody drawn is a townsperson")
+	check(not arr.any(func(a: Dictionary) -> bool: return str(a["group"]) == "neighbours"), "the neighbours come by their agenda")
+
+
+func test_a_client_does_not_pay_more_than_its_max_price() -> void:
+	var sim := _start()
+	var t := _tavern(sim)
+	var g := {"group": "pilgrims", "chr": ""}
+	var top := Inn.max_price(sim, t, g, "ale")
+	eq(top, roundi(6.0 * 1.0 * 1.0 * 1.1), "ref 6 × quality 1 × fame 0 × pilgrims' 1.1")
+	Orders.apply(sim, {"type": "inn_set_price", "actor": HERO, "building": t, "dish": "ale", "mult": 2.0})
+	check(Inn.dish_price(sim, t, "ale", 0) > top, "at ×2 the ale is dearer than what a pilgrim pays")

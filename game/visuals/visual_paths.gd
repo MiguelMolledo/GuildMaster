@@ -273,11 +273,36 @@ static func _art_or(path: String, size: Vector2i, color: Color) -> Texture2D:
 
 static func illustration(kind: String, id: String, small: bool = false) -> Texture2D:
 	var suffix := "_192" if small else ""
-	for p: String in ["%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, id, suffix],
+	var art := str(EVENT_ILLUSTRATION_ALIAS.get(id, id)) if kind == "events" else id
+	for p: String in ["%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, art, suffix],
+			"%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, id, suffix],
 			"%s/ui/page_kit/piloto/%s_%s%s.png" % [ART_ROOT, kind.trim_suffix("s"), id, suffix]]:
 		if ResourceLoader.exists(p):
 			return load(p) as Texture2D
 	return null
+
+
+## The names the art uses for the ids of the festivals (fiestas, 4.25) and the incidents (vida, 4.24.5): arte-fal-2
+## kept its Spanish names (ids illus_<name> in assets/inventario.json), assets/art/illustrations/events/<name>[_192].png.
+## The only alias table of the event illustrations: illustration("events", id) applies it (FestivalPage, IncidentPage).
+## The art's rescate.png and ladron.png have no id of the sim yet.
+const EVENT_ILLUSTRATION_ALIAS: Dictionary = {"holy_week": "semana_santa", "mayday_corpus": "mayos_corpus",
+	"st_john": "san_juan", "harvest_fair": "siega_feria", "st_michael": "san_miguel", "all_saints_matanza": "matanza",
+	"christmas": "navidad", "carnival": "carnaval", "altercation": "altercado", "bandit_raid": "asalto_bandidos",
+	"kidnapping": "secuestro"}
+
+
+## Fiestas (04f 4.28.3): the illustration of `id`, or a visible provisional greybox (240×135, 192×108 small) that
+## says what it stands for (meta «label»; PageCard writes it on it) until the art is at
+## assets/art/illustrations/<kind>/<id>[_192].png.
+static func illustration_or_greybox(kind: String, id: String, small: bool = false) -> Texture2D:
+	var t := illustration(kind, id, small)
+	if t != null:
+		return t
+	var size := Vector2i(192, 108) if small else Vector2i(240, 135)
+	var g := _art_or("%s/illustrations/%s/%s%s.png" % [ART_ROOT, kind, id, "_192" if small else ""], size, Color("#7a6a4a"))
+	g.set_meta("label", id)
+	return g
 
 
 ## Duelo (docs/ui/mecanicas/combate.md §8): the names the art uses for the duel's ids (the art keeps its names, as in

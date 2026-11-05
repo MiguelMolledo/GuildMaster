@@ -16340,5 +16340,572 @@
   "imagenes": 1,
   "usd": 0.0002,
   "que": "image2pixel quench_air_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:16:27",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "q8"
+ },
+ {
+  "fecha": "2026-11-04T22:16:43",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "q4a"
+ },
+ {
+  "fecha": "2026-11-04T22:16:59",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "q4b"
+ },
+ {
+  "fecha": "2026-11-04T22:17:12",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "q2"
+ },
+ {
+  "fecha": "2026-11-04T22:17:32",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0031,
+  "que": "image2pixel banderola_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:17:36",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel pendon_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:17:40",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel farolillo_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:17:45",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel hoguera_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:17:49",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel mayo_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:17:53",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel guirnalda_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:17:56",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mesa_larga_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:18:00",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel puesto_feria_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:18:04",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel cerco_carros_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:18:08",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel belen_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:18:12",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tablado_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:18:16",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel arco_triunfal_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:18:20",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel liza_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:18:25",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel corral_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:10",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "q2b"
+ },
+ {
+  "fecha": "2026-11-04T22:19:14",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel banderola_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:18",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel pendon_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:22",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel farolillo_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:26",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel hoguera_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:30",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel mayo_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:34",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel guirnalda_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:38",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mesa_larga_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:43",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel puesto_feria_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:47",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel cerco_carros_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:51",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel belen_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:55",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tablado_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:19:59",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel arco_triunfal_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:20:04",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel liza_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:20:09",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel corral_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:20:15",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tablado_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:20:38",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel banderola_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:20:42",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel pendon_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:20:46",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel farolillo_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:20:50",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel hoguera_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:20:54",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mayo_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:20:57",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel guirnalda_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:21:01",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel mesa_larga_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:21:05",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel puesto_feria_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:21:10",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel cerco_carros_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:21:14",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel belen_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:21:18",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tablado_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:21:22",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel arco_triunfal_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:21:26",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel liza_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:21:31",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel corral_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:21:36",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel tablado_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:01",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel q8_banderola_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:04",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel q8_pendon_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:08",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel q8_farolillo_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:12",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel q8_hoguera_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:16",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel q4a_mayo_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:20",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel q4a_guirnalda_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:24",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel q4a_mesa_larga_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:28",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel q4a_puesto_feria_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:33",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel q4b_cerco_carros_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:37",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel q4b_belen_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:41",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel q4b_tablado_s4.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:45",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel q2_arco_triunfal_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:49",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel q2b_liza_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T22:22:53",
+  "tanda": "h16",
+  "pieza": "props_fiesta",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel q2b_corral_s2.png"
  }
 ]

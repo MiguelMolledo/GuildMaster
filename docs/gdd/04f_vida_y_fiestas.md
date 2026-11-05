@@ -365,6 +365,58 @@ los normales, piden **calidad** y dan **prestigio** (reputación y relación con
 - **Visitas:** en tu fiesta llegan forasteros de las otras ciudades (4.24.3). En la suya puedes ir tú (viaje,
   09b): en la página de la ciudad sale su fiesta con sus juegos (justa, carrera, dados) y sus encargos de fuera.
 
+#### 4.25.7 Cómo quedó construido (rama fiestas, 2026-11-04)
+
+Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
+
+- **El día 0 no hay fiesta** (`rules.first_day` 1). La partida empieza la mañana de la Semana Santa; si cayera, el
+  primer día del tutorial sería día de guardar. La primera Semana Santa es la del año 2 (día 8). El primer pregón es
+  el del día 0 a las 12:00: los Mayos.
+- **Pregón a las 12:00 de la víspera** (`eve_hour`) y **encargos que vencen a las 17:00 del día de la fiesta**
+  (`contracts.due_hour`): unas 29 horas para fabricar. La visita del marqués se anuncia dos días antes.
+- **No hay carne en el juego**: la Cuaresma, la Pascua y la matanza mueven el grupo `food` (demanda ×0,8 hasta las
+  17:00 y ×1,5 después; precio ×0,6 en la matanza).
+- **Día de guardar solo por la mañana y solo en tres fiestas** (Semana Santa 07-12 ×0,3, Todos los Santos 07-10 ×0,5,
+  Navidad 07-10 ×0,5). Parar el trabajo en las cinco grandes quitaba la mitad del año. En el sim es la velocidad de
+  producción de todos los ciclos que empiezan en esa ventana; para los NPC, el gancho `Festivals.holy_day`.
+- **Las obras se hacen en el taller** (`stage`, `triumphal_arch`): son piezas que se fabrican y se montan al
+  entregarlas; la vista pinta el arco y la tribuna cuando el encargo se ha cumplido (`needs_contract`). Montarlas a
+  pie de obra llegará cuando el mapa tenga obras.
+- **Tres piezas pequeñas más para el herrero** (`horseshoe`, `butcher_knife`, `candlestick`): la tabla de 4.25.4 le
+  pide herraduras, cuchillos de matarife y candelabros, y no existían.
+- **Recetas por encargo** (`kind: commission`): salen en el taller del jugador, pero los bots y la IA rival no las
+  eligen para vender en el mercado (no tienen puesto). Así las dianas de siempre salen iguales.
+- **Un solo ganador, con órdenes de verdad**: el encargo de fiesta sigue en el tablón mientras dura la carrera; cada
+  familia que lo acepta tiene su copia; la primera que lo entrega con la calidad pedida cobra, gana su reputación y
+  relación (también con la familia de la boda) y, si la fila lo dice, sale en la crónica; las demás lo pierden sin
+  castigo. El rival del oficio compite con su IA de siempre (04c acepta lo que puede fabricar a tiempo). Una fila
+  solo se publica si en la villa hay una familia (del jugador o IA) con el taller de ese oficio.
+- **La comida** de los banquetes se pide como `prepared_meal` o `bread` (cualquiera la lleva). La pieza `feast`
+  existe sin receta: la cocina de la Taberna-Posada (4.27) le pondrá la suya.
+- **No hay tesorería del concejo**: `organize_festival` (toros o justa, cada 2 días de enfriamiento) no cobra a
+  nadie; el coste queda en los datos para cuando la haya. La justa abre un torneo ese mismo día.
+- **La boda del jugador** abre una carta con «Pagar el banquete (80)» durante un día; los encargos de una boda no los
+  puede coger la familia que se casa (es su propia boda).
+- **Patrocinios**: banquete, música y, si la fiesta los tiene, los toros. Sin patrocinio, los forasteros ×0,7. El
+  patrocinio de la IA rival: de momento no (manager, a la espera del owner; iría en la revisión de 04c).
+- **El regalo de la villa** en la visita del marqués es un encargo de carrera (la espada excelente); que el Alcalde
+  elija entre varias piezas ofrecidas y la audiencia con privilegios: de momento no (manager, a la espera del owner).
+- **Fiestas de las otras ciudades**: la patronal y la feria caen el mismo día (Bellcaire en Primavera 2, Portvell en
+  Verano 1, Montsacre en Otoño 1, Peñarroja en Invierno 1, Vilablat en Primavera 2); la de Vilarrasa es la de la siega
+  (Verano 2). Durante la feria: arancel 0 en esa ciudad, sin portazgo en sus caminos desde el día antes y su demanda
+  sube. Son puro calendario (no se guardan).
+- **Enganchado con vida** (2026-11-04, tras juntar su rama): `Life.event_mult` multiplica por la fiesta (`routine`
+  e `incident` a su hora; `visitors` con las fiestas de todo el día, porque vida planea los forasteros al empezarlo),
+  `Life.holy_day` cuenta la mañana de guardar y `Life.festival` cualquier fiesta del calendario (el guardia de la
+  plaza). Con una fiesta del calendario no se suma además el ×3 genérico de vida: la feria da ×5 (×3,5 sin
+  patrocinio, y entonces el tope de la feria, `fair_max`), y los tipos que trae la fiesta pesan el doble. Los
+  espectáculos de la fiesta entran en la plaza como espectáculos de vida (los vecinos van a mirar, `watch_show`) y el
+  predicador sube la fe de los vecinos al empezar. Los ids de actividad y de suceso son los de `data/life/`:
+  procesión y romería → `mass`, baile → `stroll`, hogueras y banquete → `chat`, cementerio → `visit`, altercados →
+  `altercation` (el incendio espera a O-V6). Quedan para sus ramas `spectacle` jugado (juegos) y `service` (posada).
+- **Las dianas**: `sim_runner` apaga las fiestas para todos los bots salvo los de `data/targets.json` `_festivals`
+  (hoy, `festive`). En el juego están encendidas.
+
 ---
 
 ### 4.26 Juegos y competiciones (minijuegos)
@@ -591,6 +643,7 @@ Lo que precisa o cambia respecto a lo de arriba (apuntado en `docs/decisiones.js
 | T2 | **El tope de edificios por título (4.9) no se aplica** a la taberna: un Plebeyo puede tenerla. | H6 es quien aplica `max_buildings`; aplicarlo ahora dejaría a la taberna fuera del Artesano que empieza. Pregunta nueva O-V11. |
 | T3 | **Turnos por rol:** barra y mesas trabajan de noche (de 30 min antes de abrir a las 02:00); cocina y habitaciones, de día (`work_schedule` del edificio). 3 plazas de empleado (barra, cocina, habitaciones) y la cuarta (mozo de mesas) con «Más mesas». El portero es la mejora, no un empleado. | La cocina tiene que tener la comida hecha al abrir y las camas se hacen por la mañana (4.27.4). |
 | T4 | **Los clientes vienen en corrillo** (`party` por grupo: vecinos 1-3, soldados 2-3...) y eligen al azar entre lo que les gusta y hay (peso 3-2-1 por su orden de gusto). Los grupos sin fuente (soldados, nobles, jugadores) tienen `per_night`. Con la vida encendida, los forasteros son los de vida: los de los tipos de cada grupo (`visitor_kinds`: mercader y buhonero → mercaderes, peregrino, soldado, noble) que piden cama y la encuentran se quedan a dormir al acabar su plan o al atardecer (`Inn.lodge`, gancho en `Visitors._step_one`), esperan a la puerta a que abra, entran como clientes con su cama pagada y salen al amanecer hacia su puerta; el generador de prueba (2-4 al día) solo corre con la vida apagada. | Con una visita por persona salían ~10 clientes por noche: ni se llenaba el salón ni pagaba una casa con tres empleados. Con corrillos, ~20 por noche (los bots). |
+| T4b | **Dos capas de clientela (04g §4.6.5.7):** los **Vecinos** son los de verdad: los que su agenda de vida manda a la taberna llegan a la puerta y, si está abierta, hay sitio y llevan dinero para algo de la carta, entran con su nombre (`Inn.neighbour_in`, gancho en `Agenda._go`), pagan de la bolsa de su casa, atenderles bien sube su relación con la familia (+2) y al irse vuelven a su agenda (una vez por salida, 2 h de descanso); son pocos (~2 por noche: casi todas las casas tienen 0-5 de oro). El resto es la **Gente de la comarca** (antes «Artesanos y vecinos»: 5-9 visitas por noche a plena atracción, en corrillo), con dinero de fuera (P4), y los grupos de paso (mercaderes, peregrinos, soldados, nobles, jugadores). Cada cliente tiene su **precio máximo** (ref × calidad × (1 + fama × 0,1) × el de su grupo): si nada de la carta lo cumple, se va («muy caro»). Las fiestas suben las dos capas (`Festivals.hook_mult(service, tavern)`: San Juan y Carnaval ×2, feria ×3) y los platos de temporada cuentan el día de su fiesta. No encontrar sitio no resta fama. | Lo decidió el owner en 04g: los vecinos van por su agenda y pagan de su bolsa; la mayoría viene por la fama del negocio, con dinero de fuera. |
 | T5 | **Platos sin hierbas:** sopa de ajo = pan + trigo; olla = carne + trigo ×2; cordero = carne ×3; embutido = carne ×2 + trigo. El pan sale a 12. | En `town_e` no hay puesto de boticario: las hierbas no se pueden comprar. Con el pan a 10 se perdía dinero (se compra a 6-8). |
 | T6 | **La comida cocinada se estropea** al amanecer (20 %) salvo con la despensa fría; la bebida y el pan, no. | Es lo que da sentido a la despensa fría del árbol (4.27.5). |
 | T7 | **Ramas del árbol:** Salón, Cocina, Bodega, Habitaciones, Ambiente (ramas nuevas `inn_*`) y Seguridad (la de la Forja). Toneles = producción ×1,25 + 4 pilas; vino de reserva y cueva = el vino sale +1 / +2 de calidad; pizarra = +10 % de clientes y +2 platos; asador = +2 platos. | El árbol de 4.27.5 en las piezas de efecto que ya existen (H5) más los efectos `inn_*`. |
