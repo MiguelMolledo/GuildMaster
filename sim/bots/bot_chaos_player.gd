@@ -361,6 +361,8 @@ func _order_of(sim: Sim, system: String) -> Dictionary:
 					return {"type": "festival_sponsor", "actor": me, "festival": str(inst["id"]), "part": p}
 			return {}
 		"debt":
+			if not Emergency.offer_of(sim, _fam_id).is_empty() and rng.randf() < 0.5:  # Equilibrio 2
+				return {"type": "take_emergency_loan", "actor": me}
 			for id: String in Loans.of_family(sim, _fam_id):
 				var s := Loans.status(sim, id)
 				if str(s["state"]) in ["active", "extended"] and Money.gold(st, _fam_id) > 0:

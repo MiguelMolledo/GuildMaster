@@ -41,7 +41,7 @@
     "events",
     "duelist",
     "merchant"
-  , "pacing"],
+  ],
   "idle": {
     "days": [
       3,
@@ -780,7 +780,8 @@
   },
   "_festivals_doc": "Fiestas (04f 4.28.4, principio 4): solo los bots de esta lista juegan con el calendario de fiestas; todas las dianas de antes corren sin él (sim_runner pone data/festivals.json enabled a false), así salen iguales. --festivals=on lo enciende para cualquier bot (con --tag, para no pisar los informes oficiales).",
   "_festivals": [
-    "festive"
+    "festive",
+    "pacing"
   ],
   "festive": {
     "_doc": "Fiestas (04f 4.28.4): artisan_expert un año entero (8 días) con las fiestas, en una partida nueva real (--start=artisan_blacksmith --bots=festive --days=8). Cada fiesta fija sale (fest_fixed_seen 8), cada una con su pregón, sus encargos se publican y se cumplen (los gana el jugador o el rival del oficio: un solo ganador), nada se queda colgado (fest_stuck 0) y ninguna orden de fiesta se rechaza. Medido (3 semillas, 2026-11-04): 27-37 encargos publicados, 5-9 cumplidos (casi todos por los rivales del oficio; la comida de los banquetes nadie la lleva hasta la posada), 0 colgados, 0 órdenes rechazadas. Bandas [provisional].",
@@ -1091,5 +1092,15 @@
       ]
     }
   },
-  "pacing": {"_doc": "Ritmo (docs/gdd/03b_diversion_y_ritmo.md §3b.6): bot pacing (sim/bots/bot_pacing.gd), el novato forjando en Forja viva y leyendo las cartas, año 1 (8 días) de una partida nueva en Normal. Mide los segundos reales entre decisiones (×1, ×8 cuando el jugador saltaría: ciclo en marcha o noche; las órdenes a menos de 3 s son una sola decisión), las metas abiertas cada hora y el día de cada desbloqueo frente a su ventana ±1 día (los ganchos sin su sistema no cuentan). Diana de 3b.6: mediana < 30 s, máximo < 60 s, siempre >= 2 metas, desbloqueos en su ventana. Medido (2026-11-04, 3 semillas): mediana 4,7 s, p90 6,6 s, máximo 29-40 s, metas mín 2 (media 2,8-3,0), 9 desbloqueos, 0 fuera. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5 (paso pacing de la QA).", "days": [8, null], "ledger_mismatch": [0, 0], "gap_median_s": [null, 30], "gap_max_s": [null, 60], "goals_min": [2, null], "unlocks_off": [0, 0], "_proposed_festivals": {"_doc": "Diana propuesta, no comprobada (decisión del owner, 2026-11-05): con --festivals=on --life=on el novato no llega a 300 de oro en el año 1 en 1 de 3 semillas y las mejoras no se abren (unlocks_off = 1). La ventana de mejoras de 03b no se toca: lo arregla el equilibrio del año 1-2 con fiestas (Ciudadano y oro). Cuando ese equilibrio esté hecho, esta banda pasa a la diana y pacing sale de _no_life.", "unlocks_off": [0, 0], "gap_median_s": [null, 30], "gap_max_s": [null, 60], "goals_min": [2, null]}}
+  "pacing": {"_doc": "Ritmo (docs/gdd/03b_diversion_y_ritmo.md §3b.6): bot pacing (sim/bots/bot_pacing.gd), el novato forjando en Forja viva y leyendo las cartas, año 1 (8 días) de una partida nueva en Normal, con las fiestas y la vida encendidas (Equilibrio, 2026-11-05: la banda que era _proposed_festivals es la diana; pacing está en _festivals y fuera de _no_life). Mide los segundos reales entre decisiones (×1, ×8 cuando el jugador saltaría: ciclo en marcha o noche; las órdenes a menos de 3 s son una sola decisión), las metas abiertas cada hora y el día de cada desbloqueo frente a su ventana ±1 día (los ganchos sin su sistema no cuentan). Diana de 3b.6: mediana < 30 s, máximo < 60 s, siempre >= 2 metas, desbloqueos en su ventana. Medido sin fiestas ni vida (2026-11-04, 3 semillas): mediana 4,7 s, máximo 29-40 s, 9 desbloqueos, 0 fuera. Con fiestas y vida antes del equilibrio (5 semillas): 4 de 5 con las mejoras sin abrir (los 300 de oro, tarde) y una con un hueco de 198 s: los bots aceptaban encargos de fiesta que no llegaban a hacer (Equilibrio 11). Después: ver reports/equilibrio/. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5 (paso pacing de la QA).", "days": [8, null], "ledger_mismatch": [0, 0], "gap_median_s": [null, 30], "gap_max_s": [null, 60], "goals_min": [2, null], "unlocks_off": [0, 0]},
+  "broke": {
+    "_doc": "Equilibrio 2 (docs/decisiones.json, GDD 4.16 «Sin salida»): bot broke (sim/bots/bot_broke.gd, el novato que pide el préstamo de urgencia cuando se lo ofrecen) desde broke_forge (día 9, deuda inicial pagada, 0 de oro y 1 carbón: el bloqueo blando del caótico), 6 días. La partida no muere: el prestamista ofrece 60 (90 en 4 días), el novato vuelve a comprar, forjar y vender, lo devuelve y acaba con oro; sin embargo ni ruina. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=broke_forge --bots=broke --days=6 --seeds=5 (paso broke de la QA, 3 semillas). Medido (2026-11-05, 5 semillas): préstamo tomado 1 en todas, devuelto en todas, 0 embargos, 0 ruinas, oro final 103-266 (media 200).",
+    "days": [6, null],
+    "refused_orders": [0, 0],
+    "ledger_mismatch": [0, 0],
+    "emergency_taken": [1, 1],
+    "emergency_open": [0, 0],
+    "ruin": [0, 0],
+    "_mean": {"gold_end": [60, null]}
+  }
 }

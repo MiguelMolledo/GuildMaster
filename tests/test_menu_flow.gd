@@ -135,8 +135,8 @@ func test_pause_menu_asks_before_quitting_unsaved_and_keys() -> void:
 	var p: PauseMenu = _scene("res://game/ui/pause_menu.tscn")
 	p.game = g
 	p.open()
-	check((p.get_node("%CloseDynastyButton") as Button).disabled, "D19 off in data: End the dynasty off")
-	check((p.get_node("%CloseReason") as Label).visible, "with its reason")
+	check(not (p.get_node("%CloseDynastyButton") as Button).disabled, "D19: «Retirarse» is on")
+	check(not (p.get_node("%CloseReason") as Label).visible, "no reason shown")
 	var quits: Array = []
 	p.quit_requested.connect(func(where: String, save_first: bool) -> void: quits.append([where, save_first]))
 	(p.get_node("%TitleButton") as Button).pressed.emit()

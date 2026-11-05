@@ -1,0 +1,81 @@
+{
+ "punto": "Equilibrio 15 · bolsa de los hogares (posada)",
+ "antes": {
+  "inn_net_day": {
+   "mean": 26.63,
+   "min": 16.56,
+   "max": 33.63
+  },
+  "inn_operating_day": {
+   "mean": 68.31,
+   "min": 54.69,
+   "max": 83.94
+  },
+  "inn_fame": {
+   "mean": 1.76,
+   "min": 1.26,
+   "max": 2.56
+  },
+  "inn_guests_night": {
+   "mean": 26.2,
+   "min": 24.19,
+   "max": 29.0
+  },
+  "inn_complaints_night": {
+   "mean": 9.25,
+   "min": 6.19,
+   "max": 11.75
+  },
+  "inn_bed_share": {
+   "mean": 0.15,
+   "min": 0.109,
+   "max": 0.266
+  }
+ },
+ "despues": {
+  "inn_net_day": {
+   "mean": 35.76,
+   "min": 17.94,
+   "max": 80.81
+  },
+  "inn_operating_day": {
+   "mean": 90.76,
+   "min": 66.69,
+   "max": 145.19
+  },
+  "inn_fame": {
+   "mean": 3.7,
+   "min": 3.0,
+   "max": 4.0
+  },
+  "inn_guests_night": {
+   "mean": 28.54,
+   "min": 26.75,
+   "max": 31.44
+  },
+  "inn_neighbours_night": {
+   "mean": 6.08,
+   "min": 5.81,
+   "max": 6.63
+  },
+  "inn_comarca_night": {
+   "mean": 15.13,
+   "min": 14.06,
+   "max": 16.75
+  },
+  "inn_complaints_night": {
+   "mean": 5.14,
+   "min": 3.94,
+   "max": 6.0
+  },
+  "inn_bed_share": {
+   "mean": 0.23,
+   "min": 0.156,
+   "max": 0.328
+  }
+ },
+ "misses": [
+  "mean inn_fame = 3.7 outside [1.5, 3.5]"
+ ],
+ "nota": "comarca [3,6], jornal 7/9; vecinos por noche antes ~2 (04f T4b)."
+}

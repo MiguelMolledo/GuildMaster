@@ -153,7 +153,7 @@ func _promotion(sim: Sim) -> Dictionary:
 func _hire(sim: Sim) -> Dictionary:
 	if Staff.free_slots(sim.state, FORGE) <= 0 or Staff.employees_of(sim.state, FORGE).size() >= _max_staff(sim):
 		return {}
-	if Upgrades.under_works(sim.state, FORGE):
+	if Upgrades.blocks(sim.state, FORGE):
 		return {}
 	var gold := Money.gold(sim.state, _fam(sim))
 	var best := {}
@@ -697,7 +697,7 @@ func _max_held(sim: Sim, rid: String) -> int:
 ## Work by hand at a free station of the right kind (employees may hold the others; upgrades add copies such as
 ## anvil_2); nothing while the forge is under works.
 func _make(sim: Sim, rid: String, mode: String) -> Dictionary:
-	if rid == "" or Upgrades.under_works(sim.state, FORGE):
+	if rid == "" or Upgrades.blocks(sim.state, FORGE):
 		return {}
 	var anvil := _free_zone(sim, ANVIL)
 	var st := _status(sim, anvil, rid) if anvil != "" else ""

@@ -80,7 +80,7 @@ func test_tree_layout_and_identity() -> void:
 	check(SocialKit.accept_pending(panel), "the school asks first")
 	eq(str(_orders[0]["type"]), "school_choice", "school_choice")
 	eq(str(_orders[0]["child"]), daughter, "for her")
-	check(not (panel.get_node("%CloseDynasty") as Control).visible, "no voluntary close (D19 off)")
+	check((panel.get_node("%CloseDynasty") as Control).visible, "the voluntary close (D19 on)")
 	panel.free()
 
 

@@ -1,0 +1,49 @@
+{
+ "punto": "Equilibrio 2 · préstamo de urgencia y embargo",
+ "despues": {
+  "broke_runs": [
+   {
+    "seed": 1,
+    "emergency_taken": 1,
+    "emergency_open": 0,
+    "seized": 0,
+    "ruin": 0,
+    "gold_end": 103
+   },
+   {
+    "seed": 2,
+    "emergency_taken": 1,
+    "emergency_open": 0,
+    "seized": 0,
+    "ruin": 0,
+    "gold_end": 234
+   },
+   {
+    "seed": 3,
+    "emergency_taken": 1,
+    "emergency_open": 0,
+    "seized": 0,
+    "ruin": 0,
+    "gold_end": 266
+   },
+   {
+    "seed": 4,
+    "emergency_taken": 1,
+    "emergency_open": 0,
+    "seized": 0,
+    "ruin": 0,
+    "gold_end": 173
+   },
+   {
+    "seed": 5,
+    "emergency_taken": 1,
+    "emergency_open": 0,
+    "seized": 0,
+    "ruin": 0,
+    "gold_end": 225
+   }
+  ],
+  "misses": []
+ },
+ "antes": "chaos_player semilla 1: 0 de oro y 1 carbón desde el día 8, 166 h parado, 315 de deuda de mantenimiento, nunca sale"
+}

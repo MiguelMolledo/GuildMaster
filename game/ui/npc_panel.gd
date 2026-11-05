@@ -334,7 +334,8 @@ func _fill_court() -> void:
 	var talked := CourtshipPanel.talked(sim, actor, target)
 	var gift := CourtshipPanel.best_gift(sim, actor)
 	for spec: Array in [["CourtTalk", "ui.court.talk_short", can and not talked, func() -> void: _court({"type": "court_talk"})],
-			["CourtGift", "ui.court.gift", can and not gift.is_empty(), _court_gift],
+			["CourtGift", "ui.court.gift_done" if Courtship.gifted_today(sim.state, actor, target) else "ui.court.gift",
+				can and not gift.is_empty(), _court_gift],
 			["CourtPropose", "ui.court.propose_short", can and aff >= min_aff, _court_propose]]:
 		var b := Button.new()
 		b.name = str(spec[0])
@@ -359,6 +360,10 @@ func _court_gift() -> void:
 		return
 	var o := {"type": "court_gift", "item": str(g["item"]), "quality": int(g["quality"])}
 	var value := Market.price(sim, str(g["item"]), int(g["quality"]), "sell")
+	if Courtship.gifted_today(sim.state, actor, target):  # Equilibrio 1: says it before giving it away
+		SocialKit.ask(self, SimQuery.t_("ui.court.gift_again_q") % str(sim.state.characters.get(target, {}).get("name",
+			"")), SimQuery.t_("ui.court.gift_again_body"), SimQuery.t_("ui.court.gift_anyway"), func() -> void: _court(o))
+		return
 	if value >= int(sim.catalog.town.get("actions", {}).get("gift", {}).get("grateful_min_value", 50)):
 		SocialKit.ask(self, SimQuery.t_("ui.npc.ask_gift") % [SimQuery.item_label(sim.catalog, str(g["item"]),
 			int(g["quality"])), value, str(sim.state.characters.get(target, {}).get("name", ""))], "",

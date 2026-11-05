@@ -42,7 +42,7 @@
   },
   "_skill_check_doc": "4.2.4: threshold = base + (actor stat - target stat) x step + modifiers; roll d100; <= critical_success is a critical success, >= critical_fail a critical failure, else success if roll <= threshold.",
   "skill_check": {"base": 50, "step": 5, "critical_success": 5, "critical_fail": 96},
-  "_counter_doc": "4.5.4. A building with counter_sales (forge_commerce_1) gets a customer every interval_hours [min, max] / (1 + customer_bonus) during `phases`: a free townsperson walks in and waits at the counter. Served by whoever holds the counter station (family) or an active employee with role counter inside, after serve_minutes; nobody in patience_minutes -> it leaves. Price = base x (1 + charisma/100 + rank_bonus + (price_multiplier - 1) + min(reputation/100 x reputation_mult, reputation_cap)) x the customer's sell_mult; base = price_base: market_sell (what the market pays now: quality, demand, sell ratio; [balance] H7: the literal base_price x quality_mult sold at about twice the market and a counter made 300-500 gold a day) or base_price. Ledger category counter_sales (a source, 4.19).",
+  "_counter_doc": "4.5.4. A building with counter_sales (forge_commerce_1) gets a customer every interval_hours [min, max] / (1 + customer_bonus) during `phases`: a free townsperson walks in and waits at the counter. Served by whoever holds the counter station (family) or an active employee with role counter inside, after serve_minutes; nobody in patience_minutes -> it leaves. Price = base x (1 + charisma/100 + rank_bonus + (price_multiplier - 1) + min(reputation/100 x reputation_mult, reputation_cap)) x the customer's sell_mult; base = price_base: market_sell (what the market pays now: quality, demand, sell ratio; [balance] H7: the literal base_price x quality_mult sold at about twice the market and a counter made 300-500 gold a day) or base_price. Ledger category counter_sales (a source, 4.19). D16 (2026-11-05): each unit sold at the counter lowers the market demand of the item by demand_drop_per_unit (half the market drop).",
   "counter": {
     "price_base": "market_sell",
     "interval_hours": [1, 2],
@@ -52,7 +52,8 @@
     "rank_bonus": {"apprentice": 0.0, "journeyman": 0.05, "master": 0.10},
     "reputation_mult": 0.15,
     "reputation_cap": 0.15,
-    "haggle_min_negotiation": 6
+    "haggle_min_negotiation": 6,
+    "demand_drop_per_unit": 0.025
   },
   "_microevents_doc": "4.20. At dawn, each playing family (human or AI with a profile) that owns buildings rolls base_chance x the difficulty's microevent_chance; at most max_per_family_day. The microevents themselves: data/microevents/<id>.json. timeout_hours: the default of a microevent without its own. thief_start_hours: the thief comes this many hours [min, max] after night starts.",
   "microevents": {"base_chance": 0.35, "max_per_family_day": 1, "timeout_hours": 2, "thief_start_hours": [1, 5]},
@@ -66,5 +67,27 @@
     "newcomer_age": [18, 24],
     "newcomer_rank": "apprentice",
     "house_capacity": 5
+  },
+  "workshop_fame": {
+    "_doc": "Equilibrio 13 (docs/decisiones.json, 04g §4.6.5.7, sim/balance/workshop_fame.gd) [balance]: the fame of a workshop, 1 at the start, between min and max: 1 + mean quality sold in the last window_days (0 normal, 1 good, 2 excellent) × quality_weight + renown. The renown sums points per fact (a masterwork, a contract done, a festival contract done, a contest won; a contract failed, a complaint: a counter customer gone for one of complaints) within ±renown_max and loses decay_per_day of itself at each dawn. The counter: customers / fame between them, price + (fame − 1) × price_weight.",
+    "min": 0.5,
+    "max": 2.0,
+    "window_days": 4,
+    "quality_weight": 0.25,
+    "renown_max": 0.75,
+    "decay_per_day": 0.15,
+    "price_weight": 0.1,
+    "complaints": ["nobody", "no_product"],
+    "points": {"masterwork": 0.3, "contract_done": 0.04, "festival_contract_done": 0.15, "contest_won": 0.2,
+      "contract_failed": -0.1, "complaint": -0.03}
+  },
+  "households": {
+    "_doc": "Equilibrio 15 (docs/decisiones.json, 04f 4.24.1, 04g §4.6.5.7, sim/balance/households.gd) [balance], only with the living town on: at dusk every adult townsperson with a trade of the map and no job with a family brings wages[the kind of its workplace] (else default) to its house's purse (money from outside, P4); at dawn the house pays its food, food.adult per adult and food.child per child (to outside), and the share it could pay feeds its employees and children: the night at home (data/life/life.json needs.night, the hunger × that share) and at meal_hour the midday meal (meal.hunger × that share). A neighbour spends at the tavern only what is left over reserve_days of food.",
+    "enabled": true,
+    "wages": {"default": 7, "stall": 9, "shop": 9},
+    "food": {"adult": 2, "child": 1},
+    "meal_hour": 13,
+    "meal": {"hunger": 45},
+    "reserve_days": 1
   }
 }

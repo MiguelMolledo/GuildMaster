@@ -75,7 +75,8 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"fiestas": "res://game/smoke/smoke_fiestas.gd",
 	"vida": "res://game/smoke/smoke_vida.gd",
 	"posada": "res://game/smoke/smoke_posada.gd",
-	"plantillas": "res://game/smoke/smoke_plantillas.gd"}
+	"plantillas": "res://game/smoke/smoke_plantillas.gd",
+	"equilibrio": "res://game/smoke/smoke_equilibrio.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
 const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"

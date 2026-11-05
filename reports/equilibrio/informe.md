@@ -1,0 +1,48 @@
+# Equilibrio con todo encendido · informe (rama equilibrio, 2026-11-05)
+
+Base: `origin/main` ac3a238 (medida en un worktree limpio, `GuildMaster-eqbase`). Después: la rama `equilibrio`.
+Medidas: `tools/equilibrio/measure.py` (full_player 3 años × semillas 1-4, 2 a la vez; pacing 5 semillas) y
+`sim_runner` para los bots de cada sistema. Un JSON pequeño por punto en `reports/equilibrio/punto_*.json`; los
+resúmenes completos en `00_base_*.json`, `all1-3.json`, `fun1-2.json`, `eq10_*.json`, `fin_pacing.json`.
+
+## Tabla final: jugador completo (full_player, 3 años × 4 semillas, mediana [mín-máx])
+
+| Medida | Antes | Después | Diana |
+|---|---|---|---|
+| Ciudadano, día | 21 [19-24] | 13,5 [11-15] | año 2 (9-16) ✅ |
+| Hueco máximo entre decisiones (3 años) | 136 s [119-176] | 38 s [31-42] | < 60 s ✅ |
+| Hueco máximo, año 1 | 109 s [61-137] | 15 s [10-33] | < 60 s ✅ |
+| Horas paradas por obras (cabeza) | 68 [58-81] | 0 | — ✅ |
+| Atascos | 7,5 [6-11] | 0,5 [0-1] | — |
+| Viajes / tratados / caravanas | 0 / 0 / 0 | 1 / 1 / 0 | — (caravanas: no sobran espadas) |
+| Mecánicas tocadas | 15 [14-17] | 17,5 [17-18] | ≥ 14 ✅ |
+| Neto/día año 1 · 2 · 3 | 30 · 18 · 27 | 34 · 22 · 121 | ≥ 25 de media ✅ |
+| Oro al final | 572 [161-621] | 1.208 [585-1.446] | — |
+| Encargos fallidos | 3,5 | 1,5 | — |
+| Empleados con hambre (peor parte de horas) | 73 % [65-82] | 0 % | ≤ 50 % ✅ |
+| Niños con hambre | 0 % [0-88] | 0 % | ≤ 50 % ✅ |
+| Diversión media del pueblo | 19 | 37 | banda propuesta 35-65 ✅ |
+| Peor vecino con diversión baja | 83 % | 57 % | — |
+| Forasteros al día (media · mediana) | 5,7 · 4 | 5,8 · 4 | 2-6 de media ✅ |
+| Boda, día | 18 [14-22] | 19 [17-21] | ≥ 2/3 ✅ |
+| Órdenes rechazadas | 0 | 0 (1 en 1 de 16 partidas) | 0 ⚠️ |
+| Errores del motor · libro | 0 · 0 | 0 · 0 | 0 ✅ |
+| Paso medio | 2,6 ms | 3,7 ms (máquina cargada) | < 5 ms ✅ |
+
+## Por punto
+
+| # | Qué | Antes | Después |
+|---|---|---|---|
+| 11 | Plazos reales de los encargos de fiesta en todos los bots | pacing con fiestas y vida: 4/5 semillas fuera (mejoras sin abrir), hueco 198 s, 42 oro/día; festive: 3 encargos fallidos | 0 fuera, hueco máx. 35 s, 76 oro/día; festive: 0,3 fallidos, todas sus dianas |
+| 1 · 10 | Un regalo al día; cortejar a diario | regalos sin tope | el panel lo dice; boda igual (días 17-21); el cortejo ya no cuesta en el año 1 (31,6 sin metas / 33,9 con ellas) |
+| 2 | Préstamo de urgencia y embargo | chaos semilla 1: muerta desde el día 8 | bot broke (broke_forge): 5/5 toman el préstamo, lo devuelven y acaban con 103-266 de oro; 0 ruinas |
+| 9 · 12 | Obras de noche / a medio ritmo | ver tabla | ver tabla; experto (10 × 24 días): neto 9-24 70 → 80/día, sumideros 0,34 → 0,32 (bandas intactas) |
+| 3 | Ciudadano en el año 2 | día 21 | día 13,5 (11-15) |
+| 7 | Prima de calidad en la capital y reputación de fuera | merchant: ventas fuera 637, tratados 0,83 | 766, tratados 1,67, llegadas 1,8 → 2,7; full_player viaja y firma en 4/4 |
+| 5 | Pecha por patrimonio al cerrar el año | — | 0 hasta 1.000 y 4/8/12 % por tramos; en 3 años muerde poco (patrimonio 1.000-1.600) |
+| 13 | Fama del taller 0,5-2,0 | — | en el mostrador y el panel de producción; gancho `contest_won` para fiestas |
+| 15 | Bolsa de los hogares | vecinos en la taberna ~2/noche | 6,1/noche (diana 6-12); clientes 26 → 28,5, explotación 68 → 91, quejas 9,3 → 5,1; **fama de la taberna 1,8 → 3,7, fuera de [1,5, 3,5]** |
+| Vida | Hambre, diversión, forasteros | ver tabla | ver tabla |
+| D16 · 8 | Demanda del mostrador; mostrador con un empleado | ×0,38 del salario | ×0,34 (D16 le quita un poco); la demanda de la espada no se mueve: el mostrador vende muy poco. La diana ×2 espera la clientela de comarca de interiores |
+| D19 | «Retirarse» | apagado | encendido, con confirmación y pantalla final (prueba de la UI y capturas) |
+| Punto 13 · ritmo | La banda con fiestas pasa a diana | propuesta | diana; pacing en `_festivals`, fuera de `_no_life`; 0 fallos |

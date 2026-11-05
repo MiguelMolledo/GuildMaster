@@ -480,7 +480,10 @@ func _best_market_recipe(sim: Sim) -> String:
 # --- Contracts -------------------------------------------------------------------------------------------------------
 
 ## Whether the open contract `c` can be made in time with what is already promised: hours of work (careful when it
-## asks for quality, enough pieces for the chance of reaching it) within 60 % of the deadline.
+## asks for quality, enough pieces for the chance of reaching it) within 60 % of the hours it really has.
+## Equilibrio 11 (docs/decisiones.json): a festival contract falls due when its feast ends (due_at), and deadline_days
+## rounds those hours up to whole days; the real hours left are read instead, and only the actor's own hands count
+## (the employees' queue never takes festival pieces).
 func _can_make_in_time(sim: Sim, c: Dictionary) -> bool:
 	var rid := _recipe_for(sim, str(c["item"]))
 	if rid == "" or _status(sim, ANVIL, rid) == "locked":
@@ -488,7 +491,16 @@ func _can_make_in_time(sim: Sim, c: Dictionary) -> bool:
 	var hours := _contract_hours(sim, c)
 	for a: Dictionary in Contracts.accepted_of(sim, _fam(sim)):
 		hours += _contract_hours(sim, a)
+	if int(c.get("due_at", -1)) >= 0:
+		return hours <= _hours_left(sim, c) * 0.6
 	return hours <= float(int(c["deadline_days"]) * 24) * 0.6 * _capacity(sim)
+
+
+## The real hours until the open contract `c` falls due: due_at for a festival contract, else its whole days.
+func _hours_left(sim: Sim, c: Dictionary) -> float:
+	if int(c.get("due_at", -1)) >= 0:
+		return maxf(0.0, float(int(c["due_at"]) - _now(sim)) / 60.0)
+	return float(int(c["deadline_days"]) * 24)
 
 
 func _contract_hours(sim: Sim, c: Dictionary) -> float:

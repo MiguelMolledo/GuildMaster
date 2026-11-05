@@ -105,6 +105,24 @@ evento(a)   = lo que pida la fiesta del día (la procesión ×5, el baile ×3, e
 > apagada (`_no_life`, principio 4) y salen idénticas. Coste medido: 1,73 ms por paso en el bench (1,37 sin la vida,
 > con la máquina cargada; diana < 2 ms).
 
+> [!NOTE]
+> **Equilibrio (rama equilibrio, 2026-11-05): hambre, diversión y forasteros con todo encendido.** El jugador completo
+> vio que los empleados de una familia y los niños nacidos en la partida no comían (65-88 % de sus horas con hambre
+> < 25: su rutina de H4 no pasa por la agenda) y que la diversión media del pueblo era 16-19/100.
+> - **Comen de la bolsa de su casa** (Equilibrio 15, `sim/balance/households.gd`, 04g §4.6.5.7): al alba la casa paga
+>   la comida y, con lo que pudo pagar, sus empleados y niños reciben la noche en casa (`needs.night`, el hambre × lo
+>   pagado) y a las 13:00 la comida del mediodía (el empleado en su descanso, el niño en casa). Medido (full_player,
+>   3 años × 4 semillas): empleados con hambre 65-82 % → 0 % de las horas; niños, 0-88 % → 0 %.
+> - **Diversión: banda sana propuesta 35-65 de media.** Por qué: baja 1 por hora (24 al día), así que una media de 35-65
+>   es la de quien tiene un rato de ocio al día; por debajo de 25 (urgencia ≥ 0,56) el ocio manda en todas las tardes
+>   y todos buscan dados o taberna, y por encima de 70 la taberna y los espectáculos se quedan sin público. La causa
+>   del 16-19: en town_e la taberna está en venta (cerrada) casi toda la partida y el resto de ocio es de fiesta. Se
+>   añade la **velada en casa** (`needs.night.fun` 10, `data/life/life.json`): medido, la media pasa a 37 y el peor
+>   vecino con diversión baja pasa del 85 % al 57 % de las horas.
+> - **Forasteros:** 4,5-5,8 de media al día con las fiestas, pero la mediana de los días es 4 (mínimo 2): los días
+>   normales están en el 2-4 de 4.24.3 y la media la suben los de fiesta (×3) y la feria (×5, hasta 20). No se toca el
+>   ritmo de llegadas; la diana de full_player sigue en [2, 6] de media.
+
 #### 4.24.2 Puntos de reunión y rumores
 
 **Puntos de reunión** (`social_points` del mapa, con un `kind` nuevo), donde se forman corrillos de 2 a 5:

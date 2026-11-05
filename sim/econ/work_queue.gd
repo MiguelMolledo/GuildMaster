@@ -153,7 +153,7 @@ static func _step_building(sim: Sim, bld: String) -> void:
 	_clean_assigned(sim, bld, q)
 	_tidy(sim, bld, q)
 	var staff := Staff.employees_of(sim.state, bld)
-	if Upgrades.under_works(sim.state, bld):
+	if Upgrades.blocks(sim.state, bld):  # Equilibrio 9: only closed works stop the queue
 		_idle_under_works(sim, bld, q, staff)
 		return
 	var present: Array = []  # active employees inside, allowed to work now

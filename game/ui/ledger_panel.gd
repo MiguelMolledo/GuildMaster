@@ -334,6 +334,7 @@ func _fill_debts(d: Variant) -> void:
 	var t: Dictionary = d
 	var loans: Array = t.get("loans", [])
 	_label(SimQuery.t_("ui.ledger.loans"), Color(0.85, 0.7, 0.42))
+	_emergency_card()
 	if loans.is_empty():
 		_label(SimQuery.t_("ui.ledger.no_loans"), Color(1, 1, 1, 0.6))
 	var g := _gold()
@@ -470,6 +471,37 @@ func row_of(n: String) -> Control:
 
 ## Pays `amount` of `loan`. If it leaves the gold under what the next dawn charges (upkeep and wages,
 ## Upkeep.due_next_dawn), the confirmation modal asks first with the figures (01 §5); without one (no HUD) it pays.
+## Equilibrio 2: with no gold nor goods, the moneylender's emergency loan, with its terms and a confirmation.
+func _emergency_card() -> void:
+	var offer := Emergency.offer_of(sim, family)
+	if offer.is_empty():
+		return
+	var row := _line(SimQuery.t_("ui.ledger.emergency") % [int(offer["amount"]), int(offer["owed"]),
+		int(offer["term_days"])], "", "Emergency")
+	row.get_child(0).set("theme_type_variation", &"WarningLabel")
+	var b := Button.new()
+	b.name = "TakeEmergency"
+	b.text = SimQuery.t_("ui.ledger.emergency_take")
+	b.focus_mode = Control.FOCUS_NONE
+	b.pressed.connect(take_emergency)
+	row.add_child(b)
+
+
+func take_emergency() -> void:
+	var offer := Emergency.offer_of(sim, family)
+	if offer.is_empty():
+		return
+	var o := {"type": "take_emergency_loan", "actor": actor}
+	if is_inside_tree():
+		var asked := ConfirmModal.ask_in(get_tree(), {"title": SimQuery.t_("ui.ledger.emergency_q"),
+			"body": SimQuery.t_("ui.ledger.emergency_body") % [int(offer["amount"]), int(offer["owed"]),
+			int(offer["term_days"])], "action": SimQuery.t_("ui.ledger.emergency_take"), "seal": true},
+			func() -> void: _give(o))
+		if asked:
+			return
+	_give(o)
+
+
 func repay(loan: String, amount: int) -> void:
 	if amount <= 0:
 		return

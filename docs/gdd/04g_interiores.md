@@ -170,6 +170,32 @@ no porque necesiten algo. La respuesta es **dos capas de clientes**:
 - **Fiestas y feria:** suben las dos capas (más forasteros y más comarca), que es justo lo que se espera del día de
   feria.
 
+**La fama de un taller (Equilibrio 13, 2026-11-05).** El `fama(b)` de la fórmula, para los talleres (no la Taberna-Posada,
+que tiene la suya de 0-5, 4.27): un multiplicador **0,5-2,0** que empieza en 1.
+
+```
+fama(b)  = clamp(1 + calidad_media × 0,25 + renombre, 0,5, 2,0)
+calidad_media = la de lo vendido en los últimos 4 días (0 normal, 1 buena, 2 excelente), mercado y mostrador
+renombre = Σ puntos por hecho (±0,75 como mucho), que pierde un 15 % cada alba:
+           obra maestra +0,3 · encargo cumplido +0,04 · encargo de fiesta +0,15 · concurso ganado +0,2
+           encargo incumplido −0,1 · queja (cliente que se va sin atender o sin nada que comprar) −0,03
+```
+
+Hoy la lee el mostrador de 4.5.4 (clientes cada intervalo / fama y precio + (fama − 1) × 0,1); la clientela de
+comarca de la rama interiores la leerá como `fama(b)` cuando se unifique (Equilibrio 14). Los hechos de la familia sin
+edificio (ventas en la plaza, encargos, obras maestras) van a su taller principal. Los concursos ganados los apunta
+fiestas con `WorkshopFame.add(sim, taller, "contest_won")` (o el evento `contest_won`). Se ve en el título del panel de
+producción («Forja · fama 1,25», con su explicación). Cifras en `data/town.json` `workshop_fame`; reglas en
+`sim/balance/workshop_fame.gd`; estado `buildings[b].fame` (sin versión nueva: se lee con su valor por defecto).
+
+**La bolsa de los hogares (Equilibrio 15, 2026-11-05).** Con la vida encendida, la capa de **Vecinos** tiene dinero
+propio: al empezar el atardecer, cada adulto con un oficio del mapa (y sin empleo con una familia) trae a la bolsa de
+su casa su **jornal** (7; 9 los del puesto o la tienda) [balance], dinero de fuera (P4). Al alba la casa paga **la
+comida** (2 por adulto, 1 por niño), que sale de la economía, y lo que pudo pagar alimenta a sus empleados y niños
+(4.24.1, el hambre). **La taberna es un capricho:** un vecino solo gasta allí lo que le sobra sobre la comida del día
+siguiente. Diana: **6-12 vecinos por noche** en la taberna un día normal (escenario de la posada). Cifras en
+`data/town.json` `households`; reglas en `sim/balance/households.gd`; estado `families[hogar].household`.
+
 ### 4.6.5.8 Preguntas para el owner (decididas el 2026-11-04)
 
 | # | Pregunta | Opciones | Recomendación |

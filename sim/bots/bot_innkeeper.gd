@@ -378,6 +378,10 @@ func measures(sim: Sim) -> Dictionary:
 		for i: Dictionary in t.get("incidents", []):
 			if str(i.get("kind", "")) == "fight":
 				fights += 1
+	var by_group := {}  # equilibrio (Equilibrio 15): the neighbours of the agenda and the comarca, a night
+	for t: Dictionary in _turns:
+		for g: Variant in t.get("by_group", {}):
+			by_group[str(g)] = int(by_group.get(str(g), 0)) + int(t["by_group"][g].get("came", 0))
 	var inn: Dictionary = st.buildings[_tavern]["inn"]
 	bed_slots = (inn["beds"] as Array).size() * days
 	return {"inn_found": 1, "inn_turns": _turns.size(), "inn_net_day": snappedf(float(net) / days, 0.01),
@@ -386,4 +390,6 @@ func measures(sim: Sim) -> Dictionary:
 		"inn_guests_night": snappedf(float(guests) / days, 0.01),
 		"inn_complaints_night": snappedf(float(complaints) / days, 0.01), "inn_fights": fights,
 		"inn_upgrades": Upgrades.owned(st, _tavern).size(), "inn_licensed": 1 if Inn.licensed(sim, _tavern) else 0,
-		"inn_gold_end": Money.gold(st, _fam)}
+		"inn_gold_end": Money.gold(st, _fam),
+		"inn_neighbours_night": snappedf(float(by_group.get("neighbours", 0)) / days, 0.01),
+		"inn_comarca_night": snappedf(float(by_group.get("comarca", 0)) / days, 0.01)}

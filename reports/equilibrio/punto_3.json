@@ -1,0 +1,19 @@
+{
+ "punto": "Equilibrio 3 · Ciudadano en el año 2",
+ "antes": {
+  "title_citizen_day": {
+   "max": 24,
+   "mean": 21.25,
+   "median": 21.0,
+   "min": 19
+  }
+ },
+ "despues": {
+  "title_citizen_day": {
+   "max": 15,
+   "mean": 12.75,
+   "median": 12.5,
+   "min": 11
+  }
+ }
+}

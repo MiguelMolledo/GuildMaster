@@ -559,6 +559,8 @@ func _can_make_in_time(sim: Sim, c: Dictionary) -> bool:
 	var hours := _contract_hours(sim, c)
 	for a: Dictionary in Contracts.accepted_of(sim, _fam(sim)):
 		hours += _contract_hours(sim, a)
+	if int(c.get("due_at", -1)) >= 0:  # Equilibrio 11: a festival contract's real hours, not deadline_days rounded up
+		return hours <= maxf(0.0, float(int(c["due_at"]) - _now(sim)) / 60.0) * 0.6
 	return hours <= float(int(c["deadline_days"]) * 24) * 0.6
 
 

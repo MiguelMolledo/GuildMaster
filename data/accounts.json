@@ -4,5 +4,25 @@
   "ledger_days_view": 8,
   "notices_keep_years": 1,
   "loan_warn_days": [2, 1],
-  "upkeep_damage_days": 3
+  "upkeep_damage_days": 3,
+  "emergency": {
+    "_doc": "Equilibrio 2 (docs/decisiones.json, GDD 4.16 «Sin salida», sim/balance/emergency.gd) [balance]. A human family with less than gold_below of gold and goods (storage, bags, errands at the sell price) worth less than stock_below, and no emergency loan open, is offered the moneylender's emergency loan: amount now, amount × (1 + interest) owed in term_days (then the usual extension: extension_seasons with extension_surcharge and overdue_reputation), at most max_per_year a year. Upkeep owed to the town of seize_upkeep_debt or more (at dawn), or an emergency loan whose extension is not covered, seizes the most valuable good that is not the home (another building, a cart, a piece of equipment) at seize_rate of its value; with nothing to seize, ruin (D18).",
+    "gold_below": 15,
+    "stock_below": 20,
+    "amount": 60,
+    "interest": 0.5,
+    "term_days": 4,
+    "extension_seasons": 1,
+    "extension_surcharge": 0.25,
+    "overdue_reputation": -5,
+    "max_per_year": 2,
+    "seize_upkeep_debt": 100,
+    "seize_rate": 0.75
+  },
+  "pecha": {
+    "_doc": "Equilibrio 5 (docs/decisiones.json, GDD 4.19 sumideros, sim/balance/pecha.gd) [balance]: at the close of each year every family with a business pays on its wealth (gold + its buildings' goods at the sell price) the rate of each bracket [from, rate] on the part above `from` (marginal). What its gold does not cover is owed to the town like a fine (fine_loan). years_kept: the years kept in families.pecha_log.",
+    "enabled": true,
+    "brackets": [[0, 0.0], [1000, 0.04], [3000, 0.08], [10000, 0.12]],
+    "years_kept": 4
+  }
 }

@@ -32,7 +32,7 @@ const COURT_FROM_DAY: int = 7         # courts once the debt is paid, or from th
 const DUEL_MIN_CHANCE: float = 0.5    # challenges only when it estimates it wins at least this
 const DUEL_ACCEPT_CHANCE: float = 0.4 # accepts a challenge with at least this (the NPC's own bar)
 const CITY: String = "capital"
-const TRIP_SWORDS: int = 3            # swords it carries on a trip to open the market
+const TRIP_SWORDS: int = 5            # swords it carries on a trip to open the market (Equilibrio 7: 5, the quota's reputation)
 const TRIP_SPARE: int = 120           # gold kept at home on top of the reserve before a trip
 const TRIP_EVERY_DAYS: int = 8        # a trip to the capital at most once a year
 const CARAVAN_SWORDS: int = 4         # swords waiting in the storage before a caravan
@@ -48,6 +48,7 @@ var duelist: BotDuelist = BotDuelist.new()
 var merchant: BotMerchant = BotMerchant.new()
 
 var goals: int = 1                    # trials (BOT_VARS=goals=0): 0 = never leaves the business for a goal
+var titles_early: int = 1             # Equilibrio 3 (BOT_VARS=titles_early=0): 0 = asks Citizen after the plan, as before
 var focus: String = "business"        # what the head's body does: business | court | duel | travel
 var why_not: Dictionary = {}          # mechanic -> why it did not use it the last time it looked
 var used: Dictionary = {}             # mechanic -> times it went for it
@@ -66,6 +67,7 @@ var _mev_done: Dictionary = {}
 var _next_accuse: int = -1
 var _next_family: int = -1
 var _start_day: int = -1
+var _trip_hold: bool = false          # Equilibrio 7: keeps swords for the first trip (the market at home takes them all)
 
 
 func _init() -> void:
@@ -163,6 +165,9 @@ func _always(sim: Sim) -> Array:
 			out.append({"type": "duel_answer", "actor": ACTOR, "duel": str(mine["id"]), "answer": ans})
 	if Region.is_away(st, ACTOR):
 		return out
+	if not Emergency.offer_of(sim, _fam_id).is_empty():  # Equilibrio 2: out of gold and goods, the moneylender's loan
+		_note(sim, "emergency_loan", "gold %d" % Money.gold(st, _fam_id))
+		out.append({"type": "take_emergency_loan", "actor": ACTOR})
 	out.append_array(_microevents(sim))
 	if _now(sim) >= _next_family:
 		_next_family = _now(sim) + 60
@@ -332,23 +337,22 @@ func _spare_swords(sim: Sim) -> int:
 	return maxi(0, n - int(_reserved(sim).get("sword|%d" % Inventory.NORMAL, 0)))
 
 
-## The novice's check reads deadline_days, but a festival contract falls due when its feast ends (due_at): with the
-## days rounded up it accepted pieces it could not make in time (BUG of the bots' habit, 07 §7.4). Here the hours
-## left are the real ones, and the employees' hands do not count (their queue never takes festival pieces).
+## Equilibrio 3: Citizen opens travel, the duel and the joust (03b §3b.4, year 2), so a player with good judgment asks
+## for it as soon as the town hall would grant it and the reserve holds, not after the whole upgrade plan (the expert's
+## habit, kept there for the H5 targets of days 9-24).
+func _wants_title(sim: Sim) -> bool:
+	if titles_early != 1 or Titles.rank(sim, Titles.current(sim, _fam(sim))) >= Titles.rank(sim, "citizen"):
+		return super._wants_title(sim)
+	return asks_titles == 1 and _business(sim) and Titles.ready(sim, _fam(sim), _reserve(sim))
+
+
+## The real hours of a festival contract (due_at) are the novice's own check since Equilibrio 11; here only the
+## reason is noted for the report.
 func _can_make_in_time(sim: Sim, c: Dictionary) -> bool:
-	if int(c.get("due_at", -1)) < 0:
-		return super._can_make_in_time(sim, c)
-	var rid := _recipe_for(sim, str(c["item"]))
-	if rid == "" or _status(sim, ANVIL, rid) == "locked":
-		return false
-	var hours := _contract_hours(sim, c)
-	for a: Dictionary in Contracts.accepted_of(sim, _fam(sim)):
-		hours += _contract_hours(sim, a)
-	var left := float(int(c["due_at"]) - _now(sim)) / 60.0
-	if hours > left * 0.6:
+	var ok := super._can_make_in_time(sim, c)
+	if not ok and int(c.get("due_at", -1)) >= 0:
 		why_not["festival_contracts"] = "no_time"
-		return false
-	return true
+	return ok
 
 
 ## The expert's counter trial puts its least skilled hand at the counter even when it is the only one: the queue then
@@ -492,6 +496,8 @@ func _gift_points(sim: Sim, value: int) -> int:
 ## The gift of a visit: the item of the bag that gives the most affinity (the gift's value / gold_per_point within
 ## [min, max] of data/family.json), the cheaper on a tie; never what an accepted contract needs. {} if none.
 func _gift(sim: Sim, target: String) -> Dictionary:
+	if Courtship.gifted_today(sim.state, ACTOR, target):
+		return {}  # Equilibrio 1: a second gift today would not count
 	var cfg: Dictionary = sim.catalog.family.get("courtship", {}).get("gift", {})
 	var keep := _reserved(sim)
 	var best := {}
@@ -548,6 +554,7 @@ func _duel_step(sim: Sim) -> Array:
 ## "" if a trip to the capital is worth it now: travel open, a reason (open its market or sign a quota), swords to
 ## carry or a quota to sign, gold for the road on top of the reserve, no contract due at home soon, once a year.
 func _travel_ready(sim: Sim) -> String:
+	_trip_hold = false  # set again below only while it gathers the swords of the first trip
 	var why := Travel.can_travel(sim, ACTOR, CITY)
 	if why != "":
 		return why
@@ -560,9 +567,8 @@ func _travel_ready(sim: Sim) -> String:
 	if not merchant._wants_trip(sim, _fam_id):
 		return "nothing_to_do_there"
 	var first := int((Region.ensure(sim)["stats"] as Dictionary).get(_fam_id, {}).get("arrivals", 0)) == 0
-	var swords := Inventory.count(sim.state.buildings[FORGE]["inventory"], "sword", Inventory.NORMAL) \
-		- int(_reserved(sim).get("sword|%d" % Inventory.NORMAL, 0))
-	if first and swords < TRIP_SWORDS:
+	if first and _trip_swords(sim) < TRIP_SWORDS:
+		_trip_hold = true  # Equilibrio 7: gathers them, the best first (the capital pays the quality)
 		return "no_swords_to_carry"
 	if Money.gold(sim.state, _fam_id) < _reserve(sim) + TRIP_SPARE:
 		return "gold_for_the_road"
@@ -586,18 +592,27 @@ func _travel_step(sim: Sim) -> Array:
 			else [{"type": "exit_building", "actor": ACTOR}]
 	if Production.job_zone(sim, ACTOR, FORGE) != "":
 		return [{"type": "stop_work", "actor": ACTOR}]
-	var spare := Inventory.count(st.buildings[FORGE]["inventory"], "sword", Inventory.NORMAL) \
-		- int(_reserved(sim).get("sword|%d" % Inventory.NORMAL, 0))
-	var n := mini(TRIP_SWORDS, Inventory.fit_count(ch["inventory"], sim.catalog, "sword", Inventory.NORMAL, maxi(spare, 0)))
-	if n > 0 and Inventory.count(ch["inventory"], "sword", Inventory.NORMAL) < TRIP_SWORDS:
-		return [{"type": "transfer", "actor": ACTOR, "from": FORGE, "to": ACTOR, "item": "sword",
-			"quality": Inventory.NORMAL, "qty": n}]
+	var carried := 0
+	for q: int in Inventory.QUALITIES:
+		carried += Inventory.count(ch["inventory"], "sword", q)
+	if carried < TRIP_SWORDS:  # Equilibrio 7: the best swords first (the capital's quality premium)
+		var held := _trip_hold
+		_trip_hold = false
+		var keep := _reserved(sim)
+		_trip_hold = held
+		for q: int in [Inventory.EXCELLENT, Inventory.GOOD, Inventory.NORMAL]:
+			var spare := Inventory.count(st.buildings[FORGE]["inventory"], "sword", q) - int(keep.get("sword|%d" % q, 0))
+			var n := mini(TRIP_SWORDS - carried, Inventory.fit_count(ch["inventory"], sim.catalog, "sword", q, maxi(spare, 0)))
+			if n > 0:
+				return [{"type": "transfer", "actor": ACTOR, "from": FORGE, "to": ACTOR, "item": "sword", "quality": q,
+					"qty": n}]
 	var why := Travel.can_travel(sim, ACTOR, CITY)
 	if why != "":
 		why_not["travel"] = why
 		_end_focus(sim, "travel", why)
 		return []
 	_trip_stage = "out"
+	_trip_hold = false
 	_last_trip_day = _today(sim)
 	_use("travel")
 	_note(sim, "travel", CITY)
@@ -620,10 +635,11 @@ func _away(sim: Sim) -> Array:
 		if Inventory.count(inv, str(off["item"])) >= int(off["qty"]) and not _city_contract(sim):
 			_use("city_contracts")
 			return [{"type": "city_accept", "actor": ACTOR, "contract": off["id"]}]
-	var swords := Inventory.count(inv, "sword", Inventory.NORMAL)
-	if swords > 0:
-		_use("city_market")
-		return [{"type": "city_sell", "actor": ACTOR, "item": "sword", "quality": Inventory.NORMAL, "qty": swords}]
+	for q: int in Inventory.QUALITIES:  # every quality (Equilibrio 7: the good ones fetch the capital's premium)
+		var swords := Inventory.count(inv, "sword", q)
+		if swords > 0:
+			_use("city_market")
+			return [{"type": "city_sell", "actor": ACTOR, "item": "sword", "quality": q, "qty": swords}]
 	if Treaties.quota_of(sim, CITY, _fam_id, "sword").is_empty():
 		var why := Treaties.can_sign(sim, _fam_id, CITY, "quota", "sword")
 		if why == "":
@@ -634,6 +650,36 @@ func _away(sim: Sim) -> Array:
 	if Travel.can_travel(sim, ACTOR, Region.home(sim)) == "":
 		return [{"type": "return", "actor": ACTOR}]
 	return []
+
+
+## Swords of any quality in the forge's storage beyond what the contracts need (the trip's), Equilibrio 7.
+func _trip_swords(sim: Sim) -> int:
+	var held := _trip_hold
+	_trip_hold = false
+	var keep := _reserved(sim)
+	_trip_hold = held
+	var n := 0
+	for q: int in Inventory.QUALITIES:
+		n += maxi(0, Inventory.count(sim.state.buildings[FORGE]["inventory"], "sword", q) - int(keep.get("sword|%d" % q, 0)))
+	return n
+
+
+## While gathering swords for the first trip (Equilibrio 7), up to TRIP_SWORDS of them, the best first, are kept from
+## the market like a contract's.
+func _reserved(sim: Sim) -> Dictionary:
+	var out := super._reserved(sim)
+	if not _trip_hold:
+		return out
+	var left := TRIP_SWORDS
+	var inv: Dictionary = sim.state.buildings[FORGE]["inventory"]
+	for q: int in [Inventory.EXCELLENT, Inventory.GOOD, Inventory.NORMAL]:
+		var key := "sword|%d" % q
+		var free := Inventory.count(inv, "sword", q) - int(out.get(key, 0))
+		var take := mini(left, maxi(free, 0))
+		if take > 0:
+			out[key] = int(out.get(key, 0)) + take
+			left -= take
+	return out
 
 
 ## An adult of the family's group at home (not away), "" if none.

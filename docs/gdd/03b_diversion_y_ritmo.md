@@ -283,3 +283,12 @@ en el cuaderno.
 semillas el novato no junta 300 de oro en el año 1 y las mejoras no se abren. El owner decide que la ventana de las
 mejoras no se mueve: lo arregla el equilibrio del año 1-2 con fiestas (Ciudadano y oro). La banda con fiestas queda
 como propuesta (`data/targets.json` `pacing._proposed_festivals`, sin comprobar) hasta ese equilibrio.
+
+**Equilibrio con todo encendido (rama equilibrio, 2026-11-05).** La banda con fiestas ya es la diana: `pacing` está en
+`_festivals` y fuera de `_no_life` (`data/targets.json`). Lo que lo arregló fue Equilibrio 11: el novato aceptaba
+encargos de fiesta que no llegaba a hacer (miraba `deadline_days`, redondeado al día), los perdía y no juntaba los 300 de
+oro. Medido (5 semillas, todo encendido): antes 4 de 5 con las mejoras sin abrir, un hueco de 198 s y 42 de oro neto al
+día; después 0 fuera de ventana (14 desbloqueos), hueco máximo 26-35 s, mediana 4,7 s, ≥ 2 metas siempre y 76 de oro
+al día. Con el jugador completo (3 años × 4 semillas) el hueco máximo pasa de 119-176 s a 38-47 s (el año 1, de 61-137 s
+a 15 s): las obras ya no paran la forja (Equilibrio 9) y el camino entre ciudades cuenta como «Saltar hasta…». Ciudadano
+llega los días 11-15 (Equilibrio 3), a tiempo para viajar, el duelo y la justa en el año 2.

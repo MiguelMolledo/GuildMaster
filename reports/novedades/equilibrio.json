@@ -1,0 +1,15 @@
+{
+  "fecha": "2026-11-05",
+  "titulo": "Equilibrio con todo encendido: plazos reales, un regalo al día, préstamo de urgencia, obras sin parar, Ciudadano en el año 2, viajes que compensan, pecha, fama del taller, bolsa de los hogares y «Retirarse»",
+  "que": "La pasada de equilibrio sobre lo que encontró el jugador completo. Los bots miran el plazo real de los encargos de fiesta (ya no aceptan los que no llegan a hacer). Solo cuenta el primer regalo del día a cada pretendiente, y el panel de cortejo lo dice («Regalar (hoy ya no cuenta)» y una confirmación). Una partida ya no se queda muerta: sin oro ni existencias, el prestamista ofrece un préstamo de urgencia (60 ahora, 90 en 4 días; «Pedirlo» en el libro, pestaña Deudas) y, si la deuda de mantenimiento llega a 100, se embarga el bien más caro que no sea la casa; sin bienes, ruina. Las mejoras pequeñas se hacen de noche sin parar la forja y las grandes la dejan a medio ritmo. El jugador completo pide Ciudadano en cuanto puede (día 11-15). La capital paga un 30 % más por cada escalón de calidad y la reputación de fuera sube con cada pieza vendida y cada encargo allí. Al cerrar el año, la pecha por patrimonio (nada hasta 1.000; 4, 8 y 12 % por tramos). Cada taller tiene su fama (0,5-2,0), que se ve en el panel de producción y atrae clientes al mostrador. Los vecinos con oficio cobran un jornal a la bolsa de su casa, la comida se paga de ella y la taberna es un capricho; los empleados y los niños comen. Cada venta del mostrador baja la demanda (−0,025). Y en el menú de pausa, «Retirarse…» termina la partida con su puntuación.",
+  "como_probar": "Capturas: grimoire heavy -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=equilibrio --lang=es (reports/shots/eq_*.png). Préstamo de urgencia: --scenario=broke_forge, libro de cuentas → Deudas. Bots: godot --headless --path . -s tools/sim_runner.gd -- --scenario=broke_forge --bots=broke --days=6 --seeds=5; jugador completo: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=4 (o python3 tools/equilibrio/measure.py full --root . --tag <nombre>); ritmo con fiestas y vida (ya es la diana): --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5. Pruebas: -- --only=test_equilibrio.",
+  "capturas": [
+    "docs/novedades/equilibrio_regalo.png",
+    "docs/novedades/equilibrio_urgencia.png",
+    "docs/novedades/equilibrio_obra_noche.png",
+    "docs/novedades/equilibrio_fama.png",
+    "docs/novedades/equilibrio_retirarse.png",
+    "docs/novedades/equilibrio_retirarse_confirma.png",
+    "docs/novedades/equilibrio_retirarse_final.png"
+  ]
+}

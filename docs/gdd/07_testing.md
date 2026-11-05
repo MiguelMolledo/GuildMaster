@@ -59,9 +59,21 @@ la muerte del fundador, la forja pasa al nuevo cabeza, o al regente si el herede
 
 Donde el hábito de los bots anteriores no es de buen criterio, el jugador completo lo corrige en su propia clase y no
 toca la de ellos, para que sus dianas no cambien:
-- **Encargos de fiesta.** Mira las horas que quedan de verdad (`due_at`), no `deadline_days` redondeado.
+- **Encargos de fiesta.** Mira las horas que quedan de verdad (`due_at`), no `deadline_days` redondeado. **Desde
+  Equilibrio 11 (2026-11-05) lo hacen todos los bots** (`artisan_novice` y los de oficio: `_hours_left`); el completo
+  solo apunta el porqué.
 - **Mostrador.** Solo pone a alguien en él si tiene dos o más empleados.
-- **Cortejo.** Corteja con un regalo por visita, y solo cuando la forja ya no depende de él o el bolsillo lo permite.
+- **Cortejo.** Corteja con un regalo por visita, y solo cuando la forja ya no depende de él o el bolsillo lo permite;
+  nunca un segundo regalo el mismo día (Equilibrio 1: no contaría).
+- **Ciudadano** (Equilibrio 3). Lo pide en cuanto el ayuntamiento se lo daría y le queda la reserva, no al acabar su plan
+  de mejoras (el hábito del experto, que se queda en su clase por las dianas de H5). `BOT_VARS=titles_early=0` juega
+  como antes.
+- **El primer viaje** (Equilibrio 7). Guarda sus mejores espadas (excelentes, buenas y normales) hasta tener 3, como si
+  fueran de un encargo, y las vende allí todas: la capital paga la calidad.
+- **Sin salida** (Equilibrio 2). Pide el préstamo de urgencia en cuanto se lo ofrecen (el caótico, a veces).
+
+`tools/full_player.gd` acepta además `--set=<tabla>.<clave>=<json>` como `sim_runner` (con `--tag`), para medir un
+punto apagando los demás (rama equilibrio, `tools/equilibrio/measure.py`).
 
 **El caótico** (`sim/bots/bot_chaos_player.gd`) es la misma partida al azar. Elige al azar entre las metas listas, da una
 respuesta al azar a cada carta y, cada ~40 minutos de juego, da una orden válida al azar. La orden sale del sistema

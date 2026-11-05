@@ -241,3 +241,14 @@ En la línea catalana y castellana de `data/cast.json`. Todo es propuesta: los t
 sigue en `town_e`).
 
 **Para H12.3 (salud de 4.22):** el asalto en el camino hiere al viajero (o al carretero) además de llevarse la carga.
+
+### 9b.11 Equilibrio 7 (rama equilibrio, 2026-11-05)
+
+El jugador completo nunca mandaba caravanas ni firmaba tratados en 3 años: Ciudadano llegaba tarde (Equilibrio 3), la
+villa compraba todas sus espadas y la reputación de fuera casi solo subía con las caravanas. Cambios [balance]:
+
+- **Prima de calidad en la capital:** cada escalón de calidad paga un 30 % más allí (`data/world/trade.json`
+  `city_market.quality_premium`, por tipo de asentamiento): una espada excelente vale ×1,6 sobre la de la villa con
+  la misma demanda. Lo bien forjado (Forja viva, obras maestras) tiene adónde ir.
+- **Reputación de fuera por lo que haces allí:** +1 por **cada unidad** vendida allí (antes, una de cada dos), por el
+  viajero o por una caravana, y +5 por encargo cumplido allí (antes 3). La cuota (5) sale de un viaje con 3-5 piezas.

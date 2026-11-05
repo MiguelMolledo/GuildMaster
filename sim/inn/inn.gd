@@ -425,7 +425,7 @@ static func max_price(sim: Sim, bld: String, g: Dictionary, d: String) -> int:
 		* (1.0 + fame(sim, bld) * float(cl.get("max_price_fame", 0.1))) * float(def.get("max_price_mult", 2.0))
 	var top := roundi(m)
 	if bool(def.get("purse", false)):
-		top = mini(top, Money.gold(sim.state, _purse_family(sim, g)))
+		top = mini(top, Households.spendable(sim, _purse_family(sim, g)))  # Equilibrio 15: a whim, not the food
 	return top
 
 
@@ -683,8 +683,8 @@ static func neighbour_in(sim: Sim, chr: String, t: Dictionary) -> bool:
 			var pr := dish_price(sim, bld, str(d), 0)
 			if cheapest < 0 or pr < cheapest:
 				cheapest = pr
-		if cheapest < 0 or Money.gold(st, str(st.characters[chr].get("family", ""))) < cheapest:
-			return false  # no money for anything on the menu: it chats at the door
+		if cheapest < 0 or Households.spendable(sim, str(st.characters[chr].get("family", ""))) < cheapest:
+			return false  # no money for anything on the menu (Equilibrio 15: over tomorrow's food): chats at the door
 		var gid := arrive(sim, bld, "neighbours", chr)
 		if gid == "":
 			return false
