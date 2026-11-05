@@ -272,6 +272,20 @@ static func illustration_or_greybox(kind: String, id: String, small: bool = fals
 	return g
 
 
+## Fiestas (04f 4.25.3): the names the art uses for the festival props of data/festivals.json view decor (arte-fal-2,
+## ids prop_fiesta_<name> in assets/inventario.json): game/visuals/props/fiesta/<name>.tscn. A prop with no art yet
+## (the animals) keeps its id and falls to the labelled greybox (FestivalLayer).
+const FESTIVAL_PROP_ALIAS: Dictionary = {"bunting": "banderola", "banner": "pendon", "lanterns": "farolillo",
+	"maypole": "mayo", "garland": "guirnalda", "cart_ring": "cerco_carros", "bonfire": "hoguera",
+	"fair_stall": "puesto_feria", "pen": "corral", "long_tables": "mesa_larga", "nativity": "belen",
+	"triumphal_arch": "arco_triunfal", "stage": "tablado", "tilt_yard": "liza"}
+
+
+## The scene id (under props/) of festival prop `id`: fiesta/<the art's name>.
+static func festival_prop(id: String) -> String:
+	return "fiesta/" + str(FESTIVAL_PROP_ALIAS.get(id, id))
+
+
 ## Duelo (docs/ui/mecanicas/combate.md §8): the names the art uses for the duel's ids (the art keeps its names, as in
 ## assets/inventario.json): icons icon_<name>.png, illustrations <name>[_192].png.
 const DUEL_ICON_ALIAS: Dictionary = {"yield": "surrender"}

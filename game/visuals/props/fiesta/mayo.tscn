@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkqg461yi6fo7"]
+
+[ext_resource type="Texture2D" uid="uid://hhpnp0ggo3c4" path="res://assets/art/props/fiesta/mayo.png" id="1_tex"]
+
+[node name="Mayo" type="Node2D"]
+editor_description = "Festival prop (docs/gdd/04f_vida_y_fiestas.md §4.25.3; tools/art/fal_props_fiesta.py): a tall maypole: a straight tree trunk with a green leafy crown at the top and long coloured ribbons hanging down. Feet = the centre of its footprint (metadata/footprint, in tiles: columns x rows); small props stand on their base. Move or swap the sprite here."
+metadata/footprint = Vector2i(1, 1)
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -122)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tex")
+centered = false
+offset = Vector2(-20, -124)
