@@ -1068,6 +1068,21 @@
       "tema": "Diversión y ritmo (03b §3b.7, O-D1–O-D5)",
       "detalle": "Se construye con las recomendaciones: Forja viva de 3 decisiones con Resolver sin jugar; desbloqueos por hito y calendario con carta; Saltar hasta…; obras maestras con nombre; encargos con especificaciones.",
       "opciones": "Ver 03b §3b.7."
+    },
+    {
+      "tema": "Jugador completo · obras maestras pronto y a menudo (forja viva)",
+      "detalle": "full_player juega bien las tres decisiones de la Forja viva (como el bot pacing). Con la Artesanía de inicio forja 3-6 obras maestras con nombre en 3 años, la primera entre los días 1 y 6 (3 semillas). 03b §3b.4 las pone en los años 3-5 («Artesanía 7»), como rareza que va a la crónica y se vende a nobles por ×3. El neto del año 1 sube de 75 a 84 de oro/día en la semilla 1.",
+      "opciones": "(a) menos probabilidad de obra maestra por pieza perfecta (data/live_forge.json masterwork) · (b) exigir Artesanía 8 o un número de piezas aprendidas · (c) dejarlo: es el premio de jugar bien"
+    },
+    {
+      "tema": "Jugador completo · el desbloqueo de mejoras llega tarde con un buen jugador",
+      "detalle": "data/unlocks.json abre las mejoras con 300 de oro (ventana de 03b: días 3-5). full_player contrata a su primer empleado en cuanto se abre «empleados» (día 1-2) y no junta 300 hasta el día 7 en las 3 semillas. Con un buen criterio, el desbloqueo llega tarde (unlocks_off ≥ 1 en todas). Ciudadano (ventana 8-15) llega el día 20 o nunca, y los cargos (16-23) nunca: es la decisión 3 (Ciudadano en el año 2).",
+      "opciones": "(a) disparador de mejoras por día (calendario 3) o por oro ganado, no por oro en mano · (b) bajar a 200 · (c) dejarlo y medir con el arreglo de Ciudadano"
+    },
+    {
+      "tema": "Jugador completo · la taberna arranca con pérdidas (sin juzgar aún)",
+      "detalle": "Comprada desde Ciudadano (días 20-24), en los pocos días que quedan hasta el final de los 3 años la taberna de full_player (llevada por la cónyuge con BotInnkeeper) pierde entre 115 y 334 de oro/día de operación: la existencia inicial, los primeros salarios y pocas noches. En una semilla anterior, comprada el día 20, ganaba 61/día de operación. Tres años no bastan para saber si compensa: se mide en la generación de la noche.",
+      "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
     }
   ],
   "proximos_pasos": [
