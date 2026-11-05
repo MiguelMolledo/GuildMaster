@@ -31,7 +31,8 @@ static func find(grid: Grid, from: Vector2i, to: Vector2i) -> Array:
 	var key: int = start * grid.padded.size() + goal
 	var route: Variant = grid.routes.get(key)
 	if route == null:
-		route = search(grid, start, goal)
+		# plantillas: a large map with landmarks (Grid.atlas, RouteAtlas) uses A* with the ALT heuristic
+		route = search(grid, start, goal) if grid.atlas == null else grid.atlas.search(grid, start, goal)
 		if grid.routes.size() >= ROUTE_MEMORY:
 			grid.routes.clear()
 		grid.routes[key] = route

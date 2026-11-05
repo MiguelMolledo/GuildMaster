@@ -102,3 +102,15 @@ seis puntos de H7 primero (H7 solo pasea por `bench`, `chat` y `dice`). `populat
   `life_night`, `life_altercation`, `life_bandits`, `life_kidnap`).
 - Sonda: `godot --headless --path . -s tools/life/life_probe.gd -- [--days=2] [--off]`.
 - Capturas: `grimoire heavy --timeout 5m -- godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=vida`.
+
+## Plantillas (rendimiento y vista)
+
+- `TownLife._quiet`: con la vida encendida y fuera de la hora en punto, los minutos que no cambian nada (dormir en
+  casa de noche, estar en la casilla de trabajo de día, esperar en el sitio de una actividad con su tiempo sin
+  acabar, sin cliente, saludo ni incidente) se saltan; el resultado es el mismo byte a byte
+  (`tests/test_plantillas_rendimiento.gd`; `TownLife.quiet = false` para comparar).
+- Turnos en los corrillos (`WorldView._take_turns`, solo vista): como mucho 2 personas de un corrillo enseñan su
+  burbuja o su frase a la vez, la segunda más alta y con el turno desfasado; las demás esperan (`TURN_MINUTES` de
+  juego cada turno).
+- La guardia lleva el nombre de su ciudad (`data/maps` `watch.name_key`; town_e, «Guardia de la villa»).
+

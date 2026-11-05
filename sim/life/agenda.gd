@@ -174,13 +174,12 @@ static func decide(sim: Sim, chr: String, t: Dictionary, now: int, phase: String
 		return _start(sim, chr, t, now, "work", false)  # the duty of the day
 	var pre: Array = []  # [utility before the walk, id]: the walk only takes away, so the places are looked up best first
 	var all := acts(sim)
-	var names: Array = all.keys()
-	names.sort()
+	var names := _sorted_acts(sim)
 	for id: String in names:
 		var d: Dictionary = all[id]
 		if is_break and (not bool(d.get("break", false)) or id == "work"):
 			continue
-		var w := _when(sim, d, phase, now)
+		var w := _when_now(sim, id, d, phase, now)
 		if w <= 0.0:
 			continue
 		var gm := float((d.get("who", {}) as Dictionary).get(grp, 0.0))
@@ -190,7 +189,7 @@ static func decide(sim: Sim, chr: String, t: Dictionary, now: int, phase: String
 		var raises: Dictionary = d.get("raises", {})
 		for k: String in raises:
 			u += urgency(int(n.get(k, 1000))) * float(raises[k]) / float(a.get("raise_scale", 20))
-		u *= w * gm * _liking(sim, chr, d, stats) * Life.event_mult(sim, "routine", id)
+		u *= w * gm * _liking(sim, chr, d, stats) * float(_wk[id + "|em"] if _wk.has(id + "|em") else _em_now(sim, id))
 		if bool(st.characters[chr].get("female", false)):
 			u *= float(d.get("female_mult", 1.0))
 		pre.append([u, id])
@@ -222,6 +221,42 @@ static func decide(sim: Sim, chr: String, t: Dictionary, now: int, phase: String
 			shown.append("%s=%.2f" % [c[1], float(c[0])])
 		print("%s %s elige %s%s (%s)" % [LOG_PREFIX, chr, pick[1], " (descanso)" if is_break else "", ", ".join(shown)])
 	return _start(sim, chr, t, now, str(pick[1]), is_break, pick[2])
+
+
+static var _wk_key: String = ""
+static var _wk: Dictionary = {}  # this minute: id -> _when, id + "|em" -> Life.event_mult (the same for everybody)
+
+
+## _when of activity `id` this minute (worked out once per minute and state: it does not depend on who asks).
+static func _when_now(sim: Sim, id: String, d: Dictionary, phase: String, now: int) -> float:
+	var key := "%d|%d|%s" % [sim.state.get_instance_id(), now, phase]
+	if key != _wk_key:
+		_wk_key = key
+		_wk = {}
+	if not _wk.has(id):
+		_wk[id] = _when(sim, d, phase, now)
+	return float(_wk[id])
+
+
+static func _em_now(sim: Sim, id: String) -> float:
+	var m := Life.event_mult(sim, "routine", id)
+	_wk[id + "|em"] = m
+	return m
+
+
+static var _acts_key: int = 0
+static var _acts_sorted: Array = []
+
+
+## The ids of the activities, sorted (once per catalog: decide used to sort them at every decision).
+static func _sorted_acts(sim: Sim) -> Array:
+	var all := acts(sim)
+	var k := sim.catalog.get_instance_id()
+	if k != _acts_key or _acts_sorted.size() != all.size():
+		_acts_sorted = all.keys()
+		_acts_sorted.sort()
+		_acts_key = k
+	return _acts_sorted
 
 
 ## hour(a): the weight of the phase (0 = not now), the hour window, the peak; a day of rest opens holy_phases.
@@ -438,30 +473,54 @@ static func taken(sim: Sim) -> Dictionary:
 
 ## A free slot of a social point of one of `kinds` ({spot, slot, tile} or {}): among the points somebody already
 ## stands at first (a corrillo forms), else any with room; the corrillo has at most meeting.corrillo.max.
+static var _pts_cache: Dictionary = {}  # "<catalog>|<map>|<kinds>" -> [[point, [slot keys]]] (static map data)
+
+
+## The meeting points of `kinds` (Life.points, in its order) with the "point|slot" key of each seat, worked out once
+## per catalog, map and kinds (free_slot asks for them many times a minute).
+static func _points_with_keys(sim: Sim, kinds: Array) -> Array:
+	var ck := "%d|%s|%s" % [sim.catalog.get_instance_id(), sim.state.map_id, ",".join(kinds)]
+	if not _pts_cache.has(ck):
+		var out: Array = []
+		for p: Dictionary in Life.points(sim, kinds):
+			var keys: Array = []
+			for i: int in (p.get("slots", []) as Array).size():
+				keys.append("%s|%d" % [p["id"], i])
+			out.append([p, keys])
+		_pts_cache[ck] = out
+	return _pts_cache[ck]
+
+
 static func free_slot(sim: Sim, chr: String, kinds: Array, key: String) -> Dictionary:
 	var tk := taken(sim)
 	var cmax := int(Life.cfg(sim.catalog).get("meeting", {}).get("corrillo", {}).get("max", 5))
-	var free: Array = []
-	var joined: Array = []
-	for p: Dictionary in Life.points(sim, kinds):
-		var slots: Array = p.get("slots", [])
+	var pts := _points_with_keys(sim, kinds)
+	var free := PackedInt32Array()    # (point index << 8) | slot index, in the order they are met
+	var joined := PackedInt32Array()
+	for pi: int in pts.size():
+		var p: Dictionary = pts[pi][0]
+		var keys: Array = pts[pi][1]
+		var n := (p.get("slots", []) as Array).size()
 		var busy := 0
-		for i: int in slots.size():
-			if tk.has("%s|%d" % [p["id"], i]) and str(tk["%s|%d" % [p["id"], i]]) != chr:
+		for i: int in n:
+			var k: String = keys[i]
+			if tk.has(k) and str(tk[k]) != chr:
 				busy += 1
 		if busy >= cmax:
 			continue
-		for i: int in slots.size():
-			var k := "%s|%d" % [p["id"], i]
+		for i: int in n:
+			var k: String = keys[i]
 			if not tk.has(k) or str(tk[k]) == chr:
-				var e := {"spot": str(p["id"]), "slot": i, "tile": (slots[i] as Array).duplicate(), "kind": str(p.get("kind", ""))}
-				free.append(e)
+				free.append((pi << 8) | i)
 				if busy > 0:
-					joined.append(e)
+					joined.append((pi << 8) | i)
 	if free.is_empty():
 		return {}
-	var pool: Array = joined if not joined.is_empty() and Kin.roll(sim.state, key + "|join") < 0.7 else free
-	return pool[Kin.randi_range(sim.state, key + "|slot", 0, pool.size() - 1)]
+	var pool: PackedInt32Array = joined if not joined.is_empty() and Kin.roll(sim.state, key + "|join") < 0.7 else free
+	var pick: int = pool[Kin.randi_range(sim.state, key + "|slot", 0, pool.size() - 1)]
+	var pp: Dictionary = pts[pick >> 8][0]
+	var si := pick & 255
+	return {"spot": str(pp["id"]), "slot": si, "tile": (pp["slots"][si] as Array).duplicate(), "kind": str(pp.get("kind", ""))}
 
 
 # --- Running an activity ---------------------------------------------------------------------------------------------

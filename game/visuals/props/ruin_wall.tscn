@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx6rute6hao8n"]
+
+[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+
+[node name="RuinWall" type="Node2D"]
+editor_description = "A tile of the broken walls of a ruin (data/maps plots, state ruin; 04 §4.9.1). PlotLayer puts one on each edge tile of the ruin, each of its own height (RUIN_HEIGHTS). Greybox until its sprite."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -18)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_block")
+height = 18.0
+color = Color(0.56, 0.5, 0.43, 1)
