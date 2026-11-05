@@ -113,12 +113,22 @@ no está hecha: lo que aquí se llama «plan» son las tareas de `RivalAI` (`ai_
 ## `summary.json`
 
 `{format_version, bot, horizon, difficulty, start, seeds[], aggregate: {mean_<m>, min_<m>, max_<m>, share_<m>},
-misses[], targets}`. `targets` es el bloque de `data/targets.json` que se comprobó, ya sin las medidas que la corrida
+misses[], proposed_misses[], targets, runs: [measures de cada semilla]}`. `targets` es el bloque de `data/targets.json` que se comprobó, ya sin las medidas que la corrida
 no podía juzgar (`_needs_days`).
+
+## Referencia en git: `reports/full_player_ref/`
+
+`reports/` no va a git, salvo esta carpeta. `python3 tools/full_ref.py [carpetas]` copia el `summary.json` de cada
+corrida (por defecto `full_player`, `full_player_generation`, `chaos_player` e `idle_player`) a
+`reports/full_player_ref/<carpeta>.json`. Cada copia lleva lo de `summary.json` más `runs` (las `measures` de cada
+semilla), `source` (la carpeta), `written` (la fecha) y `commit` (el del código que la escribió). La llama
+`tools/qa/noche.py` al acabar. Son unos 15-30 KB por corrida: se suben con el commit del bloque, para que `verifica` y
+el equilibrio las lean sin depender del worktree que corrió las partidas. Las copias con `format_version` 1 son de
+antes de los rivales y el pueblo.
 
 ## Historial
 
 | Versión | Cambio |
 |---|---|
 | 1 | Primera (2026-11-05): el jugador y el motor |
-| 2 | 2026-11-05: `rivals`, `town` y sus medidas; `idle_player`; el ritmo del año 1 |
+| 2 | 2026-11-05: `rivals`, `town` y sus medidas; `idle_player`; el ritmo del año 1; en `summary.json`, `runs` y `proposed_misses`; la copia en `reports/full_player_ref/` |

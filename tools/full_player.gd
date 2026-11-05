@@ -172,7 +172,7 @@ func _init() -> void:
 	for f: String in pfails:
 		print("  PROPOSED %s · %s" % [bot_id, f])
 	var summary := {"format_version": FORMAT_VERSION, "bot": bot_id, "horizon": horizon, "difficulty": diff, "start": start, "seeds": seeds,
-		"aggregate": _aggregate(t, runs), "misses": fails, "proposed_misses": pfails, "targets": t}
+		"aggregate": _aggregate(t, runs), "misses": fails, "proposed_misses": pfails, "targets": t, "runs": runs}
 	FileAccess.open(dir + "/summary.json", FileAccess.WRITE).store_string(JSON.stringify(summary, "\t"))
 	print("full_player: %s × %d seeds (%s) · %d misses · %s" % [bot_id, seeds.size(), horizon, fails.size(),
 		dir + "/summary.json"])
