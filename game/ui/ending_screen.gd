@@ -184,6 +184,8 @@ func _fact_lines(sim: Sim, fam: String) -> Array:
 				out.append(["goal_done", SimQuery.t_("ui.ending.fact.goal") % SimQuery.t_("goal." + str(e.get("goal", "")))])
 			"building_acquired":
 				out.append(["building", SimQuery.t_("ui.ending.fact.building") % d])
+			"inn_illegal_gaming":  # posada: the fine of its table without licence, whoever played
+				out.append(["sentence", SimQuery.t_("ui.ending.fact.illegal_gaming") % d])
 	return out
 
 

@@ -3870,7 +3870,7 @@ ui.inn.incident.illegal_game,The constable's men saw a game without licence: lig
 ui.inn.offer.title,A game at the table,Una partida en la mesa
 ui.inn.offer.text,%s sits down with a full purse and proposes %s at %d.,%s se sienta con la bolsa llena y propone %s a %d.
 ui.inn.offer.later,Not now,Ahora no
-notice.inn.illegal_gaming,The constable's men saw gaming without licence in {building}: a light offence for the court.,Los del alguacil vieron jugar sin licencia en {building}: delito leve para el tribunal.
+notice.inn.illegal_gaming,"The constable's men saw gaming without licence at your table in {building}: the table is yours, a light offence for the court.",Los del alguacil vieron jugar sin licencia en tu mesa de {building}: la mesa es tuya y es delito leve para el tribunal.
 games.preset.stranger_soldier,The discharged soldier,El soldado licenciado
 games.preset.stranger_merchant,The passing merchant,El mercader de paso
 games.ui.in_own_house,"in your own house (it keeps nothing of yours)","en tu propia casa (no se queda nada de lo tuyo)"
@@ -3969,3 +3969,18 @@ ui.hud.map_not_inside,The region map is not available inside a building,El mapa 
 ui.hud.camera_not_inside,The camera does not move inside a building,La cámara no se mueve dentro de un edificio
 ui.order.live_forge,Forge by hand,Forjar a mano
 ui.order.unlock_seen,Read what is new,Leer lo nuevo
+hud.inn_table,Play at the table,Jugar en la mesa
+hud.inn_table_tip,"Sit at this tavern's gaming table from its door, during its night turn.","Siéntate a la mesa de juego de esta taberna desde su puerta, durante su turno de noche."
+ui.inn.visit.title,The table of %s,La mesa de %s
+ui.inn.visit.text,"The %s let you sit: the least stake is %d, and the house keeps its part of what you win.",Los %s te dejan sentarte: la apuesta mínima es %d y la casa se queda su parte de lo que ganes.
+ui.inn.visit.no_license,"It has no gaming licence: if the constable's men see it, the fine is the owner's; you only risk your stake.","No tiene licencia de tafurería: si lo ven los del alguacil, la multa es del dueño; tú solo arriesgas lo apostado."
+ui.inn.visit.play,%s at %d,%s a %d
+ui.inn.visit.why.refused,The %s do not let you sit at their table.,Los %s no te dejan sentarte a su mesa.
+ui.inn.visit.why.far,Go to its door first.,Primero ve a su puerta.
+ui.inn.visit.why.inside,Leave the building you are in first.,Sal antes del edificio en que estás.
+ui.inn.visit.why.closed,The table is played during the night turn.,La mesa se juega durante el turno de noche.
+ui.inn.visit.why.no_table,This tavern has no gaming table.,Esta taberna no tiene mesa de juego.
+ui.inn.visit.why.not_inn,This is not a tavern.,Esto no es una taberna.
+ui.inn.visit.why.unknown_actor,Select someone of your family first.,Elige antes a alguien de tu familia.
+notice.inn.illegal_gaming_visitor,The constable's men saw gaming without licence at {building}: the fine is its owner's; you only risked your stake.,Los del alguacil vieron jugar sin licencia en {building}: la multa es del dueño; tú solo arriesgabas lo apostado.
+ui.ending.fact.illegal_gaming,Fined for gaming without licence at the tavern (day %d),Multa por juego sin licencia en la taberna (día %d)
