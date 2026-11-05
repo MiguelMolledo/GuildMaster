@@ -1,0 +1,11 @@
+{
+  "id": "marriage_bed",
+  "name_key": "item.marriage_bed",
+  "gender": "f",
+  "category": "product",
+  "weight": 20.0,
+  "max_stack": 20,
+  "base_price": 160,
+  "market_stall": null,
+  "to_order": true
+}

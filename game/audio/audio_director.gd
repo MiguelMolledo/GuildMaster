@@ -196,6 +196,15 @@ func _loop_on(player: AudioStreamPlayer, id: String, what: String) -> void:
 	_log("%s %s" % [what, id])
 
 
+## Fiestas (04f 4.25.3): the music of the festival in force (its data/festivals.json view music, an id of audio.json
+## music), only when its file exists: without it (the gap in audio.json) the phase's music goes on.
+func festival_music(sim: Sim) -> String:
+	var id := FestivalLayer.music(sim)
+	if id == "" or not (config.get("music", {}) as Dictionary).has(id):
+		return ""
+	return id if not VisualPaths.audio_files("music", id).is_empty() else ""
+
+
 ## The music for the phase of the day (audio.json "phase_music").
 func music_for_phase(phase: String) -> String:
 	return str((config.get("phase_music", {}) as Dictionary).get(phase, ""))
@@ -439,7 +448,7 @@ func _process(delta: float) -> void:
 		return
 	var sim: Sim = _game.get("sim")
 	var phase := Clock.phase(int(sim.state.clock["minute"]), sim.catalog.time)
-	play_music(music_for_phase(phase))
+	play_music(festival_music(sim) if festival_music(sim) != "" else music_for_phase(phase))
 	play_ambient(ambient_for(phase, _interior_type(sim)))
 
 

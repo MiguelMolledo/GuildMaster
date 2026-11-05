@@ -114,6 +114,10 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Duelo (al tocar `data/combat.json`, `sim/combat/` o la IA rival): `godot --headless --path . -s tools/sim_runner.gd --
   --scenario=duel_ready --bots=duelist --days=8 --seeds=5` (en `run_all`, paso duel) y el banco del lance
   `godot --headless --path . -s tools/duel_bench.gd`. Capturas: `--smoke-script=duelo_partida`. Contrato: `docs/contratos/duelo.md`.
+- Fiestas (04f 4.25, al tocar `data/festivals.json`, `data/contracts/festivals.json`, `sim/fest/` o los encargos):
+  `godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=festive --days=8 --seeds=3` (un
+  año con todas las fiestas, sus encargos y sin bloqueos; en `run_all`, pasos festive y bench_fair). Las demás dianas corren
+  sin fiestas (`data/targets.json` `_festivals`; `--festivals=on` para medirlas con ellas). Captura: `--smoke-script=fiestas`.
 - Vida (04f 4.24, al tocar `data/life/`, `sim/life/`, `TownLife` o los puntos de los mapas): todo cuelga de
   `data/life/life.json` `enabled`; las dianas de antes corren con la vida apagada (`data/targets.json` `_no_life`;
   `--life=on` para medirlas con ella). Pruebas `-- --only=test_life`; bot `godot --headless --path . -s
@@ -151,3 +155,7 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Copia jugable: el hook post-commit (`ln -sf ../../tools/git-hooks/post-commit .git/hooks/post-commit`) prepara
   `tmp/jugar/<commit>`; el owner juega con doble clic en `jugar.command`.
 - No añadir features, refactors ni "mejoras" no pedidas. Respuestas cortas y en español.
+
+## Pendientes del owner
+
+Todo lo que espera una decisión, aprobación o acción del owner (Gates, preguntas O-*, preguntas de los informes de los workers, pruebas de juego) se apunta al momento en la pestaña Todos del canal de Grimoire (`grimoire cmd todos.add`). Lo que el owner responda se apunta en `docs/decisiones.json`.

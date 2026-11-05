@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://daeqoe3ip067r"]
+
+[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+
+[node name="FiestaGreybox" type="Node2D"]
+editor_description = "Provisional greybox of a festival prop (04f 4.25.3 «En la vista»): FestivalLayer places it while game/visuals/props/fiesta/<id>.tscn does not exist, and writes the prop id on Label. Not a prop by itself: the art worker's scenes replace it id by id (assets/art/props/fiesta/<id>.png)."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -30)
+
+[node name="Greybox" type="Node2D" parent="."]
+scale = Vector2(0.45, 0.45)
+script = ExtResource("1_block")
+height = 50.0
+color = Color(0.85, 0.55, 0.25, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -44.0
+offset_right = 40.0
+offset_bottom = -30.0
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 9
+text = "fiesta"
+horizontal_alignment = 1
+mouse_filter = 2

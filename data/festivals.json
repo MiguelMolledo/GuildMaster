@@ -1,0 +1,1371 @@
+{
+  "_doc": "4.25 · el calendario de fiestas (docs/gdd/04f_vida_y_fiestas.md). Cada fiesta: kind fixed (cae cada año en day_of_year, 0-7: Primavera 1 = 0) o variable (trigger: chance por día en la tirada del día que la anuncia, min_day, cooldown_days, avoid = no cae el mismo día que una fiesta de ese tamaño o una feria; on = la abre otra cosa: rich_wedding / townsfolk_wedding (las bodas de H8), organized (el Alcalde, organize_festival), city_feast (la patronal de esa ciudad de data/world/region.json); requires_event = solo con ese evento de data/events.json en curso). size big | small. start_hour y hours: cuándo empieza (horas desde las 00:00 de su día) y cuánto dura (puede pasar de medianoche). notice_days: con cuántos días se anuncia (el pregón; los encargos salen con él). schedule: lo que se hace y a qué hora (la carta; needs = solo si alguien lo paga). effects: los efectos de sim (_effects_doc), cada uno con from_hour / to_hour opcionales (horas desde las 00:00 del día de la fiesta) y needs (solo si esa parte está patrocinada u organizada). contracts: la tabla de data/contracts/festivals.json. organizable: lo que el Alcalde puede organizar (organize_festival). view: lo que pinta la vista y no lee el sim (decor: props de game/visuals/props/fiesta/<prop>, where = sitio del mapa, count; clothes: la paleta de ropa de fiesta de view_looks; music: el id de data/audio.json). Las cifras son [balance].",
+  "_effects_doc": "Existentes (los suma WorldEvents.event_mult): demand {group, mult}, price {group, mult}, customers {mult} (clientes de los mostradores, el counter_clients del diseño), production {group, mult}. Nuevos de fiestas: holy_day {work_mult} (día de guardar: la producción va a work_mult en su ventana), tariff {city: home | <id>, mult} (home: los impuestos de las ventas de ese día; feria franca = 0), route_bonus {city, days} (el portazgo de las rutas que llegan a esa ciudad es 0 desde days-1 días antes), stalls {stall, count, groups} (puestos de forasteros: el sim los guarda en la fiesta; la vista los pinta), contracts (la tabla de encargos), emotion {id, share, toward: sponsors | hosts, at: end}, reputation {who: mayor | sponsors | hosts, amount, at: start | end}, aguinaldo {loyalty} (Navidad: un empleado que recibe una gratificación durante la fiesta gana además esa lealtad). Ganchos declarativos (los leen otras ramas cuando estén en main; Festivals.hook_mult los responde ya): service {id, mult} (4.22.3.2, la Taberna-Posada), visitors {mult, kinds} (forasteros de 4.24.3), routine {activity, mult} (agenda de 4.24.1: los ids de data/life/activities.json), need {id, amount} (4.24.1), spectacle {id, hour} (juegos de 4.26; el sim emite festival_spectacle a esa hora), incident {id, mult} (sucesos de 4.24.5: los ids de data/life/incidents.json; fire espera a O-V6).",
+  "enabled": true,
+  "rules": {
+    "first_day": 1,
+    "eve_hour": 12,
+    "history_size": 16,
+    "max_variable_per_day": 1,
+    "unsponsored_visitors_mult": 0.7,
+    "sponsor": {
+      "parts": {
+        "banquet": {
+          "gold": 60,
+          "reputation": 4
+        },
+        "music": {
+          "gold": 25,
+          "reputation": 2
+        },
+        "bulls": {
+          "gold": 80,
+          "reputation": 5
+        }
+      },
+      "relation": 2,
+      "relation_share": 0.4
+    },
+    "organize": {
+      "parts": [
+        "bulls",
+        "joust"
+      ],
+      "cost": {
+        "bulls": 80,
+        "joust": 120
+      },
+      "joust_opens": "tournament"
+    },
+    "wedding": {
+      "rich_min_title": "citizen",
+      "player_feast_gold": 80,
+      "player_feast_reputation": 4,
+      "hour": 17
+    },
+    "contracts": {
+      "max_accepted_per_family": 2,
+      "due_hour": 17,
+      "fail_reputation": -3,
+      "lost_notice": true
+    },
+    "_view_looks_doc": "Ropa de fiesta (vista): la ropa de cada persona se mezcla con color en amount (el shader de identidad). mask: máscaras de Carnaval.",
+    "view_looks": {
+      "sunday": {
+        "color": "#e8d8a0",
+        "amount": 0.3
+      },
+      "penitent": {
+        "color": "#4a3a5a",
+        "amount": 0.6
+      },
+      "carnival": {
+        "color": "#c83c78",
+        "amount": 0.55,
+        "mask": true
+      }
+    }
+  },
+  "festivals": {
+    "holy_week": {
+      "kind": "fixed",
+      "day_of_year": 0,
+      "size": "big",
+      "start_hour": 0,
+      "hours": 24,
+      "schedule": [
+        {
+          "hour": 8,
+          "what": "mass"
+        },
+        {
+          "hour": 10,
+          "what": "procession"
+        },
+        {
+          "hour": 19,
+          "what": "easter_feast"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "holy_day",
+          "from_hour": 7,
+          "to_hour": 12,
+          "work_mult": 0.3
+        },
+        {
+          "kind": "demand",
+          "group": "food",
+          "mult": 0.8,
+          "to_hour": 17,
+          "why": "lent"
+        },
+        {
+          "kind": "demand",
+          "group": "food",
+          "mult": 1.5,
+          "from_hour": 17,
+          "why": "easter"
+        },
+        {
+          "kind": "routine",
+          "activity": "mass",
+          "mult": 5.0,
+          "from_hour": 7,
+          "to_hour": 10
+        },
+        {
+          "kind": "routine",
+          "activity": "mass",
+          "mult": 5.0,
+          "from_hour": 10,
+          "to_hour": 12
+        },
+        {
+          "kind": "visitors",
+          "mult": 2.0,
+          "kinds": [
+            "pilgrim",
+            "beggar"
+          ]
+        },
+        {
+          "kind": "emotion",
+          "id": "grateful",
+          "share": 0.3,
+          "toward": "sponsors",
+          "at": "end"
+        }
+      ],
+      "contracts": "holy_week",
+      "view": {
+        "decor": [
+          {
+            "prop": "banner",
+            "where": "town_hall",
+            "count": 2
+          },
+          {
+            "prop": "lanterns",
+            "where": "main_street",
+            "count": 6
+          }
+        ],
+        "clothes": "penitent",
+        "music": "music_fest_holy_week"
+      }
+    },
+    "mayday_corpus": {
+      "kind": "fixed",
+      "day_of_year": 1,
+      "size": "big",
+      "start_hour": 0,
+      "hours": 24,
+      "schedule": [
+        {
+          "hour": 9,
+          "what": "maypole"
+        },
+        {
+          "hour": 11,
+          "what": "corpus_procession"
+        },
+        {
+          "hour": 17,
+          "what": "bulls",
+          "needs": "bulls"
+        },
+        {
+          "hour": 21,
+          "what": "dance"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "routine",
+          "activity": "mass",
+          "mult": 5.0,
+          "from_hour": 11,
+          "to_hour": 13
+        },
+        {
+          "kind": "routine",
+          "activity": "stroll",
+          "mult": 3.0,
+          "from_hour": 21
+        },
+        {
+          "kind": "customers",
+          "mult": 1.2,
+          "from_hour": 12
+        },
+        {
+          "kind": "demand",
+          "group": "textiles",
+          "mult": 1.2
+        },
+        {
+          "kind": "spectacle",
+          "id": "bulls",
+          "hour": 17,
+          "needs": "bulls"
+        },
+        {
+          "kind": "visitors",
+          "mult": 2.0,
+          "kinds": [
+            "merchant",
+            "minstrel"
+          ]
+        },
+        {
+          "kind": "emotion",
+          "id": "grateful",
+          "share": 0.4,
+          "toward": "sponsors",
+          "at": "end"
+        }
+      ],
+      "contracts": "mayday_corpus",
+      "organizable": [
+        "bulls"
+      ],
+      "view": {
+        "decor": [
+          {
+            "prop": "maypole",
+            "where": "plaza_center",
+            "count": 1
+          },
+          {
+            "prop": "garland",
+            "where": "main_street",
+            "count": 8
+          },
+          {
+            "prop": "banner",
+            "where": "town_hall",
+            "count": 2
+          },
+          {
+            "prop": "cart_ring",
+            "where": "plaza_ring",
+            "count": 6,
+            "needs": "bulls"
+          },
+          {
+            "prop": "bull",
+            "where": "plaza_center_side",
+            "count": 1,
+            "needs": "bulls"
+          }
+        ],
+        "clothes": "sunday",
+        "music": "music_fest_mayday"
+      }
+    },
+    "st_john": {
+      "kind": "fixed",
+      "day_of_year": 2,
+      "size": "small",
+      "start_hour": 18,
+      "hours": 10,
+      "schedule": [
+        {
+          "hour": 21,
+          "what": "bonfires"
+        },
+        {
+          "hour": 23,
+          "what": "dance"
+        },
+        {
+          "hour": 24,
+          "what": "st_john_water"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "service",
+          "id": "tavern",
+          "mult": 2.0
+        },
+        {
+          "kind": "routine",
+          "activity": "tavern",
+          "mult": 2.0
+        },
+        {
+          "kind": "demand",
+          "group": "food",
+          "mult": 1.2,
+          "from_hour": 19,
+          "to_hour": 24
+        },
+        {
+          "kind": "routine",
+          "activity": "stroll",
+          "mult": 3.0,
+          "from_hour": 21
+        },
+        {
+          "kind": "routine",
+          "activity": "chat",
+          "mult": 3.0,
+          "from_hour": 21
+        },
+        {
+          "kind": "incident",
+          "id": "altercation",
+          "mult": 2.0
+        },
+        {
+          "kind": "incident",
+          "id": "fire",
+          "mult": 3.0
+        },
+        {
+          "kind": "emotion",
+          "id": "grateful",
+          "share": 0.3,
+          "toward": "sponsors",
+          "at": "end"
+        }
+      ],
+      "contracts": "",
+      "view": {
+        "decor": [
+          {
+            "prop": "bonfire",
+            "where": "plaza_center",
+            "count": 1
+          },
+          {
+            "prop": "bonfire",
+            "where": "main_street",
+            "count": 3
+          },
+          {
+            "prop": "lanterns",
+            "where": "plaza_ring",
+            "count": 6
+          }
+        ],
+        "clothes": "sunday",
+        "music": "music_fest_st_john"
+      }
+    },
+    "harvest_fair": {
+      "kind": "fixed",
+      "day_of_year": 3,
+      "size": "big",
+      "start_hour": 0,
+      "hours": 24,
+      "fair": true,
+      "schedule": [
+        {
+          "hour": 7,
+          "what": "fair_opens"
+        },
+        {
+          "hour": 12,
+          "what": "cattle"
+        },
+        {
+          "hour": 17,
+          "what": "horse_race"
+        },
+        {
+          "hour": 21,
+          "what": "minstrels"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "customers",
+          "mult": 1.5
+        },
+        {
+          "kind": "tariff",
+          "city": "home",
+          "mult": 0.0
+        },
+        {
+          "kind": "stalls",
+          "stall": "fair",
+          "count": 6,
+          "groups": [
+            "textiles",
+            "food",
+            "construction",
+            "luxury",
+            "wood",
+            "medicine"
+          ]
+        },
+        {
+          "kind": "visitors",
+          "mult": 5.0,
+          "kinds": [
+            "merchant",
+            "peddler",
+            "minstrel",
+            "soldier",
+            "noble",
+            "pilgrim",
+            "beggar"
+          ]
+        },
+        {
+          "kind": "route_bonus",
+          "city": "home",
+          "days": 2
+        },
+        {
+          "kind": "spectacle",
+          "id": "horse_race",
+          "hour": 17
+        },
+        {
+          "kind": "spectacle",
+          "id": "minstrels",
+          "hour": 21
+        },
+        {
+          "kind": "emotion",
+          "id": "grateful",
+          "share": 0.4,
+          "toward": "sponsors",
+          "at": "end"
+        }
+      ],
+      "contracts": "harvest_fair",
+      "view": {
+        "decor": [
+          {
+            "prop": "fair_stall",
+            "where": "plaza_ring",
+            "count": 6
+          },
+          {
+            "prop": "pen",
+            "where": "plaza_edge",
+            "count": 2
+          },
+          {
+            "prop": "sheep",
+            "where": "plaza_edge",
+            "count": 2
+          },
+          {
+            "prop": "horse",
+            "where": "plaza_edge",
+            "count": 1
+          },
+          {
+            "prop": "bunting",
+            "where": "main_street",
+            "count": 8
+          }
+        ],
+        "clothes": "sunday",
+        "music": "music_fest_fair"
+      }
+    },
+    "st_michael": {
+      "kind": "fixed",
+      "day_of_year": 4,
+      "size": "small",
+      "start_hour": 17,
+      "hours": 9,
+      "schedule": [
+        {
+          "hour": 17,
+          "what": "rents_due"
+        },
+        {
+          "hour": 19,
+          "what": "grape_treading"
+        },
+        {
+          "hour": 22,
+          "what": "dance"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "demand",
+          "group": "food",
+          "mult": 1.2
+        },
+        {
+          "kind": "routine",
+          "activity": "stroll",
+          "mult": 2.0,
+          "from_hour": 21
+        },
+        {
+          "kind": "emotion",
+          "id": "grateful",
+          "share": 0.3,
+          "toward": "sponsors",
+          "at": "end"
+        }
+      ],
+      "contracts": "st_michael",
+      "view": {
+        "decor": [
+          {
+            "prop": "garland",
+            "where": "main_street",
+            "count": 6
+          },
+          {
+            "prop": "lanterns",
+            "where": "plaza_ring",
+            "count": 4
+          }
+        ],
+        "clothes": "sunday",
+        "music": "music_fest_st_michael"
+      }
+    },
+    "all_saints_matanza": {
+      "kind": "fixed",
+      "day_of_year": 5,
+      "size": "big",
+      "start_hour": 0,
+      "hours": 24,
+      "schedule": [
+        {
+          "hour": 8,
+          "what": "cemetery"
+        },
+        {
+          "hour": 10,
+          "what": "matanza"
+        },
+        {
+          "hour": 19,
+          "what": "common_banquet"
+        },
+        {
+          "hour": 22,
+          "what": "chestnuts"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "holy_day",
+          "from_hour": 7,
+          "to_hour": 10,
+          "work_mult": 0.5
+        },
+        {
+          "kind": "price",
+          "group": "food",
+          "mult": 0.6,
+          "why": "abundance"
+        },
+        {
+          "kind": "routine",
+          "activity": "visit",
+          "mult": 4.0,
+          "from_hour": 8,
+          "to_hour": 10
+        },
+        {
+          "kind": "routine",
+          "activity": "chat",
+          "mult": 5.0,
+          "from_hour": 19,
+          "to_hour": 23
+        },
+        {
+          "kind": "reputation",
+          "who": "mayor",
+          "amount": 2,
+          "at": "end",
+          "why": "common_banquet"
+        },
+        {
+          "kind": "emotion",
+          "id": "grateful",
+          "share": 0.5,
+          "toward": "sponsors",
+          "at": "end"
+        }
+      ],
+      "contracts": "all_saints_matanza",
+      "organizable": [
+        "bulls"
+      ],
+      "view": {
+        "decor": [
+          {
+            "prop": "long_tables",
+            "where": "plaza_center",
+            "count": 2
+          },
+          {
+            "prop": "pig",
+            "where": "plaza_edge",
+            "count": 3
+          },
+          {
+            "prop": "bunting",
+            "where": "main_street",
+            "count": 6
+          },
+          {
+            "prop": "bonfire",
+            "where": "plaza_ring",
+            "count": 1
+          }
+        ],
+        "clothes": "sunday",
+        "music": "music_fest_matanza"
+      }
+    },
+    "christmas": {
+      "kind": "fixed",
+      "day_of_year": 6,
+      "size": "big",
+      "start_hour": 0,
+      "hours": 24,
+      "schedule": [
+        {
+          "hour": 0,
+          "what": "midnight_mass"
+        },
+        {
+          "hour": 11,
+          "what": "aguinaldos"
+        },
+        {
+          "hour": 19,
+          "what": "christmas_feast"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "demand",
+          "group": "luxury",
+          "mult": 1.3
+        },
+        {
+          "kind": "holy_day",
+          "from_hour": 7,
+          "to_hour": 10,
+          "work_mult": 0.5
+        },
+        {
+          "kind": "routine",
+          "activity": "mass",
+          "mult": 5.0,
+          "from_hour": 0,
+          "to_hour": 2
+        },
+        {
+          "kind": "aguinaldo",
+          "loyalty": 5
+        },
+        {
+          "kind": "emotion",
+          "id": "grateful",
+          "share": 0.3,
+          "toward": "sponsors",
+          "at": "end"
+        }
+      ],
+      "contracts": "christmas",
+      "view": {
+        "decor": [
+          {
+            "prop": "nativity",
+            "where": "town_hall",
+            "count": 1
+          },
+          {
+            "prop": "lanterns",
+            "where": "main_street",
+            "count": 8
+          },
+          {
+            "prop": "garland",
+            "where": "plaza_ring",
+            "count": 4
+          }
+        ],
+        "clothes": "sunday",
+        "music": "music_fest_christmas"
+      }
+    },
+    "carnival": {
+      "kind": "fixed",
+      "day_of_year": 7,
+      "size": "small",
+      "start_hour": 17,
+      "hours": 10,
+      "schedule": [
+        {
+          "hour": 18,
+          "what": "masks"
+        },
+        {
+          "hour": 20,
+          "what": "the_rooster"
+        },
+        {
+          "hour": 22,
+          "what": "dance"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "service",
+          "id": "tavern",
+          "mult": 2.0
+        },
+        {
+          "kind": "routine",
+          "activity": "tavern",
+          "mult": 2.0
+        },
+        {
+          "kind": "incident",
+          "id": "altercation",
+          "mult": 3.0
+        },
+        {
+          "kind": "routine",
+          "activity": "stroll",
+          "mult": 3.0,
+          "from_hour": 20
+        },
+        {
+          "kind": "reputation",
+          "who": "mayor",
+          "amount": -2,
+          "at": "start",
+          "why": "carnival_mockery"
+        },
+        {
+          "kind": "emotion",
+          "id": "grateful",
+          "share": 0.3,
+          "toward": "sponsors",
+          "at": "end"
+        }
+      ],
+      "contracts": "carnival",
+      "view": {
+        "decor": [
+          {
+            "prop": "bunting",
+            "where": "main_street",
+            "count": 8
+          },
+          {
+            "prop": "lanterns",
+            "where": "plaza_ring",
+            "count": 6
+          },
+          {
+            "prop": "bonfire",
+            "where": "plaza_center",
+            "count": 1
+          }
+        ],
+        "clothes": "carnival",
+        "music": "music_fest_carnival"
+      }
+    },
+    "marquis_visit": {
+      "kind": "variable",
+      "size": "big",
+      "start_hour": 0,
+      "hours": 24,
+      "notice_days": 2,
+      "trigger": {
+        "chance": 0.0625,
+        "min_day": 9,
+        "cooldown_days": 16,
+        "avoid": [
+          "big",
+          "fair"
+        ]
+      },
+      "schedule": [
+        {
+          "hour": 10,
+          "what": "reception"
+        },
+        {
+          "hour": 12,
+          "what": "audience"
+        },
+        {
+          "hour": 19,
+          "what": "honour_banquet"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "demand",
+          "group": "luxury",
+          "mult": 1.3
+        },
+        {
+          "kind": "customers",
+          "mult": 1.5
+        },
+        {
+          "kind": "visitors",
+          "mult": 2.0,
+          "kinds": [
+            "noble",
+            "soldier"
+          ]
+        },
+        {
+          "kind": "routine",
+          "activity": "watch_show",
+          "mult": 3.0,
+          "from_hour": 10,
+          "to_hour": 12
+        },
+        {
+          "kind": "emotion",
+          "id": "grateful",
+          "share": 0.3,
+          "toward": "sponsors",
+          "at": "end"
+        }
+      ],
+      "contracts": "marquis_visit",
+      "view": {
+        "decor": [
+          {
+            "prop": "triumphal_arch",
+            "where": "gates",
+            "count": 1,
+            "needs_contract": "triumphal_arch"
+          },
+          {
+            "prop": "stage",
+            "where": "town_hall",
+            "count": 1,
+            "needs_contract": "stage"
+          },
+          {
+            "prop": "banner",
+            "where": "town_hall",
+            "count": 3
+          },
+          {
+            "prop": "bunting",
+            "where": "main_street",
+            "count": 8
+          }
+        ],
+        "clothes": "sunday",
+        "music": "music_fest_marquis"
+      }
+    },
+    "noble_wedding": {
+      "kind": "variable",
+      "size": "big",
+      "start_hour": 17,
+      "hours": 10,
+      "notice_days": 1,
+      "trigger": {
+        "on": "rich_wedding"
+      },
+      "schedule": [
+        {
+          "hour": 17,
+          "what": "wedding_mass"
+        },
+        {
+          "hour": 19,
+          "what": "wedding_banquet"
+        },
+        {
+          "hour": 22,
+          "what": "dance"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "demand",
+          "group": "luxury",
+          "mult": 1.2
+        },
+        {
+          "kind": "demand",
+          "group": "food",
+          "mult": 1.2
+        },
+        {
+          "kind": "visitors",
+          "mult": 1.5,
+          "kinds": [
+            "noble",
+            "minstrel"
+          ]
+        },
+        {
+          "kind": "routine",
+          "activity": "stroll",
+          "mult": 3.0,
+          "from_hour": 22
+        },
+        {
+          "kind": "emotion",
+          "id": "grateful",
+          "share": 0.3,
+          "toward": "hosts",
+          "at": "end"
+        }
+      ],
+      "contracts": "noble_wedding",
+      "view": {
+        "decor": [
+          {
+            "prop": "long_tables",
+            "where": "plaza_center",
+            "count": 2
+          },
+          {
+            "prop": "garland",
+            "where": "main_street",
+            "count": 6
+          },
+          {
+            "prop": "banner",
+            "where": "town_hall",
+            "count": 2
+          }
+        ],
+        "clothes": "sunday",
+        "music": "music_fest_wedding"
+      }
+    },
+    "neighbours_wedding": {
+      "kind": "variable",
+      "size": "small",
+      "start_hour": 18,
+      "hours": 6,
+      "notice_days": 1,
+      "trigger": {
+        "on": "townsfolk_wedding"
+      },
+      "schedule": [
+        {
+          "hour": 18,
+          "what": "wedding_mass"
+        },
+        {
+          "hour": 20,
+          "what": "dance"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "demand",
+          "group": "food",
+          "mult": 1.1
+        },
+        {
+          "kind": "routine",
+          "activity": "stroll",
+          "mult": 2.0,
+          "from_hour": 20
+        }
+      ],
+      "contracts": "neighbours_wedding",
+      "view": {
+        "decor": [
+          {
+            "prop": "garland",
+            "where": "plaza_ring",
+            "count": 4
+          }
+        ],
+        "clothes": "sunday",
+        "music": "music_fest_wedding"
+      }
+    },
+    "tournament": {
+      "kind": "variable",
+      "size": "big",
+      "start_hour": 8,
+      "hours": 16,
+      "notice_days": 1,
+      "trigger": {
+        "on": "organized",
+        "spectacle": "joust"
+      },
+      "schedule": [
+        {
+          "hour": 10,
+          "what": "joust"
+        },
+        {
+          "hour": 14,
+          "what": "fight_tournament"
+        },
+        {
+          "hour": 19,
+          "what": "prize"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "spectacle",
+          "id": "joust",
+          "hour": 10
+        },
+        {
+          "kind": "spectacle",
+          "id": "fight_tournament",
+          "hour": 14
+        },
+        {
+          "kind": "customers",
+          "mult": 1.3
+        },
+        {
+          "kind": "demand",
+          "group": "weapons",
+          "mult": 1.3
+        },
+        {
+          "kind": "visitors",
+          "mult": 2.0,
+          "kinds": [
+            "soldier",
+            "noble"
+          ]
+        },
+        {
+          "kind": "routine",
+          "activity": "watch_show",
+          "mult": 4.0,
+          "from_hour": 10,
+          "to_hour": 17
+        }
+      ],
+      "contracts": "tournament",
+      "view": {
+        "decor": [
+          {
+            "prop": "tilt_yard",
+            "where": "plaza_center",
+            "count": 1
+          },
+          {
+            "prop": "banner",
+            "where": "plaza_ring",
+            "count": 4
+          },
+          {
+            "prop": "horse",
+            "where": "plaza_edge",
+            "count": 2
+          }
+        ],
+        "clothes": "sunday",
+        "music": "music_fest_tournament"
+      }
+    },
+    "comedians": {
+      "kind": "variable",
+      "size": "small",
+      "start_hour": 16,
+      "hours": 8,
+      "notice_days": 1,
+      "trigger": {
+        "chance": 0.125,
+        "min_day": 2,
+        "cooldown_days": 8,
+        "avoid": [
+          "big",
+          "fair"
+        ]
+      },
+      "schedule": [
+        {
+          "hour": 18,
+          "what": "play"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "spectacle",
+          "id": "comedians",
+          "hour": 18
+        },
+        {
+          "kind": "service",
+          "id": "tavern",
+          "mult": 1.5
+        },
+        {
+          "kind": "routine",
+          "activity": "watch_show",
+          "mult": 4.0,
+          "from_hour": 18,
+          "to_hour": 20
+        }
+      ],
+      "contracts": "comedians",
+      "view": {
+        "decor": [
+          {
+            "prop": "stage",
+            "where": "plaza_center",
+            "count": 1
+          }
+        ],
+        "clothes": "",
+        "music": "music_fest_comedians"
+      }
+    },
+    "preacher": {
+      "kind": "variable",
+      "size": "small",
+      "start_hour": 8,
+      "hours": 16,
+      "notice_days": 1,
+      "trigger": {
+        "chance": 0.125,
+        "min_day": 2,
+        "cooldown_days": 8,
+        "avoid": [
+          "big",
+          "fair",
+          "small"
+        ]
+      },
+      "schedule": [
+        {
+          "hour": 11,
+          "what": "sermon"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "need",
+          "id": "faith",
+          "amount": 40
+        },
+        {
+          "kind": "routine",
+          "activity": "dice",
+          "mult": 0.3
+        },
+        {
+          "kind": "demand",
+          "group": "luxury",
+          "mult": 0.8,
+          "why": "bonfire_of_vanities"
+        }
+      ],
+      "contracts": "",
+      "view": {
+        "decor": [
+          {
+            "prop": "stage",
+            "where": "plaza_center",
+            "count": 1
+          }
+        ],
+        "clothes": "",
+        "music": "music_fest_preacher"
+      }
+    },
+    "pilgrimage": {
+      "kind": "variable",
+      "size": "small",
+      "start_hour": 6,
+      "hours": 16,
+      "notice_days": 1,
+      "trigger": {
+        "on": "city_feast",
+        "city": "abbey"
+      },
+      "schedule": [
+        {
+          "hour": 6,
+          "what": "pilgrims_leave"
+        },
+        {
+          "hour": 12,
+          "what": "monastery_banquet"
+        },
+        {
+          "hour": 19,
+          "what": "pilgrims_back"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "visitors",
+          "mult": 3.0,
+          "kinds": [
+            "pilgrim",
+            "beggar"
+          ]
+        },
+        {
+          "kind": "demand",
+          "group": "food",
+          "mult": 1.2
+        },
+        {
+          "kind": "routine",
+          "activity": "mass",
+          "mult": 4.0,
+          "from_hour": 6,
+          "to_hour": 19
+        }
+      ],
+      "contracts": "pilgrimage",
+      "view": {
+        "decor": [
+          {
+            "prop": "banner",
+            "where": "main_street",
+            "count": 3
+          }
+        ],
+        "clothes": "",
+        "music": "music_fest_pilgrimage"
+      }
+    },
+    "rogation": {
+      "kind": "variable",
+      "size": "small",
+      "start_hour": 17,
+      "hours": 4,
+      "notice_days": 1,
+      "trigger": {
+        "chance": 0.5,
+        "min_day": 2,
+        "cooldown_days": 4,
+        "requires_event": [
+          "famine"
+        ],
+        "avoid": [
+          "big"
+        ]
+      },
+      "schedule": [
+        {
+          "hour": 18,
+          "what": "rogation_procession"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "routine",
+          "activity": "mass",
+          "mult": 5.0
+        },
+        {
+          "kind": "need",
+          "id": "faith",
+          "amount": 20
+        }
+      ],
+      "contracts": "",
+      "view": {
+        "decor": [
+          {
+            "prop": "banner",
+            "where": "main_street",
+            "count": 2
+          }
+        ],
+        "clothes": "penitent",
+        "music": "music_fest_holy_week"
+      }
+    },
+    "cattle_fair": {
+      "kind": "variable",
+      "size": "small",
+      "start_hour": 7,
+      "hours": 12,
+      "notice_days": 1,
+      "trigger": {
+        "chance": 0.25,
+        "min_day": 2,
+        "cooldown_days": 2,
+        "avoid": [
+          "big",
+          "fair",
+          "small"
+        ]
+      },
+      "schedule": [
+        {
+          "hour": 8,
+          "what": "cattle"
+        },
+        {
+          "hour": 16,
+          "what": "horse_race"
+        }
+      ],
+      "effects": [
+        {
+          "kind": "customers",
+          "mult": 1.2
+        },
+        {
+          "kind": "demand",
+          "group": "horses",
+          "mult": 1.3
+        },
+        {
+          "kind": "spectacle",
+          "id": "horse_race",
+          "hour": 16
+        },
+        {
+          "kind": "visitors",
+          "mult": 2.0,
+          "kinds": [
+            "merchant",
+            "peddler"
+          ]
+        }
+      ],
+      "contracts": "cattle_fair",
+      "view": {
+        "decor": [
+          {
+            "prop": "pen",
+            "where": "plaza_edge",
+            "count": 2
+          },
+          {
+            "prop": "horse",
+            "where": "plaza_edge",
+            "count": 2
+          },
+          {
+            "prop": "sheep",
+            "where": "plaza_edge",
+            "count": 2
+          }
+        ],
+        "clothes": "",
+        "music": "music_fest_fair"
+      }
+    }
+  }
+}

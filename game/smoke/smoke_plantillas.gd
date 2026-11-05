@@ -9,12 +9,16 @@ extends Node
 ##   paso      12:10, the bridge or the quay (where the map has one): the townsfolk crossing
 ##   atardecer the start of dusk + 50 min, the biggest corrillo (a rumour over a head)
 ##   noche     23:10, a night guard on its round with the lantern
+##   fiesta    the festival FIESTA put in force on its day at 11:00 (as --smoke-script=fiestas does) and played to
+##             12:30: its decoration on this town's plaza, ring, main street, town hall and gates (FestivalLayer), and
+##             the townsfolk at it
 ## Prints per shot what is on the map (townsfolk out, walking, stuck, guards on duty, visitors, corrillos) and, at the
-## end, the orders refused while playing. --smoke-cities=a,b: only those. Quits when done, or after `timeout` seconds
+## end, the orders refused while playing. --smoke-cities=a,b: only those; --smoke-moments=a,b: only those moments. Quits when done, or after `timeout` seconds
 ## with a shot of whatever is on screen.
 
 const HERO: String = "chr_0001"
 const START: String = "artisan_blacksmith"
+const FIESTA: String = "mayday_corpus"
 
 var app: Node = null
 var timeout: float = 420.0
@@ -30,6 +34,7 @@ var _city: String = ""
 
 func _ready() -> void:
 	var only: PackedStringArray = []
+	var moments: PackedStringArray = []
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--smoke-timeout="):
 			timeout = a.substr(16).to_float()
@@ -37,16 +42,19 @@ func _ready() -> void:
 			world_seed = maxi(1, a.substr(7).to_int())
 		elif a.begins_with("--smoke-cities="):
 			only = a.substr(15).split(",", false)
+		elif a.begins_with("--smoke-moments="):
+			moments = a.substr(16).split(",", false)
 	_steps = [["plantillas_partida_nueva", _new_game, 1.0]]
 	for id: String in NewGame.cities(Data.catalog):
 		if not only.is_empty() and not id in only:
 			continue
-		_steps.append(["plantillas_%s_mediodia" % id, _noon.bind(id), 1.2])
-		_steps.append(["plantillas_%s_puerta" % id, _gate.bind(id), 1.0])
+		var all: Array = [["mediodia", _noon.bind(id), 1.2], ["puerta", _gate.bind(id), 1.0]]
 		if not _crossing(id).is_empty():
-			_steps.append(["plantillas_%s_paso" % id, _cross.bind(id), 1.0])
-		_steps.append(["plantillas_%s_atardecer" % id, _dusk.bind(id), 1.2])
-		_steps.append(["plantillas_%s_noche" % id, _night.bind(id), 1.2])
+			all.append(["paso", _cross.bind(id), 1.0])
+		all += [["atardecer", _dusk.bind(id), 1.2], ["noche", _night.bind(id), 1.2], ["fiesta", _fiesta.bind(id), 1.2]]
+		for s: Array in all:
+			if moments.is_empty() or str(s[0]) in moments:
+				_steps.append(["plantillas_%s_%s" % [id, s[0]], s[1], s[2]])
 	print("[SmokePlantillas] start (%d shots, seed %d, timeout=%.0f s)" % [_steps.size(), world_seed, timeout])
 
 
@@ -215,6 +223,30 @@ func _night(id: String) -> void:
 	_report("%s noche (ronda %s)" % [id, found])
 	print("[SmokePlantillas] %s: órdenes rechazadas %d %s" % [id, (_refused[id] as Array).size(),
 		(_refused[id] as Array).slice(0, 5)])
+
+
+## The festival FIESTA in force on its day (year 1) at 11:00, its decoration on this town (smoke_fiestas._force).
+func _fiesta(id: String) -> void:
+	if _city != id and not _begin(id):
+		return
+	var sim: Sim = Game.sim
+	var d := Festivals.def_of(sim, FIESTA)
+	var day := 8 + int(d.get("day_of_year", 1))
+	sim.state.festivals = Festivals.new_block()
+	sim.state.festivals["planned_day"] = day
+	sim.state.clock["minute"] = day * Clock.MINUTES_PER_DAY + 11 * 60
+	var board: Array = sim.state.contracts["board"]
+	sim.state.contracts["board"] = board.filter(func(c: Dictionary) -> bool: return not bool(c.get("race", false)))
+	var inst_id := Festivals._schedule(sim, FIESTA, day, "smoke", {"hosts": [], "couple": []})
+	var inst := Festivals.find(sim, inst_id)
+	inst["organized"]["bulls"] = "smoke"
+	sim.events = []
+	Festivals.step(sim)
+	_run_to(12 * 60 + 30)
+	app.world().call("_refresh_festivals")
+	app.world().select("")
+	_centre(_v(Life.plaza(Game.sim)), 0)
+	print("[SmokePlantillas] %s fiesta %s en vigor (%s): %s" % [id, FIESTA, inst_id, app.world().festival_layer.shown])
 
 
 func _process(delta: float) -> void:

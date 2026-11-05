@@ -71,7 +71,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
 	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
-	"merchant": BotMerchant, "guard_watch": BotGuardWatch}
+	"merchant": BotMerchant, "guard_watch": BotGuardWatch, "festive": BotFestive}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
@@ -84,6 +84,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# duelist: challenges the rival of the trade by the rules and plays its duels (duelo, --scenario=duel_ready)
 	# merchant: travels to the capital, sells there, takes contracts, signs a quota, sends a caravan (viajes, 09b)
 	# guard_watch: nights with bandit raids; the watch answers, nobody loses more than the cap (vida, 04f 4.28.4)
+	# festive: artisan_expert for a year with the festivals on (fiestas, 04f 4.28.4): every feast, its contracts
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
 const YEAR_DAYS: int = 8  # D1(b): 1 year = 8 days
@@ -102,6 +103,7 @@ func _init() -> void:
 	var events_on := false  # H13: --events=on runs the bots of targets _no_events with the global events too
 	var cast := "fixed"  # población: --cast=random deals a generated cast per seed (the targets were set with the fixed one)
 	var life_on := false  # vida: --life=on runs the bots of targets _no_life with the living town II too
+	var festivals_on := false  # fiestas: --festivals=on runs every bot with the festival calendar (else only _festivals)
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--scenario="):
 			scenario = a.substr(11)
@@ -125,6 +127,8 @@ func _init() -> void:
 			life_on = true
 		elif a.begins_with("--cast="):
 			cast = a.substr(7)
+		elif a == "--festivals=on":
+			festivals_on = true
 	var cat := Catalog.load_from()
 	for spec: String in sets:
 		if not _apply_set(cat, spec):
@@ -134,6 +138,7 @@ func _init() -> void:
 	cat.events["_enabled_data"] = bool(cat.events.get("enabled", true))  # what data/ (or --set) says, before _no_events
 	var life_cfg: Dictionary = cat.life_tables.get("life", {})
 	var life_data := bool(life_cfg.get("enabled", true))  # vida: what data/ (or --set) says, before _no_life
+	cat.festivals["_enabled_data"] = bool(cat.festivals.get("enabled", false))  # fiestas: before _festivals
 	var targets: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/targets.json"))
 	var flows := _goldflows(targets)
 	var missed := 0
@@ -156,6 +161,10 @@ func _init() -> void:
 		life_cfg["enabled"] = life_data and not still
 		if still:
 			print("sim_runner: %s without the living town II (targets _no_life; --life=on to include it)" % bot_id)
+		# fiestas (04f 4.28.4, principle 4): the targets fixed before the festivals run without them; only the bots of
+		# data/targets.json _festivals (or --festivals=on) play the calendar.
+		cat.festivals["enabled"] = (bot_id in (targets.get("_festivals", []) as Array) or festivals_on) \
+			and bool(cat.festivals.get("_enabled_data", false))
 		for diff: String in diffs:
 			var runs: Array = []
 			for s: int in range(1, seeds + 1):
