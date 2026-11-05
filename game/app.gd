@@ -767,6 +767,8 @@ func _reveal_selection() -> void:
 		_reveal_sig = ""
 		return
 	var open: Control = _hud.open_manage_panel()
+	if open != null and not open.is_visible_in_tree():
+		open = null   # an interior's panel left flagged open after a load from inside a building: not on screen
 	var sig := "%s|%s|%s" % [_world.selected_id, _world.picked_building, open.name if open != null else ""]
 	if sig == _reveal_sig:
 		return
