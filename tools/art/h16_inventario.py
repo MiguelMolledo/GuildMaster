@@ -127,9 +127,9 @@ def games_and_forge():
                     "ruta": F + "trait_oil_tempered.png",
                     "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
                     "coste_gen": 0, "coste_usd": 0.08,
-                    "notas": "Iconos de rasgos de pieza (03b §3b.2): trait_<oil_tempered|fine_edge|master_mark|"
-                             "masterwork>.png (32×32) y small/ (16×16): templada al aceite, filo fino, marca del "
-                             "maestro y obra maestra."})
+                    "notas": "Iconos de rasgos de pieza (03b §3b.2): trait_<oil_tempered|water_tempered|air_cooled|"
+                             "fine_edge|master_mark|masterwork>.png (32×32) y small/ (16×16): templada al aceite, "
+                             "templada al agua, enfriada al aire, filo fino, marca del maestro y obra maestra."})
     return out
 
 
@@ -175,6 +175,85 @@ def characters():
     return out
 
 
+GAME_ILL = {"azar": "el azar", "mayor": "«a la mayor»", "pulso": "el pulso", "envite": "el envite",
+            "tourney": "el torneo de lucha", "joust": "la justa", "sortija": "la sortija", "race": "la carrera",
+            "bulls": "correr el toro"}
+GAME_ICON = dict(GAME_ILL, bets="el corredor de apuestas")
+BOARDS = {"ui_games_joust_lists": ("joust/lists.png", "la liza de la justa de lado: la tela a media altura, el "
+                                   "público y los pendones detrás"),
+          "ui_games_sortija_lane": ("sortija/lane.png", "la calle de la sortija de lado: el arco con el travesaño en "
+                                    "el centro, sin nada colgado (la anilla la pinta el tablero), y tres postes de "
+                                    "señal"),
+          "ui_games_race_track": ("race/track.png", "el camino de la carrera desde arriba, a casi toda la altura (sitio "
+                                  "para 6 calles): salida a la izquierda, el molino abajo a dos tercios, el palio de la "
+                                  "meta a la derecha. 404×192 ×2 = 808×384, para que el recorte no se coma la salida "
+                                  "ni la meta"),
+          "ui_games_bulls_plaza": ("bulls/plaza.png", "la plaza cerrada con un círculo de carros desde arriba, con "
+                                   "balcones alrededor; el centro, libre"),
+          "ui_games_tourney_list": ("tourney/list.png", "el palenque del torneo: tierra apisonada dentro de una "
+                                    "empalizada, público y pendones; el tercio izquierdo, en sombra"),
+          "ui_games_fight_street": ("fight/street.png", "una calle de noche con dos antorchas, para el rescate y el "
+                                    "altercado")}
+FAL_GAME = "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)"
+
+
+def games_p6():
+    """Prioridad 6: lo que pidieron los workers de juegos y de la forja (entradas «falta» suyas, se rellenan)."""
+    out = []
+    E = "assets/art/illustrations/events/"
+    for g, what in GAME_ILL.items():
+        if os.path.exists(os.path.join(ROOT, E + f"game_{g}.png")):
+            out.append({"id": "ill_game_" + g, "tipo": "ui", "estado": "sprite", "para": ["juegos", "H16"],
+                        "ruta": E + f"game_{g}.png", "origen": FAL_GAME, "coste_gen": 0, "coste_usd": 0.08,
+                        "notas": f"Lámina del resultado de {what} (04f §4.26), 240×135, y game_{g}_192.png a 192×108. "
+                                 f"VisualPaths.game_illustration(\"game_{g}\")."})
+    for g, what in GAME_ICON.items():
+        if os.path.exists(os.path.join(ROOT, f"assets/art/ui/icons/game_{g}.png")):
+            out.append({"id": "icon_game_" + g, "tipo": "icono", "estado": "sprite", "para": ["juegos", "H16"],
+                        "ruta": f"assets/art/ui/icons/game_{g}.png", "origen": FAL_ICON, "coste_gen": 0,
+                        "coste_usd": 0.02, "notas": f"Icono de {what}, 32×32 y small/game_{g}.png 16×16. "
+                                                    f"VisualPaths.game_icon(\"{g}\")."})
+    G = "assets/art/ui/games/"
+    for iid, (rel, what) in BOARDS.items():
+        if os.path.exists(os.path.join(ROOT, G + rel)):
+            size = "808×384" if "race" in rel else "880×384 (440×192 ×2)"
+            out.append({"id": iid, "tipo": "ui", "estado": "sprite", "para": ["juegos", "H16"], "ruta": G + rel,
+                        "origen": FAL_GAME.replace("título al alba)", "título al alba; 21:9)"), "coste_gen": 0,
+                        "coste_usd": 0.08,
+                        "notas": f"Fondo de tablero (04f §4.26): {what}. {size}: el tablero recorta abajo y en el "
+                                 "centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto."})
+    FS = "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_juegos_sprites.py)"
+    if os.path.exists(os.path.join(ROOT, G + "joust/horse.png")):
+        out.append({"id": "ui_games_joust_horse", "tipo": "ui", "estado": "sprite", "para": ["juegos", "H16"],
+                    "ruta": G + "joust/horse.png", "origen": FS, "coste_gen": 0, "coste_usd": 0.04,
+                    "notas": "Caballo de justa con gualdrapa azul y oro y el caballero con la lanza en ristre, de perfil "
+                             "al este (al oeste se refleja), 48×32, y horse_fallen.png (48×32): el caballo sin jinete "
+                             "y el caballero en el suelo. Los pies, abajo; la figura ocupa ~35 de ancho, centrada."})
+    if os.path.exists(os.path.join(ROOT, G + "race/horse_run.png")):
+        out.append({"id": "ui_games_race_horse", "tipo": "ui", "estado": "sprite", "para": ["juegos", "H16"],
+                    "ruta": G + "race/horse.png", "origen": FS, "coste_gen": 0, "coste_usd": 0.08,
+                    "notas": "Caballo al galope con jinete, de perfil al este: horse_run.png es la tira de 4 fotogramas "
+                             "(112×18, 28×18 cada uno) y horse.png el primero suelto (28×18, lo que dibuja el tablero "
+                             "de hoy). La ropa y la gorra del jinete, en gris neutro (r=g=b) para teñirla por código."})
+    if os.path.exists(os.path.join(ROOT, G + "bulls/bull.png")):
+        out.append({"id": "ui_games_bulls_bull", "tipo": "ui", "estado": "sprite", "para": ["juegos", "H16"],
+                    "ruta": G + "bulls/bull.png", "origen": FS, "coste_gen": 0, "coste_usd": 0.04,
+                    "notas": "El toro negro de perfil al este, 36×24, y bull_charge.png (36×24): embistiendo con la "
+                             "cabeza baja. Los pies, abajo."})
+    if os.path.exists(os.path.join(ROOT, G + "dados/cup.png")):
+        out.append({"id": "ui_games_dice_cup", "tipo": "ui", "estado": "sprite", "para": ["juegos", "H16"],
+                    "ruta": G + "dados/cup.png", "origen": "dibujado (Pillow, tools/art/juegos_taberna.py cubilete)",
+                    "coste_gen": 0, "notas": "El cubilete de cuero boca abajo que tapa el dado oculto de «a la "
+                                             "mayor» (04f §4.26.7), 24×24 como los dados, la boca abajo."})
+    if os.path.exists(os.path.join(ROOT, E + "masterwork.png")):
+        out.append({"id": "illus_masterwork", "tipo": "ui", "estado": "sprite", "para": ["H17", "forja"],
+                    "ruta": E + "masterwork.png", "origen": FAL_ILL, "coste_gen": 0, "coste_usd": 0.08,
+                    "notas": "Lámina de la carta «Obra maestra» de la Forja viva (03b §3b.2): el maestro alza la "
+                             "espada recién hecha a la luz de la fragua, los aprendices miran. 240×135 y "
+                             "masterwork_192.png a 192×108."})
+    return out
+
+
 def apply(entries):
     raw = open(INV).read()
     d = json.loads(raw)
@@ -197,7 +276,7 @@ def apply(entries):
 
 
 def main():
-    apply(illustrations() + tavern() + games_and_forge() + props() + characters())
+    apply(illustrations() + tavern() + games_and_forge() + props() + characters() + games_p6())
 
 
 if __name__ == "__main__":

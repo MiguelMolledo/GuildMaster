@@ -851,9 +851,12 @@ de ida y vuelta desde la versión de antes.
   - Dados, naipes y mesa, en `assets/art/ui/games/`.
   - La Forja viva de 03b §3b.2, en `assets/art/ui/forge/`. «Batir» lleva los golpes fuerte, medido y de acabado.
   - Los personajes, como paletas del shader en `assets/art/characters/looks.json`.
-  - Las demás pantallas de minijuego, los sprites de personaje y los animales esperan: las pantallas, a que sus
-    workers digan qué piezas usan; los sprites y los animales, al ciclo de PixelLab del 15-nov (lista en
-    `assets/art/MANIFEST.md`).
+  - Las pantallas de los minijuegos (2026-11-05), en `assets/art/ui/games/<juego>/`: los fondos de la justa, la
+    sortija, la carrera, los toros, el torneo y la pelea, a 880×384 (la carrera, a 808×384); el caballo de justa,
+    el toro y el galope (`race/horse_run.png`, una tira de 4) de perfil al este, y el cubilete. También las láminas
+    `game_<juego>` y los iconos `game_<juego>`.
+  - Los sprites de personaje y los animales del mundo esperan al ciclo de PixelLab del 15-nov (lista en
+    `assets/art/MANIFEST.md`). El caballo y el toro de los minijuegos son de fal, porque solo salen en su pantalla.
 
 #### 4.28.4 Pruebas, bots y dianas
 

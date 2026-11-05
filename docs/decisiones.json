@@ -433,6 +433,12 @@
       "tema": "Arte de H16-H17 (04f §4.28.3 y 03b §3b.2): cómo se entrega",
       "decision": "(1) Batir en la Forja viva: los «3 golpes» son las tres clases de golpe de 03b (fuerte, medido y de acabado: strike_strong/measured/finish), con el yunque y el martillo también sueltos para animarlos; no tres fotogramas de un golpe. (2) La Taberna-Posada usa la huella y la puerta de la carpintería (3×4, Door (-40, 12)), pero su lienzo es 20 px más alto por las dos plantas (192×230, Sprite offset (-104, -158)). (3) Los props de fiesta llevan la huella en metadata/footprint del nodo raíz (no tienen Door) y Feet en el centro del rombo de la huella. (4) Los naipes (48×72) y los dados se componen con Pillow sobre piezas de fal (palos y figuras), para que el número de palos y de puntos sea exacto. (5) Los personajes nuevos van, hasta PixelLab, como paletas del shader de identidad en assets/art/characters/looks.json (sprite base por sexo y colores de ropa), fuera de data/ para no pisar al worker de vida.",
       "por_que": "Lo pedía el encargo o lo exige el juego: legibilidad (golpes que se distinguen), encajar en las escenas que ya existen (lienzo, ancla, puerta y huella) y exactitud donde el modelo falla (contar palos y puntos)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Arte de los minijuegos (04f §4.26): medidas de los fondos y del galope",
+      "decision": "(1) Los fondos de tablero van a 440×192 nativos ×2 = 880×384 (21:9), no a 16:9 como la mesa: el tablero (404×180 como mínimo) recorta abajo y en el centro a ½, y en 16:9 perdería el tercio de arriba. (2) La pista de la carrera va a 404×192 ×2 = 808×384, sin recorte lateral, para que la salida y la meta queden dentro. (3) El galope se entrega en race/horse_run.png (tira de 4 de 28×18) y race/horse.png es el primer fotograma suelto, porque board_race.gd dibuja horse.png entero a 28×18 (una tira de 112 se aplastaría); el tablero puede pasar a la tira cuando quiera. (4) El cubilete se dibuja con Pillow (24×24, boca abajo): el de fal salía con la boca arriba. (5) En la calle de la sortija el travesaño va sin nada colgado (la anilla la pinta el tablero): con cuerda parecía una horca.",
+      "por_que": "Que el arte encaje con lo que el código de juegos ya hace (recorte a ½ abajo y al centro, tamaño de dibujo del caballo) sin pedirle cambios, y que se lea bien."
     }
   ],
   "pendientes": [

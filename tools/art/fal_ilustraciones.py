@@ -43,6 +43,12 @@ def ev(what):
     return STYLE + "an event illustration for a medieval town life-sim: " + what + SMALL
 
 
+def board(what):
+    return (STYLE + "a background for a minigame board: " + what + " Wide panoramic composition; keep the central "
+            "area open and calm so game pieces can be drawn on top, detail towards the edges. No people in the "
+            "middle. 14th-century Central Europe. No text, no letters, no UI, no border.")
+
+
 def card(what):
     return STYLE + "a story card illustration for a medieval dynasty life-sim: " + what + SMALL
 
@@ -228,6 +234,56 @@ PIECES = {
                                           "farmers haggling and shaking hands, a horse being shown at a trot.")),
     "ev_ladron": ("ev", TITLE, card("NIGHT THIEF. Under the moon a thief climbs out of a workshop window with a "
                                     "full sack, a cat watching from the roof.")),
+    # Juegos (04f §4.26): láminas del resultado, assets/art/illustrations/events/game_<juego>.png
+    "ev_game_azar": ("ev", TITLE, card("DICE GAME. Bone dice rolling on a rough tavern table lit by a single candle, "
+                                       "coins and a clay mug, two players' hands reaching in.")),
+    "ev_game_mayor": ("ev", TITLE, card("HIGH DICE. Four players around a tavern table, each with a leather dice cup "
+                                        "turned over, a pot of coins in the middle, tense faces lit by candlelight. Every figure is lit from the front with visible faces and clothes colours, no dark silhouettes.")),
+    "ev_game_pulso": ("ev", TITLE, card("ARM WRESTLING. Two burly men arm-wrestle across a tavern table, faces "
+                                        "straining, a ring of cheering drinkers around them. Every figure is lit from the front with visible faces and clothes colours, no dark silhouettes.")),
+    "ev_game_envite": ("ev", TITLE, card("CARD GAME. Two players with playing cards at a tavern table, one staring "
+                                         "hard at the other's face to read his bluff, coins between them.")),
+    "ev_game_tourney": ("ev", TITLE, card("SWORD TOURNAMENT. Two fighters with blunt tournament swords and small "
+                                          "shields duel inside a wooden palisade in the square, judges at a table "
+                                          "and a crowd behind.")),
+    "ev_game_joust": ("ev", TITLE, card("JOUST. Two armoured knights on caparisoned horses clash at the tilt "
+                                        "barrier, a lance shattering into splinters, banners and a crowded stand.")),
+    "ev_game_sortija": ("ev", TITLE, card("RING TILT. A rider at full gallop spears a small ring hanging from a high "
+                                          "wooden crossbar with his lance, the crowd cheering along the lane. Every figure is lit from the front with visible faces and clothes colours, no dark silhouettes.")),
+    "ev_game_race": ("ev", TITLE, card("HORSE RACE. Riders on galloping horses take the bend by a windmill on a dirt "
+                                       "road, dust flying, a red prize banner hanging at the finish. Every figure is lit from the front with visible faces and clothes colours, no dark silhouettes.")),
+    "ev_game_bulls": ("ev", TITLE, card("BULL RUN. In a square closed by a ring of farm carts, a young man dodges a "
+                                        "charging black bull, people watching from the carts and the balconies.")),
+    # Forja viva (03b §3b.2): la carta «Obra maestra»
+    "ev_masterwork": ("ev", TITLE, card("MASTERWORK. In the glow of the forge a proud master smith holds up a "
+                                        "gleaming finished sword, apprentices looking on in awe, golden sparks. Every figure is lit from the front with visible faces and clothes colours, no dark silhouettes.")),
+    # Fondos de tablero de los juegos (assets/art/ui/games/<juego>/<id>.png): 440×192 a ×2 = 880×384; el tablero
+    # recorta abajo y en el centro a ½ (404×180 como mínimo): lo importante, abajo y en el centro
+    "board_joust_lists": ("board", TITLE, board("the jousting lists seen from the side: a long low striped wooden "
+                          "tilt barrier running horizontally across the whole image at mid-height, packed dirt ground "
+                          "below it, a wooden stand full of spectators and tall heraldic banners behind it along "
+                          "the top; the band just above and below the barrier stays clear for the riders.")),
+    "board_sortija_lane": ("board", TITLE, board("a dirt riding lane for the ring tilt seen from the side: in the "
+                           "centre a festive arch of two tall wooden posts joined by a high crossbar painted in red "
+                           "and white stripes with small pennants, with nothing hanging from it; three short painted "
+                           "signal posts spaced along the lane, a low fence and a few spectators far behind, open sky.")),
+    "board_race_track": ("board", TITLE, board("a horse race course in strict top-down view, seen from directly "
+                         "overhead like a map, no horizon and no sky: a very wide straight dirt road runs "
+                         "horizontally from the left edge to the right edge and fills almost the whole height of the "
+                         "image (room for six horses side by side), with only a thin strip of grass along the top "
+                         "and bottom edges; at the far left a start line of white posts across the road, at the far "
+                         "right the finish line under a red prize banner on two poles; one single windmill seen from "
+                         "above on the bottom grass strip at about two thirds of the way, where the road bends "
+                         "very slightly.")),
+    "board_bulls_plaza": ("board", TITLE, board("a town square closed for a bull run seen from directly above "
+                          "(top-down): a large ring of wooden farm carts in the middle enclosing an empty sandy "
+                          "dirt arena, houses with wooden balconies full of people around the edges.")),
+    "board_tourney_list": ("board", TITLE, board("an enclosure for a sword tournament seen from the side and a "
+                           "little from above: a square of packed earth inside a wooden palisade, spectators "
+                           "behind the palisade and pennants; the left third is darker and in shadow.")),
+    "board_fight_street": ("board", TITLE, board("a narrow medieval town street at night seen from the side, "
+                           "cobblestones, half-timbered house fronts, two burning torches on iron brackets casting "
+                           "warm pools of light, dark blue night above.")),
     # pantallas (960×540)
     "screen_loading_1": ("screen", TITLE, STYLE + "a loading screen illustration: a guild master's desk seen from above "
                          "at an angle, an open ledger, a quill and inkpot, a candle, stacks of coins and a hand-drawn "
@@ -254,6 +310,9 @@ FROM_PILOT = {"event_war": ("event", os.path.join(PILOT, "eventos", "crudo", "gu
               "screen_title_dawn": ("screen", TITLE)}
 
 
+BOARD_W = {"board_race_track": 404}
+
+
 def raw(pid):
     if pid in FROM_PILOT:
         return FROM_PILOT[pid][1]
@@ -269,7 +328,7 @@ def gen(pid):
     if os.path.exists(raw(pid)):
         return
     cmd = [sys.executable, os.path.join(HERE, "fal_piloto.py"), "gen", "--model", "nano2", "--piece", "ilustraciones",
-           "--aspect", "16:9", "--name", pid, "--ref", ref, "--prompt", prompt]
+           "--aspect", "21:9" if kind == "board" else "16:9", "--name", pid, "--ref", ref, "--prompt", prompt]
     if subprocess.run(cmd, cwd=ROOT).returncode:
         sys.exit(1)
 
@@ -314,6 +373,17 @@ def proc(pid):
         name = pid[len("ev_"):]
         reduce(im, (240, 135), pal).save(os.path.join(d, name + ".png"))
         reduce(im, (192, 108), pal).save(os.path.join(d, name + "_192.png"))
+    elif kind == "board":  # juegos: ui/games/<juego>/<id>.png, 440×192 ×2 (el tablero recorta a ½ abajo y al centro)
+        pal = i2p_palette(src, pid, 48)
+        _, game, name = pid.split("_", 2)
+        d = os.path.join(ROOT, "assets", "art", "ui", "games", game)
+        os.makedirs(d, exist_ok=True)
+        rgb = im.convert("RGB")
+        nw = BOARD_W.get(pid, 440)  # la carrera usa todo el ancho (salida y meta en los bordes): 404, sin recortar
+        w = round(rgb.height * nw / 192)
+        if w <= rgb.width and pid not in BOARD_W:
+            rgb = rgb.crop(((rgb.width - w) // 2, 0, (rgb.width - w) // 2 + w, rgb.height))
+        reduce(rgb, (nw, 192), pal).resize((nw * 2, 384), Image.NEAREST).save(os.path.join(d, name + ".png"))
     elif kind == "duel":  # la ruta que ya tenía el inventario (ill_duel_result): ui/illustrations/duel/<nombre>
         pal = i2p_palette(src, pid, 32)
         d = os.path.join(ROOT, "assets", "art", "ui", "illustrations", "duel")
