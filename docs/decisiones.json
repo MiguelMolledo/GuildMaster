@@ -437,6 +437,12 @@
       "tema": "Personajes con más detalle a la misma escala",
       "decision": "Opción A: los personajes siguen a ~48-50 px de figura (escala B, docs/arte/escala.md) y se regeneran con PixelLab v3 «high detail» directamente a ese tamaño (lienzo ~52), sin reducir sprites más grandes. No se escala el mundo. Prueba: el herrero v3 de 80 px (figura 78) quedó mucho mejor que el de hoy; generar a su tamaño final cuando haya generaciones (bono diario de 5, o el ciclo del 15-nov).",
       "por_que": "Owner: «vamos con la A»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Gate 04c · IA de las familias rivales",
+      "decision": "Aprobado el diseño de docs/gdd/04c_ia_rival.md con sus recomendaciones (4.21.14). Se abre H6 (parcelas y construcción, con la IA rival construyendo), que incluye la compra, restauración y reconversión de 4.9.1.",
+      "por_que": "Owner: «me parece bien ese diseño, pensaba que lo había aprobado»."
     }
   ],
   "pendientes": [
@@ -444,11 +450,6 @@
       "tema": "O-V2 Población de town_e con la vida (banda nueva)",
       "detalle": "Construido como recomienda O-V2 (a): con la vida encendida el tope es 5 por casa hasta 32 (data/life/life.json population; town_e: 32). Medido (semilla 1, 60 años saltando días): de 16 a 21 vecinos en 10 años, 29 en 20 y 30-32 desde el año 30, con 6 solteras fértiles al final. La diana de H7 (town_population [14, 22]) no cambia porque se mide con la vida apagada; la nueva town_population_life propone [14, 32]. En las partidas de 10-24 días (dianas de economía) el tope casi no llega a usarse. Pendiente del visto bueno del owner.",
       "opciones": "(a) 32 · (b) 26 · (c) 20, como hoy"
-    },
-    {
-      "tema": "D9 Nombre del mapa EA",
-      "detalle": "Propuesta (rama mundo, 2026-11-04, docs/gdd/09b_region.md §9b.9): si el mapa EA es la capital de la región (P-R1, O-R1), Bellcaire. Pendiente del owner.",
-      "opciones": "Bellcaire · Castellnou de Mercat · Santa Maria del Mercadal"
     },
     {
       "tema": "D16 Mostrador y demanda",

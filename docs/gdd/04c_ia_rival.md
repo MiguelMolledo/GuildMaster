@@ -1,6 +1,6 @@
 ## 4c. IA de las familias rivales: diseño detallado (Gate «Antes de H6»)
 
-Desarrolla 4.21 ([04b_partida_y_rivales.md](04b_partida_y_rivales.md#421-ia-de-las-familias-rivales)). **Estado: borrador para aprobar por el owner** (2026-11-01). Cuando lo apruebe, se apunta en `docs/decisiones.json` y se marca el [Gate] en `docs/hitos.json`; sin eso no empieza H6 (10_hitos.md).
+Desarrolla 4.21 ([04b_partida_y_rivales.md](04b_partida_y_rivales.md#421-ia-de-las-familias-rivales)). **Estado: aprobado por el owner el 2026-11-05** con las recomendaciones de 4.21.14 (borrador del 2026-11-01). Cuando lo apruebe, se apunta en `docs/decisiones.json` y se marca el [Gate] en `docs/hitos.json`; sin eso no empieza H6 (10_hitos.md).
 
 Las cifras marcadas **[balance]** son valores iniciales: se ajustan con bots contra `data/targets.json`. Donde este documento cambia o precisa algo de 4.21 se dice explícitamente (resumen en 4.21.1). Las decisiones que solo puede tomar el owner están en 4.21.14.
 
