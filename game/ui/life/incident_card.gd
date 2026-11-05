@@ -63,6 +63,15 @@ func _on_button(id: String) -> void:
 		return
 	var g := get_node_or_null("/root/Game")
 	var actor := SimQuery.family_actor(_sim.state, SimQuery.player_family(_sim.state), "")
+	# juegos (docs/contratos/juegos.md §5): the rescue is played on the game screen (it gives resolve_incident with the
+	# moves) and «Apostar» opens the bookmaker of the brawl
+	var app := get_node_or_null("/root/App")
+	if id in ["rescue", "bet"] and app != null and app.has_method("open_game"):
+		app.call("open_game", {"game": "rescue" if id == "rescue" else "brawl", "actor": actor, "incident": inc_id,
+			"helpers": 2})
+		if id == "bet":
+			_later[inc_id] = true  # the card comes back for its own choices
+		return
 	var order := {"type": "resolve_incident", "actor": actor, "incident": inc_id, "choice": id, "helpers": 2}
 	ViewConfig.info("IncidentCard", "order %s" % [order])
 	if g != null:

@@ -1,0 +1,10 @@
+{
+  "id": "loaded_dice",
+  "name_key": "item.loaded_dice",
+  "gender": "m",
+  "category": "special",
+  "weight": 0.1,
+  "max_stack": 5,
+  "base_price": 30,
+  "market_stall": null
+}

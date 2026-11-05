@@ -200,6 +200,7 @@ static func _new(sim: Sim, id: String, extra: Dictionary) -> Dictionary:
 static func _close(sim: Sim, inc: Dictionary, outcome: String) -> void:
 	var st := sim.state
 	var b := book(st)
+	Betting.refund_incident(sim, inc)  # juegos: a bet on a brawl that never came gives its stake back
 	(b["active"] as Array).erase(inc)
 	inc["phase"] = "closed"
 	inc["outcome"] = outcome
@@ -344,6 +345,7 @@ static func _fight(sim: Sim, inc: Dictionary, d: Dictionary, now: int) -> void:
 		Duels.fighter_of(sim, b, w), str(d.get("duel_kind", "first_blood")))
 	var winner := a if int(res["winner"]) == 0 else (b if int(res["winner"]) == 1 else "")
 	inc["winner"] = winner
+	Betting.settle_incident(sim, inc, winner)  # juegos (04f §4.26.6): the bets on this brawl
 	inc["phase"] = "fighting"
 	inc["fight_until"] = now + int(d.get("fight_minutes", 25))
 	var watchers: Array = []
@@ -912,10 +914,12 @@ static func _choose(sim: Sim, inc: Dictionary, choice: String, actor: String, o:
 				var bid := Life.add_person(sim, Life.FAMILY_BANDITS, "?", false, 30, rc.get("bandit_stats", {}), {}, [0, 0],
 					{"bandit": {"incident": str(inc["id"]), "nest": true}})
 				bandits.append(bid)
-			var won := _fights(sim, side, bandits, str(inc["id"]) + "|rescue", Life.FAMILY_BANDITS)
+			# juegos: the same chain of duels, the actor's bouts played on the screen when the order brings its moves
+			var won := Rescue.fight(sim, side, bandits, str(inc["id"]) + "|rescue", Life.FAMILY_BANDITS, o.get("moves", []))
 			for bid: String in bandits:
 				Life.remove_person(sim, bid)
-			sim.events.append({"type": "incident_rescue", "incident": str(inc["id"]), "won": won, "helpers": n})
+			sim.events.append({"type": "incident_rescue", "incident": str(inc["id"]), "won": won, "helpers": n,
+				"played": not (o.get("moves", []) as Array).is_empty()})
 			if won:
 				var vf := str(inc["victim_family"])
 				if vf != fam:

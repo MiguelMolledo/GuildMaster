@@ -16907,5 +16907,860 @@
   "imagenes": 1,
   "usd": 0.0004,
   "que": "image2pixel q2b_corral_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T23:02:54",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_boda_rica"
+ },
+ {
+  "fecha": "2026-11-04T23:02:55",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_boda_vecinos"
+ },
+ {
+  "fecha": "2026-11-04T23:02:56",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_visita_marques"
+ },
+ {
+  "fecha": "2026-11-04T23:02:56",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_torneo"
+ },
+ {
+  "fecha": "2026-11-04T23:03:21",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_predicador"
+ },
+ {
+  "fecha": "2026-11-04T23:03:22",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_rogativa"
+ },
+ {
+  "fecha": "2026-11-04T23:03:24",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_comicos"
+ },
+ {
+  "fecha": "2026-11-04T23:03:30",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_romeria"
+ },
+ {
+  "fecha": "2026-11-04T23:03:46",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_feria_ganado"
+ },
+ {
+  "fecha": "2026-11-04T23:04:29",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0068,
+  "que": "image2pixel ev_visita_marques_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:34",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel ev_boda_rica_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:39",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_boda_vecinos_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:44",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_torneo_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:48",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_comicos_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:53",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel ev_predicador_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:04:59",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel ev_romeria_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:05:06",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0007,
+  "que": "image2pixel ev_rogativa_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:05:12",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0006,
+  "que": "image2pixel ev_feria_ganado_i2p.png"
+ },
+ {
+  "fecha": "2026-11-04T23:05:43",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_boda_vecinos"
+ },
+ {
+  "fecha": "2026-11-04T23:05:49",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0007,
+  "que": "image2pixel ev_boda_vecinos_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:31:34",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "board_race_track"
+ },
+ {
+  "fecha": "2026-11-05T00:31:53",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0023,
+  "que": "image2pixel board_race_track_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:32:24",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "board_race_track"
+ },
+ {
+  "fecha": "2026-11-05T00:32:28",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel board_race_track_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:33:04",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "board_sortija_lane"
+ },
+ {
+  "fecha": "2026-11-05T00:33:05",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "board_bulls_plaza"
+ },
+ {
+  "fecha": "2026-11-05T00:33:07",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "board_joust_lists"
+ },
+ {
+  "fecha": "2026-11-05T00:33:09",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "board_tourney_list"
+ },
+ {
+  "fecha": "2026-11-05T00:33:21",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_mayor"
+ },
+ {
+  "fecha": "2026-11-05T00:33:21",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "board_fight_street"
+ },
+ {
+  "fecha": "2026-11-05T00:33:25",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_azar"
+ },
+ {
+  "fecha": "2026-11-05T00:33:31",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_pulso"
+ },
+ {
+  "fecha": "2026-11-05T00:33:35",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_tourney"
+ },
+ {
+  "fecha": "2026-11-05T00:33:37",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_envite"
+ },
+ {
+  "fecha": "2026-11-05T00:33:47",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_joust"
+ },
+ {
+  "fecha": "2026-11-05T00:33:52",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_race"
+ },
+ {
+  "fecha": "2026-11-05T00:33:52",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_sortija"
+ },
+ {
+  "fecha": "2026-11-05T00:33:55",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_bulls"
+ },
+ {
+  "fecha": "2026-11-05T00:34:04",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_masterwork"
+ },
+ {
+  "fecha": "2026-11-05T00:34:28",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "j1"
+ },
+ {
+  "fecha": "2026-11-05T00:34:41",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "j2"
+ },
+ {
+  "fecha": "2026-11-05T00:34:50",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0061,
+  "que": "image2pixel board_joust_lists_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:34:55",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel board_sortija_lane_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:34:59",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel board_bulls_plaza_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:34:59",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "j3"
+ },
+ {
+  "fecha": "2026-11-05T00:35:03",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel board_tourney_list_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:08",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel board_fight_street_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:13",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_game_azar_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:17",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_game_mayor_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:22",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_game_pulso_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:27",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_game_envite_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:32",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_game_tourney_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:36",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_game_joust_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:41",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel ev_game_sortija_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:46",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_game_race_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:50",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_game_bulls_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:35:55",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_masterwork_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:36:33",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_mayor"
+ },
+ {
+  "fecha": "2026-11-05T00:36:34",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_pulso"
+ },
+ {
+  "fecha": "2026-11-05T00:36:35",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_sortija"
+ },
+ {
+  "fecha": "2026-11-05T00:36:37",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_game_race"
+ },
+ {
+  "fecha": "2026-11-05T00:36:50",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_masterwork"
+ },
+ {
+  "fecha": "2026-11-05T00:36:52",
+  "tanda": "h16",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "board_sortija_lane"
+ },
+ {
+  "fecha": "2026-11-05T00:36:57",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel ev_game_mayor_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:02",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel ev_game_pulso_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:07",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel ev_game_sortija_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:12",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_game_race_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:17",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_masterwork_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:21",
+  "tanda": "piloto",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel board_sortija_lane_i2p.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:39",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel j1_game_azar_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:42",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel j1_game_mayor_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:46",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel j1_game_pulso_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:49",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel j1_game_envite_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:53",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel j2_game_tourney_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:37:56",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel j2_game_bets_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:38:00",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel j2_game_joust_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:38:03",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel j2_game_sortija_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:38:06",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel j3_game_race_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:38:10",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel j3_game_bulls_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:38:13",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel j3_trait_water_tempered_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:38:17",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel j3_trait_air_cooled_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:38:50",
+  "tanda": "h16",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "j4"
+ },
+ {
+  "fecha": "2026-11-05T00:38:56",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel j4_game_azar_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:38:59",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel j4_game_sortija_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:39:03",
+  "tanda": "piloto",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel j4_dice_cup_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:40:48",
+  "tanda": "h16",
+  "pieza": "juegos_sprites",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "s1"
+ },
+ {
+  "fecha": "2026-11-05T00:41:03",
+  "tanda": "h16",
+  "pieza": "juegos_sprites",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "s2"
+ },
+ {
+  "fecha": "2026-11-05T00:41:17",
+  "tanda": "piloto",
+  "pieza": "juegos_sprites",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0021,
+  "que": "image2pixel s1_joust_horse_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T00:41:22",
+  "tanda": "piloto",
+  "pieza": "juegos_sprites",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel s1_joust_fallen_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T00:41:26",
+  "tanda": "piloto",
+  "pieza": "juegos_sprites",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel s1_bull_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T00:41:31",
+  "tanda": "piloto",
+  "pieza": "juegos_sprites",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel s1_bull_charge_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T00:41:36",
+  "tanda": "piloto",
+  "pieza": "juegos_sprites",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel s2_race_1_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:41:40",
+  "tanda": "piloto",
+  "pieza": "juegos_sprites",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel s2_race_2_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:41:45",
+  "tanda": "piloto",
+  "pieza": "juegos_sprites",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel s2_race_3_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T00:41:49",
+  "tanda": "piloto",
+  "pieza": "juegos_sprites",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel s2_race_4_s16.png"
  }
 ]
