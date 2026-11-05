@@ -318,8 +318,8 @@ rejilla, los solares y los puntos de reunión no se mueven, así que ninguna dia
   casilla desde la que se entra: la puerta en un negocio), `location` y, en un negocio, `site` y `for_sale`.
 - **Dentro y fuera** (`side`; decisión «Montsacre: dentro y fuera sin muralla de villa»): con muralla de villa
   (Bellcaire), respecto a ella; sin ella, dentro es el núcleo: la entrada a `inside_walk` pasos andando de la plaza
-  (18). Un recinto (`precincts`: el de la abadía de Montsacre, tierra de la Iglesia) no se edifica: ningún solar ni
-  ruina dentro (el validador lo comprueba).
+  (18). Un recinto (`precincts`: el de la abadía de Montsacre, tierra de la Iglesia) no se edifica: ni solares, ni
+  ruinas, ni negocios dentro (una casa del recinto no se lista como negocio; el validador lo comprueba).
 - **Situación** (`location` 0-1): pesos de `plots.location` sobre la distancia andando a la plaza, la calle mayor
   (calle y plaza), las puertas y el paso de gente (los paseos de cada puerta y cada portal a la plaza) [balance].
 - **Mínimos que comprueba el validador** en las ciudades de `plots.maps`: 2 solares dentro (`min_inside`), 2 fuera

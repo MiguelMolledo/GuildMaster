@@ -356,6 +356,8 @@ def plots(d, cat):
             continue  # a public building (the armory): nobody's to sell
         if s["type"] not in WORKSHOPS and s["type"] != "house":
             continue
+        if any(sides.unbuildable(tt) for tt in s["tiles"]):
+            continue  # a precinct is Church land: nothing in it is for sale (decision «Montsacre: dentro y fuera»)
         (x, y), (w, h) = s["origin"], s["footprint"]
         biz.append({"id": "", "state": "business", "side": sides.side_of((x, y, w, h), s["door"]),
                     "zone": "production" if s["type"] in WORKSHOPS else "housing", "origin": [x, y], "size": [w, h],
@@ -439,6 +441,8 @@ def validate_plots(m, rep, required=False):
             continue
         if tuple(fr) not in reach:
             rep.error(f"{w}: la entrada {fr} no se alcanza desde la plaza")
+        if any(sides.unbuildable(tt) for tt in tiles):  # lots, ruins and businesses alike
+            rep.error(f"{w}: está en el recinto de {m.d.get('id', '')} (plots.precincts: tierra de la Iglesia)")
         if sides.side_of(rect, fr) != side:
             rep.error(f"{w}: dice {side} y está {sides.side_of(rect, fr)}")
         if st == "business":
@@ -453,8 +457,6 @@ def validate_plots(m, rep, required=False):
             if zone == "rustic":
                 rep.error(f"{w}: un negocio de la villa no es rústico")
             continue
-        if any(sides.unbuildable(t) for t in tiles):
-            rep.error(f"{w}: está en el recinto de {m.d.get('id', '')} (plots.precincts: no se edifica)")
         counts["ruin" if st == "ruin" else "lot_" + side] += 1
         free_zone[zone] += 1
         if zone == "rustic" and side != "outside":

@@ -1468,27 +1468,6 @@
    "side": "outside",
    "zone": "housing",
    "origin": [
-    23,
-    8
-   ],
-   "size": [
-    3,
-    3
-   ],
-   "front": [
-    22,
-    9
-   ],
-   "location": 0.39,
-   "site": "house_03",
-   "for_sale": false
-  },
-  {
-   "id": "plot_16",
-   "state": "business",
-   "side": "outside",
-   "zone": "housing",
-   "origin": [
     14,
     31
    ],
