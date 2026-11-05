@@ -21,7 +21,7 @@
     {"id": "carro", "say": "Comprar un carro", "click": {"node": "BuyCartButton"}, "until": "q.carts() > q.was('carts')", "timeout": 8, "expect": ["q.order('buy_cart')"]},
     {"id": "carga", "say": "Cargar algo: la flecha de la primera cantidad", "spin": {"within": "CaravanScreen", "type": "SpinBox", "index": 0}, "times": 2},
     {"id": "mandar", "say": "Mandar la caravana", "click": {"node": "SendButton"}, "until": "q.caravans() > q.was('caravans')", "timeout": 8, "expect": ["q.order('caravan_send')"]},
-    {"id": "cerrar", "click": {"within": "CaravanScreen", "node": "BackButton"}, "expect": ["not q.visible('CaravanScreen')"]},
+    {"id": "cerrar", "click": {"within": "CaravanScreen", "node": "BackButton"}, "expect": ["not q.visible('CaravanScreen')"], "when": "q.visible('CaravanScreen')"},
     {"id": "esc", "say": "Esc cierra el mapa", "key": "Escape", "expect": ["not q.visible('RegionScreen')"]}
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "id": "dados",
+  "title": "Un juego de dados y una apuesta",
+  "about": "La apuesta: en la plaza dos vecinos van a llegar a las manos; la carta del altercado ofrece «Apostar», se abre el corredor de apuestas, se elige a quién y se apuesta. Los dados (a la azar contra el herrero rival): se juegan con sus botones y teclas; en main no hay entrada a los dados por la interfaz (llega con la taberna): los abre el arnés y queda apuntado.",
+  "start": {"scenario": "life_altercation"},
+  "covers": ["game_bet", "game_play"],
+  "steps": [
+    {"id": "pelea", "say": "La carta del altercado (a las 20:00)", "until": "q.shown({'node': 'Button_bet'})", "timeout": 40, "fast": 4},
+    {"id": "apostar", "say": "«Apostar»: se abre el corredor", "click": {"node": "Button_bet"}, "until": "q.shown({'within': 'Actions', 'type': 'Button', 'enabled': true})", "timeout": 10},
+    {"id": "a_quien", "say": "Elegir a quién (1)", "key": "1"},
+    {"id": "poner_tecla", "say": "Apostar con su tecla (3, la que pinta el botón)", "key": "3", "expect": ["q.order('game_bet')"], "soft": true},
+    {"id": "poner_raton", "say": "Si la tecla no apuesta, el botón «Apostar» con el ratón", "when": "not q.flow_has('game_bet')", "click": {"within": "Actions", "type": "Button", "index": 2}, "expect": ["q.order('game_bet')"], "soft": true},
+    {"id": "cerrar_corredor", "key": "Escape"},
+    {"id": "dados_escena", "restart": {"scenario": "town_e_start"}},
+    {"id": "abrir_dados", "say": "Los dados contra el herrero rival (por el arnés)", "harness_game": "azar", "until": "q.shown({'within': 'Actions', 'type': 'Button', 'enabled': true})", "timeout": 10},
+    {"id": "jugada_raton", "say": "La primera jugada con el ratón", "click": {"within": "Actions", "type": "Button", "enabled": true}},
+    {"id": "jugada_tecla", "say": "La siguiente con su tecla (1)", "when": "q.shown({'within': 'Actions', 'type': 'Button', 'enabled': true})", "key": "1", "soft": true},
+    {"id": "solo", "say": "A: que termine solo", "key": "A", "until": "q.visible('Result')", "timeout": 20, "fast": 4, "expect": ["q.flow_has('game_play')"]},
+    {"id": "resultado", "say": "La carta del resultado: cerrar", "click": {"within": "Result", "prefix": "Button_", "index": 1}, "soft": true},
+    {"id": "cerrado", "when": "q.shown({'node': 'Actions'})", "key": "Escape"}
+  ]
+}

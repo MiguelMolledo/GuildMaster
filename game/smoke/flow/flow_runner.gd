@@ -218,7 +218,7 @@ func _action_text(step: Dictionary) -> String:
 		return "tecla %s (%s)" % [step["key_audit"], step.get("context", "")]
 	if step.has("context_setup"):
 		return "preparar %s" % JSON.stringify(step["context_setup"].get("start", {}))
-	for k: String in ["click", "right_click", "double_click", "popup", "spin", "restart", "key", "world", "station", "door", "type", "wheel",
+	for k: String in ["click", "right_click", "double_click", "popup", "spin", "restart", "harness_game", "key", "world", "station", "door", "type", "wheel",
 			"pan", "hold"]:
 		if step.has(k):
 			return "%s %s" % [k, JSON.stringify(step[k])]
@@ -295,6 +295,9 @@ func _run_step(step: Dictionary, rec: Dictionary, dir: String, seen: Dictionary)
 
 ## The screen on top now: a menu screen, a big modal, the open management panel, the interior or the town.
 func _top_screen() -> String:
+	var games := app.get_node_or_null("GamesLayer")
+	if games != null and games.get_child_count() > 0 and (games.get_child(0) as Control).visible:
+		return "game_screen"
 	var screens := app.get_node_or_null("ScreensLayer")
 	if screens != null:
 		var top := ""
@@ -397,9 +400,10 @@ var notes: Array = []   # UX findings of the step that did not stop it (a lost c
 func _act(raw: Dictionary) -> String:
 	var step: Dictionary = _resolve(raw)
 	var err := await _act_once(step)
-	if err.contains("REHECHO"):
-		notes.append(err.replace("REHECHO: ", ""))
+	if err.contains("REHECHO") or err.ends_with("no recibió el clic"):
+		notes.append(err.replace("REHECHO: ", "") + " · se pulsó otra vez")
 		print("[Flow] lost click, again: %s" % err)
+		await get_tree().create_timer(0.2).timeout
 		err = await _act_once(step)
 	for i: int in 4:   # cards wait in a queue: one closes and the next shows
 		if not err.contains("lo tapa ") or bool(step.get("no_dismiss", false)):
@@ -527,6 +531,11 @@ func _act_once(step: Dictionary) -> String:
 		return await _key_audit(step)
 	if step.has("restart"):
 		return await _start(step["restart"])
+	if step.has("harness_game"):   # no way in through the interface yet: the harness opens the game (noted as a gap)
+		notes.append("abierto por el arnés (App.open_games_test): no hay entrada a «%s» por la interfaz" % step["harness_game"])
+		app.call("open_games_test", str(step["harness_game"]))
+		await get_tree().create_timer(0.4).timeout
+		return ""
 	if step.has("click"):
 		return await drv.click(step["click"], "left", false)
 	if step.has("right_click"):

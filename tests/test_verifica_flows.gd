@@ -5,7 +5,7 @@ extends "res://tests/test_case.gd"
 ## i18n key and a bracketed id on screen; the driver finds a control by its name, its text and its row.
 
 const ACTIONS: Array[String] = ["click", "right_click", "double_click", "popup", "spin", "key", "hold", "type", "world",
-	"station", "door", "wheel", "pan", "release_focus", "restart", "key_audit", "context_setup"]
+	"station", "door", "wheel", "pan", "release_focus", "restart", "key_audit", "context_setup", "harness_game"]
 const KEYS: Array[String] = ["id", "say", "until", "timeout", "fast", "wait", "expect", "soft", "when", "shot", "button",
 	"double", "shift", "item", "times", "up", "frames", "context", "does", "may_do_nothing", "both", "camera", "settle",
 	"restore", "no_dismiss"]
