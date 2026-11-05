@@ -861,7 +861,7 @@
     }
   },
   "full_player": {
-    "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche.",
+    "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche. Rivales y pueblo (tools/full_watch.gd, docs/contratos/informe_jugador_completo.md): ver _proposed_doc.",
     "_needs_days": {
       "debt_paid": 8,
       "debt_paid_day": 8,
@@ -872,7 +872,12 @@
       "had_child": 24,
       "mechanics_used": 24,
       "inherited": 280,
-      "game_over": 280
+      "game_over": 280,
+      "ai_contracts_accepted": 24,
+      "townsfolk_end": 24,
+      "ai_titled_families": 24,
+      "ai_office_runs": 24,
+      "ai_broke_days_max": 24
     },
     "refused_orders": [
       0,
@@ -926,6 +931,34 @@
       0,
       0
     ],
+    "ai_refused_per_family_year": [
+      0,
+      1
+    ],
+    "watch_arrived_share": [
+      0.9,
+      1
+    ],
+    "npc_stalls": [
+      0,
+      2
+    ],
+    "npc_hungry_share_max": [
+      0,
+      0.5
+    ],
+    "townsfolk_end": [
+      10,
+      null
+    ],
+    "visitors_per_day": [
+      2,
+      6
+    ],
+    "ai_contracts_accepted": [
+      10,
+      null
+    ],
     "_mean": {
       "net_year_1": [
         25,
@@ -948,6 +981,29 @@
       "had_child": [
         0.3,
         null
+      ]
+    },
+    "_proposed_doc": "Dianas que pide el owner (2026-11-05) para los rivales y el pueblo, propuestas tras medir; hoy fallan y se informan sin tumbar la QA (summary.json proposed_misses): una familia IA sube de título en 3 años, se presenta a un cargo, no pasa más de 4 días sin oro (hoy 15-21 de 24: las carreras de encargos de fiesta la dejan a 0 y por debajo de su reserva no vuelve a comprar), y los empleados y los niños del pueblo no pasan hambre más de la mitad de las horas (hoy 65-82 % y 88 %). Medido (2026-11-05, 3 semillas × 3 años, full_player e idle_player): 0 títulos, 0 cargos y 0 ataques de la IA; 17-35 encargos aceptados por la IA; 0 órdenes de la IA rechazadas; la guardia llega siempre (mediana 0 min, máx 8); 4,5-5,7 forasteros al día; 14-16 vecinos al final; ningún vecino atascado. Pasan a dianas cuando H6 (04c) y la vida los arreglen. En una generación (semilla 2, 351 días) las cuatro familias IA pasan ~340 días sin oro y paradas; el pueblo crece de 16 a 32 vecinos (el tope de la vida) con 45 nacimientos y 25 muertes, y la guardia llega a las 362 llamadas.",
+    "_proposed": {
+      "ai_titled_families": [
+        1,
+        null
+      ],
+      "ai_office_runs": [
+        1,
+        null
+      ],
+      "ai_broke_days_max": [
+        0,
+        4
+      ],
+      "staff_hungry_share_max": [
+        0,
+        0.5
+      ],
+      "child_hungry_share_max": [
+        0,
+        0.5
       ]
     }
   },
