@@ -1,0 +1,61 @@
+{
+  "_doc": "The armory (docs/gdd/04g_interiores.md 4.6.5.6): a big shop with the counter, panoplies and mannequins, and a back room. A public shop of the market: its counter opens the market panel. Edit by hand, then python3 tools/interiors/interiores.py reglas armory && python3 tools/interiors/interiores.py validar armory.",
+  "size": [9, 7],
+  "wall_height": 64,
+  "floor_height": 80,
+  "seed": 3,
+  "entrance": {"floor": 0, "tile": [5, 0], "side": "ne"},
+  "rooms": [
+    {"id": "backroom", "floor": 0, "type": "storage", "rects": [[0, 0, 2, 6]], "floor_kind": "earth", "wall_style": "stone", "light": "dim"},
+    {"id": "shop", "floor": 0, "type": "shop", "rects": [[3, 0, 8, 6]], "floor_kind": "flagstone", "wall_style": "timber", "light": "warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [3, 3], "side": "nw"}
+  ],
+  "levels": [
+    {"floor": 0, "rect": [3, 4, 6, 6], "step": 1}
+  ],
+  "stairs": [],
+  "stations": {
+    "counter": {"floor": 0, "tile": [5, 5], "prop": "shop_counter", "stand": [4, 5]}
+  },
+  "customers": {
+    "counter": [{"tile": [6, 5]}, {"tile": [6, 4]}],
+    "queue": [{"tile": [7, 5]}, {"tile": [7, 4]}, {"tile": [7, 3]}]
+  },
+  "idle": [
+    {"floor": 0, "tile": [4, 6]},
+    {"floor": 0, "tile": [1, 3]}
+  ],
+  "props": [
+    {"id": "weapon_panoply", "floor": 0, "tile": [8, 0], "flip": true},
+    {"id": "armor_mannequin", "floor": 0, "tile": [3, 0]},
+    {"id": "armor_mannequin", "floor": 0, "tile": [4, 0]},
+    {"id": "spear_rack", "floor": 0, "tile": [3, 1]},
+    {"id": "shield_stand", "floor": 0, "tile": [8, 2]},
+    {"id": "helmet_shelf", "floor": 0, "tile": [3, 2]},
+    {"id": "weapon_display", "floor": 0, "tile": [3, 6], "display": 3},
+    {"id": "display_shelf", "floor": 0, "tile": [8, 6], "flip": true, "display": 3},
+    {"id": "candle_stand", "floor": 0, "tile": [8, 4]},
+    {"id": "banner_stand", "floor": 0, "tile": [6, 0]},
+    {"id": "strongbox", "floor": 0, "tile": [0, 0]},
+    {"id": "mail_chest", "floor": 0, "tile": [1, 0]},
+    {"id": "armor_stand_forge", "floor": 0, "tile": [0, 6]}
+  ],
+  "rules": [
+    {"rule": "wall_fill", "room": "backroom", "props": ["crate", "crate_stack", "mail_chest", "barrel", "sword_rack"], "chance": 0.8},
+    {"rule": "on_top", "room": "shop", "under": ["shop_counter"], "props": ["balance_scale", "ledger_book", "dagger_cloth", "helmet_small"], "max": 2, "chance": 1.0},
+    {"rule": "hang", "room": "shop", "props": ["shield_crest", "banner_wall"], "count": 2}
+  ],
+  "upgrades": {},
+  "resolved": [
+    {"id": "sword_rack", "floor": 0, "tile": [0, 1], "flip": true, "rule": "wall_fill"},
+    {"id": "sword_rack", "floor": 0, "tile": [0, 3], "flip": true, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 0, "tile": [0, 4], "flip": true, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 0, "tile": [0, 5], "flip": false, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 0, "tile": [2, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "helmet_small", "floor": 0, "tile": [5, 5], "flip": false, "lift": 26, "shift": [-20, 0], "rule": "on_top", "over": "shop_counter"},
+    {"id": "banner_wall", "floor": 0, "tile": [3, 2], "flip": false, "hang": "nw", "rule": "hang"},
+    {"id": "banner_wall", "floor": 0, "tile": [3, 4], "flip": false, "hang": "nw", "rule": "hang"}
+  ]
+}

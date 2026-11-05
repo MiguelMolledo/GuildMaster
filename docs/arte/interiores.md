@@ -1,6 +1,6 @@
 # Interiores bonitos: referencias, análisis y piloto de la forja
 
-> Fecha: 2026-11-05 · Rama `interiores` · Diseño: `docs/gdd/04g_interiores.md` (§4.6.5) · Gasto: 4,59 USD de fal
+> Fecha: 2026-11-05 · Rama `interiores` · Diseño: `docs/gdd/04g_interiores.md` (§4.6.5) · Gasto: 6,35 USD de fal
 > (detalle en `assets/art/MANIFEST.md` y `assets/art/fal_piloto/gasto.json`, tanda `interiores`).
 > No cambia reglas del sim: solo cómo se monta y se ve un interior, y dónde se dibuja a la gente que el sim ya tiene.
 
@@ -195,11 +195,28 @@ usa aún).
 - Puestos, clics, puerta y mejoras como antes (pruebas `test_game_forja`, `test_visuals_paths`, `test_game_pulido` y
   las nuevas `test_interiores_datos`).
 
-## 7. Para los demás interiores
+## 7. Los demás interiores
 
-Por interior: el fichero de datos (con las piezas de la biblioteca), `interiores.py reglas` y `validar`, y 1-2
-fondos por planta con `fal_salas.py` (0,08 USD cada uno) — unos 0,3 USD por interior. Si falta una pieza, una
-rejilla nueva en `fal_props.py` (0,08 USD por 4-16 piezas).
+![Carpintería, cantería, sastrería, armería y casa](interiores/demas.png)
+
+*Capturas del juego (`--smoke-script=interiores`): carpintería, cantería y sastrería con todas sus mejoras, armería,
+casa y su planta alta.*
+
+| Interior | Planta baja | Planta alta |
+|---|---|---|
+| Armería | tienda grande de losas con el mostrador en una tarima, panoplias, maniquíes y expositor; trastienda | — |
+| Carpintería | taller con bancos y caballetes, patio de tablones, tienda pequeña | cocina y dormitorio |
+| Cantería | patio de bloques con tarima de trabajo, cobertizo, tienda | — |
+| Sastrería | taller con telares y mesas de corte, tienda en L con probador | cocina y dormitorio |
+| Casa | hogar, cocina y mesa | dormitorio y cuarto de los hijos |
+
+Ya no queda ninguna escena de interior hecha a mano (solo `_generic.tscn`). Lo aprendido al pintar los fondos: el
+modelo respeta las paredes y la puerta de la plantilla, pero **confunde suelos de colores parecidos** (la plantilla
+usa ahora colores bien distintos y el texto dice qué color es cada suelo) y **no respeta las tarimas** (se dibujan con
+Pillow encima del fondo, exactas). El foso de la forja sí salió bien a la cuarta.
+
+**Ayuntamiento y tribunal:** no tienen tipo de edificio en `data/buildings/` ni interior en el juego; quedan sus
+referencias para cuando lo tengan. Por interior nuevo: unos 0,2-0,6 USD de fondos.
 
 **PixelLab (desde el 15-nov):** para las piezas que piden varias direcciones o animación (fuego, fuelle, telar) y
 para repasar el detalle y la paleta de los personajes frente a los fondos (§4.6.5.1). Apuntado en la lista de la

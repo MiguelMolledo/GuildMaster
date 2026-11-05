@@ -8232,9 +8232,10 @@
         "armería"
       ],
       "ruta": "assets/art/interiors/armory/",
-      "origen": "guild-renew + dibujado (Pillow)",
+      "origen": "fal: nano-banana-2/edit (fondos por planta sobre la plantilla del montador) + biblioteca de props",
       "coste_gen": 0,
-      "notas": "Suelo de losas grandes (guild:tiles/stone_floor_flat/tile_11 aplastada y templada) y paredes de yeso con entramado (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). Nodo Kit de interiors/armory.tscn."
+      "notas": "Interior por datos (docs/gdd/04g_interiores.md §4.6.5.6, data/interiors/armory.json): tienda grande (losas, tarima del mostrador) con panoplias, maniquíes y expositor, y trastienda. Fondos pintados por sala room_<planta>_<sala>.png y paredes entre salas sacadas de ellos (tools/art/fal_salas.py); piezas de assets/art/props/interior/. Las piezas de antes (floor.png, wall_*.png y los puestos y mejoras de Pillow) quedan sin uso o como piezas de la biblioteca.",
+      "coste_usd": 0.16
     },
     {
       "id": "bld_stall_resources",
@@ -10161,44 +10162,61 @@
     {
       "id": "int_carpentry",
       "tipo": "interior",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "carpentry"
       ],
       "ruta": "assets/art/interiors/carpentry/",
-      "origen": "dibujado (Pillow) + kit de la forja recoloreado",
-      "notas": "Placeholder (tools/art/oficios_h12.py): suelo y paredes del kit de la forja recoloreados; puestos (caballete de serrar y banco de carpintero) y las 6 mejoras de Producción y Calidad dibujados con cajas iso. Las demás mejoras usan los visuales comunes de la forja. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit (fondos por planta sobre la plantilla del montador) + biblioteca de props",
+      "notas": "Interior por datos (docs/gdd/04g_interiores.md §4.6.5.6, data/interiors/carpentry.json): taller con bancos y caballetes, patio de tablones, tienda pequeña; vivienda arriba. Fondos pintados por sala room_<planta>_<sala>.png y paredes entre salas sacadas de ellos (tools/art/fal_salas.py); piezas de assets/art/props/interior/. Las piezas de antes (floor.png, wall_*.png y los puestos y mejoras de Pillow) quedan sin uso o como piezas de la biblioteca.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.16
     },
     {
       "id": "int_masonry",
       "tipo": "interior",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "masonry"
       ],
       "ruta": "assets/art/interiors/masonry/",
-      "origen": "dibujado (Pillow) + kit de la forja recoloreado",
-      "notas": "Placeholder (tools/art/oficios_h12.py): suelo y paredes del kit de la forja recoloreados; puestos (banco de corte y banco de tallar) y las 6 mejoras de Producción y Calidad dibujados con cajas iso. Las demás mejoras usan los visuales comunes de la forja. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit (fondos por planta sobre la plantilla del montador) + biblioteca de props",
+      "notas": "Interior por datos (docs/gdd/04g_interiores.md §4.6.5.6, data/interiors/masonry.json): patio de bloques con tarima de trabajo (dibujada exacta con Pillow), cobertizo y tienda. Fondos pintados por sala room_<planta>_<sala>.png y paredes entre salas sacadas de ellos (tools/art/fal_salas.py); piezas de assets/art/props/interior/. Las piezas de antes (floor.png, wall_*.png y los puestos y mejoras de Pillow) quedan sin uso o como piezas de la biblioteca.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.64
     },
     {
       "id": "int_tailor_shop",
       "tipo": "interior",
-      "estado": "greybox",
+      "estado": "sprite",
       "para": [
         "H12",
         "tailor_shop"
       ],
       "ruta": "assets/art/interiors/tailor_shop/",
-      "origen": "dibujado (Pillow) + kit de la forja recoloreado",
-      "notas": "Placeholder (tools/art/oficios_h12.py): suelo y paredes del kit de la forja recoloreados; puestos (telar y mesa de costura) y las 6 mejoras de Producción y Calidad dibujados con cajas iso. Las demás mejoras usan los visuales comunes de la forja. Pendiente de PixelLab.",
+      "origen": "fal: nano-banana-2/edit (fondos por planta sobre la plantilla del montador) + biblioteca de props",
+      "notas": "Interior por datos (docs/gdd/04g_interiores.md §4.6.5.6, data/interiors/tailor_shop.json): taller con telares y mesas de corte, tienda en L con probador y espejo; vivienda arriba. Fondos pintados por sala room_<planta>_<sala>.png y paredes entre salas sacadas de ellos (tools/art/fal_salas.py); piezas de assets/art/props/interior/. Las piezas de antes (floor.png, wall_*.png y los puestos y mejoras de Pillow) quedan sin uso o como piezas de la biblioteca.",
       "coste_gen": 0,
-      "origen_previo": null
+      "origen_previo": null,
+      "coste_usd": 0.16
+    },
+    {
+      "id": "int_house",
+      "tipo": "interior",
+      "estado": "sprite",
+      "para": [
+        "interiores",
+        "house"
+      ],
+      "ruta": "assets/art/interiors/house/",
+      "origen": "fal: nano-banana-2/edit (fondos por planta sobre la plantilla del montador) + biblioteca de props",
+      "coste_gen": 0,
+      "coste_usd": 0.16,
+      "notas": "Interior por datos (docs/gdd/04g_interiores.md §4.6.5.6, data/interiors/house.json): hogar, cocina y mesa abajo; dormitorio de los padres y de los hijos arriba. Fondos pintados por sala y paredes entre salas sacadas de ellos (tools/art/fal_salas.py); piezas de assets/art/props/interior/."
     },
     {
       "id": "bld_stall_clothier",

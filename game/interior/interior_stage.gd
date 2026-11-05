@@ -468,9 +468,10 @@ func set_focus(f: String) -> void:
 		print("[InteriorStage] foco en la sala %s" % f)
 
 
-## The room of the floor shown that stays open when nothing else is focused: the first workshop, shop or hall.
+## The room of the floor shown that stays open when nothing else is focused: the first workshop, yard, hall, shop or
+## kitchen.
 func _main_room() -> String:
-	for t: String in ["workshop", "hall", "shop"]:
+	for t: String in ["workshop", "yard", "hall", "shop", "kitchen"]:
 		for room: Dictionary in d.get("rooms", []):
 			if int(room.get("floor", 0)) == active and str(room.get("type", "")) == t:
 				return str(room["id"])

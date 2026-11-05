@@ -1,0 +1,80 @@
+{
+  "_doc": "The masonry (docs/gdd/04g_interiores.md 4.6.5.6): a yard of blocks with a working dais, a shed and a small shop counter. Edit by hand, then python3 tools/interiors/interiores.py reglas masonry && python3 tools/interiors/interiores.py validar masonry.",
+  "size": [11, 8],
+  "wall_height": 64,
+  "floor_height": 80,
+  "center_offset": [-48, 0],
+  "seed": 11,
+  "entrance": {"floor": 0, "tile": [0, 6], "side": "nw"},
+  "rooms": [
+    {"id": "yard", "floor": 0, "type": "yard", "rects": [[0, 0, 6, 4]], "floor_kind": "earth", "wall_style": "stone", "light": "cool"},
+    {"id": "shed", "floor": 0, "type": "storage", "rects": [[7, 0, 10, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "dim"},
+    {"id": "shop", "floor": 0, "type": "shop", "rects": [[0, 5, 10, 7]], "floor_kind": "flagstone", "wall_style": "stone", "light": "warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [7, 2], "side": "nw"},
+    {"floor": 0, "tile": [3, 5], "side": "ne"},
+    {"floor": 0, "tile": [8, 5], "side": "ne"}
+  ],
+  "levels": [
+    {"floor": 0, "rect": [1, 1, 3, 2], "step": 1}
+  ],
+  "stairs": [],
+  "stations": {
+    "cutting_bench": {"floor": 0, "tile": [3, 1], "prop": "stone_bench", "flip": true, "stand": [2, 2]},
+    "carving_bench": {"floor": 0, "tile": [5, 2], "prop": "statue_unfinished", "stand": [4, 2]},
+    "cutting_bench_2": {"floor": 0, "tile": [3, 3], "prop": "stone_bench", "flip": true, "stand": [2, 4]},
+    "carving_bench_2": {"floor": 0, "tile": [5, 4], "prop": "statue_unfinished", "stand": [4, 4]},
+    "counter": {"floor": 0, "tile": [6, 6], "prop": "shop_counter", "stand": [5, 6]},
+    "storage": {"floor": 0, "tile": [8, 1], "prop": "ashlar_stack", "stand": [8, 2]}
+  },
+  "customers": {
+    "counter": [{"tile": [7, 6]}, {"tile": [7, 5]}],
+    "queue": [{"tile": [8, 6]}, {"tile": [9, 6]}, {"tile": [10, 6]}]
+  },
+  "idle": [
+    {"floor": 0, "tile": [3, 6]},
+    {"floor": 0, "tile": [9, 2]}
+  ],
+  "props": [
+    {"id": "stone_block", "floor": 0, "tile": [0, 0]},
+    {"id": "ashlar_stack", "floor": 0, "tile": [1, 0]},
+    {"id": "column_drum", "floor": 0, "tile": [5, 0]},
+    {"id": "stone_trough", "floor": 0, "tile": [0, 4]},
+    {"id": "mason_toolbox", "floor": 0, "tile": [7, 0]},
+    {"id": "display_shelf", "floor": 0, "tile": [3, 7], "flip": true, "display": 3}
+  ],
+  "rules": [
+    {"rule": "scatter", "room": "yard", "props": ["rubble_pile", "stone_chisels"], "count": 5},
+    {"rule": "wall_fill", "room": "shed", "props": ["crate", "sack_pile", "stone_block", "mason_toolbox"], "chance": 0.7},
+    {"rule": "on_top", "room": "shop", "under": ["shop_counter"], "props": ["ledger_book", "coin_pile", "stone_chisels"], "max": 2, "chance": 1.0}
+  ],
+  "upgrades": {
+    "masonry_carving_bench_2": [],
+    "masonry_cutting_bench_2": [],
+    "upgrade_storage_shelves": [{"id": "market_shelf", "floor": 0, "tile": [10, 0], "flip": true}],
+    "upgrade_counter": [{"id": "weapon_display", "floor": 0, "tile": [1, 5], "display": 3}],
+    "masonry_wedges": [{"id": "mason_wedges", "floor": 0, "tile": [6, 0]}],
+    "masonry_crane": [{"id": "small_crane", "floor": 0, "tile": [6, 1]}],
+    "masonry_master_yard": [{"id": "master_yard", "floor": 0, "tile": [0, 3]}],
+    "masonry_chisels": [{"id": "mason_chisels", "floor": 0, "tile": [3, 0]}],
+    "masonry_templates": [{"id": "template_rack", "floor": 0, "tile": [0, 1]}],
+    "masonry_mark": [{"id": "mason_mark", "floor": 0, "tile": [4, 0]}],
+    "upgrade_double_ledger": [{"id": "double_ledger", "floor": 0, "tile": [4, 1]}],
+    "upgrade_hidden_passage": [{"id": "hidden_passage", "floor": 0, "tile": [6, 4]}],
+    "upgrade_smuggler_cache": [{"id": "smuggler_cache", "floor": 0, "tile": [10, 4]}],
+    "upgrade_strongbox": [{"id": "strongbox", "floor": 0, "tile": [10, 2]}],
+    "upgrade_bunks": [{"id": "bunk_bed", "floor": 0, "tile": [7, 4], "flip": false}],
+    "upgrade_dining_table": [{"id": "dining_table", "floor": 0, "tile": [10, 3], "flip": true}],
+    "upgrade_master_bench": [{"id": "mason_toolbox", "floor": 0, "tile": [0, 2]}]
+  },
+  "resolved": [
+    {"id": "rubble_pile", "floor": 0, "tile": [1, 3], "flip": true, "rule": "scatter"},
+    {"id": "stone_chisels", "floor": 0, "tile": [4, 3], "flip": true, "rule": "scatter"},
+    {"id": "rubble_pile", "floor": 0, "tile": [1, 1], "flip": false, "rule": "scatter"},
+    {"id": "stone_chisels", "floor": 0, "tile": [1, 2], "flip": false, "rule": "scatter"},
+    {"id": "rubble_pile", "floor": 0, "tile": [3, 2], "flip": false, "rule": "scatter"},
+    {"id": "crate", "floor": 0, "tile": [8, 0], "flip": true, "rule": "wall_fill"},
+    {"id": "coin_pile", "floor": 0, "tile": [6, 6], "flip": true, "lift": 26, "shift": [0, 0], "rule": "on_top", "over": "shop_counter"}
+  ]
+}

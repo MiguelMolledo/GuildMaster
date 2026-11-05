@@ -184,3 +184,24 @@ func test_the_display_shows_the_products_for_sale() -> void:
 					wares += 1
 	eq(wares, 2, "the two swords on the display shelf")
 	v.free()
+
+
+func test_every_interior_from_data_has_its_stations_and_upgrade_nodes() -> void:
+	for f: String in DirAccess.get_files_at(InteriorDefs.DIR):
+		if not f.ends_with(".json") or f.begins_with("_") or f == "lights.json":
+			continue
+		var type := f.get_basename()
+		var room := InteriorBuilder.instantiate(type)
+		var b: Dictionary = cat.buildings().get(type, {})
+		for z: Dictionary in b.get("zones", []):
+			check(room.get_node_or_null("Stations/" + str(z["id"])) is Marker2D, "%s: station %s" % [type, z["id"]])
+		var tree := str(b.get("upgrade_tree", ""))
+		if tree != "":
+			for id: Variant in cat.upgrade_tree(tree):
+				var uid := str((id as Dictionary).get("id", id)) if id is Dictionary else str(id)
+				var vis: Variant = (cat.upgrade(uid).get("visual", {}) as Dictionary).get("interior_node")
+				if vis != null and str(vis) != "":
+					check(room.get_node_or_null("Upgrades/" + str(vis)) != null, "%s: Upgrades/%s" % [type, vis])
+		check(room.get_node("Backdrops").get_children().all(func(h: Node) -> bool: return h.get_node_or_null("Painted") != null),
+			"%s: every room painted" % type)
+		room.free()

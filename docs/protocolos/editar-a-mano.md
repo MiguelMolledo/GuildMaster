@@ -155,7 +155,8 @@ mapa (letreros, puertas, insignias, barras del interior, día/noche) en `data/vi
 edificio o un puesto, en el `Greybox` de su escena.
 
 ### Un interior por datos (la forja; 04g §4.6.5.2)
-Los interiores con fichero en `data/interiors/<tipo>.json` no tienen escena: los monta `game/interior/interior_builder.gd`.
+Los interiores con fichero en `data/interiors/<tipo>.json` (forja, armería, carpintería, cantería, sastrería y casa) no
+tienen escena: los monta `game/interior/interior_builder.gd`.
 1. Edita el JSON: salas (`rooms`), puertas, desniveles, escaleras, puestos (`stations`: casilla, pieza de
    `data/props/interior.json` o la escena del puesto, y `stand`, donde se pone quien trabaja), sitios de clientes,
    sitios de espera, atrezo (`props`), reglas (`rules`) y las piezas de cada mejora (`upgrades`, por su nodo).
@@ -164,7 +165,7 @@ Los interiores con fichero en `data/interiors/<tipo>.json` no tienen escena: los
 4. Si cambian las salas o las paredes, el fondo pintado ya no encaja: `python3 tools/art/fal_salas.py gen|ver|proc`.
 
 ### La posición de un puesto en un interior hecho a mano
-1. Abre `game/visuals/interiors/<tipo>.tscn` (carpintería, cantería, sastrería, armería).
+1. Abre `game/visuals/interiors/<tipo>.tscn` (hoy solo `_generic.tscn`: los demás son por datos).
 2. Mueve el `Marker2D` del puesto (`Stations/anvil`…): su nombre es el id del puesto. Déjalo en el centro de una
    casilla (la vista lo redondea a la casilla para los clics).
 3. Los puestos que añaden las mejoras (`anvil_2`, `furnace_2`) ya tienen su marcador: solo salen cuando la mejora está hecha.

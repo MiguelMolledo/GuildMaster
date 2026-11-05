@@ -33,6 +33,8 @@ func _ready() -> void:
 			_steps.append([p + "_cliente", func() -> void: _customer()])
 			_steps.append([p + "_arriba", func() -> void: _upstairs()])
 	_steps.append(["armory", func() -> void: _armory()])
+	_steps.append(["house", func() -> void: _house()])
+	_steps.append(["house_arriba", func() -> void: _upstairs()])
 	print("[SmokeInteriores] start (%d shots)" % _steps.size())
 
 
@@ -112,6 +114,21 @@ func _armory() -> void:
 			found = str(id)
 			break
 	_check(found != "", "an armory in town")
+	if found != "":
+		app.open_interior(found, true)
+
+
+## The family's house (data/interiors/house.json): the first building of type house.
+func _house() -> void:
+	app.close_interior()
+	var found := ""
+	var ids: Array = Game.sim.state.buildings.keys()
+	ids.sort()
+	for id: Variant in ids:
+		if str(Game.sim.state.buildings[id].get("type", "")) == "house":
+			found = str(id)
+			break
+	_check(found != "", "a house in town")
 	if found != "":
 		app.open_interior(found, true)
 
