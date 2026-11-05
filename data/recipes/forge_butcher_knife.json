@@ -1,0 +1,23 @@
+{
+  "id": "forge_butcher_knife",
+  "name_key": "recipe.forge_butcher_knife",
+  "kind": "commission",
+  "building": "forge",
+  "zone": "anvil",
+  "inputs": [
+    {
+      "item": "iron_ingot",
+      "qty": 1
+    },
+    {
+      "item": "coal",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "butcher_knife",
+    "qty": 1
+  },
+  "duration_hours": 2.0,
+  "min_craft": 3
+}

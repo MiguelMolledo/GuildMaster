@@ -227,6 +227,19 @@ func _build_markers() -> void:
 		_layer.add_child(l)
 		l.reset_size()
 		l.position = (p + Vector2(-l.size.x / 2.0, r + 2)).round()
+		var feast := SimQuery.city_feast_soon(sim, id, 1) if sim != null else ""  # fiestas (4.25.6): announced on the map
+		if feast != "":
+			var fl := Label.new()
+			fl.name = "Feast_" + id
+			fl.text = _t("ui.region.feast_soon") % feast
+			fl.theme_type_variation = &"InkLabel"
+			fl.add_theme_color_override("font_color", Color("#8a2a1e"))
+			fl.add_theme_color_override("font_outline_color", PAPER)
+			fl.add_theme_constant_override("outline_size", 4)
+			fl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			_layer.add_child(fl)
+			fl.reset_size()
+			fl.position = (p + Vector2(-fl.size.x / 2.0, r + 2 + l.size.y)).round()
 
 
 func _radius(s: Dictionary) -> float:
@@ -426,6 +439,9 @@ func card_data(id: String) -> Dictionary:
 		{"type": "paragraph", "text": "%s: %s" % [_t("ui.region.specialty"), _t(str(s.get("specialty", "")))]},
 		{"type": "paragraph", "text": "%s: %s" % [_t("ui.region.rulers"), _t(str(s.get("rulers", "")))]},
 	]
+	if sim != null:  # fiestas (4.25.6): its patron feast and its fair
+		for line: String in SimQuery.city_feast_lines(sim, id):
+			blocks.append({"type": "paragraph", "text": line})
 	var goods: Array = []
 	if not (s.get("cheap", {}) as Dictionary).is_empty():
 		goods.append({"text": "%s: %s" % [_t("ui.region.cheap"), _mults(s["cheap"])], "sign": ""})

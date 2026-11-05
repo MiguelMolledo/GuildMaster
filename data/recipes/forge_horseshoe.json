@@ -1,0 +1,23 @@
+{
+  "id": "forge_horseshoe",
+  "name_key": "recipe.forge_horseshoe",
+  "kind": "commission",
+  "building": "forge",
+  "zone": "anvil",
+  "inputs": [
+    {
+      "item": "iron_ingot",
+      "qty": 1
+    },
+    {
+      "item": "coal",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "horseshoe",
+    "qty": 1
+  },
+  "duration_hours": 1.5,
+  "min_craft": 2
+}

@@ -1,0 +1,11 @@
+{
+  "id": "doublet",
+  "name_key": "item.doublet",
+  "gender": "m",
+  "category": "product",
+  "weight": 3.0,
+  "max_stack": 20,
+  "base_price": 70,
+  "market_stall": null,
+  "to_order": true
+}

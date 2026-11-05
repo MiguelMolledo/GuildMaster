@@ -1,0 +1,11 @@
+{
+  "id": "decorative_sword",
+  "name_key": "item.decorative_sword",
+  "gender": "f",
+  "category": "product",
+  "weight": 6.0,
+  "max_stack": 20,
+  "base_price": 195,
+  "market_stall": null,
+  "to_order": true
+}

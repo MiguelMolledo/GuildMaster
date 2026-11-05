@@ -1,0 +1,27 @@
+{
+  "id": "forge_decorative_sword",
+  "name_key": "recipe.forge_decorative_sword",
+  "kind": "commission",
+  "building": "forge",
+  "zone": "anvil",
+  "inputs": [
+    {
+      "item": "steel",
+      "qty": 1
+    },
+    {
+      "item": "iron_ingot",
+      "qty": 1
+    },
+    {
+      "item": "coal",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "decorative_sword",
+    "qty": 1
+  },
+  "duration_hours": 5.0,
+  "min_craft": 5
+}

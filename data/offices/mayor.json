@@ -25,6 +25,11 @@
       "ready": true
     },
     {
+      "id": "organize_festival",
+      "cooldown_days": 2,
+      "ready": true
+    },
+    {
       "id": "name_title",
       "cooldown_days": 8,
       "ready": "EA"

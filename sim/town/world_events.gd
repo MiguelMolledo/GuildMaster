@@ -196,9 +196,9 @@ static func season_mult(sim: Sim, table: String, item: String) -> float:
 
 ## The product of the active events' effects of `kind` (on `item`'s groups for the group effects).
 static func event_mult(sim: Sim, kind: String, item: String = "") -> float:
+	var m := Festivals.mult(sim, kind, item)  # fiestas (04f 4.25.3): the festival of the hour, 1 when none
 	if sim.state.events_active.is_empty():
-		return 1.0
-	var m := 1.0
+		return m
 	var groups: Array = sim.catalog.goods_of(item) if item != "" else []
 	for ev: Dictionary in sim.state.events_active:
 		for e: Dictionary in sim.catalog.world_events().get(str(ev.get("def", "")), {}).get("effects", []):
@@ -226,6 +226,7 @@ static func factors(sim: Sim, item: String) -> Array:
 					and absf(float(e.get("mult", 1.0)) - 1.0) > 0.0001:
 				out.append({"source": "event", "id": str(ev.get("def", "")), "group": str(e["group"]), "kind": k,
 					"mult": float(e["mult"])})
+	out.append_array(Festivals.factors(sim, item))  # fiestas (04f 4.25.3)
 	return out
 
 

@@ -467,6 +467,8 @@ Comprar en un puesto del mercado y que la mercancía **llegue sola al almacén**
 
 #### 4.6.4 Interiores
 
+> Ampliado en [04g_interiores.md](04g_interiores.md) (4.6.5, 2026-11-04): biblioteca de props a partir de referencias de fal, interiores por datos con habitaciones, desniveles y dos plantas, paredes que se abren, mostrador con cola y clientes que aparecen en su sitio de acción.
+
 - Al entrar (personaje o modo gestión) la vista pasa a una **escena interior isométrica** propia de cada tipo de edificio. El exterior se ve negro. Transición: fundido de ~0,3-0,5 s. El juego no se pausa.
 - **Entrar con personaje:** el personaje camina a la puerta y aparece dentro; se mueve libre por el interior (limitado al suelo navegable).
 - **Gestionar (modo omnisciente):** se abre el interior sin personaje, para gestionar con el ratón: almacén, empleados, cola, mejoras.
@@ -590,6 +592,36 @@ Los árboles de la Carpintería, la Albañilería y el Taller de sastre (H12) co
 - **Demoler** (solo propios, sin empleados): instantáneo, devuelve 30-50 % del coste, las mejoras se pierden. Los vecinos con buena relación reaccionan mal.
 - **Granjas ampliables:** se compran parcelas rústicas adyacentes que se vinculan como puestos exteriores; no cuentan como edificio extra.
 - **Competencia NPC:** los NPC también compran parcelas y construyen, decidido por la IA de familias rivales (4.21, diseñada antes de H6). Velocidad según dificultad (4.23). **Válvula anti-bloqueo:** siempre quedan al menos 2 parcelas libres por tipo; los NPC con negocios poco rentables quiebran o venden.
+
+#### 4.9.1 Solares, ruinas y negocios en venta (petición del owner, 2026-11-05)
+
+> «En las ciudades tiene que haber también zonas libres para poder construir de cero, tanto dentro como fuera de la
+> ciudad, o edificios en ruinas, o edificios en buena localización que tengan su negocio pero se lo puedas comprar y
+> reconvertirlo a lo que quieras».
+
+Cada mapa trae, además de los edificios del inicio, una lista de **parcelas** (`plots` en `data/maps/<mapa>.json`):
+
+| Estado | Qué es | Qué se puede hacer [balance] |
+|---|---|---|
+| **Solar libre, dentro** | Hueco entre casas, en la calle mayor o en una secundaria | Construir de cero (4.9), caro si está bien situado |
+| **Solar libre, fuera** | En el arrabal, junto a un camino o en el campo (rústica) | Construir más barato; menos clientes de paso |
+| **Ruina** | Un edificio abandonado (techo hundido, muros en pie) | Comprar barata (×0,3 del coste de construir) y **restaurar** con una obra (×0,5 y la mitad de días) para el uso que quieras de los que caben en su huella |
+| **Negocio de un NPC** | Un taller, una tienda o una casa con dueño y su oficio | **Comprarlo** (fórmula de 4.9, con `mod_relación`) y quedarte con su oficio, o **reconvertirlo**: una obra (×0,4 del coste y 1 día) que lo pasa a otro edificio de su misma huella y zona (una tienda de telas se vuelve armería). El antiguo dueño se queda de empleado o se va (4.9) |
+
+- **Situación** (`location` 0-1 por parcela): sale de la distancia a la plaza, a la calle mayor y a las puertas, y del
+  paso de gente. Multiplica el precio y los clientes de la comarca (04g §4.6.5.7). Una ruina en la calle mayor es la
+  ganga; un solar en el arrabal, lo barato.
+- **Dentro y fuera de la muralla:** en las ciudades con muralla (Bellcaire, Montsacre) hay parcelas a los dos lados.
+  Las de fuera no pagan el impuesto de la villa [propuesta], pero sus vecinos están más expuestos a los bandidos
+  (4.24.5).
+- **El generador de ciudades** (tools/city) reparte las parcelas por reglas: en cada ciudad deja al menos 2 solares
+  dentro, 2 fuera, 1-3 ruinas y los negocios de NPC que salgan, y marca su situación. Además respeta la válvula
+  anti-bloqueo de 4.9: siempre quedan parcelas libres de cada tipo.
+- **Cómo se ve:** el solar es un descampado con estacas, la ruina un greybox de muros rotos (sprite más adelante), y el
+  negocio en venta lleva un cartel «Se vende».
+- **Comprar, construir, restaurar y reconvertir son de H6** (con la IA rival construyendo, 4.21), que espera el Gate de
+  04c. Las parcelas y su aspecto en los mapas se pueden preparar ya. Hoy ya existe la compra de un edificio en venta
+  (la Taberna-Posada, 04f §4.27).
 
 **Límite de edificios por título:**
 

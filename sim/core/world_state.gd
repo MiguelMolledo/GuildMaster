@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 17
+const VERSION: int = 18
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -42,6 +42,7 @@ var ending: Dictionary = {}        # {} while the game goes on; {kind, family, m
 var microevents: Dictionary = {"active": [], "pending": [], "cooldowns": {}, "last_day": {}}  # GDD 4.20: Microevents
 var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD 4.5.4): Counter
 var duels: Dictionary = {"open": {}, "closed": []}  # duels of honour: id -> duel open, the last closed (04e): Duels
+var festivals: Dictionary = {}     # fiestas (v18): the festival calendar in force (04f 4.25): Festivals, {} until it runs
 # H4 (docs/contratos/h4_empleados.md): no new root fields. Characters get home, rank, job, hire_bans and routine;
 # buildings get employee_slots and queue (SaveFile._step 4 -> 5).
 # H5 (docs/contratos/h5_mejoras.md): no new root fields. Buildings get upgrades, upgrade_work and inspection
@@ -73,6 +74,9 @@ var duels: Dictionary = {"open": {}, "closed": []}  # duels of honour: id -> due
 # watch, rumors and incidents (Life.ensure); characters get town.needs (the townsfolk) and, the temporary ones of the
 # service families (fam_watch, fam_visitors, fam_bandits), guard / visitor / bandit, offstage and captive
 # (SaveFile._to_v17, step 16 -> 17).
+# Fiestas (docs/gdd/04f_vida_y_fiestas.md 4.25, 4.28.2): the new root festivals {active, upcoming, history, cooldowns,
+# offers, planned_day}, {} until Festivals.ensure fills it; festival contracts live in contracts with their own fields
+# (SaveFile._to_v18, step 17 -> 18; 16 -> 17 is the life block's).
 
 
 func seed_rng(s: int) -> void:
@@ -116,6 +120,7 @@ func to_dict() -> Dictionary:
 		"microevents": microevents,
 		"town": town,
 		"duels": duels,
+		"festivals": festivals,
 	}
 
 
@@ -160,6 +165,7 @@ static func from_dict(src: Dictionary) -> WorldState:
 	s.microevents = d.get("microevents", {"active": [], "pending": [], "cooldowns": {}, "last_day": {}})
 	s.town = d.get("town", {"counters": {}})
 	s.duels = d.get("duels", {"open": {}, "closed": []})
+	s.festivals = d.get("festivals", {}) if d.get("festivals") is Dictionary else {}
 	return s
 
 

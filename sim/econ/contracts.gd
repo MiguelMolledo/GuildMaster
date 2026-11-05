@@ -29,7 +29,9 @@ static func order_accept(sim: Sim, o: Dictionary) -> Dictionary:
 	if not at_board(sim, actor):
 		return Orders.fail("not_at_board")
 	var fam := str(sim.state.characters[actor].get("family", ""))
-	if accepted_of(sim, fam).size() >= int(_board_cfg(sim).get("max_accepted_per_family", 2)):
+	if bool(sim.state.contracts["board"][i].get("race", false)):  # 4.25.4: festival contracts, a race (FestivalContracts)
+		return FestivalContracts.accept(sim, actor, fam, sim.state.contracts["board"][i])
+	if _plain_count(accepted_of(sim, fam)) >= int(_board_cfg(sim).get("max_accepted_per_family", 2)):
 		return Orders.fail("too_many_contracts")
 	var board: Array = sim.state.contracts["board"]
 	var c: Dictionary = board[i]
@@ -58,12 +60,12 @@ static func order_deliver(sim: Sim, o: Dictionary) -> Dictionary:
 	if why != "":
 		return Orders.fail(why)
 	var accepted: Array = sim.state.contracts.get("accepted", [])
-	var i := _index(accepted, id)
+	var fam := str(sim.state.characters[actor].get("family", ""))
+	var i := _index_of(accepted, id, fam)
 	if i < 0:
 		return Orders.fail("not_your_contract" if _index(sim.state.contracts.get("board", []), id) >= 0 \
 			else "unknown_contract")
 	var c: Dictionary = accepted[i]
-	var fam := str(sim.state.characters[actor].get("family", ""))
 	if str(c.get("family", "")) != fam:
 		return Orders.fail("not_your_contract")
 	if not at_board(sim, actor):
@@ -85,9 +87,12 @@ static func order_deliver(sim: Sim, o: Dictionary) -> Dictionary:
 			Inventory.remove(bag, item, q, take)
 			left -= take
 	accepted.remove_at(i)
-	var t := table_for_item(sim.catalog, item)
-	_reputation(sim, fam, int(t.get("reward_reputation", 0)), "contract_done")
-	_relation(sim, fam, str(c["client"]), int(t.get("reward_relation", 0)))
+	if bool(c.get("race", false)):  # 4.25.4: the winner of a festival contract (rewards, chronicle, the others lose it)
+		FestivalContracts.delivered(sim, c, fam, actor)
+	else:
+		var t := table_for_item(sim.catalog, item)
+		_reputation(sim, fam, int(t.get("reward_reputation", 0)), "contract_done")
+		_relation(sim, fam, str(c["client"]), int(t.get("reward_relation", 0)))
 	sim.events.append({"type": "contract_delivered", "actor": actor, "family": fam, "contract": id,
 		"client": str(c["client"]), "item": item, "qty": qty, "min_quality": min_q, "pay": int(c["pay"]),
 		"script": str(c.get("script", ""))})
@@ -104,7 +109,7 @@ static func order_abandon(sim: Sim, o: Dictionary) -> Dictionary:
 	if why != "":
 		return Orders.fail(why)
 	var accepted: Array = sim.state.contracts.get("accepted", [])
-	var i := _index(accepted, id)
+	var i := _index_of(accepted, id, str(sim.state.characters[actor].get("family", "")))
 	if i < 0:
 		return Orders.fail("not_your_contract" if _index(sim.state.contracts.get("board", []), id) >= 0 \
 			else "unknown_contract")
@@ -133,7 +138,7 @@ static func step(sim: Sim) -> void:
 	if dawn:
 		var cfg := _board_cfg(sim)
 		for n: int in int(cfg.get("new_per_dawn", 1)):
-			if (sim.state.contracts.get("board", []) as Array).size() >= int(cfg.get("max_open", 3)):
+			if _plain_count(sim.state.contracts.get("board", [])) >= int(cfg.get("max_open", 3)):
 				break
 			post_random(sim)
 
@@ -216,13 +221,15 @@ static func board_view(sim: Sim, actor: String) -> Dictionary:
 	var out := {"at_board": at_board(sim, actor), "open": [], "accepted": []}
 	var fam := str(sim.state.characters.get(actor, {}).get("family", ""))
 	var why := _actor_reason(sim, actor)
-	var full := accepted_of(sim, fam).size() >= int(_board_cfg(sim).get("max_accepted_per_family", 2))
+	var full := _plain_count(accepted_of(sim, fam)) >= int(_board_cfg(sim).get("max_accepted_per_family", 2))
 	for c: Dictionary in sim.state.contracts.get("board", []):
 		var v := c.duplicate(true)
 		var s := why
 		if s == "" and not out["at_board"]:
 			s = "not_at_board"
-		if s == "" and full:
+		if s == "" and bool(c.get("race", false)):  # 4.25.4: festival contracts have their own rules
+			s = FestivalContracts.status(sim, fam, c)
+		elif s == "" and full:
 			s = "too_many_contracts"
 		v["status"] = s if s != "" else "ok"
 		(out["open"] as Array).append(v)
@@ -326,7 +333,7 @@ static func _fail(sim: Sim, i: int, reason: String) -> void:
 	accepted.remove_at(i)
 	var fam := str(c.get("family", ""))
 	var client := str(c["client"])
-	var t := table_for_item(sim.catalog, str(c["item"]))
+	var t := FestivalContracts.fail_table(c) if bool(c.get("race", false)) else table_for_item(sim.catalog, str(c["item"]))
 	_reputation(sim, fam, int(t.get("fail_reputation", 0)), "contract_failed")
 	_relation(sim, fam, client, int(t.get("fail_relation", 0)))
 	var until := Clock.day(_now(sim)) + int(t.get("client_cooldown_days", 0))
@@ -379,6 +386,28 @@ static func _actor_reason(sim: Sim, actor: String) -> String:
 	if not sim.state.families.has(str(ch.get("family", ""))):
 		return "no_family"
 	return ""
+
+
+## The index of contract `id` of family `fam` in `list` (festival contracts have one copy per family), else the first
+## with that id, else -1.
+static func _index_of(list: Array, id: String, fam: String) -> int:
+	var first := -1
+	for i: int in list.size():
+		if str(list[i].get("id", "")) == id:
+			if str(list[i].get("family", "")) == fam:
+				return i
+			if first < 0:
+				first = i
+	return first
+
+
+## How many of `list` are plain contracts (not the festival ones of 4.25.4, which have their own limits).
+static func _plain_count(list: Array) -> int:
+	var n := 0
+	for c: Dictionary in list:
+		if not bool(c.get("race", false)):
+			n += 1
+	return n
 
 
 static func _index(list: Array, id: String) -> int:
