@@ -160,7 +160,9 @@ static func footprint(prop: String) -> Vector2i:
 
 
 ## The sites where the props go to the nearest free place (their tiles are sorted by distance), not spread along.
-const NEAREST: Array[String] = ["plaza_center", "plaza_center_side", "town_hall", "gates"]
+const NEAREST: Array[String] = ["plaza_center", "plaza_center_side", "town_hall", "gates", "outskirts"]
+## The sites with their own ground: a footprint there must lie wholly on it (the outskirts: the meadow, never a road).
+const OWN_GROUND: Dictionary = {"outskirts": "_meadow"}
 
 
 ## `count` places of site `where`: each the tiles of a footprint `fp` that holds a tile of the site at one of its
@@ -169,6 +171,11 @@ const NEAREST: Array[String] = ["plaza_center", "plaza_center_side", "town_hall"
 func _pick(where: String, count: int, fp: Vector2i = Vector2i(1, 1)) -> Array:
 	var cands: Array = []
 	var anchors: Array = [Vector2i(0, 0), Vector2i(1 - fp.x, 0), Vector2i(0, 1 - fp.y), Vector2i(1 - fp.x, 1 - fp.y)]
+	var ground: Dictionary = _free
+	if OWN_GROUND.has(where):
+		ground = {}
+		for u: Vector2i in _sites.get(str(OWN_GROUND[where]), []):
+			ground[u] = true
 	for t: Vector2i in _sites.get(where, []):
 		for a: Vector2i in anchors:
 			var tiles: Array = []
@@ -176,7 +183,7 @@ func _pick(where: String, count: int, fp: Vector2i = Vector2i(1, 1)) -> Array:
 			for dy: int in fp.y:
 				for dx: int in fp.x:
 					var u := t + a + Vector2i(dx, dy)
-					if _taken.has(u) or world.call("prop_at", u) != null or (u != t and not _free.has(u)):
+					if _taken.has(u) or world.call("prop_at", u) != null or (u != t and not ground.has(u)):
 						ok = false
 					tiles.append(u)
 			if ok:
@@ -293,7 +300,49 @@ static func sites(state: WorldState, catalog: Catalog) -> Dictionary:
 		if sp.size() == 2:
 			var t := Vector2i(int(sp[0]), int(sp[1]))
 			out["gates"].append(t + (Vector2i(2, 0) if t.x < 5 else Vector2i(-2, 0)))
+	_outskirts(out, m, rows, catalog, busy)
 	return out
+
+
+## The outskirts (data/festivals.json rules.view_sites.outskirts): the free meadow beside the town's gates, where the
+## cattle fairs were held, by the road. Any map with gates (spawns *_gate): the tiles of a ground kind (grass) within
+## `radius` of a gate, nearest first, never a road (keep_off kinds), a gate or gate_margin tiles around it, nor
+## anything of the map (busy). out["outskirts"] (the candidates, nearest gate first) and out["_meadow"] (the ground a
+## footprint there may cover).
+static func _outskirts(out: Dictionary, m: Dictionary, rows: Array, catalog: Catalog, busy: Dictionary) -> void:
+	var cfg: Dictionary = (catalog.festivals.get("rules", {}) as Dictionary).get("view_sites", {}).get("outskirts", {})
+	var ground: Array = cfg.get("ground", ["grass"])
+	var radius := int(cfg.get("radius", 10))
+	var margin := int(cfg.get("gate_margin", 1))
+	var gates: Array = []
+	var spawns: Dictionary = m.get("spawns", {})
+	var names: Array = spawns.keys()
+	names.sort()
+	for g: Variant in names:
+		var sp: Array = spawns[g]
+		if str(g).ends_with("_gate") and sp.size() == 2:
+			gates.append(Vector2i(int(sp[0]), int(sp[1])))
+	var meadow: Array = []
+	var dist := {}
+	for r: int in rows.size():
+		var row := str(rows[r])
+		for c: int in row.length():
+			var t := Vector2i(c, r)
+			if busy.has(t) or not catalog.tile_kind_of_char(row[c]) in ground:
+				continue  # keep_off kinds (the roads) are never ground; a road tile never enters
+			var best := 1 << 20
+			for gt: Vector2i in gates:
+				best = mini(best, maxi(absi(t.x - gt.x), absi(t.y - gt.y)))
+			if best <= margin:
+				continue  # not at the gate
+			meadow.append(t)
+			if best <= radius:
+				dist[t] = best
+	var near: Array = dist.keys()
+	near.sort_custom(func(a: Vector2i, b: Vector2i) -> bool:
+		return int(dist[a]) < int(dist[b]) or (int(dist[a]) == int(dist[b]) and (a.y < b.y or (a.y == b.y and a.x < b.x))))
+	out["outskirts"] = near
+	out["_meadow"] = meadow
 
 
 static func _ring_angle(t: Vector2i, mid: Vector2) -> float:

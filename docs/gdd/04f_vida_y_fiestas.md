@@ -405,6 +405,11 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
   Verano 1, Montsacre en Otoño 1, Peñarroja en Invierno 1, Vilablat en Primavera 2); la de Vilarrasa es la de la siega
   (Verano 2). Durante la feria: arancel 0 en esa ciudad, sin portazgo en sus caminos desde el día antes y su demanda
   sube. Son puro calendario (no se guardan).
+- **Los corrales, a las afueras** (2026-11-05, owner): las ferias de ganado se hacían fuera, junto al camino. El sitio
+  `outskirts` de la vista (`data/festivals.json` `rules.view_sites.outskirts`) es el prado libre más cercano a una
+  puerta del mapa (spawns `*_gate`, a 10 casillas o menos), y toda la huella del prop tiene que caer en prado: nunca en
+  un camino, un puente o un vado, ni a una casilla de una puerta. Vale para cualquier mapa con puertas (las ciudades de
+  la región también). Allí van los corrales, las ovejas y los caballos de la feria y de la feria de ganado.
 - **Enganchado con vida** (2026-11-04, tras juntar su rama): `Life.event_mult` multiplica por la fiesta (`routine`
   e `incident` a su hora; `visitors` con las fiestas de todo el día, porque vida planea los forasteros al empezarlo),
   `Life.holy_day` cuenta la mañana de guardar y `Life.festival` cualquier fiesta del calendario (el guardia de la

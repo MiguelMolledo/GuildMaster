@@ -21,7 +21,7 @@ HOOK_EFFECTS = {"service", "visitors", "routine", "need", "spectacle", "incident
 GROUP_EFFECTS = {"demand", "price", "production"}
 MULT_EFFECTS = {"demand", "price", "customers", "production", "tariff", "service", "visitors", "routine", "incident"}
 TRIGGERS = {"rich_wedding", "townsfolk_wedding", "organized", "city_feast"}
-WHERES = {"plaza_center", "plaza_center_side", "plaza_ring", "plaza_edge", "main_street", "town_hall", "gates"}
+WHERES = {"plaza_center", "plaza_center_side", "plaza_ring", "plaza_edge", "main_street", "town_hall", "gates", "outskirts"}
 WHO = {"mayor", "sponsors", "hosts"}
 
 

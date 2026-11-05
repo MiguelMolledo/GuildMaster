@@ -64,6 +64,23 @@
         "amount": 0.55,
         "mask": true
       }
+    },
+    "_view_sites_doc": "Vista (no lo lee el sim): outskirts = las afueras, el prado libre junto a las puertas de la villa (las ferias de ganado se hacían fuera, junto al camino). FestivalLayer toma las casillas de ground (tipos de data/tiles.json) a radius casillas o menos de una puerta del mapa (spawns *_gate), de la más cercana a la más lejana; toda la huella de un prop tiene que caer en ellas, nunca en un camino (keep_off) ni a gate_margin casillas de una puerta. Vale para cualquier mapa con puertas.",
+    "view_sites": {
+      "outskirts": {
+        "radius": 10,
+        "ground": [
+          "grass"
+        ],
+        "keep_off": [
+          "street",
+          "dirt",
+          "bridge",
+          "ford",
+          "dock"
+        ],
+        "gate_margin": 1
+      }
     }
   },
   "festivals": {
@@ -450,17 +467,17 @@
           },
           {
             "prop": "pen",
-            "where": "plaza_edge",
+            "where": "outskirts",
             "count": 2
           },
           {
             "prop": "sheep",
-            "where": "plaza_edge",
+            "where": "outskirts",
             "count": 2
           },
           {
             "prop": "horse",
-            "where": "plaza_edge",
+            "where": "outskirts",
             "count": 1
           },
           {
@@ -1349,17 +1366,17 @@
         "decor": [
           {
             "prop": "pen",
-            "where": "plaza_edge",
+            "where": "outskirts",
             "count": 2
           },
           {
             "prop": "horse",
-            "where": "plaza_edge",
+            "where": "outskirts",
             "count": 2
           },
           {
             "prop": "sheep",
-            "where": "plaza_edge",
+            "where": "outskirts",
             "count": 2
           }
         ],

@@ -81,6 +81,17 @@ func _force(id: String) -> void:
 	print("[SmokeFiestas] %s en vigor (%s): %s" % [id, _inst, app.world().festival_layer.shown])
 
 
+## Centres the camera on the first festival prop `prop` placed (the pens at the outskirts); false if none.
+func _aim_at(prop: String) -> bool:
+	for n: Node in (app.world().call("objects") as Node2D).get_children():
+		if n is Node2D and str(n.get_meta("festival_prop", "")) == prop:
+			app.world().camera().center_on((n as Node2D).position)
+			print("[SmokeFiestas] afueras: %s en %s (casillas %s)" % [prop, (n as Node2D).position, n.get_meta("tiles", [])])
+			return true
+	print("[SmokeFiestas] afueras: no hay %s" % prop)
+	return false
+
+
 func _card(type: String) -> void:
 	var inst := Festivals.find(Game.sim, _inst)
 	var card: Node = app.get_node("CardsLayer/EventCard")
@@ -111,6 +122,15 @@ func _process(delta: float) -> void:
 		"view":
 			if _t > 0.6:
 				app.save_shot("fiesta_%s_vista" % _list[_i])
+				if _list[_i] in ["harvest_fair", "cattle_fair"] and _aim_at("pen"):
+					_go("outskirts")
+				else:
+					_card("festival_started")
+					_go("card")
+		"outskirts":
+			if _t > 0.6:
+				app.save_shot("fiesta_%s_afueras" % _list[_i])
+				app.world().camera().center_on(Iso.tile_to_world(PLAZA))
 				_card("festival_started")
 				_go("card")
 		"card":

@@ -1,6 +1,12 @@
 {
   "tomadas": [
     {
+      "fecha": "2026-11-05",
+      "tema": "Fiestas: los corrales de la feria, a las afueras",
+      "decision": "Los corrales (y el ganado) de la feria y de la feria de ganado se ponen en el prado libre más cercano a una puerta de la villa, nunca en caminos ni puertas, con una regla de la capa de decoración (rules.view_sites.outskirts: ground grass, radius 10, gate_margin 1) que vale para cualquier mapa con puertas.",
+      "por_que": "El owner: las ferias de ganado se hacían a las afueras, junto al camino; en la plaza de town_e no cabían."
+    },
+    {
       "fecha": "2026-11-04",
       "tema": "Fiestas: regalo de la villa, audiencia del marqués y patrocinios de la IA (de momento, no)",
       "decision": "Manager, a la espera del owner: no a las dos. El regalo de la villa sigue siendo un encargo de carrera (la primera espada excelente) y no hay audiencia con privilegios; las familias rivales no patrocinan fiestas. Las dos preguntas pasan al owner.",
