@@ -118,11 +118,11 @@
   "spoil_share": 0.2,
   "history_keep": 16,
   "test_visitors": {
-    "enabled": true,
+    "enabled": false,
     "per_day": [
       2,
       4
     ],
-    "_doc": "Forasteros de prueba: solo con la vida apagada (data/life/life.json enabled false). Con ella, los forasteros son los de verdad (sim/life/visitors.gd) y los que encuentran cama duermen en la posada (Inn.lodge)."
+    "_doc": "Apagado (2026-11-05): los forasteros de verdad son los de vida (sim/life/visitors.gd) y los que encuentran cama duermen en la posada (Inn.lodge). Encendido, solo serviría con la vida apagada (pruebas sin vida)."
   }
 }

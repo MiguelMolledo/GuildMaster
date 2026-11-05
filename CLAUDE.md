@@ -158,3 +158,7 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
 - Copia jugable: el hook post-commit (`ln -sf ../../tools/git-hooks/post-commit .git/hooks/post-commit`) prepara
   `tmp/jugar/<commit>`; el owner juega con doble clic en `jugar.command`.
 - No añadir features, refactors ni "mejoras" no pedidas. Respuestas cortas y en español.
+
+## Pendientes del owner
+
+Todo lo que espera una decisión, aprobación o acción del owner (Gates, preguntas O-*, preguntas de los informes de los workers, pruebas de juego) se apunta al momento en la pestaña Todos del canal de Grimoire (`grimoire cmd todos.add`). Lo que el owner responda se apunta en `docs/decisiones.json`.
