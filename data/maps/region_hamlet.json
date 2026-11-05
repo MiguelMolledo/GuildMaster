@@ -1189,6 +1189,13 @@
    ]
   }
  ],
+ "routing": {
+  "landmarks": 4,
+  "replans_per_minute": 10
+ },
+ "watch": {
+  "name_key": "family.watch.hamlet"
+ },
  "plots": [
   {
    "id": "plot_01",

@@ -334,6 +334,16 @@ rejilla, los solares y los puntos de reunión no se mueven, así que ninguna dia
   regeneran enteras, el mismo mapa; town_e: `python3 tools/maps/make_town_e.py`). Captura:
   `--smoke-script=plantillas --smoke-moments=ruina,solar,fuera,venta`.
 
+### 1j. Rutas de los mapas grandes y la guardia de cada ciudad (plantillas)
+
+- `routing` (plan → mapa: `{"landmarks": 4}`): el sim busca las rutas de ese mapa con A* y la heurística de hitos
+  (ALT, `sim/world/route_atlas.gd`): el coste de cada casilla a 4 hitos del borde y desde ellos, calculado una vez por
+  mapa. Las rutas cuestan lo mismo que las del A* de siempre (puede cambiar cuál de las de igual coste) y es
+  determinista. town_e no lo lleva: sus rutas y sus dianas no cambian. El validador pide `landmarks` de 1 a 8.
+- `watch` (plan → mapa: `{"name_key": "family.watch.<ciudad>"}`): el nombre de la guardia de esa ciudad («Guardia de
+  Bellcaire», «Guardia del puerto»…), en `i18n/strings.csv`; sin él, «Guardia de la villa». El validador comprueba
+  que el texto existe.
+
 ## 2. Reglas de coherencia (el validador)
 
 `python3 tools/city/ciudad.py validar [mapa...]` (paso `ciudad` de `tools/qa/run_all.py`). En las ciudades generadas

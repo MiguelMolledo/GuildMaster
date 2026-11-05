@@ -2921,6 +2921,11 @@ visitor.soldier,soldier on the road,soldado de paso
 visitor.noble,travelling noble,noble de viaje
 visitor.beggar,beggar,mendigo
 family.watch,Town watch,Guardia de la villa
+family.watch.capital,Bellcaire watch,Guardia de Bellcaire
+family.watch.port,Harbour watch,Guardia del puerto
+family.watch.quarry,Peñarroja watch,Guardia de Peñarroja
+family.watch.hamlet,Village watch,Guardia de la aldea
+family.watch.abbey,Abbey guard,Guardia de la abadía
 family.visitors,Visitors,Forasteros
 family.bandits,Bandits,Bandidos
 nest.r1,the Vilablat track,el camino de Vilablat
@@ -3016,7 +3021,7 @@ ui.rumors.empty,"You have heard nothing yet. Walk past the groups that gather at
 ui.rumors.where,Day %d · %s,Día %d · %s
 ui.rumors.useful,Useful,Útil
 ui.rumors.count,%d rumours heard,%d rumores oídos
-ui.life.guard,Town watch · %s,Guardia de la villa · %s
+ui.life.guard,%s · %s,%s · %s
 ui.life.visitor,%s from %s,%s de %s
 ui.life.role.gate,gate,puerta
 ui.life.role.night,night round,ronda de noche

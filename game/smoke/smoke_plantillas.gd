@@ -11,6 +11,8 @@ extends Node
 ##             lot inside the town, a free lot outside it, the business with the «Se vende» sign
 ##   atardecer the start of dusk + 50 min, the biggest corrillo (a rumour over a head)
 ##   noche     23:10, a night guard on its round with the lantern
+##   corrillo_antes, corrillo_despues (only with --smoke-moments=corrillo) a corrillo of 6 or more at dusk with the
+##             player beside it: every bubble and phrase at once (as before), then WorldView's turns (2 at a time)
 ##   fiesta    the festival FIESTA put in force on its day at 11:00 (as --smoke-script=fiestas does) and played to
 ##             12:30: its decoration on this town's plaza, ring, main street, town hall and gates (FestivalLayer), and
 ##             the townsfolk at it
@@ -56,8 +58,11 @@ func _ready() -> void:
 		all += [["ruina", _plot.bind(id, "ruin", "", 12 * 60 + 12), 1.0], ["solar", _plot.bind(id, "lot", "inside", 12 * 60 + 14), 1.0],
 			["fuera", _plot.bind(id, "lot", "outside", 12 * 60 + 16), 1.0], ["venta", _plot.bind(id, "for_sale", "", 12 * 60 + 18), 1.0]]
 		all += [["atardecer", _dusk.bind(id), 1.2], ["noche", _night.bind(id), 1.2], ["fiesta", _fiesta.bind(id), 1.2]]
+		if "corrillo" in moments:  # only when asked: a corrillo of 6 or more with its bubbles and phrases, before/after
+			all += [["corrillo_antes", _corrillo.bind(id, false), 1.2], ["corrillo_despues", _corrillo.bind(id, true), 1.2]]
 		for s: Array in all:
-			if moments.is_empty() or str(s[0]) in moments:
+			if moments.is_empty() and not str(s[0]).begins_with("corrillo") or str(s[0]) in moments \
+					or str(s[0]).begins_with("corrillo") and "corrillo" in moments:
 				_steps.append(["plantillas_%s_%s" % [id, s[0]], s[1], s[2]])
 	print("[SmokePlantillas] start (%d shots, seed %d, timeout=%.0f s)" % [_steps.size(), world_seed, timeout])
 
@@ -216,6 +221,45 @@ func _plot(id: String, state: String, side: String, at: int) -> void:
 	_centre(Vector2i(roundi(c.x), roundi(c.y)), 1)
 	print("[SmokePlantillas] %s parcela %s: %s %s %s, situación %.2f, %s" % [id, pick["id"], pick["state"], pick["side"],
 		pick["zone"], float(pick["location"]), pick.get("site", "")])
+
+
+## The biggest corrillo of the dusk (the first of 6 or more people, else the biggest by 21:00), the player's
+## person beside it (so the rumour is told aloud) and the camera on it; `turns` off = every bubble and phrase at once
+## (as before), on = WorldView._take_turns.
+func _corrillo(id: String, turns: bool) -> void:
+	if not turns:
+		if not _begin(id):  # a fresh game: the corrillos form at dusk
+			return
+		_run_to(_phase_start("dusk"))
+		var best := ""
+		for i: int in 120:
+			var g := Rumors.corrillos(Game.sim)
+			for p: String in g:
+				if best == "" or (g[p] as Array).size() > (g.get(best, []) as Array).size():
+					best = p
+			if best != "" and (g.get(best, []) as Array).size() >= 6:
+				break
+			Game.sim.step()
+		_corr_point = best
+		var who: Array = Rumors.corrillos(Game.sim).get(best, [])
+		if not who.is_empty():
+			var at: Array = Life.tile_of(Game.sim.state, str(who[0]))
+			var hero: Dictionary = Game.sim.state.characters[HERO]
+			hero["location"] = ""
+			hero["path"] = []
+			for d: Vector2i in [Vector2i(2, 2), Vector2i(-2, 2), Vector2i(2, -2), Vector2i(-2, -2), Vector2i(3, 0), Vector2i(0, 3)]:
+				if TownLife._walkable(Game.sim, int(at[0]) + d.x, int(at[1]) + d.y):
+					hero["position"] = [int(at[0]) + d.x, int(at[1]) + d.y]
+					break
+			_centre(_v(at), 1)
+		print("[SmokePlantillas] %s corrillo %s: %d personas" % [id, best, who.size()])
+	app.world().turns_enabled = turns
+	app.world().select("")
+	app.world().sync(0.0)
+	print("[SmokePlantillas] %s corrillo %s: turnos %s %s" % [id, "sí" if turns else "no", app.world().turns, _corr_point])
+
+
+var _corr_point: String = ""
 
 
 func _dusk(id: String) -> void:

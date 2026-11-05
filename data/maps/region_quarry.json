@@ -756,6 +756,36 @@
       "rhetoric": 3,
       "stealth": 2
      }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ]
   },
@@ -815,14 +845,44 @@
     {
      "rank": "apprentice",
      "stats": {
-      "charisma": 5,
+      "charisma": 6,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "master",
+     "stats": {
+      "charisma": 4,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 8,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
       "empathy": 3,
       "negotiation": 6,
       "arcane": 1,
       "dexterity": 6,
-      "craft": 2,
+      "craft": 4,
       "martial": 3,
-      "constitution": 5,
+      "constitution": 3,
       "rhetoric": 3,
       "stealth": 2
      }
@@ -885,14 +945,44 @@
     {
      "rank": "apprentice",
      "stats": {
-      "charisma": 3,
+      "charisma": 5,
       "empathy": 4,
       "negotiation": 6,
       "arcane": 1,
       "dexterity": 5,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
       "craft": 3,
       "martial": 3,
       "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 6,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 6,
+      "martial": 3,
+      "constitution": 4,
       "rhetoric": 3,
       "stealth": 2
      }
@@ -955,14 +1045,44 @@
     {
      "rank": "apprentice",
      "stats": {
-      "charisma": 6,
+      "charisma": 4,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 5,
       "empathy": 5,
       "negotiation": 6,
       "arcane": 1,
       "dexterity": 4,
-      "craft": 2,
+      "craft": 4,
       "martial": 3,
-      "constitution": 4,
+      "constitution": 5,
       "rhetoric": 3,
       "stealth": 2
      }
@@ -1023,16 +1143,46 @@
      }
     },
     {
-     "rank": "master",
+     "rank": "journeyman",
      "stats": {
-      "charisma": 4,
+      "charisma": 2,
       "empathy": 2,
       "negotiation": 6,
       "arcane": 1,
       "dexterity": 3,
-      "craft": 8,
+      "craft": 5,
       "martial": 3,
-      "constitution": 6,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
       "rhetoric": 3,
       "stealth": 2
      }
@@ -1093,6 +1243,36 @@
      }
     },
     {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "master",
+     "stats": {
+      "charisma": 4,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 8,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
      "rank": "journeyman",
      "stats": {
       "charisma": 2,
@@ -1110,7 +1290,7 @@
    ]
   }
  ],
- "population_max": 18,
+ "population_max": 30,
  "landmarks": [
   {
    "type": "mine",
@@ -1263,6 +1443,13 @@
    ]
   }
  ],
+ "routing": {
+  "landmarks": 4,
+  "replans_per_minute": 10
+ },
+ "watch": {
+  "name_key": "family.watch.quarry"
+ },
  "plots": [
   {
    "id": "plot_01",
