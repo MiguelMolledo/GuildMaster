@@ -91,12 +91,13 @@ static func book(sim: Sim) -> Array:
 	return out
 
 
-## «Guardia de la villa · puerta» / «Mercader de Portvell» for the NPC panel ("" for anybody else).
+## «Guardia de la villa · puerta» («Guardia de Bellcaire · ronda de noche»: the town's watch) / «Mercader de Portvell» for the NPC panel ("" for anybody else).
 static func role_line(sim: Sim, chr: String) -> String:
 	var ch: Dictionary = sim.state.characters.get(chr, {})
 	if ch.get("guard") is Dictionary:
 		var role := str(ch["guard"].get("role", "")).get_slice("_", 0)
-		return SimQuery.t_("ui.life.guard") % SimQuery.t_("ui.life.role." + role)
+		var wk := str(sim.state.families.get(str(ch.get("family", "")), {}).get("name_key", "family.watch"))
+		return SimQuery.t_("ui.life.guard") % [SimQuery.t_(wk if wk != "" else "family.watch"), SimQuery.t_("ui.life.role." + role)]
 	if ch.get("visitor") is Dictionary:
 		var v: Dictionary = ch["visitor"]
 		var kind := SimQuery.t_("visitor." + str(v.get("kind", "")))

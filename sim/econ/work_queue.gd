@@ -137,6 +137,19 @@ static func order_set_role(sim: Sim, o: Dictionary) -> Dictionary:
 ## employee at a station of its role (work_at, normal mode, through Sim.give).
 static func step(sim: Sim) -> void:
 	var st := sim.state
+	# the staff of each building, in one pass over the characters (Staff.employees_of per building walked them all
+	# for every building every minute); nothing in this step hires or fires, so it holds for the whole step
+	var staff_of := {}
+	for id: Variant in st.characters:
+		var job: Variant = st.characters[id].get("job")
+		if job is Dictionary:
+			var eb := str((job as Dictionary).get("building", ""))
+			if eb != "":
+				if not staff_of.has(eb):
+					staff_of[eb] = []
+				(staff_of[eb] as Array).append(str(id))
+	for k: Variant in staff_of:
+		(staff_of[k] as Array).sort()
 	for bld: String in _sorted_keys(st.buildings):
 		var b: Dictionary = st.buildings[bld]
 		if not b.get("queue") is Dictionary:
@@ -145,14 +158,13 @@ static func step(sim: Sim) -> void:
 		if int(b.get("employee_slots", 0)) <= 0 and (q.get("assigned", {}) as Dictionary).is_empty() \
 				and (q.get("idle", {}) as Dictionary).is_empty():
 			continue
-		_step_building(sim, bld)
+		_step_building(sim, bld, staff_of.get(bld, []))
 
 
-static func _step_building(sim: Sim, bld: String) -> void:
+static func _step_building(sim: Sim, bld: String, staff: Array) -> void:
 	var q := _queue(sim.state, bld)
 	_clean_assigned(sim, bld, q)
 	_tidy(sim, bld, q)
-	var staff := Staff.employees_of(sim.state, bld)
 	if Upgrades.blocks(sim.state, bld):  # Equilibrio 9: only closed works stop the queue
 		_idle_under_works(sim, bld, q, staff)
 		return

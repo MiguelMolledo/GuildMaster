@@ -7,7 +7,7 @@ extends RefCounted
 ## longest street row), town_hall (beside the town hall's door), gates (inside the map's gates). Each prop is
 ## game/visuals/props/fiesta/<prop>.tscn (the art worker's scene, assets/art/props/fiesta/<prop>.png) or, until it
 ## exists, props/fiesta/_greybox.tscn with the prop's id written on it. Placed in the objects layer (Y-sorted with the
-## buildings and the walkers), never on a tile with a prop, a stall, the board or a door; the same tiles every time
+## buildings and the walkers), never on a tile with a prop, a stall, the board, a door or a free lot or ruin (plots); the same tiles every time
 ## (they depend only on the map). The view only: nothing here is read by the sim.
 
 const GREYBOX: String = "fiesta/_greybox"
@@ -242,6 +242,10 @@ static func sites(state: WorldState, catalog: Catalog) -> Dictionary:
 		for dy: int in range(-m0, maxi(1, int(sz[1]) if sz.size() == 2 else 1) + m0):
 			for dx: int in range(-m0, maxi(1, int(sz[0]) if sz.size() == 2 else 1) + m0):
 				busy[Vector2i(int(at[0]) + dx, int(at[1]) + dy)] = true
+	for pl: Dictionary in m.get("plots", []):  # parcelas (04 §4.9.1): free lots and ruins keep their ground
+		if str(pl.get("state", "")) in ["lot", "ruin"]:
+			for t: Vector2i in PlotLayer.tiles_of(pl):
+				busy[t] = true
 	var out := {"plaza_center": [], "plaza_center_side": [], "plaza_ring": [], "plaza_edge": [], "main_street": [],
 		"town_hall": [], "gates": [], "_free": open.filter(func(t: Vector2i) -> bool: return not busy.has(t))}
 	if not plaza.is_empty():
