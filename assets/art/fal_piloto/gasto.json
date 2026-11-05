@@ -16907,5 +16907,302 @@
   "imagenes": 1,
   "usd": 0.0004,
   "que": "image2pixel q2b_corral_s2.png"
+ },
+ {
+  "fecha": "2026-11-04T23:38:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia forge_a_prueba_nano2 (18 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:38:18",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-pro/edit",
+  "imagenes": 1,
+  "usd": 0.15,
+  "que": "referencia forge_a_prueba_nanopro (25 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:38:38",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/bytedance/seedream/v4.5/edit",
+  "imagenes": 1,
+  "usd": 0.04,
+  "que": "referencia forge_a_prueba_seedream45 (45 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:10",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia forge_b (14 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:10",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia forge_a (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia carpentry_a (16 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia armory_b (16 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:12",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia armory_a (17 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:31",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia tailor_shop_a (14 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:31",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia carpentry_b (16 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:31",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia masonry_b (14 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:31",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia masonry_a (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:31",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia tailor_shop_b (14 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:50",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia court_a (13 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:51",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia town_hall_a (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:51",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia tavern_a (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:51",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia town_hall_b (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:57",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia court_b (13 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:40:09",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia house_a (13 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:40:10",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia house_b (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:40:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia church_a (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:40:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia church_b (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:40:51",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia tavern_b (18 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:44:52",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "piloto forja: fondo v2"
+ },
+ {
+  "fecha": "2026-11-04T23:44:54",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "piloto forja: fondo v1"
+ },
+ {
+  "fecha": "2026-11-04T23:44:56",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-pro/edit",
+  "imagenes": 1,
+  "usd": 0.15,
+  "que": "piloto forja: fondo pro1"
+ },
+ {
+  "fecha": "2026-11-04T23:46:02",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "piloto forja: piezas v2"
+ },
+ {
+  "fecha": "2026-11-04T23:46:04",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "piloto forja: piezas v1"
+ },
+ {
+  "fecha": "2026-11-04T23:46:42",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0018,
+  "que": "image2pixel furnace_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T23:46:46",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel anvil_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T23:46:50",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel coal_bin_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T23:46:55",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel grindstone_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T23:51:06",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.002,
+  "que": "image2pixel furnace_s6.png"
  }
 ]

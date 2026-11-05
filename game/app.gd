@@ -32,6 +32,7 @@ extends Node
 ## Region: --smoke-script=region: the map of the region from the pause menu and from R, its cards, the war's cut routes.
 ## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## H12: --smoke-script=oficios: the trade buttons of the new game screen and the workshop of each artisan trade.
+## --smoke-script=interiores: each workshop without and with every upgrade, and the armory (docs/arte/interiores.md).
 ## Población: --smoke-script=poblacion: the new game screen and «Otra familia», then the sheets of a townsman, a
 ## townswoman and the rival with their base portraits.
 ## --smoke-script=menu: every menu screen (title, new game, pause, save, load, options, quit, credits, ending).
@@ -69,7 +70,8 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd", "viajes": "res://game/smoke/smoke_viajes.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
 	"duel": "res://game/smoke/smoke_duel.gd", "duelo_partida": "res://game/smoke/smoke_duelo_partida.gd",
-	"vida": "res://game/smoke/smoke_vida.gd"}
+	"vida": "res://game/smoke/smoke_vida.gd",
+	"interiores": "res://game/smoke/smoke_interiores.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
 const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"

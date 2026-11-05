@@ -1,0 +1,9 @@
+{
+  "fecha": "2026-11-05",
+  "titulo": "Interiores bonitos: 20 referencias con fal y la forja nueva",
+  "que": "Referencias de cómo podrían ser los interiores, con la cámara del juego (vista isométrica en corte, como un diorama, y el personaje de 48 px para la escala), dos por interior (de día y al anochecer): forja, armería, carpintería, cantería, sastrería, taberna-posada, ayuntamiento, tribunal, casa de la familia e iglesia, en assets/art/interiors/_referencias/. Análisis en docs/arte/interiores.md: qué se puede reproducir con el kit, qué falta y tres caminos; se recomienda la mezcla: un fondo pintado por sala (suelo y paredes del fondo, con la puerta, la ventana y todo lo que cuelga, ajustado a la rejilla sobre una plantilla de su geometría) y piezas sueltas para todo lo que tiene altura (puestos, mejoras, atrezo), más capas de luz y partículas. Piloto en la forja: la sala pintada (losas, tierra y tablas, entramado con ladrillo y yeso, ventana, armero, farol, herraduras, hollín), paredes de 64 px (la puerta pasa a 52, la de la escala B), una fragua de piedra con campana que da luz cálida (halo que respira) y echa chispas, yunques en tocón, carbonera y muela, y polvo en la luz de la ventana. Los rótulos de los puestos ya no se tapan con lo que hay delante. Puestos, clics, puerta y mejoras como antes. Gasto: 2,35 USD de fal.",
+  "como_probar": "Entra en la forja (o gestiona desde el mapa). Capturas: grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=interiores (reports/shots/interiores_<oficio>[_mejoras].png: los cuatro talleres sin y con todas las mejoras, y la armería). Referencias y antes/después en la galería de Grimoire «Interiores · referencias». Rehacer sin gasto: python3 tools/art/fal_interiores.py proc (los crudos están en ~/Code/GuildMaster-arte-crudos/fal_produccion/interiores/).",
+  "capturas": [
+    "docs/novedades/interiores_forja.png"
+  ]
+}

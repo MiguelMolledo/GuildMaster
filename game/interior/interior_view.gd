@@ -236,6 +236,15 @@ func _build_room(type: String, zones: Dictionary) -> void:
 				(u as Node2D).position += ups.position
 				objects().add_child(u)
 				_upgrades[str(u.name)] = u
+	# the room's standing atrezo (Props, docs/arte/interiores.md) also sorts with the people and the stations
+	var props := _room.get_node_or_null("Props") as Node2D
+	if props != null:
+		for p: Node in props.get_children():
+			if p is Node2D:
+				props.remove_child(p)
+				p.owner = null
+				(p as Node2D).position += props.position
+				objects().add_child(p)
 	for z: String in zones:
 		if not _stations.has(z):
 			ViewConfig.info("Interior", "no Marker2D Stations/%s in interiors/%s.tscn: station not drawn" % [z, type])

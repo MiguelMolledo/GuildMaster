@@ -161,6 +161,12 @@ edificio o un puesto, en el `Greybox` de su escena.
 3. Los puestos que añaden las mejoras (`anvil_2`, `furnace_2`) ya tienen su marcador: solo salen cuando la mejora está hecha.
 4. Tamaño de la sala y puerta: el nodo `Kit` (*size*, *door*, colores, alto de pared). Su grupo *Art* lleva las
    texturas del suelo y de las paredes; si las vacías, vuelven los colores.
+5. Sala pintada (la forja, `docs/arte/interiores.md`): *backdrop* del `Kit` es una sola imagen del suelo y las paredes
+   del fondo, con *backdrop_offset* = su esquina de arriba a la izquierda desde el centro de la casilla (0, 0). Si la
+   vacías, vuelven las casillas y tramos de pared. Si cambias *size*, *door* o el alto de pared, el fondo ya no encaja:
+   hay que pintarlo otra vez (`tools/art/fal_interiores.py fondo` y `proc`).
+6. Atrezo de pie (carbonera, muela…): un Sprite2D bajo `Props`, con su posición en los pies (el centro de su casilla)
+   y su *offset* para que la base caiga ahí. Se ordena con la gente como los puestos.
 
 ### El visual de una mejora
 Bajo `Upgrades` del interior (`interiors/forge.tscn`) o del exterior (`buildings/forge.tscn`) hay un nodo oculto por
