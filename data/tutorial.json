@@ -210,6 +210,7 @@
     "RegionScreen",
     "CityScreen",
     "CaravanScreen",
+    "LiveForgeScreen",
     "InnPanel"
   ],
   "hints": [
@@ -541,6 +542,18 @@
         "in": "CityScreen"
       },
       "text": "tutorial.hint.first_treaty"
+    },
+    {
+      "id": "live_forge",
+      "when": {
+        "state": "panel_open",
+        "is": "LiveForgeScreen"
+      },
+      "target": {
+        "ui": "Panel",
+        "in": "LiveForgeScreen"
+      },
+      "text": "tutorial.hint.live_forge"
     }
   ],
   "look": {

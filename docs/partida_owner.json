@@ -1,0 +1,51 @@
+{
+  "_doc": "Lista de comprobación de la partida del owner (docs/gdd/03b_diversion_y_ritmo.md §3b.6): la partida de H11, unas 2 h desde una partida nueva de herrero. tools/cuaderno.py la pinta en el cuaderno. respuesta: lo que diga el owner (vacío hasta que juegue).",
+  "partida": "Partida nueva de herrero, Normal, con tutorial; unas 2 h (año 1 entero y el principio del 2).",
+  "preguntas": [
+    {
+      "id": "barra",
+      "pregunta": "¿Hubo algún momento en que solo mirabas una barra? ¿Cuál y cuánto duró?",
+      "respuesta": ""
+    },
+    {
+      "id": "divertido",
+      "pregunta": "¿Qué fue lo más divertido?",
+      "respuesta": ""
+    },
+    {
+      "id": "pronto_tarde",
+      "pregunta": "¿Qué llegó demasiado pronto o demasiado tarde (las cartas «Nuevo: …»)?",
+      "respuesta": ""
+    },
+    {
+      "id": "forja_viva",
+      "pregunta": "Forja viva: ¿se entiende el color, la plantilla y el temple sin leer nada? ¿Cansa al décimo martillo?",
+      "respuesta": ""
+    },
+    {
+      "id": "obra_maestra",
+      "pregunta": "¿Salió alguna obra maestra? ¿Hizo ilusión ver su nombre?",
+      "respuesta": ""
+    },
+    {
+      "id": "encargos",
+      "pregunta": "Encargos con variante: ¿se entiende qué pide el cliente por cómo lo dice?",
+      "respuesta": ""
+    },
+    {
+      "id": "metas",
+      "pregunta": "Zona de metas: ¿siempre sabías qué hacer después?",
+      "respuesta": ""
+    },
+    {
+      "id": "saltar",
+      "pregunta": "«Saltar hasta…»: ¿lo usaste? ¿Paró donde esperabas?",
+      "respuesta": ""
+    },
+    {
+      "id": "perdido",
+      "pregunta": "¿En algún momento no sabías qué hacer?",
+      "respuesta": ""
+    }
+  ]
+}

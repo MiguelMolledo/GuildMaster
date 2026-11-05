@@ -91,8 +91,8 @@
       "advance": "action"
     },
     {
-      "id": "careful",
-      "text": "tutorial.produce.careful",
+      "id": "live",
+      "text": "tutorial.produce.live_mode",
       "target": {
         "ui": "CarefulButton",
         "in": "StationMenu",
@@ -105,7 +105,7 @@
         "state": "panel_prop",
         "panel": "StationMenu",
         "prop": "mode",
-        "value": "careful"
+        "value": "live"
       },
       "advance": "action"
     },
@@ -143,24 +143,21 @@
       "advance": "action"
     },
     {
-      "id": "touch",
-      "text": "tutorial.produce.touch",
+      "id": "live_forge",
+      "text": "tutorial.produce.live_forge",
       "target": {
-        "world": "station",
-        "id": "anvil"
+        "ui": "Panel",
+        "in": "LiveForgeScreen"
       },
       "when": {
-        "sim": "master_window",
-        "match": {
-          "open": true,
-          "zone": "anvil"
-        }
+        "state": "panel_open",
+        "is": "LiveForgeScreen"
       },
       "done": [
         {
-          "sim": "master_touch_done",
+          "sim": "live_forge_done",
           "match": {
-            "zone": "anvil"
+            "recipe": "forge_sword"
           }
         },
         {

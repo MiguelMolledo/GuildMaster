@@ -60,6 +60,8 @@ STEPS = [
     ("duel", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=duel_ready", "--bots=duelist", "--days=8", "--seeds=3"]),
     ("merchant", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=travel_start", "--bots=merchant", "--days=16",
                       "--seeds=10"]),
+    ("pacing", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=pacing", "--days=8",
+                    "--seeds=5"]),
     ("gambler", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=games_gambler", "--bots=gambler", "--days=8",
                      "--seeds=3"]),
     ("life", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=life_bandits", "--bots=guard_watch", "--days=16",

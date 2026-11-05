@@ -183,6 +183,11 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return FestivalCourt.order_audience(sim, order)
 		"festival_enter_contest":
 			return FestivalCourt.order_enter_contest(sim, order)
+		# Forja viva y desbloqueos (docs/gdd/03b_diversion_y_ritmo.md)
+		"live_forge":
+			return LiveForge.order(sim, order)
+		"unlock_seen":
+			return Unlocks.order_seen(sim, order)
 		# Juegos · games and competitions (sim/games/, docs/contratos/juegos.md)
 		"game_play":
 			return Games.replay(sim, order)
@@ -229,7 +234,7 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"city_accept", "city_deliver", "sign_treaty",
 	"game_play", "game_bet", "game_enter", "festival_sponsor", "festival_host_wedding", "festival_offer_gift",
 	"festival_choose_gift", "festival_audience", "festival_enter_contest",
-	"resolve_incident",
+	"resolve_incident", "live_forge", "unlock_seen",
 	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license"]  # posada (Inn.MANAGEMENT)
 
 
