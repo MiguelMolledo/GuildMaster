@@ -57,6 +57,10 @@ func _on_button(id: String) -> void:
 	if g == null or g.get("sim") == null:
 		return
 	var sim: Sim = g.get("sim")
+	if id == "audience_menu":  # the privileges on a second card (after this one closes)
+		var menu := FestivalPage.audience_menu(sim, data)
+		(func() -> void: show_page(menu)).call_deferred()
+		return
 	var actor := SimQuery.family_actor(sim.state, SimQuery.player_family(sim.state))
 	if id.begins_with("choose:"):  # the mayor's choice: the order is the mayor's
 		actor = FestivalCourt.mayor(sim)

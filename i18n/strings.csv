@@ -3439,3 +3439,10 @@ ui.festival_card.audience_no,"The marquis listens and keeps the gift, but grants
 ui.festival_card.fx_town_gift,At %02d:00 the mayor chooses the town's gift among the pieces offered,A las %02d:00 el Alcalde elige el regalo de la villa entre las piezas ofrecidas
 ui.festival_card.fx_audience,"At %02d:00, audiences with the marquis (Citizen or more)","A las %02d:00, audiencias con el marqués (Ciudadano o más)"
 ui.festival_card.fx_contest,"At %02d:00, quality contest: %d gold for the best piece","A las %02d:00, concurso de calidad: %d de oro a la mejor pieza"
+ui.festival_card.offer_gift_short,Offer a gift,Ofrecer regalo
+ui.festival_card.contest_short,Enter the contest,Al concurso
+ui.festival_card.audience_menu,Ask for an audience…,Pedir audiencia…
+ui.festival_card.audience_ask,"With a gift and your Rhetoric, ask the marquis for:","Con un regalo y tu Retórica, pide al marqués:"
+festival.privilege_short.title_favour,Title favour,Favor del título
+festival.privilege_short.exemption,Exemption,Exención
+festival.privilege_short.minor_office,Minor office,Cargo menor

@@ -43,6 +43,22 @@ static func _gift_offers(sim: Sim, e: Dictionary) -> Dictionary:
 		"buttons": buttons, "sticky": true, "festival": str(inst["def"]), "instance": str(inst["id"])}
 
 
+## The second card of the audience: what to ask the marquis (one short button per privilege open now).
+static func audience_menu(sim: Sim, d: Dictionary) -> Dictionary:
+	var inst := Festivals.find(sim, str(d.get("instance", "")))
+	var lines: Array = []
+	var buttons: Array = []
+	for priv: String in FestivalCourt.privileges_open(sim):
+		lines.append({"text": SimQuery.t_("festival.privilege." + priv), "sign": "+"})
+		buttons.append({"id": "audience:" + priv, "text": SimQuery.t_("festival.privilege_short." + priv),
+			"primary": buttons.is_empty(), "tip": SimQuery.t_("festival.privilege." + priv)})
+	return {"template": "card", "title": SimQuery.t_("ui.festival_card.audience_title"),
+		"image": VisualPaths.illustration_or_greybox("events", str(inst.get("def", "marquis_visit"))),
+		"blocks": [{"type": "paragraph", "text": SimQuery.t_("ui.festival_card.audience_ask")}, {"type": "effects",
+			"items": lines}], "buttons": buttons, "sticky": true, "festival": str(inst.get("def", "")),
+		"instance": str(d.get("instance", ""))}
+
+
 ## The outcome of the town's gift, the quality contest or the player's audience.
 static func _result(sim: Sim, e: Dictionary) -> Dictionary:
 	var t := str(e.get("type", ""))
@@ -157,20 +173,22 @@ static func _court_buttons(sim: Sim, inst: Dictionary, fam: String) -> Array:
 	if not g.is_empty() and now < FestivalCourt._deadline(inst, g) and not FestivalCourt._entered(inst.get("gift_offers", []), fam):
 		var p := FestivalCourt.best_piece(sim, fam, actor, gifts)
 		if not p.is_empty():
-			out.append({"id": "offer_gift", "text": SimQuery.t_("ui.festival_card.offer_gift") % SimQuery.item_name(sim.catalog,
-				str(p["item"])), "tip": SimQuery.t_("ui.festival_card.offer_gift_tip")})
+			out.append({"id": "offer_gift", "text": SimQuery.t_("ui.festival_card.offer_gift_short"),
+				"tip": SimQuery.t_("ui.festival_card.offer_gift") % SimQuery.item_name(sim.catalog, str(p["item"]))
+					+ ". " + SimQuery.t_("ui.festival_card.offer_gift_tip")})
 	var a := FestivalCourt.effect(sim, inst, "audience")
 	if not a.is_empty() and now < FestivalCourt._deadline(inst, a) and FestivalCourt.title_ok(sim, fam) \
 			and not FestivalCourt._entered(inst.get("audience", []), fam) and not FestivalCourt.best_piece(sim, fam, actor, gifts).is_empty():
-		for priv: String in FestivalCourt.privileges_open(sim):
-			out.append({"id": "audience:" + priv, "text": SimQuery.t_("ui.festival_card.audience") % SimQuery.t_(
-				"festival.privilege." + priv), "tip": SimQuery.t_("ui.festival_card.audience_tip")})
+		if not FestivalCourt.privileges_open(sim).is_empty():  # the privilege is chosen on a second card
+			out.append({"id": "audience_menu", "text": SimQuery.t_("ui.festival_card.audience_menu"),
+				"tip": SimQuery.t_("ui.festival_card.audience_tip")})
 	var c := FestivalCourt.effect(sim, inst, "contest")
 	if not c.is_empty() and now < FestivalCourt._deadline(inst, c) and not FestivalCourt._entered(inst.get("contest", []), fam):
 		var p := FestivalCourt.best_piece(sim, fam, actor, [])
 		if not p.is_empty():
-			out.append({"id": "contest", "text": SimQuery.t_("ui.festival_card.contest") % SimQuery.item_name(sim.catalog,
-				str(p["item"])), "tip": SimQuery.t_("ui.festival_card.contest_tip") % int(c.get("prize", 0))})
+			out.append({"id": "contest", "text": SimQuery.t_("ui.festival_card.contest_short"),
+				"tip": SimQuery.t_("ui.festival_card.contest") % SimQuery.item_name(sim.catalog, str(p["item"])) + ". "
+					+ SimQuery.t_("ui.festival_card.contest_tip") % int(c.get("prize", 0))})
 	return out
 
 

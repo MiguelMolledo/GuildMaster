@@ -206,6 +206,12 @@ func _process(delta: float) -> void:
 			if _t > 0.5:
 				app.save_shot("fiesta_marques_carta")
 				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("show_page", FestivalPage.audience_menu(Game.sim, {"instance": _inst}))
+				_go("audience_menu")
+		"audience_menu":
+			if _t > 0.5:
+				app.save_shot("fiesta_audiencia")
+				var card: Node = app.get_node("CardsLayer/EventCard")
 				card.call("close")
 				card.call("show_festival", Game.sim, {"type": "festival_gift_offers", "festival": _inst,
 					"def": "marquis_visit", "mayor": _who, "offers": 2})
