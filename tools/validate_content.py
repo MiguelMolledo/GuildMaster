@@ -2538,6 +2538,23 @@ def main():
         if "slot" in it and it["slot"] not in SLOTS:
             rep.error(w, f"ranura desconocida {it['slot']}")
 
+    # plantillas: the town's watch (its name) and the faster routes of the large maps (sim/world/route_atlas.gd)
+    mdir = os.path.join(DATA, "maps")
+    for f in sorted(os.listdir(mdir)):
+        if not f.endswith(".json") or f.startswith("_"):
+            continue
+        m = load_json(os.path.join(mdir, f), rep) or {}
+        wm = f"maps/{f[:-5]}"
+        if "watch" in m:
+            check_text(wm + " watch", (m.get("watch") or {}).get("name_key"), strings, rep)
+        if "routing" in m:
+            k = (m.get("routing") or {}).get("landmarks")
+            if not isinstance(k, int) or not 1 <= k <= 8:
+                rep.error(wm, f"routing.landmarks {k}: un entero de 1 a 8")
+            rp = (m.get("routing") or {}).get("replans_per_minute", -1)
+            if not isinstance(rp, int) or (rp != -1 and rp < 1):
+                rep.error(wm, f"routing.replans_per_minute {rp}: un entero >= 1 (o -1, sin tope)")
+
     for id_, b in buildings.items():
         w = f"buildings/{id_}"
         check_text(w, b.get("name_key"), strings, rep)

@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx63iaetxxijn"]
+
+[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+
+[node name="PlotGround" type="Node2D"]
+editor_description = "A tile of a free lot (data/maps plots, state lot; 04 §4.9.1): bare trodden ground. PlotLayer puts it on each tile of the lot, on the ground layer. Greybox until its sprite."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -1)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_block")
+height = 1.0
+color = Color(0.55, 0.42, 0.27, 1)

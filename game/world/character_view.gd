@@ -184,7 +184,8 @@ func set_bubble(id: String) -> void:
 	_bubble.name = "Bubble"
 	WorldLabels.style_tree(_bubble)   # a greybox bubble's glyph, in the project's small letter
 	_bubble.z_index = MARKS_Z
-	VisualPaths.place(_bubble, Vector2(bubble_shift, -fig_height - 12))
+	VisualPaths.place(_bubble, Vector2(bubble_shift, -fig_height - 12 - turn_raise))
+	_bubble.visible = turn_shown
 	add_child(_bubble)
 	_apply_mark()
 
@@ -231,7 +232,47 @@ var bubble_shift: float = 0.0
 func set_bubble_shift(dx: float) -> void:
 	bubble_shift = dx
 	if _bubble != null:
-		VisualPaths.place(_bubble, Vector2(dx, -fig_height - 12))
+		VisualPaths.place(_bubble, Vector2(dx, -fig_height - 12 - turn_raise))
+
+
+## Plantillas (WorldView._take_turns): whether this person's bubble and phrase show now (its turn in a corrillo) and
+## how many px higher they go (the second one of the corrillo).
+var turn_shown: bool = true
+var turn_raise: float = 0.0
+
+
+func set_turn(shown: bool, raise: float) -> void:
+	if shown == turn_shown and is_equal_approx(raise, turn_raise):
+		_apply_turn()
+		return
+	turn_shown = shown
+	turn_raise = raise
+	if _bubble != null:
+		VisualPaths.place(_bubble, Vector2(bubble_shift, -fig_height - 12 - turn_raise))
+	if _phrase_label != null:
+		_phrase_label.position = Vector2(-90, -fig_height - 46 - turn_raise - phrase_raise)
+	_apply_turn()
+
+
+func _apply_turn() -> void:
+	if _bubble != null:
+		_bubble.visible = turn_shown
+	if _phrase_label != null and _phrase_label.text != "":
+		_phrase_label.visible = turn_shown and phrase_shown
+
+
+## Plantillas (WorldView._take_phrase_turns): the phrase's own turn among the phrases that would overlap, and how
+## many px higher it goes (on top of the corrillo's turn).
+var phrase_shown: bool = true
+var phrase_raise: float = 0.0
+
+
+func set_phrase_turn(shown: bool, raise: float) -> void:
+	phrase_shown = shown
+	phrase_raise = raise
+	if _phrase_label != null:
+		_phrase_label.position = Vector2(-90, -fig_height - 46 - turn_raise - phrase_raise)
+	_apply_turn()
 
 
 var _lantern: Node2D = null
@@ -265,16 +306,21 @@ func set_phrase(text: String) -> void:
 		_phrase_label.z_index = MARKS_Z + 1
 		WorldLabels.style(_phrase_label, "phrase")
 		_phrase_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_phrase_label.size = Vector2(240, 14)
-		_phrase_label.position = Vector2(-120, -fig_height - 46)
+		_phrase_label.size = Vector2(240, 14)   # the project's letter is wider (WorldLabels)
+		_phrase_label.position = Vector2(-120, -fig_height - 46 - turn_raise - phrase_raise)
 		_phrase_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_phrase_label)
 	_phrase_label.text = text
-	_phrase_label.visible = text != ""
+	_phrase_label.visible = text != "" and turn_shown and phrase_shown
 
 
 func phrase() -> String:
 	return _phrase_label.text if _phrase_label != null and _phrase_label.visible else ""
+
+
+## The phrase set, shown or waiting its turn (WorldView._take_turns).
+func phrase_text() -> String:
+	return _phrase_label.text if _phrase_label != null else ""
 
 
 ## The name over the head (shown when selected or hovered).
