@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""El informe de la verificación por la interfaz (docs/gdd/07_testing.md §7.4).
+"""El informe de la verificación por la interfaz (docs/gdd/07_testing.md §7.6).
 
 Lee reports/verifica/<fecha>/<flujo>/result.json (los escribe game/smoke/flow/flow_runner.gd), la lista de órdenes de
 sim/core/orders.gd, dónde las da la UI (game/), los motivos apuntados en data/flows/_coverage.json y los informes de

@@ -18,9 +18,10 @@ duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en trav
 games_gambler, 3 semillas × 8 días: pierde lo que marca el margen de la casa), life
 (vida, 04f 4.28.4: el bot guard_watch en life_bandits, 3 semillas × 16 días; las dianas de antes corren con la vida
 apagada, data/targets.json _no_life), festive (fiestas: un año con el calendario de fiestas, 3 semillas × 8 días) y
-bench_fair (el coste del sim el día de la feria) y ui (los flujos "quick" de data/flows jugados por la interfaz con
-ratón y teclado, con ventana, cada uno por `grimoire heavy`: docs/gdd/07_testing.md §7.4; con --night, todos los
-flujos y el informe en Grimoire). Con
+bench_fair (el coste del sim el día de la feria), full y chaos (07 §7.4: el jugador completo y el caótico con todo
+encendido, 1 año y 1 semilla; las corridas largas, de noche con tools/qa/noche.py), full_html (su resumen) y ui (los
+flujos "quick" de data/flows jugados por la interfaz con ratón y teclado, con ventana, cada uno por `grimoire heavy`:
+07 §7.6; con --night, todos los flujos y el informe en Grimoire). Con
 --visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
 """
@@ -67,8 +68,11 @@ STEPS = [
     ("festive", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=festive", "--days=8",
                      "--seeds=3"]),
     ("bench_fair", G + ["-s", "tools/sim_bench.gd", "--", "--at-day=3", "--days=1", "--runs=3"]),
+    ("full", G + ["-s", "tools/full_player.gd", "--", "--years=1", "--seed-list=1", "--tag=qa"]),
+    ("chaos", G + ["-s", "tools/full_player.gd", "--", "--bot=chaos_player", "--years=1", "--seed-list=1", "--tag=qa"]),
+    ("full_html", [sys.executable, "tools/full_report.py", "reports/full_player_qa", "reports/chaos_player_qa"]),
 ]
-# The interface (docs/gdd/07_testing.md §7.4): the "quick" flows played with real mouse and keyboard events, with a
+# The interface (docs/gdd/07_testing.md §7.6): the "quick" flows played with real mouse and keyboard events, with a
 # window, each one through the queue of `grimoire heavy`; --night plays every flow and publishes the report.
 UI = [("ui", [sys.executable, "tools/verifica/verifica.py", "--window", "--flows=quick", "--timeout=300"])]
 NIGHT = [("ui_all", [sys.executable, "tools/verifica/verifica.py", "--window", "--flows=all", "--artifact"])]

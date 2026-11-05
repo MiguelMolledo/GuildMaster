@@ -39,7 +39,7 @@ extends Node
 ## UI 1/2: --smoke-script=hud: the new HUD's zones, the book beside the forge's bar, notices, help, ESC, the interior;
 ## --smoke-script=paneles: every existing panel in its zone (5, wide or big modal).
 ## H10: --smoke-script=cargos: the offices chart, running, the campaign, the result card and the inspector's powers.
-## Verificación (docs/gdd/07_testing.md §7.4): --flow=<id> / --flows=all|quick|a,b play data/flows/ with real mouse
+## Verificación (docs/gdd/07_testing.md §7.6): --flow=<id> / --flows=all|quick|a,b play data/flows/ with real mouse
 ## and keyboard events (game/smoke/flow/flow_runner.gd) and write reports/verifica/<date>/.
 ## --gallery opens game/tools/gallery.tscn instead (every visual scene of game/visuals/ on the grid; with --smoke it
 ## saves reports/shots/gallery_01.png and quits). The AudioDirector node plays the sounds and music by id.
@@ -136,7 +136,7 @@ func _ready() -> void:
 		elif a.begins_with("--smoke-script="):
 			script_id = a.substr(15)
 		elif a.begins_with("--flow=") or a.begins_with("--flows="):
-			script_id = "flow"   # docs/gdd/07_testing.md §7.4: the flows played through the interface
+			script_id = "flow"   # docs/gdd/07_testing.md §7.6: the flows played through the interface
 	_interior.order_sink = Game.give
 	_interior.set_active(false)
 	_world.selection_changed.connect(_on_world_selection)

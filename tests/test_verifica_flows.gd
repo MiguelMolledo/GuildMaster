@@ -1,5 +1,5 @@
 extends "res://tests/test_case.gd"
-## The verification through the interface (docs/gdd/07_testing.md §7.4): every flow of data/flows/ is well formed (its
+## The verification through the interface (docs/gdd/07_testing.md §7.6): every flow of data/flows/ is well formed (its
 ## id is its file name, it says where it starts, each step has one action or a wait, its checks and conditions parse as
 ## expressions over FlowQuery); the visual audit measures contrast as WCAG does and finds a text cut in its box, an
 ## i18n key and a bracketed id on screen; the driver finds a control by its name, its text and its row.

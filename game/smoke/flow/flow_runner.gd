@@ -1,5 +1,5 @@
 extends Node
-## Plays the flows of data/flows/<id>.json through the interface (docs/gdd/07_testing.md §7.4): --flow=<id> or
+## Plays the flows of data/flows/<id>.json through the interface (docs/gdd/07_testing.md §7.6): --flow=<id> or
 ## --flows=all|a,b. Each step is one action of a person (a click on a control, on the town or in a room, a key, a
 ## wait) followed by its checks (expressions over FlowQuery `q`), a capture (with a window) and the visual checks
 ## (VisualAudit). Writes reports/verifica/<date>/<flow>/result.json (+ NN_<step>.png and the marked crops in vis/)

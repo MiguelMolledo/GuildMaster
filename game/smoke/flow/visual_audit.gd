@@ -1,6 +1,6 @@
 class_name VisualAudit
 extends RefCounted
-## Automatic checks on what is on screen (docs/gdd/07_testing.md §7.4, docs/ui/00_lenguaje_visual.md §6): every
+## Automatic checks on what is on screen (docs/gdd/07_testing.md §7.6, docs/ui/00_lenguaje_visual.md §6): every
 ## visible text and control of the GUI is measured; with a capture (a window) the contrast is read from its pixels.
 ## A finding: {kind, severity ("fallo" | "aviso"), screen, node, text, rect: [x, y, w, h], detail}. Kinds:
 ##   cut         the text does not fit in its control (cut, clipped or with fewer lines than it needs)

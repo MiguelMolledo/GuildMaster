@@ -1,6 +1,6 @@
 class_name UiDriver
 extends RefCounted
-## Plays the game like a person (docs/gdd/07_testing.md §7.4): only mouse and keyboard events go in, through
+## Plays the game like a person (docs/gdd/07_testing.md §7.6): only mouse and keyboard events go in, through
 ## Input.parse_input_event (the same road as the OS: the input map, the GUI, _unhandled_input, the camera's polling).
 ## It finds a control by its node name, by its text or with a panel's own locator (row_of, cell_of, tab_button...),
 ## moves the mouse there in a few steps, checks that the control is the one under the pointer and clicks. A control

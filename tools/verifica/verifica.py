@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verificación de una rama por la interfaz (docs/gdd/07_testing.md §7.4).
+"""Verificación de una rama por la interfaz (docs/gdd/07_testing.md §7.6).
 
 Juega los flujos de data/flows/ con eventos reales de ratón y teclado (game/smoke/flow/), un proceso de Godot por
 flujo, y escribe el informe para revisar reports/verifica/<fecha>/index.html (+ artifact en Grimoire con --artifact).
