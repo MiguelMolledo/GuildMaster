@@ -741,6 +741,36 @@
       "por_que": "El coste del bench crece con los personajes (~0,08 ms cada uno en un mapa de 40×40, más en el de 80×80 por las rutas largas del A*): con la diana de 2 ms caben unos 25 personajes. Para que Bellcaire aguante con muchos vecinos hace falta abaratar las rutas, no quitar gente (pendiente de decidir)."
     },
     {
+      "fecha": "2026-11-05",
+      "tema": "Hugo v3: proporciones de adulto",
+      "decision": "Se mantienen las proporciones del v3 (cabeza de adulto, cara de 9×6 px a escala B); no se agranda la cabeza. A zoom 1 el personaje se lee por silueta, color de ropa y nombre; la cara, en el retrato y a zoom 2. Retoque a mano de ojos, boca y barbilla hecho (arte-fal-2 2786313). El v3 se cablea entero (idle, andar, forjar) cuando haya 8 generaciones de PixelLab para el andar; hasta entonces, nada más de arte: prioridad gameplay.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Decide el manager tras ver las comparativas a zoom 1 y 2."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 13 · fama de un taller",
+      "decision": "como la de la taberna, 0,5-2,0; sube con la calidad media de lo vendido en los últimos 4 días, obras maestras, encargos cumplidos y concursos ganados; baja con encargos incumplidos y quejas. Se define en 04g §4.6.5.7.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 14 · clientela de la comarca en los talleres",
+      "decision": "una sola implementación para mostrador y taberna (la de interiores, sim/town/clientele.gd, y la de la posada se unifican); se enciende cuando sus cifras por oficio estén medidas con los bots de cada oficio y el mostrador deje ≥2× salario (punto 8).",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 15 · bolsa de los hogares",
+      "decision": "los vecinos con trabajo cobran un jornal diario a la bolsa de su casa (según oficio), y la comida se paga de ella; el gasto en la taberna es discrecional. Diana: 6-12 vecinos por noche en la taberna un día normal.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Montsacre: dentro y fuera sin muralla de villa",
+      "decision": "El recinto de la abadía no es edificable (tierra de la Iglesia). En ciudades sin muralla de villa, «dentro» es el núcleo a un radio andando de la plaza (cifra en tools/city/reglas.json), con guardia y precio de situación de dentro.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
       "fecha": "2026-11-04",
       "tema": "Forja viva (03b §3b.2, O-D1 a, O-D4 a)",
       "decision": "Construida como modo de trabajo `live` (sim/forge/live_forge.gd, data/live_forge.json): calentar, batir y templar como órdenes live_forge que se aplican al momento y quedan en la grabación; cada decisión sale bien, cerca o mal; tres bien +1 escalón, dos mal −1; sin decidir nada, exactamente el modo normal (mismos dados). En el yunque de la forja el tercer botón pasa de «Con cuidado» a «Forja viva»; `careful` y el toque de maestro siguen en el sim para los bots, los guardados y los otros oficios. Gracia de 0,5 h al final del ciclo; solo se repite en Forja viva si se jugó hasta el temple. La pantalla pone ×1 mientras está abierta. Obra maestra: Artesanía ≥ 7, las tres bien y una tirada del 10 % [balance]; con nombre (santo + apellido), en la crónica y en masterworks.pieces; la venta a nobles ×3, el regalo y la ventaja en justas y duelo quedan como ganchos.",
