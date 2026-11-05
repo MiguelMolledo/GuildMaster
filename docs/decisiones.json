@@ -22,6 +22,24 @@
     },
     {
       "fecha": "2026-11-04",
+      "tema": "Fiestas: regalo de la villa, audiencia del marqués y patrocinios de la IA (de momento, no)",
+      "decision": "Manager, a la espera del owner: no a las dos. El regalo de la villa sigue siendo un encargo de carrera (la primera espada excelente) y no hay audiencia con privilegios; las familias rivales no patrocinan fiestas. Las dos preguntas pasan al owner.",
+      "por_que": "Respuesta provisional del manager mientras el owner decide."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Fiestas enganchadas con vida (forasteros, agenda, sucesos)",
+      "decision": "Tras juntar vida, las fiestas del calendario mueven su agenda, sus forasteros y sus sucesos por los mismos puntos que ya leía de data/events.json (Life.event_mult, holy_day, festival). Los forasteros se planean con las fiestas de todo el día; con una fiesta del calendario no se suma el ×3 genérico de vida (la feria da ×5, ×3,5 sin patrocinio, y abre fair_max); los tipos que trae la fiesta pesan el doble. Los espectáculos de la fiesta entran como espectáculos de vida y el predicador sube la fe. Los ids de actividad y suceso de data/festivals.json pasan a los de data/life/ (procesión y romería → mass, baile → stroll, hogueras y banquete → chat, cementerio → visit, brawl → altercation) y el validador los comprueba.",
+      "por_que": "Una sola puerta para lo que la ciudad viva lee de un evento o una fiesta; así no se cuentan dos veces los forasteros."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Calendario de fiestas (fiestas, 04f 4.25)",
+      "decision": "Construido 4.25 con el diseño del manager y estos cambios (04f §4.25.7): sin fiesta el día 0 (first_day 1); pregón a las 12:00 de la víspera y encargos que vencen a las 17:00 del día de la fiesta; la carne del diseño es el grupo food; día de guardar solo por la mañana en Semana Santa, Todos los Santos y Navidad (en las cinco grandes quitaba medio año); tablado y arco triunfal se fabrican en el taller y se montan al entregarlos; tres piezas pequeñas más para el herrero (herraduras, cuchillo de matarife, candelabro); recetas kind commission que bots e IA no eligen para el mercado; encargos de fiesta como carrera de un solo ganador con copias por familia y la IA rival compitiendo con sus órdenes; filas publicadas solo si hay quien las fabrique; la comida del banquete es prepared_meal/bread hasta la cocina de la posada; organize_festival sin coste real (no hay tesorería del concejo); la boda del jugador se celebra pagando 80 de banquete; patronal y feria de cada ciudad el mismo día, como calendario puro; las fiestas apagadas en sim_runner salvo los bots de targets _festivals (dianas iguales). Guardado v18 (SaveFile._to_v18).",
+      "por_que": "Lo pide el owner (fiestas, bodas y encargos por oficio); los cambios evitan castigar el primer día y el año, y que el rival y los bots vendan piezas sin puesto."
+    },
+    {
+      "fecha": "2026-11-04",
       "tema": "Vida (04f 4.24): un interruptor y las dianas de antes con la vida apagada",
       "decision": "Toda la ciudad viva II (agenda, corrillos y rumores, forasteros, guardia y sucesos) cuelga de data/life/life.json enabled. Las dianas de data/targets.json se miden con ella apagada (lista _no_life, como _no_events de H13; --life=on para medirlas con ella) y salen idénticas a las de main (comparadas semilla a semilla). La vida se mide en el bot guard_watch, en tests/test_life_*.gd y en el bench (1,73 ms con la máquina cargada; 1,37 sin la vida).",
       "por_que": "Principio 4 de 04f: los vecinos van a otros sitios y a otras horas, y eso cambia quién entra al mostrador, quién se casa y las rutas; con el sistema apagado los números de antes no se mueven."
@@ -421,6 +439,30 @@
       "tema": "Combate: duelo a tres tiempos (O-C1–O-C12)",
       "decision": "Aprobadas las recomendaciones de 04e §4e.9: el duelo entra ya como mecánica social del Artesano, solo a primera sangre (hasta la rendición, con la salud de 4.22); el lance sustituye a los asaltos de 4.22.6.1; a muerte bloqueado; el retado elige armas; lee Empatía contra Arte Marcial; la IA rival solo responde retos hasta revisar 04c; rechazar es gratis 2+ títulos por encima; iniciativa a ciegas y luego alterna; resolver sin jugar = jugar siguiendo la pista; cualquier pretendiente reta, sea cual sea su sexo. Guardado del duelo: v15; 4.22 pasa a v17.",
       "por_que": "El owner: «me parece bien lo que comentas, dale caña»."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Interiores II (04g)",
+      "decision": "Sótano, planta baja y planta alta (la guarida del Pícaro tendrá en el sótano jaula para secuestrados y contrabando); clientes que aparecen con fundido; paredes del frente bajas y las interiores transparentes cuando estás detrás. Clientela en dos capas: vecinos con su agenda y clientela de la comarca que viene por la fama del negocio, con dinero de fuera y precio máximo (04g §4.6.5.7).",
+      "por_que": "Owner: «hasta dos plantas y un sótano… clientes que aparezcan con fade in… que los atraigan porque el negocio es famoso, no porque necesiten nada… me parece bien»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Interiores: fondo pintado más piezas encima",
+      "decision": "Camino C de docs/arte/interiores.md: un fondo pintado con fal por sala y por planta sobre la plantilla de su geometría, piezas sueltas para lo que tiene altura y con lo que se interactúa, y capas de luz y partículas. Las paredes entre salas son piezas aparte, para que se puedan transparentar. Fondo y piezas con la misma paleta, la misma luz, el mismo contorno y la misma escala.",
+      "por_que": "Owner: «renderizarlo y luego los extras con los que interactuamos ponerlos encima puede estar bien; el tema es que case la estética»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Personajes con más detalle a la misma escala",
+      "decision": "Opción A: los personajes siguen a ~48-50 px de figura (escala B, docs/arte/escala.md) y se regeneran con PixelLab v3 «high detail» directamente a ese tamaño (lienzo ~52), sin reducir sprites más grandes. No se escala el mundo. Prueba: el herrero v3 de 80 px (figura 78) quedó mucho mejor que el de hoy; generar a su tamaño final cuando haya generaciones (bono diario de 5, o el ciclo del 15-nov).",
+      "por_que": "Owner: «vamos con la A»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Juegos en las fiestas",
+      "decision": "Los espectáculos de fiesta que son juegos (justa, torneo de lucha, carrera, toros) se corren a su hora con las reglas de 4.26: solos (Games.auto) o con el jugador si se apuntó (game_enter; la justa pide Ciudadano). Si el apuntado no juega, al acabar la fiesta se resuelve sin jugar en su nombre. Las apuestas de la feria se pagan con el resultado de la propia competición y se devuelven si no llega a correrse. Todo va dentro de la instancia de fiesta (v18): juegos sigue sin versión de guardado.",
+      "por_que": "Encargo del manager: enganchar festival_spectacle, la justa y el torneo del Alcalde y las apuestas en la feria. Guardarlo en la fiesta evita otra versión de guardado; resolver al final al que no juega evita que apuntarse y cerrar la pantalla sea una salida gratis."
     }
   ],
   "pendientes": [

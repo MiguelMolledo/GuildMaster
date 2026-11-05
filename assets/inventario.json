@@ -7078,6 +7078,708 @@
       "notas": "Decoración de fiesta (04f §4.25.3): a square livestock pen of wooden rails with a gate and some straw inside, empty. Huella 3×3 casillas. Escena game/visuals/props/fiesta/corral.tscn (Feet en el centro de la huella, Top, Sprite; metadata/footprint en la raíz)."
     },
     {
+      "id": "icon_decorative_sword",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/decorative_sword.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (espada de regalo (empuñadura dorada, vaina labrada)), data/items/decorative_sword.json. 32×32 y small/decorative_sword.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_wedding_dress",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/wedding_dress.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (vestido de novia), data/items/wedding_dress.json. 32×32 y small/wedding_dress.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_doublet",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/doublet.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (jubón), data/items/doublet.json. 32×32 y small/doublet.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_banner",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/banner.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (pendón), data/items/banner.json. 32×32 y small/banner.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_dowry_chest",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/dowry_chest.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (arcón de dote pintado), data/items/dowry_chest.json. 32×32 y small/dowry_chest.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_marriage_bed",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/marriage_bed.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (cama nupcial con dosel), data/items/marriage_bed.json. 32×32 y small/marriage_bed.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_tourney_lance",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/tourney_lance.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (lanza de torneo), data/items/tourney_lance.json. 32×32 y small/tourney_lance.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_stage",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/stage.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (tablado (piezas)), data/items/stage.json. 32×32 y small/stage.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_triumphal_arch",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/triumphal_arch.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (arco triunfal (piezas)), data/items/triumphal_arch.json. 32×32 y small/triumphal_arch.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_feast",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/feast.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (banquete (lote de comida)), data/items/feast.json. 32×32 y small/feast.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_horseshoe",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/horseshoe.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (herraduras), data/items/horseshoe.json. 32×32 y small/horseshoe.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_butcher_knife",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/butcher_knife.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (cuchillo de matarife), data/items/butcher_knife.json. 32×32 y small/butcher_knife.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "icon_candlestick",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/icons/candlestick.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Icono de objeto de fiesta (candelabro), data/items/candlestick.json. 32×32 y small/candlestick.png 16×16 (VisualPaths.icon / icon_small). Encargos de fiesta y boda (04f 4.25.4)."
+    },
+    {
+      "id": "illus_event_marquis_visit",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/marquis_visit.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la fiesta marquis_visit (data/festivals.json): 240×135 (carta de la fiesta) y marquis_visit_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
+    },
+    {
+      "id": "illus_event_noble_wedding",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/noble_wedding.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la fiesta noble_wedding (data/festivals.json): 240×135 (carta de la fiesta) y noble_wedding_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
+    },
+    {
+      "id": "illus_event_neighbours_wedding",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/neighbours_wedding.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la fiesta neighbours_wedding (data/festivals.json): 240×135 (carta de la fiesta) y neighbours_wedding_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
+    },
+    {
+      "id": "illus_event_tournament",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/tournament.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la fiesta tournament (data/festivals.json): 240×135 (carta de la fiesta) y tournament_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
+    },
+    {
+      "id": "illus_event_comedians",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/comedians.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la fiesta comedians (data/festivals.json): 240×135 (carta de la fiesta) y comedians_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
+    },
+    {
+      "id": "illus_event_preacher",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/preacher.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la fiesta preacher (data/festivals.json): 240×135 (carta de la fiesta) y preacher_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
+    },
+    {
+      "id": "illus_event_pilgrimage",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/pilgrimage.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la fiesta pilgrimage (data/festivals.json): 240×135 (carta de la fiesta) y pilgrimage_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
+    },
+    {
+      "id": "illus_event_rogation",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/rogation.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la fiesta rogation (data/festivals.json): 240×135 (carta de la fiesta) y rogation_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
+    },
+    {
+      "id": "illus_event_cattle_fair",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/illustrations/events/cattle_fair.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la fiesta cattle_fair (data/festivals.json): 240×135 (carta de la fiesta) y cattle_fair_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
+    },
+    {
+      "id": "prop_fiesta_bunting",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/bunting.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: banderolas entre casas (cuerda con triángulos de colores). Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/bunting.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_banner",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/banner.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: pendón en mástil. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/banner.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_lanterns",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/lanterns.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: farolillos colgados. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/lanterns.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_maypole",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/maypole.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: el mayo (árbol alto con cintas). Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/maypole.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_garland",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/garland.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: guirnalda de flores y ramas. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/garland.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_cart_ring",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/cart_ring.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: carro del cerco de los toros. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/cart_ring.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_bull",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/bull.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: toro. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/bull.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_bonfire",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/bonfire.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: hoguera de San Juan (fuego). Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/bonfire.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_fair_stall",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/fair_stall.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: puesto de feria con toldo de colores. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/fair_stall.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_pen",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/pen.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: corral de ganado. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/pen.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_sheep",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/sheep.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: oveja. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/sheep.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_horse",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/horse.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: caballo. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/horse.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_long_tables",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/long_tables.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: mesas largas del banquete con bancos. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/long_tables.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_pig",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/pig.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: cerdo. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/pig.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_nativity",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/nativity.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: belén del atrio. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/nativity.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_triumphal_arch",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/triumphal_arch.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: arco triunfal de madera y piedra (2×1 casillas). Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/triumphal_arch.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_stage",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/stage.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: tablado de los cómicos. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/stage.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "prop_fiesta_tilt_yard",
+      "tipo": "prop",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/art/props/fiesta/tilt_yard.png",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Prop de fiesta: liza de la justa (valla larga). Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/tilt_yard.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
+    },
+    {
+      "id": "music_fest_holy_week",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_holy_week.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (campanas y coro grave (Semana Santa, rogativa)), en bucle. data/audio.json music music_fest_holy_week; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_mayday",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_mayday.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (gaita y tamboril, coplas de mayo), en bucle. data/audio.json music music_fest_mayday; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_st_john",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_st_john.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (verbena nocturna, dulzaina y percusión), en bucle. data/audio.json music music_fest_st_john; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_fair",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_fair.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (feria: flautas, tambores, bullicio), en bucle. data/audio.json music music_fest_fair; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_st_michael",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_st_michael.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (vendimia, laúd alegre), en bucle. data/audio.json music music_fest_st_michael; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_matanza",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_matanza.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (fiesta de otoño, tamboril y castañuelas), en bucle. data/audio.json music music_fest_matanza; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_christmas",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_christmas.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (villancico medieval, coro y campanillas), en bucle. data/audio.json music music_fest_christmas; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_carnival",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_carnival.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (carnaval: chirimías, ritmo rápido), en bucle. data/audio.json music music_fest_carnival; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_marquis",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_marquis.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (fanfarria de recibimiento, trompetas), en bucle. data/audio.json music music_fest_marquis; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_wedding",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_wedding.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (boda: laúd y fídula, baile), en bucle. data/audio.json music music_fest_wedding; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_tournament",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_tournament.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (torneo: trompetas y tambores), en bucle. data/audio.json music music_fest_tournament; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_comedians",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_comedians.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (cómicos: fídula juguetona), en bucle. data/audio.json music music_fest_comedians; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_preacher",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_preacher.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (silencio grave, un órgano portátil), en bucle. data/audio.json music music_fest_preacher; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
+      "id": "music_fest_pilgrimage",
+      "tipo": "musica",
+      "estado": "falta",
+      "para": [
+        "04f",
+        "fiestas"
+      ],
+      "ruta": "assets/audio/music/music_fest_pilgrimage.ogg",
+      "origen": null,
+      "coste_gen": 0,
+      "notas": "Música de fiesta (romería: canto de peregrinos), en bucle. data/audio.json music music_fest_pilgrimage; AudioDirector.festival_music la pone mientras la fiesta está en vigor, solo si el fichero existe (si no, sigue la de la fase del día)."
+    },
+    {
       "id": "ui_games_dice_cup",
       "tipo": "ui",
       "estado": "falta",

@@ -302,7 +302,7 @@ Caen al azar (flujo `events_city`) o los declara el Alcalde (poder `declare_even
 | `route_bonus {route, days}` | ruta temporal: la feria de Bellcaire invita y el portazgo a Bellcaire es 0 durante 2 días | 09b |
 | `contracts {table}` | abre los encargos de fiesta (4.25.4) | 4.5.6 |
 | `emotion {id, share}` | «inspirado» al 50 % tras la fiesta | 4.11.5 |
-| `spectacle {id}` | toros, justa, cómicos, carrera | nuevo (4.26) |
+| `spectacle {id}` | toros, justa, cómicos, carrera | nuevo (4.26); los que son juegos se corren a su hora y se puede apostar o apuntarse (`docs/contratos/juegos.md` §5 ter) |
 | `incident {id, mult}` | altercados ×3 en Carnaval | 4.24.5 |
 | `reputation {who, amount}` | el que patrocina +; el Alcalde −2 en Carnaval | sí |
 
@@ -364,6 +364,58 @@ los normales, piden **calidad** y dan **prestigio** (reputación y relación con
   (Bellcaire en Sant Jordi: armas y ropa fina). Es la ocasión de viajar o mandar una caravana (09b).
 - **Visitas:** en tu fiesta llegan forasteros de las otras ciudades (4.24.3). En la suya puedes ir tú (viaje,
   09b): en la página de la ciudad sale su fiesta con sus juegos (justa, carrera, dados) y sus encargos de fuera.
+
+#### 4.25.7 Cómo quedó construido (rama fiestas, 2026-11-04)
+
+Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
+
+- **El día 0 no hay fiesta** (`rules.first_day` 1). La partida empieza la mañana de la Semana Santa; si cayera, el
+  primer día del tutorial sería día de guardar. La primera Semana Santa es la del año 2 (día 8). El primer pregón es
+  el del día 0 a las 12:00: los Mayos.
+- **Pregón a las 12:00 de la víspera** (`eve_hour`) y **encargos que vencen a las 17:00 del día de la fiesta**
+  (`contracts.due_hour`): unas 29 horas para fabricar. La visita del marqués se anuncia dos días antes.
+- **No hay carne en el juego**: la Cuaresma, la Pascua y la matanza mueven el grupo `food` (demanda ×0,8 hasta las
+  17:00 y ×1,5 después; precio ×0,6 en la matanza).
+- **Día de guardar solo por la mañana y solo en tres fiestas** (Semana Santa 07-12 ×0,3, Todos los Santos 07-10 ×0,5,
+  Navidad 07-10 ×0,5). Parar el trabajo en las cinco grandes quitaba la mitad del año. En el sim es la velocidad de
+  producción de todos los ciclos que empiezan en esa ventana; para los NPC, el gancho `Festivals.holy_day`.
+- **Las obras se hacen en el taller** (`stage`, `triumphal_arch`): son piezas que se fabrican y se montan al
+  entregarlas; la vista pinta el arco y la tribuna cuando el encargo se ha cumplido (`needs_contract`). Montarlas a
+  pie de obra llegará cuando el mapa tenga obras.
+- **Tres piezas pequeñas más para el herrero** (`horseshoe`, `butcher_knife`, `candlestick`): la tabla de 4.25.4 le
+  pide herraduras, cuchillos de matarife y candelabros, y no existían.
+- **Recetas por encargo** (`kind: commission`): salen en el taller del jugador, pero los bots y la IA rival no las
+  eligen para vender en el mercado (no tienen puesto). Así las dianas de siempre salen iguales.
+- **Un solo ganador, con órdenes de verdad**: el encargo de fiesta sigue en el tablón mientras dura la carrera; cada
+  familia que lo acepta tiene su copia; la primera que lo entrega con la calidad pedida cobra, gana su reputación y
+  relación (también con la familia de la boda) y, si la fila lo dice, sale en la crónica; las demás lo pierden sin
+  castigo. El rival del oficio compite con su IA de siempre (04c acepta lo que puede fabricar a tiempo). Una fila
+  solo se publica si en la villa hay una familia (del jugador o IA) con el taller de ese oficio.
+- **La comida** de los banquetes se pide como `prepared_meal` o `bread` (cualquiera la lleva). La pieza `feast`
+  existe sin receta: la cocina de la Taberna-Posada (4.27) le pondrá la suya.
+- **No hay tesorería del concejo**: `organize_festival` (toros o justa, cada 2 días de enfriamiento) no cobra a
+  nadie; el coste queda en los datos para cuando la haya. La justa abre un torneo ese mismo día.
+- **La boda del jugador** abre una carta con «Pagar el banquete (80)» durante un día; los encargos de una boda no los
+  puede coger la familia que se casa (es su propia boda).
+- **Patrocinios**: banquete, música y, si la fiesta los tiene, los toros. Sin patrocinio, los forasteros ×0,7. El
+  patrocinio de la IA rival: de momento no (manager, a la espera del owner; iría en la revisión de 04c).
+- **El regalo de la villa** en la visita del marqués es un encargo de carrera (la espada excelente); que el Alcalde
+  elija entre varias piezas ofrecidas y la audiencia con privilegios: de momento no (manager, a la espera del owner).
+- **Fiestas de las otras ciudades**: la patronal y la feria caen el mismo día (Bellcaire en Primavera 2, Portvell en
+  Verano 1, Montsacre en Otoño 1, Peñarroja en Invierno 1, Vilablat en Primavera 2); la de Vilarrasa es la de la siega
+  (Verano 2). Durante la feria: arancel 0 en esa ciudad, sin portazgo en sus caminos desde el día antes y su demanda
+  sube. Son puro calendario (no se guardan).
+- **Enganchado con vida** (2026-11-04, tras juntar su rama): `Life.event_mult` multiplica por la fiesta (`routine`
+  e `incident` a su hora; `visitors` con las fiestas de todo el día, porque vida planea los forasteros al empezarlo),
+  `Life.holy_day` cuenta la mañana de guardar y `Life.festival` cualquier fiesta del calendario (el guardia de la
+  plaza). Con una fiesta del calendario no se suma además el ×3 genérico de vida: la feria da ×5 (×3,5 sin
+  patrocinio, y entonces el tope de la feria, `fair_max`), y los tipos que trae la fiesta pesan el doble. Los
+  espectáculos de la fiesta entran en la plaza como espectáculos de vida (los vecinos van a mirar, `watch_show`) y el
+  predicador sube la fe de los vecinos al empezar. Los ids de actividad y de suceso son los de `data/life/`:
+  procesión y romería → `mass`, baile → `stroll`, hogueras y banquete → `chat`, cementerio → `visit`, altercados →
+  `altercation` (el incendio espera a O-V6). Quedan para sus ramas `spectacle` jugado (juegos) y `service` (posada).
+- **Las dianas**: `sim_runner` apaga las fiestas para todos los bots salvo los de `data/targets.json` `_festivals`
+  (hoy, `festive`). En el juego están encendidas.
 
 ---
 
@@ -654,13 +706,15 @@ claves y aplica el oro. La API para las Fiestas y la Posada (quién juega, apues
 contrato [docs/contratos/juegos.md](../contratos/juegos.md):
 
 Juegos construidos: `azar`, `mayor`, `pulso`, `envite`, `tourney`, `joust`, `sortija`, `race`, `bulls` (y apuestas sobre
-cualquiera). Para abrir cada uno: `godot --path . -- --games-test=<juego>` (y `apuestas`: el corredor).
+cualquiera). Para abrir cada uno: `godot --path . -- --games-test=<juego>` (y `apuestas`: el corredor; `fair_bet`:
+apostar a la carrera de la feria; `festival_joust`: la justa del torneo que organiza el Alcalde).
 
 | Quién llama | Cómo |
 |---|---|
 | La pantalla (el jugador) | `GameScreen.open({actor, game, opponents, stake, opts})` → al acabar, `game_play` con las jugadas |
 | «Resolver sin jugar» | El mismo `game_play` con las jugadas hasta ese momento y `auto: true` |
 | Una competición sin el jugador (fiestas) | `Games.auto(cat.games, spec)`: ganador y clasificación sin tocar nada |
+| Las fiestas (espectáculo a su hora) | `FestivalGames.on_spectacle`: se corre sola, o llama al apuntado (`game_enter`) a jugarla; las apuestas de la feria (`game_bet` con `festival`) se pagan con su resultado |
 | Las cuotas (§4.26.6) | `Games.win_odds(cat.games, spec, n)`: n partidas automáticas con sus propias claves |
 | La Posada (mesa de juego) | La pantalla con `opts.house` = la taberna (su parte de la casa) y `opts.event` = el turno |
 

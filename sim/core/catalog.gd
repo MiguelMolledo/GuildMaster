@@ -21,7 +21,8 @@ const OFFICE_RANKS: Array[String] = ["minor", "middle", "major", "mayor"]
 const OFFICE_PASSIVES: Array[String] = ["class_reputation", "tax_commission", "reputation_per_day", "sees_reports",
 	"votes_ordinances"]
 const OFFICE_POWERS: Array[String] = ["regulate_price", "fine_merchant", "set_tax", "seize_building", "arrest",
-	"investigate", "preside_trial", "pardon", "propose_ordinance", "veto", "legislate", "declare_event", "name_title"]
+	"investigate", "preside_trial", "pardon", "propose_ordinance", "veto", "legislate", "declare_event", "name_title",
+	"organize_festival"]
 const DIFFICULTIES: Array[String] = ["easy", "normal", "hard"]
 const ITEM_CATEGORIES: Array[String] = ["raw", "material", "product", "tool", "equipment", "consumable", "special"]
 
@@ -48,6 +49,8 @@ var events: Dictionary = {}      # data/events.json: the global events (H13, GDD
 var cast: Dictionary = {}        # data/cast.json: the generated cast of a new game (names, surnames, ages, look, portraits)
 var region: Dictionary = {}      # data/world/region.json: the settlements and routes of the region (09b)
 var trade: Dictionary = {}       # data/world/trade.json: travel, city markets, caravans, treaties, regional events (09b)
+var festivals: Dictionary = {}   # data/festivals.json: the festival calendar (4.25, docs/gdd/04f_vida_y_fiestas.md)
+var festival_contracts: Dictionary = {}  # data/contracts/festivals.json (kind festival): taken out of contracts() (4.25.4)
 var combat: Dictionary = {}      # data/combat.json: the duel «a tres tiempos» (draft, 04e; nothing in the sim uses it yet)
 var games: Dictionary = {}       # data/games.json: the games and competitions of the fiestas and the tavern (04f §4.26)
 var life_tables: Dictionary = {}  # vida (04f 4.24): data/life/<file>.json by file name: life, activities, rumors, incidents
@@ -90,6 +93,11 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.region = c._load_json(root_dir.path_join("world/region.json"))
 	c.trade = c._load_json(root_dir.path_join("world/trade.json"))
 	c.portrait_pool = c._load_json(root_dir.path_join("portraits.json"))
+	c.festivals = c._load_json(root_dir.path_join("festivals.json"))
+	for id: String in (c.tables.get("contracts", {}) as Dictionary).keys():  # 4.25.4: not a table of the daily board
+		if str(c.tables["contracts"][id].get("kind", "")) == "festival":
+			c.festival_contracts = c.tables["contracts"][id]
+			c.tables["contracts"].erase(id)
 	for f: String in ["life", "activities", "rumors", "incidents"]:  # vida (04f 4.24): data/life/
 		c.life_tables[f] = c._load_json(root_dir.path_join("life/%s.json" % f))
 	if dev_time and c.time.has("dev"):

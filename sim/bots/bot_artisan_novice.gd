@@ -466,6 +466,8 @@ func _best_market_recipe(sim: Sim) -> String:
 		if str(opt["status"]) == "locked":
 			continue
 		var rid := str(opt["recipe"])
+		if str(sim.catalog.recipes()[rid].get("kind", "craft")) == "commission":  # 4.25.4: only for a contract
+			continue
 		if _held(sim, _output(sim, rid)) >= _max_held(sim, rid):
 			continue
 		var rate := _margin(sim, rid) / _hours(sim, rid, "normal")

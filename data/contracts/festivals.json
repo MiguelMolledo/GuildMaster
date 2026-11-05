@@ -1,0 +1,499 @@
+{
+  "id": "festivals",
+  "kind": "festival",
+  "_doc": "4.25.4 · encargos de fiesta y de boda, por fiesta (las tablas que nombra data/festivals.json contracts) y oficio. No es una tabla del tablón de cada día (kind festival: Catalog la aparta de contracts()). Cada entrada: profession (la del oficio que lo fabrica; any = cualquiera que lo lleve, la comida), item, qty, min_quality (0 normal, 1 buena, 2 excelente), client, what (qué es en la fiesta: el texto festival_contract.<what>), needs (solo si esa parte de la fiesta está patrocinada u organizada), y opcionales premium, reputation, relation, chronicle (el que lo cumple sale en la crónica). Salen con el pregón (notice_days antes) y vencen a due_hour del día de la fiesta. Carrera: varias familias pueden aceptarlo; el primero que lo entrega con la calidad pedida se lo lleva y los demás lo pierden sin penalización. Se publica una entrada solo si alguna familia (la del jugador o una IA con perfil) tiene el taller de ese oficio; las de any, siempre. Cifras [balance].",
+  "defaults": {
+    "premium": 0.6,
+    "reputation": 2,
+    "relation": 8,
+    "fail_reputation": -3
+  },
+  "clients": [
+    {
+      "id": "town_council",
+      "name_key": "client.town_council"
+    },
+    {
+      "id": "fair_warden",
+      "name_key": "client.fair_warden"
+    },
+    {
+      "id": "groom_family",
+      "name_key": "client.groom_family"
+    },
+    {
+      "id": "tourney_herald",
+      "name_key": "client.tourney_herald"
+    },
+    {
+      "id": "comedians",
+      "name_key": "client.comedians"
+    },
+    {
+      "id": "marquis_steward",
+      "name_key": "client.marquis_steward"
+    }
+  ],
+  "tables": {
+    "holy_week": [
+      {
+        "profession": "tailor",
+        "item": "banner",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "parish_priest"
+      },
+      {
+        "profession": "blacksmith",
+        "item": "candlestick",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "parish_priest"
+      }
+    ],
+    "mayday_corpus": [
+      {
+        "profession": "carpenter",
+        "item": "stage",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "town_council"
+      },
+      {
+        "profession": "tailor",
+        "item": "banner",
+        "qty": 3,
+        "min_quality": 0,
+        "client": "parish_priest"
+      },
+      {
+        "profession": "carpenter",
+        "item": "stage",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "town_council",
+        "needs": "bulls",
+        "what": "cart_ring"
+      },
+      {
+        "profession": "blacksmith",
+        "item": "horseshoe",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "stable_master",
+        "needs": "bulls",
+        "what": "bullpen_bars"
+      }
+    ],
+    "harvest_fair": [
+      {
+        "profession": "blacksmith",
+        "item": "horseshoe",
+        "qty": 4,
+        "min_quality": 0,
+        "client": "fair_warden"
+      },
+      {
+        "profession": "carpenter",
+        "item": "barrel",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "fair_warden"
+      },
+      {
+        "profession": "tailor",
+        "item": "banner",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "fair_warden",
+        "what": "awnings"
+      },
+      {
+        "profession": "mason",
+        "item": "trough",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "fair_warden"
+      },
+      {
+        "profession": "any",
+        "item": "prepared_meal",
+        "qty": 8,
+        "min_quality": 0,
+        "client": "fair_warden"
+      }
+    ],
+    "st_michael": [
+      {
+        "profession": "carpenter",
+        "item": "barrel",
+        "qty": 3,
+        "min_quality": 0,
+        "client": "wine_merchant"
+      },
+      {
+        "profession": "blacksmith",
+        "item": "horseshoe",
+        "qty": 3,
+        "min_quality": 0,
+        "client": "farmer",
+        "what": "ironwork"
+      }
+    ],
+    "all_saints_matanza": [
+      {
+        "profession": "blacksmith",
+        "item": "butcher_knife",
+        "qty": 3,
+        "min_quality": 0,
+        "client": "town_council"
+      },
+      {
+        "profession": "carpenter",
+        "item": "stage",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "town_council",
+        "what": "long_tables"
+      },
+      {
+        "profession": "mason",
+        "item": "trough",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "town_council",
+        "what": "salting_trough"
+      },
+      {
+        "profession": "tailor",
+        "item": "work_clothes",
+        "qty": 3,
+        "min_quality": 0,
+        "client": "town_council",
+        "what": "aprons"
+      },
+      {
+        "profession": "any",
+        "item": "prepared_meal",
+        "qty": 12,
+        "min_quality": 0,
+        "client": "town_council",
+        "what": "common_banquet"
+      }
+    ],
+    "christmas": [
+      {
+        "profession": "blacksmith",
+        "item": "candlestick",
+        "qty": 3,
+        "min_quality": 0,
+        "client": "parish_priest"
+      },
+      {
+        "profession": "carpenter",
+        "item": "chest",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "parish_priest",
+        "what": "nativity"
+      },
+      {
+        "profession": "tailor",
+        "item": "doublet",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "steward",
+        "what": "feast_clothes"
+      },
+      {
+        "profession": "any",
+        "item": "prepared_meal",
+        "qty": 8,
+        "min_quality": 0,
+        "client": "steward"
+      }
+    ],
+    "carnival": [
+      {
+        "profession": "tailor",
+        "item": "doublet",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "town_council",
+        "what": "costumes"
+      },
+      {
+        "profession": "any",
+        "item": "prepared_meal",
+        "qty": 6,
+        "min_quality": 0,
+        "client": "innkeeper"
+      }
+    ],
+    "marquis_visit": [
+      {
+        "profession": "blacksmith",
+        "item": "decorative_sword",
+        "qty": 1,
+        "min_quality": 2,
+        "client": "town_council",
+        "what": "town_gift",
+        "reputation": 8,
+        "relation": 20,
+        "chronicle": true
+      },
+      {
+        "profession": "mason",
+        "item": "triumphal_arch",
+        "qty": 1,
+        "min_quality": 1,
+        "client": "town_council",
+        "reputation": 6,
+        "relation": 15,
+        "chronicle": true
+      },
+      {
+        "profession": "carpenter",
+        "item": "stage",
+        "qty": 1,
+        "min_quality": 1,
+        "client": "town_council",
+        "what": "tribune",
+        "reputation": 4,
+        "relation": 10
+      },
+      {
+        "profession": "tailor",
+        "item": "banner",
+        "qty": 4,
+        "min_quality": 0,
+        "client": "town_council"
+      },
+      {
+        "profession": "tailor",
+        "item": "doublet",
+        "qty": 2,
+        "min_quality": 1,
+        "client": "town_council",
+        "what": "council_clothes"
+      },
+      {
+        "profession": "any",
+        "item": "prepared_meal",
+        "qty": 12,
+        "min_quality": 0,
+        "client": "marquis_steward",
+        "what": "honour_banquet"
+      }
+    ],
+    "noble_wedding": [
+      {
+        "profession": "blacksmith",
+        "item": "decorative_sword",
+        "qty": 1,
+        "min_quality": 2,
+        "client": "groom_family",
+        "what": "groom_gift",
+        "reputation": 8,
+        "relation": 20,
+        "chronicle": true
+      },
+      {
+        "profession": "carpenter",
+        "item": "dowry_chest",
+        "qty": 1,
+        "min_quality": 1,
+        "client": "bride_family",
+        "reputation": 4,
+        "relation": 10
+      },
+      {
+        "profession": "carpenter",
+        "item": "marriage_bed",
+        "qty": 1,
+        "min_quality": 1,
+        "client": "groom_family",
+        "reputation": 4,
+        "relation": 10
+      },
+      {
+        "profession": "tailor",
+        "item": "wedding_dress",
+        "qty": 1,
+        "min_quality": 2,
+        "client": "bride_family",
+        "reputation": 10,
+        "relation": 20,
+        "chronicle": true
+      },
+      {
+        "profession": "tailor",
+        "item": "doublet",
+        "qty": 1,
+        "min_quality": 1,
+        "client": "groom_family",
+        "what": "groom_doublet",
+        "reputation": 3,
+        "relation": 10
+      },
+      {
+        "profession": "any",
+        "item": "prepared_meal",
+        "qty": 10,
+        "min_quality": 0,
+        "client": "bride_family",
+        "what": "wedding_banquet"
+      }
+    ],
+    "neighbours_wedding": [
+      {
+        "profession": "blacksmith",
+        "item": "horseshoe",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "groom_family",
+        "what": "cart_shoes"
+      },
+      {
+        "profession": "carpenter",
+        "item": "chest",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "bride_family",
+        "what": "plain_chest"
+      },
+      {
+        "profession": "tailor",
+        "item": "common_clothes",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "bride_family",
+        "what": "plain_dress"
+      },
+      {
+        "profession": "any",
+        "item": "prepared_meal",
+        "qty": 4,
+        "min_quality": 0,
+        "client": "bride_family",
+        "what": "merienda"
+      }
+    ],
+    "tournament": [
+      {
+        "profession": "blacksmith",
+        "item": "armor",
+        "qty": 1,
+        "min_quality": 1,
+        "client": "tourney_herald",
+        "reputation": 4,
+        "relation": 10
+      },
+      {
+        "profession": "blacksmith",
+        "item": "sword",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "tourney_herald"
+      },
+      {
+        "profession": "carpenter",
+        "item": "tourney_lance",
+        "qty": 4,
+        "min_quality": 0,
+        "client": "tourney_herald"
+      },
+      {
+        "profession": "carpenter",
+        "item": "stage",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "tourney_herald",
+        "what": "lists"
+      },
+      {
+        "profession": "tailor",
+        "item": "doublet",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "tourney_herald",
+        "what": "surcoats"
+      },
+      {
+        "profession": "any",
+        "item": "prepared_meal",
+        "qty": 6,
+        "min_quality": 0,
+        "client": "tourney_herald"
+      }
+    ],
+    "comedians": [
+      {
+        "profession": "carpenter",
+        "item": "stage",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "comedians",
+        "what": "boards"
+      }
+    ],
+    "pilgrimage": [
+      {
+        "profession": "carpenter",
+        "item": "cabinet",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "abbot",
+        "what": "choir_stalls"
+      },
+      {
+        "profession": "mason",
+        "item": "ashlar",
+        "qty": 4,
+        "min_quality": 0,
+        "client": "abbot",
+        "what": "cloister"
+      },
+      {
+        "profession": "tailor",
+        "item": "banner",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "abbot",
+        "what": "altar_cloths"
+      },
+      {
+        "profession": "blacksmith",
+        "item": "candlestick",
+        "qty": 2,
+        "min_quality": 0,
+        "client": "abbot"
+      },
+      {
+        "profession": "any",
+        "item": "bread",
+        "qty": 10,
+        "min_quality": 0,
+        "client": "abbot",
+        "what": "pilgrim_bread"
+      }
+    ],
+    "cattle_fair": [
+      {
+        "profession": "blacksmith",
+        "item": "horseshoe",
+        "qty": 4,
+        "min_quality": 0,
+        "client": "stable_master"
+      },
+      {
+        "profession": "mason",
+        "item": "trough",
+        "qty": 1,
+        "min_quality": 0,
+        "client": "stable_master",
+        "what": "drinking_trough"
+      }
+    ]
+  }
+}

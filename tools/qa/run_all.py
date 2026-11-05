@@ -17,7 +17,8 @@ semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), d
 duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días), gambler (juegos: el bot jugador en
 games_gambler, 3 semillas × 8 días: pierde lo que marca el margen de la casa), life
 (vida, 04f 4.28.4: el bot guard_watch en life_bandits, 3 semillas × 16 días; las dianas de antes corren con la vida
-apagada, data/targets.json _no_life). Con
+apagada, data/targets.json _no_life), festive (fiestas: un año con el calendario de fiestas, 3 semillas × 8 días) y
+bench_fair (el coste del sim el día de la feria). Con
 --visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
 """
@@ -37,7 +38,7 @@ STEPS = [
     ("ciudad", [sys.executable, "tools/city/ciudad.py", "validar", "--quiet"]),
     ("town_e", [sys.executable, "tools/maps/make_town_e.py", "--check"]),
     ("boot", ["zsh", "tools/qa/boot_check.sh"]),
-    ("bench", G + ["-s", "tools/sim_bench.gd"]),
+    ("bench", G + ["-s", "tools/sim_bench.gd", "--", "--runs=3"]),  # best of 3 per step: the machine is shared by several QA runs
     ("sim", G + ["-s", "tools/sim_runner.gd", "--", "--bots=idle,wanderer,smith", "--days=3", "--seeds=5"]),
     ("sim2", G + ["-s", "tools/sim_runner.gd", "--", "--bots=random_clicker,idle_rival", "--days=10", "--seeds=3"]),
     ("novice", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=artisan_novice,idle",
@@ -61,6 +62,9 @@ STEPS = [
                      "--seeds=3"]),
     ("life", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=life_bandits", "--bots=guard_watch", "--days=16",
                   "--seeds=3"]),
+    ("festive", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=festive", "--days=8",
+                     "--seeds=3"]),
+    ("bench_fair", G + ["-s", "tools/sim_bench.gd", "--", "--at-day=3", "--days=1", "--runs=3"]),
 ]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]

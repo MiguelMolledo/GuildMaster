@@ -1,0 +1,23 @@
+{
+  "id": "masonry_triumphal_arch",
+  "name_key": "recipe.masonry_triumphal_arch",
+  "kind": "commission",
+  "building": "masonry",
+  "zone": "carving_bench",
+  "inputs": [
+    {
+      "item": "ashlar",
+      "qty": 5
+    },
+    {
+      "item": "stone",
+      "qty": 2
+    }
+  ],
+  "output": {
+    "item": "triumphal_arch",
+    "qty": 1
+  },
+  "duration_hours": 6.0,
+  "min_craft": 4
+}

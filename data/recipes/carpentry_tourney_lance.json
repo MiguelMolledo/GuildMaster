@@ -1,0 +1,23 @@
+{
+  "id": "carpentry_tourney_lance",
+  "name_key": "recipe.carpentry_tourney_lance",
+  "kind": "commission",
+  "building": "carpentry",
+  "zone": "sawhorse",
+  "inputs": [
+    {
+      "item": "planks",
+      "qty": 2
+    },
+    {
+      "item": "iron",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "tourney_lance",
+    "qty": 1
+  },
+  "duration_hours": 2.5,
+  "min_craft": 3
+}
