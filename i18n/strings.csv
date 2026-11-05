@@ -1810,6 +1810,7 @@ ui.new_game.preview_start.artisan_tailor,"A tailor's shop with a home, %d gold a
 stall.clothier,Clothier,Ropería
 stall.goods,Goods,Enseres
 ui.new_game.profession,Trade,Oficio
+ui.plot.for_sale,FOR SALE,SE VENDE
 ui.new_game.where,Where you start,Dónde empiezas
 ui.new_game.city_name,%s · %s · %d townsfolk,%s · %s · %d vecinos
 ui.new_game.city_off,%s has no workshop for this trade,%s no tiene taller de este oficio

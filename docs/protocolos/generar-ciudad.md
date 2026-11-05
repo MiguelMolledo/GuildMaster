@@ -300,6 +300,36 @@ Después del decor, `citylib.add_life` añade a cada mapa lo que le falte (el ge
 
 H7 solo usa `bench`, `chat` y `dice`: un punto nuevo no cambia el día de H7 ni sus dianas.
 
+### 1i. Parcelas: solares, ruinas y negocios en venta (04 §4.9.1)
+
+`tools/city/plots.py` reparte por reglas (`reglas.json` → `plots`) la lista `plots` de cada ciudad de `plots.maps`
+(las seis: town_e y las cinco de la región). Va después de la vida y nunca encima de ella. **El sim no la lee:** la
+rejilla, los solares y los puntos de reunión no se mueven, así que ninguna diana cambia (lo prueba
+`tests/test_plantillas_parcelas.gd`). Comprar, construir, restaurar y reconvertir son de H6.
+
+| Estado | De dónde sale | Cómo se ve (`game/world/plot_layer.gd`) |
+|---|---|---|
+| `lot` dentro | Un solar de relleno (casa decorativa sin `site`, casillas `#`) que deja de ser casa; si no hay, hierba dentro | Tierra (`props/plot_ground`) y una estaca en cada esquina (`props/plot_stake`) |
+| `lot` fuera | Hierba o campo junto a un camino, fuera de la villa | Igual |
+| `ruin` | Un solar de relleno dentro (el mejor situado primero: la ganga); sin ninguno, hierba con calle delante | Muros rotos de alturas distintas (`props/ruin_wall`) y escombro (`props/ruin_rubble`) |
+| `business` | Cada taller y casa del mapa (el solar mayor de su huella) | El cartel «Se vende» (`props/for_sale_sign`) junto a la puerta, solo si `for_sale` y el edificio es de una familia IA en esa partida |
+
+- Cada parcela: `id`, `state`, `side` (`inside`/`outside`: con muralla, respecto a ella —en Montsacre, el recinto
+  de la abadía—; sin muralla, a `inside_reach` casillas de lo edificado), `zone` (`rustic`/`production`/`housing`),
+  `origin`, `size`, `front` (la casilla desde la que se entra: la puerta en un negocio), `location` y, en un negocio,
+  `site` y `for_sale`.
+- **Situación** (`location` 0-1): pesos de `plots.location` sobre la distancia andando a la plaza, la calle mayor
+  (calle y plaza), las puertas y el paso de gente (los paseos de cada puerta y cada portal a la plaza) [balance].
+- **Mínimos que comprueba el validador** en las ciudades de `plots.maps`: 2 solares dentro (`min_inside`), 2 fuera
+  (`min_outside`), de 1 a 3 ruinas y la válvula de 4.9 (`valve`: 2 parcelas libres —solares y ruinas— de cada zona).
+  Además, que ninguna pise un edificio, una puerta, un servicio, un punto social, una casilla de oficio o una casa de
+  relleno, que no se solapen, que se entre desde la plaza, que su lado sea el que dice y que las rústicas vayan fuera.
+- En venta: `for_sale` talleres, los mejor situados que no estén en `never_for_sale` (la forja del jugador y la del
+  rival del herrero).
+- Repartirlas otra vez: `python3 tools/city/ciudad.py parcelas [mapa…]` (las ciudades de `ciudades.json` se
+  regeneran enteras, el mismo mapa; town_e: `python3 tools/maps/make_town_e.py`). Captura:
+  `--smoke-script=plantillas --smoke-moments=ruina,solar,fuera,venta`.
+
 ## 2. Reglas de coherencia (el validador)
 
 `python3 tools/city/ciudad.py validar [mapa...]` (paso `ciudad` de `tools/qa/run_all.py`). En las ciudades generadas

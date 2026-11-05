@@ -58,6 +58,7 @@ var hovered_building: String = ""
 var hovered_character: String = ""
 var _idle_minute: int = -1
 var _player_family: String = ""
+var plot_layer := PlotLayer.new()  # parcelas (04 §4.9.1): free lots, ruins and the «Se vende» signs
 var festival_layer := FestivalLayer.new()  # fiestas (04f 4.25.3): the decoration of the festivals in force
 var _festive: Dictionary = {}  # the clothes' look in force ({} = everyday)
 var _see_through: Array = []  # tall visuals (buildings, filler houses) that fade while they hide the selected person
@@ -163,6 +164,8 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 			objects().add_child(p)
 			_props[t] = p
 			n_blocks += 1
+	plot_layer.setup(self)
+	n_blocks += plot_layer.build(c.maps().get(s.map_id, {}), s, filler)  # before the decor: its tiles get no filler
 	n_blocks += _add_decor(c.maps().get(s.map_id, {}).get("decor", {}), filler, owned)
 	n_blocks += _add_filler(filler)
 	n_blocks += _add_border_trees()

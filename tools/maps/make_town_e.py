@@ -239,6 +239,9 @@ town["decor"] = citylib.dress(citylib.Map(town, citylib.Catalog()))
 # 04f 4.24.2 / 4.24.4: the meeting points (well, atrium, washhouse, bridge, gates, open plaza) and the night watch's
 # patrols, added after the decor and never on it: the dressing and H7's points (the targets) stay as they were.
 citylib.add_life(town, citylib.Catalog())
+# The plots of 04 §4.9.1 (tools/city/plots.py): data the sim never reads (the targets do not move), drawn by the view.
+import plots  # noqa: E402
+plots.add_plots(town, citylib.Catalog())
 _emit("data/maps/town_e.json", citylib.dumps_map(town))
 
 def inv(limit_kind, limit, stacks=None):

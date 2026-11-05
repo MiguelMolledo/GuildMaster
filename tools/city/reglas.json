@@ -50,5 +50,98 @@
     "id": "fence",
     "gate_every": 5,
     "edge": 0.45
+  },
+  "plots": {
+    "_doc": "Plots of the towns (docs/gdd/04_diseno_de_juego.md §4.9.1, tools/city/plots.py): free lots inside the town (filler lots, else open grass), outside it (open grass or fields beside a road), ruins (filler lots, else open grass) and the NPC businesses (every workshop and house site), each with its location 0-1. maps: the towns that must have them (the validator requires them and the counts). ruins / lots_inside / lots_outside: how many the builder tries; min_inside, min_outside, 1-3 ruins and valve (free plots of each zone: rustic, production, housing; 4.9's anti-blocking valve) are what the validator checks. for_sale: workshops with the «Se vende» sign, the best-located ones not in never_for_sale. min_area: the smallest filler lot taken. inside_reach: in a town without walls, tiles within this of the built town are inside (with walls: inside the wall). passes: the open-ground rects tried, strict to loose (sizes, gap clear around, road = entered from a road). location: weights of the plaza (walking distance), the main street (streets and plaza, within main_street_reach tiles), the gates and the traffic (walks from every door and gate to the plaza); [balance].",
+    "maps": [
+      "town_e",
+      "region_capital",
+      "region_port",
+      "region_quarry",
+      "region_hamlet",
+      "region_abbey"
+    ],
+    "ruins": 2,
+    "lots_inside": 3,
+    "lots_outside": 3,
+    "min_inside": 2,
+    "min_outside": 2,
+    "valve": 2,
+    "for_sale": 2,
+    "never_for_sale": [
+      "player_forge",
+      "rival_forge"
+    ],
+    "min_area": 4,
+    "inside_reach": 2,
+    "passes": [
+      {
+        "sizes": [
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "gap": 1,
+        "road": true
+      },
+      {
+        "sizes": [
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "gap": 0,
+        "road": true
+      },
+      {
+        "sizes": [
+          [
+            3,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "gap": 0,
+        "road": false
+      }
+    ],
+    "location": {
+      "weights": {
+        "plaza": 0.45,
+        "main_street": 0.2,
+        "gate": 0.1,
+        "traffic": 0.25
+      },
+      "main_street_reach": 6
+    }
   }
 }

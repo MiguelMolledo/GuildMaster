@@ -1308,6 +1308,9 @@ def build(map_id, plan, cat=None, variant=None):
     m = citylib.Map(data, cat)
     data["decor"] = citylib.dress(m)
     citylib.add_life(data, cat)  # 04f 4.24: meeting points and patrols, after the decor (never on it)
+    if map_id in citylib.rules().get("plots", {}).get("maps", []):  # 04 §4.9.1: lots, ruins and businesses
+        import plots
+        plots.add_plots(data, cat)
     for line in tw.log:
         print("  aviso del plan:", line)
     return data

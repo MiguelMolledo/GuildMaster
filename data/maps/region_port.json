@@ -1603,6 +1603,475 @@
    ]
   }
  ],
+ "plots": [
+  {
+   "id": "plot_01",
+   "state": "ruin",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    37,
+    10
+   ],
+   "size": [
+    2,
+    2
+   ],
+   "front": [
+    37,
+    12
+   ],
+   "location": 0.71
+  },
+  {
+   "id": "plot_02",
+   "state": "ruin",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    12,
+    40
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    15,
+    41
+   ],
+   "location": 0.37
+  },
+  {
+   "id": "plot_03",
+   "state": "lot",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    35,
+    13
+   ],
+   "size": [
+    2,
+    2
+   ],
+   "front": [
+    37,
+    13
+   ],
+   "location": 0.7
+  },
+  {
+   "id": "plot_04",
+   "state": "lot",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    26,
+    20
+   ],
+   "size": [
+    2,
+    3
+   ],
+   "front": [
+    28,
+    20
+   ],
+   "location": 0.66
+  },
+  {
+   "id": "plot_05",
+   "state": "lot",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    16,
+    43
+   ],
+   "size": [
+    3,
+    2
+   ],
+   "front": [
+    18,
+    42
+   ],
+   "location": 0.39
+  },
+  {
+   "id": "plot_06",
+   "state": "lot",
+   "side": "outside",
+   "zone": "rustic",
+   "origin": [
+    16,
+    20
+   ],
+   "size": [
+    2,
+    2
+   ],
+   "front": [
+    18,
+    20
+   ],
+   "location": 0.61
+  },
+  {
+   "id": "plot_07",
+   "state": "lot",
+   "side": "outside",
+   "zone": "rustic",
+   "origin": [
+    30,
+    29
+   ],
+   "size": [
+    2,
+    2
+   ],
+   "front": [
+    32,
+    29
+   ],
+   "location": 0.6
+  },
+  {
+   "id": "plot_08",
+   "state": "lot",
+   "side": "outside",
+   "zone": "rustic",
+   "origin": [
+    39,
+    28
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    39,
+    27
+   ],
+   "location": 0.52
+  },
+  {
+   "id": "plot_09",
+   "state": "business",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    31,
+    5
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    32,
+    9
+   ],
+   "location": 0.9,
+   "site": "player_forge",
+   "for_sale": false
+  },
+  {
+   "id": "plot_10",
+   "state": "business",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    15,
+    8
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    18,
+    10
+   ],
+   "location": 0.79,
+   "site": "rival_forge",
+   "for_sale": false
+  },
+  {
+   "id": "plot_11",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    32,
+    11
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    33,
+    14
+   ],
+   "location": 0.77,
+   "site": "house_02",
+   "for_sale": false
+  },
+  {
+   "id": "plot_12",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    35,
+    7
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    36,
+    10
+   ],
+   "location": 0.72,
+   "site": "house_03",
+   "for_sale": false
+  },
+  {
+   "id": "plot_13",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    12,
+    14
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    13,
+    17
+   ],
+   "location": 0.68,
+   "site": "house_04",
+   "for_sale": false
+  },
+  {
+   "id": "plot_14",
+   "state": "business",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    15,
+    2
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    16,
+    6
+   ],
+   "location": 0.67,
+   "site": "workshop_carpentry",
+   "for_sale": true
+  },
+  {
+   "id": "plot_15",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    39,
+    11
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    40,
+    14
+   ],
+   "location": 0.62,
+   "site": "house_07",
+   "for_sale": false
+  },
+  {
+   "id": "plot_16",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    35,
+    15
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    38,
+    16
+   ],
+   "location": 0.6,
+   "site": "house_05",
+   "for_sale": false
+  },
+  {
+   "id": "plot_17",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    11,
+    20
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    12,
+    23
+   ],
+   "location": 0.6,
+   "site": "house_06",
+   "for_sale": false
+  },
+  {
+   "id": "plot_18",
+   "state": "business",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    33,
+    19
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    36,
+    20
+   ],
+   "location": 0.59,
+   "site": "workshop_tailor",
+   "for_sale": true
+  },
+  {
+   "id": "plot_19",
+   "state": "business",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    29,
+    21
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    30,
+    25
+   ],
+   "location": 0.57,
+   "site": "workshop_masonry",
+   "for_sale": false
+  },
+  {
+   "id": "plot_20",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    34,
+    24
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    35,
+    27
+   ],
+   "location": 0.57,
+   "site": "house_01",
+   "for_sale": false
+  },
+  {
+   "id": "plot_21",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    7,
+    18
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    8,
+    21
+   ],
+   "location": 0.56,
+   "site": "house_08",
+   "for_sale": false
+  },
+  {
+   "id": "plot_22",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    4,
+    22
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    7,
+    23
+   ],
+   "location": 0.55,
+   "site": "house_09",
+   "for_sale": false
+  },
+  {
+   "id": "plot_23",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    15,
+    36
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    16,
+    39
+   ],
+   "location": 0.38,
+   "site": "house_10",
+   "for_sale": false
+  }
+ ],
  "decor": {
   "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
   "items": [
@@ -1610,7 +2079,6 @@
    {"kind": "yard", "id": "yard_plot", "at": [12, 5]},
    {"kind": "yard", "id": "yard_plot", "at": [13, 5]},
    {"kind": "house", "id": "lot_house_f", "at": [8, 8], "size": [3, 3], "flip": true, "facing": [1, 0]},
-   {"kind": "house", "id": "house_block", "at": [37, 10], "size": [2, 2], "facing": [0, 1], "height": 47, "color": "#8a3b2a"},
    {"kind": "house", "id": "lot_house_d", "at": [5, 12], "size": [3, 3], "flip": false, "facing": [0, 1]},
    {"kind": "yard", "id": "yard_plain", "at": [5, 11]},
    {"kind": "yard", "id": "yard_plain", "at": [6, 11]},
@@ -1622,7 +2090,6 @@
    {"kind": "yard", "id": "yard_cart", "at": [10, 14]},
    {"kind": "yard", "id": "yard_plain", "at": [11, 14]},
    {"kind": "single", "id": "well", "at": [24, 12]},
-   {"kind": "house", "id": "house_block", "at": [35, 13], "size": [2, 2], "facing": [1, 0], "height": 44, "color": "#8a3b2a"},
    {"kind": "yard", "id": "yard_plot", "at": [34, 14]},
    {"kind": "yard", "id": "yard_plot", "at": [34, 15]},
    {"kind": "yard", "id": "yard_plot_sack", "at": [34, 16]},
@@ -1642,7 +2109,6 @@
    {"kind": "yard", "id": "yard_plot", "at": [12, 19]},
    {"kind": "yard", "id": "yard_plot", "at": [10, 20]},
    {"kind": "house", "id": "house_block", "at": [20, 20], "size": [2, 2], "facing": [-1, 0], "height": 43, "color": "#8a3b2a"},
-   {"kind": "house", "id": "house_block", "at": [26, 20], "size": [2, 3], "facing": [1, 0], "height": 48},
    {"kind": "house", "id": "house_block", "at": [34, 22], "size": [2, 2], "facing": [-1, 0], "height": 49, "color": "#8a3b2a"},
    {"kind": "house", "id": "house_block", "at": [38, 21], "size": [2, 2], "facing": [1, 0], "height": 39, "color": "#8a3b2a"},
    {"kind": "house", "id": "house_block", "at": [37, 24], "size": [3, 2], "facing": [0, 1], "height": 39, "color": "#8a3b2a"},
@@ -1669,14 +2135,12 @@
    {"kind": "yard", "id": "yard_plot", "at": [24, 39]},
    {"kind": "yard", "id": "yard_plot", "at": [25, 39]},
    {"kind": "house", "id": "lot_house_d_back", "at": [32, 39], "size": [3, 3], "flip": true, "facing": [-1, 0]},
-   {"kind": "house", "id": "lot_house_b", "at": [12, 40], "size": [3, 3], "flip": true, "facing": [1, 0]},
    {"kind": "yard", "id": "yard_plot", "at": [11, 40]},
    {"kind": "yard", "id": "yard_plot", "at": [11, 41]},
    {"kind": "yard", "id": "yard_plot_sack", "at": [11, 42]},
    {"kind": "house", "id": "house_block", "at": [28, 40], "size": [2, 2], "facing": [0, 1], "height": 40},
    {"kind": "yard", "id": "yard_plain", "at": [27, 40]},
    {"kind": "yard", "id": "yard_plain", "at": [27, 41]},
-   {"kind": "house", "id": "house_block", "at": [16, 43], "size": [3, 2], "facing": [0, -1], "height": 48},
    {"kind": "house", "id": "house_block", "at": [20, 43], "size": [3, 2], "facing": [0, -1], "height": 46},
    {"kind": "house", "id": "house_block", "at": [24, 43], "size": [3, 2], "facing": [0, -1], "height": 38},
    {"kind": "yard", "id": "yard_plot", "at": [24, 45]},

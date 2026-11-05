@@ -7,6 +7,8 @@ extends Node
 ##   mediodia  12:00, the market square (stalls, the board, the town hall, townsfolk shopping)
 ##   puerta    12:05, the first gate of the watch with its guard (and the visitors coming in)
 ##   paso      12:10, the bridge or the quay (where the map has one): the townsfolk crossing
+##   ruina, solar, fuera, venta  12:12-12:18, the plots (04 §4.9.1, data/maps plots): the best-located ruin, a free
+##             lot inside the town, a free lot outside it, the business with the «Se vende» sign
 ##   atardecer the start of dusk + 50 min, the biggest corrillo (a rumour over a head)
 ##   noche     23:10, a night guard on its round with the lantern
 ##   fiesta    the festival FIESTA put in force on its day at 11:00 (as --smoke-script=fiestas does) and played to
@@ -51,6 +53,8 @@ func _ready() -> void:
 		var all: Array = [["mediodia", _noon.bind(id), 1.2], ["puerta", _gate.bind(id), 1.0]]
 		if not _crossing(id).is_empty():
 			all.append(["paso", _cross.bind(id), 1.0])
+		all += [["ruina", _plot.bind(id, "ruin", "", 12 * 60 + 12), 1.0], ["solar", _plot.bind(id, "lot", "inside", 12 * 60 + 14), 1.0],
+			["fuera", _plot.bind(id, "lot", "outside", 12 * 60 + 16), 1.0], ["venta", _plot.bind(id, "for_sale", "", 12 * 60 + 18), 1.0]]
 		all += [["atardecer", _dusk.bind(id), 1.2], ["noche", _night.bind(id), 1.2], ["fiesta", _fiesta.bind(id), 1.2]]
 		for s: Array in all:
 			if moments.is_empty() or str(s[0]) in moments:
@@ -185,6 +189,33 @@ func _cross(id: String) -> void:
 	app.world().select("")
 	_centre(_v(_crossing(id)), 1)
 	_report("%s paso %s" % [id, _crossing(id)])
+
+
+## The first plot of the map (by its order: best located first) of `state` (and `side`), or a business for sale whose
+## sign is drawn; the camera on its middle.
+func _plot(id: String, state: String, side: String, at: int) -> void:
+	if _city != id and not _begin(id):
+		return
+	_run_to(at)
+	app.world().select("")
+	var m: Dictionary = Data.catalog.maps().get(Game.sim.state.map_id, {})
+	var pick: Dictionary = {}
+	for p: Dictionary in m.get("plots", []):
+		var shown := str(app.world().plot_layer.shown.get(str(p["id"]), ""))
+		if state == "for_sale" and shown == "for_sale" or str(p["state"]) == state and (side == "" or str(p["side"]) == side):
+			pick = p
+			break
+	if pick.is_empty():
+		print("[SmokePlantillas] %s: sin parcela %s %s" % [id, state, side])
+		return
+	var tiles := PlotLayer.tiles_of(pick)
+	var c := Vector2.ZERO
+	for tt: Vector2i in tiles:
+		c += Vector2(tt)
+	c /= float(tiles.size())
+	_centre(Vector2i(roundi(c.x), roundi(c.y)), 1)
+	print("[SmokePlantillas] %s parcela %s: %s %s %s, situación %.2f, %s" % [id, pick["id"], pick["state"], pick["side"],
+		pick["zone"], float(pick["location"]), pick.get("site", "")])
 
 
 func _dusk(id: String) -> void:
