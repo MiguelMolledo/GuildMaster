@@ -841,6 +841,18 @@
       "tema": "Desbloqueo de la taberna enganchado a la posada (03b §3b.4)",
       "decision": "El desbloqueo tavern pide data/inn/ (posada en main), llega el día 5 (otoño) y presenta la Taberna-Posada de la plaza, que está en venta, como segundo negocio; meta «Abre tu taberna» (building_bought). Guardado: la cadena queda 16 -> 17 (vida), 17 -> 18 (fiestas), 18 -> 19 (posada), 19 -> 20 (_to_v20), WorldState.VERSION 20.",
       "por_que": "En el juego la taberna no tiene dueño al empezar (for_sale): no hay «taberna de otro» como cliente; comprarla no pide título, así que su carta llega con el calendario de 3b.4 y no con el de Ciudadano."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 15b · fama de la taberna con la bolsa de los hogares",
+      "decision": "Con los jornales a la bolsa de cada casa, los vecinos llegan a 6,1 por noche (diana 6-12). La comarca baja de [4,8] a [3,6] por noche y el jornal queda en 7 (9 en puesto o tienda). La banda inn_fame pasa de [1,5, 3,5] a [1,5, 4,0], pero con una medida nueva: fame3_day, el día en que la fama llega a 3, con banda [8, null], para que los nobles no lleguen antes del año 2. Si llegan antes, se frena la subida por noche en vez de mover la banda.",
+      "por_que": "Decisión del manager por delegación del owner («las que no confío en ti decide tú, siempre pensando en que el juego sea completo, divertido y con calidad profesional»): la fama puede subir más con clientes contentos, pero el ascenso a los nobles tiene que ganarse a lo largo de la partida."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Posada · lo que queda de 04f §4.27",
+      "decision": "Partidas simuladas entre clientes: no (la parte fija de la casa basta). La multa por jugar sin licencia la paga el dueño de la taberna, juegue quien juegue en su mesa; la familia visitante solo arriesga lo apostado. Se puede jugar en la taberna de otra familia como visitante: la parte de la casa va al dueño y, si es la IA rival, su perfil decide si te deja y la apuesta mínima.",
+      "por_que": "Decisión del manager por delegación del owner («las que no confío en ti decide tú, siempre pensando en que el juego sea completo, divertido y con calidad profesional»): lo que da decisiones al jugador entra; lo que solo añade cuentas, no."
     }
   ],
   "pendientes": [
