@@ -54,6 +54,7 @@ var festival_contracts: Dictionary = {}  # data/contracts/festivals.json (kind f
 var combat: Dictionary = {}      # data/combat.json: the duel «a tres tiempos» (draft, 04e; nothing in the sim uses it yet)
 var live_forge: Dictionary = {}  # data/live_forge.json: Forja viva (03b §3b.2), variants of §3b.3
 var unlocks: Dictionary = {}     # data/unlocks.json: the unlocks (03b §3b.4); _ready {requires: the system exists}
+var games: Dictionary = {}       # data/games.json: the games and competitions of the fiestas and the tavern (04f §4.26)
 var life_tables: Dictionary = {}  # vida (04f 4.24): data/life/<file>.json by file name: life, activities, rumors, incidents
 ## Población: data/portraits.json, the ids of the portrait pool (exported from assets/art/portraits/index.json by
 ## tools/art/portraits_catalog.py; the sim depends on data/ only): {by: {"sex|age|type": [ids sorted]}, fallback: {type:
@@ -98,6 +99,8 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 			ready[req] = FileAccess.file_exists(root_dir.path_join(req + ".json")) \
 				or DirAccess.dir_exists_absolute(root_dir.path_join(req))
 	c.unlocks["_ready"] = ready
+	c.games = c._load_json(root_dir.path_join("games.json"))
+	c.games["_combat"] = c.combat  # the tournament's bouts are duels (sim/games/tourney.gd): the games see the duel's table
 	c.region = c._load_json(root_dir.path_join("world/region.json"))
 	c.trade = c._load_json(root_dir.path_join("world/trade.json"))
 	c.portrait_pool = c._load_json(root_dir.path_join("portraits.json"))

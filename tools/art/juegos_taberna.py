@@ -261,8 +261,44 @@ def dice():
     print("dados: d1-d6 de 24×24 y sombra")
 
 
+def cup():
+    """El cubilete boca abajo (04f §4.26.7: tapa el dado oculto de «a la mayor»), 24×24 como los dados: un cono de
+    cuero cerrado por arriba (la tapa, una elipse vista un poco desde arriba), un ribete más oscuro abajo y una
+    costura; luz de arriba a la izquierda."""
+    S = 24
+    im = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    px = im.load()
+    LEATHER = [(84, 46, 24), (122, 70, 36), (156, 96, 52), (190, 128, 74)]  # oscuro → brillo
+    RIM, STITCH = (66, 36, 20), (222, 196, 150)
+    top_y, bot_y = 4, 21          # tapa y boca
+    top_hw, bot_hw = 6.5, 9.5     # medio ancho arriba y abajo
+    cx = 11.5
+    for y in range(top_y, bot_y + 1):
+        t = (y - top_y) / (bot_y - top_y)
+        hw = top_hw + (bot_hw - top_hw) * t
+        for x in range(S):
+            u = (x - cx) / hw
+            if abs(u) > 1:
+                continue
+            tone = 3 if u < -0.45 else 2 if u < 0.15 else 1 if u < 0.7 else 0
+            c = LEATHER[tone]
+            if y >= bot_y - 2:
+                c = RIM if tone < 2 else LEATHER[1]
+            elif y == top_y + 7 and int(x) % 2 == 0 and abs(u) < 0.85:
+                c = STITCH if tone >= 1 else LEATHER[2]
+            px[x, y] = c + (255,)
+    for y in range(top_y - 2, top_y + 3):  # la tapa: elipse más clara
+        for x in range(S):
+            if ((x - cx) / top_hw) ** 2 + ((y - top_y) / 2.2) ** 2 <= 1:
+                px[x, y] = (LEATHER[3] if x < cx else LEATHER[2]) + (255,)
+    import fal_iconos as fic
+    im = fic.outline(im)
+    im.save(os.path.join(OUT, "dados", "cup.png"))
+    print("cubilete: dados/cup.png 24×24")
+
+
 def main():
-    {"gen": gen, "proc": proc, "cartas": cards, "dados": dice}[sys.argv[1] if len(sys.argv) > 1 else "proc"]()
+    {"gen": gen, "proc": proc, "cartas": cards, "dados": dice, "cubilete": cup}[sys.argv[1] if len(sys.argv) > 1 else "proc"]()
 
 
 if __name__ == "__main__":

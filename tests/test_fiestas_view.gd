@@ -123,3 +123,21 @@ func test_the_incidents_find_their_illustration_by_the_same_alias() -> void:
 	var sim := _game()
 	var d := IncidentPage.data_for(sim, {"def": "altercation", "card": {}}, "")
 	check(d.get("image") is Texture2D and not VisualPaths.is_placeholder(d["image"]), "the incident card shows the art")
+
+
+## The festival props of arte-fal-2 (VisualPaths.FESTIVAL_PROP_ALIAS) with their footprints; the animals keep the greybox.
+func test_festival_props_have_their_scene_and_footprint() -> void:
+	for id: String in VisualPaths.FESTIVAL_PROP_ALIAS:
+		check(VisualPaths.has_scene("props", VisualPaths.festival_prop(id)), "%s: its scene" % id)
+	eq(FestivalLayer.footprint("fair_stall"), Vector2i(2, 2), "the fair stall 2×2")
+	eq(FestivalLayer.footprint("tilt_yard"), Vector2i(4, 1), "a stretch of the lists 4×1")
+	eq(FestivalLayer.footprint("pen"), Vector2i(3, 3), "the pen 3×3")
+	eq(FestivalLayer.footprint("lanterns"), Vector2i(1, 1), "a lantern 1×1")
+	eq(FestivalLayer.footprint("pig"), Vector2i(1, 1), "no art: the greybox, 1×1")
+	check(not VisualPaths.has_scene("props", VisualPaths.festival_prop("pig")), "the pig has no scene yet")
+	var used := {}
+	for f: Dictionary in Festivals.defs(_game()).values():
+		for d: Dictionary in f.get("view", {}).get("decor", []):
+			used[str(d["prop"])] = true
+	for p: String in used:
+		check(VisualPaths.FESTIVAL_PROP_ALIAS.has(p) or p in ["bull", "pig", "sheep", "horse"], "%s: art or a known gap" % p)

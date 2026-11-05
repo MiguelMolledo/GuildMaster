@@ -823,5 +823,42 @@
       ]
     }
   },
+  "gambler": {
+    "_doc": "Juegos (docs/gdd/04f_vida_y_fiestas.md §4.28.4, §4.26.6-8; docs/contratos/juegos.md): bot gambler desde el escenario games_gambler (3000 de oro y una casa de juego con licencia: su parte de la casa, el 10 % de lo que gana el ganador). Cada media hora de 09:00 a 22:00 juega por turnos al azar, a la mayor (con dos parroquianos) y al envite contra parroquianos templados (la misma política que «Resolver sin jugar»: nadie tiene ventaja) y apuesta a un pulso de dos parroquianos a las cuotas del corredor (margen del 10 %). Diana: pierde de media lo que marca el margen de la casa, ni más ni menos: gambler_return (lo ganado o perdido por cada moneda apostada) entre -0,13 y -0,02, y gambler_luck (lo mismo sumando lo que se llevó la casa: la parte de la mesa y el margen esperado de sus apuestas) entre -0,05 y +0,05 de media. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=games_gambler --bots=gambler --days=8 --seeds=5 (en run_all, paso gambler, 3 semillas). Medido (2026-11-04, 5 semillas): 216 partidas y apuestas por semilla, gambler_return -0,066 de media, gambler_luck +0,013.",
+    "days": [
+      8,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gambler_skipped": [
+      0,
+      0
+    ],
+    "gambler_games": [
+      150,
+      null
+    ],
+    "gambler_bets": [
+      50,
+      null
+    ],
+    "_mean": {
+      "gambler_return": [
+        -0.13,
+        -0.02
+      ],
+      "gambler_luck": [
+        -0.05,
+        0.05
+      ]
+    }
+  },
   "pacing": {"_doc": "Ritmo (docs/gdd/03b_diversion_y_ritmo.md §3b.6): bot pacing (sim/bots/bot_pacing.gd), el novato forjando en Forja viva y leyendo las cartas, año 1 (8 días) de una partida nueva en Normal. Mide los segundos reales entre decisiones (×1, ×8 cuando el jugador saltaría: ciclo en marcha o noche; las órdenes a menos de 3 s son una sola decisión), las metas abiertas cada hora y el día de cada desbloqueo frente a su ventana ±1 día (los ganchos sin su sistema no cuentan). Diana de 3b.6: mediana < 30 s, máximo < 60 s, siempre >= 2 metas, desbloqueos en su ventana. Medido (2026-11-04, 3 semillas): mediana 4,7 s, p90 6,6 s, máximo 29-40 s, metas mín 2 (media 2,8-3,0), 9 desbloqueos, 0 fuera. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5 (paso pacing de la QA).", "days": [8, null], "ledger_mismatch": [0, 0], "gap_median_s": [null, 30], "gap_max_s": [null, 60], "goals_min": [2, null], "unlocks_off": [0, 0]}
 }

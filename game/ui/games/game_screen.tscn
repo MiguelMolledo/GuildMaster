@@ -1,0 +1,189 @@
+[gd_scene load_steps=5 format=3 uid="uid://jxi51161v2ob"]
+
+[ext_resource type="Script" uid="uid://cugv2hgrbrymh" path="res://game/ui/games/game_screen.gd" id="1_screen"]
+[ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://chhxxc42lci1g" path="res://game/ui/portrait_frame.tscn" id="3_portrait"]
+[ext_resource type="PackedScene" uid="uid://bcva2b5m5mmhg" path="res://game/ui/page_card.tscn" id="4_card"]
+
+[node name="GameScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_screen")
+
+[node name="Veil" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.035, 0.025, 0.7)
+
+[node name="Frame" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -204.0
+offset_right = 340.0
+offset_bottom = 204.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="VBox" type="VBoxContainer" parent="Frame"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Header" type="Label" parent="Frame/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"GothicGoldTitle"
+text = "--"
+horizontal_alignment = 1
+
+[node name="Sub" type="Label" parent="Frame/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+horizontal_alignment = 1
+
+[node name="Stage" type="HBoxContainer" parent="Frame/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Left" type="VBoxContainer" parent="Frame/VBox/Stage"]
+custom_minimum_size = Vector2(118, 0)
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="LeftPortrait" parent="Frame/VBox/Stage/Left" instance=ExtResource("3_portrait")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(82, 82)
+layout_mode = 2
+size_flags_horizontal = 4
+big = true
+
+[node name="LeftName" type="Label" parent="Frame/VBox/Stage/Left"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="LeftInfo" type="Label" parent="Frame/VBox/Stage/Left"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BoardHolder" type="Control" parent="Frame/VBox/Stage"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(404, 180)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Right" type="VBoxContainer" parent="Frame/VBox/Stage"]
+custom_minimum_size = Vector2(118, 0)
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="RightPortrait" parent="Frame/VBox/Stage/Right" instance=ExtResource("3_portrait")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(82, 82)
+layout_mode = 2
+size_flags_horizontal = 4
+big = true
+
+[node name="RightName" type="Label" parent="Frame/VBox/Stage/Right"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BoldLabel"
+text = "--"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="RightInfo" type="Label" parent="Frame/VBox/Stage/Right"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Others" type="VBoxContainer" parent="Frame/VBox/Stage/Right"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Info" type="PanelContainer" parent="Frame/VBox"]
+layout_mode = 2
+theme_type_variation = &"ParchmentPanel"
+
+[node name="IVBox" type="VBoxContainer" parent="Frame/VBox/Info"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="InfoTitle" type="Label" parent="Frame/VBox/Info/IVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"InkBold"
+text = "--"
+
+[node name="InfoText" type="Label" parent="Frame/VBox/Info/IVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_type_variation = &"InkLabel"
+text = "--"
+autowrap_mode = 3
+
+[node name="InfoRead" type="Label" parent="Frame/VBox/Info/IVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"InkBold"
+text = ""
+
+[node name="Actions" type="HBoxContainer" parent="Frame/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Spacer" type="Control" parent="Frame/VBox/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Auto" type="Button" parent="Frame/VBox/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_type_variation = &"BodyButton"
+text = "games.ui.auto"
+
+[node name="Log" type="Label" parent="Frame/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = ""
+
+[node name="ArtNote" type="Label" parent="Frame/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = ""
+
+[node name="Result" parent="." instance=ExtResource("4_card")]
+unique_name_in_owner = true
+visible = false

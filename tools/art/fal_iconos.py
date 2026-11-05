@@ -121,11 +121,39 @@ TRAITS = {
     "trait_masterwork": ("ui/forge/trait_masterwork.png", "a sword with a golden laurel wreath around its hilt and "
                                                          "a star"),
 }
+# Juegos (04f §4.26): assets/art/ui/icons/game_<juego>.png; y dos rasgos más de la Forja viva
+GAMES = {
+    "game_azar": ("ui/icons/game_azar.png", "three big cream bone dice with large clear black pips (the faces show "
+                                            "three, five and six pips), overlapping slightly"),
+    "game_mayor": ("ui/icons/game_mayor.png", "an upturned brown leather dice cup with two bone dice beside it"),
+    "game_pulso": ("ui/icons/game_pulso.png", "two strong hands gripping each other in an arm-wrestling hold, "
+                                              "elbows on a wooden board"),
+    "game_envite": ("ui/icons/game_envite.png", "three old Spanish playing cards fanned out, cream faces with red "
+                                                "and gold suit marks"),
+    "game_tourney": ("ui/icons/game_tourney.png", "two crossed swords over a round red and gold wooden shield"),
+    "game_bets": ("ui/icons/game_bets.png", "a fat brown leather money purse tied with a string and a few gold "
+                                            "coins spilling out"),
+    "game_joust": ("ui/icons/game_joust.png", "a steel jousting helm with a narrow eye slit and a red plume, a "
+                                              "striped wooden lance diagonally behind it"),
+    "game_sortija": ("ui/icons/game_sortija.png", "a big bright golden ring threaded on the tip of a thick lance "
+                                                  "painted in red and white stripes, crossing the icon diagonally"),
+    "game_race": ("ui/icons/game_race.png", "a brown horse's head in profile with a bridle and a small red and gold "
+                                            "prize banner behind it"),
+    "game_bulls": ("ui/icons/game_bulls.png", "the head of a black bull seen from the front with big curved pale "
+                                              "horns"),
+    "trait_water_tempered": ("ui/forge/trait_water_tempered.png", "a blade dipped in a small wooden bucket of blue "
+                                                                  "water, white steam rising"),
+    "trait_air_cooled": ("ui/forge/trait_air_cooled.png", "a blade resting on a small iron rack with two curved pale "
+                                                          "blue wind swirls around it"),
+    "dice_cup": ("ui/games/dados/cup.png", "a single upturned brown leather dice cup seen from the side, slightly "
+                                           "from above, with a darker rim at the bottom and stitching"),
+}
 ICONS.update(DUEL)
 ICONS.update(REGION)
 ICONS.update(FOOD)
 ICONS.update(SUITS)
 ICONS.update(TRAITS)
+ICONS.update(GAMES)
 
 GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashlar", "grindstone", "trough"],
          "i3": ["millstone", "statue", "gavel", "ballot_box"], "i4": ["reputation", "menu", "save", "load"],
@@ -140,7 +168,12 @@ GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashla
          "f2": ["food_cider", "food_bread", "food_garlic_soup", "food_empanada"],
          "f3": ["food_stew", "food_roast_lamb", "food_sausage", "food_sweets"],
          "s1": ["suit_oros", "suit_copas", "suit_espadas", "suit_bastos"],
-         "k1": ["trait_oil_tempered", "trait_fine_edge", "trait_master_mark", "trait_masterwork"]}  # repetidas: el arancel no se leía y el aliento era una mancha  # repetida: la de i2 salió ilegible (la última rejilla manda)
+         "k1": ["trait_oil_tempered", "trait_fine_edge", "trait_master_mark", "trait_masterwork"],
+         "j1": ["game_azar", "game_mayor", "game_pulso", "game_envite"],
+         "j2": ["game_tourney", "game_bets", "game_joust", "game_sortija"],
+         "j3": ["game_race", "game_bulls", "trait_water_tempered", "trait_air_cooled"],
+         "j4": ["game_azar", "game_sortija"]}  # j4: el azar salía sin puntos y la anilla no se veía (el cubilete
+#   de esa rejilla salió boca arriba: se dibuja con Pillow, tools/art/juegos_taberna.py cubilete)  # repetidas: el arancel no se leía y el aliento era una mancha  # repetida: la de i2 salió ilegible (la última rejilla manda)
 REDO_2 = {
     "tariff": "a toll gate: a horizontal red and white striped wooden barrier pole on a post, with a small stack "
               "of gold coins in front of it",
@@ -149,6 +182,7 @@ REDO_2 = {
 REDO = {"grindstone": "an upright round grey grinding stone wheel mounted on its axle in a simple wooden A-frame "
                       "stand, a crank handle on the axle, seen from the side, clearly a wheel"}
 POS = ["Top-left", "Top-right", "Bottom-left", "Bottom-right"]
+SIZE = {"dice_cup": 24}
 
 
 def ref_sheet(kind):
@@ -240,6 +274,17 @@ def proc(g, cell_ids):
         out.alpha_composite(c, ((32 - c.width) // 2, (32 - c.height) // 2))
         out = outline(out)
         rel = ICONS[iid][0]
+        if iid in SIZE:  # una pieza de juego a su tamaño (el cubilete, 24×24 como los dados), sin small/
+            n = SIZE[iid]
+            c = out.crop(out.getchannel("A").getbbox())
+            k2 = min(1.0, (n - 1) / max(c.size))
+            c = c.resize((max(1, round(c.width * k2)), max(1, round(c.height * k2))), Image.LANCZOS)
+            c.putalpha(c.getchannel("A").point(lambda v: 255 if v > 127 else 0))
+            piece = Image.new("RGBA", (n, n), (0, 0, 0, 0))
+            piece.alpha_composite(c, ((n - c.width) // 2, n - c.height))
+            piece.save(os.path.join(ART, rel))
+            print("ok", iid, c.size, f"en {n}×{n}")
+            continue
         os.makedirs(os.path.join(P, "natural"), exist_ok=True)
         os.makedirs(os.path.dirname(os.path.join(ART, rel)), exist_ok=True)
         out.save(os.path.join(ART, rel))

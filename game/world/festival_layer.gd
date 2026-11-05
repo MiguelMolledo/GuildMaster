@@ -18,6 +18,7 @@ var _sites: Dictionary = {}     # where -> [Vector2i] (computed once per map)
 var _taken: Dictionary = {}     # Vector2i -> true (tiles a festival prop already stands on)
 var shown: Dictionary = {}      # instance id -> [prop ids placed] (tests, smoke)
 var _signature: Dictionary = {} # instance id -> the decor it was built from
+var _free: Dictionary = {}      # Vector2i -> true: open walkable ground a footprint may cover (sites()["_free"])
 
 
 func setup(w: Node) -> void:
@@ -98,31 +99,40 @@ func _drop(id: String) -> void:
 func _build(sim: Sim, id: String, decor: Array) -> void:
 	if _sites.is_empty():
 		_sites = sites(sim.state, sim.catalog)
+		_free = {}
+		for t: Vector2i in _sites.get("_free", []):
+			_free[t] = true
 	var nodes: Array = []
 	var placed: Array = []
 	for d: Dictionary in decor:
 		var prop := str(d.get("prop", ""))
-		var tiles := _pick(str(d.get("where", "")), int(d.get("count", 1)))
-		for t: Vector2i in tiles:
+		var fp := footprint(prop)
+		for tiles: Array in _pick(str(d.get("where", "")), int(d.get("count", 1)), fp):
 			var n := _instance(prop)
-			VisualPaths.place(n, Iso.tile_to_world(t))
-			n.name = "Fiesta_%s_%s_%d_%d" % [id, prop, t.x, t.y]
-			n.set_meta("tiles", [t])
+			var centre := Vector2.ZERO
+			for t: Vector2i in tiles:
+				centre += Iso.tile_to_world(t)
+				_taken[t] = true
+			VisualPaths.place(n, (centre / float(tiles.size())).round())  # Feet = the centre of its footprint
+			var o: Vector2i = tiles[0]
+			n.name = "Fiesta_%s_%s_%d_%d" % [id, prop, o.x, o.y]
+			n.set_meta("tiles", tiles)
 			n.set_meta("festival_prop", prop)
 			(world.call("objects") as Node2D).add_child(n)
 			nodes.append(n)
 			placed.append(prop)
-			_taken[t] = true
 	_nodes[id] = nodes
 	shown[id] = placed
 	if OS.is_debug_build():
 		print("[FestivalLayer] %s: %d piezas (%s)" % [id, nodes.size(), placed])
 
 
-## The art worker's scene of `prop`, else the labelled greybox.
+## The art's scene of `prop` (VisualPaths.festival_prop: game/visuals/props/fiesta/<the art's name>.tscn), else the
+## labelled greybox (props/fiesta/_greybox.tscn: only the fallback).
 func _instance(prop: String) -> Node2D:
-	if VisualPaths.has_scene("props", "fiesta/" + prop):
-		return VisualPaths.instantiate("props", "fiesta/" + prop)
+	var scene := VisualPaths.festival_prop(prop)
+	if VisualPaths.has_scene("props", scene):
+		return VisualPaths.instantiate("props", scene)
 	var n := VisualPaths.instantiate("props", GREYBOX)
 	var l := n.get_node_or_null("Label") as Label
 	if l != null:
@@ -133,20 +143,63 @@ func _instance(prop: String) -> Node2D:
 	return n
 
 
-## `count` free tiles of site `where`, spread along it.
-func _pick(where: String, count: int) -> Array:
+## The footprint of `prop` in tiles (columns × rows): its scene's metadata/footprint, 1×1 for the greybox.
+static func footprint(prop: String) -> Vector2i:
+	var scene := VisualPaths.festival_prop(prop)
+	if not VisualPaths.has_scene("props", scene):
+		return Vector2i(1, 1)
+	var ps := VisualPaths.scene("props", scene)
+	var st := ps.get_state() if ps != null else null
+	if st != null:
+		for i: int in st.get_node_property_count(0):
+			if st.get_node_property_name(0, i) == &"metadata/footprint":
+				var v: Variant = st.get_node_property_value(0, i)
+				if v is Vector2i:
+					return Vector2i(maxi(1, (v as Vector2i).x), maxi(1, (v as Vector2i).y))
+	return Vector2i(1, 1)
+
+
+## The sites where the props go to the nearest free place (their tiles are sorted by distance), not spread along.
+const NEAREST: Array[String] = ["plaza_center", "plaza_center_side", "town_hall", "gates"]
+
+
+## `count` places of site `where`: each the tiles of a footprint `fp` that holds a tile of the site at one of its
+## corners and whose every tile is free (walkable open ground, no prop, nothing of another festival prop). Spread
+## along the site, or the nearest ones for the NEAREST sites.
+func _pick(where: String, count: int, fp: Vector2i = Vector2i(1, 1)) -> Array:
 	var cands: Array = []
+	var anchors: Array = [Vector2i(0, 0), Vector2i(1 - fp.x, 0), Vector2i(0, 1 - fp.y), Vector2i(1 - fp.x, 1 - fp.y)]
 	for t: Vector2i in _sites.get(where, []):
-		if not _taken.has(t) and world.call("prop_at", t) == null:
-			cands.append(t)
+		for a: Vector2i in anchors:
+			var tiles: Array = []
+			var ok := true
+			for dy: int in fp.y:
+				for dx: int in fp.x:
+					var u := t + a + Vector2i(dx, dy)
+					if _taken.has(u) or world.call("prop_at", u) != null or (u != t and not _free.has(u)):
+						ok = false
+					tiles.append(u)
+			if ok:
+				cands.append(tiles)
+				break
 	if cands.is_empty() or count <= 0:
 		return []
 	var out: Array = []
+	var used := {}
+	var near := where in NEAREST
 	var n := mini(count, cands.size())
-	for i: int in n:
-		var t: Vector2i = cands[int(floor(float(i) * float(cands.size()) / float(n)))]
-		if not t in out:
-			out.append(t)
+	for i: int in (cands.size() if near else n):
+		if out.size() >= n:
+			break
+		var tiles: Array = cands[i] if near else cands[int(floor(float(i) * float(cands.size()) / float(n)))]
+		var clash := false
+		for u: Vector2i in tiles:
+			clash = clash or used.has(u)
+		if clash:
+			continue
+		for u: Vector2i in tiles:
+			used[u] = true
+		out.append(tiles)
 	return out
 
 
@@ -156,10 +209,13 @@ static func sites(state: WorldState, catalog: Catalog) -> Dictionary:
 	var rows: Array = m.get("rows", [])
 	var plaza: Array = []
 	var street_rows := {}
+	var open: Array = []
 	for r: int in rows.size():
 		var row := str(rows[r])
 		for c: int in row.length():
 			var kind := catalog.tile_kind_of_char(row[c])
+			if kind in ["plaza", "street", "grass", "dirt"]:
+				open.append(Vector2i(c, r))
 			if kind == "plaza":
 				plaza.append(Vector2i(c, r))
 			elif kind == "street":
@@ -178,7 +234,7 @@ static func sites(state: WorldState, catalog: Catalog) -> Dictionary:
 		if dr.size() == 2:
 			busy[Vector2i(int(dr[0]), int(dr[1]))] = true
 	var out := {"plaza_center": [], "plaza_center_side": [], "plaza_ring": [], "plaza_edge": [], "main_street": [],
-		"town_hall": [], "gates": []}
+		"town_hall": [], "gates": [], "_free": open.filter(func(t: Vector2i) -> bool: return not busy.has(t))}
 	if not plaza.is_empty():
 		var lo := Vector2i(100000, 100000)
 		var hi := Vector2i(-1, -1)
@@ -194,8 +250,8 @@ static func sites(state: WorldState, catalog: Catalog) -> Dictionary:
 			var db := Vector2(b).distance_squared_to(mid)
 			return da < db or (da == db and (a.y < b.y or (a.y == b.y and a.x < b.x))))
 		if not free_plaza.is_empty():
-			out["plaza_center"] = [free_plaza[0]]
-			out["plaza_center_side"] = free_plaza.slice(3, 6)
+			out["plaza_center"] = free_plaza.duplicate()  # the nearest free place to the middle first
+			out["plaza_center_side"] = free_plaza.slice(3)
 		var ring: Array = free_plaza.filter(func(t: Vector2i) -> bool:
 			return t.x == lo.x or t.x == hi.x or t.y == lo.y or t.y == hi.y)
 		ring.sort_custom(func(a: Vector2i, b: Vector2i) -> bool:
@@ -212,8 +268,17 @@ static func sites(state: WorldState, catalog: Catalog) -> Dictionary:
 	var svc_th: Array = th.get("service", [])
 	if svc_th.size() == 2:
 		var s := Vector2i(int(svc_th[0]), int(svc_th[1]))
-		for d: Vector2i in [Vector2i(-2, 0), Vector2i(2, 0), Vector2i(-3, -1), Vector2i(3, -1)]:
-			out["town_hall"].append(s + d)
+		var near: Array = []
+		for dy: int in range(-4, 2):
+			for dx: int in range(-5, 6):
+				var u := s + Vector2i(dx, dy)
+				if absi(dx) >= 2 and not busy.has(u) and u in open:  # beside the door, never on it
+					near.append(u)
+		near.sort_custom(func(a: Vector2i, b: Vector2i) -> bool:
+			var da := (a - s).length_squared()
+			var db := (b - s).length_squared()
+			return da < db or (da == db and (a.y < b.y or (a.y == b.y and a.x < b.x))))
+		out["town_hall"] = near
 	for g: String in ["west_gate", "east_gate"]:
 		var sp: Array = m.get("spawns", {}).get(g, [])
 		if sp.size() == 2:
