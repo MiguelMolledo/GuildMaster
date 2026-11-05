@@ -86,6 +86,9 @@ func orders(sim: Sim) -> Array:
 		if not batch.is_empty():
 			out.append_array(batch)
 			return out
+	for o: Dictionary in out:
+		if str(o.get("type", "")) == "buy_upgrade":
+			return out  # the upgrade takes its materials from the storage this minute: work is planned the next one
 	if _idle_until > _now(sim) and _trip.is_empty():
 		return out  # idle at home a moment ago: looks again every IDLE_EVERY minutes (cost of the bot)
 	var mine := super.orders(sim)
