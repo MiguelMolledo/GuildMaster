@@ -149,6 +149,8 @@ func _fill_mine(list: VBoxContainer, rows: Array, fam: String) -> void:
 		pay_text.visible = false  # the plain «70 de oro» (tests and screen readers)
 		top.add_child(pay_text)
 		row.add_child(top)
+		if bool(c.get("race", false)):
+			row.add_child(_festival_tag(c, &"BoldLabel"))
 		var have := carried(c)
 		var stock := family_stock(sim, fam, str(c.get("item", "")), int(c.get("min_quality", 0)))
 		var terms := SocialKit.label("%s · %s" % [_quality_text(c), SimQuery.t_("ui.board.have_mine") % [have,
@@ -229,6 +231,8 @@ func _fill_open(grid: GridContainer, rows: Array, fam: String) -> void:
 		top.add_child(pay_text)
 		row.add_child(top)
 		row.add_child(SocialKit.label(SimQuery.client_name(str(c.get("client", ""))), &"InkLabel", "Client"))
+		if bool(c.get("race", false)):  # fiestas (4.25.4): which feast, what it is there and its prestige
+			row.add_child(_festival_tag(c, &"InkLabel"))
 		var terms := SocialKit.label(_quality_text(c), &"InkLabel", "Quality")
 		terms.clip_text = true
 		row.add_child(terms)
@@ -267,6 +271,19 @@ func _fill_open(grid: GridContainer, rows: Array, fam: String) -> void:
 			row.add_child(why)
 		note.add_child(row)
 		grid.add_child(note)
+
+
+## Fiestas (4.25.4): «Fiesta · Una boda principal · el regalo al novio» and the prestige of the contract.
+func _festival_tag(c: Dictionary, variation: StringName) -> Control:
+	var what := str(c.get("what", ""))
+	var text := SimQuery.t_("ui.festival_card.board_tag") % SimQuery.festival_name(str(c.get("festival_def", "")))
+	if what != "":
+		text += " · " + SimQuery.t_("festival_contract." + what)
+	var l := SocialKit.label(text, variation, "Festival")
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.custom_minimum_size = Vector2(150, 0)
+	l.tooltip_text = SimQuery.t_("ui.festival_card.prestige") % int(c.get("reputation", 0))
+	return l
 
 
 func _button(n: String, text: String, cb: Callable) -> Button:

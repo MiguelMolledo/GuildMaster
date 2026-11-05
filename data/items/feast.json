@@ -1,0 +1,11 @@
+{
+  "id": "feast",
+  "name_key": "item.feast",
+  "gender": "m",
+  "category": "product",
+  "weight": 10.0,
+  "max_stack": 20,
+  "base_price": 90,
+  "market_stall": null,
+  "to_order": true
+}

@@ -180,6 +180,11 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return LiveForge.order(sim, order)
 		"unlock_seen":
 			return Unlocks.order_seen(sim, order)
+		# Fiestas (sim/fest/festivals.gd, docs/gdd/04f_vida_y_fiestas.md 4.25.5)
+		"festival_sponsor":
+			return Festivals.order_sponsor(sim, order)
+		"festival_host_wedding":
+			return Festivals.order_host_wedding(sim, order)
 		# Vida (sim/life/*.gd, docs/gdd/04f_vida_y_fiestas.md §4.24, docs/contratos/vida.md)
 		"resolve_incident":
 			return Incidents.order_resolve(sim, order)
@@ -197,6 +202,7 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"duel_answer", "duel_withdraw", "duel_move", "duel_auto",
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
 	"city_accept", "city_deliver", "sign_treaty",
+	"festival_sponsor", "festival_host_wedding",
 	"live_forge", "unlock_seen", "resolve_incident"]
 
 

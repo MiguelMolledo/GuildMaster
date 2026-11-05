@@ -312,7 +312,8 @@ func _staff_recipe(sim: Sim) -> String:
 	ids.sort()
 	for rid: String in ids:
 		var r: Dictionary = sim.catalog.recipes()[rid]
-		if str(r.get("building", "")) != "forge" or str(r.get("zone", "")) != ANVIL:
+		if str(r.get("building", "")) != "forge" or str(r.get("zone", "")) != ANVIL \
+				or str(r.get("kind", "craft")) == "commission":  # 4.25.4: festival pieces only for a contract
 			continue
 		if int(r.get("min_craft", 0)) > craft or str(r.get("requires_upgrade", "")) != "" \
 				and not Upgrades.has(sim.state, FORGE, str(r["requires_upgrade"])):
@@ -451,7 +452,8 @@ func _min_anvil_craft(sim: Sim) -> int:
 	var lo := 10
 	for rid: String in sim.catalog.recipes():
 		var r: Dictionary = sim.catalog.recipes()[rid]
-		if str(r.get("building", "")) == "forge" and str(r.get("zone", "")) == ANVIL:
+		if str(r.get("building", "")) == "forge" and str(r.get("zone", "")) == ANVIL \
+				and str(r.get("kind", "craft")) != "commission":
 			lo = mini(lo, int(r.get("min_craft", 0)))
 	return lo
 

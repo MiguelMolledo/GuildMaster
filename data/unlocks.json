@@ -1,5 +1,5 @@
 {
-  "_doc": "Unlocks (docs/gdd/03b_diversion_y_ritmo.md §3b.4, O-D2 a): each mechanic arrives when the player needs it, with its card «Nuevo: …», a mark on the HUD button that opens it, its tutorial chapter and a goal in the goals zone. Unlocks.step (sim/pacing/unlocks.gd) watches the triggers of each human family and writes state.unlocks[fam][id] = {minute, seen, used}; what an unlock opens is UI access (ui: the buttons that stay hidden until then: staff, upgrades), never a rule of the sim. trigger: start (the game's first step) · calendar {day: from that day index (0 = day 1 of spring, year 1)} · gold {min: family gold} · title {min: title id, by rank} · employees {min: employees of the family} · age {min: the head's age} · event {event, match, count: events of the family, as the objectives} · outsold_rival (a day with more units sold at the market than the rival smith's family) · any [triggers] (the first one that holds) · all [triggers]. window: [first, last] day index where 3b.4 expects it (the pacing bot checks it ±1 day). mark: the HUD or interior button that gets the «Nuevo» mark until used (\"\" none). chapter: the tutorial chapter offered on the card (data/tutorial/). goal: an objective of data/objectives/ shown as an open goal of `horizon` (short, medium, long) once unlocked (§3b.5.1). card: false = no card (the start's own mechanics, shown by the tutorial). requires: a system not in the game yet: the unlock waits until data/<requires>.json or data/<requires>/ exists (its hook); a requires under life/ also waits for the living town to be on (data/life/life.json enabled).",
+  "_doc": "Unlocks (docs/gdd/03b_diversion_y_ritmo.md §3b.4, O-D2 a): each mechanic arrives when the player needs it, with its card «Nuevo: …», a mark on the HUD button that opens it, its tutorial chapter and a goal in the goals zone. Unlocks.step (sim/pacing/unlocks.gd) watches the triggers of each human family and writes state.unlocks[fam][id] = {minute, seen, used}; what an unlock opens is UI access (ui: the buttons that stay hidden until then: staff, upgrades), never a rule of the sim. trigger: start (the game's first step) · calendar {day: from that day index (0 = day 1 of spring, year 1)} · gold {min: family gold} · title {min: title id, by rank} · employees {min: employees of the family} · age {min: the head's age} · event {event, match, count: events of the family, as the objectives; anyone: true = events of the town too, e.g. festival_started} · outsold_rival (a day with more units sold at the market than the rival smith's family) · any [triggers] (the first one that holds) · all [triggers]. window: [first, last] day index where 3b.4 expects it (the pacing bot checks it ±1 day). mark: the HUD or interior button that gets the «Nuevo» mark until used (\"\" none). chapter: the tutorial chapter offered on the card (data/tutorial/). goal: an objective of data/objectives/ shown as an open goal of `horizon` (short, medium, long) once unlocked (§3b.5.1). card: false = no card (the start's own mechanics, shown by the tutorial). requires: a system not in the game yet: the unlock waits until data/<requires>.json or data/<requires>/ exists (its hook); festivals also waits for the calendar to be on (data/festivals.json enabled) and a requires under life/ also waits for the living town to be on (data/life/life.json enabled).",
   "goals_doc": "§3b.5.1: the open goals zone shows up to 3 goals: short = the current start objective (or the first open one of the day), medium = the goal of the latest unlock not done, long = the year's (the debt in year 1) or the dynasty's (data/goals.json). Each one {horizon, objective, from}.",
   "year_goal": "repay_debt",
   "unlocks": [
@@ -66,17 +66,19 @@
       "name_key": "unlock.first_festival",
       "desc_key": "unlock.first_festival.desc",
       "trigger": {
-        "kind": "calendar",
-        "day": 1
+        "kind": "event",
+        "event": "festival_started",
+        "count": 1,
+        "anyone": true
       },
       "window": [
-        1,
-        1
+        0,
+        2
       ],
       "mark": "",
       "ui": [],
       "chapter": "",
-      "goal": "sell_counter_festival",
+      "goal": "festival_contract",
       "horizon": "medium",
       "requires": "festivals"
     },
@@ -155,8 +157,13 @@
       "name_key": "unlock.fair",
       "desc_key": "unlock.fair.desc",
       "trigger": {
-        "kind": "calendar",
-        "day": 3
+        "kind": "event",
+        "event": "festival_started",
+        "count": 1,
+        "anyone": true,
+        "match": {
+          "def": "harvest_fair"
+        }
       },
       "window": [
         3,

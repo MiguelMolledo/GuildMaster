@@ -1,7 +1,8 @@
 extends Node
 ## Scripted capture of «ritmo y desbloqueos» (docs/gdd/03b_diversion_y_ritmo.md §3b.4-§3b.5; --smoke-script=ritmo
 ## --scenario=pacing_day3, through `grimoire heavy` and --always-on-top): the goals zone on the map (rt_metas); an
-## unlock that comes — the Upgrades of the forge, opened with the same order a tutorial chapter gives — with its card
+## unlock that comes — the first one still closed (the forge's Upgrades or the next), opened with the same order a
+## tutorial chapter gives — with its card
 ## «Nuevo: …» (rt_carta); the forge in management mode with the «Nuevo» mark on Mejoras (rt_marca); the «Saltar
 ## hasta…» menu (rt_saltar_menu), skipping to dawn at ×8 (rt_saltando) and stopped (rt_saltar_parado). Orders only
 ## through Game.give and the HUD's own paths. Quits when done, or after `timeout` seconds with a shot.
@@ -48,7 +49,12 @@ func _process(delta: float) -> void:
 					func(e: Dictionary) -> String: return str(e["id"]))])
 				app.save_shot("rt_metas")
 				Game.set_paused(false)
-				Game.give({"type": "unlock_seen", "actor": head, "unlock": "upgrades", "what": "now"})
+				var next := ""   # the first unlock with a card the game has not opened yet (the forge's upgrades, if still closed)
+				for id: String in ["upgrades", "fair", "rumors", "debt", "courtship"]:
+					if next == "" and not Unlocks.is_open(sim.state, fam, id):
+						next = id
+				print("[SmokeRitmo] abre %s" % next)
+				Game.give({"type": "unlock_seen", "actor": head, "unlock": next, "what": "now"})
 				_go("card")
 		"card":
 			if app.unlock_card().visible and _t > 0.6:

@@ -58,6 +58,8 @@ var hovered_building: String = ""
 var hovered_character: String = ""
 var _idle_minute: int = -1
 var _player_family: String = ""
+var festival_layer := FestivalLayer.new()  # fiestas (04f 4.25.3): the decoration of the festivals in force
+var _festive: Dictionary = {}  # the clothes' look in force ({} = everyday)
 var _see_through: Array = []  # tall visuals (buildings, filler houses) that fade while they hide the selected person
 
 
@@ -167,6 +169,8 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	_add_town_decor(s.map_id)
 	_add_services()
 	_add_social_points(c, s.map_id)
+	festival_layer.setup(self)
+	_festive = {}
 	_collect_see_through()
 	var ids: Array = s.characters.keys()
 	ids.sort()
@@ -987,9 +991,23 @@ func sync(frac: float) -> void:
 		_idle_minute = int(state.clock["minute"])
 		refresh_idle()
 		refresh_upgrades()
+		_refresh_festivals()
 	tint_color = DayNight.tint(int(state.clock["minute"]), frac, catalog.time, ViewConfig.value("day_night", {}))
 	(get_node("%Tint") as CanvasModulate).color = tint_color
 	_update_see_through()
+
+
+## Fiestas (04f 4.25.3): the decoration layer and the festive clothes follow the festivals in force.
+func _refresh_festivals() -> void:
+	if sim == null:
+		return
+	festival_layer.refresh(sim)
+	var look := FestivalLayer.clothes(sim)
+	if str(look.get("id", "")) != str(_festive.get("id", "")):
+		_festive = look
+		ViewConfig.info("WorldView", "ropa de fiesta: %s" % [look.get("id", "diario")])
+	for v: CharacterView in _views.values():
+		v.set_festive(_festive)
 
 
 ## Scale B (docs/arte/escala.md): the tall visuals that may hide a person behind them: the buildings of the state,

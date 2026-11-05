@@ -42,6 +42,7 @@ var ending: Dictionary = {}        # {} while the game goes on; {kind, family, m
 var microevents: Dictionary = {"active": [], "pending": [], "cooldowns": {}, "last_day": {}}  # GDD 4.20: Microevents
 var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD 4.5.4): Counter
 var duels: Dictionary = {"open": {}, "closed": []}  # duels of honour: id -> duel open, the last closed (04e): Duels
+var festivals: Dictionary = {}     # fiestas (v18): the festival calendar in force (04f 4.25): Festivals, {} until it runs
 # Forja viva y ritmo (v20, docs/gdd/03b_diversion_y_ritmo.md): the unlocks of each family (§3b.4) and the named
 # masterworks with what each family learned of its recipes (§3b.2).
 var unlocks: Dictionary = {}       # fam_id -> {unlock_id: {minute, seen}}: Unlocks
@@ -77,6 +78,9 @@ var masterworks: Dictionary = {"pieces": [], "learned": {}}  # pieces [masterwor
 # watch, rumors and incidents (Life.ensure); characters get town.needs (the townsfolk) and, the temporary ones of the
 # service families (fam_watch, fam_visitors, fam_bandits), guard / visitor / bandit, offstage and captive
 # (SaveFile._to_v17, step 16 -> 17).
+# Fiestas (docs/gdd/04f_vida_y_fiestas.md 4.25, 4.28.2): the new root festivals {active, upcoming, history, cooldowns,
+# offers, planned_day}, {} until Festivals.ensure fills it; festival contracts live in contracts with their own fields
+# (SaveFile._to_v18, step 17 -> 18; 16 -> 17 is the life block's).
 # Diversión y ritmo (docs/gdd/03b_diversion_y_ritmo.md): the new roots unlocks {fam: {id: {minute, seen}}} and
 # masterworks {pieces, learned} (SaveFile._to_v20, step 19 -> 20; v17-v19 belong to the city life branches).
 
@@ -122,6 +126,7 @@ func to_dict() -> Dictionary:
 		"microevents": microevents,
 		"town": town,
 		"duels": duels,
+		"festivals": festivals,
 		"unlocks": unlocks,
 		"masterworks": masterworks,
 	}
@@ -168,6 +173,7 @@ static func from_dict(src: Dictionary) -> WorldState:
 	s.microevents = d.get("microevents", {"active": [], "pending": [], "cooldowns": {}, "last_day": {}})
 	s.town = d.get("town", {"counters": {}})
 	s.duels = d.get("duels", {"open": {}, "closed": []})
+	s.festivals = d.get("festivals", {}) if d.get("festivals") is Dictionary else {}
 	s.unlocks = d.get("unlocks", {}) if d.get("unlocks") is Dictionary else {}
 	s.masterworks = d.get("masterworks", {"pieces": [], "learned": {}}) if d.get("masterworks") is Dictionary \
 		else {"pieces": [], "learned": {}}

@@ -58,8 +58,12 @@ func test_calendar_event_and_hooks() -> void:
 	sim.events = []
 	Unlocks.step(sim)
 	check(Unlocks.is_open(sim.state, FAM, "counter"), "day 2: the counter")
-	check(not Unlocks.ready(sim, Unlocks.def(sim, "first_festival")), "the festival waits for its system (hook)")
-	check(not Unlocks.is_open(sim.state, FAM, "first_festival"), "so it is not open")
+	eq(Unlocks.ready(sim, Unlocks.def(sim, "first_festival")), Festivals.enabled(sim), "the festival: with the calendar on")
+	check(not Unlocks.is_open(sim.state, FAM, "first_festival"), "it opens when a festival starts, not by the date")
+	sim.events = [{"type": "festival_started", "id": "f1", "def": "mayday_corpus"}]
+	Unlocks.step(sim)
+	eq(Unlocks.is_open(sim.state, FAM, "first_festival"), Festivals.enabled(sim), "a festival of the town starts (anyone)")
+	check(not Unlocks.is_open(sim.state, FAM, "fair"), "the fair waits for the harvest fair")
 
 
 func test_outsold_rival() -> void:

@@ -56,6 +56,7 @@ func step(orders: Array = []) -> Array:
 	WorkQueue.step(self)    # hands the queue's next unit to each free employee at its station (work_at)
 	Production.step(self)   # work cycles, master-touch windows
 	Courtship.step(self)    # H8: +affinity for working at the same building (reads work_done)
+	Festivals.step(self)    # fiestas (04f 4.25): the calendar, the town crier and its contracts, weddings' feasts
 	Market.step(self)       # errands arriving; demand recovery at dawn
 	Region.step(self)       # viajes (09b): trips, caravans; the cities' demand, events, contracts; treaties by season
 	Contracts.step(self)    # a new contract at dawn; deadline warnings; expiries

@@ -228,6 +228,8 @@ func _rebuild() -> void:
 	_fact(_tr("ui.city.tariff") % roundi(tar * 100.0) if tar > 0.0 else _tr("ui.city.tariff_none"),
 		VisualPaths.region_icon("tariff"))
 	_fact(_tr("ui.city.gold") % Money.gold(sim.state, fam), null)
+	for line: String in SimQuery.city_feast_lines(sim, city):  # fiestas (4.25.6): its patron feast and its fair
+		_fact(line, null)
 	for b: Node in _tabs.get_children():
 		var t := str(b.name).trim_prefix("Tab_")
 		(b as Button).text = _tr("ui.city.tab." + t)

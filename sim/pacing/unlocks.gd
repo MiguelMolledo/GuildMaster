@@ -34,6 +34,8 @@ static func ready(sim: Sim, d: Dictionary) -> bool:
 		return true
 	if not bool((sim.catalog.unlocks.get("_ready", {}) as Dictionary).get(req, false)):
 		return false
+	if req == "festivals":
+		return Festivals.enabled(sim)  # fiestas: only with the festival calendar on (data/festivals.json enabled)
 	return not req.begins_with("life/") or Life.on(sim)  # vida: its rumours and incidents only with the town alive
 
 
@@ -174,8 +176,10 @@ static func _count_event(sim: Sim, fam: String, id: String, i: int, t: Dictionar
 	var want := str(t.get("event", ""))
 	var m: Dictionary = t.get("match", {}) if t.get("match") is Dictionary else {}
 	for e: Dictionary in sim.events:
-		if str(e.get("type", "")) != want or _family_of(sim.state, e) != fam:
+		if str(e.get("type", "")) != want:
 			continue
+		if not bool(t.get("anyone", false)) and _family_of(sim.state, e) != fam:
+			continue  # anyone: an event of the town (a festival that starts), not of a family
 		if not m.is_empty() and not Objectives._matches(e, m):
 			continue
 		c[i] = int(c[i]) + 1

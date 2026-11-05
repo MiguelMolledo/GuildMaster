@@ -1,0 +1,23 @@
+{
+  "id": "carpentry_marriage_bed",
+  "name_key": "recipe.carpentry_marriage_bed",
+  "kind": "commission",
+  "building": "carpentry",
+  "zone": "workbench",
+  "inputs": [
+    {
+      "item": "planks",
+      "qty": 5
+    },
+    {
+      "item": "iron",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "marriage_bed",
+    "qty": 1
+  },
+  "duration_hours": 6.0,
+  "min_craft": 5
+}

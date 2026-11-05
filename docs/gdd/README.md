@@ -14,6 +14,7 @@ Si lo jugado choca con el diseño, gana lo jugado: se cambia aquí en el mismo c
 - [4d. Sistemas propios de las otras clases: diseño detallado de 4.22 (Gate antes de H12)](04d_otras_clases.md)
 - [4e. Combate: el duelo «a tres tiempos» (aprobado 2026-11-04)](04e_combate.md)
 - [4f. La ciudad viva II: vida de los NPC, guardia y sucesos, fiestas, juegos y la Taberna-Posada (4.24-4.29)](04f_vida_y_fiestas.md)
+- [4g. Interiores II: biblioteca de props, habitaciones, plantas, paredes que se abren y clientes en el interior (4.6.5)](04g_interiores.md)
 - [5. Arquitectura técnica](05_arquitectura.md)
 - [6. Modelo de datos (fichas de `data/`)](06_modelo_de_datos.md)
 - [7. Testing y verificación (el sistema de Wizards Broke It)](07_testing.md)
