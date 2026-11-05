@@ -1,0 +1,23 @@
+{
+  "id": "opciones_tutorial",
+  "title": "Opciones, tutorial y desbloqueos",
+  "about": "Desde el título: Opciones (idioma a inglés y vuelta, pantalla completa no), Volver; partida nueva con tutorial: su primer paso y saltarlo con Tab; F1 con los capítulos del tutorial.",
+  "start": {"title": true},
+  "covers": [],
+  "steps": [
+    {"id": "titulo", "expect": ["q.visible('TitleScreen')"]},
+    {"id": "opciones", "click": {"node": "OptionsButton"}, "expect": ["q.visible('OptionsScreen')"]},
+    {"id": "ingles", "say": "Idioma: English", "click": {"within": "Locale", "text": "English"}, "expect": ["q.lang() == 'en'"]},
+    {"id": "espanol", "say": "Y vuelta a Español", "click": {"within": "Locale", "text": "Español"}, "expect": ["q.lang() == 'es'"]},
+    {"id": "pistas", "say": "Quitar y poner las pistas del objetivo", "click": {"node": "ObjectiveHints"}},
+    {"id": "pistas_2", "click": {"node": "ObjectiveHints"}},
+    {"id": "volver", "say": "Esc vuelve al título", "key": "Escape", "expect": ["not q.visible('OptionsScreen')", "q.visible('TitleScreen')"]},
+    {"id": "nueva", "click": {"node": "NewGameButton"}, "expect": ["q.visible('NewGameScreen')"]},
+    {"id": "con_tutorial", "say": "«Con tutorial» marcado", "expect": ["q.drv.node('TutorialCheck').button_pressed"]},
+    {"id": "empezar", "click": {"node": "StartButton"}, "until": "not q.visible('NewGameScreen')", "timeout": 6},
+    {"id": "paso_1", "say": "El primer paso del tutorial", "until": "q.tutorial_step() != ''", "timeout": 6},
+    {"id": "saltar", "say": "Tab salta el paso", "key": "Tab", "expect": ["q.tutorial_step() != q.was('tutorial_step')"]},
+    {"id": "ayuda", "say": "F1: la ayuda con los capítulos", "key": "F1", "expect": ["q.visible('HelpPanel')", "q.shown({'within': 'Chapters', 'type': 'Button'})"]},
+    {"id": "esc_ayuda", "key": "Escape", "expect": ["not q.visible('HelpPanel')"]}
+  ]
+}
