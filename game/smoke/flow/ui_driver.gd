@@ -485,7 +485,7 @@ func click(spec: Variant, button: String = "left", double: bool = false) -> Stri
 			(c as BaseButton).pressed.disconnect(on_pressed)
 		if c.gui_input.is_connected(on_input):
 			c.gui_input.disconnect(on_input)
-	_log("clicked", "%s «%s»" % [path_of(c), text_of(c).left(40)] if is_instance_valid(c) else "(freed)")
+	_log("clicked", "%s «%s»" % [path_of(c), text_of(c).left(40)] if is_instance_valid(c) else "(se cerró con el clic)")
 	if not is_instance_valid(c):
 		return ""   # it went away with the click (a card's button closes it)
 	if c is BaseButton and button == "left" and not bool(got["pressed"]) and (not c.is_inside_tree() or c.is_queued_for_deletion()):
@@ -535,6 +535,7 @@ func click_popup_item(menu: Variant, index: int) -> String:
 	var bottom := sb.get_margin(SIDE_BOTTOM) if sb != null else 0.0
 	var row_h := (pop.size.y - top - bottom) / float(pop.item_count)
 	var at := Vector2(pop.position) + Vector2(pop.size.x / 2.0, top + row_h * (index + 0.5))
+	var label := "%s item %d «%s»" % [path_of(f["node"]), index, pop.get_item_text(index)]   # before: the click may free it
 	var got := {"id": -1}
 	var cb := func(id: int) -> void: got["id"] = id
 	pop.id_pressed.connect(cb)
@@ -548,7 +549,7 @@ func click_popup_item(menu: Variant, index: int) -> String:
 	if is_instance_valid(pop) and pop.id_pressed.is_connected(cb):
 		pop.id_pressed.disconnect(cb)
 	last_input = "mouse"
-	_log("popup", "%s item %d «%s»" % [path_of(f["node"]), index, pop.get_item_text(index)])
+	_log("popup", label)
 	if int(got["id"]) < 0:
 		return "la entrada %d del menú no recibió el clic (en %s)" % [index, at.round()]
 	return ""

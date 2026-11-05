@@ -80,7 +80,8 @@ func scan(root: Window, img: Image) -> Array:
 	for c: Control in controls:
 		if c.is_visible_in_tree() and _alpha(c) > 0.4 and not in_world(c) and \
 				(c is PanelContainer or c is Panel or (c is ColorRect and (c as ColorRect).color.a * _alpha(c) > 0.35) \
-				or ((c is TextureRect or c is NinePatchRect) and c.get_global_rect().get_area() > 12000.0)):   # a card's page
+				or ((c is TextureRect or c is NinePatchRect) and c.get_global_rect().get_area() > 12000.0) \
+				or (c.get_parent() is PageCard and c.get_global_rect().get_area() > 4000.0)):   # a card's page
 			covers.append([c, screen_rect(c)])
 	for c: Control in controls:
 		if not c.is_visible_in_tree() or c.modulate.a < 0.05 or _alpha(c) < 0.05:
