@@ -26,8 +26,11 @@ la interfaz con ratón y teclado, con ventana, cada uno por `grimoire heavy`: 07
 el informe en Grimoire). Con
 --visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
+bench y bench_fair (coste del sim): si uno falla, se repite una vez al final; si la repetición pasa, queda «ok (repetido)»
+con las dos medidas en su log y en QA.md (con la máquina cargada fallan sin regresión real); si vuelve a fallar, falla.
 """
 import os
+import re
 import subprocess
 import sys
 import time
@@ -88,6 +91,27 @@ VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--aud
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]
 
 
+# The timing steps: with the machine loaded (several QA runs at once) they can miss their mark with no real regression.
+# One that fails is run once more at the end of the run; if that one passes, the step is «ok (repetido)» with both
+# measures in its log and in QA.md; if it fails again, it fails. Only these steps.
+RETRY_ONCE = ("bench", "bench_fair")
+
+
+def _measure(out):
+    """La medida de un paso de coste («mean 1.44 ms, p99 5.89 ms, worst 19.2 ms»), o "" si no la hay."""
+    m = re.search(r"mean [0-9.]+ ms, p99 [0-9.]+ ms, worst [0-9.]+ ms", out)
+    return m.group(0) if m else ""
+
+
+def _run(name, cmd, env):
+    t0 = time.time()
+    p = subprocess.run(cmd, cwd=ROOT, env=env if cmd[0] == GODOT else None, capture_output=True, text=True)
+    out = p.stdout + p.stderr
+    bad = p.returncode != 0 or (cmd[0] == GODOT and ("SCRIPT ERROR" in out or "\nERROR" in out))
+    last = [l for l in out.strip().splitlines() if l.strip() and not l.startswith("[")][-1:] or [""]
+    return out, bad, time.time() - t0, last[0]
+
+
 def main(argv):
     only = next((a[7:].split(",") for a in argv if a.startswith("--only=")), None)
     skip = next((a[7:].split(",") for a in argv if a.startswith("--skip=")), [])
@@ -95,27 +119,37 @@ def main(argv):
     os.makedirs(os.path.join(ROOT, "reports", "qa", "logs"), exist_ok=True)
     os.makedirs(HOME, exist_ok=True)
     env = dict(os.environ, HOME=HOME)
-    rows, failed = [], 0
+    rows, failed, again = [], 0, []
     for name, cmd in steps:
         if (only and name not in only) or name in skip:
             continue
-        t0 = time.time()
-        p = subprocess.run(cmd, cwd=ROOT, env=env if cmd[0] == GODOT else None, capture_output=True, text=True)
-        out = p.stdout + p.stderr
+        out, bad, secs, last = _run(name, cmd, env)
         with open(os.path.join(ROOT, "reports", "qa", "logs", name + ".log"), "w", encoding="utf-8") as f:
             f.write(out)
-        bad = p.returncode != 0 or (cmd[0] == GODOT and ("SCRIPT ERROR" in out or "\nERROR" in out))
+        if bad and name in RETRY_ONCE:
+            again.append((name, cmd, out, secs, last))
+            rows.append((name, "repetir", f"{secs:.1f} s", last[:140]))
+            print(f"  ¿?    {name:<8} {secs:>6.1f} s  {last[:110]} (se repite al final)")
+            continue
         failed += bad
-        last = [l for l in out.strip().splitlines() if l.strip() and not l.startswith("[")][-1:] or [""]
-        rows.append((name, "FALLA" if bad else "ok", f"{time.time() - t0:.1f} s", last[0][:140]))
-        print(f"  {'FALLA' if bad else 'ok   '} {name:<8} {rows[-1][2]:>7}  {last[0][:110]}")
+        rows.append((name, "FALLA" if bad else "ok", f"{secs:.1f} s", last[:140]))
+        print(f"  {'FALLA' if bad else 'ok   '} {name:<8} {rows[-1][2]:>7}  {last[:110]}")
+    for name, cmd, out1, secs1, last1 in again:
+        out2, bad, secs2, last2 = _run(name, cmd, env)
+        m1, m2 = _measure(out1) or last1, _measure(out2) or last2
+        with open(os.path.join(ROOT, "reports", "qa", "logs", name + ".log"), "w", encoding="utf-8") as f:
+            f.write(f"# 1.ª corrida (falló): {m1}\n# 2.ª corrida ({'falló' if bad else 'pasó'}): {m2}\n\n"
+                    f"## 1.ª corrida\n{out1}\n## 2.ª corrida\n{out2}")
+        failed += bad
+        i = next(k for k, r in enumerate(rows) if r[0] == name)
+        rows[i] = (name, "FALLA" if bad else "ok (repetido)", f"{secs1:.1f} + {secs2:.1f} s", f"1.ª {m1} · 2.ª {m2}"[:200])
+        print(f"  {'FALLA' if bad else 'ok (repetido)'} {name:<8} 1.ª {m1} · 2.ª {m2}")
     md = ["# QA", "", "| Paso | Resultado | Tiempo | Última línea |", "|---|---|---|---|"]
     md += [f"| {a} | {b} | {c} | `{d}` |" for a, b, c, d in rows]
     with open(os.path.join(ROOT, "reports", "qa", "QA.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(md) + "\n")
     print("qa: todo bien" if not failed else f"qa: {failed} pasos fallan")
     return 1 if failed else 0
-
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

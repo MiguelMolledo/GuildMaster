@@ -4,7 +4,8 @@ extends Node
 ## Forja viva at the anvil (fv_menu) and forges a sword by hand: the heat with the iron at cherry red (fv_calentar),
 ## two strikes of the template (fv_batir), the quench (fv_templar) and the result (fv_resultado). Then he forges
 ## hammers well, at ×4, until one comes out a masterwork with its name (fv_obra_maestra). The game pauses for each
-## shot (the decision waits: a paused game applies no orders). It plays through the real UI paths (the screen's own
+## shot (the decision waits: a paused game applies no orders). The festival, incident and microevent cards are
+## cleared every frame (_clear_cards) and a frame drawn without them goes before the next shot. It plays through the real UI paths (the screen's own
 ## buttons) and gives orders only through them. Quits when done, or after `timeout` seconds with a shot.
 
 const BLD := "bld_0001"
@@ -16,6 +17,7 @@ var _step: String = "start"
 var _t: float = 0.0
 var _total: float = 0.0
 var _pieces: int = 0
+var _framed: bool = true   # false after a card was cleared: the next frame is drawn before any step (shot) runs
 
 
 func _ready() -> void:
@@ -49,9 +51,39 @@ func _shot(name: String) -> void:
 	Game.set_paused(false)
 
 
+## The shots without cards over the forge (as smoke_forja, interiores): every day of the year has its festival
+## (data/festivals.json), whose card (EventCard, not modal) would cover the screen, and an incident card or a
+## microevent card may come too. Each frame the event cards are closed, like «Entendido», and the incident and
+## microevent cards put off, like «Luego» (no order: the default comes at its timeout, as in the game). True when a
+## card was cleared now: the step waits a frame, so the next shot copies a frame drawn without it.
+func _clear_cards() -> bool:
+	var cleared := false
+	var stack: Array = [get_tree().root]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		if n is IncidentCard and (n as CanvasItem).is_visible_in_tree():
+			(n as IncidentCard).button_pressed.emit("later")
+			(n as IncidentCard).close()
+			cleared = true
+		elif n is EventCard and (n as CanvasItem).is_visible_in_tree():
+			(n as EventCard).close()
+			cleared = true
+		elif n is MicroeventCard and not (n as MicroeventCard).folded:
+			(n as MicroeventCard).set_folded(true)
+			cleared = true
+		stack.append_array(n.get_children())
+	return cleared
+
+
 func _process(delta: float) -> void:
 	_t += delta
 	_total += delta
+	if _clear_cards():
+		_framed = false
+		return
+	if not _framed:   # one frame drawn without the cards before any shot
+		_framed = true
+		return
 	if _total > timeout and _step != "done":
 		print("[SmokeForjaViva] TIMEOUT in step %s (pieces=%d)" % [_step, _pieces])
 		app.save_shot("fv_timeout")
