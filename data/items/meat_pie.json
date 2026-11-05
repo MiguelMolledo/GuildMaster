@@ -1,0 +1,11 @@
+{
+  "id": "meat_pie",
+  "name_key": "item.meat_pie",
+  "gender": "f",
+  "category": "consumable",
+  "weight": 0.5,
+  "max_stack": 10,
+  "base_price": 6,
+  "market_stall": null,
+  "_doc": "Plato de la Taberna-Posada (no se vende en el mercado)."
+}

@@ -1810,6 +1810,15 @@ ui.new_game.preview_start.artisan_tailor,"A tailor's shop with a home, %d gold a
 stall.clothier,Clothier,Ropería
 stall.goods,Goods,Enseres
 ui.new_game.profession,Trade,Oficio
+ui.new_game.where,Where you start,Dónde empiezas
+ui.new_game.city_name,%s · %s · %d townsfolk,%s · %s · %d vecinos
+ui.new_game.city_off,%s has no workshop for this trade,%s no tiene taller de este oficio
+ui.new_game.city_line.villa,"Your home town: the high street, the market square and two gates. The usual game.","Tu villa: la calle mayor, la plaza del mercado y dos puertas. La partida de siempre."
+ui.new_game.city_line.capital,"Walled, on the Daura: cathedral, exchange, quays and four gates. The most crowded.","Amurallada junto al Daura: catedral, lonja, muelles y cuatro puertas. La más poblada."
+ui.new_game.city_line.port,"A river port: quays, warehouses, customs and a shipyard; four gates and a bridge.","Puerto de río: muelles, almacenes, aduana y astillero; cuatro puertas y un puente."
+ui.new_game.city_line.quarry,"At the foot of the sierra: the mine, the quarry and the smelter; two gates.","Al pie de la sierra: la mina, la cantera y la fundición; dos puertas."
+ui.new_game.city_line.hamlet,"A farming hamlet: the watermill, the barn and the threshing floors; three roads.","Aldea de campo: el molino de agua, el granero y las eras; tres caminos."
+ui.new_game.city_line.abbey,"In the shadow of the abbey: the church, the cloister and the guesthouse; a small burgh.","A la sombra de la abadía: la iglesia, el claustro y la hospedería; un burgo pequeño."
 relation_band.enemy,Enemy,Enemigo
 relation_band.hostile,Hostile,Hostil
 relation_band.cold,Cold,Frío
@@ -3021,3 +3030,581 @@ visitor.soldier.f,soldier on the road,soldado de paso
 visitor.noble.f,travelling noblewoman,noble de viaje
 visitor.beggar.f,beggar,mendiga
 reason.passing_through,Only passing through the town,Está de paso por la villa
+ledger.cat.games,Games and bets,Juego y apuestas
+notice.games_losses,You have lost {gold} gold at games today. Careful with the dice.,Hoy has perdido {gold} de oro en el juego. Cuidado con los dados.
+reason.unknown_game,Unknown game,Juego desconocido
+reason.bad_players,Not the right players for this game,No son los jugadores que pide el juego
+reason.bad_stake,"The stake must be 5, 10, 25 or 50","La apuesta tiene que ser de 5, 10, 25 o 50"
+reason.over_cap,At most 50 per bet,Como mucho 50 por apuesta
+reason.bad_move,That move is not allowed,Esa jugada no vale
+reason.unfinished,The game is not finished,La partida no ha terminado
+reason.unknown_house,Unknown gambling house,Casa de juego desconocida
+games.temper.prudent,Prudent,Prudente
+games.temper.even,Steady,Templado
+games.temper.boastful,Boastful,Fanfarrón
+games.temper.cheat,Cheat,Tramposo
+games.preset.regular_even,Jaume the cooper,Jaume el tonelero
+games.preset.regular_prudent,Old Miquel,El viejo Miquel
+games.preset.regular_boastful,Pere the boaster,Pere el fanfarrón
+games.preset.regular_cheat,The stranger with rings,El forastero de los anillos
+games.why.cap,You cannot bet more than 50,No se puede apostar más de 50
+games.why.strength,No strength left for that,No te queda fuerza para eso
+games.ui.auto,Resolve without playing,Resolver sin jugar
+games.ui.again,Play again,Otra partida
+games.ui.close,Close,Cerrar
+games.ui.over,The game is over,Se acabó la partida
+games.ui.sub_stake,Stake: %d gold,Apuesta: %d de oro
+games.ui.sub_free,For pride,Por el orgullo
+games.ui.in_house,in the gambling house (keeps %d %% of a win),en la tafurería (se queda el %d %% de lo ganado)
+games.ui.stake_now,At stake: %d,En juego: %d
+games.ui.reliable,Reliable: %d in 10,Fiable: %d de cada 10
+games.ui.read_by,%s reads you: %d in 10,%s te lee: %d de cada 10
+games.ui.ev,"Expected gold: %+.1f as it is, %+.1f doubling","Oro esperado: %+.1f así, %+.1f si doblas"
+games.ui.art_missing,Provisional art: %s,Arte provisional: %s
+games.ui.art_provisional,Provisional art: missing %s,Arte provisional: falta %s
+games.result.win,You win,Ganas
+games.result.lose,You lose,Pierdes
+games.result.draw,Nobody wins,No gana nadie
+games.result.gold,Gold %s,Oro %s
+games.result.house,The house keeps %d,La casa se queda %d
+games.result.refused,Not applied: %s,No se aplicó: %s
+games.result.nothing,Nothing changes,No cambia nada
+games.azar.name,Azar,Azar
+games.azar.rules,Three dice. 3-6 or 15-18 on the first throw is azar: the thrower wins. A middle number is the other's chance; then the thrower throws for his own (an azar now is reazar: he loses). Then he throws until one of the two chances comes.,Tres dados. Un 3-6 o un 15-18 en la primera tirada es azar: gana quien tira. Un número del medio es la suerte del otro; luego el que tira busca la suya (un azar ahora es reazar: pierde). Después tira hasta que salga una de las dos suertes.
+games.azar.action.double,Double,Doblar
+games.azar.action.double.hint,Double the stake: the other accepts or gives up what was at stake,Doblar la apuesta: el otro acepta o pierde lo que había
+games.azar.action.pass,Keep it,Dejarlo así
+games.azar.action.pass.hint,Play on at this stake,Seguir con esta apuesta
+games.azar.action.accept,Accept,Quiero
+games.azar.action.accept.hint,Play on at the double,Seguir al doble
+games.azar.action.refuse,Refuse,No quiero
+games.azar.action.refuse.hint,Lose the stake as it is and stop,Perder lo apostado y dejarlo
+games.azar.prompt.offer,Both chances are out: double?,Ya están las dos suertes: ¿doblas?
+games.azar.prompt.answer,%s doubles,%s dobla
+games.azar.how.azar,Azar on the first throw.,Azar en la primera tirada.
+games.azar.how.reazar,Reazar: an azar number when throwing for one's own chance.,Reazar: un número de azar al buscar la suerte propia.
+games.azar.how.chance,The winner's chance came out first.,Salió antes la suerte del ganador.
+games.azar.how.refused,The double was refused.,No se quiso el doble.
+games.azar.how.stuck,The dice would not decide: the thrower loses.,Los dados no se decidían: pierde quien tira.
+games.azar.result.win,%s wins at azar.,%s gana al azar.
+games.azar.result.lose,%s wins at azar.,%s gana al azar.
+games.azar.result.draw,Nobody wins.,No gana nadie.
+games.azar.ui.thrower,Throws: %s,Tira: %s
+games.azar.ui.chance,Chance of %s,Suerte de %s
+games.azar.ui.total,%d,%d
+games.azar.ui.earlier,Earlier throws,Tiradas de antes
+games.azar.ui.rolling,The dice roll,Ruedan los dados
+games.azar.ui.odds,Your chance comes first %d times in 100. Doubling pays from %d.,Tu suerte sale antes %d de cada 100 veces. Doblar compensa desde %d.
+games.azar.ui.odds_answer,Your chance comes first %d times in 100. Accepting pays from %d.,Tu suerte sale antes %d de cada 100 veces. Querer compensa desde %d.
+games.azar.ui.refuse_cost,Refusing costs %d,No querer cuesta %d
+games.mayor.name,Three dice to the highest,Tres dados a la mayor
+games.mayor.rules,"Three dice each, two in sight and one under the cup. All decide at once: retire (lose half) or go on (double or nothing). The highest of those who go on takes the pot.","Tres dados cada uno, dos a la vista y uno bajo el cubilete. Todos deciden a la vez: retirarse (pierde la mitad) o seguir (doble o nada). El más alto de los que siguen se lleva el bote."
+games.mayor.action.stay,Go on,Seguir
+games.mayor.action.stay.hint,Put the stake again: double or nothing,Poner otra vez la apuesta: doble o nada
+games.mayor.action.retire,Retire,Retirarse
+games.mayor.action.retire.hint,Take back half the stake,Recuperar la mitad de la apuesta
+games.mayor.prompt,Go on or retire?,¿Sigues o te retiras?
+games.mayor.how.alone,Only one went on: he takes the pot without showing.,Solo siguió uno: se lleva el bote sin enseñar.
+games.mayor.how.tie,A tie at the top: they share the pot.,Empate arriba: se reparten el bote.
+games.mayor.how.highest,The highest of those who went on takes the pot.,El más alto de los que siguieron se lleva el bote.
+games.mayor.how.all_retired,Everybody retired: all lose half.,Se retiraron todos: todos pierden la mitad.
+games.mayor.result.win,%s takes the pot.,%s se lleva el bote.
+games.mayor.result.lose,%s takes the pot.,%s se lleva el bote.
+games.mayor.result.draw,Nobody takes it whole.,Nadie se lo lleva entero.
+games.mayor.ui.shows,%d in sight,%d a la vista
+games.mayor.ui.odds,"If all go on, you take the pot %d times in 100 (ties shared).","Si siguen todos, te llevas el bote %d de cada 100 veces (los empates, a medias)."
+games.mayor.ui.ev,"Expected gold: %+.1f going on, %+.1f retiring","Oro esperado: %+.1f si sigues, %+.1f si te retiras"
+games.pulso.name,Arm wrestling,Pulso
+games.pulso.rules,"Three pushes; who takes two wins. Push beats give, give beats hold, hold beats push.","Tres empujes; gana quien se lleva dos. Empujar gana a ceder, ceder gana a aguantar y aguantar gana a empujar."
+games.pulso.action.push,Push,Empujar
+games.pulso.action.push.hint,All your strength: beats giving,Con toda la fuerza: gana a ceder
+games.pulso.action.give,Give,Ceder
+games.pulso.action.give.hint,Give way and roll his wrist: beats holding,Ceder y volcarle la muñeca: gana a aguantar
+games.pulso.action.hold,Hold,Aguantar
+games.pulso.action.hold.hint,Hold firm and get your breath: beats pushing,Aguantar firme y recobrar fuerza: gana a empujar
+games.pulso.cue.push,"His jaw tightens, the vein swells: he is going to push.",Aprieta la mandíbula y se le hincha la vena: va a empujar.
+games.pulso.cue.give,His wrist softens a little: he is going to give way.,La muñeca se le afloja un poco: va a ceder.
+games.pulso.cue.hold,He plants his elbow and breathes: he is going to hold.,Planta el codo y respira: va a aguantar.
+games.pulso.prompt.blind,The first push: nobody shows anything,El primer empuje: nadie enseña nada
+games.pulso.prompt.lead,You lead: choose first,Llevas la iniciativa: eliges primero
+games.pulso.prompt.read,%s leads: look at his face,%s lleva la iniciativa: mírale la cara
+games.pulso.ui.lead_text,%s will look at your face before choosing.,%s te mirará la cara antes de elegir.
+games.pulso.ui.blind_text,Choose without knowing what he will do.,Elige sin saber qué hará.
+games.pulso.ui.strength,Strength,Fuerza
+games.pulso.ui.pushes,Pushes,Empujes
+games.pulso.ui.log,Push %d: %s against %s · %s takes it,Empuje %d: %s contra %s · se lo lleva %s
+games.pulso.how.pushes,Two pushes of three.,Dos empujes de tres.
+games.pulso.result.win,%s lays the arm down.,%s tumba el brazo.
+games.pulso.result.lose,%s lays your arm down.,%s te tumba el brazo.
+games.pulso.result.draw,Nobody wins.,No gana nadie.
+games.ui.playing,…,…
+games.pulso.ui.pushing,They push!,¡Empujan!
+games.envite.name,Envite,Envite
+games.envite.rules,"Three cards each, three bazas uncovered one by one: the highest against the highest, then the middle ones, then the lowest. Before each baza you may raise; the other wants, raises again or folds. Watch his face: is he bluffing?","Tres cartas cada uno y tres bazas que se descubren una a una: la más alta contra la más alta, luego las del medio, luego las más bajas. Antes de cada baza se puede envidar; el otro quiere, sube o no quiere. Mírale la cara: ¿va de farol?"
+games.envite.action.raise,Raise,Envidar
+games.envite.action.raise.hint,Raise the stake by the starting bet,Subir la apuesta en lo que se apostó al principio
+games.envite.action.pass,Pass,Pasar
+games.envite.action.pass.hint,Do not raise,No envidar
+games.envite.action.want,I want,Quiero
+games.envite.action.want.hint,Accept the raise and play on,Aceptar el envite y seguir
+games.envite.action.reraise,Raise again,Subo
+games.envite.action.reraise.hint,Accept and raise again,Aceptar y subir otra vez
+games.envite.action.fold,I don't want,No quiero
+games.envite.action.fold.hint,Give up and lose what you put,Rendirse y perder lo puesto
+games.envite.say.raise,Raise!,¡Envido!
+games.envite.say.pass,Pass.,Paso.
+games.envite.say.want,I want.,Quiero.
+games.envite.say.reraise,And again!,¡Y subo!
+games.envite.say.fold,I don't want.,No quiero.
+games.envite.prompt.bet,Do you raise?,¿Envidas?
+games.envite.prompt.bet2,Do you raise?,¿Envidas?
+games.envite.prompt.answer,%s raises: do you want?,%s envida: ¿quieres?
+games.envite.prompt.answer2,%s raises: do you want?,%s sube: ¿quieres?
+games.envite.how.fold,One did not want the raise.,Uno no quiso el envite.
+games.envite.how.bazas,The bazas decided it.,Lo decidieron las bazas.
+games.envite.result.win,%s takes the hand.,%s se lleva la mano.
+games.envite.result.lose,%s takes the hand.,%s se lleva la mano.
+games.envite.result.draw,Nobody wins.,No gana nadie.
+games.envite.cue.pleased,%s looks pleased with his cards.,A %s se le ve contento con sus cartas.
+games.envite.cue.uneasy,%s looks uneasy.,A %s se le ve inquieto.
+games.envite.ui.odds,With your cards you win %d in 100.,Con tus cartas ganas %d de cada 100.
+games.envite.ui.odds_gesture,Counting his face: %d in 100.,Contando su cara: %d de cada 100.
+games.envite.ui.want_at,Wanting pays from %d,Querer compensa desde %d
+games.envite.ui.baza,Baza %d,Baza %d
+games.envite.ui.parda,Tie,Parda
+games.envite.ui.mano,Mano: %s,Es mano: %s
+games.envite.ui.playing,The cards speak,Hablan las cartas
+games.envite.ui.log_baza,Baza %d: %s against %s · %s,Baza %d: %s contra %s · %s
+games.envite.ui.log_say,%s: %s,%s: %s
+games.envite.card,%s of %s,%s de %s
+games.envite.rank.1,ace,as
+games.envite.rank.2,two,dos
+games.envite.rank.3,three,tres
+games.envite.rank.4,four,cuatro
+games.envite.rank.5,five,cinco
+games.envite.rank.6,six,seis
+games.envite.rank.7,seven,siete
+games.envite.rank.10,jack,sota
+games.envite.rank.11,knight,caballo
+games.envite.rank.12,king,rey
+games.envite.suit.oros,coins,oros
+games.envite.suit.copas,cups,copas
+games.envite.suit.espadas,swords,espadas
+games.envite.suit.bastos,clubs,bastos
+charge.cheat,cheating at games,trampa en el juego
+item.loaded_dice,Loaded dice,Dados cargados
+rep.reason.games_cheat,Caught cheating at games,Pillado haciendo trampa en el juego
+reason.bad_bet,That bet is not valid,Esa apuesta no vale
+reason.no_loaded_dice,You have no loaded dice,No llevas dados cargados
+reason.bad_option,That option does not fit this game,Esa opción no va con este juego
+games.bets.title,Bets,Apuestas
+games.bets.odds,Pays %.2f per gold,Paga %.2f por cada uno
+games.bets.chance,%d in 100,%d de cada 100
+games.bets.on,On: %s,Por: %s
+games.bets.none,No bet,Sin apuesta
+games.bets.result.won,Bet won: %s,Apuesta ganada: %s
+games.bets.result.lost,Bet lost: %s,Apuesta perdida: %s
+games.result.caught,%s saw the loaded dice!,¡%s ha visto los dados cargados!
+games.result.fraud,Somebody noticed you lost on purpose,Alguien se ha dado cuenta de que perdiste adrede
+games.how.caught,Caught with loaded dice: the game does not count.,Pillado con dados cargados: la partida no cuenta.
+games.bets.margin,The bookmaker keeps %d %% (the odds already count it),El corredor se queda el %d %% (las cuotas ya lo cuentan)
+games.bets.stake,Bet: %d,Apuesta: %d
+games.ui.watching,The game is played,Se juega la partida
+games.result.watched,The game is over,Se acabó la partida
+combat.kind.tourney,in three rounds,a tres asaltos
+combat.kind.tourney_sudden,sudden death,a muerte súbita
+rep.reason.games_prize,Won a competition,Ganó una competición
+rep.reason.games_finalist,Runner-up of a competition,Finalista de una competición
+games.preset.fighter_bellcaire,Guillem of Bellcaire,Guillem de Bellcaire
+games.preset.fighter_portvell,Nicolau the sailor,Nicolau el marinero
+games.preset.fighter_mercenary,The Navarrese mercenary,El mercenario navarro
+games.preset.fighter_smith,Ramon the farrier,Ramon el herrador
+games.preset.fighter_shepherd,Pau the shepherd,Pau el pastor
+games.preset.fighter_squire,The baron's squire,El escudero del barón
+games.preset.fighter_monk,Brother Bernat of Montsacre,Fray Bernat de Montsacre
+games.tourney.name,Fighting tournament,Torneo de lucha
+games.tourney.rules,"A knockout of eight: each bout is a duel in three rounds, a point a touch, no wounds. Equal points: sudden death, then the judges. The breath does not all come back between bouts.","Eliminatoria de ocho: cada combate es un duelo a tres asaltos, un punto por toque, sin heridas. Con los mismos puntos, muerte súbita y luego los jueces. El aliento no se recupera del todo entre combates."
+games.tourney.action.strike,Strike,Golpe
+games.tourney.action.strike.hint,Beats the feint,Gana a la finta
+games.tourney.action.parry,Parry,Parada
+games.tourney.action.parry.hint,Beats the strike and recovers breath,Gana al golpe y recupera aliento
+games.tourney.action.feint,Feint,Finta
+games.tourney.action.feint.hint,Beats the parry,Gana a la parada
+games.tourney.prompt,Your bout,Tu combate
+games.tourney.how.final,The final decided it.,Lo decidió la final.
+games.tourney.how.points,On points,A los puntos
+games.tourney.how.sudden,Sudden death,Muerte súbita
+games.tourney.how.judges,The judges' decision,Decisión de los jueces
+games.tourney.result.win,%s wins the tournament.,%s gana el torneo.
+games.tourney.result.lose,%s wins the tournament.,%s gana el torneo.
+games.tourney.result.draw,Nobody wins.,No gana nadie.
+games.tourney.round.quarter,Quarter-finals,Cuartos de final
+games.tourney.round.semi,Semi-finals,Semifinales
+games.tourney.round.final,Final,Final
+games.tourney.ui.asalto,Round %d of 3 · lance %d,Asalto %d de 3 · lance %d
+games.tourney.ui.sudden,Sudden death · lance %d,Muerte súbita · lance %d
+games.tourney.ui.out,You are out: the tournament goes on,Has caído: el torneo sigue
+games.tourney.ui.playing,The bouts are fought,Se luchan los combates
+games.tourney.ui.log_bout,%s beats %s (%d-%d · %s),%s vence a %s (%d-%d · %s)
+games.tourney.ui.weapon,With %s,Con %s
+games.result.prize,Prize: %d gold and reputation %s,Premio: %d de oro y reputación %s
+games.result.finalist,Runner-up: reputation %s,Finalista: reputación %s
+games.bets.short,%s %d %% (pays %.2f),%s %d %% (paga %.2f)
+games.bets.place,Bet (pays %.2f),Apostar (paga %.2f)
+reason.no_title,You need a title of Citizen or more,Hace falta un título de Ciudadano o más
+rep.reason.games_favor,The favour of the lists,El favor de la liza
+games.preset.knight_bellcaire,Sir Arnau of Bellcaire,Mosén Arnau de Bellcaire
+games.preset.knight_young,The young knight of Vilablat,El joven caballero de Vilablat
+games.joust.name,Joust,Justa
+games.joust.cue.helm,"His lance rises, his horse lifts its head: he aims at your helm.",Levanta la lanza y su caballo alza la cabeza: va a tu yelmo.
+games.joust.cue.shield,"He sits back, the lance steady and low: he aims at your shield.","Se echa atrás, la lanza firme y baja: va a tu escudo."
+games.joust.cue.chest,He leans forward over the neck: he aims at your chest.,Se inclina sobre el cuello del caballo: va a tu pecho.
+games.joust.how.unhorsed,Unhorsed!,¡Desmontado!
+games.joust.how.points,On points after the passes.,A los puntos tras las pasadas.
+games.joust.how.draw,Equal after every pass: a draw.,Iguales tras todas las pasadas: tablas.
+games.joust.result.win,%s wins the joust.,%s gana la justa.
+games.joust.result.lose,%s wins the joust.,%s gana la justa.
+games.joust.result.draw,A draw: both keep their honour.,Tablas: los dos salvan el honor.
+games.joust.ui.pass,Pass %d,Pasada %d
+games.joust.ui.points,Points,Puntos
+games.joust.ui.charge,They charge!,¡Cargan!
+games.joust.ui.log,Pass %d: you %s · he %s · %s–%s,Pasada %d: tú %s · él %s · %s–%s
+games.joust.aim.helm,helm,yelmo
+games.joust.aim.shield,shield,escudo
+games.joust.aim.chest,chest,pecho
+games.result.favor,The favour of %s (affinity +),El favor de %s (afinidad +)
+games.joust.ui.hit,At the %s! +%s,¡Al %s! +%s
+games.joust.rules,"Three passes on horseback. Each pass, a stance: at the helm (shield mid, covers the chest), at the chest (shield low, covers the shield) or at the shield (shield high, covers the helm). At the shield beats at the helm, at the helm beats at the chest, at the chest beats at the shield. The helm unhorses, the chest is worth 2, the shield 1 (and always half a point).","Tres pasadas a caballo. En cada una, una postura: al yelmo (escudo medio, cubre el pecho), al pecho (escudo bajo, cubre el escudo) o al escudo (escudo alto, cubre el yelmo). Al escudo gana a al yelmo, al yelmo gana a al pecho y al pecho gana a al escudo. El yelmo desmonta, el pecho vale 2 y el escudo 1 (y siempre medio punto)."
+games.joust.action.helm,At the helm,Al yelmo
+games.joust.action.helm.hint,Lance high, shield mid (covers the chest): beats «at the chest»; if it lands he is unhorsed
+games.joust.action.chest,At the chest,Al pecho
+games.joust.action.chest.hint,"Lance at the chest, shield low: beats «at the shield»; 2 points","Lanza al pecho, escudo bajo: gana a «al escudo»; 2 puntos"
+games.joust.action.shield,At the shield,Al escudo
+games.joust.action.shield.hint,"Lance at the shield, shield high (covers the helm): beats «at the helm»; 1 point, half for sure","Lanza al escudo, escudo alto (cubre el yelmo): gana a «al yelmo»; 1 punto, medio seguro"
+games.joust.prompt.blind,The first pass: nobody shows anything,La primera pasada: nadie enseña nada
+games.joust.prompt.lead,You lead: choose first,Llevas la iniciativa: eliges primero
+games.joust.prompt.read,%s charges first: look at his seat,%s carga primero: mírale la postura
+games.joust.ui.lead_text,%s will watch your seat before choosing.,%s te mirará la postura antes de elegir.
+games.joust.ui.blind_text,"Your hits: helm %d, chest %d, shield %d in 100.","Tus golpes: yelmo %d, pecho %d, escudo %d de cada 100."
+games.result.entry,Entry (the horse rented): −%d,Entrada (el caballo alquilado): −%d
+games.preset.rider_miller,Joan the miller,Joan el molinero
+games.preset.rider_carter,Tomàs the carter,Tomàs el carretero
+games.preset.rider_squire,The bishop's page,El paje del obispo
+games.sortija.name,Running at the ring,La sortija
+games.sortija.rules,"Three runs at a gallop: thread the ring with the lance. Choose the pace (prudent 1 point, firm 2, full gallop 3) and then the moment to lower the lance at one of three posts; the ring's sway tells which, less clearly the faster you go.","Tres carreras al galope: ensartar la anilla con la lanza. Elige el ritmo (prudente 1 punto, firme 2, a todo galope 3) y luego el momento de bajar la lanza en uno de los tres postes; el balanceo de la anilla dice cuál, peor cuanto más rápido vas."
+games.sortija.action.prudent,Prudent,Prudente
+games.sortija.action.prudent.hint,1 point; easy to see and to hit,1 punto; fácil de ver y de acertar
+games.sortija.action.firm,Firm,Firme
+games.sortija.action.firm.hint,2 points,2 puntos
+games.sortija.action.gallop,Full gallop,A todo galope
+games.sortija.action.gallop.hint,3 points; the window is small and the ring hard to read,3 puntos; la ventana es pequeña y la anilla se lee peor
+games.sortija.action.first,First post,Primer poste
+games.sortija.action.first.hint,Lower the lance at the first post,Bajar la lanza en el primer poste
+games.sortija.action.second,Second post,Segundo poste
+games.sortija.action.second.hint,Lower the lance at the second post,Bajar la lanza en el segundo poste
+games.sortija.action.third,Third post,Tercer poste
+games.sortija.action.third.hint,Lower the lance at the third post,Bajar la lanza en el tercer poste
+games.sortija.moment.first,1st,1.º
+games.sortija.moment.second,2nd,2.º
+games.sortija.moment.third,3rd,3.º
+games.sortija.prompt.pace,What pace?,¿A qué ritmo?
+games.sortija.prompt.moment,When do you lower the lance?,¿Cuándo bajas la lanza?
+games.sortija.cue.first,The ring swings towards you: lower it at the first post.,La anilla se mece hacia ti: bájala en el primer poste.
+games.sortija.cue.second,The ring hangs still: lower it at the second post.,La anilla cuelga quieta: bájala en el segundo poste.
+games.sortija.cue.third,The ring swings away: lower it at the third post.,La anilla se mece hacia el fondo: bájala en el tercer poste.
+games.sortija.ring.large,A large ring,Anilla grande
+games.sortija.ring.medium,A medium ring,Anilla mediana
+games.sortija.ring.small,A small ring,Anilla pequeña
+games.sortija.how.points,The most points after three runs.,Más puntos tras tres carreras.
+games.sortija.result.win,%s wins the ring.,%s gana la sortija.
+games.sortija.result.lose,%s wins the ring.,%s gana la sortija.
+games.sortija.result.draw,Nobody wins.,No gana nadie.
+games.sortija.ui.pace_value,"%s %.2f (hits %d %%, the ring reads %d in 10)","%s %.2f (acierta %d %%, la anilla se lee %d de 10)"
+games.sortija.ui.ev_note,Expected points of each pace (lowering the lance where the ring says),Puntos esperados de cada ritmo (bajando la lanza donde dice la anilla)
+games.sortija.ui.threaded,Threaded! +%d,¡Ensartada! +%d
+games.sortija.ui.missed,Missed,Fallada
+games.sortija.ui.run,Run %d of %d,Carrera %d de %d
+games.sortija.ui.riding,At a gallop!,¡Al galope!
+games.sortija.ui.log,Run %d · %s %s: %s,Carrera %d · %s %s: %s
+games.why.wind,No wind left for that,No le queda fuelle para eso
+games.race.name,Horse race,Carrera de caballos
+games.race.rules,"Four stretches: the start, the straight, the mill's bend and the finish. Each stretch: reserve (+2 wind), keep (−1) or press (−3; in the bend you may stumble; pressing on the finish pays most). A horse without wind can only reserve.","Cuatro tramos: la salida, la recta, la curva del molino y la meta. En cada uno: reservar (+2 de fuelle), mantener (−1) o apretar (−3; en la curva puedes tropezar; apretar en la meta rinde más). Un caballo sin fuelle solo puede reservar."
+games.race.action.reserve,Reserve,Reservar
+games.race.action.reserve.hint,Slower; the horse gets its wind back,Más despacio; el caballo recobra el fuelle
+games.race.action.keep,Keep,Mantener
+games.race.action.keep.hint,The horse's pace,El paso del caballo
+games.race.action.press,Press,Apretar
+games.race.action.press.hint,Fastest; costs 3 of wind; risky in the bend,Lo más rápido; cuesta 3 de fuelle; arriesgado en la curva
+games.race.prompt,What pace?,¿A qué ritmo?
+games.race.stretch.start,Start,Salida
+games.race.stretch.straight,Straight,Recta
+games.race.stretch.bend,The mill's bend,Curva del molino
+games.race.stretch.finish,Finish,Meta
+games.race.how.finish,The longest run at the finish.,El que más corrió en la meta.
+games.race.result.win,%s wins the palio.,%s gana el palio.
+games.race.result.lose,%s wins the palio.,%s gana el palio.
+games.race.result.draw,Nobody wins.,No gana nadie.
+games.race.ui.to_finish,%.1f to the finish,%.1f hasta la meta
+games.race.ui.wind,Wind %d of %d,Fuelle %d de %d
+games.race.ui.stumble_risk,pressing here stumbles %d in 100,apretar aquí tropieza %d de cada 100
+games.race.ui.stumble,stumbles!,¡tropieza!
+games.race.ui.running,They run!,¡Corren!
+games.race.ui.log,%s: %s · you are %d.º,%s: %s · vas %d.º
+rep.reason.games_bulls,In the bull ring,En la plaza del toro
+games.preset.mozo_butcher,Pep the butcher,Pep el carnicero
+games.preset.mozo_shepherd,Quim the shepherd boy,Quim el zagal
+games.preset.mozo_baker,Martí the baker,Martí el panadero
+games.bulls.name,Running the bull,Correr el toro
+games.bulls.rules,"In the plaza closed with carts: three charges. Before each, the bull gives a sign. Call it (a pass if it feints), break away at the last moment (a quiebro if it charges straight) or get behind the carts. A failure is a fright and the crowd's jeers.","En la plaza cerrada con carros: tres embestidas. Antes de cada una el toro da una señal. Cítalo (un pase si amaga), quiebra en el último momento (un quiebro si se arranca recto) o ponte a salvo tras los carros. Fallar es un susto y la burla del público."
+games.bulls.action.cite,Call it,Citar
+games.bulls.action.cite.hint,"A pass if it feints (+1); if it charges or hooks, a fright","Un pase si amaga (+1); si se arranca o derrota, un susto"
+games.bulls.action.break,Break away,Quebrar
+games.bulls.action.break.hint,A quiebro if it charges straight (+2); otherwise a fright,"Un quiebro si se arranca recto (+2); si no, un susto"
+games.bulls.action.safe,To safety,A salvo
+games.bulls.action.safe.hint,Behind the carts: nothing won nothing lost,Tras los carros: ni se gana ni se pierde
+games.bulls.cue.charge,It lowers its head and fixes you: it will charge straight.,Baja la cabeza y te mira fijo: se va a arrancar recto.
+games.bulls.cue.feint,It paws the ground and snorts: it will feint and stop.,Escarba y resopla: va a amagar y pararse.
+games.bulls.cue.hook,"It sets off crooked, the horn to one side: it will hook.","Sale torcido, con el cuerno de lado: va a derrotar."
+games.bulls.prompt,The bull is coming: what do you do?,Viene el toro: ¿qué haces?
+games.bulls.how.applause,The most applause.,El que más aplausos se llevó.
+games.bulls.result.win,%s takes the applause of the plaza.,%s se lleva los aplausos de la plaza.
+games.bulls.result.lose,%s takes the applause of the plaza.,%s se lleva los aplausos de la plaza.
+games.bulls.result.draw,Nobody shone today.,Hoy no lució nadie.
+games.bulls.bull.bravo,A brave bull,Un toro bravo
+games.bulls.bull.manso,A tame bull,Un toro manso
+games.bulls.bull.resabiado,A sly bull,Un toro resabiado
+games.bulls.what.charge,it charged,se arrancó
+games.bulls.what.feint,it feinted,amagó
+games.bulls.what.hook,it hooked,derrotó
+games.bulls.ui.odds,It will: charge %d · feint %d · hook %d in 100,Va a: arrancarse %d · amagar %d · derrotar %d de cada 100
+games.bulls.ui.expected,applause: call %+.1f · break %+.1f · safe %+.1f,aplausos: citar %+.1f · quebrar %+.1f · a salvo %+.1f
+games.bulls.ui.got.good,%s! +%s,¡%s! +%s
+games.bulls.ui.got.safe,%s: %s,%s: %s
+games.bulls.ui.got.fail,%s: a fright! %s,%s: ¡susto! %s
+games.bulls.ui.charge,Charge %d of %d,Embestida %d de %d
+games.bulls.ui.charging,The bull charges!,¡Embiste el toro!
+games.bulls.ui.log,Charge %d: you %s and %s · %s,Embestida %d: tú %s y %s · %s
+games.result.bulls,"Quiebros %d, frights %d","Quiebros %d, sustos %d"
+games.result.prize_rep,Prize: reputation %s,Premio: reputación %s
+incident.choice.bet,Bet on it,Apostar
+incident.choice.bet.tip,"The bookmaker gives odds on the brawl; paid when they fight, back if they don't",El corredor da cuotas de la pelea; se paga cuando peleen y se devuelve si no llegan a hacerlo
+games.brawl.name,A brawl,Una pelea
+games.brawl.rules,Two of the town are about to come to blows. Bet before they do.,Dos del pueblo están a punto de llegar a las manos. Apuesta antes de que empiecen.
+games.brawl.title,Bet placed,Apuesta hecha
+games.brawl.text,"The bookmaker pays when they fight; if they cool down or the watch comes first, you get your stake back.","El corredor paga cuando peleen; si se calman o llega antes la guardia, te devuelve lo apostado."
+games.brawl.placed,%d on %s at %.2f,%d a %s a %.2f
+games.rescue.name,The rescue,El rescate
+games.rescue.rules,"A chain of fights against the band: you first, then the guards you hired. Whoever loses a fight is out and the next of his side fights on.","Una cadena de peleas contra la banda: tú primero, luego los guardias que contrataste. Quien pierde una pelea queda fuera y sigue el siguiente de su lado."
+games.rescue.bandit,Bandit,Bandido
+games.rescue.prompt,Your fight,Tu pelea
+games.rescue.action.strike,Strike,Golpe
+games.rescue.action.strike.hint,Beats the feint,Gana a la finta
+games.rescue.action.parry,Parry,Parada
+games.rescue.action.parry.hint,Beats the strike and recovers breath,Gana al golpe y recupera aliento
+games.rescue.action.feint,Feint,Finta
+games.rescue.action.feint.hint,Beats the parry,Gana a la parada
+games.rescue.how.rescued,The band is beaten.,La banda ha caído.
+games.rescue.how.beaten,The band held.,La banda aguantó.
+games.rescue.title.won,Rescued!,¡Rescatado!
+games.rescue.title.lost,The rescue failed,El rescate fracasa
+games.rescue.text.won,The band is beaten and the captive is free.,La banda ha caído y el cautivo queda libre.
+games.rescue.text.lost,The band held. There is still the ransom.,La banda aguantó. Queda el rescate.
+games.rescue.result.won,The captive comes home,El cautivo vuelve a casa
+games.rescue.result.lost,No second try at a rescue,No hay otro intento de rescate
+games.rescue.ui.bout,%s beats %s,%s vence a %s
+games.rescue.ui.draw,%s and %s: both out,%s y %s: los dos fuera
+reason.unknown_spectacle,No such competition in this feast,Esa competición no está en la fiesta
+reason.already_entered,Already entered,Ya estás inscrito
+reason.bet_placed,You have bet on it: you cannot enter,Has apostado en ella: no puedes inscribirte
+reason.not_called,It is not your turn in that competition,No te toca esa competición
+ui.festival_card.enter,Enter: %s,Inscribirse: %s
+ui.festival_card.enter_tip,"You will fight it at its hour (the entry fee, if any, is paid then)","La lucharás a su hora (la entrada, si la hay, se paga entonces)"
+ui.festival_card.bet,Bet: %s,Apostar: %s
+ui.festival_card.bet_tip,"The bookmaker's odds; paid when it is run, back if it never is",Las cuotas del corredor; se paga cuando se corra y se devuelve si no llega a correrse
+games.preset.fighter_watchman,The watchman of the gate,El vigía de la puerta
+games.preset.rider_pilgrim,A pilgrim on his nag,Un peregrino en su rocín
+games.preset.mozo_tanner,Lluc the tanner,Lluc el curtidor
+building.tavern_inn,Tavern-Inn,Taberna-Posada
+item.ale,Ale,Cerveza
+item.cider,Cider,Sidra
+item.wine,Wine,Vino
+item.meat,Meat,Carne
+item.garlic_soup,Garlic soup,Sopa de ajo
+item.meat_pie,Meat pie,Empanada
+item.stew,Stew,Olla
+item.roast_lamb,Roast lamb,Cordero asado
+item.sausage,Sausage,Embutido
+item.sweets,Christmas sweets,Dulces de Navidad
+recipe.tavern_brew_ale,Brew ale,Elaborar cerveza
+recipe.tavern_garlic_soup,Garlic soup,Sopa de ajo
+recipe.tavern_stew,Stew,Olla
+recipe.tavern_meat_pie,Meat pie,Empanada
+recipe.tavern_bake_bread,Bake bread,Hornear pan
+recipe.tavern_roast_lamb,Roast lamb,Cordero asado
+recipe.tavern_sausage,Sausage,Embutido
+recipe.tavern_sweets,Christmas sweets,Dulces de Navidad
+upgrade.tavern_inn_hall_1,More tables,Más mesas
+upgrade.tavern_inn_hall_2,Hearth,Chimenea
+upgrade.tavern_inn_hall_3,Tapestries and fine tableware,Tapices y vajilla buena
+upgrade.tavern_inn_kitchen_1,Bread oven,Horno de pan
+upgrade.tavern_inn_kitchen_2,Spit roast,Asador
+upgrade.tavern_inn_kitchen_3,Cold pantry,Despensa fría
+upgrade.tavern_inn_cellar_1,Barrels,Toneles
+upgrade.tavern_inn_cellar_2,Reserve wine,Vino de reserva
+upgrade.tavern_inn_cellar_3,Ageing cave,Cueva de crianza
+upgrade.tavern_inn_rooms_1,Four more beds,Cuatro camas más
+upgrade.tavern_inn_rooms_2,Good room,Habitación buena
+upgrade.tavern_inn_rooms_3,Stable,Establo
+upgrade.tavern_inn_ambience_1,Menu board,Pizarra de la carta
+upgrade.tavern_inn_ambience_2,Minstrel's corner,Rincón del juglar
+upgrade.tavern_inn_ambience_3,Gaming table,Mesa de juego
+upgrade.tavern_inn_security_1,Doorman,Portero
+upgrade.tavern_inn_security_2,Cellar lock,Cerradura de la bodega
+upgrade.tavern_inn_security_3,Doorman's room,Cuarto del portero
+effect.inn_seats,+{amount} seats,+{amount} plazas
+effect.inn_beds,+{amount} beds,+{amount} camas
+effect.inn_ambience,ambience +{amount},ambiente +{amount}
+effect.inn_menu_slots,+{amount} dishes on the menu,+{amount} platos en la carta
+effect.inn_customers,customers in the street +{amount},clientes de la calle +{amount}
+effect.inn_wine_quality,wine served +{amount} quality,el vino sale +{amount} de calidad
+effect.inn_hearth,in winter ×1.3 customers,"en invierno ×1,3 clientes"
+effect.inn_fine_hall,fine hall: nobles come,salón fino: vienen nobles
+effect.inn_cold_pantry,cooked food does not spoil,la comida no se echa a perder
+effect.inn_good_room,"a good room (nobles, ×2 price)","una habitación buena (nobles, ×2 de precio)"
+effect.inn_stable,caravans: more merchants,caravanas: más mercaderes
+effect.inn_minstrel,a minstrel plays some nights,un juglar toca algunas noches
+effect.inn_gaming_table,gaming table (with licence),mesa de juego (con licencia)
+effect.inn_porter,the doorman stops fights,el portero para las peleas
+effect.inn_night_watch,night watch: no one leaves without paying,vigilancia: nadie se va sin pagar
+branch.inn_hall,Hall,Salón
+branch.inn_kitchen,Kitchen,Cocina
+branch.inn_cellar,Cellar,Bodega
+branch.inn_rooms,Rooms,Habitaciones
+branch.inn_ambience,Ambience,Ambiente
+ui.zone.bar,Bar,Barra
+ui.zone.kitchen,Kitchen,Cocina
+ui.zone.tables,Tables,Mesas
+ui.zone.rooms,Rooms,Habitaciones
+ui.zone.minstrel_corner,Minstrel's corner,Rincón del juglar
+ui.zone.gaming_table,Gaming table,Mesa de juego
+reason.not_an_inn,That is not a tavern,Eso no es una taberna
+reason.not_for_sale,It is not for sale,No está en venta
+reason.not_waiting,Nobody waits there,Ahí no espera nadie
+reason.sold_out,Sold out,Se ha acabado
+reason.not_on_menu,Not on the menu,No está en la carta
+reason.menu_full,The menu is full,La carta está llena
+reason.bad_menu,That menu is not valid,Esa carta no vale
+reason.bad_price,Price out of range (0.5× to 2×),"Precio fuera de rango (de 0,5× a 2×)"
+reason.unknown_dish,Unknown dish,Plato desconocido
+reason.already_licensed,You already have the licence,Ya tienes la licencia
+reason.not_dirty,That bed is made,Esa cama está hecha
+inn.group.locals,Craftsfolk and neighbours,Artesanos y vecinos
+inn.group.merchants,Merchants and travellers,Mercaderes y forasteros
+inn.group.pilgrims,Pilgrims,Peregrinos
+inn.group.soldiers,Soldiers and guards,Soldados y guardias
+inn.group.nobles,Nobles and their retinue,Nobles y su séquito
+inn.group.gamblers,Gamblers,Jugadores
+inn.rumor.price,They say %s fetches a good price in %s,Dicen que %s se paga bien en %s
+inn.rumor.event,They talk of %s,Se habla de %s
+inn.rumor.debt,They say the %s owe %d,Dicen que los %s deben %d
+ui.interior.inn,Tavern,Taberna
+ui.interior.inn_tip,"Clientele, menu, rooms and the night's turn","Clientela, carta, habitaciones y el turno de noche"
+ui.inn.tab.clientele,Clientele,Clientela
+ui.inn.tab.menu,Menu,Carta
+ui.inn.tab.rooms,Rooms,Habitaciones
+ui.inn.tab.turn,Turn,Turno
+ui.inn.figures,Fame %s %s · Ambience %d · %d seats · %d beds · %s,Fama %s %s · Ambiente %d · %d plazas · %d camas · %s
+ui.inn.open_now,Open: %d inside,Abierta: %d dentro
+ui.inn.closed_now,Closed: opens at %s,Cerrada: abre a las %s
+ui.inn.license_buy,Gaming licence (%d),Licencia de tafurería (%d)
+ui.inn.license_until,Licence until day %d,Licencia hasta el día %d
+ui.inn.license_tip,"From the council, for a year: dice and cards at your table, the house keeps its cut and the gamblers come.","Del concejo, por un año: dados y naipes en tu mesa, la casa se queda su parte y vienen los jugadores."
+ui.inn.hint.clientele,Hover nothing: each group says why it does not come.,Cada grupo dice por qué no viene.
+ui.inn.hint.menu,"Tick what is served, set its price; ★ the special of the house.",Marca lo que se sirve y su precio; ★ el plato de la casa.
+ui.inn.hint.rooms,A dirty bed is not let tonight: the maid makes them in the morning.,Una cama sin hacer no se alquila: la criada las hace por la mañana.
+ui.inn.hint.turn,The night's summary comes at 02:00.,El resumen de la noche llega a las 02:00.
+ui.inn.clientele_now,Tonight (came · served · left):,Esta noche (vinieron · servidos · se fueron):
+ui.inn.clientele_last,Last night (came · served · left) and tonight's outlook:,Anoche (vinieron · servidos · se fueron) y lo que se espera hoy:
+ui.inn.group_line,%s: %d · %d · %d,%s: %d · %d · %d
+ui.inn.expected,about %s tonight,unos %s esta noche
+ui.inn.why_not,They do not come: %s,No vienen: %s
+ui.inn.why.no_beds,no free beds,no hay camas libres
+ui.inn.why.beds_expensive,beds ×%s (they pay up to ×%s),camas a ×%s (pagan hasta ×%s)
+ui.inn.why.fame_low,fame %d of %d,fama %d de %d
+ui.inn.why.ambience_low,ambience %d of %d,ambiente %d de %d
+ui.inn.why.no_good_wine,no good wine,no hay vino bueno
+ui.inn.why.no_dish,no %s on the menu,no hay %s en la carta
+ui.inn.why.no_gaming_table,no gaming table,no hay mesa de juego
+ui.inn.why.no_license,no gaming licence,no hay licencia de tafurería
+ui.inn.why.nothing_liked,nothing they like on the menu,nada de lo que les gusta en la carta
+ui.inn.why.too_expensive,"too dear (×%s, they pay up to ×%s)",muy caro (×%s; pagan hasta ×%s)
+ui.inn.why.nobody_in_town,none in town today,hoy no hay ninguno en el pueblo
+ui.inn.menu_slots,Menu: %d of %d dishes,Carta: %d de %d platos
+ui.inn.season.spring,Easter,Pascua
+ui.inn.season.summer,summer,verano
+ui.inn.season.autumn,St Martin's,San Martín
+ui.inn.season.winter,Christmas,Navidad
+ui.inn.dish_line,%s · %d in store · %d,%s · %d en almacén · %d
+ui.inn.special_tip,The special of the house: more of those who like it come,El plato de la casa: vienen más de los que lo quieren
+ui.inn.bed_price,Bed: %d a night,Cama: %d la noche
+ui.inn.rooms_line,%d of %d beds free · %d a night,%d de %d camas libres · %d la noche
+ui.inn.bed_good,Good room %d,Habitación buena %d
+ui.inn.bed_n,Bed %d,Cama %d
+ui.inn.bed_state.made,made,hecha
+ui.inn.bed_state.occupied,occupied,ocupada
+ui.inn.bed_state.dirty,to be made,sin hacer
+ui.inn.bed_state.making,being made,haciéndose
+ui.inn.make_bed,Make,Hacer
+ui.inn.no_turn_yet,No night served yet.,Todavía no ha abierto ninguna noche.
+ui.inn.history,Last nights,Las últimas noches
+ui.inn.history_line,Day %d: %d guests · %d gold · %d beds · fame %s,Día %d: %d clientes · %d de oro · %d camas · fama %s
+ui.inn.sum.title,The night of day %d,La noche del día %d
+ui.inn.sum.total,Total,Total
+ui.inn.sum.guests,%d guests: %s.,%d clientes: %s.
+ui.inn.sum.nobody,nobody,nadie
+ui.inn.sum.dishes,Sold: %s,Vendido: %s
+ui.inn.sum.money,%d gold and %d in tips · %d beds (%d),%d de oro y %d de propinas · %d camas (%d)
+ui.inn.sum.house_cut,The house's cut of the game: %d,La parte de la casa en el juego: %d
+ui.inn.sum.complaints,Complaints: %s,Quejas: %s
+ui.inn.sum.none,none,ninguna
+ui.inn.sum.dirty_beds,%d beds were not made,%d camas estaban sin hacer
+ui.inn.sum.fame,Fame %s (now %s),Fama %s (ahora %s)
+ui.inn.sum.rumor,Heard at the bar: «%s»,Se oyó en la barra: «%s»
+ui.inn.complaint.full,no seat,sin sitio
+ui.inn.complaint.slow,too slow,tardó mucho
+ui.inn.complaint.sold_out,sold out,se acabó
+ui.inn.complaint.not_on_menu,not on the menu,no estaba en la carta
+ui.inn.complaint.no_bed,no bed,sin cama
+ui.inn.incident.fight,A fight broke the furniture: ambience −1 tomorrow,Una pelea rompió los muebles: ambiente −1 mañana
+ui.inn.incident.fight_stopped,The doorman stopped a fight,El portero paró una pelea
+ui.inn.incident.dash,Someone left without paying,Alguien se fue sin pagar
+ui.inn.incident.dash_caught,Someone tried to leave without paying and was caught,Alguien quiso irse sin pagar y lo pillaron
+ui.inn.incident.game_offer,A traveller proposed a game of dice,Un forastero propuso una partida de dados
+ui.inn.incident.minstrel,A minstrel filled the room,Un juglar llenó el local
+ui.inn.guest_seated,Still choosing,Aún está eligiendo
+ui.inn.guest_eating,Already served,Ya está servido
+ui.inn.guest_gone,Gone,Se ha ido
+ui.inn.nobody_to_serve,Nobody of the family is in the tavern,No hay nadie de la familia en la taberna
+ui.inn.bed_made,That bed is made,Esa cama está hecha
+ui.inn.bed_occupied,Someone sleeps there,Ahí duerme alguien
+ui.inn.bed_making,It is being made,Se está haciendo
+hud.building_for_sale,For sale: %d gold,En venta: %d de oro
+hud.buy_building,Buy (%d),Comprar (%d)
+hud.buy_building_tip,Buy it as a second business of the family,Comprarlo como segundo negocio de la familia
+tutorial.chapter.tavern,Your tavern,Tu taberna
+tutorial.chapter.tavern.desc,"Run the Tavern-Inn: the menu, the clientele, the night's turn, the rooms and the upgrades.","Lleva la Taberna-Posada: la carta, la clientela, el turno de noche, las habitaciones y las mejoras."
+tutorial.tavern.open,"This is your Tavern-Inn, the family's second business. Select it and press Manage.","Esta es tu Taberna-Posada, el segundo negocio de la familia. Selecciónala y pulsa Gestionar."
+tutorial.tavern.panel,"The Tavern button opens its panel: clientele, menu, rooms and the night's turn.","El botón Taberna abre su panel: clientela, carta, habitaciones y el turno de noche."
+tutorial.tavern.clientele,"Clientele: each group, how many come and, when one does not, why (fame, beds, the wine, the price).","Clientela: cada grupo, cuántos vienen y, si uno no viene, por qué (fama, camas, el vino, el precio)."
+tutorial.tavern.menu,Open the Menu tab.,Abre la pestaña Carta.
+tutorial.tavern.prices,"Tick what is served (6 dishes at first), set each price from 0.5× to 2× and pick the special of the house. A guest who asks for something sold out leaves without paying.","Marca lo que se sirve (6 platos al principio), pon cada precio de 0,5× a 2× y elige el plato de la casa. Quien pide algo que se ha acabado se va sin pagar."
+tutorial.tavern.staff,Hire by roles: a barkeeper (bar) and a waiter (tables) work the night; the cook (kitchen) and the maid (rooms) work by day.,"Contrata por roles: el tabernero (barra) y el mozo (mesas) trabajan de noche; el cocinero (cocina) y la criada (habitaciones), de día."
+tutorial.tavern.serve,"At dusk it opens. Click a guest who waits (the dish over the head, the bar is its patience) to serve them yourself.",Al atardecer abre. Haz clic en el cliente que espera (el plato sobre la cabeza; la barra es su paciencia) para servirle tú.
+tutorial.tavern.rooms,Rooms: a bed is paid on arrival and must be made in the morning; a dirty bed is not let.,Habitaciones: la cama se cobra al llegar y hay que hacerla por la mañana; una cama sin hacer no se alquila.
+tutorial.tavern.summary,"At 02:00 the turn closes with its summary: guests, dishes, income, tips, complaints and fame.","A las 02:00 el turno cierra con su resumen: clientes, platos, ingresos, propinas, quejas y fama."
+tutorial.tavern.upgrades,"Upgrades: tables, hearth, cellar, rooms, the minstrel, the doorman. Fame opens new guests: merchants at 1, nobles at 3.","Mejoras: mesas, chimenea, bodega, habitaciones, el juglar, el portero. La fama abre clientes nuevos: mercaderes con 1, nobles con 3."
+tutorial.open.innpanel,Open the tavern's panel,Abre el panel de la taberna
+inn.group.comarca,Folk from the countryside,Gente de la comarca
+inn.group.neighbours,Neighbours,Vecinos
+ui.inn.complaint.too_expensive,too dear,muy caro
+ui.inn.why.no_neighbours,no neighbour feels like the tavern tonight,ningún vecino tiene ganas de taberna esta noche

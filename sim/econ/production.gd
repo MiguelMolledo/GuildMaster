@@ -290,6 +290,8 @@ static func may_work(sim: Sim, actor: String, bld_id: String) -> String:
 	if _is_employee_at(sim, actor, bld_id):
 		if not Staff.is_active(sim, actor):
 			return "not_controlled"  # hired today (starts tomorrow at dawn) or already gone
+		if InnStaff.shift(sim, actor, bld_id) != "":  # posada: the inn's shifts by role (night or day)
+			return "" if InnStaff.in_shift(sim, actor, bld_id) else "off_hours"
 		if night:
 			return "night_rest"
 		var phases: Array = sim.catalog.employees.get("schedule", {}).get("work_phases", ["dawn", "day"])

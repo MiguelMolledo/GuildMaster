@@ -109,7 +109,7 @@ def news_html(art_dir):
 def decisions_html():
     d = load("docs/decisiones.json")
     taken = table(["Fecha", "Tema", "Decisión", "Por qué"], [
-        [E(x["fecha"]), f"<b>{E(x['tema'])}</b>", E(x["decision"]), f"<span class='muted'>{E(x['por_que'])}</span>"]
+        [E(x["fecha"]), f"<b>{E(x['tema'])}</b>", E(x["decision"]), f"<span class='muted'>{E(x.get('por_que', ''))}</span>"]
         for x in reversed(d["tomadas"])])
     pending = "".join(f"<div class='card'><h3>{E(p['tema'])}</h3><p>{E(p['detalle'])}</p>"
                       + (f"<p class='muted'>{E(p['opciones'])}</p>" if p.get("opciones") else "") + "</div>"

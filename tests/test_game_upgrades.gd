@@ -79,6 +79,8 @@ func test_upgrades_button_opens_the_tree_with_its_eight_branches() -> void:
 	eq(p.cell_of("forge_production_1") != null, true, "a cell per upgrade")
 	var n := 0
 	for br: String in sim.catalog.upgrade_rules["branches"]:
+		if str(br).begins_with("inn_"):
+			continue  # posada: the Taberna-Posada's own branches (04f §4.27.5) are not the forge's
 		for l: int in range(1, 4):
 			check(p.cell_of("forge_%s_%d" % [br, l]) != null, "cell forge_%s_%d" % [br, l])
 			n += 1

@@ -302,7 +302,7 @@ Caen al azar (flujo `events_city`) o los declara el Alcalde (poder `declare_even
 | `route_bonus {route, days}` | ruta temporal: la feria de Bellcaire invita y el portazgo a Bellcaire es 0 durante 2 días | 09b |
 | `contracts {table}` | abre los encargos de fiesta (4.25.4) | 4.5.6 |
 | `emotion {id, share}` | «inspirado» al 50 % tras la fiesta | 4.11.5 |
-| `spectacle {id}` | toros, justa, cómicos, carrera | nuevo (4.26) |
+| `spectacle {id}` | toros, justa, cómicos, carrera | nuevo (4.26); los que son juegos se corren a su hora y se puede apostar o apuntarse (`docs/contratos/juegos.md` §5 ter) |
 | `incident {id, mult}` | altercados ×3 en Carnaval | 4.24.5 |
 | `reputation {who, amount}` | el que patrocina +; el Alcalde −2 en Carnaval | sí |
 
@@ -427,98 +427,334 @@ Se juegan en las fiestas, en la taberna o donde el evento lo pida.
 
 #### 4.26.1 Justa (torneo a caballo)
 
-- **Tres pasadas** contra un rival. En cada una eliges **dónde apuntas la lanza** (yelmo, escudo o pecho) y
-  **cómo te cubres** (escudo alto, medio o bajo). El rival hace lo mismo. Apuntar donde él no cubre es acierto.
-  Apuntar al yelmo es difícil (Destreza), pero si aciertas lo desmontas. El escudo da medio punto seguro.
-- **Lectura**, como el duelo: el caballo del rival y su postura dan una pista, con su fiabilidad (Empatía contra
-  Arte Marcial).
-- **Puntos:** lanza rota en el escudo 1, en el pecho 2, desmontar gana la justa.
-- **Quién entra:** hace falta un título de Ciudadano o más (o ser noble), un caballo (alquilado en la feria o
-  propio, D8) y una lanza de torneo (encargo del carpintero). Premio: una bolsa, reputación +10 y el favor de una
-  dama o un caballero (cortejo +15).
+**Construido** (`sim/games/joust.gd`; cifras en `data/games.json` → `joust`).
+
+- **Tres pasadas** contra un rival. En cada una eliges una **postura**, que dice a la vez **dónde apuntas la lanza** y
+  **cómo te cubres**: **al yelmo** (lanza alta, escudo medio: cubre el pecho), **al pecho** (lanza al pecho, escudo
+  bajo: cubre la cara del escudo) o **al escudo** (lanza al escudo, escudo alto: cubre el yelmo). Forman un triángulo
+  como el del duelo: al escudo gana a al yelmo, al yelmo gana a al pecho y al pecho gana a al escudo. Apuntar donde él no
+  cubre es acierto (si pasa la tirada: Destreza contra Destreza, 55 ± 5 por punto; el yelmo −25, el pecho +5, el escudo
+  +15). **El yelmo desmonta** (gana la justa); el pecho vale 2; el escudo 1 y **da medio punto seguro** (cubierto o
+  fallado, la lanza se rompe en él).
+  - *Cambio al construirlo:* la primera versión tenía las dos decisiones por separado (apuntar y luego cubrirse, 9
+    combinaciones). En tres pasadas la IA no llegaba a castigar una costumbre: «siempre al escudo y escudo bajo»
+    empataba con ella (47-50 %) o le ganaba el 81 %, según cuánto valorase desmontar. Con una sola decisión de tres
+    posturas en triángulo, como el duelo y el pulso, las tres posturas fijas pierden (33-40 %) y la lectura vale.
+- **Lectura**, como el duelo: la primera pasada es a ciegas; luego la iniciativa se alterna y quien la lleva elige
+  primero: el caballo del rival y su postura dan una pista, con su fiabilidad (Empatía contra Arte Marcial).
+- **Puntos:** tras tres pasadas gana quien más tenga; empatados, hasta dos pasadas más; luego tablas.
+- **Quién entra:** hace falta un título de Ciudadano o más (o ser noble; `reason.no_title`), un caballo (alquilado en
+  la feria o propio, D8) y una lanza de torneo (encargo del carpintero): hoy el caballo y la lanza se alquilan al
+  entrar (**10 de oro**) hasta que existan como objetos. Premio: una bolsa (40), reputación +10 y el favor de una dama
+  o un caballero (cortejo **+15** de afinidad con la persona a la que más cortejas, si hay alguna).
+- **Medido** (`tools/games_bench.gd`, 2.000 justas por fila, contra un caballero templado):
+
+| Justa | Gana | Desmontado |
+|---|---|---|
+| Iguales · Resolver sin jugar = sigue la pista | 49 % | 31 % |
+| Iguales · al azar | 46 % | 33 % |
+| Iguales · siempre al yelmo · al pecho · al escudo | 33 % · 33 % · 40 % | 46 % · 43 % · 0 % |
+| Destreza 6 contra 3 | 70 % | 33 % |
+| Empatía 7 contra Arte Marcial 3 | 54 % | 31 % |
 
 #### 4.26.2 Torneo de lucha
 
+**Construido** (`sim/games/tourney.gd`; cifras en `data/games.json` → `tourney` y los tipos `tourney` y
+`tourney_sudden` de `data/combat.json`).
+
 - **Eliminatoria de 8** con el duelo de 04e, en la modalidad **«a tres asaltos, por puntos»**, sin heridas
-  (O-C11 c, que el owner dejó para las fiestas). Con espada de torneo, bastón o a puño, según el torneo.
-- Entran tus personajes y los NPC con Arte Marcial ≥ 4. Las rondas se juegan seguidas: el aliento no se recupera del
-  todo entre ellas (+2).
-- Apuestas sobre cada combate (4.26.6). Premio: bolsa y reputación.
+  (O-C11 c, que el owner dejó para las fiestas): nueve lances en tres asaltos de tres, cada toque un punto. Con los
+  mismos puntos, **muerte súbita** (el primer toque en tres lances) y, si sigue igual, **los jueces** (quien tenga más
+  aliento; luego una tirada con clave). Con espada de torneo, bastón o a puño, según el torneo (`opts.weapon`).
+- Entran tus personajes y los NPC con Arte Marcial ≥ 4; si no llegan a ocho, **forasteros** (fichas de
+  `data/games.json` con Arte Marcial 4-7: el de Bellcaire, el marinero de Portvell, el mercenario navarro…). El sorteo
+  es una tirada con clave. Las rondas se juegan seguidas: el aliento no se recupera del todo entre ellas (**+2**).
+- Tus combates se juegan lance a lance con la pantalla y las reglas del duelo (la pista y su fiabilidad); los de los
+  demás se resuelven solos y suben en el cuadro.
+- **Apuestas:** antes de empezar, el corredor da las cuotas de los ocho (60 torneos automáticos) y se puede apostar
+  por uno mismo o por otro. *Simplificación:* una apuesta al ganador del torneo, no una por combate (las apuestas a
+  cada combate quedan para cuando el torneo viva en el calendario de las Fiestas, con su guardado).
+- **Premio:** bolsa de 50 y reputación +5 al ganador; finalista, reputación +2 [balance]. El patrocinador de la fiesta
+  añade lo suyo al oír `game_played` con su `event`.
+- **Medido** (`tools/games_bench.gd`, 400 torneos por fila, contra siete forasteros):
+
+| Torneo (espada) | Gana el torneo | Combates ganados |
+|---|---|---|
+| Arte Marcial 3 (el herrero) | 3 % | 0,40 |
+| Arte Marcial 5 · Resolver sin jugar = sigue la pista | 8 % | 0,79 |
+| Arte Marcial 5 · al azar | 7 % | 0,69 |
+| Arte Marcial 5 · siempre golpe · parada · finta | 5 % · 2 % · 2 % | 0,62 · 0,38 · 0,36 |
+| Arte Marcial 7 | 27 % | 1,37 |
 
 #### 4.26.3 La sortija
 
-- **Correr la sortija:** a caballo, al galope, hay que ensartar con la lanza una anilla colgada. Tres carreras.
-- En cada una eliges el **ritmo** (prudente, firme o a todo galope) y el **momento** de bajar la lanza entre tres
-  señales. A más galope, más puntos si aciertas, pero la ventana es más pequeña (Destreza).
-- Es la justa de los que no tienen título: cualquiera con caballo.
+**Construido** (`sim/games/sortija.gd`; cifras en `data/games.json` → `sortija`).
+
+- **Correr la sortija:** a caballo, al galope, hay que ensartar con la lanza una anilla colgada. Tres carreras, contra
+  2-5 jinetes que corren por turnos.
+- En cada una eliges el **ritmo** (prudente 1 punto, firme 2 o a todo galope 3) y el **momento** de bajar la lanza
+  entre tres señales (el primer, segundo o tercer poste). A más galope, más puntos si aciertas, pero la ventana es más
+  pequeña (Destreza): 85, 65 o 45 (+5 por punto de Destreza sobre 3). El momento bueno lo dice **el balanceo de la
+  anilla**, que se lee peor cuanto más rápido vas (0,85, 0,6 o 0,55 de fiabilidad, +0,03 por punto de Destreza).
+  - *Cambio al construirlo:* **la anilla de cada carrera es grande, mediana o pequeña** (±25 a la ventana). Sin eso, el
+    ritmo firme era siempre el mejor y elegir el ritmo no era una decisión. Con Destreza 3, cada ritmo es el mejor en una
+    anilla: prudente en la pequeña, firme en la mediana, galope en la grande. La pantalla dice los puntos esperados de
+    cada ritmo.
+- Es la justa de los que no tienen título: cualquiera con caballo (hoy, alquilado al entrar: 5 de oro). Premio 20 y
+  reputación +3 [balance].
+- **Medido** (`tools/games_bench.gd`, 3.000 por fila, contra tres jinetes de Destreza 3-5):
+
+| Sortija (Destreza 4) | Gana | Puntos | Anillas |
+|---|---|---|---|
+| Resolver sin jugar = sigue la anilla y el mejor ritmo | 23 % | 2,74 | 1,44 |
+| Al azar | 7 % | 1,24 | 0,67 |
+| Siempre prudente · firme · galope (siguiendo la anilla) | 10 % · 20 % · 21 % | 2,19 · 2,63 · 2,59 | |
+| El mejor ritmo, pero baja la lanza al azar | 8 % | 1,41 | 0,68 |
+| Destreza 7 | 38 % | 3,88 | 1,53 |
 
 #### 4.26.4 Carrera de caballos
 
-- **Cuatro tramos** (salida, recta, curva del molino, meta) contra 3-5 jinetes.
-- En cada tramo eliges el **ritmo**: reservar, mantener o apretar. Cada ritmo gasta **fuelle** del caballo (como el
-  aliento del duelo: apretar −3, mantener −1, reservar +1). En la curva, apretar puede costar un tropiezo
-  (Destreza). Gana quien llegue primero; un caballo sin fuelle solo puede reservar.
-- **El caballo importa:** velocidad y fuelle por caballo. En la feria se compran y se alquilan (D8: carros y
-  caballos con coste).
-- Se apuesta (4.26.6). Premio: el palio (un paño de seda: objeto de lujo) y reputación.
+**Construido** (`sim/games/horse_race.gd`; cifras en `data/games.json` → `race`).
+
+- **Cuatro tramos** (salida, recta, curva del molino, meta) contra 3-5 jinetes; todos eligen a la vez en cada tramo,
+  viendo dónde va cada uno y el fuelle que le queda.
+- En cada tramo eliges el **ritmo**: reservar, mantener o apretar. Cada ritmo gasta **fuelle** del caballo: apretar −3
+  (velocidad ×1,2), mantener −1 (×1), reservar **+2** (×0,8). En la curva, apretar puede costar un tropiezo (Destreza:
+  70 + 5 por punto sobre 3; el tramo cuenta la mitad). Gana quien llegue primero; un caballo sin fuelle solo puede
+  reservar. Apretar en la meta rinde ×1,15 más (el último empujón).
+  - *Cambios al construirlo:* reservar recupera 2 (no 1) y apretar en la meta rinde más; sin eso, «apretar siempre»
+    empataba con el mejor plan. Los caballos son más parejos (velocidad 9,8-10,5) y el ruido por tramo mayor (±1,5):
+    con la jaca a 11, el caballo decidía casi todas las carreras.
+- **El caballo importa:** velocidad y fuelle por caballo (alquilado 10/6, rocín 9,8/6, corcel 10,2/6, jaca 10,5/5,
+  caballo de fuelle 9,9/8). En la feria se compran y se alquilan (D8: carros y caballos con coste): hoy se alquila al
+  entrar (5) y las fichas traen el suyo.
+- La IA y «Resolver sin jugar» reparten el fuelle con el **plan exacto** (programación dinámica sobre los tramos que
+  quedan y el fuelle, con el riesgo de la curva). La pantalla dice, por ritmo, lo que da el tramo y lo que se llegaría
+  a correr hasta la meta.
+- Se apuesta (4.26.6): el corredor da las cuotas antes de la salida. Premio: el palio (un paño de seda: hoy su valor,
+  30 de oro, hasta que exista el objeto de lujo) y reputación +5.
+- **Medido** (`tools/games_bench.gd`, 2.000 por fila; caballo alquilado contra un rocín, un alquilado y un corcel):
+
+| Carrera | Gana | Distancia |
+|---|---|---|
+| Resolver sin jugar = sigue el plan | 21 % | 43,8 |
+| Al azar | 3 % | 39,1 |
+| Siempre reservar · mantener · apretar | 0 % · 1 % · 5 % | 32,0 · 40,0 · 42,0 |
+| Aprieta al salir y reserva luego | 0 % | 36,0 |
+| Con una jaca (10,5/5) · con un caballo de fuelle (9,9/8) | 59 % · 47 % | |
 
 #### 4.26.5 Los toros
 
 En la Edad Media no había matadores: se «corría el toro» en la plaza cerrada con carros, y los mozos lo citaban y
-lo esquivaban (en algunas villas, el toro ensogado).
+lo esquivaban (en algunas villas, el toro ensogado). **Construido** (`sim/games/bulls.gd`; cifras en
+`data/games.json` → `bulls`).
 
-- **Mirar:** espectáculo, `fun` +40 a todos.
-- **Correr el toro** (minijuego): tres embestidas. En cada una eliges **citar**, **quebrar** (esquivar en el último
-  momento) o **ponerte a salvo** tras los carros. El toro avisa con su pista (escarba, baja la cabeza, se arranca)
-  y la lectura es Destreza contra la bravura del toro. Quebrar bien da aplausos (reputación +2 por quiebro). Fallar
-  da **«asustado»** y burla, nunca una herida mientras no exista la salud de 4.22; con salud, «herido» con un 10 %
-  [balance].
-- El cerco lo monta el carpintero (encargo) y los toros los paga el concejo o un patrocinador.
+- **Mirar:** espectáculo, `fun` +40 a todos (lo aplican las Fiestas).
+- **Correr el toro** (minijuego): tres embestidas, con 0-3 mozos más que salen por turnos. En cada una eliges
+  **citar**, **quebrar** (esquivar en el último momento) o **ponerte a salvo** tras los carros. El toro hace una de tres
+  cosas, según su casta (bravo: se arranca la mitad de las veces; manso: amaga; resabiado: derrota): **se arranca**
+  recto, **amaga** y se para, o **derrota** de lado. Avisa con su pista (baja la cabeza, escarba, sale torcido) y la
+  lectura es Destreza contra la bravura del toro (0,50 ± 0,05 por punto). Quebrar a uno que se arranca es el quiebro
+  (+2 aplausos), citar a uno que amaga es un pase (+1), a salvo es 0 y lo demás es un **fallo** (−2). La pantalla dice
+  la probabilidad de cada cosa del toro y los aplausos esperados de cada opción.
+- **Consecuencias** (para tu familia): **reputación +2 por quiebro**; fallar da **«asustado»** (la emoción de 4.11.5)
+  y burla (−1 de reputación por fallo), **nunca una herida** mientras no exista la salud de 4.22 (O-V5 a); con salud,
+  «herido» con un 10 % [balance]. El que más aplausos se lleva, +3 de reputación.
+- El cerco lo monta el carpintero (encargo) y los toros los paga el concejo o un patrocinador (las Fiestas, con
+  `opts.bull` para la casta).
+- **Medido** (`tools/games_bench.gd`, 3.000 por fila, un mozo solo, tres embestidas; aplausos netos):
+
+| Toros (Destreza 4) | Aplausos | Quiebros | Sustos |
+|---|---|---|---|
+| Bravo · Resolver sin jugar = sigue la señal | +0,48 | 0,66 | 0,42 |
+| Bravo · al azar | −1,22 | 0,50 | 1,23 |
+| Bravo · siempre citar · quebrar · a salvo | −3,70 · +0,06 · 0 | | |
+| Bravo · Destreza 7 | +1,18 | 0,90 | 0,31 |
+| Manso · resabiado (Resolver sin jugar) | +0,17 · 0 (con el resabiado lo sensato es no arriesgar) | | |
+  - *Cambio al construirlo:* el fallo vale −2 (no −1): con −1, contra el toro bravo «quebrar siempre» empataba con leer
+    la señal.
 
 #### 4.26.6 Apuestas
 
+**Construido** (`sim/games/betting.gd`, órdenes `game_bet` y `bets` de `game_play`; cifras en `data/games.json` → `bets`).
+
 - **Sobre cualquier competición:** justa, torneo, carrera, toros (¿quién aguanta?), peleas y altercados.
 - Ves las **cuotas** que da el corredor de apuestas (un NPC en la plaza o el tabernero), calculadas a partir de las
-  probabilidades del sim con un margen de la casa del 10 % [balance]. Apuestas 5, 10, 25 o 50 de oro.
-- **Apostar por ti mismo** está permitido; apostar contra ti mismo y perder adrede es **fraude** (delito «trampa»,
-  si te ven).
+  probabilidades del sim (`Games.win_odds`: 60 partidas automáticas con sus propias claves) con un margen de la casa
+  del 10 % [balance]: cuota = 0,9 / probabilidad, redondeada **hacia abajo** a 0,05 (entre 1,05 y 20). Una partida
+  pareja paga 1,80. Apuestas 5, 10, 25 o 50 de oro (tope 50, O-V8; aviso si pierdes más de 100 en un día).
+- **Apostar sobre lo que juegan otros** (`game_bet`): se resuelve al momento con `Games.auto` y el id de la partida;
+  la misma partida con el mismo id da el mismo ganador a quien la resuelva (las Fiestas, la pantalla que la enseña).
+  La pantalla del corredor enseña la probabilidad y la cuota de cada uno, se apuesta (o no) y se **mira la partida**.
+- **Sobre los altercados** (4.24.5, rama vida): mientras los dos van a pegarse, la carta del altercado trae «Apostar».
+  El corredor cotiza con la pelea misma del suceso y paga cuando se pegan; si se calman o la guardia llega antes de
+  que empiecen, devuelve lo apostado. Uno no apuesta a su propia pelea. La apuesta va dentro del suceso (guardado v17,
+  sin versión propia).
+- **El rescate jugado** (secuestro, 4.24.5): la elección «rescatar» abre la pantalla de juegos con la cadena de
+  peleas (tú primero, luego los guardias que contrates, contra la banda); tus peleas se juegan lance a lance con el
+  duelo y las de los guardias se resuelven solas. «Resolver sin jugar» es la resolución de antes, tirada a tirada.
+- **Apostar por ti mismo** está permitido (`bets` en tu `game_play`, a las cuotas de antes de jugar); apostar contra
+  ti mismo y perder **habiendo jugado** es **fraude**: con una probabilidad del 50 % alguien se da cuenta (delito
+  «trampa», hecho público para el tribunal de H11, reputación −5).
 - El oro de las apuestas viene de y va a fuera (P4) salvo la parte de la casa, que es para el dueño de la taberna si
-  la apuesta se hace allí (4.27).
+  la apuesta se hace allí (4.27): el 10 % de cada apuesta.
+- **Medido** (bot `gambler`, 5 semillas × 8 días, 216 partidas y apuestas por semilla en una casa con licencia):
+  pierde el **6,6 %** de lo apostado; sumando lo que se llevó la casa (su parte de las mesas y el margen esperado de
+  las apuestas) queda en **+1,3 %**, es decir, ni gana ni pierde más que el margen: los juegos y las cuotas son justos.
+  Diana `gambler` en `data/targets.json`.
 
 #### 4.26.7 Dados
 
 Inspirados en el **Libro de los juegos** de Alfonso X (1283), que describe los juegos de dados de Castilla.
+**Construido** (rama juegos, `sim/games/dice_azar.gd` y `dice_mayor.gd`; cifras en `data/games.json`).
 
 - **«Azar»** (el juego del que viene la palabra): se tiran **tres dados**. En la primera tirada, sacar mucho (15-18)
-  o poco (3-6) es **azar** y gana quien tira. Con un número del medio, ese número es la **suerte** del contrario y
-  se sigue tirando hasta que salga una de las dos suertes [simplificación de la regla, documentada]. El jugador
-  **apuesta y decide si dobla** tras ver la suerte (la decisión es cuánto arriesgar, no los dados).
-- **«Tres dados a la mayor»**, el sencillo: contra 1-3 jugadores; tras la primera tirada se puede **retirar** (pierde
-  la mitad) o **seguir** (doble o nada). La personalidad del rival se ve: el atrevido dobla siempre.
-- **Dados cargados:** un Pícaro (o quien los compre a un buhonero) puede usarlos. Dan ventaja, y si te pillan
-  (Empatía del rival contra tu Destreza) son delito «trampa» y altercado. Así enlaza con 4.22.
+  o poco (3-6) es **azar** y gana quien tira. Con un número del medio, ese número es la **suerte** del contrario; el
+  que tira busca entonces la suya: si saca un número de azar es **«reazar»** y pierde (regla del Libro), si repite la
+  del otro vuelve a tirar, y cualquier otro número del medio es su suerte. Luego tira hasta que salga una de las dos
+  suertes [simplificación de la regla, documentada]. Con las dos suertes a la vista, **cada lado puede doblar una
+  vez** (empieza el que tira; un solo doble por partida, sin pasar del tope de 50): el otro **quiere** (se sigue al
+  doble) o **no quiere** (pierde lo apostado). La pantalla dice cuántas veces de cada 100 sale antes tu suerte y desde
+  cuánto compensa doblar o querer. La decisión es cuánto arriesgar, no los dados: los dados de una partida son los
+  mismos se decida lo que se decida.
+  - *Cambio al construirlo:* sin el reazar, el que tiraba ganaba el 57 % (medido); con él, el 50 %. Se elige quién
+    tira con una tirada con clave.
+  - *Cuánto pesa la decisión* (medido, §4.26.10): poco, como en el azar de verdad. No doblar nunca cuesta ~4 % de la
+    apuesta por partida; no querer nunca, ~22 %; jugar al azar, ~10 %. Doblar siempre cuesta ~0,5 %.
+- **«Tres dados a la mayor»**, el sencillo: contra 1-3 jugadores. Cada uno tira **tres dados, dos a la vista y uno
+  bajo el cubilete** (solo lo ve su dueño). Luego todos deciden a la vez: **retirarse** (pierde la mitad) o **seguir**
+  (pone otra vez la apuesta: doble o nada). De los que siguen, el más alto se lleva el bote (los empates se lo
+  reparten; si solo sigue uno, se lo lleva sin enseñar; si no sigue nadie, todos pierden la mitad). La pantalla dice
+  cuántas veces de cada 100 te llevas el bote si siguen todos y el oro esperado de seguir y de retirarse. La
+  personalidad del rival se ve: **el atrevido sigue siempre**; el prudente pide más margen.
+  - *Cambio al construirlo:* el dado bajo el cubilete es lo que da decisión al juego (con los tres a la vista, seguir
+    o no era evidente).
+- **Dados cargados** (O-V10 b: cualquiera que los compre a un buhonero; el objeto `loaded_dice`): en el azar, la primera
+  tirada repite los dados de menos de 4 y, buscando las suertes, la del otro se repite con un 30 %: quien tira gana
+  el **61 %** (sin ellos, 50 %); en «a la mayor», los dados de menos de 4 se repiten. Quien los lleva insiste en tirar.
+  Cada rival puede verlos: d100 ≤ 25 + (su Empatía − tu Destreza) × 5. **Si te pillan:** la partida no cuenta, pierdes
+  la apuesta y los dados, hecho público «trampa» (cargo `cheat`, leve, H11), reputación −5 y el evento
+  `game_cheat_caught` para que la vida de la ciudad (4.24.5) monte el altercado. Así enlaza con 4.22 (el Pícaro tendrá
+  ventaja: más Destreza). *Pendiente de la rama vida:* que el buhonero los venda (hoy el objeto existe sin puesto).
 - **La tafurería:** en Castilla el juego se hacía en casas con licencia del concejo. Jugar en la calle está mal
   visto en días de predicador. La taberna puede comprar la **licencia de tafurería** (4.27.4) y ganar la parte de la
-  casa.
+  casa: el **10 % de lo que gana el ganador** (`house.rake`, O-V8), que va al dueño de la taberna.
 
 #### 4.26.8 Naipes
 
 Los naipes llegan a la Corona de Aragón a finales del siglo XIV (hay noticias de ellos en Barcelona hacia 1380).
-Para el juego proponemos el **«envite»**, en la familia de los juegos de envites y faroles como el truc:
+Para el juego proponemos el **«envite»**, en la familia de los juegos de envites y faroles como el truc.
+**Construido** (`sim/games/envite.gd`; cifras en `data/games.json` → `envite`):
 
-- **Tres cartas por jugador**, de una baraja de 40 de cuatro palos (oros, copas, espadas y bastos).
-- **Tres bazas.** Antes de cada una se puede **envidar** (subir la apuesta). El rival **quiere** (acepta), **sube**
-  o **no quiere** (pierde lo que había).
-- **El farol** es el centro del juego: el rival enseña un **gesto** (como en el duelo) y su fiabilidad depende de tu
-  Empatía contra su Retórica. Un buen lector sabe cuándo el otro va de farol.
-- Se juega en la taberna contra 1-3 NPC (los parroquianos tienen su carácter: el prudente, el fanfarrón o el
-  tramposo).
+- **Tres cartas por jugador**, de una baraja de 40 de cuatro palos (oros, copas, espadas y bastos), con el orden del
+  truc: las cuatro bravas (as de espadas, as de bastos, siete de espadas, siete de oros), luego los treses, los doses,
+  los otros ases, rey, caballo, sota, los otros sietes, seis, cinco y cuatro.
+- **Tres bazas** que se descubren una a una: la carta más alta de cada uno contra la del otro, luego las del medio,
+  luego las más bajas; gana la baza la más alta (iguales: parda). Gana la mano quien se lleva más bazas; empatados, la
+  primera que no fue parda; todo pardas, el que es mano.
+  - *Cambio al construirlo:* no se elige qué carta jugar (con las bazas en orden, todo el juego está en los envites y
+    en el farol, que es lo que el diseño quiere legible; elegir la carta era una decisión casi siempre obvia).
+- Antes de cada baza se puede **envidar** (subir la apuesta en lo apostado al principio). El rival **quiere**
+  (acepta), **sube** (una vez por ronda) o **no quiere** (pierde lo que había). Si el primero pasa, el otro puede
+  envidar. Nadie pasa del tope de 50 (O-V8).
+- **El farol** es el centro del juego: en cada ronda el rival enseña un **gesto** («se le ve contento» o «inquieto»:
+  si su mano gana a una al azar al menos la mitad de las veces) y su fiabilidad depende de tu Empatía contra su
+  Retórica: **0,70** a la par, ±0,05 por punto, entre 0,55 y 0,92. Un buen lector sabe cuándo el otro va de farol. La
+  pantalla dice cuántas de cada 100 ganas con lo que ves y **contando su cara** (la cuenta exacta), y desde cuánto
+  compensa querer.
+  - *Cambio al construirlo:* la base es 0,70 y no 0,50 como en el duelo: con dos gestos, 0,50 no dice nada (en el
+    duelo, con tres acciones, sí).
+- Se juega en la taberna contra 1-3 NPC (los parroquianos tienen su carácter: el **prudente** pide más para querer y
+  apenas farolea, el **fanfarrón** farolea un 35 % y quiere casi siempre, el **tramposo** lee un 15 % mejor). El
+  templado farolea un 3 %: con más, contra quien lo lee 7 de cada 10, perdía.
+  - *Hoy, uno contra uno* (1-3 rivales queda para la mesa de la Posada: el envite de muchos cambia las cuentas).
+- **Medido** (`tools/games_bench.gd`, 2.000 manos por fila, apuesta 5; oro por mano en apuestas):
+
+| Envite (iguales, Emp 3 / Ret 3) | Oro por mano | Gana |
+|---|---|---|
+| Resolver sin jugar | +0,07 (0 ± ruido) | 52 % |
+| Juega bien (lo que dice la pantalla) | +0,08 | 51 % |
+| Sin mirar el gesto | +0,02 | 51 % |
+| Al azar | −0,56 | 50 % |
+| Siempre quiere, nunca envida | −0,67 | 52 % |
+| Envida siempre y siempre quiere | −1,06 | 56 % |
+| Nunca quiere un envite | −0,22 | 39 % |
+| Contra el fanfarrón · el prudente · el tramposo | +0,33 · 0,00 · −0,03 | |
+| Empatía 7 contra Retórica 3 · Retórica 7 contra Empatía 3 | +0,18 · +0,12 | |
 
 #### 4.26.9 Pulso
 
-- En la taberna o en la plaza, contra un parroquiano. Son **tres empujes**: en cada uno eliges fuerza, aguantar o
-  ceder, con una barra de fuerza (Constitución) y la pista del rival. Gana quien tumba el brazo dos veces. Es el
-  más corto: unos 15 segundos.
+- En la taberna o en la plaza, contra un parroquiano. Son **tres empujes**: en cada uno eliges **empujar**,
+  **aguantar** o **ceder**, con una barra de **fuerza** (Constitución) y la pista del rival. Gana quien se lleva dos
+  empujes. Es el más corto: unos 15 segundos. **Construido** (`sim/games/arm_wrestle.gd`).
+- **El triángulo:** empujar gana a ceder, ceder (dejarse ir y volcarle la muñeca) gana a aguantar, aguantar gana a
+  empujar. Quien gana el triángulo se lleva el empuje con su fuerza (50 + (Con − Con del otro) × 5 + 25); si falla, o
+  si los dos eligieron lo mismo, se decide a fuerza bruta (50 + diferencia × 5). **Todo empuje tiene ganador.**
+- **Fuerza** = 2 + Constitución × 0,5: empujar y ceder gastan 1, aguantar recupera 2 (como el aliento del duelo).
+  - *Cambio al construirlo:* con empujar a 2 y aguantar a +1, «siempre ceder» ganaba a la IA el 57 % (la IA se
+    quedaba sin fuerza para empujar). Con 1/1/+2 las políticas fijas pierden (36-37 %).
+- **Iniciativa y lectura**, como el duelo: el primer empuje es a ciegas; luego la lleva el retador y después el otro.
+  Quien la lleva elige primero y su cara le delata: el otro ve un **gesto** que dice la verdad con
+  0,50 + (Empatía del que lee − Constitución del que lleva) × 0,05 (entre 0,34 y 0,90).
+
+#### 4.26.10 Cómo se construye: API, órdenes y medidas
+
+**Reglas puras** en `sim/games/` (una clase por juego sobre `GameMatch`, como `Duel`), **tiradas con clave**
+(`semilla | games | partida | paso | qué`: no mueven ninguna otra tirada) y **sin guardado**: la partida se juega en
+su pantalla y llega al sim en **una orden**, `game_play`, con las jugadas; el sim la vuelve a jugar con las mismas
+claves y aplica el oro. La API para las Fiestas y la Posada (quién juega, apuesta, premio y resultado) está en el
+contrato [docs/contratos/juegos.md](../contratos/juegos.md):
+
+Juegos construidos: `azar`, `mayor`, `pulso`, `envite`, `tourney`, `joust`, `sortija`, `race`, `bulls` (y apuestas sobre
+cualquiera). Para abrir cada uno: `godot --path . -- --games-test=<juego>` (y `apuestas`: el corredor; `fair_bet`:
+apostar a la carrera de la feria; `festival_joust`: la justa del torneo que organiza el Alcalde).
+
+| Quién llama | Cómo |
+|---|---|
+| La pantalla (el jugador) | `GameScreen.open({actor, game, opponents, stake, opts})` → al acabar, `game_play` con las jugadas |
+| «Resolver sin jugar» | El mismo `game_play` con las jugadas hasta ese momento y `auto: true` |
+| Una competición sin el jugador (fiestas) | `Games.auto(cat.games, spec)`: ganador y clasificación sin tocar nada |
+| Las fiestas (espectáculo a su hora) | `FestivalGames.on_spectacle`: se corre sola, o llama al apuntado (`game_enter`) a jugarla; las apuestas de la feria (`game_bet` con `festival`) se pagan con su resultado |
+| Las cuotas (§4.26.6) | `Games.win_odds(cat.games, spec, n)`: n partidas automáticas con sus propias claves |
+| La Posada (mesa de juego) | La pantalla con `opts.house` = la taberna (su parte de la casa) y `opts.event` = el turno |
+
+Quién juega: personajes del estado (`chr_…`) o **fichas** de `data/games.json` → `presets` (parroquianos y
+forasteros: atributos, temperamento y aspecto). Apuestas de 5, 10, 25 o 50 (tope 50 también al doblar, O-V8); aviso si
+la familia pierde más de 100 en el día. Oro de los rivales: de fuera y a fuera (P4), salvo la parte de la casa.
+
+**Medidas** (`tools/games_bench.gd`, 6.000 partidas por fila, el jugador contra la IA templada; oro por partida en
+apuestas):
+
+| Azar (iguales, apuesta 10) | Oro por partida | Gana |
+|---|---|---|
+| Resolver sin jugar | −0,03 (0 ± ruido) | 49 % |
+| Juega bien (lo que dice la pantalla) | igual, partida a partida | 49 % |
+| Al azar | −0,13 | 45 % |
+| Siempre dobla y quiere | −0,03 | 49 % |
+| Nunca dobla, siempre quiere | −0,07 | 49 % |
+| Nunca dobla ni quiere | −0,25 | 38 % |
+| Con dados cargados (tira él) | +0,31 | 61 % |
+
+| A la mayor (3 jugadores, iguales) | Oro por partida | Gana |
+|---|---|---|
+| Resolver sin jugar = juega bien | −0,05 | 28 % |
+| Al azar | −0,60 | 17 % |
+| Siempre sigue | −0,69 | 35 % |
+| Siempre se retira | −0,50 | 0 % |
+| Contra un fanfarrón y un prudente | +0,29 | 27 % |
+| Con dados cargados | +0,40 | 52 % |
+
+| Pulso | Gana |
+|---|---|
+| Iguales (Con 3, Emp 3) · Resolver sin jugar = sigue la pista | 50 % |
+| Constitución 5 vs 3 · 7 vs 3 | 65 % · 77 % |
+| Empatía 7 vs 3 | 56 % |
+| Al azar | 46 % |
+| Siempre empujar · ceder · aguantar | 36 % · 36 % · 37 % |
+
+- «Resolver sin jugar» es **exactamente** jugar con lo que enseña la pantalla (las pruebas lo comprueban partida a
+  partida). En los dados la decisión pesa poco (son de azar); en el pulso, leer vale ~4 puntos y repetir cuesta 13.
+- En «a la mayor» el oro medio es negativo para todos porque cuando nadie sigue, todos pierden la mitad (a fuera).
 
 ---
 
@@ -538,6 +774,19 @@ cuando llegue 4.22. Hasta entonces, la familia que compra la taberna la lleva co
 | **Clientela** por grupos, y al pasar por un grupo que no viene se ve por qué | **Clientela** de 4.27.2, con el «por qué no vienen» (precio, carta, ambiente, fama o reputación) |
 | Mejoras como el **bardo** o la **pizarra de la carta**, que suben las ventas en la zona | Las mejoras de 4.27.5 (juglar, pizarra, chimenea, habitaciones), cada una con su efecto en cifras |
 | Mudar la taberna a otra región al mejorarla | Más adelante, **abrir una segunda taberna en otra ciudad** de Valldaura (09b) [propuesta, O-V9] |
+| El **equipo** sube la comodidad, la seguridad y la capacidad del local, y cada facción quiere su nivel de cada una | Tres cifras del local en el panel: **ambiente** (0-5, sube con chimenea y tapices, baja un día tras una pelea sin portero), **plazas** (las mesas) y **seguridad** (portero, cerradura, cuarto del portero); cada grupo pide la suya (los nobles, ambiente 3) |
+| El **prestigio** del negocio se gana atendiendo bien y abre equipo mejor | La **fama** (0-5): +0,02 por cliente satisfecho, +0,02 por plato excelente, −0,04 por queja, −0,3 por pelea, −0,05 por cama sin hacer, como mucho +0,25 por noche; abre grupos (mercaderes con 1, nobles con 3) |
+| Precios y **promociones** según la clientela que quieres | Precio de cada plato de 0,5× a 2× y el **plato de la casa** (×1,15 de atracción para los grupos a los que les gusta) |
+| La **seguridad baja** atrae a facciones poco recomendables; los porteros (y los osos) paran peleas | Los soldados (y los jugadores) suben la probabilidad de **pelea**; el **portero** la para; sin él se rompen muebles y los peregrinos no vuelven en 2 noches |
+| El **parte del turno** cuenta lo que pasó cada noche y los sucesos notables | La **carta del resumen** a las 02:00 (4.27.4) y la pestaña Turno con el historial de las últimas noches |
+| El personal gana experiencia y desbloquea platos y bebidas | Los empleados ascienden con su rango (4.7.2): un oficial rinde el doble que un aprendiz en la cocina y sirve 1,5 veces más rápido |
+| Rivalidad, espías y sabotaje entre tabernas | [POST-MVP] cuando haya una taberna rival (un proveedor NPC de 4.22.3.2) y el espionaje de 4.22.6.5 |
+
+Fuentes consultadas (2026-11-04; ideas, no texto): la página de Steam de *Wartales – The Tavern Opens!*
+(store.steampowered.com/app/2903960), la guía de Pro Game Guides «Wartales The Tavern Opens tavern guide: management,
+shifts & more» (progameguides.com/wartales/wartales-the-tavern-opens-tavern-guide-management-shifts-more/), el análisis
+de EIP «Open for business» (eip.gg/reviews/open-for-business-wartales-the-tavern-opens-dlc/) y las notas del parche en
+SteamDB (steamdb.info/patchnotes/14097948).
 
 #### 4.27.2 Clientela
 
@@ -613,6 +862,34 @@ Cada noche llegan clientes de **grupos** distintos. Cada grupo tiene sus gustos 
 
 ---
 
+#### 4.27.7 Cómo quedó construido (rama posada, 2026-11-04)
+
+> [!NOTE]
+> Reglas en `sim/inn/` (Inn, InnClientele, InnStaff, InnRumors), cifras en `data/inn/` (inn.json, menu.json,
+> clientele.json) y `data/services.json`, el edificio en `data/buildings/tavern_inn.json`, el árbol en
+> `data/upgrades/tavern_inn/`, la vista en `game/inn/` (capa de huéspedes del interior, panel, carta del resumen),
+> el bot `innkeeper` (`sim/bots/bot_innkeeper.gd`) y los escenarios `innkeeper_start` e `inn_night`
+> (`tools/scenarios/make_inn_scenarios.gd`). Guardado v19 (`SaveFile._to_v19`).
+
+Lo que precisa o cambia respecto a lo de arriba (apuntado en `docs/decisiones.json`):
+
+| # | Qué | Por qué |
+|---|---|---|
+| T1 | **Se compra la del pueblo; construirla llega con H6.** Cada mapa tiene un solar con su Taberna-Posada **en venta** (`for_sale`, 320 de oro, orden `buy_building`); en `town_e`, el prado al sur del callejón de abajo. Solo en partidas nuevas (los guardados y escenarios de antes no la tienen). **Huella 3×4**, la de la carpintería, como su arte (fachada fal de 192×230); 4.22.4.5 proponía 4×4 la Taberna y 4×5 la Posada, que son un solo edificio aquí. | La construcción en parcelas (4.9) no existe todavía; comprar la de la villa da el segundo negocio de O-V7 (a) sin inventar H6. |
+| T2 | **El tope de edificios por título (4.9) no se aplica** a la taberna: un Plebeyo puede tenerla. | H6 es quien aplica `max_buildings`; aplicarlo ahora dejaría a la taberna fuera del Artesano que empieza. Decidido por el owner (O-V11 a, 2026-11-05). |
+| T3 | **Turnos por rol:** barra y mesas trabajan de noche (de 30 min antes de abrir a las 02:00); cocina y habitaciones, de día (`work_schedule` del edificio). 3 plazas de empleado (barra, cocina, habitaciones) y la cuarta (mozo de mesas) con «Más mesas». El portero es la mejora, no un empleado. | La cocina tiene que tener la comida hecha al abrir y las camas se hacen por la mañana (4.27.4). |
+| T4 | **Los clientes vienen en corrillo** (`party` por grupo: vecinos 1-3, soldados 2-3...) y eligen al azar entre lo que les gusta y hay (peso 3-2-1 por su orden de gusto). Los grupos sin fuente (soldados, nobles, jugadores) tienen `per_night`. Con la vida encendida, los forasteros son los de vida: los de los tipos de cada grupo (`visitor_kinds`: mercader y buhonero → mercaderes, peregrino, soldado, noble) que piden cama y la encuentran se quedan a dormir al acabar su plan o al atardecer (`Inn.lodge`, gancho en `Visitors._step_one`), esperan a la puerta a que abra, entran como clientes con su cama pagada y salen al amanecer hacia su puerta; el generador de prueba (2-4 al día) solo corre con la vida apagada. | Con una visita por persona salían ~10 clientes por noche: ni se llenaba el salón ni pagaba una casa con tres empleados. Con corrillos, ~20 por noche (los bots). |
+| T4b | **Dos capas de clientela (04g §4.6.5.7):** los **Vecinos** son los de verdad: los que su agenda de vida manda a la taberna llegan a la puerta y, si está abierta, hay sitio y llevan dinero para algo de la carta, entran con su nombre (`Inn.neighbour_in`, gancho en `Agenda._go`), pagan de la bolsa de su casa, atenderles bien sube su relación con la familia (+2) y al irse vuelven a su agenda (una vez por salida, 2 h de descanso); son pocos (~2 por noche: casi todas las casas tienen 0-5 de oro). El resto es la **Gente de la comarca** (antes «Artesanos y vecinos»: 5-9 visitas por noche a plena atracción, en corrillo), con dinero de fuera (P4), y los grupos de paso (mercaderes, peregrinos, soldados, nobles, jugadores). Cada cliente tiene su **precio máximo** (ref × calidad × (1 + fama × 0,1) × el de su grupo): si nada de la carta lo cumple, se va («muy caro»). Las fiestas suben las dos capas (`Festivals.hook_mult(service, tavern)`: San Juan y Carnaval ×2, feria ×3) y los platos de temporada cuentan el día de su fiesta. No encontrar sitio no resta fama. | Lo decidió el owner en 04g: los vecinos van por su agenda y pagan de su bolsa; la mayoría viene por la fama del negocio, con dinero de fuera. |
+| T5 | **Platos sin hierbas:** sopa de ajo = pan + trigo; olla = carne + trigo ×2; cordero = carne ×3; embutido = carne ×2 + trigo. El pan sale a 12. | En `town_e` no hay puesto de boticario: las hierbas no se pueden comprar. Con el pan a 10 se perdía dinero (se compra a 6-8). |
+| T6 | **La comida cocinada se estropea** al amanecer (20 %) salvo con la despensa fría; la bebida y el pan, no. | Es lo que da sentido a la despensa fría del árbol (4.27.5). |
+| T7 | **Ramas del árbol:** Salón, Cocina, Bodega, Habitaciones, Ambiente (ramas nuevas `inn_*`) y Seguridad (la de la Forja). Toneles = producción ×1,25 + 4 pilas; vino de reserva y cueva = el vino sale +1 / +2 de calidad; pizarra = +10 % de clientes y +2 platos; asador = +2 platos. | El árbol de 4.27.5 en las piezas de efecto que ya existen (H5) más los efectos `inn_*`. |
+| T8 | **Durante las obras se sirve**, pero la cocina no cocina (la regla de 4.8). | Cerrar la taberna dos días por cada mejora la hundía. |
+| T9 | **Plato de la casa** (de las promociones de Wartales). | Una decisión barata y legible sobre la clientela. |
+| T10 | **Ganchos:** la partida que propone un forastero (`inn_game_offer`) espera a los juegos (4.26); hasta entonces la casa se queda su parte con la licencia. Los rumores de la barra son ya los de vida (`Rumors.candidates`, con los temas del punto `tavern` y los útiles ×2) y quedan en el libro de rumores (`town.rumors.heard`, punto `inn:<edificio>`); sin vida, los tres de antes (precio de fuera, evento en curso, deuda de un rival). `Inn.arrive()` es la puerta para los vecinos de verdad de la agenda de vida (4.24.1). | El orden de los bloques (4.28.5). |
+
+**Medido** (bot `innkeeper`, `innkeeper_start`, Normal, 16 días, 10 semillas, con eventos globales): ver la diana
+`innkeeper` de `data/targets.json`.
+
 ### 4.28 Lo que hace falta para construirlo
 
 #### 4.28.1 Datos nuevos
@@ -657,6 +934,24 @@ de ida y vuelta desde la versión de antes.
   toneles, camas y rincón del juglar) e iconos de platos.
 - **Minijuegos:** la pantalla de cada uno (fondos y piezas: liza, caballos de perfil, anilla, dados, naipes de 4
   palos, mesa de taberna), con sus iconos.
+- **Hecho (rama arte-fal-2, 2026-11-04; ids y medidas en `assets/inventario.json`):**
+  - Ilustraciones de las 8 fiestas, los 9 eventos y los 5 sucesos en `assets/art/illustrations/events/<id>.png` y
+    `<id>_192.png`.
+  - Los 14 props de fiesta en `assets/art/props/fiesta/` con su escena en `game/visuals/props/fiesta/`. La huella va
+    en `metadata/footprint` del nodo raíz.
+  - La Taberna-Posada, delante y detrás, en `assets/art/buildings/fal/tavern_inn[_back].png`. Huella y puerta de la
+    carpintería; el lienzo es 20 px más alto: `Sprite` con `offset (-104, -158)`.
+  - El interior, en `assets/art/interiors/tavern/`.
+  - Los iconos de platos, en `assets/art/ui/icons/food_<id>.png`.
+  - Dados, naipes y mesa, en `assets/art/ui/games/`.
+  - La Forja viva de 03b §3b.2, en `assets/art/ui/forge/`. «Batir» lleva los golpes fuerte, medido y de acabado.
+  - Los personajes, como paletas del shader en `assets/art/characters/looks.json`.
+  - Las pantallas de los minijuegos (2026-11-05), en `assets/art/ui/games/<juego>/`: los fondos de la justa, la
+    sortija, la carrera, los toros, el torneo y la pelea, a 880×384 (la carrera, a 808×384); el caballo de justa,
+    el toro y el galope (`race/horse_run.png`, una tira de 4) de perfil al este, y el cubilete. También las láminas
+    `game_<juego>` y los iconos `game_<juego>`.
+  - Los sprites de personaje y los animales del mundo esperan al ciclo de PixelLab del 15-nov (lista en
+    `assets/art/MANIFEST.md`). El caballo y el toro de los minijuegos son de fal, porque solo salen en su pantalla.
 
 #### 4.28.4 Pruebas, bots y dianas
 
@@ -683,7 +978,7 @@ de ida y vuelta desde la versión de antes.
 |---|---|---|---|
 | **Vida** | 4.24 (agenda, reunión y rumores, población y forasteros, guardia, sucesos) | v17 | — |
 | **Fiestas** | 4.25 (calendario, eventos, efectos, encargos, patrocinio, región) | v18 | Vida (forasteros, rutinas) y Juegos (espectáculos); empieza por lo que no depende |
-| **Juegos** | 4.26 (reglas puras, pantallas, apuestas) | sin guardado: se resuelven en el momento | el duelo (04e) |
+| **Juegos** | 4.26 (reglas puras, pantallas, apuestas). **Hecho** (rama juegos): los nueve juegos, apuestas, dados cargados, bot `gambler`; API en `docs/contratos/juegos.md` | sin guardado: se resuelven en el momento (una orden `game_play` / `game_bet`) | el duelo (04e) |
 | **Posada** | 4.27 | v19 | Vida (clientela y forasteros) y Juegos (mesa de juego); empieza por el edificio, la carta y el turno |
 | **Arte** | 4.28.3 | — | las rutas de este documento |
 
@@ -705,3 +1000,15 @@ Cada una lleva la recomendación con la que se construye si no se dice otra cosa
 | **O-V8** | Juego con dinero de verdad | (a) Sí, con margen de la casa y tope por apuesta. (b) Solo por reputación | **(a)**, con tope de 50 por apuesta y aviso si pierdes más de 100 en un día |
 | **O-V9** | Segunda taberna en otra ciudad | (a) Más adelante, cuando se pueda cargar otra ciudad (O-R3). (b) Nunca | **(a)** |
 | **O-V10** | Dados cargados y trampas para cualquiera | (a) Solo el Pícaro (4.22). (b) Cualquiera que los compre | **(b)**, con el riesgo de que te pillen; el Pícaro tendrá ventaja |
+| **O-V11** | ¿La Taberna-Posada cuenta para el tope de edificios por título (4.9)? | (a) No: es el segundo negocio de cualquiera. (b) Sí, cuando llegue H6: un Plebeyo tendría que ser Ciudadano para comprarla | **Owner (2026-11-05): (a)**, no cuenta para el tope |
+| **O-V12** | ¿Se puede construir una segunda taberna en un solar? | (a) Con H6 (parcelas de producción). (b) Nunca: una por villa | **Owner (2026-11-05): (a)**: con H6, una segunda en un solar, y la del pueblo pasa a ser la rival (4.22.3.2) |
+
+**Nuevas (rama juegos):**
+
+| # | Pregunta | Opciones | Recomendación |
+|---|---|---|---|
+| **O-V13** | Apuestas en el torneo de lucha | (a) Una al ganador del torneo (hoy). (b) Una por combate, entre ronda y ronda | **Owner (2026-11-05): la recomendación** — **(a)** hasta que el torneo viva en el calendario de las Fiestas (con su guardado); luego **(b)** |
+| **O-V14** | La justa: ¿dos decisiones (apuntar y cubrirse) o una postura? | (a) Una postura de tres en triángulo (hoy, medido). (b) Las dos por separado (más fiel, la IA no castiga costumbres en tres pasadas) | **Owner (2026-11-05): la recomendación** — **(a)** |
+| **O-V15** | Envite de varios jugadores en la mesa de la Posada | (a) Uno contra uno (hoy). (b) Hasta cuatro (cambia las cuentas del farol) | **Owner (2026-11-05): la recomendación** — **(a)** ahora; **(b)** con la Posada si se pide |
+| **O-V16** | Caballos y lanza de torneo como objetos | (a) Alquilados al entrar (hoy: 10 la justa, 5 la sortija y la carrera). (b) Objetos que se compran (D8) y la lanza del carpintero (encargo de fiesta) | **Owner (2026-11-05): la recomendación** — **(a)** hasta D8; **(b)** con las piezas de las Fiestas |
+

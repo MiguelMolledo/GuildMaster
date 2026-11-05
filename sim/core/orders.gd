@@ -15,8 +15,8 @@ extends RefCounted
 ## (docs/contratos/h7_ciudad.md); H9: request_title (docs/contratos/h9_titulos.md); H10: run_for_office,
 ## campaign_action, use_office_power (docs/contratos/h10_cargos.md); H11: accuse, witness_action, trial_cross,
 ## trial_rest, trial_verdict (docs/contratos/h11_tribunal.md); duelo: duel_challenge, duel_answer, duel_withdraw,
-## duel_move, duel_auto, duel_brawl (docs/contratos/duelo.md); vida: resolve_incident, give_alms
-## (docs/contratos/vida.md). Each milestone adds
+## duel_move, duel_auto, duel_brawl (docs/contratos/duelo.md); juegos: game_play, game_bet (docs/contratos/juegos.md); vida:
+## resolve_incident, give_alms (docs/contratos/vida.md). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -175,6 +175,13 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Treaties.order_propose_town(sim, order)
 		"cancel_treaty":
 			return Treaties.order_cancel(sim, order)
+		# Juegos · games and competitions (sim/games/, docs/contratos/juegos.md)
+		"game_play":
+			return Games.replay(sim, order)
+		"game_bet":
+			return Betting.order_bet(sim, order)
+		"game_enter":
+			return FestivalGames.order_enter(sim, order)
 		# Fiestas (sim/fest/festivals.gd, docs/gdd/04f_vida_y_fiestas.md 4.25.5)
 		"festival_sponsor":
 			return Festivals.order_sponsor(sim, order)
@@ -185,6 +192,21 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Incidents.order_resolve(sim, order)
 		"give_alms":
 			return Visitors.order_alms(sim, order)
+		# Posada · the Taberna-Posada (sim/inn/inn.gd, docs/gdd/04f_vida_y_fiestas.md §4.27)
+		"buy_building":
+			return Inn.order_buy_building(sim, order)
+		"inn_set_menu":
+			return Inn.order_set_menu(sim, order)
+		"inn_set_price":
+			return Inn.order_set_price(sim, order)
+		"inn_set_special":
+			return Inn.order_set_special(sim, order)
+		"inn_buy_license":
+			return Inn.order_buy_license(sim, order)
+		"inn_serve":
+			return Inn.order_serve(sim, order)
+		"inn_make_bed":
+			return Inn.order_make_bed(sim, order)
 	return fail("unknown_order")
 
 
@@ -197,8 +219,9 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"duel_answer", "duel_withdraw", "duel_move", "duel_auto",
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
 	"city_accept", "city_deliver", "sign_treaty",
-	"festival_sponsor", "festival_host_wedding",
-	"resolve_incident"]
+	"game_play", "game_bet", "game_enter", "festival_sponsor", "festival_host_wedding",
+	"resolve_incident",
+	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license"]  # posada (Inn.MANAGEMENT)
 
 
 static func is_management(type: String) -> bool:

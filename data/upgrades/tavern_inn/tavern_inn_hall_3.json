@@ -1,0 +1,37 @@
+{
+  "id": "tavern_inn_hall_3",
+  "name_key": "upgrade.tavern_inn_hall_3",
+  "tree": "tavern_inn",
+  "branch": "inn_hall",
+  "level": 3,
+  "cost": {
+    "gold": 150,
+    "items": [
+      {
+        "item": "cloth",
+        "qty": 4
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_hall_2"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "inn_ambience",
+      "amount": 1
+    },
+    {
+      "kind": "inn_fine_hall"
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_tapestries",
+    "exterior_overlay": null
+  }
+}

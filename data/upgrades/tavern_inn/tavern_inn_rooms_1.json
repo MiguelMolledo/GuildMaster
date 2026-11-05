@@ -1,0 +1,32 @@
+{
+  "id": "tavern_inn_rooms_1",
+  "name_key": "upgrade.tavern_inn_rooms_1",
+  "tree": "tavern_inn",
+  "branch": "inn_rooms",
+  "level": 1,
+  "cost": {
+    "gold": 90,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 8
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "inn_beds",
+      "amount": 4
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_more_beds",
+    "exterior_overlay": null
+  }
+}

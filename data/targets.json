@@ -823,6 +823,43 @@
       ]
     }
   },
+  "gambler": {
+    "_doc": "Juegos (docs/gdd/04f_vida_y_fiestas.md §4.28.4, §4.26.6-8; docs/contratos/juegos.md): bot gambler desde el escenario games_gambler (3000 de oro y una casa de juego con licencia: su parte de la casa, el 10 % de lo que gana el ganador). Cada media hora de 09:00 a 22:00 juega por turnos al azar, a la mayor (con dos parroquianos) y al envite contra parroquianos templados (la misma política que «Resolver sin jugar»: nadie tiene ventaja) y apuesta a un pulso de dos parroquianos a las cuotas del corredor (margen del 10 %). Diana: pierde de media lo que marca el margen de la casa, ni más ni menos: gambler_return (lo ganado o perdido por cada moneda apostada) entre -0,13 y -0,02, y gambler_luck (lo mismo sumando lo que se llevó la casa: la parte de la mesa y el margen esperado de sus apuestas) entre -0,05 y +0,05 de media. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=games_gambler --bots=gambler --days=8 --seeds=5 (en run_all, paso gambler, 3 semillas). Medido (2026-11-04, 5 semillas): 216 partidas y apuestas por semilla, gambler_return -0,066 de media, gambler_luck +0,013.",
+    "days": [
+      8,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gambler_skipped": [
+      0,
+      0
+    ],
+    "gambler_games": [
+      150,
+      null
+    ],
+    "gambler_bets": [
+      50,
+      null
+    ],
+    "_mean": {
+      "gambler_return": [
+        -0.13,
+        -0.02
+      ],
+      "gambler_luck": [
+        -0.05,
+        0.05
+      ]
+    }
+  },
   "full_player": {
     "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche. Rivales y pueblo (tools/full_watch.gd, docs/contratos/informe_jugador_completo.md): ver _proposed_doc.",
     "_needs_days": {
@@ -1004,5 +1041,54 @@
       1,
       null
     ]
+  },
+  "innkeeper": {
+    "_doc": "Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, §4.28.4): bot innkeeper (sim/bots/bot_innkeeper.gd) desde innkeeper_start (la familia del herrero con la Taberna-Posada recién comprada, 200 de oro y sus primeras existencias), 16 días (2 años), con eventos globales. Compra en el mercado por recado mañana y tarde, cocina por la cola (cocinero oficial, de día), contrata por roles (barra y mesas de noche, criada de día), atiende la barra a mano, mejora en orden fijo y amplía la carta. Medidas del bot: inn_net_day (lo que el libro apunta al edificio por día, sin la compra; incluye mejoras), inn_operating_day (sin mejoras ni licencia), inn_fame, inn_bed_share (camas alquiladas / camas × noches), inn_guests_night, inn_complaints_night. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=innkeeper_start --bots=innkeeper --days=16 --seeds=10 (en run_all, paso inn, 5 semillas). Medido (2026-11-05, 10 semillas, con vida y fiestas encendidas y la clientela en dos capas de 04g §4.6.5.7): neto 21,9/día (6,8-33,6), fama 1,8, 26,5 clientes por noche (las fiestas suben la taberna: San Juan y Carnaval ×2, feria ×3), 9,6 quejas por noche (sobre todo «sin sitio» en las fiestas y «se acabó»), camas al 17 % (duermen solo los forasteros que encuentran cama), 16 noches abiertas en las 10 semillas: el bot guarda 3 días de mantenimiento y sueldos (las plazas sin cubrir, a sueldo de aprendiz) antes de amortizar la deuda o de mejorar, y compra primero lo que más margen deja (el trigo y la madera de la cerveza; el pan y la sidra, al final). La media de explotación con 5 semillas (paso inn de la QA) baja a ~33: banda [30, 100]. Bandas de clientes [16, 30] y quejas [0, 12] aceptadas por el manager (2026-11-05).",
+    "days": [
+      16,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "inn_turns": [
+      14,
+      16
+    ],
+    "inn_guests_night": [
+      12,
+      null
+    ],
+    "_mean": {
+      "inn_net_day": [
+        10,
+        60
+      ],
+      "inn_operating_day": [
+        30,
+        100
+      ],
+      "inn_fame": [
+        1.5,
+        3.5
+      ],
+      "inn_bed_share": [
+        0.1,
+        0.5
+      ],
+      "inn_guests_night": [
+        16,
+        30
+      ],
+      "inn_complaints_night": [
+        0,
+        12
+      ]
+    }
   }
 }

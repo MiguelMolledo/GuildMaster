@@ -301,6 +301,7 @@ static func _spectacles(sim: Sim, inst: Dictionary, now: int) -> void:
 				continue
 			sim.events.append({"type": "festival_spectacle", "festival": str(inst["id"]), "def": str(inst["def"]),
 				"spectacle": str(e.get("id", "")), "at": at})
+			FestivalGames.on_spectacle(sim, inst, str(e.get("id", "")))  # juegos (04f §4.26): the competitions are fought
 			if Life.on(sim):  # vida (04f 4.24.1): the townsfolk go and watch it in the plaza (activity watch_show)
 				Life.add_spectacle(sim, str(e.get("id", "")), Life.plaza(sim), at + int(rules(sim).get("spectacle_minutes",
 					120)), str(inst["id"]))
@@ -309,6 +310,7 @@ static func _spectacles(sim: Sim, inst: Dictionary, now: int) -> void:
 
 
 static func _end(sim: Sim, inst: Dictionary) -> void:
+	FestivalGames.on_end(sim, inst)  # juegos: an entry never played is resolved, a bet on what never came given back
 	_apply_at(sim, inst, "end")
 	var f: Dictionary = sim.state.festivals
 	var h: Array = f["history"]

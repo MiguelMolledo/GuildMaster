@@ -177,6 +177,8 @@ static func _step_building(sim: Sim, bld: String) -> void:
 			return not fa
 		return a < b)
 	for c: String in free:
+		if _service_role(sim, bld, c):
+			continue  # posada: a role at a service station (the inn's bar, tables, rooms) is run by its system, not the queue
 		if bool(q.get("paused", false)):
 			_set_idle(sim, bld, q, c, "paused")
 			continue
@@ -642,6 +644,15 @@ static func _at_work(sim: Sim, chr: String, bld: String) -> bool:
 	var ch: Dictionary = sim.state.characters.get(chr, {})
 	return not ch.is_empty() and bool(ch.get("alive", true)) and str(ch.get("location", "")) == bld \
 		and Staff.is_active(sim, chr) and Production.may_work(sim, chr, bld) == ""
+
+
+## Posada: whether `chr`'s role is a station of kind "service" of `bld`'s type (Inn serves and makes beds with them).
+static func _service_role(sim: Sim, bld: String, chr: String) -> bool:
+	var role := _role(sim, chr)
+	for z: Dictionary in sim.catalog.buildings().get(str(sim.state.buildings[bld].get("type", "")), {}).get("zones", []):
+		if str(z.get("id", "")) == role:
+			return str(z.get("kind", "")) == "service"
+	return false
 
 
 static func _role(sim: Sim, chr: String) -> String:

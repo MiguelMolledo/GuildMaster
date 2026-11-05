@@ -48,6 +48,8 @@ import re
 import sys
 
 import validate_structure
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from validate_games import check_games  # noqa: E402  juegos (04f §4.26)
 import validate_fiestas  # fiestas (04f 4.25): data/festivals.json and its contracts
 
 sys.dont_write_bytecode = True
@@ -66,7 +68,7 @@ DIFF_LEVERS = {"start_debt": int, "rival_craft": int, "rival_sell_min_demand": (
 STATS = ["charisma", "empathy", "negotiation", "arcane", "dexterity", "craft", "martial", "constitution", "rhetoric", "stealth"]
 MATCH_OPS = {"gte", "lte", "ne"}
 ZONE_KINDS = {"craft", "sales", "storage", "service"}
-NIGHT = {"none", "manual_only", "always"}
+NIGHT = {"none", "manual_only", "always", "employees"}  # posada: employees = sus empleados trabajan de noche (4.22.4.5)
 PHASES = ["dawn", "day", "dusk", "night"]
 ROAD_KINDS = {"street", "plaza", "bridge"}  # la red de calles: debe ser una sola pieza
 
@@ -607,7 +609,7 @@ UPGRADES = {}  # H5: id -> upgrade (data/upgrades/<tree>/<id>.json), loaded firs
 EFFECT_VALUES = {"mult", "amount", "zone", "recipe", "rank", "flag"}
 EFFECT_STACKS = {"branch_top", "all"}
 EFFECT_WHEN = {"query", "complete"}
-EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none"}
+EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none", "inn"}
 
 
 def load_upgrades(rep):
@@ -1972,7 +1974,10 @@ def check_h5(items, recipes, buildings, ranks, strings, rep):
         if loops(id_, frozenset()):
             rep.error(f"upgrades/{UPGRADES[id_]['tree']}/{id_}", "los requisitos vuelven a ella (ciclo)")
     for tree, ids in sorted(trees.items()):
+        used = {UPGRADES[i]["branch"] for i in ids}  # posada: cada árbol avisa solo de las ramas que usa
         for br in branches:
+            if br not in used:
+                continue
             for lv in range(1, levels + 1):
                 if (tree, br, lv) not in slot:
                     rep.warn(f"upgrades/{tree}", f"falta el nivel {lv} de la rama {br}")
@@ -2590,6 +2595,7 @@ def main():
     check_h14(strings, rep)
     check_h13(items, strings, rep)
     check_combat(items, strings, rep)
+    check_games(ROOT, strings, rep, check_text)  # juegos (04f §4.26): tools/validate_games.py
     check_h12(items, recipes, buildings, maps, strings, rep)
     check_region(items, strings, rep)
     validate_fiestas.check_festivals(DATA, items, recipes, strings, check_text, load_json, rep)

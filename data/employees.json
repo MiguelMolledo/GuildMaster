@@ -18,7 +18,7 @@
     "cutting_bench": {"name_key": "ui.zone.cutting_bench"},
     "carving_bench": {"name_key": "ui.zone.carving_bench"},
     "loom": {"name_key": "ui.zone.loom"},
-    "sewing_table": {"name_key": "ui.zone.sewing_table"}
+    "sewing_table": {"name_key": "ui.zone.sewing_table"}, "bar": {"name_key": "ui.zone.bar"}, "kitchen": {"name_key": "ui.zone.kitchen"}, "tables": {"name_key": "ui.zone.tables"}, "rooms": {"name_key": "ui.zone.rooms"}
   },
   "default_role": "any",
   "_loyalty_doc": "4.7.3. start = loyalty of a new hire [provisional: GDD 06 example]. Changes: wage_paid per day paid on time, wage_unpaid per day unpaid after the grace, bonus (bonus_gold, 4.7.3 'Bonus manual (+5 oro)'), promotion_accepted, promotion_refused, building_damaged per day; facade_upgrade and dining_upgrade arrive with H5.",

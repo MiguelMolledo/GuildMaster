@@ -156,6 +156,39 @@ static func icon(item_id: String) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
+## Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, art list of 4.28.3): the Taberna-Posada's art by kind and id, or null
+## while it is missing (the scene keeps its greybox with a label, game/inn/art_slot.gd). Kinds: "building" ->
+## assets/art/buildings/fal/<id>.png (tavern_inn, tavern_inn_back); "interior" -> assets/art/interiors/tavern/<id>.png
+## (floor, wall_ne, wall_nw, wall_door_ne, wall_door_nw, the stations bar, kitchen, tables, rooms, storage,
+## minstrel_corner, gaming_table and the upgrade pieces by their visual node). The dishes are items: their icons are
+## icon() / icon_small().
+const INN_ART: Dictionary = {"building": "buildings/fal", "interior": "interiors/tavern"}
+
+
+## Posada: the menu's icons of the art (assets/art/ui/icons/food_<id>.png, 32×32, and small/ 16×16) by dish of
+## data/inn/menu.json; a good or excellent ale is the strong beer and the wine the good wine. null if missing (the
+## caller falls back to the item's icon, then to a disc with its letters).
+const INN_DISH_ICONS: Dictionary = {"ale": "beer", "cider": "cider", "wine": "wine", "bread": "bread",
+	"garlic_soup": "garlic_soup", "meat_pie": "empanada", "stew": "stew", "roast_lamb": "roast_lamb", "sausage": "sausage",
+	"sweets": "sweets"}
+const INN_DISH_GOOD: Dictionary = {"ale": "strong_beer", "wine": "good_wine"}
+
+
+static func inn_dish_icon(dish: String, good: bool = false, small: bool = true) -> Texture2D:
+	var id := str(INN_DISH_GOOD.get(dish, "")) if good and INN_DISH_GOOD.has(dish) else str(INN_DISH_ICONS.get(dish, ""))
+	if id == "":
+		return null
+	var p := "%s/ui/icons/%sfood_%s.png" % [ART_ROOT, "small/" if small else "", id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+static func inn_art(kind: String, id: String) -> Texture2D:
+	if not INN_ART.has(kind) or id == "":
+		return null
+	var p := "%s/%s/%s.png" % [ART_ROOT, INN_ART[kind], id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
 ## The small icon of an item for the UI lists (10 px font): assets/art/icons/small/<item_id>.png, 16×16, made from
 ## the 32×32 one by tools/art/derivar_guild.py (null until it exists).
 static func icon_small(item_id: String) -> Texture2D:
@@ -272,6 +305,20 @@ static func illustration_or_greybox(kind: String, id: String, small: bool = fals
 	return g
 
 
+## Fiestas (04f 4.25.3): the names the art uses for the festival props of data/festivals.json view decor (arte-fal-2,
+## ids prop_fiesta_<name> in assets/inventario.json): game/visuals/props/fiesta/<name>.tscn. A prop with no art yet
+## (the animals) keeps its id and falls to the labelled greybox (FestivalLayer).
+const FESTIVAL_PROP_ALIAS: Dictionary = {"bunting": "banderola", "banner": "pendon", "lanterns": "farolillo",
+	"maypole": "mayo", "garland": "guirnalda", "cart_ring": "cerco_carros", "bonfire": "hoguera",
+	"fair_stall": "puesto_feria", "pen": "corral", "long_tables": "mesa_larga", "nativity": "belen",
+	"triumphal_arch": "arco_triunfal", "stage": "tablado", "tilt_yard": "liza"}
+
+
+## The scene id (under props/) of festival prop `id`: fiesta/<the art's name>.
+static func festival_prop(id: String) -> String:
+	return "fiesta/" + str(FESTIVAL_PROP_ALIAS.get(id, id))
+
+
 ## Duelo (docs/ui/mecanicas/combate.md §8): the names the art uses for the duel's ids (the art keeps its names, as in
 ## assets/inventario.json): icons icon_<name>.png, illustrations <name>[_192].png.
 const DUEL_ICON_ALIAS: Dictionary = {"yield": "surrender"}
@@ -331,6 +378,51 @@ static func duel_illustration(id: String, small: bool = false) -> Texture2D:
 		return t
 	var p := "%s/ui/illustrations/duel/%s%s.png" % [ART_ROOT, name, "_192" if small else ""]
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## Juegos (04f §4.26, §4.28.3): a piece of a game's screen, assets/art/ui/games/<game>/<id>.png (the dice, the table,
+## the cards, the lists, the horses...). null until the art arrives: the board draws its greybox with a label.
+## Kept here: a texture loaded inside a _draw and dropped right after is freed before the canvas draws it (it comes
+## out white), so the boards' pieces stay referenced.
+static var _game_art: Dictionary = {}
+
+
+static func game_art(game: String, id: String) -> Texture2D:
+	var key := "%s/%s" % [game, id]
+	if _game_art.has(key):
+		return _game_art[key]
+	var t := _game_art_load(key, id)
+	_game_art[key] = t
+	return t
+
+
+static func _game_art_load(key: String, id: String) -> Texture2D:
+	var alias := str(GAME_ART_ALIAS.get(key, ""))
+	if alias == "" and key.begins_with("dice/die_"):
+		alias = "dados/d" + id.substr(4)
+	for rel: String in ([alias] if alias != "" else []) + [key]:
+		var p := "%s/ui/games/%s.png" % [ART_ROOT, rel]
+		if ResourceLoader.exists(p):
+			return load(p) as Texture2D
+	return null
+
+
+## Juegos: the names the art uses for the boards' pieces (assets/inventario.json ui_game_mesa, ui_game_dados,
+## ui_game_naipes; the art keeps its names): the tavern table is the board of the dice, the cards and the pulso.
+const GAME_ART_ALIAS: Dictionary = {"dice/table": "mesa/mesa", "naipes/table": "mesa/mesa", "pulso/table": "mesa/mesa",
+	"dice/shadow": "dados/shadow", "dice/cup": "dados/cup"}
+
+
+## Juegos: the icon of a game (assets/art/ui/icons/game_<game>.png, `small` from small/), null until it exists.
+static func game_icon(game: String, small: bool = false) -> Texture2D:
+	var p := "%s/ui/icons/%sgame_%s.png" % [ART_ROOT, "small/" if small else "", game]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## Juegos: the illustration of a game's result or of a competition (assets/art/illustrations/events/<id>.png, 240×135;
+## `small`: <id>_192.png, 192×108), shared with the fiestas' cards. null until it exists.
+static func game_illustration(id: String, small: bool = false) -> Texture2D:
+	return illustration("events", id, small)
 
 
 ## The ground texture of a tile kind (data/tiles.json): assets/art/tiles/<kind>.png (null until it exists: the ground

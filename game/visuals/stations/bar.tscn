@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccm4kp6h6rufs"]
+
+[ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="1_block"]
+[ext_resource type="Script" uid="uid://b2swscgjan4v4" path="res://game/inn/art_slot.gd" id="2_slot"]
+
+[node name="Bar" type="Node2D"]
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -42)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_block")
+color = Color(0.4784, 0.2902, 0.1490, 1)
+height = 22.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+script = ExtResource("2_slot")
+id = "bar"
+label = NodePath("")
+bottom = 8.0
+editor_description = "assets/art/interiors/tavern/bar.png (VisualPaths.inn_art), feet at its bottom centre. Until it exists the Greybox shows."
