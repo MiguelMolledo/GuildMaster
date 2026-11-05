@@ -26,7 +26,7 @@ extends RefCounted
 ## written, every multiplier is 1.
 
 const SIM_EFFECTS: Array[String] = ["demand", "price", "customers", "production", "holy_day", "tariff", "route_bonus",
-	"stalls", "emotion", "reputation", "aguinaldo"]
+	"stalls", "emotion", "reputation", "aguinaldo", "town_gift", "audience", "contest", "cattle"]
 const HOOK_EFFECTS: Array[String] = ["service", "visitors", "routine", "need", "spectacle", "incident"]
 const GROUP_EFFECTS: Array[String] = ["demand", "price", "production"]
 const SIZES: Array[String] = ["big", "small"]
@@ -122,6 +122,7 @@ static func _tick(sim: Sim, now: int) -> void:
 	var still: Array = []
 	for inst: Dictionary in f["active"]:
 		_spectacles(sim, inst, now)
+		FestivalCourt.tick(sim, inst, now)  # the town's gift, the audience, the quality contest at their hour
 		if now >= int(inst["end"]):
 			_end(sim, inst)
 		else:
@@ -253,6 +254,8 @@ static func _announce(sim: Sim, inst: Dictionary) -> void:
 	inst["announced"] = true
 	var d := def_of(sim, str(inst["def"]))
 	FestivalContracts.post_for(sim, inst)
+	FestivalCourt.ai_sponsor(sim, inst)   # the AI families' sponsoring (owner, 2026-11-05)
+	FestivalCourt.ai_entries(sim, inst)   # their gifts, audiences and contest pieces
 	sim.events.append({"type": "festival_eve", "id": str(inst["id"]), "def": str(inst["def"]), "day": int(inst["day"]),
 		"start": int(inst["start"]), "end": int(inst["end"]), "contracts": (inst["contracts"] as Array).size()})
 	var params := {"festival": str(inst["def"]), "when": _when_text(sim, inst), "contracts": (inst["contracts"] as Array).size()}
@@ -273,6 +276,8 @@ static func _start(sim: Sim, inst: Dictionary) -> void:
 			for i: int in int(e.get("count", 0)):
 				(inst["stalls"] as Array).append({"stall": str(e.get("stall", "fair")),
 					"group": str(groups[i % groups.size()]) if not groups.is_empty() else ""})
+	_cattle(sim, inst)
+	FestivalCourt.ai_entries(sim, inst, "start")  # the AI's contest pieces, the day of the feast
 	_apply_at(sim, inst, "start")
 	_needs(sim, inst)
 	sim.events.append({"type": "festival_started", "id": str(inst["id"]), "def": str(inst["def"]),
@@ -312,13 +317,17 @@ static func _spectacles(sim: Sim, inst: Dictionary, now: int) -> void:
 static func _end(sim: Sim, inst: Dictionary) -> void:
 	FestivalGames.on_end(sim, inst)  # juegos: an entry never played is resolved, a bet on what never came given back
 	_apply_at(sim, inst, "end")
+	FestivalCourt.give_back(sim, inst)  # the offered and presented pieces that stayed go home
 	var f: Dictionary = sim.state.festivals
 	var h: Array = f["history"]
 	h.append(inst)
 	while h.size() > int(rules(sim).get("history_size", 16)):
 		h.pop_front()
-	Chronicle.add(sim.state, "festival", {"festival": str(inst["def"]), "day": int(inst["day"]),
-		"sponsors": (inst["sponsors"] as Dictionary).keys(), "hosts": inst.get("hosts", [])})
+	var entry := {"festival": str(inst["def"]), "day": int(inst["day"]),
+		"sponsors": (inst["sponsors"] as Dictionary).keys(), "hosts": inst.get("hosts", [])}
+	if inst.has("cattle"):
+		entry["cattle"] = str(inst["cattle"])  # pens (at the outskirts) | stalls (they did not fit)
+	Chronicle.add(sim.state, "festival", entry)
 	sim.events.append({"type": "festival_ended", "id": str(inst["id"]), "def": str(inst["def"])})
 	for fam: String in _humans(sim.state):
 		Notices.add(sim, fam, Notices.INFO, "notice.festival_ended", {"festival": str(inst["def"])})
@@ -357,6 +366,24 @@ static func _apply_at(sim: Sim, inst: Dictionary, at: String) -> void:
 			for c: String in Population.townsfolk(st):
 				if Kin.roll(st, "fst|rel|%s|%s|%s" % [inst["id"], fam, c]) < float(sp.get("relation_share", 0.4)):
 					Emotions.change_relation(sim, c, head, int(sp.get("relation", 2)), "festival_sponsor")
+
+
+## The fair's cattle (effect cattle, owner 2026-11-05): its pens go to the outskirts of the town (FestivalGround, the
+## same rule as the view); if they do not fit there, the cattle is sold at stalls: one stall more of stall_group, and
+## the chronicle of the fair says so (inst.cattle = pens | stalls).
+static func _cattle(sim: Sim, inst: Dictionary) -> void:
+	for e: Dictionary in def_of(sim, str(inst["def"])).get("effects", []):
+		if str(e.get("kind", "")) != "cattle":
+			continue
+		var fp: Array = e.get("footprint", [3, 3])
+		var ok := FestivalGround.fits(sim.catalog, sim.state.map_id, Vector2i(int(fp[0]), int(fp[1])), int(e.get("count", 1)))
+		inst["cattle"] = "pens" if ok else "stalls"
+		if not ok:
+			(inst["stalls"] as Array).append({"stall": "cattle", "group": str(e.get("stall_group", ""))})
+			Chronicle.add(sim.state, "fair_cattle_stalls", {"festival": str(inst["def"]), "day": int(inst["day"]),
+				"map": sim.state.map_id})
+		if OS.is_debug_build():
+			print("[Festivals] %s: el ganado %s" % [inst["id"], "en corrales a las afueras" if ok else "en puestos (no caben los corrales)"])
 
 
 ## vida (04f 4.24.1): the need effects (the preacher's faith +40) raise the townsfolk's needs when the feast starts.
@@ -404,6 +431,14 @@ static func _who(sim: Sim, inst: Dictionary, who: String) -> Array:
 static func _part_ok(inst: Dictionary, e: Dictionary) -> bool:
 	var need := str(e.get("needs", ""))
 	return need == "" or part_on(inst, need)
+
+
+## The family that pays `part` of `inst` ("" if nobody yet).
+static func part_taken_by(inst: Dictionary, part: String) -> String:
+	for fam: Variant in inst.get("sponsors", {}):
+		if part in (inst["sponsors"][fam] as Array):
+			return str(fam)
+	return ""
 
 
 static func part_on(inst: Dictionary, part: String) -> bool:
@@ -490,9 +525,31 @@ static func order_sponsor(sim: Sim, o: Dictionary) -> Dictionary:
 	var fam := str(sim.state.characters[actor].get("family", ""))
 	if part in (inst["sponsors"].get(fam, []) as Array):
 		return Orders.fail("already_sponsored")
+	# Each part, one family: whoever comes later bids (owner, 2026-11-05): bid true pays outbid_mult × what the
+	# holder paid; the holder gets its gold back and loses the reputation it had won.
+	var holder := part_taken_by(inst, part)
 	var gold := int(def.get("gold", 0))
+	if holder != "":
+		if not bool(o.get("bid", false)):
+			return Orders.fail("part_taken")
+		gold = bid_price(sim, inst, part)
 	if not Money.change(sim, fam, -gold, Money.DONATIONS, str(inst["id"]), "", actor):
 		return Orders.fail("not_enough_gold")
+	if holder != "":
+		var prev := int(inst.get("sponsor_paid", {}).get(part, {}).get("gold", int(def.get("gold", 0))))
+		Money.change(sim, holder, prev, Money.DONATIONS, str(inst["id"]))
+		Reputation.change(sim, holder, -int(def.get("reputation", 0)), "festival_outbid")
+		(inst["sponsors"][holder] as Array).erase(part)
+		if (inst["sponsors"][holder] as Array).is_empty():
+			(inst["sponsors"] as Dictionary).erase(holder)
+		sim.events.append({"type": "festival_outbid", "festival": str(inst["id"]), "def": str(inst["def"]), "part": part,
+			"family": fam, "from": holder, "gold": gold})
+		if str(sim.state.families.get(holder, {}).get("controlled_by", "")) == "human":
+			Notices.add(sim, holder, Notices.WARNING, "notice.festival_outbid", {"festival": str(inst["def"]), "part": part,
+				"family": str(sim.state.families[fam].get("name", ""))})
+	if not inst.get("sponsor_paid") is Dictionary:
+		inst["sponsor_paid"] = {}
+	inst["sponsor_paid"][part] = {"family": fam, "gold": gold}
 	if not (inst["sponsors"] as Dictionary).has(fam):
 		inst["sponsors"][fam] = []
 	(inst["sponsors"][fam] as Array).append(part)
@@ -506,6 +563,13 @@ static func order_sponsor(sim: Sim, o: Dictionary) -> Dictionary:
 	if OS.is_debug_build():
 		print("[Festivals] %s (%s) patrocina %s de %s por %d" % [actor, fam, part, inst["id"], gold])
 	return Orders.ok()
+
+
+## What it costs to take `part` of `inst` from the family that pays it now (rules.sponsor.outbid_mult × its price).
+static func bid_price(sim: Sim, inst: Dictionary, part: String) -> int:
+	var base := int(rules(sim).get("sponsor", {}).get("parts", {}).get(part, {}).get("gold", 0))
+	var paid := int(inst.get("sponsor_paid", {}).get(part, {}).get("gold", base))
+	return roundi(float(paid) * float(rules(sim).get("sponsor", {}).get("outbid_mult", 1.5)))
 
 
 ## The parts of `inst` that may be sponsored: the banquet and the music always; the bulls where the feast has them.
@@ -919,8 +983,16 @@ static func calendar(sim: Sim) -> Array:
 static func view_of(sim: Sim, inst: Dictionary) -> Dictionary:
 	var v: Dictionary = def_of(sim, str(inst["def"])).get("view", {})
 	var decor: Array = []
+	var cattle_prop := ""
+	if str(inst.get("cattle", "")) == "stalls":  # the pens did not fit: the cattle is sold at stalls in the plaza
+		for e: Dictionary in def_of(sim, str(inst["def"])).get("effects", []):
+			if str(e.get("kind", "")) == "cattle":
+				cattle_prop = str(e.get("prop", "pen"))
 	for dd: Dictionary in v.get("decor", []):
 		if not _part_ok(inst, dd):
+			continue
+		if cattle_prop != "" and str(dd.get("prop", "")) == cattle_prop:
+			decor.append({"prop": "fair_stall", "where": "plaza_ring", "count": int(dd.get("count", 1))})
 			continue
 		var nc := str(dd.get("needs_contract", ""))
 		if nc != "" and not FestivalContracts.done_item(sim, inst, nc):

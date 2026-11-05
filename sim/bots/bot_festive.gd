@@ -19,12 +19,26 @@ func orders(sim: Sim) -> Array:
 	_watch(sim)
 	var out: Array = []
 	var fam := _fam(sim)
+	for inst: Dictionary in Festivals.announced(sim) + Festivals.active(sim):  # the court (owner, 2026-11-05)
+		var key := "court|" + str(inst["id"])
+		if _sponsored.has(key):
+			continue
+		_sponsored[key] = true
+		if not FestivalCourt.effect(sim, inst, "contest").is_empty() and \
+				not FestivalCourt.trade_items(sim, fam).is_empty() and \
+				not FestivalCourt.best_piece(sim, fam, ACTOR, FestivalCourt.trade_items(sim, fam)).is_empty():
+			out.append({"type": "festival_enter_contest", "actor": ACTOR, "festival": str(inst["id"])})
+		if not FestivalCourt.effect(sim, inst, "town_gift").is_empty() and \
+				not FestivalCourt.best_piece(sim, fam, ACTOR, Festivals.rules(sim).get("gift", {}).get("items", [])).is_empty():
+			out.append({"type": "festival_offer_gift", "actor": ACTOR, "festival": str(inst["id"])})
 	for inst: Dictionary in Festivals.announced(sim):
 		var id := str(inst["id"])
 		if _sponsored.has(id) or str(Festivals.def_of(sim, str(inst["def"])).get("size", "")) != "big":
 			continue
 		_sponsored[id] = true
 		var gold := int(Festivals.rules(sim).get("sponsor", {}).get("parts", {}).get(SPONSOR_PART, {}).get("gold", 0))
+		if Festivals.part_taken_by(inst, SPONSOR_PART) != "":
+			continue  # another house pays the music: the bot does not bid
 		if Money.gold(sim.state, fam) - gold >= SPONSOR_SPARE:
 			out.append({"type": "festival_sponsor", "actor": ACTOR, "festival": id, "part": SPONSOR_PART})
 	if (sim.state.festivals.get("offers", {}) as Dictionary).has(fam):
@@ -53,6 +67,18 @@ func _watch(sim: Sim) -> void:
 			"festival_sponsored":
 				if str(e.get("family", "")) == fam:
 					_add("fest_sponsored")
+				elif str(sim.state.families.get(str(e.get("family", "")), {}).get("ai_profile", "")) != "":
+					_add("fest_ai_sponsored")
+			"festival_contest":
+				_add("fest_contests")
+				if str(e.get("family", "")) == fam:
+					_add("fest_contests_won_player")
+			"festival_contest_entered":
+				_add("fest_contest_entries")
+			"festival_gift_chosen":
+				_add("fest_town_gifts")
+			"festival_audience":
+				_add("fest_audiences")
 			"contract_posted":
 				if str(e.get("festival", "")) != "":
 					_add("fest_contracts_posted")
@@ -87,7 +113,9 @@ func measures(sim: Sim) -> Dictionary:
 			out["fest_" + id] = 0
 	for k: String in ["fest_eves", "fest_started", "fest_variable", "fest_ended", "fest_spectacles", "fest_sponsored",
 			"fest_contracts_posted", "fest_contracts_done", "fest_contracts_done_player", "fest_contracts_lost_player",
-			"fest_contracts_unclaimed", "fest_contracts_taken_player", "fest_chronicle", "fest_refused"]:
+			"fest_contracts_unclaimed", "fest_contracts_taken_player", "fest_chronicle", "fest_refused",
+			"fest_ai_sponsored", "fest_contests", "fest_contests_won_player", "fest_contest_entries", "fest_town_gifts",
+			"fest_audiences"]:
 		if not out.has(k):
 			out[k] = 0
 	var now := int(sim.state.clock["minute"])

@@ -17,7 +17,8 @@ semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), d
 duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días), gambler (juegos: el bot jugador en
 games_gambler, 3 semillas × 8 días: pierde lo que marca el margen de la casa), life
 (vida, 04f 4.28.4: el bot guard_watch en life_bandits, 3 semillas × 16 días; las dianas de antes corren con la vida
-apagada, data/targets.json _no_life), festive (fiestas: un año con el calendario de fiestas, 3 semillas × 8 días) y
+apagada, data/targets.json _no_life), festive (fiestas: un año con el calendario de fiestas, 3 semillas × 8 días), fest_ai
+(idle_titles_fest: el año 1 con fiestas, ninguna familia IA más de 2 días sin oro, 5 semillas) y
 bench_fair (el coste del sim el día de la feria), full y chaos (07 §7.4: el jugador completo y el caótico con todo
 encendido, 1 año y 1 semilla; las corridas largas, de noche con tools/qa/noche.py) y full_html (su resumen), e inn (posada: el bot posadero en innkeeper_start, 5 semillas × 16 días). Con
 --visual, además smoke (capturas con ventana, por
@@ -67,6 +68,8 @@ STEPS = [
                   "--seeds=3"]),
     ("festive", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=festive", "--days=8",
                      "--seeds=3"]),
+    ("fest_ai", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=idle_titles_fest",
+                     "--days=8", "--seeds=5"]),
     ("bench_fair", G + ["-s", "tools/sim_bench.gd", "--", "--at-day=3", "--days=1", "--runs=3"]),
     ("inn", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=innkeeper_start", "--bots=innkeeper", "--days=16",
                  "--seeds=5"]),
