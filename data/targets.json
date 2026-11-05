@@ -41,7 +41,7 @@
     "events",
     "duelist",
     "merchant"
-  ],
+  , "pacing"],
   "idle": {
     "days": [
       3,
@@ -1091,5 +1091,6 @@
         12
       ]
     }
-  }
+  },
+  "pacing": {"_doc": "Ritmo (docs/gdd/03b_diversion_y_ritmo.md §3b.6): bot pacing (sim/bots/bot_pacing.gd), el novato forjando en Forja viva y leyendo las cartas, año 1 (8 días) de una partida nueva en Normal. Mide los segundos reales entre decisiones (×1, ×8 cuando el jugador saltaría: ciclo en marcha o noche; las órdenes a menos de 3 s son una sola decisión), las metas abiertas cada hora y el día de cada desbloqueo frente a su ventana ±1 día (los ganchos sin su sistema no cuentan). Diana de 3b.6: mediana < 30 s, máximo < 60 s, siempre >= 2 metas, desbloqueos en su ventana. Medido (2026-11-04, 3 semillas): mediana 4,7 s, p90 6,6 s, máximo 29-40 s, metas mín 2 (media 2,8-3,0), 9 desbloqueos, 0 fuera. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5 (paso pacing de la QA).", "days": [8, null], "ledger_mismatch": [0, 0], "gap_median_s": [null, 30], "gap_max_s": [null, 60], "goals_min": [2, null], "unlocks_off": [0, 0], "_proposed_festivals": {"_doc": "Diana propuesta, no comprobada (decisión del owner, 2026-11-05): con --festivals=on --life=on el novato no llega a 300 de oro en el año 1 en 1 de 3 semillas y las mejoras no se abren (unlocks_off = 1). La ventana de mejoras de 03b no se toca: lo arregla el equilibrio del año 1-2 con fiestas (Ciudadano y oro). Cuando ese equilibrio esté hecho, esta banda pasa a la diana y pacing sale de _no_life.", "unlocks_off": [0, 0], "gap_median_s": [null, 30], "gap_max_s": [null, 60], "goals_min": [2, null]}}
 }

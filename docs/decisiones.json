@@ -769,6 +769,66 @@
       "tema": "Montsacre: dentro y fuera sin muralla de villa",
       "decision": "El recinto de la abadía no es edificable (tierra de la Iglesia). En ciudades sin muralla de villa, «dentro» es el núcleo a un radio andando de la plaza (cifra en tools/city/reglas.json), con guardia y precio de situación de dentro.",
       "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Forja viva (03b §3b.2, O-D1 a, O-D4 a)",
+      "decision": "Construida como modo de trabajo `live` (sim/forge/live_forge.gd, data/live_forge.json): calentar, batir y templar como órdenes live_forge que se aplican al momento y quedan en la grabación; cada decisión sale bien, cerca o mal; tres bien +1 escalón, dos mal −1; sin decidir nada, exactamente el modo normal (mismos dados). En el yunque de la forja el tercer botón pasa de «Con cuidado» a «Forja viva»; `careful` y el toque de maestro siguen en el sim para los bots, los guardados y los otros oficios. Gracia de 0,5 h al final del ciclo; solo se repite en Forja viva si se jugó hasta el temple. La pantalla pone ×1 mientras está abierta. Obra maestra: Artesanía ≥ 7, las tres bien y una tirada del 10 % [balance]; con nombre (santo + apellido), en la crónica y en masterworks.pieces; la venta a nobles ×3, el regalo y la ventaja en justas y duelo quedan como ganchos.",
+      "por_que": "El owner temía que forjar fuera mirar una barra. Cambios sobre el diseño: (1) 03b decía «jugar mal no es peor que no jugar», que contradecía el −1 con dos mal y O-C10 («jugar mal pierde»): se sigue O-C10. (2) El Hugo del inicio ya tiene Artesanía 7, así que la obra maestra no puede esperar al año 3-5: su desbloqueo pasa a «la primera que salga» y la probabilidad baja al 10 % para que sea rara. (3) Los rasgos son descriptivos hasta que exista la durabilidad. Banco (tests/test_forja_live.gd, 60 martillos, Artesanía 7): normal 1,07 · sin jugar 1,07 · bien 1,83 · mal 0,33."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Encargos con especificaciones (03b §3b.3, O-D5 a)",
+      "decision": "Algunos encargos del herrero (spec_chance 0,35 [balance]) piden variante: hoja corta o larga, guarnición sencilla o labrada y temple, dicho con palabras en el tablón. Cada pieza hecha a medida cobra +30 % [balance] (spec_pay) al entregarla; una pieza normal se sigue aceptando a la paga normal. Las que cumplen se apartan para el encargo (contract.made) y vuelven al almacén si el encargo falla. Hoja larga ×1,15 y un golpe medido más; guarnición labrada ×1,25 y un golpe de acabado más.",
+      "por_que": "«Tensión, no castigo» (§3b.5.5) y las dianas: como prima, ni el jugador que no juega ni los bots pierden nada. Qué encargo pide variante sale de un azar propio (semilla de la partida + id del encargo), no de state.rng, para que las dianas de hoy salgan iguales."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Desbloqueos (03b §3b.4, O-D2 a)",
+      "decision": "data/unlocks.json con disparador (start, calendario, oro, título, empleados, edad, evento con cuenta, ganarle al rival un día, any/all), ventana de 3b.4, marca en el HUD, capítulo del tutorial y meta; sim/pacing/unlocks.gd escribe state.unlocks (v20) y no lee reglas ni tira dados. Lo que se esconde es solo UI: los botones de Empleados y Mejoras de la forja hasta su desbloqueo; el resto se anuncia con carta, marca y meta sin esconderlo. Empezar un capítulo del tutorial desde la ayuda abre lo que enseña. Las partidas de antes de v20 lo tienen todo abierto. Fiestas, feria, taberna y sucesos quedan como ganchos (requires) que se activan solos cuando exista su data/<id>.json o data/<id>/.",
+      "por_que": "«Lo que se desbloquea es acceso de la UI, no reglas del sim». Esconder más paneles rompería los capítulos del tutorial y los escenarios; los demás ya tenían su puerta en el sim (títulos, edad, la mejora del mostrador). Cambios en la tabla: la obra maestra con la primera que salga (Hugo ya tiene Artesanía 7), el tribunal con un juicio o una acusación (no hay medida de «rival hostil»), cargos y tratados con Patricio, boda y caravanas juntos; ventanas medidas con el bot de ritmo: encargos día 1-2 (el novato vende el primer día o el segundo), mejoras día 4-6 (300 de oro llega entre el 5 y el 6 si paga la deuda pronto)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Metas siempre abiertas (03b §3b.5.1)",
+      "decision": "sim/pacing/goals.gd sobre los objetivos que ya hay: hoy = el objetivo de la cadena de inicio (el panel de siempre), esta estación = la meta del último desbloqueo por cumplir, este año = la deuda en el año 1 y después la primera meta de dinastía. Las metas de los desbloqueos cuentan aparte de la cadena, desde que se abren (state.unlocks[fam]._goals). La zona de metas va debajo del objetivo.",
+      "por_que": "Siempre hay al menos dos metas (hoy y este año); el bot de ritmo lo mide cada hora (mínimo 2, media 2,8-3,0)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "«Saltar hasta…» (03b §3b.5.2, O-D3 a)",
+      "decision": "Botón «»» junto a las velocidades: el próximo evento, el amanecer o que acabe la cola, a ×8 (data/view.json skip). Lo corta cualquier aviso de la familia, un desbloqueo, un evento global o microevento, una orden, la pausa, cambiar la velocidad o un día entero. Es de la sesión (Game), no se guarda.",
+      "por_que": "Contra la espera vacía sin tocar el sim: la velocidad no es estado de la partida."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Bot de ritmo (03b §3b.6)",
+      "decision": "Bot pacing: el novato forjando en Forja viva y leyendo las cartas, 8 días. Diana en data/targets.json (pacing): mediana < 30 s y máximo < 60 s entre decisiones, siempre >= 2 metas, desbloqueos en su ventana ±1 día. Paso pacing en run_all (5 semillas). Lista de comprobación de la partida del owner en docs/partida_owner.json (sale en el cuaderno).",
+      "por_que": "Medido con 3 semillas: mediana 4,7 s, máximo 29-40 s, metas mín 2, 9 desbloqueos y 0 fuera de ventana. Las órdenes a menos de 3 s cuentan como una decisión (las paradas de un mismo viaje)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Desbloqueos enganchados a vida (03b §3b.4)",
+      "decision": "Al juntar main con vida: el desbloqueo de los sucesos pasa a requires life/incidents (día 9, meta: intervenir en un suceso, incident_choice) y nace el de los rumores (life/rumors, día 5, marca en el libro de cuentas, meta: oír tres rumores, rumor_heard). La taberna queda como gancho de la posada, sin la meta de los rumores. Los ganchos de life/ solo se abren con la ciudad viva encendida. El bot de ritmo entra en _no_life (su diana se fijó sin vida); con --life=on sigue en su diana (mediana 4,6-4,7 s, máximo 29-40 s, 11 desbloqueos, 0 fuera).",
+      "por_que": "En vida los rumores se oyen en los corrillos, no en la taberna; y el principio 4 de 04f: las dianas ya fijadas corren como se midieron."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Desbloqueos enganchados a fiestas (03b §3b.4)",
+      "decision": "La primera fiesta y la feria se abren por evento, no por fecha: cuando empieza la primera fiesta de la villa (festival_started de cualquiera: disparador event con anyone) y cuando empieza harvest_fair; solo con data/festivals.json enabled. Metas: cumplir un encargo de la fiesta (festival_contract_done) y vender 5 piezas en la feria (market_sold). La meta «vende en tu mostrador durante la fiesta» de 3b.4 se cambió por la del encargo: el mostrador pide una mejora que el año 1 no siempre tiene. El bot de ritmo sigue sin fiestas (no está en _festivals); con --festivals=on --life=on: mediana 4,6-4,7 s, máximo 37-44 s, la fiesta el día 2 y la feria el 4, y en 1 de 3 semillas las mejoras no llegan en el año (con fiestas el novato no junta 300 de oro).",
+      "por_que": "La fecha de cada fiesta la decide su calendario (data/festivals.json), no la tabla de desbloqueos; atarse al evento sigue al calendario si cambia."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Ventana de mejoras con fiestas (03b §3b.4)",
+      "decision": "El owner decide que la ventana de las mejoras (días 4-6) no se toca aunque, con fiestas, el novato no llegue a 300 de oro en el año 1 en 1 de 3 semillas: lo arregla el equilibrio (Ciudadano y oro del año 1-2 con fiestas). Queda como diana propuesta en data/targets.json pacing._proposed_festivals, que la QA no comprueba; el bot de ritmo sigue en _no_life.",
+      "por_que": "No tumbar la QA por un desajuste que es de equilibrio, no de ritmo."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Desbloqueo de la taberna enganchado a la posada (03b §3b.4)",
+      "decision": "El desbloqueo tavern pide data/inn/ (posada en main), llega el día 5 (otoño) y presenta la Taberna-Posada de la plaza, que está en venta, como segundo negocio; meta «Abre tu taberna» (building_bought). Guardado: la cadena queda 16 -> 17 (vida), 17 -> 18 (fiestas), 18 -> 19 (posada), 19 -> 20 (_to_v20), WorldState.VERSION 20.",
+      "por_que": "En el juego la taberna no tiene dueño al empezar (for_sale): no hay «taberna de otro» como cliente; comprarla no pide título, así que su carta llega con el calendario de 3b.4 y no con el de Ciudadano."
     }
   ],
   "pendientes": [
@@ -869,6 +929,61 @@
       "tema": "Jugador completo · más forasteros de los previstos",
       "detalle": "Con todo encendido llegan 4,5-5,7 forasteros al día (3 años × 3 semillas); la vida (04f 4.24) dice de 2 a 4. Puede ser por las fiestas (la feria trae puestos de forasteros). La diana provisional de full_player es [2, 6].",
       "opciones": "(a) bajar el ritmo de llegadas fuera de las fiestas · (b) aceptar 2-6 con las fiestas"
+    },
+    {
+      "tema": "O-V2 Población de town_e con la vida (banda nueva)",
+      "detalle": "Construido como recomienda O-V2 (a): con la vida encendida el tope es 5 por casa hasta 32 (data/life/life.json population; town_e: 32). Medido (semilla 1, 60 años saltando días): de 16 a 21 vecinos en 10 años, 29 en 20 y 30-32 desde el año 30, con 6 solteras fértiles al final. La diana de H7 (town_population [14, 22]) no cambia porque se mide con la vida apagada; la nueva town_population_life propone [14, 32]. En las partidas de 10-24 días (dianas de economía) el tope casi no llega a usarse. Pendiente del visto bueno del owner.",
+      "opciones": "(a) 32 · (b) 26 · (c) 20, como hoy"
+    },
+    {
+      "tema": "D9 Nombre del mapa EA",
+      "detalle": "Propuesta (rama mundo, 2026-11-04, docs/gdd/09b_region.md §9b.9): si el mapa EA es la capital de la región (P-R1, O-R1), Bellcaire. Pendiente del owner.",
+      "opciones": "Bellcaire · Castellnou de Mercat · Santa Maria del Mercadal"
+    },
+    {
+      "tema": "D16 Mostrador y demanda",
+      "detalle": "¿Las ventas en el mostrador bajan la demanda del mercado? Afecta a la competencia con el herrero rival.",
+      "opciones": "Recomendación: a la mitad (−0,025 por unidad)."
+    },
+    {
+      "tema": "D17 Escala de los edificios con D2",
+      "detalle": "La escala 1,6 del primer intento deforma píxeles con el escalado ×2 entero.",
+      "opciones": "Recomendación: generar los edificios ya a su tamaño final y dibujarlos a escala 1; confirmar con una captura de prueba en H1."
+    },
+    {
+      "tema": "D19 Cierre voluntario de la dinastía",
+      "detalle": "¿Se puede terminar la partida cuando se quiera para ver la puntuación?",
+      "opciones": "Recomendación: permitido."
+    },
+    {
+      "tema": "Revisar cifras que fijó el subgrim",
+      "detalle": "Al recalcular duraciones con D1(b) se fijaron: días de obra y estados emocionales a la mitad, primer hijo con 10 % diario y un año entre hijos, campaña en la última estación del mandato, mandatos de 1-4 años (elecciones de cargos menores cada 40 min reales), umbrales de rivalidad de la IA y pago de la deuda desde el libro de cuentas.",
+      "opciones": "Todo va marcado [balance] en docs/gdd/; conviene que el owner lo mire, sobre todo la frecuencia de elecciones."
+    },
+    {
+      "tema": "D10 Estilo de ciudad (Gate)",
+      "detalle": "Aceptado como provisional: villa de mercado (A) con río y puerto (C) para el EA, pueblo-calle (E) para la rebanada vertical. Se confirma tras la prueba de PixelLab de docs/gdd/09_ciudades.md §9.4.",
+      "opciones": "Prueba de ~50 generaciones a partir del 2026-11-15 (renovación del plan)."
+    },
+    {
+      "tema": "Estructura D · pintar el mapa en el editor de TileMap",
+      "detalle": "Si sí, en H6 una herramienta Godot → JSON.",
+      "opciones": "sí / no"
+    },
+    {
+      "tema": "Duelo: O-C13..O-C17 (docs/gdd/04e_combate.md §4e.9)",
+      "detalle": "Nuevas tras ponerlo en la partida: puntos de dinastía por duelos (O-C13), la calumnia como causa (O-C14), llevar solo al duelista a la plaza al alba (O-C15), «Pelear sin reto» en la carta (O-C16) y si los vecinos ofendidos por el jugador pueden retarle (O-C17).",
+      "opciones": "Ver 04e §4e.9."
+    },
+    {
+      "tema": "Ciudad viva II y fiestas (04f §4.29, O-V1–O-V10)",
+      "detalle": "Se construye con las recomendaciones mientras el owner no diga otra cosa: patronales de 4.25.1; town_e a 32 habitantes (medido); secuestros raros también de familiares (nunca el cabeza ni niños, desde el año 2); bandidos solo al borde y con aviso; toros sin heridas; sin incendios por ahora; Taberna-Posada para cualquier familia; juego con dinero con tope de 50; segunda taberna en otra ciudad más adelante; dados cargados para cualquiera.",
+      "opciones": "Ver 04f §4.29."
+    },
+    {
+      "tema": "Diversión y ritmo (03b §3b.7, O-D1–O-D5)",
+      "detalle": "Se construye con las recomendaciones: Forja viva de 3 decisiones con Resolver sin jugar; desbloqueos por hito y calendario con carta; Saltar hasta…; obras maestras con nombre; encargos con especificaciones.",
+      "opciones": "Ver 03b §3b.7."
     }
   ],
   "proximos_pasos": [

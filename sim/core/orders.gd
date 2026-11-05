@@ -175,6 +175,11 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Treaties.order_propose_town(sim, order)
 		"cancel_treaty":
 			return Treaties.order_cancel(sim, order)
+		# Forja viva y desbloqueos (docs/gdd/03b_diversion_y_ritmo.md)
+		"live_forge":
+			return LiveForge.order(sim, order)
+		"unlock_seen":
+			return Unlocks.order_seen(sim, order)
 		# Juegos · games and competitions (sim/games/, docs/contratos/juegos.md)
 		"game_play":
 			return Games.replay(sim, order)
@@ -220,7 +225,7 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
 	"city_accept", "city_deliver", "sign_treaty",
 	"game_play", "game_bet", "game_enter", "festival_sponsor", "festival_host_wedding",
-	"resolve_incident",
+	"resolve_incident", "live_forge", "unlock_seen",
 	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license"]  # posada (Inn.MANAGEMENT)
 
 
