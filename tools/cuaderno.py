@@ -106,6 +106,17 @@ def news_html(art_dir):
     return "".join(out) or "<p class='muted'>Sin novedades todavía.</p>"
 
 
+def owner_check_html():
+    """La lista de comprobación de la partida del owner (docs/partida_owner.json, 03b §3b.6)."""
+    path = os.path.join(ROOT, "docs/partida_owner.json")
+    if not os.path.exists(path):
+        return ""
+    d = load("docs/partida_owner.json")
+    rows = [[E(q["pregunta"]), E(q.get("respuesta") or "—")] for q in d.get("preguntas", [])]
+    return (f"<h2 id='partida'>Partida del owner</h2><p class='muted'>{E(d.get('partida', ''))}</p>"
+            + table(["Pregunta", "Respuesta"], rows))
+
+
 def decisions_html():
     d = load("docs/decisiones.json")
     taken = table(["Fecha", "Tema", "Decisión", "Por qué"], [
@@ -151,7 +162,7 @@ ul.crit{{list-style:none;padding-left:4px}}ul.crit li.hecho .mk{{color:var(--goo
 <h2 id="hitos">Hitos</h2>{milestones_html()}
 <h2 id="arte">Arte y audio</h2><p class="muted">Escala: falta → greybox → concepto → sprite → animado → final (audio: falta → provisional → generado → final). Fuente: <code>assets/inventario.json</code>.</p>{art_html()}
 <h2 id="novedades">Novedades</h2>{news_html(art_dir)}
-<h2 id="decisiones">Decisiones</h2>{decisions_html()}
+{owner_check_html()}<h2 id="decisiones">Decisiones</h2>{decisions_html()}
 {controls}
 </div></body></html>"""
 

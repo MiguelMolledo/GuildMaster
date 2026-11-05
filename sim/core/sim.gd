@@ -72,6 +72,8 @@ func step(orders: Array = []) -> Array:
 	Reputation.step(self)   # H9: reputation from the events of the step (trade, wages, townsfolk); passive at dawn
 	Dynasty.step(self)      # H8: at dawn, wealth peaks and dynasty goals (chronicle)
 	Objectives.step(self)   # reads the events of the step: after every system that emits
+	Unlocks.step(self)      # 03b §3b.4: the unlocks of the human families (state, events, notices; no rules, no rng)
+	OpenGoals.step(self)    # 03b §3b.5.1: the goals of the unlocks count the events of the step
 	Ledger.step(self)       # retention of the ledger at dawn
 	Notices.step(self)      # retention of the notices log
 	return events
