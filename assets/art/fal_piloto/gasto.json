@@ -21407,5 +21407,140 @@
   "imagenes": 1,
   "usd": 0.08,
   "que": "fondo masonry planta 0 (v8)"
+ },
+ {
+  "fecha": "2026-11-05T05:31:53",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g20_s_court_b (9 piezas, 21 s)"
+ },
+ {
+  "fecha": "2026-11-05T05:31:56",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g21_l_court_a (4 piezas, 23 s)"
+ },
+ {
+  "fecha": "2026-11-05T05:32:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0012,
+  "que": "image2pixel iron_cage_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0013,
+  "que": "image2pixel trapdoor_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:09",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel trapdoor_open_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:10",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cask_row_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel ladder_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:13",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cellar_stairs_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel contraband_pile_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:16",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel smuggler_table_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:16",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel fence_table_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:19",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel dice_table_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:22",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel stolen_goods_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel wine_rack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:26",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel chain_post_s6.png"
  }
 ]

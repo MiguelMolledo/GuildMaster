@@ -111,6 +111,14 @@ func test_walls_open_in_front_of_the_room_in_focus() -> void:
 	v.free()
 
 
+func test_the_cellar_is_hidden_from_above() -> void:
+	eq(InteriorStage.show_mode(0, 0), 2, "the floor shown, whole")
+	eq(InteriorStage.show_mode(0, 1), 1, "the ground floor in shade under the upper one")
+	eq(InteriorStage.show_mode(1, 0), 0, "the upper floor hidden from below")
+	eq(InteriorStage.show_mode(-1, 0), 0, "the cellar hidden from above (under the ground)")
+	eq(InteriorStage.show_mode(0, -1), 0, "and the ground floor hidden from the cellar")
+
+
 func test_one_floor_is_shown_at_a_time() -> void:
 	var sim := _sim()
 	var v := _interior(sim, true)
@@ -129,7 +137,7 @@ func test_one_floor_is_shown_at_a_time() -> void:
 	v.free()
 
 
-func test_a_customer_appears_at_the_counter_with_its_bubble() -> void:
+func test_a_townsperson_walks_in_to_the_counter() -> void:
 	var sim := _sim()
 	_hugo_in(sim)
 	var st := sim.state
@@ -151,21 +159,62 @@ func test_a_customer_appears_at_the_counter_with_its_bubble() -> void:
 	s.tick(0.05)
 	var d := InteriorDefs.def_of("forge")
 	var spot: Array = d["customers"]["counter"][0]["tile"]
-	eq(v.view_of(who).position, InteriorDefs.spot_world(d, 0, Vector2(float(spot[0]), float(spot[1]))).round(),
-		"at the first counter spot (it appears, it does not walk)")
-	check(v.view_of(who).modulate.a < 1.0, "fading in")
+	var at_spot := InteriorDefs.spot_world(d, 0, Vector2(float(spot[0]), float(spot[1]))).round()
+	var door: Array = d["entrance"]["tile"]
+	check(v.view_of(who).position.distance_to(at_spot) > 32.0, "a townsperson comes in by the street door, walking")
+	check(v.view_of(who).position.distance_to(InteriorDefs.spot_world(d, 0, Vector2(float(door[0]), float(door[1])))) < 16.0,
+		"(it starts at the door)")
+	for i: int in 60:
+		s.tick(0.1)
+	eq(v.view_of(who).position, at_spot, "and stands at the first counter spot")
 	var b := v.view_of(who).get_node_or_null("OrderBubble") as OrderBubble
 	check(b != null and b.item == "sword", "its bubble shows what it wants (the sword)")
 	check(b != null and b.patience > 0.9, "with its patience full")
-	s.tick(0.5)
-	check(v.view_of(who).modulate.a >= 1.0, "fully shown after the fade")
-	# a click on it sends Hugo to the counter (the same order as a click on the counter)
 	var got: Array = []
 	v.order_sink = func(o: Dictionary) -> void: got.append(o)
 	check(s.attend_at(v.world_to_screen(v.view_of(who).position + Vector2(0, -20))), "the click is the customer's")
 	eq(got.size(), 1, "one order")
 	if got.size() == 1:
 		eq(str(got[0]["type"]) + "/" + str(got[0]["zone"]), "go_to_station/counter", "Hugo goes to serve")
+	v.free()
+
+
+func test_a_countryside_customer_appears_and_fades_away() -> void:
+	var sim := _sim()
+	_hugo_in(sim)
+	var st := sim.state
+	var now := int(st.clock["minute"])
+	var rec := {"id": "cmc_%s_1" % BLD, "item": "hammer", "since": now, "served_at": -1}
+	st.town["clientele"] = {BLD: {"next_at": -1, "seq": 1, "waiting": [rec]}}
+	var v := _interior(sim)
+	var s := _stage(v)
+	v.sync()
+	s.tick(0.05)
+	var fig: CharacterView = null
+	for n: Node in v.objects().get_children():
+		if n is CharacterView and (n as CharacterView).char_id == str(rec["id"]):
+			fig = n
+	check(fig != null, "a figure for the countryside customer (it is not a character of the town)")
+	if fig == null:
+		v.free()
+		return
+	var d := InteriorDefs.def_of("forge")
+	var spot: Array = d["customers"]["counter"][0]["tile"]
+	eq(fig.position, InteriorDefs.spot_world(d, 0, Vector2(float(spot[0]), float(spot[1]))).round(), "right at its spot")
+	check(fig.modulate.a < 1.0, "fading in")
+	var b := fig.get_node_or_null("OrderBubble") as OrderBubble
+	check(b != null and b.item == "hammer", "wanting what it came for (a hammer)")
+	s.tick(0.5)
+	check(fig.modulate.a >= 1.0, "then fully shown")
+	var got: Array = []
+	v.order_sink = func(o: Dictionary) -> void: got.append(o)
+	check(s.attend_at(v.world_to_screen(fig.position + Vector2(0, -20))), "a click on it serves it too")
+	eq(got.size(), 1, "Hugo goes to the counter")
+	(st.town["clientele"][BLD]["waiting"] as Array).clear()   # it bought, or left
+	s.tick(0.1)
+	check(is_instance_valid(fig) and fig.modulate.a < 1.0, "fading away where it stood")
+	s.tick(0.5)
+	check(not is_instance_valid(fig) or fig.is_queued_for_deletion(), "and gone")
 	v.free()
 
 

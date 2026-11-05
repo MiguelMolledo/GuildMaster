@@ -1,6 +1,6 @@
 # Interiores bonitos: referencias, análisis y piloto de la forja
 
-> Fecha: 2026-11-05 · Rama `interiores` · Diseño: `docs/gdd/04g_interiores.md` (§4.6.5) · Gasto: 6,35 USD de fal
+> Fecha: 2026-11-05 · Rama `interiores` · Diseño: `docs/gdd/04g_interiores.md` (§4.6.5) · Gasto: 6,51 USD de fal
 > (detalle en `assets/art/MANIFEST.md` y `assets/art/fal_piloto/gasto.json`, tanda `interiores`).
 > No cambia reglas del sim: solo cómo se monta y se ve un interior, y dónde se dibuja a la gente que el sim ya tiene.
 
@@ -135,7 +135,7 @@ la plantilla de geometría, que ahora saca el montador.
   de los fondos y las referencias + 20 de acento para telas, escudos y vidrios), para que case con los fondos.
 - `tools/art/props_estructura.py`: lo exacto, con Pillow: tramos de pared (32 × 80), con puerta, zócalos, barandillas
   y suelos de respaldo; y 24 piezas de antes de las mejoras (Guild Renew y Pillow) hasta que tengan una nueva.
-- **Catálogo** `data/props/interior.json` (205 piezas), exportado del campo `prop` de `assets/inventario.json` por
+- **Catálogo** `data/props/interior.json` (218 piezas), exportado del campo `prop` de `assets/inventario.json` por
   `tools/interiors/props_catalog.py` y comprobado por el validador: categoría (`structure`, `furniture`, `trade`,
   `container`, `light`, `small`, `textile`), huella, ancla (pies), altura, si se pisa, si va contra la pared, si va
   encima de otra, si cuelga, espejo (la otra diagonal), oficios y estilo (`poor`, `common`, `rich`).
@@ -175,9 +175,26 @@ las piezas de cada mejora por su nodo (`visual.interior_node`, como antes).
   siempre).
 - **Expositor:** enseña lo que hay a la venta en el almacén (los productos más caros primero), hasta sus huecos.
 
-**Lo que no hay todavía:** clientes de encargos (4.5.6) y de la comarca (4.6.5.7): el sim no los tiene como personas;
-la taberna (rama `posada`, aún no está en main); el fundido de salida de los clientes; el sótano (ningún interior lo
-usa aún).
+### 5.4 Clientes en dos capas (§4.6.5.7) y sótano (O-I1)
+
+- **Vecinos** (los habitantes del pueblo, con su agenda): andan por la calle hasta tu puerta (TownLife, como desde H7)
+  y dentro **entran andando** desde la puerta hasta su sitio del mostrador.
+- **Clientela de la comarca** (`sim/town/clientele.gd`): no son personajes del pueblo, sino registros en
+  `state.town.clientele`. Vienen según `base(tipo) × fama × estación × fiesta × reparto` y pagan con oro de fuera hasta
+  su precio máximo; los atiende quien esté en el mostrador. Dentro **aparecen** en su sitio con un fundido, vestidos de
+  aldea, con la burbuja del producto que vienen a comprar, y **se van** con otro fundido. **Apagada por defecto**
+  (`data/town.json` `counter.clientele.enabled`), así las dianas no se mueven. Pendiente del owner: la `fama` de un
+  taller (hoy vale 1) y medir `base_per_day` con los bots antes de encenderla (`docs/decisiones.json`).
+- **Sótano:** las plantas por debajo de la baja van bajo tierra. Desde arriba no se ven, y cuando miras el sótano se
+  ocultan las de encima. La **guarida del Pícaro** existe de momento solo como piezas (jaula, poste con cadenas,
+  trampilla, contrabando, mesa del perista y de dados, objetos robados, botellero, toneles, escalera de piedra) y como
+  plantilla de datos, `data/interiors/_thieves_den.json`. Planta baja: taller del perista y sala de juego. Sótano,
+  tras la trampilla: el contrabando y la celda con la jaula. El `_` la deja fuera del juego hasta que haya edificio.
+
+![La guarida: sótano y planta baja](interiores/guarida.png)
+
+**Lo que no hay todavía:** clientes de encargos (4.5.6), porque el sim no los tiene como personas; la taberna y su
+bodega (rama `posada`, aún no está en main; las piezas de la bodega ya están en la biblioteca).
 
 ## 6. La forja de §4.6.5.6
 

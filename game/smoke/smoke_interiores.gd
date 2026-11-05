@@ -31,6 +31,7 @@ func _ready() -> void:
 			_steps.append([p + "_andando", func() -> void: _hugo_to("anvil", 0.35)])
 			_steps.append([p + "_trabajando", func() -> void: _wait()])
 			_steps.append([p + "_cliente", func() -> void: _customer()])
+			_steps.append([p + "_clientes", func() -> void: _wait()])
 			_steps.append([p + "_arriba", func() -> void: _upstairs()])
 	_steps.append(["armory", func() -> void: _armory()])
 	_steps.append(["house", func() -> void: _house()])
@@ -95,6 +96,10 @@ func _customer() -> void:
 				"location", "")) == BLD, "%s still the counter's customer inside" % id)
 			_later_at = 1.0
 			break
+	# 04g 4.6.5.7: and one of the countryside (a Clientele record, no character): it appears at its spot
+	var now := int(st.clock["minute"])
+	st.town["clientele"] = {BLD: {"next_at": -1, "seq": 1, "waiting": [{"id": "cmc_%s_1" % BLD, "item": "armor",
+		"since": now - 30, "served_at": -1}]}}
 
 
 func _upstairs() -> void:

@@ -30,6 +30,8 @@ var _containers: Dictionary = {}  # level != 0 -> Node2D in the objects layer
 var _walk: Dictionary = {}       # chr -> {level, at: Vector2 (tile), path: Array [[level, Vector2i]], goal: String}
 var _born: Dictionary = {}       # chr -> seconds since it appeared (customers fade in)
 var _bubbles: Dictionary = {}    # chr -> OrderBubble
+var _visitors: Dictionary = {}   # countryside customer id -> its CharacterView (not in InteriorView._views)
+const VISITOR_DRESS: Array = [["#6b5a3a", "#a89a70"], ["#4a5a3a", "#9aa070"], ["#5a4a5a", "#a090a0"], ["#7a4a2a", "#c0a070"]]
 var _blocked: Dictionary = {}    # level -> {Vector2i: true}
 var _doors: Dictionary = {}      # "level,c,r,side" -> true
 var _links: Dictionary = {}      # "level,c,r" -> [level, Vector2i] (stairs)
@@ -249,29 +251,7 @@ func _place_people(delta: float) -> void:
 		var sb := int(tb.get("customer_since", 1 << 30))
 		return sa < sb or (sa == sb and a < b))
 	others.sort()
-	var spots: Array = []
-	var cust: Dictionary = d.get("customers", {})
-	spots.append_array(cust.get("counter", []))
-	spots.append_array(cust.get("queue", []))
-	var counter_tile := _station_tile("counter")
-	for i: int in customers.size():
-		var id: String = customers[i]
-		var v: CharacterView = views[id]
-		var spot: Dictionary = spots[mini(i, spots.size() - 1)] if not spots.is_empty() else {"tile": [0, 0]}
-		var t: Array = spot["tile"]
-		var tile := Vector2i(int(t[0]), int(t[1]))
-		var lv := int(spot.get("floor", 0))
-		_walk[id] = {"level": lv, "at": Vector2(tile), "path": [], "goal": "c%d" % i}
-		v.position = InteriorDefs.spot_world(d, lv, Vector2(tile)).round()
-		v.play_motion("idle", CharacterView.dir_of(Vector2(counter_tile - tile)))
-		if not _born.has(id):
-			_born[id] = 0.0
-			if OS.is_debug_build():
-				print("[InteriorStage] cliente %s aparece en %s (%s)" % [id, tile, "mostrador" if i < (cust.get("counter", []) as Array).size() else "cola"])
-		_born[id] = float(_born[id]) + delta
-		v.modulate.a = clampf(float(_born[id]) / FADE_SECONDS, 0.0, 1.0)
-		_customer_bubble(id, v, i < (cust.get("counter", []) as Array).size())
-		_show(v, lv)
+	_place_customers(delta, customers)
 	var idle: Array = d.get("idle", [])
 	var idle_i := 0
 	var zones: Dictionary = d.get("stations", {})
@@ -330,6 +310,107 @@ func _place_people(delta: float) -> void:
 		_show(v, int(w["level"]))
 
 
+## The customers inside (04g 4.6.5.7): the townsfolk (characters of the town, who walk in from the street door to
+## their spot) and the countryside's (Clientele records, no characters: they appear at their spot and fade away), in
+## the order they came, on the counter's spots and then the queue's.
+func _place_customers(delta: float, town: Array) -> void:
+	var st := view.sim.state
+	var line: Array = []   # [since, id, kind, record]
+	for id: String in town:
+		var t: Dictionary = st.characters[id].get("town", {})
+		line.append([int(t.get("customer_since", 1 << 30)), id, "town", {}])
+	for rec: Dictionary in Clientele.waiting(st, view.building):
+		line.append([int(rec["since"]), str(rec["id"]), "comarca", rec])
+	line.sort_custom(func(a: Array, b: Array) -> bool: return int(a[0]) < int(b[0]) or (int(a[0]) == int(b[0]) and str(a[1]) < str(b[1])))
+	var spots: Array = []
+	var cust: Dictionary = d.get("customers", {})
+	spots.append_array(cust.get("counter", []))
+	spots.append_array(cust.get("queue", []))
+	var n_counter := (cust.get("counter", []) as Array).size()
+	var counter_tile := _station_tile("counter")
+	var views: Dictionary = view.get("_views")
+	var here := {}
+	for i: int in line.size():
+		var e: Array = line[i]
+		var id := str(e[1])
+		here[id] = true
+		var spot: Dictionary = spots[mini(i, spots.size() - 1)] if not spots.is_empty() else {"tile": [0, 0]}
+		var tile := Vector2i(int(spot["tile"][0]), int(spot["tile"][1]))
+		var lv := int(spot.get("floor", 0))
+		var face := CharacterView.dir_of(Vector2(counter_tile - tile))
+		var v: CharacterView = null
+		if str(e[2]) == "town":
+			v = views[id]
+			var w: Dictionary = _walk.get(id, {})
+			var goal := "c%d" % i
+			if w.is_empty():
+				var et: Array = d.get("entrance", {}).get("tile", [0, 0])
+				var door := Vector2i(int(et[0]), int(et[1]))
+				var lv0 := int(d.get("entrance", {}).get("floor", 0))
+				w = {"level": lv0, "at": Vector2(door), "path": path(lv0, door, lv, tile), "goal": goal}
+				if (w["path"] as Array).is_empty():
+					w = {"level": lv, "at": Vector2(tile), "path": [], "goal": goal}
+				_walk[id] = w
+				if OS.is_debug_build():
+					print("[InteriorStage] vecino %s entra por la puerta hacia %s" % [id, tile])
+			elif str(w["goal"]) != goal:
+				var at0 := Vector2i(roundi((w["at"] as Vector2).x), roundi((w["at"] as Vector2).y))
+				w["path"] = path(int(w["level"]), at0, lv, tile)
+				w["goal"] = goal
+				if (w["path"] as Array).is_empty():
+					w["level"] = lv
+					w["at"] = Vector2(tile)
+			var moving := _advance(w, delta)
+			v.position = InteriorDefs.spot_world(d, int(w["level"]), w["at"]).round()
+			v.play_motion("walk" if moving != Vector2.ZERO else "idle", CharacterView.dir_of(moving) if moving != Vector2.ZERO else face)
+			v.modulate.a = 1.0
+			_customer_bubble(id, v, i < n_counter and moving == Vector2.ZERO, {})
+			_show(v, int(w["level"]))
+		else:
+			v = _visitor(id, e[3])
+			v.position = InteriorDefs.spot_world(d, lv, Vector2(tile)).round()
+			v.play_motion("idle", face)
+			if not _born.has(id):
+				_born[id] = 0.0
+				if OS.is_debug_build():
+					print("[InteriorStage] cliente de la comarca %s aparece en %s (%s)" % [id, tile,
+						"mostrador" if i < n_counter else "cola"])
+			_born[id] = float(_born[id]) + delta
+			v.modulate.a = clampf(float(_born[id]) / FADE_SECONDS, 0.0, 1.0)
+			_customer_bubble(id, v, i < n_counter, e[3])
+			_show(v, lv)
+	# the countryside's who are gone fade away where they stood
+	for id: String in _visitors.keys():
+		if here.has(id):
+			continue
+		var v: CharacterView = _visitors[id]
+		v.modulate.a -= delta / FADE_SECONDS
+		var b := v.get_node_or_null("OrderBubble") as CanvasItem
+		if b != null:
+			b.visible = false
+		if v.modulate.a <= 0.0:
+			v.queue_free()
+			_visitors.erase(id)
+			_born.erase(id)
+			_bubbles.erase(id)
+
+
+## The figure of a countryside customer (no character in the state): a townsperson in the clothes of the villages.
+func _visitor(id: String, _rec: Dictionary) -> CharacterView:
+	if _visitors.has(id):
+		return _visitors[id]
+	var h := absi(id.hash())
+	var dress: Array = VISITOR_DRESS[h % VISITOR_DRESS.size()]
+	var ch := {"id": id, "female": h % 2 == 0, "visual": {"hair": h % 6, "skin": (h / 7) % 4,
+		"dress": {"primary": dress[0], "secondary": dress[1]}}}
+	var v := CharacterView.new()
+	v.setup(ch, {})
+	v.modulate.a = 0.0
+	view.objects().add_child(v)
+	_visitors[id] = v
+	return v
+
+
 ## Moves a walk on; returns the direction of the step being walked (ZERO when it stands).
 func _advance(w: Dictionary, delta: float) -> Vector2:
 	var p: Array = w["path"]
@@ -364,13 +445,13 @@ func _station_tile(zone: String) -> Vector2i:
 
 ## Shows a person on its floor: hidden above the floor shown, in shade below it, drawn with its floor.
 func _show(v: CharacterView, level: int) -> void:
-	v.visible = level <= active
+	v.visible = show_mode(level, active) > 0
 	v.z_index = level * InteriorBuilder.LEVEL_Z
-	var base := DIM if level < active else Color.WHITE
+	var base := DIM if show_mode(level, active) == 1 else Color.WHITE
 	v.modulate = Color(base.r, base.g, base.b, v.modulate.a)
 
 
-func _customer_bubble(id: String, v: CharacterView, at_counter: bool) -> void:
+func _customer_bubble(id: String, v: CharacterView, at_counter: bool, rec: Dictionary) -> void:
 	var b: OrderBubble = _bubbles.get(id, null)
 	if b == null or not is_instance_valid(b):
 		b = OrderBubble.new()
@@ -383,11 +464,20 @@ func _customer_bubble(id: String, v: CharacterView, at_counter: bool) -> void:
 	if old != null:
 		old.visible = false   # the shop bubble of the street: this one says more
 	var st := view.sim.state
-	var t: Dictionary = st.characters[id].get("town", {})
+	# a townsperson's record is its town memory; a countryside customer's, its Clientele record
+	var t: Dictionary = {}
+	if rec.is_empty():
+		t = st.characters[id].get("town", {})
+	else:
+		t = {"customer_since": rec["since"]}
+		if int(rec.get("served_at", -1)) >= 0:
+			t["served_at"] = rec["served_at"]
 	var cfg: Dictionary = view.sim.catalog.town.get("counter", {})
 	var now := int(st.clock["minute"])
-	var want := Counter.best_product(view.sim, view.building)
-	b.item = str(want.get("item", ""))
+	if rec.is_empty():
+		b.item = str(Counter.best_product(view.sim, view.building).get("item", ""))
+	else:
+		b.item = str(rec.get("item", ""))   # it comes for one of the products the shop makes
 	b.waiting = not at_counter
 	var patience := float(cfg.get("patience_minutes", 60))
 	if t.has("served_at"):
@@ -402,14 +492,24 @@ func _customer_bubble(id: String, v: CharacterView, at_counter: bool) -> void:
 
 # --- floors and walls ----------------------------------------------------------------------------------------------
 
+## How floor `l` shows while floor `shown` is shown: 2 whole, 1 in shade (a floor above the ground under the one shown),
+## 0 hidden (the floors above the one shown, and the cellar from above: it is under the ground).
+static func show_mode(l: int, shown: int) -> int:
+	if l == shown:
+		return 2
+	if l > shown or l < 0:
+		return 0
+	return 1
+
+
 func _apply_level(level: int) -> void:
 	level = clampi(level, levels[0] if not levels.is_empty() else 0, levels[-1] if not levels.is_empty() else 0)
 	active = level
 	_shown_level = level
 	for l: int in _containers:
 		var c: Node2D = _containers[l]
-		c.visible = l <= level
-		c.modulate = DIM if l < level else Color.WHITE
+		c.visible = show_mode(l, level) > 0
+		c.modulate = DIM if show_mode(l, level) == 1 else Color.WHITE
 	var room := view.room()
 	for layer: String in ["Backdrops", "Lights"]:
 		var n := room.get_node_or_null(layer)
@@ -417,15 +517,19 @@ func _apply_level(level: int) -> void:
 			continue
 		for h: Node in n.get_children():
 			var l := int(h.get_meta("level", 0))
-			(h as CanvasItem).visible = l <= level
+			(h as CanvasItem).visible = show_mode(l, level) > 0
 			if layer == "Backdrops":
-				(h as CanvasItem).modulate = DIM if l < level else Color.WHITE
+				(h as CanvasItem).modulate = DIM if show_mode(l, level) == 1 else Color.WHITE
 			else:
 				(h as CanvasItem).visible = l == level   # only the floor shown keeps its room light
 	for n: Node in view.objects().get_children():
 		if n is CanvasItem and not _containers.values().has(n) and not (n is CharacterView):
 			var l := int(n.get_meta("level", 0))
-			(n as CanvasItem).modulate = DIM if l < level else Color.WHITE
+			if n is StationView:
+				l = int((d.get("stations", {}).get(str(n.name), {}) as Dictionary).get("floor", 0))
+			var mode := show_mode(l, level)
+			# hidden by its alpha (the upgrades' visibility belongs to InteriorView.refresh_upgrades)
+			(n as CanvasItem).modulate = Color(1, 1, 1, 0) if mode == 0 else (DIM if mode == 1 else Color.WHITE)
 	# the camera looks at the floor shown (the room's centre, raised with it); the centre is known after setup
 	if has_meta("center0"):
 		var c0: Vector2 = get_meta("center0")
@@ -593,7 +697,13 @@ func attend_at(screen: Vector2) -> bool:
 			if v.visible and Counter.is_customer_of(view.sim.state, id, view.building) and v.pick_rect().has_point(world):
 				who = id
 				break
-	if who == "" or not Counter.is_customer_of(view.sim.state, who, view.building):
+	if who == "":
+		for id: String in _visitors:   # the countryside's (no characters)
+			var v: CharacterView = _visitors[id]
+			if v.visible and v.modulate.a > 0.5 and v.pick_rect().has_point(world):
+				who = id
+				break
+	if who == "" or not (Counter.is_customer_of(view.sim.state, who, view.building) or _visitors.has(who)):
 		return false
 	var actor := view.actor()
 	if actor == "":

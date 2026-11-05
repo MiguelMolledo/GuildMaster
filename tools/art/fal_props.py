@@ -316,6 +316,27 @@ DEFAULT_TARGET = {"xs": 16, "s": 40, "l": 96, "w": 30}
 
 def target(p):
     return TARGET.get(p["id"], DEFAULT_TARGET[p["grid"]])
+# --- guarida del Pícaro y bodega (04g O-I1: sótano; de momento solo piezas y plantilla) -------------------------
+add("s", "court_b", "furniture", [
+    ("trapdoor", "1x1", "walk", "a closed wooden trapdoor set in the floor with an iron ring, lying flat"),
+    ("trapdoor_open", "1x1", "walk", "an open wooden trapdoor in the floor showing a dark hole and the top of a ladder"),
+    ("ladder", "1x1", "wall", "a wooden ladder leaning against a wall"),
+    ("contraband_pile", "1x1", "", "a pile of crates and sacks half covered with a tarp, smuggled goods"),
+    ("fence_table", "1x1", "", "a small table with a scale, coins and stolen jewels (a fence's table)"),
+    ("dice_table", "1x1", "", "a small square gaming table with dice, a dice cup and coins"),
+    ("stolen_goods", "1x1", "", "a heap of stolen things: candlesticks, a silver plate and a small chest"),
+    ("wine_rack", "1x1", "wall", "a wooden wine rack full of dusty bottles"),
+    ("chain_post", "1x1", "", "a wooden post with iron chains and shackles"),
+], ["den", "cellar", "tavern"], "poor")
+add("l", "court_a", "furniture", [
+    ("iron_cage", "2x1", "", "a big iron cage for prisoners with a locked door and straw inside"),
+    ("cask_row", "2x1", "wall", "a row of three big casks lying on a wooden rack, in a cellar"),
+    ("cellar_stairs", "2x1", "", "stone stairs going down into a cellar, seen in isometric, descending towards the back"),
+    ("smuggler_table", "2x1", "", "a long rough table with a map, a lantern, coins and a dagger"),
+], ["den", "cellar", "tavern"], "poor")
+TARGET.update({"trapdoor": 30, "trapdoor_open": 34, "ladder": 56, "contraband_pile": 36, "fence_table": 30,
+               "dice_table": 24, "stolen_goods": 26, "wine_rack": 54, "chain_post": 50, "iron_cage": 96, "cask_row": 100,
+               "cellar_stairs": 96, "smuggler_table": 100})
 
 
 def grids():

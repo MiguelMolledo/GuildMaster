@@ -44,8 +44,10 @@ def catalog():
     return json.load(open(CATALOG, encoding="utf-8"))["props"]
 
 
-def ids():
-    return sorted(n[:-5] for n in os.listdir(DATA) if n.endswith(".json") and not n.startswith("_") and n != "lights.json")
+def ids(templates=True):
+    """Los interiores (y, con templates, las plantillas _<id>.json de lo que aún no es un edificio: la guarida)."""
+    return sorted(n[:-5] for n in os.listdir(DATA) if n.endswith(".json") and n != "lights.json"
+                  and (templates or not n.startswith("_")))
 
 
 def load(b):
@@ -582,6 +584,7 @@ def render_floor(b, floor, d=None, upgrades=True, marks=False, dim=False):
             fx = spr.width - fx
         wx, wy = feet_world(p, cat)
         draws.append((wy, int(ox + wx - fx), int(oy + wy - fy), spr))
+    main = main_room(d, floor)  # como en el juego (InteriorStage._main_room): sus paredes de delante, abiertas
     for kind, t, side, behind, front in lay.walls(floor):
         if kind not in ("inner", "door", "low"):
             continue
@@ -599,6 +602,9 @@ def render_floor(b, floor, d=None, upgrades=True, marks=False, dim=False):
             p_own = os.path.join(own, f"wall_{floor}_{front}_{side}{'_door' if kind == 'door' else ''}.png")
             pid = f"wall_{style}{'_door' if kind == 'door' else ''}_{side}" + ("_b" if kind == "inner" and (t[0] + t[1]) % 3 == 0 else "")
             spr = Image.open(p_own).convert("RGBA") if os.path.exists(p_own) else _sprite(pid)
+            if behind == main:
+                spr = spr.copy()
+                spr.putalpha(spr.getchannel("A").point(lambda v: v // 4))
             left = x if side == "ne" else x - 32
             draws.append((y - 8, int(ox + left), int(oy + y - 16 - wh), spr))
     for _, x, y, spr in sorted(draws, key=lambda t: (t[0], t[1])):
@@ -625,6 +631,18 @@ def render_floor(b, floor, d=None, upgrades=True, marks=False, dim=False):
         dark.putalpha(Image.eval(im.getchannel("A"), lambda v: 150 if v else 0))
         im.alpha_composite(dark)
     return im
+
+
+def main_room(d, floor):
+    """La sala que queda abierta sin foco (game/interior/interior_stage.gd _main_room)."""
+    for t in ("workshop", "yard", "hall", "shop", "kitchen"):
+        for r in d["rooms"]:
+            if r["floor"] == floor and r["type"] == t:
+                return r["id"]
+    for r in d["rooms"]:
+        if r["floor"] == floor:
+            return r["id"]
+    return ""
 
 
 def preview(b, out, upgrades=True, marks=False, k=2):

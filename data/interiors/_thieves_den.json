@@ -1,0 +1,63 @@
+{
+  "_doc": "Template (04g 4.6.5.6, O-I1): the thieves' den of the Rogue (4.22), for when it arrives; not a building yet (the leading _ keeps it out of the game). Ground floor: the fence's workshop and the gaming room. Cellar, through a trapdoor: the contraband and the cell with the cage for the kidnapped (4.24.5, 4.22.6.6). The hidden trapdoor that an inspection can find (4.22.6.4) is a rule of the sim for later; here only the pieces and the rooms. Check it with python3 tools/interiors/interiores.py validar _thieves_den and look at it with vista _thieves_den.",
+  "size": [8, 6],
+  "wall_height": 64,
+  "floor_height": 80,
+  "seed": 23,
+  "entrance": {"floor": 0, "tile": [0, 3], "side": "nw"},
+  "rooms": [
+    {"id": "fence", "floor": 0, "type": "workshop", "rects": [[0, 0, 4, 5]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "gaming", "floor": 0, "type": "hall", "rects": [[5, 0, 7, 5]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"},
+    {"id": "contraband", "floor": -1, "type": "cellar", "rects": [[0, 0, 3, 5]], "floor_kind": "earth", "wall_style": "stone", "light": "dim"},
+    {"id": "cell", "floor": -1, "type": "cellar", "rects": [[4, 0, 7, 5]], "floor_kind": "stone", "wall_style": "stone", "light": "dim"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [5, 2], "side": "nw"},
+    {"floor": -1, "tile": [4, 2], "side": "nw"}
+  ],
+  "levels": [],
+  "stairs": [
+    {"id": "trapdoor", "floor": 0, "prop": "trapdoor_open", "tile": [3, 3], "flip": false, "from": [3, 4], "to_floor": -1, "to": [3, 3]}
+  ],
+  "stations": {},
+  "customers": {},
+  "idle": [
+    {"floor": 0, "tile": [2, 3]},
+    {"floor": 0, "tile": [6, 3]},
+    {"floor": -1, "tile": [2, 2]}
+  ],
+  "props": [
+    {"id": "fence_table", "floor": 0, "tile": [1, 1]},
+    {"id": "stolen_goods", "floor": 0, "tile": [0, 0]},
+    {"id": "strongbox", "floor": 0, "tile": [2, 0]},
+    {"id": "dice_table", "floor": 0, "tile": [6, 2]},
+    {"id": "tavern_chair", "floor": 0, "tile": [7, 2]},
+    {"id": "stool", "floor": 0, "tile": [6, 1]},
+    {"id": "standing_lantern", "floor": 0, "tile": [7, 0]},
+    {"id": "smuggler_table", "floor": -1, "tile": [1, 4], "flip": true},
+    {"id": "contraband_pile", "floor": -1, "tile": [0, 0]},
+    {"id": "cask_row", "floor": -1, "tile": [3, 0], "flip": true},
+    {"id": "iron_cage", "floor": -1, "tile": [7, 1], "flip": false},
+    {"id": "chain_post", "floor": -1, "tile": [5, 0]}
+  ],
+  "rules": [
+    {"rule": "wall_fill", "room": "contraband", "props": ["crate", "crate_stack", "sack_pile", "barrel"], "chance": 0.7},
+    {"rule": "wall_fill", "room": "fence", "props": ["crate", "chest", "wine_rack"], "chance": 0.4},
+    {"rule": "on_top", "room": "gaming", "under": ["dice_table"], "props": ["coin_pile", "tankards", "dice_cup"], "max": 2, "chance": 1.0},
+    {"rule": "scatter", "room": "cell", "props": ["rubble_pile"], "count": 2}
+  ],
+  "upgrades": {},
+  "resolved": [
+    {"id": "sack_pile", "floor": -1, "tile": [0, 5], "flip": true, "rule": "wall_fill"},
+    {"id": "crate_stack", "floor": -1, "tile": [1, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "crate", "floor": 0, "tile": [0, 1], "flip": true, "rule": "wall_fill"},
+    {"id": "crate", "floor": 0, "tile": [0, 4], "flip": false, "rule": "wall_fill"},
+    {"id": "wine_rack", "floor": 0, "tile": [1, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "crate", "floor": 0, "tile": [3, 0], "flip": true, "rule": "wall_fill"},
+    {"id": "chest", "floor": 0, "tile": [4, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "dice_cup", "floor": 0, "tile": [6, 2], "flip": false, "lift": 4, "shift": [1, 0], "rule": "on_top", "over": "dice_table"},
+    {"id": "tankards", "floor": 0, "tile": [6, 2], "flip": false, "lift": 4, "shift": [0, 0], "rule": "on_top", "over": "dice_table"},
+    {"id": "rubble_pile", "floor": -1, "tile": [4, 5], "flip": false, "rule": "scatter"},
+    {"id": "rubble_pile", "floor": -1, "tile": [5, 3], "flip": true, "rule": "scatter"}
+  ]
+}

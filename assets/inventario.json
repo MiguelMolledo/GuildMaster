@@ -8224,6 +8224,526 @@
       }
     },
     {
+      "id": "iprop_trapdoor",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/trapdoor.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g20_s_court_b (ref: _referencias/court_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a closed wooden trapdoor set in the floor with an iron ring, lying flat",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          50,
+          31
+        ],
+        "feet": [
+          25,
+          20
+        ],
+        "height": 20,
+        "walkable": true,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_trapdoor_open",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/trapdoor_open.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g20_s_court_b (ref: _referencias/court_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "an open wooden trapdoor in the floor showing a dark hole and the top of a ladder",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          39,
+          36
+        ],
+        "feet": [
+          19,
+          23
+        ],
+        "height": 23,
+        "walkable": true,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_ladder",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/ladder.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g20_s_court_b (ref: _referencias/court_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a wooden ladder leaning against a wall",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          33,
+          55
+        ],
+        "feet": [
+          16,
+          38
+        ],
+        "height": 38,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_contraband_pile",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/contraband_pile.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g20_s_court_b (ref: _referencias/court_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a pile of crates and sacks half covered with a tarp, smuggled goods",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          48,
+          39
+        ],
+        "feet": [
+          24,
+          25
+        ],
+        "height": 25,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_fence_table",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/fence_table.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g20_s_court_b (ref: _referencias/court_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a small table with a scale, coins and stolen jewels (a fence's table)",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          34,
+          34
+        ],
+        "feet": [
+          17,
+          22
+        ],
+        "height": 22,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_dice_table",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/dice_table.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g20_s_court_b (ref: _referencias/court_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a small square gaming table with dice, a dice cup and coins",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          31,
+          27
+        ],
+        "feet": [
+          15,
+          17
+        ],
+        "height": 17,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_stolen_goods",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/stolen_goods.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g20_s_court_b (ref: _referencias/court_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a heap of stolen things: candlesticks, a silver plate and a small chest",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          37,
+          28
+        ],
+        "feet": [
+          18,
+          18
+        ],
+        "height": 18,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_wine_rack",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/wine_rack.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g20_s_court_b (ref: _referencias/court_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a wooden wine rack full of dusty bottles",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          45,
+          59
+        ],
+        "feet": [
+          22,
+          42
+        ],
+        "height": 42,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_chain_post",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/chain_post.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g20_s_court_b (ref: _referencias/court_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a wooden post with iron chains and shackles",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          40,
+          51
+        ],
+        "feet": [
+          20,
+          34
+        ],
+        "height": 34,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_iron_cage",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/iron_cage.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g21_l_court_a (ref: _referencias/court_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a big iron cage for prisoners with a locked door and straw inside",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          93,
+          100
+        ],
+        "feet": [
+          46,
+          75
+        ],
+        "height": 75,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_cask_row",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/cask_row.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g21_l_court_a (ref: _referencias/court_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a row of three big casks lying on a wooden rack, in a cellar",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          99,
+          81
+        ],
+        "feet": [
+          49,
+          56
+        ],
+        "height": 56,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_cellar_stairs",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/cellar_stairs.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g21_l_court_a (ref: _referencias/court_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "stone stairs going down into a cellar, seen in isometric, descending towards the back",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          92,
+          100
+        ],
+        "feet": [
+          46,
+          75
+        ],
+        "height": 75,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
+      "id": "iprop_smuggler_table",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/smuggler_table.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g21_l_court_a (ref: _referencias/court_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a long rough table with a map, a lantern, coins and a dagger",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          100,
+          90
+        ],
+        "feet": [
+          50,
+          65
+        ],
+        "height": 65,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "den",
+          "cellar",
+          "tavern"
+        ],
+        "style": "poor"
+      }
+    },
+    {
       "id": "int_armory",
       "tipo": "interior",
       "estado": "sprite",
