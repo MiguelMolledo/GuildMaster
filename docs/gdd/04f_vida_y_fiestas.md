@@ -716,7 +716,7 @@ apostar a la carrera de la feria; `festival_joust`: la justa del torneo que orga
 | Una competición sin el jugador (fiestas) | `Games.auto(cat.games, spec)`: ganador y clasificación sin tocar nada |
 | Las fiestas (espectáculo a su hora) | `FestivalGames.on_spectacle`: se corre sola, o llama al apuntado (`game_enter`) a jugarla; las apuestas de la feria (`game_bet` con `festival`) se pagan con su resultado |
 | Las cuotas (§4.26.6) | `Games.win_odds(cat.games, spec, n)`: n partidas automáticas con sus propias claves |
-| La Posada (mesa de juego) | La pantalla con `opts.house` = la taberna (su parte de la casa) y `opts.event` = el turno |
+| La Posada (mesa de juego) | La pantalla con `opts.house` = la taberna (su parte de la casa; en la casa propia no cobra). Sin `opts.event`: es de las fiestas (`FestivalGames.play_block` rechaza uno que no lo sea); la Posada reconoce sus partidas por `house` (`InnGames.hear`) |
 
 Quién juega: personajes del estado (`chr_…`) o **fichas** de `data/games.json` → `presets` (parroquianos y
 forasteros: atributos, temperamento y aspecto). Apuestas de 5, 10, 25 o 50 (tope 50 también al doblar, O-V8); aviso si
@@ -838,6 +838,16 @@ Cada noche llegan clientes de **grupos** distintos. Cada grupo tiene sus gustos 
   criada, 20 min por cama). Una cama sin hacer no se alquila esa noche.
 - **Licencia de tafurería** (el concejo, 60 oro y 1 año): permite la mesa de dados y naipes, se queda con la parte
   de la casa (4.26.6) y trae jugadores. Sin licencia, jugar en tu taberna es delito leve si lo ve el Alguacil.
+- **La mesa de juego** (construido, `sim/inn/inn_games.gd`; la mejora de ambiente 3, solo durante el turno): quien de
+  la familia esté dentro (si no, el cabeza) juega azar, tres dados a la mayor o envite con los parroquianos —los
+  vecinos sentados en la sala primero; si no, las fichas `regular_*` de `data/games.json`— a 5, 10, 25 o 50, en la
+  pantalla de los juegos (pestaña **Mesa** del panel, o clic en la mesa). En tu propia casa la casa no te cobra; si
+  juega otra familia, su parte va al dueño. **La partida del forastero:** con jugadores en la sala, a veces un
+  forastero (el de los anillos, el soldado licenciado, el mercader de paso) propone azar o envite a 10 o 25: sale una
+  carta (Jugar / Ahora no) y la oferta queda en la pestaña Mesa hasta el cierre. **Sin licencia** cada partida tiene
+  un 30 % de que la vean los del alguacil (50 % con el cargo ocupado): hecho `illegal_gaming` (cargo `minor_fraud`,
+  leve) contra la familia que jugó, −3 de reputación y aviso. Las partidas de la noche salen en el resumen.
+  [propuesta: las cifras, en `data/inn/inn.json` → `games`]
 
 #### 4.27.5 Mejoras (árbol de la Taberna-Posada, como el de la Forja de 4.8)
 
@@ -885,7 +895,7 @@ Lo que precisa o cambia respecto a lo de arriba (apuntado en `docs/decisiones.js
 | T7 | **Ramas del árbol:** Salón, Cocina, Bodega, Habitaciones, Ambiente (ramas nuevas `inn_*`) y Seguridad (la de la Forja). Toneles = producción ×1,25 + 4 pilas; vino de reserva y cueva = el vino sale +1 / +2 de calidad; pizarra = +10 % de clientes y +2 platos; asador = +2 platos. | El árbol de 4.27.5 en las piezas de efecto que ya existen (H5) más los efectos `inn_*`. |
 | T8 | **Durante las obras se sirve**, pero la cocina no cocina (la regla de 4.8). | Cerrar la taberna dos días por cada mejora la hundía. |
 | T9 | **Plato de la casa** (de las promociones de Wartales). | Una decisión barata y legible sobre la clientela. |
-| T10 | **Ganchos:** la partida que propone un forastero (`inn_game_offer`) espera a los juegos (4.26); hasta entonces la casa se queda su parte con la licencia. Los rumores de la barra son ya los de vida (`Rumors.candidates`, con los temas del punto `tavern` y los útiles ×2) y quedan en el libro de rumores (`town.rumors.heard`, punto `inn:<edificio>`); sin vida, los tres de antes (precio de fuera, evento en curso, deuda de un rival). `Inn.arrive()` es la puerta para los vecinos de verdad de la agenda de vida (4.24.1). | El orden de los bloques (4.28.5). |
+| T10 | **Ganchos:** la partida que propone un forastero (`inn_game_offer`) se juega ya en la pantalla de los juegos (4.26; la mesa, arriba); las partidas de los jugadores entre ellos siguen siendo la parte de la casa en su cuenta. Los rumores de la barra son ya los de vida (`Rumors.candidates`, con los temas del punto `tavern` y los útiles ×2) y quedan en el libro de rumores (`town.rumors.heard`, punto `inn:<edificio>`); sin vida, los tres de antes (precio de fuera, evento en curso, deuda de un rival). `Inn.arrive()` es la puerta para los vecinos de verdad de la agenda de vida (4.24.1). | El orden de los bloques (4.28.5). |
 
 **Medido** (bot `innkeeper`, `innkeeper_start`, Normal, 16 días, 10 semillas, con eventos globales): ver la diana
 `innkeeper` de `data/targets.json`.
