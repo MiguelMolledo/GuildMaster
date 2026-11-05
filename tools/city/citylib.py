@@ -953,7 +953,12 @@ def validate(m, strict=False, hand_decor=None):
         rest = sorted(m.sites[sid]["tiles"] - set(cov))
         if rest:
             rep.error(f"el vestido de reserva del solar {sid} no cubre {rest[0]} (y {len(rest) - 1} más)")
-    missing = sorted(free - set(covered))
+    plotted = set()  # 04 §4.9.1: a lot or a ruin dresses its filler tiles (game/world/plot_layer.gd)
+    for p in m.d.get("plots") or []:
+        if p.get("state") in ("lot", "ruin"):
+            (c0, r0), (pw, ph) = p["origin"], p["size"]
+            plotted |= {(c0 + i, r0 + j) for j in range(ph) for i in range(pw)}
+    missing = sorted(free - set(covered) - plotted)
     if missing:
         soft(f"{len(missing)} casillas de relleno sin vestir (la primera {missing[0]}): el juego las rellena como antes")
     # lanterns every N along the main streets
@@ -967,6 +972,9 @@ def validate(m, strict=False, hand_decor=None):
             soft(f"{len(gaps)} casillas de calle sin farola a {every} o menos (la primera {gaps[0]})")
     rep.note("decor: " + ", ".join(f"{k} {v}" for k, v in sorted(n_kind.items())))
     _check_marks(m, rep, decor, decor_marks, covered, soft)
+    # the plots (04 §4.9.1): free lots, ruins and businesses, their counts and the valve (tools/city/plots.py)
+    import plots
+    plots.validate_plots(m, rep, required=rep.map_id in rules().get("plots", {}).get("maps", []))
     # the hand-placed decoration of game/visuals/towns/<id>.tscn
     for name, (x, y) in (hand_decor or []):
         t = to_tile(x, y)

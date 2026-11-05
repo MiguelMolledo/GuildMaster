@@ -193,11 +193,12 @@ static func candidates(sim: Sim, now: int) -> Array:
 	var names: Array = all.keys()
 	names.sort()
 	var since := now - int(cfg(sim).get("lookback_days", 4)) * Clock.MINUTES_PER_DAY
+	var memo := {}  # the prices looked up while gathering (nothing changes them meanwhile): shared by the sources
 	for rid: String in names:
 		var d: Dictionary = all[rid]
 		var base := {"rumor": rid, "topic": str(d.get("topic", "")), "weight": float(d.get("weight", 1.0)),
 			"text_key": str(d.get("text_key", "rumor." + rid)), "useful": bool(d.get("useful", false))}
-		for c: Dictionary in _of_source(sim, str(d.get("source", "")), d, since, now):
+		for c: Dictionary in _of_source(sim, str(d.get("source", "")), d, since, now, memo):
 			var e := base.duplicate(true)
 			e["key"] = "%s|%s" % [rid, c["key"]]
 			e["params"] = c["params"]
@@ -205,7 +206,7 @@ static func candidates(sim: Sim, now: int) -> Array:
 	return out
 
 
-static func _of_source(sim: Sim, source: String, d: Dictionary, since: int, now: int) -> Array:
+static func _of_source(sim: Sim, source: String, d: Dictionary, since: int, now: int, memo: Dictionary = {}) -> Array:
 	var st := sim.state
 	var out: Array = []
 	match source:
@@ -229,7 +230,7 @@ static func _of_source(sim: Sim, source: String, d: Dictionary, since: int, now:
 						and int(l.get("outstanding", 0)) > 0:
 					out.append({"key": id, "params": {"family": _family_name(st, fam), "amount": int(l["outstanding"])}})
 		"city_prices":
-			var best := _best_city_item(sim)
+			var best := _best_city_item(sim, memo)
 			if not best.is_empty():
 				out.append({"key": "%s|%s" % [best["city"], best["item"]],
 					"params": {"city": "@" + str(best["city_key"]), "item": "@item." + str(best["item"])}})
@@ -238,7 +239,7 @@ static func _of_source(sim: Sim, source: String, d: Dictionary, since: int, now:
 				var vis: Dictionary = st.characters[v].get("visitor", {})
 				if str(vis.get("kind", "")) != "merchant":
 					continue
-				var item := _dear_item(sim, str(vis.get("city", "")))
+				var item := _dear_item(sim, str(vis.get("city", "")), memo)
 				if item != "":
 					out.append({"key": "%s|%s" % [v, item], "params": {"name": str(st.characters[v].get("name", "")),
 						"city": "@" + _city_key(sim, str(vis.get("city", ""))), "item": "@item." + item}})
@@ -302,18 +303,20 @@ static func _city_key(sim: Sim, city: String) -> String:
 
 
 ## The item and town of the region whose selling price beats the home market's the most (today).
-static func _best_city_item(sim: Sim) -> Dictionary:
+static func _best_city_item(sim: Sim, here_of: Dictionary = {}) -> Dictionary:
 	var best := {}
 	var best_r := 1.05
 	var home := Region.home_id(sim)
+	# here_of: the home price of each item (and each city's dearest item, "@<city>"), worked out once for every city
+	# and source (Market.price and Region.price only read)
 	for s: Dictionary in Region.settlements(sim):
 		var c := str(s.get("id", ""))
 		if c == home or not Region.is_city(sim, c):
 			continue
-		var it := _dear_item(sim, c)
+		var it := _dear_item(sim, c, here_of)
 		if it == "":
 			continue
-		var here := float(maxi(1, Market.price(sim, it, Inventory.NORMAL, "sell")))
+		var here := float(maxi(1, int(here_of[it])))
 		var r := float(Region.price(sim, c, it, Inventory.NORMAL, "sell")) / here
 		if r > best_r:
 			best_r = r
@@ -322,17 +325,22 @@ static func _best_city_item(sim: Sim) -> Dictionary:
 
 
 ## The traded item that sells best in town `c` compared with home ("" if none or no region).
-static func _dear_item(sim: Sim, c: String) -> String:
+static func _dear_item(sim: Sim, c: String, here_of: Dictionary = {}) -> String:
+	if here_of.has("@" + c):
+		return str(here_of["@" + c])
 	if c == "" or not Region.is_city(sim, c):
 		return ""
 	var best := ""
 	var best_r := 1.0
 	for it: Variant in Region.traded_items(sim):
-		var here := float(maxi(1, Market.price(sim, str(it), Inventory.NORMAL, "sell")))
+		if not here_of.has(str(it)):
+			here_of[str(it)] = Market.price(sim, str(it), Inventory.NORMAL, "sell")
+		var here := float(maxi(1, int(here_of[str(it)])))
 		var r := float(Region.price(sim, c, str(it), Inventory.NORMAL, "sell")) / here
 		if r > best_r:
 			best_r = r
 			best = str(it)
+	here_of["@" + c] = best
 	return best
 
 

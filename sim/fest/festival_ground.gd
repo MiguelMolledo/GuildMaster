@@ -3,7 +3,8 @@ extends RefCounted
 ## Fiestas (owner, 2026-11-05): the outskirts of a town (data/festivals.json rules.view_sites.outskirts), the free
 ## meadow by its gates where the cattle fairs were held. One rule for the sim and the view: the sim asks whether the
 ## fair's pens fit (if not, the cattle is sold at stalls and the chronicle says so); FestivalLayer places them there.
-## Pure data from the map (data/maps/<id>.json rows, spawns *_gate, decor items, building doors, social points).
+## Pure data from the map (data/maps/<id>.json rows, spawns *_gate, decor items, building doors, social points, free
+## lots and ruins of its plots).
 
 ## {near: [Vector2i] (meadow tiles within radius of a gate, nearest first), meadow: [Vector2i]} of map `map_id`.
 ## `extra_busy`: more tiles to keep off (the view adds its services).
@@ -27,6 +28,13 @@ static func outskirts(catalog: Catalog, map_id: String, extra_busy: Dictionary =
 		for dy: int in range(-m0, maxi(1, int(sz[1]) if sz.size() == 2 else 1) + m0):
 			for dx: int in range(-m0, maxi(1, int(sz[0]) if sz.size() == 2 else 1) + m0):
 				busy[Vector2i(int(at[0]) + dx, int(at[1]) + dy)] = true
+	for pl: Dictionary in m.get("plots", []):  # parcelas (04 §4.9.1): free lots and ruins keep their ground
+		if str(pl.get("state", "")) in ["lot", "ruin"]:
+			var o: Array = pl.get("origin", [0, 0])
+			var sz: Array = pl.get("size", [1, 1])
+			for dy: int in int(sz[1]):
+				for dx: int in int(sz[0]):
+					busy[Vector2i(int(o[0]) + dx, int(o[1]) + dy)] = true
 	var cfg: Dictionary = (catalog.festivals.get("rules", {}) as Dictionary).get("view_sites", {}).get("outskirts", {})
 	var ground: Array = cfg.get("ground", ["grass"])
 	var radius := int(cfg.get("radius", 10))

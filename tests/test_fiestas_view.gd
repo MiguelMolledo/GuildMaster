@@ -186,6 +186,10 @@ func test_outskirts_by_the_gates_of_every_town() -> void:
 				for dx: int in 3:
 					ok = ok and meadow.has(t + Vector2i(dx, dy))
 			fits = fits or ok
-		check(fits, "%s: a 3×3 pen fits by a gate" % map_id)
+		# The sim and the view read one rule (FestivalGround): where the view finds no room, the sim sells the cattle at
+		# stalls (the chronicle says so); since plantillas, region_hamlet's free lots take its meadow by the gates.
+		eq(fits, FestivalGround.fits(sim.catalog, map_id, Vector2i(3, 3)), "%s: the sim and the view agree on the pen" % map_id)
+		if map_id == "town_e":
+			check(fits, "town_e: a 3×3 pen fits by a gate")
 	eq(str((Festivals.def_of(sim, "harvest_fair")["view"]["decor"] as Array).filter(func(d: Dictionary) -> bool:
 		return str(d["prop"]) == "pen")[0]["where"]), "outskirts", "the fair's pens go outside the walls")

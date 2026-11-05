@@ -113,20 +113,110 @@ const STROLL_KINDS: Array[String] = ["bench", "chat", "dice"]
 static func step(sim: Sim) -> void:
 	var st := sim.state
 	var now := int(st.clock["minute"])
+	_replans_left = int((sim.catalog.maps().get(st.map_id, {}).get("routing", {}) as Dictionary).get("replans_per_minute", -1))
 	if now % 60 == 0:
 		assign_occupations(st, sim.catalog)
 	var phase := Clock.phase(now, sim.catalog.time)
 	var today := Clock.day(now)
+	# the townsfolk (is_townsperson, inlined: the household families worked out once per step)
+	var households := {}
+	for f: Variant in st.families:
+		if is_household(st, str(f)):
+			households[str(f)] = true
 	var folk: Array = []
 	for id: Variant in st.characters:
-		if str(st.characters[id].get("home", "")) != "" and is_townsperson(st, str(id)):
+		var c: Dictionary = st.characters[id]
+		var h := str(c.get("home", ""))
+		if h != "" and bool(c.get("alive", true)) and st.buildings.has(h) and households.has(str(c.get("family", ""))):
 			folk.append(str(id))
 	folk.sort()
 	var gcfg: Dictionary = sim.catalog.town.get("routine", {}).get("greet", {})
 	if phase != "night" and now % maxi(1, int(gcfg.get("check_every", 5))) == 0:
 		_greetings(sim, folk, now, today, gcfg)
+	# plantillas (rendimiento): the minutes that would change nothing are skipped (_quiet); the rest as always
+	# no incident starts during this step's TownLife (Incidents runs in Life.step): one look for the whole loop
+	var life := quiet and Life.on(sim) and now % 60 != 0 and Incidents.active(st).is_empty()
 	for chr: String in folk:
+		if life and _quiet(sim, chr, now, phase, today):
+			continue
 		_step_one(sim, chr, now, phase, today)
+	_replans_left = -1
+
+
+## Plantillas (rendimiento): off, every townsperson takes every minute the long way (the tests compare both).
+static var quiet: bool = true
+## Plantillas (rendimiento): the new routes (move_to, enter_building) the townsfolk may still ask for this minute;
+## -1 = no limit. Set at the start of each step from the map's routing.replans_per_minute (town_e has none); the ones
+## over it wait for the next minute, so a whole town changing activity at the hour does not walk in one step.
+static var _replans_left: int = -1
+
+
+## Whether this minute of townsperson `chr` would leave everything as it is, with the living town II on (only called
+## off the hour): asleep at home at night, standing at its workplace tile at work by day, or standing at the spot of
+## any other activity whose minutes are not over yet; with nothing pending (no incident holding anyone, no customer,
+## no greeting, a new day or age already worked out). The caller has checked that no incident is active.
+## Every check mirrors a branch of _step_one / Agenda.run / Agenda._go / _plan_work / _go_tile / _go_building /
+## _set_state that, in that state, writes nothing; tests/test_plantillas_rendimiento.gd and the state hashes of the
+## towns prove the games identical with and without it.
+static func _quiet(sim: Sim, chr: String, now: int, phase: String, today: int) -> bool:
+	var st := sim.state
+	var ch: Dictionary = st.characters[chr]
+	if ch.get("job") is Dictionary:
+		return false
+	var tv: Variant = ch.get("town")
+	if not tv is Dictionary:
+		return false
+	var t: Dictionary = tv
+	if int(t.get("adult_day", -1)) != today or not bool(t.get("adult", false)) or int(t.get("group_day", -1)) != today \
+			or int(t.get("day", -1)) != today or t.has("customer"):
+		return false
+	if phase == "night" and t.has("greet_until"):
+		return false  # the night erases it
+	if int(t.get("greet_until", -1)) > now:
+		return false
+	var act := str(t.get("activity", ""))
+	if act != "work" and act != "sleep" and act != "":
+		return _quiet_waiting(sim, ch, t, act, now)
+	if phase == "night":
+		var home := str(ch.get("home", ""))
+		return home != "" and str(t.get("activity", "")) == "sleep" \
+			and int(t.get("phase_seen", -1)) == 3 and str(t.get("plan", "")) == "home" \
+			and str(t.get("state", "")) == "home" and str(t.get("shown", "")) == "sleep" \
+			and str(ch.get("location", "")) == home
+	# by day: at work on a workplace tile
+	if phase != "day" or act != "work" or int(t.get("phase_seen", -1)) != 1 or str(t.get("plan", "")) != "work" \
+			or str(t.get("state", "")) != "working" or str(t.get("shown", "")) != "":
+		return false
+	if str(ch.get("location", "")) != "" or not (ch.get("path", []) as Array).is_empty() \
+			or not (ch.get("order_queue", []) as Array).is_empty():
+		return false
+	var wp := workplace(st, sim.catalog, str(ch.get("occupation", "")))
+	if wp.is_empty() or str(wp.get("kind", "")) == "shop":
+		return false
+	var to: Array = wp.get("tile", [])
+	var pos: Array = ch.get("position", [])
+	return to.size() == 2 and pos.size() == 2 and int(pos[0]) == int(to[0]) and int(pos[1]) == int(to[1])
+
+
+## An activity other than work and sleep, at its spot (Agenda._go: at its target tile, its minutes started and not
+## over, its state shown already): the minute only re-checks what is still true.
+static func _quiet_waiting(sim: Sim, ch: Dictionary, t: Dictionary, act: String, now: int) -> bool:
+	var d: Dictionary = Agenda.acts(sim).get(act, {})
+	var spot := str(d.get("spot", ""))
+	if d.is_empty() or spot == "work" or spot == "home" or not t.has("target"):
+		return false
+	var until := int(t.get("until", -1))
+	if until < 0 or now >= until:
+		return false
+	if str(ch.get("location", "")) != "" or not (ch.get("path", []) as Array).is_empty() \
+			or not (ch.get("order_queue", []) as Array).is_empty():
+		return false
+	var to: Array = t["target"]
+	var pos: Array = ch.get("position", [])
+	if to.size() != 2 or pos.size() != 2 or int(pos[0]) != int(to[0]) or int(pos[1]) != int(to[1]):
+		return false
+	var shown := str(d.get("shown", "social"))
+	return shown == "home" or (str(t.get("state", "")) == shown and str(t.get("shown", "")) == act)
 
 
 static func _step_one(sim: Sim, chr: String, now: int, phase: String, today: int) -> void:
@@ -554,6 +644,9 @@ static func _go_tile(sim: Sim, chr: String, t: Dictionary, tile: Variant, now: i
 			return false
 	if now < int(t.get("retry_at", -1)):
 		return false
+	if _replans_left == 0:
+		return false  # plantillas: this minute's new routes are spent (routing.replans_per_minute): next minute
+	_replans_left -= 1
 	sim.give({"type": "move_to", "actor": chr, "tile": [int(to[0]), int(to[1])]})
 	if (ch.get("path", []) as Array).is_empty():
 		t["retry_at"] = now + int(sim.catalog.town.get("routine", {}).get("retry_minutes", 30))
@@ -572,6 +665,9 @@ static func _go_building(sim: Sim, chr: String, t: Dictionary, bld: String, now:
 		return false
 	if now < int(t.get("retry_at", -1)):
 		return false
+	if _replans_left == 0:
+		return false  # plantillas: this minute's new routes are spent (routing.replans_per_minute): next minute
+	_replans_left -= 1
 	if loc != "":
 		sim.give({"type": "exit_building", "actor": chr})
 	sim.give({"type": "enter_building", "actor": chr, "building": bld})
