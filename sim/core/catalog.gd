@@ -52,6 +52,8 @@ var trade: Dictionary = {}       # data/world/trade.json: travel, city markets, 
 var festivals: Dictionary = {}   # data/festivals.json: the festival calendar (4.25, docs/gdd/04f_vida_y_fiestas.md)
 var festival_contracts: Dictionary = {}  # data/contracts/festivals.json (kind festival): taken out of contracts() (4.25.4)
 var combat: Dictionary = {}      # data/combat.json: the duel «a tres tiempos» (draft, 04e; nothing in the sim uses it yet)
+var live_forge: Dictionary = {}  # data/live_forge.json: Forja viva (03b §3b.2), variants of §3b.3
+var unlocks: Dictionary = {}     # data/unlocks.json: the unlocks (03b §3b.4); _ready {requires: the system exists}
 var games: Dictionary = {}       # data/games.json: the games and competitions of the fiestas and the tavern (04f §4.26)
 var life_tables: Dictionary = {}  # vida (04f 4.24): data/life/<file>.json by file name: life, activities, rumors, incidents
 ## Población: data/portraits.json, the ids of the portrait pool (exported from assets/art/portraits/index.json by
@@ -92,6 +94,15 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.events = c._load_json(root_dir.path_join("events.json"))
 	c.cast = c._load_json(root_dir.path_join("cast.json"))
 	c.combat = c._load_json(root_dir.path_join("combat.json"))
+	c.live_forge = c._load_json(root_dir.path_join("live_forge.json"))
+	c.unlocks = c._load_json(root_dir.path_join("unlocks.json"))
+	var ready := {}  # 03b §3b.4: an unlock's hook waits until its system's data exists (data/<id>.json or data/<id>/)
+	for u: Variant in c.unlocks.get("unlocks", []):
+		var req := str((u as Dictionary).get("requires", "")) if u is Dictionary else ""
+		if req != "":
+			ready[req] = FileAccess.file_exists(root_dir.path_join(req + ".json")) \
+				or DirAccess.dir_exists_absolute(root_dir.path_join(req))
+	c.unlocks["_ready"] = ready
 	c.games = c._load_json(root_dir.path_join("games.json"))
 	c.games["_combat"] = c.combat  # the tournament's bouts are duels (sim/games/tourney.gd): the games see the duel's table
 	c.region = c._load_json(root_dir.path_join("world/region.json"))

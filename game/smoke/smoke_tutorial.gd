@@ -75,15 +75,16 @@ func _play() -> void:
 	if _pending == "" or _acted:
 		return
 	# the panel's slide, the fade into a building and the camera have settled; the master touch cannot wait
-	if _t < (0.25 if _pending_id == "touch" else 0.9):
+	if _t < (0.25 if _pending_id == "live_forge" else 0.9):
 		return
 	_acted = true
 	var name := _pending
-	_shots.append(name)
-	var f: Dictionary = _tut.focus
-	print("[SmokeTutorial] shot %s (found=%s, opener=%s, rect=%s, target=%s)" % [name, f.get("found", false),
-		f.get("opener", false), f.get("rect", Rect2()), f.get("target", {})])
-	app.save_shot("tut_" + name)
+	if not _shots.has(name):   # the Forja viva step acts three times (heat, strikes, quench): one shot
+		_shots.append(name)
+		var f: Dictionary = _tut.focus
+		print("[SmokeTutorial] shot %s (found=%s, opener=%s, rect=%s, target=%s)" % [name, f.get("found", false),
+			f.get("opener", false), f.get("rect", Rect2()), f.get("target", {})])
+		app.save_shot("tut_" + name)
 	_act(_pending_id)
 
 
@@ -116,12 +117,24 @@ func _act(id: String) -> void:
 			Game.set_speed(1)   # slow enough for the shot of the next step
 		"anvil_menu":
 			interior.open_station_menu("anvil", interior.station_screen("anvil"))
-		"careful":
-			interior.station_menu().choose_mode("careful")
+		"live":
+			interior.station_menu().choose_mode("live")
 		"sword":
 			interior.station_menu().choose_recipe("forge_sword")
-		"touch":
-			interior.click_station("anvil")
+		"live_forge":   # plays the Forja viva well: the colour, the template, the quench (03b §3b.2)
+			var ls := interior.live_screen()
+			var v := LiveForge.view(sim, ls.building, ls.zone)
+			var rdef := LiveForge.recipe_def(sim, ls.recipe)
+			match str(v.get("stage", "")):
+				"heat":
+					ls.heat_index = (sim.catalog.live_forge["heat_colors"] as Array).find(str(rdef["heat"]))
+					ls.pull()
+				"strike":
+					ls.strike(str((rdef["strikes"] as Array)[(v["strikes"] as Array).size()]))
+				"quench":
+					ls.quench(str(rdef["quench"]))
+			_acted = false   # the next decision in a moment, same step
+			_t = 0.0
 		"storage":
 			interior.show_storage(true)
 		"wait_ingots":

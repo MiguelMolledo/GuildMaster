@@ -54,6 +54,13 @@ static func order_work_at(sim: Sim, o: Dictionary) -> Dictionary:
 		return Orders.fail("unknown_mode")
 	if mode != "normal" and _is_employee_at(sim, actor, bld_id):
 		return Orders.fail("mode_not_allowed")  # H4: employees work in normal mode, without master touch (4.4.5)
+	if mode == LiveForge.MODE:
+		var live_why := LiveForge.start_reason(sim, actor, recipe_id)  # Forja viva (03b §3b.2): by hand, its recipes
+		if live_why != "":
+			return Orders.fail(live_why)
+	var spec_why := LiveForge.spec_reason(sim, actor, recipe_id, o)  # §3b.3: made to a contract's variant
+	if spec_why != "":
+		return Orders.fail(spec_why)
 	if str(bld.get("state", "normal")) != "normal":
 		return Orders.fail("building_not_ready")
 	why = may_work(sim, actor, bld_id)
@@ -76,7 +83,7 @@ static func order_work_at(sim: Sim, o: Dictionary) -> Dictionary:
 		zones[zone]["occupant"] = actor
 		ch["station"] = zone
 		sim.events.append({"type": "station_taken", "actor": actor, "building": bld_id, "zone": zone})
-	_start_cycle(sim, bld_id, zone, actor, recipe_id, mode)
+	_start_cycle(sim, bld_id, zone, actor, recipe_id, mode, LiveForge.order_spec(sim, o))
 	return Orders.ok()
 
 
@@ -111,7 +118,7 @@ static func order_master_touch(sim: Sim, o: Dictionary) -> Dictionary:
 	var job: Variant = zones[zone].get("job")
 	if not job is Dictionary or str(job["actor"]) != actor or job.get("result") is Dictionary:
 		return Orders.fail("not_working")
-	if not bool(_modes(sim)[str(job["mode"])].get("master_touch", false)):
+	if not bool(_modes(sim).get(str(job["mode"]), {}).get("master_touch", false)):
 		return Orders.fail("not_careful")
 	if not window_open(job, int(st.clock["minute"])):
 		return Orders.fail("no_window")
@@ -163,15 +170,18 @@ static func _step_job(sim: Sim, bld_id: String, zone: String, now: int) -> void:
 		elif now == int(w[1]) and int(w[1]) > int(w[0]):
 			sim.events.append({"type": "master_window", "building": bld_id, "zone": zone, "open": false})
 	if not job.get("result") is Dictionary:
-		if now < int(job["end"]):
+		if now < int(job["end"]) or LiveForge.waiting(sim, job, now):
 			return
 		var recipe: Dictionary = sim.catalog.recipes()[str(job["recipe"])]
 		var out: Dictionary = recipe["output"]
 		var q := roll_quality(sim, actor, str(bld["type"]), str(job["mode"]), bool(job.get("touched", false)), bld_id)
+		if job.get("live") is Dictionary:  # Forja viva: the decisions move the quality rolled as in mode normal
+			q = int(LiveForge.resolve(sim, actor, bld_id, job, q)["quality"])
 		job["result"] = {"item": str(out["item"]), "quality": q, "qty": output_units(sim, actor, bld_id, recipe)}
 	var res: Dictionary = job["result"]
 	var inv: Dictionary = bld["inventory"]
-	if not Inventory.add(inv, sim.catalog, str(res["item"]), int(res["quality"]), int(res["qty"])):
+	var to_contract := LiveForge.contract_takes(sim, bld_id, job, res)  # §3b.3: made to a contract's spec
+	if not to_contract and not Inventory.add(inv, sim.catalog, str(res["item"]), int(res["quality"]), int(res["qty"])):
 		if not bool(job.get("blocked", false)):
 			job["blocked"] = true
 			sim.events.append({"type": "station_blocked", "building": bld_id, "zone": zone, "reason": "storage_full"})
@@ -188,11 +198,12 @@ static func _step_job(sim: Sim, bld_id: String, zone: String, now: int) -> void:
 		# H4: an employee does not repeat on its own; the queue hands it the next work (WorkQueue.step).
 		WorkQueue.cycle_done(sim, bld_id, zone, actor, str(job["recipe"]), int(res["qty"]))
 		return
-	_repeat_or_idle(sim, bld_id, zone, actor, str(job["recipe"]), str(job["mode"]))
+	_repeat_or_idle(sim, bld_id, zone, actor, str(job["recipe"]), LiveForge.next_mode(job),
+		LiveForge.repeat_spec(sim, job))
 
 
 static func _repeat_or_idle(sim: Sim, bld_id: String, zone: String, actor: String, recipe_id: String,
-		mode: String) -> void:
+		mode: String, spec: Dictionary = {}) -> void:
 	var ch: Dictionary = sim.state.characters[actor]
 	var bld: Dictionary = sim.state.buildings[bld_id]
 	var why := ""
@@ -208,7 +219,7 @@ static func _repeat_or_idle(sim: Sim, bld_id: String, zone: String, actor: Strin
 	if why == "":
 		why = _stock_reason(sim.catalog, bld["inventory"], recipe)
 	if why == "":
-		_start_cycle(sim, bld_id, zone, actor, recipe_id, mode)
+		_start_cycle(sim, bld_id, zone, actor, recipe_id, mode, spec)
 		return
 	sim.events.append({"type": "work_idle", "actor": actor, "building": bld_id, "zone": zone, "reason": why})
 	if OS.is_debug_build():
@@ -216,7 +227,7 @@ static func _repeat_or_idle(sim: Sim, bld_id: String, zone: String, actor: Strin
 
 
 static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, recipe_id: String,
-		mode: String) -> void:
+		mode: String, spec: Dictionary = {}) -> void:
 	var st := sim.state
 	var bld: Dictionary = st.buildings[bld_id]
 	var recipe: Dictionary = sim.catalog.recipes()[recipe_id]
@@ -225,6 +236,8 @@ static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, 
 		taken.append_array(_take_lowest(bld["inventory"], str(inp["item"]), int(inp["qty"])))
 	var now := int(st.clock["minute"])
 	var d := owner_cycle_minutes(sim, bld_id, recipe, mode)
+	if not spec.is_empty():
+		d = maxi(1, roundi(float(d) * LiveForge.spec_duration_mult(sim, spec)))  # §3b.3: a variant takes longer
 	if _is_employee_at(sim, actor, bld_id):
 		d = employee_cycle_minutes(sim, actor, recipe, mode)
 	elif Needs.tracked(sim, actor):  # H14: low morale slows a family member down (GDD 4.2.6)
@@ -236,6 +249,10 @@ static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, 
 		d = maxi(1, roundi(float(d) / maxf(pm, 0.01)))
 	var job := {"actor": actor, "recipe": recipe_id, "mode": mode, "start": now, "end": now + d, "inputs": taken,
 		"window": cycle_window(sim.catalog, mode, now, d), "touched": false, "result": null, "blocked": false}
+	if mode == LiveForge.MODE:
+		job["live"] = LiveForge.new_part(spec)
+	elif not spec.is_empty():
+		job["spec"] = spec.duplicate(true)  # §3b.3: a contract's variant made without playing
 	bld["zones"][zone]["job"] = job
 	sim.events.append({"type": "work_started", "actor": actor, "building": bld_id, "zone": zone, "recipe": recipe_id,
 		"mode": mode, "end": now + d})
@@ -321,7 +338,7 @@ static func cycle_minutes(catalog: Catalog, recipe: Dictionary, mode: String) ->
 ## H5: cycle length of whoever works by hand at `bld_id` (the owner, an AI family member): cycle_minutes / the
 ## building's production_speed upgrades (Upgrades.mult), at least 1 minute.
 static func owner_cycle_minutes(sim: Sim, bld_id: String, recipe: Dictionary, mode: String) -> int:
-	var mult := float(sim.catalog.production.get("modes", {}).get(mode, {}).get("duration_mult", 1.0))
+	var mult := float(_modes(sim).get(mode, {}).get("duration_mult", 1.0))
 	var up := maxf(Upgrades.mult(sim, bld_id, "production_speed"), 0.01)
 	return maxi(1, roundi(float(recipe.get("duration_hours", 1.0)) * 60.0 * mult / up))
 
@@ -647,7 +664,12 @@ static func _max_fit(inv: Dictionary, catalog: Catalog, item: String, quality: i
 
 
 static func _modes(sim: Sim) -> Dictionary:
-	return sim.catalog.production.get("modes", {})
+	var m: Dictionary = sim.catalog.production.get("modes", {})
+	if sim.catalog.live_forge.is_empty():
+		return m
+	var out := m.duplicate()
+	out[LiveForge.MODE] = LiveForge.mode_def(sim)  # Forja viva (03b §3b.2), data/live_forge.json
+	return out
 
 
 static func _sorted_keys(d: Dictionary) -> Array:

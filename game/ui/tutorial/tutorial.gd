@@ -13,6 +13,7 @@ extends CanvasLayer
 signal step_shown(chapter: String, index: int, step_id: String)
 signal chapter_finished(chapter: String)
 signal hint_shown(hint_id: String)
+signal chapter_started(chapter: String)  # 03b §3b.4: the app opens the unlocks of that chapter (asked by the player)
 
 const DATA_PATH: String = "res://data/tutorial.json"
 const DIR: String = "res://data/tutorial/"
@@ -146,6 +147,7 @@ func start(id: String) -> bool:
 	phase = "wait"
 	_log("chapter %s starts (%d steps)" % [id, steps.size()])
 	on_event("ui", "chapter_started", {"chapter": id})
+	chapter_started.emit(id)
 	_advance()
 	return true
 

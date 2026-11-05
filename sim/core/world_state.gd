@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 19
+const VERSION: int = 20
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -43,6 +43,10 @@ var microevents: Dictionary = {"active": [], "pending": [], "cooldowns": {}, "la
 var town: Dictionary = {"counters": {}}  # the shop counters' next customer (GDD 4.5.4): Counter
 var duels: Dictionary = {"open": {}, "closed": []}  # duels of honour: id -> duel open, the last closed (04e): Duels
 var festivals: Dictionary = {}     # fiestas (v18): the festival calendar in force (04f 4.25): Festivals, {} until it runs
+# Forja viva y ritmo (v20, docs/gdd/03b_diversion_y_ritmo.md): the unlocks of each family (§3b.4) and the named
+# masterworks with what each family learned of its recipes (§3b.2).
+var unlocks: Dictionary = {}       # fam_id -> {unlock_id: {minute, seen}}: Unlocks
+var masterworks: Dictionary = {"pieces": [], "learned": {}}  # pieces [masterwork], learned {fam: {recipe: {...}}}: LiveForge
 # H4 (docs/contratos/h4_empleados.md): no new root fields. Characters get home, rank, job, hire_bans and routine;
 # buildings get employee_slots and queue (SaveFile._step 4 -> 5).
 # H5 (docs/contratos/h5_mejoras.md): no new root fields. Buildings get upgrades, upgrade_work and inspection
@@ -81,6 +85,8 @@ var festivals: Dictionary = {}     # fiestas (v18): the festival calendar in for
 # prices, bed_price, special, fame, license_until, broken_until, pilgrims_scared_until, beds, night, last_turn, history,
 # rumors, seq} (Inn.ensure) and a building on sale for_sale (SaveFile._to_v19, step 18 -> 19). It chains behind v17 (vida)
 # and v18 (fiestas).
+# Diversión y ritmo (docs/gdd/03b_diversion_y_ritmo.md): the new roots unlocks {fam: {id: {minute, seen}}} and
+# masterworks {pieces, learned} (SaveFile._to_v20, step 19 -> 20; v17-v19 belong to the city life branches).
 
 
 func seed_rng(s: int) -> void:
@@ -125,6 +131,8 @@ func to_dict() -> Dictionary:
 		"town": town,
 		"duels": duels,
 		"festivals": festivals,
+		"unlocks": unlocks,
+		"masterworks": masterworks,
 	}
 
 
@@ -170,6 +178,9 @@ static func from_dict(src: Dictionary) -> WorldState:
 	s.town = d.get("town", {"counters": {}})
 	s.duels = d.get("duels", {"open": {}, "closed": []})
 	s.festivals = d.get("festivals", {}) if d.get("festivals") is Dictionary else {}
+	s.unlocks = d.get("unlocks", {}) if d.get("unlocks") is Dictionary else {}
+	s.masterworks = d.get("masterworks", {"pieces": [], "learned": {}}) if d.get("masterworks") is Dictionary \
+		else {"pieces": [], "learned": {}}
 	return s
 
 
