@@ -671,6 +671,12 @@
       "tema": "Desbloqueos enganchados a fiestas (03b §3b.4)",
       "decision": "La primera fiesta y la feria se abren por evento, no por fecha: cuando empieza la primera fiesta de la villa (festival_started de cualquiera: disparador event con anyone) y cuando empieza harvest_fair; solo con data/festivals.json enabled. Metas: cumplir un encargo de la fiesta (festival_contract_done) y vender 5 piezas en la feria (market_sold). La meta «vende en tu mostrador durante la fiesta» de 3b.4 se cambió por la del encargo: el mostrador pide una mejora que el año 1 no siempre tiene. El bot de ritmo sigue sin fiestas (no está en _festivals); con --festivals=on --life=on: mediana 4,6-4,7 s, máximo 37-44 s, la fiesta el día 2 y la feria el 4, y en 1 de 3 semillas las mejoras no llegan en el año (con fiestas el novato no junta 300 de oro).",
       "por_que": "La fecha de cada fiesta la decide su calendario (data/festivals.json), no la tabla de desbloqueos; atarse al evento sigue al calendario si cambia."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Ventana de mejoras con fiestas (03b §3b.4)",
+      "decision": "El owner decide que la ventana de las mejoras (días 4-6) no se toca aunque, con fiestas, el novato no llegue a 300 de oro en el año 1 en 1 de 3 semillas: lo arregla el equilibrio (Ciudadano y oro del año 1-2 con fiestas). Queda como diana propuesta en data/targets.json pacing._proposed_festivals, que la QA no comprueba; el bot de ritmo sigue en _no_life.",
+      "por_que": "No tumbar la QA por un desajuste que es de equilibrio, no de ritmo."
     }
   ],
   "pendientes": [

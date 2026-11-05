@@ -275,3 +275,8 @@ desbloqueos del año 1 dentro de su ventana. Dos ventanas se movieron tras medir
 vende el primer día o el segundo), y las mejoras, días 4-6 (con la deuda pagada pronto, los 300 de oro llegan el
 quinto o el sexto día). La lista de comprobación de la partida del owner está en `docs/partida_owner.json` y sale
 en el cuaderno.
+
+**Con fiestas y vida (2026-11-05).** Con `--festivals=on --life=on` el ritmo sigue en su diana, pero en 1 de 3
+semillas el novato no junta 300 de oro en el año 1 y las mejoras no se abren. El owner decide que la ventana de las
+mejoras no se mueve: lo arregla el equilibrio del año 1-2 con fiestas (Ciudadano y oro). La banda con fiestas queda
+como propuesta (`data/targets.json` `pacing._proposed_festivals`, sin comprobar) hasta ese equilibrio.
