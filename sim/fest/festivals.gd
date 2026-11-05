@@ -865,9 +865,16 @@ static func city_feasts(sim: Sim, c: String, day: int) -> Array:
 static func city_mult(sim: Sim, c: String, kind: String, item: String) -> float:
 	if kind != "demand" or not enabled(sim):
 		return 1.0
+	return feasts_mult(sim, city_feasts(sim, c, Clock.day(int(sim.state.clock["minute"]))), kind, item)
+
+
+## The same over `feasts` (city_feasts of a city today, looked up once by Region.prices).
+static func feasts_mult(sim: Sim, feasts: Array, kind: String, item: String) -> float:
+	if kind != "demand" or feasts.is_empty():
+		return 1.0
 	var m := 1.0
 	var groups: Array = sim.catalog.goods_of(item)
-	for feast: Dictionary in city_feasts(sim, c, Clock.day(int(sim.state.clock["minute"]))):
+	for feast: Dictionary in feasts:
 		var dem: Dictionary = feast.get("demand", {})
 		for k: String in dem:
 			if k == item or k in groups:
