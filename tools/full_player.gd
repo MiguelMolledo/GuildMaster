@@ -47,14 +47,16 @@ const MECH_EVENTS: Dictionary = {"counter_sold": "counter", "wedding": "wedding"
 	"inheritance": "inheritance", "festival_contract_done": "festival_contracts", "caravan_arrived": "caravans",
 	"treaty_signed": "treaties", "title_granted": "titles", "office_taken": "offices", "trial_opened": "tribunal",
 	"duel_finished": "duels", "trip_arrived": "travel", "building_bought": "tavern", "game_played": "games",
-	"game_bet_settled": "bets"}
+	"game_bet_settled": "bets", "masterwork_made": "masterwork", "spec_delivered": "variant_contracts",
+	"live_forge_done": "live_forge", "unlocked": "unlocks"}
 ## The mechanics a whole game should touch, and the file that says the system is in the game (else "not_in_game").
 const MECHANICS: Dictionary = {"forge_hand": "", "live_forge": "res://data/live_forge.json", "queue": "",
 	"market": "", "counter": "", "contracts": "", "festival_contracts": "", "staff": "", "upgrades": "", "debt": "",
 	"courtship": "", "wedding": "", "children": "", "heir": "", "inheritance": "", "titles": "", "offices": "",
 	"tribunal": "", "travel": "", "caravans": "", "treaties": "", "tavern": "res://sim/inn/inn.gd", "duels": "",
 	"bets": "res://sim/games/betting.gd", "games": "res://sim/games/games.gd", "incidents": "", "microevents": "",
-	"festivals": "", "unlocks": "res://data/unlocks.json"}
+	"festivals": "", "unlocks": "res://data/unlocks.json", "masterwork": "res://data/live_forge.json",
+	"variant_contracts": "res://data/live_forge.json"}
 
 
 ## Counts the engine's errors and warnings while the games run (Godot 4.5+ OS.add_logger).
@@ -210,7 +212,8 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 		"duels_fought": 0, "duels_won": 0, "trips": 0, "caravans": 0, "treaties": 0, "festival_contracts": 0,
 		"counter_sold": 0, "incidents": 0, "trials_against": 0, "trials_as_accuser": 0, "children": 0,
 		"wedding_day": -1, "first_child_day": -1, "inherit_day": -1, "founder_death_day": -1, "debt_paid": 0,
-		"debt_paid_day": -1, "office_won_day": -1, "ending_day": -1, "gold_min": Money.gold(st, fam)}
+		"debt_paid_day": -1, "office_won_day": -1, "ending_day": -1, "masterworks": 0, "masterwork_day": -1,
+		"spec_pieces": 0, "spec_mismatch": 0, "gold_min": Money.gold(st, fam)}
 	for t: String in sim.catalog.title_ladder():
 		m["title_%s_day" % t] = -1
 	var paid := {}
@@ -287,7 +290,7 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 						rep["refused_examples"].append({"day": played, "minute": Clock.minute_of_day(now),
 							"order": e.get("order", ""), "actor": e.get("actor", ""), "reason": e.get("reason", "")})
 				continue
-			if efam != fam and et != "duel_finished" and et != "election_held":
+			if efam != fam and not et in ["duel_finished", "election_held", "spec_piece"]:
 				continue
 			if MECH_EVENTS.has(et):
 				_mech(mech, str(MECH_EVENTS[et]), "events", played)
@@ -355,8 +358,18 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 					m["festival_contracts"] = int(m["festival_contracts"]) + 1
 				"counter_sold":
 					m["counter_sold"] = int(m["counter_sold"]) + 1
+				"masterwork_made":  # forja viva (03b §3b.2): named masterworks
+					m["masterworks"] = int(m["masterworks"]) + 1
+					if int(m["masterwork_day"]) < 0:
+						m["masterwork_day"] = played
 				"trial_opened":
 					m["trials_against"] = int(m["trials_against"]) + 1
+			if et == "spec_piece" and str(st.characters.get(str(e.get("actor", "")), {}).get("family", "")) == fam:
+				m["spec_pieces"] = int(m["spec_pieces"]) + 1  # a piece made to a contract's variant (03b §3b.3)
+				if not bool(e.get("match", false)):
+					m["spec_mismatch"] = int(m["spec_mismatch"]) + 1
+					var why := "spec_mismatch_" + str(e.get("why", ""))
+					m[why] = int(m.get(why, 0)) + 1
 			if et == "trial_opened" and str(e.get("accuser_family", "")) == fam:
 				m["trials_as_accuser"] = int(m["trials_as_accuser"]) + 1
 				_mech(mech, "tribunal", "events", played)

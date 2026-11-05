@@ -98,7 +98,9 @@ no está hecha: lo que aquí se llama «plan» son las tareas de `RivalAI` (`ai_
   `first_child_day`, `inherited`, `inherit_day`, `founder_death_day`, `game_over`, `hired`, `upgrades_done`,
   `contracts_done`, `contracts_failed`, `festival_contracts`, `counter_sold`, `trips`, `caravans`, `treaties`,
   `duels_fought`, `duels_won`, `trials_as_accuser`, `trials_against`, `incidents`, `mechanics_used`,
-  `mechanics_in_game`, `refused_orders`, `stalls`.
+  `mechanics_in_game`, `refused_orders`, `stalls`; con la forja, `masterworks`, `masterwork_day`, `spec_pieces`
+  (piezas hechas a la variante de un encargo), `spec_mismatch` y `spec_mismatch_<por qué>` (las que no casaron:
+  `quality`, `temper`, `length`, `guard`, `contract_gone`).
 - **Del motor y del bench:** `engine_errors`, `engine_warnings`, `step_ms_mean`, `step_ms_max`, `bot_ms_mean`,
   `hangs`, `ledger_mismatch`.
 - **Del ritmo:** `gap_median_s`, `gap_p90_s`, `gap_max_s`, `y1_gap_median_s`, `y1_gap_max_s`, `unlocks_off`.
@@ -111,7 +113,8 @@ no está hecha: lo que aquí se llama «plan» son las tareas de `RivalAI` (`ai_
 - **Del propio bot:** `bot_<medida>` (las de `festive`, `dynasty` y `guard_watch`: `bot_fest_*`, `bot_raids`...; con
   la taberna, las de `innkeeper`: `bot_inn_net_day`, `bot_inn_operating_day`, `bot_inn_fame`, `bot_inn_bed_share`,
   `bot_inn_guests_night`, `bot_inn_complaints_night`, `bot_inn_fights`, `bot_inn_upgrades`, `bot_inn_licensed`).
-  Las mecánicas `tavern`, `games` y `bets` cuentan desde la posada y los juegos (órdenes `buy_building`, `inn_*`,
+  Las mecánicas `tavern`, `games` y `bets` cuentan desde la posada y los juegos, y `live_forge`, `masterwork`,
+  `variant_contracts` y `unlocks` desde la forja (órdenes `buy_building`, `inn_*`,
   `game_enter`, `game_play`, `game_bet`; sucesos `building_bought`, `game_played`, `game_bet_settled`).
 
 ## `summary.json`

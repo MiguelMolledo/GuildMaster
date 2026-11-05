@@ -76,6 +76,27 @@ func _microevents(sim: Sim) -> Array:
 	return out
 
 
+## Forja viva at random: half the decisions are any colour, strike or quench of data/live_forge.json, or «Resolver
+## sin jugar» (skip); the other half, the full player's good one.
+func _live(sim: Sim) -> Dictionary:
+	var o := super._live(sim)
+	if o.is_empty() or rng.randf() < 0.5:
+		return o
+	var c: Dictionary = sim.catalog.live_forge
+	if rng.randf() < 0.15:
+		o["step"] = "skip"
+		o.erase("choice")
+		return o
+	match str(o.get("step", "")):
+		"heat":
+			o["choice"] = _any(c.get("heat_colors", []))
+		"strike":
+			o["choice"] = _any(c.get("strike_kinds", []))
+		"quench":
+			o["choice"] = _any(c.get("quench_media", []))
+	return o
+
+
 ## One random valid order of a system picked with weight 1 / (1 + uses); {} if that system has nothing to do now.
 func _random_order(sim: Sim) -> Dictionary:
 	var total := 0.0

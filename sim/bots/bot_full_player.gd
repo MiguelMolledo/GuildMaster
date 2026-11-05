@@ -163,6 +163,10 @@ func _sync_actor(sim: Sim) -> void:
 func _always(sim: Sim) -> Array:
 	var out: Array = []
 	var st := sim.state
+	out.append_array(_cards(sim))
+	var lf := _live(sim)
+	if not lf.is_empty():
+		out.append(lf)
 	var mine := Duels.of_character(st, ACTOR)
 	if not mine.is_empty():
 		if str(mine["status"]) == Duels.FIGHTING and int(mine["player_side"]) >= 0:
@@ -664,6 +668,100 @@ func _city_contract(sim: Sim) -> bool:
 		if str(a["family"]) == _fam_id:
 			return true
 	return false
+
+
+# --- Forja viva and the unlocks (03b §3b.2-§3b.4) -------------------------------------------------------------
+
+## Every unlock card not read yet (unlock_seen, like the pacing bot): the player reads them as they come.
+func _cards(sim: Sim) -> Array:
+	var out: Array = []
+	for e: Dictionary in Unlocks.list(sim, _fam_id):
+		if not bool(e.get("seen", false)):
+			_use("unlocks")
+			out.append({"type": "unlock_seen", "actor": ACTOR, "unlock": str(e["id"]), "what": "card"})
+	return out
+
+
+## Whether a panel of the UI is open for the family (data/unlocks.json `ui`): what a player cannot reach yet, the bot
+## does not use either (hiring before «staff», upgrades before «upgrades»).
+func _ui(sim: Sim, ui: String) -> bool:
+	return Unlocks.ui_open(sim, _fam_id, ui)
+
+
+func _hire(sim: Sim) -> Dictionary:
+	if not _ui(sim, "staff"):
+		why_not["staff"] = "not_unlocked"
+		return {}
+	return super._hire(sim)
+
+
+func _next_upgrade(sim: Sim) -> String:
+	if not _ui(sim, "upgrades"):
+		why_not["upgrades"] = "not_unlocked"
+		return ""
+	return super._next_upgrade(sim)
+
+
+## The next decision of the head's live cycle, played well (as BotPacing): the recipe's colour, its template (with the
+## variant's strikes), and the quench the contract asks for (else the recipe's).
+func _live(sim: Sim) -> Dictionary:
+	var zone := Production.job_zone(sim, ACTOR, FORGE)
+	if zone == "":
+		return {}
+	var v := LiveForge.view(sim, FORGE, zone)
+	if v.is_empty() or str(v["actor"]) != ACTOR or str(v["stage"]) == "done":
+		return {}
+	var rdef := LiveForge.recipe_def(sim, str(v["recipe"]))
+	var part: Dictionary = sim.state.buildings[FORGE]["zones"][zone]["job"]["live"]
+	var o := {"type": "live_forge", "actor": ACTOR, "building": FORGE, "zone": zone}
+	match str(v["stage"]):
+		"heat":
+			o["step"] = "heat"
+			o["choice"] = str(rdef.get("heat", ""))
+		"strike":
+			o["step"] = "strike"
+			o["choice"] = str(LiveForge.template_of(sim, rdef, part)[(v["strikes"] as Array).size()])
+		"quench":
+			o["step"] = "quench"
+			var want := str((part.get("spec", {}).get("want", {}) as Dictionary).get("temper", ""))
+			o["choice"] = want if want != "" else LiveForge.wanted_quench(rdef, part)
+		_:
+			return {}
+	_use("live_forge")
+	return o
+
+
+## Hand work at an anvil goes in Forja viva when the recipe has it (as BotPacing).
+func _make(sim: Sim, rid: String, mode: String) -> Dictionary:
+	var w := super._make(sim, rid, mode)
+	if not w.is_empty() and Upgrades.zone_kind(sim, FORGE, str(w.get("zone", ""))) == ANVIL \
+			and LiveForge.start_reason(sim, ACTOR, str(w["recipe"])) == "":
+		w["mode"] = LiveForge.MODE
+	return w
+
+
+## A contract piece of a contract that asks for a variant (03b §3b.3) is made to it: work_at with the contract and
+## the variant's axes the client wants (the temper goes in the live quench).
+func _work(sim: Sim) -> Dictionary:
+	var o := super._work(sim)
+	if str(o.get("type", "")) != "work_at" or str(o.get("mode", "")) != LiveForge.MODE:
+		return o
+	var item := _output(sim, str(o["recipe"]))
+	for c: Dictionary in _contracts_by_due(sim):
+		var want: Variant = c.get("spec")
+		if str(c["item"]) != item or not want is Dictionary or (want as Dictionary).is_empty():
+			continue
+		if LiveForge.crate_units(c, int(c.get("min_quality", 0))) >= int(c["qty"]):
+			continue  # its pieces made to the spec are there
+		var variant := {}
+		for axis: Variant in LiveForge.axes_of(sim, str(o["recipe"])):
+			if (want as Dictionary).has(str(axis)):
+				variant[str(axis)] = str(want[str(axis)])
+		o["contract"] = str(c["id"])
+		o["variant"] = variant
+		_use("variant_contracts")
+		break
+	return o
 
 
 # --- The second business and the games -------------------------------------------------------------------------
