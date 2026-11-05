@@ -145,7 +145,8 @@ la plantilla de geometría, que ahora saca el montador.
 
 `data/interiors/<edificio>.json`: rejilla, salas por planta (rectángulos, tipo, suelo, estilo de pared, luz),
 puertas, desniveles (foso −1, tarima +1), escaleras entre plantas, puestos (con su pieza o su escena), sitios de
-clientes (mostrador y cola), sitios de espera, atrezo a mano, **reglas** (`wall_fill`, `on_top`, `scatter`, `hang`) y
+clientes (mostrador y cola), sitios de espera, atrezo a mano (con `"glow": tamaño`, una pieza de fuego lleva su halo
+que respira, el de la fragua: brasero, chimenea), **reglas** (`wall_fill`, `on_top`, `scatter`, `hang`) y
 las piezas de cada mejora por su nodo (`visual.interior_node`, como antes).
 
 - `tools/interiors/interiores.py validar` comprueba que todo está conectado, que las puertas dan a algo, que se
@@ -228,11 +229,13 @@ casa y su planta alta.*
 | Cantería | patio de bloques con tarima de trabajo, cobertizo, tienda | — |
 | Sastrería | taller con telares y mesas de corte, tienda en L con probador | cocina y dormitorio |
 | Casa | hogar, cocina y mesa | dormitorio y cuarto de los hijos |
-| Taberna-Posada | salón con barra, mesas (16 asientos), chimenea, rincón del juglar y mesa de juego; cocina | dos habitaciones con 8 camas; **sótano**: la bodega con el almacén |
+| Taberna-Posada | salón con la barra grande en L (6 casillas, dos taburetes, toneles, baldas de jarras y caja de jarras detrás), brasero con su luz, mesa larga con bancos, rincón del juglar y mesa de dados; con mejoras, otra mesa y la chimenea; cocina | dos habitaciones con 8 camas; **sótano**: la bodega con el almacén |
 
 Ya no queda ninguna escena de interior hecha a mano (solo `_generic.tscn`). La taberna llegó con la rama `posada`: su
 `InnLayer` (huéspedes sentados y camas) lee los asientos y las camas que el montador saca de los datos (`seats`, `beds`)
-y solo dibuja los de la planta que se ve. Lo aprendido al pintar los fondos: el
+y solo dibuja los de la planta que se ve. Sus 16 asientos: 0-3 en la barra (dos de pie en la barra, entre los
+taburetes, y dos esperando detrás), 4-7 en la mesa larga, 8-11 en la mesa de «Más mesas» y 12-15 junto al brasero (para
+más `inn_seats`); cada uno con `facing`, adónde mira el cliente (los de la barra, a la barra). Lo aprendido al pintar los fondos: el
 modelo respeta las paredes y la puerta de la plantilla, pero **confunde suelos de colores parecidos** (la plantilla
 usa ahora colores bien distintos y el texto dice qué color es cada suelo) y **no respeta las tarimas** (se dibujan con
 Pillow encima del fondo, exactas). El foso de la forja sí salió bien a la cuarta.

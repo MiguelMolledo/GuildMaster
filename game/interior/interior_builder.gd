@@ -105,6 +105,8 @@ static func build(type: String, d: Dictionary) -> Node2D:
 			var lv := int(sp.get("floor", 0))
 			m.position = InteriorDefs.spot_world(d, lv, Vector2(float(sp["tile"][0]), float(sp["tile"][1])))
 			m.set_meta("level", lv)
+			if sp.has("facing"):
+				m.set_meta("facing", str(sp["facing"]))   # where the guest looks (to the bar, to its table)
 			holder.add_child(m)
 	root.set_meta("walls", walls)
 	if OS.is_debug_build():
@@ -172,11 +174,34 @@ static func _prop(d: Dictionary, p: Dictionary, n: String, _rooms: Dictionary) -
 	node.add_child(spr)
 	node.set_meta("level", level)
 	node.set_meta("prop", id)
+	if p.has("glow"):
+		_glow(node, float(p["glow"]), float(pr.get("height", 20)))
 	if int(p.get("display", 0)) > 0:
 		node.set_meta("display", int(p["display"]))
 		node.set_meta("display_flip", flip)
 	node.z_index = level * LEVEL_Z
 	return node
+
+
+## The firelight of a hearth or a brazier ("glow": its size, 1 = the forge's halo): an additive halo that breathes
+## (LightFlicker) over the floor, the walls and whoever stands near, a little above the fire.
+static func _glow(node: Node2D, size: float, height: float) -> void:
+	var tex := VisualPaths.interior_glow()
+	if tex == null or size <= 0.0:
+		return
+	var g := Sprite2D.new()
+	g.name = "Glow"
+	g.texture = tex
+	g.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var mat := CanvasItemMaterial.new()
+	mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	g.material = mat
+	g.position = Vector2(0, -height * 0.35)
+	g.scale = Vector2(size, size)
+	g.z_index = 1
+	g.set_script(LightFlicker)
+	g.set("low", 0.65)
+	node.add_child(g)
 
 
 ## A station: a Marker2D at its feet; its look is a library prop (Feet, Top and Sprite, like the station scenes) or,

@@ -56,7 +56,7 @@ GRIDS = {  # kind -> (cols, rows, image2pixel block, art grid of a cell)
     "w": (3, 3, 5, 68),
 }
 LIGHTS = {"candle", "candlestick", "lantern_small", "candle_stand", "standing_lantern", "candelabra_tall", "fireplace",
-          "kitchen_hearth"}  # dan luz: categoría «light» (el montador les pone su halo)
+          "kitchen_hearth", "hall_firepit", "hall_brazier"}  # dan luz: categoría «light» (el montador les pone su halo)
 CATEGORIES = ["structure", "furniture", "trade", "container", "light", "small", "textile"]
 STYLES = ["poor", "common", "rich"]
 
@@ -371,6 +371,21 @@ add("s", "tailor_shop_a", "trade", [
     ("tailor_shuttle", "1x1", "", "a rack of loom shuttles and bobbins of thread"),
     ("tailor_treadle", "1x1", "", "a treadle spinning wheel with wool"),
 ], ["tailor_shop"])
+# --- la Taberna-Posada grande (barra larga, fogón del salón) ----------------------------------------------------
+add("s", "tavern_b", "furniture", [
+    ("bar_shelf", "1x1", "wall", "a tall wooden shelf behind a tavern bar, full of clay jugs, pewter tankards and bottles"),
+    ("cask_stand_big", "1x1", "wall", "a big wine cask lying on a wooden cradle, with a brass tap"),
+    ("tankard_rack", "1x1", "wall", "a low wooden rack with pegs and hanging pewter tankards and clay jugs"),
+], ["tavern"])
+add("s", "tavern_b", "light", [
+    ("hall_firepit", "1x1", "", "an open round hearth of grey stones on the floor, with a burning log fire and an iron tripod with a pot"),
+    ("hall_brazier", "1x1", "", "an iron brazier on three legs with glowing coals and small flames"),
+], ["tavern", "house"])
+add("s", "tavern_b", "container", [
+    ("jug_crate", "1x1", "", "a wooden crate full of clay jugs and bottles"),
+], ["tavern"])
+TARGET.update({"bar_shelf": 54, "cask_stand_big": 36, "tankard_rack": 34, "hall_firepit": 34, "hall_brazier": 34,
+               "jug_crate": 24})
 TARGET.update({"engraving_bench": 34, "master_seal": 30, "hidden_passage": 30, "smuggler_cache": 26, "double_ledger": 32,
                "master_bench": 34, "frame_saw": 44, "planes_rack": 36, "gouges": 26, "carpenter_mark": 26,
                "master_carpenter_bench": 34, "vice_bench": 32, "mason_chisels": 22, "mason_crane": 56, "mason_mark": 26,

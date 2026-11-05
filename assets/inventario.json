@@ -8750,6 +8750,236 @@
       }
     },
     {
+      "id": "iprop_bar_shelf",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/bar_shelf.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g26_s_tavern_b (ref: _referencias/tavern_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a tall wooden shelf behind a tavern bar, full of clay jugs, pewter tankards and bottles",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          46,
+          59
+        ],
+        "feet": [
+          23,
+          42
+        ],
+        "height": 42,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "tavern"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_cask_stand_big",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/cask_stand_big.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g26_s_tavern_b (ref: _referencias/tavern_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a big wine cask lying on a wooden cradle, with a brass tap",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          37,
+          37
+        ],
+        "feet": [
+          18,
+          24
+        ],
+        "height": 24,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "tavern"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_tankard_rack",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/tankard_rack.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g26_s_tavern_b (ref: _referencias/tavern_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a low wooden rack with pegs and hanging pewter tankards and clay jugs",
+      "prop": {
+        "category": "furniture",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          35,
+          36
+        ],
+        "feet": [
+          17,
+          23
+        ],
+        "height": 23,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "tavern"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_hall_firepit",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/hall_firepit.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g26_s_tavern_b (ref: _referencias/tavern_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "an open round hearth of grey stones on the floor, with a burning log fire and an iron tripod with a pot",
+      "prop": {
+        "category": "light",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          34,
+          37
+        ],
+        "feet": [
+          17,
+          24
+        ],
+        "height": 24,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "tavern",
+          "house"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_hall_brazier",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/hall_brazier.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g26_s_tavern_b (ref: _referencias/tavern_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "an iron brazier on three legs with glowing coals and small flames",
+      "prop": {
+        "category": "light",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          28,
+          36
+        ],
+        "feet": [
+          14,
+          23
+        ],
+        "height": 23,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "tavern",
+          "house"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_jug_crate",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/jug_crate.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g26_s_tavern_b (ref: _referencias/tavern_b.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a wooden crate full of clay jugs and bottles",
+      "prop": {
+        "category": "container",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          31,
+          26
+        ],
+        "feet": [
+          15,
+          17
+        ],
+        "height": 17,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "tavern"
+        ],
+        "style": "common"
+      }
+    },
+    {
       "id": "int_armory",
       "tipo": "interior",
       "estado": "sprite",

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cli6h4jvdliga"
-path="res://.godot/imported/big_jar.png-abcb52397356ebb77d27d57c1fc6bff9.ctex"
+uid="uid://c70x3d5dl38yj"
+path="res://.godot/imported/jug_crate.png-71abaa97fe950fe8bf07ba683e44f552.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/interiors/tavern_inn/props/big_jar.png"
-dest_files=["res://.godot/imported/big_jar.png-abcb52397356ebb77d27d57c1fc6bff9.ctex"]
+source_file="res://assets/art/interiors/tavern_inn/props/jug_crate.png"
+dest_files=["res://.godot/imported/jug_crate.png-71abaa97fe950fe8bf07ba683e44f552.ctex"]
 
 [params]
 

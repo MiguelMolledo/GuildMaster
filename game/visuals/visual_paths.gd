@@ -332,6 +332,12 @@ static func interior_prop(id: String) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
+## The additive halo of a fire inside an interior (InteriorBuilder: a prop with "glow" in its data).
+static func interior_glow() -> Texture2D:
+	var p := "%s/interiors/forge/glow_hearth.png" % ART_ROOT
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
 ## A library prop as it is used inside interior `type`: the copy with the palette of its painted rooms
 ## (assets/art/interiors/<type>/props/<id>.png, tools/interiors/remap_props.py), else the library's.
 static func interior_prop_in(type: String, id: String) -> Texture2D:

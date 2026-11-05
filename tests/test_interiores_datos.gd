@@ -280,6 +280,19 @@ func test_the_tavern_seats_below_and_beds_upstairs() -> void:
 	eq(beds.size(), 8, "8 beds from the data")
 	check(seats.all(func(l: int) -> bool: return l == 0), "the seats in the hall, downstairs")
 	check(beds.all(func(l: int) -> bool: return l == 1), "the beds in the rooms, upstairs")
+	var faces: Array = inn.get("_seat_facing")
+	eq(faces.size(), 16, "each seat says where its guest looks")
+	eq(str(faces[0]), "ne", "the first guests stand at the bar, facing it")
+	var glow := false
+	var stack: Array = [v]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		if str(n.get_meta("prop", "")) == "hall_brazier" and n.get_node_or_null("Glow") != null:
+			glow = true
+		stack.append_array(n.get_children())
+	check(glow, "the hall's brazier has its firelight")
+	var bar := v.station_view("bar")
+	check(bar != null and bar.find_child("Prop", true, false) != null, "the bar is a library piece (the long bar)")
 	var s := _stage(v)
 	s.tick(0.0)
 	eq(int(inn.shown_level), 0, "it draws the ground floor's")
