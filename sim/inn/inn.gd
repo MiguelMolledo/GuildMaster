@@ -586,6 +586,11 @@ static func _pay(sim: Sim, bld: String, inn: Dictionary, g: Dictionary, now: int
 	stats["by_group"][str(g["group"])]["income"] = int(stats["by_group"][str(g["group"])]["income"]) + price + tip
 	if s >= float(rules(sim).get("fame", {}).get("satisfied_at", 0.6)):
 		stats["satisfied"] = int(stats["satisfied"]) + 1
+	# Equilibrio (owner, 2026-11-05): for the fame only the guest who is really pleased counts: the wait (not
+	# complaining) weighs fame.wait_share instead of the satisfaction's, so the quality and the ambience matter more
+	if satisfaction(sim, bld, g, float(rules(sim).get("fame", {}).get("wait_share", -1.0))) \
+			>= float(rules(sim).get("fame", {}).get("satisfied_at", 0.6)):
+		stats["fame_satisfied"] = int(stats.get("fame_satisfied", 0)) + 1
 	if bool(def.get("gambles", false)) and licensed(sim, bld) and Upgrades.flag(sim, bld, "inn_gaming_table"):
 		var hc: Array = rules(sim).get("incidents", {}).get("game_offer", {}).get("house_cut", [2, 6])
 		var cut := Kin.randi_range(st, "inn|cut|" + key, int(hc[0]), int(hc[1]))
@@ -603,11 +608,12 @@ static func _pay(sim: Sim, bld: String, inn: Dictionary, g: Dictionary, now: int
 
 ## Satisfaction 0-1 of a served round: how little it waited, the quality, the ambience, the minstrel, and the nobles'
 ## dislike of a room full of soldiers.
-static func satisfaction(sim: Sim, bld: String, g: Dictionary) -> float:
+static func satisfaction(sim: Sim, bld: String, g: Dictionary, wait_share: float = -1.0) -> float:
 	var cfg: Dictionary = rules(sim).get("satisfaction", {})
 	var wait := float(g.get("wait", 0))
 	var pat := maxf(1.0, float(g.get("patience", 30)))
-	var s := float(cfg.get("wait_share", 0.6)) * clampf(1.0 - wait / pat, 0.0, 1.0)
+	var ws := float(cfg.get("wait_share", 0.6)) if wait_share < 0.0 else wait_share  # the fame's own weight
+	var s := ws * clampf(1.0 - wait / pat, 0.0, 1.0)
 	s += float(cfg.get("quality_share", 0.25)) * float(g.get("quality", 0)) / 2.0
 	s += float(cfg.get("ambience_share", 0.15)) * float(ambience(sim, bld)) / 5.0
 	var night: Dictionary = state_of(sim, bld).get("night", {})
@@ -816,7 +822,7 @@ static func close_turn(sim: Sim, bld: String) -> void:
 	for k: String in stats["complaints"]:
 		if not k in ignored:
 			complaints += int(stats["complaints"][k])
-	var gain := float(fc.get("per_satisfied", 0.03)) * int(stats["satisfied"]) \
+	var gain := float(fc.get("per_satisfied", 0.03)) * int(stats.get("fame_satisfied", stats["satisfied"])) \
 		+ float(fc.get("per_excellent", 0.02)) * int(stats["excellent"]) \
 		+ float(fc.get("per_complaint", -0.04)) * complaints + float(fc.get("per_fight", -0.3)) * int(stats["fights"]) \
 		+ float(fc.get("per_dirty_bed", -0.05)) * int(stats["dirty_beds"])

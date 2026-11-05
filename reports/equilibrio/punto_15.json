@@ -77,5 +77,45 @@
  "misses": [
   "mean inn_fame = 3.7 outside [1.5, 3.5]"
  ],
- "nota": "comarca [3,6], jornal 7/9; vecinos por noche antes ~2 (04f T4b)."
+ "nota": "comarca [3,6], jornal 7/9; vecinos por noche antes ~2 (04f T4b).",
+ "fama": {
+  "antes_bolsa": 1.76,
+  "con_bolsa_wait_0_6": {
+   "inn_fame": 4.0,
+   "fame3_day": [
+    11,
+    11,
+    11,
+    11,
+    11
+   ]
+  },
+  "wait_0_4": {
+   "inn_fame": 2.66,
+   "fame3_day": [
+    17,
+    13,
+    17,
+    17,
+    12
+   ]
+  },
+  "elegido_wait_0_5": {
+   "inn_fame": 3.61,
+   "min": 3.15,
+   "max": 3.96,
+   "fame3_day": [
+    15,
+    13,
+    12,
+    12,
+    13
+   ],
+   "guests_night": 28.33,
+   "neighbours_night": 6.2,
+   "operating_day": 92.0,
+   "complaints_night": 4.46
+  },
+  "banda": "inn_fame [1,5, 4,0] y inn_fame3_day [8, null] (owner, 2026-11-05); 17 = no llega en los 16 días"
+ }
 }

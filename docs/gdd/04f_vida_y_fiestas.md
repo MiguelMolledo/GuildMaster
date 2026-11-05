@@ -908,6 +908,14 @@ Lo que precisa o cambia respecto a lo de arriba (apuntado en `docs/decisiones.js
 **Medido** (bot `innkeeper`, `innkeeper_start`, Normal, 16 días, 10 semillas, con eventos globales): ver la diana
 `innkeeper` de `data/targets.json`.
 
+**Equilibrio (2026-11-05, decisión del owner).** Con la bolsa de los hogares (Equilibrio 15) entran 6,1 vecinos por
+noche y la comarca baja de [4, 8] a [3, 6]. La fama subía el tope cada noche (16 × 0,25 = 4,0 en todas las semillas):
+contaba como «contento» a cualquiera atendido sin esperar. Para la fama, «no esperó» pesa ahora 0,5 en vez de 0,6
+(`data/inn/inn.json` `fame.wait_share`): cuenta la satisfacción de verdad (calidad y ambiente), no solo la ausencia de
+queja; las propinas y la relación no cambian. La banda de `inn_fame` pasa a [1,5, 4,0] con la condición
+`inn_fame3_day` [8, null]: los nobles (fama 3) no llegan antes del año 2. Medido (5 semillas): fama 4,0 → 3,61
+(3,15-3,96) y fama 3 el día 11 → los días 12-15.
+
 ### 4.28 Lo que hace falta para construirlo
 
 #### 4.28.1 Datos nuevos

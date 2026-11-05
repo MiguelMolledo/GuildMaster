@@ -378,6 +378,10 @@ func measures(sim: Sim) -> Dictionary:
 		for i: Dictionary in t.get("incidents", []):
 			if str(i.get("kind", "")) == "fight":
 				fights += 1
+	var fame3 := -1  # equilibrio (owner, 2026-11-05): the day the fame first reaches 3 (the nobles come)
+	for t: Dictionary in _turns:
+		if fame3 < 0 and float(t.get("fame_after", 0.0)) >= 3.0:
+			fame3 = int(t.get("day", 0))
 	var by_group := {}  # equilibrio (Equilibrio 15): the neighbours of the agenda and the comarca, a night
 	for t: Dictionary in _turns:
 		for g: Variant in t.get("by_group", {}):
@@ -392,4 +396,5 @@ func measures(sim: Sim) -> Dictionary:
 		"inn_upgrades": Upgrades.owned(st, _tavern).size(), "inn_licensed": 1 if Inn.licensed(sim, _tavern) else 0,
 		"inn_gold_end": Money.gold(st, _fam),
 		"inn_neighbours_night": snappedf(float(by_group.get("neighbours", 0)) / days, 0.01),
-		"inn_comarca_night": snappedf(float(by_group.get("comarca", 0)) / days, 0.01)}
+		"inn_comarca_night": snappedf(float(by_group.get("comarca", 0)) / days, 0.01),
+		"inn_fame3_day": fame3 if fame3 >= 0 else Clock.day(int(st.clock["minute"])) + 1}

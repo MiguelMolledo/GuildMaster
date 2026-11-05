@@ -41,7 +41,8 @@ resúmenes completos en `00_base_*.json`, `all1-3.json`, `fun1-2.json`, `eq10_*.
 | 7 | Prima de calidad en la capital y reputación de fuera | merchant: ventas fuera 637, tratados 0,83 | 766, tratados 1,67, llegadas 1,8 → 2,7; full_player viaja y firma en 4/4 |
 | 5 | Pecha por patrimonio al cerrar el año | — | 0 hasta 1.000 y 4/8/12 % por tramos; en 3 años muerde poco (patrimonio 1.000-1.600) |
 | 13 | Fama del taller 0,5-2,0 | — | en el mostrador y el panel de producción; gancho `contest_won` para fiestas |
-| 15 | Bolsa de los hogares | vecinos en la taberna ~2/noche | 6,1/noche (diana 6-12); clientes 26 → 28,5, explotación 68 → 91, quejas 9,3 → 5,1; **fama de la taberna 1,8 → 3,7, fuera de [1,5, 3,5]** |
+| 15 | Bolsa de los hogares | vecinos en la taberna ~2/noche | 6,2/noche (diana 6-12); clientes 26 → 28,3, explotación 68 → 92, quejas 9,3 → 4,5 (comarca [4,8] → [3,6], jornal 7/9) |
+| 15 · fama | Fama de la taberna (owner: banda [1,5, 4,0] si los nobles no llegan antes del año 2) | 1,76; con la bolsa, 4,0 en las 5 semillas (el tope de 0,25 cada noche), fama 3 el día 11 | «no esperó» pesa 0,5 en la fama (antes 0,6): 3,61 (3,15-3,96), fama 3 los días 12-15; `inn_fame3_day` [8, null] y la banda [1,5, 4,0]; QA inn en verde |
 | Vida | Hambre, diversión, forasteros | ver tabla | ver tabla |
 | D16 · 8 | Demanda del mostrador; mostrador con un empleado | ×0,38 del salario | ×0,34 (D16 le quita un poco); la demanda de la espada no se mueve: el mostrador vende muy poco. La diana ×2 espera la clientela de comarca de interiores |
 | D19 | «Retirarse» | apagado | encendido, con confirmación y pantalla final (prueba de la UI y capturas) |
