@@ -1810,6 +1810,15 @@ ui.new_game.preview_start.artisan_tailor,"A tailor's shop with a home, %d gold a
 stall.clothier,Clothier,Ropería
 stall.goods,Goods,Enseres
 ui.new_game.profession,Trade,Oficio
+ui.new_game.where,Where you start,Dónde empiezas
+ui.new_game.city_name,%s · %s · %d townsfolk,%s · %s · %d vecinos
+ui.new_game.city_off,%s has no workshop for this trade,%s no tiene taller de este oficio
+ui.new_game.city_line.villa,"Your home town: the high street, the market square and two gates. The usual game.","Tu villa: la calle mayor, la plaza del mercado y dos puertas. La partida de siempre."
+ui.new_game.city_line.capital,"Walled, on the Daura: cathedral, exchange, quays and four gates. The most crowded.","Amurallada junto al Daura: catedral, lonja, muelles y cuatro puertas. La más poblada."
+ui.new_game.city_line.port,"A river port: quays, warehouses, customs and a shipyard; four gates and a bridge.","Puerto de río: muelles, almacenes, aduana y astillero; cuatro puertas y un puente."
+ui.new_game.city_line.quarry,"At the foot of the sierra: the mine, the quarry and the smelter; two gates.","Al pie de la sierra: la mina, la cantera y la fundición; dos puertas."
+ui.new_game.city_line.hamlet,"A farming hamlet: the watermill, the barn and the threshing floors; three roads.","Aldea de campo: el molino de agua, el granero y las eras; tres caminos."
+ui.new_game.city_line.abbey,"In the shadow of the abbey: the church, the cloister and the guesthouse; a small burgh.","A la sombra de la abadía: la iglesia, el claustro y la hospedería; un burgo pequeño."
 relation_band.enemy,Enemy,Enemigo
 relation_band.hostile,Hostile,Hostil
 relation_band.cold,Cold,Frío

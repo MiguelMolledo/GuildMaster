@@ -69,7 +69,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd", "viajes": "res://game/smoke/smoke_viajes.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
 	"duel": "res://game/smoke/smoke_duel.gd", "duelo_partida": "res://game/smoke/smoke_duelo_partida.gd",
-	"vida": "res://game/smoke/smoke_vida.gd"}
+	"vida": "res://game/smoke/smoke_vida.gd", "plantillas": "res://game/smoke/smoke_plantillas.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
 const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"
@@ -380,6 +380,9 @@ func show_new_game() -> void:
 	_ending.close()
 	_title.close()
 	_new_game.setup(Game.sim.catalog, seed_value)
+	if str(opts["start_city"]) != "" and not _new_game.set_city(str(opts["start_city"])):  # plantillas
+		push_warning("--start-city=%s: no such settlement for this start (%s)" % [opts["start_city"],
+			", ".join(NewGame.cities(Game.sim.catalog))])
 	_new_game.open()
 	_hud.visible = false
 	Game.set_paused(true)

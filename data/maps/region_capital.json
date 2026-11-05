@@ -1608,6 +1608,7 @@
    "home": "house_16"
   }
  ],
+ "population_max": 32,
  "landmarks": [
   {
    "type": "wall_tower",
