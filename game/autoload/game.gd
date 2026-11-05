@@ -62,9 +62,11 @@ func _ready() -> void:
 ## The options of the command line that Game reads: {"scenario", "seed" (-1 = the scenario's), "lang", "at"
 ## (minute of the day, -1 = the scenario's), "new_game" (H3: open on the menus instead of straight in the game,
 ## GDD 4.16: true unless --scenario, --smoke, --shots or --smoke-script is given; --new-game forces it), "title"
-## (02_menu_inicial: the menus start on the title screen; false with --new-game, which opens the new game screen)}.
+## (02_menu_inicial: the menus start on the title screen; false with --new-game, which opens the new game screen),
+## "start_city" (plantillas: --start-city=<id> opens the new game screen with that settlement of the region chosen)}.
 static func parse_args(args: PackedStringArray) -> Dictionary:
-	var out := {"scenario": DEFAULT_SCENARIO, "seed": -1, "lang": "es", "at": -1, "new_game": true, "title": true}
+	var out := {"scenario": DEFAULT_SCENARIO, "seed": -1, "lang": "es", "at": -1, "new_game": true, "title": true,
+		"start_city": ""}
 	for a: String in args:
 		if a.begins_with("--scenario=") or a == "--smoke" or a.begins_with("--shots=") or a.begins_with("--smoke-script="):
 			out["new_game"] = false
@@ -72,6 +74,11 @@ static func parse_args(args: PackedStringArray) -> Dictionary:
 	if "--new-game" in args:
 		out["new_game"] = true
 		out["title"] = false
+	for a: String in args:  # plantillas: Partida nueva with «Dónde empiezas» on that settlement of the region
+		if a.begins_with("--start-city="):
+			out["start_city"] = a.substr(13)
+			out["new_game"] = out["new_game"] or bool(out["title"])
+			out["title"] = false
 	for a: String in args:
 		if a.begins_with("--lang="):
 			out["lang"] = a.substr(7)

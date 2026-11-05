@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://8nhmtokt6e6j"]
+
+[ext_resource type="Script" uid="uid://dclcjwcrf4upw" path="res://game/visuals/greybox/greybox_blocks.gd" id="1_greybox"]
+[ext_resource type="Script" uid="uid://b2swscgjan4v4" path="res://game/inn/art_slot.gd" id="2_slot"]
+
+[node name="TavernInn" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -110)
+
+[node name="Door" type="Marker2D" parent="."]
+editor_description = "Threshold of the drawn door (docs/protocolos/generar-ciudad.md §Puertas): data/building_sprites.json is exported from it (python3 tools/city/sprites_catalog.py). side = face of the footprint, tile = door tile from the footprint origin."
+position = Vector2(-40, 12)
+metadata/side = "SW"
+metadata/tile = Vector2i(1, 4)
+metadata/footprint = Vector2i(3, 4)
+metadata/mirror = true
+metadata/back = "tavern_inn_back"
+metadata/front = ""
+
+[node name="Greybox" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("1_greybox")
+footprint = Vector2i(3, 4)
+height = 56.0
+color = Color(0.5412, 0.3529, 0.2039, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = -6.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 10
+text = "Taberna-Posada (falta arte)"
+horizontal_alignment = 1
+editor_description = "Visible placeholder while assets/art/buildings/fal/tavern_inn.png is missing (InnArtSlot hides it when the art arrives)."
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+centered = false
+script = ExtResource("2_slot")
+kind = "building"
+id = "tavern_inn"
+fallback = NodePath("../Greybox")
+label = NodePath("../Label")
+anchored = true
+anchor_offset = Vector2(-104, -158)
+editor_description = "fal facade assets/art/buildings/fal/tavern_inn.png (192×230, the carpentry's canvas: offset (-104, -158) from Feet), loaded by VisualPaths.inn_art. Until it exists the Greybox and the Label show."
+
+[node name="Upgrades" type="Node2D" parent="."]
+y_sort_enabled = true

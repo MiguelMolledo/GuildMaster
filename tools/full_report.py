@@ -15,6 +15,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SERIES = ["--series-1", "--series-2", "--series-3"]  # tres semillas: los tres primeros huecos valen en todos los pares
+FAMS = ["--series-1", "--series-2", "--series-3", "--series-4", "--series-5", "--series-6", "--series-7", "--series-8"]
 
 WHY = {
     "not_in_game": "aún no está en el juego", "no_occasion": "no se dio la ocasión", "title_needed": "falta el título",
@@ -46,7 +47,7 @@ def esc(x):
     return html.escape(str(x))
 
 
-def line_chart(title, runs, key, step=False, fmt="{:.0f}"):
+def line_chart(title, runs, key, step=False, fmt="{:.0f}", colors=SERIES):
     """Una línea por semilla, un solo eje. Pasar el ratón muestra el valor del día."""
     pts = [[(c["day"], float(c.get(key, 0))) for c in r["curve"]] for r in runs]
     xs = [x for p in pts for x, _ in p] or [0, 1]
@@ -72,14 +73,20 @@ def line_chart(title, runs, key, step=False, fmt="{:.0f}"):
             if step and j:
                 d.append(f"L{sx(x):.1f},{sy(p[j - 1][1]):.1f}")
             d.append(("M" if j == 0 else "L") + f"{sx(x):.1f},{sy(y):.1f}")
-        col = SERIES[i % 3]
+        col = colors[i % len(colors)]
         out.append(f'<path d="{" ".join(d)}" fill="none" stroke="var({col})" stroke-width="2" '
                    f'stroke-linejoin="round" stroke-linecap="round"/>')
         for x, y in p:
             out.append(f'<circle class="hit" cx="{sx(x):.1f}" cy="{sy(y):.1f}" r="7" '
-                       f'data-tip="semilla {runs[i]["seed"]} · día {x}: {fmt.format(y)}"/>')
+                       f'data-tip="{"" if colors is FAMS else "semilla "}{runs[i]["seed"]} · día {x}: {fmt.format(y)}"/>')
     out.append("</svg></figure>")
     return "".join(out)
+
+
+def fam_chart(title, rivals, key, step=False):
+    """Una línea por familia rival (primera semilla), un solo eje, cada familia en su hueco fijo."""
+    fake = [{"seed": rivals[f]["name"] or f, "curve": rivals[f]["curve"]} for f in rivals]
+    return line_chart(title, fake, key, step=step, colors=FAMS)
 
 
 def table(head, rows, cls=""):
@@ -111,6 +118,10 @@ def render(d):
                  f' · {len(runs)} semillas · {len(misses)} dianas fallidas</p>')
     if misses:
         parts.append('<ul class="miss">' + "".join(f"<li>{esc(m)}</li>" for m in misses) + "</ul>")
+    pm = summ.get("proposed_misses", [])
+    if pm:
+        parts.append('<p class="lead">Dianas propuestas que aún no se cumplen (no tumban la QA, data/targets.json '
+                     '_proposed):</p><ul>' + "".join(f"<li>{esc(m)}</li>" for m in pm) + "</ul>")
     keys = ["days", "gold_end", "gold_min", "net_year_1", "net_year_2", "net_year_3", "debt_paid_day",
             "title_citizen_day", "title_patrician_day", "office_won_day", "wedding_day", "first_child_day", "children",
             "inherit_day", "founder_death_day", "hired", "upgrades_done", "contracts_done", "contracts_failed",
@@ -118,7 +129,11 @@ def render(d):
             "trials_as_accuser", "trials_against", "incidents", "mechanics_used", "mechanics_in_game", "refused_orders",
             "stalls", "engine_errors", "engine_warnings", "step_ms_mean", "step_ms_max", "bot_ms_mean", "gap_median_s",
             "gap_p90_s", "gap_max_s", "y1_gap_median_s", "y1_gap_max_s", "unlocks_off", "roundtrips", "roundtrip_mismatch", "gold_negative", "off_map",
-            "hangs", "ledger_mismatch"]
+            "hangs", "ledger_mismatch", "ai_titled_families", "ai_title_ups", "ai_office_runs", "ai_offices_won",
+            "ai_attacks_vs_player", "ai_contracts_accepted", "ai_races_won_vs_player", "contested_elections",
+            "ai_refused", "ai_idle_days_max", "ai_broke_days_max", "ai_stalls", "ai_weddings", "ai_births",
+            "townsfolk_end", "town_weddings", "town_births", "town_deaths", "visitors_per_day", "watch_called",
+            "watch_arrived_share", "npc_hungry_share_max", "npc_stalls"]
     rows = [[esc(k)] + [esc(r["measures"].get(k, "—")) for r in runs] for k in keys
             if any(k in r["measures"] for r in runs)]
     parts.append(section("Cifras", table(["medida"] + [f"semilla {r['seed']}" for r in runs], rows, "num")))
@@ -206,6 +221,56 @@ def render(d):
         parts.append(section("Guardar y cargar cada día · estados imposibles",
                              table(["semilla", "idas y vueltas", "hash distinto", "no carga", "oro < 0", "fuera del mapa",
                                     "ejemplos"], rows)))
+    if runs[0].get("rivals"):
+        rv = runs[0]["rivals"]
+        names = list(rv.keys())
+        leg = "".join(f'<span class="key"><i style="background:var({FAMS[i % 8]})"></i>{esc(rv[f]["name"] or f)} '
+                      f'({esc(rv[f]["profile"])}, {esc(",".join(rv[f]["buildings_start"]))})</span>'
+                      for i, f in enumerate(names))
+        parts.append(section(f"Familias rivales (semilla {runs[0]['seed']})", f'<div class="legend">{leg}</div><div class="grid2">'
+                             + fam_chart("Oro", rv, "gold") + fam_chart("Título (rango)", rv, "title_rank", step=True)
+                             + fam_chart("Reputación", rv, "reputation") + fam_chart("Familia (vivos)", rv, "members", step=True)
+                             + "</div>"))
+        rows = []
+        for r in runs:
+            for f, x in r.get("rivals", {}).items():
+                gold = x["curve"][-1]["gold"] if x["curve"] else 0
+                rows.append([esc(r["seed"]), esc(x["name"] or f), esc(gold),
+                             esc(", ".join(f"{t['title']} d{t['day']}" for t in x["titles"]) or "—"),
+                             esc(", ".join(f"{o['office']} d{o['day']}" for o in x["offices_won"]) or
+                                 (f"{len(x['offices_run'])} candidaturas" if x["offices_run"] else "—")),
+                             esc(f"{len(x['weddings'])} / {len(x['births'])}"),
+                             esc(f"{x['sold_units']} ({x['sold_gold']})"),
+                             esc(f"{x['contracts_done']}/{x['contracts_accepted']} ({x['contracts_failed']} fallidos)"),
+                             esc(", ".join(f"d{a['day']} {a['charge']}" for a in x["accusations_vs_player"]) or "—"),
+                             esc(f"{x['idle_days']} / {x['broke_days']}"), esc(len(x["stalls"])),
+                             esc(sum(x["refused"].values())),
+                             esc(", ".join(f"{k} {v}" for k, v in sorted(x["plan_chosen"].items())))])
+        parts.append(section("Rivales: qué hicieron", table(["semilla", "familia", "oro final", "títulos", "cargos",
+                                                              "bodas / hijos", "vendido (oro)", "encargos",
+                                                              "ataques al jugador", "días parada / sin oro",
+                                                              "atascos", "rechazos", "plan elegido"], rows)))
+    if runs[0].get("town"):
+        rows = []
+        for r in runs:
+            t = r["town"]
+            acts = ", ".join(f"{k} {v * 100:.0f} %" for k, v in sorted(t["activity_share"].items(), key=lambda x: -x[1])[:8])
+            needs = ", ".join(f"{k} {v}" for k, v in t["needs_mean"].items())
+            sm = t["short_share_max"] if isinstance(t["short_share_max"], dict) else {"alguna": t["short_share_max"]}
+            short = ", ".join(f"{k} {v * 100:.0f} %" for k, v in sm.items())
+            popy = " → ".join(str(y["townsfolk"]) for y in t["population"]["by_year"])
+            vis = f'{t["visitors"]["total"]} ({", ".join(f"{k} {v}" for k, v in sorted(t["visitors"]["by_kind"].items()))})'
+            inc = ", ".join(f"{k} {v}" for k, v in sorted(t["incidents_by_season"].items(),
+                                                       key=lambda x: (int(x[0].split("|")[0]), x[0])))
+            w = t["watch"]
+            rows.append([esc(r["seed"]), esc(acts), esc(needs), esc(short), esc(popy),
+                         esc(f'{t["population"]["weddings"]} / {t["population"]["births"]} / {t["population"]["deaths"]}'),
+                         esc(vis), esc(inc or "—"), esc(f'{w["arrived"]}/{w["called"]} · mediana {w["minutes_median"]} min'),
+                         esc(len(t["npc_stalls"]))])
+        parts.append(section("El pueblo", table(["semilla", "actividades", "necesidades (media)",
+                                                 "peor vecino con la necesidad baja", "vecinos por año",
+                                                 "bodas / nacimientos / muertes", "forasteros", "sucesos (estación|tipo)",
+                                                 "guardia (llegó/llamada)", "vecinos atascados"], rows)))
     rows = [[esc(r["seed"]), esc(r["saves"].get("end", "")), esc(r["saves"].get("first_stall", "—"))] for r in runs]
     parts.append(section("Partidas guardadas", table(["semilla", "al final", "primer atasco"], rows)
                          + "<p>Para abrirlas: copiar el fichero a la carpeta de guardado del juego como "
@@ -216,10 +281,10 @@ def render(d):
     parts.append(section("Decisiones del bot (las primeras 60)", table(["semilla", "decisión"], dec_rows)))
     css = """
 .viz-root{color-scheme:light;--surface-1:#fcfcfb;--text-primary:#0b0b0b;--text-secondary:#52514e;--grid:#e4e3df;
---series-1:#2a78d6;--series-2:#eb6834;--series-3:#1baf7a;--good:#008300;--bad:#c62828;
+--series-1:#2a78d6;--series-2:#eb6834;--series-3:#1baf7a;--series-4:#eda100;--series-5:#e87ba4;--series-6:#008300;--series-7:#6250d6;--series-8:#e34948;--good:#008300;--bad:#c62828;
 font:14px/1.45 system-ui,sans-serif;background:var(--surface-1);color:var(--text-primary);margin:0;padding:24px}
 @media (prefers-color-scheme:dark){.viz-root{color-scheme:dark;--surface-1:#1a1a19;--text-primary:#f0efec;
---text-secondary:#c3c2b7;--grid:#3a3a37;--series-1:#3987e5;--series-2:#d95926;--series-3:#199e70;--good:#4caf50;--bad:#ef5350}}
+--text-secondary:#c3c2b7;--grid:#3a3a37;--series-1:#3987e5;--series-2:#d95926;--series-3:#199e70;--series-4:#c98500;--series-5:#d55181;--series-6:#008300;--series-7:#9085e9;--series-8:#e66767;--good:#4caf50;--bad:#ef5350}}
 h1{font-size:22px;margin:0 0 4px}h2{font-size:16px;margin:28px 0 8px}.lead{color:var(--text-secondary)}
 table{border-collapse:collapse;margin:4px 0;font-size:13px}th,td{border-bottom:1px solid var(--grid);padding:4px 10px;
 text-align:left;vertical-align:top}th{color:var(--text-secondary);font-weight:600}.num td{font-variant-numeric:tabular-nums}
@@ -236,7 +301,8 @@ border-radius:4px;font-size:12px;display:none}code{font-size:12px}
     js = """const t=document.getElementById('tip');document.querySelectorAll('[data-tip]').forEach(e=>{
 e.addEventListener('mousemove',v=>{t.textContent=e.dataset.tip;t.style.display='block';t.style.left=(v.clientX+12)+'px';
 t.style.top=(v.clientY+12)+'px'});e.addEventListener('mouseleave',()=>t.style.display='none')});"""
-    title = {"full_player": "Jugador completo", "chaos_player": "Jugador caótico"}.get(bot, bot)
+    title = {"full_player": "Jugador completo", "chaos_player": "Jugador caótico",
+             "idle_player": "Jugador quieto (la IA sola)"}.get(bot, bot)
     return (f'<!doctype html><html lang="es"><meta charset="utf-8"><title>{esc(title)}</title><style>{css}</style>'
             f'<body class="viz-root"><h1>{esc(title)}</h1>{"".join(parts)}<div id="tip"></div><script>{js}</script></body></html>')
 

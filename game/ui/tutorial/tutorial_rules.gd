@@ -71,6 +71,7 @@ const SYMBOLS: Array[String] = [
 	"$active",
 	"$workshop",
 	"$first_station",
+	"$tavern",
 ]
 
 ## {name} in the texts

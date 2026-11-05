@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://1oarwrohy4ta"]
+[gd_scene load_steps=9 format=3 uid="uid://1oarwrohy4ta"]
 
 [ext_resource type="Script" uid="uid://b7puxkhkdsfaj" path="res://game/interior/interior_view.gd" id="1_view"]
 [ext_resource type="Theme" uid="uid://bsmlccu1dtv2v" path="res://game/ui/greybox_theme.tres" id="2_theme"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://biwpwuxm5tjd6" path="res://game/ui/station_menu.tscn" id="5_menu"]
 [ext_resource type="PackedScene" uid="uid://ptqmgtgtwtqy" path="res://game/ui/staff_panel.tscn" id="6_staff"]
 [ext_resource type="PackedScene" uid="uid://32e6ny8ffe0t" path="res://game/ui/upgrade_panel.tscn" id="7_upgrades"]
+[ext_resource type="PackedScene" uid="uid://ca2m3vd4e3r4i" path="res://game/inn/inn_panel.tscn" id="8_inn"]
 
 [node name="InteriorView" type="Node2D"]
 visible = false
@@ -200,6 +201,34 @@ theme_type_variation = &"SmallLabel"
 text = "M"
 horizontal_alignment = 2
 
+[node name="InnButton" type="Button" parent="Ui/Root/BuildingBar/VBox/Toolbar"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(88, 18)
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"BodyButton"
+toggle_mode = true
+text = "--"
+alignment = 0
+
+[node name="Key" type="Label" parent="Ui/Root/BuildingBar/VBox/Toolbar/InnButton"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -10.0
+offset_right = -3.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_type_variation = &"SmallLabel"
+text = "T"
+horizontal_alignment = 2
+
 [node name="Spacer" type="Control" parent="Ui/Root/BuildingBar/VBox/Toolbar"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -270,6 +299,10 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="UpgradePanel" parent="Ui/Root/WideZone" instance=ExtResource("7_upgrades")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="InnPanel" parent="Ui/Root/ManageZone" instance=ExtResource("8_inn")]
 unique_name_in_owner = true
 layout_mode = 2
 

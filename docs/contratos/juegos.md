@@ -128,9 +128,7 @@ Para apuestas que esperan a una competición futura (el calendario de las Fiesta
   licencia, la casa gana su parte por `game_played.house_cut`; sin licencia, jugar en la taberna es delito leve si lo
   ve el Alguacil (eso lo aplica la Posada al oír `game_played` con su `house`). Los parroquianos jugadores son fichas
   (`presets`) o vecinos del estado.
-- **Fiestas** (espectáculos, 4.25.3 `spectacle`): para una competición sin el jugador, `Games.auto(spec)` con su
-  `match` propio (p. ej. `"fest_<id>|justa"`) da ganador y clasificación sin mover nada. Para la del jugador, la
-  pantalla con `opts.event`; los premios extra del patrocinador los aplica Fiestas al oír `game_played`.
+- **Fiestas** (espectáculos, 4.25.3 `spectacle`): enganchado; ver §5 ter.
 - **Nuevos juegos:** un `*Match` que extiende `GameMatch`, su sección en `data/games.json`, su fila en
   `Games.GAMES`/`PLAYERS` y su tablero en `game/ui/games/board_<juego>.gd` (BOARDS de `GameScreen`).
 
@@ -152,6 +150,38 @@ Para apuestas que esperan a una competición futura (el calendario de las Fiesta
   `too_late` (ya pelean), `bad_bet` (uno de los dos apuesta a su pelea, o lado fuera de rango), `bad_stake`,
   `not_enough_gold`. Eventos `game_bet_placed` y `game_bet_settled` (con `incident`, `refunded`). La carta del
   altercado lleva el botón «Apostar», que abre el corredor (`App.open_game({game: "brawl", actor, incident})`).
+
+## 5 ter. Con las fiestas (rama fiestas, 04f §4.25.3 y §4.26): los espectáculos que son juegos
+
+- **Qué espectáculo es qué juego:** `data/games.json` → `spectacles`: `joust` (justa, 2 jinetes), `fight_tournament`
+  (torneo de lucha, 8), `horse_race` (carrera, 4) y `bulls` (toros, 4 mozos), cada uno con su campo de fichas
+  (`field`: los `presets` que corren si nadie de la villa se apunta). `comedians` y `minstrels` no son juegos. Lo lee
+  `FestivalGames` (`sim/games/festival_games.gd`).
+- **A su hora:** al oír `festival_spectacle`, `Festivals` llama a `FestivalGames.on_spectacle(sim, inst, id)` (una
+  línea en `sim/fest/festivals.gd`). Sin el jugador, se juega con `Games.auto` (partida `"<fiesta>|<espectáculo>"`, la
+  semilla del mundo): evento `festival_game_result {festival, def, spectacle, game, winner, winner_name, how}`. Así
+  corren la carrera de la feria de la siega y la de ganado, los toros del Corpus (si el Alcalde los organiza) y la
+  justa y el torneo de lucha del **torneo** (el que abre el Alcalde al organizar la justa, `organize_festival` →
+  `joust_opens`, o el de la fiesta patronal).
+- **Apuntarse:** orden de gestión `game_enter {actor, festival, spectacle}` (botón «Apuntarse» en la carta de la
+  fiesta). La justa pide ser Ciudadano (`no_title`) y la entrada sale de `data/games.json` como en la partida suelta
+  (`not_enough_gold`). Rechazos: `unknown_actor`, `unknown_spectacle`, `too_late` (ya se corrió), `already_entered`,
+  `bet_placed` (ya apostó en esa competición). El actor ocupa el primer puesto del campo. A su hora, en vez de jugarse
+  sola, se le **llama**: evento `festival_game_call {festival, spectacle, game, actor, family, opponents, match}`, y la
+  App abre la pantalla del juego (con el corredor antes, `bets_open`). La partida llega como siempre, `game_play` con
+  `opts.event` = la fiesta y ese `match`; solo se acepta una vez y solo del que se apuntó (`not_called`). Si no la
+  juega (cierra la pantalla, otra familia en manos de la IA), al acabar la fiesta `FestivalGames.on_end` la resuelve
+  con `Games.replay(…, auto)`: un `game_play` suyo, con su premio si gana.
+- **Apuestas en la feria:** `game_bet {actor, festival, spectacle, on, stake}` antes de que se corra (botón «Apostar»
+  de la carta, que abre el corredor de esa competición). Cuotas con el mercado de siempre (60 partidas automáticas con
+  sus claves, margen 10 %, tope 50). Se paga con **el resultado de la propia competición** (`game_bet_settled`); si la
+  fiesta acaba sin que se corra (los toros sin organizar), se devuelve (`refunded`). Rechazos: `unknown_spectacle`,
+  `too_late`, `bad_bet` (apostar en un campo en el que uno compite: esa apuesta va con su partida; o lado fuera de
+  rango), `bad_stake`, `not_enough_gold`.
+- **Sin guardado propio:** apuntados, apuestas y resultados van dentro de la instancia de la fiesta
+  (`festivals.active[...].games = {entries, bets, results}`), que ya guarda la v18.
+- Pruebas: `tests/test_games_festival.gd`. Pantalla: `--games-test=fair_bet` (apostar a la carrera de la feria) y
+  `--games-test=festival_joust` (el torneo del Alcalde, apuntado y llamado a la justa).
 
 ## 6. Pruebas y bancos
 

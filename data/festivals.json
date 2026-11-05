@@ -1,6 +1,6 @@
 {
   "_doc": "4.25 · el calendario de fiestas (docs/gdd/04f_vida_y_fiestas.md). Cada fiesta: kind fixed (cae cada año en day_of_year, 0-7: Primavera 1 = 0) o variable (trigger: chance por día en la tirada del día que la anuncia, min_day, cooldown_days, avoid = no cae el mismo día que una fiesta de ese tamaño o una feria; on = la abre otra cosa: rich_wedding / townsfolk_wedding (las bodas de H8), organized (el Alcalde, organize_festival), city_feast (la patronal de esa ciudad de data/world/region.json); requires_event = solo con ese evento de data/events.json en curso). size big | small. start_hour y hours: cuándo empieza (horas desde las 00:00 de su día) y cuánto dura (puede pasar de medianoche). notice_days: con cuántos días se anuncia (el pregón; los encargos salen con él). schedule: lo que se hace y a qué hora (la carta; needs = solo si alguien lo paga). effects: los efectos de sim (_effects_doc), cada uno con from_hour / to_hour opcionales (horas desde las 00:00 del día de la fiesta) y needs (solo si esa parte está patrocinada u organizada). contracts: la tabla de data/contracts/festivals.json. organizable: lo que el Alcalde puede organizar (organize_festival). view: lo que pinta la vista y no lee el sim (decor: props de game/visuals/props/fiesta/<prop>, where = sitio del mapa, count; clothes: la paleta de ropa de fiesta de view_looks; music: el id de data/audio.json). Las cifras son [balance].",
-  "_effects_doc": "Existentes (los suma WorldEvents.event_mult): demand {group, mult}, price {group, mult}, customers {mult} (clientes de los mostradores, el counter_clients del diseño), production {group, mult}. Nuevos de fiestas: holy_day {work_mult} (día de guardar: la producción va a work_mult en su ventana), tariff {city: home | <id>, mult} (home: los impuestos de las ventas de ese día; feria franca = 0), route_bonus {city, days} (el portazgo de las rutas que llegan a esa ciudad es 0 desde days-1 días antes), stalls {stall, count, groups} (puestos de forasteros: el sim los guarda en la fiesta; la vista los pinta), contracts (la tabla de encargos), emotion {id, share, toward: sponsors | hosts, at: end}, reputation {who: mayor | sponsors | hosts, amount, at: start | end}, aguinaldo {loyalty} (Navidad: un empleado que recibe una gratificación durante la fiesta gana además esa lealtad). Ganchos declarativos (los leen otras ramas cuando estén en main; Festivals.hook_mult los responde ya): service {id, mult} (4.22.3.2, la Taberna-Posada), visitors {mult, kinds} (forasteros de 4.24.3), routine {activity, mult} (agenda de 4.24.1: los ids de data/life/activities.json), need {id, amount} (4.24.1), spectacle {id, hour} (juegos de 4.26; el sim emite festival_spectacle a esa hora), incident {id, mult} (sucesos de 4.24.5: los ids de data/life/incidents.json; fire espera a O-V6).",
+  "_effects_doc": "Existentes (los suma WorldEvents.event_mult): demand {group, mult}, price {group, mult}, customers {mult} (clientes de los mostradores, el counter_clients del diseño), production {group, mult}. Nuevos de fiestas: holy_day {work_mult} (día de guardar: la producción va a work_mult en su ventana), tariff {city: home | <id>, mult} (home: los impuestos de las ventas de ese día; feria franca = 0), route_bonus {city, days} (el portazgo de las rutas que llegan a esa ciudad es 0 desde days-1 días antes), stalls {stall, count, groups} (puestos de forasteros: el sim los guarda en la fiesta; la vista los pinta), contracts (la tabla de encargos), emotion {id, share, toward: sponsors | hosts, at: end}, reputation {who: mayor | sponsors | hosts, amount, at: start | end}, aguinaldo {loyalty} (Navidad: un empleado que recibe una gratificación durante la fiesta gana además esa lealtad). Ganchos declarativos (los leen otras ramas cuando estén en main; Festivals.hook_mult los responde ya): service {id, mult} (4.22.3.2, la Taberna-Posada), visitors {mult, kinds} (forasteros de 4.24.3), routine {activity, mult} (agenda de 4.24.1: los ids de data/life/activities.json), need {id, amount} (4.24.1), spectacle {id, hour} (juegos de 4.26; el sim emite festival_spectacle a esa hora), incident {id, mult} (sucesos de 4.24.5: los ids de data/life/incidents.json; fire espera a O-V6). cattle {prop, footprint, count, stall_group} (owner, 2026-11-05): los corrales van a las afueras (FestivalGround); si en el mapa no caben, el ganado se vende en puestos (un puesto más del grupo stall_group) y la crónica de la feria lo dice (cattle: stalls).",
   "enabled": true,
   "rules": {
     "first_day": 1,
@@ -24,7 +24,8 @@
         }
       },
       "relation": 2,
-      "relation_share": 0.4
+      "relation_share": 0.4,
+      "outbid_mult": 1.5
     },
     "organize": {
       "parts": [
@@ -121,7 +122,7 @@
         "minor_office": {}
       }
     },
-    "_ai_sponsor_doc": "4.25.5 (owner, 2026-11-05) · las familias rivales (IA con perfil) patrocinan como mucho per_year fiestas grandes al año si les sobra el oro (gold_reserve del perfil + spare después de pagar), con una tirada por fiesta (chance). Cada parte la paga una sola familia: la primera que llega (compite con el patrocinio del jugador).",
+    "_ai_sponsor_doc": "4.25.5 (owner, 2026-11-05) · las familias rivales (IA con perfil) patrocinan como mucho per_year fiestas grandes al año si les sobra el oro (gold_reserve del perfil + spare después de pagar), con una tirada por fiesta (chance). Cada parte la paga una sola familia: la primera que llega (compite con el patrocinio del jugador). Si la IA patrocina, el jugador lo ve (aviso) y puede pujar: paga outbid_mult × lo que pagó la otra familia, que recupera su oro y pierde la reputación que ganó.",
     "ai_sponsor": {
       "per_year": 1,
       "spare": 150,
@@ -132,7 +133,7 @@
         "bulls"
       ]
     },
-    "_contest_doc": "Concurso de calidad (owner, 2026-11-05; efecto contest de la feria): los artesanos presentan su mejor pieza (un producto con calidad) antes de hour; gana la de más calidad (empate: la de más valor; después, la primera presentada): prize de oro, reputation y la crónica. Las piezas vuelven a su dueño al acabar la fiesta. La IA con perfil presenta su mejor pieza sola."
+    "_contest_doc": "Concurso de calidad (owner, 2026-11-05; efecto contest de la feria): cada artesano presenta una pieza de su oficio (lo que hacen sus talleres) antes de hour; gana la de más calidad (empate: la de más valor; después, la primera presentada). Premio de fama y reputación: reputation, fame en la reputación de clase fame_class (la fama entre los artesanos) y un concurso ganado en el taller (contests_won, que contará la fama del taller de 04g §4.6.5.7); prize (oro) opcional. Las piezas vuelven a su dueño al acabar la fiesta. La IA con perfil presenta su mejor pieza sola."
   },
   "festivals": {
     "holy_week": {
@@ -515,8 +516,19 @@
           "kind": "contest",
           "id": "quality",
           "hour": 18,
-          "prize": 60,
-          "reputation": 6
+          "reputation": 6,
+          "fame": 10,
+          "fame_class": "artisan"
+        },
+        {
+          "kind": "cattle",
+          "prop": "pen",
+          "footprint": [
+            3,
+            3
+          ],
+          "count": 2,
+          "stall_group": "horses"
         }
       ],
       "contracts": "harvest_fair",
@@ -1429,6 +1441,16 @@
             "merchant",
             "peddler"
           ]
+        },
+        {
+          "kind": "cattle",
+          "prop": "pen",
+          "footprint": [
+            3,
+            3
+          ],
+          "count": 2,
+          "stall_group": "horses"
         }
       ],
       "contracts": "cattle_fair",

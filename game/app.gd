@@ -34,6 +34,7 @@ extends Node
 ## H12: --smoke-script=oficios: the trade buttons of the new game screen and the workshop of each artisan trade.
 ## Población: --smoke-script=poblacion: the new game screen and «Otra familia», then the sheets of a townsman, a
 ## townswoman and the rival with their base portraits.
+## Posada: --smoke-script=posada: the Taberna-Posada on the map, full at night, Clientela, the menu, the rooms, the summary.
 ## --smoke-script=menu: every menu screen (title, new game, pause, save, load, options, quit, credits, ending).
 ## --smoke-script=escala: the plaza, the forge street and the town hall at zoom 1 and 2 (building scale B).
 ## UI 1/2: --smoke-script=hud: the new HUD's zones, the book beside the forge's bar, notices, help, ESC, the interior;
@@ -69,9 +70,11 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd", "viajes": "res://game/smoke/smoke_viajes.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
 	"duel": "res://game/smoke/smoke_duel.gd", "duelo_partida": "res://game/smoke/smoke_duelo_partida.gd",
-	"fiestas": "res://game/smoke/smoke_fiestas.gd",
 	"juegos": "res://game/smoke/smoke_juegos.gd",
-	"vida": "res://game/smoke/smoke_vida.gd"}
+	"fiestas": "res://game/smoke/smoke_fiestas.gd",
+	"vida": "res://game/smoke/smoke_vida.gd",
+	"posada": "res://game/smoke/smoke_posada.gd",
+	"plantillas": "res://game/smoke/smoke_plantillas.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
 const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"
@@ -259,6 +262,22 @@ func open_games_test(game_id: String, extra: Dictionary = {}) -> GameScreen:
 		if game_id == "race":
 			extra = extra.duplicate()
 			extra.merge({"bets_open": true}, false)
+	if game_id in ["fair_bet", "festival_joust"]:  # fiestas: the fair's bookmaker, or the joust of the tournament
+		var fsim: Sim = Game.sim
+		var day := Clock.day(int(st.clock["minute"])) + 1
+		var fid := Festivals._schedule(fsim, "harvest_fair" if game_id == "fair_bet" else "tournament", day, "organized", {"by": me})
+		var finst := Festivals.find(fsim, fid)
+		extra = extra.duplicate()
+		if game_id == "fair_bet":
+			extra.merge({"festival": fid, "spectacle": "horse_race"}, false)
+			game_id = "race"
+		else:
+			st.families[str(st.characters[me]["family"])]["title"] = "citizen"
+			Orders.apply(fsim, {"type": "game_enter", "actor": me, "festival": fid, "spectacle": "joust"})
+			(finst["games"]["entries"]["joust"] as Dictionary)["status"] = "called"
+			extra.merge({"match": FestivalGames.match_id(finst, "joust"), "opts": {"event": fid}, "bets_open": true}, true)
+			opponents = FestivalGames.field(fsim, "joust", me).slice(1)
+			game_id = "joust"
 	if game_id in ["rescue", "brawl"]:  # vida's fights: a kidnapping of the protagonist's spouse, or two townsmen quarrelling
 		var sim: Sim = Game.sim
 		if game_id == "rescue":
@@ -288,7 +307,7 @@ func open_games_test(game_id: String, extra: Dictionary = {}) -> GameScreen:
 		elif arg.begins_with("--games-house="):
 			opts["house"] = arg.substr(14)
 	var req := {"actor": me, "game": game_id, "opponents": opponents, "stake": stake, "opts": opts}
-	req.merge(extra, true)
+	req.merge(extra, true)  # (extra's opts, a festival's event, win over the test's)
 	var screen := open_game(req)
 	Log.info("App", "games test: %s, %s contra %s (apuesta %d)" % [game_id, me, opponents, stake])
 	return screen
@@ -483,6 +502,9 @@ func show_new_game() -> void:
 	_ending.close()
 	_title.close()
 	_new_game.setup(Game.sim.catalog, seed_value)
+	if str(opts["start_city"]) != "" and not _new_game.set_city(str(opts["start_city"])):  # plantillas
+		push_warning("--start-city=%s: no such settlement for this start (%s)" % [opts["start_city"],
+			", ".join(NewGame.cities(Game.sim.catalog))])
 	_new_game.open()
 	_hud.visible = false
 	Game.set_paused(true)
@@ -763,6 +785,10 @@ func _fade_swap(swap: Callable) -> void:
 func _on_sim_event(e: Dictionary) -> void:
 	var type := str(e.get("type", ""))
 	var actor := str(e.get("actor", ""))
+	if type == "festival_game_call" and str(e.get("family", "")) == SimQuery.player_family(Game.sim.state):
+		# juegos: the player's competition of the feast begins (the joust, the tournament, the race, the bulls)
+		open_game.call_deferred({"game": str(e["game"]), "actor": actor, "opponents": e.get("opponents", []),
+			"match": str(e["match"]), "opts": {"event": str(e["festival"])}, "bets_open": true})
 	if type in ["trip_started", "caravan_sent"]:
 		_pass_control(str(e.get("driver", actor)))
 	elif type == "trip_arrived" and actor == _hud.active_person() and not menu_open():

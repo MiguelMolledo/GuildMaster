@@ -159,15 +159,24 @@ func test_the_quality_contest_of_the_fair() -> void:
 	var me := Kin.head(sim.state, fam)
 	_to(sim, 2 * DAY + 12 * 60 + 1)  # the fair announced
 	var inst: Dictionary = Festivals.announced(sim).filter(func(i: Dictionary) -> bool: return str(i["def"]) == "harvest_fair")[0]
+	_give(sim, me, "fine_clothes", 2)
+	eq(Orders.apply(sim, {"type": "festival_enter_contest", "actor": me, "festival": str(inst["id"]), "item": "fine_clothes"})[
+		"reason"], "no_piece", "a smith presents a piece of his own trade, not a tailor's")
 	_give(sim, me, "sword", 2)
 	var r := Orders.apply(sim, {"type": "festival_enter_contest", "actor": me, "festival": str(inst["id"])})
 	check(r["ok"], "the player presents an excellent sword (%s)" % r["reason"])
-	var gold := Money.gold(sim.state, fam)
+	var rep := Reputation.of(sim.state, fam)
+	var fame := Reputation.class_mod(sim.state, fam, "artisan")
 	var evs := _to(sim, 3 * DAY + 18 * 60 + 1)
 	var won := _types(evs, "festival_contest")
 	eq(won.size(), 1, "judged at 18:00")
 	eq(str(won[0]["family"]), fam, "the best quality wins")
-	eq(Money.gold(sim.state, fam), gold + 60, "the prize")
+	eq(Reputation.of(sim.state, fam), rep + 6, "reputation +6")
+	eq(Reputation.class_mod(sim.state, fam, "artisan"), fame + 10, "fame among the artisans +10")
+	var won_at := 0
+	for b: String in sim.state.buildings:
+		won_at += int(sim.state.buildings[b].get("contests_won", 0))
+	eq(won_at, 1, "a contest won on the workshop (the workshop's fame of 04g will count it)")
 	_to(sim, int(inst["end"]) + 1)
 	eq(Inventory.count(sim.state.characters[me]["inventory"], "sword", 2), 1, "the sword comes home")
 	check(sim.state.chronicle.any(func(x: Dictionary) -> bool: return str(x["kind"]) == "contest_won"), "the chronicle")
@@ -199,6 +208,18 @@ func test_the_ai_sponsors_once_a_year_and_takes_the_part() -> void:
 		"reason"], "part_taken", "the player arrives late for the banquet")
 	check(Festivals.order_sponsor(s2, {"actor": Kin.head(s2.state, f2), "festival": str(inst["id"]), "part": "music"})["ok"],
 		"the music is still free")
+	check(Notices.list(s2, f2).any(func(n: Dictionary) -> bool: return str(n.get("key", "")) == "notice.festival_ai_sponsored"),
+		"the player sees the rival's sponsoring")
+	var rg := Money.gold(s2.state, r2)
+	var pg := Money.gold(s2.state, f2)
+	var price := Festivals.bid_price(s2, inst, "banquet")
+	eq(price, 90, "a bid: ×1,5 of the 60 the rival paid")
+	var b := Festivals.order_sponsor(s2, {"actor": Kin.head(s2.state, f2), "festival": str(inst["id"]), "part": "banquet",
+		"bid": true})
+	check(b["ok"], "the player outbids the rival (%s)" % b["reason"])
+	eq(Festivals.part_taken_by(inst, "banquet"), f2, "the banquet is the player's")
+	eq(Money.gold(s2.state, f2), pg - 90, "it paid 90")
+	eq(Money.gold(s2.state, r2), rg + 60, "the rival gets its 60 back")
 
 
 func test_court_fields_survive_a_save() -> void:
@@ -209,3 +230,24 @@ func test_court_fields_survive_a_save() -> void:
 	Orders.apply(sim, {"type": "festival_offer_gift", "actor": me, "festival": str(inst["id"])})
 	var back: WorldState = SaveFile.from_text(JSON.stringify(sim.state.to_dict()))["state"]
 	eq(SaveFile.canonical(back.festivals), SaveFile.canonical(sim.state.festivals), "offers and held pieces round-trip")
+
+
+## The fair's pens at the outskirts; where they do not fit, the cattle at stalls and the chronicle says so.
+func test_the_cattle_goes_to_the_outskirts_or_to_stalls() -> void:
+	var sim := _game()
+	check(FestivalGround.fits(cat, "town_e", Vector2i(3, 3), 2), "two 3x3 pens fit by the gates of town_e")
+	_to(sim, 3 * DAY + 60)
+	var fair: Dictionary = Festivals.active(sim).filter(func(i: Dictionary) -> bool: return str(i["def"]) == "harvest_fair")[0]
+	eq(str(fair.get("cattle", "")), "pens", "town_e: pens at the outskirts")
+	check(Festivals.view_of(sim, fair)["decor"].any(func(d: Dictionary) -> bool:
+		return str(d["prop"]) == "pen" and str(d["where"]) == "outskirts"), "the view puts them there")
+	var c := Catalog.load_from()
+	c.festivals["rules"]["view_sites"]["outskirts"]["radius"] = 0
+	var s2 := _game(c)
+	_to(s2, 3 * DAY + 60)
+	var f2: Dictionary = Festivals.active(s2).filter(func(i: Dictionary) -> bool: return str(i["def"]) == "harvest_fair")[0]
+	eq(str(f2.get("cattle", "")), "stalls", "no room by the gates: the cattle at stalls")
+	check((f2["stalls"] as Array).any(func(x: Dictionary) -> bool: return str(x["stall"]) == "cattle"), "a cattle stall")
+	check(s2.state.chronicle.any(func(x: Dictionary) -> bool: return str(x["kind"]) == "fair_cattle_stalls"), "the chronicle says so")
+	check(not Festivals.view_of(s2, f2)["decor"].any(func(d: Dictionary) -> bool: return str(d["prop"]) == "pen"),
+		"no pens in the view: stalls instead")

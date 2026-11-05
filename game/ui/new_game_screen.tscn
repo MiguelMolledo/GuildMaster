@@ -315,6 +315,41 @@ custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
 mouse_filter = 2
 
+[node name="CityHeader" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+
+[node name="CityLabel" type="Label" parent="Center/Panel/VBox/Columns/Right/CityHeader"]
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+text = "--"
+unique_name_in_owner = true
+
+[node name="CityName" type="Label" parent="Center/Panel/VBox/Columns/Right/CityHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DimLabel"
+text = "--"
+horizontal_alignment = 2
+unique_name_in_owner = true
+
+[node name="Cities" type="HBoxContainer" parent="Center/Panel/VBox/Columns/Right"]
+layout_mode = 2
+theme_override_constants/separation = 4
+unique_name_in_owner = true
+
+[node name="CityLine" type="Label" parent="Center/Panel/VBox/Columns/Right"]
+custom_minimum_size = Vector2(330, 0)
+layout_mode = 2
+theme_type_variation = &"BodyLabel"
+text = "--"
+autowrap_mode = 3
+unique_name_in_owner = true
+
+[node name="Gap2" type="Control" parent="Center/Panel/VBox/Columns/Right"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+
 [node name="Help" type="PanelContainer" parent="Center/Panel/VBox/Columns/Right"]
 layout_mode = 2
 size_flags_vertical = 3

@@ -309,40 +309,10 @@ static func sites(state: WorldState, catalog: Catalog) -> Dictionary:
 ## `radius` of a gate, nearest first, never a road (keep_off kinds), a gate or gate_margin tiles around it, nor
 ## anything of the map (busy). out["outskirts"] (the candidates, nearest gate first) and out["_meadow"] (the ground a
 ## footprint there may cover).
-static func _outskirts(out: Dictionary, m: Dictionary, rows: Array, catalog: Catalog, busy: Dictionary) -> void:
-	var cfg: Dictionary = (catalog.festivals.get("rules", {}) as Dictionary).get("view_sites", {}).get("outskirts", {})
-	var ground: Array = cfg.get("ground", ["grass"])
-	var radius := int(cfg.get("radius", 10))
-	var margin := int(cfg.get("gate_margin", 1))
-	var gates: Array = []
-	var spawns: Dictionary = m.get("spawns", {})
-	var names: Array = spawns.keys()
-	names.sort()
-	for g: Variant in names:
-		var sp: Array = spawns[g]
-		if str(g).ends_with("_gate") and sp.size() == 2:
-			gates.append(Vector2i(int(sp[0]), int(sp[1])))
-	var meadow: Array = []
-	var dist := {}
-	for r: int in rows.size():
-		var row := str(rows[r])
-		for c: int in row.length():
-			var t := Vector2i(c, r)
-			if busy.has(t) or not catalog.tile_kind_of_char(row[c]) in ground:
-				continue  # keep_off kinds (the roads) are never ground; a road tile never enters
-			var best := 1 << 20
-			for gt: Vector2i in gates:
-				best = mini(best, maxi(absi(t.x - gt.x), absi(t.y - gt.y)))
-			if best <= margin:
-				continue  # not at the gate
-			meadow.append(t)
-			if best <= radius:
-				dist[t] = best
-	var near: Array = dist.keys()
-	near.sort_custom(func(a: Vector2i, b: Vector2i) -> bool:
-		return int(dist[a]) < int(dist[b]) or (int(dist[a]) == int(dist[b]) and (a.y < b.y or (a.y == b.y and a.x < b.x))))
-	out["outskirts"] = near
-	out["_meadow"] = meadow
+static func _outskirts(out: Dictionary, m: Dictionary, _rows: Array, catalog: Catalog, busy: Dictionary) -> void:
+	var o := FestivalGround.outskirts(catalog, str(m.get("id", "")), busy)  # one rule with the sim (FestivalGround)
+	out["outskirts"] = o["near"]
+	out["_meadow"] = o["meadow"]
 
 
 static func _ring_angle(t: Vector2i, mid: Vector2) -> float:

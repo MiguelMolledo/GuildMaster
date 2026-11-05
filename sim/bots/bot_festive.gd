@@ -25,7 +25,8 @@ func orders(sim: Sim) -> Array:
 			continue
 		_sponsored[key] = true
 		if not FestivalCourt.effect(sim, inst, "contest").is_empty() and \
-				not FestivalCourt.best_piece(sim, fam, ACTOR, []).is_empty():
+				not FestivalCourt.trade_items(sim, fam).is_empty() and \
+				not FestivalCourt.best_piece(sim, fam, ACTOR, FestivalCourt.trade_items(sim, fam)).is_empty():
 			out.append({"type": "festival_enter_contest", "actor": ACTOR, "festival": str(inst["id"])})
 		if not FestivalCourt.effect(sim, inst, "town_gift").is_empty() and \
 				not FestivalCourt.best_piece(sim, fam, ACTOR, Festivals.rules(sim).get("gift", {}).get("items", [])).is_empty():
@@ -36,6 +37,8 @@ func orders(sim: Sim) -> Array:
 			continue
 		_sponsored[id] = true
 		var gold := int(Festivals.rules(sim).get("sponsor", {}).get("parts", {}).get(SPONSOR_PART, {}).get("gold", 0))
+		if Festivals.part_taken_by(inst, SPONSOR_PART) != "":
+			continue  # another house pays the music: the bot does not bid
 		if Money.gold(sim.state, fam) - gold >= SPONSOR_SPARE:
 			out.append({"type": "festival_sponsor", "actor": ACTOR, "festival": id, "part": SPONSOR_PART})
 	if (sim.state.festivals.get("offers", {}) as Dictionary).has(fam):

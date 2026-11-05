@@ -5,7 +5,7 @@ extends RefCounted
 ## After a load every integral number comes back as int (SaveFile.intify): code that reads the state casts with
 ## int() / float() and never relies on the type a number had before saving.
 
-const VERSION: int = 18
+const VERSION: int = 19
 
 var version: int = VERSION
 var world_seed: int = 0
@@ -77,6 +77,10 @@ var festivals: Dictionary = {}     # fiestas (v18): the festival calendar in for
 # Fiestas (docs/gdd/04f_vida_y_fiestas.md 4.25, 4.28.2): the new root festivals {active, upcoming, history, cooldowns,
 # offers, planned_day}, {} until Festivals.ensure fills it; festival contracts live in contracts with their own fields
 # (SaveFile._to_v18, step 17 -> 18; 16 -> 17 is the life block's).
+# Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, v19): no new root fields. A building of type tavern_inn gets inn {menu,
+# prices, bed_price, special, fame, license_until, broken_until, pilgrims_scared_until, beds, night, last_turn, history,
+# rumors, seq} (Inn.ensure) and a building on sale for_sale (SaveFile._to_v19, step 18 -> 19). It chains behind v17 (vida)
+# and v18 (fiestas).
 
 
 func seed_rng(s: int) -> void:

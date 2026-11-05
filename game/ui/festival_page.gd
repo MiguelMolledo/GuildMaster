@@ -74,7 +74,7 @@ static func _result(sim: Sim, e: Dictionary) -> Dictionary:
 			title = SimQuery.t_("ui.festival_card.contest_title")
 			text = SimQuery.t_("ui.festival_card.contest_result") % [fam_name, SimQuery.item_name(sim.catalog,
 				str(e.get("item", ""))), SimQuery.quality_name(int(e.get("quality", 0))), int(e.get("entries", 0)),
-				int(e.get("prize", 0))]
+				int(e.get("reputation", 6)), int(e.get("fame", 10))]
 		"festival_audience":
 			title = SimQuery.t_("ui.festival_card.audience_title")
 			var got := str(e.get("granted", ""))
@@ -133,9 +133,29 @@ static func _feast(sim: Sim, e: Dictionary, fam: String) -> Dictionary:
 			if part in (inst.get("sponsors", {}).get(fam, []) as Array):
 				continue
 			var gold := int(Festivals.rules(sim).get("sponsor", {}).get("parts", {}).get(part, {}).get("gold", 0))
+			var holder := Festivals.part_taken_by(inst, part)
+			if holder != "":  # another house pays it: the player may bid (owner, 2026-11-05)
+				gold = Festivals.bid_price(sim, inst, part)
+				buttons.append({"id": "bid:" + part, "text": SimQuery.t_("ui.festival_card.bid") % [
+					SimQuery.t_("festival.part." + part).to_lower(), gold], "disabled": Money.gold(sim.state, fam) < gold,
+					"tip": SimQuery.t_("ui.festival_card.bid_tip") % str(sim.state.families.get(holder, {}).get("name", ""))})
+				continue
 			buttons.append({"id": "sponsor:" + part, "text": SimQuery.t_("ui.festival_card.sponsor") % [
 				SimQuery.t_("festival.part." + part).to_lower(), gold], "disabled": Money.gold(sim.state, fam) < gold,
 				"tip": SimQuery.t_("ui.festival_card.sponsor_tip")})
+	if fam != "" and not inst.is_empty():  # juegos (04f §4.26): enter a competition of the feast, or bet on it
+		var g: Dictionary = inst.get("games", {}) if inst.get("games") is Dictionary else {}
+		for f: Dictionary in def.get("effects", []):
+			var spk := str(f.get("id", ""))
+			if str(f.get("kind", "")) != "spectacle" or not Festivals._part_ok(inst, f) or not FestivalGames.is_game(sim, spk) \
+					or not FestivalGames._to_come(inst, spk):
+				continue
+			var entered := (g.get("entries", {}) as Dictionary).has(spk)
+			buttons.append({"id": "enter:" + spk, "text": SimQuery.t_("ui.festival_card.enter") % SimQuery.t_("spectacle." + spk),
+				"disabled": entered, "tip": SimQuery.t_("ui.festival_card.enter_tip")})
+			if not entered:
+				buttons.append({"id": "bet:" + spk, "text": SimQuery.t_("ui.festival_card.bet") % SimQuery.t_("spectacle." + spk),
+					"tip": SimQuery.t_("ui.festival_card.bet_tip")})
 	var out := {"template": "card", "title": SimQuery.festival_name(id),
 		"image": VisualPaths.illustration_or_greybox("events", id), "blocks": blocks,
 		"footer_figures": [{"label": "", "value": when}], "buttons": buttons, "sticky": false,
@@ -184,11 +204,12 @@ static func _court_buttons(sim: Sim, inst: Dictionary, fam: String) -> Array:
 				"tip": SimQuery.t_("ui.festival_card.audience_tip")})
 	var c := FestivalCourt.effect(sim, inst, "contest")
 	if not c.is_empty() and now < FestivalCourt._deadline(inst, c) and not FestivalCourt._entered(inst.get("contest", []), fam):
-		var p := FestivalCourt.best_piece(sim, fam, actor, [])
+		var trade := FestivalCourt.trade_items(sim, fam)
+		var p := {} if trade.is_empty() else FestivalCourt.best_piece(sim, fam, actor, trade)
 		if not p.is_empty():
 			out.append({"id": "contest", "text": SimQuery.t_("ui.festival_card.contest_short"),
 				"tip": SimQuery.t_("ui.festival_card.contest") % SimQuery.item_name(sim.catalog, str(p["item"])) + ". "
-					+ SimQuery.t_("ui.festival_card.contest_tip") % int(c.get("prize", 0))})
+					+ SimQuery.t_("ui.festival_card.contest_tip")})
 	return out
 
 
@@ -236,13 +257,15 @@ static func effect_line(sim: Sim, f: Dictionary) -> Dictionary:
 		"audience":
 			return {"text": SimQuery.t_("ui.festival_card.fx_audience") % (int(f.get("hour", 12)) % 24), "sign": ""}
 		"contest":
-			return {"text": SimQuery.t_("ui.festival_card.fx_contest") % [int(f.get("hour", 18)) % 24, int(f.get("prize", 0))],
-				"sign": "+"}
+			return {"text": SimQuery.t_("ui.festival_card.fx_contest") % (int(f.get("hour", 18)) % 24), "sign": "+"}
 	return {}
 
 
 ## The order of a card button ({} for «Entendido» or «Boda sencilla»): sponsor:<part> or host_wedding.
 static func order_for(button: String, d: Dictionary, actor: String) -> Dictionary:
+	if button.begins_with("bid:"):
+		return {"type": "festival_sponsor", "actor": actor, "festival": str(d.get("instance", "")), "part": button.substr(4),
+			"bid": true}
 	if button.begins_with("sponsor:"):
 		return {"type": "festival_sponsor", "actor": actor, "festival": str(d.get("instance", "")),
 			"part": button.substr(8)}
@@ -257,4 +280,6 @@ static func order_for(button: String, d: Dictionary, actor: String) -> Dictionar
 		return {"type": "festival_audience", "actor": actor, "festival": f, "privilege": button.substr(9)}
 	if button.begins_with("choose:"):
 		return {"type": "festival_choose_gift", "actor": actor, "festival": f, "offer": button.substr(7).to_int()}
+	if button.begins_with("enter:"):
+		return {"type": "game_enter", "actor": actor, "festival": str(d.get("instance", "")), "spectacle": button.substr(6)}
 	return {}

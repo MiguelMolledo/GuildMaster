@@ -537,6 +537,23 @@ def population_of(base, n):
     return out
 
 
+def fill_members(households, per_house):
+    """Every household up to per_house members (data/life/life.json population.per_house, 04f 4.24.3): past the ones
+    it has, the members of all the households in their order again, with only rank and stats (the cast gives name,
+    sex, age and look, in the fixed cast too: docs/contratos/poblacion.md «Varias ciudades»). In place."""
+    pool = [m for hh in households for m in hh.get("members", [])]
+    if not pool or not per_house:
+        return households
+    k = 0
+    for hh in households:
+        members = hh.setdefault("members", [])
+        while len(members) < per_house:
+            m = pool[k % len(pool)]
+            members.append({"rank": m["rank"], "stats": json.loads(json.dumps(m["stats"]))})
+            k += 1
+    return households
+
+
 def _fields(p, rng, taken, roads, pc, reach, n):
     """Up to n fields (rects of f) outside the town, each touching a road (so its workers get there): first far
     from the plaza and three tiles from any building, then closer if the map is small."""

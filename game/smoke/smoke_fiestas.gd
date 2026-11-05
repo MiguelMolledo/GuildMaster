@@ -200,6 +200,9 @@ func _process(delta: float) -> void:
 			Inventory.add(sim.state.characters[_who]["inventory"], sim.catalog, "fine_clothes", 2, 1)
 			Orders.apply(sim, {"type": "festival_offer_gift", "actor": rh, "festival": _inst})
 			Orders.apply(sim, {"type": "festival_offer_gift", "actor": _who, "festival": _inst, "item": "sword"})
+			sim.state.families[rival]["gold"] = 500  # the rival pays the banquet: the player sees it and may bid
+			sim.state.families[fam]["gold"] = 300
+			Orders.apply(sim, {"type": "festival_sponsor", "actor": rh, "festival": _inst, "part": "banquet"})
 			_card("festival_eve")
 			_go("court_card")
 		"court_card":
@@ -223,7 +226,7 @@ func _process(delta: float) -> void:
 				card.call("close")
 				card.call("show_festival", Game.sim, {"type": "festival_contest", "festival": "", "def": "harvest_fair",
 					"family": SimQuery.player_family(Game.sim.state), "item": "decorative_sword", "quality": 2,
-					"prize": 60, "entries": 3})
+					"reputation": 6, "fame": 10, "entries": 3})
 				_go("contest_card")
 		"contest_card":
 			if _t > 0.5:

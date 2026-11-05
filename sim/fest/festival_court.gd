@@ -227,7 +227,9 @@ static func order_enter_contest(sim: Sim, o: Dictionary) -> Dictionary:
 		inst["contest"] = []
 	if _entered(inst["contest"], str(c["fam"])):
 		return Orders.fail("already_entered")
-	var p := best_piece(sim, str(c["fam"]), str(c["actor"]), [], str(o.get("item", "")), int(o.get("quality", -1)))
+	var trade := trade_items(sim, str(c["fam"]))  # a piece of its own trade (owner: «cada oficio presenta una pieza»)
+	var p := {} if trade.is_empty() else best_piece(sim, str(c["fam"]), str(c["actor"]), trade, str(o.get("item", "")),
+		int(o.get("quality", -1)))
 	if p.is_empty() or not _hold(sim, inst, str(c["fam"]), p):
 		return Orders.fail("no_piece")
 	(inst["contest"] as Array).append({"family": str(c["fam"]), "actor": str(c["actor"]), "item": str(p["item"]),
@@ -238,6 +240,23 @@ static func order_enter_contest(sim: Sim, o: Dictionary) -> Dictionary:
 
 
 # --- Who and what ---------------------------------------------------------------------------------------------------
+
+## The pieces of the family's trade: the outputs of the recipes of the workshops it owns (not houses), sorted.
+static func trade_items(sim: Sim, fam: String) -> Array:
+	var types := {}
+	for b: Variant in sim.state.buildings:
+		if Money.family_of(sim.state, str(b)) == fam:
+			types[str(sim.state.buildings[b].get("type", ""))] = true
+	var out: Array = []
+	for rid: String in Festivals._sorted_keys(sim.catalog.recipes()):
+		var r: Dictionary = sim.catalog.recipes()[rid]
+		var it := str(r.get("output", {}).get("item", ""))
+		if types.has(str(r.get("building", ""))) and it != "" and not it in out \
+				and str(sim.catalog.item(it).get("category", "")) in ["product", "equipment", "tool"]:
+			out.append(it)
+	out.sort()
+	return out
+
 
 ## The mayor's character ("" if the office is vacant or there is none).
 static func mayor(sim: Sim) -> String:
@@ -304,10 +323,11 @@ static func tick(sim: Sim, inst: Dictionary, now: int) -> void:
 				_judge(sim, inst, e)
 
 
-## The AI families bring their pieces when the feast is announced (and the AI mayor's choice is made at the hour).
-static func ai_entries(sim: Sim, inst: Dictionary) -> void:
+## The AI families bring their pieces: the gift and the audience's gift when the feast is announced, the contest's
+## piece when the feast starts (`at`: eve | start), so a workshop's stock is not held longer than the feast.
+static func ai_entries(sim: Sim, inst: Dictionary, at: String = "eve") -> void:
 	var kinds: Array = []
-	for k: String in ["town_gift", "audience", "contest"]:
+	for k: String in (["town_gift", "audience"] if at == "eve" else ["contest"]):
 		if not effect(sim, inst, k).is_empty():
 			kinds.append(k)
 	if kinds.is_empty():
@@ -331,7 +351,7 @@ static func ai_entries(sim: Sim, inst: Dictionary) -> void:
 						sim.give({"type": "festival_audience", "actor": head, "festival": str(inst["id"]),
 							"privilege": str(privileges_open(sim)[0])})
 				"contest":
-					if not best_piece(sim, fam, head, []).is_empty():
+					if not trade_items(sim, fam).is_empty() and not best_piece(sim, fam, head, trade_items(sim, fam)).is_empty():
 						sim.give({"type": "festival_enter_contest", "actor": head, "festival": str(inst["id"])})
 
 
@@ -438,13 +458,28 @@ static func _judge(sim: Sim, inst: Dictionary, e: Dictionary) -> void:
 			win = i
 	var w: Dictionary = entries[win]
 	var fam := str(w["family"])
-	Money.change(sim, fam, int(e.get("prize", 60)), Money.EVENTS, str(inst["id"]), "", str(w.get("actor", "")))
-	Reputation.change(sim, fam, int(e.get("reputation", 6)), "festival_contest")
+	if int(e.get("prize", 0)) > 0:
+		Money.change(sim, fam, int(e.get("prize", 0)), Money.EVENTS, str(inst["id"]), "", str(w.get("actor", "")))
+	# The prize is fame and reputation (owner, 2026-11-05): reputation, the fame among the artisans (the class modifier
+	# of 4.12.1) and a contest won on the workshop (what the workshop's fame of 04g 4.6.5.7 will count).
+	Reputation.change(sim, fam, int(e.get("reputation", 6)), "festival_contest", str(e.get("fame_class", "artisan")),
+		int(e.get("fame", 10)))
+	var src := str(w.get("from", ""))
+	for h: Dictionary in inst.get("held", []):
+		if str(h["family"]) == fam and str(h["item"]) == str(w["item"]) and int(h["quality"]) == int(w["quality"]):
+			src = str(h["from"])
+	if not sim.state.buildings.has(src):
+		for b: String in Titles.business_ids(sim, fam):
+			src = b
+			break
+	if sim.state.buildings.has(src):
+		sim.state.buildings[src]["contests_won"] = int(sim.state.buildings[src].get("contests_won", 0)) + 1
 	inst["contest_winner"] = win
 	Chronicle.add(sim.state, "contest_won", {"family": fam, "character": str(w.get("actor", "")), "item": str(w["item"]),
 		"quality": int(w["quality"]), "festival": str(inst["def"]), "entries": entries.size()})
 	sim.events.append({"type": "festival_contest", "festival": str(inst["id"]), "def": str(inst["def"]), "family": fam,
-		"item": str(w["item"]), "quality": int(w["quality"]), "prize": int(e.get("prize", 60)), "entries": entries.size()})
+		"item": str(w["item"]), "quality": int(w["quality"]), "prize": int(e.get("prize", 0)), "fame": int(e.get("fame", 10)),
+		"reputation": int(e.get("reputation", 6)), "entries": entries.size()})
 	for f: String in Festivals._humans(sim.state):
 		Notices.add(sim, f, Notices.INFO, "notice.festival_contest_won", {"family": str(sim.state.families.get(fam, {}).get(
 			"name", "")), "item": str(w["item"])})
@@ -491,6 +526,9 @@ static func ai_sponsor(sim: Sim, inst: Dictionary) -> void:
 		if Festivals.part_taken_by(inst, part) == fam:
 			book[fam + "|" + str(year)] = int(book.get(fam + "|" + str(year), 0)) + 1
 			sim.state.festivals["ai_sponsored"] = book
+			for h: String in Festivals._humans(sim.state):  # the player sees it and may bid (owner, 2026-11-05)
+				Notices.add(sim, h, Notices.INFO, "notice.festival_ai_sponsored", {"family": str(f.get("name", "")),
+					"part": part, "festival": str(inst["def"]), "gold": Festivals.bid_price(sim, inst, part)})
 			if OS.is_debug_build():
 				print("[FestivalCourt] %s (IA) patrocina %s de %s" % [fam, part, inst["id"]])
 
