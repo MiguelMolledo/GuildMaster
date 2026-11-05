@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://do75xaurqd2pe"]
+
+[ext_resource type="Script" uid="uid://dkygvhxtdwref" path="res://game/world/block_view.gd" id="1_block"]
+
+[node name="RuinRubble" type="Node2D"]
+editor_description = "A tile of rubble inside a ruin (data/maps plots, state ruin; 04 §4.9.1): the fallen roof. Greybox until its sprite."
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -4)
+
+[node name="Greybox" type="Node2D" parent="."]
+script = ExtResource("1_block")
+height = 4.0
+color = Color(0.4, 0.36, 0.31, 1)

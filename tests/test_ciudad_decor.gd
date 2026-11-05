@@ -36,7 +36,7 @@ func test_every_decor_house_is_drawn_with_its_look_and_mirror() -> void:
 		var p := v.prop_at(t)
 		eq(_id(p), str(it["id"]), "house at %s" % t)
 		eq(p.scale.x, -1.0 if bool(it.get("flip", false)) else 1.0, "mirror of the house at %s" % t)
-	check(houses >= 2, "town_e has decor houses (%d)" % houses)
+	check(houses >= 1, "town_e has decor houses (%d; the rest of its filler lots are plots, 04 §4.9.1)" % houses)
 	v.free()
 
 
