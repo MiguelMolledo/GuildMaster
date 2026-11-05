@@ -79,12 +79,13 @@ godot --headless --path . -s tools/full_player.gd -- [--bot=full_player|chaos_pl
     [--seeds=3 | --seed-list=1,4] [--difficulty=normal] [--roundtrip] [--tag=<nombre>] [--no-check]
 python3 tools/full_report.py [reports/<carpeta> ...]       # el resumen HTML (index.html en cada carpeta)
 python3 tools/qa/noche.py [--seeds=5] [--gen-seeds=2] [--chaos-seeds=3]   # las corridas largas, de noche
+godot --headless --path . -s tools/full_player.gd -- --bot=idle_player --years=3 --seeds=3   # la IA sola
 ```
 
 `--years=N` juega N años (3 por defecto, 24 días). `--generation` juega hasta que muere el fundador y el heredero ha llevado la
 casa 8 días más (como mucho, hasta la edad de muerte segura). En `run_all`, los pasos `full` y `chaos` juegan 1 año con
-1 semilla (~35 s cada uno) y `full_html` hace su resumen. La noche corre 3 años × 5 semillas, una generación × 2 y el
-caótico 3 años × 3, y escribe `reports/qa/noche.md`. `BOT_VARS=goals=0` prueba el jugador sin metas propias (solo el
+1 semilla (~35 s cada uno) y `full_html` hace su resumen. La noche corre 3 años × 5 semillas, una generación × 2, el
+caótico 3 años × 3 e `idle_player` 3 años × 3, y escribe `reports/qa/noche.md`. `BOT_VARS=goals=0` prueba el jugador sin metas propias (solo el
 negocio), para ver lo que le cuesta cada meta.
 
 **El informe** (`reports/<bot>[_<tag>]/<semilla>.json`, `summary.json` e `index.html`) recoge:
@@ -106,6 +107,22 @@ negocio), para ver lo que le cuesta cada meta.
 
 El caótico, además, guarda y carga cada día en memoria, compara el hash y sigue jugando con lo cargado (`--roundtrip`
 hace lo mismo con el completo). También comprueba los estados imposibles: oro negativo o alguien fuera del mapa.
+
+**El resto del mundo** lo mide `tools/full_watch.gd`, en la misma partida.
+- **Las familias rivales** (las de la IA con perfil). De cada una: la curva de oro, título, reputación, edificios y
+  familia; títulos, cargos, bodas, hijos y herencias; ventas, compras y encargos; los encargos de fiesta que le ganó al
+  jugador; sus ataques al jugador (hoy, el juicio); qué tareas eligió en cada plan de `RivalAI` y cuáles terminó; sus
+  órdenes rechazadas; los días parada (sin vender ni trabajar) y sin oro; y los atascos de su cabeza (16 h sin moverse).
+  La agenda de intenciones de 04c es H6 y no está hecha: lo que se mide es el plan de tareas de hoy.
+- **El pueblo.** Cada hora, la actividad y las necesidades de los vecinos (`Agenda.view`), con la peor parte de horas
+  con una necesidad baja (< 25), por separado para adultos, empleados y niños. Además: los vecinos atascados (20 h),
+  la población al final de cada año, las bodas, nacimientos y muertes, los forasteros por día y por tipo, los sucesos
+  por estación y la guardia (llamadas, llegadas y minutos hasta llegar).
+
+`--bot=idle_player` juega la misma partida sin hacer nada (como `idle`): el jugador se arruina hacia el día 11 y el
+mundo sigue hasta el horizonte (`ending_day` dice cuándo acabó la suya). Sirve para ver si la IA y el pueblo avanzan
+solos. El formato de los JSON es estable y está documentado en `docs/contratos/informe_jugador_completo.md`
+(`format_version`). Lo leen el HTML y el resumen de balance de la rama `verifica`.
 
 **Dianas** (`data/targets.json`, `full_player` y `chaos_player`; `_needs_days` deja fuera lo que una corrida corta no puede
 juzgar).

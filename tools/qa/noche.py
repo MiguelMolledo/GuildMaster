@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Las corridas largas del jugador completo y del caótico, para la noche (docs/gdd/07_testing.md §7.4).
 
-  python3 tools/qa/noche.py [--seeds=5] [--gen-seeds=2] [--chaos-seeds=3] [--skip=full,gen,chaos]
+  python3 tools/qa/noche.py [--seeds=5] [--gen-seeds=2] [--chaos-seeds=3] [--skip=full,gen,chaos,idle]
 
 full:  full_player 3 años × --seeds semillas        → reports/full_player/
 gen:   full_player una generación × --gen-seeds      → reports/full_player_generation/ (la muerte del fundador y la herencia)
 chaos: chaos_player 3 años × --chaos-seeds           → reports/chaos_player/ (guarda y carga cada día)
+idle:  idle_player 3 años × --chaos-seeds            → reports/idle_player/ (el jugador no hace nada: la IA sola)
 Después, el resumen HTML de cada carpeta (tools/full_report.py) y reports/qa/noche.md. Sin ventana: no hace falta
 `grimoire heavy`, pero son horas de CPU (una generación ≈ 25-40 min por semilla): mejor de noche y sola.
 Sale con 1 si alguna corrida falla sus dianas (data/targets.json full_player / chaos_player).
@@ -31,7 +32,8 @@ def main(argv):
     skip = opt(argv, "skip", "").split(",")
     runs = [("full", G + ["--years=3", f"--seeds={seeds}"], "reports/full_player"),
             ("gen", G + ["--generation", f"--seeds={gen}", "--tag=generation"], "reports/full_player_generation"),
-            ("chaos", G + ["--bot=chaos_player", "--years=3", f"--seeds={chaos}"], "reports/chaos_player")]
+            ("chaos", G + ["--bot=chaos_player", "--years=3", f"--seeds={chaos}"], "reports/chaos_player"),
+            ("idle", G + ["--bot=idle_player", "--years=3", f"--seeds={chaos}"], "reports/idle_player")]
     os.makedirs(os.path.join(ROOT, "reports", "qa", "logs"), exist_ok=True)
     rows, failed = [], 0
     for name, cmd, out in runs:
@@ -56,7 +58,7 @@ def main(argv):
         if m:
             md += ["", f"## {a}: dianas fallidas", ""] + [f"- {x}" for x in m]
     md += ["", "Resúmenes: reports/full_player/index.html, reports/full_player_generation/index.html, "
-           "reports/chaos_player/index.html."]
+           "reports/chaos_player/index.html, reports/idle_player/index.html."]
     with open(os.path.join(ROOT, "reports", "qa", "noche.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(md) + "\n")
     print("noche: todo bien" if not failed else f"noche: {failed} corridas fallan")

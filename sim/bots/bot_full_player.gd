@@ -179,7 +179,7 @@ func _always(sim: Sim) -> Array:
 					str(o["target"])), {}) as Dictionary).get("talk_day", -1)) == _today(sim):  # a read: never relation()
 				continue  # they already talked today (in the town's own life): the order would be refused
 			out.append(o)
-	if _business(sim):
+	if _business(sim) and focus != "travel":  # packing for a trip takes the same swords: no caravan meanwhile
 		var c := _caravan(sim)
 		if not c.is_empty():
 			out.append(c)
