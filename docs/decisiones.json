@@ -623,6 +623,78 @@
       "tema": "Arte de los minijuegos (04f §4.26): medidas de los fondos y del galope",
       "decision": "(1) Los fondos de tablero van a 440×192 nativos ×2 = 880×384 (21:9), no a 16:9 como la mesa: el tablero (404×180 como mínimo) recorta abajo y en el centro a ½, y en 16:9 perdería el tercio de arriba. (2) La pista de la carrera va a 404×192 ×2 = 808×384, sin recorte lateral, para que la salida y la meta queden dentro. (3) El galope se entrega en race/horse_run.png (tira de 4 de 28×18) y race/horse.png es el primer fotograma suelto, porque board_race.gd dibuja horse.png entero a 28×18 (una tira de 112 se aplastaría); el tablero puede pasar a la tira cuando quiera. (4) El cubilete se dibuja con Pillow (24×24, boca abajo): el de fal salía con la boca arriba. (5) En la calle de la sortija el travesaño va sin nada colgado (la anilla la pinta el tablero): con cuerda parecía una horca.",
       "por_que": "Que el arte encaje con lo que el código de juegos ya hace (recorte a ½ abajo y al centro, tamaño de dibujo del caballo) sin pedirle cambios, y que se lea bien."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 1 · regalos de cortejo",
+      "decision": "Solo cuenta para la afinidad el primer regalo del día a cada pretendiente; los demás se aceptan sin efecto y la pantalla lo dice.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 2 · partida sin salida",
+      "decision": "Nunca puede quedar una partida muerta. Sin oro ni existencias se ofrece un préstamo de urgencia del prestamista (pequeño, caro, con plazo); si no se puede o no se toma y la deuda de mantenimiento pasa de su umbral, llega el embargo de un bien (lo más caro que no sea la casa) y, sin bienes, la ruina con la pantalla de fin.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 3 · Ciudadano",
+      "decision": "La mediana del título de Ciudadano debe caer en el año 2 (días 9-16), como pide 03b, para que viajar llegue a tiempo; se ajustan sus requisitos y se mide con full_player.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 4 · Barón",
+      "decision": "Lo resuelve H6 (parcelas, construir y comprar negocios, 4.9.1); diana: Barón alcanzable en una generación por full_player. La taberna sigue sin contar para el tope (O-V11) pero sí como negocio para el requisito.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 5 · sumidero de oro",
+      "decision": "Los sumideros grandes llegan con H6 (construir, restaurar ruinas, comprar negocios) y se añade una pecha progresiva por patrimonio al cierre del año; se mide el oro final de una generación después de H6.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 6 · tribunal",
+      "decision": "La IA rival de 04c (H6) comete faltas que pueden hacerse públicas (pesos falsos, impagos, contrabando) y dan hechos para acusar; diana: al menos un hecho acusable por año en full_player.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 7 · caravanas y tratados",
+      "decision": "Se reequilibran para que compensen en el año 2-3: más prima en la capital para las piezas de calidad y reputación en la capital también por encargos y ventas allí, no solo por caravanas; diana en el bot merchant y en full_player.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 8 · mostrador",
+      "decision": "Con la clientela de comarca de 04g §4.6.5.7 el mostrador con un empleado debe dejar al menos el doble de su salario; se mide junto con D16.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 9 · obras de mejora",
+      "decision": "Las mejoras pequeñas se hacen de noche sin parar la forja; las grandes la dejan trabajando al 50 % mientras duran.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 10 · cortejar a diario",
+      "decision": "Se deja: es un coste elegido (menos producción a cambio de boda antes). Se vuelve a medir con el tope del punto 1.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 11 · encargos de fiesta en los bots",
+      "decision": "Los bots miran el plazo real en horas, no redondeado al día; el arreglo va a todos los bots y sus dianas se miden de nuevo.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 12 · ritmo",
+      "decision": "El hueco máximo entre decisiones (< 60 s, 03b) debe cumplirse también en días de obras; se espera que lo arregle el punto 9 y se mide con pacing y full_player.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
     }
   ],
   "pendientes": [
