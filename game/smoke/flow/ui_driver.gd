@@ -21,8 +21,13 @@ func _init(t: SceneTree) -> void:
 	root = t.root if t != null else null
 
 
+## The driver's mouse events carry the meta flow_driver: with a window, FlowRunner drops every other mouse event (the
+## machine's own cursor, somebody using it) so they cannot move the hover or click while a flow plays.
+
+
 ## Hands the event to Input as the OS would, and flushes at once: the events go in the order they were made.
 func _send(e: InputEvent) -> void:
+	e.set_meta("flow_driver", true)   # the driver's (with a window, FlowRunner drops the machine's own mouse and keys)
 	Input.parse_input_event(e)
 	Input.flush_buffered_events()
 
@@ -181,6 +186,7 @@ func key(name: String, shift: bool = false, hold_frames: int = 1) -> String:
 func type_text(text: String) -> void:
 	for ch: String in text:
 		var e := InputEventKey.new()
+		e.set_meta("flow_driver", true)
 		e.unicode = ch.unicode_at(0)
 		e.keycode = OS.find_keycode_from_string(ch.to_upper()) if ch != " " else KEY_SPACE
 		e.pressed = true
@@ -476,6 +482,8 @@ func click(spec: Variant, button: String = "left", double: bool = false) -> Stri
 		await move_to(at + Vector2(1, 0), 1)
 		await move_to(at, 1)
 		h = hovered()
+	if h != null and not h.get_global_rect().has_point(at):
+		h = null   # the machine's own cursor: the press picks the control at its position, and its signal is checked
 	if h != null and not is_inside(h, c) and not is_inside(c, h):
 		return "%s: lo tapa %s (%s sobre %s)" % [path_of(c), path_of(h), _r(h.get_global_rect()), _r(c.get_global_rect())]
 	var got := {"pressed": false, "input": false}
