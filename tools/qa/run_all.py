@@ -17,7 +17,8 @@ semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), d
 duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días), life
 (vida, 04f 4.28.4: el bot guard_watch en life_bandits, 3 semillas × 16 días; las dianas de antes corren con la vida
 apagada, data/targets.json _no_life), festive (fiestas: un año con el calendario de fiestas, 3 semillas × 8 días) y
-bench_fair (el coste del sim el día de la feria). Con
+bench_fair (el coste del sim el día de la feria), full y chaos (07 §7.4: el jugador completo y el caótico con todo
+encendido, 1 año y 1 semilla; las corridas largas, de noche con tools/qa/noche.py) y full_html (su resumen). Con
 --visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
 """
@@ -62,6 +63,9 @@ STEPS = [
     ("festive", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=festive", "--days=8",
                      "--seeds=3"]),
     ("bench_fair", G + ["-s", "tools/sim_bench.gd", "--", "--at-day=3", "--days=1", "--runs=3"]),
+    ("full", G + ["-s", "tools/full_player.gd", "--", "--years=1", "--seed-list=1", "--tag=qa"]),
+    ("chaos", G + ["-s", "tools/full_player.gd", "--", "--bot=chaos_player", "--years=1", "--seed-list=1", "--tag=qa"]),
+    ("full_html", [sys.executable, "tools/full_report.py", "reports/full_player_qa", "reports/chaos_player_qa"]),
 ]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]

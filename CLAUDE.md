@@ -124,6 +124,10 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
   tools/sim_runner.gd -- --scenario=life_bandits --bots=guard_watch --days=16 --seeds=5` (en `run_all`, paso life);
   coste `tools/sim_bench.gd [-- --life=off]`; puntos y rondas de un mapa `python3 tools/city/ciudad.py reunion <mapa>`;
   escenarios `tools/scenarios/make_life_scenarios.gd`. Captura: `--smoke-script=vida`. Contrato: `docs/contratos/vida.md`.
+- Jugador completo (07 §7.4, toda la partida con todo encendido; al tocar cualquier sistema que se juegue junto a otros):
+  `godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 [--bot=chaos_player] [--generation]` y
+  `python3 tools/full_report.py` → `reports/full_player/index.html` (en `run_all`, pasos full, chaos y full_html; de
+  noche, `python3 tools/qa/noche.py`). Dianas `full_player` / `chaos_player`.
 - Todo junto: `python3 tools/qa/run_all.py [--visual]`.
 - Con ventana, la última comprobación y siempre por la cola: `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**

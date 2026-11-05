@@ -822,5 +822,131 @@
         null
       ]
     }
+  },
+  "full_player": {
+    "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche.",
+    "_needs_days": {
+      "debt_paid": 8,
+      "debt_paid_day": 8,
+      "net_year_1": 8,
+      "title_citizen": 24,
+      "title_citizen_day": 24,
+      "wed": 24,
+      "had_child": 24,
+      "mechanics_used": 24,
+      "inherited": 280,
+      "game_over": 280
+    },
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "engine_errors": [
+      0,
+      0
+    ],
+    "hangs": [
+      0,
+      0
+    ],
+    "gold_negative": [
+      0,
+      0
+    ],
+    "off_map": [
+      0,
+      0
+    ],
+    "debt_paid": [
+      1,
+      1
+    ],
+    "debt_paid_day": [
+      1,
+      8
+    ],
+    "title_citizen_day": [
+      1,
+      24
+    ],
+    "step_ms_mean": [
+      0,
+      5
+    ],
+    "mechanics_used": [
+      14,
+      null
+    ],
+    "inherited": [
+      1,
+      1
+    ],
+    "game_over": [
+      0,
+      0
+    ],
+    "_mean": {
+      "net_year_1": [
+        25,
+        null
+      ],
+      "title_citizen_day": [
+        9,
+        24
+      ]
+    },
+    "_share": {
+      "title_citizen": [
+        0.66,
+        null
+      ],
+      "wed": [
+        0.66,
+        null
+      ],
+      "had_child": [
+        0.3,
+        null
+      ]
+    }
+  },
+  "chaos_player": {
+    "_doc": "Jugador caótico (docs/gdd/07_testing.md §7.4): sim/bots/bot_chaos_player.gd, la misma partida que full_player con decisiones al azar y una orden válida al azar cada ~40 minutos de juego (sesgo hacia los sistemas menos tocados; hasta saldar la deuda inicial, solo órdenes que no gastan). Guarda y carga cada día y sigue con lo cargado. Diana: nada se rompe: 0 errores del motor, 0 pasos de más de 2 s, ida y vuelta del guardado idéntica, nunca oro negativo ni nadie fuera del mapa, el libro cuadra. Ritual: godot --headless --path . -s tools/full_player.gd -- --bot=chaos_player --years=3 --seeds=3; en run_all, paso chaos (1 año, 1 semilla). Medido (2026-11-05, 2 semillas × 3 años): 24 idas y vueltas por semilla sin diferencias, 0 errores; una semilla se queda sin oro ni existencias el día 8 y ya no se recupera (bloqueo blando, docs/decisiones.json).",
+    "engine_errors": [
+      0,
+      0
+    ],
+    "hangs": [
+      0,
+      0
+    ],
+    "roundtrip_mismatch": [
+      0,
+      0
+    ],
+    "load_errors": [
+      0,
+      0
+    ],
+    "gold_negative": [
+      0,
+      0
+    ],
+    "off_map": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "roundtrips": [
+      1,
+      null
+    ]
   }
 }
