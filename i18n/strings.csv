@@ -741,6 +741,11 @@ notice.inspection_fined,"{building}: an inspection found irregularities, fine of
 notice.inspection_escaped,"{building}: an inspection came, the hidden passage saved you","{building}: ha venido una inspección, el pasadizo oculto te ha salvado"
 ui.interior.upgrades_tip,The building's upgrade tree,Árbol de mejoras del edificio
 ui.interior.works,Under construction: %s · %s left,En obras: %s · quedan %s
+ui.interior.floor_up,Upstairs,Planta alta
+ui.interior.floor_down,Downstairs,Planta baja
+ui.interior.floor_tip,See the other floor without moving anybody (wheel or PageUp / PageDown),Ver la otra planta sin mover a nadie (rueda o AvPág / RePág)
+ui.interior.counter_busy,Someone is already serving,Ya hay alguien atendiendo
+ui.interior.order_waiting,Waiting,Esperando
 ui.upgrades.title,%s · upgrades,%s · mejoras
 ui.upgrades.level,Lv %d,Nv %d
 ui.upgrades.status.owned,Built,Construida

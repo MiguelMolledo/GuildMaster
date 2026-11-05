@@ -52,7 +52,13 @@
     "rank_bonus": {"apprentice": 0.0, "journeyman": 0.05, "master": 0.10},
     "reputation_mult": 0.15,
     "reputation_cap": 0.15,
-    "haggle_min_negotiation": 6
+    "haggle_min_negotiation": 6,
+    "clientele": {
+      "_doc": "04g 4.6.5.7: the countryside's customers (sim/town/clientele.gd). enabled false: the targets of today run without them (measure with --set=town.counter.clientele.enabled=true). base_per_day by building type [balance]; the fame of a shop is 1 until defined; the provider choice (elasticity, no_go, reputation) is data/services.json's (4.22.3.2, shared with the inn); fame_price and taste for the most they pay; max_waiting at once.",
+      "enabled": false,
+      "base_per_day": {"forge": 6.0, "carpentry": 6.0, "masonry": 4.0, "tailor_shop": 6.0},
+      "fame_price": 0.1, "taste": 1.0, "max_waiting": 4
+    }
   },
   "_microevents_doc": "4.20. At dawn, each playing family (human or AI with a profile) that owns buildings rolls base_chance x the difficulty's microevent_chance; at most max_per_family_day. The microevents themselves: data/microevents/<id>.json. timeout_hours: the default of a microevent without its own. thief_start_hours: the thief comes this many hours [min, max] after night starts.",
   "microevents": {"base_chance": 0.35, "max_per_family_day": 1, "timeout_hours": 2, "thief_start_hours": [1, 5]},

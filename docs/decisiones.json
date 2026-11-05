@@ -777,6 +777,12 @@
       "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
     },
     {
+      "fecha": "2026-11-05",
+      "tema": "Interiores II · clientela de la comarca (04g 4.6.5.7)",
+      "decision": "La clientela de la comarca vive en el sim (sim/town/clientele.gd): registros en state.town.clientele, no personajes; vienen al mostrador que vende según base(tipo) × fama × estación × fiesta × reparto (atractivo de 4.22.3.2, que ya lleva la reputación), pagan con oro de fuera hasta su precio máximo (precio base × calidad × (1 + fama × 0,1) × gusto) y los atiende quien está en el mostrador. Apagada por defecto (data/town.json counter.clientele.enabled false): las dianas no se mueven. En el interior aparecen en su sitio con un fundido y se van igual; los vecinos entran andando desde la puerta. La fama de un taller vale 1 hasta que se implemente Equilibrio 13; la unificación con la clientela de la posada es Equilibrio 14.",
+      "por_que": "Encargo del manager con las decisiones O-I1 (b), O-I2 (a) y O-I3 (a) del owner. Apagada hasta medir su balance con los bots de cada oficio, como la vida del pueblo (_no_life)."
+    },
+    {
       "fecha": "2026-11-04",
       "tema": "Forja viva (03b §3b.2, O-D1 a, O-D4 a)",
       "decision": "Construida como modo de trabajo `live` (sim/forge/live_forge.gd, data/live_forge.json): calentar, batir y templar como órdenes live_forge que se aplican al momento y quedan en la grabación; cada decisión sale bien, cerca o mal; tres bien +1 escalón, dos mal −1; sin decidir nada, exactamente el modo normal (mismos dados). En el yunque de la forja el tercer botón pasa de «Con cuidado» a «Forja viva»; `careful` y el toque de maestro siguen en el sim para los bots, los guardados y los otros oficios. Gracia de 0,5 h al final del ciclo; solo se repite en Forja viva si se jugó hasta el temple. La pantalla pone ×1 mientras está abierta. Obra maestra: Artesanía ≥ 7, las tres bien y una tirada del 10 % [balance]; con nombre (santo + apellido), en la crónica y en masterworks.pieces; la venta a nobles ×3, el regalo y la ventaja en justas y duelo quedan como ganchos.",

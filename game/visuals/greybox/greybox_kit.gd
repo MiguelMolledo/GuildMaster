@@ -54,6 +54,18 @@ extends Node2D
 	set(v):
 		door_texture_nw = v
 		_rebuild()
+## A painted room (docs/arte/interiores.md): one picture of the floor and the two back walls (with the door and what
+## hangs on them), drawn under everything instead of the tiles and wall segments. The pieces are still built (the
+## door, the size and the tests read them) but hidden. backdrop_offset = the picture's top-left corner from the centre
+## of tile (0, 0). Empty = the tiles and segments above.
+@export var backdrop: Texture2D:
+	set(v):
+		backdrop = v
+		_rebuild()
+@export var backdrop_offset: Vector2 = Vector2.ZERO:
+	set(v):
+		backdrop_offset = v
+		_rebuild()
 
 
 func _ready() -> void:
@@ -91,6 +103,14 @@ func build() -> void:
 	for n: Node in get_children():
 		remove_child(n)
 		n.queue_free()
+	if backdrop != null:
+		var bd := Sprite2D.new()
+		bd.name = "Backdrop"
+		bd.texture = backdrop
+		bd.centered = false
+		bd.offset = backdrop_offset
+		bd.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		add_child(bd)
 	var fl := Node2D.new()
 	fl.name = "Floor"
 	add_child(fl)
@@ -108,6 +128,13 @@ func build() -> void:
 		wl.add_child(_wall(Vector2i(c, 0), "ne"))
 	for r: int in size.y:
 		wl.add_child(_wall(Vector2i(0, r), "nw"))
+	fl.visible = backdrop == null
+	wl.visible = backdrop == null
+
+
+## The painted room, or null (backdrop empty).
+func backdrop_sprite() -> Sprite2D:
+	return get_node_or_null("Backdrop") as Sprite2D
 
 
 func _wall(t: Vector2i, side: String) -> KitWall:

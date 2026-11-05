@@ -17089,6 +17089,303 @@
   "que": "image2pixel ev_boda_vecinos_i2p.png"
  },
  {
+  "fecha": "2026-11-04T23:38:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia forge_a_prueba_nano2 (18 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:38:18",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-pro/edit",
+  "imagenes": 1,
+  "usd": 0.15,
+  "que": "referencia forge_a_prueba_nanopro (25 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:38:38",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/bytedance/seedream/v4.5/edit",
+  "imagenes": 1,
+  "usd": 0.04,
+  "que": "referencia forge_a_prueba_seedream45 (45 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:10",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia forge_b (14 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:10",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia forge_a (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia carpentry_a (16 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia armory_b (16 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:12",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia armory_a (17 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:31",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia tailor_shop_a (14 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:31",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia carpentry_b (16 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:31",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia masonry_b (14 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:31",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia masonry_a (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:31",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia tailor_shop_b (14 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:50",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia court_a (13 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:51",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia town_hall_a (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:51",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia tavern_a (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:51",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia town_hall_b (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:39:57",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia court_b (13 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:40:09",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia house_a (13 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:40:10",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia house_b (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:40:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia church_a (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:40:11",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia church_b (15 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:40:51",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia tavern_b (18 s)"
+ },
+ {
+  "fecha": "2026-11-04T23:44:52",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "piloto forja: fondo v2"
+ },
+ {
+  "fecha": "2026-11-04T23:44:54",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "piloto forja: fondo v1"
+ },
+ {
+  "fecha": "2026-11-04T23:44:56",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-pro/edit",
+  "imagenes": 1,
+  "usd": 0.15,
+  "que": "piloto forja: fondo pro1"
+ },
+ {
+  "fecha": "2026-11-04T23:46:02",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "piloto forja: piezas v2"
+ },
+ {
+  "fecha": "2026-11-04T23:46:04",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "piloto forja: piezas v1"
+ },
+ {
+  "fecha": "2026-11-04T23:46:42",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0018,
+  "que": "image2pixel furnace_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T23:46:46",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel anvil_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T23:46:50",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel coal_bin_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T23:46:55",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel grindstone_s8.png"
+ },
+ {
+  "fecha": "2026-11-04T23:51:06",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.002,
+  "que": "image2pixel furnace_s6.png"
+ },
+ {
   "fecha": "2026-11-05T00:31:34",
   "tanda": "h16",
   "pieza": "ilustraciones",
@@ -17762,5 +18059,3821 @@
   "imagenes": 1,
   "usd": 0.0004,
   "que": "image2pixel s2_race_4_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T02:14:51",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g19_w_town_hall_a (9 piezas, 13 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:14:51",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g04_s_forge_b (9 piezas, 14 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:14:53",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g13_l_armory_a (4 piezas, 15 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:16:01",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g01_xs_forge_b (16 piezas, 21 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:16:58",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g02_xs_house_b (16 piezas, 13 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:16:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g03_xs_tailor_shop_a (16 piezas, 14 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:16:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g05_s_armory_a (9 piezas, 15 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g06_s_house_b (9 piezas, 21 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:10",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g07_s_tavern_a (9 piezas, 12 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:12",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g08_s_house_a (9 piezas, 13 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:17",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g09_s_carpentry_b (9 piezas, 17 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g10_s_masonry_a (9 piezas, 12 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g12_s_town_hall_b (9 piezas, 12 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:38",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g16_l_carpentry_a (4 piezas, 14 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:40",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g14_l_house_b (4 piezas, 23 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:42",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g15_l_tavern_b (4 piezas, 24 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:43",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g11_s_tailor_shop_b (9 piezas, 34 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:51",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g17_l_court_b (4 piezas, 13 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:17:53",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g18_l_masonry_b (4 piezas, 14 s)"
+ },
+ {
+  "fecha": "2026-11-05T02:18:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0019,
+  "que": "image2pixel jug_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0019,
+  "que": "image2pixel scissors_chalk_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0019,
+  "que": "image2pixel bellows_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.002,
+  "que": "image2pixel ingot_pile_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:22",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mugs_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:22",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel cloth_roll_red_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:22",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel smith_hammer_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:23",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel quench_tub_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:25",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel plate_bread_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:26",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tongs_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:26",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel cloth_roll_blue_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:27",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel water_barrel_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:28",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel bowl_stew_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:28",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel horseshoes_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:29",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel thread_spools_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:30",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tool_rack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:31",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel cheese_wheel_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:32",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel nail_box_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:32",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel pincushion_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:33",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel ingot_stack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:34",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel bread_loaves_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:35",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel sword_blank_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:36",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel open_book_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:37",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel sword_rack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:38",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel apple_basket_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:38",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel balance_scale_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:39",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel scroll_pile_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:40",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel horseshoe_crate_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:41",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel candle_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:42",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel ledger_book_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:42",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel quill_inkwell_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:44",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel cooking_pot_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:44",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel coal_sack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:45",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel coin_pile_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:45",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel wax_seal_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:47",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tankards_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:47",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel armor_stand_forge_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:48",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel candlestick_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:48",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel coin_purse_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:50",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel wine_bottle_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:51",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel weapon_display_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:51",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel chisel_set_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:52",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel dagger_cloth_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:53",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel plate_roast_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:54",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel wood_mallet_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:54",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel shield_stand_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel helmet_small_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:56",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel lute_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:57",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel stone_chisels_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:57",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel armor_mannequin_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:58",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel water_pail_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:18:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel dice_cup_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:00",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel herb_bundle_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:01",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel helmet_shelf_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:03",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel flower_vase_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:03",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel charcoal_basket_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:03",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel lantern_small_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:05",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel mail_chest_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel key_ring_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel file_rasp_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:07",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel offering_bowl_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:08",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel banner_stand_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:09",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel chain_coil_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:10",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel chest_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:10",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel cask_tap_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:12",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel spear_rack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:13",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel barrel_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:13",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel wardrobe_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel bar_stool_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:16",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel candle_stand_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:17",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel crate_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:17",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel cradle_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:17",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tavern_chair_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:19",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel strongbox_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:20",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel stool_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:20",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel crate_stack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:20",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel fireplace_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:23",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel sawhorse_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:23",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel chair_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel sack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel keg_stack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:26",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel plank_stack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:27",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel kitchen_hearth_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:28",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel sack_pile_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:28",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel round_table_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:30",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel log_pile_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:31",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel wicker_basket_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:31",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel crockery_shelf_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:32",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel bench_short_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:34",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel half_chair_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:35",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel firewood_pile_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:35",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel standing_lantern_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:35",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel washtub_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:37",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel unfinished_barrel_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:38",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel big_jar_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:38",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel coat_rack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:38",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel pantry_shelf_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:41",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tool_pegboard_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:42",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel bucket_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:42",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel dress_form_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:42",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel stone_block_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:44",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel chopping_block_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:46",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mayor_chair_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:46",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel ashlar_stack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:46",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel spinning_wheel_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:47",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel glue_pot_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:49",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel archive_cabinet_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:49",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel small_crane_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:49",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel cloth_shelf_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:51",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel shavings_heap_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:52",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel lectern_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:53",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mirror_standing_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:54",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel rubble_pile_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel shop_counter_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:56",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel thread_basket_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:56",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel witness_stand_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:57",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel template_rack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel display_shelf_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:19:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel fabric_stack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:00",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel pulpit_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:00",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel statue_unfinished_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:03",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel hat_stand_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:03",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel bar_counter_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:04",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel baptismal_font_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:04",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel column_drum_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel sewing_chair_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:07",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel candelabra_tall_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:08",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel stone_trough_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:08",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel weapon_panoply_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:10",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel fitting_screen_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel town_banner_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mason_toolbox_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:12",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel bed_single_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tavern_table_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel heraldic_stand_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:15",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel carpenter_bench_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:17",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel bed_double_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tavern_bench_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel judge_bench_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:20",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel loom_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:21",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel dining_table_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:22",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel dock_rail_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:22",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel minstrel_stage_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel cutting_table_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel kitchen_table_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:26",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel staircase_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:27",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel pew_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:28",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel council_table_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:28",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel stone_bench_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:30",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tapestry_red_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:31",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel altar_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:33",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel pit_hearth_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:33",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tapestry_green_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:37",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel shield_crest_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:37",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel market_shelf_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:40",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel banner_wall_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:41",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel bunk_bed_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:44",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel herbs_hanging_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:48",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel onion_string_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:52",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tool_board_wall_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel wall_shelf_jars_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:20:58",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel horseshoe_nails_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:40",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0025,
+  "que": "image2pixel scissors_chalk_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:40",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0025,
+  "que": "image2pixel jug_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:40",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0025,
+  "que": "image2pixel bellows_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:41",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0025,
+  "que": "image2pixel ingot_pile_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:43",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel mugs_s15.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:43",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cloth_roll_red_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:43",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel smith_hammer_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:43",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel quench_tub_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:45",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel plate_bread_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:45",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel tongs_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:45",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cloth_roll_blue_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:46",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel water_barrel_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:47",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel horseshoes_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:48",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel bowl_stew_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:48",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel thread_spools_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:49",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel tool_rack_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:50",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel nail_box_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:50",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel pincushion_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:50",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cheese_wheel_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:52",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel ingot_stack_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:52",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel sword_blank_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:52",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel bread_loaves_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:53",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel open_book_s17.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:54",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel sword_rack_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel balance_scale_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel apple_basket_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel scroll_pile_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:57",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel ledger_book_s17.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:57",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel candle_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:57",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel horseshoe_crate_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:57",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel quill_inkwell_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel coin_pile_s19.png"
+ },
+ {
+  "fecha": "2026-11-05T02:22:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cooking_pot_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:00",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel wax_seal_s20.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:00",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel coal_sack_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:01",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel coin_purse_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:01",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel tankards_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:02",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel candlestick_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:02",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel armor_stand_forge_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:04",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel wine_bottle_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:04",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel dagger_cloth_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:04",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel chisel_set_s15.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:05",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel weapon_display_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel plate_roast_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel helmet_small_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:07",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel wood_mallet_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:07",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel shield_stand_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:09",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel water_pail_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:09",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel stone_chisels_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:09",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel lute_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:10",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel armor_mannequin_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel charcoal_basket_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel herb_bundle_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:12",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel dice_cup_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:12",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel helmet_shelf_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:13",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel file_rasp_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel lantern_small_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel flower_vase_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:15",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel mail_chest_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:16",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel chain_coil_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:16",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel offering_bowl_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:17",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel key_ring_s18.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:17",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel banner_stand_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel chest_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:19",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel cask_tap_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:19",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel barrel_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:20",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel spear_rack_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:21",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel wardrobe_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:21",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel bar_stool_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:22",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel crate_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:22",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel candle_stand_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cradle_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel tavern_chair_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel crate_stack_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:25",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel strongbox_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:26",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel stool_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:27",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel fireplace_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:27",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel sack_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:28",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel sawhorse_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:29",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel chair_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:29",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel keg_stack_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:30",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel sack_pile_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:30",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel plank_stack_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:32",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel kitchen_hearth_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:32",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel round_table_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:33",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel wicker_basket_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:33",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel log_pile_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:34",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel bench_short_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:35",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel crockery_shelf_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:35",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel firewood_pile_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:35",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel half_chair_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:37",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel standing_lantern_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:37",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel washtub_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:38",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel big_jar_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:38",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel unfinished_barrel_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:39",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel coat_rack_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:40",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel pantry_shelf_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:41",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel bucket_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:41",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel tool_pegboard_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:42",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel stone_block_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:43",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel dress_form_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:43",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel chopping_block_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:44",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel mayor_chair_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:44",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel ashlar_stack_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:45",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel spinning_wheel_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:46",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel glue_pot_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:47",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel archive_cabinet_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:47",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel small_crane_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:48",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel cloth_shelf_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:49",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel shavings_heap_s18.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:49",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel lectern_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:50",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel rubble_pile_s16.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:50",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel mirror_standing_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:52",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel shop_counter_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:52",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel witness_stand_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:52",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel template_rack_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:53",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel thread_basket_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel pulpit_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel statue_unfinished_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel fabric_stack_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel display_shelf_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:57",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel baptismal_font_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:58",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel column_drum_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:58",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel hat_stand_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:23:58",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel bar_counter_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:00",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel candelabra_tall_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:00",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel stone_trough_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:00",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel sewing_chair_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:01",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel weapon_panoply_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:02",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel town_banner_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:03",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel mason_toolbox_s13.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:03",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel fitting_screen_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:05",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel bed_single_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:05",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel heraldic_stand_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel tavern_table_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel carpenter_bench_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:08",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel bed_double_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:08",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel judge_bench_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:10",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel tavern_bench_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:10",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel loom_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel dining_table_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:12",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel dock_rail_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:13",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel minstrel_stage_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cutting_table_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel kitchen_table_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:15",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel pew_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:16",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel staircase_s3.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:17",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel council_table_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel stone_bench_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:18",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel altar_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:19",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel tapestry_red_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:21",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel pit_hearth_s4.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:21",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel tapestry_green_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel shield_crest_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel market_shelf_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:26",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel banner_wall_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:27",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel bunk_bed_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:29",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel herbs_hanging_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:31",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel onion_string_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:34",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel tool_board_wall_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:37",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel wall_shelf_jars_s11.png"
+ },
+ {
+  "fecha": "2026-11-05T02:24:39",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel horseshoe_nails_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T02:44:59",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo forge planta 1 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T02:45:04",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo forge planta 0 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T02:45:07",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo forge planta 1 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T02:45:09",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo forge planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T02:46:09",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo forge planta 0 (v3)"
+ },
+ {
+  "fecha": "2026-11-05T02:46:18",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo forge planta 0 (v4)"
+ },
+ {
+  "fecha": "2026-11-05T02:46:19",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-pro/edit",
+  "imagenes": 1,
+  "usd": 0.15,
+  "que": "fondo forge planta 0 (pro1)"
+ },
+ {
+  "fecha": "2026-11-05T03:01:53",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo carpentry planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T03:01:54",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo armory planta 0 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T03:01:55",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo armory planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T03:01:59",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo carpentry planta 0 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:10",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo masonry planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:10",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo carpentry planta 1 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:10",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo carpentry planta 1 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:23",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo masonry planta 0 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:25",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tailor_shop planta 0 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:25",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tailor_shop planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:25",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tailor_shop planta 1 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:39",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo house planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:42",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tailor_shop planta 1 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:42",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo house planta 0 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T03:02:49",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo house planta 1 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T03:03:06",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo house planta 1 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T03:04:25",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo masonry planta 0 (v3)"
+ },
+ {
+  "fecha": "2026-11-05T03:04:26",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo masonry planta 0 (v4)"
+ },
+ {
+  "fecha": "2026-11-05T03:05:13",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo masonry planta 0 (v6)"
+ },
+ {
+  "fecha": "2026-11-05T03:05:16",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo masonry planta 0 (v5)"
+ },
+ {
+  "fecha": "2026-11-05T03:05:53",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo masonry planta 0 (v7)"
+ },
+ {
+  "fecha": "2026-11-05T03:05:54",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo masonry planta 0 (v8)"
+ },
+ {
+  "fecha": "2026-11-05T05:31:53",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g20_s_court_b (9 piezas, 21 s)"
+ },
+ {
+  "fecha": "2026-11-05T05:31:56",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g21_l_court_a (4 piezas, 23 s)"
+ },
+ {
+  "fecha": "2026-11-05T05:32:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0012,
+  "que": "image2pixel iron_cage_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0013,
+  "que": "image2pixel trapdoor_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:09",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel trapdoor_open_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:10",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cask_row_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0001,
+  "que": "image2pixel ladder_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:13",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cellar_stairs_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel contraband_pile_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:16",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel smuggler_table_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:16",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel fence_table_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:19",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel dice_table_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:22",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel stolen_goods_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:24",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel wine_rack_s5.png"
+ },
+ {
+  "fecha": "2026-11-05T05:32:26",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel chain_post_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T06:41:51",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tavern_inn planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T06:41:52",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tavern_inn planta -1 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T06:42:01",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tavern_inn planta 0 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T06:42:09",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tavern_inn planta 1 (v2)"
+ },
+ {
+  "fecha": "2026-11-05T06:42:21",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tavern_inn planta 1 (v1)"
+ },
+ {
+  "fecha": "2026-11-05T06:43:01",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tavern_inn planta 0 (v3)"
+ },
+ {
+  "fecha": "2026-11-05T06:43:03",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tavern_inn planta -1 (v4)"
+ },
+ {
+  "fecha": "2026-11-05T06:43:08",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tavern_inn planta -1 (v3)"
+ },
+ {
+  "fecha": "2026-11-05T06:43:25",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo tavern_inn planta 0 (v4)"
+ },
+ {
+  "fecha": "2026-11-05T06:56:48",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g25_s_tailor_shop_a (6 piezas, 15 s)"
+ },
+ {
+  "fecha": "2026-11-05T06:56:57",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g23_s_carpentry_a (6 piezas, 24 s)"
+ },
+ {
+  "fecha": "2026-11-05T06:56:58",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g24_s_masonry_b (6 piezas, 25 s)"
+ },
+ {
+  "fecha": "2026-11-05T06:57:09",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g22_s_forge_a (6 piezas, 36 s)"
+ },
+ {
+  "fecha": "2026-11-05T06:57:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0018,
+  "que": "image2pixel frame_saw_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T06:57:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0019,
+  "que": "image2pixel engraving_bench_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T06:57:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0017,
+  "que": "image2pixel tailor_dyes_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T06:57:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0018,
+  "que": "image2pixel mason_chisels_s14.png"
+ },
+ {
+  "fecha": "2026-11-05T06:57:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel planes_rack_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T06:57:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel master_seal_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T06:57:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tailor_master_table_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T06:57:59",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mason_crane_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:03",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mason_mark_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:03",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel gouges_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:04",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tailor_seal_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:04",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel hidden_passage_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel master_yard_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:07",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel carpenter_mark_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:07",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel smuggler_cache_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:08",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tailor_shears_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:10",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mason_templates_s7.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel master_carpenter_bench_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel double_ledger_s10.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:12",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel tailor_shuttle_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:13",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel mason_wedges_s12.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel vice_bench_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel master_bench_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T06:58:16",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel tailor_treadle_s9.png"
  }
 ]

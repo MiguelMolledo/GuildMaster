@@ -53,37 +53,34 @@ func test_forge_room_fits_the_screen() -> void:
 	v.free()
 
 
-## A station's name (under its block) is covered by anything of the room drawn after it (further down on screen)
-## within ~64 px across and before its label ends.
+## Stations and upgrade visuals each on their own tile of their floor, inside the room; and the stations' names stay
+## readable over whatever stands in front of them (04g: they draw over the atrezo, the upgrades and the people).
 func test_station_names_are_not_covered() -> void:
-	var room: Node2D = (load("res://game/visuals/interiors/forge.tscn") as PackedScene).instantiate()
-	var things: Array = []   # [name, position, height]
+	var room: Node2D = InteriorBuilder.instantiate("forge")   # data/interiors/forge.json (04g 4.6.5.2)
+	var d := InteriorDefs.def_of("forge")
+	var things: Array = []   # [name, position on its floor, level]
 	for m: Node in room.get_node("Stations").get_children():
-		things.append([str(m.name), (m as Node2D).position, 20.0, true])
+		var lv := int(m.get_meta("level", 0))
+		things.append([str(m.name), (m as Node2D).position - InteriorDefs.floor_offset(d, lv), lv])
 	for u: Node in room.get_node("Upgrades").get_children():
-		if str(u.name) in ["forge_anvil_2", "forge_furnace_2"]:
+		if str(u.name) in ["forge_anvil_2", "forge_furnace_2"] or u.get_child_count() == 0:
 			continue   # decoration on the station itself
-		things.append([str(u.name), (u as Node2D).position, 10.0, false])
+		var lv := int(u.get_meta("level", 0))
+		things.append([str(u.name), (u as Node2D).position - InteriorDefs.floor_offset(d, lv), lv])
 	var kit := room.get_node("Kit") as GreyboxKit
 	var tiles := {}
 	for t: Array in things:
-		var tile := Iso.world_to_tile(t[1])
+		var tile := Iso.world_to_tile((t[1] as Vector2) + Vector2(0, -float(InteriorDefs.STEP_PX)) * 0.0)
+		var key := "%d,%d,%d" % [int(t[2]), tile.x, tile.y]
 		check(tile.x >= 0 and tile.y >= 0 and tile.x < kit.size.x and tile.y < kit.size.y, "%s inside the room" % t[0])
-		check(not tiles.has(tile), "%s shares its tile with %s" % [t[0], tiles.get(tile, "")])
-		tiles[tile] = t[0]
-	for a: Array in things:
-		if not bool(a[3]):
-			continue
-		var p: Vector2 = a[1]
-		for b: Array in things:
-			if b[0] == a[0]:
-				continue
-			var q: Vector2 = b[1]
-			var covers := absf(q.x - p.x) < 64.0 and q.y > p.y and q.y - 12.0 - float(b[2]) < p.y + 20.0
-			check(not covers, "the name of %s is covered by %s" % [a[0], b[0]])
-			if bool(b[3]) and str(b[0]) > str(a[0]):
-				check(not (absf(q.x - p.x) < 80.0 and absf(q.y - p.y) < 14.0), "names of %s and %s overlap" % [a[0], b[0]])
+		check(not tiles.has(key), "%s shares its tile with %s" % [t[0], tiles.get(key, "")])
+		tiles[key] = t[0]
 	room.free()
+	var sv := StationView.new()
+	sv.setup("anvil", "Yunque", {})
+	check(sv.get_child(sv.get_child_count() - 2) is Label and (sv.get_child(sv.get_child_count() - 2) as Label).z_index > 0,
+		"the station's name draws over what stands in front of it")
+	sv.free()
 
 
 func test_stone_facade_covers_both_front_faces() -> void:

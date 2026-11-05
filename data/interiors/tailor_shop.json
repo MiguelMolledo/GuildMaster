@@ -1,0 +1,87 @@
+{
+  "_doc": "The tailor's (docs/gdd/04g_interiores.md 4.6.5.6): ground floor with the workshop (cutting table and loom) and the shop with a fitting corner; upstairs, the home. Edit by hand, then python3 tools/interiors/interiores.py reglas tailor_shop && python3 tools/interiors/interiores.py validar tailor_shop.",
+  "size": [9, 7],
+  "wall_height": 64,
+  "floor_height": 80,
+  "seed": 13,
+  "entrance": {"floor": 0, "tile": [0, 5], "side": "nw"},
+  "rooms": [
+    {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[0, 0, 4, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"},
+    {"id": "shop", "floor": 0, "type": "shop", "rects": [[0, 4, 8, 6], [5, 0, 8, 3]], "floor_kind": "rug", "wall_style": "timber", "light": "warm"},
+    {"id": "kitchen", "floor": 1, "type": "kitchen", "rects": [[0, 0, 3, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"},
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[4, 0, 8, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [2, 4], "side": "ne"},
+    {"floor": 0, "tile": [5, 1], "side": "nw"},
+    {"floor": 1, "tile": [4, 1], "side": "nw"}
+  ],
+  "levels": [],
+  "stairs": [
+    {"id": "stairs", "floor": 0, "prop": "staircase", "tile": [8, 3], "flip": false, "from": [7, 3], "to_floor": 1, "to": [7, 2]}
+  ],
+  "stations": {
+    "loom": {"floor": 0, "tile": [1, 1], "prop": "loom", "stand": [2, 1]},
+    "sewing_table": {"floor": 0, "tile": [1, 3], "prop": "cutting_table", "flip": true, "stand": [1, 2]},
+    "loom_2": {"floor": 0, "tile": [3, 1], "prop": "loom", "stand": [4, 2]},
+    "sewing_table_2": {"floor": 0, "tile": [4, 3], "prop": "cutting_table", "flip": true, "stand": [3, 2]},
+    "counter": {"floor": 0, "tile": [6, 5], "prop": "shop_counter", "stand": [5, 5]},
+    "storage": {"floor": 0, "tile": [8, 0], "prop": "cloth_shelf", "stand": [8, 1]}
+  },
+  "customers": {
+    "counter": [{"tile": [7, 5]}, {"tile": [7, 4]}],
+    "queue": [{"tile": [8, 5]}, {"tile": [8, 6]}, {"tile": [7, 6]}]
+  },
+  "idle": [
+    {"floor": 1, "tile": [1, 2]},
+    {"floor": 1, "tile": [6, 2]},
+    {"floor": 0, "tile": [3, 5]}
+  ],
+  "props": [
+    {"id": "fitting_screen", "floor": 0, "tile": [6, 0]},
+    {"id": "mirror_standing", "floor": 0, "tile": [7, 0]},
+    {"id": "dress_form", "floor": 0, "tile": [5, 3]},
+    {"id": "spinning_wheel", "floor": 0, "tile": [5, 0]},
+    {"id": "hat_stand", "floor": 0, "tile": [8, 4]},
+    {"id": "display_shelf", "floor": 0, "tile": [4, 4], "flip": true, "display": 3},
+    {"id": "kitchen_hearth", "floor": 1, "tile": [0, 1]},
+    {"id": "pantry_shelf", "floor": 1, "tile": [2, 0]},
+    {"id": "bed_double", "floor": 1, "tile": [8, 2], "flip": false},
+    {"id": "wardrobe", "floor": 1, "tile": [4, 0]},
+    {"id": "chest", "floor": 1, "tile": [5, 3]}
+  ],
+  "rules": [
+    {"rule": "on_top", "room": "workshop", "under": ["cutting_table"], "props": ["scissors_chalk", "cloth_roll_red", "cloth_roll_blue", "thread_spools", "pincushion"], "max": 2, "chance": 1.0},
+    {"rule": "on_top", "room": "shop", "under": ["shop_counter"], "props": ["cloth_roll_red", "ledger_book", "coin_pile"], "max": 2, "chance": 1.0},
+    {"rule": "wall_fill", "room": "kitchen", "props": ["barrel", "sack", "big_jar"], "chance": 0.5},
+    {"rule": "hang", "room": "shop", "props": ["tapestry_red", "tapestry_green"], "count": 2}
+  ],
+  "upgrades": {
+    "tailor_shop_sewing_table_2": [],
+    "tailor_shop_loom_2": [],
+    "upgrade_storage_shelves": [{"id": "cloth_shelf", "floor": 0, "tile": [6, 3]}],
+    "upgrade_counter": [{"id": "fabric_stack", "floor": 0, "tile": [4, 6]}],
+    "tailor_treadle": [{"id": "tailor_treadle", "floor": 0, "tile": [0, 1]}],
+    "tailor_shuttle": [{"id": "tailor_shuttle", "floor": 0, "tile": [2, 0]}],
+    "tailor_master_table": [{"id": "tailor_master_table", "floor": 0, "tile": [4, 0]}],
+    "tailor_shears": [{"id": "tailor_shears", "floor": 0, "tile": [0, 2]}],
+    "tailor_dyes": [{"id": "tailor_dyes", "floor": 0, "tile": [6, 2]}],
+    "tailor_seal": [{"id": "tailor_seal", "floor": 0, "tile": [0, 0]}],
+    "upgrade_double_ledger": [{"id": "double_ledger", "floor": 0, "tile": [1, 6]}],
+    "upgrade_hidden_passage": [{"id": "hidden_passage", "floor": 0, "tile": [0, 4]}],
+    "upgrade_smuggler_cache": [{"id": "smuggler_cache", "floor": 0, "tile": [2, 6]}],
+    "upgrade_strongbox": [{"id": "strongbox", "floor": 1, "tile": [8, 3]}],
+    "upgrade_bunks": [{"id": "bunk_bed", "floor": 1, "tile": [7, 0], "flip": true}],
+    "upgrade_dining_table": [{"id": "dining_table", "floor": 1, "tile": [1, 1], "flip": false}],
+    "upgrade_master_bench": [{"id": "sewing_chair", "floor": 0, "tile": [5, 2]}]
+  },
+  "resolved": [
+    {"id": "cloth_roll_red", "floor": 0, "tile": [1, 3], "flip": false, "lift": 30, "shift": [-11, -6], "rule": "on_top", "over": "cutting_table"},
+    {"id": "cloth_roll_red", "floor": 0, "tile": [4, 3], "flip": false, "lift": 30, "shift": [-16, -8], "rule": "on_top", "over": "cutting_table"},
+    {"id": "cloth_roll_red", "floor": 0, "tile": [6, 5], "flip": true, "lift": 26, "shift": [7, 0], "rule": "on_top", "over": "shop_counter"},
+    {"id": "coin_pile", "floor": 0, "tile": [6, 5], "flip": false, "lift": 26, "shift": [18, 0], "rule": "on_top", "over": "shop_counter"},
+    {"id": "sack", "floor": 1, "tile": [0, 3], "flip": false, "rule": "wall_fill"},
+    {"id": "tapestry_green", "floor": 0, "tile": [0, 4], "flip": true, "hang": "ne", "rule": "hang"},
+    {"id": "tapestry_green", "floor": 0, "tile": [5, 0], "flip": false, "hang": "nw", "rule": "hang"}
+  ]
+}

@@ -40,6 +40,10 @@ static func scenes_of(kind: String) -> PackedStringArray:
 		f = f.trim_suffix(".remap")
 		if f.ends_with(".tscn") and not out.has(f.get_basename()):
 			out.append(f.get_basename())
+	if kind == "interiors":  # 04g 4.6.5.2: the interiors built from data/interiors/<type>.json
+		for f: String in DirAccess.get_files_at(InteriorDefs.DIR):
+			if f.ends_with(".json") and not f.begins_with("_") and f != "lights.json" and not out.has(f.get_basename()):
+				out.append(f.get_basename())
 	out.sort()
 	if out.has(VisualPaths.GENERIC):
 		out.remove_at(out.find(VisualPaths.GENERIC))
@@ -64,7 +68,7 @@ func _build() -> void:
 		var row_h := 0.0
 		for kind: String in row:
 			for id: String in scenes_of(kind):
-				var node := VisualPaths.instantiate(kind, id)
+				var node := InteriorBuilder.instantiate(id) if kind == "interiors" else VisualPaths.instantiate(kind, id)
 				var slot := _slot(kind, node)   # [size, where the Feet go inside it]
 				var size: Vector2 = slot[0]
 				if x > 0.0 and x + size.x > MAX_W:

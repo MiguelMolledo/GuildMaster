@@ -1,7 +1,7 @@
 class_name InnLayer
 extends Node2D
 ## The Taberna-Posada inside its interior (docs/gdd/04f_vida_y_fiestas.md §4.27.4): the guests of the turn seated at
-## the seats of the room scene (Seats/Seat00..: game/visuals/interiors/tavern_inn.tscn), each one a CharacterView
+## the seats of the room (Seats/Seat00..: data/interiors/tavern_inn.json via InteriorBuilder), each one a CharacterView
 ## (the townsperson it is, or a figure of its group) with its order over the head (the dish's icon, or a disc with its
 ## letter until the icon exists) and its patience bar; the beds of the rooms at Beds/Bed0.. in their state (made,
 ## occupied, dirty, being made); the minstrel. A view only: it reads Inn's state and gives orders (inn_serve on a
@@ -26,6 +26,13 @@ var _icons: Dictionary = {}      # guest id -> Sprite2D: the dish's icon over th
 var _seat_pos: Array = []        # Vector2 by seat index
 var _bed_pos: Array = []         # Vector2 by bed index
 var _table_pos: Vector2 = Vector2.INF  # the gaming table's station (INF if the room has none)
+var _seat_level: Array = []      # floor of each seat / bed (04g: an interior built from data has floors)
+var _bed_level: Array = []
+## The floor the interior shows (InteriorStage sets it): beds and guests of other floors are hidden or in shade.
+var shown_level: int = 0:
+	set(v):
+		shown_level = v
+		queue_redraw()
 var _font: Font = null
 
 
@@ -37,8 +44,10 @@ func setup(s: Sim, bld: String, view: InteriorView) -> void:
 	_font = ThemeDB.fallback_font
 	_seat_pos.clear()
 	_bed_pos.clear()
+	_seat_level.clear()
+	_bed_level.clear()
 	var room := view.room()
-	for holder: Array in [["Seats", _seat_pos], ["Beds", _bed_pos]]:
+	for holder: Array in [["Seats", _seat_pos, _seat_level], ["Beds", _bed_pos, _bed_level]]:
 		var n := room.get_node_or_null(str(holder[0])) if room != null else null
 		if n == null:
 			continue
@@ -46,6 +55,7 @@ func setup(s: Sim, bld: String, view: InteriorView) -> void:
 		marks.sort_custom(func(a: Node, b: Node) -> bool: return str(a.name) < str(b.name))
 		for m: Marker2D in marks:
 			(holder[1] as Array).append(m.position + (n as Node2D).position)
+			(holder[2] as Array).append(int(m.get_meta("level", 0)))
 	_table_pos = Vector2.INF
 	var st_node := room.get_node_or_null("Stations") as Node2D if room != null else null
 	var tm := st_node.get_node_or_null("gaming_table") as Node2D if st_node != null else null
@@ -112,12 +122,18 @@ func sync() -> void:
 			v.setup(guest_person(g), guest_family(g))
 			interior.objects().add_child(v)
 			_views[gid] = v
+			InteriorStage.fade_in(v)   # a guest appears at its seat with a fade (04g O-I2)
 		var view: CharacterView = _views[gid]
 		view.position = (_seat_pos[seat] as Vector2).round()
 		view.play_motion("idle", "se" if seat % 2 == 0 else "sw")
+		var lv := int(_seat_level[seat]) if seat < _seat_level.size() else 0
+		view.visible = InteriorStage.show_mode(lv, shown_level) > 0
+		view.z_index = lv * InteriorBuilder.LEVEL_Z
+		var base := InteriorStage.DIM if InteriorStage.show_mode(lv, shown_level) == 1 else Color.WHITE
+		view.modulate = Color(base.r, base.g, base.b, view.modulate.a)   # (its alpha is the fade's)
 	for gid: String in _views.keys():
 		if not seen.has(gid):
-			(_views[gid] as Node).queue_free()
+			InteriorStage.fade_out(_views[gid] as Node)   # and fades away when it goes
 			_views.erase(gid)
 	_sync_icons()
 	queue_redraw()
@@ -128,7 +144,7 @@ func _sync_icons() -> void:
 	var want := {}
 	for g: Dictionary in Inn.guests(sim, building):
 		var gid := str(g["id"])
-		if str(g.get("state", "")) != "waiting" or not _views.has(gid):
+		if str(g.get("state", "")) != "waiting" or not _views.has(gid) or not (_views[gid] as CanvasItem).visible:
 			continue
 		var d := str(g.get("order", ""))
 		var tex := VisualPaths.inn_dish_icon(d)
@@ -163,6 +179,8 @@ func _draw() -> void:
 	# beds
 	var beds: Array = inn.get("beds", [])
 	for i: int in mini(beds.size(), _bed_pos.size()):
+		if i < _bed_level.size() and int(_bed_level[i]) != shown_level:
+			continue  # a bed of another floor (the rooms upstairs)
 		var b: Dictionary = beds[i]
 		var p: Vector2 = _bed_pos[i] - position
 		var c := Color.html(str(BED_COLORS.get(str(b.get("state", "")), "#808080")))
@@ -175,7 +193,7 @@ func _draw() -> void:
 	# guests: the order and the patience
 	for g: Dictionary in Inn.guests(sim, building):
 		var gid := str(g["id"])
-		if not _views.has(gid):
+		if not _views.has(gid) or not (_views[gid] as CanvasItem).visible:
 			continue
 		var p: Vector2 = (_views[gid] as Node2D).position - position + Vector2(0, -HEAD)
 		match str(g.get("state", "")):
