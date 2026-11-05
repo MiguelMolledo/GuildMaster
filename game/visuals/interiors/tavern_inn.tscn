@@ -1,0 +1,637 @@
+[gd_scene load_steps=11 format=3 uid="uid://dusl0hinasllk"]
+
+[ext_resource type="Script" uid="uid://bym181u8o7u35" path="res://game/visuals/greybox/greybox_kit.gd" id="1_kit"]
+[ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="2_block"]
+[ext_resource type="Script" uid="uid://b2swscgjan4v4" path="res://game/inn/art_slot.gd" id="3_slot"]
+[ext_resource type="PackedScene" uid="uid://ccm4kp6h6rufs" path="res://game/visuals/stations/bar.tscn" id="4_bar"]
+[ext_resource type="PackedScene" uid="uid://b6ig4kxjnunge" path="res://game/visuals/stations/kitchen.tscn" id="5_kitchen"]
+[ext_resource type="PackedScene" uid="uid://bt8a0jyxyvvt2" path="res://game/visuals/stations/storage.tscn" id="6_storage"]
+[ext_resource type="PackedScene" uid="uid://ba2bgxgyuebdm" path="res://game/visuals/stations/tables.tscn" id="7_tables"]
+[ext_resource type="PackedScene" uid="uid://fbmtqpamdiqd" path="res://game/visuals/stations/rooms.tscn" id="8_rooms"]
+[ext_resource type="PackedScene" uid="uid://k4r2exhh5jq1" path="res://game/visuals/stations/minstrel_corner.tscn" id="9_minstrel_corner"]
+[ext_resource type="PackedScene" uid="uid://xduhwxaccjso" path="res://game/visuals/stations/gaming_table.tscn" id="10_gaming_table"]
+
+[node name="TavernInnInterior" type="Node2D"]
+
+[node name="Kit" type="Node2D" parent="."]
+script = ExtResource("1_kit")
+size = Vector2i(11, 8)
+door = Vector2i(0, 4)
+floor_color = Color(0.4784, 0.3608, 0.2431, 1)
+wall_color = Color(0.2902, 0.2039, 0.1412, 1)
+door_color = Color(0.7843, 0.6275, 0.3137, 1)
+wall_height = 40.0
+
+[node name="Stations" type="Node2D" parent="."]
+
+[node name="bar" type="Marker2D" parent="Stations"]
+position = Vector2(32.0, 48.0)
+
+[node name="Station" parent="Stations/bar" instance=ExtResource("4_bar")]
+
+[node name="kitchen" type="Marker2D" parent="Stations"]
+position = Vector2(160.0, 80.0)
+
+[node name="Station" parent="Stations/kitchen" instance=ExtResource("5_kitchen")]
+
+[node name="storage" type="Marker2D" parent="Stations"]
+position = Vector2(256.0, 128.0)
+
+[node name="Station" parent="Stations/storage" instance=ExtResource("6_storage")]
+
+[node name="tables" type="Marker2D" parent="Stations"]
+position = Vector2(0.0, 128.0)
+
+[node name="Station" parent="Stations/tables" instance=ExtResource("7_tables")]
+
+[node name="rooms" type="Marker2D" parent="Stations"]
+position = Vector2(32.0, 240.0)
+
+[node name="Station" parent="Stations/rooms" instance=ExtResource("8_rooms")]
+
+[node name="minstrel_corner" type="Marker2D" parent="Stations"]
+position = Vector2(-192.0, 128.0)
+
+[node name="Station" parent="Stations/minstrel_corner" instance=ExtResource("9_minstrel_corner")]
+
+[node name="gaming_table" type="Marker2D" parent="Stations"]
+position = Vector2(-32.0, 208.0)
+
+[node name="Station" parent="Stations/gaming_table" instance=ExtResource("10_gaming_table")]
+
+[node name="Seats" type="Node2D" parent="."]
+editor_description = "Where the Taberna-Posada's guests sit (game/inn/inn_layer.gd): seat i of the turn = the i-th Marker2D (8 at the start, + inn_seats). Move them in the editor."
+
+[node name="Seat00" type="Marker2D" parent="Seats"]
+position = Vector2(0.0, 96.0)
+
+[node name="Seat01" type="Marker2D" parent="Seats"]
+position = Vector2(64.0, 128.0)
+
+[node name="Seat02" type="Marker2D" parent="Seats"]
+position = Vector2(-64.0, 128.0)
+
+[node name="Seat03" type="Marker2D" parent="Seats"]
+position = Vector2(0.0, 160.0)
+
+[node name="Seat04" type="Marker2D" parent="Seats"]
+position = Vector2(-64.0, 96.0)
+
+[node name="Seat05" type="Marker2D" parent="Seats"]
+position = Vector2(64.0, 160.0)
+
+[node name="Seat06" type="Marker2D" parent="Seats"]
+position = Vector2(64.0, 96.0)
+
+[node name="Seat07" type="Marker2D" parent="Seats"]
+position = Vector2(-64.0, 160.0)
+
+[node name="Seat08" type="Marker2D" parent="Seats"]
+position = Vector2(160.0, 144.0)
+
+[node name="Seat09" type="Marker2D" parent="Seats"]
+position = Vector2(128.0, 160.0)
+
+[node name="Seat10" type="Marker2D" parent="Seats"]
+position = Vector2(192.0, 160.0)
+
+[node name="Seat11" type="Marker2D" parent="Seats"]
+position = Vector2(160.0, 176.0)
+
+[node name="Seat12" type="Marker2D" parent="Seats"]
+position = Vector2(160.0, 112.0)
+
+[node name="Seat13" type="Marker2D" parent="Seats"]
+position = Vector2(-128.0, 160.0)
+
+[node name="Seat14" type="Marker2D" parent="Seats"]
+position = Vector2(-32.0, 176.0)
+
+[node name="Seat15" type="Marker2D" parent="Seats"]
+position = Vector2(-128.0, 128.0)
+
+[node name="Beds" type="Node2D" parent="."]
+editor_description = "The beds of the rooms (game/inn/inn_layer.gd): bed i = the i-th Marker2D (4 at the start, + inn_beds); bed 0 is the good room with inn_good_room."
+
+[node name="Bed0" type="Marker2D" parent="Beds"]
+position = Vector2(307.2, 166.4)
+
+[node name="Bed1" type="Marker2D" parent="Beds"]
+position = Vector2(278.4, 180.8)
+
+[node name="Bed2" type="Marker2D" parent="Beds"]
+position = Vector2(249.6, 195.2)
+
+[node name="Bed3" type="Marker2D" parent="Beds"]
+position = Vector2(220.8, 209.6)
+
+[node name="Bed4" type="Marker2D" parent="Beds"]
+position = Vector2(192.0, 224.0)
+
+[node name="Bed5" type="Marker2D" parent="Beds"]
+position = Vector2(163.2, 238.4)
+
+[node name="Bed6" type="Marker2D" parent="Beds"]
+position = Vector2(134.4, 252.8)
+
+[node name="Bed7" type="Marker2D" parent="Beds"]
+position = Vector2(105.6, 267.2)
+
+[node name="Decor" type="Node2D" parent="."]
+editor_description = "Furniture without rules (the art of the tavern; nothing shows while it is missing): benches by the big table, a barrel by the bar."
+
+[node name="Piece0" type="Sprite2D" parent="Decor"]
+position = Vector2(-25.599999999999994, 115.2)
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "bench"
+fallback = NodePath("")
+label = NodePath("")
+bottom = 8.0
+
+[node name="Piece1" type="Sprite2D" parent="Decor"]
+position = Vector2(25.599999999999994, 147.2)
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "bench"
+fallback = NodePath("")
+label = NodePath("")
+bottom = 8.0
+
+[node name="Piece2" type="Sprite2D" parent="Decor"]
+position = Vector2(0.0, 32.0)
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "barrel"
+fallback = NodePath("")
+label = NodePath("")
+bottom = 8.0
+
+[node name="Upgrades" type="Node2D" parent="."]
+
+[node name="inn_more_tables" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(160.0, 160.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_more_tables (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_more_tables.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_more_tables"]
+script = ExtResource("2_block")
+color = Color(0.5412, 0.4157, 0.2353, 1)
+height = 12.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_more_tables"]
+offset_left = -36.0
+offset_top = -25.0
+offset_right = 36.0
+offset_bottom = -15.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Más mesas"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_more_tables"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "table"
+bottom = 8.0
+
+[node name="inn_hearth" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-32.0, 16.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_hearth (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_hearth.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_hearth"]
+script = ExtResource("2_block")
+color = Color(0.7059, 0.3137, 0.1647, 1)
+height = 26.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_hearth"]
+offset_left = -36.0
+offset_top = -39.0
+offset_right = 36.0
+offset_bottom = -29.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Chimenea"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_hearth"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "fireplace"
+bottom = 8.0
+
+[node name="inn_tapestries" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(32.0, 16.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_tapestries (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_tapestries.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_tapestries"]
+script = ExtResource("2_block")
+color = Color(0.5412, 0.1804, 0.2902, 1)
+height = 30.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_tapestries"]
+offset_left = -36.0
+offset_top = -43.0
+offset_right = 36.0
+offset_bottom = -33.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Tapices"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_tapestries"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_tapestries"
+bottom = 8.0
+
+[node name="inn_oven" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(192.0, 96.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_oven (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_oven.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_oven"]
+script = ExtResource("2_block")
+color = Color(0.6039, 0.4157, 0.2902, 1)
+height = 20.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_oven"]
+offset_left = -36.0
+offset_top = -33.0
+offset_right = 36.0
+offset_bottom = -23.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Horno"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_oven"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_oven"
+bottom = 8.0
+
+[node name="inn_spit" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(128.0, 64.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_spit (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_spit.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_spit"]
+script = ExtResource("2_block")
+color = Color(0.4784, 0.2275, 0.1020, 1)
+height = 16.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_spit"]
+offset_left = -36.0
+offset_top = -29.0
+offset_right = 36.0
+offset_bottom = -19.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Asador"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_spit"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_spit"
+bottom = 8.0
+
+[node name="inn_pantry" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(224.0, 112.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_pantry (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_pantry.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_pantry"]
+script = ExtResource("2_block")
+color = Color(0.3529, 0.4784, 0.5412, 1)
+height = 22.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_pantry"]
+offset_left = -36.0
+offset_top = -35.0
+offset_right = 36.0
+offset_bottom = -25.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Despensa fría"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_pantry"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_pantry"
+bottom = 8.0
+
+[node name="inn_barrels" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(288.0, 144.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_barrels (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_barrels.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_barrels"]
+script = ExtResource("2_block")
+color = Color(0.4157, 0.2902, 0.1647, 1)
+height = 18.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_barrels"]
+offset_left = -36.0
+offset_top = -31.0
+offset_right = 36.0
+offset_bottom = -21.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Toneles"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_barrels"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "barrel"
+bottom = 8.0
+
+[node name="inn_reserve" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(224.0, 144.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_reserve (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_reserve.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_reserve"]
+script = ExtResource("2_block")
+color = Color(0.3529, 0.1647, 0.2275, 1)
+height = 16.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_reserve"]
+offset_left = -36.0
+offset_top = -29.0
+offset_right = 36.0
+offset_bottom = -19.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Vino de reserva"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_reserve"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_reserve"
+bottom = 8.0
+
+[node name="inn_cave" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(64.0, 256.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_cave (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_cave.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_cave"]
+script = ExtResource("2_block")
+color = Color(0.2275, 0.1647, 0.1647, 1)
+height = 10.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_cave"]
+offset_left = -36.0
+offset_top = -23.0
+offset_right = 36.0
+offset_bottom = -13.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Cueva"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_cave"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_cave"
+bottom = 8.0
+
+[node name="inn_more_beds" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(96.0, 224.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_more_beds (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_more_beds.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_more_beds"]
+script = ExtResource("2_block")
+color = Color(0.3529, 0.2902, 0.4157, 1)
+height = 8.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_more_beds"]
+offset_left = -36.0
+offset_top = -21.0
+offset_right = 36.0
+offset_bottom = -11.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Más camas"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_more_beds"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "bed"
+bottom = 8.0
+
+[node name="inn_good_room" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(256.0, 160.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_good_room (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_good_room.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_good_room"]
+script = ExtResource("2_block")
+color = Color(0.7843, 0.6588, 0.3059, 1)
+height = 8.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_good_room"]
+offset_left = -36.0
+offset_top = -21.0
+offset_right = 36.0
+offset_bottom = -11.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Habitación buena"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_good_room"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_good_room"
+bottom = 8.0
+
+[node name="inn_stable" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-224.0, 112.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_stable (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_stable.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_stable"]
+script = ExtResource("2_block")
+color = Color(0.4784, 0.4157, 0.2275, 1)
+height = 14.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_stable"]
+offset_left = -36.0
+offset_top = -27.0
+offset_right = 36.0
+offset_bottom = -17.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Establo"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_stable"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_stable"
+bottom = 8.0
+
+[node name="inn_menu_board" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-64.0, 64.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_menu_board (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_menu_board.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_menu_board"]
+script = ExtResource("2_block")
+color = Color(0.2275, 0.2275, 0.1647, 1)
+height = 24.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_menu_board"]
+offset_left = -36.0
+offset_top = -37.0
+offset_right = 36.0
+offset_bottom = -27.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Pizarra"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_menu_board"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_menu_board"
+bottom = 8.0
+
+[node name="inn_porter" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-128.0, 96.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_porter (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_porter.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_porter"]
+script = ExtResource("2_block")
+color = Color(0.2902, 0.2902, 0.3529, 1)
+height = 28.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_porter"]
+offset_left = -36.0
+offset_top = -41.0
+offset_right = 36.0
+offset_bottom = -31.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Portero"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_porter"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_porter"
+bottom = 8.0
+
+[node name="inn_cellar_lock" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(240.0, 136.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_cellar_lock (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_cellar_lock.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_cellar_lock"]
+script = ExtResource("2_block")
+color = Color(0.5412, 0.5412, 0.5412, 1)
+height = 10.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_cellar_lock"]
+offset_left = -36.0
+offset_top = -23.0
+offset_right = 36.0
+offset_bottom = -13.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Cerradura"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_cellar_lock"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_cellar_lock"
+bottom = 8.0
+
+[node name="inn_porter_room" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(-192.0, 96.0)
+editor_description = "Visual of the upgrade whose visual.interior_node is inn_porter_room (data/upgrades/tavern_inn/). Greybox with label until assets/art/interiors/tavern/inn_porter_room.png exists."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/inn_porter_room"]
+script = ExtResource("2_block")
+color = Color(0.2902, 0.2902, 0.3529, 1)
+height = 18.0
+
+[node name="Label" type="Label" parent="Upgrades/inn_porter_room"]
+offset_left = -36.0
+offset_top = -31.0
+offset_right = 36.0
+offset_bottom = -21.0
+theme_override_colors/font_color = Color(0.95, 0.9, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.07, 0.05, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "Cuarto del portero"
+horizontal_alignment = 1
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/inn_porter_room"]
+texture_filter = 1
+centered = false
+script = ExtResource("3_slot")
+id = "inn_porter_room"
+bottom = 8.0

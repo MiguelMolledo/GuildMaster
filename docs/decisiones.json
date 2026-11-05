@@ -1,6 +1,38 @@
 {
   "tomadas": [
     {
+      "fecha": "2026-11-05",
+      "tema": "Posada: clientela en dos capas (04g §4.6.5.7) y fiestas",
+      "decision": "La taberna sigue el modelo de 04g: Vecinos de verdad por su agenda (Inn.neighbour_in en Agenda._go; pagan de la bolsa de su casa, +2 de relación si salen contentos, vuelven a su agenda) y la Gente de la comarca y los grupos de paso con dinero de fuera; precio máximo por cliente; fiestas por Festivals.hook_mult(service, tavern) y platos de temporada el día de su fiesta; «sin sitio» no resta fama.",
+      "detalle": "Choque con 04g a decidir: como casi todas las casas de la villa tienen 0-5 de oro (solo cobran las que tienen empleados), los vecinos que pagan de su bolsa son ~2 por noche; si se quiere más vida de vecinos en la taberna, hace falta que los hogares ganen algo (jornales de campo, H12) o que el vecino pague una parte de fuera.",
+      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Posada + vida: forasteros que duermen y rumores de la barra",
+      "decision": "Con la vida encendida la Taberna-Posada recibe a los forasteros de verdad: los tipos de cada grupo (data/inn/clientele.json visitor_kinds) que piden cama y la encuentran se quedan a dormir al acabar su plan o al atardecer, esperan a la puerta, entran como clientes con su cama pagada y salen al amanecer (Inn.lodge / lodger_step, gancho en Visitors._step_one); los grupos de forasteros ya no se sortean aparte y el generador de prueba solo corre con la vida apagada. Los rumores de la barra son los de vida (Rumors.candidates, temas del punto tavern) y entran en el libro de rumores. Guardado: v17 (vida) → 17→18 reservado a fiestas → v19 (posada). El punto tavern que vida pone a la puerta de la taberna (citylib.add_life, ahora también en town_e) solo cuenta cuando la taberna tiene dueño (Inn.closed_for_sale en Life.points): con ella en venta o en escenarios sin ella, los vecinos vuelven a casa de noche como antes.",
+      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Posada: huella 3×4 y el arte de arte-fal-2",
+      "decision": "La Taberna-Posada pasa de 4×4 a 3×4 (la huella de la carpintería) para usar su arte sin rehacerlo: fachada y espalda fal (192×230, Sprite offset (-104, -158), puertas SW (1, 4) y NE (1, -1)); en town_e, cols 26-28 × filas 34-37, puerta (27, 33) igual. El interior usa el kit de assets/art/interiors/tavern/ (suelo, paredes, barra, mesa, bancos, toneles, cocina, chimenea, cama, rincón del juglar) por VisualPaths.inn_art, y la carta los iconos food_* por VisualPaths.inn_dish_icon (cerveza fuerte y vino bueno para la calidad buena o mejor). Lo que no tiene arte sigue en greybox con etiqueta.",
+      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Taberna-Posada (posada, 04f §4.27)",
+      "decision": "La Taberna-Posada entra como segundo negocio de cualquier familia (O-V7 a): el solar de cada mapa con su taberna en venta (town_e: cols 26-29 × filas 34-37, puerta (27,33); 320 de oro, buy_building), solo en partidas nuevas. Carta de 10 platos (data/inn/menu.json) con precio de 0,5× a 2×, plato de la casa y platos de temporada; 6 grupos de clientes con su «por qué no vienen» (data/inn/clientele.json, fórmula de 4.22.3.2 en data/services.json); turno de noche del atardecer a las 02:00 con llegadas en corrillo, paciencia, servir a mano o por roles, cuenta y propina, camas que se cobran al llegar y se hacen por la mañana, pelea (portero), irse sin pagar (el mozo persigue), juglar, rumor y partida (ganchos), resumen del turno; fama 0-5; árbol de 18 mejoras en 6 ramas; licencia de tafurería (60, 1 año). Guardado v19 (SaveFile._to_v19).",
+      "detalle": "Cambios del diseño en 04f §4.27.7 (T1-T10): comprar la del pueblo y construir con H6; sin tope de edificios por título; turnos por rol (barra y mesas de noche, cocina y habitaciones de día); corrillos; recetas sin hierbas; la comida se estropea sin despensa fría; ramas inn_*; se sirve durante las obras; plato de la casa; ganchos a vida y juegos.",
+      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Posada: efectos nuevos, rol de servicio y el validador",
+      "decision": "upgrade_rules.json gana las ramas inn_hall, inn_kitchen, inn_cellar, inn_rooms, inn_ambience y 15 efectos inn_* (lector «inn»); el validador avisa de los niveles que faltan solo en las ramas que usa cada árbol. night_production admite «employees». Un empleado con rol en un puesto de tipo «service» (barra, mesas, habitaciones) no recibe trabajo de la cola (WorkQueue) ni sale como parado: lo lleva su sistema (Inn). TownLife no manda a mirar a la puerta de un edificio en venta. El validador ya no pisa la variable de las clases al recorrer las rutas de los personajes de un escenario (fallo latente que destapó inn_night).",
+      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
+    },
+    {
       "fecha": "2026-11-04",
       "tema": "Fiestas: regalo de la villa, audiencia del marqués y patrocinios de la IA (de momento, no)",
       "decision": "Manager, a la espera del owner: no a las dos. El regalo de la villa sigue siendo un encargo de carrera (la primera espada excelente) y no hay audiencia con privilegios; las familias rivales no patrocinan fiestas. Las dos preguntas pasan al owner.",
@@ -698,6 +730,18 @@
     },
     {
       "fecha": "2026-11-05",
+      "tema": "Juegos en las fiestas",
+      "decision": "Los espectáculos de fiesta que son juegos (justa, torneo de lucha, carrera, toros) se corren a su hora con las reglas de 4.26: solos (Games.auto) o con el jugador si se apuntó (game_enter; la justa pide Ciudadano). Si el apuntado no juega, al acabar la fiesta se resuelve sin jugar en su nombre. Las apuestas de la feria se pagan con el resultado de la propia competición y se devuelven si no llega a correrse. Todo va dentro de la instancia de fiesta (v18): juegos sigue sin versión de guardado.",
+      "por_que": "Encargo del manager: enganchar festival_spectacle, la justa y el torneo del Alcalde y las apuestas en la feria. Guardarlo en la fiesta evita otra versión de guardado; resolver al final al que no juega evita que apuntarse y cerrar la pantalla sea una salida gratis."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Plantillas: empezar en cualquier ciudad de la región y su población por el bench",
+      "decision": "Partida nueva ofrece «Dónde empiezas» (Vilarrasa por defecto y las cinco de Valldaura; también --start-city=<id>): NewGame.from_start con choices.city juega el mismo inicio en el mapa de esa ciudad; sin ciudad o con Vilarrasa la partida es la de siempre, byte a byte (las dianas no se mueven). Peñarroja, Vilablat y Montsacre se regeneran con el generador para llevar los solares de los cuatro oficios (hitos y puntos de reunión idénticos). Cada ciudad empieza llena con per_house del plan (tools/city/ciudades.json) y su population_max: el objetivo era 5 por casa, recortado a lo que aguanta el bench (wanderer, vida encendida, mejor de 3 pasadas, intercalado con Vilarrasa como referencia porque la máquina estaba cargada: Vilarrasa dio 1,87-2,37 ms): Vilablat 5 (20 vecinos, 2,00 ms), Montsacre 5 (20, 2,04), Peñarroja 3 (18, 2,27; con 4, 2,44), Portvell 2 (20, 2,32; con 5, 4,30), Bellcaire 2 (32, la de antes: 4,13 ms; no aguanta con ninguna, ni con 1 por casa: 2,99). El peor paso pasa de 8 ms en todas, Vilarrasa incluida (16-20 ms con esta carga).",
+      "por_que": "El coste del bench crece con los personajes (~0,08 ms cada uno en un mapa de 40×40, más en el de 80×80 por las rutas largas del A*): con la diana de 2 ms caben unos 25 personajes. Para que Bellcaire aguante con muchos vecinos hace falta abaratar las rutas, no quitar gente (pendiente de decidir)."
+    },
+    {
+      "fecha": "2026-11-05",
       "tema": "Interiores II · clientela de la comarca (04g 4.6.5.7)",
       "decision": "La clientela de la comarca vive en el sim (sim/town/clientele.gd): registros en state.town.clientele, no personajes; vienen al mostrador que vende según base(tipo) × fama × estación × fiesta × reparto (atractivo de 4.22.3.2, que ya lleva la reputación), pagan con oro de fuera hasta su precio máximo (precio base × calidad × (1 + fama × 0,1) × gusto) y los atiende quien está en el mostrador. Apagada por defecto (data/town.json counter.clientele.enabled false): las dianas no se mueven. En el interior aparecen en su sitio con un fundido y se van igual; los vecinos entran andando desde la puerta.",
       "por_que": "Encargo del manager con las decisiones O-I1 (b), O-I2 (a) y O-I3 (a) del owner. Apagada hasta medir su balance con los bots de cada oficio, como la vida del pueblo (_no_life)."
@@ -781,6 +825,26 @@
       "tema": "Jugador completo · caravanas y tratados nunca compensan",
       "detalle": "full_player manda una caravana solo con espadas que el mercado del pueblo no quiere (demanda < 0,6) y con dos empleados (uno de carretero). En 3 años no llega (Ciudadano tarde). En la generación, con dos empleados y 383 días, nunca hay espadas de sobra: el mercado de la villa se lo lleva todo. Viaja una vez a Bellcaire, pero la cuota (tratado) pide más reputación allí (reputation_needed), y esa reputación se gana sobre todo con caravanas. El bucle de 09b no arranca solo.",
       "opciones": "(a) reputación en la ciudad también por las ventas del propio viaje y por los encargos de allí · (b) precios de fuera que compensen más que el mercado de la villa · (c) dejarlo: es para quien produce más de lo que la villa compra (más empleados, segundo yunque)"
+    },
+    {
+      "tema": "Jugador completo · las fiestas arruinan a la IA rival (fiestas × H6)",
+      "detalle": "Con todo encendido, las cuatro familias IA (el herrero rival y los rivales carpintero, cantero y sastre) pasan 15-21 de 24 días sin oro y hasta 22 paradas. Ninguna sube de título ni se presenta a un cargo en 3 años, y les pasa igual con el jugador quieto (idle_player): no es la competencia del jugador. Aislado con idle_titles a 10 días, 2 semillas: sin nada o solo con vida o sucesos, el herrero IA llega con 168-474 de oro; solo con las fiestas, con 0 (vende 27-36 piezas en vez de 74). La causa: RivalAI entra en las carreras de encargos de fiesta (4 herraduras, 2 candelabros) con plazos que no cumple, compra materia prima para ellos (126 de oro de golpe), los incumple, el mantenimiento (20/día) la deja a 0 y, por debajo de gold_reserve (20), ya no vuelve a comprar: bloqueo blando para siempre, con deuda de mantenimiento de 230-338. Las dianas de rivales que ya hay salen bien porque corren sin fiestas (_festivals). En una generación (full_player --generation, semilla 2, 351 días) las cuatro pasan 334-349 días sin oro y 341-350 paradas: heredan y tienen hijos (18), pero nunca vuelven a producir ni suben de título. No es de mi rama: fiestas y la IA de H6 (04c, con quiebra y austeridad).",
+      "opciones": "(a) RivalAI no entra en carreras de fiesta que no llega a hacer (el mismo cálculo de makes_in_time con due_at) · (b) H6: la quiebra y la austeridad de 4.21.6.3 sacan a la IA del 0 · (c) una reserva mínima que la IA nunca gasta en materia prima para encargos"
+    },
+    {
+      "tema": "Jugador completo · la IA rival no compite en títulos, cargos ni ataques",
+      "detalle": "En 3 años × 3 semillas (full_player e idle_player): 0 títulos, 0 candidaturas y 0 acusaciones de la IA, sin ningún hecho público para acusar. Compite solo en el tablón (17-35 encargos aceptados) y casi nunca le gana un encargo de fiesta al jugador (0-1). Lo que pide el owner (que al menos una suba de título en 3 años y te dispute encargos y cargos) queda como diana propuesta (data/targets.json full_player _proposed) hasta H6.",
+      "opciones": "(a) se mide de nuevo con la IA de 04c (H6) · (b) bajar la reputación de Ciudadano también para la IA"
+    },
+    {
+      "tema": "Jugador completo · los empleados y los niños del pueblo no comen",
+      "detalle": "tools/full_watch.gd muestrea cada hora las necesidades de los vecinos (Agenda.view). Los adultos sin empleo nunca pasan hambre (0 % de horas con hambre < 25). Los vecinos que trabajan para una familia, sí: 65-82 % de sus horas, con todas las necesidades a 0 al final (Joan y Guillem, empleados de la forja). Una niña nacida durante la partida (Eulàlia, semilla 2), el 88 %. La rutina del trabajo y la de los niños no pasan por comer. Además, la diversión media del pueblo es 16 y el peor vecino la tiene baja el 73-91 % de las horas.",
+      "opciones": "(a) la rutina del empleado come en su descanso o en casa al atardecer · (b) los niños comen con su familia · (c) si las necesidades del empleado no influyen en nada, no mostrarlas en la UI"
+    },
+    {
+      "tema": "Jugador completo · más forasteros de los previstos",
+      "detalle": "Con todo encendido llegan 4,5-5,7 forasteros al día (3 años × 3 semillas); la vida (04f 4.24) dice de 2 a 4. Puede ser por las fiestas (la feria trae puestos de forasteros). La diana provisional de full_player es [2, 6].",
+      "opciones": "(a) bajar el ritmo de llegadas fuera de las fiestas · (b) aceptar 2-6 con las fiestas"
     },
     {
       "tema": "Interiores II · la fama de un taller (04g 4.6.5.7)",

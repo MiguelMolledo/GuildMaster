@@ -1,0 +1,11 @@
+{
+  "id": "sweets",
+  "name_key": "item.sweets",
+  "gender": "m",
+  "category": "consumable",
+  "weight": 0.2,
+  "max_stack": 10,
+  "base_price": 4,
+  "market_stall": null,
+  "_doc": "Dulces de Navidad (no se vende en el mercado)."
+}

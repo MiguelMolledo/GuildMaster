@@ -1,0 +1,22 @@
+{
+  "id": "tavern_meat_pie",
+  "name_key": "recipe.tavern_meat_pie",
+  "building": "tavern_inn",
+  "zone": "kitchen",
+  "inputs": [
+    {
+      "item": "flour",
+      "qty": 1
+    },
+    {
+      "item": "meat",
+      "qty": 2
+    }
+  ],
+  "output": {
+    "item": "meat_pie",
+    "qty": 4
+  },
+  "duration_hours": 1.5,
+  "min_craft": 3
+}

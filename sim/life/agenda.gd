@@ -101,6 +101,8 @@ static func group(sim: Sim, chr: String, t: Dictionary, today: int) -> String:
 static func run(sim: Sim, chr: String, t: Dictionary, now: int, phase: String) -> void:
 	if Incidents.holds(sim.state, chr):
 		return  # a brawler or a watcher: the incident moves it
+	if Inn.hosting(sim.state, chr):
+		return  # posada (04g): inside the Taberna-Posada as a guest; it comes out when it leaves
 	if t.has("activity"):
 		if now % 60 == 0 and phase == "day" and str(t["activity"]) == "work" and _breaks(sim, chr, t, now):
 			if decide(sim, chr, t, now, phase, true):
@@ -526,6 +528,8 @@ static func _go(sim: Sim, chr: String, t: Dictionary, now: int) -> void:
 	if t.has("target") and not TownLife._go_tile(sim, chr, t, t["target"], now):
 		TownLife._set_state(sim, chr, t, "walking", id)
 		return
+	if id == "tavern" and Inn.neighbour_in(sim, chr, t):
+		return  # posada (04g §4.6.5.7): the tavern is open: in as a guest with its name (Inn takes it from here)
 	if int(t.get("until", -1)) < 0:
 		t["until"] = now + int(t.get("dur", 60))
 	if now >= int(t["until"]):
@@ -546,7 +550,7 @@ static func _go(sim: Sim, chr: String, t: Dictionary, now: int) -> void:
 
 
 const KEYS: Array[String] = ["activity", "spot", "slot", "target", "dur", "until", "stops", "break", "started",
-	"wait_until", "stalls"]
+	"wait_until", "stalls", "inn_tried"]  # posada: inn_tried, one try at the tavern's door per outing
 
 
 static func _clear(t: Dictionary) -> void:

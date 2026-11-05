@@ -334,7 +334,7 @@ compran, se venden y se llevan como cualquier objeto (pesan, caben en pilas), y 
 
 > **Adelantada** (2026-11-04) para cualquier familia y ampliada con ideas de Wartales en [04f_vida_y_fiestas.md](04f_vida_y_fiestas.md) §4.27. También se adelantan los forasteros (4.22.3.6, en 4.24.3), los guardias (4.22.6.2, en 4.24.4) y la demanda de servicios (4.22.3.2, lo que pide la taberna).
 
-**Taberna** (4×4): puestos `bar` (servicio), `kitchen` (craft), mesas (capacidad 8 clientes a la vez), almacén.
+**Taberna** (4×4; la Taberna-Posada adelantada en 04f es un solo edificio de 3×4, como su arte): puestos `bar` (servicio), `kitchen` (craft), mesas (capacidad 8 clientes a la vez), almacén.
 **Posada** (4×5): `reception` (servicio de cama), `bar`, `kitchen`, habitaciones (4 camas; +2 por mejora), almacén.
 Las dos abren **del atardecer a las 02:00** (y la Posada recibe forasteros todo el día). Sus empleados **sí trabajan
 de noche** (`night_production: "employees"`): son la excepción de 4.1.

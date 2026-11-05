@@ -1,0 +1,22 @@
+{
+  "id": "tavern_sausage",
+  "name_key": "recipe.tavern_sausage",
+  "building": "tavern_inn",
+  "zone": "kitchen",
+  "inputs": [
+    {
+      "item": "meat",
+      "qty": 2
+    },
+    {
+      "item": "wheat",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "sausage",
+    "qty": 4
+  },
+  "duration_hours": 1.5,
+  "min_craft": 2
+}
