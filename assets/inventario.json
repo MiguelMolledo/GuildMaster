@@ -7364,84 +7364,6 @@
       "notas": "Ilustración de la fiesta cattle_fair (data/festivals.json): 240×135 (carta de la fiesta) y cattle_fair_192.png a 192×108 (aviso). VisualPaths.illustration_or_greybox: hasta que llegue, greybox con etiqueta."
     },
     {
-      "id": "prop_fiesta_bunting",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/bunting.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: banderolas entre casas (cuerda con triángulos de colores). Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/bunting.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_banner",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/banner.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: pendón en mástil. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/banner.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_lanterns",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/lanterns.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: farolillos colgados. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/lanterns.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_maypole",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/maypole.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: el mayo (árbol alto con cintas). Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/maypole.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_garland",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/garland.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: guirnalda de flores y ramas. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/garland.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_cart_ring",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/cart_ring.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: carro del cerco de los toros. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/cart_ring.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
       "id": "prop_fiesta_bull",
       "tipo": "prop",
       "estado": "falta",
@@ -7453,45 +7375,6 @@
       "origen": null,
       "coste_gen": 0,
       "notas": "Prop de fiesta: toro. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/bull.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_bonfire",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/bonfire.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: hoguera de San Juan (fuego). Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/bonfire.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_fair_stall",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/fair_stall.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: puesto de feria con toldo de colores. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/fair_stall.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_pen",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/pen.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: corral de ganado. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/pen.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
     },
     {
       "id": "prop_fiesta_sheep",
@@ -7520,19 +7403,6 @@
       "notas": "Prop de fiesta: caballo. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/horse.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
     },
     {
-      "id": "prop_fiesta_long_tables",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/long_tables.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: mesas largas del banquete con bancos. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/long_tables.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
       "id": "prop_fiesta_pig",
       "tipo": "prop",
       "estado": "falta",
@@ -7544,58 +7414,6 @@
       "origen": null,
       "coste_gen": 0,
       "notas": "Prop de fiesta: cerdo. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/pig.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_nativity",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/nativity.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: belén del atrio. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/nativity.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_triumphal_arch",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/triumphal_arch.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: arco triunfal de madera y piedra (2×1 casillas). Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/triumphal_arch.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_stage",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/stage.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: tablado de los cómicos. Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/stage.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
-    },
-    {
-      "id": "prop_fiesta_tilt_yard",
-      "tipo": "prop",
-      "estado": "falta",
-      "para": [
-        "04f",
-        "fiestas"
-      ],
-      "ruta": "assets/art/props/fiesta/tilt_yard.png",
-      "origen": null,
-      "coste_gen": 0,
-      "notas": "Prop de fiesta: liza de la justa (valla larga). Isométrico 2:1, ~32-64 px de ancho (una casilla), pies abajo en el centro; escena game/visuals/props/fiesta/tilt_yard.tscn con Feet y Top (FestivalLayer la usa; hasta entonces props/fiesta/_greybox.tscn con el id escrito)."
     },
     {
       "id": "music_fest_holy_week",
