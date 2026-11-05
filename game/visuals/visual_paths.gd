@@ -370,6 +370,51 @@ static func duel_illustration(id: String, small: bool = false) -> Texture2D:
 	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
+## Juegos (04f §4.26, §4.28.3): a piece of a game's screen, assets/art/ui/games/<game>/<id>.png (the dice, the table,
+## the cards, the lists, the horses...). null until the art arrives: the board draws its greybox with a label.
+## Kept here: a texture loaded inside a _draw and dropped right after is freed before the canvas draws it (it comes
+## out white), so the boards' pieces stay referenced.
+static var _game_art: Dictionary = {}
+
+
+static func game_art(game: String, id: String) -> Texture2D:
+	var key := "%s/%s" % [game, id]
+	if _game_art.has(key):
+		return _game_art[key]
+	var t := _game_art_load(key, id)
+	_game_art[key] = t
+	return t
+
+
+static func _game_art_load(key: String, id: String) -> Texture2D:
+	var alias := str(GAME_ART_ALIAS.get(key, ""))
+	if alias == "" and key.begins_with("dice/die_"):
+		alias = "dados/d" + id.substr(4)
+	for rel: String in ([alias] if alias != "" else []) + [key]:
+		var p := "%s/ui/games/%s.png" % [ART_ROOT, rel]
+		if ResourceLoader.exists(p):
+			return load(p) as Texture2D
+	return null
+
+
+## Juegos: the names the art uses for the boards' pieces (assets/inventario.json ui_game_mesa, ui_game_dados,
+## ui_game_naipes; the art keeps its names): the tavern table is the board of the dice, the cards and the pulso.
+const GAME_ART_ALIAS: Dictionary = {"dice/table": "mesa/mesa", "naipes/table": "mesa/mesa", "pulso/table": "mesa/mesa",
+	"dice/shadow": "dados/shadow", "dice/cup": "dados/cup"}
+
+
+## Juegos: the icon of a game (assets/art/ui/icons/game_<game>.png, `small` from small/), null until it exists.
+static func game_icon(game: String, small: bool = false) -> Texture2D:
+	var p := "%s/ui/icons/%sgame_%s.png" % [ART_ROOT, "small/" if small else "", game]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## Juegos: the illustration of a game's result or of a competition (assets/art/illustrations/events/<id>.png, 240×135;
+## `small`: <id>_192.png, 192×108), shared with the fiestas' cards. null until it exists.
+static func game_illustration(id: String, small: bool = false) -> Texture2D:
+	return illustration("events", id, small)
+
+
 ## The ground texture of a tile kind (data/tiles.json): assets/art/tiles/<kind>.png (null until it exists: the ground
 ## keeps the kind's greybox colour).
 static func tile(kind: String) -> Texture2D:
