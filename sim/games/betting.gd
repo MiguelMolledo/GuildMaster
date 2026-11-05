@@ -59,6 +59,8 @@ static func valid_stake(games: Dictionary, stake: int) -> bool:
 static func order_bet(sim: Sim, o: Dictionary) -> Dictionary:
 	if str(o.get("incident", "")) != "":
 		return _order_bet_incident(sim, o)
+	if str(o.get("festival", "")) != "":
+		return FestivalGames.order_bet(sim, o)  # a festival's competition, before it is fought
 	var st := sim.state
 	var games: Dictionary = sim.catalog.games
 	var g := str(o.get("game", ""))

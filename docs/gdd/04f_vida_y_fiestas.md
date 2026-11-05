@@ -302,7 +302,7 @@ Caen al azar (flujo `events_city`) o los declara el Alcalde (poder `declare_even
 | `route_bonus {route, days}` | ruta temporal: la feria de Bellcaire invita y el portazgo a Bellcaire es 0 durante 2 días | 09b |
 | `contracts {table}` | abre los encargos de fiesta (4.25.4) | 4.5.6 |
 | `emotion {id, share}` | «inspirado» al 50 % tras la fiesta | 4.11.5 |
-| `spectacle {id}` | toros, justa, cómicos, carrera | nuevo (4.26) |
+| `spectacle {id}` | toros, justa, cómicos, carrera | nuevo (4.26); los que son juegos se corren a su hora y se puede apostar o apuntarse (`docs/contratos/juegos.md` §5 ter) |
 | `incident {id, mult}` | altercados ×3 en Carnaval | 4.24.5 |
 | `reputation {who, amount}` | el que patrocina +; el Alcalde −2 en Carnaval | sí |
 
@@ -706,13 +706,15 @@ claves y aplica el oro. La API para las Fiestas y la Posada (quién juega, apues
 contrato [docs/contratos/juegos.md](../contratos/juegos.md):
 
 Juegos construidos: `azar`, `mayor`, `pulso`, `envite`, `tourney`, `joust`, `sortija`, `race`, `bulls` (y apuestas sobre
-cualquiera). Para abrir cada uno: `godot --path . -- --games-test=<juego>` (y `apuestas`: el corredor).
+cualquiera). Para abrir cada uno: `godot --path . -- --games-test=<juego>` (y `apuestas`: el corredor; `fair_bet`:
+apostar a la carrera de la feria; `festival_joust`: la justa del torneo que organiza el Alcalde).
 
 | Quién llama | Cómo |
 |---|---|
 | La pantalla (el jugador) | `GameScreen.open({actor, game, opponents, stake, opts})` → al acabar, `game_play` con las jugadas |
 | «Resolver sin jugar» | El mismo `game_play` con las jugadas hasta ese momento y `auto: true` |
 | Una competición sin el jugador (fiestas) | `Games.auto(cat.games, spec)`: ganador y clasificación sin tocar nada |
+| Las fiestas (espectáculo a su hora) | `FestivalGames.on_spectacle`: se corre sola, o llama al apuntado (`game_enter`) a jugarla; las apuestas de la feria (`game_bet` con `festival`) se pagan con su resultado |
 | Las cuotas (§4.26.6) | `Games.win_odds(cat.games, spec, n)`: n partidas automáticas con sus propias claves |
 | La Posada (mesa de juego) | La pantalla con `opts.house` = la taberna (su parte de la casa) y `opts.event` = el turno |
 

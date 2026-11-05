@@ -695,6 +695,12 @@
       "tema": "Equilibrio 12 · ritmo",
       "decision": "El hueco máximo entre decisiones (< 60 s, 03b) debe cumplirse también en días de obras; se espera que lo arregle el punto 9 y se mide con pacing y full_player.",
       "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Juegos en las fiestas",
+      "decision": "Los espectáculos de fiesta que son juegos (justa, torneo de lucha, carrera, toros) se corren a su hora con las reglas de 4.26: solos (Games.auto) o con el jugador si se apuntó (game_enter; la justa pide Ciudadano). Si el apuntado no juega, al acabar la fiesta se resuelve sin jugar en su nombre. Las apuestas de la feria se pagan con el resultado de la propia competición y se devuelven si no llega a correrse. Todo va dentro de la instancia de fiesta (v18): juegos sigue sin versión de guardado.",
+      "por_que": "Encargo del manager: enganchar festival_spectacle, la justa y el torneo del Alcalde y las apuestas en la feria. Guardarlo en la fiesta evita otra versión de guardado; resolver al final al que no juega evita que apuntarse y cerrar la pantalla sea una salida gratis."
     }
   ],
   "pendientes": [
