@@ -21,6 +21,11 @@ func blocked() -> bool:
 	return false
 
 
+## The help (F1) is open: the tutorial keeps counting but does not paint over it.
+func help_open() -> bool:
+	return false
+
+
 ## The value of a "$symbol" now (`ev` = the event a hint came from, for "$event.<field>"); anything else as it is.
 func symbol(v: Variant, ev: Dictionary = {}) -> Variant:
 	if v is String and str(v).begins_with("$event."):

@@ -95,7 +95,7 @@ func refresh(force: bool = false) -> void:
 	if sim == null:
 		return
 	var sig := "%s|%s|%s|%d" % [family, neighbours_open, sim.state.chronicle.size(), Clock.day(int(sim.state.clock["minute"]))]
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	(%ListPage as Control).visible = family == ""

@@ -1,0 +1,21 @@
+{
+  "id": "guardar_cargar",
+  "title": "Guardar y cargar",
+  "about": "Esc → menú de pausa → Guardar en la ranura 1; jugar un poco; F9 → cargar la ranura 1 y comprobar que el reloj vuelve atrás.",
+  "quick": true,
+  "start": {"scenario": "town_e_start"},
+  "covers": [],
+  "steps": [
+    {"id": "pausa", "key": "Escape", "expect": ["q.visible('PauseMenu')"]},
+    {"id": "guardar", "click": {"node": "SaveButton"}, "expect": ["q.visible('SaveScreen')"]},
+    {"id": "ranura_1", "say": "Guardar en la ranura 1", "click": {"within": "Row_slot_1", "node": "Save"}, "until": "q.saves() > q.was('saves') or q.visible('Confirm')", "timeout": 8},
+    {"id": "sobrescribir", "when": "q.visible('Confirm')", "click": {"within": "Confirm", "type": "Button", "index": 1}, "until": "q.saves() > 0", "timeout": 8},
+    {"id": "guardado", "expect": ["q.saves() > 0", "q.visible('PauseMenu')"]},
+    {"id": "seguir", "click": {"node": "ResumeButton"}, "expect": ["not q.visible('PauseMenu')"]},
+    {"id": "jugar", "key": "@speed_3"},
+    {"id": "pasa_tiempo", "until": "q.minute() > q.was('minute') + 120", "timeout": 30, "fast": 6},
+    {"id": "f9", "say": "F9: cargar", "key": "F9", "expect": ["q.visible('SaveScreen')"]},
+    {"id": "cargar", "say": "Cargar la ranura 1", "click": {"within": "Row_slot_1", "node": "Load"}, "until": "not q.menu()", "timeout": 10, "expect": ["q.minute() < q.was('minute')"]},
+    {"id": "confirmar_carga", "when": "q.menu() and q.visible('Confirm')", "click": {"within": "Confirm", "type": "Button", "index": 1}, "until": "not q.menu()", "timeout": 10, "expect": ["q.minute() < q.was('minute')"]}
+  ]
+}

@@ -112,13 +112,10 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 		fam_name = SimQuery.t_(str(family["name_key"]))
 	if not selectable and fam_name != "":
 		_name_label.text = "%s · %s" % [str(ch.get("name", char_id)), fam_name]
-	_name_label.add_theme_font_size_override("font_size", 10)
-	_name_label.add_theme_color_override("font_color", Color(1.0, 0.95, 0.8))
-	_name_label.add_theme_color_override("font_outline_color", Color(0.1, 0.07, 0.05))
-	_name_label.add_theme_constant_override("outline_size", 3)
+	WorldLabels.style(_name_label, "name")
 	_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_name_label.size = Vector2(120, 14)
-	_name_label.position = Vector2(-60, -fig_height - 20)
+	_name_label.size = Vector2(160, 14)
+	_name_label.position = Vector2(-80, -fig_height - 20)
 	_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_name_label.visible = selected
 	_name_label.name = "NameLabel"
@@ -185,6 +182,7 @@ func set_bubble(id: String) -> void:
 		return
 	_bubble = VisualPaths.instantiate("bubbles", id)
 	_bubble.name = "Bubble"
+	WorldLabels.style_tree(_bubble)   # a greybox bubble's glyph, in the project's small letter
 	_bubble.z_index = MARKS_Z
 	VisualPaths.place(_bubble, Vector2(bubble_shift, -fig_height - 12 - turn_raise))
 	_bubble.visible = turn_shown
@@ -306,13 +304,10 @@ func set_phrase(text: String) -> void:
 		_phrase_label = Label.new()
 		_phrase_label.name = "PhraseLabel"
 		_phrase_label.z_index = MARKS_Z + 1
-		_phrase_label.add_theme_font_size_override("font_size", 9)
-		_phrase_label.add_theme_color_override("font_color", Color(1.0, 1.0, 0.92))
-		_phrase_label.add_theme_color_override("font_outline_color", Color(0.1, 0.07, 0.05))
-		_phrase_label.add_theme_constant_override("outline_size", 3)
+		WorldLabels.style(_phrase_label, "phrase")
 		_phrase_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_phrase_label.size = Vector2(180, 14)
-		_phrase_label.position = Vector2(-90, -fig_height - 46 - turn_raise - phrase_raise)
+		_phrase_label.size = Vector2(240, 14)
+		_phrase_label.position = Vector2(-120, -fig_height - 46 - turn_raise - phrase_raise)
 		_phrase_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_phrase_label)
 	_phrase_label.text = text

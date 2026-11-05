@@ -183,6 +183,8 @@ func _refresh_betting() -> void:
 				var mk2: Dictionary = _market.get(_bet_on, {})
 				b.text = tr("games.bets.place") % float(mk2.get("odds", 0.0))
 				b.disabled = not Money.can_pay(_state, fam, _bet_stake + reserve)
+				if b.disabled:
+					b.tooltip_text = tr("ui.why.bet_gold") % [_bet_stake + reserve, Money.gold(_state, fam)]
 			_:
 				b.text = tr("games.bets.none")
 		b.custom_minimum_size = Vector2(96, 28)
@@ -415,6 +417,8 @@ func _refresh() -> void:
 		acts.move_child(b, i)
 		i += 1
 	(get_node("%Auto") as Button).disabled = busy or m.over()
+	(get_node("%Auto") as Button).tooltip_text = (tr("ui.why.over") if m.over() else tr("ui.why.busy_lance")) \
+		if (get_node("%Auto") as Button).disabled else ""
 	var lines := _log_lines.slice(maxi(0, _log_lines.size() - 3))
 	(get_node("%Log") as Label).text = "\n".join(lines)
 	var miss := _board.missing
@@ -614,11 +618,13 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			close()
 	elif (get_node("%Result") as PageCard).visible:
 		pass
-	elif k in KEYS and m != null:
-		var acts: Array = m.view(0).get("actions", [])
+	elif k in KEYS:
+		# the key presses the button that shows its number (MenuKit.add_hint), the bets' buttons too (verificación A7)
+		var btns: Array = (get_node("%Actions") as Container).get_children().filter(func(c: Node) -> bool:
+			return c is Button and (c as Button).visible)
 		var i := KEYS.find(k)
-		if i < acts.size():
-			_choose(str((acts[i] as Dictionary)["id"]))
+		if i < btns.size() and not (btns[i] as Button).disabled:
+			(btns[i] as Button).pressed.emit()
 	elif k == KEY_A:
 		_auto()
 	get_viewport().set_input_as_handled()

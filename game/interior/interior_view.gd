@@ -447,8 +447,8 @@ func _badge(b: Button, text: String, token: String) -> void:
 		n.add_theme_stylebox_override("panel", sb)
 		var l := Label.new()
 		l.name = "Text"
-		l.theme_type_variation = &"SmallLabel"
-		l.add_theme_color_override("font_color", Color.html("#1a1209"))
+		WorldLabels.style(l, "small", Color.html("#1a1209"))
+		l.add_theme_constant_override("outline_size", 0)
 		n.add_child(l)
 		var t := TextureRect.new()
 		t.name = "Icon"

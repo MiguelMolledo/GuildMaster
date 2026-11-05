@@ -1,0 +1,25 @@
+{
+  "_doc": "Motivos apuntados de la tabla de cobertura de controles (tools/verifica/report.py): una orden de Orders.apply que no necesita camino por ratón o por teclado lleva aquí el porqué. Lo que no está aquí y ningún flujo prueba sale como hueco. Solo motivos que dice el diseño (docs/ui/01_hud.md §9); los demás huecos los decide el owner.",
+  "orders": {
+    "wait": {
+      "mouse": "no la da la UI: es la orden vacía de los bots",
+      "key": "no la da la UI: es la orden vacía de los bots"
+    },
+    "move_to": {
+      "key": "señalar un sitio del mapa es del ratón (docs/ui/01 §9: clic derecho)"
+    },
+    "enter_building": {
+      "key": "señalar un edificio es del ratón (docs/ui/01 §9: clic derecho)"
+    },
+    "go_to_station": {
+      "key": "señalar un puesto de la sala es del ratón (docs/ui/01 §9: clic)"
+    },
+    "master_touch": {
+      "key": "el toque maestro es un clic en el puesto mientras parpadea (GDD 4.4.5)"
+    },
+    "inn_serve": {
+      "key": "servir es señalar a un cliente en la sala (docs/ui/01 §9: clic)"
+    }
+  },
+  "steps": []
+}

@@ -211,6 +211,8 @@ func _refresh() -> void:
 			(_buttons[a] as Button).disabled = true
 		_yield.disabled = true
 		_auto.disabled = true
+		for b: Button in [_yield, _auto]:
+			b.tooltip_text = tr("ui.why.busy_lance")
 		return
 	match "over" if duel.over() else str(v["role"]):
 		"over":
@@ -239,6 +241,13 @@ func _refresh() -> void:
 	_yield.visible = bool(v["can_yield"])
 	_yield.disabled = busy or duel.over()
 	_auto.disabled = busy or duel.over()
+	var off := tr("ui.why.over") if duel.over() else tr("ui.why.busy_lance")   # verificación A7: every off button says why
+	for b: Button in [_yield, _auto]:
+		if b.disabled:
+			b.tooltip_text = off
+	for c: Node in _auto.get_parent().get_children():
+		if c is Button and (c as Button).disabled and (c as Button).tooltip_text == "":
+			(c as Button).tooltip_text = off
 
 
 func _log_text() -> String:

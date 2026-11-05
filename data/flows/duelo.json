@@ -1,0 +1,24 @@
+{
+  "id": "duelo",
+  "title": "Duelo",
+  "about": "El rival acaba de insultar a Hugo: clic en el rival, «Retar a duelo…», la carta del reto por la ofensa y el lance en la pantalla del duelo con teclas y botones.",
+  "start": {"scenario": "duel_ready"},
+  "covers": ["duel_challenge", "duel_answer", "duel_move", "duel_auto"],
+  "steps": [
+    {"id": "pausa", "say": "Espacio: pausa (el rival anda; en pausa se reta donde está)", "key": "Space", "expect": ["q.paused()"]},
+    {"id": "rival", "say": "Clic en el herrero rival: su ficha", "world": {"person": "=q.rival()"}, "expect": ["q.visible('NpcPanel')"]},
+    {"id": "retar", "say": "«Retar a duelo…»", "click": {"node": "DuelButton"}, "until": "q.shown({'prefix': 'Button_cause'})", "timeout": 6},
+    {"id": "causa", "say": "Por la ofensa", "click": {"prefix": "Button_cause"}, "expect": ["q.order('duel_challenge')"]},
+    {"id": "seguir", "key": "Space", "expect": ["not q.paused()"]},
+    {"id": "x4", "key": "@speed_3"},
+    {"id": "pantalla", "say": "El rival acepta para mañana a las 06:00 en la plaza: ×4 hasta la hora y se abre el duelo", "until": "q.visible('DuelScreen')", "timeout": 90, "fast": 8},
+    {"id": "tecla_1", "say": "1: atacar", "key": "1", "expect": ["q.order('duel_move')"]},
+    {"id": "espera_lance", "say": "Los botones se apagan mientras se resuelve el lance", "until": "not q.disabled({'node': 'Parry'})", "timeout": 10},
+    {"id": "parar", "say": "Botón Parar", "click": {"node": "Parry"}, "expect": ["q.order('duel_move')"]},
+    {"id": "fintar", "say": "3: fintar", "key": "3", "soft": true},
+    {"id": "espera_lance_2", "say": "Espera a que acabe el lance en curso", "until": "not q.disabled({'node': 'Parry'}) or q.visible('Result')", "timeout": 10},
+    {"id": "espera_auto", "until": "not q.disabled({'node': 'Auto'}) or q.visible('Result')", "timeout": 10},
+    {"id": "auto", "say": "«Resolver sin jugar»", "until": "q.visible('Result')", "timeout": 20, "fast": 4, "click": {"node": "Auto"}},
+    {"id": "cerrar", "say": "Esc cierra el resultado", "key": "Escape", "until": "not q.visible('DuelScreen')", "timeout": 6}
+  ]
+}

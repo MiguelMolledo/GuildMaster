@@ -1,0 +1,19 @@
+{
+  "id": "pagar_deuda",
+  "title": "Pagar la deuda",
+  "about": "En una partida nueva: el libro (L), la pestaña Deudas, pagar una parte con el campo de cantidad y luego todo lo que se pueda, con la confirmación si deja el oro por debajo de lo que se cobra al amanecer.",
+  "quick": true,
+  "start": {"new_game": true},
+  "covers": ["repay_loan"],
+  "steps": [
+    {"id": "sin_tutorial", "click": {"node": "TutorialCheck"}},
+    {"id": "empezar", "click": {"node": "StartButton"}, "until": "not q.visible('NewGameScreen') and q.fam() != ''", "expect": ["q.debt() > 0"]},
+    {"id": "libro", "say": "L: el libro de cuentas", "key": "@ledger", "expect": ["q.visible('LedgerPanel')"]},
+    {"id": "deudas", "say": "Pestaña Deudas", "click": {"via": "LedgerPanel", "fn": "tab_button", "args": ["debts"]}},
+    {"id": "pagar_parte", "say": "Pagar (la cantidad del campo)", "click": {"within": "LedgerPanel", "node": "Pay"}, "until": "q.debt() < q.was('debt') or q.visible('ConfirmModal')", "timeout": 6},
+    {"id": "confirmar_si_pide", "when": "q.visible('ConfirmModal')", "say": "Si pide confirmar, el botón Pagar del modal", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "until": "q.debt() < q.was('debt')", "timeout": 6},
+    {"id": "pagado_parte", "expect": ["q.debt() < 200"]},
+    {"id": "pagar_todo", "say": "«Pagar todo» está apagado y dice por qué (no llega el oro)", "expect": ["q.disabled({'within': 'LedgerPanel', 'node': 'PayAll'})", "q.tip({'within': 'LedgerPanel', 'node': 'PayAll'}) != ''"]},
+    {"id": "cerrar", "key": "Escape", "expect": ["not q.visible('LedgerPanel')"]}
+  ]
+}

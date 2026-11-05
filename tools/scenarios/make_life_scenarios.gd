@@ -39,6 +39,14 @@ func _init() -> void:
 			var v: Dictionary = st.town["visitors"]
 			v["day"] = 8
 			v["planned"] = [{"at": 8 * DAY + 9 * 60 + 50, "kind": "merchant", "city": "port", "gate": "west_gate", "key": "life|vis|scenario|gate"}]) and ok
+	ok = _make(base, "life_beggar", 9 * 60 + 40, "Un mendigo en la puerta",
+		"Día 9, 09:40: el héroe, con 40 de oro, junto a la puerta oeste; a las 09:50 entra un mendigo que irá a pedir al atrio (la ficha del vecino ofrece «Dar limosna»).",
+		func(st: WorldState) -> void:
+			_hero_at(st, [5, 19])
+			st.families[str(st.characters[HERO]["family"])]["gold"] = 40   # something to give
+			var v: Dictionary = st.town["visitors"]
+			v["day"] = 8
+			v["planned"] = [{"at": 8 * DAY + 9 * 60 + 50, "kind": "beggar", "city": "port", "gate": "west_gate", "key": "life|vis|scenario|beggar"}]) and ok
 	ok = _make(base, "life_night", 22 * 60 + 50, "La ronda de noche",
 		"Día 9, 22:50: noche; dos guardias hacen la ronda con farol por la calle mayor y la plaza. El héroe está junto al pozo.",
 		func(st: WorldState) -> void: _hero_at(st, [21, 20])) and ok

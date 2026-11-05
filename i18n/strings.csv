@@ -3874,3 +3874,94 @@ notice.inn.illegal_gaming,The constable's men saw gaming without licence in {bui
 games.preset.stranger_soldier,The discharged soldier,El soldado licenciado
 games.preset.stranger_merchant,The passing merchant,El mercader de paso
 games.ui.in_own_house,"in your own house (it keeps nothing of yours)","en tu propia casa (no se queda nada de lo tuyo)"
+combat.card.challenged,%s challenges you to a duel,%s te reta a duelo
+combat.card.challenged_text,%s demands satisfaction: %s.,%s pide satisfacción: %s.
+combat.card.answer_by,"Answer before %02d:%02d; without an answer, it counts as a refusal.","Contesta antes de las %02d:%02d; sin respuesta, cuenta como rechazo."
+combat.card.accept,Accept,Aceptar
+combat.card.accept_tip,The duel is fought at dawn in the plaza; refusing in front of witnesses costs reputation.,El duelo es al alba en la plaza; rechazar ante testigos cuesta reputación.
+combat.card.refuse,Refuse,Rechazar
+combat.card.refuse_tip,No duel; whoever saw the challenge will remember it.,No hay duelo; quien vio el reto lo recordará.
+combat.card.withdraw,Withdraw,Retirarse
+combat.card.withdraw_tip,Take back the challenge before the hour.,Retirar el reto antes de la hora.
+ui.npc.alms,Give alms (%d gold),Dar limosna (%d de oro)
+ui.npc.alms_tip,"A coin for whoever asks: a little reputation, once a day.","Una moneda a quien pide: un poco de reputación, una vez al día."
+ui.festival_card.host_wedding_short,The banquet costs %d gold and you have %d,El banquete cuesta %d de oro y tienes %d
+ui.why.over,It is over,Ya ha terminado
+ui.why.busy_lance,Wait until the move in play is over,Espera a que acabe la jugada en curso
+ui.why.bet_gold,You need %d gold and you have %d,Necesitas %d de oro y tienes %d
+ui.why.directive_off,Turn the directive on to order it,Enciende la directiva para ordenarla
+ui.why.first,It is already the first,Ya es la primera
+ui.why.last,It is already the last,Ya es la última
+ui.why.stat_min,It is at its starting value,Ya está en su valor de partida
+ui.why.no_points,No points left,No te quedan puntos
+ui.why.stat_max,It is at the maximum,Ya está en el máximo
+ui.why.scale_fit,It does not fit whole on your screen,No cabe entera en tu pantalla
+ui.why.scale_full,In full screen the screen sets the scale,En pantalla completa la escala la pone la pantalla
+ui.why.slot_empty,Empty slot,Ranura vacía
+ui.why.slot_broken,This save is damaged,Esta partida está dañada
+ui.why.autosave_keep,The autosave is not deleted,El guardado automático no se borra
+ui.order.read_notices,Read the notices,Leer los avisos
+ui.order.buy_upgrade,Build an upgrade,Construir una mejora
+ui.order.court_talk,Court %s: talk,Cortejar a %s: hablar
+ui.order.court_gift,Court %s: a gift,Cortejar a %s: un regalo
+ui.order.propose,Propose to %s,Pedir la mano de %s
+ui.order.designate_heir,Name the heir,Designar heredero
+ui.order.school_choice,Choose a school,Elegir escuela
+ui.order.assign_building,Assign a workplace,Asignar un oficio
+ui.order.close_dynasty,End the dynasty,Cerrar la dinastía
+ui.order.set_schedule,Change a routine,Cambiar una rutina
+ui.order.set_directives,Change the directives,Cambiar las directivas
+ui.order.npc_talk,Talk to %s,Conversar con %s
+ui.order.npc_gift,Give %s a gift,Regalar a %s
+ui.order.npc_flatter,Flatter %s,Halagar a %s
+ui.order.npc_insult,Insult %s,Insultar a %s
+ui.order.npc_threaten,Threaten %s,Amenazar a %s
+ui.order.resolve_microevent,Answer a matter,Responder a un asunto
+ui.order.request_title,Ask for the title,Pedir el título
+ui.order.run_for_office,Run for office,Presentarse a un cargo
+ui.order.campaign_action,Campaign,Hacer campaña
+ui.order.use_office_power,Use a power of the office,Usar un poder del cargo
+ui.order.accuse,Accuse %s,Acusar a %s
+ui.order.witness_action,Talk to a witness,Tratar con un testigo
+ui.order.trial_cross,Cross-examine a witness,Interrogar a un testigo
+ui.order.trial_rest,Rest the defence,Concluir la defensa
+ui.order.trial_verdict,Give the verdict,Dictar sentencia
+ui.order.duel_challenge,Challenge %s,Retar a %s
+ui.order.duel_answer,Answer the challenge,Contestar el reto
+ui.order.duel_withdraw,Withdraw the challenge,Retirar el reto
+ui.order.duel_move,A move of the duel,Un lance del duelo
+ui.order.duel_auto,Resolve the duel,Resolver el duelo
+ui.order.duel_brawl,Fight %s,Pelear con %s
+ui.order.travel,Travel,Viajar
+ui.order.return,Go back home,Volver a casa
+ui.order.city_buy,Buy in the city,Comprar en la ciudad
+ui.order.city_sell,Sell in the city,Vender en la ciudad
+ui.order.city_accept,Accept a contract of the city,Aceptar un encargo de la ciudad
+ui.order.city_deliver,Deliver a contract of the city,Entregar un encargo de la ciudad
+ui.order.buy_cart,Buy a cart,Comprar un carro
+ui.order.caravan_send,Send a caravan,Mandar una caravana
+ui.order.sign_treaty,Sign a treaty,Firmar un tratado
+ui.order.propose_town_treaty,Propose a treaty,Proponer un tratado
+ui.order.cancel_treaty,Cancel a treaty,Romper un tratado
+ui.order.festival_sponsor,Sponsor the feast,Patrocinar la fiesta
+ui.order.festival_host_wedding,Pay the wedding banquet,Pagar el banquete de boda
+ui.order.game_play,Play a game,Jugar una partida
+ui.order.game_bet,Place a bet,Apostar
+ui.order.resolve_incident,Answer an incident,Responder a un suceso
+ui.order.give_alms,Give alms to %s,Dar limosna a %s
+ui.order.hail,Ask %s to wait,Pedir a %s que espere
+ui.order.game_enter,Enter a game,Apuntarse a una partida
+ui.order.buy_building,Buy a building,Comprar un edificio
+ui.order.inn_set_menu,Set the menu,Poner la carta
+ui.order.inn_set_price,Set a price,Poner un precio
+ui.order.inn_set_special,Set the dish of the day,Poner el plato del día
+ui.order.inn_buy_license,Buy the licence,Comprar la licencia
+ui.order.inn_serve,Serve a table,Servir una mesa
+ui.order.inn_make_bed,Make a bed,Hacer una cama
+hud.date_short,D%d · %s · y%d,D%d · %s · año %d
+hud.date_shortest,%s · year %d,%s · año %d
+hud.rep_tight,rep.%d,rep.%d
+ui.hud.map_not_inside,The region map is not available inside a building,El mapa de la región no está disponible dentro de un edificio
+ui.hud.camera_not_inside,The camera does not move inside a building,La cámara no se mueve dentro de un edificio
+ui.order.live_forge,Forge by hand,Forjar a mano
+ui.order.unlock_seen,Read what is new,Leer lo nuevo

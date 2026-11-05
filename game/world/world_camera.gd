@@ -73,6 +73,8 @@ func world_to_screen(world: Vector2) -> Vector2:
 
 func _process(delta: float) -> void:
 	var dir := Input.get_vector("cam_left", "cam_right", "cam_up", "cam_down")
+	if dir != Vector2.ZERO and KeyNav.focused(get_viewport()):
+		dir = Vector2.ZERO   # the arrows move the focus of a panel, not the town
 	if dir != Vector2.ZERO:
 		pan(dir * speed * delta)
 

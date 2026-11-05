@@ -114,7 +114,12 @@ static func order_label(state: WorldState, catalog: Catalog, o: Dictionary) -> S
 			return line
 	var key := "ui.order." + t
 	var s := t_(key)
-	return t if s == key else s
+	if s == key:
+		return t
+	if s.contains("%s"):   # orders on somebody: their name (Conversar con Agnès, Pedir a Bernat que espere)
+		var who := str(o.get("target", o.get("witness", "")))
+		return s % str(state.characters.get(who, {}).get("name", who))
+	return s
 
 
 ## The order queue of `actor` as text lines, in order (GDD 4.1, active pause): what the sim holds in its order_queue,

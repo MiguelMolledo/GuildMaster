@@ -101,6 +101,8 @@ func _fill() -> void:
 			b.set_pressed_no_signal(choices[i] == Settings.value(key))
 			if key == "display/scale":
 				b.disabled = not int(choices[i]) in fits or bool(Settings.value("display/fullscreen"))
+				b.tooltip_text = (SimQuery.t_("ui.why.scale_full") if bool(Settings.value("display/fullscreen")) \
+					else SimQuery.t_("ui.why.scale_fit")) if b.disabled else ""
 	(%ScaleNote as Label).text = SimQuery.t_("ui.options.scale_full") if bool(Settings.value("display/fullscreen")) \
 		else SimQuery.t_("ui.options.scale_note")
 	_filling = false

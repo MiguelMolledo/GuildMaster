@@ -883,6 +883,36 @@
       "tema": "Fiestas: los corrales de la feria, a las afueras",
       "decision": "Los corrales (y el ganado) de la feria y de la feria de ganado se ponen en el prado libre más cercano a una puerta de la villa, nunca en caminos ni puertas, con una regla de la capa de decoración (rules.view_sites.outskirts: ground grass, radius 10, gate_margin 1) que vale para cualquier mapa con puertas.",
       "por_que": "El owner: las ferias de ganado se hacían a las afueras, junto al camino; en la plaza de town_e no cabían."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "El teclado en la interfaz",
+      "decision": "Sí al camino por teclado en menús, paneles y cartas (KeyNav): todo control de la interfaz toma el foco; Tab entra en lo de arriba, flechas y Tab se mueven, Intro/Espacio pulsan, Esc cierra, F6 cambia de zona. El mapa y las salas, del ratón. Un clic no deja el foco; las flechas no mueven la cámara con foco; R y la cámara avisan dentro de un edificio. La A, sin cambios. El foco de los botones usa la pieza hover del kit; casillas y pestañas, un marco dorado.",
+      "por_que": "Decisión del manager (bloque C): meta de cobertura ratón ≥ 65 y teclado ≥ 60 órdenes."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "La letra del mundo y los recortes",
+      "decision": "Todos los rótulos de la ciudad y de las salas pasan por WorldLabels (game/world/world_labels.gd): Pixel Operator 16 (negrita en letreros y nombres) y Pixel Operator 8 en barras, insignias y burbujas, con contorno oscuro de 2 px; nunca la fuente por defecto de Godot ni tamaños intermedios. Los textos del HUD que no caben eligen una forma más corta (la entera, en el tooltip). La ayuda no queda bajo el velo del tutorial.",
+      "por_que": "Verificación por la interfaz, bloque B del manager."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Cartas que no pausan: pila lateral, no modales",
+      "decision": "Las cartas de la ciudad que no pausan (eventos, fiestas, bodas, sucesos, retos) van en pequeño (plantilla aviso, sin ilustración) a una pila a la derecha bajo el reloj, o al lado del panel de gestión abierto; nunca se solapan, la que no cabe espera, y se apartan mientras hay un modal. Solo las que pausan (dato modal) son modales: centradas y de una en una, con cola.",
+      "por_que": "Hallazgo de la verificación por la interfaz: la carta centrada se comía los clics de la sala (toque maestro perdido) y dos cartas se tapaban. Decisión del manager (bloque A)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "El que es llamado espera (orden hail)",
+      "decision": "Al ir a hablar, cortejar, retar o tratar con un testigo que está lejos, la UI da primero hail: el otro se para (state.town.holds) hasta que llegas y actúas, das otra orden o pasan data/town.json actions.hail.wait_minutes (90). Orden de gestión: se aplica al momento. Sin cambio de versión del guardado (vive dentro de town).",
+      "por_que": "Retar a quien anda acababa en «demasiado lejos» al llegar. Decisión del manager (bloque A, A8)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Reto recibido, limosna y botones apagados",
+      "decision": "Carta de reto recibido con Aceptar / Rechazar (duel_answer) y «Retirarse» en la carta de un reto propio aceptado (duel_withdraw); también al cargar una partida con un reto sin contestar. «Dar limosna» en la ficha de un mendigo (give_alms). Regla: todo botón apagado dice por qué (tooltip o línea de motivo); la verificación lo comprueba en cada pantalla (hallazgo «mute»). Las teclas 1-4 de las partidas pulsan el botón que llevan pintado, también en las apuestas.",
+      "por_que": "Órdenes sin interfaz y botones mudos encontrados por la verificación. Decisión del manager (bloque A)."
     }
   ],
   "pendientes": [
