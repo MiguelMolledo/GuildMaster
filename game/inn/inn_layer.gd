@@ -9,6 +9,7 @@ extends Node2D
 ## The art: the kit's floor and walls from VisualPaths.inn_art("interior", floor / wall_ne / ...) when they exist.
 
 signal message(text: String)
+signal table_clicked             # the gaming table (with its upgrade): the interior opens the Mesa tab
 
 const GROUP_COLORS: Dictionary = {"comarca": ["#6a5a2a", "#c8b890"], "neighbours": ["#7a5230", "#d8c8a0"], "merchants": ["#2e4a6b", "#c8a84e"],
 	"pilgrims": ["#6a6a5a", "#e0d8c0"], "soldiers": ["#8b2e2e", "#b8b8b0"], "nobles": ["#5a2e6b", "#e8c860"],
@@ -32,6 +33,7 @@ var shown_level: int = 0:
 	set(v):
 		shown_level = v
 		queue_redraw()
+var _table_pos: Vector2 = Vector2.INF  # the gaming table's station (INF if the room has none)
 var _font: Font = null
 
 
@@ -58,6 +60,11 @@ func setup(s: Sim, bld: String, view: InteriorView) -> void:
 			(holder[2] as Array).append(int(m.get_meta("level", 0)))
 			if str(holder[0]) == "Seats":
 				_seat_facing.append(str(m.get_meta("facing", "")))
+	_table_pos = Vector2.INF
+	var st_node := room.get_node_or_null("Stations") as Node2D if room != null else null
+	var tm := st_node.get_node_or_null("gaming_table") as Node2D if st_node != null else null
+	if tm != null:
+		_table_pos = tm.position + st_node.position
 	_apply_kit_art()
 	for v: Variant in _views.values():
 		(v as Node).queue_free()
@@ -280,6 +287,12 @@ func pick_bed(world: Vector2) -> int:
 	return -1
 
 
+## The gaming table under `world` (only once it is built).
+func pick_table(world: Vector2) -> bool:
+	return _table_pos != Vector2.INF and InnGames.has_table(sim, building) and shown_level == 0 \
+		and (world - _table_pos).length() < 22.0
+
+
 ## Left click in the room: serve a waiting guest, or make a dirty bed (by whoever of the family is inside). True if
 ## used.
 func handle_click(world: Vector2) -> bool:
@@ -306,6 +319,9 @@ func handle_click(world: Vector2) -> bool:
 				message.emit(SimQuery.t_("ui.inn.nobody_to_serve"))
 		else:
 			message.emit(SimQuery.t_("ui.inn.bed_" + str(beds[bed].get("state", "made")) if bed < beds.size() else ""))
+		return true
+	if pick_table(world):
+		table_clicked.emit()
 		return true
 	return false
 

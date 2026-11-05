@@ -4,6 +4,7 @@
   python3 tools/city/ciudad.py vestir <map>            dress a map by rules (data/maps/<map>.json "decor")
   python3 tools/city/ciudad.py validar [map...]        coherence of every map (or the given ones); exit 1 on errors
   python3 tools/city/ciudad.py reunion [map...]        add the meeting points and patrols of 04f 4.24 a map lacks
+  python3 tools/city/ciudad.py parcelas [map...]       deal the plots of 04 §4.9.1 (lots, ruins, businesses) again
   python3 tools/city/ciudad.py vista <map> [--out PNG] preview PNG (reports/ciudad/<map>.png) without the game
   python3 tools/city/ciudad.py generar --id <id> --layout <calle|plaza|cruce|rio|aldea|abadia> --seed <n> [--size 40x40] [--households N] ...
                                                        generate a town (generator.py), dress it, validate, preview
@@ -48,6 +49,32 @@ def reunion(ids):
     return validar(ids, True)
 
 
+def parcelas(ids):
+    """04 §4.9.1: the plots of the maps (by default the towns of reglas.json plots.maps). The towns of
+    tools/city/ciudades.json are rebuilt from their plan (the same map, its plots dealt again); town_e by
+    tools/maps/make_town_e.py; any other map gets them once (a map that has them is left as it is)."""
+    import organic
+    import plots
+    cat = citylib.Catalog()
+    ids = ids or [i for i in citylib.rules().get("plots", {}).get("maps", []) if i != "town_e"]
+    planned = [i for i in ids if i in organic.load_plans()]
+    if planned:
+        organic.main(planned, "", None)
+    for mid in ids:
+        if mid in planned:
+            continue
+        if mid == "town_e":
+            print("parcelas town_e: python3 tools/maps/make_town_e.py")
+            continue
+        d = citylib.load_json(os.path.join(citylib.DATA, "maps", mid + ".json"))
+        if d.get("plots") is not None:
+            print(f"parcelas {mid}: ya las tiene (regenera el mapa para repartirlas otra vez)")
+            continue
+        print(f"parcelas {mid}: {plots.add_plots(d, cat)}")
+        citylib.save_map(d)
+    return validar(ids, True)
+
+
 def validar(ids, quiet=False):
     cat = citylib.Catalog()
     mdir = os.path.join(citylib.DATA, "maps")
@@ -78,6 +105,8 @@ def main(argv):
         return validar([rest[0]])
     if cmd == "reunion":
         return reunion([a for a in rest if not a.startswith("--")])
+    if cmd == "parcelas":
+        return parcelas([a for a in rest if not a.startswith("--")])
     if cmd == "validar":
         quiet = "--quiet" in rest
         return validar([a for a in rest if not a.startswith("--")], quiet)

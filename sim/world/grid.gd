@@ -33,6 +33,9 @@ var pad_row: PackedInt32Array = PackedInt32Array()
 ## Only a speed-up: a route is a pure function of the grid, so this never changes a result. Static data like the
 ## grid itself (never in WorldState). invalidate() empties it if the map ever changes.
 var routes: Dictionary = {}
+## Plantillas (data/maps "routing"): the ALT landmarks of a large map (RouteAtlas), null for the rest (town_e): then
+## Pathfinder.search as it always was.
+var atlas: RouteAtlas = null
 
 
 ## The grid of `map_id`, built once per catalog. null if the catalog has no such map.
@@ -68,6 +71,7 @@ static func build(catalog: Catalog, id: String) -> Grid:
 			if cost != BLOCKED:
 				g.walkable_tiles.append(r * g.width + c)
 	g._link()
+	g.atlas = RouteAtlas.for_map(g, m)
 	if OS.is_debug_build():
 		print("[Grid] built: %s (w=%d, h=%d, walkable=%d, moves=%d)"
 			% [id, g.width, g.height, g.walkable_tiles.size(), g.link_to.size()])

@@ -23,10 +23,13 @@ func test_free_blocks_become_house_lots_and_yards() -> void:
 	for th: Array in cfg["yard_themes"]:
 		yards.append_array(th)
 	# the 6×4 block north of the plaza (cols 17-22, rows 8-11): the town builder's decor (data/maps "decor",
-	# tools/city/) puts two 3×3 houses on the plaza side (rows 9-11, doors to +row) and the yards behind (row 8)
+	# tools/city/) puts two 3×3 lots on the plaza side (rows 9-11, doors to +row) and the yards behind (row 8); the
+	# west one is a house, the east one the town's best-located ruin (parcelas, 04 §4.9.1: data/maps "plots")
 	var west := v.prop_at(Vector2i(17, 9))
 	var east := v.prop_at(Vector2i(20, 9))
-	check(houses.has(_id(west)) and houses.has(_id(east)), "two houses on the 6×4 block: %s, %s" % [_id(west), _id(east)])
+	check(houses.has(_id(west)), "a house on the west lot of the 6×4 block: %s" % _id(west))
+	check(_id(east) == "ruin_wall" and str(v.plot_layer.shown.get("plot_01", "")) == "ruin",
+		"the east lot of the block is a ruin: %s" % _id(east))
 	check(west != east, "one visual per lot")
 	eq(v.prop_at(Vector2i(19, 11)), west, "every tile of a lot points to its house")
 	for c: int in range(17, 23):

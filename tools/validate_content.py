@@ -33,6 +33,7 @@ Comprueba lo que carga el juego en data/ (los ficheros y carpetas que empiezan p
     solar ni pisar otro solar usado) y que el inicio de cada oficio ponga al protagonista en su taller con su herramienta; cada puesto de
     oficio con su rol de empleado;
   - claves de texto (name_key) en i18n/strings.csv con inglés y español;
+  - i18n/strings.csv leído como CSV: 3 columnas por registro y ninguna clave con salto de línea, comilla o espacios;
   - estructura (tools/validate_structure.py): data/ sin rutas a ficheros, nombres de assets en minúsculas, inventario
     (estado >= sprite con su fichero), una escena en game/visuals/ por edificio, interior con un Marker2D por puesto y
     los nodos de las mejoras, data/audio.json y sus buses, y uid en cada .tscn/.tres.
@@ -2482,7 +2483,12 @@ def load_strings(rep):
     keys = {}
     try:
         with open(path, encoding="utf-8", newline="") as f:
-            rows = list(csv.reader(f))
+            reader = csv.reader(f)
+            rows = []
+            lines = []  # the physical line where each record ends (a quoted text may span several)
+            for r in reader:
+                rows.append(r)
+                lines.append(reader.line_num)
     except OSError as e:
         rep.error("i18n/strings.csv", str(e))
         return keys
@@ -2492,6 +2498,14 @@ def load_strings(rep):
     for i, r in enumerate(rows[1:], start=2):
         if not r:
             continue
+        # every record keys,en,es: a quote left open or a line split by hand breaks the next records (posada,
+        # 2026-11-05: a text joined to the next key showed raw keys in the game)
+        if len(r) != 3:
+            rep.error("i18n/strings.csv", f"registro {i} (línea {lines[i - 1]}): {len(r)} columnas, deben ser 3 "
+                      f"(clave {r[0][:40]!r})")
+        if any(c in r[0] for c in "\n\r\"") or r[0] != r[0].strip():
+            rep.error("i18n/strings.csv", f"registro {i} (línea {lines[i - 1]}): clave rota {r[0][:60]!r} "
+                      "(salto de línea, comilla o espacios)")
         if r[0] in keys:
             rep.error("i18n/strings.csv", f"línea {i}: clave repetida {r[0]}")
         keys[r[0]] = r[1:3] + [""] * (2 - len(r[1:3]))
@@ -2537,6 +2551,23 @@ def main():
             rep.error(w, f"puesto de mercado desconocido {it.get('market_stall')}")
         if "slot" in it and it["slot"] not in SLOTS:
             rep.error(w, f"ranura desconocida {it['slot']}")
+
+    # plantillas: the town's watch (its name) and the faster routes of the large maps (sim/world/route_atlas.gd)
+    mdir = os.path.join(DATA, "maps")
+    for f in sorted(os.listdir(mdir)):
+        if not f.endswith(".json") or f.startswith("_"):
+            continue
+        m = load_json(os.path.join(mdir, f), rep) or {}
+        wm = f"maps/{f[:-5]}"
+        if "watch" in m:
+            check_text(wm + " watch", (m.get("watch") or {}).get("name_key"), strings, rep)
+        if "routing" in m:
+            k = (m.get("routing") or {}).get("landmarks")
+            if not isinstance(k, int) or not 1 <= k <= 8:
+                rep.error(wm, f"routing.landmarks {k}: un entero de 1 a 8")
+            rp = (m.get("routing") or {}).get("replans_per_minute", -1)
+            if not isinstance(rp, int) or (rp != -1 and rp < 1):
+                rep.error(wm, f"routing.replans_per_minute {rp}: un entero >= 1 (o -1, sin tope)")
 
     for id_, b in buildings.items():
         w = f"buildings/{id_}"

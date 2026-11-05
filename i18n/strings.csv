@@ -1815,6 +1815,7 @@ ui.new_game.preview_start.artisan_tailor,"A tailor's shop with a home, %d gold a
 stall.clothier,Clothier,Ropería
 stall.goods,Goods,Enseres
 ui.new_game.profession,Trade,Oficio
+ui.plot.for_sale,FOR SALE,SE VENDE
 ui.new_game.where,Where you start,Dónde empiezas
 ui.new_game.city_name,%s · %s · %d townsfolk,%s · %s · %d vecinos
 ui.new_game.city_off,%s has no workshop for this trade,%s no tiene taller de este oficio
@@ -3098,6 +3099,11 @@ visitor.soldier,soldier on the road,soldado de paso
 visitor.noble,travelling noble,noble de viaje
 visitor.beggar,beggar,mendigo
 family.watch,Town watch,Guardia de la villa
+family.watch.capital,Bellcaire watch,Guardia de Bellcaire
+family.watch.port,Harbour watch,Guardia del puerto
+family.watch.quarry,Peñarroja watch,Guardia de Peñarroja
+family.watch.hamlet,Village watch,Guardia de la aldea
+family.watch.abbey,Abbey guard,Guardia de la abadía
 family.visitors,Visitors,Forasteros
 family.bandits,Bandits,Bandidos
 nest.r1,the Vilablat track,el camino de Vilablat
@@ -3193,7 +3199,7 @@ ui.rumors.empty,"You have heard nothing yet. Walk past the groups that gather at
 ui.rumors.where,Day %d · %s,Día %d · %s
 ui.rumors.useful,Useful,Útil
 ui.rumors.count,%d rumours heard,%d rumores oídos
-ui.life.guard,Town watch · %s,Guardia de la villa · %s
+ui.life.guard,%s · %s,%s · %s
 ui.life.visitor,%s from %s,%s de %s
 ui.life.role.gate,gate,puerta
 ui.life.role.night,night round,ronda de noche
@@ -3764,7 +3770,7 @@ ui.inn.incident.fight,A fight broke the furniture: ambience −1 tomorrow,Una pe
 ui.inn.incident.fight_stopped,The doorman stopped a fight,El portero paró una pelea
 ui.inn.incident.dash,Someone left without paying,Alguien se fue sin pagar
 ui.inn.incident.dash_caught,Someone tried to leave without paying and was caught,Alguien quiso irse sin pagar y lo pillaron
-ui.inn.incident.game_offer,A traveller proposed a game of dice,Un forastero propuso una partida de dados
+ui.inn.incident.game_offer,A traveller proposed a game,Un forastero propuso una partida
 ui.inn.incident.minstrel,A minstrel filled the room,Un juglar llenó el local
 ui.inn.guest_seated,Still choosing,Aún está eligiendo
 ui.inn.guest_eating,Already served,Ya está servido
@@ -3794,3 +3800,30 @@ inn.group.neighbours,Neighbours,Vecinos
 ui.inn.complaint.too_expensive,too dear,muy caro
 ui.inn.why.no_neighbours,no neighbour feels like the tavern tonight,ningún vecino tiene ganas de taberna esta noche
 objective.open_tavern,Open your tavern,Abre tu taberna
+ui.inn.tab.games,Table,Mesa
+ui.inn.hint.games,Dice and cards with the regulars; the house keeps its cut of what others win.,Dados y naipes con los parroquianos; la casa se lleva su parte de lo que ganan otros.
+ui.inn.games.why.no_table,There is no gaming table yet: build it among the upgrades.,Aún no hay mesa de juego: constrúyela en las mejoras.
+ui.inn.games.why.closed,The table is played during the night turn.,La mesa se juega durante el turno de noche.
+ui.inn.games.why.not_inn,This is not a tavern.,Esto no es una taberna.
+ui.inn.games.sits,At the table: %s,Se sienta a la mesa: %s
+ui.inn.games.no_license,"Without the gaming licence, a game here is a light offence if the constable's men see it.","Sin licencia de tafurería, jugar aquí es delito leve si lo ven los del alguacil."
+ui.inn.games.stake,Stake,Apuesta
+ui.inn.games.play,%s against %s,%s contra %s
+ui.inn.games.offer,%s proposes %s at %d,%s propone %s a %d
+ui.inn.games.offer_play,Play,Jugar
+ui.inn.games.tonight,Tonight at the table,Esta noche en la mesa
+ui.inn.games.line,"%s, %s: %s %s","%s, %s: %s %s"
+ui.inn.games.won,wins,gana
+ui.inn.games.lost,loses,pierde
+ui.inn.games.cut, (the house %d), (la casa %d)
+ui.inn.games.seen, · the constable's men saw it, · lo vieron los del alguacil
+ui.inn.sum.games,"Gaming table: %d games, the family %s, the house %d","Mesa de juego: %d partidas, la familia %s, la casa %d"
+ui.inn.sum.offer_left,The traveller's game was left unplayed,La partida del forastero se quedó sin jugar
+ui.inn.incident.illegal_game,The constable's men saw a game without licence: light offence,Los del alguacil vieron jugar sin licencia: delito leve
+ui.inn.offer.title,A game at the table,Una partida en la mesa
+ui.inn.offer.text,%s sits down with a full purse and proposes %s at %d.,%s se sienta con la bolsa llena y propone %s a %d.
+ui.inn.offer.later,Not now,Ahora no
+notice.inn.illegal_gaming,The constable's men saw gaming without licence in {building}: a light offence for the court.,Los del alguacil vieron jugar sin licencia en {building}: delito leve para el tribunal.
+games.preset.stranger_soldier,The discharged soldier,El soldado licenciado
+games.preset.stranger_merchant,The passing merchant,El mercader de paso
+games.ui.in_own_house,"in your own house (it keeps nothing of yours)","en tu propia casa (no se queda nada de lo tuyo)"
