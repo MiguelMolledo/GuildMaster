@@ -235,6 +235,9 @@ func _setup_inn(s: Sim, bld: String, who: String) -> void:
 	_inn.name = "InnLayer"
 	objects().add_child(_inn)
 	_inn.setup(s, bld, self)
+	_inn.table_clicked.connect(func() -> void:
+		show_inn(true)
+		inn_panel().show_tab("games"))
 	_inn.message.connect(func(text: String) -> void:
 		var sv := station_view("bar")
 		if sv != null and text != "":

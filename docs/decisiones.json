@@ -769,6 +769,18 @@
       "tema": "Montsacre: dentro y fuera sin muralla de villa",
       "decision": "El recinto de la abadía no es edificable (tierra de la Iglesia). En ciudades sin muralla de villa, «dentro» es el núcleo a un radio andando de la plaza (cifra en tools/city/reglas.json), con guardia y precio de situación de dentro.",
       "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Posada: la mesa de juego y la partida del forastero",
+      "decision": "La mesa de la taberna (mejora de ambiente 3) se juega solo durante el turno: azar, mayor o envite contra los vecinos sentados o las fichas regular_*, en la pantalla de los juegos con opts.house = la taberna. Un forastero (regular_cheat, stranger_soldier, stranger_merchant) propone azar o envite a 10/25 cuando hay jugadores y licencia; queda abierta hasta el cierre. Sin licencia: 30 % (50 % con alguacil) de hecho illegal_gaming (minor_fraud), −3 de reputación y aviso. Sin versión de guardado: night.offer y stats.games con su valor por defecto.",
+      "por_que": "Manager 2026-11-05 (contrato docs/contratos/juegos.md §5); las cifras son propuesta en data/inn/inn.json → games."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Juegos: la casa propia no cobra; la posada no pasa opts.event",
+      "decision": "Games._apply no aplica el margen de la casa cuando la casa es de la familia que juega (antes se le restaba y ese oro no iba a nadie). La posada no pasa opts.event (FestivalGames.play_block rechaza el que no es de una fiesta) y reconoce sus partidas por house. Contrato de juegos y 04f actualizados.",
+      "por_que": "Bug visto al probar la mesa: el jugador perdía el 10 % de lo ganado en su propia taberna; y el contrato pedía un event que el código rechaza."
     }
   ],
   "pendientes": [

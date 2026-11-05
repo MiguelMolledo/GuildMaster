@@ -124,5 +124,33 @@
       4
     ],
     "_doc": "Apagado (2026-11-05): los forasteros de verdad son los de vida (sim/life/visitors.gd) y los que encuentran cama duermen en la posada (Inn.lodge). Encendido, solo serviría con la vida apagada (pruebas sin vida)."
+  },
+  "games": {
+    "_doc": "La mesa de juego (§4.27.4-5, contrato de juegos §5). regulars: los parroquianos de data/games.json que se sientan cuando no hay vecinos en la sala. offer: el forastero que propone una partida (suceso game_offer): quién (presets), a qué (dados de azar o envite) y cuánto. illegal: sin licencia, una partida en la taberna es delito leve si la ven los del alguacil: seen, o seen_constable con el cargo de alguacil ocupado; hecho illegal_gaming (cargo minor_fraud) y reputation.",
+    "regulars": [
+      "regular_even",
+      "regular_prudent",
+      "regular_boastful"
+    ],
+    "offer": {
+      "presets": [
+        "regular_cheat",
+        "stranger_soldier",
+        "stranger_merchant"
+      ],
+      "games": [
+        "azar",
+        "envite"
+      ],
+      "stakes": [
+        10,
+        25
+      ]
+    },
+    "illegal": {
+      "seen": 0.3,
+      "seen_constable": 0.5,
+      "reputation": -3
+    }
   }
 }
