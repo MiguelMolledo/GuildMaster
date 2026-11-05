@@ -19,7 +19,7 @@ extends RefCounted
 ## Choices at the start (bot_choices): none, it keeps the default stats (a novice does not optimise them).
 
 const ID: String = "artisan_novice"
-const ACTOR: String = "chr_0001"
+var ACTOR: String = "chr_0001"  # a var: the full player hands the forge to the next head (sim/bots/bot_full_player.gd)
 const FORGE: String = "bld_0001"
 const ARMORY_STALL: String = "armory"
 const RAW_STALL: String = "resources"
