@@ -1,0 +1,107 @@
+{
+  "_doc": "The forge (docs/gdd/04g_interiores.md 4.6.5.6): ground floor with the workshop (hearth in a one-step pit, anvils, quenching), the L-shaped shop with the counter and the display, and the storeroom; upstairs, the home (kitchen and bedroom). Edit by hand, then python3 tools/interiors/interiores.py reglas forge && python3 tools/interiors/interiores.py validar forge (and vista forge to look at it).",
+  "size": [10, 8],
+  "wall_height": 64,
+  "floor_height": 80,
+  "center_offset": [-32, 0],
+  "seed": 7,
+  "entrance": {"floor": 0, "tile": [0, 6], "side": "nw"},
+  "rooms": [
+    {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[0, 0, 5, 4]], "floor_kind": "flagstone", "wall_style": "stone", "light": "forge"},
+    {"id": "storage", "floor": 0, "type": "storage", "rects": [[6, 0, 9, 2]], "floor_kind": "earth", "wall_style": "timber", "light": "dim"},
+    {"id": "shop", "floor": 0, "type": "shop", "rects": [[0, 5, 9, 7], [6, 3, 9, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"},
+    {"id": "kitchen", "floor": 1, "type": "kitchen", "rects": [[0, 0, 4, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"},
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[5, 0, 9, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [6, 1], "side": "nw"},
+    {"floor": 0, "tile": [2, 5], "side": "ne"},
+    {"floor": 0, "tile": [7, 3], "side": "ne"},
+    {"floor": 1, "tile": [5, 1], "side": "nw"}
+  ],
+  "levels": [
+    {"floor": 0, "rect": [0, 0, 3, 1], "step": -1}
+  ],
+  "stairs": [
+    {"id": "stairs", "floor": 0, "prop": "staircase", "tile": [9, 4], "flip": false, "from": [8, 4], "to_floor": 1, "to": [8, 3]}
+  ],
+  "stations": {
+    "furnace": {"floor": 0, "tile": [1, 0], "stand": [1, 1]},
+    "furnace_2": {"floor": 0, "tile": [3, 0], "stand": [3, 1]},
+    "anvil": {"floor": 0, "tile": [2, 3]},
+    "anvil_2": {"floor": 0, "tile": [4, 3], "stand": [4, 2]},
+    "counter": {"floor": 0, "tile": [7, 6], "prop": "shop_counter", "stand": [6, 6]},
+    "storage": {"floor": 0, "tile": [8, 1], "prop": "crate_stack", "stand": [7, 1]}
+  },
+  "customers": {
+    "counter": [{"tile": [8, 6]}, {"tile": [8, 5]}],
+    "queue": [{"tile": [9, 6]}, {"tile": [9, 5]}, {"tile": [9, 7]}]
+  },
+  "idle": [
+    {"floor": 1, "tile": [3, 1]},
+    {"floor": 1, "tile": [7, 2]},
+    {"floor": 0, "tile": [3, 6]},
+    {"floor": 0, "tile": [1, 6]}
+  ],
+  "props": [
+    {"id": "display_shelf", "floor": 0, "tile": [4, 5], "flip": true, "display": 3},
+    {"id": "candle_stand", "floor": 0, "tile": [5, 7]},
+    {"id": "armor_stand_forge", "floor": 0, "tile": [0, 7]},
+    {"id": "banner_stand", "floor": 0, "tile": [6, 7]},
+    {"id": "kitchen_hearth", "floor": 1, "tile": [0, 1]},
+    {"id": "crockery_shelf", "floor": 1, "tile": [1, 0]},
+    {"id": "pantry_shelf", "floor": 1, "tile": [3, 0]},
+    {"id": "kitchen_table", "floor": 1, "tile": [3, 3], "flip": true},
+    {"id": "stool", "floor": 1, "tile": [1, 3]},
+    {"id": "bed_double", "floor": 1, "tile": [9, 0], "flip": true},
+    {"id": "cradle", "floor": 1, "tile": [6, 2]},
+    {"id": "chest", "floor": 1, "tile": [8, 2]},
+    {"id": "wardrobe", "floor": 1, "tile": [5, 0]}
+  ],
+  "rules": [
+    {"rule": "wall_fill", "room": "storage", "props": ["crate", "sack_pile", "barrel", "crate_stack", "big_jar", "sack"], "chance": 0.85},
+    {"rule": "wall_fill", "room": "workshop", "props": ["tool_rack", "coal_sack", "water_barrel", "ingot_stack", "horseshoe_crate"], "chance": 0.45},
+    {"rule": "scatter", "room": "workshop", "props": ["ingot_pile", "tongs", "horseshoes", "smith_hammer"], "count": 3},
+    {"rule": "on_top", "room": "shop", "under": ["shop_counter"], "props": ["balance_scale", "ledger_book", "coin_pile", "coin_purse"], "max": 2, "chance": 1.0},
+    {"rule": "on_top", "room": "kitchen", "under": ["kitchen_table"], "props": ["bread_loaves", "jug", "bowl_stew", "cheese_wheel"], "max": 2, "chance": 1.0},
+    {"rule": "hang", "room": "shop", "props": ["shield_crest", "banner_wall", "horseshoe_nails"], "count": 2},
+    {"rule": "hang", "room": "bedroom", "props": ["tapestry_red"], "count": 1},
+    {"rule": "wall_fill", "room": "kitchen", "props": ["barrel", "sack", "firewood_pile"], "chance": 0.5}
+  ],
+  "upgrades": {
+    "forge_anvil_2": [],
+    "forge_furnace_2": [],
+    "upgrade_storage_shelves": [{"id": "market_shelf", "floor": 0, "tile": [9, 0], "flip": true}],
+    "upgrade_counter": [{"id": "weapon_display", "floor": 0, "tile": [5, 5], "display": 3}],
+    "forge_bellows": [{"id": "bellows", "floor": 0, "tile": [2, 0]}],
+    "forge_tempering_tub": [{"id": "quench_tub", "floor": 0, "tile": [4, 1]}],
+    "forge_master_furnace": [{"id": "pit_hearth", "floor": 0, "tile": [0, 1], "flip": false}],
+    "forge_quench_trough": [{"id": "stone_trough", "floor": 0, "tile": [5, 2]}],
+    "forge_engraving_bench": [{"id": "engraving_bench", "floor": 0, "tile": [5, 0]}],
+    "forge_master_seal": [{"id": "master_seal", "floor": 0, "tile": [4, 0]}],
+    "upgrade_double_ledger": [{"id": "double_ledger", "floor": 0, "tile": [1, 5]}],
+    "upgrade_hidden_passage": [{"id": "hidden_passage", "floor": 0, "tile": [0, 4]}],
+    "upgrade_smuggler_cache": [{"id": "smuggler_cache", "floor": 0, "tile": [9, 2]}],
+    "upgrade_strongbox": [{"id": "strongbox", "floor": 1, "tile": [9, 2]}],
+    "upgrade_bunks": [{"id": "bunk_bed", "floor": 1, "tile": [7, 0], "flip": true}],
+    "upgrade_dining_table": [{"id": "dining_table", "floor": 1, "tile": [1, 2], "flip": false}],
+    "upgrade_master_bench": [{"id": "master_bench", "floor": 0, "tile": [0, 3]}]
+  },
+  "resolved": [
+    {"id": "sack_pile", "floor": 0, "tile": [6, 0], "flip": true, "rule": "wall_fill"},
+    {"id": "big_jar", "floor": 0, "tile": [6, 2], "flip": true, "rule": "wall_fill"},
+    {"id": "big_jar", "floor": 0, "tile": [7, 0], "flip": true, "rule": "wall_fill"},
+    {"id": "ingot_stack", "floor": 0, "tile": [0, 2], "flip": true, "rule": "wall_fill"},
+    {"id": "smith_hammer", "floor": 0, "tile": [2, 2], "flip": true, "rule": "scatter"},
+    {"id": "tongs", "floor": 0, "tile": [3, 3], "flip": true, "rule": "scatter"},
+    {"id": "tongs", "floor": 0, "tile": [2, 1], "flip": true, "rule": "scatter"},
+    {"id": "coin_pile", "floor": 0, "tile": [7, 6], "flip": false, "lift": 26, "shift": [15, 0], "rule": "on_top", "over": "shop_counter"},
+    {"id": "bowl_stew", "floor": 1, "tile": [3, 3], "flip": false, "lift": 25, "shift": [-14, -7], "rule": "on_top", "over": "kitchen_table"},
+    {"id": "horseshoe_nails", "floor": 0, "tile": [9, 3], "flip": true, "hang": "ne", "rule": "hang"},
+    {"id": "banner_wall", "floor": 0, "tile": [3, 5], "flip": true, "hang": "ne", "rule": "hang"},
+    {"id": "tapestry_red", "floor": 1, "tile": [5, 0], "flip": false, "hang": "nw", "rule": "hang"},
+    {"id": "firewood_pile", "floor": 1, "tile": [0, 3], "flip": true, "rule": "wall_fill"},
+    {"id": "sack", "floor": 1, "tile": [2, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 1, "tile": [4, 0], "flip": true, "rule": "wall_fill"}
+  ]
+}

@@ -2596,6 +2596,17 @@ def main():
     sys.path.insert(0, os.path.join(ROOT, "tools", "life"))
     import validate_life  # noqa: E402 vida (04f 4.24): data/life/*.json
     validate_life.check(items, strings, rep, DATA, ROOT, SOCIAL_KINDS, check_text)
+    # 04g 4.6.5: the interior prop library (data/props/interior.json) and the interiors built from data
+    sys.path.insert(0, os.path.join(ROOT, "tools", "interiors"))
+    import interiores as interiors_tool  # noqa: E402
+    import props_catalog  # noqa: E402
+    if os.path.exists(props_catalog.OUT):
+        for e in props_catalog.check(json.load(open(props_catalog.INV, encoding="utf-8")),
+                                     json.load(open(props_catalog.OUT, encoding="utf-8"))):
+            rep.error("props/interior.json", e)
+        for b in interiors_tool.ids():
+            for e in interiors_tool.validate(b):
+                rep.error(f"interiors/{b}.json", e)
     check_tutorial(strings, set(load_kind("starts", rep)),
                    {n[:-5] for n in os.listdir(os.path.join(DATA, "scenarios")) if n.endswith(".json") and not n.startswith("_")},
                    items, buildings, load_kind("maps", rep), rep)

@@ -114,6 +114,21 @@ func test_river_bank_and_bridge_curb() -> void:
 
 func test_interior_kit_uses_its_art_and_falls_back() -> void:
 	for b: String in ["forge", "armory"]:
+		if InteriorDefs.has_def(b):
+			# 04g 4.6.5.2: a painted backdrop per room, and the library's floor tiles while a room has none
+			var d := InteriorDefs.def_of(b)
+			var room := InteriorBuilder.instantiate(b)
+			for r: Dictionary in d["rooms"]:
+				var h := room.get_node_or_null("Backdrops/%d_%s" % [int(r["floor"]), str(r["id"])])
+				check(h != null and h.get_node_or_null("Painted") is Sprite2D, "%s: room %s painted" % [b, r["id"]])
+			room.free()
+			var bare := InteriorBuilder.build("_no_art", d)   # the same rooms with no art of their own
+			var first: Dictionary = d["rooms"][0]
+			var h2 := bare.get_node("Backdrops/%d_%s" % [int(first["floor"]), str(first["id"])])
+			var tiles := h2.get_children().filter(func(n: Node) -> bool: return n is KitFloor)
+			check(not tiles.is_empty() and (tiles[0] as KitFloor).texture != null, "%s: no painting = the library's floor tiles" % b)
+			bare.free()
+			continue
 		var room := VisualPaths.instantiate("interiors", b)
 		var kit := room.get_node("Kit") as GreyboxKit
 		check(kit.floor_texture != null and kit.wall_texture_ne != null and kit.door_texture_nw != null, "%s: kit art" % b)
@@ -147,15 +162,15 @@ func test_forge_works_and_facades_have_art_with_greybox_kept() -> void:
 
 
 func test_interior_upgrades_have_art_with_greybox_kept() -> void:
-	var room := VisualPaths.instantiate("interiors", "forge")
+	var room := InteriorBuilder.instantiate("forge")   # data/interiors/forge.json: each upgrade with its props
 	var n := 0
 	for u: Node in room.get_node("Upgrades").get_children():
-		var gb := u.get_node_or_null("Greybox") as CanvasItem
-		if gb == null:
+		if u.get_child_count() == 0:
 			continue  # the extra stations' nodes (their look is the station's scene)
 		n += 1
-		check(u.get_node_or_null("Sprite") is Sprite2D, "%s has its sprite" % u.name)
-		check(not gb.visible, "%s keeps its greybox, hidden" % u.name)
+		for p: Node in u.get_children():
+			var s := p.get_node_or_null("Sprite") as Sprite2D
+			check(s != null and s.texture != null, "%s/%s has its sprite" % [u.name, p.name])
 	check(n >= 15, "every upgrade visual of the forge's interior (%d)" % n)
 	room.free()
 

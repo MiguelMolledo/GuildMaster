@@ -1,8 +1,8 @@
 # Interiores bonitos: referencias, análisis y piloto de la forja
 
-> Fecha: 2026-11-05 · Rama `interiores` · Script: `tools/art/fal_interiores.py` · Gasto: 2,35 USD de fal (detalle en
-> `assets/art/MANIFEST.md` y `assets/art/fal_piloto/gasto.json`, tanda `interiores`).
-> No cambia reglas del sim: solo la vista de los interiores y su arte.
+> Fecha: 2026-11-05 · Rama `interiores` · Diseño: `docs/gdd/04g_interiores.md` (§4.6.5) · Gasto: 4,59 USD de fal
+> (detalle en `assets/art/MANIFEST.md` y `assets/art/fal_piloto/gasto.json`, tanda `interiores`).
+> No cambia reglas del sim: solo cómo se monta y se ve un interior, y dónde se dibuja a la gente que el sim ya tiene.
 
 ## 1. Punto de partida
 
@@ -104,62 +104,120 @@ Las mejoras siguen igual: nodos en `Upgrades` que se encienden. Una mejora que c
 tapices) se hace como pieza plana en `Upgrades` encima del fondo, o, si cambia todo, con un segundo fondo que la
 mejora enciende (pendiente: hoy no hace falta en ningún oficio).
 
-## 4. Piloto: la forja (bloque 3)
+## 4. Primer piloto: una sala de una pieza (superado)
 
-Hecho con el camino C. Capturas de antes y después: `docs/arte/interiores/forja_antes_despues.png` (arriba sin
-mejoras, abajo con las 24) y Hugo forjando: `docs/arte/interiores/forja_trabajando.png`.
+El primer piloto pintó la forja de siempre (8×6) como un solo fondo con los puestos encima, paredes de 64 px, halo
+y chispas en la fragua y atrezo de pared. Funcionó, y sirvió para fijar la decisión del owner (§4.6.5.1): la mezcla,
+pero **un fondo por sala y por planta**, y una **biblioteca de props** para todo lo que tiene altura, con los
+interiores montados **por datos**. Lo que queda de él: la fragua con su luz (`stations/furnace.tscn`), el yunque y
+la plantilla de geometría, que ahora saca el montador.
+
+> [!NOTE]
+> El encargo ampliado decía «el owner no quiere interiores pintados como fondo». El diseño de main dice lo contrario
+> desde `f626162` (2026-11-05 00:38, «Decision del owner, tras ver el piloto»): fondo pintado por sala + piezas. Se
+> ha seguido el diseño; si la decisión cambió después, solo hay que borrar los `room_*.png` y el montador vuelve a
+> los suelos y paredes de la biblioteca.
+
+## 5. Interiores II (04g §4.6.5): biblioteca, datos y escenario
+
+![La forja: planta baja y vivienda](interiores/forja_vista.png)
+
+*La forja montada desde `data/interiors/forge.json` (vista previa de `tools/interiors/interiores.py vista forge`).*
+
+### 5.1 Biblioteca de props (§4.6.5.1)
+
+- `tools/art/fal_props.py`: 162 piezas en **19 rejillas** de fal (nano-banana-2/edit, 0,08 USD por llamada): 4×4 para
+  el atrezo pequeño (16 por llamada), 3×3 para lo de una casilla (9), 2×2 para lo de 2×1 (4) y 3×3 para lo que cuelga
+  de la pared. Cada rejilla lleva la referencia de su sala y la hoja de la forja ×4 (escala, contorno, proyección).
+  **≈ 0,01 USD por pieza.**
+- Cada pieza se pixela a **su tamaño de juego** (una altura objetivo por pieza, a escala del personaje de 48 px: una
+  jarra 16, una silla 30, un armario 56; las de 2×1, 96 de ancho) y con una **paleta fija de interiores** (64 colores
+  de los fondos y las referencias + 20 de acento para telas, escudos y vidrios), para que case con los fondos.
+- `tools/art/props_estructura.py`: lo exacto, con Pillow: tramos de pared (32 × 80), con puerta, zócalos, barandillas
+  y suelos de respaldo; y 24 piezas de antes de las mejoras (Guild Renew y Pillow) hasta que tengan una nueva.
+- **Catálogo** `data/props/interior.json` (205 piezas), exportado del campo `prop` de `assets/inventario.json` por
+  `tools/interiors/props_catalog.py` y comprobado por el validador: categoría (`structure`, `furniture`, `trade`,
+  `container`, `light`, `small`, `textile`), huella, ancla (pies), altura, si se pisa, si va contra la pared, si va
+  encima de otra, si cuelga, espejo (la otra diagonal), oficios y estilo (`poor`, `common`, `rich`).
+- Hojas de contacto: en la galería de Grimoire.
+
+### 5.2 Interiores por datos (§4.6.5.2)
+
+`data/interiors/<edificio>.json`: rejilla, salas por planta (rectángulos, tipo, suelo, estilo de pared, luz),
+puertas, desniveles (foso −1, tarima +1), escaleras entre plantas, puestos (con su pieza o su escena), sitios de
+clientes (mostrador y cola), sitios de espera, atrezo a mano, **reglas** (`wall_fill`, `on_top`, `scatter`, `hang`) y
+las piezas de cada mejora por su nodo (`visual.interior_node`, como antes).
+
+- `tools/interiors/interiores.py validar` comprueba que todo está conectado, que las puertas dan a algo, que se
+  llega a cada puesto, sitio de cliente y sala desde la puerta de la calle, que nada pisa una puerta ni una escalera y
+  que `resolved` coincide con las reglas. `reglas` resuelve las reglas con la semilla (un solo motor: Godot solo lee
+  `resolved`). `vista` saca la vista previa en PNG; `plantilla`, la plantilla de una planta para pintar su fondo.
+- **Paredes:** salen solas. Las del fondo del edificio van pintadas; entre salas, piezas (`InteriorWall`); delante,
+  zócalos. Las de entre salas y los zócalos se **sacan de la propia pared pintada** de cada sala (`fal_salas.py`):
+  casan al píxel.
+- **Fondos:** `tools/art/fal_salas.py` pinta cada planta sobre su plantilla y la corta en un fondo por sala.
+- **Montador** (`game/interior/interior_builder.gd`): construye la sala con la estructura de las escenas de antes
+  (`Kit`, `Stations`, `Upgrades`, `Props`), así la vista, la vista previa de mejoras y la galería no cambian. La forja
+  ya no tiene escena hecha a mano.
+
+### 5.3 Ver dentro (§4.6.5.3) y gente (§4.6.5.4-4.6.5.5): `InteriorStage`
+
+- **Plantas:** se ve la planta de la persona seleccionada; las de arriba, ocultas; las de abajo, en penumbra. Rueda,
+  AvPág / RePág o el botón «Planta alta» para ver la otra sin mover a nadie.
+- **Paredes que se abren:** las de entre salas quedan al 25 % con su contorno mientras el ratón (o la persona
+  seleccionada) está en la sala de detrás. Sin nadie a quien seguir, la sala de trabajo queda abierta.
+- **Luz por sala** (`data/interiors/lights.json`): la fragua roja y viva, la cocina cálida, el almacén en penumbra.
+- **Andar:** tu gente y los empleados andan de la puerta a su puesto por puertas y escaleras. Solo se dibuja: el sim
+  ya los cuenta en el puesto (dentro no hay tiempo de andar), así que **las dianas no cambian**.
+- **Clientes del mostrador** (4.5.4): aparecen en su sitio con un fundido de 0,3 s, con la burbuja de lo que vienen a
+  comprar (el producto que el mostrador les vendería) o «…» en la cola, y su barra de paciencia (o la dorada de la
+  venta). Clic en uno: la persona seleccionada va al mostrador a atender (`go_to_station counter`, la misma orden de
+  siempre).
+- **Expositor:** enseña lo que hay a la venta en el almacén (los productos más caros primero), hasta sus huecos.
+
+**Lo que no hay todavía:** clientes de encargos (4.5.6) y de la comarca (4.6.5.7): el sim no los tiene como personas;
+la taberna (rama `posada`, aún no está en main); el fundido de salida de los clientes; el sótano (ningún interior lo
+usa aún).
+
+## 6. La forja de §4.6.5.6
 
 ![Antes y después](interiores/forja_antes_despues.png)
 
-![Hugo en el yunque](interiores/forja_trabajando.png)
+*Arriba, sin mejoras; abajo, con las 24. Izquierda, antes; derecha, ahora.*
 
-- **Fondo** `assets/art/interiors/forge/backdrop.png` (448×288): plantilla de la sala de 8×6 con paredes de 64 px y
-  la puerta en (0, 3) → 3 fondos (2 nano-banana-2, 1 pro), los tres encajan en la plantilla; elegido el v2 (ventana,
-  farol, armero, estantes, herraduras, hollín en la esquina de la fragua, camino de la puerta, paja). Va en el nodo
-  `Kit` de `game/visuals/interiors/forge.tscn` (`backdrop`, `backdrop_offset = (-192, -80)`, `wall_height = 64`: la
-  puerta pasa a 52 px, la de la escala B).
-- **Puestos nuevos**: `hearth.png` (fragua de piedra con campana, 80×96, image2pixel a bloques de 6) en
-  `stations/furnace.tscn`, con su halo `glow_hearth.png` (elipse 2:1 en tres bandas tramadas, aditiva, z 1: tiñe el
-  suelo, la pared y a quien esté cerca) que respira con `LightFlicker`, y las chispas (`CPUParticles2D`, 8 brasas de
-  1 px). `anvil_stump.png` (yunque en tocón) en `stations/anvil.tscn`. Los marcadores no se mueven: el yunque, el horno
-  y sus segundos siguen en sus casillas, con el mismo `Feet` y su `Top` a la altura nueva.
-- **Atrezo**: nodo `Props` con `coal_bin.png` (carbonera con lingotes, casilla (4, 0)), `grindstone.png` (muela, (7, 0),
-  bajo la ventana) y el polvo en la luz de la ventana. La vista los mueve a la capa de objetos como las mejoras.
-- **Rótulos de los puestos** sobre el atrezo y las mejoras (z 2): antes los tapaba cualquier cosa de delante.
-- Sin cambios en reglas, navegación, clic en puestos y puerta, ni en las mejoras (salen todas: captura con las 24).
+![Hugo andando, trabajando, un cliente y la planta alta](interiores/forja_gente.png)
 
-Lo que falta para llegar a la referencia:
-- Las **mejoras de la forja** siguen en el estilo de antes (Guild Renew y Pillow): fuelle, tina, forja de maestro,
-  literas, mesa… Son el siguiente paso: rehacerlas en rejillas 2×2 con la referencia (6 de Producción y Calidad
-  propias de la forja + las comunes, que se reutilizan en los demás oficios).
-- **Almacén y mostrador** (comunes a todos los oficios) también son de antes.
-- Sombras bajo las piezas sueltas (hoy solo las del fondo).
+- Planta baja (10×8): **taller** de piedra con la fragua en un **foso** de un escalón (y su segunda fragua y la forja
+  de maestro), yunques, temple; **tienda** en L con el mostrador largo (2 sitios de cliente y 3 de cola), el expositor
+  y la escalera; **almacén** de tierra con su puerta, lleno de cajas y sacos por regla.
+- Planta alta: **cocina** (hogar, alacena, mesa con pan y jarra por regla) y **dormitorio** (cama, cuna, arcón,
+  armario). Las literas, la mesa de comedor y la caja fuerte de las mejoras van arriba.
+- Puestos, clics, puerta y mejoras como antes (pruebas `test_game_forja`, `test_visuals_paths`, `test_game_pulido` y
+  las nuevas `test_interiores_datos`).
 
-## 5. Para los demás interiores
+## 7. Para los demás interiores
 
-Por interior, con el mismo script (`fal_interiores.py`): una plantilla de su sala (size y puerta de su `Kit`), 2-3
-fondos (0,16-0,31 USD), una rejilla 2×2 de puestos y atrezo por cada 4 piezas (0,08 USD) e image2pixel. Unos 0,5 USD
-por interior de oficio, más sus 6 mejoras de Producción y Calidad (0,16 USD). La taberna lo lleva otro worker (rama
-`posada`); el ayuntamiento, el tribunal, la casa y la iglesia aún no tienen escena de interior: sus referencias sirven
-para cuando la tengan.
+Por interior: el fichero de datos (con las piezas de la biblioteca), `interiores.py reglas` y `validar`, y 1-2
+fondos por planta con `fal_salas.py` (0,08 USD cada uno) — unos 0,3 USD por interior. Si falta una pieza, una
+rejilla nueva en `fal_props.py` (0,08 USD por 4-16 piezas).
 
-**PixelLab (desde el 15-nov)**: para los **puestos y el atrezo** de pie, `create_map_object` / `create_1_direction_object`
-con la referencia de estilo daría piezas a su tamaño exacto, con contorno limpio y sin recorte de fondo, mejor que
-fal + image2pixel. El **fondo pintado** sigue siendo de fal: PixelLab no pinta una sala entera ajustada a una
-plantilla. Apuntado en la lista de la compra de `assets/art/MANIFEST.md`.
+**PixelLab (desde el 15-nov):** para las piezas que piden varias direcciones o animación (fuego, fuelle, telar) y
+para repasar el detalle y la paleta de los personajes frente a los fondos (§4.6.5.1). Apuntado en la lista de la
+compra de `assets/art/MANIFEST.md`.
 
-## 6. Cómo repetirlo
+## 8. Cómo repetirlo
 
 ```bash
-python3 tools/art/fal_interiores.py ref          # referencias de cámara (forja de hoy, sala vacía)
-python3 tools/art/fal_interiores.py gen --room forge --model nano2 --variant a
-python3 tools/art/fal_interiores.py tanda        # las dos variantes de todos los interiores que falten
-python3 tools/art/fal_interiores.py fondo --tag v2           # fondo del piloto sobre la plantilla
-python3 tools/art/fal_interiores.py piezas --tag v1          # rejilla 2×2 de piezas
-python3 tools/art/fal_interiores.py proc         # fondo a ×1 + piezas (sin gasto si los crudos ya están)
-python3 tools/art/fal_interiores.py luz          # halo y brasa (Pillow)
+python3 tools/art/fal_props.py gen && python3 tools/art/fal_props.py proc   # biblioteca (sin gasto si hay crudos)
+python3 tools/art/props_estructura.py                                         # piezas exactas
+python3 tools/interiors/props_catalog.py                                      # catálogo data/props/interior.json
+python3 tools/interiors/interiores.py reglas forge && python3 tools/interiors/interiores.py validar forge
+python3 tools/interiors/interiores.py vista forge --marcas                    # reports/interiores/forge.png
+python3 tools/art/fal_salas.py gen forge 0 --tag v1                           # fondo de una planta (0,08 USD)
+python3 tools/art/fal_salas.py ver forge 0 --tag v1                           # encaje con la plantilla
+python3 tools/art/fal_salas.py proc forge 0 --tag v1                          # fondos por sala y paredes
 ```
 
-Los crudos quedan en `~/Code/GuildMaster-arte-crudos/fal_produccion/interiores/`. Capturas:
+Los crudos quedan en `~/Code/GuildMaster-arte-crudos/fal_produccion/{interiores,props_interior,salas}/`. Capturas:
 `grimoire heavy --timeout 3m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . --
---smoke-script=interiores` → `reports/shots/interiores_<oficio>[_mejoras].png`.
+--smoke-script=interiores` → `reports/shots/interiores_<oficio>[_mejoras|_andando|_trabajando|_cliente|_arriba].png`.

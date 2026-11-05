@@ -205,7 +205,7 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 ## StationView at the marker (the marker's child is the station's look, else game/visuals/stations/<zone>.tscn); the
 ## upgrade visuals under Upgrades move into the objects layer so they sort with the people.
 func _build_room(type: String, zones: Dictionary) -> void:
-	_room = VisualPaths.instantiate("interiors", type)
+	_room = InteriorBuilder.instantiate(type)  # from data/interiors/<type>.json, else its scene (04g 4.6.5.2)
 	_room.name = "Room"
 	room_layer().add_child(_room)
 	var k := kit()
@@ -250,6 +250,7 @@ func _build_room(type: String, zones: Dictionary) -> void:
 			ViewConfig.info("Interior", "no Marker2D Stations/%s in interiors/%s.tscn: station not drawn" % [z, type])
 	_upgrades_minute = -1
 	refresh_upgrades()
+	InteriorStage.attach(self, _room)  # an interior built from data: floors, walls that open, walking, customers
 
 
 ## A StationView at the marker `m` (its name is the zone): the marker's child is its look, else the station's scene.
@@ -459,6 +460,7 @@ func sync() -> void:
 		return
 	var st := sim.state
 	var by_door: Array = []
+	var stage := get_node_or_null("InteriorStage") as InteriorStage
 	for id: String in st.characters:
 		var ch: Dictionary = st.characters[id]
 		var inside := str(ch.get("location", "")) == building and bool(ch.get("alive", true))
@@ -480,6 +482,8 @@ func sync() -> void:
 		var customer := Counter.is_customer_of(st, id, building) and _station_tiles.has("counter")
 		(_views[id] as CharacterView).set_bubble("shop" if customer else SimQuery.bubble_of(sim, id))
 		var v: CharacterView = _views[id]
+		if stage != null:
+			continue  # InteriorStage places and animates the people of an interior built from data
 		if customer:
 			v.position = Iso.tilef_to_world(Vector2(_station_tiles["counter"]) + CUSTOMER).round()
 			v.play_motion("idle", CharacterView.dir_of(-CUSTOMER))

@@ -79,7 +79,7 @@ func _new_zone(id: String) -> String:
 func _room(side_: String) -> Node2D:
 	if _rooms.has(side_):
 		return _rooms[side_]
-	var n := VisualPaths.instantiate("interiors" if side_ == "interior" else "buildings", _type())
+	var n := InteriorBuilder.instantiate(_type()) if side_ == "interior" else VisualPaths.instantiate("buildings", _type())
 	n.name = side_.capitalize()
 	_vp.add_child(n)
 	var kit := n.get_node_or_null("Kit")
