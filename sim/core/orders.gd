@@ -16,7 +16,7 @@ extends RefCounted
 ## campaign_action, use_office_power (docs/contratos/h10_cargos.md); H11: accuse, witness_action, trial_cross,
 ## trial_rest, trial_verdict (docs/contratos/h11_tribunal.md); duelo: duel_challenge, duel_answer, duel_withdraw,
 ## duel_move, duel_auto, duel_brawl (docs/contratos/duelo.md); juegos: game_play, game_bet (docs/contratos/juegos.md); vida:
-## resolve_incident, give_alms (docs/contratos/vida.md). Each milestone adds
+## resolve_incident, give_alms (docs/contratos/vida.md); hail (verificación A8: the one called waits). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -190,6 +190,8 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Incidents.order_resolve(sim, order)
 		"give_alms":
 			return Visitors.order_alms(sim, order)
+		"hail":
+			return NpcActions.order_hail(sim, order)
 	return fail("unknown_order")
 
 
@@ -203,7 +205,7 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
 	"city_accept", "city_deliver", "sign_treaty",
 	"festival_sponsor", "festival_host_wedding",
-	"game_play", "game_bet", "resolve_incident"]
+	"game_play", "game_bet", "resolve_incident", "hail"]
 
 
 static func is_management(type: String) -> bool:

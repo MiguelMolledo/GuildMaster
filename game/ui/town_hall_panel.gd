@@ -75,7 +75,7 @@ func refresh(force: bool = false) -> void:
 	var st := Titles.status(sim, actor)
 	var fam := str(st["family"])
 	var sig := str(st) + "|" + str(Reputation.of(sim.state, fam)) + "|" + str(Titles.approver(sim, actor)) + str(consult)
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	var f: Dictionary = sim.state.families.get(fam, {})

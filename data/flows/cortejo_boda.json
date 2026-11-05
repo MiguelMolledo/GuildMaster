@@ -10,7 +10,7 @@
     {"id": "hablar", "say": "Hablar con la primera candidata", "click": {"within": "CourtshipPanel", "node": "Talk"}, "until": "q.event('affinity_changed') or q.refused() != ''", "timeout": 20, "fast": 4, "expect": ["q.order('court_talk')"]},
     {"id": "proponer", "say": "Proponer: pide confirmación", "click": {"within": "CourtshipPanel", "node": "Propose"}, "expect": ["q.visible('ConfirmModal')"]},
     {"id": "si", "say": "Sí, proponer", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "until": "q.married() or q.refused() != ''", "timeout": 20, "fast": 4, "expect": ["q.order('propose')", "q.married()"]},
-    {"id": "carta_boda", "say": "La carta de la boda", "until": "q.visible('WeddingCard')", "timeout": 8},
+    {"id": "carta_boda", "say": "La carta de la boda (en la pila de la derecha; espera su turno si la pila está llena)", "until": "q.visible('WeddingCard')", "timeout": 30},
     {"id": "cerrar_carta", "say": "Cerrarla", "click": {"within": "WeddingCard", "prefix": "Button_"}, "soft": true},
     {"id": "esc", "key": "Escape"}
   ]

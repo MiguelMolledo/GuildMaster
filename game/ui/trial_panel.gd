@@ -71,7 +71,7 @@ func refresh(force: bool = false) -> void:
 		return
 	var t: Dictionary = v["trial"]
 	var sig := "%s|%s|%s|%s|%d" % [actor, t["status"], v["scale"], v["witnesses"], int(v["minutes_left"]) / 60]
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	var hearing := str(t["status"]) == "hearing"
@@ -330,7 +330,7 @@ func request(o: Dictionary, far: bool) -> void:
 ## Walks to the witness first and queues the action behind (like the townsperson's sheet).
 func _walk_then(o: Dictionary) -> void:
 	var spot := Courtship.spot(sim.state, str(o["witness"]))
-	var orders: Array = []
+	var orders: Array = [{"type": "hail", "actor": actor, "target": str(o["witness"])}]   # A8: the witness waits
 	if str(sim.state.characters[actor].get("location", "")) != "":
 		orders.append({"type": "exit_building", "actor": actor})
 		orders.append({"type": "move_to", "actor": actor, "tile": spot, "queued": true})

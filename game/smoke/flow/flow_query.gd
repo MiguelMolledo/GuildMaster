@@ -297,6 +297,19 @@ func npc_near() -> String:
 	return best
 
 
+## A beggar out in the street and seen in the town ("" if none).
+func beggar() -> String:
+	var w: WorldView = app.world()
+	var ids: Array = st().characters.keys()
+	ids.sort()
+	for id: String in ids:
+		var c: Dictionary = st().characters[id]
+		if str((c.get("visitor", {}) as Dictionary).get("kind", "")) == "beggar" and str(c.get("location", "")) == "" \
+				and w.view_of(id) != null and w.view_of(id).is_visible_in_tree():
+			return id
+	return ""
+
+
 ## The tutorial's chapter and step now ("" when none plays).
 func tutorial_step() -> String:
 	var t: Variant = app.call("tutorial")

@@ -135,7 +135,7 @@ func _rebuild() -> void:
 		return str(c["family"]) == fam)
 	var sig := "%d|%d|%s" % [Caravans.carts(sim, fam), Money.gold(sim.state, fam), JSON.stringify(mine.map(
 		func(c: Dictionary) -> String: return "%s|%s|%s|%d" % [c["id"], c["state"], c["at"], int(c["leg"])]))]
-	if sig == _sig:
+	if sig == _sig or UiFeel.hold_rebuild(self):
 		return
 	_sig = sig
 	(_col.get_node("Title") as Label).text = _tr("ui.caravan.title")

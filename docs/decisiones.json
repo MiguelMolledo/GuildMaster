@@ -1,6 +1,24 @@
 {
   "tomadas": [
     {
+      "fecha": "2026-11-05",
+      "tema": "Cartas que no pausan: pila lateral, no modales",
+      "decision": "Las cartas de la ciudad que no pausan (eventos, fiestas, bodas, sucesos, retos) van en pequeño (plantilla aviso, sin ilustración) a una pila a la derecha bajo el reloj, o al lado del panel de gestión abierto; nunca se solapan, la que no cabe espera, y se apartan mientras hay un modal. Solo las que pausan (dato modal) son modales: centradas y de una en una, con cola.",
+      "por_que": "Hallazgo de la verificación por la interfaz: la carta centrada se comía los clics de la sala (toque maestro perdido) y dos cartas se tapaban. Decisión del manager (bloque A)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "El que es llamado espera (orden hail)",
+      "decision": "Al ir a hablar, cortejar, retar o tratar con un testigo que está lejos, la UI da primero hail: el otro se para (state.town.holds) hasta que llegas y actúas, das otra orden o pasan data/town.json actions.hail.wait_minutes (90). Orden de gestión: se aplica al momento. Sin cambio de versión del guardado (vive dentro de town).",
+      "por_que": "Retar a quien anda acababa en «demasiado lejos» al llegar. Decisión del manager (bloque A, A8)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Reto recibido, limosna y botones apagados",
+      "decision": "Carta de reto recibido con Aceptar / Rechazar (duel_answer) y «Retirarse» en la carta de un reto propio aceptado (duel_withdraw); también al cargar una partida con un reto sin contestar. «Dar limosna» en la ficha de un mendigo (give_alms). Regla: todo botón apagado dice por qué (tooltip o línea de motivo); la verificación lo comprueba en cada pantalla (hallazgo «mute»). Las teclas 1-4 de las partidas pulsan el botón que llevan pintado, también en las apuestas.",
+      "por_que": "Órdenes sin interfaz y botones mudos encontrados por la verificación. Decisión del manager (bloque A)."
+    },
+    {
       "fecha": "2026-11-04",
       "tema": "Fiestas: regalo de la villa, audiencia del marqués y patrocinios de la IA (de momento, no)",
       "decision": "Manager, a la espera del owner: no a las dos. El regalo de la villa sigue siendo un encargo de carrera (la primera espada excelente) y no hay audiencia con privilegios; las familias rivales no patrocinan fiestas. Las dos preguntas pasan al owner.",

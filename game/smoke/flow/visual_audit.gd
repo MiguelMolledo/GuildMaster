@@ -13,6 +13,7 @@ extends RefCounted
 ##   i18n        an i18n key on screen instead of its text
 ##   covered     a notice or the toast that just appeared is under an open panel
 ##   placeholder a greybox piece shows its id (the art is missing)
+##   mute        a disabled button that does not say why (no tooltip, no reason line next to it)
 ## The allowed fonts and sizes come from tools/ui/tokens.json ("fuente").
 
 const MIN_SIZE: int = 8
@@ -99,6 +100,9 @@ func scan(root: Window, img: Image) -> Array:
 		if (c is BaseButton or c is LineEdit or c is Range and not c is ProgressBar) and not world:
 			if r.size.x >= 2 and r.size.y >= 2:
 				clicks.append(c)
+		if c is BaseButton and (c as BaseButton).disabled and not world and c.tooltip_text.strip_edges() == "" \
+				and _reason_near(c) == "" and not (c is BaseButton and (c as BaseButton).toggle_mode and (c as BaseButton).button_pressed):
+			_finding(out, "mute", "fallo", c, r, "botón apagado sin decir por qué (ni tooltip ni línea de motivo)")
 		if txt == "" or not (c is Label or c is Button or c is RichTextLabel or c is LineEdit):
 			continue
 		if c is Label and (c as Label).visible_characters == 0:
@@ -119,6 +123,20 @@ func scan(root: Window, img: Image) -> Array:
 	_check_overlaps(out, clicks, texts)
 	_check_notices(out, root, controls)
 	return out
+
+
+## A reason line next to `c` (a visible label whose name says Reason, two levels up), "" if none.
+static func _reason_near(c: Control) -> String:
+	var n: Node = c
+	for i: int in 3:
+		n = n.get_parent()
+		if n == null:
+			return ""
+		for pat: String in ["*Reason*", "*Why*"]:
+			for d: Node in n.find_children(pat, "Label", true, false):
+				if (d as Label).is_visible_in_tree() and (d as Label).text.strip_edges() != "":
+					return (d as Label).text
+	return ""
 
 
 ## Whether a panel or a veil drawn over `c` covers the centre of `c`.

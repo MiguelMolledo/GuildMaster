@@ -416,7 +416,8 @@ func reason_near(c: Control) -> String:
 		if n == null:
 			return ""
 		for d: Control in all_controls(n):
-			if d is Label and str(d.name).contains("Reason") and d.is_visible_in_tree() and (d as Label).text.strip_edges() != "":
+			if d is Label and (str(d.name).contains("Reason") or str(d.name).contains("Why")) and d.is_visible_in_tree() \
+					and (d as Label).text.strip_edges() != "":
 				return (d as Label).text.strip_edges().left(80)
 	return ""
 

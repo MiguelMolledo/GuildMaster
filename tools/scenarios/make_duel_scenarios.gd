@@ -6,6 +6,8 @@ extends SceneTree
 ##   duel_ready  day 1, 10:00: Hugo and the rival smith in the street by the plaza, a step apart; the rival has just
 ##               insulted Hugo (offended). Hugo can challenge him for the insult or for the rivalry of the trade (the
 ##               tutorial's chapter «Duelo», the bot duelist, the smoke script duel).
+##   duel_challenged  the same place and hour; Hugo has insulted the rival smith and the rival has just challenged him:
+##               the challenge waits for Hugo's answer (the card Aceptar / Rechazar, verificación A5).
 
 const OUT: String = "res://data/scenarios"
 const HERO: String = "chr_0001"
@@ -21,7 +23,7 @@ func _init() -> void:
 		print("make_duel_scenarios: data problems: %s" % errs)
 		quit(1)
 		return
-	quit(0 if _ready_scenario() else 1)
+	quit(0 if _ready_scenario() and _challenged_scenario() else 1)
 
 
 func _ready_scenario() -> bool:
@@ -48,6 +50,34 @@ func _ready_scenario() -> bool:
 	return _save(sim, "duel_ready", "Duelo: el rival te ha insultado",
 		"Día 1, 10:00. Hugo y el herrero rival en la calle junto a la plaza; el rival acaba de insultar a Hugo. Se le " +
 		"puede retar por la ofensa o por la rivalidad del oficio (capítulo «Duelo», bot duelista, --smoke-script=duel).")
+
+
+func _challenged_scenario() -> bool:
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)
+	if not r["ok"]:
+		return false
+	var sim := Sim.new(r["state"], cat)
+	var st := sim.state
+	st.clock["minute"] = 10 * 60
+	for chr: String in [HERO, RIVAL]:
+		var ch: Dictionary = st.characters[chr]
+		ch["location"] = ""
+		ch["path"] = []
+		ch["move_progress"] = 0
+		ch["order_queue"] = []
+	st.characters[HERO]["position"] = [18, 18]
+	st.characters[RIVAL]["position"] = [20, 18]
+	sim.events = []
+	NpcActions.order(sim, {"actor": HERO, "target": RIVAL}, "insult")
+	var res := Orders.apply(sim, {"type": "duel_challenge", "actor": RIVAL, "target": HERO, "cause": "offense",
+		"kind": "first_blood"})
+	if not bool(res["ok"]):
+		print("make_duel_scenarios: the rival cannot challenge Hugo: %s" % res)
+		return false
+	sim.events = []
+	return _save(sim, "duel_challenged", "Duelo: el rival te reta",
+		"Día 1, 10:00. Hugo ha insultado al herrero rival y este le acaba de retar a duelo por la ofensa: el reto espera " +
+		"la respuesta de Hugo (la carta Aceptar / Rechazar; sin respuesta, se rechaza a su hora).")
 
 
 func _save(sim: Sim, id: String, title: String, description: String) -> bool:

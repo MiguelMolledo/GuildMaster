@@ -115,3 +115,63 @@ static func in_range(sim: Sim, actor: String, target: String) -> bool:
 	var pa: Array = a.get("position", [0, 0])
 	var rng := int(sim.catalog.town.get("actions", {}).get("range_tiles", 3))
 	return maxi(absi(int(pa[0]) - int(spot[0])), absi(int(pa[1]) - int(spot[1]))) <= rng
+
+
+## hail {actor, target} (verificación A8): `target` stops where it is and waits for `actor`, who is walking to it to
+## talk, court or challenge. state.town.holds[target] = {by, until}. Released by step_holds when `actor` has nothing
+## left to do (it arrived and acted, or its orders were replaced), when actions.hail.wait_minutes run out, or when
+## either is dead. A management order: it applies at once, also in pause, and never waits in the actor's queue.
+static func order_hail(sim: Sim, o: Dictionary) -> Dictionary:
+	var st := sim.state
+	var actor := str(o.get("actor", ""))
+	var target := str(o.get("target", ""))
+	if not st.characters.has(actor) or not st.characters.has(target):
+		return Orders.fail("unknown_actor")
+	if actor == target:
+		return Orders.fail("bad_target")
+	if not bool(st.characters[target].get("alive", true)):
+		return Orders.fail("dead")
+	var mins := int((sim.catalog.town.get("actions", {}).get("hail", {}) as Dictionary).get("wait_minutes", 90))
+	var now := int(st.clock["minute"])
+	holds(st)[target] = {"by": actor, "until": now + mins, "since": now}
+	sim.events.append({"type": "hailed", "actor": actor, "target": target, "until": now + mins})
+	if OS.is_debug_build():
+		print("[NpcActions] %s llama a %s: le espera hasta el minuto %d" % [actor, target, now + mins])
+	return Orders.ok()
+
+
+static func holds(st: WorldState) -> Dictionary:
+	if not st.town.has("holds"):
+		st.town["holds"] = {}
+	return st.town["holds"]
+
+
+## Whether `chr` is waiting for somebody now (Movement does not walk it).
+static func held(st: WorldState, chr: String) -> bool:
+	return (st.town.get("holds", {}) as Dictionary).has(chr)
+
+
+## Releases the waits that are over (called every step by Movement, before walking).
+static func step_holds(sim: Sim) -> void:
+	var st := sim.state
+	var h: Dictionary = st.town.get("holds", {})
+	if h.is_empty():
+		return
+	var now := int(st.clock["minute"])
+	for target: String in h.keys():
+		var w: Dictionary = h[target]
+		var by := str(w.get("by", ""))
+		var a: Dictionary = st.characters.get(by, {})
+		var busy := not (a.get("path", []) as Array).is_empty() or not (a.get("order_queue", []) as Array).is_empty()
+		var why := ""
+		if now >= int(w.get("until", 0)):
+			why = "time"
+		elif a.is_empty() or not bool(a.get("alive", true)) or not bool(st.characters.get(target, {}).get("alive", true)):
+			why = "gone"
+		elif not busy and now > int(w.get("since", now)):
+			why = "done"
+		if why != "":
+			h.erase(target)
+			sim.events.append({"type": "hail_released", "actor": by, "target": target, "why": why})
+			if OS.is_debug_build():
+				print("[NpcActions] %s deja de esperar a %s (%s)" % [target, by, why])

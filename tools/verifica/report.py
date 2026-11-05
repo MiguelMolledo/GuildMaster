@@ -26,7 +26,8 @@ SEV = {"bloquea": 0, "fallo": 1, "aviso": 2, "info": 3}
 KIND_NAME = {"cut": "texto cortado", "outside": "fuera de su caja o de la pantalla", "small_font": "letra pequeña",
              "bad_size": "tamaño de letra que no es el suyo", "font": "fuente fuera del theme",
              "contrast": "poco contraste", "overlap": "controles o textos solapados", "i18n": "clave sin traducir",
-             "covered": "aviso tapado por un panel", "placeholder": "rótulo de greybox (falta arte)"}
+             "covered": "aviso tapado por un panel", "placeholder": "rótulo de greybox (falta arte)",
+             "mute": "botón apagado sin motivo"}
 STYLE_QUESTIONS = ["¿Se lee el título?", "¿Encaja la ventana con el resto?", "¿Se entiende qué hacer?"]
 MAX_ARTIFACT = 900 * 1024
 

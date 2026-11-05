@@ -134,12 +134,16 @@ func _row(e: Dictionary, now: int) -> PanelContainer:
 		load_b.name = "Load"
 		load_b.custom_minimum_size = Vector2(88, 20)
 		load_b.disabled = not bool(e["ok"])
+		load_b.tooltip_text = (SimQuery.t_("ui.why.slot_empty") if not bool(e["exists"]) else SimQuery.t_("ui.why.slot_broken")) \
+			if load_b.disabled else ""
 		load_b.pressed.connect(func() -> void: _on_load(slot))
 		btns.add_child(load_b)
 		var del := MenuKit.button(SimQuery.t_("ui.saves.delete"))
 		del.name = "Delete"
 		del.custom_minimum_size = Vector2(88, 20)
 		del.disabled = slot == SaveSlots.AUTOSAVE or not bool(e["exists"])
+		del.tooltip_text = (SimQuery.t_("ui.why.autosave_keep") if slot == SaveSlots.AUTOSAVE else SimQuery.t_("ui.why.slot_empty")) \
+			if del.disabled else ""
 		del.pressed.connect(func() -> void: _ask_delete(slot))
 		btns.add_child(del)
 	else:

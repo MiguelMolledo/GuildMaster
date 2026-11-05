@@ -1,0 +1,26 @@
+{
+  "id": "reto_recibido",
+  "title": "Reto recibido y limosna",
+  "about": "El herrero rival reta a Hugo: la carta del reto pide Aceptar o Rechazar; se acepta y, en la carta de un reto propio aceptado, se puede retirar. Aparte, la limosna a un mendigo desde su ficha.",
+  "start": {"scenario": "duel_challenged"},
+  "covers": ["duel_answer", "duel_withdraw", "give_alms"],
+  "steps": [
+    {"id": "carta", "say": "La carta del reto recibido (en la pila de la derecha)", "until": "q.shown({'node': 'Button_accept'})", "timeout": 8},
+    {"id": "aceptar", "say": "Aceptar", "click": {"node": "Button_accept"}, "expect": ["q.order('duel_answer')"]},
+    {"id": "aceptado", "until": "q.st().duels['open'].values()[0]['status'] != 'pending'", "timeout": 6},
+    {"id": "retar_escena", "say": "Ahora Hugo reta y el rival acepta (escenario duel_ready)", "restart": {"scenario": "duel_ready"}},
+    {"id": "pausa", "key": "Space"},
+    {"id": "rival", "world": {"person": "=q.rival()"}, "expect": ["q.visible('NpcPanel')"]},
+    {"id": "retar", "click": {"node": "DuelButton"}, "until": "q.shown({'prefix': 'Button_cause'})", "timeout": 6},
+    {"id": "causa", "click": {"prefix": "Button_cause"}},
+    {"id": "seguir", "key": "Space"},
+    {"id": "acepta", "say": "La carta «acepta el duelo» con «Retirarse»", "until": "q.shown({'node': 'Button_withdraw'})", "timeout": 20, "fast": 4},
+    {"id": "retirarse", "click": {"node": "Button_withdraw"}, "expect": ["q.order('duel_withdraw')"]},
+    {"id": "mendigo_escena", "say": "La limosna (escenario de la vida con visitantes)", "restart": {"scenario": "life_beggar"}},
+    {"id": "mendigo", "say": "Hasta que haya un mendigo a la vista", "until": "q.beggar() != ''", "timeout": 40, "fast": 6},
+    {"id": "pausa_2", "key": "Space"},
+    {"id": "ficha_mendigo", "world": {"person": "=q.beggar()"}, "expect": ["q.visible('NpcPanel')"]},
+    {"id": "limosna", "say": "«Dar limosna»", "click": {"within": "NpcPanel", "node": "Alms"}, "expect": ["q.order('give_alms') or q.order('hail')"]},
+    {"id": "seguir_2", "key": "Space"}
+  ]
+}

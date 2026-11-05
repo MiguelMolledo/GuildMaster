@@ -1,11 +1,24 @@
-{
-  "fecha": "2026-11-05",
-  "titulo": "Verificación por la interfaz: el juego jugado con ratón y teclado, con informe para revisar cada rama",
-  "que": "Un conductor de interfaz (game/smoke/flow/) juega como una persona: solo eventos de ratón y teclado entran por Input.parse_input_event; busca cada botón por su nombre, su texto o su fila, lleva el ratón hasta él, comprueba que es lo que hay bajo el puntero y pulsa; si algo lo tapa, está fuera de pantalla, deshabilitado sin motivo o el panel rehace el botón entre pulsar y soltar, lo dice. Diecinueve flujos en data/flows/ (primer día, contratar y cola, mejorar, deuda, cortejo y boda, título, elecciones, tribunal, viajes con caravana y tratado, fiesta de boda, duelo, sucesos, guardar y cargar, opciones y tutorial, mapa de la región, gestión a fondo, vecinos y familia, teclas y Esc) comprueban el estado tras cada paso y guardan una captura. Cada captura pasa comprobaciones automáticas: texto cortado o fuera de su caja, letra pequeña o a un tamaño que deforma, fuente fuera del theme, contraste, solapes, claves i18n e [ids] en pantalla, greybox y avisos tapados, con su recorte marcado. El informe (reports/verifica/<fecha>/index.html y un artifact en Grimoire) junta hallazgos por gravedad, cada flujo paso a paso, los fallos por pantalla, la cobertura de controles (cada orden con su camino por ratón y teclado, cada tecla, cada Esc), el balance de los bots y una hoja de revisión de estilo con las pantallas una al lado de otra.",
-  "como_probar": "python3 tools/verifica/verifica.py --flows=quick (sin ventana, ~1 min); con capturas: python3 tools/verifica/verifica.py --window --flows=all --artifact (cada flujo por grimoire heavy); un flujo viéndolo: godot --path . -- --flow=primer_dia. En run_all, el paso ui (flujos quick con ventana) y --night (todos). Guía: docs/gdd/07_testing.md §7.6.",
-  "capturas": [
-    "verifica_primer_dia.png",
-    "verifica_menu_yunque.png",
-    "verifica_estilo.png"
-  ]
-}
+[
+  {
+    "fecha": "2026-11-05",
+    "titulo": "Lo que rompía el juego, arreglado: cartas que no tapan, paneles que no pierden clics, el reto recibido y el vecino que espera",
+    "que": "Las cartas que no pausan (eventos, fiestas, bodas, sucesos, duelos) ya no son modales: van en pequeño a una pila a la derecha, bajo el reloj, o al lado del panel de gestión abierto; nunca se pisan, la que no cabe espera y se apartan mientras hay un modal a la vista. Solo las que pausan van centradas, de una en una. Cargos → Poderes ya no ensancha la ventana (la fila envuelve; «Inspector de mercado» entero). Ningún panel rehace sus botones con el botón del ratón pulsado, y la ficha del vecino ya no se reconstruye al pasar el ratón. Hay carta de reto recibido (Aceptar / Rechazar) y «Retirarse» en un reto propio aceptado; «Dar limosna» en la ficha de un mendigo. Esc cierra Partida nueva a la primera. Todo botón apagado dice por qué (banquete, apuestas, duelo, escala, ranuras, puntos de partida, directivas) y la verificación lo vigila. Al ir a hablar, cortejar, retar o tratar con un testigo, el otro se para y te espera hasta que llegas, cambias de orden o pasa hora y media. La cola en pausa ya no enseña ids de órdenes.",
+    "como_probar": "Escenario duel_challenged (la carta del reto) y life_beggar (la limosna); flujos reto_recibido, cortejo_boda, fiesta_boda, dados y vecinos_familia: python3 tools/verifica/verifica.py --window --flows=reto_recibido,cortejo_boda,vecinos_familia",
+    "capturas": [
+      "verifica_pila_cartas.png",
+      "verifica_reto_recibido.png",
+      "verifica_cargos_poderes.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-05",
+    "titulo": "Verificación por la interfaz: el juego jugado con ratón y teclado, con informe para revisar cada rama",
+    "que": "Un conductor de interfaz (game/smoke/flow/) juega como una persona: solo eventos de ratón y teclado entran por Input.parse_input_event; busca cada botón por su nombre, su texto o su fila, lleva el ratón hasta él, comprueba que es lo que hay bajo el puntero y pulsa; si algo lo tapa, está fuera de pantalla, deshabilitado sin motivo o el panel rehace el botón entre pulsar y soltar, lo dice. Diecinueve flujos en data/flows/ (primer día, contratar y cola, mejorar, deuda, cortejo y boda, título, elecciones, tribunal, viajes con caravana y tratado, fiesta de boda, duelo, sucesos, guardar y cargar, opciones y tutorial, mapa de la región, gestión a fondo, vecinos y familia, teclas y Esc) comprueban el estado tras cada paso y guardan una captura. Cada captura pasa comprobaciones automáticas: texto cortado o fuera de su caja, letra pequeña o a un tamaño que deforma, fuente fuera del theme, contraste, solapes, claves i18n e [ids] en pantalla, greybox y avisos tapados, con su recorte marcado. El informe (reports/verifica/<fecha>/index.html y un artifact en Grimoire) junta hallazgos por gravedad, cada flujo paso a paso, los fallos por pantalla, la cobertura de controles (cada orden con su camino por ratón y teclado, cada tecla, cada Esc), el balance de los bots y una hoja de revisión de estilo con las pantallas una al lado de otra.",
+    "como_probar": "python3 tools/verifica/verifica.py --flows=quick (sin ventana, ~1 min); con capturas: python3 tools/verifica/verifica.py --window --flows=all --artifact (cada flujo por grimoire heavy); un flujo viéndolo: godot --path . -- --flow=primer_dia. En run_all, el paso ui (flujos quick con ventana) y --night (todos). Guía: docs/gdd/07_testing.md §7.6.",
+    "capturas": [
+      "verifica_primer_dia.png",
+      "verifica_menu_yunque.png",
+      "verifica_estilo.png"
+    ]
+  }
+]

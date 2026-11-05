@@ -211,7 +211,7 @@ func _rebuild() -> void:
 	if sim == null or city == "":
 		return
 	var sig := _signature()
-	if sig == _sig:
+	if sig == _sig or UiFeel.hold_rebuild(self):
 		return
 	_sig = sig
 	var s := Region.settlement(sim, city)

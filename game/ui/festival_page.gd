@@ -88,7 +88,9 @@ static func _wedding(sim: Sim, e: Dictionary) -> Dictionary:
 		"blocks": [{"type": "paragraph", "text": SimQuery.t_("ui.festival_card.wedding_body") % [a, b]}],
 		"buttons": [{"id": "plain", "text": SimQuery.t_("ui.festival_card.plain_wedding")},
 			{"id": "host_wedding", "text": SimQuery.t_("ui.festival_card.host_wedding") % gold, "primary": true,
-				"disabled": Money.gold(sim.state, fam) < gold}],
+				"disabled": Money.gold(sim.state, fam) < gold,
+				"tip": SimQuery.t_("ui.festival_card.host_wedding_short") % [gold, Money.gold(sim.state, fam)]
+					if Money.gold(sim.state, fam) < gold else SimQuery.t_("ui.festival_card.host_wedding_tip")}],
 		"sticky": true, "festival": "noble_wedding", "instance": ""}
 
 

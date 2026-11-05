@@ -131,3 +131,22 @@ func test_driver_finds_by_name_text_and_row() -> void:
 	check(by_row.has("node") and (by_row["node"] as Node).get_parent().name == "wood_0", "by the text of its row (%s)" % [by_row])
 	check(d.find({"node": "Nope", "any": true}, root).has("error"), "a missing control says so")
 	root.free()
+
+
+## Every order of Orders.apply has its line for the queue (ui.order.<type>): the paused queue never shows an id.
+func test_every_order_has_a_queue_label() -> void:
+	var src := FileAccess.get_file_as_string("res://sim/core/orders.gd")
+	var body := src.substr(src.find("match type:"))
+	var types: Array = []
+	for line: String in body.split("\n").slice(1):
+		if line.strip_edges() != "" and not line.begins_with("\t\t"):
+			break
+		var m := RegEx.create_from_string("^\t\t\"([a-z_]+)\":").search(line)
+		if m != null:
+			types.append(m.get_string(1))
+	check(types.size() > 40, "the orders are read (%d)" % types.size())
+	for t: String in types:
+		if t == "wait":
+			continue
+		var key := "ui.order." + t
+		check(TranslationServer.translate(key) != key, "%s has its queue line" % t)

@@ -138,7 +138,7 @@ func refresh(force: bool = false) -> void:
 	var sig := "%s|%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%s" % [actor, chart, camp, pw, office, _level, _item, _tax,
 		_target_family, tab, cc.get("candidate", {}), Elections.run_status(sim, actor, office, _level)] \
 		+ "|%d|%d" % [(sim.state.market.get("regulations", []) as Array).size(), Offices.today(sim)]
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	var st := sim.state
@@ -230,12 +230,13 @@ func _seat(row: Dictionary, i: int, my_fam: String) -> Control:
 		&"BoldLabel"), "Name")
 	n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	n.clip_text = true
+	n.tooltip_text = SimQuery.office_name(o)
 	top.add_child(n)
-	if not (row["election"] as Dictionary).is_empty():
-		top.add_child(SocialKit.label(SimQuery.t_("ui.offices.urn_badge"), &"CaptionLabel", "Urn"))
-	if str(s.get("family", "")) == my_fam and my_fam != "":
-		top.add_child(SocialKit.label(SimQuery.t_("ui.offices.yours_badge"), &"CaptionLabel", "Yours"))
 	col.add_child(top)
+	# the badges go on the second line, so the office's name keeps its whole line («Inspector de mercado» entero)
+	var second := HBoxContainer.new()
+	second.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	second.add_theme_constant_override("separation", 4)
 	var holder := ""
 	var vote := int(row["election_day"])
 	if bool(s["vacant"]):
@@ -244,7 +245,14 @@ func _seat(row: Dictionary, i: int, my_fam: String) -> Control:
 		holder = SimQuery.t_("ui.offices.holder_short") % [str(s["name"]), str(s["family_name"]), int(s["until"]) + 1]
 	var hl := SocialKit.label(holder, &"DimLabel", "Seated")
 	hl.clip_text = true
-	col.add_child(hl)
+	hl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hl.tooltip_text = holder
+	second.add_child(hl)
+	if not (row["election"] as Dictionary).is_empty():
+		second.add_child(SocialKit.label(SimQuery.t_("ui.offices.urn_badge"), &"CaptionLabel", "Urn"))
+	if str(s.get("family", "")) == my_fam and my_fam != "":
+		second.add_child(SocialKit.label(SimQuery.t_("ui.offices.yours_badge"), &"CaptionLabel", "Yours"))
+	col.add_child(second)
 	h.add_child(col)
 	var last := Elections.last_result(sim.state, o)
 	p.tooltip_text = SimQuery.t_("ui.offices.history") % [SimQuery.office_name(o), _history(last)]
@@ -461,9 +469,10 @@ func _fill_powers(powers: Array) -> void:
 	(%InForceTitle as Label).text = SimQuery.t_("ui.offices.in_force")
 	for p: Dictionary in powers:
 		var id := str(p["power"])
-		var line := HBoxContainer.new()
+		var line := HFlowContainer.new()   # a long row wraps instead of widening the window (verificación A3)
 		line.name = "Power_" + id
-		line.add_theme_constant_override("separation", 4)
+		line.add_theme_constant_override("h_separation", 4)
+		line.add_theme_constant_override("v_separation", 2)
 		if not bool(p["ready"]):
 			line.add_child(SocialKit.label(SimQuery.t_("ui.offices.power_later") % [SimQuery.t_("power." + id), str(p["from"])],
 				&"DimLabel", "Later"))
@@ -524,6 +533,9 @@ func _item_picker() -> OptionButton:
 	ob.name = "ItemOption"
 	ob.focus_mode = Control.FOCUS_NONE
 	ob.theme_type_variation = &"BodyButton"
+	ob.fit_to_longest_item = false   # a fixed width: the longest item would widen the row
+	ob.clip_text = true
+	ob.custom_minimum_size = Vector2(110, 0)
 	var ids: Array = sim.catalog.items().keys()
 	ids.sort()
 	var n := 0
@@ -535,6 +547,7 @@ func _item_picker() -> OptionButton:
 		if id == _item:
 			ob.select(n)
 		n += 1
+	ob.tooltip_text = ob.get_item_text(ob.selected) if ob.selected >= 0 else ""   # what the clip may hide
 	ob.item_selected.connect(func(i: int) -> void:
 		_item = str(ob.get_item_metadata(i))
 		_sig = "")
@@ -546,6 +559,9 @@ func _family_picker() -> OptionButton:
 	ob.name = "FamilyOption"
 	ob.focus_mode = Control.FOCUS_NONE
 	ob.theme_type_variation = &"BodyButton"
+	ob.fit_to_longest_item = false
+	ob.clip_text = true
+	ob.custom_minimum_size = Vector2(110, 0)
 	var mine := str(sim.state.characters.get(actor, {}).get("family", ""))
 	var ids: Array = sim.state.families.keys()
 	ids.sort()
@@ -560,6 +576,7 @@ func _family_picker() -> OptionButton:
 		if f == _target_family:
 			ob.select(n)
 		n += 1
+	ob.tooltip_text = ob.get_item_text(ob.selected) if ob.selected >= 0 else ""
 	ob.item_selected.connect(func(i: int) -> void:
 		_target_family = str(ob.get_item_metadata(i))
 		_sig = "")
