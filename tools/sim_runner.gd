@@ -71,8 +71,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
 	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
-	"merchant": BotMerchant, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive,
-	"innkeeper": BotInnkeeper}
+	"merchant": BotMerchant, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)

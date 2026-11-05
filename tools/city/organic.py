@@ -1289,12 +1289,16 @@ def build(map_id, plan, cat=None, variant=None):
         e = json.loads(json.dumps(hh))
         e["home"] = tw.homes[i]
         population.append(e)
+    if plan.get("per_house"):  # plantillas: the town full from the start (5 per house, its bench cap)
+        gen.fill_members(population, int(plan["per_house"]))
     rows = ["".join(r) for r in p.g]
     dists = [{"id": d["id"], "roof": d.get("roof", "#7a4a3a")} for d in plan.get("districts", [])]
     data = {"id": map_id, "name_key": f"map.{map_id}", "size": [tw.w, tw.h], "rows": rows, "spawns": spawns,
             "stalls": tw.stalls, "board": tw.board, "town_hall": tw.town_hall,
             "buildings": {k: tw.sites[k] for k in sorted(tw.sites)}, "social_points": social, "workplaces": wps,
             "population": population,
+            **({"population_max": int(plan.get("population_max", sum(len(h["members"]) for h in population)))}
+               if plan.get("per_house") else {}),
             "landmarks": sorted(tw.landmarks, key=lambda e: (e["origin"][1], e["origin"][0])),
             "boats": tw.boats,
             "generated": {"layout": "organic" + ("+imagen" if plan.get("skeleton") else ""), "plan": map_id, "seed": tw.seed, "size": [tw.w, tw.h],

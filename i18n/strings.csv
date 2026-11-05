@@ -1810,6 +1810,15 @@ ui.new_game.preview_start.artisan_tailor,"A tailor's shop with a home, %d gold a
 stall.clothier,Clothier,Ropería
 stall.goods,Goods,Enseres
 ui.new_game.profession,Trade,Oficio
+ui.new_game.where,Where you start,Dónde empiezas
+ui.new_game.city_name,%s · %s · %d townsfolk,%s · %s · %d vecinos
+ui.new_game.city_off,%s has no workshop for this trade,%s no tiene taller de este oficio
+ui.new_game.city_line.villa,"Your home town: the high street, the market square and two gates. The usual game.","Tu villa: la calle mayor, la plaza del mercado y dos puertas. La partida de siempre."
+ui.new_game.city_line.capital,"Walled, on the Daura: cathedral, exchange, quays and four gates. The most crowded.","Amurallada junto al Daura: catedral, lonja, muelles y cuatro puertas. La más poblada."
+ui.new_game.city_line.port,"A river port: quays, warehouses, customs and a shipyard; four gates and a bridge.","Puerto de río: muelles, almacenes, aduana y astillero; cuatro puertas y un puente."
+ui.new_game.city_line.quarry,"At the foot of the sierra: the mine, the quarry and the smelter; two gates.","Al pie de la sierra: la mina, la cantera y la fundición; dos puertas."
+ui.new_game.city_line.hamlet,"A farming hamlet: the watermill, the barn and the threshing floors; three roads.","Aldea de campo: el molino de agua, el granero y las eras; tres caminos."
+ui.new_game.city_line.abbey,"In the shadow of the abbey: the church, the cloister and the guesthouse; a small burgh.","A la sombra de la abadía: la iglesia, el claustro y la hospedería; un burgo pequeño."
 relation_band.enemy,Enemy,Enemigo
 relation_band.hostile,Hostile,Hostil
 relation_band.cold,Cold,Frío
@@ -3404,6 +3413,17 @@ games.rescue.result.won,The captive comes home,El cautivo vuelve a casa
 games.rescue.result.lost,No second try at a rescue,No hay otro intento de rescate
 games.rescue.ui.bout,%s beats %s,%s vence a %s
 games.rescue.ui.draw,%s and %s: both out,%s y %s: los dos fuera
+reason.unknown_spectacle,No such competition in this feast,Esa competición no está en la fiesta
+reason.already_entered,Already entered,Ya estás inscrito
+reason.bet_placed,You have bet on it: you cannot enter,Has apostado en ella: no puedes inscribirte
+reason.not_called,It is not your turn in that competition,No te toca esa competición
+ui.festival_card.enter,Enter: %s,Inscribirse: %s
+ui.festival_card.enter_tip,"You will fight it at its hour (the entry fee, if any, is paid then)","La lucharás a su hora (la entrada, si la hay, se paga entonces)"
+ui.festival_card.bet,Bet: %s,Apostar: %s
+ui.festival_card.bet_tip,"The bookmaker's odds; paid when it is run, back if it never is",Las cuotas del corredor; se paga cuando se corra y se devuelve si no llega a correrse
+games.preset.fighter_watchman,The watchman of the gate,El vigía de la puerta
+games.preset.rider_pilgrim,A pilgrim on his nag,Un peregrino en su rocín
+games.preset.mozo_tanner,Lluc the tanner,Lluc el curtidor
 building.tavern_inn,Tavern-Inn,Taberna-Posada
 item.ale,Ale,Cerveza
 item.cider,Cider,Sidra

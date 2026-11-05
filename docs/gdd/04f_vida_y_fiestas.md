@@ -302,7 +302,7 @@ Caen al azar (flujo `events_city`) o los declara el Alcalde (poder `declare_even
 | `route_bonus {route, days}` | ruta temporal: la feria de Bellcaire invita y el portazgo a Bellcaire es 0 durante 2 días | 09b |
 | `contracts {table}` | abre los encargos de fiesta (4.25.4) | 4.5.6 |
 | `emotion {id, share}` | «inspirado» al 50 % tras la fiesta | 4.11.5 |
-| `spectacle {id}` | toros, justa, cómicos, carrera | nuevo (4.26) |
+| `spectacle {id}` | toros, justa, cómicos, carrera | nuevo (4.26); los que son juegos se corren a su hora y se puede apostar o apuntarse (`docs/contratos/juegos.md` §5 ter) |
 | `incident {id, mult}` | altercados ×3 en Carnaval | 4.24.5 |
 | `reputation {who, amount}` | el que patrocina +; el Alcalde −2 en Carnaval | sí |
 
@@ -706,13 +706,15 @@ claves y aplica el oro. La API para las Fiestas y la Posada (quién juega, apues
 contrato [docs/contratos/juegos.md](../contratos/juegos.md):
 
 Juegos construidos: `azar`, `mayor`, `pulso`, `envite`, `tourney`, `joust`, `sortija`, `race`, `bulls` (y apuestas sobre
-cualquiera). Para abrir cada uno: `godot --path . -- --games-test=<juego>` (y `apuestas`: el corredor).
+cualquiera). Para abrir cada uno: `godot --path . -- --games-test=<juego>` (y `apuestas`: el corredor; `fair_bet`:
+apostar a la carrera de la feria; `festival_joust`: la justa del torneo que organiza el Alcalde).
 
 | Quién llama | Cómo |
 |---|---|
 | La pantalla (el jugador) | `GameScreen.open({actor, game, opponents, stake, opts})` → al acabar, `game_play` con las jugadas |
 | «Resolver sin jugar» | El mismo `game_play` con las jugadas hasta ese momento y `auto: true` |
 | Una competición sin el jugador (fiestas) | `Games.auto(cat.games, spec)`: ganador y clasificación sin tocar nada |
+| Las fiestas (espectáculo a su hora) | `FestivalGames.on_spectacle`: se corre sola, o llama al apuntado (`game_enter`) a jugarla; las apuestas de la feria (`game_bet` con `festival`) se pagan con su resultado |
 | Las cuotas (§4.26.6) | `Games.win_odds(cat.games, spec, n)`: n partidas automáticas con sus propias claves |
 | La Posada (mesa de juego) | La pantalla con `opts.house` = la taberna (su parte de la casa) y `opts.event` = el turno |
 
@@ -1001,12 +1003,12 @@ Cada una lleva la recomendación con la que se construye si no se dice otra cosa
 | **O-V11** | ¿La Taberna-Posada cuenta para el tope de edificios por título (4.9)? | (a) No: es el segundo negocio de cualquiera. (b) Sí, cuando llegue H6: un Plebeyo tendría que ser Ciudadano para comprarla | **Owner (2026-11-05): (a)**, no cuenta para el tope |
 | **O-V12** | ¿Se puede construir una segunda taberna en un solar? | (a) Con H6 (parcelas de producción). (b) Nunca: una por villa | **Owner (2026-11-05): (a)**: con H6, una segunda en un solar, y la del pueblo pasa a ser la rival (4.22.3.2) |
 
-**Nuevas (rama juegos, para el owner):**
+**Nuevas (rama juegos):**
 
 | # | Pregunta | Opciones | Recomendación |
 |---|---|---|---|
-| **O-V11** | Apuestas en el torneo de lucha | (a) Una al ganador del torneo (hoy). (b) Una por combate, entre ronda y ronda | **(a)** hasta que el torneo viva en el calendario de las Fiestas (con su guardado); luego **(b)** |
-| **O-V12** | La justa: ¿dos decisiones (apuntar y cubrirse) o una postura? | (a) Una postura de tres en triángulo (hoy, medido). (b) Las dos por separado (más fiel, la IA no castiga costumbres en tres pasadas) | **(a)** |
-| **O-V13** | Envite de varios jugadores en la mesa de la Posada | (a) Uno contra uno (hoy). (b) Hasta cuatro (cambia las cuentas del farol) | **(a)** ahora; **(b)** con la Posada si se pide |
-| **O-V14** | Caballos y lanza de torneo como objetos | (a) Alquilados al entrar (hoy: 10 la justa, 5 la sortija y la carrera). (b) Objetos que se compran (D8) y la lanza del carpintero (encargo de fiesta) | **(a)** hasta D8; **(b)** con las piezas de las Fiestas |
+| **O-V13** | Apuestas en el torneo de lucha | (a) Una al ganador del torneo (hoy). (b) Una por combate, entre ronda y ronda | **Owner (2026-11-05): la recomendación** — **(a)** hasta que el torneo viva en el calendario de las Fiestas (con su guardado); luego **(b)** |
+| **O-V14** | La justa: ¿dos decisiones (apuntar y cubrirse) o una postura? | (a) Una postura de tres en triángulo (hoy, medido). (b) Las dos por separado (más fiel, la IA no castiga costumbres en tres pasadas) | **Owner (2026-11-05): la recomendación** — **(a)** |
+| **O-V15** | Envite de varios jugadores en la mesa de la Posada | (a) Uno contra uno (hoy). (b) Hasta cuatro (cambia las cuentas del farol) | **Owner (2026-11-05): la recomendación** — **(a)** ahora; **(b)** con la Posada si se pide |
+| **O-V16** | Caballos y lanza de torneo como objetos | (a) Alquilados al entrar (hoy: 10 la justa, 5 la sortija y la carrera). (b) Objetos que se compran (D8) y la lanza del carpintero (encargo de fiesta) | **Owner (2026-11-05): la recomendación** — **(a)** hasta D8; **(b)** con las piezas de las Fiestas |
 

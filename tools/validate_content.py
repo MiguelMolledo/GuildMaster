@@ -49,8 +49,8 @@ import sys
 
 import validate_structure
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import validate_fiestas  # fiestas (04f 4.25): data/festivals.json and its contracts
 from validate_games import check_games  # noqa: E402  juegos (04f §4.26)
+import validate_fiestas  # fiestas (04f 4.25): data/festivals.json and its contracts
 
 sys.dont_write_bytecode = True
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

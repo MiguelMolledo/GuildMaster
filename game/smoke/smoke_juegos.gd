@@ -21,7 +21,7 @@ var _tries: int = 0
 
 
 func _ready() -> void:
-	_games = Array(Games.GAMES) + ["apuestas", "rescue", "brawl"]
+	_games = Array(Games.GAMES) + ["apuestas", "rescue", "brawl", "fair_bet", "festival_joust"]
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--smoke-timeout="):
 			timeout = a.substr(16).to_float()

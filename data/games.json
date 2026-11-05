@@ -37,6 +37,9 @@
     "mozo_butcher": {"stats": {"dexterity": 4, "empathy": 3, "martial": 3, "constitution": 5}, "temper": "even", "name_key": "games.preset.mozo_butcher", "look": 15},
     "mozo_shepherd": {"stats": {"dexterity": 5, "empathy": 3, "martial": 3, "constitution": 4}, "temper": "even", "name_key": "games.preset.mozo_shepherd", "look": 24},
     "mozo_baker": {"stats": {"dexterity": 3, "empathy": 4, "martial": 3, "constitution": 3}, "temper": "even", "name_key": "games.preset.mozo_baker", "look": 39},
+    "fighter_watchman": {"stats": {"martial": 5, "empathy": 3, "constitution": 5, "dexterity": 4}, "temper": "even", "name_key": "games.preset.fighter_watchman", "look": 17},
+    "rider_pilgrim": {"stats": {"dexterity": 4, "empathy": 4, "martial": 3, "constitution": 4}, "temper": "even", "name_key": "games.preset.rider_pilgrim", "look": 29, "horse": "nag"},
+    "mozo_tanner": {"stats": {"dexterity": 4, "empathy": 3, "martial": 3, "constitution": 4}, "temper": "even", "name_key": "games.preset.mozo_tanner", "look": 46},
     "fighter_monk": {"stats": {"martial": 4, "empathy": 6, "constitution": 4, "dexterity": 4}, "temper": "even", "name_key": "games.preset.fighter_monk", "look": 44}
   },
   "azar": {
@@ -136,5 +139,12 @@
     "rep_per_fail": -1,
     "prize": {"gold": 0, "reputation": 3},
     "mozos": ["mozo_butcher", "mozo_shepherd", "mozo_baker"]
+  },
+  "spectacles": {
+    "_doc": "The festivals' spectacles that are games (04f §4.25.3 spectacle, data/festivals.json): the game, how many take part (size) and the field (presets) that fights it when the player's family does not enter; when it enters, the actor takes the first place and the field the rest. Fiestas fires them (festival_spectacle); FestivalGames plays them.",
+    "joust": {"game": "joust", "size": 2, "field": ["knight_bellcaire", "knight_young"]},
+    "fight_tournament": {"game": "tourney", "size": 8, "field": ["fighter_bellcaire", "fighter_portvell", "fighter_mercenary", "fighter_smith", "fighter_shepherd", "fighter_squire", "fighter_monk", "fighter_watchman"]},
+    "horse_race": {"game": "race", "size": 4, "field": ["rider_miller", "rider_carter", "rider_squire", "rider_pilgrim"]},
+    "bulls": {"game": "bulls", "size": 4, "field": ["mozo_butcher", "mozo_shepherd", "mozo_baker", "mozo_tanner"]}
   }
 }

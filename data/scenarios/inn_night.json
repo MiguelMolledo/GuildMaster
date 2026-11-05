@@ -6391,6 +6391,22 @@
 					"trough"
 				],
 				"end": 5760,
+				"games": {
+					"bets": [],
+					"entries": {},
+					"results": {
+						"horse_race": {
+							"how": "finish",
+							"ranking": [
+								3,
+								2,
+								1,
+								0
+							],
+							"winner": "preset:rider_pilgrim"
+						}
+					}
+				},
 				"hosts": [],
 				"id": "fst_0004",
 				"organized": {},

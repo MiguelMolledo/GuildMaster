@@ -175,16 +175,18 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Treaties.order_propose_town(sim, order)
 		"cancel_treaty":
 			return Treaties.order_cancel(sim, order)
-		# Fiestas (sim/fest/festivals.gd, docs/gdd/04f_vida_y_fiestas.md 4.25.5)
-		"festival_sponsor":
-			return Festivals.order_sponsor(sim, order)
-		"festival_host_wedding":
-			return Festivals.order_host_wedding(sim, order)
 		# Juegos · games and competitions (sim/games/, docs/contratos/juegos.md)
 		"game_play":
 			return Games.replay(sim, order)
 		"game_bet":
 			return Betting.order_bet(sim, order)
+		"game_enter":
+			return FestivalGames.order_enter(sim, order)
+		# Fiestas (sim/fest/festivals.gd, docs/gdd/04f_vida_y_fiestas.md 4.25.5)
+		"festival_sponsor":
+			return Festivals.order_sponsor(sim, order)
+		"festival_host_wedding":
+			return Festivals.order_host_wedding(sim, order)
 		# Vida (sim/life/*.gd, docs/gdd/04f_vida_y_fiestas.md §4.24, docs/contratos/vida.md)
 		"resolve_incident":
 			return Incidents.order_resolve(sim, order)
@@ -217,8 +219,8 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"duel_answer", "duel_withdraw", "duel_move", "duel_auto",
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
 	"city_accept", "city_deliver", "sign_treaty",
-	"festival_sponsor", "festival_host_wedding",
-	"game_play", "game_bet", "resolve_incident",
+	"game_play", "game_bet", "game_enter", "festival_sponsor", "festival_host_wedding",
+	"resolve_incident",
 	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license"]  # posada (Inn.MANAGEMENT)
 
 

@@ -76,3 +76,17 @@ id entra en las claves: otro mapa, u otra ciudad de la misma partida, da otra ge
 de un mapa puede traer solo `rank` y `stats`: nombre, sexo, edad y aspecto los pone el reparto (también en modo fijo).
 Con 74 nombres de hombre, 71 de mujer, 94 apellidos generales y 27 de oficio, el mapa EA (30-40 NPC, 5 familias
 rivales) cabe sin repetir; con la baraja gastada se repite.
+
+## Plantillas: empezar en cualquier ciudad
+
+`NewGame.from_start(..., choices.city)`: el asentamiento de `data/world/region.json` donde empieza la partida (su
+mapa sustituye al del inicio; el resto del inicio es el mismo). Sin `city`, o con la ciudad del propio inicio
+(Vilarrasa para los cuatro del Artesano), la partida es la de siempre, byte a byte: las dianas no se mueven. Rechazos:
+`unknown_city` y `city_lacks_site` (al mapa le falta un solar del inicio; hoy las seis ciudades llevan los de los
+cuatro oficios). El reparto se genera con el id del mapa de esa ciudad (otra gente con la misma semilla) y la
+propuesta de nombre de Partida nueva también. `meta.city` guarda la elegida (solo informativo).
+
+Las ciudades de la región empiezan llenas: el plan de `tools/city/ciudades.json` trae `per_house` (vecinos por casa;
+los que pasan de los de town_e solo llevan rango y atributos) y el mapa su `population_max`. Partida nueva:
+«Dónde empiezas»; línea de órdenes: `--start-city=<id>`. Pruebas: `tests/test_plantillas_ciudades.gd`; sonda de vida
+por ciudad: `tools/life/plantillas_probe.gd`; capturas: `--smoke-script=plantillas`.

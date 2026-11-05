@@ -67,6 +67,19 @@ static func _feast(sim: Sim, e: Dictionary, fam: String) -> Dictionary:
 			buttons.append({"id": "sponsor:" + part, "text": SimQuery.t_("ui.festival_card.sponsor") % [
 				SimQuery.t_("festival.part." + part).to_lower(), gold], "disabled": Money.gold(sim.state, fam) < gold,
 				"tip": SimQuery.t_("ui.festival_card.sponsor_tip")})
+	if fam != "" and not inst.is_empty():  # juegos (04f §4.26): enter a competition of the feast, or bet on it
+		var g: Dictionary = inst.get("games", {}) if inst.get("games") is Dictionary else {}
+		for f: Dictionary in def.get("effects", []):
+			var spk := str(f.get("id", ""))
+			if str(f.get("kind", "")) != "spectacle" or not Festivals._part_ok(inst, f) or not FestivalGames.is_game(sim, spk) \
+					or not FestivalGames._to_come(inst, spk):
+				continue
+			var entered := (g.get("entries", {}) as Dictionary).has(spk)
+			buttons.append({"id": "enter:" + spk, "text": SimQuery.t_("ui.festival_card.enter") % SimQuery.t_("spectacle." + spk),
+				"disabled": entered, "tip": SimQuery.t_("ui.festival_card.enter_tip")})
+			if not entered:
+				buttons.append({"id": "bet:" + spk, "text": SimQuery.t_("ui.festival_card.bet") % SimQuery.t_("spectacle." + spk),
+					"tip": SimQuery.t_("ui.festival_card.bet_tip")})
 	var out := {"template": "card", "title": SimQuery.festival_name(id),
 		"image": VisualPaths.illustration_or_greybox("events", id), "blocks": blocks,
 		"footer_figures": [{"label": "", "value": when}], "buttons": buttons, "sticky": false,
@@ -141,4 +154,6 @@ static func order_for(button: String, d: Dictionary, actor: String) -> Dictionar
 			"part": button.substr(8)}
 	if button == "host_wedding":
 		return {"type": "festival_host_wedding", "actor": actor}
+	if button.begins_with("enter:"):
+		return {"type": "game_enter", "actor": actor, "festival": str(d.get("instance", "")), "spectacle": button.substr(6)}
 	return {}
