@@ -3057,6 +3057,9 @@
  "watch": {
   "name_key": "family.watch.capital"
  },
+ "detail": {
+  "settled_every": 5
+ },
  "plots": [
   {
    "id": "plot_01",
