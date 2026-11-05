@@ -82,7 +82,20 @@ func open(req: Dictionary, state: WorldState, games: Dictionary, give: Callable 
 	bet_only = false
 	var players: Array = []
 	var mid := str(req.get("match", ""))
-	if g in ["rescue", "brawl"]:
+	if str(req.get("festival", "")) != "" and str(req.get("spectacle", "")) != "":
+		# a festival's competition to bet on (FestivalGames): its field, priced now, fought at its hour
+		var fsim: Sim = Game.sim
+		var finst := Festivals.find(fsim, str(req["festival"])) if fsim != null else {}
+		if finst.is_empty():
+			push_error("GameScreen: unknown festival %s" % req.get("festival", ""))
+			return false
+		spec = FestivalGames.spec_for(fsim, finst, str(req["spectacle"]))
+		watch = true
+		betting = true
+		bet_only = true
+		players = spec["players"]
+		mid = str(spec["match"])
+	elif g in ["rescue", "brawl"]:
 		# vida's fights (docs/contratos/juegos.md §5): their spec comes from the incident
 		var sim: Sim = Game.sim
 		var inc := Incidents.find(state, str(req.get("incident", "")))
@@ -190,8 +203,12 @@ func _bet_brawl() -> void:
 	var placed := {}
 	if not bets.is_empty() and _give.is_valid():
 		var b: Dictionary = bets[0]
-		var o := {"type": "game_bet", "actor": str(request.get("actor", "")), "incident": str(request.get("incident", "")),
-			"on": int(b["on"]), "stake": int(b["stake"])}
+		var o := {"type": "game_bet", "actor": str(request.get("actor", "")), "on": int(b["on"]), "stake": int(b["stake"])}
+		if str(request.get("festival", "")) != "":
+			o["festival"] = str(request["festival"])
+			o["spectacle"] = str(request["spectacle"])
+		else:
+			o["incident"] = str(request.get("incident", ""))
 		for e: Dictionary in _give.call(o):
 			if str(e.get("type", "")) == "order_refused" and str(e.get("order", "")) == "game_bet":
 				refused = str(e.get("reason", ""))

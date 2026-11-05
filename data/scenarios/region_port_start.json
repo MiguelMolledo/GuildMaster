@@ -2956,6 +2956,10 @@
 	},
 	"deliveries": [],
 	"difficulty": "normal",
+	"duels": {
+		"closed": [],
+		"open": {}
+	},
 	"elections": [],
 	"emotions": {},
 	"ending": {},
@@ -3455,6 +3459,7 @@
 			"title": "common"
 		}
 	},
+	"festivals": {},
 	"justice": {
 		"facts": []
 	},
@@ -3599,6 +3604,7 @@
 		}
 	},
 	"parcels": {},
+	"region": {},
 	"relationships": {},
 	"rng_state": "-1966449618399012673",
 	"seed": "1",
@@ -3606,5 +3612,5 @@
 		"counters": {}
 	},
 	"trials": [],
-	"version": 14
+	"version": 18
 }

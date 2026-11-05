@@ -195,6 +195,8 @@ static func points(sim: Sim, kinds: Array) -> Array:
 	var out: Array = []
 	for p: Dictionary in map(sim).get("social_points", []):
 		if str(p.get("kind", "")) in kinds:
+			if str(p.get("kind", "")) == "tavern" and Inn.closed_for_sale(sim, p):
+				continue  # posada: the door of a Taberna-Posada still for sale is nobody's tavern
 			out.append(p)
 	return out
 

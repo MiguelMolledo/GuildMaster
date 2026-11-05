@@ -1,0 +1,11 @@
+{
+  "id": "cider",
+  "name_key": "item.cider",
+  "gender": "f",
+  "category": "consumable",
+  "weight": 1.0,
+  "max_stack": 10,
+  "base_price": 4,
+  "market_stall": "food",
+  "_doc": "Sidra: se compra en el puesto de comida."
+}

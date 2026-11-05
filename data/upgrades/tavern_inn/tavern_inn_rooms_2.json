@@ -1,0 +1,33 @@
+{
+  "id": "tavern_inn_rooms_2",
+  "name_key": "upgrade.tavern_inn_rooms_2",
+  "tree": "tavern_inn",
+  "branch": "inn_rooms",
+  "level": 2,
+  "cost": {
+    "gold": 120,
+    "items": [
+      {
+        "item": "cloth",
+        "qty": 4
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_rooms_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "inn_good_room"
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_good_room",
+    "exterior_overlay": null
+  }
+}

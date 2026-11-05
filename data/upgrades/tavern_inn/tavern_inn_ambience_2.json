@@ -1,0 +1,38 @@
+{
+  "id": "tavern_inn_ambience_2",
+  "name_key": "upgrade.tavern_inn_ambience_2",
+  "tree": "tavern_inn",
+  "branch": "inn_ambience",
+  "level": 2,
+  "cost": {
+    "gold": 75,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 4
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_ambience_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "minstrel_corner",
+      "like": "tables"
+    },
+    {
+      "kind": "inn_minstrel"
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": null
+  }
+}

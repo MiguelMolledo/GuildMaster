@@ -14,6 +14,8 @@ extends SceneTree
 ## summary: python3 tools/full_report.py. Checks data/targets.json full_player / chaos_player (the measures of
 ## "_needs_days" only when the run is that long) and exits with 1 if one is missed.
 
+const Watch := preload("res://tools/full_watch.gd")  # the rival families and the town
+const FORMAT_VERSION: int = 2  # docs/contratos/informe_jugador_completo.md: bump it when a field changes meaning
 const YEAR_DAYS: int = 8
 const GENERATION_TAIL: int = 8          # days the heir plays after the inheritance
 const STALL_HOURS: int = 12             # a character that does not move nor work this long is stalled
@@ -123,7 +125,7 @@ func _init() -> void:
 			tag = a.substr(6)
 		elif a == "--no-check":
 			check = false
-	if not bot_id in ["full_player", "chaos_player"]:
+	if not bot_id in ["full_player", "chaos_player", "idle_player"]:
 		print("full_player: unknown bot %s" % bot_id)
 		quit(2)
 		return
@@ -140,7 +142,8 @@ func _init() -> void:
 			print("full_player: %s: %s" % [start, r["error"]])
 			quit(2)
 			return
-		var bot: Object = BotChaosPlayer.new(int(s)) if bot_id == "chaos_player" else BotFullPlayer.new()
+		var bot: Object = BotChaosPlayer.new(int(s)) if bot_id == "chaos_player" else (BotIdle.new() \
+			if bot_id == "idle_player" else BotFullPlayer.new())  # idle_player: the player does nothing (the AI alone)
 		for kv: String in OS.get_environment("BOT_VARS").split(",", false):  # trials: k=v ints, as sim_runner
 			bot.set(kv.get_slice("=", 0), kv.get_slice("=", 1).to_int())
 		var rep := _play(Sim.new(r["state"], cat), bot, bot_id, int(s), years * YEAR_DAYS, generation, roundtrip, dir)
@@ -161,8 +164,15 @@ func _init() -> void:
 	var fails: PackedStringArray = _check(t, runs) if check else PackedStringArray()
 	for f: String in fails:
 		print("  MISS %s · %s" % [bot_id, f])
-	var summary := {"bot": bot_id, "horizon": horizon, "difficulty": diff, "start": start, "seeds": seeds,
-		"aggregate": _aggregate(t, runs), "misses": fails, "targets": t}
+	var proposed: Dictionary = (t.get("_proposed", {}) as Dictionary).duplicate()  # informed, never failing
+	for k: String in (t.get("_needs_days", {}) as Dictionary):
+		if played < int(t["_needs_days"][k]):
+			proposed.erase(k)
+	var pfails: PackedStringArray = _check(proposed, runs)
+	for f: String in pfails:
+		print("  PROPOSED %s · %s" % [bot_id, f])
+	var summary := {"format_version": FORMAT_VERSION, "bot": bot_id, "horizon": horizon, "difficulty": diff, "start": start, "seeds": seeds,
+		"aggregate": _aggregate(t, runs), "misses": fails, "proposed_misses": pfails, "targets": t}
 	FileAccess.open(dir + "/summary.json", FileAccess.WRITE).store_string(JSON.stringify(summary, "\t"))
 	print("full_player: %s × %d seeds (%s) · %d misses · %s" % [bot_id, seeds.size(), horizon, fails.size(),
 		dir + "/summary.json"])
@@ -189,7 +199,9 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 	for id: String in st.loans:
 		if str(st.loans[id].get("family", "")) == fam:
 			dues[id] = int(st.loans[id].get("due_minute", 0))
-	var rep := {"seed": s, "bot": bot_id, "curve": [], "family": {"weddings": [], "births": [], "deaths": [],
+	var watch: RefCounted = Watch.new()
+	watch.call("begin", sim, fam)
+	var rep := {"format_version": FORMAT_VERSION, "seed": s, "bot": bot_id, "curve": [], "family": {"weddings": [], "births": [], "deaths": [],
 		"inheritance": [], "heir": []}, "titles": [], "offices": [], "refused": {}, "refused_examples": [],
 		"stalls": [], "contracts_failed": [], "saves": {}, "chaos": {}}
 	var mech := {}   # mechanic -> {orders, refused, events, first_day}
@@ -197,7 +209,7 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 		"duels_fought": 0, "duels_won": 0, "trips": 0, "caravans": 0, "treaties": 0, "festival_contracts": 0,
 		"counter_sold": 0, "incidents": 0, "trials_against": 0, "trials_as_accuser": 0, "children": 0,
 		"wedding_day": -1, "first_child_day": -1, "inherit_day": -1, "founder_death_day": -1, "debt_paid": 0,
-		"debt_paid_day": -1, "office_won_day": -1, "gold_min": Money.gold(st, fam)}
+		"debt_paid_day": -1, "office_won_day": -1, "ending_day": -1, "gold_min": Money.gold(st, fam)}
 	for t: String in sim.catalog.title_ladder():
 		m["title_%s_day" % t] = -1
 	var paid := {}
@@ -227,8 +239,12 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 	while true:
 		var now := int(sim.state.clock["minute"])
 		played = Clock.day(now) - start_day + 1
-		if i >= max_days * Clock.MINUTES_PER_DAY or not sim.state.ending.is_empty():
+		if i >= max_days * Clock.MINUTES_PER_DAY:
 			break
+		if not sim.state.ending.is_empty() and int(m["ending_day"]) < 0:
+			m["ending_day"] = played  # the player's game is over; the world goes on (the AI and the town are measured)
+			if generation:
+				break
 		if not generation and i >= days * Clock.MINUTES_PER_DAY:
 			break
 		if generation and tail_until >= 0 and now >= tail_until:
@@ -248,6 +264,7 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 		st = sim.state
 		now = int(st.clock["minute"])
 		played = Clock.day(now) - start_day + 1
+		watch.call("step", sim, ev, played)
 		var mine := {}  # "type|actor" of the bot's orders this step
 		for o: Dictionary in given:
 			var k := str(MECH.get(str(o.get("type", "")), ""))
@@ -361,6 +378,7 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 		m["gold_min"] = mini(int(m["gold_min"]), Money.gold(st, fam))
 		# stalls: every hour
 		if now % 60 == 0:
+			watch.call("hour", sim, played)
 			var found := _stalls(sim, fam, sig, stalled, rep, played, now)
 			var qs := _queue_stalled(sim, actor)
 			if qs and Clock.phase(now, sim.catalog.time) == "day":
@@ -383,6 +401,7 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 				rep["saves"]["first_stall"] = p
 		if now % Clock.MINUTES_PER_DAY == 0:
 			rep["curve"].append(_sample(sim, fam, played))
+			watch.call("day", sim, played, YEAR_DAYS)
 			if (played - 1) % YEAR_DAYS == 0 and played > 1:  # a whole year closed: net gold per day (as sim_runner)
 				var y := (played - 1) / YEAR_DAYS
 				var lo := start_minute + (y - 1) * YEAR_DAYS * Clock.MINUTES_PER_DAY
@@ -505,6 +524,9 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 			if not m.has(k) and typeof(bm[k]) in [TYPE_INT, TYPE_FLOAT]:
 				m["bot_" + k] = bm[k]
 	rep["bot_report"] = info
+	rep.merge(watch.call("report"))
+	var wm: Dictionary = watch.call("measures", played, YEAR_DAYS)
+	m.merge(wm)
 	rep["days"] = played
 	var endp := "%s/saves/%d_fin.json" % [dir, s]
 	SaveFile.save(st, ProjectSettings.globalize_path(endp))

@@ -88,6 +88,13 @@ func symbol(v: Variant, ev: Dictionary = {}) -> Variant:
 			return workshop()
 		"$first_station":
 			return first_station()
+		"$tavern":  # posada: the family's Taberna-Posada (the first by id)
+			var ids: Array = st.buildings.keys()
+			ids.sort()
+			for b: Variant in ids:
+				if Inn.is_inn(Game.sim, str(b)) and str(st.buildings[b].get("owner", "")) == _fam():
+					return str(b)
+			return ""
 	return super.symbol(v, ev)
 
 

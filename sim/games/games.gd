@@ -175,6 +175,9 @@ static func spec_of(sim: Sim, o: Dictionary) -> Dictionary:
 		var item := str((games.get("loaded", {}) as Dictionary).get("item", "loaded_dice"))
 		if Inventory.count(ch.get("inventory", {}), item) <= 0:
 			return {"reason": "no_loaded_dice"}
+	var fest := FestivalGames.play_block(sim, o)  # a festival's competition: only the entry called, once
+	if fest != "":
+		return {"reason": fest}
 	var mid := str(o.get("match", ""))
 	if mid == "":
 		mid = match_id(st, g, actor)
@@ -284,6 +287,8 @@ static func _apply(sim: Sim, o: Dictionary, spec: Dictionary, m: GameMatch, res:
 		if int(fz.get("reputation", 0)) != 0:
 			Reputation.change(sim, fam, int(fz["reputation"]), "games_finalist")
 		facts.append({"kind": "finalist", "reputation": int(fz.get("reputation", 0))})
+	if str((spec["opts"] as Dictionary).get("event", "")) != "":
+		FestivalGames.played(sim, spec, res)  # a festival's competition the player fought: its result, its bets
 	# the bulls: applause and jeers (O-V5 a: a failure is a fright, never a wound until 4.22's health)
 	for f: Dictionary in res.get("facts", []):
 		if str(f.get("kind", "")) == "bulls":

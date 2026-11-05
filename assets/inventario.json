@@ -6824,7 +6824,7 @@
       "origen": "fal: nano-banana-2/edit (los 4 palos y 12 figuras) + image2pixel; cartas compuestas con Pillow (tools/art/juegos_taberna.py)",
       "coste_gen": 0,
       "coste_usd": 0.32,
-      "notas": "Baraja de 40 de 4 palos (04f §4.26.8), al estilo de los naipes antiguos: <oros|copas|espadas|bastos>_<1-7|10|11|12>.png (48×72, número en las esquinas, la disposición de los palos de la baraja española; 10 sota, 11 caballo, 12 rey), back.png (reverso), slot.png (hueco), suit_<palo>.png (32) y small/ (16)."
+      "notas": "Baraja de 40 de 4 palos (04f §4.26.8), al estilo de los naipes antiguos: <oros|copas|espadas|bastos>_<1-7|10|11|12>.png (48×72, número en las esquinas, la disposición de los palos de la baraja española; 10 sota, 11 caballo, 12 rey), back.png (reverso), slot.png (hueco), suit_<palo>.png (32) y small/ (16). Cableado (rama juegos): VisualPaths.game_art (alias GAME_ART_ALIAS: la mesa es el tablero de los dados, los naipes y el pulso; dice/die_<n> → dados/d<n>); naipes a 48×72 y dados a 24 (×2 en el azar), sin escalar a medias."
     },
     {
       "id": "ui_game_dados",
@@ -6837,7 +6837,7 @@
       "ruta": "assets/art/ui/games/dados/",
       "origen": "dibujado (Pillow, tools/art/juegos_taberna.py dados)",
       "coste_gen": 0,
-      "notas": "Dados de hueso (04f §4.26.7): d1-d6.png (24×24, cara de arriba, puntos exactos) y shadow.png."
+      "notas": "Dados de hueso (04f §4.26.7): d1-d6.png (24×24, cara de arriba, puntos exactos) y shadow.png. Cableado (rama juegos): VisualPaths.game_art (alias GAME_ART_ALIAS: la mesa es el tablero de los dados, los naipes y el pulso; dice/die_<n> → dados/d<n>); naipes a 48×72 y dados a 24 (×2 en el azar), sin escalar a medias."
     },
     {
       "id": "ui_game_mesa",
@@ -6851,7 +6851,7 @@
       "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel",
       "coste_gen": 0,
       "coste_usd": 0.08,
-      "notas": "Fondo de mesa de taberna para dados y naipes, visto desde arriba, el centro libre: 960×540 (480×270 ×2)."
+      "notas": "Fondo de mesa de taberna para dados y naipes, visto desde arriba, el centro libre: 960×540 (480×270 ×2). Cableado (rama juegos): VisualPaths.game_art (alias GAME_ART_ALIAS: la mesa es el tablero de los dados, los naipes y el pulso; dice/die_<n> → dados/d<n>); naipes a 48×72 y dados a 24 (×2 en el azar), sin escalar a medias."
     },
     {
       "id": "ui_forge_live",
@@ -7908,196 +7908,171 @@
     {
       "id": "ui_games_dice_cup",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/games/dados/cup.png",
-      "origen": "dibujado (Pillow, tools/art/juegos_taberna.py cubilete)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "El cubilete de cuero boca abajo que tapa el dado oculto de «a la mayor» (04f §4.26.7), 24×24 como los dados, la boca abajo."
+      "notas": "Juegos (04f §4.26.7): el cubilete de cuero boca abajo que tapa el dado oculto de «a la mayor», 24×24 (como los dados de ui_game_dados). Pieza a 1:1, sin texto."
     },
     {
       "id": "icon_game_azar",
       "tipo": "icono",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/icons/game_azar.png",
-      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono de el azar, 32×32 y small/game_azar.png 16×16. VisualPaths.game_icon(\"azar\").",
-      "coste_usd": 0.02
+      "notas": "Juegos: icono del «azar» (tres dados), 32×32 y small/game_azar.png 16×16. VisualPaths.game_icon(\"azar\"). Para la carta de la fiesta y la mesa de juego de la Posada."
     },
     {
       "id": "icon_game_mayor",
       "tipo": "icono",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/icons/game_mayor.png",
-      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono de «a la mayor», 32×32 y small/game_mayor.png 16×16. VisualPaths.game_icon(\"mayor\").",
-      "coste_usd": 0.02
+      "notas": "Juegos: icono de «tres dados a la mayor» (dados y cubilete), 32×32 y small/ 16×16. VisualPaths.game_icon(\"mayor\")."
     },
     {
       "id": "icon_game_pulso",
       "tipo": "icono",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/icons/game_pulso.png",
-      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono de el pulso, 32×32 y small/game_pulso.png 16×16. VisualPaths.game_icon(\"pulso\").",
-      "coste_usd": 0.02
+      "notas": "Juegos: icono del pulso (dos manos agarradas), 32×32 y small/ 16×16. VisualPaths.game_icon(\"pulso\")."
     },
     {
       "id": "ill_game_azar",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/illustrations/events/game_azar.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Lámina del resultado de el azar (04f §4.26), 240×135, y game_azar_192.png a 192×108. VisualPaths.game_illustration(\"game_azar\").",
-      "coste_usd": 0.08
+      "notas": "Juegos: lámina de la carta de resultado del azar (dados en una mesa de taberna, a la luz de una vela), 240×135 y game_azar_192.png 192×108, estilo de las láminas de 4.28.3. VisualPaths.game_illustration(\"game_azar\")."
     },
     {
       "id": "ill_game_mayor",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/illustrations/events/game_mayor.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Lámina del resultado de «a la mayor» (04f §4.26), 240×135, y game_mayor_192.png a 192×108. VisualPaths.game_illustration(\"game_mayor\").",
-      "coste_usd": 0.08
+      "notas": "Juegos: lámina del resultado de «a la mayor» (cuatro jugadores, cubiletes y un bote de monedas), 240×135 y _192 192×108."
     },
     {
       "id": "ill_game_pulso",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/illustrations/events/game_pulso.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Lámina del resultado de el pulso (04f §4.26), 240×135, y game_pulso_192.png a 192×108. VisualPaths.game_illustration(\"game_pulso\").",
-      "coste_usd": 0.08
+      "notas": "Juegos: lámina del resultado del pulso (dos hombres echando un pulso en la taberna, parroquianos alrededor), 240×135 y _192 192×108."
     },
     {
       "id": "ui_games_tourney_list",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/games/tourney/list.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Fondo de tablero (04f §4.26): el palenque del torneo: tierra apisonada dentro de una empalizada, público y pendones; el tercio izquierdo, en sombra. 880×384 (440×192 ×2): el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
-      "coste_usd": 0.08
+      "notas": "Juegos (04f §4.26.2): el palenque del torneo de lucha (tierra apisonada, empalizada, público), apagado a la izquierda para leer el cuadro. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "icon_game_envite",
       "tipo": "icono",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/icons/game_envite.png",
-      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono de el envite, 32×32 y small/game_envite.png 16×16. VisualPaths.game_icon(\"envite\").",
-      "coste_usd": 0.02
+      "notas": "Juegos: icono del envite (tres naipes en abanico), 32×32 y small/ 16×16."
     },
     {
       "id": "icon_game_tourney",
       "tipo": "icono",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/icons/game_tourney.png",
-      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono de el torneo de lucha, 32×32 y small/game_tourney.png 16×16. VisualPaths.game_icon(\"tourney\").",
-      "coste_usd": 0.02
+      "notas": "Juegos: icono del torneo de lucha (dos espadas cruzadas sobre un escudo), 32×32 y small/ 16×16."
     },
     {
       "id": "icon_game_bets",
       "tipo": "icono",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/icons/game_bets.png",
-      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono de el corredor de apuestas, 32×32 y small/game_bets.png 16×16. VisualPaths.game_icon(\"bets\").",
-      "coste_usd": 0.02
+      "notas": "Juegos (04f §4.26.6): icono del corredor de apuestas (bolsa y monedas), 32×32 y small/ 16×16."
     },
     {
       "id": "ill_game_envite",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/illustrations/events/game_envite.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Lámina del resultado de el envite (04f §4.26), 240×135, y game_envite_192.png a 192×108. VisualPaths.game_illustration(\"game_envite\").",
-      "coste_usd": 0.08
+      "notas": "Juegos: lámina del resultado del envite (dos jugadores con naipes, uno mirando la cara del otro, en la taberna), 240×135 y _192 192×108."
     },
     {
       "id": "ill_game_tourney",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/illustrations/events/game_tourney.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Lámina del resultado de el torneo de lucha (04f §4.26), 240×135, y game_tourney_192.png a 192×108. VisualPaths.game_illustration(\"game_tourney\").",
-      "coste_usd": 0.08
+      "notas": "Juegos: lámina del torneo de lucha (dos luchadores con espadas de torneo en la plaza, jueces y público), 240×135 y _192 192×108. Sirve también a la carta de la fiesta (4.25.2, evento Torneo)."
     },
     {
       "id": "icon_loaded_dice",
@@ -8115,242 +8090,210 @@
     {
       "id": "ui_games_joust_lists",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/games/joust/lists.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Fondo de tablero (04f §4.26): la liza de la justa de lado: la tela a media altura, el público y los pendones detrás. 880×384 (440×192 ×2): el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
-      "coste_usd": 0.08
+      "notas": "Juegos (04f §4.26.1): la liza de la justa vista de lado, la tela (barrera baja de madera) a lo ancho a media altura, público y pendones al fondo, suelo de tierra; deja libre la franja central para los jinetes. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "ui_games_joust_horse",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/games/joust/horse.png",
-      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_juegos_sprites.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Caballo de justa con gualdrapa azul y oro y el caballero con la lanza en ristre, de perfil al este (al oeste se refleja), 48×32, y horse_fallen.png (48×32): el caballo sin jinete y el caballero en el suelo. Los pies, abajo; la figura ocupa ~35 de ancho, centrada.",
-      "coste_usd": 0.04
+      "notas": "Juegos: caballo de justa con gualdrapa y jinete armado con la lanza en ristre, de perfil mirando al este (al oeste se refleja), 48×32; y horse_fallen.png (el jinete en el suelo), 48×32. Pieza a 1:1, sin texto."
     },
     {
       "id": "ui_games_sortija_lane",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/games/sortija/lane.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Fondo de tablero (04f §4.26): la calle de la sortija de lado: el arco con el travesaño en el centro, sin nada colgado (la anilla la pinta el tablero), y tres postes de señal. 880×384 (440×192 ×2): el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
-      "coste_usd": 0.08
+      "notas": "Juegos (04f §4.26.3): la calle de la sortija de lado: suelo de tierra, un travesaño alto del que cuelga la anilla en el centro y tres postes de señal a lo largo; el jinete y la anilla se dibujan encima. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "ui_games_race_track",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/games/race/track.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Fondo de tablero (04f §4.26): el camino de la carrera desde arriba, a casi toda la altura (sitio para 6 calles): salida a la izquierda, el molino abajo a dos tercios, el palio de la meta a la derecha. 404×192 ×2 = 808×384, para que el recorte no se coma la salida ni la meta. 808×384: el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
-      "coste_usd": 0.08
+      "notas": "Juegos (04f §4.26.4): el camino de la carrera desde arriba, cuatro tramos de izquierda a derecha (salida, recta, la curva del molino con el molino al lado, meta con el palio), con sitio para 4-6 calles. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "ui_games_race_horse",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/games/race/horse.png",
-      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_juegos_sprites.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Caballo al galope con jinete, de perfil al este: horse_run.png es la tira de 4 fotogramas (112×18, 28×18 cada uno) y horse.png el primero suelto (28×18, lo que dibuja el tablero de hoy). La ropa y la gorra del jinete, en gris neutro (r=g=b) para teñirla por código.",
-      "coste_usd": 0.08
+      "notas": "Juegos: caballo al galope con jinete, de perfil al este, 28×18, 4 fotogramas en tira (horse.png 112×18) si se puede; la ropa del jinete en un gris neutro (se tiñe por código). Pieza a 1:1, sin texto."
     },
     {
       "id": "ui_games_bulls_plaza",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/games/bulls/plaza.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Fondo de tablero (04f §4.26): la plaza cerrada con un círculo de carros desde arriba, con balcones alrededor; el centro, libre. 880×384 (440×192 ×2): el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
-      "coste_usd": 0.08
+      "notas": "Juegos (04f §4.26.5): la plaza cerrada con carros vista desde arriba (un círculo de carros), suelo de tierra, gente en balcones alrededor; centro libre. Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "ui_games_bulls_bull",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/games/bulls/bull.png",
-      "origen": "fal: nano-banana-2/edit (ref: 6 props del juego ×4) + image2pixel (tools/art/fal_juegos_sprites.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "El toro negro de perfil al este, 36×24, y bull_charge.png (36×24): embistiendo con la cabeza baja. Los pies, abajo.",
-      "coste_usd": 0.04
+      "notas": "Juegos: el toro de perfil al este, 36×24 (y bull_charge.png, cabeza baja embistiendo, 36×24); el mozo es el sprite de personaje de siempre. Pieza a 1:1, sin texto."
     },
     {
       "id": "icon_game_joust",
       "tipo": "icono",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/icons/game_joust.png",
-      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono de la justa, 32×32 y small/game_joust.png 16×16. VisualPaths.game_icon(\"joust\").",
-      "coste_usd": 0.02
+      "notas": "Juegos: icono de la justa (yelmo y lanza), 32×32 y small/ 16×16."
     },
     {
       "id": "icon_game_sortija",
       "tipo": "icono",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/icons/game_sortija.png",
-      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono de la sortija, 32×32 y small/game_sortija.png 16×16. VisualPaths.game_icon(\"sortija\").",
-      "coste_usd": 0.02
+      "notas": "Juegos: icono de la sortija (una anilla atravesada por una lanza), 32×32 y small/ 16×16."
     },
     {
       "id": "icon_game_race",
       "tipo": "icono",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/icons/game_race.png",
-      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono de la carrera, 32×32 y small/game_race.png 16×16. VisualPaths.game_icon(\"race\").",
-      "coste_usd": 0.02
+      "notas": "Juegos: icono de la carrera (cabeza de caballo y el palio), 32×32 y small/ 16×16."
     },
     {
       "id": "icon_game_bulls",
       "tipo": "icono",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/icons/game_bulls.png",
-      "origen": "fal: nano-banana-2/edit (ref: 8 iconos del juego) + image2pixel (tools/art/fal_iconos.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono de correr el toro, 32×32 y small/game_bulls.png 16×16. VisualPaths.game_icon(\"bulls\").",
-      "coste_usd": 0.02
+      "notas": "Juegos: icono de correr el toro (cuernos), 32×32 y small/ 16×16."
     },
     {
       "id": "ill_game_joust",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/illustrations/events/game_joust.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Lámina del resultado de la justa (04f §4.26), 240×135, y game_joust_192.png a 192×108. VisualPaths.game_illustration(\"game_joust\").",
-      "coste_usd": 0.08
+      "notas": "Juegos: lámina de la justa (dos caballeros chocan en la tela, astillas de lanza), 240×135 y _192 192×108. Sirve también a la carta de la fiesta con justas (Sant Jordi en Bellcaire)."
     },
     {
       "id": "ill_game_sortija",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/illustrations/events/game_sortija.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Lámina del resultado de la sortija (04f §4.26), 240×135, y game_sortija_192.png a 192×108. VisualPaths.game_illustration(\"game_sortija\").",
-      "coste_usd": 0.08
+      "notas": "Juegos: lámina de la sortija (un jinete al galope ensarta la anilla), 240×135 y _192 192×108."
     },
     {
       "id": "ill_game_race",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/illustrations/events/game_race.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Lámina del resultado de la carrera (04f §4.26), 240×135, y game_race_192.png a 192×108. VisualPaths.game_illustration(\"game_race\").",
-      "coste_usd": 0.08
+      "notas": "Juegos: lámina de la carrera de caballos (jinetes en la curva del molino, el palio en la meta), 240×135 y _192 192×108. Sirve a la carta de la feria (4.25.1)."
     },
     {
       "id": "ill_game_bulls",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/illustrations/events/game_bulls.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Lámina del resultado de correr el toro (04f §4.26), 240×135, y game_bulls_192.png a 192×108. VisualPaths.game_illustration(\"game_bulls\").",
-      "coste_usd": 0.08
+      "notas": "Juegos: lámina de correr el toro (la plaza cerrada con carros, un mozo quiebra al toro), 240×135 y _192 192×108. Sirve a la carta del Corpus con toros."
     },
     {
       "id": "ui_games_fight_street",
       "tipo": "ui",
-      "estado": "sprite",
+      "estado": "falta",
       "para": [
-        "juegos",
-        "H16"
+        "juegos"
       ],
       "ruta": "assets/art/ui/games/fight/street.png",
-      "origen": "fal: nano-banana-2/edit (ref: el título al alba; 21:9) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "origen": null,
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Fondo de tablero (04f §4.26): una calle de noche con dos antorchas, para el rescate y el altercado. 880×384 (440×192 ×2): el tablero recorta abajo y en el centro a ½ (404×180 como mínimo); lo importante, abajo y en el centro. Sin texto.",
-      "coste_usd": 0.08
+      "notas": "Juegos (04f §4.24.5): una calle o claro de noche con antorchas para las peleas de la ciudad (el rescate y el altercado). Medidas: fondo de tablero a ×2 como la mesa (808×360 o más; el tablero recorta abajo y en el centro a ½, píxel exacto); piezas a su tamaño de pantalla (1:1). Sin texto."
     },
     {
       "id": "illus_masterwork",
@@ -8365,6 +8308,356 @@
       "coste_gen": 0,
       "coste_usd": 0.08,
       "notas": "Lámina de la carta «Obra maestra» de la Forja viva (03b §3b.2): el maestro alza la espada recién hecha a la luz de la fragua, los aprendices miran. 240×135 y masterwork_192.png a 192×108."
+    },
+    {
+      "id": "int_tavern_rooms",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/rooms.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Puesto del interior: la escalera a las habitaciones; ~80×64, base en Feet (como assets/art/interiors/forge/counter.png). Escena game/visuals/stations/rooms.tscn."
+    },
+    {
+      "id": "int_tavern_gaming_table",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/gaming_table.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Puesto del interior: la mesa de dados y naipes; ~80×64, base en Feet (como assets/art/interiors/forge/counter.png). Escena game/visuals/stations/gaming_table.tscn."
+    },
+    {
+      "id": "int_tavern_inn_tapestries",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_tapestries.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (tapices y vajilla): nodo Upgrades/inn_tapestries de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_oven",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_oven.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (horno de pan): nodo Upgrades/inn_oven de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_spit",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_spit.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (asador): nodo Upgrades/inn_spit de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_pantry",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_pantry.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (despensa fría): nodo Upgrades/inn_pantry de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_reserve",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_reserve.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (botellero del vino de reserva): nodo Upgrades/inn_reserve de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_cave",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_cave.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (entrada a la cueva de crianza): nodo Upgrades/inn_cave de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_good_room",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_good_room.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (cama con dosel): nodo Upgrades/inn_good_room de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_stable",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_stable.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (silla y bridas (el establo)): nodo Upgrades/inn_stable de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_menu_board",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_menu_board.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (pizarra de la carta): nodo Upgrades/inn_menu_board de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_porter",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_porter.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (el portero): nodo Upgrades/inn_porter de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_cellar_lock",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_cellar_lock.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (cerradura de la bodega): nodo Upgrades/inn_cellar_lock de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_porter_room",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_porter_room.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (el cuarto del portero): nodo Upgrades/inn_porter_room de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "illus_inn_turn",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/illustrations/events/inn_turn.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la carta del resumen del turno (la taberna de noche), 240×135, y inn_turn_192.png (192×108)."
+    },
+    {
+      "id": "icon_ale",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/ale.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (jarra de cerveza), 32×32, y el pequeño 16×16 en assets/art/icons/small/ale.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_cider",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/cider.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (jarra de sidra), 32×32, y el pequeño 16×16 en assets/art/icons/small/cider.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_wine",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/wine.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (copa de vino), 32×32, y el pequeño 16×16 en assets/art/icons/small/wine.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_meat",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/meat.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (pieza de carne), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_garlic_soup",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/garlic_soup.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (cuenco de sopa de ajo), 32×32, y el pequeño 16×16 en assets/art/icons/small/garlic_soup.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_stew",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/stew.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (olla), 32×32, y el pequeño 16×16 en assets/art/icons/small/stew.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_meat_pie",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/meat_pie.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (empanada), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat_pie.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_roast_lamb",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/roast_lamb.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (cordero asado), 32×32, y el pequeño 16×16 en assets/art/icons/small/roast_lamb.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_sausage",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/sausage.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (embutido), 32×32, y el pequeño 16×16 en assets/art/icons/small/sausage.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_sweets",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/sweets.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (dulces de Navidad), 32×32, y el pequeño 16×16 en assets/art/icons/small/sweets.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     }
   ]
 }
