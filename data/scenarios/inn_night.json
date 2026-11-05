@@ -90,38 +90,7 @@
 			"inventory": {
 				"limit": 10,
 				"limit_kind": "stacks",
-				"stacks": [
-					{
-						"item": "coal",
-						"qty": 1,
-						"quality": 0
-					},
-					{
-						"item": "iron_ingot",
-						"qty": 3,
-						"quality": 0
-					},
-					{
-						"item": "butcher_knife",
-						"qty": 1,
-						"quality": 2
-					},
-					{
-						"item": "butcher_knife",
-						"qty": 2,
-						"quality": 0
-					},
-					{
-						"item": "candlestick",
-						"qty": 2,
-						"quality": 1
-					},
-					{
-						"item": "candlestick",
-						"qty": 2,
-						"quality": 0
-					}
-				]
+				"stacks": []
 			},
 			"origin": [
 				9,
@@ -555,19 +524,9 @@
 				"limit_kind": "stacks",
 				"stacks": [
 					{
-						"item": "wood",
+						"item": "chest",
 						"qty": 1,
-						"quality": 0
-					},
-					{
-						"item": "planks",
-						"qty": 2,
-						"quality": 0
-					},
-					{
-						"item": "iron",
-						"qty": 1,
-						"quality": 0
+						"quality": 1
 					}
 				]
 			},
@@ -634,19 +593,14 @@
 						"quality": 0
 					},
 					{
-						"item": "stone",
-						"qty": 4,
-						"quality": 0
-					},
-					{
-						"item": "ashlar",
+						"item": "trough",
 						"qty": 1,
 						"quality": 1
 					},
 					{
-						"item": "ashlar",
+						"item": "trough",
 						"qty": 1,
-						"quality": 2
+						"quality": 0
 					}
 				]
 			},
@@ -706,18 +660,7 @@
 			"inventory": {
 				"limit": 10,
 				"limit_kind": "stacks",
-				"stacks": [
-					{
-						"item": "cloth",
-						"qty": 2,
-						"quality": 0
-					},
-					{
-						"item": "travel_cloak",
-						"qty": 1,
-						"quality": 1
-					}
-				]
+				"stacks": []
 			},
 			"origin": [
 				23,
@@ -746,7 +689,7 @@
 				},
 				"sewing_table": {
 					"job": null,
-					"occupant": "chr_0023"
+					"occupant": ""
 				},
 				"storage": {
 					"job": null,
@@ -771,38 +714,15 @@
 					{
 						"by": "",
 						"group": "pilgrims",
-						"guest": "gst_175",
+						"guest": "gst_122",
 						"state": "occupied",
 						"until": -1
 					},
 					{
 						"by": "",
-						"guest": "",
-						"state": "made",
-						"until": 7674
-					},
-					{
-						"by": "",
-						"guest": "",
-						"state": "made",
-						"until": 7694
-					},
-					{
-						"by": "",
-						"guest": "",
-						"state": "made",
-						"until": 7714
-					},
-					{
-						"by": "",
-						"guest": "",
-						"state": "made",
-						"until": -1
-					},
-					{
-						"by": "",
-						"guest": "",
-						"state": "made",
+						"group": "pilgrims",
+						"guest": "gst_123",
+						"state": "occupied",
 						"until": -1
 					},
 					{
@@ -819,7 +739,7 @@
 					}
 				],
 				"broken_until": -1,
-				"fame": 0.26,
+				"fame": 0.35000000000000003,
 				"history": [
 					{
 						"beds": 1,
@@ -841,78 +761,68 @@
 						"beds": 0,
 						"day": 2,
 						"fame": 0.75,
-						"guests": 42,
-						"income": 336,
-						"tips": 55
+						"guests": 41,
+						"income": 312,
+						"tips": 52
 					},
 					{
 						"beds": 1,
 						"day": 3,
-						"fame": 1,
-						"guests": 26,
-						"income": 348,
-						"tips": 56
-					},
-					{
-						"beds": 4,
-						"day": 4,
-						"fame": 0.8200000000000001,
-						"guests": 24,
-						"income": 196,
-						"tips": 25
-					},
-					{
-						"beds": 0,
-						"day": 5,
-						"fame": 0.26,
-						"guests": 31,
-						"income": 168,
-						"tips": 26
+						"fame": 0.35000000000000003,
+						"guests": 29,
+						"income": 179,
+						"tips": 28
 					}
 				],
 				"last_turn": {
-					"beds": 0,
-					"beds_income": 0,
+					"beds": 1,
+					"beds_income": 11,
 					"by_group": {
 						"comarca": {
-							"came": 23,
-							"income": 180,
-							"left": 14,
-							"served": 11
+							"came": 17,
+							"income": 112,
+							"left": 12,
+							"served": 6
+						},
+						"neighbours": {
+							"came": 3,
+							"income": 14,
+							"left": 3,
+							"served": 2
+						},
+						"pilgrims": {
+							"came": 1,
+							"income": 14,
+							"left": 0,
+							"served": 1
 						},
 						"soldiers": {
 							"came": 8,
-							"income": 14,
+							"income": 56,
 							"left": 8,
-							"served": 1
+							"served": 3
 						}
 					},
 					"complaints": {
-						"sold_out": 22
+						"full": 6,
+						"sold_out": 17
 					},
-					"day": 5,
+					"day": 3,
 					"dirty_beds": 0,
 					"dishes": {
 						"bread": 9,
 						"cider": 10
 					},
-					"fame_after": 0.26,
-					"fame_before": 0.8200000000000001,
-					"guests": 31,
+					"fame_after": 0.35000000000000003,
+					"fame_before": 0.75,
+					"guests": 29,
 					"house_cut": 0,
-					"incidents": [
-						{
-							"by": "chr_0004",
-							"group": "comarca",
-							"kind": "dash_caught",
-							"minute": 8422
-						}
-					],
+					"incidents": [],
 					"income": 168,
 					"minstrel": false,
 					"outlook": {
 						"comarca": {
-							"expected": 10.26,
+							"expected": 9.61,
 							"price": 1,
 							"reasons": []
 						},
@@ -944,9 +854,14 @@
 							]
 						},
 						"neighbours": {
-							"expected": 1,
+							"expected": 0,
 							"price": 1,
-							"reasons": []
+							"reasons": [
+								{
+									"args": [],
+									"key": "no_neighbours"
+								}
+							]
 						},
 						"nobles": {
 							"expected": 0,
@@ -973,35 +888,29 @@
 							]
 						},
 						"pilgrims": {
-							"expected": 0,
+							"expected": 1.34,
 							"price": 1,
-							"reasons": [
-								{
-									"args": [],
-									"key": "nobody_in_town"
-								}
-							]
+							"reasons": []
 						},
 						"soldiers": {
-							"expected": 2.67,
+							"expected": 2.47,
 							"price": 1,
 							"reasons": []
 						}
 					},
 					"rumor": {
-						"key": "brawl|4167|altercation",
+						"key": "event|gev_0001",
 						"kind": "life",
 						"params": {
-							"family": "Serra",
-							"name": "Guillem",
-							"target": "Elisenda"
+							"days": 8,
+							"event": "@event.war"
 						},
-						"rumor": "brawl",
-						"text_key": "rumor.brawl",
-						"useful": false
+						"rumor": "event",
+						"text_key": "rumor.event",
+						"useful": true
 					},
-					"satisfied": 16,
-					"tips": 26
+					"satisfied": 14,
+					"tips": 28
 				},
 				"license_until": -1,
 				"menu": [
@@ -1010,593 +919,458 @@
 					"bread",
 					"garlic_soup",
 					"stew",
-					"sweets",
+					"sausage",
 					"meat_pie"
 				],
 				"night": {
 					"arrivals": [
 						{
-							"at": 9743,
-							"chr": "",
-							"group": "comarca",
-							"k": 40
-						},
-						{
-							"at": 9818,
-							"chr": "",
-							"group": "comarca",
-							"k": 70
-						},
-						{
-							"at": 9819,
-							"chr": "",
-							"group": "comarca",
-							"k": 71
-						},
-						{
-							"at": 9821,
-							"chr": "",
-							"group": "comarca",
-							"k": 60
-						},
-						{
-							"at": 9822,
-							"chr": "",
-							"group": "comarca",
-							"k": 61
-						},
-						{
-							"at": 9844,
-							"chr": "",
-							"group": "comarca",
-							"k": 90
-						},
-						{
-							"at": 9845,
-							"chr": "",
-							"group": "comarca",
-							"k": 91
-						},
-						{
-							"at": 9845,
-							"chr": "",
-							"group": "soldiers",
-							"k": 0
-						},
-						{
-							"at": 9846,
-							"chr": "",
-							"group": "comarca",
-							"k": 92
-						},
-						{
-							"at": 9846,
-							"chr": "",
-							"group": "soldiers",
-							"k": 1
-						},
-						{
-							"at": 9847,
-							"chr": "",
-							"group": "soldiers",
-							"k": 2
-						},
-						{
-							"at": 9880,
-							"chr": "",
-							"group": "comarca",
-							"k": 80
-						},
-						{
-							"at": 9881,
-							"chr": "",
-							"group": "comarca",
-							"k": 81
-						},
-						{
-							"at": 9893,
+							"at": 6952,
 							"chr": "",
 							"group": "comarca",
 							"k": 30
 						},
 						{
-							"at": 9894,
+							"at": 6953,
 							"chr": "",
 							"group": "comarca",
 							"k": 31
 						},
 						{
-							"at": 9895,
-							"chr": "",
-							"group": "comarca",
-							"k": 32
-						},
-						{
-							"at": 9941,
+							"at": 6958,
 							"chr": "",
 							"group": "soldiers",
-							"k": 10
-						},
-						{
-							"at": 9942,
-							"chr": "",
-							"group": "soldiers",
-							"k": 11
-						},
-						{
-							"at": 9952,
-							"chr": "",
-							"group": "comarca",
 							"k": 0
 						},
 						{
-							"at": 9953,
+							"at": 6959,
 							"chr": "",
-							"group": "comarca",
+							"group": "soldiers",
 							"k": 1
 						},
 						{
-							"at": 9974,
-							"chr": "",
-							"group": "comarca",
-							"k": 10
-						},
-						{
-							"at": 9975,
-							"chr": "",
-							"group": "comarca",
-							"k": 11
-						},
-						{
-							"at": 9976,
-							"chr": "",
-							"group": "comarca",
-							"k": 20
-						},
-						{
-							"at": 9977,
-							"chr": "",
-							"group": "comarca",
-							"k": 21
-						},
-						{
-							"at": 10091,
+							"at": 6976,
 							"chr": "",
 							"group": "comarca",
 							"k": 50
 						},
 						{
-							"at": 10092,
+							"at": 6977,
 							"chr": "",
 							"group": "comarca",
 							"k": 51
+						},
+						{
+							"at": 6994,
+							"chr": "",
+							"group": "soldiers",
+							"k": 10
+						},
+						{
+							"at": 6995,
+							"chr": "",
+							"group": "soldiers",
+							"k": 11
+						},
+						{
+							"at": 6996,
+							"chr": "",
+							"group": "soldiers",
+							"k": 12
+						},
+						{
+							"at": 6998,
+							"chr": "",
+							"group": "comarca",
+							"k": 40
+						},
+						{
+							"at": 6999,
+							"chr": "",
+							"group": "comarca",
+							"k": 41
+						},
+						{
+							"at": 7048,
+							"chr": "",
+							"group": "comarca",
+							"k": 10
+						},
+						{
+							"at": 7051,
+							"chr": "",
+							"group": "comarca",
+							"k": 0
+						},
+						{
+							"at": 7052,
+							"chr": "",
+							"group": "comarca",
+							"k": 1
+						},
+						{
+							"at": 7053,
+							"chr": "",
+							"group": "comarca",
+							"k": 2
+						},
+						{
+							"at": 7087,
+							"chr": "",
+							"group": "comarca",
+							"k": 60
+						},
+						{
+							"at": 7088,
+							"chr": "",
+							"group": "comarca",
+							"k": 61
+						},
+						{
+							"at": 7089,
+							"chr": "",
+							"group": "comarca",
+							"k": 62
+						},
+						{
+							"at": 7119,
+							"chr": "",
+							"group": "comarca",
+							"k": 20
 						}
 					],
-					"close_at": 10200,
-					"day": 6,
-					"fight_at": -1,
+					"close_at": 7320,
+					"day": 4,
+					"fight_at": 7287,
 					"guests": [
 						{
-							"arrived": 9691,
+							"arrived": 6915,
 							"bed": 0,
-							"chr": "chr_0063",
+							"chr": "chr_0057",
 							"group": "pilgrims",
-							"id": "gst_175",
-							"left": "done",
-							"name_n": 175,
-							"next_at": 9695,
-							"order": "cider",
+							"id": "gst_122",
+							"name_n": 122,
+							"next_at": 6968,
+							"order": "bread",
 							"paid": 6,
 							"patience": 42,
 							"quality": 0,
-							"rounds_left": 0,
+							"rounds_left": 1,
 							"seat": 0,
 							"served_by": "chr_0001",
 							"served_once": true,
-							"since": 9695,
-							"state": "gone",
+							"since": 6968,
+							"state": "eating",
 							"tips": 1,
-							"until": 9717,
+							"until": 7006,
 							"wait": 0
 						},
 						{
-							"arrived": 9743,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_176",
-							"left": "done",
-							"name_n": 176,
-							"next_at": 9792,
-							"order": "ale",
-							"paid": 14,
-							"patience": 32,
-							"quality": 1,
-							"rounds_left": 0,
-							"seat": 0,
-							"served_by": "chr_0004",
-							"served_once": true,
-							"since": 9792,
-							"state": "gone",
-							"tips": 2,
-							"until": 9812,
-							"wait": 0
-						},
-						{
-							"arrived": 9818,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_177",
-							"left": "done",
-							"name_n": 177,
-							"next_at": 9821,
-							"order": "ale",
-							"paid": 7,
-							"patience": 32,
-							"quality": 1,
-							"rounds_left": 0,
-							"seat": 0,
-							"served_by": "chr_0004",
-							"served_once": true,
-							"since": 9821,
-							"state": "gone",
-							"tips": 1,
-							"until": 9845,
-							"wait": 0
-						},
-						{
-							"arrived": 9819,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_178",
-							"left": "done",
-							"name_n": 178,
-							"next_at": 9874,
-							"order": "ale",
-							"paid": 13,
-							"patience": 32,
-							"quality": 0,
-							"rounds_left": 0,
-							"seat": 1,
-							"served_by": "chr_0004",
-							"served_once": true,
-							"since": 9874,
-							"state": "gone",
-							"tips": 2,
-							"until": 9902,
-							"wait": 0
-						},
-						{
-							"arrived": 9821,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_179",
-							"name_n": 179,
-							"next_at": 9921,
+							"arrived": 6926,
+							"bed": 1,
+							"chr": "chr_0058",
+							"group": "pilgrims",
+							"id": "gst_123",
+							"name_n": 123,
+							"next_at": 6982,
 							"order": "garlic_soup",
-							"paid": 15,
+							"paid": 12,
+							"patience": 42,
+							"quality": 1,
+							"rounds_left": 1,
+							"seat": 1,
+							"served_by": "chr_0001",
+							"served_once": true,
+							"since": 6982,
+							"state": "eating",
+							"tips": 2,
+							"until": 7032,
+							"wait": 0
+						},
+						{
+							"arrived": 6928,
+							"bed": -1,
+							"chr": "chr_0010",
+							"group": "neighbours",
+							"id": "gst_124",
+							"left": "too_expensive",
+							"name_n": 124,
+							"neighbour": true,
+							"next_at": 6975,
+							"order": "",
+							"paid": 9,
 							"patience": 32,
 							"quality": 1,
 							"rounds_left": 1,
 							"seat": 2,
-							"served_by": "chr_0006",
-							"served_once": true,
-							"since": 9921,
-							"state": "eating",
-							"tips": 3,
-							"until": 9963,
-							"wait": 0
-						},
-						{
-							"arrived": 9822,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_180",
-							"name_n": 180,
-							"next_at": 9921,
-							"order": "garlic_soup",
-							"paid": 15,
-							"patience": 32,
-							"quality": 0,
-							"rounds_left": 1,
-							"seat": 3,
-							"served_by": "chr_0001",
-							"served_once": true,
-							"since": 9921,
-							"state": "waiting",
-							"tips": 3,
-							"until": 9953,
-							"wait": 0
-						},
-						{
-							"arrived": 9844,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_181",
-							"name_n": 181,
-							"next_at": 9943,
-							"order": "sweets",
-							"paid": 13,
-							"patience": 32,
-							"quality": 0,
-							"rounds_left": 1,
-							"seat": 4,
 							"served_by": "chr_0004",
 							"served_once": true,
-							"since": 9943,
-							"state": "waiting",
+							"since": 6930,
+							"state": "gone",
 							"tips": 2,
-							"until": 9975,
+							"until": 6963,
 							"wait": 0
 						},
 						{
-							"arrived": 9845,
+							"arrived": 6952,
 							"bed": -1,
 							"chr": "",
 							"group": "comarca",
-							"id": "gst_182",
-							"name_n": 182,
-							"next_at": 9924,
-							"order": "meat_pie",
-							"paid": 18,
+							"id": "gst_125",
+							"name_n": 125,
+							"next_at": 6955,
+							"order": "stew",
+							"paid": 0,
 							"patience": 32,
+							"quality": 0,
+							"rounds_left": 2,
+							"seat": 3,
+							"served_by": "chr_0004",
+							"served_once": true,
+							"since": 6955,
+							"state": "eating",
+							"tips": 0,
+							"until": 7001,
+							"wait": 0
+						},
+						{
+							"arrived": 6953,
+							"bed": -1,
+							"chr": "",
+							"group": "comarca",
+							"id": "gst_126",
+							"name_n": 126,
+							"next_at": 6999,
+							"order": "ale",
+							"paid": 8,
+							"patience": 32,
+							"quality": 2,
+							"rounds_left": 2,
+							"seat": 4,
+							"served_by": "chr_0001",
+							"served_once": true,
+							"since": 6999,
+							"state": "eating",
+							"tips": 2,
+							"until": 7033,
+							"wait": 0
+						},
+						{
+							"arrived": 6958,
+							"bed": -1,
+							"chr": "",
+							"group": "soldiers",
+							"id": "gst_127",
+							"name_n": 127,
+							"next_at": 7009,
+							"order": "",
+							"paid": 8,
+							"patience": 37,
 							"quality": 2,
 							"rounds_left": 1,
 							"seat": 5,
 							"served_by": "chr_0001",
 							"served_once": true,
-							"since": 9924,
-							"state": "eating",
-							"tips": 4,
-							"until": 9965,
-							"wait": 1
+							"since": 6961,
+							"state": "seated",
+							"tips": 2,
+							"until": 6996,
+							"wait": 0
 						},
 						{
-							"arrived": 9845,
+							"arrived": 6959,
 							"bed": -1,
-							"chr": "",
-							"group": "soldiers",
-							"id": "gst_183",
-							"name_n": 183,
-							"next_at": 9949,
+							"chr": "chr_0009",
+							"group": "neighbours",
+							"id": "gst_128",
+							"left": "too_expensive",
+							"name_n": 128,
+							"neighbour": true,
+							"next_at": 6964,
 							"order": "",
-							"paid": 28,
-							"patience": 37,
-							"quality": 1,
+							"paid": 0,
+							"quality": 0,
 							"rounds_left": 2,
 							"seat": 6,
-							"served_by": "chr_0006",
-							"served_once": true,
-							"since": 9898,
-							"state": "seated",
-							"tips": 6,
-							"until": 9931,
-							"wait": 0
-						},
-						{
-							"arrived": 9846,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_184",
-							"left": "done",
-							"name_n": 184,
-							"next_at": 9909,
-							"order": "garlic_soup",
-							"paid": 18,
-							"patience": 32,
-							"quality": 1,
-							"rounds_left": 0,
-							"seat": 0,
-							"served_by": "chr_0006",
-							"served_once": true,
-							"since": 9909,
+							"served_by": "",
+							"since": 6959,
 							"state": "gone",
-							"tips": 4,
-							"until": 9940,
-							"wait": 0
+							"tips": 0,
+							"until": -1
 						},
 						{
-							"arrived": 9846,
+							"arrived": 6959,
 							"bed": -1,
 							"chr": "",
 							"group": "soldiers",
-							"id": "gst_185",
-							"name_n": 185,
-							"next_at": 9950,
+							"id": "gst_129",
+							"name_n": 129,
+							"next_at": 7013,
 							"order": "",
-							"paid": 13,
+							"paid": 8,
 							"patience": 37,
-							"quality": 0,
-							"rounds_left": 1,
+							"quality": 2,
+							"rounds_left": 3,
 							"seat": 7,
 							"served_by": "chr_0001",
 							"served_once": true,
-							"since": 9894,
+							"since": 6962,
 							"state": "seated",
 							"tips": 2,
-							"until": 9925,
+							"until": 6991,
+							"wait": 1
+						},
+						{
+							"arrived": 6976,
+							"bed": -1,
+							"chr": "",
+							"group": "comarca",
+							"id": "gst_130",
+							"name_n": 130,
+							"next_at": 6979,
+							"order": "ale",
+							"paid": 0,
+							"patience": 32,
+							"quality": 2,
+							"rounds_left": 1,
+							"seat": 2,
+							"served_by": "chr_0004",
+							"served_once": true,
+							"since": 6979,
+							"state": "eating",
+							"tips": 0,
+							"until": 7012,
 							"wait": 0
 						},
 						{
-							"arrived": 9847,
+							"arrived": 6977,
+							"bed": -1,
+							"chr": "",
+							"group": "comarca",
+							"id": "gst_131",
+							"name_n": 131,
+							"next_at": 6979,
+							"order": "cider",
+							"paid": 0,
+							"patience": 32,
+							"quality": 0,
+							"rounds_left": 2,
+							"seat": 6,
+							"served_by": "chr_0001",
+							"served_once": true,
+							"since": 6979,
+							"state": "eating",
+							"tips": 0,
+							"until": 7009,
+							"wait": 0
+						},
+						{
+							"arrived": 6994,
 							"bed": -1,
 							"chr": "",
 							"group": "soldiers",
-							"id": "gst_186",
-							"name_n": 186,
-							"next_at": 9904,
-							"order": "stew",
-							"paid": 12,
+							"id": "gst_132",
+							"name_n": 132,
+							"next_at": 6996,
+							"order": "ale",
+							"paid": 0,
 							"patience": 37,
-							"quality": 1,
-							"rounds_left": 2,
+							"quality": 2,
+							"rounds_left": 3,
 							"seat": 8,
-							"served_by": "chr_0001",
+							"served_by": "chr_0004",
 							"served_once": true,
-							"since": 9904,
-							"state": "eating",
-							"tips": 2,
-							"until": 9948,
-							"wait": 0
-						},
-						{
-							"arrived": 9880,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_187",
-							"name_n": 187,
-							"next_at": 9949,
-							"order": "",
-							"paid": 12,
-							"patience": 32,
-							"quality": 0,
-							"rounds_left": 1,
-							"seat": 9,
-							"served_by": "chr_0006",
-							"served_once": true,
-							"since": 9883,
-							"state": "seated",
-							"tips": 2,
-							"until": 9932,
-							"wait": 0
-						},
-						{
-							"arrived": 9881,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_188",
-							"name_n": 188,
-							"next_at": 9923,
-							"order": "bread",
-							"paid": 6,
-							"patience": 32,
-							"quality": 0,
-							"rounds_left": 1,
-							"seat": 10,
-							"served_by": "chr_0001",
-							"served_once": true,
-							"since": 9923,
-							"state": "eating",
-							"tips": 1,
-							"until": 9970,
-							"wait": 0
-						},
-						{
-							"arrived": 9893,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_189",
-							"name_n": 189,
-							"next_at": 9898,
-							"order": "garlic_soup",
-							"paid": 0,
-							"patience": 32,
-							"quality": 1,
-							"rounds_left": 3,
-							"seat": 11,
-							"served_by": "chr_0001",
-							"served_once": true,
-							"since": 9898,
+							"since": 6996,
 							"state": "eating",
 							"tips": 0,
-							"until": 9944,
+							"until": 7029,
 							"wait": 0
 						},
 						{
-							"arrived": 9894,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_190",
-							"left": "full",
-							"name_n": 190,
-							"next_at": 9899,
-							"order": "",
-							"paid": 0,
-							"quality": 0,
-							"rounds_left": 3,
-							"seat": -1,
-							"served_by": "",
-							"since": 9894,
-							"state": "gone",
-							"tips": 0,
-							"until": -1
-						},
-						{
-							"arrived": 9895,
-							"bed": -1,
-							"chr": "",
-							"group": "comarca",
-							"id": "gst_191",
-							"left": "full",
-							"name_n": 191,
-							"next_at": 9897,
-							"order": "",
-							"paid": 0,
-							"quality": 0,
-							"rounds_left": 2,
-							"seat": -1,
-							"served_by": "",
-							"since": 9895,
-							"state": "gone",
-							"tips": 0,
-							"until": -1
-						},
-						{
-							"arrived": 9941,
+							"arrived": 6995,
 							"bed": -1,
 							"chr": "",
 							"group": "soldiers",
-							"id": "gst_192",
-							"name_n": 192,
-							"next_at": 9943,
-							"order": "bread",
+							"id": "gst_133",
+							"name_n": 133,
+							"next_at": 7000,
+							"order": "ale",
 							"paid": 0,
 							"quality": 0,
 							"rounds_left": 3,
-							"seat": 0,
+							"seat": 9,
 							"served_by": "",
-							"since": 9943,
+							"since": 7000,
 							"state": "waiting",
 							"tips": 0,
-							"until": 9980
+							"until": 7037
 						},
 						{
-							"arrived": 9942,
+							"arrived": 6996,
 							"bed": -1,
 							"chr": "",
 							"group": "soldiers",
-							"id": "gst_193",
-							"name_n": 193,
-							"next_at": 9947,
+							"id": "gst_134",
+							"name_n": 134,
+							"next_at": 6999,
+							"order": "ale",
+							"paid": 0,
+							"quality": 0,
+							"rounds_left": 4,
+							"seat": 10,
+							"served_by": "",
+							"since": 6999,
+							"state": "waiting",
+							"tips": 0,
+							"until": 7036
+						},
+						{
+							"arrived": 6998,
+							"bed": -1,
+							"chr": "",
+							"group": "comarca",
+							"id": "gst_135",
+							"name_n": 135,
+							"next_at": 7000,
+							"order": "garlic_soup",
+							"paid": 0,
+							"quality": 0,
+							"rounds_left": 2,
+							"seat": 11,
+							"served_by": "",
+							"since": 7000,
+							"state": "waiting",
+							"tips": 0,
+							"until": 7032
+						},
+						{
+							"arrived": 6999,
+							"bed": -1,
+							"chr": "",
+							"group": "comarca",
+							"id": "gst_136",
+							"left": "full",
+							"name_n": 136,
+							"next_at": 7001,
 							"order": "",
 							"paid": 0,
 							"quality": 0,
 							"rounds_left": 2,
-							"seat": 1,
+							"seat": -1,
 							"served_by": "",
-							"since": 9942,
-							"state": "seated",
+							"since": 6999,
+							"state": "gone",
 							"tips": 0,
 							"until": -1
 						}
 					],
 					"minstrel": false,
-					"next": 18,
+					"next": 11,
 					"offer_at": -1,
-					"open_at": 9690,
+					"open_at": 6870,
 					"outlook": {
 						"comarca": {
-							"expected": 9.97,
+							"expected": 6.69,
 							"price": 1,
 							"reasons": []
 						},
@@ -1628,7 +1402,7 @@
 							]
 						},
 						"neighbours": {
-							"expected": 1,
+							"expected": 2,
 							"price": 1,
 							"reasons": []
 						},
@@ -1657,67 +1431,71 @@
 							]
 						},
 						"pilgrims": {
-							"expected": 0.89,
+							"expected": 1.78,
 							"price": 1,
 							"reasons": []
 						},
 						"soldiers": {
-							"expected": 1.6400000000000001,
+							"expected": 1.78,
 							"price": 1,
 							"reasons": []
 						}
 					},
 					"servers": {
-						"chr_0001": 9927,
-						"chr_0004": 9899,
-						"chr_0006": 9930
+						"chr_0001": 7001,
+						"chr_0004": 7005
 					},
 					"stats": {
-						"beds": 1,
-						"beds_income": 11,
+						"beds": 2,
+						"beds_income": 22,
 						"by_group": {
 							"comarca": {
-								"came": 13,
-								"income": 155,
-								"left": 2,
-								"served": 11
+								"came": 6,
+								"income": 10,
+								"left": 1,
+								"served": 4
 							},
-							"pilgrims": {
-								"came": 1,
-								"income": 7,
+							"neighbours": {
+								"came": 2,
+								"income": 11,
 								"left": 0,
 								"served": 1
 							},
+							"pilgrims": {
+								"came": 2,
+								"income": 21,
+								"left": 0,
+								"served": 2
+							},
 							"soldiers": {
 								"came": 5,
-								"income": 63,
+								"income": 20,
 								"left": 0,
 								"served": 3
 							}
 						},
 						"complaints": {
-							"full": 2
+							"full": 1
 						},
 						"dash_caught": 0,
 						"dashes": 0,
 						"dirty_beds": 0,
 						"dishes": {
-							"ale": 12,
-							"bread": 3,
-							"cider": 1,
-							"garlic_soup": 6,
-							"meat_pie": 2,
-							"stew": 3
+							"ale": 6,
+							"bread": 2,
+							"cider": 2,
+							"garlic_soup": 2,
+							"stew": 1
 						},
-						"excellent": 2,
+						"excellent": 6,
 						"fight_stopped": 0,
 						"fights": 0,
 						"house_cut": 0,
 						"incidents": [],
-						"income": 190,
-						"satisfied": 22,
-						"served_by_kin": 15,
-						"tips": 35
+						"income": 51,
+						"satisfied": 6,
+						"served_by_kin": 9,
+						"tips": 11
 					}
 				},
 				"pilgrims_scared_until": -1,
@@ -1772,35 +1550,9 @@
 						"rumor": "event",
 						"text_key": "rumor.event",
 						"useful": true
-					},
-					{
-						"day": 4,
-						"key": "contract|ctr_0001",
-						"kind": "life",
-						"params": {
-							"item": "@item.hammer",
-							"pay": 70,
-							"qty": 2
-						},
-						"rumor": "contract",
-						"text_key": "rumor.contract",
-						"useful": true
-					},
-					{
-						"day": 5,
-						"key": "brawl|4167|altercation",
-						"kind": "life",
-						"params": {
-							"family": "Serra",
-							"name": "Guillem",
-							"target": "Elisenda"
-						},
-						"rumor": "brawl",
-						"text_key": "rumor.brawl",
-						"useful": false
 					}
 				],
-				"seq": 193,
+				"seq": 136,
 				"special": ""
 			},
 			"inspection": {
@@ -1815,27 +1567,32 @@
 				"limit_kind": "stacks",
 				"stacks": [
 					{
-						"item": "wood",
-						"qty": 11,
+						"item": "wheat",
+						"qty": 33,
 						"quality": 0
 					},
 					{
 						"item": "meat",
-						"qty": 6,
+						"qty": 1,
 						"quality": 0
 					},
 					{
-						"item": "wheat",
-						"qty": 14,
+						"item": "wood",
+						"qty": 10,
 						"quality": 0
+					},
+					{
+						"item": "stew",
+						"qty": 8,
+						"quality": 0
+					},
+					{
+						"item": "ale",
+						"qty": 10,
+						"quality": 1
 					},
 					{
 						"item": "meat_pie",
-						"qty": 1,
-						"quality": 2
-					},
-					{
-						"item": "bread",
 						"qty": 3,
 						"quality": 0
 					},
@@ -1845,13 +1602,33 @@
 						"quality": 0
 					},
 					{
-						"item": "sweets",
-						"qty": 3,
+						"item": "cider",
+						"qty": 8,
 						"quality": 0
 					},
 					{
+						"item": "bread",
+						"qty": 2,
+						"quality": 0
+					},
+					{
+						"item": "garlic_soup",
+						"qty": 1,
+						"quality": 1
+					},
+					{
 						"item": "meat_pie",
+						"qty": 6,
+						"quality": 1
+					},
+					{
+						"item": "sausage",
 						"qty": 3,
+						"quality": 2
+					},
+					{
+						"item": "ale",
+						"qty": 2,
 						"quality": 1
 					}
 				]
@@ -1867,6 +1644,13 @@
 					{
 						"blocked": "",
 						"done": 0,
+						"id": "qen_0026",
+						"qty": 1,
+						"recipe": "tavern_garlic_soup"
+					},
+					{
+						"blocked": "",
+						"done": 0,
 						"id": "qen_0028",
 						"qty": 1,
 						"recipe": "tavern_stew"
@@ -1877,13 +1661,6 @@
 						"id": "qen_0029",
 						"qty": 1,
 						"recipe": "tavern_brew_ale"
-					},
-					{
-						"blocked": "",
-						"done": 0,
-						"id": "qen_0030",
-						"qty": 1,
-						"recipe": "tavern_garlic_soup"
 					}
 				],
 				"idle": {},
@@ -1897,8 +1674,7 @@
 			"upgrades": [
 				"tavern_inn_ambience_1",
 				"tavern_inn_security_1",
-				"tavern_inn_hall_1",
-				"tavern_inn_rooms_1"
+				"tavern_inn_hall_1"
 			],
 			"upkeep_debt": 0,
 			"upkeep_unpaid_since": -1,
@@ -1990,7 +1766,7 @@
 			"rank": "",
 			"routine": {
 				"manual": true,
-				"manual_until": 9985
+				"manual_until": 7059
 			},
 			"schedule": null,
 			"spouse": "",
@@ -2068,6 +1844,26 @@
 			"parents": [],
 			"path": [
 				[
+					21,
+					19
+				],
+				[
+					20,
+					19
+				],
+				[
+					19,
+					19
+				],
+				[
+					18,
+					19
+				],
+				[
+					17,
+					19
+				],
+				[
 					16,
 					19
 				],
@@ -2097,8 +1893,8 @@
 				]
 			],
 			"position": [
-				17,
-				19
+				22,
+				18
 			],
 			"profession": "blacksmith",
 			"rank": "",
@@ -2158,12 +1954,12 @@
 			},
 			"job": {
 				"building": "bld_0015",
-				"days_worked": 5,
+				"days_worked": 3,
 				"end_day": -1,
 				"hired_day": 0,
-				"loyalty": 56,
+				"loyalty": 54,
 				"promotion_offered": false,
-				"rank_days": 5,
+				"rank_days": 3,
 				"role": "kitchen",
 				"start_day": 1,
 				"unpaid_days": 0
@@ -2189,8 +1985,8 @@
 			"profession": "blacksmith",
 			"rank": "journeyman",
 			"routine": {
-				"day": 6,
-				"leave_at": 9033,
+				"day": 4,
+				"leave_at": 6112,
 				"state": "home"
 			},
 			"schedule": null,
@@ -2271,12 +2067,12 @@
 			},
 			"job": {
 				"building": "bld_0015",
-				"days_worked": 5,
+				"days_worked": 3,
 				"end_day": -1,
 				"hired_day": 0,
-				"loyalty": 56,
+				"loyalty": 54,
 				"promotion_offered": false,
-				"rank_days": 5,
+				"rank_days": 3,
 				"role": "bar",
 				"start_day": 1,
 				"unpaid_days": 0
@@ -2397,12 +2193,12 @@
 			"job": {
 				"absent_until": 4,
 				"building": "bld_0015",
-				"days_worked": 5,
+				"days_worked": 3,
 				"end_day": -1,
 				"hired_day": 0,
-				"loyalty": 58,
+				"loyalty": 56,
 				"promotion_offered": false,
-				"rank_days": 5,
+				"rank_days": 3,
 				"role": "rooms",
 				"start_day": 1,
 				"unpaid_days": 0
@@ -2428,8 +2224,8 @@
 			"profession": "blacksmith",
 			"rank": "apprentice",
 			"routine": {
-				"day": 6,
-				"leave_at": 9055,
+				"day": 3,
+				"leave_at": 4623,
 				"state": "home"
 			},
 			"schedule": null,
@@ -2471,7 +2267,6 @@
 				"needs_at": 1081,
 				"phase_seen": 2,
 				"plan": "work",
-				"retry_at": 5550,
 				"shown": "chat",
 				"state": "social"
 			},
@@ -2516,16 +2311,16 @@
 				"building": "bld_0015",
 				"days_worked": 0,
 				"end_day": -1,
-				"hired_day": 5,
-				"loyalty": 51,
+				"hired_day": 4,
+				"loyalty": 50,
 				"promotion_offered": false,
 				"rank_days": 0,
 				"role": "tables",
-				"start_day": 6,
+				"start_day": 5,
 				"unpaid_days": 0
 			},
 			"life": {},
-			"location": "bld_0015",
+			"location": "bld_0005",
 			"move_progress": 0,
 			"name": "Clara",
 			"needs": {
@@ -2540,13 +2335,13 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				27,
-				33
+				2,
+				19
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
 			"routine": {
-				"state": "at_work"
+				"state": "home"
 			},
 			"schedule": null,
 			"spouse": "",
@@ -2566,38 +2361,38 @@
 			"town": {
 				"activity": "tavern",
 				"adult": true,
-				"adult_day": 5,
+				"adult_day": 4,
 				"age": 20,
 				"break": false,
-				"break_permil": 168,
-				"day": 5,
-				"dur": 120,
+				"break_permil": 197,
+				"day": 4,
+				"dur": 130,
 				"greets": 0,
 				"group": "adult",
-				"group_day": 5,
-				"inn_after": 7223,
-				"leave_at": 7577,
+				"group_day": 4,
+				"inn_after": 5878,
+				"leave_at": 6145,
 				"met": [],
 				"needs": {
-					"faith": 195,
-					"fun": 490,
+					"faith": 315,
+					"fun": 730,
 					"hunger": 1000,
 					"rest": 1000,
-					"social": 670
+					"social": 560
 				},
-				"needs_at": 7141,
+				"needs_at": 5701,
 				"phase_seen": 3,
 				"plan": "work",
 				"shown": "tavern",
-				"slot": 4,
+				"slot": 1,
 				"spot": "meet_tavern",
-				"started": 7104,
+				"started": 5759,
 				"state": "social",
 				"target": [
-					28,
-					32
+					26,
+					33
 				],
-				"until": 7228
+				"until": 5891
 			},
 			"visual": {
 				"hair": 3,
@@ -2653,8 +2448,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				26,
-				32
+				20,
+				13
 			],
 			"profession": "blacksmith",
 			"rank": "master",
@@ -2675,43 +2470,40 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "tavern",
+				"activity": "chat",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 25,
 				"break": false,
 				"break_permil": 198,
-				"day": 6,
-				"dur": 108,
+				"day": 4,
+				"dur": 72,
 				"greets": 0,
 				"group": "adult",
-				"group_day": 6,
+				"group_day": 4,
 				"inn_after": 1516,
-				"inn_tried": true,
-				"leave_at": 9039,
-				"met": [
-					"chr_0016"
-				],
+				"leave_at": 6102,
+				"met": [],
 				"needs": {
-					"faith": 765,
-					"fun": 280,
-					"hunger": 800,
-					"rest": 670,
-					"social": 570
+					"faith": 615,
+					"fun": 680,
+					"hunger": 850,
+					"rest": 700,
+					"social": 920
 				},
-				"needs_at": 9901,
-				"phase_seen": 3,
+				"needs_at": 6901,
+				"phase_seen": 2,
 				"plan": "work",
-				"shown": "tavern",
-				"slot": 3,
-				"spot": "meet_tavern",
-				"started": 9930,
+				"shown": "chat",
+				"slot": 1,
+				"spot": "meet_atrium",
+				"started": 6946,
 				"state": "social",
 				"target": [
-					26,
-					32
+					20,
+					13
 				],
-				"until": 10044
+				"until": 7024
 			},
 			"visual": {
 				"hair": 2,
@@ -2752,7 +2544,7 @@
 			},
 			"job": null,
 			"life": {},
-			"location": "bld_0006",
+			"location": "",
 			"move_progress": 0,
 			"name": "Elisenda",
 			"needs": {
@@ -2767,8 +2559,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				33,
-				18
+				27,
+				32
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -2789,39 +2581,45 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "sleep",
+				"activity": "tavern",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 30,
 				"break": false,
-				"break_permil": 150,
-				"day": 6,
-				"dur": 60,
-				"greets": 0,
+				"break_permil": 173,
+				"day": 4,
+				"dur": 146,
+				"greet_until": 6903,
+				"greets": 1,
 				"group": "adult",
-				"group_day": 6,
+				"group_day": 4,
 				"inn_after": 1498,
-				"leave_at": 9080,
-				"met": [],
-				"needs": {
-					"faith": 0,
-					"fun": 10,
-					"hunger": 870,
-					"rest": 715,
-					"social": 620
-				},
-				"needs_at": 9721,
-				"phase_seen": 3,
-				"plan": "home",
-				"retry_at": 4066,
-				"shown": "sleep",
-				"started": 9780,
-				"state": "home",
-				"target": [
-					33,
-					18
+				"inn_tried": true,
+				"leave_at": 6131,
+				"met": [
+					"chr_0017"
 				],
-				"until": -1
+				"needs": {
+					"faith": 220,
+					"fun": 590,
+					"hunger": 620,
+					"rest": 715,
+					"social": 740
+				},
+				"needs_at": 6841,
+				"phase_seen": 2,
+				"plan": "work",
+				"retry_at": 4066,
+				"shown": "tavern",
+				"slot": 0,
+				"spot": "meet_tavern",
+				"started": 6870,
+				"state": "social",
+				"target": [
+					27,
+					32
+				],
+				"until": 7095
 			},
 			"visual": {
 				"hair": 1,
@@ -2872,12 +2670,13 @@
 				"social": 80
 			},
 			"occupation": "gate_east",
+			"offstage": false,
 			"order_queue": [],
 			"parents": [],
 			"path": [],
 			"position": [
-				26,
-				33
+				28,
+				32
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -2900,38 +2699,38 @@
 			"town": {
 				"activity": "tavern",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 22,
 				"break": false,
-				"break_permil": 172,
-				"day": 6,
-				"dur": 96,
+				"break_permil": 174,
+				"day": 4,
+				"dur": 106,
 				"greets": 0,
 				"group": "adult",
-				"group_day": 6,
-				"inn_tried": true,
-				"leave_at": 9078,
+				"group_day": 4,
+				"inn_after": 7084,
+				"leave_at": 6117,
 				"met": [],
 				"needs": {
-					"faith": 0,
-					"fun": 840,
-					"hunger": 650,
-					"rest": 670,
-					"social": 940
+					"faith": 210,
+					"fun": 420,
+					"hunger": 770,
+					"rest": 685,
+					"social": 770
 				},
-				"needs_at": 9901,
-				"phase_seen": 3,
+				"needs_at": 6961,
+				"phase_seen": 2,
 				"plan": "work",
 				"shown": "tavern",
-				"slot": 1,
+				"slot": 4,
 				"spot": "meet_tavern",
-				"started": 9930,
+				"started": 6965,
 				"state": "social",
 				"target": [
-					26,
-					33
+					28,
+					32
 				],
-				"until": 10034
+				"until": 7075
 			},
 			"visual": {
 				"hair": 0,
@@ -2972,7 +2771,7 @@
 			},
 			"job": null,
 			"life": {},
-			"location": "bld_0007",
+			"location": "",
 			"move_progress": 0,
 			"name": "Blanca",
 			"needs": {
@@ -2987,8 +2786,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				33,
-				19
+				26,
+				32
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -3009,41 +2808,43 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "sleep",
+				"activity": "tavern",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 27,
 				"break": false,
-				"break_permil": 155,
-				"day": 6,
-				"dur": 60,
+				"break_permil": 151,
+				"day": 4,
+				"dur": 171,
 				"greets": 0,
 				"group": "adult",
-				"group_day": 6,
-				"inn_after": 4435,
-				"leave_at": 9060,
+				"group_day": 4,
+				"inn_after": 7095,
+				"leave_at": 6096,
 				"met": [
-					"chr_0017"
+					"chr_0013"
 				],
 				"needs": {
-					"faith": 380,
-					"fun": 360,
-					"hunger": 620,
-					"rest": 715,
-					"social": 660
+					"faith": 610,
+					"fun": 470,
+					"hunger": 830,
+					"rest": 685,
+					"social": 770
 				},
-				"needs_at": 9721,
-				"phase_seen": 3,
-				"plan": "home",
+				"needs_at": 6961,
+				"phase_seen": 2,
+				"plan": "work",
 				"retry_at": 4066,
-				"shown": "sleep",
-				"started": 9780,
-				"state": "home",
+				"shown": "tavern",
+				"slot": 3,
+				"spot": "meet_tavern",
+				"started": 6976,
+				"state": "social",
 				"target": [
-					33,
-					19
+					26,
+					32
 				],
-				"until": -1
+				"until": 7151
 			},
 			"visual": {
 				"hair": 5,
@@ -3084,7 +2885,7 @@
 			},
 			"job": null,
 			"life": {},
-			"location": "bld_0008",
+			"location": "",
 			"move_progress": 0,
 			"name": "Guillem",
 			"needs": {
@@ -3098,8 +2899,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				10,
-				7
+				15,
+				23
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -3120,40 +2921,40 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "sleep",
+				"activity": "court",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 19,
 				"break": false,
-				"break_permil": 182,
-				"day": 6,
-				"dur": 60,
-				"greets": 1,
+				"break_permil": 191,
+				"day": 4,
+				"dur": 49,
+				"greets": 0,
 				"group": "adult",
-				"group_day": 6,
-				"leave_at": 9039,
-				"met": [
-					"chr_0012"
-				],
+				"group_day": 4,
+				"leave_at": 6114,
+				"met": [],
 				"needs": {
-					"faith": 780,
-					"fun": 820,
-					"hunger": 880,
-					"rest": 715,
-					"social": 900
+					"faith": 615,
+					"fun": 830,
+					"hunger": 850,
+					"rest": 700,
+					"social": 870
 				},
-				"needs_at": 9721,
-				"phase_seen": 3,
-				"plan": "home",
+				"needs_at": 6901,
+				"phase_seen": 2,
+				"plan": "work",
 				"retry_at": 4066,
-				"shown": "sleep",
-				"started": 9780,
-				"state": "home",
+				"shown": "court",
+				"slot": 0,
+				"spot": "bench_w",
+				"started": 6959,
+				"state": "social",
 				"target": [
-					10,
-					7
+					15,
+					23
 				],
-				"until": -1
+				"until": 7008
 			},
 			"visual": {
 				"hair": 4,
@@ -3209,8 +3010,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				28,
-				33
+				21,
+				19
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -3231,43 +3032,40 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "tavern",
+				"activity": "chat",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 24,
 				"break": false,
-				"break_permil": 183,
-				"day": 6,
-				"dur": 104,
-				"greets": 1,
+				"break_permil": 189,
+				"day": 4,
+				"dur": 78,
+				"greets": 0,
 				"group": "adult",
-				"group_day": 6,
+				"group_day": 4,
 				"inn_after": 2848,
-				"inn_tried": true,
-				"leave_at": 9047,
-				"met": [
-					"chr_0011"
-				],
+				"leave_at": 6131,
+				"met": [],
 				"needs": {
-					"faith": 365,
-					"fun": 630,
-					"hunger": 710,
-					"rest": 670,
-					"social": 930
+					"faith": 210,
+					"fun": 620,
+					"hunger": 830,
+					"rest": 685,
+					"social": 570
 				},
-				"needs_at": 9901,
-				"phase_seen": 3,
+				"needs_at": 6961,
+				"phase_seen": 2,
 				"plan": "work",
-				"shown": "tavern",
-				"slot": 2,
-				"spot": "meet_tavern",
-				"started": 9930,
+				"shown": "chat",
+				"slot": 1,
+				"spot": "meet_well",
+				"started": 6973,
 				"state": "social",
 				"target": [
-					28,
-					33
+					21,
+					19
 				],
-				"until": 10036
+				"until": 7063
 			},
 			"visual": {
 				"hair": 3,
@@ -3308,7 +3106,7 @@
 			},
 			"job": null,
 			"life": {},
-			"location": "bld_0009",
+			"location": "",
 			"move_progress": 0,
 			"name": "Jaume",
 			"needs": {
@@ -3323,8 +3121,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				26,
-				7
+				15,
+				24
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -3345,40 +3143,40 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "sleep",
+				"activity": "court",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 29,
 				"break": false,
-				"break_permil": 180,
-				"day": 6,
-				"dur": 60,
-				"greets": 1,
+				"break_permil": 174,
+				"day": 4,
+				"dur": 66,
+				"greets": 0,
 				"group": "adult",
-				"group_day": 6,
+				"group_day": 4,
 				"inn_after": 2852,
-				"leave_at": 9030,
-				"met": [
-					"chr_0014"
-				],
+				"leave_at": 6132,
+				"met": [],
 				"needs": {
-					"faith": 780,
-					"fun": 260,
-					"hunger": 860,
-					"rest": 715,
-					"social": 560
+					"faith": 210,
+					"fun": 720,
+					"hunger": 550,
+					"rest": 685,
+					"social": 820
 				},
-				"needs_at": 9721,
-				"phase_seen": 3,
-				"plan": "home",
-				"shown": "sleep",
-				"started": 9780,
-				"state": "home",
+				"needs_at": 6961,
+				"phase_seen": 2,
+				"plan": "work",
+				"shown": "court",
+				"slot": 1,
+				"spot": "bench_w",
+				"started": 6976,
+				"state": "social",
 				"target": [
-					26,
-					7
+					15,
+					24
 				],
-				"until": -1
+				"until": 7052
 			},
 			"visual": {
 				"hair": 2,
@@ -3419,7 +3217,7 @@
 			},
 			"job": null,
 			"life": {},
-			"location": "bld_0009",
+			"location": "",
 			"move_progress": 0,
 			"name": "Margarida",
 			"needs": {
@@ -3433,8 +3231,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				26,
-				7
+				18,
+				14
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -3455,39 +3253,42 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "sleep",
+				"activity": "chat",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 21,
 				"break": false,
-				"break_permil": 172,
-				"day": 6,
-				"dur": 60,
+				"break_permil": 196,
+				"day": 4,
+				"dur": 118,
+				"greet_until": 6374,
 				"greets": 1,
 				"group": "adult",
-				"group_day": 6,
-				"leave_at": 9045,
+				"group_day": 4,
+				"leave_at": 6123,
 				"met": [
-					"chr_0013"
+					"chr_0018"
 				],
 				"needs": {
-					"faith": 780,
-					"fun": 560,
-					"hunger": 900,
-					"rest": 715,
-					"social": 710
+					"faith": 215,
+					"fun": 530,
+					"hunger": 1000,
+					"rest": 700,
+					"social": 480
 				},
-				"needs_at": 9721,
-				"phase_seen": 3,
-				"plan": "home",
-				"shown": "sleep",
-				"started": 9780,
-				"state": "home",
+				"needs_at": 6901,
+				"phase_seen": 2,
+				"plan": "work",
+				"shown": "chat",
+				"slot": 4,
+				"spot": "meet_atrium",
+				"started": 6954,
+				"state": "social",
 				"target": [
-					26,
-					7
+					18,
+					14
 				],
-				"until": -1
+				"until": 7076
 			},
 			"visual": {
 				"hair": 1,
@@ -3528,7 +3329,7 @@
 			},
 			"job": null,
 			"life": {},
-			"location": "bld_0010",
+			"location": "",
 			"move_progress": 0,
 			"name": "Ramon",
 			"needs": {
@@ -3542,8 +3343,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				10,
-				25
+				24,
+				13
 			],
 			"profession": "blacksmith",
 			"rank": "master",
@@ -3564,37 +3365,39 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "sleep",
+				"activity": "bench",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 26,
 				"break": false,
-				"break_permil": 196,
-				"day": 6,
-				"dur": 60,
+				"break_permil": 157,
+				"day": 4,
+				"dur": 158,
 				"greets": 0,
 				"group": "adult",
-				"group_day": 6,
-				"leave_at": 9085,
+				"group_day": 4,
+				"leave_at": 6136,
 				"met": [],
 				"needs": {
-					"faith": 780,
-					"fun": 830,
-					"hunger": 940,
-					"rest": 765,
-					"social": 830
+					"faith": 220,
+					"fun": 740,
+					"hunger": 640,
+					"rest": 715,
+					"social": 870
 				},
-				"needs_at": 9721,
-				"phase_seen": 3,
-				"plan": "home",
-				"shown": "sleep",
-				"started": 9780,
-				"state": "home",
+				"needs_at": 6841,
+				"phase_seen": 2,
+				"plan": "work",
+				"shown": "bench",
+				"slot": 0,
+				"spot": "bench_n",
+				"started": 6870,
+				"state": "social",
 				"target": [
-					10,
-					25
+					24,
+					13
 				],
-				"until": -1
+				"until": 7098
 			},
 			"visual": {
 				"hair": 0,
@@ -3650,8 +3453,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				27,
-				32
+				28,
+				33
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -3674,39 +3477,39 @@
 			"town": {
 				"activity": "tavern",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 18,
 				"break": false,
-				"break_permil": 170,
-				"day": 6,
+				"break_permil": 181,
+				"day": 4,
 				"dur": 146,
 				"greets": 0,
 				"group": "adult",
-				"group_day": 6,
+				"group_day": 4,
 				"inn_after": 1395,
 				"inn_tried": true,
-				"leave_at": 9035,
+				"leave_at": 6115,
 				"met": [],
 				"needs": {
-					"faith": 765,
-					"fun": 810,
-					"hunger": 710,
-					"rest": 670,
-					"social": 990
+					"faith": 620,
+					"fun": 760,
+					"hunger": 640,
+					"rest": 715,
+					"social": 660
 				},
-				"needs_at": 9901,
-				"phase_seen": 3,
+				"needs_at": 6841,
+				"phase_seen": 2,
 				"plan": "work",
 				"shown": "tavern",
-				"slot": 0,
+				"slot": 2,
 				"spot": "meet_tavern",
-				"started": 9930,
+				"started": 6870,
 				"state": "social",
 				"target": [
-					27,
-					32
+					28,
+					33
 				],
-				"until": 10076
+				"until": 7054
 			},
 			"visual": {
 				"hair": 5,
@@ -3747,7 +3550,7 @@
 			},
 			"job": null,
 			"life": {},
-			"location": "bld_0011",
+			"location": "",
 			"move_progress": 0,
 			"name": "Berenguer",
 			"needs": {
@@ -3760,10 +3563,79 @@
 			"offstage": false,
 			"order_queue": [],
 			"parents": [],
-			"path": [],
+			"path": [
+				[
+					17,
+					18
+				],
+				[
+					16,
+					18
+				],
+				[
+					15,
+					18
+				],
+				[
+					14,
+					18
+				],
+				[
+					13,
+					18
+				],
+				[
+					12,
+					18
+				],
+				[
+					11,
+					18
+				],
+				[
+					10,
+					18
+				],
+				[
+					9,
+					18
+				],
+				[
+					8,
+					18
+				],
+				[
+					7,
+					18
+				],
+				[
+					6,
+					18
+				],
+				[
+					5,
+					18
+				],
+				[
+					4,
+					18
+				],
+				[
+					3,
+					18
+				],
+				[
+					2,
+					18
+				],
+				[
+					1,
+					18
+				]
+			],
 			"position": [
-				26,
-				25
+				18,
+				19
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -3784,38 +3656,40 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "sleep",
+				"activity": "stroll",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 23,
 				"break": false,
-				"break_permil": 199,
-				"day": 6,
-				"dur": 60,
-				"greets": 0,
+				"break_permil": 200,
+				"day": 4,
+				"dur": 17,
+				"greet_until": 6903,
+				"greets": 1,
 				"group": "adult",
-				"group_day": 6,
+				"group_day": 4,
 				"inn_after": 2821,
-				"leave_at": 9053,
+				"leave_at": 6130,
 				"met": [
-					"chr_0018"
+					"chr_0008"
 				],
 				"needs": {
-					"faith": 0,
-					"fun": 930,
-					"hunger": 660,
-					"rest": 715,
-					"social": 980
+					"faith": 210,
+					"fun": 620,
+					"hunger": 580,
+					"rest": 685,
+					"social": 820
 				},
-				"needs_at": 9721,
-				"phase_seen": 3,
-				"plan": "home",
-				"shown": "sleep",
-				"started": 9780,
-				"state": "home",
+				"needs_at": 6961,
+				"phase_seen": 2,
+				"plan": "work",
+				"shown": "stroll",
+				"started": 6966,
+				"state": "walking",
+				"stops": [],
 				"target": [
-					26,
-					25
+					1,
+					18
 				],
 				"until": -1
 			},
@@ -3858,7 +3732,7 @@
 			},
 			"job": null,
 			"life": {},
-			"location": "bld_0011",
+			"location": "",
 			"move_progress": 0,
 			"name": "Violant",
 			"needs": {
@@ -3873,8 +3747,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				26,
-				25
+				20,
+				18
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -3895,38 +3769,43 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "sleep",
+				"activity": "chat",
 				"adult": true,
-				"adult_day": 6,
+				"adult_day": 4,
 				"age": 28,
 				"break": false,
-				"break_permil": 189,
-				"day": 6,
-				"dur": 60,
-				"greets": 0,
+				"break_permil": 157,
+				"day": 4,
+				"dur": 118,
+				"greet_until": 6374,
+				"greets": 1,
 				"group": "adult",
-				"group_day": 6,
+				"group_day": 4,
 				"inn_after": 1373,
-				"leave_at": 9051,
-				"met": [],
-				"needs": {
-					"faith": 780,
-					"fun": 830,
-					"hunger": 910,
-					"rest": 715,
-					"social": 880
-				},
-				"needs_at": 9721,
-				"phase_seen": 3,
-				"plan": "home",
-				"shown": "sleep",
-				"started": 9780,
-				"state": "home",
-				"target": [
-					26,
-					25
+				"leave_at": 6123,
+				"met": [
+					"chr_0014"
 				],
-				"until": -1
+				"needs": {
+					"faith": 220,
+					"fun": 640,
+					"hunger": 840,
+					"rest": 715,
+					"social": 540
+				},
+				"needs_at": 6841,
+				"phase_seen": 2,
+				"plan": "work",
+				"shown": "chat",
+				"slot": 0,
+				"spot": "meet_well",
+				"started": 6891,
+				"state": "social",
+				"target": [
+					20,
+					18
+				],
+				"until": 7009
 			},
 			"visual": {
 				"hair": 3,
@@ -4095,9 +3974,7 @@
 			"assigned": "",
 			"banished_until": -1,
 			"birth_day": -336,
-			"children": [
-				"chr_0062"
-			],
+			"children": [],
 			"class": "artisan",
 			"controlled_by": "ai",
 			"death_day": -1,
@@ -4121,7 +3998,7 @@
 			},
 			"job": null,
 			"life": {},
-			"location": "bld_0013",
+			"location": "",
 			"move_progress": 0,
 			"name": "Ramiro",
 			"needs": {
@@ -4131,12 +4008,68 @@
 				"social": 80
 			},
 			"occupation": "",
-			"order_queue": [],
+			"order_queue": [
+				{
+					"actor": "chr_0021",
+					"building": "bld_0013",
+					"type": "enter_building",
+					"walking": true
+				}
+			],
 			"parents": [],
-			"path": [],
+			"path": [
+				[
+					31,
+					32
+				],
+				[
+					30,
+					33
+				],
+				[
+					29,
+					33
+				],
+				[
+					28,
+					33
+				],
+				[
+					27,
+					33
+				],
+				[
+					26,
+					33
+				],
+				[
+					25,
+					33
+				],
+				[
+					24,
+					33
+				],
+				[
+					23,
+					33
+				],
+				[
+					22,
+					33
+				],
+				[
+					21,
+					33
+				],
+				[
+					20,
+					33
+				]
+			],
 			"position": [
-				20,
-				33
+				31,
+				31
 			],
 			"profession": "mason",
 			"rank": "",
@@ -4172,9 +4105,7 @@
 			"assigned": "",
 			"banished_until": -1,
 			"birth_day": -320,
-			"children": [
-				"chr_0062"
-			],
+			"children": [],
 			"class": "artisan",
 			"controlled_by": "ai",
 			"death_day": -1,
@@ -4198,7 +4129,6 @@
 			},
 			"job": null,
 			"life": {
-				"last_birth_day": 6,
 				"wedding_day": -8
 			},
 			"location": "bld_0013",
@@ -4300,7 +4230,7 @@
 			"routine": {},
 			"schedule": null,
 			"spouse": "chr_0024",
-			"station": "sewing_table",
+			"station": "",
 			"stats": {
 				"arcane": 1,
 				"charisma": 4,
@@ -4423,7 +4353,7 @@
 			"family": "fam_watch",
 			"female": false,
 			"guard": {
-				"greet_until": 9354,
+				"greet_until": 6536,
 				"post": [
 					3,
 					19
@@ -4506,7 +4436,7 @@
 			"family": "fam_watch",
 			"female": false,
 			"guard": {
-				"greet_until": 9338,
+				"greet_until": 6518,
 				"post": [
 					36,
 					18
@@ -4590,7 +4520,7 @@
 			"female": false,
 			"guard": {
 				"role": "night_1",
-				"wait_until": 9903,
+				"wait_until": 6033,
 				"wp": 0
 			},
 			"hire_bans": {},
@@ -4608,54 +4538,13 @@
 			"name": "Tomás",
 			"needs": {},
 			"occupation": "",
-			"offstage": false,
+			"offstage": true,
 			"order_queue": [],
 			"parents": [],
-			"path": [
-				[
-					25,
-					19
-				],
-				[
-					26,
-					19
-				],
-				[
-					27,
-					19
-				],
-				[
-					28,
-					19
-				],
-				[
-					29,
-					19
-				],
-				[
-					30,
-					19
-				],
-				[
-					31,
-					19
-				],
-				[
-					32,
-					19
-				],
-				[
-					33,
-					19
-				],
-				[
-					34,
-					19
-				]
-			],
+			"path": [],
 			"position": [
-				24,
-				19
+				20,
+				25
 			],
 			"profession": "",
 			"rank": "",
@@ -4710,8 +4599,8 @@
 			"female": false,
 			"guard": {
 				"role": "night_2",
-				"wait_until": 9949,
-				"wp": 1
+				"wait_until": 6069,
+				"wp": 2
 			},
 			"hire_bans": {},
 			"home": "",
@@ -4728,13 +4617,13 @@
 			"name": "Pau",
 			"needs": {},
 			"occupation": "",
-			"offstage": false,
+			"offstage": true,
 			"order_queue": [],
 			"parents": [],
 			"path": [],
 			"position": [
-				15,
-				12
+				20,
+				25
 			],
 			"profession": "",
 			"rank": "",
@@ -4756,7 +4645,7 @@
 			},
 			"town": {
 				"shown": "guard_patrol",
-				"state": "guarding"
+				"state": "walking"
 			},
 			"visual": {
 				"hair": 0,
@@ -4789,7 +4678,7 @@
 			"female": false,
 			"guard": {
 				"role": "night_3",
-				"wait_until": 9903,
+				"wait_until": 6033,
 				"wp": 0
 			},
 			"hire_bans": {},
@@ -4807,54 +4696,13 @@
 			"name": "Hugo",
 			"needs": {},
 			"occupation": "",
-			"offstage": false,
+			"offstage": true,
 			"order_queue": [],
 			"parents": [],
-			"path": [
-				[
-					25,
-					19
-				],
-				[
-					26,
-					19
-				],
-				[
-					27,
-					19
-				],
-				[
-					28,
-					19
-				],
-				[
-					29,
-					19
-				],
-				[
-					30,
-					19
-				],
-				[
-					31,
-					19
-				],
-				[
-					32,
-					19
-				],
-				[
-					33,
-					19
-				],
-				[
-					34,
-					19
-				]
-			],
+			"path": [],
 			"position": [
-				24,
-				19
+				20,
+				25
 			],
 			"profession": "",
 			"rank": "",
@@ -4926,13 +4774,13 @@
 			"name": "Joan",
 			"needs": {},
 			"occupation": "",
-			"offstage": true,
+			"offstage": false,
 			"order_queue": [],
 			"parents": [],
 			"path": [],
 			"position": [
-				20,
-				25
+				19,
+				16
 			],
 			"profession": "",
 			"rank": "",
@@ -4961,82 +4809,12 @@
 				"skin": 1
 			}
 		},
-		"chr_0062": {
-			"alive": true,
-			"assigned": "",
-			"birth_day": 6,
-			"children": [],
-			"class": "artisan",
-			"controlled_by": "ai",
-			"death_day": -1,
-			"directives": [
-				"work"
-			],
-			"equipment": {
-				"accessory": null,
-				"clothes": null,
-				"tool": null
-			},
-			"family": "fam_0012",
-			"female": true,
-			"hire_bans": {},
-			"home": "",
-			"id": "chr_0062",
-			"inventory": {
-				"limit": 0,
-				"limit_kind": "weight",
-				"stacks": []
-			},
-			"job": null,
-			"life": {},
-			"location": "bld_0013",
-			"move_progress": 0,
-			"name": "Joana",
-			"occupation": "",
-			"order_queue": [],
-			"parents": [
-				"chr_0021",
-				"chr_0022"
-			],
-			"path": [],
-			"position": [
-				20,
-				33
-			],
-			"profession": "",
-			"rank": "",
-			"routine": {},
-			"schedule": null,
-			"spouse": "",
-			"station": "",
-			"stats": {
-				"arcane": 1,
-				"charisma": 4,
-				"constitution": 6,
-				"craft": 5,
-				"dexterity": 3,
-				"empathy": 3,
-				"martial": 3,
-				"negotiation": 6,
-				"rhetoric": 4,
-				"stealth": 1
-			},
-			"town": {},
-			"visual": {
-				"hair": 4,
-				"portrait": {
-					"id": "f_child_artisan_05",
-					"type": "artisan"
-				},
-				"skin": 2
-			}
-		},
-		"chr_0063": {
+		"chr_0057": {
 			"ai": {},
 			"alive": true,
 			"assigned": "",
 			"banished_until": -1,
-			"birth_day": -288,
+			"birth_day": -256,
 			"children": [],
 			"class": "",
 			"controlled_by": "town",
@@ -5048,10 +4826,10 @@
 				"tool": null
 			},
 			"family": "fam_visitors",
-			"female": true,
+			"female": false,
 			"hire_bans": {},
 			"home": "",
-			"id": "chr_0063",
+			"id": "chr_0057",
 			"inventory": {
 				"limit": 20,
 				"limit_kind": "weight",
@@ -5061,7 +4839,7 @@
 			"life": {},
 			"location": "",
 			"move_progress": 0,
-			"name": "Elisenda",
+			"name": "Tomás",
 			"needs": {},
 			"occupation": "",
 			"offstage": true,
@@ -5095,10 +4873,110 @@
 				"state": "walking"
 			},
 			"visitor": {
-				"arrived": 9163,
-				"city": "capital",
+				"arrived": 6526,
+				"city": "abbey",
 				"gate": "west_gate",
-				"guest": "gst_175",
+				"guest": "gst_122",
+				"kind": "pilgrim",
+				"leaving": false,
+				"lodged": true,
+				"lodging": "bld_0015",
+				"lodging_group": "pilgrims",
+				"plan": [
+					[
+						"atrium",
+						180
+					],
+					[
+						"bench",
+						90
+					]
+				],
+				"purse": 23,
+				"stop": 2,
+				"target": [
+					24,
+					23
+				],
+				"until": -1
+			},
+			"visual": {
+				"dress": {
+					"primary": "#4a3a2a",
+					"secondary": "#c8b890"
+				},
+				"hair": 1,
+				"skin": 2
+			}
+		},
+		"chr_0058": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -360,
+			"children": [],
+			"class": "",
+			"controlled_by": "town",
+			"death_day": -1,
+			"directives": [],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_visitors",
+			"female": false,
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0058",
+			"inventory": {
+				"limit": 20,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Joan",
+			"needs": {},
+			"occupation": "",
+			"offstage": true,
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				27,
+				33
+			],
+			"profession": "",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 4,
+				"craft": 3,
+				"dexterity": 4,
+				"empathy": 5,
+				"martial": 4,
+				"negotiation": 4,
+				"rhetoric": 4,
+				"stealth": 3
+			},
+			"town": {
+				"shown": "",
+				"state": "walking"
+			},
+			"visitor": {
+				"arrived": 6531,
+				"city": "quarry",
+				"gate": "west_gate",
+				"guest": "gst_123",
 				"kind": "pilgrim",
 				"leaving": false,
 				"lodged": true,
@@ -5117,18 +4995,18 @@
 				"purse": 15,
 				"stop": 2,
 				"target": [
-					24,
-					13
+					15,
+					24
 				],
 				"until": -1
 			},
 			"visual": {
 				"dress": {
-					"primary": "#3a4a8a",
-					"secondary": "#d8c070"
+					"primary": "#6a3a2a",
+					"secondary": "#9a9a90"
 				},
-				"hair": 3,
-				"skin": 3
+				"hair": 2,
+				"skin": 2
 			}
 		}
 	},
@@ -5208,17 +5086,6 @@
 			"winner": ""
 		},
 		{
-			"actor": "chr_0011",
-			"by": "",
-			"family": "fam_0007",
-			"kind": "altercation",
-			"minute": 4167,
-			"outcome": "fought",
-			"point": "meet_tavern",
-			"target": "chr_0008",
-			"winner": "chr_0011"
-		},
-		{
 			"day": 2,
 			"festival": "comedians",
 			"hosts": [],
@@ -5241,79 +5108,68 @@
 			"kind": "festival",
 			"minute": 5760,
 			"sponsors": []
-		},
-		{
-			"actor": "chr_0006",
-			"by": "",
-			"family": "fam_0004",
-			"kind": "altercation",
-			"minute": 7047,
-			"outcome": "fought",
-			"point": "meet_tavern",
-			"target": "chr_0008",
-			"winner": "chr_0008"
-		},
-		{
-			"day": 4,
-			"festival": "pilgrimage",
-			"hosts": [],
-			"kind": "festival",
-			"minute": 7080,
-			"sponsors": []
-		},
-		{
-			"day": 4,
-			"festival": "st_michael",
-			"hosts": [],
-			"kind": "festival",
-			"minute": 7320,
-			"sponsors": []
-		},
-		{
-			"family": "fam_0002",
-			"kind": "wealth_peak",
-			"minute": 7530,
-			"value": 362
-		},
-		{
-			"day": 5,
-			"festival": "all_saints_matanza",
-			"hosts": [],
-			"kind": "festival",
-			"minute": 8640,
-			"sponsors": []
-		},
-		{
-			"character": "chr_0062",
-			"family": "fam_0012",
-			"father": "chr_0021",
-			"kind": "birth",
-			"minute": 9030,
-			"mother": "chr_0022"
-		},
-		{
-			"family": "fam_0012",
-			"kind": "wealth_peak",
-			"minute": 9030,
-			"value": 274
-		},
-		{
-			"actor": "chr_0016",
-			"by": "",
-			"family": "fam_0009",
-			"kind": "altercation",
-			"minute": 9929,
-			"outcome": "fought",
-			"point": "meet_tavern",
-			"target": "chr_0012",
-			"winner": "chr_0012"
 		}
 	],
 	"clock": {
-		"minute": 9943
+		"minute": 7000
 	},
 	"contracts": {
-		"accepted": [],
+		"accepted": [
+			{
+				"accepted": 6887,
+				"actor": "chr_0002",
+				"chronicle": false,
+				"client": "town_council",
+				"deadline_days": 2,
+				"due": 8220,
+				"due_at": 8220,
+				"fail_reputation": -3,
+				"family": "fam_0002",
+				"festival": "fst_0007",
+				"festival_def": "all_saints_matanza",
+				"hosts": [],
+				"id": "ctr_0019",
+				"item": "butcher_knife",
+				"min_quality": 0,
+				"pay": 101,
+				"posted": 6480,
+				"profession": "blacksmith",
+				"qty": 3,
+				"race": true,
+				"relation": 8,
+				"reputation": 2,
+				"script": "",
+				"warned": [],
+				"what": ""
+			},
+			{
+				"accepted": 6947,
+				"actor": "chr_0021",
+				"chronicle": false,
+				"client": "town_council",
+				"deadline_days": 2,
+				"due": 8220,
+				"due_at": 8220,
+				"fail_reputation": -3,
+				"family": "fam_0012",
+				"festival": "fst_0007",
+				"festival_def": "all_saints_matanza",
+				"hosts": [],
+				"id": "ctr_0021",
+				"item": "trough",
+				"min_quality": 0,
+				"pay": 128,
+				"posted": 6480,
+				"profession": "mason",
+				"qty": 2,
+				"race": true,
+				"relation": 8,
+				"reputation": 2,
+				"script": "",
+				"warned": [],
+				"what": "salting_trough"
+			}
+		],
 		"board": [
 			{
 				"accepted": -1,
@@ -5368,65 +5224,145 @@
 				"client": "town_council",
 				"deadline_days": 2,
 				"due": -1,
-				"due_at": 11100,
+				"due_at": 8220,
 				"fail_reputation": -3,
 				"family": "",
-				"festival": "fst_0009",
-				"festival_def": "carnival",
+				"festival": "fst_0007",
+				"festival_def": "all_saints_matanza",
 				"hosts": [],
-				"id": "ctr_0028",
-				"item": "doublet",
+				"id": "ctr_0019",
+				"item": "butcher_knife",
 				"min_quality": 0,
-				"pay": 157,
-				"posted": 9360,
-				"profession": "tailor",
-				"qty": 2,
-				"race": true,
-				"relation": 8,
-				"reputation": 2,
-				"script": "",
-				"warned": [],
-				"what": "costumes"
-			},
-			{
-				"accepted": -1,
-				"actor": "",
-				"chronicle": false,
-				"client": "innkeeper",
-				"deadline_days": 2,
-				"due": -1,
-				"due_at": 11100,
-				"fail_reputation": -3,
-				"family": "",
-				"festival": "fst_0009",
-				"festival_def": "carnival",
-				"hosts": [],
-				"id": "ctr_0029",
-				"item": "prepared_meal",
-				"min_quality": 0,
-				"pay": 154,
-				"posted": 9360,
-				"profession": "any",
-				"qty": 6,
+				"pay": 101,
+				"posted": 6480,
+				"profession": "blacksmith",
+				"qty": 3,
 				"race": true,
 				"relation": 8,
 				"reputation": 2,
 				"script": "",
 				"warned": [],
 				"what": ""
+			},
+			{
+				"accepted": -1,
+				"actor": "",
+				"chronicle": false,
+				"client": "town_council",
+				"deadline_days": 2,
+				"due": -1,
+				"due_at": 8220,
+				"fail_reputation": -3,
+				"family": "",
+				"festival": "fst_0007",
+				"festival_def": "all_saints_matanza",
+				"hosts": [],
+				"id": "ctr_0020",
+				"item": "stage",
+				"min_quality": 0,
+				"pay": 146,
+				"posted": 6480,
+				"profession": "carpenter",
+				"qty": 1,
+				"race": true,
+				"relation": 8,
+				"reputation": 2,
+				"script": "",
+				"warned": [],
+				"what": "long_tables"
+			},
+			{
+				"accepted": -1,
+				"actor": "",
+				"chronicle": false,
+				"client": "town_council",
+				"deadline_days": 2,
+				"due": -1,
+				"due_at": 8220,
+				"fail_reputation": -3,
+				"family": "",
+				"festival": "fst_0007",
+				"festival_def": "all_saints_matanza",
+				"hosts": [],
+				"id": "ctr_0021",
+				"item": "trough",
+				"min_quality": 0,
+				"pay": 128,
+				"posted": 6480,
+				"profession": "mason",
+				"qty": 2,
+				"race": true,
+				"relation": 8,
+				"reputation": 2,
+				"script": "",
+				"warned": [],
+				"what": "salting_trough"
+			},
+			{
+				"accepted": -1,
+				"actor": "",
+				"chronicle": false,
+				"client": "town_council",
+				"deadline_days": 2,
+				"due": -1,
+				"due_at": 8220,
+				"fail_reputation": -3,
+				"family": "",
+				"festival": "fst_0007",
+				"festival_def": "all_saints_matanza",
+				"hosts": [],
+				"id": "ctr_0022",
+				"item": "work_clothes",
+				"min_quality": 0,
+				"pay": 120,
+				"posted": 6480,
+				"profession": "tailor",
+				"qty": 3,
+				"race": true,
+				"relation": 8,
+				"reputation": 2,
+				"script": "",
+				"warned": [],
+				"what": "aprons"
+			},
+			{
+				"accepted": -1,
+				"actor": "",
+				"chronicle": false,
+				"client": "town_council",
+				"deadline_days": 2,
+				"due": -1,
+				"due_at": 8220,
+				"fail_reputation": -3,
+				"family": "",
+				"festival": "fst_0007",
+				"festival_def": "all_saints_matanza",
+				"hosts": [],
+				"id": "ctr_0023",
+				"item": "prepared_meal",
+				"min_quality": 0,
+				"pay": 250,
+				"posted": 6480,
+				"profession": "any",
+				"qty": 12,
+				"race": true,
+				"relation": 8,
+				"reputation": 2,
+				"script": "",
+				"warned": [],
+				"what": "common_banquet"
 			}
 		],
 		"cooldowns": {
 			"abbot": 4,
 			"fair_warden": 3,
-			"parish_priest": 6,
-			"town_council": 5
+			"parish_priest": 1,
+			"town_council": 1
 		},
 		"relations": {
 			"fam_0011|comedians": 8,
 			"fam_0011|wine_merchant": 8,
 			"fam_0012|fair_warden": 8,
-			"fam_0012|town_council": 8,
 			"fam_0013|fair_warden": 8
 		}
 	},
@@ -5437,17 +5373,7 @@
 		"open": {}
 	},
 	"elections": [],
-	"emotions": {
-		"chr_0016": [
-			{
-				"duration": 1490,
-				"intensity0": 100,
-				"source": "fam_0007",
-				"start": 9929,
-				"state": "scared"
-			}
-		]
-	},
+	"emotions": {},
 	"ending": {},
 	"events_active": [
 		{
@@ -5469,7 +5395,7 @@
 			},
 			"class": "artisan",
 			"class_reputation": {
-				"artisan": -18
+				"artisan": -11
 			},
 			"colors": {
 				"primary": "#8b2e2e",
@@ -5479,7 +5405,7 @@
 			"founder": "chr_0001",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 248,
+			"gold": 97,
 			"head": "chr_0001",
 			"heir": "",
 			"id": "fam_0001",
@@ -5488,7 +5414,7 @@
 			],
 			"name": "Herrero",
 			"regent": "",
-			"reputation": -17,
+			"reputation": -10,
 			"reputation_caps": {
 				"wages_paid": {
 					"count": 1,
@@ -5500,6 +5426,55 @@
 					"amount": -1,
 					"class": "artisan",
 					"class_amount": -1,
+					"minute": 1740,
+					"reason": "employee_rumor"
+				},
+				{
+					"amount": -1,
+					"class": "artisan",
+					"class_amount": -1,
+					"minute": 1740,
+					"reason": "employee_rumor"
+				},
+				{
+					"amount": 2,
+					"class": "artisan",
+					"class_amount": 1,
+					"minute": 1740,
+					"reason": "wages_paid"
+				},
+				{
+					"amount": -1,
+					"class": "artisan",
+					"class_amount": -1,
+					"minute": 3150,
+					"reason": "employee_rumor"
+				},
+				{
+					"amount": -1,
+					"class": "artisan",
+					"class_amount": -1,
+					"minute": 3150,
+					"reason": "employee_rumor"
+				},
+				{
+					"amount": -1,
+					"class": "artisan",
+					"class_amount": -1,
+					"minute": 3150,
+					"reason": "employee_rumor"
+				},
+				{
+					"amount": -1,
+					"class": "artisan",
+					"class_amount": -1,
+					"minute": 4590,
+					"reason": "employee_rumor"
+				},
+				{
+					"amount": -1,
+					"class": "artisan",
+					"class_amount": -1,
 					"minute": 4590,
 					"reason": "employee_rumor"
 				},
@@ -5529,55 +5504,6 @@
 					"class": "artisan",
 					"class_amount": -1,
 					"minute": 6090,
-					"reason": "employee_rumor"
-				},
-				{
-					"amount": -1,
-					"class": "artisan",
-					"class_amount": -1,
-					"minute": 7530,
-					"reason": "employee_rumor"
-				},
-				{
-					"amount": -1,
-					"class": "artisan",
-					"class_amount": -1,
-					"minute": 7530,
-					"reason": "employee_rumor"
-				},
-				{
-					"amount": -1,
-					"class": "artisan",
-					"class_amount": -1,
-					"minute": 7530,
-					"reason": "employee_rumor"
-				},
-				{
-					"amount": -1,
-					"class": "artisan",
-					"class_amount": -1,
-					"minute": 9030,
-					"reason": "employee_rumor"
-				},
-				{
-					"amount": -1,
-					"class": "artisan",
-					"class_amount": -1,
-					"minute": 9030,
-					"reason": "employee_rumor"
-				},
-				{
-					"amount": -1,
-					"class": "artisan",
-					"class_amount": -1,
-					"minute": 9030,
-					"reason": "employee_rumor"
-				},
-				{
-					"amount": -1,
-					"class": "artisan",
-					"class_amount": -1,
-					"minute": 9030,
 					"reason": "employee_rumor"
 				}
 			],
@@ -5586,16 +5512,18 @@
 		"fam_0002": {
 			"ai_profile": "rival_smith",
 			"ai_state": {
-				"bought_day": 6,
+				"bought_day": 4,
 				"family": {
-					"night": 6,
+					"night": 3,
 					"step": "home",
 					"target": "chr_0006"
 				},
-				"last_fp": "[[10,19],\"bld_0002\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},30,1,7]",
-				"last_order": "{\"actor\":\"chr_0002\",\"building\":\"bld_0002\",\"mode\":\"normal\",\"recipe\":\"forge_candlestick\",\"type\":\"work_at\",\"zone\":\"anvil\"}",
-				"phase": "night",
-				"plan": [],
+				"last_fp": "[[24,16],\"\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},300,1,8]",
+				"last_order": "{\"actor\":\"chr_0002\",\"building\":\"bld_0002\",\"type\":\"enter_building\"}",
+				"phase": "dusk",
+				"plan": [
+					"home"
+				],
 				"recipe": "forge_sword"
 			},
 			"attitudes": {
@@ -5604,9 +5532,7 @@
 				"honesty": 20
 			},
 			"class": "artisan",
-			"class_reputation": {
-				"artisan": -4
-			},
+			"class_reputation": {},
 			"colors": {
 				"primary": "#3f6b3a",
 				"secondary": "#b8b8b0"
@@ -5615,7 +5541,7 @@
 			"founder": "chr_0002",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 30,
+			"gold": 300,
 			"head": "chr_0002",
 			"heir": "",
 			"id": "fam_0002",
@@ -5624,7 +5550,7 @@
 			],
 			"name": "Ferrer",
 			"regent": "",
-			"reputation": 0,
+			"reputation": 6,
 			"reputation_caps": {
 				"fair_trade": {
 					"count": 1,
@@ -5677,20 +5603,6 @@
 					"class_amount": 0,
 					"minute": 6271,
 					"reason": "quality_trade"
-				},
-				{
-					"amount": -3,
-					"class": "artisan",
-					"class_amount": -2,
-					"minute": 8220,
-					"reason": "contract_failed"
-				},
-				{
-					"amount": -3,
-					"class": "artisan",
-					"class_amount": -2,
-					"minute": 9660,
-					"reason": "contract_failed"
 				}
 			],
 			"title": "common"
@@ -5713,7 +5625,7 @@
 			"founder": "chr_0003",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 236,
+			"gold": 164,
 			"head": "chr_0003",
 			"heir": "",
 			"id": "fam_0003",
@@ -5746,7 +5658,7 @@
 			"founder": "chr_0005",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 35,
+			"gold": 14,
 			"head": "chr_0005",
 			"heir": "",
 			"id": "fam_0004",
@@ -5812,7 +5724,7 @@
 			"founder": "chr_0009",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 0,
+			"gold": 2,
 			"head": "chr_0009",
 			"heir": "",
 			"id": "fam_0006",
@@ -5962,12 +5874,12 @@
 		"fam_0011": {
 			"ai_profile": "rival_artisan",
 			"ai_state": {
-				"bought_day": 6,
-				"last_fp": "[[16,20],\"\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},81,0,5]",
-				"last_order": "{\"actor\":\"chr_0019\",\"building\":\"bld_0012\",\"type\":\"enter_building\"}",
-				"phase": "night",
+				"bought_day": 4,
+				"last_fp": "[[15,33],\"bld_0012\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[{\"item\":\"chest\",\"qty\":1,\"quality\":1}]},172,0,8]",
+				"last_order": "{\"actor\":\"chr_0019\",\"from\":\"chr_0019\",\"item\":\"chest\",\"qty\":1,\"quality\":1,\"to\":\"bld_0012\",\"type\":\"transfer\"}",
+				"phase": "dusk",
 				"plan": [],
-				"recipe": "carpentry_planks"
+				"recipe": "carpentry_chest"
 			},
 			"attitudes": {
 				"diplomacy": 10,
@@ -5976,7 +5888,7 @@
 			},
 			"class": "artisan",
 			"class_reputation": {
-				"artisan": -8
+				"artisan": -4
 			},
 			"colors": {
 				"primary": "#5a6b2e",
@@ -5986,7 +5898,7 @@
 			"founder": "chr_0019",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 81,
+			"gold": 172,
 			"head": "chr_0019",
 			"heir": "",
 			"id": "fam_0011",
@@ -5996,18 +5908,21 @@
 			],
 			"name": "Fuster",
 			"regent": "",
-			"reputation": -1,
+			"reputation": 0,
 			"reputation_caps": {
 				"fair_trade": {
 					"count": 1,
-					"window": 6
-				},
-				"quality_trade": {
-					"count": 1,
-					"window": 6
+					"window": 4
 				}
 			},
 			"reputation_log": [
+				{
+					"amount": -3,
+					"class": "artisan",
+					"class_amount": -2,
+					"minute": 2460,
+					"reason": "contract_failed"
+				},
 				{
 					"amount": 2,
 					"class": "",
@@ -6033,7 +5948,7 @@
 					"amount": 2,
 					"class": "",
 					"class_amount": 0,
-					"minute": 6155,
+					"minute": 6154,
 					"reason": "festival_contract"
 				},
 				{
@@ -6042,55 +5957,6 @@
 					"class_amount": 0,
 					"minute": 6303,
 					"reason": "fair_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 6303,
-					"reason": "quality_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 7743,
-					"reason": "fair_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 7743,
-					"reason": "quality_trade"
-				},
-				{
-					"amount": -3,
-					"class": "artisan",
-					"class_amount": -2,
-					"minute": 8220,
-					"reason": "contract_failed"
-				},
-				{
-					"amount": -3,
-					"class": "artisan",
-					"class_amount": -2,
-					"minute": 9660,
-					"reason": "contract_failed"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 9753,
-					"reason": "fair_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 9753,
-					"reason": "quality_trade"
 				}
 			],
 			"title": "common"
@@ -6098,12 +5964,16 @@
 		"fam_0012": {
 			"ai_profile": "rival_artisan",
 			"ai_state": {
-				"bought_day": 6,
-				"last_fp": "[[22,15],\"\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},135,0,5]",
+				"bought_day": 4,
+				"last_fp": "[[16,21],\"\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},51,1,8]",
 				"last_order": "{\"actor\":\"chr_0021\",\"building\":\"bld_0013\",\"type\":\"enter_building\"}",
-				"phase": "night",
-				"plan": [],
-				"recipe": "masonry_grindstone"
+				"phase": "dusk",
+				"plan": [
+					"contracts",
+					"sell",
+					"home"
+				],
+				"recipe": "masonry_trough"
 			},
 			"attitudes": {
 				"diplomacy": 10,
@@ -6122,26 +5992,25 @@
 			"founder": "chr_0021",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 135,
+			"gold": 51,
 			"head": "chr_0021",
 			"heir": "",
 			"id": "fam_0012",
 			"members": [
 				"chr_0021",
-				"chr_0022",
-				"chr_0062"
+				"chr_0022"
 			],
 			"name": "Picapedrero",
 			"regent": "",
-			"reputation": 9,
+			"reputation": 4,
 			"reputation_caps": {
 				"fair_trade": {
 					"count": 1,
-					"window": 6
+					"window": 4
 				},
 				"quality_trade": {
 					"count": 1,
-					"window": 5
+					"window": 3
 				}
 			},
 			"reputation_log": [
@@ -6193,34 +6062,6 @@
 					"class_amount": -2,
 					"minute": 6780,
 					"reason": "contract_failed"
-				},
-				{
-					"amount": 2,
-					"class": "",
-					"class_amount": 0,
-					"minute": 7609,
-					"reason": "festival_contract"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 8389,
-					"reason": "fair_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 8389,
-					"reason": "quality_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 9759,
-					"reason": "fair_trade"
 				}
 			],
 			"title": "common"
@@ -6228,10 +6069,10 @@
 		"fam_0013": {
 			"ai_profile": "rival_artisan",
 			"ai_state": {
-				"bought_day": 6,
-				"last_fp": "[[24,29],\"bld_0014\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},32,0,7]",
-				"last_order": "{\"actor\":\"chr_0023\",\"building\":\"bld_0014\",\"mode\":\"normal\",\"recipe\":\"tailor_travel_cloak\",\"type\":\"work_at\",\"zone\":\"sewing_table\"}",
-				"phase": "night",
+				"bought_day": 4,
+				"last_fp": "[[16,16],\"\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},90,0,8]",
+				"last_order": "{\"actor\":\"chr_0023\",\"building\":\"bld_0014\",\"type\":\"enter_building\"}",
+				"phase": "dusk",
 				"plan": [],
 				"recipe": "tailor_travel_cloak"
 			},
@@ -6242,7 +6083,7 @@
 			},
 			"class": "artisan",
 			"class_reputation": {
-				"artisan": -4
+				"artisan": -2
 			},
 			"colors": {
 				"primary": "#2e4a6b",
@@ -6252,7 +6093,7 @@
 			"founder": "chr_0023",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 32,
+			"gold": 90,
 			"head": "chr_0023",
 			"heir": "",
 			"id": "fam_0013",
@@ -6266,11 +6107,7 @@
 			"reputation_caps": {
 				"fair_trade": {
 					"count": 1,
-					"window": 5
-				},
-				"quality_trade": {
-					"count": 1,
-					"window": 5
+					"window": 4
 				}
 			},
 			"reputation_log": [
@@ -6301,34 +6138,6 @@
 					"class_amount": 0,
 					"minute": 6899,
 					"reason": "fair_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 6956,
-					"reason": "quality_trade"
-				},
-				{
-					"amount": -3,
-					"class": "artisan",
-					"class_amount": -2,
-					"minute": 8220,
-					"reason": "contract_failed"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 8339,
-					"reason": "fair_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 8339,
-					"reason": "quality_trade"
 				}
 			],
 			"title": "common"
@@ -6356,7 +6165,8 @@
 			"heir": "",
 			"id": "fam_visitors",
 			"members": [
-				"chr_0063"
+				"chr_0057",
+				"chr_0058"
 			],
 			"name": "",
 			"name_key": "family.visitors",
@@ -6410,40 +6220,69 @@
 	"festivals": {
 		"active": [
 			{
-				"announce": 7920,
+				"announce": 5040,
 				"announced": true,
 				"by": "",
-				"cause": "calendar",
+				"cause": "city",
 				"contracts": [
-					"ctr_0024",
-					"ctr_0025",
-					"ctr_0026",
-					"ctr_0027"
+					"ctr_0014",
+					"ctr_0015",
+					"ctr_0016",
+					"ctr_0017",
+					"ctr_0018"
 				],
 				"couple": [],
-				"day": 6,
-				"def": "christmas",
+				"day": 4,
+				"def": "pilgrimage",
 				"done": [],
-				"end": 10080,
+				"end": 7080,
 				"hosts": [],
-				"id": "fst_0008",
+				"id": "fst_0006",
 				"organized": {},
 				"patron": false,
 				"posted_rows": [
 					0,
 					1,
 					2,
-					3
+					3,
+					4
 				],
 				"sponsors": {},
 				"stalls": [],
-				"start": 8640
+				"start": 6120
+			},
+			{
+				"announce": 5040,
+				"announced": true,
+				"by": "",
+				"cause": "calendar",
+				"contracts": [
+					"ctr_0012",
+					"ctr_0013"
+				],
+				"couple": [],
+				"day": 4,
+				"def": "st_michael",
+				"done": [],
+				"done_items": [
+					"barrel"
+				],
+				"end": 7320,
+				"hosts": [],
+				"id": "fst_0005",
+				"organized": {},
+				"patron": false,
+				"posted_rows": [
+					0,
+					1
+				],
+				"sponsors": {},
+				"stalls": [],
+				"start": 6780
 			}
 		],
 		"cooldowns": {
 			"all_saints_matanza": 5,
-			"carnival": 7,
-			"christmas": 6,
 			"comedians": 2,
 			"harvest_fair": 3,
 			"mayday_corpus": 1,
@@ -6591,68 +6430,11 @@
 					}
 				],
 				"start": 4320
-			},
-			{
-				"announce": 5040,
-				"announced": true,
-				"by": "",
-				"cause": "city",
-				"contracts": [
-					"ctr_0014",
-					"ctr_0015",
-					"ctr_0016",
-					"ctr_0017",
-					"ctr_0018"
-				],
-				"couple": [],
-				"day": 4,
-				"def": "pilgrimage",
-				"done": [],
-				"end": 7080,
-				"hosts": [],
-				"id": "fst_0006",
-				"organized": {},
-				"patron": false,
-				"posted_rows": [
-					0,
-					1,
-					2,
-					3,
-					4
-				],
-				"sponsors": {},
-				"stalls": [],
-				"start": 6120
-			},
-			{
-				"announce": 5040,
-				"announced": true,
-				"by": "",
-				"cause": "calendar",
-				"contracts": [
-					"ctr_0012",
-					"ctr_0013"
-				],
-				"couple": [],
-				"day": 4,
-				"def": "st_michael",
-				"done": [],
-				"done_items": [
-					"barrel"
-				],
-				"end": 7320,
-				"hosts": [],
-				"id": "fst_0005",
-				"organized": {},
-				"patron": false,
-				"posted_rows": [
-					0,
-					1
-				],
-				"sponsors": {},
-				"stalls": [],
-				"start": 6780
-			},
+			}
+		],
+		"offers": {},
+		"planned_day": 4,
+		"upcoming": [
 			{
 				"announce": 6480,
 				"announced": true,
@@ -6669,9 +6451,6 @@
 				"day": 5,
 				"def": "all_saints_matanza",
 				"done": [],
-				"done_items": [
-					"trough"
-				],
 				"end": 8640,
 				"hosts": [],
 				"id": "fst_0007",
@@ -6687,36 +6466,6 @@
 				"sponsors": {},
 				"stalls": [],
 				"start": 7200
-			}
-		],
-		"offers": {},
-		"planned_day": 6,
-		"upcoming": [
-			{
-				"announce": 9360,
-				"announced": true,
-				"by": "",
-				"cause": "calendar",
-				"contracts": [
-					"ctr_0028",
-					"ctr_0029"
-				],
-				"couple": [],
-				"day": 7,
-				"def": "carnival",
-				"done": [],
-				"end": 11700,
-				"hosts": [],
-				"id": "fst_0009",
-				"organized": {},
-				"patron": false,
-				"posted_rows": [
-					0,
-					1
-				],
-				"sponsors": {},
-				"stalls": [],
-				"start": 11100
 			}
 		]
 	},
@@ -7156,16 +6905,6 @@
 				"ref": "inn_bill"
 			},
 			{
-				"actor": "chr_0001",
-				"amount": -200,
-				"building": "",
-				"category": "loans",
-				"day": 1,
-				"family": "fam_0001",
-				"minute": 1507,
-				"ref": "lon_0001"
-			},
-			{
 				"actor": "",
 				"amount": 14,
 				"building": "bld_0015",
@@ -7204,6 +6943,16 @@
 				"family": "fam_0001",
 				"minute": 1559,
 				"ref": "inn_bill"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -200,
+				"building": "",
+				"category": "loans",
+				"day": 1,
+				"family": "fam_0001",
+				"minute": 1567,
+				"ref": "lon_0001"
 			},
 			{
 				"actor": "chr_0003",
@@ -7377,7 +7126,7 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -30,
+				"amount": -35,
 				"building": "bld_0015",
 				"category": "purchases",
 				"day": 1,
@@ -7387,7 +7136,7 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -6,
+				"amount": -7,
 				"building": "bld_0015",
 				"category": "errands",
 				"day": 1,
@@ -7417,7 +7166,7 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -35,
+				"amount": -30,
 				"building": "bld_0015",
 				"category": "purchases",
 				"day": 1,
@@ -7427,7 +7176,7 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -7,
+				"amount": -6,
 				"building": "bld_0015",
 				"category": "errands",
 				"day": 1,
@@ -8197,7 +7946,7 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -162,
+				"amount": -77,
 				"building": "bld_0015",
 				"category": "purchases",
 				"day": 2,
@@ -8207,7 +7956,7 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -32,
+				"amount": -15,
 				"building": "bld_0015",
 				"category": "errands",
 				"day": 2,
@@ -8217,7 +7966,7 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -104,
+				"amount": -4,
 				"building": "bld_0015",
 				"category": "purchases",
 				"day": 2,
@@ -8227,7 +7976,7 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -21,
+				"amount": -1,
 				"building": "bld_0015",
 				"category": "errands",
 				"day": 2,
@@ -8237,7 +7986,7 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -24,
+				"amount": -153,
 				"building": "bld_0015",
 				"category": "purchases",
 				"day": 2,
@@ -8247,13 +7996,33 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -5,
+				"amount": -31,
 				"building": "bld_0015",
 				"category": "errands",
 				"day": 2,
 				"family": "fam_0001",
 				"minute": 3305,
 				"ref": "dlv_0010"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -48,
+				"building": "bld_0015",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0001",
+				"minute": 3306,
+				"ref": "dlv_0011"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -10,
+				"building": "bld_0015",
+				"category": "errands",
+				"day": 2,
+				"family": "fam_0001",
+				"minute": 3306,
+				"ref": "dlv_0011"
 			},
 			{
 				"actor": "chr_0021",
@@ -8387,7 +8156,7 @@
 			},
 			{
 				"actor": "",
-				"amount": 9,
+				"amount": 14,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 2,
@@ -8416,23 +8185,13 @@
 				"ref": "inn_bill"
 			},
 			{
-				"actor": "chr_0010",
-				"amount": -7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 2,
-				"family": "fam_0006",
-				"minute": 4205,
-				"ref": "inn_bill"
-			},
-			{
 				"actor": "",
 				"amount": 7,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 2,
 				"family": "fam_0001",
-				"minute": 4205,
+				"minute": 4206,
 				"ref": "inn_bill"
 			},
 			{
@@ -8467,12 +8226,12 @@
 			},
 			{
 				"actor": "",
-				"amount": 7,
+				"amount": 14,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 2,
 				"family": "fam_0001",
-				"minute": 4220,
+				"minute": 4232,
 				"ref": "inn_bill"
 			},
 			{
@@ -8497,7 +8256,7 @@
 			},
 			{
 				"actor": "",
-				"amount": 19,
+				"amount": 14,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 2,
@@ -8513,26 +8272,6 @@
 				"day": 2,
 				"family": "fam_0001",
 				"minute": 4257,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "chr_0010",
-				"amount": -7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 2,
-				"family": "fam_0006",
-				"minute": 4262,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 2,
-				"family": "fam_0001",
-				"minute": 4262,
 				"ref": "inn_bill"
 			},
 			{
@@ -8552,7 +8291,27 @@
 				"category": "services",
 				"day": 2,
 				"family": "fam_0001",
-				"minute": 4271,
+				"minute": 4263,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 7,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 2,
+				"family": "fam_0001",
+				"minute": 4265,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 19,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 2,
+				"family": "fam_0001",
+				"minute": 4268,
 				"ref": "inn_bill"
 			},
 			{
@@ -8567,17 +8326,17 @@
 			},
 			{
 				"actor": "",
-				"amount": 14,
+				"amount": 7,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 2,
 				"family": "fam_0001",
-				"minute": 4277,
+				"minute": 4281,
 				"ref": "inn_bill"
 			},
 			{
 				"actor": "",
-				"amount": 9,
+				"amount": 14,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 2,
@@ -8587,12 +8346,12 @@
 			},
 			{
 				"actor": "",
-				"amount": 14,
+				"amount": 7,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 2,
 				"family": "fam_0001",
-				"minute": 4301,
+				"minute": 4296,
 				"ref": "inn_bill"
 			},
 			{
@@ -8602,17 +8361,7 @@
 				"category": "services",
 				"day": 2,
 				"family": "fam_0001",
-				"minute": 4303,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 2,
-				"family": "fam_0001",
-				"minute": 4304,
+				"minute": 4308,
 				"ref": "inn_bill"
 			},
 			{
@@ -8622,42 +8371,12 @@
 				"category": "services",
 				"day": 2,
 				"family": "fam_0001",
-				"minute": 4304,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "chr_0010",
-				"amount": -6,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 2,
-				"family": "fam_0006",
-				"minute": 4315,
+				"minute": 4313,
 				"ref": "inn_bill"
 			},
 			{
 				"actor": "",
-				"amount": 6,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 2,
-				"family": "fam_0001",
-				"minute": 4315,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 2,
-				"family": "fam_0001",
-				"minute": 4316,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
+				"amount": 19,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 2,
@@ -8672,68 +8391,28 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 4344,
+				"minute": 4320,
 				"ref": "inn_bill"
 			},
 			{
 				"actor": "",
-				"amount": 14,
+				"amount": 16,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 4350,
+				"minute": 4321,
 				"ref": "inn_bill"
 			},
 			{
-				"actor": "",
-				"amount": 14,
+				"actor": "chr_0001",
+				"amount": -60,
 				"building": "bld_0015",
-				"category": "services",
+				"category": "upgrades",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 4360,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 4372,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 4372,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 4409,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 4415,
-				"ref": "inn_bill"
+				"minute": 4327,
+				"ref": "tavern_inn_hall_1"
 			},
 			{
 				"actor": "",
@@ -8742,7 +8421,27 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 4418,
+				"minute": 4328,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 16,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 4368,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 16,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 4384,
 				"ref": "inn_bill"
 			},
 			{
@@ -8937,23 +8636,43 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -49,
+				"amount": -40,
 				"building": "bld_0015",
 				"category": "purchases",
 				"day": 3,
 				"family": "fam_0001",
 				"minute": 4737,
-				"ref": "dlv_0011"
+				"ref": "dlv_0012"
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -10,
+				"amount": -8,
 				"building": "bld_0015",
 				"category": "errands",
 				"day": 3,
 				"family": "fam_0001",
 				"minute": 4737,
-				"ref": "dlv_0011"
+				"ref": "dlv_0012"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -54,
+				"building": "bld_0015",
+				"category": "purchases",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 4738,
+				"ref": "dlv_0013"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -11,
+				"building": "bld_0015",
+				"category": "errands",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 4738,
+				"ref": "dlv_0013"
 			},
 			{
 				"actor": "chr_0002",
@@ -8967,43 +8686,43 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -60,
-				"building": "bld_0015",
-				"category": "purchases",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 4744,
-				"ref": "dlv_0012"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -12,
-				"building": "bld_0015",
-				"category": "errands",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 4744,
-				"ref": "dlv_0012"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -48,
+				"amount": -24,
 				"building": "bld_0015",
 				"category": "purchases",
 				"day": 3,
 				"family": "fam_0001",
 				"minute": 4745,
-				"ref": "dlv_0013"
+				"ref": "dlv_0014"
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -10,
+				"amount": -5,
 				"building": "bld_0015",
 				"category": "errands",
 				"day": 3,
 				"family": "fam_0001",
 				"minute": 4745,
-				"ref": "dlv_0013"
+				"ref": "dlv_0014"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -42,
+				"building": "bld_0015",
+				"category": "purchases",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 4758,
+				"ref": "dlv_0015"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -8,
+				"building": "bld_0015",
+				"category": "errands",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 4758,
+				"ref": "dlv_0015"
 			},
 			{
 				"actor": "chr_0019",
@@ -9044,66 +8763,6 @@
 				"family": "fam_0012",
 				"minute": 4838,
 				"ref": "buy"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -7,
-				"building": "bld_0015",
-				"category": "purchases",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5217,
-				"ref": "dlv_0014"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -1,
-				"building": "bld_0015",
-				"category": "errands",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5217,
-				"ref": "dlv_0014"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -18,
-				"building": "bld_0015",
-				"category": "purchases",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5224,
-				"ref": "dlv_0015"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -4,
-				"building": "bld_0015",
-				"category": "errands",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5224,
-				"ref": "dlv_0015"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -6,
-				"building": "bld_0015",
-				"category": "purchases",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5225,
-				"ref": "dlv_0016"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -1,
-				"building": "bld_0015",
-				"category": "errands",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5225,
-				"ref": "dlv_0016"
 			},
 			{
 				"actor": "",
@@ -9152,47 +8811,7 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5568,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 19,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5604,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 8,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5606,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 8,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5606,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 8,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5606,
+				"minute": 5556,
 				"ref": "inn_bill"
 			},
 			{
@@ -9202,17 +8821,17 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5610,
+				"minute": 5597,
 				"ref": "inn_bill"
 			},
 			{
 				"actor": "",
-				"amount": 8,
+				"amount": 14,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5616,
+				"minute": 5607,
 				"ref": "inn_bill"
 			},
 			{
@@ -9222,12 +8841,52 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5638,
+				"minute": 5613,
 				"ref": "inn_bill"
 			},
 			{
 				"actor": "",
-				"amount": 11,
+				"amount": 14,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 5614,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 5621,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 5624,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 7,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 5639,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 14,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 3,
@@ -9242,27 +8901,7 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5653,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 8,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5655,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 8,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5656,
+				"minute": 5647,
 				"ref": "inn_bill"
 			},
 			{
@@ -9272,7 +8911,27 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5662,
+				"minute": 5665,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 5670,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 5671,
 				"ref": "inn_bill"
 			},
 			{
@@ -9282,27 +8941,7 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5664,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5668,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5694,
+				"minute": 5676,
 				"ref": "inn_bill"
 			},
 			{
@@ -9312,17 +8951,17 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5704,
+				"minute": 5695,
 				"ref": "inn_bill"
 			},
 			{
 				"actor": "",
-				"amount": 14,
+				"amount": 7,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5708,
+				"minute": 5696,
 				"ref": "inn_bill"
 			},
 			{
@@ -9336,23 +8975,13 @@
 				"ref": "inn_bill"
 			},
 			{
-				"actor": "",
-				"amount": 14,
+				"actor": "chr_0009",
+				"amount": -7,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 3,
-				"family": "fam_0001",
-				"minute": 5719,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 11,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5724,
+				"family": "fam_0006",
+				"minute": 5720,
 				"ref": "inn_bill"
 			},
 			{
@@ -9362,7 +8991,17 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5741,
+				"minute": 5720,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -7,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 3,
+				"family": "fam_0004",
+				"minute": 5740,
 				"ref": "inn_bill"
 			},
 			{
@@ -9372,167 +9011,7 @@
 				"category": "services",
 				"day": 3,
 				"family": "fam_0001",
-				"minute": 5742,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5746,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 11,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 3,
-				"family": "fam_0001",
-				"minute": 5757,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5767,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -60,
-				"building": "bld_0015",
-				"category": "upgrades",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5767,
-				"ref": "tavern_inn_hall_1"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5773,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5795,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5795,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 16,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5798,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 16,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5799,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5801,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5818,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5837,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5843,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5854,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 9,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5858,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 5880,
+				"minute": 5740,
 				"ref": "inn_bill"
 			},
 			{
@@ -9682,7 +9161,7 @@
 				"category": "contracts",
 				"day": 4,
 				"family": "fam_0011",
-				"minute": 6155,
+				"minute": 6154,
 				"ref": "ctr_0012"
 			},
 			{
@@ -9737,12 +9216,32 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -42,
+				"amount": -28,
 				"building": "bld_0015",
 				"category": "purchases",
 				"day": 4,
 				"family": "fam_0001",
 				"minute": 6297,
+				"ref": "dlv_0016"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -6,
+				"building": "bld_0015",
+				"category": "errands",
+				"day": 4,
+				"family": "fam_0001",
+				"minute": 6297,
+				"ref": "dlv_0016"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -40,
+				"building": "bld_0015",
+				"category": "purchases",
+				"day": 4,
+				"family": "fam_0001",
+				"minute": 6298,
 				"ref": "dlv_0017"
 			},
 			{
@@ -9752,8 +9251,28 @@
 				"category": "errands",
 				"day": 4,
 				"family": "fam_0001",
-				"minute": 6297,
+				"minute": 6298,
 				"ref": "dlv_0017"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -70,
+				"building": "bld_0015",
+				"category": "purchases",
+				"day": 4,
+				"family": "fam_0001",
+				"minute": 6299,
+				"ref": "dlv_0018"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -14,
+				"building": "bld_0015",
+				"category": "errands",
+				"day": 4,
+				"family": "fam_0001",
+				"minute": 6299,
+				"ref": "dlv_0018"
 			},
 			{
 				"actor": "chr_0002",
@@ -9767,7 +9286,7 @@
 			},
 			{
 				"actor": "chr_0019",
-				"amount": 32,
+				"amount": 25,
 				"building": "",
 				"category": "market_sales",
 				"day": 4,
@@ -9777,42 +9296,22 @@
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -42,
+				"amount": -14,
 				"building": "bld_0015",
 				"category": "purchases",
 				"day": 4,
 				"family": "fam_0001",
-				"minute": 6304,
-				"ref": "dlv_0018"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -8,
-				"building": "bld_0015",
-				"category": "errands",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 6304,
-				"ref": "dlv_0018"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -49,
-				"building": "bld_0015",
-				"category": "purchases",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 6305,
+				"minute": 6306,
 				"ref": "dlv_0019"
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -10,
+				"amount": -3,
 				"building": "bld_0015",
 				"category": "errands",
 				"day": 4,
 				"family": "fam_0001",
-				"minute": 6305,
+				"minute": 6306,
 				"ref": "dlv_0019"
 			},
 			{
@@ -9856,16 +9355,6 @@
 				"ref": "buy"
 			},
 			{
-				"actor": "",
-				"amount": 11,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 6871,
-				"ref": "inn_bed"
-			},
-			{
 				"actor": "chr_0023",
 				"amount": 28,
 				"building": "",
@@ -9873,6 +9362,16 @@
 				"day": 4,
 				"family": "fam_0013",
 				"minute": 6898,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0023",
+				"amount": 27,
+				"building": "",
+				"category": "market_sales",
+				"day": 4,
+				"family": "fam_0013",
+				"minute": 6899,
 				"ref": "sell"
 			},
 			{
@@ -9896,14 +9395,14 @@
 				"ref": "inn_bed"
 			},
 			{
-				"actor": "",
-				"amount": 11,
-				"building": "bld_0015",
-				"category": "services",
+				"actor": "chr_0019",
+				"amount": 46,
+				"building": "",
+				"category": "market_sales",
 				"day": 4,
-				"family": "fam_0001",
-				"minute": 6927,
-				"ref": "inn_bed"
+				"family": "fam_0011",
+				"minute": 6932,
+				"ref": "sell"
 			},
 			{
 				"actor": "chr_0002",
@@ -9922,18 +9421,8 @@
 				"category": "services",
 				"day": 4,
 				"family": "fam_0001",
-				"minute": 6955,
+				"minute": 6944,
 				"ref": "inn_bill"
-			},
-			{
-				"actor": "chr_0023",
-				"amount": 43,
-				"building": "",
-				"category": "market_sales",
-				"day": 4,
-				"family": "fam_0013",
-				"minute": 6955,
-				"ref": "sell"
 			},
 			{
 				"actor": "",
@@ -9942,22 +9431,52 @@
 				"category": "services",
 				"day": 4,
 				"family": "fam_0001",
-				"minute": 6969,
+				"minute": 6963,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "chr_0010",
+				"amount": -11,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 4,
+				"family": "fam_0006",
+				"minute": 6963,
 				"ref": "inn_bill"
 			},
 			{
 				"actor": "",
-				"amount": 9,
+				"amount": 11,
 				"building": "bld_0015",
 				"category": "services",
 				"day": 4,
 				"family": "fam_0001",
-				"minute": 6987,
+				"minute": 6963,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 10,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 4,
+				"family": "fam_0001",
+				"minute": 6984,
+				"ref": "inn_bill"
+			},
+			{
+				"actor": "",
+				"amount": 10,
+				"building": "bld_0015",
+				"category": "services",
+				"day": 4,
+				"family": "fam_0001",
+				"minute": 6991,
 				"ref": "inn_bill"
 			},
 			{
 				"actor": "chr_0002",
-				"amount": 78,
+				"amount": 96,
 				"building": "",
 				"category": "market_sales",
 				"day": 4,
@@ -9967,1182 +9486,12 @@
 			},
 			{
 				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 6998,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7002,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7004,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7007,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7017,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7023,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7031,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7032,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7046,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7048,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7049,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7060,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7072,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "chr_0006",
-				"amount": -7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0004",
-				"minute": 7081,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 4,
-				"family": "fam_0001",
-				"minute": 7081,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -90,
-				"building": "bld_0015",
-				"category": "upgrades",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7207,
-				"ref": "tavern_inn_rooms_1"
-			},
-			{
-				"actor": "chr_0003",
-				"amount": -20,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7530,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0003",
-				"amount": 20,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 5,
-				"family": "fam_0003",
-				"minute": 7530,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0004",
-				"amount": -7,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7530,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0004",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 5,
-				"family": "fam_0003",
-				"minute": 7530,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0005",
-				"amount": -7,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7530,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0005",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 5,
-				"family": "fam_0004",
-				"minute": 7530,
-				"ref": "wage"
-			},
-			{
-				"actor": "",
-				"amount": -20,
-				"building": "bld_0001",
-				"category": "upkeep",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7530,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "",
-				"amount": -20,
-				"building": "bld_0002",
-				"category": "upkeep",
-				"day": 5,
-				"family": "fam_0002",
-				"minute": 7530,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "",
-				"amount": -20,
-				"building": "bld_0012",
-				"category": "upkeep",
-				"day": 5,
-				"family": "fam_0011",
-				"minute": 7530,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "",
-				"amount": -20,
-				"building": "bld_0013",
-				"category": "upkeep",
-				"day": 5,
-				"family": "fam_0012",
-				"minute": 7530,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "",
-				"amount": -20,
-				"building": "bld_0014",
-				"category": "upkeep",
-				"day": 5,
-				"family": "fam_0013",
-				"minute": 7530,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "",
-				"amount": -15,
-				"building": "bld_0015",
-				"category": "upkeep",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7530,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "chr_0004",
-				"amount": 5,
-				"building": "",
-				"category": "offices",
-				"day": 5,
-				"family": "fam_0003",
-				"minute": 7530,
-				"ref": "office_judge"
-			},
-			{
-				"actor": "chr_0003",
-				"amount": 4,
-				"building": "",
-				"category": "offices",
-				"day": 5,
-				"family": "fam_0003",
-				"minute": 7530,
-				"ref": "office_constable"
-			},
-			{
-				"actor": "chr_0021",
-				"amount": 128,
-				"building": "",
-				"category": "contracts",
-				"day": 5,
-				"family": "fam_0012",
-				"minute": 7609,
-				"ref": "ctr_0021"
-			},
-			{
-				"actor": "chr_0002",
-				"amount": -20,
-				"building": "",
-				"category": "purchases",
-				"day": 5,
-				"family": "fam_0002",
-				"minute": 7697,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0023",
-				"amount": -56,
-				"building": "",
-				"category": "purchases",
-				"day": 5,
-				"family": "fam_0013",
-				"minute": 7709,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0002",
-				"amount": -126,
-				"building": "",
-				"category": "purchases",
-				"day": 5,
-				"family": "fam_0002",
-				"minute": 7710,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0023",
-				"amount": -10,
-				"building": "",
-				"category": "purchases",
-				"day": 5,
-				"family": "fam_0013",
-				"minute": 7722,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -63,
-				"building": "bld_0015",
-				"category": "purchases",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7737,
-				"ref": "dlv_0020"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -13,
-				"building": "bld_0015",
-				"category": "errands",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7737,
-				"ref": "dlv_0020"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -40,
-				"building": "bld_0015",
-				"category": "purchases",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7738,
-				"ref": "dlv_0021"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -8,
-				"building": "bld_0015",
-				"category": "errands",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7738,
-				"ref": "dlv_0021"
-			},
-			{
-				"actor": "chr_0019",
-				"amount": 59,
-				"building": "",
-				"category": "market_sales",
-				"day": 5,
-				"family": "fam_0011",
-				"minute": 7742,
-				"ref": "sell"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -70,
-				"building": "bld_0015",
-				"category": "purchases",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7745,
-				"ref": "dlv_0022"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -14,
-				"building": "bld_0015",
-				"category": "errands",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 7745,
-				"ref": "dlv_0022"
-			},
-			{
-				"actor": "chr_0021",
-				"amount": -72,
-				"building": "",
-				"category": "purchases",
-				"day": 5,
-				"family": "fam_0012",
-				"minute": 7753,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0019",
-				"amount": 70,
-				"building": "",
-				"category": "market_sales",
-				"day": 5,
-				"family": "fam_0011",
-				"minute": 7865,
-				"ref": "sell"
-			},
-			{
-				"actor": "chr_0019",
-				"amount": -14,
-				"building": "",
-				"category": "purchases",
-				"day": 5,
-				"family": "fam_0011",
-				"minute": 7876,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0019",
-				"amount": -180,
-				"building": "",
-				"category": "purchases",
-				"day": 5,
-				"family": "fam_0011",
-				"minute": 7889,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0023",
-				"amount": 32,
-				"building": "",
-				"category": "market_sales",
-				"day": 5,
-				"family": "fam_0013",
-				"minute": 8338,
-				"ref": "sell"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8358,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8361,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8377,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "chr_0021",
-				"amount": 55,
-				"building": "",
-				"category": "market_sales",
-				"day": 5,
-				"family": "fam_0012",
-				"minute": 8388,
-				"ref": "sell"
-			},
-			{
-				"actor": "chr_0021",
-				"amount": 52,
-				"building": "",
-				"category": "market_sales",
-				"day": 5,
-				"family": "fam_0012",
-				"minute": 8389,
-				"ref": "sell"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8391,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8402,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8404,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8417,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 12,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8422,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8424,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8444,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8450,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8465,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8478,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8479,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8504,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8504,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8510,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8513,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 5,
-				"family": "fam_0001",
-				"minute": 8526,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "chr_0003",
-				"amount": -20,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9030,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0003",
-				"amount": 20,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 6,
-				"family": "fam_0003",
-				"minute": 9030,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0004",
-				"amount": -7,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9030,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0004",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 6,
-				"family": "fam_0003",
-				"minute": 9030,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0005",
-				"amount": -7,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9030,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0005",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 6,
-				"family": "fam_0004",
-				"minute": 9030,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0006",
-				"amount": -7,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9030,
-				"ref": "wage"
-			},
-			{
-				"actor": "chr_0006",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "wages",
-				"day": 6,
-				"family": "fam_0004",
-				"minute": 9030,
-				"ref": "wage"
-			},
-			{
-				"actor": "",
-				"amount": -20,
-				"building": "bld_0001",
-				"category": "upkeep",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9030,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "",
-				"amount": -20,
-				"building": "bld_0002",
-				"category": "upkeep",
-				"day": 6,
-				"family": "fam_0002",
-				"minute": 9030,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "",
-				"amount": -20,
-				"building": "bld_0012",
-				"category": "upkeep",
-				"day": 6,
-				"family": "fam_0011",
-				"minute": 9030,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "",
-				"amount": -20,
-				"building": "bld_0013",
-				"category": "upkeep",
-				"day": 6,
-				"family": "fam_0012",
-				"minute": 9030,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "",
-				"amount": -20,
-				"building": "bld_0014",
-				"category": "upkeep",
-				"day": 6,
-				"family": "fam_0013",
-				"minute": 9030,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "",
-				"amount": -15,
-				"building": "bld_0015",
-				"category": "upkeep",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9030,
-				"ref": "upkeep"
-			},
-			{
-				"actor": "chr_0004",
-				"amount": 5,
-				"building": "",
-				"category": "offices",
-				"day": 6,
-				"family": "fam_0003",
-				"minute": 9030,
-				"ref": "office_judge"
-			},
-			{
-				"actor": "chr_0003",
-				"amount": 4,
-				"building": "",
-				"category": "offices",
-				"day": 6,
-				"family": "fam_0003",
-				"minute": 9030,
-				"ref": "office_constable"
-			},
-			{
-				"actor": "chr_0002",
-				"amount": -12,
-				"building": "",
-				"category": "purchases",
-				"day": 6,
-				"family": "fam_0002",
-				"minute": 9167,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0002",
-				"amount": -54,
-				"building": "",
-				"category": "purchases",
-				"day": 6,
-				"family": "fam_0002",
-				"minute": 9180,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -144,
-				"building": "bld_0015",
-				"category": "purchases",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9207,
-				"ref": "dlv_0023"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -29,
-				"building": "bld_0015",
-				"category": "errands",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9207,
-				"ref": "dlv_0023"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -4,
-				"building": "bld_0015",
-				"category": "purchases",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9208,
-				"ref": "dlv_0024"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -1,
-				"building": "bld_0015",
-				"category": "errands",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9208,
-				"ref": "dlv_0024"
-			},
-			{
-				"actor": "chr_0019",
-				"amount": -6,
-				"building": "",
-				"category": "purchases",
-				"day": 6,
-				"family": "fam_0011",
-				"minute": 9213,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0021",
-				"amount": -60,
-				"building": "",
-				"category": "purchases",
-				"day": 6,
-				"family": "fam_0012",
-				"minute": 9227,
-				"ref": "buy"
-			},
-			{
-				"actor": "",
-				"amount": 11,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9691,
-				"ref": "inn_bed"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9717,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "chr_0019",
-				"amount": 59,
-				"building": "",
-				"category": "market_sales",
-				"day": 6,
-				"family": "fam_0011",
-				"minute": 9752,
-				"ref": "sell"
-			},
-			{
-				"actor": "chr_0021",
-				"amount": 11,
-				"building": "",
-				"category": "market_sales",
-				"day": 6,
-				"family": "fam_0012",
-				"minute": 9758,
-				"ref": "sell"
-			},
-			{
-				"actor": "chr_0021",
 				"amount": 10,
-				"building": "",
-				"category": "market_sales",
-				"day": 6,
-				"family": "fam_0012",
-				"minute": 9759,
-				"ref": "sell"
-			},
-			{
-				"actor": "",
-				"amount": 8,
 				"building": "bld_0015",
 				"category": "services",
-				"day": 6,
+				"day": 4,
 				"family": "fam_0001",
-				"minute": 9769,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 8,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9812,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 8,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9845,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 8,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9851,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 11,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9858,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 11,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9864,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 8,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9869,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 8,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9871,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 17,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9883,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9887,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 11,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9896,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 22,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9899,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9900,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9902,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9905,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9906,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9920,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 7,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9925,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 17,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9931,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 14,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9932,
-				"ref": "inn_bill"
-			},
-			{
-				"actor": "",
-				"amount": 11,
-				"building": "bld_0015",
-				"category": "services",
-				"day": 6,
-				"family": "fam_0001",
-				"minute": 9940,
+				"minute": 6996,
 				"ref": "inn_bill"
 			}
 		],
@@ -11168,13 +9517,11 @@
 	"map_id": "town_e",
 	"market": {
 		"demand": {
-			"ashlar": 0.92,
-			"barrel": 1,
+			"barrel": 0.9600000000000001,
 			"chest": 0.9600000000000001,
-			"sword": 1,
-			"travel_cloak": 1,
-			"trough": 1,
-			"work_clothes": 1
+			"sword": 0.8400000000000001,
+			"travel_cloak": 0.92,
+			"trough": 0.9600000000000001
 		},
 		"regulations": []
 	},
@@ -11187,7 +9534,6 @@
 	"microevents": {
 		"active": [],
 		"cooldowns": {
-			"night_thief|bld_0012": 12,
 			"night_thief|bld_0013": 10,
 			"night_thief|bld_0014": 11,
 			"sick_employee|bld_0015": 11
@@ -11195,7 +9541,6 @@
 		"last_day": {
 			"fam_0001": 4,
 			"fam_0002": 1,
-			"fam_0011": 5,
 			"fam_0012": 3,
 			"fam_0013": 4
 		},
@@ -11203,17 +9548,17 @@
 	},
 	"next_ids": {
 		"bld": 16,
-		"chr": 67,
-		"ctr": 30,
-		"dlv": 25,
+		"chr": 59,
+		"ctr": 24,
+		"dlv": 20,
 		"fam": 14,
-		"fst": 10,
+		"fst": 8,
 		"gev": 2,
-		"inc": 8,
+		"inc": 6,
 		"lon": 2,
-		"mev": 5,
-		"ntc": 84,
-		"qen": 31,
+		"mev": 4,
+		"ntc": 59,
+		"qen": 30,
 		"rct": 11,
 		"rev": 2
 	},
@@ -11331,7 +9676,7 @@
 			"family": "fam_0001",
 			"id": "ntc_0008",
 			"key": "notice.loan_repaid",
-			"minute": 1507,
+			"minute": 1567,
 			"params": {
 				"lender": "moneylender",
 				"loan": "lon_0001"
@@ -11588,6 +9933,36 @@
 			"day": 2,
 			"family": "fam_0001",
 			"id": "ntc_0025",
+			"key": "notice.queue_cannot_make",
+			"minute": 3607,
+			"params": {
+				"building": "bld_0015",
+				"reason": "needs_upgrade",
+				"recipe": "tavern_garlic_soup"
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0015"
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0026",
+			"key": "notice.queue_missing_inputs",
+			"minute": 3837,
+			"params": {
+				"building": "bld_0015",
+				"reason": "missing_inputs",
+				"recipe": "tavern_garlic_soup"
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0015"
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0027",
 			"key": "notice.festival_started",
 			"minute": 3840,
 			"params": {
@@ -11601,7 +9976,7 @@
 		{
 			"day": 2,
 			"family": "fam_0001",
-			"id": "ntc_0026",
+			"id": "ntc_0028",
 			"key": "notice.festival_started",
 			"minute": 3960,
 			"params": {
@@ -11615,36 +9990,21 @@
 		{
 			"day": 2,
 			"family": "fam_0001",
-			"id": "ntc_0027",
-			"key": "notice.queue_storage_full",
-			"minute": 4004,
-			"params": {
-				"building": "bld_0015",
-				"reason": "storage_full",
-				"recipe": "tavern_garlic_soup"
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "bld_0015"
-		},
-		{
-			"day": 2,
-			"family": "fam_0001",
-			"id": "ntc_0028",
-			"key": "notice.queue_stalled",
-			"minute": 4004,
-			"params": {
-				"building": "bld_0015",
-				"reason": "storage_full"
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "bld_0015"
-		},
-		{
-			"day": 2,
-			"family": "fam_0001",
 			"id": "ntc_0029",
+			"key": "notice.queue_stalled",
+			"minute": 4019,
+			"params": {
+				"building": "bld_0015",
+				"reason": "missing_inputs"
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0015"
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0030",
 			"key": "notice.life.altercation",
 			"minute": 4020,
 			"params": {
@@ -11660,21 +10020,6 @@
 			"read": false,
 			"severity": "urgent",
 			"target": ""
-		},
-		{
-			"day": 2,
-			"family": "fam_0001",
-			"id": "ntc_0030",
-			"key": "notice.queue_storage_full",
-			"minute": 4028,
-			"params": {
-				"building": "bld_0015",
-				"reason": "storage_full",
-				"recipe": "tavern_brew_ale"
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "bld_0015"
 		},
 		{
 			"day": 2,
@@ -11703,8 +10048,8 @@
 			"key": "notice.life.altercation",
 			"minute": 4080,
 			"params": {
-				"a": "Joan",
-				"b": "Pau",
+				"a": "Pau",
+				"b": "Violant",
 				"band": 0,
 				"fine": 0,
 				"gold": 0,
@@ -11723,8 +10068,8 @@
 			"key": "notice.life.altercation",
 			"minute": 4140,
 			"params": {
-				"a": "Guillem",
-				"b": "Elisenda",
+				"a": "Joan",
+				"b": "Sança",
 				"band": 0,
 				"fine": 0,
 				"gold": 0,
@@ -11737,29 +10082,9 @@
 			"target": ""
 		},
 		{
-			"day": 2,
-			"family": "fam_0001",
-			"id": "ntc_0034",
-			"key": "notice.life.altercation_fought",
-			"minute": 4167,
-			"params": {
-				"a": "Guillem",
-				"b": "Elisenda",
-				"band": 0,
-				"fine": 0,
-				"gold": 0,
-				"items": 0,
-				"place": "nest.road",
-				"ransom": 0
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
 			"day": 3,
 			"family": "fam_0001",
-			"id": "ntc_0035",
+			"id": "ntc_0034",
 			"key": "notice.city_fair_eve",
 			"minute": 4320,
 			"params": {
@@ -11772,7 +10097,7 @@
 		{
 			"day": 3,
 			"family": "fam_0001",
-			"id": "ntc_0036",
+			"id": "ntc_0035",
 			"key": "notice.festival_started",
 			"minute": 4320,
 			"params": {
@@ -11786,7 +10111,7 @@
 		{
 			"day": 3,
 			"family": "fam_0001",
-			"id": "ntc_0037",
+			"id": "ntc_0036",
 			"key": "notice.festival_ended",
 			"minute": 4320,
 			"params": {
@@ -11799,7 +10124,7 @@
 		{
 			"day": 3,
 			"family": "fam_0001",
-			"id": "ntc_0038",
+			"id": "ntc_0037",
 			"key": "notice.festival_ended",
 			"minute": 4560,
 			"params": {
@@ -11812,65 +10137,7 @@
 		{
 			"day": 3,
 			"family": "fam_0001",
-			"id": "ntc_0039",
-			"key": "notice.queue_empty",
-			"minute": 4831,
-			"params": {
-				"building": "bld_0015",
-				"reason": "empty_queue"
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "bld_0015"
-		},
-		{
-			"day": 3,
-			"family": "fam_0001",
-			"id": "ntc_0040",
-			"key": "notice.queue_storage_full",
-			"minute": 5036,
-			"params": {
-				"building": "bld_0015",
-				"reason": "storage_full",
-				"recipe": "tavern_meat_pie"
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "bld_0015"
-		},
-		{
-			"day": 3,
-			"family": "fam_0001",
-			"id": "ntc_0041",
-			"key": "notice.queue_storage_full",
-			"minute": 5036,
-			"params": {
-				"building": "bld_0015",
-				"reason": "storage_full",
-				"recipe": "tavern_brew_ale"
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "bld_0015"
-		},
-		{
-			"day": 3,
-			"family": "fam_0001",
-			"id": "ntc_0042",
-			"key": "notice.queue_stalled",
-			"minute": 5036,
-			"params": {
-				"building": "bld_0015",
-				"reason": "storage_full"
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "bld_0015"
-		},
-		{
-			"day": 3,
-			"family": "fam_0001",
-			"id": "ntc_0043",
+			"id": "ntc_0038",
 			"key": "notice.festival_eve",
 			"minute": 5040,
 			"params": {
@@ -11885,7 +10152,7 @@
 		{
 			"day": 3,
 			"family": "fam_0001",
-			"id": "ntc_0044",
+			"id": "ntc_0039",
 			"key": "notice.festival_eve",
 			"minute": 5040,
 			"params": {
@@ -11899,38 +10166,8 @@
 		},
 		{
 			"day": 3,
-			"family": "fam_0001",
-			"id": "ntc_0045",
-			"key": "notice.queue_storage_full",
-			"minute": 5048,
-			"params": {
-				"building": "bld_0015",
-				"reason": "storage_full",
-				"recipe": "tavern_garlic_soup"
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "bld_0015"
-		},
-		{
-			"day": 3,
-			"family": "fam_0001",
-			"id": "ntc_0046",
-			"key": "notice.queue_storage_full",
-			"minute": 5048,
-			"params": {
-				"building": "bld_0015",
-				"reason": "storage_full",
-				"recipe": "tavern_stew"
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "bld_0015"
-		},
-		{
-			"day": 3,
 			"family": "fam_0011",
-			"id": "ntc_0047",
+			"id": "ntc_0040",
 			"key": "notice.contract_due",
 			"minute": 5220,
 			"params": {
@@ -11947,7 +10184,7 @@
 		{
 			"day": 3,
 			"family": "fam_0011",
-			"id": "ntc_0048",
+			"id": "ntc_0041",
 			"key": "notice.contract_expired",
 			"minute": 5340,
 			"params": {
@@ -11965,12 +10202,12 @@
 		{
 			"day": 3,
 			"family": "fam_0001",
-			"id": "ntc_0049",
+			"id": "ntc_0042",
 			"key": "notice.life.altercation",
 			"minute": 5520,
 			"params": {
 				"a": "Joan",
-				"b": "Pau",
+				"b": "Violant",
 				"band": 0,
 				"fine": 0,
 				"gold": 0,
@@ -11985,7 +10222,7 @@
 		{
 			"day": 4,
 			"family": "fam_0001",
-			"id": "ntc_0050",
+			"id": "ntc_0043",
 			"key": "notice.event_started",
 			"minute": 5760,
 			"params": {
@@ -11999,7 +10236,7 @@
 		{
 			"day": 4,
 			"family": "fam_0001",
-			"id": "ntc_0051",
+			"id": "ntc_0044",
 			"key": "notice.festival_ended",
 			"minute": 5760,
 			"params": {
@@ -12012,7 +10249,36 @@
 		{
 			"day": 4,
 			"family": "fam_0001",
-			"id": "ntc_0052",
+			"id": "ntc_0045",
+			"key": "notice.upgrade_done",
+			"minute": 5767,
+			"params": {
+				"building": "bld_0015",
+				"upgrade": "tavern_inn_hall_1"
+			},
+			"read": false,
+			"severity": "info",
+			"target": "bld_0015"
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0046",
+			"key": "notice.queue_cannot_make",
+			"minute": 5767,
+			"params": {
+				"building": "bld_0015",
+				"reason": "needs_upgrade",
+				"recipe": "tavern_garlic_soup"
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0015"
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0047",
 			"key": "notice.microevent.sick_employee",
 			"minute": 6090,
 			"params": {
@@ -12028,7 +10294,7 @@
 		{
 			"day": 4,
 			"family": "fam_0001",
-			"id": "ntc_0053",
+			"id": "ntc_0048",
 			"key": "notice.festival_started",
 			"minute": 6120,
 			"params": {
@@ -12042,7 +10308,7 @@
 		{
 			"day": 4,
 			"family": "fam_0001",
-			"id": "ntc_0054",
+			"id": "ntc_0049",
 			"key": "notice.microevent_done",
 			"minute": 6210,
 			"params": {
@@ -12056,7 +10322,7 @@
 		{
 			"day": 4,
 			"family": "fam_0001",
-			"id": "ntc_0055",
+			"id": "ntc_0050",
 			"key": "notice.festival_eve",
 			"minute": 6480,
 			"params": {
@@ -12071,7 +10337,7 @@
 		{
 			"day": 4,
 			"family": "fam_0012",
-			"id": "ntc_0056",
+			"id": "ntc_0051",
 			"key": "notice.contract_due",
 			"minute": 6660,
 			"params": {
@@ -12088,7 +10354,52 @@
 		{
 			"day": 4,
 			"family": "fam_0001",
-			"id": "ntc_0057",
+			"id": "ntc_0052",
+			"key": "notice.queue_storage_full",
+			"minute": 6737,
+			"params": {
+				"building": "bld_0015",
+				"reason": "storage_full",
+				"recipe": "tavern_brew_ale"
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0015"
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0053",
+			"key": "notice.queue_storage_full",
+			"minute": 6737,
+			"params": {
+				"building": "bld_0015",
+				"reason": "storage_full",
+				"recipe": "tavern_garlic_soup"
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0015"
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0054",
+			"key": "notice.queue_storage_full",
+			"minute": 6737,
+			"params": {
+				"building": "bld_0015",
+				"reason": "storage_full",
+				"recipe": "tavern_stew"
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0015"
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0055",
 			"key": "notice.festival_started",
 			"minute": 6780,
 			"params": {
@@ -12102,7 +10413,7 @@
 		{
 			"day": 4,
 			"family": "fam_0012",
-			"id": "ntc_0058",
+			"id": "ntc_0056",
 			"key": "notice.contract_expired",
 			"minute": 6780,
 			"params": {
@@ -12120,106 +10431,12 @@
 		{
 			"day": 4,
 			"family": "fam_0001",
-			"id": "ntc_0059",
-			"key": "notice.life.altercation",
-			"minute": 7020,
-			"params": {
-				"a": "Clara",
-				"b": "Elisenda",
-				"band": 0,
-				"fine": 0,
-				"gold": 0,
-				"items": 0,
-				"place": "nest.road",
-				"ransom": 0
-			},
-			"read": false,
-			"severity": "urgent",
-			"target": ""
-		},
-		{
-			"day": 4,
-			"family": "fam_0001",
-			"id": "ntc_0060",
-			"key": "notice.life.altercation_fought",
-			"minute": 7047,
-			"params": {
-				"a": "Clara",
-				"b": "Elisenda",
-				"band": 0,
-				"fine": 0,
-				"gold": 0,
-				"items": 0,
-				"place": "nest.road",
-				"ransom": 0
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 4,
-			"family": "fam_0001",
-			"id": "ntc_0061",
-			"key": "notice.festival_ended",
-			"minute": 7080,
-			"params": {
-				"festival": "pilgrimage"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 5,
-			"family": "fam_0001",
-			"id": "ntc_0062",
-			"key": "notice.city_fair_eve",
-			"minute": 7200,
-			"params": {
-				"city": "region.quarry"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 5,
-			"family": "fam_0001",
-			"id": "ntc_0063",
-			"key": "notice.festival_started",
-			"minute": 7200,
-			"params": {
-				"festival": "all_saints_matanza",
-				"sponsors": ""
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 5,
-			"family": "fam_0001",
-			"id": "ntc_0064",
-			"key": "notice.upgrade_done",
-			"minute": 7207,
+			"id": "ntc_0057",
+			"key": "notice.queue_storage_full",
+			"minute": 6930,
 			"params": {
 				"building": "bld_0015",
-				"upgrade": "tavern_inn_hall_1"
-			},
-			"read": false,
-			"severity": "info",
-			"target": "bld_0015"
-		},
-		{
-			"day": 5,
-			"family": "fam_0001",
-			"id": "ntc_0065",
-			"key": "notice.queue_cannot_make",
-			"minute": 7207,
-			"params": {
-				"building": "bld_0015",
-				"reason": "needs_upgrade",
+				"reason": "storage_full",
 				"recipe": "tavern_garlic_soup"
 			},
 			"read": false,
@@ -12227,303 +10444,19 @@
 			"target": "bld_0015"
 		},
 		{
-			"day": 5,
+			"day": 4,
 			"family": "fam_0001",
-			"id": "ntc_0066",
-			"key": "notice.festival_ended",
-			"minute": 7320,
-			"params": {
-				"festival": "st_michael"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 5,
-			"family": "fam_0001",
-			"id": "ntc_0067",
-			"key": "notice.festival_eve",
-			"minute": 7920,
-			"params": {
-				"contracts": 4,
-				"festival": "christmas",
-				"when": "00:00"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 5,
-			"family": "fam_0002",
-			"id": "ntc_0068",
-			"key": "notice.contract_due",
-			"minute": 8100,
-			"params": {
-				"client": "town_council",
-				"contract": "ctr_0019",
-				"hours": 2,
-				"item": "butcher_knife",
-				"qty": 3
-			},
-			"read": false,
-			"severity": "urgent",
-			"target": "chr_0002"
-		},
-		{
-			"day": 5,
-			"family": "fam_0011",
-			"id": "ntc_0069",
-			"key": "notice.contract_due",
-			"minute": 8100,
-			"params": {
-				"client": "town_council",
-				"contract": "ctr_0020",
-				"hours": 2,
-				"item": "stage",
-				"qty": 1
-			},
-			"read": false,
-			"severity": "urgent",
-			"target": "chr_0019"
-		},
-		{
-			"day": 5,
-			"family": "fam_0013",
-			"id": "ntc_0070",
-			"key": "notice.contract_due",
-			"minute": 8100,
-			"params": {
-				"client": "town_council",
-				"contract": "ctr_0022",
-				"hours": 2,
-				"item": "work_clothes",
-				"qty": 3
-			},
-			"read": false,
-			"severity": "urgent",
-			"target": "chr_0023"
-		},
-		{
-			"day": 5,
-			"family": "fam_0013",
-			"id": "ntc_0071",
-			"key": "notice.contract_expired",
-			"minute": 8220,
-			"params": {
-				"client": "town_council",
-				"contract": "ctr_0022",
-				"days": 0,
-				"item": "work_clothes",
-				"qty": 3,
-				"reputation": -3
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "chr_0023"
-		},
-		{
-			"day": 5,
-			"family": "fam_0011",
-			"id": "ntc_0072",
-			"key": "notice.contract_expired",
-			"minute": 8220,
-			"params": {
-				"client": "town_council",
-				"contract": "ctr_0020",
-				"days": 0,
-				"item": "stage",
-				"qty": 1,
-				"reputation": -3
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "chr_0019"
-		},
-		{
-			"day": 5,
-			"family": "fam_0002",
-			"id": "ntc_0073",
-			"key": "notice.contract_expired",
-			"minute": 8220,
-			"params": {
-				"client": "town_council",
-				"contract": "ctr_0019",
-				"days": 0,
-				"item": "butcher_knife",
-				"qty": 3,
-				"reputation": -3
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "chr_0002"
-		},
-		{
-			"day": 6,
-			"family": "fam_0001",
-			"id": "ntc_0074",
-			"key": "notice.festival_started",
-			"minute": 8640,
-			"params": {
-				"festival": "christmas",
-				"sponsors": ""
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 6,
-			"family": "fam_0001",
-			"id": "ntc_0075",
-			"key": "notice.festival_ended",
-			"minute": 8640,
-			"params": {
-				"festival": "all_saints_matanza"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 6,
-			"family": "fam_0001",
-			"id": "ntc_0076",
-			"key": "notice.upgrade_done",
-			"minute": 8647,
+			"id": "ntc_0058",
+			"key": "notice.queue_storage_full",
+			"minute": 6930,
 			"params": {
 				"building": "bld_0015",
-				"upgrade": "tavern_inn_rooms_1"
+				"reason": "storage_full",
+				"recipe": "tavern_brew_ale"
 			},
 			"read": false,
-			"severity": "info",
+			"severity": "warning",
 			"target": "bld_0015"
-		},
-		{
-			"day": 6,
-			"family": "fam_0001",
-			"id": "ntc_0077",
-			"key": "notice.festival_eve",
-			"minute": 9360,
-			"params": {
-				"contracts": 2,
-				"festival": "carnival",
-				"when": "17:00"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 6,
-			"family": "fam_0002",
-			"id": "ntc_0078",
-			"key": "notice.contract_due",
-			"minute": 9540,
-			"params": {
-				"client": "parish_priest",
-				"contract": "ctr_0024",
-				"hours": 2,
-				"item": "candlestick",
-				"qty": 3
-			},
-			"read": false,
-			"severity": "urgent",
-			"target": "chr_0002"
-		},
-		{
-			"day": 6,
-			"family": "fam_0011",
-			"id": "ntc_0079",
-			"key": "notice.contract_due",
-			"minute": 9540,
-			"params": {
-				"client": "parish_priest",
-				"contract": "ctr_0025",
-				"hours": 2,
-				"item": "chest",
-				"qty": 1
-			},
-			"read": false,
-			"severity": "urgent",
-			"target": "chr_0019"
-		},
-		{
-			"day": 6,
-			"family": "fam_0011",
-			"id": "ntc_0080",
-			"key": "notice.contract_expired",
-			"minute": 9660,
-			"params": {
-				"client": "parish_priest",
-				"contract": "ctr_0025",
-				"days": 0,
-				"item": "chest",
-				"qty": 1,
-				"reputation": -3
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "chr_0019"
-		},
-		{
-			"day": 6,
-			"family": "fam_0002",
-			"id": "ntc_0081",
-			"key": "notice.contract_expired",
-			"minute": 9660,
-			"params": {
-				"client": "parish_priest",
-				"contract": "ctr_0024",
-				"days": 0,
-				"item": "candlestick",
-				"qty": 3,
-				"reputation": -3
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "chr_0002"
-		},
-		{
-			"day": 6,
-			"family": "fam_0001",
-			"id": "ntc_0082",
-			"key": "notice.life.altercation",
-			"minute": 9900,
-			"params": {
-				"a": "Isabel",
-				"b": "Sança",
-				"band": 0,
-				"fine": 0,
-				"gold": 0,
-				"items": 0,
-				"place": "nest.road",
-				"ransom": 0
-			},
-			"read": false,
-			"severity": "urgent",
-			"target": ""
-		},
-		{
-			"day": 6,
-			"family": "fam_0001",
-			"id": "ntc_0083",
-			"key": "notice.life.altercation_fought",
-			"minute": 9929,
-			"params": {
-				"a": "Isabel",
-				"b": "Sança",
-				"band": 0,
-				"fine": 0,
-				"gold": 0,
-				"items": 0,
-				"place": "nest.road",
-				"ransom": 0
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
 		}
 	],
 	"objectives": {
@@ -12666,7 +10599,6 @@
 					}
 				],
 				"demand": {
-					"armor": 1,
 					"cabinet": 1
 				},
 				"events": [],
@@ -12713,9 +10645,7 @@
 						"reward": 98
 					}
 				],
-				"demand": {
-					"statue": 1
-				},
+				"demand": {},
 				"events": [],
 				"reputation": {}
 			},
@@ -12742,7 +10672,14 @@
 			}
 		},
 		"contracts": [],
-		"events": [],
+		"events": [
+			{
+				"def": "flood",
+				"end": 8640,
+				"id": "rev_0001",
+				"start": 5760
+			}
+		],
 		"home": "villa",
 		"stats": {},
 		"treaties": [],
@@ -12757,9 +10694,13 @@
 			"affinity": 0,
 			"relation": 2
 		},
+		"chr_0001|chr_0009": {
+			"affinity": 0,
+			"relation": 2
+		},
 		"chr_0001|chr_0010": {
 			"affinity": 0,
-			"relation": 6
+			"relation": 2
 		},
 		"chr_0001|chr_0012": {
 			"affinity": 0,
@@ -12782,12 +10723,12 @@
 			"relation": 2
 		},
 		"chr_0002|chr_0006": {
-			"affinity": 24,
+			"affinity": 13,
 			"relation": 0,
-			"talk_day": 6
+			"talk_day": 3
 		}
 	},
-	"rng_state": "-2196480567196239729",
+	"rng_state": "-5420209624466776985",
 	"seed": "1",
 	"town": {
 		"counters": {},
@@ -12887,11 +10828,11 @@
 					"def": "altercation",
 					"ended": 4110,
 					"id": "inc_0003",
-					"instigator": "chr_0003",
+					"instigator": "chr_0005",
 					"outcome": "cooled",
 					"people": [
-						"chr_0003",
-						"chr_0005"
+						"chr_0005",
+						"chr_0018"
 					],
 					"phase": "closed",
 					"point": "meet_tavern",
@@ -12917,14 +10858,13 @@
 					},
 					"deadline": 4170,
 					"def": "altercation",
-					"ended": 4167,
-					"fight_until": 4167,
+					"ended": 4170,
 					"id": "inc_0004",
-					"instigator": "chr_0011",
-					"outcome": "fought",
+					"instigator": "chr_0003",
+					"outcome": "cooled",
 					"people": [
-						"chr_0011",
-						"chr_0008"
+						"chr_0003",
+						"chr_0012"
 					],
 					"phase": "closed",
 					"point": "meet_tavern",
@@ -12933,13 +10873,8 @@
 						27,
 						32
 					],
-					"watchers": [
-						"chr_0007",
-						"chr_0010",
-						"chr_0012"
-					],
-					"why": "drunk",
-					"winner": "chr_0011"
+					"watchers": [],
+					"why": "drunk"
 				},
 				{
 					"card": {
@@ -12961,7 +10896,7 @@
 					"outcome": "cooled",
 					"people": [
 						"chr_0003",
-						"chr_0005"
+						"chr_0018"
 					],
 					"phase": "closed",
 					"point": "meet_tavern",
@@ -12972,80 +10907,6 @@
 					],
 					"watchers": [],
 					"why": "drunk"
-				},
-				{
-					"card": {
-						"answered": false,
-						"choices": [
-							"separate",
-							"watch"
-						],
-						"default": "watch",
-						"expires": 7080,
-						"family": "fam_0001",
-						"started": 7020
-					},
-					"deadline": 7050,
-					"def": "altercation",
-					"ended": 7047,
-					"fight_until": 7047,
-					"id": "inc_0006",
-					"instigator": "chr_0006",
-					"outcome": "fought",
-					"people": [
-						"chr_0006",
-						"chr_0008"
-					],
-					"phase": "closed",
-					"point": "meet_tavern",
-					"started": 7020,
-					"tile": [
-						27,
-						32
-					],
-					"watchers": [
-						"chr_0014",
-						"chr_0016"
-					],
-					"why": "drunk",
-					"winner": "chr_0008"
-				},
-				{
-					"card": {
-						"answered": false,
-						"choices": [
-							"separate",
-							"watch"
-						],
-						"default": "watch",
-						"expires": 9960,
-						"family": "fam_0001",
-						"started": 9900
-					},
-					"deadline": 9930,
-					"def": "altercation",
-					"ended": 9929,
-					"fight_until": 9929,
-					"id": "inc_0007",
-					"instigator": "chr_0016",
-					"outcome": "fought",
-					"people": [
-						"chr_0016",
-						"chr_0012"
-					],
-					"phase": "closed",
-					"point": "meet_tavern",
-					"started": 9900,
-					"tile": [
-						27,
-						32
-					],
-					"watchers": [
-						"chr_0007",
-						"chr_0009"
-					],
-					"why": "drunk",
-					"winner": "chr_0012"
 				}
 			],
 			"last": {
@@ -13120,7 +10981,7 @@
 				{
 					"by": "chr_0001",
 					"key": "prices|capital|wheat",
-					"minute": 3324,
+					"minute": 3335,
 					"params": {
 						"city": "@region.capital",
 						"item": "@item.wheat"
@@ -13145,34 +11006,6 @@
 				},
 				{
 					"by": "chr_0001",
-					"key": "brawl|4035|altercation",
-					"minute": 4725,
-					"params": {
-						"family": "Font",
-						"name": "Margarida",
-						"target": "Violant"
-					},
-					"point": "meet_well",
-					"rumor": "brawl",
-					"text_key": "rumor.brawl",
-					"useful": false
-				},
-				{
-					"by": "chr_0001",
-					"key": "visitor_prices|chr_0052|statue",
-					"minute": 5161,
-					"params": {
-						"city": "@region.abbey",
-						"item": "@item.statue",
-						"name": "Margarida"
-					},
-					"point": "meet_tavern",
-					"rumor": "visitor_prices",
-					"text_key": "rumor.visitor_prices",
-					"useful": true
-				},
-				{
-					"by": "chr_0001",
 					"key": "event|gev_0001",
 					"minute": 5880,
 					"params": {
@@ -13183,76 +11016,69 @@
 					"rumor": "event",
 					"text_key": "rumor.event",
 					"useful": true
-				},
-				{
-					"by": "chr_0001",
-					"key": "contract|ctr_0005",
-					"minute": 7729,
-					"params": {
-						"item": "@item.armor",
-						"pay": 252,
-						"qty": 2
-					},
-					"point": "meet_atrium",
-					"rumor": "contract",
-					"text_key": "rumor.contract",
-					"useful": true
-				},
-				{
-					"by": "chr_0001",
-					"key": "brawl|4167|altercation",
-					"minute": 8760,
-					"params": {
-						"family": "Serra",
-						"name": "Guillem",
-						"target": "Elisenda"
-					},
-					"point": "inn:bld_0015",
-					"rumor": "brawl",
-					"text_key": "rumor.brawl",
-					"useful": false
-				},
-				{
-					"by": "chr_0001",
-					"key": "brawl|7047|altercation",
-					"minute": 9210,
-					"params": {
-						"family": "Puig",
-						"name": "Clara",
-						"target": "Elisenda"
-					},
-					"point": "meet_atrium",
-					"rumor": "brawl",
-					"text_key": "rumor.brawl",
-					"useful": false
 				}
 			],
 			"told": {
-				"meet_tavern": {
+				"meet_atrium": {
 					"key": "contract|ctr_0005",
-					"listeners": 4,
+					"listeners": 2,
 					"params": {
 						"item": "@item.armor",
 						"pay": 252,
 						"qty": 2
 					},
-					"point": "meet_tavern",
+					"point": "meet_atrium",
 					"rumor": "contract",
 					"speaker": "chr_0007",
 					"text_key": "rumor.contract",
 					"topic": "prices",
-					"until": 9990,
+					"until": 7010,
 					"useful": true,
+					"weight": 0.8
+				},
+				"meet_tavern": {
+					"key": "visitor|chr_0058",
+					"listeners": 4,
+					"params": {
+						"city": "@region.quarry",
+						"kind": "@visitor.pilgrim",
+						"name": "Joan"
+					},
+					"point": "meet_tavern",
+					"rumor": "visitor",
+					"speaker": "chr_0008",
+					"text_key": "rumor.visitor",
+					"topic": "visitor",
+					"until": 7050,
+					"useful": false,
+					"weight": 0.8
+				},
+				"meet_well": {
+					"key": "visitor|chr_0058",
+					"listeners": 2,
+					"params": {
+						"city": "@region.quarry",
+						"kind": "@visitor.pilgrim",
+						"name": "Joan"
+					},
+					"point": "meet_well",
+					"rumor": "visitor",
+					"speaker": "chr_0017",
+					"text_key": "rumor.visitor",
+					"topic": "visitor",
+					"until": 7030,
+					"useful": false,
 					"weight": 0.8
 				}
 			}
 		},
 		"visitors": {
 			"alive": [
-				"chr_0063"
+				"chr_0057",
+				"chr_0058"
 			],
 			"alms": {},
-			"day": 6,
+			"day": 4,
 			"planned": []
 		},
 		"watch": {

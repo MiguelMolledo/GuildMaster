@@ -23,6 +23,8 @@ const ROLES: Array = ["kitchen", "bar", "rooms", "tables"]
 const RESERVE: int = 80
 ## Days of running costs (upkeep of the family's buildings and wages) kept before repaying the debt or building.
 const RESERVE_DAYS: int = 3
+## Shopping order (lower first) when the purse does not reach for everything.
+const BUY_FIRST: Dictionary = {"wheat": 0, "wood": 1, "meat": 2, "flour": 3, "wine": 20, "cider": 30, "bread": 40}
 
 var _tavern: String = ""
 var _hero: String = ""
@@ -173,8 +175,11 @@ func _running_costs(sim: Sim) -> int:
 		if str(st.buildings[b].get("owner", "")) != _fam:
 			continue
 		total += int(sim.catalog.buildings().get(str(st.buildings[b].get("type", "")), {}).get("upkeep", 0))
-		for e: String in Staff.employees_of(st, b):
+		var hired := Staff.employees_of(st, b)
+		for e: String in hired:
 			total += Staff.wage(sim, e)
+		if b == _tavern:  # the places it will fill soon count at an apprentice's wage (the reserve before the hires)
+			total += maxi(0, Staff.slots(st, b) - hired.size()) * int(sim.catalog.rank("apprentice").get("wage", 7))
 	return total
 
 
@@ -280,7 +285,12 @@ func _shopping_list(sim: Sim) -> Array:
 	var out: Array = []
 	var gold := Money.gold(st, _fam) - RESERVE / 2
 	var items: Array = need.keys()
-	items.sort()
+	# the best margin first (the ale's wheat and wood, then the kitchen's meat and flour); what is sold as bought (bread,
+	# cider, wine) last: alphabetical order spent the purse on bread before the ale had its wheat
+	items.sort_custom(func(a: String, b: String) -> bool:
+		var pa := int(BUY_FIRST.get(a, 50))
+		var pb := int(BUY_FIRST.get(b, 50))
+		return pa < pb if pa != pb else a < b)
 	for it: String in items:
 		var qty := int(need[it]) - Inventory.count(inv, it)
 		if qty <= 0:

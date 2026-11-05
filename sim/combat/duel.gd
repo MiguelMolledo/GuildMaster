@@ -22,12 +22,14 @@ var d: Dictionary = {}
 ## A new duel. a: the challenger, b: the challenged (CombatRules.fighter). player: the side the player plays (-1: none,
 ## the AI plays both: a duel between NPCs). kind: a data/combat.json "kinds" id (a locked kind is refused: ok false).
 static func create(combat: Dictionary, id: String, seed: int, a: Dictionary, b: Dictionary, kind: String,
-		player: int = -1) -> Duel:
+		player: int = -1, start_breath: Array = []) -> Duel:
 	var du := Duel.new()
 	du.cfg = combat
 	var k: Dictionary = (combat.get("kinds", {}) as Dictionary).get(kind, {})
 	du.d = {"id": id, "seed": seed, "kind": kind, "fighters": [a.duplicate(), b.duplicate()], "player": player,
-		"breath": [CombatRules.breath_max(combat, a), CombatRules.breath_max(combat, b)], "touches": [0, 0],
+		"breath": [mini(int(start_breath[0]), CombatRules.breath_max(combat, a)),
+			mini(int(start_breath[1]), CombatRules.breath_max(combat, b))] if start_breath.size() == 2
+			else [CombatRules.breath_max(combat, a), CombatRules.breath_max(combat, b)], "touches": [0, 0],
 		"lance": 0, "history": [[], []], "log": [], "over": false, "winner": -1, "end": "", "yielded": -1,
 		"ok": not k.is_empty() and not bool(k.get("locked", false)), "pending": {}}
 	if not bool(du.d["ok"]):

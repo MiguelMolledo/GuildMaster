@@ -1,0 +1,106 @@
+{
+ "version": 1,
+ "_doc": "Personajes nuevos de H16 (docs/gdd/04f_vida_y_fiestas.md §4.28.3) como PALETAS para el shader de identidad\n(game/visuals/characters/identity_swap.gdshader) sobre los sprites que ya hay, hasta que PixelLab haga los suyos\n(ciclo del 15-nov; la lista está en assets/art/MANIFEST.md, «Lista de la compra · PixelLab»).",
+ "looks": {
+  "guard": {
+   "base": {
+    "m": "worker_m",
+    "f": "worker_f"
+   },
+   "primary": "#33508a",
+   "secondary": "#c8a84e",
+   "hair": null,
+   "note": "guardia de la villa: librea azul del concejo con ribete dorado (sin armadura hasta PixelLab)"
+  },
+  "bandit": {
+   "base": {
+    "m": "townsfolk_m",
+    "f": "townsfolk_f"
+   },
+   "primary": "#3a362c",
+   "secondary": "#5c4630",
+   "hair": null,
+   "note": "bandido: ropa parda y oscura"
+  },
+  "minstrel": {
+   "base": {
+    "m": "townsfolk_m",
+    "f": "townsfolk_f"
+   },
+   "primary": "#c04040",
+   "secondary": "#e2c040",
+   "hair": null,
+   "note": "juglar: rojo y amarillo, de colores vivos"
+  },
+  "foreign_merchant": {
+   "base": {
+    "m": "townsfolk_m",
+    "f": "townsfolk_f"
+   },
+   "primary": "#5e3a80",
+   "secondary": "#d8bc8c",
+   "hair": null,
+   "note": "mercader forastero: morado y tostado, ropa de otra ciudad"
+  },
+  "pilgrim": {
+   "base": {
+    "m": "townsfolk_m",
+    "f": "townsfolk_f"
+   },
+   "primary": "#7c6c52",
+   "secondary": "#d8d0b8",
+   "hair": null,
+   "note": "peregrino: capa parda y esclavina clara"
+  },
+  "noble": {
+   "base": {
+    "m": "worker_m",
+    "f": "worker_f"
+   },
+   "primary": "#861a28",
+   "secondary": "#e2c070",
+   "hair": null,
+   "note": "noble: carmesí y oro"
+  },
+  "retinue": {
+   "base": {
+    "m": "worker_m",
+    "f": "worker_f"
+   },
+   "primary": "#24448a",
+   "secondary": "#e6e6e6",
+   "hair": null,
+   "note": "séquito del noble: librea azul y blanca"
+  },
+  "beggar": {
+   "base": {
+    "m": "townsfolk_m",
+    "f": "townsfolk_f"
+   },
+   "primary": "#5e5440",
+   "secondary": "#4c4434",
+   "hair": "#8a8478",
+   "note": "mendigo: harapos pardos y pelo gris"
+  },
+  "crier": {
+   "base": {
+    "m": "townsfolk_m",
+    "f": "townsfolk_f"
+   },
+   "primary": "#2a6a3a",
+   "secondary": "#e2c040",
+   "hair": null,
+   "note": "pregonero: verde de la villa con ribete amarillo"
+  },
+  "bookmaker": {
+   "base": {
+    "m": "townsfolk_m",
+    "f": "townsfolk_f"
+   },
+   "primary": "#5a2a2a",
+   "secondary": "#c8a84e",
+   "hair": null,
+   "note": "corredor de apuestas: granate con dorado"
+  }
+ }
+}

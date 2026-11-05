@@ -71,7 +71,8 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
 	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
-	"merchant": BotMerchant, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper}
+	"merchant": BotMerchant, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive,
+	"innkeeper": BotInnkeeper}
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
@@ -82,6 +83,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
 	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
 	# duelist: challenges the rival of the trade by the rules and plays its duels (duelo, --scenario=duel_ready)
+	# gambler: plays dice and cards in a gambling house and bets on pulsos (juegos, --scenario=games_gambler)
 	# merchant: travels to the capital, sells there, takes contracts, signs a quota, sends a caravan (viajes, 09b)
 	# guard_watch: nights with bandit raids; the watch answers, nobody loses more than the cap (vida, 04f 4.28.4)
 	# festive: artisan_expert for a year with the festivals on (fiestas, 04f 4.28.4): every feast, its contracts

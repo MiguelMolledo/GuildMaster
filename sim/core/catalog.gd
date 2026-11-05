@@ -52,6 +52,7 @@ var trade: Dictionary = {}       # data/world/trade.json: travel, city markets, 
 var festivals: Dictionary = {}   # data/festivals.json: the festival calendar (4.25, docs/gdd/04f_vida_y_fiestas.md)
 var festival_contracts: Dictionary = {}  # data/contracts/festivals.json (kind festival): taken out of contracts() (4.25.4)
 var combat: Dictionary = {}      # data/combat.json: the duel «a tres tiempos» (draft, 04e; nothing in the sim uses it yet)
+var games: Dictionary = {}       # data/games.json: the games and competitions of the fiestas and the tavern (04f §4.26)
 var life_tables: Dictionary = {}  # vida (04f 4.24): data/life/<file>.json by file name: life, activities, rumors, incidents
 ## Población: data/portraits.json, the ids of the portrait pool (exported from assets/art/portraits/index.json by
 ## tools/art/portraits_catalog.py; the sim depends on data/ only): {by: {"sex|age|type": [ids sorted]}, fallback: {type:
@@ -91,6 +92,8 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.events = c._load_json(root_dir.path_join("events.json"))
 	c.cast = c._load_json(root_dir.path_join("cast.json"))
 	c.combat = c._load_json(root_dir.path_join("combat.json"))
+	c.games = c._load_json(root_dir.path_join("games.json"))
+	c.games["_combat"] = c.combat  # the tournament's bouts are duels (sim/games/tourney.gd): the games see the duel's table
 	c.region = c._load_json(root_dir.path_join("world/region.json"))
 	c.trade = c._load_json(root_dir.path_join("world/trade.json"))
 	c.portrait_pool = c._load_json(root_dir.path_join("portraits.json"))

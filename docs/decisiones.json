@@ -614,6 +614,42 @@
       "tema": "Astra",
       "decision": "Se descarta: con fal y PixelLab basta; si el owner la recuerda, se mira.",
       "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Juegos y vida: el rescate jugado y las apuestas sobre altercados",
+      "decision": "El rescate de un secuestro (Incidents, elección rescue) se juega en la pantalla de juegos: RescueMatch es la cadena de duelos de Incidents._fights (sin jugadas da el mismo resultado tirada a tirada, medido en tests/test_games_town.gd); la orden resolve_incident lleva las jugadas (moves) y el sim la vuelve a jugar con Rescue.fight. Las apuestas sobre un altercado se hacen mientras los dos van a pegarse (fase gathering) con game_bet {incident}; el corredor cotiza con el duelo del propio suceso (BrawlMatch) y la apuesta viaja dentro del suceso (ya guardado en v17), se paga en incident_fight y se devuelve si no hay pelea. Juegos sigue sin versión de guardado propia.",
+      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Juegos 5-8: justa, sortija, carrera y toros (04f §4.26.1, §4.26.3-5)",
+      "decision": "Justa: una sola decisión por pasada entre tres posturas que forman un triángulo (al yelmo: escudo medio; al pecho: escudo bajo; al escudo: escudo alto), con iniciativa alterna y lectura como el duelo; con apuntar y cubrirse por separado (9 combinaciones) la IA no castigaba una costumbre en tres pasadas («siempre al escudo, escudo bajo» empataba o ganaba el 81 %). Yelmo −25 (desmonta), pecho +5 (2 puntos), escudo +15 (1, medio seguro). Requiere Ciudadano (reason.no_title); caballo y lanza alquilados al entrar (10) hasta que existan como objetos; favor: +15 de afinidad con la persona más cortejada. Sortija: la anilla de cada carrera es grande, mediana o pequeña (±25) para que cada ritmo sea el mejor en una. Carrera: reservar recupera 2, apretar en la meta ×1,15, caballos parejos (9,8-10,5) y ruido ±1,5; la IA usa el plan exacto (programación dinámica); el palio se paga en oro (30) hasta que exista el objeto de lujo. Toros: casta bravo/manso/resabiado, quiebro +2, pase +1, fallo −2 (con −1 quebrar siempre empataba con leer la señal); fallo = «asustado» y −1 de reputación, nunca herida (O-V5 a); quiebro +2 de reputación.",
+      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Juegos 2-4: naipes, apuestas, dados cargados y torneo de lucha (04f §4.26.2, §4.26.6-8)",
+      "decision": "Envite: las tres bazas comparan las cartas en orden (la más alta contra la más alta…) y se descubren una a una, sin elegir carta: el juego está en los envites y el farol; el gesto «contento/inquieto» dice si la mano gana a una al azar la mitad de las veces y su fiabilidad tiene base 0,70 (con dos gestos 0,50 no informa); el templado farolea un 3 % (con un 12 % perdía contra quien lo lee); uno contra uno (la mesa de muchos queda para la Posada). Apuestas: cuota = 0,9 / probabilidad del sim (60 partidas automáticas con clave) redondeada abajo a 0,05; game_bet sobre partidas de otros (mismo id, mismo ganador para las Fiestas) y bets a la propia partida; apostar contra uno mismo en un uno contra uno y perder habiendo jugado es fraude (50 % de que se note). Dados cargados (O-V10 b): objeto loaded_dice sin puesto hasta que el buhonero de la rama vida lo venda; ventaja 61 % en el azar; te pillan con 25 + (Empatía del rival − tu Destreza) × 5: pierdes apuesta y dados, hecho «trampa» (cargo cheat, nuevo en justice.json), reputación −5 y el evento game_cheat_caught. Torneo: tipos de combate tourney (9 lances, por puntos) y tourney_sudden, jueces al final; +2 de aliento entre combates; forasteros de AM 4-7 si faltan luchadores; una apuesta al ganador del torneo (no por combate) hasta que el torneo viva en el calendario de las Fiestas. Duel.create acepta el aliento inicial (parámetro opcional al final; nada más cambia en el duelo).",
+      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Juegos 1: dados y pulso (04f §4.26.7, §4.26.9)",
+      "decision": "Construidos el «azar», «tres dados a la mayor» y el pulso en sim/games/ (reglas puras, tiradas con clave, sin guardado: la partida llega al sim en una orden game_play con sus jugadas y el sim la vuelve a jugar). Cambios al construirlo: (1) azar con «reazar» (regla del Libro de los juegos: un azar al buscar la suerte propia pierde); sin él quien tiraba ganaba el 57 %, con él el 50 %; el doble es uno por partida, cuando ya se ven las dos suertes, y el otro quiere o no quiere. (2) A la mayor con un dado bajo el cubilete (con los tres a la vista la decisión era evidente); todos deciden a la vez. (3) Pulso: empujar gana a ceder, ceder a aguantar, aguantar a empujar; empujar y ceder gastan 1 y aguantar recupera 2 (con empujar a 2, «siempre ceder» ganaba el 57 %); todo empuje tiene ganador. Casa de juego: el 10 % de lo que gana el ganador para el dueño (O-V8, con tope de 50 también al doblar y aviso por perder más de 100 en el día). Medido con tools/games_bench.gd (04f §4.26.10): resolver sin jugar = jugar bien partida a partida; al azar y las políticas fijas pierden.",
+      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Arte de H16-H17 (04f §4.28.3 y 03b §3b.2): cómo se entrega",
+      "decision": "(1) Batir en la Forja viva: los «3 golpes» son las tres clases de golpe de 03b (fuerte, medido y de acabado: strike_strong/measured/finish), con el yunque y el martillo también sueltos para animarlos; no tres fotogramas de un golpe. (2) La Taberna-Posada usa la huella y la puerta de la carpintería (3×4, Door (-40, 12)), pero su lienzo es 20 px más alto por las dos plantas (192×230, Sprite offset (-104, -158)). (3) Los props de fiesta llevan la huella en metadata/footprint del nodo raíz (no tienen Door) y Feet en el centro del rombo de la huella. (4) Los naipes (48×72) y los dados se componen con Pillow sobre piezas de fal (palos y figuras), para que el número de palos y de puntos sea exacto. (5) Los personajes nuevos van, hasta PixelLab, como paletas del shader de identidad en assets/art/characters/looks.json (sprite base por sexo y colores de ropa), fuera de data/ para no pisar al worker de vida.",
+      "por_que": "Lo pedía el encargo o lo exige el juego: legibilidad (golpes que se distinguen), encajar en las escenas que ya existen (lienzo, ancla, puerta y huella) y exactitud donde el modelo falla (contar palos y puntos)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Arte de los minijuegos (04f §4.26): medidas de los fondos y del galope",
+      "decision": "(1) Los fondos de tablero van a 440×192 nativos ×2 = 880×384 (21:9), no a 16:9 como la mesa: el tablero (404×180 como mínimo) recorta abajo y en el centro a ½, y en 16:9 perdería el tercio de arriba. (2) La pista de la carrera va a 404×192 ×2 = 808×384, sin recorte lateral, para que la salida y la meta queden dentro. (3) El galope se entrega en race/horse_run.png (tira de 4 de 28×18) y race/horse.png es el primer fotograma suelto, porque board_race.gd dibuja horse.png entero a 28×18 (una tira de 112 se aplastaría); el tablero puede pasar a la tira cuando quiera. (4) El cubilete se dibuja con Pillow (24×24, boca abajo): el de fal salía con la boca arriba. (5) En la calle de la sortija el travesaño va sin nada colgado (la anilla la pinta el tablero): con cuerda parecía una horca.",
+      "por_que": "Que el arte encaje con lo que el código de juegos ya hace (recorte a ½ abajo y al centro, tamaño de dibujo del caballo) sin pedirle cambios, y que se lea bien."
     }
   ],
   "pendientes": [
