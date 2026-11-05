@@ -58,6 +58,7 @@ var hovered_building: String = ""
 var hovered_character: String = ""
 var _idle_minute: int = -1
 var _player_family: String = ""
+var plot_layer := PlotLayer.new()  # parcelas (04 §4.9.1): free lots, ruins and the «Se vende» signs
 var festival_layer := FestivalLayer.new()  # fiestas (04f 4.25.3): the decoration of the festivals in force
 var _festive: Dictionary = {}  # the clothes' look in force ({} = everyday)
 var _see_through: Array = []  # tall visuals (buildings, filler houses) that fade while they hide the selected person
@@ -163,6 +164,8 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 			objects().add_child(p)
 			_props[t] = p
 			n_blocks += 1
+	plot_layer.setup(self)
+	n_blocks += plot_layer.build(c.maps().get(s.map_id, {}), s, filler)  # before the decor: its tiles get no filler
 	n_blocks += _add_decor(c.maps().get(s.map_id, {}).get("decor", {}), filler, owned)
 	n_blocks += _add_filler(filler)
 	n_blocks += _add_border_trees()
@@ -986,6 +989,7 @@ func sync(frac: float) -> void:
 		v.follow(ch, _minutes_per_tile, frac)
 		v.follow_badge(state, _player_family)
 		_follow_town(id, v)
+	_take_turns()
 	spread_bubbles()
 	if int(state.clock["minute"]) != _idle_minute:
 		_idle_minute = int(state.clock["minute"])
@@ -1052,6 +1056,125 @@ func _hides(n: Node2D, who: Node2D) -> bool:
 	return false
 
 
+## Plantillas: in a corrillo (the people at the seats of one meeting point, Rumors.corrillos) at most TURN_SHOWN of
+## them show their bubble or their phrase at a time; the second a little higher (TURN_RAISE) and its turn starting
+## half a turn later, so the two never change together; the rest wait their turn (TURN_MINUTES game minutes each,
+## round the group in id order). The groups are worked out once per game minute. View only.
+const TURN_SHOWN: int = 2
+const TURN_MINUTES: int = 20
+const TURN_RAISE: float = 13.0
+var _turn_minute: int = -1
+var _turn_groups: Dictionary = {}  # meeting point -> [chr] (Rumors.corrillos of _turn_minute)
+var turns: Dictionary = {}         # chr -> "shown" | "raised" | "waiting" (tests, smoke)
+var turns_enabled: bool = true     # off: every bubble and phrase at once, as before (the smoke's «antes» shot)
+
+
+func _take_turns() -> void:
+	turns = {}
+	if sim == null or not Life.on(sim) or not turns_enabled:
+		for id: String in _views:
+			(_views[id] as CharacterView).set_turn(true, 0.0)
+			(_views[id] as CharacterView).set_phrase_turn(true, 0.0)
+		return
+	var minute := int(state.clock["minute"])
+	if minute != _turn_minute:
+		_turn_minute = minute
+		_turn_groups = Rumors.corrillos(sim)
+	var placed := {}
+	var pids: Array = _turn_groups.keys()
+	pids.sort()
+	for pid: String in pids:
+		var talking: Array = []
+		var who: Array = (_turn_groups[pid] as Array).duplicate()
+		who.sort()
+		for id: String in who:
+			var v: CharacterView = _views.get(id, null)
+			if v != null and v.visible and (v.bubble_id != "" or v.phrase_text() != ""):
+				talking.append(id)
+		var n := talking.size()
+		var a := 0
+		var b := 1
+		if n > TURN_SHOWN:
+			a = (minute / TURN_MINUTES) % n
+			b = ((minute + TURN_MINUTES / 2) / TURN_MINUTES + 1) % n
+			if b == a:
+				b = (a + 1) % n
+		for i: int in n:
+			var v: CharacterView = _views[talking[i]]
+			if i == a:
+				v.set_turn(true, 0.0)
+				turns[talking[i]] = "shown"
+			elif i == b:
+				v.set_turn(true, TURN_RAISE)
+				turns[talking[i]] = "raised"
+			else:
+				v.set_turn(false, 0.0)
+				turns[talking[i]] = "waiting"
+			placed[talking[i]] = true
+	for id: String in _views:
+		if not placed.has(id):
+			(_views[id] as CharacterView).set_turn(true, 0.0)
+	_take_phrase_turns(minute)
+
+
+## The phrases (a rumour told aloud, what the talker says) are wide: the ones whose boxes would overlap, from one
+## corrillo or from two side by side, make a group; in each group TURN_SHOWN show at a time, the second one line
+## higher, round the group in id order like the bubbles' turns.
+const PHRASE_BOX: Vector2 = Vector2(180, 30)  # the label (180 × 14) and the line above it a raised one takes
+var phrase_turns: Dictionary = {}  # chr -> "shown" | "raised" | "waiting" (tests, smoke)
+
+
+func _take_phrase_turns(minute: int) -> void:
+	phrase_turns = {}
+	var ids: Array = []
+	for id: String in _views:
+		var v: CharacterView = _views[id]
+		if v.visible and v.turn_shown and v.phrase_text() != "":
+			ids.append(id)
+	ids.sort()
+	for id: String in _views:
+		if not id in ids:
+			(_views[id] as CharacterView).set_phrase_turn(true, 0.0)
+	var group := {}  # id -> group root (union of overlapping boxes)
+	for id: String in ids:
+		group[id] = id
+	var root := func(x: String) -> String:
+		var r := x
+		while str(group[r]) != r:
+			r = str(group[r])
+		return r
+	for i: int in ids.size():
+		var a: CharacterView = _views[ids[i]]
+		for j: int in range(i + 1, ids.size()):
+			var b: CharacterView = _views[ids[j]]
+			if absf(a.position.x - b.position.x) < PHRASE_BOX.x and absf(a.position.y - b.position.y) < PHRASE_BOX.y:
+				var ra: String = root.call(ids[i])
+				var rb: String = root.call(ids[j])
+				if ra != rb:
+					group[rb] = ra
+	var members := {}
+	for id: String in ids:
+		var r: String = root.call(id)
+		if not members.has(r):
+			members[r] = []
+		(members[r] as Array).append(id)
+	for r: String in members:
+		var who: Array = members[r]
+		var n := who.size()
+		var a := 0
+		var b := 1
+		if n > TURN_SHOWN:
+			a = (minute / TURN_MINUTES) % n
+			b = ((minute + TURN_MINUTES / 2) / TURN_MINUTES + 1) % n
+			if b == a:
+				b = (a + 1) % n
+		for i: int in n:
+			var v: CharacterView = _views[who[i]]
+			var state := "shown" if i == a else ("raised" if i == b else "waiting")
+			v.set_phrase_turn(state != "waiting", 14.0 if state == "raised" else 0.0)
+			phrase_turns[who[i]] = state
+
+
 ## Bubbles over heads that stand close (the dice table, a chat) would land on the figure behind or on each other:
 ## each bubble, front ones first, takes the first sideways shift (0, then ±BUBBLE_SHIFT, ±2×...) whose box covers
 ## neither another visible figure nor a bubble already placed. Only the bubble moves; the person stays.
@@ -1063,7 +1186,7 @@ func spread_bubbles() -> void:
 	var shown: Array = []
 	for id: String in _views:
 		var v: CharacterView = _views[id]
-		if v.visible and v.bubble_id != "":
+		if v.visible and v.bubble_id != "" and v.turn_shown:
 			shown.append(v)
 	if shown.is_empty():
 		return

@@ -94,7 +94,10 @@ static func _ensure(sim: Sim) -> void:
 	if have.size() == want.size() and have.size() > 0:
 		return
 	var c := cfg(sim)
-	Life.service_family(st, Life.FAMILY_WATCH, "family.watch", c.get("livery", {"primary": "#7a2a2a", "secondary": "#d8b050"}))
+	# plantillas: the watch's name is the town's (data/maps "watch" name_key, from tools/city/ciudades.json; town_e has
+	# none: «Guardia de la villa»)
+	var wname := str((Life.map(sim).get("watch", {}) as Dictionary).get("name_key", "family.watch"))
+	Life.service_family(st, Life.FAMILY_WATCH, wname, c.get("livery", {"primary": "#7a2a2a", "secondary": "#d8b050"}))
 	var post := barracks(sim)
 	for role: String in want:
 		if have.has(role):

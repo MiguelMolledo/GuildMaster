@@ -931,6 +931,51 @@
       "hair": 5,
       "skin": 3
      }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ]
   },
@@ -985,6 +1030,51 @@
      "visual": {
       "hair": 3,
       "skin": 1
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "master",
+     "stats": {
+      "charisma": 4,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 8,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
      }
     }
    ]
@@ -1041,6 +1131,51 @@
       "hair": 1,
       "skin": 3
      }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 6,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 6,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ]
   },
@@ -1095,6 +1230,51 @@
      "visual": {
       "hair": 5,
       "skin": 1
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 4,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 5,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
      }
     }
    ]
@@ -1151,6 +1331,51 @@
       "hair": 3,
       "skin": 3
      }
+    },
+    {
+     "rank": "master",
+     "stats": {
+      "charisma": 3,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 7,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 4,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ]
   },
@@ -1205,6 +1430,51 @@
      "visual": {
       "hair": 1,
       "skin": 1
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
      }
     }
    ]
@@ -1261,6 +1531,51 @@
       "hair": 5,
       "skin": 3
      }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "master",
+     "stats": {
+      "charisma": 4,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 8,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ]
   },
@@ -1316,6 +1631,51 @@
       "hair": 3,
       "skin": 1
      }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ]
   },
@@ -1351,6 +1711,51 @@
       "rhetoric": 3,
       "stealth": 2
      }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 6,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 6,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 4,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ],
    "home": "house_09"
@@ -1382,6 +1787,51 @@
       "arcane": 1,
       "dexterity": 4,
       "craft": 2,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 5,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "master",
+     "stats": {
+      "charisma": 3,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 7,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 1,
       "martial": 3,
       "constitution": 4,
       "rhetoric": 3,
@@ -1423,6 +1873,51 @@
       "rhetoric": 3,
       "stealth": 2
      }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 4,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ],
    "home": "house_11"
@@ -1456,6 +1951,51 @@
       "craft": 3,
       "martial": 3,
       "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 4,
       "rhetoric": 3,
       "stealth": 2
      }
@@ -1495,6 +2035,51 @@
       "rhetoric": 3,
       "stealth": 2
      }
+    },
+    {
+     "rank": "master",
+     "stats": {
+      "charisma": 4,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 8,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ],
    "home": "house_13"
@@ -1528,6 +2113,51 @@
       "craft": 4,
       "martial": 3,
       "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 6,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 6,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 4,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 6,
       "rhetoric": 3,
       "stealth": 2
      }
@@ -1567,6 +2197,51 @@
       "rhetoric": 3,
       "stealth": 2
      }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 5,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "master",
+     "stats": {
+      "charisma": 3,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 7,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ],
    "home": "house_15"
@@ -1603,12 +2278,57 @@
       "rhetoric": 3,
       "stealth": 2
      }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 4,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 2,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ],
    "home": "house_16"
   }
  ],
- "population_max": 32,
+ "population_max": 80,
  "landmarks": [
   {
    "type": "wall_tower",
@@ -2330,6 +3050,608 @@
    ]
   }
  ],
+ "routing": {
+  "landmarks": 4,
+  "replans_per_minute": 6
+ },
+ "watch": {
+  "name_key": "family.watch.capital"
+ },
+ "plots": [
+  {
+   "id": "plot_01",
+   "state": "ruin",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    24,
+    31
+   ],
+   "size": [
+    2,
+    3
+   ],
+   "front": [
+    25,
+    34
+   ],
+   "location": 0.73
+  },
+  {
+   "id": "plot_02",
+   "state": "ruin",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    61,
+    53
+   ],
+   "size": [
+    2,
+    2
+   ],
+   "front": [
+    61,
+    52
+   ],
+   "location": 0.51
+  },
+  {
+   "id": "plot_03",
+   "state": "lot",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    47,
+    28
+   ],
+   "size": [
+    2,
+    2
+   ],
+   "front": [
+    47,
+    30
+   ],
+   "location": 0.71
+  },
+  {
+   "id": "plot_04",
+   "state": "lot",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    50,
+    30
+   ],
+   "size": [
+    3,
+    2
+   ],
+   "front": [
+    50,
+    29
+   ],
+   "location": 0.69
+  },
+  {
+   "id": "plot_05",
+   "state": "lot",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    60,
+    50
+   ],
+   "size": [
+    2,
+    2
+   ],
+   "front": [
+    60,
+    52
+   ],
+   "location": 0.52
+  },
+  {
+   "id": "plot_06",
+   "state": "lot",
+   "side": "outside",
+   "zone": "rustic",
+   "origin": [
+    45,
+    77
+   ],
+   "size": [
+    2,
+    3
+   ],
+   "front": [
+    46,
+    76
+   ],
+   "location": 0.43
+  },
+  {
+   "id": "plot_07",
+   "state": "lot",
+   "side": "outside",
+   "zone": "rustic",
+   "origin": [
+    16,
+    12
+   ],
+   "size": [
+    3,
+    2
+   ],
+   "front": [
+    16,
+    14
+   ],
+   "location": 0.3
+  },
+  {
+   "id": "plot_08",
+   "state": "lot",
+   "side": "outside",
+   "zone": "rustic",
+   "origin": [
+    12,
+    14
+   ],
+   "size": [
+    2,
+    3
+   ],
+   "front": [
+    14,
+    14
+   ],
+   "location": 0.28
+  },
+  {
+   "id": "plot_09",
+   "state": "business",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    26,
+    30
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    27,
+    34
+   ],
+   "location": 0.74,
+   "site": "player_forge",
+   "for_sale": false
+  },
+  {
+   "id": "plot_10",
+   "state": "business",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    21,
+    32
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    22,
+    36
+   ],
+   "location": 0.72,
+   "site": "workshop_masonry",
+   "for_sale": true
+  },
+  {
+   "id": "plot_11",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    28,
+    25
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    29,
+    28
+   ],
+   "location": 0.65,
+   "site": "house_02",
+   "for_sale": false
+  },
+  {
+   "id": "plot_12",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    34,
+    21
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    35,
+    24
+   ],
+   "location": 0.63,
+   "site": "house_06",
+   "for_sale": false
+  },
+  {
+   "id": "plot_13",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    35,
+    45
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    36,
+    48
+   ],
+   "location": 0.61,
+   "site": "house_01",
+   "for_sale": false
+  },
+  {
+   "id": "plot_14",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    51,
+    21
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    54,
+    22
+   ],
+   "location": 0.59,
+   "site": "house_08",
+   "for_sale": false
+  },
+  {
+   "id": "plot_15",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    51,
+    42
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    54,
+    43
+   ],
+   "location": 0.59,
+   "site": "house_09",
+   "for_sale": false
+  },
+  {
+   "id": "plot_16",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    44,
+    23
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    47,
+    24
+   ],
+   "location": 0.56,
+   "site": "house_04",
+   "for_sale": false
+  },
+  {
+   "id": "plot_17",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    17,
+    45
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    18,
+    48
+   ],
+   "location": 0.56,
+   "site": "house_10",
+   "for_sale": false
+  },
+  {
+   "id": "plot_18",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    32,
+    54
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    33,
+    57
+   ],
+   "location": 0.56,
+   "site": "house_11",
+   "for_sale": false
+  },
+  {
+   "id": "plot_19",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    58,
+    22
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    61,
+    23
+   ],
+   "location": 0.53,
+   "site": "house_16",
+   "for_sale": false
+  },
+  {
+   "id": "plot_20",
+   "state": "business",
+   "side": "outside",
+   "zone": "production",
+   "origin": [
+    40,
+    22
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    41,
+    26
+   ],
+   "location": 0.74,
+   "site": "workshop_carpentry",
+   "for_sale": true
+  },
+  {
+   "id": "plot_21",
+   "state": "business",
+   "side": "outside",
+   "zone": "production",
+   "origin": [
+    44,
+    27
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    45,
+    31
+   ],
+   "location": 0.7,
+   "site": "rival_forge",
+   "for_sale": false
+  },
+  {
+   "id": "plot_22",
+   "state": "business",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    19,
+    39
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    22,
+    40
+   ],
+   "location": 0.66,
+   "site": "house_07",
+   "for_sale": false
+  },
+  {
+   "id": "plot_23",
+   "state": "business",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    48,
+    25
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    49,
+    28
+   ],
+   "location": 0.65,
+   "site": "house_05",
+   "for_sale": false
+  },
+  {
+   "id": "plot_24",
+   "state": "business",
+   "side": "outside",
+   "zone": "production",
+   "origin": [
+    39,
+    27
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    42,
+    28
+   ],
+   "location": 0.65,
+   "site": "workshop_tailor",
+   "for_sale": false
+  },
+  {
+   "id": "plot_25",
+   "state": "business",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    44,
+    14
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    45,
+    17
+   ],
+   "location": 0.6,
+   "site": "house_14",
+   "for_sale": false
+  },
+  {
+   "id": "plot_26",
+   "state": "business",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    39,
+    16
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    40,
+    19
+   ],
+   "location": 0.6,
+   "site": "house_12",
+   "for_sale": false
+  },
+  {
+   "id": "plot_27",
+   "state": "business",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    23,
+    47
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    24,
+    50
+   ],
+   "location": 0.6,
+   "site": "house_03",
+   "for_sale": false
+  },
+  {
+   "id": "plot_28",
+   "state": "business",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    27,
+    58
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    28,
+    61
+   ],
+   "location": 0.56,
+   "site": "house_15",
+   "for_sale": false
+  },
+  {
+   "id": "plot_29",
+   "state": "business",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    55,
+    16
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    58,
+    17
+   ],
+   "location": 0.53,
+   "site": "house_13",
+   "for_sale": false
+  }
+ ],
  "decor": {
   "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
   "items": [
@@ -2456,7 +3778,6 @@
    {"kind": "yard", "id": "yard_plot_sack", "at": [46, 20]},
    {"kind": "yard", "id": "yard_plot", "at": [46, 21]},
    {"kind": "yard", "id": "yard_plot", "at": [46, 22]},
-   {"kind": "house", "id": "house_block", "at": [24, 31], "size": [2, 3], "facing": [0, 1], "height": 40, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [24, 28], "size": [3, 2], "facing": [1, 0], "height": 49, "color": "#6a4a3a"},
    {"kind": "house", "id": "lot_house_f", "at": [21, 26], "size": [3, 3], "flip": false, "facing": [0, 1]},
    {"kind": "house", "id": "house_block", "at": [19, 25], "size": [2, 4], "facing": [-1, 0], "height": 38, "color": "#6a4a3a"},
@@ -2471,7 +3792,6 @@
    {"kind": "yard", "id": "yard_crates", "at": [30, 23]},
    {"kind": "yard", "id": "yard_plain", "at": [30, 24]},
    {"kind": "house", "id": "house_block", "at": [51, 24], "size": [2, 2], "facing": [0, 1], "height": 45, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [47, 28], "size": [2, 2], "facing": [0, 1], "height": 40, "color": "#6a4a3a"},
    {"kind": "yard", "id": "yard_sacks", "at": [47, 25]},
    {"kind": "yard", "id": "yard_plain", "at": [44, 26]},
    {"kind": "yard", "id": "yard_plain", "at": [45, 26]},
@@ -2479,7 +3799,6 @@
    {"kind": "yard", "id": "yard_plain", "at": [47, 26]},
    {"kind": "yard", "id": "yard_plain", "at": [47, 27]},
    {"kind": "house", "id": "house_block", "at": [47, 32], "size": [4, 2], "facing": [0, 1], "height": 41, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [50, 30], "size": [3, 2], "facing": [0, -1], "height": 48, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [52, 32], "size": [2, 2], "facing": [0, 1], "height": 38, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [54, 30], "size": [2, 4], "facing": [0, 1], "height": 39, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [53, 27], "size": [3, 2], "facing": [0, -1], "height": 43, "color": "#6a4a3a"},
@@ -2590,7 +3909,6 @@
    {"kind": "house", "id": "house_block", "at": [61, 38], "size": [2, 2], "facing": [0, -1], "height": 40, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [60, 45], "size": [4, 2], "facing": [-1, 0], "height": 49, "color": "#6a4a3a"},
    {"kind": "house", "id": "lot_house_d", "at": [63, 39], "size": [3, 3], "flip": true, "facing": [1, 0]},
-   {"kind": "house", "id": "house_block", "at": [60, 50], "size": [2, 2], "facing": [0, 1], "height": 39, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [62, 47], "size": [2, 2], "facing": [0, 1], "height": 46, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [62, 43], "size": [3, 2], "facing": [1, 0], "height": 44, "color": "#6a4a3a"},
    {"kind": "yard", "id": "yard_plot_sack", "at": [59, 37]},
@@ -2669,7 +3987,6 @@
    {"kind": "house", "id": "house_block", "at": [12, 40], "size": [2, 2], "facing": [1, 0], "height": 41, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [55, 57], "size": [3, 2], "facing": [0, -1], "height": 44, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [58, 55], "size": [2, 2], "facing": [0, -1], "height": 45, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [61, 53], "size": [2, 2], "facing": [0, -1], "height": 41, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [64, 50], "size": [2, 2], "facing": [-1, 0], "height": 48, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [66, 45], "size": [3, 2], "facing": [-1, 0], "height": 45, "color": "#6a4a3a"},
    {"kind": "house", "id": "house_block", "at": [67, 41], "size": [3, 2], "facing": [0, -1], "height": 43, "color": "#6a4a3a"},
