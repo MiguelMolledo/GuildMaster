@@ -78,10 +78,12 @@ func _make_label(text: String, c: Color, font_size: int) -> Label:
 ## Follows the sim's view of the job: {} or {actor, recipe, mode, progress, window_open, touched}.
 func show_job(job: Dictionary, has_occupant: bool) -> void:
 	var p := float(job.get("progress", -1.0)) if not job.is_empty() else -1.0
-	var w := bool(job.get("window_open", false))
+	# 03b §3b.8: the master touch left the UI (the Forja viva replaces it): no window drawn, no blinking. The sim keeps
+	# the window of a careful cycle (old saves, the trades' bots); the view ignores it.
+	var w := false
 	var t := bool(job.get("touched", false))
-	var wf := float(job.get("window_from", -1.0))
-	var wt := float(job.get("window_to", -1.0))
+	var wf := -1.0
+	var wt := -1.0
 	var bl := bool(job.get("blocked", false))
 	if p != progress or w != window_open or t != touched or has_occupant != occupied or wf != window_from \
 			or wt != window_to or bl != blocked:

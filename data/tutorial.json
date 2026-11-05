@@ -233,26 +233,6 @@
       }
     },
     {
-      "id": "master_touch",
-      "when": {
-        "sim": "master_window",
-        "match": {
-          "open": true
-        }
-      },
-      "target": {
-        "world": "station",
-        "id": "$event.zone"
-      },
-      "text": "tutorial.hint.master_touch",
-      "until": {
-        "sim": "master_window",
-        "match": {
-          "open": false
-        }
-      }
-    },
-    {
       "id": "storage",
       "when": {
         "state": "panel_open",

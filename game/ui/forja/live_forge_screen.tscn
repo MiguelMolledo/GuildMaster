@@ -249,8 +249,14 @@ text = "Resolver sin jugar"
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+text = "Cerrar"
+
+[node name="NextButton" type="Button" parent="Panel/VBox/Foot"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 theme_type_variation = &"PrimaryButton"
-text = "Seguir"
+text = "Otra pieza"
 
 [node name="Masterwork" parent="." instance=ExtResource("3_card")]
 unique_name_in_owner = true

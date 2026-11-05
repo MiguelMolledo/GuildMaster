@@ -119,7 +119,7 @@ func test_quality_and_duration_follow_the_mode() -> void:
 	eq(dur.call(), "2 h 44", "fast: 2 h 44")
 	menu.choose_mode("careful")
 	eq(dur.call(), "5 h 51", "careful: 5 h 51")
-	check((menu.get_node("%ModeLine") as Label).text.contains("toque de maestro"), "careful adds the master touch")
+	check(not (menu.get_node("%ModeLine") as Label).text.contains("toque de maestro"), "no master touch in the UI (03b)")
 	v.open_station_menu("anvil", Vector2(300, 120))
 	eq(v.station_menu().mode, "live", "the mode is remembered for Hugo at the anvil (03b: Forja viva there)")
 	check((menu.get_node("%ModeLine") as Label).text.contains("a mano"), "Forja viva: you heat, strike and quench")
@@ -155,7 +155,7 @@ func test_touch_window_on_the_bar_from_the_first_minute() -> void:
 	var v := _interior(sim)
 	v.sync()
 	var sv := v.station_view("anvil")
-	check(sv.window_from > 0.0 and not sv.window_open, "the station knows the window before it opens")
+	check(sv.window_from < 0.0 and not sv.window_open, "03b: the station draws no master-touch window")
 	eq(sv.status(), "working", "the mark says it works")
 	v.free()
 

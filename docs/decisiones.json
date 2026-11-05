@@ -865,6 +865,12 @@
       "tema": "Juegos: la casa propia no cobra; la posada no pasa opts.event",
       "decision": "Games._apply no aplica el margen de la casa cuando la casa es de la familia que juega (antes se le restaba y ese oro no iba a nadie). La posada no pasa opts.event (FestivalGames.play_block rechaza el que no es de una fiesta) y reconoce sus partidas por house. Contrato de juegos y 04f actualizados.",
       "por_que": "Bug visto al probar la mesa: el jugador perdía el 10 % de lo ganado en su propia taberna; y el contrato pedía un event que el código rechaza."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Toque de maestro sustituido por la Forja viva; «Cerrar» y «Otra pieza» (verifica)",
+      "decision": "La interfaz deja de dar master_touch: el puesto no parpadea ni pinta la ventana, el clic solo lleva al puesto, sin pista de tutorial ni «+ toque de maestro» en el menú. El sim conserva la orden y la ventana (partidas viejas, bots de los otros oficios). El novato del herrero pasa a la Forja viva solo con live_for_quality = 1: medido con 10 semillas, sube el oro del día 10 (358 -> 387 de media) y da 6 fallos de banda (3 semillas > 540 el día 10, 1 > 320 el día 3, 2 a 0 el día 10); por defecto sigue con careful + toque hasta que el owner vea las bandas. Tras el resultado de la Forja viva, «Cerrar» cierra y vuelve al yunque (para la pieza que la forja empezó sola) y «Otra pieza» es un botón aparte. En la cobertura de verifica (data/flows/_coverage.json, que solo está en su rama) master_touch debe pasar a «sustituida por la Forja viva (03b §3b.8)» para ratón y teclado.",
+      "por_que": "Hallazgos de verifica y decisión del manager: con el ratón no se podía parar tras un resultado, y la Forja viva es la que sustituye al toque. Las bandas del novato no se mueven sin el owner (principio 4)."
     }
   ],
   "pendientes": [

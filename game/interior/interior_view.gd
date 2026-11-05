@@ -6,8 +6,8 @@ extends Node2D
 ## their station or by the door. A view only: the production runs in the sim whether this is open or not (L1). It
 ## sends orders, never writes the state.
 ##
-## Controls: left click on someone of the family inside selects them; on a station = go_to_station (or master_touch
-## while its window is open, GDD 4.4.5); on the door = leave. Right click on a station = its context menu
+## Controls: left click on someone of the family inside selects them; on a station = go_to_station (the master touch
+## of GDD 4.4.5 left the UI: the Forja viva replaces it, 03b §3b.8); on the door = leave. Right click on a station = its context menu
 ## (StationMenu). The building's bar (docs/ui/01_hud.md §4, zone 6: the HUD's selection place): the name, who works
 ## where and how many in the queue (or the works in progress, H5), and Production P (stations and, from H4, the
 ## employees' queue) · Storage A · Staff E (H4: StaffPanel, staff and hiring) · Upgrades M (H5: UpgradePanel, the tree,
@@ -206,6 +206,8 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 		(get_node("%" + n) as Button).visible = shop_stall == ""
 	live_screen().order_sink = _give
 	live_screen().close()
+	if not live_screen().back_to_station.is_connected(_live_back):
+		live_screen().back_to_station.connect(_live_back)
 	station_menu().order_sink = _give
 	if not station_menu().production_requested.is_connected(show_production):
 		station_menu().production_requested.connect(show_production.bind(true))
@@ -744,17 +746,11 @@ func handle_input(event: InputEvent) -> bool:
 	return false
 
 
-## Left click on a station: the master touch while its window is open (for whoever works there), else go there.
+## Left click on a station: go there. (The master touch, GDD 4.4.5, left the UI: the Forja viva replaces it, 03b §3b.8.)
 func click_station(zone: String) -> void:
 	if shop_stall != "":
 		open_shop()
 		return
-	var job := SimQuery.job_view(sim, building, zone)
-	if bool(job.get("window_open", false)) and not bool(job.get("touched", false)):
-		var worker := str(job.get("actor", ""))
-		if str(sim.state.characters.get(worker, {}).get("controlled_by", "")) == "human":
-			_give({"type": "master_touch", "actor": worker, "building": building, "zone": zone})
-			return
 	if actor() != "":
 		_give({"type": "go_to_station", "actor": actor(), "zone": zone})
 
@@ -883,6 +879,9 @@ func on_sim_event(e: Dictionary) -> void:
 	live_screen().on_sim_event(e)
 	if str(e.get("type", "")) == "unlocked":
 		apply_unlocks()
+	if str(e.get("type", "")) in ["work_interrupted", "work_started"] and station_menu().visible \
+			and station_menu().zone == str(e.get("zone", "")):
+		station_menu().refresh()   # «Cerrar» of the Forja viva stops the next piece: the anvil's menu says so
 	if str(e.get("type", "")) == "work_started" and str(e.get("mode", "")) == LiveForge.MODE \
 			and str(e.get("actor", "")) == actor() and not live_screen().visible:
 		station_menu().close()
@@ -915,3 +914,9 @@ static func _esc() -> InputEventKey:
 	k.keycode = KEY_ESCAPE
 	k.pressed = true
 	return k
+
+
+## «Cerrar» after a Forja viva result: back to the anvil, its menu open (Stop, the mode, the recipes).
+func _live_back(zone: String) -> void:
+	if actor() != "" and _stations.has(zone):
+		open_station_menu(zone, station_screen(zone))
