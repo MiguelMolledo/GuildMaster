@@ -7,6 +7,7 @@
   ],
   "seed": 1,
   "households": 10,
+  "per_house": 2,
   "style": "C",
   "plaza": {
    "centre": [
@@ -590,6 +591,7 @@
   ],
   "seed": 1,
   "households": 16,
+  "per_house": 2,
   "style": "A+C",
   "plaza": {
    "centre": [
@@ -1338,10 +1340,8 @@
   ],
   "seed": 1,
   "households": 6,
+  "per_house": 3,
   "style": "B",
-  "starts": [
-   "artisan_blacksmith"
-  ],
   "plaza": {
    "centre": [
     16,
@@ -1786,10 +1786,8 @@
   ],
   "seed": 1,
   "households": 4,
+  "per_house": 5,
   "style": "E",
-  "starts": [
-   "artisan_blacksmith"
-  ],
   "plaza": {
    "centre": [
     13,
@@ -2104,10 +2102,8 @@
   ],
   "seed": 1,
   "households": 4,
+  "per_house": 5,
   "style": "B",
-  "starts": [
-   "artisan_blacksmith"
-  ],
   "plaza": {
    "centre": [
     11,

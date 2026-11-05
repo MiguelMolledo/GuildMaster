@@ -26,6 +26,8 @@ static func from_scenario(id: String, world_seed: int = -1) -> Dictionary:
 ## free points, colours), the family purse, the forge with its stock, the debt by `difficulty`, the rival family,
 ## the scripted contracts and the objective chain. {"ok": true, "state": WorldState} or {"ok": false, "error": ...}.
 ## Owner: subgrim «cuentas». Contract: docs/contratos/h3_mercado.md.
+## Plantillas: choices.city = the settlement of data/world/region.json to start in (its map replaces the start's; the
+## rest of the start is the same); without it, the start's own town (town_e). Refused: unknown_city, city_lacks_site.
 ## choices = {name, female, family_name, colors {primary, secondary}, stats_add {stat: points}, cast, cast_seed}; a
 ## missing choice takes the cast's proposal (Cast.proposal: with cast "fixed", the start's "defaults"). cast: "random"
 ## (default) or "fixed" (today's names, ages and tones of data/starts and data/maps: tests, scenarios, targets);
@@ -40,6 +42,11 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	var start: Dictionary = catalog.starts().get(start_id, {})
 	if start.is_empty():
 		return {"ok": false, "error": "unknown_start"}
+	if choices.has("city"):  # plantillas: where the game starts (a settlement of data/world/region.json)
+		var why := city_problem(catalog, start_id, str(choices["city"]))
+		if why != "":
+			return {"ok": false, "error": why}
+		start = start_in(catalog, start_id, str(choices["city"]))
 	var levers := catalog.difficulty_levels(difficulty)
 	if levers.is_empty():
 		return {"ok": false, "error": "unknown_difficulty"}
@@ -65,6 +72,8 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	s.map_id = str(start["map"])
 	s.difficulty = difficulty
 	s.meta = {"title": "new_game", "start": start_id}
+	if choices.has("city"):
+		s.meta["city"] = str(choices["city"])
 	var st: Dictionary = start.get("start", {})
 	var day0 := int(st.get("day", 0))
 	var season := Clock.season(day0 * Clock.MINUTES_PER_DAY, catalog.time)
@@ -147,6 +156,64 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	# The same numbers a loaded game has (integral floats become int, SaveFile.intify): a new game and its save play
 	# the same.
 	return {"ok": true, "state": WorldState.from_dict(s.to_dict())}
+
+
+## Plantillas (where you start): the settlements of the region a game can start in, in the order of
+## data/world/region.json (the home town first); each one plays the start on its map.
+static func cities(catalog: Catalog) -> Array:
+	var out: Array = []
+	for st: Dictionary in catalog.region.get("settlements", []):
+		if catalog.maps().has(str(st.get("map", ""))):
+			out.append(str(st["id"]))
+	return out
+
+
+## The settlement of the region with this id ({} if there is none).
+static func city(catalog: Catalog, id: String) -> Dictionary:
+	for st: Dictionary in catalog.region.get("settlements", []):
+		if str(st.get("id", "")) == id:
+			return st
+	return {}
+
+
+## The settlement whose map is the start's own (the town a start plays when no city is chosen; "" if none).
+static func start_city(catalog: Catalog, start_id: String) -> String:
+	var m := str(catalog.starts().get(start_id, {}).get("map", ""))
+	for st: Dictionary in catalog.region.get("settlements", []):
+		if str(st.get("map", "")) == m:
+			return str(st["id"])
+	return ""
+
+
+## Why the start cannot be played in this city ("" = it can): unknown_city, or city_lacks_site when its map has no
+## site the start places (the player's, the rival's and the competitors' buildings).
+static func city_problem(catalog: Catalog, start_id: String, id: String) -> String:
+	var c := city(catalog, id)
+	var map: Dictionary = catalog.maps().get(str(c.get("map", "")), {})
+	if c.is_empty() or map.is_empty():
+		return "unknown_city"
+	var start: Dictionary = catalog.starts().get(start_id, {})
+	var sites: Dictionary = map.get("buildings", {})
+	var need: Array = [str(start.get("building", {}).get("site", ""))]
+	if start.get("rival") is Dictionary and not (start["rival"] as Dictionary).is_empty():
+		need.append(str(start["rival"].get("building", {}).get("site", "")))
+	for cp: Dictionary in start.get("competitors", []):
+		need.append(str(cp.get("building", {}).get("site", "")))
+	for n: String in need:
+		if n != "" and not sites.has(n):
+			return "city_lacks_site"
+	return ""
+
+
+## A copy of the start that plays on the map of `city` (the start as it is for "" or its own town).
+static func start_in(catalog: Catalog, start_id: String, id: String) -> Dictionary:
+	var start: Dictionary = catalog.starts().get(start_id, {})
+	var c := city(catalog, id)
+	if id == "" or c.is_empty() or str(c.get("map", "")) == str(start.get("map", "")):
+		return start
+	var out := start.duplicate()
+	out["map"] = str(c["map"])
+	return out
 
 
 ## The validated choices with the defaults filled in, or {} if something is wrong.

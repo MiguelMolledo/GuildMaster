@@ -209,6 +209,17 @@
     12
    ]
   },
+  "rival_carpentry": {
+   "type": "carpentry",
+   "origin": [
+    3,
+    8
+   ],
+   "door": [
+    4,
+    12
+   ]
+  },
   "rival_forge": {
    "type": "forge",
    "origin": [
@@ -218,6 +229,28 @@
    "door": [
     26,
     25
+   ]
+  },
+  "rival_masonry": {
+   "type": "masonry",
+   "origin": [
+    3,
+    8
+   ],
+   "door": [
+    4,
+    12
+   ]
+  },
+  "rival_tailor": {
+   "type": "tailor_shop",
+   "origin": [
+    3,
+    9
+   ],
+   "door": [
+    4,
+    12
    ]
   },
   "workshop_carpentry": {
@@ -682,6 +715,51 @@
       "hair": 5,
       "skin": 3
      }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ]
   },
@@ -736,6 +814,51 @@
      "visual": {
       "hair": 3,
       "skin": 1
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "master",
+     "stats": {
+      "charisma": 4,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 8,
+      "martial": 3,
+      "constitution": 6,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 4,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
      }
     }
    ]
@@ -792,6 +915,51 @@
       "hair": 1,
       "skin": 3
      }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 1,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "journeyman",
+     "stats": {
+      "charisma": 2,
+      "empathy": 2,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 5,
+      "martial": 3,
+      "constitution": 3,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ]
   },
@@ -847,10 +1015,56 @@
       "hair": 5,
       "skin": 1
      }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 5,
+      "empathy": 3,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 6,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 5,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 3,
+      "empathy": 4,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 5,
+      "craft": 3,
+      "martial": 3,
+      "constitution": 7,
+      "rhetoric": 3,
+      "stealth": 2
+     }
+    },
+    {
+     "rank": "apprentice",
+     "stats": {
+      "charisma": 6,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 4,
+      "craft": 2,
+      "martial": 3,
+      "constitution": 4,
+      "rhetoric": 3,
+      "stealth": 2
+     }
     }
    ]
   }
  ],
+ "population_max": 20,
  "landmarks": [
   {
    "type": "barn",
@@ -920,7 +1134,10 @@
   ],
   "tool": "tools/city/ciudad.py generar --plan",
   "starts": [
-   "artisan_blacksmith"
+   "artisan_blacksmith",
+   "artisan_carpenter",
+   "artisan_mason",
+   "artisan_tailor"
   ],
   "style": "E",
   "rivers": [],
@@ -990,6 +1207,7 @@
    {"kind": "prop", "id": "crate", "at": [8, 15], "off": [13, 7], "site": "armory"},
    {"kind": "prop", "id": "barrel", "at": [5, 11], "off": [-13, 7], "site": "player_forge"},
    {"kind": "prop", "id": "crate", "at": [3, 11], "off": [-13, 7], "site": "player_forge"},
+   {"kind": "prop", "id": "crate", "at": [5, 12], "site": "rival_carpentry"},
    {"kind": "prop", "id": "barrel", "at": [27, 24], "off": [-13, 7], "site": "rival_forge"},
    {"kind": "prop", "id": "crate", "at": [25, 24], "off": [-13, 7], "site": "rival_forge"},
    {"kind": "prop", "id": "crate", "at": [22, 27], "off": [13, 7], "site": "workshop_carpentry"},

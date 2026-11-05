@@ -6,7 +6,7 @@ cd "$(dirname "$0")/../.." || exit 1
 godot=/opt/homebrew/bin/godot
 home=$PWD/tmp/boot_check
 mkdir -p $home
-variants=("" "--dev-time")
+variants=("" "--dev-time" "--start-city=capital")
 for f in data/scenarios/*.json(N); do
   [[ ${f:t} == _* ]] || variants+=("--scenario=${f:t:r}")
 done

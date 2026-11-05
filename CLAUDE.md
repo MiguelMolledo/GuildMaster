@@ -140,7 +140,8 @@ docs/     gdd/ · hitos.json · decisiones.json · novedades.json · ASSETS.md �
   --audio-driver Dummy --always-on-top --path . -- --smoke --shots=2 --shot-every=3 [--scenario=<id>]` → `reports/shots/`. **Mira las capturas.**
   `--always-on-top` porque macOS deja de dibujar una ventana tapada y la captura repite un fotograma viejo. Guion de la forja:
   `--smoke-script=forja`.
-- Opciones del juego (tras `--`): `--scenario=<id>` (por defecto `town_e_start`), `--seed=<n>`, `--dev-time` (días de 30 s),
+- Opciones del juego (tras `--`): `--scenario=<id>` (por defecto `town_e_start`), `--start-city=<id>` (Partida nueva con
+  esa ciudad de la región en «Dónde empiezas»), `--seed=<n>`, `--dev-time` (días de 30 s),
   `--lang=es|en`, `--at=HH:MM`, `--smoke`, `--smoke-script=<id>`, `--gallery`.
 - Contratos entre zonas de cada hito: `docs/contratos/` (los subgrims trabajan contra ellos).
 

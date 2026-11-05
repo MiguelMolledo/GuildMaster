@@ -728,6 +728,12 @@
       "tema": "Juegos en las fiestas",
       "decision": "Los espectáculos de fiesta que son juegos (justa, torneo de lucha, carrera, toros) se corren a su hora con las reglas de 4.26: solos (Games.auto) o con el jugador si se apuntó (game_enter; la justa pide Ciudadano). Si el apuntado no juega, al acabar la fiesta se resuelve sin jugar en su nombre. Las apuestas de la feria se pagan con el resultado de la propia competición y se devuelven si no llega a correrse. Todo va dentro de la instancia de fiesta (v18): juegos sigue sin versión de guardado.",
       "por_que": "Encargo del manager: enganchar festival_spectacle, la justa y el torneo del Alcalde y las apuestas en la feria. Guardarlo en la fiesta evita otra versión de guardado; resolver al final al que no juega evita que apuntarse y cerrar la pantalla sea una salida gratis."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Plantillas: empezar en cualquier ciudad de la región y su población por el bench",
+      "decision": "Partida nueva ofrece «Dónde empiezas» (Vilarrasa por defecto y las cinco de Valldaura; también --start-city=<id>): NewGame.from_start con choices.city juega el mismo inicio en el mapa de esa ciudad; sin ciudad o con Vilarrasa la partida es la de siempre, byte a byte (las dianas no se mueven). Peñarroja, Vilablat y Montsacre se regeneran con el generador para llevar los solares de los cuatro oficios (hitos y puntos de reunión idénticos). Cada ciudad empieza llena con per_house del plan (tools/city/ciudades.json) y su population_max: el objetivo era 5 por casa, recortado a lo que aguanta el bench (wanderer, vida encendida, mejor de 3 pasadas, intercalado con Vilarrasa como referencia porque la máquina estaba cargada: Vilarrasa dio 1,87-2,37 ms): Vilablat 5 (20 vecinos, 2,00 ms), Montsacre 5 (20, 2,04), Peñarroja 3 (18, 2,27; con 4, 2,44), Portvell 2 (20, 2,32; con 5, 4,30), Bellcaire 2 (32, la de antes: 4,13 ms; no aguanta con ninguna, ni con 1 por casa: 2,99). El peor paso pasa de 8 ms en todas, Vilarrasa incluida (16-20 ms con esta carga).",
+      "por_que": "El coste del bench crece con los personajes (~0,08 ms cada uno en un mapa de 40×40, más en el de 80×80 por las rutas largas del A*): con la diana de 2 ms caben unos 25 personajes. Para que Bellcaire aguante con muchos vecinos hace falta abaratar las rutas, no quitar gente (pendiente de decidir)."
     }
   ],
   "pendientes": [
