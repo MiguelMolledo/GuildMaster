@@ -118,6 +118,12 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	# families, characters and buildings of before do not move.
 	for cp: Dictionary in start.get("competitors", []):
 		_add_competitor(s, catalog, sites, start, cp, float(pr.get("carry_weight", 30.0)), levers)
+	# Posada (04f §4.27, O-V7 a): the buildings for sale of the map ("for_sale": the Taberna-Posada), empty and without
+	# owner until a family buys them (buy_building). After everything else, so the ids of before do not move.
+	for n: String in names:
+		if bool(sites[n].get("for_sale", false)):
+			var sale := _add_building(s, catalog, sites, n, "", [])
+			s.buildings[sale]["for_sale"] = true
 	# The loan that paid the forge (no gold comes in), due at the end of day start.day + term_days - 1.
 	var ln: Dictionary = start.get("loan", {})
 	var debt := int(levers.get("start_debt", 0))

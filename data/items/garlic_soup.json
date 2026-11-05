@@ -1,0 +1,11 @@
+{
+  "id": "garlic_soup",
+  "name_key": "item.garlic_soup",
+  "gender": "f",
+  "category": "consumable",
+  "weight": 0.5,
+  "max_stack": 10,
+  "base_price": 3,
+  "market_stall": null,
+  "_doc": "Plato de la Taberna-Posada (no se vende en el mercado)."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "meat",
+  "name_key": "item.meat",
+  "gender": "f",
+  "category": "material",
+  "weight": 1.0,
+  "max_stack": 50,
+  "base_price": 7,
+  "market_stall": "food",
+  "_doc": "Carne (4.22.8): se compra en el puesto de comida."
+}

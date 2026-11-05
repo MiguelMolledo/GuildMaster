@@ -1,0 +1,38 @@
+{
+  "id": "tavern_inn_kitchen_2",
+  "name_key": "upgrade.tavern_inn_kitchen_2",
+  "tree": "tavern_inn",
+  "branch": "inn_kitchen",
+  "level": 2,
+  "cost": {
+    "gold": 75,
+    "items": [
+      {
+        "item": "iron_ingot",
+        "qty": 2
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_kitchen_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "unlock_recipe",
+      "recipe": "tavern_roast_lamb"
+    },
+    {
+      "kind": "inn_menu_slots",
+      "amount": 2
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_spit",
+    "exterior_overlay": null
+  }
+}

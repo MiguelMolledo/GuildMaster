@@ -74,7 +74,7 @@ func test_the_town_at_dawn_of_day_one() -> void:
 		if str(st.buildings[b]["type"]) == "armory":
 			armory = b
 	check(armory != "" and str(st.buildings[armory]["owner"]) == "", "the public armory")
-	eq(st.buildings.size(), 3 + 8 + 3, "3 buildings, the 8 townsfolk houses (H4) and the 3 competitor workshops (H12)")
+	eq(st.buildings.size(), 3 + 8 + 3 + 1, "3 buildings, the 8 townsfolk houses (H4), the 3 competitor workshops (H12) and the Taberna-Posada for sale (posada)")
 	eq(st.characters.size(), 2 + 16 + 6, "the protagonist, the rival, 16 townsfolk (H4) and 3 competitor couples (H12)")
 
 

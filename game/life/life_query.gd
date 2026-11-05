@@ -83,6 +83,8 @@ static func book(sim: Sim) -> Array:
 		for p: Dictionary in Life.map(sim).get("social_points", []):
 			if str(p.get("id", "")) == str(h.get("point", "")):
 				kind = str(p.get("kind", ""))
+		if str(h.get("point", "")).begins_with("inn:"):
+			kind = "tavern"  # posada: heard at the bar of the Taberna-Posada (InnRumors)
 		var day := Clock.day(int(h.get("minute", 0))) + 1
 		out.append({"text": rumor_text(sim, h), "where": SimQuery.t_("ui.rumors.where") % [day,
 			SimQuery.t_("life.point." + kind) if kind != "" else ""], "useful": bool(h.get("useful", false))})

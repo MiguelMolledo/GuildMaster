@@ -1,0 +1,120 @@
+{
+  "id": "tavern",
+  "name_key": "tutorial.chapter.tavern",
+  "desc_key": "tutorial.chapter.tavern.desc",
+  "test": {
+    "scenario": "innkeeper_start"
+  },
+  "steps": [
+    {
+      "id": "open",
+      "text": "tutorial.tavern.open",
+      "target": {
+        "world": "building",
+        "type": "tavern_inn"
+      },
+      "done": {
+        "state": "interior",
+        "is": "$tavern"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "panel",
+      "text": "tutorial.tavern.panel",
+      "target": {
+        "ui": "InnButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "InnPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "clientele",
+      "text": "tutorial.tavern.clientele",
+      "target": {
+        "ui": "Body",
+        "in": "InnPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "menu",
+      "text": "tutorial.tavern.menu",
+      "target": {
+        "ui": "TabMenu",
+        "in": "InnPanel"
+      },
+      "done": {
+        "state": "panel_prop",
+        "panel": "InnPanel",
+        "prop": "tab",
+        "value": "menu"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "prices",
+      "text": "tutorial.tavern.prices",
+      "target": {
+        "ui": "Body",
+        "in": "InnPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "staff",
+      "text": "tutorial.tavern.staff",
+      "target": {
+        "ui": "StaffButton"
+      },
+      "done": {
+        "state": "panel_open",
+        "is": "StaffPanel"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "serve",
+      "text": "tutorial.tavern.serve",
+      "target": {
+        "ui": "InnButton"
+      },
+      "done": {
+        "sim": "inn_guest_served"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "rooms",
+      "text": "tutorial.tavern.rooms",
+      "target": {
+        "ui": "TabRooms",
+        "in": "InnPanel"
+      },
+      "advance": "next"
+    },
+    {
+      "id": "summary",
+      "text": "tutorial.tavern.summary",
+      "target": {
+        "ui": "TabTurn",
+        "in": "InnPanel"
+      },
+      "done": {
+        "sim": "inn_turn_closed"
+      },
+      "advance": "action"
+    },
+    {
+      "id": "upgrades",
+      "text": "tutorial.tavern.upgrades",
+      "target": {
+        "ui": "UpgradesButton"
+      },
+      "advance": "next"
+    }
+  ]
+}

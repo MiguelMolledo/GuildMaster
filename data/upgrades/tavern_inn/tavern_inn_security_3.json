@@ -1,0 +1,33 @@
+{
+  "id": "tavern_inn_security_3",
+  "name_key": "upgrade.tavern_inn_security_3",
+  "tree": "tavern_inn",
+  "branch": "security",
+  "level": 3,
+  "cost": {
+    "gold": 100,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 6
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "tavern_inn_security_2"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "inn_night_watch"
+    }
+  ],
+  "visual": {
+    "interior_node": "inn_porter_room",
+    "exterior_overlay": null
+  }
+}

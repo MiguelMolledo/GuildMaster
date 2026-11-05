@@ -192,6 +192,21 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Incidents.order_resolve(sim, order)
 		"give_alms":
 			return Visitors.order_alms(sim, order)
+		# Posada · the Taberna-Posada (sim/inn/inn.gd, docs/gdd/04f_vida_y_fiestas.md §4.27)
+		"buy_building":
+			return Inn.order_buy_building(sim, order)
+		"inn_set_menu":
+			return Inn.order_set_menu(sim, order)
+		"inn_set_price":
+			return Inn.order_set_price(sim, order)
+		"inn_set_special":
+			return Inn.order_set_special(sim, order)
+		"inn_buy_license":
+			return Inn.order_buy_license(sim, order)
+		"inn_serve":
+			return Inn.order_serve(sim, order)
+		"inn_make_bed":
+			return Inn.order_make_bed(sim, order)
 	return fail("unknown_order")
 
 
@@ -205,7 +220,8 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
 	"city_accept", "city_deliver", "sign_treaty",
 	"game_play", "game_bet", "game_enter", "festival_sponsor", "festival_host_wedding",
-	"resolve_incident"]
+	"resolve_incident",
+	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license"]  # posada (Inn.MANAGEMENT)
 
 
 static func is_management(type: String) -> bool:

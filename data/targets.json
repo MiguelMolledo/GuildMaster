@@ -985,5 +985,54 @@
       1,
       null
     ]
+  },
+  "innkeeper": {
+    "_doc": "Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, §4.28.4): bot innkeeper (sim/bots/bot_innkeeper.gd) desde innkeeper_start (la familia del herrero con la Taberna-Posada recién comprada, 200 de oro y sus primeras existencias), 16 días (2 años), con eventos globales. Compra en el mercado por recado mañana y tarde, cocina por la cola (cocinero oficial, de día), contrata por roles (barra y mesas de noche, criada de día), atiende la barra a mano, mejora en orden fijo y amplía la carta. Medidas del bot: inn_net_day (lo que el libro apunta al edificio por día, sin la compra; incluye mejoras), inn_operating_day (sin mejoras ni licencia), inn_fame, inn_bed_share (camas alquiladas / camas × noches), inn_guests_night, inn_complaints_night. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=innkeeper_start --bots=innkeeper --days=16 --seeds=10 (en run_all, paso inn, 5 semillas). Medido (2026-11-05, 10 semillas, con vida y fiestas encendidas y la clientela en dos capas de 04g §4.6.5.7): neto 15,8/día (−4-26; explotación 55: las ~9 mejoras se pagan en el año 2), fama 1,6, 26 clientes por noche (las fiestas suben la taberna: San Juan y Carnaval ×2, feria ×3), 10 quejas por noche (sobre todo «sin sitio» en las fiestas y «se acabó»), camas al 19 % (duermen solo los forasteros que encuentran cama), 12-16 noches abiertas (en una semilla de 10 el bot paga la deuda de 200 en una mala racha, se queda sin caja y la taberna se daña tres días). La media de explotación con 5 semillas (paso inn de la QA) baja a ~33: banda [30, 100]. Banda propuesta.",
+    "days": [
+      16,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "inn_turns": [
+      12,
+      16
+    ],
+    "inn_guests_night": [
+      12,
+      null
+    ],
+    "_mean": {
+      "inn_net_day": [
+        10,
+        60
+      ],
+      "inn_operating_day": [
+        30,
+        100
+      ],
+      "inn_fame": [
+        1.5,
+        3.5
+      ],
+      "inn_bed_share": [
+        0.1,
+        0.5
+      ],
+      "inn_guests_night": [
+        16,
+        30
+      ],
+      "inn_complaints_night": [
+        0,
+        12
+      ]
+    }
   }
 }

@@ -65,8 +65,13 @@ Crónica: `altercation`, `bandit_raid`, `kidnapping`, `kidnapping_end`.
   saca al guardia de la plaza. Un espectáculo (toros, cómicos) se anuncia con `Life.add_spectacle(sim, id, tile,
   until, by)`: los vecinos van a mirarlo (`watch_show`).
 - **Posada (v19):** un sitio del mapa de tipo `tavern_inn` (o `tavern`) recibe su punto `tavern` (`ciudad.py
-  reunion`): la actividad `tavern` y los altercados lo usan; los forasteros que duermen se quedarán cuando la posada
-  diga que hay cama (hoy se van al atardecer).
+  reunion`): la actividad `tavern` y los altercados lo usan. **Hecho (posada):** al acabar su plan o al atardecer,
+  `Visitors._step_one` pregunta a `Inn.lodge`: el forastero que encuentra cama camina a la puerta, entra al abrir
+  (`Inn.lodger_step`, fuera del mapa hasta el amanecer) y sale al alba hacia su puerta (`visitor.lodging`, `lodged`,
+  `guest`). Los rumores de la barra salen de `Rumors.candidates` y entran en `town.rumors.heard` con el punto
+  `inn:<edificio>` (`InnRumors.pick`). Un punto `tavern` junto al solar de una Taberna-Posada sin dueño (en venta, o que la partida no
+  tiene: un escenario de antes) no cuenta en `Life.points` (`Inn.closed_for_sale`): nadie se reúne a la puerta de una
+  casa vacía, y la vida de una partida sin taberna comprada es la de vida tal cual.
 - **Juegos:** las apuestas sobre un altercado (4.26.6) se engancharán a `incident_fight` (lleva el ganador del duelo).
 
 ## Vista (game/)

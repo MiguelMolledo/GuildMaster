@@ -8308,6 +8308,356 @@
       "coste_gen": 0,
       "coste_usd": 0.08,
       "notas": "Lámina de la carta «Obra maestra» de la Forja viva (03b §3b.2): el maestro alza la espada recién hecha a la luz de la fragua, los aprendices miran. 240×135 y masterwork_192.png a 192×108."
+    },
+    {
+      "id": "int_tavern_rooms",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/rooms.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Puesto del interior: la escalera a las habitaciones; ~80×64, base en Feet (como assets/art/interiors/forge/counter.png). Escena game/visuals/stations/rooms.tscn."
+    },
+    {
+      "id": "int_tavern_gaming_table",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/gaming_table.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Puesto del interior: la mesa de dados y naipes; ~80×64, base en Feet (como assets/art/interiors/forge/counter.png). Escena game/visuals/stations/gaming_table.tscn."
+    },
+    {
+      "id": "int_tavern_inn_tapestries",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_tapestries.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (tapices y vajilla): nodo Upgrades/inn_tapestries de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_oven",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_oven.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (horno de pan): nodo Upgrades/inn_oven de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_spit",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_spit.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (asador): nodo Upgrades/inn_spit de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_pantry",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_pantry.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (despensa fría): nodo Upgrades/inn_pantry de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_reserve",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_reserve.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (botellero del vino de reserva): nodo Upgrades/inn_reserve de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_cave",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_cave.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (entrada a la cueva de crianza): nodo Upgrades/inn_cave de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_good_room",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_good_room.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (cama con dosel): nodo Upgrades/inn_good_room de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_stable",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_stable.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (silla y bridas (el establo)): nodo Upgrades/inn_stable de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_menu_board",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_menu_board.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (pizarra de la carta): nodo Upgrades/inn_menu_board de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_porter",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_porter.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (el portero): nodo Upgrades/inn_porter de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_cellar_lock",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_cellar_lock.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (cerradura de la bodega): nodo Upgrades/inn_cellar_lock de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "int_tavern_inn_porter_room",
+      "tipo": "interior",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/interiors/tavern/inn_porter_room.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Pieza de mejora del interior (el cuarto del portero): nodo Upgrades/inn_porter_room de game/visuals/interiors/tavern_inn.tscn, ~48×48, base en el nodo."
+    },
+    {
+      "id": "illus_inn_turn",
+      "tipo": "ui",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/illustrations/events/inn_turn.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Ilustración de la carta del resumen del turno (la taberna de noche), 240×135, y inn_turn_192.png (192×108)."
+    },
+    {
+      "id": "icon_ale",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/ale.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (jarra de cerveza), 32×32, y el pequeño 16×16 en assets/art/icons/small/ale.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_cider",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/cider.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (jarra de sidra), 32×32, y el pequeño 16×16 en assets/art/icons/small/cider.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_wine",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/wine.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (copa de vino), 32×32, y el pequeño 16×16 en assets/art/icons/small/wine.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_meat",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/meat.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (pieza de carne), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_garlic_soup",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/garlic_soup.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (cuenco de sopa de ajo), 32×32, y el pequeño 16×16 en assets/art/icons/small/garlic_soup.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_stew",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/stew.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (olla), 32×32, y el pequeño 16×16 en assets/art/icons/small/stew.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_meat_pie",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/meat_pie.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (empanada), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat_pie.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_roast_lamb",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/roast_lamb.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (cordero asado), 32×32, y el pequeño 16×16 en assets/art/icons/small/roast_lamb.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_sausage",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/sausage.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (embutido), 32×32, y el pequeño 16×16 en assets/art/icons/small/sausage.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+    },
+    {
+      "id": "icon_sweets",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "posada",
+        "04f-4.27"
+      ],
+      "ruta": "assets/art/icons/sweets.png",
+      "origen": null,
+      "origen_previo": null,
+      "coste_gen": 0,
+      "notas": "Icono del objeto y plato de la Taberna-Posada (dulces de Navidad), 32×32, y el pequeño 16×16 en assets/art/icons/small/sweets.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
     }
   ]
 }
