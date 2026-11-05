@@ -337,7 +337,10 @@ static func _backdrop(parent: Node2D, type: String, d: Dictionary, room: Diction
 ## The light layer of a room: the room's tiles raised by the wall height, as one polygon (no double light at the
 ## seams), added (a glow) or multiplied (shade) over what is in the room.
 static func _light(parent: Node2D, d: Dictionary, room: Dictionary, wh: float) -> void:
-	var l := InteriorDefs.light(str(room.get("light", "")))
+	var lid := str(room.get("light", ""))
+	if lid == "" and int(room.get("floor", 0)) < 0:
+		lid = "dim"   # a cellar is dim unless its data says otherwise
+	var l := InteriorDefs.light(lid)
 	if l.is_empty():
 		return
 	var level := int(room.get("floor", 0))

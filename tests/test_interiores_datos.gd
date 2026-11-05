@@ -288,3 +288,25 @@ func test_the_tavern_seats_below_and_beds_upstairs() -> void:
 	s.show_level(-1)
 	eq(int(inn.shown_level), -1, "and nothing of either from the cellar")
 	v.free()
+
+
+func test_who_leaves_fades_away() -> void:
+	var sim := _sim()
+	_hugo_in(sim)
+	var v := _interior(sim)
+	v.sync()
+	var fig := v.view_of(HUGO)
+	check(fig != null, "Hugo is drawn inside")
+	sim.state.characters[HUGO]["location"] = ""   # he goes out
+	v.sync()
+	check(v.view_of(HUGO) == null, "he is no longer one of the room's people")
+	check(fig.has_meta("leaving") and not fig.selectable, "his figure leaves fading (and no longer answers clicks)")
+	v.free()
+
+
+func test_a_guest_appears_with_a_fade() -> void:
+	var n := Node2D.new()
+	InteriorStage.fade_in(n)   # outside the tree: nothing to tween, it stays as it is
+	eq(n.modulate.a, 1.0, "outside the tree it is left alone")
+	InteriorStage.fade_out(n)
+	check(n.has_meta("leaving") and n.is_queued_for_deletion(), "and without a tree it just goes")

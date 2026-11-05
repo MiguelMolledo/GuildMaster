@@ -25,6 +25,34 @@ func _ready() -> void:
 	print("[SmokeForja] start (timeout=%.0f s)" % timeout)
 
 
+## The shots without cards over the forge: every day of the year has its festival (data/festivals.json), whose card
+## (EventCard, not modal) would cover the interior, and an incident card (a street brawl) or a microevent card may come
+## too. Each frame (the shot copies the frame already drawn) the event cards are closed, like «Entendido», and the
+## incident and microevent cards put off, like «Luego» (no order: the default comes at its timeout, as in the game).
+func _shot(shot_name: String) -> void:
+	app.save_shot(shot_name)
+
+
+## True when a card was cleared now: the step waits a frame, so the next shot copies a frame drawn without it.
+func _clear_cards() -> bool:
+	var cleared := false
+	var stack: Array = [get_tree().root]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		if n is IncidentCard and (n as CanvasItem).is_visible_in_tree():
+			(n as IncidentCard).button_pressed.emit("later")
+			(n as IncidentCard).close()
+			cleared = true
+		elif n is EventCard and (n as CanvasItem).is_visible_in_tree():
+			(n as EventCard).close()
+			cleared = true
+		elif n is MicroeventCard and not (n as MicroeventCard).folded:
+			(n as MicroeventCard).set_folded(true)
+			cleared = true
+		stack.append_array(n.get_children())
+	return cleared
+
+
 func _go(step: String) -> void:
 	print("[SmokeForja] %s -> %s (t=%.1f s, minute=%d)" % [_step, step, _total, int(Game.sim.state.clock["minute"])])
 	_step = step
@@ -40,11 +68,13 @@ func _storage(item: String) -> int:
 
 
 func _process(delta: float) -> void:
+	if _clear_cards():
+		return
 	_t += delta
 	_total += delta
 	if _total > timeout and _step != "done":
 		print("[SmokeForja] TIMEOUT in step %s" % _step)
-		app.save_shot("h2_timeout")
+		_shot("h2_timeout")
 		get_tree().quit(1)
 		return
 	var hugo: Dictionary = _sim().state.characters[HUGO]
@@ -56,7 +86,7 @@ func _process(delta: float) -> void:
 				_go("map")
 		"map":
 			if _t > 0.5:
-				app.save_shot("h2_mapa")
+				_shot("h2_mapa")
 				app.world().command_enter(BLD)
 				_go("entering")
 		"entering":
@@ -73,7 +103,7 @@ func _process(delta: float) -> void:
 				_go("menu")
 		"menu":
 			if _t > 0.4:
-				app.save_shot("h2_menu")
+				_shot("h2_menu")
 				app.interior().station_menu().choose_recipe("forge_sword")
 				_go("sword")
 		"sword":
@@ -81,7 +111,7 @@ func _process(delta: float) -> void:
 			if job.is_empty():
 				return
 			if float(job.get("progress", 0.0)) >= 0.3:
-				app.save_shot("h2_interior")
+				_shot("h2_interior")
 				_go("touch")
 		"touch":
 			var job := Production.job_view(_sim(), BLD, "anvil")
@@ -93,7 +123,7 @@ func _process(delta: float) -> void:
 				_go("storage")
 		"storage":
 			if _t > 0.6:
-				app.save_shot("h2_almacen")
+				_shot("h2_almacen")
 				var inv: Dictionary = _sim().state.buildings[BLD]["inventory"]
 				for s: Dictionary in inv["stacks"]:
 					if str(s["item"]) == "sword":
@@ -107,7 +137,7 @@ func _process(delta: float) -> void:
 				_go("panel")
 		"panel":
 			if _t > 0.6:
-				app.save_shot("h2_personaje")
+				_shot("h2_personaje")
 				app.hud().toggle_character_panel()
 				Game.set_paused(true)
 				app.interior().click_station("furnace")
@@ -121,6 +151,6 @@ func _process(delta: float) -> void:
 				_go("queue")
 		"queue":
 			if _t > 0.5:
-				app.save_shot("h2_cola")
+				_shot("h2_cola")
 				_go("done")
 				get_tree().quit()

@@ -172,7 +172,8 @@ las piezas de cada mejora por su nodo (`visual.interior_node`, como antes).
 - **Clientes del mostrador** (4.5.4): aparecen en su sitio con un fundido de 0,3 s, con la burbuja de lo que vienen a
   comprar (el producto que el mostrador les vendería) o «…» en la cola, y su barra de paciencia (o la dorada de la
   venta). Clic en uno: la persona seleccionada va al mostrador a atender (`go_to_station counter`, la misma orden de
-  siempre).
+  siempre). Al irse, cualquier cliente (vecino, de la comarca o huésped de la posada) **se desvanece** en 0,3 s en vez
+  de desaparecer de golpe (`InteriorStage.fade_out`); mientras se va ya no se puede elegir.
 - **Expositor:** enseña lo que hay a la venta en el almacén (los productos más caros primero), hasta sus huecos.
 
 ### 5.4 Clientes en dos capas (§4.6.5.7) y sótano (O-I1)
@@ -185,8 +186,10 @@ las piezas de cada mejora por su nodo (`visual.interior_node`, como antes).
   aldea, con la burbuja del producto que vienen a comprar, y **se van** con otro fundido. **Apagada por defecto**
   (`data/town.json` `counter.clientele.enabled`), así las dianas no se mueven. Pendiente del owner: la `fama` de un
   taller (hoy vale 1) y medir `base_per_day` con los bots antes de encenderla (`docs/decisiones.json`).
-- **Sótano:** las plantas por debajo de la baja van bajo tierra. Desde arriba no se ven, y cuando miras el sótano se
-  ocultan las de encima. La **guarida del Pícaro** existe de momento solo como piezas (jaula, poste con cadenas,
+- **Sótano:** un tipo de planta del montador: `level` negativo en `data/interiors/<edificio>.json`, al que se baja
+  por una escalera hacia abajo (una entrada de `stairs` con `to_floor` negativo y la pieza `cellar_stairs`). Va bajo tierra y, si la sala no pide otra luz, lleva luz baja
+  (`dim`). Desde arriba no se ve, y cuando miras el sótano se ocultan las de encima. Hoy lo usa la bodega de la
+  Taberna-Posada. La **guarida del Pícaro** existe de momento solo como piezas (jaula, poste con cadenas,
   trampilla, contrabando, mesa del perista y de dados, objetos robados, botellero, toneles, escalera de piedra) y como
   plantilla de datos, `data/interiors/_thieves_den.json`. Planta baja: taller del perista y sala de juego. Sótano,
   tras la trampilla: el contrabando y la celda con la jaula. El `_` la deja fuera del juego hasta que haya edificio.

@@ -115,16 +115,18 @@ func sync() -> void:
 			v.setup(guest_person(g), guest_family(g))
 			interior.objects().add_child(v)
 			_views[gid] = v
+			InteriorStage.fade_in(v)   # a guest appears at its seat with a fade (04g O-I2)
 		var view: CharacterView = _views[gid]
 		view.position = (_seat_pos[seat] as Vector2).round()
 		view.play_motion("idle", "se" if seat % 2 == 0 else "sw")
 		var lv := int(_seat_level[seat]) if seat < _seat_level.size() else 0
 		view.visible = InteriorStage.show_mode(lv, shown_level) > 0
 		view.z_index = lv * InteriorBuilder.LEVEL_Z
-		view.modulate = InteriorStage.DIM if InteriorStage.show_mode(lv, shown_level) == 1 else Color.WHITE
+		var base := InteriorStage.DIM if InteriorStage.show_mode(lv, shown_level) == 1 else Color.WHITE
+		view.modulate = Color(base.r, base.g, base.b, view.modulate.a)   # (its alpha is the fade's)
 	for gid: String in _views.keys():
 		if not seen.has(gid):
-			(_views[gid] as Node).queue_free()
+			InteriorStage.fade_out(_views[gid] as Node)   # and fades away when it goes
 			_views.erase(gid)
 	_sync_icons()
 	queue_redraw()

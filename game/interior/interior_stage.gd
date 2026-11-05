@@ -40,6 +40,32 @@ var _display_sig: String = ""
 var _button: Button = null
 
 
+## Fades `v` in from transparent (FADE_SECONDS): a person who appears (04g 4.6.5.4, O-I2).
+static func fade_in(v: CanvasItem) -> void:
+	if v == null or not v.is_inside_tree():
+		return
+	v.modulate.a = 0.0
+	v.create_tween().tween_property(v, "modulate:a", 1.0, FADE_SECONDS)
+
+
+## Fades `v` out and frees it: a person who leaves the interior (04g 4.6.5.4, O-I2). It no longer answers clicks.
+static func fade_out(v: Node) -> void:
+	if v == null or not is_instance_valid(v) or v.is_queued_for_deletion():
+		return
+	if v.has_meta("leaving"):
+		return
+	v.set_meta("leaving", true)
+	if v is CharacterView:
+		(v as CharacterView).selectable = false
+		(v as CharacterView).name = str(v.name) + "_leaving"
+	if not (v is CanvasItem) or not v.is_inside_tree():
+		v.queue_free()
+		return
+	var tw := v.create_tween()
+	tw.tween_property(v, "modulate:a", 0.0, FADE_SECONDS)
+	tw.tween_callback(v.queue_free)
+
+
 ## Hooks a stage to `v` for its room `room` when the room was built from data (InteriorBuilder). Returns it or null.
 static func attach(v: InteriorView, room: Node2D) -> InteriorStage:
 	var old := v.get_node_or_null("InteriorStage")

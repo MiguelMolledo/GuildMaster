@@ -516,7 +516,7 @@ func sync() -> void:
 		var inside := str(ch.get("location", "")) == building and bool(ch.get("alive", true))
 		if not inside:
 			if _views.has(id):
-				(_views[id] as CharacterView).queue_free()
+				InteriorStage.fade_out(_views[id] as CharacterView)  # who leaves fades away (04g O-I2)
 				_views.erase(id)
 			continue
 		if not _views.has(id):
