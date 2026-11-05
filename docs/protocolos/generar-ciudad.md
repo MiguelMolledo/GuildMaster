@@ -314,10 +314,12 @@ rejilla, los solares y los puntos de reunión no se mueven, así que ninguna dia
 | `ruin` | Un solar de relleno dentro (el mejor situado primero: la ganga); sin ninguno, hierba con calle delante | Muros rotos de alturas distintas (`props/ruin_wall`) y escombro (`props/ruin_rubble`) |
 | `business` | Cada taller y casa del mapa (el solar mayor de su huella) | El cartel «Se vende» (`props/for_sale_sign`) junto a la puerta, solo si `for_sale` y el edificio es de una familia IA en esa partida |
 
-- Cada parcela: `id`, `state`, `side` (`inside`/`outside`: con muralla, respecto a ella —en Montsacre, el recinto
-  de la abadía—; sin muralla, a `inside_reach` casillas de lo edificado), `zone` (`rustic`/`production`/`housing`),
-  `origin`, `size`, `front` (la casilla desde la que se entra: la puerta en un negocio), `location` y, en un negocio,
-  `site` y `for_sale`.
+- Cada parcela: `id`, `state`, `side`, `zone` (`rustic`/`production`/`housing`), `origin`, `size`, `front` (la
+  casilla desde la que se entra: la puerta en un negocio), `location` y, en un negocio, `site` y `for_sale`.
+- **Dentro y fuera** (`side`; decisión «Montsacre: dentro y fuera sin muralla de villa»): con muralla de villa
+  (Bellcaire), respecto a ella; sin ella, dentro es el núcleo: la entrada a `inside_walk` pasos andando de la plaza
+  (18). Un recinto (`precincts`: el de la abadía de Montsacre, tierra de la Iglesia) no se edifica: ningún solar ni
+  ruina dentro (el validador lo comprueba).
 - **Situación** (`location` 0-1): pesos de `plots.location` sobre la distancia andando a la plaza, la calle mayor
   (calle y plaza), las puertas y el paso de gente (los paseos de cada puerta y cada portal a la plaza) [balance].
 - **Mínimos que comprueba el validador** en las ciudades de `plots.maps`: 2 solares dentro (`min_inside`), 2 fuera

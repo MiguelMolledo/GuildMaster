@@ -3,7 +3,7 @@
     {
       "fecha": "2026-11-05",
       "tema": "Parcelas de 4.9.1: datos y vista, sin reglas (H6 espera su Gate)",
-      "decision": "Las seis ciudades (town_e y las cinco de la región) traen plots en su mapa, repartidas por tools/city/plots.py con las reglas de tools/city/reglas.json plots: al menos 2 solares dentro y 2 fuera, 1-3 ruinas, todos los talleres y casas como negocios de NPC (2 talleres en venta, los mejor situados salvo la forja del jugador y la del rival del herrero) y la válvula de 4.9 (2 parcelas libres de cada zona: rústica, producción, vivienda), cada una con su situación 0-1 (plaza, calle mayor, puertas y paso de gente). Los solares de dentro y las ruinas son solares de relleno (casillas # que ya estaban bloqueadas) que dejan de ser casa; los de fuera, hierba o campo junto a un camino. Dentro/fuera: con muralla, respecto a ella (en Montsacre, el recinto de la abadía: el burgo cuenta como fuera); sin muralla, cerca de lo edificado. La vista dibuja el solar (tierra y estacas), la ruina (muros rotos en greybox) y el cartel «Se vende» (solo si el edificio es de una familia IA).",
+      "decision": "Las seis ciudades (town_e y las cinco de la región) traen plots en su mapa, repartidas por tools/city/plots.py con las reglas de tools/city/reglas.json plots: al menos 2 solares dentro y 2 fuera, 1-3 ruinas, todos los talleres y casas como negocios de NPC (2 talleres en venta, los mejor situados salvo la forja del jugador y la del rival del herrero) y la válvula de 4.9 (2 parcelas libres de cada zona: rústica, producción, vivienda), cada una con su situación 0-1 (plaza, calle mayor, puertas y paso de gente). Los solares de dentro y las ruinas son solares de relleno (casillas # que ya estaban bloqueadas) que dejan de ser casa; los de fuera, hierba o campo junto a un camino. Dentro/fuera (decisión «Montsacre: dentro y fuera sin muralla de villa»): con muralla de villa (Bellcaire), respecto a ella; sin ella, el núcleo a 18 pasos andando de la plaza (tools/city/reglas.json plots.inside_walk); el recinto de la abadía de Montsacre no se edifica (plots.precincts). La vista dibuja el solar (tierra y estacas), la ruina (muros rotos en greybox) y el cartel «Se vende» (solo si el edificio es de una familia IA).",
       "por_que": "Petición del owner (4.9.1). El sim no lee las parcelas ni la decoración: la rejilla no cambia y las dianas tampoco (tests/test_plantillas_parcelas.gd compara la partida con y sin parcelas; town_e incluido). Comprar, construir, restaurar y reconvertir quedan para H6."
     },
     {
@@ -745,6 +745,36 @@
       "tema": "Juegos en las fiestas",
       "decision": "Los espectáculos de fiesta que son juegos (justa, torneo de lucha, carrera, toros) se corren a su hora con las reglas de 4.26: solos (Games.auto) o con el jugador si se apuntó (game_enter; la justa pide Ciudadano). Si el apuntado no juega, al acabar la fiesta se resuelve sin jugar en su nombre. Las apuestas de la feria se pagan con el resultado de la propia competición y se devuelven si no llega a correrse. Todo va dentro de la instancia de fiesta (v18): juegos sigue sin versión de guardado.",
       "por_que": "Encargo del manager: enganchar festival_spectacle, la justa y el torneo del Alcalde y las apuestas en la feria. Guardarlo en la fiesta evita otra versión de guardado; resolver al final al que no juega evita que apuntarse y cerrar la pantalla sea una salida gratis."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Hugo v3: proporciones de adulto",
+      "decision": "Se mantienen las proporciones del v3 (cabeza de adulto, cara de 9×6 px a escala B); no se agranda la cabeza. A zoom 1 el personaje se lee por silueta, color de ropa y nombre; la cara, en el retrato y a zoom 2. Retoque a mano de ojos, boca y barbilla hecho (arte-fal-2 2786313). El v3 se cablea entero (idle, andar, forjar) cuando haya 8 generaciones de PixelLab para el andar; hasta entonces, nada más de arte: prioridad gameplay.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Decide el manager tras ver las comparativas a zoom 1 y 2."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 13 · fama de un taller",
+      "decision": "como la de la taberna, 0,5-2,0; sube con la calidad media de lo vendido en los últimos 4 días, obras maestras, encargos cumplidos y concursos ganados; baja con encargos incumplidos y quejas. Se define en 04g §4.6.5.7.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 14 · clientela de la comarca en los talleres",
+      "decision": "una sola implementación para mostrador y taberna (la de interiores, sim/town/clientele.gd, y la de la posada se unifican); se enciende cuando sus cifras por oficio estén medidas con los bots de cada oficio y el mostrador deje ≥2× salario (punto 8).",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 15 · bolsa de los hogares",
+      "decision": "los vecinos con trabajo cobran un jornal diario a la bolsa de su casa (según oficio), y la comida se paga de ella; el gasto en la taberna es discrecional. Diana: 6-12 vecinos por noche en la taberna un día normal.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Montsacre: dentro y fuera sin muralla de villa",
+      "decision": "El recinto de la abadía no es edificable (tierra de la Iglesia). En ciudades sin muralla de villa, «dentro» es el núcleo a un radio andando de la plaza (cifra en tools/city/reglas.json), con guardia y precio de situación de dentro.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
     }
   ],
   "pendientes": [

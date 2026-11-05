@@ -21,6 +21,10 @@ const UPGRADE_ORDER: Array = ["tavern_inn_ambience_1", "tavern_inn_security_1", 
 	"tavern_inn_ambience_2", "tavern_inn_kitchen_2", "tavern_inn_rooms_2", "tavern_inn_hall_3", "tavern_inn_ambience_3"]
 const ROLES: Array = ["kitchen", "bar", "rooms", "tables"]
 const RESERVE: int = 80
+## Days of running costs (upkeep of the family's buildings and wages) kept before repaying the debt or building.
+const RESERVE_DAYS: int = 3
+## Shopping order (lower first) when the purse does not reach for everything.
+const BUY_FIRST: Dictionary = {"wheat": 0, "wood": 1, "meat": 2, "flour": 3, "wine": 20, "cider": 30, "bread": 40}
 
 var _tavern: String = ""
 var _hero: String = ""
@@ -115,18 +119,29 @@ func _manage(sim: Sim, now: int) -> Array:
 			continue
 		if _has_inputs(sim, rid):
 			out.append({"type": "queue_add", "actor": _hero, "building": _tavern, "recipe": rid, "qty": 1})
-	# the start debt, when it can (and always before it falls due)
+	# the start debt: never at the cost of the running costs. It keeps RESERVE_DAYS of upkeep and wages (the buildings
+	# get damaged after 3 days of unpaid upkeep, D15); falling due, it pays what is above that reserve (the extension
+	# takes the rest).
+	var keep := RESERVE_DAYS * _running_costs(sim)
 	for l: String in st.loans:
 		var ln: Dictionary = st.loans[l]
+		if str(ln.get("family", "")) != _fam or not Loans.is_open(ln):
+			continue
+		var owed := int(ln.get("outstanding", 0))
 		var due_soon := int(ln.get("due_minute", 0)) - now <= Clock.MINUTES_PER_DAY
-		if str(ln.get("family", "")) == _fam and Loans.is_open(ln) and gold >= int(ln.get("outstanding", 0)) + RESERVE \
-				and (due_soon or gold >= int(ln.get("outstanding", 0)) + 3 * RESERVE):
-			out.append({"type": "repay_loan", "actor": _hero, "loan": l, "amount": int(ln.get("outstanding", 0))})
-			gold -= int(ln.get("outstanding", 0))
+		var spare := gold - keep
+		var pay := 0
+		if spare >= owed + RESERVE:
+			pay = owed
+		elif due_soon and spare > 0:
+			pay = mini(owed, spare)
+		if pay > 0:
+			out.append({"type": "repay_loan", "actor": _hero, "loan": l, "amount": pay})
+			gold -= pay
 	# upgrades in order, one works at a time
 	var next := _next_upgrade(sim)
 	if next != "" and Upgrades.status_of(sim, _hero, _tavern, next) == "available" \
-			and gold >= int(sim.catalog.upgrade(next).get("cost", {}).get("gold", 0)) + 3 * RESERVE:
+			and gold >= int(sim.catalog.upgrade(next).get("cost", {}).get("gold", 0)) + maxi(3 * RESERVE, keep):
 		out.append({"type": "buy_upgrade", "actor": _hero, "building": _tavern, "upgrade": next})
 		_upgrades_bought += 1
 	# the licence once the gaming table stands
@@ -150,6 +165,22 @@ func _manage(sim: Sim, now: int) -> Array:
 	if want != menu:
 		out.append({"type": "inn_set_menu", "actor": _hero, "building": _tavern, "dishes": want})
 	return out
+
+
+## What the family pays every day whatever it sells: the upkeep of its buildings and the wages of its employees.
+func _running_costs(sim: Sim) -> int:
+	var st := sim.state
+	var total := 0
+	for b: String in st.buildings:
+		if str(st.buildings[b].get("owner", "")) != _fam:
+			continue
+		total += int(sim.catalog.buildings().get(str(st.buildings[b].get("type", "")), {}).get("upkeep", 0))
+		var hired := Staff.employees_of(st, b)
+		for e: String in hired:
+			total += Staff.wage(sim, e)
+		if b == _tavern:  # the places it will fill soon count at an apprentice's wage (the reserve before the hires)
+			total += maxi(0, Staff.slots(st, b) - hired.size()) * int(sim.catalog.rank("apprentice").get("wage", 7))
+	return total
 
 
 func _next_upgrade(sim: Sim) -> String:
@@ -254,7 +285,12 @@ func _shopping_list(sim: Sim) -> Array:
 	var out: Array = []
 	var gold := Money.gold(st, _fam) - RESERVE / 2
 	var items: Array = need.keys()
-	items.sort()
+	# the best margin first (the ale's wheat and wood, then the kitchen's meat and flour); what is sold as bought (bread,
+	# cider, wine) last: alphabetical order spent the purse on bread before the ale had its wheat
+	items.sort_custom(func(a: String, b: String) -> bool:
+		var pa := int(BUY_FIRST.get(a, 50))
+		var pb := int(BUY_FIRST.get(b, 50))
+		return pa < pb if pa != pb else a < b)
 	for it: String in items:
 		var qty := int(need[it]) - Inventory.count(inv, it)
 		if qty <= 0:

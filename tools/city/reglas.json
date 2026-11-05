@@ -52,7 +52,7 @@
     "edge": 0.45
   },
   "plots": {
-    "_doc": "Plots of the towns (docs/gdd/04_diseno_de_juego.md §4.9.1, tools/city/plots.py): free lots inside the town (filler lots, else open grass), outside it (open grass or fields beside a road), ruins (filler lots, else open grass) and the NPC businesses (every workshop and house site), each with its location 0-1. maps: the towns that must have them (the validator requires them and the counts). ruins / lots_inside / lots_outside: how many the builder tries; min_inside, min_outside, 1-3 ruins and valve (free plots of each zone: rustic, production, housing; 4.9's anti-blocking valve) are what the validator checks. for_sale: workshops with the «Se vende» sign, the best-located ones not in never_for_sale. min_area: the smallest filler lot taken. inside_reach: in a town without walls, tiles within this of the built town are inside (with walls: inside the wall). passes: the open-ground rects tried, strict to loose (sizes, gap clear around, road = entered from a road). location: weights of the plaza (walking distance), the main street (streets and plaza, within main_street_reach tiles), the gates and the traffic (walks from every door and gate to the plaza); [balance].",
+    "_doc": "Plots of the towns (docs/gdd/04_diseno_de_juego.md §4.9.1, tools/city/plots.py): free lots inside the town (filler lots, else open grass), outside it (open grass or fields beside a road), ruins (filler lots, else open grass) and the NPC businesses (every workshop and house site), each with its location 0-1. maps: the towns that must have them (the validator requires them and the counts). ruins / lots_inside / lots_outside: how many the builder tries; min_inside, min_outside, 1-3 ruins and valve (free plots of each zone: rustic, production, housing; 4.9's anti-blocking valve) are what the validator checks. for_sale: workshops with the «Se vende» sign, the best-located ones not in never_for_sale. min_area: the smallest filler lot taken. inside_walk: in a town without a town wall, a plot entered within this many steps (walking) of the plaza is inside, the nucleus (decision «Montsacre: dentro y fuera sin muralla de villa»); with a town wall, inside the wall. precincts: maps whose wall is a precinct, not a town wall (Montsacre's abbey, Church land): nothing is built inside it and its sides go by inside_walk. passes: the open-ground rects tried, strict to loose (sizes, gap clear around, road = entered from a road). location: weights of the plaza (walking distance), the main street (streets and plaza, within main_street_reach tiles), the gates and the traffic (walks from every door and gate to the plaza); [balance].",
     "maps": [
       "town_e",
       "region_capital",
@@ -73,7 +73,10 @@
       "rival_forge"
     ],
     "min_area": 4,
-    "inside_reach": 2,
+    "inside_walk": 18,
+    "precincts": [
+      "region_abbey"
+    ],
     "passes": [
       {
         "sizes": [

@@ -113,24 +113,21 @@ class Situation:
 # --- Inside and outside ---------------------------------------------------------------------------------------------
 
 class Sides:
-    """Which tiles are inside the town: with a wall (M tiles), those with wall in at least 3 of the 4 directions; without
-    one, those within `inside_reach` tiles of the built town (sites, filler lots, the plaza)."""
+    """Which plots are inside the town (decision 2026-11-05 «Montsacre: dentro y fuera sin muralla de villa»): in a town
+    with a town wall (M tiles, not a precinct), the tiles with wall in at least 3 of the 4 directions; in a town without
+    one, a plot whose entrance is within `inside_walk` steps (walking) of the plaza, the town's nucleus. A precinct
+    (rules plots.precincts: the abbey's wall at Montsacre, Church land) is not buildable: no lot or ruin inside it."""
 
-    def __init__(self, m):
+    def __init__(self, m, plaza_dist):
         self.m = m
-        self.walled = any(m.kind(t) == "wall" for t in m.all_tiles())
-        reach = int(cfg().get("inside_reach", 2))
-        self.near = set()
-        if not self.walled:
-            built = [t for t in m.all_tiles() if m.kind(t) in ("building", "plaza")]
-            for (c, r) in built:
-                for dr in range(-reach, reach + 1):
-                    for dc in range(-reach, reach + 1):
-                        self.near.add((c + dc, r + dr))
+        rl = cfg()
+        self.plaza = plaza_dist
+        self.walk = int(rl.get("inside_walk", 18))
+        has_wall = any(m.kind(t) == "wall" for t in m.all_tiles())
+        self.precinct = has_wall and m.d.get("id", "") in rl.get("precincts", [])
+        self.walled = has_wall and not self.precinct
 
-    def inside(self, t):
-        if not self.walled:
-            return tuple(t) in self.near
+    def _within_wall(self, t):
         hits = 0
         for d in DIRS:
             v = (t[0] + d[0], t[1] + d[1])
@@ -141,11 +138,17 @@ class Sides:
                 v = (v[0] + d[0], v[1] + d[1])
         return hits >= 3
 
-    def side_of(self, rect):
-        c, r, w, h = rect
-        cells = [(c + i, r + j) for j in range(h) for i in range(w)]
-        ins = sum(1 for t in cells if self.inside(t))
-        return "inside" if ins * 2 > len(cells) else "outside"
+    def unbuildable(self, t):
+        """A tile of a precinct (no lot or ruin there)."""
+        return self.precinct and self._within_wall(t)
+
+    def side_of(self, rect, front):
+        if self.walled:
+            c, r, w, h = rect
+            cells = [(c + i, r + j) for j in range(h) for i in range(w)]
+            ins = sum(1 for t in cells if self._within_wall(t))
+            return "inside" if ins * 2 > len(cells) else "outside"
+        return "inside" if self.plaza.get(tuple(front), self.walk + 1) <= self.walk else "outside"
 
 
 # --- Candidates ------------------------------------------------------------------------------------------------------
@@ -264,7 +267,7 @@ def plots(d, cat):
     m = citylib.Map(d, cat)
     rl = cfg()
     sit = Situation(m)
-    sides = Sides(m)
+    sides = Sides(m, sit.plaza)
     reachable = set(sit.plaza)
     decor = (d.get("decor") or {}).get("items", [])
     blocked = set(m.protected()) | set(m.site_tiles())
@@ -275,9 +278,10 @@ def plots(d, cat):
     blocked |= {t for t in citylib._decor_tiles(d)} - m.free_filler()
     for lm in d.get("landmarks") or []:
         blocked |= set(_rect_tiles((lm["origin"][0], lm["origin"][1], lm["size"][0], lm["size"][1])))
+    blocked |= {t for t in m.all_tiles() if sides.unbuildable(t)}  # a precinct (Church land) is not built on
     filler = _filler_candidates(m, decor, reachable, blocked - m.free_filler())
     for f in filler:
-        f["side"] = sides.side_of(f["rect"])
+        f["side"] = sides.side_of(f["rect"], f["front"])
         f["location"] = sit.of(f["front"])
     passes = rl.get("passes", [{"sizes": [[3, 3], [3, 2], [2, 3]], "gap": 1, "road": True},
                                {"sizes": [[3, 3], [3, 2], [2, 3], [2, 2]], "gap": 0, "road": True},
@@ -285,7 +289,7 @@ def plots(d, cat):
     decor_tiles = citylib._decor_tiles(d)
     grass = _grass_candidates(m, reachable, blocked, decor_tiles, ("grass", "field"), passes)
     for g in grass:
-        g["side"] = sides.side_of(g["rect"])
+        g["side"] = sides.side_of(g["rect"], g["front"])
         g["location"] = sit.of(g["front"])
         g["field"] = any(m.kind(t) == "field" for t in _rect_tiles(g["rect"]))
     grass = [g for g in grass if not (g["field"] and g["side"] == "inside")]
@@ -353,7 +357,7 @@ def plots(d, cat):
         if s["type"] not in WORKSHOPS and s["type"] != "house":
             continue
         (x, y), (w, h) = s["origin"], s["footprint"]
-        biz.append({"id": "", "state": "business", "side": sides.side_of((x, y, w, h)),
+        biz.append({"id": "", "state": "business", "side": sides.side_of((x, y, w, h), s["door"]),
                     "zone": "production" if s["type"] in WORKSHOPS else "housing", "origin": [x, y], "size": [w, h],
                     "front": list(s["door"]), "location": sit.of(s["door"]), "site": sid, "for_sale": False})
     keep = set(rl.get("never_for_sale", ["player_forge", "rival_forge"]))
@@ -398,8 +402,8 @@ def validate_plots(m, rep, required=False):
             rep.error("plots: el mapa no tiene parcelas (python3 tools/city/ciudad.py parcelas %s)" % m.d.get("id", ""))
         return
     rl = cfg()
-    sides = Sides(m)
     sit = Situation(m)
+    sides = Sides(m, sit.plaza)
     reach = set(sit.plaza)
     owned = m.site_tiles()
     prot = m.protected()
@@ -435,8 +439,8 @@ def validate_plots(m, rep, required=False):
             continue
         if tuple(fr) not in reach:
             rep.error(f"{w}: la entrada {fr} no se alcanza desde la plaza")
-        if sides.side_of(rect) != side:
-            rep.error(f"{w}: dice {side} y está {sides.side_of(rect)}")
+        if sides.side_of(rect, fr) != side:
+            rep.error(f"{w}: dice {side} y está {sides.side_of(rect, fr)}")
         if st == "business":
             sid = p.get("site", "")
             s = m.sites.get(sid)
@@ -449,6 +453,8 @@ def validate_plots(m, rep, required=False):
             if zone == "rustic":
                 rep.error(f"{w}: un negocio de la villa no es rústico")
             continue
+        if any(sides.unbuildable(t) for t in tiles):
+            rep.error(f"{w}: está en el recinto de {m.d.get('id', '')} (plots.precincts: no se edifica)")
         counts["ruin" if st == "ruin" else "lot_" + side] += 1
         free_zone[zone] += 1
         if zone == "rustic" and side != "outside":
