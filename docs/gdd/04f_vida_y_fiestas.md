@@ -845,9 +845,18 @@ Cada noche llegan clientes de **grupos** distintos. Cada grupo tiene sus gustos 
   juega otra familia, su parte va al dueño. **La partida del forastero:** con jugadores en la sala, a veces un
   forastero (el de los anillos, el soldado licenciado, el mercader de paso) propone azar o envite a 10 o 25: sale una
   carta (Jugar / Ahora no) y la oferta queda en la pestaña Mesa hasta el cierre. **Sin licencia** cada partida tiene
-  un 30 % de que la vean los del alguacil (50 % con el cargo ocupado): hecho `illegal_gaming` (cargo `minor_fraud`,
-  leve) contra la familia que jugó, −3 de reputación y aviso. Las partidas de la noche salen en el resumen.
-  [propuesta: las cifras, en `data/inn/inn.json` → `games`]
+  un 30 % de que la vean los del alguacil (50 % con el cargo ocupado): la mesa es del dueño, así que **la multa es
+  del dueño de la taberna, juegue quien juegue** (manager 2026-11-05): hecho `illegal_gaming` (cargo `minor_fraud`,
+  leve) contra su familia (responde su cabeza), −3 de reputación, aviso y una línea en su crónica; si jugaba otra
+  familia, esa no paga multa (solo arriesga lo apostado) y un aviso se lo dice. Las partidas de la noche salen en el
+  resumen. [propuesta: las cifras, en `data/inn/inn.json` → `games`]
+- **La mesa de otra familia** (manager 2026-11-05): desde la puerta de su taberna (a 2 casillas, con el turno abierto;
+  en el mapa, «Jugar en la mesa»), como visitante y sin gestionarla, cualquiera de la familia se sienta a su mesa;
+  la parte de la casa va al dueño. Si el dueño es una familia IA, su perfil (`data/ai_profiles/<id>.json` →
+  `tavern_table`) decide: con la relación de su cabeza con el que llega por debajo de `refuse_below` no le deja
+  jugar; por debajo de `rival_below` le pide `rival_min_stake`; si no, `min_stake` (herrero rival: −30, 0, 25 y 10).
+  Sin perfil, `games.house_default`. Las partidas simuladas entre los clientes no se hacen (owner/manager
+  2026-11-05): la parte fija de la casa en su cuenta (2-6) basta.
 
 #### 4.27.5 Mejoras (árbol de la Taberna-Posada, como el de la Forja de 4.8)
 

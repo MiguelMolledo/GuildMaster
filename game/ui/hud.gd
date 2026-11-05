@@ -100,6 +100,7 @@ const GOLD_ICON: String = "icon_oro"
 @onready var _building_hint: Label = %BuildingHint
 @onready var _manage_button: Button = %ManageButton
 @onready var _buy_button: Button = %BuyButton  # posada: a building for sale (the Taberna-Posada, buy_building)
+@onready var _table_button: Button = %TableButton  # posada: another family's tavern, its gaming table (InnVisitCard)
 @onready var _selection_action: Button = %SelectionAction
 # 7 · notices, toast, cards, help
 @onready var _notice_popups: VBoxContainer = %NoticePopups
@@ -185,6 +186,11 @@ func _ready() -> void:
 		var who := active_person()
 		if who != "" and _game != null:
 			_game.give({"type": "buy_building", "actor": who, "building": building_id}))
+	_table_button.pressed.connect(func() -> void:
+		var app := get_node_or_null("/root/App")
+		var card := app.get_node_or_null("%InnVisitCard") as InnVisitCard if app != null else null
+		if card != null and _game != null:
+			card.show_for(_game.sim, building_id, active_person()))
 	_selection_action.pressed.connect(toggle_character_panel)
 	_toast_label.visible = false
 	# panels: the orders go to Game; one management panel at a time (ManageSlot)
@@ -367,11 +373,23 @@ func _show_building(sim: Sim) -> void:
 	_selection_action.visible = false
 	var sale := bool(sim.state.buildings[building_id].get("for_sale", false))
 	_buy_button.visible = sale
+	_table_button.visible = show_table_button(sim, building_id)
+	_table_button.text = tr("hud.inn_table")
+	_table_button.tooltip_text = tr("hud.inn_table_tip")
 	if sale:
 		var price := Inn.sale_price(sim, building_id)
 		_buy_button.text = tr("hud.buy_building") % price
 		_buy_button.disabled = not Money.can_pay(sim.state, family(), price)
 		_buy_button.tooltip_text = tr("hud.buy_building_tip")
+
+
+## posada: «Jugar en la mesa» for another family's Taberna-Posada with its gaming table (the card says whether one
+## can sit now: the turn, the door, the owner).
+func show_table_button(sim: Sim, bld: String) -> bool:
+	if not Inn.is_inn(sim, bld) or not InnGames.has_table(sim, bld):
+		return false
+	var owner := str(sim.state.buildings[bld].get("owner", ""))
+	return owner != "" and owner != family()
 
 
 ## The selected person (alive) or "".
@@ -390,6 +408,7 @@ func _show_person(sim: Sim, who: String) -> void:
 	_selection_icon.texture = UiIcons.ui("icon_working" if not lines.is_empty() else "icon_idle", false)
 	_manage_button.visible = false
 	_buy_button.visible = false
+	_table_button.visible = false
 	_selection_action.visible = str(ch.get("controlled_by", "")) == "human"
 	_selection_action.text = tr("hud.inventory")
 	_selection_action.tooltip_text = tr("hud.inventory_tip")
