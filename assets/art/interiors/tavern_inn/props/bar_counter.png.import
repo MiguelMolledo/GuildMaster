@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cloj8nwb5jetd"
-path="res://.godot/imported/heraldic_stand.png-f388d8e0ac8e6e6e9abc9255f735ec70.ctex"
+uid="uid://byu4rnw7bw413"
+path="res://.godot/imported/bar_counter.png-0164a722897dc44f975be4fbe9927f92.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/interiors/tavern_inn/props/heraldic_stand.png"
-dest_files=["res://.godot/imported/heraldic_stand.png-f388d8e0ac8e6e6e9abc9255f735ec70.ctex"]
+source_file="res://assets/art/interiors/tavern_inn/props/bar_counter.png"
+dest_files=["res://.godot/imported/bar_counter.png-0164a722897dc44f975be4fbe9927f92.ctex"]
 
 [params]
 

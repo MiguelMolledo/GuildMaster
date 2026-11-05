@@ -24,6 +24,7 @@ var _views: Dictionary = {}      # guest id -> CharacterView
 var _icons: Dictionary = {}      # guest id -> Sprite2D: the dish's icon over the disc of its order (sync)
 var _seat_pos: Array = []        # Vector2 by seat index
 var _bed_pos: Array = []         # Vector2 by bed index
+var _seat_facing: Array = []     # where each seated guest looks ("": by the seat's parity)
 var _seat_level: Array = []      # floor of each seat / bed (04g: an interior built from data has floors)
 var _bed_level: Array = []
 ## The floor the interior shows (InteriorStage sets it): beds and guests of other floors are hidden or in shade.
@@ -43,6 +44,7 @@ func setup(s: Sim, bld: String, view: InteriorView) -> void:
 	_seat_pos.clear()
 	_bed_pos.clear()
 	_seat_level.clear()
+	_seat_facing.clear()
 	_bed_level.clear()
 	var room := view.room()
 	for holder: Array in [["Seats", _seat_pos, _seat_level], ["Beds", _bed_pos, _bed_level]]:
@@ -54,6 +56,8 @@ func setup(s: Sim, bld: String, view: InteriorView) -> void:
 		for m: Marker2D in marks:
 			(holder[1] as Array).append(m.position + (n as Node2D).position)
 			(holder[2] as Array).append(int(m.get_meta("level", 0)))
+			if str(holder[0]) == "Seats":
+				_seat_facing.append(str(m.get_meta("facing", "")))
 	_apply_kit_art()
 	for v: Variant in _views.values():
 		(v as Node).queue_free()
@@ -118,7 +122,10 @@ func sync() -> void:
 			InteriorStage.fade_in(v)   # a guest appears at its seat with a fade (04g O-I2)
 		var view: CharacterView = _views[gid]
 		view.position = (_seat_pos[seat] as Vector2).round()
-		view.play_motion("idle", "se" if seat % 2 == 0 else "sw")
+		var face := str(_seat_facing[seat]) if seat < _seat_facing.size() else ""
+		if face == "":
+			face = "se" if seat % 2 == 0 else "sw"
+		view.play_motion("idle", face)
 		var lv := int(_seat_level[seat]) if seat < _seat_level.size() else 0
 		view.visible = InteriorStage.show_mode(lv, shown_level) > 0
 		view.z_index = lv * InteriorBuilder.LEVEL_Z

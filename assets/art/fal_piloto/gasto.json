@@ -21875,5 +21875,68 @@
   "imagenes": 1,
   "usd": 0.0003,
   "que": "image2pixel tailor_treadle_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T14:07:05",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g26_s_tavern_b (6 piezas, 25 s)"
+ },
+ {
+  "fecha": "2026-11-05T14:07:33",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0044,
+  "que": "image2pixel bar_shelf_s6.png"
+ },
+ {
+  "fecha": "2026-11-05T14:07:36",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel cask_stand_big_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T14:07:39",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel tankard_rack_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T14:07:41",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel hall_firepit_s9.png"
+ },
+ {
+  "fecha": "2026-11-05T14:07:44",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel hall_brazier_s8.png"
+ },
+ {
+  "fecha": "2026-11-05T14:07:47",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel jug_crate_s10.png"
  }
 ]

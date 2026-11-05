@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://criueplbbr3eq"
-path="res://.godot/imported/cheese_wheel.png-11e5660e3448dba4822e65d3b5690ddb.ctex"
+uid="uid://bi4wt23n1cgj1"
+path="res://.godot/imported/cask_stand_big.png-f1310d291a5f877a6fdc3ea1feee8080.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/interiors/tavern_inn/props/cheese_wheel.png"
-dest_files=["res://.godot/imported/cheese_wheel.png-11e5660e3448dba4822e65d3b5690ddb.ctex"]
+source_file="res://assets/art/interiors/tavern_inn/props/cask_stand_big.png"
+dest_files=["res://.godot/imported/cask_stand_big.png-f1310d291a5f877a6fdc3ea1feee8080.ctex"]
 
 [params]
 
