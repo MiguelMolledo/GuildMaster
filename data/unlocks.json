@@ -1,0 +1,427 @@
+{
+  "_doc": "Unlocks (docs/gdd/03b_diversion_y_ritmo.md §3b.4, O-D2 a): each mechanic arrives when the player needs it, with its card «Nuevo: …», a mark on the HUD button that opens it, its tutorial chapter and a goal in the goals zone. Unlocks.step (sim/pacing/unlocks.gd) watches the triggers of each human family and writes state.unlocks[fam][id] = {minute, seen, used}; what an unlock opens is UI access (ui: the buttons that stay hidden until then: staff, upgrades), never a rule of the sim. trigger: start (the game's first step) · calendar {day: from that day index (0 = day 1 of spring, year 1)} · gold {min: family gold} · title {min: title id, by rank} · employees {min: employees of the family} · age {min: the head's age} · event {event, match, count: events of the family, as the objectives; anyone: true = events of the town too, e.g. festival_started} · outsold_rival (a day with more units sold at the market than the rival smith's family) · any [triggers] (the first one that holds) · all [triggers]. window: [first, last] day index where 3b.4 expects it (the pacing bot checks it ±1 day). mark: the HUD or interior button that gets the «Nuevo» mark until used (\"\" none). chapter: the tutorial chapter offered on the card (data/tutorial/). goal: an objective of data/objectives/ shown as an open goal of `horizon` (short, medium, long) once unlocked (§3b.5.1). card: false = no card (the start's own mechanics, shown by the tutorial). requires: a system not in the game yet: the unlock waits until data/<requires>.json or data/<requires>/ exists (its hook); festivals also waits for the calendar to be on (data/festivals.json enabled) and a requires under life/ also waits for the living town to be on (data/life/life.json enabled).",
+  "goals_doc": "§3b.5.1: the open goals zone shows up to 3 goals: short = the current start objective (or the first open one of the day), medium = the goal of the latest unlock not done, long = the year's (the debt in year 1) or the dynasty's (data/goals.json). Each one {horizon, objective, from}.",
+  "year_goal": "repay_debt",
+  "unlocks": [
+    {
+      "id": "live_forge",
+      "name_key": "unlock.live_forge",
+      "desc_key": "unlock.live_forge.desc",
+      "trigger": {
+        "kind": "start"
+      },
+      "window": [
+        0,
+        0
+      ],
+      "mark": "",
+      "ui": [],
+      "chapter": "produce",
+      "goal": "forge_sword",
+      "horizon": "short",
+      "requires": "",
+      "card": false
+    },
+    {
+      "id": "contracts",
+      "name_key": "unlock.contracts",
+      "desc_key": "unlock.contracts.desc",
+      "trigger": {
+        "kind": "event",
+        "event": "market_sold",
+        "count": 1
+      },
+      "window": [
+        0,
+        1
+      ],
+      "mark": "",
+      "ui": [],
+      "chapter": "market",
+      "goal": "carpenter_hammers",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "counter",
+      "name_key": "unlock.counter",
+      "desc_key": "unlock.counter.desc",
+      "trigger": {
+        "kind": "calendar",
+        "day": 1
+      },
+      "window": [
+        1,
+        1
+      ],
+      "mark": "",
+      "ui": [],
+      "chapter": "upgrades",
+      "goal": "",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "first_festival",
+      "name_key": "unlock.first_festival",
+      "desc_key": "unlock.first_festival.desc",
+      "trigger": {
+        "kind": "event",
+        "event": "festival_started",
+        "count": 1,
+        "anyone": true
+      },
+      "window": [
+        0,
+        2
+      ],
+      "mark": "",
+      "ui": [],
+      "chapter": "",
+      "goal": "festival_contract",
+      "horizon": "medium",
+      "requires": "festivals"
+    },
+    {
+      "id": "staff",
+      "name_key": "unlock.staff",
+      "desc_key": "unlock.staff.desc",
+      "trigger": {
+        "kind": "any",
+        "of": [
+          {
+            "kind": "gold",
+            "min": 150
+          },
+          {
+            "kind": "event",
+            "event": "contract_delivered",
+            "count": 3
+          }
+        ]
+      },
+      "window": [
+        1,
+        2
+      ],
+      "mark": "StaffButton",
+      "ui": [
+        "staff"
+      ],
+      "chapter": "staff",
+      "goal": "hire_apprentice",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "rival",
+      "name_key": "unlock.rival",
+      "desc_key": "unlock.rival.desc",
+      "trigger": {
+        "kind": "outsold_rival"
+      },
+      "window": [
+        2,
+        2
+      ],
+      "mark": "",
+      "ui": [],
+      "chapter": "",
+      "goal": "outsell_rival",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "upgrades",
+      "name_key": "unlock.upgrades",
+      "desc_key": "unlock.upgrades.desc",
+      "trigger": {
+        "kind": "gold",
+        "min": 300
+      },
+      "window": [
+        3,
+        5
+      ],
+      "mark": "UpgradesButton",
+      "ui": [
+        "upgrades"
+      ],
+      "chapter": "upgrades",
+      "goal": "first_upgrade",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "fair",
+      "name_key": "unlock.fair",
+      "desc_key": "unlock.fair.desc",
+      "trigger": {
+        "kind": "event",
+        "event": "festival_started",
+        "count": 1,
+        "anyone": true,
+        "match": {
+          "def": "harvest_fair"
+        }
+      },
+      "window": [
+        3,
+        3
+      ],
+      "mark": "",
+      "ui": [],
+      "chapter": "",
+      "goal": "sell_at_fair",
+      "horizon": "medium",
+      "requires": "festivals"
+    },
+    {
+      "id": "rumors",
+      "name_key": "unlock.rumors",
+      "desc_key": "unlock.rumors.desc",
+      "trigger": {
+        "kind": "calendar",
+        "day": 4
+      },
+      "window": [
+        4,
+        5
+      ],
+      "mark": "LedgerButton",
+      "ui": [],
+      "chapter": "",
+      "goal": "hear_rumors",
+      "horizon": "medium",
+      "requires": "life/rumors"
+    },
+    {
+      "id": "tavern",
+      "name_key": "unlock.tavern",
+      "desc_key": "unlock.tavern.desc",
+      "trigger": {
+        "kind": "calendar",
+        "day": 4
+      },
+      "window": [
+        4,
+        5
+      ],
+      "mark": "",
+      "ui": [],
+      "chapter": "",
+      "goal": "open_tavern",
+      "horizon": "medium",
+      "requires": "inn"
+    },
+    {
+      "id": "debt",
+      "name_key": "unlock.debt",
+      "desc_key": "unlock.debt.desc",
+      "trigger": {
+        "kind": "calendar",
+        "day": 7
+      },
+      "window": [
+        7,
+        7
+      ],
+      "mark": "LedgerButton",
+      "ui": [],
+      "chapter": "debt",
+      "goal": "repay_debt",
+      "horizon": "long",
+      "requires": ""
+    },
+    {
+      "id": "courtship",
+      "name_key": "unlock.courtship",
+      "desc_key": "unlock.courtship.desc",
+      "trigger": {
+        "kind": "all",
+        "of": [
+          {
+            "kind": "calendar",
+            "day": 7
+          },
+          {
+            "kind": "age",
+            "min": 16
+          }
+        ]
+      },
+      "window": [
+        7,
+        7
+      ],
+      "mark": "TreeButton",
+      "ui": [],
+      "chapter": "family",
+      "goal": "court_someone",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "citizen",
+      "name_key": "unlock.citizen",
+      "desc_key": "unlock.citizen.desc",
+      "trigger": {
+        "kind": "title",
+        "min": "citizen"
+      },
+      "window": [
+        8,
+        15
+      ],
+      "mark": "",
+      "ui": [],
+      "chapter": "travel",
+      "goal": "first_trip",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "incidents",
+      "name_key": "unlock.incidents",
+      "desc_key": "unlock.incidents.desc",
+      "trigger": {
+        "kind": "calendar",
+        "day": 8
+      },
+      "window": [
+        8,
+        8
+      ],
+      "mark": "",
+      "ui": [],
+      "chapter": "",
+      "goal": "defend_town",
+      "horizon": "medium",
+      "requires": "life/incidents"
+    },
+    {
+      "id": "family_trade",
+      "name_key": "unlock.family_trade",
+      "desc_key": "unlock.family_trade.desc",
+      "trigger": {
+        "kind": "any",
+        "of": [
+          {
+            "kind": "event",
+            "event": "wedding",
+            "count": 1
+          },
+          {
+            "kind": "event",
+            "event": "cart_bought",
+            "count": 1
+          }
+        ]
+      },
+      "window": [
+        8,
+        23
+      ],
+      "mark": "TreeButton",
+      "ui": [],
+      "chapter": "family",
+      "goal": "",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "offices",
+      "name_key": "unlock.offices",
+      "desc_key": "unlock.offices.desc",
+      "trigger": {
+        "kind": "title",
+        "min": "patrician"
+      },
+      "window": [
+        16,
+        23
+      ],
+      "mark": "OfficesButton",
+      "ui": [],
+      "chapter": "offices",
+      "goal": "run_for_office",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "court",
+      "name_key": "unlock.court",
+      "desc_key": "unlock.court.desc",
+      "trigger": {
+        "kind": "any",
+        "of": [
+          {
+            "kind": "event",
+            "event": "trial_opened",
+            "count": 1
+          },
+          {
+            "kind": "event",
+            "event": "accuse",
+            "count": 1
+          }
+        ]
+      },
+      "window": [
+        16,
+        40
+      ],
+      "mark": "TrialsButton",
+      "ui": [],
+      "chapter": "court",
+      "goal": "",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "masterwork",
+      "name_key": "unlock.masterwork",
+      "desc_key": "unlock.masterwork.desc",
+      "trigger": {
+        "kind": "event",
+        "event": "live_forge_done",
+        "count": 1,
+        "match": {
+          "steps": {
+            "gte": 1
+          }
+        }
+      },
+      "window": [
+        0,
+        40
+      ],
+      "mark": "",
+      "ui": [],
+      "chapter": "",
+      "goal": "forge_masterwork",
+      "horizon": "medium",
+      "requires": ""
+    },
+    {
+      "id": "heir",
+      "name_key": "unlock.heir",
+      "desc_key": "unlock.heir.desc",
+      "trigger": {
+        "kind": "event",
+        "event": "inheritance",
+        "count": 1
+      },
+      "window": [
+        150,
+        250
+      ],
+      "mark": "TreeButton",
+      "ui": [],
+      "chapter": "family",
+      "goal": "",
+      "horizon": "long",
+      "requires": ""
+    }
+  ]
+}

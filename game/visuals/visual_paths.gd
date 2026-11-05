@@ -483,3 +483,11 @@ static func door_of(kind: String, id: String) -> Dictionary:
 		n.free()
 	_doors[key] = out
 	return out
+
+
+## Forja viva (docs/gdd/03b_diversion_y_ritmo.md §3b.2; inventory ui_forge_live, ui_icon_forge_traits): the art of the
+## screen in assets/art/ui/forge/: iron_cold and iron_<colour> (64×64), hearth (64×64), strike_<kind> with anvil
+## (80×96) and hammer (32), quench_<medium> (64×64), trait_<trait> (32×32; `small`: small/, 16×16). A visible
+## placeholder of `size` and `color` until a file arrives (a trait without art, e.g. hard or soft, keeps it).
+static func forge_art(id: String, size: Vector2i, color: Color, small: bool = false) -> Texture2D:
+	return _art_or("%s/ui/forge/%s%s.png" % [ART_ROOT, "small/" if small else "", id], size, color)

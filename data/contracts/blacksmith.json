@@ -20,5 +20,16 @@
   "reward_relation": 5,
   "fail_reputation": -5,
   "fail_relation": -15,
-  "client_cooldown_days": 8
+  "client_cooldown_days": 8,
+  "_specs_doc": "03b §3b.3 (O-D5): a random contract asks for a variant in spec_chance of them (an RNG of its own: the world seed and the contract id; state.rng does not move). want: what the client wants (length, guard: data/live_forge.json variants; temper: a quench medium), told in words on the board (spec.<id>.desc). Made to it (work_at with contract + variant, or in Forja viva), each matching piece earns spec_bonus × pay / qty more on delivery; plain pieces are still accepted at the plain pay. [balance]",
+  "spec_chance": 0.35,
+  "spec_bonus": 0.3,
+  "specs": [
+    {"id": "left_knight", "item": "sword", "want": {"length": "long", "guard": "plain", "temper": "oil"}},
+    {"id": "noble_gala", "item": "sword", "want": {"length": "short", "guard": "carved", "temper": "oil"}},
+    {"id": "watch_blade", "item": "sword", "want": {"length": "short", "guard": "plain", "temper": "water"}},
+    {"id": "quarry_hammer", "item": "hammer", "want": {"temper": "water"}},
+    {"id": "rider_armor", "item": "armor", "want": {"guard": "plain", "temper": "air"}},
+    {"id": "parade_armor", "item": "armor", "want": {"guard": "carved", "temper": "oil"}}
+  ]
 }

@@ -326,7 +326,7 @@ func test_save_v19_round_trip_mid_turn() -> void:
 	var r := SaveFile.from_text(text)
 	check(r["ok"], "loads")
 	var sim2 := Sim.new(r["state"], cat)
-	eq(int(r["state"].version), 19, "v19")
+	check(int(r["state"].version) >= 19, "v19 (or a later version chained behind it)")
 	_run(sim, 300)
 	_run(sim2, 300)
 	eq(sim2.state_hash(), sim.state_hash(), "the loaded game plays the same turn")
