@@ -2,6 +2,12 @@
   "tomadas": [
     {
       "fecha": "2026-11-05",
+      "tema": "La letra del mundo y los recortes",
+      "decision": "Todos los rótulos de la ciudad y de las salas pasan por WorldLabels (game/world/world_labels.gd): Pixel Operator 16 (negrita en letreros y nombres) y Pixel Operator 8 en barras, insignias y burbujas, con contorno oscuro de 2 px; nunca la fuente por defecto de Godot ni tamaños intermedios. Los textos del HUD que no caben eligen una forma más corta (la entera, en el tooltip). La ayuda no queda bajo el velo del tutorial.",
+      "por_que": "Verificación por la interfaz, bloque B del manager."
+    },
+    {
+      "fecha": "2026-11-05",
       "tema": "Cartas que no pausan: pila lateral, no modales",
       "decision": "Las cartas de la ciudad que no pausan (eventos, fiestas, bodas, sucesos, retos) van en pequeño (plantilla aviso, sin ilustración) a una pila a la derecha bajo el reloj, o al lado del panel de gestión abierto; nunca se solapan, la que no cabe espera, y se apartan mientras hay un modal. Solo las que pausan (dato modal) son modales: centradas y de una en una, con cola.",
       "por_que": "Hallazgo de la verificación por la interfaz: la carta centrada se comía los clics de la sala (toque maestro perdido) y dos cartas se tapaban. Decisión del manager (bloque A)."

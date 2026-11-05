@@ -374,18 +374,35 @@ func _check_contrast(out: Array, c: Control, tr: Rect2, img: Image) -> void:
 			var p := img.get_pixel(x, y)
 			var k := p.to_rgba32() & 0xF8F8F8FF
 			counts[k] = int(counts.get(k, 0)) + 1
+	var fg_key := (fg * c.modulate).to_rgba32() & 0xF8F8F8FF
 	var best := 0
 	var bg_key := 0
-	for k: int in counts:
-		if int(counts[k]) > best:
+	for k: int in counts:   # the most common colour that is not the letter itself (a bold word fills its box)
+		if int(counts[k]) > best and _far(k, fg_key):
 			best = int(counts[k])
 			bg_key = k
+	if best == 0:
+		return
 	var bg := Color.hex(bg_key)
+	var plate: Variant = c.get_parent().get("color") if in_world(c) else null
+	if plate is Color:   # a town's sign: its board's colour is the background
+		bg = plate as Color
 	var ratio := contrast(fg * c.modulate, bg)
+	# a contour (or a shadow) of 1 px or more separates the letter from what is behind: then its own contrast counts
+	if c.get_theme_constant("outline_size") > 0:
+		ratio = maxf(ratio, contrast(fg, c.get_theme_color("font_outline_color")))
+	if c is Label and (c.get_theme_constant("shadow_offset_x") != 0 or c.get_theme_constant("shadow_offset_y") != 0):
+		ratio = maxf(ratio, minf(contrast(fg, c.get_theme_color("font_shadow_color")), contrast(fg, bg) + 1.0))
 	if ratio < CONTRAST_WARN:
 		# a town sign is drawn over the art (the most common colour under it is a guess): only a warning there
 		_finding(out, "contrast", "fallo" if ratio < CONTRAST_FAIL and not in_world(c) else "aviso", c, tr,
 			"contraste %.1f:1 (texto #%s sobre #%s; mínimo %.0f:1)" % [ratio, fg.to_html(false), bg.to_html(false), CONTRAST_WARN])
+
+
+static func _far(a: int, b: int) -> bool:
+	var ca := Color.hex(a)
+	var cb := Color.hex(b)
+	return absf(ca.r - cb.r) + absf(ca.g - cb.g) + absf(ca.b - cb.b) > 0.12
 
 
 static func _lum(c: Color) -> float:
@@ -454,14 +471,16 @@ func _check_notices(out: Array, root: Window, controls: Array) -> void:
 	for n: Control in fresh:
 		var nr := screen_rect(n)
 		for c: Control in controls:
-			if not c.is_visible_in_tree() or not (c is PanelContainer or c is Panel or c is ColorRect and c.name == "Veil"):
-				continue
+			if not c.is_visible_in_tree() or not (c is PanelContainer or c is Panel):
+				continue   # a modal's veil is not «covering»: the notice waits in its corner and in the book
 			if _related(c, n) or c.mouse_filter == Control.MOUSE_FILTER_IGNORE and not c is PanelContainer:
 				continue
 			var above := _layer_of(c) > _layer_of(n) or (_layer_of(c) == _layer_of(n) and c.is_greater_than(n))
 			var inter := screen_rect(c).intersection(nr)
 			if above and inter.get_area() > nr.get_area() * 0.25:
-				_finding(out, "covered", "fallo", n, nr, "el aviso «%s» queda debajo de %s" % [UiDriver.text_of(_first_text(n)).left(40),
+				# under a big modal (the tree, the chart, the trial) the notice waits on purpose: only a warning
+				var big := str(UiDriver.path_of(c)).contains("ModalZone") or c.get_parent() is CanvasLayer
+				_finding(out, "covered", "aviso" if big else "fallo", n, nr, "el aviso «%s» queda debajo de %s" % [UiDriver.text_of(_first_text(n)).left(40),
 					UiDriver.path_of(c)])
 				break
 

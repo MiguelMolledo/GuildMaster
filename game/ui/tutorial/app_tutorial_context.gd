@@ -47,6 +47,10 @@ func blocked() -> bool:
 	return Game.sim == null or app.menu_open() or not (app.hud() as CanvasLayer).visible
 
 
+func help_open() -> bool:
+	return bool(app.hud().call("help_visible"))
+
+
 func interior_open() -> bool:
 	return str(app.interior_building) != ""
 

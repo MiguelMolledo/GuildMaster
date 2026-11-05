@@ -1,6 +1,17 @@
 [
   {
     "fecha": "2026-11-05",
+    "titulo": "Se ve mejor: la letra del proyecto en la ciudad y las salas, sin recortes y con contraste",
+    "que": "Los ~700 rótulos de la ciudad y de las salas (letreros, nombres, frases, puestos, insignias, barras de obra y burbujas) usan ya la fuente del proyecto a su tamaño (Pixel Operator 16, negrita en letreros y nombres, Pixel Operator 8 en barras e insignias) con contorno oscuro, legibles a zoom 1. Sin recortes: la línea del modo del yunque se parte en dos, la fecha y la reputación del HUD eligen la forma que cabe (entera en el tooltip), «Ciudadano» sale entero en el ayuntamiento y el motivo de un testigo va a su línea. La ayuda ya no queda bajo el velo del tutorial. La boda rica y la de vecinos usan su ilustración (alias en VisualPaths); los rótulos greybox de mayo y guirnalda han desaparecido con el arte de fiestas (solo quedan los animales). El detector visual entiende el contorno y la sombra del texto, el fondo de un letrero y que un aviso bajo un modal grande espera.",
+    "como_probar": "python3 tools/verifica/verifica.py --window --flows=primer_dia,tribunal,vecinos_familia (primer_dia pasa de 117 hallazgos visuales a 0)",
+    "capturas": [
+      "verifica_letra_ciudad.png",
+      "verifica_letra_sala.png",
+      "verifica_tribunal.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-05",
     "titulo": "Lo que rompía el juego, arreglado: cartas que no tapan, paneles que no pierden clics, el reto recibido y el vecino que espera",
     "que": "Las cartas que no pausan (eventos, fiestas, bodas, sucesos, duelos) ya no son modales: van en pequeño a una pila a la derecha, bajo el reloj, o al lado del panel de gestión abierto; nunca se pisan, la que no cabe espera y se apartan mientras hay un modal a la vista. Solo las que pausan van centradas, de una en una. Cargos → Poderes ya no ensancha la ventana (la fila envuelve; «Inspector de mercado» entero). Ningún panel rehace sus botones con el botón del ratón pulsado, y la ficha del vecino ya no se reconstruye al pasar el ratón. Hay carta de reto recibido (Aceptar / Rechazar) y «Retirarse» en un reto propio aceptado; «Dar limosna» en la ficha de un mendigo. Esc cierra Partida nueva a la primera. Todo botón apagado dice por qué (banquete, apuestas, duelo, escala, ranuras, puntos de partida, directivas) y la verificación lo vigila. Al ir a hablar, cortejar, retar o tratar con un testigo, el otro se para y te espera hasta que llegas, cambias de orden o pasa hora y media. La cola en pausa ya no enseña ids de órdenes.",
     "como_probar": "Escenario duel_challenged (la carta del reto) y life_beggar (la limosna); flujos reto_recibido, cortejo_boda, fiesta_boda, dados y vecinos_familia: python3 tools/verifica/verifica.py --window --flows=reto_recibido,cortejo_boda,vecinos_familia",

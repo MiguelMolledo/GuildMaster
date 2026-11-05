@@ -3693,3 +3693,6 @@ ui.order.inn_set_special,Set the dish of the day,Poner el plato del día
 ui.order.inn_buy_license,Buy the licence,Comprar la licencia
 ui.order.inn_serve,Serve a table,Servir una mesa
 ui.order.inn_make_bed,Make a bed,Hacer una cama
+hud.date_short,D%d · %s · y%d,D%d · %s · año %d
+hud.date_shortest,%s · year %d,%s · año %d
+hud.rep_tight,rep.%d,rep.%d

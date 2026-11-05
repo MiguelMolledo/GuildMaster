@@ -44,6 +44,7 @@
     {"world": {"service": "town_hall"}, "button": "right", "until": "q.visible('TownHallPanel')", "timeout": 30, "fast": 4, "id": "abre_TownHallPanel_11", "say": "Abrir TownHallPanel", "expect": ["q.visible('TownHallPanel')"]},
     {"id": "esc_TownHallPanel_11", "say": "Esc cierra TownHallPanel", "key": "Escape", "expect": ["not q.visible('TownHallPanel')"], "soft": true},
     {"id": "reinicio_12", "restart": {"scenario": "town_e_start"}},
+    {"id": "pausa_vecino", "say": "Espacio: pausa (el vecino anda)", "key": "Space"},
     {"world": {"person": "=q.npc_near()"}, "id": "abre_NpcPanel_12", "say": "Abrir la ficha de un vecino (clic en él)", "expect": ["q.visible('NpcPanel')"]},
     {"id": "esc_NpcPanel_12", "say": "Esc cierra NpcPanel", "key": "Escape", "expect": ["not q.visible('NpcPanel')"], "soft": true},
     {"id": "reinicio_int", "restart": {"scenario": "town_e_start"}},

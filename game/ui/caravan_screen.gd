@@ -289,6 +289,8 @@ func _build_form() -> void:
 	_escort = CheckBox.new()
 	_escort.name = "Escort"
 	_escort.text = _tr("ui.caravan.escort") % int(sim.catalog.trade.get("travel", {}).get("escort_cost", 20))
+	for k: String in ["font_color", "font_pressed_color", "font_hover_color", "font_hover_pressed_color", "font_focus_color"]:
+		_escort.add_theme_color_override(k, Color("#2a1f14"))   # ink on the page, like its other words (B11)
 	_escort.toggled.connect(func(_b: bool) -> void: _update_send())
 	_form.add_child(_escort)
 	(_col.get_node("Foot/BackButton") as Button).text = _tr("ui.menu.back")

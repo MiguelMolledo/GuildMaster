@@ -50,7 +50,7 @@ func setup(zone_id: String, text: String, cfg: Dictionary, look: Node2D = null) 
 	blink_hz = float(cfg.get("blink_hz", 3.0))
 	_flash_seconds = float(cfg.get("touch_feedback_seconds", 1.5))
 	_label = _make_label(text, Color(1.0, 0.95, 0.8), 9)
-	_label.position = Vector2(-40, 6)
+	_label.position = Vector2(-60, 6)
 	_flash = _make_label("", Color(1.0, 0.9, 0.4), 10)
 	_flash.visible = false
 	add_child(_label)
@@ -65,12 +65,9 @@ func look() -> Node2D:
 func _make_label(text: String, c: Color, font_size: int) -> Label:
 	var l := Label.new()
 	l.text = text
-	l.add_theme_font_size_override("font_size", font_size)
-	l.add_theme_color_override("font_color", c)
-	l.add_theme_color_override("font_outline_color", Color(0.1, 0.07, 0.05))
-	l.add_theme_constant_override("outline_size", 3)
+	WorldLabels.style(l, "flash" if font_size > 9 else "station", c)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.size = Vector2(80, 14)
+	l.size = Vector2(120, 14)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 

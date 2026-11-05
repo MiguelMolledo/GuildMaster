@@ -139,6 +139,8 @@ func _fill_head(t: Dictionary) -> void:
 	if bubble != "":
 		var b := VisualPaths.instantiate("bubbles", bubble)
 		if b != null:
+			WorldLabels.style_tree(b)
+		if b != null:
 			VisualPaths.place(b, Vector2(13, 20))
 			icon_slot.add_child(b)
 	(%Doing as Label).text = SimQuery.town_state_text(sim, target)
@@ -184,6 +186,8 @@ func _emotion_row(e: Dictionary, d: Dictionary) -> Control:
 	var holder := Control.new()
 	holder.custom_minimum_size = Vector2(26, 20)
 	var icon := VisualPaths.instantiate("bubbles", str(e["icon"]))  # the same bubble as over the head
+	if icon != null:
+		WorldLabels.style_tree(icon)
 	if icon != null:
 		VisualPaths.place(icon, Vector2(13, 20))
 		holder.add_child(icon)

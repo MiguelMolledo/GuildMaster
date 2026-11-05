@@ -232,9 +232,10 @@ func _fill_witnesses(v: Dictionary, hearing: bool) -> void:
 		box.remove_child(c)
 		c.queue_free()
 	for w: Dictionary in v["witnesses"]:
-		var row := HBoxContainer.new()
+		var row := HFlowContainer.new()   # a long reason goes to the next line instead of being squeezed
 		row.name = "W_" + str(w["character"])
-		row.add_theme_constant_override("separation", 5)
+		row.add_theme_constant_override("h_separation", 5)
+		row.add_theme_constant_override("v_separation", 2)
 		if sim.state.characters.has(str(w["character"])):
 			var pf := SocialKit.portrait(sim.state, str(w["character"]))
 			pf.scale = Vector2(0.75, 0.75)   # 30 px rows: five witnesses and the hearing's steps fit the modal
@@ -275,10 +276,13 @@ func _fill_witnesses(v: Dictionary, hearing: bool) -> void:
 				var why := str(w["actions"][k])
 				if off == "" and why != "" and why != "too_far":
 					off = SimQuery.t_("ui.npc.reason_line") % [SimQuery.t_("ui.trial.verb_" + k), _witness_reason(why, w)]
-			if off != "":
+			if off != "":   # whole: the row wraps it to its own line (at its end it was squeezed: verificación B10)
 				var r := SocialKit.label(off, &"ReasonLabel", "Why")
+				var fnt := r.get_theme_font("font")
+				r.custom_minimum_size = Vector2(minf(fnt.get_string_size(off, HORIZONTAL_ALIGNMENT_LEFT, -1,
+					r.get_theme_font_size("font_size")).x + 4.0, 600.0), 0)
 				r.clip_text = true
-				r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+				r.tooltip_text = off
 				row.add_child(r)
 		box.add_child(row)
 

@@ -275,7 +275,10 @@ func _refresh() -> void:
 	_update_building_panel()   # the idle reason follows the queue
 	var t := sim.now()
 	_time_label.text = tr("hud.time") % [t["hour"], t["minute"]]
-	_date_label.text = tr("hud.date") % [t["day"], tr("season." + str(t["season"])), t["year"]]
+	var season := tr("season." + str(t["season"]))
+	_fit(_date_label, [tr("hud.date") % [t["day"], season, t["year"]], tr("hud.date_short") % [t["day"], season, t["year"]],
+		tr("hud.date_shortest") % [season, t["year"]]])   # the clock's line never cuts (verificación B10)
+	_date_label.tooltip_text = tr("hud.date") % [t["day"], season, t["year"]]
 	var night := str(t["phase"]) in ["dusk", "night"]
 	_sun_moon.texture = UiIcons.ui("icon_moon" if night else "icon_sun")
 	_clock_panel.tooltip_text = tr("hud.clock") % [t["day"], tr("season." + str(t["season"])), t["year"], t["hour"],
@@ -472,6 +475,35 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 
+## The first of `forms` (longest first) that fits `l` as it is laid out now; the last one if none does.
+static func _fit(l: Label, forms: Array) -> void:
+	l.set_meta("fit_forms", forms)
+	if not l.resized.is_connected(_refit.bind(l)):   # the card lays out after the text: fit again when it does
+		l.resized.connect(_refit.bind(l))
+	var font := l.get_theme_font("font")
+	var size := l.get_theme_font_size("font_size")
+	var room := l.size.x if l.size.x > 1.0 else 9999.0
+	for f: Variant in forms:
+		if font.get_string_size(str(f), HORIZONTAL_ALIGNMENT_LEFT, -1, size).x <= room:
+			l.text = str(f)
+			return
+	l.text = str(forms[forms.size() - 1])
+
+
+static func _refit(l: Label) -> void:
+	var forms: Array = l.get_meta("fit_forms", [])
+	if forms.is_empty():
+		return
+	var font := l.get_theme_font("font")
+	var size := l.get_theme_font_size("font_size")
+	for f: Variant in forms:
+		if font.get_string_size(str(f), HORIZONTAL_ALIGNMENT_LEFT, -1, size).x <= l.size.x:
+			if l.text != str(f):
+				l.text = str(f)
+			return
+	l.text = str(forms[forms.size() - 1])
+
+
 func _speed_key(event: InputEvent) -> int:
 	for i: int in 3:
 		if HudKeys.pressed(event, "speed_%d" % (i + 1)):
@@ -577,7 +609,10 @@ func _refresh_family(sim: Sim) -> void:
 		_title_badge.texture = UiIcons.mark("badge_title_" + title)
 		# with two or three portraits the card has room for the reputation only (the title is in the badge and the tooltip)
 		var full := tr("hud.title_rep") % [SimQuery.title_name(title).capitalize(), rep]
-		_family_title.text = full if Kin.group(sim.state, fam).size() < 2 else tr("hud.rep_short") % rep
+		if Kin.group(sim.state, fam).size() < 2:
+			_fit(_family_title, [full, tr("hud.rep_short") % rep, tr("hud.rep_tight") % rep])
+		else:
+			_fit(_family_title, [tr("hud.rep_short") % rep, tr("hud.rep_tight") % rep, str(rep)])
 		_family_title.tooltip_text = full + "\n" + tr("hud.title_rep_tip")
 	_refresh_debt(sim, fam)
 	_refresh_objective(sim, fam)

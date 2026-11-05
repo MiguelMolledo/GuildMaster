@@ -74,10 +74,11 @@ text = "careful"
 
 [node name="ModeLine" type="Label" parent="VBox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 theme_type_variation = &"DimLabel"
 text = "--"
-clip_text = true
+autowrap_mode = 3
 
 [node name="Sep" type="HSeparator" parent="VBox"]
 unique_name_in_owner = true
