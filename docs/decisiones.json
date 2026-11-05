@@ -865,12 +865,6 @@
       "tema": "Juegos: la casa propia no cobra; la posada no pasa opts.event",
       "decision": "Games._apply no aplica el margen de la casa cuando la casa es de la familia que juega (antes se le restaba y ese oro no iba a nadie). La posada no pasa opts.event (FestivalGames.play_block rechaza el que no es de una fiesta) y reconoce sus partidas por house. Contrato de juegos y 04f actualizados.",
       "por_que": "Bug visto al probar la mesa: el jugador perdía el 10 % de lo ganado en su propia taberna; y el contrato pedía un event que el código rechaza."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Posada: multa de la mesa sin licencia y mesa de otra familia",
-      "decision": "(1) No hay partidas simuladas entre clientes: basta la parte fija de la casa (2-6). (2) Sin licencia, la multa (hecho illegal_gaming, cargo minor_fraud) la paga el dueño de la taberna juegue quien juegue; la familia visitante no paga multa (solo arriesga lo apostado); la crónica del dueño lo dice. (3) Se juega en la taberna de otra familia desde su puerta, como visitante, y la parte de la casa va al dueño; una dueña IA decide por su perfil (ai_profiles → tavern_table) si deja jugar y la apuesta mínima. (4) Equilibrio 14 y 15 son de la rama equilibrio.",
-      "por_que": "Manager 2026-11-05, punto por punto: la mesa sin licencia es del dueño; la mesa ajena da una decisión nueva al jugador; las partidas simuladas no aportan decisiones."
     }
   ],
   "pendientes": [
