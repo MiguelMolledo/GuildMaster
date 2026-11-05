@@ -3765,7 +3765,7 @@ ui.inn.incident.fight,A fight broke the furniture: ambience −1 tomorrow,Una pe
 ui.inn.incident.fight_stopped,The doorman stopped a fight,El portero paró una pelea
 ui.inn.incident.dash,Someone left without paying,Alguien se fue sin pagar
 ui.inn.incident.dash_caught,Someone tried to leave without paying and was caught,Alguien quiso irse sin pagar y lo pillaron
-ui.inn.incident.game_offer,A traveller proposed a game of dice,Un forastero propuso una partida de dados
+ui.inn.incident.game_offer,A traveller proposed a game,Un forastero propuso una partida
 ui.inn.incident.minstrel,A minstrel filled the room,Un juglar llenó el local
 ui.inn.guest_seated,Still choosing,Aún está eligiendo
 ui.inn.guest_eating,Already served,Ya está servido
@@ -3822,3 +3822,30 @@ ui.upgrades.confirm_body_half,"%s: %s. The %s will work at half speed for %s (un
 notice.pecha,"Close of the year: the pecha on your wealth of {wealth} is {amount} gold (paid {paid}; the rest is owed to the town)","Cierre del año: la pecha por tu patrimonio de {wealth} es de {amount} de oro (pagas {paid}; el resto se debe a la villa)"
 ui.workshop.fame,fame %s,fama %s
 ui.workshop.fame_tip,"Fame of the workshop (0.5-2.0): it rises with the quality of what you sold in the last 4 days, masterworks, contracts done and contests won; it falls with failed contracts and customers who leave unserved. More fame, more counter customers who pay more.","Fama del taller (0,5-2,0): sube con la calidad de lo vendido en los últimos 4 días, las obras maestras, los encargos cumplidos y los concursos ganados; baja con los encargos incumplidos y los clientes que se van sin atender. Más fama, más clientes en el mostrador y pagan más."
+ui.inn.tab.games,Table,Mesa
+ui.inn.hint.games,Dice and cards with the regulars; the house keeps its cut of what others win.,Dados y naipes con los parroquianos; la casa se lleva su parte de lo que ganan otros.
+ui.inn.games.why.no_table,There is no gaming table yet: build it among the upgrades.,Aún no hay mesa de juego: constrúyela en las mejoras.
+ui.inn.games.why.closed,The table is played during the night turn.,La mesa se juega durante el turno de noche.
+ui.inn.games.why.not_inn,This is not a tavern.,Esto no es una taberna.
+ui.inn.games.sits,At the table: %s,Se sienta a la mesa: %s
+ui.inn.games.no_license,"Without the gaming licence, a game here is a light offence if the constable's men see it.","Sin licencia de tafurería, jugar aquí es delito leve si lo ven los del alguacil."
+ui.inn.games.stake,Stake,Apuesta
+ui.inn.games.play,%s against %s,%s contra %s
+ui.inn.games.offer,%s proposes %s at %d,%s propone %s a %d
+ui.inn.games.offer_play,Play,Jugar
+ui.inn.games.tonight,Tonight at the table,Esta noche en la mesa
+ui.inn.games.line,"%s, %s: %s %s","%s, %s: %s %s"
+ui.inn.games.won,wins,gana
+ui.inn.games.lost,loses,pierde
+ui.inn.games.cut, (the house %d), (la casa %d)
+ui.inn.games.seen, · the constable's men saw it, · lo vieron los del alguacil
+ui.inn.sum.games,"Gaming table: %d games, the family %s, the house %d","Mesa de juego: %d partidas, la familia %s, la casa %d"
+ui.inn.sum.offer_left,The traveller's game was left unplayed,La partida del forastero se quedó sin jugar
+ui.inn.incident.illegal_game,The constable's men saw a game without licence: light offence,Los del alguacil vieron jugar sin licencia: delito leve
+ui.inn.offer.title,A game at the table,Una partida en la mesa
+ui.inn.offer.text,%s sits down with a full purse and proposes %s at %d.,%s se sienta con la bolsa llena y propone %s a %d.
+ui.inn.offer.later,Not now,Ahora no
+notice.inn.illegal_gaming,The constable's men saw gaming without licence in {building}: a light offence for the court.,Los del alguacil vieron jugar sin licencia en {building}: delito leve para el tribunal.
+games.preset.stranger_soldier,The discharged soldier,El soldado licenciado
+games.preset.stranger_merchant,The passing merchant,El mercader de paso
+games.ui.in_own_house,"in your own house (it keeps nothing of yours)","en tu propia casa (no se queda nada de lo tuyo)"

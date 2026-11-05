@@ -181,6 +181,7 @@ static func step(sim: Sim) -> void:
 	for e: Dictionary in sim.events:
 		if str(e.get("type", "")) == "phase_changed" and str(e.get("phase", "")) == "dawn":
 			dawn = true
+	InnGames.hear(sim)  # the games played at a tavern's table this step (the orders came before the systems)
 	var ids: Array = st.buildings.keys()
 	ids.sort()
 	for bld: String in ids:
@@ -786,13 +787,17 @@ static func _fight(sim: Sim, bld: String, inn: Dictionary, now: int) -> void:
 	_incident(sim, bld, "fight", {})
 
 
-## A visitor proposes a game (4.27.4): hook for the games block (4.26, dice and cards). Until it arrives the event is
-## written in the turn summary and the house keeps its cut through the gamblers' bills (_pay).
+## A visitor proposes a game (4.27.4): a stranger of games.offer (InnGames.make_offer) waits at the table until the turn
+## closes; the owner's family may play it (InnOfferCard, the Mesa tab: the games' screen). The gamblers' own games
+## among themselves are the house's cut of their bills (_pay).
 static func _game_offer(sim: Sim, bld: String, inn: Dictionary) -> void:
 	if not licensed(sim, bld) or not Upgrades.flag(sim, bld, "inn_gaming_table"):
 		return
-	_incident(sim, bld, "game_offer", {})
-	sim.events.append({"type": "inn_game_offer", "building": bld, "day": int(inn["night"]["day"])})
+	var offer := InnGames.make_offer(sim, bld, inn)
+	_incident(sim, bld, "game_offer", {"preset": str(offer["preset"]), "game": str(offer["game"])})
+	sim.events.append({"type": "inn_game_offer", "building": bld, "day": int(inn["night"]["day"]),
+		"family": str(sim.state.buildings[bld].get("owner", "")), "preset": str(offer["preset"]),
+		"game": str(offer["game"]), "stake": int(offer["stake"])})
 
 
 static func _incident(sim: Sim, bld: String, kind: String, data: Dictionary) -> void:
@@ -846,7 +851,8 @@ static func close_turn(sim: Sim, bld: String) -> void:
 		"beds_income": int(stats["beds_income"]), "house_cut": int(stats["house_cut"]), "complaints": stats["complaints"],
 		"fame_before": snappedf(before, 0.001), "fame_after": float(inn["fame"]), "guests": guests_n,
 		"incidents": stats["incidents"], "rumor": rumor, "outlook": night["outlook"], "minstrel": bool(night["minstrel"]),
-		"satisfied": int(stats["satisfied"]), "dirty_beds": int(stats["dirty_beds"])}
+		"satisfied": int(stats["satisfied"]), "dirty_beds": int(stats["dirty_beds"]),
+		"games": stats.get("games", []), "offer": night.get("offer", {})}
 	inn["last_turn"] = summary
 	var hist: Array = inn["history"]
 	hist.append({"day": int(night["day"]), "guests": guests_n, "income": int(stats["income"]) + int(stats["beds_income"])

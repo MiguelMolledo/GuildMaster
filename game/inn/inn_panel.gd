@@ -8,13 +8,18 @@ extends PanelContainer
 ##    house and the dishes of the season; the bed's price.
 ##  Habitaciones: each bed and its state; a dirty one can be made by whoever of the family is inside.
 ##  Turno: the last night's summary and the history of the nights.
+##  Mesa: the gaming table (InnGames): dice and cards with the regulars at a stake, the traveller's offer of tonight,
+##    the games played tonight; without the licence, the warning of the constable. A game opens the games' screen
+##    (App.open_game, or game_sink in the tests).
 ## The licence of the gaming house in the footer. Reads the state, gives orders (inn_*) through order_sink.
 
 signal closed
 
-const TABS: Array[String] = ["clientele", "menu", "rooms", "turn"]
+const TABS: Array[String] = ["clientele", "menu", "rooms", "turn", "games"]
 
 var order_sink: Callable = Callable()
+var game_sink: Callable = Callable()   # opens a game's screen with a request (default: App.open_game)
+var stake: int = 10
 var sim: Sim = null
 var building: String = ""
 var actor_id: String = ""
@@ -104,6 +109,8 @@ func refresh() -> void:
 			_build_rooms(body)
 		"turn":
 			_build_turn(body)
+		"games":
+			_build_games(body)
 	var lic := %LicenseButton as Button
 	var lc: Dictionary = Inn.rules(sim).get("license", {})
 	if Inn.licensed(sim, building):
@@ -327,6 +334,90 @@ func _build_turn(body: VBoxContainer) -> void:
 			var h: Dictionary = hist[i]
 			body.add_child(_label(SimQuery.t_("ui.inn.history_line") % [int(h["day"]) + 1, int(h["guests"]),
 				int(h["income"]) + int(h["tips"]), int(h["beds"]), SimQuery._num(snappedf(float(h["fame"]), 0.1))], &"SmallLabel"))
+
+
+# --- Mesa -----------------------------------------------------------------------------------------------------------
+
+## The name of a player reference (a character of the town or a preset of data/games.json).
+func player_name(ref: String) -> String:
+	if ref.begins_with("preset:"):
+		var pid := ref.trim_prefix("preset:").get_slice("#", 0)
+		return SimQuery.t_(str(sim.catalog.games.get("presets", {}).get(pid, {}).get("name_key", pid)))
+	return str(sim.state.characters.get(ref, {}).get("name", ref))
+
+
+## Who of the family sits at the table (InnGames.player_for).
+func table_player() -> String:
+	return InnGames.player_for(sim, building, str(sim.state.buildings[building].get("owner", "")))
+
+
+func _build_games(body: VBoxContainer) -> void:
+	var why := InnGames.blocked(sim, building)
+	var actor := table_player()
+	var fam := str(sim.state.buildings[building].get("owner", ""))
+	if why != "":
+		body.add_child(_label(SimQuery.t_("ui.inn.games.why." + why), &"DimLabel"))
+	else:
+		body.add_child(_label(SimQuery.t_("ui.inn.games.sits") % player_name(actor), &"DimLabel"))
+	if not Inn.licensed(sim, building) and InnGames.has_table(sim, building):
+		body.add_child(_label(SimQuery.t_("ui.inn.games.no_license"), &"SmallLabel", "#e0a070"))
+	var stakes := HBoxContainer.new()
+	stakes.add_child(_label(SimQuery.t_("ui.inn.games.stake")))
+	(stakes.get_child(0) as Label).custom_minimum_size = Vector2(90, 0)
+	for v: Variant in sim.catalog.games.get("stakes", [5, 10, 25, 50]):
+		var sb := Button.new()
+		sb.text = str(v)
+		sb.toggle_mode = true
+		sb.focus_mode = Control.FOCUS_NONE
+		sb.set_pressed_no_signal(int(v) == stake)
+		sb.pressed.connect(func() -> void:
+			stake = int(v)
+			refresh())
+		stakes.add_child(sb)
+	body.add_child(stakes)
+	var cap := int(sim.catalog.games.get("cap", 50))
+	for g: String in InnGames.GAMES:
+		var req := InnGames.request(sim, building, actor, g, stake) if why == "" else {}
+		var who: PackedStringArray = []
+		for ref: Variant in req.get("opponents", []):
+			who.append(player_name(str(ref)))
+		var b := Button.new()
+		b.focus_mode = Control.FOCUS_NONE
+		b.text = SimQuery.t_("ui.inn.games.play") % [SimQuery.t_("games.%s.name" % g),
+			", ".join(who) if not who.is_empty() else "—"]
+		b.disabled = why != "" or actor == "" or not Money.can_pay(sim.state, fam, Games.max_loss(g, stake, cap))
+		b.tooltip_text = SimQuery.t_("games.%s.rules" % g)
+		b.pressed.connect(func() -> void: _open_game(InnGames.request(sim, building, table_player(), g, stake)))
+		body.add_child(b)
+	var offer := InnGames.offer_of(sim, building)
+	if not offer.is_empty():
+		body.add_child(_label(SimQuery.t_("ui.inn.games.offer") % [player_name("preset:" + str(offer["preset"])),
+			SimQuery.t_("games.%s.name" % str(offer["game"])), int(offer["stake"])], &"BoldLabel"))
+		var ob := Button.new()
+		ob.focus_mode = Control.FOCUS_NONE
+		ob.text = SimQuery.t_("ui.inn.games.offer_play")
+		ob.disabled = actor == "" or not Money.can_pay(sim.state, fam,
+			Games.max_loss(str(offer["game"]), int(offer["stake"]), cap))
+		ob.pressed.connect(func() -> void: _open_game(InnGames.offer_request(sim, building, table_player())))
+		body.add_child(ob)
+	var played: Array = Inn.state_of(sim, building).get("night", {}).get("stats", {}).get("games", [])
+	if not played.is_empty():
+		body.add_child(_label(SimQuery.t_("ui.inn.games.tonight"), &"BoldLabel"))
+		for p: Dictionary in played:
+			body.add_child(_label(InnTurnPage.game_line(sim, p), &"SmallLabel"))
+
+
+func _open_game(req: Dictionary) -> void:
+	if req.has("reason"):
+		ViewConfig.info("InnPanel", "mesa: no se puede jugar (%s)" % req["reason"])
+		return
+	ViewConfig.info("InnPanel", "mesa: abre %s" % [req])
+	if game_sink.is_valid():
+		game_sink.call(req)
+		return
+	var app := get_node_or_null("/root/App")
+	if app != null and app.has_method("open_game"):
+		app.call("open_game", req)
 
 
 func _give(o: Dictionary) -> void:
