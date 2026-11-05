@@ -71,6 +71,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd", "viajes": "res://game/smoke/smoke_viajes.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
 	"duel": "res://game/smoke/smoke_duel.gd", "duelo_partida": "res://game/smoke/smoke_duelo_partida.gd",
+	"forja_viva": "res://game/smoke/smoke_forja_viva.gd", "ritmo": "res://game/smoke/smoke_ritmo.gd",
 	"juegos": "res://game/smoke/smoke_juegos.gd",
 	"fiestas": "res://game/smoke/smoke_fiestas.gd",
 	"vida": "res://game/smoke/smoke_vida.gd",
@@ -347,6 +348,8 @@ func _bind_tutorial(script_id: String) -> void:
 	_tutorial.setup(AppTutorialContext.new(self))
 	_hud.tutorial = _tutorial
 	_hud.tutorial_requested.connect(start_tutorial)
+	_tutorial.chapter_started.connect(_unlock_for_chapter)   # 03b §3b.4: a chapter asked for opens what it teaches
+	(%UnlockCard as UnlockCard).chapter_requested.connect(start_tutorial)
 	Events.sim_event.connect(func(e: Dictionary) -> void: _tutorial.on_event("sim", str(e.get("type", "")), e))
 	if script_id != "" or _shots_left > 0:
 		_tutorial.use_settings = false
@@ -355,6 +358,24 @@ func _bind_tutorial(script_id: String) -> void:
 
 func tutorial() -> Tutorial:
 	return _tutorial
+
+
+## 03b §3b.4 («nada se esconde para siempre»): a tutorial chapter the player starts opens the unlocks that hide what
+## it teaches (data/unlocks.json `ui` and `chapter`), with the same order a card gives (unlock_seen, what: now).
+func _unlock_for_chapter(id: String) -> void:
+	if Game.sim == null:
+		return
+	var fam := SimQuery.player_family(Game.sim.state)
+	var head := str(Game.sim.state.families.get(fam, {}).get("head", ""))
+	for d: Dictionary in Unlocks.defs(Game.sim):
+		if str(d.get("chapter", "")) == id and not (d.get("ui", []) as Array).is_empty() \
+				and not Unlocks.is_open(Game.sim.state, fam, str(d["id"])) and head != "":
+			Game.give({"type": "unlock_seen", "actor": head, "unlock": str(d["id"]), "what": "now"})
+
+
+## The unlock card «Nuevo: …» (03b §3b.4).
+func unlock_card() -> UnlockCard:
+	return get_node("%UnlockCard") as UnlockCard
 
 
 ## A chapter of the tutorial now (the help's buttons); one that cannot be played says why.

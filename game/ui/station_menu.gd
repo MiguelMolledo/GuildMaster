@@ -38,7 +38,7 @@ func _bind() -> void:
 	_bound = true
 	(%FastButton as Button).pressed.connect(choose_mode.bind("fast"))
 	(%NormalButton as Button).pressed.connect(choose_mode.bind("normal"))
-	(%CarefulButton as Button).pressed.connect(choose_mode.bind("careful"))
+	(%CarefulButton as Button).pressed.connect(func() -> void: choose_mode(third_mode()))
 	(%StopButton as Button).pressed.connect(stop)
 	(%ProductionButton as Button).pressed.connect(func() -> void:
 		close()
@@ -53,11 +53,16 @@ func open_for(s: Sim, who: String, bld: String, zone_id: String, at: Vector2 = V
 	building = bld
 	zone = zone_id
 	mode = str(_remembered.get(_key(), "normal"))
+	if mode in ["careful", LiveForge.MODE] and mode != third_mode():
+		mode = third_mode()   # 03b §3b.2: at the forge's anvil Forja viva takes the place of «con cuidado»
 	_focus_recipe = ""
+	spec_contract = ""
+	spec_variant = {}
 	(%Title as Label).text = SimQuery.zone_name(zone_id)
 	(%FastButton as Button).text = SimQuery.t_("ui.station.mode_fast")
 	(%NormalButton as Button).text = SimQuery.t_("ui.station.mode_normal")
-	(%CarefulButton as Button).text = SimQuery.t_("ui.station.mode_careful")
+	(%CarefulButton as Button).text = SimQuery.t_("ui.station.mode_live" if third_mode() == LiveForge.MODE \
+		else "ui.station.mode_careful")
 	(%StopButton as Button).text = SimQuery.t_("ui.station.stop")
 	(%ProductionButton as Button).text = SimQuery.t_("ui.interior.production")
 	refresh()
@@ -121,7 +126,7 @@ func refresh() -> void:
 	(%Hint as Label).text = hint
 	(%Hint as Label).visible = hint != ""
 	var can_pick := actor != "" and other == "" and why == ""
-	for pair: Array in [["fast", "%FastButton"], ["normal", "%NormalButton"], ["careful", "%CarefulButton"]]:
+	for pair: Array in [["fast", "%FastButton"], ["normal", "%NormalButton"], [third_mode(), "%CarefulButton"]]:
 		var b := get_node(str(pair[1])) as Button
 		b.set_pressed_no_signal(str(pair[0]) == mode)
 		b.disabled = not can_pick
@@ -157,7 +162,19 @@ func _mode_line() -> String:
 		int(q.get("craft", 0))]
 	if bool(q.get("touch", false)):
 		out += " · " + SimQuery.t_("ui.station.with_touch")
+	if mode == LiveForge.MODE:
+		out += " · " + SimQuery.t_("ui.station.with_live")
 	return out
+
+
+## Forja viva (03b §3b.2) for whoever the player controls at a station with live recipes; else «con cuidado».
+func third_mode() -> String:
+	if sim == null or actor == "" or str(sim.state.characters.get(actor, {}).get("controlled_by", "")) != "human":
+		return "careful"
+	for opt: Dictionary in recipe_options():
+		if not LiveForge.recipe_def(sim, str(opt.get("recipe", ""))).is_empty():
+			return LiveForge.MODE
+	return "careful"
 
 
 func _build_recipes(can_pick: bool) -> void:
@@ -169,6 +186,97 @@ func _build_recipes(can_pick: bool) -> void:
 	(%Sep as Control).visible = actor != ""
 	for opt: Dictionary in recipe_options():
 		list.add_child(_recipe_row(opt, can_pick))
+	_build_spec(list)
+
+
+# --- 03b §3b.3 · made to a contract's spec ------------------------------------------------------------------------------
+
+var spec_contract: String = ""      # the accepted contract with a spec the next piece is made for ("" = none)
+var spec_variant: Dictionary = {}   # axis -> value chosen (length, guard; temper out of Forja viva)
+
+
+## The family's accepted contracts with a spec whose item a recipe of this station makes.
+func spec_contracts() -> Array:
+	var out: Array = []
+	if sim == null or actor == "":
+		return out
+	var fam := str(sim.state.characters.get(actor, {}).get("family", ""))
+	var items := {}
+	for opt: Dictionary in recipe_options():
+		items[str(sim.catalog.recipes().get(str(opt["recipe"]), {}).get("output", {}).get("item", ""))] = str(opt["recipe"])
+	for c: Dictionary in Contracts.accepted_of(sim, fam):
+		if c.get("spec") is Dictionary and not (c["spec"] as Dictionary).is_empty() and items.has(str(c.get("item", ""))):
+			out.append(c)
+	return out
+
+
+func _build_spec(list: VBoxContainer) -> void:
+	var cs := spec_contracts()
+	if cs.is_empty():
+		spec_contract = ""
+		return
+	var box := VBoxContainer.new()
+	box.name = "SpecBox"
+	var head := HBoxContainer.new()
+	box.add_child(head)
+	var pick := OptionButton.new()
+	pick.name = "SpecContract"
+	pick.focus_mode = Control.FOCUS_NONE
+	pick.add_item(SimQuery.t_("ui.station.spec_none"))
+	pick.set_item_metadata(0, "")
+	var sel := 0
+	for i: int in cs.size():
+		var c: Dictionary = cs[i]
+		pick.add_item(SimQuery.t_("ui.station.spec_for") % [SimQuery.t_("client." + str(c["client"])),
+			SimQuery.item_name(sim.catalog, str(c["item"])).to_lower()])
+		pick.set_item_metadata(i + 1, str(c["id"]))
+		if str(c["id"]) == spec_contract:
+			sel = i + 1
+	pick.select(sel)
+	pick.item_selected.connect(func(i: int) -> void:
+		spec_contract = str(pick.get_item_metadata(i))
+		refresh())
+	head.add_child(pick)
+	list.add_child(box)
+	if spec_contract == "":
+		return
+	var c := {}
+	for k: Dictionary in cs:
+		if str(k["id"]) == spec_contract:
+			c = k
+	var desc := Label.new()
+	desc.name = "SpecDesc"
+	desc.text = SimQuery.t_("spec.%s.desc" % str((c.get("spec", {}) as Dictionary).get("id", "")))
+	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	desc.custom_minimum_size = Vector2(260, 0)
+	desc.theme_type_variation = &"DimLabel"
+	box.add_child(desc)
+	var rid := ""
+	for opt: Dictionary in recipe_options():
+		if str(sim.catalog.recipes().get(str(opt["recipe"]), {}).get("output", {}).get("item", "")) == str(c.get("item", "")):
+			rid = str(opt["recipe"])
+	var axes: Array = LiveForge.axes_of(sim, rid)
+	if mode != LiveForge.MODE:
+		axes.append("temper")
+	var row := HBoxContainer.new()
+	box.add_child(row)
+	for axis: Variant in axes:
+		var values: Array = sim.catalog.live_forge.get("quench_media", []) if str(axis) == "temper" \
+			else ((sim.catalog.live_forge.get("variants", {}) as Dictionary).get(str(axis), {}) as Dictionary).keys()
+		var ob := OptionButton.new()
+		ob.name = "Spec_" + str(axis)
+		ob.focus_mode = Control.FOCUS_NONE
+		for i: int in values.size():
+			ob.add_item(SimQuery.t_("live.variant.%s.%s" % [axis, values[i]]))
+			ob.set_item_metadata(i, str(values[i]))
+		if not spec_variant.has(str(axis)):
+			spec_variant[str(axis)] = str(values[0])
+		ob.select(maxi(0, values.find(str(spec_variant[str(axis)]))))
+		var a := str(axis)
+		ob.item_selected.connect(func(i: int) -> void:
+			spec_variant[a] = str(ob.get_item_metadata(i))
+			ViewConfig.info("StationMenu", "variant %s=%s" % [a, spec_variant[a]]))
+		row.add_child(ob)
 
 
 ## One recipe: [icon] Name · inputs have/need · duration, and the reason under it when it cannot be made.
@@ -357,7 +465,18 @@ func _status_tip(rid: String, status: String, reason: String) -> String:
 func choose_recipe(rid: String) -> void:
 	if actor == "" or mode == "":
 		return
-	_give({"type": "work_at", "actor": actor, "building": building, "zone": zone, "recipe": rid, "mode": mode})
+	var o := {"type": "work_at", "actor": actor, "building": building, "zone": zone, "recipe": rid, "mode": mode}
+	for c: Dictionary in spec_contracts():
+		if str(c["id"]) == spec_contract and str(sim.catalog.recipes().get(rid, {}).get("output", {}).get("item", "")) \
+				== str(c.get("item", "")):
+			o["contract"] = spec_contract
+			var v := {}
+			var axes := LiveForge.axes_of(sim, rid)
+			for k: String in spec_variant:
+				if (k == "temper" and mode != LiveForge.MODE) or k in axes:
+					v[k] = spec_variant[k]
+			o["variant"] = v
+	_give(o)
 	close()
 
 

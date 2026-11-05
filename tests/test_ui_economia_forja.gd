@@ -121,7 +121,8 @@ func test_quality_and_duration_follow_the_mode() -> void:
 	eq(dur.call(), "5 h 51", "careful: 5 h 51")
 	check((menu.get_node("%ModeLine") as Label).text.contains("toque de maestro"), "careful adds the master touch")
 	v.open_station_menu("anvil", Vector2(300, 120))
-	eq(v.station_menu().mode, "careful", "the mode is remembered for Hugo at the anvil")
+	eq(v.station_menu().mode, "live", "the mode is remembered for Hugo at the anvil (03b: Forja viva there)")
+	check((menu.get_node("%ModeLine") as Label).text.contains("a mano"), "Forja viva: you heat, strike and quench")
 	TranslationServer.set_locale(before)
 	v.free()
 

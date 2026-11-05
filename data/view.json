@@ -148,5 +148,6 @@
   "social": {
     "_doc": "Social panels (docs/ui/mecanicas/_social.md): relation_bands = [upper bound, word id] of the relation -100..100, in order (relation_band.<id> in i18n).",
     "relation_bands": [[-60, "enemy"], [-25, "hostile"], [-6, "cold"], [5, "neutral"], [49, "cordial"], [100, "friend"]]
-  }
+  },
+  "skip": {"_doc": "«Saltar hasta…» (docs/gdd/03b_diversion_y_ritmo.md §3b.5.2, O-D3): the session speed while skipping and the most it runs (days) before stopping by itself.", "speed": 8, "max_days": 1}
 }

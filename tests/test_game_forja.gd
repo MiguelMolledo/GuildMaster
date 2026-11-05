@@ -184,7 +184,7 @@ func test_interior_is_built_from_the_kit_with_the_stations() -> void:
 
 
 func test_station_menu_gives_work_at_with_the_mode() -> void:
-	for mode: String in ["fast", "normal", "careful"]:
+	for mode: String in ["fast", "normal", "live"]:  # 03b §3b.2: at the anvil the third button is Forja viva
 		var sim := _sim()
 		_hugo_inside(sim)
 		_add(sim.state.buildings[BLD]["inventory"], "iron_ingot", 0, 2)
@@ -195,7 +195,7 @@ func test_station_menu_gives_work_at_with_the_mode() -> void:
 		var menu := v.station_menu()
 		check(menu.visible, "the station menu opens")
 		eq(menu.zone, "anvil", "for the anvil")
-		var button := {"fast": "%FastButton", "normal": "%NormalButton", "careful": "%CarefulButton"}[mode] as String
+		var button := {"fast": "%FastButton", "normal": "%NormalButton", "live": "%CarefulButton"}[mode] as String
 		(menu.get_node(button) as Button).pressed.emit()
 		var by_id := {}
 		for b: Button in menu.recipe_buttons():

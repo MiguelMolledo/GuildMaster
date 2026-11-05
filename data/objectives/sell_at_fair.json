@@ -1,0 +1,11 @@
+{
+  "id": "sell_at_fair",
+  "name_key": "objective.sell_at_fair",
+  "_doc": "Open goal of an unlock (03b §3b.5.1, data/unlocks.json): it counts the events of the family while it is shown.",
+  "conditions": [
+    {
+      "event": "market_sold",
+      "count": 5
+    }
+  ]
+}

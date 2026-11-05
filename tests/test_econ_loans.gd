@@ -75,14 +75,15 @@ func test_warnings_two_and_one_days_before() -> void:
 	check(not "notice.loan_due_soon" in _keys(sim), "not yet")
 	sim.step()
 	sim.step()
-	var n: Array = Notices.list(sim, FAM)
+	var n: Array = Notices.list(sim, FAM).filter(func(x: Dictionary) -> bool: return str(x["key"]) == "notice.loan_due_soon")
 	eq([n[0]["key"], n[0]["severity"], int(n[0]["params"]["days"]), int(n[0]["params"]["amount"])],
-		["notice.loan_due_soon", "urgent", 2, 200], "2 days before")
+		["notice.loan_due_soon", "urgent", 2, 200], "2 days before (03b: the unlock notices of day 7 may come too)")
 	sim.state.clock["minute"] = due - Clock.MINUTES_PER_DAY
 	sim.step()
 	sim.step()
 	eq(_keys(sim).count("notice.loan_due_soon"), 2, "and 1 day before, once each")
-	eq(int(Notices.list(sim, FAM)[0]["params"]["days"]), 1, "1 day")
+	eq(int(Notices.list(sim, FAM).filter(func(x: Dictionary) -> bool: return str(x["key"]) == "notice.loan_due_soon")[0][
+		"params"]["days"]), 1, "1 day")
 
 
 func test_extension_with_surcharge() -> void:
