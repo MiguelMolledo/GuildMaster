@@ -1,6 +1,15 @@
 [
   {
     "fecha": "2026-11-05",
+    "titulo": "La Forja viva y la taberna, verificadas por la interfaz",
+    "que": "Flujo forja_viva: la espada forjada a mano por la interfaz (modo «Viva», calentar hasta el color que pide la receta y sacar, los golpes de la plantilla, templar, el resultado), con ratón y con teclado. Flujos taberna (comprar la Taberna-Posada, su carta, precios, plato del día, camas, licencia y la noche) y otra_ciudad (empezar en Bellcaire). El primer día forja la espada en modo normal. Las cartas de desbloqueo de la forja van a la pila lateral. Con todo main junto: 47 de 48 pasadas (24 flujos, con ratón y con teclado) en verde; la que falla es un hallazgo de la Forja viva.",
+    "como_probar": "python3 tools/verifica/verifica.py --both --flows=forja_viva,taberna,otra_ciudad",
+    "capturas": [
+      "verifica_teclado_foco.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-05",
     "titulo": "Todo con el teclado: menús, paneles y cartas con foco, Tab, flechas, Intro, Esc y F6",
     "que": "Cada botón, casilla, desplegable, campo y control de los menús, paneles y cartas toma el foco (anillo o marco dorado), también los asientos del organigrama, las fichas del árbol y las pilas del almacén. Tab sin nada enfocado entra en lo de arriba (un modal, un menú, una partida, el panel abierto, la barra del HUD); Tab, Mayús+Tab y las flechas se mueven, Intro o Espacio pulsan, Esc cierra, F6 salta de zona (las cartas de la pila, el panel, la barra de la sala, la del HUD). Un clic de ratón no deja el foco (Espacio sigue siendo la pausa) y las flechas no mueven la cámara mientras hay foco. Dentro de un edificio, R y la cámara avisan «no disponible dentro». El mapa y las salas siguen siendo del ratón. La verificación juega todos los flujos también con el teclado (Tab y F6 hasta cada botón, Intro; las cantidades se escriben): 22 de 22 flujos en verde con ratón y con teclado; cobertura de las 85 órdenes: 66 por ratón y 66 por teclado (las de señalar en el mapa, con su motivo).",
     "como_probar": "python3 tools/verifica/verifica.py --both --flows=all (o --window); en el juego: Tab, flechas, Intro y F6 en cualquier panel",

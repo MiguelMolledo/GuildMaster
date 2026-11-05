@@ -231,6 +231,49 @@ func mine_id(what: String) -> String:
 	return ""
 
 
+## Forja viva (03b §3b.2): what its screen shows, read as a player reads it (the colour, the template, the medium).
+func _live() -> LiveForgeScreen:
+	return app.interior().live_screen() if app.interior().has_method("live_screen") else null
+
+
+func live_open() -> bool:
+	return _live() != null and _live().visible
+
+
+func live_stage() -> String:
+	var b := interior() if interior() != "" else own("forge")
+	return str(LiveForge.view(Game.sim, b, "anvil").get("stage", "")) if live_open() else ""
+
+
+func _live_part() -> Dictionary:
+	var b := interior() if interior() != "" else own("forge")
+	var job: Variant = st().buildings[b]["zones"]["anvil"].get("job")
+	return (job as Dictionary).get("live", {}) if job is Dictionary else {}
+
+
+func _live_def() -> Dictionary:
+	return LiveForge.recipe_def(Game.sim, _live().recipe) if live_open() else {}
+
+
+## The iron shows the colour the recipe wants (or past it): time to pull it.
+func live_heat_ok() -> bool:
+	if not live_open():
+		return false
+	var want := (Game.sim.catalog.live_forge["heat_colors"] as Array).find(str(_live_def().get("heat", "cherry")))
+	return _live().heat_index >= want
+
+
+## The next strike of the template (strong / measured / finish).
+func live_strike() -> String:
+	var t: Array = LiveForge.template_of(Game.sim, _live_def(), _live_part())
+	var done := (_live_part().get("strikes", []) as Array).size()
+	return str(t[done]) if done < t.size() else ""
+
+
+func live_quench() -> String:
+	return LiveForge.wanted_quench(_live_def(), _live_part())
+
+
 ## The production window of the station: open while it blinks for the master touch.
 func touch_open(zone: String) -> bool:
 	var b := interior() if interior() != "" else own("forge")

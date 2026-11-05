@@ -602,6 +602,8 @@ func _free_rect() -> Rect2:
 	var open: Control = app.hud().open_manage_panel()
 	if open != null and open.is_visible_in_tree():
 		r.end.x = minf(r.end.x, open.get_global_rect().position.x - 4.0)
+	for c: Variant in PageCard.stack():   # the side stack of cards covers its strip of the town
+		r.end.x = minf(r.end.x, (c as Control).get_global_rect().position.x - 4.0)
 	return r
 
 
