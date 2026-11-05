@@ -398,9 +398,9 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
 - **La boda del jugador** abre una carta con «Pagar el banquete (80)» durante un día; los encargos de una boda no los
   puede coger la familia que se casa (es su propia boda).
 - **Patrocinios**: banquete, música y, si la fiesta los tiene, los toros. Sin patrocinio, los forasteros ×0,7. El
-  patrocinio de la IA rival: de momento no (manager, a la espera del owner; iría en la revisión de 04c).
-- **El regalo de la villa** en la visita del marqués es un encargo de carrera (la espada excelente); que el Alcalde
-  elija entre varias piezas ofrecidas y la audiencia con privilegios: de momento no (manager, a la espera del owner).
+  patrocinio de la IA rival: ver más abajo (owner, 2026-11-05).
+- **El regalo de la villa** en la visita del marqués es un encargo de carrera (la espada excelente); desde el
+  2026-11-05 lo elige el Alcalde entre las piezas ofrecidas, con la audiencia y sus privilegios (ver más abajo).
 - **Fiestas de las otras ciudades**: la patronal y la feria caen el mismo día (Bellcaire en Primavera 2, Portvell en
   Verano 1, Montsacre en Otoño 1, Peñarroja en Invierno 1, Vilablat en Primavera 2); la de Vilarrasa es la de la siega
   (Verano 2). Durante la feria: arancel 0 en esa ciudad, sin portazgo en sus caminos desde el día antes y su demanda
@@ -425,6 +425,18 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
     primera que llega. Si la paga el rival, el jugador lo ve (un aviso, y en la carta un botón «Pujar por… (n)») y
     puede pujar: paga ×1,5 de lo que pagó el rival, que recupera su oro y pierde la reputación que ganó. No hay «módulo de reputación» de 04c en el código:
     la regla vive en las fiestas y lee el perfil.
+- **La IA y los encargos de fiesta** (2026-11-05, manager; `sim/ai/rival_ai.gd`, cifras en `rules.contracts`): con las
+  fiestas encendidas el full_player dejaba a las cuatro familias IA sin oro. Ahora una familia IA solo entra en una
+  carrera si la termina a tiempo con los minutos de trabajo reales de su taller hasta la hora de entrega (no el día
+  redondeado), después del ciclo en que está y del trabajo de sus otros encargos, con `ai_margin_minutes` (120) para
+  llevarla al tablón; y si después de comprar la materia (la de sus otros encargos también) le queda su `gold_reserve`
+  más `ai_reserve_days` (3) días de mantenimiento. Con las piezas de una carrera va al tablón en el acto. Por debajo de
+  esa reserva, y sin oro para un ciclo de su receta, entra en **recuperación**: compra lo justo para una pieza de su
+  receta vendible más barata con todo su oro y vende lo que el mercado tome, sin mirar la demanda; nunca se queda parada
+  con la deuda creciendo. El patrocinio de la IA usa la misma reserva (más `spare`). Si al empezar la feria no tenía pieza
+  para el concurso, la presenta en cuanto la tiene (cada hora, hasta el juicio). Diana: `ai_broke_days_y1` ≤ 2 en
+  `festive` e `idle_titles_fest`. Los botones de pago apagados (el banquete de la boda, patrocinar, pujar) dicen por qué,
+  con el precio y el oro que tienes, en su tooltip y en el texto de la carta.
 - **Los corrales, a las afueras** (2026-11-05, owner): las ferias de ganado se hacían fuera, junto al camino. El sitio
   `outskirts` de la vista (`data/festivals.json` `rules.view_sites.outskirts`) es el prado libre más cercano a una
   puerta del mapa (spawns `*_gate`, a 10 casillas o menos), y toda la huella del prop tiene que caer en prado: nunca en

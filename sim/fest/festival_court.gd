@@ -306,6 +306,9 @@ static func tick(sim: Sim, inst: Dictionary, now: int) -> void:
 		if not (inst.get("gift_offers", []) as Array).is_empty():
 			sim.events.append({"type": "festival_gift_offers", "festival": str(inst["id"]), "def": str(inst["def"]),
 				"mayor": mayor(sim), "offers": (inst["gift_offers"] as Array).size()})
+	var cq := effect(sim, inst, "contest")  # a workshop that had no piece at the start brings one when it has it
+	if not cq.is_empty() and now % 60 == 0 and now > int(inst.get("start", 0)) and now < _deadline(inst, cq):
+		ai_entries(sim, inst, "start")
 	for kind: String in ["town_gift", "audience", "contest"]:
 		var e := effect(sim, inst, kind)
 		if e.is_empty():
@@ -324,7 +327,8 @@ static func tick(sim: Sim, inst: Dictionary, now: int) -> void:
 
 
 ## The AI families bring their pieces: the gift and the audience's gift when the feast is announced, the contest's
-## piece when the feast starts (`at`: eve | start), so a workshop's stock is not held longer than the feast.
+## piece when the feast starts (`at`: eve | start), so a workshop's stock is not held longer than the feast, or later
+## (every hour until the judging, tick) when it had none then.
 static func ai_entries(sim: Sim, inst: Dictionary, at: String = "eve") -> void:
 	var kinds: Array = []
 	for k: String in (["town_gift", "audience"] if at == "eve" else ["contest"]):
@@ -351,7 +355,8 @@ static func ai_entries(sim: Sim, inst: Dictionary, at: String = "eve") -> void:
 						sim.give({"type": "festival_audience", "actor": head, "festival": str(inst["id"]),
 							"privilege": str(privileges_open(sim)[0])})
 				"contest":
-					if not trade_items(sim, fam).is_empty() and not best_piece(sim, fam, head, trade_items(sim, fam)).is_empty():
+					if not _entered(inst.get("contest", []), fam) and not trade_items(sim, fam).is_empty() \
+							and not best_piece(sim, fam, head, trade_items(sim, fam)).is_empty():
 						sim.give({"type": "festival_enter_contest", "actor": head, "festival": str(inst["id"])})
 
 
@@ -514,7 +519,8 @@ static func ai_sponsor(sim: Sim, inst: Dictionary) -> void:
 		if part == "":
 			return
 		var cost := int(Festivals.rules(sim).get("sponsor", {}).get("parts", {}).get(part, {}).get("gold", 0))
-		var reserve := int(sim.catalog.ai_profiles().get(prof, {}).get("gold_reserve", 0)) + int(cfg.get("spare", 150))
+		var reserve := RivalAI.upkeep_reserve(sim, fam, sim.catalog.ai_profiles().get(prof, {})) \
+			+ int(cfg.get("spare", 150))  # the same reserve as a festival contract (4.25.4), and a spare
 		if Money.gold(sim.state, fam) - cost < reserve:
 			continue
 		if Kin.roll(sim.state, "fst|aisp|%s|%s" % [inst["id"], fam]) >= float(cfg.get("chance", 0.6)):

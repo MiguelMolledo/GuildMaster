@@ -3653,3 +3653,5 @@ ui.festival_card.bid,Bid for %s (%d),Pujar por %s (%d)
 ui.festival_card.bid_tip,The %s pay it now; they get their gold back,Ahora lo pagan los %s; recuperan su oro
 notice.festival_ai_sponsored,The {family} pay {part} of {festival}: you can bid {gold},Los {family} pagan {part} de {festival}: puedes pujar con {gold}
 notice.festival_outbid,The {family} outbid you for {part} of {festival}; your gold comes back,Los {family} te quitan {part} de {festival}; recuperas tu oro
+ui.festival_card.gold_short,"Not enough gold: it costs %d and you have %d","No te llega el oro: cuesta %d y tienes %d"
+ui.festival_card.host_wedding_tip,"Guests, dance, contracts for every trade and reputation","Invitados, baile, encargos para cada oficio y reputación"

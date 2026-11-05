@@ -4,7 +4,8 @@ extends Node
 ## eight fixed ones, then the variable ones): the clock on its day at a good hour, the festival put in force, the
 ## plaza with its decoration (fiesta_<id>_vista) and its card (fiesta_<id>_carta). Then a rich wedding of the rival
 ## family: the crier's card and the board with the bride's dress and the groom's sword (fiesta_boda_tablon). Orders only
-## through the UI paths. Quits when done, or after `timeout` seconds.
+## through the UI paths. Last, the player's wedding offer without the gold of the banquet (the button off, with its
+## reason: fiesta_boda_sin_oro). Quits when done, or after `timeout` seconds.
 
 const DAY: int = 1440
 const PLAZA: Vector2i = Vector2i(19, 19)
@@ -231,5 +232,15 @@ func _process(delta: float) -> void:
 		"contest_card":
 			if _t > 0.5:
 				app.save_shot("fiesta_concurso")
+				var fam := SimQuery.player_family(Game.sim.state)
+				Game.sim.state.families[fam]["gold"] = 50  # the banquet costs 80: the button is off and says why
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("close")
+				card.call("show_festival", Game.sim, {"type": "festival_wedding_offer", "family": fam,
+					"couple": [_who, _who]})
+				_go("wedding_offer")
+		"wedding_offer":
+			if _t > 0.5:
+				app.save_shot("fiesta_boda_sin_oro")
 				_go("done")
 				get_tree().quit()

@@ -128,6 +128,7 @@ static func _feast(sim: Sim, e: Dictionary, fam: String) -> Dictionary:
 	var buttons: Array = [{"id": "ok", "text": SimQuery.t_("ui.festival_card.ok"), "primary": true}]
 	if fam != "" and not inst.is_empty():
 		buttons.append_array(_court_buttons(sim, inst, fam))
+	var short := ""  # the first payment it cannot make: said in the card's text too
 	if eve and fam != "" and not inst.is_empty():
 		for part: String in Festivals.sponsor_parts(sim, inst):
 			if part in (inst.get("sponsors", {}).get(fam, []) as Array):
@@ -136,13 +137,18 @@ static func _feast(sim: Sim, e: Dictionary, fam: String) -> Dictionary:
 			var holder := Festivals.part_taken_by(inst, part)
 			if holder != "":  # another house pays it: the player may bid (owner, 2026-11-05)
 				gold = Festivals.bid_price(sim, inst, part)
+				var bwhy := gold_reason(sim, fam, gold)
 				buttons.append({"id": "bid:" + part, "text": SimQuery.t_("ui.festival_card.bid") % [
-					SimQuery.t_("festival.part." + part).to_lower(), gold], "disabled": Money.gold(sim.state, fam) < gold,
-					"tip": SimQuery.t_("ui.festival_card.bid_tip") % str(sim.state.families.get(holder, {}).get("name", ""))})
+					SimQuery.t_("festival.part." + part).to_lower(), gold], "disabled": bwhy != "",
+					"tip": bwhy if bwhy != "" else SimQuery.t_("ui.festival_card.bid_tip") % str(
+						sim.state.families.get(holder, {}).get("name", ""))})
+				short = short if short != "" else bwhy
 				continue
+			var swhy := gold_reason(sim, fam, gold)
 			buttons.append({"id": "sponsor:" + part, "text": SimQuery.t_("ui.festival_card.sponsor") % [
-				SimQuery.t_("festival.part." + part).to_lower(), gold], "disabled": Money.gold(sim.state, fam) < gold,
-				"tip": SimQuery.t_("ui.festival_card.sponsor_tip")})
+				SimQuery.t_("festival.part." + part).to_lower(), gold], "disabled": swhy != "",
+				"tip": swhy if swhy != "" else SimQuery.t_("ui.festival_card.sponsor_tip")})
+			short = short if short != "" else swhy
 	if fam != "" and not inst.is_empty():  # juegos (04f §4.26): enter a competition of the feast, or bet on it
 		var g: Dictionary = inst.get("games", {}) if inst.get("games") is Dictionary else {}
 		for f: Dictionary in def.get("effects", []):
@@ -156,6 +162,8 @@ static func _feast(sim: Sim, e: Dictionary, fam: String) -> Dictionary:
 			if not entered:
 				buttons.append({"id": "bet:" + spk, "text": SimQuery.t_("ui.festival_card.bet") % SimQuery.t_("spectacle." + spk),
 					"tip": SimQuery.t_("ui.festival_card.bet_tip")})
+	if short != "":
+		blocks.append({"type": "paragraph", "text": short})
 	var out := {"template": "card", "title": SimQuery.festival_name(id),
 		"image": VisualPaths.illustration_or_greybox("events", id), "blocks": blocks,
 		"footer_figures": [{"label": "", "value": when}], "buttons": buttons, "sticky": false,
@@ -172,13 +180,26 @@ static func _wedding(sim: Sim, e: Dictionary) -> Dictionary:
 	var b := str(sim.state.characters.get(str(couple[1]) if couple.size() > 1 else "", {}).get("name", ""))
 	var gold := int(Festivals.rules(sim).get("wedding", {}).get("player_feast_gold", 80))
 	var fam := str(e.get("family", ""))
+	var why := gold_reason(sim, fam, gold)
+	var blocks: Array = [{"type": "paragraph", "text": SimQuery.t_("ui.festival_card.wedding_body") % [a, b]}]
+	if why != "":  # the button is off: the card says why, not only its tooltip
+		blocks.append({"type": "paragraph", "text": why})
 	return {"template": "card", "title": SimQuery.t_("ui.festival_card.wedding_title"),
 		"image": VisualPaths.illustration_or_greybox("events", "noble_wedding"),
-		"blocks": [{"type": "paragraph", "text": SimQuery.t_("ui.festival_card.wedding_body") % [a, b]}],
+		"blocks": blocks,
 		"buttons": [{"id": "plain", "text": SimQuery.t_("ui.festival_card.plain_wedding")},
 			{"id": "host_wedding", "text": SimQuery.t_("ui.festival_card.host_wedding") % gold, "primary": true,
-				"disabled": Money.gold(sim.state, fam) < gold}],
+				"disabled": why != "", "tip": why if why != "" else SimQuery.t_("ui.festival_card.host_wedding_tip")}],
 		"sticky": true, "festival": "noble_wedding", "instance": ""}
+
+
+## Why `fam` cannot pay `gold` now ("" if it can): the reason of a payment button shown off, for its tooltip and
+## the card's text.
+static func gold_reason(sim: Sim, fam: String, gold: int) -> String:
+	var have := Money.gold(sim.state, fam)
+	if have >= gold:
+		return ""
+	return SimQuery.t_("ui.festival_card.gold_short") % [gold, have]
 
 
 ## The buttons of the feast's court for `fam` (owner, 2026-11-05): offer a piece for the town's gift, ask the marquis

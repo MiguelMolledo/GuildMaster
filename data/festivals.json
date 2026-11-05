@@ -48,7 +48,10 @@
       "max_accepted_per_family": 2,
       "due_hour": 17,
       "fail_reputation": -3,
-      "lost_notice": true
+      "lost_notice": true,
+      "_ai_doc": "La IA solo entra en un encargo de fiesta si lo termina a tiempo: los minutos de trabajo reales de su taller hasta la entrega, tras el ciclo en que está y lo que pide su cola, con ai_margin_minutes para llevarlo al tablón; y si tras comprar la materia le quedan su gold_reserve más ai_reserve_days días de mantenimiento (Upkeep.due_next_dawn). La misma reserva vale para patrocinar.",
+      "ai_margin_minutes": 120,
+      "ai_reserve_days": 3
     },
     "_view_looks_doc": "Ropa de fiesta (vista): la ropa de cada persona se mezcla con color en amount (el shader de identidad). mask: máscaras de Carnaval.",
     "view_looks": {
@@ -122,7 +125,7 @@
         "minor_office": {}
       }
     },
-    "_ai_sponsor_doc": "4.25.5 (owner, 2026-11-05) · las familias rivales (IA con perfil) patrocinan como mucho per_year fiestas grandes al año si les sobra el oro (gold_reserve del perfil + spare después de pagar), con una tirada por fiesta (chance). Cada parte la paga una sola familia: la primera que llega (compite con el patrocinio del jugador). Si la IA patrocina, el jugador lo ve (aviso) y puede pujar: paga outbid_mult × lo que pagó la otra familia, que recupera su oro y pierde la reputación que ganó.",
+    "_ai_sponsor_doc": "4.25.5 (owner, 2026-11-05) · las familias rivales (IA con perfil) patrocinan como mucho per_year fiestas grandes al año si les sobra el oro (la reserva de los encargos de fiesta, gold_reserve del perfil + ai_reserve_days días de mantenimiento, más spare después de pagar), con una tirada por fiesta (chance). Cada parte la paga una sola familia: la primera que llega (compite con el patrocinio del jugador). Si la IA patrocina, el jugador lo ve (aviso) y puede pujar: paga outbid_mult × lo que pagó la otra familia, que recupera su oro y pierde la reputación que ganó.",
     "ai_sponsor": {
       "per_year": 1,
       "spare": 150,

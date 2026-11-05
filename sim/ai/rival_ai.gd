@@ -30,7 +30,12 @@ extends RefCounted
 ## the head of the player's family with a public fact not yet tried against it or, only if the family's honesty is at
 ## most fabricate_max_honesty, with fabricated proofs (its stealth check); never in the first protect_days days, then
 ## once every cooldown_days (ai_state.accused_day). It does not defend itself in a trial (04c).
-## ai_state: {phase, plan: [task], recipe, bought_day, last_order, last_fp, accused_day}.
+## Fiestas (04f 4.25.4): a festival contract (race) only if the real work minutes of its workshop until its due_at, after
+## the cycle it is on and the work of its other contracts, are enough, and if after buying the inputs (its other
+## contracts' too) it keeps upkeep_reserve (gold_reserve + ai_reserve_days days of upkeep). Under that reserve, and
+## unable to pay a cycle of its recipe, it is in recovery mode (recovering): one cycle of its cheapest sellable piece,
+## bought with all its gold, and it sells what the market takes whatever the demand.
+## ai_state: {phase, plan: [task], recipe, recovering, bought_day, last_order, last_fp, accused_day}.
 
 const WAIT: Dictionary = {"_wait": true}  # task goes on, no order this minute
 const EPS: float = 0.000001
@@ -72,6 +77,7 @@ static func _think(sim: Sim, fam: String, actor: String, home: String, profile: 
 			_decide(sim, fam, actor, home, profile, ai, ph)
 	if not _free(sim, actor):
 		return {}
+	_race_first(sim, fam, actor, home, ai)
 	for guard: int in 8:
 		var plan: Array = ai.get("plan", [])
 		if plan.is_empty():
@@ -102,9 +108,34 @@ static func _think(sim: Sim, fam: String, actor: String, home: String, profile: 
 
 # --- Deciding ----------------------------------------------------------------------------------------------------------
 
+## 4.25.4: a festival contract is a race with a fixed hour; as soon as it has its pieces (bag + storage) the task
+## «contracts» goes first, without waiting for the next phase change.
+static func _race_first(sim: Sim, fam: String, actor: String, home: String, ai: Dictionary) -> void:
+	var plan: Array = ai.get("plan", [])
+	if not plan.is_empty() and str(plan[0]) == "contracts":
+		return
+	for c: Dictionary in Contracts.accepted_of(sim, fam):
+		if not bool(c.get("race", false)):
+			continue
+		var min_q := int(c.get("min_quality", 0))
+		if Contracts.count_valid(_bag(sim, actor), str(c["item"]), min_q) \
+				+ Contracts.count_valid(_storage(sim, home), str(c["item"]), min_q) >= int(c["qty"]):
+			plan.push_front("contracts")
+			ai["plan"] = plan
+			if OS.is_debug_build():
+				print("[RivalAI] %s tiene las piezas de %s (carrera): al tablón" % [fam, c["id"]])
+			return
+
+
 static func _decide(sim: Sim, fam: String, actor: String, home: String, profile: Dictionary, ai: Dictionary,
 		ph: String) -> void:
 	ai["recipe"] = choose_recipe(sim, actor, home)
+	ai["recovering"] = false
+	if recovering(sim, fam, actor, home, profile, str(ai["recipe"])):  # 4.25.4: under the reserve
+		ai["recovering"] = true
+		var cheap := recovery_recipe(sim, fam, actor, home)
+		if cheap != "":
+			ai["recipe"] = cheap
 	var work := ph in (profile.get("work_phases", ["day"]) as Array)
 	var plan: Array = []
 	if ph != Production.NIGHT and not accusation(sim, fam, actor, profile).is_empty():
@@ -118,15 +149,63 @@ static func _decide(sim: Sim, fam: String, actor: String, home: String, profile:
 			plan.append("contracts")
 		if Market.is_open(sim):
 			plan.append("sell")
-			if work and int(ai.get("bought_day", -1)) != Clock.day(_now(sim)):
+			if work and (int(ai.get("bought_day", -1)) != Clock.day(_now(sim)) or bool(ai["recovering"])):
 				plan.append("buy")
 	plan.append("home")
 	if work:
 		plan.append("work")
 	ai["plan"] = plan
 	if OS.is_debug_build():
-		print("[RivalAI] %s decide en %s: receta=%s plan=%s oro=%d" % [fam, ph, ai["recipe"], plan,
-			Money.gold(sim.state, fam)])
+		print("[RivalAI] %s decide en %s: receta=%s plan=%s oro=%d%s" % [fam, ph, ai["recipe"], plan,
+			Money.gold(sim.state, fam), " (recuperación)" if bool(ai["recovering"]) else ""])
+
+
+## 4.25.4 recovery mode: the family is under its upkeep reserve (upkeep_reserve) and its gold over gold_reserve does
+## not pay one cycle of the inputs its recipe `rid` lacks. Then it buys just enough for its cheapest sellable piece
+## (recovery_recipe, one cycle, with all its gold) and sells whatever the market takes, whatever the demand: it never
+## stays idle while its debt grows.
+static func recovering(sim: Sim, fam: String, actor: String, home: String, profile: Dictionary, rid: String) -> bool:
+	var gold := Money.gold(sim.state, fam)
+	if gold >= upkeep_reserve(sim, fam, profile):
+		return false
+	return rid == "" or _cycle_cost(sim, actor, home, rid) > gold - int(profile.get("gold_reserve", 0))
+
+
+## What the inputs of one cycle of `rid` it lacks (bag + storage + what its recipes make from the stock) cost now.
+static func _cycle_cost(sim: Sim, actor: String, home: String, rid: String) -> int:
+	var need := {}
+	_add_inputs(sim, need, rid, 1)
+	var cost := 0
+	for item: String in need:
+		var have := Inventory.count(_bag(sim, actor), item) + Inventory.count(_storage(sim, home), item) \
+			+ _makeable(sim, actor, home, item)
+		var price := Market.price(sim, item, Inventory.NORMAL, "buy")
+		if int(need[item]) > have and price <= 0:
+			return 1 << 30
+		cost += maxi(0, int(need[item]) - have) * price
+	return cost
+
+
+## The recipe of its home whose piece sells at the market (not made to order, with a stall) with a margin > 0 and the
+## cheapest cycle it can pay with all its gold (ties: the best margin, then the id); "" if none.
+static func recovery_recipe(sim: Sim, fam: String, actor: String, home: String) -> String:
+	var gold := Money.gold(sim.state, fam)
+	var best := ""
+	var best_cost := 1 << 30
+	var best_m := 0
+	for rid: String in _home_recipes(sim, actor, home):
+		var r: Dictionary = sim.catalog.recipes()[rid]
+		if str(r.get("kind", "craft")) == "commission" or stall_for(sim, str(r.get("output", {}).get("item", ""))) == "":
+			continue
+		var m := margin(sim, rid)
+		var cost := _cycle_cost(sim, actor, home, rid)
+		if m <= 0 or cost > gold:
+			continue
+		if cost < best_cost or (cost == best_cost and m > best_m):
+			best = rid
+			best_cost = cost
+			best_m = m
+	return best
 
 
 ## The recipe of the home building with the best margin now: sell price of the output − buy price of the inputs
@@ -297,7 +376,51 @@ static func makes_in_time(sim: Sim, fam: String, actor: String, home: String, pr
 		var orid := _recipe_for(sim, actor, home, str(other["item"]))
 		if orid != "":
 			need += _work_minutes_for(sim, fam, actor, home, profile, other, orid)
+	if bool(c.get("race", false)):  # 4.25.4: the real minutes of its workshop until due_at, after the job it is on
+		var fr: Dictionary = Festivals.rules(sim).get("contracts", {})
+		need += _job_left(sim, actor, home) + int(fr.get("ai_margin_minutes", 60))
+		return need >= 0 and need <= work_minutes_until(sim, profile, int(c.get("due_at", 0)))
 	return need >= 0 and need <= int(c.get("deadline_days", 1)) * work_minutes_per_day(sim, profile)
+
+
+## Minutes still left of the cycle the actor is on at its home (0 if none).
+static func _job_left(sim: Sim, actor: String, home: String) -> int:
+	var zone := Production.job_zone(sim, actor, home)
+	if zone == "":
+		return 0
+	var job: Variant = sim.state.buildings[home]["zones"][zone].get("job")
+	return maxi(0, int(job["end"]) - _now(sim)) if job is Dictionary else 0
+
+
+## Work-phase minutes of the profile between now and minute `until` (each day with its season's phase_starts).
+static func work_minutes_until(sim: Sim, profile: Dictionary, until: int) -> int:
+	var now := _now(sim)
+	if until <= now:
+		return 0
+	var order: Array = Clock.PHASES
+	var total := 0
+	for day: int in range(Clock.day(now) - 1, Clock.day(until) + 1):
+		var base := day * Clock.MINUTES_PER_DAY
+		if base < 0:
+			continue
+		var starts: Dictionary = sim.catalog.time["phase_starts"][Clock.season(base, sim.catalog.time)]
+		for ph: String in profile.get("work_phases", ["day"]):
+			var i := order.find(ph)
+			if i < 0:
+				continue
+			var a := base + int(starts[ph])
+			var b := base + int(starts[order[(i + 1) % order.size()]])
+			if b <= a:
+				b += Clock.MINUTES_PER_DAY
+			total += maxi(0, mini(b, until) - maxi(a, now))
+	return total
+
+
+## 4.25.4: the gold a family keeps when it takes a festival contract or sponsors a feast: its profile's gold_reserve
+## plus ai_reserve_days days of what the dawn charges (upkeep, debt, wages).
+static func upkeep_reserve(sim: Sim, fam: String, profile: Dictionary) -> int:
+	var days := int(Festivals.rules(sim).get("contracts", {}).get("ai_reserve_days", 3))
+	return int(profile.get("gold_reserve", 0)) + days * int(Upkeep.due_next_dawn(sim, fam)["total"])
 
 
 ## Whether the inputs of the pieces it lacks (expected cycles for the minimum quality), minus what it has, cost no
@@ -312,11 +435,21 @@ static func _affords(sim: Sim, fam: String, actor: String, home: String, profile
 		return false
 	var need := {}
 	_add_inputs(sim, need, rid, ceili(lack / p / maxi(1, int(sim.catalog.recipes()[rid].get("output", {}).get("qty", 1)))))
+	if bool(c.get("race", false)):  # 4.25.4: the inputs its other contracts still need count too
+		for other: Dictionary in Contracts.accepted_of(sim, fam):
+			var orid := _recipe_for(sim, actor, home, str(other["item"]))
+			var olack := _pieces_lacking(sim, fam, actor, home, other)
+			var op := _quality_chance(sim, actor, profile, int(other.get("min_quality", 0)))
+			if orid != "" and olack > 0 and op > 0.0:
+				_add_inputs(sim, need, orid, ceili(olack / op / maxi(1,
+					int(sim.catalog.recipes()[orid].get("output", {}).get("qty", 1)))))
 	var cost := 0
 	for item: String in need:
 		var have := Inventory.count(_bag(sim, actor), item) + Inventory.count(_storage(sim, home), item) \
 			+ _makeable(sim, actor, home, item)
 		cost += maxi(0, int(need[item]) - have) * Market.price(sim, item, Inventory.NORMAL, "buy")
+	if bool(c.get("race", false)):
+		return cost <= Money.gold(sim.state, fam) - upkeep_reserve(sim, fam, profile)
 	return cost <= Money.gold(sim.state, fam) - int(profile.get("gold_reserve", 0))
 
 
@@ -338,7 +471,7 @@ static func _t_sell(sim: Sim, fam: String, actor: String, home: String, profile:
 	if not Market.is_open(sim):
 		return {}
 	var sellable := _sellable_items(sim, fam, actor, home, ai)
-	var thr := sell_min_demand(sim, profile)
+	var thr := 0.0 if bool(ai.get("recovering", false)) else sell_min_demand(sim, profile)
 	var bag := _bag(sim, actor)
 	for item: String in sellable:
 		if Market.demand(sim, item) < thr - EPS:
@@ -382,7 +515,7 @@ static func _t_buy(sim: Sim, fam: String, actor: String, home: String, profile: 
 	if not Market.is_open(sim):
 		return {}
 	var deficit := buy_needs(sim, fam, actor, home, profile, ai)
-	var reserve := int(profile.get("gold_reserve", 0))
+	var reserve := 0 if bool(ai.get("recovering", false)) else int(profile.get("gold_reserve", 0))
 	var items: Array = deficit.keys()
 	items.sort()
 	for item: String in items:
@@ -414,13 +547,17 @@ static func _t_buy(sim: Sim, fam: String, actor: String, home: String, profile: 
 static func buy_needs(sim: Sim, fam: String, actor: String, home: String, profile: Dictionary,
 		ai: Dictionary) -> Dictionary:
 	var need := {}
-	for c: Dictionary in Contracts.accepted_of(sim, fam):
+	if bool(ai.get("recovering", false)):  # 4.25.4: just one cycle of the cheapest sellable piece
+		var cheap := str(ai.get("recipe", ""))
+		if cheap != "":
+			_add_inputs(sim, need, cheap, 1)
+	for c: Dictionary in ([] if bool(ai.get("recovering", false)) else Contracts.accepted_of(sim, fam)):
 		var rid := _recipe_for(sim, actor, home, str(c["item"]))
 		var lack := _pieces_lacking(sim, fam, actor, home, c)
 		if rid != "" and lack > 0:
 			var p := maxf(_quality_chance(sim, actor, profile, int(c.get("min_quality", 0))), 0.1)
 			_add_inputs(sim, need, rid, ceili(lack / p))
-	var rid := str(ai.get("recipe", ""))
+	var rid := "" if bool(ai.get("recovering", false)) else str(ai.get("recipe", ""))
 	if rid != "":
 		var r: Dictionary = sim.catalog.recipes()[rid]
 		var minutes := work_minutes_per_day(sim, profile) * int(profile.get("buy_days", 1))
