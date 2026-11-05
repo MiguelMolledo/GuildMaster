@@ -64,7 +64,7 @@
       "origen": "guild-renew",
       "origen_previo": "guild:assets/sprites/characters/artesano",
       "coste_gen": 0,
-      "notas": "Reuso sin coste de guild:assets/sprites/characters/artesano (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en artisan_m_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk, work, death + forge; carry, talk y sit usan idle hasta tener las suyas.",
+      "notas": "Reuso sin coste de guild:assets/sprites/characters/artesano (PixelLab, 8 direcciones), tiras <anim>_<dir>.png con la identidad de H8 codificada (pelo, piel, ropa de familia) para game/visuals/characters/identity_swap.gdshader; SpriteFrames en artisan_m_frames.tres (tools/art/personajes_guild.py). Hechas: idle, walk, work, death + forge; carry, talk y sit usan idle hasta tener las suyas. 2026-11-05: hay un Hugo v3 de PixelLab a escala B, sin cablear hasta tener el andar. Tiene la rotación de 8 direcciones y forjar, 4 generaciones; el personaje es 2ce0e22c-cc5d-4670-8f29-7626137ab905 y se monta con tools/art/hugo_v3.py (MANIFEST, lista de PixelLab, fila 13).",
       "animaciones": {
         "idle": "sprite",
         "walk": "sprite",
