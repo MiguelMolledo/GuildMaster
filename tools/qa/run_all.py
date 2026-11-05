@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Corre todos los rituales que existen (GDD 07 §7.1) y escribe un informe.
 
-  python3 tools/qa/run_all.py [--only=a,b] [--skip=a,b] [--visual]
+  python3 tools/qa/run_all.py [--only=a,b] [--skip=a,b] [--visual] [--night]
 
 Pasos: tests (reglas), content (validador), art (inventario), ciudad (coherencia de los mapas, tools/city/), town_e (tools/maps/make_town_e.py --check: el script reproduce el mapa y su escenario), boot (arranque sin ventana con cada escenario),
 bench (coste del sim), sim (bots contra data/targets.json en el arenero), sim2 (random_clicker e idle_rival a 10 días),
@@ -17,7 +17,9 @@ semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), d
 duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días), life
 (vida, 04f 4.28.4: el bot guard_watch en life_bandits, 3 semillas × 16 días; las dianas de antes corren con la vida
 apagada, data/targets.json _no_life), festive (fiestas: un año con el calendario de fiestas, 3 semillas × 8 días) y
-bench_fair (el coste del sim el día de la feria). Con
+bench_fair (el coste del sim el día de la feria) y ui (los flujos "quick" de data/flows jugados por la interfaz con
+ratón y teclado, con ventana, cada uno por `grimoire heavy`: docs/gdd/07_testing.md §7.4; con --night, todos los
+flujos y el informe en Grimoire). Con
 --visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
 """
@@ -63,6 +65,10 @@ STEPS = [
                      "--seeds=3"]),
     ("bench_fair", G + ["-s", "tools/sim_bench.gd", "--", "--at-day=3", "--days=1", "--runs=3"]),
 ]
+# The interface (docs/gdd/07_testing.md §7.4): the "quick" flows played with real mouse and keyboard events, with a
+# window, each one through the queue of `grimoire heavy`; --night plays every flow and publishes the report.
+UI = [("ui", [sys.executable, "tools/verifica/verifica.py", "--window", "--flows=quick", "--timeout=300"])]
+NIGHT = [("ui_all", [sys.executable, "tools/verifica/verifica.py", "--window", "--flows=all", "--artifact"])]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]
 
@@ -70,7 +76,7 @@ VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--aud
 def main(argv):
     only = next((a[7:].split(",") for a in argv if a.startswith("--only=")), None)
     skip = next((a[7:].split(",") for a in argv if a.startswith("--skip=")), [])
-    steps = STEPS + (VISUAL if "--visual" in argv else [])
+    steps = STEPS + (NIGHT if "--night" in argv else UI) + (VISUAL if "--visual" in argv else [])
     os.makedirs(os.path.join(ROOT, "reports", "qa", "logs"), exist_ok=True)
     os.makedirs(HOME, exist_ok=True)
     env = dict(os.environ, HOME=HOME)

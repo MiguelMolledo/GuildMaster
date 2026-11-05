@@ -41,3 +41,64 @@ Los bots juegan **dando órdenes**, igual que la UI. Sirven para medir el balanc
 - **Conservación del oro**: tras N días de cualquier bot, la suma de asientos del libro de cada familia es igual a la variación de su oro (4.18, 4.19).
 - **Escenarios de integración**: cargar `forge_two_workers.json`, avanzar 3 días, comprobar que hay espadas en el almacén **sin ninguna vista abierta** (prueba directa de BUG-024).
 - **Vistas**: instanciar una vista con un estado y comprobar que pinta lo que debe (p. ej. cuántos trabajadores aparecen en el interior). Pocas.
+
+### 7.4 Verificación por la interfaz (cómo verifica el manager una rama)
+
+Los bots juegan dando órdenes; la **verificación por la interfaz** juega como una persona: solo eventos de ratón y
+teclado (`InputEventMouseMotion`, `InputEventMouseButton`, `InputEventKey`) entran por `Input.parse_input_event`, el
+mismo camino que los del sistema (mapa de entrada, GUI, `_unhandled_input`, la cámara). Es la otra mitad de los bots
+`full_player` y `chaos_player`: ellos miden el sim, esto mide que todo se puede hacer, se ve y se entiende.
+
+**Piezas** (`game/smoke/flow/`):
+- `UiDriver`: busca un control por su nombre (`%UniqueName`), su texto (o una clave i18n), su tooltip, la fila en la
+  que está o un localizador del panel (`row_of`, `cell_of`, `tab_button`), lo trae a la vista con la rueda si está en
+  una lista, lleva el ratón hasta él en varios pasos, comprueba que es el control que hay bajo el puntero y hace clic.
+  Si no recibe el clic es un fallo con su motivo: no se ve, deshabilitado (con su tooltip o «sin motivo»), fuera de
+  pantalla, **lo tapa** otro control, o el panel **rehízo el botón** entre pulsar y soltar (el clic se pierde: se apunta
+  y se pulsa otra vez, como haría una persona).
+- `FlowRunner` (`--flow=<id>` / `--flows=all|quick|a,b`): juega `data/flows/<id>.json` paso a paso; tras cada paso
+  comprueba el estado (expresiones sobre `FlowQuery`: `q.gold() > q.was('gold')`, `q.order('buy')`,
+  `q.visible('LedgerPanel')`...), guarda una captura (con ventana) y pasa las comprobaciones visuales. Las cartas que
+  saltan solas (un evento, una fiesta) y tapan lo que el paso quería se cierran con su «Entendido» y se apuntan como
+  interrupción. Escribe `reports/verifica/<fecha>/<flujo>/result.json`.
+- `VisualAudit`, en cada paso y cada pantalla: texto cortado o que se sale de su caja o de la pantalla, letra por
+  debajo de 8 px o a un tamaño que no es el suyo (`tools/ui/tokens.json`), fuente que no es del theme, contraste por
+  debajo de 3:1 (aviso) o 2:1 (fallo; necesita la captura), controles o textos solapados, claves i18n o `[ids]` en
+  pantalla, rótulos de greybox, y avisos recién salidos tapados por un panel. Cada fallo con su recorte marcado en rojo.
+
+**Flujos** (`data/flows/*.json`, un paso por línea; `python3 tools/verifica/fmt_flows.py` los formatea): un paso es
+una acción (`click` / `right_click` / `double_click` sobre un control, `world` sobre la ciudad —casilla, edificio,
+persona, puesto—, `station` / `door` en una sala, `key`, `type`, `spin`, `popup`, `wheel`, `pan`), una espera
+(`until` con `timeout` y `fast`, un acelerón del reloj del arnés, nunca una orden), `expect`, `when` (solo si se
+cumple), `soft` (si falla, sigue). Los flujos `teclas` (cada tecla en la ciudad y dentro: qué hace, si no hace nada o
+si choca) y `esc` (cada pantalla se cierra con Esc) dan la cobertura de teclas.
+
+**Lanzarlo**:
+
+| Para qué | Comando |
+|---|---|
+| Un flujo a mano, viéndolo | `godot --path . -- --flow=primer_dia` |
+| Rápido, sin ventana (pasos y comprobaciones, sin capturas ni contraste) | `python3 tools/verifica/verifica.py --flows=quick` |
+| El paso `ui` de `run_all` (los flujos `quick`, con ventana, cada uno por `grimoire heavy`) | `python3 tools/qa/run_all.py --only=ui` |
+| Completo, para la noche (todos, con capturas, y el artifact en Grimoire) | `python3 tools/qa/run_all.py --night` o `python3 tools/verifica/verifica.py --window --flows=all --artifact` |
+| Rehacer solo el informe | `python3 tools/verifica/report.py [--sim-dir=<reports/sim>]` |
+
+**Cómo revisa el manager una rama** antes de juntarla:
+1. QA de la rama (`python3 tools/qa/run_all.py`, que ya incluye `ui`) y, si la rama toca pantallas o controles, el
+   modo completo con `--artifact`.
+2. Abre `reports/verifica/<fecha>/index.html` (o el artifact «GuildMaster · verificación por la interfaz»):
+   - **Hallazgos, por gravedad**: `bloquea` (el flujo no pudo seguir), `fallo`, `aviso`. Los de la rama, antes de juntar.
+   - **Flujos**: cada paso con su captura, sus comprobaciones, las órdenes que dio (`/mouse` o `/key`) y lo que falló.
+   - **Por pantalla**: los fallos visuales con su recorte.
+   - **Cobertura**: cada orden de `Orders.apply` con su camino por ratón y por teclado probados (o el motivo apuntado
+     en `data/flows/_coverage.json`), las teclas que no hacen nada o chocan, y las pantallas que no cierra Esc.
+   - **Balance**: de los informes de los bots (`reports/sim/`): oro, oro neto por día, títulos, dianas fallidas, lo que
+     no pasa nunca y los gastos que nunca devuelven.
+   - **Revisión de estilo**: una captura por pantalla, una al lado de otra, con tres preguntas: ¿se lee el título?,
+     ¿encaja la ventana con el resto?, ¿se entiende qué hacer? Esto lo mira el manager con sus propios ojos.
+3. Un flujo nuevo por cada mecánica nueva que se pueda tocar: si la rama añade una pantalla o una orden, añade (o
+   amplía) su flujo y su motivo en `_coverage.json` si no necesita ratón o teclado.
+
+Reglas: un solo Godot con ventana a la vez (`grimoire heavy`), y se cierra al acabar; los ajustes y las partidas
+guardadas de los flujos van a `tmp/verifica_home` (nunca a los del owner). Si un flujo descubre que algo no se puede
+hacer por la interfaz o se ve mal, es un hallazgo: se apunta en el informe, no se tapa en el flujo.
