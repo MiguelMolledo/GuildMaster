@@ -425,6 +425,18 @@
       "tema": "Interiores II (04g)",
       "decision": "Sótano, planta baja y planta alta (la guarida del Pícaro tendrá en el sótano jaula para secuestrados y contrabando); clientes que aparecen con fundido; paredes del frente bajas y las interiores transparentes cuando estás detrás. Clientela en dos capas: vecinos con su agenda y clientela de la comarca que viene por la fama del negocio, con dinero de fuera y precio máximo (04g §4.6.5.7).",
       "por_que": "Owner: «hasta dos plantas y un sótano… clientes que aparezcan con fade in… que los atraigan porque el negocio es famoso, no porque necesiten nada… me parece bien»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Interiores: fondo pintado más piezas encima",
+      "decision": "Camino C de docs/arte/interiores.md: un fondo pintado con fal por sala y por planta sobre la plantilla de su geometría, piezas sueltas para lo que tiene altura y con lo que se interactúa, y capas de luz y partículas. Las paredes entre salas son piezas aparte, para que se puedan transparentar. Fondo y piezas con la misma paleta, la misma luz, el mismo contorno y la misma escala.",
+      "por_que": "Owner: «renderizarlo y luego los extras con los que interactuamos ponerlos encima puede estar bien; el tema es que case la estética»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Personajes con más detalle a la misma escala",
+      "decision": "Opción A: los personajes siguen a ~48-50 px de figura (escala B, docs/arte/escala.md) y se regeneran con PixelLab v3 «high detail» directamente a ese tamaño (lienzo ~52), sin reducir sprites más grandes. No se escala el mundo. Prueba: el herrero v3 de 80 px (figura 78) quedó mucho mejor que el de hoy; generar a su tamaño final cuando haya generaciones (bono diario de 5, o el ciclo del 15-nov).",
+      "por_que": "Owner: «vamos con la A»."
     }
   ],
   "pendientes": [
