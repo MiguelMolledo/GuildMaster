@@ -233,6 +233,15 @@ static func sites(state: WorldState, catalog: Catalog) -> Dictionary:
 		var dr: Array = b.get("door", [])
 		if dr.size() == 2:
 			busy[Vector2i(int(dr[0]), int(dr[1]))] = true
+	for it: Dictionary in m.get("decor", {}).get("items", []):  # the map's dressing (the well, lanterns, yards)
+		var at: Array = it.get("at", [])
+		if at.size() != 2:
+			continue
+		var sz: Array = it.get("size", [1, 1])
+		var m0 := 1 if str(it.get("kind", "")) == "single" else 0  # a lone piece (the well) keeps a tile around it
+		for dy: int in range(-m0, maxi(1, int(sz[1]) if sz.size() == 2 else 1) + m0):
+			for dx: int in range(-m0, maxi(1, int(sz[0]) if sz.size() == 2 else 1) + m0):
+				busy[Vector2i(int(at[0]) + dx, int(at[1]) + dy)] = true
 	var out := {"plaza_center": [], "plaza_center_side": [], "plaza_ring": [], "plaza_edge": [], "main_street": [],
 		"town_hall": [], "gates": [], "_free": open.filter(func(t: Vector2i) -> bool: return not busy.has(t))}
 	if not plaza.is_empty():
