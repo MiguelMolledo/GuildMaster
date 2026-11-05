@@ -37,7 +37,7 @@ STEPS = [
     ("ciudad", [sys.executable, "tools/city/ciudad.py", "validar", "--quiet"]),
     ("town_e", [sys.executable, "tools/maps/make_town_e.py", "--check"]),
     ("boot", ["zsh", "tools/qa/boot_check.sh"]),
-    ("bench", G + ["-s", "tools/sim_bench.gd"]),
+    ("bench", G + ["-s", "tools/sim_bench.gd", "--", "--runs=3"]),  # best of 3 per step: the machine is shared by several QA runs
     ("sim", G + ["-s", "tools/sim_runner.gd", "--", "--bots=idle,wanderer,smith", "--days=3", "--seeds=5"]),
     ("sim2", G + ["-s", "tools/sim_runner.gd", "--", "--bots=random_clicker,idle_rival", "--days=10", "--seeds=3"]),
     ("novice", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=artisan_novice,idle",
