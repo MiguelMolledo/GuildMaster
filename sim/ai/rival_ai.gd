@@ -138,8 +138,8 @@ static func _decide(sim: Sim, fam: String, actor: String, home: String, profile:
 			ai["recipe"] = cheap
 	var work := ph in (profile.get("work_phases", ["day"]) as Array)
 	var plan: Array = []
-	if ph != Production.NIGHT and not accusation(sim, fam, actor, profile).is_empty():
-		plan.append("accuse")
+	if ph != Production.NIGHT and Hostility.may_accuse(sim, fam) and not accusation(sim, fam, actor, profile).is_empty():
+		plan.append("accuse")  # H13: on the hostility maps only when an accuse attack asks (Hostility)
 	if ph != Production.NIGHT and office_to_run(sim, fam, actor, profile) != "":
 		plan.append("office")
 	if ph != Production.NIGHT and wants_title(sim, fam, profile):
@@ -248,9 +248,12 @@ static func _task(sim: Sim, task: String, fam: String, actor: String, home: Stri
 		"title":
 			return _t_title(sim, fam, actor, profile)
 		"accuse":
+			if not Hostility.may_accuse(sim, fam):
+				return {}
 			var o := accusation(sim, fam, actor, profile)
 			if not o.is_empty():
 				ai["accused_day"] = Clock.day(_now(sim))
+			ai.erase("accuse_now")  # H13: the attack is given (or no longer possible)
 			return o
 		"office":
 			var office := office_to_run(sim, fam, actor, profile)
@@ -474,7 +477,7 @@ static func _t_sell(sim: Sim, fam: String, actor: String, home: String, profile:
 	var thr := 0.0 if bool(ai.get("recovering", false)) else sell_min_demand(sim, profile)
 	var bag := _bag(sim, actor)
 	for item: String in sellable:
-		if Market.demand(sim, item) < thr - EPS:
+		if Market.demand(sim, item) < _item_floor(sim, fam, profile, item, thr) - EPS:
 			continue
 		for q: int in Inventory.QUALITIES:
 			if Inventory.count(bag, item, q) <= 0:
@@ -494,13 +497,27 @@ static func _t_sell(sim: Sim, fam: String, actor: String, home: String, profile:
 	# Nothing to sell in the bag: fetch from the storage what the demand still takes.
 	var storage := _storage(sim, home)
 	for item: String in sellable:
-		var takes := units_above(Market.demand(sim, item), thr, _drop(sim)) - Inventory.count(bag, item)
+		var takes := units_above(Market.demand(sim, item), _item_floor(sim, fam, profile, item, thr), _drop(sim)) \
+			- Inventory.count(bag, item)
 		if takes <= 0 or Inventory.count(storage, item) <= 0:
 			continue
 		var o := _fetch(sim, actor, home, item, Inventory.NORMAL, takes)
 		if not o.is_empty():
 			return o
 	return {}
+
+
+## H13 (04c 4.21.9.1, Hostility): the demand down to which it sells `item`: `thr`, unless a price war of the family
+## on it says otherwise (while its gold is over its gold_reserve) or its presage keeps it. Off the hostility maps, `thr`.
+static func _item_floor(sim: Sim, fam: String, profile: Dictionary, item: String, thr: float) -> float:
+	var f := Hostility.sell_floor(sim, fam, item)
+	if f < 0.0:
+		return thr
+	if f > 1.0:
+		return f  # the presage: it keeps the item
+	if Money.gold(sim.state, fam) <= int(profile.get("gold_reserve", 20)):
+		return thr  # the war ends at the reserve
+	return minf(thr, f)
 
 
 ## How many units can be sold one by one starting at demand `d` while it stays >= `thr` (each one drops `drop`).

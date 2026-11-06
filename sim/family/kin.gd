@@ -63,21 +63,27 @@ static func head(st: WorldState, fam: String) -> String:
 
 ## Where the family lives: its first building (by id) whose type includes housing (the forge, a house). "" if none.
 static func residence(sim: Sim, fam: String) -> String:
-	for b: String in _sorted(sim.state.buildings):
+	var best := ""  # the lowest id that qualifies (the first in id order), without sorting every building
+	for b: String in sim.state.buildings:
+		if best != "" and b > best:
+			continue
 		var bld: Dictionary = sim.state.buildings[b]
 		if str(bld.get("owner", "")) == fam \
 				and bool(sim.catalog.buildings().get(str(bld.get("type", "")), {}).get("includes_housing", false)):
-			return b
-	return ""
+			best = b
+	return best
 
 
 ## Where the family works by default: its first building (by id) with craft stations. "" if none.
 static func workplace(sim: Sim, fam: String) -> String:
-	for b: String in _sorted(sim.state.buildings):
+	var best := ""  # the lowest id that qualifies, as residence()
+	for b: String in sim.state.buildings:
+		if best != "" and b > best:
+			continue
 		var bld: Dictionary = sim.state.buildings[b]
 		if str(bld.get("owner", "")) == fam and not (bld.get("zones", {}) as Dictionary).is_empty():
-			return b
-	return ""
+			best = b
+	return best
 
 
 ## The building a family member works at: the assigned one if the family still owns it, else the workplace.
