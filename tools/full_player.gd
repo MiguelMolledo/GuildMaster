@@ -220,7 +220,7 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 		"duels_fought": 0, "duels_won": 0, "trips": 0, "caravans": 0, "treaties": 0, "festival_contracts": 0,
 		"counter_sold": 0, "incidents": 0, "trials_against": 0, "trials_as_accuser": 0, "children": 0,
 		"wedding_day": -1, "first_child_day": -1, "inherit_day": -1, "founder_death_day": -1, "debt_paid": 0,
-		"debt_paid_day": -1, "office_won_day": -1, "ending_day": -1, "masterworks": 0, "masterwork_day": -1,
+		"debt_paid_day": -1, "office_won_day": -1, "ending_day": -1, "masterworks": 0, "masterworks_y3": 0, "masterwork_day": -1,
 		"spec_pieces": 0, "spec_mismatch": 0, "gold_min": Money.gold(st, fam)}
 	for t: String in sim.catalog.title_ladder():
 		m["title_%s_day" % t] = -1
@@ -368,6 +368,8 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 					m["counter_sold"] = int(m["counter_sold"]) + 1
 				"masterwork_made":  # forja viva (03b §3b.2): named masterworks
 					m["masterworks"] = int(m["masterworks"]) + 1
+					if played <= 3 * YEAR_DAYS:
+						m["masterworks_y3"] = int(m["masterworks_y3"]) + 1  # the band is for 3 years (any horizon)
 					if int(m["masterwork_day"]) < 0:
 						m["masterwork_day"] = played
 				"trial_opened":
@@ -531,6 +533,8 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 	m["mechanics_used"] = used_n
 	m["mechanics_in_game"] = avail
 	m["stalls"] = (rep["stalls"] as Array).size()
+	m["stalls_y3"] = (rep["stalls"] as Array).filter(func(x: Dictionary) -> bool:
+		return int(x.get("from_day", 0)) <= 3 * YEAR_DAYS).size()  # the band is for 3 years (any horizon)
 	# engine
 	rep["engine"] = log_sink.take()
 	m["engine_errors"] = int(rep["engine"]["errors"])

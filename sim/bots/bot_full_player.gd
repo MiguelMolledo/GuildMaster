@@ -807,10 +807,13 @@ func _city_contract(sim: Sim) -> bool:
 ## Every unlock card not read yet (unlock_seen, like the pacing bot): the player reads them as they come.
 func _cards(sim: Sim) -> Array:
 	var out: Array = []
+	var reader := ACTOR if not Region.is_away(sim.state, ACTOR) else _home_adult(sim)
+	if reader == "":
+		return out  # everybody away: the cards wait (an order from the road would be refused, «away»)
 	for e: Dictionary in Unlocks.list(sim, _fam_id):
 		if not bool(e.get("seen", false)):
 			_use("unlocks")
-			out.append({"type": "unlock_seen", "actor": ACTOR, "unlock": str(e["id"]), "what": "card"})
+			out.append({"type": "unlock_seen", "actor": reader, "unlock": str(e["id"]), "what": "card"})
 	return out
 
 
@@ -824,6 +827,8 @@ func _hire(sim: Sim) -> Dictionary:
 	if not _ui(sim, "staff"):
 		why_not["staff"] = "not_unlocked"
 		return {}
+	if why_not.get("staff", "") == "not_unlocked":
+		why_not.erase("staff")
 	return super._hire(sim)
 
 
@@ -831,6 +836,8 @@ func _next_upgrade(sim: Sim) -> String:
 	if not _ui(sim, "upgrades"):
 		why_not["upgrades"] = "not_unlocked"
 		return ""
+	if why_not.get("upgrades", "") == "not_unlocked":
+		why_not.erase("upgrades")
 	return super._next_upgrade(sim)
 
 
