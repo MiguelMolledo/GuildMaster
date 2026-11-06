@@ -124,3 +124,40 @@ static func done(sim: Sim, fam: String, actor: String, k: String, what: String) 
 	sim.events.append({"type": "city_feast_game", "actor": actor, "family": fam, "key": k, "what": what})
 	if OS.is_debug_build():
 		print("[FestivalCity] %s %s en %s" % [actor, "juega" if what == "play" else "apuesta", k])
+
+
+# --- The feast's contracts on the city's board ((c), owner 2026-11-06) ----------------------------------------------
+
+## At day_started of `day`: the feasts of city `c` today or tomorrow post their contracts on its board
+## (rules.city_contracts: per patron feast id, and «fair» for every fair), once per feast and day (the offers carry
+## `feast` and `until`, the end of the feast's day); the ones past `until` leave the board. They pay reward_mult
+## (more than the city's own) and give reputation_bonus more there when delivered; the board's max_open does not count
+## them. Nothing random: the rows are data.
+static func post_contracts(sim: Sim, c: String, day: int) -> void:
+	if not Festivals.enabled(sim) or c == Region.home(sim):
+		return
+	var cc: Dictionary = (Festivals.rules(sim).get("city_contracts", {}) as Dictionary)
+	var board: Array = Region.city(sim, c)["board"]
+	var now := int(sim.state.clock["minute"])
+	for i: int in range(board.size() - 1, -1, -1):
+		var off: Dictionary = board[i]
+		if off.has("until") and int(off["until"]) <= now:
+			board.remove_at(i)
+	for d: int in [day, day + 1]:
+		for f: Dictionary in Festivals.city_feasts(sim, c, d):
+			var fid := str(f.get("id", ""))
+			var rows: Array = (cc.get("patron", {}) as Dictionary).get(fid, []) if str(f.get("kind", "")) == "patron" \
+				else cc.get("fair", [])
+			var tag := "%s|%s|%d" % [c, fid, d]
+			if rows.is_empty() or board.any(func(o: Dictionary) -> bool: return str(o.get("feast_key", "")) == tag):
+				continue
+			var until := (d + 1) * Clock.MINUTES_PER_DAY
+			for row: Dictionary in rows:
+				var item := str(row.get("item", ""))
+				var qty := int(row.get("qty", 1))
+				var reward := roundi(float(sim.catalog.item(item).get("base_price", 0)) * qty * float(cc.get("reward_mult", 2.0)))
+				board.append({"id": Ids.next(sim.state, "rct"), "item": item, "qty": qty, "reward": reward,
+					"days": d - day + 1, "feast": fid, "feast_kind": str(f.get("kind", "")), "feast_key": tag, "until": until,
+					"reputation_bonus": int(cc.get("reputation_bonus", 3))})
+				if OS.is_debug_build():
+					print("[FestivalCity] %s publica por su fiesta %s: %s x%d por %d" % [c, fid, item, qty, reward])
