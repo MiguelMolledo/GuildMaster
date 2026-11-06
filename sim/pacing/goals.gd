@@ -14,17 +14,29 @@ extends RefCounted
 ## goal, as before plus the dynasty's.
 
 
+## Every minute with events, but a family's goals count only when one of this step's events is of a type their
+## conditions name, or the family's entries changed (an unlock opened: its goal comes; a new Sim or a loaded game looks
+## at everything once). The same counts, goals done and events as counting every goal every minute.
 static func step(sim: Sim) -> void:
 	var st := sim.state
 	if sim.catalog.unlocks.is_empty() or sim.events.is_empty():
 		return
 	var n := sim.events.size()
+	var memo := Unlocks._memo(sim, &"_goals_memo")
 	for fam: String in Unlocks._human_families(st):
 		var u: Variant = st.unlocks.get(fam)
 		if not u is Dictionary or (u as Dictionary).has(Unlocks.ALL):
 			continue
 		var goals := _goals(st, fam)
-		for id: String in active_ids(sim, fam):
+		var last: Dictionary = memo.get(fam, {})
+		var ids: Array
+		if int(last.get("size", -1)) == (u as Dictionary).size() and is_same(last.get("goals"), goals):
+			if not Unlocks._watched(last["watch"], Unlocks.event_types(sim)):
+				continue  # none of its events: every count as it was, nothing done
+			ids = last["ids"]
+		else:
+			ids = active_ids(sim, fam)
+		for id: String in ids:
 			if not goals.has(id):
 				goals[id] = {"have": _zeros(sim, id), "done": false, "since": int(st.clock["minute"])}
 			var g: Dictionary = goals[id]
@@ -51,6 +63,20 @@ static func step(sim: Sim) -> void:
 					{"objective": id, "name_key": str(sim.catalog.objectives().get(id, {}).get("name_key", ""))})
 				if OS.is_debug_build():
 					print("[OpenGoals] %s cumple la meta %s" % [fam, id])
+		memo[fam] = {"size": (u as Dictionary).size(), "goals": goals, "ids": ids, "watch": _watch(sim, goals, ids)}
+
+
+## The event types the goals of `ids` not done yet count.
+static func _watch(sim: Sim, goals: Dictionary, ids: Array) -> Array:
+	var out: Array = []
+	for id: String in ids:
+		if bool((goals.get(id, {}) as Dictionary).get("done", false)):
+			continue
+		for cond: Dictionary in sim.catalog.objectives().get(id, {}).get("conditions", []):
+			var t := str(cond.get("event", ""))
+			if not t in out:
+				out.append(t)
+	return out
 
 
 ## The objectives followed now for `fam`: the year goal and the goals of its unlocks (that exist as objectives).
