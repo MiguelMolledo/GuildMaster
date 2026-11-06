@@ -326,14 +326,13 @@ clip_text = true
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 8
 focus_mode = 0
 theme_override_colors/font_color = Color(0.94, 0.75, 0.38, 1)
 text = "--"
 flat = true
 alignment = 2
-text_overrun_behavior = 3
-clip_text = true
+text_overrun_behavior = 0
 
 [node name="DateLabel" type="Label" parent="Root/ClockPanel/HBox/ClockLeft"]
 unique_name_in_owner = true

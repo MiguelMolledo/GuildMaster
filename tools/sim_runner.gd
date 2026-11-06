@@ -74,7 +74,8 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
 	"merchant": BotMerchant, "pacing": BotPacing, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper,
 	"idle_titles_fest": BotIdle,
-	"broke": BotBroke}  # equilibrio (Equilibrio 2: the emergency loan from broke_forge)
+	"broke": BotBroke,  # equilibrio (Equilibrio 2: the emergency loan from broke_forge)
+	"counter_shop": BotCounterShop}  # equilibrio (Equilibrio 8, 14: the counter with one employee and the clientele)
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)

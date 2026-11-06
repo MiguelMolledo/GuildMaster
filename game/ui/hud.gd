@@ -313,14 +313,16 @@ func _refresh() -> void:
 	_clock_panel.tooltip_text = tr("hud.clock") % [t["day"], tr("season." + str(t["season"])), t["year"], t["hour"],
 		t["minute"], tr("phase." + str(t["phase"]))]
 	var ev_line := SimQuery.events_line(sim)  # H13 (zone 3): «Guerra 5 d +1» next to the time; the full list in the tip
-	_event_label.visible = ev_line != ""
-	_event_label.text = SimQuery.events_short(sim)
-	_event_label.tooltip_text = tr("hud.event_tip") % ev_line if ev_line != "" else ""
 	var fest := SimQuery.festival_now(sim)  # fiestas (4.25.3): the feast's card, again, whenever the player wants it
 	_festival_event = fest.get("event", {})
 	_festival_button.visible = not fest.is_empty()
 	_festival_button.text = str(fest.get("short", ""))  # the clock's room is short: the name goes in the tip
 	_festival_button.tooltip_text = str(fest.get("tip", ""))
+	_event_label.visible = ev_line != ""
+	_event_label.tooltip_text = tr("hud.event_tip") % ev_line if ev_line != "" else ""
+	if ev_line != "":   # the event and the feast share the line: the event's short forms (jugador J13: «a 4 d Fi»)
+		var short := SimQuery.events_short(sim)
+		_fit(_event_label, [short, short.get_slice(" ", 0), "!"])
 
 
 ## The person picked on the map or inside ("" = nobody).
@@ -366,6 +368,9 @@ func _update_building_panel() -> void:
 
 
 func _show_building(sim: Sim) -> void:
+	_building_hint.tooltip_text = ""
+	if _building_hint.has_meta("fit_forms"):   # a fitted text (the idle reason) does not come back on a resize
+		_building_hint.remove_meta("fit_forms")
 	_building_panel.visible = true
 	var own := false
 	for id: String in sim.state.characters:
@@ -381,8 +386,10 @@ func _show_building(sim: Sim) -> void:
 		# H5: the idle icon over the building, explained (why the employees stand still)
 		if not SimQuery.idle_employees(sim, building_id).is_empty():
 			var why := str(SimQuery.queue_view(sim, building_id).get("stalled", ""))
-			_building_hint.text = tr("hud.building_idle") % (SimQuery.reason_text(why) if why != "" else
-				tr("hud.building_idle_unknown"))
+			var reason := SimQuery.reason_text(why) if why != "" else tr("hud.building_idle_unknown")
+			_fit(_building_hint, [tr("hud.building_idle") % reason, tr("hud.building_idle_short") % reason,
+				tr("hud.building_idle_shortest")])   # the bar never cuts it (jugador J8)
+			_building_hint.tooltip_text = tr("hud.building_idle") % reason
 			color = "aviso"
 	elif bool(sim.state.buildings[building_id].get("for_sale", false)):
 		icon = "icon_llave"   # posada: for sale (the Taberna-Posada), bought with the Buy button
@@ -437,6 +444,9 @@ func _selected_person(sim: Sim) -> String:
 
 
 func _show_person(sim: Sim, who: String) -> void:
+	_building_hint.tooltip_text = ""
+	if _building_hint.has_meta("fit_forms"):   # a fitted text (the idle reason) does not come back on a resize
+		_building_hint.remove_meta("fit_forms")
 	_building_panel.visible = true
 	var ch: Dictionary = sim.state.characters[who]
 	_building_name.text = str(ch.get("name", who))
@@ -1127,7 +1137,11 @@ func _on_notice(e: Dictionary) -> void:
 		return
 	var n := e.duplicate(true)
 	var text := SimQuery.notice_text(_game.sim.state, _game.sim.catalog, n)
+	for p: Dictionary in _popups:   # the same notice already on screen: once (jugador J2: a goal and its objective)
+		if is_instance_valid(p["node"]) and str((p["node"] as Node).get_meta("text", "")) == text:
+			return
 	var node := _notice_node(gravity, text)
+	node.set_meta("text", text)
 	node.gui_input.connect(func(ev: InputEvent) -> void:
 		if ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed:
 			notice_action(n)
