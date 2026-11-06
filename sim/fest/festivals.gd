@@ -26,7 +26,7 @@ extends RefCounted
 ## written, every multiplier is 1.
 
 const SIM_EFFECTS: Array[String] = ["demand", "price", "customers", "production", "holy_day", "tariff", "route_bonus",
-	"stalls", "emotion", "reputation", "aguinaldo", "town_gift", "audience", "contest", "cattle"]
+	"stalls", "emotion", "reputation", "aguinaldo", "town_gift", "audience", "contest", "cattle", "gifts"]
 const HOOK_EFFECTS: Array[String] = ["service", "visitors", "routine", "need", "spectacle", "incident"]
 const GROUP_EFFECTS: Array[String] = ["demand", "price", "production"]
 const SIZES: Array[String] = ["big", "small"]

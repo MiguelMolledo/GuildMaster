@@ -4121,3 +4121,29 @@ ui.ledger.borrow_take,Borrow,Pedir el préstamo
 ui.new_game.preview_start.scholar_physician,"A physician's practice with a home, %d gold and %d of debt with the moneylender.","Consulta médica con vivienda, %d de oro y %d de deuda con el prestamista."
 ui.order.set_service_price,Set the price of a service,Poner el precio de un servicio
 ui.order.request_loan,Ask the moneylender for a loan,Pedir un préstamo al prestamista
+ui.festival_card.corro,Gaming circle,Corro de juego
+ui.festival_card.corro_tip,"Arm wrestling, dice and cards in the plaza against the regulars, while the feast lasts","Pulso, dados y naipes en la plaza contra los parroquianos, mientras dure la fiesta"
+ui.festival_card.corro_title,The gaming circle,El corro de juego
+ui.festival_card.corro_body,"A ring of neighbours in the plaza: the tavern's games, the same rules, %d of gold a game. No house and no licence: nobody takes a cut.","Un corro de vecinos en la plaza: los juegos de la taberna, las mismas reglas, %d de oro la partida. Sin casa ni licencia: nadie se lleva parte."
+ui.festival_card.corro_frowned,"The preacher is in town: gambling in the street is frowned upon (reputation %d a game).","El predicador está en la villa: jugar en la calle está mal visto (reputación %d por partida)."
+ui.festival_card.corro_leave,Leave,Marcharse
+ui.festival_card.corro_game_tip.pulso,Three pushes against a regular,Tres empujes contra un parroquiano
+ui.festival_card.corro_game_tip.azar,Three dice: azar or your lucky number,Tres dados: azar o tu suerte
+ui.festival_card.corro_game_tip.mayor,"Three dice to the highest, against two regulars","Tres dados a la mayor, contra dos parroquianos"
+ui.festival_card.corro_game_tip.envite,"Three cards, raises and bluffs","Tres cartas, envites y faroles"
+reason.no_feast,There is no feast on,No hay fiesta en curso
+ui.festival_card.gifts,Christmas gifts,Regalos de Navidad
+ui.festival_card.gifts_tip,"Give your best piece to another house: its head will like you more","Regala tu mejor pieza a otra casa: su cabeza te apreciará más"
+ui.festival_card.gifts_title,Christmas gifts,Regalos de Navidad
+ui.festival_card.gifts_body,"You would give your %s (%s); the house that gets it will like you more (+%d).","Regalarías tu %s (%s); la casa que lo reciba te apreciará más (+%d)."
+ui.festival_card.gifts_none,"You have no piece worth giving (a product or equipment, at home or in the bag)","No tienes una pieza que regalar (un producto o equipo, en casa o en la bolsa)"
+ui.festival_card.gift_tip,Give the %s,Regalar el %s
+ui.festival_card.gift_given,Already given,Ya le has regalado
+notice.festival_gift_received,The {family} give you {item} for Christmas,Los {family} te regalan {item} por Navidad
+reason.already_given,Already given,Ya le has regalado
+ui.city.feast_play,Play: %s,Jugar: %s
+ui.city.feast_bet,Watch and bet: %s,Mirar y apostar: %s
+spectacle.arm_wrestling,Arm wrestling,Pulso
+reason.already_played,Already played,Ya la has jugado
+reason.already_bet,Already bet,Ya has apostado
+ui.order.festival_give_gift,Give a Christmas gift,Hacer un regalo de Navidad
