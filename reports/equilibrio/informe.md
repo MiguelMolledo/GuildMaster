@@ -67,3 +67,11 @@ resúmenes completos en `00_base_*.json`, `all1-3.json`, `fun1-2.json`, `eq10_*.
 | full_player: desbloqueos fuera | 1-2 | 0 en 4/4 | |
 | Taberna recién comprada (innkeeper_start, 48 días × 3 semillas) | — | explotación 46-130/día el año 1; 200-404/día del 3 al 6 (fama 5) | las pérdidas de jugador son el arranque en sus últimos días; a largo plazo rinde 3-4 veces la forja |
 | Concursos de fiestas → fama del taller | gancho a mano | `buildings[b].contests_won` con el evento `festival_contest` (+0,2 cada uno) | listo para cuando entre fiestas |
+
+## Año 2 del jugador completo (manager, 2026-11-06)
+
+| Cosa | Antes (dato del manager) | Ahora (rama equilibrio 1a05b830 + este arreglo, 4 semillas × 3 años) | Cómo |
+|---|---|---|---|
+| Neto/día año 2 | 1,4 (−31 a 18) | 30,5 de media (19,8-56,3; mediana 23,1) | La despensa de la taberna (cdca6e52) ya estaba: la taberna se compra en los días 14-21 y su primer año cae en el 2 o el 3 |
+| Neto/día año 3 | — | 49,8 de media (4,9-148,4) | El primer año de la taberna (compra, mejoras, recados) aún pesa en 2 semillas; probé a frenar sus mejoras hasta que se pague sola y fue peor (−46/día en la semilla 1): las mejoras son lo que trae clientes. Se deja |
+| Órdenes rechazadas | 154 en una semilla | 0 (1 en otra: festival_offer_gift sin pieza) | unlock_seen y read_notices se pueden dar de viaje (Travel.AWAY_ORDERS): darse por enterado no pide estar en la villa |
