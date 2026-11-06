@@ -598,6 +598,16 @@
   "routing": {"landmarks": 4, "replans_per_minute": 6},
   "watch": {"name_key": "family.watch.capital"},
   "detail": {"settled_every": 5},
+  "zones": [
+   {"id": "centre", "kind": "centre", "char": "c", "name_key": "zone.capital.centre", "parts": [{"plaza_reach": 1, "chars": "P=,.#"}, {"inside": true, "rest": true}]},
+   {"id": "port", "kind": "port", "char": "p", "name_key": "zone.capital.port", "parts": [{"rect": [18, 47, 66, 64]}, {"rect": [8, 56, 74, 74], "chars": "wmbv"}]},
+   {"id": "nobles", "kind": "nobles", "char": "n", "name_key": "zone.capital.nobles", "parts": [{"rect": [44, 8, 72, 46], "inside": true}]},
+   {"id": "artisans", "kind": "artisans", "char": "a", "name_key": "zone.capital.artisans", "parts": [{"rect": [6, 8, 31, 46], "inside": true}]},
+   {"id": "forest", "kind": "forest", "char": "b", "name_key": "zone.capital.forest", "parts": [{"rect": [0, 48, 32, 79], "outside": true}]},
+   {"id": "outskirts", "kind": "outskirts", "char": "o", "name_key": "zone.capital.outskirts", "label_near": [56, 75], "parts": [{"outside": true, "rest": true}]}
+  ],
+  "workshops_in": "menestrals",
+  "forest": {"rect": [0, 48, 32, 79], "fill": 0.6},
   "style": "A+C",
   "plaza": {
    "centre": [
@@ -1277,6 +1287,117 @@
     "tower_height": 80
    },
    "districts": [
+    {
+     "id": "patricis",
+     "when": "inside",
+     "area": [
+      44,
+      8,
+      72,
+      46
+     ],
+     "roof": "#4f5a6a",
+     "density": {
+      "fill": 0.85,
+      "touch": true,
+      "lot_sizes": [
+       [
+        3,
+        4
+       ],
+       [
+        4,
+        3
+       ],
+       [
+        3,
+        3
+       ],
+       [
+        4,
+        4
+       ]
+      ],
+      "backyard": 1,
+      "patios": 0.8,
+      "blocks": 0.6,
+      "block_max": 30
+     }
+    },
+    {
+     "id": "menestrals",
+     "when": "inside",
+     "area": [
+      6,
+      8,
+      31,
+      46
+     ],
+     "roof": "#7a5a3a",
+     "density": {
+      "fill": 1.0,
+      "touch": true,
+      "lot_sizes": [
+       [
+        2,
+        2
+       ],
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        2
+       ]
+      ],
+      "backyard": 1,
+      "patios": 0.3,
+      "blocks": 0.9,
+      "block_max": 30
+     }
+    },
+    {
+     "id": "llotja",
+     "when": "inside",
+     "area": [
+      18,
+      47,
+      66,
+      64
+     ],
+     "roof": "#8a3b2a",
+     "density": {
+      "fill": 1.0,
+      "touch": true,
+      "lot_sizes": [
+       [
+        2,
+        3
+       ],
+       [
+        3,
+        3
+       ],
+       [
+        2,
+        2
+       ],
+       [
+        3,
+        2
+       ],
+       [
+        2,
+        4
+       ]
+      ],
+      "backyard": 1,
+      "patios": 0.5,
+      "blocks": 0.8,
+      "block_max": 30
+     }
+    },
     {
      "id": "vila",
      "when": "inside",
