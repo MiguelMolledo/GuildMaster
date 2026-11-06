@@ -849,8 +849,8 @@ almacén; (4) blanquea una pieza y véndela en el mercado; (5) pasa una noche en
 > - **Árbol de 24 mejoras** de la Guarida, **interior por datos** con piezas que ya existían (mesa del perista, banco
 >   del falsario, alijo del contrabandista) y fachada en bloque gris oscuro hasta su arte (`bld_den`, falta).
 > - **Bot `rogue_novice`** (paso `rogue` de run_all): bolsas de día a quien no le ve venir y fuera de la vista de la
->   guardia, un almacén de noche cuya puerta no ve nadie, el perista y el banco, la deuda. 52,7 netos/día en Normal
->   (5 semillas), Fácil 61,4 > Normal 52,7 > Difícil 42,3 (`data/difficulty.json` `rogue`: el modificador de las tiradas
+>   guardia, un almacén de noche cuya puerta no ve nadie, el perista y el banco, la deuda. 48,7 netos/día en Normal
+>   (10 semillas, 30,0-61,6), Fácil 58,6 > Normal 48,7 > Difícil 40,4 (`data/difficulty.json` `rogue`: el modificador de las tiradas
 >   y lo que paga el perista), deuda saldada 5/5.
 > - **Guardado:** sin versión nueva (lo nuevo se lee con valores por defecto). Espía, Bandido, Mercenario, la
 >   vigilancia de vecinos con su tirada (`Watch.observe`), el combate como orden y el Nido quedan para los bloques
