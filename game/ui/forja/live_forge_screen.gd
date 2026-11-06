@@ -8,13 +8,15 @@ extends Control
 ## a PageCard. Reads LiveForge.view (the sim) every frame and gives only live_forge orders through order_sink; the
 ## colour's pace on screen is presentation (data/live_forge.json heat_seconds_per_color, real seconds); the verdict is
 ## the sim's. While it is open the game runs at ×1 (the session's speed comes back when it closes).
-## Keys: Espacio = Sacar; 1 / 2 / 3 = the strikes or the media; Esc = Resolver sin jugar (then closes).
+## Keys: Espacio = Sacar; 1 / 2 / 3 = the strikes or the media; Esc = Resolver sin jugar; on the result, Esc = Cerrar
+## (back to the anvil). Enter is KeyNav's (it presses the focused button: «Cerrar» or «Otra pieza»).
 ## Art by VisualPaths.forge_art (assets/art/ui/forge/: the hearth, the iron of each colour, the strike on the anvil, the
 ## media of the quench and the trait icons), each with a visible placeholder (the iron's own colour, a flat box) until
 ## its file exists; the masterwork's illustration events/masterwork.
 
 signal closed
 signal stage_shown(stage: String)   # the smoke script takes its captures here
+signal back_to_station(zone: String)   # «Cerrar» after a result: the interior opens the station's menu
 
 const HEAT_TONES: Dictionary = {"dark_red": "#6b1a12", "cherry": "#b3261e", "orange": "#e0701c", "yellow": "#f2c94c",
 	"white": "#f4efe0"}
@@ -51,12 +53,14 @@ func _bind() -> void:
 	_bound = true
 	(%PullButton as Button).pressed.connect(pull)
 	(%SkipButton as Button).pressed.connect(skip)
-	(%CloseButton as Button).pressed.connect(close)
+	(%CloseButton as Button).pressed.connect(close_to_station)
+	(%NextButton as Button).pressed.connect(next_piece)
 	for k: String in KEYS_STRIKE:
 		(get_node("%Strike_" + k) as Button).pressed.connect(strike.bind(k))
 	for k: String in KEYS_QUENCH:
 		(get_node("%Quench_" + k) as Button).pressed.connect(quench.bind(k))
-	(%Masterwork as PageCard).button_pressed.connect(func(_id: String) -> void: close())
+	(%Masterwork as PageCard).button_pressed.connect(func(_id: String) -> void:
+		(%Masterwork as PageCard).visible = false)   # back to the result: «Cerrar» or «Otra pieza»
 
 
 ## Opens on the live job of `zone` at `bld` (the interior calls it on work_started with mode live).
@@ -87,16 +91,40 @@ func open_for(s: Sim, bld: String, zone_id: String) -> void:
 	ViewConfig.info("LiveForge", "open (building=%s, zone=%s, actor=%s, recipe=%s)" % [bld, zone_id, actor, recipe])
 
 
-## Closes, or, after a result, goes on to the next piece if the cycle already repeated in live («Seguir»).
+## «Otra pieza» after a result: the next piece by hand. The forge already started it when the cycle repeated in live
+## (the screen opens on it); else a new work_at in live of the same recipe (the screen opens on its work_started).
+func next_piece() -> void:
+	var v := LiveForge.view(sim, building, zone)
+	if not v.is_empty() and str(v["actor"]) == actor and str(v["stage"]) != "done":
+		ViewConfig.info("LiveForge", "next piece (recipe=%s)" % str(v["recipe"]))
+		open_for(sim, building, zone)
+		return
+	var again := recipe
+	close()
+	ViewConfig.info("LiveForge", "next piece: work_at live (recipe=%s)" % again)
+	if order_sink.is_valid():
+		order_sink.call({"type": "work_at", "actor": actor, "building": building, "zone": zone, "recipe": again,
+			"mode": LiveForge.MODE})
+
+
+## «Cerrar» after a result (Esc): closes and goes back to the anvil. The piece the forge started on its own after this
+## one (the cycle repeats in live) is stopped, its inputs back to the storage (live_forge stop, D11), so the player is not
+## left forging under the anvil's menu; the interior opens that menu (back_to_station).
+func close_to_station() -> void:
+	var v := LiveForge.view(sim, building, zone)
+	if not v.is_empty() and str(v["actor"]) == actor and str(v["stage"]) == "heat" and str(v["heat"]) == "" \
+			and order_sink.is_valid():
+		_give({"step": "stop"})   # live_forge stop: management, applies even if given in pause (stop_work would wait)
+		ViewConfig.info("LiveForge", "close: the next piece stopped (recipe=%s)" % str(v["recipe"]))
+	var z := zone
+	close()
+	back_to_station.emit(z)
+
+
+## Hides the screen (the session's speed comes back).
 func close() -> void:
 	if not visible:
 		return
-	if not result.is_empty():
-		var v := LiveForge.view(sim, building, zone)
-		if not v.is_empty() and str(v["actor"]) == actor and str(v["stage"]) != "done":
-			ViewConfig.info("LiveForge", "next piece (recipe=%s)" % str(v["recipe"]))
-			open_for(sim, building, zone)
-			return
 	visible = false
 	remove_from_group(BLOCKS_CARDS)
 	(%Masterwork as PageCard).visible = false
@@ -116,6 +144,7 @@ func _texts() -> void:
 	(%PullButton as Button).text = SimQuery.t_("live.pull")
 	(%SkipButton as Button).text = SimQuery.t_("live.skip")
 	(%CloseButton as Button).text = SimQuery.t_("live.close")
+	(%NextButton as Button).text = SimQuery.t_("live.next")
 	for k: String in KEYS_STRIKE:
 		var b := get_node("%Strike_" + k) as Button
 		b.text = SimQuery.t_("live.strike." + k)
@@ -167,6 +196,7 @@ func refresh() -> void:
 	(%WaitBox as Control).visible = stage == "done" or stage == "result"
 	(%SkipButton as Button).visible = stage in ["heat", "strike", "quench"]
 	(%CloseButton as Button).visible = stage == "result"
+	(%NextButton as Button).visible = stage == "result"
 	var know: Dictionary = v.get("learned", {})
 	match stage:
 		"heat":
@@ -330,8 +360,13 @@ func handle_key(event: InputEvent) -> bool:
 	var k := (event as InputEventKey).keycode
 	var v := LiveForge.view(sim, building, zone)
 	var stage := str(v.get("stage", "")) if result.is_empty() else "result"
+	if (%Masterwork as PageCard).visible and k == KEY_ESCAPE:
+		(%Masterwork as PageCard).visible = false   # the card first, then the result's buttons
+		return true
 	if k == KEY_ESCAPE:
-		if stage == "result" or stage == "done" or v.is_empty():
+		if stage == "result":
+			close_to_station()
+		elif stage == "done" or v.is_empty():
 			close()
 		else:
 			skip()
@@ -376,7 +411,7 @@ func _show_masterwork(id: String) -> void:
 		"image": VisualPaths.illustration("events", "masterwork"), "sticky": true,
 		"blocks": [{"type": "quote", "text": masterwork_name(sim, m), "who": ""},
 			{"type": "paragraph", "text": SimQuery.t_("live.masterwork.body")}],
-		"seal": {"text": "M"}, "buttons": [{"id": "ok", "text": SimQuery.t_("live.close"), "primary": true}]})
+		"seal": {"text": "M"}, "buttons": [{"id": "ok", "text": SimQuery.t_("live.masterwork.ok"), "primary": true}]})
 	card.visible = true
 	ViewConfig.info("LiveForge", "masterwork %s: %s" % [id, masterwork_name(sim, m)])
 

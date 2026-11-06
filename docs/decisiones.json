@@ -985,6 +985,30 @@
       "tema": "H13 · 80 vecinos en Bellcaire, no 30-40",
       "decision": "Bellcaire mantiene 80 NPC (16 casas × 5, O-R9). La cifra de 30-40 de la fila H13 de 10_hitos.md queda superada por O-R9.",
       "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»). O-R9 (población proporcional a las casas) ya está aprobada, y con 80 el bench de Bellcaire está dentro de la diana relativa (reposo 1,93×, peor paso 21,9 ms; wanderer 2,79×)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Verificación D: escenarios para las órdenes sin cubrir",
+      "decision": "Los flujos que ninguna partida existente alcanza empiezan en escenarios propios de tools/scenarios/make_verifica_scenarios.gd (patron_treaties, judge_family, school_age, courtship_gifts, festival_eve, inn_chores, tavern_for_sale, altercation_purse), cada uno derivado de un escenario existente o de una partida nueva y reproducible. master_touch sale de los huecos (la Forja viva lo sustituye; queda para la rama forja) y close_dynasty lleva motivo: apagado por diseño (succession.voluntary_close = false, D19).",
+      "por_que": "Decisión del manager (bloque D): cubrir las 21 órdenes que ningún flujo daba."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "El juez de la familia preside",
+      "decision": "Cuando empieza la vista de un juicio ajeno que preside un juez de la familia del jugador, el juego pausa, abre el juicio con el juez como actor y avisa «Juicio que presides: elige veredicto»; J abre ese juicio mientras dura la vista y, dictado el veredicto, el panel se cierra (docs/ui/mecanicas/tribunal.md §2).",
+      "por_que": "La spec lo prometía y no había camino en la interfaz: el juez no podía dictar veredicto (hallazgo de la verificación D)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Fiestas: regalo de la villa, audiencia del marqués y patrocinios de la IA (de momento, no)",
+      "decision": "Manager, a la espera del owner: no a las dos. El regalo de la villa sigue siendo un encargo de carrera (la primera espada excelente) y no hay audiencia con privilegios; las familias rivales no patrocinan fiestas. Las dos preguntas pasan al owner.",
+      "por_que": "Respuesta provisional del manager mientras el owner decide."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Toque de maestro sustituido por la Forja viva; «Cerrar» y «Otra pieza» (verifica)",
+      "decision": "La interfaz deja de dar master_touch: el puesto no parpadea ni pinta la ventana, el clic solo lleva al puesto, sin pista de tutorial ni «+ toque de maestro» en el menú. El sim conserva la orden y la ventana (partidas viejas, bots de los otros oficios). El novato del herrero pasa a la Forja viva solo con live_for_quality = 1: medido con 10 semillas, sube el oro del día 10 (358 -> 387 de media) y da 6 fallos de banda (3 semillas > 540 el día 10, 1 > 320 el día 3, 2 a 0 el día 10); por defecto sigue con careful + toque hasta que el owner vea las bandas. Tras el resultado de la Forja viva, «Cerrar» cierra y vuelve al yunque (para la pieza que la forja empezó sola) y «Otra pieza» es un botón aparte. En la cobertura de verifica (data/flows/_coverage.json, que solo está en su rama) master_touch debe pasar a «sustituida por la Forja viva (03b §3b.8)» para ratón y teclado.",
+      "por_que": "Hallazgos de verifica y decisión del manager: con el ratón no se podía parar tras un resultado, y la Forja viva es la que sustituye al toque. Las bandas del novato no se mueven sin el owner (principio 4)."
     }
   ],
   "pendientes": [
@@ -1165,6 +1189,7 @@
     "La batería de tests tarda ~75 s por la prueba de equivalencia del A* (16 000 pares): reducirla si molesta.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner.",
     "Viajes: lo que queda (rama viajes, 2026-11-04): H13: O-R1 (la capital Bellcaire como casa por defecto, elegible al empezar, cuando exista su mapa EA) y O-R9 (población proporcional a las casas; hoy max_total 20 para todos). H12.3: el asalto en el camino hiere al viajero o al carretero (hoy solo se lleva la carga).",
+    "Nivel de detalle en Vilarrasa (town_e) con dianas nuevas, en un bloque aparte, si el owner lo aprueba tras ver el de la región.",
     "Fiestas · los encargos de la fiesta de otra ciudad ((c) de la decisión del owner del 2026-11-06): estando en una ciudad el día de su fiesta, sus encargos de fiesta en su tablón, como los de la villa."
   ]
 }

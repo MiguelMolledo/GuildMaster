@@ -267,7 +267,9 @@ func test_left_click_on_station_goes_there() -> void:
 	v.free()
 
 
-func test_click_in_the_window_gives_master_touch() -> void:
+## 03b §3b.8: the master touch left the UI (the Forja viva replaces it). A careful cycle (an old save, a trade's bot)
+## still has its window in the sim, but the station does not blink and a click in it is a plain click.
+func test_the_master_touch_left_the_ui() -> void:
 	var sim := _sim()
 	_hugo_inside(sim)
 	_add(sim.state.buildings[BLD]["inventory"], "iron_ingot", 0, 2)
@@ -276,24 +278,13 @@ func test_click_in_the_window_gives_master_touch() -> void:
 	var v := _interior(sim)
 	var got: Array = []
 	v.order_sink = func(o: Dictionary) -> void: got.append(o)
-	v.sync()
-	check(not v.station_view("anvil").window_open, "no window at the start")
-	_click(v, MOUSE_BUTTON_LEFT, v.station_screen("anvil"))
-	_same(got[0], {"type": "go_to_station", "actor": HUGO, "zone": "anvil"}, "outside the window: a plain click")
-	got.clear()
 	_run_until(sim, func() -> bool: return bool(Production.job_view(sim, BLD, "anvil").get("window_open", false)))
 	v.sync()
-	check(v.station_view("anvil").window_open, "the anvil blinks: window open")
+	check(not v.station_view("anvil").window_open, "the window is open in the sim, the anvil does not blink")
 	check(_click(v, MOUSE_BUTTON_LEFT, v.station_screen("anvil")), "click on it")
-	_same(got[0], {"type": "master_touch", "actor": HUGO, "building": BLD, "zone": "anvil"}, "master_touch")
-	var ev := sim.step(got)
-	var done := ev.filter(func(e: Dictionary) -> bool: return e["type"] == "master_touch_done")
-	eq(done.size(), 1, "the touch lands")
-	check(bool(sim.state.buildings[BLD]["zones"]["anvil"]["job"]["touched"]), "the job is touched")
-	v.on_sim_event(done[0])
-	eq(v.station_view("anvil").flash_text(), SimQuery.t_("ui.interior.touch_done"), "feedback over the anvil")
-	v.sync()
-	check(not v.station_view("anvil").window_open or v.station_view("anvil").touched, "no more blinking")
+	_same(got[0], {"type": "go_to_station", "actor": HUGO, "zone": "anvil"}, "a plain click: no master_touch")
+	var r := Orders.apply(sim, {"type": "master_touch", "actor": HUGO, "building": BLD, "zone": "anvil"})
+	check(r["ok"], "the sim still takes the order (old saves, the trades' bots): %s" % r["reason"])
 	v.free()
 
 

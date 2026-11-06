@@ -3111,7 +3111,14 @@
 	},
 	"masterworks": {
 		"learned": {},
-		"pieces": []
+		"pieces": [],
+		"practice": {
+			"fam_0001": {
+				"forge_armor": 30,
+				"forge_hammer": 30,
+				"forge_sword": 30
+			}
+		}
 	},
 	"meta": {
 		"description": "Día 1, 08:00. Hugo (Artesanía 7) junto a su forja, que tiene 40 lingotes y 40 de carbón: el yunque ofrece la Forja viva (calentar, batir y templar). --smoke-script=forja_viva.",
