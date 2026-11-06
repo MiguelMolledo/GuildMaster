@@ -4075,3 +4075,8 @@ spectacle.arm_wrestling,Arm wrestling,Pulso
 reason.already_played,Already played,Ya la has jugado
 reason.already_bet,Already bet,Ya has apostado
 ui.order.festival_give_gift,Give a Christmas gift,Hacer un regalo de Navidad
+ui.npc.buy_ware,Buy %s (%d),Comprar %s (%d)
+ui.npc.buy_ware_tip,The peddler has %d left today,Al buhonero le quedan %d hoy
+ui.order.buy_from_peddler,Buy from the peddler,Comprar al buhonero
+reason.not_a_peddler,Sells nothing,No vende nada
+ui.city.feast_offer,"%s · %s","%s · %s"

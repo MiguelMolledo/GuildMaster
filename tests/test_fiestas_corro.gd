@@ -311,3 +311,71 @@ func test_the_city_page_lists_its_games() -> void:
 		"each game, its request with its key")
 	var w := FestivalCity.request(sim, me, str(FestivalCity.here(sim, me)[0]["key"]), false)
 	check(bool(w.get("watch", false)) and not (w["players"] as Array).has(me), "watching: the field without him")
+
+
+# --- The feast's contracts on the city's board, and the peddler -----------------------------------------------------
+
+func test_the_feast_of_bellcaire_posts_its_contracts() -> void:
+	var sim := _game()
+	Region.ensure(sim)
+	var board: Array = Region.city(sim, "capital")["board"]
+	board.clear()
+	FestivalCity.post_contracts(sim, "capital", 0)  # the eve of Sant Jordi and its fair (day 1)
+	var feast: Array = board.filter(func(o: Dictionary) -> bool: return o.has("feast"))
+	var items: Array = feast.map(func(o: Dictionary) -> String: return str(o["item"]))
+	check("sword" in items and "fine_clothes" in items, "Sant Jordi asks for swords and fine clothes (%s)" % [items])
+	check("horseshoe" in items, "and its fair, horseshoes")
+	var sword: Dictionary = feast.filter(func(o: Dictionary) -> bool: return str(o["item"]) == "sword")[0]
+	eq(int(sword["reward"]), roundi(float(cat.item("sword")["base_price"]) * int(sword["qty"]) * 2.0), "it pays double")
+	FestivalCity.post_contracts(sim, "capital", 0)
+	eq(board.filter(func(o: Dictionary) -> bool: return o.has("feast")).size(), feast.size(), "once per feast and day")
+	var fam := SimQuery.player_family(sim.state)
+	var me := Kin.head(sim.state, fam)
+	sim.state.clock["minute"] = 1 * DAY + 10 * 60
+	var now := int(sim.state.clock["minute"])
+	(sim.state.region["trips"] as Dictionary)[me] = {"id": "trv_test", "actor": me, "family": fam, "from": Region.home(sim),
+		"to": "capital", "path": [], "leg": 0, "at": "capital", "leg_start": now, "leg_end": now, "escort": false,
+		"state": "city", "since": now}
+	eq(_refused(sim.step([{"type": "city_accept", "actor": me, "contract": str(sword["id"])}])), "", "accepted there")
+	Inventory.add(sim.state.characters[me]["inventory"], cat, "sword", 0, int(sword["qty"]))
+	var rep := Region.reputation(sim, "capital", fam)
+	eq(_refused(sim.step([{"type": "city_deliver", "actor": me, "contract": str(sword["id"])}])), "", "delivered")
+	eq(Region.reputation(sim, "capital", fam) - rep, int(cat.trade["reputation"]["contract_done"]) + 3, "with the feast's reputation")
+	sim.state.clock["minute"] = 2 * DAY
+	FestivalCity.post_contracts(sim, "capital", 2)
+	check(not board.any(func(o: Dictionary) -> bool: return str(o.get("feast", "")) == "st_george"), "after the feast they leave the board")
+	FestivalCity.post_contracts(sim, Region.home(sim), 0)
+	check(not (Region.city(sim, Region.home(sim)).get("board", []) as Array).any(func(o: Dictionary) -> bool: return o.has("feast")),
+		"never at home (its feasts are the calendar's)")
+
+
+func test_the_peddler_sells_his_wares() -> void:
+	var sim := _game()
+	var fam := SimQuery.player_family(sim.state)
+	var me := Kin.head(sim.state, fam)
+	var kd: Dictionary = Visitors.cfg(sim)["kinds"]["peddler"]
+	var all := Peddler.stock_for(sim.state, kd, "test|always")
+	check(not all.is_empty(), "he brings some wares")
+	var with_dice := 0
+	for i: int in 40:
+		if Peddler.stock_for(sim.state, kd, "test|%d" % i).any(func(w: Dictionary) -> bool: return str(w["item"]) == "loaded_dice"):
+			with_dice += 1
+	check(with_dice > 5 and with_dice < 35, "the loaded dice, about half the days (%d of 40)" % with_dice)
+	var pd := ""
+	for c: String in sim.state.characters:
+		pd = c
+		break
+	Life.service_family(sim.state, Life.FAMILY_VISITORS, "family.visitors", {"primary": "#6a5a4a", "secondary": "#c8b8a0"})
+	pd = Life.add_person(sim, Life.FAMILY_VISITORS, "Buhonero", false, 40, {}, {}, Life.tile_of(sim.state, me),
+		{"visitor": {"kind": "peddler", "city": "port", "gate": "", "purse": 20, "plan": [], "stop": -1, "until": -1,
+		"leaving": false, "arrived": 0, "wares": [{"item": "loaded_dice", "price": 30, "qty": 1}]}})
+	Life.put_on(sim, pd, Life.tile_of(sim.state, me))
+	sim.state.families[fam]["gold"] = 100
+	var o := {"type": "buy_from_peddler", "actor": me, "target": pd, "item": "loaded_dice"}
+	var ev := sim.step([o])
+	eq(_refused(ev), "", "he buys the loaded dice")
+	eq(Inventory.count(sim.state.characters[me]["inventory"], "loaded_dice"), 1, "in his bag")
+	eq(Money.gold(sim.state, fam), 70, "for 30")
+	eq(_refused(sim.step([o])), "sold_out", "only one")
+	eq(Peddler.reason(sim, me, Kin.head(sim.state, SimQuery.player_family(sim.state)), "loaded_dice"), "not_a_peddler",
+		"nobody else sells them")

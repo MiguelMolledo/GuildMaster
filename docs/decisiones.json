@@ -2,6 +2,24 @@
   "tomadas": [
     {
       "fecha": "2026-11-06",
+      "tema": "Vida: el puesto del buhonero (construido)",
+      "decision": "El buhonero de 4.24.3 («monta un puesto un día») trae su mercancía (data/life/life.json visitors.kinds.peddler.wares: dados cargados el 50 % de los días a 30, dulces, agujas, capa de viaje; tirada con clave al llegar, que no mueve otras) y se le compra en persona desde su ficha (orden buy_from_peddler, dentro del alcance; el oro sale fuera). Era lo que faltaba para que los dados cargados de 4.26.7 se puedan comprar. sim/life/peddler.gd.",
+      "por_que": "Encargo del manager: auditar H16 entero y cerrar lo que más pese en la diversión, decidiendo dentro de 04f."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Fiestas: los encargos de la fiesta de otra ciudad (construido)",
+      "decision": "(c) de la decisión del owner: la víspera y el día de su patronal o de su feria, cada ciudad de la región publica en su tablón sus encargos de fiesta (rules.city_contracts), marcados con la fiesta y hasta que acaba ese día; pagan ×2 del precio base (los suyos, ×1,4) y +3 de reputación allí; no cuentan para max_open. En casa no.",
+      "por_que": "Decisión del owner del 2026-11-06 ((c), la quedaba en próximos pasos)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Vida: el secuestro en el camino, no por ahora",
+      "decision": "04f §4.24.5 pone el secuestro «de noche o en el camino». En el camino no se construye: el viaje ya tiene su asalto (09b, el viajero pierde toda la carga) y un secuestro encima castigaría dos veces el mismo riesgo. Los secuestros siguen siendo de la villa.",
+      "por_que": "Encargo del manager: auditar H16 entero y cerrar lo que más pese en la diversión, decidiendo dentro de 04f."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Fiestas: el corro de juego en la plaza (construido)",
       "decision": "(b) Con una fiesta en curso, la carta de la fiesta trae «Corro de juego»: una segunda carta con pulso, azar, a la mayor y envite contra los parroquianos (data/festivals.json rules.corro: regular_even, regular_prudent, regular_boastful), con la misma pantalla de juegos y la apuesta pequeña de la plaza (5). Sin casa ni licencia: nadie se lleva parte (game_play con opts.corro; con casa, bad_option). Con el predicador en la villa está mal visto: cada partida cuesta 2 de reputación y la carta lo dice. Ni en la víspera ni después de la fiesta; no estando en la villa, no. sim/fest/festival_corro.gd.",
       "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."
@@ -1279,11 +1297,6 @@
       "opciones": "(a) bajar el ritmo de llegadas fuera de las fiestas · (b) aceptar 2-6 con las fiestas"
     },
     {
-      "tema": "O-V2 Población de town_e con la vida (banda nueva)",
-      "detalle": "Construido como recomienda O-V2 (a): con la vida encendida el tope es 5 por casa hasta 32 (data/life/life.json population; town_e: 32). Medido (semilla 1, 60 años saltando días): de 16 a 21 vecinos en 10 años, 29 en 20 y 30-32 desde el año 30, con 6 solteras fértiles al final. La diana de H7 (town_population [14, 22]) no cambia porque se mide con la vida apagada; la nueva town_population_life propone [14, 32]. En las partidas de 10-24 días (dianas de economía) el tope casi no llega a usarse. Pendiente del visto bueno del owner.",
-      "opciones": "(a) 32 · (b) 26 · (c) 20, como hoy"
-    },
-    {
       "tema": "D9 Nombre del mapa EA",
       "detalle": "Propuesta (rama mundo, 2026-11-04, docs/gdd/09b_region.md §9b.9): si el mapa EA es la capital de la región (P-R1, O-R1), Bellcaire. Pendiente del owner.",
       "opciones": "Bellcaire · Castellnou de Mercat · Santa Maria del Mercadal"
@@ -1367,7 +1380,6 @@
     "La batería de tests tarda ~75 s por la prueba de equivalencia del A* (16 000 pares): reducirla si molesta.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner.",
     "Viajes: lo que queda (rama viajes, 2026-11-04): H13: O-R1 (la capital Bellcaire como casa por defecto, elegible al empezar, cuando exista su mapa EA) y O-R9 (población proporcional a las casas; hoy max_total 20 para todos). H12.3: el asalto en el camino hiere al viajero o al carretero (hoy solo se lleva la carga).",
-    "Nivel de detalle en Vilarrasa (town_e) con dianas nuevas, en un bloque aparte, si el owner lo aprueba tras ver el de la región.",
-    "Fiestas · los encargos de la fiesta de otra ciudad ((c) de la decisión del owner del 2026-11-06): estando en una ciudad el día de su fiesta, sus encargos de fiesta en su tablón, como los de la villa."
+    "Nivel de detalle en Vilarrasa (town_e) con dianas nuevas, en un bloque aparte, si el owner lo aprueba tras ver el de la región."
   ]
 }
