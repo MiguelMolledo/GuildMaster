@@ -24,7 +24,7 @@ func test_start_unlocks_and_hides_staff_until_gold() -> void:
 	var sim := _new_game()
 	var ev := sim.step()
 	var got := _of(ev, "unlocked").map(func(e: Dictionary) -> String: return str(e["unlock"]))
-	eq(got, ["live_forge"], "the first step opens only the start's mechanic")
+	eq(got, ["live_forge", "debt"], "the first step opens the start's mechanic and the year's debt (verifica #15)")
 	check(bool(sim.state.unlocks[FAM]["live_forge"]["seen"]), "no card for it: seen")
 	check(not Unlocks.ui_open(sim, FAM, "staff"), "Staff hidden at the start")
 	check(not Unlocks.ui_open(sim, FAM, "upgrades"), "Upgrades hidden at the start")
@@ -33,13 +33,13 @@ func test_start_unlocks_and_hides_staff_until_gold() -> void:
 	ev = sim.step()
 	eq(_of(ev, "unlocked").size(), 1, "150 gold: one more")
 	check(Unlocks.ui_open(sim, FAM, "staff"), "Staff open with 150 gold")
-	eq(Unlocks.marks(sim, FAM), {"StaffButton": "staff"}, "the mark on Empleados")
+	eq(Unlocks.marks(sim, FAM), {"LedgerButton": "debt", "StaffButton": "staff"}, "the mark on Empleados (and the debt's)")
 	check(_of(ev, "notice_added").any(func(e: Dictionary) -> bool: return str(e["key"]) == "notice.unlocked"),
 		"and a notice")
 	check(Orders.apply(sim, {"type": "unlock_seen", "actor": HUGO, "unlock": "staff", "what": "card"})["ok"], "card read")
-	eq(Unlocks.marks(sim, FAM).size(), 1, "the mark stays until the button is used")
+	eq(Unlocks.marks(sim, FAM).size(), 2, "the mark stays until the button is used")
 	check(Orders.apply(sim, {"type": "unlock_seen", "actor": HUGO, "unlock": "staff", "what": "mark"})["ok"], "used")
-	eq(Unlocks.marks(sim, FAM), {}, "no mark")
+	eq(Unlocks.marks(sim, FAM), {"LedgerButton": "debt"}, "no mark on Empleados")
 	eq(Orders.apply(sim, {"type": "unlock_seen", "actor": HUGO, "unlock": "upgrades", "what": "card"})["reason"],
 		"not_unlocked", "a card of something not open")
 	check(Orders.apply(sim, {"type": "unlock_seen", "actor": HUGO, "unlock": "upgrades", "what": "now"})["ok"],
@@ -57,7 +57,12 @@ func test_calendar_event_and_hooks() -> void:
 	sim.state.clock["minute"] = Clock.MINUTES_PER_DAY + 60
 	sim.events = []
 	Unlocks.step(sim)
-	check(Unlocks.is_open(sim.state, FAM, "counter"), "day 2: the counter")
+	check(not Unlocks.is_open(sim.state, FAM, "counter"), "day 2: not the counter yet (it comes with the upgrades, #16)")
+	sim.state.families[FAM]["gold"] = 300
+	Unlocks.step(sim)
+	check(Unlocks.is_open(sim.state, FAM, "counter") and Unlocks.is_open(sim.state, FAM, "upgrades"),
+		"300 gold: the counter with the upgrades")
+	sim.state.families[FAM]["gold"] = 0
 	eq(Unlocks.ready(sim, Unlocks.def(sim, "first_festival")), Festivals.enabled(sim), "the festival: with the calendar on")
 	check(not Unlocks.is_open(sim.state, FAM, "first_festival"), "it opens when a festival starts, not by the date")
 	sim.events = [{"type": "festival_started", "id": "f1", "def": "mayday_corpus"}]
@@ -158,6 +163,23 @@ func test_open_goals() -> void:
 	check(_of(sim.events, "open_goal_done").size() == 1, "with its event")
 	v = OpenGoals.view(sim, FAM)
 	eq(v.size(), 2, "back to two: the next unlock brings the next one")
+
+
+## verifica #17: a goal the start chain also has (carpenter_hammers, repay_debt) is done in the goals zone without its
+## own «Objetivo cumplido»: the chain gives that notice.
+func test_a_goal_of_the_chain_tells_once() -> void:
+	var sim := _new_game()
+	sim.step()
+	sim.events = [{"type": "market_sold", "family": FAM, "actor": HUGO, "stall": "armory", "item": "sword", "qty": 1}]
+	Unlocks.step(sim)
+	OpenGoals.step(sim)
+	check(sim.state.unlocks[FAM]["_goals"].has("carpenter_hammers"), "the contracts' goal is followed")
+	sim.events = [{"type": "contract_delivered", "family": FAM, "actor": HUGO, "script": "carpenter_hammers"}]
+	OpenGoals.step(sim)
+	check(bool(sim.state.unlocks[FAM]["_goals"]["carpenter_hammers"]["done"]), "done")
+	eq(_of(sim.events, "open_goal_done").size(), 1, "with its event")
+	eq(_of(sim.events, "notice_added").filter(func(e: Dictionary) -> bool:
+		return str(e.get("key", "")) == "notice.objective_done").size(), 0, "and no second notice")
 
 
 func test_skip_until_dawn_and_a_notice_cuts_it() -> void:

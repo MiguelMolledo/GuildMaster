@@ -381,3 +381,32 @@ func test_stop_gives_the_inputs_back() -> void:
 	eq(Inventory.count(st, "iron_ingot"), 6, "the ingots back")
 	check(ev.any(func(e: Dictionary) -> bool: return str(e["type"]) == "work_interrupted"), "interrupted")
 	eq(Orders.apply(sim, _live("stop"))["reason"], "not_working", "nothing to stop now")
+
+
+## verifica #18: the screen runs at ×1 while there is a decision to take; once the quench is given the player's speed
+## comes back (the rest of the piece runs at it), and nothing changes it again when the screen closes.
+func test_the_screen_gives_the_speed_back_after_the_quench() -> void:
+	var g: Node = (load("res://game/autoload/game.gd") as GDScript).new()
+	var sim := _sim()
+	_stock(sim, 10)
+	check(_work(sim, "forge_sword", LiveForge.MODE)["ok"], "a sword by hand")
+	sim.step()
+	g.call("set_speed", 4)
+	var scr := (load("res://game/ui/forja/live_forge_screen.tscn") as PackedScene).instantiate() as LiveForgeScreen
+	scr.game = g
+	scr.open_for(sim, FORGE, "anvil")
+	eq(int(g.get("speed")), 1, "deciding: ×1")
+	for i: int in 12:
+		var o := _decide(sim, "perfect")
+		if o.is_empty():
+			break
+		check(Orders.apply(sim, o[0])["ok"], "decision %s" % [o[0]])
+		scr.refresh()
+		if str(LiveForge.view(sim, FORGE, "anvil").get("stage", "")) != "done":
+			eq(int(g.get("speed")), 1, "still deciding: ×1")
+	eq(str(LiveForge.view(sim, FORGE, "anvil")["stage"]), "done", "quenched: nothing left to decide")
+	eq(int(g.get("speed")), 4, "the player's ×4 back while the piece ends")
+	scr.close()
+	eq(int(g.get("speed")), 4, "and it stays when the screen closes")
+	scr.free()
+	g.free()

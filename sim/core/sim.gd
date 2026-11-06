@@ -73,6 +73,7 @@ func step(orders: Array = []) -> Array:
 	Needs.step(self)        # H14: needs by the hour (family adults), events of the step, notices
 	Offices.step(self)      # H10: the government, deaths free seats, elections at the year change, salaries and taxes
 	Tribunal.step(self)     # H11: automatic trials after inspections, preparation -> hearing -> verdict, banishments
+	Misdeeds.step(self)     # Equilibrio 6: at dawn, the AI families' misdeeds; a seen one is a public fact
 	Hostility.step(self)    # H13 (04c): rivalry and the rival families' attacks, on the maps of data/ai.json only
 	Reputation.step(self)   # H9: reputation from the events of the step (trade, wages, townsfolk); passive at dawn
 	WorkshopFame.step(self) # Equilibrio 13: the workshops' fame from the events of the step; its decay at dawn
