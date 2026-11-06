@@ -140,6 +140,12 @@
     },
     {
       "fecha": "2026-11-06",
+      "tema": "Fiestas: la carta de la fiesta, siempre a mano; la sortija en Carnaval y en el torneo",
+      "decision": "Auditoría de H16 (lo de fiestas y minijuegos). Cerrado lo que más pesaba en la diversión: (1) la carta de la fiesta se cerraba sola a los 12-24 s y no había forma de volver a ella (patrocinar, pujar, inscribirse, apostar, la corte y los encargos solo se podían hacer en ese rato): ahora el reloj del HUD lleva un botón «Pregón» (fiesta anunciada) o «Fiesta» (en curso) con el nombre en su tooltip, y pulsarlo, o pulsar un aviso de la fiesta, la abre otra vez y se queda hasta que la cierras (SimQuery.festival_now, EventCard.reopen_festival). (2) Los botones «Inscribirse» dicen por qué están apagados (título, entrada, ya inscrito, apostaste) con las mismas reglas que game_enter (FestivalGames.enter_reason, solo lectura). (3) La sortija, construida pero sin fiesta, se corre en Carnaval (19:00) y en el torneo (12:00): es la justa de los que no tienen título (entrada 5).",
+      "por_que": "Encargo del manager (auditar H16 y cerrar lo que más pese, decidiendo dentro de 04f). Sin la carta a mano, lo jugable de las fiestas pasaba sin que el jugador pudiera tocarlo; la justa pide Ciudadano y el jugador empieza sin título."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Fiestas: con un corral basta",
       "decision": "Las ferias piden dos corrales (count 2) a las afueras. El sim pone los que quepan (inst.cattle_pens, de count a 1 con FestivalGround.fits): con uno ya es «corrales» y el resto del ganado se vende en un puesto más de la plaza; la crónica dice fair_cattle_pens_short (pens, wanted) y, si no cabe ninguno, fair_cattle_stalls como antes. La vista pone los corrales que caben en las afueras y un puesto de feria en el anillo de la plaza por el resto. Hoy solo afecta a Vilablat (region_hamlet: cabe uno); Vilarrasa y las demás tienen sus dos corrales y sus dianas no cambian.",
       "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»); la recomendó el worker de fiestas: vale para cualquier ciudad pequeña sin depender del reparto de parcelas."
@@ -1117,6 +1123,12 @@
       "tema": "Toque de maestro sustituido por la Forja viva; «Cerrar» y «Otra pieza» (verifica)",
       "decision": "La interfaz deja de dar master_touch: el puesto no parpadea ni pinta la ventana, el clic solo lleva al puesto, sin pista de tutorial ni «+ toque de maestro» en el menú. El sim conserva la orden y la ventana (partidas viejas, bots de los otros oficios). El novato del herrero pasa a la Forja viva solo con live_for_quality = 1: medido con 10 semillas, sube el oro del día 10 (358 -> 387 de media) y da 6 fallos de banda (3 semillas > 540 el día 10, 1 > 320 el día 3, 2 a 0 el día 10); por defecto sigue con careful + toque hasta que el owner vea las bandas. Tras el resultado de la Forja viva, «Cerrar» cierra y vuelve al yunque (para la pieza que la forja empezó sola) y «Otra pieza» es un botón aparte. En la cobertura de verifica (data/flows/_coverage.json, que solo está en su rama) master_touch debe pasar a «sustituida por la Forja viva (03b §3b.8)» para ratón y teclado.",
       "por_que": "Hallazgos de verifica y decisión del manager: con el ratón no se podía parar tras un resultado, y la Forja viva es la que sustituye al toque. Las bandas del novato no se mueven sin el owner (principio 4)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H13 · las 5 familias rivales de Bellcaire con la IA de 04c",
+      "decision": "Bellcaire tiene 5 familias rivales (data/world/region.json capital ai_families; 04c Q3 = b): Ferrer (rival_smith) fijo, los tres competidores del inicio y los pañeros de la Lonja (sastrería rival_drapery, nueva en el mapa), con cuatro de los cinco perfiles de 04c (merchant, climber, politician, ruthless, devout, data/ai_profiles/) por la semilla, nunca dos agresivas. La IA de 04c que faltaba va en sim/ai/hostility.gd, solo en los mapas de data/ai.json hostility_maps (Bellcaire; Vilarrasa idéntica): rivalidad dirigida (town.rivalry) por cuota de mercado, relación entre cabezas, juicio perdido y sabotaje visto, con erosión P3; puerta de ataque con umbral del perfil + dificultad, enfriamiento, primer año y tope común con el jugador; elección por utilidad con ruido del día (P6); presagio siempre (P5); ataques de este hito: guerra de precios, juicio (accuse_rule de H11, ahora solo cuando la hostilidad lo pide) y sabotaje (nuevo: taller dañado unos días, la Seguridad lo frena, si se ve al culpable hay hecho para acusar). Entre familias IA también (Q1 = a). Cifras [balance] en data/ai.json y el bloque ai de data/difficulty.json (claves nuevas; nada de lo de antes cambia): para que el bot artisan_expert provoque a alguien en 80 días, la rivalidad por mercado sube con una cuota del 40 % en una ventana de 3 días (04c decía 50 % y 2 días) y Ferrer empieza con rivalidad 15 hacia el recién llegado (rival_to_player). Medido con tools/ai/h13_probe.gd (80 días, 3 semillas por dificultad): ver la novedad de plantillas.",
+      "por_que": "Encargo del manager: lo que faltaba de H13 fuera del mapa en Bellcaire, con los módulos de IA que ya existen; lo que faltaba en la IA, dentro de 04c (4.21.12b)."
     }
   ],
   "pendientes": [
@@ -1287,6 +1299,36 @@
       "tema": "Jugador completo · la taberna arranca con pérdidas (sin juzgar aún)",
       "detalle": "Comprada desde Ciudadano (días 20-24), en los pocos días que quedan hasta el final de los 3 años la taberna de full_player (llevada por la cónyuge con BotInnkeeper) pierde entre 115 y 334 de oro/día de operación: la existencia inicial, los primeros salarios y pocas noches. En una semilla anterior, comprada el día 20, ganaba 61/día de operación. Tres años no bastan para saber si compensa: se mide en la generación de la noche.",
       "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
+    },
+    {
+      "tema": "Fiestas · juegos en la plaza (pulso, dados, envite) los días de fiesta",
+      "detalle": "04f §4.26 dice que se juegan «en las fiestas, en la taberna»; hoy pulso, dados y naipes solo se juegan en la mesa de la Taberna-Posada (y en --games-test). En la plaza de una fiesta no hay corro de juego.",
+      "opciones": "(a) solo en la taberna, como hoy · (b) un corro en la plaza los días de fiesta con los parroquianos de data/games.json (la misma pantalla; sin casa ni licencia, mal visto con el predicador) [propuesta del worker de fiestas: b]"
+    },
+    {
+      "tema": "Fiestas · jugar la fiesta de otra ciudad al viajar",
+      "detalle": "04f §4.25.6: «en la página de la ciudad sale su fiesta con sus juegos (justa, carrera, dados) y sus encargos de fuera». Hoy la página y el mapa anuncian la patronal y la feria (arancel 0, sin portazgo), pero estando allí no hay juegos ni encargos de esa fiesta.",
+      "opciones": "(a) solo calendario, como hoy · (b) estando en la ciudad ese día, su página ofrece inscribirse y apostar en sus juegos (la justa de Sant Jordi en Bellcaire, la carrera de la feria) · (c) b y además sus encargos de fiesta en su tablón [propuesta: b]"
+    },
+    {
+      "tema": "Fiestas · regalos de Navidad entre familias",
+      "detalle": "04f §4.25.1 (Navidad): «regalos entre familias (+relación)». No está construido: Navidad trae aguinaldo, misa, belén y lujo ×1,3.",
+      "opciones": "(a) no · (b) en Navidad, una carta para regalar una pieza a otra familia (+relación con su cabeza, como el regalo de la villa; la IA regala si le sobra) [propuesta: b, pequeño]"
+    },
+    {
+      "tema": "Fiestas · apuestas a cada combate del torneo",
+      "detalle": "Simplificación de juegos (04f §4.26.2): en el torneo se apuesta al ganador, no a cada combate.",
+      "opciones": "(a) al ganador, como hoy · (b) también a cada combate de la eliminatoria [propuesta: a, hasta medir si se echa de menos]"
+    },
+    {
+      "tema": "H13 · la economía de las familias IA de Bellcaire",
+      "detalle": "Con el bot artisan_expert en Normal, 3 de las 5 familias IA pasan buena parte de los 80 días sin oro (82-152 días-familia por partida; en Difícil 215-243; en Fácil 0-2): el mantenimiento diario del taller (~19 de oro) se come el margen de sus ventas y solo las que toman encargos aguantan. Arruinadas, dejan de vender y la rivalidad entre familias IA se apaga antes de llegar a sus umbrales: en Normal no hubo ataques entre IA ni sabotajes (sí en Difícil). El mantenimiento es una constante compartida con Vilarrasa (Equilibrio).",
+      "opciones": "(a) Que Equilibrio revise el mantenimiento o la demanda de los oficios de las familias IA con todo encendido. (b) La quiebra de 04c (P7: austeridad, venta, venida a menos) y Q9, que hoy no existen. (c) Perfiles de Bellcaire con más encargos (max_contracts 2) o menos días de compra."
+    },
+    {
+      "tema": "H13 · orden de ataques por dificultad (04c 4.21.10)",
+      "detalle": "El oro neto del jugador respeta Fácil > Normal > Difícil, pero los ataques recibidos no siguen Fácil ≤ Normal ≤ Difícil en mediana: en Difícil las familias IA se arruinan antes (venden más barato) y su rivalidad no llega al umbral en dos de las tres semillas. Va con el punto anterior.",
+      "opciones": "Revisar tras arreglar la economía de las familias IA."
     }
   ],
   "proximos_pasos": [

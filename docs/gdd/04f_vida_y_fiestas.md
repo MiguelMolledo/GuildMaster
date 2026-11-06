@@ -466,6 +466,13 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
   cabe ninguno, todo el ganado va a puestos (`fair_cattle_stalls`). Las parcelas libres y las ruinas (04 §4.9.1)
   guardan su suelo; plantillas deja sitio para un corral 3×3 junto a una puerta en cada ciudad. En `town_e`
   (Vilarrasa) caben los dos; en `region_hamlet` (Vilablat), uno, y el resto de su ganado va a un puesto.
+- **La carta de la fiesta, siempre a mano** (2026-11-06, auditoría de H16): la carta se cerraba sola a los 12-24 s y
+  no había otro camino hasta ella. Ahora el reloj del HUD lleva un botón, «Pregón» con la fiesta anunciada y «Fiesta»
+  el día (el nombre y cuándo, en su tooltip), y pulsarlo, o pulsar un aviso de la fiesta, abre la carta otra vez sin
+  cerrarse sola: patrocinar y pujar, inscribirse y apostar, el regalo, la audiencia, el concurso y lo que cambia. Los
+  botones «Inscribirse» dicen por qué están apagados (título, entrada, ya inscrito, apostaste), con las reglas de
+  `game_enter`. La **sortija** se corre en Carnaval (19:00) y en el torneo (12:00), junto a la justa: es la de los que
+  no tienen título (entrada 5).
 - **Enganchado con vida** (2026-11-04, tras juntar su rama): `Life.event_mult` multiplica por la fiesta (`routine`
   e `incident` a su hora; `visitors` con las fiestas de todo el día, porque vida planea los forasteros al empezarlo),
   `Life.holy_day` cuenta la mañana de guardar y `Life.festival` cualquier fiesta del calendario (el guardia de la
@@ -562,7 +569,7 @@ Se juegan en las fiestas, en la taberna o donde el evento lo pida.
     anilla: prudente en la pequeña, firme en la mediana, galope en la grande. La pantalla dice los puntos esperados de
     cada ritmo.
 - Es la justa de los que no tienen título: cualquiera con caballo (hoy, alquilado al entrar: 5 de oro). Premio 20 y
-  reputación +3 [balance].
+  reputación +3 [balance]. Se corre en Carnaval (19:00) y en el torneo (12:00) (fiestas, 2026-11-06).
 - **Medido** (`tools/games_bench.gd`, 3.000 por fila, contra tres jinetes de Destreza 3-5):
 
 | Sortija (Destreza 4) | Gana | Puntos | Anillas |
