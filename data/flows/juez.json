@@ -11,7 +11,7 @@
     {"id": "botones", "say": "Los botones del juez", "expect": ["q.shown({'node': 'GuiltyButton'})", "q.shown({'node': 'InnocentButton'})"]},
     {"id": "inocente", "say": "Dictar inocente", "click": {"node": "InnocentButton"}, "until": "q.order('trial_verdict') or q.visible('ConfirmModal')", "timeout": 4},
     {"id": "confirmar", "say": "Contra la balanza pide confirmar", "when": "q.visible('ConfirmModal')", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "expect": ["q.order('trial_verdict')"]},
-    {"id": "dictado", "expect": ["q.flow_has('trial_verdict')"]},
+    {"id": "dictado", "expect": ["q.flow_has('trial_verdict')", "q.shown({'within': 'TrialPanel', 'tr': 'ui.trial.verdict_waiting'})", "q.disabled({'node': 'GuiltyButton'})", "q.has_text('al reanudar')"], "say": "Al momento (el juego está en pausa): el botón dice «Dictando… (al reanudar)» y la orden sale en la tira"},
     {"id": "seguir", "say": "Espacio: seguir", "when": "q.paused()", "key": "Space"},
     {"id": "fin", "say": "El juicio se cierra con el veredicto", "until": "not q.visible('TrialPanel')", "timeout": 30, "fast": 4, "soft": true},
     {"id": "esc", "when": "q.visible('TrialPanel')", "key": "Escape", "expect": ["not q.visible('TrialPanel')"]}

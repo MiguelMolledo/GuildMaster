@@ -1,0 +1,74 @@
+{
+ "punto": "Equilibrio 7 · caravanas y tratados",
+ "antes": {
+  "full": {
+   "trips": 0.0,
+   "treaties": 0.0,
+   "caravans": 0.0
+  },
+  "merchant": {
+   "trv_city_sales_gold": {
+    "mean": 636.67,
+    "min": 441.0,
+    "max": 891.0
+   },
+   "trv_arrivals": {
+    "mean": 1.83,
+    "min": 1.0,
+    "max": 2.0
+   },
+   "trv_treaties_signed": {
+    "mean": 0.83,
+    "min": 0.0,
+    "max": 1.0
+   },
+   "trv_caravans_back": {
+    "mean": 4.0,
+    "min": 3.0,
+    "max": 5.0
+   },
+   "gold_end": {
+    "mean": 590.67,
+    "min": 428.0,
+    "max": 837.0
+   }
+  }
+ },
+ "despues": {
+  "full": {
+   "trips": 1.0,
+   "treaties": 1.0,
+   "caravans": 0.0
+  },
+  "merchant": {
+   "trv_city_sales_gold": {
+    "mean": 766.0,
+    "min": 528.0,
+    "max": 881.0
+   },
+   "trv_arrivals": {
+    "mean": 2.67,
+    "min": 2.0,
+    "max": 3.0
+   },
+   "trv_treaties_signed": {
+    "mean": 1.67,
+    "min": 1.0,
+    "max": 2.0
+   },
+   "trv_caravans_back": {
+    "mean": 4.17,
+    "min": 3.0,
+    "max": 5.0
+   },
+   "gold_end": {
+    "mean": 646.5,
+    "min": 436.0,
+    "max": 750.0
+   }
+  },
+  "merchant_misses_antes_del_arreglo_de_share": [
+   "share trv_treaties_signed = 0.333 outside [0.6, <null>]"
+  ]
+ }
+}

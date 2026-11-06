@@ -115,8 +115,8 @@ Recordatorio: 1 año = 8 días = 40 min reales.
 | Día 1 · 5-10 min | Encargos del tablón y recado | primera venta | «Cumple tu primer encargo» |
 | Día 2 · 10 min | Mostrador y la **primera fiesta** (Semana Santa, que es Primavera 1; la pequeña siguiente si se empieza en otra estación) | calendario | «Vende en tu mostrador durante la fiesta» |
 | Día 2-3 · 15 min | **Primer empleado** (aprendiz) y la cola | 150 de oro o 3 encargos | «Contrata a un aprendiz y ponle una cola» |
-| Día 3 · 15-20 min | **El rival** te nota (guerra de precios, 4.5.5) | primer día con más ventas que él | «Gana al rival en ventas un día» |
-| Día 4 · 20 min | **Mejoras** de la forja | 300 de oro | «Haz tu primera mejora» |
+| Día 3-4 · 15-25 min | **El rival** te nota (guerra de precios, 4.5.5) | primer día con más ventas que él | «Gana al rival en ventas un día» |
+| Día 4 · 20 min | **Mejoras** de la forja | 300 de oro, o la deuda saldada desde el día 4 | «Haz tu primera mejora» |
 | Verano 2 · 25 min | **La feria**: forasteros, rumores, la carrera de caballos (mirar y apostar) | calendario | «Vende 5 piezas en la feria» |
 | Otoño · 30 min | **La taberna** de otro (cliente: dados, naipes y rumores) | la víspera de San Martín | «Oye tres rumores» |
 | Fin del año 1 · 40 min | **Devolver la deuda** (la meta grande del año 1) y el **cortejo** | calendario y edad | «Paga la deuda» y «Corteja» |
@@ -125,7 +125,7 @@ Recordatorio: 1 año = 8 días = 40 min reales.
 | Año 2-3 · 80-120 min | **Boda e hijos**, **caravanas** (carro), **encargos de boda rica** | boda o carro | «Forja la espada del novio» |
 | Año 3 · 2 h | **Cargos** (concejal), **tratados** (con Patricio), **torneo** | título | «Gana una elección», «Firma un tratado» |
 | Año 3-5 · 2-3 h | **Tribunal** contra el rival, **secuestros** | un rival hostil | «Lleva a juicio al rival» |
-| Cuando salga (desde el día 1 si se juega bien) | **Obra maestra** con nombre | la primera obra maestra (Artesanía ≥ 7 y las tres decisiones bien) | «Forja una obra maestra» |
+| Cuando salga (años 3-5 jugando bien) | **Obra maestra** con nombre | la primera obra maestra (Artesanía ≥ 7, las tres decisiones bien y 30 piezas perfectas de esa receta) | «Forja una obra maestra» |
 | Generación 2 · ~17 h | **Heredero**: el hijo forja con su propia Artesanía (aprendida contigo) | muerte o retiro | metas de dinastía (4.17) |
 
 **Cómo se ve el desbloqueo:** una carta del kit de página («Nuevo: la feria»), una marca en el HUD en el botón o
@@ -284,12 +284,54 @@ semillas el novato no junta 300 de oro en el año 1 y las mejoras no se abren. E
 mejoras no se mueve: lo arregla el equilibrio del año 1-2 con fiestas (Ciudadano y oro). La banda con fiestas queda
 como propuesta (`data/targets.json` `pacing._proposed_festivals`, sin comprobar) hasta ese equilibrio.
 
+**Equilibrio con todo encendido (rama equilibrio, 2026-11-05).** La banda con fiestas ya es la diana: `pacing` está en
+`_festivals` y fuera de `_no_life` (`data/targets.json`). Lo que lo arregló fue Equilibrio 11: el novato aceptaba
+encargos de fiesta que no llegaba a hacer (miraba `deadline_days`, redondeado al día), los perdía y no juntaba los 300 de
+oro. Medido (5 semillas, todo encendido): antes 4 de 5 con las mejoras sin abrir, un hueco de 198 s y 42 de oro neto al
+día; después 0 fuera de ventana (14 desbloqueos), hueco máximo 26-35 s, mediana 4,7 s, ≥ 2 metas siempre y 76 de oro
+al día. Con el jugador completo (3 años × 4 semillas) el hueco máximo pasa de 119-176 s a 38-47 s (el año 1, de 61-137 s
+a 15 s): las obras ya no paran la forja (Equilibrio 9) y el camino entre ciudades cuenta como «Saltar hasta…». Ciudadano
+llega los días 11-15 (Equilibrio 3), a tiempo para viajar, el duelo y la justa en el año 2.
+
+**Obras maestras raras (equilibrio, 2026-11-05).** El jugador completo (rama jugador) que juega bien la Forja viva sacaba
+3-6 obras maestras en 3 años, la primera los días 1-6: el 10 % por pieza perfecta, con el Hugo del inicio ya en
+Artesanía 7, no es una rareza. Ahora la obra maestra pide además **práctica**: 30 piezas perfectas de esa receta hechas
+antes por la familia (`data/live_forge.json` `masterwork.practice`; estado `masterworks.practice`) y la tirada baja al
+5 %. Medido con el bot de ritmo, que juega bien (3 años × 5 semillas, ~3,5 piezas perfectas al día, ~85 en 3 años; la
+tirada simulada sobre esas mismas piezas): de 8,5 obras maestras en 3 años a 0,9 (en un 38 % de partidas, ninguna), la
+primera el día 20 de mediana y no antes del 16 en el 90 % de partidas: años 3-5, como pide §3b.4. Jugar bien sigue
+siendo el camino (sin las tres bien no hay práctica que cuente); antes del umbral no se tira el dado.
+
+**Dos desbloqueos con buen criterio (equilibrio, 2026-11-05).** El jugador completo (rama jugador) contrata en cuanto
+puede y paga la deuda pronto, así que no tiene 300 de oro en mano hasta el día 7-12: las mejoras llegaban tarde
+(ventana días 4-6). El disparador es ahora **300 de oro, o la deuda inicial saldada a partir del día 4** (índice 3):
+quien la ha pagado ya puede pagar la primera mejora (15-50 de oro) (`data/unlocks.json` `upgrades`). Medido con el bot de
+ritmo (10 semillas, fiestas y vida): las mejoras llegan los días 3-4 (índices 2-3), todas en ventana. Y **el rival te
+nota el día 3 o 4** (ventana [2, 3], antes [2, 2]): el primer día en que vendes más que él depende del mercado y del dado
+(días índice 2-4 con 10 semillas, también con las cifras de antes: con la ventana de un día fallaba 1 de 10 semillas
+antes y 3 de 10 con las obras maestras raras, que mueven las tiradas). Con los dos cambios, 10 de 10 semillas sin
+desbloqueos fuera, hueco máximo 30-41 s. **Cargos y tratados** se abren con Ciudadano desde el año 3 (índice 16; antes con Patricio, que
+el jugador completo no alcanza en 3 años y la carta no llegaba nunca): Ciudadano ya da los cargos menores
+(`data/titles/citizen.json` `office_rank minor`) y la cuota (09b), y el jugador completo gana su primer cargo el día 25.
+
 **El toque de maestro, retirado de la interfaz (2026-11-05, hallazgo de verifica).** La Forja viva lo sustituye (04
 §4.4.5): la interfaz ya no da `master_touch`, el puesto no parpadea y la pista del tutorial se quitó; el sim conserva
 la orden para las partidas viejas y los bots. Pasar al novato del herrero (el de las dianas `artisan_novice`) a la
 Forja viva en sus encargos con calidad sube su oro (día 10 de 358 a 387 de media, 3 de 10 semillas por encima de 540) y
-deja 2 semillas a 0 el día 10: 6 fallos de banda. Queda detrás de `live_for_quality` (0 por defecto) hasta que el owner
-vea sus bandas; el bot de ritmo ya forja todo en Forja viva.
+dejaba semillas a 0 el día 10. Queda detrás de `live_for_quality` (0 por defecto; el owner decide que siga apagado); el
+bot de ritmo ya forja todo en Forja viva.
+
+**Las semillas a 0 eran del bot, no del juego (2026-11-06).** Punto de rechazo de la semilla 8: el día 3 a las 06:25
+el novato acepta 2 armaduras de calidad buena (la Forja viva le hace creer que llega: un escalón más y ×1 de tiempo);
+a las 06:45 paga la deuda (200) porque su regla solo guardaba 30 de reserva, y se queda sin los materiales del encargo;
+hace una armadura, el encargo vence y, con 33 de oro y el almacén vacío, ya no compra nada: planea la receta de más
+margen, no le llega, y el mantenimiento lo deja a 0 para siempre. Ninguna pieza salió mal: todas se jugaron bien, así que
+el juego no castiga una pieza mala de la Forja viva y no hay ajuste que proponer en las reglas. Arreglos en el bot: al
+pagar la deuda pronto guarda lo que aún cuestan los materiales de sus encargos aceptados, y con el almacén vacío compra
+la pieza más barata que pueda pagar. Medido (10 semillas, `live_for_quality` = 1): ninguna semilla a 0, ningún encargo
+fallado, oro del día 10 entre 274 y 613 (media 450); quedan 4 semillas por encima de 540 (y una por encima de 320 el
+día 3): con la Forja viva el novato gana más, y esa banda es del owner. Con el interruptor apagado, todos los informes
+de los bots salen idénticos.
 
 **Tras el resultado (hallazgo de verifica).** «Cerrar» (Esc) cierra y vuelve al yunque con su menú abierto: si la forja
 ya había empezado sola la pieza siguiente, la para (las entradas vuelven al almacén) para que no quede forjando

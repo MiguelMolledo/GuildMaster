@@ -257,6 +257,9 @@ static func _price(sim: Sim, c: String, item: String, quality: int, side: String
 		p *= float(sim.catalog.difficulty_levels(sim.state.difficulty).get("buy_price_mult", 1.0))
 	else:
 		p *= float(sim.catalog.market.get("sell_ratio", 0.7))
+		# Equilibrio 7: a city that prizes good work (the capital) pays more for each step of quality it buys
+		var prem: Dictionary = sim.catalog.trade.get("city_market", {}).get("quality_premium", {})
+		p *= 1.0 + float(prem.get(str(settlement(sim, c).get("kind", "")), 0.0)) * quality
 	return maxi(1, roundi(p))
 
 

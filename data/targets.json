@@ -40,8 +40,7 @@
     "kin_trader",
     "events",
     "duelist",
-    "merchant",
-    "pacing"
+    "merchant"
   ],
   "idle": {
     "days": [
@@ -782,10 +781,11 @@
   "_festivals_doc": "Fiestas (04f 4.28.4, principio 4): solo los bots de esta lista juegan con el calendario de fiestas; todas las dianas de antes corren sin él (sim_runner pone data/festivals.json enabled a false), así salen iguales. --festivals=on lo enciende para cualquier bot (con --tag, para no pisar los informes oficiales).",
   "_festivals": [
     "festive",
+    "pacing",
     "idle_titles_fest"
   ],
   "festive": {
-    "_doc": "Fiestas (04f 4.28.4): artisan_expert un año entero (8 días) con las fiestas, en una partida nueva real (--start=artisan_blacksmith --bots=festive --days=8). Cada fiesta fija sale (fest_fixed_seen 8), cada una con su pregón, sus encargos se publican y se cumplen (los gana el jugador o el rival del oficio: un solo ganador), nada se queda colgado (fest_stuck 0) y ninguna orden de fiesta se rechaza. Medido (3 semillas, 2026-11-04): 27-37 encargos publicados, 5-9 cumplidos (casi todos por los rivales del oficio; la comida de los banquetes nadie la lleva hasta la posada), 0 colgados, 0 órdenes rechazadas. Bandas [provisional].",
+    "_doc": "Fiestas (04f 4.28.4): artisan_expert un año entero (8 días) con las fiestas, en una partida nueva real (--start=artisan_blacksmith --bots=festive --days=8). Cada fiesta fija sale (fest_fixed_seen 8), cada una con su pregón, sus encargos se publican y se cumplen (los gana el jugador o el rival del oficio: un solo ganador), nada se queda colgado (fest_stuck 0) y ninguna orden de fiesta se rechaza. Medido (3 semillas, 2026-11-04): 27-37 encargos publicados, 5-9 cumplidos (casi todos por los rivales del oficio; la comida de los banquetes nadie la lleva hasta la posada), 0 colgados, 0 órdenes rechazadas. Bandas [provisional]. Equilibrio (decisión del manager, 2026-11-06): fest_contracts_done por semilla [4, null] -> [3, null], la media sigue en [5, null]. Con Equilibrio 9 (la forja del jugador sigue produciendo durante las obras) el rival del oficio gana un encargo de fiesta menos en la semilla 1: main 4/9/8, equilibrio 3/9/9 (media 7); aislado apagando por partes (con las obras cerradas vuelve a 4). Es la competencia que pide 03b.",
     "days": [
       8,
       null
@@ -815,7 +815,7 @@
       null
     ],
     "fest_contracts_done": [
-      4,
+      3,
       null
     ],
     "fest_contests": [
@@ -890,7 +890,7 @@
     }
   },
   "full_player": {
-    "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche. Rivales y pueblo (tools/full_watch.gd, docs/contratos/informe_jugador_completo.md): ver _proposed_doc.",
+    "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche. Rivales y pueblo (tools/full_watch.gd, docs/contratos/informe_jugador_completo.md): ver _proposed_doc. Revisión del worker de equilibrio (2026-11-06, encargo del manager), medido con el full_player de jugador juntado con equilibrio (3 años × 4 semillas): Ciudadano los días 11-14, así que vuelve la diana por semilla [1, 20] y la media pasa de [9, 24] a [9, 16] (Equilibrio 3: año 2); unlocks_off 0 en 4/4 (mejoras con la deuda saldada, rival [2, 3], cargos con Ciudadano desde el año 3), así que vuelve de _proposed a diana [0, 0]; los empleados y los niños con hambre salen 0 % (la bolsa de los hogares, Equilibrio 15), así que pasan de _proposed a diana [0, 0,5].",
     "_needs_days": {
       "debt_paid": 8,
       "debt_paid_day": 8,
@@ -942,6 +942,10 @@
       1,
       8
     ],
+      "title_citizen_day": [1, 20],
+      "unlocks_off": [0, 0],
+      "staff_hungry_share_max": [0, 0.5],
+      "child_hungry_share_max": [0, 0.5],
     "step_ms_mean": [
       0,
       5
@@ -993,7 +997,7 @@
       ],
       "title_citizen_day": [
         9,
-        24
+        16
       ]
     },
     "_share": {
@@ -1020,23 +1024,11 @@
         0,
         4
       ],
-      "staff_hungry_share_max": [
-        0,
-        0.5
-      ],
-      "child_hungry_share_max": [
-        0,
-        0.5
-      ],
       "children": [
         1,
         null
-      ],
-      "unlocks_off": [
-        0,
-        0
       ]
-    }
+      }
   },
   "chaos_player": {
     "_doc": "Jugador caótico (docs/gdd/07_testing.md §7.4): sim/bots/bot_chaos_player.gd, la misma partida que full_player con decisiones al azar y una orden válida al azar cada ~40 minutos de juego (sesgo hacia los sistemas menos tocados; hasta saldar la deuda inicial, solo órdenes que no gastan). Guarda y carga cada día y sigue con lo cargado. Diana: nada se rompe: 0 errores del motor, 0 pasos de más de 2 s, ida y vuelta del guardado idéntica, nunca oro negativo ni nadie fuera del mapa, el libro cuadra. Ritual: godot --headless --path . -s tools/full_player.gd -- --bot=chaos_player --years=3 --seeds=3; en run_all, paso chaos (1 año, 1 semilla). Medido (2026-11-05, 2 semillas × 3 años): 24 idas y vueltas por semilla sin diferencias, 0 errores; una semilla se queda sin oro ni existencias el día 8 y ya no se recupera (bloqueo blando, docs/decisiones.json).",
@@ -1074,11 +1066,12 @@
     ]
   },
   "innkeeper": {
-    "_doc": "Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, §4.28.4): bot innkeeper (sim/bots/bot_innkeeper.gd) desde innkeeper_start (la familia del herrero con la Taberna-Posada recién comprada, 200 de oro y sus primeras existencias), 16 días (2 años), con eventos globales. Compra en el mercado por recado mañana y tarde, cocina por la cola (cocinero oficial, de día), contrata por roles (barra y mesas de noche, criada de día), atiende la barra a mano, mejora en orden fijo y amplía la carta. Medidas del bot: inn_net_day (lo que el libro apunta al edificio por día, sin la compra; incluye mejoras), inn_operating_day (sin mejoras ni licencia), inn_fame, inn_bed_share (camas alquiladas / camas × noches), inn_guests_night, inn_complaints_night. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=innkeeper_start --bots=innkeeper --days=16 --seeds=10 (en run_all, paso inn, 5 semillas). Medido (2026-11-05, 10 semillas, con vida y fiestas encendidas y la clientela en dos capas de 04g §4.6.5.7): neto 21,9/día (6,8-33,6), fama 1,8, 26,5 clientes por noche (las fiestas suben la taberna: San Juan y Carnaval ×2, feria ×3), 9,6 quejas por noche (sobre todo «sin sitio» en las fiestas y «se acabó»), camas al 17 % (duermen solo los forasteros que encuentran cama), 16 noches abiertas en las 10 semillas: el bot guarda 3 días de mantenimiento y sueldos (las plazas sin cubrir, a sueldo de aprendiz) antes de amortizar la deuda o de mejorar, y compra primero lo que más margen deja (el trigo y la madera de la cerveza; el pan y la sidra, al final). La media de explotación con 5 semillas (paso inn de la QA) baja a ~33: banda [30, 100]. Bandas de clientes [16, 30] y quejas [0, 12] aceptadas por el manager (2026-11-05).",
+    "_doc": "Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, §4.28.4): bot innkeeper (sim/bots/bot_innkeeper.gd) desde innkeeper_start (la familia del herrero con la Taberna-Posada recién comprada, 200 de oro y sus primeras existencias), 16 días (2 años), con eventos globales. Compra en el mercado por recado mañana y tarde, cocina por la cola (cocinero oficial, de día), contrata por roles (barra y mesas de noche, criada de día), atiende la barra a mano, mejora en orden fijo y amplía la carta. Medidas del bot: inn_net_day (lo que el libro apunta al edificio por día, sin la compra; incluye mejoras), inn_operating_day (sin mejoras ni licencia), inn_fame, inn_bed_share (camas alquiladas / camas × noches), inn_guests_night, inn_complaints_night. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=innkeeper_start --bots=innkeeper --days=16 --seeds=10 (en run_all, paso inn, 5 semillas). Medido (2026-11-05, 10 semillas, con vida y fiestas encendidas y la clientela en dos capas de 04g §4.6.5.7): neto 21,9/día (6,8-33,6), fama 1,8, 26,5 clientes por noche (las fiestas suben la taberna: San Juan y Carnaval ×2, feria ×3), 9,6 quejas por noche (sobre todo «sin sitio» en las fiestas y «se acabó»), camas al 17 % (duermen solo los forasteros que encuentran cama), 16 noches abiertas en las 10 semillas: el bot guarda 3 días de mantenimiento y sueldos (las plazas sin cubrir, a sueldo de aprendiz) antes de amortizar la deuda o de mejorar, y compra primero lo que más margen deja (el trigo y la madera de la cerveza; el pan y la sidra, al final). La media de explotación con 5 semillas (paso inn de la QA) baja a ~33: banda [30, 100]. Bandas de clientes [16, 30] y quejas [0, 12] aceptadas por el manager (2026-11-05). Equilibrio (owner, 2026-11-05): con la bolsa de los hogares (Equilibrio 15: vecinos ~2 -> 6,1 por noche, comarca [4,8] -> [3,6]) la fama subía el tope cada noche (16 × 0,25 = 4,0 en las 5 semillas; antes del equilibrio 1,76). Se frena dando a «no esperó» menos peso en la fama que a la satisfacción real (data/inn/inn.json fame.wait_share 0,5) y la banda de inn_fame pasa de [1,5, 3,5] a [1,5, 4,0], con la condición inn_fame3_day [8, null]: la fama no llega a 3 (vienen los nobles) antes del año 2 (inn_fame3_day = día del primer turno con fama >= 3; los días jugados + 1 si no llega). Medido (5 semillas × 16 días): fama 4,0 (4,0-4,0) -> 3,61 (3,15-3,96); fama 3 el día 11 en todas -> los días 12-15; clientes 28,3, vecinos 6,2, explotación 92/día, quejas 4,5.",
     "days": [
       16,
       null
     ],
+    "inn_fame3_day": [8, null],
     "refused_orders": [
       0,
       0
@@ -1106,7 +1099,7 @@
       ],
       "inn_fame": [
         1.5,
-        3.5
+        4.0
       ],
       "inn_bed_share": [
         0.1,
@@ -1122,50 +1115,15 @@
       ]
     }
   },
-  "pacing": {
-    "_doc": "Ritmo (docs/gdd/03b_diversion_y_ritmo.md §3b.6): bot pacing (sim/bots/bot_pacing.gd), el novato forjando en Forja viva y leyendo las cartas, año 1 (8 días) de una partida nueva en Normal. Mide los segundos reales entre decisiones (×1, ×8 cuando el jugador saltaría: ciclo en marcha o noche; las órdenes a menos de 3 s son una sola decisión), las metas abiertas cada hora y el día de cada desbloqueo frente a su ventana ±1 día (los ganchos sin su sistema no cuentan). Diana de 3b.6: mediana < 30 s, máximo < 60 s, siempre >= 2 metas, desbloqueos en su ventana. Medido (2026-11-04, 3 semillas): mediana 4,7 s, p90 6,6 s, máximo 29-40 s, metas mín 2 (media 2,8-3,0), 9 desbloqueos, 0 fuera. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5 (paso pacing de la QA).",
-    "days": [
-      8,
-      null
-    ],
-    "ledger_mismatch": [
-      0,
-      0
-    ],
-    "gap_median_s": [
-      null,
-      30
-    ],
-    "gap_max_s": [
-      null,
-      60
-    ],
-    "goals_min": [
-      2,
-      null
-    ],
-    "unlocks_off": [
-      0,
-      0
-    ],
-    "_proposed_festivals": {
-      "_doc": "Diana propuesta, no comprobada (decisión del owner, 2026-11-05): con --festivals=on --life=on el novato no llega a 300 de oro en el año 1 en 1 de 3 semillas y las mejoras no se abren (unlocks_off = 1). La ventana de mejoras de 03b no se toca: lo arregla el equilibrio del año 1-2 con fiestas (Ciudadano y oro). Cuando ese equilibrio esté hecho, esta banda pasa a la diana y pacing sale de _no_life.",
-      "unlocks_off": [
-        0,
-        0
-      ],
-      "gap_median_s": [
-        null,
-        30
-      ],
-      "gap_max_s": [
-        null,
-        60
-      ],
-      "goals_min": [
-        2,
-        null
-      ]
-    }
+  "pacing": {"_doc": "Ritmo (docs/gdd/03b_diversion_y_ritmo.md §3b.6): bot pacing (sim/bots/bot_pacing.gd), el novato forjando en Forja viva y leyendo las cartas, año 1 (8 días) de una partida nueva en Normal, con las fiestas y la vida encendidas (Equilibrio, 2026-11-05: la banda que era _proposed_festivals es la diana; pacing está en _festivals y fuera de _no_life). Mide los segundos reales entre decisiones (×1, ×8 cuando el jugador saltaría: ciclo en marcha o noche; las órdenes a menos de 3 s son una sola decisión), las metas abiertas cada hora y el día de cada desbloqueo frente a su ventana ±1 día (los ganchos sin su sistema no cuentan). Diana de 3b.6: mediana < 30 s, máximo < 60 s, siempre >= 2 metas, desbloqueos en su ventana. Medido sin fiestas ni vida (2026-11-04, 3 semillas): mediana 4,7 s, máximo 29-40 s, 9 desbloqueos, 0 fuera. Con fiestas y vida antes del equilibrio (5 semillas): 4 de 5 con las mejoras sin abrir (los 300 de oro, tarde) y una con un hueco de 198 s: los bots aceptaban encargos de fiesta que no llegaban a hacer (Equilibrio 11). Después: ver reports/equilibrio/. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5 (paso pacing de la QA).", "days": [8, null], "ledger_mismatch": [0, 0], "gap_median_s": [null, 30], "gap_max_s": [null, 60], "goals_min": [2, null], "unlocks_off": [0, 0]},
+  "broke": {
+    "_doc": "Equilibrio 2 (docs/decisiones.json, GDD 4.16 «Sin salida»): bot broke (sim/bots/bot_broke.gd, el novato que pide el préstamo de urgencia cuando se lo ofrecen) desde broke_forge (día 9, deuda inicial pagada, 0 de oro y 1 carbón: el bloqueo blando del caótico), 6 días. La partida no muere: el prestamista ofrece 60 (90 en 4 días), el novato vuelve a comprar, forjar y vender, lo devuelve y acaba con oro; sin embargo ni ruina. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=broke_forge --bots=broke --days=6 --seeds=5 (paso broke de la QA, 3 semillas). Medido (2026-11-05, 5 semillas): préstamo tomado 1 en todas, devuelto en todas, 0 embargos, 0 ruinas, oro final 103-266 (media 200).",
+    "days": [6, null],
+    "refused_orders": [0, 0],
+    "ledger_mismatch": [0, 0],
+    "emergency_taken": [1, 1],
+    "emergency_open": [0, 0],
+    "ruin": [0, 0],
+    "_mean": {"gold_end": [60, null]}
   }
 }

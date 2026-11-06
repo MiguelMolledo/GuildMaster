@@ -11,7 +11,7 @@
     {"id": "x4", "key": "@speed_3"},
     {"id": "vista", "say": "Hasta la vista oral: el juicio se abre solo y pausa", "until": "q.visible('TrialPanel') and q.paused()", "timeout": 120, "fast": 8},
     {"id": "interrogar", "say": "Interrogar a un testigo en contra", "click": {"within": "Witnesses", "node": "Cross"}, "soft": true, "expect": ["q.order('trial_cross')"]},
-    {"id": "concluir", "say": "Concluir la defensa", "click": {"node": "RestButton"}, "expect": ["q.order('trial_rest')"]},
+    {"id": "concluir", "say": "Concluir la defensa: en pausa, el botón dice «Concluyendo… (al reanudar)»", "click": {"node": "RestButton"}, "expect": ["q.order('trial_rest')", "q.shown({'within': 'TrialPanel', 'tr': 'ui.trial.rest_waiting'})", "q.disabled({'node': 'RestButton'})"]},
     {"id": "seguir", "say": "Espacio: seguir", "when": "q.paused()", "key": "Space"},
     {"id": "veredicto", "say": "La tarjeta del veredicto", "until": "q.visible('TrialCard')", "timeout": 60, "fast": 8},
     {"id": "ok", "click": {"within": "TrialCard", "node": "OkButton"}, "expect": ["not q.visible('TrialCard')"]}

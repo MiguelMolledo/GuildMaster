@@ -1,0 +1,7 @@
+{
+ "punto": "Equilibrio 5 · pecha",
+ "nota": "En 3 años muerde poco (patrimonio 1.000-1.600: 0-25 al año). Ver tests/test_equilibrio_pecha.gd.",
+ "despues": {
+  "gold_end": 1089.5
+ }
+}

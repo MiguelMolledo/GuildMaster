@@ -4,7 +4,8 @@ extends RefCounted
 ## state.relationships[Ids.pair_key(a, b)].affinity (beside the general relation of 4.11.4). Owner of the orders
 ## court_talk, court_gift and propose. Contract: docs/contratos/h8_familia.md. Figures: data/family.json "courtship".
 ##
-## Rules: talk +talk[0..1] once per suitor, target and day; gift +value / gold_per_point within [min, max] (the item
+## Rules: talk +talk[0..1] once per suitor, target and day; gift +value / gold_per_point within [min, max], only the
+## first gift of the day to each target (Equilibrio 1: the others are taken without effect; gift_day) (the item
 ## leaves the actor's inventory for the target's; its value is its sell price at the market); working at the same
 ## building at the same time +work_near per day (step, from the work_done events). Every gain × (1 + (charisma − 5)
 ## × charisma_step) of the actor and × same_title_mult when both families have the same title. A target with a
@@ -12,7 +13,7 @@ extends RefCounted
 ## target on the map, or of the door of the building the target is in, or inside the same building.
 ## propose: both alive, single, >= majority_age, of different families, opposite sex (provisional) and affinity >=
 ## propose_min -> wedding (marry): the target moves into the actor's family and home.
-## Pair memory in the relationship: {relation, affinity, talk_day, near_day}.
+## Pair memory in the relationship: {relation, affinity, talk_day, gift_day, near_day}.
 
 
 ## {"type": "court_talk", "actor", "target"}.
@@ -54,16 +55,33 @@ static func order_gift(sim: Sim, o: Dictionary) -> Dictionary:
 	var value := Market.price(sim, item, q, "sell")
 	var base := clampi(roundi(float(value) / maxf(1.0, float(cfg.get("gold_per_point", 2)))), int(cfg.get("min", 5)),
 		int(cfg.get("max", 15)))
+	# Equilibrio 1: only the first gift of the day to each suitor raises the affinity; the rest are taken, no effect.
+	var rel := relation(sim.state, actor, target)
+	var today := Clock.day(int(sim.state.clock["minute"]))
+	var counts := int(rel.get("gift_day", -1)) != today or int(cfg.get("per_day", 1)) <= 0
+	rel["gift_day"] = today
 	Inventory.remove(src, item, q, 1)
 	var dst: Dictionary = sim.state.characters[target].get("inventory", {})
 	if not dst.is_empty():
 		Inventory.add(dst, sim.catalog, item, q, 1)  # what does not fit the target is lost (eaten, sold, shared)
 	sim.events.append({"type": "items_moved", "actor": actor, "from": actor, "to": target, "item": item, "quality": q,
 		"qty": 1})
+	if not counts:
+		sim.events.append({"type": "court_gift_no_effect", "actor": actor, "target": target, "item": item})
+		if OS.is_debug_build():
+			print("[Courtship] %s regala %s a %s: ya hubo regalo hoy, sin efecto (afinidad=%d)" % [actor, item, target,
+				int(rel.get("affinity", 0))])
+		return Orders.ok()
 	var gain := add_affinity(sim, actor, target, base, "gift")
 	if OS.is_debug_build():
 		print("[Courtship] %s regala %s (q%d, valor=%d) a %s: +%d" % [actor, item, q, value, target, gain])
 	return Orders.ok()
+
+
+## Whether `who` already gave `target` a gift today (the next one of the day does not raise the affinity). Read only.
+static func gifted_today(st: WorldState, who: String, target: String) -> bool:
+	var r: Variant = st.relationships.get(Ids.pair_key(who, target))
+	return r is Dictionary and int((r as Dictionary).get("gift_day", -1)) == Clock.day(int(st.clock["minute"]))
 
 
 ## {"type": "propose", "actor", "target"}: the wedding, at once.

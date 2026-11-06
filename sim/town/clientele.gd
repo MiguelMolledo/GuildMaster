@@ -11,8 +11,9 @@ extends RefCounted
 ##   appeal(b)   = (1 / price_multiplier(b)) ^ elasticity × (1 + min(reputation / 1000, rep_cap)) × (1 + customer_bonus(b))
 ##   max_price   = base_price(item) × quality_mult × (1 + fame(b) × fame_price) × taste
 ##
-## fame(b) is 1 until the fame of a building is defined (only the tavern has one, 4.27; pending for the shops). The
-## reputation of the family is inside appeal (not twice). Figures: data/town.json counter.clientele [balance], and the
+## fame(b) is the workshop's fame (Equilibrio 13) or the tavern's (4.27). The reputation of the family is inside appeal
+## (not twice). Equilibrio 14: this is the one clientele of the countryside; the Taberna-Posada (InnClientele) reads its
+## provider_appeal, fame and max_price_mult, and keeps its own night turn and groups. Figures: data/town.json counter.clientele [balance], and the
 ## provider choice's of data/services.json (elasticity, no_go, reputation cap and divisor), shared with the inn. Off
 ## by default (enabled false): the targets of today run without it, like the living town (_no_life); measure it with
 ## --set=town.counter.clientele.enabled=true. Served by the counter's server like the townsfolk (Counter.server_of),
@@ -77,9 +78,12 @@ static func per_day(sim: Sim, bld: String) -> float:
 	return base * fame(sim, bld) * season_mult * WorldEvents.customers_mult(sim) * share(sim, bld)
 
 
-## fame(b): 1 until the fame of a shop is defined (4.6.5.7; only the tavern has one, 4.27).
-static func fame(_sim: Sim, _bld: String) -> float:
-	return 1.0
+## fame(b) (Equilibrio 13/14): the workshop's fame (WorkshopFame, 0.5-2.0, 1 at the start) or the tavern's own
+## (Inn.fame, 0-5, 4.27): one place for both.
+static func fame(sim: Sim, bld: String) -> float:
+	if Inn.is_inn(sim, bld):
+		return Inn.fame(sim, bld)
+	return WorkshopFame.of(sim, bld)
 
 
 ## The share of the countryside clientele of its trade that goes to `bld` (4.22.3.2).
@@ -95,15 +99,21 @@ static func share(sim: Sim, bld: String) -> float:
 	return mine / maxf(0.0001, total + float(sim.catalog.services.get("no_go", 0.5)))
 
 
-## The provider's appeal of 4.22.3.2 with the figures of data/services.json (the same as InnClientele.provider_share).
+## The provider's appeal of 4.22.3.2 for a shop: its price multiplier and its customer_bonus upgrades.
 static func appeal(sim: Sim, bld: String) -> float:
+	return provider_appeal(sim, bld, Upgrades.mult(sim, bld, "price_multiplier"), "customer_bonus")
+
+
+## The provider's appeal of 4.22.3.2 with the figures of data/services.json (elasticity, reputation cap and divisor),
+## one formula for the shops and the Taberna-Posada (Equilibrio 14): (1 / price) ^ elasticity × (1 + min(reputation /
+## divisor, cap)) × (1 + the building's `bonus` upgrades) (customer_bonus for a shop, inn_customers for the inn).
+static func provider_appeal(sim: Sim, bld: String, price: float, bonus: String) -> float:
 	var sv: Dictionary = sim.catalog.services
-	var fam := str(sim.state.buildings[bld].get("owner", ""))
+	var fam := str(sim.state.buildings.get(bld, {}).get("owner", ""))
 	var rep := float(sim.state.families.get(fam, {}).get("reputation", 0))
-	var price := maxf(0.1, Upgrades.mult(sim, bld, "price_multiplier"))
-	return pow(1.0 / price, float(sv.get("elasticity", 1.5))) \
+	return pow(1.0 / maxf(price, 0.01), float(sv.get("elasticity", 1.5))) \
 		* (1.0 + minf(rep / float(sv.get("reputation_divisor", 1000)), float(sv.get("reputation_cap", 0.3)))) \
-		* (1.0 + Upgrades.amount(sim, bld, "customer_bonus"))
+		* (1.0 + Upgrades.amount(sim, bld, bonus))
 
 
 ## The most a countryside customer pays for `item` of `quality` at `bld`.
@@ -111,7 +121,12 @@ static func max_price(sim: Sim, bld: String, item: String, quality: int) -> int:
 	var k := cfg(sim)
 	var qm: Array = sim.catalog.market.get("quality_mult", [1.0])
 	var base := float(sim.catalog.item(item).get("base_price", 1)) * float(qm[clampi(quality, 0, qm.size() - 1)])
-	return roundi(base * (1.0 + fame(sim, bld) * float(k.get("fame_price", 0.1))) * float(k.get("taste", 1.0)))
+	return roundi(base * max_price_mult(sim, bld, float(k.get("fame_price", 0.1))) * float(k.get("taste", 1.0)))
+
+
+## precio_máximo's fame factor of 04g §4.6.5.7, shared by the shops and the inn: 1 + fame(b) × fame_price.
+static func max_price_mult(sim: Sim, bld: String, fame_price: float) -> float:
+	return 1.0 + fame(sim, bld) * fame_price
 
 
 ## Minutes until the next one: the day's open minutes over per_day, ×[0.5, 1.5] by its own random stream.

@@ -47,15 +47,19 @@ static func order_buy(sim: Sim, o: Dictionary) -> Dictionary:
 	var taken: Array = []
 	for c: Dictionary in u.get("cost", {}).get("items", []):
 		taken.append_array(_take_lowest(b["inventory"], str(c["item"]), int(c["qty"])))
-	var zones: Dictionary = b.get("zones", {})
-	var zone_ids: Array = zones.keys().map(func(k: Variant) -> String: return str(k))
-	zone_ids.sort()
-	for z: String in zone_ids:
-		if zones[z].get("job") is Dictionary:
-			Production.interrupt(sim, bld, z)
 	var now := int(st.clock["minute"])
+	var mode := works_mode(sim, id)
+	if mode == CLOSED:  # the old rule of 4.8 (data only): the building stops, its cycles' inputs go back (D11)
+		var zones: Dictionary = b.get("zones", {})
+		var zone_ids: Array = zones.keys().map(func(k: Variant) -> String: return str(k))
+		zone_ids.sort()
+		for z: String in zone_ids:
+			if zones[z].get("job") is Dictionary:
+				Production.interrupt(sim, bld, z)
 	var end := now + roundi(float(u.get("build_days", 0.0)) * Clock.MINUTES_PER_DAY)
-	b["upgrade_work"] = {"upgrade": id, "actor": actor, "start": now, "end": end}
+	if mode == NIGHT:
+		end = _night_end(sim, now)
+	b["upgrade_work"] = {"upgrade": id, "actor": actor, "start": now, "end": end, "mode": mode}
 	sim.events.append({"type": "upgrade_started", "actor": actor, "family": fam, "building": bld, "upgrade": id,
 		"start": now, "end": end})
 	if OS.is_debug_build():
@@ -129,6 +133,63 @@ static func work(st: WorldState, bld: String) -> Dictionary:
 
 static func under_works(st: WorldState, bld: String) -> bool:
 	return not work(st, bld).is_empty()
+
+
+# --- How a works goes (Equilibrio 9, docs/decisiones.json; GDD 4.8) ------------------------------------------------
+
+const NIGHT: String = "night"    # a small upgrade: built in the coming night (done at dawn); the building never stops
+const HALF: String = "half"      # a big one: the building works at works.big_speed while it lasts
+const CLOSED: String = "closed"  # the old rule of 4.8: nobody works there (data only; a save from before Equilibrio 9)
+
+
+## The mode of the works of upgrade `id`: night if its build_days <= works.small_max_days, else works.big_mode (half).
+static func works_mode(sim: Sim, id: String) -> String:
+	var cfg: Dictionary = sim.catalog.upgrade_rules.get("works", {})
+	if cfg.is_empty():
+		return CLOSED
+	var days := float(sim.catalog.upgrade(id).get("build_days", 0.0))
+	if days <= float(cfg.get("small_max_days", 1.0)) + 0.0001:
+		return str(cfg.get("small_mode", NIGHT))
+	return str(cfg.get("big_mode", HALF))
+
+
+## The mode of the works in progress of `bld` ("" if none). Works saved before Equilibrio 9 have no mode: they end
+## under the rule they started with (closed).
+static func mode_of(st: WorldState, bld: String) -> String:
+	var w := work(st, bld)
+	if w.is_empty():
+		return ""
+	return str(w.get("mode", CLOSED))
+
+
+## Whether the works of `bld` stop its production (only the closed works).
+static func blocks(st: WorldState, bld: String) -> bool:
+	return mode_of(st, bld) == CLOSED
+
+
+## The speed of the cycles that start at `bld` now: works.big_speed (0.5) during big works, else 1.
+static func works_speed(sim: Sim, bld: String) -> float:
+	if mode_of(sim.state, bld) != HALF:
+		return 1.0
+	return clampf(float(sim.catalog.upgrade_rules.get("works", {}).get("big_speed", 0.5)), 0.05, 1.0)
+
+
+## When works of `id` bought at `now` would end (the night rule for the small ones). Read only (the UI).
+static func would_end(sim: Sim, id: String, now: int) -> int:
+	if works_mode(sim, id) == NIGHT:
+		return _night_end(sim, now)
+	return now + roundi(float(sim.catalog.upgrade(id).get("build_days", 0.0)) * Clock.MINUTES_PER_DAY)
+
+
+## The dawn after the coming night: today's dawn if `now` is before it, else tomorrow's (each day its season's dawn).
+static func _night_end(sim: Sim, now: int) -> int:
+	var d := Clock.day(now)
+	var dawn_today := int(sim.catalog.time["phase_starts"][Clock.season(d * Clock.MINUTES_PER_DAY, sim.catalog.time)][
+		"dawn"])
+	if Clock.minute_of_day(now) < dawn_today:
+		return d * Clock.MINUTES_PER_DAY + dawn_today
+	var next := (d + 1) * Clock.MINUTES_PER_DAY
+	return next + int(sim.catalog.time["phase_starts"][Clock.season(next, sim.catalog.time)]["dawn"])
 
 
 ## The upgrade tree of a building's type ("" if it has none).

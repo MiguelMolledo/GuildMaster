@@ -434,7 +434,7 @@ func _update_preview() -> void:
 	var vis: Dictionary = proposal.get("visual", defaults.get("visual", {}))
 	var pk := "portrait_f" if female else "portrait_m"  # población: the proposal has one portrait per sex
 	var pt: Dictionary = vis.get(pk, {}) if vis.get(pk) is Dictionary else {}
-	(%PortraitFrame as PortraitFrame).show_identity({"hair": Identity.hair_color(int(vis.get("hair", 0))),
+	(%PortraitFrame as PortraitFrame).show_identity({"hair": Identity.hair_color(Identity.natural_hair(int(vis.get("hair", 0)))),
 		"skin": Identity.skin_color(int(vis.get("skin", 0))), "primary": ViewConfig.color(primary),
 		"secondary": ViewConfig.color(secondary), "female": female, "dead": false,
 		"portrait": {"id": str(pt.get("id", "")), "type": str(pt.get("type", "artisan")), "seed": 1,

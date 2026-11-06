@@ -1,0 +1,58 @@
+{
+ "punto": "Vida · hambre, diversión y forasteros",
+ "antes": {
+  "staff_hungry_share_max": {
+   "max": 0.819,
+   "mean": 0.73,
+   "median": 0.73,
+   "min": 0.653
+  },
+  "child_hungry_share_max": {
+   "max": 0.88,
+   "mean": 0.22,
+   "median": 0.0,
+   "min": 0.0
+  },
+  "need_fun": 19.0,
+  "npc_short_fun_max": {
+   "max": 0.873,
+   "mean": 0.83,
+   "median": 0.83,
+   "min": 0.788
+  },
+  "visitors_per_day": {
+   "max": 6.08,
+   "mean": 5.73,
+   "median": 5.71,
+   "min": 5.42
+  }
+ },
+ "despues": {
+  "staff_hungry_share_max": {
+   "max": 0.0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0.0
+  },
+  "child_hungry_share_max": {
+   "max": 0.0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0.0
+  },
+  "need_fun": 37.4,
+  "npc_short_fun_max": {
+   "max": 0.792,
+   "mean": 0.61,
+   "median": 0.57,
+   "min": 0.498
+  },
+  "visitors_per_day": {
+   "max": 6.04,
+   "mean": 5.77,
+   "median": 5.75,
+   "min": 5.54
+  }
+ },
+ "nota": "velada en casa needs.night.fun 10; forasteros: mediana 4 al día, la media la suben las fiestas"
+}
