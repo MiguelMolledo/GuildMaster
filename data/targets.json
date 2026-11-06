@@ -1279,5 +1279,34 @@
         null
       ]
     }
+  },
+  "counter_shop": {
+    "_doc": "Equilibrio 8 y 14 (docs/decisiones.json, 04g §4.6.5.7): bot counter_shop (sim/bots/bot_counter_shop.gd: artisan_expert con el mostrador primero, un empleado en él y counter_stock 2 piezas de cada producto guardadas para sus clientes), partida nueva (artisan_blacksmith, Normal), 24 días, con la vida y la clientela de comarca encendidas. Desde el día en que el empleado está en el mostrador: counter_gold_day (ventas del mostrador al día), counter_wage_day, counter_ratio (ventas / salario: Equilibrio 8 pide >= 2), clientele_arrived_day y clientele_bought_day (la clientela de comarca), counter_left_empty_share (los que se van sin nada que comprar). Medido (2026-11-06, 5 semillas): ventas 96-132 al día frente a 19-20 de salario (×5,0-6,6); comarca 2,4-2,8 llegadas al día, 0,05-0,19 compras (el mostrador ya vende todo lo que forja el taller: con 4 o 6 piezas guardadas sale igual; atender más clientela pide producir más). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=counter_shop --days=24 --seeds=5 (paso counter de la QA, 3 semillas).",
+    "days": [
+      24,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "counter_ratio": [
+      2,
+      null
+    ],
+    "_mean": {
+      "counter_ratio": [
+        3,
+        null
+      ],
+      "clientele_arrived_day": [
+        1.5,
+        4
+      ]
+    }
   }
 }

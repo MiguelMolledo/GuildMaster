@@ -191,8 +191,12 @@ func _write(dir: String, res: Dictionary) -> void:
 
 
 ## Where the flow starts: {"scenario": id} (a saved game, playing), {"title": true} (the title screen),
-## {"new_game": true} (the new game screen); "seed", "speed", "at": "HH:MM", "paused".
+## {"new_game": true} (the new game screen), {"keep": true} (as the flow before left it: the jugador pass); "seed",
+## "speed", "at": "HH:MM", "paused".
 func _start(s: Dictionary) -> String:
+	if bool(s.get("keep", false)):   # the jugador pass: the block goes on with the game as the last one left it
+		Engine.time_scale = 1.0
+		return ""
 	Engine.time_scale = 1.0
 	Game.set_speed(1)   # the session's speed survives a new state: every flow starts at ×1
 	var seed_value := int(s.get("seed", _seed))
@@ -254,6 +258,8 @@ func _run_step(step: Dictionary, rec: Dictionary, dir: String, seen: Dictionary)
 	notes = []
 	drv.notes = []
 	print("[Flow] step %d %s: %s" % [rec["n"], rec["id"], rec["action"]])
+	var m0 := int(Game.sim.state.clock["minute"]) if Game.sim != null else -1   # the jugador pass: game time per step
+	var speed0 := int(Game.speed) if Game.get("speed") != null else 1
 	var err := await _act(step.duplicate(true))
 	if err == "" and step.has("until"):
 		err = await _wait_until(str(step["until"]), float(step.get("timeout", 20.0)), float(step.get("fast", 1.0)))
@@ -280,6 +286,10 @@ func _run_step(step: Dictionary, rec: Dictionary, dir: String, seen: Dictionary)
 	rec["notes"] = notes.duplicate() + drv.notes.duplicate()
 	rec["screen"] = _top_screen()
 	rec["clock"] = "día %d %02d:%02d" % [q.day(), q.hour(), q.minute() % 60] if Game.sim != null else ""
+	rec["game_minutes"] = int(Game.sim.state.clock["minute"]) - m0 if Game.sim != null and m0 >= 0 else 0
+	rec["speed"] = maxi(speed0, int(Game.speed) if Game.get("speed") != null else 1)
+	rec["tut"] = q.tut()
+	rec["tut_text"] = q.tut_text().left(300)
 	var img: Image = null
 	if windowed:
 		img = get_viewport().get_texture().get_image()
@@ -555,8 +565,13 @@ func _act_once(step: Dictionary) -> String:
 		return ""
 	if step.has("click") and keys_mode and not bool(step.get("mouse_only", false)):
 		return await drv.key_click(step["click"])
-	if step.has("click"):
-		return await drv.click(step["click"], "left", false)
+	if step.has("click"):   # "times": the same click again (a «+» pressed three times)
+		var e := ""
+		for _i: int in maxi(1, int(step.get("times", 1))):
+			e = await drv.click(step["click"], "left", false)
+			if e != "":
+				break
+		return e
 	if step.has("right_click"):
 		return await drv.click(step["right_click"], "right", false)
 	if step.has("double_click"):

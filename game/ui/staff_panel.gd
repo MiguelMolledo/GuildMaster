@@ -153,6 +153,12 @@ func refresh(force: bool = false) -> void:
 			if pa != bool(b.get("promotion_offered", false)):
 				return pa
 			return str(a["character"]) < str(b["character"]))
+	else:   # the candidates by wage, the cheapest first: the apprentice the goal asks for heads the list (jugador J7)
+		data = data.duplicate()
+		data.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+			if int(a.get("wage", 0)) != int(b.get("wage", 0)):
+				return int(a.get("wage", 0)) < int(b.get("wage", 0))
+			return str(a["character"]) < str(b["character"]))
 	for d: Dictionary in data:
 		var row := _employee_row(d) if tab == "staff" else _candidate_row(d)
 		row.name = str(d["character"])
