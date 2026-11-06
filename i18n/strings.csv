@@ -4049,3 +4049,75 @@ ui.trial.rest_waiting,Resting… (on resume),Concluyendo… (al reanudar)
 ui.trial.verdict_waiting,Ruling… (on resume),Dictando… (al reanudar)
 ui.trial.cross_waiting,Questioning… (on resume),Interrogando… (al reanudar)
 ui.order.take_emergency_loan,Take the emergency loan,Pedir el préstamo de urgencia
+item.salve,Salve,Ungüento
+item.doctor_bag,Doctor's bag,Maletín de médico
+recipe.doctor_visit,Consultation,Consulta
+recipe.doctor_surgery,Surgery,Cirugía
+recipe.doctor_surgery_clean,Operating-room surgery,Cirugía en quirófano
+recipe.doctor_bandages,Make bandages,Hacer vendas
+building.clinic,Physician's practice,Consulta médica
+profession.physician,Physician,Médico
+start.scholar_physician,Scholar · physician,Erudito · médico
+stall.apothecary,Apothecary,Boticario
+ui.zone.cot,Cot,Camilla
+ui.zone.cot_2,Second cot,Segunda camilla
+ui.zone.mortar,Mortar,Mortero
+ui.zone.mortar_2,Second mortar,Segundo mortero
+client.master_mason,The master mason,El maestro cantero
+objective.treat_patient,Treat your first patient at the cot,Atiende a tu primer paciente en la camilla
+objective.make_bandages,Make bandages at the mortar,Haz vendas en el mortero
+objective.doctor_price,Change the price of the consultation and see how many come,Cambia el precio de la consulta y mira cuántos vienen
+objective.guard_bandages,Deliver the watch's first-aid kit (6 bandages),Entrega el botiquín de la guardia (6 vendas)
+objective.cure_grave,Cure a grave patient (a surgery: it needs a salve),Cura a un herido grave (una cirugía: pide ungüento)
+upgrade.clinic_capacity_1,Larger storage,Almacén ampliado
+upgrade.clinic_capacity_2,Second mortar,Segundo mortero
+upgrade.clinic_capacity_3,Apothecary shelves,Estantería de botica
+upgrade.clinic_commerce_1,Practice sign,Rótulo de la consulta
+upgrade.clinic_commerce_2,Waiting room,Sala de espera
+upgrade.clinic_commerce_3,Renowned practice,Consulta de renombre
+upgrade.clinic_facade_1,Stone facade,Fachada de piedra
+upgrade.clinic_facade_2,Herb garden,Huerto de hierbas
+upgrade.clinic_facade_3,Noble facade,Fachada noble
+upgrade.clinic_production_1,Second cot,Segunda camilla
+upgrade.clinic_production_2,Surgical instruments,Instrumental
+upgrade.clinic_production_3,Operating room,Quirófano
+upgrade.clinic_quality_1,Herbal,Herbario
+upgrade.clinic_quality_2,Medical library,Biblioteca médica
+upgrade.clinic_quality_3,Anatomy plates,Láminas de anatomía
+upgrade.clinic_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.clinic_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.clinic_secrets_3,Smuggling,Contrabando
+upgrade.clinic_security_1,Reinforced lock,Cerradura reforzada
+upgrade.clinic_security_2,Hired guard,Guardia contratado
+upgrade.clinic_security_3,Strongbox,Caja fuerte
+upgrade.clinic_staff_1,Apprentice's room,Cuarto del aprendiz
+upgrade.clinic_staff_2,Dining room,Comedor
+upgrade.clinic_staff_3,Master's practice,Consulta de maestro
+reason.not_owner,Not your building,No es tu edificio
+reason.unknown_service,This building does not give that service,Este edificio no da ese servicio
+reason.unknown_lender,Nobody lends here,Aquí no presta nadie
+reason.bad_term,That term is not offered,Ese plazo no se ofrece
+reason.in_default,You have a loan in default,Tienes un préstamo en impago
+reason.has_moneylender_loan,You already owe the moneylender,Ya debes al prestamista
+reason.over_limit,More than the moneylender lends you (half your wealth),Más de lo que te presta (la mitad de tu patrimonio)
+notice.patient_left,A patient left the practice without being seen,Un paciente se ha ido de la consulta sin que lo atiendan
+notice.loan_granted,"The moneylender lends you {amount}: you owe {owed} in {installments} installments over {days} days (book, Debts)","El prestamista te presta {amount}: debes {owed} en {installments} cuotas en {days} días (libro, Deudas)"
+ui.station.who_stat,%s · %s %d,%s · %s %d
+ui.station.mode_line_stat,×%s time · quality with %s %d,×%s tiempo · calidad con %s %d
+ui.station.waiting_patients,Waiting for patients,Esperando pacientes
+ui.station.pays,%d gold,%d de oro
+ui.station.needs_stat,%s %d (you have %d),%s %d (tienes %d)
+ui.station.patients_waiting,Patients waiting: %d (grave: %d),Pacientes esperando: %d (graves: %d)
+ui.station.no_patients,Nobody is waiting,No espera nadie
+ui.station.price,Consultation: %d gold (reference %d),Consulta: %d de oro (referencia %d)
+ui.station.patients_day,About %s patients a day at this price,Unos %s pacientes al día a este precio
+ui.ledger.next_installment,Next installment: %d gold before %s (%d left),Próxima cuota: %d de oro antes de %s (quedan %d)
+ui.ledger.moneylender,"Ask the moneylender: up to %d gold, %d %% a year, installments every %d days","Pedir al prestamista: hasta %d de oro, al %d %% anual, cuotas cada %d días"
+ui.ledger.moneylender_too_poor,It lends from %d gold: your wealth is too small,Presta desde %d de oro: tu patrimonio no da
+ui.ledger.borrow_term,%d days: owe %d,%d días: debes %d
+ui.ledger.borrow_q,Borrow %d gold?,¿Pedir %d de oro?
+ui.ledger.borrow_body,"You will owe %d in %d installments (the first one of %d) over %d days. An installment unpaid on its day: extension with surcharge and loss of reputation, then the seizure.","Deberás %d en %d cuotas (la primera de %d) en %d días. Una cuota sin pagar en su día: prórroga con recargo y pérdida de reputación; después, el embargo."
+ui.ledger.borrow_take,Borrow,Pedir el préstamo
+ui.new_game.preview_start.scholar_physician,"A physician's practice with a home, %d gold and %d of debt with the moneylender.","Consulta médica con vivienda, %d de oro y %d de deuda con el prestamista."
+ui.order.set_service_price,Set the price of a service,Poner el precio de un servicio
+ui.order.request_loan,Ask the moneylender for a loan,Pedir un préstamo al prestamista

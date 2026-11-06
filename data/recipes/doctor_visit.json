@@ -1,0 +1,20 @@
+{
+  "id": "doctor_visit",
+  "name_key": "recipe.doctor_visit",
+  "building": "clinic",
+  "zone": "cot",
+  "kind": "service",
+  "service": "doctor",
+  "inputs": [
+    {
+      "item": "bandages",
+      "qty": 1
+    }
+  ],
+  "max_severity": 5,
+  "duration_hours": 1.0,
+  "stat": "arcane",
+  "min_stat": 1,
+  "min_craft": 1,
+  "_doc": "H12.2 (04d 4.22.5.1): a consultation. Service recipe: the cot serves the next waiting patient of service doctor whose severity is at most max_severity; it takes the inputs when it starts with the patient; at the end the patient pays the clinic's price for the doctor service (data/services.json ref_price × the owner's multiplier) and the doctor rolls SkillCheck(arcane + quality_bonus, severity). stat: what sets the lock (min_stat) [balance]."
+}

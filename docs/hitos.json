@@ -419,13 +419,13 @@
         {
           "texto": "Cada profesión tiene un bot que gana dinero con ella",
           "estado": "pendiente",
-          "prueba": "parcial: con rival de su mismo oficio, carpenter_novice 38,4, mason_novice 38,0 y tailor_novice 46,6 de oro neto al día (30 semillas, Normal, diana 25-60; Fácil > Normal > Difícil); faltan Patrón, Erudito y Pícaro (Gate 4.22)",
+          "prueba": "parcial: con rival de su mismo oficio, carpenter_novice 38,4, mason_novice 38,0 y tailor_novice 46,6 de oro neto al día; H12.2 (Erudito): scholar_novice (el Médico) 51,4 (30 semillas, Normal, diana 25-60; Fácil 55,5 > Normal 51,4 > Difícil 47,9; deuda 30/30); faltan Patrón, el resto del Erudito (sacerdote, alquimista, escriba, banquero) y Pícaro",
           "fecha": null
         },
         {
           "texto": "Tests de reglas de combate, robo, servicio, préstamo y ciclo de cultivo",
-          "estado": "pendiente",
-          "prueba": null,
+          "estado": "en_curso",
+          "prueba": "parcial: servicio (tests/test_scholar_physician.gd: pacientes que llegan, esperan y se van; la consulta, su cobro y su tirada; los graves y la cirugía; precio y parte de la clientela; interrumpir; guardar y cargar) y préstamo (tests/test_econ_moneylender.gd: prestamista, límites, cuotas en orden, cuota impagada = prórroga de 4.16, la deuda del inicio sin cambios); faltan combate, robo y ciclo de cultivo",
           "fecha": null
         },
         {
