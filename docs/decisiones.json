@@ -1,6 +1,12 @@
 {
   "tomadas": [
     {
+      "fecha": "2026-11-06",
+      "tema": "Fiestas: con un corral basta",
+      "decision": "Las ferias piden dos corrales (count 2) a las afueras. El sim pone los que quepan (inst.cattle_pens, de count a 1 con FestivalGround.fits): con uno ya es «corrales» y el resto del ganado se vende en un puesto más de la plaza; la crónica dice fair_cattle_pens_short (pens, wanted) y, si no cabe ninguno, fair_cattle_stalls como antes. La vista pone los corrales que caben en las afueras y un puesto de feria en el anillo de la plaza por el resto. Hoy solo afecta a Vilablat (region_hamlet: cabe uno); Vilarrasa y las demás tienen sus dos corrales y sus dianas no cambian.",
+      "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»); la recomendó el worker de fiestas: vale para cualquier ciudad pequeña sin depender del reparto de parcelas."
+    },
+    {
       "fecha": "2026-11-05",
       "tema": "Plantillas: rendimiento de Bellcaire con 5 por casa, rumores por turnos y guardia por ciudad",
       "decision": "Las cinco ciudades de la región vuelven a 5 vecinos por casa. Rendimiento: (1) los mapas con routing (las cinco de la región; town_e no) buscan rutas con A* y heurística de hitos (ALT, 4 hitos, sim/world/route_atlas.gd): mismo coste que el A* de siempre, el doble de rápido; (2) optimizaciones exactas (mismo hash en todos los mapas, comprobado con un arnés de 15 partidas): los minutos quietos de TownLife (TownLife._quiet), la plantilla de cada taller una vez por paso en WorkQueue, la lista de vecinos, los asientos libres de los puntos de reunión y el peso de cada actividad una vez por minuto en Agenda, los precios del rumor de mercado una vez por recuento; (3) un tope de rutas nuevas por minuto en TownLife (routing.replans_per_minute: 6 en Bellcaire, 10 en las demás; el resto espera al minuto siguiente; solo en los mapas con routing). Bench oficial (wanderer, mejor de 3, carga 8-9): Vilarrasa 1,05 ms / 11 ms; Bellcaire 3,62 / 32 (con la vida real, bot idle, 2,57 / 30); Portvell 2,44 / 19; Peñarroja 1,59 / 13; Vilablat 1,20 / 13; Montsacre 1,22 / 15. Rumores: en un corrillo, como mucho 2 burbujas o frases a la vez (la segunda más alta y con el turno desfasado), las demás esperan su turno (WorldView._take_turns, vista). Guardia: el nombre de la de cada ciudad en tools/city/ciudades.json watch y strings.csv.",
@@ -931,6 +937,24 @@
       "tema": "Montsacre: el recinto de la abadía, vacío del todo; el corral de la feria en la aldea",
       "decision": "El generador (tools/city/organic.py) no pone talleres, casas de vecinos ni casas de relleno en un recinto (plots.precincts): la casa de vecinos que caía en el recinto de Montsacre (house_03) pasa al burgo y el recinto queda con la iglesia, el claustro, la hospedería, el huerto y el estanque. En cada ciudad con puertas cabe un corral 3×3 de la feria en el prado junto a una puerta (la regla de FestivalGround): si las parcelas no lo dejan, plots.py guarda libre el primer sitio y las reparte otra vez (hoy solo Vilablat, donde un solar se mueve); el validador lo comprueba. Las demás ciudades no cambian (mapas idénticos).",
       "por_que": "Manager: «regenera con esa casa fuera del recinto, para que el recinto de la abadía quede vacío del todo. Que no cambie nada de las otras ciudades» y «deja libre de parcelas un prado 3×3 junto a una puerta de la aldea, sin cambiar las demás ciudades» (test_fiestas_view lo pide)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H13 · el mapa de Bellcaire con sus 6 zonas",
+      "decision": "Bellcaire (region_capital, 80×80) lleva las 6 zonas del diseño del mapa EA, hechas por el generador (tools/city/ciudades.json zones; data/maps zones y zone_rows; el sim no las lee): Plaza del Mercado (centro), Barrio de los Menestrales (artesano: los talleres de los cuatro oficios, workshops_in), Barrio de los Patricios (noble: la catedral, casas grandes de pizarra), Puerto y Lonja (muelles, Lonja, aduana, almacenes), Arrabal y huertas (afueras: campos y el arrabal del otro lado del puente) y Bosque del Daura (un bosque propio al suroeste). Sus nombres en el mapa con el zoom más lejano (ZoneLayer). El validador comprueba las seis y lo que hace reconocible a cada una. 30-40 NPC: Bellcaire tiene 80 vecinos, todos con casa y oficio (O-R9: 5 por casa, 16 casas); la cifra de H13 es la del mapa EA único de antes de la región y se mantiene la población aprobada para el bench. O-R9 hecha en los mapas de la región (population_max = 5 × casas). Vilarrasa no cambia.",
+      "por_que": "Encargo del manager (cerrar la parte de mapa de H13 en Bellcaire): «lo demás lo decides tú dentro del GDD». Las 6 zonas son las del diseño original del mapa EA (centro, barrio artesano, barrio noble, puerto/río, campos, bosque), dentro del estilo A + C (D10) y de 09b."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "O-R1 · la capital como casa por defecto",
+      "decision": "Apagada por ahora (data/world/region.json \"default_city\": \"\"): EA empieza en Vilarrasa y Bellcaire se elige en «Dónde empiezas». Se enciende (\"capital\") cuando Bellcaire tenga sus 5 familias rivales con la IA de 4.21, lo que falta de H13 fuera del mapa (encargado a plantillas).",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Es la recomendación de 09b O-R1: una capital sin sus familias rivales sería un inicio más pobre que la villa, y el tutorial y el primer día están verificados en Vilarrasa."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H13 · 80 vecinos en Bellcaire, no 30-40",
+      "decision": "Bellcaire mantiene 80 NPC (16 casas × 5, O-R9). La cifra de 30-40 de la fila H13 de 10_hitos.md queda superada por O-R9.",
+      "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»). O-R9 (población proporcional a las casas) ya está aprobada, y con 80 el bench de Bellcaire está dentro de la diana relativa (reposo 1,93×, peor paso 21,9 ms; wanderer 2,79×)."
     },
     {
       "fecha": "2026-11-04",

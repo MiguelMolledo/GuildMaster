@@ -118,7 +118,7 @@ func setup(c: Catalog, seed_value: int) -> void:
 	(%RerollButton as Button).text = SimQuery.t_("ui.new_game.reroll")
 	(%RerollButton as Button).tooltip_text = SimQuery.t_("ui.new_game.reroll_tip")
 	cast_roll = 0
-	city = NewGame.start_city(c, start_id)
+	city = NewGame.default_city(c, start_id)  # H13 · O-R1: region.json default_city when the owner turns it on
 	(%CityLabel as Label).text = SimQuery.t_("ui.new_game.where")
 	proposal = _proposal_for(start_id)
 	(%NameEdit as LineEdit).text = str(proposal.get("name_m", SimQuery.t_(str(cfg.get("default_name", "")))))
@@ -208,7 +208,7 @@ func set_profession(p: String) -> void:
 		SimQuery.t_(str(ViewConfig.value("new_game", {}).get("default_family", "")))]
 	start_id = sid
 	if NewGame.city_problem(catalog, start_id, city) != "":  # this trade has no workshop there: back home
-		city = NewGame.start_city(catalog, start_id)
+		city = NewGame.default_city(catalog, start_id)
 	proposal = _proposal_for(sid)  # a family of the new trade (its trade surnames), the same roll
 	if fam_kept:
 		fam_edit.text = str(proposal.get("family_name", after.get("family_name", fam_edit.text)))
