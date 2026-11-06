@@ -92,6 +92,16 @@ PIECES = {
                       "roofs and street, bare trees, smoke from the chimneys, a person carrying firewood, grey-blue "
                       "sky. Same pixel art style and pixel size. No text."),
     # cartas
+    # H6 · parcelas y construcción (04 §4.9.1): la carta de una parcela (PlotCard): un solar, una ruina, un negocio
+    "ev_plot_lot": ("ev", TITLE, ev("A FREE BUILDING LOT in a medieval town: a bare patch of trodden earth between two "
+                                    "half-timbered houses, four wooden stakes with a cord marking its corners, a stack "
+                                    "of fresh timber and a wheelbarrow waiting, a master builder pointing at it.")),
+    "ev_plot_ruin": ("ev", TITLE, ev("A RUINED HOUSE in a medieval street: stone walls still standing, the roof fallen in "
+                                     "with charred beams, weeds growing on the rubble, a wooden door hanging, a passer-by "
+                                     "looking at it; daylight.")),
+    "ev_plot_building": ("ev", TITLE, ev("A WORKSHOP CHANGING HANDS: in front of a half-timbered workshop with its sign, "
+                                         "two burghers shake hands over a small chest of coins, a notary holds a parchment "
+                                         "deed with a red wax seal.")),
     "card_wedding": ("card", TITLE, card("WEDDING. A young couple joining hands at the church door, a priest blessing "
                                          "them, guests throwing petals, the bride with a flower crown.")),
     "card_birth": ("card", TITLE, card("BIRTH. A cosy bedroom by the hearth: a mother in bed holding a swaddled "
