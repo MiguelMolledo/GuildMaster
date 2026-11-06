@@ -49,11 +49,11 @@
     "qty": 4
   },
   "treaties": {
-    "_doc": "The three treaties of 9b.5 (O-R6 c). title: the social title the signer's family needs; reputation: in that city; seasons: how long it lasts; fee: gold at signing. exemption: no tariff there. exclusivity (item): only the family sells that item there (the AI caravans leave it). quota (item): the city buys qty units a season at price_mult × base_price, no tariff; at the end of each season with fewer delivered: breach (penalty gold, the reputation's treaty_broken, the treaty ends). Each season kept: treaty_kept. A family treaty is signed by its head (or the regent) in the city. A town treaty (scope «town», exemption only) is proposed by the Mayor and voted by the council (the mayor and the councillors: a councillor votes yes if its affinity with the mayor is >= council_yes_affinity; the mayor's vote breaks ties); it covers every family of home and gives the mayor town_reputation at home.",
+    "_doc": "The three treaties of 9b.5 (O-R6 c). title: the social title the signer's family needs; reputation: in that city; seasons: how long it lasts; fee: gold at signing. exemption: no tariff there. exclusivity (item): only the family sells that item there (the AI caravans leave it). quota (item): the city buys qty units a season at price_mult × base_price, no tariff; at the end of each season with fewer delivered: breach (penalty gold, the reputation's treaty_broken, the treaty ends). Each season kept: treaty_kept. A family treaty is signed by its head (or the regent) in the city. A town treaty (scope «town», exemption only) is proposed by the Mayor and voted by the council (the mayor and the councillors: a councillor votes yes if its affinity with the mayor is >= council_yes_affinity; the mayor's vote breaks ties); it covers every family of home and gives the mayor town_reputation at home. Equilibrio 7b (2026-11-06, docs/gdd/09b_region.md §9b.12) [balance]: the quota pays 1,5 × base (was 1,2: it paid less than the capital's own market, 78 against ~81 after tariff) and asks reputation 3 there (was 5: a first trip with 3 swords signs it).",
     "kinds": {
       "exemption": {"title": "patrician", "reputation": 20, "seasons": 4, "fee": 60},
       "exclusivity": {"title": "baron", "reputation": 40, "seasons": 2, "fee": 150},
-      "quota": {"title": "citizen", "reputation": 5, "seasons": 4, "fee": 20, "qty": 4, "price_mult": 1.2, "penalty": 20}
+      "quota": {"title": "citizen", "reputation": 3, "seasons": 4, "fee": 20, "qty": 4, "price_mult": 1.5, "penalty": 20}
     },
     "town_kinds": ["exemption"],
     "council_yes_affinity": 0,

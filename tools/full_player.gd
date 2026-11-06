@@ -221,7 +221,10 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 		"counter_sold": 0, "incidents": 0, "trials_against": 0, "trials_as_accuser": 0, "children": 0,
 		"wedding_day": -1, "first_child_day": -1, "inherit_day": -1, "founder_death_day": -1, "debt_paid": 0,
 		"debt_paid_day": -1, "office_won_day": -1, "ending_day": -1, "masterworks": 0, "masterworks_y3": 0, "masterwork_day": -1,
-		"spec_pieces": 0, "spec_mismatch": 0, "gold_min": Money.gold(st, fam)}
+		"spec_pieces": 0, "spec_mismatch": 0, "gold_min": Money.gold(st, fam),
+		"facts_vs_others": 0, "fact_day_vs_others": -1, "caravan_home_value": 0, "caravan_sold": 0,
+		"caravans_ambushed": 0, "city_sales_gold": 0, "quota_units": 0, "quota_gold": 0, "treaties_broken": 0,
+		"treaty_costs": 0, "carts_bought": 0}
 	for t: String in sim.catalog.title_ladder():
 		m["title_%s_day" % t] = -1
 	var paid := {}
@@ -298,6 +301,15 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 						rep["refused_examples"].append({"day": played, "minute": Clock.minute_of_day(now),
 							"order": e.get("order", ""), "actor": e.get("actor", ""), "reason": e.get("reason", "")})
 				continue
+			if et == "fact_added" and efam != fam:  # Equilibrio 6: a public fact against another family (a case to accuse)
+				m["facts_vs_others"] = int(m["facts_vs_others"]) + 1
+				if int(m["fact_day_vs_others"]) < 0:
+					m["fact_day_vs_others"] = played
+				var fk := "fact_" + str(e.get("kind", ""))
+				m[fk] = int(m.get(fk, 0)) + 1
+			if et == "trial_opened" and str(e.get("accuser_family", "")) == fam:  # the accused is the other family
+				m["trials_as_accuser"] = int(m["trials_as_accuser"]) + 1
+				_mech(mech, "tribunal", "events", played)
 			if efam != fam and not et in ["duel_finished", "election_held", "spec_piece"]:
 				continue
 			if MECH_EVENTS.has(et):
@@ -360,8 +372,29 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 					m["trips"] = int(m["trips"]) + 1
 				"caravan_sent":
 					m["caravans"] = int(m["caravans"]) + 1
+					for cv: Dictionary in Region.ensure(sim)["caravans"]:  # Equilibrio 7: the cargo at home's price now
+						if str(cv["id"]) == str(e.get("caravan", "")):
+							for l: Dictionary in cv["cargo"]:
+								m["caravan_home_value"] = int(m["caravan_home_value"]) + int(Market.sell_preview(sim,
+									str(bot.get("ACTOR")), "armory", str(l["item"]), int(l["quality"]), int(l["qty"]))["total"])
+				"caravan_arrived":
+					m["caravan_sold"] = int(m["caravan_sold"]) + int(e.get("sold", 0))
+				"caravan_ambushed":
+					m["caravans_ambushed"] = int(m["caravans_ambushed"]) + 1
+				"city_sold":
+					m["city_sales_gold"] = int(m["city_sales_gold"]) + int(e.get("total", 0))
+					m["quota_units"] = int(m["quota_units"]) + int(e.get("quota", 0))
+					var qt := Treaties.quota_of(sim, str(e.get("city", "")), fam, str(e.get("item", "")))
+					m["quota_gold"] = int(m["quota_gold"]) + int(e.get("quota", 0)) * int(qt.get("price", 0))
+				"treaty_broken":
+					m["treaties_broken"] = int(m["treaties_broken"]) + 1
+					m["treaty_costs"] = int(m["treaty_costs"]) + int(e.get("penalty", 0))
+				"cart_bought":
+					m["carts_bought"] = int(m["carts_bought"]) + 1
 				"treaty_signed":
 					m["treaties"] = int(m["treaties"]) + 1
+					m["treaty_costs"] = int(m["treaty_costs"]) + int(sim.catalog.trade.get("treaties", {}).get("kinds", {}) \
+						.get(str(e.get("kind", "")), {}).get("fee", 0))
 				"festival_contract_done":
 					m["festival_contracts"] = int(m["festival_contracts"]) + 1
 				"counter_sold":
@@ -380,9 +413,6 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 					m["spec_mismatch"] = int(m["spec_mismatch"]) + 1
 					var why := "spec_mismatch_" + str(e.get("why", ""))
 					m[why] = int(m.get(why, 0)) + 1
-			if et == "trial_opened" and str(e.get("accuser_family", "")) == fam:
-				m["trials_as_accuser"] = int(m["trials_as_accuser"]) + 1
-				_mech(mech, "tribunal", "events", played)
 		for e: Dictionary in ev:  # an incident of its family's buildings answered
 			if str(e.get("type", "")) == "incident_ended":
 				m["incidents"] = int(m["incidents"]) + 1
