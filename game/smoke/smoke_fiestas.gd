@@ -334,13 +334,17 @@ func _process(delta: float) -> void:
 			if _t > 0.8:
 				app.save_shot("vida_mercader")
 				app.hud().close_panels()
+				Watch.step(Game.sim)  # the watch is made by the life's step (the smoke moves the clock by hand)
 				var guard := ""  # a guard of the watch at his post: the livery's placeholder
 				for c: String in Game.sim.state.characters:
 					var ch: Dictionary = Game.sim.state.characters[c]
 					if str(ch.get("family", "")) == Life.FAMILY_WATCH and str(ch.get("location", "x")) == "":
 						guard = c
 						break
-				print("[SmokeFiestas] guardia: %s" % guard)
+				if guard == "" and not Watch.guards(Game.sim.state).is_empty():  # off duty: one to the plaza for the capture
+					guard = str(Watch.guards(Game.sim.state)[0])
+					Life.put_on(Game.sim, guard, [21, 21])
+				print("[SmokeFiestas] guardia: %s (%d en la guardia)" % [guard, Watch.guards(Game.sim.state).size()])
 				if guard != "":
 					var gt: Array = Life.tile_of(Game.sim.state, guard)
 					app.world().camera().center_on(Iso.tile_to_world(Vector2i(int(gt[0]), int(gt[1]))))
