@@ -431,7 +431,8 @@ molinero: trigo ×20 en 2 días; (4) compra dos ovejas; (5) cosecha antes de que
   trigo del Granjero (tabla `data/contracts/farmer.json`: molinero, posadera, tejedora, panadero). La fiesta de la
   siega (04f, Verano 2) no la pide 04d: queda en `docs/decisiones.json` (pendientes) para cuando entre el Molino.
 - **Dificultad en el campo**: palanca `harvest_mult` (×1,15 / ×1 / ×0,85 la cosecha): las de hoy apenas tocan a quien no compra.
-- Medido: ver `data/targets.json` patron_novice y `goldflow.start_farmer`.
+- Medido (30 semillas, Normal): **33,6 netos/día** (cuenta de 4.22.8: ~39), deuda 29/30, ningún animal muerto de
+  hambre; Fácil 40,0 > Normal 33,6 > Difícil 33,4.
 
 #### 4.22.4.10 Riesgos
 

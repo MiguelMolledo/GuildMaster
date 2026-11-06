@@ -11,7 +11,7 @@ func _sim() -> Sim:
 
 func test_h3_data_loads() -> void:
 	eq(cat.validate(), PackedStringArray(), "no data problems")
-	eq((cat.market.get("stalls", {}) as Dictionary).keys().size(), 7, "3 stalls + the armory + (H12) the clothier and the goods stall + (H12.2) the apothecary")
+	eq((cat.market.get("stalls", {}) as Dictionary).keys().size(), 8, "3 stalls + the armory + (H12) the clothier and the goods stall + (H12.2) the apothecary + (H12 Patrón) the cattle fair")
 	eq(int(cat.difficulty_levels("normal")["start_debt"]), 200, "normal debt")
 	eq(int(cat.difficulty_levels("hard")["rival_craft"]), 6, "hard rival")
 	check(cat.ai_profiles().has("rival_smith"), "rival profile")

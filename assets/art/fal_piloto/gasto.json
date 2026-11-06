@@ -22343,5 +22343,14 @@
   "imagenes": 1,
   "usd": 0.0005,
   "que": "image2pixel farm_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T18:22:05",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo farm planta 0 (v1)"
  }
 ]
