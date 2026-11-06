@@ -473,6 +473,23 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
   botones «Inscribirse» dicen por qué están apagados (título, entrada, ya inscrito, apostaste), con las reglas de
   `game_enter`. La **sortija** se corre en Carnaval (19:00) y en el torneo (12:00), junto a la justa: es la de los que
   no tienen título (entrada 5).
+- **El corro, los regalos de Navidad y la fiesta de otra ciudad** (owner, 2026-11-06):
+  - **Corro de juego** (`sim/fest/festival_corro.gd`, `rules.corro`): con una fiesta en curso, su carta trae «Corro de
+    juego», una segunda carta con pulso, azar, a la mayor y envite contra los parroquianos, con la misma pantalla de
+    juegos y 5 de oro la partida. Sin casa ni licencia (nadie se lleva parte). Con el predicador en la villa está mal
+    visto: 2 de reputación por partida, y la carta lo dice. Ni la víspera, ni después, ni estando de viaje.
+  - **Regalos de Navidad** (efecto `gifts`, orden `festival_give_gift`, `rules.christmas_gifts`): desde el pregón hasta
+    medianoche, «Regalos de Navidad» abre las otras casas que juegan (la del jugador y las de la IA); cada botón da la
+    mejor pieza de la familia (producto o equipo) a esa casa, que la recibe en su taller, y su cabeza aprecia más al que
+    regala (+5 y un 5 % del valor, hasta +20). Una por casa. La IA regala al empezar la fiesta si le sobra el oro (la
+    reserva de los encargos de fiesta + 100) a la casa que más aprecia; el jugador recibe un aviso.
+  - **La fiesta de otra ciudad** (`sim/fest/festival_city.gd`, `rules.city_games`): estando en una ciudad el día de su
+    patronal o de su feria, su página trae «Jugar» y «Mirar y apostar» en cada uno de sus juegos (los de
+    `patron_feast.games` de `data/world/region.json`: la justa y la sortija de Sant Jordi, el pulso de Santa Bárbara, la
+    carrera de San Isidro, los toros; la carrera en cada feria). Jugar es una partida allí mismo contra el campo del
+    espectáculo; mirar y apostar se paga al momento con la misma partida. Una vez cada cosa por juego y día
+    (`families[fam].city_feasts`, sin versión de guardado nueva). Sus encargos de fiesta quedan en próximos pasos.
+  - Las apuestas del torneo siguen siendo al ganador (owner).
 - **Enganchado con vida** (2026-11-04, tras juntar su rama): `Life.event_mult` multiplica por la fiesta (`routine`
   e `incident` a su hora; `visitors` con las fiestas de todo el día, porque vida planea los forasteros al empezarlo),
   `Life.holy_day` cuenta la mañana de guardar y `Life.festival` cualquier fiesta del calendario (el guardia de la

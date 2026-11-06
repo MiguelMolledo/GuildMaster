@@ -178,6 +178,21 @@ static func spec_of(sim: Sim, o: Dictionary) -> Dictionary:
 	var fest := FestivalGames.play_block(sim, o)  # a festival's competition: only the entry called, once
 	if fest != "":
 		return {"reason": fest}
+	if opts.has("corro"):  # fiestas: the corro in the plaza of a feast in force (FestivalCorro), never with a house
+		var cw := FestivalCorro.reason(sim, actor, g, str(opts["corro"]))
+		if cw == "" and house != "":
+			cw = "bad_option"
+		if cw != "":
+			return {"reason": cw}
+	if opts.has("city_feast"):  # fiestas: a game of another city's feast, there and on its day (FestivalCity)
+		var k := str(opts["city_feast"])
+		var fw := FestivalCity.reason(sim, actor, k, "play")
+		if fw == "" and (house != "" or str(FestivalCity.game_of(sim, actor, k).get("game", "")) != g):
+			fw = "bad_option"
+		if fw != "":
+			return {"reason": fw}
+		o = o.duplicate()
+		o["match"] = k  # its match is the feast's (the same field, the same draw)
 	var mid := str(o.get("match", ""))
 	if mid == "":
 		mid = match_id(st, g, actor)
@@ -289,6 +304,10 @@ static func _apply(sim: Sim, o: Dictionary, spec: Dictionary, m: GameMatch, res:
 		facts.append({"kind": "finalist", "reputation": int(fz.get("reputation", 0))})
 	if str((spec["opts"] as Dictionary).get("event", "")) != "":
 		FestivalGames.played(sim, spec, res)  # a festival's competition the player fought: its result, its bets
+	if (spec["opts"] as Dictionary).has("corro"):
+		FestivalCorro.played(sim, spec, fam, actor, facts)  # fiestas: the corro (frowned upon with the preacher)
+	if (spec["opts"] as Dictionary).has("city_feast"):
+		FestivalCity.done(sim, fam, actor, str(spec["opts"]["city_feast"]), "play")  # fiestas: once per feast's game
 	# the bulls: applause and jeers (O-V5 a: a failure is a fright, never a wound until 4.22's health)
 	for f: Dictionary in res.get("facts", []):
 		if str(f.get("kind", "")) == "bulls":
