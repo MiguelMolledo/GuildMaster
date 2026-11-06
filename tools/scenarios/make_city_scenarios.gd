@@ -37,9 +37,17 @@ func _init() -> void:
 func _make(cat: Catalog, map_id: String) -> bool:
 	var start: Dictionary = cat.starts()[START]
 	var before := str(start["map"])
-	start["map"] = map_id  # this run only: the catalog in memory, not data/starts/
-	var r := NewGame.from_start(cat, START, "normal", {}, 1)
-	start["map"] = before
+	var r := {}
+	var city := ""
+	for s: Dictionary in cat.region.get("settlements", []):
+		if str(s.get("map", "")) == map_id and map_id != before:
+			city = str(s["id"])
+	if city != "":  # H13: a settlement of the region plays the start as «Dónde empiezas» does (its ai_families)
+		r = NewGame.from_start(cat, START, "normal", {"city": city}, 1)
+	else:
+		start["map"] = map_id  # this run only: the catalog in memory, not data/starts/
+		r = NewGame.from_start(cat, START, "normal", {}, 1)
+		start["map"] = before
 	if not r["ok"]:
 		print("make_city_scenarios: %s: %s" % [map_id, r["error"]])
 		return false

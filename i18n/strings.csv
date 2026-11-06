@@ -1319,6 +1319,11 @@ notice.trial_verdict_innocent,{name}: innocent of {charge},{name}: inocente de {
 notice.banished,{name} is banished from the town until day {day},{name} queda desterrado de la ciudad hasta el día {day}
 notice.banishment_ended,{name} comes back from banishment,{name} vuelve del destierro
 notice.false_accusation,A false accusation by the {family} family comes to light,Sale a la luz una acusación falsa de la familia {family}
+notice.ai_presage_price_war,Market rumour: the {family} are hoarding {item},Rumor en el mercado: los {family} acumulan {item}
+notice.ai_price_war,The {family} are selling {item} below what it is worth,Los {family} venden {item} por debajo de lo que vale
+notice.ai_presage_sabotage,Somebody was seen prowling round your {building},Se ha visto a alguien rondando tu {building}
+notice.ai_sabotage,Somebody damaged your {building} in the night: no work there until it is repaired,Alguien ha dañado tu {building} por la noche: no se trabaja ahí hasta que se repare
+notice.ai_sabotage_seen,"{name}, of the {family}, was seen damaging your {building}: you can take them to court","Han visto a {name}, de los {family}, dañando tu {building}: puedes llevarlos al tribunal"
 notice.witness_denounced,A witness denounces you: new charge of {charge},Un testigo te denuncia: nuevo cargo de {charge}
 hud.trials,Trial (J),Juicio (J)
 hud.trials_tip,"Your family's trial: witnesses, scale and hearing (key J)","El juicio de tu familia: testigos, balanza y vista oral (tecla J)"
