@@ -911,6 +911,7 @@ ui.family.heir,Heir,Heredero
 ui.family.regent,Regent,Regente
 ui.family.controllable,Controllable,Controlable
 ui.family.spouse,Married to %s,Casado con %s
+ui.family.spouse_f,Married to %s,Casada con %s
 ui.family.tree,Family (F),Familia (F)
 ui.routine.title,Routine,Rutina
 ui.routine.on,Turn on,Activar
@@ -3955,7 +3956,7 @@ ui.order.city_deliver,Deliver a contract of the city,Entregar un encargo de la c
 ui.order.buy_cart,Buy a cart,Comprar un carro
 ui.order.caravan_send,Send a caravan,Mandar una caravana
 ui.order.sign_treaty,Sign a treaty,Firmar un tratado
-ui.order.propose_town_treaty,Propose a treaty,Proponer un tratado
+ui.order.propose_town_treaty,Propose the town treaty with %s,Proponer el tratado de la villa con %s
 ui.order.cancel_treaty,Cancel a treaty,Romper un tratado
 ui.order.festival_sponsor,Sponsor the feast,Patrocinar la fiesta
 ui.order.festival_host_wedding,Pay the wedding banquet,Pagar el banquete de boda
@@ -4006,3 +4007,17 @@ hud.festival_in_days,in %d days,en %d días
 hud.festival_tip,"%s, %s. Click: its card (sponsor, games, bets, the court and its contracts)","%s, %s. Pulsa: su carta (patrocinar, juegos, apuestas, la corte y sus encargos)"
 hud.festival_short_today,Feast,Fiesta
 hud.festival_short_eve,Crier,Pregón
+ui.region.town_treaty_waiting,Signing… (on resume),Firmando… (al reanudar)
+ui.paused_orders.tip,"Given in pause: it is done when the clock runs again (Space, or close the map)","Dada en pausa: se hace cuando el reloj vuelva a correr (Espacio, o al cerrar el mapa)"
+ui.paused_orders.strip,Paused · done on resume: %s,En pausa · se hará al reanudar: %s
+ui.caravan.buy_cart_waiting,Buying a cart… (on resume),Comprando un carro… (al reanudar)
+ui.caravan.send_waiting,Sending… (on resume),Enviando… (al reanudar)
+ui.ledger.waiting,Waiting (on resume): %s,En espera (al reanudar): %s
+ui.council.title,The council votes the town treaty,El concejo vota el tratado de la villa
+ui.council.votes,Exemption with %s · %d for · %d against,Exención con %s · %d a favor · %d en contra
+ui.council.passed,"Signed: the families of the town pay no tariff in %s.","Firmado: las familias de la villa no pagan arancel en %s."
+ui.council.failed,"Rejected: the council said no.","Rechazado: el concejo dijo que no."
+ui.council.ok,Understood,Entendido
+ui.trial.rest_waiting,Resting… (on resume),Concluyendo… (al reanudar)
+ui.trial.verdict_waiting,Ruling… (on resume),Dictando… (al reanudar)
+ui.trial.cross_waiting,Questioning… (on resume),Interrogando… (al reanudar)

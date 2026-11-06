@@ -991,6 +991,18 @@
       "tema": "H13 · las 5 familias rivales de Bellcaire con la IA de 04c",
       "decision": "Bellcaire tiene 5 familias rivales (data/world/region.json capital ai_families; 04c Q3 = b): Ferrer (rival_smith) fijo, los tres competidores del inicio y los pañeros de la Lonja (sastrería rival_drapery, nueva en el mapa), con cuatro de los cinco perfiles de 04c (merchant, climber, politician, ruthless, devout, data/ai_profiles/) por la semilla, nunca dos agresivas. La IA de 04c que faltaba va en sim/ai/hostility.gd, solo en los mapas de data/ai.json hostility_maps (Bellcaire; Vilarrasa idéntica): rivalidad dirigida (town.rivalry) por cuota de mercado, relación entre cabezas, juicio perdido y sabotaje visto, con erosión P3; puerta de ataque con umbral del perfil + dificultad, enfriamiento, primer año y tope común con el jugador; elección por utilidad con ruido del día (P6); presagio siempre (P5); ataques de este hito: guerra de precios, juicio (accuse_rule de H11, ahora solo cuando la hostilidad lo pide) y sabotaje (nuevo: taller dañado unos días, la Seguridad lo frena, si se ve al culpable hay hecho para acusar). Entre familias IA también (Q1 = a). Cifras [balance] en data/ai.json y el bloque ai de data/difficulty.json (claves nuevas; nada de lo de antes cambia): para que el bot artisan_expert provoque a alguien en 80 días, la rivalidad por mercado sube con una cuota del 40 % en una ventana de 3 días (04c decía 50 % y 2 días) y Ferrer empieza con rivalidad 15 hacia el recién llegado (rival_to_player). Medido con tools/ai/h13_probe.gd (80 días, 3 semillas por dificultad): ver la novedad de plantillas.",
       "por_que": "Encargo del manager: lo que faltaba de H13 fuera del mapa en Bellcaire, con los módulos de IA que ya existen; lo que faltaba en la IA, dentro de 04c (4.21.12b)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Órdenes dadas en pantallas que pausan",
+      "decision": "Ninguna orden se aplica en pausa (4.1), pero el jugador ve al momento que la dio. En el mapa de la región, las caravanas y la vista oral, el botón pasa a «… (al reanudar)» y se apaga; la pantalla enseña su tira de cola y el libro la lista como «En espera». Al correr el reloj se aplica y llega su carta: la del concejo para el tratado de la villa (game/ui/paused_orders.gd).",
+      "por_que": "Decisión del manager sobre el hallazgo de la verificación D (el tratado de la villa no respondía con el mapa en pausa)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "El pelo blanco es de la edad",
+      "decision": "El tono de pelo 5 (el blanco, #d8d0c0) se reserva a la edad. Quien lo trae (datos de inicio o de mapas, herencia, partidas viejas) se dibuja con su tono natural (data/view.json portraits.aged_hair: 5 → 9), y las canas salen solo del encanecer por franja. Un retrato guardado que ya no es de la franja de edad o del sexo de la persona deja paso al de su franja ahora.",
+      "por_que": "Decisión del manager: Clara a los 8 salía como una mujer canosa (hallazgo de la verificación D)."
     }
   ],
   "pendientes": [
