@@ -73,6 +73,7 @@ func step(orders: Array = []) -> Array:
 	Offices.step(self)      # H10: the government, deaths free seats, elections at the year change, salaries and taxes
 	Tribunal.step(self)     # H11: automatic trials after inspections, preparation -> hearing -> verdict, banishments
 	Hostility.step(self)    # H13 (04c): rivalry and the rival families' attacks, on the maps of data/ai.json only
+	AIEconomy.step(self)    # H13 (04c): the AI families' credit at dawn, on data/ai.json economy.maps only
 	Reputation.step(self)   # H9: reputation from the events of the step (trade, wages, townsfolk); passive at dawn
 	WorkshopFame.step(self) # Equilibrio 13: the workshops' fame from the events of the step; its decay at dawn
 	Dynasty.step(self)      # H8: at dawn, wealth peaks and dynasty goals (chronicle)

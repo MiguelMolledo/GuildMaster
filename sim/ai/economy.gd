@@ -9,17 +9,26 @@ extends RefCounted
 ## - Hands: the family's other adults at home (the spouse) work in the work phases at the free station, the head's
 ##   recipe if its station is free, else what the head's recipe lacks (planks for the chests), else the best margin
 ##   they can make; never a piece the market will not take (cap).
+## - Every tick_minutes (staggered by family), not every minute: the hands, the queue and the errands.
 ## - Management, at the family's own minute of dawn (staggered): the gold of the last dawns gives the trend. With the
 ##   trend not losing and gold for buffer_days of wages over its reserve (reserve(): the upkeep days too), it hires the cheapest apprentice (up to the
 ##   profile's max_employees, else economy.max_employees) and queues the head's recipe for the employees (changing
 ##   the queue when the recipe changes) if its recipe pays the wage (what one more hand adds a day, as far as the
 ##   market takes it, × its margin ≥ hire_pay × the wage); under its reserve (reserve()) it lets the last one go.
-##   No loans: there is no lender in the town yet (04c 4.21.6.3, the bankruptcy, is H6 + this).
+## - Credit (step(), at dawn after the upkeep): a family that cannot pay the next dawn's upkeep and wages borrows
+##   economy.credit.amount from the moneylender (a loan of kind CREDIT owing amount × (1 + interest) in term_days,
+##   at most one open, every gap_days at most); at each dawn it repays what it has over its reserve. Due unpaid, the
+##   loan runs Loans' extension and seizure; a CREDIT loan the seizure does not cover is written off, never a ruin
+##   (the ruin ends the player's game).
 ## - Buying: the cycles of a recipe are capped by what the market takes of its piece in the next absorb_days (the
 ##   demand over the family's selling floor, plus its recovery) minus what the family already has of it: the gold no
 ##   longer sleeps in a store of unsold pieces.
-## Memory in ai_state.economy: {gold: [gold at the last dawns], hand: recipe of the hands, entry_recipe: the
+## Memory in ai_state.economy: {gold: [gold at the last dawns], hand: recipe of the hands, hand_wait: {hand: minute
+## it looks again for something to make}, errand_at, credit_day, managed_day, entry_recipe: the
 ## employees' recipe}.
+
+
+const CREDIT: String = "ai_credit"
 
 
 static func cfg(sim: Sim) -> Dictionary:
@@ -28,6 +37,12 @@ static func cfg(sim: Sim) -> Dictionary:
 
 static func on(sim: Sim) -> bool:
 	return sim.state.map_id in (cfg(sim).get("maps", []) as Array)
+
+
+## Whether this minute is one of the family's ticks (every tick_minutes, staggered by the family's id).
+static func _tick(sim: Sim, fam: String) -> bool:
+	var t := maxi(1, int(cfg(sim).get("tick_minutes", 5)))
+	return (int(sim.state.clock["minute"]) + absi(fam.hash())) % t == 0
 
 
 static func _mem(sim: Sim, fam: String) -> Dictionary:
@@ -47,9 +62,17 @@ static func orders(sim: Sim, fam: String, head: String, home: String, profile: D
 	var st := sim.state
 	var now := int(st.clock["minute"])
 	var today := Clock.day(now)
-	var k := Hostility._ai_families(st).find(fam)
-	if now == Hostility._phase_start(sim, today, "dawn") + int(cfg(sim).get("stagger_minutes", 3)) * k + 1:
-		out.append_array(_manage(sim, fam, head, home, profile, today))
+	var mem := _mem(sim, fam)
+	if int(mem.get("managed_day", -1)) != today:  # its own minute of dawn (staggered: no two families hire at once)
+		var d0 := Hostility._phase_start(sim, today, "dawn")
+		var stagger := int(cfg(sim).get("stagger_minutes", 3))
+		if now > d0 + stagger * 16:
+			mem["managed_day"] = today
+		elif now > d0 and now == d0 + stagger * Hostility._ai_families(st).find(fam) + 1:
+			mem["managed_day"] = today
+			out.append_array(_manage(sim, fam, head, home, profile, today))
+	if not _tick(sim, fam):
+		return out  # the hands, the queue and the errands every tick_minutes, not every minute
 	var damaged := str(st.buildings[home].get("state", "normal")) != "normal"
 	var q: Dictionary = st.buildings[home].get("queue", {})
 	if not (q.get("entries", []) as Array).is_empty() and bool(q.get("paused", false)) != damaged:
@@ -63,9 +86,12 @@ static func orders(sim: Sim, fam: String, head: String, home: String, profile: D
 	var taken := {}  # the stations already asked for this minute (the head's order is applied after this)
 	if str(head_order.get("type", "")) == "work_at":
 		taken[str(head_order.get("zone", ""))] = true
+	var wait: Dictionary = _mem(sim, fam).get("hand_wait", {})
 	for m: Variant in st.families[fam].get("members", []):
 		var id := str(m)
-		if id == head or not Kin.alive(st, id):
+		if id == head or now < int(wait.get(id, -1)):
+			continue  # nothing to make a moment ago: it looks again after check_minutes
+		if not Kin.alive(st, id):
 			continue
 		var ch: Dictionary = st.characters[id]
 		if str(ch.get("location", "")) != home or ch.get("job") is Dictionary or not Kin.is_adult(sim, id):
@@ -74,7 +100,10 @@ static func orders(sim: Sim, fam: String, head: String, home: String, profile: D
 				or OrderQueue.has_pending(sim, id) or Production.may_work(sim, id, home) != "":
 			continue
 		var rid := _hand_recipe(sim, fam, id, home, taken)
-		if rid != "":
+		if rid == "":
+			wait[id] = now + int(cfg(sim).get("check_minutes", 15))
+			_mem(sim, fam)["hand_wait"] = wait
+		else:
 			taken[str(sim.catalog.recipes()[rid]["zone"])] = true
 			_mem(sim, fam)["hand"] = rid
 			out.append(RivalAI._work(sim, id, home, rid, profile))
@@ -233,15 +262,15 @@ static func _cheapest(sim: Sim, head: String, home: String) -> String:
 ## sell when the store holds a batch (sell_batch pieces) the market takes over its floor; off to buy when its recipe
 ## lacks inputs and its gold is over its reserve (once per hour at most). RivalAI then runs those tasks as always.
 static func errands(sim: Sim, fam: String, head: String, home: String, profile: Dictionary, ai: Dictionary) -> void:
-	if not on(sim) or not Market.is_open(sim):
+	if not on(sim) or not _tick(sim, fam):
+		return
+	var now := int(sim.state.clock["minute"])
+	if now < int(_mem(sim, fam).get("errand_at", -1)) or not Market.is_open(sim):
 		return
 	var plan: Array = ai.get("plan", [])
 	if not plan.is_empty() and not str(plan[0]) in ["work", "home"]:
 		return
 	if Production.job_zone(sim, head, home) != "":
-		return
-	var now := int(sim.state.clock["minute"])
-	if now < int(_mem(sim, fam).get("errand_at", -1)):
 		return
 	var c := cfg(sim)
 	var thr := RivalAI.sell_min_demand(sim, profile)
@@ -260,6 +289,7 @@ static func errands(sim: Sim, fam: String, head: String, home: String, profile: 
 			and not RivalAI.buy_needs(sim, fam, head, home, profile, ai).is_empty():
 		add.append("buy")
 	if add.is_empty():
+		_mem(sim, fam)["errand_at"] = now + int(c.get("check_minutes", 15))  # nothing to go for: look again later
 		return
 	_mem(sim, fam)["errand_at"] = now + int(c.get("errand_every", 60))
 	add.append("home")
@@ -382,3 +412,61 @@ static func _made_cost(sim: Sim, btype: String, item: String) -> Dictionary:
 static func spare_floor(sim: Sim, fam: String, profile: Dictionary) -> int:
 	return reserve(sim, fam, profile) if on(sim) else 0
 
+
+
+## H13 (04c 4.21.6.3 in small: the loan before the bankruptcy): at dawn, after the upkeep, each AI family repays its
+## credit with the gold over its reserve and, if it cannot pay the next dawn, borrows (see the header). Off the
+## economy maps it does nothing.
+static func step(sim: Sim) -> void:
+	if not on(sim) or not Ledger.is_dawn(sim):
+		return
+	var c: Dictionary = cfg(sim).get("credit", {})
+	if c.is_empty():
+		return
+	var st := sim.state
+	var today := Clock.day(int(st.clock["minute"]))
+	for fam: String in Hostility._ai_families(st):
+		var profile := Hostility._profile(sim, fam)
+		var open := ""
+		for id: String in Loans.of_family(sim, fam):
+			if str(st.loans[id].get("kind", "")) == CREDIT:
+				open = id
+		if open != "":
+			_repay(sim, fam, open, Money.gold(st, fam) - reserve(sim, fam, profile))
+			continue
+		var gold := Money.gold(st, fam)
+		var due := int(Upkeep.due_next_dawn(sim, fam)["total"])
+		var mem := _mem(sim, fam)
+		if gold >= due or today - int(mem.get("credit_day", -9999)) < int(c.get("gap_days", 4)):
+			continue
+		var amount := int(c.get("amount", 120))
+		var owed := roundi(amount * (1.0 + float(c.get("interest", 0.2))))
+		var terms := {"lender": "moneylender", "overdue_reputation": int(c.get("overdue_reputation", -5)),
+			"extension_seasons": int(c.get("extension_seasons", 1)),
+			"extension_surcharge": float(c.get("extension_surcharge", 0.25))}
+		var id := Loans.create(st, fam, terms, owed,
+			int(st.clock["minute"]) + int(c.get("term_days", 8)) * Clock.MINUTES_PER_DAY, Hostility._workshop_of(st, fam))
+		st.loans[id]["kind"] = CREDIT
+		Money.change(sim, fam, amount, Money.LOANS, id)
+		mem["credit_day"] = today
+		sim.events.append({"type": "ai_credit_taken", "family": fam, "loan": id, "amount": amount, "owed": owed})
+		if OS.is_debug_build():
+			print("[AIEconomy] %s pide crédito: oro=%d < %d de mañana; recibe %d, devuelve %d en %d días (%s)" % [fam,
+				gold, due, amount, owed, int(c.get("term_days", 8)), id])
+
+
+static func _repay(sim: Sim, fam: String, id: String, spare: int) -> void:
+	var loan: Dictionary = sim.state.loans[id]
+	var pay := mini(spare, int(loan["outstanding"]))
+	if pay <= 0:
+		return
+	Money.change(sim, fam, -pay, Money.LOANS, id)
+	loan["outstanding"] = int(loan["outstanding"]) - pay
+	sim.events.append({"type": "loan_payment", "actor": "", "family": fam, "loan": id, "amount": pay,
+		"outstanding": int(loan["outstanding"])})
+	if int(loan["outstanding"]) == 0:
+		loan["state"] = Loans.PAID
+		sim.events.append({"type": "loan_repaid", "actor": "", "family": fam, "loan": id,
+			"extended": bool(loan["extended"])})
+	if OS.is_debug_build():
+		print("[AIEconomy] %s devuelve %d de su crédito %s: quedan %d" % [fam, pay, id, int(loan["outstanding"])])

@@ -305,3 +305,41 @@ func test_a_family_in_austerity_does_not_attack() -> void:
 	Hostility._decide(sim, ferrer, m, 9)
 	check(m.has("presage"), "with gold: it attacks")
 
+
+
+func test_a_family_short_of_gold_borrows_repays_and_is_never_ruined() -> void:
+	var sim := _capital()
+	var st := sim.state
+	var ferrer := _of_profile(st, "rival_smith")
+	var credit := func() -> String:
+		for id: String in Loans.of_family(sim, ferrer):
+			if str(st.loans[id].get("kind", "")) == AIEconomy.CREDIT:
+				return id
+		return ""
+	_run_until(sim, _dawn(sim, 1) - 5)
+	st.families[ferrer]["gold"] = 0
+	_run_until(sim, _dawn(sim, 1) + 2)
+	var id: String = credit.call()
+	check(id != "", "without gold for tomorrow: a credit from the moneylender")
+	check(Money.gold(st, ferrer) > 0, "the gold comes in (%d)" % Money.gold(st, ferrer))
+	eq(int(st.loans.get(id, {}).get("outstanding", 0)), 144, "120 owing 144")
+	st.families[ferrer]["gold"] = 1000
+	_run_until(sim, _dawn(sim, 2) + 2)
+	check(not Loans.is_open(st.loans[id]), "with gold over its reserve it repays it")
+	_run_until(sim, _dawn(sim, 7) - 5)
+	st.families[ferrer]["gold"] = 0
+	_run_until(sim, _dawn(sim, 7) + 2)
+	var id2: String = credit.call()
+	check(id2 != "" and id2 != id, "another one after gap_days")
+	if id2 != "":
+		st.loans[id2]["state"] = Loans.EXTENDED
+		st.loans[id2]["due_minute"] = int(st.clock["minute"]) + 1
+		st.families[ferrer]["gold"] = 0
+		_run_until(sim, int(st.clock["minute"]) + 3)
+		eq(str(st.loans[id2]["state"]), Loans.SEIZED, "due unpaid: seized")
+		check(st.ending.is_empty(), "never a ruin: the player's game goes on")
+	var v := Sim.new(NewGame.from_start(cat, START, "normal", {"cast": "fixed"}, 1)["state"], cat)
+	v.state.families["fam_0002"]["gold"] = 0
+	_run_until(v, _dawn(v, 1) + 2)
+	for lid: String in v.state.loans:
+		check(str(v.state.loans[lid].get("kind", "")) != AIEconomy.CREDIT, "no credit in Vilarrasa")
