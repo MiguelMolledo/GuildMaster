@@ -322,7 +322,9 @@ func test_a_family_short_of_gold_borrows_repays_and_is_never_ruined() -> void:
 	var id: String = credit.call()
 	check(id != "", "without gold for tomorrow: a credit from the moneylender")
 	check(Money.gold(st, ferrer) > 0, "the gold comes in (%d)" % Money.gold(st, ferrer))
-	eq(int(st.loans.get(id, {}).get("outstanding", 0)), 144, "120 owing 144")
+	var owed := int(st.loans.get(id, {}).get("outstanding", 0))
+	check(owed >= 144 and owed <= 360, "120 and the upkeep it owed, owing it + 20 %% (%d)" % owed)
+	eq(int(st.buildings[Hostility._workshop_of(st, ferrer)].get("upkeep_debt", 0)), 0, "the upkeep paid at once")
 	st.families[ferrer]["gold"] = 1000
 	_run_until(sim, _dawn(sim, 2) + 2)
 	check(not Loans.is_open(st.loans[id]), "with gold over its reserve it repays it")
