@@ -489,6 +489,9 @@ func _patient_bubble(id: String, v: CharacterView, rec: Dictionary) -> void:
 		b.z_index = CharacterView.MARKS_Z
 		v.add_child(b)
 		_bubbles[id] = b
+	var old := v.get_node_or_null("Bubble") as Node2D
+	if old != null:
+		old.visible = false   # the street bubble: this one says what they need
 	var now := int(view.sim.state.clock["minute"])
 	b.item = "salve" if int(rec.get("severity", 0)) >= 7 else "bandages"
 	var zone := str(rec.get("claimed", ""))
