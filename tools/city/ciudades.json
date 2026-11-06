@@ -607,6 +607,7 @@
    {"id": "outskirts", "kind": "outskirts", "char": "o", "name_key": "zone.capital.outskirts", "label_near": [56, 75], "parts": [{"outside": true, "rest": true}]}
   ],
   "workshops_in": "menestrals",
+  "extra_sites": {"rival_drapery": {"type": "tailor_shop", "in": "llotja"}},
   "forest": {"rect": [0, 48, 32, 79], "fill": 0.6},
   "style": "A+C",
   "plaza": {

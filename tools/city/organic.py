@@ -904,7 +904,9 @@ class Town:
 
     def _workshop_quarter(self):
         """The index of the district named by the plan's "workshops_in" (the workshops go there first), or None."""
-        name = self.plan.get("workshops_in")
+        return self._district_index(self.plan.get("workshops_in"))
+
+    def _district_index(self, name):
         if not name:
             return None
         for i, d in enumerate(self.plan.get("districts", [])):
@@ -916,10 +918,12 @@ class Town:
         """_free, and not on Church land (a precinct: no filler house there either)."""
         return self._free(t) and t not in self.church_land()
 
-    def place_site(self, typ, prefer_main):
+    def place_site(self, typ, prefer_main, quarter=None):
         fw, fh = self.cat.footprints[typ]
         church = self.church_land()
         wq = self._workshop_quarter() if typ != "house" else None  # plan "workshops_in": the craftsmen's quarter
+        if quarter is not None:
+            wq = self._district_index(quarter)
         on_fields = bool(self.plan.get("skeleton"))  # a drawn town: a workshop may take the edge of a field
         pc = (self.px + gen.PLAZA_W / 2.0, self.py + gen.PLAZA_H / 2.0)
         best = None
@@ -983,6 +987,13 @@ class Town:
                 plots.append([rect, d, set(used_by)])
             door = gen.site_door(self.cat, typ, rect, d)[0]
             self.sites[sid] = {"type": typ, "origin": [rect[0], rect[1]], "door": list(door)}
+        for sid, ex in sorted((self.plan.get("extra_sites") or {}).items()):  # H13: a business no start places
+            got = self.place_site(ex["type"], prefer_main=True, quarter=ex.get("in"))
+            if got is None:
+                raise SystemExit(f"organic: no cabe {sid} ({ex['type']}) en {self.id}")
+            rect, d = got
+            self.sites[sid] = {"type": ex["type"], "origin": [rect[0], rect[1]],
+                               "door": list(gen.site_door(self.cat, ex["type"], rect, d)[0])}
         self.homes = []
         for i in range(len(households)):
             got = self.place_site("house", prefer_main=False)

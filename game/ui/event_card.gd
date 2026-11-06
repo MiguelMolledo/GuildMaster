@@ -33,6 +33,22 @@ func _ready() -> void:
 	button_pressed.connect(_on_button)
 
 
+## Fiestas (4.25.3): the feast's card opened again by the player (the clock's button, a notice of the feast): shown
+## now (over another card it waits its turn), never twice if it is the one on screen.
+func reopen_festival(sim: Sim, e: Dictionary) -> void:
+	var d := FestivalPage.data_for(sim, e, SimQuery.player_family(sim.state))
+	if d.is_empty():
+		return
+	d["event"] = "festival:" + str(d.get("festival", ""))
+	if visible and str(data.get("instance", "")) == str(d.get("instance", "")):
+		return
+	d["seconds"] = 0.0  # opened on purpose: it stays until closed
+	if visible:
+		_queue.append(d)
+		return
+	show_page(d)
+
+
 ## Fiestas: the card of a festival event for the player's family (or queues it). The wedding offer only for its family.
 func show_festival(sim: Sim, e: Dictionary) -> void:
 	var fam := SimQuery.player_family(sim.state)
