@@ -367,7 +367,13 @@ def check_h3(items, recipes, buildings, maps, strings, rep):
             if site is None:
                 rep.error(w, f"{name}.site {b.get('site')} no es un edificio del mapa")
             elif site.get("type") != b.get("type"):
-                rep.error(w, f"{name}: tipo {b.get('type')} distinto del del mapa {site.get('type')}")
+                # H12: the player's start may raise another building of the same footprint on a plot of its map
+                # (the thief's den on the Consulta's plot; NewGame overrides the type, the map does not move)
+                fa = (buildings.get(b.get("type")) or {}).get("footprint")
+                fb = (buildings.get(site.get("type")) or {}).get("footprint")
+                if name != "building" or fa is None or fa != fb:
+                    rep.error(w, f"{name}: tipo {b.get('type')} distinto del del mapa {site.get('type')} "
+                                 "(solo el edificio del jugador, y con la misma planta)")
             for st in b.get("inventory") or []:
                 if st.get("item") not in items:
                     rep.error(w, f"{name}: objeto desconocido {st.get('item')}")

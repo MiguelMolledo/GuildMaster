@@ -14,7 +14,7 @@
   "base_employees": 1,
   "zones": [
     {
-      "id": "workbench",
+      "id": "forger_bench",
       "kind": "craft"
     },
     {
@@ -30,5 +30,5 @@
   "night_production": "manual_only",
   "includes_housing": true,
   "tool": "lockpicks",
-  "_doc": "The Rogue's den (docs/gdd/04d_otras_clases.md 4.22.6, O2 a: the thief), 3x3 with housing. workbench: laundering (Rogue.order_launder: one marked piece clean every launder.minutes, faster with the Production branch); fence: the den's own fence (Rogue.order_fence, any hour; the town's daily cap). Its tree (data/upgrades/den): Commerce pays the fence better (fence_bonus), Quality opens locks (lock_bonus), Security keeps other thieves out. upkeep 10 [balance]."
+  "_doc": "The Rogue's den (docs/gdd/04d_otras_clases.md 4.22.6, O2 a: the thief), 3x3 with housing. forger_bench: laundering (Rogue.order_launder: one marked piece clean every launder.minutes, faster with the Production branch); fence: the den's own fence (Rogue.order_fence, any hour; the town's daily cap). Its tree (data/upgrades/den): Commerce pays the fence better (fence_bonus), Quality opens locks (lock_bonus), Security keeps other thieves out. upkeep 10 [balance]."
 }

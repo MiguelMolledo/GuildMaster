@@ -2,6 +2,24 @@
   "tomadas": [
     {
       "fecha": "2026-11-06",
+      "tema": "Pícaro: el Ladrón, primera profesión jugable (construido)",
+      "decision": "Inicio rogue_thief con la Guarida en el solar de la forja del jugador (como la Consulta del Médico), las ganzúas y la deuda de inicio de siempre. Carterista, robo en almacén de noche, mercancía robada <item>@stolen, perista con tope diario de la villa, blanqueo en la Guarida, fama en los bajos fondos, árbol de 24 mejoras, interior por datos, tabla de encargos de un comprador discreto que solo acepta piezas limpias, bot rogue_novice con su paso en run_all. Sin versión de guardado.",
+      "por_que": "Encargo del manager (2026-11-06): empezar el Pícaro por su primera profesión jugable, decidiendo dentro de 04d."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Pícaro: testigos, denuncia y detención (simplificación de 4.22.3.5)",
+      "decision": "Hasta Watch.observe completo: un guardia de servicio a 8 casillas de día o 5 de noche ve y detiene; si no, solo la víctima ve el fallo (relación −30) y el hecho queda oculto con ella de testigo. Al amanecer lo denuncia con la probabilidad de su relación (0,9 / 0,5 / 0,1 como el GDD) y la villa lleva a juicio uno denunciado de cada familia con un 3 % al día (≈ 70 % de llegar a un juicio en 40 días, la diana del GDD). La detención es una carta con rendirse / huir / luchar / sobornar para quien juega; la IA y los bots se rinden.",
+      "por_que": "Encargo del manager (2026-11-06): empezar el Pícaro por su primera profesión jugable, decidiendo dentro de 04d."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Pícaro: la dificultad del Ladrón",
+      "decision": "data/difficulty.json levels.*.rogue: check_mod (+5 / 0 / −5 a las tiradas de bolsa, almacén y huida) y fence_mult (1,1 / 1 / 0,85 de lo que paga el perista). Sin ellas la dificultad solo movía la deuda, que el neto no cuenta, y Difícil ganaba como Normal.",
+      "por_que": "Encargo del manager (2026-11-06): empezar el Pícaro por su primera profesión jugable, decidiendo dentro de 04d."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Vida: el puesto del buhonero (construido)",
       "decision": "El buhonero de 4.24.3 («monta un puesto un día») trae su mercancía (data/life/life.json visitors.kinds.peddler.wares: dados cargados el 50 % de los días a 30, dulces, agujas, capa de viaje; tirada con clave al llegar, que no mueve otras) y se le compra en persona desde su ficha (orden buy_from_peddler, dentro del alcance; el oro sale fuera). Era lo que faltaba para que los dados cargados de 4.26.7 se puedan comprar. sim/life/peddler.gd.",
       "por_que": "Encargo del manager: auditar H16 entero y cerrar lo que más pese en la diversión, decidiendo dentro de 04f."

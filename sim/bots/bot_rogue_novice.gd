@@ -127,18 +127,22 @@ func _pick(sim: Sim) -> Dictionary:
 	var here := Life.tile_of(st, me)
 	var best := ""
 	var best_d := 1 << 20
+	var dex := SkillCheck.stat(sim, me, "dexterity")
 	for c: String in Festivals._sorted_keys(st.characters):
 		if Rogue.pickpocket_reason(sim, me, c) != "":
 			continue
+		var emp := SkillCheck.stat(sim, c, "empathy")
+		if emp > dex:  # a careful novice: not somebody who sees him coming
+			continue
 		var t := Life.tile_of(st, c)
-		var d := Life.dist(here, t)
-		if d > SEEK_TILES or d >= best_d or Rogue.guard_in_view(sim, t) != "":
+		var d := Life.dist(here, t) + emp * 2
+		if Life.dist(here, t) > SEEK_TILES or d >= best_d or Rogue.guard_in_view(sim, t) != "":
 			continue
 		best = c
 		best_d = d
 	if best == "":
 		return {}
-	if best_d <= int((sim.catalog.rogue.get("pickpocket", {}) as Dictionary).get("range", 1)):
+	if Life.dist(here, Life.tile_of(st, best)) <= int((sim.catalog.rogue.get("pickpocket", {}) as Dictionary).get("range", 1)):
 		_picks += 1
 		return {"type": "pickpocket", "actor": me, "target": best}
 	return _move(sim, Life.tile_of(st, best))

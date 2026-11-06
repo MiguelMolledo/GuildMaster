@@ -26,6 +26,11 @@ static func _c(sim: Sim, part: String) -> Dictionary:
 	return (cfg(sim).get(part, {}) as Dictionary)
 
 
+## The difficulty's lever for the thief (data/difficulty.json levels.<d>.rogue): check_mod, fence_mult.
+static func _lever(sim: Sim, key: String, default: float) -> float:
+	return float((sim.catalog.difficulty_levels(sim.state.difficulty).get("rogue", {}) as Dictionary).get(key, default))
+
+
 # --- Stolen goods ------------------------------------------------------------------------------------------------------
 
 static func stolen(item: String) -> String:
@@ -211,6 +216,51 @@ static func order_arrest_response(sim: Sim, o: Dictionary) -> Dictionary:
 	return Orders.ok()
 
 
+## At dawn (4.22.3.5): each witness of a hidden theft denounces it with the chance of his relation with the thief
+## (denounce.bands: below each relation, its chance); denounced, the fact is public and the thief's family is told.
+## Then the town takes one denounced theft of each family to court with prosecute (a trial, source «denounced»).
+static func _dawn(sim: Sim) -> void:
+	var st := sim.state
+	var dc := _c(sim, "denounce")
+	var day := Clock.day(int(st.clock["minute"]))
+	var kinds := (_c(sim, "charges") as Dictionary).keys()
+	for f: Dictionary in st.justice.get("facts", []):
+		if bool(f.get("tried", false)) or bool(f.get("public", true)) or not str(f.get("kind", "")) in kinds:
+			continue
+		for w: Variant in f.get("seen_by", []):
+			var rel := Emotions.relation(st, str(w), str(f["actor"]))
+			var p := 0.0
+			for band: Variant in dc.get("bands", [[0, 0.9], [30, 0.5], [101, 0.1]]):
+				if rel < int((band as Array)[0]):
+					p = float((band as Array)[1])
+					break
+			if Kin.roll(st, "rogue|denounce|%s|%s|%d" % [f["id"], w, day]) < p:
+				f["public"] = true
+				f["denounced_by"] = str(w)
+				sim.events.append({"type": "crime_denounced", "fact": str(f["id"]), "family": str(f["family"]), "by": str(w)})
+				if str(st.families.get(str(f["family"]), {}).get("controlled_by", "")) == "human":
+					Notices.add(sim, str(f["family"]), Notices.URGENT, "notice.rogue_denounced",
+						{"name": str(st.characters.get(str(f["actor"]), {}).get("name", "")), "charge": str(f["charge"])}, str(f["actor"]))
+				break
+	var by_family := {}
+	for f: Dictionary in st.justice.get("facts", []):
+		if bool(f.get("tried", false)) or not bool(f.get("public", true)) or not str(f.get("kind", "")) in kinds:
+			continue
+		if not st.characters.has(str(f.get("actor", ""))) or not Kin.alive(st, str(f["actor"])):
+			continue
+		var fam := str(f["family"])
+		var cur: Dictionary = by_family.get(fam, {})
+		if cur.is_empty() or Tribunal.severity_rank(sim, Tribunal.severity_of(sim, str(f["charge"]))) \
+				> Tribunal.severity_rank(sim, Tribunal.severity_of(sim, str(cur["charge"]))):
+			by_family[fam] = f
+	for fam: String in Festivals._sorted_keys(by_family):
+		var f: Dictionary = by_family[fam]
+		if Kin.roll(st, "rogue|prosecute|%s|%d" % [fam, day]) < float(dc.get("prosecute", 0.3)):
+			Tribunal.open(sim, str(f["actor"]), "", "", str(f["charge"]), "denounced", str(f["id"]), false)
+			if OS.is_debug_build():
+				print("[Rogue] la villa lleva a juicio a %s por %s (denunciado)" % [f["actor"], f["charge"]])
+
+
 ## Every minute: an arrest card unanswered in time is a surrender.
 static func _arrest_timeouts(sim: Sim) -> void:
 	var b: Variant = sim.state.town.get("rogue")
@@ -296,7 +346,8 @@ static func order_pickpocket(sim: Sim, o: Dictionary) -> Dictionary:
 	(b["picked"] as Array).append(target)
 	var fam := _fam(st, actor)
 	var now := int(st.clock["minute"])
-	var mods := _crowd(sim, tile, actor, target) - int(b.get("fails", 0)) * int(p.get("fail_penalty", 10))
+	var mods := _crowd(sim, tile, actor, target) - int(b.get("fails", 0)) * int(p.get("fail_penalty", 10)) \
+		+ int(_lever(sim, "check_mod", 0))
 	var r := SkillCheck.roll(sim, "rogue|pick|%s|%s|%d" % [actor, target, now], SkillCheck.stat(sim, actor, "dexterity"),
 		SkillCheck.stat(sim, target, "empathy"), mods)
 	if bool(r["success"]):
@@ -335,6 +386,10 @@ static func _seen(sim: Sim, actor: String, victim: String, crime: String, cry: b
 	if victim != "":
 		Emotions.change_relation(sim, victim, actor, int(_c(sim, "witness").get("victim_relation", -30)), "rogue_" + crime)
 	var fid := Tribunal.add_fact(sim, crime, fam, actor, charge)
+	var f := Tribunal.fact(st, fid)  # 4.22.3.5: hidden until the witness denounces it (at dawn), or a guard saw it
+	f["public"] = false
+	f["seen_by"] = [victim] if victim != "" else []
+	f["victim_family"] = _fam(st, victim) if victim != "" else ""
 	var tile := Life.tile_of(st, actor)
 	if cry:
 		Watch.respond(sim, tile, "rogue|" + fid)
@@ -367,7 +422,8 @@ static func lock_of(sim: Sim, bld: String) -> int:
 static func burgle_reason(sim: Sim, actor: String, bld: String) -> String:
 	var st := sim.state
 	var c := _c(sim, "burgle")
-	if not _outdoors(st, actor):
+	var ch: Dictionary = st.characters.get(actor, {})
+	if ch.is_empty() or not bool(ch.get("alive", true)) or Region.is_away(st, actor):
 		return "unknown_actor"
 	var b: Dictionary = st.buildings.get(bld, {})
 	if b.is_empty() or (b.get("inventory", {}).get("stacks", []) as Array).is_empty():
@@ -391,8 +447,8 @@ static func order_burgle(sim: Sim, o: Dictionary) -> Dictionary:
 	if why != "":
 		return Orders.fail(why)
 	var door: Array = st.buildings[bld].get("door", [])
-	if door.size() != 2 or Life.dist(Life.tile_of(st, actor), door) > 1:
-		return Orders.fail("too_far")
+	if not _outdoors(st, actor) or door.size() != 2 or Life.dist(Life.tile_of(st, actor), door) > 1:
+		return Orders.fail("too_far")  # at its door, in the street
 	var c := _c(sim, "burgle")
 	var fam := _fam(st, actor)
 	var now := int(st.clock["minute"])
@@ -403,6 +459,7 @@ static func order_burgle(sim: Sim, o: Dictionary) -> Dictionary:
 	var den := den_of(st, fam)
 	if den != "":  # the den's Quality branch: fine lockpicks, a lock collection
 		mods += roundi(Upgrades.amount(sim, den, "lock_bonus"))
+	mods += int(_lever(sim, "check_mod", 0))
 	var r := SkillCheck.roll(sim, "rogue|burgle|%s|%s|%d" % [actor, bld, now], SkillCheck.stat(sim, actor, "stealth"),
 		lock_of(sim, bld), mods)
 	st.buildings[bld]["burgled_until"] = now + int(c.get("cooldown_days", 2)) * Clock.MINUTES_PER_DAY
@@ -478,7 +535,7 @@ static func fence_price(sim: Sim, fam: String, item: String, quality: int) -> in
 	var den := den_of(sim.state, fam)
 	if den != "":  # the den's Commerce branch: the fence's table, known buyers
 		share += Upgrades.amount(sim, den, "fence_bonus")
-	return maxi(1, roundi(Market.price(sim, clean(item), quality, "sell") * share))
+	return maxi(1, roundi(Market.price(sim, clean(item), quality, "sell") * share * _lever(sim, "fence_mult", 1.0)))
 
 
 ## {"type": "fence_sell", "actor", "item", "quality", "qty"}: stolen goods (from the bag) to the fence.
@@ -550,6 +607,9 @@ static func step(sim: Sim) -> void:
 	var st := sim.state
 	var now := int(st.clock["minute"])
 	_arrest_timeouts(sim)
+	for e: Dictionary in sim.events:
+		if str(e.get("type", "")) == "phase_changed" and str(e.get("phase", "")) == "dawn":
+			_dawn(sim)
 	for bld: String in st.buildings:
 		var job: Variant = st.buildings[bld].get("laundering")
 		if not job is Dictionary or now < int((job as Dictionary)["end"]):

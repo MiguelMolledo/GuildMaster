@@ -261,6 +261,8 @@ func _fill_actions(statuses: Array, gift: Dictionary, camp: Array, t: Dictionary
 		acts.add_child(b)
 	if actor != "" and str((t.get("visitor", {}) as Dictionary).get("kind", "")) == "beggar":
 		acts.add_child(_alms_button())  # vida (verificación A5): alms to a beggar or a poor pilgrim
+	if actor != "" and _is_rogue(st, actor):
+		acts.add_child(_pickpocket_button())  # the Rogue (4.22.6.4): his purse, walking there first
 	if actor != "":
 		for w: Dictionary in Peddler.wares(st, target):  # vida (H16): the peddler's stall, one button per ware
 			acts.add_child(_ware_button(str(w["item"]), int(w["price"]), int(w["qty"])))
@@ -305,6 +307,42 @@ func _duel_button() -> Button:
 
 
 ## «Comprar <ware> (n)»: buy_from_peddler, walking there first when far; off with its reason (sold out, gold, weight).
+## Whether `who`'s family is a family of thieves (it has a den): the intrigue actions show for it.
+func _is_rogue(st: WorldState, who: String) -> bool:
+	return Rogue.den_of(st, str(st.characters.get(who, {}).get("family", ""))) != ""
+
+
+## «Robar la bolsa»: pickpocket, walking there first when far; off with its reason (the hour, already today...); the
+## tooltip says his chance (his dexterity against her empathy).
+func _pickpocket_button() -> Button:
+	var why := Rogue.pickpocket_reason(sim, actor, target)
+	var b := Button.new()
+	b.name = "Pickpocket"
+	b.text = SimQuery.t_("ui.npc.pickpocket")
+	b.focus_mode = Control.FOCUS_NONE
+	b.theme_type_variation = &"BodyButton"
+	b.disabled = why != "" and why != "too_far"
+	var p := SkillCheck.chance(sim, SkillCheck.stat(sim, actor, "dexterity"), SkillCheck.stat(sim, target, "empathy"))
+	b.tooltip_text = SimQuery.reason_text(why) if b.disabled else SimQuery.t_("ui.npc.pickpocket_tip") % roundi(p * 100.0)
+	_reasons[b.name] = SimQuery.t_("ui.npc.reason_line") % [b.text, SimQuery.reason_text(why)] if b.disabled else ""
+	b.mouse_entered.connect(_hover.bind(b.name))
+	b.mouse_exited.connect(_hover.bind(""))
+	b.pressed.connect(func() -> void:  # no hail: she must not see him coming
+		var o := {"type": "pickpocket", "actor": actor, "target": target}
+		if Life.dist(Life.tile_of(sim.state, actor), Life.tile_of(sim.state, target)) <= 1:
+			_give([o])
+			return
+		var orders: Array = []
+		if str(sim.state.characters[actor].get("location", "")) != "":
+			orders.append({"type": "exit_building", "actor": actor})
+		orders.append({"type": "move_to", "actor": actor, "tile": Life.tile_of(sim.state, target), "queued": not orders.is_empty()})
+		var q := o.duplicate()
+		q["queued"] = true
+		orders.append(q)
+		_give(orders))
+	return b
+
+
 func _ware_button(item: String, price: int, qty: int) -> Button:
 	var why := Peddler.reason(sim, actor, target, item)
 	var b := Button.new()

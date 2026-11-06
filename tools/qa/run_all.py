@@ -12,7 +12,7 @@ días; las dianas goldflow de días 9-24 se corren a mano con 30 semillas), town
 idle_town, 2 semillas), kin (H14: un familiar con Comerciar aprovisiona la forja, 3 semillas), events (H13: 10 años,
 80 días, de artisan_expert con estaciones y eventos globales, sin bloqueos; 2 semillas), carpenter / mason /
 tailor (H12: el novato de cada oficio del Artesano en su partida nueva real en Normal, 10 semillas × 10 días; las 30
-semillas y las tres dificultades, a mano), scholar (H12.2: el médico del Erudito, scholar_novice en su partida nueva,
+semillas y las tres dificultades, a mano), rogue (H12: el ladrón del Pícaro, rogue_novice en su partida nueva, 10 semillas × 10 días), scholar (H12.2: el médico del Erudito, scholar_novice en su partida nueva,
 10 semillas × 10 días), cast (población: el novato con repartos generados, --cast=random, 10
 semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), duel (duelo: el bot duelista desde
 duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días), gambler (juegos: el bot jugador en
@@ -65,6 +65,8 @@ STEPS = [
      for p in ("carpenter", "mason", "tailor")] + [
     ("scholar", G + ["-s", "tools/sim_runner.gd", "--", "--start=scholar_physician", "--bots=scholar_novice", "--days=10",
                      "--seeds=10"]),
+    ("rogue", G + ["-s", "tools/sim_runner.gd", "--", "--start=rogue_thief", "--bots=rogue_novice", "--days=10",
+                   "--seeds=10"]),
 ] + [
     ("cast", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=artisan_novice", "--days=10",
                   "--seeds=10", "--cast=random", "--tag=cast_random"]),

@@ -22235,5 +22235,23 @@
   "imagenes": 1,
   "usd": 0.0002,
   "que": "image2pixel e1_loan_s16.png"
+ },
+ {
+  "fecha": "2026-11-06T15:43:48",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo den planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-06T15:44:14",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo den planta 1 (v1)"
  }
 ]

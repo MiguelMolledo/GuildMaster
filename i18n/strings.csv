@@ -4208,3 +4208,34 @@ effect.lock_bonus,Locks open easier,Las cerraduras ceden antes
 client.discreet_buyer,A discreet buyer,Un comprador discreto
 client.pawnbroker,The pawnbroker,El prestamista de prendas
 client.collector,A collector,Un coleccionista
+start.rogue_thief,Thief,Ladrón
+objective.pick_purse,Pick a purse in the street without being seen,Roba una bolsa en la calle sin que te vean
+objective.sell_fence,Sell something to the fence,Véndele algo al perista
+objective.burgle_storage,Get into a storage at night,Entra de noche en un almacén
+objective.launder_piece,Launder a piece at your den,Blanquea una pieza en tu guarida
+objective.underworld_known,Make a name in the underworld (5 jobs),Hazte un nombre en los bajos fondos (5 golpes)
+notice.rogue_denounced,{name} has been denounced for {charge}: the town may take it to court,A {name} le han denunciado por {charge}: la villa puede llevarlo a juicio
+ui.npc.pickpocket,Pick the purse,Robar la bolsa
+ui.npc.pickpocket_tip,"About %d in 100 he does not notice; if he does, he will denounce you, and a guard in view arrests you","Unas %d de cada 100 no se da cuenta; si se da, te denunciará, y un guardia a la vista te detiene"
+hud.burgle,Break in,Robar el almacén
+hud.burgle_tip,Its lock: %d. About %d in 100 your stealth opens it (lockpicks help); the noise may bring the watch,Su cerradura: %d. Unas %d de cada 100 tu sigilo la abre (las ganzúas ayudan); el ruido puede atraer a la guardia
+ui.station.fence_head,The fence buys stolen goods at half price; today he still pays %d,El perista compra lo robado a mitad de precio; hoy aún paga %d
+ui.station.fence_sell,Sell %s (%d each),Vender %s (%d cada uno)
+ui.station.launder_head,"The bench takes the mark off a stolen piece: clean, it sells anywhere","El banco quita la marca a una pieza robada: limpia, se vende en cualquier sitio"
+ui.station.launder_busy,Laundering a %s,Blanqueando: %s
+ui.station.launder,Launder %s,Blanquear %s
+ui.station.launder_tip,One piece every %d minutes,Una pieza cada %d minutos
+ui.station.no_stolen,No stolen goods,No llevas nada robado
+ui.zone.forger_bench,Engraver's bench,Banco del falsario
+ui.zone.fence,The fence's table,Mesa del perista
+ui.arrest.title,The watch!,¡La guardia!
+ui.arrest.body,The guard %s has caught %s: %s. What does he do?,El guardia %s ha pillado a %s: %s. ¿Qué hace?
+ui.arrest.surrender,Surrender,Rendirse
+ui.arrest.surrender_tip,A trial with the guard as witness; what he carries stolen is seized,"Juicio, con el guardia de testigo; le requisan lo robado que lleva"
+ui.arrest.flee,Run,Huir
+ui.arrest.flee_tip,"About %d in 100 he gets away (the fact stays public); else, arrested and resisting too","Unas %d de cada 100 escapa (el hecho queda público); si no, detenido y además resistencia"
+ui.arrest.fight,Fight,Luchar
+ui.arrest.fight_tip,"A duel against the guard: if he wins he escapes with a violent crime on his name; if he loses, the trial and a fright","Un duelo contra el guardia: si gana, escapa con un delito violento a su nombre; si pierde, juicio y un buen susto"
+ui.arrest.bribe,Bribe (%d),Sobornar (%d)
+ui.arrest.bribe_tip,"About %d in 100 he takes it and forgets; if not, the gold is lost and bribery is added","Unas %d de cada 100 lo acepta y lo olvida; si no, pierde el oro y se suma el soborno"
+ui.new_game.preview_start.rogue_thief,"A thieves' den with a home, %d gold and %d of debt with the moneylender.","Guarida de ladrones con vivienda, %d de oro y %d de deuda con el prestamista."

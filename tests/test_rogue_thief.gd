@@ -254,3 +254,24 @@ func test_bribing_the_guard() -> void:
 	if not ans.is_empty() and str(ans[0]["outcome"]) == "bribed":
 		eq(_of(ev, "rogue_arrested").size(), 0, "let go: no trial")
 	eq(_refused(sim.step([{"type": "arrest_response", "actor": me, "choice": "flee"}])), "no_arrest", "once")
+
+
+## The Rogue's start (4.22.6.11): a new game as a thief, his den on the player forge's plot, the lockpicks on, the
+## objectives of the thief, the start's debt untouched; the first purse ticks the first objective.
+func test_the_thief_start() -> void:
+	var r := NewGame.from_start(cat, "rogue_thief", "normal", {"cast": "fixed"}, 1)
+	check(bool(r.get("ok", false)), "a new game as a thief (%s)" % r.get("error", ""))
+	if not bool(r.get("ok", false)):
+		return
+	var sim := Sim.new(r["state"], cat)
+	sim.step()
+	var fam := SimQuery.player_family(sim.state)
+	var me := Kin.head(sim.state, fam)
+	var den := Rogue.den_of(sim.state, fam)
+	check(den != "", "his den")
+	var tool: Variant = (sim.state.characters[me].get("equipment", {}) as Dictionary).get("tool")
+	eq(str((tool as Dictionary).get("item", "")) if tool is Dictionary else str(tool), "lockpicks", "the lockpicks on")
+	eq(Money.gold(sim.state, fam), 30, "30 gold")
+	check(not Loans.of_family(sim, fam).is_empty(), "the start's debt, as every start")
+	eq(str(Objectives.view(sim, fam).get("current", "")), "pick_purse", "first: a purse")
+	eq(str(cat.professions()["thief"]["class"]), "rogue", "the Rogue's trade")

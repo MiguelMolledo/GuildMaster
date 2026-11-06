@@ -69,7 +69,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"hud": "res://game/smoke/smoke_hud.gd", "paneles": "res://game/smoke/smoke_paneles.gd",
 	"economia": "res://game/smoke/smoke_economia.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
-	"oficios": "res://game/smoke/smoke_oficios.gd", "erudito": "res://game/smoke/smoke_erudito.gd", "social": "res://game/smoke/smoke_social.gd",
+	"oficios": "res://game/smoke/smoke_oficios.gd", "erudito": "res://game/smoke/smoke_erudito.gd", "picaro": "res://game/smoke/smoke_picaro.gd", "social": "res://game/smoke/smoke_social.gd",
 	"poblacion": "res://game/smoke/smoke_poblacion.gd", "pagina": "res://game/smoke/smoke_pagina.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd", "viajes": "res://game/smoke/smoke_viajes.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
@@ -816,6 +816,8 @@ func _fade_swap(swap: Callable) -> void:
 func _on_sim_event(e: Dictionary) -> void:
 	var type := str(e.get("type", ""))
 	var actor := str(e.get("actor", ""))
+	if type == "rogue_arrest_card" and str(e.get("family", "")) == SimQuery.player_family(Game.sim.state):
+		(get_node("CardsLayer/EventCard") as Node).call("show_arrest", Game.sim, e)  # the Rogue (4.22.6.3)
 	if type == "festival_game_call" and str(e.get("family", "")) == SimQuery.player_family(Game.sim.state):
 		# juegos: the player's competition of the feast begins (the joust, the tournament, the race, the bulls)
 		open_game.call_deferred({"game": str(e["game"]), "actor": actor, "opponents": e.get("opponents", []),

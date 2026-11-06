@@ -821,6 +821,41 @@ Objetivos: (1) roba una bolsa en el mercado sin que te vean; (2) véndele algo a
 almacén; (4) blanquea una pieza y véndela en el mercado; (5) pasa una noche entera sin que te vea la guardia;
 (6) devuelve la deuda.
 
+> [!NOTE]
+> **Construido (rama picaro, 2026-11-06): el Pícaro empieza como Ladrón** (`sim/rogue/rogue.gd`, `data/rogue.json`).
+> - **Inicio `rogue_thief`**: la Guarida de ladrones (3×3 con vivienda, `data/buildings/den.json`) en el solar de la
+>   Consulta (sitio `player_clinic`: el inicio dice qué edificio levanta en él, sin sitio nuevo en el mapa), ganzúas equipadas, una capa de viaje en la
+>   Guarida, 30 de oro y la deuda de inicio de siempre (sin tocar). Objetivos: robar una bolsa, venderle al perista,
+>   entrar en un almacén, blanquear una pieza, hacerse un nombre (5 golpes) y pagar la deuda.
+> - **Carterista** (`pickpocket`, ficha de la persona: «Robar la bolsa» con la probabilidad en el tooltip): de día o
+>   al atardecer, a 1 casilla, Destreza contra Empatía (+10 con multitud, −10 por cada fallo del día; la palanca de
+>   dificultad). Botín: 5-12 de fuera, o min(5 + Destreza; 5 % del oro) de una familia que juega.
+> - **Robo en un almacén** (`burgle`, panel del edificio ajeno de noche: «Robar el almacén» con su cerradura y la
+>   probabilidad): cerradura 2 + 2 × Seguridad (+2 dos días tras un robo), Sigilo contra ella, +10 con ganzúas y la rama
+>   Calidad de la Guarida (`lock_bonus`). Botín: hasta 2 + Destreza ÷ 2 piezas de lo más valioso, marcadas.
+> - **Lo robado** es `<item>@stolen`: el catálogo lo lee como la pieza (peso, pila, precio), pero ningún puesto,
+>   receta ni encargo lo acepta. **El perista** (la mesa de la Guarida a cualquier hora, o la Taberna de noche) paga la
+>   mitad del precio de mercado (+10 % con bajos fondos ≥ 50, +la rama Comercio `fence_bonus`, × la dificultad), hasta
+>   150 de oro al día entre todos. **El banco** de la Guarida quita la marca a una pieza cada 30 min (Destreza 5; más
+>   rápido con la rama Producción). La fama en los bajos fondos (`families[].underworld`) sube +2 por golpe.
+> - **Testigos y guardia** (4.22.3.5, simplificado): un guardia de servicio a 8 casillas de día o 5 de noche ve el delito
+>   y detiene; si no, la víctima te ve al fallar (relación −30) y el hecho queda **oculto** con ella de testigo. Al
+>   amanecer lo **denuncia** con la probabilidad de su relación (< 0: 0,9; < 30: 0,5; si no, 0,1) y la villa lleva a
+>   juicio un robo denunciado de cada familia con un 3 % al día. **La detención** (4.22.6.3) llega como carta a quien
+>   juega: rendirse (juicio con el guardia de testigo y requisa de lo robado), huir, luchar (un duelo contra el guardia)
+>   o sobornar, cada una con su probabilidad; sin respuesta en media hora, se rinde. La IA y los bots se rinden.
+> - **Encargos del ladrón** (`data/contracts/thief.json`): un comprador discreto pide piezas de valor (candelabros,
+>   espadas, ropa fina); solo valen limpias (`obtained: stolen`: el validador no pide que la Guarida las fabrique).
+> - **Árbol de 24 mejoras** de la Guarida, **interior por datos** con piezas que ya existían (mesa del perista, banco
+>   del falsario, alijo del contrabandista) y fachada en bloque gris oscuro hasta su arte (`bld_den`, falta).
+> - **Bot `rogue_novice`** (paso `rogue` de run_all): bolsas de día a quien no le ve venir y fuera de la vista de la
+>   guardia, un almacén de noche cuya puerta no ve nadie, el perista y el banco, la deuda. 52,7 netos/día en Normal
+>   (5 semillas), Fácil 61,4 > Normal 52,7 > Difícil 42,3 (`data/difficulty.json` `rogue`: el modificador de las tiradas
+>   y lo que paga el perista), deuda saldada 5/5.
+> - **Guardado:** sin versión nueva (lo nuevo se lee con valores por defecto). Espía, Bandido, Mercenario, la
+>   vigilancia de vecinos con su tirada (`Watch.observe`), el combate como orden y el Nido quedan para los bloques
+>   siguientes del Pícaro.
+
 #### 4.22.6.12 Un día normal
 
 | Profesión | Día | Atardecer | Noche |
