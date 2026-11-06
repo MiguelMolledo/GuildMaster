@@ -161,7 +161,13 @@ func test_bench_play_well_more_skip_equal_bad_less() -> void:
 
 
 func test_masterwork_named_in_the_chronicle() -> void:
+	var practice := int(cat.live_forge["masterwork"].get("practice", 0))
+	var chance := float(cat.live_forge["masterwork"]["chance"])
+	cat.live_forge["masterwork"]["practice"] = 0  # the naming and the chronicle, the practice and the odds aside
+	cat.live_forge["masterwork"]["chance"] = 0.5
 	var r := _make(5, 20, LiveForge.MODE, "perfect", "forge_sword")
+	cat.live_forge["masterwork"]["practice"] = practice
+	cat.live_forge["masterwork"]["chance"] = chance
 	var sim: Sim = r["sim"]
 	var pieces := LiveForge.masterworks_of(sim.state, "fam_0001")
 	check(not pieces.is_empty(), "named swords")
@@ -178,6 +184,23 @@ func test_masterwork_named_in_the_chronicle() -> void:
 	eq(learned.get("strikes"), cat.live_forge["recipes"]["forge_sword"]["strikes"], "learned the template")
 	sim.state.characters[HUGO]["stats"]["craft"] = 6
 	check(int(LiveForge.view(sim, FORGE, "anvil").get("template", []).size()) >= 0, "a view")
+
+
+## Equilibrio (03b §3b.2, 2026-11-05): no masterwork before `practice` perfect pieces of the recipe; after, they come.
+func test_masterwork_asks_for_practice() -> void:
+	var practice := int(cat.live_forge["masterwork"].get("practice", 0))
+	check(practice > 0, "a practice threshold in the data")
+	var chance := float(cat.live_forge["masterwork"]["chance"])
+	cat.live_forge["masterwork"]["chance"] = 1.0
+	cat.live_forge["masterwork"]["practice"] = 3
+	var r := _make(5, 3, LiveForge.MODE, "perfect", "forge_sword")
+	var sim: Sim = r["sim"]
+	eq(LiveForge.masterworks_of(sim.state, "fam_0001").size(), 0, "three perfect swords: still practice")
+	eq(int(sim.state.masterworks["practice"]["fam_0001"]["forge_sword"]), 3, "counted")
+	r = _make(5, 4, LiveForge.MODE, "perfect", "forge_sword")
+	eq(LiveForge.masterworks_of((r["sim"] as Sim).state, "fam_0001").size(), 1, "the fourth can be one")
+	cat.live_forge["masterwork"]["chance"] = chance
+	cat.live_forge["masterwork"]["practice"] = practice
 
 
 func test_grace_then_resolves_and_repeats_in_normal() -> void:
@@ -342,3 +365,19 @@ func test_migration_to_v20_keeps_everything_open() -> void:
 	var back := SaveFile.from_text(JSON.stringify(m["data"]))
 	check(back["ok"], "loads")
 	eq(int((back["state"] as WorldState).version), WorldState.VERSION, "v20")
+
+
+## «Cerrar» after a result (verifica): live_forge stop interrupts the piece and gives its inputs back (D11); it is a
+## management order, so given in pause it does not wait behind the work in the actor's queue.
+func test_stop_gives_the_inputs_back() -> void:
+	var sim := _sim()
+	_stock(sim, 6)
+	check(_work(sim, "forge_sword", LiveForge.MODE)["ok"], "starts")
+	var st: Dictionary = sim.state.buildings[FORGE]["inventory"]
+	eq(Inventory.count(st, "iron_ingot"), 4, "two ingots taken")
+	check(Orders.is_management("live_forge"), "management")
+	var ev := sim.step([_live("stop")])
+	eq(sim.state.buildings[FORGE]["zones"]["anvil"]["job"], null, "no piece at the anvil")
+	eq(Inventory.count(st, "iron_ingot"), 6, "the ingots back")
+	check(ev.any(func(e: Dictionary) -> bool: return str(e["type"]) == "work_interrupted"), "interrupted")
+	eq(Orders.apply(sim, _live("stop"))["reason"], "not_working", "nothing to stop now")

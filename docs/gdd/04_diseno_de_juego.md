@@ -311,9 +311,14 @@ SERVICIOS: Taberna, Posada, Scriptorium, Banco (sin materia prima)
 
 #### 4.4.5 Trabajar a mano: modo y toque de maestro
 
-> Para quien trabaja a mano en el yunque de la forja, la «Forja viva» (calentar, batir, templar) sustituye al modo
-> con cuidado y su toque de maestro: [03b_diversion_y_ritmo.md](03b_diversion_y_ritmo.md) §3b.2 y §3b.8. Lo de abajo
-> sigue igual para los otros oficios, los bots y las partidas guardadas.
+> **El toque de maestro está sustituido por la «Forja viva»** (calentar, batir, templar: [03b_diversion_y_ritmo.md](03b_diversion_y_ritmo.md)
+> §3b.2 y §3b.8; owner, 2026-11-05). La orden `master_touch` ya no la da la interfaz: el puesto no parpadea ni pinta
+> la ventana, un clic en él solo lleva al puesto y no hay pista de tutorial; en el yunque de la forja el modo «con
+> cuidado» lo ocupa la Forja viva, y en los otros oficios «con cuidado» sigue (×1,5 de tiempo, Artesanía +2) pero sin
+> toque. En el sim la orden y su ventana siguen, para cargar partidas viejas con un ciclo «con cuidado» a medias y
+> para los bots que la dan (el novato del herrero en los encargos con calidad y los novatos de los otros oficios);
+> pasar al novato a la Forja viva mueve sus dianas y espera al owner (`live_for_quality`, §3b.8). Lo de abajo
+> describe esa regla del sim.
 
 Cuando un personaje **controlado por el jugador** trabaja en un puesto (orden `WorkAt`), no se limita a esperar la barra: elige **cómo** trabaja y puede intervenir durante el ciclo.
 
@@ -387,6 +392,10 @@ bonus_reputación = min(reputación_familia / 100 × 0,15 ; 0,15)               
 ```
 
 Frecuencia de clientes [propuesta]: 1 cliente cada 1-2 h de juego durante el DÍA; `customer_bonus` de las mejoras de Comercio la aumenta.
+
+**D16 (2026-11-05):** cada unidad vendida en el mostrador baja también la demanda del mercado **−0,025** (la mitad que
+en la plaza; `data/town.json` `counter.demand_drop_per_unit`). **Equilibrio 13:** la **fama del taller** (0,5-2,0, 04g
+§4.6.5.7) divide el tiempo entre clientes y suma `(fama − 1) × 0,1` al precio.
 
 #### 4.5.5 Competencia: el herrero rival (desde H3)
 
@@ -556,7 +565,13 @@ En el MVP, la forma de no cargar a mano es el **recado de entrega** (4.5.7, desd
 - Ramas: **Producción** (velocidad, recetas), **Capacidad** (puestos y almacén), **Calidad**, **Comercio** (mostrador, clientes), **Personal** (huecos, lealtad), **Fachada** (reputación, requisito de títulos), **Seguridad** (robo, sabotaje), **Secretos** (ilegal: beneficio a cambio de riesgo de inspección).
 - Coste: oro + materiales (del almacén del edificio) + atributo mínimo del dueño + título mínimo + días de obra.
 - Dentro de una rama, el nivel N requiere el N-1. Además hay prerrequisitos cruzados.
-- **Solo una obra a la vez** por edificio; durante la obra el edificio **no produce**.
+- **Solo una obra a la vez** por edificio. ~~Durante la obra el edificio no produce.~~ **Equilibrio 9 (2026-11-05):** la
+  obra **pequeña** (≤ 1 día de obra, `data/upgrade_rules.json` `works.small_max_days`) se hace **de noche**: queda lista
+  al alba siguiente y el edificio no para; la **grande** deja el edificio trabajando **a medio ritmo** (los ciclos que
+  empiezan durante la obra tardan el doble, `works.big_speed` 0,5) mientras dura. Por qué: el jugador completo pasaba
+  14-25 h parado en cada obra (5-7 atascos por partida de 3 años) y el ritmo de 03b §3b.5 («ningún tramo de más de
+  60 s sin decidir») no se cumplía en días de obras. Las obras guardadas antes siguen con la regla vieja (cerrado) hasta
+  acabar. Los bots de antes de H5 la fijan cerrada en sus pruebas (`tests/balance_pins.gd`).
 - Las mejoras son permanentes. Un evento (incendio, sabotaje, revuelta) puede destruir **la última mejora** de una rama; hay que pagarla de nuevo. Seguridad reduce la probabilidad.
 - Cada mejora tiene efectos declarativos (`production_speed`, `extra_storage`, `new_zone`, `max_employees`, `quality_bonus`, `price_multiplier`, `customer_bonus`, `loyalty_bonus`, `reputation`, `protection`, `inspection_risk`, `illegal_profit`…) y visuales (nodo interior / overlay exterior que aparece).
 

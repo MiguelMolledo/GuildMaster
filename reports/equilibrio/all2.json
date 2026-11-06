@@ -1,0 +1,531 @@
+{
+ "agg": {
+  "ai_broke_days_max": {
+   "max": 21,
+   "mean": 17.5,
+   "median": 21.0,
+   "min": 7
+  },
+  "bot_fest_contracts_done_player": {
+   "max": 1,
+   "mean": 0.5,
+   "median": 0.5,
+   "min": 0
+  },
+  "bot_fest_contracts_taken_player": {
+   "max": 1,
+   "mean": 0.75,
+   "median": 1.0,
+   "min": 0
+  },
+  "caravans": {
+   "max": 0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0
+  },
+  "child_hungry_share_max": {
+   "max": 0.0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0.0
+  },
+  "contracts_done": {
+   "max": 23,
+   "mean": 17.25,
+   "median": 16.5,
+   "min": 13
+  },
+  "contracts_failed": {
+   "max": 2,
+   "mean": 1.25,
+   "median": 1.0,
+   "min": 1
+  },
+  "counter_sold": {
+   "max": 3,
+   "mean": 0.75,
+   "median": 0.0,
+   "min": 0
+  },
+  "debt_paid_day": {
+   "max": 6,
+   "mean": 4.0,
+   "median": 3.5,
+   "min": 3
+  },
+  "engine_errors": {
+   "max": 0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0
+  },
+  "festival_contracts": {
+   "max": 1,
+   "mean": 0.5,
+   "median": 0.5,
+   "min": 0
+  },
+  "game_over": {
+   "max": 0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0
+  },
+  "gap_max_s": {
+   "max": 134.0,
+   "mean": 80.38,
+   "median": 69.85,
+   "min": 47.8
+  },
+  "gap_median_s": {
+   "max": 4.6,
+   "mean": 4.6,
+   "median": 4.6,
+   "min": 4.6
+  },
+  "gold_end": {
+   "max": 1489,
+   "mean": 1204.75,
+   "median": 1335.5,
+   "min": 659
+  },
+  "gold_min": {
+   "max": 0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0
+  },
+  "had_child": {
+   "max": 0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0
+  },
+  "hired": {
+   "max": 2,
+   "mean": 1.5,
+   "median": 1.5,
+   "min": 1
+  },
+  "ledger_mismatch": {
+   "max": 0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0
+  },
+  "mechanics_used": {
+   "max": 17,
+   "mean": 16.5,
+   "median": 16.5,
+   "min": 16
+  },
+  "need_faith": 45.2,
+  "need_fun": 18.7,
+  "need_hunger": 80.8,
+  "need_rest": 82.9,
+  "need_social": 54.5,
+  "net_year_1": {
+   "max": 60.63,
+   "mean": 38.69,
+   "median": 33.88,
+   "min": 26.38
+  },
+  "net_year_2": {
+   "max": 75.38,
+   "mean": 41.85,
+   "median": 37.01,
+   "min": 18.0
+  },
+  "net_year_3": {
+   "max": 146.0,
+   "mean": 102.06,
+   "median": 100.88,
+   "min": 60.5
+  },
+  "npc_short_fun_max": {
+   "max": 0.895,
+   "mean": 0.84,
+   "median": 0.84,
+   "min": 0.788
+  },
+  "refused_orders": {
+   "max": 0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0
+  },
+  "reputation": {
+   "max": 151,
+   "mean": 134.5,
+   "median": 137.5,
+   "min": 112
+  },
+  "staff_hungry_share_max": {
+   "max": 0.0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0.0
+  },
+  "stalls": {
+   "max": 1,
+   "mean": 0.25,
+   "median": 0.0,
+   "min": 0
+  },
+  "step_ms_mean": {
+   "max": 3.913,
+   "mean": 3.75,
+   "median": 3.74,
+   "min": 3.603
+  },
+  "title_citizen_day": {
+   "max": 15,
+   "mean": 12.75,
+   "median": 12.5,
+   "min": 11
+  },
+  "townsfolk_end": {
+   "max": 15,
+   "mean": 14.25,
+   "median": 14.0,
+   "min": 14
+  },
+  "treaties": {
+   "max": 0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0
+  },
+  "trips": {
+   "max": 1,
+   "mean": 1.0,
+   "median": 1.0,
+   "min": 1
+  },
+  "under_works_h": {
+   "max": 0,
+   "mean": 0.0,
+   "median": 0.0,
+   "min": 0
+  },
+  "unlocks_off": {
+   "max": 2,
+   "mean": 1.75,
+   "median": 2.0,
+   "min": 1
+  },
+  "upgrades_done": {
+   "max": 5,
+   "mean": 4.5,
+   "median": 4.5,
+   "min": 4
+  },
+  "visitors_per_day": {
+   "max": 5.83,
+   "mean": 5.69,
+   "median": 5.69,
+   "min": 5.54
+  },
+  "wedding_day": {
+   "max": 22,
+   "mean": 18.0,
+   "median": 18.0,
+   "min": 14
+  },
+  "y1_gap_max_s": {
+   "max": 33.0,
+   "mean": 18.32,
+   "median": 15.0,
+   "min": 10.3
+  },
+  "y1_gap_median_s": {
+   "max": 4.6,
+   "mean": 4.57,
+   "median": 4.6,
+   "min": 4.5
+  }
+ },
+ "kind": "full_player",
+ "seeds": {
+  "1": {
+   "ai_broke_days_max": 7,
+   "bot_fest_contracts_done_player": 0,
+   "bot_fest_contracts_taken_player": 1,
+   "caravans": 0,
+   "child_hungry_share_max": 0.0,
+   "contracts_done": 19,
+   "contracts_failed": 1,
+   "counter_sold": 3,
+   "debt_paid_day": 3,
+   "engine_errors": 0,
+   "festival_contracts": 0,
+   "game_over": 0,
+   "gap_max_s": 134.0,
+   "gap_median_s": 4.6,
+   "gold_end": 1489,
+   "gold_min": 0,
+   "had_child": 0,
+   "hired": 2,
+   "ledger_mismatch": 0,
+   "mechanics_used": 17,
+   "needs_mean": {
+    "faith": 43.2,
+    "fun": 20.7,
+    "hunger": 80.2,
+    "rest": 82.9,
+    "social": 54.9
+   },
+   "net_year_1": 60.63,
+   "net_year_2": 47.13,
+   "net_year_3": 112.25,
+   "npc_short_fun_max": 0.788,
+   "refused_orders": 0,
+   "reputation": 148,
+   "staff_hungry_share_max": 0.0,
+   "stalls": 1,
+   "step_ms_mean": 3.913,
+   "title_citizen_day": 11,
+   "titles": [
+    {
+     "day": 11,
+     "title": "citizen"
+    }
+   ],
+   "townsfolk_end": 14,
+   "treaties": 0,
+   "trips": 1,
+   "under_works_h": 0,
+   "unlocks_off": 1,
+   "upgrades_done": 5,
+   "visitors_per_day": 5.71,
+   "wedding_day": 14,
+   "why_not": {
+    "bets": "no_occasion",
+    "caravans": "market_takes_them",
+    "children": "no_occasion",
+    "festival_contracts": "no_time",
+    "games": "no_occasion",
+    "heir": "no_occasion",
+    "inheritance": "founder_alive",
+    "live_forge": "no_occasion",
+    "tavern": "no_occasion",
+    "treaties": "reputation_needed",
+    "tribunal": "no_fact",
+    "unlocks": "no_occasion"
+   },
+   "y1_gap_max_s": 33.0,
+   "y1_gap_median_s": 4.6
+  },
+  "2": {
+   "ai_broke_days_max": 21,
+   "bot_fest_contracts_done_player": 0,
+   "bot_fest_contracts_taken_player": 0,
+   "caravans": 0,
+   "child_hungry_share_max": 0.0,
+   "contracts_done": 14,
+   "contracts_failed": 1,
+   "counter_sold": 0,
+   "debt_paid_day": 4,
+   "engine_errors": 0,
+   "festival_contracts": 0,
+   "game_over": 0,
+   "gap_max_s": 51.8,
+   "gap_median_s": 4.6,
+   "gold_end": 1291,
+   "gold_min": 0,
+   "had_child": 0,
+   "hired": 1,
+   "ledger_mismatch": 0,
+   "mechanics_used": 16,
+   "needs_mean": {
+    "faith": 47.1,
+    "fun": 19.6,
+    "hunger": 80.9,
+    "rest": 82.7,
+    "social": 55.0
+   },
+   "net_year_1": 26.38,
+   "net_year_2": 18.0,
+   "net_year_3": 146.0,
+   "npc_short_fun_max": 0.895,
+   "refused_orders": 0,
+   "reputation": 127,
+   "staff_hungry_share_max": 0.0,
+   "stalls": 0,
+   "step_ms_mean": 3.849,
+   "title_citizen_day": 14,
+   "titles": [
+    {
+     "day": 14,
+     "title": "citizen"
+    }
+   ],
+   "townsfolk_end": 15,
+   "treaties": 0,
+   "trips": 1,
+   "under_works_h": 0,
+   "unlocks_off": 2,
+   "upgrades_done": 4,
+   "visitors_per_day": 5.54,
+   "wedding_day": 19,
+   "why_not": {
+    "bets": "no_occasion",
+    "caravans": "market_takes_them",
+    "children": "no_occasion",
+    "counter": "one_employee",
+    "festival_contracts": "no_time",
+    "games": "no_occasion",
+    "heir": "no_occasion",
+    "inheritance": "founder_alive",
+    "live_forge": "no_occasion",
+    "tavern": "no_occasion",
+    "treaties": "reputation_needed",
+    "tribunal": "no_fact",
+    "unlocks": "no_occasion"
+   },
+   "y1_gap_max_s": 14.8,
+   "y1_gap_median_s": 4.5
+  },
+  "3": {
+   "ai_broke_days_max": 21,
+   "bot_fest_contracts_done_player": 1,
+   "bot_fest_contracts_taken_player": 1,
+   "caravans": 0,
+   "child_hungry_share_max": 0.0,
+   "contracts_done": 13,
+   "contracts_failed": 2,
+   "counter_sold": 0,
+   "debt_paid_day": 6,
+   "engine_errors": 0,
+   "festival_contracts": 1,
+   "game_over": 0,
+   "gap_max_s": 87.9,
+   "gap_median_s": 4.6,
+   "gold_end": 659,
+   "gold_min": 0,
+   "had_child": 0,
+   "hired": 1,
+   "ledger_mismatch": 0,
+   "mechanics_used": 17,
+   "needs_mean": {
+    "faith": 43.3,
+    "fun": 16.6,
+    "hunger": 80.8,
+    "rest": 82.9,
+    "social": 54.8
+   },
+   "net_year_1": 27.25,
+   "net_year_2": 26.88,
+   "net_year_3": 60.5,
+   "npc_short_fun_max": 0.858,
+   "refused_orders": 0,
+   "reputation": 112,
+   "staff_hungry_share_max": 0.0,
+   "stalls": 0,
+   "step_ms_mean": 3.603,
+   "title_citizen_day": 15,
+   "titles": [
+    {
+     "day": 15,
+     "title": "citizen"
+    }
+   ],
+   "townsfolk_end": 14,
+   "treaties": 0,
+   "trips": 1,
+   "under_works_h": 0,
+   "unlocks_off": 2,
+   "upgrades_done": 4,
+   "visitors_per_day": 5.67,
+   "wedding_day": 22,
+   "why_not": {
+    "bets": "no_occasion",
+    "caravans": "market_takes_them",
+    "children": "no_occasion",
+    "counter": "one_employee",
+    "games": "no_occasion",
+    "heir": "no_occasion",
+    "inheritance": "founder_alive",
+    "live_forge": "no_occasion",
+    "tavern": "no_occasion",
+    "treaties": "reputation_needed",
+    "tribunal": "no_fact",
+    "unlocks": "no_occasion"
+   },
+   "y1_gap_max_s": 10.3,
+   "y1_gap_median_s": 4.6
+  },
+  "4": {
+   "ai_broke_days_max": 21,
+   "bot_fest_contracts_done_player": 1,
+   "bot_fest_contracts_taken_player": 1,
+   "caravans": 0,
+   "child_hungry_share_max": 0.0,
+   "contracts_done": 23,
+   "contracts_failed": 1,
+   "counter_sold": 0,
+   "debt_paid_day": 3,
+   "engine_errors": 0,
+   "festival_contracts": 1,
+   "game_over": 0,
+   "gap_max_s": 47.8,
+   "gap_median_s": 4.6,
+   "gold_end": 1380,
+   "gold_min": 0,
+   "had_child": 0,
+   "hired": 2,
+   "ledger_mismatch": 0,
+   "mechanics_used": 16,
+   "needs_mean": {
+    "faith": 47.4,
+    "fun": 18.0,
+    "hunger": 81.4,
+    "rest": 82.9,
+    "social": 53.4
+   },
+   "net_year_1": 40.5,
+   "net_year_2": 75.38,
+   "net_year_3": 89.5,
+   "npc_short_fun_max": 0.826,
+   "refused_orders": 0,
+   "reputation": 151,
+   "staff_hungry_share_max": 0.0,
+   "stalls": 0,
+   "step_ms_mean": 3.638,
+   "title_citizen_day": 11,
+   "titles": [
+    {
+     "day": 11,
+     "title": "citizen"
+    }
+   ],
+   "townsfolk_end": 14,
+   "treaties": 0,
+   "trips": 1,
+   "under_works_h": 0,
+   "unlocks_off": 2,
+   "upgrades_done": 5,
+   "visitors_per_day": 5.83,
+   "wedding_day": 17,
+   "why_not": {
+    "bets": "no_occasion",
+    "caravans": "market_takes_them",
+    "children": "no_occasion",
+    "counter": "no_occasion",
+    "games": "no_occasion",
+    "heir": "no_occasion",
+    "inheritance": "founder_alive",
+    "live_forge": "no_occasion",
+    "microevents": "no_occasion",
+    "tavern": "no_occasion",
+    "treaties": "reputation_needed",
+    "tribunal": "no_fact",
+    "unlocks": "no_occasion"
+   },
+   "y1_gap_max_s": 15.2,
+   "y1_gap_median_s": 4.6
+  }
+ },
+ "tag": "all2"
+}

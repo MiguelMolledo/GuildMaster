@@ -31,6 +31,7 @@ signal deselect_requested               # ESC with only a building picked: the w
 signal pause_menu_requested             # ESC with nothing open, or the Menu button (docs/ui/02: the pause menu)
 signal tutorial_requested(chapter: String)  # a chapter picked in the help (docs/ui/05_tutorial.md §2)
 signal region_requested                  # R: the map of the region (docs/gdd/09b_region.md; the app opens it)
+signal festival_requested(e: Dictionary)  # fiestas (4.25.3): open the card of this feast again (the app's event card)
 
 const GOLD_ICON: String = "icon_oro"
 
@@ -63,6 +64,8 @@ const GOLD_ICON: String = "icon_oro"
 # 3 · clock
 @onready var _clock_panel: PanelContainer = %ClockPanel
 @onready var _event_label: Label = %EventLabel  # H13: the global events in force and their time left
+@onready var _festival_button: Button = %FestivalButton  # fiestas: the feast of today or the next one; opens its card
+var _festival_event: Dictionary = {}
 @onready var _sun_moon: TextureRect = %SunMoon
 @onready var _time_label: Label = %TimeLabel
 @onready var _date_label: Label = %DateLabel
@@ -202,6 +205,9 @@ func _ready() -> void:
 	for p: Control in _manage_panels() + _modal_panels():
 		ManageSlot.join(p)
 	_ledger_panel.notice_clicked.connect(notice_action)
+	_festival_button.pressed.connect(func() -> void:
+		if not _festival_event.is_empty():
+			festival_requested.emit(_festival_event))
 	_ledger_panel.visibility_changed.connect(func() -> void:
 		if _ledger_panel.visible:
 			_drop_urgent())   # opening the book reads the urgent pop-ups (§5)
@@ -298,6 +304,11 @@ func _refresh() -> void:
 	_event_label.visible = ev_line != ""
 	_event_label.text = SimQuery.events_short(sim)
 	_event_label.tooltip_text = tr("hud.event_tip") % ev_line if ev_line != "" else ""
+	var fest := SimQuery.festival_now(sim)  # fiestas (4.25.3): the feast's card, again, whenever the player wants it
+	_festival_event = fest.get("event", {})
+	_festival_button.visible = not fest.is_empty()
+	_festival_button.text = str(fest.get("short", ""))  # the clock's room is short: the name goes in the tip
+	_festival_button.tooltip_text = str(fest.get("tip", ""))
 
 
 ## The person picked on the map or inside ("" = nobody).
@@ -947,7 +958,16 @@ func _on_trial_event(e: Dictionary) -> void:
 	if fam == "":
 		return
 	var t := Tribunal.trial(sim.state, str(e.get("trial", "")))
-	if t.is_empty() or (str(t["family"]) != fam and str(t["accuser_family"]) != fam):
+	if t.is_empty():
+		return
+	if str(t["family"]) != fam and str(t["accuser_family"]) != fam:
+		if str(e["type"]) == "trial_verdict" and _trial_panel.visible and _trial_panel.trial_id == str(t["id"]):
+			_trial_panel.close()   # the judge has ruled: the trial of others is over
+			return
+		if str(e["type"]) == "trial_hearing" and presiding_judge(str(t["id"])) != "":   # tribunal.md §2: Presidir
+			_game.set_paused(true)
+			open_trial(str(t["id"]))
+			show_toast(tr("ui.trial.presiding"))
 		return
 	match str(e["type"]):
 		"trial_opened":
@@ -970,12 +990,40 @@ func open_trial(tid: String = "") -> void:
 	if id == "":
 		id = str(Tribunal.of_family(sim, family(), true).get("id", ""))
 	if id == "":
+		id = presided_hearing()
+	if id == "":
 		return
 	var who := selected_id
 	if who == "" or str(sim.state.characters.get(who, {}).get("family", "")) != family():
 		who = Kin.head(sim.state, family())
+	var t := Tribunal.trial(sim.state, id)
+	if str(t.get("family", "")) != family() and str(t.get("accuser_family", "")) != family() and presiding_judge(id) != "":
+		who = presiding_judge(id)   # a trial of others: the family's judge presides it
 	_trial_panel.open_for(sim, who, id)
 	Log.info("Hud", "trial panel (trial=%s, actor=%s)" % [id, who])
+
+
+## The person of the family who presides trial `tid` as the town's judge ("" if none): tribunal.md §2 «Presidir (si
+## eres Juez)», the trial of other families whose hearing the family's judge rules.
+func presiding_judge(tid: String) -> String:
+	if _game == null or _game.sim == null:
+		return ""
+	var sim: Sim = _game.sim
+	for j: String in Offices.holders(sim, "judge"):
+		if j != "" and str(sim.state.characters.get(j, {}).get("family", "")) == family() \
+				and Tribunal.verdict_status(sim, j, tid, "guilty") in ["", "trial_not_in_hearing"]:
+			return j
+	return ""
+
+
+## The open trial in its hearing that the family's judge presides ("" if none): J opens it.
+func presided_hearing() -> String:
+	if _game == null or _game.sim == null:
+		return ""
+	for t: Dictionary in Tribunal.open_trials(_game.sim):
+		if str(t["status"]) == "hearing" and presiding_judge(str(t["id"])) != "":
+			return str(t["id"])
+	return ""
 
 
 func toggle_trial() -> void:
@@ -1160,6 +1208,9 @@ func _tick_popups(delta: float) -> void:
 ## A click on a notice: centre on its building or person (the app does it), else open the book on the notices.
 func notice_action(n: Dictionary) -> void:
 	var target := str(n.get("target", ""))
+	if str(n.get("key", "")).begins_with("notice.festival_") and not _festival_event.is_empty():
+		festival_requested.emit(_festival_event)  # fiestas: a feast's notice opens its card while it is on
+		return
 	if str(n.get("key", "")) == "notice.school_choice":  # H8: the choice is made in the family tree
 		if not _tree_panel.visible:
 			toggle_tree()

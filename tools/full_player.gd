@@ -29,7 +29,7 @@ const MECH: Dictionary = {"work_at": "forge_hand", "master_touch": "forge_hand",
 	"queue_add": "queue", "queue_remove": "queue", "queue_move": "queue", "queue_loop": "queue", "queue_pause": "queue",
 	"set_role": "queue", "buy": "market", "sell": "market", "accept_contract": "contracts",
 	"deliver_contract": "contracts", "abandon_contract": "contracts", "hire": "staff", "fire": "staff",
-	"promote": "staff", "bonus": "staff", "buy_upgrade": "upgrades", "repay_loan": "debt", "court_talk": "courtship",
+	"promote": "staff", "bonus": "staff", "buy_upgrade": "upgrades", "repay_loan": "debt", "take_emergency_loan": "debt", "court_talk": "courtship",
 	"court_gift": "courtship", "propose": "courtship", "designate_heir": "heir", "school_choice": "heir",
 	"request_title": "titles", "run_for_office": "offices", "campaign_action": "offices", "use_office_power": "offices",
 	"accuse": "tribunal", "trial_cross": "tribunal", "trial_rest": "tribunal", "witness_action": "tribunal",
@@ -105,6 +105,7 @@ func _init() -> void:
 	var roundtrip := false
 	var tag := ""
 	var check := true
+	var sets: Array = []
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--bot="):
 			bot_id = a.substr(6)
@@ -128,12 +129,19 @@ func _init() -> void:
 			tag = a.substr(6)
 		elif a == "--no-check":
 			check = false
+		elif a.begins_with("--set="):  # equilibrio: a balance trial, as sim_runner's --set (with --tag)
+			sets.append(a.substr(6))
 	if not bot_id in ["full_player", "chaos_player", "idle_player"]:
 		print("full_player: unknown bot %s" % bot_id)
 		quit(2)
 		return
 	roundtrip = roundtrip or bot_id == "chaos_player"
 	var cat := Catalog.load_from()
+	for spec: Variant in sets:
+		if not _apply_set(cat, str(spec)):
+			print("full_player: bad --set %s" % spec)
+			quit(2)
+			return
 	var targets: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/targets.json"))
 	var dir := "res://reports/%s%s" % [bot_id, "" if tag == "" else "_" + tag]
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir + "/saves"))
@@ -559,9 +567,12 @@ func _mech(mech: Dictionary, k: String, what: String, day: int) -> void:
 		mech[k]["first_day"] = day
 
 
-## Whether a player would skip time now (BotPacing._skipping): not walking and the night or its own cycle running.
+## Whether a player would skip time now (BotPacing._skipping): on the road to another town, or not walking and the night
+## or its own cycle running.
 func _skipping(sim: Sim, actor: String) -> bool:
 	var ch: Dictionary = sim.state.characters.get(actor, {})
+	if Region.is_away(sim.state, actor) and Travel.in_city(sim.state, actor) == "":
+		return true  # equilibrio: on the road between two towns «Saltar hasta…» goes to the arrival (09b, 03b §3b.5.2)
 	if not (ch.get("path", []) as Array).is_empty():
 		return false
 	if Clock.phase(int(sim.state.clock["minute"]), sim.catalog.time) == "night":
@@ -651,7 +662,7 @@ func _stall_cause(sim: Sim, fam: String) -> String:
 	var st := sim.state
 	if not st.buildings.has("bld_0001"):
 		return ""
-	if Upgrades.under_works(st, "bld_0001"):
+	if Upgrades.blocks(st, "bld_0001"):
 		return "under_works"
 	var pending := false
 	for e: Dictionary in st.buildings["bld_0001"].get("queue", {}).get("entries", []):
@@ -851,3 +862,36 @@ func _brief(m: Dictionary) -> String:
 		if m.has(k):
 			parts.append("%s %s" % [k, m[k]])
 	return ", ".join(parts)
+
+
+## --set=<where>=<json> (equilibrio): one figure of the loaded catalog for this run only, as sim_runner's (with
+## upgrade_rules, trade, family, accounts and town too).
+func _apply_set(cat: Catalog, spec: String) -> bool:
+	var eq := spec.find("=")
+	if eq < 0:
+		return false
+	var keys := spec.substr(0, eq).split(".")
+	var value: Variant = JSON.parse_string(spec.substr(eq + 1))
+	if value == null or keys.size() < 2:
+		return false
+	var node: Variant = null
+	var i := 1
+	if keys[0] in ["market", "employees", "production", "difficulty", "accounts", "seasons", "events", "town",
+			"upgrade_rules", "trade", "family", "inn", "live_forge"]:
+		node = cat.get(keys[0])
+	elif keys[0] == "life" and keys.size() >= 3:
+		node = cat.life_tables.get(keys[1])
+		i = 2
+	elif cat.tables.has(keys[0]) and keys.size() >= 3:
+		node = (cat.tables[keys[0]] as Dictionary).get(keys[1])
+		i = 2
+	for k: int in range(i, keys.size() - 1):
+		if not node is Dictionary or not (node as Dictionary).has(keys[k]):
+			return false
+		node = node[keys[k]]
+	if not node is Dictionary or not (node as Dictionary).has(keys[keys.size() - 1]):
+		return false
+	node[keys[keys.size() - 1]] = value
+	cat.goods_reset()
+	print("full_player: --set %s = %s" % [".".join(keys), value])
+	return true

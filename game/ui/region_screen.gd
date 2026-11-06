@@ -43,6 +43,8 @@ var _was_paused: bool = false
 var _open: bool = false
 var _bound: bool = false
 var _card: PageCard = null
+var _strip: Label = null   # the orders that wait for the clock (PausedOrders)
+var _said_left: float = 0.0   # seconds the strip keeps saying what came of them (the council's vote)
 var _was_on_road: bool = false      # the actor was on the road at the last frame (arrival -> city_requested)
 
 var _map: TextureRect = null
@@ -73,6 +75,23 @@ func _bind() -> void:
 		_layer.queue_redraw())
 	_card.button_pressed.connect(_on_card_button)
 	(%CaravansButton as Button).pressed.connect(func() -> void: caravans_requested.emit())
+	_strip = Label.new()   # verificación E1: the orders given here in pause, until the clock runs
+	_strip.name = "PendingStrip"
+	_strip.theme_type_variation = &"PageSmall"
+	_strip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_strip.position = Vector2(60, 522)   # under the buttons row: the settlement card never reaches it (BOTTOM)
+	_strip.size = Vector2(840, 16)
+	_strip.visible = false
+	add_child(_strip)
+	var ev := get_node_or_null("/root/Events") if is_inside_tree() else null
+	if ev != null:   # the council's vote on a town treaty given here: said on the map (its card waits under it)
+		ev.connect("step_done", func(events: Array) -> void:
+			for e: Dictionary in events:
+				if str(e.get("type", "")) == "council_voted" and visible and sim != null \
+						and str(sim.state.characters.get(str(e.get("actor", "")), {}).get("family", "")) \
+						== SimQuery.player_family(sim.state):
+					say_council(e))
 
 
 ## Pauses (remembering the pause it found) and shows the map.
@@ -130,6 +149,19 @@ func _refresh() -> void:
 			RegionView.settlements().size(), RegionView.routes().size(), cut, hours])
 
 
+## The council's vote on the strip for a few seconds («Exención con Vilablat · 4 a favor · 1 en contra · Firmado…»).
+func say_council(e: Dictionary) -> void:
+	var city := _city_name(str(e.get("city", "")))
+	_strip.text = "%s · %s" % [SimQuery.t_("ui.council.votes") % [city, int(e.get("yes", 0)), int(e.get("no", 0))],
+		SimQuery.t_("ui.council.passed") % city if bool(e.get("passed", false)) else SimQuery.t_("ui.council.failed")]
+	_strip.visible = true
+	_said_left = 8.0
+	if selected != "" and _card.visible:
+		show_card(selected, pinned)   # the card's button is no longer «Firmando…»
+	if OS.is_debug_build():
+		print("[RegionScreen] el concejo vota: %s" % _strip.text)
+
+
 ## One line under the title: where the active person is (on the road, in a city) or the hint.
 func status_text() -> String:
 	if sim == null or actor == "":
@@ -165,9 +197,13 @@ func _family_on_road() -> bool:
 	return false
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if not visible or sim == null:
 		return
+	if _said_left > 0.0:
+		_said_left -= delta
+	else:
+		PausedOrders.fill_strip(_strip, game, sim, SimQuery.player_family(sim.state))
 	if _family_on_road():
 		_layer.queue_redraw()
 		(%Hint as Label).text = status_text()
@@ -485,8 +521,12 @@ func card_buttons(id: String) -> Array:
 	if id != home and here == "" and not road and actor in Offices.holders(sim, "mayor"):
 		var fam := str(sim.state.characters[actor].get("family", ""))
 		var why := Treaties.can_sign(sim, fam, id, "exemption", "", "town")
-		out.append({"id": "town_treaty", "text": _t("ui.region.town_treaty"), "disabled": why != "",
-			"tip": SimQuery.reason_text(why) if why != "" else _t("ui.region.town_treaty_tip")})
+		if PausedOrders.waiting(game, "propose_town_treaty", {"actor": actor, "city": id}):   # given in pause
+			out.append({"id": "town_treaty", "text": _t("ui.region.town_treaty_waiting"), "disabled": true,
+				"tip": _t("ui.paused_orders.tip")})
+		else:
+			out.append({"id": "town_treaty", "text": _t("ui.region.town_treaty"), "disabled": why != "",
+				"tip": SimQuery.reason_text(why) if why != "" else _t("ui.region.town_treaty_tip")})
 	return out
 
 
@@ -512,6 +552,7 @@ func _on_card_button(bid: String) -> void:
 			city_requested.emit(Travel.in_city(sim.state, actor))
 		"town_treaty":
 			_give({"type": "propose_town_treaty", "actor": actor, "city": to, "kind": "exemption"})
+			(func() -> void: show_card(to, true)).call_deferred()   # the card stays, its button says it waits
 
 
 func _give(o: Dictionary) -> void:

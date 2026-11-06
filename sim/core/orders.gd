@@ -54,6 +54,8 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Market.order_sell(sim, order)
 		"repay_loan":
 			return Loans.order_repay(sim, order)
+		"take_emergency_loan":  # Equilibrio 2 (sim/balance/emergency.gd)
+			return Emergency.order_take(sim, order)
 		"read_notices":
 			return Notices.order_read(sim, order)
 		"accept_contract":
@@ -183,6 +185,8 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return FestivalCourt.order_audience(sim, order)
 		"festival_enter_contest":
 			return FestivalCourt.order_enter_contest(sim, order)
+		"festival_give_gift":
+			return FestivalCourt.order_give_gift(sim, order)
 		# Forja viva y desbloqueos (docs/gdd/03b_diversion_y_ritmo.md)
 		"live_forge":
 			return LiveForge.order(sim, order)
@@ -235,9 +239,10 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
 	"city_accept", "city_deliver", "sign_treaty",
 	"game_play", "game_bet", "game_enter", "festival_sponsor", "festival_host_wedding", "festival_offer_gift",
-	"festival_choose_gift", "festival_audience", "festival_enter_contest",
+	"festival_choose_gift", "festival_audience", "festival_enter_contest", "festival_give_gift",
 	"resolve_incident", "hail", "live_forge", "unlock_seen",
-	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license"]  # posada (Inn.MANAGEMENT)
+	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license",  # posada (Inn.MANAGEMENT)
+	"take_emergency_loan"]  # equilibrio (Emergency)
 
 
 static func is_management(type: String) -> bool:

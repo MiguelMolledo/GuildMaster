@@ -73,9 +73,30 @@ la muerte del fundador, la forja pasa al nuevo cabeza, o al regente si el herede
 
 Donde el hábito de los bots anteriores no es de buen criterio, el jugador completo lo corrige en su propia clase y no
 toca la de ellos, para que sus dianas no cambien:
-- **Encargos de fiesta.** Mira las horas que quedan de verdad (`due_at`), no `deadline_days` redondeado.
+- **Encargos de fiesta.** Mira las horas que quedan de verdad (`due_at`), no `deadline_days` redondeado. **Desde
+  Equilibrio 11 (2026-11-05) lo hacen todos los bots** (`artisan_novice` y los de oficio: `_hours_left`); el completo
+  solo apunta el porqué.
 - **Mostrador.** Solo pone a alguien en él si tiene dos o más empleados.
-- **Cortejo.** Corteja con un regalo por visita, y solo cuando la forja ya no depende de él o el bolsillo lo permite.
+- **Cortejo.** Corteja con un regalo por visita, y solo cuando la forja ya no depende de él o el bolsillo lo permite;
+  nunca un segundo regalo el mismo día (Equilibrio 1: no contaría).
+- **Ciudadano** (Equilibrio 3). Lo pide en cuanto el ayuntamiento se lo daría y le queda la reserva, no al acabar su plan
+  de mejoras (el hábito del experto, que se queda en su clase por las dianas de H5). `BOT_VARS=titles_early=0` juega
+  como antes.
+- **El primer viaje** (Equilibrio 7). Guarda sus mejores espadas (excelentes, buenas y normales) hasta tener 3, como si
+  fueran de un encargo, y las vende allí todas: la capital paga la calidad.
+- **Sin salida** (Equilibrio 2). Pide el préstamo de urgencia en cuanto se lo ofrecen (el caótico, a veces).
+- **La cuota de un tratado** (Equilibrio 7, 2026-11-05). Solo la firma si puede servirla (un empleado de carretero y un
+  carro o el oro para él); con ella en vigor, cada estación aparta las espadas que pide (las normales primero; las buenas
+  siguen yendo a la capital por la prima), compra el carro y las manda por caravana. Antes la firmaba y la rompía en 3 de
+  4 semillas. `BOT_VARS=quota_caravans=0` juega como antes.
+
+Y en `artisan_expert` (2026-11-05, la orden rechazada de 1 de 16 partidas): el minuto en que compra una mejora, que se
+lleva sus materiales del almacén, no planea trabajo; antes pedía forjar con los lingotes que la mejora acababa de coger
+(work_at → missing_inputs). Es un hábito del bot, no un hueco del juego: la pantalla ya da el motivo. Es otra que la del
+regateo en el mostrador (transfer → not_enough), que se arregló en el propio full_player (fb1e423, rama jugador).
+
+`tools/full_player.gd` acepta además `--set=<tabla>.<clave>=<json>` como `sim_runner` (con `--tag`), para medir un
+punto apagando los demás (rama equilibrio, `tools/equilibrio/measure.py`).
 
 **El caótico** (`sim/bots/bot_chaos_player.gd`) es la misma partida al azar. Elige al azar entre las metas listas, da una
 respuesta al azar a cada carta y, cada ~40 minutos de juego, da una orden válida al azar. La orden sale del sistema
@@ -183,10 +204,20 @@ mismo camino que los del sistema (mapa de entrada, GUI, `_unhandled_input`, la c
 
 **Flujos** (`data/flows/*.json`, un paso por línea; `python3 tools/verifica/fmt_flows.py` los formatea): un paso es
 una acción (`click` / `right_click` / `double_click` sobre un control, `world` sobre la ciudad —casilla, edificio,
-persona, puesto—, `station` / `door` en una sala, `key`, `type`, `spin`, `popup`, `wheel`, `pan`), una espera
+persona, puesto—, `station` / `door` en una sala, `inn` —`guest` o `bed`— en la sala de una posada, `key`, `type`,
+`spin`, `popup`, `wheel`, `pan`, `restart` —otro escenario a mitad de flujo—), una espera
 (`until` con `timeout` y `fast`, un acelerón del reloj del arnés, nunca una orden), `expect`, `when` (solo si se
 cumple), `soft` (si falla, sigue). Los flujos `teclas` (cada tecla en la ciudad y dentro: qué hace, si no hace nada o
 si choca) y `esc` (cada pantalla se cierra con Esc) dan la cobertura de teclas.
+
+**Escenarios de los flujos**: cuando ninguna partida de las que ya hay llega a una orden, el flujo empieza en un
+escenario hecho para él por `tools/scenarios/make_verifica_scenarios.gd` (cada uno sale de un escenario que ya existe o
+de una partida nueva; mismo código y mismos datos, mismo fichero): `patron_treaties` (Barón y alcalde con reputación en
+la aldea: los tratados y los encargos de fuera, flujo `tratados`), `judge_family` (Hugo juez y la vista del juicio
+contra el rival a punto de empezar: `juez`), `school_age` (Clara recién cumplidos los 8: `escuela`),
+`courtship_gifts` (regalos en la bolsa y oro para el banquete: `regalos`), `festival_eve` (la víspera de un torneo:
+`fiestas`), `inn_chores` (la posada con camas sin hacer y gente esperando), `tavern_for_sale` (la posada en venta con
+oro para comprarla) y `altercation_purse` (oro para apostar en un altercado); los tres últimos, en `taberna` y `dados`.
 
 **Lanzarlo**:
 

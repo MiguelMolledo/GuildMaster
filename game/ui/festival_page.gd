@@ -59,6 +59,81 @@ static func audience_menu(sim: Sim, d: Dictionary) -> Dictionary:
 		"instance": str(d.get("instance", ""))}
 
 
+## The corro in the plaza (FestivalCorro): a second card with the tavern's games against the regulars, the plaza's
+## small stake, and why a game is off (the gold, being away); with the preacher in town it says it is frowned upon.
+static func corro_menu(sim: Sim, d: Dictionary) -> Dictionary:
+	var inst := Festivals.find(sim, str(d.get("instance", "")))
+	var fam := SimQuery.player_family(sim.state)
+	var actor := SimQuery.family_actor(sim.state, fam)
+	var stake := FestivalCorro.stake(sim)
+	var blocks: Array = [{"type": "paragraph", "text": SimQuery.t_("ui.festival_card.corro_body") % stake}]
+	var warn: Array = []  # what holds it back, as effect lines: a docked card keeps its first paragraph and its effects
+	var rep := FestivalCorro.frowned_reputation(sim)
+	if rep != 0:
+		warn.append({"text": SimQuery.t_("ui.festival_card.corro_frowned") % rep, "sign": "-"})
+	var buttons: Array = []
+	var short := ""
+	for g: String in FestivalCorro.games(sim):
+		var why := FestivalCorro.reason(sim, actor, g, str(inst.get("id", "")))
+		var loss := Games.max_loss(g, stake, int(sim.catalog.games.get("cap", 50)))
+		var tip := SimQuery.t_("ui.festival_card.corro_game_tip." + g)
+		if why != "":
+			tip = SimQuery.reason_text(why)
+		elif not Money.can_pay(sim.state, fam, loss):
+			why = "not_enough_gold"
+			tip = gold_reason(sim, fam, loss)
+		if why != "" and short == "":
+			short = tip
+		buttons.append({"id": "corro:" + g, "text": SimQuery.t_("games." + g + ".name"), "primary": buttons.is_empty() and why == "",
+			"disabled": why != "", "tip": tip})
+	if short != "":
+		warn.append({"text": short, "sign": "-"})
+	if not warn.is_empty():
+		blocks.append({"type": "effects", "items": warn})
+	buttons.append({"id": "ok", "text": SimQuery.t_("ui.festival_card.corro_leave")})
+	return {"template": "card", "title": SimQuery.t_("ui.festival_card.corro_title"),
+		"image": VisualPaths.illustration_or_greybox("events", str(inst.get("def", ""))), "blocks": blocks,
+		"buttons": buttons, "sticky": true, "festival": str(inst.get("def", "")), "instance": str(d.get("instance", ""))}
+
+
+## Christmas gifts (FestivalCourt.order_give_gift): a second card with the other families; each button gives the
+## family's best piece to that house (off with its reason: already given, no piece).
+static func gifts_menu(sim: Sim, d: Dictionary) -> Dictionary:
+	var inst := Festivals.find(sim, str(d.get("instance", "")))
+	var fam := SimQuery.player_family(sim.state)
+	var actor := SimQuery.family_actor(sim.state, fam)
+	var p := FestivalCourt.best_piece(sim, fam, actor, FestivalCourt._r(sim, "christmas_gifts").get("items", []))
+	var blocks: Array = []
+	if p.is_empty():
+		blocks.append({"type": "paragraph", "text": SimQuery.t_("ui.festival_card.gifts_none")})
+	else:
+		var val := FestivalCourt.value(sim, str(p["item"]), int(p["quality"]))
+		blocks.append({"type": "paragraph", "text": SimQuery.t_("ui.festival_card.gifts_body") % [
+			SimQuery.item_name(sim.catalog, str(p["item"])), SimQuery.quality_name(int(p["quality"])),
+			FestivalCourt.gift_relation(sim, val)]})
+	var buttons: Array = []
+	for to: String in FestivalCourt.gift_targets(sim, fam):
+		var given := FestivalCourt.gave(inst, fam, to)
+		var tip := SimQuery.t_("ui.festival_card.gift_given") if given else (SimQuery.t_("ui.festival_card.gifts_none")
+			if p.is_empty() else SimQuery.t_("ui.festival_card.gift_tip") % SimQuery.item_name(sim.catalog, str(p["item"])))
+		buttons.append({"id": "gift:" + to, "text": str(sim.state.families[to].get("name", to)), "disabled": given or p.is_empty(),
+			"tip": tip})
+	buttons.append({"id": "ok", "text": SimQuery.t_("ui.festival_card.corro_leave")})
+	return {"template": "card", "title": SimQuery.t_("ui.festival_card.gifts_title"),
+		"image": VisualPaths.illustration_or_greybox("events", str(inst.get("def", "christmas"))), "blocks": blocks,
+		"buttons": buttons, "sticky": true, "festival": str(inst.get("def", "")), "instance": str(d.get("instance", ""))}
+
+
+## The game request of a corro button (corro:<game>) for the game screen: {} if it is not one.
+static func corro_request(sim: Sim, button: String, d: Dictionary, actor: String) -> Dictionary:
+	if not button.begins_with("corro:"):
+		return {}
+	var inst := Festivals.find(sim, str(d.get("instance", "")))
+	var g := button.substr(6)
+	return {"game": g, "actor": actor, "opponents": FestivalCorro.opponents(sim, inst, actor, g),
+		"stake": FestivalCorro.stake(sim), "opts": {"corro": str(inst.get("id", ""))}}
+
+
 ## The outcome of the town's gift, the quality contest or the player's audience.
 static func _result(sim: Sim, e: Dictionary) -> Dictionary:
 	var t := str(e.get("type", ""))
@@ -157,13 +232,29 @@ static func _feast(sim: Sim, e: Dictionary, fam: String) -> Dictionary:
 					or not FestivalGames._to_come(inst, spk):
 				continue
 			var entered := (g.get("entries", {}) as Dictionary).has(spk)
+			var ewhy := FestivalGames.enter_reason(sim, SimQuery.family_actor(sim.state, fam), inst, spk)
+			var fee := int(sim.catalog.games.get(str(FestivalGames.spectacle_cfg(sim, spk).get("game", "")), {}).get("entry_fee", 0))
+			var etip := SimQuery.t_("ui.festival_card.enter_tip")
+			if ewhy == "not_enough_gold":
+				etip = gold_reason(sim, fam, fee)
+			elif ewhy != "":
+				etip = SimQuery.reason_text(ewhy)
 			buttons.append({"id": "enter:" + spk, "text": SimQuery.t_("ui.festival_card.enter") % SimQuery.t_("spectacle." + spk),
-				"disabled": entered, "tip": SimQuery.t_("ui.festival_card.enter_tip")})
+				"disabled": ewhy != "", "tip": etip})
+			if ewhy in ["no_title", "not_enough_gold"]:  # said in the card too, like the payments
+				short = short if short != "" else "%s: %s" % [SimQuery.t_("spectacle." + spk), etip]
 			if not entered:
 				buttons.append({"id": "bet:" + spk, "text": SimQuery.t_("ui.festival_card.bet") % SimQuery.t_("spectacle." + spk),
 					"tip": SimQuery.t_("ui.festival_card.bet_tip")})
-	if short != "":
-		blocks.append({"type": "paragraph", "text": short})
+	var gx := FestivalCourt.effect(sim, inst, "gifts") if not inst.is_empty() else {}
+	if fam != "" and not gx.is_empty() and int(sim.state.clock["minute"]) < FestivalCourt._deadline(inst, gx):
+		buttons.append({"id": "gifts_menu", "text": SimQuery.t_("ui.festival_card.gifts"),  # Christmas gifts
+			"tip": SimQuery.t_("ui.festival_card.gifts_tip")})
+	if fam != "" and not inst.is_empty() and Festivals.active(sim).has(inst):  # the corro in the plaza (on its day)
+		buttons.append({"id": "corro_menu", "text": SimQuery.t_("ui.festival_card.corro"),
+			"tip": SimQuery.t_("ui.festival_card.corro_tip")})
+	if short != "":  # an effect line: the docked card keeps its first paragraph and its effects, not more paragraphs
+		blocks.append({"type": "effects", "items": [{"text": short, "sign": "-"}]})
 	var out := {"template": "card", "title": SimQuery.festival_name(id),
 		"image": VisualPaths.illustration_or_greybox("events", id), "blocks": blocks,
 		"footer_figures": [{"label": "", "value": when}], "buttons": buttons, "sticky": false,
@@ -301,6 +392,8 @@ static func order_for(button: String, d: Dictionary, actor: String) -> Dictionar
 		return {"type": "festival_audience", "actor": actor, "festival": f, "privilege": button.substr(9)}
 	if button.begins_with("choose:"):
 		return {"type": "festival_choose_gift", "actor": actor, "festival": f, "offer": button.substr(7).to_int()}
+	if button.begins_with("gift:"):
+		return {"type": "festival_give_gift", "actor": actor, "festival": f, "to": button.substr(5)}
 	if button.begins_with("enter:"):
 		return {"type": "game_enter", "actor": actor, "festival": str(d.get("instance", "")), "spectacle": button.substr(6)}
 	return {}

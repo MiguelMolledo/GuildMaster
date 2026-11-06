@@ -525,4 +525,20 @@ func _give(o: Dictionary) -> void:
 	ViewConfig.info("InnPanel", "order %s" % [o])
 	if order_sink.is_valid():
 		order_sink.call(o)
-	call_deferred("refresh")
+	_refresh_after_step()
+
+
+## The game keeps an order until its next step (Game.give): a refresh now would read the state before it and put the
+## control back as it was (the dish's check box ticked again, and the next press undid the person's). So the panel
+## refreshes when the step that applies it is done; with no Events (the rule tests apply the order at once), now.
+func _refresh_after_step() -> void:
+	var ev := get_node_or_null("/root/Events") if is_inside_tree() else null
+	if ev == null:
+		call_deferred("refresh")
+		return
+	if not ev.is_connected("step_done", _on_order_step):
+		ev.connect("step_done", _on_order_step, CONNECT_ONE_SHOT)
+
+
+func _on_order_step(_events: Array) -> void:
+	refresh()

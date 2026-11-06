@@ -1,5 +1,28 @@
 [
   {
+    "fecha": "2026-11-06",
+    "titulo": "Lo que se ordena en pausa se ve al momento, y cada edad con su retrato",
+    "que": "El mapa de la región, las caravanas y la vista oral pausan el juego y ninguna orden se aplica hasta que corre el reloj, pero ya no se quedan mudos. El botón pulsado pasa a «Firmando… (al reanudar)», «Comprando un carro…», «Dictando…», «Interrogando…» o «Concluyendo…» y se apaga con su motivo. La pantalla enseña su tira de cola («En pausa · se hará al reanudar: 1. Proponer el tratado de la villa con Vilablat») y el libro (L, Avisos) la lista como «En espera». Al cerrar el mapa o pulsar Espacio, el concejo vota y llega su carta con el resultado; con el mapa abierto, la misma línea sale en su tira. Retratos: una niña de 8 ya no sale con el pelo blanco. El tono 5 de la paleta es el blanco que se reserva a la edad, y quien lo trae en los datos o lo hereda se dibuja con su tono natural; las canas salen solo por edad. Un retrato guardado que ya no es de la franja de edad o del sexo de la persona deja paso al que le toca ahora. Revisadas con capturas las edades 0, 8, 12, 16, 45 y 62. De paso, el panel del juicio ya no se encoge al rehacerse durante la vista, la carta que llega con otra apartada bajo una pantalla espera su turno en vez de pisarla, y la ficha del árbol dice «Casada con» para una mujer.",
+    "como_probar": "python3 tools/verifica/verifica.py --window --flows=tratados,juez,tribunal,edades (escenarios patron_treaties y family_ages). A mano: abre el mapa (R), pulsa la aldea y «Tratado de la villa»: el botón dice «Firmando… (al reanudar)» y abajo sale la tira; cierra el mapa y llega la carta del concejo.",
+    "capturas": [
+      "verifica_pausa_mapa.png",
+      "verifica_concejo.png",
+      "verifica_juicio_espera.png",
+      "verifica_edades.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-06",
+    "titulo": "Todas las órdenes del juego probadas por la interfaz: tratados, juez, escuela, regalos, fiestas, posada y más",
+    "que": "Ocho escenarios nuevos (tools/scenarios/make_verifica_scenarios.gd) llevan a los flujos donde ninguna partida llegaba: Barón y alcalde con reputación en la aldea (tratado del pueblo, firmar y cancelar tratados, aceptar y entregar encargos de fuera), Hugo juez del pueblo en la vista del juicio contra el rival (dicta el veredicto), Clara con 8 años (elegir su escuela), regalos y oro en el cortejo (regalar, equiparse, banquete de boda), la víspera de un torneo (patrocinar, inscribirse en la justa), la posada llena con camas sin hacer (servir a un parroquiano, hacer una cama), la posada en venta con oro (comprarla) y un altercado con la bolsa llena (apostar). Cinco flujos nuevos (tratados, juez, escuela, regalos, fiestas) y cuatro ampliados (primer día cierra la carta «Nuevo», duelo prueba la pelea, dados la apuesta, taberna la compra, servir y hacer camas). Cobertura: 84 de 87 órdenes con camino por ratón probado y 80 por teclado; las que faltan llevan su motivo (la orden vacía de los bots, el toque maestro que sustituye la Forja viva, el cierre de dinastía apagado por diseño). Arreglado de paso: el juez de la familia ya tiene su aviso «Juicio que presides: elige veredicto», con pausa, y J le abre el juicio; antes no había forma de dictar veredicto.",
+    "como_probar": "python3 tools/verifica/verifica.py --flows=tratados,juez,escuela,regalos,fiestas (sin ventana, ~2 min); con capturas y teclado: python3 tools/verifica/verifica.py --window --flows=all --both. Para verlo a mano: godot --path . -- --flow=juez.",
+    "capturas": [
+      "verifica_juez.png",
+      "verifica_tratados.png",
+      "verifica_pregon.png"
+    ]
+  },
+  {
     "fecha": "2026-11-05",
     "titulo": "La Forja viva y la taberna, verificadas por la interfaz",
     "que": "Flujo forja_viva: la espada forjada a mano por la interfaz (modo «Viva», calentar hasta el color que pide la receta y sacar, los golpes de la plantilla, templar, el resultado), con ratón y con teclado. Flujos taberna (comprar la Taberna-Posada, su carta, precios, plato del día, camas, licencia y la noche) y otra_ciudad (empezar en Bellcaire). El primer día forja la espada en modo normal. Las cartas de desbloqueo de la forja van a la pila lateral. Con todo main junto: 47 de 48 pasadas (24 flujos, con ratón y con teclado) en verde; la que falla es un hallazgo de la Forja viva.",

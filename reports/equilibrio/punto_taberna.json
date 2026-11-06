@@ -1,0 +1,38 @@
+{
+ "punto": "Taberna recién comprada (innkeeper_start, BotInnkeeper, 48 días)",
+ "semillas": [
+  {
+   "seed": 1,
+   "op_day_by_year": [
+    86.5,
+    85.6,
+    305.6,
+    345.4,
+    403.6,
+    365.9
+   ]
+  },
+  {
+   "seed": 2,
+   "op_day_by_year": [
+    45.6,
+    99.0,
+    201.1,
+    385.9,
+    395.2,
+    321.4
+   ]
+  },
+  {
+   "seed": 3,
+   "op_day_by_year": [
+    129.6,
+    171.2,
+    221.1,
+    324.8,
+    306.4,
+    347.8
+   ]
+  }
+ ]
+}

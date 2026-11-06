@@ -5,7 +5,9 @@ extends Node
 ## plaza with its decoration (fiesta_<id>_vista) and its card (fiesta_<id>_carta). Then a rich wedding of the rival
 ## family: the crier's card and the board with the bride's dress and the groom's sword (fiesta_boda_tablon). Orders only
 ## through the UI paths. Last, the player's wedding offer without the gold of the banquet (the button off, with its
-## reason: fiesta_boda_sin_oro). Quits when done, or after `timeout` seconds.
+## reason: fiesta_boda_sin_oro), and the clock's festival button and the card it opens again (fiesta_boton_reloj,
+## fiesta_carta_reabierta), the corro with the preacher (fiesta_corro), the Christmas gifts (fiesta_regalos) and
+## Sant Jordi in Bellcaire with its games on the city's page (fiesta_ciudad_sant_jordi). Quits when done, or after `timeout` seconds.
 
 const DAY: int = 1440
 const PLAZA: Vector2i = Vector2i(19, 19)
@@ -242,5 +244,53 @@ func _process(delta: float) -> void:
 		"wedding_offer":
 			if _t > 0.5:
 				app.save_shot("fiesta_boda_sin_oro")
+				app.get_node("CardsLayer/EventCard").call("close")
+				Game.sim.state.families[SimQuery.player_family(Game.sim.state)]["gold"] = 120
+				_force("tournament")  # the clock's button: the feast in force, its card again with its games
+				var hud: Node = app.hud()
+				hud.set("_last_minute", -1)
+				hud.call("_refresh")
+				_go("clock_button")
+		"clock_button":
+			if _t > 0.6:
+				app.save_shot("fiesta_boton_reloj")
+				(app.hud().get_node("%FestivalButton") as Button).pressed.emit()
+				_go("reopened")
+		"reopened":
+			if _t > 0.6:
+				app.save_shot("fiesta_carta_reabierta")
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("close")
+				_force("preacher")  # the corro in the plaza, frowned upon with the preacher in town
+				print("[SmokeFiestas] corro: mal visto=%s (%s)" % [FestivalCorro.frowned(Game.sim), Festivals.active(Game.sim).map(func(i: Dictionary) -> String: return str(i["def"]))])
+				card.call("show_page", FestivalPage.corro_menu(Game.sim, {"instance": _inst}))
+				_go("corro")
+		"corro":
+			if _t > 0.6:
+				app.save_shot("fiesta_corro")
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("close")
+				_force("christmas")  # Christmas gifts: the houses on a second card
+				Inventory.add(Game.sim.state.characters[_who]["inventory"], Game.sim.catalog, "candlestick", 2, 1)
+				card.call("show_page", FestivalPage.gifts_menu(Game.sim, {"instance": _inst}))
+				_go("gifts")
+		"gifts":
+			if _t > 0.6:
+				app.save_shot("fiesta_regalos")
+				app.get_node("CardsLayer/EventCard").call("close")
+				var sim: Sim = Game.sim  # Sant Jordi in Bellcaire: the traveller is there on its day
+				sim.state.festivals = Festivals.new_block()
+				sim.state.clock["minute"] = 1 * DAY + 10 * 60
+				Region.ensure(sim)
+				var now := int(sim.state.clock["minute"])
+				(sim.state.region["trips"] as Dictionary)[_who] = {"id": "trv_smoke", "actor": _who,
+					"family": SimQuery.player_family(sim.state), "from": Region.home(sim), "to": "capital", "path": [], "leg": 0,
+					"at": "capital", "leg_start": now, "leg_end": now, "escort": false, "state": "city", "since": now}
+				sim.state.families[SimQuery.player_family(sim.state)]["gold"] = 120
+				app.call("open_city", "capital")
+				_go("city")
+		"city":
+			if _t > 0.8:
+				app.save_shot("fiesta_ciudad_sant_jordi")
 				_go("done")
 				get_tree().quit()

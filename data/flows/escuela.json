@@ -1,0 +1,16 @@
+{
+  "id": "escuela",
+  "title": "La escuela de una hija",
+  "about": "Clara acaba de cumplir 8 (escenario school_age): en el árbol, su fila de escuela; elegir la materia y confirmar (es para siempre).",
+  "start": {"scenario": "school_age"},
+  "covers": ["school_choice"],
+  "steps": [
+    {"id": "arbol", "say": "El árbol de la familia", "key": "@family_tree", "expect": ["q.visible('FamilyTreePanel')"]},
+    {"id": "clara", "say": "Clic en Clara (8)", "click": {"within": "FamilyTreePanel", "type": "FamilyTreeNode", "has": "Clara"}, "expect": ["q.shown({'node': 'SchoolButton'})"]},
+    {"id": "materia", "say": "El desplegable de la materia", "click": {"node": "SchoolOption"}},
+    {"id": "materia_elegir", "say": "La segunda materia", "popup": {"node": "SchoolOption"}, "item": 1},
+    {"id": "elegir", "say": "«Elegir escuela»: pide confirmar", "click": {"node": "SchoolButton"}, "until": "q.visible('ConfirmModal')", "timeout": 4},
+    {"id": "confirmar", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "expect": ["q.order('school_choice')", "not q.shown({'node': 'SchoolButton'})"]},
+    {"id": "esc", "key": "Escape", "expect": ["not q.visible('FamilyTreePanel')"]}
+  ]
+}

@@ -79,7 +79,8 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"vida": "res://game/smoke/smoke_vida.gd",
 	"posada": "res://game/smoke/smoke_posada.gd",
 	"plantillas": "res://game/smoke/smoke_plantillas.gd",
-	"interiores": "res://game/smoke/smoke_interiores.gd", "flow": "res://game/smoke/flow/flow_runner.gd"}
+	"interiores": "res://game/smoke/smoke_interiores.gd", "flow": "res://game/smoke/flow/flow_runner.gd",
+	"equilibrio": "res://game/smoke/smoke_equilibrio.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
 const DUEL_SCREEN: String = "res://game/ui/duel_screen.tscn"
@@ -155,6 +156,8 @@ func _ready() -> void:
 	_world.service_requested.connect(_hud.request_service)
 	_interior.shop_requested.connect(_hud.open_market)
 	_hud.focus_requested.connect(focus_on)
+	_hud.festival_requested.connect(func(e: Dictionary) -> void:  # fiestas: the feast's card again, from the clock
+		(get_node("CardsLayer/EventCard") as Node).call("reopen_festival", Game.sim, e))
 	_hud.select_requested.connect(func(id: String) -> void: _world.select(id))  # H8: the group (1-2-3, portraits)
 	_hud.deselect_requested.connect(func() -> void: _world.pick_building_id(""))  # ESC forgets the picked building
 	_new_game.started.connect(_on_new_game_started)

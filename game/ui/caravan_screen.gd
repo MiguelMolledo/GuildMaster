@@ -17,6 +17,7 @@ var order_sink: Callable = Callable()
 var _bound: bool = false
 var _t: float = 0.0
 var _sig: String = ""
+var _strip: Label = null   # the orders that wait for the clock (PausedOrders)
 var _city: OptionButton
 var _building: OptionButton
 var _driver: OptionButton
@@ -68,6 +69,12 @@ func _bind() -> void:
 	_form.name = "Form"
 	_form.add_theme_constant_override("separation", 3)
 	_col.add_child(_form)
+	_strip = Label.new()   # verificación E1: the orders given here in pause, until the clock runs
+	_strip.name = "PendingStrip"
+	_strip.theme_type_variation = &"PageSmall"
+	_strip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_strip.visible = false
+	_col.add_child(_strip)
 	var foot := HBoxContainer.new()
 	foot.name = "Foot"
 	foot.alignment = BoxContainer.ALIGNMENT_END
@@ -133,7 +140,8 @@ func _rebuild() -> void:
 	var fam := _fam()
 	var mine: Array = (sim.state.region.get("caravans", []) as Array).filter(func(c: Dictionary) -> bool:
 		return str(c["family"]) == fam)
-	var sig := "%d|%d|%s" % [Caravans.carts(sim, fam), Money.gold(sim.state, fam), JSON.stringify(mine.map(
+	var buying := PausedOrders.waiting(game, "buy_cart", {"actor": actor})   # verificación E1: given in pause
+	var sig := "%s|%d|%d|%s" % [buying, Caravans.carts(sim, fam), Money.gold(sim.state, fam), JSON.stringify(mine.map(
 		func(c: Dictionary) -> String: return "%s|%s|%s|%d" % [c["id"], c["state"], c["at"], int(c["leg"])]))]
 	if sig == _sig or UiFeel.hold_rebuild(self):
 		return
@@ -161,6 +169,10 @@ func _rebuild() -> void:
 		why = "not_enough_gold"
 	buy.disabled = why != ""
 	buy.tooltip_text = SimQuery.reason_text(why) if why != "" else ""
+	if buying:
+		buy.text = _tr("ui.caravan.buy_cart_waiting")
+		buy.disabled = true
+		buy.tooltip_text = _tr("ui.paused_orders.tip")
 	buy.pressed.connect(func() -> void: _give({"type": "buy_cart", "actor": actor}))
 	row.add_child(buy)
 	_carts.add_child(row)
@@ -327,6 +339,12 @@ func order() -> Dictionary:
 
 func _update_send() -> void:
 	if sim == null or _city == null:
+		return
+	PausedOrders.fill_strip(_strip, game, sim, _fam())
+	if PausedOrders.waiting(game, "caravan_send", {"actor": actor}):   # verificación E1: given in pause
+		_send.text = _tr("ui.caravan.send_waiting")
+		_send.disabled = true
+		_send.tooltip_text = _tr("ui.paused_orders.tip")
 		return
 	var why := Caravans.can_send(sim, order())
 	_send.text = _tr("ui.caravan.send")

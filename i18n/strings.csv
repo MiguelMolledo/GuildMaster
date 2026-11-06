@@ -763,7 +763,7 @@ ui.upgrades.none,none,ninguno
 ui.upgrades.build_time,Works: %s,Obra: %s
 ui.upgrades.effects,Effects: %s,Efectos: %s
 ui.upgrades.buy,Buy,Comprar
-ui.upgrades.buy_tip,Pay and start the works (the building does not produce meanwhile),Pagar y empezar la obra (mientras dura el edificio no produce)
+ui.upgrades.buy_tip,"Pay and start the works (the small ones are done at night; the big ones leave the building at half speed)","Pagar y empezar la obra (las pequeñas se hacen de noche; las grandes dejan el taller a medio ritmo)"
 ui.upgrades.works,Under construction: %s,En obra: %s
 ui.upgrades.works_left,%s left,quedan %s
 ui.upgrades.no_works,No works in progress,Sin obras en curso
@@ -806,7 +806,7 @@ ui.upgrades.miss.upgrade,Needs %s (%s %d),Necesita %s (%s %d)
 ui.upgrades.miss.stat,%s %d (%s has %d),%s %d (%s tiene %d)
 ui.upgrades.miss.title,Title %s (you are %s),Título %s (eres %s)
 ui.upgrades.done_count,Built: %d,Obras hechas: %d
-ui.upgrades.no_works_line,"No works. One at a time: while it lasts, the %s does not produce.","Sin obras. Una a la vez: mientras dura, la %s no produce."
+ui.upgrades.no_works_line,"No works. One at a time: the small ones are done at night, the big ones leave the %s at half speed.","Sin obras. Una a la vez: las pequeñas se hacen de noche y las grandes dejan la %s a medio ritmo."
 ui.upgrades.works_strip,Under construction: %s · %s left · ends %s,En obra: %s · quedan %s · termina %s
 ui.upgrades.confirm_title,Build %s?,¿Construir %s?
 ui.upgrades.confirm_body,%s: %s. The %s will not produce for %s (until %s). The works cannot be cancelled.,%s: %s. La %s no producirá durante %s (hasta el %s). La obra no se puede cancelar.
@@ -911,6 +911,7 @@ ui.family.heir,Heir,Heredero
 ui.family.regent,Regent,Regente
 ui.family.controllable,Controllable,Controlable
 ui.family.spouse,Married to %s,Casado con %s
+ui.family.spouse_f,Married to %s,Casada con %s
 ui.family.tree,Family (F),Familia (F)
 ui.routine.title,Routine,Rutina
 ui.routine.on,Turn on,Activar
@@ -932,8 +933,8 @@ ui.court.propose,Propose,Proponer
 ui.court.walk,Walks there first,Primero va hasta allí
 ui.ending.game_over.title,End of the dynasty,Fin de la dinastía
 ui.ending.game_over.body,The head of the {family} has died with no heir: the dynasty ends here.,El cabeza de los {family} ha muerto sin heredero: la dinastía termina aquí.
-ui.ending.closed.title,The dynasty is closed,Dinastía cerrada
-ui.ending.closed.body,The {family} close their chronicle.,Los {family} cierran su crónica.
+ui.ending.closed.title,The dynasty retires,La dinastía se retira
+ui.ending.closed.body,The {family} retire and close their chronicle.,Los {family} se retiran y cierran su crónica.
 ui.ending.generations,Generations: %d,Generaciones: %d
 ui.ending.head,"%s, head from day %d to day %s","%s, cabeza del día %d al día %s"
 ui.ending.peak,Highest wealth: %d gold,Patrimonio máximo: %d de oro
@@ -1350,6 +1351,7 @@ ui.trial.rest,Rest the defense,Concluir la defensa
 ui.trial.rest_tip,The judge rules now,El juez dicta sentencia ya
 ui.trial.guilty,Rule guilty,Dictar culpable
 ui.trial.innocent,Rule innocent,Dictar inocente
+ui.trial.presiding,A trial you preside: choose the verdict,Juicio que presides: elige veredicto
 ui.trial.hint_prep,"Win witnesses before the hearing: convince (rhetoric), bribe (gold; they may denounce you) or threaten (martial; if it fails, against you). The accuser's proofs show at the hearing.","Gana testigos antes de la vista: convence (retórica), soborna (oro; puede denunciarte) o amenaza (arte marcial; si falla, en contra). Las pruebas del acusador se ven en la vista."
 ui.trial.hint_hearing,"Hearing: question each witness against you (rhetoric against their empathy: if it works their word does not count, if not it counts double) and rest the defense.",Vista oral: interroga a cada testigo en contra (retórica contra su empatía: si sale bien su palabra no cuenta; si sale mal cuenta doble) y concluye la defensa.
 ui.trial.banished,banished until day %d,desterrado hasta el día %d
@@ -1548,7 +1550,7 @@ ui.pause.save,Save,Guardar
 ui.pause.load,Load,Cargar
 ui.pause.options,Options,Opciones
 ui.pause.help,Help,Ayuda
-ui.pause.close_dynasty,End the dynasty…,Cerrar la dinastía…
+ui.pause.close_dynasty,Retire…,Retirarse…
 ui.pause.close_off,Not available in this version,No disponible en esta versión
 ui.pause.to_title,Quit to title,Salir al título
 ui.pause.quit,Quit the game,Salir del juego
@@ -1556,9 +1558,9 @@ ui.pause.never_saved,Not saved yet,Aún sin guardar
 ui.pause.last_saved,Last saved: %s,Último guardado: %s
 ui.pause.ago_now,just now,hace un momento
 ui.pause.ago_min,%d min ago,hace %d min
-ui.pause.close_q,End the dynasty?,¿Cerrar la dinastía?
-ui.pause.close_body,The game ends here and its chronicle is written. You will see the final score.,La partida termina aquí y se escribe su crónica. Verás la puntuación final.
-ui.pause.close_yes,End it,Cerrarla
+ui.pause.close_q,Retire and end the game?,¿Retirarte y terminar la partida?
+ui.pause.close_body,"Your dynasty retires: the game ends here, its chronicle is written and you will see the final score (titles, wealth, offices, children, goals).","Tu dinastía se retira: la partida termina aquí, se escribe su crónica y verás la puntuación final (títulos, riqueza, cargos, hijos y metas)."
+ui.pause.close_yes,Retire,Retirarse
 ui.pause.quit_title_q,Quit to the title?,¿Salir al título?
 ui.pause.quit_q,Quit the game?,¿Salir del juego?
 ui.pause.quit_body,What was played since the last save is lost (%s).,Se pierde lo jugado desde el último guardado (%s).
@@ -1962,7 +1964,7 @@ ui.court.panel_title,Courtship,Cortejo
 ui.court.who,%s · Charisma %d,%s · Carisma %d
 ui.court.mult,×%s on every affinity gained,×%s a lo que gane la afinidad
 ui.court.ready_n,ready: %d,listos: %d
-ui.court.hint,The line on the bar is %d: from there you can propose. Talking every day and gifts raise it.,La línea en la barra es %d: desde ahí puedes pedir su mano. Hablar cada día y regalar la suben.
+ui.court.hint,The line on the bar is %d: from there you can propose. Talking and one gift a day raise it.,La línea en la barra es %d: desde ahí puedes pedir su mano. Hablar y un regalo al día la suben.
 ui.court.filter_all,All,Todos
 ui.court.filter_near,Near,Cerca
 ui.court.filter_ready,Ready,Listos
@@ -2205,7 +2207,7 @@ tutorial.upgrades.manage,Double click on your {workshop} to manage it.,Doble cli
 tutorial.upgrades.open,Upgrades (M).,Mejoras (M).
 tutorial.upgrades.grid,Eight branches of three levels. Each square is an upgrade; the lower ones need the upper ones.,"Ocho ramas de tres niveles. Cada casilla, una mejora; las de abajo piden las de arriba."
 tutorial.upgrades.detail,"The detail: what it changes, what it costs and what is missing.","El detalle: lo que cambia, lo que cuesta y lo que falta."
-tutorial.upgrades.buy,Buying starts a work: the workshop stops while it lasts.,Comprar abre una obra: el taller para mientras dura.
+tutorial.upgrades.buy,"Buying starts a work: a small one is done at night, a big one leaves the workshop at half speed while it lasts.","Comprar abre una obra: la pequeña se hace de noche y la grande deja el taller a medio ritmo mientras dura."
 tutorial.chapter.family,"Family, courtship and inheritance","Familia, cortejo y herencia"
 tutorial.chapter.family.short,Family and heirs,Familia y herencia
 tutorial.chapter.family.desc,"The tree, the heir and how to find a partner.","El árbol, el heredero y cómo buscar pareja."
@@ -2703,7 +2705,7 @@ live.step.strike,2 Strike,2 Batir
 live.step.quench,3 Quench,3 Templar
 live.pull,Pull it out (Space),Sacar (Espacio)
 live.skip,Resolve without playing (Esc),Resolver sin jugar (Esc)
-live.close,Go on,Seguir
+live.close,Close (Esc),Cerrar (Esc)
 live.heat.dark_red,Dark red,Rojo oscuro
 live.heat.cherry,Cherry red,Rojo cereza
 live.heat.orange,Orange,Naranja
@@ -2818,7 +2820,7 @@ unlock.incidents.desc,"Brawls, bandits and kidnappings: the town needs someone. 
 unlock.family_trade,family and caravans,la familia y las caravanas
 unlock.family_trade.desc,With a spouse or a cart the business grows beyond your hands: family members work and caravans travel.,Con pareja o con carro el negocio crece más allá de tus manos: la familia trabaja y las caravanas viajan.
 unlock.offices,offices and treaties,los cargos y los tratados
-unlock.offices.desc,Your title lets you run for the council and sign treaties: power is also a trade.,Tu título te deja presentarte al concejo y firmar tratados: el poder también es un oficio.
+unlock.offices.desc,"As citizens you may run for the minor offices of the council and sign a quota treaty: power is also a trade.","Como ciudadanos podéis presentaros a los cargos menores del concejo y firmar una cuota: el poder también es un oficio."
 unlock.court,the court,el tribunal
 unlock.court.desc,Somebody went to court. Win witnesses before the hearing: whoever weighs more wins.,Alguien ha ido a juicio. Gana testigos antes de la vista: gana quien más pese.
 unlock.masterwork,the masterwork,la obra maestra
@@ -3858,6 +3860,33 @@ notice.festival_outbid,The {family} outbid you for {part} of {festival}; your go
 ui.festival_card.gold_short,"Not enough gold: it costs %d and you have %d","No te llega el oro: cuesta %d y tienes %d"
 ui.festival_card.host_wedding_tip,"Guests, dance, contracts for every trade and reputation","Invitados, baile, encargos para cada oficio y reputación"
 objective.open_tavern,Open your tavern,Abre tu taberna
+ui.court.gift_done,Gift (no effect today),Regalar (hoy ya no cuenta)
+ui.court.gifted,gift given today · the next one counts tomorrow,ya le regalaste hoy · otro regalo cuenta mañana
+ui.court.talked_gifted,talked and gave a gift today · tomorrow,ya hablasteis y le regalaste hoy · mañana
+ui.court.gift_again_q,%s already had a gift from you today,%s ya recibió hoy un regalo tuyo
+ui.court.gift_again_body,"Only the first gift of the day raises the affinity. This one will be taken, but it will not count until tomorrow.","Solo el primer regalo del día sube la afinidad. Este lo aceptará, pero no contará hasta mañana."
+ui.court.gift_anyway,Give it anyway,Regalar igualmente
+reason.gifted_today,Already given a gift today: the next one counts tomorrow,Ya le regalaste hoy: otro regalo cuenta mañana
+notice.emergency_offer,"Out of gold and goods: the moneylender offers {amount} gold now, {owed} to repay in {days} days (book, Debts)","Sin oro ni existencias: el prestamista te ofrece {amount} de oro ahora y devolver {owed} en {days} días (libro, Deudas)"
+notice.emergency_taken,"Emergency loan: +{amount} gold; you owe {owed} within {days} days","Préstamo de urgencia: +{amount} de oro; debes {owed} en {days} días"
+notice.seized_building,"Seizure: the town takes {building} for the debts ({value} gold); you keep {gold}","Embargo: la villa se queda {building} por las deudas ({value} de oro); te quedan {gold}"
+notice.seized_cart,"Seizure: a cart is taken for the debts ({value} gold); you keep {gold}","Embargo: se llevan un carro por las deudas ({value} de oro); te quedan {gold}"
+notice.seized_equipment,"Seizure: {item} is taken for the debts ({value} gold); you keep {gold}","Embargo: se llevan {item} por las deudas ({value} de oro); te quedan {gold}"
+notice.ruin_goods,"Ruin: nothing left to seize for the debts ({missing} gold short)","Ruina: no queda nada que embargar por las deudas (faltan {missing} de oro)"
+reason.no_emergency,No emergency loan now: only with no gold nor goods,Ahora no hay préstamo de urgencia: solo sin oro ni existencias
+ui.ledger.emergency,"Emergency loan: %d now, %d in %d days","Préstamo de urgencia: %d ahora, %d en %d días"
+ui.ledger.emergency_take,Take it,Pedirlo
+ui.ledger.emergency_q,Take the emergency loan?,¿Pedir el préstamo de urgencia?
+ui.ledger.emergency_body,"The moneylender gives you %d gold now. You owe %d within %d days; if not, an extension with surcharge and then the seizure of a good (never your home).","El prestamista te da %d de oro ahora. Debes %d en %d días; si no, prórroga con recargo y después el embargo de un bien (nunca tu casa)."
+ui.upgrades.works_now_night,"Done tonight: ready %s; the %s keeps working.","Se hace esta noche: lista %s; la %s sigue trabajando."
+ui.upgrades.works_now_half,"Under construction: %s left · ends %s. Meanwhile it works at half speed.","En obra: quedan %s · termina %s. Mientras, se trabaja a medio ritmo."
+ui.upgrades.works_line_night,"Small works: done at night, ready %s; the %s keeps working.","Obra pequeña: se hace de noche y estaría lista %s; la %s sigue trabajando."
+ui.upgrades.works_line_half,"Works: %s. The %s works at half speed while it lasts; wages are paid all the same. Would end %s.","Obra: %s. La %s trabaja a medio ritmo mientras dura; los salarios se pagan igual. Acabaría %s."
+ui.upgrades.confirm_body_night,"%s: %s. Small works: done during the night in the %s, without stopping it (%s of work, ready %s). The works cannot be cancelled.","%s: %s. Obra pequeña: se hace de noche en la %s, sin pararla (%s de obra, lista %s). La obra no se puede cancelar."
+ui.upgrades.confirm_body_half,"%s: %s. The %s will work at half speed for %s (until %s). The works cannot be cancelled.","%s: %s. La %s trabajará a medio ritmo durante %s (hasta el %s). La obra no se puede cancelar."
+notice.pecha,"Close of the year: the pecha on your wealth of {wealth} is {amount} gold (paid {paid}; the rest is owed to the town)","Cierre del año: la pecha por tu patrimonio de {wealth} es de {amount} de oro (pagas {paid}; el resto se debe a la villa)"
+ui.workshop.fame,fame %s,fama %s
+ui.workshop.fame_tip,"Fame of the workshop (0.5-2.0): it rises with the quality of what you sold in the last 4 days, masterworks, contracts done and contests won; it falls with failed contracts and customers who leave unserved. More fame, more counter customers who pay more.","Fama del taller (0,5-2,0): sube con la calidad de lo vendido en los últimos 4 días, las obras maestras, los encargos cumplidos y los concursos ganados; baja con los encargos incumplidos y los clientes que se van sin atender. Más fama, más clientes en el mostrador y pagan más."
 ui.inn.tab.games,Table,Mesa
 ui.inn.hint.games,Dice and cards with the regulars; the house keeps its cut of what others win.,Dados y naipes con los parroquianos; la casa se lleva su parte de lo que ganan otros.
 ui.inn.games.why.no_table,There is no gaming table yet: build it among the upgrades.,Aún no hay mesa de juego: constrúyela en las mejoras.
@@ -3885,6 +3914,8 @@ notice.inn.illegal_gaming,"The constable's men saw gaming without licence at you
 games.preset.stranger_soldier,The discharged soldier,El soldado licenciado
 games.preset.stranger_merchant,The passing merchant,El mercader de paso
 games.ui.in_own_house,"in your own house (it keeps nothing of yours)","en tu propia casa (no se queda nada de lo tuyo)"
+live.next,Another piece,Otra pieza
+live.masterwork.ok,Go on,Seguir
 combat.card.challenged,%s challenges you to a duel,%s te reta a duelo
 combat.card.challenged_text,%s demands satisfaction: %s.,%s pide satisfacción: %s.
 combat.card.answer_by,"Answer before %02d:%02d; without an answer, it counts as a refusal.","Contesta antes de las %02d:%02d; sin respuesta, cuenta como rechazo."
@@ -3952,7 +3983,7 @@ ui.order.city_deliver,Deliver a contract of the city,Entregar un encargo de la c
 ui.order.buy_cart,Buy a cart,Comprar un carro
 ui.order.caravan_send,Send a caravan,Mandar una caravana
 ui.order.sign_treaty,Sign a treaty,Firmar un tratado
-ui.order.propose_town_treaty,Propose a treaty,Proponer un tratado
+ui.order.propose_town_treaty,Propose the town treaty with %s,Proponer el tratado de la villa con %s
 ui.order.cancel_treaty,Cancel a treaty,Romper un tratado
 ui.order.festival_sponsor,Sponsor the feast,Patrocinar la fiesta
 ui.order.festival_host_wedding,Pay the wedding banquet,Pagar el banquete de boda
@@ -3995,3 +4026,52 @@ ui.inn.visit.why.not_inn,This is not a tavern.,Esto no es una taberna.
 ui.inn.visit.why.unknown_actor,Select someone of your family first.,Elige antes a alguien de tu familia.
 notice.inn.illegal_gaming_visitor,The constable's men saw gaming without licence at {building}: the fine is its owner's; you only risked your stake.,Los del alguacil vieron jugar sin licencia en {building}: la multa es del dueño; tú solo arriesgabas lo apostado.
 ui.ending.fact.illegal_gaming,Fined for gaming without licence at the tavern (day %d),Multa por juego sin licencia en la taberna (día %d)
+spectacle.sortija,Running at the ring,Correr la sortija
+festival.what.sortija,Running at the ring,La sortija
+hud.festival_today,today,hoy
+hud.festival_tomorrow,tomorrow,mañana
+hud.festival_in_days,in %d days,en %d días
+hud.festival_tip,"%s, %s. Click: its card (sponsor, games, bets, the court and its contracts)","%s, %s. Pulsa: su carta (patrocinar, juegos, apuestas, la corte y sus encargos)"
+hud.festival_short_today,Feast,Fiesta
+hud.festival_short_eve,Crier,Pregón
+ui.region.town_treaty_waiting,Signing… (on resume),Firmando… (al reanudar)
+ui.paused_orders.tip,"Given in pause: it is done when the clock runs again (Space, or close the map)","Dada en pausa: se hace cuando el reloj vuelva a correr (Espacio, o al cerrar el mapa)"
+ui.paused_orders.strip,Paused · done on resume: %s,En pausa · se hará al reanudar: %s
+ui.caravan.buy_cart_waiting,Buying a cart… (on resume),Comprando un carro… (al reanudar)
+ui.caravan.send_waiting,Sending… (on resume),Enviando… (al reanudar)
+ui.ledger.waiting,Waiting (on resume): %s,En espera (al reanudar): %s
+ui.council.title,The council votes the town treaty,El concejo vota el tratado de la villa
+ui.council.votes,Exemption with %s · %d for · %d against,Exención con %s · %d a favor · %d en contra
+ui.council.passed,"Signed: the families of the town pay no tariff in %s.","Firmado: las familias de la villa no pagan arancel en %s."
+ui.council.failed,"Rejected: the council said no.","Rechazado: el concejo dijo que no."
+ui.council.ok,Understood,Entendido
+ui.trial.rest_waiting,Resting… (on resume),Concluyendo… (al reanudar)
+ui.trial.verdict_waiting,Ruling… (on resume),Dictando… (al reanudar)
+ui.trial.cross_waiting,Questioning… (on resume),Interrogando… (al reanudar)
+ui.order.take_emergency_loan,Take the emergency loan,Pedir el préstamo de urgencia
+ui.festival_card.corro,Gaming circle,Corro de juego
+ui.festival_card.corro_tip,"Arm wrestling, dice and cards in the plaza against the regulars, while the feast lasts","Pulso, dados y naipes en la plaza contra los parroquianos, mientras dure la fiesta"
+ui.festival_card.corro_title,The gaming circle,El corro de juego
+ui.festival_card.corro_body,"A ring of neighbours in the plaza: the tavern's games, the same rules, %d of gold a game. No house and no licence: nobody takes a cut.","Un corro de vecinos en la plaza: los juegos de la taberna, las mismas reglas, %d de oro la partida. Sin casa ni licencia: nadie se lleva parte."
+ui.festival_card.corro_frowned,"The preacher is in town: gambling in the street is frowned upon (reputation %d a game).","El predicador está en la villa: jugar en la calle está mal visto (reputación %d por partida)."
+ui.festival_card.corro_leave,Leave,Marcharse
+ui.festival_card.corro_game_tip.pulso,Three pushes against a regular,Tres empujes contra un parroquiano
+ui.festival_card.corro_game_tip.azar,Three dice: azar or your lucky number,Tres dados: azar o tu suerte
+ui.festival_card.corro_game_tip.mayor,"Three dice to the highest, against two regulars","Tres dados a la mayor, contra dos parroquianos"
+ui.festival_card.corro_game_tip.envite,"Three cards, raises and bluffs","Tres cartas, envites y faroles"
+reason.no_feast,There is no feast on,No hay fiesta en curso
+ui.festival_card.gifts,Christmas gifts,Regalos de Navidad
+ui.festival_card.gifts_tip,"Give your best piece to another house: its head will like you more","Regala tu mejor pieza a otra casa: su cabeza te apreciará más"
+ui.festival_card.gifts_title,Christmas gifts,Regalos de Navidad
+ui.festival_card.gifts_body,"You would give your %s (%s); the house that gets it will like you more (+%d).","Regalarías tu %s (%s); la casa que lo reciba te apreciará más (+%d)."
+ui.festival_card.gifts_none,"You have no piece worth giving (a product or equipment, at home or in the bag)","No tienes una pieza que regalar (un producto o equipo, en casa o en la bolsa)"
+ui.festival_card.gift_tip,Give the %s,Regalar el %s
+ui.festival_card.gift_given,Already given,Ya le has regalado
+notice.festival_gift_received,The {family} give you {item} for Christmas,Los {family} te regalan {item} por Navidad
+reason.already_given,Already given,Ya le has regalado
+ui.city.feast_play,Play: %s,Jugar: %s
+ui.city.feast_bet,Watch and bet: %s,Mirar y apostar: %s
+spectacle.arm_wrestling,Arm wrestling,Pulso
+reason.already_played,Already played,Ya la has jugado
+reason.already_bet,Already bet,Ya has apostado
+ui.order.festival_give_gift,Give a Christmas gift,Hacer un regalo de Navidad

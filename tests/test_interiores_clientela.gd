@@ -35,8 +35,9 @@ func _run(sim: Sim, minutes: int) -> Array:
 	return ev
 
 
-func test_off_by_default() -> void:
-	check(not bool(cat.town["counter"]["clientele"]["enabled"]), "data/town.json: counter.clientele.enabled false")
+func test_on_in_data_and_off_brings_nobody() -> void:
+	# Equilibrio 14 (2026-11-06): on for the forge in data; switched off, nobody comes from the countryside
+	check(bool(cat.town["counter"]["clientele"]["enabled"]), "data/town.json: counter.clientele.enabled true (Equilibrio 14)")
 	var sim := _sim(false)
 	_to_day(sim)
 	var ev := _run(sim, 600)
