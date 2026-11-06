@@ -933,6 +933,29 @@ La vista oral debe ser **interactiva** para el jugador (en el primer intento se 
 - Las **pruebas del acusador se ven como «?»** hasta la vista; la balanza enseña el resto de sumandos.
 - La **vista oral pausa el juego** (solo la vista; el sim no cambia: se puede seguir interrogando en pausa).
 
+#### 4.12.5.1 Faltas de las familias IA (Equilibrio 6, 2026-11-06)
+
+Sin ellas, en una partida normal no aparecía nunca un hecho público contra otra familia (jugador completo, 3 años ×
+4 semillas: 0) y el jugador que no inventa pruebas no podía acusar jamás. Las familias IA con negocio cometen
+**faltas pequeñas**, más cuanto menos honradas son, y a veces alguien las ve:
+
+| Falta | Cargo (H11) | Quién |
+|---|---|---|
+| Pesos falsos en el mercado | Fraude menor (leve) | Cualquiera |
+| Dejar a deber a un proveedor | Fraude menor (leve) | Cualquiera |
+| Contrabando | Contrabando (media) | Solo con honestidad ≤ 10 (los perfiles agresivos de Bellcaire) |
+
+- **Cuándo:** al alba, una tirada por familia IA con un negocio (un edificio que no es casa) y el cabeza en la ciudad.
+  Probabilidad del día = base × (1 + (pivote − honestidad) / escala), entre 0 y el máximo [balance, provisional]:
+  0,06 con honestidad 20 (Ferrer y los artesanos de Vilarrasa), 0,09 con 0.
+- **Visto:** con 0,6 la falta se hace **hecho público** contra la familia (su cabeza); si no la ve nadie, no queda nada.
+  Al jugador le llega un aviso («A los Ferrer los han visto: pesos falsos en el mercado»), y la ficha de la familia
+  lo enseña entre sus hechos. Desde Ciudadano puede acusar con él (4.12.5); si gana, la condena es la del cargo.
+- **Lo que no cambia:** la falta no mueve oro (lo que ganó ya está en sus ventas; la multa llega con el juicio), ni la
+  honestidad, ni `state.rng` (tiradas con clave, `Kin.roll`): el resto de la partida juega igual y las dianas de los
+  bots que no acusan no se mueven. La IA rival solo acusa a familias humanas, así que estos hechos son del jugador.
+- Cifras en `data/justice.json` `misdeeds`; código en `sim/ai/misdeeds.gd`.
+
 #### 4.12.6 Intrigas [POST-MVP / EA]
 
 Las intrigas son la base del Pícaro y de los ataques de las familias rivales: el esbozo de combate, robo y guardias está en 4.22 y el uso por la IA rival en 4.21.

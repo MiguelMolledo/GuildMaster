@@ -536,6 +536,20 @@
         "in": "LiveForgeScreen"
       },
       "text": "tutorial.hint.live_forge"
+    },
+    {
+      "id": "night_skip",
+      "when": {
+        "sim": "phase_changed",
+        "match": {
+          "phase": "night"
+        },
+        "anyone": true
+      },
+      "target": {
+        "ui": "SkipButton"
+      },
+      "text": "tutorial.hint.night_skip"
     }
   ],
   "look": {
