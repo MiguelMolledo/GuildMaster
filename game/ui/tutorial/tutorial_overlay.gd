@@ -8,6 +8,7 @@ extends Control
 
 const MARGIN: float = 4.0
 
+var avoid: Rect2 = Rect2()   # the panel that holds the target: the card keeps off it when it can
 var look: Dictionary = {}
 var hole: Rect2 = Rect2()       # the target on screen (no area = none)
 var veil_on: bool = false
@@ -67,8 +68,15 @@ func place_card() -> void:
 	sz.x = maxf(sz.x, float(look.get("card_width", 236)))
 	card.size = sz
 	var scr := Rect2(Vector2.ZERO, screen_size()).grow(-MARGIN)
-	if not hole.has_area():
-		card.position = (free_view.get_center() - sz / 2.0).round()
+	if not hole.has_area():   # the middle of the free view, or its top or bottom when a docked card is there
+		var stack: Array = PageCard.stack().map(func(pc: PageCard) -> Rect2: return pc.get_global_rect().grow(2.0))
+		var fc := free_view.get_center()
+		card.position = (fc - sz / 2.0).round()
+		for p: Vector2 in [fc - sz / 2.0, Vector2(fc.x - sz.x / 2.0, free_view.end.y - sz.y),
+				Vector2(fc.x - sz.x / 2.0, free_view.position.y), Vector2(free_view.position.x, fc.y - sz.y / 2.0)]:
+			if not stack.any(func(o: Rect2) -> bool: return Rect2(p, sz).intersects(o)):
+				card.position = _clamp(p, sz, scr).round()
+				break
 		card_side = "free"
 		return
 	var gap := float(look.get("card_gap", 10))
@@ -79,9 +87,22 @@ func place_card() -> void:
 		["right", Vector2(hole.end.x + gap, c.y - sz.y / 2.0)],
 		["left", Vector2(hole.position.x - gap - sz.x, c.y - sz.y / 2.0)],
 	]
-	for t: Array in tries:
-		var p := _clamp(t[1] as Vector2, sz, scr)
-		if not Rect2(p, sz).intersects(hole.grow(2.0)):
+	# The docked cards of the side stack (a feast, «Nuevo: …») are not covered either (jugador J3).
+	var cards: Array = PageCard.stack().map(func(pc: PageCard) -> Rect2: return pc.get_global_rect().grow(2.0))
+	var a := avoid.merge(hole) if avoid.has_area() else hole
+	var ac := a.get_center()
+	var around := [["below", Vector2(ac.x - sz.x / 2.0, a.end.y + gap)], ["above", Vector2(ac.x - sz.x / 2.0,
+		a.position.y - gap - sz.y)], ["right", Vector2(a.end.x + gap, c.y - sz.y / 2.0)],
+		["left", Vector2(a.position.x - gap - sz.x, c.y - sz.y / 2.0)]]
+	# first beside the whole panel that holds the target (its other rows stay free) and off the stack; then off the
+	# panel even over the stack (a notice covered is better than the panel to use); then beside the target alone
+	for pass_: Array in [[around, a, cards], [around, a, []], [tries, hole, cards], [tries, hole, []]]:
+		for t: Array in pass_[0]:
+			var p := _clamp(t[1] as Vector2, sz, scr)
+			var r := Rect2(p, sz)
+			if r.intersects((pass_[1] as Rect2).grow(2.0)) or (pass_[2] as Array).any(func(o: Rect2) -> bool:
+					return r.intersects(o)):
+				continue
 			card.position = p.round()
 			card_side = str(t[0])
 			return

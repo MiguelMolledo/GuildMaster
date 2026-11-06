@@ -1,0 +1,689 @@
+{
+  "id": "jugador/13_jornada",
+  "title": "Jugador 13 · Media jornada de oficio",
+  "about": "El oficio de cada día como lo juega un novato: las cartas que llegan, la mejora cuando se abre, pagar la deuda con oro de sobra, hierro con recado, espadas en el yunque y venderlas en la Armería.",
+  "start": {
+    "keep": true
+  },
+  "steps": [
+    {
+      "id": "a_carta_1",
+      "say": "Una carta «Nuevo»: leerla y Entendido",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'}) and not q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'})",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "a_carta_2",
+      "say": "",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'}) and not q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'})",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "a_carta_3",
+      "say": "",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'}) and not q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'})",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "a_evento_1",
+      "say": "Una carta de fiesta o de suceso: leerla y Entendido",
+      "when": "q.shown({'within': 'EventCard', 'node': 'Button_ok'})",
+      "click": {
+        "within": "EventCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "a_evento_2",
+      "say": "",
+      "when": "q.shown({'within': 'EventCard', 'node': 'Button_ok'})",
+      "click": {
+        "within": "EventCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "m_ver_capitulo",
+      "say": "La carta trae «Ver capítulo»: upgrades",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'}) and q.drv.node('UnlockCard').current == 'upgrades'",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_chapter"
+      },
+      "until": "q.tut().begins_with('upgrades:')",
+      "timeout": 6
+    },
+    {
+      "id": "m_desde_ayuda",
+      "say": "Si no, F1 y el capítulo upgrades desde la ayuda",
+      "when": "q.unlocked('upgrades') and not q.chapter_done('upgrades') and not q.tut().begins_with('upgrades:')",
+      "key": "F1",
+      "expect": [
+        "q.visible('HelpPanel')"
+      ]
+    },
+    {
+      "id": "m_ayuda_capitulo",
+      "when": "q.visible('HelpPanel')",
+      "click": {
+        "within": "HelpPanel",
+        "node": "Chapter_upgrades"
+      },
+      "until": "q.tut().begins_with('upgrades:')",
+      "timeout": 6,
+      "soft": true
+    },
+    {
+      "id": "mejoras_gestionar",
+      "when": "q.tut() == 'upgrades:manage'",
+      "world": {
+        "own": "forge"
+      },
+      "double": true,
+      "until": "q.tut() != 'upgrades:manage'",
+      "timeout": 10
+    },
+    {
+      "id": "mejoras_abrir",
+      "when": "q.tut() == 'upgrades:open'",
+      "key": "@panel_upgrades",
+      "until": "q.tut() != 'upgrades:open'",
+      "timeout": 4
+    },
+    {
+      "id": "mejoras_rejilla",
+      "when": "q.tut() == 'upgrades:grid'",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'upgrades:grid'",
+      "timeout": 4
+    },
+    {
+      "id": "mejoras_detalle",
+      "when": "q.tut() == 'upgrades:detail'",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'upgrades:detail'",
+      "timeout": 4
+    },
+    {
+      "id": "mejoras_comprar",
+      "when": "q.tut() == 'upgrades:buy'",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'upgrades:buy'",
+      "timeout": 4
+    },
+    {
+      "id": "mejora_compra",
+      "say": "Comprar la mejora que propone el detalle (la meta lo pide)",
+      "when": "q.visible('UpgradePanel') and q.shown({'within': 'UpgradePanel', 'node': 'BuyButton', 'enabled': true})",
+      "click": {
+        "within": "UpgradePanel",
+        "node": "BuyButton"
+      },
+      "until": "q.order('buy_upgrade') or q.visible('ConfirmModal')",
+      "timeout": 4,
+      "soft": true
+    },
+    {
+      "id": "mejora_si",
+      "when": "q.visible('ConfirmModal')",
+      "click": {
+        "within": "ConfirmModal",
+        "node": "ConfirmButton"
+      }
+    },
+    {
+      "id": "mejoras_fin",
+      "when": "q.tut().begins_with('upgrades:')",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_close"
+      },
+      "soft": true
+    },
+    {
+      "id": "mejoras_esc",
+      "when": "q.visible('UpgradePanel')",
+      "key": "Escape"
+    },
+    {
+      "id": "d_pagar",
+      "say": "Con oro de sobra, pagar la deuda en el libro (L → Deudas)",
+      "when": "q.debt() > 0 and q.gold() >= q.debt() + 40 and q.interior() == ''",
+      "key": "@ledger",
+      "expect": [
+        "q.visible('LedgerPanel')"
+      ]
+    },
+    {
+      "id": "d_pagar_tab",
+      "when": "q.visible('LedgerPanel')",
+      "click": {
+        "via": "LedgerPanel",
+        "fn": "tab_button",
+        "args": [
+          "debts"
+        ]
+      }
+    },
+    {
+      "id": "d_pagar_todo",
+      "when": "q.visible('LedgerPanel')",
+      "click": {
+        "within": "LedgerPanel",
+        "node": "PayAll",
+        "enabled": true
+      },
+      "until": "q.debt() == 0 or q.visible('ConfirmModal')",
+      "timeout": 6,
+      "soft": true
+    },
+    {
+      "id": "d_pagar_si",
+      "when": "q.visible('ConfirmModal')",
+      "click": {
+        "within": "ConfirmModal",
+        "node": "ConfirmButton"
+      },
+      "until": "q.debt() == 0",
+      "timeout": 6
+    },
+    {
+      "id": "d_cerrar_libro",
+      "when": "q.visible('LedgerPanel')",
+      "key": "Escape"
+    },
+    {
+      "id": "t_scerrar_panel",
+      "when": "q.visible('StoragePanel') or q.visible('ProductionPanel') or q.visible('StationMenu')",
+      "key": "Escape"
+    },
+    {
+      "id": "t_ssalir",
+      "when": "q.interior() != ''",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == ''",
+      "timeout": 20
+    },
+    {
+      "id": "t_tablon",
+      "say": "Al tablón: ¿hay un encargo de espadas?",
+      "when": "q.mine_id('sword') == ''",
+      "world": {
+        "service": "board"
+      },
+      "button": "right",
+      "until": "q.visible('BoardPanel')",
+      "timeout": 40
+    },
+    {
+      "id": "t_aceptar_espada",
+      "when": "q.visible('BoardPanel') and q.board_id('sword') != ''",
+      "click": {
+        "within": {
+          "node": "='Note_' + q.board_id('sword')"
+        },
+        "node": "Accept",
+        "enabled": true
+      },
+      "soft": true
+    },
+    {
+      "id": "t_cerrar",
+      "when": "q.visible('BoardPanel')",
+      "key": "Escape"
+    },
+    {
+      "id": "h_scerrar_panel",
+      "when": "q.visible('StoragePanel') or q.visible('ProductionPanel') or q.visible('StationMenu')",
+      "key": "Escape"
+    },
+    {
+      "id": "h_ssalir",
+      "when": "q.interior() != ''",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == ''",
+      "timeout": 20
+    },
+    {
+      "id": "h_espera_mercado",
+      "say": "De noche el puesto cierra: esperar a que abra (×4)",
+      "when": "q.storage('iron') < 4 and q.gold() >= 60 and not q.market_open('resources')",
+      "key": "@speed_3",
+      "until": "q.market_open('resources')",
+      "timeout": 120
+    },
+    {
+      "id": "h_hierro_falta",
+      "say": "Queda poco hierro: al puesto de Recursos con recado",
+      "when": "q.storage('iron') < 4 and q.gold() >= 60",
+      "world": {
+        "service": "resources"
+      },
+      "button": "right",
+      "until": "q.visible('MarketPanel')",
+      "timeout": 40
+    },
+    {
+      "id": "h_hierro_mas",
+      "when": "q.visible('MarketPanel')",
+      "click": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "iron_"
+        },
+        "node": "Plus"
+      },
+      "times": 7
+    },
+    {
+      "id": "h_hierro_enviar",
+      "when": "q.visible('MarketPanel')",
+      "click": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "iron_"
+        },
+        "node": "Send"
+      }
+    },
+    {
+      "id": "h_hierro_destino",
+      "when": "q.visible('MarketPanel')",
+      "popup": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "iron_"
+        },
+        "node": "Send"
+      },
+      "item": 0,
+      "expect": [
+        "q.order('buy')"
+      ],
+      "soft": true
+    },
+    {
+      "id": "h_hierro_reintento",
+      "say": "El menú no cogió el clic: otra vez",
+      "when": "q.visible('MarketPanel') and not q.order('buy')",
+      "click": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "iron_"
+        },
+        "node": "Send"
+      }
+    },
+    {
+      "id": "h_hierro_destino_2",
+      "when": "q.visible('MarketPanel') and not q.order('buy')",
+      "popup": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "iron_"
+        },
+        "node": "Send"
+      },
+      "item": 0,
+      "soft": true
+    },
+    {
+      "id": "h_carbon_mas",
+      "when": "q.visible('MarketPanel') and q.storage('coal') < 3",
+      "click": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "coal_"
+        },
+        "node": "Plus"
+      },
+      "times": 2
+    },
+    {
+      "id": "h_carbon_enviar",
+      "when": "q.visible('MarketPanel') and q.storage('coal') < 3",
+      "click": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "coal_"
+        },
+        "node": "Send"
+      }
+    },
+    {
+      "id": "h_carbon_destino",
+      "when": "q.visible('MarketPanel') and q.storage('coal') < 3",
+      "popup": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "coal_"
+        },
+        "node": "Send"
+      },
+      "item": 0
+    },
+    {
+      "id": "h_cerrar_puesto",
+      "when": "q.visible('MarketPanel')",
+      "key": "Escape"
+    },
+    {
+      "id": "f_a_la_forja",
+      "say": "A la forja",
+      "when": "q.interior() != q.own('forge')",
+      "world": {
+        "own": "forge"
+      },
+      "button": "right",
+      "until": "q.interior() == q.own('forge') and q.location() == q.own('forge')",
+      "timeout": 40
+    },
+    {
+      "id": "f_lingotes",
+      "say": "Hacen falta lingotes (el aprendiz funde si tiene cola; si no, el horno a mano)",
+      "when": "q.storage('iron_ingot') < 2 and not q.working('furnace') and q.storage('iron') >= 2",
+      "station": "furnace",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "f_lingotes_b",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_forge_ingot"
+        ],
+        "type": "Button"
+      }
+    },
+    {
+      "id": "f_x4",
+      "say": "Mayús+3: ×4",
+      "key": "@speed_3"
+    },
+    {
+      "id": "f_espera_hierro",
+      "say": "El recado del hierro tarda dos horas: esperar",
+      "when": "q.storage('iron_ingot') < 2 and q.storage('iron') < 2 and q.deliveries() > 0",
+      "until": "q.storage('iron') >= 2",
+      "timeout": 60
+    },
+    {
+      "id": "f_lingotes_2",
+      "when": "q.storage('iron_ingot') < 2 and not q.working('furnace') and q.storage('iron') >= 2",
+      "station": "furnace",
+      "button": "right"
+    },
+    {
+      "id": "f_lingotes_2b",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_forge_ingot"
+        ],
+        "type": "Button"
+      }
+    },
+    {
+      "id": "f_espera_lingotes",
+      "say": "Esperar a dos lingotes",
+      "when": "q.storage('iron_ingot') < 2 and (q.working('furnace') or q.storage('iron') >= 2)",
+      "until": "q.storage('iron_ingot') >= 2",
+      "timeout": 150,
+      "soft": true
+    },
+    {
+      "id": "f_yunque",
+      "say": "El yunque: espadas en modo normal (se repite)",
+      "when": "q.storage('iron_ingot') >= 2 and not q.working('anvil')",
+      "station": "anvil",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "f_normal",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "node": "NormalButton"
+      }
+    },
+    {
+      "id": "f_espada",
+      "when": "q.visible('StationMenu')",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_forge_sword"
+        ],
+        "type": "Button"
+      }
+    },
+    {
+      "id": "f_espera_espadas",
+      "say": "Esperar a 2 espadas",
+      "when": "q.working('anvil') or q.storage('sword') > 0",
+      "until": "q.storage('sword') >= 2 or (not q.working('anvil') and q.storage('iron_ingot') < 2)",
+      "timeout": 200
+    },
+    {
+      "id": "f_almacen",
+      "say": "Almacén: «Llevar productos»",
+      "when": "q.storage('sword') > 0",
+      "key": "@panel_storage",
+      "expect": [
+        "q.visible('StoragePanel')"
+      ]
+    },
+    {
+      "id": "f_coger",
+      "when": "q.visible('StoragePanel') and q.storage('sword') > 0",
+      "click": {
+        "node": "TakeButton"
+      },
+      "until": "q.bag('sword') > 0",
+      "timeout": 8
+    },
+    {
+      "id": "f_cerrar_panel",
+      "when": "q.visible('StoragePanel') or q.visible('ProductionPanel') or q.visible('StationMenu')",
+      "key": "Escape"
+    },
+    {
+      "id": "f_salir",
+      "when": "q.interior() != ''",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == ''",
+      "timeout": 20
+    },
+    {
+      "id": "e_tablon",
+      "say": "Entregar lo que pide el encargo aceptado",
+      "when": "(q.mine_id('sword') != '' and q.bag('sword') > 0) or (q.mine_id('hammer') != '' and q.bag('hammer') > 0)",
+      "world": {
+        "service": "board"
+      },
+      "button": "right",
+      "until": "q.visible('BoardPanel')",
+      "timeout": 40
+    },
+    {
+      "id": "e_entregar",
+      "when": "q.visible('BoardPanel') and q.mine_id('sword') != ''",
+      "click": {
+        "within": {
+          "node": "='Row_' + q.mine_id('sword')"
+        },
+        "node": "Deliver",
+        "enabled": true
+      },
+      "soft": true
+    },
+    {
+      "id": "e_entregar_m",
+      "when": "q.visible('BoardPanel') and q.mine_id('hammer') != ''",
+      "click": {
+        "within": {
+          "node": "='Row_' + q.mine_id('hammer')"
+        },
+        "node": "Deliver",
+        "enabled": true
+      },
+      "soft": true
+    },
+    {
+      "id": "e_cerrar",
+      "when": "q.visible('BoardPanel')",
+      "key": "Escape"
+    },
+    {
+      "id": "v_espera_armeria",
+      "say": "De noche la Armería cierra: esperar a que abra (×4)",
+      "when": "q.bag('sword') > 0 and not q.market_open('armory')",
+      "key": "@speed_3",
+      "until": "q.market_open('armory')",
+      "timeout": 120
+    },
+    {
+      "id": "v_armeria",
+      "say": "A la Armería a vender",
+      "when": "q.bag('sword') > 0",
+      "world": {
+        "building": "armory"
+      },
+      "button": "right",
+      "until": "q.interior() == q.building('armory')",
+      "timeout": 40
+    },
+    {
+      "id": "v_mostrador",
+      "when": "q.interior() == q.building('armory')",
+      "station": "*",
+      "button": "left",
+      "until": "q.visible('MarketPanel')",
+      "timeout": 8
+    },
+    {
+      "id": "v_vender_tab",
+      "when": "q.visible('MarketPanel')",
+      "click": {
+        "node": "SellTab"
+      }
+    },
+    {
+      "id": "v_vender_1",
+      "say": "Vender las espadas, una a una (cada venta baja el precio)",
+      "when": "q.visible('MarketPanel') and q.bag('sword') > 0",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "sword_"
+        },
+        "node": "SellOne",
+        "enabled": true
+      },
+      "wait": 0.3,
+      "soft": true
+    },
+    {
+      "id": "v_vender_2",
+      "when": "q.visible('MarketPanel') and q.bag('sword') > 0",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "sword_"
+        },
+        "node": "SellOne",
+        "enabled": true
+      },
+      "wait": 0.3,
+      "soft": true
+    },
+    {
+      "id": "v_vender_3",
+      "when": "q.visible('MarketPanel') and q.bag('sword') > 0",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "sword_"
+        },
+        "node": "SellOne",
+        "enabled": true
+      },
+      "wait": 0.3,
+      "soft": true
+    },
+    {
+      "id": "v_vender_4",
+      "when": "q.visible('MarketPanel') and q.bag('sword') > 0",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "sword_"
+        },
+        "node": "SellOne",
+        "enabled": true
+      },
+      "wait": 0.3,
+      "soft": true
+    },
+    {
+      "id": "v_cerrar_mercado",
+      "when": "q.visible('MarketPanel')",
+      "key": "Escape"
+    },
+    {
+      "id": "v_salir_armeria",
+      "when": "q.interior() != ''",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == ''",
+      "timeout": 20
+    },
+    {
+      "id": "fin",
+      "say": "Fin de la media jornada: el reloj",
+      "expect": [
+        "q.day() >= 0"
+      ]
+    }
+  ]
+}

@@ -1003,6 +1003,18 @@
       "tema": "El pelo blanco es de la edad",
       "decision": "El tono de pelo 5 (el blanco, #d8d0c0) se reserva a la edad. Quien lo trae (datos de inicio o de mapas, herencia, partidas viejas) se dibuja con su tono natural (data/view.json portraits.aged_hair: 5 → 9), y las canas salen solo del encanecer por franja. Un retrato guardado que ya no es de la franja de edad o del sexo de la persona deja paso al de su franja ahora.",
       "por_que": "Decisión del manager: Clara a los 8 salía como una mujer canosa (hallazgo de la verificación D)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "El tutorial: lo básico encadenado, lo demás con su carta",
+      "decision": "Solo se encadenan los capítulos de lo básico (primeros pasos, producir, vender, deuda). Los demás llegan con la carta «Nuevo» de su desbloqueo o desde F1, y uno cuya mecánica no se ha abierto dice «Más adelante». La tarjeta del tutorial no tapa el panel que señala, y la pila de cartas se aparta mientras guía.",
+      "por_que": "Pasada de jugador (verificación J): el tutorial ofrecía Empleados cerrado tras la deuda, y su tarjeta tapaba los botones que pedía."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Contratar: del más barato al más caro",
+      "decision": "Los candidatos de Empleados → Contratar salen ordenados por jornal, el más barato primero (el aprendiz que pide la meta).",
+      "por_que": "Pasada de jugador: el primer candidato era un oficial a 20 al día y la meta pide un aprendiz."
     }
   ],
   "pendientes": [
