@@ -2353,6 +2353,12 @@ region.hamlet.specialty,"Wheat, flour, bread and wool","Trigo, harina, pan y lan
 region.abbey.specialty,"Herbs, bandages and the scriptorium's copies","Hierbas, vendas y las copias del escritorio"
 region.villa.rulers,The Mayor and the council of the houses,El Alcalde y el concejo de las casas
 region.capital.rulers,A council of patricians; the Exchange signs the treaties,Un concejo de patricios; la Lonja firma los tratados
+zone.capital.centre,Market Square,Plaza del Mercado
+zone.capital.artisans,Craftsmen's Quarter,Barrio de los Menestrales
+zone.capital.nobles,Patricians' Quarter,Barrio de los Patricios
+zone.capital.port,Harbour and Exchange,Puerto y Lonja
+zone.capital.outskirts,Outskirts and Fields,Arrabal y huertas
+zone.capital.forest,Daura Wood,Bosque del Daura
 region.port.rulers,The Boatmen's Brotherhood and its prior,La Cofradía de barqueros y su prior
 region.quarry.rulers,A house of barons with the mine's grant,Una casa de barones con la concesión de la mina
 region.hamlet.rulers,The village bailiff; the abbey owns the land,El batlle de la aldea; las tierras son de la abadía

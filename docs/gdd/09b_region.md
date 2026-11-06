@@ -6,8 +6,10 @@
 > identidad y su arancel; encargos de fuera; reputación allí; tratados), las caravanas, los tratados de familia y del
 > Alcalde, la nieve y la crecida, las caravanas abstractas de las familias IA y la simulación abstracta de las ciudades
 > lejanas (guardado v16). Reglas y cifras en `data/world/trade.json`; el sim en `sim/region/`; resumen de lo
-> implementado en 9b.10. **Quedan para H13** (con el mapa grande): O-R1 (la capital como casa por defecto) y O-R9
-> (población proporcional a las casas); el inicio del jugador y el `max_total` de hoy no cambian.
+> implementado en 9b.10. **H13, la parte de mapa (rama `plantillas`, 2026-11-06):** Bellcaire (`region_capital`) es
+> el mapa de 80×80 con sus 6 zonas (centro, barrio artesano, barrio noble, puerto y Lonja, afueras, bosque: 9b.11);
+> O-R9 hecha en los mapas de la región (5 por casa: `population_max` del mapa); O-R1 lista tras una opción
+> (`data/world/region.json` `default_city`, apagada: pendiente del owner). El `max_total` de Vilarrasa no cambia.
 
 ### 9b.1 El cambio de planteamiento
 
@@ -237,7 +239,26 @@ En la línea catalana y castellana de `data/cast.json`. Todo es propuesta: los t
 | Bot | `sim/bots/bot_merchant.gd`, diana `merchant` | Ver `data/targets.json` |
 
 **Para H13 (con el mapa grande de la capital):** O-R1 (la capital como casa por defecto, elegible al empezar) y O-R9
-(población proporcional a las casas: hoy `data/town.json population.max_total` sigue en 20 y el inicio del jugador
-sigue en `town_e`).
+(población proporcional a las casas). Estado el 2026-11-06 (9b.11): O-R9 hecha en los mapas de la región; O-R1 lista
+tras `default_city`, apagada hasta que el owner decida (el inicio por defecto sigue en `town_e`).
+
+### 9b.11 El mapa de Bellcaire en H13: sus 6 zonas (2026-11-06)
+
+Las 6 zonas son las del diseño del mapa EA (estilo A + C, D10), hechas por el generador desde el plano de
+`tools/city/ciudades.json` (`docs/protocolos/generar-ciudad.md` §1k) y guardadas en el mapa (`zones`, `zone_rows`;
+el sim no las lee, la vista pone sus nombres con el zoom más lejano):
+
+| Zona | Dónde | Qué la hace reconocible |
+|---|---|---|
+| **Plaza del Mercado** (centro) | La plaza y la franja central dentro de la muralla | El mercado con sus 5 puestos, el tablón, el ayuntamiento y la armería |
+| **Barrio de los Menestrales** (artesano) | Dentro de la muralla, al oeste | Los talleres de los cuatro oficios (forja del jugador, forja rival, carpintería, cantería, sastrería) y casas pequeñas de tejado pardo |
+| **Barrio de los Patricios** (noble) | Dentro de la muralla, al este | La catedral y casas grandes con patio, de tejado de pizarra |
+| **Puerto y Lonja** | Al sur, de la muralla al río | Los muelles, las barcas, la grúa, la Lonja, la aduana y los almacenes; tejados de ladrillo |
+| **Arrabal y huertas** (afueras) | Fuera de la muralla | Los campos, el arrabal al otro lado del puente con su iglesia |
+| **Bosque del Daura** | Al suroeste, junto al río | Un bosque cerrado (más de la mitad, árboles) |
+
+**30-40 NPC:** con O-R9 (5 por casa) y las 16 casas de 9b.2, Bellcaire tiene 80 vecinos, todos con casa y oficio
+(16 hogares; los puestos de trabajo del pueblo, de 5 en 5). La cifra de 30-40 es la del mapa EA único de antes de la
+región; se queda en 80 porque es la población aprobada para el bench (dianas relativas a Vilarrasa, 2026-11-05).
 
 **Para H12.3 (salud de 4.22):** el asalto en el camino hiere al viajero (o al carretero) además de llevarse la carga.

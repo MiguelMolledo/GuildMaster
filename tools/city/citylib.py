@@ -975,6 +975,7 @@ def validate(m, strict=False, hand_decor=None):
     # the plots (04 §4.9.1): free lots, ruins and businesses, their counts and the valve (tools/city/plots.py)
     import plots
     plots.validate_plots(m, rep, required=rep.map_id in rules().get("plots", {}).get("maps", []))
+    _check_zones(m, rep)
     # the hand-placed decoration of game/visuals/towns/<id>.tscn
     for name, (x, y) in (hand_decor or []):
         t = to_tile(x, y)
@@ -1326,3 +1327,87 @@ def dumps_map(data):
         lines.append(f'   {json.dumps(it, ensure_ascii=False)}{"," if j < len(v["items"]) - 1 else ""}')
     lines += ["  ]", " }"]
     return text[:-2] + ",\n" + "\n".join(lines) + "\n}\n"
+
+
+# H13's zones (docs/gdd/10_hitos.md: «mapa EA 80×80 con 6 zonas»; tools/city/ciudades.json "zones", organic.zones).
+ZONE_KINDS = ("centre", "artisans", "nobles", "port", "outskirts", "forest")
+WORKSHOP_TYPES = ("forge", "carpentry", "masonry", "tailor_shop")
+
+
+def _check_zones(m, rep):
+    """A map with zones: the six kinds, every tile in a zone of zone_rows, each zone big enough and with what makes
+    it what it is (the plaza and the town hall; the workshops; the cathedral; the water and the docks; the fields;
+    the trees), its label tile inside it."""
+    zs = m.d.get("zones")
+    if not zs:
+        return
+    rows = m.d.get("zone_rows") or []
+    if len(rows) != m.h or any(len(r) != m.w for r in rows):
+        rep.error("zones: zone_rows no tiene el tamaño del mapa")
+        return
+    kinds = [z.get("kind") for z in zs]
+    for k in ZONE_KINDS:
+        if kinds.count(k) != 1:
+            rep.error(f"zones: falta la zona {k} (o está repetida)")
+    of = {}
+    for r, row in enumerate(rows):
+        for c, ch in enumerate(row):
+            of[(c, r)] = ch
+    char = {z.get("char"): z for z in zs}
+    holes = sum(1 for v in of.values() if v not in char)
+    if holes:
+        rep.error(f"zones: {holes} casillas sin zona")
+    count = {}
+    for t, ch in of.items():
+        count[ch] = count.get(ch, 0) + 1
+
+    def tiles_of(z):
+        return [t for t, ch in of.items() if ch == z.get("char")]
+    sites = {sid: s for sid, s in m.sites.items() if sid not in m.alt_of}
+    summary = []
+    for z in zs:
+        ts = tiles_of(z)
+        kind = z.get("kind")
+        n = len(ts)
+        summary.append(f"{z.get('id')} {n}")
+        if n < 60:
+            rep.error(f"zones: {z.get('id')} tiene {n} casillas (mínimo 60)")
+        if int(z.get("tiles", -1)) != n:
+            rep.error(f"zones: {z.get('id')} dice {z.get('tiles')} casillas y zone_rows tiene {n}")
+        lb = z.get("label")
+        if not lb or of.get(tuple(lb)) != z.get("char"):
+            rep.error(f"zones: el rótulo de {z.get('id')} no está en su zona")
+        if not str(z.get("name_key", "")).startswith("zone."):
+            rep.error(f"zones: {z.get('id')} sin name_key zone.*")
+        tset = set(ts)
+        k_of = {}
+        for t in ts:
+            k = m.kind(t)
+            k_of[k] = k_of.get(k, 0) + 1
+        if kind == "centre":
+            th = sites.get("town_hall")
+            if k_of.get("plaza", 0) < 50 or not th or tuple(th["door"]) not in tset:
+                rep.error("zones: el centro no tiene la plaza y el ayuntamiento")
+        elif kind == "artisans":
+            ws = [sid for sid, s in sites.items() if s["type"] in WORKSHOP_TYPES and s["door"] and tuple(s["door"]) in tset]
+            if len(ws) < 3:
+                rep.error(f"zones: el barrio artesano tiene {len(ws)} talleres (mínimo 3)")
+            summary[-1] += f" ({len(ws)} talleres)"
+        elif kind == "nobles":
+            cath = [lm for lm in (m.d.get("landmarks") or []) if lm.get("type") == "cathedral"
+                    and (lm["origin"][0], lm["origin"][1]) in tset]
+            if not cath:
+                rep.error("zones: el barrio noble no tiene la catedral")
+        elif kind == "port":
+            if k_of.get("water", 0) < 100 or k_of.get("dock", 0) < 6:
+                rep.error(f"zones: el puerto tiene {k_of.get('water', 0)} de agua y {k_of.get('dock', 0)} de muelle")
+        elif kind == "outskirts":
+            if k_of.get("field", 0) < 100:
+                rep.error(f"zones: las afueras tienen {k_of.get('field', 0)} casillas de campo (mínimo 100)")
+        elif kind == "forest":
+            share = k_of.get("tree", 0) / float(max(1, n))
+            if share < 0.35:
+                rep.error(f"zones: el bosque tiene un {share:.0%} de árboles (mínimo 35 %)")
+            summary[-1] += f" ({share:.0%} árboles)"
+    rep.note("zonas: " + ", ".join(summary))
+

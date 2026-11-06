@@ -9,6 +9,8 @@ extends Node
 ##   paso      12:10, the bridge or the quay (where the map has one): the townsfolk crossing
 ##   ruina, solar, fuera, venta  12:12-12:18, the plots (04 §4.9.1, data/maps plots): the best-located ruin, a free
 ##             lot inside the town, a free lot outside it, the business with the «Se vende» sign
+##   zona_<kind> from 12:20, in a town with zones (H13, Bellcaire: data/maps zones): each zone at the farthest zoom,
+##             with its name (ZoneLayer)
 ##   atardecer the start of dusk + 50 min, the biggest corrillo (a rumour over a head)
 ##   noche     23:10, a night guard on its round with the lantern
 ##   corrillo_antes, corrillo_despues (only with --smoke-moments=corrillo) a corrillo of 6 or more at dusk with the
@@ -57,6 +59,11 @@ func _ready() -> void:
 			all.append(["paso", _cross.bind(id), 1.0])
 		all += [["ruina", _plot.bind(id, "ruin", "", 12 * 60 + 12), 1.0], ["solar", _plot.bind(id, "lot", "inside", 12 * 60 + 14), 1.0],
 			["fuera", _plot.bind(id, "lot", "outside", 12 * 60 + 16), 1.0], ["venta", _plot.bind(id, "for_sale", "", 12 * 60 + 18), 1.0]]
+		var m: Dictionary = Data.catalog.maps().get(str(NewGame.city(Data.catalog, id).get("map", "")), {})
+		var zi := 0
+		for z: Dictionary in m.get("zones", []):  # H13: each zone of the map, its name over it (ZoneLayer)
+			all.append(["zona_" + str(z["kind"]), _zone.bind(id, str(z["id"]), _v(z["label"]), 12 * 60 + 20 + zi), 1.0])
+			zi += 1
 		all += [["atardecer", _dusk.bind(id), 1.2], ["noche", _night.bind(id), 1.2], ["fiesta", _fiesta.bind(id), 1.2]]
 		if "corrillo" in moments:  # only when asked: a corrillo of 6 or more with its bubbles and phrases, before/after
 			all += [["corrillo_antes", _corrillo.bind(id, false), 1.2], ["corrillo_despues", _corrillo.bind(id, true), 1.2]]
@@ -226,6 +233,17 @@ func _plot(id: String, state: String, side: String, at: int) -> void:
 ## The biggest corrillo of the dusk (the first of 6 or more people, else the biggest by 21:00), the player's
 ## person beside it (so the rumour is told aloud) and the camera on it; `turns` off = every bubble and phrase at once
 ## (as before), on = WorldView._take_turns.
+## A zone of the map (H13: data/maps "zones"): its label tile at the farthest zoom, where ZoneLayer shows its name.
+func _zone(id: String, zone: String, at: Vector2i, minute: int) -> void:
+	if _city != id and not _begin(id):
+		return
+	_run_to(minute)
+	app.world().select("")
+	_centre(at, 0)
+	app.world().zone_layer.update(1)
+	_report("%s zona %s" % [id, zone])
+
+
 func _corrillo(id: String, turns: bool) -> void:
 	if not turns:
 		if not _begin(id):  # a fresh game: the corrillos form at dusk

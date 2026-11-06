@@ -238,3 +238,45 @@ def _iso(img, m, data, color, ox, oy, hw=8):
         tw = d.textlength(text, font=font)
         d.rectangle([cx - tw / 2 - 2, cy - 14, cx + tw / 2 + 2, cy - 3], fill=(30, 22, 16, 255))
         d.text((cx - tw / 2, cy - 14), text, fill=(255, 235, 190, 255), font=font)
+
+
+ZONE_TINT = {"centre": "#e0b050", "artisans": "#c06030", "nobles": "#5a6ab0", "port": "#3080c0",
+             "outskirts": "#90b040", "forest": "#2a6a30"}
+
+
+def render_zones(data, cat, out, names=None):
+    """H13: the zones of a map (data/maps "zones" and "zone_rows") over its plan, each tinted, with its name at its
+    label tile (names: name_key -> text, e.g. the es column of i18n/strings.csv). Returns the path."""
+    m = citylib.Map(data, cat)
+    tiles = citylib.load_json(os.path.join(citylib.DATA, "tiles.json"))["tiles"]
+    color = {k: _hex(v["color"]) for k, v in tiles.items()}
+    rows = data.get("zone_rows") or []
+    by_char = {z["char"]: z for z in data.get("zones") or []}
+    W, H = m.w * T, m.h * T
+    img = Image.new("RGB", (W + 20, H + 40), (43, 34, 27))  # RGB: the RGBA fills below blend over it
+    d = ImageDraw.Draw(img, "RGBA")
+    ox, oy = 10, 30
+    for t in m.all_tiles():
+        x, y = ox + t[0] * T, oy + t[1] * T
+        d.rectangle([x, y, x + T - 1, y + T - 1], fill=color.get(m.kind(t), (255, 0, 255, 255)))
+        z = by_char.get(rows[t[1]][t[0]]) if rows else None
+        if z:
+            d.rectangle([x, y, x + T - 1, y + T - 1], fill=_hex(ZONE_TINT.get(z["kind"], "#ffffff"), 110))
+    for sid, s in sorted(m.sites.items()):
+        xs = [t[0] for t in s["tiles"]]
+        ys = [t[1] for t in s["tiles"]]
+        d.rectangle([ox + min(xs) * T, oy + min(ys) * T, ox + (max(xs) + 1) * T - 1, oy + (max(ys) + 1) * T - 1],
+                    outline=(20, 12, 8, 255), fill=(150, 60, 40, 200) if s["type"] != "house" else (110, 80, 60, 160))
+    font = _font(18)
+    for z in data.get("zones") or []:
+        if not z.get("label"):
+            continue
+        text = (names or {}).get(z.get("name_key", ""), z["id"])
+        cx, cy = ox + z["label"][0] * T + T // 2, oy + z["label"][1] * T + T // 2
+        tw = d.textlength(text, font=font)
+        d.rectangle([cx - tw / 2 - 6, cy - 13, cx + tw / 2 + 6, cy + 13], fill=(20, 14, 9, 210))
+        d.text((cx - tw / 2, cy - 11), text, fill=(255, 242, 204, 255), font=font)
+    d.text((10, 6), f"{data.get('id', '')}: {len(data.get('zones') or [])} zonas", fill=(255, 242, 204, 255), font=_font(14))
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    img.save(out)
+    return out
