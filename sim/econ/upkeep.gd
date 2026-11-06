@@ -24,6 +24,8 @@ static func step(sim: Sim) -> void:
 		var fam := Money.family_of(st, b)
 		if fam == "":
 			continue
+		if dawn and str(bld.get("state", "")) == "construction":
+			continue  # H6: a building under works pays no upkeep until it is finished (Plots)
 		if dawn:
 			_charge(sim, b, fam, int(sim.catalog.buildings().get(str(bld["type"]), {}).get("upkeep", 0)))
 		elif richer.has(fam) and int(bld.get("upkeep_debt", 0)) > 0:

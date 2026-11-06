@@ -238,6 +238,12 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Inn.order_make_bed(sim, order)
 		"hail":
 			return NpcActions.order_hail(sim, order)
+		"build":  # H6 (Plots, 04 §4.9)
+			return Plots.order_build(sim, order)
+		"demolish":
+			return Plots.order_demolish(sim, order)
+		"convert_building":
+			return Plots.order_convert(sim, order)
 	return fail("unknown_order")
 
 
@@ -255,6 +261,7 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"resolve_incident", "hail", "live_forge", "unlock_seen",
 	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license",  # posada (Inn.MANAGEMENT)
 	"take_emergency_loan",  # equilibrio (Emergency)
+	"build", "demolish", "convert_building",  # H6 (Plots)
 	"set_service_price", "request_loan", "grant_loan", "reject_application", "claim_collateral"]  # H12.2
 
 

@@ -16182,6 +16182,48 @@
       "notas": "Ilustración de el altercado (04f §4.24.5), 240×135, y altercado_192.png a 192×108 (aviso). Para la carta del kit de página; se lee por VisualPaths."
     },
     {
+      "id": "illus_plot_lot",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H6",
+        "parcelas"
+      ],
+      "ruta": "assets/art/illustrations/events/plot_lot.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la carta de una parcela (PlotCard, 04 §4.9.1): un solar libre con sus estacas, 240×135, y plot_lot_192.png a 192×108. Se lee por VisualPaths."
+    },
+    {
+      "id": "illus_plot_ruin",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H6",
+        "parcelas"
+      ],
+      "ruta": "assets/art/illustrations/events/plot_ruin.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la carta de una parcela (PlotCard, 04 §4.9.1): una ruina en la calle, 240×135, y plot_ruin_192.png a 192×108. Se lee por VisualPaths."
+    },
+    {
+      "id": "illus_plot_building",
+      "tipo": "ui",
+      "estado": "sprite",
+      "para": [
+        "H6",
+        "parcelas"
+      ],
+      "ruta": "assets/art/illustrations/events/plot_building.png",
+      "origen": "fal: nano-banana-2/edit (ref: el título al alba) + paleta de image2pixel (tools/art/fal_ilustraciones.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.08,
+      "notas": "Ilustración de la carta de una parcela (PlotCard, 04 §4.9.1): un negocio que cambia de manos, 240×135, y plot_building_192.png a 192×108. Se lee por VisualPaths."
+    },
+    {
       "id": "illus_asalto_bandidos",
       "tipo": "ui",
       "estado": "sprite",

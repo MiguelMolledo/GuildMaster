@@ -988,6 +988,12 @@
     },
     {
       "fecha": "2026-11-06",
+      "tema": "H13 · la economía de las familias IA de Bellcaire",
+      "decision": "Las familias IA de Bellcaire llevan su taller como una de verdad (sim/ai/economy.gd, solo en data/ai.json economy.maps; Vilarrasa con hashes idénticos a main; ninguna constante compartida tocada): la pareja trabaja en el otro puesto y el cabeza cambia de puesto si el suyo está cogido; elige receta por su margen real por hora y fabrica el intermedio cuando le sale más barato que comprarlo; no compra para piezas que el mercado no se va a llevar; sale al mercado entre fases con un lote vendible o sin insumos; contrata un aprendiz solo con oro sobre su reserva y si su receta paga el sueldo, y lo despide bajo su reserva (gold_reserve + reserve_days de mantenimiento y sueldos, también el final de su guerra de precios); bajo su reserva vende en austeridad (hasta demanda 0,6), no ataca, y títulos y cargos no le tocan la reserva; pausa la cola con el taller dañado. Mira su taller cada tick_minutes (5; la gestión, en su minuto escalonado del amanecer) y, si no había nada que hacer, vuelve a mirar a los check_minutes (15): el coste por minuto de la IA en Bellcaire. Crédito (economy.credit): la que no puede pagar el amanecer siguiente pide 120 al prestamista, debe 144 en 8 días y devuelve lo que tiene sobre su reserva; lo que el embargo no cubra se perdona (una familia IA no se arruina: la ruina acaba la partida del jugador). Rivalidad: desahogo (−20 al atacante tras atacar), envidia del título (10 × (0,5 + agresividad)) y respiro de la víctima (4 días); Ferrer empieza con 30 hacia el recién llegado. Dianas (h13_probe, 80 días, 3 semillas, sobre main f68fe5cc): Normal días-familia sin oro 3/0/1 (≤ 10), racha 3/0/1 (≤ 5), ataques al jugador 2/2/1, entre IA 7/2/1 con 8 sabotajes, títulos 5/4/4, cuota 0,33, 0 órdenes rechazadas; medianas de ataques Fácil 0 ≤ Normal 2 ≤ Difícil 2; oro neto Fácil 7121 > Normal 4472 > Difícil 2210. En Difícil las familias IA aún pasan apuros (54-88 días-familia sin oro, rachas de 10: el crédito las rescata y vuelven a caer): sin diana en el encargo.",
+      "por_que": "Manager: «una capital de rivales arruinados no es divertida… arréglalo en la IA (sim/ai, perfiles, data/ai.json)… NO toques el mantenimiento ni otras constantes compartidas con Vilarrasa»."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Verificación D: escenarios para las órdenes sin cubrir",
       "decision": "Los flujos que ninguna partida existente alcanza empiezan en escenarios propios de tools/scenarios/make_verifica_scenarios.gd (patron_treaties, judge_family, school_age, courtship_gifts, festival_eve, inn_chores, tavern_for_sale, altercation_purse), cada uno derivado de un escenario existente o de una partida nueva y reproducible. master_touch sale de los huecos (la Forja viva lo sustituye; queda para la rama forja) y close_dynasty lleva motivo: apagado por diseño (succession.voluntary_close = false, D19).",
       "por_que": "Decisión del manager (bloque D): cubrir las 21 órdenes que ningún flujo daba."
@@ -1387,6 +1393,30 @@
       "tema": "La ruina de una familia IA no acaba la partida",
       "decision": "Solo la ruina de la familia humana acaba la partida; una IA arruinada por su préstamo queda embargada y sigue (sim/econ/loans.gd, Emergency.ruin). Lo construye forja; erudito lo respeta en el Banco.",
       "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Hallado por forja: a 5 años, 3 de 4 semillas terminaban la partida del jugador por la quiebra de un rival. Ningún jugador entendería perder por la deuda de otro."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H6 · parcelas y construcción: reglas de la parte del jugador y de los NPC",
+      "decision": "Construido en la rama posada (04 §4.9 «Implementado en H6»; data/construction.json [balance]): construir en un solar = coste × situación (×0,8 a ×1,3, ×0,85 extramuros); restaurar una ruina ×0,3 + ×0,5 y la mitad de días; casa 120; reconvertir ×0,4 y 1 día (se pierden las mejoras); derribar devuelve el 40 % y −2 de reputación; comprar a un NPC (coste + mejoras) × mod_relación de 0,8 a 1,5 (no vende por debajo de −40) y el vendedor se queda (≥ +20), monta negocio en otra parcela (≥ −20) o se va. La obra no produce, no paga mantenimiento ni cuenta como negocio. El tope por título cuenta todo menos la taberna (O-V11); la taberna cuenta como negocio para los títulos (Equilibrio 4). La válvula (2 libres por zona) para la IA, no para el jugador. El edificio cabe girado un cuarto. Las parcelas viven en state.parcels (solo los cambios, sin versión de guardado).",
+      "por_que": "Encargo del manager (H6, la parte del jugador y de los NPC); cifras del GDD donde las hay, el resto [balance] con el criterio de 4.9.1 (la ruina es la ganga, lo bien situado lo caro)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H6 · la construcción de la IA, fuera de sim/ai",
+      "decision": "sim/build/construction.gd hace el módulo de construcción de 04c §4.21.6.2 (candidatas: 3 parcelas mejor situadas donde cabe un taller de sus oficios y los edificios en venta de sus oficios; puntuación beneficio × 16 días × expansión / precio ≥ 1; reserva de 4 días de coste fijo; desde el día 9; 8 días de enfriamiento; 1 compra al día en el pueblo). Lo llama Construction.step al amanecer hasta que la agenda de plantillas (sim/ai) lo llame ella (Construction.candidates/choose/order_for) y apague data/construction.json ai.enabled.",
+      "por_que": "El manager: la economía de la IA rival la lleva plantillas en sim/ai; no se toca sim/ai salvo el hueco de construcción que pida su módulo."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H6 · Vilarrasa: un solar de taller, y la IA aún no se amplía",
+      "decision": "tools/maps/make_town_e.py añade plot_21: solar libre de producción 3×4 (cabe una forja, carpintería, albañilería o taberna: la segunda taberna de O-V12) en la hierba al norte del callejón de arriba, cols 9-11 × filas 2-5, entrada por el callejón en (10, 6); extramuros (×0,85), situación 0,42 (las de plots.py). No pisa corrillos, patrullas, árboles, prado de feria ni corral; el escenario town_e_start no cambia. La expansión de la IA (un segundo edificio con su taller en pie) queda tras data/construction.json ai.expand, apagado: la IA de hoy no contrata ni pone cola en un segundo edificio y, encendido, el rival levanta una segunda forja el día 21 (semilla 1) que lo deja con 2 de oro el día 60 (407 sin ella). El beneficio esperado cuenta el sueldo de quien lo trabaja (ai.staff_rank).",
+      "por_que": "El manager: Vilarrasa la toca posada en su fuente, sin mover dianas sin medirlo. Medido: con ai.expand apagado, 3 semillas × 60 días idénticas a antes del solar; se enciende cuando la economía de sim/ai (plantillas) sepa llevar un segundo edificio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H6 · cuántas parcelas libres trae cada ciudad",
+      "decision": "Por ciudad: 4-5 parcelas libres de producción (solares y ruinas), al menos 2 de ≥ 3×4 o 4×3 (un taller), y 3-4 de vivienda de ≥ 3×3 (una casa). Vilarrasa la cumple en tools/maps/make_town_e.py (posada): producción plot_01 (ruina 3×3), plot_02 (3×2), plot_21 y plot_22 (3×4, al norte del callejón de arriba); vivienda plot_03 y plot_04 agrandados a 3×3 y plot_23 y plot_24 (3×3) en esa franja; no queda nada fuera, el corral de la feria sigue cabiendo junto a la puerta este. Las otras cinco ciudades, plantillas en tools/city/plots.py. Sustituye a la pendiente «H6 · los solares de los mapas no admiten talleres ni dejan sitio a la IA».",
+      "por_que": "Delegación del owner por el manager («apruebo tu regla para todas, Vilarrasa incluida»), con el dato de la sonda de 60 días: con solo las 2 libres de la válvula y de 2×2-3×2, la IA no tenía dónde construir y no cabía ningún taller."
     }
   ],
   "pendientes": [
@@ -1507,16 +1537,6 @@
       "tema": "Jugador completo · la taberna arranca con pérdidas (sin juzgar aún)",
       "detalle": "Comprada desde Ciudadano (días 20-24), en los pocos días que quedan hasta el final de los 3 años la taberna de full_player (llevada por la cónyuge con BotInnkeeper) pierde entre 115 y 334 de oro/día de operación: la existencia inicial, los primeros salarios y pocas noches. En una semilla anterior, comprada el día 20, ganaba 61/día de operación. Tres años no bastan para saber si compensa: se mide en la generación de la noche. Cifra nueva (medido con full_player, 3 años × 4 semillas, sobre 1f39d995 (reports/full_player_ref/full_player_despues_eq.json; antes: full_player_antes_eq.json sobre b0616e72)): comprada desde Ciudadano, la taberna pierde en las 4 (bot_inn_net_day de −26 a −89 de oro/día) y el neto del año 2 queda en 1,4 de media. El manager lo ha pasado a equilibrio y plantillas.",
       "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
-    },
-    {
-      "tema": "H13 · la economía de las familias IA de Bellcaire",
-      "detalle": "Con el bot artisan_expert en Normal, 3 de las 5 familias IA pasan buena parte de los 80 días sin oro (82-152 días-familia por partida; en Difícil 215-243; en Fácil 0-2): el mantenimiento diario del taller (~19 de oro) se come el margen de sus ventas y solo las que toman encargos aguantan. Arruinadas, dejan de vender y la rivalidad entre familias IA se apaga antes de llegar a sus umbrales: en Normal no hubo ataques entre IA ni sabotajes (sí en Difícil). El mantenimiento es una constante compartida con Vilarrasa (Equilibrio).",
-      "opciones": "(a) Que Equilibrio revise el mantenimiento o la demanda de los oficios de las familias IA con todo encendido. (b) La quiebra de 04c (P7: austeridad, venta, venida a menos) y Q9, que hoy no existen. (c) Perfiles de Bellcaire con más encargos (max_contracts 2) o menos días de compra."
-    },
-    {
-      "tema": "H13 · orden de ataques por dificultad (04c 4.21.10)",
-      "detalle": "El oro neto del jugador respeta Fácil > Normal > Difícil, pero los ataques recibidos no siguen Fácil ≤ Normal ≤ Difícil en mediana: en Difícil las familias IA se arruinan antes (venden más barato) y su rivalidad no llega al umbral en dos de las tres semillas. Va con el punto anterior.",
-      "opciones": "Revisar tras arreglar la economía de las familias IA."
     },
     {
       "tema": "H12.2 · el Banco: tamaño y contratos notariales",
