@@ -2561,6 +2561,10 @@ def main():
         wm = f"maps/{f[:-5]}"
         if "watch" in m:
             check_text(wm + " watch", (m.get("watch") or {}).get("name_key"), strings, rep)
+        if "detail" in m:
+            se = (m.get("detail") or {}).get("settled_every")
+            if not isinstance(se, int) or not 1 <= se <= 30:
+                rep.error(wm, f"detail.settled_every {se}: un entero de 1 a 30 (minutos)")
         if "routing" in m:
             k = (m.get("routing") or {}).get("landmarks")
             if not isinstance(k, int) or not 1 <= k <= 8:

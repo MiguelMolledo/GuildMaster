@@ -68,7 +68,7 @@ static func fill(box: VBoxContainer, sim: Sim, fam: String) -> void:
 	# the next title's requirements
 	if nx != "":
 		box.add_child(SocialKit.label(SimQuery.t_("ui.ledger.rep.next") % [SimQuery.title_name(nx),
-			int(sim.catalog.titles()[nx].get("cost_gold", 0))], &"BoldLabel", "NextTitle"))
+			Titles.cost_of(sim, fam, nx)], &"BoldLabel", "NextTitle"))
 		for r: Dictionary in Titles.requirements(sim, fam, nx):
 			if str(r["kind"]) == "gold":
 				continue

@@ -174,6 +174,10 @@ Esc, Cancelar o un clic en el velo cancelan; Intro o el botón confirman (Espaci
 | Intro | Confirmar el modal | **propuesta** |
 | F5 · F9 | Guardado rápido · cargar el rápido (ver [02](02_menu_inicial.md)) | **propuesta** |
 | Tab · Mayús+Tab · Retroceso | Con el tutorial a la vista: saltar el paso · el capítulo · repetir el paso ([05](05_tutorial.md)) | sí |
+| Tab · Mayús+Tab · flechas | Sin tutorial: el foco por los botones del menú, panel o carta de arriba (anillo dorado); sin nada enfocado, Tab entra en lo de arriba (`KeyNav`) | sí (verificación C13) |
+| Intro · Espacio | Pulsar el control enfocado (sin foco, Espacio es la pausa) | sí |
+| F6 · Mayús+F6 | El foco salta de zona: lo de arriba, las cartas de la pila, el panel abierto, la barra de la sala, la barra del HUD | sí |
+| R, WASD dentro de un edificio | Avisan «no disponible dentro» (el mapa y la cámara son de la ciudad) | sí |
 
 Todas las teclas van al mapa de entrada de `project.godot` (no `KEY_*` en el código) para poder cambiarlas en
 opciones más adelante.

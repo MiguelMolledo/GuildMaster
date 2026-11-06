@@ -129,7 +129,7 @@ func refresh(force: bool = false) -> void:
 	var data: Array = SimQuery.employees(sim, building) if tab == "staff" else SimQuery.candidates(sim, actor(), building)
 	var sig := tab + JSON.stringify(data) + str(_today()) + "|" + str(_gold()) + "|" + str(_night()) \
 		+ str(sim.state.buildings.get(building, {}).get("upgrades", []))
-	if not force and sig == _sig:
+	if not force and (sig == _sig or UiFeel.hold_rebuild(self)):
 		return
 	_sig = sig
 	_refresh_head()

@@ -13,10 +13,13 @@ static func minutes_per_tile(catalog: Catalog) -> int:
 ## Moves every walking character one minute. Called by Sim.step after the clock.
 static func step(sim: Sim) -> void:
 	var mpt := minutes_per_tile(sim.catalog)
+	NpcActions.step_holds(sim)
 	for id: String in sim.state.characters:
 		var ch: Dictionary = sim.state.characters[id]
 		var path: Array = ch.get("path", [])
 		if path.is_empty():
+			continue
+		if NpcActions.held(sim.state, id):   # it waits for whoever hailed it (NpcActions.order_hail)
 			continue
 		if not bool(ch.get("alive", true)):
 			ch["path"] = []

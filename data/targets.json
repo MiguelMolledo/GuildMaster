@@ -40,8 +40,9 @@
     "kin_trader",
     "events",
     "duelist",
-    "merchant"
-  , "pacing"],
+    "merchant",
+    "pacing"
+  ],
   "idle": {
     "days": [
       3,
@@ -780,7 +781,8 @@
   },
   "_festivals_doc": "Fiestas (04f 4.28.4, principio 4): solo los bots de esta lista juegan con el calendario de fiestas; todas las dianas de antes corren sin él (sim_runner pone data/festivals.json enabled a false), así salen iguales. --festivals=on lo enciende para cualquier bot (con --tag, para no pisar los informes oficiales).",
   "_festivals": [
-    "festive"
+    "festive",
+    "idle_titles_fest"
   ],
   "festive": {
     "_doc": "Fiestas (04f 4.28.4): artisan_expert un año entero (8 días) con las fiestas, en una partida nueva real (--start=artisan_blacksmith --bots=festive --days=8). Cada fiesta fija sale (fest_fixed_seen 8), cada una con su pregón, sus encargos se publican y se cumplen (los gana el jugador o el rival del oficio: un solo ganador), nada se queda colgado (fest_stuck 0) y ninguna orden de fiesta se rechaza. Medido (3 semillas, 2026-11-04): 27-37 encargos publicados, 5-9 cumplidos (casi todos por los rivales del oficio; la comida de los banquetes nadie la lleva hasta la posada), 0 colgados, 0 órdenes rechazadas. Bandas [provisional].",
@@ -816,12 +818,39 @@
       4,
       null
     ],
+    "fest_contests": [
+      1,
+      1
+    ],
+    "ai_broke_days_y1": [
+      0,
+      2
+    ],
     "_mean": {
       "fest_contracts_done": [
         5,
         null
       ]
     }
+  },
+  "idle_titles_fest": {
+    "_doc": "Fiestas (04f 4.25.4, owner 2026-11-05): idle_titles con las fiestas encendidas, el año 1 (--start=artisan_blacksmith --bots=idle_titles_fest --days=8). Las fiestas no arruinan a las familias IA: entran en un encargo de fiesta solo si lo terminan a tiempo con las horas reales de su taller y les queda la reserva de 3 días de mantenimiento tras comprar la materia, y bajo la reserva van a recuperación (su pieza vendible más barata, y venden). Ninguna familia IA termina más de 2 días del año sin oro (ai_broke_days_y1).",
+    "days": [
+      8,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "ai_broke_days_y1": [
+      0,
+      2
+    ]
   },
   "gambler": {
     "_doc": "Juegos (docs/gdd/04f_vida_y_fiestas.md §4.28.4, §4.26.6-8; docs/contratos/juegos.md): bot gambler desde el escenario games_gambler (3000 de oro y una casa de juego con licencia: su parte de la casa, el 10 % de lo que gana el ganador). Cada media hora de 09:00 a 22:00 juega por turnos al azar, a la mayor (con dos parroquianos) y al envite contra parroquianos templados (la misma política que «Resolver sin jugar»: nadie tiene ventaja) y apuesta a un pulso de dos parroquianos a las cuotas del corredor (margen del 10 %). Diana: pierde de media lo que marca el margen de la casa, ni más ni menos: gambler_return (lo ganado o perdido por cada moneda apostada) entre -0,13 y -0,02, y gambler_luck (lo mismo sumando lo que se llevó la casa: la parte de la mesa y el margen esperado de sus apuestas) entre -0,05 y +0,05 de media. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=games_gambler --bots=gambler --days=8 --seeds=5 (en run_all, paso gambler, 3 semillas). Medido (2026-11-04, 5 semillas): 216 partidas y apuestas por semilla, gambler_return -0,066 de media, gambler_luck +0,013.",
@@ -877,7 +906,9 @@
       "townsfolk_end": 24,
       "ai_titled_families": 24,
       "ai_office_runs": 24,
-      "ai_broke_days_max": 24
+      "ai_broke_days_max": 24,
+      "children": 24,
+      "unlocks_off": 24
     },
     "refused_orders": [
       0,
@@ -910,10 +941,6 @@
     "debt_paid_day": [
       1,
       8
-    ],
-    "title_citizen_day": [
-      1,
-      24
     ],
     "step_ms_mean": [
       0,
@@ -977,13 +1004,9 @@
       "wed": [
         0.66,
         null
-      ],
-      "had_child": [
-        0.3,
-        null
       ]
     },
-    "_proposed_doc": "Dianas que pide el owner (2026-11-05) para los rivales y el pueblo, propuestas tras medir; hoy fallan y se informan sin tumbar la QA (summary.json proposed_misses): una familia IA sube de título en 3 años, se presenta a un cargo, no pasa más de 4 días sin oro (hoy 15-21 de 24: las carreras de encargos de fiesta la dejan a 0 y por debajo de su reserva no vuelve a comprar), y los empleados y los niños del pueblo no pasan hambre más de la mitad de las horas (hoy 65-82 % y 88 %). Medido (2026-11-05, 3 semillas × 3 años, full_player e idle_player): 0 títulos, 0 cargos y 0 ataques de la IA; 17-35 encargos aceptados por la IA; 0 órdenes de la IA rechazadas; la guardia llega siempre (mediana 0 min, máx 8); 4,5-5,7 forasteros al día; 14-16 vecinos al final; ningún vecino atascado. Pasan a dianas cuando H6 (04c) y la vida los arreglen. En una generación (semilla 2, 351 días) las cuatro familias IA pasan ~340 días sin oro y paradas; el pueblo crece de 16 a 32 vecinos (el tope de la vida) con 45 nacimientos y 25 muertes, y la guardia llega a las 362 llamadas.",
+    "_proposed_doc": "Dianas que pide el owner (2026-11-05) para los rivales y el pueblo, propuestas tras medir; hoy fallan y se informan sin tumbar la QA (summary.json proposed_misses): una familia IA sube de título en 3 años, se presenta a un cargo, no pasa más de 4 días sin oro (hoy 15-21 de 24: las carreras de encargos de fiesta la dejan a 0 y por debajo de su reserva no vuelve a comprar), y los empleados y los niños del pueblo no pasan hambre más de la mitad de las horas (hoy 65-82 % y 88 %). Medido (2026-11-05, 3 semillas × 3 años, full_player e idle_player): 0 títulos, 0 cargos y 0 ataques de la IA; 17-35 encargos aceptados por la IA; 0 órdenes de la IA rechazadas; la guardia llega siempre (mediana 0 min, máx 8); 4,5-5,7 forasteros al día; 14-16 vecinos al final; ningún vecino atascado. Pasan a dianas cuando H6 (04c) y la vida los arreglen. En una generación (semilla 2, 351 días) las cuatro familias IA pasan ~340 días sin oro y paradas; el pueblo crece de 16 a 32 vecinos (el tope de la vida) con 45 nacimientos y 25 muertes, y la guardia llega a las 362 llamadas. had_child (un hijo en 3 años) sale de las dianas: con la boda entre los días 14 y 22 y el 10 % diario de 4.10.3 se espera en ~35 % de las semillas, y con 3 semillas sale 0/3 o 1/3 según el día exacto de la boda (la taberna lo movió un día en la semilla 2). Se juzga en la generación (hijos siempre) y, con más semillas, con mean_children. Con la forja (2026-11-05): title_citizen_day por semilla sale de las dianas (una semilla se queda en 79 de reputación de los 80 de Ciudadano; quedan la media y la proporción) y unlocks_off (desbloqueos fuera de su ventana de 03b ±1 día, la diana del bot pacing) entra como propuesta: con el experto «mejoras» llega el día 7 (ventana 3-5) y Ciudadano y cargos tarde o nunca.",
     "_proposed": {
       "ai_titled_families": [
         1,
@@ -1004,6 +1027,14 @@
       "child_hungry_share_max": [
         0,
         0.5
+      ],
+      "children": [
+        1,
+        null
+      ],
+      "unlocks_off": [
+        0,
+        0
       ]
     }
   },
@@ -1091,5 +1122,50 @@
       ]
     }
   },
-  "pacing": {"_doc": "Ritmo (docs/gdd/03b_diversion_y_ritmo.md §3b.6): bot pacing (sim/bots/bot_pacing.gd), el novato forjando en Forja viva y leyendo las cartas, año 1 (8 días) de una partida nueva en Normal. Mide los segundos reales entre decisiones (×1, ×8 cuando el jugador saltaría: ciclo en marcha o noche; las órdenes a menos de 3 s son una sola decisión), las metas abiertas cada hora y el día de cada desbloqueo frente a su ventana ±1 día (los ganchos sin su sistema no cuentan). Diana de 3b.6: mediana < 30 s, máximo < 60 s, siempre >= 2 metas, desbloqueos en su ventana. Medido (2026-11-04, 3 semillas): mediana 4,7 s, p90 6,6 s, máximo 29-40 s, metas mín 2 (media 2,8-3,0), 9 desbloqueos, 0 fuera. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5 (paso pacing de la QA).", "days": [8, null], "ledger_mismatch": [0, 0], "gap_median_s": [null, 30], "gap_max_s": [null, 60], "goals_min": [2, null], "unlocks_off": [0, 0], "_proposed_festivals": {"_doc": "Diana propuesta, no comprobada (decisión del owner, 2026-11-05): con --festivals=on --life=on el novato no llega a 300 de oro en el año 1 en 1 de 3 semillas y las mejoras no se abren (unlocks_off = 1). La ventana de mejoras de 03b no se toca: lo arregla el equilibrio del año 1-2 con fiestas (Ciudadano y oro). Cuando ese equilibrio esté hecho, esta banda pasa a la diana y pacing sale de _no_life.", "unlocks_off": [0, 0], "gap_median_s": [null, 30], "gap_max_s": [null, 60], "goals_min": [2, null]}}
+  "pacing": {
+    "_doc": "Ritmo (docs/gdd/03b_diversion_y_ritmo.md §3b.6): bot pacing (sim/bots/bot_pacing.gd), el novato forjando en Forja viva y leyendo las cartas, año 1 (8 días) de una partida nueva en Normal. Mide los segundos reales entre decisiones (×1, ×8 cuando el jugador saltaría: ciclo en marcha o noche; las órdenes a menos de 3 s son una sola decisión), las metas abiertas cada hora y el día de cada desbloqueo frente a su ventana ±1 día (los ganchos sin su sistema no cuentan). Diana de 3b.6: mediana < 30 s, máximo < 60 s, siempre >= 2 metas, desbloqueos en su ventana. Medido (2026-11-04, 3 semillas): mediana 4,7 s, p90 6,6 s, máximo 29-40 s, metas mín 2 (media 2,8-3,0), 9 desbloqueos, 0 fuera. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5 (paso pacing de la QA).",
+    "days": [
+      8,
+      null
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gap_median_s": [
+      null,
+      30
+    ],
+    "gap_max_s": [
+      null,
+      60
+    ],
+    "goals_min": [
+      2,
+      null
+    ],
+    "unlocks_off": [
+      0,
+      0
+    ],
+    "_proposed_festivals": {
+      "_doc": "Diana propuesta, no comprobada (decisión del owner, 2026-11-05): con --festivals=on --life=on el novato no llega a 300 de oro en el año 1 en 1 de 3 semillas y las mejoras no se abren (unlocks_off = 1). La ventana de mejoras de 03b no se toca: lo arregla el equilibrio del año 1-2 con fiestas (Ciudadano y oro). Cuando ese equilibrio esté hecho, esta banda pasa a la diana y pacing sale de _no_life.",
+      "unlocks_off": [
+        0,
+        0
+      ],
+      "gap_median_s": [
+        null,
+        30
+      ],
+      "gap_max_s": [
+        null,
+        60
+      ],
+      "goals_min": [
+        2,
+        null
+      ]
+    }
+  }
 }

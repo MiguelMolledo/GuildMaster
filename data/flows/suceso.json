@@ -1,0 +1,16 @@
+{
+  "id": "suceso",
+  "title": "Responder a un suceso",
+  "about": "Una tarjeta de microevento en la columna (elegir una opción) y, aparte, el secuestro de un familiar con su carta (pagar, negociar, rescatar o nada).",
+  "start": {"scenario": "microevent_card"},
+  "covers": ["resolve_microevent", "resolve_incident"],
+  "steps": [
+    {"id": "tarjeta", "say": "La tarjeta del microevento", "until": "q.visible('MicroeventCard')", "timeout": 30, "fast": 4},
+    {"id": "opcion", "say": "Elegir la primera opción", "click": {"within": "Choices", "type": "Button", "enabled": true}, "expect": ["q.order('resolve_microevent')"]},
+    {"id": "sin_tarjeta", "until": "not q.visible('MicroeventCard')", "timeout": 6},
+    {"id": "secuestro", "say": "Ahora el secuestro (escenario life_kidnap)", "restart": {"scenario": "life_kidnap"}},
+    {"id": "x4", "key": "@speed_3"},
+    {"id": "carta", "say": "Llega la carta del rescate", "until": "q.visible('IncidentCard')", "timeout": 60, "fast": 4},
+    {"id": "elegir", "say": "La primera opción que se puede pagar", "click": {"within": "IncidentCard", "prefix": "Button_", "enabled": true}, "expect": ["q.order('resolve_incident')"]}
+  ]
+}

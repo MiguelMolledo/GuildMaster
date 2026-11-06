@@ -317,7 +317,7 @@ static func _best_city_item(sim: Sim, here_of: Dictionary = {}) -> Dictionary:
 		if it == "":
 			continue
 		var here := float(maxi(1, int(here_of[it])))
-		var r := float(Region.price(sim, c, it, Inventory.NORMAL, "sell")) / here
+		var r := float(int((here_of["@prices|" + c] as Dictionary)[it])) / here
 		if r > best_r:
 			best_r = r
 			best = {"city": c, "item": it, "city_key": _city_key(sim, c)}
@@ -332,11 +332,16 @@ static func _dear_item(sim: Sim, c: String, here_of: Dictionary = {}) -> String:
 		return ""
 	var best := ""
 	var best_r := 1.0
-	for it: Variant in Region.traded_items(sim):
+	if not here_of.has("@items"):
+		here_of["@items"] = Region.traded_items(sim)
+	var items: Array = here_of["@items"]
+	var there := Region.prices(sim, c, items, Inventory.NORMAL, "sell")  # the city's part looked up once
+	here_of["@prices|" + c] = there
+	for it: Variant in items:
 		if not here_of.has(str(it)):
 			here_of[str(it)] = Market.price(sim, str(it), Inventory.NORMAL, "sell")
 		var here := float(maxi(1, int(here_of[str(it)])))
-		var r := float(Region.price(sim, c, str(it), Inventory.NORMAL, "sell")) / here
+		var r := float(int(there[str(it)])) / here
 		if r > best_r:
 			best_r = r
 			best = str(it)

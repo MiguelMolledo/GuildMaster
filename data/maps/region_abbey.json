@@ -1181,6 +1181,9 @@
  "watch": {
   "name_key": "family.watch.abbey"
  },
+ "detail": {
+  "settled_every": 5
+ },
  "plots": [
   {
    "id": "plot_01",

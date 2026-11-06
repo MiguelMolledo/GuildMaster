@@ -97,6 +97,10 @@ func _build(v: Dictionary) -> void:
 		var fx := Microevents.choice_effects(sim, str(v["def"]), id)
 		var b := SocialKit.two_line_button(SimQuery.t_(str(c["text_key"])), effects_text(fx, m), id.capitalize())
 		b.custom_minimum_size = Vector2(220, 34)
+		var fx_line := b.get_node_or_null("Lines/Effects") as Label
+		if fx_line != null:   # a long line ends in «…» and says it whole in the tooltip (verificación B10)
+			fx_line.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+			b.tooltip_text = "%s\n%s" % [SimQuery.t_(str(c["text_key"])), fx_line.text]
 		if id == str(v["default"]):
 			def_text = SimQuery.t_(str(c["text_key"]))
 			var mark := SocialKit.label(SimQuery.t_("ui.microevent.default"), &"CaptionLabel", "DefaultMark")

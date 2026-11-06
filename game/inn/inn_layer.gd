@@ -25,6 +25,7 @@ var _views: Dictionary = {}      # guest id -> CharacterView
 var _icons: Dictionary = {}      # guest id -> Sprite2D: the dish's icon over the disc of its order (sync)
 var _seat_pos: Array = []        # Vector2 by seat index
 var _bed_pos: Array = []         # Vector2 by bed index
+var _table_pos: Vector2 = Vector2.INF  # the gaming table's station (INF if the room has none)
 var _seat_facing: Array = []     # where each seated guest looks ("": by the seat's parity)
 var _seat_level: Array = []      # floor of each seat / bed (04g: an interior built from data has floors)
 var _bed_level: Array = []
@@ -33,7 +34,6 @@ var shown_level: int = 0:
 	set(v):
 		shown_level = v
 		queue_redraw()
-var _table_pos: Vector2 = Vector2.INF  # the gaming table's station (INF if the room has none)
 var _font: Font = null
 
 

@@ -45,7 +45,8 @@ func _ready() -> void:
 	var capture := false
 	for a: String in args:
 		lang_given = lang_given or a.begins_with("--lang=")
-		capture = capture or a == "--smoke" or a.begins_with("--shots=") or a.begins_with("--smoke-script=") or a == "--gallery"
+		capture = capture or a == "--smoke" or a.begins_with("--shots=") or a.begins_with("--smoke-script=") or a == "--gallery" \
+			or a.begins_with("--flow=") or a.begins_with("--flows=")
 	if capture:
 		TranslationServer.set_locale(str(opts["lang"]))
 		for k: String in Settings.BUSES:
@@ -76,7 +77,8 @@ static func parse_args(args: PackedStringArray) -> Dictionary:
 	var out := {"scenario": DEFAULT_SCENARIO, "seed": -1, "lang": "es", "at": -1, "new_game": true, "title": true,
 		"start_city": ""}
 	for a: String in args:
-		if a.begins_with("--scenario=") or a == "--smoke" or a.begins_with("--shots=") or a.begins_with("--smoke-script="):
+		if a.begins_with("--scenario=") or a == "--smoke" or a.begins_with("--shots=") or a.begins_with("--smoke-script=") \
+				or a.begins_with("--flow=") or a.begins_with("--flows="):
 			out["new_game"] = false
 			out["title"] = false
 	if "--new-game" in args:

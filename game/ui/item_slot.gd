@@ -25,6 +25,7 @@ func _init() -> void:
 	custom_minimum_size = SIZE
 	theme_type_variation = &"KeyCap"
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	focus_mode = Control.FOCUS_ALL   # the keyboard reaches the stacks too (verificación C13)
 	_icon = TextureRect.new()
 	_icon.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
 	_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -72,6 +73,8 @@ func set_reserved(item_id: String, n: int) -> void:
 
 
 func _draw() -> void:
+	if has_focus():
+		draw_rect(Rect2(Vector2.ZERO, size).grow(-1), Color("#f2d880"), false, 1.0)
 	if state == "item" and quality > 0 and quality < QUALITY_DOTS.size():
 		draw_rect(Rect2(size.x - 6, 3, 3, 3), QUALITY_DOTS[quality])
 	if state == "reserved":
@@ -85,3 +88,11 @@ func _gui_input(event: InputEvent) -> void:
 	if mb != null and mb.pressed and (mb.button_index == MOUSE_BUTTON_LEFT or mb.button_index == MOUSE_BUTTON_RIGHT):
 		clicked.emit(self, mb.button_index == MOUSE_BUTTON_RIGHT)
 		accept_event()
+	elif item != "" and event.is_action_pressed("ui_accept"):   # the keyboard: Enter moves the stack, like a click
+		clicked.emit(self, false)
+		accept_event()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_FOCUS_ENTER or what == NOTIFICATION_FOCUS_EXIT:
+		queue_redraw()

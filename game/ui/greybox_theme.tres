@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=72 format=3 uid="uid://bsmlccu1dtv2v"]
+[gd_resource type="Theme" load_steps=73 format=3 uid="uid://bsmlccu1dtv2v"]
 
 [ext_resource type="Texture2D" uid="uid://55w2uwcmn4ky" path="res://assets/art/ui/theme/panel.png" id="panel"]
 [ext_resource type="Texture2D" uid="uid://bqd15odjsdvmm" path="res://assets/art/ui/theme/button_normal.png" id="button_normal"]
@@ -245,6 +245,18 @@ border_color = Color(0.784314, 0.658824, 0.305882, 1)
 bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxEmpty" id="empty"]
+
+[sub_resource type="StyleBoxFlat" id="focus_ring"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.94902, 0.847059, 0.501961, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="bar_bg"]
 bg_color = Color(0.101961, 0.0705882, 0.0352941, 1)
@@ -506,14 +518,14 @@ CheckBox/styles/hover = SubResource("empty")
 CheckBox/styles/pressed = SubResource("empty")
 CheckBox/styles/hover_pressed = SubResource("empty")
 CheckBox/styles/disabled = SubResource("empty")
-CheckBox/styles/focus = SubResource("empty")
+CheckBox/styles/focus = SubResource("focus_ring")
 CheckButton/colors/font_color = Color(0.92549, 0.894118, 0.823529, 1)
 CheckButton/fonts/font = ExtResource("font_body")
 CheckButton/styles/normal = SubResource("empty")
 CheckButton/styles/hover = SubResource("empty")
 CheckButton/styles/pressed = SubResource("empty")
 CheckButton/styles/hover_pressed = SubResource("empty")
-CheckButton/styles/focus = SubResource("empty")
+CheckButton/styles/focus = SubResource("focus_ring")
 LineEdit/colors/font_color = Color(0.92549, 0.894118, 0.823529, 1)
 LineEdit/colors/font_placeholder_color = Color(0.6, 0.54902, 0.462745, 1)
 LineEdit/colors/font_uneditable_color = Color(0.658824, 0.596078, 0.470588, 1)
@@ -554,7 +566,7 @@ TabButton/styles/hover = SubResource("tab_hover")
 TabButton/styles/pressed = SubResource("tab_sel")
 TabButton/styles/hover_pressed = SubResource("tab_sel")
 TabButton/styles/disabled = SubResource("tab_unsel")
-TabButton/styles/focus = SubResource("tab_hover")
+TabButton/styles/focus = SubResource("focus_ring")
 SelectedRow/base_type = &"PanelContainer"
 SelectedRow/styles/panel = SubResource("row_selected")
 PopupMenu/colors/font_color = Color(0.92549, 0.894118, 0.823529, 1)

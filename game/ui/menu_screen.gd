@@ -43,6 +43,20 @@ func default_focus() -> Control:
 	return MenuKit.first_focusable(self)
 
 
+## Esc while a text field of the screen has the focus (the new game's name): the field would eat it to leave its
+## edit mode, so the screen takes it first and goes back at the first press (verificación A6).
+func _input(event: InputEvent) -> void:
+	if not visible or not is_inside_tree() or not esc_goes_back:
+		return
+	if not event.is_action_pressed("ui_cancel") or event.is_echo():
+		return
+	var f := get_viewport().gui_get_focus_owner()
+	if f is LineEdit and is_ancestor_of(f):
+		f.release_focus()
+		back_requested.emit()
+		get_viewport().set_input_as_handled()
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible or not is_inside_tree():
 		return

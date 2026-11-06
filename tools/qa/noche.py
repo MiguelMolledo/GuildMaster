@@ -7,7 +7,8 @@ full:  full_player 3 años × --seeds semillas        → reports/full_player/
 gen:   full_player una generación × --gen-seeds      → reports/full_player_generation/ (la muerte del fundador y la herencia)
 chaos: chaos_player 3 años × --chaos-seeds           → reports/chaos_player/ (guarda y carga cada día)
 idle:  idle_player 3 años × --chaos-seeds            → reports/idle_player/ (el jugador no hace nada: la IA sola)
-Después, el resumen HTML de cada carpeta (tools/full_report.py) y reports/qa/noche.md. Sin ventana: no hace falta
+Después, el resumen HTML de cada carpeta (tools/full_report.py), la copia de cada summary.json en
+reports/full_player_ref/ (tools/full_ref.py: va en git) y reports/qa/noche.md. Sin ventana: no hace falta
 `grimoire heavy`, pero son horas de CPU (una generación ≈ 25-40 min por semilla): mejor de noche y sola.
 Sale con 1 si alguna corrida falla sus dianas (data/targets.json full_player / chaos_player).
 """
@@ -52,6 +53,7 @@ def main(argv):
         misses = [l.strip() for l in text.splitlines() if l.strip().startswith("MISS")]
         rows.append((name, "FALLA" if bad else "ok", f"{(time.time() - t0) / 60:.1f} min", last[0][:160], misses))
         print(f"  {'FALLA' if bad else 'ok   '} {name:<6} {rows[-1][2]:>9}  {last[0][:120]}")
+    subprocess.run([sys.executable, "tools/full_ref.py"] + [out for _, _, out in runs], cwd=ROOT)  # the git copies
     md = ["# Noche: jugador completo y caótico", "", "| Corrida | Resultado | Tiempo | Última línea |", "|---|---|---|---|"]
     md += [f"| {a} | {b} | {c} | `{d}` |" for a, b, c, d, _ in rows]
     for a, _, _, _, m in rows:

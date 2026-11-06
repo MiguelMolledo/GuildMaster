@@ -289,7 +289,7 @@ static func illustration(kind: String, id: String, small: bool = false) -> Textu
 const EVENT_ILLUSTRATION_ALIAS: Dictionary = {"holy_week": "semana_santa", "mayday_corpus": "mayos_corpus",
 	"st_john": "san_juan", "harvest_fair": "siega_feria", "st_michael": "san_miguel", "all_saints_matanza": "matanza",
 	"christmas": "navidad", "carnival": "carnaval", "altercation": "altercado", "bandit_raid": "asalto_bandidos",
-	"kidnapping": "secuestro"}
+	"kidnapping": "secuestro", "noble_wedding": "boda_rica", "neighbours_wedding": "boda_vecinos"}
 
 
 ## Fiestas (04f 4.28.3): the illustration of `id`, or a visible provisional greybox (240×135, 192×108 small) that
