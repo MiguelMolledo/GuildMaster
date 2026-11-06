@@ -75,7 +75,7 @@ func refresh(force: bool = false) -> void:
 	var st := Titles.status(sim, actor)
 	var fam := str(st["family"])
 	var sig := str(st) + "|" + str(Reputation.of(sim.state, fam)) + "|" + str(Titles.approver(sim, actor)) + str(consult)
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	var f: Dictionary = sim.state.families.get(fam, {})
@@ -146,8 +146,7 @@ func _fill_ladder(current: String, next: String) -> void:
 		var tn := SimQuery.title_name(t)
 		var l := SocialKit.label(tn.substr(0, 1).to_upper() + tn.substr(1), &"GoldLabel" if t == next else \
 			(&"" if i <= cur else &"DimLabel"), "Name")
-		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		l.clip_text = true
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER   # whole: the step takes its name's width (B10)
 		v.add_child(l)
 		var def: Dictionary = sim.catalog.titles().get(t, {})
 		step.tooltip_text = SimQuery.t_("ui.town_hall.step_tip") % [tn, int(def.get("reputation", 0)), int(def.get("cost_gold", 0)),

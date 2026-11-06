@@ -153,7 +153,10 @@ static func _recover_demand(sim: Sim) -> void:
 ## mod_ciudad of `item` in city `c`: the product of its «cheap» and «dear» entries that name the item or one of its
 ## goods groups (region.json), 1 when none does.
 static func city_mult(sim: Sim, c: String, item: String) -> float:
-	var s := settlement(sim, c)
+	return _city_mult(sim, settlement(sim, c), item)
+
+
+static func _city_mult(sim: Sim, s: Dictionary, item: String) -> float:
 	var groups: Array = sim.catalog.goods_of(item)
 	var m := 1.0
 	for side: String in ["cheap", "dear"]:
@@ -164,11 +167,10 @@ static func city_mult(sim: Sim, c: String, item: String) -> float:
 	return m
 
 
-## The product of the effects of `kind` (price | demand) on `item` of the events in force there: home's season-scope
-## events (regional: the war, a famine) and the city's own local events.
-static func events_mult(sim: Sim, c: String, kind: String, item: String) -> float:
-	var m := 1.0
-	var groups: Array = sim.catalog.goods_of(item)
+## What the price of any item in city `c` looks up whatever the item (prices() works it out once for many items):
+## the effects of the events in force there (home's season-scope ones, then the city's own; [group, mult] per kind,
+## in that order), its settlement, the season's price table and, with the festivals on, its feasts today.
+static func _city_ctx(sim: Sim, c: String) -> Dictionary:
 	var defs: Array = []
 	for ev: Dictionary in sim.state.events_active:
 		var def: Dictionary = sim.catalog.world_events().get(str(ev.get("def", "")), {})
@@ -176,25 +178,81 @@ static func events_mult(sim: Sim, c: String, kind: String, item: String) -> floa
 			defs.append(def)
 	for ev: Dictionary in city(sim, c).get("events", []):
 		defs.append(sim.catalog.world_events().get(str(ev.get("def", "")), {}))
+	var effects := {}
 	for def: Dictionary in defs:
 		for e: Dictionary in def.get("effects", []):
-			if str(e.get("kind", "")) == kind and str(e.get("group", "")) in groups:
-				m *= float(e.get("mult", 1.0))
-	return m * Festivals.city_mult(sim, c, kind, item)  # fiestas (04f 4.25.6): its patron feast and its fair
+			var k := str(e.get("kind", ""))
+			if not effects.has(k):
+				effects[k] = []
+			(effects[k] as Array).append([str(e.get("group", "")), float(e.get("mult", 1.0))])
+	var feasts: Array = Festivals.city_feasts(sim, c, Clock.day(int(sim.state.clock["minute"]))) \
+		if Festivals.enabled(sim) else []
+	var dear: Array = []  # mod_ciudad: [key, mult] of «cheap» then «dear», as _city_mult goes over them
+	var s := settlement(sim, c)
+	for side: String in ["cheap", "dear"]:
+		var t: Dictionary = s.get(side, {})
+		for k: String in t:
+			dear.append([k, float(t[k])])
+	var cfg := _demand_cfg(sim)
+	return {"effects": effects, "dear": dear, "feasts": feasts, "season": WorldEvents.season_table(sim, "price"),
+		"demand": city(sim, c).get("demand", {}), "start": float(cfg.get("start", 1.0)),
+		"min": float(cfg.get("min", 0.5)), "max": float(cfg.get("max", 2.0)),
+		"qm": sim.catalog.market.get("quality_mult", [])}
+
+
+## The product of the effects of `kind` (price | demand) on `item` of the events in force there: home's season-scope
+## events (regional: the war, a famine) and the city's own local events.
+static func events_mult(sim: Sim, c: String, kind: String, item: String) -> float:
+	return _events_mult(sim, kind, item, _city_ctx(sim, c))
+
+
+static func _events_mult(sim: Sim, kind: String, item: String, ctx: Dictionary) -> float:
+	var m := 1.0
+	var list: Array = (ctx["effects"] as Dictionary).get(kind, [])
+	if not list.is_empty():
+		var groups: Array = sim.catalog.goods_of(item)
+		for e: Array in list:
+			if str(e[0]) in groups:
+				m *= float(e[1])
+	return m * Festivals.feasts_mult(sim, ctx["feasts"], kind, item)  # fiestas (04f 4.25.6): its patron feast and fair
 
 
 ## The unit price of `item` at `quality` in city `c` (side buy | sell), before any tariff (9b.5):
 ## base × quality × demand_city (× its events' demand, clamped) × season × events × mod_ciudad × buy mult / sell ratio.
 static func price(sim: Sim, c: String, item: String, quality: int, side: String) -> int:
-	var def := sim.catalog.item(item)
-	var qm: Array = sim.catalog.market.get("quality_mult", [])
-	if def.is_empty() or quality < 0 or quality >= qm.size() or not is_city(sim, c):
+	if not is_city(sim, c):
 		return 0
-	var cfg := _demand_cfg(sim)
-	var d := clampf(demand(sim, c, item) * events_mult(sim, c, "demand", item), float(cfg.get("min", 0.5)),
-		float(cfg.get("max", 2.0)))
+	return _price(sim, c, item, quality, side, _city_ctx(sim, c))
+
+
+## price() of every item of `items` in city `c` ({item: price}), the city's part looked up once (the rumours ask for
+## every traded item of every city at once).
+static func prices(sim: Sim, c: String, items: Array, quality: int, side: String) -> Dictionary:
+	var out := {}
+	if not is_city(sim, c):
+		for it: Variant in items:
+			out[str(it)] = 0
+		return out
+	var ctx := _city_ctx(sim, c)
+	for it: Variant in items:
+		out[str(it)] = _price(sim, c, str(it), quality, side, ctx)
+	return out
+
+
+static func _price(sim: Sim, c: String, item: String, quality: int, side: String, ctx: Dictionary) -> int:
+	var def := sim.catalog.item(item)
+	var qm: Array = ctx["qm"]
+	if def.is_empty() or quality < 0 or quality >= qm.size():
+		return 0
+	var groups: Array = sim.catalog.goods_of(item)
+	var dc := float((ctx["demand"] as Dictionary).get(item, ctx["start"]))  # demand()
+	var d := clampf(dc * _events_mult(sim, "demand", item, ctx), float(ctx["min"]), float(ctx["max"]))
 	var p := float(def.get("base_price", 0)) * float(qm[quality]) * d
-	p *= WorldEvents.season_mult(sim, "price", item) * events_mult(sim, c, "price", item) * city_mult(sim, c, item)
+	var cm := 1.0  # _city_mult
+	for e: Array in ctx["dear"]:
+		if str(e[0]) == item or str(e[0]) in groups:
+			cm *= float(e[1])
+	p *= WorldEvents.season_mult_in(sim, ctx["season"], item) * _events_mult(sim, "price", item, ctx) * cm
 	if side == "buy":
 		p *= float(sim.catalog.difficulty_levels(sim.state.difficulty).get("buy_price_mult", 1.0))
 	else:

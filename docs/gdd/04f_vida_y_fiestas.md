@@ -416,13 +416,53 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
 - **La boda del jugador** abre una carta con «Pagar el banquete (80)» durante un día; los encargos de una boda no los
   puede coger la familia que se casa (es su propia boda).
 - **Patrocinios**: banquete, música y, si la fiesta los tiene, los toros. Sin patrocinio, los forasteros ×0,7. El
-  patrocinio de la IA rival: de momento no (manager, a la espera del owner; iría en la revisión de 04c).
-- **El regalo de la villa** en la visita del marqués es un encargo de carrera (la espada excelente); que el Alcalde
-  elija entre varias piezas ofrecidas y la audiencia con privilegios: de momento no (manager, a la espera del owner).
+  patrocinio de la IA rival: ver más abajo (owner, 2026-11-05).
+- **El regalo de la villa** en la visita del marqués es un encargo de carrera (la espada excelente); desde el
+  2026-11-05 lo elige el Alcalde entre las piezas ofrecidas, con la audiencia y sus privilegios (ver más abajo).
 - **Fiestas de las otras ciudades**: la patronal y la feria caen el mismo día (Bellcaire en Primavera 2, Portvell en
   Verano 1, Montsacre en Otoño 1, Peñarroja en Invierno 1, Vilablat en Primavera 2); la de Vilarrasa es la de la siega
   (Verano 2). Durante la feria: arancel 0 en esa ciudad, sin portazgo en sus caminos desde el día antes y su demanda
   sube. Son puro calendario (no se guardan).
+- **Regalo de la villa, audiencia, concurso y patrocinios de la IA** (owner, 2026-11-05; `sim/fest/festival_court.gd`,
+  efectos `town_gift`, `audience` y `contest`, cifras en `rules.gift`, `rules.audience`, `rules.ai_sponsor`):
+  - El regalo de la villa ya no es un encargo de carrera: las familias ofrecen una pieza (`rules.gift.items`) hasta las
+    10:00 de la visita; el Alcalde elige (el jugador, con la carta que le llega una hora antes; si no elige, o el cargo
+    es de la IA o de un vecino, la mejor por calidad y luego valor). La villa la paga a ×1,5 de su valor, con
+    reputación, relación con el concejo y la crónica. Las demás piezas vuelven a casa al acabar.
+  - Audiencia (12:00): Ciudadano o más, con un regalo que se queda el marqués y una tirada (0,2 + 0,06 × Retórica +
+    0,0015 × valor del regalo, hasta 0,9). Privilegios: favor para el próximo título (pide el 80 % de la reputación y
+    cuesta la mitad; se gasta al pedirlo), sin arancel en Bellcaire un año, o un cargo menor vacante sin elección.
+    «−1 año al próximo título» del diseño no existe en el juego (los títulos no piden años): es el favor.
+  - Concurso de calidad en la feria (18:00): cada artesano presenta una pieza de su oficio (lo que hacen sus talleres);
+    gana la de más calidad (luego valor, luego la primera presentada). Premio de fama y reputación: reputación +6,
+    fama entre los artesanos +10 (la reputación de clase de 4.12.1) y un concurso ganado apuntado en el taller
+    (`contests_won`), que contará la fama del taller de 04g §4.6.5.7 cuando exista. La crónica lo dice. Las piezas
+    vuelven al acabar.
+  - La IA con perfil trae su mejor pieza sola (si la tiene) y patrocina una fiesta grande al año como mucho, si le
+    sobra el oro (reserva del perfil + 150) y sale su tirada. Cada parte del patrocinio la paga una sola familia: la
+    primera que llega. Si la paga el rival, el jugador lo ve (un aviso, y en la carta un botón «Pujar por… (n)») y
+    puede pujar: paga ×1,5 de lo que pagó el rival, que recupera su oro y pierde la reputación que ganó. No hay «módulo de reputación» de 04c en el código:
+    la regla vive en las fiestas y lee el perfil.
+- **La IA y los encargos de fiesta** (2026-11-05, manager; `sim/ai/rival_ai.gd`, cifras en `rules.contracts`): con las
+  fiestas encendidas el full_player dejaba a las cuatro familias IA sin oro. Ahora una familia IA solo entra en una
+  carrera si la termina a tiempo con los minutos de trabajo reales de su taller hasta la hora de entrega (no el día
+  redondeado), después del ciclo en que está y del trabajo de sus otros encargos, con `ai_margin_minutes` (120) para
+  llevarla al tablón; y si después de comprar la materia (la de sus otros encargos también) le queda su `gold_reserve`
+  más `ai_reserve_days` (3) días de mantenimiento. Con las piezas de una carrera va al tablón en el acto. Por debajo de
+  esa reserva, y sin oro para un ciclo de su receta, entra en **recuperación**: compra lo justo para una pieza de su
+  receta vendible más barata con todo su oro y vende lo que el mercado tome, sin mirar la demanda; nunca se queda parada
+  con la deuda creciendo. El patrocinio de la IA usa la misma reserva (más `spare`). Si al empezar la feria no tenía pieza
+  para el concurso, la presenta en cuanto la tiene (cada hora, hasta el juicio). Diana: `ai_broke_days_y1` ≤ 2 en
+  `festive` e `idle_titles_fest`. Los botones de pago apagados (el banquete de la boda, patrocinar, pujar) dicen por qué,
+  con el precio y el oro que tienes, en su tooltip y en el texto de la carta.
+- **Los corrales, a las afueras** (2026-11-05, owner): las ferias de ganado se hacían fuera, junto al camino. El sitio
+  `outskirts` de la vista (`data/festivals.json` `rules.view_sites.outskirts`) es el prado libre más cercano a una
+  puerta del mapa (spawns `*_gate`, a 10 casillas o menos), y toda la huella del prop tiene que caer en prado: nunca en
+  un camino, un puente o un vado, ni a una casilla de una puerta. Vale para cualquier mapa con puertas (las ciudades de
+  la región también). Allí van los corrales, las ovejas y los caballos de la feria y de la feria de ganado. El sim y la
+  vista usan la misma regla (`sim/fest/festival_ground.gd`): si en un mapa no caben los corrales, el ganado se vende
+  en puestos de la plaza (un puesto más) y la crónica de la feria lo dice (`fair_cattle_stalls`). En `town_e` caben. Las parcelas libres y las ruinas (04 §4.9.1) guardan su suelo: con las
+  de plantillas, en `region_hamlet` el prado junto a las puertas ya no da para un corral y su ganado va a puestos.
 - **Enganchado con vida** (2026-11-04, tras juntar su rama): `Life.event_mult` multiplica por la fiesta (`routine`
   e `incident` a su hora; `visitors` con las fiestas de todo el día, porque vida planea los forasteros al empezarlo),
   `Life.holy_day` cuenta la mañana de guardar y `Life.festival` cualquier fiesta del calendario (el guardia de la
@@ -863,9 +903,18 @@ Cada noche llegan clientes de **grupos** distintos. Cada grupo tiene sus gustos 
   juega otra familia, su parte va al dueño. **La partida del forastero:** con jugadores en la sala, a veces un
   forastero (el de los anillos, el soldado licenciado, el mercader de paso) propone azar o envite a 10 o 25: sale una
   carta (Jugar / Ahora no) y la oferta queda en la pestaña Mesa hasta el cierre. **Sin licencia** cada partida tiene
-  un 30 % de que la vean los del alguacil (50 % con el cargo ocupado): hecho `illegal_gaming` (cargo `minor_fraud`,
-  leve) contra la familia que jugó, −3 de reputación y aviso. Las partidas de la noche salen en el resumen.
-  [propuesta: las cifras, en `data/inn/inn.json` → `games`]
+  un 30 % de que la vean los del alguacil (50 % con el cargo ocupado): la mesa es del dueño, así que **la multa es
+  del dueño de la taberna, juegue quien juegue** (manager 2026-11-05): hecho `illegal_gaming` (cargo `minor_fraud`,
+  leve) contra su familia (responde su cabeza), −3 de reputación, aviso y una línea en su crónica; si jugaba otra
+  familia, esa no paga multa (solo arriesga lo apostado) y un aviso se lo dice. Las partidas de la noche salen en el
+  resumen. [propuesta: las cifras, en `data/inn/inn.json` → `games`]
+- **La mesa de otra familia** (manager 2026-11-05): desde la puerta de su taberna (a 2 casillas, con el turno abierto;
+  en el mapa, «Jugar en la mesa»), como visitante y sin gestionarla, cualquiera de la familia se sienta a su mesa;
+  la parte de la casa va al dueño. Si el dueño es una familia IA, su perfil (`data/ai_profiles/<id>.json` →
+  `tavern_table`) decide: con la relación de su cabeza con el que llega por debajo de `refuse_below` no le deja
+  jugar; por debajo de `rival_below` le pide `rival_min_stake`; si no, `min_stake` (herrero rival: −30, 0, 25 y 10).
+  Sin perfil, `games.house_default`. Las partidas simuladas entre los clientes no se hacen (owner/manager
+  2026-11-05): la parte fija de la casa en su cuenta (2-6) basta.
 
 #### 4.27.5 Mejoras (árbol de la Taberna-Posada, como el de la Forja de 4.8)
 

@@ -126,7 +126,7 @@
     "_doc": "Apagado (2026-11-05): los forasteros de verdad son los de vida (sim/life/visitors.gd) y los que encuentran cama duermen en la posada (Inn.lodge). Encendido, solo serviría con la vida apagada (pruebas sin vida)."
   },
   "games": {
-    "_doc": "La mesa de juego (§4.27.4-5, contrato de juegos §5). regulars: los parroquianos de data/games.json que se sientan cuando no hay vecinos en la sala. offer: el forastero que propone una partida (suceso game_offer): quién (presets), a qué (dados de azar o envite) y cuánto. illegal: sin licencia, una partida en la taberna es delito leve si la ven los del alguacil: seen, o seen_constable con el cargo de alguacil ocupado; hecho illegal_gaming (cargo minor_fraud) y reputation.",
+    "_doc": "La mesa de juego (§4.27.4-5, contrato de juegos §5). regulars: los parroquianos de data/games.json que se sientan cuando no hay vecinos en la sala. offer: el forastero que propone una partida (suceso game_offer): quién (presets), a qué (dados de azar o envite) y cuánto. illegal: sin licencia, una partida en la taberna es delito leve si la ven los del alguacil: seen, o seen_constable con el cargo de alguacil ocupado; hecho illegal_gaming (cargo minor_fraud) y reputation. house_default: lo que pide la casa de otra familia a quien se sienta a su mesa desde la puerta (a menos de door_tiles): allow, refuse_below (relación del cabeza de la casa con el jugador por debajo de la cual no le deja), min_stake, y rival_min_stake si la relación baja de rival_below; una familia IA lo toma de su perfil (data/ai_profiles/<id>.json → tavern_table). Sin licencia, la multa (el hecho) es del dueño de la mesa, juegue quien juegue.",
     "regulars": [
       "regular_even",
       "regular_prudent",
@@ -151,6 +151,14 @@
       "seen": 0.3,
       "seen_constable": 0.5,
       "reputation": -3
+    },
+    "door_tiles": 2,
+    "house_default": {
+      "allow": true,
+      "refuse_below": -50,
+      "min_stake": 5,
+      "rival_below": -10,
+      "rival_min_stake": 10
     }
   }
 }

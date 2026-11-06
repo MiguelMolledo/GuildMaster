@@ -24,8 +24,9 @@ func test_every_building_and_station_has_its_scene() -> void:
 		var zones: Array = cat.buildings()[id].get("zones", [])
 		if zones.is_empty():
 			continue
-		check(VisualPaths.has_scene("interiors", id), "interiors/%s.tscn (it has stations)" % id)
-		var room := VisualPaths.instantiate("interiors", id)
+		check(VisualPaths.has_scene("interiors", id) or InteriorDefs.has_def(id),
+			"interiors/%s.tscn or data/interiors/%s.json (it has stations)" % [id, id])
+		var room := InteriorBuilder.instantiate(id)
 		for z: Dictionary in zones:
 			var m := room.get_node_or_null("Stations/" + str(z["id"]))
 			check(m is Marker2D, "%s: a Marker2D for the station %s" % [id, z["id"]])
@@ -96,14 +97,14 @@ func test_interior_view_builds_from_the_interior_scene() -> void:
 	var sim := Sim.new(r["state"], cat)
 	var v: InteriorView = (load("res://game/interior/interior_view.tscn") as PackedScene).instantiate()
 	v.setup(sim, "bld_0001", "", true)
-	eq(v.size_tiles, Vector2i(8, 6), "size from the kit")
-	eq(v.door_tile, Vector2i(0, 3), "door from the kit")
-	var room := VisualPaths.instantiate("interiors", "forge")
+	eq(v.size_tiles, Vector2i(10, 8), "size from data/interiors/forge.json")
+	eq(v.door_tile, Vector2i(0, 6), "the street door from the data")
+	var room := InteriorBuilder.instantiate("forge")
 	for z: String in ["furnace", "anvil", "counter", "storage"]:
 		var m := room.get_node("Stations/" + z) as Marker2D
 		eq(v.station_view(z).position, m.position, "%s at its marker" % z)
-		check(v.station_view(z).look() is Node2D and v.station_view(z).look().get_node_or_null("Greybox") is StationBlock,
-			"%s keeps its look from the scene" % z)
+		check(v.station_view(z).look() is Node2D and (v.station_view(z).look().get_node_or_null("Greybox") is StationBlock
+			or v.station_view(z).look().get_node_or_null("Prop") != null), "%s keeps its look (its scene or its prop)" % z)
 	room.free()
 	v.free()
 

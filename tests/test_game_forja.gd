@@ -169,14 +169,14 @@ func test_interior_is_built_from_the_kit_with_the_stations() -> void:
 	var sim := _sim()
 	_hugo_inside(sim)
 	var v := _interior(sim)
-	eq(v.size_tiles, Vector2i(8, 6), "size from the Kit of game/visuals/interiors/forge.tscn")
-	eq(v.floor_layer().get_child_count(), 48, "one floor piece per tile")
-	eq(v.walls().get_child_count(), 8 + 6, "a wall piece per back edge")
+	eq(v.size_tiles, Vector2i(10, 8), "size from data/interiors/forge.json (04g 4.6.5.2)")
+	eq(v.floor_layer().get_child_count(), 80, "one floor piece per tile (the hidden Kit)")
+	eq(v.walls().get_child_count(), 10 + 8, "a wall piece per back edge (the hidden Kit)")
 	var door := v.walls().get_node_or_null("Door") as KitWall
 	check(door != null and door.door, "the door piece")
 	for z: String in ["furnace", "anvil", "counter", "storage"]:
 		check(v.station_view(z) != null, "station %s" % z)
-	var marker := v.room().get_node("Stations/anvil") as Node2D   # it can be moved by hand in interiors/forge.tscn
+	var marker := v.room().get_node("Stations/anvil") as Node2D   # it can be moved in data/interiors/forge.json
 	eq(v.station_view("anvil").position, marker.position, "anvil where its Marker2D puts it")
 	check(v.view_of(HUGO) != null, "Hugo is drawn inside")
 	eq(v.actor(), HUGO, "and is who acts")
@@ -259,8 +259,11 @@ func test_left_click_on_station_goes_there() -> void:
 	sim.step(got)
 	eq(str(sim.state.characters[HUGO]["station"]), "furnace", "Hugo at the furnace")
 	v.sync()
-	var spot := Iso.tilef_to_world(Vector2(Iso.world_to_tile(v.station_view("furnace").position)) + InteriorView.STAND).round()
-	eq(v.view_of(HUGO).position, spot, "drawn at his station")
+	(v.get_node("InteriorStage") as InteriorStage).tick(10.0)  # he walks there (04g 4.6.5.4): long enough to arrive
+	var d := InteriorDefs.def_of("forge")
+	var stand: Array = d["stations"]["furnace"]["stand"]
+	var spot := InteriorDefs.spot_world(d, 0, Vector2(float(stand[0]), float(stand[1]))).round()
+	eq(v.view_of(HUGO).position, spot, "drawn at his station's spot")
 	v.free()
 
 

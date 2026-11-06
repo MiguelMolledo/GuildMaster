@@ -154,7 +154,7 @@ func refresh(force: bool = false) -> void:
 	var g := gold()
 	var sig := str(_offers) + "|" + str(g) + "|" + tab + "|" + str(_qty) + "|" + str(Clock.day(int(sim.state.clock["minute"]))) \
 		+ "|" + str(sim.state.market.get("demand", {}))
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	(%GoldLabel as Label).text = SimQuery.t_("ui.market.gold") % g

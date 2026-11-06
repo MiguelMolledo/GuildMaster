@@ -22,7 +22,8 @@ extends SceneTree
 ## ledger entries of the window outside its excluded categories / days; its target is checked on the mean of the
 ## seeds, GDD 4.19 "media"), by_category_<a>_<b> (the window by category, for the report), contracts_done,
 ## contracts_failed, player_other_flows (ledger entries of the player's family that are not a payment of upkeep or
-## loans, nor the seizure of a good for the debts, Equilibrio 2: an idle family must have 0, GDD 4.19).
+## loans, nor the seizure of a good for the debts, Equilibrio 2: an idle family must have 0, GDD 4.19). Fiestas
+## (4.25.4): ai_broke_days_y1 (the most days of year 1 an AI family with a profile ended without gold).
 ## H5: sink_share_<a>_<b> (goldflow windows with sink_categories: those categories' expenses / gross income of the
 ## window, GDD 4.19 "30-60 %"; sink_base "revenue" = over the gross income, "margin" = over the gross income minus
 ## the input_categories (materials); both are written as sink_share_revenue_ / sink_share_margin_), net_year_<n> (net gold per day of each whole year of 8 days played, without the
@@ -72,6 +73,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
 	"merchant": BotMerchant, "pacing": BotPacing, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper,
+	"idle_titles_fest": BotIdle,
 	"broke": BotBroke}  # equilibrio (Equilibrio 2: the emergency loan from broke_forge)
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
@@ -88,6 +90,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# merchant: travels to the capital, sells there, takes contracts, signs a quota, sends a caravan (viajes, 09b)
 	# guard_watch: nights with bandit raids; the watch answers, nobody loses more than the cap (vida, 04f 4.28.4)
 	# festive: artisan_expert for a year with the festivals on (fiestas, 04f 4.28.4): every feast, its contracts
+	# idle_titles_fest: idle_titles with the festivals on, year 1: no AI family more than 2 days without gold (fiestas)
 	# innkeeper: runs the Taberna-Posada of innkeeper_start 16 days (posada, 04f §4.27; --scenario=innkeeper_start)
 const IDLE_OK: Array = ["upkeep", "loans"]  # what may take gold from an idle family (GDD 4.19)
 const PROD_DAYS: int = 2  # days before and after each production upgrade where the production rate is measured
@@ -286,6 +289,7 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 		if str(sim.state.loans[id].get("family", "")) == player:
 			dues[id] = int(sim.state.loans[id].get("due_minute", 0))
 	var paid := {}
+	var broke := {}  # fiestas (4.25.4): AI family -> days of year 1 ended without gold
 	var repaid := 0  # gold paid back to loans so far (gold_repaid_day<N> = gold + this)
 	var cycles: Array = []  # H5: [{minute, actor, std, real, hours}] cycles started in the player's buildings
 	var ups: Array = []     # H5: [{upgrade, start, end, mult_before, mult_after}] production upgrades of the player
@@ -496,6 +500,10 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 			var d := done_days / Clock.MINUTES_PER_DAY
 			if not sim.state.events_active.is_empty():  # H13
 				m["event_days"] = int(m["event_days"]) + 1
+			if d <= YEAR_DAYS:  # fiestas (4.25.4): an AI family with a profile that ends a day of year 1 without gold
+				for f: String in sim.state.families:
+					if str(sim.state.families[f].get("ai_profile", "")) != "" and Money.gold(sim.state, f) <= 0:
+						broke[f] = int(broke.get(f, 0)) + 1
 			if d == 10:  # H3 rival: gold of the AI families with a profile at day 10
 				m["rival_gold_day10"] = _rival_gold(sim)
 			if player != "":  # windows measured when they close (the ledger keeps only 2 years in detail)
@@ -503,6 +511,9 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 			if player != "" and d in [3, 8, 10]:
 				m["gold_day%d" % d] = Money.gold(sim.state, player)
 				m["gold_repaid_day%d" % d] = Money.gold(sim.state, player) + repaid
+	m["ai_broke_days_y1"] = 0
+	for f: String in broke:
+		m["ai_broke_days_y1"] = maxi(int(m["ai_broke_days_y1"]), int(broke[f]))
 	m["events_overdue"] = 0  # H13: an event in force past its end would be stuck
 	for ev: Dictionary in sim.state.events_active:
 		if int(ev.get("end", 0)) <= int(sim.state.clock["minute"]):

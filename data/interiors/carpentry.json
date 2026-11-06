@@ -1,0 +1,97 @@
+{
+  "_doc": "The carpentry (docs/gdd/04g_interiores.md 4.6.5.6): ground floor with the workshop (benches and saw), the yard of planks and a small shop; upstairs, the home. Edit by hand, then python3 tools/interiors/interiores.py reglas carpentry && python3 tools/interiors/interiores.py validar carpentry.",
+  "size": [10, 8],
+  "wall_height": 64,
+  "floor_height": 80,
+  "center_offset": [-32, 0],
+  "seed": 5,
+  "entrance": {"floor": 0, "tile": [0, 6], "side": "nw"},
+  "rooms": [
+    {"id": "workshop", "floor": 0, "type": "workshop", "rects": [[0, 0, 5, 4]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"},
+    {"id": "yard", "floor": 0, "type": "yard", "rects": [[6, 0, 9, 4]], "floor_kind": "earth", "wall_style": "timber", "light": "cool"},
+    {"id": "shop", "floor": 0, "type": "shop", "rects": [[0, 5, 9, 7]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"},
+    {"id": "kitchen", "floor": 1, "type": "kitchen", "rects": [[0, 0, 2, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"},
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[3, 0, 5, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [6, 2], "side": "nw"},
+    {"floor": 0, "tile": [2, 5], "side": "ne"},
+    {"floor": 0, "tile": [8, 5], "side": "ne"},
+    {"floor": 1, "tile": [3, 2], "side": "nw"}
+  ],
+  "levels": [],
+  "stairs": [
+    {"id": "stairs", "floor": 0, "prop": "staircase", "tile": [0, 4], "flip": false, "from": [1, 4], "to_floor": 1, "to": [1, 3]}
+  ],
+  "stations": {
+    "workbench": {"floor": 0, "tile": [2, 2], "prop": "carpenter_bench", "stand": [1, 2]},
+    "workbench_2": {"floor": 0, "tile": [4, 2], "prop": "carpenter_bench", "stand": [3, 2]},
+    "sawhorse": {"floor": 0, "tile": [7, 2], "prop": "sawhorse", "stand": [7, 3]},
+    "sawhorse_2": {"floor": 0, "tile": [9, 2], "prop": "sawhorse", "stand": [8, 2]},
+    "counter": {"floor": 0, "tile": [6, 6], "prop": "shop_counter", "stand": [5, 6]},
+    "storage": {"floor": 0, "tile": [9, 3], "prop": "plank_stack", "stand": [9, 4]}
+  },
+  "customers": {
+    "counter": [{"tile": [7, 6]}, {"tile": [7, 5]}],
+    "queue": [{"tile": [8, 6]}, {"tile": [9, 6]}, {"tile": [8, 7]}]
+  },
+  "idle": [
+    {"floor": 1, "tile": [2, 2]},
+    {"floor": 1, "tile": [4, 2]},
+    {"floor": 0, "tile": [3, 6]}
+  ],
+  "props": [
+    {"id": "log_pile", "floor": 0, "tile": [6, 0]},
+    {"id": "plank_stack", "floor": 0, "tile": [7, 0]},
+    {"id": "tool_pegboard", "floor": 0, "tile": [2, 0]},
+    {"id": "half_chair", "floor": 0, "tile": [0, 7]},
+    {"id": "unfinished_barrel", "floor": 0, "tile": [1, 5]},
+    {"id": "display_shelf", "floor": 0, "tile": [3, 7], "flip": true, "display": 3},
+    {"id": "kitchen_hearth", "floor": 1, "tile": [0, 1]},
+    {"id": "crockery_shelf", "floor": 1, "tile": [2, 0]},
+    {"id": "stool", "floor": 1, "tile": [0, 3]},
+    {"id": "bed_double", "floor": 1, "tile": [5, 1], "flip": false},
+    {"id": "chest", "floor": 1, "tile": [4, 3]},
+    {"id": "cradle", "floor": 1, "tile": [3, 0]}
+  ],
+  "rules": [
+    {"rule": "wall_fill", "room": "yard", "props": ["log_pile", "plank_stack", "firewood_pile", "sawhorse"], "chance": 0.7},
+    {"rule": "scatter", "room": "workshop", "props": ["shavings_heap", "wood_mallet", "chisel_set"], "count": 4},
+    {"rule": "scatter", "room": "yard", "props": ["shavings_heap"], "count": 2},
+    {"rule": "on_top", "room": "shop", "under": ["shop_counter"], "props": ["ledger_book", "coin_pile", "wood_mallet"], "max": 2, "chance": 1.0},
+    {"rule": "wall_fill", "room": "kitchen", "props": ["barrel", "sack"], "chance": 0.5},
+    {"rule": "hang", "room": "shop", "props": ["tool_board_wall", "herbs_hanging"], "count": 2}
+  ],
+  "upgrades": {
+    "carpentry_workbench_2": [],
+    "carpentry_sawhorse_2": [],
+    "upgrade_storage_shelves": [{"id": "market_shelf", "floor": 0, "tile": [9, 0], "flip": true}],
+    "upgrade_counter": [{"id": "weapon_display", "floor": 0, "tile": [4, 5], "display": 3}],
+    "carpentry_frame_saw": [{"id": "frame_saw", "floor": 0, "tile": [5, 0]}],
+    "carpentry_vice_bench": [{"id": "vice_bench", "floor": 0, "tile": [0, 1]}],
+    "carpentry_master_bench": [{"id": "master_carpenter_bench", "floor": 0, "tile": [1, 0]}],
+    "carpentry_planes": [{"id": "planes_rack", "floor": 0, "tile": [3, 0]}],
+    "carpentry_gouges": [{"id": "gouges", "floor": 0, "tile": [4, 0]}],
+    "carpentry_mark": [{"id": "carpenter_mark", "floor": 0, "tile": [0, 2]}],
+    "upgrade_double_ledger": [{"id": "double_ledger", "floor": 0, "tile": [1, 7]}],
+    "upgrade_hidden_passage": [{"id": "hidden_passage", "floor": 0, "tile": [5, 4]}],
+    "upgrade_smuggler_cache": [{"id": "smuggler_cache", "floor": 0, "tile": [6, 4]}],
+    "upgrade_strongbox": [{"id": "strongbox", "floor": 1, "tile": [5, 3]}],
+    "upgrade_bunks": [{"id": "bunk_bed", "floor": 1, "tile": [4, 0], "flip": true}],
+    "upgrade_dining_table": [{"id": "dining_table", "floor": 1, "tile": [1, 1], "flip": false}],
+    "upgrade_master_bench": [{"id": "tool_pegboard", "floor": 0, "tile": [4, 4]}]
+  },
+  "resolved": [
+    {"id": "firewood_pile", "floor": 0, "tile": [6, 1], "flip": false, "rule": "wall_fill"},
+    {"id": "wood_mallet", "floor": 0, "tile": [1, 3], "flip": false, "rule": "scatter"},
+    {"id": "wood_mallet", "floor": 0, "tile": [2, 3], "flip": false, "rule": "scatter"},
+    {"id": "chisel_set", "floor": 0, "tile": [3, 1], "flip": true, "rule": "scatter"},
+    {"id": "chisel_set", "floor": 0, "tile": [3, 3], "flip": true, "rule": "scatter"},
+    {"id": "shavings_heap", "floor": 0, "tile": [8, 3], "flip": false, "rule": "scatter"},
+    {"id": "shavings_heap", "floor": 0, "tile": [9, 1], "flip": true, "rule": "scatter"},
+    {"id": "ledger_book", "floor": 0, "tile": [6, 6], "flip": false, "lift": 26, "shift": [-7, 0], "rule": "on_top", "over": "shop_counter"},
+    {"id": "barrel", "floor": 1, "tile": [0, 0], "flip": true, "rule": "wall_fill"},
+    {"id": "herbs_hanging", "floor": 0, "tile": [3, 5], "flip": true, "hang": "ne", "rule": "hang"},
+    {"id": "herbs_hanging", "floor": 0, "tile": [0, 5], "flip": true, "hang": "ne", "rule": "hang"}
+  ]
+}

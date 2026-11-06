@@ -3,6 +3,7 @@
 *.import.tmp
 reports/*
 !reports/.gdignore
+!reports/full_player_ref/
 export/
 .DS_Store
 __pycache__/

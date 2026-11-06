@@ -20,6 +20,10 @@ var fwd: Array = []  # per landmark: PackedInt32Array cost from it to each padde
 var bwd: Array = []  # per landmark: PackedInt32Array cost from each padded tile to it
 ## The same, flat for the search's inner loop: lm[i * 2K + 2j] = cost from landmark j to tile i, + 1 = from i to j.
 var lm: PackedInt32Array = PackedInt32Array()
+## Whether every walkable tile reaches every landmark both ways (one piece of walkable ground, as the town maps are)
+## and there are 4 of them: then no cost in lm is INF and search() takes the heuristic unrolled, without INF checks
+## (the same h, faster).
+var whole: bool = false
 
 
 ## The atlas of `grid` for map data `m` ("routing" in it), built once per map; null if the map does not ask for one.
@@ -64,12 +68,15 @@ func _build(grid: Grid, k: int) -> void:
 	var kk := landmarks.size()
 	var n := grid.padded.size()
 	lm.resize(n * 2 * kk)
+	whole = kk == 4
 	for j: int in kk:
 		var fj: PackedInt32Array = fwd[j]
 		var bj: PackedInt32Array = bwd[j]
 		for i: int in n:
 			lm[i * 2 * kk + 2 * j] = fj[i]
 			lm[i * 2 * kk + 2 * j + 1] = bj[i]
+			if grid.padded[i] != Grid.BLOCKED and (fj[i] >= INF or bj[i] >= INF):
+				whole = false
 
 
 ## Costs from `src` to every tile (forward) or from every tile to `src` (backward), over Grid's moves (the cost of a
@@ -166,6 +173,16 @@ func search(grid: Grid, start: int, goal: int) -> PackedInt32Array:
 	head.fill(-1)
 	var gc: int = pcol[goal]
 	var gr: int = prow[goal]
+	# the goal's row in locals for the unrolled heuristic (a walkable goal of a whole map: every cost finite)
+	var fast: bool = whole and grid.padded[goal] != Grid.BLOCKED
+	var g0: int = gl[0] if fast else 0
+	var g1: int = gl[1] if fast else 0
+	var g2: int = gl[2] if fast else 0
+	var g3: int = gl[3] if fast else 0
+	var g4: int = gl[4] if fast else 0
+	var g5: int = gl[5] if fast else 0
+	var g6: int = gl[6] if fast else 0
+	var g7: int = gl[7] if fast else 0
 	var h0: int = _h(start, gc, gr, pcol, prow, fg, bg, kk)
 	g_cost[start] = 0
 	f_of[start] = h0
@@ -227,15 +244,41 @@ func search(grid: Grid, start: int, goal: int) -> PackedInt32Array:
 					dy = -dy
 				h = 10 * dx + 4 * dy if dx >= dy else 10 * dy + 4 * dx  # octile (STRAIGHT 10, DIAGONAL 14)
 				var base: int = ni * k2
-				for j2: int in range(0, k2, 2):
-					var fi: int = lm[base + j2]
-					var fgj: int = gl[j2]
-					if fi < INF and fgj < INF and fgj - fi > h:
-						h = fgj - fi
-					var bi: int = lm[base + j2 + 1]
-					var bgj: int = gl[j2 + 1]
-					if bi < INF and bgj < INF and bi - bgj > h:
-						h = bi - bgj
+				if fast:  # 4 landmarks, every cost finite (whole): the loop below unrolled, without its INF checks
+					var v: int = g0 - lm[base]
+					if v > h:
+						h = v
+					v = lm[base + 1] - g1
+					if v > h:
+						h = v
+					v = g2 - lm[base + 2]
+					if v > h:
+						h = v
+					v = lm[base + 3] - g3
+					if v > h:
+						h = v
+					v = g4 - lm[base + 4]
+					if v > h:
+						h = v
+					v = lm[base + 5] - g5
+					if v > h:
+						h = v
+					v = g6 - lm[base + 6]
+					if v > h:
+						h = v
+					v = lm[base + 7] - g7
+					if v > h:
+						h = v
+				else:
+					for j2: int in range(0, k2, 2):
+						var fi: int = lm[base + j2]
+						var fgj: int = gl[j2]
+						if fi < INF and fgj < INF and fgj - fi > h:
+							h = fgj - fi
+						var bi: int = lm[base + j2 + 1]
+						var bgj: int = gl[j2 + 1]
+						if bi < INF and bgj < INF and bi - bgj > h:
+							h = bi - bgj
 				hk[ni] = (h << _IDX_BITS) | ni
 				open_n += 1
 			else:

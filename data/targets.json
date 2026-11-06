@@ -781,7 +781,8 @@
   "_festivals_doc": "Fiestas (04f 4.28.4, principio 4): solo los bots de esta lista juegan con el calendario de fiestas; todas las dianas de antes corren sin él (sim_runner pone data/festivals.json enabled a false), así salen iguales. --festivals=on lo enciende para cualquier bot (con --tag, para no pisar los informes oficiales).",
   "_festivals": [
     "festive",
-    "pacing"
+    "pacing",
+    "idle_titles_fest"
   ],
   "festive": {
     "_doc": "Fiestas (04f 4.28.4): artisan_expert un año entero (8 días) con las fiestas, en una partida nueva real (--start=artisan_blacksmith --bots=festive --days=8). Cada fiesta fija sale (fest_fixed_seen 8), cada una con su pregón, sus encargos se publican y se cumplen (los gana el jugador o el rival del oficio: un solo ganador), nada se queda colgado (fest_stuck 0) y ninguna orden de fiesta se rechaza. Medido (3 semillas, 2026-11-04): 27-37 encargos publicados, 5-9 cumplidos (casi todos por los rivales del oficio; la comida de los banquetes nadie la lleva hasta la posada), 0 colgados, 0 órdenes rechazadas. Bandas [provisional].",
@@ -817,12 +818,39 @@
       4,
       null
     ],
+    "fest_contests": [
+      1,
+      1
+    ],
+    "ai_broke_days_y1": [
+      0,
+      2
+    ],
     "_mean": {
       "fest_contracts_done": [
         5,
         null
       ]
     }
+  },
+  "idle_titles_fest": {
+    "_doc": "Fiestas (04f 4.25.4, owner 2026-11-05): idle_titles con las fiestas encendidas, el año 1 (--start=artisan_blacksmith --bots=idle_titles_fest --days=8). Las fiestas no arruinan a las familias IA: entran en un encargo de fiesta solo si lo terminan a tiempo con las horas reales de su taller y les queda la reserva de 3 días de mantenimiento tras comprar la materia, y bajo la reserva van a recuperación (su pieza vendible más barata, y venden). Ninguna familia IA termina más de 2 días del año sin oro (ai_broke_days_y1).",
+    "days": [
+      8,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "ai_broke_days_y1": [
+      0,
+      2
+    ]
   },
   "gambler": {
     "_doc": "Juegos (docs/gdd/04f_vida_y_fiestas.md §4.28.4, §4.26.6-8; docs/contratos/juegos.md): bot gambler desde el escenario games_gambler (3000 de oro y una casa de juego con licencia: su parte de la casa, el 10 % de lo que gana el ganador). Cada media hora de 09:00 a 22:00 juega por turnos al azar, a la mayor (con dos parroquianos) y al envite contra parroquianos templados (la misma política que «Resolver sin jugar»: nadie tiene ventaja) y apuesta a un pulso de dos parroquianos a las cuotas del corredor (margen del 10 %). Diana: pierde de media lo que marca el margen de la casa, ni más ni menos: gambler_return (lo ganado o perdido por cada moneda apostada) entre -0,13 y -0,02, y gambler_luck (lo mismo sumando lo que se llevó la casa: la parte de la mesa y el margen esperado de sus apuestas) entre -0,05 y +0,05 de media. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=games_gambler --bots=gambler --days=8 --seeds=5 (en run_all, paso gambler, 3 semillas). Medido (2026-11-04, 5 semillas): 216 partidas y apuestas por semilla, gambler_return -0,066 de media, gambler_luck +0,013.",
@@ -862,7 +890,7 @@
     }
   },
   "full_player": {
-    "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche. Rivales y pueblo (tools/full_watch.gd, docs/contratos/informe_jugador_completo.md): ver _proposed_doc.",
+    "_doc": "Jugador completo (docs/gdd/07_testing.md §7.4): sim/bots/bot_full_player.gd en una partida nueva real (artisan_blacksmith, Normal, reparto fijo) con todo encendido (eventos, vida, fiestas, viajes, duelo; posada, juegos y Forja viva cuando estén en el juego), por tools/full_player.gd (no por sim_runner: no apaga nada). Ritual: godot --headless --path . -s tools/full_player.gd -- --years=3 --seeds=3 (≈3 min por semilla); en run_all, paso full (1 año, 1 semilla); de noche, python3 tools/qa/noche.py (3 años × 5 semillas, una generación × 2 y el caótico). _needs_days: las medidas que un año no juzga. Medido (2026-11-05, 3 semillas × 3 años): deuda saldada los días 3-6; Ciudadano los días 19-24 (03b lo espera en el año 2: llega tarde, la reputación de 80 marca el paso); boda en 3/3 (días 14-22), hijo en 1/3; neto/día del año 1 27-75; 0 órdenes rechazadas, 0 errores del motor, paso medio 2,2-2,5 ms (peor 86-170 ms). Una generación (semilla 1, 383 días): el fundador muere a los 67 años el día 377 y hereda el primogénito (heredero designado el día 27), 6 hijos en dos generaciones, Patricio el día 36 y nunca Barón (pide 3 negocios), 56 854 de oro al final, 52 duelos (21 ganados), 0 errores. Bandas [provisional]: las de hijos y título, tras las 5 semillas de la noche. Rivales y pueblo (tools/full_watch.gd, docs/contratos/informe_jugador_completo.md): ver _proposed_doc. Revisión del worker de equilibrio (2026-11-06, encargo del manager), medido con el full_player de jugador juntado con equilibrio (3 años × 4 semillas): Ciudadano los días 11-14, así que vuelve la diana por semilla [1, 20] y la media pasa de [9, 24] a [9, 16] (Equilibrio 3: año 2); unlocks_off 0 en 4/4 (mejoras con la deuda saldada, rival [2, 3], cargos con Ciudadano desde el año 3), así que vuelve de _proposed a diana [0, 0]; los empleados y los niños con hambre salen 0 % (la bolsa de los hogares, Equilibrio 15), así que pasan de _proposed a diana [0, 0,5].",
     "_needs_days": {
       "debt_paid": 8,
       "debt_paid_day": 8,
@@ -878,7 +906,9 @@
       "townsfolk_end": 24,
       "ai_titled_families": 24,
       "ai_office_runs": 24,
-      "ai_broke_days_max": 24
+      "ai_broke_days_max": 24,
+      "children": 24,
+      "unlocks_off": 24
     },
     "refused_orders": [
       0,
@@ -912,10 +942,10 @@
       1,
       8
     ],
-    "title_citizen_day": [
-      1,
-      24
-    ],
+      "title_citizen_day": [1, 20],
+      "unlocks_off": [0, 0],
+      "staff_hungry_share_max": [0, 0.5],
+      "child_hungry_share_max": [0, 0.5],
     "step_ms_mean": [
       0,
       5
@@ -967,7 +997,7 @@
       ],
       "title_citizen_day": [
         9,
-        24
+        16
       ]
     },
     "_share": {
@@ -978,13 +1008,9 @@
       "wed": [
         0.66,
         null
-      ],
-      "had_child": [
-        0.3,
-        null
       ]
     },
-    "_proposed_doc": "Dianas que pide el owner (2026-11-05) para los rivales y el pueblo, propuestas tras medir; hoy fallan y se informan sin tumbar la QA (summary.json proposed_misses): una familia IA sube de título en 3 años, se presenta a un cargo, no pasa más de 4 días sin oro (hoy 15-21 de 24: las carreras de encargos de fiesta la dejan a 0 y por debajo de su reserva no vuelve a comprar), y los empleados y los niños del pueblo no pasan hambre más de la mitad de las horas (hoy 65-82 % y 88 %). Medido (2026-11-05, 3 semillas × 3 años, full_player e idle_player): 0 títulos, 0 cargos y 0 ataques de la IA; 17-35 encargos aceptados por la IA; 0 órdenes de la IA rechazadas; la guardia llega siempre (mediana 0 min, máx 8); 4,5-5,7 forasteros al día; 14-16 vecinos al final; ningún vecino atascado. Pasan a dianas cuando H6 (04c) y la vida los arreglen. En una generación (semilla 2, 351 días) las cuatro familias IA pasan ~340 días sin oro y paradas; el pueblo crece de 16 a 32 vecinos (el tope de la vida) con 45 nacimientos y 25 muertes, y la guardia llega a las 362 llamadas.",
+    "_proposed_doc": "Dianas que pide el owner (2026-11-05) para los rivales y el pueblo, propuestas tras medir; hoy fallan y se informan sin tumbar la QA (summary.json proposed_misses): una familia IA sube de título en 3 años, se presenta a un cargo, no pasa más de 4 días sin oro (hoy 15-21 de 24: las carreras de encargos de fiesta la dejan a 0 y por debajo de su reserva no vuelve a comprar), y los empleados y los niños del pueblo no pasan hambre más de la mitad de las horas (hoy 65-82 % y 88 %). Medido (2026-11-05, 3 semillas × 3 años, full_player e idle_player): 0 títulos, 0 cargos y 0 ataques de la IA; 17-35 encargos aceptados por la IA; 0 órdenes de la IA rechazadas; la guardia llega siempre (mediana 0 min, máx 8); 4,5-5,7 forasteros al día; 14-16 vecinos al final; ningún vecino atascado. Pasan a dianas cuando H6 (04c) y la vida los arreglen. En una generación (semilla 2, 351 días) las cuatro familias IA pasan ~340 días sin oro y paradas; el pueblo crece de 16 a 32 vecinos (el tope de la vida) con 45 nacimientos y 25 muertes, y la guardia llega a las 362 llamadas. had_child (un hijo en 3 años) sale de las dianas: con la boda entre los días 14 y 22 y el 10 % diario de 4.10.3 se espera en ~35 % de las semillas, y con 3 semillas sale 0/3 o 1/3 según el día exacto de la boda (la taberna lo movió un día en la semilla 2). Se juzga en la generación (hijos siempre) y, con más semillas, con mean_children. Con la forja (2026-11-05): title_citizen_day por semilla sale de las dianas (una semilla se queda en 79 de reputación de los 80 de Ciudadano; quedan la media y la proporción) y unlocks_off (desbloqueos fuera de su ventana de 03b ±1 día, la diana del bot pacing) entra como propuesta: con el experto «mejoras» llega el día 7 (ventana 3-5) y Ciudadano y cargos tarde o nunca.",
     "_proposed": {
       "ai_titled_families": [
         1,
@@ -998,15 +1024,11 @@
         0,
         4
       ],
-      "staff_hungry_share_max": [
-        0,
-        0.5
-      ],
-      "child_hungry_share_max": [
-        0,
-        0.5
+      "children": [
+        1,
+        null
       ]
-    }
+      }
   },
   "chaos_player": {
     "_doc": "Jugador caótico (docs/gdd/07_testing.md §7.4): sim/bots/bot_chaos_player.gd, la misma partida que full_player con decisiones al azar y una orden válida al azar cada ~40 minutos de juego (sesgo hacia los sistemas menos tocados; hasta saldar la deuda inicial, solo órdenes que no gastan). Guarda y carga cada día y sigue con lo cargado. Diana: nada se rompe: 0 errores del motor, 0 pasos de más de 2 s, ida y vuelta del guardado idéntica, nunca oro negativo ni nadie fuera del mapa, el libro cuadra. Ritual: godot --headless --path . -s tools/full_player.gd -- --bot=chaos_player --years=3 --seeds=3; en run_all, paso chaos (1 año, 1 semilla). Medido (2026-11-05, 2 semillas × 3 años): 24 idas y vueltas por semilla sin diferencias, 0 errores; una semilla se queda sin oro ni existencias el día 8 y ya no se recupera (bloqueo blando, docs/decisiones.json).",

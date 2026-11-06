@@ -89,11 +89,13 @@ func refresh(force: bool = false) -> void:
 			if k != "defame" or why != "not_a_candidate":
 				camp.append([k, why])
 	var rel := Emotions.relation(st, actor, target) if actor != "" else 0
-	var sig := "%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%d|%s" % [actor, target, SimQuery.town_state_text(sim, target), emos, gift,
+	# the hovered button is not part of it: hovering only rewrites the reason line in place (_hover), it must not
+	# rebuild the buttons under the pointer (verificación A4)
+	var sig := "%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%d" % [actor, target, SimQuery.town_state_text(sim, target), emos, gift,
 		statuses, rel, camp, Offices.of_character(st, target), Tribunal.accuse_options(sim, actor, target) if actor != "" \
-		else {}, _accuse_pick, _hovered] + "|%s|%s" % [Courtship.affinity(st, actor, target) if actor != "" else 0,
+		else {}, _accuse_pick] + "|%s|%s" % [Courtship.affinity(st, actor, target) if actor != "" else 0,
 		Duels.challenge_status(sim, actor, target, "", "first_blood", false) if actor != "" else ""]
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	_fill_head(t)
@@ -108,7 +110,10 @@ func refresh(force: bool = false) -> void:
 func _fill_head(t: Dictionary) -> void:
 	var st := sim.state
 	var fam: Dictionary = st.families.get(str(t.get("family", "")), {})
-	(%Title as Label).text = "%s · %s" % [str(t.get("name", target)), str(fam.get("name", ""))]
+	var fam_name := str(fam.get("name", ""))
+	if fam_name == "" and str(fam.get("name_key", "")) != "":   # vida: the watch, the visitors, the bandits
+		fam_name = SimQuery.t_(str(fam["name_key"]))
+	(%Title as Label).text = "%s · %s" % [str(t.get("name", target)), fam_name] if fam_name != "" else str(t.get("name", target))
 	var slot := %PortraitSlot as Control
 	SocialKit.clear(slot)
 	slot.add_child(SocialKit.portrait(st, target))
@@ -133,6 +138,8 @@ func _fill_head(t: Dictionary) -> void:
 	var bubble := SimQuery.bubble_of(sim, target)
 	if bubble != "":
 		var b := VisualPaths.instantiate("bubbles", bubble)
+		if b != null:
+			WorldLabels.style_tree(b)
 		if b != null:
 			VisualPaths.place(b, Vector2(13, 20))
 			icon_slot.add_child(b)
@@ -179,6 +186,8 @@ func _emotion_row(e: Dictionary, d: Dictionary) -> Control:
 	var holder := Control.new()
 	holder.custom_minimum_size = Vector2(26, 20)
 	var icon := VisualPaths.instantiate("bubbles", str(e["icon"]))  # the same bubble as over the head
+	if icon != null:
+		WorldLabels.style_tree(icon)
 	if icon != null:
 		VisualPaths.place(icon, Vector2(13, 20))
 		holder.add_child(icon)
@@ -250,6 +259,8 @@ func _fill_actions(statuses: Array, gift: Dictionary, camp: Array, t: Dictionary
 		b.mouse_exited.connect(_hover.bind(""))
 		b.pressed.connect(func() -> void: request_action(act))
 		acts.add_child(b)
+	if actor != "" and str((t.get("visitor", {}) as Dictionary).get("kind", "")) == "beggar":
+		acts.add_child(_alms_button())  # vida (verificación A5): alms to a beggar or a poor pilgrim
 	if actor != "" and str(st.characters.get(actor, {}).get("family", "")) != str(t.get("family", "")):
 		acts.add_child(_accuse_row())  # H11
 		acts.add_child(_duel_button())  # duelo
@@ -287,6 +298,26 @@ func _duel_button() -> Button:
 	b.mouse_entered.connect(_hover.bind(b.name))
 	b.mouse_exited.connect(_hover.bind(""))
 	b.pressed.connect(request_duel)
+	return b
+
+
+## «Dar limosna (1 oro)»: give_alms, walking there first when far (like the other actions); off with its reason.
+func _alms_button() -> Button:
+	var gold := int((Visitors.cfg(sim).get("alms", {}) as Dictionary).get("gold", 1))
+	var fam := str(sim.state.characters.get(actor, {}).get("family", ""))
+	var why := "not_enough_gold" if Money.gold(sim.state, fam) < gold else ""
+	var b := Button.new()
+	b.name = "Alms"
+	b.text = SimQuery.t_("ui.npc.alms") % gold
+	b.focus_mode = Control.FOCUS_NONE
+	b.theme_type_variation = &"BodyButton"
+	b.disabled = why != ""
+	b.tooltip_text = SimQuery.reason_text(why) if why != "" else SimQuery.t_("ui.npc.alms_tip")
+	_reasons[b.name] = SimQuery.t_("ui.npc.reason_line") % [b.text, SimQuery.reason_text(why)] if b.disabled else ""
+	b.mouse_entered.connect(_hover.bind(b.name))
+	b.mouse_exited.connect(_hover.bind(""))
+	b.pressed.connect(func() -> void:
+		_give(_reach({"type": "give_alms", "actor": actor, "target": target}, NpcActions.in_range(sim, actor, target))))
 	return b
 
 
@@ -584,7 +615,7 @@ func do_action(act: String) -> void:
 func _reach(o: Dictionary, here: bool) -> Array:
 	if here:
 		return [o]
-	var orders: Array = []
+	var orders: Array = [{"type": "hail", "actor": actor, "target": target}]   # A8: they stop and wait for you
 	var spot := Courtship.spot(sim.state, target)
 	if str(sim.state.characters[actor].get("location", "")) != "":
 		orders.append({"type": "exit_building", "actor": actor})

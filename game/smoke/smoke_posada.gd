@@ -4,7 +4,8 @@ extends Node
 ## (posada_mapa), its interior full at night (posada_noche), the panel's Clientela (posada_clientela), the menu
 ## (posada_carta), the rooms (posada_habitacion), the gaming table (posada_mesa: the Mesa tab, the table built and
 ## licensed if the bot had not), the traveller's offer (posada_forastero: its card) and its game on the games' screen
-## (posada_partida), and the card of the turn summary (posada_resumen). Everything through the UI's own calls. Quits when done, or after `timeout` seconds with a shot of whatever is on screen.
+## (posada_partida), the card of the turn summary (posada_resumen) and another family's table from its door (posada_mesa_ajena: the
+## tavern given to the rival smith, the HUD's «Jugar en la mesa» and its card). Everything through the UI's own calls. Quits when done, or after `timeout` seconds with a shot of whatever is on screen.
 
 var app: Node = null
 var timeout: float = 90.0
@@ -128,5 +129,27 @@ func _process(delta: float) -> void:
 		"shot_summary":
 			if _t > 0.8:
 				app.save_shot("posada_resumen")
+				(app.get_node("%InnTurnCard") as InnTurnCard).close()
+				# another family's table: the tavern given to the rival smith, the hero at its door
+				var st: WorldState = Game.sim.state
+				st.buildings[_tavern]["owner"] = "fam_0002"
+				var hero := str(st.families[SimQuery.player_family(st)]["head"])
+				st.characters[hero]["location"] = ""
+				st.characters[hero]["position"] = (st.buildings[_tavern]["door"] as Array).duplicate()
+				app.close_interior()
+				_go("foreign")
+		"foreign":
+			if app.interior_building == "" and _t > 1.0:
+				app.world().pick_building_id(_tavern)
+				_go("shot_foreign")
+		"shot_foreign":
+			if _t > 0.6:
+				var hero2 := str(Game.sim.state.families[SimQuery.player_family(Game.sim.state)]["head"])
+				print("[SmokePosada] mesa ajena: %s" % InnGames.visitor_blocked(Game.sim, _tavern, hero2))
+				(app.get_node("%InnVisitCard") as InnVisitCard).show_for(Game.sim, _tavern, hero2)
+				_go("shot_foreign_card")
+		"shot_foreign_card":
+			if _t > 0.8:
+				app.save_shot("posada_mesa_ajena")
 				_go("done")
 				get_tree().quit()

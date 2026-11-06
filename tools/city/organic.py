@@ -882,8 +882,33 @@ class Town:
         return self.inside(t, 1) and self.at(t) == "." and t not in self.taken and t not in self.p.reserved \
             and t not in self.keep
 
+    def church_land(self):
+        """The tiles inside a precinct's wall (tools/city/reglas.json plots.precincts: Montsacre's abbey, Church land,
+        as plots.Sides.unbuildable): no workshop nor house there. Empty for every other town."""
+        if not hasattr(self, "_church"):
+            self._church = set()
+            precincts = citylib.load_json(citylib.RULES_PATH).get("plots", {}).get("precincts", [])
+            if self.id in precincts:
+                for t in self.tiles():
+                    hits = 0
+                    for d in DIRS:
+                        v = (t[0] + d[0], t[1] + d[1])
+                        while self.inside(v):
+                            if self.at(v) == "M":
+                                hits += 1
+                                break
+                            v = (v[0] + d[0], v[1] + d[1])
+                    if hits >= 3:
+                        self._church.add(t)
+        return self._church
+
+    def _free_lot(self, t):
+        """_free, and not on Church land (a precinct: no filler house there either)."""
+        return self._free(t) and t not in self.church_land()
+
     def place_site(self, typ, prefer_main):
         fw, fh = self.cat.footprints[typ]
+        church = self.church_land()
         on_fields = bool(self.plan.get("skeleton"))  # a drawn town: a workshop may take the edge of a field
         pc = (self.px + gen.PLAZA_W / 2.0, self.py + gen.PLAZA_H / 2.0)
         best = None
@@ -891,6 +916,8 @@ class Town:
             for c in range(1, self.w - fw):
                 rect = (c, r, fw, fh)
                 tiles = gen._tiles(rect)
+                if church and any(t in church for t in tiles):
+                    continue  # a precinct is Church land (decision «Montsacre: dentro y fuera»)
                 if not all(self._free(t) or (on_fields and self.at(t) in ("f", "T") and self.inside(t, 1)
                                              and t not in self.taken and t not in self.p.reserved) for t in tiles):
                     continue
@@ -961,7 +988,7 @@ class Town:
         front = []
         for t in self.tiles():
             i = self.district_of.get(t)
-            if i is None or not self._free(t):
+            if i is None or not self._free_lot(t):
                 continue
             for d in DIRS:
                 u = (t[0] + d[0], t[1] + d[1])
@@ -972,7 +999,7 @@ class Town:
         for _, hsh, t, d, i in front:
             ds = dists[i]
             den = ds.get("density", {})
-            if not self._free(t):
+            if not self._free_lot(t):
                 continue
             if rng.random() >= float(den.get("fill", 0.8)):
                 continue
@@ -984,7 +1011,7 @@ class Town:
                     break
         # blocks: in a dense district a small block left between the houses is closed with yards (the patios and
         # gardens behind the fronts); a bigger one keeps its open middle
-        free = {t for t in self.tiles() if self._free(t) and t in self.district_of}
+        free = {t for t in self.tiles() if self._free_lot(t) and t in self.district_of}
         for g in citylib.groups_of(free):
             i = self.district_of[g[0]]
             den = dists[i].get("density", {})
@@ -1004,7 +1031,7 @@ class Town:
         for _ in range(2):
             for t in self.tiles():
                 i = self.district_of.get(t)
-                if i is None or not self._free(t) or self.near_road(t):
+                if i is None or not self._free_lot(t) or self.near_road(t):
                     continue
                 p = float(dists[i].get("density", {}).get("patios", 0.0))
                 n = sum(1 for d in DIRS if self.at((t[0] + d[0], t[1] + d[1])) == "#"
@@ -1026,7 +1053,7 @@ class Town:
             f0 = (t[0] - step[0] * shift - d[0] * setback, t[1] - step[1] * shift - d[1] * setback)
             fronts = [(f0[0] + step[0] * k, f0[1] + step[1] * k) for k in range(along)]
             tiles = [(f[0] - d[0] * j, f[1] - d[1] * j) for f in fronts for j in range(depth)]
-            if not all(self._free(u) and (self.district_of.get(u) == i or (loose and u in self.district_of))
+            if not all(self._free_lot(u) and (self.district_of.get(u) == i or (loose and u in self.district_of))
                        for u in tiles):
                 continue
             # each front tile reaches the street straight ahead within 1 + setback + slack tiles of open grass
@@ -1039,7 +1066,7 @@ class Town:
                     if self.at(u) in WAYS + ("P",):
                         hits += 1
                         break
-                    if not (self._free(u) or u in self.keep) or self.at(u) != ".":
+                    if not (self._free_lot(u) or u in self.keep) or self.at(u) != ".":
                         break
                     way.append(u)
             if hits < (along if along <= 2 else along - 1):
@@ -1058,7 +1085,7 @@ class Town:
             extra = []
             for j in range(depth, depth + back):
                 row = [(f[0] - d[0] * j, f[1] - d[1] * j) for f in fronts]
-                if all(self._free(u) and (self.district_of.get(u) == i or (loose and u in self.district_of))
+                if all(self._free_lot(u) and (self.district_of.get(u) == i or (loose and u in self.district_of))
                        for u in row):
                     extra += row
                 else:
@@ -1312,6 +1339,8 @@ def build(map_id, plan, cat=None, variant=None):
         data["routing"] = json.loads(json.dumps(plan["routing"]))
     if plan.get("watch"):  # plantillas: the town's watch (its name: sim/life/watch.gd)
         data["watch"] = json.loads(json.dumps(plan["watch"]))
+    if plan.get("detail"):  # plantillas: the settled townsfolk every N minutes (TownLife._settled)
+        data["detail"] = json.loads(json.dumps(plan["detail"]))
     if map_id in citylib.rules().get("plots", {}).get("maps", []):  # 04 §4.9.1: lots, ruins and businesses
         import plots
         plots.add_plots(data, cat)

@@ -319,7 +319,8 @@ rejilla, los solares y los puntos de reunión no se mueven, así que ninguna dia
 - **Dentro y fuera** (`side`; decisión «Montsacre: dentro y fuera sin muralla de villa»): con muralla de villa
   (Bellcaire), respecto a ella; sin ella, dentro es el núcleo: la entrada a `inside_walk` pasos andando de la plaza
   (18). Un recinto (`precincts`: el de la abadía de Montsacre, tierra de la Iglesia) no se edifica: ni solares, ni
-  ruinas, ni negocios dentro (una casa del recinto no se lista como negocio; el validador lo comprueba).
+  ruinas, ni negocios dentro, y el generador (`organic.py`) no pone en él talleres, casas de vecinos ni casas de
+  relleno (`Town.church_land`); el validador comprueba las parcelas.
 - **Situación** (`location` 0-1): pesos de `plots.location` sobre la distancia andando a la plaza, la calle mayor
   (calle y plaza), las puertas y el paso de gente (los paseos de cada puerta y cada portal a la plaza) [balance].
 - **Mínimos que comprueba el validador** en las ciudades de `plots.maps`: 2 solares dentro (`min_inside`), 2 fuera
@@ -328,6 +329,11 @@ rejilla, los solares y los puntos de reunión no se mueven, así que ninguna dia
   relleno, que no se solapen, que se entre desde la plaza, que su lado sea el que dice y que las rústicas vayan fuera.
 - La decoración de las fiestas (`FestivalLayer.sites`) no se pone en solares ni ruinas, como no se pone en la
   decoración del mapa (el pozo), los puestos, el tablón, las puertas ni los puntos de reunión.
+- **El corral de la feria**: en cada ciudad con puertas tiene que caber un corral 3×3 en el prado junto a una puerta
+  (las afueras de `data/festivals.json` `rules.view_sites.outskirts`, la regla de `FestivalGround`: hierba, no en la
+  puerta, a `radius` casillas de ella, fuera de puertas, asientos, decoración, solares y ruinas). Si las parcelas no lo
+  dejan, `plots.py` guarda libre el primer sitio donde cabría sin ellas y las reparte otra vez (`pen_ground`; hoy solo
+  en la aldea); el validador da error si no cabe.
 - En venta: `for_sale` talleres, los mejor situados que no estén en `never_for_sale` (la forja del jugador y la del
   rival del herrero).
 - Repartirlas otra vez: `python3 tools/city/ciudad.py parcelas [mapa…]` (las ciudades de `ciudades.json` se

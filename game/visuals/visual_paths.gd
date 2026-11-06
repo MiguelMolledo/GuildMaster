@@ -289,7 +289,7 @@ static func illustration(kind: String, id: String, small: bool = false) -> Textu
 const EVENT_ILLUSTRATION_ALIAS: Dictionary = {"holy_week": "semana_santa", "mayday_corpus": "mayos_corpus",
 	"st_john": "san_juan", "harvest_fair": "siega_feria", "st_michael": "san_miguel", "all_saints_matanza": "matanza",
 	"christmas": "navidad", "carnival": "carnaval", "altercation": "altercado", "bandit_raid": "asalto_bandidos",
-	"kidnapping": "secuestro"}
+	"kidnapping": "secuestro", "noble_wedding": "boda_rica", "neighbours_wedding": "boda_vecinos"}
 
 
 ## Fiestas (04f 4.28.3): the illustration of `id`, or a visible provisional greybox (240×135, 192×108 small) that
@@ -323,6 +323,44 @@ static func festival_prop(id: String) -> String:
 ## assets/inventario.json): icons icon_<name>.png, illustrations <name>[_192].png.
 const DUEL_ICON_ALIAS: Dictionary = {"yield": "surrender"}
 const DUEL_ILLUSTRATION_ALIAS: Dictionary = {"won": "victory", "win": "victory", "lost": "defeat", "lose": "defeat"}
+
+
+## A prop of the interior library (docs/gdd/04g_interiores.md 4.6.5.1, data/props/interior.json):
+## assets/art/props/interior/<id>.png, or null.
+static func interior_prop(id: String) -> Texture2D:
+	var p := "%s/props/interior/%s.png" % [ART_ROOT, id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## The additive halo of a fire inside an interior (InteriorBuilder: a prop with "glow" in its data).
+static func interior_glow() -> Texture2D:
+	var p := "%s/interiors/forge/glow_hearth.png" % ART_ROOT
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## A library prop as it is used inside interior `type`: the copy with the palette of its painted rooms
+## (assets/art/interiors/<type>/props/<id>.png, tools/interiors/remap_props.py), else the library's.
+static func interior_prop_in(type: String, id: String) -> Texture2D:
+	var p := "%s/interiors/%s/props/%s.png" % [ART_ROOT, type, id]
+	if type != "" and ResourceLoader.exists(p):
+		return load(p) as Texture2D
+	return interior_prop(id)
+
+
+## The painted room of an interior built from data (4.6.5.1): assets/art/interiors/<type>/room_<floor>_<room>.png, the
+## size of the whole floor (tools/interiors/interiores.py canvas_box), or null until it is painted.
+static func interior_backdrop(type: String, level: int, room: String) -> Texture2D:
+	var p := "%s/interiors/%s/room_%d_%s.png" % [ART_ROOT, type, level, room]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## A wall segment cut from a room's painted wall (tools/art/fal_salas.py): kind "wall", "door" or "low" (the front
+## plinth); assets/art/interiors/<type>/{wall,low}_<floor>_<room>_<side>[_door].png, or null.
+static func interior_wall(type: String, level: int, room: String, side: String, kind: String) -> Texture2D:
+	var f := "low_%d_%s_%s" % [level, room, side] if kind == "low" else "wall_%d_%s_%s%s" % [level, room, side,
+		"_door" if kind == "door" else ""]
+	var p := "%s/interiors/%s/%s.png" % [ART_ROOT, type, f]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
 
 
 ## Duelo: a duel effect (strike, parry, feint, hit) from assets/art/vfx/duel_<kind>/: the strip duel_<kind>.png and its

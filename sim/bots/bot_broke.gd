@@ -1,7 +1,8 @@
 class_name BotBroke
 extends BotArtisanNovice
 ## Equilibrio 2 (docs/decisiones.json): the novice of the forge from the scenario broke_forge (0 gold and 1 coal on day
-## 9). It takes the moneylender's emergency loan when it is offered and then plays its usual trade. Measures:
+## 9). It takes the moneylender's emergency loan when it is offered (the novice's own habit since 2026-11-06) and then
+## plays its usual trade. Measures:
 ## emergency_taken, emergency_repaid (no emergency loan open at the end), seized (goods seized), ruin.
 ## Targets: data/targets.json broke.
 
@@ -15,11 +16,7 @@ func orders(sim: Sim) -> Array:
 				_m["emergency_taken"] = int(_m["emergency_taken"]) + 1
 			"good_seized":
 				_m["seized"] = int(_m["seized"]) + 1
-	var out: Array = []
-	if not Emergency.offer_of(sim, _fam(sim)).is_empty():
-		out.append({"type": "take_emergency_loan", "actor": ACTOR})
-	out.append_array(super.orders(sim))
-	return out
+	return super.orders(sim)  # the novice takes the emergency loan when it is offered
 
 
 func measures(sim: Sim) -> Dictionary:

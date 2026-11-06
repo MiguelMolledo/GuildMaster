@@ -32,6 +32,7 @@ extends Node
 ## Region: --smoke-script=region: the map of the region from the pause menu and from R, its cards, the war's cut routes.
 ## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## H12: --smoke-script=oficios: the trade buttons of the new game screen and the workshop of each artisan trade.
+## --smoke-script=interiores: each workshop without and with every upgrade, and the armory (docs/arte/interiores.md).
 ## Población: --smoke-script=poblacion: the new game screen and «Otra familia», then the sheets of a townsman, a
 ## townswoman and the rival with their base portraits.
 ## Posada: --smoke-script=posada: the Taberna-Posada on the map, full at night, Clientela, the menu, the rooms, the summary.
@@ -40,6 +41,8 @@ extends Node
 ## UI 1/2: --smoke-script=hud: the new HUD's zones, the book beside the forge's bar, notices, help, ESC, the interior;
 ## --smoke-script=paneles: every existing panel in its zone (5, wide or big modal).
 ## H10: --smoke-script=cargos: the offices chart, running, the campaign, the result card and the inspector's powers.
+## Verificación (docs/gdd/07_testing.md §7.6): --flow=<id> / --flows=all|quick|a,b play data/flows/ with real mouse
+## and keyboard events (game/smoke/flow/flow_runner.gd) and write reports/verifica/<date>/.
 ## --gallery opens game/tools/gallery.tscn instead (every visual scene of game/visuals/ on the grid; with --smoke it
 ## saves reports/shots/gallery_01.png and quits). The AudioDirector node plays the sounds and music by id.
 ## Menus (docs/ui/02_menu_inicial.md): without --scenario (and without --smoke / --smoke-script) the game opens on the
@@ -76,6 +79,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"vida": "res://game/smoke/smoke_vida.gd",
 	"posada": "res://game/smoke/smoke_posada.gd",
 	"plantillas": "res://game/smoke/smoke_plantillas.gd",
+	"interiores": "res://game/smoke/smoke_interiores.gd", "flow": "res://game/smoke/flow/flow_runner.gd",
 	"equilibrio": "res://game/smoke/smoke_equilibrio.gd"}
 ## Duel prototype (docs/gdd/04e_combate.md §4e.8, not wired to the game): --duel-test opens the duel screen over the
 ## paused game (the protagonist against the rival smith); --duel-kind=<kind>, --duel-weapon=<weapon>, --duel-rival=<chr>.
@@ -138,6 +142,8 @@ func _ready() -> void:
 			_shot_every = a.substr(13).to_float()
 		elif a.begins_with("--smoke-script="):
 			script_id = a.substr(15)
+		elif a.begins_with("--flow=") or a.begins_with("--flows="):
+			script_id = "flow"   # docs/gdd/07_testing.md §7.6: the flows played through the interface
 	_interior.order_sink = Game.give
 	_interior.set_active(false)
 	_world.selection_changed.connect(_on_world_selection)
@@ -917,6 +923,8 @@ func _reveal_selection() -> void:
 		_reveal_sig = ""
 		return
 	var open: Control = _hud.open_manage_panel()
+	if open != null and not open.is_visible_in_tree():
+		open = null   # an interior's panel left flagged open after a load from inside a building: not on screen
 	var sig := "%s|%s|%s" % [_world.selected_id, _world.picked_building, open.name if open != null else ""]
 	if sig == _reveal_sig:
 		return

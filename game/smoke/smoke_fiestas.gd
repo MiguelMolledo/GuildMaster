@@ -4,7 +4,8 @@ extends Node
 ## eight fixed ones, then the variable ones): the clock on its day at a good hour, the festival put in force, the
 ## plaza with its decoration (fiesta_<id>_vista) and its card (fiesta_<id>_carta). Then a rich wedding of the rival
 ## family: the crier's card and the board with the bride's dress and the groom's sword (fiesta_boda_tablon). Orders only
-## through the UI paths. Quits when done, or after `timeout` seconds.
+## through the UI paths. Last, the player's wedding offer without the gold of the banquet (the button off, with its
+## reason: fiesta_boda_sin_oro). Quits when done, or after `timeout` seconds.
 
 const DAY: int = 1440
 const PLAZA: Vector2i = Vector2i(19, 19)
@@ -81,6 +82,17 @@ func _force(id: String) -> void:
 	print("[SmokeFiestas] %s en vigor (%s): %s" % [id, _inst, app.world().festival_layer.shown])
 
 
+## Centres the camera on the first festival prop `prop` placed (the pens at the outskirts); false if none.
+func _aim_at(prop: String) -> bool:
+	for n: Node in (app.world().call("objects") as Node2D).get_children():
+		if n is Node2D and str(n.get_meta("festival_prop", "")) == prop:
+			app.world().camera().center_on((n as Node2D).position)
+			print("[SmokeFiestas] afueras: %s en %s (casillas %s)" % [prop, (n as Node2D).position, n.get_meta("tiles", [])])
+			return true
+	print("[SmokeFiestas] afueras: no hay %s" % prop)
+	return false
+
+
 func _card(type: String) -> void:
 	var inst := Festivals.find(Game.sim, _inst)
 	var card: Node = app.get_node("CardsLayer/EventCard")
@@ -111,6 +123,15 @@ func _process(delta: float) -> void:
 		"view":
 			if _t > 0.6:
 				app.save_shot("fiesta_%s_vista" % _list[_i])
+				if _list[_i] in ["harvest_fair", "cattle_fair"] and _aim_at("pen"):
+					_go("outskirts")
+				else:
+					_card("festival_started")
+					_go("card")
+		"outskirts":
+			if _t > 0.6:
+				app.save_shot("fiesta_%s_afueras" % _list[_i])
+				app.world().camera().center_on(Iso.tile_to_world(PLAZA))
 				_card("festival_started")
 				_go("card")
 		"card":
@@ -156,5 +177,70 @@ func _process(delta: float) -> void:
 				print("[SmokeFiestas] tablón: %s" % [open.map(func(c: Dictionary) -> String:
 					return "%s %s q%d %s" % [c["id"], c["item"], int(c["min_quality"]), c.get("festival_def", "")])])
 				app.save_shot("fiesta_boda_tablon")
+				app.hud().board_panel().close()
+				_go("court")
+		"court":  # the marquis: the player is the mayor and a citizen; offers from both houses
+			var sim: Sim = Game.sim
+			var fam := SimQuery.player_family(sim.state)
+			Offices.take(sim, "mayor", 0, _who)
+			sim.state.families[fam]["title"] = "citizen"
+			sim.state.festivals = Festivals.new_block()
+			sim.state.festivals["planned_day"] = 20
+			sim.state.clock["minute"] = 19 * DAY + 13 * 60
+			_inst = Festivals._schedule(sim, "marquis_visit", 21, "smoke")
+			sim.events = []
+			Festivals.step(sim)
+			var rival := ""
+			for f: String in Festivals._sorted_keys(sim.state.families):
+				if str(sim.state.families[f].get("ai_profile", "")) != "":
+					rival = f
+					break
+			var rh := Kin.head(sim.state, rival)
+			Inventory.add(sim.state.characters[rh]["inventory"], sim.catalog, "decorative_sword", 2, 1)
+			Inventory.add(sim.state.characters[_who]["inventory"], sim.catalog, "sword", 1, 1)
+			Inventory.add(sim.state.characters[_who]["inventory"], sim.catalog, "fine_clothes", 2, 1)
+			Orders.apply(sim, {"type": "festival_offer_gift", "actor": rh, "festival": _inst})
+			Orders.apply(sim, {"type": "festival_offer_gift", "actor": _who, "festival": _inst, "item": "sword"})
+			sim.state.families[rival]["gold"] = 500  # the rival pays the banquet: the player sees it and may bid
+			sim.state.families[fam]["gold"] = 300
+			Orders.apply(sim, {"type": "festival_sponsor", "actor": rh, "festival": _inst, "part": "banquet"})
+			_card("festival_eve")
+			_go("court_card")
+		"court_card":
+			if _t > 0.5:
+				app.save_shot("fiesta_marques_carta")
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("show_page", FestivalPage.audience_menu(Game.sim, {"instance": _inst}))
+				_go("audience_menu")
+		"audience_menu":
+			if _t > 0.5:
+				app.save_shot("fiesta_audiencia")
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("close")
+				card.call("show_festival", Game.sim, {"type": "festival_gift_offers", "festival": _inst,
+					"def": "marquis_visit", "mayor": _who, "offers": 2})
+				_go("gift_card")
+		"gift_card":
+			if _t > 0.5:
+				app.save_shot("fiesta_regalo_villa")
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("close")
+				card.call("show_festival", Game.sim, {"type": "festival_contest", "festival": "", "def": "harvest_fair",
+					"family": SimQuery.player_family(Game.sim.state), "item": "decorative_sword", "quality": 2,
+					"reputation": 6, "fame": 10, "entries": 3})
+				_go("contest_card")
+		"contest_card":
+			if _t > 0.5:
+				app.save_shot("fiesta_concurso")
+				var fam := SimQuery.player_family(Game.sim.state)
+				Game.sim.state.families[fam]["gold"] = 50  # the banquet costs 80: the button is off and says why
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("close")
+				card.call("show_festival", Game.sim, {"type": "festival_wedding_offer", "family": fam,
+					"couple": [_who, _who]})
+				_go("wedding_offer")
+		"wedding_offer":
+			if _t > 0.5:
+				app.save_shot("fiesta_boda_sin_oro")
 				_go("done")
 				get_tree().quit()

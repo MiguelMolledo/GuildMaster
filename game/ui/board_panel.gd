@@ -61,7 +61,7 @@ func refresh(force: bool = false) -> void:
 	var fam := Money.family_of(sim.state, actor)
 	var g := Money.gold(sim.state, fam)
 	var sig := str(view) + "|" + str(g) + "|" + str(_stock_sig(view, fam))
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	(%GoldLabel as Label).text = MenuKit.gold_text(g)

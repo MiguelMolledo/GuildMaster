@@ -1,0 +1,18 @@
+{
+  "id": "otra_ciudad",
+  "title": "Elegir otra ciudad (plantillas)",
+  "about": "En Partida nueva, «Dónde empiezas»: elegir Bellcaire (la capital) y empezar allí; la ciudad es otro mapa con su plaza, sus puestos y su gente. Después, una ciudad donde el oficio no tiene taller sale apagada y dice por qué.",
+  "start": {"new_game": true},
+  "covers": [],
+  "steps": [
+    {"id": "donde", "say": "«Dónde empiezas»: las ciudades", "expect": ["q.shown({'node': 'Cities'})"]},
+    {"id": "capital", "say": "Bellcaire", "click": {"within": "Cities", "node": "Capital"}, "expect": ["q.drv.node('Capital').button_pressed"]},
+    {"id": "apagadas", "say": "Una ciudad apagada dice por qué", "expect": ["q.drv.find({'within': 'Cities', 'type': 'Button', 'any': true}).has('node')"]},
+    {"id": "sin_tutorial", "click": {"node": "TutorialCheck"}},
+    {"id": "empezar", "click": {"node": "StartButton"}, "until": "not q.visible('NewGameScreen') and q.fam() != ''", "timeout": 8, "expect": ["q.map() != 'town_e'"]},
+    {"id": "mirar", "say": "La plaza de Bellcaire", "wait": 1.0},
+    {"id": "x4", "key": "@speed_3"},
+    {"id": "a_la_forja", "say": "Clic derecho en la forja propia", "world": {"own": "forge"}, "button": "right", "until": "q.interior() != ''", "timeout": 40, "fast": 4},
+    {"id": "salir", "key": "Escape"}
+  ]
+}

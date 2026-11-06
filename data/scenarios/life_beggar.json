@@ -1,0 +1,7605 @@
+{
+	"buildings": {
+		"bld_0001": {
+			"door": [
+				26,
+				19
+			],
+			"employee_slots": 1,
+			"footprint": [
+				3,
+				4
+			],
+			"id": "bld_0001",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 10,
+				"limit_kind": "stacks",
+				"stacks": [
+					{
+						"item": "iron",
+						"qty": 10,
+						"quality": 0
+					},
+					{
+						"item": "coal",
+						"qty": 6,
+						"quality": 0
+					}
+				]
+			},
+			"origin": [
+				25,
+				20
+			],
+			"owner": "fam_0001",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "forge",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 60,
+			"upkeep_unpaid_since": 6,
+			"zones": {
+				"anvil": {
+					"job": null,
+					"occupant": ""
+				},
+				"counter": {
+					"job": null,
+					"occupant": ""
+				},
+				"furnace": {
+					"job": null,
+					"occupant": ""
+				},
+				"storage": {
+					"job": null,
+					"occupant": ""
+				}
+			}
+		},
+		"bld_0002": {
+			"door": [
+				10,
+				19
+			],
+			"employee_slots": 1,
+			"footprint": [
+				3,
+				4
+			],
+			"id": "bld_0002",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 10,
+				"limit_kind": "stacks",
+				"stacks": [
+					{
+						"item": "horseshoe",
+						"qty": 2,
+						"quality": 1
+					},
+					{
+						"item": "coal",
+						"qty": 5,
+						"quality": 0
+					},
+					{
+						"item": "sword",
+						"qty": 2,
+						"quality": 0
+					},
+					{
+						"item": "sword",
+						"qty": 1,
+						"quality": 1
+					},
+					{
+						"item": "iron_ingot",
+						"qty": 1,
+						"quality": 0
+					}
+				]
+			},
+			"origin": [
+				9,
+				20
+			],
+			"owner": "fam_0003",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "forge",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {
+				"anvil": {
+					"job": null,
+					"occupant": ""
+				},
+				"counter": {
+					"job": null,
+					"occupant": ""
+				},
+				"furnace": {
+					"job": null,
+					"occupant": ""
+				},
+				"storage": {
+					"job": null,
+					"occupant": ""
+				}
+			}
+		},
+		"bld_0003": {
+			"door": [
+				24,
+				16
+			],
+			"employee_slots": 0,
+			"footprint": [
+				3,
+				4
+			],
+			"id": "bld_0003",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 0,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				25,
+				14
+			],
+			"owner": "",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "armory",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {
+				"counter": {
+					"job": null,
+					"occupant": ""
+				}
+			}
+		},
+		"bld_0004": {
+			"door": [
+				2,
+				18
+			],
+			"employee_slots": 0,
+			"footprint": [
+				3,
+				3
+			],
+			"id": "bld_0004",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 0,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				1,
+				15
+			],
+			"owner": "fam_0004",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {}
+		},
+		"bld_0005": {
+			"door": [
+				2,
+				19
+			],
+			"employee_slots": 0,
+			"footprint": [
+				3,
+				3
+			],
+			"id": "bld_0005",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 0,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				1,
+				20
+			],
+			"owner": "fam_0005",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {}
+		},
+		"bld_0006": {
+			"door": [
+				33,
+				18
+			],
+			"employee_slots": 0,
+			"footprint": [
+				3,
+				3
+			],
+			"id": "bld_0006",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 0,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				32,
+				15
+			],
+			"owner": "fam_0006",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {}
+		},
+		"bld_0007": {
+			"door": [
+				33,
+				19
+			],
+			"employee_slots": 0,
+			"footprint": [
+				3,
+				3
+			],
+			"id": "bld_0007",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 0,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				32,
+				20
+			],
+			"owner": "fam_0007",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {}
+		},
+		"bld_0008": {
+			"door": [
+				10,
+				7
+			],
+			"employee_slots": 0,
+			"footprint": [
+				3,
+				3
+			],
+			"id": "bld_0008",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 0,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				9,
+				8
+			],
+			"owner": "fam_0008",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {}
+		},
+		"bld_0009": {
+			"door": [
+				26,
+				7
+			],
+			"employee_slots": 0,
+			"footprint": [
+				3,
+				3
+			],
+			"id": "bld_0009",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 0,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				25,
+				8
+			],
+			"owner": "fam_0009",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {}
+		},
+		"bld_0010": {
+			"door": [
+				10,
+				25
+			],
+			"employee_slots": 0,
+			"footprint": [
+				3,
+				3
+			],
+			"id": "bld_0010",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 0,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				9,
+				26
+			],
+			"owner": "fam_0010",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {}
+		},
+		"bld_0011": {
+			"door": [
+				26,
+				25
+			],
+			"employee_slots": 0,
+			"footprint": [
+				3,
+				3
+			],
+			"id": "bld_0011",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 0,
+				"limit_kind": "stacks",
+				"stacks": []
+			},
+			"origin": [
+				25,
+				26
+			],
+			"owner": "fam_0011",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "house",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {}
+		}
+	},
+	"cast": {
+		"map": "town_e",
+		"mode": "fixed",
+		"seed": 0
+	},
+	"characters": {
+		"chr_0001": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -160,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "human",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0001",
+			"female": false,
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0001",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Hugo",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				5,
+				19
+			],
+			"profession": "blacksmith",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 3,
+				"charisma": 3,
+				"constitution": 3,
+				"craft": 7,
+				"dexterity": 3,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {},
+			"visual": {
+				"hair": 1,
+				"portrait": {
+					"id": "m_adult_artisan_08",
+					"type": "artisan"
+				},
+				"skin": 1
+			}
+		},
+		"chr_0002": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -192,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "human",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0001",
+			"female": true,
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0002",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Elena",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				21,
+				21
+			],
+			"profession": "blacksmith",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 3,
+				"charisma": 3,
+				"constitution": 3,
+				"craft": 4,
+				"dexterity": 3,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {},
+			"visual": {
+				"hair": 2,
+				"portrait": {
+					"id": "f_adult_artisan_08",
+					"type": "artisan"
+				},
+				"skin": 2
+			}
+		},
+		"chr_0003": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -144,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "human",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0001",
+			"female": false,
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0003",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Tomás",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				19,
+				22
+			],
+			"profession": "blacksmith",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 3,
+				"charisma": 3,
+				"constitution": 3,
+				"craft": 2,
+				"dexterity": 3,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {},
+			"visual": {
+				"hair": 3,
+				"portrait": {
+					"id": "m_adult_artisan_05",
+					"type": "artisan"
+				},
+				"skin": 3
+			}
+		},
+		"chr_0004": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -240,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0002",
+			"female": true,
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0004",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Marta",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				8,
+				12
+			],
+			"profession": "",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 3,
+				"charisma": 3,
+				"constitution": 3,
+				"craft": 3,
+				"dexterity": 3,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {},
+			"visual": {
+				"hair": 4,
+				"portrait": {
+					"id": "f_adult_commoner_02",
+					"type": "commoner"
+				},
+				"skin": 0
+			}
+		},
+		"chr_0005": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -256,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0002",
+			"female": false,
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0005",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Pere",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				30,
+				25
+			],
+			"profession": "",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 3,
+				"charisma": 3,
+				"constitution": 3,
+				"craft": 3,
+				"dexterity": 3,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {},
+			"visual": {
+				"hair": 5,
+				"portrait": {
+					"id": "m_adult_commoner_03",
+					"type": "commoner"
+				},
+				"skin": 1
+			}
+		},
+		"chr_0006": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -280,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0003",
+			"female": false,
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0006",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "bld_0002",
+			"move_progress": 0,
+			"name": "Bernat",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				10,
+				19
+			],
+			"profession": "blacksmith",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 3,
+				"charisma": 3,
+				"constitution": 3,
+				"craft": 5,
+				"dexterity": 3,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {},
+			"visual": {
+				"hair": 0,
+				"portrait": {
+					"id": "m_adult_artisan_06",
+					"type": "artisan"
+				},
+				"skin": 2
+			}
+		},
+		"chr_0007": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -144,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0004",
+			"female": false,
+			"hire_bans": {},
+			"home": "bld_0004",
+			"id": "chr_0007",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 1,
+			"name": "Joan",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "gate_west",
+			"order_queue": [],
+			"parents": [],
+			"path": [
+				[
+					9,
+					19
+				],
+				[
+					10,
+					19
+				],
+				[
+					11,
+					19
+				],
+				[
+					12,
+					19
+				],
+				[
+					13,
+					19
+				],
+				[
+					14,
+					19
+				],
+				[
+					15,
+					19
+				],
+				[
+					16,
+					19
+				],
+				[
+					17,
+					20
+				],
+				[
+					18,
+					20
+				],
+				[
+					19,
+					20
+				],
+				[
+					20,
+					20
+				]
+			],
+			"position": [
+				8,
+				19
+			],
+			"profession": "blacksmith",
+			"rank": "journeyman",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 2,
+				"constitution": 3,
+				"craft": 5,
+				"dexterity": 3,
+				"empathy": 2,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "stroll",
+				"adult": true,
+				"adult_day": 8,
+				"age": 19,
+				"break": true,
+				"break_permil": 177,
+				"day": 8,
+				"dur": 24,
+				"greets": 0,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11880,
+				"met": [],
+				"needs": {
+					"faith": 540,
+					"fun": 0,
+					"hunger": 820,
+					"rest": 865,
+					"social": 630
+				},
+				"needs_at": 12001,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "stroll",
+				"started": 12060,
+				"state": "walking",
+				"stops": [
+					[
+						15,
+						23
+					]
+				],
+				"target": [
+					20,
+					20
+				],
+				"until": -1
+			},
+			"visual": {
+				"hair": 0,
+				"portrait": {
+					"id": "m_adult_commoner_01",
+					"type": "commoner"
+				},
+				"skin": 0
+			}
+		},
+		"chr_0008": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -184,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0004",
+			"female": true,
+			"hire_bans": {},
+			"home": "bld_0004",
+			"id": "chr_0008",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Agnès",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "stall_food",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				19,
+				13
+			],
+			"profession": "blacksmith",
+			"rank": "apprentice",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 5,
+				"constitution": 5,
+				"craft": 2,
+				"dexterity": 6,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "work",
+				"adult": true,
+				"adult_day": 8,
+				"age": 24,
+				"break": false,
+				"break_permil": 181,
+				"day": 8,
+				"dur": 60,
+				"greet_until": 11962,
+				"greets": 1,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11875,
+				"met": [
+					"chr_0012"
+				],
+				"needs": {
+					"faith": 135,
+					"fun": 0,
+					"hunger": 770,
+					"rest": 850,
+					"social": 360
+				},
+				"needs_at": 12061,
+				"phase_seen": 1,
+				"plan": "work",
+				"retry_at": 4066,
+				"shown": "",
+				"started": 12079,
+				"state": "working",
+				"target": [
+					19,
+					13
+				],
+				"until": -1
+			},
+			"visual": {
+				"hair": 5,
+				"portrait": {
+					"id": "f_adult_commoner_01",
+					"type": "commoner"
+				},
+				"skin": 3
+			}
+		},
+		"chr_0009": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -224,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0005",
+			"female": false,
+			"hire_bans": {},
+			"home": "bld_0005",
+			"id": "chr_0009",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Pau",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "field_a",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				16,
+				15
+			],
+			"profession": "blacksmith",
+			"rank": "apprentice",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 3,
+				"constitution": 7,
+				"craft": 3,
+				"dexterity": 5,
+				"empathy": 4,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "shopping",
+				"adult": true,
+				"adult_day": 8,
+				"age": 29,
+				"break": true,
+				"break_permil": 151,
+				"day": 8,
+				"dur": 31,
+				"greets": 0,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11837,
+				"met": [
+					"chr_0012"
+				],
+				"needs": {
+					"faith": 395,
+					"fun": 0,
+					"hunger": 840,
+					"rest": 880,
+					"social": 770
+				},
+				"needs_at": 11941,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "shopping",
+				"started": 12000,
+				"state": "market",
+				"stops": [
+					[
+						16,
+						20
+					]
+				],
+				"target": [
+					16,
+					15
+				],
+				"until": 12117
+			},
+			"visual": {
+				"hair": 4,
+				"portrait": {
+					"id": "m_adult_commoner_05",
+					"type": "commoner"
+				},
+				"skin": 2
+			}
+		},
+		"chr_0010": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -160,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0005",
+			"female": true,
+			"hire_bans": {},
+			"home": "bld_0005",
+			"id": "chr_0010",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Clara",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "field_b",
+			"order_queue": [],
+			"parents": [],
+			"path": [
+				[
+					7,
+					22
+				],
+				[
+					7,
+					23
+				],
+				[
+					7,
+					24
+				],
+				[
+					7,
+					25
+				],
+				[
+					7,
+					26
+				],
+				[
+					7,
+					27
+				],
+				[
+					7,
+					28
+				],
+				[
+					7,
+					29
+				],
+				[
+					7,
+					30
+				],
+				[
+					6,
+					30
+				],
+				[
+					5,
+					30
+				]
+			],
+			"position": [
+				7,
+				21
+			],
+			"profession": "blacksmith",
+			"rank": "apprentice",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 6,
+				"constitution": 4,
+				"craft": 2,
+				"dexterity": 4,
+				"empathy": 5,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "work",
+				"adult": true,
+				"adult_day": 8,
+				"age": 21,
+				"break": false,
+				"break_permil": 159,
+				"day": 8,
+				"dur": 60,
+				"greet_until": 11986,
+				"greets": 1,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11841,
+				"met": [
+					"chr_0020",
+					"chr_0016"
+				],
+				"needs": {
+					"faith": 535,
+					"fun": 0,
+					"hunger": 710,
+					"rest": 850,
+					"social": 520
+				},
+				"needs_at": 12061,
+				"phase_seen": 1,
+				"plan": "work",
+				"retry_at": 11263,
+				"shown": "",
+				"started": 12072,
+				"state": "walking",
+				"target": [
+					5,
+					30
+				],
+				"until": -1
+			},
+			"visual": {
+				"hair": 3,
+				"portrait": {
+					"id": "f_adult_commoner_06",
+					"type": "commoner"
+				},
+				"skin": 1
+			}
+		},
+		"chr_0011": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -200,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0006",
+			"female": false,
+			"hire_bans": {},
+			"home": "bld_0006",
+			"id": "chr_0011",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Arnau",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "river_bank",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				21,
+				19
+			],
+			"profession": "blacksmith",
+			"rank": "master",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 6,
+				"craft": 8,
+				"dexterity": 3,
+				"empathy": 2,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "chat",
+				"adult": true,
+				"adult_day": 8,
+				"age": 26,
+				"break": true,
+				"break_permil": 150,
+				"day": 8,
+				"dur": 89,
+				"greets": 0,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11856,
+				"met": [
+					"chr_0018",
+					"chr_0014",
+					"chr_0013"
+				],
+				"needs": {
+					"faith": 540,
+					"fun": 0,
+					"hunger": 820,
+					"rest": 865,
+					"social": 430
+				},
+				"needs_at": 12001,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "chat",
+				"slot": 1,
+				"spot": "meet_well",
+				"started": 12060,
+				"state": "social",
+				"target": [
+					21,
+					19
+				],
+				"until": 12187
+			},
+			"visual": {
+				"hair": 2,
+				"portrait": {
+					"id": "m_adult_commoner_08",
+					"type": "commoner"
+				},
+				"skin": 0
+			}
+		},
+		"chr_0012": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -240,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0006",
+			"female": true,
+			"hire_bans": {},
+			"home": "bld_0006",
+			"id": "chr_0012",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Elisenda",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "stall_materials",
+			"order_queue": [],
+			"parents": [],
+			"path": [
+				[
+					21,
+					14
+				],
+				[
+					21,
+					13
+				],
+				[
+					22,
+					13
+				]
+			],
+			"position": [
+				20,
+				15
+			],
+			"profession": "blacksmith",
+			"rank": "journeyman",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 2,
+				"constitution": 3,
+				"craft": 4,
+				"dexterity": 6,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "work",
+				"adult": true,
+				"adult_day": 8,
+				"age": 31,
+				"break": false,
+				"break_permil": 166,
+				"day": 8,
+				"dur": 60,
+				"greet_until": 11962,
+				"greets": 1,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11839,
+				"met": [
+					"chr_0018",
+					"chr_0008"
+				],
+				"needs": {
+					"faith": 955,
+					"fun": 0,
+					"hunger": 740,
+					"rest": 850,
+					"social": 570
+				},
+				"needs_at": 12061,
+				"phase_seen": 1,
+				"plan": "work",
+				"retry_at": 4066,
+				"shown": "",
+				"started": 12066,
+				"state": "walking",
+				"target": [
+					22,
+					13
+				],
+				"until": -1
+			},
+			"visual": {
+				"hair": 1,
+				"portrait": {
+					"id": "f_adult_commoner_04",
+					"type": "commoner"
+				},
+				"skin": 3
+			}
+		},
+		"chr_0013": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -176,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0007",
+			"female": false,
+			"hire_bans": {},
+			"home": "bld_0007",
+			"id": "chr_0013",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Martí",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "gate_east",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				21,
+				18
+			],
+			"profession": "blacksmith",
+			"rank": "apprentice",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 5,
+				"constitution": 5,
+				"craft": 1,
+				"dexterity": 5,
+				"empathy": 4,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "chat",
+				"adult": true,
+				"adult_day": 8,
+				"age": 23,
+				"break": true,
+				"break_permil": 189,
+				"day": 8,
+				"dur": 120,
+				"greets": 0,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11864,
+				"met": [],
+				"needs": {
+					"faith": 545,
+					"fun": 0,
+					"hunger": 840,
+					"rest": 880,
+					"social": 340
+				},
+				"needs_at": 11941,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "chat",
+				"slot": 2,
+				"spot": "chat_well",
+				"started": 12000,
+				"state": "social",
+				"target": [
+					21,
+					18
+				],
+				"until": 12154
+			},
+			"visual": {
+				"hair": 0,
+				"portrait": {
+					"id": "m_adult_commoner_02",
+					"type": "commoner"
+				},
+				"skin": 2
+			}
+		},
+		"chr_0014": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -216,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0007",
+			"female": true,
+			"hire_bans": {},
+			"home": "bld_0007",
+			"id": "chr_0014",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Blanca",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "well",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				20,
+				18
+			],
+			"profession": "blacksmith",
+			"rank": "apprentice",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 3,
+				"constitution": 7,
+				"craft": 3,
+				"dexterity": 4,
+				"empathy": 5,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "wash",
+				"adult": true,
+				"adult_day": 8,
+				"age": 28,
+				"break": true,
+				"break_permil": 165,
+				"day": 8,
+				"dur": 90,
+				"greets": 0,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11871,
+				"met": [],
+				"needs": {
+					"faith": 880,
+					"fun": 100,
+					"hunger": 730,
+					"rest": 865,
+					"social": 480
+				},
+				"needs_at": 12001,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "wash",
+				"slot": 0,
+				"spot": "meet_well",
+				"started": 12060,
+				"state": "social",
+				"target": [
+					20,
+					18
+				],
+				"until": 12152
+			},
+			"visual": {
+				"hair": 5,
+				"portrait": {
+					"id": "f_adult_commoner_05",
+					"type": "commoner"
+				},
+				"skin": 1
+			}
+		},
+		"chr_0015": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -152,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0008",
+			"female": false,
+			"hire_bans": {},
+			"home": "bld_0008",
+			"id": "chr_0015",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Guillem",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "church_a",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				18,
+				12
+			],
+			"profession": "blacksmith",
+			"rank": "journeyman",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 6,
+				"constitution": 4,
+				"craft": 6,
+				"dexterity": 3,
+				"empathy": 2,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "work",
+				"adult": true,
+				"adult_day": 8,
+				"age": 20,
+				"break": false,
+				"break_permil": 169,
+				"day": 8,
+				"dur": 60,
+				"greets": 0,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11840,
+				"met": [],
+				"needs": {
+					"faith": 935,
+					"fun": 0,
+					"hunger": 800,
+					"rest": 850,
+					"social": 690
+				},
+				"needs_at": 12061,
+				"phase_seen": 1,
+				"plan": "work",
+				"retry_at": 990,
+				"shown": "",
+				"started": 12094,
+				"state": "working",
+				"target": [
+					18,
+					12
+				],
+				"until": -1
+			},
+			"visual": {
+				"hair": 4,
+				"portrait": {
+					"id": "m_adult_commoner_06",
+					"type": "commoner"
+				},
+				"skin": 0
+			}
+		},
+		"chr_0016": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -192,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0008",
+			"female": true,
+			"hire_bans": {},
+			"home": "bld_0008",
+			"id": "chr_0016",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 1,
+			"name": "Sança",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "stall_resources",
+			"order_queue": [],
+			"parents": [],
+			"path": [
+				[
+					7,
+					18
+				],
+				[
+					8,
+					18
+				],
+				[
+					9,
+					18
+				],
+				[
+					10,
+					18
+				],
+				[
+					11,
+					18
+				],
+				[
+					12,
+					18
+				],
+				[
+					13,
+					18
+				],
+				[
+					14,
+					18
+				],
+				[
+					15,
+					17
+				],
+				[
+					16,
+					17
+				],
+				[
+					16,
+					16
+				],
+				[
+					17,
+					15
+				],
+				[
+					17,
+					14
+				],
+				[
+					17,
+					13
+				],
+				[
+					16,
+					13
+				]
+			],
+			"position": [
+				6,
+				18
+			],
+			"profession": "blacksmith",
+			"rank": "apprentice",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 6,
+				"craft": 2,
+				"dexterity": 6,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "work",
+				"adult": true,
+				"adult_day": 8,
+				"age": 25,
+				"break": false,
+				"break_permil": 158,
+				"day": 8,
+				"dur": 60,
+				"greet_until": 11986,
+				"greets": 1,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11847,
+				"met": [
+					"chr_0017",
+					"chr_0010"
+				],
+				"needs": {
+					"faith": 555,
+					"fun": 0,
+					"hunger": 800,
+					"rest": 850,
+					"social": 630
+				},
+				"needs_at": 12061,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "",
+				"started": 12093,
+				"state": "walking",
+				"target": [
+					16,
+					13
+				],
+				"until": -1
+			},
+			"visual": {
+				"hair": 3,
+				"portrait": {
+					"id": "f_adult_commoner_08",
+					"type": "commoner"
+				},
+				"skin": 3
+			}
+		},
+		"chr_0017": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -232,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0009",
+			"female": false,
+			"hire_bans": {},
+			"home": "bld_0009",
+			"id": "chr_0017",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Jaume",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "armory",
+			"order_queue": [],
+			"parents": [],
+			"path": [
+				[
+					16,
+					24
+				],
+				[
+					15,
+					24
+				]
+			],
+			"position": [
+				17,
+				23
+			],
+			"profession": "blacksmith",
+			"rank": "apprentice",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 2,
+				"constitution": 3,
+				"craft": 3,
+				"dexterity": 5,
+				"empathy": 4,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "stroll",
+				"adult": true,
+				"adult_day": 8,
+				"age": 30,
+				"break": true,
+				"break_permil": 151,
+				"day": 8,
+				"dur": 21,
+				"greets": 0,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11832,
+				"met": [],
+				"needs": {
+					"faith": 560,
+					"fun": 0,
+					"hunger": 790,
+					"rest": 865,
+					"social": 680
+				},
+				"needs_at": 12001,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "stroll",
+				"started": 12060,
+				"state": "walking",
+				"stops": [
+					[
+						24,
+						14
+					]
+				],
+				"target": [
+					15,
+					24
+				],
+				"until": -1
+			},
+			"visual": {
+				"hair": 2,
+				"portrait": {
+					"id": "m_adult_commoner_04",
+					"type": "commoner"
+				},
+				"skin": 2
+			}
+		},
+		"chr_0018": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -168,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0009",
+			"female": true,
+			"hire_bans": {},
+			"home": "bld_0009",
+			"id": "chr_0018",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Margarida",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "church_b",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				16,
+				16
+			],
+			"profession": "blacksmith",
+			"rank": "journeyman",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 5,
+				"constitution": 5,
+				"craft": 4,
+				"dexterity": 4,
+				"empathy": 5,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "shopping",
+				"adult": true,
+				"adult_day": 8,
+				"age": 22,
+				"break": true,
+				"break_permil": 195,
+				"day": 8,
+				"dur": 39,
+				"greets": 0,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11855,
+				"met": [],
+				"needs": {
+					"faith": 540,
+					"fun": 0,
+					"hunger": 790,
+					"rest": 865,
+					"social": 430
+				},
+				"needs_at": 12001,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "shopping",
+				"started": 12060,
+				"state": "market",
+				"stops": [
+					[
+						16,
+						15
+					],
+					[
+						16,
+						20
+					]
+				],
+				"target": [
+					16,
+					16
+				],
+				"until": 12111
+			},
+			"visual": {
+				"hair": 1,
+				"portrait": {
+					"id": "f_adult_commoner_07",
+					"type": "commoner"
+				},
+				"skin": 1
+			}
+		},
+		"chr_0019": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -208,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0010",
+			"female": false,
+			"hire_bans": {},
+			"home": "bld_0010",
+			"id": "chr_0019",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 1,
+			"name": "Ramon",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "field_c",
+			"order_queue": [],
+			"parents": [],
+			"path": [
+				[
+					18,
+					19
+				],
+				[
+					17,
+					19
+				],
+				[
+					16,
+					19
+				],
+				[
+					15,
+					19
+				],
+				[
+					14,
+					19
+				],
+				[
+					13,
+					19
+				],
+				[
+					12,
+					19
+				],
+				[
+					11,
+					19
+				],
+				[
+					10,
+					19
+				],
+				[
+					9,
+					19
+				],
+				[
+					8,
+					19
+				],
+				[
+					7,
+					20
+				],
+				[
+					7,
+					21
+				],
+				[
+					7,
+					22
+				],
+				[
+					7,
+					23
+				],
+				[
+					7,
+					24
+				],
+				[
+					7,
+					25
+				],
+				[
+					7,
+					26
+				],
+				[
+					7,
+					27
+				],
+				[
+					7,
+					28
+				],
+				[
+					7,
+					29
+				],
+				[
+					7,
+					30
+				],
+				[
+					7,
+					31
+				],
+				[
+					7,
+					32
+				],
+				[
+					6,
+					32
+				],
+				[
+					5,
+					32
+				],
+				[
+					4,
+					32
+				],
+				[
+					3,
+					32
+				],
+				[
+					2,
+					32
+				],
+				[
+					2,
+					33
+				],
+				[
+					2,
+					34
+				]
+			],
+			"position": [
+				19,
+				19
+			],
+			"profession": "blacksmith",
+			"rank": "master",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 3,
+				"constitution": 7,
+				"craft": 7,
+				"dexterity": 3,
+				"empathy": 2,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "work",
+				"adult": true,
+				"adult_day": 8,
+				"age": 27,
+				"break": false,
+				"break_permil": 189,
+				"day": 8,
+				"dur": 60,
+				"greet_until": 11970,
+				"greets": 1,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11872,
+				"met": [
+					"chr_0020"
+				],
+				"needs": {
+					"faith": 535,
+					"fun": 100,
+					"hunger": 770,
+					"rest": 850,
+					"social": 320
+				},
+				"needs_at": 12061,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "",
+				"started": 12095,
+				"state": "walking",
+				"target": [
+					2,
+					34
+				],
+				"until": -1
+			},
+			"visual": {
+				"hair": 0,
+				"portrait": {
+					"id": "m_adult_commoner_07",
+					"type": "commoner"
+				},
+				"skin": 0
+			}
+		},
+		"chr_0020": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -144,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0010",
+			"female": true,
+			"hire_bans": {},
+			"home": "bld_0010",
+			"id": "chr_0020",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Isabel",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "field_d",
+			"order_queue": [],
+			"parents": [],
+			"path": [
+				[
+					7,
+					21
+				],
+				[
+					7,
+					22
+				],
+				[
+					7,
+					23
+				],
+				[
+					7,
+					24
+				],
+				[
+					7,
+					25
+				],
+				[
+					7,
+					26
+				],
+				[
+					7,
+					27
+				],
+				[
+					7,
+					28
+				],
+				[
+					7,
+					29
+				],
+				[
+					7,
+					30
+				],
+				[
+					7,
+					31
+				],
+				[
+					7,
+					32
+				],
+				[
+					8,
+					32
+				],
+				[
+					9,
+					32
+				],
+				[
+					10,
+					33
+				],
+				[
+					10,
+					34
+				],
+				[
+					10,
+					35
+				]
+			],
+			"position": [
+				7,
+				20
+			],
+			"profession": "blacksmith",
+			"rank": "apprentice",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 6,
+				"constitution": 4,
+				"craft": 1,
+				"dexterity": 6,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "work",
+				"adult": true,
+				"adult_day": 8,
+				"age": 19,
+				"break": false,
+				"break_permil": 155,
+				"day": 8,
+				"dur": 60,
+				"greet_until": 11970,
+				"greets": 1,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11855,
+				"met": [
+					"chr_0019"
+				],
+				"needs": {
+					"faith": 135,
+					"fun": 0,
+					"hunger": 740,
+					"rest": 850,
+					"social": 820
+				},
+				"needs_at": 12061,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "",
+				"started": 12088,
+				"state": "walking",
+				"target": [
+					10,
+					35
+				],
+				"until": -1
+			},
+			"visual": {
+				"hair": 5,
+				"portrait": {
+					"id": "f_adult_commoner_03",
+					"type": "commoner"
+				},
+				"skin": 3
+			}
+		},
+		"chr_0021": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -184,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0011",
+			"female": false,
+			"hire_bans": {},
+			"home": "bld_0011",
+			"id": "chr_0021",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Berenguer",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "townhall_a",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				18,
+				25
+			],
+			"profession": "blacksmith",
+			"rank": "journeyman",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 6,
+				"craft": 5,
+				"dexterity": 5,
+				"empathy": 4,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "work",
+				"adult": true,
+				"adult_day": 8,
+				"age": 24,
+				"break": false,
+				"break_permil": 163,
+				"day": 8,
+				"dur": 60,
+				"greets": 0,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11822,
+				"met": [],
+				"needs": {
+					"faith": 1000,
+					"fun": 0,
+					"hunger": 810,
+					"rest": 880,
+					"social": 590
+				},
+				"needs_at": 11941,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "",
+				"started": 11986,
+				"state": "working",
+				"target": [
+					18,
+					25
+				],
+				"until": -1
+			},
+			"visual": {
+				"hair": 4,
+				"portrait": {
+					"id": "m_adult_commoner_05",
+					"type": "commoner"
+				},
+				"skin": 2
+			}
+		},
+		"chr_0022": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -224,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0011",
+			"female": true,
+			"hire_bans": {},
+			"home": "bld_0011",
+			"id": "chr_0022",
+			"inventory": {
+				"limit": 30,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Violant",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "townhall_b",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				19,
+				15
+			],
+			"profession": "blacksmith",
+			"rank": "apprentice",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 2,
+				"constitution": 3,
+				"craft": 2,
+				"dexterity": 4,
+				"empathy": 5,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 3,
+				"stealth": 2
+			},
+			"town": {
+				"activity": "shopping",
+				"adult": true,
+				"adult_day": 8,
+				"age": 29,
+				"break": true,
+				"break_permil": 150,
+				"day": 8,
+				"dur": 44,
+				"greets": 0,
+				"group": "adult",
+				"group_day": 8,
+				"leave_at": 11848,
+				"met": [],
+				"needs": {
+					"faith": 280,
+					"fun": 100,
+					"hunger": 760,
+					"rest": 865,
+					"social": 580
+				},
+				"needs_at": 12001,
+				"phase_seen": 1,
+				"plan": "work",
+				"shown": "shopping",
+				"started": 12060,
+				"state": "market",
+				"stops": [
+					[
+						16,
+						16
+					],
+					[
+						22,
+						15
+					]
+				],
+				"target": [
+					19,
+					15
+				],
+				"until": 12124
+			},
+			"visual": {
+				"hair": 3,
+				"portrait": {
+					"id": "f_adult_commoner_03",
+					"type": "commoner"
+				},
+				"skin": 1
+			}
+		},
+		"chr_0023": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -280,
+			"children": [],
+			"class": "",
+			"controlled_by": "town",
+			"death_day": -1,
+			"directives": [],
+			"equipment": {
+				"accessory": null,
+				"clothes": {
+					"item": "armor",
+					"quality": 0
+				},
+				"tool": {
+					"item": "sword",
+					"quality": 0
+				}
+			},
+			"family": "fam_watch",
+			"female": false,
+			"guard": {
+				"greet_until": 10794,
+				"post": [
+					3,
+					19
+				],
+				"role": "gate_west_gate",
+				"wp": 0
+			},
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0023",
+			"inventory": {
+				"limit": 20,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Martí",
+			"needs": {},
+			"occupation": "",
+			"offstage": false,
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				3,
+				19
+			],
+			"profession": "",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 6,
+				"craft": 2,
+				"dexterity": 5,
+				"empathy": 4,
+				"martial": 6,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {
+				"shown": "guard_post",
+				"state": "guarding"
+			},
+			"visual": {
+				"hair": 1,
+				"portrait": {
+					"id": "m_adult_commoner_08",
+					"type": "commoner"
+				},
+				"skin": 0
+			}
+		},
+		"chr_0024": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -320,
+			"children": [],
+			"class": "",
+			"controlled_by": "town",
+			"death_day": -1,
+			"directives": [],
+			"equipment": {
+				"accessory": null,
+				"clothes": {
+					"item": "armor",
+					"quality": 0
+				},
+				"tool": {
+					"item": "sword",
+					"quality": 0
+				}
+			},
+			"family": "fam_watch",
+			"female": false,
+			"guard": {
+				"greet_until": 9338,
+				"post": [
+					36,
+					18
+				],
+				"role": "gate_east_gate",
+				"wp": 0
+			},
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0024",
+			"inventory": {
+				"limit": 20,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Ferran",
+			"needs": {},
+			"occupation": "",
+			"offstage": false,
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				36,
+				18
+			],
+			"profession": "",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 6,
+				"craft": 2,
+				"dexterity": 5,
+				"empathy": 4,
+				"martial": 6,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {
+				"shown": "guard_post",
+				"state": "guarding"
+			},
+			"visual": {
+				"hair": 1,
+				"portrait": {
+					"id": "m_adult_commoner_03",
+					"type": "commoner"
+				},
+				"skin": 1
+			}
+		},
+		"chr_0025": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -216,
+			"children": [],
+			"class": "",
+			"controlled_by": "town",
+			"death_day": -1,
+			"directives": [],
+			"equipment": {
+				"accessory": null,
+				"clothes": {
+					"item": "armor",
+					"quality": 0
+				},
+				"tool": {
+					"item": "sword",
+					"quality": 0
+				}
+			},
+			"family": "fam_watch",
+			"female": false,
+			"guard": {
+				"role": "night_1",
+				"wait_until": 11801,
+				"wp": 0
+			},
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0025",
+			"inventory": {
+				"limit": 20,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Tomás",
+			"needs": {},
+			"occupation": "",
+			"offstage": true,
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				20,
+				25
+			],
+			"profession": "",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 6,
+				"craft": 2,
+				"dexterity": 5,
+				"empathy": 4,
+				"martial": 6,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {
+				"shown": "guard_patrol",
+				"state": "walking"
+			},
+			"visual": {
+				"hair": 3,
+				"portrait": {
+					"id": "m_adult_commoner_02",
+					"type": "commoner"
+				},
+				"skin": 2
+			}
+		},
+		"chr_0026": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -216,
+			"children": [],
+			"class": "",
+			"controlled_by": "town",
+			"death_day": -1,
+			"directives": [],
+			"equipment": {
+				"accessory": null,
+				"clothes": {
+					"item": "armor",
+					"quality": 0
+				},
+				"tool": {
+					"item": "sword",
+					"quality": 0
+				}
+			},
+			"family": "fam_watch",
+			"female": false,
+			"guard": {
+				"role": "night_2",
+				"wait_until": 11811,
+				"wp": 2
+			},
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0026",
+			"inventory": {
+				"limit": 20,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Pau",
+			"needs": {},
+			"occupation": "",
+			"offstage": true,
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				20,
+				25
+			],
+			"profession": "",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 6,
+				"craft": 2,
+				"dexterity": 5,
+				"empathy": 4,
+				"martial": 6,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {
+				"shown": "guard_patrol",
+				"state": "walking"
+			},
+			"visual": {
+				"hair": 0,
+				"portrait": {
+					"id": "m_adult_commoner_07",
+					"type": "commoner"
+				},
+				"skin": 2
+			}
+		},
+		"chr_0027": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -280,
+			"children": [],
+			"class": "",
+			"controlled_by": "town",
+			"death_day": -1,
+			"directives": [],
+			"equipment": {
+				"accessory": null,
+				"clothes": {
+					"item": "armor",
+					"quality": 0
+				},
+				"tool": {
+					"item": "sword",
+					"quality": 0
+				}
+			},
+			"family": "fam_watch",
+			"female": false,
+			"guard": {
+				"role": "festival_1",
+				"wp": 0
+			},
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0027",
+			"inventory": {
+				"limit": 20,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Joan",
+			"needs": {},
+			"occupation": "",
+			"offstage": false,
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				19,
+				16
+			],
+			"profession": "",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 6,
+				"craft": 2,
+				"dexterity": 5,
+				"empathy": 4,
+				"martial": 6,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {
+				"shown": "guard_post",
+				"state": "guarding"
+			},
+			"visual": {
+				"hair": 5,
+				"portrait": {
+					"id": "m_adult_commoner_07",
+					"type": "commoner"
+				},
+				"skin": 1
+			}
+		},
+		"chr_0028": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -240,
+			"children": [],
+			"class": "",
+			"controlled_by": "town",
+			"death_day": -1,
+			"directives": [],
+			"equipment": {
+				"accessory": null,
+				"clothes": {
+					"item": "armor",
+					"quality": 0
+				},
+				"tool": {
+					"item": "sword",
+					"quality": 0
+				}
+			},
+			"family": "fam_watch",
+			"female": false,
+			"guard": {
+				"role": "night_3",
+				"wait_until": 11801,
+				"wp": 0
+			},
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0028",
+			"inventory": {
+				"limit": 20,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "",
+			"move_progress": 0,
+			"name": "Hugo",
+			"needs": {},
+			"occupation": "",
+			"offstage": true,
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				20,
+				25
+			],
+			"profession": "",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 4,
+				"constitution": 6,
+				"craft": 2,
+				"dexterity": 5,
+				"empathy": 4,
+				"martial": 6,
+				"negotiation": 3,
+				"rhetoric": 3,
+				"stealth": 3
+			},
+			"town": {
+				"shown": "guard_patrol",
+				"state": "walking"
+			},
+			"visual": {
+				"hair": 1,
+				"portrait": {
+					"id": "m_adult_commoner_01",
+					"type": "commoner"
+				},
+				"skin": 2
+			}
+		}
+	},
+	"chronicle": [
+		{
+			"actor": "chr_0021",
+			"by": "",
+			"family": "fam_0011",
+			"kind": "altercation",
+			"minute": 1121,
+			"outcome": "fought",
+			"point": "chat_well",
+			"target": "chr_0018",
+			"winner": "chr_0021"
+		},
+		{
+			"actor": "chr_0019",
+			"by": "watch",
+			"family": "fam_0010",
+			"kind": "altercation",
+			"minute": 1277,
+			"outcome": "watch",
+			"point": "chat_well",
+			"target": "chr_0011",
+			"winner": ""
+		},
+		{
+			"family": "fam_0001",
+			"kind": "wealth_peak",
+			"minute": 1740,
+			"value": 180
+		},
+		{
+			"family": "fam_0003",
+			"kind": "wealth_peak",
+			"minute": 1740,
+			"value": 170
+		},
+		{
+			"day": 1,
+			"festival": "mayday_corpus",
+			"hosts": [],
+			"kind": "festival",
+			"minute": 2880,
+			"sponsors": []
+		},
+		{
+			"actor": "chr_0017",
+			"by": "watch",
+			"family": "fam_0009",
+			"kind": "altercation",
+			"minute": 4035,
+			"outcome": "watch",
+			"point": "chat_well",
+			"target": "chr_0022",
+			"winner": ""
+		},
+		{
+			"actor": "chr_0013",
+			"by": "watch",
+			"family": "fam_0007",
+			"kind": "altercation",
+			"minute": 4093,
+			"outcome": "watch",
+			"point": "chat_well",
+			"target": "chr_0008",
+			"winner": ""
+		},
+		{
+			"actor": "chr_0011",
+			"by": "watch",
+			"family": "fam_0006",
+			"kind": "altercation",
+			"minute": 4147,
+			"outcome": "watch",
+			"point": "chat_well",
+			"target": "chr_0009",
+			"winner": ""
+		},
+		{
+			"day": 2,
+			"festival": "comedians",
+			"hosts": [],
+			"kind": "festival",
+			"minute": 4320,
+			"sponsors": []
+		},
+		{
+			"day": 2,
+			"festival": "st_john",
+			"hosts": [],
+			"kind": "festival",
+			"minute": 4560,
+			"sponsors": []
+		},
+		{
+			"family": "fam_0003",
+			"kind": "wealth_peak",
+			"minute": 4590,
+			"value": 316
+		},
+		{
+			"actor": "chr_0018",
+			"by": "watch",
+			"family": "fam_0009",
+			"kind": "altercation",
+			"minute": 5533,
+			"outcome": "watch",
+			"point": "chat_well",
+			"target": "chr_0015",
+			"winner": ""
+		},
+		{
+			"day": 3,
+			"festival": "harvest_fair",
+			"hosts": [],
+			"kind": "festival",
+			"minute": 5760,
+			"sponsors": []
+		},
+		{
+			"actor": "chr_0019",
+			"by": "watch",
+			"family": "fam_0010",
+			"kind": "altercation",
+			"minute": 7037,
+			"outcome": "watch",
+			"point": "chat_well",
+			"target": "chr_0016",
+			"winner": ""
+		},
+		{
+			"day": 4,
+			"festival": "pilgrimage",
+			"hosts": [],
+			"kind": "festival",
+			"minute": 7080,
+			"sponsors": []
+		},
+		{
+			"day": 4,
+			"festival": "st_michael",
+			"hosts": [],
+			"kind": "festival",
+			"minute": 7320,
+			"sponsors": []
+		},
+		{
+			"day": 5,
+			"festival": "all_saints_matanza",
+			"hosts": [],
+			"kind": "festival",
+			"minute": 8640,
+			"sponsors": []
+		},
+		{
+			"day": 6,
+			"festival": "christmas",
+			"hosts": [],
+			"kind": "festival",
+			"minute": 10080,
+			"sponsors": []
+		},
+		{
+			"actor": "chr_0014",
+			"by": "watch",
+			"family": "fam_0007",
+			"kind": "altercation",
+			"minute": 11169,
+			"outcome": "watch",
+			"point": "chat_well",
+			"target": "chr_0008",
+			"winner": ""
+		},
+		{
+			"actor": "chr_0016",
+			"by": "watch",
+			"family": "fam_0008",
+			"kind": "altercation",
+			"minute": 11237,
+			"outcome": "watch",
+			"point": "chat_well",
+			"target": "chr_0008",
+			"winner": ""
+		},
+		{
+			"actor": "chr_0005",
+			"family": "fam_0002",
+			"kind": "office_year",
+			"minute": 11520,
+			"office": "judge"
+		},
+		{
+			"actor": "chr_0004",
+			"family": "fam_0002",
+			"kind": "office_year",
+			"minute": 11520,
+			"office": "constable"
+		},
+		{
+			"day": 7,
+			"festival": "carnival",
+			"hosts": [],
+			"kind": "festival",
+			"minute": 11700,
+			"sponsors": []
+		}
+	],
+	"clock": {
+		"minute": 12100
+	},
+	"contracts": {
+		"accepted": [
+			{
+				"accepted": 10489,
+				"actor": "chr_0006",
+				"client": "innkeeper",
+				"deadline_days": 2,
+				"due": 13369,
+				"family": "fam_0003",
+				"id": "ctr_0014",
+				"item": "sword",
+				"min_quality": 1,
+				"pay": 249,
+				"posted": 9030,
+				"qty": 2,
+				"script": "",
+				"warned": [
+					24
+				]
+			}
+		],
+		"board": [
+			{
+				"accepted": -1,
+				"actor": "",
+				"client": "carpenter",
+				"deadline_days": 3,
+				"due": -1,
+				"family": "",
+				"id": "ctr_0002",
+				"item": "armor",
+				"min_quality": 0,
+				"pay": 78,
+				"posted": 3150,
+				"qty": 1,
+				"script": "",
+				"warned": []
+			},
+			{
+				"accepted": -1,
+				"actor": "",
+				"client": "guard_captain",
+				"deadline_days": 3,
+				"due": -1,
+				"family": "",
+				"id": "ctr_0005",
+				"item": "armor",
+				"min_quality": 0,
+				"pay": 157,
+				"posted": 4590,
+				"qty": 2,
+				"script": "",
+				"warned": []
+			},
+			{
+				"accepted": -1,
+				"actor": "",
+				"chronicle": false,
+				"client": "parish_priest",
+				"deadline_days": 2,
+				"due": -1,
+				"due_at": 12540,
+				"fail_reputation": -3,
+				"family": "",
+				"festival": "fst_0010",
+				"festival_def": "holy_week",
+				"hosts": [],
+				"id": "ctr_0016",
+				"item": "candlestick",
+				"min_quality": 0,
+				"pay": 64,
+				"posted": 10800,
+				"profession": "blacksmith",
+				"qty": 2,
+				"race": true,
+				"relation": 8,
+				"reputation": 2,
+				"script": "",
+				"warned": [],
+				"what": ""
+			},
+			{
+				"accepted": -1,
+				"actor": "",
+				"client": "innkeeper",
+				"deadline_days": 2,
+				"due": -1,
+				"family": "",
+				"id": "ctr_0017",
+				"item": "armor",
+				"min_quality": 0,
+				"pay": 157,
+				"posted": 11820,
+				"qty": 2,
+				"script": "",
+				"warned": []
+			}
+		],
+		"cooldowns": {
+			"abbot": 4,
+			"fair_warden": 3
+		},
+		"relations": {
+			"fam_0003|carpenter": 5,
+			"fam_0003|farmer": 8,
+			"fam_0003|guard_captain": 5,
+			"fam_0003|parish_priest": 8
+		}
+	},
+	"deliveries": [],
+	"difficulty": "normal",
+	"duels": {
+		"closed": [],
+		"open": {}
+	},
+	"elections": [],
+	"emotions": {},
+	"ending": {},
+	"events_active": [
+		{
+			"by": "",
+			"def": "war",
+			"end": 17280,
+			"id": "gev_0001",
+			"start": 5760
+		}
+	],
+	"families": {
+		"fam_0001": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#8b2e2e",
+				"secondary": "#c8a84e"
+			},
+			"controlled_by": "human",
+			"founder": "chr_0001",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 40,
+			"head": "chr_0001",
+			"heir": "",
+			"id": "fam_0001",
+			"members": [
+				"chr_0001",
+				"chr_0002",
+				"chr_0003"
+			],
+			"name": "Herrero",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "common"
+		},
+		"fam_0002": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#2e4f8b",
+				"secondary": "#d4b896"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0004",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 122,
+			"head": "chr_0004",
+			"heir": "",
+			"id": "fam_0002",
+			"members": [
+				"chr_0004",
+				"chr_0005"
+			],
+			"name": "Vidal",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "patrician"
+		},
+		"fam_0003": {
+			"ai_profile": "rival_smith",
+			"ai_state": {
+				"bought_day": 8,
+				"family": {
+					"night": 7,
+					"step": "home",
+					"target": "chr_0002"
+				},
+				"last_fp": "[[10,19],\"bld_0002\",\"\",{\"limit\":30,\"limit_kind\":\"weight\",\"stacks\":[{\"item\":\"iron_ingot\",\"qty\":1,\"quality\":0}]},33,1,4]",
+				"last_order": "{\"actor\":\"chr_0006\",\"from\":\"chr_0006\",\"item\":\"iron_ingot\",\"qty\":1,\"quality\":0,\"to\":\"bld_0002\",\"type\":\"transfer\"}",
+				"phase": "day",
+				"plan": [],
+				"recipe": "forge_sword"
+			},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {
+				"artisan": -2
+			},
+			"colors": {
+				"primary": "#3f6b3a",
+				"secondary": "#b8b8b0"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0006",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 33,
+			"head": "chr_0006",
+			"heir": "",
+			"id": "fam_0003",
+			"members": [
+				"chr_0006"
+			],
+			"name": "Ferrer",
+			"regent": "",
+			"reputation": 5,
+			"reputation_caps": {
+				"fair_trade": {
+					"count": 1,
+					"window": 2
+				},
+				"quality_trade": {
+					"count": 1,
+					"window": 2
+				}
+			},
+			"reputation_log": [
+				{
+					"amount": 1,
+					"class": "",
+					"class_amount": 0,
+					"minute": 1171,
+					"reason": "fair_trade"
+				},
+				{
+					"amount": 2,
+					"class": "artisan",
+					"class_amount": 1,
+					"minute": 2600,
+					"reason": "contract_done"
+				},
+				{
+					"amount": 1,
+					"class": "",
+					"class_amount": 0,
+					"minute": 4111,
+					"reason": "fair_trade"
+				},
+				{
+					"amount": 1,
+					"class": "",
+					"class_amount": 0,
+					"minute": 4111,
+					"reason": "quality_trade"
+				},
+				{
+					"amount": -3,
+					"class": "artisan",
+					"class_amount": -2,
+					"minute": 5340,
+					"reason": "contract_failed"
+				},
+				{
+					"amount": 2,
+					"class": "",
+					"class_amount": 0,
+					"minute": 5573,
+					"reason": "festival_contract"
+				},
+				{
+					"amount": -3,
+					"class": "artisan",
+					"class_amount": -2,
+					"minute": 6780,
+					"reason": "contract_failed"
+				},
+				{
+					"amount": 2,
+					"class": "",
+					"class_amount": 0,
+					"minute": 8363,
+					"reason": "festival_contract"
+				},
+				{
+					"amount": 2,
+					"class": "artisan",
+					"class_amount": 1,
+					"minute": 10488,
+					"reason": "contract_done"
+				}
+			],
+			"title": "common"
+		},
+		"fam_0004": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#7a5230",
+				"secondary": "#d8c8a0"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0007",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 20,
+			"head": "chr_0007",
+			"heir": "",
+			"id": "fam_0004",
+			"members": [
+				"chr_0007",
+				"chr_0008"
+			],
+			"name": "Soler",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "citizen"
+		},
+		"fam_0005": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#4a6a8a",
+				"secondary": "#e0d0b0"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0009",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 20,
+			"head": "chr_0009",
+			"heir": "",
+			"id": "fam_0005",
+			"members": [
+				"chr_0009",
+				"chr_0010"
+			],
+			"name": "Puig",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "citizen"
+		},
+		"fam_0006": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#6a6a6a",
+				"secondary": "#c0a060"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0011",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 4,
+			"head": "chr_0011",
+			"heir": "",
+			"id": "fam_0006",
+			"members": [
+				"chr_0011",
+				"chr_0012"
+			],
+			"name": "Roca",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "citizen"
+		},
+		"fam_0007": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#8a7a3a",
+				"secondary": "#3a3a4a"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0013",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 0,
+			"head": "chr_0013",
+			"heir": "",
+			"id": "fam_0007",
+			"members": [
+				"chr_0013",
+				"chr_0014"
+			],
+			"name": "Vila",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "citizen"
+		},
+		"fam_0008": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#5a3a5a",
+				"secondary": "#d0b890"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0015",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 8,
+			"head": "chr_0015",
+			"heir": "",
+			"id": "fam_0008",
+			"members": [
+				"chr_0015",
+				"chr_0016"
+			],
+			"name": "Serra",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "common"
+		},
+		"fam_0009": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#3a6a6a",
+				"secondary": "#e8d8b8"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0017",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 0,
+			"head": "chr_0017",
+			"heir": "",
+			"id": "fam_0009",
+			"members": [
+				"chr_0017",
+				"chr_0018"
+			],
+			"name": "Font",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "common"
+		},
+		"fam_0010": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#7a3a2a",
+				"secondary": "#b0b0a0"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0019",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 0,
+			"head": "chr_0019",
+			"heir": "",
+			"id": "fam_0010",
+			"members": [
+				"chr_0019",
+				"chr_0020"
+			],
+			"name": "Pons",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "common"
+		},
+		"fam_0011": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#4a5a2a",
+				"secondary": "#d8b878"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0021",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 20,
+			"head": "chr_0021",
+			"heir": "",
+			"id": "fam_0011",
+			"members": [
+				"chr_0021",
+				"chr_0022"
+			],
+			"name": "Mas",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "common"
+		},
+		"fam_visitors": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#6a5a4a",
+				"secondary": "#c8b8a0"
+			},
+			"controlled_by": "town",
+			"founder": "",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 0,
+			"head": "",
+			"heir": "",
+			"id": "fam_visitors",
+			"members": [],
+			"name": "",
+			"name_key": "family.visitors",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"service": true,
+			"title": "common"
+		},
+		"fam_watch": {
+			"ai_profile": "",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 0,
+				"generosity": 0,
+				"honesty": 0
+			},
+			"class": "",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#7a2a2a",
+				"secondary": "#d8b050"
+			},
+			"controlled_by": "town",
+			"founder": "",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 0,
+			"head": "",
+			"heir": "",
+			"id": "fam_watch",
+			"members": [
+				"chr_0023",
+				"chr_0024",
+				"chr_0025",
+				"chr_0026",
+				"chr_0027",
+				"chr_0028"
+			],
+			"name": "",
+			"name_key": "family.watch",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"service": true,
+			"title": "common"
+		}
+	},
+	"festivals": {
+		"active": [
+			{
+				"announce": 10800,
+				"announced": true,
+				"by": "",
+				"cause": "calendar",
+				"contracts": [
+					"ctr_0016"
+				],
+				"couple": [],
+				"day": 8,
+				"def": "holy_week",
+				"done": [],
+				"end": 12960,
+				"hosts": [],
+				"id": "fst_0010",
+				"organized": {},
+				"patron": false,
+				"posted_rows": [
+					1
+				],
+				"sponsors": {},
+				"stalls": [],
+				"start": 11520
+			}
+		],
+		"cooldowns": {
+			"all_saints_matanza": 5,
+			"carnival": 7,
+			"christmas": 6,
+			"comedians": 2,
+			"harvest_fair": 3,
+			"holy_week": 8,
+			"mayday_corpus": 9,
+			"pilgrimage": 4,
+			"st_john": 2,
+			"st_michael": 4
+		},
+		"history": [
+			{
+				"announce": 720,
+				"announced": true,
+				"by": "",
+				"cause": "calendar",
+				"contracts": [],
+				"couple": [],
+				"day": 1,
+				"def": "mayday_corpus",
+				"done": [
+					"bulls@17"
+				],
+				"end": 2880,
+				"hosts": [],
+				"id": "fst_0001",
+				"organized": {},
+				"patron": false,
+				"posted_rows": [],
+				"sponsors": {},
+				"stalls": [],
+				"start": 1440
+			},
+			{
+				"announce": 2160,
+				"announced": true,
+				"by": "",
+				"cause": "roll",
+				"contracts": [],
+				"couple": [],
+				"day": 2,
+				"def": "comedians",
+				"done": [
+					"comedians@18"
+				],
+				"end": 4320,
+				"hosts": [],
+				"id": "fst_0003",
+				"organized": {},
+				"patron": false,
+				"posted_rows": [],
+				"sponsors": {},
+				"stalls": [],
+				"start": 3840
+			},
+			{
+				"announce": 2160,
+				"announced": true,
+				"by": "",
+				"cause": "calendar",
+				"contracts": [],
+				"couple": [],
+				"day": 2,
+				"def": "st_john",
+				"done": [],
+				"end": 4560,
+				"hosts": [],
+				"id": "fst_0002",
+				"organized": {},
+				"patron": false,
+				"sponsors": {},
+				"stalls": [],
+				"start": 3960
+			},
+			{
+				"announce": 3600,
+				"announced": true,
+				"by": "",
+				"cause": "calendar",
+				"contracts": [
+					"ctr_0003",
+					"ctr_0004"
+				],
+				"couple": [],
+				"day": 3,
+				"def": "harvest_fair",
+				"done": [
+					"horse_race@17",
+					"minstrels@21"
+				],
+				"end": 5760,
+				"hosts": [],
+				"id": "fst_0004",
+				"organized": {},
+				"patron": false,
+				"posted_rows": [
+					0,
+					4
+				],
+				"sponsors": {},
+				"stalls": [
+					{
+						"group": "textiles",
+						"stall": "fair"
+					},
+					{
+						"group": "food",
+						"stall": "fair"
+					},
+					{
+						"group": "construction",
+						"stall": "fair"
+					},
+					{
+						"group": "luxury",
+						"stall": "fair"
+					},
+					{
+						"group": "wood",
+						"stall": "fair"
+					},
+					{
+						"group": "medicine",
+						"stall": "fair"
+					}
+				],
+				"start": 4320
+			},
+			{
+				"announce": 5040,
+				"announced": true,
+				"by": "",
+				"cause": "city",
+				"contracts": [
+					"ctr_0007",
+					"ctr_0008"
+				],
+				"couple": [],
+				"day": 4,
+				"def": "pilgrimage",
+				"done": [],
+				"end": 7080,
+				"hosts": [],
+				"id": "fst_0006",
+				"organized": {},
+				"patron": false,
+				"posted_rows": [
+					3,
+					4
+				],
+				"sponsors": {},
+				"stalls": [],
+				"start": 6120
+			},
+			{
+				"announce": 5040,
+				"announced": true,
+				"by": "",
+				"cause": "calendar",
+				"contracts": [
+					"ctr_0006"
+				],
+				"couple": [],
+				"day": 4,
+				"def": "st_michael",
+				"done": [],
+				"done_items": [
+					"horseshoe"
+				],
+				"end": 7320,
+				"hosts": [],
+				"id": "fst_0005",
+				"organized": {},
+				"patron": false,
+				"posted_rows": [
+					1
+				],
+				"sponsors": {},
+				"stalls": [],
+				"start": 6780
+			},
+			{
+				"announce": 6480,
+				"announced": true,
+				"by": "",
+				"cause": "calendar",
+				"contracts": [
+					"ctr_0010",
+					"ctr_0011"
+				],
+				"couple": [],
+				"day": 5,
+				"def": "all_saints_matanza",
+				"done": [],
+				"end": 8640,
+				"hosts": [],
+				"id": "fst_0007",
+				"organized": {},
+				"patron": true,
+				"posted_rows": [
+					0,
+					4
+				],
+				"sponsors": {},
+				"stalls": [],
+				"start": 7200
+			},
+			{
+				"announce": 7920,
+				"announced": true,
+				"by": "",
+				"cause": "calendar",
+				"contracts": [
+					"ctr_0012",
+					"ctr_0013"
+				],
+				"couple": [],
+				"day": 6,
+				"def": "christmas",
+				"done": [],
+				"done_items": [
+					"candlestick"
+				],
+				"end": 10080,
+				"hosts": [],
+				"id": "fst_0008",
+				"organized": {},
+				"patron": false,
+				"posted_rows": [
+					0,
+					3
+				],
+				"sponsors": {},
+				"stalls": [],
+				"start": 8640
+			},
+			{
+				"announce": 9360,
+				"announced": true,
+				"by": "",
+				"cause": "calendar",
+				"contracts": [
+					"ctr_0015"
+				],
+				"couple": [],
+				"day": 7,
+				"def": "carnival",
+				"done": [],
+				"end": 11700,
+				"hosts": [],
+				"id": "fst_0009",
+				"organized": {},
+				"patron": false,
+				"posted_rows": [
+					1
+				],
+				"sponsors": {},
+				"stalls": [],
+				"start": 11100
+			}
+		],
+		"offers": {},
+		"planned_day": 8,
+		"upcoming": [
+			{
+				"announce": 12240,
+				"announced": false,
+				"by": "",
+				"cause": "calendar",
+				"contracts": [],
+				"couple": [],
+				"day": 9,
+				"def": "mayday_corpus",
+				"done": [],
+				"end": 14400,
+				"hosts": [],
+				"id": "fst_0011",
+				"organized": {},
+				"patron": false,
+				"sponsors": {},
+				"stalls": [],
+				"start": 12960
+			}
+		]
+	},
+	"justice": {
+		"facts": []
+	},
+	"ledger": {
+		"entries": [
+			{
+				"actor": "chr_0006",
+				"amount": -36,
+				"building": "",
+				"category": "purchases",
+				"day": 0,
+				"family": "fam_0003",
+				"minute": 505,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": 46,
+				"building": "",
+				"category": "market_sales",
+				"day": 0,
+				"family": "fam_0003",
+				"minute": 1170,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0019",
+				"amount": -16,
+				"building": "",
+				"category": "fines",
+				"day": 0,
+				"family": "fam_0010",
+				"minute": 1277,
+				"ref": "inc_0002"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0001",
+				"category": "upkeep",
+				"day": 1,
+				"family": "fam_0001",
+				"minute": 1740,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 1,
+				"family": "fam_0003",
+				"minute": 1740,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0005",
+				"amount": 5,
+				"building": "",
+				"category": "offices",
+				"day": 1,
+				"family": "fam_0002",
+				"minute": 1740,
+				"ref": "office_judge"
+			},
+			{
+				"actor": "chr_0004",
+				"amount": 4,
+				"building": "",
+				"category": "offices",
+				"day": 1,
+				"family": "fam_0002",
+				"minute": 1740,
+				"ref": "office_constable"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -16,
+				"building": "",
+				"category": "purchases",
+				"day": 1,
+				"family": "fam_0003",
+				"minute": 1877,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -18,
+				"building": "",
+				"category": "purchases",
+				"day": 1,
+				"family": "fam_0003",
+				"minute": 1890,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": 140,
+				"building": "",
+				"category": "contracts",
+				"day": 1,
+				"family": "fam_0003",
+				"minute": 2600,
+				"ref": "ctr_0001"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0001",
+				"category": "upkeep",
+				"day": 2,
+				"family": "fam_0001",
+				"minute": 3150,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 2,
+				"family": "fam_0003",
+				"minute": 3150,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0005",
+				"amount": 5,
+				"building": "",
+				"category": "offices",
+				"day": 2,
+				"family": "fam_0002",
+				"minute": 3150,
+				"ref": "office_judge"
+			},
+			{
+				"actor": "chr_0004",
+				"amount": 4,
+				"building": "",
+				"category": "offices",
+				"day": 2,
+				"family": "fam_0002",
+				"minute": 3150,
+				"ref": "office_constable"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -90,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0003",
+				"minute": 3265,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0017",
+				"amount": -20,
+				"building": "",
+				"category": "fines",
+				"day": 2,
+				"family": "fam_0009",
+				"minute": 4035,
+				"ref": "inc_0003"
+			},
+			{
+				"actor": "chr_0013",
+				"amount": -11,
+				"building": "",
+				"category": "fines",
+				"day": 2,
+				"family": "fam_0007",
+				"minute": 4093,
+				"ref": "inc_0004"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": 59,
+				"building": "",
+				"category": "market_sales",
+				"day": 2,
+				"family": "fam_0003",
+				"minute": 4110,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": 57,
+				"building": "",
+				"category": "market_sales",
+				"day": 2,
+				"family": "fam_0003",
+				"minute": 4111,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": 54,
+				"building": "",
+				"category": "market_sales",
+				"day": 2,
+				"family": "fam_0003",
+				"minute": 4112,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0011",
+				"amount": -16,
+				"building": "",
+				"category": "fines",
+				"day": 2,
+				"family": "fam_0006",
+				"minute": 4147,
+				"ref": "inc_0005"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0001",
+				"category": "upkeep",
+				"day": 3,
+				"family": "fam_0001",
+				"minute": 4590,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 3,
+				"family": "fam_0003",
+				"minute": 4590,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0005",
+				"amount": 5,
+				"building": "",
+				"category": "offices",
+				"day": 3,
+				"family": "fam_0002",
+				"minute": 4590,
+				"ref": "office_judge"
+			},
+			{
+				"actor": "chr_0004",
+				"amount": 4,
+				"building": "",
+				"category": "offices",
+				"day": 3,
+				"family": "fam_0002",
+				"minute": 4590,
+				"ref": "office_constable"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -28,
+				"building": "",
+				"category": "purchases",
+				"day": 3,
+				"family": "fam_0003",
+				"minute": 4697,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -90,
+				"building": "",
+				"category": "purchases",
+				"day": 3,
+				"family": "fam_0003",
+				"minute": 4710,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": 67,
+				"building": "",
+				"category": "contracts",
+				"day": 3,
+				"family": "fam_0003",
+				"minute": 5573,
+				"ref": "ctr_0006"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0001",
+				"category": "upkeep",
+				"day": 4,
+				"family": "fam_0001",
+				"minute": 6090,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 4,
+				"family": "fam_0003",
+				"minute": 6090,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0005",
+				"amount": 5,
+				"building": "",
+				"category": "offices",
+				"day": 4,
+				"family": "fam_0002",
+				"minute": 6090,
+				"ref": "office_judge"
+			},
+			{
+				"actor": "chr_0004",
+				"amount": 4,
+				"building": "",
+				"category": "offices",
+				"day": 4,
+				"family": "fam_0002",
+				"minute": 6090,
+				"ref": "office_constable"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -8,
+				"building": "",
+				"category": "purchases",
+				"day": 4,
+				"family": "fam_0003",
+				"minute": 6257,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -108,
+				"building": "",
+				"category": "purchases",
+				"day": 4,
+				"family": "fam_0003",
+				"minute": 6270,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0019",
+				"amount": -4,
+				"building": "",
+				"category": "fines",
+				"day": 4,
+				"family": "fam_0010",
+				"minute": 7037,
+				"ref": "inc_0007"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0001",
+				"category": "upkeep",
+				"day": 5,
+				"family": "fam_0001",
+				"minute": 7530,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 5,
+				"family": "fam_0003",
+				"minute": 7530,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0005",
+				"amount": 5,
+				"building": "",
+				"category": "offices",
+				"day": 5,
+				"family": "fam_0002",
+				"minute": 7530,
+				"ref": "office_judge"
+			},
+			{
+				"actor": "chr_0004",
+				"amount": 4,
+				"building": "",
+				"category": "offices",
+				"day": 5,
+				"family": "fam_0002",
+				"minute": 7530,
+				"ref": "office_constable"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": 96,
+				"building": "",
+				"category": "contracts",
+				"day": 5,
+				"family": "fam_0003",
+				"minute": 8363,
+				"ref": "ctr_0012"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 6,
+				"family": "fam_0003",
+				"minute": 9030,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0005",
+				"amount": 5,
+				"building": "",
+				"category": "offices",
+				"day": 6,
+				"family": "fam_0002",
+				"minute": 9030,
+				"ref": "office_judge"
+			},
+			{
+				"actor": "chr_0004",
+				"amount": 4,
+				"building": "",
+				"category": "offices",
+				"day": 6,
+				"family": "fam_0002",
+				"minute": 9030,
+				"ref": "office_constable"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -16,
+				"building": "",
+				"category": "purchases",
+				"day": 6,
+				"family": "fam_0003",
+				"minute": 9167,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -36,
+				"building": "",
+				"category": "purchases",
+				"day": 6,
+				"family": "fam_0003",
+				"minute": 9180,
+				"ref": "buy"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 7,
+				"family": "fam_0003",
+				"minute": 10470,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0005",
+				"amount": 5,
+				"building": "",
+				"category": "offices",
+				"day": 7,
+				"family": "fam_0002",
+				"minute": 10470,
+				"ref": "office_judge"
+			},
+			{
+				"actor": "chr_0004",
+				"amount": 4,
+				"building": "",
+				"category": "offices",
+				"day": 7,
+				"family": "fam_0002",
+				"minute": 10470,
+				"ref": "office_constable"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": 190,
+				"building": "",
+				"category": "contracts",
+				"day": 7,
+				"family": "fam_0003",
+				"minute": 10488,
+				"ref": "ctr_0009"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -16,
+				"building": "",
+				"category": "purchases",
+				"day": 7,
+				"family": "fam_0003",
+				"minute": 10607,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -108,
+				"building": "",
+				"category": "purchases",
+				"day": 7,
+				"family": "fam_0003",
+				"minute": 10620,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0014",
+				"amount": -9,
+				"building": "",
+				"category": "fines",
+				"day": 7,
+				"family": "fam_0007",
+				"minute": 11169,
+				"ref": "inc_0008"
+			},
+			{
+				"actor": "chr_0016",
+				"amount": -12,
+				"building": "",
+				"category": "fines",
+				"day": 7,
+				"family": "fam_0008",
+				"minute": 11237,
+				"ref": "inc_0009"
+			},
+			{
+				"actor": "",
+				"amount": -20,
+				"building": "bld_0002",
+				"category": "upkeep",
+				"day": 8,
+				"family": "fam_0003",
+				"minute": 11820,
+				"ref": "upkeep"
+			},
+			{
+				"actor": "chr_0005",
+				"amount": 5,
+				"building": "",
+				"category": "offices",
+				"day": 8,
+				"family": "fam_0002",
+				"minute": 11820,
+				"ref": "office_judge"
+			},
+			{
+				"actor": "chr_0004",
+				"amount": 4,
+				"building": "",
+				"category": "offices",
+				"day": 8,
+				"family": "fam_0002",
+				"minute": 11820,
+				"ref": "office_constable"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -8,
+				"building": "",
+				"category": "purchases",
+				"day": 8,
+				"family": "fam_0003",
+				"minute": 11957,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0006",
+				"amount": -18,
+				"building": "",
+				"category": "purchases",
+				"day": 8,
+				"family": "fam_0003",
+				"minute": 11970,
+				"ref": "buy"
+			}
+		],
+		"summaries": {}
+	},
+	"loans": {},
+	"map_id": "town_e",
+	"market": {
+		"demand": {
+			"sword": 1
+		},
+		"regulations": []
+	},
+	"meta": {
+		"description": "Día 9, 09:40: el héroe, con 40 de oro, junto a la puerta oeste; a las 09:50 entra un mendigo que irá a pedir al atrio (la ficha del vecino ofrece «Dar limosna»).",
+		"origin": "tools/scenarios/make_life_scenarios.gd",
+		"title": "Un mendigo en la puerta"
+	},
+	"microevents": {
+		"active": [],
+		"cooldowns": {
+			"night_thief|bld_0002": 13
+		},
+		"last_day": {
+			"fam_0003": 6
+		},
+		"pending": []
+	},
+	"next_ids": {
+		"bld": 12,
+		"chr": 67,
+		"ctr": 18,
+		"fam": 12,
+		"fst": 12,
+		"gev": 2,
+		"inc": 10,
+		"mev": 2,
+		"ntc": 66,
+		"rct": 11,
+		"rev": 3
+	},
+	"notices": [
+		{
+			"day": 1,
+			"family": "fam_0001",
+			"id": "ntc_0008",
+			"key": "notice.city_fair_eve",
+			"minute": 1440,
+			"params": {
+				"city": "region.port"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 1,
+			"family": "fam_0001",
+			"id": "ntc_0009",
+			"key": "notice.festival_started",
+			"minute": 1440,
+			"params": {
+				"festival": "mayday_corpus",
+				"sponsors": ""
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 1,
+			"family": "fam_0001",
+			"id": "ntc_0010",
+			"key": "notice.festival_eve",
+			"minute": 2160,
+			"params": {
+				"contracts": 0,
+				"festival": "st_john",
+				"when": "18:00"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 1,
+			"family": "fam_0001",
+			"id": "ntc_0011",
+			"key": "notice.festival_eve",
+			"minute": 2160,
+			"params": {
+				"contracts": 0,
+				"festival": "comedians",
+				"when": "16:00"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0012",
+			"key": "notice.festival_ended",
+			"minute": 2880,
+			"params": {
+				"festival": "mayday_corpus"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0013",
+			"key": "notice.festival_eve",
+			"minute": 3600,
+			"params": {
+				"contracts": 2,
+				"festival": "harvest_fair",
+				"when": "00:00"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0014",
+			"key": "notice.festival_started",
+			"minute": 3840,
+			"params": {
+				"festival": "comedians",
+				"sponsors": ""
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0015",
+			"key": "notice.festival_started",
+			"minute": 3960,
+			"params": {
+				"festival": "st_john",
+				"sponsors": ""
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0016",
+			"key": "notice.life.altercation",
+			"minute": 4020,
+			"params": {
+				"a": "Jaume",
+				"b": "Violant",
+				"band": 0,
+				"fine": 0,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0017",
+			"key": "notice.life.altercation_watch",
+			"minute": 4035,
+			"params": {
+				"a": "Jaume",
+				"b": "Violant",
+				"band": 0,
+				"fine": 20,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0018",
+			"key": "notice.life.altercation",
+			"minute": 4080,
+			"params": {
+				"a": "Martí",
+				"b": "Agnès",
+				"band": 0,
+				"fine": 0,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0019",
+			"key": "notice.life.altercation_watch",
+			"minute": 4093,
+			"params": {
+				"a": "Martí",
+				"b": "Agnès",
+				"band": 0,
+				"fine": 11,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0020",
+			"key": "notice.life.altercation",
+			"minute": 4140,
+			"params": {
+				"a": "Arnau",
+				"b": "Pau",
+				"band": 0,
+				"fine": 0,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 2,
+			"family": "fam_0001",
+			"id": "ntc_0021",
+			"key": "notice.life.altercation_watch",
+			"minute": 4147,
+			"params": {
+				"a": "Arnau",
+				"b": "Pau",
+				"band": 0,
+				"fine": 16,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 3,
+			"family": "fam_0001",
+			"id": "ntc_0022",
+			"key": "notice.city_fair_eve",
+			"minute": 4320,
+			"params": {
+				"city": "region.abbey"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 3,
+			"family": "fam_0001",
+			"id": "ntc_0023",
+			"key": "notice.festival_started",
+			"minute": 4320,
+			"params": {
+				"festival": "harvest_fair",
+				"sponsors": ""
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 3,
+			"family": "fam_0001",
+			"id": "ntc_0024",
+			"key": "notice.festival_ended",
+			"minute": 4320,
+			"params": {
+				"festival": "comedians"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 3,
+			"family": "fam_0001",
+			"id": "ntc_0025",
+			"key": "notice.festival_ended",
+			"minute": 4560,
+			"params": {
+				"festival": "st_john"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 3,
+			"family": "fam_0001",
+			"id": "ntc_0026",
+			"key": "notice.festival_eve",
+			"minute": 5040,
+			"params": {
+				"contracts": 1,
+				"festival": "st_michael",
+				"when": "17:00"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 3,
+			"family": "fam_0001",
+			"id": "ntc_0027",
+			"key": "notice.festival_eve",
+			"minute": 5040,
+			"params": {
+				"contracts": 2,
+				"festival": "pilgrimage",
+				"when": "06:00"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 3,
+			"family": "fam_0003",
+			"id": "ntc_0028",
+			"key": "notice.contract_due",
+			"minute": 5220,
+			"params": {
+				"client": "fair_warden",
+				"contract": "ctr_0003",
+				"hours": 2,
+				"item": "horseshoe",
+				"qty": 4
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": "chr_0006"
+		},
+		{
+			"day": 3,
+			"family": "fam_0003",
+			"id": "ntc_0029",
+			"key": "notice.contract_expired",
+			"minute": 5340,
+			"params": {
+				"client": "fair_warden",
+				"contract": "ctr_0003",
+				"days": 0,
+				"item": "horseshoe",
+				"qty": 4,
+				"reputation": -3
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "chr_0006"
+		},
+		{
+			"day": 3,
+			"family": "fam_0001",
+			"id": "ntc_0030",
+			"key": "notice.life.altercation",
+			"minute": 5520,
+			"params": {
+				"a": "Margarida",
+				"b": "Guillem",
+				"band": 0,
+				"fine": 0,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 3,
+			"family": "fam_0001",
+			"id": "ntc_0031",
+			"key": "notice.life.altercation_watch",
+			"minute": 5533,
+			"params": {
+				"a": "Margarida",
+				"b": "Guillem",
+				"band": 0,
+				"fine": 0,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0032",
+			"key": "notice.event_started",
+			"minute": 5760,
+			"params": {
+				"days": 8,
+				"event": "war"
+			},
+			"read": false,
+			"severity": "warning",
+			"target": ""
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0033",
+			"key": "notice.festival_ended",
+			"minute": 5760,
+			"params": {
+				"festival": "harvest_fair"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0034",
+			"key": "notice.festival_started",
+			"minute": 6120,
+			"params": {
+				"festival": "pilgrimage",
+				"sponsors": ""
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0035",
+			"key": "notice.festival_eve",
+			"minute": 6480,
+			"params": {
+				"contracts": 2,
+				"festival": "all_saints_matanza",
+				"when": "00:00"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 4,
+			"family": "fam_0003",
+			"id": "ntc_0036",
+			"key": "notice.contract_due",
+			"minute": 6660,
+			"params": {
+				"client": "abbot",
+				"contract": "ctr_0007",
+				"hours": 2,
+				"item": "candlestick",
+				"qty": 2
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": "chr_0006"
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0037",
+			"key": "notice.festival_started",
+			"minute": 6780,
+			"params": {
+				"festival": "st_michael",
+				"sponsors": ""
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 4,
+			"family": "fam_0003",
+			"id": "ntc_0038",
+			"key": "notice.contract_expired",
+			"minute": 6780,
+			"params": {
+				"client": "abbot",
+				"contract": "ctr_0007",
+				"days": 0,
+				"item": "candlestick",
+				"qty": 2,
+				"reputation": -3
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "chr_0006"
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0039",
+			"key": "notice.life.altercation",
+			"minute": 7020,
+			"params": {
+				"a": "Ramon",
+				"b": "Sança",
+				"band": 0,
+				"fine": 0,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0040",
+			"key": "notice.life.altercation_watch",
+			"minute": 7037,
+			"params": {
+				"a": "Ramon",
+				"b": "Sança",
+				"band": 0,
+				"fine": 4,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 4,
+			"family": "fam_0001",
+			"id": "ntc_0041",
+			"key": "notice.festival_ended",
+			"minute": 7080,
+			"params": {
+				"festival": "pilgrimage"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 5,
+			"family": "fam_0001",
+			"id": "ntc_0042",
+			"key": "notice.city_fair_eve",
+			"minute": 7200,
+			"params": {
+				"city": "region.quarry"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 5,
+			"family": "fam_0001",
+			"id": "ntc_0043",
+			"key": "notice.festival_started",
+			"minute": 7200,
+			"params": {
+				"festival": "all_saints_matanza",
+				"sponsors": ""
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 5,
+			"family": "fam_0001",
+			"id": "ntc_0044",
+			"key": "notice.festival_ended",
+			"minute": 7320,
+			"params": {
+				"festival": "st_michael"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 5,
+			"family": "fam_0001",
+			"id": "ntc_0045",
+			"key": "notice.festival_eve",
+			"minute": 7920,
+			"params": {
+				"contracts": 2,
+				"festival": "christmas",
+				"when": "00:00"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 6,
+			"family": "fam_0001",
+			"id": "ntc_0046",
+			"key": "notice.festival_started",
+			"minute": 8640,
+			"params": {
+				"festival": "christmas",
+				"sponsors": ""
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 6,
+			"family": "fam_0001",
+			"id": "ntc_0047",
+			"key": "notice.festival_ended",
+			"minute": 8640,
+			"params": {
+				"festival": "all_saints_matanza"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 6,
+			"family": "fam_0001",
+			"id": "ntc_0048",
+			"key": "notice.upkeep_unpaid",
+			"minute": 9030,
+			"params": {
+				"building": "bld_0001",
+				"days": 3,
+				"debt": 20
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0001"
+		},
+		{
+			"day": 6,
+			"family": "fam_0001",
+			"id": "ntc_0049",
+			"key": "notice.festival_eve",
+			"minute": 9360,
+			"params": {
+				"contracts": 1,
+				"festival": "carnival",
+				"when": "17:00"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 6,
+			"family": "fam_0003",
+			"id": "ntc_0050",
+			"key": "notice.contract_due",
+			"minute": 9804,
+			"params": {
+				"client": "carpenter",
+				"contract": "ctr_0009",
+				"hours": 24,
+				"item": "sword",
+				"qty": 2
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "chr_0006"
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0051",
+			"key": "notice.festival_ended",
+			"minute": 10080,
+			"params": {
+				"festival": "christmas"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0052",
+			"key": "notice.life.bandits_seen",
+			"minute": 10470,
+			"params": {
+				"place": "nest.r4"
+			},
+			"read": false,
+			"severity": "warning",
+			"target": ""
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0053",
+			"key": "notice.upkeep_unpaid",
+			"minute": 10470,
+			"params": {
+				"building": "bld_0001",
+				"days": 2,
+				"debt": 40
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0001"
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0054",
+			"key": "notice.festival_eve",
+			"minute": 10800,
+			"params": {
+				"contracts": 1,
+				"festival": "holy_week",
+				"when": "00:00"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0055",
+			"key": "notice.festival_started",
+			"minute": 11100,
+			"params": {
+				"festival": "carnival",
+				"sponsors": ""
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0056",
+			"key": "notice.life.altercation",
+			"minute": 11160,
+			"params": {
+				"a": "Blanca",
+				"b": "Agnès",
+				"band": 0,
+				"fine": 0,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0057",
+			"key": "notice.life.altercation_watch",
+			"minute": 11169,
+			"params": {
+				"a": "Blanca",
+				"b": "Agnès",
+				"band": 0,
+				"fine": 9,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0058",
+			"key": "notice.life.altercation",
+			"minute": 11220,
+			"params": {
+				"a": "Sança",
+				"b": "Agnès",
+				"band": 0,
+				"fine": 0,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "urgent",
+			"target": ""
+		},
+		{
+			"day": 7,
+			"family": "fam_0001",
+			"id": "ntc_0059",
+			"key": "notice.life.altercation_watch",
+			"minute": 11237,
+			"params": {
+				"a": "Sança",
+				"b": "Agnès",
+				"band": 0,
+				"fine": 12,
+				"gold": 0,
+				"items": 0,
+				"place": "nest.road",
+				"ransom": 0
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 8,
+			"family": "fam_0001",
+			"id": "ntc_0060",
+			"key": "notice.city_fair_eve",
+			"minute": 11520,
+			"params": {
+				"city": "region.capital"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 8,
+			"family": "fam_0001",
+			"id": "ntc_0061",
+			"key": "notice.city_fair_eve",
+			"minute": 11520,
+			"params": {
+				"city": "region.hamlet"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 8,
+			"family": "fam_0001",
+			"id": "ntc_0062",
+			"key": "notice.festival_started",
+			"minute": 11520,
+			"params": {
+				"festival": "holy_week",
+				"sponsors": ""
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 8,
+			"family": "fam_0001",
+			"id": "ntc_0063",
+			"key": "notice.festival_ended",
+			"minute": 11700,
+			"params": {
+				"festival": "carnival"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 8,
+			"family": "fam_0001",
+			"id": "ntc_0064",
+			"key": "notice.upkeep_unpaid",
+			"minute": 11820,
+			"params": {
+				"building": "bld_0001",
+				"days": 1,
+				"debt": 60
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "bld_0001"
+		},
+		{
+			"day": 8,
+			"family": "fam_0003",
+			"id": "ntc_0065",
+			"key": "notice.contract_due",
+			"minute": 11929,
+			"params": {
+				"client": "innkeeper",
+				"contract": "ctr_0014",
+				"hours": 24,
+				"item": "sword",
+				"qty": 2
+			},
+			"read": false,
+			"severity": "warning",
+			"target": "chr_0006"
+		}
+	],
+	"objectives": {},
+	"offices": {
+		"constable": {
+			"seats": [
+				{
+					"cooldowns": {},
+					"holder": "chr_0004",
+					"since": 0,
+					"until": 16
+				}
+			],
+			"settings": {}
+		},
+		"councillor": {
+			"seats": [
+				{
+					"cooldowns": {},
+					"holder": "",
+					"since": -1,
+					"until": 16
+				},
+				{
+					"cooldowns": {},
+					"holder": "",
+					"since": -1,
+					"until": 16
+				}
+			],
+			"settings": {}
+		},
+		"judge": {
+			"seats": [
+				{
+					"cooldowns": {},
+					"holder": "chr_0005",
+					"since": 0,
+					"until": 16
+				}
+			],
+			"settings": {}
+		},
+		"market_inspector": {
+			"seats": [
+				{
+					"cooldowns": {},
+					"holder": "",
+					"since": -1,
+					"until": 16
+				}
+			],
+			"settings": {}
+		},
+		"mayor": {
+			"seats": [
+				{
+					"cooldowns": {},
+					"holder": "",
+					"since": -1,
+					"until": 16
+				}
+			],
+			"settings": {}
+		},
+		"tax_collector": {
+			"seats": [
+				{
+					"cooldowns": {},
+					"holder": "",
+					"since": -1,
+					"until": 16
+				}
+			],
+			"settings": {
+				"tax_percent": 5
+			}
+		}
+	},
+	"parcels": {},
+	"region": {
+		"caravans": [],
+		"carts": {},
+		"cities": {
+			"abbey": {
+				"board": [
+					{
+						"days": 4,
+						"id": "rct_0004",
+						"item": "statue",
+						"qty": 2,
+						"reward": 308
+					},
+					{
+						"days": 2,
+						"id": "rct_0009",
+						"item": "planks",
+						"qty": 2,
+						"reward": 42
+					}
+				],
+				"demand": {
+					"armor": 1
+				},
+				"events": [],
+				"reputation": {}
+			},
+			"capital": {
+				"board": [
+					{
+						"days": 4,
+						"id": "rct_0001",
+						"item": "bread",
+						"qty": 4,
+						"reward": 45
+					},
+					{
+						"days": 3,
+						"id": "rct_0005",
+						"item": "wheat",
+						"qty": 2,
+						"reward": 11
+					}
+				],
+				"demand": {},
+				"events": [
+					{
+						"def": "festival",
+						"end": 12960,
+						"start": 11520
+					}
+				],
+				"reputation": {}
+			},
+			"hamlet": {
+				"board": [
+					{
+						"days": 4,
+						"id": "rct_0002",
+						"item": "common_clothes",
+						"qty": 2,
+						"reward": 126
+					},
+					{
+						"days": 3,
+						"id": "rct_0006",
+						"item": "common_clothes",
+						"qty": 3,
+						"reward": 189
+					}
+				],
+				"demand": {
+					"armor": 1
+				},
+				"events": [
+					{
+						"def": "festival",
+						"end": 12960,
+						"start": 11520
+					}
+				],
+				"reputation": {}
+			},
+			"port": {
+				"board": [
+					{
+						"days": 3,
+						"id": "rct_0007",
+						"item": "travel_cloak",
+						"qty": 3,
+						"reward": 168
+					},
+					{
+						"days": 4,
+						"id": "rct_0010",
+						"item": "hammer",
+						"qty": 2,
+						"reward": 98
+					}
+				],
+				"demand": {},
+				"events": [],
+				"reputation": {}
+			},
+			"quarry": {
+				"board": [
+					{
+						"days": 4,
+						"id": "rct_0003",
+						"item": "hammer",
+						"qty": 6,
+						"reward": 294
+					},
+					{
+						"days": 4,
+						"id": "rct_0008",
+						"item": "flour",
+						"qty": 6,
+						"reward": 101
+					}
+				],
+				"demand": {},
+				"events": [],
+				"reputation": {}
+			}
+		},
+		"contracts": [],
+		"events": [
+			{
+				"def": "flood",
+				"end": 14400,
+				"id": "rev_0002",
+				"start": 11520
+			}
+		],
+		"home": "villa",
+		"stats": {},
+		"treaties": [],
+		"trips": {}
+	},
+	"relationships": {
+		"chr_0002|chr_0006": {
+			"affinity": 31,
+			"relation": 0,
+			"talk_day": 7
+		}
+	},
+	"rng_state": "-4453633951135888726",
+	"seed": "1",
+	"town": {
+		"counters": {},
+		"incidents": {
+			"active": [],
+			"closed": [
+				{
+					"card": {
+						"answered": false,
+						"choices": [
+							"separate",
+							"watch"
+						],
+						"default": "watch",
+						"expires": 1140,
+						"family": "fam_0001",
+						"started": 1080
+					},
+					"deadline": 1110,
+					"def": "altercation",
+					"ended": 1121,
+					"fight_until": 1121,
+					"id": "inc_0001",
+					"instigator": "chr_0021",
+					"outcome": "fought",
+					"people": [
+						"chr_0021",
+						"chr_0018"
+					],
+					"phase": "closed",
+					"point": "chat_well",
+					"started": 1080,
+					"tile": [
+						18,
+						17
+					],
+					"watchers": [
+						"chr_0008",
+						"chr_0012",
+						"chr_0014",
+						"chr_0015"
+					],
+					"why": "drunk",
+					"winner": "chr_0021"
+				},
+				{
+					"card": {
+						"answered": false,
+						"choices": [
+							"separate",
+							"watch"
+						],
+						"default": "watch",
+						"expires": 1320,
+						"family": "fam_0001",
+						"started": 1260
+					},
+					"deadline": 1290,
+					"def": "altercation",
+					"ended": 1277,
+					"fight_until": 1293,
+					"fine": 16,
+					"id": "inc_0002",
+					"instigator": "chr_0019",
+					"outcome": "watch",
+					"people": [
+						"chr_0019",
+						"chr_0011"
+					],
+					"phase": "closed",
+					"point": "chat_well",
+					"started": 1260,
+					"tile": [
+						18,
+						17
+					],
+					"watchers": [
+						"chr_0007",
+						"chr_0008",
+						"chr_0010",
+						"chr_0012"
+					],
+					"why": "drunk",
+					"winner": "chr_0011"
+				},
+				{
+					"card": {
+						"answered": false,
+						"choices": [
+							"separate",
+							"watch"
+						],
+						"default": "watch",
+						"expires": 4080,
+						"family": "fam_0001",
+						"started": 4020
+					},
+					"deadline": 4050,
+					"def": "altercation",
+					"ended": 4035,
+					"fight_until": 4059,
+					"fine": 20,
+					"id": "inc_0003",
+					"instigator": "chr_0017",
+					"outcome": "watch",
+					"people": [
+						"chr_0017",
+						"chr_0022"
+					],
+					"phase": "closed",
+					"point": "chat_well",
+					"started": 4020,
+					"tile": [
+						18,
+						17
+					],
+					"watchers": [
+						"chr_0007",
+						"chr_0008",
+						"chr_0009",
+						"chr_0012"
+					],
+					"why": "drunk",
+					"winner": "chr_0017"
+				},
+				{
+					"card": {
+						"answered": false,
+						"choices": [
+							"separate",
+							"watch"
+						],
+						"default": "watch",
+						"expires": 4140,
+						"family": "fam_0001",
+						"started": 4080
+					},
+					"deadline": 4110,
+					"def": "altercation",
+					"ended": 4093,
+					"fight_until": 4117,
+					"fine": 11,
+					"id": "inc_0004",
+					"instigator": "chr_0013",
+					"outcome": "watch",
+					"people": [
+						"chr_0013",
+						"chr_0008"
+					],
+					"phase": "closed",
+					"point": "chat_well",
+					"started": 4080,
+					"tile": [
+						18,
+						17
+					],
+					"watchers": [
+						"chr_0012",
+						"chr_0014",
+						"chr_0015",
+						"chr_0016"
+					],
+					"why": "drunk",
+					"winner": "chr_0013"
+				},
+				{
+					"card": {
+						"answered": false,
+						"choices": [
+							"separate",
+							"watch"
+						],
+						"default": "watch",
+						"expires": 4200,
+						"family": "fam_0001",
+						"started": 4140
+					},
+					"deadline": 4170,
+					"def": "altercation",
+					"ended": 4147,
+					"fight_until": 4171,
+					"fine": 16,
+					"id": "inc_0005",
+					"instigator": "chr_0011",
+					"outcome": "watch",
+					"people": [
+						"chr_0011",
+						"chr_0009"
+					],
+					"phase": "closed",
+					"point": "chat_well",
+					"started": 4140,
+					"tile": [
+						18,
+						17
+					],
+					"watchers": [
+						"chr_0008",
+						"chr_0010",
+						"chr_0012",
+						"chr_0013"
+					],
+					"why": "drunk",
+					"winner": "chr_0009"
+				},
+				{
+					"card": {
+						"answered": false,
+						"choices": [
+							"separate",
+							"watch"
+						],
+						"default": "watch",
+						"expires": 5580,
+						"family": "fam_0001",
+						"started": 5520
+					},
+					"deadline": 5550,
+					"def": "altercation",
+					"ended": 5533,
+					"fight_until": 5557,
+					"fine": 0,
+					"id": "inc_0006",
+					"instigator": "chr_0018",
+					"outcome": "watch",
+					"people": [
+						"chr_0018",
+						"chr_0015"
+					],
+					"phase": "closed",
+					"point": "chat_well",
+					"started": 5520,
+					"tile": [
+						18,
+						17
+					],
+					"watchers": [
+						"chr_0008",
+						"chr_0012",
+						"chr_0016",
+						"chr_0017"
+					],
+					"why": "drunk",
+					"winner": "chr_0015"
+				},
+				{
+					"card": {
+						"answered": false,
+						"choices": [
+							"separate",
+							"watch"
+						],
+						"default": "watch",
+						"expires": 7080,
+						"family": "fam_0001",
+						"started": 7020
+					},
+					"deadline": 7050,
+					"def": "altercation",
+					"ended": 7037,
+					"fight_until": 7057,
+					"fine": 4,
+					"id": "inc_0007",
+					"instigator": "chr_0019",
+					"outcome": "watch",
+					"people": [
+						"chr_0019",
+						"chr_0016"
+					],
+					"phase": "closed",
+					"point": "chat_well",
+					"started": 7020,
+					"tile": [
+						18,
+						17
+					],
+					"watchers": [
+						"chr_0007",
+						"chr_0012",
+						"chr_0014",
+						"chr_0020"
+					],
+					"why": "drunk",
+					"winner": "chr_0016"
+				},
+				{
+					"card": {
+						"answered": false,
+						"choices": [
+							"separate",
+							"watch"
+						],
+						"default": "watch",
+						"expires": 11220,
+						"family": "fam_0001",
+						"started": 11160
+					},
+					"deadline": 11190,
+					"def": "altercation",
+					"ended": 11169,
+					"fight_until": 11193,
+					"fine": 9,
+					"id": "inc_0008",
+					"instigator": "chr_0014",
+					"outcome": "watch",
+					"people": [
+						"chr_0014",
+						"chr_0008"
+					],
+					"phase": "closed",
+					"point": "chat_well",
+					"started": 11160,
+					"tile": [
+						18,
+						17
+					],
+					"watchers": [
+						"chr_0007",
+						"chr_0009",
+						"chr_0010",
+						"chr_0012"
+					],
+					"why": "drunk",
+					"winner": "chr_0008"
+				},
+				{
+					"card": {
+						"answered": false,
+						"choices": [
+							"separate",
+							"watch"
+						],
+						"default": "watch",
+						"expires": 11280,
+						"family": "fam_0001",
+						"started": 11220
+					},
+					"deadline": 11250,
+					"def": "altercation",
+					"ended": 11237,
+					"fight_until": 11257,
+					"fine": 12,
+					"id": "inc_0009",
+					"instigator": "chr_0016",
+					"outcome": "watch",
+					"people": [
+						"chr_0016",
+						"chr_0008"
+					],
+					"phase": "closed",
+					"point": "chat_well",
+					"started": 11220,
+					"tile": [
+						18,
+						17
+					],
+					"watchers": [
+						"chr_0007",
+						"chr_0009",
+						"chr_0010",
+						"chr_0011"
+					],
+					"why": "drunk",
+					"winner": "chr_0016"
+				}
+			],
+			"last": {
+				"altercation_pending": 7,
+				"bandit_raid": 8
+			},
+			"nests": {},
+			"planned": [
+				{
+					"at": 13117,
+					"def": "bandit_raid",
+					"key": "bandit_raid|8"
+				}
+			],
+			"warned": {
+				"bandit_raid|8": {
+					"def": "bandit_raid",
+					"place_key": "nest.r4",
+					"until": 13177
+				}
+			}
+		},
+		"life": {
+			"cries": [],
+			"spectacles": []
+		},
+		"rumors": {
+			"heard": [
+				{
+					"by": "chr_0001",
+					"key": "prices|capital|bread",
+					"minute": 620,
+					"params": {
+						"city": "@region.capital",
+						"item": "@item.bread"
+					},
+					"point": "meet_well",
+					"rumor": "prices",
+					"text_key": "rumor.prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0030|travel_cloak",
+					"minute": 730,
+					"params": {
+						"city": "@region.port",
+						"item": "@item.travel_cloak",
+						"name": "Martí"
+					},
+					"point": "meet_well",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor|chr_0030",
+					"minute": 800,
+					"params": {
+						"city": "@region.port",
+						"kind": "@visitor.merchant",
+						"name": "Martí"
+					},
+					"point": "meet_well",
+					"rumor": "visitor",
+					"text_key": "rumor.visitor",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "brawl|1121|altercation",
+					"minute": 1160,
+					"params": {
+						"family": "Mas",
+						"name": "Berenguer",
+						"target": "Margarida"
+					},
+					"point": "meet_well",
+					"rumor": "brawl",
+					"text_key": "rumor.brawl",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "prices|capital|sword",
+					"minute": 2200,
+					"params": {
+						"city": "@region.capital",
+						"item": "@item.sword"
+					},
+					"point": "meet_well",
+					"rumor": "prices",
+					"text_key": "rumor.prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0033|bread",
+					"minute": 2250,
+					"params": {
+						"city": "@region.quarry",
+						"item": "@item.bread",
+						"name": "Agnès"
+					},
+					"point": "meet_well",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "brawl|1277|altercation",
+					"minute": 2620,
+					"params": {
+						"family": "Pons",
+						"name": "Ramon",
+						"target": "Arnau"
+					},
+					"point": "meet_well",
+					"rumor": "brawl",
+					"text_key": "rumor.brawl",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "contract|ctr_0002",
+					"minute": 3520,
+					"params": {
+						"item": "@item.armor",
+						"pay": 78,
+						"qty": 1
+					},
+					"point": "meet_well",
+					"rumor": "contract",
+					"text_key": "rumor.contract",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "contract|ctr_0003",
+					"minute": 3640,
+					"params": {
+						"item": "@item.horseshoe",
+						"pay": 90,
+						"qty": 4
+					},
+					"point": "meet_well",
+					"rumor": "contract",
+					"text_key": "rumor.contract",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "prices|capital|wheat",
+					"minute": 3690,
+					"params": {
+						"city": "@region.capital",
+						"item": "@item.wheat"
+					},
+					"point": "meet_well",
+					"rumor": "prices",
+					"text_key": "rumor.prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "contract|ctr_0004",
+					"minute": 3850,
+					"params": {
+						"item": "@item.prepared_meal",
+						"pay": 64,
+						"qty": 8
+					},
+					"point": "meet_well",
+					"rumor": "contract",
+					"text_key": "rumor.contract",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "brawl|4093|altercation",
+					"minute": 4100,
+					"params": {
+						"family": "Vila",
+						"name": "Martí",
+						"target": "Agnès"
+					},
+					"point": "chat_well",
+					"rumor": "brawl",
+					"text_key": "rumor.brawl",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "brawl|4035|altercation",
+					"minute": 4860,
+					"params": {
+						"family": "Font",
+						"name": "Jaume",
+						"target": "Violant"
+					},
+					"point": "chat_board",
+					"rumor": "brawl",
+					"text_key": "rumor.brawl",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0038|statue",
+					"minute": 4880,
+					"params": {
+						"city": "@region.abbey",
+						"item": "@item.statue",
+						"name": "Pere"
+					},
+					"point": "meet_square",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0042|travel_cloak",
+					"minute": 4930,
+					"params": {
+						"city": "@region.port",
+						"item": "@item.travel_cloak",
+						"name": "Ferran"
+					},
+					"point": "meet_square",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0044|hoe",
+					"minute": 4980,
+					"params": {
+						"city": "@region.hamlet",
+						"item": "@item.hoe",
+						"name": "Arnau"
+					},
+					"point": "meet_square",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "prices|capital|statue",
+					"minute": 5030,
+					"params": {
+						"city": "@region.capital",
+						"item": "@item.statue"
+					},
+					"point": "meet_square",
+					"rumor": "prices",
+					"text_key": "rumor.prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0045|statue",
+					"minute": 5050,
+					"params": {
+						"city": "@region.capital",
+						"item": "@item.statue",
+						"name": "Ramon"
+					},
+					"point": "chat_board",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0048|travel_cloak",
+					"minute": 5080,
+					"params": {
+						"city": "@region.port",
+						"item": "@item.travel_cloak",
+						"name": "Joan"
+					},
+					"point": "meet_square",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0050|statue",
+					"minute": 5230,
+					"params": {
+						"city": "@region.abbey",
+						"item": "@item.statue",
+						"name": "Margarida"
+					},
+					"point": "meet_well",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "contract|ctr_0005",
+					"minute": 6190,
+					"params": {
+						"item": "@item.armor",
+						"pay": 157,
+						"qty": 2
+					},
+					"point": "meet_well",
+					"rumor": "contract",
+					"text_key": "rumor.contract",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "brawl|4147|altercation",
+					"minute": 6430,
+					"params": {
+						"family": "Roca",
+						"name": "Arnau",
+						"target": "Pau"
+					},
+					"point": "meet_well",
+					"rumor": "brawl",
+					"text_key": "rumor.brawl",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "contract|ctr_0007",
+					"minute": 6480,
+					"params": {
+						"item": "@item.candlestick",
+						"pay": 80,
+						"qty": 2
+					},
+					"point": "meet_well",
+					"rumor": "contract",
+					"text_key": "rumor.contract",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0052|statue",
+					"minute": 6620,
+					"params": {
+						"city": "@region.capital",
+						"item": "@item.statue",
+						"name": "Isabel"
+					},
+					"point": "meet_well",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "contract|ctr_0009",
+					"minute": 6830,
+					"params": {
+						"item": "@item.sword",
+						"pay": 190,
+						"qty": 2
+					},
+					"point": "meet_well",
+					"rumor": "contract",
+					"text_key": "rumor.contract",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "prices|abbey|statue",
+					"minute": 6980,
+					"params": {
+						"city": "@region.abbey",
+						"item": "@item.statue"
+					},
+					"point": "meet_well",
+					"rumor": "prices",
+					"text_key": "rumor.prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "prices|capital|prepared_meal",
+					"minute": 7640,
+					"params": {
+						"city": "@region.capital",
+						"item": "@item.prepared_meal"
+					},
+					"point": "meet_well",
+					"rumor": "prices",
+					"text_key": "rumor.prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0059|prepared_meal",
+					"minute": 8220,
+					"params": {
+						"city": "@region.quarry",
+						"item": "@item.prepared_meal",
+						"name": "Ramon"
+					},
+					"point": "meet_well",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "brawl|7037|altercation",
+					"minute": 8450,
+					"params": {
+						"family": "Pons",
+						"name": "Ramon",
+						"target": "Sança"
+					},
+					"point": "meet_well",
+					"rumor": "brawl",
+					"text_key": "rumor.brawl",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "contract|ctr_0013",
+					"minute": 9200,
+					"params": {
+						"item": "@item.prepared_meal",
+						"pay": 77,
+						"qty": 8
+					},
+					"point": "meet_well",
+					"rumor": "contract",
+					"text_key": "rumor.contract",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "brawl|5533|altercation",
+					"minute": 9380,
+					"params": {
+						"family": "Font",
+						"name": "Margarida",
+						"target": "Guillem"
+					},
+					"point": "meet_square",
+					"rumor": "brawl",
+					"text_key": "rumor.brawl",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "event|gev_0001",
+					"minute": 9430,
+					"params": {
+						"days": 6,
+						"event": "@event.war"
+					},
+					"point": "meet_square",
+					"rumor": "event",
+					"text_key": "rumor.event",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "prices|quarry|wheat",
+					"minute": 9440,
+					"params": {
+						"city": "@region.quarry",
+						"item": "@item.wheat"
+					},
+					"point": "meet_well",
+					"rumor": "prices",
+					"text_key": "rumor.prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor|chr_0063",
+					"minute": 9530,
+					"params": {
+						"city": "@region.port",
+						"kind": "@visitor.peddler.f",
+						"name": "Isabel"
+					},
+					"point": "meet_square",
+					"rumor": "visitor",
+					"text_key": "rumor.visitor",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "contract|ctr_0014",
+					"minute": 9740,
+					"params": {
+						"item": "@item.sword",
+						"pay": 249,
+						"qty": 2
+					},
+					"point": "meet_square",
+					"rumor": "contract",
+					"text_key": "rumor.contract",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor|chr_0065",
+					"minute": 10750,
+					"params": {
+						"city": "@region.quarry",
+						"kind": "@visitor.noble",
+						"name": "Ramon"
+					},
+					"point": "meet_well",
+					"rumor": "visitor",
+					"text_key": "rumor.visitor",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor_prices|chr_0064|statue",
+					"minute": 10800,
+					"params": {
+						"city": "@region.abbey",
+						"item": "@item.statue",
+						"name": "Lluc"
+					},
+					"point": "meet_well",
+					"rumor": "visitor_prices",
+					"text_key": "rumor.visitor_prices",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "bandits_seen|bandit_raid|8",
+					"minute": 10850,
+					"params": {
+						"place": "@nest.r4"
+					},
+					"point": "meet_well",
+					"rumor": "bandits_seen",
+					"text_key": "rumor.bandits_seen",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "visitor|chr_0066",
+					"minute": 10930,
+					"params": {
+						"city": "@region.quarry",
+						"kind": "@visitor.peddler",
+						"name": "Joan"
+					},
+					"point": "meet_well",
+					"rumor": "visitor",
+					"text_key": "rumor.visitor",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "contract|ctr_0015",
+					"minute": 10990,
+					"params": {
+						"item": "@item.prepared_meal",
+						"pay": 154,
+						"qty": 6
+					},
+					"point": "chat_board",
+					"rumor": "contract",
+					"text_key": "rumor.contract",
+					"useful": true
+				},
+				{
+					"by": "chr_0001",
+					"key": "brawl|11237|altercation",
+					"minute": 11960,
+					"params": {
+						"family": "Serra",
+						"name": "Sança",
+						"target": "Agnès"
+					},
+					"point": "meet_square",
+					"rumor": "brawl",
+					"text_key": "rumor.brawl",
+					"useful": false
+				},
+				{
+					"by": "chr_0001",
+					"key": "brawl|11169|altercation",
+					"minute": 12010,
+					"params": {
+						"family": "Vila",
+						"name": "Blanca",
+						"target": "Agnès"
+					},
+					"point": "meet_well",
+					"rumor": "brawl",
+					"text_key": "rumor.brawl",
+					"useful": false
+				}
+			],
+			"told": {
+				"meet_well": {
+					"key": "bandits_seen|bandit_raid|8",
+					"listeners": 4,
+					"params": {
+						"place": "@nest.r4"
+					},
+					"point": "meet_well",
+					"rumor": "bandits_seen",
+					"speaker": "chr_0010",
+					"text_key": "rumor.bandits_seen",
+					"topic": "road",
+					"until": 12120,
+					"useful": true,
+					"weight": 3.0
+				}
+			}
+		},
+		"visitors": {
+			"alive": [],
+			"alms": {},
+			"day": 8,
+			"planned": [
+				{
+					"at": 12110,
+					"city": "port",
+					"gate": "west_gate",
+					"key": "life|vis|scenario|beggar",
+					"kind": "beggar"
+				}
+			]
+		},
+		"watch": {
+			"dispatch": {},
+			"guards": {
+				"chr_0023": "gate_west_gate",
+				"chr_0024": "gate_east_gate",
+				"chr_0025": "night_1",
+				"chr_0026": "night_2",
+				"chr_0027": "festival_1",
+				"chr_0028": "night_3"
+			}
+		}
+	},
+	"trials": [],
+	"version": 18
+}

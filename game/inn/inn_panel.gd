@@ -25,6 +25,10 @@ var building: String = ""
 var actor_id: String = ""
 var tab: String = "clientele"
 var _minute: int = -1
+var in_place_updates: int = 0   # refreshes that kept the rows (tests)
+var rebuilds: int = 0           # refreshes that replaced them (tests)
+var focus_target: Control = null  # the control a rebuild gave the focus back to (tests)
+var focus_probe: Control = null   # out of a tree, the control taken as focused (tests)
 var _bound: bool = false
 
 
@@ -96,21 +100,7 @@ func refresh() -> void:
 	for t: String in TABS:
 		(get_node("%Tab" + t.to_pascal_case()) as Button).set_pressed_no_signal(t == tab)
 	(%Figures as Label).text = figures_line()
-	var body := %Body as VBoxContainer
-	for c: Node in body.get_children():
-		body.remove_child(c)
-		c.queue_free()
-	match tab:
-		"clientele":
-			_build_clientele(body)
-		"menu":
-			_build_menu(body)
-		"rooms":
-			_build_rooms(body)
-		"turn":
-			_build_turn(body)
-		"games":
-			_build_games(body)
+	_fill_body()
 	var lic := %LicenseButton as Button
 	var lc: Dictionary = Inn.rules(sim).get("license", {})
 	if Inn.licensed(sim, building):
@@ -121,6 +111,117 @@ func refresh() -> void:
 		lic.disabled = not Money.can_pay(sim.state, str(sim.state.buildings[building].get("owner", "")), int(lc.get("cost", 60)))
 	lic.tooltip_text = SimQuery.t_("ui.inn.license_tip")
 	(%Hint as Label).text = SimQuery.t_("ui.inn.hint." + tab)
+
+
+## The tab's rows, built apart and then updated in place (verifica 2026-11-05: rebuilding them every 5 game minutes
+## lost the keyboard focus and freed the row under the pointer): when the new rows have the same shape as the shown
+## ones (same kinds of controls in the same places), only their texts, states and colours are copied over and the
+## nodes stay; when the shape changed (another tab, a row more or less) the rows are replaced, keeping the focused
+## control by its place and the scroll.
+func _fill_body() -> void:
+	var body := %Body as VBoxContainer
+	var fresh := VBoxContainer.new()
+	match tab:
+		"clientele":
+			_build_clientele(fresh)
+		"menu":
+			_build_menu(fresh)
+		"rooms":
+			_build_rooms(fresh)
+		"turn":
+			_build_turn(fresh)
+		"games":
+			_build_games(fresh)
+	if str(body.get_meta("tab", "")) == tab and InnPanel.same_shape(body, fresh):
+		InnPanel.copy_state(body, fresh)
+		fresh.free()
+		in_place_updates += 1
+		return
+	var focused := focus_owner()
+	var path: Array = InnPanel.index_path(body, focused) if focused != null else []
+	var mode := focused.focus_mode if focused != null else Control.FOCUS_NONE
+	var scroll := get_node_or_null("%Scroll") as ScrollContainer
+	var v := scroll.scroll_vertical if scroll != null else 0
+	for c: Node in body.get_children():
+		body.remove_child(c)
+		c.queue_free()
+	for c: Node in fresh.get_children():
+		fresh.remove_child(c)
+		body.add_child(c)
+	fresh.free()
+	body.set_meta("tab", tab)
+	rebuilds += 1
+	if not path.is_empty():
+		var again := InnPanel.at_path(body, path) as Control
+		if again != null and again.get_class() == focused.get_class():
+			again.focus_mode = mode  # whoever gave it the focus (the keyboard, a driver) keeps it on the new one
+			focus_target = again
+			if again.is_visible_in_tree():
+				again.grab_focus()
+	if scroll != null:
+		scroll.set_deferred("scroll_vertical", v)
+
+
+## The control with the keyboard focus inside the panel's rows (focus_probe out of a tree: the tests).
+func focus_owner() -> Control:
+	var f: Control = get_viewport().gui_get_focus_owner() if is_inside_tree() else focus_probe
+	return f if f != null and is_ancestor_of(f) else null
+
+
+## Whether two built trees have the same shape: the same classes, child by child.
+static func same_shape(a: Node, b: Node) -> bool:
+	if a.get_class() != b.get_class() or a.get_child_count() != b.get_child_count():
+		return false
+	for i: int in a.get_child_count():
+		if not same_shape(a.get_child(i), b.get_child(i)):
+			return false
+	return true
+
+
+## Copies what a refresh changes (texts, toggles, disabled, tooltips, colours, textures) from `src` onto `dst`, a
+## tree of the same shape; the nodes and their signals stay (their callbacks read the state when pressed).
+static func copy_state(dst: Node, src: Node) -> void:
+	if dst is Label:
+		var dl := dst as Label
+		var sl := src as Label
+		dl.text = sl.text
+		dl.theme_type_variation = sl.theme_type_variation
+		if sl.has_theme_color_override("font_color"):
+			dl.add_theme_color_override("font_color", sl.get_theme_color("font_color"))
+		else:
+			dl.remove_theme_color_override("font_color")
+	elif dst is BaseButton:
+		var db := dst as BaseButton
+		var sb := src as BaseButton
+		db.disabled = sb.disabled
+		db.tooltip_text = sb.tooltip_text
+		if db.toggle_mode:
+			db.set_pressed_no_signal(sb.button_pressed)
+		if dst is Button:
+			(dst as Button).text = (src as Button).text
+	elif dst is TextureRect:
+		(dst as TextureRect).texture = (src as TextureRect).texture
+	for i: int in dst.get_child_count():
+		copy_state(dst.get_child(i), src.get_child(i))
+
+
+## The child indices from `root` down to `n` ([] if `n` is not under it).
+static func index_path(root: Node, n: Node) -> Array:
+	var out: Array = []
+	var cur := n
+	while cur != null and cur != root:
+		out.push_front(cur.get_index())
+		cur = cur.get_parent()
+	return out if cur == root else []
+
+
+static func at_path(root: Node, path: Array) -> Node:
+	var cur := root
+	for i: Variant in path:
+		if int(i) >= cur.get_child_count():
+			return null
+		cur = cur.get_child(int(i))
+	return cur
 
 
 ## «Fama 2,4 (★★☆☆☆) · Ambiente 3 · 12 plazas · 8 camas · Abierta: 9 dentro» (or when it opens).

@@ -58,6 +58,18 @@ static func _on_button_input(event: InputEvent, b: BaseButton) -> void:
 		shake(b)
 
 
+## Whether `panel` must wait to rebuild its rows (verificación A4): the left button is held over it (a click between
+## press and release would land on a button that no longer exists). The panel keeps its signature and rebuilds on the
+## first frame after the release, so the click always reaches the button it was pressed on.
+static func hold_rebuild(panel: Control) -> bool:
+	if panel == null or not panel.is_inside_tree() or not panel.is_visible_in_tree():
+		return false
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		return false
+	var h := panel.get_viewport().gui_get_hovered_control()
+	return h != null and panel.is_ancestor_of(h)
+
+
 ## 1 px to the left and right twice (0.15 s), the "no" of a disabled button. Containers put it back on the next layout.
 static func shake(c: Control) -> void:
 	if not c.is_inside_tree() or c.has_meta("ui_shaking"):

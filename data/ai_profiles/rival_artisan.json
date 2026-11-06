@@ -50,5 +50,7 @@
     "fabricate_charge": "minor_fraud",
     "protect_days": 8,
     "cooldown_days": 8
-  }
+  },
+  "_tavern_table_doc": "posada (04f §4.27.4): si esta familia es dueña de una taberna, quién se sienta a su mesa de juego desde la puerta: no deja a quien su cabeza tenga en relación < refuse_below; pide rival_min_stake a quien tenga < rival_below, si no min_stake.",
+  "tavern_table": {"allow": true, "refuse_below": -40, "min_stake": 5, "rival_below": -10, "rival_min_stake": 10}
 }

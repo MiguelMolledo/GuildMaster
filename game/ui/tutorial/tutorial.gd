@@ -409,6 +409,9 @@ func tick(_delta: float) -> void:
 	for ev: Array in ctx.poll():
 		on_event("ui", str(ev[0]), ev[1] as Dictionary)
 	_check_states()
+	if ctx.help_open():   # the help (F1) is read without the tutorial's veil over it (verificación B11)
+		overlay.hide_all()
+		return
 	paint()
 
 

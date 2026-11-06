@@ -334,6 +334,7 @@ func _build_stats() -> void:
 		minus.name = s + "_minus"
 		minus.custom_minimum_size = Vector2(16, 16)
 		minus.disabled = add <= 0
+		minus.tooltip_text = tr("ui.why.stat_min") if minus.disabled else ""
 		minus.pressed.connect(func() -> void: add_point(s, -1))
 		grid.add_child(minus)
 		var val := MenuKit.label(str(int(base[s]) + add), &"PositiveLabel" if add > 0 else &"BoldLabel")
@@ -345,6 +346,7 @@ func _build_stats() -> void:
 		plus.name = s + "_plus"
 		plus.custom_minimum_size = Vector2(16, 16)
 		plus.disabled = left <= 0 or int(base[s]) + add >= smax
+		plus.tooltip_text = (tr("ui.why.no_points") if left <= 0 else tr("ui.why.stat_max")) if plus.disabled else ""
 		plus.pressed.connect(func() -> void: add_point(s, 1))
 		grid.add_child(plus)
 		for b: Button in [minus, plus]:

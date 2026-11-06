@@ -1,0 +1,57 @@
+{
+  "_doc": "The family's house (docs/gdd/04g_interiores.md 4.6.5.6): the hearth, the kitchen and the table downstairs; the bedrooms upstairs. Edit by hand, then python3 tools/interiors/interiores.py reglas house && python3 tools/interiors/interiores.py validar house.",
+  "size": [8, 6],
+  "wall_height": 64,
+  "floor_height": 80,
+  "seed": 17,
+  "entrance": {"floor": 0, "tile": [0, 3], "side": "nw"},
+  "rooms": [
+    {"id": "hall", "floor": 0, "type": "kitchen", "rects": [[0, 0, 7, 5]], "floor_kind": "flagstone", "wall_style": "timber", "light": "kitchen"},
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[0, 0, 3, 5]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "children", "floor": 1, "type": "bedroom", "rects": [[4, 0, 7, 5]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 1, "tile": [4, 2], "side": "nw"}
+  ],
+  "levels": [],
+  "stairs": [
+    {"id": "stairs", "floor": 0, "prop": "staircase", "tile": [7, 2], "flip": false, "from": [6, 2], "to_floor": 1, "to": [6, 2]}
+  ],
+  "stations": {},
+  "customers": {},
+  "idle": [
+    {"floor": 0, "tile": [2, 2]},
+    {"floor": 0, "tile": [2, 4]},
+    {"floor": 1, "tile": [2, 3]},
+    {"floor": 1, "tile": [5, 3]}
+  ],
+  "props": [
+    {"id": "kitchen_hearth", "floor": 0, "tile": [0, 1]},
+    {"id": "crockery_shelf", "floor": 0, "tile": [2, 0]},
+    {"id": "pantry_shelf", "floor": 0, "tile": [3, 0]},
+    {"id": "dining_table", "floor": 0, "tile": [4, 3], "flip": true},
+    {"id": "stool", "floor": 0, "tile": [4, 4]},
+    {"id": "stool", "floor": 0, "tile": [3, 2]},
+    {"id": "chair", "floor": 0, "tile": [5, 2]},
+    {"id": "washtub", "floor": 0, "tile": [7, 5]},
+    {"id": "cradle", "floor": 1, "tile": [3, 0]},
+    {"id": "bed_double", "floor": 1, "tile": [1, 0], "flip": true},
+    {"id": "chest", "floor": 1, "tile": [0, 2]},
+    {"id": "wardrobe", "floor": 1, "tile": [0, 4]},
+    {"id": "bed_single", "floor": 1, "tile": [5, 0], "flip": true},
+    {"id": "bed_single", "floor": 1, "tile": [7, 0], "flip": true},
+    {"id": "chest", "floor": 1, "tile": [7, 3]}
+  ],
+  "rules": [
+    {"rule": "wall_fill", "room": "hall", "props": ["barrel", "sack", "firewood_pile", "big_jar", "wicker_basket"], "chance": 0.5},
+    {"rule": "on_top", "room": "hall", "under": ["dining_table"], "props": ["bread_loaves", "jug", "bowl_stew", "cheese_wheel", "candle"], "max": 3, "chance": 1.0},
+    {"rule": "hang", "room": "hall", "props": ["onion_string", "herbs_hanging"], "count": 2}
+  ],
+  "upgrades": {},
+  "resolved": [
+    {"id": "wicker_basket", "floor": 0, "tile": [0, 5], "flip": false, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 0, "tile": [1, 0], "flip": true, "rule": "wall_fill"},
+    {"id": "wicker_basket", "floor": 0, "tile": [5, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "candle", "floor": 0, "tile": [4, 3], "flip": true, "lift": 26, "shift": [-17, -9], "rule": "on_top", "over": "dining_table"}
+  ]
+}

@@ -268,8 +268,8 @@
 		},
 		"bld_0006": {
 			"door": [
-				22,
-				9
+				18,
+				7
 			],
 			"employee_slots": 0,
 			"footprint": [
@@ -290,7 +290,7 @@
 				"stacks": []
 			},
 			"origin": [
-				23,
+				17,
 				8
 			],
 			"owner": "fam_0005",
@@ -309,8 +309,8 @@
 		},
 		"bld_0007": {
 			"door": [
-				18,
-				7
+				23,
+				3
 			],
 			"employee_slots": 0,
 			"footprint": [
@@ -331,8 +331,8 @@
 				"stacks": []
 			},
 			"origin": [
-				17,
-				8
+				22,
+				4
 			],
 			"owner": "fam_0006",
 			"queue": {
@@ -1504,8 +1504,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				22,
-				9
+				18,
+				7
 			],
 			"profession": "blacksmith",
 			"rank": "master",
@@ -1579,8 +1579,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				22,
-				9
+				18,
+				7
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -1654,8 +1654,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				22,
-				9
+				18,
+				7
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1729,8 +1729,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				22,
-				9
+				18,
+				7
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1804,8 +1804,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				22,
-				9
+				18,
+				7
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -1879,8 +1879,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				18,
-				7
+				23,
+				3
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1954,8 +1954,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				18,
-				7
+				23,
+				3
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -2029,8 +2029,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				18,
-				7
+				23,
+				3
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -2104,8 +2104,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				18,
-				7
+				23,
+				3
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -2179,8 +2179,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				18,
-				7
+				23,
+				3
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -3057,6 +3057,10 @@
 		"demand": {},
 		"regulations": []
 	},
+	"masterworks": {
+		"learned": {},
+		"pieces": []
+	},
 	"meta": {
 		"description": "Partida nueva de artisan_blacksmith (normal, semilla 1) en la ciudad generada region_abbey (trazado organic, semilla 1).",
 		"origin": "tools/scenarios/make_city_scenarios.gd",
@@ -3180,5 +3184,6 @@
 		"counters": {}
 	},
 	"trials": [],
-	"version": 19
+	"unlocks": {},
+	"version": 20
 }

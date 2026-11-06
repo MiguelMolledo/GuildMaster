@@ -149,3 +149,47 @@ func test_decoration_keeps_off_the_well() -> void:
 	var s := FestivalLayer.sites(sim.state, sim.catalog)
 	check(not Vector2i(19, 18) in (s["_free"] as Array), "the well's tile is not free ground")
 	check(not Vector2i(19, 18) in (s["plaza_center"] as Array), "nor the middle of the plaza")
+
+
+## The outskirts (rules.view_sites.outskirts): the meadow by the gates of any town with gates, never a road nor a gate.
+func test_outskirts_by_the_gates_of_every_town() -> void:
+	var sim := _game()
+	var roads := ["street", "dirt", "bridge", "ford", "dock"]
+	for map_id: String in ["town_e", "region_capital", "region_port", "region_quarry", "region_hamlet", "region_abbey"]:
+		var st := WorldState.new()
+		st.map_id = map_id
+		var s := FestivalLayer.sites(st, sim.catalog)
+		var near: Array = s["outskirts"]
+		check(not near.is_empty(), "%s: outskirts by its gates" % map_id)
+		var rows: Array = sim.catalog.maps()[map_id]["rows"]
+		var gates: Array = []
+		for g: String in sim.catalog.maps()[map_id]["spawns"]:
+			if g.ends_with("_gate"):
+				var sp: Array = sim.catalog.maps()[map_id]["spawns"][g]
+				gates.append(Vector2i(int(sp[0]), int(sp[1])))
+		var bad := 0
+		for t: Vector2i in (s["_meadow"] as Array):
+			var kind := sim.catalog.tile_kind_of_char(str(rows[t.y])[t.x])
+			if kind in roads or kind != "grass":
+				bad += 1
+			for gt: Vector2i in gates:
+				if maxi(absi(t.x - gt.x), absi(t.y - gt.y)) <= 1:
+					bad += 1
+		eq(bad, 0, "%s: no road nor gate in the meadow" % map_id)
+		var meadow := {}
+		for t: Vector2i in (s["_meadow"] as Array):
+			meadow[t] = true
+		var fits := false
+		for t: Vector2i in near:
+			var ok := true
+			for dy: int in 3:
+				for dx: int in 3:
+					ok = ok and meadow.has(t + Vector2i(dx, dy))
+			fits = fits or ok
+		# The sim and the view read one rule (FestivalGround): where the view finds no room, the sim sells the cattle at
+		# stalls (the chronicle says so); tools/city/plots.py keeps a meadow by a gate free for one in every town.
+		eq(fits, FestivalGround.fits(sim.catalog, map_id, Vector2i(3, 3)), "%s: the sim and the view agree on the pen" % map_id)
+		if map_id == "town_e":
+			check(fits, "town_e: a 3×3 pen fits by a gate")
+	eq(str((Festivals.def_of(sim, "harvest_fair")["view"]["decor"] as Array).filter(func(d: Dictionary) -> bool:
+		return str(d["prop"]) == "pen")[0]["where"]), "outskirts", "the fair's pens go outside the walls")

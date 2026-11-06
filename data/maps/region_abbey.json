@@ -10,13 +10,13 @@
   ".TT.......T.....................###.",
   ".........TT.....................###.",
   "......T....T..###...============###.",
-  ".###...T......###..===.....=========",
-  ".###..........###.==................",
-  ".###..........###==......MMMM.......",
+  ".###...T......###..===###..=========",
+  ".###..........###.==..###...........",
+  ".###..........###==...###MMMM.......",
   ".###...######...==....MMMM..MMM.....",
-  "...=...######..==###.MM###....MM....",
-  "...=...######..==###MM.###.ffffMM...",
-  "...=...######..==###M.,###.ffff.MM..",
+  "...=...######..==###.MM.......MM....",
+  "...=...######..==###MM.....ffffMM...",
+  "...=...######..==###M.,....ffff.MM..",
   "...=...........==..MM.,....ffff..M..",
   "...=...PPPPPPPPP=.MM..,..........MM.",
   "...=..PSPPSPPSPP..M...,...........M.",
@@ -35,12 +35,12 @@
   ".......###.,###....MM.........wwwM..",
   ".......###.,###.....MM.......wwwww..",
   ".......###.,###......MM.......www...",
-  "...........,,.........MMM...MMM.TT..",
-  "....,...###.,...........MMMMM...T...",
-  "...,fff.###.,.###...................",
-  "..,ffff.###.,,###........T......TTT.",
-  ".,fffff...,..,###......TT..T......T.",
-  ".....T....,..,,.....................",
+  ".T..T......,,.........MMM...MMM.TT..",
+  "........###.,...........MMMMM...T...",
+  ".T......###.,.###...................",
+  ".T......###.,,###........T......TTT.",
+  ".TT..........,###......TT..T......T.",
+  "....TT.......,,.....................",
   "..............,....................."
  ],
  "spawns": {
@@ -179,23 +179,23 @@
   "house_03": {
    "type": "house",
    "origin": [
-    23,
-    8
-   ],
-   "door": [
-    22,
-    9
-   ]
-  },
-  "house_04": {
-   "type": "house",
-   "origin": [
     17,
     8
    ],
    "door": [
     18,
     7
+   ]
+  },
+  "house_04": {
+   "type": "house",
+   "origin": [
+    22,
+    4
+   ],
+   "door": [
+    23,
+    3
    ]
   },
   "player_forge": {
@@ -539,8 +539,8 @@
    "id": "field_b",
    "kind": "tile",
    "tile": [
-    4,
-    31
+    29,
+    9
    ]
   },
   {
@@ -615,16 +615,16 @@
    "id": "field_c",
    "kind": "tile",
    "tile": [
-    29,
-    9
+    27,
+    10
    ]
   },
   {
    "id": "field_d",
    "kind": "tile",
    "tile": [
-    2,
-    33
+    29,
+    10
    ]
   },
   {
@@ -1181,6 +1181,9 @@
  "watch": {
   "name_key": "family.watch.abbey"
  },
+ "detail": {
+  "settled_every": 5
+ },
  "plots": [
   {
    "id": "plot_01",
@@ -1226,6 +1229,25 @@
    "side": "inside",
    "zone": "housing",
    "origin": [
+    14,
+    23
+   ],
+   "size": [
+    2,
+    2
+   ],
+   "front": [
+    14,
+    22
+   ],
+   "location": 0.62
+  },
+  {
+   "id": "plot_04",
+   "state": "lot",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
     5,
     24
    ],
@@ -1240,42 +1262,23 @@
    "location": 0.62
   },
   {
-   "id": "plot_04",
-   "state": "lot",
-   "side": "inside",
-   "zone": "housing",
-   "origin": [
-    17,
-    3
-   ],
-   "size": [
-    2,
-    2
-   ],
-   "front": [
-    18,
-    5
-   ],
-   "location": 0.61
-  },
-  {
    "id": "plot_05",
    "state": "lot",
    "side": "outside",
    "zone": "rustic",
    "origin": [
-    23,
+    18,
     1
    ],
    "size": [
-    3,
-    2
-   ],
-   "front": [
-    23,
+    2,
     3
    ],
-   "location": 0.56
+   "front": [
+    19,
+    4
+   ],
+   "location": 0.61
   },
   {
    "id": "plot_06",
@@ -1283,18 +1286,18 @@
    "side": "outside",
    "zone": "rustic",
    "origin": [
-    3,
-    28
+    20,
+    5
    ],
    "size": [
-    3,
-    2
+    2,
+    3
    ],
    "front": [
-    4,
-    30
+    20,
+    4
    ],
-   "location": 0.33
+   "location": 0.61
   },
   {
    "id": "plot_07",
@@ -1302,7 +1305,7 @@
    "side": "outside",
    "zone": "rustic",
    "origin": [
-    1,
+    10,
     34
    ],
    "size": [
@@ -1310,10 +1313,10 @@
     2
    ],
    "front": [
-    1,
-    33
+    13,
+    34
    ],
-   "location": 0.28
+   "location": 0.32
   },
   {
    "id": "plot_08",
@@ -1353,8 +1356,8 @@
     18,
     7
    ],
-   "location": 0.62,
-   "site": "house_04",
+   "location": 0.63,
+   "site": "house_03",
    "for_sale": false
   },
   {
@@ -1395,7 +1398,7 @@
     10,
     27
    ],
-   "location": 0.57,
+   "location": 0.56,
    "site": "rival_forge",
    "for_sale": false
   },
@@ -1416,7 +1419,7 @@
     13,
     29
    ],
-   "location": 0.44,
+   "location": 0.43,
    "site": "workshop_carpentry",
    "for_sale": false
   },
@@ -1445,6 +1448,27 @@
    "id": "plot_14",
    "state": "business",
    "side": "outside",
+   "zone": "housing",
+   "origin": [
+    22,
+    4
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    23,
+    3
+   ],
+   "location": 0.58,
+   "site": "house_04",
+   "for_sale": false
+  },
+  {
+   "id": "plot_15",
+   "state": "business",
+   "side": "outside",
    "zone": "production",
    "origin": [
     32,
@@ -1458,12 +1482,12 @@
     33,
     4
    ],
-   "location": 0.5,
+   "location": 0.48,
    "site": "workshop_tailor",
    "for_sale": true
   },
   {
-   "id": "plot_15",
+   "id": "plot_16",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -1521,7 +1545,6 @@
    {"kind": "fence", "id": "fence", "at": [28, 9], "off": [14, -7]},
    {"kind": "fence", "id": "fence", "at": [30, 9], "off": [14, 7], "flip": true},
    {"kind": "fence", "id": "fence", "at": [30, 9], "off": [14, -7]},
-   {"kind": "fence", "id": "fence", "at": [27, 10], "off": [-14, -7], "flip": true},
    {"kind": "fence", "id": "fence", "at": [30, 10], "off": [14, 7], "flip": true},
    {"kind": "fence", "id": "fence", "at": [27, 11], "off": [-14, 7]},
    {"kind": "fence", "id": "fence", "at": [27, 11], "off": [-14, -7], "flip": true},
@@ -1529,17 +1552,6 @@
    {"kind": "fence", "id": "fence", "at": [29, 11], "off": [-14, 7]},
    {"kind": "fence", "id": "fence", "at": [30, 11], "off": [-14, 7]},
    {"kind": "fence", "id": "fence", "at": [30, 11], "off": [14, 7], "flip": true},
-   {"kind": "fence", "id": "fence", "at": [5, 31], "off": [14, -7]},
-   {"kind": "fence", "id": "fence", "at": [6, 31], "off": [14, 7], "flip": true},
-   {"kind": "fence", "id": "fence", "at": [6, 31], "off": [14, -7]},
-   {"kind": "fence", "id": "fence", "at": [3, 32], "off": [14, -7]},
-   {"kind": "fence", "id": "fence", "at": [3, 32], "off": [-14, -7], "flip": true},
-   {"kind": "fence", "id": "fence", "at": [6, 32], "off": [14, 7], "flip": true},
-   {"kind": "fence", "id": "fence", "at": [3, 33], "off": [-14, 7]},
-   {"kind": "fence", "id": "fence", "at": [4, 33], "off": [-14, 7]},
-   {"kind": "fence", "id": "fence", "at": [5, 33], "off": [-14, 7]},
-   {"kind": "fence", "id": "fence", "at": [6, 33], "off": [-14, 7]},
-   {"kind": "fence", "id": "fence", "at": [6, 33], "off": [14, 7], "flip": true},
    {"kind": "landmark", "id": "abbey_church", "at": [24, 14], "size": [9, 5], "height": 112, "color": "#c9b899", "label": "hito.abbey_church"},
    {"kind": "landmark", "id": "gate_tower", "at": [17, 15], "size": [2, 2], "height": 64, "color": "#6e685e"},
    {"kind": "landmark", "id": "guesthouse", "at": [19, 20], "size": [3, 4], "height": 44, "color": "#a08060", "label": "hito.guesthouse"},
@@ -1550,16 +1562,8 @@
    {"kind": "yard", "id": "yard_plain", "at": [4, 23], "site": "armory"},
    {"kind": "house", "id": "lot_house_a", "at": [8, 30], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_01"},
    {"kind": "house", "id": "lot_house_e_back", "at": [14, 31], "size": [3, 3], "flip": true, "facing": [-1, 0], "site": "house_02"},
-   {"kind": "yard", "id": "yard_cart", "at": [23, 8], "site": "house_03"},
-   {"kind": "yard", "id": "yard_barrels", "at": [24, 8], "site": "house_03"},
-   {"kind": "yard", "id": "yard_plain", "at": [25, 8], "site": "house_03"},
-   {"kind": "yard", "id": "yard_plain", "at": [23, 9], "site": "house_03"},
-   {"kind": "yard", "id": "yard_plain", "at": [24, 9], "site": "house_03"},
-   {"kind": "yard", "id": "yard_sacks", "at": [25, 9], "site": "house_03"},
-   {"kind": "yard", "id": "yard_plain", "at": [23, 10], "site": "house_03"},
-   {"kind": "yard", "id": "yard_plain", "at": [24, 10], "site": "house_03"},
-   {"kind": "yard", "id": "yard_plain", "at": [25, 10], "site": "house_03"},
-   {"kind": "house", "id": "lot_house_e_back", "at": [17, 8], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "house_04"},
+   {"kind": "house", "id": "lot_house_e_back", "at": [17, 8], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "house_03"},
+   {"kind": "house", "id": "lot_house_d_back", "at": [22, 4], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "house_04"},
    {"kind": "house", "id": "lot_house_b", "at": [14, 4], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "player_forge"},
    {"kind": "yard", "id": "yard_plot", "at": [14, 3], "site": "player_forge"},
    {"kind": "yard", "id": "yard_plot", "at": [15, 3], "site": "player_forge"},

@@ -119,7 +119,7 @@ func refresh(force: bool = false) -> void:
 	var ch: Dictionary = sim.state.characters.get(actor, {})
 	var fam := str(ch.get("family", ""))
 	var sig := actor + "|" + str(ch.get("inventory", {})) + "|" + str(ch.get("equipment", {})) + "|" + str(Money.gold(sim.state, fam))
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	(%Title as Label).text = str(ch.get("name", SimQuery.t_("ui.character.nobody")))

@@ -183,8 +183,15 @@ static func mortality_mult(sim: Sim) -> float:
 
 ## The season's multiplier of `table` (price | production) for `item`: the product over its goods groups.
 static func season_mult(sim: Sim, table: String, item: String) -> float:
-	var by_group: Dictionary = sim.catalog.seasons.get(table, {}).get(Clock.season(int(sim.state.clock["minute"]),
-		sim.catalog.time), {})
+	return season_mult_in(sim, season_table(sim, table), item)
+
+
+## The season's entries of `table` now ({group: mult}; Region.prices looks it up once for many items).
+static func season_table(sim: Sim, table: String) -> Dictionary:
+	return sim.catalog.seasons.get(table, {}).get(Clock.season(int(sim.state.clock["minute"]), sim.catalog.time), {})
+
+
+static func season_mult_in(sim: Sim, by_group: Dictionary, item: String) -> float:
 	if by_group.is_empty():
 		return 1.0
 	var m := 1.0

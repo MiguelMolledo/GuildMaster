@@ -50,6 +50,8 @@ func orders(sim: Sim) -> Array:
 	if not bool(ch.get("alive", true)) or not (ch.get("order_queue", []) as Array).is_empty() \
 			or not (ch.get("path", []) as Array).is_empty():
 		return []
+	if not Emergency.offer_of(sim, _fam(sim)).is_empty():  # Equilibrio 2: out of gold and goods, the moneylender's loan
+		return [{"type": "take_emergency_loan", "actor": ACTOR}]
 	var o := _repay(sim)
 	if not o.is_empty():
 		return [o]
@@ -88,11 +90,35 @@ func _repay(sim: Sim) -> Dictionary:
 		if not str(s["state"]) in ["active", "extended"]:
 			continue
 		var owed := int(s["outstanding"])
-		if gold >= owed + DEBT_RESERVE:
+		if gold >= owed + DEBT_RESERVE + _accepted_inputs_cost(sim):  # equilibrio: the accepted contracts' materials too
 			return {"type": "repay_loan", "actor": ACTOR, "loan": id, "amount": owed}
 		if int(s["days_left"]) <= 1 and gold > 5:
 			return {"type": "repay_loan", "actor": ACTOR, "loan": id, "amount": mini(owed, gold - 5)}
 	return {}
+
+
+## What the raw materials the accepted contracts still lack would cost (as _pays_inputs counts them): repaying the debt
+## early keeps it, so a contract taken on the same trip can still be made (pacing, equilibrio 2026-11-06).
+func _accepted_inputs_cost(sim: Sim) -> int:
+	var st := sim.state
+	var inv: Dictionary = st.buildings[FORGE]["inventory"]
+	var bag: Dictionary = st.characters[ACTOR]["inventory"]
+	var raw := {}
+	for c: Dictionary in Contracts.accepted_of(sim, _fam(sim)):
+		var rid := _recipe_for(sim, str(c["item"]))
+		if rid == "":
+			continue
+		var missing := int(c["qty"]) - Contracts.count_valid(inv, str(c["item"]), int(c["min_quality"])) \
+			- Contracts.count_valid(bag, str(c["item"]), int(c["min_quality"]))
+		for i: int in maxi(missing, 0):
+			_add_raw(sim, rid, raw)
+	var cost := 0
+	for item: String in raw:
+		var have := Inventory.count(inv, item) + Inventory.count(bag, item)
+		if item == "iron":
+			have += 2 * (Inventory.count(inv, "iron_ingot") + Inventory.count(bag, "iron_ingot"))
+		cost += roundi(maxi(0, int(raw[item]) - have) * Market.price(sim, item, Inventory.NORMAL, "buy") * 1.2)
+	return cost
 
 
 ## Gold the family should not spend on materials: when the loan is due within 2 days, what it still owes.
@@ -482,25 +508,41 @@ func _best_market_recipe(sim: Sim) -> String:
 ## Whether the open contract `c` can be made in time with what is already promised: hours of work (careful when it
 ## asks for quality, enough pieces for the chance of reaching it) within 60 % of the hours it really has.
 ## Equilibrio 11 (docs/decisiones.json): a festival contract falls due when its feast ends (due_at), and deadline_days
-## rounds those hours up to whole days; the real hours left are read instead, and only the actor's own hands count
-## (the employees' queue never takes festival pieces).
+## rounds those hours up to whole days; the real hours left are read instead (the same check fiestas built, kept with
+## its capacity; and no contract whose inputs it cannot pay).
 func _can_make_in_time(sim: Sim, c: Dictionary) -> bool:
 	var rid := _recipe_for(sim, str(c["item"]))
 	if rid == "" or _status(sim, ANVIL, rid) == "locked":
 		return false
+	if not _pays_inputs(sim, c, rid):
+		return false
 	var hours := _contract_hours(sim, c)
 	for a: Dictionary in Contracts.accepted_of(sim, _fam(sim)):
 		hours += _contract_hours(sim, a)
-	if int(c.get("due_at", -1)) >= 0:
-		return hours <= _hours_left(sim, c) * 0.6
+	if bool(c.get("race", false)):  # fiestas (4.25.4): the hours until its fixed hour, not the rounded day
+		var left := float(int(c.get("due_at", 0)) - int(sim.state.clock["minute"])) / 60.0
+		return hours <= left * 0.6 * _capacity(sim)
 	return hours <= float(int(c["deadline_days"]) * 24) * 0.6 * _capacity(sim)
 
 
-## The real hours until the open contract `c` falls due: due_at for a festival contract, else its whole days.
-func _hours_left(sim: Sim, c: Dictionary) -> float:
-	if int(c.get("due_at", -1)) >= 0:
-		return maxf(0.0, float(int(c["due_at"]) - _now(sim)) / 60.0)
-	return float(int(c["deadline_days"]) * 24)
+## Whether the gold it may spend pays the raw materials of the pieces `c` still lacks (what the storage and the bag
+## do not have, at the buy price + errand surcharge, as _raw_needs): it takes no contract it cannot make.
+func _pays_inputs(sim: Sim, c: Dictionary, rid: String) -> bool:
+	var st := sim.state
+	var inv: Dictionary = st.buildings[FORGE]["inventory"]
+	var bag: Dictionary = st.characters[ACTOR]["inventory"]
+	var missing := int(c["qty"]) - Contracts.count_valid(inv, str(c["item"]), int(c["min_quality"])) \
+		- Contracts.count_valid(bag, str(c["item"]), int(c["min_quality"]))
+	var raw := {}
+	for i: int in maxi(missing, 0):
+		_add_raw(sim, rid, raw)
+	var cost := 0
+	for item: String in raw:
+		var have := Inventory.count(inv, item) + Inventory.count(bag, item)
+		if item == "iron":
+			have += 2 * (Inventory.count(inv, "iron_ingot") + Inventory.count(bag, "iron_ingot"))
+		cost += roundi(maxi(0, int(raw[item]) - have) * Market.price(sim, item, Inventory.NORMAL, "buy") * 1.2)
+	return cost <= Money.gold(st, _fam(sim)) - _kept(sim)
 
 
 func _contract_hours(sim: Sim, c: Dictionary) -> float:

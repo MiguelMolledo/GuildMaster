@@ -70,7 +70,7 @@ func refresh(force: bool = false) -> void:
 	var cands := Courtship.candidates(sim, actor) if not ch.is_empty() else []
 	var gift := best_gift(sim, actor)
 	var sig := "%s|%s|%s|%d|%s" % [actor, cands, gift, Clock.day(int(st.clock["minute"])), filter]
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	var cfg: Dictionary = sim.catalog.family.get("courtship", {})
@@ -327,7 +327,7 @@ static func orders_for(s: Sim, who: String, target: String, order: Dictionary) -
 	o["target"] = target
 	if Courtship.in_range(s, who, target):
 		return [o]
-	var orders: Array = []
+	var orders: Array = [{"type": "hail", "actor": who, "target": target}]   # A8: they stop and wait for you
 	var spot := Courtship.spot(s.state, target)
 	if str(s.state.characters[who].get("location", "")) != "":
 		orders.append({"type": "exit_building", "actor": who})
