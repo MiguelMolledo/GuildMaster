@@ -1369,6 +1369,18 @@
       "tema": "Verifica J · peleas en la calle (#20)",
       "decision": "Las peleas son aviso normal (no urgente) salvo que afecten a la familia o a su edificio, y su carta caduca al día siguiente. Lo hace fiestas.",
       "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Cinco urgentes en dos días entierran los avisos que sí importan."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Bandas de full_player para el tribunal, las caravanas, el tratado y los forasteros; techo del merchant",
+      "decision": "Aprobadas las que propone forja: facts_vs_others [1, null] y trials_as_accuser [1, null] por semilla en 3 años; caravans [1, null] de media; tratado neto > 0 en al menos la mitad de las semillas; visitors_quiet_day [2, 4] y visitors_per_day [2, 7]. merchant: techo de ventas en la capital 900 → 1100 (la subida viene de la cuota a ×1,5, que es buscada). Las aplica forja.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Fijan lo que forja ha hecho funcionar (acusar, caravana y tratado con beneficio) y la regla de forasteros, que ya cumplía en los días sin fiesta."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "La ruina de una familia IA no acaba la partida",
+      "decision": "Solo la ruina de la familia humana acaba la partida; una IA arruinada por su préstamo queda embargada y sigue (sim/econ/loans.gd, Emergency.ruin). Lo construye forja; erudito lo respeta en el Banco.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Hallado por forja: a 5 años, 3 de 4 semillas terminaban la partida del jugador por la quiebra de un rival. Ningún jugador entendería perder por la deuda de otro."
     }
   ],
   "pendientes": [
