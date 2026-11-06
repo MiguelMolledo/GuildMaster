@@ -2,8 +2,9 @@ extends Node
 ## Scripted capture of the Taberna-Posada (--smoke-script=posada; through `grimoire heavy` with --always-on-top).
 ## Scenario inn_night (innkeeper_start played by the bot until the fullest minute of a night): the tavern on the map
 ## (posada_mapa), its interior full at night (posada_noche), the panel's Clientela (posada_clientela), the menu
-## (posada_carta), the rooms (posada_habitacion) and the card of the turn summary (posada_resumen). Everything
-## through the UI's own calls. Quits when done, or after `timeout` seconds with a shot of whatever is on screen.
+## (posada_carta), the rooms (posada_habitacion), the gaming table (posada_mesa: the Mesa tab, the table built and
+## licensed if the bot had not), the traveller's offer (posada_forastero: its card) and its game on the games' screen
+## (posada_partida), and the card of the turn summary (posada_resumen). Everything through the UI's own calls. Quits when done, or after `timeout` seconds with a shot of whatever is on screen.
 
 var app: Node = null
 var timeout: float = 90.0
@@ -87,7 +88,40 @@ func _process(delta: float) -> void:
 		"shot_rooms":
 			if _t > 0.6:
 				app.save_shot("posada_habitacion")
+				var sim: Sim = Game.sim
+				var ups: Array = sim.state.buildings[_tavern]["upgrades"]
+				for u: String in ["tavern_inn_ambience_1", "tavern_inn_ambience_2", "tavern_inn_ambience_3"]:
+					if not ups.has(u):
+						ups.append(u)
+				if not Inn.licensed(sim, _tavern):
+					Inn.state_of(sim, _tavern)["license_until"] = Clock.day(int(sim.state.clock["minute"])) + 8
+				InnGames.make_offer(sim, _tavern, Inn.state_of(sim, _tavern))
+				app.interior().inn_panel().show_tab("games")
+				_go("shot_table")
+		"shot_table":
+			if _t > 0.6:
+				app.save_shot("posada_mesa")
 				app.interior().show_inn(false)
+				var oc := app.get_node("%InnOfferCard") as InnOfferCard
+				oc.show_for(Game.sim, _tavern)
+				_go("shot_offer")
+		"shot_offer":
+			if _t > 0.8:
+				app.save_shot("posada_forastero")
+				(app.get_node("%InnOfferCard") as InnOfferCard).close()
+				var fam := SimQuery.player_family(Game.sim.state)
+				var req := InnGames.offer_request(Game.sim, _tavern, InnGames.player_for(Game.sim, _tavern, fam))
+				print("[SmokePosada] partida del forastero: %s" % [req])
+				app.open_game(req)
+				_go("shot_game")
+		"shot_game":
+			if _t > 1.2:
+				app.save_shot("posada_partida")
+				var layer := app.get_node_or_null("GamesLayer")
+				if layer != null:
+					for c: Node in layer.get_children():
+						if c is GameScreen:
+							(c as GameScreen).close()
 				var card := app.get_node("%InnTurnCard") as InnTurnCard
 				card.show_for(Game.sim, _tavern)
 				_go("shot_summary")

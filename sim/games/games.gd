@@ -232,8 +232,8 @@ static func _apply(sim: Sim, o: Dictionary, spec: Dictionary, m: GameMatch, res:
 		w = -1
 		facts.append({"kind": "caught", "by": caught})
 	var cut := 0
-	if net > 0 and m.rake() > 0.0:
-		cut = floori(net * m.rake())
+	if net > 0 and m.rake() > 0.0 and (house == "" or Money.family_of(st, house) != fam):
+		cut = floori(net * m.rake())  # (one's own house takes nothing: posada, its gaming table)
 	if net - cut != 0:
 		Money.change(sim, fam, net - cut, Money.GAMES, str(spec["game"]), house, actor, false)
 	if cut > 0 and house != "":

@@ -19,6 +19,7 @@ const DEFAULT_SCENARIO: String = "town_e_start"
 signal started  # a new state is loaded (start, load): views rebuild
 signal saved(slot: String)  # a slot (or the autosave) was written: the app adds its thumbnail
 signal order_given(order: Dictionary)  # an order was given (the tutorial listens: docs/ui/05_tutorial.md §4.3)
+signal skip_changed(kind: String, reason: String)  # «Saltar hasta…» started (kind) or stopped (kind "", why)
 
 var sim: Sim
 var speed: int = 1
@@ -28,6 +29,13 @@ var _acc: float = 0.0
 var orders_locked: bool = false   # the pause menu is open: orders are dropped, not queued
 var saved_minute: int = -1        # the clock minute of the last save or load (-1: never saved this game)
 var last_saved_ms: int = -1       # Time.get_ticks_msec() of the last save this session (-1: none)
+## «Saltar hasta…» (docs/gdd/03b_diversion_y_ritmo.md §3b.5.2, O-D3): the session runs at data/view.json skip.speed
+## (×8) until `skip_kind` happens: "event" (the next thing that happens to the player's family), "dawn" or "queue"
+## (the queue of skip_building ends or stalls); any notice of the family, an unlock, a global event or an order of
+## the player cuts it, and so does skip.max_days. Session state, like the speed: not saved.
+var skip_kind: String = ""
+var skip_building: String = ""
+var _skip_minutes: int = 0
 
 
 func _ready() -> void:
@@ -115,6 +123,8 @@ func start(state: WorldState, catalog: Catalog = null) -> void:
 ## In pause (active pause, GDD 4.1) the order is marked "queued": on resume the sim puts it in the actor's
 ## order_queue instead of applying it, so several orders given in pause run one after another.
 func give(order: Dictionary) -> void:
+	if skip_kind != "" and not str(order.get("type", "")) in ["unlock_seen", "read_notices"]:
+		stop_skip("order")
 	if orders_locked:
 		_info("order dropped: the pause menu is open (type=%s)" % order.get("type", ""))
 		return
@@ -149,12 +159,16 @@ func pending() -> Array:
 
 ## D4: speeds ×1/×2/×4. Anything else is ignored.
 func set_speed(s: int) -> void:
+	if skip_kind != "" and s in SPEEDS:
+		stop_skip("speed")
 	if s in SPEEDS and s != speed:
 		speed = s
 		_info("speed x%d" % s)
 
 
 func set_paused(p: bool) -> void:
+	if p and skip_kind != "":
+		stop_skip("paused")
 	if p != paused:
 		paused = p
 		_info("paused=%s (queued orders=%d)" % [p, _pending.size()])
@@ -187,7 +201,7 @@ func seconds_per_minute() -> float:
 func steps_per_second() -> float:
 	if sim == null or paused:
 		return 0.0
-	return speed / seconds_per_minute()
+	return effective_speed() / seconds_per_minute()
 
 
 ## 0..1: how far real time has gone towards the next step (views interpolate with it). Frozen in pause.
@@ -207,7 +221,7 @@ func advance(delta: float, publish: bool = true) -> int:
 	if sim == null or paused:
 		return 0
 	var spm := seconds_per_minute()
-	_acc += delta * speed
+	_acc += delta * effective_speed()
 	var steps := 0
 	while _acc >= spm and steps < MAX_STEPS_PER_FRAME:
 		_acc -= spm
@@ -215,6 +229,8 @@ func advance(delta: float, publish: bool = true) -> int:
 		var orders := _pending
 		_pending = []
 		var events := sim.step(orders)
+		if skip_kind != "":
+			_check_skip(events)
 		if publish:
 			get_node("/root/Events").publish(events)
 			if events.any(func(e: Dictionary) -> bool: return e["type"] == "day_started"):
@@ -222,6 +238,80 @@ func advance(delta: float, publish: bool = true) -> int:
 	if steps == MAX_STEPS_PER_FRAME:
 		_acc = 0.0  # a long hitch: drop the backlog instead of fast-forwarding
 	return steps
+
+
+## The speed the session runs at: ×8 while «Saltar hasta…», else the chosen one.
+func effective_speed() -> int:
+	return int(_skip_cfg().get("speed", 8)) if skip_kind != "" else speed
+
+
+## «Saltar hasta…» `kind` (event | dawn | queue; queue needs `building`, one of the family's with a queue). Unpauses.
+## False (and nothing changes) if it cannot: no game, the pause menu, a queue that is empty or not the family's.
+func skip_until(kind: String, building: String = "") -> bool:
+	if sim == null or orders_locked or not kind in ["event", "dawn", "queue"]:
+		return false
+	if kind == "queue" and not skip_queue_ok(building):
+		return false
+	skip_kind = kind
+	skip_building = building
+	_skip_minutes = 0
+	paused = false
+	_info("skip until %s (building=%s, x%d)" % [kind, building, effective_speed()])
+	skip_changed.emit(kind, "")
+	return true
+
+
+## Whether `building` is the player's family's and its queue has work (the «que acabe la cola» option).
+func skip_queue_ok(building: String) -> bool:
+	if sim == null or not sim.state.buildings.has(building):
+		return false
+	var b: Dictionary = sim.state.buildings[building]
+	if str(b.get("owner", "")) != SimQuery.player_family(sim.state):
+		return false
+	var q: Variant = b.get("queue")
+	var entries: Array = (q as Dictionary).get("entries", []) if q is Dictionary else []
+	return not entries.is_empty() and not bool((q as Dictionary).get("paused", false))
+
+
+func stop_skip(reason: String) -> void:
+	if skip_kind == "":
+		return
+	_info("skip stopped (%s, after %d min)" % [reason, _skip_minutes])
+	skip_kind = ""
+	skip_building = ""
+	skip_changed.emit("", reason)
+
+
+## What stops «Saltar hasta…» in a step's events: its target, or anything the player should see.
+func _check_skip(events: Array) -> void:
+	_skip_minutes += 1
+	var fam := SimQuery.player_family(sim.state)
+	for e: Dictionary in events:
+		var t := str(e.get("type", ""))
+		var mine := str(e.get("family", "")) == fam or (str(e.get("actor", "")) != "" \
+			and str(sim.state.characters.get(str(e.get("actor", "")), {}).get("family", "")) == fam)
+		if t == "notice_added" and str(e.get("family", "")) == fam:
+			stop_skip("notice")
+		elif t in ["unlocked", "world_event_started", "microevent_started", "duel_challenged"] and (mine or t == "world_event_started"):
+			stop_skip(t)
+		elif skip_kind == "dawn" and t == "phase_changed" and str(e.get("phase", "")) == "dawn":
+			stop_skip("dawn")
+		elif skip_kind == "event" and mine and t in ["work_done", "contract_posted", "errand_arrived", "building_entered",
+				"character_arrived", "live_forge_done", "employee_started"]:
+			stop_skip(t)
+		elif skip_kind == "event" and t == "phase_changed":
+			stop_skip("phase")
+		elif skip_kind == "queue" and t in ["queue_stalled", "queue_entry_done"] and str(e.get("building", "")) == skip_building \
+				and not skip_queue_ok(skip_building):
+			stop_skip("queue")
+		if skip_kind == "":
+			return
+	if _skip_minutes >= int(_skip_cfg().get("max_days", 1)) * Clock.MINUTES_PER_DAY:
+		stop_skip("max")
+
+
+func _skip_cfg() -> Dictionary:
+	return ViewConfig.value("skip", {}) if is_inside_tree() else {"speed": 8, "max_days": 1}
 
 
 ## Saves in one of SLOTS (or AUTOSAVE), in SaveSlots.dir (user://saves).

@@ -57,8 +57,10 @@ var p := Games.win_odds(cat.games, spec, 60)  # {lado: probabilidad}: de donde s
 cada lado: lo que gana o pierde de las apuestas, antes de la casa], how (cómo acabó), facts [...], stake}`.
 
 **Opciones comunes** (`opts`): `house` (id del edificio con licencia de tafurería: la casa se queda `house.rake` de lo
-que gana el ganador y se lo da al dueño; sin `house`, en la calle, 0), `rake` (forzar el margen: pruebas y bancos),
-`event` (id de la fiesta o del turno de la posada: viaja en `game_played` para que quien llama aplique lo suyo).
+que gana el ganador y se lo da al dueño; sin `house`, en la calle, 0; si la casa es de la familia que juega, tampoco:
+posada, 2026-11-05), `rake` (forzar el margen: pruebas y bancos),
+`event` (id de la fiesta: viaja en `game_played` para que quien llama aplique lo suyo; `FestivalGames.play_block`
+rechaza uno que no sea de una fiesta, así que la posada no lo pasa y reconoce sus partidas por `house`).
 
 **Opciones de cada juego:** `azar`: `thrower` (0/1: quién tira; si no, una tirada con clave), `loaded` (el lado que usa
 dados cargados: en una orden solo `0`, el actor, y si lleva el objeto `loaded_dice`). `mayor`: `loaded`. `envite`:
@@ -123,11 +125,13 @@ Para apuestas que esperan a una competición futura (el calendario de las Fiesta
 
 - **Corredor de apuestas** (pantalla): `{actor, game, watch: true, players: [refs], match, stake}` abre el mercado,
   apuesta con `game_bet` y enseña la partida. Con `bets_open: true` en una partida propia, el mercado sale antes.
-- **Posada** (mesa de juego, 4.27.4): abre la pantalla con `{actor, game: "azar" | "mayor" | "envite", opponents:
-  ["preset:regular_…"], stake, opts: {house: <la taberna>, event: <el turno>}}` (App → `GameScreen.open`). Con
-  licencia, la casa gana su parte por `game_played.house_cut`; sin licencia, jugar en la taberna es delito leve si lo
-  ve el Alguacil (eso lo aplica la Posada al oír `game_played` con su `house`). Los parroquianos jugadores son fichas
-  (`presets`) o vecinos del estado.
+- **Posada** (mesa de juego, 4.27.4; construido: `InnGames`): abre la pantalla con `{actor, game: "azar" | "mayor" |
+  "envite", opponents: [vecinos sentados o "preset:regular_…"], stake, opts: {house: <la taberna>}}` (App →
+  `GameScreen.open`; `InnGames.request` / `offer_request`). La casa gana su parte por `game_played.house_cut` (nada si
+  juega su dueño); sin licencia, jugar en la taberna es delito leve si lo ve el Alguacil: lo aplica la Posada al oír
+  `game_played` con su `house` (`InnGames.hear`, hecho `illegal_gaming`). Los parroquianos jugadores son fichas
+  (`presets`) o vecinos del estado; los forasteros que proponen partida, `regular_cheat`, `stranger_soldier` y
+  `stranger_merchant` (añadidos a `presets`).
 - **Fiestas** (espectáculos, 4.25.3 `spectacle`): enganchado; ver §5 ter.
 - **Nuevos juegos:** un `*Match` que extiende `GameMatch`, su sección en `data/games.json`, su fila en
   `Games.GAMES`/`PLAYERS` y su tablero en `game/ui/games/board_<juego>.gd` (BOARDS de `GameScreen`).

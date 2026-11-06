@@ -27,6 +27,17 @@ static func lines(sim: Sim, t: Dictionary) -> Array:
 		int(t.get("beds_income", 0))])
 	if int(t.get("house_cut", 0)) > 0:
 		out.append(SimQuery.t_("ui.inn.sum.house_cut") % int(t["house_cut"]))
+	var games: Array = t.get("games", [])
+	if not games.is_empty():
+		var cut := 0
+		var mine := 0
+		for gp: Dictionary in games:
+			cut += int(gp.get("house_cut", 0))
+			mine += int(gp.get("net", 0))
+		out.append(SimQuery.t_("ui.inn.sum.games") % [games.size(), ("+" if mine >= 0 else "") + str(mine), cut])
+	var offer: Dictionary = t.get("offer", {})
+	if not offer.is_empty() and str(offer.get("status", "")) == "open":
+		out.append(SimQuery.t_("ui.inn.sum.offer_left"))
 	var comp: PackedStringArray = []
 	var ck: Array = (t.get("complaints", {}) as Dictionary).keys()
 	ck.sort()
@@ -75,7 +86,7 @@ static func data_for(sim: Sim, bld: String) -> Dictionary:
 	var good := {}
 	for i: Dictionary in t.get("incidents", []):
 		var k := str(i.get("kind", ""))
-		(bad if k in ["fight", "dash"] else good)[SimQuery.t_("ui.inn.incident." + k)] = true
+		(bad if k in ["fight", "dash", "illegal_game"] else good)[SimQuery.t_("ui.inn.incident." + k)] = true
 	good[SimQuery.t_("ui.inn.incident.minstrel")] = true
 	for i: int in range(1, ls.size()):
 		var s := str(ls[i])
@@ -87,3 +98,17 @@ static func data_for(sim: Sim, bld: String) -> Dictionary:
 		"footer_figures": [{"label": SimQuery.t_("ui.inn.sum.total"), "value": str(total)}],
 		"buttons": [{"id": "ok", "text": SimQuery.t_("ui.event_card.ok"), "primary": true}],
 		"seconds": float(ViewConfig.value("event_card_seconds", 12.0)), "building": bld}
+
+
+## A game played at the table tonight (stats.games entry) as a line: who, which, won or lost, the house's cut.
+static func game_line(sim: Sim, p: Dictionary) -> String:
+	var who := str(sim.state.characters.get(str(p.get("actor", "")), {}).get("name", p.get("actor", "")))
+	var net := int(p.get("net", 0))
+	var line := SimQuery.t_("ui.inn.games.line") % [who, SimQuery.t_("games.%s.name" % str(p.get("game", ""))),
+		SimQuery.t_("ui.inn.games.won" if bool(p.get("won", false)) else "ui.inn.games.lost"),
+		("+" if net >= 0 else "") + str(net)]
+	if int(p.get("house_cut", 0)) > 0:
+		line += SimQuery.t_("ui.inn.games.cut") % int(p["house_cut"])
+	if bool(p.get("seen", false)):
+		line += SimQuery.t_("ui.inn.games.seen")
+	return line

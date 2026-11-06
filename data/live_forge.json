@@ -1,0 +1,121 @@
+{
+  "_doc": "Forja viva (docs/gdd/03b_diversion_y_ritmo.md §3b.2, O-D1, O-D4): forging a piece by hand as three decisions (heat, strikes, quench) while the cycle runs. Only whoever the player controls, only in mode \"live\" and only recipes listed in `recipes`. Employees and AI families never use it. Quality: the table of 4.4.2 read with the real craft (as mode normal, the same rolls), then + steps_all_right with the three decisions right, - steps_wrong with wrong_for_penalty or more wrong ones. Each decision is right, near (neither right nor wrong) or wrong; one not taken counts as near. heat: the colour pulled (heat_colors in order; the right one is right, a neighbour is near, the rest and `burnt` are wrong). strikes: one kind per strike (strike_kinds), as many as the template; all equal = right, one off = near, more = wrong. quench: the medium (quench_media); the right one (or the contract's spec temper, §3b.3) = right, any other = wrong. grace_hours: a cycle that ends with decisions left waits that long for them, then resolves with what was decided. A live cycle repeats in live only if the last one was played to the end (quench); else the next one is normal. masterwork: with craft >= min_craft and the three right, a roll of `chance` makes a named masterwork (excellent, in the chronicle). hint_craft: from it the screen says «ya casi» one colour before the right one; template_craft: from it the strike template is seen before striking. traits: what the decisions give the piece (descriptive until durability exists). patrons: the saints of the masterwork names (masterwork.patron.<id>). [balance] figures.",
+  "duration_mult": 1.0,
+  "heat_colors": [
+    "dark_red",
+    "cherry",
+    "orange",
+    "yellow",
+    "white"
+  ],
+  "burnt": "white",
+  "strike_kinds": [
+    "strong",
+    "measured",
+    "finish"
+  ],
+  "quench_media": [
+    "water",
+    "oil",
+    "air"
+  ],
+  "steps_all_right": 1,
+  "steps_wrong": 1,
+  "wrong_for_penalty": 2,
+  "grace_hours": 0.5,
+  "hint_craft": 4,
+  "template_craft": 7,
+  "heat_seconds_per_color": 2.4,
+  "masterwork": {
+    "min_craft": 7,
+    "chance": 0.1
+  },
+  "traits": {
+    "quench_oil": "oil_tempered",
+    "quench_water": "hard",
+    "quench_air": "soft",
+    "strikes_right": "fine_edge",
+    "all_right": "master_mark"
+  },
+  "patrons": [
+    "san_martin",
+    "santa_eulalia",
+    "san_jorge",
+    "santa_lucia",
+    "san_roque",
+    "santa_barbara",
+    "san_isidro",
+    "santa_ines"
+  ],
+  "recipes": {
+    "forge_hammer": {
+      "heat": "orange",
+      "strikes": [
+        "strong",
+        "strong",
+        "finish"
+      ],
+      "quench": "water",
+      "hint_key": "live.hint.forge_hammer"
+    },
+    "forge_sword": {
+      "heat": "cherry",
+      "strikes": [
+        "strong",
+        "measured",
+        "measured",
+        "finish"
+      ],
+      "quench": "oil",
+      "hint_key": "live.hint.forge_sword"
+    },
+    "forge_armor": {
+      "heat": "cherry",
+      "strikes": [
+        "strong",
+        "strong",
+        "measured",
+        "finish"
+      ],
+      "quench": "air",
+      "hint_key": "live.hint.forge_armor"
+    }
+  },
+  "_variants_doc": "§3b.3 (O-D5): the variants a contract's spec may ask for. recipe_axes: which axes a recipe chooses (temper, the quench, is always there). variants.<axis>.<value>: duration_mult of the cycle and strikes_add (strikes appended to the template in live). [balance]",
+  "recipe_axes": {
+    "forge_hammer": [],
+    "forge_sword": [
+      "length",
+      "guard"
+    ],
+    "forge_armor": [
+      "guard"
+    ]
+  },
+  "variants": {
+    "length": {
+      "short": {
+        "duration_mult": 0.9,
+        "strikes_add": []
+      },
+      "long": {
+        "duration_mult": 1.15,
+        "strikes_add": [
+          "measured"
+        ]
+      }
+    },
+    "guard": {
+      "plain": {
+        "duration_mult": 1.0,
+        "strikes_add": []
+      },
+      "carved": {
+        "duration_mult": 1.25,
+        "strikes_add": [
+          "finish"
+        ]
+      }
+    }
+  }
+}
