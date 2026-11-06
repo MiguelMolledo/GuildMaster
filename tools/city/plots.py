@@ -262,8 +262,8 @@ def _pick(cands, n, taken, key):
 
 # --- The plots of a map ----------------------------------------------------------------------------------------------
 
-def plots(d, cat):
-    """(plots, decor indices to drop) for map dict d by the rules."""
+def plots(d, cat, keep=frozenset()):
+    """(plots, decor indices to drop) for map dict d by the rules; no plot on the tiles of `keep`."""
     m = citylib.Map(d, cat)
     rl = cfg()
     sit = Situation(m)
@@ -278,8 +278,10 @@ def plots(d, cat):
     blocked |= {t for t in citylib._decor_tiles(d)} - m.free_filler()
     for lm in d.get("landmarks") or []:
         blocked |= set(_rect_tiles((lm["origin"][0], lm["origin"][1], lm["size"][0], lm["size"][1])))
-    blocked |= {t for t in m.all_tiles() if sides.unbuildable(t)}  # a precinct (Church land) is not built on
-    filler = _filler_candidates(m, decor, reachable, blocked - m.free_filler())
+    church = {t for t in m.all_tiles() if sides.unbuildable(t)}  # a precinct (Church land) is not built on
+    blocked |= church
+    blocked |= set(keep)  # the fair's pen by a gate (pen_ground)
+    filler = _filler_candidates(m, decor, reachable, (blocked - m.free_filler()) | church | set(keep))
     for f in filler:
         f["side"] = sides.side_of(f["rect"], f["front"])
         f["location"] = sit.of(f["front"])
@@ -376,9 +378,81 @@ def plots(d, cat):
     return out, drop
 
 
+# --- The fair's pen (fiestas, rules.view_sites.outskirts of data/festivals.json; sim/fest/festival_ground.gd) ---------
+# The cattle fair puts its pens on the meadow by a gate: grass, not at the gate itself, within a radius of one, off the
+# doors, the seats of the meeting points, the map's dressing and the free lots and ruins. If the plots leave no room for
+# one pen there, the first place that would fit one without them is kept free and the plots are dealt again.
+
+def _outskirts_cfg():
+    try:
+        with open(citylib.ROOT + "/data/festivals.json") as f:
+            o = json.load(f).get("rules", {}).get("view_sites", {}).get("outskirts", {})
+    except (OSError, ValueError):
+        o = {}
+    return {"ground": o.get("ground", ["grass"]), "radius": int(o.get("radius", 10)),
+            "margin": int(o.get("gate_margin", 1))}
+
+
+def _outskirts(d, cat, ps):
+    """(near tiles, nearest gate first; meadow set) as FestivalGround.outskirts, with the free lots and ruins of ps."""
+    c = _outskirts_cfg()
+    rows = d["rows"]
+    busy = set()
+    for b in (d.get("buildings") or {}).values():
+        if len(b.get("door") or []) == 2:
+            busy.add(tuple(b["door"]))
+    for sp in d.get("social_points") or []:
+        busy |= {tuple(s) for s in sp.get("slots", [])}
+    for it in (d.get("decor") or {}).get("items", []):
+        at = it.get("at") or []
+        if len(at) != 2:
+            continue
+        sz = it.get("size") or [1, 1]
+        m0 = 1 if it.get("kind") == "single" else 0
+        for dy in range(-m0, max(1, int(sz[1]) if len(sz) == 2 else 1) + m0):
+            for dx in range(-m0, max(1, int(sz[0]) if len(sz) == 2 else 1) + m0):
+                busy.add((at[0] + dx, at[1] + dy))
+    for pl in ps:
+        if pl.get("state") in ("lot", "ruin"):
+            o, s = pl["origin"], pl["size"]
+            busy |= {(o[0] + dc, o[1] + dr) for dr in range(s[1]) for dc in range(s[0])}
+    gates = [tuple(v) for k, v in sorted((d.get("spawns") or {}).items()) if k.endswith("_gate") and len(v) == 2]
+    meadow, dist = set(), {}
+    for r, row in enumerate(rows):
+        for col, ch in enumerate(row):
+            t = (col, r)
+            if t in busy or cat.kind_of.get(ch, "") not in c["ground"] or not gates:
+                continue
+            best = min(max(abs(col - g[0]), abs(r - g[1])) for g in gates)
+            if best <= c["margin"]:
+                continue
+            meadow.add(t)
+            if best <= c["radius"]:
+                dist[t] = best
+    near = sorted(dist, key=lambda t: (dist[t], t[1], t[0]))
+    return near, meadow
+
+
+def pen_ground(d, cat, ps, fp=(3, 3)):
+    """The tiles of the first pen of fp that fits by a gate (FestivalGround.fits' order), None if none."""
+    near, meadow = _outskirts(d, cat, ps)
+    anchors = [(0, 0), (1 - fp[0], 0), (0, 1 - fp[1]), (1 - fp[0], 1 - fp[1])]
+    for t in near:
+        for a in anchors:
+            tiles = {(t[0] + a[0] + dx, t[1] + a[1] + dy) for dy in range(fp[1]) for dx in range(fp[0])}
+            if tiles <= meadow:
+                return tiles
+    return None
+
+
 def add_plots(d, cat):
     """Puts the plots in map dict d and takes out of its decor the filler houses they replace. Returns a summary."""
     ps, drop = plots(d, cat)
+    if pen_ground(d, cat, ps) is None:
+        keep = pen_ground(d, cat, [])  # the meadow without plots: keep the first pen free and deal them again
+        if keep:
+            ps, drop = plots(d, cat, frozenset(keep))
+            print("plots: %s: the fair's pen by a gate kept free at %s" % (d.get("id", ""), min(keep)))
     d["plots"] = ps
     if drop and d.get("decor"):
         d["decor"]["items"] = [it for i, it in enumerate(d["decor"]["items"]) if i not in drop]
@@ -490,4 +564,6 @@ def validate_plots(m, rep, required=False):
         for z, n in free_zone.items():
             if n < valve:
                 rep.error(f"plots: {n} parcelas libres {z} (la válvula de 4.9 pide {valve} de cada tipo)")
+        if m.d.get("spawns") and any(k.endswith("_gate") for k in m.d["spawns"]) and pen_ground(m.d, m.cat, ps) is None:
+            rep.error("plots: no queda un prado 3×3 junto a una puerta para el corral de la feria (fiestas, outskirts)")
     rep.note("parcelas: %s; libres por tipo %s" % (json.dumps(summary(ps)), json.dumps(free_zone)))
