@@ -288,8 +288,20 @@ como propuesta (`data/targets.json` `pacing._proposed_festivals`, sin comprobar)
 §4.4.5): la interfaz ya no da `master_touch`, el puesto no parpadea y la pista del tutorial se quitó; el sim conserva
 la orden para las partidas viejas y los bots. Pasar al novato del herrero (el de las dianas `artisan_novice`) a la
 Forja viva en sus encargos con calidad sube su oro (día 10 de 358 a 387 de media, 3 de 10 semillas por encima de 540) y
-deja 2 semillas a 0 el día 10: 6 fallos de banda. Queda detrás de `live_for_quality` (0 por defecto) hasta que el owner
-vea sus bandas; el bot de ritmo ya forja todo en Forja viva.
+dejaba semillas a 0 el día 10. Queda detrás de `live_for_quality` (0 por defecto; el owner decide que siga apagado); el
+bot de ritmo ya forja todo en Forja viva.
+
+**Las semillas a 0 eran del bot, no del juego (2026-11-06).** Punto de rechazo de la semilla 8: el día 3 a las 06:25
+el novato acepta 2 armaduras de calidad buena (la Forja viva le hace creer que llega: un escalón más y ×1 de tiempo);
+a las 06:45 paga la deuda (200) porque su regla solo guardaba 30 de reserva, y se queda sin los materiales del encargo;
+hace una armadura, el encargo vence y, con 33 de oro y el almacén vacío, ya no compra nada: planea la receta de más
+margen, no le llega, y el mantenimiento lo deja a 0 para siempre. Ninguna pieza salió mal: todas se jugaron bien, así que
+el juego no castiga una pieza mala de la Forja viva y no hay ajuste que proponer en las reglas. Arreglos en el bot: al
+pagar la deuda pronto guarda lo que aún cuestan los materiales de sus encargos aceptados, y con el almacén vacío compra
+la pieza más barata que pueda pagar. Medido (10 semillas, `live_for_quality` = 1): ninguna semilla a 0, ningún encargo
+fallado, oro del día 10 entre 274 y 613 (media 450); quedan 4 semillas por encima de 540 (y una por encima de 320 el
+día 3): con la Forja viva el novato gana más, y esa banda es del owner. Con el interruptor apagado, todos los informes
+de los bots salen idénticos.
 
 **Tras el resultado (hallazgo de verifica).** «Cerrar» (Esc) cierra y vuelve al yunque con su menú abierto: si la forja
 ya había empezado sola la pieza siguiente, la para (las entradas vuelven al almacén) para que no quede forjando

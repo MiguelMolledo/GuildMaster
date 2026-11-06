@@ -1009,6 +1009,12 @@
       "tema": "Teclado · Esc con un tooltip a la vista",
       "decision": "Un tooltip a la vista (el ratón parado sobre un botón) no se queda el Esc: Godot gasta ese Esc en quitarlo (viewport.cpp lo da por usado) y KeyNav lo manda otra vez un fotograma después, así que el mismo Esc cierra también lo de arriba (docs/ui/01_hud.md §2). El panel de la taberna, además, se refresca después del paso que aplica su orden (Game.give la guarda hasta el paso siguiente), no antes.",
       "por_que": "Verifica (2026-11-06): con el teclado, «inn_make_bed» no se llegaba y Esc no cerraba el panel de la taberna; el ratón se había quedado sobre un botón de la carta del suceso y su tooltip se comía el Esc. Y el refresco inmediato tras una orden leía el estado de antes: la casilla de un plato volvía a marcarse y la pulsación siguiente deshacía la del jugador."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Novato con Forja viva: las semillas a 0 eran del bot",
+      "decision": "Punto de rechazo (semilla 8, live_for_quality = 1): acepta 2 armaduras de calidad el día 3, 20 minutos después paga la deuda dejando 30 de reserva, se queda sin materiales, el encargo vence y con 33 de oro y el almacén vacío no compra nada (planea la receta de más margen y no le llega). Todas las piezas a mano salieron bien: no es el juego. Arreglos en BotArtisanNovice: la deuda pagada pronto guarda el coste de los materiales de los encargos aceptados (_committed) y, sin nada en el almacén, compra la pieza más barata que pueda pagar (_cheapest_affordable). Con live_for_quality = 1: 0 semillas a 0, 0 encargos fallados, oro del día 10 274-613; quedan 4 semillas por encima de 540. live_for_quality sigue apagado (owner). Con él apagado, todos los informes de los bots idénticos.",
+      "por_que": "«2 de 10 semillas con 0 de oro no es una banda que mover: es una señal» (manager, 2026-11-06)."
     }
   ],
   "pendientes": [

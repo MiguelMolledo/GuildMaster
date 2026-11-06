@@ -97,11 +97,23 @@ func _repay(sim: Sim) -> Dictionary:
 		if not str(s["state"]) in ["active", "extended"]:
 			continue
 		var owed := int(s["outstanding"])
-		if gold >= owed + DEBT_RESERVE:
+		if gold >= owed + DEBT_RESERVE + _committed(sim):
 			return {"type": "repay_loan", "actor": ACTOR, "loan": id, "amount": owed}
 		if int(s["days_left"]) <= 1 and gold > 5:
 			return {"type": "repay_loan", "actor": ACTOR, "loan": id, "amount": mini(owed, gold - 5)}
 	return {}
+
+
+## The raw materials the accepted contracts still need (what the storage and the bag do not have, at the buy price +
+## errand surcharge, as _pays_inputs): an early repayment keeps it, so the debt never eats a contract's materials
+## (forja, 2026-11-06: with live_for_quality a seed took a contract of 2 armours and paid the debt 20 minutes later).
+func _committed(sim: Sim) -> int:
+	var total := 0
+	for c: Dictionary in Contracts.accepted_of(sim, _fam(sim)):
+		var rid := _recipe_for(sim, str(c["item"]))
+		if rid != "":
+			total += _inputs_cost(sim, c, rid)
+	return total
 
 
 ## Gold the family should not spend on materials: when the loan is due within 2 days, what it still owes.
@@ -488,7 +500,40 @@ func _raw_needs(sim: Sim) -> Dictionary:
 			stock[item] = maxi(0, int(stock.get(item, 0)) - int(raw[item]))
 		for item: String in buy:
 			need[item] = int(need.get(item, 0)) + int(buy[item])
+	if need.is_empty() and _stocked_out(sim, inv, bag):
+		need = _cheapest_affordable(sim, budget)  # without capital: a cheaper piece gets the forge going again
 	return need
+
+
+## Nothing to work with: no raw material, no ingots and no products to sell, in the storage or the bag.
+func _stocked_out(sim: Sim, inv: Dictionary, bag: Dictionary) -> bool:
+	for item: String in RAW + ["iron_ingot"]:
+		if Inventory.count(inv, item) + Inventory.count(bag, item) > 0:
+			return false
+	for opt: Dictionary in Production.recipe_options(sim, ACTOR, FORGE, ANVIL):
+		var out := _output(sim, str(opt["recipe"]))
+		if Inventory.count(inv, out) + Inventory.count(bag, out) > 0:
+			return false
+	return true
+
+
+## The raw materials of one piece of the cheapest anvil recipe it can make and pay ({} if none): the way out when the
+## best recipe no longer fits in its gold (forja, 2026-11-06: a seed stuck at 33 gold with an empty storage).
+func _cheapest_affordable(sim: Sim, budget: int) -> Dictionary:
+	var best := {}
+	var best_cost := budget + 1
+	for opt: Dictionary in Production.recipe_options(sim, ACTOR, FORGE, ANVIL):
+		if str(opt["status"]) == "locked":
+			continue
+		var raw := {}
+		_add_raw(sim, str(opt["recipe"]), raw)
+		var cost := 0
+		for item: String in raw:
+			cost += roundi(int(raw[item]) * Market.price(sim, item, Inventory.NORMAL, "buy") * 1.2)
+		if cost < best_cost:
+			best_cost = cost
+			best = raw
+	return best
 
 
 func _add_raw(sim: Sim, rid: String, raw: Dictionary) -> void:
@@ -540,6 +585,11 @@ func _can_make_in_time(sim: Sim, c: Dictionary) -> bool:
 ## Whether the gold it may spend pays the raw materials of the pieces `c` still lacks (what the storage and the bag
 ## do not have, at the buy price + errand surcharge, as _raw_needs): it takes no contract it cannot make.
 func _pays_inputs(sim: Sim, c: Dictionary, rid: String) -> bool:
+	return _inputs_cost(sim, c, rid) <= Money.gold(sim.state, _fam(sim)) - _kept(sim)
+
+
+## Gold for the raw materials of the pieces contract `c` still lacks (recipe `rid`).
+func _inputs_cost(sim: Sim, c: Dictionary, rid: String) -> int:
 	var st := sim.state
 	var inv: Dictionary = st.buildings[FORGE]["inventory"]
 	var bag: Dictionary = st.characters[ACTOR]["inventory"]
@@ -554,7 +604,7 @@ func _pays_inputs(sim: Sim, c: Dictionary, rid: String) -> bool:
 		if item == "iron":
 			have += 2 * (Inventory.count(inv, "iron_ingot") + Inventory.count(bag, "iron_ingot"))
 		cost += roundi(maxi(0, int(raw[item]) - have) * Market.price(sim, item, Inventory.NORMAL, "buy") * 1.2)
-	return cost <= Money.gold(st, _fam(sim)) - _kept(sim)
+	return cost
 
 
 func _contract_hours(sim: Sim, c: Dictionary) -> float:
