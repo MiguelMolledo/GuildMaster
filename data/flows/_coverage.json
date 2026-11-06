@@ -15,10 +15,15 @@
       "key": "señalar un puesto de la sala es del ratón (docs/ui/01 §9: clic)"
     },
     "master_touch": {
-      "key": "el toque maestro es un clic en el puesto mientras parpadea (GDD 4.4.5)"
+      "mouse": "la Forja viva sustituye al toque maestro (decisión del manager, bloque D: pasa a la rama forja)",
+      "key": "la Forja viva sustituye al toque maestro (decisión del manager, bloque D: pasa a la rama forja)"
     },
     "inn_serve": {
       "key": "servir es señalar a un cliente en la sala (docs/ui/01 §9: clic)"
+    },
+    "close_dynasty": {
+      "mouse": "apagado por diseño: data/family.json succession.voluntary_close = false (D19); el flujo vecinos_familia comprueba que el botón dice por qué",
+      "key": "apagado por diseño: data/family.json succession.voluntary_close = false (D19)"
     }
   },
   "steps": []

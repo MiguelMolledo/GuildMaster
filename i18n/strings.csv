@@ -1340,6 +1340,7 @@ ui.trial.rest,Rest the defense,Concluir la defensa
 ui.trial.rest_tip,The judge rules now,El juez dicta sentencia ya
 ui.trial.guilty,Rule guilty,Dictar culpable
 ui.trial.innocent,Rule innocent,Dictar inocente
+ui.trial.presiding,A trial you preside: choose the verdict,Juicio que presides: elige veredicto
 ui.trial.hint_prep,"Win witnesses before the hearing: convince (rhetoric), bribe (gold; they may denounce you) or threaten (martial; if it fails, against you). The accuser's proofs show at the hearing.","Gana testigos antes de la vista: convence (retórica), soborna (oro; puede denunciarte) o amenaza (arte marcial; si falla, en contra). Las pruebas del acusador se ven en la vista."
 ui.trial.hint_hearing,"Hearing: question each witness against you (rhetoric against their empathy: if it works their word does not count, if not it counts double) and rest the defense.",Vista oral: interroga a cada testigo en contra (retórica contra su empatía: si sale bien su palabra no cuenta; si sale mal cuenta doble) y concluye la defensa.
 ui.trial.banished,banished until day %d,desterrado hasta el día %d

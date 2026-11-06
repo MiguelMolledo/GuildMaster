@@ -1,0 +1,25 @@
+{
+  "id": "regalos",
+  "title": "Regalos, equipo y banquete de boda",
+  "about": "Hugo con dos espadas y un martillo en la bolsa (escenario courtship_gifts): equiparse el martillo, regalar a Agnès en el cortejo, regalar a un vecino, pedirla y dar el banquete de boda.",
+  "start": {"scenario": "courtship_gifts"},
+  "covers": ["equip", "court_gift", "npc_gift", "court_talk", "court_propose", "festival_host_wedding"],
+  "steps": [
+    {"id": "ficha", "say": "I: la ficha de Hugo", "key": "@inventory", "expect": ["q.visible('CharacterPanel')"]},
+    {"id": "equipar", "say": "Clic en el martillo de la bolsa: se lo equipa", "click": {"within": "InvList", "prefix": "hammer_"}, "expect": ["q.order('equip')"]},
+    {"id": "cortejar", "say": "«Cortejar»", "click": {"node": "CourtButton"}, "expect": ["q.visible('CourtshipPanel')"]},
+    {"id": "regalo", "say": "«Regalar» (lo mejor de la bolsa: una espada; pide confirmar)", "click": {"within": "CourtshipPanel", "node": "Gift", "enabled": true}, "until": "q.order('court_gift') or q.visible('ConfirmModal')", "timeout": 4},
+    {"id": "regalo_si", "when": "q.visible('ConfirmModal')", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "until": "q.flow_has('court_gift')", "timeout": 4},
+    {"id": "hablar", "click": {"within": "CourtshipPanel", "node": "Talk"}, "until": "q.event('affinity_changed') or q.refused() != ''", "timeout": 20, "fast": 4, "soft": true},
+    {"id": "proponer", "say": "Pedirla", "when": "q.shown({'within': 'CourtshipPanel', 'node': 'Propose', 'enabled': true})", "click": {"within": "CourtshipPanel", "node": "Propose"}, "expect": ["q.visible('ConfirmModal')"]},
+    {"id": "proponer_si", "when": "q.visible('ConfirmModal')", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "until": "q.married()", "timeout": 20, "fast": 4},
+    {"id": "esc_cortejo", "when": "q.visible('CourtshipPanel')", "key": "Escape"},
+    {"id": "oferta", "say": "La carta de la oferta de fiesta de boda", "when": "q.married()", "until": "q.shown({'node': 'Button_host_wedding'})", "timeout": 30, "fast": 4},
+    {"id": "banquete", "say": "«Dar banquete» (330 de oro: encendido)", "when": "q.shown({'node': 'Button_host_wedding', 'enabled': true})", "click": {"node": "Button_host_wedding"}, "expect": ["q.order('festival_host_wedding')"]},
+    {"id": "esc_ficha", "when": "q.visible('CharacterPanel')", "key": "Escape"},
+    {"id": "vecino", "say": "Clic en el vecino más cercano: su ficha", "world": {"person": "=q.npc_near()"}, "expect": ["q.visible('NpcPanel')"]},
+    {"id": "regalo_vecino", "say": "«Regalar» (si está lejos, va andando; pide confirmar)", "click": {"within": "NpcPanel", "node": "Gift", "enabled": true}, "until": "q.order('npc_gift') or q.visible('ConfirmModal')", "timeout": 4},
+    {"id": "regalo_vecino_si", "when": "q.visible('ConfirmModal')", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "until": "q.flow_has('npc_gift')", "timeout": 4},
+    {"id": "esc", "key": "Escape", "expect": ["not q.visible('NpcPanel')"]}
+  ]
+}

@@ -895,6 +895,18 @@
       "tema": "Mapa EA",
       "decision": "1 mapa de ~80×80 casillas con 6 zonas; 30-40 NPC y 5 familias rivales.",
       "por_que": "Decisión del owner."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Verificación D: escenarios para las órdenes sin cubrir",
+      "decision": "Los flujos que ninguna partida existente alcanza empiezan en escenarios propios de tools/scenarios/make_verifica_scenarios.gd (patron_treaties, judge_family, school_age, courtship_gifts, festival_eve, inn_chores, tavern_for_sale, altercation_purse), cada uno derivado de un escenario existente o de una partida nueva y reproducible. master_touch sale de los huecos (la Forja viva lo sustituye; queda para la rama forja) y close_dynasty lleva motivo: apagado por diseño (succession.voluntary_close = false, D19).",
+      "por_que": "Decisión del manager (bloque D): cubrir las 21 órdenes que ningún flujo daba."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "El juez de la familia preside",
+      "decision": "Cuando empieza la vista de un juicio ajeno que preside un juez de la familia del jugador, el juego pausa, abre el juicio con el juez como actor y avisa «Juicio que presides: elige veredicto»; J abre ese juicio mientras dura la vista y, dictado el veredicto, el panel se cierra (docs/ui/mecanicas/tribunal.md §2).",
+      "por_que": "La spec lo prometía y no había camino en la interfaz: el juez no podía dictar veredicto (hallazgo de la verificación D)."
     }
   ],
   "pendientes": [
