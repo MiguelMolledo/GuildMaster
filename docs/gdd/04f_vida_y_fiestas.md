@@ -199,6 +199,11 @@ marqués para San Juan», «En Portvell pagan bien las espadas», «Anoche asalt
 > una con una tirada con clave al llegar) y se le compra en persona desde su ficha («Comprar … (n)», orden
 > `buy_from_peddler`; va hasta él si está lejos). El oro sale fuera (compras); lo que no vende se va con él al
 > atardecer.
+> **El mercader comercia de verdad** (manager, 2026-11-06; `sim/life/merchant.gd`, `visitors.kinds.merchant.trade`):
+> te compra lo que su ciudad paga caro (`dear` de `data/world/region.json`) al 80 % de lo que pagan allí y te vende lo
+> barato de su ciudad (`cheap`, 2-4 de cada) al 115 % de lo que cuesta allí, desde su ficha y en persona. Límites para
+> que no rompa el mercado: su bolsa (ahora oro de verdad), 3 unidades de cada cosa por visita, y no toca los puestos
+> de la villa ni su demanda; el viaje a su ciudad siempre sale mejor.
 
 #### 4.24.4 La guardia
 
@@ -225,7 +230,9 @@ eligiendo patrullas) llega con 4.22.
 > puerta a puerta por la plaza y `patrol_plaza`, que pone `citylib.add_life`), con farol de mano, y uno en la plaza en
 > fiesta. El Alguacil es el cargo `constable` (+1 de noche si está ocupado). Fuera de turno no están en el mapa (el
 > cuerpo de guardia es la puerta del ayuntamiento). Un grito a ≤ 12 casillas los manda; «dar la alarma» los llama a
-> todos. Librea: `watch.livery` (rojo oscuro y oro), teñida con el shader hasta el arte del 15-nov.
+> todos. Librea: `watch.livery` (rojo oscuro y oro), teñida con el shader hasta el arte del 15-nov; mientras no haya
+> sprite del guardia, lleva encima un **tabardo** con esos colores y una cruz dorada en el pecho (placeholder visible,
+> `CharacterView._add_livery`).
 
 #### 4.24.5 Sucesos: altercados, bandidos y secuestros
 
@@ -247,6 +254,11 @@ escenarios de las dianas** (`_no_events`), con su carta, su aviso y su entrada e
   almacén.
 - **Los bandidos vienen de algún sitio.** Salen del Nido de la ruta con más riesgo (09b) y la IA del Bandido de
   4.22 los reutilizará. Si la guardia los vence, el Nido queda «escarmentado» y no vuelven en 1 año.
+- **Una pelea ajena no es urgente** (verifica #20, decisión del owner). El aviso «¡Pelea!» es normal: sale y se va
+  solo. Solo es urgente (se queda hasta un clic) si pelea alguien de tu familia o uno de tus empleados, o si es a 3
+  casillas o menos de la puerta de un edificio tuyo (`own_building_tiles`). La carta «Pelea en la calle» caduca con
+  su suceso: a la hora sin respuesta se elige «Mirar», y se retira aunque esperase sitio en la pila. Nunca llega al
+  día siguiente. Medido con guard_watch (3 semillas × 16 días): 24 avisos de pelea, 0 urgentes.
 
 > [!NOTE]
 > **Construido.** **Cambio de sitio:** van en `data/life/incidents.json`, no en `data/events.json` (WorldEvents tira

@@ -2,6 +2,18 @@
   "tomadas": [
     {
       "fecha": "2026-11-06",
+      "tema": "Vida: el mercader de paso comercia de verdad (construido)",
+      "decision": "El mercader forastero compra al jugador lo que su ciudad paga caro (dear) al 80 % del precio de allí y le vende lo barato de su ciudad (cheap, 2-4 de cada) al 115 %, desde su ficha y en persona (sell_to_merchant, buy_from_merchant). Límites: su bolsa (oro real), 3 unidades de cada cosa por visita; no toca los puestos de la villa ni su demanda, y el viaje siempre paga mejor. sim/life/merchant.gd.",
+      "por_que": "Encargo del manager (2026-11-06): cerrar lo que quedó a medias en la auditoría de vida."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Vida: la librea de la guardia, con placeholder visible",
+      "decision": "Mientras no llegue el sprite del guardia (assets/inventario.json, PixelLab), los guardias llevan sobre la figura del vecino teñida un tabardo con los colores del concejo (watch.livery) y una cruz dorada: se leen como guardia a primera vista. Se quita solo cuando exista la escena characters/guard_m.",
+      "por_que": "Encargo del manager (2026-11-06): cerrar lo que quedó a medias en la auditoría de vida."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Fiestas: el corro de juego en la plaza (construido)",
       "decision": "(b) Con una fiesta en curso, la carta de la fiesta trae «Corro de juego»: una segunda carta con pulso, azar, a la mayor y envite contra los parroquianos (data/festivals.json rules.corro: regular_even, regular_prudent, regular_boastful), con la misma pantalla de juegos y la apuesta pequeña de la plaza (5). Sin casa ni licencia: nadie se lleva parte (game_play con opts.corro; con casa, bad_option). Con el predicador en la villa está mal visto: cada partida cuesta 2 de reputación y la carta lo dice. Ni en la víspera ni después de la fiesta; no estando en la villa, no. sim/fest/festival_corro.gd.",
       "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."

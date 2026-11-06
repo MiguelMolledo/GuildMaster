@@ -99,6 +99,8 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	VisualPaths.place(_visual, Vector2.ZERO)
 	fig_height = VisualPaths.top_height(_visual, 48.0)
 	add_child(_visual)
+	if str(ch.get("family", "")) == Life.FAMILY_WATCH and not VisualPaths.has_scene("characters", "guard_m"):
+		_add_livery()  # vida (04f 4.24.4): the town's livery, a visible placeholder until the guard's art
 	_badge_mark = Node2D.new()
 	_badge_mark.name = "Badge"
 	_badge_mark.draw.connect(_draw_badge)
@@ -122,6 +124,31 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	_name_label.z_index = MARKS_Z
 	add_child(_name_label)
 	queue_redraw()
+
+
+## Vida (04f 4.24.4): the guard's tabard in the council's colours (the family's: data/life/life.json watch.livery) over
+## the townsfolk's figure, with a gold cross on the chest: a placeholder anyone reads as «the watch» until the guard's
+## sprite (assets/inventario.json, PixelLab) lands. The node «Livery», drawn over the figure.
+func _add_livery() -> void:
+	var tab := Node2D.new()
+	tab.name = "Livery"
+	tab.z_index = 1
+	var h := VisualPaths.top_height(_visual, 48.0)
+	var p := primary
+	var s := secondary
+	tab.draw.connect(func() -> void:
+		var top := -h * 0.62
+		var bottom := -h * 0.22
+		var w := fig_width * 0.42
+		tab.draw_colored_polygon(PackedVector2Array([Vector2(-w, top), Vector2(w, top), Vector2(w * 0.85, bottom),
+			Vector2(-w * 0.85, bottom)]), p)
+		tab.draw_polyline(PackedVector2Array([Vector2(-w, top), Vector2(w, top), Vector2(w * 0.85, bottom),
+			Vector2(-w * 0.85, bottom), Vector2(-w, top)]), s, 1.0)
+		var cy := (top + bottom) * 0.5
+		tab.draw_line(Vector2(0, top + 2), Vector2(0, bottom - 2), s, 2.0)
+		tab.draw_line(Vector2(-w * 0.55, cy - 1), Vector2(w * 0.55, cy - 1), s, 2.0))
+	add_child(tab)
+	tab.queue_redraw()
 
 
 ## Fiestas (04f 4.25.3): the clothes in the festival's palette (rules.view_looks: {color, amount, mask}; {} = the

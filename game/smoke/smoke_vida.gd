@@ -7,7 +7,7 @@ extends Node
 ##   vida_guardia_puerta   life_gate at 09:52: the guard at the west gate greeting a merchant from Portvell
 ##   vida_patrulla_noche   life_night at 23:10: the night round with its lantern
 ##   vida_altercado        life_altercation: two townsfolk fighting in the plaza, the ring of onlookers, the watch
-##   vida_altercado_carta  and its card
+##   vida_altercado_carta  and its card, with «¡Pelea!» as a plain notice (not urgent: nobody of the family fights)
 ##   vida_secuestro_carta  life_kidnap at 18:51: the kidnapping's card (pay, negotiate, rescue, nothing)
 ## Quits when done, or after `timeout` seconds with a shot of whatever is on screen.
 
@@ -52,7 +52,7 @@ func _load(id: String) -> bool:
 
 
 func _card() -> IncidentCard:
-	return app.get_node("%IncidentCard") as IncidentCard
+	return app.get_node("CardsLayer/IncidentCard") as IncidentCard
 
 
 func _run_to(minute_of_day: int) -> void:
@@ -131,10 +131,13 @@ func _brawl() -> void:
 	if not _load("life_altercation"):
 		return
 	for i: int in 90:
-		Game.sim.step()
+		for e: Dictionary in Game.sim.step():
+			if str(e.get("type", "")) == "notice_added" and str(e.get("key", "")) == "notice.life.altercation":
+				app.hud().call("_on_notice", e)   # verifica #20: the brawl of others pops up as a plain notice
+				print("[SmokeVida] aviso de la pelea: %s" % e.get("severity", ""))
 		var a := Incidents.active(Game.sim.state)
-		if not a.is_empty() and str(a[0].get("phase", "")) == "fighting" and int(Game.sim.state.clock["minute"]) >= int(a[0].get("fight_until", 0)) - 18:
-			break
+		if not a.is_empty() and str(a[0].get("phase", "")) == "fighting":
+			break   # fighting, its card still open (it goes when the brawl ends or times out: verifica #20)
 	var act := Incidents.active(Game.sim.state)
 	if not act.is_empty():
 		var tile: Array = act[0]["tile"]

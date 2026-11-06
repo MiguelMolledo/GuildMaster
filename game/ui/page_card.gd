@@ -116,6 +116,20 @@ func show_page(d: Dictionary) -> void:
 			str(d.get("title", "")), parts, safe, size])
 
 
+## Whether the card waits for room in the stack (or behind a modal).
+func is_waiting() -> bool:
+	return _waiting.any(func(p: Array) -> bool: return p[0] == self)
+
+
+## Takes the card away for good: shown, or waiting for room in the stack (a card whose matter is over must not show
+## later; verifica #20, the brawl card that waited days).
+func withdraw() -> void:
+	for i: int in range(_waiting.size() - 1, -1, -1):
+		if (_waiting[i] as Array)[0] == self:
+			_waiting.remove_at(i)
+	close()
+
+
 func close() -> void:
 	if not visible and not suspended:
 		return

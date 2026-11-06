@@ -264,6 +264,14 @@ func _fill_actions(statuses: Array, gift: Dictionary, camp: Array, t: Dictionary
 	if actor != "":
 		for w: Dictionary in Peddler.wares(st, target):  # vida (H16): the peddler's stall, one button per ware
 			acts.add_child(_ware_button(str(w["item"]), int(w["price"]), int(w["qty"])))
+		if VisitingMerchant.is_merchant(st, target):  # vida: the merchant buys his city's dear goods and sells its cheap
+			for w: Dictionary in VisitingMerchant.wares(st, target):
+				acts.add_child(_merchant_button(str(w["item"]), -1, int(w["price"]), int(w["qty"])))
+			var bag: Dictionary = st.characters[actor].get("inventory", {})
+			for item: String in VisitingMerchant.buys(sim, target):
+				for q: int in Inventory.QUALITIES:
+					if Inventory.count(bag, item, q) > 0:
+						acts.add_child(_merchant_button(item, q, VisitingMerchant.offer(sim, target, item, q), 0))
 	if actor != "" and str(st.characters.get(actor, {}).get("family", "")) != str(t.get("family", "")):
 		acts.add_child(_accuse_row())  # H11
 		acts.add_child(_duel_button())  # duelo
@@ -320,6 +328,32 @@ func _ware_button(item: String, price: int, qty: int) -> Button:
 	b.pressed.connect(func() -> void:
 		_give(_reach({"type": "buy_from_peddler", "actor": actor, "target": target, "item": item},
 			NpcActions.in_range(sim, actor, target))))
+	return b
+
+
+## The merchant: «Comprar <item> (n)» (quality -1: one of his wares) or «Vender <item> (n)» (one unit of the bag at
+## `quality`, at his offer); walking there first when far; off with its reason (his purse, his limit, the gold).
+func _merchant_button(item: String, quality: int, price: int, qty: int) -> Button:
+	var selling := quality >= 0
+	var why := VisitingMerchant.sell_reason(sim, actor, target, item, quality) if selling \
+		else VisitingMerchant.buy_reason(sim, actor, target, item)
+	var b := Button.new()
+	b.name = ("Sell_%s_%d" % [item, quality]) if selling else "Buy_" + item
+	var label := SimQuery.item_name(sim.catalog, item)
+	if selling and quality != Inventory.NORMAL:
+		label += " (%s)" % SimQuery.quality_name(quality)
+	b.text = SimQuery.t_("ui.npc.sell_merchant" if selling else "ui.npc.buy_ware") % [label, price]
+	b.focus_mode = Control.FOCUS_NONE
+	b.theme_type_variation = &"BodyButton"
+	b.disabled = why != ""
+	b.tooltip_text = SimQuery.reason_text(why) if why != "" else (SimQuery.t_("ui.npc.sell_merchant_tip") if selling \
+		else SimQuery.t_("ui.npc.buy_merchant_tip") % qty)
+	_reasons[b.name] = SimQuery.t_("ui.npc.reason_line") % [b.text, SimQuery.reason_text(why)] if b.disabled else ""
+	b.mouse_entered.connect(_hover.bind(b.name))
+	b.mouse_exited.connect(_hover.bind(""))
+	var o := {"type": "sell_to_merchant", "actor": actor, "target": target, "item": item, "quality": quality} if selling \
+		else {"type": "buy_from_merchant", "actor": actor, "target": target, "item": item}
+	b.pressed.connect(func() -> void: _give(_reach(o, NpcActions.in_range(sim, actor, target))))
 	return b
 
 
