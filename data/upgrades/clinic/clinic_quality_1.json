@@ -1,0 +1,32 @@
+{
+  "id": "clinic_quality_1",
+  "name_key": "upgrade.clinic_quality_1",
+  "tree": "clinic",
+  "branch": "quality",
+  "level": 1,
+  "cost": {
+    "gold": 25,
+    "items": [
+      {
+        "item": "iron",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "quality_bonus",
+      "amount": 1
+    }
+  ],
+  "visual": {
+    "interior_node": "clinic_herbal",
+    "exterior_overlay": null
+  }
+}

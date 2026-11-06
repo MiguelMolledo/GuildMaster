@@ -1,5 +1,5 @@
 {
-  "_doc": "Demanda de servicios (docs/gdd/04d_otras_clases.md 4.22.3.2), adelantada lo justo para la Taberna-Posada (04f §4.27): tavern (comer o beber) e inn (cama). visits_per_adult: visitas por adulto del pueblo y noche; elasticity y no_go: la fórmula de elección de proveedor; price_range: lo que puede fijar el dueño sobre el precio de referencia; patience_minutes: la de 4.22.3.2 (cada grupo de data/inn/clientele.json lleva la suya). Los demás servicios (doctor, mass, letter, loan) llegan con 4.22. [balance]",
+  "_doc": "Demanda de servicios (docs/gdd/04d_otras_clases.md 4.22.3.2), adelantada lo justo para la Taberna-Posada (04f §4.27): tavern (comer o beber) e inn (cama). visits_per_adult: visitas por adulto del pueblo y noche; elasticity y no_go: la fórmula de elección de proveedor; price_range: lo que puede fijar el dueño sobre el precio de referencia; patience_minutes: la de 4.22.3.2 (cada grupo de data/inn/clientele.json lleva la suya). doctor (la consulta del Médico, H12.2) ya está; mass, letter y loan llegan con el resto de 4.22. [balance]",
   "elasticity": 1.5,
   "no_go": 0.5,
   "price_range": [
@@ -25,6 +25,38 @@
       "providers": [
         "tavern_inn"
       ]
+    },
+    "doctor": {
+      "visits_per_adult": 0.06,
+      "countryside_per_day": 1.25,
+      "ref_price": 20,
+      "patience_minutes": 120,
+      "providers": [
+        "clinic"
+      ],
+      "open_phases": [
+        "dawn",
+        "day",
+        "dusk"
+      ],
+      "max_waiting": 4,
+      "severity": [
+        {
+          "severity": 3,
+          "weight": 55
+        },
+        {
+          "severity": 5,
+          "weight": 37
+        },
+        {
+          "severity": 7,
+          "weight": 8
+        }
+      ],
+      "cure_reputation": 1,
+      "fail_reputation": 0,
+      "_doc": "H12.2 (04d 4.22.3.2, 4.22.5.1): the patients of the Consulta. per day = (visits_per_adult × the town's adults + countryside_per_day × fame(b)) × season × the provider's share (the formula of 4.22.3.2 with the clinic's price over ref_price); they come in open_phases, wait at the cot up to patience_minutes and pay from outside (P4) the clinic's price when the doctor finishes with them. severity: how bad (3 illness, 5 wound, 7 grave: only a surgery treats it), drawn by weight. cure_reputation: the family's reputation for each patient cured (the roll succeeded). [balance]"
     }
   }
 }

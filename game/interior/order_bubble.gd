@@ -10,6 +10,9 @@ var waiting: bool = false
 var patience: float = 1.0   # 1 = just came, 0 = goes away
 var served: float = -1.0    # -1 = nobody serves it yet; 0..1 = the sale under way
 
+var _tex: Texture2D = null  # the icon drawn, kept: a texture loaded inside _draw and not held is freed before the
+var _tex_item: String = ""  # frame is rendered (it drew a white square for an icon nothing else had loaded)
+
 const PAPER: Color = Color("#d4b896")
 const INK: Color = Color("#1a1209")
 const GOLD: Color = Color("#c8a84e")
@@ -22,7 +25,10 @@ func _draw() -> void:
 	# the tail, pointing down at the head
 	draw_colored_polygon(PackedVector2Array([Vector2(-3, -2), Vector2(3, -2), Vector2(0, 2)]), PAPER)
 	draw_polyline(PackedVector2Array([Vector2(-3, -2), Vector2(0, 2), Vector2(3, -2)]), INK, 1.0)
-	var tex := VisualPaths.icon_small(item) if item != "" and not waiting else null
+	if _tex_item != item:
+		_tex_item = item
+		_tex = VisualPaths.icon_small(item) if item != "" else null
+	var tex := _tex if not waiting else null
 	if tex != null:
 		draw_texture(tex, Vector2(-8, -20))
 	else:

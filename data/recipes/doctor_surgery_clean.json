@@ -1,0 +1,22 @@
+{
+  "id": "doctor_surgery_clean",
+  "name_key": "recipe.doctor_surgery_clean",
+  "building": "clinic",
+  "zone": "cot",
+  "kind": "service",
+  "service": "doctor",
+  "inputs": [
+    {
+      "item": "bandages",
+      "qty": 2
+    }
+  ],
+  "max_severity": 7,
+  "price_mult": 1.75,
+  "duration_hours": 2.0,
+  "stat": "arcane",
+  "min_stat": 4,
+  "min_craft": 1,
+  "requires_upgrade": "clinic_production_3",
+  "_doc": "H12.2 (04d 4.22.7): the operating room's surgery, without the salve (clinic_production_3)."
+}

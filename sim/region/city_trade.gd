@@ -159,7 +159,7 @@ static func post_offer(sim: Sim, c: String, day: int) -> void:
 	var cfg: Dictionary = sim.catalog.trade.get("board", {})
 	var cd := Region.city(sim, c)
 	var board: Array = cd["board"]
-	if board.size() >= int(cfg.get("max_open", 2)):
+	if board.filter(func(o: Dictionary) -> bool: return not o.has("feast")).size() >= int(cfg.get("max_open", 2)):
 		return
 	if Kin.roll(sim.state, "rgn|board|%s|%d" % [c, day]) >= float(cfg.get("chance", 0.5)):
 		return
@@ -195,6 +195,8 @@ static func order_accept(sim: Sim, o: Dictionary) -> Dictionary:
 		var due := int(sim.state.clock["minute"]) + int(off["days"]) * Clock.MINUTES_PER_DAY
 		var acc := {"id": id, "city": c, "family": fam, "item": off["item"], "qty": off["qty"], "reward": off["reward"],
 			"due": due}
+		if off.has("feast"):  # fiestas: a feast's contract (FestivalCity), its extra reputation there
+			acc.merge({"feast": off["feast"], "reputation_bonus": int(off.get("reputation_bonus", 0))})
 		(Region.ensure(sim)["contracts"] as Array).append(acc)
 		sim.events.append({"type": "city_contract_accepted", "family": fam, "city": c, "contract": id})
 		if OS.is_debug_build():
@@ -224,8 +226,8 @@ static func deliver_from(sim: Sim, a: Dictionary, inv: Dictionary, actor: String
 			need -= take
 	var fam := str(a["family"])
 	Money.change(sim, fam, int(a["reward"]), Money.CONTRACTS, "city_contract:" + str(a["id"]), "", actor)
-	Region.add_reputation(sim, str(a["city"]), fam, int(sim.catalog.trade.get("reputation", {}).get("contract_done", 3)),
-		"contract_done")
+	Region.add_reputation(sim, str(a["city"]), fam, int(sim.catalog.trade.get("reputation", {}).get("contract_done", 3))
+		+ int(a.get("reputation_bonus", 0)), "contract_done")
 	(Region.ensure(sim)["contracts"] as Array).erase(a)
 	Region.stat(sim, fam, "city_contracts_done")
 	sim.events.append({"type": "city_contract_done", "family": fam, "city": a["city"], "contract": a["id"],

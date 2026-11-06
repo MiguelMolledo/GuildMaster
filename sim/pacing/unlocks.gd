@@ -56,26 +56,129 @@ static func ui_open(sim: Sim, fam: String, ui: String) -> bool:
 	return true
 
 
+## Every minute, but a closed unlock is looked at again only when something its trigger reads has moved (the result is
+## the one of looking at every closed unlock every minute: the same unlocks at the same minute, the same counters):
+## the family's signature (day, gold, title, head and its age, map, entries of state.unlocks[fam]) or, this step, an
+## event its leaves count (rival_outsold for outsold_rival). The employees leaf has no signature: always looked at.
+## What was seen lives in the Sim (not in the state, not saved): a new Sim, or a loaded game, looks at everything once.
 static func step(sim: Sim) -> void:
 	var st := sim.state
-	if defs(sim).is_empty():
+	var ds := defs(sim)
+	if ds.is_empty():
 		return
 	var fams := _human_families(st)
 	if fams.is_empty():
 		return
 	_count_sales(sim)
+	var info := _info(sim, ds)
+	var memo := _memo(sim, &"_unlocks_memo")
 	for fam: String in fams:
 		if not st.unlocks.get(fam) is Dictionary:
 			st.unlocks[fam] = {}
 		var u: Dictionary = st.unlocks[fam]
 		if u.has(ALL):
 			continue
-		for d: Dictionary in defs(sim):
+		var sig := _signature(sim, fam, u)
+		var same: bool = memo.get(fam, []) == sig
+		var types := event_types(sim)
+		if same and not _watched(info["watch"], types) and not bool(info["volatile"]):
+			continue  # nothing a closed trigger reads has moved
+		for i: int in ds.size():
+			var d: Dictionary = ds[i]
 			var id := str(d.get("id", ""))
-			if u.has(id) or not ready(sim, d):
+			if u.has(id):
+				continue
+			var di: Dictionary = info["defs"][i]
+			if same and not bool(di["volatile"]) and not _watched(di["types"], types):
+				continue  # looked at with these values and none of its events now: still closed, its counters as they are
+			if not ready(sim, d):
 				continue
 			if _holds(sim, fam, id, d.get("trigger", {}), [0]):
 				_open(sim, fam, id)
+				same = false  # its event and notice are in the step now: the rest are looked at as before
+		sig[sig.size() - 1] = u.size()
+		memo[fam] = sig
+
+
+## What a family's triggers read besides the events: [day, gold, title, head, head alive in the state, its age, map,
+## entries of state.unlocks[fam]] (the map: the hooks of vida wait for a town; the entries: an unlock opened or
+## closed outside the step, the counters created).
+static func _signature(sim: Sim, fam: String, u: Dictionary) -> Array:
+	var st := sim.state
+	var f: Dictionary = st.families.get(fam, {})
+	var head := str(f.get("head", ""))
+	var has_head := st.characters.has(head)
+	return [Clock.day(int(st.clock["minute"])), int(f.get("gold", 0)), str(f.get("title", "common")), head, has_head,
+		Kin.age(sim, head) if has_head else 0, st.map_id, u.size()]
+
+
+## Per list of unlocks (data/unlocks.json), kept in the Sim: {defs: [{types: [event types its leaves count],
+## volatile: bool (a leaf without signature: employees)}], watch: [every type], volatile: any}.
+static func _info(sim: Sim, ds: Array) -> Dictionary:
+	var m: Dictionary = sim.get_meta(&"_unlocks_info", {})
+	if is_same(m.get("of"), ds):
+		return m
+	var out: Array = []
+	var watch: Array = []
+	var volatile := false
+	for d: Dictionary in ds:
+		var e := {"types": [], "volatile": false}
+		_leaves(d.get("trigger", {}), e)
+		out.append(e)
+		volatile = volatile or bool(e["volatile"])
+		for t: String in e["types"]:
+			if not t in watch:
+				watch.append(t)
+	m = {"of": ds, "defs": out, "watch": watch, "volatile": volatile}
+	sim.set_meta(&"_unlocks_info", m)
+	return m
+
+
+static func _leaves(t: Variant, into: Dictionary) -> void:
+	if not t is Dictionary:
+		return
+	match str((t as Dictionary).get("kind", "")):
+		"event":
+			(into["types"] as Array).append(str(t.get("event", "")))
+		"outsold_rival":
+			(into["types"] as Array).append("rival_outsold")
+		"employees":
+			into["volatile"] = true
+		"any", "all":
+			for sub: Variant in t.get("of", []):
+				_leaves(sub, into)
+
+
+static func _watched(want: Array, types: Dictionary) -> bool:
+	for t: String in want:
+		if types.has(t):
+			return true
+	return false
+
+
+## The types of the events of this step so far ({type: true}), shared by Unlocks and OpenGoals: one pass over
+## sim.events, carried on with the events added since (kept in the Sim for this step's events).
+static func event_types(sim: Sim) -> Dictionary:
+	var m: Dictionary = sim.get_meta(&"_event_types", {})
+	var minute := int(sim.state.clock["minute"])
+	if not is_same(m.get("events"), sim.events) or int(m.get("minute", -1)) != minute \
+			or int(m.get("n", 0)) > sim.events.size():
+		m = {"events": sim.events, "minute": minute, "n": 0, "types": {}}
+		sim.set_meta(&"_event_types", m)
+	var types: Dictionary = m["types"]
+	for i: int in range(int(m["n"]), sim.events.size()):
+		types[str((sim.events[i] as Dictionary).get("type", ""))] = true
+	m["n"] = sim.events.size()
+	return types
+
+
+## A memo of this Sim for this state ({} again for another state: a load, a new game in the same Sim).
+static func _memo(sim: Sim, key: StringName) -> Dictionary:
+	var m: Dictionary = sim.get_meta(key, {})
+	if not is_same(m.get("state"), sim.state):
+		m = {"state": sim.state, "fams": {}}
+		sim.set_meta(key, m)
+	return m["fams"]
 
 
 ## {"type": "unlock_seen", "actor", "unlock", "what": "card" | "mark"}: the card was closed / the marked button used.
@@ -192,6 +295,9 @@ static func _count_sales(sim: Sim) -> void:
 	var st := sim.state
 	if not st.unlocks.get("_day_sales") is Dictionary:
 		st.unlocks["_day_sales"] = {}
+	var types := event_types(sim)
+	if not types.has("market_sold") and not types.has("day_started"):
+		return  # no sale and no new day: nothing to add up
 	var sales: Dictionary = st.unlocks["_day_sales"]
 	var new_day := false
 	for e: Dictionary in sim.events:
@@ -244,9 +350,10 @@ static func _family_of(st: WorldState, e: Dictionary) -> String:
 
 static func _human_families(st: WorldState) -> Array:
 	var out: Array = []
-	for f: String in _sorted(st.families.keys()):
+	for f: Variant in st.families:
 		if str(st.families[f].get("controlled_by", "")) == "human":
-			out.append(f)
+			out.append(str(f))
+	out.sort()  # the same order as sorting every family first: only the human ones are sorted
 	return out
 
 

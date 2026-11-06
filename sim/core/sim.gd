@@ -54,6 +54,7 @@ func step(orders: Array = []) -> Array:
 	Rogue.step(self)        # the Rogue (4.22.6.4): laundering jobs that end
 	Households.step(self)   # Equilibrio 15: the houses' wages at dusk and food at dawn; the employees' and children's meals
 	Counter.step(self)      # H7: customers at the shop counters
+	Services.step(self)     # H12.2 (04d 4.22.3.2): the clients of the service buildings (the Consulta's patients)
 	Schedules.step(self)    # H8: the family's routines and the Work directive (real orders, Sim.give)
 	WorkQueue.step(self)    # hands the queue's next unit to each free employee at its station (work_at)
 	Production.step(self)   # work cycles, master-touch windows

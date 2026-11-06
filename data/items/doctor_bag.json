@@ -1,0 +1,11 @@
+{
+  "id": "doctor_bag",
+  "name_key": "item.doctor_bag",
+  "gender": "m",
+  "category": "tool",
+  "weight": 3.0,
+  "max_stack": 1,
+  "base_price": 40,
+  "market_stall": "apothecary",
+  "slot": "tool"
+}

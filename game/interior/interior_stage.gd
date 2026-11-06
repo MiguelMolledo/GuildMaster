@@ -413,6 +413,7 @@ func _place_customers(delta: float, town: Array) -> void:
 			v.modulate.a = clampf(float(_born[id]) / FADE_SECONDS, 0.0, 1.0)
 			_customer_bubble(id, v, i < n_counter, e[3])
 			_show(v, lv)
+	_place_patients(delta, here)
 	# the countryside's who are gone fade away where they stood
 	for id: String in _visitors.keys():
 		if here.has(id):
@@ -427,6 +428,83 @@ func _place_customers(delta: float, town: Array) -> void:
 			_visitors.erase(id)
 			_born.erase(id)
 			_bubbles.erase(id)
+
+
+## H12.2 (04d 4.22.3.2): the clients of a service (Services records: the Consulta's patients). Waiting, on the
+## customers.waiting spots in the order they came; the one being seen, at the spot of its station (customers.<zone>,
+## the cot's); they appear with a fade like the countryside's and fade away when they go. Their bubble: bandages (a
+## grave one: a salve, it needs a surgery), the patience left or, at the cot, how far the consultation is.
+func _place_patients(delta: float, here: Dictionary) -> void:
+	var st := view.sim.state
+	var recs: Array = Services.waiting(st, view.building)
+	if recs.is_empty():
+		return
+	var cust: Dictionary = d.get("customers", {})
+	var spots: Array = cust.get("waiting", [])
+	var line := recs.duplicate()
+	line.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		return int(a["since"]) < int(b["since"]) or (int(a["since"]) == int(b["since"]) and str(a["id"]) < str(b["id"])))
+	var wi := 0
+	for rec: Dictionary in line:
+		var id := str(rec["id"])
+		here[id] = true
+		var zone := str(rec.get("claimed", ""))
+		var spot: Dictionary = {"tile": [0, 0]}
+		var face := "se"
+		if zone != "" and not (cust.get(_cot_spots(zone), []) as Array).is_empty():
+			spot = (cust[_cot_spots(zone)] as Array)[0]
+			face = CharacterView.dir_of(Vector2(_station_tile(zone) - Vector2i(int(spot["tile"][0]), int(spot["tile"][1]))))
+		elif not spots.is_empty():
+			spot = spots[mini(wi, spots.size() - 1)]
+			wi += 1
+		var tile := Vector2i(int(spot["tile"][0]), int(spot["tile"][1]))
+		var lv := int(spot.get("floor", 0))
+		var v := _visitor(id, rec)
+		v.position = InteriorDefs.spot_world(d, lv, Vector2(tile)).round()
+		v.play_motion("idle", face)
+		if not _born.has(id):
+			_born[id] = 0.0
+			if OS.is_debug_build():
+				print("[InteriorStage] paciente %s aparece en %s (gravedad %d)" % [id, tile, int(rec.get("severity", 0))])
+		_born[id] = float(_born[id]) + delta
+		v.modulate.a = clampf(float(_born[id]) / FADE_SECONDS, 0.0, 1.0)
+		_patient_bubble(id, v, rec)
+		_show(v, lv)
+
+
+## The spots of the client being seen at `zone`: customers.cot for cot, customers.cot_2 (else the cot's second) for cot_2.
+func _cot_spots(zone: String) -> String:
+	var cust: Dictionary = d.get("customers", {})
+	if cust.has(zone):
+		return zone
+	return "cot"
+
+
+func _patient_bubble(id: String, v: CharacterView, rec: Dictionary) -> void:
+	var b: OrderBubble = _bubbles.get(id, null)
+	if b == null or not is_instance_valid(b):
+		b = OrderBubble.new()
+		b.name = "OrderBubble"
+		b.position = Vector2(0, -v.fig_height - 6)
+		b.z_index = CharacterView.MARKS_Z
+		v.add_child(b)
+		_bubbles[id] = b
+	var old := v.get_node_or_null("Bubble") as Node2D
+	if old != null:
+		old.visible = false   # the street bubble: this one says what they need
+	var now := int(view.sim.state.clock["minute"])
+	b.item = "salve" if int(rec.get("severity", 0)) >= 7 else "bandages"
+	var zone := str(rec.get("claimed", ""))
+	b.waiting = false   # what they come for shows also in the waiting room (a grave one: the salve it needs)
+	if zone != "":
+		var job := Production.job_view(view.sim, view.building, zone)
+		b.served = float(job.get("progress", 0.0))
+		b.patience = 1.0
+	else:
+		var patience := float(Services.cfg(view.sim, str(rec.get("service", ""))).get("patience_minutes", 60))
+		b.served = -1.0
+		b.patience = clampf(1.0 - float(now - int(rec.get("since", now))) / maxf(1.0, patience), 0.0, 1.0)
+	b.queue_redraw()
 
 
 ## The figure of a countryside customer (no character in the state): a townsperson in the clothes of the villages.
