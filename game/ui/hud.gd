@@ -24,6 +24,8 @@ extends CanvasLayer
 ## tutorial_requested). ESC is the app's (close_top); with nothing open it calls request_pause_menu(), which emits
 ## pause_menu_requested (the pause menu is the menus' scene).
 
+signal build_mode_changed(on: bool)  # H6: the building mode (B) on or off (App -> WorldView.set_build_mode)
+signal plot_requested(plot_id: String)  # H6: a plot's card from the selection bar (another family's business)
 signal manage_pressed(building_id: String)
 signal select_requested(id: String)    # H8: a portrait of the group was picked (key 1-2-3 or click)
 signal focus_requested(target: String)  # a notice was clicked: centre on this building / person
@@ -65,6 +67,7 @@ const GOLD_ICON: String = "icon_oro"
 @onready var _clock_panel: PanelContainer = %ClockPanel
 @onready var _event_label: Label = %EventLabel  # H13: the global events in force and their time left
 @onready var _festival_button: Button = %FestivalButton  # fiestas: the feast of today or the next one; opens its card
+var build_mode: bool = false  # H6: the building mode is on
 var _festival_event: Dictionary = {}
 @onready var _sun_moon: TextureRect = %SunMoon
 @onready var _time_label: Label = %TimeLabel
@@ -150,13 +153,9 @@ func _ready() -> void:
 	_status_button(_ledger_button, UiIcons.ui("icon_libro"), "L", "hud.ledger_tip", toggle_ledger)
 	_status_button(_tree_button, UiIcons.ui("icon_crown"), "F", "hud.tree_tip", toggle_tree)
 	_status_button(_inventory_button, UiIcons.ui("icon_backpack"), "I", "hud.inventory_tip", toggle_character_panel)
-	_status_button(_build_button, UiIcons.ui("icon_build_mode"), "B", "hud.build_tip", _build_denied)
-	_build_button.disabled = true   # the building mode arrives in H6: pressed, it says why (toast)
+	_status_button(_build_button, UiIcons.ui("icon_build_mode"), "B", "hud.build_tip", toggle_build_mode)
 	_status_button(_offices_button, UiIcons.mark("badge_office_mayor"), "O", "hud.offices_tip", toggle_offices)
 	_status_button(_trials_button, UiIcons.mark("badge_office_judge"), "J", "hud.trials_tip", toggle_trial)
-	_build_button.gui_input.connect(func(ev: InputEvent) -> void:
-		if ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed:
-			_build_denied())
 	_help_button.text = tr("hud.help_key")
 	_help_button.tooltip_text = tr("hud.help_button_tip")
 	_help_button.pressed.connect(toggle_help)
@@ -188,7 +187,13 @@ func _ready() -> void:
 	_manage_button.pressed.connect(func() -> void: manage_pressed.emit(building_id))
 	_buy_button.pressed.connect(func() -> void:
 		var who := active_person()
-		if who != "" and _game != null:
+		if _game == null or who == "":
+			return
+		var plot := Plots.plot_of(_game.sim, building_id) if not bool(_game.sim.state.buildings.get(building_id, {}).get(
+			"for_sale", false)) else ""
+		if plot != "":
+			plot_requested.emit(plot)   # H6: another family's business: its card says the price and the seller
+		else:
 			_game.give({"type": "buy_building", "actor": who, "building": building_id}))
 	_table_button.pressed.connect(func() -> void:
 		var app := get_node_or_null("/root/App")
@@ -398,6 +403,12 @@ func _show_building(sim: Sim) -> void:
 	_table_button.visible = show_table_button(sim, building_id)
 	_table_button.text = tr("hud.inn_table")
 	_table_button.tooltip_text = tr("hud.inn_table_tip")
+	if not own and not sale and Plots.plot_of(sim, building_id) != "" and not Plots.is_human(sim,
+			str(sim.state.buildings[building_id].get("owner", ""))) and str(sim.state.buildings[building_id].get("owner", "")) != "":
+		_buy_button.visible = true   # H6: a business of a NPC on a plot: «Comprar…» opens the plot's card (price, seller)
+		_buy_button.disabled = false
+		_buy_button.text = tr("hud.buy_business")
+		_buy_button.tooltip_text = tr("hud.buy_business_tip")
 	if sale:
 		var price := Inn.sale_price(sim, building_id)
 		_buy_button.text = tr("hud.buy_building") % price
@@ -456,9 +467,29 @@ func toggle_character_panel() -> void:
 		_character_panel.open()
 
 
-## B: the building mode arrives in H6 (the button is disabled; pressed, it says why).
+## H6 · B: the building mode (04 §4.9): the town shows its plots by zone and a click on one opens its card. Not
+## inside a building (it says so).
+func toggle_build_mode() -> void:
+	if interior_open and not build_mode:
+		show_toast(tr("hud.build_inside"))
+		return
+	set_build_mode(not build_mode)
+
+
+func set_build_mode(on: bool) -> void:
+	if on == build_mode:
+		return
+	build_mode = on
+	_build_button.set_pressed_no_signal(on)
+	build_mode_changed.emit(on)
+	if on:
+		show_toast(tr("hud.build_on"))
+	Log.info("Hud", "building mode %s" % ["on" if on else "off"])
+
+
+## The building mode stays off while it would mean nothing.
 func _build_denied() -> void:
-	show_toast(tr("hud.build_later"))
+	toggle_build_mode()
 
 
 ## ESC: closes the top thing (docs/ui/01 §2): a card, the help, the management panel or big modal, then the picked
@@ -481,6 +512,9 @@ func close_top() -> bool:
 	if building_id != "" and not interior_open:
 		deselect_requested.emit()
 		set_building("")
+		return true
+	if build_mode:
+		set_build_mode(false)   # H6: Esc leaves the building mode
 		return true
 	return false
 
@@ -511,7 +545,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif HudKeys.pressed(event, "trials"):  # H11: the trial
 		toggle_trial()
 	elif HudKeys.pressed(event, "build_mode"):
-		_build_denied()
+		toggle_build_mode()
 	elif HudKeys.pressed(event, "region_map") and not interior_open:
 		region_requested.emit()
 	elif HudKeys.pressed(event, "region_map") and interior_open:

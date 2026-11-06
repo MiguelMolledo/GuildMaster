@@ -64,6 +64,7 @@ var portrait_pool: Dictionary = {}
 ## Posada (docs/gdd/04f_vida_y_fiestas.md §4.27): data/inn/inn.json (rules), menu.json (the dishes) and clientele.json
 ## (the groups of customers); data/services.json, the demand of services of 4.22.3.2 (tavern and inn, for now).
 var inn: Dictionary = {}
+var construction: Dictionary = {}  # data/construction.json: H6, plots and construction (04 §4.9, §4.9.1)
 var services: Dictionary = {}
 var errors: PackedStringArray = []  # files that could not be read
 var _goods_index: Dictionary = {}  # H13: item -> [goods groups] (goods_of)
@@ -96,6 +97,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.events = c._load_json(root_dir.path_join("events.json"))
 	c.cast = c._load_json(root_dir.path_join("cast.json"))
 	c.combat = c._load_json(root_dir.path_join("combat.json"))
+	c.construction = c._load_json(root_dir.path_join("construction.json"))
 	c.live_forge = c._load_json(root_dir.path_join("live_forge.json"))
 	c.unlocks = c._load_json(root_dir.path_join("unlocks.json"))
 	var ready := {}  # 03b §3b.4: an unlock's hook waits until its system's data exists (data/<id>.json or data/<id>/)

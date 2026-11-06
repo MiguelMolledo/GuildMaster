@@ -10,7 +10,7 @@ const CHANCE_PER_MINUTE: float = 0.05  # a still character sets off after ~20 mi
 
 
 func orders(sim: Sim) -> Array:
-	var grid := Grid.of(sim.catalog, sim.state.map_id)
+	var grid := Grid.for_state(sim.catalog, sim.state)
 	if grid == null or grid.walkable_tiles.is_empty():
 		return []
 	var out: Array = []

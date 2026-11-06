@@ -234,6 +234,23 @@ Cada módulo es un fichero en `sim/ai/modules/` con dos funciones: `propose(view
 
 **Elección de parcela:** cercanía a su casa y al mercado; las 3 mejor valoradas son las candidatas. La IA no sabe qué parcela «quiere» el jugador (4.21.4): si coincide, es competencia normal y no cuenta como ataque (salvo la acción hostil de 4.21.9).
 
+**Contrato del módulo (H6, construido en la rama posada, 2026-11-06; `sim/build/construction.gd`, fuera de `sim/ai`)**:
+
+- `Construction.candidates(sim: Sim, fam: String) -> Array`: lo que la familia podría hacer hoy, la mejor primero:
+  `{kind: "build" | "buy", plot (build), building (buy), building_type, price, daily, score}`. `build`: las 3 parcelas
+  libres de producción mejor situadas donde cabe un taller de sus oficios (el que tiene, los de su perfil
+  `preferred_professions` y, si vendió el suyo, el que vendió); `buy`: un edificio sin dueño en venta de sus oficios.
+  Ya filtra el tope por título y la válvula (`Plots.can_build`). `daily` = mejor margen de sus recetas ×
+  `units_per_day` / (1 + talleres del mismo tipo) − mantenimiento; `score` = `daily × horizon_days × expansión` /
+  `price`.
+- `Construction.choose(sim, fam) -> Dictionary`: la mejor candidata que paga su oro por encima de la reserva
+  (`Construction.budget`: oro − `gold_reserve` − `reserve_days` × coste fijo diario) y pasa `min_score`; una familia que
+  vendió su taller y monta otro (`after_sale.fate` rebuilds) toma la mejor que pague. `{}` si ninguna.
+- `Construction.order_for(sim, fam, cand) -> Dictionary`: la orden de gestión del cabeza (`build` o `buy_building`).
+- Mientras la agenda de `sim/ai` no lo llame, `Construction.step` lo hace al amanecer (`ai_orders`: desde
+  `first_day`, `cooldown_days` por familia, `max_per_day` en el pueblo). Cuando la agenda lo llame, pone
+  `data/construction.json` `ai.enabled` a false y este paso se calla.
+
 #### 4.21.6.3 Quiebra (H6)
 
 Se evalúa al amanecer. Un negocio con **neto negativo en el libro durante 2 años** y la familia en austeridad sigue estos pasos [balance]:

@@ -895,8 +895,10 @@ func _footer(d: Dictionary) -> void:
 	if not seal.is_empty():
 		foot.add_child(_seal(str(seal.get("text", ""))))
 	var holder: Container = foot
-	if str(d.get("template", "card")) == "notice" and (d.get("buttons", []) as Array).size() > 1:
-		# small card: the buttons wrap under the figures instead of pushing the card wider
+	if (str(d.get("template", "card")) == "notice" or bool(d.get("wrap_buttons", false))) \
+			and (d.get("buttons", []) as Array).size() > 1:
+		# small card, or many choices (H6: the plot card): the buttons wrap under the figures instead of pushing the
+		# card wider
 		var flow := HFlowContainer.new()
 		flow.name = "Buttons"
 		flow.add_theme_constant_override("h_separation", 4)
