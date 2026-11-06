@@ -54,6 +54,8 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Market.order_sell(sim, order)
 		"repay_loan":
 			return Loans.order_repay(sim, order)
+		"take_emergency_loan":  # Equilibrio 2 (sim/balance/emergency.gd)
+			return Emergency.order_take(sim, order)
 		"read_notices":
 			return Notices.order_read(sim, order)
 		"accept_contract":
@@ -237,7 +239,8 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"game_play", "game_bet", "game_enter", "festival_sponsor", "festival_host_wedding", "festival_offer_gift",
 	"festival_choose_gift", "festival_audience", "festival_enter_contest",
 	"resolve_incident", "hail", "live_forge", "unlock_seen",
-	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license"]  # posada (Inn.MANAGEMENT)
+	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license",  # posada (Inn.MANAGEMENT)
+	"take_emergency_loan"]  # equilibrio (Emergency)
 
 
 static func is_management(type: String) -> bool:

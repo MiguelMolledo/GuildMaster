@@ -1,0 +1,80 @@
+{
+ "punto": "Equilibrio 11 · plazos reales de los encargos de fiesta",
+ "antes": {
+  "pacing_fiestas_vida": {
+   "mean_gap_max_s": 70.98,
+   "max_gap_max_s": 198.0,
+   "mean_gap_median_s": 4.66,
+   "mean_unlocks_off": 0.8,
+   "max_unlocks_off": 1.0,
+   "mean_net_year_1": 42.15,
+   "mean_contracts_failed": 2.4,
+   "mean_goals_min": 2.0
+  },
+  "misses": [
+   "seed 5: gap_max_s = 198.0 outside [<null>, 60.0]",
+   "seed 2: unlocks_off = 1 outside [0.0, 0.0]",
+   "seed 3: unlocks_off = 1 outside [0.0, 0.0]",
+   "seed 4: unlocks_off = 1 outside [0.0, 0.0]",
+   "seed 5: unlocks_off = 1 outside [0.0, 0.0]"
+  ],
+  "festive": {
+   "fest_contracts_done": {
+    "mean": 6.67,
+    "min": 5.0,
+    "max": 9.0
+   },
+   "fest_contracts_taken_player": {
+    "mean": 3.0,
+    "min": 2.0,
+    "max": 4.0
+   },
+   "contracts_failed": {
+    "mean": 3.0,
+    "min": 2.0,
+    "max": 4.0
+   },
+   "net_year_1": {
+    "mean": 42.92,
+    "min": 21.25,
+    "max": 86.25
+   }
+  }
+ },
+ "despues": {
+  "pacing_fiestas_vida": {
+   "mean_gap_max_s": 26.38,
+   "max_gap_max_s": 34.9,
+   "mean_gap_median_s": 4.7,
+   "mean_unlocks_off": 0.0,
+   "max_unlocks_off": 0.0,
+   "mean_net_year_1": 76.03,
+   "mean_contracts_failed": 0.0,
+   "mean_goals_min": 2.0
+  },
+  "misses": [],
+  "festive": {
+   "fest_contracts_done": {
+    "mean": 6.0,
+    "min": 5.0,
+    "max": 8.0
+   },
+   "fest_contracts_taken_player": {
+    "mean": 0.0,
+    "min": 0.0,
+    "max": 0.0
+   },
+   "contracts_failed": {
+    "mean": 0.33,
+    "min": 0.0,
+    "max": 1.0
+   },
+   "net_year_1": {
+    "mean": 45.29,
+    "min": 26.38,
+    "max": 82.25
+   }
+  },
+  "festive_misses": []
+ }
+}

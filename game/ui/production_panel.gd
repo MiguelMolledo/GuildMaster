@@ -64,6 +64,11 @@ func setup(s: Sim, bld: String, who: String = "") -> void:
 	building = bld
 	preferred = who
 	(%Title as Label).text = SimQuery.t_("ui.production.title") % SimQuery.building_name(s.state, s.catalog, bld)
+	if not Inn.is_inn(s, bld) and Upgrades.tree_of(s, bld) != "":  # Equilibrio 13: the workshop's fame
+		var fv := WorkshopFame.view(s, bld)
+		(%Title as Label).text += "  ·  " + SimQuery.t_("ui.workshop.fame") % ("%.2f" % float(fv["fame"])).replace(".", ",")
+		(%Title as Label).tooltip_text = SimQuery.t_("ui.workshop.fame_tip")
+		(%Title as Label).mouse_filter = Control.MOUSE_FILTER_PASS
 	for t: String in TABS:
 		_tab_button(t).text = SimQuery.t_("ui.production.tab." + t)
 	(%Hint as Label).text = SimQuery.t_("ui.production.hint_queue")

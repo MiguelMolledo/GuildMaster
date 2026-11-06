@@ -137,6 +137,7 @@
   "portraits": {
     "_doc": "Población: base portraits (data/cast.json portraits; the pool's assets/art/portraits/index.json and its fallback, game/visuals/visual_paths.gd portrait). fallback: the types tried in order when neither the person's type nor the index's fallback has art for its age band and sex (the greybox after them). greying: how much the hair goes to grey (0..1) by age band; the art does not paint grey hair, the game does (the index's README, point 5).",
     "fallback": ["commoner", "artisan"],
+    "aged_hair": {"_doc": "Hair tones the palette keeps for age (index 5, the white of #d8d0c0; data/cast.json look.hair leaves it out): whoever carries one (a start or map that fixes it, a birth that inherits it, an old game) is drawn with the natural tone given here; the white comes only from greying, by age band (verificación E2).", "5": 9},
     "greying": {"grey": "#d8d0c0", "mature": 0.3, "elder": 0.75}
   },
   "upgrades": {

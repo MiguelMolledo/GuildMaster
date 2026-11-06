@@ -1,0 +1,118 @@
+{
+ "punto": "Equilibrio 8 y D16 · mostrador",
+ "con_d16": [
+  {
+   "counter_days": 16,
+   "counter_from_day": 6,
+   "counter_gold_day": 7.9,
+   "gold_end": 621,
+   "net_day_after": 34.2,
+   "ratio": 0.39,
+   "seed": 1,
+   "sword_demand_end": 1.0,
+   "wage_day": 20.0
+  },
+  {
+   "counter_days": 16,
+   "counter_from_day": 6,
+   "counter_gold_day": 14.0,
+   "gold_end": 890,
+   "net_day_after": 46.7,
+   "ratio": 0.74,
+   "seed": 2,
+   "sword_demand_end": 1.0,
+   "wage_day": 18.9
+  },
+  {
+   "counter_days": 14,
+   "counter_from_day": 8,
+   "counter_gold_day": 7.7,
+   "gold_end": 446,
+   "net_day_after": 19.0,
+   "ratio": 0.38,
+   "seed": 3,
+   "sword_demand_end": 1.0,
+   "wage_day": 20.0
+  },
+  {
+   "counter_days": 16,
+   "counter_from_day": 7,
+   "counter_gold_day": 0.0,
+   "gold_end": 533,
+   "net_day_after": 29.6,
+   "ratio": 0.0,
+   "seed": 4,
+   "sword_demand_end": 1.0,
+   "wage_day": 17.6
+  },
+  {
+   "counter_days": 14,
+   "counter_from_day": 9,
+   "counter_gold_day": 3.5,
+   "gold_end": 631,
+   "net_day_after": 29.2,
+   "ratio": 0.18,
+   "seed": 5,
+   "sword_demand_end": 1.0,
+   "wage_day": 20.0
+  }
+ ],
+ "sin_d16": [
+  {
+   "counter_days": 16,
+   "counter_from_day": 6,
+   "counter_gold_day": 15.8,
+   "gold_end": 801,
+   "net_day_after": 44.2,
+   "ratio": 0.79,
+   "seed": 1,
+   "sword_demand_end": 1.0,
+   "wage_day": 20.0
+  },
+  {
+   "counter_days": 16,
+   "counter_from_day": 6,
+   "counter_gold_day": 13.9,
+   "gold_end": 910,
+   "net_day_after": 47.8,
+   "ratio": 0.74,
+   "seed": 2,
+   "sword_demand_end": 1.0,
+   "wage_day": 18.9
+  },
+  {
+   "counter_days": 14,
+   "counter_from_day": 8,
+   "counter_gold_day": 3.4,
+   "gold_end": 694,
+   "net_day_after": 34.5,
+   "ratio": 0.17,
+   "seed": 3,
+   "sword_demand_end": 1.0,
+   "wage_day": 20.0
+  },
+  {
+   "counter_days": 16,
+   "counter_from_day": 7,
+   "counter_gold_day": 0.0,
+   "gold_end": 533,
+   "net_day_after": 29.6,
+   "ratio": 0.0,
+   "seed": 4,
+   "sword_demand_end": 1.0,
+   "wage_day": 17.6
+  },
+  {
+   "counter_days": 14,
+   "counter_from_day": 9,
+   "counter_gold_day": 3.5,
+   "gold_end": 426,
+   "net_day_after": 15.5,
+   "ratio": 0.18,
+   "seed": 5,
+   "sword_demand_end": 1.0,
+   "wage_day": 20.0
+  }
+ ],
+ "nota": "artisan_expert counter_shop=1, 1 empleado, 5 semillas × 24 días; la diana ≥ 2× salario espera la clientela de comarca de interiores (Equilibrio 14)."
+}

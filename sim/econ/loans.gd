@@ -230,6 +230,8 @@ static func _seize(sim: Sim, id: String) -> void:
 		Notices.add(sim, fam, Notices.URGENT, "notice.loan_seized", {"loan": id, "gold": take, "items": items.size()},
 			bld)
 		return
+	if str(loan.get("kind", "")) == Emergency.KIND and Emergency.seize_good(sim, fam, "emergency_loan"):
+		return  # Equilibrio 2: an emergency loan takes a good (not the home) before the ruin
 	Notices.add(sim, fam, Notices.URGENT, "notice.ruin", {"loan": id, "missing": owed}, bld)
 	if st.ending.is_empty():
 		st.ending = {"kind": "ruin", "family": fam, "minute": int(st.clock["minute"]), "loan": id}

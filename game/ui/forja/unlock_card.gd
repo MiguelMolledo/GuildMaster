@@ -36,7 +36,7 @@ func show_for(sim: Sim, fam: String, id: String) -> void:
 	var d := data_for(sim, id)
 	if d.is_empty():
 		return
-	if visible or _blocked():
+	if visible or suspended or _blocked():
 		_queue.append(d)
 		return
 	_show(d)
@@ -50,7 +50,7 @@ func _blocked() -> bool:
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	if not visible and not _queue.is_empty() and not _blocked():
+	if not visible and not suspended and not _queue.is_empty() and not _blocked():
 		_show(_queue.pop_front())
 
 

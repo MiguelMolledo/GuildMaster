@@ -74,7 +74,7 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	_visual.name = "Visual"
 	# H8 (GDD 4.10.9): hair and skin of the person from the palette swap
 	var vis: Dictionary = ch.get("visual", {}) if ch.get("visual") is Dictionary else {}
-	var hair := Identity.hair_color(int(vis.get("hair", 0)))
+	var hair := Identity.hair_color(Identity.natural_hair(int(vis.get("hair", 0))))
 	var skin := Identity.skin_color(int(vis.get("skin", 0)))
 	var greybox := _visual.get_node_or_null("Greybox") as GreyboxFigure
 	if greybox != null:

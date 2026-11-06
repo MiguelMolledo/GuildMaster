@@ -184,12 +184,8 @@ static func group_of_visitor(sim: Sim, kind: String) -> String:
 ## The provider choice of 4.22.3.2 with one provider: P = a / (a + no_go), a = (1 / price)^elasticity × (1 + min(rep /
 ## divisor, cap)) × (1 + commerce bonus: the menu board).
 static func provider_share(sim: Sim, bld: String, price: float) -> float:
-	var sv: Dictionary = sim.catalog.services
-	var rep := float(sim.state.families.get(str(sim.state.buildings.get(bld, {}).get("owner", "")), {}).get("reputation", 0))
-	var a := pow(1.0 / maxf(price, 0.01), float(sv.get("elasticity", 1.5)))
-	a *= 1.0 + minf(rep / float(sv.get("reputation_divisor", 1000)), float(sv.get("reputation_cap", 0.3)))
-	a *= 1.0 + Upgrades.amount(sim, bld, "inn_customers")
-	return a / (a + float(sv.get("no_go", 0.5)))
+	var a := Clientele.provider_appeal(sim, bld, price, "inn_customers")  # Equilibrio 14: one formula with the shops
+	return a / (a + float(sim.catalog.services.get("no_go", 0.5)))
 
 
 ## The group's taste for the house: liked dishes (+10 % each after the first), fame, the special of the house, the

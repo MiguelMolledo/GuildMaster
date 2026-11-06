@@ -1,0 +1,6 @@
+{
+ "punto": "Orden rechazada (1 de 16)",
+ "causa": "artisan_expert: buy_upgrade forge_production_2 (5 lingotes del almacén) y work_at forge_hammer en el mismo minuto; semilla 1, día 14, minuto 21290 (tmp/eq/probe_refused.gd)",
+ "arreglo": "el minuto de la compra no planea trabajo",
+ "despues": "0 rechazos en 8 partidas de 3 años (car0, car1)"
+}

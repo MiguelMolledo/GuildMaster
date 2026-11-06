@@ -227,10 +227,12 @@
     "reputation_mult": 0.15,
     "reputation_cap": 0.15,
     "haggle_min_negotiation": 6,
+    "demand_drop_per_unit": 0.025,
     "clientele": {
-      "_doc": "04g 4.6.5.7: the countryside's customers (sim/town/clientele.gd). enabled false: the targets of today run without them (measure with --set=town.counter.clientele.enabled=true). base_per_day by building type [balance]; the fame of a shop is 1 until defined; the provider choice (elasticity, no_go, reputation) is data/services.json's (4.22.3.2, shared with the inn); fame_price and taste for the most they pay; max_waiting at once.",
-      "enabled": false,
-      "base_per_day": {"forge": 6.0, "carpentry": 6.0, "masonry": 4.0, "tailor_shop": 6.0},
+      "_doc": "04g 4.6.5.7: the countryside's customers (sim/town/clientele.gd). enabled false: the targets of today run without them (measure with --set=town.counter.clientele.enabled=true). base_per_day by building type [balance]; the fame of a shop is 1 until defined; the provider choice (elasticity, no_go, reputation) is data/services.json's (4.22.3.2, shared with the inn); fame_price and taste for the most they pay; max_waiting at once. Equilibrio 14 (2026-11-06): one clientele for the shops and the Taberna-Posada (InnClientele reads Clientele.provider_appeal, fame and max_price_mult) and on (enabled true) for the forge, measured with the expert at its counter (one employee, 5 seeds x 24 days: 113-120 gold of sales a day against a wage of 19-20, x5,8-6,2). The other trades stay at 0 (their figures in _proposed_base_per_day) until a bot of the trade with a counter measures them.",
+      "enabled": true,
+      "base_per_day": {"forge": 6.0, "carpentry": 0.0, "masonry": 0.0, "tailor_shop": 0.0},
+      "_proposed_base_per_day": {"carpentry": 6.0, "masonry": 4.0, "tailor_shop": 6.0},
       "fame_price": 0.1, "taste": 1.0, "max_waiting": 4
     }
   },
@@ -257,5 +259,27 @@
     ],
     "newcomer_rank": "apprentice",
     "house_capacity": 5
+  },
+  "workshop_fame": {
+    "_doc": "Equilibrio 13 (docs/decisiones.json, 04g §4.6.5.7, sim/balance/workshop_fame.gd) [balance]: the fame of a workshop, 1 at the start, between min and max: 1 + mean quality sold in the last window_days (0 normal, 1 good, 2 excellent) × quality_weight + renown. The renown sums points per fact (a masterwork, a contract done, a festival contract done, a contest won; a contract failed, a complaint: a counter customer gone for one of complaints) within ±renown_max and loses decay_per_day of itself at each dawn. The counter: customers / fame between them, price + (fame − 1) × price_weight.",
+    "min": 0.5,
+    "max": 2.0,
+    "window_days": 4,
+    "quality_weight": 0.25,
+    "renown_max": 0.75,
+    "decay_per_day": 0.15,
+    "price_weight": 0.1,
+    "complaints": ["nobody", "no_product"],
+    "points": {"masterwork": 0.3, "contract_done": 0.04, "festival_contract_done": 0.15, "contest_won": 0.2,
+      "contract_failed": -0.1, "complaint": -0.03}
+  },
+  "households": {
+    "_doc": "Equilibrio 15 (docs/decisiones.json, 04f 4.24.1, 04g §4.6.5.7, sim/balance/households.gd) [balance], only with the living town on: at dusk every adult townsperson with a trade of the map and no job with a family brings wages[the kind of its workplace] (else default) to its house's purse (money from outside, P4); at dawn the house pays its food, food.adult per adult and food.child per child (to outside), and the share it could pay feeds its employees and children: the night at home (data/life/life.json needs.night, the hunger × that share) and at meal_hour the midday meal (meal.hunger × that share). A neighbour spends at the tavern only what is left over reserve_days of food.",
+    "enabled": true,
+    "wages": {"default": 7, "stall": 9, "shop": 9},
+    "food": {"adult": 2, "child": 1},
+    "meal_hour": 13,
+    "meal": {"hunger": 45},
+    "reserve_days": 1
   }
 }
