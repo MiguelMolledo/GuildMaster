@@ -4232,3 +4232,8 @@ ui.bank.no_loans,No loan running.,Ningún préstamo en curso.
 ui.bank.default_line,%s do not pay: %d owed since %s,%s no pagan: deben %d desde %s
 ui.bank.claim,Claim the collateral: %d back,Reclamar la garantía: recuperas %d
 ui.bank.no_defaults,Nobody owes you in default.,Nadie te debe en impago.
+ui.npc.buy_ware,Buy %s (%d),Comprar %s (%d)
+ui.npc.buy_ware_tip,The peddler has %d left today,Al buhonero le quedan %d hoy
+ui.order.buy_from_peddler,Buy from the peddler,Comprar al buhonero
+reason.not_a_peddler,Sells nothing,No vende nada
+ui.city.feast_offer,"%s · %s","%s · %s"
