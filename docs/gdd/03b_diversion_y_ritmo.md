@@ -283,3 +283,14 @@ en el cuaderno.
 semillas el novato no junta 300 de oro en el año 1 y las mejoras no se abren. El owner decide que la ventana de las
 mejoras no se mueve: lo arregla el equilibrio del año 1-2 con fiestas (Ciudadano y oro). La banda con fiestas queda
 como propuesta (`data/targets.json` `pacing._proposed_festivals`, sin comprobar) hasta ese equilibrio.
+
+**El toque de maestro, retirado de la interfaz (2026-11-05, hallazgo de verifica).** La Forja viva lo sustituye (04
+§4.4.5): la interfaz ya no da `master_touch`, el puesto no parpadea y la pista del tutorial se quitó; el sim conserva
+la orden para las partidas viejas y los bots. Pasar al novato del herrero (el de las dianas `artisan_novice`) a la
+Forja viva en sus encargos con calidad sube su oro (día 10 de 358 a 387 de media, 3 de 10 semillas por encima de 540) y
+deja 2 semillas a 0 el día 10: 6 fallos de banda. Queda detrás de `live_for_quality` (0 por defecto) hasta que el owner
+vea sus bandas; el bot de ritmo ya forja todo en Forja viva.
+
+**Tras el resultado (hallazgo de verifica).** «Cerrar» (Esc) cierra y vuelve al yunque con su menú abierto: si la forja
+ya había empezado sola la pieza siguiente, la para (las entradas vuelven al almacén) para que no quede forjando
+debajo del menú. «Otra pieza» sigue a mano: la que ya empezó o una nueva de la misma receta.

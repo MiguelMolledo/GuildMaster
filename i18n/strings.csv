@@ -1345,6 +1345,7 @@ ui.trial.rest,Rest the defense,Concluir la defensa
 ui.trial.rest_tip,The judge rules now,El juez dicta sentencia ya
 ui.trial.guilty,Rule guilty,Dictar culpable
 ui.trial.innocent,Rule innocent,Dictar inocente
+ui.trial.presiding,A trial you preside: choose the verdict,Juicio que presides: elige veredicto
 ui.trial.hint_prep,"Win witnesses before the hearing: convince (rhetoric), bribe (gold; they may denounce you) or threaten (martial; if it fails, against you). The accuser's proofs show at the hearing.","Gana testigos antes de la vista: convence (retórica), soborna (oro; puede denunciarte) o amenaza (arte marcial; si falla, en contra). Las pruebas del acusador se ven en la vista."
 ui.trial.hint_hearing,"Hearing: question each witness against you (rhetoric against their empathy: if it works their word does not count, if not it counts double) and rest the defense.",Vista oral: interroga a cada testigo en contra (retórica contra su empatía: si sale bien su palabra no cuenta; si sale mal cuenta doble) y concluye la defensa.
 ui.trial.banished,banished until day %d,desterrado hasta el día %d
@@ -2698,7 +2699,7 @@ live.step.strike,2 Strike,2 Batir
 live.step.quench,3 Quench,3 Templar
 live.pull,Pull it out (Space),Sacar (Espacio)
 live.skip,Resolve without playing (Esc),Resolver sin jugar (Esc)
-live.close,Go on,Seguir
+live.close,Close (Esc),Cerrar (Esc)
 live.heat.dark_red,Dark red,Rojo oscuro
 live.heat.cherry,Cherry red,Rojo cereza
 live.heat.orange,Orange,Naranja
@@ -3880,6 +3881,8 @@ notice.inn.illegal_gaming,"The constable's men saw gaming without licence at you
 games.preset.stranger_soldier,The discharged soldier,El soldado licenciado
 games.preset.stranger_merchant,The passing merchant,El mercader de paso
 games.ui.in_own_house,"in your own house (it keeps nothing of yours)","en tu propia casa (no se queda nada de lo tuyo)"
+live.next,Another piece,Otra pieza
+live.masterwork.ok,Go on,Seguir
 combat.card.challenged,%s challenges you to a duel,%s te reta a duelo
 combat.card.challenged_text,%s demands satisfaction: %s.,%s pide satisfacción: %s.
 combat.card.answer_by,"Answer before %02d:%02d; without an answer, it counts as a refusal.","Contesta antes de las %02d:%02d; sin respuesta, cuenta como rechazo."
