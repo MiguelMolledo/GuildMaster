@@ -2,6 +2,12 @@
   "tomadas": [
     {
       "fecha": "2026-11-06",
+      "tema": "Equilibrio 14 · una clientela de comarca (construido)",
+      "decision": "sim/town/clientele.gd (de interiores) es la única: InnClientele lee su provider_appeal, su fama y su max_price_mult (mismas cifras de data/services.json); la fama de un taller es la de Equilibrio 13. Encendida para la forja; carpintería, cantería y sastrería a 0 hasta medirlas con un bot de su oficio con mostrador (cifras en _proposed_base_per_day). Equilibrio 8 cumplido: el mostrador con un empleado vende 113-120 de oro al día frente a 19-20 de salario (×5,8-6,2; antes ×0,34): el freno eran las existencias, no los clientes, y el experto en modo mostrador ahora guarda 2 piezas de cada producto (COUNTER_STOCK).",
+      "por_que": "Interiores en main (aviso del manager, 2026-11-06)."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Obras maestras raras (03b §3b.2)",
       "decision": "Además de Artesanía 7 y las tres decisiones bien, la obra maestra pide práctica: 30 piezas perfectas de esa receta hechas antes por la familia (data/live_forge.json masterwork.practice; estado masterworks.practice, sin versión nueva), y la tirada baja del 10 % al 5 %; antes del umbral no se tira el dado. Medido con el bot de ritmo, que juega bien (3 años × 5 semillas, ~85 piezas perfectas): de 8,5 obras maestras en 3 años a 0,9 (ninguna en un 38 % de partidas), la primera el día 20 de mediana y no antes del 16 en el 90 %: años 3-5. Toca sim/forge/live_forge.gd (forja): un contador y la condición, avisado.",
       "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."

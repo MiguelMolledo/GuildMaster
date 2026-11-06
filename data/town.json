@@ -229,9 +229,10 @@
     "haggle_min_negotiation": 6,
     "demand_drop_per_unit": 0.025,
     "clientele": {
-      "_doc": "04g 4.6.5.7: the countryside's customers (sim/town/clientele.gd). enabled false: the targets of today run without them (measure with --set=town.counter.clientele.enabled=true). base_per_day by building type [balance]; the fame of a shop is 1 until defined; the provider choice (elasticity, no_go, reputation) is data/services.json's (4.22.3.2, shared with the inn); fame_price and taste for the most they pay; max_waiting at once.",
-      "enabled": false,
-      "base_per_day": {"forge": 6.0, "carpentry": 6.0, "masonry": 4.0, "tailor_shop": 6.0},
+      "_doc": "04g 4.6.5.7: the countryside's customers (sim/town/clientele.gd). enabled false: the targets of today run without them (measure with --set=town.counter.clientele.enabled=true). base_per_day by building type [balance]; the fame of a shop is 1 until defined; the provider choice (elasticity, no_go, reputation) is data/services.json's (4.22.3.2, shared with the inn); fame_price and taste for the most they pay; max_waiting at once. Equilibrio 14 (2026-11-06): one clientele for the shops and the Taberna-Posada (InnClientele reads Clientele.provider_appeal, fame and max_price_mult) and on (enabled true) for the forge, measured with the expert at its counter (one employee, 5 seeds x 24 days: 113-120 gold of sales a day against a wage of 19-20, x5,8-6,2). The other trades stay at 0 (their figures in _proposed_base_per_day) until a bot of the trade with a counter measures them.",
+      "enabled": true,
+      "base_per_day": {"forge": 6.0, "carpentry": 0.0, "masonry": 0.0, "tailor_shop": 0.0},
+      "_proposed_base_per_day": {"carpentry": 6.0, "masonry": 4.0, "tailor_shop": 6.0},
       "fame_price": 0.1, "taste": 1.0, "max_waiting": 4
     }
   },

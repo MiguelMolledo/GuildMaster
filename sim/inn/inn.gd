@@ -423,7 +423,7 @@ static func max_price(sim: Sim, bld: String, g: Dictionary, d: String) -> int:
 	var qm: Array = rules(sim).get("quality_mult", [1.0, 1.15, 1.3])
 	var q := best_quality(sim, bld, d)
 	var m := float(dish(sim, d).get("ref_price", 1)) * float(qm[clampi(q, 0, qm.size() - 1)]) \
-		* (1.0 + fame(sim, bld) * float(cl.get("max_price_fame", 0.1))) * float(def.get("max_price_mult", 2.0))
+		* Clientele.max_price_mult(sim, bld, float(cl.get("max_price_fame", 0.1))) * float(def.get("max_price_mult", 2.0))
 	var top := roundi(m)
 	if bool(def.get("purse", false)):
 		top = mini(top, Households.spendable(sim, _purse_family(sim, g)))  # Equilibrio 15: a whim, not the food

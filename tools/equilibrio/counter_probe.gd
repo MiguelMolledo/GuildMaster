@@ -40,6 +40,8 @@ func _init() -> void:
 		var counter_days := 0
 		var counted := {}
 		var gold_from := -1
+		var left := {}
+		var arrived := 0
 		var net_from := 0
 		for m: int in days * Clock.MINUTES_PER_DAY:
 			var ev := sim.step(bot.orders(sim))
@@ -49,6 +51,11 @@ func _init() -> void:
 					counter_gold += int(e["price"])
 				elif str(e["type"]) == "wage_paid" and str(e.get("family", "")) == FAM and gold_from >= 0:
 					wages += int(e["amount"])
+				elif str(e["type"]) == "customer_left" and str(e.get("building", "")) == "bld_0001" and gold_from >= 0:
+					var k := str(e.get("reason", "")) + ("|cl" if bool(e.get("clientele", false)) else "")
+					left[k] = int(left.get(k, 0)) + 1
+				elif str(e["type"]) == "customer_arrived" and str(e.get("building", "")) == "bld_0001" and gold_from >= 0:
+					arrived += 1
 			var srv := Counter.server_of(sim, "bld_0001")
 			if srv != "" and sim.state.characters[srv].get("job") is Dictionary:
 				at = true
@@ -64,7 +71,8 @@ func _init() -> void:
 			"counter_gold_day": snappedf(float(counter_gold) / span, 0.1), "wage_day": snappedf(float(wages) / span, 0.1),
 			"ratio": snappedf(float(counter_gold) / maxf(1.0, float(wages)), 0.01),
 			"net_day_after": snappedf(float(Ledger.total(sim.state, FAM) - net_from) / span, 0.1),
-			"sword_demand_end": snappedf(Market.demand(sim, "sword"), 0.01), "gold_end": Money.gold(sim.state, FAM)}
+			"sword_demand_end": snappedf(Market.demand(sim, "sword"), 0.01), "gold_end": Money.gold(sim.state, FAM),
+			"arrived": arrived, "left": left}
 		rows.append(row)
 		print(JSON.stringify(row))
 	var keys := ["counter_gold_day", "wage_day", "ratio", "net_day_after", "sword_demand_end"]
