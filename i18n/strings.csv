@@ -3993,3 +3993,11 @@ ui.inn.visit.why.not_inn,This is not a tavern.,Esto no es una taberna.
 ui.inn.visit.why.unknown_actor,Select someone of your family first.,Elige antes a alguien de tu familia.
 notice.inn.illegal_gaming_visitor,The constable's men saw gaming without licence at {building}: the fine is its owner's; you only risked your stake.,Los del alguacil vieron jugar sin licencia en {building}: la multa es del dueño; tú solo arriesgabas lo apostado.
 ui.ending.fact.illegal_gaming,Fined for gaming without licence at the tavern (day %d),Multa por juego sin licencia en la taberna (día %d)
+spectacle.sortija,Running at the ring,Correr la sortija
+festival.what.sortija,Running at the ring,La sortija
+hud.festival_today,today,hoy
+hud.festival_tomorrow,tomorrow,mañana
+hud.festival_in_days,in %d days,en %d días
+hud.festival_tip,"%s, %s. Click: its card (sponsor, games, bets, the court and its contracts)","%s, %s. Pulsa: su carta (patrocinar, juegos, apuestas, la corte y sus encargos)"
+hud.festival_short_today,Feast,Fiesta
+hud.festival_short_eve,Crier,Pregón
