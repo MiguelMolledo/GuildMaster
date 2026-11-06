@@ -4,7 +4,8 @@ from the image; the sim's market, the sites, the house lots, the doors and the d
 (docs/protocolos/generar-ciudad.md §1e).
 
   "skeleton": {"image": "docs/arte/ciudades_v2/fal/region_port.png", "types": {"church": "cathedral"},
-               "districts": [{"id": ..., "when": "inside|outside|dense|loose|any", "roof": ..., "density": {...}}],
+               "districts": [{"id": ..., "when": "inside|outside|dense|loose|any", "area": [x0, y0, x1, y1] (optional:
+               only that part, a quarter), "roof": ..., "density": {...}}],
                "towers_every": 10, "boats": 4, "rowboats": 3, "crane": {...}, "trees": 0.05}
 
 Clean-up of the grid read from the image: walls only in pieces of 12 tiles or more (the thin plot lines of the
@@ -691,6 +692,9 @@ def _districts(tw, sk):
             w = ds.get("when", "any")
             ok = (w == "any" or (w == "inside" and t in tw.wall_inside) or (w == "outside" and t not in tw.wall_inside)
                   or (w == "dense" and packed) or (w == "loose" and not packed))
+            area = ds.get("area")  # [x0, y0, x1, y1], inclusive: the district takes only that part (a quarter)
+            if ok and area and not (area[0] <= t[0] <= area[2] and area[1] <= t[1] <= area[3]):
+                ok = False
             if ok:
                 tw.district_of[t] = i
                 break

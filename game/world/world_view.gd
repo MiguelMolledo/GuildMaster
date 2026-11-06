@@ -59,6 +59,7 @@ var hovered_character: String = ""
 var _idle_minute: int = -1
 var _player_family: String = ""
 var plot_layer := PlotLayer.new()  # parcelas (04 §4.9.1): free lots, ruins and the «Se vende» signs
+var zone_layer := ZoneLayer.new()  # H13: the names of the map's zones (data/maps "zones"), at the farthest zoom
 var festival_layer := FestivalLayer.new()  # fiestas (04f 4.25.3): the decoration of the festivals in force
 var _festive: Dictionary = {}  # the clothes' look in force ({} = everyday)
 var _see_through: Array = []  # tall visuals (buildings, filler houses) that fade while they hide the selected person
@@ -170,6 +171,8 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	n_blocks += _add_filler(filler)
 	n_blocks += _add_border_trees()
 	_add_town_decor(s.map_id)
+	zone_layer.setup(self)
+	zone_layer.build(c.maps().get(s.map_id, {}))
 	_add_services()
 	_add_social_points(c, s.map_id)
 	festival_layer.setup(self)
@@ -951,6 +954,7 @@ func _process(_delta: float) -> void:
 		return
 	sync(_game.step_fraction() if _game != null else 0.0)
 	update_hover(get_viewport().get_mouse_position())
+	zone_layer.update(camera().current_zoom())
 
 
 ## Follows the state: new or dead walkers, positions, the day/night tint. `frac` = how far towards the next step.

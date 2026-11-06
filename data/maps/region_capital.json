@@ -17,75 +17,75 @@
   "ffffffff,,f.fffffffTTTTTTTffffffff.......HH==.fffff........T...fffffff,,ffffffff",
   "fffffffff,,fffffffT.TTTTTTTff.......MMMMMHHM=HH.................Tffff,,fffffffff",
   "ffffffffff,,ffff..T.TTTTTT.....MMMMMMT####.==HHMMHH...............ff,,ffffffffff",
-  "fffffffffff,,ff..T...TTT....MMMM##########.=.####HHMMMM............,,fffffffffff",
-  "ffffffffffff,,............MMM.############.==#########MMM.........,,ffffffffffff",
-  "TTfffffffff..,,.......HHMMM##.####===============#######MMHH.....,,ffffffffffff.",
-  "TTTfffffff....,,,.....HHM####========..####=###.=====####MHH....,,ffffffffffff.T",
-  "TTTTffffff......,,...MMM##.====#####=######=#####=..===.###MHH.,,ffffffffffffTTT",
-  "TTTTTTfff........,,HHM###.==########=#####.=#####=####.#####HH.,.ffffffffff.TTTT",
-  "TTTTTTTf..T.T....HHHH#####..########==.###.=...##=####.###...=HH.fffffffffTTTTTT",
-  "TTTTTTTT.........HH==##==.###########=.###.===.=.=####.###====HH..ffffff.TTTTTTT",
-  "TTTTTTT.ff.......MM#====###########=====..===..====.#####..==##HH.fffff.ffTTTTTT",
-  "TTTTTTTffff.....MM###==.####..======.######=###...==#####.====#HHM.fffffffTTTTTT",
-  "TTTTTTTffffff.HHM###====####.===.=#########=#####==######==..=###M...ffffffTTTTT",
-  "TTTTTTfffffff.HH###==..=####.....=#########=#####=.###.#==###==##MM.fffffffTTTTT",
-  "TTTTT.ffffff..MM###=###==.==#####=#########=###.==.###===.###.=###MM.fffffffTTTT",
-  "fTTTTfffffff.MM##.==###.===.#####==.#######=###.=..##.==..###.==###M.fffffffTTTT",
-  "ffff.ffffff..M###==#####.==.###........####=#########==########=###MM.ffffffTTTT",
-  "ffff.ffffff.MM###=.#####.===###.######..====#######.==.########==##HH..fffffTTTT",
-  "ffffffffff..M##.==.#####..==###.######.###.=#######==##########.=##HH..fffffTTTT",
-  "ffffffffff.MM##====########==...######.###.=#####.==.#######.=====..MM.fffffTTTT",
-  "ffffffffffHH###=..=====.###.==..######.###.=#####==..#######.####=###M.ffffffTTT",
-  ".fff..ff..HH###=.####==.#####==........P...=###===###############=###M..fffffTff",
-  "..ff.###...M###=.####...#####==.PPPPPPPPPP.==.==..###############=###M...fffffff",
-  ".T...###..MM###=.############P=PSPPSPPSPPPP====#########.########==##MM.ffffffff",
-  ".T...###..M##.==.############PPPPPPPPPPPPPP====#########=########.=##TM.ffffffff",
-  "....,###..M###==.#######.=.====SPPPPPPPPPPP==============########.=###M.ffffffff",
-  "....,,....M###==.#######=====PPPPPPPPPPPPPP==PHHHHHHHHHH===..####.=###M.ffffffff",
-  ".....,,.##M###=######====###PPPPPPP#PPPPPPP==PHHHHHHHHHH======.##.==.HH.ffffffff",
+  "fffffffffff,,ff..T...TTT....MMMM##########.=.....HHMMMM............,,fffffffffff",
+  "ffffffffffff,,............MMM.############.==.........MMM.........,,ffffffffffff",
+  "TTfffffffff..,,.......HHMMM##.####===============.......MMHH.....,,ffffffffffff.",
+  "TTTfffffff....,,,.....HHM####========..####=###.=====....MHH....,,ffffffffffff.T",
+  "TTTTffffff......,,...MMM##.====#####=######=####.=..===....MHH.,,ffffffffffffTTT",
+  "TTTTTTfff........,,HHM###.==.#######=#####.=####.=.....###..HH.,.ffffffffff.TTTT",
+  "TTTTTTTf..T.T....HHHH###############==.###.=..#..=.#######...=HH.fffffffffTTTTTT",
+  "TTTTTTTT.........HH==##==.###########=.###.===.=.=.#######====HH..ffffff.TTTTTTT",
+  "TTTTTTT.ff.......MM#====####.######=====..===..====####....==.#HH.fffff.ffTTTTTT",
+  "TTTTTTTffff.....MM###==.####..======.######=.###..==###...====.HHM.fffffffTTTTTT",
+  "TTTTTTTffffff.HHM###====####.===.=#########=.###.==.###..==##=.##M...ffffffTTTTT",
+  "TTTTTTfffffff.HH###==##=####.....=#########=.###.=..###.==###==.#MM.fffffffTTTTT",
+  "TTTTT.ffffff..MM###=###==.==#####=#########=....==....===####.=.##MM.fffffffTTTT",
+  "fTTTTfffffff.MM##.==####===.#####==.#######=.###=###..==.####.==.##M.fffffffTTTT",
+  "ffff.ffffff..M###==#####.==.###........#...=.###.###.==..####..=.##MM.ffffffTTTT",
+  "ffff.ffffff.MM###=.#####.===###.######..====.###.###==#######..==.#HH..fffffTTTT",
+  "ffffffffff..M##.==.#####..==###.######.####=.......==.#######...=.#HH..fffffTTTT",
+  "ffffffffff.MM##====########==...######.####=###...==..#####..=====.#MM.fffffTTTT",
+  "ffffffffffHH###=..=====.###.==..######.####=###..==.#########....=###M.ffffffTTT",
+  ".fff..ff..HH###=#####==.#####==........P...=###===.#############.=###M..fffffTff",
+  "..ff.###...M###=#####..######==.PPPPPPPPPP.==.==################.=###M...fffffff",
+  ".T...###..MM###=#############P=PSPPSPPSPPPP====.################.==.#MM.ffffffff",
+  ".T...###..M...==.############PPPPPPPPPPPPPP====.#######.=.######..=###M.ffffffff",
+  "....,###..M###==.#######.=.====SPPPPPPPPPPP==============.######..=###M.ffffffff",
+  "....,,....M###==.#######=====PPPPPPPPPPPPPP==PHHHHHHHHHH===..###..=###M.ffffffff",
+  ".....,,.##M###=######====###PPPPPPP#PPPPPPP==PHHHHHHHHHH======....==.HH.ffffffff",
   "...###,.##M###=##.====.#####PPPPPPPPPPPPPPP==PHHHHHHHHHH=###=====.==.HH.ffffffff",
-  "...###,,##M.##======.==###.....SPPPPPPPPPPP==PHHHHHHHHHH=###.##=======M.,,,,,,,,",
+  "...###,,##M...======.==###.....SPPPPPPPPPPP==PHHHHHHHHHH=######=======M.,,,,,,,,",
   ".....,,,,.M======#####=###.###.PPPPPPPPPPPP==PHHHHHHHHHH=#########==============",
   "============##=..#####=###.###.PNPPPPPPPPPP==PHHHHHHHHHH=#########==.===========",
   "============##==.#####=###.###.PPPPPPPPPPPP===PPPPPPP====..#######=###M.........",
-  ".###,.###.HH###=.#####=###.###.PPPPPPPP..PP========###=.===#######=###M.ffffffff",
-  ".###,.###.HH###=.#####=##.......PPPPPPPPP..====#######.###=######.=###M.ffffffff",
-  ".###..###..M###=.#####=#####.==.PPPP..PP##==##=###########=...###==##MM.ffffffff",
-  "......###..MM..==#####==.###==###=P#######==##==.#########==#####=###M..ffffffff",
-  "............M###=####.=..###=.###=.######.=....==#########==#####=###M..TTffffff",
-  "............M###=#####.###===.###=.#####.==.HHHH==.##########.##.=##MM.TTTTTTTTT",
-  ".T........T.MM..==..######==####.===.##..=..HHHH.==#########.=##==#HH..TTTTTTTTT",
-  "TTT...T.ff...M.##===.#####=.####..#####===..HHHH.#=#########.====##HH..TTTTTTTTT",
-  "TTTT.ffffff..MM##==.####.===####HH#####.=........#==##########==###MM..TTTTTTTTT",
+  ".###,.###.HH###=######=###.###.PPPPPPPP..PP========###=.===#######=###M.ffffffff",
+  ".###,.###.HH###=######=###......PPPPPPPPP..====.######.###=#######=###M.ffffffff",
+  ".###..###..MT##=######=####..==.PPPP..PP##==..=.##########=####..==..MM.ffffffff",
+  "......###..MM##==#####==.###==###=P#######==..==##########==#####=##.M..ffffffff",
+  "............M###=#####=..###=.###=.######.=....==.########==#####=##.M..TTffffff",
+  "............M###=###...###===.###=.#####.==.HHHH==###############=##MM.TTTTTTTTT",
+  "TT.......T..MM##==.....###==####.===.##..=..HHHH.==#########.=..==.HH..TTTTTTTTT",
+  "TTT...TTffT..M###===...###=.####..#####===..HHHH.#=#########.====..HH..TTTTTTTTT",
+  "TTTT.ffffffT.MM##==..###.===####HH#####.=........#==##########==###MM..TTTTTTTTT",
   "TTTTfffffff..HH###==.###==######HHMT###==.HHHHH.###=##########==###M..TTTTTTTTTT",
   "TTTTTfffffff.HHM##.==###==#####MM.MMM##==.HHHHH.#====#####..===###MM..TTTTTTTTTT",
   "TTTTTfffffff...MM###==.==.###HHM....M##=..HHHHH===##=#####.==####MM...TTTTTTTTTw",
   "TTTTTffffffff...MM##.====.###HH.###.MM==..........##==##.===.###MM.........wwwww",
-  "TTTTTffffffff....MM###==...HHM..###.HH==.HHHHH=.....==##==####HHM...T....wwwwwww",
-  "TTTTTTfffffff.....MM##====.HH...###.HH==.HHHHH=.HHHHH====.####HHM.TTT..wwwwwwwww",
-  "TTTTTTffffffff.T...MHH===================HHHHH=.HHHHH==######MM......wwwwwwwwwww",
-  "TTTTTTffffffff......HH====.###.==HHHHH=======.=.HHHHH==#####MM....Twwwwwwwwwwwww",
-  "TTTTTTTfffffff.......HH..==###..=HHHHH..===============HH#MMM...wwwwwwwwwwwwwwww",
-  "TTTTTTTfffffff..T....HH...=###.==HHHHH..==.MM==========HHMM...wwwwwwwwwwwwwwwwww",
-  "TTTTTTTTfffTT...T........===========.==.==...=MM=MMM=====..wwwwwwwwwwwwwwwwwwwww",
-  "TTTTTTTT.TT........wwwwwwwwmwwwm=H============..=...====wwwwwwwwwwwwwwwwwwwwwwww",
-  "TTTTTTT........wwwwwwwwwwwwmwwwmwwwwmwww=.===========w==wwwwwwwwwwwwwwwwwwwwTTTT",
-  "TTTTTTTT...wwwwwwwwwwwwwwwwmwwwmwwwwmwwwwmwwwmwwwmwwwwwbwwwwwwwwwwwwwwwwTTTTTTTT",
+  "TTTTTffffffffTT..MM###==...HHM..###.HH==.HHHHH=.....==##==####HHM...T....wwwwwww",
+  "TTTTTTfffffff.TT..MM##====.HH...###.HH==.HHHHH=.HHHHH====.####HHM.TTT..wwwwwwwww",
+  "TTTTTTffffffff.TT..MHH===================HHHHH=.HHHHH==######MM......wwwwwwwwwww",
+  "TTTTTTffffffffTTT...HH====..###==HHHHH=======.=.HHHHH==#####MM....Twwwwwwwwwwwww",
+  "TTTTTTTfffffff.T.....HH..==.###.=HHHHH..===============HH#MMM...wwwwwwwwwwwwwwww",
+  "TTTTTTTfffffff..TTT..HH...=.###==HHHHH..==.MM==========HHMM...wwwwwwwwwwwwwwwwww",
+  "TTTTTTTTfffTT.TTTTT......===========.==.==...=MM=MMM=====..wwwwwwwwwwwwwwwwwwwww",
+  "TTTTTTTTTTTTTTTTTTTwwwwwwwwmwwwm=H============..=...====wwwwwwwwwwwwwwwwwwwwwwww",
+  "TTTTTTTTTTTTTTTwwwwwwwwwwwwmwwwmwwwwmwww=.===========w==wwwwwwwwwwwwwwwwwwwwTTTT",
+  "TTTTTTTTTTTwwwwwwwwwwwwwwwwmwwwmwwwwmwwwwmwwwmwwwmwwwwwbwwwwwwwwwwwwwwwwTTTTTTTT",
   "TTTTTTTTwwwwwwwwwwwwwwwwwwwwwwwmwwwwmwwwwmwwwmwwwmwwwwwbwwwwwwwwwwwwwwwwwwwwwwwT",
   "TTTTTwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwbbwwwwwwwwwwwwwwwwwwwwwww",
   "TTTwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwbwwwwwwwwwwwwwwwwwwwwwww",
   "Twwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwbwwwwwwwwwwwwwwwwwwwwwww",
   "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwbwwwwwwwwwwwwwwwwwwwwwww",
   "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwbbwwwwwwwwwwwwwwwwwwwwww",
-  "wwwwwwwwwwwwwwwwwwwww.........T..wwwwwwwwwwwwwwwwwwwwwwwwbwwwwwwwwwwwwwwwwwwwwww",
-  "wwwwwwwwwwwwwwwww..T......T.....T...T..wwwwwwwwwwHHHHH.##=wwwwwwwwwwwwwwwwwwwwwf",
-  "wwwwwwwwwwwww........T.............T....T.....##.HHHHH.##==.==.,,,,,,,,,.fffffff",
-  "wwwwwwwwwwTTT...TTTTTTT.T.....................##.HHHHH.======###.###...,.fffffff",
-  "wwwwwwwwTTTTTTTTTTTTTTT..T.....................=========##==.###.###...,.fffffff",
-  "wwwwwwTTTTTTTTTTTTTTTTT...........T...........==##.##...##==.###.###.f.,,..fffff",
-  "wwwwTTTTTTTTTTTTTTTTTTT.....TT..................##.##...##.==......ffff.,,,.ffff",
-  "wwTTTTTTTTTTTTTTTTTTTTT....T....................##.##......==.....ffffff..,,.fff",
-  "TTTTTTTTTTTTTTTTTTTTTT......................................==....ffffffff.,,.ff"
+  "wwwwwwwwwwwwwwwwwwwwwTTTTTTTTTTTTwwwwwwwwwwwwwwwwwwwwwwwwbwwwwwwwwwwwwwwwwwwwwww",
+  "wwwwwwwwwwwwwwwwwTTTTTTTTTTTTTTTT...T..wwwwwwwwwwHHHHH.##=wwwwwwwwwwwwwwwwwwwwwf",
+  "wwwwwwwwwwwwwTTTTTTTTTTTTTTTTTTT...T....T.....##.HHHHH.##==.==.,,,,,,,,,.fffffff",
+  "wwwwwwwwwwTTTTTTTTTTTTTTTTTTTTTTT.............##.HHHHH.======###..###..,.fffffff",
+  "wwwwwwwwTTTTTTTTTTTTTTTTTTTTTTTTT..............=========##==.###..###..,.fffffff",
+  "wwwwwwTTTTTTTTTTTTTTTTTTTTTTTTTTT.T...........==...##...##==.###..###f.,,..fffff",
+  "wwwwTTTTTTTTTTTTTTTTTTTTTTTTTTTTT..............###.##...##.==......ffff.,,,.ffff",
+  "wwTTTTTTTTTTTTTTTTTTTTTTTTTTT..T...............###.##......==.....ffffff..,,.fff",
+  "TTTTTTTTTTTTTTTTTTTTTTTTTT..................................==....ffffffff.,,.ff"
  ],
  "spawns": {
   "player": [
@@ -209,6 +209,17 @@
   "house_01": {
    "type": "house",
    "origin": [
+    44,
+    28
+   ],
+   "door": [
+    47,
+    29
+   ]
+  },
+  "house_02": {
+   "type": "house",
+   "origin": [
     35,
     45
    ],
@@ -217,18 +228,18 @@
     48
    ]
   },
-  "house_02": {
+  "house_03": {
    "type": "house",
    "origin": [
-    28,
-    25
+    45,
+    24
    ],
    "door": [
-    29,
-    28
+    48,
+    25
    ]
   },
-  "house_03": {
+  "house_04": {
    "type": "house",
    "origin": [
     23,
@@ -239,26 +250,15 @@
     50
    ]
   },
-  "house_04": {
-   "type": "house",
-   "origin": [
-    44,
-    23
-   ],
-   "door": [
-    47,
-    24
-   ]
-  },
   "house_05": {
    "type": "house",
    "origin": [
-    48,
-    25
+    40,
+    22
    ],
    "door": [
-    49,
-    28
+    41,
+    25
    ]
   },
   "house_06": {
@@ -275,6 +275,28 @@
   "house_07": {
    "type": "house",
    "origin": [
+    49,
+    24
+   ],
+   "door": [
+    50,
+    27
+   ]
+  },
+  "house_08": {
+   "type": "house",
+   "origin": [
+    45,
+    20
+   ],
+   "door": [
+    48,
+    21
+   ]
+  },
+  "house_09": {
+   "type": "house",
+   "origin": [
     19,
     39
    ],
@@ -283,18 +305,7 @@
     40
    ]
   },
-  "house_08": {
-   "type": "house",
-   "origin": [
-    51,
-    21
-   ],
-   "door": [
-    54,
-    22
-   ]
-  },
-  "house_09": {
+  "house_10": {
    "type": "house",
    "origin": [
     51,
@@ -305,7 +316,18 @@
     43
    ]
   },
-  "house_10": {
+  "house_11": {
+   "type": "house",
+   "origin": [
+    52,
+    20
+   ],
+   "door": [
+    53,
+    23
+   ]
+  },
+  "house_12": {
    "type": "house",
    "origin": [
     17,
@@ -316,7 +338,7 @@
     48
    ]
   },
-  "house_11": {
+  "house_13": {
    "type": "house",
    "origin": [
     32,
@@ -327,7 +349,7 @@
     57
    ]
   },
-  "house_12": {
+  "house_14": {
    "type": "house",
    "origin": [
     39,
@@ -338,7 +360,7 @@
     19
    ]
   },
-  "house_13": {
+  "house_15": {
    "type": "house",
    "origin": [
     55,
@@ -349,7 +371,7 @@
     17
    ]
   },
-  "house_14": {
+  "house_16": {
    "type": "house",
    "origin": [
     44,
@@ -358,28 +380,6 @@
    "door": [
     45,
     17
-   ]
-  },
-  "house_15": {
-   "type": "house",
-   "origin": [
-    27,
-    58
-   ],
-   "door": [
-    28,
-    61
-   ]
-  },
-  "house_16": {
-   "type": "house",
-   "origin": [
-    58,
-    22
-   ],
-   "door": [
-    61,
-    23
    ]
   },
   "player_forge": {
@@ -407,12 +407,12 @@
   "rival_forge": {
    "type": "forge",
    "origin": [
-    44,
-    27
+    21,
+    32
    ],
    "door": [
-    45,
-    31
+    22,
+    36
    ]
   },
   "rival_masonry": {
@@ -440,33 +440,33 @@
   "workshop_carpentry": {
    "type": "carpentry",
    "origin": [
-    40,
-    22
+    17,
+    33
    ],
    "door": [
-    41,
-    26
+    18,
+    37
    ]
   },
   "workshop_masonry": {
    "type": "masonry",
    "origin": [
-    21,
-    32
+    11,
+    34
    ],
    "door": [
-    22,
-    36
+    12,
+    38
    ]
   },
   "workshop_tailor": {
    "type": "tailor_shop",
    "origin": [
-    39,
-    27
+    28,
+    25
    ],
    "door": [
-    42,
+    29,
     28
    ]
   }
@@ -2988,27 +2988,27 @@
   ],
   "districts": [
    {
-    "id": "mercaders",
-    "roof": "#8a3b2a"
+    "id": "patricis",
+    "roof": "#4f5a6a"
    },
    {
     "id": "menestrals",
     "roof": "#7a5a3a"
    },
    {
+    "id": "llotja",
+    "roof": "#8a3b2a"
+   },
+   {
     "id": "vila",
-    "roof": "#6a4a3a"
+    "roof": "#7a4a3a"
    },
    {
-    "id": "raval_oest",
-    "roof": "#7a6040"
-   },
-   {
-    "id": "raval_sud",
+    "id": "raval",
     "roof": "#7a6040"
    }
   ],
-  "lots": "38,45,2,2,vila;40,44,2,2,vila;30,45,3,2,vila;26,36,2,2,vila;44,44,2,2,vila;24,31,2,3,vila;47,32,4,2,vila;26,44,2,3,vila;23,37,2,3,vila;34,49,2,2,vila;36,49,3,3,vila;47,43,4,2,vila;24,28,3,2,vila;23,41,2,2,vila;47,28,2,2,vila;31,23,2,2,vila;28,48,3,3,vila;23,43,2,2,vila;37,52,2,2,vila;50,30,3,2,vila;20,42,2,2,vila;49,45,4,2,vila;19,34,2,3,vila;28,23,2,2,vila;52,32,2,2,vila;26,51,2,4,vila;20,44,2,2,vila;21,26,3,3,vila;37,20,2,2,vila;44,20,2,3,vila;40,20,3,2,vila;26,19,2,4,vila;19,30,2,3,vila;17,33,2,4,vila;33,16,2,4,vila;17,39,2,4,vila;54,30,2,4,vila;19,25,2,4,vila;31,16,2,4,vila;51,48,4,2,vila;28,17,3,3,vila;22,50,2,3,vila;24,21,2,2,vila;47,21,2,2,vila;17,30,2,2,vila;53,27,3,2,vila;20,23,3,2,vila;51,24,2,2,vila;15,36,2,2,vila;52,50,4,2,vila;56,43,2,4,vila;57,37,2,2,vila;37,15,2,2,vila;57,39,3,2,vila;57,32,3,3,vila;50,53,2,2,vila;24,19,2,2,vila;55,25,2,2,vila;12,42,3,3,vila;12,31,3,2,vila;53,52,4,2,vila;47,16,2,2,vila;13,46,3,2,vila;17,22,2,2,vila;39,14,4,2,vila;15,24,2,3,vila;12,35,2,4,vila;13,29,2,2,vila;12,40,2,2,vila;18,53,2,2,vila;15,49,2,2,vila;23,16,2,2,vila;52,19,4,2,vila;20,55,2,2,vila;59,42,2,2,vila;21,17,2,2,vila;16,51,2,2,vila;50,16,3,3,vila;13,27,2,2,vila;32,11,2,3,vila;58,47,2,4,vila;27,13,2,2,vila;30,12,2,2,vila;54,54,2,2,vila;36,11,2,2,vila;34,11,2,2,vila;61,38,2,2,vila;38,10,2,3,vila;61,32,2,4,vila;60,45,4,2,vila;40,10,2,3,vila;61,29,2,2,vila;45,11,4,2,vila;60,26,3,2,vila;63,34,2,3,vila;63,39,3,3,vila;49,12,2,2,vila;55,57,3,2,vila;60,50,2,2,vila;8,37,2,2,raval;63,29,2,4,vila;62,47,2,2,vila;51,12,2,2,vila;58,55,2,2,vila;6,42,3,3,raval;53,13,2,2,vila;62,43,3,2,vila;61,53,2,2,vila;63,22,2,2,vila;64,24,2,2,vila;66,29,2,3,vila;65,26,2,2,vila;64,50,2,2,vila;3,37,3,2,raval;66,45,3,2,vila;67,34,3,2,vila;5,32,3,3,raval;67,41,3,2,vila;67,32,2,2,vila;67,43,2,2,vila;1,42,3,2,raval;46,73,2,2,raval;55,72,2,2,raval;48,76,2,2,raval;51,76,2,2,raval;56,75,2,2,raval;61,74,2,3,raval;65,74,3,3,raval"
+  "lots": "38,45,2,2,vila;40,44,2,2,vila;30,45,3,2,vila;26,36,2,2,menestrals;40,27,3,3,vila;24,32,2,2,menestrals;26,45,2,2,menestrals;23,37,2,3,menestrals;34,49,2,2,llotja;36,49,3,3,llotja;48,31,4,3,patricis;48,43,3,3,patricis;24,28,3,2,menestrals;23,41,2,2,menestrals;31,23,2,2,vila;28,48,3,3,llotja;23,43,2,2,menestrals;37,52,2,2,llotja;19,42,3,2,menestrals;28,23,2,2,menestrals;52,30,3,4,patricis;26,51,2,4,llotja;20,44,2,3,menestrals;21,27,2,2,menestrals;37,20,2,2,vila;40,20,3,2,vila;50,46,3,2,llotja;26,20,2,3,menestrals;18,30,3,2,menestrals;33,16,2,4,vila;17,39,2,2,menestrals;22,24,2,2,menestrals;19,27,2,2,menestrals;31,16,2,4,vila;51,48,4,2,llotja;29,17,2,3,menestrals;22,50,2,3,llotja;24,21,2,2,menestrals;21,22,2,2,menestrals;15,36,2,2,menestrals;16,30,2,3,menestrals;55,30,3,3,patricis;52,50,4,2,llotja;16,42,2,2,menestrals;57,37,3,4,patricis;37,15,2,2,vila;54,26,3,3,patricis;50,53,2,2,llotja;24,19,2,2,menestrals;28,58,3,3,raval;55,43,3,3,patricis;26,17,3,2,menestrals;58,31,3,4,patricis;13,42,2,2,menestrals;13,31,2,2,menestrals;53,52,4,2,llotja;14,46,2,3,menestrals;17,21,2,3,menestrals;39,14,4,2,vila;15,24,2,3,menestrals;13,44,2,2,menestrals;13,28,2,3,menestrals;12,40,2,2,menestrals;18,53,2,2,llotja;15,49,2,2,vila;23,16,2,2,menestrals;20,55,2,2,llotja;51,17,3,3,patricis;59,42,3,3,patricis;21,17,2,2,menestrals;16,51,2,2,vila;60,38,3,4,patricis;32,11,2,3,vila;58,47,2,4,llotja;27,13,2,2,menestrals;30,12,2,2,menestrals;54,54,2,2,llotja;36,11,2,2,vila;34,11,2,2,vila;38,10,2,3,vila;61,32,3,4,patricis;57,23,3,3,patricis;60,45,4,3,patricis;40,10,2,3,vila;63,39,3,4,patricis;55,57,3,2,llotja;60,50,2,2,llotja;8,36,2,3,raval;58,55,2,2,llotja;6,42,3,3,raval;61,53,2,2,llotja;66,29,3,3,patricis;64,50,2,2,llotja;4,37,2,2,raval;67,33,3,3,patricis;5,32,3,3,raval;67,41,3,3,patricis;66,45,2,3,llotja;1,42,3,2,raval;46,73,2,2,raval;55,72,2,2,raval;47,77,3,2,raval;51,76,2,2,raval;56,75,2,2,raval;61,74,3,2,raval;66,74,3,3,raval"
  },
  "patrols": [
   {
@@ -3036,12 +3036,8 @@
      29
     ],
     [
-     52,
+     51,
      29
-    ],
-    [
-     50,
-     47
     ],
     [
      28,
@@ -3060,6 +3056,156 @@
  "detail": {
   "settled_every": 5
  },
+ "zones": [
+  {
+   "id": "centre",
+   "kind": "centre",
+   "char": "c",
+   "name_key": "zone.capital.centre",
+   "tiles": 545,
+   "label": [
+    37,
+    31
+   ]
+  },
+  {
+   "id": "port",
+   "kind": "port",
+   "char": "p",
+   "name_key": "zone.capital.port",
+   "tiles": 1455,
+   "label": [
+    42,
+    60
+   ]
+  },
+  {
+   "id": "nobles",
+   "kind": "nobles",
+   "char": "n",
+   "name_key": "zone.capital.nobles",
+   "tiles": 759,
+   "label": [
+    55,
+    33
+   ]
+  },
+  {
+   "id": "artisans",
+   "kind": "artisans",
+   "char": "a",
+   "name_key": "zone.capital.artisans",
+   "tiles": 544,
+   "label": [
+    22,
+    31
+   ]
+  },
+  {
+   "id": "forest",
+   "kind": "forest",
+   "char": "b",
+   "name_key": "zone.capital.forest",
+   "tiles": 595,
+   "label": [
+    13,
+    61
+   ]
+  },
+  {
+   "id": "outskirts",
+   "kind": "outskirts",
+   "char": "o",
+   "name_key": "zone.capital.outskirts",
+   "tiles": 2502,
+   "label": [
+    56,
+    74
+   ]
+  }
+ ],
+ "zone_rows": [
+  "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+  "ooooooooooooooooooooooooooooooooooooocccccccnooooooooooooooooooooooooooooooooooo",
+  "ooooooooooooooooooooooooooooooooccccccccccccnnnnnnoooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooaaaccccccccccccnnnnnnnnnnoooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooaaaaaccccccccccccnnnnnnnnnnnnoooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooaaaaaaaccccccccccccnnnnnnnnnnnnnooooooooooooooooooooooo",
+  "ooooooooooooooooooooooooaaaaaaaaccccccccccccnnnnnnnnnnnnnnnooooooooooooooooooooo",
+  "ooooooooooooooooooooooaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnoooooooooooooooooooo",
+  "oooooooooooooooooooooaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnoooooooooooooooooo",
+  "oooooooooooooooooooaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnoooooooooooooooooo",
+  "oooooooooooooooooooaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnooooooooooooooooo",
+  "ooooooooooooooooooaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnoooooooooooooooo",
+  "oooooooooooooooooaaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnnooooooooooooooo",
+  "ooooooooooooooooaaaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnnooooooooooooooo",
+  "ooooooooooooooooaaaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnnnoooooooooooooo",
+  "oooooooooooooooaaaaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnnnnooooooooooooo",
+  "ooooooooooooooaaaaaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnnnnooooooooooooo",
+  "ooooooooooooooaaaaaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnoooooooooooo",
+  "oooooooooooooaaaaaaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnoooooooooooo",
+  "oooooooooooooaaaaaaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnoooooooooooo",
+  "ooooooooooooaaaaaaaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnooooooooooo",
+  "ooooooooooooaaaaaaaaaaaaaaaaaaacccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnooooooooooo",
+  "ooooooooooooaaaaaaaaaaaaaaaaccccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnooooooooooo",
+  "ooooooooooooaaaaaaaaaaaaaaaaccccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnooooooooooo",
+  "oooooooooooaaaaaaaaaaaaaaaaaccccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnnoooooooooo",
+  "oooooooooooaaaaaaaaaaaaaaaaacccacccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnoooooooooo",
+  "oooooooooooaaaaaaaaaaaaaaaacccccccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnoooooooooo",
+  "oooooooooooaaaaaaaaaaaaaaaacccccccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnoooooooooo",
+  "oooooooooooaaaaaaaaaaaaaaaacccccccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnoooooooooo",
+  "oooooooooooaaaaaaaaaaaaaaaaccccaccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnoooooooooo",
+  "oooooooooooaaaaaaaaaaaaaaaaaaaccccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnooooooooo",
+  "ooooooooooaaaaaaaaaaaaaaaaaaaaccccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnooooooooo",
+  "ooooooooooaaaaaaaaaaaaaaaaaaaaccccccccccccccccccccccccnnnnnnnnnnnnnnnnoooooooooo",
+  "ooooooooooooaaaaaaaaaaaaaaaaaaccccccccccccccncccccccccnnnnnnnnnnnnnnnnoooooooooo",
+  "ooooooooooooaaaaaaaaaaaaaaaaaaccccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnnoooooooooo",
+  "ooooooooooooaaaaaaaaaaaaaaaaaaacccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnooooooooooo",
+  "oooooooooooooaaaaaaaaaaaaaaaaaacccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnooooooooooo",
+  "oooooooooooooaaaaaaaaaaaaaaaaaaaccccccccccccnnnnnnnnnnnnnnnnnnnnnnnnnooooooooooo",
+  "ooooooooooooocccccpppppppppppppppppppppppppppppppppppppppppppppppppcoooooooooooo",
+  "bbbbbbbbbbbbbbccccpppppppppppppppppppppppppppppppppppppppppppppppppcoooooooooooo",
+  "bbbbbbbbbbbbbbccccpppppppppppppppppppppppppppppppppppppppppppppppppcoooooooooooo",
+  "bbbbbbbbbbbbbbbcccpppppppppppppppppppppppppppppppppppppppppppppppppooooooooooooo",
+  "bbbbbbbbbbbbbbbcccpppppppppppppppppppppppppppppppppppppppppppppppppooooooooooooo",
+  "bbbbbbbbbbbbbbbbccpppppppppppppppppppppppppppppppppppppppppppppppppooooooooooooo",
+  "bbbbbbbbbbbbbbbbbcpppppppppppppppppppppppppppppppppppppppppppppppppooooooooooooo",
+  "bbbbbbbbbbbbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppooooooooooooo",
+  "bbbbbbbbbbbbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppooooooooooooo",
+  "bbbbbbbbbbbbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppooooppppooooo",
+  "bbbbbbbbbbbbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppooppppppooooo",
+  "bbbbbbbbbbbbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbbbbbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbbbbbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbbbbbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbbbbbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbbbbbbbbppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppoooooooo",
+  "bbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbpppppppppppppbbbbbbbbbbbbppppppppppppppppppppppppppppppppppppppppppooooo",
+  "bbbbbbbbpppppppppbbbbbbbbbbbbbbbbooooooppppppppppooooooooopppppppppppppppppooooo",
+  "bbbbbbbbpppppbbbbbbbbbbbbbbbbbbbbooooooooooooooooooooooooooooooooooooooooooooooo",
+  "bbbbbbbbppbbbbbbbbbbbbbbbbbbbbbbbooooooooooooooooooooooooooooooooooooooooooooooo",
+  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbooooooooooooooooooooooooooooooooooooooooooooooo",
+  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbooooooooooooooooooooooooooooooooooooooooooooooo",
+  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbooooooooooooooooooooooooooooooooooooooooooooooo",
+  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbooooooooooooooooooooooooooooooooooooooooooooooo",
+  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbooooooooooooooooooooooooooooooooooooooooooooooo"
+ ],
  "plots": [
   {
    "id": "plot_01",
@@ -3068,17 +3214,17 @@
    "zone": "production",
    "origin": [
     24,
-    31
+    32
    ],
    "size": [
     2,
-    3
+    2
    ],
    "front": [
     25,
     34
    ],
-   "location": 0.73
+   "location": 0.75
   },
   {
    "id": "plot_02",
@@ -3097,7 +3243,7 @@
     61,
     52
    ],
-   "location": 0.51
+   "location": 0.48
   },
   {
    "id": "plot_03",
@@ -3105,18 +3251,18 @@
    "side": "inside",
    "zone": "production",
    "origin": [
-    47,
-    28
+    48,
+    31
    ],
    "size": [
-    2,
-    2
+    4,
+    3
    ],
    "front": [
-    47,
-    30
+    48,
+    34
    ],
-   "location": 0.71
+   "location": 0.67
   },
   {
    "id": "plot_04",
@@ -3124,18 +3270,18 @@
    "side": "inside",
    "zone": "production",
    "origin": [
-    50,
-    30
+    60,
+    45
    ],
    "size": [
-    3,
-    2
+    4,
+    3
    ],
    "front": [
-    50,
-    29
+    61,
+    48
    ],
-   "location": 0.69
+   "location": 0.49
   },
   {
    "id": "plot_05",
@@ -3154,7 +3300,7 @@
     60,
     52
    ],
-   "location": 0.52
+   "location": 0.48
   },
   {
    "id": "plot_06",
@@ -3162,18 +3308,18 @@
    "side": "outside",
    "zone": "rustic",
    "origin": [
-    45,
-    77
+    1,
+    34
    ],
    "size": [
-    2,
-    3
+    3,
+    2
    ],
    "front": [
-    46,
-    76
+    4,
+    34
    ],
-   "location": 0.43
+   "location": 0.34
   },
   {
    "id": "plot_07",
@@ -3192,7 +3338,7 @@
     16,
     14
    ],
-   "location": 0.3
+   "location": 0.26
   },
   {
    "id": "plot_08",
@@ -3211,7 +3357,7 @@
     14,
     14
    ],
-   "location": 0.28
+   "location": 0.23
   },
   {
    "id": "plot_09",
@@ -3230,7 +3376,7 @@
     27,
     34
    ],
-   "location": 0.74,
+   "location": 0.76,
    "site": "player_forge",
    "for_sale": false
   },
@@ -3251,15 +3397,36 @@
     22,
     36
    ],
-   "location": 0.72,
-   "site": "workshop_masonry",
-   "for_sale": true
+   "location": 0.74,
+   "site": "rival_forge",
+   "for_sale": false
   },
   {
    "id": "plot_11",
    "state": "business",
    "side": "inside",
-   "zone": "housing",
+   "zone": "production",
+   "origin": [
+    17,
+    33
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    18,
+    37
+   ],
+   "location": 0.68,
+   "site": "workshop_carpentry",
+   "for_sale": true
+  },
+  {
+   "id": "plot_12",
+   "state": "business",
+   "side": "inside",
+   "zone": "production",
    "origin": [
     28,
     25
@@ -3272,12 +3439,12 @@
     29,
     28
    ],
-   "location": 0.65,
-   "site": "house_02",
-   "for_sale": false
+   "location": 0.63,
+   "site": "workshop_tailor",
+   "for_sale": true
   },
   {
-   "id": "plot_12",
+   "id": "plot_13",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3293,12 +3460,75 @@
     35,
     24
    ],
-   "location": 0.63,
+   "location": 0.62,
    "site": "house_06",
    "for_sale": false
   },
   {
-   "id": "plot_13",
+   "id": "plot_14",
+   "state": "business",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    11,
+    34
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    12,
+    38
+   ],
+   "location": 0.61,
+   "site": "workshop_masonry",
+   "for_sale": false
+  },
+  {
+   "id": "plot_15",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    45,
+    24
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    48,
+    25
+   ],
+   "location": 0.6,
+   "site": "house_03",
+   "for_sale": false
+  },
+  {
+   "id": "plot_16",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    49,
+    24
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    50,
+    27
+   ],
+   "location": 0.6,
+   "site": "house_07",
+   "for_sale": false
+  },
+  {
+   "id": "plot_17",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3314,33 +3544,54 @@
     36,
     48
    ],
-   "location": 0.61,
-   "site": "house_01",
+   "location": 0.6,
+   "site": "house_02",
    "for_sale": false
   },
   {
-   "id": "plot_14",
+   "id": "plot_18",
    "state": "business",
    "side": "inside",
    "zone": "housing",
    "origin": [
-    51,
-    21
+    45,
+    20
    ],
    "size": [
     3,
     3
    ],
    "front": [
-    54,
-    22
+    48,
+    21
    ],
    "location": 0.59,
    "site": "house_08",
    "for_sale": false
   },
   {
-   "id": "plot_15",
+   "id": "plot_19",
+   "state": "business",
+   "side": "inside",
+   "zone": "housing",
+   "origin": [
+    52,
+    20
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    53,
+    23
+   ],
+   "location": 0.58,
+   "site": "house_11",
+   "for_sale": false
+  },
+  {
+   "id": "plot_20",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3356,33 +3607,12 @@
     54,
     43
    ],
-   "location": 0.59,
-   "site": "house_09",
+   "location": 0.57,
+   "site": "house_10",
    "for_sale": false
   },
   {
-   "id": "plot_16",
-   "state": "business",
-   "side": "inside",
-   "zone": "housing",
-   "origin": [
-    44,
-    23
-   ],
-   "size": [
-    3,
-    3
-   ],
-   "front": [
-    47,
-    24
-   ],
-   "location": 0.56,
-   "site": "house_04",
-   "for_sale": false
-  },
-  {
-   "id": "plot_17",
+   "id": "plot_21",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3399,11 +3629,11 @@
     48
    ],
    "location": 0.56,
-   "site": "house_10",
+   "site": "house_12",
    "for_sale": false
   },
   {
-   "id": "plot_18",
+   "id": "plot_22",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3419,17 +3649,17 @@
     33,
     57
    ],
-   "location": 0.56,
-   "site": "house_11",
+   "location": 0.54,
+   "site": "house_13",
    "for_sale": false
   },
   {
-   "id": "plot_19",
+   "id": "plot_23",
    "state": "business",
-   "side": "inside",
+   "side": "outside",
    "zone": "housing",
    "origin": [
-    58,
+    40,
     22
    ],
    "size": [
@@ -3437,57 +3667,15 @@
     3
    ],
    "front": [
-    61,
-    23
-   ],
-   "location": 0.53,
-   "site": "house_16",
-   "for_sale": false
-  },
-  {
-   "id": "plot_20",
-   "state": "business",
-   "side": "outside",
-   "zone": "production",
-   "origin": [
-    40,
-    22
-   ],
-   "size": [
-    3,
-    4
-   ],
-   "front": [
     41,
-    26
+    25
    ],
-   "location": 0.74,
-   "site": "workshop_carpentry",
-   "for_sale": true
-  },
-  {
-   "id": "plot_21",
-   "state": "business",
-   "side": "outside",
-   "zone": "production",
-   "origin": [
-    44,
-    27
-   ],
-   "size": [
-    3,
-    4
-   ],
-   "front": [
-    45,
-    31
-   ],
-   "location": 0.7,
-   "site": "rival_forge",
+   "location": 0.72,
+   "site": "house_05",
    "for_sale": false
   },
   {
-   "id": "plot_22",
+   "id": "plot_24",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -3503,54 +3691,33 @@
     22,
     40
    ],
-   "location": 0.66,
-   "site": "house_07",
-   "for_sale": false
-  },
-  {
-   "id": "plot_23",
-   "state": "business",
-   "side": "outside",
-   "zone": "housing",
-   "origin": [
-    48,
-    25
-   ],
-   "size": [
-    3,
-    3
-   ],
-   "front": [
-    49,
-    28
-   ],
-   "location": 0.65,
-   "site": "house_05",
-   "for_sale": false
-  },
-  {
-   "id": "plot_24",
-   "state": "business",
-   "side": "outside",
-   "zone": "production",
-   "origin": [
-    39,
-    27
-   ],
-   "size": [
-    3,
-    3
-   ],
-   "front": [
-    42,
-    28
-   ],
-   "location": 0.65,
-   "site": "workshop_tailor",
+   "location": 0.67,
+   "site": "house_09",
    "for_sale": false
   },
   {
    "id": "plot_25",
+   "state": "business",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    44,
+    28
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    47,
+    29
+   ],
+   "location": 0.62,
+   "site": "house_01",
+   "for_sale": false
+  },
+  {
+   "id": "plot_26",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -3566,12 +3733,12 @@
     45,
     17
    ],
-   "location": 0.6,
-   "site": "house_14",
+   "location": 0.59,
+   "site": "house_16",
    "for_sale": false
   },
   {
-   "id": "plot_26",
+   "id": "plot_27",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -3587,12 +3754,12 @@
     40,
     19
    ],
-   "location": 0.6,
-   "site": "house_12",
+   "location": 0.59,
+   "site": "house_14",
    "for_sale": false
   },
   {
-   "id": "plot_27",
+   "id": "plot_28",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -3608,29 +3775,8 @@
     24,
     50
    ],
-   "location": 0.6,
-   "site": "house_03",
-   "for_sale": false
-  },
-  {
-   "id": "plot_28",
-   "state": "business",
-   "side": "outside",
-   "zone": "housing",
-   "origin": [
-    27,
-    58
-   ],
-   "size": [
-    3,
-    3
-   ],
-   "front": [
-    28,
-    61
-   ],
    "location": 0.56,
-   "site": "house_15",
+   "site": "house_04",
    "for_sale": false
   },
   {
@@ -3650,119 +3796,80 @@
     58,
     17
    ],
-   "location": 0.53,
-   "site": "house_13",
+   "location": 0.52,
+   "site": "house_15",
    "for_sale": false
   }
  ],
  "decor": {
   "_doc": "Cosmetic dressing of the map made by tools/city/ciudad.py (vestir/generar), read only by WorldView (game/): the sim never reads it. kind house|yard|single: a filler lot (its tiles at..at+size); house: facing = the side of its door [dc, dr], flip = mirrored; lantern/prop/fence: one prop on tile `at`, off = pixel shift from the tile's centre. site: the item belongs to that map site (buildings of data/maps): a lot with site is the look of the site's footprint in a game without that building (drawn only then), a prop with site (a workshop's barrels) is drawn only with that building. Re-run the tool after editing rows or buildings.",
   "items": [
-   {"kind": "house", "id": "house_block", "at": [32, 11], "size": [2, 3], "facing": [0, 1], "height": 48, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [30, 12], "size": [2, 2], "facing": [0, 1], "height": 48, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [36, 11], "size": [2, 2], "facing": [0, 1], "height": 46, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [34, 11], "size": [2, 2], "facing": [0, 1], "height": 44, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [38, 10], "size": [2, 3], "facing": [0, 1], "height": 45, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [40, 10], "size": [2, 3], "facing": [1, 0], "height": 41, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [45, 11], "size": [4, 2], "facing": [0, 1], "height": 40, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [49, 12], "size": [2, 2], "facing": [0, 1], "height": 45, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [51, 12], "size": [2, 2], "facing": [0, 1], "height": 44, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [53, 13], "size": [2, 2], "facing": [0, 1], "height": 49, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plot", "at": [53, 12]},
-   {"kind": "yard", "id": "yard_plot", "at": [55, 13]},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [55, 14]},
-   {"kind": "yard", "id": "yard_plot", "at": [56, 14]},
-   {"kind": "yard", "id": "yard_plot", "at": [56, 15]},
-   {"kind": "yard", "id": "yard_plot", "at": [57, 15]},
-   {"kind": "yard", "id": "yard_plot", "at": [58, 15]},
-   {"kind": "yard", "id": "yard_plot", "at": [58, 16]},
-   {"kind": "yard", "id": "yard_plot", "at": [59, 16]},
-   {"kind": "house", "id": "house_block", "at": [23, 16], "size": [2, 2], "facing": [0, 1], "height": 43, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [21, 17], "size": [2, 2], "facing": [0, 1], "height": 42, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [27, 13], "size": [2, 2], "facing": [0, 1], "height": 39, "color": "#6a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [32, 11], "size": [2, 3], "facing": [0, 1], "height": 48, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [30, 12], "size": [2, 2], "facing": [0, 1], "height": 48, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [36, 11], "size": [2, 2], "facing": [0, 1], "height": 46, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [34, 11], "size": [2, 2], "facing": [0, 1], "height": 44, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [38, 10], "size": [2, 3], "facing": [0, 1], "height": 45, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [40, 10], "size": [2, 3], "facing": [1, 0], "height": 41, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [26, 20], "size": [2, 3], "facing": [0, 1], "height": 48, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [33, 16], "size": [2, 4], "facing": [0, 1], "height": 44, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [31, 16], "size": [2, 4], "facing": [0, 1], "height": 49, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [29, 17], "size": [2, 3], "facing": [0, 1], "height": 43, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [24, 21], "size": [2, 2], "facing": [0, 1], "height": 44, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [24, 19], "size": [2, 2], "facing": [-1, 0], "height": 42, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [26, 17], "size": [3, 2], "facing": [0, -1], "height": 46, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [23, 16], "size": [2, 2], "facing": [0, 1], "height": 43, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [21, 17], "size": [2, 2], "facing": [0, 1], "height": 42, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [27, 13], "size": [2, 2], "facing": [0, 1], "height": 39, "color": "#7a5a3a"},
    {"kind": "yard", "id": "yard_plot", "at": [25, 14]},
    {"kind": "yard", "id": "yard_plot_sack", "at": [26, 14]},
    {"kind": "yard", "id": "yard_plot", "at": [24, 15]},
    {"kind": "yard", "id": "yard_plot", "at": [25, 15]},
+   {"kind": "yard", "id": "yard_plot", "at": [31, 15]},
+   {"kind": "yard", "id": "yard_plot", "at": [32, 15]},
+   {"kind": "yard", "id": "yard_plot", "at": [33, 15]},
+   {"kind": "yard", "id": "yard_plot", "at": [34, 15]},
+   {"kind": "yard", "id": "yard_plot", "at": [35, 15]},
    {"kind": "yard", "id": "yard_plot", "at": [22, 16]},
+   {"kind": "yard", "id": "yard_plot", "at": [29, 16]},
+   {"kind": "yard", "id": "yard_plot", "at": [30, 16]},
+   {"kind": "yard", "id": "yard_plot", "at": [35, 16]},
    {"kind": "yard", "id": "yard_plot", "at": [25, 17]},
-   {"kind": "house", "id": "house_block", "at": [37, 15], "size": [2, 2], "facing": [0, 1], "height": 48, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [39, 14], "size": [4, 2], "facing": [0, -1], "height": 39, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [26, 19], "size": [2, 4], "facing": [0, 1], "height": 43, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [33, 16], "size": [2, 4], "facing": [0, 1], "height": 44, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [31, 16], "size": [2, 4], "facing": [0, 1], "height": 49, "color": "#6a4a3a"},
-   {"kind": "house", "id": "lot_house_e", "at": [28, 17], "size": [3, 3], "flip": false, "facing": [0, 1]},
-   {"kind": "house", "id": "house_block", "at": [24, 21], "size": [2, 2], "facing": [0, 1], "height": 44, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [24, 19], "size": [2, 2], "facing": [-1, 0], "height": 42, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plain", "at": [31, 15]},
-   {"kind": "yard", "id": "yard_cart", "at": [32, 15]},
-   {"kind": "yard", "id": "yard_plain", "at": [33, 15]},
-   {"kind": "yard", "id": "yard_sacks", "at": [34, 15]},
-   {"kind": "yard", "id": "yard_plain", "at": [35, 15]},
-   {"kind": "yard", "id": "yard_plain", "at": [28, 16]},
-   {"kind": "yard", "id": "yard_plain", "at": [29, 16]},
-   {"kind": "yard", "id": "yard_barrels", "at": [30, 16]},
-   {"kind": "yard", "id": "yard_plain", "at": [35, 16]},
-   {"kind": "yard", "id": "yard_plain", "at": [35, 17]},
-   {"kind": "yard", "id": "yard_plain", "at": [26, 18]},
-   {"kind": "yard", "id": "yard_plain", "at": [27, 18]},
-   {"kind": "yard", "id": "yard_crates", "at": [35, 18]},
-   {"kind": "yard", "id": "yard_plain", "at": [36, 18]},
-   {"kind": "house", "id": "house_block", "at": [47, 16], "size": [2, 2], "facing": [0, 1], "height": 41, "color": "#6a4a3a"},
+   {"kind": "yard", "id": "yard_plot", "at": [35, 17]},
+   {"kind": "yard", "id": "yard_plot", "at": [35, 18]},
+   {"kind": "yard", "id": "yard_plot", "at": [36, 18]},
+   {"kind": "yard", "id": "yard_plot", "at": [26, 19]},
+   {"kind": "yard", "id": "yard_plot", "at": [27, 19]},
+   {"kind": "house", "id": "house_block", "at": [37, 15], "size": [2, 2], "facing": [0, 1], "height": 48, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [39, 14], "size": [4, 2], "facing": [0, -1], "height": 39, "color": "#7a4a3a"},
    {"kind": "yard", "id": "yard_barrels", "at": [47, 15]},
-   {"kind": "yard", "id": "yard_plain", "at": [48, 15]},
-   {"kind": "house", "id": "house_block", "at": [52, 19], "size": [4, 2], "facing": [-1, 0], "height": 46, "color": "#6a4a3a"},
-   {"kind": "house", "id": "lot_house_c_back", "at": [50, 16], "size": [3, 3], "flip": false, "facing": [0, -1]},
-   {"kind": "yard", "id": "yard_plot", "at": [53, 16]},
-   {"kind": "yard", "id": "yard_plot", "at": [53, 17]},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [53, 18]},
-   {"kind": "yard", "id": "yard_plot", "at": [56, 19]},
-   {"kind": "yard", "id": "yard_plot", "at": [56, 20]},
-   {"kind": "yard", "id": "yard_plot", "at": [54, 21]},
-   {"kind": "yard", "id": "yard_plot", "at": [55, 21]},
-   {"kind": "yard", "id": "yard_plot", "at": [56, 21]},
-   {"kind": "yard", "id": "yard_plot", "at": [55, 22]},
-   {"kind": "house", "id": "house_block", "at": [12, 31], "size": [3, 2], "facing": [1, 0], "height": 38, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [17, 22], "size": [2, 2], "facing": [0, 1], "height": 41, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [15, 24], "size": [2, 3], "facing": [1, 0], "height": 46, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [12, 35], "size": [2, 4], "facing": [1, 0], "height": 42, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [13, 29], "size": [2, 2], "facing": [1, 0], "height": 47, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [13, 27], "size": [2, 2], "facing": [1, 0], "height": 47, "color": "#6a4a3a"},
+   {"kind": "yard", "id": "yard_crates", "at": [47, 16]},
+   {"kind": "single", "id": "well", "at": [46, 17]},
+   {"kind": "house", "id": "lot_house_d_back", "at": [51, 17], "size": [3, 3], "flip": true, "facing": [-1, 0]},
+   {"kind": "yard", "id": "yard_cart", "at": [54, 17]},
+   {"kind": "yard", "id": "yard_plain", "at": [54, 18]},
+   {"kind": "yard", "id": "yard_barrels", "at": [54, 19]},
+   {"kind": "house", "id": "house_block", "at": [13, 31], "size": [2, 2], "facing": [1, 0], "height": 45, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [17, 21], "size": [2, 3], "facing": [0, 1], "height": 38, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [15, 24], "size": [2, 3], "facing": [1, 0], "height": 46, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [13, 28], "size": [2, 3], "facing": [1, 0], "height": 46, "color": "#7a5a3a"},
    {"kind": "yard", "id": "yard_plot", "at": [19, 19]},
    {"kind": "yard", "id": "yard_plot_sack", "at": [18, 20]},
    {"kind": "yard", "id": "yard_plot", "at": [19, 20]},
    {"kind": "yard", "id": "yard_plot", "at": [20, 20]},
-   {"kind": "yard", "id": "yard_plot", "at": [17, 21]},
-   {"kind": "yard", "id": "yard_plot", "at": [18, 21]},
    {"kind": "yard", "id": "yard_plot", "at": [19, 21]},
    {"kind": "yard", "id": "yard_plot", "at": [16, 22]},
    {"kind": "yard", "id": "yard_plot", "at": [16, 23]},
    {"kind": "yard", "id": "yard_plot", "at": [14, 25]},
    {"kind": "yard", "id": "yard_plot", "at": [14, 26]},
+   {"kind": "yard", "id": "yard_plot", "at": [13, 27]},
+   {"kind": "yard", "id": "yard_plot", "at": [14, 27]},
    {"kind": "yard", "id": "yard_plot", "at": [12, 29]},
    {"kind": "yard", "id": "yard_plot", "at": [12, 30]},
-   {"kind": "yard", "id": "yard_plot", "at": [11, 33]},
-   {"kind": "yard", "id": "yard_plot", "at": [12, 33]},
-   {"kind": "yard", "id": "yard_plot", "at": [11, 34]},
-   {"kind": "yard", "id": "yard_plot", "at": [12, 34]},
-   {"kind": "yard", "id": "yard_plot", "at": [13, 34]},
-   {"kind": "yard", "id": "yard_plot", "at": [11, 35]},
-   {"kind": "yard", "id": "yard_plot", "at": [11, 36]},
-   {"kind": "yard", "id": "yard_plot", "at": [11, 37]},
-   {"kind": "house", "id": "house_block", "at": [63, 22], "size": [2, 2], "facing": [-1, 0], "height": 46, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [64, 24], "size": [2, 2], "facing": [-1, 0], "height": 48, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [65, 26], "size": [2, 2], "facing": [-1, 0], "height": 49, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plot", "at": [61, 19]},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [62, 19]},
-   {"kind": "yard", "id": "yard_plot", "at": [62, 20]},
-   {"kind": "yard", "id": "yard_plot", "at": [62, 21]},
-   {"kind": "yard", "id": "yard_plot", "at": [63, 21]},
-   {"kind": "yard", "id": "yard_plot", "at": [64, 21]},
-   {"kind": "yard", "id": "yard_plot", "at": [65, 23]},
-   {"kind": "yard", "id": "yard_plot", "at": [66, 24]},
-   {"kind": "yard", "id": "yard_plot", "at": [66, 25]},
-   {"kind": "house", "id": "house_block", "at": [37, 20], "size": [2, 2], "facing": [0, -1], "height": 39, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [40, 20], "size": [3, 2], "facing": [1, 0], "height": 41, "color": "#6a4a3a"},
+   {"kind": "yard", "id": "yard_plot", "at": [12, 31]},
+   {"kind": "yard", "id": "yard_plot", "at": [12, 32]},
+   {"kind": "single", "id": "well", "at": [62, 19]},
+   {"kind": "house", "id": "house_block", "at": [37, 20], "size": [2, 2], "facing": [0, -1], "height": 39, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [40, 20], "size": [3, 2], "facing": [1, 0], "height": 41, "color": "#7a4a3a"},
    {"kind": "yard", "id": "yard_cart", "at": [39, 20]},
    {"kind": "yard", "id": "yard_plain", "at": [39, 21]},
    {"kind": "yard", "id": "yard_crates", "at": [37, 22]},
@@ -3776,114 +3883,115 @@
    {"kind": "yard", "id": "yard_plain", "at": [38, 24]},
    {"kind": "yard", "id": "yard_plain", "at": [39, 24]},
    {"kind": "yard", "id": "yard_plain", "at": [39, 25]},
-   {"kind": "house", "id": "house_block", "at": [44, 20], "size": [2, 3], "facing": [-1, 0], "height": 49, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [47, 21], "size": [2, 2], "facing": [1, 0], "height": 44, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [46, 20]},
-   {"kind": "yard", "id": "yard_plot", "at": [46, 21]},
-   {"kind": "yard", "id": "yard_plot", "at": [46, 22]},
-   {"kind": "house", "id": "house_block", "at": [24, 28], "size": [3, 2], "facing": [1, 0], "height": 49, "color": "#6a4a3a"},
-   {"kind": "house", "id": "lot_house_f", "at": [21, 26], "size": [3, 3], "flip": false, "facing": [0, 1]},
-   {"kind": "house", "id": "house_block", "at": [19, 25], "size": [2, 4], "facing": [-1, 0], "height": 38, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [20, 23], "size": [3, 2], "facing": [0, -1], "height": 46, "color": "#6a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [52, 30], "size": [3, 4], "facing": [0, 1], "height": 50, "color": "#4f5a6a"},
+   {"kind": "house", "id": "lot_house_d", "at": [55, 30], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "house", "id": "lot_house_c_back", "at": [54, 26], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "house", "id": "house_block", "at": [58, 31], "size": [3, 4], "facing": [0, 1], "height": 47, "color": "#4f5a6a"},
+   {"kind": "house", "id": "house_block", "at": [61, 32], "size": [3, 4], "facing": [1, 0], "height": 45, "color": "#4f5a6a"},
+   {"kind": "house", "id": "lot_house_e_back", "at": [57, 23], "size": [3, 3], "flip": true, "facing": [-1, 0]},
+   {"kind": "yard", "id": "yard_plain", "at": [59, 21]},
+   {"kind": "yard", "id": "yard_plain", "at": [60, 21]},
+   {"kind": "yard", "id": "yard_barrels", "at": [58, 22]},
+   {"kind": "yard", "id": "yard_plain", "at": [59, 22]},
+   {"kind": "yard", "id": "yard_plain", "at": [60, 22]},
+   {"kind": "yard", "id": "yard_plain", "at": [60, 23]},
+   {"kind": "yard", "id": "yard_plain", "at": [60, 24]},
+   {"kind": "yard", "id": "yard_plain", "at": [60, 25]},
+   {"kind": "yard", "id": "yard_cart", "at": [57, 26]},
+   {"kind": "yard", "id": "yard_sacks", "at": [58, 26]},
+   {"kind": "yard", "id": "yard_plain", "at": [59, 26]},
+   {"kind": "yard", "id": "yard_plain", "at": [60, 26]},
+   {"kind": "yard", "id": "yard_plain", "at": [57, 27]},
+   {"kind": "yard", "id": "yard_plain", "at": [58, 27]},
+   {"kind": "yard", "id": "yard_plain", "at": [59, 27]},
+   {"kind": "yard", "id": "yard_plain", "at": [60, 27]},
+   {"kind": "yard", "id": "yard_plain", "at": [57, 28]},
+   {"kind": "yard", "id": "yard_plain", "at": [58, 28]},
+   {"kind": "yard", "id": "yard_plain", "at": [52, 29]},
+   {"kind": "yard", "id": "yard_plain", "at": [53, 29]},
+   {"kind": "yard", "id": "yard_crates", "at": [54, 29]},
+   {"kind": "yard", "id": "yard_plain", "at": [55, 29]},
+   {"kind": "yard", "id": "yard_plain", "at": [56, 29]},
+   {"kind": "yard", "id": "yard_plain", "at": [57, 29]},
+   {"kind": "yard", "id": "yard_plain", "at": [58, 29]},
+   {"kind": "yard", "id": "yard_plain", "at": [59, 29]},
+   {"kind": "yard", "id": "yard_plain", "at": [60, 29]},
+   {"kind": "yard", "id": "yard_plain", "at": [51, 30]},
+   {"kind": "yard", "id": "yard_plain", "at": [58, 30]},
+   {"kind": "yard", "id": "yard_plain", "at": [59, 30]},
+   {"kind": "yard", "id": "yard_plain", "at": [60, 30]},
+   {"kind": "yard", "id": "yard_plain", "at": [61, 30]},
+   {"kind": "yard", "id": "yard_plain", "at": [62, 30]},
+   {"kind": "yard", "id": "yard_plain", "at": [63, 30]},
+   {"kind": "yard", "id": "yard_plain", "at": [61, 31]},
+   {"kind": "yard", "id": "yard_plain", "at": [62, 31]},
+   {"kind": "yard", "id": "yard_plain", "at": [63, 31]},
+   {"kind": "yard", "id": "yard_plot", "at": [63, 21]},
+   {"kind": "yard", "id": "yard_plot", "at": [64, 21]},
+   {"kind": "yard", "id": "yard_plot_sack", "at": [64, 22]},
+   {"kind": "yard", "id": "yard_plot", "at": [64, 23]},
+   {"kind": "yard", "id": "yard_plot", "at": [65, 23]},
+   {"kind": "yard", "id": "yard_plot", "at": [65, 24]},
+   {"kind": "yard", "id": "yard_plot", "at": [66, 24]},
+   {"kind": "yard", "id": "yard_plot", "at": [65, 25]},
+   {"kind": "yard", "id": "yard_plot", "at": [66, 25]},
+   {"kind": "yard", "id": "yard_plot", "at": [66, 26]},
+   {"kind": "yard", "id": "yard_plot", "at": [66, 27]},
+   {"kind": "house", "id": "house_block", "at": [24, 28], "size": [3, 2], "facing": [1, 0], "height": 49, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [21, 27], "size": [2, 2], "facing": [0, 1], "height": 41, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [22, 24], "size": [2, 2], "facing": [1, 0], "height": 44, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [19, 27], "size": [2, 2], "facing": [0, 1], "height": 45, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [21, 22], "size": [2, 2], "facing": [1, 0], "height": 48, "color": "#7a5a3a"},
+   {"kind": "yard", "id": "yard_plot_sack", "at": [20, 23]},
+   {"kind": "yard", "id": "yard_plot", "at": [20, 24]},
+   {"kind": "yard", "id": "yard_plot", "at": [21, 24]},
+   {"kind": "yard", "id": "yard_plot", "at": [19, 25]},
+   {"kind": "yard", "id": "yard_plot", "at": [20, 25]},
    {"kind": "yard", "id": "yard_plot", "at": [21, 25]},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [22, 25]},
-   {"kind": "yard", "id": "yard_plot", "at": [23, 25]},
+   {"kind": "yard", "id": "yard_plot", "at": [19, 26]},
+   {"kind": "yard", "id": "yard_plot", "at": [20, 26]},
+   {"kind": "yard", "id": "yard_plot", "at": [21, 26]},
+   {"kind": "yard", "id": "yard_plot", "at": [22, 26]},
+   {"kind": "yard", "id": "yard_plot", "at": [23, 26]},
+   {"kind": "yard", "id": "yard_plot", "at": [23, 27]},
+   {"kind": "yard", "id": "yard_plot", "at": [23, 28]},
    {"kind": "yard", "id": "yard_plot", "at": [24, 30]},
    {"kind": "yard", "id": "yard_plot", "at": [25, 30]},
-   {"kind": "house", "id": "house_block", "at": [31, 23], "size": [2, 2], "facing": [1, 0], "height": 44, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [28, 23], "size": [2, 2], "facing": [-1, 0], "height": 49, "color": "#6a4a3a"},
+   {"kind": "yard", "id": "yard_plot", "at": [23, 31]},
+   {"kind": "yard", "id": "yard_plot", "at": [24, 31]},
+   {"kind": "yard", "id": "yard_plot", "at": [25, 31]},
+   {"kind": "house", "id": "house_block", "at": [31, 23], "size": [2, 2], "facing": [1, 0], "height": 44, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [28, 23], "size": [2, 2], "facing": [-1, 0], "height": 49, "color": "#7a5a3a"},
    {"kind": "yard", "id": "yard_crates", "at": [30, 23]},
    {"kind": "yard", "id": "yard_plain", "at": [30, 24]},
-   {"kind": "house", "id": "house_block", "at": [51, 24], "size": [2, 2], "facing": [0, 1], "height": 45, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_sacks", "at": [47, 25]},
-   {"kind": "yard", "id": "yard_plain", "at": [44, 26]},
-   {"kind": "yard", "id": "yard_plain", "at": [45, 26]},
-   {"kind": "yard", "id": "yard_cart", "at": [46, 26]},
-   {"kind": "yard", "id": "yard_plain", "at": [47, 26]},
-   {"kind": "yard", "id": "yard_plain", "at": [47, 27]},
-   {"kind": "house", "id": "house_block", "at": [47, 32], "size": [4, 2], "facing": [0, 1], "height": 41, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [52, 32], "size": [2, 2], "facing": [0, 1], "height": 38, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [54, 30], "size": [2, 4], "facing": [0, 1], "height": 39, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [53, 27], "size": [3, 2], "facing": [0, -1], "height": 43, "color": "#6a4a3a"},
-   {"kind": "house", "id": "lot_house_d", "at": [57, 32], "size": [3, 3], "flip": false, "facing": [0, 1]},
-   {"kind": "house", "id": "house_block", "at": [55, 25], "size": [2, 2], "facing": [0, -1], "height": 46, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [61, 32], "size": [2, 4], "facing": [0, 1], "height": 39, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [61, 29], "size": [2, 2], "facing": [0, -1], "height": 40, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [60, 26], "size": [3, 2], "facing": [0, 1], "height": 43, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [63, 34], "size": [2, 3], "facing": [1, 0], "height": 46, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [63, 29], "size": [2, 4], "facing": [1, 0], "height": 41, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plot", "at": [57, 25]},
-   {"kind": "yard", "id": "yard_plot", "at": [58, 25]},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [59, 25]},
-   {"kind": "yard", "id": "yard_plot", "at": [60, 25]},
-   {"kind": "yard", "id": "yard_plot", "at": [61, 25]},
-   {"kind": "yard", "id": "yard_plot", "at": [62, 25]},
-   {"kind": "yard", "id": "yard_plot", "at": [57, 26]},
-   {"kind": "yard", "id": "yard_plot", "at": [58, 26]},
-   {"kind": "yard", "id": "yard_plot", "at": [59, 26]},
-   {"kind": "yard", "id": "yard_plot", "at": [56, 27]},
-   {"kind": "yard", "id": "yard_plot", "at": [57, 27]},
-   {"kind": "yard", "id": "yard_plot", "at": [58, 27]},
-   {"kind": "yard", "id": "yard_plot", "at": [59, 27]},
-   {"kind": "yard", "id": "yard_plot", "at": [56, 28]},
-   {"kind": "yard", "id": "yard_plot", "at": [57, 28]},
-   {"kind": "yard", "id": "yard_plot", "at": [58, 28]},
-   {"kind": "yard", "id": "yard_plot", "at": [59, 28]},
-   {"kind": "yard", "id": "yard_plot", "at": [53, 29]},
-   {"kind": "yard", "id": "yard_plot", "at": [54, 29]},
-   {"kind": "yard", "id": "yard_plot", "at": [55, 29]},
-   {"kind": "yard", "id": "yard_plot", "at": [56, 29]},
-   {"kind": "yard", "id": "yard_plot", "at": [57, 29]},
-   {"kind": "yard", "id": "yard_plot", "at": [58, 29]},
-   {"kind": "yard", "id": "yard_plot", "at": [59, 29]},
-   {"kind": "yard", "id": "yard_plot", "at": [53, 30]},
-   {"kind": "yard", "id": "yard_plot", "at": [56, 30]},
-   {"kind": "yard", "id": "yard_plot", "at": [57, 30]},
-   {"kind": "yard", "id": "yard_plot", "at": [58, 30]},
-   {"kind": "yard", "id": "yard_plot", "at": [59, 30]},
-   {"kind": "yard", "id": "yard_plot", "at": [60, 30]},
-   {"kind": "yard", "id": "yard_plot", "at": [53, 31]},
-   {"kind": "yard", "id": "yard_plot", "at": [56, 31]},
-   {"kind": "yard", "id": "yard_plot", "at": [57, 31]},
-   {"kind": "yard", "id": "yard_plot", "at": [58, 31]},
-   {"kind": "yard", "id": "yard_plot", "at": [59, 31]},
-   {"kind": "yard", "id": "yard_plot", "at": [60, 31]},
-   {"kind": "yard", "id": "yard_plot", "at": [61, 31]},
-   {"kind": "yard", "id": "yard_plot", "at": [62, 31]},
-   {"kind": "yard", "id": "yard_plot", "at": [51, 32]},
-   {"kind": "yard", "id": "yard_plot", "at": [60, 32]},
-   {"kind": "yard", "id": "yard_plot", "at": [51, 33]},
-   {"kind": "yard", "id": "yard_plot", "at": [60, 33]},
-   {"kind": "yard", "id": "yard_plot", "at": [63, 33]},
-   {"kind": "yard", "id": "yard_plot", "at": [64, 33]},
-   {"kind": "yard", "id": "yard_plot", "at": [60, 34]},
-   {"kind": "house", "id": "house_block", "at": [66, 29], "size": [2, 3], "facing": [-1, 0], "height": 49, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [67, 34], "size": [3, 2], "facing": [0, 1], "height": 39, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [67, 32], "size": [2, 2], "facing": [-1, 0], "height": 42, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plot", "at": [68, 29]},
-   {"kind": "yard", "id": "yard_plot", "at": [68, 30]},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [68, 31]},
-   {"kind": "house", "id": "house_block", "at": [19, 34], "size": [2, 3], "facing": [0, 1], "height": 40, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [19, 30], "size": [2, 3], "facing": [0, -1], "height": 39, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [17, 33], "size": [2, 4], "facing": [-1, 0], "height": 38, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [17, 30], "size": [2, 2], "facing": [0, -1], "height": 44, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [15, 36], "size": [2, 2], "facing": [0, 1], "height": 47, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plot", "at": [17, 32]},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [18, 32]},
-   {"kind": "yard", "id": "yard_plot", "at": [19, 33]},
-   {"kind": "yard", "id": "yard_plot", "at": [20, 33]},
+   {"kind": "house", "id": "lot_house_f", "at": [40, 27], "size": [3, 3], "flip": true, "facing": [1, 0]},
+   {"kind": "yard", "id": "yard_sacks", "at": [39, 27]},
+   {"kind": "yard", "id": "yard_barrels", "at": [39, 28]},
+   {"kind": "yard", "id": "yard_crates", "at": [39, 29]},
+   {"kind": "house", "id": "lot_house_f_back", "at": [66, 29], "size": [3, 3], "flip": true, "facing": [-1, 0]},
+   {"kind": "house", "id": "lot_house_c", "at": [67, 33], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "yard", "id": "yard_cart", "at": [67, 28]},
+   {"kind": "yard", "id": "yard_plain", "at": [68, 32]},
+   {"kind": "house", "id": "house_block", "at": [18, 30], "size": [3, 2], "facing": [0, -1], "height": 47, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [16, 30], "size": [2, 3], "facing": [-1, 0], "height": 40, "color": "#7a5a3a"},
+   {"kind": "yard", "id": "yard_sacks", "at": [18, 32]},
+   {"kind": "yard", "id": "yard_plain", "at": [19, 32]},
+   {"kind": "yard", "id": "yard_barrels", "at": [20, 32]},
+   {"kind": "yard", "id": "yard_plain", "at": [20, 33]},
+   {"kind": "yard", "id": "yard_plain", "at": [20, 34]},
+   {"kind": "yard", "id": "yard_crates", "at": [20, 35]},
+   {"kind": "yard", "id": "yard_plain", "at": [20, 36]},
    {"kind": "house", "id": "lot_house_d", "at": [5, 32], "size": [3, 3], "flip": false, "facing": [0, 1]},
    {"kind": "yard", "id": "yard_plain", "at": [5, 31]},
    {"kind": "yard", "id": "yard_cart", "at": [6, 31]},
    {"kind": "yard", "id": "yard_barrels", "at": [7, 31]},
-   {"kind": "house", "id": "house_block", "at": [8, 37], "size": [2, 2], "facing": [0, 1], "height": 43},
-   {"kind": "yard", "id": "yard_crates", "at": [8, 36]},
-   {"kind": "yard", "id": "yard_barrels", "at": [9, 36]},
-   {"kind": "house", "id": "house_block", "at": [26, 36], "size": [2, 2], "facing": [0, -1], "height": 44, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [26, 44], "size": [2, 3], "facing": [1, 0], "height": 48, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [23, 37], "size": [2, 3], "facing": [-1, 0], "height": 45, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [23, 41], "size": [2, 2], "facing": [-1, 0], "height": 48, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [23, 43], "size": [2, 2], "facing": [-1, 0], "height": 48, "color": "#6a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [8, 36], "size": [2, 3], "facing": [-1, 0], "height": 38, "color": "#7a6040"},
+   {"kind": "house", "id": "house_block", "at": [15, 36], "size": [2, 2], "facing": [0, 1], "height": 47, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [26, 36], "size": [2, 2], "facing": [0, -1], "height": 44, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [26, 45], "size": [2, 2], "facing": [0, 1], "height": 42, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [23, 37], "size": [2, 3], "facing": [-1, 0], "height": 45, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [23, 41], "size": [2, 2], "facing": [-1, 0], "height": 48, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [23, 43], "size": [2, 2], "facing": [-1, 0], "height": 48, "color": "#7a5a3a"},
    {"kind": "yard", "id": "yard_plot", "at": [25, 36]},
    {"kind": "yard", "id": "yard_plot", "at": [25, 37]},
    {"kind": "yard", "id": "yard_plot", "at": [25, 38]},
@@ -3893,62 +4001,52 @@
    {"kind": "yard", "id": "yard_plot", "at": [25, 40]},
    {"kind": "yard", "id": "yard_plot", "at": [25, 41]},
    {"kind": "yard", "id": "yard_plot", "at": [25, 42]},
+   {"kind": "yard", "id": "yard_plot", "at": [25, 43]},
    {"kind": "yard", "id": "yard_plot_sack", "at": [25, 44]},
+   {"kind": "yard", "id": "yard_plot", "at": [26, 44]},
    {"kind": "yard", "id": "yard_plot", "at": [25, 45]},
    {"kind": "yard", "id": "yard_plot", "at": [25, 46]},
    {"kind": "single", "id": "well", "at": [35, 36]},
-   {"kind": "house", "id": "house_block", "at": [3, 37], "size": [3, 2], "facing": [0, 1], "height": 40},
-   {"kind": "house", "id": "house_block", "at": [47, 43], "size": [4, 2], "facing": [0, -1], "height": 47, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [49, 45], "size": [4, 2], "facing": [-1, 0], "height": 42, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [51, 48], "size": [4, 2], "facing": [-1, 0], "height": 39, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [52, 50], "size": [4, 2], "facing": [-1, 0], "height": 46, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [56, 43], "size": [2, 4], "facing": [1, 0], "height": 42, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [57, 37], "size": [2, 2], "facing": [0, -1], "height": 41, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [57, 39], "size": [3, 2], "facing": [-1, 0], "height": 45, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [53, 52], "size": [4, 2], "facing": [-1, 0], "height": 47, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [59, 42], "size": [2, 2], "facing": [-1, 0], "height": 49, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [58, 47], "size": [2, 4], "facing": [0, -1], "height": 40, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [54, 54], "size": [2, 2], "facing": [0, 1], "height": 39, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [61, 38], "size": [2, 2], "facing": [0, -1], "height": 40, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [60, 45], "size": [4, 2], "facing": [-1, 0], "height": 49, "color": "#6a4a3a"},
-   {"kind": "house", "id": "lot_house_d", "at": [63, 39], "size": [3, 3], "flip": true, "facing": [1, 0]},
-   {"kind": "house", "id": "house_block", "at": [62, 47], "size": [2, 2], "facing": [0, 1], "height": 46, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [62, 43], "size": [3, 2], "facing": [1, 0], "height": 44, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [59, 37]},
-   {"kind": "yard", "id": "yard_plot", "at": [59, 38]},
-   {"kind": "yard", "id": "yard_plot", "at": [60, 39]},
-   {"kind": "yard", "id": "yard_plot", "at": [60, 40]},
-   {"kind": "yard", "id": "yard_plot", "at": [61, 40]},
-   {"kind": "yard", "id": "yard_plot", "at": [62, 40]},
-   {"kind": "yard", "id": "yard_plot", "at": [59, 41]},
-   {"kind": "yard", "id": "yard_plot", "at": [60, 41]},
-   {"kind": "yard", "id": "yard_plot", "at": [61, 41]},
-   {"kind": "yard", "id": "yard_plot", "at": [62, 41]},
-   {"kind": "yard", "id": "yard_plot", "at": [61, 42]},
+   {"kind": "house", "id": "house_block", "at": [4, 37], "size": [2, 2], "facing": [0, 1], "height": 38, "color": "#7a6040"},
+   {"kind": "yard", "id": "yard_plain", "at": [3, 37]},
+   {"kind": "yard", "id": "yard_plain", "at": [3, 38]},
+   {"kind": "house", "id": "lot_house_d_back", "at": [48, 43], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "house", "id": "house_block", "at": [50, 46], "size": [3, 2], "facing": [-1, 0], "height": 40, "color": "#8a3b2a"},
+   {"kind": "house", "id": "house_block", "at": [51, 48], "size": [4, 2], "facing": [-1, 0], "height": 39, "color": "#8a3b2a"},
+   {"kind": "house", "id": "house_block", "at": [52, 50], "size": [4, 2], "facing": [-1, 0], "height": 46, "color": "#8a3b2a"},
+   {"kind": "house", "id": "house_block", "at": [57, 37], "size": [3, 4], "facing": [-1, 0], "height": 47, "color": "#4f5a6a"},
+   {"kind": "house", "id": "lot_house_b", "at": [55, 43], "size": [3, 3], "flip": true, "facing": [1, 0]},
+   {"kind": "house", "id": "house_block", "at": [53, 52], "size": [4, 2], "facing": [-1, 0], "height": 47, "color": "#8a3b2a"},
+   {"kind": "house", "id": "lot_house_d_back", "at": [59, 42], "size": [3, 3], "flip": true, "facing": [-1, 0]},
+   {"kind": "house", "id": "house_block", "at": [60, 38], "size": [3, 4], "facing": [0, -1], "height": 54, "color": "#4f5a6a"},
+   {"kind": "house", "id": "house_block", "at": [58, 47], "size": [2, 4], "facing": [0, -1], "height": 40, "color": "#8a3b2a"},
+   {"kind": "house", "id": "house_block", "at": [54, 54], "size": [2, 2], "facing": [0, 1], "height": 39, "color": "#8a3b2a"},
+   {"kind": "house", "id": "house_block", "at": [63, 39], "size": [3, 4], "facing": [1, 0], "height": 48, "color": "#4f5a6a"},
+   {"kind": "yard", "id": "yard_plot_sack", "at": [59, 41]},
    {"kind": "yard", "id": "yard_plot", "at": [62, 42]},
-   {"kind": "yard", "id": "yard_plot", "at": [63, 42]},
-   {"kind": "yard", "id": "yard_plot", "at": [64, 42]},
-   {"kind": "yard", "id": "yard_plot", "at": [65, 42]},
-   {"kind": "yard", "id": "yard_plot", "at": [55, 43]},
-   {"kind": "yard", "id": "yard_plot", "at": [61, 43]},
+   {"kind": "yard", "id": "yard_plot", "at": [62, 43]},
+   {"kind": "yard", "id": "yard_plot", "at": [63, 43]},
+   {"kind": "yard", "id": "yard_plot", "at": [64, 43]},
+   {"kind": "yard", "id": "yard_plot", "at": [65, 43]},
    {"kind": "yard", "id": "yard_plot", "at": [54, 44]},
-   {"kind": "yard", "id": "yard_plot", "at": [55, 44]},
+   {"kind": "yard", "id": "yard_plot", "at": [62, 44]},
+   {"kind": "yard", "id": "yard_plot", "at": [51, 45]},
+   {"kind": "yard", "id": "yard_plot", "at": [52, 45]},
    {"kind": "yard", "id": "yard_plot", "at": [53, 45]},
    {"kind": "yard", "id": "yard_plot", "at": [54, 45]},
-   {"kind": "yard", "id": "yard_plot", "at": [55, 45]},
    {"kind": "yard", "id": "yard_plot", "at": [64, 45]},
    {"kind": "yard", "id": "yard_plot", "at": [53, 46]},
    {"kind": "yard", "id": "yard_plot", "at": [54, 46]},
    {"kind": "yard", "id": "yard_plot", "at": [55, 46]},
+   {"kind": "yard", "id": "yard_plot", "at": [56, 46]},
+   {"kind": "yard", "id": "yard_plot", "at": [57, 46]},
    {"kind": "yard", "id": "yard_plot", "at": [64, 46]},
-   {"kind": "yard", "id": "yard_plot", "at": [51, 47]},
-   {"kind": "yard", "id": "yard_plot", "at": [52, 47]},
    {"kind": "yard", "id": "yard_plot", "at": [53, 47]},
    {"kind": "yard", "id": "yard_plot", "at": [54, 47]},
    {"kind": "yard", "id": "yard_plot", "at": [55, 47]},
    {"kind": "yard", "id": "yard_plot", "at": [56, 47]},
    {"kind": "yard", "id": "yard_plot", "at": [57, 47]},
-   {"kind": "yard", "id": "yard_plot", "at": [60, 47]},
+   {"kind": "yard", "id": "yard_plot", "at": [64, 47]},
    {"kind": "yard", "id": "yard_plot", "at": [55, 48]},
    {"kind": "yard", "id": "yard_plot", "at": [56, 48]},
    {"kind": "yard", "id": "yard_plot", "at": [57, 48]},
@@ -3963,62 +4061,36 @@
    {"kind": "yard", "id": "yard_plot", "at": [59, 51]},
    {"kind": "yard", "id": "yard_plot", "at": [57, 52]},
    {"kind": "yard", "id": "yard_plot", "at": [57, 53]},
-   {"kind": "house", "id": "house_block", "at": [20, 42], "size": [2, 2], "facing": [1, 0], "height": 40, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [20, 44], "size": [2, 2], "facing": [1, 0], "height": 38, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [17, 39], "size": [2, 4], "facing": [-1, 0], "height": 39, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [22, 50], "size": [2, 3], "facing": [1, 0], "height": 49, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plain", "at": [19, 42]},
-   {"kind": "yard", "id": "yard_plain", "at": [17, 43]},
+   {"kind": "house", "id": "house_block", "at": [19, 42], "size": [3, 2], "facing": [1, 0], "height": 42, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [20, 44], "size": [2, 3], "facing": [1, 0], "height": 38, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [17, 39], "size": [2, 2], "facing": [0, -1], "height": 39, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [16, 42], "size": [2, 2], "facing": [-1, 0], "height": 46, "color": "#7a5a3a"},
+   {"kind": "yard", "id": "yard_cart", "at": [17, 41]},
+   {"kind": "yard", "id": "yard_plain", "at": [18, 41]},
+   {"kind": "yard", "id": "yard_crates", "at": [18, 42]},
    {"kind": "yard", "id": "yard_sacks", "at": [18, 43]},
-   {"kind": "yard", "id": "yard_plain", "at": [19, 43]},
+   {"kind": "yard", "id": "yard_plain", "at": [16, 44]},
    {"kind": "yard", "id": "yard_plain", "at": [17, 44]},
    {"kind": "yard", "id": "yard_barrels", "at": [18, 44]},
    {"kind": "yard", "id": "yard_plain", "at": [19, 44]},
-   {"kind": "yard", "id": "yard_plain", "at": [20, 46]},
-   {"kind": "yard", "id": "yard_plain", "at": [20, 47]},
-   {"kind": "yard", "id": "yard_plain", "at": [21, 47]},
-   {"kind": "yard", "id": "yard_plain", "at": [20, 48]},
-   {"kind": "yard", "id": "yard_cart", "at": [21, 48]},
-   {"kind": "yard", "id": "yard_plain", "at": [22, 48]},
-   {"kind": "yard", "id": "yard_plain", "at": [21, 49]},
-   {"kind": "yard", "id": "yard_plain", "at": [22, 49]},
-   {"kind": "yard", "id": "yard_plain", "at": [20, 50]},
-   {"kind": "yard", "id": "yard_plain", "at": [21, 50]},
-   {"kind": "yard", "id": "yard_crates", "at": [21, 51]},
-   {"kind": "yard", "id": "yard_plain", "at": [21, 52]},
-   {"kind": "house", "id": "lot_house_e", "at": [12, 42], "size": [3, 3], "flip": true, "facing": [1, 0]},
-   {"kind": "house", "id": "house_block", "at": [12, 40], "size": [2, 2], "facing": [1, 0], "height": 41, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [55, 57], "size": [3, 2], "facing": [0, -1], "height": 44, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [58, 55], "size": [2, 2], "facing": [0, -1], "height": 45, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [64, 50], "size": [2, 2], "facing": [-1, 0], "height": 48, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [66, 45], "size": [3, 2], "facing": [-1, 0], "height": 45, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [67, 41], "size": [3, 2], "facing": [0, -1], "height": 43, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [67, 43], "size": [2, 2], "facing": [-1, 0], "height": 47, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plain", "at": [69, 43]},
-   {"kind": "yard", "id": "yard_plain", "at": [66, 47]},
-   {"kind": "yard", "id": "yard_plain", "at": [67, 47]},
-   {"kind": "yard", "id": "yard_plain", "at": [66, 48]},
-   {"kind": "yard", "id": "yard_sacks", "at": [65, 49]},
-   {"kind": "yard", "id": "yard_plain", "at": [66, 49]},
-   {"kind": "yard", "id": "yard_plain", "at": [66, 50]},
-   {"kind": "yard", "id": "yard_plain", "at": [66, 51]},
-   {"kind": "yard", "id": "yard_plain", "at": [63, 52]},
-   {"kind": "yard", "id": "yard_cart", "at": [64, 52]},
-   {"kind": "yard", "id": "yard_barrels", "at": [65, 52]},
-   {"kind": "yard", "id": "yard_plain", "at": [63, 53]},
-   {"kind": "yard", "id": "yard_plain", "at": [64, 53]},
-   {"kind": "yard", "id": "yard_plain", "at": [63, 54]},
-   {"kind": "yard", "id": "yard_plain", "at": [60, 55]},
-   {"kind": "yard", "id": "yard_plain", "at": [61, 55]},
-   {"kind": "yard", "id": "yard_plain", "at": [60, 56]},
-   {"kind": "yard", "id": "yard_plain", "at": [61, 56]},
-   {"kind": "yard", "id": "yard_plain", "at": [58, 57]},
-   {"kind": "yard", "id": "yard_plain", "at": [59, 57]},
-   {"kind": "yard", "id": "yard_plain", "at": [60, 57]},
-   {"kind": "yard", "id": "yard_plain", "at": [58, 58]},
-   {"kind": "yard", "id": "yard_plain", "at": [59, 58]},
-   {"kind": "yard", "id": "yard_crates", "at": [57, 59]},
-   {"kind": "house", "id": "house_block", "at": [1, 42], "size": [3, 2], "facing": [0, -1], "height": 44},
+   {"kind": "house", "id": "house_block", "at": [13, 42], "size": [2, 2], "facing": [1, 0], "height": 40, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [14, 46], "size": [2, 3], "facing": [1, 0], "height": 45, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [13, 44], "size": [2, 2], "facing": [1, 0], "height": 47, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [12, 40], "size": [2, 2], "facing": [1, 0], "height": 41, "color": "#7a5a3a"},
+   {"kind": "house", "id": "house_block", "at": [18, 53], "size": [2, 2], "facing": [1, 0], "height": 41, "color": "#8a3b2a"},
+   {"kind": "house", "id": "house_block", "at": [15, 49], "size": [2, 2], "facing": [1, 0], "height": 41, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [20, 55], "size": [2, 2], "facing": [1, 0], "height": 40, "color": "#8a3b2a"},
+   {"kind": "house", "id": "house_block", "at": [16, 51], "size": [2, 2], "facing": [1, 0], "height": 43, "color": "#7a4a3a"},
+   {"kind": "yard", "id": "yard_cart", "at": [12, 42]},
+   {"kind": "yard", "id": "yard_plain", "at": [12, 43]},
+   {"kind": "yard", "id": "yard_plain", "at": [13, 46]},
+   {"kind": "yard", "id": "yard_plain", "at": [13, 47]},
+   {"kind": "yard", "id": "yard_barrels", "at": [14, 49]},
+   {"kind": "yard", "id": "yard_sacks", "at": [15, 51]},
+   {"kind": "yard", "id": "yard_plain", "at": [17, 53]},
+   {"kind": "yard", "id": "yard_plain", "at": [19, 55]},
+   {"kind": "house", "id": "lot_house_f_back", "at": [67, 41], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "house", "id": "house_block", "at": [1, 42], "size": [3, 2], "facing": [0, -1], "height": 44, "color": "#7a6040"},
    {"kind": "yard", "id": "yard_plain", "at": [1, 44]},
    {"kind": "yard", "id": "yard_cart", "at": [2, 44]},
    {"kind": "yard", "id": "yard_plain", "at": [3, 44]},
@@ -4026,20 +4098,19 @@
    {"kind": "yard", "id": "yard_plot", "at": [6, 45]},
    {"kind": "yard", "id": "yard_plot", "at": [7, 45]},
    {"kind": "yard", "id": "yard_plot", "at": [8, 45]},
-   {"kind": "house", "id": "house_block", "at": [38, 45], "size": [2, 2], "facing": [0, -1], "height": 43, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [40, 44], "size": [2, 2], "facing": [1, 0], "height": 42, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [34, 49], "size": [2, 2], "facing": [0, -1], "height": 44, "color": "#6a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [38, 45], "size": [2, 2], "facing": [0, -1], "height": 43, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [40, 44], "size": [2, 2], "facing": [1, 0], "height": 42, "color": "#7a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [34, 49], "size": [2, 2], "facing": [0, -1], "height": 44, "color": "#8a3b2a"},
    {"kind": "house", "id": "lot_house_a", "at": [36, 49], "size": [3, 3], "flip": true, "facing": [1, 0]},
-   {"kind": "house", "id": "house_block", "at": [37, 52], "size": [2, 2], "facing": [1, 0], "height": 40, "color": "#6a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [37, 52], "size": [2, 2], "facing": [1, 0], "height": 40, "color": "#8a3b2a"},
    {"kind": "yard", "id": "yard_cart", "at": [40, 46]},
    {"kind": "yard", "id": "yard_plain", "at": [38, 47]},
    {"kind": "yard", "id": "yard_plain", "at": [39, 47]},
    {"kind": "yard", "id": "yard_barrels", "at": [37, 48]},
    {"kind": "yard", "id": "yard_plain", "at": [38, 48]},
-   {"kind": "house", "id": "house_block", "at": [44, 44], "size": [2, 2], "facing": [1, 0], "height": 41, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [30, 45], "size": [3, 2], "facing": [0, -1], "height": 48, "color": "#6a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [30, 45], "size": [3, 2], "facing": [0, -1], "height": 48, "color": "#7a4a3a"},
    {"kind": "house", "id": "lot_house_f_back", "at": [28, 48], "size": [3, 3], "flip": true, "facing": [-1, 0]},
-   {"kind": "house", "id": "house_block", "at": [26, 51], "size": [2, 4], "facing": [-1, 0], "height": 47, "color": "#6a4a3a"},
+   {"kind": "house", "id": "house_block", "at": [26, 51], "size": [2, 4], "facing": [-1, 0], "height": 47, "color": "#8a3b2a"},
    {"kind": "yard", "id": "yard_plot", "at": [30, 47]},
    {"kind": "yard", "id": "yard_plot", "at": [31, 47]},
    {"kind": "yard", "id": "yard_plot_sack", "at": [32, 47]},
@@ -4055,52 +4126,72 @@
    {"kind": "yard", "id": "yard_plot", "at": [30, 52]},
    {"kind": "yard", "id": "yard_plot", "at": [28, 53]},
    {"kind": "yard", "id": "yard_plot", "at": [28, 54]},
-   {"kind": "house", "id": "house_block", "at": [13, 46], "size": [3, 2], "facing": [1, 0], "height": 40, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [18, 53], "size": [2, 2], "facing": [1, 0], "height": 41, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [15, 49], "size": [2, 2], "facing": [1, 0], "height": 41, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [20, 55], "size": [2, 2], "facing": [1, 0], "height": 40, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [16, 51], "size": [2, 2], "facing": [1, 0], "height": 43, "color": "#6a4a3a"},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [15, 51]},
-   {"kind": "yard", "id": "yard_plot", "at": [17, 53]},
-   {"kind": "yard", "id": "yard_plot", "at": [19, 55]},
+   {"kind": "house", "id": "house_block", "at": [66, 45], "size": [2, 3], "facing": [-1, 0], "height": 45, "color": "#8a3b2a"},
    {"kind": "yard", "id": "yard_plot", "at": [49, 49]},
    {"kind": "yard", "id": "yard_plot", "at": [49, 50]},
    {"kind": "yard", "id": "yard_plot", "at": [48, 51]},
    {"kind": "yard", "id": "yard_plot", "at": [49, 51]},
    {"kind": "yard", "id": "yard_plot_sack", "at": [50, 51]},
    {"kind": "yard", "id": "yard_plot", "at": [48, 52]},
-   {"kind": "house", "id": "house_block", "at": [50, 53], "size": [2, 2], "facing": [1, 0], "height": 46, "color": "#6a4a3a"},
-   {"kind": "house", "id": "house_block", "at": [55, 72], "size": [2, 2], "facing": [0, 1], "height": 46},
-   {"kind": "house", "id": "house_block", "at": [46, 73], "size": [2, 2], "facing": [0, 1], "height": 38},
-   {"kind": "house", "id": "house_block", "at": [61, 74], "size": [2, 3], "facing": [-1, 0], "height": 40},
-   {"kind": "yard", "id": "yard_plot", "at": [63, 74]},
-   {"kind": "yard", "id": "yard_plot", "at": [63, 75]},
+   {"kind": "house", "id": "house_block", "at": [22, 50], "size": [2, 3], "facing": [1, 0], "height": 49, "color": "#8a3b2a"},
+   {"kind": "yard", "id": "yard_plain", "at": [21, 50]},
+   {"kind": "yard", "id": "yard_crates", "at": [21, 51]},
+   {"kind": "yard", "id": "yard_plain", "at": [21, 52]},
+   {"kind": "house", "id": "house_block", "at": [55, 57], "size": [3, 2], "facing": [0, -1], "height": 44, "color": "#8a3b2a"},
+   {"kind": "house", "id": "house_block", "at": [58, 55], "size": [2, 2], "facing": [0, -1], "height": 45, "color": "#8a3b2a"},
+   {"kind": "house", "id": "house_block", "at": [64, 50], "size": [2, 2], "facing": [0, -1], "height": 48, "color": "#8a3b2a"},
+   {"kind": "yard", "id": "yard_plot", "at": [66, 50]},
+   {"kind": "yard", "id": "yard_plot", "at": [66, 51]},
+   {"kind": "yard", "id": "yard_plot", "at": [63, 52]},
+   {"kind": "yard", "id": "yard_plot_sack", "at": [64, 52]},
+   {"kind": "yard", "id": "yard_plot", "at": [65, 52]},
+   {"kind": "yard", "id": "yard_plot", "at": [63, 53]},
+   {"kind": "yard", "id": "yard_plot", "at": [64, 53]},
+   {"kind": "yard", "id": "yard_plot", "at": [63, 54]},
+   {"kind": "yard", "id": "yard_plot", "at": [60, 55]},
+   {"kind": "yard", "id": "yard_plot", "at": [61, 55]},
+   {"kind": "yard", "id": "yard_plot", "at": [60, 56]},
+   {"kind": "yard", "id": "yard_plot", "at": [61, 56]},
+   {"kind": "yard", "id": "yard_plot", "at": [58, 57]},
+   {"kind": "yard", "id": "yard_plot", "at": [59, 57]},
+   {"kind": "yard", "id": "yard_plot", "at": [60, 57]},
+   {"kind": "yard", "id": "yard_plot", "at": [58, 58]},
+   {"kind": "yard", "id": "yard_plot", "at": [59, 58]},
+   {"kind": "yard", "id": "yard_plot", "at": [57, 59]},
+   {"kind": "house", "id": "house_block", "at": [50, 53], "size": [2, 2], "facing": [1, 0], "height": 46, "color": "#8a3b2a"},
+   {"kind": "house", "id": "lot_house_a", "at": [28, 58], "size": [3, 3], "flip": false, "facing": [0, 1]},
+   {"kind": "house", "id": "house_block", "at": [55, 72], "size": [2, 2], "facing": [0, 1], "height": 46, "color": "#7a6040"},
+   {"kind": "house", "id": "house_block", "at": [46, 73], "size": [2, 2], "facing": [0, 1], "height": 38, "color": "#7a6040"},
+   {"kind": "house", "id": "house_block", "at": [61, 74], "size": [3, 2], "facing": [0, -1], "height": 40, "color": "#7a6040"},
+   {"kind": "yard", "id": "yard_plot", "at": [61, 76]},
+   {"kind": "yard", "id": "yard_plot", "at": [62, 76]},
    {"kind": "yard", "id": "yard_plot_sack", "at": [63, 76]},
-   {"kind": "house", "id": "lot_house_d_back", "at": [65, 74], "size": [3, 3], "flip": false, "facing": [0, -1]},
-   {"kind": "house", "id": "house_block", "at": [56, 75], "size": [2, 2], "facing": [1, 0], "height": 41},
+   {"kind": "house", "id": "lot_house_e_back", "at": [66, 74], "size": [3, 3], "flip": false, "facing": [0, -1]},
+   {"kind": "house", "id": "house_block", "at": [56, 75], "size": [2, 2], "facing": [1, 0], "height": 41, "color": "#7a6040"},
    {"kind": "yard", "id": "yard_plot", "at": [56, 77]},
    {"kind": "yard", "id": "yard_plot", "at": [57, 77]},
-   {"kind": "house", "id": "house_block", "at": [48, 76], "size": [2, 2], "facing": [0, -1], "height": 48},
-   {"kind": "yard", "id": "yard_plain", "at": [48, 78]},
-   {"kind": "yard", "id": "yard_cart", "at": [49, 78]},
-   {"kind": "house", "id": "house_block", "at": [51, 76], "size": [2, 2], "facing": [0, -1], "height": 49},
+   {"kind": "house", "id": "house_block", "at": [51, 76], "size": [2, 2], "facing": [0, -1], "height": 49, "color": "#7a6040"},
    {"kind": "yard", "id": "yard_plain", "at": [51, 78]},
    {"kind": "yard", "id": "yard_plain", "at": [52, 78]},
+   {"kind": "house", "id": "house_block", "at": [47, 77], "size": [3, 2], "facing": [0, -1], "height": 46, "color": "#7a6040"},
    {"kind": "lantern", "id": "lantern", "at": [46, 1], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [45, 8], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [34, 15], "off": [10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [49, 13], "off": [-10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [29, 16], "off": [10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [42, 18], "off": [10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [60, 17], "off": [-10, 5]},
-   {"kind": "lantern", "id": "lantern", "at": [49, 20], "off": [10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [20, 20], "off": [10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [30, 22], "off": [10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [55, 22], "off": [-10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [25, 23], "off": [-10, 5]},
-   {"kind": "lantern", "id": "lantern", "at": [53, 24], "off": [10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [44, 26], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [18, 27], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [64, 29], "off": [10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [31, 31], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [45, 31], "off": [-10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [16, 33], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [57, 34], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [25, 36], "off": [10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [60, 35], "off": [-10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [65, 36], "off": [10, 5]},
@@ -4112,6 +4203,7 @@
    {"kind": "lantern", "id": "lantern", "at": [57, 41], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [42, 43], "off": [10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [40, 48], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [62, 48], "off": [-10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [19, 50], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [25, 53], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [40, 54], "off": [-10, -5]},
@@ -4123,35 +4215,29 @@
    {"kind": "lantern", "id": "lantern", "at": [51, 62], "off": [10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [59, 73], "off": [-10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [42, 12], "off": [-10, 5]},
-   {"kind": "lantern", "id": "lantern", "at": [48, 15], "off": [10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [53, 16], "off": [10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [54, 16], "off": [10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [38, 17], "off": [-10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [56, 21], "off": [10, 5]},
-   {"kind": "lantern", "id": "lantern", "at": [62, 21], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [48, 18], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [63, 22], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [33, 25], "off": [10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [49, 24], "off": [-10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [51, 26], "off": [-10, 5]},
-   {"kind": "lantern", "id": "lantern", "at": [63, 27], "off": [10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [52, 25], "off": [-10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [27, 29], "off": [10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [23, 29], "off": [-10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [48, 31], "off": [10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [56, 32], "off": [-10, 5]},
-   {"kind": "lantern", "id": "lantern", "at": [51, 33], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [50, 30], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [20, 38], "off": [10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [65, 42], "off": [10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [65, 43], "off": [10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [28, 44], "off": [10, 5]},
-   {"kind": "lantern", "id": "lantern", "at": [14, 45], "off": [10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [16, 44], "off": [-10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [23, 46], "off": [10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [48, 45], "off": [-10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [59, 44], "off": [-10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [47, 44], "off": [-10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [34, 46], "off": [-10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [66, 47], "off": [-10, -5]},
+   {"kind": "lantern", "id": "lantern", "at": [57, 46], "off": [10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [27, 49], "off": [10, -5]},
-   {"kind": "lantern", "id": "lantern", "at": [50, 47], "off": [-10, 5]},
-   {"kind": "lantern", "id": "lantern", "at": [60, 49], "off": [10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [49, 49], "off": [10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [47, 54], "off": [10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [58, 53], "off": [10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [51, 55], "off": [10, 5]},
+   {"kind": "lantern", "id": "lantern", "at": [27, 60], "off": [-10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [36, 61], "off": [-10, -5]},
    {"kind": "lantern", "id": "lantern", "at": [46, 75], "off": [10, 5]},
    {"kind": "lantern", "id": "lantern", "at": [53, 76], "off": [10, -5]},
@@ -4161,14 +4247,14 @@
    {"kind": "prop", "id": "barrel", "at": [28, 33], "off": [-13, 7], "site": "player_forge"},
    {"kind": "prop", "id": "crate", "at": [26, 33], "off": [-13, 7], "site": "player_forge"},
    {"kind": "prop", "id": "crate", "at": [26, 34], "site": "rival_carpentry"},
-   {"kind": "prop", "id": "barrel", "at": [46, 30], "off": [-13, 7], "site": "rival_forge"},
-   {"kind": "prop", "id": "crate", "at": [44, 30], "off": [-13, 7], "site": "rival_forge"},
-   {"kind": "prop", "id": "crate", "at": [42, 25], "off": [-13, 7], "site": "workshop_carpentry"},
-   {"kind": "prop", "id": "crate", "at": [40, 25], "off": [-13, 7], "site": "workshop_carpentry"},
-   {"kind": "prop", "id": "crate", "at": [23, 35], "off": [-13, 7], "site": "workshop_masonry"},
-   {"kind": "prop", "id": "barrel", "at": [21, 35], "off": [-13, 7], "site": "workshop_masonry"},
-   {"kind": "prop", "id": "crate", "at": [41, 29], "off": [13, 7], "site": "workshop_tailor"},
-   {"kind": "prop", "id": "grain_sack", "at": [41, 27], "off": [13, 7], "site": "workshop_tailor"},
+   {"kind": "prop", "id": "barrel", "at": [23, 35], "off": [-13, 7], "site": "rival_forge"},
+   {"kind": "prop", "id": "crate", "at": [21, 35], "off": [-13, 7], "site": "rival_forge"},
+   {"kind": "prop", "id": "crate", "at": [19, 36], "off": [-13, 7], "site": "workshop_carpentry"},
+   {"kind": "prop", "id": "crate", "at": [17, 36], "off": [-13, 7], "site": "workshop_carpentry"},
+   {"kind": "prop", "id": "crate", "at": [13, 37], "off": [-13, 7], "site": "workshop_masonry"},
+   {"kind": "prop", "id": "barrel", "at": [11, 37], "off": [-13, 7], "site": "workshop_masonry"},
+   {"kind": "prop", "id": "crate", "at": [30, 27], "off": [-13, 7], "site": "workshop_tailor"},
+   {"kind": "prop", "id": "grain_sack", "at": [28, 27], "off": [-13, 7], "site": "workshop_tailor"},
    {"kind": "prop", "id": "crate", "at": [30, 33]},
    {"kind": "prop", "id": "grain_sack", "at": [36, 31]},
    {"kind": "prop", "id": "cart", "at": [30, 38]},
@@ -4677,47 +4763,47 @@
    {"kind": "yard", "id": "yard_barrels", "at": [27, 42], "site": "armory"},
    {"kind": "yard", "id": "yard_plain", "at": [28, 42], "site": "armory"},
    {"kind": "yard", "id": "yard_sacks", "at": [29, 42], "site": "armory"},
-   {"kind": "house", "id": "lot_house_b_back", "at": [35, 45], "size": [3, 3], "flip": true, "facing": [-1, 0], "site": "house_01"},
-   {"kind": "house", "id": "lot_house_c", "at": [28, 25], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_02"},
-   {"kind": "house", "id": "lot_house_b", "at": [23, 47], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_03"},
-   {"kind": "house", "id": "lot_house_e_back", "at": [44, 23], "size": [3, 3], "flip": true, "facing": [-1, 0], "site": "house_04"},
-   {"kind": "house", "id": "lot_house_b", "at": [48, 25], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_05"},
+   {"kind": "house", "id": "lot_house_d", "at": [44, 28], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_01"},
+   {"kind": "house", "id": "lot_house_b_back", "at": [35, 45], "size": [3, 3], "flip": true, "facing": [-1, 0], "site": "house_02"},
+   {"kind": "house", "id": "lot_house_e_back", "at": [45, 24], "size": [3, 3], "flip": true, "facing": [-1, 0], "site": "house_03"},
+   {"kind": "house", "id": "lot_house_b", "at": [23, 47], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_04"},
+   {"kind": "house", "id": "lot_house_c", "at": [40, 22], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_05"},
    {"kind": "house", "id": "lot_house_e_back", "at": [34, 21], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "house_06"},
-   {"kind": "house", "id": "lot_house_b", "at": [19, 39], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_07"},
-   {"kind": "house", "id": "lot_house_b_back", "at": [51, 21], "size": [3, 3], "flip": true, "facing": [-1, 0], "site": "house_08"},
-   {"kind": "house", "id": "lot_house_e_back", "at": [51, 42], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "house_09"},
-   {"kind": "house", "id": "lot_house_d", "at": [17, 45], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_10"},
-   {"kind": "house", "id": "lot_house_d", "at": [32, 54], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_11"},
-   {"kind": "house", "id": "lot_house_a", "at": [39, 16], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_12"},
-   {"kind": "yard", "id": "yard_barrels", "at": [55, 16], "site": "house_13"},
-   {"kind": "yard", "id": "yard_plain", "at": [56, 16], "site": "house_13"},
-   {"kind": "yard", "id": "yard_plain", "at": [57, 16], "site": "house_13"},
-   {"kind": "yard", "id": "yard_plain", "at": [55, 17], "site": "house_13"},
-   {"kind": "yard", "id": "yard_plain", "at": [56, 17], "site": "house_13"},
-   {"kind": "yard", "id": "yard_plain", "at": [57, 17], "site": "house_13"},
-   {"kind": "yard", "id": "yard_cart", "at": [55, 18], "site": "house_13"},
-   {"kind": "yard", "id": "yard_plain", "at": [56, 18], "site": "house_13"},
-   {"kind": "yard", "id": "yard_crates", "at": [57, 18], "site": "house_13"},
-   {"kind": "house", "id": "lot_house_a_back", "at": [44, 14], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "house_14"},
-   {"kind": "house", "id": "lot_house_e", "at": [27, 58], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_15"},
-   {"kind": "house", "id": "lot_house_f", "at": [58, 22], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_16"},
+   {"kind": "house", "id": "lot_house_d", "at": [49, 24], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_07"},
+   {"kind": "house", "id": "lot_house_d", "at": [45, 20], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_08"},
+   {"kind": "house", "id": "lot_house_b", "at": [19, 39], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_09"},
+   {"kind": "house", "id": "lot_house_e_back", "at": [51, 42], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "house_10"},
+   {"kind": "house", "id": "lot_house_f_back", "at": [52, 20], "size": [3, 3], "flip": true, "facing": [-1, 0], "site": "house_11"},
+   {"kind": "house", "id": "lot_house_d", "at": [17, 45], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_12"},
+   {"kind": "house", "id": "lot_house_d", "at": [32, 54], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "house_13"},
+   {"kind": "house", "id": "lot_house_a", "at": [39, 16], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "house_14"},
+   {"kind": "yard", "id": "yard_barrels", "at": [55, 16], "site": "house_15"},
+   {"kind": "yard", "id": "yard_plain", "at": [56, 16], "site": "house_15"},
+   {"kind": "yard", "id": "yard_plain", "at": [57, 16], "site": "house_15"},
+   {"kind": "yard", "id": "yard_plain", "at": [55, 17], "site": "house_15"},
+   {"kind": "yard", "id": "yard_plain", "at": [56, 17], "site": "house_15"},
+   {"kind": "yard", "id": "yard_plain", "at": [57, 17], "site": "house_15"},
+   {"kind": "yard", "id": "yard_cart", "at": [55, 18], "site": "house_15"},
+   {"kind": "yard", "id": "yard_plain", "at": [56, 18], "site": "house_15"},
+   {"kind": "yard", "id": "yard_crates", "at": [57, 18], "site": "house_15"},
+   {"kind": "house", "id": "lot_house_a_back", "at": [44, 14], "size": [3, 3], "flip": false, "facing": [0, -1], "site": "house_16"},
    {"kind": "house", "id": "lot_house_c", "at": [26, 30], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "player_forge"},
    {"kind": "yard", "id": "yard_plain", "at": [26, 33], "site": "player_forge"},
    {"kind": "yard", "id": "yard_plain", "at": [27, 33], "site": "player_forge"},
    {"kind": "yard", "id": "yard_barrels", "at": [28, 33], "site": "player_forge"},
-   {"kind": "house", "id": "lot_house_d", "at": [44, 28], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "rival_forge"},
-   {"kind": "yard", "id": "yard_plain", "at": [44, 27], "site": "rival_forge"},
-   {"kind": "yard", "id": "yard_sacks", "at": [45, 27], "site": "rival_forge"},
-   {"kind": "yard", "id": "yard_crates", "at": [46, 27], "site": "rival_forge"},
-   {"kind": "house", "id": "lot_house_c", "at": [40, 22], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "workshop_carpentry"},
-   {"kind": "yard", "id": "yard_plot", "at": [40, 25], "site": "workshop_carpentry"},
-   {"kind": "yard", "id": "yard_plot", "at": [41, 25], "site": "workshop_carpentry"},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [42, 25], "site": "workshop_carpentry"},
-   {"kind": "house", "id": "lot_house_b", "at": [21, 33], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_masonry"},
-   {"kind": "yard", "id": "yard_plot", "at": [21, 32], "site": "workshop_masonry"},
-   {"kind": "yard", "id": "yard_plot", "at": [22, 32], "site": "workshop_masonry"},
-   {"kind": "yard", "id": "yard_plot_sack", "at": [23, 32], "site": "workshop_masonry"},
-   {"kind": "house", "id": "lot_house_c", "at": [39, 27], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_tailor"}
+   {"kind": "house", "id": "lot_house_b", "at": [21, 33], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "rival_forge"},
+   {"kind": "yard", "id": "yard_plot", "at": [21, 32], "site": "rival_forge"},
+   {"kind": "yard", "id": "yard_plot", "at": [22, 32], "site": "rival_forge"},
+   {"kind": "yard", "id": "yard_plot_sack", "at": [23, 32], "site": "rival_forge"},
+   {"kind": "house", "id": "lot_house_e", "at": [17, 34], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_carpentry"},
+   {"kind": "yard", "id": "yard_plain", "at": [17, 33], "site": "workshop_carpentry"},
+   {"kind": "yard", "id": "yard_plain", "at": [18, 33], "site": "workshop_carpentry"},
+   {"kind": "yard", "id": "yard_sacks", "at": [19, 33], "site": "workshop_carpentry"},
+   {"kind": "house", "id": "lot_house_a", "at": [11, 34], "size": [3, 3], "flip": true, "facing": [1, 0], "site": "workshop_masonry"},
+   {"kind": "yard", "id": "yard_plot", "at": [11, 37], "site": "workshop_masonry"},
+   {"kind": "yard", "id": "yard_plot", "at": [12, 37], "site": "workshop_masonry"},
+   {"kind": "yard", "id": "yard_plot", "at": [13, 37], "site": "workshop_masonry"},
+   {"kind": "house", "id": "lot_house_c", "at": [28, 25], "size": [3, 3], "flip": false, "facing": [0, 1], "site": "workshop_tailor"}
   ]
  }
 }

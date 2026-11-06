@@ -210,7 +210,8 @@ python3 tools/city/ciudad.py region region_port --variante imagen --out tmp/x   
 
 **El bloque `skeleton`**: `image`, `types` (clase del dibujo → tipo de hito, p. ej. `{"church": "abbey_church"}`),
 `districts` (cada uno con `when`: `inside`/`outside` de la muralla, `dense`/`loose` según lo apretado del dibujo, o
-`any`; `roof` y `density` como en §1d), `reach` (cuántas casillas alrededor de las casas dibujadas pueden llevar
+`any`; `area` [x0, y0, x1, y1] opcional, para que el barrio tome solo esa parte: un barrio de una villa amurallada;
+el primero que encaja se queda la casilla; `roof` y `density` como en §1d), `reach` (cuántas casillas alrededor de las casas dibujadas pueden llevar
 casas, 3), `walls` (`towers_every`, `tower`, `tower_height`), `boats`, `boat`, `rowboats`, `crane`.
 
 **Qué sale de cada uno** (2026-11-04, comparadas una a una en la galería «Planos de Valldaura v2»):
@@ -349,6 +350,28 @@ rejilla, los solares y los puntos de reunión no se mueven, así que ninguna dia
 - `watch` (plan → mapa: `{"name_key": "family.watch.<ciudad>"}`): el nombre de la guardia de esa ciudad («Guardia de
   Bellcaire», «Guardia del puerto»…), en `i18n/strings.csv`; sin él, «Guardia de la villa». El validador comprueba
   que el texto existe.
+
+### 1k. Las zonas del mapa grande (H13: Bellcaire)
+
+H13 pide el mapa EA de 80×80 con **6 zonas** (las del diseño del mapa EA: el centro con la plaza, el ayuntamiento y
+el mercado; el barrio artesano; el barrio noble; el puerto y el río; las afueras con los campos; el bosque). En el
+plano (hoy solo `region_capital`):
+
+- `zones[]`: `id`, `kind` (`centre`, `artisans`, `nobles`, `port`, `outskirts`, `forest`), `char` (su letra en
+  `zone_rows`), `name_key` (`zone.<ciudad>.<id>` en `i18n/strings.csv`), `label_near` opcional y `parts`: cada parte
+  toma las casillas que cumplen todo lo que dice (`plaza_reach` n: la plaza y n casillas alrededor; `rect`
+  [x0, y0, x1, y1]; `inside` / `outside` de la muralla; `chars`: solo esas casillas); las zonas se reparten en el
+  orden del plano y las partes con `rest` toman, al final, lo que nadie tomó. Cada casilla del mapa queda en una
+  zona: el mapa lleva `zones` (con sus casillas y la de su rótulo) y `zone_rows` (una letra por casilla). El sim no
+  las lee; la vista pone el nombre de cada zona sobre su rótulo con el zoom más lejano (`game/world/zone_layer.gd`).
+- `workshops_in`: el barrio (un `id` de los `districts` del `skeleton`) donde van primero los talleres de los
+  oficios: el barrio artesano.
+- `forest`: `{"rect": [...], "fill": p}`, un bosque propio: árboles en esa parte de las afueras.
+- El validador pide las seis zonas, ninguna casilla sin zona, al menos 60 casillas por zona, su rótulo dentro y lo
+  que la hace reconocible: la plaza y el ayuntamiento en el centro, al menos 3 talleres en el barrio artesano, la
+  catedral en el barrio noble, agua y muelles en el puerto, campos en las afueras y un 35 % de árboles en el bosque.
+- Lámina de las zonas: `preview.render_zones` (el plano teñido por zona, con sus nombres); capturas en el juego:
+  `--smoke-script=plantillas --smoke-cities=capital --smoke-moments=zona_centre,zona_artisans,…`.
 
 ## 2. Reglas de coherencia (el validador)
 

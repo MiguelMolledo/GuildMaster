@@ -1063,6 +1063,24 @@
       "tema": "Montsacre: el recinto de la abadía, vacío del todo; el corral de la feria en la aldea",
       "decision": "El generador (tools/city/organic.py) no pone talleres, casas de vecinos ni casas de relleno en un recinto (plots.precincts): la casa de vecinos que caía en el recinto de Montsacre (house_03) pasa al burgo y el recinto queda con la iglesia, el claustro, la hospedería, el huerto y el estanque. En cada ciudad con puertas cabe un corral 3×3 de la feria en el prado junto a una puerta (la regla de FestivalGround): si las parcelas no lo dejan, plots.py guarda libre el primer sitio y las reparte otra vez (hoy solo Vilablat, donde un solar se mueve); el validador lo comprueba. Las demás ciudades no cambian (mapas idénticos).",
       "por_que": "Manager: «regenera con esa casa fuera del recinto, para que el recinto de la abadía quede vacío del todo. Que no cambie nada de las otras ciudades» y «deja libre de parcelas un prado 3×3 junto a una puerta de la aldea, sin cambiar las demás ciudades» (test_fiestas_view lo pide)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H13 · el mapa de Bellcaire con sus 6 zonas",
+      "decision": "Bellcaire (region_capital, 80×80) lleva las 6 zonas del diseño del mapa EA, hechas por el generador (tools/city/ciudades.json zones; data/maps zones y zone_rows; el sim no las lee): Plaza del Mercado (centro), Barrio de los Menestrales (artesano: los talleres de los cuatro oficios, workshops_in), Barrio de los Patricios (noble: la catedral, casas grandes de pizarra), Puerto y Lonja (muelles, Lonja, aduana, almacenes), Arrabal y huertas (afueras: campos y el arrabal del otro lado del puente) y Bosque del Daura (un bosque propio al suroeste). Sus nombres en el mapa con el zoom más lejano (ZoneLayer). El validador comprueba las seis y lo que hace reconocible a cada una. 30-40 NPC: Bellcaire tiene 80 vecinos, todos con casa y oficio (O-R9: 5 por casa, 16 casas); la cifra de H13 es la del mapa EA único de antes de la región y se mantiene la población aprobada para el bench. O-R9 hecha en los mapas de la región (population_max = 5 × casas). Vilarrasa no cambia.",
+      "por_que": "Encargo del manager (cerrar la parte de mapa de H13 en Bellcaire): «lo demás lo decides tú dentro del GDD». Las 6 zonas son las del diseño original del mapa EA (centro, barrio artesano, barrio noble, puerto/río, campos, bosque), dentro del estilo A + C (D10) y de 09b."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "O-R1 · la capital como casa por defecto",
+      "decision": "Apagada por ahora (data/world/region.json \"default_city\": \"\"): EA empieza en Vilarrasa y Bellcaire se elige en «Dónde empiezas». Se enciende (\"capital\") cuando Bellcaire tenga sus 5 familias rivales con la IA de 4.21, lo que falta de H13 fuera del mapa (encargado a plantillas).",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Es la recomendación de 09b O-R1: una capital sin sus familias rivales sería un inicio más pobre que la villa, y el tutorial y el primer día están verificados en Vilarrasa."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H13 · 80 vecinos en Bellcaire, no 30-40",
+      "decision": "Bellcaire mantiene 80 NPC (16 casas × 5, O-R9). La cifra de 30-40 de la fila H13 de 10_hitos.md queda superada por O-R9.",
+      "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»). O-R9 (población proporcional a las casas) ya está aprobada, y con 80 el bench de Bellcaire está dentro de la diana relativa (reposo 1,93×, peor paso 21,9 ms; wanderer 2,79×)."
     }
   ],
   "pendientes": [
