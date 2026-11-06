@@ -1018,6 +1018,12 @@
     },
     {
       "fecha": "2026-11-06",
+      "tema": "Novato: no empieza una pieza que acabe después del vencimiento de un encargo listo",
+      "decision": "Punto de rechazo (semilla 2, live_for_quality = 1, con equilibrio): la armadura de calidad está hecha el día 7 a las 19:26 y el encargo vence el día 8 a las 09:19; a las 05:50, con el mercado cerrado, el bot empieza una espada de 233 minutos, sigue ocupado al abrir y el encargo vence. BotArtisanNovice._hold_for_delivery: si un encargo aceptado ya tiene sus piezas en el almacén o la bolsa y vence antes de que acabe la pieza que va a empezar (más TRIP_MARGIN_MIN), no la empieza y espera al mercado para entregar. Con live_for_quality apagado, el informe del novato es idéntico (state_hash incluido); con él encendido, 0 encargos fallados y 0 semillas a 0 (la semilla 2: 370 de oro y 5 encargos en vez de 369 y 4).",
+      "por_que": "Decisión del manager (2026-11-06): sellar el arreglo; es del bot, no del juego."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "festive: banda por semilla de encargos de fiesta cumplidos a [3, null]",
       "decision": "fest_contracts_done por semilla pasa de [4, null] a [3, null]; la media se queda en [5, null]. Medido (3 semillas × 8 días): main 4/9/8, equilibrio 3/9/9 (media 7). La causa, aislada apagando cada cambio de la rama: Equilibrio 9 (las obras ya no paran la forja: el jugador sigue produciendo durante las mejoras y el rival del oficio gana un encargo de fiesta menos en la semilla 1; con las obras cerradas vuelve a 4). Es la competencia que pide 03b, no un fallo.",
       "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»); decidido por el manager a propuesta del worker de equilibrio."
