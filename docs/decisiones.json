@@ -1003,6 +1003,12 @@
       "tema": "El pelo blanco es de la edad",
       "decision": "El tono de pelo 5 (el blanco, #d8d0c0) se reserva a la edad. Quien lo trae (datos de inicio o de mapas, herencia, partidas viejas) se dibuja con su tono natural (data/view.json portraits.aged_hair: 5 → 9), y las canas salen solo del encanecer por franja. Un retrato guardado que ya no es de la franja de edad o del sexo de la persona deja paso al de su franja ahora.",
       "por_que": "Decisión del manager: Clara a los 8 salía como una mujer canosa (hallazgo de la verificación D)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Teclado · Esc con un tooltip a la vista",
+      "decision": "Un tooltip a la vista (el ratón parado sobre un botón) no se queda el Esc: Godot gasta ese Esc en quitarlo (viewport.cpp lo da por usado) y KeyNav lo manda otra vez un fotograma después, así que el mismo Esc cierra también lo de arriba (docs/ui/01_hud.md §2). El panel de la taberna, además, se refresca después del paso que aplica su orden (Game.give la guarda hasta el paso siguiente), no antes.",
+      "por_que": "Verifica (2026-11-06): con el teclado, «inn_make_bed» no se llegaba y Esc no cerraba el panel de la taberna; el ratón se había quedado sobre un botón de la carta del suceso y su tooltip se comía el Esc. Y el refresco inmediato tras una orden leía el estado de antes: la casilla de un plato volvía a marcarse y la pulsación siguiente deshacía la del jugador."
     }
   ],
   "pendientes": [

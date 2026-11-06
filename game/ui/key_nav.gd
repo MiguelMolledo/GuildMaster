@@ -75,6 +75,10 @@ func _input(event: InputEvent) -> void:
 		next_zone((event as InputEventKey).shift_pressed)
 		get_viewport().set_input_as_handled()
 		return
+	if event.is_action_pressed("ui_cancel") and not event.is_echo() and not event.has_meta("key_nav_again"):
+		if tooltip_shown(get_tree().root.get_embedded_subwindows()):
+			_again.call_deferred(event)   # Godot's viewport takes this Esc to hide the tooltip; then the same Esc again
+		return
 	if not (event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_prev")):
 		return
 	if get_viewport().gui_get_focus_owner() != null:
@@ -91,6 +95,26 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		if OS.is_debug_build():
 			print("[KeyNav] Tab enters %s: %s" % [top.name, first.name])
+
+
+## A tooltip is on screen (Godot's: a PopupPanel that takes no focus, child of the control it explains). Godot's
+## viewport takes an Esc to hide it and stops it there (viewport.cpp, _gui_input_event): with the mouse resting on a
+## button of a card, the Esc that should close the panel only hid the tooltip. KeyNav then sends the Esc again.
+static func tooltip_shown(windows: Array) -> bool:
+	for w: Variant in windows:
+		if w is PopupPanel and w.visible and w.get_flag(Window.FLAG_NO_FOCUS) and w.get_parent() is Control:
+			if OS.is_debug_build():
+				print("[KeyNav] Esc hides a tooltip; the Esc goes again")
+			return true
+	return false
+
+
+## Sends `event` again a frame later (the tooltip is freed by then), marked so that it is not sent a third time.
+func _again(event: InputEvent) -> void:
+	await get_tree().process_frame
+	var e := event.duplicate() as InputEvent
+	e.set_meta("key_nav_again", true)
+	Input.parse_input_event(e)
 
 
 ## What the keyboard enters first: the topmost thing open.
