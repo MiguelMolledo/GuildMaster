@@ -46,7 +46,7 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 		var why := city_problem(catalog, start_id, str(choices["city"]))
 		if why != "":
 			return {"ok": false, "error": why}
-		start = start_in(catalog, start_id, str(choices["city"]))
+		start = start_in(catalog, start_id, str(choices["city"]), world_seed)
 	var levers := catalog.difficulty_levels(difficulty)
 	if levers.is_empty():
 		return {"ok": false, "error": "unknown_difficulty"}
@@ -112,6 +112,9 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 			str(rv.get("profession", start.get("profession", ""))), rc.get("visual", {}))
 		var rbld := _add_building(s, catalog, sites, str(rb["site"]), rfam, rb.get("inventory", []))
 		s.characters[rchr]["location"] = rbld
+		var r0 := int(start.get("rival_to_player", 0))  # H13: a city's rival starts with an eye on the newcomer
+		if r0 > 0:
+			Hostility.book(s)["values"][rfam + "|" + fam] = r0
 	# The public buildings of the map (owner "" in the map), sorted by site.
 	var names: Array = sites.keys()
 	names.sort()
@@ -216,14 +219,52 @@ static func city_problem(catalog: Catalog, start_id: String, id: String) -> Stri
 
 
 ## A copy of the start that plays on the map of `city` (the start as it is for "" or its own town).
-static func start_in(catalog: Catalog, start_id: String, id: String) -> Dictionary:
+static func start_in(catalog: Catalog, start_id: String, id: String, world_seed: int = 0) -> Dictionary:
 	var start: Dictionary = catalog.starts().get(start_id, {})
 	var c := city(catalog, id)
 	if id == "" or c.is_empty() or str(c.get("map", "")) == str(start.get("map", "")):
 		return start
 	var out := start.duplicate()
 	out["map"] = str(c["map"])
+	var af: Dictionary = c.get("ai_families", {})
+	if not af.is_empty():
+		_city_rivals(catalog, out, af, world_seed)
 	return out
+
+
+## H13 (04c 4.21.7.2, Q3): the AI families of a city with "ai_families" (Bellcaire): the start's rival keeps its
+## profile (fixed); its competitors and the city's extra families (the ones whose site is on the map) get, in that
+## order, draw_count profiles of draw, taken by the world seed (a hash per profile: the same seed, the same families).
+static func _city_rivals(catalog: Catalog, out: Dictionary, af: Dictionary, world_seed: int) -> void:
+	var map: Dictionary = catalog.maps().get(str(out["map"]), {})
+	var sites: Dictionary = map.get("buildings", {})
+	var mine := str(out.get("building", {}).get("site", ""))
+	var comps: Array = []
+	for cp: Dictionary in out.get("competitors", []):
+		comps.append(cp.duplicate(true))
+	for ex: Dictionary in af.get("extra", []):
+		var site := str(ex.get("building", {}).get("site", ""))
+		if sites.has(site) and site != mine:
+			comps.append(ex.duplicate(true))
+	var pool: Array = (af.get("draw", []) as Array).duplicate()
+	pool.sort_custom(func(a: Variant, b: Variant) -> bool:
+		var ha := ("%d|%s" % [world_seed, a]).hash()
+		var hb := ("%d|%s" % [world_seed, b]).hash()
+		return ha < hb or (ha == hb and str(a) < str(b)))
+	var n := mini(int(af.get("draw_count", pool.size())), pool.size())
+	for i: int in comps.size():
+		if i < n:
+			comps[i]["profile"] = str(pool[i])
+	out["competitors"] = comps
+	if int(af.get("rival_to_player", 0)) > 0:
+		out["rival_to_player"] = int(af["rival_to_player"])
+	if out.get("rival") is Dictionary and str(af.get("fixed", "")) != "":
+		var rv: Dictionary = (out["rival"] as Dictionary).duplicate(true)
+		rv["profile"] = str(af["fixed"])
+		out["rival"] = rv
+	if OS.is_debug_build():
+		print("[NewGame] familias IA de %s (semilla %d): %s" % [out["map"], world_seed,
+			comps.map(func(cp: Dictionary) -> String: return "%s=%s" % [cp.get("family_name", ""), cp.get("profile", "")])])
 
 
 ## The validated choices with the defaults filled in, or {} if something is wrong.

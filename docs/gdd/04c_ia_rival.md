@@ -483,6 +483,40 @@ Escenarios nuevos que necesita H6 (`data/scenarios/`): `price_war` (Ferrer con r
 
 ---
 
+### 4.21.12b Lo que entra en H13: Bellcaire (rama `plantillas`, 2026-11-06)
+
+Lo construido sobre la IA que ya existía (el ejecutor de H3 en `sim/ai/rival_ai.gd`, con sus reglas de título, cargo y
+juicio), sin cambiar nada fuera de los mapas de `data/ai.json` `hostility_maps` (hoy solo Bellcaire): Vilarrasa y sus
+dianas siguen byte a byte igual.
+
+- **Las 5 familias de Bellcaire** (Q3 = b): `data/world/region.json`, asentamiento `capital`, `ai_families`. Ferrer
+  (`rival_smith`) fijo; los tres competidores del inicio y una familia propia de la ciudad (los pañeros de la Lonja, con
+  su sastrería `rival_drapery`) reciben cuatro de los cinco perfiles de 4.21.7.2 (`merchant`, `climber`, `politician`,
+  `ruthless`, `devout`, en `data/ai_profiles/`), sacados por la semilla del mundo: nunca dos agresivas. Cada una con su
+  taller, su cabeza y su pareja. Ferrer mira al recién llegado con rivalidad 15 de salida (`rival_to_player`, lo que
+  dice el escenario en 4.21.8.1).
+- **Rivalidad** (`sim/ai/hostility.gd`, guardada en `town.rivalry`): la tabla de 4.21.8.1 con estas fuentes: cuota de
+  mercado (ventas públicas por familia y objeto de los últimos `market_days` días), relación entre cabezas, juicio
+  perdido (+15 al condenado hacia quien le acusó) y sabotaje visto (+30); erosión solo en días sin subida (P3). Cifras en
+  `data/ai.json` `rivalry` [balance]: la cuota que dispara la subida es 0,4 y la ventana 3 días (con 0,5 y 2 días, el bot
+  `artisan_expert` no llegaba a provocar a nadie en 80 días: 4.21.12 se mide con él).
+- **Puerta, elección y presagio** (4.21.8.2, 4.21.5.2): cada familia decide en su minuto del amanecer (escalonado);
+  umbral del perfil + `threshold_offset` de la dificultad; enfriamiento, primer año y tope común con el jugador (P4) del
+  bloque `ai` de `data/difficulty.json`; utilidad = sesgo del ataque × `hostile_weight` × (0,5 + agresividad) ×
+  rivalidad/100 + ruido (hash del día: P6, sin tiradas del RNG del mundo). Todo ataque se anuncia antes (P5) y se
+  cancela si deja de cumplir sus requisitos.
+- **Ataques que existen en H13** (los demás de 4.21.9.1 esperan su hito: la parcela, H6; el cargo como ataque, más
+  adelante):
+  - *Guerra de precios*: 12 h de presagio (acumula el objeto; aviso del rumor) y 1 estación vendiéndolo hasta demanda
+    0,5 mientras su oro esté por encima de su reserva.
+  - *Juicio*: la acusación de H11 (`accuse_rule`), solo cuando la hostilidad la pide; es su propio presagio.
+  - *Sabotaje* (nuevo): aviso la noche antes («Se ha visto a alguien rondando tu forja»); la noche siguiente el taller
+    queda dañado `repair_days` días (no se trabaja en él) salvo que lo frene su Seguridad (20/40/60 % por nivel); si
+    se ve al culpable, el dañado recibe el hecho para acusarle y +30 de rivalidad.
+  Las familias IA se atacan también entre sí (Q1 = a).
+- **Dianas de H13** con `tools/ai/h13_probe.gd` (Bellcaire, `artisan_expert`, 80 días, Normal, Fácil y Difícil): ver
+  `docs/decisiones.json` y la novedad de plantillas.
+
 ### 4.21.13 Riesgos
 
 | Riesgo | Consecuencia | Mitigación |
