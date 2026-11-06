@@ -16,7 +16,7 @@ import re
 
 ID_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 SIM_EFFECTS = {"demand", "price", "customers", "production", "holy_day", "tariff", "route_bonus", "stalls", "emotion",
-               "reputation", "aguinaldo", "town_gift", "audience", "contest", "cattle"}
+               "reputation", "aguinaldo", "town_gift", "audience", "contest", "cattle", "gifts"}
 HOOK_EFFECTS = {"service", "visitors", "routine", "need", "spectacle", "incident"}
 GROUP_EFFECTS = {"demand", "price", "production"}
 MULT_EFFECTS = {"demand", "price", "customers", "production", "tariff", "service", "visitors", "routine", "incident"}
