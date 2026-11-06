@@ -443,8 +443,9 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
   un camino, un puente o un vado, ni a una casilla de una puerta. Vale para cualquier mapa con puertas (las ciudades de
   la región también). Allí van los corrales, las ovejas y los caballos de la feria y de la feria de ganado. El sim y la
   vista usan la misma regla (`sim/fest/festival_ground.gd`): si en un mapa no caben los corrales, el ganado se vende
-  en puestos de la plaza (un puesto más) y la crónica de la feria lo dice (`fair_cattle_stalls`). En `town_e` caben. Las parcelas libres y las ruinas (04 §4.9.1) guardan su suelo: con las
-  de plantillas, en `region_hamlet` el prado junto a las puertas ya no da para un corral y su ganado va a puestos.
+  en puestos de la plaza (un puesto más) y la crónica de la feria lo dice (`fair_cattle_stalls`). En `town_e` caben. Las parcelas libres y las ruinas (04 §4.9.1) guardan su suelo; plantillas
+  reparte las parcelas dejando sitio para un corral 3×3 junto a una puerta en cada ciudad. Las ferias piden dos
+  corrales (`count` 2): en `region_hamlet` (Vilablat) cabe uno solo, así que su ganado va a puestos.
 - **Enganchado con vida** (2026-11-04, tras juntar su rama): `Life.event_mult` multiplica por la fiesta (`routine`
   e `incident` a su hora; `visitors` con las fiestas de todo el día, porque vida planea los forasteros al empezarlo),
   `Life.holy_day` cuenta la mañana de guardar y `Life.festival` cualquier fiesta del calendario (el guardia de la
