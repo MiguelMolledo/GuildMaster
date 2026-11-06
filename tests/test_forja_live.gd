@@ -342,3 +342,19 @@ func test_migration_to_v20_keeps_everything_open() -> void:
 	var back := SaveFile.from_text(JSON.stringify(m["data"]))
 	check(back["ok"], "loads")
 	eq(int((back["state"] as WorldState).version), WorldState.VERSION, "v20")
+
+
+## «Cerrar» after a result (verifica): live_forge stop interrupts the piece and gives its inputs back (D11); it is a
+## management order, so given in pause it does not wait behind the work in the actor's queue.
+func test_stop_gives_the_inputs_back() -> void:
+	var sim := _sim()
+	_stock(sim, 6)
+	check(_work(sim, "forge_sword", LiveForge.MODE)["ok"], "starts")
+	var st: Dictionary = sim.state.buildings[FORGE]["inventory"]
+	eq(Inventory.count(st, "iron_ingot"), 4, "two ingots taken")
+	check(Orders.is_management("live_forge"), "management")
+	var ev := sim.step([_live("stop")])
+	eq(sim.state.buildings[FORGE]["zones"]["anvil"]["job"], null, "no piece at the anvil")
+	eq(Inventory.count(st, "iron_ingot"), 6, "the ingots back")
+	check(ev.any(func(e: Dictionary) -> bool: return str(e["type"]) == "work_interrupted"), "interrupted")
+	eq(Orders.apply(sim, _live("stop"))["reason"], "not_working", "nothing to stop now")

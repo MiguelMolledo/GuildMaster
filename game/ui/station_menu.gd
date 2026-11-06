@@ -160,8 +160,7 @@ func _mode_line() -> String:
 	var q := Production.quality_view(sim, actor, building, mode)
 	var out := SimQuery.t_("ui.station.mode_line") % [String.num(float(q.get("minutes_mult", 1.0)), 1).replace(".", ","),
 		int(q.get("craft", 0))]
-	if bool(q.get("touch", false)):
-		out += " · " + SimQuery.t_("ui.station.with_touch")
+	# 03b §3b.8: no «+ toque de maestro»: the master touch left the UI (the Forja viva replaces it)
 	if mode == LiveForge.MODE:
 		out += " · " + SimQuery.t_("ui.station.with_live")
 	return out
