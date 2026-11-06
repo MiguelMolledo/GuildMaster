@@ -154,6 +154,13 @@ ICONS.update(FOOD)
 ICONS.update(SUITS)
 ICONS.update(TRAITS)
 ICONS.update(GAMES)
+ICONS.update({  # H12.2 · el Erudito (04d 4.22.5): el médico y los préstamos
+    "salve": ("icons/salve.png", "a small round clay pot of green healing salve with a cloth tied over the top with string"),
+    "doctor_bag": ("icons/doctor_bag.png", "a physician's brown leather bag with a brass clasp, slightly open, a white "
+                                           "bandage roll peeking out"),
+    "patient": ("ui/icons/icon_patient.png", "a white linen bandage roll with a small red cross stitched on it"),
+    "loan": ("ui/icons/icon_loan.png", "a small leather purse of gold coins on a parchment with a red wax seal"),
+})
 
 GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashlar", "grindstone", "trough"],
          "i3": ["millstone", "statue", "gavel", "ballot_box"], "i4": ["reputation", "menu", "save", "load"],
@@ -172,7 +179,8 @@ GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashla
          "j1": ["game_azar", "game_mayor", "game_pulso", "game_envite"],
          "j2": ["game_tourney", "game_bets", "game_joust", "game_sortija"],
          "j3": ["game_race", "game_bulls", "trait_water_tempered", "trait_air_cooled"],
-         "j4": ["game_azar", "game_sortija"]}  # j4: el azar salía sin puntos y la anilla no se veía (el cubilete
+         "j4": ["game_azar", "game_sortija"],
+         "e1": ["salve", "doctor_bag", "patient", "loan"]}  # j4: el azar salía sin puntos y la anilla no se veía (el cubilete
 #   de esa rejilla salió boca arriba: se dibuja con Pillow, tools/art/juegos_taberna.py cubilete)  # repetidas: el arancel no se leía y el aliento era una mancha  # repetida: la de i2 salió ilegible (la última rejilla manda)
 REDO_2 = {
     "tariff": "a toll gate: a horizontal red and white striped wooden barrier pole on a post, with a small stack "

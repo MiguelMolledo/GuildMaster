@@ -6,7 +6,9 @@ extends Node
 ## family: the crier's card and the board with the bride's dress and the groom's sword (fiesta_boda_tablon). Orders only
 ## through the UI paths. Last, the player's wedding offer without the gold of the banquet (the button off, with its
 ## reason: fiesta_boda_sin_oro), and the clock's festival button and the card it opens again (fiesta_boton_reloj,
-## fiesta_carta_reabierta). Quits when done, or after `timeout` seconds.
+## fiesta_carta_reabierta), the corro with the preacher (fiesta_corro), the Christmas gifts (fiesta_regalos) and
+## Sant Jordi in Bellcaire with its games on the city's page (fiesta_ciudad_sant_jordi) and its feast's contracts on
+## its board (fiesta_ciudad_encargos), and the peddler's stall in the plaza (vida_buhonero). Quits when done, or after `timeout` seconds.
 
 const DAY: int = 1440
 const PLAZA: Vector2i = Vector2i(19, 19)
@@ -258,5 +260,65 @@ func _process(delta: float) -> void:
 		"reopened":
 			if _t > 0.6:
 				app.save_shot("fiesta_carta_reabierta")
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("close")
+				_force("preacher")  # the corro in the plaza, frowned upon with the preacher in town
+				print("[SmokeFiestas] corro: mal visto=%s (%s)" % [FestivalCorro.frowned(Game.sim), Festivals.active(Game.sim).map(func(i: Dictionary) -> String: return str(i["def"]))])
+				card.call("show_page", FestivalPage.corro_menu(Game.sim, {"instance": _inst}))
+				_go("corro")
+		"corro":
+			if _t > 0.6:
+				app.save_shot("fiesta_corro")
+				var card: Node = app.get_node("CardsLayer/EventCard")
+				card.call("close")
+				_force("christmas")  # Christmas gifts: the houses on a second card
+				Inventory.add(Game.sim.state.characters[_who]["inventory"], Game.sim.catalog, "candlestick", 2, 1)
+				card.call("show_page", FestivalPage.gifts_menu(Game.sim, {"instance": _inst}))
+				_go("gifts")
+		"gifts":
+			if _t > 0.6:
+				app.save_shot("fiesta_regalos")
+				app.get_node("CardsLayer/EventCard").call("close")
+				var sim: Sim = Game.sim  # Sant Jordi in Bellcaire: the traveller is there on its day
+				sim.state.festivals = Festivals.new_block()
+				sim.state.clock["minute"] = 1 * DAY + 10 * 60
+				Region.ensure(sim)
+				var now := int(sim.state.clock["minute"])
+				(sim.state.region["trips"] as Dictionary)[_who] = {"id": "trv_smoke", "actor": _who,
+					"family": SimQuery.player_family(sim.state), "from": Region.home(sim), "to": "capital", "path": [], "leg": 0,
+					"at": "capital", "leg_start": now, "leg_end": now, "escort": false, "state": "city", "since": now}
+				sim.state.families[SimQuery.player_family(sim.state)]["gold"] = 120
+				app.call("open_city", "capital")
+				_go("city")
+		"city":
+			if _t > 0.8:
+				app.save_shot("fiesta_ciudad_sant_jordi")
+				FestivalCity.post_contracts(Game.sim, "capital", 1)  # its feast's contracts on its board
+				var cs: Node = app.call("city_screen")
+				cs.set("tab", "board")
+				cs.set("_sig", "")
+				_go("city_board")
+		"city_board":
+			if _t > 0.8:
+				app.save_shot("fiesta_ciudad_encargos")
+				var cs: Node = app.call("city_screen")
+				cs.call("hide")
+				var sim: Sim = Game.sim  # back home, a peddler in the plaza with his wares
+				(sim.state.region["trips"] as Dictionary).erase(_who)
+				Region.put_on_map(sim, _who, [19, 21])
+				Life.service_family(sim.state, Life.FAMILY_VISITORS, "family.visitors", {"primary": "#6a5a4a", "secondary": "#c8b8a0"})
+				var stock := Peddler.stock_for(sim.state, Visitors.cfg(sim)["kinds"]["peddler"], "smoke|0")
+				if not stock.any(func(w: Dictionary) -> bool: return str(w["item"]) == "loaded_dice"):
+					stock.append({"item": "loaded_dice", "price": 30, "qty": 1})  # the capture shows the dice
+				var pd := Life.add_person(sim, Life.FAMILY_VISITORS, "Buhonero", false, 44, {}, {}, [20, 21],
+					{"visitor": {"kind": "peddler", "city": "port", "gate": "", "purse": 30, "plan": [], "stop": -1, "until": -1,
+					"leaving": false, "arrived": 0, "wares": stock}})
+				Life.put_on(sim, pd, [20, 21])
+				app.world().camera().center_on(Iso.tile_to_world(Vector2i(19, 21)))
+				app.hud().call("open_npc", pd)
+				_go("peddler")
+		"peddler":
+			if _t > 0.8:
+				app.save_shot("vida_buhonero")
 				_go("done")
 				get_tree().quit()

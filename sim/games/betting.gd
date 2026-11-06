@@ -96,6 +96,13 @@ static func order_bet(sim: Sim, o: Dictionary) -> Dictionary:
 	var house := str(opts.get("house", ""))
 	if house != "" and not st.buildings.has(house):
 		return Orders.fail("unknown_house")
+	var cfk := str(opts.get("city_feast", ""))
+	if cfk != "":  # fiestas: watching another city's feast game there, once (FestivalCity)
+		var fw := FestivalCity.reason(sim, actor, cfk, "bet")
+		if fw == "" and (mid != cfk or str(FestivalCity.game_of(sim, actor, cfk).get("game", "")) != g):
+			fw = "bad_bet"
+		if fw != "":
+			return Orders.fail(fw)
 	var spec := {"game": g, "match": mid, "seed": maxi(st.world_seed, 1), "players": players, "player": -1,
 		"stake": int(o.get("game_stake", 0)), "opts": opts}
 	var mk := market(games, spec)
@@ -105,6 +112,8 @@ static func order_bet(sim: Sim, o: Dictionary) -> Dictionary:
 	var net := settle(stake, odds, on, w)
 	Money.change(sim, fam, net, Money.GAMES, "bet_" + g, house, actor, false)
 	var cut := _house_cut(sim, games, house, fam, stake, g)
+	if cfk != "":
+		FestivalCity.done(sim, fam, actor, cfk, "bet")
 	sim.events.append({"type": "game_bet_settled", "actor": actor, "family": fam, "game": g, "match": mid, "on": on,
 		"stake": stake, "odds": odds, "winner": w, "won": w == on, "net": net, "house": house, "house_cut": cut})
 	Games._warn_losses(sim, fam)

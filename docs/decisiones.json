@@ -2,6 +2,48 @@
   "tomadas": [
     {
       "fecha": "2026-11-06",
+      "tema": "Vida: el puesto del buhonero (construido)",
+      "decision": "El buhonero de 4.24.3 («monta un puesto un día») trae su mercancía (data/life/life.json visitors.kinds.peddler.wares: dados cargados el 50 % de los días a 30, dulces, agujas, capa de viaje; tirada con clave al llegar, que no mueve otras) y se le compra en persona desde su ficha (orden buy_from_peddler, dentro del alcance; el oro sale fuera). Era lo que faltaba para que los dados cargados de 4.26.7 se puedan comprar. sim/life/peddler.gd.",
+      "por_que": "Encargo del manager: auditar H16 entero y cerrar lo que más pese en la diversión, decidiendo dentro de 04f."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Fiestas: los encargos de la fiesta de otra ciudad (construido)",
+      "decision": "(c) de la decisión del owner: la víspera y el día de su patronal o de su feria, cada ciudad de la región publica en su tablón sus encargos de fiesta (rules.city_contracts), marcados con la fiesta y hasta que acaba ese día; pagan ×2 del precio base (los suyos, ×1,4) y +3 de reputación allí; no cuentan para max_open. En casa no.",
+      "por_que": "Decisión del owner del 2026-11-06 ((c), la quedaba en próximos pasos)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Vida: el secuestro en el camino, no por ahora",
+      "decision": "04f §4.24.5 pone el secuestro «de noche o en el camino». En el camino no se construye: el viaje ya tiene su asalto (09b, el viajero pierde toda la carga) y un secuestro encima castigaría dos veces el mismo riesgo. Los secuestros siguen siendo de la villa.",
+      "por_que": "Encargo del manager: auditar H16 entero y cerrar lo que más pese en la diversión, decidiendo dentro de 04f."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Fiestas: el corro de juego en la plaza (construido)",
+      "decision": "(b) Con una fiesta en curso, la carta de la fiesta trae «Corro de juego»: una segunda carta con pulso, azar, a la mayor y envite contra los parroquianos (data/festivals.json rules.corro: regular_even, regular_prudent, regular_boastful), con la misma pantalla de juegos y la apuesta pequeña de la plaza (5). Sin casa ni licencia: nadie se lleva parte (game_play con opts.corro; con casa, bad_option). Con el predicador en la villa está mal visto: cada partida cuesta 2 de reputación y la carta lo dice. Ni en la víspera ni después de la fiesta; no estando en la villa, no. sim/fest/festival_corro.gd.",
+      "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Fiestas: regalos de Navidad entre familias (construido)",
+      "decision": "(b) La carta de Navidad (desde el pregón hasta medianoche) trae «Regalos de Navidad»: una segunda carta con las otras casas que juegan (la del jugador y las de la IA con perfil); cada botón da la mejor pieza de la familia (producto o equipo) a esa casa, que la recibe en su taller, y su cabeza aprecia más a quien regala (5 + 5 % del valor, hasta 20). Una por casa. La IA regala al empezar la fiesta si le sobra el oro (la reserva de los encargos de fiesta + 100) a la casa cuyo cabeza aprecia más su cabeza (relación > 0); el jugador recibe un aviso. Orden festival_give_gift, efecto gifts, rules.christmas_gifts.",
+      "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Fiestas: la fiesta de otra ciudad, estando allí (construido)",
+      "decision": "(b) Quien está en una ciudad de la región el día de su patronal o de su feria ve en la página de la ciudad sus juegos («Jugar» y «Mirar y apostar»): los de patron_feast.games de data/world/region.json traducidos por rules.city_games (justas → la justa, la sortija, la carrera, el pulso de los mineros, los toros; la procesión de barcas y la romería no son juegos) y la carrera de caballos de las ferias. Jugar es una partida allí mismo contra el campo del espectáculo (game_play con opts.city_feast); mirar y apostar se paga al momento con el mismo id de partida (game_bet). Una vez cada cosa por juego y día (families[fam].city_feasts, leído con valor por defecto, sin versión de guardado). Sim deja pasar estas dos órdenes estando de viaje. sim/fest/festival_city.gd.",
+      "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Fiestas: las apuestas del torneo, al ganador",
+      "decision": "(a) Se sigue apostando al ganador del torneo, no a cada combate, hasta medir si se echa de menos.",
+      "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Fiestas: la carta de la fiesta, siempre a mano; la sortija en Carnaval y en el torneo",
       "decision": "Auditoría de H16 (lo de fiestas y minijuegos). Cerrado lo que más pesaba en la diversión: (1) la carta de la fiesta se cerraba sola a los 12-24 s y no había forma de volver a ella (patrocinar, pujar, inscribirse, apostar, la corte y los encargos solo se podían hacer en ese rato): ahora el reloj del HUD lleva un botón «Pregón» (fiesta anunciada) o «Fiesta» (en curso) con el nombre en su tooltip, y pulsarlo, o pulsar un aviso de la fiesta, la abre otra vez y se queda hasta que la cierras (SimQuery.festival_now, EventCard.reopen_festival). (2) Los botones «Inscribirse» dicen por qué están apagados (título, entrada, ya inscrito, apostaste) con las mismas reglas que game_enter (FestivalGames.enter_reason, solo lectura). (3) La sortija, construida pero sin fiesta, se corre en Carnaval (19:00) y en el torneo (12:00): es la justa de los que no tienen título (entrada 5).",
       "por_que": "Encargo del manager (auditar H16 y cerrar lo que más pese, decidiendo dentro de 04f). Sin la carta a mano, lo jugable de las fiestas pasaba sin que el jugador pudiera tocarlo; la justa pide Ciudadano y el jugador empieza sin título."
@@ -1171,6 +1213,54 @@
       "tema": "Equilibrio 11 · construido",
       "decision": "artisan_novice y los bots de oficio (artisan_trade) miran las horas reales de un encargo de fiesta (due_at − ahora, × 0,6, solo las manos del cabeza); full_player ya no lo reimplementa, solo apunta why_not. El caótico sigue al azar (es su papel). RivalAI no se toca (es del worker de fiestas). Medido: pacing con fiestas y vida pasa de 4 de 5 semillas fuera (mejoras sin abrir; hueco máx. 198 s) a 0 fuera, neto/día del año 1 de 42 a 76; festive: encargos de fiesta fallidos 3 → 0,3, el bot ya no coge los que no llega a hacer.",
       "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12.2 · el Erudito empieza como Médico (04d 4.22.5.1, O2 a)",
+      "decision": "Inicio scholar_physician (data/starts/): Leonor Salvat, Arcano 7, 30 de oro, la deuda de la dificultad antes del día 8 como la forja, la Consulta médica (data/buildings/clinic.json, 3×3 con vivienda: camilla, mortero, almacén; mantenimiento 12) en la parcela de la forja del jugador de town_e (sitio player_clinic), con 6 vendas, 4 telas y el maletín de médico (herramienta nueva doctor_bag). El pueblo guarda su herrero rival y los tres talleres de siempre. Objetivos: atender al primer paciente, hacer vendas, cambiar el precio de la consulta, el botiquín de la guardia, curar a un grave, la deuda. Partida nueva: los botones de oficio enseñan ya las profesiones de todas las clases con inicio (Herrero… Médico); cambiar de clase devuelve los puntos repartidos.",
+      "por_que": "El GDD aprobado (O2 a: un inicio por clase; Médico para el Erudito). La Consulta va en el solar de la forja del jugador porque el inicio del Erudito no tiene forja y así ninguna otra partida cambia (el sitio solo se construye si el inicio lo nombra)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12.2 · pacientes: servicio doctor en dos capas (04d 4.22.3.2)",
+      "decision": "sim/town/services.gd: los pacientes son registros (como la clientela de comarca), no personajes. Llegan al día (visits_per_adult 0,06 × adultos del pueblo + countryside_per_day 1,25 × fama del taller) × estación × eventos × su parte de la elección de proveedor (la fórmula de 4.22.3.2 con el precio de la Consulta sobre la referencia, la misma que tiendas y taberna), en las fases dawn/day/dusk, como mucho 4 esperando y con 120 min de paciencia. Gravedad 3 (55 %), 5 (37 %) o 7 (8 %): a un grave solo lo trata la cirugía (vendas + ungüento, 2 h, Arcano 4, 1,75 × el precio). La consulta (1 venda, 1 h) cobra desde fuera (P4, categoría services) y tira SkillCheck(Arcano + mejoras de calidad, gravedad): curado da +1 de reputación y fama del taller; el que se va sin atender, una queja. Recetas de tipo service en Production: el puesto espera sin consumir hasta que llega un paciente que trata. Orden set_service_price (gestión) en [0,5; 2,0] × la referencia.",
+      "por_que": "Con solo el pueblo (≈1 paciente al día, la cuenta de 4.22.8) el médico no llega a la banda; la segunda capa es la de 4.6.5.7 (clientela de comarca), ya aprobada para los talleres. [balance] medido con el bot."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12.2 · vendas: puesto del Boticario y encargos del médico [balance]",
+      "decision": "Puesto exterior apothecary en el borde este de la plaza de town_e (24,20), el Boticario de 4.5.1: vendas, ungüentos, hierbas y el maletín. El ungüento (salve, 12) se compra ahí (lo hará el Alquimista). Tabla de encargos physician: botiquines de 2-5 vendas para la guardia, la posada, el cantero y el párroco, prima 0,25 (no 0,4: con vendas a 3 por tela, la de 0,4 daba 63 de oro al día solo en encargos).",
+      "por_que": "Las vendas no tenían dónde venderse (market_stall apothecary sin puesto). El puesto cambia el mapa para todos: la QA completa comprueba que las dianas de hoy siguen dentro."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12.2 · bot scholar_novice y su diana (04d 4.22.5.8, O3 a)",
+      "decision": "BotScholarNovice (hereda los hábitos del novato de oficio): pone la consulta a 25 (×1,25) el día 1, atiende al primer paciente que espera (la cirugía si es grave y tiene ungüento), hace vendas cuando no hay pacientes hasta su reserva, vende el sobrante al Boticario, coge los encargos de vendas y paga la deuda. Diana goldflow.start_physician = la del inicio de la forja (25-60 netos/día, días 1-8, Normal). Medido con 30 semillas: Normal 51,4 [38,0-96,5], deuda 30/30; Fácil 55,5 > Normal 51,4 > Difícil 47,9. En run_all, paso scholar (10 semillas).",
+      "por_que": "Criterio 1 de H12 para el Erudito: un bot que gana dinero con su oficio, en la misma banda que el resto (ninguna clase es la fácil)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12.2 · el prestamista de la ciudad y el Loan ampliado (04d 4.22.5.6, P8, O12 a)",
+      "decision": "Orden request_loan (gestión, lender moneylender): cualquier familia pide entre 20 y la mitad de su patrimonio estimado (Dynasty.wealth: oro, coste de sus edificios y mejoras), a 8 o 16 días, al 25 % anual prorrateado (8 días = 25 %, 16 = 50 %), en cuotas iguales cada 2 días; no con otro préstamo del prestamista abierto ni con uno en impago (prórroga). Una cuota sin pagar en su día es el impago de 4.16: prórroga de una estación desde esa cuota, +25 % sobre lo que queda, −10 de reputación, y luego el embargo. Un pago cubre las cuotas en orden. Campos nuevos del Loan (kind, interest, installments, collateral, lender_family, notarized) leídos con valores por defecto: no hay versión de guardado nueva (no hace falta la v22). La deuda del inicio y las multas siguen con interés 0 y un solo pago. Libro, Deudas: la próxima cuota de cada préstamo y la tarjeta «Pedir al prestamista» (cantidad, un botón por plazo con lo que se deberá, confirmación). Los bots del Artesano no lo usan: sus dianas no se mueven.",
+      "por_que": "«Servicios y préstamos» del encargo; O12 (a) aprobado. El Banco del Banquero (solicitudes de NPC, garantías notariales, reclamar) queda para el bloque siguiente del Erudito."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12.2 · el Médico en las otras ciudades de la región",
+      "decision": "Las seis ciudades de plantilla reciben el solar de la Consulta y el puesto del Boticario en la misma pasada de plots.py que aplica la regla de solares (rama plantillas), no se deja para el mapa EA. Hasta entonces el Médico solo se juega en town_e.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Una clase que solo existe en una ciudad deja la elección de inicio a medias; la pasada de solares ya va a regenerar esas ciudades, así que cuesta poco."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Forja · el novato no empieza una pieza que acabe después del vencimiento de un encargo listo",
+      "decision": "Se sella en forja. Es un arreglo del bot; con live_for_quality apagado los informes no cambian.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Es el mismo tipo de error de bot que el de las semillas a 0: el juego no castiga una pieza mala, el bot planificaba mal."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "full_player · bandas nuevas tras el equilibrio",
+      "decision": "Se aprueban las bandas propuestas por jugador en reports/full_player_ref/propuesta_bandas_equilibrio.md (deuda ≤ día 6, Ciudadano ≤ día 16, boda ≤ día 20, hijo en ≥ la mitad de las semillas, neto año 1 ≥ 40 y año 3 ≥ 25, ≥ 20 mecánicas, ritmo del año 1 mediana ≤ 30 s y peor hueco ≤ 60 s, ≤ 3 obras maestras en 3 años, hambre ≤ 10 %, ≥ 1 viaje y ≥ 1 tratado, ≤ 8 atascos). Las tres de la IA rival (subir título, presentarse a cargo, ≤ 4 días sin oro) siguen como propuesta hasta que cierre H13. Se sellan tools/full_compare.py y las copias de referencia.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Todas tienen margen sobre lo medido en las 4 semillas y fijan lo que el equilibrio ha ganado para que no se pierda."
     }
   ],
   "pendientes": [
@@ -1273,11 +1363,6 @@
       "opciones": "(a) bajar el ritmo de llegadas fuera de las fiestas · (b) aceptar 2-6 con las fiestas"
     },
     {
-      "tema": "O-V2 Población de town_e con la vida (banda nueva)",
-      "detalle": "Construido como recomienda O-V2 (a): con la vida encendida el tope es 5 por casa hasta 32 (data/life/life.json population; town_e: 32). Medido (semilla 1, 60 años saltando días): de 16 a 21 vecinos en 10 años, 29 en 20 y 30-32 desde el año 30, con 6 solteras fértiles al final. La diana de H7 (town_population [14, 22]) no cambia porque se mide con la vida apagada; la nueva town_population_life propone [14, 32]. En las partidas de 10-24 días (dianas de economía) el tope casi no llega a usarse. Pendiente del visto bueno del owner.",
-      "opciones": "(a) 32 · (b) 26 · (c) 20, como hoy"
-    },
-    {
       "tema": "D9 Nombre del mapa EA",
       "detalle": "Propuesta (rama mundo, 2026-11-04, docs/gdd/09b_region.md §9b.9): si el mapa EA es la capital de la región (P-R1, O-R1), Bellcaire. Pendiente del owner.",
       "opciones": "Bellcaire · Castellnou de Mercat · Santa Maria del Mercadal"
@@ -1343,26 +1428,6 @@
       "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
     },
     {
-      "tema": "Fiestas · juegos en la plaza (pulso, dados, envite) los días de fiesta",
-      "detalle": "04f §4.26 dice que se juegan «en las fiestas, en la taberna»; hoy pulso, dados y naipes solo se juegan en la mesa de la Taberna-Posada (y en --games-test). En la plaza de una fiesta no hay corro de juego.",
-      "opciones": "(a) solo en la taberna, como hoy · (b) un corro en la plaza los días de fiesta con los parroquianos de data/games.json (la misma pantalla; sin casa ni licencia, mal visto con el predicador) [propuesta del worker de fiestas: b]"
-    },
-    {
-      "tema": "Fiestas · jugar la fiesta de otra ciudad al viajar",
-      "detalle": "04f §4.25.6: «en la página de la ciudad sale su fiesta con sus juegos (justa, carrera, dados) y sus encargos de fuera». Hoy la página y el mapa anuncian la patronal y la feria (arancel 0, sin portazgo), pero estando allí no hay juegos ni encargos de esa fiesta.",
-      "opciones": "(a) solo calendario, como hoy · (b) estando en la ciudad ese día, su página ofrece inscribirse y apostar en sus juegos (la justa de Sant Jordi en Bellcaire, la carrera de la feria) · (c) b y además sus encargos de fiesta en su tablón [propuesta: b]"
-    },
-    {
-      "tema": "Fiestas · regalos de Navidad entre familias",
-      "detalle": "04f §4.25.1 (Navidad): «regalos entre familias (+relación)». No está construido: Navidad trae aguinaldo, misa, belén y lujo ×1,3.",
-      "opciones": "(a) no · (b) en Navidad, una carta para regalar una pieza a otra familia (+relación con su cabeza, como el regalo de la villa; la IA regala si le sobra) [propuesta: b, pequeño]"
-    },
-    {
-      "tema": "Fiestas · apuestas a cada combate del torneo",
-      "detalle": "Simplificación de juegos (04f §4.26.2): en el torneo se apuesta al ganador, no a cada combate.",
-      "opciones": "(a) al ganador, como hoy · (b) también a cada combate de la eliminatoria [propuesta: a, hasta medir si se echa de menos]"
-    },
-    {
       "tema": "H13 · la economía de las familias IA de Bellcaire",
       "detalle": "Con el bot artisan_expert en Normal, 3 de las 5 familias IA pasan buena parte de los 80 días sin oro (82-152 días-familia por partida; en Difícil 215-243; en Fácil 0-2): el mantenimiento diario del taller (~19 de oro) se come el margen de sus ventas y solo las que toman encargos aguantan. Arruinadas, dejan de vender y la rivalidad entre familias IA se apaga antes de llegar a sus umbrales: en Normal no hubo ataques entre IA ni sabotajes (sí en Difícil). El mantenimiento es una constante compartida con Vilarrasa (Equilibrio).",
       "opciones": "(a) Que Equilibrio revise el mantenimiento o la demanda de los oficios de las familias IA con todo encendido. (b) La quiebra de 04c (P7: austeridad, venta, venida a menos) y Q9, que hoy no existen. (c) Perfiles de Bellcaire con más encargos (max_contracts 2) o menos días de compra."
@@ -1381,6 +1446,7 @@
     "La batería de tests tarda ~75 s por la prueba de equivalencia del A* (16 000 pares): reducirla si molesta.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner.",
     "Viajes: lo que queda (rama viajes, 2026-11-04): H13: O-R1 (la capital Bellcaire como casa por defecto, elegible al empezar, cuando exista su mapa EA) y O-R9 (población proporcional a las casas; hoy max_total 20 para todos). H12.3: el asalto en el camino hiere al viajero o al carretero (hoy solo se lleva la carga).",
-    "Nivel de detalle en Vilarrasa (town_e) con dianas nuevas, en un bloque aparte, si el owner lo aprueba tras ver el de la región."
+    "Nivel de detalle en Vilarrasa (town_e) con dianas nuevas, en un bloque aparte, si el owner lo aprueba tras ver el de la región.",
+    "H12.2 · lo que queda del Erudito: Banquero y Banco (solicitudes de hogares NPC, grant_loan, cuotas, impago, claim_collateral 60/30 %, préstamos a familias), Sacerdote e Iglesia (misas a horas fijas, donativos, Inspirado: O11), Alquimista (Botica y Herbolario, cadena ALQUIMIA: el ungüento), Escriba (Scriptorium, contratos para el Banco), salud de los personajes (herido/enfermo, el médico los cura; el microevento «Empleado enfermo» paga a la Consulta) y sus bots (priest, alchemist, scribe, banker) de 4.22.5.8."
   ]
 }

@@ -1,0 +1,90 @@
+{
+  "_doc": "The physician's Consulta médica (docs/gdd/04d_otras_clases.md 4.22.5.1, 04g_interiores.md 4.6.5): ground floor with the consulting room (the cot where the patients are seen and the mortar of the bandages) and the waiting room with its bench (the patients of Services wait there: customers.waiting; the one being seen lies at the cot: customers.cot) and the apothecary's shelf (the storage); upstairs, the home. Edit by hand, then python3 tools/interiors/interiores.py reglas clinic && python3 tools/interiors/interiores.py validar clinic.",
+  "size": [9, 7],
+  "wall_height": 64,
+  "floor_height": 80,
+  "seed": 23,
+  "entrance": {"floor": 0, "tile": [0, 5], "side": "nw"},
+  "rooms": [
+    {"id": "surgery", "floor": 0, "type": "workshop", "rects": [[0, 0, 4, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"},
+    {"id": "waiting", "floor": 0, "type": "shop", "rects": [[0, 4, 8, 6], [5, 0, 8, 3]], "floor_kind": "flagstone", "wall_style": "timber", "light": "warm"},
+    {"id": "kitchen", "floor": 1, "type": "kitchen", "rects": [[0, 0, 3, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"},
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[4, 0, 8, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [2, 4], "side": "ne"},
+    {"floor": 0, "tile": [5, 1], "side": "nw"},
+    {"floor": 1, "tile": [4, 1], "side": "nw"}
+  ],
+  "levels": [],
+  "stairs": [
+    {"id": "stairs", "floor": 0, "prop": "staircase", "tile": [8, 3], "flip": false, "from": [7, 3], "to_floor": 1, "to": [7, 2]}
+  ],
+  "stations": {
+    "cot": {"floor": 0, "tile": [1, 1], "prop": "examination_cot", "stand": [2, 1]},
+    "cot_2": {"floor": 0, "tile": [3, 1], "prop": "examination_cot", "stand": [4, 1]},
+    "mortar": {"floor": 0, "tile": [1, 3], "prop": "mortar_table", "stand": [2, 3]},
+    "mortar_2": {"floor": 0, "tile": [4, 3], "prop": "mortar_table", "stand": [3, 3]},
+    "storage": {"floor": 0, "tile": [8, 0], "prop": "apothecary_shelf", "stand": [8, 1]}
+  },
+  "customers": {
+    "waiting": [{"tile": [5, 5]}, {"tile": [6, 5]}, {"tile": [7, 5]}, {"tile": [4, 5]}],
+    "cot": [{"tile": [2, 0]}, {"tile": [4, 0]}]
+  },
+  "idle": [
+    {"floor": 1, "tile": [1, 2]},
+    {"floor": 1, "tile": [6, 2]},
+    {"floor": 0, "tile": [4, 6]}
+  ],
+  "props": [
+    {"id": "waiting_bench", "floor": 0, "tile": [7, 6], "flip": true},
+    {"id": "washbasin_stand", "floor": 0, "tile": [0, 2]},
+    {"id": "bandage_basket", "floor": 0, "tile": [0, 3]},
+    {"id": "herb_drying_frame", "floor": 0, "tile": [4, 2]},
+    {"id": "leech_jars", "floor": 0, "tile": [6, 0]},
+    {"id": "medicine_chest", "floor": 0, "tile": [7, 0]},
+    {"id": "folding_screen", "floor": 0, "tile": [0, 0]},
+    {"id": "apothecary_counter", "floor": 0, "tile": [6, 2], "flip": true},
+    {"id": "anatomy_chart", "floor": 0, "tile": [2, 0], "hang": "ne"},
+    {"id": "herb_shelf_wall", "floor": 0, "tile": [0, 4], "hang": "nw"},
+    {"id": "kitchen_hearth", "floor": 1, "tile": [0, 1]},
+    {"id": "pantry_shelf", "floor": 1, "tile": [2, 0]},
+    {"id": "bed_double", "floor": 1, "tile": [8, 2], "flip": false},
+    {"id": "wardrobe", "floor": 1, "tile": [4, 0]},
+    {"id": "chest", "floor": 1, "tile": [5, 3]}
+  ],
+  "rules": [
+    {"rule": "on_top", "room": "waiting", "under": ["apothecary_counter"], "props": ["ledger_book", "coin_pile", "candle"], "max": 2, "chance": 1.0},
+    {"rule": "wall_fill", "room": "kitchen", "props": ["barrel", "sack", "big_jar"], "chance": 0.5},
+    {"rule": "hang", "room": "waiting", "props": ["herbs_hanging", "onion_string"], "count": 2}
+  ],
+  "upgrades": {
+    "clinic_cot_2": [],
+    "clinic_mortar_2": [],
+    "upgrade_storage_shelves": [{"id": "apothecary_shelf", "floor": 0, "tile": [5, 0]}],
+    "clinic_shelves_big": [{"id": "medicine_chest", "floor": 0, "tile": [8, 4]}],
+    "clinic_sign": [{"id": "medical_diploma", "floor": 0, "tile": [4, 0], "hang": "ne"}],
+    "clinic_instruments": [{"id": "instrument_tray", "floor": 0, "tile": [3, 2]}],
+    "clinic_operating_table": [{"id": "operating_table", "floor": 0, "tile": [3, 5], "flip": true}],
+    "clinic_herbal": [{"id": "herb_shelf_wall", "floor": 0, "tile": [0, 1], "hang": "nw"}],
+    "clinic_books": [{"id": "lectern", "floor": 0, "tile": [8, 6]}],
+    "clinic_anatomy": [{"id": "anatomy_chart", "floor": 0, "tile": [6, 0], "hang": "ne"}],
+    "upgrade_double_ledger": [{"id": "double_ledger", "floor": 0, "tile": [1, 6]}],
+    "upgrade_hidden_passage": [{"id": "hidden_passage", "floor": 0, "tile": [0, 6]}],
+    "upgrade_smuggler_cache": [{"id": "smuggler_cache", "floor": 0, "tile": [2, 6]}],
+    "upgrade_strongbox": [{"id": "strongbox", "floor": 1, "tile": [8, 3]}],
+    "upgrade_bunks": [{"id": "bunk_bed", "floor": 1, "tile": [7, 0], "flip": true}],
+    "upgrade_dining_table": [{"id": "dining_table", "floor": 1, "tile": [1, 1], "flip": false}],
+    "upgrade_master_bench": [{"id": "lectern", "floor": 1, "tile": [6, 3]}]
+  },
+  "resolved": [
+    {"id": "ledger_book", "floor": 0, "tile": [6, 2], "flip": false, "lift": 28, "shift": [-19, -10], "rule": "on_top", "over": "apothecary_counter"},
+    {"id": "coin_pile", "floor": 0, "tile": [6, 2], "flip": false, "lift": 28, "shift": [4, -2], "rule": "on_top", "over": "apothecary_counter"},
+    {"id": "barrel", "floor": 1, "tile": [0, 0], "flip": true, "rule": "wall_fill"},
+    {"id": "big_jar", "floor": 1, "tile": [0, 2], "flip": true, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 1, "tile": [0, 3], "flip": false, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 1, "tile": [3, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "onion_string", "floor": 0, "tile": [1, 4], "flip": true, "hang": "ne", "rule": "hang"},
+    {"id": "herbs_hanging", "floor": 0, "tile": [5, 0], "flip": false, "hang": "nw", "rule": "hang"}
+  ]
+}

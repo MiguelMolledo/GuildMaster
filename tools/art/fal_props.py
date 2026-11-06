@@ -384,6 +384,33 @@ add("s", "tavern_b", "light", [
 add("s", "tavern_b", "container", [
     ("jug_crate", "1x1", "", "a wooden crate full of clay jugs and bottles"),
 ], ["tavern"])
+# --- la Consulta médica (H12.2, el Erudito: 04d 4.22.5.1) ------------------------------------------------------------
+add("s", "clinic_a", "trade", [
+    ("mortar_table", "1x1", "", "a small wooden table with a big stone mortar and pestle and fresh herbs"),
+    ("apothecary_shelf", "1x1", "wall", "a tall wooden apothecary shelf full of glass jars, bottles and clay pots"),
+    ("bandage_basket", "1x1", "", "a wicker basket full of rolled white linen bandages"),
+    ("washbasin_stand", "1x1", "", "a wooden stand with a copper washbasin, a jug and a towel"),
+    ("instrument_tray", "1x1", "", "a small table with a cloth and a physician's instruments: a bone saw, knives, pliers"),
+    ("medicine_chest", "1x1", "", "an open wooden chest with brass corners and small vials inside"),
+    ("folding_screen", "1x1", "", "a folding screen of linen panels in a wooden frame"),
+    ("leech_jars", "1x1", "", "a small table with three tall glass jars and a stack of old books"),
+    ("herb_drying_frame", "1x1", "", "a wooden frame with bundles of drying herbs hanging from it"),
+], ["clinic"])
+add("l", "clinic_a", "trade", [
+    ("examination_cot", "2x1", "", "a wooden examination cot with a white linen sheet and a pillow"),
+    ("operating_table", "2x1", "", "a sturdy wooden operating table with leather straps and a white cloth"),
+    ("apothecary_counter", "2x1", "", "a long wooden counter with jars, a small brass scale and a mortar"),
+    ("waiting_bench", "2x1", "", "a long simple wooden bench for people to wait on"),
+], ["clinic"])
+add("w", "clinic_a", "textile", [
+    ("anatomy_chart", "1x1", "wall", "a parchment chart of the human body (a simple drawing, no gore) pinned on the wall"),
+    ("medical_diploma", "1x1", "wall", "a framed parchment scroll with a red wax seal"),
+    ("herb_shelf_wall", "1x1", "wall", "a small wall shelf with bunches of dried herbs and two small jars"),
+], ["clinic"])
+TARGET.update({"mortar_table": 30, "apothecary_shelf": 56, "bandage_basket": 20, "washbasin_stand": 32,
+               "instrument_tray": 28, "medicine_chest": 24, "folding_screen": 46, "leech_jars": 30,
+               "herb_drying_frame": 44, "examination_cot": 92, "operating_table": 92, "apothecary_counter": 96,
+               "waiting_bench": 90, "anatomy_chart": 36, "medical_diploma": 24, "herb_shelf_wall": 24})
 TARGET.update({"bar_shelf": 54, "cask_stand_big": 36, "tankard_rack": 34, "hall_firepit": 34, "hall_brazier": 34,
                "jug_crate": 24})
 TARGET.update({"engraving_bench": 34, "master_seal": 30, "hidden_passage": 30, "smuggler_cache": 26, "double_ledger": 32,

@@ -136,7 +136,117 @@
         "bulls"
       ]
     },
-    "_contest_doc": "Concurso de calidad (owner, 2026-11-05; efecto contest de la feria): cada artesano presenta una pieza de su oficio (lo que hacen sus talleres) antes de hour; gana la de más calidad (empate: la de más valor; después, la primera presentada). Premio de fama y reputación: reputation, fame en la reputación de clase fame_class (la fama entre los artesanos) y un concurso ganado en el taller (contests_won, que contará la fama del taller de 04g §4.6.5.7); prize (oro) opcional. Las piezas vuelven a su dueño al acabar la fiesta. La IA con perfil presenta su mejor pieza sola."
+    "_contest_doc": "Concurso de calidad (owner, 2026-11-05; efecto contest de la feria): cada artesano presenta una pieza de su oficio (lo que hacen sus talleres) antes de hour; gana la de más calidad (empate: la de más valor; después, la primera presentada). Premio de fama y reputación: reputation, fame en la reputación de clase fame_class (la fama entre los artesanos) y un concurso ganado en el taller (contests_won, que contará la fama del taller de 04g §4.6.5.7); prize (oro) opcional. Las piezas vuelven a su dueño al acabar la fiesta. La IA con perfil presenta su mejor pieza sola.",
+    "_corro_doc": "Corro en la plaza (owner, 2026-11-06): con una fiesta en curso, la familia juega en la plaza a los juegos de la taberna (games) contra los parroquianos (regulars, fichas de data/games.json), con la misma pantalla y la apuesta pequeña de la plaza (stake). Sin casa ni licencia: nadie se lleva parte. Mal visto con el predicador (frowned.by): cada partida cuesta reputación (frowned.reputation).",
+    "corro": {
+      "games": [
+        "pulso",
+        "azar",
+        "mayor",
+        "envite"
+      ],
+      "regulars": [
+        "regular_even",
+        "regular_prudent",
+        "regular_boastful"
+      ],
+      "stake": 5,
+      "frowned": {
+        "by": [
+          "preacher"
+        ],
+        "reputation": -2
+      }
+    },
+    "_christmas_gifts_doc": "Regalos de Navidad entre familias (owner, 2026-11-06; efecto gifts de Navidad, hasta hour): una familia regala a otra su mejor pieza (de items; vacío: cualquier producto o equipo); la pieza va a la casa del que la recibe y su cabeza quiere más al del que regala: relation_base + relation_per_value × valor, hasta relation_max. Una por familia y destinatario. La IA regala al empezar la fiesta si le sobra el oro (la reserva de los encargos de fiesta + ai_spare), a la familia cuyo cabeza aprecia más su cabeza (relación > 0).",
+    "christmas_gifts": {
+      "items": [],
+      "relation_base": 5,
+      "relation_per_value": 0.05,
+      "relation_max": 20,
+      "ai_spare": 100
+    },
+    "_city_games_doc": "La fiesta de otra ciudad (owner, 2026-11-06): quien está en una ciudad de la región el día de su patronal o de su feria puede jugar sus juegos (patron_feast.games de data/world/region.json; las ferias, fair) o mirarlos y apostar, desde la página de la ciudad, una vez cada uno. games traduce los nombres de region.json a los espectáculos de data/games.json; los que no son juegos (la procesión de barcas, la romería) no salen. keep: cuántas marcas guarda cada familia.",
+    "city_games": {
+      "games": {
+        "joust": "joust",
+        "ring": "sortija",
+        "arm_wrestling": "arm_wrestling",
+        "horse_race": "horse_race",
+        "bulls": "bulls"
+      },
+      "fair": [
+        "horse_race"
+      ],
+      "keep": 24
+    },
+    "_city_contracts_doc": "Los encargos de la fiesta de otra ciudad ((c), owner 2026-11-06): la víspera y el día de su patronal o de su feria, la ciudad publica en su tablón estas filas (patron: por fiesta; fair: en cada feria), con la marca de su fiesta, hasta que acaba ese día. Pagan reward_mult × el precio base (los de la ciudad, 1,4) y dan reputation_bonus más allí al entregarlos. No cuentan para su max_open.",
+    "city_contracts": {
+      "reward_mult": 2.0,
+      "reputation_bonus": 3,
+      "patron": {
+        "st_george": [
+          {
+            "item": "sword",
+            "qty": 2
+          },
+          {
+            "item": "fine_clothes",
+            "qty": 1
+          }
+        ],
+        "our_lady_carmen": [
+          {
+            "item": "barrel",
+            "qty": 3
+          },
+          {
+            "item": "bread",
+            "qty": 6
+          }
+        ],
+        "st_barbara": [
+          {
+            "item": "hammer",
+            "qty": 2
+          },
+          {
+            "item": "work_clothes",
+            "qty": 3
+          }
+        ],
+        "st_isidore": [
+          {
+            "item": "hoe",
+            "qty": 3
+          },
+          {
+            "item": "horseshoe",
+            "qty": 4
+          }
+        ],
+        "founder_saint": [
+          {
+            "item": "candlestick",
+            "qty": 3
+          },
+          {
+            "item": "bread",
+            "qty": 8
+          }
+        ]
+      },
+      "fair": [
+        {
+          "item": "horseshoe",
+          "qty": 4
+        },
+        {
+          "item": "cart_wheel",
+          "qty": 1
+        }
+      ]
+    }
   },
   "festivals": {
     "holy_week": {
@@ -764,6 +874,10 @@
         {
           "kind": "aguinaldo",
           "loyalty": 5
+        },
+        {
+          "kind": "gifts",
+          "hour": 24
         },
         {
           "kind": "emotion",

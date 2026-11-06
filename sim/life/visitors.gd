@@ -134,6 +134,8 @@ static func _arrive(sim: Sim, p: Dictionary) -> void:
 		{"visitor": {"kind": kind, "city": str(p["city"]), "gate": str(p["gate"]),
 			"purse": Kin.randi_range(st, key + "|purse", int(purse[0]), int(purse[1])), "plan": plan, "stop": -1,
 			"until": -1, "leaving": false, "arrived": int(st.clock["minute"])}})
+	if kd.has("wares"):  # the peddler's stall (Peddler): his stock for the day, keyed by his arrival
+		st.characters[id]["visitor"]["wares"] = Peddler.stock_for(st, kd, key)
 	var vis: Dictionary = st.characters[id]["visual"]
 	vis["hair"] = int(look.get("hair", vis.get("hair", 0)))
 	vis["skin"] = int(look.get("skin", vis.get("skin", 0)))

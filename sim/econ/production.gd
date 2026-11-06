@@ -17,6 +17,10 @@ extends RefCounted
 ## H4 (subgrim «cola», docs/contratos/h4_empleados.md): an employee's cycle lasts duration / rank speed and gives
 ## max(1, round(qty × efficiency)) units; it does not repeat on its own: WorkQueue.cycle_done is told and the queue
 ## hands the next work.
+## H12.2 (04d 4.22.3.1): a recipe of kind "service" (the Consulta's consultation) has no output: its job waits at the
+## station (end -1, nothing taken) until Services.claim gives it a client it treats; then it takes the inputs and runs
+## duration_hours; at the end Services.finish (the client pays, the roll) and it waits for the next one. The recipe's
+## "stat" (default craft) is the one its min_stat (or min_craft) asks for and the one a craft recipe's quality reads.
 
 const NIGHT: String = "night"
 
@@ -169,12 +173,16 @@ static func _step_job(sim: Sim, bld_id: String, zone: String, now: int) -> void:
 			sim.events.append({"type": "master_window", "building": bld_id, "zone": zone, "open": true})
 		elif now == int(w[1]) and int(w[1]) > int(w[0]):
 			sim.events.append({"type": "master_window", "building": bld_id, "zone": zone, "open": false})
+	if bool(job.get("service", false)):
+		_step_service(sim, bld_id, zone, job, now)
+		return
 	if not job.get("result") is Dictionary:
 		if now < int(job["end"]) or LiveForge.waiting(sim, job, now):
 			return
 		var recipe: Dictionary = sim.catalog.recipes()[str(job["recipe"])]
 		var out: Dictionary = recipe["output"]
-		var q := roll_quality(sim, actor, str(bld["type"]), str(job["mode"]), bool(job.get("touched", false)), bld_id)
+		var q := roll_quality(sim, actor, str(bld["type"]), str(job["mode"]), bool(job.get("touched", false)), bld_id,
+			str(recipe.get("stat", "craft")))
 		if job.get("live") is Dictionary:  # Forja viva: the decisions move the quality rolled as in mode normal
 			q = int(LiveForge.resolve(sim, actor, bld_id, job, q)["quality"])
 		job["result"] = {"item": str(out["item"]), "quality": q, "qty": output_units(sim, actor, bld_id, recipe)}
@@ -200,6 +208,49 @@ static func _step_job(sim: Sim, bld_id: String, zone: String, now: int) -> void:
 		return
 	_repeat_or_idle(sim, bld_id, zone, actor, str(job["recipe"]), LiveForge.next_mode(job),
 		LiveForge.repeat_spec(sim, job))
+
+
+## A service job: waiting for a client (claims one, takes the inputs, starts the clock) or running (at the end the
+## client pays and leaves, Services.finish, and the job waits for the next one, like the auto-repeat of a cycle).
+static func _step_service(sim: Sim, bld_id: String, zone: String, job: Dictionary, now: int) -> void:
+	var st := sim.state
+	var bld: Dictionary = st.buildings[bld_id]
+	var actor := str(job["actor"])
+	var recipe_id := str(job["recipe"])
+	var recipe: Dictionary = sim.catalog.recipes().get(recipe_id, {})
+	if str(job.get("client", "")) == "":
+		if not Services.has_client(sim, bld_id, recipe):
+			return
+		if _stock_reason(sim.catalog, bld["inventory"], recipe) != "":
+			interrupt(sim, bld_id, zone)
+			sim.events.append({"type": "work_idle", "actor": actor, "building": bld_id, "zone": zone,
+				"reason": "missing_inputs"})
+			return
+		var client := Services.claim(sim, bld_id, zone, recipe)
+		if client == "":
+			return
+		var taken: Array = []
+		for inp: Dictionary in recipe.get("inputs", []):
+			taken.append_array(_take_lowest(bld["inventory"], str(inp["item"]), int(inp["qty"])))
+		var d := _cycle_length(sim, bld_id, actor, recipe, str(job["mode"]))
+		job["client"] = client
+		job["inputs"] = taken
+		job["start"] = now
+		job["end"] = now + d
+		sim.events.append({"type": "work_started", "actor": actor, "building": bld_id, "zone": zone, "recipe": recipe_id,
+			"mode": str(job["mode"]), "end": now + d, "client": client})
+		if OS.is_debug_build():
+			print("[Production] %s atiende a %s en %s/%s con %s (min=%d-%d, entradas=%s)" % [actor, client, bld_id, zone,
+				recipe_id, now, now + d, taken])
+		return
+	if now < int(job["end"]):
+		return
+	Services.finish(sim, bld_id, zone, actor, recipe_id, str(job["client"]))  # its event: service_done
+	bld["zones"][zone]["job"] = null
+	if _is_employee_at(sim, actor, bld_id):
+		WorkQueue.cycle_done(sim, bld_id, zone, actor, recipe_id, 1)
+		return
+	_repeat_or_idle(sim, bld_id, zone, actor, recipe_id, str(job["mode"]))
 
 
 static func _repeat_or_idle(sim: Sim, bld_id: String, zone: String, actor: String, recipe_id: String,
@@ -231,25 +282,21 @@ static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, 
 	var st := sim.state
 	var bld: Dictionary = st.buildings[bld_id]
 	var recipe: Dictionary = sim.catalog.recipes()[recipe_id]
+	var now := int(st.clock["minute"])
+	if is_service(recipe):
+		# H12.2: a service job waits for a client (nothing taken, no clock) until _step_service claims one
+		bld["zones"][zone]["job"] = {"actor": actor, "recipe": recipe_id, "mode": mode, "start": now, "end": -1,
+			"inputs": [], "window": null, "touched": false, "result": null, "blocked": false, "service": true,
+			"client": ""}
+		sim.events.append({"type": "service_waiting", "actor": actor, "building": bld_id, "zone": zone,
+			"recipe": recipe_id})
+		if OS.is_debug_build():
+			print("[Production] %s espera clientes de %s en %s/%s" % [actor, recipe_id, bld_id, zone])
+		return
 	var taken: Array = []
 	for inp: Dictionary in recipe.get("inputs", []):
 		taken.append_array(_take_lowest(bld["inventory"], str(inp["item"]), int(inp["qty"])))
-	var now := int(st.clock["minute"])
-	var d := owner_cycle_minutes(sim, bld_id, recipe, mode)
-	if not spec.is_empty():
-		d = maxi(1, roundi(float(d) * LiveForge.spec_duration_mult(sim, spec)))  # §3b.3: a variant takes longer
-	if _is_employee_at(sim, actor, bld_id):
-		d = employee_cycle_minutes(sim, actor, recipe, mode)
-	elif Needs.tracked(sim, actor):  # H14: low morale slows a family member down (GDD 4.2.6)
-		var pr := Needs.productivity(sim, actor)
-		if pr < 1.0:
-			d = maxi(1, roundi(float(d) / pr))
-	var pm := WorldEvents.production_mult(sim, str(recipe.get("output", {}).get("item", "")))  # H13: season and events
-	if pm != 1.0:
-		d = maxi(1, roundi(float(d) / maxf(pm, 0.01)))
-	var ws := Upgrades.works_speed(sim, bld_id)  # Equilibrio 9: big works leave the building at half speed
-	if ws < 1.0:
-		d = maxi(1, roundi(float(d) / ws))
+	var d := _cycle_length(sim, bld_id, actor, recipe, mode, spec)
 	var job := {"actor": actor, "recipe": recipe_id, "mode": mode, "start": now, "end": now + d, "inputs": taken,
 		"window": cycle_window(sim.catalog, mode, now, d), "touched": false, "result": null, "blocked": false}
 	if mode == LiveForge.MODE:
@@ -266,6 +313,33 @@ static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, 
 			bld_id, zone, mode, now, now + d, job["window"], taken])
 
 
+## The cycle length of `recipe` for `actor` at `bld_id` now: the owner's (production_speed upgrades) or the employee's
+## (rank speed), slowed by low morale (H14), the season and events (H13) and big works (Equilibrio 9).
+static func _cycle_length(sim: Sim, bld_id: String, actor: String, recipe: Dictionary, mode: String,
+		spec: Dictionary = {}) -> int:
+	var d := owner_cycle_minutes(sim, bld_id, recipe, mode)
+	if not spec.is_empty():
+		d = maxi(1, roundi(float(d) * LiveForge.spec_duration_mult(sim, spec)))  # §3b.3: a variant takes longer
+	if _is_employee_at(sim, actor, bld_id):
+		d = employee_cycle_minutes(sim, actor, recipe, mode)
+	elif Needs.tracked(sim, actor):  # H14: low morale slows a family member down (GDD 4.2.6)
+		var pr := Needs.productivity(sim, actor)
+		if pr < 1.0:
+			d = maxi(1, roundi(float(d) / pr))
+	var pm := WorldEvents.production_mult(sim, str(recipe.get("output", {}).get("item", "")))  # H13: season and events
+	if pm != 1.0:
+		d = maxi(1, roundi(float(d) / maxf(pm, 0.01)))
+	var ws := Upgrades.works_speed(sim, bld_id)  # Equilibrio 9: big works leave the building at half speed
+	if ws < 1.0:
+		d = maxi(1, roundi(float(d) / ws))
+	return d
+
+
+## Whether `recipe` is a service (H12.2): it serves a client instead of making something.
+static func is_service(recipe: Dictionary) -> bool:
+	return str(recipe.get("kind", "craft")) == "service"
+
+
 ## Ends the job at a station without finishing it and gives back what it holds (D11): storage, then the actor's
 ## inventory, then the station floor. Does not move anybody (the caller frees the station if the actor leaves).
 ## Returns [{item, quality, qty, to: "storage" | "actor" | "floor"}]. Buildings calls it on exit/station change.
@@ -278,6 +352,8 @@ static func interrupt(sim: Sim, bld_id: String, zone: String) -> Array:
 	if not job is Dictionary:
 		return []
 	var actor := str(job["actor"])
+	if bool(job.get("service", false)) and str(job.get("client", "")) != "":
+		Services.release(sim, bld_id, str(job["client"]))  # H12.2: the client goes back to waiting
 	var returned: Array = []
 	for s: Dictionary in _holdings(job):
 		returned.append_array(_give_back(sim, bld_id, zone, actor, str(s["item"]), int(s["quality"]), int(s["qty"])))
@@ -396,11 +472,11 @@ static func window_open(job: Dictionary, now: int) -> bool:
 ## raises one step, up to excellent. Always the same rolls in the same order (determinism).
 ## H5: with `bld_id`, the building's quality_bonus upgrades add to that craft (before the 1..10 clamp).
 static func roll_quality(sim: Sim, actor: String, building_type: String, mode: String, touched: bool,
-		bld_id: String = "") -> int:
+		bld_id: String = "", stat: String = "craft") -> int:
 	var prod := sim.catalog.production
 	var ch: Dictionary = sim.state.characters.get(actor, {})
 	var bonus := roundi(Upgrades.amount(sim, bld_id, "quality_bonus")) if bld_id != "" else 0
-	var craft := clampi(int(ch.get("stats", {}).get("craft", 1)) + int(_modes(sim).get(mode, {}).get("craft_delta", 0))
+	var craft := clampi(int(ch.get("stats", {}).get(stat, 1)) + int(_modes(sim).get(mode, {}).get("craft_delta", 0))
 		+ bonus, 1, 10)
 	var chances := quality_chances(prod, craft)
 	var total := 0.0
@@ -494,8 +570,10 @@ static func job_view(sim: Sim, building: String, zone: String) -> Dictionary:
 		return {}
 	var now := int(sim.state.clock["minute"])
 	var span := maxi(1, int(job["end"]) - int(job["start"]))
+	var waiting_client := bool(job.get("service", false)) and str(job.get("client", "")) == ""
 	return {"actor": str(job["actor"]), "recipe": str(job["recipe"]), "mode": str(job["mode"]),
-		"progress": clampf(float(now - int(job["start"])) / span, 0.0, 1.0),
+		"progress": 0.0 if waiting_client else clampf(float(now - int(job["start"])) / span, 0.0, 1.0),
+		"waiting_client": waiting_client, "client": str(job.get("client", "")),
 		"window_open": window_open(job, now) and not job.get("result") is Dictionary,
 		"touched": bool(job.get("touched", false)), "blocked": bool(job.get("blocked", false)),
 		"window_from": _window_frac(job, 0, span), "window_to": _window_frac(job, 1, span)}
@@ -511,13 +589,13 @@ static func _window_frac(job: Dictionary, i: int, span: int) -> float:
 ## What a piece made by `actor` at `bld_id` in `mode` may come out like (GDD 4.4.2, 4.4.5), for the UI: {chances
 ## [normal, good, excellent] in %, craft (the one the table is read with, as roll_quality), tool (the right tool is
 ## equipped), tool_chance and touch_chance (the extra step-up chances), touch (the mode has a master touch)}.
-static func quality_view(sim: Sim, actor: String, bld_id: String, mode: String) -> Dictionary:
+static func quality_view(sim: Sim, actor: String, bld_id: String, mode: String, stat: String = "craft") -> Dictionary:
 	var prod := sim.catalog.production
 	var ch: Dictionary = sim.state.characters.get(actor, {})
 	var btype := str(sim.state.buildings.get(bld_id, {}).get("type", ""))
 	var bonus := roundi(Upgrades.amount(sim, bld_id, "quality_bonus")) if bld_id != "" else 0
 	var m: Dictionary = _modes(sim).get(mode, {})
-	var craft := clampi(int(ch.get("stats", {}).get("craft", 1)) + int(m.get("craft_delta", 0)) + bonus, 1, 10)
+	var craft := clampi(int(ch.get("stats", {}).get(stat, 1)) + int(m.get("craft_delta", 0)) + bonus, 1, 10)
 	return {"chances": quality_chances(prod, craft), "craft": craft, "tool": has_right_tool(sim, actor, btype),
 		"tool_chance": float(prod.get("tool_step_up_chance", 0.0)), "touch": bool(m.get("master_touch", false)),
 		"touch_chance": float(prod.get("master_touch", {}).get("step_up_chance", 0.0)),
@@ -563,7 +641,9 @@ static func _is_employee_at(sim: Sim, actor: String, bld_id: String) -> bool:
 ## "skill_too_low" if the actor's craft is under min_craft; "needs_upgrade" if the recipe asks for an upgrade the
 ## building does not have (bld.upgrades, none until the upgrade tree arrives).
 static func _lock_reason(_sim: Sim, ch: Dictionary, bld: Dictionary, recipe: Dictionary) -> String:
-	if int(ch.get("stats", {}).get("craft", 0)) < int(recipe.get("min_craft", 1)):
+	var stat := str(recipe.get("stat", "craft"))
+	var need := int(recipe.get("min_stat", recipe.get("min_craft", 1)))
+	if int(ch.get("stats", {}).get(stat, 0)) < need:
 		return "skill_too_low"
 	var up := str(recipe.get("requires_upgrade", ""))
 	if up != "" and not up in (bld.get("upgrades", []) as Array):
@@ -581,6 +661,8 @@ static func _stock_reason(catalog: Catalog, storage: Dictionary, recipe: Diction
 	for inp: Dictionary in recipe.get("inputs", []):
 		_take_lowest(after, str(inp["item"]), int(inp["qty"]))
 	var out: Dictionary = recipe.get("output", {})
+	if out.is_empty():
+		return ""  # H12.2: a service makes nothing to store
 	for q: int in Inventory.QUALITIES:
 		if not Inventory.can_add(after, catalog, str(out.get("item", "")), q, int(out.get("qty", 1))):
 			return "storage_full"

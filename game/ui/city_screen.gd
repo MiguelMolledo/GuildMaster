@@ -204,7 +204,8 @@ func _signature() -> String:
 	var fam := _fam()
 	return "%s|%s|%s|%s|%d|%s|%s|%s|%s" % [city, actor, tab, Travel.in_city(st, actor), Money.gold(st, fam),
 		JSON.stringify(st.characters.get(actor, {}).get("inventory", {})), JSON.stringify(Region.city(sim, city)),
-		JSON.stringify(st.region.get("contracts", [])), JSON.stringify(st.region.get("treaties", []))]
+		JSON.stringify(st.region.get("contracts", [])), JSON.stringify(st.region.get("treaties", []))] \
+		+ "|%s|%d" % [st.families.get(fam, {}).get("city_feasts", []), Clock.day(int(st.clock["minute"]))]  # fiestas
 
 
 func _rebuild() -> void:
@@ -230,6 +231,7 @@ func _rebuild() -> void:
 	_fact(_tr("ui.city.gold") % Money.gold(sim.state, fam), null)
 	for line: String in SimQuery.city_feast_lines(sim, city):  # fiestas (4.25.6): its patron feast and its fair
 		_fact(line, null)
+	_feast_games()
 	for b: Node in _tabs.get_children():
 		var t := str(b.name).trim_prefix("Tab_")
 		(b as Button).text = _tr("ui.city.tab." + t)
@@ -285,6 +287,30 @@ func _row(cells: Array, widths: Array) -> HBoxContainer:
 		row.add_child(n)
 	_body.add_child(row)
 	return row
+
+
+## Fiestas (4.25.6, owner 2026-11-06): today's games of the city's feast, for the traveller who is there: play it
+## or watch it and bet (FestivalCity), once each, off with the reason.
+func _feast_games() -> void:
+	for g: Dictionary in FestivalCity.here(sim, actor):
+		if str(g["city"]) != city:
+			continue
+		var k := str(g["key"])
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 4)
+		var name := _tr("spectacle." + str(g["spectacle"]))
+		row.add_child(_btn(_tr("ui.city.feast_play") % name, FestivalCity.play_reason(sim, actor, k),
+			func() -> void: _open_feast_game(k, true)))
+		row.add_child(_btn(_tr("ui.city.feast_bet") % name, FestivalCity.reason(sim, actor, k, "bet"),
+			func() -> void: _open_feast_game(k, false)))
+		_facts.add_child(row)
+
+
+func _open_feast_game(k: String, playing: bool) -> void:
+	var app := get_node_or_null("/root/App")
+	var req := FestivalCity.request(sim, actor, k, playing)
+	if app != null and app.has_method("open_game") and not req.is_empty():
+		app.call("open_game", req)
 
 
 func _btn(text: String, why: String, action: Callable) -> Button:
@@ -349,8 +375,12 @@ func _build_board(here: bool) -> void:
 		_row([_tr("ui.city.no_offers")], [600])
 	for off: Dictionary in board:
 		var id := str(off["id"])
-		_row([_tr("ui.city.offer") % [SimQuery.item_name(sim.catalog, str(off["item"])), int(off["qty"]),
-			int(off["reward"]), int(off["days"])], _btn(_tr("ui.city.accept"), "" if here else "not_in_city",
+		var line := _tr("ui.city.offer") % [SimQuery.item_name(sim.catalog, str(off["item"])), int(off["qty"]),
+			int(off["reward"]), int(off["days"])]
+		if off.has("feast"):  # fiestas (4.25.6): a contract of the city's feast
+			var fname := _tr("ui.region.fair") if str(off.get("feast_kind", "")) == "fair" else _tr("region.feast." + str(off["feast"]))
+			line = _tr("ui.city.feast_offer") % [fname, line]
+		_row([line, _btn(_tr("ui.city.accept"), "" if here else "not_in_city",
 			func() -> void: _give({"type": "city_accept", "actor": actor, "contract": id}))], [480, 110])
 	_section(_tr("ui.city.accepted"))
 	var any := false

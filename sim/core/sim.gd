@@ -53,6 +53,7 @@ func step(orders: Array = []) -> Array:
 	Life.step(self)         # vida (04f 4.24): visitors, incidents, the watch, rumours (data/life/life.json enabled)
 	Households.step(self)   # Equilibrio 15: the houses' wages at dusk and food at dawn; the employees' and children's meals
 	Counter.step(self)      # H7: customers at the shop counters
+	Services.step(self)     # H12.2 (04d 4.22.3.2): the clients of the service buildings (the Consulta's patients)
 	Schedules.step(self)    # H8: the family's routines and the Work directive (real orders, Sim.give)
 	WorkQueue.step(self)    # hands the queue's next unit to each free employee at its station (work_at)
 	Production.step(self)   # work cycles, master-touch windows
@@ -118,7 +119,8 @@ func _apply_now(o: Dictionary) -> void:
 		events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),
 			"reason": "banished"})
 		return
-	if Region.is_away(state, str(o.get("actor", ""))) and not str(o.get("type", "")) in Travel.AWAY_ORDERS:
+	if Region.is_away(state, str(o.get("actor", ""))) and not str(o.get("type", "")) in Travel.AWAY_ORDERS \
+			and not FestivalCity.is_order(o):  # fiestas: a game of the city's feast where he is
 		events.append({"type": "order_refused", "order": str(o.get("type", "")), "actor": str(o.get("actor", "")),
 			"reason": "away"})  # viajes: away from home, only the region's orders (Travel.AWAY_ORDERS)
 		return
