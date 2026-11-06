@@ -120,6 +120,13 @@ def coverage(results):
                 if s["id"].startswith("esc_"):
                     esc_rows.append({"what": s["say"], "ok": s["ok"], "error": s["error"], "status": s["status"]})
     clashes = static_clashes()
+    shared = {}   # keys two actions share on purpose, each in its own context (data/flows/_coverage.json "keys")
+    if os.path.exists(motives_path):
+        with open(motives_path, encoding="utf-8") as f:
+            for k in json.load(f).get("keys", []):
+                shared[tuple(sorted(k.get("actions", [])))] = k.get("why", "")
+    for c in clashes:
+        c["why"] = shared.get(tuple(sorted(c["actions"])), "")
     return {"orders": rows, "keys": keys, "esc": esc_rows, "clashes": clashes}
 
 
@@ -228,6 +235,8 @@ def findings(results, cov):
                         "where": f"cobertura · {row['order']}", "what": "falta camino por " + " y ".join(row["gaps"]),
                         "shot": ""})
     for c in cov["clashes"]:
+        if c.get("why"):
+            continue   # shared on purpose (its motive in _coverage.json)
         out.append({"sev": "aviso", "where": f"teclas · {c['key']}", "what": "la misma tecla para " + ", ".join(c["actions"]),
                     "shot": ""})
     out.sort(key=lambda f: (SEV.get(f["sev"], 9), f["where"]))
@@ -419,7 +428,8 @@ def page(results, cov, bal, finds, imgs, full):
                  f"<td class={'bad' if bad else 'ok'}>{'choca' if k.get('clash') else ('no hace nada' if bad else 'ok')}</td></tr>")
     h.append("</table><h3>Misma tecla para dos acciones (mapa de entrada)</h3><table><tr><th>Tecla</th><th>Acciones</th></tr>")
     for c in cov["clashes"]:
-        h.append(f"<tr><td><code>{esc(c['key'])}</code></td><td>{esc(', '.join(c['actions']))}</td></tr>")
+        h.append(f"<tr><td><code>{esc(c['key'])}</code></td><td>{esc(', '.join(c['actions']))}"
+                 + (f"<br><span class=dim>a propósito: {esc(c['why'])}</span>" if c.get("why") else "") + "</td></tr>")
     h.append("</table><h3>Esc cierra cada pantalla (flujo «esc»)</h3><table><tr><th>Pantalla</th><th></th></tr>")
     for e in cov["esc"]:
         h.append(f"<tr><td>{esc(e['what'])}</td><td class={'ok' if e['ok'] else 'bad'}>{'sí' if e['ok'] else esc(e['error'] or e['status'])}</td></tr>")
