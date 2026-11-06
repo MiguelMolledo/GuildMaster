@@ -2561,6 +2561,8 @@ def main():
         wm = f"maps/{f[:-5]}"
         if "watch" in m:
             check_text(wm + " watch", (m.get("watch") or {}).get("name_key"), strings, rep)
+        for z in m.get("zones") or []:  # H13: the names of the map's zones (game/world/zone_layer.gd)
+            check_text(f"{wm} zones.{z.get('id', '?')}", z.get("name_key"), strings, rep)
         if "detail" in m:
             se = (m.get("detail") or {}).get("settled_every")
             if not isinstance(se, int) or not 1 <= se <= 30:

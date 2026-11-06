@@ -133,3 +133,28 @@ func test_the_start_city_flag_opens_the_new_game_screen() -> void:
 	check(bool(a["new_game"]) and not bool(a["title"]), "straight to the new game screen")
 	a = GameScript.parse_args(PackedStringArray([]))
 	eq(str(a["start_city"]), "", "none by default")
+
+
+## H13 · O-R1 (a proposal for the owner): region.json default_city, off by default. Turned on, the new game screen
+## offers the capital first; the sim without a city still plays the start's own map (the targets do not move).
+func test_the_capital_as_default_town_is_ready_behind_an_option() -> void:
+	eq(str(cat.region.get("default_city", "x")), "", "off in data/world/region.json")
+	eq(NewGame.default_city(cat, START), "villa", "off: the start's own town")
+	var c := Catalog.load_from()
+	c.region["default_city"] = "capital"
+	eq(NewGame.default_city(c, START), "capital", "on: Bellcaire")
+	c.region["default_city"] = "atlantis"
+	eq(NewGame.default_city(c, START), "villa", "an unknown town falls back to the start's own")
+	c.region["default_city"] = "capital"
+	var g: Node = GameScript.new()
+	g.start(NewGame.from_scenario("town_e_start")["state"], c)
+	var ng: NewGameScreen = (load("res://game/ui/new_game_screen.tscn") as PackedScene).instantiate()
+	ng.setup(c, 11)
+	ng.open()
+	eq(ng.city, "capital", "the screen opens on Bellcaire")
+	eq(str(ng.choices().get("city", "")), "capital", "and sends it")
+	check(ng.set_city("villa") and not ng.choices().has("city"), "Vilarrasa can still be chosen: the game of always")
+	ng.free()
+	g.free()
+	var r := NewGame.from_start(c, START, "normal", {"cast": "fixed"}, 1)
+	eq((r["state"] as WorldState).map_id, "town_e", "the sim without a city: the start's map, as always")
