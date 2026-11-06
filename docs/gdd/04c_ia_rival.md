@@ -271,6 +271,20 @@ flowchart TD
 - La quiebra va a la crónica y al registro de avisos («La forja de los Ferrer está en venta»).
 - D15 (mantenimiento impagado → edificio Dañado) también aplica a la IA: es la misma regla.
 
+**Implementado en H6 (rama posada, 2026-11-06; `sim/build/bankruptcy.gd`, `data/construction.json` bankruptcy)**
+[balance]: la máquina de arriba al amanecer, solo en los mapas de la economía de la IA (`data/ai.json` economy.maps,
+hoy Bellcaire; en Vilarrasa nada cambia hasta que su economía se encienda). Neto del taller negativo en los últimos
+16 días u oro bajo su reserva (`Construction.budget`) → austeridad 2 días (una estación): no construye y despide al
+empleado menos eficiente. Sin recuperarse (neto de la estación ≥ 0 y oro sobre la reserva) → cartel «Se vende» 2 días
+a `(coste + oro de sus mejoras) × 0,8`: lo compra el jugador con `buy_building` (o desde la carta de la parcela) a ese
+precio y sin negarse, y también otra familia IA de su oficio. Sin comprador → despide a todos, lo derriba (40 % de su
+coste) y la parcela vuelve a ser un solar. Sin negocio → **venida a menos** (Q9 b): conserva título y reputación, sus
+adultos pasan a ser candidatos a empleado (`Staff.is_unemployed`, con rango por su Artesanía), los que no tienen techo
+se alojan en la casa del pueblo con más sitio (pueden entrar en la casa donde viven: `Buildings.can_enter`), y con oro
+vuelve a montar taller (`Construction`, after_sale «rebuilds»); al terminar la obra deja de estar venida a menos. Antes
+de todo esto, el crédito de la economía (`ai_credit`, plantillas); la ruina de una familia IA no acaba la partida
+(forja: `Loans._seize`, `Emergency.ruin`). Aviso al jugador del cartel y de la caída, y a la crónica.
+
 #### 4.21.6.4 Familia (H8)
 
 | Candidata | Regla |

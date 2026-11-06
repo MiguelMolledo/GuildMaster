@@ -531,6 +531,8 @@ static func is_unemployed(sim: Sim, chr: String) -> bool:
 	if str(ch.get("rank", "")) == "":
 		return false
 	var fam: Dictionary = sim.state.families.get(str(ch.get("family", "")), {})
+	if fam.has("fallen") and Kin.is_adult(sim, chr):
+		return true   # H6 (04c Q9 b): an AI family venida a menos: its adults look for work
 	return str(fam.get("controlled_by", "")) == "ai" and str(fam.get("ai_profile", "")) == ""
 
 
