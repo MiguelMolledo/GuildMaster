@@ -1255,6 +1255,18 @@
       "tema": "Contratar: del más barato al más caro",
       "decision": "Los candidatos de Empleados → Contratar salen ordenados por jornal, el más barato primero (el aprendiz que pide la meta).",
       "por_que": "Pasada de jugador: el primer candidato era un oficial a 20 al día y la meta pide un aprendiz."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Dianas de la clientela de comarca (Equilibrio 14)",
+      "decision": "Bot counter_shop (artisan_expert con el mostrador, un empleado en él y 2 piezas de cada producto guardadas) y diana counter_shop: counter_ratio por semilla [2, null] y media [3, null] (Equilibrio 8), clientele_arrived_day de media [1,5, 4]; paso counter de la QA (3 semillas × 24 días). Medido (5 semillas): ×5,0-6,6 el salario; 2,4-2,8 clientes de comarca al día con 0,05-0,19 compras: el mostrador ya vende todo lo que forja el taller (con 4 o 6 piezas guardadas sale igual).",
+      "por_que": "Encargo del manager: encender la clientela como parte de Equilibrio 14, con sus dianas."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "La taberna comprada tarde: despensa del tabernero anterior",
+      "decision": "data/buildings/tavern_inn.json sale_stock: al comprarla trae las existencias del escenario innkeeper_start (Inn.order_buy_building). Medido con full_player (3 años × 4 semillas): la taberna pierde sus 7-10 primeros días (−595 de media antes, −523 con la despensa) y el neto del año 3 de la familia sube de 8-90 a 50-130 al día; a 6 años (2 semillas) deja 300-336 al día del año 5 al 6 con fama 4,6-5; en una generación (semilla 1) la familia gana 400-800 al día, máximo 42.000 de oro, 29.200 al final con la pecha (antes 56.854). La pérdida es el arranque; el largo plazo (3 veces la forja) queda para los sumideros de H6.",
+      "por_que": "Encargo del manager («la taberna comprada tarde que pierde dinero cada día»)."
     }
   ],
   "pendientes": [

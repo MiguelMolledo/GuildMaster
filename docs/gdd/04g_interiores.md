@@ -206,7 +206,18 @@ taberna (`InnClientele`) la lee y conserva su turno de noche y sus grupos. **Enc
 vende 113-120 de oro al día frente a un salario de 19-20 (×5,8-6,2, Equilibrio 8), con o sin la vida. Lo que lo limitaba
 no eran los clientes sino las existencias: el bot lo llevaba todo a la plaza y 3 de cada 4 clientes se iban sin nada;
 ahora guarda 2 piezas de cada producto para el mostrador mientras alguien lo atiende. Carpintería, cantería y sastrería
-quedan a 0 (sus cifras propuestas en `_proposed_base_per_day`) hasta que un bot del oficio con mostrador las mida.
+quedan a 0 (sus cifras propuestas en `_proposed_base_per_day`) hasta que un bot del oficio con mostrador las mida. **Sus dianas** (`data/targets.json` `counter_shop`, bot `counter_shop`, paso counter
+de la QA): el mostrador con un empleado vende al menos 2 veces su salario (3 de media) y llegan 1,5-4 clientes de
+comarca al día. Medido (5 semillas × 24 días): ventas ×5,0-6,6 el salario; 2,4-2,8 clientes de comarca al día que casi
+nunca encuentran pieza (0,05-0,19 compras): el taller ya vende en el mostrador todo lo que forja (con 4 o 6 piezas
+guardadas sale igual), así que la comarca es demanda de sobra para quien produzca más.
+
+**La taberna comprada (equilibrio, 2026-11-06).** Se vende con lo que dejó el tabernero anterior en la despensa
+(`data/buildings/tavern_inn.json` `sale_stock`: las existencias del escenario innkeeper_start). Medido con el jugador
+completo: la taberna pierde sus 7-10 primeros días (−595 de oro de media; −523 con la despensa) porque arranca sin fama,
+se agotan platos y compra por recado; luego compensa: del año 5 al 6, 300-336 de oro al día con fama 4,6-5, y en una
+generación la familia gana 400-800 al día (oro máximo 42.000, 29.200 al final con la pecha). Lo que pide decisión es el
+largo plazo (rinde 3 veces la forja): sumideros de H6.
 
 ### 4.6.5.8 Preguntas para el owner (decididas el 2026-11-04)
 
