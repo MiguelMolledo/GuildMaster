@@ -531,8 +531,9 @@ dianas siguen byte a byte igual.
   candidatura no puede dejarla sin oro para el mantenimiento: la política caía en la espiral del taller dañado). Los insumos no se frenan por la reserva: son su capital de trabajo (frenarlos hundía a la
   familia sin salida). **Crédito** (4.21.6.3 en pequeño; `economy.credit`):
   al amanecer, tras el mantenimiento, la familia que no puede pagar el del día siguiente (mantenimiento y sueldos)
-  pide 120 al prestamista y debe 144 en 8 días (una abierta, una cada 4 días); cada amanecer devuelve lo que tiene
-  sobre su reserva. Vencido, la prórroga y el embargo de siempre; lo que el embargo no cubre se perdona: una familia IA
+  pide 120 más lo que debe de mantenimiento (hasta 300) al prestamista y debe un 20 % más en 8 días (una abierta, una
+  cada 4 días); lo primero que paga es esa deuda, así que el taller dañado se repara (con el taller dañado no compra
+  insumos: no podría usarlos); cada amanecer devuelve lo que tiene sobre su reserva. Vencido, la prórroga y el embargo de siempre; lo que el embargo no cubre se perdona: una familia IA
   no se arruina (la ruina acaba la partida del jugador). Sin él, una forja que cubría gastos justos (Ferrer frente al
   jugador, semilla 3) caía a 0 y el taller dañado la dejaba sin salida 68 días. La quiebra completa de 4.21.6.3
   (vender el taller, venida a menos) sigue en H6.
