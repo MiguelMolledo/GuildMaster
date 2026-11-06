@@ -851,7 +851,8 @@ almacén; (4) blanquea una pieza y véndela en el mercado; (5) pasa una noche en
 > - **Bot `rogue_novice`** (paso `rogue` de run_all): bolsas de día a quien no le ve venir y fuera de la vista de la
 >   guardia, un almacén de noche cuya puerta no ve nadie, el perista y el banco, la deuda. 48,7 netos/día en Normal
 >   (10 semillas, 30,0-61,6), Fácil 58,6 > Normal 48,7 > Difícil 40,4 (`data/difficulty.json` `rogue`: el modificador de las tiradas
->   y lo que paga el perista), deuda saldada 5/5.
+>   y lo que paga el perista); deuda saldada 10/10 en Fácil (día 0,7) y Normal (día 2,8), 7/10 en Difícil; 0,2
+>   juicios por partida.
 > - **Guardado:** sin versión nueva (lo nuevo se lee con valores por defecto). Espía, Bandido, Mercenario, la
 >   vigilancia de vecinos con su tirada (`Watch.observe`), el combate como orden y el Nido quedan para los bloques
 >   siguientes del Pícaro.
