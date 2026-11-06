@@ -194,6 +194,11 @@ marqués para San Juan», «En Portvell pagan bien las espadas», «Anoche asalt
 > puerta, siguen el plan de su tipo (`visitors.kinds`) y **se van al atardecer** por la misma puerta (dormirán en la
 > posada cuando exista: 4.27); al irse salen del estado. El juglar monta un espectáculo en la plaza y los vecinos van a
 > mirarlo. Limosna: orden `give_alms` (1 de oro, +1 de reputación una vez al día por familia).
+> **El puesto del buhonero** (2026-11-06, auditoría de H16; `sim/life/peddler.gd`): trae su mercancía del día
+> (`visitors.kinds.peddler.wares`: los dados cargados la mitad de los días, dulces, agujas y una capa de viaje, cada
+> una con una tirada con clave al llegar) y se le compra en persona desde su ficha («Comprar … (n)», orden
+> `buy_from_peddler`; va hasta él si está lejos). El oro sale fuera (compras); lo que no vende se va con él al
+> atardecer.
 
 #### 4.24.4 La guardia
 
@@ -255,9 +260,11 @@ escenarios de las dianas** (`_no_events`), con su carta, su aviso y su entrada e
 > llegar a la puerta; topes del 10 % del oro y 3 piezas (comprobados por el bot `guard_watch`). **Secuestro:** se tira
 > al alba del mismo día, entre las 17 y las 02 h (para que haya nobles forasteros antes de irse); víctimas con peso
 > sobre todos los tipos (un tipo sin nadie = no hay secuestro: los familiares del jugador, ~8 % de las tiradas);
-> la víctima queda fuera del mapa (`captive`, como de viaje). **Pendiente:** jugar la cadena del rescate en la
-> pantalla del duelo (hoy se resuelve sin jugar, con las mismas probabilidades) y apostar sobre un altercado (4.26.6,
-> bloque Juegos).
+> la víctima queda fuera del mapa (`captive`, como de viaje). El rescate se juega en la pantalla de juegos (la cadena
+> de peleas, con «Resolver sin jugar») y se apuesta sobre un altercado (4.26.6, rama juegos).
+> **El secuestro en el camino** (2026-11-06, auditoría de H16): no se construye por ahora. El camino ya tiene su
+> asalto (09b: el viajero pierde toda la carga) y un secuestro encima castigaría dos veces el mismo riesgo; los
+> secuestros siguen siendo de la villa.
 
 ---
 
@@ -488,7 +495,12 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
     `patron_feast.games` de `data/world/region.json`: la justa y la sortija de Sant Jordi, el pulso de Santa Bárbara, la
     carrera de San Isidro, los toros; la carrera en cada feria). Jugar es una partida allí mismo contra el campo del
     espectáculo; mirar y apostar se paga al momento con la misma partida. Una vez cada cosa por juego y día
-    (`families[fam].city_feasts`, sin versión de guardado nueva). Sus encargos de fiesta quedan en próximos pasos.
+    (`families[fam].city_feasts`, sin versión de guardado nueva). **Sus encargos** (la (c), 2026-11-06,
+    `rules.city_contracts`): la víspera y el día de su fiesta la ciudad publica en su tablón los suyos (Sant Jordi:
+    espadas y ropa fina; Portvell: toneles y pan; Peñarroja: martillos y ropa de trabajo; Vilablat: azadas y
+    herraduras; Montsacre: candelabros y pan; cada feria: herraduras y una rueda de carro), marcados con su fiesta,
+    hasta que acaba ese día: pagan el doble del precio base y dan +3 de reputación más allí. No cuentan para el tope
+    de encargos de la ciudad. En casa no: sus fiestas son las del calendario.
   - Las apuestas del torneo siguen siendo al ganador (owner).
 - **Enganchado con vida** (2026-11-04, tras juntar su rama): `Life.event_mult` multiplica por la fiesta (`routine`
   e `incident` a su hora; `visitors` con las fiestas de todo el día, porque vida planea los forasteros al empezarlo),
@@ -720,7 +732,7 @@ Inspirados en el **Libro de los juegos** de Alfonso X (1283), que describe los j
   Cada rival puede verlos: d100 ≤ 25 + (su Empatía − tu Destreza) × 5. **Si te pillan:** la partida no cuenta, pierdes
   la apuesta y los dados, hecho público «trampa» (cargo `cheat`, leve, H11), reputación −5 y el evento
   `game_cheat_caught` para que la vida de la ciudad (4.24.5) monte el altercado. Así enlaza con 4.22 (el Pícaro tendrá
-  ventaja: más Destreza). *Pendiente de la rama vida:* que el buhonero los venda (hoy el objeto existe sin puesto).
+  ventaja: más Destreza). Los vende el buhonero, la mitad de los días que viene (30 de oro; 4.24.3).
 - **La tafurería:** en Castilla el juego se hacía en casas con licencia del concejo. Jugar en la calle está mal
   visto en días de predicador. La taberna puede comprar la **licencia de tafurería** (4.27.4) y ganar la parte de la
   casa: el **10 % de lo que gana el ganador** (`house.rake`, O-V8), que va al dueño de la taberna.

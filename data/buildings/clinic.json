@@ -1,0 +1,34 @@
+{
+  "id": "clinic",
+  "name_key": "building.clinic",
+  "category": "workshop",
+  "parcel_type": "production",
+  "footprint": [
+    3,
+    3
+  ],
+  "build_cost": 100,
+  "build_days": 1,
+  "upkeep": 12,
+  "storage_stacks": 10,
+  "base_employees": 1,
+  "zones": [
+    {
+      "id": "cot",
+      "kind": "service"
+    },
+    {
+      "id": "mortar",
+      "kind": "craft"
+    },
+    {
+      "id": "storage",
+      "kind": "storage"
+    }
+  ],
+  "upgrade_tree": "clinic",
+  "night_production": "manual_only",
+  "includes_housing": true,
+  "tool": "doctor_bag",
+  "_doc": "H12.2 (04d 4.22.5.1): the physician's Consulta médica, 3x3 with housing. cot: the service station (the patients of data/services.json doctor wait there; doctor_visit / doctor_surgery); mortar: the bandages. No counter: the bandages go to the apothecary's stall and the board's contracts. upkeep 12 (the GDD's reckoning of 4.22.8) [balance]."
+}

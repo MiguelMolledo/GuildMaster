@@ -7,7 +7,8 @@ extends Node
 ## through the UI paths. Last, the player's wedding offer without the gold of the banquet (the button off, with its
 ## reason: fiesta_boda_sin_oro), and the clock's festival button and the card it opens again (fiesta_boton_reloj,
 ## fiesta_carta_reabierta), the corro with the preacher (fiesta_corro), the Christmas gifts (fiesta_regalos) and
-## Sant Jordi in Bellcaire with its games on the city's page (fiesta_ciudad_sant_jordi). Quits when done, or after `timeout` seconds.
+## Sant Jordi in Bellcaire with its games on the city's page (fiesta_ciudad_sant_jordi) and its feast's contracts on
+## its board (fiesta_ciudad_encargos), and the peddler's stall in the plaza (vida_buhonero). Quits when done, or after `timeout` seconds.
 
 const DAY: int = 1440
 const PLAZA: Vector2i = Vector2i(19, 19)
@@ -292,5 +293,32 @@ func _process(delta: float) -> void:
 		"city":
 			if _t > 0.8:
 				app.save_shot("fiesta_ciudad_sant_jordi")
+				FestivalCity.post_contracts(Game.sim, "capital", 1)  # its feast's contracts on its board
+				var cs: Node = app.call("city_screen")
+				cs.set("tab", "board")
+				cs.set("_sig", "")
+				_go("city_board")
+		"city_board":
+			if _t > 0.8:
+				app.save_shot("fiesta_ciudad_encargos")
+				var cs: Node = app.call("city_screen")
+				cs.call("hide")
+				var sim: Sim = Game.sim  # back home, a peddler in the plaza with his wares
+				(sim.state.region["trips"] as Dictionary).erase(_who)
+				Region.put_on_map(sim, _who, [19, 21])
+				Life.service_family(sim.state, Life.FAMILY_VISITORS, "family.visitors", {"primary": "#6a5a4a", "secondary": "#c8b8a0"})
+				var stock := Peddler.stock_for(sim.state, Visitors.cfg(sim)["kinds"]["peddler"], "smoke|0")
+				if not stock.any(func(w: Dictionary) -> bool: return str(w["item"]) == "loaded_dice"):
+					stock.append({"item": "loaded_dice", "price": 30, "qty": 1})  # the capture shows the dice
+				var pd := Life.add_person(sim, Life.FAMILY_VISITORS, "Buhonero", false, 44, {}, {}, [20, 21],
+					{"visitor": {"kind": "peddler", "city": "port", "gate": "", "purse": 30, "plan": [], "stop": -1, "until": -1,
+					"leaving": false, "arrived": 0, "wares": stock}})
+				Life.put_on(sim, pd, [20, 21])
+				app.world().camera().center_on(Iso.tile_to_world(Vector2i(19, 21)))
+				app.hud().call("open_npc", pd)
+				_go("peddler")
+		"peddler":
+			if _t > 0.8:
+				app.save_shot("vida_buhonero")
 				_go("done")
 				get_tree().quit()

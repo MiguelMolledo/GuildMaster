@@ -271,7 +271,7 @@
     "price_weight": 0.1,
     "complaints": ["nobody", "no_product"],
     "points": {"masterwork": 0.3, "contract_done": 0.04, "festival_contract_done": 0.15, "contest_won": 0.2,
-      "contract_failed": -0.1, "complaint": -0.03}
+      "contract_failed": -0.1, "complaint": -0.03, "patient_cured": 0.03}
   },
   "households": {
     "_doc": "Equilibrio 15 (docs/decisiones.json, 04f 4.24.1, 04g §4.6.5.7, sim/balance/households.gd) [balance], only with the living town on: at dusk every adult townsperson with a trade of the map and no job with a family brings wages[the kind of its workplace] (else default) to its house's purse (money from outside, P4); at dawn the house pays its food, food.adult per adult and food.child per child (to outside), and the share it could pay feeds its employees and children: the night at home (data/life/life.json needs.night, the hunger × that share) and at meal_hour the midday meal (meal.hunger × that share). A neighbour spends at the tavern only what is left over reserve_days of food.",

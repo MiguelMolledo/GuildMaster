@@ -1,0 +1,13 @@
+{
+  "id": "make_bandages",
+  "name_key": "objective.make_bandages",
+  "conditions": [
+    {
+      "event": "work_done",
+      "match": {
+        "item": "bandages"
+      },
+      "count": 1
+    }
+  ]
+}
