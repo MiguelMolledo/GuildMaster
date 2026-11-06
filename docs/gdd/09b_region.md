@@ -295,9 +295,10 @@ Pendiente de full_player en `docs/decisiones.json`: «caravanas y tratados nunca
 - **El carro de la cuota:** con una cuota firmada y sin carro, el jugador completo guarda su precio en la reserva, y su
   posadero tampoco lo gasta (`BotInnkeeper.kept`; antes se le iba en surtir la taberna y la cuota se rompía sin servirla).
 
-Medido (full_player, 3 años × 8 semillas, antes → después): caravanas 0,5 → 2,5 de media; lo que vendieron frente a lo
-que valían en casa al salir +24 → +271; tratado (cuota cobrada − su valor en casa − firma − carro − multas) −68 → +144
-de media, positivo en 0/8 → 7/8 (la octava no llega a firmar), roto 1/8 → 0/8; oro medio del año 3 517 → 544. El bot
+Medido (full_player, 3 años × 8 semillas, sobre main a98bd928, antes → después): caravanas 0,8 → 3,0 de media; lo que
+vendieron frente a lo que valían en casa al salir +11 → +281; tratado (cuota cobrada − su valor en casa − firmas −
+carro − multas) −59 → +105 de media, positivo en 1/8 → 5/8 (la octava no llega a firmar), roto 4/8 → 1/8; oro medio
+del año 3 490 → 645. El bot
 merchant (travel_start, 10 semillas × 16 días) sigue dentro de sus dianas, pero cerca del techo de una: ventas en la
 capital 710 → 858 de media (banda 450-900; por semilla 509-881 → 639-1.080), viajes 2,5 → 1,7 (firma la cuota en el
 primero), oro final 603 → 739.
