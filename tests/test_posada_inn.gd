@@ -71,9 +71,9 @@ func test_buy_building_pays_and_owns() -> void:
 	eq(str(st.buildings[t]["owner"]), FAM, "the family owns it")
 	check(not st.buildings[t].has("for_sale"), "no longer for sale")
 	check(st.buildings[t].get("inn") is Dictionary, "the inn state is there")
-	eq(Orders.apply(sim, {"type": "buy_building", "actor": HERO, "building": t})["reason"], "not_for_sale", "only once")
-	eq(Orders.apply(sim, {"type": "buy_building", "actor": HERO, "building": "bld_0001"})["reason"], "not_for_sale",
-		"the forge is not for sale")
+	eq(Orders.apply(sim, {"type": "buy_building", "actor": HERO, "building": t})["reason"], "own_building", "only once")
+	eq(Orders.apply(sim, {"type": "buy_building", "actor": HERO, "building": "bld_0001"})["reason"], "own_building",
+		"the forge is already the family's (H6: buying another family's business is Plots')")
 	check(Orders.is_management("buy_building"), "a management order")
 
 

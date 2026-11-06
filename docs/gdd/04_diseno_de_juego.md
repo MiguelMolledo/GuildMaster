@@ -640,6 +640,49 @@ Cada mapa trae, además de los edificios del inicio, una lista de **parcelas** (
   04c. Las parcelas y su aspecto en los mapas se pueden preparar ya. Hoy ya existe la compra de un edificio en venta
   (la Taberna-Posada, 04f §4.27).
 
+**Implementado en H6 (la parte del jugador y de los NPC, rama posada, 2026-11-06)** [balance, `data/construction.json`]:
+`sim/build/plots.gd` (Plots) lleva el estado de las parcelas del mapa en `state.parcels` (solo lo que cambia: una
+partida vieja lee lo mismo, sin versión nueva), `sim/build/construction.gd` (Construction) termina las obras y decide la
+construcción de las familias IA. En la interfaz, el **modo construcción** (B) pinta las parcelas por zona (verde rústica,
+naranja producción, azul vivienda, gris ocupada) y un clic abre su **carta** (`game/build/plot_card.gd`) con zona,
+tamaño, lugar (dentro o extramuros) y situación, y lo que se puede hacer con su precio y sus días o por qué no.
+
+- **Construir** en un solar: el coste de construir del edificio × la situación (de ×0,8 a ×1,3 según `location`), y
+  ×0,85 extramuros; la obra dura sus `build_days`. **Restaurar** una ruina: ×0,3 de compra + ×0,5 de obra y la mitad de
+  días. Una casa cuesta 120. Cabe lo que entra en la parcela, también girado un cuarto.
+- **La obra**: el edificio está en estado `construction` (andamio y barra en el mapa, la cara «en obra» de su fachada):
+  no produce, no paga mantenimiento y no cuenta todavía como negocio para los títulos; al acabar avisa.
+- **Reconvertir** uno propio a otro de su zona que quepa: ×0,4 del coste del nuevo y 1 día; se pierden sus mejoras.
+- **Derribar** uno propio sin empleados ni nadie dentro: devuelve el 40 % (decidido 2026-11-02) y la parcela vuelve a
+  ser un solar; no el único techo de la familia; reputación −2 con los vecinos.
+- **Comprar a un NPC** su negocio (botón «Comprar…» de su barra o su carta): `(coste + oro de sus mejoras) × mod_relación
+  × situación`, con mod_relación de 0,8 (relación ≥ +60) a 1,5 (≤ −60); por debajo de −40 no vende. Sus empleados se van
+  con él. Después, según la relación: ≥ +20 se queda en el pueblo sin negocio (`after_sale.fate` stays; «acepta trabajar
+  para ti» queda [provisional]: a los miembros de una familia IA aún no se les contrata), ≥ −20 monta negocio en otra
+  parcela (la construcción de su familia lo busca primero), por debajo se va y no construye más.
+- **Tope por título**: cuenta todos los edificios de la familia menos la taberna (O-V11) y los que están en obra sí
+  cuentan. Un Plebeyo con su forja no construye: para el segundo negocio hace falta ser Ciudadano. La taberna cuenta
+  como negocio para los requisitos de los títulos (decisión «Equilibrio 4 · Barón»).
+- **Válvula**: una familia IA solo toma una parcela libre si después quedan al menos 2 de esa zona; el jugador puede
+  tomar la última.
+- **La IA** (04c §4.21.6.2): al amanecer, desde el día 9 y con un enfriamiento de 8 días por familia, cada familia IA
+  con perfil mira las 3 parcelas libres de producción mejor situadas donde cabe un taller de sus oficios y los edificios
+  en venta de sus oficios; puntúa `beneficio esperado × 16 días × expansión / precio` y construye o compra la mejor que
+  pase de 1 y pague con su oro por encima de su reserva. Una familia que vendió su taller toma la mejor que pueda pagar.
+  Las órdenes (`build`, `buy_building`) son de gestión, como las del jugador. `data/construction.json` `ai.enabled`
+  apaga este paso cuando la agenda de 04c (sim/ai) lo llame por su cuenta (`Construction.candidates` / `choose` /
+  `order_for`, contrato en 04c §4.21.6.2). Un **segundo** edificio (con su taller en pie) espera a `ai.expand`, apagado
+  hasta que la economía de sim/ai sepa llevarlo (contratar, cola, vender de su almacén): hoy una forja nueva de la IA
+  se queda vacía y la arruina. Sin él, solo monta taller la familia que vendió el suyo.
+- **Cuántas parcelas libres trae una ciudad** (regla del owner, 2026-11-06): **4-5 de producción** (solares y ruinas),
+  **al menos 2 del tamaño de un taller (3×4 o 4×3)**, y **3-4 de vivienda de 3×3** (una casa). Así la IA puede tomar
+  2-3 sin tocar la válvula y siempre quedan 2 de cada zona para el jugador. Vilarrasa (town_e) la cumple con
+  `tools/maps/make_town_e.py`: la ruina 3×3 y el solar 3×2 de dentro, dos solares de taller de 3×4 al norte del
+  callejón de arriba (plot_21 extramuros y plot_22 dentro) y cuatro de vivienda de 3×3 en esa franja; las otras cinco
+  ciudades, `tools/city/plots.py` (plantillas). En un segundo solar de taller cabe también una segunda taberna (O-V12).
+- **Rústica**: las parcelas rústicas se ven en el modo, pero todavía no hay edificios que levantar en ellas (granjas,
+  minas, aserraderos: 4.22).
+
 **Límite de edificios por título:**
 
 | Título | Edificios propios |
