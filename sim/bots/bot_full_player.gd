@@ -32,7 +32,7 @@ const COURT_FROM_DAY: int = 7         # courts once the debt is paid, or from th
 const DUEL_MIN_CHANCE: float = 0.5    # challenges only when it estimates it wins at least this
 const DUEL_ACCEPT_CHANCE: float = 0.4 # accepts a challenge with at least this (the NPC's own bar)
 const CITY: String = "capital"
-const TRIP_SWORDS: int = 5            # swords it carries on a trip to open the market (Equilibrio 7: 5, the quota's reputation)
+const TRIP_SWORDS: int = 3            # swords it carries on a trip to open the market (the quota's reputation, 3)
 const TRIP_SPARE: int = 120           # gold kept at home on top of the reserve before a trip
 const TRIP_EVERY_DAYS: int = 8        # a trip to the capital at most once a year
 const CARAVAN_SWORDS: int = 4         # swords waiting in the storage before a caravan
@@ -381,7 +381,7 @@ func _quota_caravan(sim: Sim) -> Dictionary:
 		return {}
 	if Caravans.carts(sim, _fam_id) == 0:
 		var cart_price := int(sim.catalog.trade.get("caravans", {}).get("cart_price", 120))
-		if Money.gold(st, _fam_id) < cart_price + _reserve(sim):
+		if Money.gold(st, _fam_id) < cart_price + super._reserve(sim):  # the cart is the reserve's part
 			why_not["caravans"] = "cart_too_dear"
 			return {}
 		_use("caravans")
@@ -762,6 +762,15 @@ func _trip_swords(sim: Sim) -> int:
 
 ## While gathering swords for the first trip (Equilibrio 7), up to TRIP_SWORDS of them, the best first, are kept from
 ## the market like a contract's.
+## With a quota in force and no cart yet (Equilibrio 7), the cart's price stays in the reserve: the quota is served by
+## caravan, and a season without the cart breaks it.
+func _reserve(sim: Sim) -> int:
+	var r := super._reserve(sim)
+	if Caravans.carts(sim, _fam_id) == 0 and not Treaties.quota_of(sim, CITY, _fam_id, "sword").is_empty():
+		r += int(sim.catalog.trade.get("caravans", {}).get("cart_price", 120))
+	return r
+
+
 func _reserved(sim: Sim) -> Dictionary:
 	var out := super._reserved(sim)
 	if _quota_hold > 0:  # the quota's swords (Equilibrio 7), the normal ones first
@@ -917,6 +926,7 @@ func _inn(sim: Sim) -> Array:
 			_note(sim, "innkeeper", _keeper)
 			return [{"type": "assign_building", "actor": ACTOR, "character": _keeper, "building": inn._tavern}]
 		inn._hero = _keeper
+		inn.kept = _reserve(sim) - super._reserve(sim)  # the quota's cart (Equilibrio 7b): the tavern does not spend it
 		var o: Array = []
 		var loc := str(st.characters[_keeper].get("location", ""))
 		for x: Dictionary in inn.orders(sim):
