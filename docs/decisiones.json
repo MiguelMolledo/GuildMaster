@@ -967,6 +967,12 @@
       "tema": "Toque de maestro sustituido por la Forja viva; «Cerrar» y «Otra pieza» (verifica)",
       "decision": "La interfaz deja de dar master_touch: el puesto no parpadea ni pinta la ventana, el clic solo lleva al puesto, sin pista de tutorial ni «+ toque de maestro» en el menú. El sim conserva la orden y la ventana (partidas viejas, bots de los otros oficios). El novato del herrero pasa a la Forja viva solo con live_for_quality = 1: medido con 10 semillas, sube el oro del día 10 (358 -> 387 de media) y da 6 fallos de banda (3 semillas > 540 el día 10, 1 > 320 el día 3, 2 a 0 el día 10); por defecto sigue con careful + toque hasta que el owner vea las bandas. Tras el resultado de la Forja viva, «Cerrar» cierra y vuelve al yunque (para la pieza que la forja empezó sola) y «Otra pieza» es un botón aparte. En la cobertura de verifica (data/flows/_coverage.json, que solo está en su rama) master_touch debe pasar a «sustituida por la Forja viva (03b §3b.8)» para ratón y teclado.",
       "por_que": "Hallazgos de verifica y decisión del manager: con el ratón no se podía parar tras un resultado, y la Forja viva es la que sustituye al toque. Las bandas del novato no se mueven sin el owner (principio 4)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Novato con Forja viva: las semillas a 0 eran del bot",
+      "decision": "Punto de rechazo (semilla 8, live_for_quality = 1): acepta 2 armaduras de calidad el día 3, 20 minutos después paga la deuda dejando 30 de reserva, se queda sin materiales, el encargo vence y con 33 de oro y el almacén vacío no compra nada (planea la receta de más margen y no le llega). Todas las piezas a mano salieron bien: no es el juego. Arreglos en BotArtisanNovice: la deuda pagada pronto guarda el coste de los materiales de los encargos aceptados (_committed) y, sin nada en el almacén, compra la pieza más barata que pueda pagar (_cheapest_affordable). Con live_for_quality = 1: 0 semillas a 0, 0 encargos fallados, oro del día 10 274-613; quedan 4 semillas por encima de 540. live_for_quality sigue apagado (owner). Con él apagado, todos los informes de los bots idénticos.",
+      "por_que": "«2 de 10 semillas con 0 de oro no es una banda que mover: es una señal» (manager, 2026-11-06)."
     }
   ],
   "pendientes": [
