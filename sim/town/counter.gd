@@ -227,7 +227,7 @@ static func sell(sim: Sim, bld: String, customer: String, server: String, item: 
 	var drop := float(sim.catalog.town.get("counter", {}).get("demand_drop_per_unit", 0.0))
 	if drop > 0.0:
 		var it := str(item["item"])
-		Market._set_demand(sim, it, Market.demand(sim, it) - drop, false)
+		Market._set_demand(sim, it, Market.demand(sim, it) - drop * sim.catalog.demand_weight(it), false)
 		sim.events.append({"type": "demand_changed", "item": it, "demand": Market.demand(sim, it)})
 	if OS.is_debug_build():
 		print("[Counter] %s compra %s (q%d) en %s por %d (vende %s, descuento %.0f %%)" % [customer, item["item"],

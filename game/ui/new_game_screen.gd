@@ -226,6 +226,7 @@ func set_profession(p: String) -> void:
 	for b: Node in (%Profession as HBoxContainer).get_children():
 		(b as Button).set_pressed_no_signal(b.name == p.to_pascal_case())
 	_build_cities()
+	_update_difficulty_hint()  # H12 Patrón: the farmer's line speaks of the harvest
 	ViewConfig.info("NewGame", "oficio %s (start=%s)" % [p, start_id])
 	_update_start()
 
@@ -310,6 +311,10 @@ func _update_difficulty_hint() -> void:
 	var def := catalog.difficulty_levels(difficulty)
 	(%DifficultyHint as Label).text = SimQuery.t_("ui.new_game.difficulty_hint") % [int(def.get("start_debt", 0)),
 		int(def.get("rival_craft", 0)), roundi(float(def.get("buy_price_mult", 1.0)) * 100.0)]
+	var cls := str(catalog.starts().get(start_id, {}).get("class", ""))
+	if cls == "patron":  # H12 Patrón: the difficulty's harvest (good land or poor) instead of the rival's craft
+		(%DifficultyHint as Label).text = SimQuery.t_("ui.new_game.difficulty_hint_farm") % [int(def.get("start_debt", 0)),
+			roundi(float(def.get("harvest_mult", 1.0)) * 100.0), roundi(float(def.get("buy_price_mult", 1.0)) * 100.0)]
 
 
 func set_female(f: bool) -> void:

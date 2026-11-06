@@ -1,0 +1,11 @@
+{
+  "id": "sow_fields",
+  "name_key": "objective.sow_fields",
+  "conditions": [
+    {
+      "event": "field_worked",
+      "match": {"action": "sow"},
+      "count": 4
+    }
+  ]
+}

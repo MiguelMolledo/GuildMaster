@@ -1,0 +1,55 @@
+{
+  "id": "farm",
+  "name_key": "building.farm",
+  "category": "workshop",
+  "parcel_type": "rustic",
+  "footprint": [
+    3,
+    4
+  ],
+  "build_cost": 100,
+  "build_days": 1,
+  "upkeep": 15,
+  "storage_stacks": 12,
+  "base_employees": 1,
+  "zones": [
+    {
+      "id": "field_a",
+      "kind": "field",
+      "like": "field"
+    },
+    {
+      "id": "field_b",
+      "kind": "field",
+      "like": "field"
+    },
+    {
+      "id": "field_c",
+      "kind": "field",
+      "like": "field"
+    },
+    {
+      "id": "field_d",
+      "kind": "field",
+      "like": "field"
+    },
+    {
+      "id": "pen",
+      "kind": "pen"
+    },
+    {
+      "id": "storage",
+      "kind": "storage"
+    }
+  ],
+  "pen_capacity": 8,
+  "fields": {
+    "speed_per_point": 0.05,
+    "min_speed": 0.5
+  },
+  "upgrade_tree": "farm",
+  "night_production": "manual_only",
+  "includes_housing": true,
+  "tool": "hoe",
+  "_doc": "H12 Patrón (docs/gdd/04d_otras_clases.md 4.22.4.1-2, 4.22.4.6): the farmer's Granja, with housing. field_a..field_d: the fields (stations of kind field that work as \"field\": the recipes farm_plow, farm_sow_wheat, farm_harvest; their state in buildings[b].fields, sim/farm/fields.gd); pen: the corral (the animals are items of its storage, up to pen_capacity, +4 with the upgrade; sim/farm/herds.gd); fields: the speed of field work by constitution (Fields.speed). upkeep 15 (the GDD's reckoning of 4.22.8) [balance]. No counter: the wheat, the wool and the animals go to the market's stalls and the board's contracts."
+}

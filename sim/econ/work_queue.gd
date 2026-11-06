@@ -213,7 +213,7 @@ static func _assign(sim: Sim, bld: String, q: Dictionary, chr: String, plans: Ar
 			var kind := str(recipe.get("zone", ""))
 			if not _role_allows(sim, chr, kind) or Production._lock_reason(sim, st.characters[chr], b, recipe) != "":
 				continue
-			var zone := _free_station(sim, bld, kind, chr)
+			var zone := _free_station(sim, bld, kind, chr, recipe)
 			if zone == "":
 				continue
 			sim.give({"type": "work_at", "actor": chr, "building": bld, "zone": zone, "recipe": rid, "mode": "normal"})
@@ -234,13 +234,17 @@ static func _assign(sim: Sim, bld: String, q: Dictionary, chr: String, plans: Ar
 ## H5: the station of `kind` where `chr` can start now: the one it already holds if it is of that kind, else the first
 ## free one by id — the type's own station, then the copies an upgrade added (anvil, anvil_2; Upgrades.zone_kind).
 ## "" if none. A fixed role works at every station of its kind (the role names the kind).
-static func _free_station(sim: Sim, bld: String, kind: String, chr: String) -> String:
+static func _free_station(sim: Sim, bld: String, kind: String, chr: String, recipe: Dictionary = {}) -> String:
 	var zones: Dictionary = sim.state.buildings[bld].get("zones", {})
 	var mine := str(sim.state.characters[chr].get("station", ""))
-	if zones.has(mine) and Upgrades.zone_kind(sim, bld, mine) == kind and not zones[mine].get("job") is Dictionary:
+	var field := Fields.is_field(recipe)  # H12: a field recipe goes to a field that allows it now (Fields.reason)
+	if zones.has(mine) and Upgrades.zone_kind(sim, bld, mine) == kind and not zones[mine].get("job") is Dictionary \
+			and (not field or Fields.reason(sim, bld, mine, recipe) == ""):
 		return mine
 	for z: String in _sorted_keys(zones):
 		if Upgrades.zone_kind(sim, bld, z) != kind:
+			continue
+		if field and Fields.reason(sim, bld, z, recipe) != "":
 			continue
 		var occ := str(zones[z].get("occupant", ""))
 		if (occ == "" or occ == chr) and not zones[z].get("job") is Dictionary:

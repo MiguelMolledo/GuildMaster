@@ -137,7 +137,8 @@ static func set_demand(sim: Sim, c: String, item: String, value: float) -> void:
 
 ## Every unit sold there drops the city's demand of the item by drop_per_unit (as at home).
 static func drop_demand(sim: Sim, c: String, item: String, units: int) -> void:
-	set_demand(sim, c, item, demand(sim, c, item) - float(_demand_cfg(sim).get("drop_per_unit", 0.04)) * units)
+	set_demand(sim, c, item, demand(sim, c, item) - float(_demand_cfg(sim).get("drop_per_unit", 0.04)) * units
+		* sim.catalog.demand_weight(item))  # H12 (04d 4.22.3.4)
 
 
 static func _recover_demand(sim: Sim) -> void:

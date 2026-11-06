@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0s04w1fgmj88"]
+
+[ext_resource type="Script" uid="uid://bxexr5b2tf8mg" path="res://game/visuals/props/stall_livestock.gd" id="1_look"]
+
+[node name="StallLivestock" type="Node2D"]
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -24)
+
+[node name="Pen" type="Node2D" parent="."]
+script = ExtResource("1_look")
+editor_description = "H12 Patrón: the cattle fair (data/market.json livestock): a small pen with animals drawn by code (game/visuals/stations/pen_look.gd) until its art."

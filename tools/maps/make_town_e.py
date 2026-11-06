@@ -19,7 +19,7 @@ H7: the living town (GDD 4.11.3, docs/contratos/h7_ciudad.md): "social_points" (
   the armory, church, town hall, fields, river, well and gates; TownLife.assign_occupations gives them in this order to
   the adult townsfolk by id). town_e_start is a v8 save.
 H12: the workshops of the other trades (workshop_carpentry, workshop_masonry, workshop_tailor) and the clothier's and
-  goods stalls; H12.2: the apothecary's stall and the Consulta's site (player_clinic, on the player forge's plot). town_e_start does not place them (it is the H7 sandbox): their footprints get the decor's lots.
+  goods stalls; H12.2: the apothecary's stall and the Consulta's site (player_clinic, on the player forge's plot); H12 Patrón: the livestock stall and the Granja's site (player_homestead, the same plot; named after player_forge so the plot stays the forge's). town_e_start does not place them (it is the H7 sandbox): their footprints get the decor's lots.
 Town builder: "decor", the cosmetic dressing by the rules of tools/city/reglas.json (docs/protocolos/generar-ciudad.md).
 This script is the source of data/maps/town_e.json and data/scenarios/town_e_start.json and rebuilds both byte for
 byte. --check writes nothing: it exits with 1 (and says which file) if either differs from what it would write, e.g.
@@ -117,7 +117,10 @@ STALLS = {"resources": ([16, 14], [16, 15]), "food": ([19, 14], [19, 15]), "mate
           # H12.2 (docs/gdd/04d_otras_clases.md 4.22.5): the apothecary's stall (the Boticario of 4.5.1, an outdoor
           # stall for now) on the east edge of the plaza, served from the tile to its west: it buys and sells
           # bandages, salves and herbs
-          "apothecary": ([24, 20], [23, 20])}
+          "apothecary": ([24, 20], [23, 20]),
+          # H12 Patrón (04d 4.22.4.2): the cattle fair (sheep and pigs), an outdoor stall on the south edge of the plaza
+          # (in front of the town hall), served from the tile to its north
+          "livestock": ([22, 24], [22, 23])}
 BOARD = [16, 22]
 for t, _ in STALLS.values():
     g[t[1]][t[0]] = "S"
@@ -146,6 +149,9 @@ town = {
         "rival_tailor": {"type": "tailor_shop", "origin": [25, 20], "door": [26, 19]},
         # H12.2: the scholar's start (scholar_physician) builds its Consulta médica on the player forge's plot
         "player_clinic": {"type": "clinic", "origin": [25, 20], "door": [26, 19]},
+        # H12 Patrón: the patron's start (patron_farmer) builds its Granja on the player forge's plot (the fields and
+        # the pen are its stations, worked from its yard)
+        "player_homestead": {"type": "farm", "origin": [25, 20], "door": [26, 19]},
         # H12: the workshops of the competitor families (data/starts competitors) and of the other trades' starts
         "workshop_carpentry": {"type": "carpentry", "origin": [14, 34], "door": [15, 33]},
         "workshop_masonry": {"type": "masonry", "origin": [19, 34], "door": [20, 33]},

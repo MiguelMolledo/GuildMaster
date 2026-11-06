@@ -50,9 +50,17 @@
       "sells": [
         "apothecary"
       ]
+    },
+    "livestock": {
+      "name_key": "stall.livestock",
+      "kind": "outdoor",
+      "sells": [
+        "livestock"
+      ],
+      "errand_surcharge": 0.0
     }
   },
-  "_stalls_h12_doc": "H12 (decided 2026-11-03, until the EA shops with interior): clothier (the Ropería of GDD 4.5.1, a shop with interior there) and goods (furniture, barrels and carved stone, not in 4.5.1) are outdoor stalls of the plaza for now. H12.2: apothecary (the Boticario of 4.5.1: bandages, salves, herbs and the doctor's bag), an outdoor stall on the east edge of the plaza for now.",
+  "_stalls_h12_doc": "H12 (decided 2026-11-03, until the EA shops with interior): clothier (the Ropería of GDD 4.5.1, a shop with interior there) and goods (furniture, barrels and carved stone, not in 4.5.1) are outdoor stalls of the plaza for now. H12.2: apothecary (the Boticario of 4.5.1: bandages, salves, herbs and the doctor's bag), an outdoor stall on the east edge of the plaza for now. H12 Patrón (04d 4.22.4.2): livestock, the cattle fair (sheep and pigs) on the plaza; its errand_surcharge 0 (the animals walk to the farm: no surcharge) [balance]; an animal sent by errand needs a pen with room (Market._pen_reason).",
   "open_phases": [
     "day",
     "dusk"

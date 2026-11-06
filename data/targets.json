@@ -28,6 +28,7 @@
     "mason_novice",
     "tailor_novice",
     "scholar_novice",
+    "patron_novice",
     "artisan_expert",
     "artisan_expert_0",
     "artisan_expert_1",
@@ -182,6 +183,39 @@
     ],
     "_share": {
       "debt_paid": [
+        0.9,
+        null
+      ]
+    }
+  },
+  "patron_novice": {
+    "_doc": "H12 Patrón (10/H12 «Cada profesión tiene un bot que gana dinero con ella»; docs/gdd/04d_otras_clases.md 4.22.4.9, the bot «farmer»): BotPatronNovice (sim/bots/bot_patron_novice.gd) in a new game as patron_farmer, Normal: it sows the four fields in spring, sells the wool and the pigs over a pair, harvests on the dawn of day 5, keeps the seed and the winter feed, sells the rest of the wheat and pays the debt. The same start as the forge (30 gold, 200 of debt before day 8) and the same targets as the trades; its net gold per day goes in goldflow.start_farmer. no_starved: no animal of its pen dies of hunger (4.22.4.9: >= 90 % of the seeds). gold_day10 from 0 (the trades: 10): a famine year (×0,5 harvest, 1 seed in 30) leaves it at 0 after paying the debt with the flock and the seed, the risk of 4.22.4.10 (the emergency loan of Equilibrio 2 covers what comes after). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=patron_farmer --bots=patron_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step farmer, 10 seeds).",
+    "days": [
+      10,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gold_day10": [
+      0,
+      1100
+    ],
+    "harvests": [
+      4,
+      null
+    ],
+    "_share": {
+      "debt_paid": [
+        0.9,
+        null
+      ],
+      "no_starved": [
         0.9,
         null
       ]
@@ -361,6 +395,21 @@
         "loans"
       ],
       "_doc": "H12: the start of the mason (artisan_mason), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)»)."
+    },
+    "start_farmer": {
+      "bot": "patron_novice",
+      "window_days": [
+        1,
+        8
+      ],
+      "net_per_day": [
+        25,
+        60
+      ],
+      "exclude_categories": [
+        "loans"
+      ],
+      "_doc": "H12 Patrón: the start of the farmer (patron_farmer), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)», O3 a of 04d; the bot «farmer» of 4.22.4.9)."
     },
     "start_physician": {
       "bot": "scholar_novice",

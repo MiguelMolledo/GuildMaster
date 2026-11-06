@@ -1,0 +1,32 @@
+{
+  "id": "farm_security_1",
+  "name_key": "upgrade.farm_security_1",
+  "tree": "farm",
+  "branch": "security",
+  "level": 1,
+  "cost": {
+    "gold": 25,
+    "items": [
+      {
+        "item": "iron",
+        "qty": 2
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "protection",
+      "amount": 0.2
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": "upgrade_reinforced_lock"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "farm_production_2",
+  "name_key": "upgrade.farm_production_2",
+  "tree": "farm",
+  "branch": "production",
+  "level": 2,
+  "cost": {
+    "gold": 40,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 6
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "farm_production_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "field_e",
+      "like": "field"
+    },
+    {
+      "kind": "new_zone",
+      "zone": "field_f",
+      "like": "field"
+    }
+  ],
+  "visual": {
+    "interior_node": "farm_fields_2",
+    "exterior_overlay": null
+  }
+}

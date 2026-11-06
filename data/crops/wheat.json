@@ -1,0 +1,11 @@
+{
+  "id": "wheat",
+  "name_key": "crop.wheat",
+  "_doc": "H12 Patrón (docs/gdd/04d_otras_clases.md 4.22.4.1) [balance]: sown in spring or summer with seed wheat ×5 (the recipe farm_sow_wheat), grows growth[season] at each dawn from the day after sowing and is ready at grow; it gives yield and rots rot_days dawns after it is ready; harvested on its second day of ready it gives × late_harvest_mult. Sown on day 1 (spring) it is ready at the dawn of day 5 (autumn) and rots at the dawn of day 7 (winter); sown on day 3 (summer) it waits out the winter and is ready on day 9.",
+  "sow_seasons": ["spring", "summer"],
+  "growth": {"spring": 1, "summer": 1, "autumn": 1, "winter": 0},
+  "grow": 4,
+  "yield": {"item": "wheat", "qty": 30},
+  "rot_days": 2,
+  "late_harvest_mult": 0.75
+}
