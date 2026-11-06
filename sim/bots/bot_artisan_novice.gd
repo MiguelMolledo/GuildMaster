@@ -186,8 +186,29 @@ func _work(sim: Sim) -> Dictionary:
 			return {}
 		if not _fresh(sim, job):
 			return {}  # never throws away a cycle under way
+	if _hold_for_delivery(sim, w):
+		return {}
 	return {"type": "work_at", "actor": ACTOR, "building": FORGE, "zone": w["zone"], "recipe": w["recipe"],
 		"mode": w["mode"]}
+
+
+## A contract whose pieces are ready falls due before the piece about to start would end (plus the trip margin): no
+## new piece, the protagonist waits for the market and delivers first (forja, 2026-11-06: with live_for_quality, seed 2
+## made the armour at 19:26, started a 233-minute sword at 05:50 with the market closed and the contract expired).
+func _hold_for_delivery(sim: Sim, w: Dictionary) -> bool:
+	var r: Dictionary = sim.catalog.recipes()[str(w["recipe"])]
+	var end := _now(sim) + int(Production.cycle_minutes(sim.catalog, r, str(w["mode"])))
+	var inv: Dictionary = sim.state.buildings[FORGE]["inventory"]
+	var bag: Dictionary = sim.state.characters[ACTOR]["inventory"]
+	for c: Dictionary in _contracts_by_due(sim):
+		var have := Contracts.count_valid(inv, str(c["item"]), int(c["min_quality"])) \
+			+ Contracts.count_valid(bag, str(c["item"]), int(c["min_quality"]))
+		if have >= int(c["qty"]) and int(c["due"]) < end + TRIP_MARGIN_MIN:
+			if OS.is_debug_build():
+				print("[BotNovice] min %d: no empieza %s (acaba %d): %s está listo y vence %d" % [_now(sim), w["recipe"],
+					end, c["id"], int(c["due"])])
+			return true
+	return false
 
 
 ## 03b §3b.8: the mode a contract with a minimum quality is made in: Forja viva where the recipe has it (it replaces

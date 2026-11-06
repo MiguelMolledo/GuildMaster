@@ -276,7 +276,11 @@ func _check_fit(out: Array, c: Control, r: Rect2, txt: String, vp: Rect2, world:
 		var sb := b.get_theme_stylebox("normal")
 		var room := r.size.x - (sb.get_margin(SIDE_LEFT) + sb.get_margin(SIDE_RIGHT) if sb != null else 0.0)
 		if b.icon != null and not b.expand_icon:
-			room -= b.icon.get_width() + b.get_theme_constant("h_separation")
+			var iw := float(b.icon.get_width())
+			var mx := b.get_theme_constant("icon_max_width")
+			if mx > 0:
+				iw = minf(iw, float(mx))  # the icon is drawn at most icon_max_width wide (the Forja viva's hammer and media)
+			room -= iw + b.get_theme_constant("h_separation")
 		var w := 0.0
 		for line: String in txt.split("\n"):
 			w = maxf(w, f.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x)

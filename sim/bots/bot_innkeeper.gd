@@ -35,6 +35,7 @@ var _shop_day: int = -1       # the half-day (day × 2 + afternoon) the last tri
 var _trip: String = ""        # "" | "going" | "back"
 var _turns: Array = []        # the summaries of the closed turns
 var _upgrades_bought: int = 0
+var kept: int = 0             # gold its owner keeps apart (BotFullPlayer: the quota's cart); never spent here
 
 
 func orders(sim: Sim) -> Array:
@@ -283,7 +284,7 @@ func _shopping_list(sim: Sim) -> Array:
 		for c: Dictionary in sim.catalog.upgrade(next).get("cost", {}).get("items", []):
 			need[str(c["item"])] = int(need.get(str(c["item"]), 0)) + int(c["qty"])  # on top of the kitchen's
 	var out: Array = []
-	var gold := Money.gold(st, _fam) - RESERVE / 2
+	var gold := Money.gold(st, _fam) - RESERVE / 2 - kept
 	var items: Array = need.keys()
 	# the best margin first (the ale's wheat and wood, then the kitchen's meat and flour); what is sold as bought (bread,
 	# cider, wine) last: alphabetical order spent the purse on bread before the ale had its wheat
@@ -333,7 +334,7 @@ func _shopping(sim: Sim) -> Array:
 	if int(pos[0]) != int(tile[0]) or int(pos[1]) != int(tile[1]):
 		return [{"type": "move_to", "actor": _hero, "tile": [int(tile[0]), int(tile[1])]}]
 	# one purchase a minute, so each one sees the errands of the ones before (Market._fits counts them)
-	var gold := Money.gold(st, _fam)
+	var gold := maxi(0, Money.gold(st, _fam) - kept)
 	var surcharge := 1.0 + float(sim.catalog.market.get("errand", {}).get("surcharge", 0.2))
 	while not _shop.is_empty() and str(_shop[0]["stall"]) == stall:
 		var s: Dictionary = _shop.pop_front()
