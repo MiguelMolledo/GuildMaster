@@ -25,9 +25,21 @@ static func step(sim: Sim) -> void:
 		if fam == "":
 			continue
 		if dawn:
-			_charge(sim, b, fam, int(sim.catalog.buildings().get(str(bld["type"]), {}).get("upkeep", 0)))
+			_charge(sim, b, fam, daily(sim, str(bld["type"])))
 		elif richer.has(fam) and int(bld.get("upkeep_debt", 0)) > 0:
 			_charge(sim, b, fam, 0)
+
+
+## The upkeep a building of `type` pays at this dawn: its data/buildings upkeep × the first days' ramp
+## (data/accounts.json upkeep_ramp: one multiplier per dawn from day 1, then 1; equilibrio: the first days of a new game
+## cost less while the workshop starts), rounded.
+static func daily(sim: Sim, type: String, day: int = -1) -> int:
+	var full := int(sim.catalog.buildings().get(type, {}).get("upkeep", 0))
+	var ramp: Array = sim.catalog.accounts.get("upkeep_ramp", [])
+	var i := (Clock.day(int(sim.state.clock["minute"])) if day < 0 else day) - 1
+	if i >= 0 and i < ramp.size():
+		return roundi(full * float(ramp[i]))
+	return full
 
 
 ## Charges the debt plus `today` (the day's upkeep, 0 when only settling) as far as the family's gold goes.
@@ -87,7 +99,7 @@ static func due_next_dawn(sim: Sim, fam: String) -> Dictionary:
 		if Money.family_of(st, b) != fam:
 			continue
 		var bld: Dictionary = st.buildings[b]
-		upkeep += int(sim.catalog.buildings().get(str(bld["type"]), {}).get("upkeep", 0)) + int(bld.get("upkeep_debt", 0))
+		upkeep += daily(sim, str(bld["type"]), Clock.day(int(sim.state.clock["minute"])) + 1) + int(bld.get("upkeep_debt", 0))
 		for c: Variant in Staff.employees_of(st, b):
 			wages += Staff.wage(sim, str(c))
 	return {"upkeep": upkeep, "wages": wages, "total": upkeep + wages}

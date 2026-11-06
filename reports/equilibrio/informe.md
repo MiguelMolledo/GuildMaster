@@ -75,3 +75,31 @@ resúmenes completos en `00_base_*.json`, `all1-3.json`, `fun1-2.json`, `eq10_*.
 | Neto/día año 2 | 1,4 (−31 a 18) | 30,5 de media (19,8-56,3; mediana 23,1) | La despensa de la taberna (cdca6e52) ya estaba: la taberna se compra en los días 14-21 y su primer año cae en el 2 o el 3 |
 | Neto/día año 3 | — | 49,8 de media (4,9-148,4) | El primer año de la taberna (compra, mejoras, recados) aún pesa en 2 semillas; probé a frenar sus mejoras hasta que se pague sola y fue peor (−46/día en la semilla 1): las mejoras son lo que trae clientes. Se deja |
 | Órdenes rechazadas | 154 en una semilla | 0 (1 en otra: festival_offer_gift sin pieza) | unlock_seen y read_notices se pueden dar de viaje (Travel.AWAY_ORDERS): darse por enterado no pide estar en la villa |
+
+## La partida por defecto siguiendo el tutorial (manager, 2026-11-06/07)
+
+Bot `tutorial_route` (sim/bots/bot_tutorial_route.gd): la ruta de verifica con órdenes reales y el pueblo vivo, sobre
+`artisan_blacksmith`. Día 1: una espada, vender, recado de hierro y los martillos del carpintero. Día 2: la espada de
+calidad del capitán. Después, una jornada al día: el aprendiz al abrirse Empleados (con su cola de 5 lingotes en
+bucle), pagar si sobran 40, encargo de espadas, hierro ×8 y carbón por recado, 2 espadas y venderlas una a una.
+Desglose por categorías: `tools/equilibrio/tutorial_probe.gd`. La semilla 11 calca la pasada de verifica: ventas 727 +
+encargos 153 frente a compras 405, recados 79, mantenimiento 180 y sueldo 49; ruina el día 11.
+
+**Por qué se arruina:** la espada normal (calidad 0) se vende a 46 y cuesta 32 de material más 6 de recado (el 73 es la
+excelente). Además, la ruta solo compra hierro con 60 de oro: con el mantenimiento del amanecer cae por debajo y deja
+de fabricar.
+
+| Variante (30 semillas, Normal salvo que se diga) | Paga ≤ día 8 | Neto/día ruta | Novato (25-60; oro d10 ≤ 540) | Posada neta (10-60) · explotación (30-100) | Mercader capital (450-900) |
+|---|---|---|---|---|---|
+| Antes | **17 %** (5/30) | 12,5 | 52,8 · ok | 31,2 · 86,2 | 858 |
+| A: recado 0 en todo + espada 70 + rampa | 93 % | 25,1 | **60,5** · 576 | **101,2 · 165,5** | **928** |
+| C: recado 20 % + espada 75 + rampa (10 semillas) | 9/10 | 21,6 | **71,5** | 34,1 · 89,1 | **998** |
+| **D: recado 0 solo en Recursos + espada 68 + rampa** | **93 %** (28/30); Fácil 100 %; Difícil 27 % | 25,4 | 58,8 · **596** (semilla 9) | 47,4 · **109,1** | 899,5 |
+| D sin rampa (10 semillas) | 7/10 | 17,5 | | | |
+
+Rampa: el mantenimiento de los amaneceres de los días 1, 2 y 3 ×0,25 / 0,5 / 0,75 (`data/accounts.json`
+upkeep_ramp).
+
+D es la mínima que cumple. Deja dos roces en bandas ajenas, propuestos al manager sin tocar:
+- artisan_novice: gold_day10 hasta 600 (hoy 540; sale de 30 + 10 × 60 − 200 + 110 con la espada a 65).
+- innkeeper: inn_operating_day hasta 120 (hoy 100; la taberna compra trigo y madera en Recursos).

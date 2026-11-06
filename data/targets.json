@@ -188,6 +188,27 @@
       ]
     }
   },
+  "tutorial_route": {
+    "_doc": "Equilibrio (manager, 2026-11-06; verifica's player pass, reports/jugador/2026-11-06/informe.md): BotTutorialRoute (sim/bots/bot_tutorial_route.gd), the default game (artisan_blacksmith) played as a novice who follows the tutorial and the objectives, with the living town: one sword and the carpenter's hammers on day 1, the guard's good sword on day 2, then a jornada a day (the apprentice with a looping queue of ingots when Empleados opens, iron ×8 and coal by errand, two swords, sell them one by one at the armory, the board's sword contracts, the debt paid when the gold covers it plus 40). The default game must come out: debt_paid (before day 8, with 40 left) in >= 90 % of the seeds in Normal. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=tutorial_route --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step tutorial, 10 seeds); the ledger by category: tools/equilibrio/tutorial_probe.gd.",
+    "days": [
+      10,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "_share": {
+      "debt_paid": [
+        0.9,
+        null
+      ]
+    }
+  },
   "patron_novice": {
     "_doc": "H12 Patrón (10/H12 «Cada profesión tiene un bot que gana dinero con ella»; docs/gdd/04d_otras_clases.md 4.22.4.9, the bot «farmer»): BotPatronNovice (sim/bots/bot_patron_novice.gd) in a new game as patron_farmer, Normal: it sows the four fields in spring, sells the wool and the pigs over a pair, harvests on the dawn of day 5, keeps the seed and the winter feed, sells the rest of the wheat and pays the debt. The same start as the forge (30 gold, 200 of debt before day 8) and the same targets as the trades; its net gold per day goes in goldflow.start_farmer. no_starved: no animal of its pen dies of hunger (4.22.4.9: >= 90 % of the seeds). gold_day10 from 0 (the trades: 10): a famine year (×0,5 harvest, 1 seed in 30) leaves it at 0 after paying the debt with the flock and the seed, the risk of 4.22.4.10 (the emergency loan of Equilibrio 2 covers what comes after). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=patron_farmer --bots=patron_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step farmer, 10 seeds). Medido (2026-11-06, 30 semillas, sin la vida del pueblo como los oficios): neto/día en Normal 33,6 [20,5-45,3], deuda saldada 29/30 (la que no, un año de hambruna: cosecha ×0,5), ningún animal muerto de hambre, 4 cosechas en todas; orden de dificultad easy 40,0 > normal 33,6 > hard 33,4 (Difícil salda a tiempo el 47 %: su coste es la prórroga).",
     "days": [

@@ -70,7 +70,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
-	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "patron_novice": BotPatronNovice,
+	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "patron_novice": BotPatronNovice, "tutorial_route": BotTutorialRoute,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
 	"merchant": BotMerchant, "pacing": BotPacing, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper,
 	"idle_titles_fest": BotIdle,
@@ -85,6 +85,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
 	# scholar_novice: the physician of the scholar's start (H12.2, --start=scholar_physician): patients, bandages, debt
 	# patron_novice: the farmer of the patron's start (H12 Patrón, --start=patron_farmer): fields, wool, pigs, debt
+	# tutorial_route: the default game as a novice who follows the tutorial and the objectives (verifica, 2026-11-06)
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
 	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
 	# duelist: challenges the rival of the trade by the rules and plays its duels (duelo, --scenario=duel_ready)
