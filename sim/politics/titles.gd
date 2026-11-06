@@ -29,16 +29,19 @@ static func next_of(sim: Sim, fam: String) -> String:
 	return str(ladder[i + 1]) if i >= 0 and i + 1 < ladder.size() else ""
 
 
-## The family's operative businesses: its own workshops (building category "workshop"), sorted.
-static func business_ids(sim: Sim, fam: String) -> Array:
+## The family's operative businesses: its own workshops (building category "workshop"), not those still under works
+## (H6). With `services`, also its services (the tavern): H6, decision «Equilibrio 4 · Barón», they count as a business
+## for the titles' requirements only (not for the limit, O-V11, nor for the passive reputation or the taxes). Sorted.
+static func business_ids(sim: Sim, fam: String, services: bool = false) -> Array:
 	var out: Array = []
 	if fam == "":
 		return out
+	var kinds: Array = ["workshop", "service"] if services else ["workshop"]
 	for b: String in sim.state.buildings:
 		var bld: Dictionary = sim.state.buildings[b]
-		if str(bld.get("owner", "")) != fam:
+		if str(bld.get("owner", "")) != fam or str(bld.get("state", "")) == "construction":
 			continue
-		if str(sim.catalog.buildings().get(str(bld.get("type", "")), {}).get("category", "")) == "workshop":
+		if str(sim.catalog.buildings().get(str(bld.get("type", "")), {}).get("category", "")) in kinds:
 			out.append(b)
 	out.sort()
 	return out
@@ -77,7 +80,7 @@ static func requirements(sim: Sim, fam: String, t: String) -> Array:
 	out.append({"kind": "reputation", "need": rep_need, "have": rep, "ok": rep >= rep_need})
 	var req: Dictionary = def.get("requires", {})
 	if req.has("businesses"):
-		var b := businesses(sim, fam)
+		var b := business_ids(sim, fam, true).size()  # H6: the tavern counts here (Equilibrio 4)
 		out.append({"kind": "businesses", "need": int(req["businesses"]), "have": b, "ok": b >= int(req["businesses"])})
 	if req.has("employees"):
 		var e := employees(sim, fam)

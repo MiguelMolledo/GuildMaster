@@ -26,16 +26,25 @@ func setup(w: Node) -> void:
 func build(map: Dictionary, state: WorldState, filler: Dictionary) -> int:
 	shown = {}
 	var n := 0
+	var sim: Sim = world.get("sim") as Sim if world != null and world.get("sim") != null else null
 	for p: Dictionary in map.get("plots", []):
-		match str(p.get("state", "")):
+		var kind := str(p.get("state", ""))
+		var sale := bool(p.get("for_sale", false)) and _ai_owned(p, state)
+		if sim != null:  # H6: the plot as it is now (built on, pulled down, a business for sale after a bankruptcy)
+			var now := Plots.get_plot(sim, str(p["id"]))
+			kind = str(now.get("kind", kind))
+			var bld := str(now.get("building", ""))
+			sale = bld != "" and bool(now.get("for_sale", false)) and (str(state.buildings[bld].get("owner", "")) == ""
+				or str(state.families.get(str(state.buildings[bld].get("owner", "")), {}).get("controlled_by", "")) == "ai")
+		match kind:
 			"lot":
 				n += _lot(p, filler)
 				shown[str(p["id"])] = "lot"
 			"ruin":
 				n += _ruin(p, filler)
 				shown[str(p["id"])] = "ruin"
-			"business":
-				if bool(p.get("for_sale", false)) and _ai_owned(p, state):
+			_:
+				if sale:
 					n += _sign(p)
 					shown[str(p["id"])] = "for_sale"
 	ViewConfig.info("PlotLayer", "parcelas: %d piezas %s" % [n, shown])

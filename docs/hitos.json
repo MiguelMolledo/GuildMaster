@@ -226,19 +226,19 @@
     {
       "id": "H6",
       "nombre": "Parcelas y construcción",
-      "estado": "pendiente",
+      "estado": "en_curso",
       "entregable": "Modo construcción, parcelas por tipo, construir/demoler/comprar a NPC, límite por título, competencia NPC y válvula. IA rival: módulos de economía y construcción, quiebra, guerra de precios (4.21).",
       "criterios": [
         {
           "texto": "El jugador abre un segundo negocio",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "flujo data/flows/parcelas.json por la interfaz, con ratón y con teclado (verifica.py --flows=parcelas --both: build, convert_building y demolish por las dos vías): modo construcción, carta de la ruina, restaurarla como sastrería, la obra y el segundo negocio; tests/test_h6_parcelas.gd (test_restoring_a_ruin_with_its_works: Titles.businesses 1 → 2) · capturas docs/novedades/h6_modo.png, h6_carta_ruina.png, h6_obra.png, h6_terminado.png",
+          "fecha": "2026-11-06"
         },
         {
           "texto": "Los NPC compran parcelas sin bloquear al jugador (sim de 60 días ≈ 7,5 años)",
-          "estado": "pendiente",
-          "prueba": null,
+          "estado": "en_curso",
+          "prueba": "Vilarrasa (town_e, tools/maps/make_town_e.py) cumple la regla de parcelas del owner: 4 libres de producción (2 de 3×4: plot_21, plot_22) y 4 de vivienda de 3×3. Sonda de 60 días, 3 semillas: con data/construction.json ai.expand encendido, en la semilla 1 el herrero rival (ya Ciudadano) compra plot_21 el día 21 y levanta una segunda forja (86 de oro); la válvula nunca baja de 3 libres de producción; en las semillas 2 y 3 ninguna familia IA llega a Ciudadano con oro. Pero la IA de hoy no contrata ni pone cola en un segundo edificio y esa forja la deja con 2 de oro el día 60 (407 sin ella): ai.expand queda apagado hasta que la economía de sim/ai (plantillas) sepa llevarlo; apagado, las 3 semillas salen idénticas a antes del cambio de mapa.",
           "fecha": null
         },
         {
