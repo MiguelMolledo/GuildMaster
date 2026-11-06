@@ -8,7 +8,9 @@ extends RefCounted
 ## the AI families feel it; towards the player and towards the other AI families). At dawn, with the market sales of
 ## the last market_days days (kept by family and item from the market_sold events): +market_rise when B sold more than
 ## market_share of an item A also sold; +relation_low_rise when the heads' relation is under relation_low; −decay on a
-## day with no rise (P3) and −relation_high_drop when their relation is over relation_high. At the moment: +trial_rise
+## day with no rise (P3) and −relation_high_drop when their relation is over relation_high; when B rises to a title
+## over A's, +title_envy × (0.5 + A's aggression); having attacked, A's rivalry towards its victim −vent. Also
+## at the moment: +trial_rise
 ## to the accused family towards its accuser when found guilty; +attack_rise to the victim of a detected sabotage.
 ##
 ## Attack gate (4.21.8.2): at dawn, each AI family in its own minute (dawn + stagger_minutes × its place) looks at its
@@ -149,6 +151,8 @@ static func step(sim: Sim) -> void:
 					sales[dk][f][it] = int(sales[dk][f].get(it, 0)) + int(e.get("qty", 1))
 			"trial_verdict":
 				_on_verdict(sim, e)
+			"title_granted":
+				_on_title(sim, str(e.get("family", "")))
 			"phase_changed":
 				if str(e.get("phase", "")) == "dawn":
 					dawn = true
@@ -244,6 +248,20 @@ static func _on_verdict(sim: Sim, e: Dictionary) -> void:
 		add(sim, accused, accuser, int(cfg(sim).get("rivalry", {}).get("trial_rise", 15)), "juicio perdido")
 
 
+## 04c 4.21.12b, envy: family `b` rose to a title over an AI family's: that one's rivalry towards it grows by
+## title_envy × (0.5 + its aggression).
+static func _on_title(sim: Sim, b: String) -> void:
+	var st := sim.state
+	var envy := float(cfg(sim).get("rivalry", {}).get("title_envy", 0))
+	if b == "" or envy <= 0.0:
+		return
+	var rb := Upgrades.title_rank(sim, Upgrades.family_title(sim, b))
+	for a: String in _ai_families(st):
+		if a == b or Upgrades.title_rank(sim, Upgrades.family_title(sim, a)) >= rb:
+			continue
+		add(sim, a, b, roundi(envy * (0.5 + float(_profile(sim, a).get("aggression", 0.0)))), "envidia del título")
+
+
 # --- Deciding an attack ------------------------------------------------------------------------------------------------
 
 static func _threshold(sim: Sim, prof: Dictionary) -> int:
@@ -262,6 +280,8 @@ static func _decide(sim: Sim, f: String, m: Dictionary, today: int) -> void:
 		return
 	if (m.get("price_war") is Dictionary) and int(m["price_war"].get("until", 0)) > int(st.clock["minute"]):
 		return
+	if AIEconomy.on(sim) and Money.gold(st, f) < AIEconomy.reserve(sim, f, prof):
+		return  # 4.21.8.2 (5): in austerity (under its reserve) it does not attack
 	var thr := _threshold(sim, prof)
 	var targets: Array = []
 	for b: String in _rivals(st):
@@ -272,9 +292,12 @@ static func _decide(sim: Sim, f: String, m: Dictionary, today: int) -> void:
 	targets = targets.slice(0, int(ac.get("targets", 2)))
 	var gap := int(dcfg(sim).get("player_attack_gap_days", 2))
 	var cands: Array = []
+	var vgap := int(ac.get("victim_gap_days", 0))
 	for b: String in targets:
 		if _human(st, b) and today < int(book(st).get("player_attacked_day", -100000)) + gap:
 			continue
+		if not _human(st, b) and today < int(book(st).get("victims", {}).get(b, -100000)) + vgap:
+			continue  # 04c 4.21.12b: an AI family just attacked gets its breath, as the player gets its common gap
 		for c: Dictionary in _candidates(sim, f, b, prof):
 			cands.append(c)
 	if cands.is_empty():
@@ -509,7 +532,13 @@ static func _record(sim: Sim, f: String, p: Dictionary) -> void:
 	(bk["attacks"] as Array).append(rec)
 	if _human(st, str(p["target"])):
 		bk["player_attacked_day"] = day
+	else:
+		if not bk.get("victims") is Dictionary:
+			bk["victims"] = {}
+		bk["victims"][str(p["target"])] = day
 	sim.events.append({"type": "ai_attack", "family": f, "kind": str(p["kind"]), "target": str(p["target"])})
+	# 04c 4.21.12b: having struck, the attacker's grudge eases (vent): the next attack needs new reasons
+	add(sim, f, str(p["target"]), -int(cfg(sim).get("rivalry", {}).get("vent", 0)), "desahogo")
 	if OS.is_debug_build():
 		print("[Hostility] ATAQUE %s: %s contra %s (día %d, rivalidad %d)" % [f, p["kind"], p["target"], day,
 			value(st, f, str(p["target"]))])
