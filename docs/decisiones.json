@@ -1183,11 +1183,6 @@
       "opciones": "(a) al ganador, como hoy · (b) también a cada combate de la eliminatoria [propuesta: a, hasta medir si se echa de menos]"
     },
     {
-      "tema": "O-R1 · la capital como casa por defecto (propuesta, pendiente del owner)",
-      "detalle": "Lista tras una opción y apagada: data/world/region.json \"default_city\" (\"\" = la de siempre). Con \"capital\", la pantalla de Partida nueva abre en Bellcaire (y se puede volver a Vilarrasa); NewGame.from_start sin ciudad sigue jugando el mapa del inicio, así que las dianas y los bots no cambian. Test: test_plantillas_ciudades test_the_capital_as_default_town_is_ready_behind_an_option.",
-      "opciones": "(a) Activarla (\"default_city\": \"capital\"): EA empieza en Bellcaire, con sus 80 vecinos, y la villa queda como inicio corto. (b) Dejarla apagada: EA empieza en Vilarrasa y Bellcaire se elige en «Dónde empiezas». Recomendación (09b O-R1): (a) cuando Bellcaire tenga sus 5 familias rivales con la IA de 4.21 (lo que falta de H13 fuera del mapa)."
-    },
-    {
       "tema": "H13 · la economía de las familias IA de Bellcaire",
       "detalle": "Con el bot artisan_expert en Normal, 3 de las 5 familias IA pasan buena parte de los 80 días sin oro (82-152 días-familia por partida; en Difícil 215-243; en Fácil 0-2): el mantenimiento diario del taller (~19 de oro) se come el margen de sus ventas y solo las que toman encargos aguantan. Arruinadas, dejan de vender y la rivalidad entre familias IA se apaga antes de llegar a sus umbrales: en Normal no hubo ataques entre IA ni sabotajes (sí en Difícil). El mantenimiento es una constante compartida con Vilarrasa (Equilibrio).",
       "opciones": "(a) Que Equilibrio revise el mantenimiento o la demanda de los oficios de las familias IA con todo encendido. (b) La quiebra de 04c (P7: austeridad, venta, venida a menos) y Q9, que hoy no existen. (c) Perfiles de Bellcaire con más encargos (max_contracts 2) o menos días de compra."
