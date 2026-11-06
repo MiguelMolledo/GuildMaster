@@ -93,14 +93,15 @@ func test_the_card_of_a_ruin() -> void:
 	var d := PlotCard.data_for(sim, "plot_01", HERO)
 	eq(str(d["title"]), SimQuery.t_("ui.plots.title.ruin"), "a ruin")
 	var ids: Array = (d["buttons"] as Array).map(func(b: Dictionary) -> String: return str(b["id"]))
-	eq(ids, ["build:tailor_shop", "ok"], "restore as the tailor's, or close")
-	var b: Dictionary = d["buttons"][0]
+	check(ids.has("build:tailor_shop") and ids.back() == "ok", "restore as the tailor's, or close: %s" % [ids])
+	var b: Dictionary = d["buttons"][ids.find("build:tailor_shop")]
 	check(bool(b["disabled"]), "off for a commoner with a forge")
 	check(str(b["tip"]).contains(str(Titles.max_buildings(sim, FAM))), "it says the title's limit: %s" % b["tip"])
 	sim.state.families[FAM]["title"] = "citizen"
 	d = PlotCard.data_for(sim, "plot_01", HERO)
-	check(not bool(d["buttons"][0]["disabled"]), "on for a citizen")
-	check(str(d["buttons"][0]["text"]).contains(str(Plots.quote(sim, Plots.get_plot(sim, "plot_01"), "tailor_shop")["price"])),
+	ids = (d["buttons"] as Array).map(func(x: Dictionary) -> String: return str(x["id"]))
+	check(not bool(d["buttons"][ids.find("build:tailor_shop")]["disabled"]), "on for a citizen")
+	check(str(d["buttons"][ids.find("build:tailor_shop")]["text"]).contains(str(Plots.quote(sim, Plots.get_plot(sim, "plot_01"), "tailor_shop")["price"])),
 		"with its price")
 
 

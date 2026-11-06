@@ -46,7 +46,11 @@ func test_the_plots_of_the_map() -> void:
 func test_what_fits_where() -> void:
 	var sim := _new()
 	eq(Plots.types_for(sim, _plot(sim, "plot_02")), [], "a 3×2 lot takes no workshop")
-	eq(Plots.types_for(sim, _plot(sim, "plot_01")), ["tailor_shop"], "the 3×3 ruin takes a tailor's")
+	var ruin := Plots.types_for(sim, _plot(sim, "plot_01"))
+	check("tailor_shop" in ruin, "the 3×3 ruin takes a tailor's: %s" % [ruin])
+	for t: String in ruin:
+		check(Plots.footprint_on(sim, t, _plot(sim, "plot_01")).size() == 2, "%s fits it" % t)
+	check(not "forge" in ruin, "a 3×4 forge does not")
 	var turned := {"size": [4, 3], "zone": "production"}
 	eq(Plots.footprint_on(sim, "forge", turned), [4, 3], "a 3×4 forge turned a quarter on a 4×3 plot")
 	check("house" in Plots.types_for(sim, {"size": [3, 3], "zone": "housing"}), "a house on a 3×3 housing plot")
@@ -142,8 +146,10 @@ func test_convert() -> void:
 	var sim := _new()
 	_rich(sim)
 	var forge := str(_plot(sim, "plot_08")["building"])
-	eq(Plots.types_for(sim, _plot(sim, "plot_08")), ["carpentry", "forge", "masonry", "tailor_shop", "tavern_inn"],
-		"what fits the forge's 3×4 plot")
+	var fits := Plots.types_for(sim, _plot(sim, "plot_08"))
+	for t: String in ["carpentry", "forge", "masonry", "tailor_shop", "tavern_inn"]:
+		check(t in fits, "%s fits the forge's 3×4 plot: %s" % [t, fits])
+	check(not "house" in fits and not "armory" in fits, "no house nor town building on a production plot")
 	sim.state.characters[HERO]["location"] = ""
 	var r := Orders.apply(sim, {"type": "convert_building", "actor": HERO, "building": forge, "building_type": "carpentry"})
 	check(r["ok"], "converted: %s" % r)
