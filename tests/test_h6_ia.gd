@@ -23,10 +23,11 @@ func test_the_valve_keeps_the_ai_out_of_the_last_plots() -> void:
 	var tailor := str(sim.state.buildings[str(Plots.get_plot(sim, "plot_16")["building"])]["owner"])  # the AI tailor
 	sim.state.families[tailor]["title"] = "citizen"
 	sim.state.families[tailor]["gold"] = 2000
-	_valve(2)
+	var free := Plots.free_count(sim, "production")
+	_valve(free)
 	for c: Dictionary in Construction.candidates(sim, tailor):
-		check(str(c["kind"]) != "build", "no plot to build on while only the valve's two are free: %s" % c)
-	_valve(1)
+		check(str(c["kind"]) != "build", "no plot to build on while only the valve's are free: %s" % c)
+	_valve(free - 1)
 	var any := false
 	for c: Dictionary in Construction.candidates(sim, tailor):
 		if str(c["kind"]) == "build" and str(c["plot"]) == "plot_01":
@@ -120,3 +121,17 @@ func test_the_card_of_the_own_forge_and_of_a_npc_business() -> void:
 	eq(card.order_of(sim, "buy"), {"type": "buy_building", "actor": HERO, "building": str(Plots.get_plot(sim, "plot_16")["building"])},
 		"the order of its button")
 	card.free()
+
+
+func test_a_second_building_waits_for_the_ai_economy() -> void:
+	var sim := _new()
+	sim.state.families[RIVAL]["title"] = "citizen"
+	sim.state.families[RIVAL]["gold"] = 3000
+	cat.construction["ai"]["expand"] = false
+	eq(Construction.choose(sim, RIVAL), {}, "ai.expand off: a family with its forge builds no second one")
+	cat.construction["ai"]["expand"] = true
+	var c := Construction.choose(sim, RIVAL)
+	eq(str(c.get("plot", "")), "plot_21", "ai.expand on: the rival smith's second forge on the 3×4 lot north of the lane")
+	eq(str(c.get("building_type", "")), "forge", "a forge")
+	check(Plots.free_count(sim, "production") - 1 >= int(cat.construction["valve"]["min_free"]), "the valve still holds")
+	cat.construction["ai"]["expand"] = false

@@ -178,6 +178,8 @@ static func choose(sim: Sim, fam: String) -> Dictionary:
 	var fate := str(sim.state.families[fam].get("after_sale", {}).get("fate", ""))
 	if homeless and fate != "" and fate != "rebuilds":
 		return {}   # it sold its workshop and stays on without one (stays) or is gone (leaves): it builds no more
+	if not homeless and not bool(ai_rules(sim).get("expand", false)):
+		return {}   # a second building waits for the AI's economy to run it (hire, queue, sell from it): ai.expand
 	for c: Dictionary in candidates(sim, fam):
 		if int(c["price"]) > money:
 			continue
@@ -196,7 +198,8 @@ static func order_for(sim: Sim, fam: String, c: Dictionary) -> Dictionary:
 
 
 ## The net a workshop of `type` is expected to make a day: the best margin of its recipes × units_per_day, shared
-## with the other workshops of the type in the town (saturation), minus its upkeep.
+## with the other workshops of the type in the town (saturation), minus its upkeep and the wage of who works it
+## (ai.staff_rank).
 static func daily_net(sim: Sim, type: String) -> float:
 	var best := 0
 	for rid: String in sim.catalog.recipes():
@@ -209,7 +212,8 @@ static func daily_net(sim: Sim, type: String) -> float:
 			same += 1
 	var units := float(ai_rules(sim).get("units_per_day", 4))
 	var upkeep := float(sim.catalog.buildings().get(type, {}).get("upkeep", 0))
-	return float(best) * units / float(1 + same) - upkeep
+	var wage := float(sim.catalog.employees.get("ranks", {}).get(str(ai_rules(sim).get("staff_rank", "apprentice")), {}).get("wage", 0))
+	return float(best) * units / float(1 + same) - upkeep - wage   # somebody works it: one employee's wage
 
 
 static func _difficulty_expansion(sim: Sim) -> float:

@@ -248,6 +248,25 @@ citylib.add_life(town, citylib.Catalog())
 # The plots of 04 §4.9.1 (tools/city/plots.py): data the sim never reads (the targets do not move), drawn by the view.
 import plots  # noqa: E402
 plots.add_plots(town, citylib.Catalog())
+
+
+def _workshop_lot(d, cat):
+    """H6 (04 §4.9; the manager, 2026-11-06): a free production plot of a workshop's footprint (3x4: forge, carpentry,
+    masonry, tavern) on the grass north of the top lane, cols 9-11 x rows 2-5, entered from the lane at (10, 6): no
+    meeting point, patrol, tree, fair ground or pen there, and grass the townsfolk's routes leave (walk cost 10). With
+    the ruin and the 3x2 lot it makes 3 free production plots, one over the valve of 2: an AI family can take one.
+    Its side and situation come from plots.py, like the others'."""
+    m = citylib.Map(d, cat)
+    sit = plots.Situation(m)
+    sides = plots.Sides(m, sit.plaza)
+    rect, front = (9, 2, 3, 4), (10, 6)
+    n = len(d["plots"]) + 1
+    d["plots"].append({"id": "plot_%02d" % n, "state": "lot", "side": sides.side_of(rect, front), "zone": "production",
+                       "origin": [rect[0], rect[1]], "size": [rect[2], rect[3]], "front": list(front),
+                       "location": sit.of(front)})
+
+
+_workshop_lot(town, citylib.Catalog())
 _emit("data/maps/town_e.json", citylib.dumps_map(town))
 
 def inv(limit_kind, limit, stacks=None):

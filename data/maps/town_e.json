@@ -1632,6 +1632,25 @@
    "location": 0.24,
    "site": "workshop_masonry",
    "for_sale": false
+  },
+  {
+   "id": "plot_21",
+   "state": "lot",
+   "side": "outside",
+   "zone": "production",
+   "origin": [
+    9,
+    2
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    10,
+    6
+   ],
+   "location": 0.42
   }
  ],
  "decor": {

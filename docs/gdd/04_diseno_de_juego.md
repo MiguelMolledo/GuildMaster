@@ -671,7 +671,11 @@ tamaño, lugar (dentro o extramuros) y situación, y lo que se puede hacer con s
   pase de 1 y pague con su oro por encima de su reserva. Una familia que vendió su taller toma la mejor que pueda pagar.
   Las órdenes (`build`, `buy_building`) son de gestión, como las del jugador. `data/construction.json` `ai.enabled`
   apaga este paso cuando la agenda de 04c (sim/ai) lo llame por su cuenta (`Construction.candidates` / `choose` /
-  `order_for`).
+  `order_for`, contrato en 04c §4.21.6.2). Un **segundo** edificio (con su taller en pie) espera a `ai.expand`, apagado
+  hasta que la economía de sim/ai sepa llevarlo (contratar, cola, vender de su almacén): hoy una forja nueva de la IA
+  se queda vacía y la arruina. Sin él, solo monta taller la familia que vendió el suyo.
+- **Vilarrasa (town_e)** trae un solar de taller (plot_21, 3×4, extramuros al norte del callejón de arriba; lo pone
+  `tools/maps/make_town_e.py`): cabe una forja, una carpintería, una albañilería o una segunda taberna (O-V12).
 - **Rústica**: las parcelas rústicas se ven en el modo, pero todavía no hay edificios que levantar en ellas (granjas,
   minas, aserraderos: 4.22).
 

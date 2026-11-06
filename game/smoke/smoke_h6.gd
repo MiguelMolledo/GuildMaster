@@ -4,7 +4,8 @@ extends Node
 ## the captures show the whole loop: the building mode with the plots by zone (h6_modo), the card of the ruin
 ## (h6_carta_ruina), the order through the card's button and the works with their scaffold and bar (h6_obra), the
 ## second business finished (h6_terminado: the tailor's on the ruin, picked) and the card of another family's business
-## with its price (h6_comprar). Everything through the UI's own calls; the works' time is run with the sim's steps
+## with its price (h6_comprar), and the workshop's 3×4 lot of Vilarrasa (h6_solar_taller: with the forge and the tailor's
+## the Citizen's limit is full, so the workshops are off with the reason and the tavern, which does not count, is on). Everything through the UI's own calls; the works' time is run with the sim's steps
 ## (published like the game does). Quits when done, or after `timeout` seconds with a shot of whatever is on screen.
 
 var app: Node = null
@@ -75,10 +76,7 @@ func _process(delta: float) -> void:
 			if _t > 0.7:
 				app.save_shot("h6_carta_ruina")
 				var card := app.get_node("CardsLayer/PlotCard") as PlotCard
-				var btn: Button = null
-				for b: Node in card.find_children("Button_*", "Button", true, false):
-					if (b as Button).text.begins_with(SimQuery.t_("ui.plots.restore").split(" ")[0]):
-						btn = b as Button
+				var btn := card.find_child("Button_build_tailor_shop", true, false) as Button  # «build:tailor_shop» (":" -> "_")
 				print("[SmokeH6] restore button: %s (disabled=%s)" % [btn != null, btn.disabled if btn != null else true])
 				if btn == null or btn.disabled:
 					get_tree().quit(1)
@@ -119,6 +117,13 @@ func _process(delta: float) -> void:
 		"shot_buy":
 			if _t > 0.7:
 				app.save_shot("h6_comprar")
+				(app.get_node("CardsLayer/PlotCard") as PlotCard).close()
+				_look_at("plot_21", 40.0)
+				app.open_plot("plot_21")
+				_go("shot_lot")
+		"shot_lot":
+			if _t > 0.7:
+				app.save_shot("h6_solar_taller")   # the 3×4 lot: the workshops off (the title's limit), the tavern on
 				_go("done")
 				get_tree().quit(0)
 

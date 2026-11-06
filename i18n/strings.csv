@@ -4068,16 +4068,16 @@ ui.plots.location.fair,Fair,Regular
 ui.plots.location.poor,Out of the way,Apartada
 ui.plots.title.lot,A free lot,Un solar libre
 ui.plots.title.ruin,A ruin,Una ruina
-ui.plots.text.lot,"Bare ground with its stakes. Whatever goes up here is paid for whole: the ground and the works, dearer the better placed.","Tierra pelada con sus estacas. Lo que se levante aquí se paga entero, el suelo y la obra; más caro cuanto mejor situado."
-ui.plots.text.ruin,"Walls still standing and the roof fallen in. Bought cheap and restored in half the time, for any trade that fits.","Muros en pie y el techo hundido. Se compra barata y se restaura en la mitad de tiempo, para el oficio que quepa."
+ui.plots.text.lot,"Bare ground with its stakes. Build here (the ground and the works, dearer the better placed):","Tierra pelada con sus estacas. Construir aquí (el suelo y la obra, más caro cuanto mejor situado):"
+ui.plots.text.ruin,"Walls still standing and the roof fallen in. Bought cheap and restored in half the time, as:","Muros en pie y el techo hundido. Se compra barata y se restaura en la mitad de tiempo, como:"
 ui.plots.text.own,"Yours. You can pull it down (part of its cost back, its upgrades lost) or turn it into another trade of its size.",Es tuyo. Puedes derribarlo (te devuelven parte de lo que costó y se pierden sus mejoras) o reconvertirlo a otro oficio de su tamaño.
 ui.plots.text.not_for_sale,It belongs to %s and is not for sale.,Es de %s y no está en venta.
 ui.plots.text.business,"It belongs to %s. They would sell it for %d: the better you get on, the cheaper.","Es de %s. Te lo venderían por %d: cuanto mejor os llevéis, más barato."
 ui.plots.nothing_fits.production,No workshop fits on a plot this size.,En una parcela de este tamaño no cabe ningún taller.
 ui.plots.nothing_fits.housing,No house fits on a plot this size.,En una parcela de este tamaño no cabe ninguna casa.
 ui.plots.nothing_fits.rustic,"Farms, mines and sawmills will come here; none can be raised yet.","Aquí irán granjas, minas y aserraderos; todavía no se puede levantar ninguno."
-ui.plots.build,Build %s · %d · %s,Construir %s · %d · %s
-ui.plots.restore,Restore as %s · %d · %s,Restaurar como %s · %d · %s
+ui.plots.build,%s · %d · %s,%s · %d · %s
+ui.plots.restore,%s · %d · %s,%s · %d · %s
 ui.plots.works,Under works: %s left.,En obra: quedan %s.
 ui.plots.demolish,Pull down (+%d),Derribar (+%d)
 ui.plots.convert,Turn into %s · %d,Reconvertir en %s · %d
@@ -4130,3 +4130,4 @@ spectacle.arm_wrestling,Arm wrestling,Pulso
 reason.already_played,Already played,Ya la has jugado
 reason.already_bet,Already bet,Ya has apostado
 ui.order.festival_give_gift,Give a Christmas gift,Hacer un regalo de Navidad
+ui.plots.location_is,%s situation,Situación %s

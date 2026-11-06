@@ -30,10 +30,9 @@ static func data_for(sim: Sim, plot_id: String, who: String) -> Dictionary:
 	var bld := str(p["building"])
 	var size: Array = p.get("size", [0, 0])
 	blocks.append({"type": "figures", "items": [
-		{"label": SimQuery.t_("ui.plots.zone"), "value": SimQuery.t_("ui.plots.zone." + str(p["zone"]))},
-		{"label": SimQuery.t_("ui.plots.size"), "value": "%d×%d" % [int(size[0]), int(size[1])]},
-		{"label": SimQuery.t_("ui.plots.side"), "value": SimQuery.t_("ui.plots.side." + str(p.get("side", "inside")))},
-		{"label": SimQuery.t_("ui.plots.location"), "value": location_label(float(p.get("location", 0.5)))}]})
+		{"label": SimQuery.t_("ui.plots.zone." + str(p["zone"])), "value": "%d×%d" % [int(size[0]), int(size[1])]},
+		{"label": SimQuery.t_("ui.plots.side." + str(p.get("side", "inside"))), "value": SimQuery.t_("ui.plots.location_is")
+			% location_label(float(p.get("location", 0.5)))}]})
 	var title := ""
 	if kind in ["lot", "ruin"]:
 		title = SimQuery.t_("ui.plots.title." + kind)
@@ -45,7 +44,7 @@ static func data_for(sim: Sim, plot_id: String, who: String) -> Dictionary:
 			var r := Plots.can_build(sim, who, plot_id, t)
 			var q := Plots.quote(sim, p, t)
 			buttons.append({"id": "build:" + t, "text": SimQuery.t_("ui.plots." + str(q["kind"])) % [
-				SimQuery.t_("building." + t), int(q["price"]), SimQuery.hours_label(float(q["days"]) * 24.0)],
+				SimQuery.t_("building." + t), int(q["price"]), days_label(float(q["days"]))],
 				"primary": r["ok"] and t == _best(sim, fam, types), "disabled": not r["ok"],
 				"tip": "" if r["ok"] else why_text(sim, str(r["reason"]), fam, int(q["price"]))})
 	else:
@@ -86,8 +85,10 @@ static func data_for(sim: Sim, plot_id: String, who: String) -> Dictionary:
 				buttons.append({"id": "buy", "text": SimQuery.t_("hud.buy_building") % price, "primary": r["ok"],
 					"disabled": not r["ok"], "tip": "" if r["ok"] else why_text(sim, str(r["reason"]), fam, price)})
 	buttons.append({"id": "ok", "text": SimQuery.t_("ui.plots.close")})
-	return {"template": "card", "title": title, "image": VisualPaths.illustration_or_greybox("events", "plot_" + kind),
-		"blocks": blocks, "buttons": buttons, "plot": plot_id, "modal": true}
+	# with many choices the card would grow off the screen: they matter more than the picture
+	var image: Texture2D = VisualPaths.illustration_or_greybox("events", "plot_" + kind) if buttons.size() <= 3 else null
+	return {"template": "card", "title": title, "image": image, "blocks": blocks, "buttons": buttons, "plot": plot_id,
+		"modal": true, "wrap_buttons": true}
 
 
 ## The type the family would build first: its own trade's, else the first that fits.
@@ -97,6 +98,13 @@ static func _best(sim: Sim, fam: String, types: Array) -> String:
 		if str(sim.state.buildings[b].get("owner", "")) == fam and t in types:
 			return t
 	return str(types[0]) if not types.is_empty() else ""
+
+
+## How long the works last: «12 h» under a day, «1 d», «1,5 d» from there.
+static func days_label(days: float) -> String:
+	if days < 1.0:
+		return SimQuery.hours_label(days * 24.0)
+	return "%s d" % SimQuery._num(days)
 
 
 ## «Muy buena» … «Apartada»: the plot's situation in words (location 0-1).
@@ -129,8 +137,17 @@ func show_for(sim: Sim, plot_id: String, who: String) -> bool:
 	plot = plot_id
 	actor = who
 	show_page(d)
+	_recenter.call_deferred()   # its wrapped buttons know their height a frame later
 	ViewConfig.info("PlotCard", "parcela %s para %s" % [plot_id, who])
 	return true
+
+
+func _recenter() -> void:
+	if not is_inside_tree() or not visible or docked:
+		return
+	reset_size()
+	var whole := size + Vector2(0, ribbon_overhang)
+	position = ((get_viewport_rect().size - whole) / 2.0 + Vector2(0, ribbon_overhang)).round()
 
 
 func _on_button(id: String) -> void:

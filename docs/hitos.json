@@ -238,7 +238,7 @@
         {
           "texto": "Los NPC compran parcelas sin bloquear al jugador (sim de 60 días ≈ 7,5 años)",
           "estado": "en_curso",
-          "prueba": "Construido el módulo (sim/build/construction.gd) con la válvula y el tope por título (tests/test_h6_ia.gd). Sonda de 60 días en town_e: ningún NPC compra parcela porque los mapas solo traen las 2 libres de la válvula (pendiente en docs/decisiones.json: «H6 · los solares de los mapas…»); queda medirlo con los mapas nuevos.",
+          "prueba": "Vilarrasa (town_e) trae un solar de producción 3×4 (plot_21, make_town_e). Sonda de 60 días, semilla 1, con data/construction.json ai.expand encendido: el herrero rival, ya Ciudadano, levanta una segunda forja en plot_21 el día 21 (86 de oro) y la válvula nunca baja de 2 libres; pero la IA de hoy no contrata ni pone cola en un segundo edificio y la forja nueva la arruina (407 → 2 de oro el día 60). Por eso ai.expand queda apagado hasta que la economía de sim/ai (plantillas) sepa llevar un segundo edificio; con él apagado, 3 semillas × 60 días: ninguna compra y las dianas iguales. Falta: encenderlo con esa economía y las otras cinco ciudades con su regla en plots.py.",
           "fecha": null
         },
         {
