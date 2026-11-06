@@ -943,6 +943,18 @@
       "tema": "H13 · el mapa de Bellcaire con sus 6 zonas",
       "decision": "Bellcaire (region_capital, 80×80) lleva las 6 zonas del diseño del mapa EA, hechas por el generador (tools/city/ciudades.json zones; data/maps zones y zone_rows; el sim no las lee): Plaza del Mercado (centro), Barrio de los Menestrales (artesano: los talleres de los cuatro oficios, workshops_in), Barrio de los Patricios (noble: la catedral, casas grandes de pizarra), Puerto y Lonja (muelles, Lonja, aduana, almacenes), Arrabal y huertas (afueras: campos y el arrabal del otro lado del puente) y Bosque del Daura (un bosque propio al suroeste). Sus nombres en el mapa con el zoom más lejano (ZoneLayer). El validador comprueba las seis y lo que hace reconocible a cada una. 30-40 NPC: Bellcaire tiene 80 vecinos, todos con casa y oficio (O-R9: 5 por casa, 16 casas); la cifra de H13 es la del mapa EA único de antes de la región y se mantiene la población aprobada para el bench. O-R9 hecha en los mapas de la región (population_max = 5 × casas). Vilarrasa no cambia.",
       "por_que": "Encargo del manager (cerrar la parte de mapa de H13 en Bellcaire): «lo demás lo decides tú dentro del GDD». Las 6 zonas son las del diseño original del mapa EA (centro, barrio artesano, barrio noble, puerto/río, campos, bosque), dentro del estilo A + C (D10) y de 09b."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "O-R1 · la capital como casa por defecto",
+      "decision": "Apagada por ahora (data/world/region.json \"default_city\": \"\"): EA empieza en Vilarrasa y Bellcaire se elige en «Dónde empiezas». Se enciende (\"capital\") cuando Bellcaire tenga sus 5 familias rivales con la IA de 4.21, lo que falta de H13 fuera del mapa (encargado a plantillas).",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Es la recomendación de 09b O-R1: una capital sin sus familias rivales sería un inicio más pobre que la villa, y el tutorial y el primer día están verificados en Vilarrasa."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H13 · 80 vecinos en Bellcaire, no 30-40",
+      "decision": "Bellcaire mantiene 80 NPC (16 casas × 5, O-R9). La cifra de 30-40 de la fila H13 de 10_hitos.md queda superada por O-R9.",
+      "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»). O-R9 (población proporcional a las casas) ya está aprobada, y con 80 el bench de Bellcaire está dentro de la diana relativa (reposo 1,93×, peor paso 21,9 ms; wanderer 2,79×)."
     }
   ],
   "pendientes": [
@@ -1113,11 +1125,6 @@
       "tema": "Jugador completo · la taberna arranca con pérdidas (sin juzgar aún)",
       "detalle": "Comprada desde Ciudadano (días 20-24), en los pocos días que quedan hasta el final de los 3 años la taberna de full_player (llevada por la cónyuge con BotInnkeeper) pierde entre 115 y 334 de oro/día de operación: la existencia inicial, los primeros salarios y pocas noches. En una semilla anterior, comprada el día 20, ganaba 61/día de operación. Tres años no bastan para saber si compensa: se mide en la generación de la noche.",
       "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
-    },
-    {
-      "tema": "O-R1 · la capital como casa por defecto (propuesta, pendiente del owner)",
-      "detalle": "Lista tras una opción y apagada: data/world/region.json \"default_city\" (\"\" = la de siempre). Con \"capital\", la pantalla de Partida nueva abre en Bellcaire (y se puede volver a Vilarrasa); NewGame.from_start sin ciudad sigue jugando el mapa del inicio, así que las dianas y los bots no cambian. Test: test_plantillas_ciudades test_the_capital_as_default_town_is_ready_behind_an_option.",
-      "opciones": "(a) Activarla (\"default_city\": \"capital\"): EA empieza en Bellcaire, con sus 80 vecinos, y la villa queda como inicio corto. (b) Dejarla apagada: EA empieza en Vilarrasa y Bellcaire se elige en «Dónde empiezas». Recomendación (09b O-R1): (a) cuando Bellcaire tenga sus 5 familias rivales con la IA de 4.21 (lo que falta de H13 fuera del mapa)."
     }
   ],
   "proximos_pasos": [
