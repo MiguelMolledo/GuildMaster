@@ -27,8 +27,8 @@ static func _on_added(n: Node) -> void:
 		_apply.call_deferred(n)   # after the code that made it has set its focus_mode
 
 
-static func _apply(n: Node) -> void:
-	if not is_instance_valid(n) or not n is Control or _in_world(n):
+static func _apply(n: Variant) -> void:   # Variant: a node freed before the deferred call arrives as a freed object
+	if not is_instance_valid(n) or not n is Control or _in_world(n as Node):
 		return
 	var c := n as Control
 	if c is SpinBox:   # its field takes the keys (a number and Enter), not the box
@@ -42,7 +42,13 @@ static func _apply(n: Node) -> void:
 		c.gui_input.connect(func(ev: InputEvent) -> void:
 			var mb := ev as InputEventMouseButton
 			if mb != null and not mb.pressed and c.has_focus():
-				c.release_focus.call_deferred())   # a click leaves no focus: Space keeps pausing
+				_release.call_deferred(c))   # a click leaves no focus: Space keeps pausing
+
+
+## The focus left after a click, if the control is still there (a click that closes its card takes it out first).
+static func _release(c: Variant) -> void:
+	if is_instance_valid(c) and (c as Control).is_inside_tree():
+		(c as Control).release_focus()
 
 
 ## A control of the town or a room (under a Node2D): not the interface.

@@ -20,6 +20,10 @@
     },
     "inn_serve": {
       "key": "servir es señalar a un cliente en la sala (docs/ui/01 §9: clic)"
+    },
+    "close_dynasty": {
+      "mouse": "apagado por diseño: data/family.json succession.voluntary_close = false (D19); el flujo vecinos_familia comprueba que el botón dice por qué",
+      "key": "apagado por diseño: data/family.json succession.voluntary_close = false (D19)"
     }
   },
   "steps": []

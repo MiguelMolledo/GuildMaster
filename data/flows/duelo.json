@@ -3,7 +3,7 @@
   "title": "Duelo",
   "about": "El rival acaba de insultar a Hugo: clic en el rival, «Retar a duelo…», la carta del reto por la ofensa y el lance en la pantalla del duelo con teclas y botones.",
   "start": {"scenario": "duel_ready"},
-  "covers": ["duel_challenge", "duel_answer", "duel_move", "duel_auto"],
+  "covers": ["duel_challenge", "duel_answer", "duel_move", "duel_auto", "duel_brawl"],
   "steps": [
     {"id": "pausa", "say": "Espacio: pausa (el rival anda; en pausa se reta donde está)", "key": "Space", "expect": ["q.paused()"]},
     {"id": "rival", "say": "Clic en el herrero rival: su ficha", "world": {"person": "=q.rival()"}, "expect": ["q.visible('NpcPanel')"]},
@@ -19,6 +19,11 @@
     {"id": "espera_lance_2", "say": "Espera a que acabe el lance en curso", "until": "not q.disabled({'node': 'Parry'}) or q.visible('Result')", "timeout": 10},
     {"id": "espera_auto", "until": "not q.disabled({'node': 'Auto'}) or q.visible('Result')", "timeout": 10},
     {"id": "auto", "say": "«Resolver sin jugar»", "until": "q.visible('Result')", "timeout": 20, "fast": 4, "click": {"node": "Auto"}},
-    {"id": "cerrar", "say": "Esc cierra el resultado", "key": "Escape", "until": "not q.visible('DuelScreen')", "timeout": 6}
+    {"id": "cerrar", "say": "Esc cierra el resultado", "key": "Escape", "until": "not q.visible('DuelScreen')", "timeout": 6},
+    {"id": "pelea_escena", "say": "Otra vez junto al rival, en pausa (escenario duel_ready)", "restart": {"scenario": "duel_ready", "paused": true}},
+    {"id": "pelea_rival", "world": {"person": "=q.rival()"}, "expect": ["q.visible('NpcPanel')"]},
+    {"id": "pelea_carta", "click": {"node": "DuelButton"}, "until": "q.shown({'node': 'Button_brawl'})", "timeout": 6},
+    {"id": "pelea", "say": "«Pelea» (ahora, sin reglas)", "click": {"node": "Button_brawl"}, "expect": ["q.order('duel_brawl')"]},
+    {"id": "pelea_seguir", "when": "q.paused()", "key": "Space"}
   ]
 }
