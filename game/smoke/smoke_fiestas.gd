@@ -8,7 +8,8 @@ extends Node
 ## reason: fiesta_boda_sin_oro), and the clock's festival button and the card it opens again (fiesta_boton_reloj,
 ## fiesta_carta_reabierta), the corro with the preacher (fiesta_corro), the Christmas gifts (fiesta_regalos) and
 ## Sant Jordi in Bellcaire with its games on the city's page (fiesta_ciudad_sant_jordi) and its feast's contracts on
-## its board (fiesta_ciudad_encargos), and the peddler's stall in the plaza (vida_buhonero). Quits when done, or after `timeout` seconds.
+## its board (fiesta_ciudad_encargos), the peddler's stall in the plaza (vida_buhonero), the merchant who trades
+## (vida_mercader) and a guard in the town's livery (vida_guardia). Quits when done, or after `timeout` seconds.
 
 const DAY: int = 1440
 const PLAZA: Vector2i = Vector2i(19, 19)
@@ -320,5 +321,32 @@ func _process(delta: float) -> void:
 		"peddler":
 			if _t > 0.8:
 				app.save_shot("vida_buhonero")
+				var sim: Sim = Game.sim  # a merchant of Portvell: he buys its dear goods, sells its cheap ones
+				Inventory.add(sim.state.characters[_who]["inventory"], sim.catalog, "iron_ingot", Inventory.NORMAL, 3)
+				var md := {"kind": "merchant", "city": "port", "gate": "", "purse": 90, "plan": [], "stop": -1, "until": -1,
+					"leaving": false, "arrived": 0}
+				var mid := Life.add_person(sim, Life.FAMILY_VISITORS, "Mercader", false, 38, {}, {}, [18, 21], {"visitor": md})
+				VisitingMerchant.setup(sim, sim.state.characters[mid]["visitor"], "port", "smoke|merchant")
+				Life.put_on(sim, mid, [18, 21])
+				app.hud().call("open_npc", mid)
+				_go("merchant")
+		"merchant":
+			if _t > 0.8:
+				app.save_shot("vida_mercader")
+				app.hud().close_panels()
+				var guard := ""  # a guard of the watch at his post: the livery's placeholder
+				for c: String in Game.sim.state.characters:
+					var ch: Dictionary = Game.sim.state.characters[c]
+					if str(ch.get("family", "")) == Life.FAMILY_WATCH and str(ch.get("location", "x")) == "":
+						guard = c
+						break
+				print("[SmokeFiestas] guardia: %s" % guard)
+				if guard != "":
+					var gt: Array = Life.tile_of(Game.sim.state, guard)
+					app.world().camera().center_on(Iso.tile_to_world(Vector2i(int(gt[0]), int(gt[1]))))
+				_go("guard")
+		"guard":
+			if _t > 0.8:
+				app.save_shot("vida_guardia")
 				_go("done")
 				get_tree().quit()

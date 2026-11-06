@@ -2,6 +2,18 @@
   "tomadas": [
     {
       "fecha": "2026-11-06",
+      "tema": "Vida: el mercader de paso comercia de verdad (construido)",
+      "decision": "El mercader forastero compra al jugador lo que su ciudad paga caro (dear) al 80 % del precio de allí y le vende lo barato de su ciudad (cheap, 2-4 de cada) al 115 %, desde su ficha y en persona (sell_to_merchant, buy_from_merchant). Límites: su bolsa (oro real), 3 unidades de cada cosa por visita; no toca los puestos de la villa ni su demanda, y el viaje siempre paga mejor. sim/life/merchant.gd.",
+      "por_que": "Encargo del manager (2026-11-06): cerrar lo que quedó a medias en la auditoría de vida."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Vida: la librea de la guardia, con placeholder visible",
+      "decision": "Mientras no llegue el sprite del guardia (assets/inventario.json, PixelLab), los guardias llevan sobre la figura del vecino teñida un tabardo con los colores del concejo (watch.livery) y una cruz dorada: se leen como guardia a primera vista. Se quita solo cuando exista la escena characters/guard_m.",
+      "por_que": "Encargo del manager (2026-11-06): cerrar lo que quedó a medias en la auditoría de vida."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Vida: el puesto del buhonero (construido)",
       "decision": "El buhonero de 4.24.3 («monta un puesto un día») trae su mercancía (data/life/life.json visitors.kinds.peddler.wares: dados cargados el 50 % de los días a 30, dulces, agujas, capa de viaje; tirada con clave al llegar, que no mueve otras) y se le compra en persona desde su ficha (orden buy_from_peddler, dentro del alcance; el oro sale fuera). Era lo que faltaba para que los dados cargados de 4.26.7 se puedan comprar. sim/life/peddler.gd.",
       "por_que": "Encargo del manager: auditar H16 entero y cerrar lo que más pese en la diversión, decidiendo dentro de 04f."
