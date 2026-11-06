@@ -73,6 +73,19 @@ func _on_button(id: String) -> void:
 	if g == null or g.get("sim") == null:
 		return
 	var sim: Sim = g.get("sim")
+	if id == "gifts_menu":  # fiestas: the Christmas gifts, the families on a second card
+		var gm := FestivalPage.gifts_menu(sim, data)
+		(func() -> void: show_page(gm)).call_deferred()
+		return
+	if id == "corro_menu":  # fiestas: the corro in the plaza, its games on a second card
+		var cm := FestivalPage.corro_menu(sim, data)
+		(func() -> void: show_page(cm)).call_deferred()
+		return
+	var app0 := get_node_or_null("/root/App")
+	if id.begins_with("corro:") and app0 != null and app0.has_method("open_game"):
+		app0.call("open_game", FestivalPage.corro_request(sim, id, data,
+			SimQuery.family_actor(sim.state, SimQuery.player_family(sim.state))))
+		return
 	if id == "audience_menu":  # the privileges on a second card (after this one closes)
 		var menu := FestivalPage.audience_menu(sim, data)
 		(func() -> void: show_page(menu)).call_deferred()
