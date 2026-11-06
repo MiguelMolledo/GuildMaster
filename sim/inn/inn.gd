@@ -1095,6 +1095,10 @@ static func order_buy_building(sim: Sim, o: Dictionary) -> Dictionary:
 	b.erase("for_sale")
 	if is_inn(sim, bld):
 		ensure(sim, bld)
+	# equilibrio (2026-11-06): what the last keeper leaves in the larder comes with the house (sale_stock)
+	var def: Dictionary = sim.catalog.buildings().get(str(b.get("type", "")), {})
+	for line: Variant in def.get("sale_stock", []):
+		Inventory.add(b["inventory"], sim.catalog, str(line["item"]), 0, int(line["qty"]))
 	Chronicle.add(st, "building_bought", {"family": fam, "building": bld, "type": str(b.get("type", "")), "price": price})
 	sim.events.append({"type": "building_bought", "building": bld, "family": fam, "actor": actor, "price": price})
 	if OS.is_debug_build():

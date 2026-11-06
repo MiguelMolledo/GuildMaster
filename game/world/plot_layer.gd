@@ -133,6 +133,7 @@ func _sign(p: Dictionary) -> int:
 	var text := sg.get_node_or_null("%Text") as Label
 	if text != null:
 		text.text = SimQuery.t_("ui.plot.for_sale")
+		WorldLabels.style(text, "small")   # the town's lettering (verificación B), not Godot's default (jugador J1)
 	# on the overlay (like the buildings' signs): never hidden by a block in front of the door
 	VisualPaths.place(sg, Iso.tile_to_world(Vector2i(int(door[0]), int(door[1]))) + Vector2(0, -4))
 	world.overlay().add_child(sg)
