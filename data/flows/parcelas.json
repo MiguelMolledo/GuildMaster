@@ -1,0 +1,18 @@
+{
+  "id": "parcelas",
+  "title": "Abrir un segundo negocio en una parcela",
+  "about": "H6 (04 §4.9, §4.9.1). La familia es Ciudadana con 900 de oro (escenario plots_ready): el modo construcción (B) pinta las parcelas por zona; clic en la ruina de plot_01: su carta dice zona, tamaño, lugar y situación y ofrece restaurarla como sastrería con su precio y sus días; la obra (andamio y barra) hasta que termina: un segundo negocio. Después, la forja se reconvierte en carpintería y la sastrería nueva se derriba (le devuelven parte de lo que costó). Esc sale del modo.",
+  "start": {"scenario": "plots_ready"},
+  "covers": ["build", "convert_building", "demolish"],
+  "steps": [
+    {"id": "modo", "say": "El modo construcción (B): las parcelas por zona", "key": "@build_mode", "expect": ["q.visible('BuildLayer')"]},
+    {"id": "ruina", "say": "Clic en la ruina de plot_01", "world": {"tile": [21, 10]}, "expect": ["q.visible('PlotCard')"]},
+    {"id": "restaurar", "say": "Restaurarla como sastrería (su precio y sus días)", "click": {"within": "PlotCard", "text": "Sastrería", "enabled": true}, "expect": ["q.order('build')"]},
+    {"id": "obra", "say": "La obra, hasta que termina", "until": "q.owns('tailor_shop') and str(q.st().buildings[q.own('tailor_shop')].get('state', '')) == 'normal'", "timeout": 60, "fast": 8},
+    {"id": "forja", "say": "Clic en la forja propia: reconvertirla", "world": {"tile": [26, 22]}, "expect": ["q.visible('PlotCard')"]},
+    {"id": "reconvertir", "say": "Reconvertir la forja en carpintería", "when": "q.shown({'within': 'PlotCard', 'text': 'Carpintería', 'enabled': true})", "click": {"within": "PlotCard", "text": "Carpintería", "enabled": true}, "expect": ["q.order('convert_building')"]},
+    {"id": "sastreria", "say": "Clic en la sastrería nueva", "world": {"tile": [21, 10]}, "expect": ["q.visible('PlotCard')"]},
+    {"id": "derribar", "say": "Derribarla (le devuelven parte de lo que costó)", "click": {"within": "PlotCard", "text": "Derribar", "enabled": true}, "expect": ["q.order('demolish')"]},
+    {"id": "salir", "say": "Esc sale del modo construcción", "key": "Escape", "expect": ["not q.visible('BuildLayer')"]}
+  ]
+}

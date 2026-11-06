@@ -50,7 +50,7 @@ static func move_to(sim: Sim, actor: String, tile: Variant) -> Dictionary:
 	var ch: Dictionary = st.characters[actor]
 	if not bool(ch.get("alive", true)):
 		return Orders.fail("dead")
-	var grid := Grid.of(sim.catalog, st.map_id)
+	var grid := Grid.for_state(sim.catalog, st)  # H6: with what is built on the plots
 	if grid == null:
 		return Orders.fail("no_map")
 	if not (tile is Array and (tile as Array).size() == 2):

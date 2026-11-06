@@ -20,6 +20,8 @@ extends SceneTree
 ##                    (white hair inherited from her mother: index 5), Clara 12, Pere 16, Agnès 45 and Hugo 62.
 ##   tavern_for_sale  a real new game (artisan_blacksmith, normal, fixed cast, seed 1) with 3000 gold: the
 ##                    Taberna-Posada of the town is for sale and the family can buy it.
+##   plots_ready      H6: the same new game, the family Citizen (room for a second building) with 900 gold: the ruin
+##                    of plot_01 can be restored as a tailor's, the forge converted (the building mode).
 
 const OUT: String = "res://data/scenarios"
 const HERO: String = "chr_0001"
@@ -45,6 +47,7 @@ func _init() -> void:
 	ok = _altercation_purse() and ok
 	ok = _tavern_for_sale() and ok
 	ok = _family_ages() and ok
+	ok = _plots_ready() and ok
 	quit(0 if ok else 1)
 
 
@@ -231,6 +234,22 @@ func _tavern_for_sale() -> bool:
 		return false
 	return _save(sim, "tavern_for_sale", "La posada en venta",
 		"Partida nueva (herrero, normal) con 3000 de oro: la Taberna-Posada del pueblo está en venta y la familia puede comprarla (verificación, bloque D).")
+
+
+func _plots_ready() -> bool:
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed"}, 1)
+	if not r["ok"]:
+		print("make_verifica_scenarios: new game: %s" % r["error"])
+		return false
+	var sim := Sim.new(r["state"], cat)
+	var st := sim.state
+	st.families[FAM]["gold"] = 900
+	st.families[FAM]["title"] = "citizen"
+	if str(Plots.get_plot(sim, "plot_01").get("kind", "")) != "ruin":
+		print("make_verifica_scenarios: plot_01 is no ruin")
+		return false
+	return _save(sim, "plots_ready", "Parcelas: listo para construir",
+		"Partida nueva (herrero, normal) con la familia Ciudadana y 900 de oro: cabe un segundo edificio; la ruina de plot_01 se restaura como sastrería y la forja se puede reconvertir (H6, modo construcción).")
 
 
 func _family_ages() -> bool:
