@@ -861,7 +861,7 @@ func _apply_set(cat: Catalog, spec: String) -> bool:
 	var node: Variant = null
 	var i := 1
 	if keys[0] in ["market", "employees", "production", "difficulty", "accounts", "seasons", "events", "town",
-			"upgrade_rules", "trade", "family", "inn"]:
+			"upgrade_rules", "trade", "family", "inn", "live_forge"]:
 		node = cat.get(keys[0])
 	elif keys[0] == "life" and keys.size() >= 3:
 		node = cat.life_tables.get(keys[1])

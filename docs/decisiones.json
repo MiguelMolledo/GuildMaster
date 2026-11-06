@@ -1,6 +1,48 @@
 {
   "tomadas": [
     {
+      "fecha": "2026-11-06",
+      "tema": "Obras maestras raras (03b §3b.2)",
+      "decision": "Además de Artesanía 7 y las tres decisiones bien, la obra maestra pide práctica: 30 piezas perfectas de esa receta hechas antes por la familia (data/live_forge.json masterwork.practice; estado masterworks.practice, sin versión nueva), y la tirada baja del 10 % al 5 %; antes del umbral no se tira el dado. Medido con el bot de ritmo, que juega bien (3 años × 5 semillas, ~85 piezas perfectas): de 8,5 obras maestras en 3 años a 0,9 (ninguna en un 38 % de partidas), la primera el día 20 de mediana y no antes del 16 en el 90 %: años 3-5. Toca sim/forge/live_forge.gd (forja): un contador y la condición, avisado.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Desbloqueo de mejoras con buen criterio (03b §3b.4)",
+      "decision": "Disparador: 300 de oro, o la deuda inicial saldada a partir del día 4 (índice 3); antes solo 300 en mano, y un jugador que contrata pronto no los tenía hasta el día 7-12. Medido: bot de ritmo 10 semillas, mejoras los días índice 2-3 (ventana 3-5 ±1); full_player 4 semillas, a tiempo en todas.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "El rival te nota el día 3 o 4 (03b §3b.4)",
+      "decision": "Ventana del desbloqueo rival [2, 3] (antes [2, 2]): el primer día en que vendes más que el rival depende del mercado y del dado (índices 2-4 en 10 semillas, también con las cifras de antes: con la ventana de un día fallaba 1 de 10 antes y 3 de 10 con las obras maestras raras, que mueven las tiradas). La diana de pacing no cambia (unlocks_off 0): 10 de 10 semillas en ventana, hueco máximo 30-41 s.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Cargos y tratados con Ciudadano desde el año 3 (03b §3b.4)",
+      "decision": "El desbloqueo offices pedía Patricio, que full_player no alcanza en 3 años, y no llegaba nunca. Ciudadano ya da los cargos menores (data/titles/citizen.json office_rank minor) y la cuota (09b): ahora se abre con Ciudadano desde el día índice 16 (ventana 16-23). La carta lo dice. Medido (full_player, 4 semillas × 3 años): cargos el día 16 en las 4, a tiempo; 0 desbloqueos fuera.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Concursos de fiestas en la fama del taller (Equilibrio 13)",
+      "decision": "WorkshopFame lee buildings[b].contests_won (FestivalCourt._judge, rama fiestas) con su evento festival_contest: cada victoria nueva +0,2 al renombre (contests_seen en la memoria de la fama). Funciona en cuanto fiestas entre en main.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Taberna comprada tarde: arranque, no pérdida",
+      "decision": "Medido desde innkeeper_start (la taberna recién comprada, con BotInnkeeper) 48 días × 3 semillas: neto de explotación 46-130/día el año 1, 85-171 el 2 y 200-404 del 3 al 6 (fama 5). Las pérdidas de 115-334/día de full_player en los días 22-24 (rama jugador) son el arranque comprimido en sus 2-4 últimos días (existencias, sueldos, pocas noches), no el negocio. Lo que sí apunta: a largo plazo la taberna rinde 3-4 veces la forja (sumidero de H6, Equilibrio 5). La generación con el full_player de jugador se mide cuando esa rama esté en main.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Revisión de las dianas de full_player que movió jugador",
+      "decision": "Ciudadano: con Equilibrio 3 llega los días 11-15 en 4 de 4 semillas; propuesta al entrar jugador en main: volver a la diana por semilla con [1, 20] y la media [9, 16]. unlocks_off: con los cambios de hoy (mejoras, rival, cargos) full_player sale con 0 fuera en 4 de 4 semillas (reports/equilibrio/fin4.json); propuesta: de _proposed otra vez a diana, [0, 0]. Se aplica al juntar la rama jugador (sus cambios aún no están en main).",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
       "fecha": "2026-11-05",
       "tema": "Orden rechazada de full_player: la de artisan_expert (revisión del manager)",
       "decision": "Era del bot artisan_expert: el minuto en que compraba una mejora (que se lleva sus materiales del almacén) pedía además forjar con esos materiales (work_at → missing_inputs; 1 de 16 partidas). Ahora ese minuto no planea trabajo. No es un hueco del juego: la orden rechazada ya dice el motivo en pantalla. Es otra que la del regateo en el mostrador (transfer → not_enough) que arregló el worker jugador en fb1e423: aquella es de full_player y esta de la clase artisan_expert que hereda; las dos hacían falta. Medido: 0 rechazos en 8 partidas de 3 años.",

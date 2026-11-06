@@ -215,7 +215,11 @@ static func resolve(sim: Sim, actor: String, bld_id: String, job: Dictionary, ba
 	var craft := int(sim.state.characters.get(actor, {}).get("stats", {}).get("craft", 0))
 	if all_right and tids.has("all_right"):
 		traits.append(str(tids["all_right"]))
-	if all_right and craft >= int(mcfg.get("min_craft", 99)) \
+	# Equilibrio (03b §3b.2, 2026-11-05): a masterwork asks for practice too: the family must have made `practice`
+	# perfect pieces of this recipe before (masterworks.practice[fam][recipe], counted here); the rng is drawn only
+	# then, so a game before the threshold rolls the same dice as without masterworks
+	var practiced := _practice(sim, actor, str(job["recipe"]), all_right)
+	if all_right and craft >= int(mcfg.get("min_craft", 99)) and practiced >= int(mcfg.get("practice", 0)) \
 			and sim.state.rng.randf() < float(mcfg.get("chance", 0.0)):
 		q = Inventory.EXCELLENT
 		mw = _masterwork(sim, actor, bld_id, job, traits)
@@ -289,6 +293,22 @@ static func _learn(sim: Sim, actor: String, recipe_id: String, p: Dictionary, st
 		learned[fam][recipe_id] = {}
 	(learned[fam][recipe_id] as Dictionary).merge(put, true)
 	sim.events.append({"type": "live_forge_learned", "family": fam, "recipe": recipe_id, "what": put.keys()[0]})
+
+
+## The perfect pieces (the three decisions right) of `recipe_id` the actor's family made before this one; counts this
+## one when `perfect`. State: masterworks.practice {fam: {recipe: n}} (read with defaults: no save version).
+static func _practice(sim: Sim, actor: String, recipe_id: String, perfect: bool) -> int:
+	var fam := str(sim.state.characters.get(actor, {}).get("family", ""))
+	_ensure(sim.state)
+	if not sim.state.masterworks.get("practice") is Dictionary:
+		sim.state.masterworks["practice"] = {}
+	var pr: Dictionary = sim.state.masterworks["practice"]
+	if not pr.get(fam) is Dictionary:
+		pr[fam] = {}
+	var before := int((pr[fam] as Dictionary).get(recipe_id, 0))
+	if perfect:
+		pr[fam][recipe_id] = before + 1
+	return before
 
 
 static func _ensure(st: WorldState) -> void:

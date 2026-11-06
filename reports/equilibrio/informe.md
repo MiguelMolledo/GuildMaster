@@ -55,3 +55,15 @@ resúmenes completos en `00_base_*.json`, `all1-3.json`, `fun1-2.json`, `eq10_*.
 | La orden rechazada (1 de 16 partidas) | Del bot: `artisan_expert` compraba `forge_production_2` (se lleva 5 lingotes del almacén) y en el mismo minuto pedía forjar un martillo con esos lingotes → `work_at` / `missing_inputs` (reproducido: semilla 1, día 14, minuto 21290). No es un hueco del juego: la pantalla ya da el motivo | El minuto en que compra una mejora no planea trabajo | Semilla 1 sin rechazos; 8 partidas de 3 años, 0 órdenes rechazadas |
 | Caravanas a 0 | Solo salían con espadas que la villa no quería (nunca sobran), y la cuota se firmaba y se rompía (3 de 4 semillas) | Con cuota firmada, full_player aparta cada estación sus espadas, compra el carro y las manda; firma solo si puede servirla | Caravanas 0 → 1,5 (5, 1, 0, 2); ventas en la capital hasta 2.259; cuotas rotas 3/4 → 1/4; neto año 2 24 → 39/día, año 3 98 → 86, oro final 990 → 957. Ninguna banda cambia |
 
+
+## Tras la parada (2026-11-06): informes de jugador y fiestas
+
+| Cosa | Antes | Después | Cómo |
+|---|---|---|---|
+| Obras maestras (bot de ritmo, 3 años × 5 semillas, tirada simulada sobre sus ~85 piezas perfectas) | 8,5 en 3 años, la primera el día 1 | 0,9 (ninguna en el 38 %), la primera el día 20 de mediana (p10: 16) | práctica: 30 piezas perfectas de la receta antes; 5 % (antes 10 %) |
+| Desbloqueo de mejoras | 300 de oro en mano: días 7-12 con full_player | días 3-5 en full_player; índices 2-3 en pacing | 300 de oro, o la deuda saldada desde el día 4 |
+| Desbloqueo del rival (pacing, 10 semillas) | ventana de un día: falla 1/10 (3/10 con las obras raras) | ventana [2, 3]: 0/10 | el día en que le ganas en ventas depende del dado |
+| Cargos y tratados | Patricio: nunca en 3 años | Ciudadano y año 3: el día 16 en 4/4 | Ciudadano ya da los cargos menores y la cuota |
+| full_player: desbloqueos fuera | 1-2 | 0 en 4/4 | |
+| Taberna recién comprada (innkeeper_start, 48 días × 3 semillas) | — | explotación 46-130/día el año 1; 200-404/día del 3 al 6 (fama 5) | las pérdidas de jugador son el arranque en sus últimos días; a largo plazo rinde 3-4 veces la forja |
+| Concursos de fiestas → fama del taller | gancho a mano | `buildings[b].contests_won` con el evento `festival_contest` (+0,2 cada uno) | listo para cuando entre fiestas |

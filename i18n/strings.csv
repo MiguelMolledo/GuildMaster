@@ -2802,7 +2802,7 @@ unlock.incidents.desc,"Brawls, bandits and kidnappings: the town needs someone. 
 unlock.family_trade,family and caravans,la familia y las caravanas
 unlock.family_trade.desc,With a spouse or a cart the business grows beyond your hands: family members work and caravans travel.,Con pareja o con carro el negocio crece más allá de tus manos: la familia trabaja y las caravanas viajan.
 unlock.offices,offices and treaties,los cargos y los tratados
-unlock.offices.desc,Your title lets you run for the council and sign treaties: power is also a trade.,Tu título te deja presentarte al concejo y firmar tratados: el poder también es un oficio.
+unlock.offices.desc,"As citizens you may run for the minor offices of the council and sign a quota treaty: power is also a trade.","Como ciudadanos podéis presentaros a los cargos menores del concejo y firmar una cuota: el poder también es un oficio."
 unlock.court,the court,el tribunal
 unlock.court.desc,Somebody went to court. Win witnesses before the hearing: whoever weighs more wins.,Alguien ha ido a juicio. Gana testigos antes de la vista: gana quien más pese.
 unlock.masterwork,the masterwork,la obra maestra

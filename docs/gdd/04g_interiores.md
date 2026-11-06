@@ -184,7 +184,8 @@ renombre = Σ puntos por hecho (±0,75 como mucho), que pierde un 15 % cada alba
 Hoy la lee el mostrador de 4.5.4 (clientes cada intervalo / fama y precio + (fama − 1) × 0,1); la clientela de
 comarca de la rama interiores la leerá como `fama(b)` cuando se unifique (Equilibrio 14). Los hechos de la familia sin
 edificio (ventas en la plaza, encargos, obras maestras) van a su taller principal. Los concursos ganados los apunta
-fiestas con `WorkshopFame.add(sim, taller, "contest_won")` (o el evento `contest_won`). Se ve en el título del panel de
+fiestas en `buildings[taller].contests_won` (`FestivalCourt._judge`), que la fama lee con su evento `festival_contest`
+(cada victoria nueva, +0,2). Se ve en el título del panel de
 producción («Forja · fama 1,25», con su explicación). Cifras en `data/town.json` `workshop_fame`; reglas en
 `sim/balance/workshop_fame.gd`; estado `buildings[b].fame` (sin versión nueva: se lee con su valor por defecto).
 

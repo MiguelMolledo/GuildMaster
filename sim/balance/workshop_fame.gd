@@ -6,7 +6,8 @@ extends RefCounted
 ## fame = clamp(1 + quality × quality_weight + renown, min, max), where quality is the mean quality (0 normal, 1 good,
 ## 2 excellent) of what the workshop sold in the last window_days (market sales by its family and its counter's), and
 ## renown adds points per fact and decays by decay_per_day at each dawn: a masterwork, a contract done (more for a
-## festival one), a contest won (fiestas: WorkshopFame.add(sim, bld, "contest_won")) up; a contract failed and a
+## festival one), a contest won (fiestas: buildings[b].contests_won from FestivalCourt._judge, read on its
+## festival_contest event) up; a contract failed and a
 ## complaint (a counter customer who leaves unserved or with nothing to buy) down.
 ## A family's facts with no building (market sales, contracts, masterworks) go to its main workshop: its first own
 ## building with an upgrade tree that is not the Taberna-Posada (which has its own fame, 4.27).
@@ -107,7 +108,9 @@ static func step(sim: Sim) -> void:
 				_fam_fact(sim, str(e.get("family", "")), "contract_failed")
 			"masterwork_made":
 				_fam_fact(sim, str(e.get("family", "")), "masterwork")
-			"contest_won":  # fiestas: a contest won with the workshop's piece (the building, else the family's)
+			"festival_contest":  # fiestas (FestivalCourt._judge): buildings[b].contests_won counts the wins
+				_contests(sim)
+			"contest_won":  # a contest won with the workshop's piece (the building, else the family's)
 				if st.buildings.has(str(e.get("building", ""))):
 					add(sim, str(e["building"]), "contest_won")
 				else:
@@ -123,6 +126,23 @@ static func step(sim: Sim) -> void:
 		var fd: Dictionary = f
 		fd["renown"] = float(fd.get("renown", 0.0)) * (1.0 - decay)
 		fd["sold"] = (fd.get("sold", []) as Array).filter(func(r: Variant) -> bool: return int(r[0]) >= keep_from)
+
+
+## The contests won since the last look (buildings[b].contests_won, written by fiestas' FestivalCourt._judge): each new
+## win is a contest_won fact of that workshop. Remembered in its fame memory (contests_seen).
+static func _contests(sim: Sim) -> void:
+	var st := sim.state
+	var ids: Array = st.buildings.keys()
+	ids.sort()
+	for b: String in ids:
+		var won := int(st.buildings[b].get("contests_won", 0))
+		if won <= 0:
+			continue
+		var f := _mem(st, b)
+		var seen := int(f.get("contests_seen", 0))
+		if won > seen:
+			f["contests_seen"] = won
+			add(sim, b, "contest_won", won - seen)
 
 
 static func _fam_fact(sim: Sim, fam: String, kind: String) -> void:

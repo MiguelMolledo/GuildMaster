@@ -48,3 +48,18 @@ func test_counter_reads_it() -> void:
 	for i: int in 3:
 		WorkshopFame.add(sim, FORGE, "masterwork")
 	check(Counter.price(sim, FORGE, "", "sword", 0, "") > p0, "a famous workshop's counter sells dearer")
+
+
+func test_contests_won_from_the_festival_court() -> void:
+	var sim := _sim()
+	sim.state.buildings[FORGE]["contests_won"] = 1  # what FestivalCourt._judge writes (rama fiestas)
+	sim.events = [{"type": "festival_contest", "family": FAM}]
+	WorkshopFame.step(sim)
+	near(WorkshopFame.of(sim, FORGE), 1.2, 0.001, "a contest won: +0.2")
+	sim.events = [{"type": "festival_contest", "family": FAM}]
+	WorkshopFame.step(sim)
+	near(WorkshopFame.of(sim, FORGE), 1.2, 0.001, "counted once")
+	sim.state.buildings[FORGE]["contests_won"] = 2
+	sim.events = [{"type": "festival_contest", "family": FAM}]
+	WorkshopFame.step(sim)
+	near(WorkshopFame.of(sim, FORGE), 1.4, 0.001, "the next win counts")
