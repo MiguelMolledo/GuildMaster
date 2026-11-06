@@ -32,7 +32,7 @@
     {"id": "vender_espada", "say": "Vender una espada", "click": {"within": {"within": "SellList", "prefix": "sword_"}, "node": "SellOne"}, "until": "q.bag('sword') == 0", "timeout": 10, "expect": ["q.order('sell')", "q.gold() > q.was('gold')"]},
     {"id": "cerrar_mercado", "say": "Cerrar el panel", "click": {"within": "MarketPanel", "node": "CloseButton"}, "expect": ["not q.visible('MarketPanel')"]},
     {"id": "salir_armeria", "say": "Salir de la Armería", "click": {"node": "ExitButton"}, "until": "q.interior() == '' and q.location() == ''", "timeout": 20, "fast": 4},
-    {"id": "carta_espera", "say": "La carta del desbloqueo espera a que se cierre el mercado", "until": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'})", "timeout": 6, "soft": true},
+    {"id": "carta_espera", "say": "La carta del desbloqueo espera sitio en la pila (la de la fiesta va delante): hasta que entra", "until": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'})", "timeout": 40, "soft": true, "fast": 4},
     {"id": "carta_nuevo", "say": "Fuera de la Armería, la carta «Nuevo: los encargos y el recado» en la pila: Entendido", "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'})", "click": {"within": "UnlockCard", "node": "Button_ok"}, "expect": ["q.order('unlock_seen')"]},
     {"id": "al_tablon", "say": "Clic derecho en el tablón de encargos", "world": {"service": "board"}, "button": "right", "until": "q.visible('BoardPanel')", "timeout": 30, "fast": 4},
     {"id": "aceptar_martillos", "say": "Aceptar el encargo de martillos", "when": "q.board_id('hammer') != ''", "click": {"within": {"node": "='Note_' + q.board_id('hammer')"}, "node": "Accept"}, "expect": ["q.order('accept_contract')", "q.mine_id('hammer') != ''"]},
