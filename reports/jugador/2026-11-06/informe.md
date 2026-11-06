@@ -25,6 +25,15 @@ python3 tools/verifica/jugador_bloques.py         # regenera los bloques 06-15
 > En 10 días, ventas 852 + encargos 153 frente a compras 562, recados 109, mantenimiento 180 y sueldo 56. El oro
 > máximo es 209 y al embargo le faltan 71.
 
+> [!NOTE]
+> **Repetida con forja #14-19/#27 dentro** (main c03163e9, misma semilla y misma ruta):
+> - La espera de 41-43 s al final de la Forja viva ya no aparece (#18 arreglado).
+> - El novato sigue sin pagar: el oro no pasa de 198 frente a los 200 del día 8. Prórroga a 250 y llega al día 10
+>   con 196.
+> - En 10 días: ventas 772 + encargos 153 frente a compras 438, recados 85, mantenimiento 180 y sueldo 56.
+>
+> El #1 sigue abierto para equilibrio.
+
 ## Ritmo (03b §3b.6: mediana < 30 s entre decisiones, máximo < 60 s)
 
 Tramos sin decisión, en segundos reales a la velocidad que llevaba el jugador (×2 o ×4; 1 día = 5 min a ×1):
