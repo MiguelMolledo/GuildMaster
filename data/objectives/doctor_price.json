@@ -1,0 +1,13 @@
+{
+  "id": "doctor_price",
+  "name_key": "objective.doctor_price",
+  "conditions": [
+    {
+      "event": "service_price_set",
+      "match": {
+        "service": "doctor"
+      },
+      "count": 1
+    }
+  ]
+}

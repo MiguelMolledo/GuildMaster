@@ -133,6 +133,52 @@ theme_type_variation = &"PositiveLabel"
 text = "--"
 clip_text = true
 
+[node name="ServiceBox" type="VBoxContainer" parent="VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 2
+editor_description = "H12.2: a service station (the Consulta's cot): the clients waiting and the price the owner asks (set_service_price)."
+
+[node name="Sep3" type="HSeparator" parent="VBox/ServiceBox"]
+layout_mode = 2
+
+[node name="Waiting" type="Label" parent="VBox/ServiceBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "--"
+clip_text = true
+
+[node name="PriceRow" type="HBoxContainer" parent="VBox/ServiceBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="PriceLabel" type="Label" parent="VBox/ServiceBox/PriceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "--"
+clip_text = true
+
+[node name="PriceDown" type="Button" parent="VBox/ServiceBox/PriceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "−"
+
+[node name="PriceUp" type="Button" parent="VBox/ServiceBox/PriceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "+"
+
+[node name="ShareLine" type="Label" parent="VBox/ServiceBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DimLabel"
+text = "--"
+clip_text = true
+
 [node name="Foot" type="HBoxContainer" parent="VBox"]
 unique_name_in_owner = true
 layout_mode = 2

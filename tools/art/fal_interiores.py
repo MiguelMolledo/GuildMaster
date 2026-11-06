@@ -95,6 +95,10 @@ ROOMS = {
     "house": ("a medieval family home", "a stone hearth with a cooking pot over the fire, a rustic dining table with "
               "stools and bread, two simple beds with wool blankets, a wooden chest at the foot of a bed, a cradle, "
               "hanging herbs and onions, a shelf with crockery"),
+    "clinic": ("a medieval physician's practice", "a wooden examination cot with a white linen sheet, a small table "
+               "with a big stone mortar and pestle and herbs, a tall apothecary shelf of glass jars, bottles and clay "
+               "pots, a wicker basket of rolled linen bandages, a copper washbasin on a stand, bundles of herbs drying "
+               "from the beams, a parchment chart of the human body on the wall, a waiting bench by the door"),
     "church": ("the interior of a small village church", "a stone altar with a white cloth, candles and a cross, rows "
                "of wooden pews, a pulpit, a stained glass window casting coloured light, stone columns, a baptismal "
                "font, flowers"),

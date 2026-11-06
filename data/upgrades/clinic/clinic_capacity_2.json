@@ -1,0 +1,35 @@
+{
+  "id": "clinic_capacity_2",
+  "name_key": "upgrade.clinic_capacity_2",
+  "tree": "clinic",
+  "branch": "capacity",
+  "level": 2,
+  "cost": {
+    "gold": 40,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 8
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "clinic_capacity_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "mortar_2",
+      "like": "mortar"
+    }
+  ],
+  "visual": {
+    "interior_node": "clinic_mortar_2",
+    "exterior_overlay": null
+  }
+}

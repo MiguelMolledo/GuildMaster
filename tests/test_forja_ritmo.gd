@@ -111,6 +111,35 @@ func test_unlocks_do_not_change_the_economy() -> void:
 	check(not a.state.unlocks.get(FAM, {}).is_empty(), "the unlocks ran in one of them")
 
 
+## The unlocks and the goals look again only at what moved (a memo in the Sim, not saved): a game whose memo is
+## forgotten every minute (everything looked at, as a loaded game does) is the same game, minute by minute.
+func test_the_memo_changes_nothing() -> void:
+	var a := _new_game()
+	var b := _new_game()
+	var bot_a := BotArtisanNovice.new()
+	var bot_b := BotArtisanNovice.new()
+	var got_a: Array = []
+	var got_b: Array = []
+	for i: int in Clock.MINUTES_PER_DAY * 2:
+		for s: Sim in [a, b]:  # what a trigger reads, moved by hand between two steps, the same in both
+			if i == 700 or i == 1600:
+				s.state.families[FAM]["gold"] = int(s.state.families[FAM]["gold"]) + 200
+			if i == 2000:
+				s.state.families[FAM]["title"] = "citizen"
+		for e: Dictionary in a.step(bot_a.orders(a)):
+			if str(e["type"]) in ["unlocked", "open_goal_done"]:
+				got_a.append([int(a.state.clock["minute"]), str(e.get("unlock", e.get("objective", "")))])
+		for k: StringName in [&"_unlocks_memo", &"_goals_memo", &"_event_types"]:
+			b.remove_meta(k)
+		for e: Dictionary in b.step(bot_b.orders(b)):
+			if str(e["type"]) in ["unlocked", "open_goal_done"]:
+				got_b.append([int(b.state.clock["minute"]), str(e.get("unlock", e.get("objective", "")))])
+	var ids := got_a.map(func(x: Array) -> String: return str(x[1]))
+	check("staff" in ids and "upgrades" in ids and "citizen" in ids, "gold and the title opened theirs (%s)" % [got_a])
+	eq(got_a, got_b, "the same unlocks and goals at the same minute")
+	eq(a.state_hash(), b.state_hash(), "the same state")
+
+
 func test_open_goals() -> void:
 	var sim := _new_game()
 	sim.step()

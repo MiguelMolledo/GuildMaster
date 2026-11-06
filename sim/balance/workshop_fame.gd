@@ -15,7 +15,7 @@ extends RefCounted
 ## Read by: Counter (the interval between customers and the price).
 
 const POINTS: Array[String] = ["masterwork", "contract_done", "festival_contract_done", "contest_won", "contract_failed",
-	"complaint"]
+	"complaint", "patient_cured"]
 
 
 static func _cfg(sim: Sim) -> Dictionary:
