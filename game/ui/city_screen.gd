@@ -375,8 +375,12 @@ func _build_board(here: bool) -> void:
 		_row([_tr("ui.city.no_offers")], [600])
 	for off: Dictionary in board:
 		var id := str(off["id"])
-		_row([_tr("ui.city.offer") % [SimQuery.item_name(sim.catalog, str(off["item"])), int(off["qty"]),
-			int(off["reward"]), int(off["days"])], _btn(_tr("ui.city.accept"), "" if here else "not_in_city",
+		var line := _tr("ui.city.offer") % [SimQuery.item_name(sim.catalog, str(off["item"])), int(off["qty"]),
+			int(off["reward"]), int(off["days"])]
+		if off.has("feast"):  # fiestas (4.25.6): a contract of the city's feast
+			var fname := _tr("ui.region.fair") if str(off.get("feast_kind", "")) == "fair" else _tr("region.feast." + str(off["feast"]))
+			line = _tr("ui.city.feast_offer") % [fname, line]
+		_row([line, _btn(_tr("ui.city.accept"), "" if here else "not_in_city",
 			func() -> void: _give({"type": "city_accept", "actor": actor, "contract": id}))], [480, 110])
 	_section(_tr("ui.city.accepted"))
 	var any := false

@@ -8980,6 +8980,614 @@
       }
     },
     {
+      "id": "iprop_mortar_table",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/mortar_table.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g27_s_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a small wooden table with a big stone mortar and pestle and fresh herbs",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          33,
+          33
+        ],
+        "feet": [
+          16,
+          21
+        ],
+        "height": 21,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_apothecary_shelf",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/apothecary_shelf.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g27_s_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a tall wooden apothecary shelf full of glass jars, bottles and clay pots",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          43,
+          58
+        ],
+        "feet": [
+          21,
+          41
+        ],
+        "height": 41,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_bandage_basket",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/bandage_basket.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g27_s_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a wicker basket full of rolled white linen bandages",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          24,
+          23
+        ],
+        "feet": [
+          12,
+          15
+        ],
+        "height": 15,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_washbasin_stand",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/washbasin_stand.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g27_s_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a wooden stand with a copper washbasin, a jug and a towel",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          27,
+          36
+        ],
+        "feet": [
+          13,
+          23
+        ],
+        "height": 23,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_instrument_tray",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/instrument_tray.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g27_s_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a small table with a cloth and a physician's instruments: a bone saw, knives, pliers",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          35,
+          29
+        ],
+        "feet": [
+          17,
+          19
+        ],
+        "height": 19,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_medicine_chest",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/medicine_chest.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g27_s_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "an open wooden chest with brass corners and small vials inside",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          25,
+          27
+        ],
+        "feet": [
+          12,
+          17
+        ],
+        "height": 17,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_folding_screen",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/folding_screen.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g27_s_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a folding screen of linen panels in a wooden frame",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          46,
+          46
+        ],
+        "feet": [
+          23,
+          30
+        ],
+        "height": 30,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_leech_jars",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/leech_jars.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g27_s_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a small table with three tall glass jars and a stack of old books",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          32,
+          33
+        ],
+        "feet": [
+          16,
+          21
+        ],
+        "height": 21,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_herb_drying_frame",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/herb_drying_frame.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g27_s_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a wooden frame with bundles of drying herbs hanging from it",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          44,
+          49
+        ],
+        "feet": [
+          22,
+          32
+        ],
+        "height": 32,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_examination_cot",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/examination_cot.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g28_l_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a wooden examination cot with a white linen sheet and a pillow",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          84,
+          75
+        ],
+        "feet": [
+          42,
+          50
+        ],
+        "height": 50,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_operating_table",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/operating_table.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g28_l_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a sturdy wooden operating table with leather straps and a white cloth",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          85,
+          71
+        ],
+        "feet": [
+          42,
+          47
+        ],
+        "height": 47,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_apothecary_counter",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/apothecary_counter.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g28_l_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a long wooden counter with jars, a small brass scale and a mortar",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          91,
+          77
+        ],
+        "feet": [
+          45,
+          52
+        ],
+        "height": 52,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_waiting_bench",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/waiting_bench.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g28_l_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a long simple wooden bench for people to wait on",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          87,
+          61
+        ],
+        "feet": [
+          43,
+          40
+        ],
+        "height": 40,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_anatomy_chart",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/anatomy_chart.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g29_w_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a parchment chart of the human body (a simple drawing, no gore) pinned on the wall",
+      "prop": {
+        "category": "textile",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          22,
+          34
+        ],
+        "feet": [
+          11,
+          22
+        ],
+        "height": 22,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": true,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_medical_diploma",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/medical_diploma.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g29_w_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a framed parchment scroll with a red wax seal",
+      "prop": {
+        "category": "textile",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          16,
+          25
+        ],
+        "feet": [
+          8,
+          16
+        ],
+        "height": 16,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": true,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
+      "id": "iprop_herb_shelf_wall",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/herb_shelf_wall.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g29_w_clinic_a (ref: _referencias/clinic_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a small wall shelf with bunches of dried herbs and two small jars",
+      "prop": {
+        "category": "textile",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          29,
+          23
+        ],
+        "feet": [
+          14,
+          15
+        ],
+        "height": 15,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": true,
+        "mirror": true,
+        "trades": [
+          "clinic"
+        ],
+        "style": "common"
+      }
+    },
+    {
       "id": "int_armory",
       "tipo": "interior",
       "estado": "sprite",
@@ -17893,6 +18501,76 @@
       "coste_gen": 0,
       "coste_usd": 0,
       "notas": "Lámina de la carta «Nuevo: …» del desbloqueo heir (docs/gdd/03b_diversion_y_ritmo.md §3b.4): el heredero joven tomando el martillo. 240×135 y unlock_heir_192.png (192×108). Cableado: UnlockCard.data_for (VisualPaths.illustration(\"events\", \"unlock_heir\"); sin ella, la carta va sin lámina)."
+    },
+    {
+      "id": "icon_salve",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "objetos"
+      ],
+      "ruta": "assets/art/icons/salve.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 e1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "32×32 y assets/art/icons/small/salve.png (16×16). H12.2: el ungüento del médico."
+    },
+    {
+      "id": "icon_doctor_bag",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "objetos"
+      ],
+      "ruta": "assets/art/icons/doctor_bag.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 e1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "32×32 y small/doctor_bag.png. H12.2: el maletín, la herramienta del médico."
+    },
+    {
+      "id": "icon_patient",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "ui"
+      ],
+      "ruta": "assets/art/ui/icons/icon_patient.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 e1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "H12.2: los pacientes que esperan (menú de la camilla, burbuja del paciente)."
+    },
+    {
+      "id": "icon_loan",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "ui"
+      ],
+      "ruta": "assets/art/ui/icons/icon_loan.png",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 e1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "H12.2: pedir un préstamo al prestamista (libro, Deudas)."
+    },
+    {
+      "id": "bld_clinic",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "clinic"
+      ],
+      "ruta": "assets/art/buildings/fal/clinic.png",
+      "origen": "fal: nano-banana-2/edit sobre la silueta de la sastrería de escala B (assets/art/buildings/escala_b/clinic.png, copia de tailor_shop.png) + image2pixel a escala 4 (tools/art/fal_fachadas.py); obras y dañado con /edit sobre ella",
+      "coste_gen": 0,
+      "coste_usd": 0.25,
+      "notas": "H12.2: la Consulta médica (3×3), con hierbas secándose bajo el alero, un banco y el cartel del mortero; clinic_construction.png y clinic_damaged.png. En game/visuals/buildings/clinic.tscn. Pendiente para PixelLab (15-nov): la de espaldas (clinic_back) para las ciudades generadas."
     }
   ]
 }

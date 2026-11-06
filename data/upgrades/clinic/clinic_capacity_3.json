@@ -1,0 +1,37 @@
+{
+  "id": "clinic_capacity_3",
+  "name_key": "upgrade.clinic_capacity_3",
+  "tree": "clinic",
+  "branch": "capacity",
+  "level": 3,
+  "cost": {
+    "gold": 125,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 10
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "clinic_capacity_2"
+    ],
+    "stat": {
+      "id": "arcane",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "extra_storage",
+      "amount": 10
+    }
+  ],
+  "visual": {
+    "interior_node": "clinic_shelves_big",
+    "exterior_overlay": null
+  }
+}

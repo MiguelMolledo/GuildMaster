@@ -261,6 +261,9 @@ func _fill_actions(statuses: Array, gift: Dictionary, camp: Array, t: Dictionary
 		acts.add_child(b)
 	if actor != "" and str((t.get("visitor", {}) as Dictionary).get("kind", "")) == "beggar":
 		acts.add_child(_alms_button())  # vida (verificación A5): alms to a beggar or a poor pilgrim
+	if actor != "":
+		for w: Dictionary in Peddler.wares(st, target):  # vida (H16): the peddler's stall, one button per ware
+			acts.add_child(_ware_button(str(w["item"]), int(w["price"]), int(w["qty"])))
 	if actor != "" and str(st.characters.get(actor, {}).get("family", "")) != str(t.get("family", "")):
 		acts.add_child(_accuse_row())  # H11
 		acts.add_child(_duel_button())  # duelo
@@ -298,6 +301,25 @@ func _duel_button() -> Button:
 	b.mouse_entered.connect(_hover.bind(b.name))
 	b.mouse_exited.connect(_hover.bind(""))
 	b.pressed.connect(request_duel)
+	return b
+
+
+## «Comprar <ware> (n)»: buy_from_peddler, walking there first when far; off with its reason (sold out, gold, weight).
+func _ware_button(item: String, price: int, qty: int) -> Button:
+	var why := Peddler.reason(sim, actor, target, item)
+	var b := Button.new()
+	b.name = "Ware_" + item
+	b.text = SimQuery.t_("ui.npc.buy_ware") % [SimQuery.item_name(sim.catalog, item), price]
+	b.focus_mode = Control.FOCUS_NONE
+	b.theme_type_variation = &"BodyButton"
+	b.disabled = why != ""
+	b.tooltip_text = SimQuery.reason_text(why) if why != "" else SimQuery.t_("ui.npc.buy_ware_tip") % qty
+	_reasons[b.name] = SimQuery.t_("ui.npc.reason_line") % [b.text, SimQuery.reason_text(why)] if b.disabled else ""
+	b.mouse_entered.connect(_hover.bind(b.name))
+	b.mouse_exited.connect(_hover.bind(""))
+	b.pressed.connect(func() -> void:
+		_give(_reach({"type": "buy_from_peddler", "actor": actor, "target": target, "item": item},
+			NpcActions.in_range(sim, actor, target))))
 	return b
 
 
