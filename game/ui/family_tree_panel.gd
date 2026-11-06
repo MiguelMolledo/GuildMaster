@@ -139,7 +139,7 @@ func refresh(force: bool = false) -> void:
 	var sig := "%s|%s|%s|%s|%s|%s|%d|%s|%s|%s" % [f.get("members", []), f.get("head", ""), Kin.heir(sim, fam),
 		f.get("regent", ""), active, picked, Clock.year(int(st.clock["minute"]), sim.catalog.time), zoom,
 		_people_sig(st, f), tab]
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	_build_header()

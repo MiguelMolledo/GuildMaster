@@ -1,0 +1,27 @@
+{
+  "id": "contratar_cola",
+  "title": "Contratar y poner la cola",
+  "about": "Doble clic en la forja (gestión), contratar a un aprendiz en Empleados, poner cinco lingotes en la cola de Producción y verlos salir sin mirar.",
+  "quick": true,
+  "start": {"scenario": "town_e_start"},
+  "covers": ["hire", "queue_add", "queue_loop", "queue_pause", "queue_remove"],
+  "steps": [
+    {"id": "gestion", "say": "Doble clic en tu forja: se gestiona sin ir andando", "world": {"own": "forge"}, "double": true, "until": "q.interior() == q.own('forge')", "timeout": 6},
+    {"id": "empleados", "say": "E: Empleados (con la plantilla vacía abre Contratar)", "key": "@panel_staff", "expect": ["q.visible('StaffPanel')"]},
+    {"id": "pestana_contratar", "click": {"node": "HireTab"}},
+    {"id": "contratar_1", "say": "Contratar: el primer clic pregunta el jornal", "click": {"within": "StaffPanel", "node": "Hire"}},
+    {"id": "contratar_2", "say": "Segundo clic: contratado", "click": {"within": "StaffPanel", "node": "Hire"}, "until": "q.staff('forge') > q.was('staff', 'forge')", "timeout": 6, "expect": ["q.order('hire')"]},
+    {"id": "plantilla", "say": "La pestaña Plantilla con el nuevo", "click": {"node": "StaffTab"}},
+    {"id": "produccion", "say": "P: Producción", "key": "@panel_production", "expect": ["q.visible('ProductionPanel')", "not q.visible('StaffPanel')"]},
+    {"id": "pestana_cola", "click": {"node": "QueueTab"}},
+    {"id": "elegir_lingote", "say": "Elige el lingote en la rejilla de recetas", "click": {"within": "RecipeGrid", "node": "forge_ingot"}},
+    {"id": "anadir_5", "say": "+5", "click": {"node": "Add5"}, "until": "q.queue_len('forge') > 0", "timeout": 6, "expect": ["q.order('queue_add')"]},
+    {"id": "repetir", "say": "Repetir la cola", "click": {"node": "LoopButton"}, "expect": ["q.order('queue_loop')"]},
+    {"id": "pausar", "say": "Pausar la cola", "click": {"within": "QueuePage", "node": "PauseButton"}, "expect": ["q.order('queue_pause')"]},
+    {"id": "seguir", "say": "Y seguir", "click": {"within": "QueuePage", "node": "PauseButton"}, "expect": ["q.order('queue_pause')"]},
+    {"id": "esc_panel", "say": "Esc cierra el panel", "key": "Escape", "expect": ["not q.visible('ProductionPanel')", "q.interior() != ''"]},
+    {"id": "esc_salir", "say": "Esc otra vez: vuelve a la ciudad", "key": "Escape", "until": "q.interior() == ''", "timeout": 6},
+    {"id": "x4", "key": "@speed_3", "expect": ["q.speed() == 4"]},
+    {"id": "sale_solo", "say": "Sin mirar, el empleado funde lingotes", "until": "q.storage('iron_ingot') > q.was('storage', 'iron_ingot')", "timeout": 60, "fast": 6}
+  ]
+}

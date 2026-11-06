@@ -1,0 +1,25 @@
+{
+  "id": "forja_viva",
+  "title": "Forjar a mano: la Forja viva",
+  "about": "Hugo en su forja con lo que pide la espada (escenario forge_live_ready): el yunque en modo «Viva», calentar hasta el color que pide la receta y sacar, batir los golpes de la plantilla, templar en su medio, el resultado con «Cerrar» y «Otra pieza»; «Cerrar» vuelve al yunque con su menú y para la pieza que la forja empezaba sola (03b §3b.8).",
+  "start": {"scenario": "forge_live_ready"},
+  "covers": ["live_forge", "work_at"],
+  "steps": [
+    {"id": "a_la_forja", "world": {"own": "forge"}, "button": "right", "until": "q.interior() == q.own('forge') and q.location() == q.own('forge')", "timeout": 30, "fast": 4},
+    {"id": "menu_yunque", "station": "anvil", "button": "right", "expect": ["q.visible('StationMenu')"]},
+    {"id": "modo_viva", "say": "Modo «Viva» (Forja viva): la espada a mano", "click": {"node": "CarefulButton"}},
+    {"id": "receta_espada", "say": "La espada", "click": {"via": "RecipeList", "fn": "get_node", "args": ["Row_forge_sword"], "type": "Button"}, "until": "q.live_open()", "timeout": 20, "fast": 4, "expect": ["q.order('work_at')"]},
+    {"id": "calentar", "say": "Calentar: el hierro cambia de color; se saca al color que pide", "until": "q.live_heat_ok()", "timeout": 20},
+    {"id": "sacar", "say": "«Sacar»", "click": {"node": "PullButton"}, "expect": ["q.order('live_forge')"]},
+    {"id": "golpe_1", "say": "Batir: el golpe que marca la plantilla", "until": "q.live_stage() == 'strike'", "timeout": 6},
+    {"id": "golpe_1b", "click": {"node": "='Strike_' + q.live_strike()"}},
+    {"id": "golpe_2", "when": "q.live_stage() == 'strike'", "click": {"node": "='Strike_' + q.live_strike()"}},
+    {"id": "golpe_3", "when": "q.live_stage() == 'strike'", "click": {"node": "='Strike_' + q.live_strike()"}},
+    {"id": "golpe_4", "when": "q.live_stage() == 'strike'", "click": {"node": "='Strike_' + q.live_strike()"}},
+    {"id": "templar", "say": "Templar en el medio que pide", "until": "q.live_stage() == 'quench'", "timeout": 6},
+    {"id": "templar_b", "click": {"node": "='Quench_' + q.live_quench()"}},
+    {"id": "resultado", "say": "El resultado: la calidad y lo que dieron las decisiones", "until": "q.storage('sword') > 0", "timeout": 60, "fast": 6},
+    {"id": "resultado_botones", "say": "El resultado trae «Cerrar» (volver al yunque) y «Otra pieza» (seguir a mano)", "when": "q.live_open()", "expect": ["q.shown({'within': 'LiveForgeScreen', 'node': 'CloseButton'})", "q.shown({'within': 'LiveForgeScreen', 'node': 'NextButton'})"]},
+    {"id": "cerrar_forja", "say": "«Cerrar»: vuelve al yunque con su menú y para la pieza que la forja empezaba sola", "when": "q.live_open()", "click": {"within": "LiveForgeScreen", "node": "CloseButton"}, "expect": ["not q.live_open()", "q.visible('StationMenu')"]}
+  ]
+}

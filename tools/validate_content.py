@@ -2561,6 +2561,10 @@ def main():
         wm = f"maps/{f[:-5]}"
         if "watch" in m:
             check_text(wm + " watch", (m.get("watch") or {}).get("name_key"), strings, rep)
+        if "detail" in m:
+            se = (m.get("detail") or {}).get("settled_every")
+            if not isinstance(se, int) or not 1 <= se <= 30:
+                rep.error(wm, f"detail.settled_every {se}: un entero de 1 a 30 (minutos)")
         if "routing" in m:
             k = (m.get("routing") or {}).get("landmarks")
             if not isinstance(k, int) or not 1 <= k <= 8:
@@ -2633,6 +2637,17 @@ def main():
     sys.path.insert(0, os.path.join(ROOT, "tools", "life"))
     import validate_life  # noqa: E402 vida (04f 4.24): data/life/*.json
     validate_life.check(items, strings, rep, DATA, ROOT, SOCIAL_KINDS, check_text)
+    # 04g 4.6.5: the interior prop library (data/props/interior.json) and the interiors built from data
+    sys.path.insert(0, os.path.join(ROOT, "tools", "interiors"))
+    import interiores as interiors_tool  # noqa: E402
+    import props_catalog  # noqa: E402
+    if os.path.exists(props_catalog.OUT):
+        for e in props_catalog.check(json.load(open(props_catalog.INV, encoding="utf-8")),
+                                     json.load(open(props_catalog.OUT, encoding="utf-8"))):
+            rep.error("props/interior.json", e)
+        for b in interiors_tool.ids():
+            for e in interiors_tool.validate(b):
+                rep.error(f"interiors/{b}.json", e)
     check_tutorial(strings, set(load_kind("starts", rep)),
                    {n[:-5] for n in os.listdir(os.path.join(DATA, "scenarios")) if n.endswith(".json") and not n.startswith("_")},
                    items, buildings, load_kind("maps", rep), rep)

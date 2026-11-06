@@ -10,6 +10,7 @@
   "per_house": 5,
   "routing": {"landmarks": 4, "replans_per_minute": 10},
   "watch": {"name_key": "family.watch.port"},
+  "detail": {"settled_every": 5},
   "style": "C",
   "plaza": {
    "centre": [
@@ -596,6 +597,7 @@
   "per_house": 5,
   "routing": {"landmarks": 4, "replans_per_minute": 6},
   "watch": {"name_key": "family.watch.capital"},
+  "detail": {"settled_every": 5},
   "style": "A+C",
   "plaza": {
    "centre": [
@@ -1347,6 +1349,7 @@
   "per_house": 5,
   "routing": {"landmarks": 4, "replans_per_minute": 10},
   "watch": {"name_key": "family.watch.quarry"},
+  "detail": {"settled_every": 5},
   "style": "B",
   "plaza": {
    "centre": [
@@ -1795,6 +1798,7 @@
   "per_house": 5,
   "routing": {"landmarks": 4, "replans_per_minute": 10},
   "watch": {"name_key": "family.watch.hamlet"},
+  "detail": {"settled_every": 5},
   "style": "E",
   "plaza": {
    "centre": [
@@ -2113,6 +2117,7 @@
   "per_house": 5,
   "routing": {"landmarks": 4, "replans_per_minute": 10},
   "watch": {"name_key": "family.watch.abbey"},
+  "detail": {"settled_every": 5},
   "style": "B",
   "plaza": {
    "centre": [

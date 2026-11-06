@@ -1,0 +1,21 @@
+{
+  "id": "mapa_region",
+  "title": "El mapa de la región",
+  "about": "El mapa desde R y desde el menú de pausa: las fichas de cada lugar al pasar y al hacer clic, la rueda y Esc.",
+  "start": {"scenario": "town_e_start"},
+  "covers": [],
+  "steps": [
+    {"id": "r", "key": "@region_map", "expect": ["q.visible('RegionScreen')", "q.paused()"]},
+    {"id": "aldea", "click": {"node": "Marker_hamlet"}, "expect": ["q.visible('SettlementCard')"]},
+    {"id": "esc_1", "say": "La ficha tapa el mapa: Esc la cierra", "key": "Escape", "expect": ["not q.visible('SettlementCard')"]},
+    {"id": "abadia", "click": {"node": "Marker_abbey"}, "expect": ["q.visible('SettlementCard')"]},
+    {"id": "esc_2", "key": "Escape"},
+    {"id": "puerto", "click": {"node": "Marker_port"}, "expect": ["q.visible('SettlementCard')"]},
+    {"id": "esc_ficha", "say": "Esc cierra la ficha", "key": "Escape", "expect": ["not q.visible('SettlementCard')"]},
+    {"id": "esc_mapa", "say": "Esc cierra el mapa", "key": "Escape", "expect": ["not q.visible('RegionScreen')"]},
+    {"id": "pausa", "say": "Esc con nada abierto: el menú de pausa", "key": "Escape", "expect": ["q.visible('PauseMenu')"]},
+    {"id": "region_pausa", "say": "El mapa desde el menú", "click": {"node": "RegionButton"}, "expect": ["q.visible('RegionScreen')"]},
+    {"id": "volver", "click": {"within": "RegionScreen", "node": "BackButton"}, "expect": ["not q.visible('RegionScreen')"]},
+    {"id": "seguir", "click": {"node": "ResumeButton"}, "expect": ["not q.visible('PauseMenu')", "not q.paused()"]}
+  ]
+}

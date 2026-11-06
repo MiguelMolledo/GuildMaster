@@ -14,7 +14,11 @@ extends PanelContainer
 ##   blocks [{type: paragraph | effects | figures | quote | divider | portraits, ...}] (§3 «Bloques»),
 ##   seal {text} (the wax seal with a letter or a word), buttons [{id, text, primary, disabled, tip}], seconds (closes by itself),
 ##   footer_figures [{label, value}] (cartouches at the left of the foot), sticky (a click on the card does not close
-##   it: cards that ask for a decision).
+##   it: cards that ask for a decision), modal (the card pauses the game: shown centred, one at a time).
+## The cards of the town (those in CardsLayer: global events, festivals, weddings, incidents, duels) that do not pause
+## are not modal (verificación, owner's decision): they go small (the notice template) to a stack at the right, under
+## the clock, or beside the open management panel, and take no click outside themselves; the stack never overlaps and
+## a card that does not fit waits. Modal cards are centred and queue: a second one waits until the first closes.
 ## The page is a StyleBoxTexture with the measured 9-slice margins; Body takes the measured safe area as margins, so no
 ## text can land on the ornament. Decor (frames, corners) is drawn over everything and ignores the mouse. A slot the
 ## kit lacks falls back to the theme of today (PageKit). `parts` says what was used (tests and logs).
@@ -39,6 +43,16 @@ var column_width: int = 0
 var ribbon_overhang: int = 0        # px the ribbon rises above the card's top edge (0: no ribbon of the kit)
 var _corner_reach: int = 0          # how far the corner ornaments reach in from the sides (the ribbon keeps clear)
 var _left: float = 0.0
+var docked: bool = false            # shown in the side stack (a card of the town that does not pause)
+var suspended: bool = false         # docked, but stepped aside while a modal is up (it comes back when it closes)
+
+static var _stack: Array = []       # the docked cards shown, oldest first
+static var _waiting: Array = []     # [PageCard, data] docked cards that did not fit, and modals behind another modal
+static var _modal: PageCard = null  # the modal card shown (one at a time)
+
+const STACK_TOP: float = 58.0       # under the clock and the status bar (docs/ui/01 §4)
+const STACK_BOTTOM: float = 488.0   # over the selection bar
+const STACK_GAP: float = 4.0
 
 @onready var _body: MarginContainer = %Body
 @onready var _column: VBoxContainer = %Column
@@ -59,8 +73,37 @@ func _bind() -> void:
 		_decor = get_node("%Decor") as Control
 
 
-## Builds the card for `d` and shows it centred (closes by itself after d.seconds if > 0).
+## Builds the card for `d` and shows it centred (closes by itself after d.seconds if > 0). A card of the town that
+## does not pause goes to the side stack instead; a modal card behind another modal waits for it.
 func show_page(d: Dictionary) -> void:
+	var town := _in_cards_layer()
+	var modal := bool(d.get("modal", false))
+	if town and modal and _modal != null and is_instance_valid(_modal) and _modal.visible and _modal != self:
+		_waiting.append([self, d])
+		return
+	if town and not modal:
+		build(compact(d))
+		docked = true
+		visible = true
+		_left = float(d.get("seconds", 0.0))
+		reset_size()
+		if size.y + ribbon_overhang > STACK_BOTTOM - STACK_TOP:   # still too tall: only its words and its buttons
+			build(compact(d, true))
+			reset_size()
+		if not _stack.has(self):
+			_stack.append(self)
+		if not _fits(self):
+			visible = false
+			_stack.erase(self)
+			_waiting.append([self, d])
+			return
+		_place_stack()
+		if OS.is_debug_build():
+			print("[PageCard] docked «%s» (%d in the stack)" % [str(d.get("title", "")), _stack.size()])
+		return
+	docked = false
+	if town and modal:
+		_modal = self
 	build(d)
 	visible = true
 	_left = float(d.get("seconds", 0.0))
@@ -74,14 +117,132 @@ func show_page(d: Dictionary) -> void:
 
 
 func close() -> void:
-	if not visible:
+	if not visible and not suspended:
 		return
 	visible = false
+	suspended = false
 	_left = 0.0
+	_stack.erase(self)
+	if _modal == self:
+		_modal = null
 	closed.emit()
+	_show_waiting()
+
+
+## The small version of a card for the side stack: the notice template, no illustration, its first paragraph and its
+## effects (with `bare`, only the first paragraph), its footer and buttons.
+static func compact(d: Dictionary, bare: bool = false) -> Dictionary:
+	var out := d.duplicate()
+	if str(out.get("template", "card")) in ["card", "sheet"]:
+		out["template"] = "notice"
+	out.erase("image")
+	out.erase("portrait")
+	var keep: Array = []
+	var para := false
+	for b: Dictionary in d.get("blocks", []):
+		var t := str(b.get("type", ""))
+		if t == "paragraph" and not para:
+			keep.append(b)
+			para = true
+		elif t == "effects" and not bare:
+			keep.append(b)
+	out["blocks"] = keep
+	return out
+
+
+## The card that waited (a modal behind another, a docked one that did not fit) shows now.
+static func _show_waiting() -> void:
+	for i: int in _waiting.size():
+		var pair: Array = _waiting[i]
+		var card: PageCard = pair[0]
+		if not is_instance_valid(card) or card.visible:
+			_waiting.remove_at(i)
+			return _show_waiting()
+		var modal := bool((pair[1] as Dictionary).get("modal", false))
+		if modal and _modal != null and is_instance_valid(_modal) and _modal.visible:
+			continue
+		_waiting.remove_at(i)
+		card.show_page(pair[1])
+		return
+	_place_stack()
+
+
+func _in_cards_layer() -> bool:
+	var n := get_parent()
+	return n != null and n is CanvasLayer and n.name == "CardsLayer"
+
+
+## Whether `card` fits under the cards already in the stack.
+static func _fits(card: PageCard) -> bool:
+	var y := STACK_TOP
+	for c: PageCard in _stack:
+		if c == card:
+			break
+		if is_instance_valid(c) and c.visible:
+			y += c.size.y + c.ribbon_overhang + STACK_GAP
+	return y + card.size.y + card.ribbon_overhang <= STACK_BOTTOM or y == STACK_TOP
+
+
+## Lays the stack out: right-aligned under the clock, or beside the management panel when one is open (it never
+## covers the storage, the queue...), newest at the bottom.
+static func _place_stack() -> void:
+	var y := STACK_TOP
+	var up := false
+	for c: PageCard in _stack:
+		if is_instance_valid(c) and c.is_inside_tree():
+			up = _modal_up(c.get_tree())
+			break
+	for c: PageCard in _stack.duplicate():
+		if not is_instance_valid(c) or (not c.visible and not c.suspended):
+			_stack.erase(c)
+			continue
+		if up != c.suspended:   # a modal is up: the stack steps aside, and comes back when it closes
+			c.suspended = up
+			c.visible = not up
+		if up:
+			continue
+		var vp := c.get_viewport_rect().size if c.is_inside_tree() else Vector2(960, 540)
+		var right := vp.x - 4.0
+		var open: Control = ManageSlot.open_panel(c.get_tree()) if c.is_inside_tree() else null
+		if open != null and open.is_visible_in_tree():
+			right = open.get_global_rect().position.x - STACK_GAP
+		y += c.ribbon_overhang
+		c.position = Vector2(right - c.size.x, y).round()
+		y += c.size.y + STACK_GAP
+
+
+## A modal on screen that the stack must not cover: the confirmation, a big modal's veil, a menu screen, a game or a
+## duel, or a modal card.
+static func _modal_up(tree: SceneTree) -> bool:
+	if _modal != null and is_instance_valid(_modal) and _modal.visible:
+		return true
+	var root := tree.root
+	for path: String in ["App/Hud/Root/ConfirmModal", "App/Hud/Root/Veil"]:
+		var n := root.get_node_or_null(path) as CanvasItem
+		if n != null and n.is_visible_in_tree():
+			return true
+	var screens := root.get_node_or_null("App/ScreensLayer")
+	if screens != null:
+		for c: Node in screens.get_children():
+			if (c as CanvasItem).visible:
+				return true
+	for layer: String in ["App/GamesLayer", "App/DuelLayer"]:
+		var l := root.get_node_or_null(layer)
+		if l != null:
+			for c: Node in l.get_children():
+				if c is CanvasItem and (c as CanvasItem).visible:
+					return true
+	return false
+
+
+## The docked cards shown now (tests, the verification flows).
+static func stack() -> Array:
+	return _stack.filter(func(c: PageCard) -> bool: return is_instance_valid(c) and c.visible)
 
 
 func _process(delta: float) -> void:
+	if docked and (visible or suspended) and not _stack.is_empty() and _stack[0] == self:
+		_place_stack()   # a management panel opened or closed: the stack moves beside it; a modal: it steps aside
 	if visible and _left > 0.0:
 		_left -= delta
 		if _left <= 0.0:
@@ -724,6 +885,17 @@ func _footer(d: Dictionary) -> void:
 	var seal: Dictionary = d.get("seal", {}) if d.get("seal") is Dictionary else {}
 	if not seal.is_empty():
 		foot.add_child(_seal(str(seal.get("text", ""))))
+	var holder: Container = foot
+	if str(d.get("template", "card")) == "notice" and (d.get("buttons", []) as Array).size() > 1:
+		# small card: the buttons wrap under the figures instead of pushing the card wider
+		var flow := HFlowContainer.new()
+		flow.name = "Buttons"
+		flow.add_theme_constant_override("h_separation", 4)
+		flow.add_theme_constant_override("v_separation", 2)
+		flow.custom_minimum_size = Vector2(column_width, 0)
+		_column.add_child(foot)
+		_column.add_child(flow)
+		holder = flow
 	for btn: Dictionary in d.get("buttons", []):
 		var b := Button.new()
 		b.name = "Button_" + str(btn.get("id", ""))
@@ -737,9 +909,12 @@ func _footer(d: Dictionary) -> void:
 		b.pressed.connect(func() -> void:
 			button_pressed.emit(id)
 			close())
-		foot.add_child(b)
-	if foot.get_child_count() > 1:
+		holder.add_child(b)
+	if holder == foot and foot.get_child_count() > 1:
 		_column.add_child(foot)
+	elif holder != foot and foot.get_child_count() <= 1:
+		_column.remove_child(foot)
+		foot.queue_free()
 
 
 func _seal(text: String) -> Control:

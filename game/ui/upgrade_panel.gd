@@ -124,7 +124,7 @@ func refresh(force: bool = false) -> void:
 	var sig := JSON.stringify(plain) + selected + JSON.stringify(inv.get("stacks", [])) + str(_gold())
 	_view = v
 	_show_works(v.get("work", {}))
-	if not force and sig == _sig:
+	if not force and (sig == _sig or UiFeel.hold_rebuild(self)):
 		return
 	_sig = sig
 	if selected == "" or _entry(selected).is_empty():

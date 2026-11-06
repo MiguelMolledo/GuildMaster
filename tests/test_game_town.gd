@@ -110,8 +110,9 @@ func test_npc_sheet_shows_emotion_and_gives_actions() -> void:
 	sim.state.characters[HERO]["position"] = [2, 19]
 	_orders = []
 	panel.do_action("flatter")
-	eq(str(_orders[0]["type"]), "move_to", "far: walks there first")
-	eq([str(_orders[1]["type"]), bool(_orders[1]["queued"])], ["npc_flatter", true], "and the action waits behind")
+	eq(str(_orders[0]["type"]), "hail", "far: the townsperson waits for you (verificación A8)")
+	eq(str(_orders[1]["type"]), "move_to", "far: walks there first")
+	eq([str(_orders[2]["type"]), bool(_orders[2]["queued"])], ["npc_flatter", true], "and the action waits behind")
 	panel.free()
 
 

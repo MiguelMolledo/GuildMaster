@@ -1,0 +1,22 @@
+{
+  "id": "elecciones",
+  "title": "Elecciones",
+  "about": "Hugo, ciudadano, en el Ayuntamiento: el organigrama (O), presentarse a Inspector de mercado, una acción de campaña y esperar la votación del cambio de año con su tarjeta de recuento.",
+  "start": {"scenario": "office_campaign"},
+  "covers": ["run_for_office", "campaign_action"],
+  "steps": [
+    {"id": "cargos", "say": "O: el organigrama de cargos", "key": "@offices", "expect": ["q.visible('OfficesPanel')"]},
+    {"id": "inspector", "say": "Elegir Inspector de mercado", "click": {"within": "Chart", "node": "Office_market_inspector"}},
+    {"id": "presentarse", "say": "Presentarse", "click": {"node": "RunButton"}, "until": "q.candidate() or q.visible('ConfirmModal') or q.refused() != ''", "timeout": 10, "fast": 4},
+    {"id": "confirmar", "when": "q.visible('ConfirmModal')", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "until": "q.candidate() or q.refused() != ''", "timeout": 10, "fast": 4},
+    {"id": "candidato", "expect": ["q.candidate()", "q.flow_has('run_for_office')"]},
+    {"id": "cerrar", "key": "Escape", "expect": ["not q.visible('OfficesPanel')"]},
+    {"id": "x4", "key": "@speed_3"},
+    {"id": "campana", "say": "Hasta que empieza la campaña (el invierno)", "until": "q.campaign()", "timeout": 90, "fast": 8},
+    {"id": "cargos_2", "say": "O: se abre en la pestaña Campaña", "key": "@offices", "expect": ["q.visible('OfficesPanel')", "q.visible('CampaignBox')"]},
+    {"id": "discurso", "say": "Una acción de campaña: el discurso", "click": {"node": "SpeechButton"}, "expect": ["q.order('campaign_action')"]},
+    {"id": "cerrar_2", "key": "Escape", "expect": ["not q.visible('OfficesPanel')"]},
+    {"id": "votacion", "say": "Hasta la votación del cambio de año: la tarjeta del recuento", "until": "q.visible('OfficeCard')", "timeout": 120, "fast": 8},
+    {"id": "ok_recuento", "click": {"within": "OfficeCard", "node": "OkButton"}, "expect": ["not q.visible('OfficeCard')"]}
+  ]
+}

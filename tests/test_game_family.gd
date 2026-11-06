@@ -2,7 +2,8 @@ extends "res://tests/test_case.gd"
 ## H8 view (GDD 4.10.5, 4.10.7, 4.10.8, 4.10.9, 4.17): the family tree lays out the founder, the spouse beside him and
 ## the children below, with portraits in the family's colours and each person's hair and skin (a child carries the
 ## hair or skin of a parent); its sheet gives designate_heir and school_choice; the routine editor gives the whole
-## routine as set_schedule; the courtship panel talks at once in range and walks first when far; the ending screen
+## routine as set_schedule; the courtship panel talks at once in range and, when far, hails (the other one waits) and
+## walks first; the ending screen
 ## breaks the score down. Windowless: the scenes are built by hand and the orders are caught by a sink.
 
 const FAM := "fam_0001"
@@ -130,9 +131,10 @@ func test_courtship_panel_talks_or_walks() -> void:
 			break
 	_orders.clear()
 	cp.act(far, {"type": "court_talk"})
-	eq(_orders.size(), 2, "walk + talk")
-	eq(str(_orders[0]["type"]), "move_to", "walks first")
-	eq(_orders[1], {"type": "court_talk", "actor": HERO, "target": far, "queued": true}, "the talk waits behind")
+	eq(_orders.size(), 3, "hail + walk + talk")
+	eq(_orders[0], {"type": "hail", "actor": HERO, "target": far}, "the one courted waits (verificación A8)")
+	eq(str(_orders[1]["type"]), "move_to", "walks there")
+	eq(_orders[2], {"type": "court_talk", "actor": HERO, "target": far, "queued": true}, "the talk waits behind")
 	cp.free()
 
 

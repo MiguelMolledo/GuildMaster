@@ -293,4 +293,4 @@ vea sus bandas; el bot de ritmo ya forja todo en Forja viva.
 
 **Tras el resultado (hallazgo de verifica).** «Cerrar» (Esc) cierra y vuelve al yunque con su menú abierto: si la forja
 ya había empezado sola la pieza siguiente, la para (las entradas vuelven al almacén) para que no quede forjando
-debajo del menú. «Otra pieza» (Intro) sigue a mano: la que ya empezó o una nueva de la misma receta.
+debajo del menú. «Otra pieza» sigue a mano: la que ya empezó o una nueva de la misma receta.

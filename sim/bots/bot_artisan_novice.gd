@@ -62,9 +62,10 @@ func orders(sim: Sim) -> Array:
 	if _trip.is_empty():
 		if loc != FORGE:
 			return [_enter(FORGE)]
-		o = _live_decision(sim)   # 03b §3b.8: the Forja viva replaces the master touch at the anvil
-		if not o.is_empty():
-			return [o]
+		if live_for_quality == 1:   # 03b §3b.8 (its subclasses that forge live give their own decisions)
+			o = _live_decision(sim)
+			if not o.is_empty():
+				return [o]
 		o = _master_touch(sim)
 		if not o.is_empty():
 			return [o]
@@ -525,10 +526,35 @@ func _can_make_in_time(sim: Sim, c: Dictionary) -> bool:
 	var rid := _recipe_for(sim, str(c["item"]))
 	if rid == "" or _status(sim, ANVIL, rid) == "locked":
 		return false
+	if not _pays_inputs(sim, c, rid):
+		return false
 	var hours := _contract_hours(sim, c)
 	for a: Dictionary in Contracts.accepted_of(sim, _fam(sim)):
 		hours += _contract_hours(sim, a)
+	if bool(c.get("race", false)):  # fiestas (4.25.4): the hours until its fixed hour, not the rounded day
+		var left := float(int(c.get("due_at", 0)) - int(sim.state.clock["minute"])) / 60.0
+		return hours <= left * 0.6 * _capacity(sim)
 	return hours <= float(int(c["deadline_days"]) * 24) * 0.6 * _capacity(sim)
+
+
+## Whether the gold it may spend pays the raw materials of the pieces `c` still lacks (what the storage and the bag
+## do not have, at the buy price + errand surcharge, as _raw_needs): it takes no contract it cannot make.
+func _pays_inputs(sim: Sim, c: Dictionary, rid: String) -> bool:
+	var st := sim.state
+	var inv: Dictionary = st.buildings[FORGE]["inventory"]
+	var bag: Dictionary = st.characters[ACTOR]["inventory"]
+	var missing := int(c["qty"]) - Contracts.count_valid(inv, str(c["item"]), int(c["min_quality"])) \
+		- Contracts.count_valid(bag, str(c["item"]), int(c["min_quality"]))
+	var raw := {}
+	for i: int in maxi(missing, 0):
+		_add_raw(sim, rid, raw)
+	var cost := 0
+	for item: String in raw:
+		var have := Inventory.count(inv, item) + Inventory.count(bag, item)
+		if item == "iron":
+			have += 2 * (Inventory.count(inv, "iron_ingot") + Inventory.count(bag, "iron_ingot"))
+		cost += roundi(maxi(0, int(raw[item]) - have) * Market.price(sim, item, Inventory.NORMAL, "buy") * 1.2)
+	return cost <= Money.gold(st, _fam(sim)) - _kept(sim)
 
 
 func _contract_hours(sim: Sim, c: Dictionary) -> float:

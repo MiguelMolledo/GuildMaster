@@ -25,6 +25,8 @@ static func in_force(sim: Sim) -> Array:
 
 ## Whether family `fam` pays no tariff in city `c` (an exemption of its own, or of its town if it is a home family).
 static func exempt(sim: Sim, c: String, fam: String) -> bool:
+	if FestivalCourt.exempt(sim, c, fam):  # fiestas: the marquis's privilege (04f 4.25.2)
+		return true
 	for t: Dictionary in in_force(sim):
 		if str(t["kind"]) != "exemption" or str(t["city"]) != c:
 			continue

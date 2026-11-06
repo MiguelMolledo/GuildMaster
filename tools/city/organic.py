@@ -1312,6 +1312,8 @@ def build(map_id, plan, cat=None, variant=None):
         data["routing"] = json.loads(json.dumps(plan["routing"]))
     if plan.get("watch"):  # plantillas: the town's watch (its name: sim/life/watch.gd)
         data["watch"] = json.loads(json.dumps(plan["watch"]))
+    if plan.get("detail"):  # plantillas: the settled townsfolk every N minutes (TownLife._settled)
+        data["detail"] = json.loads(json.dumps(plan["detail"]))
     if map_id in citylib.rules().get("plots", {}).get("maps", []):  # 04 §4.9.1: lots, ruins and businesses
         import plots
         plots.add_plots(data, cat)

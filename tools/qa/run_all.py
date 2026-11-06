@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Corre todos los rituales que existen (GDD 07 §7.1) y escribe un informe.
 
-  python3 tools/qa/run_all.py [--only=a,b] [--skip=a,b] [--visual]
+  python3 tools/qa/run_all.py [--only=a,b] [--skip=a,b] [--visual] [--night]
 
 Pasos: tests (reglas), content (validador), art (inventario), ciudad (coherencia de los mapas, tools/city/), town_e (tools/maps/make_town_e.py --check: el script reproduce el mapa y su escenario), boot (arranque sin ventana con cada escenario),
 bench (coste del sim), sim (bots contra data/targets.json en el arenero), sim2 (random_clicker e idle_rival a 10 días),
@@ -17,9 +17,13 @@ semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), d
 duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días), gambler (juegos: el bot jugador en
 games_gambler, 3 semillas × 8 días: pierde lo que marca el margen de la casa), life
 (vida, 04f 4.28.4: el bot guard_watch en life_bandits, 3 semillas × 16 días; las dianas de antes corren con la vida
-apagada, data/targets.json _no_life), festive (fiestas: un año con el calendario de fiestas, 3 semillas × 8 días) y
+apagada, data/targets.json _no_life), festive (fiestas: un año con el calendario de fiestas, 3 semillas × 8 días), fest_ai
+(idle_titles_fest: el año 1 con fiestas, ninguna familia IA más de 2 días sin oro, 5 semillas) y
 bench_fair (el coste del sim el día de la feria), full y chaos (07 §7.4: el jugador completo y el caótico con todo
-encendido, 1 año y 1 semilla; las corridas largas, de noche con tools/qa/noche.py) y full_html (su resumen), e inn (posada: el bot posadero en innkeeper_start, 5 semillas × 16 días). Con
+encendido, 1 año y 1 semilla; las corridas largas, de noche con tools/qa/noche.py), full_html (su resumen), inn
+(posada: el bot posadero en innkeeper_start, 5 semillas × 16 días) y ui (los flujos "quick" de data/flows jugados por
+la interfaz con ratón y teclado, con ventana, cada uno por `grimoire heavy`: 07 §7.6; con --night, todos los flujos y
+el informe en Grimoire). Con
 --visual, además smoke (capturas con ventana, por
 `grimoire heavy`). Escribe reports/qa/QA.md y los logs en reports/qa/logs/. Sale con 1 si algún paso falla.
 bench y bench_fair (coste del sim): si uno falla, se repite una vez al final; si la repetición pasa, queda «ok (repetido)»
@@ -70,6 +74,8 @@ STEPS = [
                   "--seeds=3"]),
     ("festive", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=festive", "--days=8",
                      "--seeds=3"]),
+    ("fest_ai", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=idle_titles_fest",
+                     "--days=8", "--seeds=5"]),
     ("bench_fair", G + ["-s", "tools/sim_bench.gd", "--", "--at-day=3", "--days=1", "--runs=3"]),
     ("inn", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=innkeeper_start", "--bots=innkeeper", "--days=16",
                  "--seeds=5"]),
@@ -77,6 +83,10 @@ STEPS = [
     ("chaos", G + ["-s", "tools/full_player.gd", "--", "--bot=chaos_player", "--years=1", "--seed-list=1", "--tag=qa"]),
     ("full_html", [sys.executable, "tools/full_report.py", "reports/full_player_qa", "reports/chaos_player_qa"]),
 ]
+# The interface (docs/gdd/07_testing.md §7.6): the "quick" flows played with real mouse and keyboard events, with a
+# window, each one through the queue of `grimoire heavy`; --night plays every flow and publishes the report.
+UI = [("ui", [sys.executable, "tools/verifica/verifica.py", "--window", "--flows=quick", "--timeout=300"])]
+NIGHT = [("ui_all", [sys.executable, "tools/verifica/verifica.py", "--window", "--flows=all", "--both", "--artifact"])]
 VISUAL = [("smoke", ["grimoire", "heavy", "--timeout", "3m", "--", GODOT, "--audio-driver", "Dummy", "--always-on-top", "--path", ROOT,
                      "--", "--smoke", "--shots=2", "--shot-every=2"])]
 
@@ -105,7 +115,7 @@ def _run(name, cmd, env):
 def main(argv):
     only = next((a[7:].split(",") for a in argv if a.startswith("--only=")), None)
     skip = next((a[7:].split(",") for a in argv if a.startswith("--skip=")), [])
-    steps = STEPS + (VISUAL if "--visual" in argv else [])
+    steps = STEPS + (NIGHT if "--night" in argv else UI) + (VISUAL if "--visual" in argv else [])
     os.makedirs(os.path.join(ROOT, "reports", "qa", "logs"), exist_ok=True)
     os.makedirs(HOME, exist_ok=True)
     env = dict(os.environ, HOME=HOME)

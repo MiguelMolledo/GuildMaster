@@ -2060,6 +2060,9 @@
  "watch": {
   "name_key": "family.watch.port"
  },
+ "detail": {
+  "settled_every": 5
+ },
  "plots": [
   {
    "id": "plot_01",

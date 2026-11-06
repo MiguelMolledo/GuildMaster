@@ -154,13 +154,30 @@ Su ficha en `data/` (objetos `data/items/`, recetas `data/recipes/`, edificios `
 mapa (letreros, puertas, insignias, barras del interior, día/noche) en `data/view.json`. El color provisional de un
 edificio o un puesto, en el `Greybox` de su escena.
 
-### La posición de un puesto en un interior
-1. Abre `game/visuals/interiors/forge.tscn`.
+### Un interior por datos (la forja; 04g §4.6.5.2)
+Los interiores con fichero en `data/interiors/<tipo>.json` (forja, armería, carpintería, cantería, sastrería, casa y taberna) no
+tienen escena: los monta `game/interior/interior_builder.gd`.
+1. Edita el JSON: salas (`rooms`), puertas, desniveles, escaleras, puestos (`stations`: casilla, pieza de
+   `data/props/interior.json` o la escena del puesto, y `stand`, donde se pone quien trabaja), sitios de clientes,
+   sitios de espera, atrezo (`props`), reglas (`rules`) y las piezas de cada mejora (`upgrades`, por su nodo).
+2. `python3 tools/interiors/interiores.py reglas <tipo>` (coloca lo de las reglas), `python3 tools/interiors/remap_props.py
+   <tipo>` (sus piezas con la paleta de sus fondos) y `validar <tipo>` (0 errores).
+3. `python3 tools/interiors/interiores.py vista <tipo> --marcas` para verlo sin abrir el juego.
+4. Si cambian las salas o las paredes, el fondo pintado ya no encaja: `python3 tools/art/fal_salas.py gen|ver|proc`.
+
+### La posición de un puesto en un interior hecho a mano
+1. Abre `game/visuals/interiors/<tipo>.tscn` (hoy solo `_generic.tscn`: los demás son por datos).
 2. Mueve el `Marker2D` del puesto (`Stations/anvil`…): su nombre es el id del puesto. Déjalo en el centro de una
    casilla (la vista lo redondea a la casilla para los clics).
 3. Los puestos que añaden las mejoras (`anvil_2`, `furnace_2`) ya tienen su marcador: solo salen cuando la mejora está hecha.
 4. Tamaño de la sala y puerta: el nodo `Kit` (*size*, *door*, colores, alto de pared). Su grupo *Art* lleva las
    texturas del suelo y de las paredes; si las vacías, vuelven los colores.
+5. Sala pintada (la forja, `docs/arte/interiores.md`): *backdrop* del `Kit` es una sola imagen del suelo y las paredes
+   del fondo, con *backdrop_offset* = su esquina de arriba a la izquierda desde el centro de la casilla (0, 0). Si la
+   vacías, vuelven las casillas y tramos de pared. Si cambias *size*, *door* o el alto de pared, el fondo ya no encaja:
+   hay que pintarlo otra vez (`tools/art/fal_interiores.py fondo` y `proc`).
+6. Atrezo de pie (carbonera, muela…): un Sprite2D bajo `Props`, con su posición en los pies (el centro de su casilla)
+   y su *offset* para que la base caiga ahí. Se ordena con la gente como los puestos.
 
 ### El visual de una mejora
 Bajo `Upgrades` del interior (`interiors/forge.tscn`) o del exterior (`buildings/forge.tscn`) hay un nodo oculto por

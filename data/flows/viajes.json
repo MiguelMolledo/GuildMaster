@@ -1,0 +1,32 @@
+{
+  "id": "viajes",
+  "title": "Viajar, caravana y tratado",
+  "about": "Con la familia ciudadana: el mapa de la región (R), la ficha de la aldea y «Viajar»; al llegar se abre la página de la ciudad: comprar en su mercado, mirar los tratados y volver. Después, comprar un carro y mandar una caravana.",
+  "start": {"scenario": "travel_start"},
+  "covers": ["travel", "city_buy", "city_sell", "sign_treaty", "return", "buy_cart", "caravan_send"],
+  "steps": [
+    {"id": "region", "say": "R: el mapa de la región", "key": "@region_map", "expect": ["q.visible('RegionScreen')"]},
+    {"id": "aldea", "say": "Clic en la aldea", "click": {"node": "Marker_hamlet"}, "expect": ["q.visible('SettlementCard')"]},
+    {"id": "viajar", "say": "«Viajar»", "click": {"within": "SettlementCard", "node": "Button_travel"}, "until": "q.away() or q.trips() > 0", "timeout": 8, "expect": ["q.order('travel')"]},
+    {"id": "camino", "say": "De camino (el reloj corre: ×4)", "key": "@speed_3"},
+    {"id": "llegada", "say": "Al llegar se abre la página de la ciudad", "until": "q.visible('CityScreen')", "timeout": 90, "fast": 8},
+    {"id": "mercado", "say": "Pestaña Mercado", "click": {"node": "Tab_market"}},
+    {"id": "comprar", "say": "Comprar lo primero que se pueda", "click": {"within": "CityScreen", "tr": "ui.city.buy"}, "soft": true, "expect": ["q.order('city_buy')"]},
+    {"id": "espera_vender", "say": "La página se pone al día con lo comprado", "until": "q.shown({'within': 'CityScreen', 'tr': 'ui.city.sell', 'enabled': true})", "timeout": 6, "soft": true},
+    {"id": "vender", "say": "Vender lo comprado", "click": {"within": "CityScreen", "tr": "ui.city.sell", "enabled": true}, "soft": true, "expect": ["q.order('city_sell')"]},
+    {"id": "encargos", "say": "Pestaña Encargos de la ciudad", "click": {"node": "Tab_board"}},
+    {"id": "aceptar_encargo", "say": "Aceptar un encargo de la ciudad", "when": "q.shown({'within': 'CityScreen', 'tr': 'ui.city.accept', 'enabled': true})", "click": {"within": "CityScreen", "tr": "ui.city.accept", "enabled": true}, "expect": ["q.order('city_accept')"]},
+    {"id": "tratados", "say": "Pestaña Tratados", "click": {"node": "Tab_treaties"}},
+    {"id": "firmar", "say": "Los tratados piden más título: el botón sale apagado y dice por qué", "expect": ["q.disabled({'within': 'CityScreen', 'text': 'Firmar'})", "q.tip({'within': 'CityScreen', 'text': 'Firmar'}) != ''"]},
+    {"id": "volver", "say": "«Volver a casa»", "click": {"node": "ReturnButton"}, "expect": ["q.order('return')"]},
+    {"id": "de_vuelta", "say": "Hasta casa", "until": "not q.away()", "timeout": 90, "fast": 8},
+    {"id": "region_2", "key": "@region_map", "expect": ["q.visible('RegionScreen')"]},
+    {"id": "caravanas", "say": "El botón Caravanas", "click": {"node": "CaravansButton"}, "expect": ["q.visible('CaravanScreen')"]},
+    {"id": "carro", "say": "Comprar un carro", "click": {"node": "BuyCartButton"}, "until": "q.carts() > q.was('carts')", "timeout": 8, "expect": ["q.order('buy_cart')"]},
+    {"id": "carga", "say": "Cargar algo: la flecha de la primera cantidad", "spin": {"within": "CaravanScreen", "type": "SpinBox", "index": 0}, "times": 2},
+    {"id": "mandar", "say": "Mandar la caravana", "click": {"node": "SendButton"}, "until": "q.caravans() > q.was('caravans')", "timeout": 8, "expect": ["q.order('caravan_send')"]},
+    {"id": "cerrar", "click": {"within": "CaravanScreen", "node": "BackButton"}, "expect": ["not q.visible('CaravanScreen')"], "when": "q.visible('CaravanScreen')"},
+    {"id": "esc", "say": "Esc cierra la ficha abierta y luego el mapa", "key": "Escape"},
+    {"id": "esc_2", "when": "q.visible('RegionScreen')", "key": "Escape", "expect": ["not q.visible('RegionScreen')"]}
+  ]
+}

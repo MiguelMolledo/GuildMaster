@@ -9,7 +9,7 @@ extends Control
 ## colour's pace on screen is presentation (data/live_forge.json heat_seconds_per_color, real seconds); the verdict is
 ## the sim's. While it is open the game runs at ×1 (the session's speed comes back when it closes).
 ## Keys: Espacio = Sacar; 1 / 2 / 3 = the strikes or the media; Esc = Resolver sin jugar; on the result, Esc = Cerrar
-## (back to the anvil) and Enter = Otra pieza.
+## (back to the anvil). Enter is KeyNav's (it presses the focused button: «Cerrar» or «Otra pieza»).
 ## Art by VisualPaths.forge_art (assets/art/ui/forge/: the hearth, the iron of each colour, the strike on the anvil, the
 ## media of the quench and the trait icons), each with a visible placeholder (the iron's own colour, a flat box) until
 ## its file exists; the masterwork's illustration events/masterwork.
@@ -360,7 +360,7 @@ func handle_key(event: InputEvent) -> bool:
 	var k := (event as InputEventKey).keycode
 	var v := LiveForge.view(sim, building, zone)
 	var stage := str(v.get("stage", "")) if result.is_empty() else "result"
-	if (%Masterwork as PageCard).visible and k in [KEY_ESCAPE, KEY_ENTER, KEY_KP_ENTER]:
+	if (%Masterwork as PageCard).visible and k == KEY_ESCAPE:
 		(%Masterwork as PageCard).visible = false   # the card first, then the result's buttons
 		return true
 	if k == KEY_ESCAPE:
@@ -370,9 +370,6 @@ func handle_key(event: InputEvent) -> bool:
 			close()
 		else:
 			skip()
-		return true
-	if k in [KEY_ENTER, KEY_KP_ENTER] and stage == "result":
-		next_piece()
 		return true
 	if k == KEY_SPACE and stage == "heat":
 		pull()

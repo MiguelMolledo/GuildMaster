@@ -1,0 +1,15 @@
+{
+  "id": "titulo",
+  "title": "Título en el ayuntamiento",
+  "about": "Hugo delante del Ayuntamiento con lo que pide Ciudadano: clic derecho en el ayuntamiento, su panel con la escalera de títulos, «Pedir el título» (pregunta el gasto) y la ceremonia.",
+  "start": {"scenario": "title_ready"},
+  "covers": ["request_title"],
+  "steps": [
+    {"id": "ayuntamiento", "say": "Clic derecho en el puesto del Ayuntamiento", "world": {"service": "town_hall"}, "button": "right", "until": "q.visible('TownHallPanel')", "timeout": 20, "fast": 4},
+    {"id": "pedir", "say": "Pedir el título", "click": {"node": "AskButton"}, "expect": ["q.visible('ConfirmModal')"]},
+    {"id": "confirmar", "say": "Confirmar el pago", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "until": "q.title_rank() > q.was('title_rank') or q.refused() != ''", "timeout": 20, "fast": 4, "expect": ["q.order('request_title')", "q.title_rank() > q.was('title_rank')"]},
+    {"id": "ceremonia", "say": "La carta de la ceremonia", "until": "q.visible('TitleCard')", "timeout": 8},
+    {"id": "cerrar_ceremonia", "click": {"within": "TitleCard", "type": "Button", "index": 0}, "soft": true},
+    {"id": "esc", "key": "Escape"}
+  ]
+}

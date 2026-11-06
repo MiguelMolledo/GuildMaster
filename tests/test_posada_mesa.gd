@@ -191,3 +191,101 @@ func test_the_offer_event_is_keyed_and_tells_the_family() -> void:
 	var e: Array = _of(sim.events, "inn_game_offer")
 	eq(e.size(), 1, "the event")
 	eq(str(e[0]["family"]), FAM, "for the owner's family (the card listens to it)")
+
+
+# --- Another family's table (manager 2026-11-05) ------------------------------------------------------------------
+
+const RIVAL: String = "fam_0002"       # rival_smith in innkeeper_start
+const RIVAL_HEAD: String = "chr_0002"
+
+
+## The tavern given to the rival smith (an AI family), its table built, open tonight; the hero at its door.
+func _rival_table(licensed: bool) -> Dictionary:
+	var sim := _start()
+	var t := _tavern(sim)
+	var b: Dictionary = sim.state.buildings[t]
+	b["owner"] = RIVAL
+	(b["upgrades"] as Array).append_array(TABLE)
+	if licensed:
+		Inn.ensure(sim, t)["license_until"] = 40
+	Money.change(sim, FAM, 500, Money.GAMES, "test", "", HERO, false)
+	var w := Inn.turn_window(sim, int(sim.state.clock["minute"]))
+	_run_to(sim, int(w[0]) + 5)
+	check(Inn.is_open(sim, t), "the rival's tavern is open")
+	var hero: Dictionary = sim.state.characters[HERO]
+	hero["location"] = ""
+	hero["position"] = (b["door"] as Array).duplicate()
+	return {"sim": sim, "t": t}
+
+
+func test_the_ai_owners_profile_sets_its_terms() -> void:
+	var r := _rival_table(true)
+	var sim: Sim = r["sim"]
+	var t := str(r["t"])
+	var tt: Dictionary = sim.catalog.ai_profiles()["rival_smith"]["tavern_table"]
+	var terms := InnGames.terms(sim, t, HERO)
+	check(bool(terms["ok"]), "it lets a neutral neighbour play")
+	eq(int(terms["min_stake"]), int(tt["min_stake"]), "at its least stake")
+	eq(str(InnGames.request(sim, t, HERO, "azar", 5).get("reason", "")), "under_min_stake", "not under it")
+	check(not InnGames.request(sim, t, HERO, "azar", int(tt["min_stake"])).has("reason"), "at it, yes")
+	Emotions.change_relation(sim, RIVAL_HEAD, HERO, -10, "test")
+	eq(int(InnGames.terms(sim, t, HERO)["min_stake"]), int(tt["rival_min_stake"]), "a rival pays a higher stake")
+	Emotions.change_relation(sim, RIVAL_HEAD, HERO, -40, "test")
+	eq(str(InnGames.terms(sim, t, HERO)["reason"]), "refused", "one it dislikes cannot sit")
+	eq(str(InnGames.request(sim, t, HERO, "azar", 50).get("reason", "")), "refused", "the request too")
+	var d := InnVisitCard.data_for(sim, t, HERO)
+	eq((d["buttons"] as Array).size(), 1, "the card: only «Entendido»")
+
+
+func test_a_visitor_plays_from_the_door_and_the_house_takes_its_part() -> void:
+	var r := _rival_table(true)
+	var sim: Sim = r["sim"]
+	var t := str(r["t"])
+	eq(InnGames.visitor_blocked(sim, t, HERO), "", "at the door, open, allowed")
+	var d := InnVisitCard.data_for(sim, t, HERO)
+	eq((d["buttons"] as Array).size(), 4, "the card: three games and «Ahora no»")
+	var stake := int(InnGames.terms(sim, t, HERO)["min_stake"])
+	var won := false
+	for i: int in 12:
+		var rival0 := Money.gold(sim.state, RIVAL)
+		var ev := _play(sim, InnGames.request(sim, t, HERO, "azar", stake))
+		var gp: Array = _of(ev, "game_played")
+		eq(gp.size(), 1, "played")
+		if bool(gp[0]["won"]):
+			check(int(gp[0]["house_cut"]) > 0, "the house keeps its part of the visitor's win")
+			eq(Money.gold(sim.state, RIVAL) - rival0, int(gp[0]["house_cut"]), "for the owner")
+			won = true
+			break
+	check(won, "one of twelve won")
+	var hero: Dictionary = sim.state.characters[HERO]
+	hero["position"] = [int(hero["position"][0]) + 6, int(hero["position"][1])]
+	eq(InnGames.visitor_blocked(sim, t, HERO), "far", "away from the door")
+
+
+func test_without_licence_the_owner_pays_whoever_played() -> void:
+	var r := _rival_table(false)
+	var sim: Sim = r["sim"]
+	var t := str(r["t"])
+	var ic: Dictionary = Inn.rules(sim)["games"]["illegal"]
+	ic["seen"] = 1.0
+	ic["seen_constable"] = 1.0
+	var rep0 := Reputation.of(sim.state, FAM)
+	var ev := _play(sim, InnGames.request(sim, t, HERO, "envite", int(InnGames.terms(sim, t, HERO)["min_stake"])))
+	ic["seen"] = 0.3
+	ic["seen_constable"] = 0.5
+	var ill: Array = _of(ev, "inn_illegal_gaming")
+	eq(ill.size(), 1, "seen")
+	eq(str(ill[0]["family"]), RIVAL, "the fine is the owner's")
+	eq(str(ill[0]["player_family"]), FAM, "though the hero played")
+	var fact: Dictionary = (sim.state.justice["facts"] as Array).back()
+	eq(str(fact["family"]), RIVAL, "the court's fact against the owner")
+	eq(str(fact["actor"]), RIVAL_HEAD, "its head answers")
+	check((sim.state.justice["facts"] as Array).all(func(f: Dictionary) -> bool:
+		return not (str(f["kind"]) == "illegal_gaming" and str(f["family"]) == FAM)), "the visitor's family: no fact")
+	var chron: Array = sim.state.chronicle.filter(func(c: Dictionary) -> bool: return str(c["kind"]) == "inn_illegal_gaming")
+	eq(chron.size(), 1, "the chronicle says it")
+	eq(str(chron[0]["family"]), RIVAL, "in the owner's chronicle")
+	var visitor_notice := sim.state.notices.filter(func(n: Dictionary) -> bool:
+		return str(n["family"]) == FAM and str(n["key"]) == "notice.inn.illegal_gaming_visitor")
+	eq(visitor_notice.size(), 1, "the visitor is told he only risked his stake")
+	eq(Reputation.of(sim.state, FAM), rep0, "and keeps his reputation")
