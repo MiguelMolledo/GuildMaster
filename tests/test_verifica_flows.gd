@@ -5,7 +5,7 @@ extends "res://tests/test_case.gd"
 ## i18n key and a bracketed id on screen; the driver finds a control by its name, its text and its row.
 
 const ACTIONS: Array[String] = ["click", "right_click", "double_click", "popup", "spin", "key", "hold", "type", "world",
-	"station", "door", "wheel", "pan", "release_focus", "restart", "key_audit", "context_setup", "harness_game"]
+	"station", "inn", "door", "wheel", "pan", "release_focus", "restart", "key_audit", "context_setup", "harness_game"]
 const KEYS: Array[String] = ["id", "say", "until", "timeout", "fast", "wait", "expect", "soft", "when", "shot", "button",
 	"double", "shift", "item", "times", "up", "frames", "context", "does", "may_do_nothing", "both", "camera", "settle",
 	"restore", "no_dismiss", "mouse_only"]
@@ -171,3 +171,36 @@ func test_key_nav_makes_the_interface_focusable() -> void:
 	eq(w.focus_mode, Control.FOCUS_NONE, "a control of the town is not the interface")
 	for n: Node in [b, sb, town]:
 		n.free()
+
+
+## Every scenario a flow starts in (or restarts in) is in data/scenarios/: a flow never fails for a missing start.
+func test_flow_scenarios_exist() -> void:
+	for f: String in _flows():
+		var d: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/flows/" + f))
+		var starts: Array = [d.get("start", {})]
+		for s: Dictionary in d.get("steps", []):
+			if s.get("restart") is Dictionary:
+				starts.append(s["restart"])
+		for st: Dictionary in starts:
+			if st.has("scenario"):
+				check(FileAccess.file_exists("res://data/scenarios/%s.json" % st["scenario"]),
+					"%s: the scenario %s exists" % [f, st["scenario"]])
+
+
+## The judge of the family (verificación D, tribunal.md §2 «Presidir»): in judge_family Hugo holds the judge's seat,
+## is no party to the rival's trial and may rule it once its hearing starts.
+func test_judge_family_can_rule() -> void:
+	var r := NewGame.from_scenario("judge_family")
+	check(bool(r["ok"]), "judge_family loads")
+	if not bool(r["ok"]):
+		return
+	var sim := Sim.new(r["state"], Catalog.load_from())
+	var open: Array = Tribunal.open_trials(sim)
+	check(open.size() == 1, "one trial open (%d)" % open.size())
+	if open.is_empty():
+		return
+	var tid := str(open[0]["id"])
+	eq(Tribunal.verdict_status(sim, "chr_0001", tid, "innocent"), "trial_not_in_hearing", "before the hearing, not yet")
+	sim.run_minutes(10)
+	eq(str(Tribunal.trial(sim.state, tid)["status"]), "hearing", "the hearing has started")
+	eq(Tribunal.verdict_status(sim, "chr_0001", tid, "innocent"), "", "Hugo may rule")

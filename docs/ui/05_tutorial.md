@@ -168,8 +168,8 @@ mientras, hasta 3, esperan su turno), solo si las pistas están encendidas y no 
 curso no sale (saldrá la próxima vez que pase). `until` (opcional) la quita sola y la da por vista (la del puesto se va
 al dar la primera orden de trabajo); la de un panel se va si se cierra el panel, sin darla por vista. «Entendido» (o
 Tab) la cierra y la da por vista; «No volver a mostrar» apaga todas las pistas (se vuelven a encender en Opciones).
-`$event.<campo>` en el objetivo toma el dato del evento que la disparó (la del toque de maestro señala el puesto que
-parpadea).
+`$event.<campo>` en el objetivo toma el dato del evento que la disparó (la de un puesto señala el puesto del
+evento).
 
 ## 5. Cómo se ve
 
@@ -262,10 +262,10 @@ Recetas, puestos y calidad: de hierro a espada.
 | 4 | `ingot` | acaba el anterior | `Row_forge_ingot` en `StationMenu` | Elige el lingote de hierro: {head} se pone a trabajar. | ui `order_given` (type=work_at, recipe=forge_ingot) |
 | 5 | `wait_ingots` | acaba el anterior | station `furnace` | La barra sobre el horno avanza. Una espada pide dos lingotes: espera a tenerlos (Mayús+3 acelera). | estado `storage_has` (item=iron_ingot, qty=2) |
 | 6 | `anvil_menu` | acaba el anterior | station `anvil` | Ya están. Ahora clic derecho en el yunque. | estado `panel_open` (is=StationMenu, zone=anvil) |
-| 7 | `careful` | acaba el anterior | `CarefulButton` en `StationMenu` | Elige Con cuidado: la espada saldrá mejor. | estado `panel_prop` (panel=StationMenu, prop=mode, value=careful) |
+| 7 | `live` | acaba el anterior | `CarefulButton` en `StationMenu` | Elige Forja viva: la espada la forjas tú, en tres pasos. | estado `panel_prop` (panel=StationMenu, prop=mode, value=live) |
 | 8 | `quality` | acaba el anterior | `QualityBox` en `StationMenu` | La calidad esperada: depende de tu oficio, de la herramienta y del modo. | «Siguiente» |
 | 9 | `sword` | acaba el anterior | `Row_forge_sword` en `StationMenu` | Elige la espada. | ui `order_given` (type=work_at, recipe=forge_sword) |
-| 10 | `touch` | sim `master_window` (open=True, zone=anvil) | station `anvil` | ¡El yunque parpadea! Clic izquierdo en él ahora: toque de maestro, más calidad. | sim `master_touch_done` (zone=anvil) o sim `work_done` (item=sword) |
+| 10 | `live_forge` | estado `panel_open` (is=LiveForgeScreen) | `Panel` en `LiveForgeScreen` | Saca el hierro en rojo cereza, bate siguiendo la plantilla y témplala al aceite. Esc: resolver sin jugar. | sim `live_forge_done` (recipe=forge_sword) o sim `work_done` (item=sword) |
 | 11 | `storage` | estado `storage_has` (item=sword, qty=1) | `StorageButton` | La espada está en el almacén. Ábrelo (A). | estado `panel_open` (is=StoragePanel) |
 | 12 | `result` | acaba el anterior | `BuildingGrid` en `StoragePanel` | Aquí está, con su calidad. El siguiente capítulo enseña a venderla. | «Siguiente» |
 
@@ -444,7 +444,6 @@ Retar con motivo y ganar al alba (docs/gdd/04e_combate.md). Se prueba con el esc
 | Pista | Sale cuando | Resalta | Texto (ES) | Se va sola con |
 |---|---|---|---|---|
 | `inside` | estado `interior` (is=$workshop) | station `$first_station` | Clic derecho en un puesto: trabajar aquí. | ui `order_given` (type=work_at) |
-| `master_touch` | sim `master_window` (open=True) | station `$event.zone` | El puesto parpadea: clic izquierdo para el toque de maestro. | sim `master_window` (open=False) |
 | `storage` | estado `panel_open` (is=StoragePanel) | `BuildingGrid` en `StoragePanel` | Clic: coger. Lo que llevas encima, abajo. | — |
 | `production` | estado `panel_open` (is=ProductionPanel) | `Tabs` en `ProductionPanel` | Elige qué fabricar y cuántos en la pestaña Cola: los empleados la trabajan. | — |
 | `market` | estado `panel_open` (is=MarketPanel) | `MarketPanel` | Cada venta baja la demanda; al alba se recupera. | — |

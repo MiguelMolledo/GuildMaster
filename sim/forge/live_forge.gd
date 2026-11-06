@@ -7,8 +7,10 @@ extends RefCounted
 ## live_forge.recipes) keeps its decisions in job.live:
 ##   {stage: heat | strike | quench | done, heat: colour | "", strikes: [kind], quench: medium | "", played: bool,
 ##    verdicts: {heat, strikes, quench: right | near | wrong | ""}, spec: {} (§3b.3: the contract's variant)}
-## The order live_forge {actor, building, zone, step: heat | strike | quench | skip, choice} takes one decision; skip
-## («Resolver sin jugar») ends them with what was decided. The quality is rolled as in mode normal (the same rolls of
+## The order live_forge {actor, building, zone, step: heat | strike | quench | skip | stop, choice} takes one decision;
+## skip («Resolver sin jugar») ends them with what was decided; stop interrupts the piece (D11: its inputs back), what
+## «Cerrar» does with the piece the forge started on its own after a result (a management order: it applies at once,
+## also given in pause, unlike stop_work, which waits behind the work in the actor's queue). The quality is rolled as in mode normal (the same rolls of
 ## state.rng in the same order, Production.roll_quality) and then moved by the verdicts: without decisions, exactly the
 ## quality of mode normal. Only after it, and only with the three right, the masterwork roll (one more rng draw).
 ## A cycle that ends with decisions left waits grace_hours for them. What a family learns (the right colour, the
@@ -16,7 +18,7 @@ extends RefCounted
 ## state.masterworks.pieces and the chronicle (kind "masterwork").
 
 const MODE: String = "live"
-const STEPS: Array[String] = ["heat", "strike", "quench", "skip"]
+const STEPS: Array[String] = ["heat", "strike", "quench", "skip", "stop"]
 
 
 static func cfg(sim: Sim) -> Dictionary:
@@ -77,6 +79,13 @@ static func order(sim: Sim, o: Dictionary) -> Dictionary:
 		return Orders.fail("unknown_step")
 	if str(p["stage"]) == "done":
 		return Orders.fail("live_done")
+	if step == "stop":   # «Cerrar» after a result: the piece the forge started on its own is stopped (D11)
+		var returned := Production.interrupt(sim, bld_id, zone)
+		sim.events.append({"type": "live_forge_step", "actor": actor, "building": bld_id, "zone": zone, "step": step,
+			"choice": "", "verdict": "", "stage": "stopped"})
+		if OS.is_debug_build():
+			print("[LiveForge] %s para la pieza en %s/%s (devuelto=%s)" % [actor, bld_id, zone, returned])
+		return Orders.ok()
 	var rdef := recipe_def(sim, str(job["recipe"]))
 	var choice := str(o.get("choice", ""))
 	var c := cfg(sim)

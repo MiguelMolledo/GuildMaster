@@ -7,8 +7,9 @@ extends RefCounted
 ## What it does, every minute the protagonist is free (not walking, nothing queued):
 ##   debt:   pays the whole loan as soon as the family has it plus a reserve (DEBT_RESERVE) for raw materials; from
 ##           the day before it falls due, whatever it has (keeps a little).
-##   work:   inside the forge, the station work it wants now (contracts first: careful mode when the contract asks for
-##           quality, with the master touch when the window opens; otherwise the anvil recipe with the best margin per
+##   work:   inside the forge, the station work it wants now (contracts first: when the contract asks for quality,
+##           careful with the master touch when its window opens — or, with live_for_quality = 1, the Forja viva at the
+##           anvil, played as the recipe's sheet says, 03b §3b.8; otherwise the anvil recipe with the best margin per
 ##           hour at the demand left after selling what it already holds); ingots at the furnace when the anvil
 ##           lacks them. It only switches recipe when a cycle has just started (it never throws work away).
 ##   trips:  while the market is open (and it gets back before it closes): takes from the storage what it sells or
@@ -34,6 +35,10 @@ const SELL_AT: int = 2               # products ready before a trip to sell is w
 const TRIP_MARGIN_MIN: int = 60      # minutes before closing: no new trip later than this
 const MAX_HELD: int = 4              # never more unsold pieces of one product in stock than this
 
+## 03b §3b.8: 1 = the contracts with a minimum quality at the anvil in Forja viva (played as the recipe's sheet says)
+## instead of careful + master touch. 0 by default until the owner sees its bands (it moves artisan_novice's targets:
+## BOT_VARS=live_for_quality=1 with --tag to measure it).
+var live_for_quality: int = 0
 var _trip: Array = []                # stops left: pickup, board, armory, resources, home
 var _board_day: int = -1             # last day it looked at the board for new contracts
 
@@ -59,6 +64,10 @@ func orders(sim: Sim) -> Array:
 	if _trip.is_empty():
 		if loc != FORGE:
 			return [_enter(FORGE)]
+		if live_for_quality == 1:   # 03b §3b.8 (its subclasses that forge live give their own decisions)
+			o = _live_decision(sim)
+			if not o.is_empty():
+				return [o]
 		o = _master_touch(sim)
 		if not o.is_empty():
 			return [o]
@@ -143,7 +152,8 @@ func _wanted(sim: Sim) -> Dictionary:
 			- Contracts.count_valid(bag, str(c["item"]), int(c["min_quality"]))
 		if need <= 0:
 			continue
-		var w := _make(sim, _recipe_for(sim, str(c["item"])), "careful" if int(c["min_quality"]) > 0 else "normal")
+		var rid := _recipe_for(sim, str(c["item"]))
+		var w := _make(sim, rid, _quality_mode(sim, rid) if int(c["min_quality"]) > 0 else "normal")
 		if not w.is_empty():
 			return w
 	var best := _best_market_recipe(sim)
@@ -178,6 +188,37 @@ func _work(sim: Sim) -> Dictionary:
 			return {}  # never throws away a cycle under way
 	return {"type": "work_at", "actor": ACTOR, "building": FORGE, "zone": w["zone"], "recipe": w["recipe"],
 		"mode": w["mode"]}
+
+
+## 03b §3b.8: the mode a contract with a minimum quality is made in: Forja viva where the recipe has it (it replaces
+## «con cuidado» and its master touch at the anvil), else careful.
+func _quality_mode(sim: Sim, rid: String) -> String:
+	return LiveForge.MODE if live_for_quality == 1 and not LiveForge.recipe_def(sim, rid).is_empty() else "careful"
+
+
+## The next decision of a Forja viva job of the protagonist, played as the recipe's sheet says (its colour, its
+## template, the temper the contract or the recipe wants). {} if there is nothing to decide.
+func _live_decision(sim: Sim) -> Dictionary:
+	var zone := Production.job_zone(sim, ACTOR, FORGE)
+	if zone == "":
+		return {}
+	var v := LiveForge.view(sim, FORGE, zone)
+	if v.is_empty() or str(v["actor"]) != ACTOR or str(v["stage"]) == "done":
+		return {}
+	var rdef := LiveForge.recipe_def(sim, str(v["recipe"]))
+	var part: Dictionary = sim.state.buildings[FORGE]["zones"][zone]["job"]["live"]
+	var o := {"type": "live_forge", "actor": ACTOR, "building": FORGE, "zone": zone}
+	match str(v["stage"]):
+		"heat":
+			o["step"] = "heat"
+			o["choice"] = str(rdef.get("heat", ""))
+		"strike":
+			o["step"] = "strike"
+			o["choice"] = str(LiveForge.template_of(sim, rdef, part)[(v["strikes"] as Array).size()])
+		"quench":
+			o["step"] = "quench"
+			o["choice"] = LiveForge.wanted_quench(rdef, part)
+	return o
 
 
 func _master_touch(sim: Sim) -> Dictionary:
@@ -548,7 +589,7 @@ func _pays_inputs(sim: Sim, c: Dictionary, rid: String) -> bool:
 func _contract_hours(sim: Sim, c: Dictionary) -> float:
 	var rid := _recipe_for(sim, str(c["item"]))
 	var minq := int(c["min_quality"])
-	var mode := "careful" if minq > 0 else "normal"
+	var mode := _quality_mode(sim, rid) if minq > 0 else "normal"
 	var p := _chance_at_least(sim, mode, minq)
 	if p <= 0.0:
 		return INF
@@ -558,6 +599,9 @@ func _contract_hours(sim: Sim, c: Dictionary) -> float:
 ## Chance that a piece made in `mode` reaches `minq` (quality table, right tool, master touch when careful).
 func _chance_at_least(sim: Sim, mode: String, minq: int) -> float:
 	var prod := sim.catalog.production
+	var live := mode == LiveForge.MODE   # played well: the table read as normal, then one step up
+	if live:
+		return _chance_at_least(sim, "normal", maxi(0, minq - int(sim.catalog.live_forge.get("steps_all_right", 1))))
 	var craft := clampi(int(sim.state.characters[ACTOR]["stats"].get("craft", 1)) + int(prod["modes"][mode].get(
 		"craft_delta", 0)), 1, 10)
 	var ch: Array = Production.quality_chances(prod, craft)

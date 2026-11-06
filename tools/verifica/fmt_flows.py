@@ -27,7 +27,7 @@ def dump(d):
 
 def main(ids):
     for f in sorted(os.listdir(DIR)):
-        if not f.endswith(".json") or (ids and f[:-5] not in ids):
+        if not f.endswith(".json") or f.startswith("_") or (ids and f[:-5] not in ids):
             continue
         p = os.path.join(DIR, f)
         with open(p, encoding="utf-8") as fh:

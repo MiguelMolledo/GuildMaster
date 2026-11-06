@@ -947,7 +947,16 @@ func _on_trial_event(e: Dictionary) -> void:
 	if fam == "":
 		return
 	var t := Tribunal.trial(sim.state, str(e.get("trial", "")))
-	if t.is_empty() or (str(t["family"]) != fam and str(t["accuser_family"]) != fam):
+	if t.is_empty():
+		return
+	if str(t["family"]) != fam and str(t["accuser_family"]) != fam:
+		if str(e["type"]) == "trial_verdict" and _trial_panel.visible and _trial_panel.trial_id == str(t["id"]):
+			_trial_panel.close()   # the judge has ruled: the trial of others is over
+			return
+		if str(e["type"]) == "trial_hearing" and presiding_judge(str(t["id"])) != "":   # tribunal.md §2: Presidir
+			_game.set_paused(true)
+			open_trial(str(t["id"]))
+			show_toast(tr("ui.trial.presiding"))
 		return
 	match str(e["type"]):
 		"trial_opened":
@@ -970,12 +979,40 @@ func open_trial(tid: String = "") -> void:
 	if id == "":
 		id = str(Tribunal.of_family(sim, family(), true).get("id", ""))
 	if id == "":
+		id = presided_hearing()
+	if id == "":
 		return
 	var who := selected_id
 	if who == "" or str(sim.state.characters.get(who, {}).get("family", "")) != family():
 		who = Kin.head(sim.state, family())
+	var t := Tribunal.trial(sim.state, id)
+	if str(t.get("family", "")) != family() and str(t.get("accuser_family", "")) != family() and presiding_judge(id) != "":
+		who = presiding_judge(id)   # a trial of others: the family's judge presides it
 	_trial_panel.open_for(sim, who, id)
 	Log.info("Hud", "trial panel (trial=%s, actor=%s)" % [id, who])
+
+
+## The person of the family who presides trial `tid` as the town's judge ("" if none): tribunal.md §2 «Presidir (si
+## eres Juez)», the trial of other families whose hearing the family's judge rules.
+func presiding_judge(tid: String) -> String:
+	if _game == null or _game.sim == null:
+		return ""
+	var sim: Sim = _game.sim
+	for j: String in Offices.holders(sim, "judge"):
+		if j != "" and str(sim.state.characters.get(j, {}).get("family", "")) == family() \
+				and Tribunal.verdict_status(sim, j, tid, "guilty") in ["", "trial_not_in_hearing"]:
+			return j
+	return ""
+
+
+## The open trial in its hearing that the family's judge presides ("" if none): J opens it.
+func presided_hearing() -> String:
+	if _game == null or _game.sim == null:
+		return ""
+	for t: Dictionary in Tribunal.open_trials(_game.sim):
+		if str(t["status"]) == "hearing" and presiding_judge(str(t["id"])) != "":
+			return str(t["id"])
+	return ""
 
 
 func toggle_trial() -> void:

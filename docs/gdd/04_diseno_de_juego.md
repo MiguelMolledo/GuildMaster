@@ -311,9 +311,14 @@ SERVICIOS: Taberna, Posada, Scriptorium, Banco (sin materia prima)
 
 #### 4.4.5 Trabajar a mano: modo y toque de maestro
 
-> Para quien trabaja a mano en el yunque de la forja, la «Forja viva» (calentar, batir, templar) sustituye al modo
-> con cuidado y su toque de maestro: [03b_diversion_y_ritmo.md](03b_diversion_y_ritmo.md) §3b.2 y §3b.8. Lo de abajo
-> sigue igual para los otros oficios, los bots y las partidas guardadas.
+> **El toque de maestro está sustituido por la «Forja viva»** (calentar, batir, templar: [03b_diversion_y_ritmo.md](03b_diversion_y_ritmo.md)
+> §3b.2 y §3b.8; owner, 2026-11-05). La orden `master_touch` ya no la da la interfaz: el puesto no parpadea ni pinta
+> la ventana, un clic en él solo lleva al puesto y no hay pista de tutorial; en el yunque de la forja el modo «con
+> cuidado» lo ocupa la Forja viva, y en los otros oficios «con cuidado» sigue (×1,5 de tiempo, Artesanía +2) pero sin
+> toque. En el sim la orden y su ventana siguen, para cargar partidas viejas con un ciclo «con cuidado» a medias y
+> para los bots que la dan (el novato del herrero en los encargos con calidad y los novatos de los otros oficios);
+> pasar al novato a la Forja viva mueve sus dianas y espera al owner (`live_for_quality`, §3b.8). Lo de abajo
+> describe esa regla del sim.
 
 Cuando un personaje **controlado por el jugador** trabaja en un puesto (orden `WorkAt`), no se limita a esperar la barra: elige **cómo** trabaja y puede intervenir durante el ciclo.
 

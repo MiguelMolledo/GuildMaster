@@ -204,10 +204,20 @@ mismo camino que los del sistema (mapa de entrada, GUI, `_unhandled_input`, la c
 
 **Flujos** (`data/flows/*.json`, un paso por línea; `python3 tools/verifica/fmt_flows.py` los formatea): un paso es
 una acción (`click` / `right_click` / `double_click` sobre un control, `world` sobre la ciudad —casilla, edificio,
-persona, puesto—, `station` / `door` en una sala, `key`, `type`, `spin`, `popup`, `wheel`, `pan`), una espera
+persona, puesto—, `station` / `door` en una sala, `inn` —`guest` o `bed`— en la sala de una posada, `key`, `type`,
+`spin`, `popup`, `wheel`, `pan`, `restart` —otro escenario a mitad de flujo—), una espera
 (`until` con `timeout` y `fast`, un acelerón del reloj del arnés, nunca una orden), `expect`, `when` (solo si se
 cumple), `soft` (si falla, sigue). Los flujos `teclas` (cada tecla en la ciudad y dentro: qué hace, si no hace nada o
 si choca) y `esc` (cada pantalla se cierra con Esc) dan la cobertura de teclas.
+
+**Escenarios de los flujos**: cuando ninguna partida de las que ya hay llega a una orden, el flujo empieza en un
+escenario hecho para él por `tools/scenarios/make_verifica_scenarios.gd` (cada uno sale de un escenario que ya existe o
+de una partida nueva; mismo código y mismos datos, mismo fichero): `patron_treaties` (Barón y alcalde con reputación en
+la aldea: los tratados y los encargos de fuera, flujo `tratados`), `judge_family` (Hugo juez y la vista del juicio
+contra el rival a punto de empezar: `juez`), `school_age` (Clara recién cumplidos los 8: `escuela`),
+`courtship_gifts` (regalos en la bolsa y oro para el banquete: `regalos`), `festival_eve` (la víspera de un torneo:
+`fiestas`), `inn_chores` (la posada con camas sin hacer y gente esperando), `tavern_for_sale` (la posada en venta con
+oro para comprarla) y `altercation_purse` (oro para apostar en un altercado); los tres últimos, en `taberna` y `dados`.
 
 **Lanzarlo**:
 
