@@ -460,9 +460,12 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
   puerta del mapa (spawns `*_gate`, a 10 casillas o menos), y toda la huella del prop tiene que caer en prado: nunca en
   un camino, un puente o un vado, ni a una casilla de una puerta. Vale para cualquier mapa con puertas (las ciudades de
   la región también). Allí van los corrales, las ovejas y los caballos de la feria y de la feria de ganado. El sim y la
-  vista usan la misma regla (`sim/fest/festival_ground.gd`): si en un mapa no caben los corrales, el ganado se vende
-  en puestos de la plaza (un puesto más) y la crónica de la feria lo dice (`fair_cattle_stalls`). En `town_e` caben. Las parcelas libres y las ruinas (04 §4.9.1) guardan su suelo: con las
-  de plantillas, en `region_hamlet` el prado junto a las puertas ya no da para un corral y su ganado va a puestos.
+  vista usan la misma regla (`sim/fest/festival_ground.gd`). Las ferias piden dos corrales (`count` 2) y basta con uno
+  (manager, 2026-11-06): el sim pone los que quepan (`cattle_pens` de la fiesta) y el resto del ganado se vende en un
+  puesto más de la plaza; la crónica lo dice (`fair_cattle_pens_short`, con los corrales puestos y los pedidos). Si no
+  cabe ninguno, todo el ganado va a puestos (`fair_cattle_stalls`). Las parcelas libres y las ruinas (04 §4.9.1)
+  guardan su suelo; plantillas deja sitio para un corral 3×3 junto a una puerta en cada ciudad. En `town_e`
+  (Vilarrasa) caben los dos; en `region_hamlet` (Vilablat), uno, y el resto de su ganado va a un puesto.
 - **Enganchado con vida** (2026-11-04, tras juntar su rama): `Life.event_mult` multiplica por la fiesta (`routine`
   e `incident` a su hora; `visitors` con las fiestas de todo el día, porque vida planea los forasteros al empezarlo),
   `Life.holy_day` cuenta la mañana de guardar y `Life.festival` cualquier fiesta del calendario (el guardia de la
