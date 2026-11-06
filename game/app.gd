@@ -155,6 +155,8 @@ func _ready() -> void:
 	_world.service_requested.connect(_hud.request_service)
 	_interior.shop_requested.connect(_hud.open_market)
 	_hud.focus_requested.connect(focus_on)
+	_hud.festival_requested.connect(func(e: Dictionary) -> void:  # fiestas: the feast's card again, from the clock
+		(get_node("CardsLayer/EventCard") as Node).call("reopen_festival", Game.sim, e))
 	_hud.select_requested.connect(func(id: String) -> void: _world.select(id))  # H8: the group (1-2-3, portraits)
 	_hud.deselect_requested.connect(func() -> void: _world.pick_building_id(""))  # ESC forgets the picked building
 	_new_game.started.connect(_on_new_game_started)
