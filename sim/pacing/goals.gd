@@ -10,7 +10,8 @@ extends RefCounted
 ##            then the first dynasty goal of data/goals.json not reached (GDD 4.17, read only).
 ## The goals of the unlocks count the family's events from the moment they open, apart from the chain:
 ## state.unlocks[fam]._goals = {objective: {have: [int per condition], done: bool, since: minute}}.
-## Events: open_goal_done {family, objective}. A game from before v20 (everything open) shows the chain and the long
+## Events: open_goal_done {family, objective}; its notice only for a goal the start chain (Objectives) does not have:
+## the chain gives its own «Objetivo cumplido» (verifica #17: the same one came twice). A game from before v20 (everything open) shows the chain and the long
 ## goal, as before plus the dynasty's.
 
 
@@ -59,8 +60,9 @@ static func step(sim: Sim) -> void:
 			if all:
 				g["done"] = true
 				sim.events.append({"type": "open_goal_done", "family": fam, "objective": id})
-				Notices.add(sim, fam, Notices.INFO, "notice.objective_done",
-					{"objective": id, "name_key": str(sim.catalog.objectives().get(id, {}).get("name_key", ""))})
+				if not id in (st.objectives.get(fam, {}) as Dictionary).get("chain", []):  # the chain tells its own (#17)
+					Notices.add(sim, fam, Notices.INFO, "notice.objective_done",
+						{"objective": id, "name_key": str(sim.catalog.objectives().get(id, {}).get("name_key", ""))})
 				if OS.is_debug_build():
 					print("[OpenGoals] %s cumple la meta %s" % [fam, id])
 		memo[fam] = {"size": (u as Dictionary).size(), "goals": goals, "ids": ids, "watch": _watch(sim, goals, ids)}

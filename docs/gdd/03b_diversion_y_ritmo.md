@@ -111,15 +111,15 @@ Recordatorio: 1 año = 8 días = 40 min reales.
 
 | Cuándo (juego · real) | Se desbloquea | Disparador | Meta que lo usa |
 |---|---|---|---|
-| Día 1 · 0-5 min | Mover, comprar, **forjar a mano** (Forja viva), vender en la plaza | inicio | «Funde dos lingotes y forja una espada» (ya existe) |
+| Día 1 · 0-5 min | Mover, comprar, **forjar a mano** (Forja viva), vender en la plaza; la **deuda del año** (su carta y la marca en el libro: es la meta desde el principio, verifica #15) | inicio · calendario día 1 | «Funde dos lingotes y forja una espada» (ya existe) y «Paga la deuda» |
 | Día 1 · 5-10 min | Encargos del tablón y recado | primera venta | «Cumple tu primer encargo» |
-| Día 2 · 10 min | Mostrador y la **primera fiesta** (Semana Santa, que es Primavera 1; la pequeña siguiente si se empieza en otra estación) | calendario | «Vende en tu mostrador durante la fiesta» |
+| Día 2 · 10 min | La **primera fiesta** (Semana Santa, que es Primavera 1; la pequeña siguiente si se empieza en otra estación) | calendario | «Cumple un encargo de la fiesta» |
 | Día 2-3 · 15 min | **Primer empleado** (aprendiz) y la cola | 150 de oro o 3 encargos | «Contrata a un aprendiz y ponle una cola» |
 | Día 3-4 · 15-25 min | **El rival** te nota (guerra de precios, 4.5.5) | primer día con más ventas que él | «Gana al rival en ventas un día» |
-| Día 4 · 20 min | **Mejoras** de la forja | 300 de oro, o la deuda saldada desde el día 4 | «Haz tu primera mejora» |
+| Día 4 · 20 min | **Mejoras** de la forja y el **mostrador** (es una mejora: su carta llevaba a Mejoras antes de abrirse, verifica #16) | 300 de oro, o la deuda saldada desde el día 4 | «Haz tu primera mejora» |
 | Verano 2 · 25 min | **La feria**: forasteros, rumores, la carrera de caballos (mirar y apostar) | calendario | «Vende 5 piezas en la feria» |
 | Otoño · 30 min | **La taberna** de otro (cliente: dados, naipes y rumores) | la víspera de San Martín | «Oye tres rumores» |
-| Fin del año 1 · 40 min | **Devolver la deuda** (la meta grande del año 1) y el **cortejo** | calendario y edad | «Paga la deuda» y «Corteja» |
+| Fin del año 1 · 40 min | El **cortejo** (la deuda, que vence ahora, se anuncia el día 1) | calendario y edad | «Corteja» |
 | Año 2 · 40-80 min | **Título de Ciudadano**: **viajar** (09b), **duelo** (04e), **justa** (si hay caballo) y **segundo negocio** (Taberna-Posada) | título | «Viaja a Vilablat», «Abre tu taberna» |
 | Año 2 · desde el día 9 | **Sucesos** de la ciudad: altercados (antes también, pero raros), bandidos y la primera visita del marqués posible | calendario | «Defiende la villa» |
 | Año 2-3 · 80-120 min | **Boda e hijos**, **caravanas** (carro), **encargos de boda rica** | boda o carro | «Forja la espada del novio» |
@@ -187,8 +187,10 @@ Lo que cambió al construirlo, con su porqué (también en `docs/decisiones.json
 - Si el ciclo termina con decisiones pendientes, espera **media hora de juego** [balance] y luego se resuelve con lo
   decidido. Un ciclo de Forja viva solo se repite en Forja viva si se jugó hasta el temple; si no, sigue en normal
   (así quien se va a otra cosa no se queda con la forja esperando).
-- Mientras la pantalla está abierta el juego va a ×1, y al cerrarla vuelve la velocidad que había. Esc es «Resolver
-  sin jugar» y, en el resultado, «Seguir» (pasa a la pieza siguiente si la forja ya la empezó).
+- Mientras hay una decisión que tomar (calentar, batir, templar) el juego va a ×1; en cuanto se templa (o se resuelve
+  sin jugar) vuelve la velocidad que llevaba el jugador, y el resto de la pieza corre a ella (verifica #18: eran 41-43 s
+  esperando a ×1). Otra pieza a mano vuelve a ×1 mientras se decide. Esc es «Resolver sin jugar» y, en el resultado,
+  «Cerrar» (vuelve al yunque) u «Otra pieza».
 - **Pistas por Artesanía:** con 4 o más, «ya casi» un tono antes del bueno; con 7 o más, la plantilla de golpes se
   ve antes de batir. Lo que se acierta queda en la **ficha** de la familia (`masterworks.learned`): el color, la
   plantilla y el temple de cada receta, y la pantalla lo recuerda.
@@ -266,7 +268,9 @@ la cola (la del edificio abierto o la primera de la familia con trabajo). Va a �
 corta con cualquier aviso de la familia, un desbloqueo, un evento global o un microevento, una orden del jugador,
 la pausa, un cambio de velocidad o al pasar un día entero. «El próximo evento» es además una pieza terminada, un
 encargo nuevo, un recado que llega o un cambio de fase del día. Es estado de la sesión, como la velocidad: no se
-guarda. Volver a pulsar «■» lo para.
+guarda. Volver a pulsar «■» lo para. La primera noche, una pista del tutorial lo enseña sobre el botón («Es de noche:
+el mercado cierra hasta el amanecer…», `data/tutorial.json` `night_skip`; verifica #19: ~28 s de noche a ×4 sin nada
+que hacer y nada que lo enseñara).
 
 **Bot de ritmo y partida del owner (§3b.6).** `sim/bots/bot_pacing.gd` es el novato de siempre que forja en Forja viva
 y lee cada carta. Cuenta como decisión cada orden suya (las que van a menos de 3 s, como las paradas de un viaje,

@@ -830,7 +830,7 @@ help.map_camera,"WASD / arrows, middle button: move the camera · wheel: zoom","
 help.map_time,Space: pause (orders given in pause wait in a numbered list) · Shift+1/2/3: speed ×1/×2/×4,Espacio: pausa (las órdenes en pausa esperan en una lista numerada) · Mayús+1/2/3: velocidad ×1/×2/×4
 help.inside,Inside a building,Dentro de un edificio
 help.inside_work,"Right click on a station: work (fast, normal or careful) and choose what to make","Clic derecho en un puesto: trabajar (rápido, normal o con cuidado) y elegir qué hacer"
-help.inside_touch,Left click on the station while it blinks: master touch (better quality),Clic izquierdo en el puesto mientras parpadea: toque de maestro (mejor calidad)
+help.inside_touch,"At the anvil, Live forge: heat, strike and quench by hand; done well, the piece goes up a step (Esc resolves it as always).","En el yunque, Forja viva: calienta, bate y templa a mano; bien hecho, la pieza sube un escalón (Esc la resuelve como siempre)."
 help.inside_exit,"Door, Exit or Esc: back to the town","Puerta, Salir o Esc: volver al pueblo"
 help.panels,Panels,Paneles
 help.panels_keys,"I: what the picked person carries · L: account book (debts and paying them, contracts, notices)","I: lo que lleva la persona elegida · L: libro de cuentas (deudas y pagarlas, encargos, avisos)"
@@ -841,7 +841,7 @@ help.money_how,"Buy iron at the Resources stall, smelt ingots in the furnace, fo
 objective_how.forge_sword,"Pick your character and right click on your Forge. Inside: right click on the Furnace → Work → Smelt ingot; with two ingots, right click on the Anvil → Forge sword.","Elige a tu personaje y clic derecho en tu Forja. Dentro: clic derecho en el Horno → Trabajar → Fundir lingote; con dos lingotes, clic derecho en el Yunque → Forjar espada."
 objective_how.sell_in_armory,"Storage → Take the sword. Leave (Esc) and right click on the Armory; inside, click on the counter → Sell.","Almacén → Coger la espada. Sal (Esc) y clic derecho en la Armería; dentro, clic en el mostrador → Vender."
 objective_how.carpenter_hammers,"Right click on the Contract board → Accept the carpenter's. Forge 2 hammers at the Anvil, Take them from the Storage and back at the board → Deliver.","Clic derecho en el Tablón de encargos → Aceptar el del carpintero. Forja 2 martillos en el Yunque, cógelos del Almacén y en el tablón → Entregar."
-objective_how.quality_contract,"Accept a contract of «good» quality at the board. At the anvil, forge it in Live forge (heat, strike, quench well: one step up); at other stations, work carefully and click while it blinks (master touch).","Acepta en el tablón un encargo de calidad «buena». En el yunque, fórjalo en Forja viva (calienta, bate y templa bien: sube un escalón); en otros puestos, trabaja con cuidado y haz clic mientras parpadea (toque de maestro)."
+objective_how.quality_contract,"Accept a contract of «good» quality at the board. At the anvil, forge it in Live forge (heat, strike, quench well: one step up); at other stations, work carefully.","Acepta en el tablón un encargo de calidad «buena». En el yunque, fórjalo en Forja viva (calienta, bate y templa bien: sube un escalón); en otros puestos, trabaja con cuidado."
 objective_how.errand_purchase,"At a market stall, choose the quantity and «Send to… Forge»: a runner takes it to your storage (+20 %).","En un puesto del mercado, elige cantidad y «Enviar a… Forja»: un recadero lo lleva a tu almacén (+20 %)."
 objective_how.repay_debt,Book (L) → Debts and contracts → Pay. Sell and deliver contracts to gather the gold before day 8.,Libro (L) → Deudas y encargos → Pagar. Vende y cumple encargos para reunir el oro antes del día 8.
 objective_how.free,"Keep going: hire in Staff, fill the queue in Production and improve the forge in Upgrades.","Sigue a tu aire: contrata en Empleados, llena la cola en Producción y mejora la forja en Mejoras."
@@ -2168,7 +2168,7 @@ tutorial.produce.anvil_menu,Done. Now right click on the anvil.,Ya están. Ahora
 tutorial.produce.careful,Choose Careful: the sword will come out better.,Elige Con cuidado: la espada saldrá mejor.
 tutorial.produce.quality,"The expected quality: it depends on your craft, the tool and the mode.","La calidad esperada: depende de tu oficio, de la herramienta y del modo."
 tutorial.produce.sword,Pick the sword.,Elige la espada.
-tutorial.produce.touch,"The anvil blinks! Left click on it now: master touch, better quality.","¡El yunque parpadea! Clic izquierdo en él ahora: toque de maestro, más calidad."
+tutorial.produce.touch,"The anvil waits for you: Live forge. Heat, strike and quench well and the piece goes up a step.","El yunque te espera: Forja viva. Calienta, bate y templa bien y la pieza sube un escalón."
 tutorial.produce.storage,The sword is in the storage. Open it (A).,La espada está en el almacén. Ábrelo (A).
 tutorial.produce.result,"Here it is, with its quality. The next chapter shows how to sell it.","Aquí está, con su calidad. El siguiente capítulo enseña a venderla."
 tutorial.chapter.market,Selling and buying,Vender y comprar
@@ -2273,7 +2273,7 @@ tutorial.trade_tailor.recipe,Cloth: the base of every garment.,Tela: la base de 
 tutorial.trade_tailor.second,"At the sewing table: work clothes, cloaks and common clothes.","En la mesa de costura: ropa de trabajo, capas y ropa común."
 tutorial.trade_tailor.stall,It sells at the Clothier; wool is bought at Resources.,Se vende en la Ropería; la lana se compra en Recursos.
 tutorial.hint.inside,Right click on a station: work here.,Clic derecho en un puesto: trabajar aquí.
-tutorial.hint.master_touch,The station blinks: left click for the master touch.,El puesto parpadea: clic izquierdo para el toque de maestro.
+tutorial.hint.master_touch,"At the anvil, Live forge: you forge the piece yourself, and done well it comes out better.","En el yunque, Forja viva: la pieza la forjas tú, y bien hecha sale mejor."
 tutorial.hint.storage,"Click: take. What you carry, below.","Clic: coger. Lo que llevas encima, abajo."
 tutorial.hint.production,Choose what to make and how many in the Queue tab: employees work it.,Elige qué fabricar y cuántos en la pestaña Cola: los empleados la trabajan.
 tutorial.hint.market,Each sale lowers the demand; it recovers at dawn.,Cada venta baja la demanda; al alba se recupera.
@@ -4161,3 +4161,4 @@ notice.misdeed_seen,"The {family} were seen at it: {what}. A public fact the cou
 misdeed.false_weights,false weights at the market,pesos falsos en el mercado
 misdeed.unpaid_supplier,a supplier left unpaid,un proveedor sin pagar
 misdeed.contraband,contraband,contrabando
+tutorial.hint.night_skip,Night: the market is closed until dawn. «Skip until…» (») by the clock: choose dawn and the night goes by at ×8 (any notice stops it).,Es de noche: el mercado cierra hasta el amanecer. «Saltar hasta…» (») junto al reloj: elige el amanecer y la noche pasa a ×8 (cualquier aviso la para).

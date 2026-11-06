@@ -1078,6 +1078,12 @@
     },
     {
       "fecha": "2026-11-06",
+      "tema": "Hallazgos de verifica de forja (#14-#19, #27): construidos",
+      "decision": "#18 la Forja viva va a ×1 solo mientras hay decisión (calentar, batir, templar): al templar o resolver sin jugar vuelve la velocidad del jugador y la pieza acaba a ella (LiveForgeScreen._hold_speed; antes, ×1 hasta cerrar). #27 los botones de golpe y temple no salían cortados: el auditor visual restaba el icono a su tamaño de archivo y no a icon_max_width (game/smoke/flow/visual_audit.gd); además el menú del puesto sí cortaba «Forjar armadura» y «Forjar martillo» (clip_text fuera). #14 objective_how.quality_contract, help.inside_touch y las dos pistas (tutorial.produce.touch, tutorial.hint.master_touch, sin uso) hablan de la Forja viva. #15 el desbloqueo debt llega el día 1 (calendario 0, ventana [0, 0]). #16 el mostrador se desbloquea con las mejoras (mismo disparador: 300 de oro, o la deuda saldada desde el día 4; ventana [3, 5]). #17 OpenGoals no da su «Objetivo cumplido» para un objetivo que tiene la cadena del inicio (carpenter_hammers, repay_debt): lo da la cadena. #19 pista night_skip la primera noche sobre el botón «Saltar hasta…». pacing_day3 regenerado. Comprobado: verifica forja_viva y opciones_tutorial (ratón y teclado) en verde, forja_viva con 0 avisos visuales; pacing 5 × 8 días 0 fallos (unlocks_off 0, la deuda el día 0, el mostrador con las mejoras días 2-4).",
+      "por_que": "Decisión del manager por delegación del owner sobre el informe de la pasada de jugador (reports/jugador/2026-11-06/informe.md)."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "festive: banda por semilla de encargos de fiesta cumplidos a [3, null]",
       "decision": "fest_contracts_done por semilla pasa de [4, null] a [3, null]; la media se queda en [5, null]. Medido (3 semillas × 8 días): main 4/9/8, equilibrio 3/9/9 (media 7). La causa, aislada apagando cada cambio de la rama: Equilibrio 9 (las obras ya no paran la forja: el jugador sigue produciendo durante las mejoras y el rival del oficio gana un encargo de fiesta menos en la semilla 1; con las obras cerradas vuelve a 4). Es la competencia que pide 03b, no un fallo.",
       "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»); decidido por el manager a propuesta del worker de equilibrio."

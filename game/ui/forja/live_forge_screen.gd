@@ -7,7 +7,9 @@ extends Control
 ## normal. Then the result: the quality, what the decisions gave (traits) and, if it came out a masterwork, its name on
 ## a PageCard. Reads LiveForge.view (the sim) every frame and gives only live_forge orders through order_sink; the
 ## colour's pace on screen is presentation (data/live_forge.json heat_seconds_per_color, real seconds); the verdict is
-## the sim's. While it is open the game runs at ×1 (the session's speed comes back when it closes).
+## the sim's. While there is a decision to take (heat, strike, quench) the game runs at ×1; once the quench is given the
+## player's speed comes back, so the rest of the piece runs at it (verifica #18: 41-43 s waiting at ×1 after the quench),
+## and it comes back too when the screen closes.
 ## Keys: Espacio = Sacar; 1 / 2 / 3 = the strikes or the media; Esc = Resolver sin jugar; on the result, Esc = Cerrar
 ## (back to the anvil). Enter is KeyNav's (it presses the focused button: «Cerrar» or «Otra pieza»).
 ## Art by VisualPaths.forge_art (assets/art/ui/forge/: the hearth, the iron of each colour, the strike on the anvil, the
@@ -40,6 +42,7 @@ var result: Dictionary = {}      # live_forge_done of this piece ({} until it co
 var _heat_left: float = 0.0
 var _sent: Dictionary = {}       # "stage|n" -> true: an order already given for that decision (one per step)
 var _speed_before: int = 0
+var game: Node = null             # the Game whose speed it holds (null: the autoload /root/Game; the tests give one)
 var _bound: bool = false
 
 
@@ -83,10 +86,7 @@ func open_for(s: Sim, bld: String, zone_id: String) -> void:
 	_texts()
 	visible = true
 	add_to_group(BLOCKS_CARDS)
-	var g := get_node_or_null("/root/Game")
-	if g != null and _speed_before == 0:
-		_speed_before = int(g.get("speed"))
-		g.call("set_speed", 1)
+	_hold_speed(true)
 	refresh()
 	ViewConfig.info("LiveForge", "open (building=%s, zone=%s, actor=%s, recipe=%s)" % [bld, zone_id, actor, recipe])
 
@@ -128,12 +128,25 @@ func close() -> void:
 	visible = false
 	remove_from_group(BLOCKS_CARDS)
 	(%Masterwork as PageCard).visible = false
-	var g := get_node_or_null("/root/Game")
-	if g != null and _speed_before > 0:
-		g.call("set_speed", _speed_before)
-	_speed_before = 0
+	_hold_speed(false)
 	ViewConfig.info("LiveForge", "close (recipe=%s, result=%s)" % [recipe, result.get("quality", "-")])
 	closed.emit()
+
+
+## ×1 while a decision is open (`slow`), the player's speed back when none is left; once each way (a speed the player
+## chose meanwhile is kept).
+func _hold_speed(slow: bool) -> void:
+	var g := game if game != null else (get_node_or_null("/root/Game") if is_inside_tree() else null)
+	if g == null:
+		return
+	if slow and _speed_before == 0:
+		_speed_before = maxi(1, int(g.get("speed")))
+		g.call("set_speed", 1)
+		ViewConfig.info("LiveForge", "speed x1 while deciding (was x%d)" % _speed_before)
+	elif not slow and _speed_before > 0:
+		g.call("set_speed", _speed_before)
+		ViewConfig.info("LiveForge", "speed back to x%d" % _speed_before)
+		_speed_before = 0
 
 
 func _texts() -> void:
@@ -186,6 +199,8 @@ func refresh() -> void:
 		return
 	var v := LiveForge.view(sim, building, zone)
 	var stage := "result" if not result.is_empty() else (str(v.get("stage", "done")) if not v.is_empty() else "done")
+	if visible:
+		_hold_speed(stage in ["heat", "strike", "quench"])
 	(%Progress as ProgressBar).value = float(v.get("progress", 1.0)) * 100.0
 	for pair: Array in [[%StepHeat, "heat"], [%StepStrike, "strike"], [%StepQuench, "quench"]]:
 		var l := pair[0] as Label
