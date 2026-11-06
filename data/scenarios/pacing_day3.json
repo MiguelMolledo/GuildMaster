@@ -6,6 +6,21 @@
 				19
 			],
 			"employee_slots": 1,
+			"fame": {
+				"renown": 0.09690000000000001,
+				"sold": [
+					[
+						1,
+						2,
+						1
+					],
+					[
+						2,
+						2,
+						2
+					]
+				]
+			},
 			"footprint": [
 				3,
 				4
@@ -23,19 +38,14 @@
 				"limit_kind": "stacks",
 				"stacks": [
 					{
-						"item": "coal",
-						"qty": 3,
-						"quality": 0
-					},
-					{
 						"item": "iron",
 						"qty": 8,
 						"quality": 0
 					},
 					{
-						"item": "iron_ingot",
-						"qty": 1,
-						"quality": 1
+						"item": "coal",
+						"qty": 2,
+						"quality": 0
 					}
 				]
 			},
@@ -57,33 +67,61 @@
 			"upkeep_unpaid_since": -1,
 			"zones": {
 				"anvil": {
-					"job": null,
-					"occupant": ""
+					"job": {
+						"actor": "chr_0001",
+						"blocked": false,
+						"end": 3635,
+						"inputs": [
+							{
+								"item": "iron_ingot",
+								"qty": 1,
+								"quality": 0
+							},
+							{
+								"item": "iron_ingot",
+								"qty": 1,
+								"quality": 2
+							},
+							{
+								"item": "coal",
+								"qty": 1,
+								"quality": 0
+							}
+						],
+						"live": {
+							"heat": "cherry",
+							"played": true,
+							"quench": "oil",
+							"spec": {},
+							"stage": "done",
+							"strikes": [
+								"strong",
+								"measured",
+								"measured",
+								"finish"
+							],
+							"verdicts": {
+								"heat": "right",
+								"quench": "right",
+								"strikes": "right"
+							}
+						},
+						"mode": "live",
+						"recipe": "forge_sword",
+						"result": null,
+						"start": 3401,
+						"touched": false,
+						"window": null
+					},
+					"occupant": "chr_0001"
 				},
 				"counter": {
 					"job": null,
 					"occupant": ""
 				},
 				"furnace": {
-					"job": {
-						"actor": "chr_0001",
-						"blocked": false,
-						"end": 3484,
-						"inputs": [
-							{
-								"item": "iron",
-								"qty": 2,
-								"quality": 0
-							}
-						],
-						"mode": "normal",
-						"recipe": "forge_ingot",
-						"result": null,
-						"start": 3406,
-						"touched": false,
-						"window": null
-					},
-					"occupant": "chr_0001"
+					"job": null,
+					"occupant": ""
 				},
 				"storage": {
 					"job": null,
@@ -97,6 +135,21 @@
 				19
 			],
 			"employee_slots": 1,
+			"fame": {
+				"renown": 0,
+				"sold": [
+					[
+						0,
+						2,
+						1
+					],
+					[
+						1,
+						0,
+						2
+					]
+				]
+			},
 			"footprint": [
 				3,
 				4
@@ -114,38 +167,18 @@
 				"limit_kind": "stacks",
 				"stacks": [
 					{
+						"item": "iron_ingot",
+						"qty": 2,
+						"quality": 1
+					},
+					{
 						"item": "coal",
 						"qty": 3,
 						"quality": 0
 					},
 					{
-						"item": "hammer",
-						"qty": 1,
-						"quality": 0
-					},
-					{
-						"item": "hammer",
-						"qty": 1,
-						"quality": 2
-					},
-					{
-						"item": "hammer",
-						"qty": 1,
-						"quality": 0
-					},
-					{
-						"item": "hammer",
-						"qty": 1,
-						"quality": 0
-					},
-					{
-						"item": "hammer",
-						"qty": 1,
-						"quality": 0
-					},
-					{
-						"item": "hammer",
-						"qty": 1,
+						"item": "iron_ingot",
+						"qty": 3,
 						"quality": 0
 					}
 				]
@@ -168,8 +201,30 @@
 			"upkeep_unpaid_since": -1,
 			"zones": {
 				"anvil": {
-					"job": null,
-					"occupant": ""
+					"job": {
+						"actor": "chr_0002",
+						"blocked": false,
+						"end": 3531,
+						"inputs": [
+							{
+								"item": "iron_ingot",
+								"qty": 2,
+								"quality": 0
+							},
+							{
+								"item": "coal",
+								"qty": 1,
+								"quality": 0
+							}
+						],
+						"mode": "normal",
+						"recipe": "forge_sword",
+						"result": null,
+						"start": 3297,
+						"touched": false,
+						"window": null
+					},
+					"occupant": "chr_0002"
 				},
 				"counter": {
 					"job": null,
@@ -565,6 +620,21 @@
 				33
 			],
 			"employee_slots": 1,
+			"fame": {
+				"renown": 0,
+				"sold": [
+					[
+						0,
+						1,
+						1
+					],
+					[
+						1,
+						0,
+						2
+					]
+				]
+			},
 			"footprint": [
 				3,
 				4
@@ -582,18 +652,18 @@
 				"limit_kind": "stacks",
 				"stacks": [
 					{
+						"item": "planks",
+						"qty": 2,
+						"quality": 1
+					},
+					{
 						"item": "iron",
-						"qty": 3,
+						"qty": 2,
 						"quality": 0
 					},
 					{
 						"item": "planks",
-						"qty": 1,
-						"quality": 1
-					},
-					{
-						"item": "planks",
-						"qty": 5,
+						"qty": 2,
 						"quality": 0
 					}
 				]
@@ -628,8 +698,30 @@
 					"occupant": ""
 				},
 				"workbench": {
-					"job": null,
-					"occupant": ""
+					"job": {
+						"actor": "chr_0019",
+						"blocked": false,
+						"end": 3623,
+						"inputs": [
+							{
+								"item": "planks",
+								"qty": 2,
+								"quality": 0
+							},
+							{
+								"item": "iron",
+								"qty": 1,
+								"quality": 0
+							}
+						],
+						"mode": "normal",
+						"recipe": "carpentry_chest",
+						"result": null,
+						"start": 3389,
+						"touched": false,
+						"window": null
+					},
+					"occupant": "chr_0019"
 				}
 			}
 		},
@@ -639,6 +731,21 @@
 				33
 			],
 			"employee_slots": 1,
+			"fame": {
+				"renown": 0,
+				"sold": [
+					[
+						0,
+						0,
+						1
+					],
+					[
+						1,
+						0,
+						2
+					]
+				]
+			},
 			"footprint": [
 				3,
 				4
@@ -662,12 +769,7 @@
 					},
 					{
 						"item": "ashlar",
-						"qty": 1,
-						"quality": 2
-					},
-					{
-						"item": "ashlar",
-						"qty": 1,
+						"qty": 2,
 						"quality": 1
 					},
 					{
@@ -703,7 +805,7 @@
 					"job": {
 						"actor": "chr_0021",
 						"blocked": false,
-						"end": 3635,
+						"end": 3609,
 						"inputs": [
 							{
 								"item": "ashlar",
@@ -714,7 +816,7 @@
 						"mode": "normal",
 						"recipe": "masonry_trough",
 						"result": null,
-						"start": 3401,
+						"start": 3375,
 						"touched": false,
 						"window": null
 					},
@@ -740,6 +842,16 @@
 				29
 			],
 			"employee_slots": 1,
+			"fame": {
+				"renown": 0,
+				"sold": [
+					[
+						1,
+						0,
+						2
+					]
+				]
+			},
 			"footprint": [
 				3,
 				3
@@ -757,18 +869,13 @@
 				"limit_kind": "stacks",
 				"stacks": [
 					{
-						"item": "banner",
-						"qty": 1,
+						"item": "cloth",
+						"qty": 2,
 						"quality": 1
 					},
 					{
-						"item": "banner",
-						"qty": 2,
-						"quality": 0
-					},
-					{
 						"item": "wool",
-						"qty": 1,
+						"qty": 2,
 						"quality": 0
 					}
 				]
@@ -802,12 +909,12 @@
 					"job": {
 						"actor": "chr_0023",
 						"blocked": false,
-						"end": 3588,
+						"end": 3574,
 						"inputs": [
 							{
 								"item": "cloth",
 								"qty": 1,
-								"quality": 0
+								"quality": 1
 							},
 							{
 								"item": "wool",
@@ -818,7 +925,7 @@
 						"mode": "normal",
 						"recipe": "tailor_travel_cloak",
 						"result": null,
-						"start": 3315,
+						"start": 3301,
 						"touched": false,
 						"window": null
 					},
@@ -958,11 +1065,11 @@
 			"rank": "",
 			"routine": {
 				"manual": true,
-				"manual_until": 3388
+				"manual_until": 3461
 			},
 			"schedule": null,
 			"spouse": "",
-			"station": "furnace",
+			"station": "anvil",
 			"stats": {
 				"arcane": 1,
 				"charisma": 4,
@@ -1037,7 +1144,7 @@
 			"routine": {},
 			"schedule": null,
 			"spouse": "",
-			"station": "",
+			"station": "anvil",
 			"stats": {
 				"arcane": 1,
 				"charisma": 4,
@@ -1104,8 +1211,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				16,
-				20
+				19,
+				15
 			],
 			"profession": "blacksmith",
 			"rank": "journeyman",
@@ -1141,10 +1248,10 @@
 				"met": [],
 				"needs": {
 					"faith": 460,
-					"fun": 420,
+					"fun": 620,
 					"hunger": 880,
 					"rest": 910,
-					"social": 870
+					"social": 890
 				},
 				"needs_at": 3181,
 				"phase_seen": 0,
@@ -1154,10 +1261,10 @@
 				"state": "market",
 				"stops": [],
 				"target": [
-					16,
-					20
+					19,
+					15
 				],
-				"until": 3421
+				"until": 3435
 			},
 			"visual": {
 				"hair": 0,
@@ -1199,7 +1306,7 @@
 			"job": null,
 			"life": {},
 			"location": "",
-			"move_progress": 0,
+			"move_progress": 1,
 			"name": "Agnès",
 			"needs": {
 				"fun": 80,
@@ -1210,10 +1317,23 @@
 			"occupation": "stall_food",
 			"order_queue": [],
 			"parents": [],
-			"path": [],
+			"path": [
+				[
+					18,
+					14
+				],
+				[
+					18,
+					13
+				],
+				[
+					19,
+					13
+				]
+			],
 			"position": [
-				19,
-				13
+				18,
+				15
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1246,20 +1366,22 @@
 				"group": "adult",
 				"group_day": 2,
 				"leave_at": 3166,
-				"met": [],
+				"met": [
+					"chr_0012"
+				],
 				"needs": {
 					"faith": 845,
 					"fun": 590,
 					"hunger": 1000,
 					"rest": 865,
-					"social": 880
+					"social": 790
 				},
 				"needs_at": 3361,
 				"phase_seen": 1,
 				"plan": "work",
 				"shown": "",
-				"started": 3370,
-				"state": "working",
+				"started": 3417,
+				"state": "walking",
 				"target": [
 					19,
 					13
@@ -1318,6 +1440,10 @@
 			"order_queue": [],
 			"parents": [],
 			"path": [
+				[
+					4,
+					28
+				],
 				[
 					5,
 					28
@@ -1384,7 +1510,7 @@
 				]
 			],
 			"position": [
-				4,
+				3,
 				28
 			],
 			"profession": "blacksmith",
@@ -1421,10 +1547,10 @@
 				"met": [],
 				"needs": {
 					"faith": 445,
-					"fun": 190,
+					"fun": 490,
 					"hunger": 820,
 					"rest": 865,
-					"social": 790
+					"social": 590
 				},
 				"needs_at": 3361,
 				"phase_seen": 1,
@@ -1531,10 +1657,10 @@
 				],
 				"needs": {
 					"faith": 460,
-					"fun": 220,
+					"fun": 520,
 					"hunger": 850,
 					"rest": 910,
-					"social": 270
+					"social": 620
 				},
 				"needs_at": 3181,
 				"phase_seen": 1,
@@ -1638,10 +1764,10 @@
 				"met": [],
 				"needs": {
 					"faith": 445,
-					"fun": 290,
+					"fun": 590,
 					"hunger": 790,
 					"rest": 865,
-					"social": 440
+					"social": 390
 				},
 				"needs_at": 3361,
 				"phase_seen": 1,
@@ -1747,7 +1873,7 @@
 				],
 				"needs": {
 					"faith": 460,
-					"fun": 220,
+					"fun": 520,
 					"hunger": 880,
 					"rest": 910,
 					"social": 670
@@ -1817,8 +1943,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				38,
-				19
+				20,
+				20
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -1839,37 +1965,41 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "work",
+				"activity": "chat",
 				"adult": true,
 				"adult_day": 2,
 				"age": 22,
-				"break": false,
+				"break": true,
 				"break_permil": 160,
 				"day": 2,
-				"dur": 60,
+				"dur": 89,
 				"greets": 0,
 				"group": "adult",
 				"group_day": 2,
 				"leave_at": 3194,
-				"met": [],
+				"met": [
+					"chr_0013"
+				],
 				"needs": {
-					"faith": 445,
-					"fun": 390,
-					"hunger": 790,
-					"rest": 865,
-					"social": 640
+					"faith": 455,
+					"fun": 610,
+					"hunger": 830,
+					"rest": 895,
+					"social": 460
 				},
-				"needs_at": 3361,
+				"needs_at": 3241,
 				"phase_seen": 1,
 				"plan": "work",
-				"shown": "",
-				"started": 3363,
-				"state": "working",
+				"shown": "chat",
+				"slot": 2,
+				"spot": "meet_well",
+				"started": 3300,
+				"state": "social",
 				"target": [
-					38,
-					19
+					20,
+					20
 				],
-				"until": -1
+				"until": 3425
 			},
 			"visual": {
 				"hair": 0,
@@ -1961,10 +2091,10 @@
 				"met": [],
 				"needs": {
 					"faith": 460,
-					"fun": 320,
+					"fun": 620,
 					"hunger": 880,
 					"rest": 910,
-					"social": 670
+					"social": 370
 				},
 				"needs_at": 3181,
 				"phase_seen": 1,
@@ -2031,12 +2161,20 @@
 			"parents": [],
 			"path": [
 				[
-					19,
+					18,
 					13
 				],
 				[
-					20,
-					13
+					18,
+					14
+				],
+				[
+					18,
+					15
+				],
+				[
+					19,
+					15
 				]
 			],
 			"position": [
@@ -2062,14 +2200,14 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "chat",
+				"activity": "shopping",
 				"adult": true,
 				"adult_day": 2,
 				"age": 19,
 				"break": true,
 				"break_permil": 175,
 				"day": 2,
-				"dur": 103,
+				"dur": 30,
 				"greet_until": 3227,
 				"greets": 1,
 				"group": "adult",
@@ -2080,22 +2218,26 @@
 				],
 				"needs": {
 					"faith": 445,
-					"fun": 290,
+					"fun": 590,
 					"hunger": 820,
 					"rest": 865,
-					"social": 640
+					"social": 870
 				},
 				"needs_at": 3361,
 				"phase_seen": 1,
 				"plan": "work",
-				"shown": "chat",
-				"slot": 1,
-				"spot": "meet_atrium",
+				"shown": "shopping",
 				"started": 3420,
 				"state": "walking",
+				"stops": [
+					[
+						16,
+						15
+					]
+				],
 				"target": [
-					20,
-					13
+					19,
+					15
 				],
 				"until": -1
 			},
@@ -2152,8 +2294,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				16,
-				20
+				22,
+				15
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -2189,10 +2331,10 @@
 				"met": [],
 				"needs": {
 					"faith": 455,
-					"fun": 210,
+					"fun": 510,
 					"hunger": 860,
 					"rest": 895,
-					"social": 660
+					"social": 710
 				},
 				"needs_at": 3241,
 				"phase_seen": 1,
@@ -2202,10 +2344,10 @@
 				"state": "market",
 				"stops": [],
 				"target": [
-					16,
-					20
+					22,
+					15
 				],
-				"until": 3441
+				"until": 3445
 			},
 			"visual": {
 				"hair": 3,
@@ -2296,17 +2438,17 @@
 				"leave_at": 3193,
 				"met": [],
 				"needs": {
-					"faith": 445,
-					"fun": 390,
-					"hunger": 820,
-					"rest": 865,
-					"social": 790
+					"faith": 450,
+					"fun": 700,
+					"hunger": 810,
+					"rest": 880,
+					"social": 600
 				},
-				"needs_at": 3361,
+				"needs_at": 3301,
 				"phase_seen": 1,
 				"plan": "work",
 				"shown": "",
-				"started": 3369,
+				"started": 3334,
 				"state": "working",
 				"target": [
 					24,
@@ -2404,10 +2546,10 @@
 				"met": [],
 				"needs": {
 					"faith": 460,
-					"fun": 620,
+					"fun": 520,
 					"hunger": 880,
 					"rest": 910,
-					"social": 320
+					"social": 620
 				},
 				"needs_at": 3181,
 				"phase_seen": 1,
@@ -2511,7 +2653,7 @@
 				"met": [],
 				"needs": {
 					"faith": 460,
-					"fun": 220,
+					"fun": 520,
 					"hunger": 880,
 					"rest": 910,
 					"social": 320
@@ -2618,7 +2760,7 @@
 				"met": [],
 				"needs": {
 					"faith": 460,
-					"fun": 620,
+					"fun": 520,
 					"hunger": 880,
 					"rest": 910,
 					"social": 670
@@ -2725,7 +2867,7 @@
 				"met": [],
 				"needs": {
 					"faith": 455,
-					"fun": 610,
+					"fun": 910,
 					"hunger": 830,
 					"rest": 895,
 					"social": 910
@@ -2734,7 +2876,7 @@
 				"phase_seen": 1,
 				"plan": "work",
 				"shown": "",
-				"started": 3277,
+				"started": 3275,
 				"state": "working",
 				"target": [
 					18,
@@ -2795,8 +2937,8 @@
 			"parents": [],
 			"path": [],
 			"position": [
-				17,
-				21
+				16,
+				15
 			],
 			"profession": "blacksmith",
 			"rank": "apprentice",
@@ -2817,14 +2959,14 @@
 				"stealth": 2
 			},
 			"town": {
-				"activity": "chat",
+				"activity": "shopping",
 				"adult": true,
 				"adult_day": 2,
 				"age": 28,
 				"break": true,
 				"break_permil": 154,
 				"day": 2,
-				"dur": 104,
+				"dur": 25,
 				"greets": 0,
 				"group": "adult",
 				"group_day": 2,
@@ -2832,24 +2974,28 @@
 				"met": [],
 				"needs": {
 					"faith": 850,
-					"fun": 200,
+					"fun": 500,
 					"hunger": 840,
 					"rest": 880,
-					"social": 350
+					"social": 650
 				},
 				"needs_at": 3301,
 				"phase_seen": 1,
 				"plan": "work",
-				"shown": "chat",
-				"slot": 0,
-				"spot": "chat_board",
+				"shown": "shopping",
 				"started": 3360,
-				"state": "social",
-				"target": [
-					17,
-					21
+				"state": "market",
+				"stops": [
+					[
+						23,
+						20
+					]
 				],
-				"until": 3472
+				"target": [
+					16,
+					15
+				],
+				"until": 3443
 			},
 			"visual": {
 				"hair": 3,
@@ -2912,7 +3058,7 @@
 			"routine": {},
 			"schedule": null,
 			"spouse": "chr_0020",
-			"station": "",
+			"station": "workbench",
 			"stats": {
 				"arcane": 1,
 				"charisma": 4,
@@ -3508,7 +3654,7 @@
 			"female": false,
 			"guard": {
 				"role": "night_1",
-				"wait_until": 3123,
+				"wait_until": 3125,
 				"wp": 0
 			},
 			"hire_bans": {},
@@ -3666,7 +3812,7 @@
 			"female": false,
 			"guard": {
 				"role": "night_3",
-				"wait_until": 3123,
+				"wait_until": 3125,
 				"wp": 0
 			},
 			"hire_bans": {},
@@ -3943,14 +4089,14 @@
 			"winner": "chr_0014"
 		},
 		{
-			"actor": "chr_0010",
+			"actor": "chr_0016",
 			"by": "watch",
-			"family": "fam_0006",
+			"family": "fam_0009",
 			"kind": "altercation",
 			"minute": 1277,
 			"outcome": "watch",
 			"point": "chat_well",
-			"target": "chr_0003",
+			"target": "chr_0008",
 			"winner": ""
 		},
 		{
@@ -3963,7 +4109,7 @@
 			"family": "fam_0002",
 			"kind": "wealth_peak",
 			"minute": 1740,
-			"value": 183
+			"value": 197
 		},
 		{
 			"family": "fam_0011",
@@ -3975,7 +4121,7 @@
 			"family": "fam_0012",
 			"kind": "wealth_peak",
 			"minute": 1740,
-			"value": 179
+			"value": 166
 		},
 		{
 			"family": "fam_0013",
@@ -3984,28 +4130,12 @@
 			"value": 160
 		},
 		{
-			"actor": "chr_0001",
-			"family": "fam_0001",
-			"family_name": "Herrero",
-			"item": "sword",
-			"kind": "masterwork",
-			"masterwork": "mw_0001",
-			"minute": 2055,
-			"patron": "santa_eulalia"
-		},
-		{
 			"day": 1,
 			"festival": "mayday_corpus",
 			"hosts": [],
 			"kind": "festival",
 			"minute": 2880,
 			"sponsors": []
-		},
-		{
-			"family": "fam_0001",
-			"kind": "wealth_peak",
-			"minute": 3150,
-			"value": 254
 		}
 	],
 	"clock": {
@@ -4014,34 +4144,56 @@
 	"contracts": {
 		"accepted": [
 			{
-				"accepted": 1757,
+				"accepted": 3167,
 				"actor": "chr_0002",
-				"client": "innkeeper",
-				"deadline_days": 2,
-				"due": 4637,
+				"client": "farmer",
+				"deadline_days": 1,
+				"due": 4607,
 				"family": "fam_0002",
-				"id": "ctr_0005",
-				"item": "hammer",
-				"min_quality": 1,
-				"pay": 134,
-				"posted": 1740,
-				"qty": 3,
+				"id": "ctr_0007",
+				"item": "sword",
+				"min_quality": 0,
+				"pay": 64,
+				"posted": 3150,
+				"qty": 1,
 				"script": "",
-				"warned": [
-					24
-				]
+				"warned": []
 			}
 		],
-		"board": [],
-		"cooldowns": {
-			"parish_priest": 1,
-			"town_council": 1
-		},
+		"board": [
+			{
+				"accepted": -1,
+				"actor": "",
+				"chronicle": false,
+				"client": "comedians",
+				"deadline_days": 2,
+				"due": -1,
+				"due_at": 3900,
+				"fail_reputation": -3,
+				"family": "",
+				"festival": "fst_0003",
+				"festival_def": "comedians",
+				"hosts": [],
+				"id": "ctr_0006",
+				"item": "stage",
+				"min_quality": 0,
+				"pay": 146,
+				"posted": 2160,
+				"profession": "carpenter",
+				"qty": 1,
+				"race": true,
+				"relation": 8,
+				"reputation": 2,
+				"script": "",
+				"warned": [],
+				"what": "boards"
+			}
+		],
+		"cooldowns": {},
 		"relations": {
 			"fam_0001|carpenter": 5,
-			"fam_0001|guard_captain": 5,
-			"fam_0001|innkeeper": 5,
-			"fam_0011|comedians": 8
+			"fam_0001|farmer": 5,
+			"fam_0001|guard_captain": 5
 		}
 	},
 	"deliveries": [],
@@ -4075,7 +4227,7 @@
 			"founder": "chr_0001",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 9,
+			"gold": 24,
 			"head": "chr_0001",
 			"heir": "",
 			"id": "fam_0001",
@@ -4111,38 +4263,38 @@
 					"reason": "contract_done"
 				},
 				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 2097,
-					"reason": "fair_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 2097,
-					"reason": "quality_trade"
-				},
-				{
 					"amount": 2,
 					"class": "artisan",
 					"class_amount": 1,
-					"minute": 3264,
+					"minute": 2081,
 					"reason": "contract_done"
 				},
 				{
 					"amount": 1,
 					"class": "",
 					"class_amount": 0,
-					"minute": 3282,
+					"minute": 2100,
 					"reason": "fair_trade"
 				},
 				{
 					"amount": 1,
 					"class": "",
 					"class_amount": 0,
-					"minute": 3282,
+					"minute": 2100,
+					"reason": "quality_trade"
+				},
+				{
+					"amount": 1,
+					"class": "",
+					"class_amount": 0,
+					"minute": 3280,
+					"reason": "fair_trade"
+				},
+				{
+					"amount": 1,
+					"class": "",
+					"class_amount": 0,
+					"minute": 3280,
 					"reason": "quality_trade"
 				}
 			],
@@ -4157,11 +4309,14 @@
 					"step": "home",
 					"target": "chr_0004"
 				},
-				"last_fp": "[[10,19],\"bld_0002\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},23,1,2]",
-				"last_order": "{\"actor\":\"chr_0002\",\"building\":\"bld_0002\",\"mode\":\"normal\",\"recipe\":\"forge_hammer\",\"type\":\"work_at\",\"zone\":\"anvil\"}",
+				"last_fp": "[[10,19],\"bld_0002\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},25,1,1]",
+				"last_order": "{\"actor\":\"chr_0002\",\"building\":\"bld_0002\",\"mode\":\"normal\",\"recipe\":\"forge_sword\",\"type\":\"work_at\",\"zone\":\"anvil\"}",
 				"phase": "day",
-				"plan": [],
-				"recipe": "forge_sword"
+				"plan": [
+					"work"
+				],
+				"recipe": "forge_sword",
+				"recovering": false
 			},
 			"attitudes": {
 				"diplomacy": 10,
@@ -4178,7 +4333,7 @@
 			"founder": "chr_0002",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 3,
+			"gold": 25,
 			"head": "chr_0002",
 			"heir": "",
 			"id": "fam_0002",
@@ -4187,11 +4342,11 @@
 			],
 			"name": "Ferrer",
 			"regent": "",
-			"reputation": 2,
+			"reputation": 3,
 			"reputation_caps": {
 				"fair_trade": {
 					"count": 1,
-					"window": 0
+					"window": 1
 				},
 				"quality_trade": {
 					"count": 1,
@@ -4212,6 +4367,13 @@
 					"class_amount": 0,
 					"minute": 1171,
 					"reason": "quality_trade"
+				},
+				{
+					"amount": 1,
+					"class": "",
+					"class_amount": 0,
+					"minute": 2611,
+					"reason": "fair_trade"
 				}
 			],
 			"title": "common"
@@ -4234,9 +4396,14 @@
 			"founder": "chr_0003",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 38,
+			"gold": 62,
 			"head": "chr_0003",
 			"heir": "",
+			"household": {
+				"fed": 1,
+				"fed_day": 2,
+				"wage_day": 1
+			},
 			"id": "fam_0003",
 			"members": [
 				"chr_0003",
@@ -4267,9 +4434,14 @@
 			"founder": "chr_0005",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 20,
+			"gold": 40,
 			"head": "chr_0005",
 			"heir": "",
+			"household": {
+				"fed": 1,
+				"fed_day": 2,
+				"wage_day": 1
+			},
 			"id": "fam_0004",
 			"members": [
 				"chr_0005",
@@ -4300,9 +4472,14 @@
 			"founder": "chr_0007",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 20,
+			"gold": 44,
 			"head": "chr_0007",
 			"heir": "",
+			"household": {
+				"fed": 1,
+				"fed_day": 2,
+				"wage_day": 1
+			},
 			"id": "fam_0005",
 			"members": [
 				"chr_0007",
@@ -4333,9 +4510,14 @@
 			"founder": "chr_0009",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 4,
+			"gold": 40,
 			"head": "chr_0009",
 			"heir": "",
+			"household": {
+				"fed": 1,
+				"fed_day": 2,
+				"wage_day": 1
+			},
 			"id": "fam_0006",
 			"members": [
 				"chr_0009",
@@ -4366,9 +4548,14 @@
 			"founder": "chr_0011",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 20,
+			"gold": 44,
 			"head": "chr_0011",
 			"heir": "",
+			"household": {
+				"fed": 1,
+				"fed_day": 2,
+				"wage_day": 1
+			},
 			"id": "fam_0007",
 			"members": [
 				"chr_0011",
@@ -4399,9 +4586,14 @@
 			"founder": "chr_0013",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 20,
+			"gold": 44,
 			"head": "chr_0013",
 			"heir": "",
+			"household": {
+				"fed": 1,
+				"fed_day": 2,
+				"wage_day": 1
+			},
 			"id": "fam_0008",
 			"members": [
 				"chr_0013",
@@ -4432,9 +4624,14 @@
 			"founder": "chr_0015",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 20,
+			"gold": 24,
 			"head": "chr_0015",
 			"heir": "",
+			"household": {
+				"fed": 1,
+				"fed_day": 2,
+				"wage_day": 1
+			},
 			"id": "fam_0009",
 			"members": [
 				"chr_0015",
@@ -4465,9 +4662,14 @@
 			"founder": "chr_0017",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 20,
+			"gold": 40,
 			"head": "chr_0017",
 			"heir": "",
+			"household": {
+				"fed": 1,
+				"fed_day": 2,
+				"wage_day": 1
+			},
 			"id": "fam_0010",
 			"members": [
 				"chr_0017",
@@ -4484,14 +4686,14 @@
 			"ai_profile": "rival_artisan",
 			"ai_state": {
 				"bought_day": 2,
-				"last_fp": "[[15,33],\"bld_0012\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[{\"item\":\"planks\",\"qty\":5,\"quality\":0}]},81,0,0]",
-				"last_order": "{\"actor\":\"chr_0019\",\"from\":\"chr_0019\",\"item\":\"planks\",\"qty\":5,\"quality\":0,\"to\":\"bld_0012\",\"type\":\"transfer\"}",
+				"last_fp": "[[15,33],\"bld_0012\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},41,0,1]",
+				"last_order": "{\"actor\":\"chr_0019\",\"building\":\"bld_0012\",\"mode\":\"normal\",\"recipe\":\"carpentry_chest\",\"type\":\"work_at\",\"zone\":\"workbench\"}",
 				"phase": "day",
 				"plan": [
-					"home",
 					"work"
 				],
-				"recipe": "carpentry_chest"
+				"recipe": "carpentry_chest",
+				"recovering": false
 			},
 			"attitudes": {
 				"diplomacy": 10,
@@ -4499,9 +4701,7 @@
 				"honesty": 20
 			},
 			"class": "artisan",
-			"class_reputation": {
-				"artisan": -2
-			},
+			"class_reputation": {},
 			"colors": {
 				"primary": "#5a6b2e",
 				"secondary": "#c9a35a"
@@ -4510,7 +4710,7 @@
 			"founder": "chr_0019",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 81,
+			"gold": 41,
 			"head": "chr_0019",
 			"heir": "",
 			"id": "fam_0011",
@@ -4520,11 +4720,11 @@
 			],
 			"name": "Fuster",
 			"regent": "",
-			"reputation": 1,
+			"reputation": 3,
 			"reputation_caps": {
 				"fair_trade": {
 					"count": 1,
-					"window": 0
+					"window": 1
 				},
 				"quality_trade": {
 					"count": 1,
@@ -4547,18 +4747,11 @@
 					"reason": "quality_trade"
 				},
 				{
-					"amount": -3,
-					"class": "artisan",
-					"class_amount": -2,
-					"minute": 2460,
-					"reason": "contract_failed"
-				},
-				{
-					"amount": 2,
+					"amount": 1,
 					"class": "",
 					"class_amount": 0,
-					"minute": 3214,
-					"reason": "festival_contract"
+					"minute": 2643,
+					"reason": "fair_trade"
 				}
 			],
 			"title": "common"
@@ -4567,13 +4760,14 @@
 			"ai_profile": "rival_artisan",
 			"ai_state": {
 				"bought_day": 2,
-				"last_fp": "[[20,33],\"bld_0013\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},60,0,0]",
+				"last_fp": "[[20,33],\"bld_0013\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},20,0,1]",
 				"last_order": "{\"actor\":\"chr_0021\",\"building\":\"bld_0013\",\"mode\":\"normal\",\"recipe\":\"masonry_trough\",\"type\":\"work_at\",\"zone\":\"carving_bench\"}",
 				"phase": "day",
 				"plan": [
 					"work"
 				],
-				"recipe": "masonry_trough"
+				"recipe": "masonry_trough",
+				"recovering": false
 			},
 			"attitudes": {
 				"diplomacy": 10,
@@ -4590,7 +4784,7 @@
 			"founder": "chr_0021",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 60,
+			"gold": 20,
 			"head": "chr_0021",
 			"heir": "",
 			"id": "fam_0012",
@@ -4600,15 +4794,11 @@
 			],
 			"name": "Picapedrero",
 			"regent": "",
-			"reputation": 5,
+			"reputation": 2,
 			"reputation_caps": {
 				"fair_trade": {
 					"count": 1,
-					"window": 2
-				},
-				"quality_trade": {
-					"count": 1,
-					"window": 2
+					"window": 1
 				}
 			},
 			"reputation_log": [
@@ -4623,29 +4813,8 @@
 					"amount": 1,
 					"class": "",
 					"class_amount": 0,
-					"minute": 1219,
-					"reason": "quality_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
 					"minute": 2659,
 					"reason": "fair_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 3319,
-					"reason": "fair_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 3319,
-					"reason": "quality_trade"
 				}
 			],
 			"title": "common"
@@ -4654,13 +4823,14 @@
 			"ai_profile": "rival_artisan",
 			"ai_state": {
 				"bought_day": 2,
-				"last_fp": "[[24,29],\"bld_0014\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},21,0,0]",
+				"last_fp": "[[24,29],\"bld_0014\",\"\",{\"limit\":60,\"limit_kind\":\"weight\",\"stacks\":[]},79,0,1]",
 				"last_order": "{\"actor\":\"chr_0023\",\"building\":\"bld_0014\",\"mode\":\"normal\",\"recipe\":\"tailor_travel_cloak\",\"type\":\"work_at\",\"zone\":\"sewing_table\"}",
 				"phase": "day",
 				"plan": [
 					"work"
 				],
-				"recipe": "tailor_travel_cloak"
+				"recipe": "tailor_travel_cloak",
+				"recovering": false
 			},
 			"attitudes": {
 				"diplomacy": 10,
@@ -4668,9 +4838,7 @@
 				"honesty": 20
 			},
 			"class": "artisan",
-			"class_reputation": {
-				"artisan": -2
-			},
+			"class_reputation": {},
 			"colors": {
 				"primary": "#2e4a6b",
 				"secondary": "#c8b8a0"
@@ -4679,7 +4847,7 @@
 			"founder": "chr_0023",
 			"generation": 1,
 			"goals_done": [],
-			"gold": 21,
+			"gold": 79,
 			"head": "chr_0023",
 			"heir": "",
 			"id": "fam_0013",
@@ -4689,38 +4857,20 @@
 			],
 			"name": "Tejedor",
 			"regent": "",
-			"reputation": -1,
+			"reputation": 1,
 			"reputation_caps": {
 				"fair_trade": {
-					"count": 1,
-					"window": 1
-				},
-				"quality_trade": {
 					"count": 1,
 					"window": 1
 				}
 			},
 			"reputation_log": [
 				{
-					"amount": -3,
-					"class": "artisan",
-					"class_amount": -2,
-					"minute": 2460,
-					"reason": "contract_failed"
-				},
-				{
 					"amount": 1,
 					"class": "",
 					"class_amount": 0,
 					"minute": 2609,
 					"reason": "fair_trade"
-				},
-				{
-					"amount": 1,
-					"class": "",
-					"class_amount": 0,
-					"minute": 2609,
-					"reason": "quality_trade"
 				}
 			],
 			"title": "common"
@@ -4824,6 +4974,7 @@
 					"bulls@17"
 				],
 				"end": 2880,
+				"held": [],
 				"hosts": [],
 				"id": "fst_0001",
 				"organized": {},
@@ -4871,9 +5022,6 @@
 				"day": 2,
 				"def": "comedians",
 				"done": [],
-				"done_items": [
-					"stage"
-				],
 				"end": 4320,
 				"hosts": [],
 				"id": "fst_0003",
@@ -4993,8 +5141,88 @@
 				"ref": "buy"
 			},
 			{
+				"actor": "",
+				"amount": 16,
+				"building": "",
+				"category": "wages",
+				"day": 0,
+				"family": "fam_0003",
+				"minute": 1140,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "",
+				"category": "wages",
+				"day": 0,
+				"family": "fam_0004",
+				"minute": 1140,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 16,
+				"building": "",
+				"category": "wages",
+				"day": 0,
+				"family": "fam_0005",
+				"minute": 1140,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "",
+				"category": "wages",
+				"day": 0,
+				"family": "fam_0006",
+				"minute": 1140,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 16,
+				"building": "",
+				"category": "wages",
+				"day": 0,
+				"family": "fam_0007",
+				"minute": 1140,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 16,
+				"building": "",
+				"category": "wages",
+				"day": 0,
+				"family": "fam_0008",
+				"minute": 1140,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "",
+				"category": "wages",
+				"day": 0,
+				"family": "fam_0009",
+				"minute": 1140,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "",
+				"category": "wages",
+				"day": 0,
+				"family": "fam_0010",
+				"minute": 1140,
+				"ref": "jornal"
+			},
+			{
 				"actor": "chr_0002",
-				"amount": 59,
+				"amount": 73,
 				"building": "",
 				"category": "market_sales",
 				"day": 0,
@@ -5014,7 +5242,7 @@
 			},
 			{
 				"actor": "chr_0021",
-				"amount": 55,
+				"amount": 42,
 				"building": "",
 				"category": "market_sales",
 				"day": 0,
@@ -5023,14 +5251,94 @@
 				"ref": "sell"
 			},
 			{
-				"actor": "chr_0010",
+				"actor": "chr_0016",
 				"amount": -16,
 				"building": "",
 				"category": "fines",
 				"day": 0,
-				"family": "fam_0006",
+				"family": "fam_0009",
 				"minute": 1277,
 				"ref": "inc_0002"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 1,
+				"family": "fam_0003",
+				"minute": 1740,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 1,
+				"family": "fam_0004",
+				"minute": 1740,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 1,
+				"family": "fam_0005",
+				"minute": 1740,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 1,
+				"family": "fam_0006",
+				"minute": 1740,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 1,
+				"family": "fam_0007",
+				"minute": 1740,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 1,
+				"family": "fam_0008",
+				"minute": 1740,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 1,
+				"family": "fam_0009",
+				"minute": 1740,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 1,
+				"family": "fam_0010",
+				"minute": 1740,
+				"ref": "food"
 			},
 			{
 				"actor": "",
@@ -5104,17 +5412,17 @@
 			},
 			{
 				"actor": "chr_0002",
-				"amount": -24,
+				"amount": -36,
 				"building": "",
 				"category": "purchases",
 				"day": 1,
 				"family": "fam_0002",
-				"minute": 1877,
+				"minute": 1885,
 				"ref": "buy"
 			},
 			{
 				"actor": "chr_0023",
-				"amount": -34,
+				"amount": -12,
 				"building": "",
 				"category": "purchases",
 				"day": 1,
@@ -5123,23 +5431,13 @@
 				"ref": "buy"
 			},
 			{
-				"actor": "chr_0002",
-				"amount": -36,
+				"actor": "chr_0019",
+				"amount": -7,
 				"building": "",
 				"category": "purchases",
 				"day": 1,
-				"family": "fam_0002",
-				"minute": 1890,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0023",
-				"amount": -6,
-				"building": "",
-				"category": "purchases",
-				"day": 1,
-				"family": "fam_0013",
-				"minute": 1902,
+				"family": "fam_0011",
+				"minute": 1923,
 				"ref": "buy"
 			},
 			{
@@ -5154,22 +5452,12 @@
 			},
 			{
 				"actor": "chr_0019",
-				"amount": -7,
+				"amount": -30,
 				"building": "",
 				"category": "purchases",
 				"day": 1,
 				"family": "fam_0011",
-				"minute": 1929,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0019",
-				"amount": -45,
-				"building": "",
-				"category": "purchases",
-				"day": 1,
-				"family": "fam_0011",
-				"minute": 1942,
+				"minute": 1936,
 				"ref": "buy"
 			},
 			{
@@ -5194,23 +5482,33 @@
 			},
 			{
 				"actor": "chr_0001",
+				"amount": 102,
+				"building": "",
+				"category": "contracts",
+				"day": 1,
+				"family": "fam_0001",
+				"minute": 2081,
+				"ref": "ctr_0005"
+			},
+			{
+				"actor": "chr_0001",
 				"amount": 73,
 				"building": "",
 				"category": "market_sales",
 				"day": 1,
 				"family": "fam_0001",
-				"minute": 2096,
+				"minute": 2099,
 				"ref": "sell"
 			},
 			{
 				"actor": "chr_0001",
-				"amount": 70,
+				"amount": -200,
 				"building": "",
-				"category": "market_sales",
+				"category": "loans",
 				"day": 1,
 				"family": "fam_0001",
-				"minute": 2098,
-				"ref": "sell"
+				"minute": 2101,
+				"ref": "lon_0001"
 			},
 			{
 				"actor": "chr_0001",
@@ -5219,27 +5517,157 @@
 				"category": "purchases",
 				"day": 1,
 				"family": "fam_0001",
-				"minute": 2117,
+				"minute": 2119,
 				"ref": "buy"
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -12,
+				"amount": -4,
 				"building": "",
 				"category": "purchases",
 				"day": 1,
 				"family": "fam_0001",
-				"minute": 2118,
+				"minute": 2120,
 				"ref": "buy"
 			},
 			{
+				"actor": "",
+				"amount": 16,
+				"building": "",
+				"category": "wages",
+				"day": 1,
+				"family": "fam_0003",
+				"minute": 2580,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "",
+				"category": "wages",
+				"day": 1,
+				"family": "fam_0004",
+				"minute": 2580,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 16,
+				"building": "",
+				"category": "wages",
+				"day": 1,
+				"family": "fam_0005",
+				"minute": 2580,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "",
+				"category": "wages",
+				"day": 1,
+				"family": "fam_0006",
+				"minute": 2580,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 16,
+				"building": "",
+				"category": "wages",
+				"day": 1,
+				"family": "fam_0007",
+				"minute": 2580,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 16,
+				"building": "",
+				"category": "wages",
+				"day": 1,
+				"family": "fam_0008",
+				"minute": 2580,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "",
+				"category": "wages",
+				"day": 1,
+				"family": "fam_0009",
+				"minute": 2580,
+				"ref": "jornal"
+			},
+			{
+				"actor": "",
+				"amount": 14,
+				"building": "",
+				"category": "wages",
+				"day": 1,
+				"family": "fam_0010",
+				"minute": 2580,
+				"ref": "jornal"
+			},
+			{
 				"actor": "chr_0023",
-				"amount": 44,
+				"amount": 34,
 				"building": "",
 				"category": "market_sales",
 				"day": 1,
 				"family": "fam_0013",
 				"minute": 2608,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0023",
+				"amount": 32,
+				"building": "",
+				"category": "market_sales",
+				"day": 1,
+				"family": "fam_0013",
+				"minute": 2609,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 44,
+				"building": "",
+				"category": "market_sales",
+				"day": 1,
+				"family": "fam_0002",
+				"minute": 2610,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0002",
+				"amount": 42,
+				"building": "",
+				"category": "market_sales",
+				"day": 1,
+				"family": "fam_0002",
+				"minute": 2611,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0019",
+				"amount": 46,
+				"building": "",
+				"category": "market_sales",
+				"day": 1,
+				"family": "fam_0011",
+				"minute": 2642,
+				"ref": "sell"
+			},
+			{
+				"actor": "chr_0019",
+				"amount": 44,
+				"building": "",
+				"category": "market_sales",
+				"day": 1,
+				"family": "fam_0011",
+				"minute": 2643,
 				"ref": "sell"
 			},
 			{
@@ -5253,8 +5681,98 @@
 				"ref": "sell"
 			},
 			{
+				"actor": "chr_0021",
+				"amount": 40,
+				"building": "",
+				"category": "market_sales",
+				"day": 1,
+				"family": "fam_0012",
+				"minute": 2659,
+				"ref": "sell"
+			},
+			{
 				"actor": "",
-				"amount": -20,
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0003",
+				"minute": 3150,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0004",
+				"minute": 3150,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0005",
+				"minute": 3150,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0006",
+				"minute": 3150,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0007",
+				"minute": 3150,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0008",
+				"minute": 3150,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0009",
+				"minute": 3150,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -4,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0010",
+				"minute": 3150,
+				"ref": "food"
+			},
+			{
+				"actor": "",
+				"amount": -14,
 				"building": "bld_0001",
 				"category": "upkeep",
 				"day": 2,
@@ -5323,28 +5841,18 @@
 				"ref": "office_constable"
 			},
 			{
-				"actor": "chr_0019",
-				"amount": 146,
+				"actor": "chr_0002",
+				"amount": -12,
 				"building": "",
-				"category": "contracts",
+				"category": "purchases",
 				"day": 2,
-				"family": "fam_0011",
-				"minute": 3214,
-				"ref": "ctr_0006"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": 35,
-				"building": "",
-				"category": "contracts",
-				"day": 2,
-				"family": "fam_0001",
-				"minute": 3264,
-				"ref": "ctr_0007"
+				"family": "fam_0002",
+				"minute": 3257,
+				"ref": "buy"
 			},
 			{
 				"actor": "chr_0023",
-				"amount": -13,
+				"amount": -15,
 				"building": "",
 				"category": "purchases",
 				"day": 2,
@@ -5353,14 +5861,14 @@
 				"ref": "buy"
 			},
 			{
-				"actor": "chr_0001",
-				"amount": 39,
+				"actor": "chr_0002",
+				"amount": -90,
 				"building": "",
-				"category": "market_sales",
+				"category": "purchases",
 				"day": 2,
-				"family": "fam_0001",
-				"minute": 3281,
-				"ref": "sell"
+				"family": "fam_0002",
+				"minute": 3270,
+				"ref": "buy"
 			},
 			{
 				"actor": "chr_0001",
@@ -5369,68 +5877,58 @@
 				"category": "market_sales",
 				"day": 2,
 				"family": "fam_0001",
-				"minute": 3282,
+				"minute": 3279,
 				"ref": "sell"
 			},
 			{
-				"actor": "chr_0023",
-				"amount": -10,
-				"building": "",
-				"category": "purchases",
+				"actor": "",
+				"amount": -6,
+				"building": "bld_0001",
+				"category": "upkeep",
 				"day": 2,
-				"family": "fam_0013",
-				"minute": 3282,
-				"ref": "buy"
+				"family": "fam_0001",
+				"minute": 3280,
+				"ref": "upkeep"
 			},
 			{
 				"actor": "chr_0001",
-				"amount": -200,
-				"building": "",
-				"category": "loans",
-				"day": 2,
-				"family": "fam_0001",
-				"minute": 3284,
-				"ref": "lon_0001"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -56,
-				"building": "",
-				"category": "purchases",
-				"day": 2,
-				"family": "fam_0001",
-				"minute": 3302,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -28,
-				"building": "",
-				"category": "purchases",
-				"day": 2,
-				"family": "fam_0001",
-				"minute": 3303,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0001",
-				"amount": -8,
-				"building": "",
-				"category": "purchases",
-				"day": 2,
-				"family": "fam_0001",
-				"minute": 3304,
-				"ref": "buy"
-			},
-			{
-				"actor": "chr_0021",
-				"amount": 67,
+				"amount": 39,
 				"building": "",
 				"category": "market_sales",
 				"day": 2,
-				"family": "fam_0012",
-				"minute": 3318,
+				"family": "fam_0001",
+				"minute": 3280,
 				"ref": "sell"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -70,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0001",
+				"minute": 3298,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0001",
+				"amount": -12,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0001",
+				"minute": 3299,
+				"ref": "buy"
+			},
+			{
+				"actor": "chr_0019",
+				"amount": -14,
+				"building": "",
+				"category": "purchases",
+				"day": 2,
+				"family": "fam_0011",
+				"minute": 3303,
+				"ref": "buy"
 			},
 			{
 				"actor": "chr_0021",
@@ -5439,17 +5937,17 @@
 				"category": "purchases",
 				"day": 2,
 				"family": "fam_0012",
-				"minute": 3333,
+				"minute": 3307,
 				"ref": "buy"
 			},
 			{
 				"actor": "chr_0019",
-				"amount": -75,
+				"amount": -60,
 				"building": "",
 				"category": "purchases",
 				"day": 2,
 				"family": "fam_0011",
-				"minute": 3348,
+				"minute": 3316,
 				"ref": "buy"
 			}
 		],
@@ -5479,7 +5977,7 @@
 			"hammer": 0.9600000000000001,
 			"sword": 0.9600000000000001,
 			"travel_cloak": 1,
-			"trough": 0.9600000000000001
+			"trough": 1
 		},
 		"regulations": []
 	},
@@ -5507,25 +6005,13 @@
 				}
 			}
 		},
-		"pieces": [
-			{
-				"building": "bld_0001",
-				"family": "fam_0001",
-				"family_name": "Herrero",
-				"id": "mw_0001",
-				"item": "sword",
-				"maker": "chr_0001",
-				"minute": 2055,
-				"patron": "santa_eulalia",
-				"recipe": "forge_sword",
-				"status": "kept",
-				"traits": [
-					"oil_tempered",
-					"fine_edge",
-					"master_mark"
-				]
+		"pieces": [],
+		"practice": {
+			"fam_0001": {
+				"forge_hammer": 3,
+				"forge_sword": 4
 			}
-		]
+		}
 	},
 	"meta": {
 		"description": "Día 3, 09:00 de una partida jugada por el bot de ritmo: desbloqueos de los primeros días y metas abiertas. --smoke-script=ritmo.",
@@ -5535,18 +6021,8 @@
 	"microevents": {
 		"active": [],
 		"cooldowns": {},
-		"last_day": {
-			"fam_0012": 2
-		},
-		"pending": [
-			{
-				"at": 4263,
-				"building": "bld_0013",
-				"day": 2,
-				"def": "night_thief",
-				"family": "fam_0012"
-			}
-		]
+		"last_day": {},
+		"pending": []
 	},
 	"next_ids": {
 		"bld": 16,
@@ -5556,9 +6032,8 @@
 		"fst": 5,
 		"inc": 3,
 		"lon": 2,
-		"mw": 2,
-		"ntc": 38,
-		"rct": 9
+		"ntc": 28,
+		"rct": 21
 	},
 	"notices": [
 		{
@@ -5606,6 +6081,20 @@
 			"family": "fam_0001",
 			"id": "ntc_0004",
 			"key": "notice.unlocked",
+			"minute": 301,
+			"params": {
+				"unlock": "debt",
+				"what": "unlock.debt"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 0,
+			"family": "fam_0001",
+			"id": "ntc_0005",
+			"key": "notice.unlocked",
 			"minute": 668,
 			"params": {
 				"unlock": "masterwork",
@@ -5618,7 +6107,7 @@
 		{
 			"day": 0,
 			"family": "fam_0001",
-			"id": "ntc_0005",
+			"id": "ntc_0006",
 			"key": "notice.festival_eve",
 			"minute": 720,
 			"params": {
@@ -5633,7 +6122,7 @@
 		{
 			"day": 0,
 			"family": "fam_0001",
-			"id": "ntc_0006",
+			"id": "ntc_0007",
 			"key": "notice.life.altercation",
 			"minute": 1080,
 			"params": {
@@ -5653,7 +6142,7 @@
 		{
 			"day": 0,
 			"family": "fam_0001",
-			"id": "ntc_0007",
+			"id": "ntc_0008",
 			"key": "notice.life.altercation_fought",
 			"minute": 1119,
 			"params": {
@@ -5673,12 +6162,12 @@
 		{
 			"day": 0,
 			"family": "fam_0001",
-			"id": "ntc_0008",
+			"id": "ntc_0009",
 			"key": "notice.life.altercation",
 			"minute": 1260,
 			"params": {
-				"a": "Blanca",
-				"b": "Joan",
+				"a": "Isabel",
+				"b": "Elisenda",
 				"band": 0,
 				"fine": 0,
 				"gold": 0,
@@ -5688,20 +6177,6 @@
 			},
 			"read": false,
 			"severity": "urgent",
-			"target": ""
-		},
-		{
-			"day": 0,
-			"family": "fam_0001",
-			"id": "ntc_0009",
-			"key": "notice.objective_done",
-			"minute": 1275,
-			"params": {
-				"name_key": "objective.forge_sword",
-				"objective": "forge_sword"
-			},
-			"read": false,
-			"severity": "info",
 			"target": ""
 		},
 		{
@@ -5725,8 +6200,8 @@
 			"key": "notice.life.altercation_watch",
 			"minute": 1277,
 			"params": {
-				"a": "Blanca",
-				"b": "Joan",
+				"a": "Isabel",
+				"b": "Elisenda",
 				"band": 0,
 				"fine": 16,
 				"gold": 0,
@@ -5772,20 +6247,6 @@
 			"key": "notice.unlocked",
 			"minute": 1440,
 			"params": {
-				"unlock": "counter",
-				"what": "unlock.counter"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 1,
-			"family": "fam_0001",
-			"id": "ntc_0015",
-			"key": "notice.unlocked",
-			"minute": 1440,
-			"params": {
 				"unlock": "first_festival",
 				"what": "unlock.first_festival"
 			},
@@ -5796,7 +6257,7 @@
 		{
 			"day": 1,
 			"family": "fam_0001",
-			"id": "ntc_0016",
+			"id": "ntc_0015",
 			"key": "notice.upkeep_unpaid",
 			"minute": 1740,
 			"params": {
@@ -5811,7 +6272,7 @@
 		{
 			"day": 1,
 			"family": "fam_0001",
-			"id": "ntc_0017",
+			"id": "ntc_0016",
 			"key": "notice.forge_short",
 			"minute": 1740,
 			"params": {
@@ -5825,36 +6286,7 @@
 		{
 			"day": 1,
 			"family": "fam_0001",
-			"id": "ntc_0018",
-			"key": "notice.masterwork",
-			"minute": 2055,
-			"params": {
-				"family_name": "Herrero",
-				"item": "sword",
-				"patron": "santa_eulalia"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 1,
-			"family": "fam_0001",
-			"id": "ntc_0019",
-			"key": "notice.objective_done",
-			"minute": 2055,
-			"params": {
-				"name_key": "objective.forge_masterwork",
-				"objective": "forge_masterwork"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 1,
-			"family": "fam_0001",
-			"id": "ntc_0020",
+			"id": "ntc_0017",
 			"key": "notice.upkeep_settled",
 			"minute": 2080,
 			"params": {
@@ -5868,9 +6300,23 @@
 		{
 			"day": 1,
 			"family": "fam_0001",
-			"id": "ntc_0021",
+			"id": "ntc_0018",
+			"key": "notice.unlocked",
+			"minute": 2082,
+			"params": {
+				"unlock": "staff",
+				"what": "unlock.staff"
+			},
+			"read": false,
+			"severity": "info",
+			"target": ""
+		},
+		{
+			"day": 1,
+			"family": "fam_0001",
+			"id": "ntc_0019",
 			"key": "notice.objective_done",
-			"minute": 2097,
+			"minute": 2100,
 			"params": {
 				"name_key": "objective.sell_in_armory",
 				"objective": "sell_in_armory"
@@ -5882,9 +6328,9 @@
 		{
 			"day": 1,
 			"family": "fam_0001",
-			"id": "ntc_0022",
+			"id": "ntc_0020",
 			"key": "notice.objective_failed",
-			"minute": 2097,
+			"minute": 2100,
 			"params": {
 				"contract_reason": "gone",
 				"name_key": "objective.carpenter_hammers",
@@ -5897,9 +6343,9 @@
 		{
 			"day": 1,
 			"family": "fam_0001",
-			"id": "ntc_0023",
+			"id": "ntc_0021",
 			"key": "notice.unlocked",
-			"minute": 2097,
+			"minute": 2100,
 			"params": {
 				"unlock": "contracts",
 				"what": "unlock.contracts"
@@ -5911,12 +6357,12 @@
 		{
 			"day": 1,
 			"family": "fam_0001",
-			"id": "ntc_0024",
-			"key": "notice.unlocked",
-			"minute": 2099,
+			"id": "ntc_0022",
+			"key": "notice.loan_repaid",
+			"minute": 2101,
 			"params": {
-				"unlock": "staff",
-				"what": "unlock.staff"
+				"lender": "moneylender",
+				"loan": "lon_0001"
 			},
 			"read": false,
 			"severity": "info",
@@ -5925,7 +6371,7 @@
 		{
 			"day": 1,
 			"family": "fam_0001",
-			"id": "ntc_0025",
+			"id": "ntc_0023",
 			"key": "notice.festival_eve",
 			"minute": 2160,
 			"params": {
@@ -5940,7 +6386,7 @@
 		{
 			"day": 1,
 			"family": "fam_0001",
-			"id": "ntc_0026",
+			"id": "ntc_0024",
 			"key": "notice.festival_eve",
 			"minute": 2160,
 			"params": {
@@ -5953,79 +6399,9 @@
 			"target": ""
 		},
 		{
-			"day": 1,
-			"family": "fam_0013",
-			"id": "ntc_0027",
-			"key": "notice.contract_due",
-			"minute": 2340,
-			"params": {
-				"client": "parish_priest",
-				"contract": "ctr_0004",
-				"hours": 2,
-				"item": "banner",
-				"qty": 3
-			},
-			"read": false,
-			"severity": "urgent",
-			"target": "chr_0023"
-		},
-		{
-			"day": 1,
-			"family": "fam_0011",
-			"id": "ntc_0028",
-			"key": "notice.contract_due",
-			"minute": 2340,
-			"params": {
-				"client": "town_council",
-				"contract": "ctr_0003",
-				"hours": 2,
-				"item": "stage",
-				"qty": 1
-			},
-			"read": false,
-			"severity": "urgent",
-			"target": "chr_0019"
-		},
-		{
-			"day": 1,
-			"family": "fam_0011",
-			"id": "ntc_0029",
-			"key": "notice.contract_expired",
-			"minute": 2460,
-			"params": {
-				"client": "town_council",
-				"contract": "ctr_0003",
-				"days": 0,
-				"item": "stage",
-				"qty": 1,
-				"reputation": -3
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "chr_0019"
-		},
-		{
-			"day": 1,
-			"family": "fam_0013",
-			"id": "ntc_0030",
-			"key": "notice.contract_expired",
-			"minute": 2460,
-			"params": {
-				"client": "parish_priest",
-				"contract": "ctr_0004",
-				"days": 0,
-				"item": "banner",
-				"qty": 3,
-				"reputation": -3
-			},
-			"read": false,
-			"severity": "warning",
-			"target": "chr_0023"
-		},
-		{
 			"day": 2,
 			"family": "fam_0001",
-			"id": "ntc_0031",
+			"id": "ntc_0025",
 			"key": "notice.festival_ended",
 			"minute": 2880,
 			"params": {
@@ -6038,89 +6414,31 @@
 		{
 			"day": 2,
 			"family": "fam_0001",
-			"id": "ntc_0032",
-			"key": "notice.unlocked",
-			"minute": 2880,
+			"id": "ntc_0026",
+			"key": "notice.upkeep_unpaid",
+			"minute": 3150,
 			"params": {
-				"unlock": "rival",
-				"what": "unlock.rival"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 2,
-			"family": "fam_0001",
-			"id": "ntc_0033",
-			"key": "notice.objective_done",
-			"minute": 2880,
-			"params": {
-				"name_key": "objective.outsell_rival",
-				"objective": "outsell_rival"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 2,
-			"family": "fam_0002",
-			"id": "ntc_0034",
-			"key": "notice.contract_due",
-			"minute": 3197,
-			"params": {
-				"client": "innkeeper",
-				"contract": "ctr_0005",
-				"hours": 24,
-				"item": "hammer",
-				"qty": 3
+				"building": "bld_0001",
+				"days": 3,
+				"debt": 6
 			},
 			"read": false,
 			"severity": "warning",
-			"target": "chr_0002"
+			"target": "bld_0001"
 		},
 		{
 			"day": 2,
 			"family": "fam_0001",
-			"id": "ntc_0035",
-			"key": "notice.unlocked",
-			"minute": 3283,
+			"id": "ntc_0027",
+			"key": "notice.upkeep_settled",
+			"minute": 3280,
 			"params": {
-				"unlock": "upgrades",
-				"what": "unlock.upgrades"
+				"amount": 6,
+				"building": "bld_0001"
 			},
 			"read": false,
 			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 2,
-			"family": "fam_0001",
-			"id": "ntc_0036",
-			"key": "notice.loan_repaid",
-			"minute": 3284,
-			"params": {
-				"lender": "moneylender",
-				"loan": "lon_0001"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
-		},
-		{
-			"day": 2,
-			"family": "fam_0001",
-			"id": "ntc_0037",
-			"key": "notice.objective_done",
-			"minute": 3285,
-			"params": {
-				"name_key": "objective.repay_debt",
-				"objective": "repay_debt"
-			},
-			"read": false,
-			"severity": "info",
-			"target": ""
+			"target": "bld_0001"
 		}
 	],
 	"objectives": {
@@ -6228,7 +6546,7 @@
 				"board": [
 					{
 						"days": 4,
-						"id": "rct_0004",
+						"id": "rct_0016",
 						"item": "statue",
 						"qty": 2,
 						"reward": 308
@@ -6257,7 +6575,7 @@
 					},
 					{
 						"days": 3,
-						"id": "rct_0005",
+						"id": "rct_0017",
 						"item": "wheat",
 						"qty": 2,
 						"reward": 11
@@ -6273,14 +6591,14 @@
 				"board": [
 					{
 						"days": 4,
-						"id": "rct_0002",
+						"id": "rct_0006",
 						"item": "common_clothes",
 						"qty": 2,
 						"reward": 126
 					},
 					{
 						"days": 3,
-						"id": "rct_0006",
+						"id": "rct_0018",
 						"item": "common_clothes",
 						"qty": 3,
 						"reward": 189
@@ -6302,8 +6620,56 @@
 			"port": {
 				"board": [
 					{
+						"days": 2,
+						"feast": "our_lady_carmen",
+						"feast_key": "port|our_lady_carmen|2",
+						"feast_kind": "patron",
+						"id": "rct_0011",
+						"item": "barrel",
+						"qty": 3,
+						"reputation_bonus": 3,
+						"reward": 210,
+						"until": 4320
+					},
+					{
+						"days": 2,
+						"feast": "our_lady_carmen",
+						"feast_key": "port|our_lady_carmen|2",
+						"feast_kind": "patron",
+						"id": "rct_0012",
+						"item": "bread",
+						"qty": 6,
+						"reputation_bonus": 3,
+						"reward": 96,
+						"until": 4320
+					},
+					{
+						"days": 2,
+						"feast": "fair",
+						"feast_key": "port|fair|2",
+						"feast_kind": "fair",
+						"id": "rct_0013",
+						"item": "horseshoe",
+						"qty": 4,
+						"reputation_bonus": 3,
+						"reward": 160,
+						"until": 4320
+					},
+					{
+						"days": 2,
+						"feast": "fair",
+						"feast_key": "port|fair|2",
+						"feast_kind": "fair",
+						"id": "rct_0014",
+						"item": "cart_wheel",
+						"qty": 1,
+						"reputation_bonus": 3,
+						"reward": 130,
+						"until": 4320
+					},
+					{
 						"days": 3,
-						"id": "rct_0007",
+						"id": "rct_0019",
 						"item": "travel_cloak",
 						"qty": 3,
 						"reward": 168
@@ -6317,14 +6683,14 @@
 				"board": [
 					{
 						"days": 4,
-						"id": "rct_0003",
+						"id": "rct_0015",
 						"item": "hammer",
 						"qty": 6,
 						"reward": 294
 					},
 					{
 						"days": 4,
-						"id": "rct_0008",
+						"id": "rct_0020",
 						"item": "flour",
 						"qty": 6,
 						"reward": 101
@@ -6349,9 +6715,10 @@
 			"talk_day": 1
 		}
 	},
-	"rng_state": "-1458058163058952035",
+	"rng_state": "1682821763625129624",
 	"seed": "1",
 	"town": {
+		"clientele": {},
 		"counters": {},
 		"incidents": {
 			"active": [],
@@ -6410,14 +6777,14 @@
 					"deadline": 1290,
 					"def": "altercation",
 					"ended": 1277,
-					"fight_until": 1299,
+					"fight_until": 1295,
 					"fine": 16,
 					"id": "inc_0002",
-					"instigator": "chr_0010",
+					"instigator": "chr_0016",
 					"outcome": "watch",
 					"people": [
-						"chr_0010",
-						"chr_0003"
+						"chr_0016",
+						"chr_0008"
 					],
 					"phase": "closed",
 					"point": "chat_well",
@@ -6427,13 +6794,13 @@
 						17
 					],
 					"watchers": [
+						"chr_0003",
 						"chr_0004",
 						"chr_0005",
-						"chr_0008",
-						"chr_0011"
+						"chr_0010"
 					],
 					"why": "drunk",
-					"winner": "chr_0003"
+					"winner": "chr_0008"
 				}
 			],
 			"last": {
@@ -6465,12 +6832,12 @@
 				},
 				{
 					"by": "chr_0001",
-					"key": "contract|ctr_0004",
+					"key": "contract|ctr_0003",
 					"minute": 860,
 					"params": {
-						"item": "@item.banner",
-						"pay": 134,
-						"qty": 3
+						"item": "@item.stage",
+						"pay": 146,
+						"qty": 1
 					},
 					"point": "meet_well",
 					"rumor": "contract",
@@ -6480,28 +6847,29 @@
 				{
 					"by": "chr_0001",
 					"key": "brawl|1119|altercation",
-					"minute": 3275,
+					"minute": 3260,
 					"params": {
 						"family": "Font",
 						"name": "Margarida",
 						"target": "Jaume"
 					},
-					"point": "meet_atrium",
+					"point": "meet_well",
 					"rumor": "brawl",
 					"text_key": "rumor.brawl",
 					"useful": false
 				},
 				{
 					"by": "chr_0001",
-					"key": "prices|capital|wheat",
+					"key": "contract|ctr_0006",
 					"minute": 3310,
 					"params": {
-						"city": "@region.capital",
-						"item": "@item.wheat"
+						"item": "@item.stage",
+						"pay": 146,
+						"qty": 1
 					},
 					"point": "meet_well",
-					"rumor": "prices",
-					"text_key": "rumor.prices",
+					"rumor": "contract",
+					"text_key": "rumor.contract",
 					"useful": true
 				}
 			],
@@ -6545,12 +6913,14 @@
 	"trials": [],
 	"unlocks": {
 		"_day_sales": {
-			"fam_0001": 2,
-			"fam_0012": 1
+			"fam_0001": 2
 		},
 		"fam_0001": {
 			"_count": {
 				"contracts": [
+					1
+				],
+				"counter": [
 					1
 				],
 				"court": [
@@ -6574,7 +6944,10 @@
 					1
 				],
 				"staff": [
-					2
+					3
+				],
+				"upgrades": [
+					1
 				]
 			},
 			"_goals": {
@@ -6583,7 +6956,7 @@
 					"have": [
 						0
 					],
-					"since": 2097
+					"since": 2100
 				},
 				"festival_contract": {
 					"done": false,
@@ -6592,17 +6965,10 @@
 					],
 					"since": 1440
 				},
-				"first_upgrade": {
+				"forge_masterwork": {
 					"done": false,
 					"have": [
 						0
-					],
-					"since": 3283
-				},
-				"forge_masterwork": {
-					"done": true,
-					"have": [
-						1
 					],
 					"since": 668
 				},
@@ -6619,14 +6985,7 @@
 					"have": [
 						0
 					],
-					"since": 2099
-				},
-				"outsell_rival": {
-					"done": true,
-					"have": [
-						1
-					],
-					"since": 2880
+					"since": 2082
 				},
 				"repay_debt": {
 					"done": true,
@@ -6637,12 +6996,12 @@
 				}
 			},
 			"contracts": {
-				"minute": 2097,
+				"minute": 2100,
 				"seen": true,
 				"used": false
 			},
-			"counter": {
-				"minute": 1440,
+			"debt": {
+				"minute": 301,
 				"seen": true,
 				"used": false
 			},
@@ -6661,18 +7020,8 @@
 				"seen": true,
 				"used": false
 			},
-			"rival": {
-				"minute": 2880,
-				"seen": true,
-				"used": false
-			},
 			"staff": {
-				"minute": 2099,
-				"seen": true,
-				"used": false
-			},
-			"upgrades": {
-				"minute": 3283,
+				"minute": 2082,
 				"seen": true,
 				"used": false
 			}
