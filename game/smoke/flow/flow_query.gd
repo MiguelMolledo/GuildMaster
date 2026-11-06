@@ -361,6 +361,45 @@ func tutorial_step() -> String:
 	return "%s:%s" % [t.get("chapter_id"), t.get("index")]
 
 
+## Whether unlock `id` of 03b is open for the player's family (the jugador pass waits for staff, upgrades...).
+func unlocked(id: String) -> bool:
+	return Game.sim != null and Unlocks.is_open(st(), fam(), id)
+
+
+## Whether the tutorial's chapter `id` was played to its end.
+func chapter_done(id: String) -> bool:
+	var t: Variant = app.call("tutorial")
+	return t != null and id in (t.call("done_chapters") as Array)
+
+
+## The tutorial's step now as "chapter:step_id" ("" when it does not run; "chapter:end" on its end card): the jugador
+## pass follows the tutorial as a new player.
+func tut() -> String:
+	var t: Variant = app.call("tutorial")
+	if t == null or str(t.get("chapter_id")) == "":
+		return ""
+	if str(t.get("phase")) == "finished":
+		return "%s:end" % t.get("chapter_id")
+	var st: Dictionary = t.call("step")
+	return "%s:%s" % [t.get("chapter_id"), st.get("id", t.get("index"))]
+
+
+## The tutorial card's text now ("" when it is not shown).
+func tut_text() -> String:
+	var t: Variant = app.call("tutorial")
+	var c := (t as Node).get_node_or_null("Overlay/Card") as Control if t != null else null
+	if c == null or not c.is_visible_in_tree():
+		return ""
+	var out: PackedStringArray = []
+	for l: Node in c.find_children("*", "Label", true, false):
+		if (l as Label).is_visible_in_tree():
+			out.append((l as Label).text)
+	for l: Node in c.find_children("*", "RichTextLabel", true, false):
+		if (l as RichTextLabel).is_visible_in_tree():
+			out.append((l as RichTextLabel).get_parsed_text())
+	return " | ".join(out)
+
+
 ## The name of character `id` (for a "has" or "row" in a spec).
 func name_of(id: String) -> String:
 	return str(st().characters.get(id, {}).get("name", ""))

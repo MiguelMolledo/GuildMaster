@@ -1,0 +1,535 @@
+{
+  "id": "jugador/07_empleado",
+  "title": "Jugador 7 · El primer empleado",
+  "about": "Cuando abre Empleados (150 de oro o 3 encargos): su carta «Ver capítulo» (o F1), contratar un aprendiz y ponerle la cola de lingotes. Mientras no abre, forjar y vender.",
+  "start": {
+    "keep": true
+  },
+  "steps": [
+    {
+      "id": "a_carta_1",
+      "say": "Una carta «Nuevo»: leerla y Entendido",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'}) and not q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'})",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "a_carta_2",
+      "say": "",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'}) and not q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'})",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "a_carta_3",
+      "say": "",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'}) and not q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'})",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "a_evento_1",
+      "say": "Una carta de fiesta o de suceso: leerla y Entendido",
+      "when": "q.shown({'within': 'EventCard', 'node': 'Button_ok'})",
+      "click": {
+        "within": "EventCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "a_evento_2",
+      "say": "",
+      "when": "q.shown({'within': 'EventCard', 'node': 'Button_ok'})",
+      "click": {
+        "within": "EventCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "abierto",
+      "say": "¿Ya se abrió Empleados?",
+      "expect": [
+        "q.unlocked('staff') or true"
+      ]
+    },
+    {
+      "id": "w_a_la_forja",
+      "say": "A la forja",
+      "when": "not q.unlocked('staff') and (q.interior() != q.own('forge'))",
+      "world": {
+        "own": "forge"
+      },
+      "button": "right",
+      "until": "q.interior() == q.own('forge') and q.location() == q.own('forge')",
+      "timeout": 40
+    },
+    {
+      "id": "w_lingotes",
+      "say": "Hacen falta lingotes (el aprendiz funde si tiene cola; si no, el horno a mano)",
+      "when": "not q.unlocked('staff') and (q.storage('iron_ingot') < 2 and not q.working('furnace') and q.storage('iron') >= 2)",
+      "station": "furnace",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "w_lingotes_b",
+      "when": "not q.unlocked('staff') and (q.visible('StationMenu'))",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_forge_ingot"
+        ],
+        "type": "Button"
+      }
+    },
+    {
+      "id": "w_x4",
+      "say": "Mayús+3: ×4",
+      "key": "@speed_3",
+      "when": "not q.unlocked('staff')"
+    },
+    {
+      "id": "w_espera_hierro",
+      "say": "El recado del hierro tarda dos horas: esperar",
+      "when": "not q.unlocked('staff') and (q.storage('iron_ingot') < 2 and q.storage('iron') < 2 and q.deliveries() > 0)",
+      "until": "q.storage('iron') >= 2",
+      "timeout": 60
+    },
+    {
+      "id": "w_lingotes_2",
+      "when": "not q.unlocked('staff') and (q.storage('iron_ingot') < 2 and not q.working('furnace') and q.storage('iron') >= 2)",
+      "station": "furnace",
+      "button": "right"
+    },
+    {
+      "id": "w_lingotes_2b",
+      "when": "not q.unlocked('staff') and (q.visible('StationMenu'))",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_forge_ingot"
+        ],
+        "type": "Button"
+      }
+    },
+    {
+      "id": "w_espera_lingotes",
+      "say": "Esperar a dos lingotes",
+      "when": "not q.unlocked('staff') and (q.storage('iron_ingot') < 2 and (q.working('furnace') or q.storage('iron') >= 2))",
+      "until": "q.storage('iron_ingot') >= 2",
+      "timeout": 150,
+      "soft": true
+    },
+    {
+      "id": "w_yunque",
+      "say": "El yunque: espadas en modo normal (se repite)",
+      "when": "not q.unlocked('staff') and (q.storage('iron_ingot') >= 2 and not q.working('anvil'))",
+      "station": "anvil",
+      "button": "right",
+      "expect": [
+        "q.visible('StationMenu')"
+      ]
+    },
+    {
+      "id": "w_normal",
+      "when": "not q.unlocked('staff') and (q.visible('StationMenu'))",
+      "click": {
+        "node": "NormalButton"
+      }
+    },
+    {
+      "id": "w_espada",
+      "when": "not q.unlocked('staff') and (q.visible('StationMenu'))",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_forge_sword"
+        ],
+        "type": "Button"
+      }
+    },
+    {
+      "id": "w_espera_espadas",
+      "say": "Esperar a 2 espadas",
+      "when": "not q.unlocked('staff') and (q.working('anvil') or q.storage('sword') > 0)",
+      "until": "q.storage('sword') >= 2 or (not q.working('anvil') and q.storage('iron_ingot') < 2)",
+      "timeout": 200
+    },
+    {
+      "id": "w_almacen",
+      "say": "Almacén: «Llevar productos»",
+      "when": "not q.unlocked('staff') and (q.storage('sword') > 0)",
+      "key": "@panel_storage",
+      "expect": [
+        "q.visible('StoragePanel')"
+      ]
+    },
+    {
+      "id": "w_coger",
+      "when": "not q.unlocked('staff') and (q.visible('StoragePanel') and q.storage('sword') > 0)",
+      "click": {
+        "node": "TakeButton"
+      },
+      "until": "q.bag('sword') > 0",
+      "timeout": 8
+    },
+    {
+      "id": "w_cerrar_panel",
+      "when": "not q.unlocked('staff') and (q.visible('StoragePanel') or q.visible('ProductionPanel') or q.visible('StationMenu'))",
+      "key": "Escape"
+    },
+    {
+      "id": "w_salir",
+      "when": "not q.unlocked('staff') and (q.interior() != '')",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == ''",
+      "timeout": 20
+    },
+    {
+      "id": "v_espera_armeria",
+      "say": "De noche la Armería cierra: esperar a que abra (×4)",
+      "when": "not q.unlocked('staff') and (q.bag('sword') > 0 and not q.market_open('armory'))",
+      "key": "@speed_3",
+      "until": "q.market_open('armory')",
+      "timeout": 120
+    },
+    {
+      "id": "v_armeria",
+      "say": "A la Armería a vender",
+      "when": "not q.unlocked('staff') and (q.bag('sword') > 0)",
+      "world": {
+        "building": "armory"
+      },
+      "button": "right",
+      "until": "q.interior() == q.building('armory')",
+      "timeout": 40
+    },
+    {
+      "id": "v_mostrador",
+      "when": "not q.unlocked('staff') and (q.interior() == q.building('armory'))",
+      "station": "*",
+      "button": "left",
+      "until": "q.visible('MarketPanel')",
+      "timeout": 8
+    },
+    {
+      "id": "v_vender_tab",
+      "when": "not q.unlocked('staff') and (q.visible('MarketPanel'))",
+      "click": {
+        "node": "SellTab"
+      }
+    },
+    {
+      "id": "v_vender_1",
+      "say": "Vender las espadas, una a una (cada venta baja el precio)",
+      "when": "not q.unlocked('staff') and (q.visible('MarketPanel') and q.bag('sword') > 0)",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "sword_"
+        },
+        "node": "SellOne",
+        "enabled": true
+      },
+      "wait": 0.3,
+      "soft": true
+    },
+    {
+      "id": "v_vender_2",
+      "when": "not q.unlocked('staff') and (q.visible('MarketPanel') and q.bag('sword') > 0)",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "sword_"
+        },
+        "node": "SellOne",
+        "enabled": true
+      },
+      "wait": 0.3,
+      "soft": true
+    },
+    {
+      "id": "v_vender_3",
+      "when": "not q.unlocked('staff') and (q.visible('MarketPanel') and q.bag('sword') > 0)",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "sword_"
+        },
+        "node": "SellOne",
+        "enabled": true
+      },
+      "wait": 0.3,
+      "soft": true
+    },
+    {
+      "id": "v_vender_4",
+      "when": "not q.unlocked('staff') and (q.visible('MarketPanel') and q.bag('sword') > 0)",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "sword_"
+        },
+        "node": "SellOne",
+        "enabled": true
+      },
+      "wait": 0.3,
+      "soft": true
+    },
+    {
+      "id": "v_cerrar_mercado",
+      "when": "not q.unlocked('staff') and (q.visible('MarketPanel'))",
+      "key": "Escape"
+    },
+    {
+      "id": "v_salir_armeria",
+      "when": "not q.unlocked('staff') and (q.interior() != '')",
+      "click": {
+        "node": "ExitButton"
+      },
+      "until": "q.interior() == ''",
+      "timeout": 20
+    },
+    {
+      "id": "b_carta_1",
+      "say": "Una carta «Nuevo»: leerla y Entendido",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'}) and not q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'})",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "b_carta_2",
+      "say": "",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'}) and not q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'})",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "b_carta_3",
+      "say": "",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_ok'}) and not q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'})",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "b_evento_1",
+      "say": "Una carta de fiesta o de suceso: leerla y Entendido",
+      "when": "q.shown({'within': 'EventCard', 'node': 'Button_ok'})",
+      "click": {
+        "within": "EventCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "b_evento_2",
+      "say": "",
+      "when": "q.shown({'within': 'EventCard', 'node': 'Button_ok'})",
+      "click": {
+        "within": "EventCard",
+        "node": "Button_ok"
+      },
+      "wait": 0.4
+    },
+    {
+      "id": "s_ver_capitulo",
+      "say": "La carta trae «Ver capítulo»: staff",
+      "when": "q.shown({'within': 'UnlockCard', 'node': 'Button_chapter'}) and q.drv.node('UnlockCard').current == 'staff'",
+      "click": {
+        "within": "UnlockCard",
+        "node": "Button_chapter"
+      },
+      "until": "q.tut().begins_with('staff:')",
+      "timeout": 6
+    },
+    {
+      "id": "s_desde_ayuda",
+      "say": "Si no, F1 y el capítulo staff desde la ayuda",
+      "when": "q.unlocked('staff') and not q.chapter_done('staff') and not q.tut().begins_with('staff:')",
+      "key": "F1",
+      "expect": [
+        "q.visible('HelpPanel')"
+      ]
+    },
+    {
+      "id": "s_ayuda_capitulo",
+      "when": "q.visible('HelpPanel')",
+      "click": {
+        "within": "HelpPanel",
+        "node": "Chapter_staff"
+      },
+      "until": "q.tut().begins_with('staff:')",
+      "timeout": 6,
+      "soft": true
+    },
+    {
+      "id": "gestionar",
+      "when": "q.tut() == 'staff:manage'",
+      "world": {
+        "own": "forge"
+      },
+      "double": true,
+      "until": "q.tut() != 'staff:manage'",
+      "timeout": 10
+    },
+    {
+      "id": "empleados",
+      "when": "q.tut() == 'staff:open'",
+      "key": "@panel_staff",
+      "until": "q.tut() != 'staff:open'",
+      "timeout": 4
+    },
+    {
+      "id": "plantilla",
+      "when": "q.tut() == 'staff:staff_tab'",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'staff:staff_tab'",
+      "timeout": 4
+    },
+    {
+      "id": "contratar_tab",
+      "when": "q.tut() == 'staff:hire_tab'",
+      "click": {
+        "node": "HireTab"
+      },
+      "until": "q.tut() != 'staff:hire_tab'",
+      "timeout": 4
+    },
+    {
+      "id": "rangos",
+      "when": "q.tut() == 'staff:ranks'",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'staff:ranks'",
+      "timeout": 4
+    },
+    {
+      "id": "lista",
+      "when": "q.tut() == 'staff:list'",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'staff:list'",
+      "timeout": 4
+    },
+    {
+      "id": "contratar_1",
+      "say": "Contratar (la meta lo pide): primer clic",
+      "when": "q.visible('StaffPanel')",
+      "click": {
+        "within": "StaffPanel",
+        "node": "Hire"
+      }
+    },
+    {
+      "id": "contratar_2",
+      "say": "Segundo clic: contratado",
+      "when": "q.visible('StaffPanel')",
+      "click": {
+        "within": "StaffPanel",
+        "node": "Hire"
+      },
+      "until": "q.staff('forge') > 0",
+      "timeout": 6,
+      "expect": [
+        "q.order('hire')"
+      ]
+    },
+    {
+      "id": "produccion",
+      "key": "@panel_production",
+      "expect": [
+        "q.visible('ProductionPanel')"
+      ]
+    },
+    {
+      "id": "cola_tab",
+      "click": {
+        "node": "QueueTab"
+      }
+    },
+    {
+      "id": "receta",
+      "click": {
+        "within": "RecipeGrid",
+        "node": "forge_ingot"
+      }
+    },
+    {
+      "id": "anadir",
+      "click": {
+        "node": "Add5"
+      },
+      "until": "q.queue_len('forge') > 0",
+      "timeout": 6,
+      "expect": [
+        "q.order('queue_add')"
+      ]
+    },
+    {
+      "id": "bucle",
+      "click": {
+        "node": "LoopButton"
+      },
+      "expect": [
+        "q.order('queue_loop')"
+      ]
+    },
+    {
+      "id": "anadir_tut",
+      "when": "q.tut() == 'staff:add'",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() == 'staff:end'",
+      "timeout": 4
+    },
+    {
+      "id": "cerrar_tut",
+      "when": "q.tut() != ''",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_close"
+      }
+    },
+    {
+      "id": "esc",
+      "when": "q.visible('ProductionPanel')",
+      "key": "Escape"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "jugador/01_inicio",
+  "title": "Jugador 1 · La partida nueva y los primeros pasos",
+  "about": "Un jugador nuevo: partida por defecto (Vilarrasa, herrero, Normal) con el tutorial; el capítulo «Primeros pasos» tal como lo pide.",
+  "start": {"new_game": true},
+  "steps": [
+    {"id": "pantalla", "say": "La pantalla de partida nueva: lo que viene por defecto", "expect": ["q.visible('NewGameScreen')", "q.drv.node('TutorialCheck').button_pressed"]},
+    {"id": "empezar", "say": "Empezar (todo por defecto, con tutorial)", "click": {"node": "StartButton"}, "until": "q.tut() != ''", "timeout": 10},
+    {"id": "bienvenida", "say": "El tutorial da la bienvenida", "expect": ["q.tut() == 'first_steps:welcome'"]},
+    {"id": "b_siguiente", "click": {"via": "Tutorial", "node": "Button_next"}, "until": "q.tut() == 'first_steps:camera'", "timeout": 4},
+    {"id": "camara", "say": "Mueve la cámara (WASD)", "hold": "D", "frames": 30, "until": "q.tut() != 'first_steps:camera'", "timeout": 4},
+    {"id": "zoom", "say": "La rueda acerca", "wheel": {"up": true, "times": 2}, "until": "q.tut() != 'first_steps:zoom'", "timeout": 4},
+    {"id": "elegir", "say": "Tu protagonista: Siguiente", "click": {"via": "Tutorial", "node": "Button_next"}, "until": "q.tut() != 'first_steps:select'", "timeout": 4},
+    {"id": "grupo", "click": {"via": "Tutorial", "node": "Button_next"}, "until": "q.tut() != 'first_steps:group'", "timeout": 4},
+    {"id": "reloj", "click": {"via": "Tutorial", "node": "Button_next"}, "until": "q.tut() != 'first_steps:clock'", "timeout": 4},
+    {"id": "reanudar", "say": "Espacio: que corra el tiempo", "key": "Space", "until": "q.tut() != 'first_steps:resume'", "timeout": 4},
+    {"id": "velocidad", "say": "Mayús+2: ×2", "key": "@speed_2", "until": "q.tut() != 'first_steps:speed'", "timeout": 4},
+    {"id": "andar", "say": "Clic derecho en el suelo", "world": {"tile": [21, 16]}, "button": "right", "until": "q.tut() != 'first_steps:walk'", "timeout": 4},
+    {"id": "taller", "say": "Clic derecho en la forja: entra", "world": {"own": "forge"}, "button": "right", "until": "q.tut() != 'first_steps:workshop'", "timeout": 40},
+    {"id": "barra", "say": "La barra del taller: Siguiente", "click": {"via": "Tutorial", "node": "Button_next"}, "until": "q.tut() != 'first_steps:bar'", "timeout": 4},
+    {"id": "objetivo", "say": "El objetivo: Siguiente", "click": {"via": "Tutorial", "node": "Button_next"}, "until": "q.tut() == 'first_steps:end'", "timeout": 4},
+    {"id": "fin_capitulo", "say": "Fin del capítulo: «Siguiente capítulo»", "click": {"via": "Tutorial", "node": "Button_next_chapter"}, "until": "q.tut().begins_with('produce:')", "timeout": 4}
+  ]
+}

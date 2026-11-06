@@ -1,5 +1,7 @@
 {
   "_doc": "Tutorial interactivo (docs/ui/05_tutorial.md). chapters: el orden de los capítulos (data/tutorial/<id>.json). openers: qué se resalta cuando el objetivo de un paso no está a la vista: por el nombre del panel que lo contiene (el «in» del objetivo o un antepasado del nodo), «@interior» (un puesto con el pueblo a la vista) o «@town» (algo del pueblo desde dentro de un edificio). panels: los paneles que se vigilan (panel_open, panel_opened, panel_closed). hints: las pistas de primera vez (when, target, text, until). look: el aspecto del foco (velo, marco que late, flecha y tarjeta), en píxeles de 960×540 y segundos reales.",
+  "_basics_doc": "Los capítulos de lo básico, encadenados al terminar uno («Siguiente capítulo»); los demás llegan con la carta «Nuevo: …» de su desbloqueo (03b §3b.4) o desde la ayuda (F1), y al terminar no proponen otro (jugador J4).",
+  "basics": ["first_steps", "produce", "market", "debt"],
   "chapters": [
     "first_steps",
     "produce",
