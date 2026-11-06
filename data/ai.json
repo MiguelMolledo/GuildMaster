@@ -13,18 +13,36 @@
     "relation_high_drop": 1,
     "attack_rise": 30,
     "trial_rise": 15,
+    "vent": 20,
+    "title_envy": 10,
     "bands": [20, 40, 60, 80]
   },
   "attack": {
     "first_days": 8,
     "u_min": 0.2,
     "stagger_minutes": 3,
-    "targets": 2
+    "targets": 2,
+    "victim_gap_days": 4
   },
   "price_war": {
     "presage_minutes": 720,
     "season_days": 2,
     "min_demand": 0.5
+  },
+  "economy": {
+    "_doc": "H13 (04c 4.21.6.1) [balance]: la economía con gestión de las familias IA (sim/ai/economy.gd), en los mapas de maps. absorb_days: los días de mercado que miran al comprar insumos (lo que el mercado se lleva sobre su suelo de venta y su recuperación, menos lo que ya tienen); trend_days: los amaneceres de la tendencia de oro; contratan con la tendencia sin perder, oro para buffer_days de sueldo sobre su reserva y una receta que pague el sueldo (lo que una mano más añade al día, hasta lo que el mercado se lleva, × su margen ≥ hire_pay × sueldo), desde hire_after_days, hasta max_employees (o el del perfil); despiden bajo su reserva: gold_reserve + reserve_days (del perfil, o este) días de mantenimiento y sueldos, que es también donde acaba su guerra de precios.",
+    "maps": ["region_capital"],
+    "stagger_minutes": 3,
+    "absorb_days": 2,
+    "trend_days": 3,
+    "hire_after_days": 2,
+    "buffer_days": 6,
+    "max_employees": 1,
+    "reserve_days": 2,
+    "hire_pay": 1.5,
+    "austerity_demand": 0.6,
+    "sell_batch": 3,
+    "errand_every": 60
   },
   "sabotage": {
     "repair_days": 2,

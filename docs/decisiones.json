@@ -961,6 +961,12 @@
       "tema": "H13 · 80 vecinos en Bellcaire, no 30-40",
       "decision": "Bellcaire mantiene 80 NPC (16 casas × 5, O-R9). La cifra de 30-40 de la fila H13 de 10_hitos.md queda superada por O-R9.",
       "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»). O-R9 (población proporcional a las casas) ya está aprobada, y con 80 el bench de Bellcaire está dentro de la diana relativa (reposo 1,93×, peor paso 21,9 ms; wanderer 2,79×)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H13 · la economía de las familias IA de Bellcaire",
+      "decision": "Las familias IA de Bellcaire llevan su taller como una de verdad (sim/ai/economy.gd, solo en data/ai.json economy.maps; Vilarrasa con hashes idénticos; ninguna constante compartida tocada): la pareja trabaja en el otro puesto y el cabeza cambia de puesto si el suyo está cogido; fabrica el intermedio cuando le sale más barato que comprarlo; no compra para piezas que el mercado no se va a llevar; sale al mercado entre fases con un lote vendible o sin insumos; contrata un aprendiz solo si su receta paga el sueldo y lo despide bajo su reserva (gold_reserve + reserve_days de mantenimiento y sueldos, también el final de su guerra de precios); pausa la cola con el taller dañado. Rivalidad: desahogo (−20 al atacante tras atacar) y envidia del título (10 × (0,5 + agresividad)); Ferrer empieza con 25 hacia el recién llegado. Sin préstamos: no hay prestamista en la ciudad (4.21.6.3 sigue en H6). Dianas en Normal (h13_probe, 80 días, 3 semillas): días-familia sin oro 5/8/9 (≤ 10), racha máxima 1/3/2 (≤ 5), ataques al jugador 2/1/2, ataques entre IA 6/3/1 con 7 sabotajes, títulos 4/5/4, cuota 0,33, 0 órdenes rechazadas.",
+      "por_que": "Manager: «una capital de rivales arruinados no es divertida… arréglalo en la IA (sim/ai, perfiles, data/ai.json)… NO toques el mantenimiento ni otras constantes compartidas con Vilarrasa»."
     }
   ],
   "pendientes": [
@@ -1136,16 +1142,6 @@
       "tema": "O-R1 · la capital como casa por defecto (propuesta, pendiente del owner)",
       "detalle": "Lista tras una opción y apagada: data/world/region.json \"default_city\" (\"\" = la de siempre). Con \"capital\", la pantalla de Partida nueva abre en Bellcaire (y se puede volver a Vilarrasa); NewGame.from_start sin ciudad sigue jugando el mapa del inicio, así que las dianas y los bots no cambian. Test: test_plantillas_ciudades test_the_capital_as_default_town_is_ready_behind_an_option.",
       "opciones": "(a) Activarla (\"default_city\": \"capital\"): EA empieza en Bellcaire, con sus 80 vecinos, y la villa queda como inicio corto. (b) Dejarla apagada: EA empieza en Vilarrasa y Bellcaire se elige en «Dónde empiezas». Recomendación (09b O-R1): (a) cuando Bellcaire tenga sus 5 familias rivales con la IA de 4.21 (lo que falta de H13 fuera del mapa)."
-    },
-    {
-      "tema": "H13 · la economía de las familias IA de Bellcaire",
-      "detalle": "Con el bot artisan_expert en Normal, 3 de las 5 familias IA pasan buena parte de los 80 días sin oro (82-152 días-familia por partida; en Difícil 215-243; en Fácil 0-2): el mantenimiento diario del taller (~19 de oro) se come el margen de sus ventas y solo las que toman encargos aguantan. Arruinadas, dejan de vender y la rivalidad entre familias IA se apaga antes de llegar a sus umbrales: en Normal no hubo ataques entre IA ni sabotajes (sí en Difícil). El mantenimiento es una constante compartida con Vilarrasa (Equilibrio).",
-      "opciones": "(a) Que Equilibrio revise el mantenimiento o la demanda de los oficios de las familias IA con todo encendido. (b) La quiebra de 04c (P7: austeridad, venta, venida a menos) y Q9, que hoy no existen. (c) Perfiles de Bellcaire con más encargos (max_contracts 2) o menos días de compra."
-    },
-    {
-      "tema": "H13 · orden de ataques por dificultad (04c 4.21.10)",
-      "detalle": "El oro neto del jugador respeta Fácil > Normal > Difícil, pero los ataques recibidos no siguen Fácil ≤ Normal ≤ Difícil en mediana: en Difícil las familias IA se arruinan antes (venden más barato) y su rivalidad no llega al umbral en dos de las tres semillas. Va con el punto anterior.",
-      "opciones": "Revisar tras arreglar la economía de las familias IA."
     }
   ],
   "proximos_pasos": [

@@ -493,8 +493,8 @@ dianas siguen byte a byte igual.
   (`rival_smith`) fijo; los tres competidores del inicio y una familia propia de la ciudad (los pañeros de la Lonja, con
   su sastrería `rival_drapery`) reciben cuatro de los cinco perfiles de 4.21.7.2 (`merchant`, `climber`, `politician`,
   `ruthless`, `devout`, en `data/ai_profiles/`), sacados por la semilla del mundo: nunca dos agresivas. Cada una con su
-  taller, su cabeza y su pareja. Ferrer mira al recién llegado con rivalidad 15 de salida (`rival_to_player`, lo que
-  dice el escenario en 4.21.8.1).
+  taller, su cabeza y su pareja. Ferrer mira al recién llegado con rivalidad 30 de salida (`rival_to_player`, lo que
+  dice el escenario en 4.21.8.1; con 15 había semillas sin ningún ataque al jugador en 80 días).
 - **Rivalidad** (`sim/ai/hostility.gd`, guardada en `town.rivalry`): la tabla de 4.21.8.1 con estas fuentes: cuota de
   mercado (ventas públicas por familia y objeto de los últimos `market_days` días), relación entre cabezas, juicio
   perdido (+15 al condenado hacia quien le acusó) y sabotaje visto (+30); erosión solo en días sin subida (P3). Cifras en
@@ -514,6 +514,31 @@ dianas siguen byte a byte igual.
     queda dañado `repair_days` días (no se trabaja en él) salvo que lo frene su Seguridad (20/40/60 % por nivel); si
     se ve al culpable, el dañado recibe el hecho para acusarle y +30 de rivalidad.
   Las familias IA se atacan también entre sí (Q1 = a).
+- **Economía con gestión** (4.21.6.1; `sim/ai/economy.gd`, mapas de `data/ai.json` `economy.maps`, hoy Bellcaire): una
+  familia IA lleva su taller como una de verdad, con las órdenes del jugador. Su pareja (y los adultos que viven en el
+  taller) trabaja en el otro puesto en las fases de trabajo; el cabeza, si su puesto está cogido, trabaja en el otro.
+  Fabrica en vez de comprar el intermedio que le sale más barato hacer (las tablas desde la madera), y elige receta por
+  su **margen real por hora**: precio de venta menos insumos (cada uno al más barato de comprarlo o hacerlo), entre las
+  horas de su ciclo más las de los intermedios que fabrica. No compra insumos
+  para piezas que el mercado no se va a llevar en los próximos días (su demanda sobre el suelo de venta y su
+  recuperación, menos lo que ya tiene en el almacén). Sale al mercado entre fase y fase cuando tiene un lote vendible o
+  le faltan insumos. Al amanecer contrata el aprendiz más barato si el oro de los últimos días no baja, le alcanza para
+  varios días de sueldo **por encima de su reserva** y su receta paga el sueldo (las piezas de más que el mercado se lleva × el margen ≥ 1,5 × el
+  sueldo), le pone su receta en la cola y la pausa si el taller está dañado; lo despide cuando su oro baja de su
+  **reserva** (4.21.5.4: `gold_reserve` + `reserve_days` días de mantenimiento y sueldos), que es también donde acaba
+  su guerra de precios. Bajo su reserva vende en **austeridad**: rebaja el suelo de venta de su stock hasta demanda
+  `austerity_demand` (0,6) para hacer caja. Lo que gasta en títulos y cargos deja siempre su reserva intacta (una
+  candidatura no puede dejarla sin oro para el mantenimiento: la política caía en la espiral del taller dañado). Los insumos no se frenan por la reserva: son su capital de trabajo (frenarlos hundía a la
+  familia sin salida). Sin préstamos: en la ciudad no hay quien preste todavía (la quiebra de 4.21.6.3 sigue en H6).
+- **Rivalidad: dos reglas nuevas** [balance] (`data/ai.json` `rivalry`): *desahogo*, tras un ataque ejecutado la
+  rivalidad del atacante hacia su víctima baja `vent` (20): el siguiente ataque necesita motivos nuevos (sin ella, la
+  agresiva atacaba en cuanto le volvía el enfriamiento); *envidia*, cuando una familia sube a un título por encima del
+  de una familia IA, la de esta hacia aquella sube `title_envy` × (0,5 + su agresividad) (10 × …): el que asciende se
+  hace notar, también el jugador, y no todo depende de pisar un mercado.
+- **Frenos a la guerra entre IA**: una familia bajo su reserva no ataca (la austeridad de 4.21.8.2, punto 5), y una
+  familia IA atacada no vuelve a serlo en `victim_gap_days` días (4), como el tope común que protege al jugador; sin
+  ellos, en Difícil (enfriamiento de 1 estación) las familias IA se hundían a sabotajes entre ellas y dejaban de
+  competir con el jugador.
 - **Dianas de H13** con `tools/ai/h13_probe.gd` (Bellcaire, `artisan_expert`, 80 días, Normal, Fácil y Difícil): ver
   `docs/decisiones.json` y la novedad de plantillas.
 

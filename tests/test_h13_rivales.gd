@@ -84,7 +84,9 @@ func test_the_rivalry_rises_with_the_market_and_wears_off() -> void:
 	var ferrer := _of_profile(st, "rival_smith")
 	var me := "fam_0001"
 	var start := Hostility.value(st, ferrer, me)
-	eq(start, 15, "Ferrer looks at the newcomer from the start (region.json rival_to_player)")
+	eq(start, int(NewGame.city(cat, "capital")["ai_families"]["rival_to_player"]),
+		"Ferrer looks at the newcomer from the start (region.json rival_to_player)")
+	check(start > 0, "an eye on the newcomer")
 	var bk := Hostility.book(st)
 	bk["sales"] = {"3": {me: {"sword": 5}, ferrer: {"sword": 2}}}
 	Hostility._daily(sim, 4)
@@ -117,6 +119,7 @@ func test_a_price_war_is_announced_then_fought_for_a_season() -> void:
 	var me := "fam_0001"
 	var day := 9
 	_at(sim, day, 0)
+	st.families[ferrer]["gold"] = 600  # over its reserve: not in austerity
 	var bk := Hostility.book(st)
 	bk["values"][ferrer + "|" + me] = 90
 	bk["sales"] = {str(day - 1): {me: {"sword": 6}, ferrer: {"sword": 1}}}
@@ -156,6 +159,7 @@ func test_a_sabotage_is_seen_coming_damages_the_workshop_and_is_repaired() -> vo
 	var day := 9
 	_at(sim, day, 0)
 	Hostility.book(st)["values"][bad + "|" + me] = 90
+	st.families[bad]["gold"] = 600  # over its reserve: not in austerity
 	var k := _ai(st).find(bad)
 	_run_until(sim, _dawn(sim, day) + 3 * k + 1)
 	var m := Hostility._mem(sim, bad)
@@ -212,3 +216,92 @@ func test_the_same_seed_the_same_town_also_after_a_save() -> void:
 		a.step()
 		c.step()
 	eq(a.state_hash(), c.state_hash(), "the same game after saving and loading in the middle")
+
+
+# --- The AI's economy (AIEconomy) ---------------------------------------------------------------------------------------
+
+func test_the_economy_runs_only_in_bellcaire() -> void:
+	var v := Sim.new(NewGame.from_start(cat, START, "normal", {"cast": "fixed"}, 1)["state"], cat)
+	check(not AIEconomy.on(v), "not in Vilarrasa")
+	eq(AIEconomy.orders(v, "fam_0002", Kin.head(v.state, "fam_0002"), Hostility._workshop_of(v.state, "fam_0002"),
+		cat.ai_profiles()["rival_smith"]), [], "no orders of its own there")
+	check(AIEconomy.on(_capital()), "on in Bellcaire")
+
+
+func test_the_spouse_works_at_the_family_workshop() -> void:
+	var sim := _capital()
+	var st := sim.state
+	var worked := {}
+	for i: int in Clock.MINUTES_PER_DAY:
+		for e: Dictionary in sim.step():
+			if str(e.get("type", "")) == "work_started" or str(e.get("type", "")) == "work_done":
+				var who := str(e.get("actor", e.get("character", "")))
+				var f := str(st.characters.get(who, {}).get("family", ""))
+				if f != "" and who != Kin.head(st, f) and str(st.families[f].get("controlled_by", "")) == "ai":
+					worked[f] = true
+	check(worked.size() >= 3, "the spouses of the rival families work (%d families)" % worked.size())
+
+
+func test_it_makes_what_is_cheaper_to_make_than_to_buy() -> void:
+	var sim := _capital()
+	var st := sim.state
+	var carp := ""
+	for f: String in _ai(st):
+		if str(st.buildings[Hostility._workshop_of(st, f)]["type"]) == "carpentry":
+			carp = f
+	var home := Hostility._workshop_of(st, carp)
+	var need := {"planks": 4}
+	AIEconomy.make_or_buy(sim, Kin.head(st, carp), home, need)
+	check(not need.has("planks"), "no planks bought: %s" % need)
+	check(int(need.get("wood", 0)) > 0, "the wood to make them")
+
+
+func test_it_buys_only_what_the_market_takes() -> void:
+	var sim := _capital()
+	var st := sim.state
+	var f := _of_profile(st, "rival_smith")
+	var home := Hostility._workshop_of(st, f)
+	check(AIEconomy.cycles_for(sim, f, home, "forge_sword", 3) == 3, "an empty store: as many as asked")
+	var store := RivalAI._storage(sim, home)
+	for i: int in 30:
+		Inventory.add(store, cat, "sword", 0, 1)
+	check(Inventory.count(store, "sword") >= 30, "30 swords in store (%d)" % Inventory.count(store, "sword"))
+	eq(AIEconomy.cycles_for(sim, f, home, "forge_sword", 3), 0, "more than the market takes in two days: none more")
+
+
+func test_it_hires_with_gold_and_lets_go_without() -> void:
+	var sim := _capital()
+	var st := sim.state
+	var f := _of_profile(st, "rival_smith")
+	var head := Kin.head(st, f)
+	var home := Hostility._workshop_of(st, f)
+	var prof: Dictionary = cat.ai_profiles()["rival_smith"]
+	st.families[f]["ai_state"]["recipe"] = "forge_sword"
+	st.families[f]["gold"] = 500
+	var o := AIEconomy._manage(sim, f, head, home, prof, 5)
+	var kinds: Array = o.map(func(x: Dictionary) -> String: return str(x["type"]))
+	check("hire" in kinds and "queue_add" in kinds, "with gold: an apprentice and its queue (%s)" % [kinds])
+	for x: Dictionary in o:
+		var r := Orders.apply(sim, x)
+		check(bool(r["ok"]), "%s accepted (%s)" % [x["type"], r])
+	st.families[f]["gold"] = 1
+	var o2 := AIEconomy._manage(sim, f, head, home, prof, 6)
+	eq(o2.size(), 1, "without gold for the wages")
+	if o2.size() == 1:
+		eq(str(o2[0]["type"]), "fire", "it lets the apprentice go")
+
+
+func test_a_family_in_austerity_does_not_attack() -> void:
+	var sim := _capital()
+	var st := sim.state
+	var ferrer := _of_profile(st, "rival_smith")
+	Hostility.book(st)["values"][ferrer + "|fam_0001"] = 95
+	Hostility.book(st)["sales"] = {"8": {"fam_0001": {"sword": 5}}}
+	st.families[ferrer]["gold"] = 1
+	var m := Hostility._mem(sim, ferrer)
+	Hostility._decide(sim, ferrer, m, 9)
+	check(not m.has("presage"), "under its reserve: no attack")
+	st.families[ferrer]["gold"] = 600
+	Hostility._decide(sim, ferrer, m, 9)
+	check(m.has("presage"), "with gold: it attacks")
+
