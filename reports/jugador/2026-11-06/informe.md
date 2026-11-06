@@ -20,6 +20,11 @@ python3 tools/verifica/jugador_bloques.py         # regenera los bloques 06-15
 > prórroga a 250, y el día 10 tiene 166 de oro. En otras dos pasadas, con un guion más torpe, la ruina («Fin de la
 > partida») llegó el día 10.
 
+> [!NOTE]
+> **Repetida con el equilibrio Eq1-15 dentro** (main dcf7dc86, misma semilla y misma ruta): sigue la ruina el día 10.
+> En 10 días, ventas 852 + encargos 153 frente a compras 562, recados 109, mantenimiento 180 y sueldo 56. El oro
+> máximo es 209 y al embargo le faltan 71.
+
 ## Ritmo (03b §3b.6: mediana < 30 s entre decisiones, máximo < 60 s)
 
 Tramos sin decisión, en segundos reales a la velocidad que llevaba el jugador (×2 o ×4; 1 día = 5 min a ×1):
