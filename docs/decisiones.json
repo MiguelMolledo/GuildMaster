@@ -1225,6 +1225,24 @@
       "tema": "H12.2 · el prestamista de la ciudad y el Loan ampliado (04d 4.22.5.6, P8, O12 a)",
       "decision": "Orden request_loan (gestión, lender moneylender): cualquier familia pide entre 20 y la mitad de su patrimonio estimado (Dynasty.wealth: oro, coste de sus edificios y mejoras), a 8 o 16 días, al 25 % anual prorrateado (8 días = 25 %, 16 = 50 %), en cuotas iguales cada 2 días; no con otro préstamo del prestamista abierto ni con uno en impago (prórroga). Una cuota sin pagar en su día es el impago de 4.16: prórroga de una estación desde esa cuota, +25 % sobre lo que queda, −10 de reputación, y luego el embargo. Un pago cubre las cuotas en orden. Campos nuevos del Loan (kind, interest, installments, collateral, lender_family, notarized) leídos con valores por defecto: no hay versión de guardado nueva (no hace falta la v22). La deuda del inicio y las multas siguen con interés 0 y un solo pago. Libro, Deudas: la próxima cuota de cada préstamo y la tarjeta «Pedir al prestamista» (cantidad, un botón por plazo con lo que se deberá, confirmación). Los bots del Artesano no lo usan: sus dianas no se mueven.",
       "por_que": "«Servicios y préstamos» del encargo; O12 (a) aprobado. El Banco del Banquero (solicitudes de NPC, garantías notariales, reclamar) queda para el bloque siguiente del Erudito."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12.2 · el Médico en las otras ciudades de la región",
+      "decision": "Las seis ciudades de plantilla reciben el solar de la Consulta y el puesto del Boticario en la misma pasada de plots.py que aplica la regla de solares (rama plantillas), no se deja para el mapa EA. Hasta entonces el Médico solo se juega en town_e.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Una clase que solo existe en una ciudad deja la elección de inicio a medias; la pasada de solares ya va a regenerar esas ciudades, así que cuesta poco."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Forja · el novato no empieza una pieza que acabe después del vencimiento de un encargo listo",
+      "decision": "Se sella en forja. Es un arreglo del bot; con live_for_quality apagado los informes no cambian.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Es el mismo tipo de error de bot que el de las semillas a 0: el juego no castiga una pieza mala, el bot planificaba mal."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "full_player · bandas nuevas tras el equilibrio",
+      "decision": "Se aprueban las bandas propuestas por jugador en reports/full_player_ref/propuesta_bandas_equilibrio.md (deuda ≤ día 6, Ciudadano ≤ día 16, boda ≤ día 20, hijo en ≥ la mitad de las semillas, neto año 1 ≥ 40 y año 3 ≥ 25, ≥ 20 mecánicas, ritmo del año 1 mediana ≤ 30 s y peor hueco ≤ 60 s, ≤ 3 obras maestras en 3 años, hambre ≤ 10 %, ≥ 1 viaje y ≥ 1 tratado, ≤ 8 atascos). Las tres de la IA rival (subir título, presentarse a cargo, ≤ 4 días sin oro) siguen como propuesta hasta que cierre H13. Se sellan tools/full_compare.py y las copias de referencia.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Todas tienen margen sobre lo medido en las 4 semillas y fijan lo que el equilibrio ha ganado para que no se pierda."
     }
   ],
   "pendientes": [
@@ -1400,11 +1418,6 @@
       "tema": "H13 · orden de ataques por dificultad (04c 4.21.10)",
       "detalle": "El oro neto del jugador respeta Fácil > Normal > Difícil, pero los ataques recibidos no siguen Fácil ≤ Normal ≤ Difícil en mediana: en Difícil las familias IA se arruinan antes (venden más barato) y su rivalidad no llega al umbral en dos de las tres semillas. Va con el punto anterior.",
       "opciones": "Revisar tras arreglar la economía de las familias IA."
-    },
-    {
-      "tema": "H12.2 · el Médico en las otras ciudades de la región",
-      "detalle": "El inicio scholar_physician solo se juega en town_e: las seis ciudades de plantillas (y los mapas de la región) no tienen el sitio de la Consulta ni el puesto del Boticario, y en «Dónde empiezas» salen apagadas para el Médico (city_lacks_site). Regenerarlas con el inicio del Erudito cambia sus mapas (es terreno del worker de plantillas).",
-      "opciones": "(a) Regenerar las ciudades de plantillas con scholar_physician entre los inicios (tools/city/generator.py start_ids) y el puesto apothecary; (b) dejar el Médico solo en town_e hasta el mapa EA. Recomendación: (a), en la rama de plantillas."
     }
   ],
   "proximos_pasos": [
@@ -1415,6 +1428,7 @@
     "La batería de tests tarda ~75 s por la prueba de equivalencia del A* (16 000 pares): reducirla si molesta.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner.",
     "Viajes: lo que queda (rama viajes, 2026-11-04): H13: O-R1 (la capital Bellcaire como casa por defecto, elegible al empezar, cuando exista su mapa EA) y O-R9 (población proporcional a las casas; hoy max_total 20 para todos). H12.3: el asalto en el camino hiere al viajero o al carretero (hoy solo se lleva la carga).",
-    "Nivel de detalle en Vilarrasa (town_e) con dianas nuevas, en un bloque aparte, si el owner lo aprueba tras ver el de la región."
+    "Nivel de detalle en Vilarrasa (town_e) con dianas nuevas, en un bloque aparte, si el owner lo aprueba tras ver el de la región.",
+    "H12.2 · lo que queda del Erudito: Banquero y Banco (solicitudes de hogares NPC, grant_loan, cuotas, impago, claim_collateral 60/30 %, préstamos a familias), Sacerdote e Iglesia (misas a horas fijas, donativos, Inspirado: O11), Alquimista (Botica y Herbolario, cadena ALQUIMIA: el ungüento), Escriba (Scriptorium, contratos para el Banco), salud de los personajes (herido/enfermo, el médico los cura; el microevento «Empleado enfermo» paga a la Consulta) y sus bots (priest, alchemist, scribe, banker) de 4.22.5.8."
   ]
 }
