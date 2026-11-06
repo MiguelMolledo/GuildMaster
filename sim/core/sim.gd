@@ -44,6 +44,7 @@ func step(orders: Array = []) -> Array:
 	Population.step(self)   # dawn: townsfolk weddings; year_changed: coming of age, newcomers
 	# H5 · upgrades (docs/contratos/h5_mejoras.md)
 	Upgrades.step(self)     # works that end now finish: their effects apply before anyone reads them
+	Construction.step(self) # H6: building works that end now; at dawn, the AI families' construction (04 §4.9)
 	Fields.step(self)       # H12 Patrón (04d 4.22.4.1): at dawn the crops grow by the season, ripen and rot
 	Herds.step(self)        # H12 Patrón (04d 4.22.4.2): at dawn the animals eat (winter), produce and breed
 	# H4 · employees (docs/contratos/h4_empleados.md)
@@ -77,6 +78,7 @@ func step(orders: Array = []) -> Array:
 	Tribunal.step(self)     # H11: automatic trials after inspections, preparation -> hearing -> verdict, banishments
 	Misdeeds.step(self)     # Equilibrio 6: at dawn, the AI families' misdeeds; a seen one is a public fact
 	Hostility.step(self)    # H13 (04c): rivalry and the rival families' attacks, on the maps of data/ai.json only
+	AIEconomy.step(self)    # H13 (04c): the AI families' credit at dawn, on data/ai.json economy.maps only
 	Reputation.step(self)   # H9: reputation from the events of the step (trade, wages, townsfolk); passive at dawn
 	WorkshopFame.step(self) # Equilibrio 13: the workshops' fame from the events of the step; its decay at dawn
 	Dynasty.step(self)      # H8: at dawn, wealth peaks and dynasty goals (chronicle)

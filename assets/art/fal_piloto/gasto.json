@@ -22237,6 +22237,60 @@
   "que": "image2pixel e1_loan_s16.png"
  },
  {
+  "fecha": "2026-11-06T10:17:18",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_plot_lot"
+ },
+ {
+  "fecha": "2026-11-06T10:17:36",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_plot_ruin"
+ },
+ {
+  "fecha": "2026-11-06T10:17:51",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "ev_plot_building"
+ },
+ {
+  "fecha": "2026-11-06T10:18:02",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0015,
+  "que": "image2pixel ev_plot_lot_i2p.png"
+ },
+ {
+  "fecha": "2026-11-06T10:18:07",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_plot_ruin_i2p.png"
+ },
+ {
+  "fecha": "2026-11-06T10:18:11",
+  "tanda": "produccion",
+  "pieza": "ilustraciones",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel ev_plot_building_i2p.png"
+ },
+ {
   "fecha": "2026-11-06T15:06:17",
   "tanda": "extra",
   "pieza": "fachadas",

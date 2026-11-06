@@ -1313,11 +1313,11 @@
    "side": "inside",
    "zone": "housing",
    "origin": [
-    27,
+    26,
     3
    ],
    "size": [
-    2,
+    3,
     3
    ],
    "front": [
@@ -1333,11 +1333,11 @@
    "zone": "housing",
    "origin": [
     20,
-    4
+    3
    ],
    "size": [
     3,
-    2
+    3
    ],
    "front": [
     20,
@@ -1674,6 +1674,82 @@
    "location": 0.24,
    "site": "workshop_masonry",
    "for_sale": false
+  },
+  {
+   "id": "plot_21",
+   "state": "lot",
+   "side": "outside",
+   "zone": "production",
+   "origin": [
+    9,
+    2
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    10,
+    6
+   ],
+   "location": 0.42
+  },
+  {
+   "id": "plot_22",
+   "state": "lot",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    14,
+    2
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    15,
+    6
+   ],
+   "location": 0.36
+  },
+  {
+   "id": "plot_23",
+   "state": "lot",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    5,
+    3
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    7,
+    6
+   ],
+   "location": 0.44
+  },
+  {
+   "id": "plot_24",
+   "state": "lot",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    30,
+    3
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    31,
+    6
+   ],
+   "location": 0.44
   }
  ],
  "decor": {

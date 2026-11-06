@@ -80,6 +80,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"fiestas": "res://game/smoke/smoke_fiestas.gd",
 	"vida": "res://game/smoke/smoke_vida.gd",
 	"posada": "res://game/smoke/smoke_posada.gd",
+	"h6": "res://game/smoke/smoke_h6.gd",
 	"plantillas": "res://game/smoke/smoke_plantillas.gd",
 	"interiores": "res://game/smoke/smoke_interiores.gd", "flow": "res://game/smoke/flow/flow_runner.gd",
 	"equilibrio": "res://game/smoke/smoke_equilibrio.gd"}
@@ -151,6 +152,9 @@ func _ready() -> void:
 	_world.selection_changed.connect(_on_world_selection)
 	_world.building_picked.connect(func(id: String) -> void: _hud.set_building(id))
 	_world.npc_picked.connect(func(id: String) -> void: _hud.open_npc(id))  # H7: a townsperson's sheet
+	_world.plot_picked.connect(open_plot)  # H6: a plot in the building mode: its card
+	_hud.build_mode_changed.connect(func(on: bool) -> void: _world.set_build_mode(on))
+	_hud.plot_requested.connect(open_plot)
 	_world.manage_requested.connect(func(id: String) -> void:
 		if _owns(id):
 			open_interior(id, true))
@@ -773,6 +777,7 @@ func open_interior(building: String, manage: bool, panel: String = "") -> void:
 	if building == "" or not Game.sim.state.buildings.has(building):
 		return
 	Log.info("App", "open interior (building=%s, manage=%s, selected=%s)" % [building, manage, _world.selected_id])
+	_hud.set_build_mode(false)  # H6: no building mode inside
 	_fade_swap(func() -> void:
 		interior_building = building
 		_interior.setup(Game.sim, building, _world.selected_id, manage)
@@ -814,9 +819,25 @@ func _fade_swap(swap: Callable) -> void:
 	_fade_tween.tween_property(_fade, "color:a", 0.0, half)
 
 
+var _town_dirty: bool = false  # H6: a rebuild of the town view is on its way (rebuild_town, once per step)
+
+
+## H6: the card of a plot (PlotCard) for the person the player moves.
+func open_plot(plot_id: String) -> void:
+	if Game.sim == null:
+		return
+	(get_node("CardsLayer/PlotCard") as PlotCard).show_for(Game.sim, plot_id, _hud.active_person())
+
+
 func _on_sim_event(e: Dictionary) -> void:
 	var type := str(e.get("type", ""))
 	var actor := str(e.get("actor", ""))
+	if type in ["construction_started", "construction_done", "building_demolished", "building_bought"] \
+			and not _town_dirty:
+		_town_dirty = true   # H6: what stands in the town changed: drawn again once, after the step
+		(func() -> void:
+			_town_dirty = false
+			_world.rebuild_town()).call_deferred()
 	if type == "festival_game_call" and str(e.get("family", "")) == SimQuery.player_family(Game.sim.state):
 		# juegos: the player's competition of the feast begins (the joust, the tournament, the race, the bulls)
 		open_game.call_deferred({"game": str(e["game"]), "actor": actor, "opponents": e.get("opponents", []),

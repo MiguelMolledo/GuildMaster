@@ -260,6 +260,40 @@ citylib.add_life(town, citylib.Catalog())
 # The plots of 04 §4.9.1 (tools/city/plots.py): data the sim never reads (the targets do not move), drawn by the view.
 import plots  # noqa: E402
 plots.add_plots(town, citylib.Catalog())
+
+
+def _h6_plots(d, cat):
+    """H6 (04 §4.9; the owner's rule through the manager, 2026-11-06): a town has 4-5 free production plots (lots and
+    ruins), at least 2 of them of a workshop's footprint (3x4 or 4x3), and 3-4 free housing plots of a house's (3x3).
+    plots.py gives Vilarrasa the ruin (3x3) and the 3x2 lot inside, and two housing lots of 2x3 and 3x2 north of the
+    top lane; here, on the grass north of that lane (rows 2-5, entered from it: no meeting point, patrol, tree, fair
+    ground or pen there, and grass the townsfolk's routes leave), the two housing lots grow to 3x3 and four plots are
+    added: two workshop lots of 3x4 (cols 9-11 and 14-16) and two housing lots of 3x3 (cols 5-7 and 30-32). Their side
+    and situation come from plots.py, like the others'."""
+    m = citylib.Map(d, cat)
+    sit = plots.Situation(m)
+    sides = plots.Sides(m, sit.plaza)
+
+    def place(p, rect, front):
+        p["origin"] = [rect[0], rect[1]]
+        p["size"] = [rect[2], rect[3]]
+        p["front"] = list(front)
+        p["side"] = sides.side_of(rect, front)
+        p["location"] = sit.of(front)
+
+    grow = {(27, 3): ((26, 3, 3, 3), (27, 6)), (20, 4): ((20, 3, 3, 3), (20, 6))}  # the housing lots of plots.py
+    for p in d["plots"]:
+        k = (p["origin"][0], p["origin"][1])
+        if p["state"] == "lot" and p["zone"] == "housing" and k in grow:
+            place(p, *grow[k])
+    for zone, rect, front in [("production", (9, 2, 3, 4), (10, 6)), ("production", (14, 2, 3, 4), (15, 6)),
+                              ("housing", (5, 3, 3, 3), (7, 6)), ("housing", (30, 3, 3, 3), (31, 6))]:
+        p = {"id": "plot_%02d" % (len(d["plots"]) + 1), "state": "lot", "zone": zone}
+        place(p, rect, front)
+        d["plots"].append({k: p[k] for k in ("id", "state", "side", "zone", "origin", "size", "front", "location")})
+
+
+_h6_plots(town, citylib.Catalog())
 _emit("data/maps/town_e.json", citylib.dumps_map(town))
 
 def inv(limit_kind, limit, stacks=None):

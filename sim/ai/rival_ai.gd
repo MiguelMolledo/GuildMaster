@@ -60,6 +60,7 @@ static func orders(sim: Sim) -> Array:
 		var o := _think(sim, fam, actor, home, profile)
 		if not o.is_empty():
 			out.append(o)
+		out.append_array(AIEconomy.orders(sim, fam, actor, home, profile, o))  # H13: the hands and management
 	return out
 
 
@@ -78,6 +79,7 @@ static func _think(sim: Sim, fam: String, actor: String, home: String, profile: 
 	if not _free(sim, actor):
 		return {}
 	_race_first(sim, fam, actor, home, ai)
+	AIEconomy.errands(sim, fam, actor, home, profile, ai)  # H13: to the market when there is a batch to sell
 	for guard: int in 8:
 		var plan: Array = ai.get("plan", [])
 		if plan.is_empty():
@@ -217,6 +219,8 @@ static func choose_recipe(sim: Sim, actor: String, home: String) -> String:
 		if str(sim.catalog.recipes()[rid].get("kind", "craft")) == "commission":  # 4.25.4: made to order only
 			continue
 		var m := margin(sim, rid)
+		if AIEconomy.on(sim):  # H13: the margin per hour with what it makes itself cheaper (AIEconomy.rate)
+			m = roundi(AIEconomy.rate(sim, home, rid) * 100.0)
 		if m > best_m:
 			best = rid
 			best_m = m
@@ -307,8 +311,8 @@ static func office_to_run(sim: Sim, fam: String, actor: String, profile: Diction
 			return ""
 	var level := str(rule.get("level", "basic"))
 	var cost := int(sim.catalog.politics.get("elections", {}).get("levels", {}).get(level, {}).get("gold", 0))
-	if Money.gold(sim.state, fam) < cost + int(rule.get("spare_gold", 0)):
-		return ""
+	if Money.gold(sim.state, fam) < cost + int(rule.get("spare_gold", 0)) + AIEconomy.spare_floor(sim, fam, profile):
+		return ""  # H13: on the economy maps the spare gold is over its reserve (AIEconomy.spare_floor)
 	for office: Variant in rule.get("offices", []):
 		if Elections.run_status(sim, actor, str(office), level) == "":
 			return str(office)
@@ -318,7 +322,8 @@ static func office_to_run(sim: Sim, fam: String, actor: String, profile: Diction
 ## H9: the profile asks for titles and the family is ready for its next one with spare_gold left.
 static func wants_title(sim: Sim, fam: String, profile: Dictionary) -> bool:
 	var rule: Dictionary = profile.get("title_rule", {})
-	return bool(rule.get("requests", false)) and Titles.ready(sim, fam, int(rule.get("spare_gold", 0)))
+	return bool(rule.get("requests", false)) and Titles.ready(sim, fam,
+		int(rule.get("spare_gold", 0)) + AIEconomy.spare_floor(sim, fam, profile))  # H13: over its reserve
 
 
 ## H9: to the town hall and request_title; {} when it is no longer ready (granted, or something changed).
@@ -512,10 +517,10 @@ static func _t_sell(sim: Sim, fam: String, actor: String, home: String, profile:
 static func _item_floor(sim: Sim, fam: String, profile: Dictionary, item: String, thr: float) -> float:
 	var f := Hostility.sell_floor(sim, fam, item)
 	if f < 0.0:
-		return thr
+		return AIEconomy.austerity_floor(sim, fam, profile, thr)  # H13: under its reserve it sells to raise cash
 	if f > 1.0:
 		return f  # the presage: it keeps the item
-	if Money.gold(sim.state, fam) <= int(profile.get("gold_reserve", 20)):
+	if Money.gold(sim.state, fam) <= AIEconomy.reserve(sim, fam, profile):
 		return thr  # the war ends at the reserve
 	return minf(thr, f)
 
@@ -578,7 +583,11 @@ static func buy_needs(sim: Sim, fam: String, actor: String, home: String, profil
 	if rid != "":
 		var r: Dictionary = sim.catalog.recipes()[rid]
 		var minutes := work_minutes_per_day(sim, profile) * int(profile.get("buy_days", 1))
-		_add_inputs(sim, need, rid, minutes / Production.cycle_minutes(sim.catalog, r, _mode(profile)))
+		_add_inputs(sim, need, rid, AIEconomy.cycles_for(sim, fam, home, rid,
+			minutes / Production.cycle_minutes(sim.catalog, r, _mode(profile))))  # H13: what the market takes
+	if not bool(ai.get("recovering", false)):
+		AIEconomy.hands_needs(sim, fam, home, profile, need)  # H13: the spouse's and the employees' inputs
+		AIEconomy.make_or_buy(sim, actor, home, need)  # H13: the raw materials of what it makes cheaper itself
 	var bag := _bag(sim, actor)
 	var storage := _storage(sim, home)
 	var out := {}
@@ -629,6 +638,9 @@ static func _t_work(sim: Sim, fam: String, actor: String, home: String, profile:
 			var sub := _recipe_for(sim, actor, home, str(inp["item"]))
 			if sub != "" and sub != rid and _status(sim, actor, home, sub) == "ok":
 				return _work(sim, actor, home, sub, profile)
+	var other := AIEconomy.other_station(sim, fam, actor, home)  # H13: its station taken by a hand: the other one
+	if other != "":
+		return _work(sim, actor, home, other, profile)
 	return {}
 
 

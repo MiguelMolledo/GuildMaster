@@ -643,9 +643,26 @@ static func inspection_view(sim: Sim, building: String) -> Dictionary:
 ## The works in progress of a building as the tree panel shows them ({} if none): {upgrade, start, end, progress,
 ## minutes_left}.
 static func upgrade_works(sim: Sim, building: String) -> Dictionary:
+	var built := construction_works(sim, building)
+	if not built.is_empty():
+		return built   # H6: a building going up shows its scaffold and its bar like an upgrade's works
 	if not Upgrades.under_works(sim.state, building):
 		return {}
 	return Upgrades.tree_view(sim, "", building).get("work", {})
+
+
+## H6: the works of a building under construction (Plots) as the map and the plot card show them ({} if none):
+## {kind (build | restore | convert), start, end, progress 0-1, minutes_left}.
+static func construction_works(sim: Sim, building: String) -> Dictionary:
+	var b: Dictionary = sim.state.buildings.get(building, {})
+	if str(b.get("state", "")) != "construction":
+		return {}
+	var w: Dictionary = b.get("construction", {})
+	var now := int(sim.state.clock["minute"])
+	var start := int(w.get("start", now))
+	var end := int(w.get("end", now))
+	return {"kind": str(w.get("kind", "build")), "start": start, "end": end,
+		"progress": clampf(float(now - start) / float(maxi(1, end - start)), 0.0, 1.0), "minutes_left": maxi(0, end - now)}
 
 
 ## "12 h" / "1 d 4 h" of the game minutes left (rounded up to the hour).
