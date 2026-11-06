@@ -369,21 +369,31 @@ static func _apply_at(sim: Sim, inst: Dictionary, at: String) -> void:
 
 
 ## The fair's cattle (effect cattle, owner 2026-11-05): its pens go to the outskirts of the town (FestivalGround, the
-## same rule as the view); if they do not fit there, the cattle is sold at stalls: one stall more of stall_group, and
-## the chronicle of the fair says so (inst.cattle = pens | stalls).
+## same rule as the view), as many of its `count` as fit there (inst.cattle_pens); one is enough (manager, 2026-11-06:
+## any small town). The rest of the cattle is sold at one stall more of stall_group, and the chronicle says so:
+## fair_cattle_stalls when no pen fits, fair_cattle_pens_short when only some do (inst.cattle = pens | stalls).
 static func _cattle(sim: Sim, inst: Dictionary) -> void:
 	for e: Dictionary in def_of(sim, str(inst["def"])).get("effects", []):
 		if str(e.get("kind", "")) != "cattle":
 			continue
 		var fp: Array = e.get("footprint", [3, 3])
-		var ok := FestivalGround.fits(sim.catalog, sim.state.map_id, Vector2i(int(fp[0]), int(fp[1])), int(e.get("count", 1)))
-		inst["cattle"] = "pens" if ok else "stalls"
-		if not ok:
+		var want := maxi(1, int(e.get("count", 1)))
+		var pens := 0
+		for k: int in range(want, 0, -1):
+			if FestivalGround.fits(sim.catalog, sim.state.map_id, Vector2i(int(fp[0]), int(fp[1])), k):
+				pens = k
+				break
+		inst["cattle"] = "pens" if pens > 0 else "stalls"
+		inst["cattle_pens"] = pens
+		if pens < want:
 			(inst["stalls"] as Array).append({"stall": "cattle", "group": str(e.get("stall_group", ""))})
-			Chronicle.add(sim.state, "fair_cattle_stalls", {"festival": str(inst["def"]), "day": int(inst["day"]),
-				"map": sim.state.map_id})
+			var entry := {"festival": str(inst["def"]), "day": int(inst["day"]), "map": sim.state.map_id}
+			if pens > 0:
+				entry.merge({"pens": pens, "wanted": want})
+			Chronicle.add(sim.state, "fair_cattle_stalls" if pens == 0 else "fair_cattle_pens_short", entry)
 		if OS.is_debug_build():
-			print("[Festivals] %s: el ganado %s" % [inst["id"], "en corrales a las afueras" if ok else "en puestos (no caben los corrales)"])
+			print("[Festivals] %s: el ganado en %d de %d corrales a las afueras%s" % [inst["id"], pens, want,
+				"" if pens == want else "; el resto, en un puesto de la plaza"])
 
 
 ## vida (04f 4.24.1): the need effects (the preacher's faith +40) raise the townsfolk's needs when the feast starts.
@@ -991,15 +1001,22 @@ static func view_of(sim: Sim, inst: Dictionary) -> Dictionary:
 	var v: Dictionary = def_of(sim, str(inst["def"])).get("view", {})
 	var decor: Array = []
 	var cattle_prop := ""
-	if str(inst.get("cattle", "")) == "stalls":  # the pens did not fit: the cattle is sold at stalls in the plaza
+	if inst.has("cattle"):
 		for e: Dictionary in def_of(sim, str(inst["def"])).get("effects", []):
 			if str(e.get("kind", "")) == "cattle":
 				cattle_prop = str(e.get("prop", "pen"))
+	var pens := int(inst.get("cattle_pens", 1 << 20)) if str(inst.get("cattle", "")) == "pens" else 0  # old saves: all
 	for dd: Dictionary in v.get("decor", []):
 		if not _part_ok(inst, dd):
 			continue
 		if cattle_prop != "" and str(dd.get("prop", "")) == cattle_prop:
-			decor.append({"prop": "fair_stall", "where": "plaza_ring", "count": int(dd.get("count", 1))})
+			var n := int(dd.get("count", 1))
+			if pens > 0:  # the pens that fit at the outskirts; the rest of the cattle at one stall in the plaza
+				decor.append({"prop": cattle_prop, "where": str(dd.get("where", "outskirts")), "count": mini(n, pens)})
+				if pens < n:
+					decor.append({"prop": "fair_stall", "where": "plaza_ring", "count": 1})
+			else:  # no pen fits: the cattle is sold at stalls in the plaza
+				decor.append({"prop": "fair_stall", "where": "plaza_ring", "count": n})
 			continue
 		var nc := str(dd.get("needs_contract", ""))
 		if nc != "" and not FestivalContracts.done_item(sim, inst, nc):
