@@ -52,6 +52,9 @@ BUILDINGS = {
                   "windows, a wide open door at the same place as the reference's door, a hanging wooden sign with a "
                   "painted tankard (no letters), barrels and a bench outside, upper-floor windows for the rooms and a "
                   "small stable lean-to on one side",
+    "clinic": "a physician's practice: a timber-framed house with whitewashed plaster and a terracotta roof, bundles "
+              "of herbs drying under the eaves, a small bench by the door and a hanging sign with a mortar and pestle "
+              "(no letters on the sign)",
     "tailor_shop": "a tailor's shop: timber-framed with a terracotta roof, clothes hanging on a rail in the open "
                    "shop front and a hanging sign with a pair of scissors (replace the word on the sign with the "
                    "scissors symbol)",

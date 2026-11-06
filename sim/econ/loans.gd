@@ -7,6 +7,16 @@ extends RefCounted
 ##        building (the forge it pays for: the seizure takes its goods), overdue_reputation, extension_seasons,
 ##        extension_surcharge, warned: [days already warned for the current due date]}.
 ## The terms come from the start (data/starts/<id>.json "loan"), the warning days from data/accounts.json.
+## H12.2 (04d 4.22.5.6, P8; O12 a): the Loan grows, read with defaults (no save version): kind ("" for the start's
+## debt and the fines, "emergency", "moneylender"), interest (the term's rate, 0-1), installments ([{due_minute,
+## amount, paid}]; [] = one payment at due_minute, as in H3), collateral ({kind: building, id}), lender_family ("": the
+## town's moneylender) and notarized. The debt of the start and the fines keep interest 0 and one payment: their rules
+## do not change. request_loan: any family asks the town's moneylender (data/accounts.json "moneylender") for up to
+## max_share of its estimated wealth (Dynasty.wealth: gold, buildings, upgrades), for one of terms_days, at
+## annual_interest prorated to the term (a year = days_per_year), paid in equal installments every installment_days;
+## refused with another moneylender loan open or a loan in default (extended). An installment due unpaid is a default:
+## the whole loan goes to the extension of 4.16 (reputation, surcharge, one more season; then the seizure). A payment
+## covers the installments in order.
 
 const ACTIVE: String = "active"
 const EXTENDED: String = "extended"
@@ -83,6 +93,7 @@ static func order_repay(sim: Sim, o: Dictionary) -> Dictionary:
 		return Orders.fail("not_enough_gold")
 	Money.change(sim, fam, -pay, Money.LOANS, id, "", actor)
 	loan["outstanding"] = int(loan["outstanding"]) - pay
+	_pay_installments(loan, pay)
 	sim.events.append({"type": "loan_payment", "actor": actor, "family": fam, "loan": id, "amount": pay,
 		"outstanding": int(loan["outstanding"])})
 	if OS.is_debug_build():
@@ -109,27 +120,176 @@ static func step(sim: Sim) -> void:
 		var loan: Dictionary = st.loans[id]
 		if not is_open(loan):
 			continue
-		var due := int(loan["due_minute"])
+		var due := next_due(loan)
 		if now >= due:
 			if str(loan["state"]) == ACTIVE:
-				_extend(sim, id)
+				_extend(sim, id, due)
 			else:
 				_seize(sim, id)
 			continue
 		_warn(sim, id, due - now)
 
 
-## {} | {id, family, lender, principal, outstanding, due_minute, extended, state, days_left} for the UI.
-## days_left: whole days (rounded up) until the due date, 0 once due.
+## {} | {id, family, lender, principal, outstanding, due_minute, extended, state, days_left, kind, interest,
+## next_due, next_amount, installments_left} for the UI. days_left: whole days (rounded up) until the due date, 0 once
+## due. next_due / next_amount: the next installment (the due date and all that is owed without installments).
 static func status(sim: Sim, id: String) -> Dictionary:
 	if not sim.state.loans.has(id):
 		return {}
 	var loan: Dictionary = sim.state.loans[id]
 	var left := int(loan["due_minute"]) - int(sim.state.clock["minute"])
+	var nxt := next_due(loan)
+	var left_inst := 0
+	for i: Dictionary in loan.get("installments", []):
+		if int(i.get("paid", 0)) < int(i.get("amount", 0)):
+			left_inst += 1
 	return {"id": id, "family": str(loan["family"]), "lender": str(loan["lender"]),
 		"principal": int(loan["principal"]), "outstanding": int(loan["outstanding"]),
 		"due_minute": int(loan["due_minute"]), "extended": bool(loan["extended"]), "state": str(loan["state"]),
-		"days_left": maxi(0, ceili(float(left) / Clock.MINUTES_PER_DAY))}
+		"days_left": maxi(0, ceili(float(left) / Clock.MINUTES_PER_DAY)), "kind": str(loan.get("kind", "")),
+		"interest": float(loan.get("interest", 0.0)), "next_due": nxt, "next_amount": next_amount(loan),
+		"installments_left": left_inst}
+
+
+## The minute the next payment falls due: the first installment not paid in full (while the loan is active and has
+## installments), else the loan's due date.
+static func next_due(loan: Dictionary) -> int:
+	if str(loan.get("state", "")) == ACTIVE:
+		for i: Dictionary in loan.get("installments", []):
+			if int(i.get("paid", 0)) < int(i.get("amount", 0)):
+				return int(i["due_minute"])
+	return int(loan["due_minute"])
+
+
+## What the next payment asks: what is left of the first installment not paid, else all that is owed.
+static func next_amount(loan: Dictionary) -> int:
+	if str(loan.get("state", "")) == ACTIVE:
+		for i: Dictionary in loan.get("installments", []):
+			if int(i.get("paid", 0)) < int(i.get("amount", 0)):
+				return int(i["amount"]) - int(i.get("paid", 0))
+	return int(loan.get("outstanding", 0))
+
+
+## A payment of `pay` covers the installments in order (a paid one restarts the warnings for the next).
+static func _pay_installments(loan: Dictionary, pay: int) -> void:
+	var left := pay
+	for i: Dictionary in loan.get("installments", []):
+		if left <= 0:
+			break
+		var owed := int(i.get("amount", 0)) - int(i.get("paid", 0))
+		if owed <= 0:
+			continue
+		var n := mini(owed, left)
+		i["paid"] = int(i.get("paid", 0)) + n
+		left -= n
+		if int(i["paid"]) >= int(i["amount"]):
+			loan["warned"] = []
+
+
+## The moneylender's terms (data/accounts.json "moneylender").
+static func moneylender(sim: Sim) -> Dictionary:
+	return sim.catalog.accounts.get("moneylender", {})
+
+
+## The most `fam` may ask the moneylender for now (0 if it may not ask): max_share × its estimated wealth, and why not
+## ("" | has_moneylender_loan | in_default).
+static func borrow_limit(sim: Sim, fam: String) -> Dictionary:
+	var cfg := moneylender(sim)
+	for id: String in of_family(sim, fam):
+		var l: Dictionary = sim.state.loans[id]
+		if str(l.get("state", "")) == EXTENDED:
+			return {"max": 0, "reason": "in_default"}
+		if str(l.get("kind", "")) == "moneylender":
+			return {"max": 0, "reason": "has_moneylender_loan"}
+	var w := maxi(0, Dynasty.wealth(sim, fam))
+	return {"max": floori(float(w) * float(cfg.get("max_share", 0.5))), "reason": ""}
+
+
+## What a loan of `amount` for `term_days` costs: {interest (rate of the term), owed, installments [{due_minute, amount}]}
+## from now.
+static func quote(sim: Sim, amount: int, term_days: int) -> Dictionary:
+	var cfg := moneylender(sim)
+	var year := maxi(1, Clock.days_per_year(sim.catalog.time))
+	var rate := float(cfg.get("annual_interest", 0.25)) * float(term_days) / float(year)
+	var owed := roundi(float(amount) * (1.0 + rate))
+	var every := maxi(1, int(cfg.get("installment_days", 2)))
+	var n := maxi(1, term_days / every)
+	var now := int(sim.state.clock["minute"])
+	var out: Array = []
+	var given := 0
+	for k: int in n:
+		var a := owed / n if k < n - 1 else owed - given
+		given += a
+		out.append({"due_minute": now + (k + 1) * every * Clock.MINUTES_PER_DAY, "amount": a, "paid": 0})
+	return {"interest": rate, "owed": owed, "installments": out}
+
+
+## {"type": "request_loan", "actor", "lender": "moneylender", "amount", "term_days"}: the town's moneylender lends
+## `amount` now (category loans) against the family's main building. Reasons: unknown_actor, no_family, too_young,
+## unknown_lender, bad_term, bad_amount, in_default, has_moneylender_loan, over_limit.
+static func order_request(sim: Sim, o: Dictionary) -> Dictionary:
+	var st := sim.state
+	var actor := str(o.get("actor", ""))
+	if not st.characters.has(actor):
+		return Orders.fail("unknown_actor")
+	var fam := str(st.characters[actor].get("family", ""))
+	if fam == "" or not st.families.has(fam):
+		return Orders.fail("no_family")
+	if not Kin.is_adult(sim, actor):
+		return Orders.fail("too_young")
+	if str(o.get("lender", "moneylender")) != "moneylender":
+		return Orders.fail("unknown_lender")  # the Banks of the families come with the banker (4.22.5.6)
+	var cfg := moneylender(sim)
+	var term := int(o.get("term_days", 0))
+	if not term in (cfg.get("terms_days", [8, 16]) as Array).map(func(x: Variant) -> int: return int(x)):
+		return Orders.fail("bad_term")
+	var amount := int(o.get("amount", 0))
+	if amount < int(cfg.get("min_amount", 20)):
+		return Orders.fail("bad_amount")
+	var lim := borrow_limit(sim, fam)
+	if str(lim["reason"]) != "":
+		return Orders.fail(str(lim["reason"]))
+	if amount > int(lim["max"]):
+		return Orders.fail("over_limit")
+	var q := quote(sim, amount, term)
+	var inst: Array = q["installments"]
+	var due := int((inst[inst.size() - 1] as Dictionary)["due_minute"])
+	var terms := {"lender": "moneylender", "overdue_reputation": int(cfg.get("overdue_reputation", -10)),
+		"extension_seasons": int(cfg.get("extension_seasons", 1)),
+		"extension_surcharge": float(cfg.get("extension_surcharge", 0.25))}
+	var home := _collateral_of(st, fam)
+	var id := create(st, fam, terms, amount, due, home)
+	var loan: Dictionary = st.loans[id]
+	loan["kind"] = "moneylender"
+	loan["interest"] = float(q["interest"])
+	loan["outstanding"] = int(q["owed"])
+	loan["installments"] = inst
+	loan["collateral"] = {"kind": "building", "id": home}
+	loan["lender_family"] = ""
+	loan["notarized"] = false
+	Money.change(sim, fam, amount, Money.LOANS, id, "", actor)
+	sim.events.append({"type": "loan_granted", "family": fam, "actor": actor, "loan": id, "lender": "moneylender",
+		"amount": amount, "owed": int(q["owed"]), "term_days": term})
+	Notices.add(sim, fam, Notices.INFO, "notice.loan_granted", {"amount": amount, "owed": int(q["owed"]),
+		"installments": inst.size(), "days": term})
+	if OS.is_debug_build():
+		print("[Loans] el prestamista presta %d a %s (%s): debe %d en %d cuotas, %d días (interés %.3f)" % [amount, fam,
+			id, int(q["owed"]), inst.size(), term, float(q["interest"])])
+	return Orders.ok()
+
+
+## The building that answers for a loan (its seizure takes that building's goods, 4.16): the family's first building
+## by id (its home or workshop at the start).
+static func _collateral_of(st: WorldState, fam: String) -> String:
+	var ids: Array = st.buildings.keys()
+	ids.sort()
+	var first := ""
+	for b: String in ids:
+		if str(st.buildings[b].get("owner", "")) != fam:
+			continue
+		if first == "":
+			first = b
+	return first
 
 
 ## The open loans of `fam` (ids, sorted).
@@ -170,9 +330,10 @@ static func _warn(sim: Sim, id: String, minutes_left: int) -> void:
 			loan["extended"]])
 
 
-## Due unpaid: reputation + overdue_reputation, the outstanding grows by the surcharge and the due date moves
-## extension_seasons seasons on.
-static func _extend(sim: Sim, id: String) -> void:
+## Due unpaid (the loan's date or, H12.2, an installment's: `due`): reputation + overdue_reputation, the outstanding
+## grows by the surcharge and the due date moves extension_seasons seasons on from it (all owed then: no more
+## installments).
+static func _extend(sim: Sim, id: String, due: int = -1) -> void:
 	var st := sim.state
 	var loan: Dictionary = st.loans[id]
 	var fam := str(loan["family"])
@@ -181,7 +342,10 @@ static func _extend(sim: Sim, id: String) -> void:
 	var before := int(loan["outstanding"])
 	loan["outstanding"] = roundi(before * (1.0 + float(loan["extension_surcharge"])))
 	var days := int(loan["extension_seasons"]) * int(sim.catalog.time["days_per_season"])
-	loan["due_minute"] = int(loan["due_minute"]) + days * Clock.MINUTES_PER_DAY
+	var from := due if due >= 0 else int(loan["due_minute"])
+	loan["due_minute"] = from + days * Clock.MINUTES_PER_DAY
+	if loan.get("installments") is Array and not (loan["installments"] as Array).is_empty():
+		loan["installments"] = []
 	loan["extended"] = true
 	loan["state"] = EXTENDED
 	loan["warned"] = []

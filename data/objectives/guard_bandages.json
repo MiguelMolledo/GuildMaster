@@ -1,0 +1,13 @@
+{
+  "id": "guard_bandages",
+  "name_key": "objective.guard_bandages",
+  "conditions": [
+    {
+      "event": "contract_delivered",
+      "match": {
+        "script": "guard_bandages"
+      },
+      "count": 1
+    }
+  ]
+}

@@ -104,6 +104,7 @@ static func step(sim: Sim) -> void:
 			for c: String in _sorted_keys(r["cities"]):
 				_roll_city_event(sim, c, day)
 				CityTrade.post_offer(sim, c, day)
+				FestivalCity.post_contracts(sim, c, day)  # fiestas: the city's feast contracts (4.25.6)
 			CityTrade.expire(sim, now)
 
 

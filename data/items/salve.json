@@ -1,0 +1,10 @@
+{
+  "id": "salve",
+  "name_key": "item.salve",
+  "gender": "m",
+  "category": "consumable",
+  "weight": 0.5,
+  "max_stack": 10,
+  "base_price": 12,
+  "market_stall": "apothecary"
+}

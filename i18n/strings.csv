@@ -848,6 +848,8 @@ objective_how.free,"Keep going: hire in Staff, fill the queue in Production and 
 ui.market.opens,opens at %02d:%02d,abre a las %02d:%02d
 ui.market.opens_tomorrow,opens tomorrow at %02d:%02d,abre mañana a las %02d:%02d
 hud.building_idle,Employees idle: %s · Manage → Production,Empleados parados: %s · Gestionar → Producción
+hud.building_idle_short,Idle: %s,Parados: %s
+hud.building_idle_shortest,Employees idle · Manage → Production,Empleados parados · Gestionar → Producción
 hud.building_idle_unknown,nothing they can do,no tienen nada que hacer
 notice.objective_failed,"Objective failed: {objective}. Its contract can no longer be done (expired, abandoned or taken by someone else); on to the next one","Objetivo fallido: {objective}. Su encargo ya no se puede cumplir (caducó, se abandonó o lo cogió otro); pasas al siguiente"
 reason.unknown_target,There is nobody like that,No hay nadie así
@@ -2153,7 +2155,7 @@ tutorial.first_steps.resume,Press Space (or this button) to let time run. Space 
 tutorial.first_steps.speed,Shift+2 (or ×2) runs twice as fast. Try ×2.,Mayús+2 (o ×2) va el doble de rápido. Prueba ×2.
 tutorial.first_steps.walk,Now right click on the ground: {head} walks there.,"Ahora, clic derecho en el suelo: {head} va andando hasta allí."
 tutorial.first_steps.workshop,This is your {workshop}. Right click on it to go in.,Esta es tu {workshop}. Clic derecho sobre ella para entrar.
-tutorial.first_steps.bar,"Inside, at the bottom, the workshop's bar: Production (P), Storage (A), Staff (E), Upgrades (M) and Exit.","Dentro, abajo, la barra del taller: Producción (P), Almacén (A), Empleados (E), Mejoras (M) y Salir."
+tutorial.first_steps.bar,"Inside, at the bottom, the workshop's bar: Production (P), Storage (A) and Exit (Esc). Staff (E) and Upgrades (M) come on it when you open them.","Dentro, abajo, la barra del taller: Producción (P), Almacén (A) y Salir (Esc). Empleados (E) y Mejoras (M) salen en ella cuando los abras."
 tutorial.first_steps.objective,"On the left, your objective now. If in doubt, F1 opens the help, and from it you can replay any chapter.","A la izquierda, tu objetivo de ahora. Si dudas, F1 abre la ayuda y desde ella repites cualquier capítulo."
 tutorial.chapter.produce,Producing,Producir
 tutorial.chapter.produce.desc,"Recipes, stations and quality: from iron to a sword.","Recetas, puestos y calidad: de hierro a espada."
@@ -2176,8 +2178,9 @@ tutorial.market.take,"To sell it you must carry it: in your workshop's storage, 
 tutorial.market.enter,Right click on the Armory: {head} walks there and goes in.,Clic derecho en la Armería: {head} va y entra.
 tutorial.market.counter,Click on the counter to trade.,Clic en el mostrador para comerciar.
 tutorial.market.sell_tab,Sell tab.,Pestaña Vender.
+tutorial.market.sell,"Sell the sword: «Sell» on its row (the gold goes to the family).","Vende la espada: «Vender» en su fila (el oro va a la familia)."
 tutorial.market.sell_list,"What you carry, with its price. Each sale lowers the demand; it recovers at dawn.","Lo que llevas, con su precio. Cada venta baja la demanda; al alba se recupera."
-tutorial.market.leave,Go back out (Exit or Esc).,Sal a la calle (Salir o Esc).
+tutorial.market.leave,"Go back out: close the counter and Exit (or Esc twice).","Sal a la calle: cierra el mostrador y Salir (o Esc dos veces)."
 tutorial.market.resources,The Resources stall sells iron and coal. Right click on it: you walk there and it opens.,El puesto de Recursos vende hierro y carbón. Clic derecho sobre él: vas y se abre.
 tutorial.market.errand,Errand: they bring it to your workshop for a surcharge and you carry no weight. Order something.,Recado: te lo llevan a tu taller por un recargo y no cargas peso. Encarga algo.
 tutorial.market.done,"Buy cheap, sell when the demand is high. The book (L) writes down every coin.","Compra barato, vende cuando la demanda esté alta. El libro (L) apunta cada moneda."
@@ -2326,6 +2329,7 @@ tutorial.ui.waiting,Do it to go on,Hazlo para seguir
 tutorial.ui.hint,First time,Primera vez
 tutorial.ui.chapter_done,Chapter done.,Capítulo terminado.
 tutorial.ui.chapter_done_body,Next: {next}.,El siguiente: {next}.
+tutorial.ui.basics_done,"That is the basics. The other chapters come with their card «New: …» when you need them (F1 replays any).","Ya tienes lo básico. Los demás capítulos llegan con su carta «Nuevo: …» cuando te hagan falta (F1 repite cualquiera)."
 tutorial.ui.all_done,You have seen every chapter. F1 replays any of them.,Has visto todos los capítulos. F1 repite cualquiera.
 tutorial.ui.next_chapter,Next chapter,Siguiente capítulo
 tutorial.ui.close,Close,Cerrar
@@ -2335,6 +2339,7 @@ tutorial.ui.new_game_tip,"The game explains itself step by step, starting with t
 tutorial.ui.help_title,Tutorial,Tutorial
 tutorial.ui.help_hint,Click a chapter to play it now.,Clic en un capítulo para hacerlo ahora.
 tutorial.ui.help_done,done,hecho
+tutorial.ui.help_later,"Later: it opens with its card «New: …»","Más adelante: se abre con su carta «Nuevo: …»"
 tutorial.ui.help_other_trade,Only in a game of this trade,Solo en una partida de este oficio
 tutorial.ui.options_hints,First-time hints,Pistas de primera vez
 tutorial.ui.options_guided,Guided tutorial: only the highlight,Tutorial guiado: solo lo resaltado
@@ -4049,6 +4054,78 @@ ui.trial.rest_waiting,Resting… (on resume),Concluyendo… (al reanudar)
 ui.trial.verdict_waiting,Ruling… (on resume),Dictando… (al reanudar)
 ui.trial.cross_waiting,Questioning… (on resume),Interrogando… (al reanudar)
 ui.order.take_emergency_loan,Take the emergency loan,Pedir el préstamo de urgencia
+item.salve,Salve,Ungüento
+item.doctor_bag,Doctor's bag,Maletín de médico
+recipe.doctor_visit,Consultation,Consulta
+recipe.doctor_surgery,Surgery,Cirugía
+recipe.doctor_surgery_clean,Operating-room surgery,Cirugía en quirófano
+recipe.doctor_bandages,Make bandages,Hacer vendas
+building.clinic,Physician's practice,Consulta médica
+profession.physician,Physician,Médico
+start.scholar_physician,Scholar · physician,Erudito · médico
+stall.apothecary,Apothecary,Boticario
+ui.zone.cot,Cot,Camilla
+ui.zone.cot_2,Second cot,Segunda camilla
+ui.zone.mortar,Mortar,Mortero
+ui.zone.mortar_2,Second mortar,Segundo mortero
+client.master_mason,The master mason,El maestro cantero
+objective.treat_patient,Treat your first patient at the cot,Atiende a tu primer paciente en la camilla
+objective.make_bandages,Make bandages at the mortar,Haz vendas en el mortero
+objective.doctor_price,Change the price of the consultation and see how many come,Cambia el precio de la consulta y mira cuántos vienen
+objective.guard_bandages,Deliver the watch's first-aid kit (6 bandages),Entrega el botiquín de la guardia (6 vendas)
+objective.cure_grave,Cure a grave patient (a surgery: it needs a salve),Cura a un herido grave (una cirugía: pide ungüento)
+upgrade.clinic_capacity_1,Larger storage,Almacén ampliado
+upgrade.clinic_capacity_2,Second mortar,Segundo mortero
+upgrade.clinic_capacity_3,Apothecary shelves,Estantería de botica
+upgrade.clinic_commerce_1,Practice sign,Rótulo de la consulta
+upgrade.clinic_commerce_2,Waiting room,Sala de espera
+upgrade.clinic_commerce_3,Renowned practice,Consulta de renombre
+upgrade.clinic_facade_1,Stone facade,Fachada de piedra
+upgrade.clinic_facade_2,Herb garden,Huerto de hierbas
+upgrade.clinic_facade_3,Noble facade,Fachada noble
+upgrade.clinic_production_1,Second cot,Segunda camilla
+upgrade.clinic_production_2,Surgical instruments,Instrumental
+upgrade.clinic_production_3,Operating room,Quirófano
+upgrade.clinic_quality_1,Herbal,Herbario
+upgrade.clinic_quality_2,Medical library,Biblioteca médica
+upgrade.clinic_quality_3,Anatomy plates,Láminas de anatomía
+upgrade.clinic_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.clinic_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.clinic_secrets_3,Smuggling,Contrabando
+upgrade.clinic_security_1,Reinforced lock,Cerradura reforzada
+upgrade.clinic_security_2,Hired guard,Guardia contratado
+upgrade.clinic_security_3,Strongbox,Caja fuerte
+upgrade.clinic_staff_1,Apprentice's room,Cuarto del aprendiz
+upgrade.clinic_staff_2,Dining room,Comedor
+upgrade.clinic_staff_3,Master's practice,Consulta de maestro
+reason.not_owner,Not your building,No es tu edificio
+reason.unknown_service,This building does not give that service,Este edificio no da ese servicio
+reason.unknown_lender,Nobody lends here,Aquí no presta nadie
+reason.bad_term,That term is not offered,Ese plazo no se ofrece
+reason.in_default,You have a loan in default,Tienes un préstamo en impago
+reason.has_moneylender_loan,You already owe the moneylender,Ya debes al prestamista
+reason.over_limit,More than the moneylender lends you (half your wealth),Más de lo que te presta (la mitad de tu patrimonio)
+notice.patient_left,A patient left the practice without being seen,Un paciente se ha ido de la consulta sin que lo atiendan
+notice.loan_granted,"The moneylender lends you {amount}: you owe {owed} in {installments} installments over {days} days (book, Debts)","El prestamista te presta {amount}: debes {owed} en {installments} cuotas en {days} días (libro, Deudas)"
+ui.station.who_stat,%s · %s %d,%s · %s %d
+ui.station.mode_line_stat,×%s time · quality with %s %d,×%s tiempo · calidad con %s %d
+ui.station.waiting_patients,Waiting for patients,Esperando pacientes
+ui.station.pays,%d gold,%d de oro
+ui.station.needs_stat,%s %d (you have %d),%s %d (tienes %d)
+ui.station.patients_waiting,Patients waiting: %d (grave: %d),Pacientes esperando: %d (graves: %d)
+ui.station.no_patients,Nobody is waiting,No espera nadie
+ui.station.price,Consultation: %d gold (reference %d),Consulta: %d de oro (referencia %d)
+ui.station.patients_day,About %s patients a day at this price,Unos %s pacientes al día a este precio
+ui.ledger.next_installment,Next installment: %d gold before %s (%d left),Próxima cuota: %d de oro antes de %s (quedan %d)
+ui.ledger.moneylender,"Ask the moneylender: up to %d gold, %d %% a year, installments every %d days","Pedir al prestamista: hasta %d de oro, al %d %% anual, cuotas cada %d días"
+ui.ledger.moneylender_too_poor,It lends from %d gold: your wealth is too small,Presta desde %d de oro: tu patrimonio no da
+ui.ledger.borrow_term,%d days: owe %d,%d días: debes %d
+ui.ledger.borrow_q,Borrow %d gold?,¿Pedir %d de oro?
+ui.ledger.borrow_body,"You will owe %d in %d installments (the first one of %d) over %d days. An installment unpaid on its day: extension with surcharge and loss of reputation, then the seizure.","Deberás %d en %d cuotas (la primera de %d) en %d días. Una cuota sin pagar en su día: prórroga con recargo y pérdida de reputación; después, el embargo."
+ui.ledger.borrow_take,Borrow,Pedir el préstamo
+ui.new_game.preview_start.scholar_physician,"A physician's practice with a home, %d gold and %d of debt with the moneylender.","Consulta médica con vivienda, %d de oro y %d de deuda con el prestamista."
+ui.order.set_service_price,Set the price of a service,Poner el precio de un servicio
+ui.order.request_loan,Ask the moneylender for a loan,Pedir un préstamo al prestamista
 ui.festival_card.corro,Gaming circle,Corro de juego
 ui.festival_card.corro_tip,"Arm wrestling, dice and cards in the plaza against the regulars, while the feast lasts","Pulso, dados y naipes en la plaza contra los parroquianos, mientras dure la fiesta"
 ui.festival_card.corro_title,The gaming circle,El corro de juego
@@ -4075,3 +4152,8 @@ spectacle.arm_wrestling,Arm wrestling,Pulso
 reason.already_played,Already played,Ya la has jugado
 reason.already_bet,Already bet,Ya has apostado
 ui.order.festival_give_gift,Give a Christmas gift,Hacer un regalo de Navidad
+ui.npc.buy_ware,Buy %s (%d),Comprar %s (%d)
+ui.npc.buy_ware_tip,The peddler has %d left today,Al buhonero le quedan %d hoy
+ui.order.buy_from_peddler,Buy from the peddler,Comprar al buhonero
+reason.not_a_peddler,Sells nothing,No vende nada
+ui.city.feast_offer,"%s · %s","%s · %s"

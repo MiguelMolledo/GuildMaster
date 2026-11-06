@@ -1,0 +1,16 @@
+{
+  "id": "cure_grave",
+  "name_key": "objective.cure_grave",
+  "conditions": [
+    {
+      "event": "service_done",
+      "match": {
+        "severity": {
+          "gte": 7
+        },
+        "cured": true
+      },
+      "count": 1
+    }
+  ]
+}

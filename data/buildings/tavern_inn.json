@@ -1,7 +1,7 @@
 {
   "id": "tavern_inn",
   "name_key": "building.tavern_inn",
-  "_doc": "Taberna-Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, adelanta 4.22.4.5). Segundo negocio de cualquier familia (O-V7 a): el solar del mapa con for_sale la pone a la venta (sale_price) y buy_building la compra. Puestos: bar (barra: sirve bebida y recibe huéspedes), kitchen (cocina: recetas craft de la carta), tables (mesas: el mozo sirve comida; los asientos salen de data/inn/inn.json seats y las mejoras inn_seats), rooms (habitaciones: la criada hace las camas), storage. Abre del atardecer a las 02:00 (data/inn/inn.json hours); sus empleados trabajan de noche (night_production employees) salvo el rol rooms, que hace las camas de día (work_schedule). Reglas: sim/inn/.",
+  "_doc": "Taberna-Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, adelanta 4.22.4.5). Segundo negocio de cualquier familia (O-V7 a): el solar del mapa con for_sale la pone a la venta (sale_price) y buy_building la compra. Puestos: bar (barra: sirve bebida y recibe huéspedes), kitchen (cocina: recetas craft de la carta), tables (mesas: el mozo sirve comida; los asientos salen de data/inn/inn.json seats y las mejoras inn_seats), rooms (habitaciones: la criada hace las camas), storage. Abre del atardecer a las 02:00 (data/inn/inn.json hours); sus empleados trabajan de noche (night_production employees) salvo el rol rooms, que hace las camas de día (work_schedule). Reglas: sim/inn/. sale_stock (equilibrio, 2026-11-06): lo que el tabernero anterior deja en la despensa al vender la casa (las existencias del escenario innkeeper_start): una taberna comprada no arranca comprando toda la despensa por recado (full_player perdía 150-980 de oro sus 6-9 primeros días).",
   "category": "service",
   "parcel_type": "production",
   "footprint": [
@@ -11,6 +11,11 @@
   "build_cost": 300,
   "build_days": 2,
   "sale_price": 320,
+  "sale_stock": [
+    {"item": "ale", "qty": 16}, {"item": "cider", "qty": 8}, {"item": "bread", "qty": 6},
+    {"item": "garlic_soup", "qty": 8}, {"item": "stew", "qty": 8}, {"item": "wheat", "qty": 12},
+    {"item": "wood", "qty": 3}, {"item": "meat", "qty": 4}
+  ],
   "upkeep": 15,
   "storage_stacks": 14,
   "base_employees": 3,

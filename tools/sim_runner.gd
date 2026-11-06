@@ -70,11 +70,12 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
-	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
+	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
 	"merchant": BotMerchant, "pacing": BotPacing, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper,
 	"idle_titles_fest": BotIdle,
-	"broke": BotBroke}  # equilibrio (Equilibrio 2: the emergency loan from broke_forge)
+	"broke": BotBroke,  # equilibrio (Equilibrio 2: the emergency loan from broke_forge)
+	"counter_shop": BotCounterShop}  # equilibrio (Equilibrio 8, 14: the counter with one employee and the clientele)
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
@@ -82,6 +83,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# politician: artisan_expert that runs for minor offices (H10, runs_office = 1, 40 days)
 	# crook: artisan_expert with the Secrets upgrade that ends in court (H11, crook = 1, 40 days)
 	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
+	# scholar_novice: the physician of the scholar's start (H12.2, --start=scholar_physician): patients, bandages, debt
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
 	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
 	# duelist: challenges the rival of the trade by the rules and plays its duels (duelo, --scenario=duel_ready)

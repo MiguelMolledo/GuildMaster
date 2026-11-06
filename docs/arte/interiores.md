@@ -229,6 +229,7 @@ casa y su planta alta.*
 | Cantería | patio de bloques con tarima de trabajo, cobertizo, tienda | — |
 | Sastrería | taller con telares y mesas de corte, tienda en L con probador | cocina y dormitorio |
 | Casa | hogar, cocina y mesa | dormitorio y cuarto de los hijos |
+| Consulta médica (H12.2, el Médico) | sala de consulta con la camilla y el mortero; sala de espera con su banco, botica y mostrador (los pacientes de `Services`: esperan en `customers.waiting`, el que se atiende junto a la camilla, `customers.cot`) | cocina y dormitorio |
 | Taberna-Posada | salón con la barra grande en L (6 casillas, dos taburetes, toneles, baldas de jarras y caja de jarras detrás), brasero con su luz, mesa larga con bancos, rincón del juglar y mesa de dados; con mejoras, otra mesa y la chimenea; cocina | dos habitaciones con 8 camas; **sótano**: la bodega con el almacén |
 
 Ya no queda ninguna escena de interior hecha a mano (solo `_generic.tscn`). La taberna llegó con la rama `posada`: su

@@ -1,0 +1,195 @@
+{
+  "id": "jugador/03_vender",
+  "title": "Jugador 3 · Vender y comprar",
+  "about": "El capítulo «Vender y comprar»: coger la espada, la Armería, vender, salir, el puesto de Recursos y un recado.",
+  "start": {
+    "keep": true
+  },
+  "steps": [
+    {
+      "id": "capitulo",
+      "say": "El capítulo empieza señalando la Armería",
+      "expect": [
+        "q.tut() == 'market:armory'"
+      ]
+    },
+    {
+      "id": "armeria",
+      "say": "La Armería: Siguiente",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'market:armory'",
+      "timeout": 4
+    },
+    {
+      "id": "almacen_abierto",
+      "say": "Para coger la espada hace falta el almacén: ¿está abierto?",
+      "when": "not q.visible('StoragePanel')",
+      "key": "@panel_storage",
+      "expect": [
+        "q.visible('StoragePanel')"
+      ]
+    },
+    {
+      "id": "coger",
+      "say": "Clic en la espada del almacén: a la bolsa",
+      "click": {
+        "within": "BuildingGrid",
+        "prefix": "sword_"
+      },
+      "until": "q.tut() != 'market:take'",
+      "timeout": 10
+    },
+    {
+      "id": "salir_forja",
+      "say": "«Sal a la calle: Salir o Esc» (lo dice la tarjeta): Esc",
+      "key": "Escape",
+      "until": "q.interior() == '' or not q.visible('StoragePanel')",
+      "timeout": 20
+    },
+    {
+      "id": "salir_forja_2",
+      "say": "Si Esc solo cerró el almacén, Esc otra vez",
+      "when": "q.interior() != ''",
+      "key": "Escape",
+      "until": "q.interior() == ''",
+      "timeout": 20
+    },
+    {
+      "id": "a_la_armeria",
+      "say": "Clic derecho en la Armería: va y entra",
+      "world": {
+        "building": "armory"
+      },
+      "button": "right",
+      "until": "q.tut() != 'market:enter'",
+      "timeout": 40
+    },
+    {
+      "id": "mostrador",
+      "say": "Clic en el mostrador",
+      "station": "*",
+      "button": "left",
+      "until": "q.tut() != 'market:counter'",
+      "timeout": 8
+    },
+    {
+      "id": "pestana_vender",
+      "say": "Pestaña Vender",
+      "click": {
+        "node": "SellTab"
+      },
+      "until": "q.tut() != 'market:sell_tab'",
+      "timeout": 4
+    },
+    {
+      "id": "lista",
+      "say": "Lo que llevo, con su precio: Siguiente",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'market:sell_list'",
+      "timeout": 4
+    },
+    {
+      "id": "vender",
+      "say": "«Vende la espada»: Vender en su fila",
+      "click": {
+        "within": {
+          "within": "SellList",
+          "prefix": "sword_"
+        },
+        "node": "SellOne"
+      },
+      "until": "q.tut() != 'market:sell'",
+      "timeout": 10,
+      "expect": [
+        "q.order('sell')",
+        "q.gold() > q.was('gold')"
+      ]
+    },
+    {
+      "id": "salir",
+      "say": "Salir a la calle: Esc cierra el mostrador",
+      "key": "Escape",
+      "until": "not q.visible('MarketPanel')",
+      "timeout": 6
+    },
+    {
+      "id": "salir_2",
+      "say": "y Esc otra vez: a la calle",
+      "when": "q.interior() != ''",
+      "key": "Escape",
+      "until": "q.tut() != 'market:leave'",
+      "timeout": 20
+    },
+    {
+      "id": "recursos",
+      "say": "Clic derecho en el puesto de Recursos",
+      "world": {
+        "service": "resources"
+      },
+      "button": "right",
+      "until": "q.tut() != 'market:resources'",
+      "timeout": 40
+    },
+    {
+      "id": "recado_mas",
+      "say": "+ en el hierro",
+      "click": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "iron_"
+        },
+        "node": "Plus"
+      },
+      "soft": true
+    },
+    {
+      "id": "recado_abrir",
+      "say": "«Enviar a…» del hierro: su menú",
+      "click": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "iron_"
+        },
+        "node": "Send"
+      }
+    },
+    {
+      "id": "recado",
+      "say": "El destino: la forja",
+      "popup": {
+        "within": {
+          "within": "BuyList",
+          "prefix": "iron_"
+        },
+        "node": "Send"
+      },
+      "item": 0,
+      "until": "q.tut() != 'market:errand'",
+      "timeout": 6
+    },
+    {
+      "id": "hecho",
+      "say": "Compra barato, vende caro: Siguiente",
+      "when": "q.tut() == 'market:done'",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() == 'market:end'",
+      "timeout": 4
+    },
+    {
+      "id": "fin_capitulo",
+      "say": "Fin del capítulo: ¿qué propone ahora?",
+      "expect": [
+        "q.tut() == 'market:end'"
+      ]
+    }
+  ]
+}

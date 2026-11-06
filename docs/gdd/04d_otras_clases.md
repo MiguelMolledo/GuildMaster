@@ -443,6 +443,20 @@ Común, 30 de oro, Consulta médica con vivienda, almacén con vendas ×6 y tela
 Objetivos: (1) atiende a tu primer paciente; (2) haz vendas; (3) cambia el precio de la consulta y mira a cuántos
 atiendes; (4) cumple un encargo del tablón; (5) cura a un herido grave (pide ungüento); (6) devuelve la deuda.
 
+**Hecho en H12.2 (2026-11-06)** y lo que precisa del borrador (`docs/decisiones.json`):
+
+- **Pacientes en dos capas** [balance]: `doctor` = 0,06 × adultos del pueblo **+ 1,25 al día de la comarca** × fama
+  de la Consulta (la clientela de comarca de 4.6.5.7), × su parte de la elección de proveedor. Con solo el pueblo
+  (≈ 1 al día) el médico no llega a la banda. Registros, no personajes (`sim/town/services.gd`); esperan en la sala
+  de espera hasta 120 min.
+- **Gravedad** 3 / 5 / 7 (55 / 37 / 8 %): la consulta trata hasta 5; un grave (7) solo con `doctor_surgery` (pide
+  ungüento), que cobra 1,75 × la consulta. El ungüento se compra al **Boticario**, un puesto exterior nuevo en la plaza
+  de `town_e` (4.5.1), que también compra las vendas.
+- **Encargos de vendas** 2-5 con prima 0,25 (no 0,4: las vendas salen a 3 por tela).
+- **`Loan` ampliado y prestamista** (O12 a): hecho, sin versión de guardado (campos leídos con valores por defecto).
+  Una cuota sin pagar en su día = el impago de 4.16 (prórroga y luego embargo). El Banco queda para el siguiente bloque.
+- Medido (30 semillas, Normal): **51,4 netos/día**, deuda 30/30; Fácil 55,5 > Normal 51,4 > Difícil 47,9.
+
 #### 4.22.5.2 Sacerdote
 
 | Receta | Tipo | Puesto | Entradas | Efecto | Horas | Atributo |

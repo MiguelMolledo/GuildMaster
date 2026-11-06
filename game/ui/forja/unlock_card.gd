@@ -50,6 +50,10 @@ func _blocked() -> bool:
 
 func _process(delta: float) -> void:
 	super._process(delta)
+	if visible and _chapter != "":   # its chapter was played (or closed) since it was shown: no «Ver capítulo»
+		var b := find_child("Button_chapter", true, false) as Control
+		if b != null and b.visible and not _playable(_chapter):
+			b.visible = false
 	if not visible and not suspended and not _queue.is_empty() and not _blocked():
 		_show(_queue.pop_front())
 
@@ -74,7 +78,7 @@ static func data_for(sim: Sim, id: String) -> Dictionary:
 			sim.catalog.objectives()[goal].get("name_key", ""))), "sign": "+"}]})
 	var buttons: Array = []
 	var chapter := str(u.get("chapter", ""))
-	if chapter != "" and bool(Settings.value("game/tutorial_hints")):
+	if chapter != "" and bool(Settings.value("game/tutorial_hints")) and _playable(chapter):
 		buttons.append({"id": "chapter", "text": SimQuery.t_("unlock.chapter")})
 	buttons.append({"id": "ok", "text": SimQuery.t_("unlock.ok"), "primary": true})
 	return {"template": "card", "unlock": id, "chapter": chapter, "title": SimQuery.t_("unlock.new") % SimQuery.t_(str(
@@ -82,8 +86,21 @@ static func data_for(sim: Sim, id: String) -> Dictionary:
 		"seal": {"text": "N"}, "buttons": buttons, "sticky": true}
 
 
+## Whether the tutorial can play `chapter` now and it was not seen (one that waits for its mechanic, or one already
+## played, is not offered: jugador J6).
+static func _playable(chapter: String) -> bool:
+	var tree := Engine.get_main_loop() as SceneTree
+	var app := tree.root.get_node_or_null("App") if tree != null else null
+	if app == null or not app.has_method("tutorial"):
+		return true
+	var t: Variant = app.call("tutorial")
+	if t == null:
+		return true
+	return str(t.call("cannot_play", chapter)) == "" and not chapter in (t.call("done_chapters") as Array)
+
+
 func _on_button(id: String) -> void:
-	if id == "chapter" and _chapter != "":
+	if id == "chapter" and _chapter != "" and _playable(_chapter):
 		chapter_requested.emit(_chapter)
 
 

@@ -45,7 +45,7 @@
   },
   "_population_doc": "4.24.3 (O-R9 b, O-V2): el tope de vecinos (max_total) de un mapa es per_house por casa, hasta cap; un mapa puede fijar el suyo (data/maps population_max). Sustituye a data/town.json population.max_total solo con la vida encendida (las dianas de antes corren con 20).",
   "population": {"per_house": 5, "cap": 32},
-  "_visitors_doc": "4.24.3 (4.22.3.6 adelantado). Forasteros: per_day [mín, máx] al día (×festival_mult en fiesta), que llegan de DÍA entre arrive_hours por una puerta del mapa desde una población de la región (data/world/region.json, la villa no) y se van al ATARDECER por la misma puerta (duermen en la posada cuando la haya: 4.27). max_alive: tope de vivos (feria: fair_max). kinds: peso, bolsa [mín, máx] de oro (cosmética: no entra en ningún libro), stats y su plan (lista de paradas: spot y minutos). city_dress: la ropa (primary, secondary) de cada población, que el shader de identidad pinta. alms: dar limosna al mendigo cuesta gold y sube la reputación reputation (una vez al día por familia).",
+  "_visitors_doc": "4.24.3 (4.22.3.6 adelantado). Forasteros: per_day [mín, máx] al día (×festival_mult en fiesta), que llegan de DÍA entre arrive_hours por una puerta del mapa desde una población de la región (data/world/region.json, la villa no) y se van al ATARDECER por la misma puerta (duermen en la posada cuando la haya: 4.27). max_alive: tope de vivos (feria: fair_max). kinds: peso, bolsa [mín, máx] de oro (cosmética: no entra en ningún libro), stats y su plan (lista de paradas: spot y minutos). city_dress: la ropa (primary, secondary) de cada población, que el shader de identidad pinta. alms: dar limosna al mendigo cuesta gold y sube la reputación reputation (una vez al día por familia). wares (el buhonero, H16 2026-11-06): lo que vende ese día, cada pieza con su precio, cuántas trae y la probabilidad de traerla (tirada con clave al llegar); se le compra en persona (orden buy_from_peddler) mientras está en la villa: los dados cargados de 4.26.7 los vende él.",
   "visitors": {
     "per_day": [2, 4],
     "festival_mult": 3,
@@ -56,7 +56,7 @@
     "kinds": {
       "merchant": {"weight": 30, "purse": [40, 120], "stats": {"negotiation": 7, "charisma": 5}, "plan": [["stalls", 60], ["meet", 60], ["stalls", 60]], "rumor": "visitor_prices"},
       "pilgrim": {"weight": 20, "purse": [10, 30], "stats": {"empathy": 5}, "plan": [["atrium", 180], ["bench", 90]]},
-      "peddler": {"weight": 15, "purse": [20, 50], "stats": {"negotiation": 6}, "plan": [["square", 360]], "bubble": "shop"},
+      "peddler": {"weight": 15, "purse": [20, 50], "stats": {"negotiation": 6}, "plan": [["square", 360]], "bubble": "shop", "wares": [{"item": "loaded_dice", "price": 30, "qty": 1, "chance": 0.5}, {"item": "sweets", "price": 5, "qty": 4, "chance": 0.9}, {"item": "needle", "price": 22, "qty": 2, "chance": 0.6}, {"item": "travel_cloak", "price": 36, "qty": 1, "chance": 0.4}]},
       "minstrel": {"weight": 10, "purse": [5, 20], "stats": {"charisma": 8}, "plan": [["square", 150], ["meet", 60]], "spectacle": "minstrel"},
       "soldier": {"weight": 10, "purse": [15, 40], "stats": {"martial": 6, "constitution": 6}, "plan": [["tavern", 120], ["dice", 120], ["meet", 60]]},
       "noble": {"weight": 5, "purse": [80, 200], "stats": {"rhetoric": 7, "charisma": 6}, "plan": [["stalls", 60], ["bench", 90]], "rank": "noble"},
