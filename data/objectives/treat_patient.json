@@ -1,0 +1,13 @@
+{
+  "id": "treat_patient",
+  "name_key": "objective.treat_patient",
+  "conditions": [
+    {
+      "event": "service_done",
+      "match": {
+        "service": "doctor"
+      },
+      "count": 1
+    }
+  ]
+}

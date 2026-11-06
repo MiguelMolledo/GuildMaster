@@ -24,5 +24,16 @@
     "enabled": true,
     "brackets": [[0, 0.0], [1000, 0.04], [3000, 0.08], [10000, 0.12]],
     "years_kept": 4
+  },
+  "moneylender": {
+    "_doc": "H12.2 (docs/gdd/04d_otras_clases.md 4.22.5.6, O12 a; sim/econ/loans.gd request_loan) [balance]: any family may ask the town's moneylender for a loan of min_amount or more, up to max_share of its estimated wealth (gold, the build cost of its buildings and its upgrades), for one of terms_days, at annual_interest prorated to the term (a year = the days of a year), paid in equal installments every installment_days. Not with another moneylender loan open nor with a loan in default. An installment unpaid on its day: the extension of 4.16 (overdue_reputation, extension_surcharge over what is owed, extension_seasons more), then the seizure. The bots of the artisan never ask: their targets do not move.",
+    "annual_interest": 0.25,
+    "terms_days": [8, 16],
+    "installment_days": 2,
+    "max_share": 0.5,
+    "min_amount": 20,
+    "overdue_reputation": -10,
+    "extension_seasons": 1,
+    "extension_surcharge": 0.25
   }
 }
