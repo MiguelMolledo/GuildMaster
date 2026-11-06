@@ -955,6 +955,12 @@
       "tema": "H13 · 80 vecinos en Bellcaire, no 30-40",
       "decision": "Bellcaire mantiene 80 NPC (16 casas × 5, O-R9). La cifra de 30-40 de la fila H13 de 10_hitos.md queda superada por O-R9.",
       "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»). O-R9 (población proporcional a las casas) ya está aprobada, y con 80 el bench de Bellcaire está dentro de la diana relativa (reposo 1,93×, peor paso 21,9 ms; wanderer 2,79×)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Teclado · Esc con un tooltip a la vista",
+      "decision": "Un tooltip a la vista (el ratón parado sobre un botón) no se queda el Esc: Godot gasta ese Esc en quitarlo (viewport.cpp lo da por usado) y KeyNav lo manda otra vez un fotograma después, así que el mismo Esc cierra también lo de arriba (docs/ui/01_hud.md §2). El panel de la taberna, además, se refresca después del paso que aplica su orden (Game.give la guarda hasta el paso siguiente), no antes.",
+      "por_que": "Verifica (2026-11-06): con el teclado, «inn_make_bed» no se llegaba y Esc no cerraba el panel de la taberna; el ratón se había quedado sobre un botón de la carta del suceso y su tooltip se comía el Esc. Y el refresco inmediato tras una orden leía el estado de antes: la casilla de un plato volvía a marcarse y la pulsación siguiente deshacía la del jugador."
     }
   ],
   "pendientes": [
