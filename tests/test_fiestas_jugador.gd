@@ -40,6 +40,16 @@ func _refused(evs: Array) -> String:
 	return str(r[0]["reason"]) if not r.is_empty() else ""
 
 
+## The words of a card: its paragraphs and its effect lines (a docked card keeps both).
+func _texts(d: Dictionary) -> Array:
+	var out: Array = []
+	for b: Dictionary in d.get("blocks", []):
+		out.append(str(b.get("text", "")))
+		for it: Dictionary in b.get("items", []):
+			out.append(str(it.get("text", "")))
+	return out
+
+
 func _button(d: Dictionary, id: String) -> Dictionary:
 	for b: Dictionary in d.get("buttons", []):
 		if str(b["id"]) == id:
@@ -85,8 +95,7 @@ func test_enter_buttons_say_why_they_are_off() -> void:
 	var j := _button(d, "enter:joust")
 	check(bool(j.get("disabled", false)), "the joust's button is off")
 	eq(str(j.get("tip", "")), SimQuery.reason_text("no_title"), "and says why")
-	check((d["blocks"] as Array).any(func(b: Dictionary) -> bool: return SimQuery.reason_text("no_title") in str(b.get("text", ""))),
-		"in the card's text too")
+	check(_texts(d).any(func(t: String) -> bool: return SimQuery.reason_text("no_title") in t), "in the card's text too")
 	var s := _button(d, "enter:sortija")
 	check(not s.is_empty() and not bool(s.get("disabled", true)), "the sortija is open to him: no title needed")
 	sim.state.families[fam]["gold"] = 0

@@ -148,6 +148,7 @@
     "fight_tournament": {"game": "tourney", "size": 8, "field": ["fighter_bellcaire", "fighter_portvell", "fighter_mercenary", "fighter_smith", "fighter_shepherd", "fighter_squire", "fighter_monk", "fighter_watchman"]},
     "horse_race": {"game": "race", "size": 4, "field": ["rider_miller", "rider_carter", "rider_squire", "rider_pilgrim"]},
     "sortija": {"game": "sortija", "size": 4, "field": ["rider_miller", "rider_carter", "rider_squire", "rider_pilgrim"]},
+    "arm_wrestling": {"game": "pulso", "size": 2, "field": ["regular_boastful", "regular_even"]},
     "bulls": {"game": "bulls", "size": 4, "field": ["mozo_butcher", "mozo_shepherd", "mozo_baker", "mozo_tanner"]}
   }
 }
