@@ -48,6 +48,55 @@ static func of(catalog: Catalog, id: String) -> Grid:
 	return _cache[key]
 
 
+## H6 (Plots): the grid of the state's town with what has been built on its plots: a building raised on a lot of
+## walkable ground (the lots outside, on grass or field) blocks its footprint. With nothing built there it is the map's
+## grid (Grid.of), so every game of before walks the same. The derived grids are cached by what blocks them; they keep
+## the map's RouteAtlas (blocking tiles only makes routes longer: its ALT heuristic still never overestimates, and is
+## still consistent, every move of the derived grid being one of the map's at the same cost).
+static func for_state(catalog: Catalog, state: WorldState) -> Grid:
+	var base := of(catalog, state.map_id)
+	if base == null or state.parcels.is_empty():
+		return base
+	var rects: Array = []
+	var ids: Array = state.parcels.keys()
+	ids.sort()
+	for pid: String in ids:
+		var bld := str(state.parcels[pid].get("building", ""))
+		if bld == "" or not state.buildings.has(bld):
+			continue
+		var o: Array = state.buildings[bld].get("origin", [0, 0])
+		var f: Array = state.buildings[bld].get("footprint", [1, 1])
+		rects.append([int(o[0]), int(o[1]), int(f[0]), int(f[1])])
+	var cells := PackedInt32Array()
+	for r: Array in rects:
+		for dr: int in int(r[3]):
+			for dc: int in int(r[2]):
+				var c := int(r[0]) + dc
+				var w := int(r[1]) + dr
+				if base.in_bounds(c, w) and base.cost(c, w) != BLOCKED:
+					cells.append(base.index(c, w))
+	if cells.is_empty():
+		return base
+	var key := "%d:%s:%d" % [catalog.get_instance_id(), state.map_id, str(cells).hash()]
+	if not _cache.has(key):
+		var g := Grid.new()
+		g.map_id = base.map_id
+		g.width = base.width
+		g.height = base.height
+		g.costs = base.costs.duplicate()
+		for i: int in cells:
+			g.costs[i] = BLOCKED
+		for i: int in g.costs.size():
+			if g.costs[i] != BLOCKED:
+				g.walkable_tiles.append(i)
+		g._link()
+		g.atlas = base.atlas
+		_cache[key] = g
+		if OS.is_debug_build():
+			print("[Grid] %s con %d casillas edificadas en parcelas" % [state.map_id, cells.size()])
+	return _cache[key]
+
+
 static func build(catalog: Catalog, id: String) -> Grid:
 	var g := Grid.new()
 	var m: Dictionary = catalog.maps()[id]

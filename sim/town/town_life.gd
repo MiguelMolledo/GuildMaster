@@ -781,7 +781,7 @@ static func _set_state(sim: Sim, chr: String, t: Dictionary, state: String, acti
 
 
 static func _walkable(sim: Sim, c: int, r: int) -> bool:
-	var g := Grid.of(sim.catalog, sim.state.map_id)
+	var g := Grid.for_state(sim.catalog, sim.state)
 	return g != null and g.in_bounds(c, r) and g.walkable(c, r)
 
 
