@@ -48,6 +48,7 @@ var _name_label: Label
 var bubble_id: String = ""      # H7: the bubble shown ("" = none)
 var _bubble: Node2D = null
 var _phrase_label: Label = null
+const PHRASE_W: float = 168.0   # a phrase wraps at this width (two lines at most)
 const MARKS_Z: int = 20  # bubble, name, phrase and badge draw over every figure and building (no one cuts them)
 var _sprite: AnimatedSprite2D = null
 var motion: String = "idle"   # the sprite's motion now: idle, walk, work, forge
@@ -117,6 +118,7 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	_name_label.size = Vector2(160, 14)
 	_name_label.position = Vector2(-80, -fig_height - 20)
 	_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	WorldLabels.keep_size(_name_label)
 	_name_label.visible = selected
 	_name_label.name = "NameLabel"
 	_name_label.z_index = MARKS_Z
@@ -182,7 +184,9 @@ func set_bubble(id: String) -> void:
 		return
 	_bubble = VisualPaths.instantiate("bubbles", id)
 	_bubble.name = "Bubble"
-	WorldLabels.style_tree(_bubble)   # a greybox bubble's glyph, in the project's small letter
+	WorldLabels.style_tree(_bubble, "bubble")   # a greybox bubble's glyph, in the project's small letter
+	WorldLabels.keep_size(_bubble)
+	_bubble.add_to_group(WorldLabels.NIGHT_KEEP)
 	_bubble.z_index = MARKS_Z
 	VisualPaths.place(_bubble, Vector2(bubble_shift, -fig_height - 12 - turn_raise))
 	_bubble.visible = turn_shown
@@ -250,7 +254,7 @@ func set_turn(shown: bool, raise: float) -> void:
 	if _bubble != null:
 		VisualPaths.place(_bubble, Vector2(bubble_shift, -fig_height - 12 - turn_raise))
 	if _phrase_label != null:
-		_phrase_label.position = Vector2(-90, -fig_height - 46 - turn_raise - phrase_raise)
+		_phrase_label.position = Vector2(-PHRASE_W / 2.0, -fig_height - 62 - turn_raise - phrase_raise)
 	_apply_turn()
 
 
@@ -271,7 +275,7 @@ func set_phrase_turn(shown: bool, raise: float) -> void:
 	phrase_shown = shown
 	phrase_raise = raise
 	if _phrase_label != null:
-		_phrase_label.position = Vector2(-90, -fig_height - 46 - turn_raise - phrase_raise)
+		_phrase_label.position = Vector2(-PHRASE_W / 2.0, -fig_height - 62 - turn_raise - phrase_raise)
 	_apply_turn()
 
 
@@ -306,10 +310,13 @@ func set_phrase(text: String) -> void:
 		_phrase_label.z_index = MARKS_Z + 1
 		WorldLabels.style(_phrase_label, "phrase")
 		_phrase_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_phrase_label.size = Vector2(240, 14)   # the project's letter is wider (WorldLabels)
-		_phrase_label.position = Vector2(-120, -fig_height - 46 - turn_raise - phrase_raise)
+		_phrase_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+		_phrase_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART   # two lines, not one across the screen (J25)
+		_phrase_label.size = Vector2(PHRASE_W, 30)
+		_phrase_label.position = Vector2(-PHRASE_W / 2.0, -fig_height - 62 - turn_raise - phrase_raise)
 		_phrase_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_phrase_label)
+		WorldLabels.keep_size(_phrase_label)
 	_phrase_label.text = text
 	_phrase_label.visible = text != "" and turn_shown and phrase_shown
 

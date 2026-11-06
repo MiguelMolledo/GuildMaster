@@ -39,6 +39,7 @@ class Sign:
 		_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_label)
+		WorldLabels.keep_size(self)   # the whole board keeps its size on screen at ×2
 		_fit()
 
 	## The board's width follows the text as the label measures it (the project font, once in the tree).

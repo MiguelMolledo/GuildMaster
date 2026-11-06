@@ -223,7 +223,8 @@ func _fill_open(grid: GridContainer, rows: Array, fam: String) -> void:
 		top.add_theme_constant_override("separation", 4)
 		top.add_child(_icon(c))
 		var what := SocialKit.label(_what(c), &"InkBold", "What")
-		what.clip_text = true
+		what.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART   # «8 × Comida preparada» on two lines, never cut
+		what.custom_minimum_size = Vector2(60, 0)
 		what.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		top.add_child(what)
 		var pay_text := SocialKit.label(SimQuery.t_("ui.board.pay") % int(c.get("pay", 0)), &"InkLabel", "Pay")
