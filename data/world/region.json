@@ -3,6 +3,8 @@
   "id": "valldaura",
   "name_key": "region.name",
   "home": "villa",
+  "_default_city_doc": "H13 · O-R1 (propuesta, pendiente del owner): la ciudad que Partida nueva ofrece primero. Vacía = la de siempre (la del inicio, Vilarrasa). Con \"capital\", la pantalla abre en Bellcaire; NewGame.from_start sin ciudad sigue jugando el mapa del inicio (las dianas y los bots no cambian).",
+  "default_city": "",
   "map": {
     "_doc": "The illustrated parchment (tools/art/fal_region.py; the view finds it by the region's id, VisualPaths.region_map) and its size in px: pos of a settlement and path of a route are px on it (960x540, the internal resolution of D2).",
     "size": [960, 540]

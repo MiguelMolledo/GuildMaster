@@ -187,7 +187,7 @@ func test_outskirts_by_the_gates_of_every_town() -> void:
 					ok = ok and meadow.has(t + Vector2i(dx, dy))
 			fits = fits or ok
 		# The sim and the view read one rule (FestivalGround): where the view finds no room, the sim sells the cattle at
-		# stalls (the chronicle says so); since plantillas, region_hamlet's free lots take its meadow by the gates.
+		# stalls (the chronicle says so); tools/city/plots.py keeps a meadow by a gate free for one in every town.
 		eq(fits, FestivalGround.fits(sim.catalog, map_id, Vector2i(3, 3)), "%s: the sim and the view agree on the pen" % map_id)
 		if map_id == "town_e":
 			check(fits, "town_e: a 3×3 pen fits by a gate")

@@ -882,8 +882,44 @@ class Town:
         return self.inside(t, 1) and self.at(t) == "." and t not in self.taken and t not in self.p.reserved \
             and t not in self.keep
 
+    def church_land(self):
+        """The tiles inside a precinct's wall (tools/city/reglas.json plots.precincts: Montsacre's abbey, Church land,
+        as plots.Sides.unbuildable): no workshop nor house there. Empty for every other town."""
+        if not hasattr(self, "_church"):
+            self._church = set()
+            precincts = citylib.load_json(citylib.RULES_PATH).get("plots", {}).get("precincts", [])
+            if self.id in precincts:
+                for t in self.tiles():
+                    hits = 0
+                    for d in DIRS:
+                        v = (t[0] + d[0], t[1] + d[1])
+                        while self.inside(v):
+                            if self.at(v) == "M":
+                                hits += 1
+                                break
+                            v = (v[0] + d[0], v[1] + d[1])
+                    if hits >= 3:
+                        self._church.add(t)
+        return self._church
+
+    def _workshop_quarter(self):
+        """The index of the district named by the plan's "workshops_in" (the workshops go there first), or None."""
+        name = self.plan.get("workshops_in")
+        if not name:
+            return None
+        for i, d in enumerate(self.plan.get("districts", [])):
+            if d.get("id") == name:
+                return i
+        return None
+
+    def _free_lot(self, t):
+        """_free, and not on Church land (a precinct: no filler house there either)."""
+        return self._free(t) and t not in self.church_land()
+
     def place_site(self, typ, prefer_main):
         fw, fh = self.cat.footprints[typ]
+        church = self.church_land()
+        wq = self._workshop_quarter() if typ != "house" else None  # plan "workshops_in": the craftsmen's quarter
         on_fields = bool(self.plan.get("skeleton"))  # a drawn town: a workshop may take the edge of a field
         pc = (self.px + gen.PLAZA_W / 2.0, self.py + gen.PLAZA_H / 2.0)
         best = None
@@ -891,6 +927,8 @@ class Town:
             for c in range(1, self.w - fw):
                 rect = (c, r, fw, fh)
                 tiles = gen._tiles(rect)
+                if church and any(t in church for t in tiles):
+                    continue  # a precinct is Church land (decision «Montsacre: dentro y fuera»)
                 if not all(self._free(t) or (on_fields and self.at(t) in ("f", "T") and self.inside(t, 1)
                                              and t not in self.taken and t not in self.p.reserved) for t in tiles):
                     continue
@@ -912,7 +950,8 @@ class Town:
                     cx, cy = c + fw / 2.0, r + fh / 2.0
                     dist = round(max(abs(cx - pc[0]), abs(cy - pc[1])), 1)
                     drawn = sum(1 for t in tiles if t in self.prefer) * 2 >= len(tiles) if self.prefer else True
-                    key = (0 if vis else 1, 0 if main == prefer_main else 1, 0 if drawn else 1, dist, r, c)
+                    quarter = 0 if not wq or sum(1 for t in tiles if self.district_of.get(t) == wq) * 2 >= len(tiles) else 1
+                    key = (0 if vis else 1, quarter, 0 if main == prefer_main else 1, 0 if drawn else 1, dist, r, c)
                     if best is None or key < best[0]:
                         best = (key, rect, d, door)
         if best is None:
@@ -961,7 +1000,7 @@ class Town:
         front = []
         for t in self.tiles():
             i = self.district_of.get(t)
-            if i is None or not self._free(t):
+            if i is None or not self._free_lot(t):
                 continue
             for d in DIRS:
                 u = (t[0] + d[0], t[1] + d[1])
@@ -972,7 +1011,7 @@ class Town:
         for _, hsh, t, d, i in front:
             ds = dists[i]
             den = ds.get("density", {})
-            if not self._free(t):
+            if not self._free_lot(t):
                 continue
             if rng.random() >= float(den.get("fill", 0.8)):
                 continue
@@ -984,7 +1023,7 @@ class Town:
                     break
         # blocks: in a dense district a small block left between the houses is closed with yards (the patios and
         # gardens behind the fronts); a bigger one keeps its open middle
-        free = {t for t in self.tiles() if self._free(t) and t in self.district_of}
+        free = {t for t in self.tiles() if self._free_lot(t) and t in self.district_of}
         for g in citylib.groups_of(free):
             i = self.district_of[g[0]]
             den = dists[i].get("density", {})
@@ -1004,7 +1043,7 @@ class Town:
         for _ in range(2):
             for t in self.tiles():
                 i = self.district_of.get(t)
-                if i is None or not self._free(t) or self.near_road(t):
+                if i is None or not self._free_lot(t) or self.near_road(t):
                     continue
                 p = float(dists[i].get("density", {}).get("patios", 0.0))
                 n = sum(1 for d in DIRS if self.at((t[0] + d[0], t[1] + d[1])) == "#"
@@ -1026,7 +1065,7 @@ class Town:
             f0 = (t[0] - step[0] * shift - d[0] * setback, t[1] - step[1] * shift - d[1] * setback)
             fronts = [(f0[0] + step[0] * k, f0[1] + step[1] * k) for k in range(along)]
             tiles = [(f[0] - d[0] * j, f[1] - d[1] * j) for f in fronts for j in range(depth)]
-            if not all(self._free(u) and (self.district_of.get(u) == i or (loose and u in self.district_of))
+            if not all(self._free_lot(u) and (self.district_of.get(u) == i or (loose and u in self.district_of))
                        for u in tiles):
                 continue
             # each front tile reaches the street straight ahead within 1 + setback + slack tiles of open grass
@@ -1039,7 +1078,7 @@ class Town:
                     if self.at(u) in WAYS + ("P",):
                         hits += 1
                         break
-                    if not (self._free(u) or u in self.keep) or self.at(u) != ".":
+                    if not (self._free_lot(u) or u in self.keep) or self.at(u) != ".":
                         break
                     way.append(u)
             if hits < (along if along <= 2 else along - 1):
@@ -1058,7 +1097,7 @@ class Town:
             extra = []
             for j in range(depth, depth + back):
                 row = [(f[0] - d[0] * j, f[1] - d[1] * j) for f in fronts]
-                if all(self._free(u) and (self.district_of.get(u) == i or (loose and u in self.district_of))
+                if all(self._free_lot(u) and (self.district_of.get(u) == i or (loose and u in self.district_of))
                        for u in row):
                     extra += row
                 else:
@@ -1141,8 +1180,16 @@ class Town:
     def woods(self):
         dens = float(self.plan.get("trees", 0.1))
         garden = float(self.plan.get("gardens", 0.05))
+        fo = self.plan.get("forest")  # {"rect": [x0, y0, x1, y1], "fill": p}: a wood of its own (H13's forest zone)
         for t in self.tiles():
             if self.at(t) != "." or t in self.p.reserved or t in self.taken or t in self.keep:
+                continue
+            if fo and fo["rect"][0] <= t[0] <= fo["rect"][2] and fo["rect"][1] <= t[1] <= fo["rect"][3] \
+                    and t not in self.wall_inside and t not in self.district_of:
+                if not any(self.at((t[0] + dc, t[1] + dr)) in ROADS + ("#", "H", "P", "M")
+                           for dc in (-1, 0, 1) for dr in (-1, 0, 1)) \
+                        and citylib.tile_hash(*t, 29) % 1000 < float(fo.get("fill", 0.7)) * 1000:
+                    self.put(t, "T")
                 continue
             near = any(self.at((t[0] + dc, t[1] + dr)) not in (".", "T", "f", "R", "w")
                        for dc in (-1, 0, 1) for dr in (-1, 0, 1))
@@ -1160,6 +1207,58 @@ class Town:
             k = dens * (0.5 + 2.6 * max(0.0, forest - 0.35))
             if citylib.tile_hash(*t, 13) % 1000 < k * 1000:
                 self.put(t, "T")
+
+    def zones(self):
+        """H13's zones of the map (plan "zones", tools/city/ciudades.json): every tile in one, by the parts of each
+        zone in the plan's order (a part: "plaza_reach" n, the plaza and n tiles round it; "rect" [x0, y0, x1, y1];
+        "inside" / "outside" the walls; "chars", only those tiles; "rest", what no other part took, in a second
+        pass). The label: the zone's tile of a way nearest its middle (or "label_near"). Returns (zones [{id, kind,
+        char, name_key, tiles, label}], rows of zone chars, "." none)."""
+        spec = self.plan.get("zones") or []
+        if not spec:
+            return [], []
+        of = {}
+        plaza = [t for t in self.tiles() if self.at(t) == "P"]
+
+        def fits(part, t):
+            if "rect" in part:
+                x0, y0, x1, y1 = part["rect"]
+                if not (x0 <= t[0] <= x1 and y0 <= t[1] <= y1):
+                    return False
+            if part.get("inside") and t not in self.wall_inside:
+                return False
+            if part.get("outside") and t in self.wall_inside:
+                return False
+            if "chars" in part and self.at(t) not in part["chars"]:
+                return False
+            if "plaza_reach" in part:
+                n = int(part["plaza_reach"])
+                return any(max(abs(t[0] - p[0]), abs(t[1] - p[1])) <= n for p in plaza)
+            return True
+        for rest in (False, True):
+            for z in spec:
+                for part in z.get("parts", []):
+                    if bool(part.get("rest")) != rest:
+                        continue
+                    for t in self.tiles():
+                        if t not in of and fits(part, t):
+                            of[t] = z["id"]
+        out = []
+        for z in spec:
+            ts = [t for t in self.tiles() if of.get(t) == z["id"]]
+            label = None
+            if ts:
+                cx = sum(t[0] for t in ts) / len(ts)
+                cy = sum(t[1] for t in ts) / len(ts)
+                if z.get("label_near"):  # a ring (the outskirts): its middle is not in it; the plan says where
+                    cx, cy = z["label_near"]
+                walk = [t for t in ts if self.at(t) in ROADS + ("P", ".", ",")] or ts
+                label = min(walk, key=lambda t: ((t[0] - cx) ** 2 + (t[1] - cy) ** 2, t[1], t[0]))
+            out.append({"id": z["id"], "kind": z.get("kind", z["id"]), "char": z["char"],
+                        "name_key": z.get("name_key", ""), "tiles": len(ts), "label": list(label) if label else None})
+        chars = {z["id"]: z["char"] for z in spec}
+        rows = ["".join(chars.get(of.get((c, r)), ".") for c in range(self.w)) for r in range(self.h)]
+        return out, rows
 
     def tidy(self):
         """One street network: street bits not joined to the plaza's become dirt lanes; then every walkable tile that
@@ -1293,6 +1392,8 @@ def build(map_id, plan, cat=None, variant=None):
         gen.fill_members(population, int(plan["per_house"]))
     rows = ["".join(r) for r in p.g]
     dists = [{"id": d["id"], "roof": d.get("roof", "#7a4a3a")} for d in plan.get("districts", [])]
+    if plan.get("zones"):  # H13: a drawn town with zones keeps its quarters' roofs (the skeleton's districts)
+        dists = [{"id": d["id"], "roof": d.get("roof", "#7a4a3a")} for d in tw.plan.get("districts", [])]
     data = {"id": map_id, "name_key": f"map.{map_id}", "size": [tw.w, tw.h], "rows": rows, "spawns": spawns,
             "stalls": tw.stalls, "board": tw.board, "town_hall": tw.town_hall,
             "buildings": {k: tw.sites[k] for k in sorted(tw.sites)}, "social_points": social, "workplaces": wps,
@@ -1314,6 +1415,10 @@ def build(map_id, plan, cat=None, variant=None):
         data["watch"] = json.loads(json.dumps(plan["watch"]))
     if plan.get("detail"):  # plantillas: the settled townsfolk every N minutes (TownLife._settled)
         data["detail"] = json.loads(json.dumps(plan["detail"]))
+    zs, zrows = tw.zones()
+    if zs:  # H13: the zones of the map (the view names them; the sim does not read them)
+        data["zones"] = zs
+        data["zone_rows"] = zrows
     if map_id in citylib.rules().get("plots", {}).get("maps", []):  # 04 §4.9.1: lots, ruins and businesses
         import plots
         plots.add_plots(data, cat)

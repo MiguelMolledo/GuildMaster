@@ -251,3 +251,63 @@ func test_the_cattle_goes_to_the_outskirts_or_to_stalls() -> void:
 	check(s2.state.chronicle.any(func(x: Dictionary) -> bool: return str(x["kind"]) == "fair_cattle_stalls"), "the chronicle says so")
 	check(not Festivals.view_of(s2, f2)["decor"].any(func(d: Dictionary) -> bool: return str(d["prop"]) == "pen"),
 		"no pens in the view: stalls instead")
+
+
+## One pen is enough (manager, 2026-11-06): in Vilablat (region_hamlet) only one of the fair's two pens fits by its
+## gates. The sim keeps «pens» with one, the rest of the cattle goes to one stall in the plaza, the chronicle says so
+## (fair_cattle_pens_short, never «no pens»); the view puts that one pen at the outskirts and one fair stall.
+func test_one_pen_is_enough_in_vilablat() -> void:
+	check(FestivalGround.fits(cat, "region_hamlet", Vector2i(3, 3), 1), "Vilablat: one 3x3 pen fits by a gate")
+	check(not FestivalGround.fits(cat, "region_hamlet", Vector2i(3, 3), 2), "but not two")
+	var st0 := WorldState.new()
+	st0.map_id = "region_hamlet"
+	var vs := FestivalLayer.sites(st0, cat)
+	var meadow := {}
+	for t: Vector2i in (vs["_meadow"] as Array):
+		meadow[t] = true
+	var view_fits := false
+	for t: Vector2i in (vs["outskirts"] as Array):
+		var ok := true
+		for dy: int in 3:
+			for dx: int in 3:
+				ok = ok and meadow.has(t + Vector2i(dx, dy))
+		view_fits = view_fits or ok
+	check(view_fits, "the view finds the same room for it")
+	var r := NewGame.from_start(cat, "artisan_blacksmith", "normal", {"cast": "fixed", "city": "hamlet"}, 1)
+	check(bool(r.get("ok", false)), "a new game in Vilablat (%s)" % r.get("error", ""))
+	if not bool(r.get("ok", false)):
+		return
+	var sim := Sim.new(r["state"], cat)
+	sim.step()
+	eq(sim.state.map_id, "region_hamlet", "in Vilablat")
+	_to(sim, 3 * DAY + 60)
+	var fairs: Array = Festivals.active(sim).filter(func(i: Dictionary) -> bool: return str(i["def"]) == "harvest_fair")
+	check(not fairs.is_empty(), "the harvest fair is on")
+	if fairs.is_empty():
+		return
+	var fair: Dictionary = fairs[0]
+	eq(str(fair.get("cattle", "")), "pens", "one pen is enough: pens")
+	eq(int(fair.get("cattle_pens", 0)), 1, "one of two")
+	check((fair["stalls"] as Array).any(func(x: Dictionary) -> bool: return str(x["stall"]) == "cattle"),
+		"the rest of the cattle at a stall")
+	var short: Array = sim.state.chronicle.filter(func(x: Dictionary) -> bool: return str(x["kind"]) == "fair_cattle_pens_short")
+	eq(short.size(), 1, "the chronicle says only one pen fit")
+	if not short.is_empty():
+		eq([int(short[0].get("pens", 0)), int(short[0].get("wanted", 0))], [1, 2], "one of the two")
+	check(not sim.state.chronicle.any(func(x: Dictionary) -> bool: return str(x["kind"]) == "fair_cattle_stalls"),
+		"not «no pens»")
+	var decor: Array = Festivals.view_of(sim, fair)["decor"]
+	var pens: Array = decor.filter(func(d: Dictionary) -> bool: return str(d["prop"]) == "pen")
+	eq(pens.size(), 1, "the view puts the pens")
+	if not pens.is_empty():
+		eq([str(pens[0]["where"]), int(pens[0]["count"])], ["outskirts", 1], "one, at the outskirts")
+	check(decor.any(func(d: Dictionary) -> bool:
+		return str(d["prop"]) == "fair_stall" and str(d["where"]) == "plaza_ring" and int(d["count"]) == 1),
+		"and one cattle stall in the plaza")
+	var home := _game()  # Vilarrasa (town_e) keeps its two pens and no chronicle line
+	_to(home, 3 * DAY + 60)
+	var hf: Dictionary = Festivals.active(home).filter(func(i: Dictionary) -> bool: return str(i["def"]) == "harvest_fair")[0]
+	eq(int(hf.get("cattle_pens", 0)), 2, "Vilarrasa: both pens")
+	check(not (hf["stalls"] as Array).any(func(x: Dictionary) -> bool: return str(x["stall"]) == "cattle"), "no cattle stall")
+	check(not home.state.chronicle.any(func(x: Dictionary) -> bool:
+		return str(x["kind"]) in ["fair_cattle_pens_short", "fair_cattle_stalls"]), "nor a line in the chronicle")
