@@ -1303,6 +1303,12 @@
       "tema": "H6 · Vilarrasa: un solar de taller, y la IA aún no se amplía",
       "decision": "tools/maps/make_town_e.py añade plot_21: solar libre de producción 3×4 (cabe una forja, carpintería, albañilería o taberna: la segunda taberna de O-V12) en la hierba al norte del callejón de arriba, cols 9-11 × filas 2-5, entrada por el callejón en (10, 6); extramuros (×0,85), situación 0,42 (las de plots.py). No pisa corrillos, patrullas, árboles, prado de feria ni corral; el escenario town_e_start no cambia. La expansión de la IA (un segundo edificio con su taller en pie) queda tras data/construction.json ai.expand, apagado: la IA de hoy no contrata ni pone cola en un segundo edificio y, encendido, el rival levanta una segunda forja el día 21 (semilla 1) que lo deja con 2 de oro el día 60 (407 sin ella). El beneficio esperado cuenta el sueldo de quien lo trabaja (ai.staff_rank).",
       "por_que": "El manager: Vilarrasa la toca posada en su fuente, sin mover dianas sin medirlo. Medido: con ai.expand apagado, 3 semillas × 60 días idénticas a antes del solar; se enciende cuando la economía de sim/ai (plantillas) sepa llevar un segundo edificio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H6 · cuántas parcelas libres trae cada ciudad",
+      "decision": "Por ciudad: 4-5 parcelas libres de producción (solares y ruinas), al menos 2 de ≥ 3×4 o 4×3 (un taller), y 3-4 de vivienda de ≥ 3×3 (una casa). Vilarrasa la cumple en tools/maps/make_town_e.py (posada): producción plot_01 (ruina 3×3), plot_02 (3×2), plot_21 y plot_22 (3×4, al norte del callejón de arriba); vivienda plot_03 y plot_04 agrandados a 3×3 y plot_23 y plot_24 (3×3) en esa franja; no queda nada fuera, el corral de la feria sigue cabiendo junto a la puerta este. Las otras cinco ciudades, plantillas en tools/city/plots.py. Sustituye a la pendiente «H6 · los solares de los mapas no admiten talleres ni dejan sitio a la IA».",
+      "por_que": "Delegación del owner por el manager («apruebo tu regla para todas, Vilarrasa incluida»), con el dato de la sonda de 60 días: con solo las 2 libres de la válvula y de 2×2-3×2, la IA no tenía dónde construir y no cabía ningún taller."
     }
   ],
   "pendientes": [
@@ -1478,11 +1484,6 @@
       "tema": "H13 · orden de ataques por dificultad (04c 4.21.10)",
       "detalle": "El oro neto del jugador respeta Fácil > Normal > Difícil, pero los ataques recibidos no siguen Fácil ≤ Normal ≤ Difícil en mediana: en Difícil las familias IA se arruinan antes (venden más barato) y su rivalidad no llega al umbral en dos de las tres semillas. Va con el punto anterior.",
       "opciones": "Revisar tras arreglar la economía de las familias IA."
-    },
-    {
-      "tema": "H6 · los solares de los mapas no admiten talleres ni dejan sitio a la IA",
-      "detalle": "En las seis ciudades el generador (tools/city/plots.py) deja justo 2 parcelas libres de producción y 2 de vivienda (lo que pide la válvula) y casi todas de 2×2, 2×3 o 3×2: un taller (forja, carpintería, albañilería, taberna) es de 3×4 y la casa de 3×3. En town_e solo cabe una sastrería en la ruina de plot_01. Sonda de 60 días (semilla 1): ningún NPC compra parcela, porque la válvula le cierra las dos únicas. Actualización (manager, 2026-11-06): Vilarrasa lo resuelve posada en make_town_e (un solar 3×4 de producción, plot_21); las otras cinco ciudades, plantillas con la regla en plots.py (los de producción ≥ la huella mayor de su zona).",
-      "opciones": "(a) Recomendada: plantillas regenera los mapas con al menos 4-5 parcelas libres de producción por ciudad (2 o más de ≥ 3×4) y 3-4 de vivienda de ≥ 3×3; la IA toma 2-3 y siempre quedan 2. (b) Bajar la válvula a 1 libre por zona. (c) Dejarlo así: la IA solo compra negocios en venta."
     }
   ],
   "proximos_pasos": [

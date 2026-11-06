@@ -674,8 +674,12 @@ tamaño, lugar (dentro o extramuros) y situación, y lo que se puede hacer con s
   `order_for`, contrato en 04c §4.21.6.2). Un **segundo** edificio (con su taller en pie) espera a `ai.expand`, apagado
   hasta que la economía de sim/ai sepa llevarlo (contratar, cola, vender de su almacén): hoy una forja nueva de la IA
   se queda vacía y la arruina. Sin él, solo monta taller la familia que vendió el suyo.
-- **Vilarrasa (town_e)** trae un solar de taller (plot_21, 3×4, extramuros al norte del callejón de arriba; lo pone
-  `tools/maps/make_town_e.py`): cabe una forja, una carpintería, una albañilería o una segunda taberna (O-V12).
+- **Cuántas parcelas libres trae una ciudad** (regla del owner, 2026-11-06): **4-5 de producción** (solares y ruinas),
+  **al menos 2 del tamaño de un taller (3×4 o 4×3)**, y **3-4 de vivienda de 3×3** (una casa). Así la IA puede tomar
+  2-3 sin tocar la válvula y siempre quedan 2 de cada zona para el jugador. Vilarrasa (town_e) la cumple con
+  `tools/maps/make_town_e.py`: la ruina 3×3 y el solar 3×2 de dentro, dos solares de taller de 3×4 al norte del
+  callejón de arriba (plot_21 extramuros y plot_22 dentro) y cuatro de vivienda de 3×3 en esa franja; las otras cinco
+  ciudades, `tools/city/plots.py` (plantillas). En un segundo solar de taller cabe también una segunda taberna (O-V12).
 - **Rústica**: las parcelas rústicas se ven en el modo, pero todavía no hay edificios que levantar en ellas (granjas,
   minas, aserraderos: 4.22).
 

@@ -116,7 +116,17 @@ func test_the_valve_stops_the_ai_not_the_player() -> void:
 	var head := Kin.head(sim.state, rival)
 	var free := Plots.free_count(sim, "production")
 	var min_free := int(cat.construction["valve"]["min_free"])
-	eq(free, min_free + 1, "town_e starts with one free production plot over the valve (H6: the 3×4 lot)")
+	check(free >= min_free + 2 and free <= 5, "town_e: 4-5 free production plots, over the valve (H6 rule): %d" % free)
+	var big := 0
+	for p: Dictionary in Plots.all(sim):
+		if Plots.is_free(p) and str(p["zone"]) == "production" and not Plots.footprint_on(sim, "forge", p).is_empty():
+			big += 1
+	check(big >= 2, "at least 2 of a workshop's footprint (3×4): %d" % big)
+	var homes := 0
+	for p: Dictionary in Plots.all(sim):
+		if Plots.is_free(p) and str(p["zone"]) == "housing" and "house" in Plots.types_for(sim, p):
+			homes += 1
+	check(homes >= 3 and homes <= 4, "3-4 free housing plots of a house (3×3): %d" % homes)
 	cat.construction["valve"]["min_free"] = free
 	eq(str(Plots.can_build(sim, head, "plot_01", "tailor_shop")["reason"]), "valve", "the AI may not take one of the last ones")
 	cat.construction["valve"]["min_free"] = min_free
