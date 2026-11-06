@@ -432,10 +432,21 @@ func _wants_title(sim: Sim) -> bool:
 ## The real hours of a festival contract (due_at) are the novice's own check since Equilibrio 11; here only the
 ## reason is noted for the report.
 func _can_make_in_time(sim: Sim, c: Dictionary) -> bool:
-	var ok := super._can_make_in_time(sim, c)
-	if not ok and int(c.get("due_at", -1)) >= 0:
+	if not bool(c.get("race", false)) and int(c.get("due_at", -1)) < 0:
+		return super._can_make_in_time(sim, c)
+	# a festival contract: the real hours left and only the head's hands (the employees' queue never takes festival
+	# pieces), plus the novice's other checks (recipe open, inputs paid)
+	if not super._can_make_in_time(sim, c):
 		why_not["festival_contracts"] = "no_time"
-	return ok
+		return false
+	var hours := _contract_hours(sim, c)
+	for a: Dictionary in Contracts.accepted_of(sim, _fam(sim)):
+		hours += _contract_hours(sim, a)
+	var left := float(int(c.get("due_at", 0)) - _now(sim)) / 60.0
+	if hours > left * 0.6:
+		why_not["festival_contracts"] = "no_time"
+		return false
+	return true
 
 
 ## The expert's counter trial puts its least skilled hand at the counter even when it is the only one: the queue then
