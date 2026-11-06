@@ -1,0 +1,36 @@
+{
+  "id": "clinic_capacity_1",
+  "name_key": "upgrade.clinic_capacity_1",
+  "tree": "clinic",
+  "branch": "capacity",
+  "level": 1,
+  "cost": {
+    "gold": 50,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 5
+      },
+      {
+        "item": "wood",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "extra_storage",
+      "amount": 10
+    }
+  ],
+  "visual": {
+    "interior_node": "upgrade_storage_shelves",
+    "exterior_overlay": null
+  }
+}

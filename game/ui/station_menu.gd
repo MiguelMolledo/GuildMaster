@@ -11,6 +11,11 @@ extends PanelContainer
 ## the person works here. Without anybody of the family inside (management): the job of the station and "Entra con un
 ## personaje para trabajar aquí" with a Production button; somebody else at the station: "Ocupado por ...". A click
 ## on a recipe gives work_at. It only gives orders; the sim decides.
+## H12.2 (04d 4.22.5.7): a service station (the Consulta's cot, kind "service") has no modes nor quality: its recipes
+## show the patient's icon and what they pay, and under them %ServiceBox: the clients waiting (and the grave ones), the
+## price the owner asks with − / + (set_service_price, within its range) and the share it draws (4.22.3.2); its job
+## line says «Esperando pacientes» while nobody is being seen. The stat of the station's recipes (Arcano for the
+## physician) is the one shown on the head and read for the lock and the quality.
 
 signal production_requested   # the Production button (management mode): the interior opens its panel
 
@@ -40,6 +45,8 @@ func _bind() -> void:
 	(%NormalButton as Button).pressed.connect(choose_mode.bind("normal"))
 	(%CarefulButton as Button).pressed.connect(func() -> void: choose_mode(third_mode()))
 	(%StopButton as Button).pressed.connect(stop)
+	(%PriceDown as Button).pressed.connect(nudge_price.bind(-1))
+	(%PriceUp as Button).pressed.connect(nudge_price.bind(1))
 	(%ProductionButton as Button).pressed.connect(func() -> void:
 		close()
 		production_requested.emit())
@@ -110,8 +117,10 @@ func refresh() -> void:
 	var ch: Dictionary = sim.state.characters.get(actor, {})
 	var job := SimQuery.job_view(sim, building, zone)
 	var other := str(job.get("actor", "")) if not job.is_empty() and str(job.get("actor", "")) != actor else ""
-	(%Who as Label).text = SimQuery.t_("ui.station.who") % [str(ch.get("name", "")), int(ch.get("stats", {}).get("craft", 0))] \
-		if actor != "" else ""
+	var stat := station_stat()
+	(%Who as Label).text = (SimQuery.t_("ui.station.who") % [str(ch.get("name", "")), int(ch.get("stats", {}).get("craft", 0))]
+		if stat == "craft" else SimQuery.t_("ui.station.who_stat") % [str(ch.get("name", "")), SimQuery.t_("stat." + stat),
+		int(ch.get("stats", {}).get(stat, 0))]) if actor != "" else ""
 	var why := Production.may_work(sim, actor, building) if actor != "" else ""
 	var hint := ""
 	if actor == "":
@@ -130,11 +139,13 @@ func refresh() -> void:
 		var b := get_node(str(pair[1])) as Button
 		b.set_pressed_no_signal(str(pair[0]) == mode)
 		b.disabled = not can_pick
-	(%Modes as Control).visible = actor != ""
-	(%ModeLine as Label).visible = actor != ""
+	var svc := service()
+	(%Modes as Control).visible = actor != "" and svc == ""
+	(%ModeLine as Label).visible = actor != "" and svc == ""
 	(%ModeLine as Label).text = _mode_line()
 	_build_recipes(can_pick)
 	_show_quality()
+	_show_service(svc)
 	var mine := _actor_job_zone() == zone and actor != ""
 	(%StopButton as Button).visible = _actor_job_zone() != ""
 	(%ProductionButton as Button).visible = actor == ""
@@ -142,6 +153,8 @@ func refresh() -> void:
 	if not job.is_empty() and (mine or actor == ""):
 		line = SimQuery.t_("ui.station.working") % [SimQuery.recipe_name(sim.catalog, str(job["recipe"])),
 			roundi(float(job.get("progress", 0.0)) * 100.0)]
+		if bool(job.get("waiting_client", false)):
+			line = SimQuery.t_("ui.station.waiting_patients")
 		if actor == "":
 			line = _name(str(job["actor"])) + " · " + line
 	(%JobLine as Label).text = line
@@ -157,9 +170,13 @@ func _name(id: String) -> String:
 func _mode_line() -> String:
 	if sim == null or actor == "":
 		return ""
-	var q := Production.quality_view(sim, actor, building, mode)
+	var stat := station_stat()
+	var q := Production.quality_view(sim, actor, building, mode, stat)
 	var out := SimQuery.t_("ui.station.mode_line") % [String.num(float(q.get("minutes_mult", 1.0)), 1).replace(".", ","),
 		int(q.get("craft", 0))]
+	if stat != "craft":
+		out = SimQuery.t_("ui.station.mode_line_stat") % [String.num(float(q.get("minutes_mult", 1.0)), 1).replace(".", ","),
+			SimQuery.t_("stat." + stat), int(q.get("craft", 0))]
 	# 03b §3b.8: no «+ toque de maestro»: the master touch left the UI (the Forja viva replaces it)
 	if mode == LiveForge.MODE:
 		out += " · " + SimQuery.t_("ui.station.with_live")
@@ -299,6 +316,8 @@ func _recipe_row(opt: Dictionary, can_pick: bool) -> VBoxContainer:
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	b.clip_text = true
 	b.icon = UiIcons.lock() if status == "locked" else VisualPaths.icon_small(str(rec.get("output", {}).get("item", "")))
+	if Production.is_service(rec) and status != "locked":
+		b.icon = UiIcons.ui("icon_patient")
 	b.disabled = status != "ok" or not can_pick
 	b.tooltip_text = _status_tip(rid, status, reason)
 	b.pressed.connect(choose_recipe.bind(rid))
@@ -325,6 +344,12 @@ func _recipe_row(opt: Dictionary, can_pick: bool) -> VBoxContainer:
 		d.custom_minimum_size = Vector2(44, 0)
 		d.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		row.add_child(d)
+		if Production.is_service(rec):
+			var pay := Label.new()
+			pay.name = "Pays"
+			pay.text = SimQuery.t_("ui.station.pays") % Services.charge(sim, building, rec)
+			pay.theme_type_variation = &"PositiveLabel"
+			row.add_child(pay)
 	var why := _recipe_reason(rid, status, reason, opt)
 	if why != "":
 		var r := Label.new()
@@ -344,6 +369,10 @@ func _recipe_reason(rid: String, status: String, reason: String, opt: Dictionary
 	var rec: Dictionary = sim.catalog.recipes().get(rid, {})
 	match reason:
 		"skill_too_low":
+			var st := str(rec.get("stat", "craft"))
+			if st != "craft":
+				return SimQuery.t_("ui.station.needs_stat") % [SimQuery.t_("stat." + st), int(rec.get("min_stat", 1)),
+					int(sim.state.characters.get(actor, {}).get("stats", {}).get(st, 0))]
 			return SimQuery.t_("ui.station.needs_craft") % [int(rec.get("min_craft", 0)),
 				int(sim.state.characters.get(actor, {}).get("stats", {}).get("craft", 0))]
 		"needs_upgrade":
@@ -382,11 +411,11 @@ func _show_quality() -> void:
 				break
 	if rid == "" and not options.is_empty() and str(options[0].get("status", "")) != "locked":
 		rid = str(options[0]["recipe"])
-	box.visible = actor != "" and rid != ""
+	box.visible = actor != "" and rid != "" and service() == ""
 	if not box.visible:
 		return
 	var rec: Dictionary = sim.catalog.recipes().get(rid, {})
-	var q := Production.quality_view(sim, actor, building, mode)
+	var q := Production.quality_view(sim, actor, building, mode, str(rec.get("stat", "craft")))
 	var chances: Array = q.get("chances", [100, 0, 0])
 	var item := str(rec.get("output", {}).get("item", ""))
 	(%QualityTitle as Label).text = SimQuery.t_("ui.station.quality") % SimQuery.item_name(sim.catalog, item).to_lower()
@@ -412,6 +441,71 @@ func _show_quality() -> void:
 		var tool := str(sim.catalog.buildings().get(str(sim.state.buildings[building].get("type", "")), {}).get("tool", ""))
 		tool_line.text = SimQuery.t_("ui.station.tool_bonus") % [SimQuery.item_name(sim.catalog, tool).to_lower(),
 			roundi(float(q.get("tool_chance", 0.0)) * 100.0)]
+
+
+## H12.2: the service of this station ("" if it makes things): the service of its first service recipe.
+func service() -> String:
+	if sim == null:
+		return ""
+	for opt: Dictionary in recipe_options():
+		var rec: Dictionary = sim.catalog.recipes().get(str(opt.get("recipe", "")), {})
+		if Production.is_service(rec):
+			return str(rec.get("service", ""))
+	return ""
+
+
+## The stat the station's recipes read (their first recipe's "stat"; craft by default).
+func station_stat() -> String:
+	if sim == null:
+		return "craft"
+	for opt: Dictionary in recipe_options():
+		return str(sim.catalog.recipes().get(str(opt.get("recipe", "")), {}).get("stat", "craft"))
+	return "craft"
+
+
+## The clients waiting, the price with − / + and the share (a service station only).
+func _show_service(svc: String) -> void:
+	var box := %ServiceBox as Control
+	box.visible = svc != ""
+	if svc == "":
+		return
+	var waiting: Array = Services.waiting(sim.state, building).filter(func(w: Dictionary) -> bool:
+		return str(w.get("service", "")) == svc)
+	var grave := waiting.filter(func(w: Dictionary) -> bool: return int(w.get("severity", 0)) >= 7).size()
+	(%Waiting as Label).text = SimQuery.t_("ui.station.patients_waiting") % [waiting.size(), grave] if not waiting.is_empty() \
+		else SimQuery.t_("ui.station.no_patients")
+	var p := Services.price(sim, building, svc)
+	var r := Services.price_range(sim, svc)
+	(%PriceLabel as Label).text = SimQuery.t_("ui.station.price") % [p, int(Services.cfg(sim, svc).get("ref_price", 0))]
+	var who := _price_actor()
+	(%PriceDown as Button).disabled = who == "" or p <= int(r[0])
+	(%PriceUp as Button).disabled = who == "" or p >= int(r[1])
+	(%ShareLine as Label).text = SimQuery.t_("ui.station.patients_day") % String.num(
+		Services.per_day(sim, building, svc), 1).replace(".", ",")
+
+
+## Who of the family gives the price order: the one at the station, else the family's head (management).
+func _price_actor() -> String:
+	if sim == null:
+		return ""
+	var fam := str(sim.state.buildings.get(building, {}).get("owner", ""))
+	if fam == "" or fam != SimQuery.player_family(sim.state):
+		return ""
+	if actor != "":
+		return actor
+	return SimQuery.family_actor(sim.state, fam, "")
+
+
+## − / +: the price of the station's service one gold down or up (set_service_price).
+func nudge_price(step: int) -> void:
+	var svc := service()
+	var who := _price_actor()
+	if svc == "" or who == "":
+		return
+	var r := Services.price_range(sim, svc)
+	var p := clampi(Services.price(sim, building, svc) + step, int(r[0]), int(r[1]))
+	_give({"type": "set_service_price", "actor": who, "building": building, "service": svc, "price": p})
+	refresh()
 
 
 ## The quality chances shown now ([normal, good, excellent] in %), for the tests.

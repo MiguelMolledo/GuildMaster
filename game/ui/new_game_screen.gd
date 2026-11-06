@@ -168,12 +168,14 @@ func _build_difficulty() -> void:
 	_update_difficulty_hint()
 
 
-## H12: a toggle per profession of the start's class; the start's own one pressed. Hidden with a single one.
+## H12: a toggle per profession with a start, the classes in their order (data/politics.json reputation.classes: the artisan's
+## trades, then H12.2 the scholar's physician); the start's own one pressed. Hidden with a single one.
 func _build_professions() -> void:
 	var box := %Profession as HBoxContainer
 	MenuKit.clear(box)
-	var cls := str(catalog.starts().get(start_id, {}).get("class", ""))
-	var ids := catalog.professions_of(cls)
+	var ids: Array = []
+	for cls: Variant in catalog.politics.get("reputation", {}).get("classes", ["artisan"]):
+		ids.append_array(catalog.professions_of(str(cls)))
 	var group := ButtonGroup.new()
 	for p: String in ids:
 		var def: Dictionary = catalog.professions()[p]
@@ -200,6 +202,7 @@ func set_profession(p: String) -> void:
 		return
 	var before: Dictionary = catalog.starts().get(start_id, {}).get("defaults", {})
 	var after: Dictionary = catalog.starts()[sid].get("defaults", {})
+	var class_changed := str(catalog.starts().get(start_id, {}).get("class", "")) != str(catalog.starts()[sid].get("class", ""))
 	var name_edit := %NameEdit as LineEdit
 	var fam_edit := %FamilyEdit as LineEdit
 	var name_kept := name_edit.text.strip_edges() in [str(before.get("name", "")), str(proposal.get("name_m", "")),
@@ -217,6 +220,9 @@ func set_profession(p: String) -> void:
 			set_female(bool(after.get("female", false)))
 		name_edit.text = str(proposal.get("name_f" if female else "name_m", after.get("name", name_edit.text)))
 	(%StartName as Label).text = SimQuery.t_(str(catalog.starts()[sid].get("name_key", "start." + sid)))
+	if class_changed:  # H12.2: another class starts from other stats: the points spread go back
+		stats_add.clear()
+		_build_stats()
 	for b: Node in (%Profession as HBoxContainer).get_children():
 		(b as Button).set_pressed_no_signal(b.name == p.to_pascal_case())
 	_build_cities()

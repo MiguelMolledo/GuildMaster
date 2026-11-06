@@ -1,0 +1,32 @@
+{
+  "id": "clinic_quality_2",
+  "name_key": "upgrade.clinic_quality_2",
+  "tree": "clinic",
+  "branch": "quality",
+  "level": 2,
+  "cost": {
+    "gold": 60,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "clinic_quality_1"
+    ],
+    "stat": {
+      "id": "arcane",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "quality_bonus",
+      "amount": 2
+    }
+  ],
+  "visual": {
+    "interior_node": "clinic_books",
+    "exterior_overlay": null
+  }
+}
