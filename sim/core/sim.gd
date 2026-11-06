@@ -44,6 +44,7 @@ func step(orders: Array = []) -> Array:
 	Population.step(self)   # dawn: townsfolk weddings; year_changed: coming of age, newcomers
 	# H5 · upgrades (docs/contratos/h5_mejoras.md)
 	Upgrades.step(self)     # works that end now finish: their effects apply before anyone reads them
+	Construction.step(self) # H6: building works that end now; at dawn, the AI families' construction (04 §4.9)
 	# H4 · employees (docs/contratos/h4_empleados.md)
 	Staff.step(self)        # at dawn: day counted, leavers, hires start, wages, loyalty, quit/theft, promotions
 	Microevents.step(self)  # H7: dawn roll, the night thief, cards that time out (default choice)

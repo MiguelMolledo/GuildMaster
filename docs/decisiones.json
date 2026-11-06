@@ -1153,6 +1153,18 @@
       "tema": "Equilibrio 11 · construido",
       "decision": "artisan_novice y los bots de oficio (artisan_trade) miran las horas reales de un encargo de fiesta (due_at − ahora, × 0,6, solo las manos del cabeza); full_player ya no lo reimplementa, solo apunta why_not. El caótico sigue al azar (es su papel). RivalAI no se toca (es del worker de fiestas). Medido: pacing con fiestas y vida pasa de 4 de 5 semillas fuera (mejoras sin abrir; hueco máx. 198 s) a 0 fuera, neto/día del año 1 de 42 a 76; festive: encargos de fiesta fallidos 3 → 0,3, el bot ya no coge los que no llega a hacer.",
       "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H6 · parcelas y construcción: reglas de la parte del jugador y de los NPC",
+      "decision": "Construido en la rama posada (04 §4.9 «Implementado en H6»; data/construction.json [balance]): construir en un solar = coste × situación (×0,8 a ×1,3, ×0,85 extramuros); restaurar una ruina ×0,3 + ×0,5 y la mitad de días; casa 120; reconvertir ×0,4 y 1 día (se pierden las mejoras); derribar devuelve el 40 % y −2 de reputación; comprar a un NPC (coste + mejoras) × mod_relación de 0,8 a 1,5 (no vende por debajo de −40) y el vendedor se queda (≥ +20), monta negocio en otra parcela (≥ −20) o se va. La obra no produce, no paga mantenimiento ni cuenta como negocio. El tope por título cuenta todo menos la taberna (O-V11); la taberna cuenta como negocio para los títulos (Equilibrio 4). La válvula (2 libres por zona) para la IA, no para el jugador. El edificio cabe girado un cuarto. Las parcelas viven en state.parcels (solo los cambios, sin versión de guardado).",
+      "por_que": "Encargo del manager (H6, la parte del jugador y de los NPC); cifras del GDD donde las hay, el resto [balance] con el criterio de 4.9.1 (la ruina es la ganga, lo bien situado lo caro)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H6 · la construcción de la IA, fuera de sim/ai",
+      "decision": "sim/build/construction.gd hace el módulo de construcción de 04c §4.21.6.2 (candidatas: 3 parcelas mejor situadas donde cabe un taller de sus oficios y los edificios en venta de sus oficios; puntuación beneficio × 16 días × expansión / precio ≥ 1; reserva de 4 días de coste fijo; desde el día 9; 8 días de enfriamiento; 1 compra al día en el pueblo). Lo llama Construction.step al amanecer hasta que la agenda de plantillas (sim/ai) lo llame ella (Construction.candidates/choose/order_for) y apague data/construction.json ai.enabled.",
+      "por_que": "El manager: la economía de la IA rival la lleva plantillas en sim/ai; no se toca sim/ai salvo el hueco de construcción que pida su módulo."
     }
   ],
   "pendientes": [
@@ -1353,6 +1365,11 @@
       "tema": "H13 · orden de ataques por dificultad (04c 4.21.10)",
       "detalle": "El oro neto del jugador respeta Fácil > Normal > Difícil, pero los ataques recibidos no siguen Fácil ≤ Normal ≤ Difícil en mediana: en Difícil las familias IA se arruinan antes (venden más barato) y su rivalidad no llega al umbral en dos de las tres semillas. Va con el punto anterior.",
       "opciones": "Revisar tras arreglar la economía de las familias IA."
+    },
+    {
+      "tema": "H6 · los solares de los mapas no admiten talleres ni dejan sitio a la IA",
+      "detalle": "En las seis ciudades el generador (tools/city/plots.py) deja justo 2 parcelas libres de producción y 2 de vivienda (lo que pide la válvula) y casi todas de 2×2, 2×3 o 3×2: un taller (forja, carpintería, albañilería, taberna) es de 3×4 y la casa de 3×3. En town_e solo cabe una sastrería en la ruina de plot_01. Sonda de 60 días (semilla 1): ningún NPC compra parcela, porque la válvula le cierra las dos únicas.",
+      "opciones": "(a) Recomendada: plantillas regenera los mapas con al menos 4-5 parcelas libres de producción por ciudad (2 o más de ≥ 3×4) y 3-4 de vivienda de ≥ 3×3; la IA toma 2-3 y siempre quedan 2. (b) Bajar la válvula a 1 libre por zona. (c) Dejarlo así: la IA solo compra negocios en venta."
     }
   ],
   "proximos_pasos": [

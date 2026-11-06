@@ -415,7 +415,7 @@ hud.debt_caption,Debt,Deuda
 hud.no_debt,No debts,Sin deudas
 hud.debt_days,%d days,%d días
 hud.tree_tip,Family tree (key F),Árbol de la familia (tecla F)
-hud.build_tip,Building mode (key B): arrives with the plots (H6),Modo construcción (tecla B): llega con las parcelas (H6)
+hud.build_tip,"Building mode (key B): the plots of the town, to build, restore, convert or buy","Modo construcción (tecla B): las parcelas del pueblo, para construir, restaurar, reconvertir o comprar"
 hud.build_later,Building arrives with the plots (H6),Construir llega con las parcelas (H6)
 hud.help_key,?,?
 hud.menu,Menu,Menú
@@ -4049,3 +4049,58 @@ ui.trial.rest_waiting,Resting… (on resume),Concluyendo… (al reanudar)
 ui.trial.verdict_waiting,Ruling… (on resume),Dictando… (al reanudar)
 ui.trial.cross_waiting,Questioning… (on resume),Interrogando… (al reanudar)
 ui.order.take_emergency_loan,Take the emergency loan,Pedir el préstamo de urgencia
+hud.build_on,Building mode: click a plot (Esc to leave),Modo construcción: clic en una parcela (Esc para salir)
+hud.build_inside,Leave the building to see the plots,Sal del edificio para ver las parcelas
+hud.buy_business,Buy…,Comprar…
+hud.buy_business_tip,"What its owner asks for it, and whether they will sell",Lo que pide su dueño y si te lo vende
+ui.plots.zone,Zone,Zona
+ui.plots.size,Size,Tamaño
+ui.plots.side,Place,Lugar
+ui.plots.location,Situation,Situación
+ui.plots.zone.production,Workshops,Talleres
+ui.plots.zone.housing,Houses,Viviendas
+ui.plots.zone.rustic,Fields,Rústica
+ui.plots.side.inside,Inside,Dentro
+ui.plots.side.outside,Outside,Extramuros
+ui.plots.location.best,Excellent,Excelente
+ui.plots.location.good,Good,Buena
+ui.plots.location.fair,Fair,Regular
+ui.plots.location.poor,Out of the way,Apartada
+ui.plots.title.lot,A free lot,Un solar libre
+ui.plots.title.ruin,A ruin,Una ruina
+ui.plots.text.lot,"Bare ground with its stakes. Whatever goes up here is paid for whole: the ground and the works, dearer the better placed.","Tierra pelada con sus estacas. Lo que se levante aquí se paga entero, el suelo y la obra; más caro cuanto mejor situado."
+ui.plots.text.ruin,"Walls still standing and the roof fallen in. Bought cheap and restored in half the time, for any trade that fits.","Muros en pie y el techo hundido. Se compra barata y se restaura en la mitad de tiempo, para el oficio que quepa."
+ui.plots.text.own,"Yours. You can pull it down (part of its cost back, its upgrades lost) or turn it into another trade of its size.",Es tuyo. Puedes derribarlo (te devuelven parte de lo que costó y se pierden sus mejoras) o reconvertirlo a otro oficio de su tamaño.
+ui.plots.text.not_for_sale,It belongs to %s and is not for sale.,Es de %s y no está en venta.
+ui.plots.text.business,"It belongs to %s. They would sell it for %d: the better you get on, the cheaper.","Es de %s. Te lo venderían por %d: cuanto mejor os llevéis, más barato."
+ui.plots.nothing_fits.production,No workshop fits on a plot this size.,En una parcela de este tamaño no cabe ningún taller.
+ui.plots.nothing_fits.housing,No house fits on a plot this size.,En una parcela de este tamaño no cabe ninguna casa.
+ui.plots.nothing_fits.rustic,"Farms, mines and sawmills will come here; none can be raised yet.","Aquí irán granjas, minas y aserraderos; todavía no se puede levantar ninguno."
+ui.plots.build,Build %s · %d · %s,Construir %s · %d · %s
+ui.plots.restore,Restore as %s · %d · %s,Restaurar como %s · %d · %s
+ui.plots.works,Under works: %s left.,En obra: quedan %s.
+ui.plots.demolish,Pull down (+%d),Derribar (+%d)
+ui.plots.convert,Turn into %s · %d,Reconvertir en %s · %d
+ui.plots.close,Close,Cerrar
+ui.plots.why.title_limit,Your title allows %d buildings and you have %d: a higher title allows more,Tu título permite %d edificios y ya tienes %d: un título mayor permite más
+ui.plots.label.lot,Lot %s,Solar %s
+ui.plots.label.ruin,Ruin %s,Ruina %s
+ui.plots.label.works,%s (works),%s (en obra)
+reason.title_limit,Your title allows no more buildings,Tu título no permite más edificios
+reason.valve,The town keeps its last free plots,El pueblo guarda sus últimas parcelas libres
+reason.plot_taken,Something already stands there,Ya hay algo en esa parcela
+reason.wrong_type,It does not fit on this plot,No cabe en esta parcela
+reason.only_home,It is your family's only roof,Es el único techo de tu familia
+reason.has_employees,It still has employees,Todavía tiene empleados
+reason.someone_inside,Somebody is inside,Hay alguien dentro
+reason.under_construction,It is still under works,Todavía está en obra
+reason.refuses,Its owner will not sell to you,Su dueño no te lo quiere vender
+reason.same_type,It already is that,Ya es eso
+reason.not_on_plot,It stands on no plot,No está en ninguna parcela
+reason.unknown_plot,There is no such plot,Esa parcela no existe
+reason.own_building,It is already yours,Ya es tuyo
+notice.plots.finished,{building}: the works are finished,{building}: ha terminado la obra
+notice.plots.sold,You sold {building} for {price},Has vendido {building} por {price}
+ui.order.build,Build on a plot,Construir en una parcela
+ui.order.demolish,Pull down a building,Derribar un edificio
+ui.order.convert_building,Convert a building,Reconvertir un edificio

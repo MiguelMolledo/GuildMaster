@@ -226,19 +226,19 @@
     {
       "id": "H6",
       "nombre": "Parcelas y construcción",
-      "estado": "pendiente",
+      "estado": "en_curso",
       "entregable": "Modo construcción, parcelas por tipo, construir/demoler/comprar a NPC, límite por título, competencia NPC y válvula. IA rival: módulos de economía y construcción, quiebra, guerra de precios (4.21).",
       "criterios": [
         {
           "texto": "El jugador abre un segundo negocio",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "flujo data/flows/parcelas.json por la interfaz, con ratón y con teclado (verifica.py --flows=parcelas --both: build, convert_building y demolish por las dos vías): modo construcción, carta de la ruina, restaurarla como sastrería, la obra y el segundo negocio; tests/test_h6_parcelas.gd (test_restoring_a_ruin_with_its_works: Titles.businesses 1 → 2) · capturas docs/novedades/h6_modo.png, h6_carta_ruina.png, h6_obra.png, h6_terminado.png",
+          "fecha": "2026-11-06"
         },
         {
           "texto": "Los NPC compran parcelas sin bloquear al jugador (sim de 60 días ≈ 7,5 años)",
-          "estado": "pendiente",
-          "prueba": null,
+          "estado": "en_curso",
+          "prueba": "Construido el módulo (sim/build/construction.gd) con la válvula y el tope por título (tests/test_h6_ia.gd). Sonda de 60 días en town_e: ningún NPC compra parcela porque los mapas solo traen las 2 libres de la válvula (pendiente en docs/decisiones.json: «H6 · los solares de los mapas…»); queda medirlo con los mapas nuevos.",
           "fecha": null
         },
         {

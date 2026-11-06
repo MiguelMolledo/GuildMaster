@@ -1080,6 +1080,8 @@ static func order_buy_building(sim: Sim, o: Dictionary) -> Dictionary:
 	if not st.characters.has(actor):
 		return Orders.fail("unknown_actor")
 	var b: Dictionary = st.buildings.get(bld, {})
+	if not b.is_empty() and str(b.get("owner", "")) != "" and not bool(b.get("for_sale", false)):
+		return Plots.order_buy_from(sim, o)  # H6: a business of another family (04 §4.9)
 	if b.is_empty() or not bool(b.get("for_sale", false)) or str(b.get("owner", "")) != "":
 		return Orders.fail("not_for_sale")
 	var fam := str(st.characters[actor].get("family", ""))
@@ -1088,6 +1090,8 @@ static func order_buy_building(sim: Sim, o: Dictionary) -> Dictionary:
 	if not Kin.is_adult(sim, actor):
 		return Orders.fail("too_young")
 	var price := sale_price(sim, bld)
+	if not Plots.room_for(sim, fam, str(b.get("type", ""))):
+		return Orders.fail("title_limit")  # H6: the title limit (the tavern does not count, O-V11)
 	if not Money.can_pay(st, fam, price):
 		return Orders.fail("not_enough_gold")
 	Money.change(sim, fam, -price, Money.PROPERTY, "buy_building", bld, actor)

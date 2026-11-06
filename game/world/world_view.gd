@@ -29,6 +29,7 @@ signal manage_requested(building_id: String)  # double click on a building (GDD 
 ## kind "" = the selected person got another order (forget a pending one).
 signal service_requested(actor: String, kind: String, id: String, service: Vector2i)
 signal npc_picked(char_id: String)  # H7: a click on somebody who is not of the player's family (their sheet)
+signal plot_picked(plot_id: String)  # H6: a click on a plot in the building mode (the HUD opens its card)
 
 const BLOCK_HOUSE: String = "house_block"  # a filler house of any lot size but 3x3 (tools/city/organic.py)
 const LANDMARK_SCENE: String = "hito"  # the generic block of a landmark without its own scene
@@ -61,6 +62,8 @@ var _player_family: String = ""
 var plot_layer := PlotLayer.new()  # parcelas (04 §4.9.1): free lots, ruins and the «Se vende» signs
 var zone_layer := ZoneLayer.new()  # H13: the names of the map's zones (data/maps "zones"), at the farthest zoom
 var festival_layer := FestivalLayer.new()  # fiestas (04f 4.25.3): the decoration of the festivals in force
+var build_layer: BuildLayer = null  # H6: the plots in the building mode (04 §4.9)
+var build_mode: bool = false       # H6: the building mode is on (HUD button B)
 var _festive: Dictionary = {}  # the clothes' look in force ({} = everyday)
 var _see_through: Array = []  # tall visuals (buildings, filler houses) that fade while they hide the selected person
 
@@ -177,6 +180,10 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	_add_social_points(c, s.map_id)
 	festival_layer.setup(self)
 	_festive = {}
+	build_layer = BuildLayer.new()
+	build_layer.setup(self, sim, _player_family)
+	overlay().add_child(build_layer)
+	build_layer.set_on(build_mode)
 	_collect_see_through()
 	var ids: Array = s.characters.keys()
 	ids.sort()
@@ -197,6 +204,33 @@ func setup(s: WorldState, c: Catalog, sim_ref: Sim = null) -> void:
 	sync(0.0)
 	ViewConfig.info("WorldView", "setup (map=%s, rows=%d, blocks=%d, buildings=%d, characters=%d, minutes_per_tile=%d)" % [
 		s.map_id, rows.size(), n_blocks, _signs.size(), _views.size(), _minutes_per_tile])
+
+
+## H6: the building mode (04 §4.9): the plots are drawn over the map (BuildLayer) and a click on one is the plot's.
+func set_build_mode(on: bool) -> void:
+	build_mode = on
+	if build_layer != null:
+		build_layer.set_on(on)
+
+
+## H6: what stands in the town changed (a building raised, finished, pulled down, converted, bought): the town is
+## drawn again from the state, keeping the camera, the selection and the building mode.
+func rebuild_town() -> void:
+	if state == null:
+		return
+	var cam := camera()
+	var at: Vector2 = cam.get("_center")
+	var zi := int(cam.zoom_index)
+	var who := selected_id
+	var picked := picked_building
+	setup(state, catalog, sim)
+	cam.zoom_index = zi
+	cam.center_on(at)
+	if who != "" and state.characters.has(who):
+		select(who)
+	if picked != "" and state.buildings.has(picked):
+		pick_building_id(picked)
+	ViewConfig.info("WorldView", "rebuilt (buildings=%d, build_mode=%s)" % [state.buildings.size(), build_mode])
 
 
 ## H7: the social points of the map (data/maps "social_points", GDD 4.11.3): a bench on each seat
@@ -361,6 +395,8 @@ func _apply_looks() -> void:
 			look = "damaged"
 		elif b.get("upgrade_work") is Dictionary and not (b["upgrade_work"] as Dictionary).is_empty():
 			look = "construction"
+		elif str(b.get("state", "")) == "construction":
+			look = "construction"   # H6: a building going up on its plot (Plots) shows its works look
 		var node := {"construction": "LookConstruction", "damaged": "LookDamaged"}.get(look, "") as String
 		var src := v.get_node_or_null(node) as Sprite2D if node != "" else null
 		var tex: Texture2D = src.texture if src != null else spr.get_meta("look_normal")
@@ -954,6 +990,8 @@ func _process(_delta: float) -> void:
 		return
 	sync(_game.step_fraction() if _game != null else 0.0)
 	update_hover(get_viewport().get_mouse_position())
+	if build_mode and build_layer != null:
+		build_layer.set_hovered(build_layer.plot_at(screen_to_tile(get_viewport().get_mouse_position())))
 	zone_layer.update(camera().current_zoom())
 
 
@@ -1391,6 +1429,12 @@ func handle_input(event: InputEvent) -> bool:
 	if state == null or not event is InputEventMouseButton or not event.is_pressed():
 		return false
 	var mb := event as InputEventMouseButton
+	if build_mode and build_layer != null and event.is_action_pressed("select"):
+		var plot := build_layer.plot_at(screen_to_tile(mb.position))  # H6: in the building mode a click is a plot's
+		if plot != "":
+			ViewConfig.info("WorldView", "plot picked %s" % plot)
+			plot_picked.emit(plot)
+			return true
 	if event.is_action_pressed("select"):
 		var who := pick_character(mb.position)
 		if who != "":
@@ -1441,7 +1485,7 @@ func command_target_building(screen: Vector2, ground: bool = false) -> String:
 ## Whether the ground tile under `screen` is a street tile to walk to: walkable, not a door nor a building's own tile.
 func ground_walk(screen: Vector2) -> bool:
 	var tile := screen_to_tile(screen)
-	var grid := Grid.of(catalog, state.map_id) if catalog != null else null
+	var grid := Grid.for_state(catalog, state) if catalog != null else null
 	if grid == null or not grid.walkable(tile.x, tile.y):
 		return false
 	for id: String in state.buildings:

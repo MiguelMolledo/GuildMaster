@@ -440,21 +440,39 @@ static func _set_kin(s: WorldState, catalog: Catalog, chr: String, age: int, cha
 
 static func _add_building(s: WorldState, catalog: Catalog, sites: Dictionary, site: String, owner: String,
 		items: Array) -> String:
-	var id := Ids.next(s, "bld")
 	var m: Dictionary = sites[site]
-	var def: Dictionary = catalog.buildings().get(str(m["type"]), {})
+	var id := make_building(s, catalog, str(m["type"]), m["origin"], m["door"], owner)
+	for it: Dictionary in items:
+		Inventory.add(s.buildings[id]["inventory"], catalog, str(it["item"]), int(it.get("quality", 0)), int(it.get("qty", 0)))
+	return id
+
+
+## H6 (Plots): a building of `type` at `origin` with its door, owned by `owner`; `footprint` [] = the type's. The
+## fields of a new building, the same for the map's sites and for what is built on a plot.
+static func make_building(s: WorldState, catalog: Catalog, type: String, origin: Variant, door: Variant, owner: String,
+		footprint: Array = []) -> String:
+	var id := Ids.next(s, "bld")
+	var f := building_fields(catalog, type)
+	var b := {"id": id, "type": type, "owner": owner, "origin": (origin as Array).duplicate(),
+		"footprint": footprint.duplicate() if footprint.size() == 2 else f["footprint"], "door": (door as Array).duplicate()}
+	for k: String in f:
+		if not b.has(k):
+			b[k] = f[k]
+	s.buildings[id] = b
+	return id
+
+
+## The fields of a fresh building of `type` (no id, owner, origin nor door): stations, an empty store, no upgrades.
+static func building_fields(catalog: Catalog, type: String) -> Dictionary:
+	var def: Dictionary = catalog.buildings().get(type, {})
 	var zones := {}
 	for z: Dictionary in def.get("zones", []):
 		zones[str(z["id"])] = {"occupant": "", "job": null}
-	var inv := Inventory.create("stacks", float(def.get("storage_stacks", 0)))
-	for it: Dictionary in items:
-		Inventory.add(inv, catalog, str(it["item"]), int(it.get("quality", 0)), int(it.get("qty", 0)))
-	s.buildings[id] = {"id": id, "type": str(m["type"]), "owner": owner, "origin": (m["origin"] as Array).duplicate(),
-		"footprint": (def.get("footprint", [1, 1]) as Array).duplicate(), "door": (m["door"] as Array).duplicate(),
-		"state": "normal", "inventory": inv, "zones": zones, "upkeep_debt": 0, "upkeep_unpaid_since": -1,
-		"employee_slots": int(def.get("base_employees", 0)), "queue": {"entries": [], "loop": false, "paused": false},
-		"upgrades": [], "upgrade_work": null, "inspection": Upgrades.new_inspection()}
-	return id
+	return {"footprint": (def.get("footprint", [1, 1]) as Array).duplicate(),
+		"state": "normal", "inventory": Inventory.create("stacks", float(def.get("storage_stacks", 0))), "zones": zones,
+		"upkeep_debt": 0, "upkeep_unpaid_since": -1, "employee_slots": int(def.get("base_employees", 0)),
+		"queue": {"entries": [], "loop": false, "paused": false}, "upgrades": [], "upgrade_work": null,
+		"inspection": Upgrades.new_inspection()}
 
 
 static func _contract_table(catalog: Catalog, profession: String) -> Dictionary:
