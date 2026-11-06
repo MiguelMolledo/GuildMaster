@@ -22,7 +22,8 @@ apagada, data/targets.json _no_life), festive (fiestas: un año con el calendari
 bench_fair (el coste del sim el día de la feria), full y chaos (07 §7.4: el jugador completo y el caótico con todo
 encendido, 1 año y 1 semilla; las corridas largas, de noche con tools/qa/noche.py), full_html (su resumen), inn
 (posada: el bot posadero en innkeeper_start, 5 semillas × 16 días), broke (equilibrio: la forja sin blanca de
-broke_forge sale con el préstamo de urgencia, 3 semillas × 6 días) y ui (los flujos "quick" de data/flows jugados por
+broke_forge sale con el préstamo de urgencia, 3 semillas × 6 días), counter (equilibrio: el mostrador con un
+empleado y la clientela de comarca, 3 semillas × 24 días) y ui (los flujos "quick" de data/flows jugados por
 la interfaz con ratón y teclado, con ventana, cada uno por `grimoire heavy`: 07 §7.6; con --night, todos los flujos y
 el informe en Grimoire). Con
 --visual, además smoke (capturas con ventana, por
@@ -82,6 +83,8 @@ STEPS = [
                  "--seeds=5"]),
     ("broke", G + ["-s", "tools/sim_runner.gd", "--", "--scenario=broke_forge", "--bots=broke", "--days=6",
                    "--seeds=3"]),  # equilibrio (Equilibrio 2): the emergency loan gets a broke forge going again
+    ("counter", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=counter_shop",
+                     "--days=24", "--seeds=3"]),  # equilibrio (Equilibrio 8, 14): the counter and the comarca's clientele
     ("full", G + ["-s", "tools/full_player.gd", "--", "--years=1", "--seed-list=1", "--tag=qa"]),
     ("chaos", G + ["-s", "tools/full_player.gd", "--", "--bot=chaos_player", "--years=1", "--seed-list=1", "--tag=qa"]),
     ("full_html", [sys.executable, "tools/full_report.py", "reports/full_player_qa", "reports/chaos_player_qa"]),
