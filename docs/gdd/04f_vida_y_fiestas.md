@@ -254,6 +254,11 @@ escenarios de las dianas** (`_no_events`), con su carta, su aviso y su entrada e
   almacén.
 - **Los bandidos vienen de algún sitio.** Salen del Nido de la ruta con más riesgo (09b) y la IA del Bandido de
   4.22 los reutilizará. Si la guardia los vence, el Nido queda «escarmentado» y no vuelven en 1 año.
+- **Una pelea ajena no es urgente** (verifica #20, decisión del owner). El aviso «¡Pelea!» es normal: sale y se va
+  solo. Solo es urgente (se queda hasta un clic) si pelea alguien de tu familia o uno de tus empleados, o si es a 3
+  casillas o menos de la puerta de un edificio tuyo (`own_building_tiles`). La carta «Pelea en la calle» caduca con
+  su suceso: a la hora sin respuesta se elige «Mirar», y se retira aunque esperase sitio en la pila. Nunca llega al
+  día siguiente. Medido con guard_watch (3 semillas × 16 días): 24 avisos de pelea, 0 urgentes.
 
 > [!NOTE]
 > **Construido.** **Cambio de sitio:** van en `data/life/incidents.json`, no en `data/events.json` (WorldEvents tira

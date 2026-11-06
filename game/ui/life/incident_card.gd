@@ -3,8 +3,8 @@ extends PageCard
 ## The card of an incident of the player's family (docs/gdd/04f_vida_y_fiestas.md §4.24.5): a sticky «Carta» of the
 ## page kit when an incident asks for a decision (event incident_card): what happens and one button per choice.
 ## A choice gives resolve_incident (a management order: it applies at once, also in pause); «Más tarde» folds it until
-## the next one (the notice stays in the book and the default comes at the timeout). When the incident ends the card
-## closes. Listens to Events itself; reads Incidents and gives orders through the Game autoload.
+## the next one (the notice stays in the book and the default comes at the timeout). When the incident ends or its card
+## times out the card goes, also if it was waiting for room in the stack. Listens to Events itself; reads Incidents and gives orders through the Game autoload.
 
 var shown: Array = []       # the incident ids shown (tests, smoke)
 var incident_id: String = ""
@@ -33,10 +33,12 @@ func follow(sim: Sim, events: Array) -> void:
 		if str(e.get("type", "")) == "incident_card" and str(e.get("family", "")) == fam:
 			_later.erase(str(e.get("incident", "")))
 	var cards := Incidents.cards_for(sim.state, fam)
-	if visible and incident_id != "" and not cards.any(func(i: Dictionary) -> bool: return str(i["id"]) == incident_id):
+	if incident_id != "" and not visible and not is_waiting():
+		incident_id = ""   # closed from outside (a new game, a smoke): nothing of it is left
+	if incident_id != "" and not cards.any(func(i: Dictionary) -> bool: return str(i["id"]) == incident_id):
 		incident_id = ""
-		close()
-	if visible:
+		withdraw()   # verifica #20: also when it was waiting for room in the stack (it showed days later)
+	if visible or incident_id != "":
 		return
 	for i: Dictionary in cards:
 		if not _later.has(str(i["id"])):
