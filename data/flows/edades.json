@@ -1,0 +1,17 @@
+{
+  "id": "edades",
+  "title": "Retratos por edad",
+  "about": "Una persona de cada franja de retrato (escenario family_ages): 0, 8 (con el pelo blanco de su madre en los datos), 12, 16, 45 y 62; cada una con el retrato de su edad y sexo y sin canas antes de tiempo.",
+  "start": {"scenario": "family_ages"},
+  "covers": [],
+  "steps": [
+    {"id": "arbol", "say": "El árbol de la familia", "key": "@family_tree", "expect": ["q.visible('FamilyTreePanel')"]},
+    {"id": "edad_0", "say": "Jordi (0): su retrato en la ficha del árbol", "click": {"within": "FamilyTreePanel", "type": "FamilyTreeNode", "has": "Jordi"}, "expect": ["q.has_text('Jordi')"]},
+    {"id": "edad_8", "say": "Elvira (8): su retrato en la ficha del árbol", "click": {"within": "FamilyTreePanel", "type": "FamilyTreeNode", "has": "Elvira"}, "expect": ["q.has_text('Elvira')"]},
+    {"id": "edad_12", "say": "Clara (12): su retrato en la ficha del árbol", "click": {"within": "FamilyTreePanel", "type": "FamilyTreeNode", "has": "Clara"}, "expect": ["q.has_text('Clara')"]},
+    {"id": "edad_16", "say": "Pere (16): su retrato en la ficha del árbol", "click": {"within": "FamilyTreePanel", "type": "FamilyTreeNode", "has": "Pere"}, "expect": ["q.has_text('Pere')"]},
+    {"id": "edad_45", "say": "Agnès (45): su retrato en la ficha del árbol", "click": {"within": "FamilyTreePanel", "type": "FamilyTreeNode", "has": "Agnès"}, "expect": ["q.has_text('Agnès')"]},
+    {"id": "edad_62", "say": "Hugo (62): su retrato en la ficha del árbol", "click": {"within": "FamilyTreePanel", "type": "FamilyTreeNode", "has": "Hugo"}, "expect": ["q.has_text('Hugo')"]},
+    {"id": "esc", "key": "Escape", "expect": ["not q.visible('FamilyTreePanel')"]}
+  ]
+}

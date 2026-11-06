@@ -441,6 +441,9 @@ func _fill_notices(d: Variant) -> void:
 			refresh(true))
 		filters.add_child(b)
 	(%Content as VBoxContainer).add_child(filters)
+	var game := get_node_or_null("/root/Game") if is_inside_tree() else null
+	for line: String in PausedOrders.lines(game, sim, family):   # verificación E1: the orders that wait for the clock
+		_label(SimQuery.t_("ui.ledger.waiting") % line, Color("#e0c070"))
 	if notice_filter == "urgent":
 		rows = rows.filter(func(n: Dictionary) -> bool: return str(n.get("severity", "")) == "urgent")
 	if rows.is_empty():

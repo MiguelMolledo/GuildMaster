@@ -967,6 +967,18 @@
       "tema": "El juez de la familia preside",
       "decision": "Cuando empieza la vista de un juicio ajeno que preside un juez de la familia del jugador, el juego pausa, abre el juicio con el juez como actor y avisa «Juicio que presides: elige veredicto»; J abre ese juicio mientras dura la vista y, dictado el veredicto, el panel se cierra (docs/ui/mecanicas/tribunal.md §2).",
       "por_que": "La spec lo prometía y no había camino en la interfaz: el juez no podía dictar veredicto (hallazgo de la verificación D)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Órdenes dadas en pantallas que pausan",
+      "decision": "Ninguna orden se aplica en pausa (4.1), pero el jugador ve al momento que la dio. En el mapa de la región, las caravanas y la vista oral, el botón pasa a «… (al reanudar)» y se apaga; la pantalla enseña su tira de cola y el libro la lista como «En espera». Al correr el reloj se aplica y llega su carta: la del concejo para el tratado de la villa (game/ui/paused_orders.gd).",
+      "por_que": "Decisión del manager sobre el hallazgo de la verificación D (el tratado de la villa no respondía con el mapa en pausa)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "El pelo blanco es de la edad",
+      "decision": "El tono de pelo 5 (el blanco, #d8d0c0) se reserva a la edad. Quien lo trae (datos de inicio o de mapas, herencia, partidas viejas) se dibuja con su tono natural (data/view.json portraits.aged_hair: 5 → 9), y las canas salen solo del encanecer por franja. Un retrato guardado que ya no es de la franja de edad o del sexo de la persona deja paso al de su franja ahora.",
+      "por_que": "Decisión del manager: Clara a los 8 salía como una mujer canosa (hallazgo de la verificación D)."
     }
   ],
   "pendientes": [

@@ -112,6 +112,9 @@ static func order_label(state: WorldState, catalog: Catalog, o: Dictionary) -> S
 			if str(o.get("deliver_to", "")) != "":
 				line += " → " + building_label(state, catalog, str(o["deliver_to"]))
 			return line
+		"propose_town_treaty":   # with the city's name (verificación E1: the map's queue strip)
+			return t_("ui.order.propose_town_treaty") % t_(str(RegionView.settlement(str(o.get("city", ""))).get(
+				"name_key", o.get("city", ""))))
 	var key := "ui.order." + t
 	var s := t_(key)
 	if s == key:

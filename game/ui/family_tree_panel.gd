@@ -402,7 +402,8 @@ func _build_sheet() -> void:
 		group_line = SimQuery.t_("ui.family.in_group") % (key + 1)
 	var sp := str(ch.get("spouse", ""))
 	if sp != "":
-		group_line += ("\n" if group_line != "" else "") + SimQuery.t_("ui.family.spouse") % str(st.characters.get(sp, {}).get("name", ""))
+		group_line += ("\n" if group_line != "" else "") + SimQuery.t_("ui.family.spouse_f" if bool(ch.get("female", false)) \
+			else "ui.family.spouse") % str(st.characters.get(sp, {}).get("name", ""))
 	(%SheetGroup as Label).text = group_line
 	(%SheetGroup as Label).visible = group_line != ""
 	var stats := %Stats as GridContainer

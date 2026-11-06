@@ -30,11 +30,18 @@ static func of(state: WorldState, chr: String) -> Dictionary:
 	var pt: Dictionary = vis.get("portrait", {}) if vis.get("portrait") is Dictionary else {}
 	var ptype := str(pt.get("type", "")) if not pt.is_empty() else _type_of(fam)
 	var stg := stage(Clock.age_years(int(ch.get("birth_day", 0)), at, _time()))
-	return {"hair": greyed(hair_color(int(vis.get("hair", 0))), stg), "skin": skin_color(int(vis.get("skin", 0))),
+	return {"hair": greyed(hair_color(natural_hair(int(vis.get("hair", 0)))), stg), "skin": skin_color(int(vis.get("skin", 0))),
 		"primary": ViewConfig.color(str(colors.get("primary", "#808080"))),
 		"secondary": ViewConfig.color(str(colors.get("secondary", "#c0c0c0"))),
 		"female": bool(ch.get("female", false)), "dead": not bool(ch.get("alive", true)),
 		"portrait": {"id": str(pt.get("id", "")), "type": ptype, "stage": stg, "seed": str(chr).get_slice("_", 1).to_int()}}
+
+
+## The hair tone a person is drawn with: a tone the palette keeps for age (data/view.json portraits.aged_hair, the
+## white) becomes its natural one; the white comes from greying, by age band (a girl of 8 never has white hair).
+static func natural_hair(index: int) -> int:
+	var aged: Dictionary = (ViewConfig.value("portraits", {}) as Dictionary).get("aged_hair", {})
+	return int(aged.get(str(index), index))
 
 
 ## The hair with the grey of its age band (data/view.json portraits.greying: the art paints no grey hair).
@@ -57,8 +64,14 @@ static func portrait_texture(id: Dictionary, size: int = 32) -> Texture2D:
 	var pt: Dictionary = id.get("portrait", {}) if id.get("portrait") is Dictionary else {}
 	if pt.is_empty():
 		return null
-	if str(pt.get("id", "")) != "":
-		return VisualPaths.portrait_file(str(pt["id"]), size)
+	var sex := "f" if bool(id.get("female", false)) else "m"
+	var keep := str(pt.get("id", ""))
+	if keep != "":   # the id it keeps, while it is of its sex and of its age band now (it changes at the year change)
+		var e: Dictionary = (VisualPaths.portrait_index().get("_ids", {}) as Dictionary).get(keep, {})
+		if e.is_empty() or (str(e.get("sex", "")) == sex and str(e.get("age", "")) == str(pt.get("stage", "adult"))):
+			return VisualPaths.portrait_file(keep, size)
+		if OS.is_debug_build():
+			print("[Identity] retrato %s no es de %s/%s: el de su franja (verificación E2)" % [keep, sex, pt.get("stage", "")])
 	return VisualPaths.portrait(str(pt.get("type", "commoner")), str(pt.get("stage", "adult")),
 		bool(id.get("female", false)), int(pt.get("seed", 0)), size)
 
