@@ -5,7 +5,8 @@ extends Node
 ## plaza with its decoration (fiesta_<id>_vista) and its card (fiesta_<id>_carta). Then a rich wedding of the rival
 ## family: the crier's card and the board with the bride's dress and the groom's sword (fiesta_boda_tablon). Orders only
 ## through the UI paths. Last, the player's wedding offer without the gold of the banquet (the button off, with its
-## reason: fiesta_boda_sin_oro). Quits when done, or after `timeout` seconds.
+## reason: fiesta_boda_sin_oro), and the clock's festival button and the card it opens again (fiesta_boton_reloj,
+## fiesta_carta_reabierta). Quits when done, or after `timeout` seconds.
 
 const DAY: int = 1440
 const PLAZA: Vector2i = Vector2i(19, 19)
@@ -242,5 +243,20 @@ func _process(delta: float) -> void:
 		"wedding_offer":
 			if _t > 0.5:
 				app.save_shot("fiesta_boda_sin_oro")
+				app.get_node("CardsLayer/EventCard").call("close")
+				Game.sim.state.families[SimQuery.player_family(Game.sim.state)]["gold"] = 120
+				_force("tournament")  # the clock's button: the feast in force, its card again with its games
+				var hud: Node = app.hud()
+				hud.set("_last_minute", -1)
+				hud.call("_refresh")
+				_go("clock_button")
+		"clock_button":
+			if _t > 0.6:
+				app.save_shot("fiesta_boton_reloj")
+				(app.hud().get_node("%FestivalButton") as Button).pressed.emit()
+				_go("reopened")
+		"reopened":
+			if _t > 0.6:
+				app.save_shot("fiesta_carta_reabierta")
 				_go("done")
 				get_tree().quit()

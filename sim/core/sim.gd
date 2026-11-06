@@ -51,6 +51,7 @@ func step(orders: Array = []) -> Array:
 	Routines.step(self)     # employees: home -> work at dawn, work -> home at dusk (real orders, Sim.give)
 	TownLife.step(self)     # H7: the townsfolk's day (trade, breaks, market, dusk activities, home at night)
 	Life.step(self)         # vida (04f 4.24): visitors, incidents, the watch, rumours (data/life/life.json enabled)
+	Households.step(self)   # Equilibrio 15: the houses' wages at dusk and food at dawn; the employees' and children's meals
 	Counter.step(self)      # H7: customers at the shop counters
 	Schedules.step(self)    # H8: the family's routines and the Work directive (real orders, Sim.give)
 	WorkQueue.step(self)    # hands the queue's next unit to each free employee at its station (work_at)
@@ -64,12 +65,16 @@ func step(orders: Array = []) -> Array:
 	Upkeep.step(self)       # daily upkeep at dawn (D12, D15)
 	Inspections.step(self)  # at dawn: Secrets inspections (fines), after wages and upkeep
 	Loans.step(self)        # debt warnings, due date, extension, seizure, ruin
+	Emergency.step(self)    # Equilibrio 2: the emergency loan of a family with nothing left; seizure for upkeep debt
+	Pecha.step(self)        # Equilibrio 5: at year_changed, the yearly tax on wealth by brackets
 	Births.step(self)       # H8: at dawn, children of the married couples
 	Emotions.step(self)     # H7: every hour, emotions that faded end
 	Needs.step(self)        # H14: needs by the hour (family adults), events of the step, notices
 	Offices.step(self)      # H10: the government, deaths free seats, elections at the year change, salaries and taxes
 	Tribunal.step(self)     # H11: automatic trials after inspections, preparation -> hearing -> verdict, banishments
+	Hostility.step(self)    # H13 (04c): rivalry and the rival families' attacks, on the maps of data/ai.json only
 	Reputation.step(self)   # H9: reputation from the events of the step (trade, wages, townsfolk); passive at dawn
+	WorkshopFame.step(self) # Equilibrio 13: the workshops' fame from the events of the step; its decay at dawn
 	Dynasty.step(self)      # H8: at dawn, wealth peaks and dynasty goals (chronicle)
 	Objectives.step(self)   # reads the events of the step: after every system that emits
 	Unlocks.step(self)      # 03b §3b.4: the unlocks of the human families (state, events, notices; no rules, no rng)

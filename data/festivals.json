@@ -808,6 +808,10 @@
           "what": "masks"
         },
         {
+          "hour": 19,
+          "what": "sortija"
+        },
+        {
           "hour": 20,
           "what": "the_rooster"
         },
@@ -817,6 +821,11 @@
         }
       ],
       "effects": [
+        {
+          "kind": "spectacle",
+          "id": "sortija",
+          "hour": 19
+        },
         {
           "kind": "service",
           "id": "tavern",
@@ -1116,6 +1125,10 @@
           "what": "joust"
         },
         {
+          "hour": 12,
+          "what": "sortija"
+        },
+        {
           "hour": 14,
           "what": "fight_tournament"
         },
@@ -1134,6 +1147,11 @@
           "kind": "spectacle",
           "id": "fight_tournament",
           "hour": 14
+        },
+        {
+          "kind": "spectacle",
+          "id": "sortija",
+          "hour": 12
         },
         {
           "kind": "customers",

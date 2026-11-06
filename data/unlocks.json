@@ -122,7 +122,7 @@
       },
       "window": [
         2,
-        2
+        3
       ],
       "mark": "",
       "ui": [],
@@ -136,8 +136,11 @@
       "name_key": "unlock.upgrades",
       "desc_key": "unlock.upgrades.desc",
       "trigger": {
-        "kind": "gold",
-        "min": 300
+        "kind": "any",
+        "of": [
+          {"kind": "gold", "min": 300},
+          {"kind": "all", "of": [{"kind": "event", "event": "loan_repaid", "count": 1}, {"kind": "calendar", "day": 3}]}
+        ]
       },
       "window": [
         3,
@@ -334,8 +337,8 @@
       "name_key": "unlock.offices",
       "desc_key": "unlock.offices.desc",
       "trigger": {
-        "kind": "title",
-        "min": "patrician"
+        "kind": "all",
+        "of": [{"kind": "title", "min": "citizen"}, {"kind": "calendar", "day": 16}]
       },
       "window": [
         16,

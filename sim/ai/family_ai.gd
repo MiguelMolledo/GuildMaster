@@ -33,10 +33,12 @@ static func _family(sim: Sim, fam: String) -> Array:
 	var home := Kin.residence(sim, fam)
 	for m: Variant in f.get("members", []):
 		var id := str(m)
-		if id == h or not Kin.alive(st, id) or not Kin.is_adult(sim, id) or home == "":
+		if id == h or home == "" or not Kin.alive(st, id):
 			continue
 		var ch: Dictionary = st.characters[id]
-		if str(ch.get("location", "")) != home and OrderQueue.is_free(sim, id) and not OrderQueue.has_pending(sim, id):
+		if str(ch.get("location", "")) == home or not Kin.is_adult(sim, id):
+			continue  # at home (the cheap check first; the age only for who is out)
+		if OrderQueue.is_free(sim, id) and not OrderQueue.has_pending(sim, id):
 			if str(ch.get("location", "")) != "":
 				out.append({"type": "exit_building", "actor": id})
 			out.append({"type": "enter_building", "actor": id, "building": home})

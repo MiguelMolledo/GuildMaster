@@ -1,0 +1,35 @@
+{
+  "_doc": "H13 (04c 4.21.7-4.21.9) [balance]: las cifras globales de la IA de las familias rivales que no dependen del perfil. hostility_maps: los mapas donde corren la rivalidad y los ataques (sim/ai/hostility.gd); en los demás (Vilarrasa y sus dianas) la IA es la de siempre. rivalry: cuánto sube y baja la rivalidad dirigida (4.21.8.1). attack: la puerta de ataque y la elección (4.21.8.2, 4.21.5). price_war, sabotage: los ataques de la lista cerrada que existen en este hito (4.21.9.1); el juicio usa accuse_rule del perfil. Las palancas de dificultad van en el bloque ai de data/difficulty.json (4.21.10).",
+  "hostility_maps": ["region_capital"],
+  "rivalry": {
+    "max": 100,
+    "market_days": 3,
+    "market_share": 0.4,
+    "market_rise": 1,
+    "decay": 1,
+    "relation_low": -30,
+    "relation_low_rise": 1,
+    "relation_high": 30,
+    "relation_high_drop": 1,
+    "attack_rise": 30,
+    "trial_rise": 15,
+    "bands": [20, 40, 60, 80]
+  },
+  "attack": {
+    "first_days": 8,
+    "u_min": 0.2,
+    "stagger_minutes": 3,
+    "targets": 2
+  },
+  "price_war": {
+    "presage_minutes": 720,
+    "season_days": 2,
+    "min_demand": 0.5
+  },
+  "sabotage": {
+    "repair_days": 2,
+    "security_cut": [0.2, 0.4, 0.6],
+    "detect": 0.35,
+    "charge": "brawl"
+  }
+}

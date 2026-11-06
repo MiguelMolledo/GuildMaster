@@ -164,8 +164,10 @@ func _row(c: Dictionary, gift: Dictionary, min_aff: int, max_aff: int) -> Contro
 	line.add_child(_button("Talk", SimQuery.t_("ui.court.talk_short"), can and not talked_today(id),
 		"already_today" if talked_today(id) else status,
 		func() -> void: act(id, {"type": "court_talk"})))
-	line.add_child(_button("Gift", SimQuery.t_("ui.court.gift"), can and not gift.is_empty(),
-		status if not gift.is_empty() else "not_enough", func() -> void: request_gift(id)))
+	var gifted := Courtship.gifted_today(sim.state, actor, id)  # Equilibrio 1: the next gift today does not count
+	line.add_child(_button("Gift", SimQuery.t_("ui.court.gift_done") if gifted else SimQuery.t_("ui.court.gift"),
+		can and not gift.is_empty(), ("gifted_today" if gifted else status) if not gift.is_empty() else "not_enough",
+		func() -> void: request_gift(id)))
 	line.add_child(_button("Propose", SimQuery.t_("ui.court.propose_short"), can and aff >= min_aff,
 		status if aff >= min_aff else "low_affinity", func() -> void: request_propose(id)))
 	col.add_child(line)
@@ -195,8 +197,11 @@ static func status_line_for(sim: Sim, actor: String, c: Dictionary, min_aff: int
 		return [SimQuery.t_("ui.court.blocked") % [SimQuery.t_(name_k).to_lower(), SocialKit.duration_text(left)], "ReasonLabel"]
 	if int(c["affinity"]) >= min_aff and status in ["", "too_far"]:
 		return [SimQuery.t_("ui.court.ready"), "PositiveLabel"]
+	var gifted := Courtship.gifted_today(sim.state, actor, id)
 	if talked(sim, actor, id):
-		return [SimQuery.t_("ui.court.talked"), "DimLabel"]
+		return [SimQuery.t_("ui.court.talked_gifted" if gifted else "ui.court.talked"), "DimLabel"]
+	if gifted:
+		return [SimQuery.t_("ui.court.gifted"), "DimLabel"]
 	if status == "too_far":
 		var loc := str(sim.state.characters.get(id, {}).get("location", ""))
 		if loc != "" and sim.state.buildings.has(loc):
@@ -294,10 +299,14 @@ func request_gift(target: String) -> void:
 		return
 	var o := {"type": "court_gift", "item": str(g["item"]), "quality": int(g["quality"])}
 	var value := Market.price(sim, str(g["item"]), int(g["quality"]), "sell")
+	var who := str(sim.state.characters.get(target, {}).get("name", ""))
+	if Courtship.gifted_today(sim.state, actor, target):  # Equilibrio 1: says it before giving it away
+		SocialKit.ask(self, SimQuery.t_("ui.court.gift_again_q") % who, SimQuery.t_("ui.court.gift_again_body"),
+			SimQuery.t_("ui.court.gift_anyway"), func() -> void: act(target, o))
+		return
 	if value >= int(sim.catalog.town.get("actions", {}).get("gift", {}).get("grateful_min_value", 50)):
 		SocialKit.ask(self, SimQuery.t_("ui.npc.ask_gift") % [SimQuery.item_label(sim.catalog, str(g["item"]),
-			int(g["quality"])), value, str(sim.state.characters.get(target, {}).get("name", ""))], "",
-			SimQuery.t_("npc_action.gift"), func() -> void: act(target, o))
+			int(g["quality"])), value, who], "", SimQuery.t_("npc_action.gift"), func() -> void: act(target, o))
 		return
 	act(target, o)
 

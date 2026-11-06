@@ -112,6 +112,9 @@ static func order_label(state: WorldState, catalog: Catalog, o: Dictionary) -> S
 			if str(o.get("deliver_to", "")) != "":
 				line += " → " + building_label(state, catalog, str(o["deliver_to"]))
 			return line
+		"propose_town_treaty":   # with the city's name (verificación E1: the map's queue strip)
+			return t_("ui.order.propose_town_treaty") % t_(str(RegionView.settlement(str(o.get("city", ""))).get(
+				"name_key", o.get("city", ""))))
 	var key := "ui.order." + t
 	var s := t_(key)
 	if s == key:
@@ -330,6 +333,30 @@ static func city_feast_soon(sim: Sim, city: String, days: int = 1) -> String:
 ## Fiestas (4.25): the name of a festival id («Los Mayos y el Corpus»).
 static func festival_name(id: String) -> String:
 	return t_("festival." + id)
+
+
+## Fiestas (4.25.3, «la carta de la fiesta»): the feast the HUD shows next to the clock, so its card opens at any time
+## (sponsor, enter a game, bet, the court, its contracts): the one in force (the first), else the next announced one.
+## {} if none. {event (what the card reads: festival_started | festival_eve), text («La feria, hoy»), short (the
+## clock's room: «Fiesta» on its day, «Pregón» before), tip}.
+static func festival_now(sim: Sim) -> Dictionary:
+	var inst: Dictionary = {}
+	var type := "festival_started"
+	if not Festivals.active(sim).is_empty():
+		inst = Festivals.active(sim)[0]
+	elif not Festivals.announced(sim).is_empty():
+		inst = Festivals.announced(sim)[0]
+		type = "festival_eve"
+	if inst.is_empty():
+		return {}
+	var name := festival_name(str(inst["def"]))
+	var days := int(inst["day"]) - Clock.day(int(sim.state.clock["minute"]))
+	var when := t_("hud.festival_today") if days <= 0 else (t_("hud.festival_tomorrow") if days == 1 \
+		else t_("hud.festival_in_days") % days)
+	return {"event": {"type": type, "id": str(inst["id"]), "def": str(inst["def"]), "day": int(inst["day"]),
+		"start": int(inst["start"]), "end": int(inst["end"])}, "text": "%s, %s" % [name, when],
+		"short": t_("hud.festival_short_today") if days <= 0 else t_("hud.festival_short_eve"),
+		"tip": t_("hud.festival_tip") % [name, when]}
 
 
 static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> String:

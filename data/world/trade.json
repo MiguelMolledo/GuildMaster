@@ -10,18 +10,20 @@
   },
   "city_market": {
     "_doc": "The market of a settlement away from home (9b.5): price = base_price × quality × demand_city × season × the regional events (home's season-scope events in force) × the city's own local events × mod_city (its «cheap» / «dear» in region.json, by item or goods group, multiplied) × buy_price_mult of the difficulty (buying) or sell_ratio (selling). The demand of each city moves like home's (data/market.json demand: drop_per_unit for each unit sold there, recover_per_day at dawn towards rest). The city's tariff (region.json) is taken from what an outsider sells there, unless an exemption treaty covers the family. What it trades: every item with a market_stall.",
-    "use_home_demand_rules": true
+    "use_home_demand_rules": true,
+    "_quality_premium_doc": "Equilibrio 7 (docs/decisiones.json): by settlement kind, what a sale pays more per step of quality (good 1, excellent 2): price × (1 + premium × quality). The capital prizes good work.",
+    "quality_premium": {"capital": 0.3}
   },
   "reputation": {
-    "_doc": "Reputation of each family in each settlement away from home (O-R7 a), in [min, max], 0 at first. Home's reputation (4.10.5) never moves with it. sale: what each sale_units units sold there give (counted across sales).",
+    "_doc": "Reputation of each family in each settlement away from home (O-R7 a), in [min, max], 0 at first. Home's reputation (4.10.5) never moves with it. sale: what each sale_units units sold there give (counted across sales). Equilibrio 7 (2026-11-05): 1 per unit (was 1 per 2) and 5 per contract done (was 3), so the trips and the contracts there build the reputation a treaty asks, not only the caravans.",
     "min": -100,
     "max": 100,
-    "contract_done": 3,
+    "contract_done": 5,
     "contract_failed": -2,
     "treaty_kept": 2,
     "treaty_broken": -10,
     "sale": 1,
-    "sale_units": 2
+    "sale_units": 1
   },
   "board": {
     "_doc": "Contracts of the cities (9b.5, «encargos de fuera»): at dawn each city may post one (chance) while it has fewer than max_open; the item is one of its «dear» items (or of its dear goods groups), qty in [qty_min, qty_max], the reward = base_price × qty × reward_mult, due in days_min..days_max days. Accepting needs to be there (or a caravan heading there); delivering, the goods there (the traveller or a caravan). Rolls keyed by city and day.",

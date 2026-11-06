@@ -1,0 +1,12 @@
+{
+ "punto": "Equilibrio 1 (un regalo al día) y 10 (cortejar a diario)",
+ "antes": {
+  "full_wedding_day": 18.0
+ },
+ "despues": {
+  "full_wedding_day": 17.0,
+  "net_year_1_sin_metas": 31.57,
+  "net_year_1_con_metas": 33.88
+ },
+ "nota": "full_player ya daba un regalo por visita; con el tope no cambia. El coste del cortejo en el año 1 (86 -> 57 antes de que full_player lo retrasara) ya no se ve: 31,6 sin metas frente a 33,9 con ellas (4 semillas, 1 año)."
+}

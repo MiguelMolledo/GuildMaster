@@ -262,3 +262,19 @@ el sim no las lee, la vista pone sus nombres con el zoom más lejano):
 región; se queda en 80 porque es la población aprobada para el bench (dianas relativas a Vilarrasa, 2026-11-05).
 
 **Para H12.3 (salud de 4.22):** el asalto en el camino hiere al viajero (o al carretero) además de llevarse la carga.
+
+### 9b.11 Equilibrio 7 (rama equilibrio, 2026-11-05)
+
+El jugador completo nunca mandaba caravanas ni firmaba tratados en 3 años: Ciudadano llegaba tarde (Equilibrio 3), la
+villa compraba todas sus espadas y la reputación de fuera casi solo subía con las caravanas. Cambios [balance]:
+
+- **Prima de calidad en la capital:** cada escalón de calidad paga un 30 % más allí (`data/world/trade.json`
+  `city_market.quality_premium`, por tipo de asentamiento): una espada excelente vale ×1,6 sobre la de la villa con
+  la misma demanda. Lo bien forjado (Forja viva, obras maestras) tiene adónde ir.
+- **Reputación de fuera por lo que haces allí:** +1 por **cada unidad** vendida allí (antes, una de cada dos), por el
+  viajero o por una caravana, y +5 por encargo cumplido allí (antes 3). La cuota (5) sale de un viaje con 3-5 piezas.
+- **Caravanas para la cuota** (jugador completo): las caravanas seguían a 0 porque solo salían con espadas que la villa
+  no quería, y la villa se las lleva todas. No es el lote (4 espadas, 6 pilas de carro): con una cuota firmada, servirla
+  es la decisión razonable (1,2 × precio base sin arancel, frente a ~0,7 × demanda en la plaza). Medido (3 años × 4
+  semillas): caravanas 0 → 1,5 de mediana (0-5), ventas en la capital 296-599 → 438-2.259 de oro, cuotas rotas 3/4 → 1/4,
+  neto del año 2 24 → 39 al día, oro final igual (990 → 957).

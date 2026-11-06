@@ -105,6 +105,24 @@ evento(a)   = lo que pida la fiesta del día (la procesión ×5, el baile ×3, e
 > apagada (`_no_life`, principio 4) y salen idénticas. Coste medido: 1,73 ms por paso en el bench (1,37 sin la vida,
 > con la máquina cargada; diana < 2 ms).
 
+> [!NOTE]
+> **Equilibrio (rama equilibrio, 2026-11-05): hambre, diversión y forasteros con todo encendido.** El jugador completo
+> vio que los empleados de una familia y los niños nacidos en la partida no comían (65-88 % de sus horas con hambre
+> < 25: su rutina de H4 no pasa por la agenda) y que la diversión media del pueblo era 16-19/100.
+> - **Comen de la bolsa de su casa** (Equilibrio 15, `sim/balance/households.gd`, 04g §4.6.5.7): al alba la casa paga
+>   la comida y, con lo que pudo pagar, sus empleados y niños reciben la noche en casa (`needs.night`, el hambre × lo
+>   pagado) y a las 13:00 la comida del mediodía (el empleado en su descanso, el niño en casa). Medido (full_player,
+>   3 años × 4 semillas): empleados con hambre 65-82 % → 0 % de las horas; niños, 0-88 % → 0 %.
+> - **Diversión: banda sana propuesta 35-65 de media.** Por qué: baja 1 por hora (24 al día), así que una media de 35-65
+>   es la de quien tiene un rato de ocio al día; por debajo de 25 (urgencia ≥ 0,56) el ocio manda en todas las tardes
+>   y todos buscan dados o taberna, y por encima de 70 la taberna y los espectáculos se quedan sin público. La causa
+>   del 16-19: en town_e la taberna está en venta (cerrada) casi toda la partida y el resto de ocio es de fiesta. Se
+>   añade la **velada en casa** (`needs.night.fun` 10, `data/life/life.json`): medido, la media pasa a 37 y el peor
+>   vecino con diversión baja pasa del 85 % al 57 % de las horas.
+> - **Forasteros:** 4,5-5,8 de media al día con las fiestas, pero la mediana de los días es 4 (mínimo 2): los días
+>   normales están en el 2-4 de 4.24.3 y la media la suben los de fiesta (×3) y la feria (×5, hasta 20). No se toca el
+>   ritmo de llegadas; la diana de full_player sigue en [2, 6] de media.
+
 #### 4.24.2 Puntos de reunión y rumores
 
 **Puntos de reunión** (`social_points` del mapa, con un `kind` nuevo), donde se forman corrillos de 2 a 5:
@@ -448,6 +466,13 @@ Lo que cambió al construirlo, y por qué (también en `docs/decisiones.json`):
   cabe ninguno, todo el ganado va a puestos (`fair_cattle_stalls`). Las parcelas libres y las ruinas (04 §4.9.1)
   guardan su suelo; plantillas deja sitio para un corral 3×3 junto a una puerta en cada ciudad. En `town_e`
   (Vilarrasa) caben los dos; en `region_hamlet` (Vilablat), uno, y el resto de su ganado va a un puesto.
+- **La carta de la fiesta, siempre a mano** (2026-11-06, auditoría de H16): la carta se cerraba sola a los 12-24 s y
+  no había otro camino hasta ella. Ahora el reloj del HUD lleva un botón, «Pregón» con la fiesta anunciada y «Fiesta»
+  el día (el nombre y cuándo, en su tooltip), y pulsarlo, o pulsar un aviso de la fiesta, abre la carta otra vez sin
+  cerrarse sola: patrocinar y pujar, inscribirse y apostar, el regalo, la audiencia, el concurso y lo que cambia. Los
+  botones «Inscribirse» dicen por qué están apagados (título, entrada, ya inscrito, apostaste), con las reglas de
+  `game_enter`. La **sortija** se corre en Carnaval (19:00) y en el torneo (12:00), junto a la justa: es la de los que
+  no tienen título (entrada 5).
 - **Enganchado con vida** (2026-11-04, tras juntar su rama): `Life.event_mult` multiplica por la fiesta (`routine`
   e `incident` a su hora; `visitors` con las fiestas de todo el día, porque vida planea los forasteros al empezarlo),
   `Life.holy_day` cuenta la mañana de guardar y `Life.festival` cualquier fiesta del calendario (el guardia de la
@@ -544,7 +569,7 @@ Se juegan en las fiestas, en la taberna o donde el evento lo pida.
     anilla: prudente en la pequeña, firme en la mediana, galope en la grande. La pantalla dice los puntos esperados de
     cada ritmo.
 - Es la justa de los que no tienen título: cualquiera con caballo (hoy, alquilado al entrar: 5 de oro). Premio 20 y
-  reputación +3 [balance].
+  reputación +3 [balance]. Se corre en Carnaval (19:00) y en el torneo (12:00) (fiestas, 2026-11-06).
 - **Medido** (`tools/games_bench.gd`, 3.000 por fila, contra tres jinetes de Destreza 3-5):
 
 | Sortija (Destreza 4) | Gana | Puntos | Anillas |
@@ -951,6 +976,14 @@ Lo que precisa o cambia respecto a lo de arriba (apuntado en `docs/decisiones.js
 
 **Medido** (bot `innkeeper`, `innkeeper_start`, Normal, 16 días, 10 semillas, con eventos globales): ver la diana
 `innkeeper` de `data/targets.json`.
+
+**Equilibrio (2026-11-05, decisión del owner).** Con la bolsa de los hogares (Equilibrio 15) entran 6,1 vecinos por
+noche y la comarca baja de [4, 8] a [3, 6]. La fama subía el tope cada noche (16 × 0,25 = 4,0 en todas las semillas):
+contaba como «contento» a cualquiera atendido sin esperar. Para la fama, «no esperó» pesa ahora 0,5 en vez de 0,6
+(`data/inn/inn.json` `fame.wait_share`): cuenta la satisfacción de verdad (calidad y ambiente), no solo la ausencia de
+queja; las propinas y la relación no cambian. La banda de `inn_fame` pasa a [1,5, 4,0] con la condición
+`inn_fame3_day` [8, null]: los nobles (fama 3) no llegan antes del año 2. Medido (5 semillas): fama 4,0 → 3,61
+(3,15-3,96) y fama 3 el día 11 → los días 12-15.
 
 ### 4.28 Lo que hace falta para construirlo
 

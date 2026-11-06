@@ -291,6 +291,11 @@ func test_the_tavern_seats_below_and_beds_upstairs() -> void:
 			glow = true
 		stack.append_array(n.get_children())
 	check(glow, "the hall's brazier has its firelight")
+	var table := inn.get("_table_pos") as Vector2
+	var gdef: Dictionary = InteriorDefs.def_of(str(v.room().get_meta("interior_def")))["stations"]["gaming_table"]
+	var gtile := Vector2i(int(gdef["tile"][0]), int(gdef["tile"][1]))
+	check(table.distance_to(Iso.tile_to_world(gtile)) < 1.0,
+		"the inn's gaming table is where the data puts it (a click there opens the Mesa tab)")
 	var bar := v.station_view("bar")
 	check(bar != null and bar.find_child("Prop", true, false) != null, "the bar is a library piece (the long bar)")
 	var s := _stage(v)

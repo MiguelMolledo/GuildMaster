@@ -198,7 +198,7 @@ func test_a_city_contract_is_taken_and_delivered_there() -> void:
 	var g := Money.gold(st, fam)
 	check(bool(Orders.apply(sim, {"type": "city_deliver", "actor": hero, "contract": "rct_9001"})["ok"]), "delivered")
 	eq(Money.gold(st, fam), g + 50, "paid")
-	eq(Region.reputation(sim, "hamlet", fam), 3, "reputation there +3")
+	eq(Region.reputation(sim, "hamlet", fam), int(sim.catalog.trade["reputation"]["contract_done"]), "reputation there +contract_done (5 since Equilibrio 7)")
 
 
 func test_a_duel_and_a_trip_exclude_each_other() -> void:

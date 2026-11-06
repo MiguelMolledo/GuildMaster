@@ -70,7 +70,10 @@ func refresh(force: bool = false) -> void:
 		close()
 		return
 	var t: Dictionary = v["trial"]
-	var sig := "%s|%s|%s|%s|%d" % [actor, t["status"], v["scale"], v["witnesses"], int(v["minutes_left"]) / 60]
+	var game := get_node_or_null("/root/Game") if is_inside_tree() else null
+	var waiting := PausedOrders.lines(game, sim, str(sim.state.characters.get(actor, {}).get("family", "")))
+	var sig := "%s|%s|%s|%s|%d|%s" % [actor, t["status"], v["scale"], v["witnesses"], int(v["minutes_left"]) / 60,
+		waiting]
 	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
@@ -110,12 +113,31 @@ func refresh(force: bool = false) -> void:
 	_fill_steps(v, hearing)
 	var rest := %RestButton as Button
 	rest.visible = hearing
+	rest.text = SimQuery.t_("ui.trial.rest")
 	rest.disabled = str(v["rest_reason"]) != ""
 	rest.tooltip_text = SimQuery.reason_text(str(v["rest_reason"])) if rest.disabled else SimQuery.t_("ui.trial.rest_tip")
+	if PausedOrders.waiting(game, "trial_rest", {"trial": trial_id}):   # the hearing pauses: it is done on resume
+		rest.text = SimQuery.t_("ui.trial.rest_waiting")
+		rest.disabled = true
+		rest.tooltip_text = SimQuery.t_("ui.paused_orders.tip")
 	var judge := str(v["verdict_reason"]) == ""
 	(%JudgeRow as Control).visible = hearing and judge
-	(%Hint as Label).text = SimQuery.t_("ui.trial.hint_hearing" if hearing else "ui.trial.hint_prep")
-	reset_size()
+	for pair: Array in [["GuiltyButton", "guilty"], ["InnocentButton", "innocent"]]:
+		var vb := get_node("%" + str(pair[0])) as Button
+		vb.text = SimQuery.t_("ui.trial." + str(pair[1]))
+		vb.disabled = false
+		vb.tooltip_text = ""
+		if PausedOrders.waiting(game, "trial_verdict", {"trial": trial_id}):
+			vb.disabled = true
+			vb.tooltip_text = SimQuery.t_("ui.paused_orders.tip")
+			if PausedOrders.waiting(game, "trial_verdict", {"trial": trial_id, "verdict": str(pair[1])}):
+				vb.text = SimQuery.t_("ui.trial.verdict_waiting")
+	(%Hint as Label).text = SimQuery.t_("ui.paused_orders.strip") % "   ".join(waiting) if not waiting.is_empty() \
+		else SimQuery.t_("ui.trial.hint_hearing" if hearing else "ui.trial.hint_prep")
+	if get_parent() is Container:   # in the HUD's modal zone: its container gives the size (reset_size would shrink it)
+		(get_parent() as Container).queue_sort()
+	else:
+		reset_size()
 
 
 ## The scale as in the mockup: green for the defense to the left of the middle, red for the accusation to the right,
@@ -258,9 +280,15 @@ func _fill_witnesses(v: Dictionary, hearing: bool) -> void:
 		row.add_child(d)
 		if hearing:
 			if disp == "against":
-				row.add_child(_button("Cross", SimQuery.t_("ui.trial.cross") % SimQuery.t_("ui.trial.band_" + str(
+				var cb := _button("Cross", SimQuery.t_("ui.trial.cross") % SimQuery.t_("ui.trial.band_" + str(
 					w["bands"].get("cross", "doubtful"))), str(w["cross_reason"]),
-					{"type": "trial_cross", "actor": actor, "trial": trial_id, "witness": str(w["character"])}, false))
+					{"type": "trial_cross", "actor": actor, "trial": trial_id, "witness": str(w["character"])}, false)
+				var game := get_node_or_null("/root/Game") if is_inside_tree() else null
+				if PausedOrders.waiting(game, "trial_cross", {"trial": trial_id, "witness": str(w["character"])}):   # the hearing pauses: it is done on resume
+					cb.text = SimQuery.t_("ui.trial.cross_waiting")
+					cb.disabled = true
+					cb.tooltip_text = SimQuery.t_("ui.paused_orders.tip")
+				row.add_child(cb)
 		else:
 			for k: String in ["convince", "bribe", "threaten"]:
 				var text := SimQuery.t_("ui.trial.act_" + k)

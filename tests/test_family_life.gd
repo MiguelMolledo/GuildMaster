@@ -157,13 +157,14 @@ func test_designate_heir() -> void:
 	check(Kin.alive(st, son), "the brother keeps his things (alive)")
 
 
-func test_close_dynasty_is_off() -> void:
+func test_close_dynasty_by_data() -> void:
 	var sim := _sim("founder_old")
-	eq(Orders.apply(sim, {"type": "close_dynasty", "actor": HERO})["reason"], "disabled", "D19 pending: off")
-	sim.catalog.family["succession"]["voluntary_close"] = true
-	eq(Orders.apply(sim, {"type": "close_dynasty", "actor": HERO})["ok"], true, "on when the data allows it")
-	eq(str(sim.state.ending["kind"]), "closed", "closed ending")
 	sim.catalog.family["succession"]["voluntary_close"] = false
+	eq(Orders.apply(sim, {"type": "close_dynasty", "actor": HERO})["reason"], "disabled", "off when the data says so")
+	sim.catalog.family["succession"]["voluntary_close"] = true
+	eq(Orders.apply(sim, {"type": "close_dynasty", "actor": HERO})["ok"], true, "D19 (2026-11-05): on")
+	eq(str(sim.state.ending["kind"]), "closed", "closed ending")
+	check(sim.state.ending.has("score"), "with the score of 4.17")
 
 
 func test_death_chance_grows_with_age() -> void:
