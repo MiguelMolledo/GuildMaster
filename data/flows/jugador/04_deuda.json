@@ -1,0 +1,92 @@
+{
+  "id": "jugador/04_deuda",
+  "title": "Jugador 4 · La deuda y el libro de cuentas",
+  "about": "El capítulo «Deuda y libro de cuentas» desde el final del de vender: la deuda del HUD, el libro (L), sus pestañas y la de deudas.",
+  "start": {
+    "keep": true
+  },
+  "steps": [
+    {
+      "id": "siguiente",
+      "say": "«Siguiente capítulo»: Deuda y libro de cuentas",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next_chapter"
+      },
+      "until": "q.tut().begins_with('debt:')",
+      "timeout": 4
+    },
+    {
+      "id": "caja_deuda",
+      "say": "La deuda arriba: Siguiente",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'debt:debt_box'",
+      "timeout": 4
+    },
+    {
+      "id": "libro",
+      "say": "L: el libro de cuentas",
+      "key": "@ledger",
+      "until": "q.tut() != 'debt:open'",
+      "timeout": 4
+    },
+    {
+      "id": "pestanas",
+      "say": "Las pestañas: Siguiente",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'debt:today'",
+      "timeout": 4
+    },
+    {
+      "id": "deudas",
+      "say": "Pestaña Deudas",
+      "click": {
+        "node": "Debts"
+      },
+      "until": "q.tut() != 'debt:debts'",
+      "timeout": 4
+    },
+    {
+      "id": "pagar",
+      "say": "Aquí se paga: Siguiente",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'debt:pay'",
+      "timeout": 4
+    },
+    {
+      "id": "avisos",
+      "say": "Avisos: Siguiente",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() == 'debt:end'",
+      "timeout": 4
+    },
+    {
+      "id": "fin",
+      "say": "Fin del capítulo: ¿cuál propone?",
+      "expect": [
+        "q.tut() == 'debt:end'"
+      ]
+    },
+    {
+      "id": "cerrar_libro",
+      "say": "Esc cierra el libro",
+      "key": "Escape",
+      "expect": [
+        "not q.visible('LedgerPanel')"
+      ],
+      "soft": true
+    }
+  ]
+}

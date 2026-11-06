@@ -1243,6 +1243,18 @@
       "tema": "full_player · bandas nuevas tras el equilibrio",
       "decision": "Se aprueban las bandas propuestas por jugador en reports/full_player_ref/propuesta_bandas_equilibrio.md (deuda ≤ día 6, Ciudadano ≤ día 16, boda ≤ día 20, hijo en ≥ la mitad de las semillas, neto año 1 ≥ 40 y año 3 ≥ 25, ≥ 20 mecánicas, ritmo del año 1 mediana ≤ 30 s y peor hueco ≤ 60 s, ≤ 3 obras maestras en 3 años, hambre ≤ 10 %, ≥ 1 viaje y ≥ 1 tratado, ≤ 8 atascos). Las tres de la IA rival (subir título, presentarse a cargo, ≤ 4 días sin oro) siguen como propuesta hasta que cierre H13. Se sellan tools/full_compare.py y las copias de referencia.",
       "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Todas tienen margen sobre lo medido en las 4 semillas y fijan lo que el equilibrio ha ganado para que no se pierda."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "El tutorial: lo básico encadenado, lo demás con su carta",
+      "decision": "Solo se encadenan los capítulos de lo básico (primeros pasos, producir, vender, deuda). Los demás llegan con la carta «Nuevo» de su desbloqueo o desde F1, y uno cuya mecánica no se ha abierto dice «Más adelante». La tarjeta del tutorial no tapa el panel que señala, y la pila de cartas se aparta mientras guía.",
+      "por_que": "Pasada de jugador (verificación J): el tutorial ofrecía Empleados cerrado tras la deuda, y su tarjeta tapaba los botones que pedía."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Contratar: del más barato al más caro",
+      "decision": "Los candidatos de Empleados → Contratar salen ordenados por jornal, el más barato primero (el aprendiz que pide la meta).",
+      "por_que": "Pasada de jugador: el primer candidato era un oficial a 20 al día y la meta pide un aprendiz."
     }
   ],
   "pendientes": [
