@@ -34,9 +34,9 @@ func _ready() -> void:
 		["deudas", func() -> void: _debts(), 1.0],
 		["mejoras", func() -> void: _all_upgrades(), 1.5],
 		["banco_calle", func() -> void: _start_bank(), 1.5],
-		["banco", func() -> void: _bank_applications(), 1.5],
+		["banco", func() -> void: _bank_applications(), 2.0],
 		["banco_cartera", func() -> void: _bank_portfolio(), 1.0],
-		["banco_impagos", func() -> void: app.interior().bank_panel().show_tab("defaults"), 1.0],
+		["banco_impagos", func() -> void: _bank_defaults(), 1.0],
 	]
 	print("[SmokeErudito] start (%d shots)" % _steps.size())
 
@@ -148,8 +148,10 @@ func _bank_applications() -> void:
 		Bank._add(Game.sim, BLD, "household", str(st.characters[who[k]]["family"]), str(who[k]), int(plan[k][1]),
 			int(plan[k][2]), str(plan[k][0]))
 	app.open_interior(BLD, true)
-	app.interior().show_bank(true)
-	_check(app.interior().bank_panel().visible, "the Banco's panel")
+	# the interior is set up when its fade ends (and closes its panels): the Banco's panel opens after it
+	get_tree().create_timer(0.7).timeout.connect(func() -> void:
+		app.interior().show_bank(true)
+		_check(app.interior().bank_panel().visible, "the Banco's panel"))
 	_check(Bank.applications(st, BLD).size() >= 3, "applications waiting")
 
 
@@ -165,8 +167,13 @@ func _bank_portfolio() -> void:
 	_check(mine.size() >= 2, "loans granted (%d)" % mine.size())
 	if not mine.is_empty():
 		Bank._default(Game.sim, str(mine[-1]))
-		st.loans[str(mine[-1])]["defaulted_at"] = int(st.clock["minute"]) - Clock.MINUTES_PER_DAY
 	app.interior().bank_panel().show_tab("portfolio")
+
+
+## A day later (capture only: the clock moved by hand, paused): the default may be claimed.
+func _bank_defaults() -> void:
+	Game.sim.state.clock["minute"] = int(Game.sim.state.clock["minute"]) + Clock.MINUTES_PER_DAY
+	app.interior().bank_panel().show_tab("defaults")
 
 
 func _check(cond: bool, what: String) -> void:
