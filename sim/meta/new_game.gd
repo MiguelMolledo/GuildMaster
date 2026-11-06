@@ -185,6 +185,16 @@ static func start_city(catalog: Catalog, start_id: String) -> String:
 	return ""
 
 
+## H13 · O-R1 (proposal, waiting for the owner): the town the new game screen offers first. data/world/region.json
+## "default_city" ("" = off: the start's own town, Vilarrasa, as always); a city where the start cannot be played falls
+## back to the start's own. Only the screen reads it: NewGame.from_start without a city still plays the start's map.
+static func default_city(catalog: Catalog, start_id: String) -> String:
+	var c := str(catalog.region.get("default_city", ""))
+	if c != "" and city_problem(catalog, start_id, c) == "":
+		return c
+	return start_city(catalog, start_id)
+
+
 ## Why the start cannot be played in this city ("" = it can): unknown_city, or city_lacks_site when its map has no
 ## site the start places (the player's, the rival's and the competitors' buildings).
 static func city_problem(catalog: Catalog, start_id: String, id: String) -> String:
