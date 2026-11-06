@@ -959,7 +959,15 @@
       "ai_office_runs": 24,
       "ai_broke_days_max": 24,
       "children": 24,
-      "unlocks_off": 24
+      "unlocks_off": 24,
+      "wedding_day": 24,
+      "net_year_3": 24,
+      "y1_gap_median_s": 8,
+      "y1_gap_max_s": 8,
+      "masterworks_y3": 24,
+      "trips": 24,
+      "treaties": 24,
+      "stalls_y3": 24
     },
     "refused_orders": [
       0,
@@ -991,19 +999,27 @@
     ],
     "debt_paid_day": [
       1,
-      8
+      6
     ],
-      "title_citizen_day": [1, 20],
-      "unlocks_off": [0, 0],
-      "staff_hungry_share_max": [0, 0.5],
-      "child_hungry_share_max": [0, 0.5],
+    "title_citizen_day": [
+      1,
+      16
+    ],
+    "unlocks_off": [
+      0,
+      0
+    ],
+    "staff_hungry_share_max": [
+      0,
+      0.1
+    ],
+    "child_hungry_share_max": [
+      0,
+      0.1
+    ],
     "step_ms_mean": [
       0,
       5
-    ],
-    "mechanics_used": [
-      14,
-      null
     ],
     "inherited": [
       1,
@@ -1041,14 +1057,50 @@
       10,
       null
     ],
+    "wedding_day": [
+      1,
+      20
+    ],
+    "mechanics_used": [
+      20,
+      null
+    ],
+    "y1_gap_median_s": [
+      0,
+      30
+    ],
+    "y1_gap_max_s": [
+      0,
+      60
+    ],
+    "masterworks_y3": [
+      0,
+      3
+    ],
+    "trips": [
+      1,
+      null
+    ],
+    "treaties": [
+      1,
+      null
+    ],
+    "stalls_y3": [
+      0,
+      8
+    ],
     "_mean": {
       "net_year_1": [
-        25,
+        40,
         null
       ],
       "title_citizen_day": [
         9,
         16
+      ],
+      "net_year_3": [
+        25,
+        null
       ]
     },
     "_share": {
@@ -1058,6 +1110,10 @@
       ],
       "wed": [
         0.66,
+        null
+      ],
+      "had_child": [
+        0.5,
         null
       ]
     },
@@ -1074,12 +1130,9 @@
       "ai_broke_days_max": [
         0,
         4
-      ],
-      "children": [
-        1,
-        null
       ]
-      }
+    },
+    "_bands_doc": "Bandas tras el equilibrio (aprobadas por el manager el 2026-11-06, docs/decisiones.json): medido con full_player 3 años × 4 semillas antes (b0616e72) y después (1f39d995) del equilibrio, reports/full_player_ref/propuesta_bandas_equilibrio.md (tools/full_compare.py). Después: deuda los días 2-3, Ciudadano 11-14, boda 12-14, hijo 3/4, neto del año 1 51,6-66,9 y del año 3 17,3-88,1, 23-27 mecánicas, hueco del año 1 mediana 4,4-4,6 s y máximo 15-29 s, obras maestras 0-1, un viaje y la cuota en las 4, 3-4 atascos, hambre de empleados y niños 0-0,007. masterworks_y3 y stalls_y3 cuentan los 3 primeros años (la generación también las cumple). Las tres de la IA rival siguen en _proposed hasta H13."
   },
   "chaos_player": {
     "_doc": "Jugador caótico (docs/gdd/07_testing.md §7.4): sim/bots/bot_chaos_player.gd, la misma partida que full_player con decisiones al azar y una orden válida al azar cada ~40 minutos de juego (sesgo hacia los sistemas menos tocados; hasta saldar la deuda inicial, solo órdenes que no gastan). Guarda y carga cada día y sigue con lo cargado. Diana: nada se rompe: 0 errores del motor, 0 pasos de más de 2 s, ida y vuelta del guardado idéntica, nunca oro negativo ni nadie fuera del mapa, el libro cuadra. Ritual: godot --headless --path . -s tools/full_player.gd -- --bot=chaos_player --years=3 --seeds=3; en run_all, paso chaos (1 año, 1 semilla). Medido (2026-11-05, 2 semillas × 3 años): 24 idas y vueltas por semilla sin diferencias, 0 errores; una semilla se queda sin oro ni existencias el día 8 y ya no se recupera (bloqueo blando, docs/decisiones.json).",
@@ -1122,7 +1175,10 @@
       16,
       null
     ],
-    "inn_fame3_day": [8, null],
+    "inn_fame3_day": [
+      8,
+      null
+    ],
     "refused_orders": [
       0,
       0
@@ -1166,23 +1222,93 @@
       ]
     }
   },
-  "pacing": {"_doc": "Ritmo (docs/gdd/03b_diversion_y_ritmo.md §3b.6): bot pacing (sim/bots/bot_pacing.gd), el novato forjando en Forja viva y leyendo las cartas, año 1 (8 días) de una partida nueva en Normal, con las fiestas y la vida encendidas (Equilibrio, 2026-11-05: la banda que era _proposed_festivals es la diana; pacing está en _festivals y fuera de _no_life). Mide los segundos reales entre decisiones (×1, ×8 cuando el jugador saltaría: ciclo en marcha o noche; las órdenes a menos de 3 s son una sola decisión), las metas abiertas cada hora y el día de cada desbloqueo frente a su ventana ±1 día (los ganchos sin su sistema no cuentan). Diana de 3b.6: mediana < 30 s, máximo < 60 s, siempre >= 2 metas, desbloqueos en su ventana. Medido sin fiestas ni vida (2026-11-04, 3 semillas): mediana 4,7 s, máximo 29-40 s, 9 desbloqueos, 0 fuera. Con fiestas y vida antes del equilibrio (5 semillas): 4 de 5 con las mejoras sin abrir (los 300 de oro, tarde) y una con un hueco de 198 s: los bots aceptaban encargos de fiesta que no llegaban a hacer (Equilibrio 11). Después: ver reports/equilibrio/. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5 (paso pacing de la QA).", "days": [8, null], "ledger_mismatch": [0, 0], "gap_median_s": [null, 30], "gap_max_s": [null, 60], "goals_min": [2, null], "unlocks_off": [0, 0]},
+  "pacing": {
+    "_doc": "Ritmo (docs/gdd/03b_diversion_y_ritmo.md §3b.6): bot pacing (sim/bots/bot_pacing.gd), el novato forjando en Forja viva y leyendo las cartas, año 1 (8 días) de una partida nueva en Normal, con las fiestas y la vida encendidas (Equilibrio, 2026-11-05: la banda que era _proposed_festivals es la diana; pacing está en _festivals y fuera de _no_life). Mide los segundos reales entre decisiones (×1, ×8 cuando el jugador saltaría: ciclo en marcha o noche; las órdenes a menos de 3 s son una sola decisión), las metas abiertas cada hora y el día de cada desbloqueo frente a su ventana ±1 día (los ganchos sin su sistema no cuentan). Diana de 3b.6: mediana < 30 s, máximo < 60 s, siempre >= 2 metas, desbloqueos en su ventana. Medido sin fiestas ni vida (2026-11-04, 3 semillas): mediana 4,7 s, máximo 29-40 s, 9 desbloqueos, 0 fuera. Con fiestas y vida antes del equilibrio (5 semillas): 4 de 5 con las mejoras sin abrir (los 300 de oro, tarde) y una con un hueco de 198 s: los bots aceptaban encargos de fiesta que no llegaban a hacer (Equilibrio 11). Después: ver reports/equilibrio/. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=pacing --days=8 --seeds=5 (paso pacing de la QA).",
+    "days": [
+      8,
+      null
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gap_median_s": [
+      null,
+      30
+    ],
+    "gap_max_s": [
+      null,
+      60
+    ],
+    "goals_min": [
+      2,
+      null
+    ],
+    "unlocks_off": [
+      0,
+      0
+    ]
+  },
   "broke": {
     "_doc": "Equilibrio 2 (docs/decisiones.json, GDD 4.16 «Sin salida»): bot broke (sim/bots/bot_broke.gd, el novato que pide el préstamo de urgencia cuando se lo ofrecen) desde broke_forge (día 9, deuda inicial pagada, 0 de oro y 1 carbón: el bloqueo blando del caótico), 6 días. La partida no muere: el prestamista ofrece 60 (90 en 4 días), el novato vuelve a comprar, forjar y vender, lo devuelve y acaba con oro; sin embargo ni ruina. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=broke_forge --bots=broke --days=6 --seeds=5 (paso broke de la QA, 3 semillas). Medido (2026-11-05, 5 semillas): préstamo tomado 1 en todas, devuelto en todas, 0 embargos, 0 ruinas, oro final 103-266 (media 200).",
-    "days": [6, null],
-    "refused_orders": [0, 0],
-    "ledger_mismatch": [0, 0],
-    "emergency_taken": [1, 1],
-    "emergency_open": [0, 0],
-    "ruin": [0, 0],
-    "_mean": {"gold_end": [60, null]}
+    "days": [
+      6,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "emergency_taken": [
+      1,
+      1
+    ],
+    "emergency_open": [
+      0,
+      0
+    ],
+    "ruin": [
+      0,
+      0
+    ],
+    "_mean": {
+      "gold_end": [
+        60,
+        null
+      ]
+    }
   },
   "counter_shop": {
     "_doc": "Equilibrio 8 y 14 (docs/decisiones.json, 04g §4.6.5.7): bot counter_shop (sim/bots/bot_counter_shop.gd: artisan_expert con el mostrador primero, un empleado en él y counter_stock 2 piezas de cada producto guardadas para sus clientes), partida nueva (artisan_blacksmith, Normal), 24 días, con la vida y la clientela de comarca encendidas. Desde el día en que el empleado está en el mostrador: counter_gold_day (ventas del mostrador al día), counter_wage_day, counter_ratio (ventas / salario: Equilibrio 8 pide >= 2), clientele_arrived_day y clientele_bought_day (la clientela de comarca), counter_left_empty_share (los que se van sin nada que comprar). Medido (2026-11-06, 5 semillas): ventas 96-132 al día frente a 19-20 de salario (×5,0-6,6); comarca 2,4-2,8 llegadas al día, 0,05-0,19 compras (el mostrador ya vende todo lo que forja el taller: con 4 o 6 piezas guardadas sale igual; atender más clientela pide producir más). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=counter_shop --days=24 --seeds=5 (paso counter de la QA, 3 semillas).",
-    "days": [24, null],
-    "refused_orders": [0, 0],
-    "ledger_mismatch": [0, 0],
-    "counter_ratio": [2, null],
-    "_mean": {"counter_ratio": [3, null], "clientele_arrived_day": [1.5, 4]}
+    "days": [
+      24,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "counter_ratio": [
+      2,
+      null
+    ],
+    "_mean": {
+      "counter_ratio": [
+        3,
+        null
+      ],
+      "clientele_arrived_day": [
+        1.5,
+        4
+      ]
+    }
   }
 }

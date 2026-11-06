@@ -466,6 +466,7 @@ Retar con motivo y ganar al alba (docs/gdd/04e_combate.md). Se prueba con el esc
 | `duel_button` | estado `node_visible` (is=DuelButton) | `DuelButton` en `NpcPanel` | Con un motivo (una ofensa, un pretendiente rival, el rival de tu oficio) puedes retarle a duelo. | — |
 | `duel_card` | estado `panel_open` (is=DuelCard) | `DuelCard` | Cuantos más testigos, más honor: un duelo público cuenta el doble, y rechazarlo también. | — |
 | `duel_screen` | estado `panel_open` (is=DuelScreen) | `Gesture` en `DuelScreen` | Lee el gesto y cuánto fiarte de él. Golpe gana a Finta, Finta a Parada, Parada a Golpe; parar recupera aliento. | — |
+| `night_skip` | sim `phase_changed` (phase=night, anyone) | `SkipButton` (junto al reloj) | Es de noche: el mercado cierra hasta el amanecer. «Saltar hasta…» (») junto al reloj: elige el amanecer y la noche pasa a ×8 (cualquier aviso la para). | — |
 
 ## 10. Criterios de aceptación
 

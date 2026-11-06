@@ -266,6 +266,26 @@ func test_first_time_hints() -> void:
 	root.free()
 
 
+## verifica #19: the first night, the hint of «Saltar hasta…» on the button by the clock (data/tutorial.json night_skip):
+## a phase change is nobody's, so it is "anyone"; the day does not show it.
+func test_the_first_night_shows_the_skip_hint() -> void:
+	var root := _ui()
+	_button("SkipButton", Vector2(300, 10), root)
+	var ctx := FakeCtx.new()
+	ctx.roots = [root]
+	ctx.family_events = false
+	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/tutorial.json"))
+	var hints: Array = (data["hints"] as Array).filter(func(h: Dictionary) -> bool: return str(h["id"]) == "night_skip")
+	eq(hints.size(), 1, "the hint is in the data")
+	var tut := _tutorial([{"id": "a", "text": "x", "advance": "next"}], ctx, {"hints": hints})
+	tut.on_event("sim", "phase_changed", {"phase": "day"})
+	check(tut.hint.is_empty() or str(tut.hint.get("id", "")) != "night_skip", "not by day")
+	tut.on_event("sim", "phase_changed", {"phase": "night"})
+	eq(str(tut.hint.get("id", "")), "night_skip", "the night shows it")
+	tut.free()
+	root.free()
+
+
 func test_the_data_loads_and_has_its_texts() -> void:
 	var tut: Tutorial = (load(SCENE) as PackedScene).instantiate()
 	tut.load_data()

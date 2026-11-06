@@ -33,7 +33,10 @@
     "fabrication": "corruption",
     "investigation": "tax_evasion",
     "cheat": "cheat",
-    "illegal_gaming": "minor_fraud"
+    "illegal_gaming": "minor_fraud",
+    "false_weights": "minor_fraud",
+    "unpaid_supplier": "minor_fraud",
+    "contraband": "smuggling"
   },
   "trial": {
     "witnesses": [3, 5],
@@ -57,5 +60,8 @@
   "cross": {"stat": "rhetoric", "against": "empathy", "ok_weight": 0, "fail_weight": 2},
   "accuse": {"min_title": "citizen", "fabricate": {"stat": "stealth", "target": 5, "fail_reputation": -50}, "false_reputation": -50},
   "judge": {"manipulate_honesty": -20, "scandal": {"target": 5, "reputation": -20}},
-  "honesty": {"bribe": -5, "fabricate": -10, "manipulate": -20}
+  "honesty": {"bribe": -5, "fabricate": -10, "manipulate": -20},
+  "_misdeeds_doc": "Equilibrio 6 (docs/decisiones.json; GDD 4.12.5.1) [balance, provisional]: the AI families with a business (not the human's) commit small misdeeds, sim/ai/misdeeds.gd. At dawn from from_day, one keyed roll a family: chance = base × (1 + (pivot − honesty) / scale), in [0, max] (honesty 20, Ferrer and the artisans of Vilarrasa: 0,06 a day; honesty 0: 0,09). seen: the chance a misdeed becomes a public fact against the family (its charge in facts); not seen, nothing is left. kinds: weight and, optionally, the most honesty that still does it. No gold, no honesty and no state.rng: the rest of the game plays as before; the fine comes with the trial.",
+  "misdeeds": {"enabled": true, "from_day": 1, "base": 0.06, "pivot": 20, "scale": 40, "max": 0.25, "seen": 0.6,
+    "kinds": {"false_weights": {"weight": 3}, "unpaid_supplier": {"weight": 2}, "contraband": {"weight": 1, "max_honesty": 10}}}
 }
