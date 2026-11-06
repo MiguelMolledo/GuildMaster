@@ -142,7 +142,7 @@ func text_args() -> Dictionary:
 	return {"head": str(st.characters.get(Kin.head(st, fam), {}).get("name", "")),
 		"active": str(st.characters.get(app.hud().active_person(), {}).get("name", "")),
 		"workshop": wname.to_lower(),
-		"town": tr("map." + st.map_id), "family": str(st.families.get(fam, {}).get("name", ""))}
+		"town": town_name(st.map_id), "family": str(st.families.get(fam, {}).get("name", ""))}
 
 
 func mine(e: Dictionary) -> bool:
@@ -165,6 +165,8 @@ func state_value(name: String, t: Dictionary) -> bool:
 	var st := Game.sim.state
 	var want: Variant = symbol(t.get("is"))
 	match name:
+		"unlocked":   # an unlock of 03b open for the player's family (a chapter waits for its mechanic: jugador J4)
+			return Unlocks.is_open(st, SimQuery.player_family(st), str(want))
 		"paused":
 			return Game.paused == bool(want)
 		"speed":
@@ -374,3 +376,11 @@ func poll() -> Array:
 		if help:
 			out.append(["help_opened", {}])
 	return out
+
+
+## The town's name as the region map says it (Vilarrasa, Bellcaire…); the map's working name only without a region
+## (jugador J1: the tutorial said «Esto es Pueblo-calle»).
+static func town_name(map_id: String) -> String:
+	var home := RegionView.home_of(map_id)
+	var key := str(RegionView.settlement(home).get("name_key", "")) if home != "" else ""
+	return TranslationServer.translate(key) if key != "" else TranslationServer.translate("map." + map_id)

@@ -2,6 +2,10 @@
   "id": "upgrades",
   "name_key": "tutorial.chapter.upgrades",
   "desc_key": "tutorial.chapter.upgrades.desc",
+  "requires": {
+    "state": "unlocked",
+    "is": "upgrades"
+  },
   "test": {
     "start": "artisan_blacksmith"
   },

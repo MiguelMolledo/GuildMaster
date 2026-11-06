@@ -410,6 +410,7 @@ func _sell_row(o: Dictionary, where: String) -> HFlowContainer:
 		b.disabled = why != ""
 		b.tooltip_text = SimQuery.t_("reason." + why) if why != "" else ""
 		row.add_child(b)
+	all.visible = have > 1   # with one, «Vender todo» would repeat «Vender 1» (jugador J3)
 	if why == "":
 		one.tooltip_text = SimQuery.t_("ui.market.sell_tip") % [1, price]
 		all.tooltip_text = SimQuery.t_("ui.market.sell_tip") % [have, int(preview.get("total", 0))]

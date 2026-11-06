@@ -88,6 +88,8 @@ func cannot_play(id: String) -> String:
 	if ch.is_empty():
 		return "tutorial.ui.close"
 	if ch.has("requires") and ctx != null and not ctx.condition(ch["requires"] as Dictionary):
+		if str((ch["requires"] as Dictionary).get("state", "")) == "unlocked":
+			return "tutorial.ui.help_later"   # its mechanic is not open yet: it comes with its card «Nuevo: …»
 		return "tutorial.ui.help_other_trade"
 	return ""
 
@@ -253,7 +255,10 @@ func _finish() -> void:
 
 ## The chapter after `id` in the order that can be played now ("" = none).
 func next_chapter(id: String) -> String:
-	var ids := chapter_ids()
+	var basics: Array = config.get("basics", [])
+	if not basics.is_empty() and not id in basics:
+		return ""   # past the basics, a chapter comes with its card «Nuevo: …» (03b §3b.4), not chained
+	var ids := chapter_ids().filter(func(c: Variant) -> bool: return basics.is_empty() or c in basics)
 	var i := ids.find(id)
 	for j: int in range(i + 1, ids.size()):
 		if cannot_play(str(ids[j])) == "":
@@ -429,6 +434,7 @@ func paint() -> void:
 		_follow_camera()
 		var found := bool(focus.get("found", false))
 		var rect: Rect2 = focus.get("rect", Rect2()) if found else Rect2()
+		overlay.avoid = _panel_rect(focus.get("node"), str(t.get("in", ""))) if found else Rect2()
 		overlay.show_focus(rect, found, guided, passing, _step_card(st, args))
 	elif phase == "finished":
 		focus = {}
@@ -442,6 +448,17 @@ func paint() -> void:
 	else:
 		focus = {}
 		overlay.hide_all()
+
+
+## The rect of the panel `in` that holds the target node `n` (Rect2() if none): the card keeps off the whole panel when
+## it can, not only off the target (jugador J3: on the Resources stall it covered the other rows' buttons).
+func _panel_rect(n: Variant, in_name: String) -> Rect2:
+	if in_name == "" or not n is Control or not is_instance_valid(n):
+		return Rect2()
+	var p: Node = (n as Node).get_parent()
+	while p != null and str(p.name) != in_name:
+		p = p.get_parent()
+	return (p as Control).get_global_rect() if p is Control and (p as Control).is_visible_in_tree() else Rect2()
 
 
 ## When the focus moves to another world target (the step's own after its opener, the street after leaving a
@@ -494,13 +511,22 @@ func _end_card(args: Dictionary) -> Dictionary:
 	a["next"] = tr(str(chapters.get(nxt, {}).get("name_key", ""))) if nxt != "" else ""
 	var d := {"step": ribbon_name(chapter_id),   # the chapter's name on the ribbon (the short one if it has it)
 		"body": tr("tutorial.ui.chapter_done") + " " + (_t("tutorial.ui.chapter_done_body", a) if nxt != ""
-			else tr("tutorial.ui.all_done"))}
+			else tr("tutorial.ui.basics_done" if _rest_to_come() else "tutorial.ui.all_done"))}
 	var buttons: Array = []
 	if nxt != "":
 		buttons.append({"id": "next_chapter", "text": tr("tutorial.ui.next_chapter"), "primary": true})
 	buttons.append({"id": "close", "text": tr("tutorial.ui.close"), "primary": nxt == ""})
 	d["buttons"] = buttons
 	return d
+
+
+## Chapters not seen yet that come later with their card (the basics are done; the rest is not all seen).
+func _rest_to_come() -> bool:
+	var done := done_chapters()
+	for c: Variant in chapter_ids():
+		if not str(c) in done and str(c) != chapter_id and not str(c).begins_with("trade_"):
+			return true
+	return false
 
 
 func _hint_card(h: Dictionary, args: Dictionary) -> Dictionary:

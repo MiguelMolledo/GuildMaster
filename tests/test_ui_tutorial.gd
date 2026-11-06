@@ -354,3 +354,23 @@ func test_the_chapter_fits_one_line_of_the_ribbon() -> void:
 	TranslationServer.set_locale(before)
 	PageKit.use_kit(null)
 	tut.free()
+
+
+## Past the basics no chapter is chained (jugador J4: after «Deuda» the tutorial offered «Empleados», still closed);
+## a chapter whose mechanic is not open says it comes later.
+func test_past_the_basics_no_chapter_is_chained() -> void:
+	var tut := _tutorial([{"id": "a", "text": "x", "advance": "next"}])
+	tut.config["basics"] = ["t"]
+	eq(tut.next_chapter("t"), "", "u is not a basic: not offered after t")
+	tut.config["basics"] = ["t", "u"]
+	eq(tut.next_chapter("t"), "u", "within the basics, the next one")
+	eq(tut.next_chapter("u"), "", "the last basic offers none")
+	tut.config["basics"] = []
+	tut.chapters["u"]["requires"] = {"state": "unlocked", "is": "staff"}
+	var ctx := tut.ctx as FakeCtx
+	if ctx != null:
+		ctx.values["unlocked"] = false
+		eq(tut.cannot_play("u"), "tutorial.ui.help_later", "a closed mechanic: later")
+		ctx.values["unlocked"] = true
+		eq(tut.cannot_play("u"), "", "open: it can be played")
+	tut.free()

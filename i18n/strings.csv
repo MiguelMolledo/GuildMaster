@@ -848,6 +848,8 @@ objective_how.free,"Keep going: hire in Staff, fill the queue in Production and 
 ui.market.opens,opens at %02d:%02d,abre a las %02d:%02d
 ui.market.opens_tomorrow,opens tomorrow at %02d:%02d,abre mañana a las %02d:%02d
 hud.building_idle,Employees idle: %s · Manage → Production,Empleados parados: %s · Gestionar → Producción
+hud.building_idle_short,Idle: %s,Parados: %s
+hud.building_idle_shortest,Employees idle · Manage → Production,Empleados parados · Gestionar → Producción
 hud.building_idle_unknown,nothing they can do,no tienen nada que hacer
 notice.objective_failed,"Objective failed: {objective}. Its contract can no longer be done (expired, abandoned or taken by someone else); on to the next one","Objetivo fallido: {objective}. Su encargo ya no se puede cumplir (caducó, se abandonó o lo cogió otro); pasas al siguiente"
 reason.unknown_target,There is nobody like that,No hay nadie así
@@ -2153,7 +2155,7 @@ tutorial.first_steps.resume,Press Space (or this button) to let time run. Space 
 tutorial.first_steps.speed,Shift+2 (or ×2) runs twice as fast. Try ×2.,Mayús+2 (o ×2) va el doble de rápido. Prueba ×2.
 tutorial.first_steps.walk,Now right click on the ground: {head} walks there.,"Ahora, clic derecho en el suelo: {head} va andando hasta allí."
 tutorial.first_steps.workshop,This is your {workshop}. Right click on it to go in.,Esta es tu {workshop}. Clic derecho sobre ella para entrar.
-tutorial.first_steps.bar,"Inside, at the bottom, the workshop's bar: Production (P), Storage (A), Staff (E), Upgrades (M) and Exit.","Dentro, abajo, la barra del taller: Producción (P), Almacén (A), Empleados (E), Mejoras (M) y Salir."
+tutorial.first_steps.bar,"Inside, at the bottom, the workshop's bar: Production (P), Storage (A) and Exit (Esc). Staff (E) and Upgrades (M) come on it when you open them.","Dentro, abajo, la barra del taller: Producción (P), Almacén (A) y Salir (Esc). Empleados (E) y Mejoras (M) salen en ella cuando los abras."
 tutorial.first_steps.objective,"On the left, your objective now. If in doubt, F1 opens the help, and from it you can replay any chapter.","A la izquierda, tu objetivo de ahora. Si dudas, F1 abre la ayuda y desde ella repites cualquier capítulo."
 tutorial.chapter.produce,Producing,Producir
 tutorial.chapter.produce.desc,"Recipes, stations and quality: from iron to a sword.","Recetas, puestos y calidad: de hierro a espada."
@@ -2176,8 +2178,9 @@ tutorial.market.take,"To sell it you must carry it: in your workshop's storage, 
 tutorial.market.enter,Right click on the Armory: {head} walks there and goes in.,Clic derecho en la Armería: {head} va y entra.
 tutorial.market.counter,Click on the counter to trade.,Clic en el mostrador para comerciar.
 tutorial.market.sell_tab,Sell tab.,Pestaña Vender.
+tutorial.market.sell,"Sell the sword: «Sell» on its row (the gold goes to the family).","Vende la espada: «Vender» en su fila (el oro va a la familia)."
 tutorial.market.sell_list,"What you carry, with its price. Each sale lowers the demand; it recovers at dawn.","Lo que llevas, con su precio. Cada venta baja la demanda; al alba se recupera."
-tutorial.market.leave,Go back out (Exit or Esc).,Sal a la calle (Salir o Esc).
+tutorial.market.leave,"Go back out: close the counter and Exit (or Esc twice).","Sal a la calle: cierra el mostrador y Salir (o Esc dos veces)."
 tutorial.market.resources,The Resources stall sells iron and coal. Right click on it: you walk there and it opens.,El puesto de Recursos vende hierro y carbón. Clic derecho sobre él: vas y se abre.
 tutorial.market.errand,Errand: they bring it to your workshop for a surcharge and you carry no weight. Order something.,Recado: te lo llevan a tu taller por un recargo y no cargas peso. Encarga algo.
 tutorial.market.done,"Buy cheap, sell when the demand is high. The book (L) writes down every coin.","Compra barato, vende cuando la demanda esté alta. El libro (L) apunta cada moneda."
@@ -2326,6 +2329,7 @@ tutorial.ui.waiting,Do it to go on,Hazlo para seguir
 tutorial.ui.hint,First time,Primera vez
 tutorial.ui.chapter_done,Chapter done.,Capítulo terminado.
 tutorial.ui.chapter_done_body,Next: {next}.,El siguiente: {next}.
+tutorial.ui.basics_done,"That is the basics. The other chapters come with their card «New: …» when you need them (F1 replays any).","Ya tienes lo básico. Los demás capítulos llegan con su carta «Nuevo: …» cuando te hagan falta (F1 repite cualquiera)."
 tutorial.ui.all_done,You have seen every chapter. F1 replays any of them.,Has visto todos los capítulos. F1 repite cualquiera.
 tutorial.ui.next_chapter,Next chapter,Siguiente capítulo
 tutorial.ui.close,Close,Cerrar
@@ -2335,6 +2339,7 @@ tutorial.ui.new_game_tip,"The game explains itself step by step, starting with t
 tutorial.ui.help_title,Tutorial,Tutorial
 tutorial.ui.help_hint,Click a chapter to play it now.,Clic en un capítulo para hacerlo ahora.
 tutorial.ui.help_done,done,hecho
+tutorial.ui.help_later,"Later: it opens with its card «New: …»","Más adelante: se abre con su carta «Nuevo: …»"
 tutorial.ui.help_other_trade,Only in a game of this trade,Solo en una partida de este oficio
 tutorial.ui.options_hints,First-time hints,Pistas de primera vez
 tutorial.ui.options_guided,Guided tutorial: only the highlight,Tutorial guiado: solo lo resaltado

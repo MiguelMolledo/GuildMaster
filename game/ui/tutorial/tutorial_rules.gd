@@ -43,6 +43,7 @@ const CONDITIONS: Dictionary = {
 	"has_trial": ["is"],
 	"event_active": ["is"],
 	"profession": ["is"],
+	"unlocked": ["is"],   # an unlock of 03b open for the player's family (a chapter that waits for its mechanic)
 }
 
 const ZONES: Array[String] = [
