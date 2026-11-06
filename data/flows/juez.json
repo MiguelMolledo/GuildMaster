@@ -1,0 +1,19 @@
+{
+  "id": "juez",
+  "title": "Juez de la familia",
+  "about": "Hugo es el juez (escenario judge_family): al empezar la vista del juicio contra el rival el juego pausa y abre el juicio que preside; dicta el veredicto (contra la balanza pide confirmar).",
+  "start": {"scenario": "judge_family"},
+  "covers": ["trial_verdict"],
+  "steps": [
+    {"id": "sin_juicio", "say": "Antes de la vista no hay juicio de la familia: J no abre nada", "key": "@trials", "expect": ["not q.visible('TrialPanel')"]},
+    {"id": "vista", "say": "A los cinco minutos empieza la vista: pausa y el juicio que preside", "until": "q.visible('TrialPanel') and q.paused()", "timeout": 30, "fast": 4},
+    {"id": "aviso", "say": "El aviso «Juicio que presides»", "expect": ["q.has_text('presides')"], "soft": true},
+    {"id": "botones", "say": "Los botones del juez", "expect": ["q.shown({'node': 'GuiltyButton'})", "q.shown({'node': 'InnocentButton'})"]},
+    {"id": "inocente", "say": "Dictar inocente", "click": {"node": "InnocentButton"}, "until": "q.order('trial_verdict') or q.visible('ConfirmModal')", "timeout": 4},
+    {"id": "confirmar", "say": "Contra la balanza pide confirmar", "when": "q.visible('ConfirmModal')", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "expect": ["q.order('trial_verdict')"]},
+    {"id": "dictado", "expect": ["q.flow_has('trial_verdict')"]},
+    {"id": "seguir", "say": "Espacio: seguir", "when": "q.paused()", "key": "Space"},
+    {"id": "fin", "say": "El juicio se cierra con el veredicto", "until": "not q.visible('TrialPanel')", "timeout": 30, "fast": 4, "soft": true},
+    {"id": "esc", "when": "q.visible('TrialPanel')", "key": "Escape", "expect": ["not q.visible('TrialPanel')"]}
+  ]
+}

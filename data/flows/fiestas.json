@@ -1,0 +1,14 @@
+{
+  "id": "fiestas",
+  "title": "La víspera de un torneo",
+  "about": "Mañana hay torneo (escenario festival_eve): la carta del pregonero a las 12:00; patrocinar el banquete; y, otra vez la misma víspera, inscribirse en la justa.",
+  "start": {"scenario": "festival_eve"},
+  "covers": ["festival_sponsor", "game_enter"],
+  "steps": [
+    {"id": "pregon", "say": "A las 12:00 el pregón: la carta de la víspera", "until": "q.shown({'prefix': 'Button_sponsor'})", "timeout": 20, "fast": 2},
+    {"id": "patrocinar", "say": "Patrocinar una parte de la fiesta", "click": {"prefix": "Button_sponsor", "enabled": true}, "expect": ["q.order('festival_sponsor')", "q.gold() < q.was('gold')"]},
+    {"id": "otra_vez", "say": "La misma víspera otra vez", "restart": {"scenario": "festival_eve"}},
+    {"id": "pregon_2", "until": "q.shown({'prefix': 'Button_enter'})", "timeout": 20, "fast": 2},
+    {"id": "inscribirse", "say": "Inscribirse en la justa", "click": {"prefix": "Button_enter", "enabled": true}, "expect": ["q.order('game_enter')"]}
+  ]
+}

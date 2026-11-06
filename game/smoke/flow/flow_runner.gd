@@ -9,8 +9,9 @@ extends Node
 ## A step: {"id", "say", one action, "until", "timeout", "fast", "wait", "expect": [...], "soft", "when", "shot"}.
 ## Actions: "click" / "right_click" / "double_click": a control (UiDriver.find spec); "key": "L" | "@ledger" (+
 ## "shift"); "world": {"tile"|"building"|"own"|"person"|"service"|"npc"} (+ "button", "double", "shift");
-## "station": zone (+ "button"); "door": true; "type": text; "wheel": {"up", "times"}; "pan": [dx, dy] (a middle
-## drag); "hold": key + "frames"; "release_focus": true.
+## "station": zone (+ "button"); "inn": "guest" | "bed" (a waiting guest, a dirty bed of the posada); "door": true;
+## "type": text; "wheel": {"up", "times"}; "pan": [dx, dy] (a middle drag); "hold": key + "frames";
+## "release_focus": true.
 ## "until": an expression to wait for (real seconds "timeout", 20 by default; "fast": Engine.time_scale meanwhile,
 ## a harness speed-up that is logged, never an order). "when": the step runs only if it is true (else "omitido").
 
@@ -231,7 +232,7 @@ func _action_text(step: Dictionary) -> String:
 		return "tecla %s (%s)" % [step["key_audit"], step.get("context", "")]
 	if step.has("context_setup"):
 		return "preparar %s" % JSON.stringify(step["context_setup"].get("start", {}))
-	for k: String in ["click", "right_click", "double_click", "popup", "spin", "restart", "harness_game", "key", "world", "station", "door", "type", "wheel",
+	for k: String in ["click", "right_click", "double_click", "popup", "spin", "restart", "harness_game", "key", "world", "station", "inn", "door", "type", "wheel",
 			"pan", "hold"]:
 		if step.has(k):
 			return "%s %s" % [k, JSON.stringify(step[k])]
@@ -581,6 +582,8 @@ func _act_once(step: Dictionary) -> String:
 			bool(step.get("shift", false)))
 	if step.has("station"):
 		return await _click_station(str(step["station"]), str(step.get("button", "left")))
+	if step.has("inn"):
+		return await _click_inn(str(step["inn"]))
 	if step.has("door"):
 		return await _click_door()
 	if step.has("wheel"):
@@ -780,6 +783,50 @@ func _click_station(zone: String, button: String) -> String:
 		return "el puesto %s lo tapa %s" % [zone, UiDriver.path_of(h)]
 	await drv.click_at(at, button)
 	return ""
+
+
+## "inn": "guest" (the first guest waiting to be served) or "bed" (the first dirty bed) of the Taberna-Posada the
+## view is in: a left click on it, as a person would (verificación D: inn_serve, inn_make_bed).
+func _click_inn(what: String) -> String:
+	if app.interior_building == "":
+		return "no estoy dentro de ningún edificio"
+	var iv: InteriorView = app.interior()
+	var inn: InnLayer = iv.inn_layer()
+	if inn == null:
+		return "la sala no es de una posada"
+	var targets: Array = []   # [world point, guest id or bed index]
+	if what == "guest":
+		var views: Dictionary = inn.get("_views")
+		var ids: Array = views.keys()
+		ids.sort()
+		for gid: String in ids:
+			if str(Inn.guest(Game.sim, inn.building, gid).get("state", "")) == "waiting":
+				targets.append([(views[gid] as Node2D).position + Vector2(0, -InnLayer.HEAD / 2.0), gid])
+	elif what == "bed":
+		var beds: Array = Inn.state_of(Game.sim, inn.building).get("beds", [])
+		var pos: Array = inn.get("_bed_pos")
+		for i: int in mini(beds.size(), pos.size()):
+			if str(beds[i].get("state", "")) == "dirty":
+				targets.append([pos[i], i])
+	else:
+		return "inn: «guest» o «bed», no %s" % what
+	if targets.is_empty():
+		return "no hay %s en la sala" % ("nadie esperando" if what == "guest" else "camas sin hacer")
+	for t: Array in targets:
+		var base: Vector2 = iv.world_to_screen(t[0])
+		for off: Vector2 in _offsets():
+			var at := base + off
+			var w := iv.screen_to_world(at)
+			var hit: bool = inn.pick_guest(w) == str(t[1]) if what == "guest" else inn.pick_bed(w) == int(t[1])
+			if not hit or iv.pick_character(at) != "":
+				continue
+			await drv.move_to(at)
+			var h := drv.hovered()
+			if h != null:
+				return "%s: lo tapa %s" % [what, UiDriver.path_of(h)]
+			await drv.click_at(at, "left")
+			return ""
+	return "no encuentro %s en la sala" % what
 
 
 func _click_door() -> String:
