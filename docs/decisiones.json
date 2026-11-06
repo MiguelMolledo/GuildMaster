@@ -988,6 +988,12 @@
     },
     {
       "fecha": "2026-11-06",
+      "tema": "H13 · la economía de las familias IA de Bellcaire",
+      "decision": "Las familias IA de Bellcaire llevan su taller como una de verdad (sim/ai/economy.gd, solo en data/ai.json economy.maps; Vilarrasa con hashes idénticos a main; ninguna constante compartida tocada): la pareja trabaja en el otro puesto y el cabeza cambia de puesto si el suyo está cogido; elige receta por su margen real por hora y fabrica el intermedio cuando le sale más barato que comprarlo; no compra para piezas que el mercado no se va a llevar; sale al mercado entre fases con un lote vendible o sin insumos; contrata un aprendiz solo con oro sobre su reserva y si su receta paga el sueldo, y lo despide bajo su reserva (gold_reserve + reserve_days de mantenimiento y sueldos, también el final de su guerra de precios); bajo su reserva vende en austeridad (hasta demanda 0,6), no ataca, y títulos y cargos no le tocan la reserva; pausa la cola con el taller dañado. Mira su taller cada tick_minutes (5; la gestión, en su minuto escalonado del amanecer) y, si no había nada que hacer, vuelve a mirar a los check_minutes (15): el coste por minuto de la IA en Bellcaire. Crédito (economy.credit): la que no puede pagar el amanecer siguiente pide 120 al prestamista, debe 144 en 8 días y devuelve lo que tiene sobre su reserva; lo que el embargo no cubra se perdona (una familia IA no se arruina: la ruina acaba la partida del jugador). Rivalidad: desahogo (−20 al atacante tras atacar), envidia del título (10 × (0,5 + agresividad)) y respiro de la víctima (4 días); Ferrer empieza con 30 hacia el recién llegado. Dianas (h13_probe, 80 días, 3 semillas, sobre main f68fe5cc): Normal días-familia sin oro 3/0/1 (≤ 10), racha 3/0/1 (≤ 5), ataques al jugador 2/2/1, entre IA 7/2/1 con 8 sabotajes, títulos 5/4/4, cuota 0,33, 0 órdenes rechazadas; medianas de ataques Fácil 0 ≤ Normal 2 ≤ Difícil 2; oro neto Fácil 7121 > Normal 4472 > Difícil 2210. En Difícil las familias IA aún pasan apuros (54-88 días-familia sin oro, rachas de 10: el crédito las rescata y vuelven a caer): sin diana en el encargo.",
+      "por_que": "Manager: «una capital de rivales arruinados no es divertida… arréglalo en la IA (sim/ai, perfiles, data/ai.json)… NO toques el mantenimiento ni otras constantes compartidas con Vilarrasa»."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Verificación D: escenarios para las órdenes sin cubrir",
       "decision": "Los flujos que ninguna partida existente alcanza empiezan en escenarios propios de tools/scenarios/make_verifica_scenarios.gd (patron_treaties, judge_family, school_age, courtship_gifts, festival_eve, inn_chores, tavern_for_sale, altercation_purse), cada uno derivado de un escenario existente o de una partida nueva y reproducible. master_touch sale de los huecos (la Forja viva lo sustituye; queda para la rama forja) y close_dynasty lleva motivo: apagado por diseño (succession.voluntary_close = false, D19).",
       "por_que": "Decisión del manager (bloque D): cubrir las 21 órdenes que ningún flujo daba."
@@ -1501,16 +1507,6 @@
       "tema": "Jugador completo · la taberna arranca con pérdidas (sin juzgar aún)",
       "detalle": "Comprada desde Ciudadano (días 20-24), en los pocos días que quedan hasta el final de los 3 años la taberna de full_player (llevada por la cónyuge con BotInnkeeper) pierde entre 115 y 334 de oro/día de operación: la existencia inicial, los primeros salarios y pocas noches. En una semilla anterior, comprada el día 20, ganaba 61/día de operación. Tres años no bastan para saber si compensa: se mide en la generación de la noche. Cifra nueva (medido con full_player, 3 años × 4 semillas, sobre 1f39d995 (reports/full_player_ref/full_player_despues_eq.json; antes: full_player_antes_eq.json sobre b0616e72)): comprada desde Ciudadano, la taberna pierde en las 4 (bot_inn_net_day de −26 a −89 de oro/día) y el neto del año 2 queda en 1,4 de media. El manager lo ha pasado a equilibrio y plantillas.",
       "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
-    },
-    {
-      "tema": "H13 · la economía de las familias IA de Bellcaire",
-      "detalle": "Con el bot artisan_expert en Normal, 3 de las 5 familias IA pasan buena parte de los 80 días sin oro (82-152 días-familia por partida; en Difícil 215-243; en Fácil 0-2): el mantenimiento diario del taller (~19 de oro) se come el margen de sus ventas y solo las que toman encargos aguantan. Arruinadas, dejan de vender y la rivalidad entre familias IA se apaga antes de llegar a sus umbrales: en Normal no hubo ataques entre IA ni sabotajes (sí en Difícil). El mantenimiento es una constante compartida con Vilarrasa (Equilibrio).",
-      "opciones": "(a) Que Equilibrio revise el mantenimiento o la demanda de los oficios de las familias IA con todo encendido. (b) La quiebra de 04c (P7: austeridad, venta, venida a menos) y Q9, que hoy no existen. (c) Perfiles de Bellcaire con más encargos (max_contracts 2) o menos días de compra."
-    },
-    {
-      "tema": "H13 · orden de ataques por dificultad (04c 4.21.10)",
-      "detalle": "El oro neto del jugador respeta Fácil > Normal > Difícil, pero los ataques recibidos no siguen Fácil ≤ Normal ≤ Difícil en mediana: en Difícil las familias IA se arruinan antes (venden más barato) y su rivalidad no llega al umbral en dos de las tres semillas. Va con el punto anterior.",
-      "opciones": "Revisar tras arreglar la economía de las familias IA."
     }
   ],
   "proximos_pasos": [
