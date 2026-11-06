@@ -1381,6 +1381,18 @@
       "tema": "La ruina de una familia IA no acaba la partida",
       "decision": "Solo la ruina de la familia humana acaba la partida; una IA arruinada por su préstamo queda embargada y sigue (sim/econ/loans.gd, Emergency.ruin). Lo construye forja; erudito lo respeta en el Banco.",
       "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Hallado por forja: a 5 años, 3 de 4 semillas terminaban la partida del jugador por la quiebra de un rival. Ningún jugador entendería perder por la deuda de otro."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "La ruina de una familia IA no acaba la partida (construido) y la taberna de full_player medida a 5 años",
+      "decision": "sim/econ/loans.gd y Emergency.ruin: state.ending solo con la ruina de una familia controlled_by human; la IA queda embargada y sigue (GDD 04d, impago de una familia jugadora; test_econ_loans). BotInnkeeper.measures divide el neto del libro (que guarda ledger_detail_years) entre los turnos de esos mismos días, no entre todos. Medido (full_player, 5 años × 4 semillas, antes → después): fin de partida por la ruina de una IA 3/4 → 0/4; la taberna (comprada los días 14-20) abre 22-27 turnos en las dos medidas, pero antes desde el fin de la partida nadie la surtía (hasta 13 noches vendiendo 0); barra media 138-389 → 389-483 de oro por noche, neto +186 a +245 al día, fama 1,1-3,9; oro medio del año 5 1031-4498 → 4394-5848. La taberna arranca con pérdidas los primeros días (existencias, sueldos) y compensa desde el año 4. La cónyuge nunca dejó de abrir: era la medida y el fin de partida.",
+      "por_que": "Pendiente de full_player «la taberna arranca con pérdidas (sin juzgar aún)» y decisión del manager (2026-11-06): investigarlo y arreglarlo en el bot; resultó un fallo del sim."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "El desbloqueo del tribunal llega con un caso (construido)",
+      "decision": "data/unlocks.json court esperaba un evento accuse que no existe y trial_opened solo cuenta para la familia acusada: no llegaba nunca a quien acusa. Ahora: un juicio contra la familia, o Ciudadano y una falta vista de otra familia (Equilibrio 6, evento misdeed seen, de cualquiera); ventana [8, 40] (03b §3b.4, año 2-5); su carta dice que se puede llevar a juicio. Bandas de full_player aplicadas en data/targets.json con sus _doc (visitors_quiet_day y treaty_net/treaty_paid medidos por tools/full_watch.gd y tools/full_player.gd).",
+      "por_que": "Hallado por forja al medir los pendientes de full_player; aprobado por el manager (2026-11-06)."
     }
   ],
   "pendientes": [
@@ -1423,11 +1435,6 @@
       "opciones": "(a) sumideros de fin de partida (negocios de 4.9.1, la casa, el caballo y la justa, dotes) · (b) más coste de los títulos y cargos altos · (c) impuestos que suben con la riqueza · (d) medirlo otra vez con la posada"
     },
     {
-      "tema": "Jugador completo · el tribunal nunca se puede usar para acusar",
-      "detalle": "En 3 años × 3 semillas y en una generación de 383 días no aparece ni un hecho público contra otra familia (Tribunal.facts_against vacío para todas). El jugador que no inventa pruebas no puede acusar nunca; el why_not de full_player es siempre «ningún hecho público contra otra familia». Las familias IA no cometen delitos que dejen hecho público, o no se ven. Cifra nueva (medido con full_player, 3 años × 4 semillas, sobre 1f39d995 (reports/full_player_ref/full_player_despues_eq.json; antes: full_player_antes_eq.json sobre b0616e72)): ningún hecho público contra otra familia en las 4 (why_not no_fact). Sigue en H6 (04c genera hechos).",
-      "opciones": "(a) que la IA rival cometa delitos con hecho público (robo, soborno, mercancía prohibida) según su honestidad · (b) que los rumores (vida) conviertan sospechas en hechos · (c) dejarlo: el tribunal es para defenderse y para inventar"
-    },
-    {
       "tema": "Jugador completo · las fiestas arruinan a la IA rival (fiestas × H6)",
       "detalle": "Con todo encendido, las cuatro familias IA (el herrero rival y los rivales carpintero, cantero y sastre) pasan 15-21 de 24 días sin oro y hasta 22 paradas. Ninguna sube de título ni se presenta a un cargo en 3 años, y les pasa igual con el jugador quieto (idle_player): no es la competencia del jugador. Aislado con idle_titles a 10 días, 2 semillas: sin nada o solo con vida o sucesos, el herrero IA llega con 168-474 de oro; solo con las fiestas, con 0 (vende 27-36 piezas en vez de 74). La causa: RivalAI entra en las carreras de encargos de fiesta (4 herraduras, 2 candelabros) con plazos que no cumple, compra materia prima para ellos (126 de oro de golpe), los incumple, el mantenimiento (20/día) la deja a 0 y, por debajo de gold_reserve (20), ya no vuelve a comprar: bloqueo blando para siempre, con deuda de mantenimiento de 230-338. Las dianas de rivales que ya hay salen bien porque corren sin fiestas (_festivals). En una generación (full_player --generation, semilla 2, 351 días) las cuatro pasan 334-349 días sin oro y 341-350 paradas: heredan y tienen hijos (18), pero nunca vuelven a producir ni suben de título. No es de mi rama: fiestas y la IA de H6 (04c, con quiebra y austeridad). Cifra nueva (medido con full_player, 3 años × 4 semillas, sobre 1f39d995 (reports/full_player_ref/full_player_despues_eq.json; antes: full_player_antes_eq.json sobre b0616e72)): el año 1 ya cumple la diana de fiestas (paso fest_ai), pero en los años 2-3 las familias IA pasan 5-13 días sin oro (antes 0-7). El manager lo ha pasado a equilibrio y plantillas.",
       "opciones": "(a) RivalAI no entra en carreras de fiesta que no llega a hacer (el mismo cálculo de makes_in_time con due_at) · (b) H6: la quiebra y la austeridad de 4.21.6.3 sacan a la IA del 0 · (c) una reserva mínima que la IA nunca gasta en materia prima para encargos"
@@ -1436,11 +1443,6 @@
       "tema": "Jugador completo · la IA rival no compite en títulos, cargos ni ataques",
       "detalle": "En 3 años × 3 semillas (full_player e idle_player): 0 títulos, 0 candidaturas y 0 acusaciones de la IA, sin ningún hecho público para acusar. Compite solo en el tablón (17-35 encargos aceptados) y casi nunca le gana un encargo de fiesta al jugador (0-1). Lo que pide el owner (que al menos una suba de título en 3 años y te dispute encargos y cargos) queda como diana propuesta (data/targets.json full_player _proposed) hasta H6. Cifra nueva (medido con full_player, 3 años × 4 semillas, sobre 1f39d995 (reports/full_player_ref/full_player_despues_eq.json; antes: full_player_antes_eq.json sobre b0616e72)): una familia IA sube de título en 1 de 4 partidas, 0 candidaturas y 0 ataques; acepta 17-53 encargos del tablón. Sigue en _proposed hasta H13.",
       "opciones": "(a) se mide de nuevo con la IA de 04c (H6) · (b) bajar la reputación de Ciudadano también para la IA"
-    },
-    {
-      "tema": "Jugador completo · más forasteros de los previstos",
-      "detalle": "Con todo encendido llegan 4,5-5,7 forasteros al día (3 años × 3 semillas); la vida (04f 4.24) dice de 2 a 4. Puede ser por las fiestas (la feria trae puestos de forasteros). La diana provisional de full_player es [2, 6]. Cifra nueva (medido con full_player, 3 años × 4 semillas, sobre 1f39d995 (reports/full_player_ref/full_player_despues_eq.json; antes: full_player_antes_eq.json sobre b0616e72)): 5,21-5,92 forasteros al día (diana [2, 6]; la vida dice 2-4).",
-      "opciones": "(a) bajar el ritmo de llegadas fuera de las fiestas · (b) aceptar 2-6 con las fiestas"
     },
     {
       "tema": "O-V2 Población de town_e con la vida (banda nueva)",
@@ -1496,11 +1498,6 @@
       "tema": "Diversión y ritmo (03b §3b.7, O-D1–O-D5)",
       "detalle": "Se construye con las recomendaciones: Forja viva de 3 decisiones con Resolver sin jugar; desbloqueos por hito y calendario con carta; Saltar hasta…; obras maestras con nombre; encargos con especificaciones.",
       "opciones": "Ver 03b §3b.7."
-    },
-    {
-      "tema": "Jugador completo · la taberna arranca con pérdidas (sin juzgar aún)",
-      "detalle": "Comprada desde Ciudadano (días 20-24), en los pocos días que quedan hasta el final de los 3 años la taberna de full_player (llevada por la cónyuge con BotInnkeeper) pierde entre 115 y 334 de oro/día de operación: la existencia inicial, los primeros salarios y pocas noches. En una semilla anterior, comprada el día 20, ganaba 61/día de operación. Tres años no bastan para saber si compensa: se mide en la generación de la noche. Cifra nueva (medido con full_player, 3 años × 4 semillas, sobre 1f39d995 (reports/full_player_ref/full_player_despues_eq.json; antes: full_player_antes_eq.json sobre b0616e72)): comprada desde Ciudadano, la taberna pierde en las 4 (bot_inn_net_day de −26 a −89 de oro/día) y el neto del año 2 queda en 1,4 de media. El manager lo ha pasado a equilibrio y plantillas.",
-      "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
     },
     {
       "tema": "H13 · la economía de las familias IA de Bellcaire",
