@@ -80,7 +80,7 @@ func refresh(force: bool = false) -> void:
 	var fam := str(b.get("owner", ""))
 	var errands := Market.pending(sim, SimQuery.building_family(sim.state, building)) if sim.state.buildings.has(building) else []
 	var sig := str(b.get("inventory", {})) + "|" + actor + "|" + str(ch.get("inventory", {})) + "|" + str(errands) + fam
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	var inv: Dictionary = b.get("inventory", {})

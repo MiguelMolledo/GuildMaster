@@ -16,7 +16,7 @@ extends RefCounted
 ## campaign_action, use_office_power (docs/contratos/h10_cargos.md); H11: accuse, witness_action, trial_cross,
 ## trial_rest, trial_verdict (docs/contratos/h11_tribunal.md); duelo: duel_challenge, duel_answer, duel_withdraw,
 ## duel_move, duel_auto, duel_brawl (docs/contratos/duelo.md); juegos: game_play, game_bet (docs/contratos/juegos.md); vida:
-## resolve_incident, give_alms (docs/contratos/vida.md). Each milestone adds
+## resolve_incident, give_alms (docs/contratos/vida.md); hail (verificación A8: the one called waits). Each milestone adds
 ## its own (GDD 05 §5.5 has the full list).
 
 
@@ -175,6 +175,14 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Treaties.order_propose_town(sim, order)
 		"cancel_treaty":
 			return Treaties.order_cancel(sim, order)
+		"festival_offer_gift":
+			return FestivalCourt.order_offer_gift(sim, order)
+		"festival_choose_gift":
+			return FestivalCourt.order_choose_gift(sim, order)
+		"festival_audience":
+			return FestivalCourt.order_audience(sim, order)
+		"festival_enter_contest":
+			return FestivalCourt.order_enter_contest(sim, order)
 		# Forja viva y desbloqueos (docs/gdd/03b_diversion_y_ritmo.md)
 		"live_forge":
 			return LiveForge.order(sim, order)
@@ -212,6 +220,8 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Inn.order_serve(sim, order)
 		"inn_make_bed":
 			return Inn.order_make_bed(sim, order)
+		"hail":
+			return NpcActions.order_hail(sim, order)
 	return fail("unknown_order")
 
 
@@ -224,8 +234,9 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"duel_answer", "duel_withdraw", "duel_move", "duel_auto",
 	"buy_cart", "caravan_send", "propose_town_treaty", "cancel_treaty", "travel", "return", "city_buy", "city_sell",
 	"city_accept", "city_deliver", "sign_treaty",
-	"game_play", "game_bet", "game_enter", "festival_sponsor", "festival_host_wedding",
-	"resolve_incident", "live_forge", "unlock_seen",
+	"game_play", "game_bet", "game_enter", "festival_sponsor", "festival_host_wedding", "festival_offer_gift",
+	"festival_choose_gift", "festival_audience", "festival_enter_contest",
+	"resolve_incident", "hail", "live_forge", "unlock_seen",
 	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license"]  # posada (Inn.MANAGEMENT)
 
 

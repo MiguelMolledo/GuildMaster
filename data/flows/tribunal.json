@@ -1,0 +1,19 @@
+{
+  "id": "tribunal",
+  "title": "Tribunal",
+  "about": "Acusado tras una inspección: la tarjeta de la acusación, preparar la defensa (J) con un testigo y, en la vista, interrogar y concluir; el veredicto con su tarjeta.",
+  "start": {"scenario": "accused_player"},
+  "covers": ["witness_action", "trial_cross", "trial_rest"],
+  "steps": [
+    {"id": "juicio", "say": "J: el juicio de la familia", "key": "@trials", "expect": ["q.visible('TrialPanel')"]},
+    {"id": "convencer", "say": "Convencer a un testigo (si está lejos, va andando)", "click": {"within": "Witnesses", "node": "Convince"}, "soft": true, "expect": ["q.order('witness_action') or q.order('move_to')"]},
+    {"id": "cerrar", "key": "Escape", "expect": ["not q.visible('TrialPanel')"]},
+    {"id": "x4", "key": "@speed_3"},
+    {"id": "vista", "say": "Hasta la vista oral: el juicio se abre solo y pausa", "until": "q.visible('TrialPanel') and q.paused()", "timeout": 120, "fast": 8},
+    {"id": "interrogar", "say": "Interrogar a un testigo en contra", "click": {"within": "Witnesses", "node": "Cross"}, "soft": true, "expect": ["q.order('trial_cross')"]},
+    {"id": "concluir", "say": "Concluir la defensa", "click": {"node": "RestButton"}, "expect": ["q.order('trial_rest')"]},
+    {"id": "seguir", "say": "Espacio: seguir", "when": "q.paused()", "key": "Space"},
+    {"id": "veredicto", "say": "La tarjeta del veredicto", "until": "q.visible('TrialCard')", "timeout": 60, "fast": 8},
+    {"id": "ok", "click": {"within": "TrialCard", "node": "OkButton"}, "expect": ["not q.visible('TrialCard')"]}
+  ]
+}

@@ -10,9 +10,15 @@ extends RefCounted
 ##   the player plays in his own house).
 ## · The traveller's game (incident game_offer): a stranger of data/inn/inn.json games.offer.presets proposes a game
 ##   (keyed: who, which, how much). It stays open until the turn closes (night.offer); offer_request() plays it.
+## · Another family's tavern (manager 2026-11-05): from its door (on the map, during the turn) whoever plays sits at
+##   its table as a visitor, without managing it; the house's part goes to its owner. When the owner is an AI family,
+##   its profile (data/ai_profiles/<id>.json "tavern_table", else data/inn/inn.json games.house_default) decides
+##   whether it lets him play (its head's relation with him) and its least stake (higher with a rival). terms().
 ## · The licence: without it, a game in the tavern is a light offence if the constable's men see it (hear(): every
 ##   game_played whose house is a tavern; keyed chance games.illegal.seen, more with the constable's office held):
-##   a fact illegal_gaming (charge minor_fraud, H11's court) against the family that played, and reputation.
+##   the table is the owner's, so the owner pays it whoever played (manager 2026-11-05): a fact illegal_gaming
+##   (charge minor_fraud, H11's court) against the owner's family, its reputation and the chronicle; a visitor of
+##   another family only risked his stake.
 ## Nothing new in the save: night.offer and stats.games are fields of the night with their default ({} and []).
 
 const GAMES: Array[String] = ["azar", "mayor", "envite"]
@@ -84,13 +90,64 @@ static func regulars(sim: Sim, bld: String, actor: String, game: String) -> Arra
 	return out
 
 
+## The house's terms for `actor` at the table of `bld`: {ok, reason ("" | refused), min_stake}. The owner's own family
+## plays at any stake; an AI owner's profile (tavern_table) refuses one its head dislikes (relation < refuse_below)
+## and asks rival_min_stake of one it dislikes a little (relation < rival_below), else min_stake. A human owner
+## (another player) asks the house default.
+static func terms(sim: Sim, bld: String, actor: String) -> Dictionary:
+	var st := sim.state
+	var owner := str(st.buildings.get(bld, {}).get("owner", ""))
+	var stakes: Array = sim.catalog.games.get("stakes", [5, 10, 25, 50])
+	var least := int(stakes[0]) if not stakes.is_empty() else 5
+	var fam := str(st.characters.get(actor, {}).get("family", ""))
+	if owner == "" or fam == owner:
+		return {"ok": true, "reason": "", "min_stake": least}
+	var f: Dictionary = st.families.get(owner, {})
+	var rules_: Dictionary = (cfg(sim).get("house_default", {}) as Dictionary).duplicate()
+	if str(f.get("controlled_by", "")) == "ai":
+		rules_.merge(sim.catalog.ai_profiles().get(str(f.get("ai_profile", "")), {}).get("tavern_table", {}), true)
+	var rel := Emotions.relation(st, str(f.get("head", "")), actor)
+	if not bool(rules_.get("allow", true)) or rel < int(rules_.get("refuse_below", -50)):
+		return {"ok": false, "reason": "refused", "min_stake": 0, "relation": rel}
+	var m := int(rules_.get("rival_min_stake", 10)) if rel < int(rules_.get("rival_below", -10)) \
+		else int(rules_.get("min_stake", least))
+	return {"ok": true, "reason": "", "min_stake": maxi(least, m), "relation": rel}
+
+
+## Whether `actor` may sit at the table of another family's tavern now, from its door: "" or the reason (blocked's,
+## inside (in another building), far (not at the door), refused (the owner's profile)).
+static func visitor_blocked(sim: Sim, bld: String, actor: String) -> String:
+	var why := blocked(sim, bld)
+	if why != "":
+		return why
+	var st := sim.state
+	var ch: Dictionary = st.characters.get(actor, {})
+	if ch.is_empty() or not bool(ch.get("alive", true)):
+		return "unknown_actor"
+	if str(ch.get("location", "")) != "" and str(ch.get("location", "")) != bld:
+		return "inside"
+	if str(ch.get("location", "")) != bld:
+		var door: Array = st.buildings[bld].get("door", [])
+		var pos: Array = ch.get("position", [])
+		if door.size() < 2 or pos.size() < 2 or maxf(absf(float(pos[0]) - float(door[0])),
+				absf(float(pos[1]) - float(door[1]))) > float(cfg(sim).get("door_tiles", 2)):
+			return "far"
+	return str(terms(sim, bld, actor)["reason"])
+
+
 ## The request of a game at the table for GameScreen.open / the order game_play ({"reason": ...} if it cannot be).
+## Another family's table asks its terms (the owner lets him play, at its least stake).
 static func request(sim: Sim, bld: String, actor: String, game: String, stake: int) -> Dictionary:
 	var why := blocked(sim, bld)
 	if why != "":
 		return {"reason": why}
 	if not game in GAMES:
 		return {"reason": "unknown_game"}
+	var t := terms(sim, bld, actor)
+	if not bool(t["ok"]):
+		return {"reason": str(t["reason"])}
+	if stake < int(t["min_stake"]):
+		return {"reason": "under_min_stake", "min_stake": int(t["min_stake"])}
 	return {"actor": actor, "game": game, "opponents": regulars(sim, bld, actor, game), "stake": stake,
 		"opts": {"house": bld}}
 
@@ -179,14 +236,24 @@ static func _offence(sim: Sim, bld: String, e: Dictionary) -> bool:
 		chance = float(ic.get("seen_constable", 0.5))
 	if Kin.roll(st, "inn|illegal|%s|%s" % [bld, str(e.get("match", ""))]) >= chance:
 		return false
-	var fam := str(e.get("family", ""))
-	var actor := str(e.get("actor", ""))
+	var player_fam := str(e.get("family", ""))
+	var player := str(e.get("actor", ""))
+	var fam := str(st.buildings[bld].get("owner", ""))  # the table is the owner's: the owner pays, whoever played
+	if fam == "":
+		fam = player_fam
+	var actor := str(st.families.get(fam, {}).get("head", player)) if fam != player_fam else player
 	var fact := Tribunal.add_fact(sim, "illegal_gaming", fam, actor)
 	Reputation.change(sim, fam, int(ic.get("reputation", -3)), "inn_illegal_gaming")
 	Notices.add(sim, fam, Notices.WARNING, "notice.inn.illegal_gaming", {"building": bld}, bld)
+	if player_fam != fam and player_fam != "":
+		Notices.add(sim, player_fam, Notices.INFO, "notice.inn.illegal_gaming_visitor", {"building": bld}, bld)
+	Chronicle.add(st, "inn_illegal_gaming", {"family": fam, "building": bld, "fact": fact, "player": player,
+		"player_family": player_fam})
 	if not Inn.state_of(sim, bld).get("night", {}).is_empty():
 		Inn._incident(sim, bld, "illegal_game", {"fact": fact})
-	sim.events.append({"type": "inn_illegal_gaming", "building": bld, "family": fam, "actor": actor, "fact": fact})
+	sim.events.append({"type": "inn_illegal_gaming", "building": bld, "family": fam, "actor": actor, "fact": fact,
+		"player": player, "player_family": player_fam})
 	if OS.is_debug_build():
-		print("[InnGames] %s: juego sin licencia visto (prob %.2f): hecho %s contra %s" % [bld, chance, fact, fam])
+		print("[InnGames] %s: juego sin licencia visto (prob %.2f): hecho %s contra el dueño %s (jugaba %s de %s)" % [
+			bld, chance, fact, fam, player, player_fam])
 	return true

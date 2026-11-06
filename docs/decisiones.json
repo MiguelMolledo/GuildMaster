@@ -52,12 +52,6 @@
     },
     {
       "fecha": "2026-11-04",
-      "tema": "Fiestas: regalo de la villa, audiencia del marqués y patrocinios de la IA (de momento, no)",
-      "decision": "Manager, a la espera del owner: no a las dos. El regalo de la villa sigue siendo un encargo de carrera (la primera espada excelente) y no hay audiencia con privilegios; las familias rivales no patrocinan fiestas. Las dos preguntas pasan al owner.",
-      "por_que": "Respuesta provisional del manager mientras el owner decide."
-    },
-    {
-      "fecha": "2026-11-04",
       "tema": "Fiestas enganchadas con vida (forasteros, agenda, sucesos)",
       "decision": "Tras juntar vida, las fiestas del calendario mueven su agenda, sus forasteros y sus sucesos por los mismos puntos que ya leía de data/events.json (Life.event_mult, holy_day, festival). Los forasteros se planean con las fiestas de todo el día; con una fiesta del calendario no se suma el ×3 genérico de vida (la feria da ×5, ×3,5 sin patrocinio, y abre fair_max); los tipos que trae la fiesta pesan el doble. Los espectáculos de la fiesta entran como espectáculos de vida y el predicador sube la fe. Los ids de actividad y suceso de data/festivals.json pasan a los de data/life/ (procesión y romería → mass, baile → stroll, hogueras y banquete → chat, cementerio → visit, brawl → altercation) y el validador los comprueba.",
       "por_que": "Una sola puerta para lo que la ciudad viva lee de un evento o una fiesta; así no se cuentan dos veces los forasteros."
@@ -783,6 +777,12 @@
       "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
     },
     {
+      "fecha": "2026-11-05",
+      "tema": "Interiores II · clientela de la comarca (04g 4.6.5.7)",
+      "decision": "La clientela de la comarca vive en el sim (sim/town/clientele.gd): registros en state.town.clientele, no personajes; vienen al mostrador que vende según base(tipo) × fama × estación × fiesta × reparto (atractivo de 4.22.3.2, que ya lleva la reputación), pagan con oro de fuera hasta su precio máximo (precio base × calidad × (1 + fama × 0,1) × gusto) y los atiende quien está en el mostrador. Apagada por defecto (data/town.json counter.clientele.enabled false): las dianas no se mueven. En el interior aparecen en su sitio con un fundido y se van igual; los vecinos entran andando desde la puerta. La fama de un taller vale 1 hasta que se implemente Equilibrio 13; la unificación con la clientela de la posada es Equilibrio 14.",
+      "por_que": "Encargo del manager con las decisiones O-I1 (b), O-I2 (a) y O-I3 (a) del owner. Apagada hasta medir su balance con los bots de cada oficio, como la vida del pueblo (_no_life)."
+    },
+    {
       "fecha": "2026-11-04",
       "tema": "Forja viva (03b §3b.2, O-D1 a, O-D4 a)",
       "decision": "Construida como modo de trabajo `live` (sim/forge/live_forge.gd, data/live_forge.json): calentar, batir y templar como órdenes live_forge que se aplican al momento y quedan en la grabación; cada decisión sale bien, cerca o mal; tres bien +1 escalón, dos mal −1; sin decidir nada, exactamente el modo normal (mismos dados). En el yunque de la forja el tercer botón pasa de «Con cuidado» a «Forja viva»; `careful` y el toque de maestro siguen en el sim para los bots, los guardados y los otros oficios. Gracia de 0,5 h al final del ciclo; solo se repite en Forja viva si se jugó hasta el temple. La pantalla pone ×1 mientras está abierta. Obra maestra: Artesanía ≥ 7, las tres bien y una tirada del 10 % [balance]; con nombre (santo + apellido), en la crónica y en masterworks.pieces; la venta a nobles ×3, el regalo y la ventaja en justas y duelo quedan como ganchos.",
@@ -865,6 +865,54 @@
       "tema": "Juegos: la casa propia no cobra; la posada no pasa opts.event",
       "decision": "Games._apply no aplica el margen de la casa cuando la casa es de la familia que juega (antes se le restaba y ese oro no iba a nadie). La posada no pasa opts.event (FestivalGames.play_block rechaza el que no es de una fiesta) y reconoce sus partidas por house. Contrato de juegos y 04f actualizados.",
       "por_que": "Bug visto al probar la mesa: el jugador perdía el 10 % de lo ganado en su propia taberna; y el contrato pedía un event que el código rechaza."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Fiestas: las familias IA no se arruinan con los encargos de fiesta",
+      "decision": "La IA solo entra en un encargo de fiesta (carrera) si lo termina a tiempo con los minutos de trabajo reales de su taller hasta la hora de entrega (RivalAI.work_minutes_until, no el día redondeado), tras el ciclo en que está, el trabajo de sus otros encargos y ai_margin_minutes 120 para llevarlo al tablón; y si tras comprar la materia (también la de sus otros encargos) le queda su gold_reserve más ai_reserve_days 3 días de mantenimiento (Upkeep.due_next_dawn). En cuanto tiene las piezas de una carrera va al tablón sin esperar al cambio de fase. Bajo esa reserva y sin poder pagar un ciclo de su receta entra en recuperación: compra lo justo para una pieza de su receta vendible más barata (no por encargo, con puesto, margen > 0) con todo su oro y vende lo que el mercado tome sin mirar la demanda. El patrocinio de la IA usa la misma reserva más spare. La IA puede presentar su pieza al concurso cada hora hasta el juicio si al empezar la feria no tenía. Diana nueva ai_broke_days_y1 ≤ 2 (días del año 1 que una familia IA termina sin oro) en festive e idle_titles_fest (idle_titles con fiestas). El botón «Pagar el banquete (80)», y los de patrocinar y pujar, dicen por qué están apagados (tooltip y texto de la carta).",
+      "por_que": "Manager (Prioridad 0): con las fiestas el full_player dejaba a las cuatro familias IA sin oro; entraban en carreras que no podían terminar ni pagar."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Fiestas: regalo de la villa, audiencia, concurso de calidad y patrocinios de la IA (construido)",
+      "decision": "Construidas las decisiones del owner del 2026-11-05 (04f §4.25.7): regalo elegido por el Alcalde entre las piezas ofrecidas (la IA o nadie: la mejor por calidad y valor); audiencia con regalo y tirada de Retórica, con tres privilegios (favor para el próximo título en vez de «−1 año», que el juego no tiene; exención en Bellcaire un año; cargo menor vacante); concurso de calidad en la feria (60 de oro y +6 de reputación); la IA patrocina como mucho una fiesta grande al año y cada parte la paga una sola familia. Campos opcionales en v18 (sin versión nueva: ausentes = vacíos).",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas…»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Fiestas: los corrales de la feria, a las afueras",
+      "decision": "Los corrales (y el ganado) de la feria y de la feria de ganado se ponen en el prado libre más cercano a una puerta de la villa, nunca en caminos ni puertas, con una regla de la capa de decoración (rules.view_sites.outskirts: ground grass, radius 10, gate_margin 1) que vale para cualquier mapa con puertas.",
+      "por_que": "El owner: las ferias de ganado se hacían a las afueras, junto al camino; en la plaza de town_e no cabían."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "El teclado en la interfaz",
+      "decision": "Sí al camino por teclado en menús, paneles y cartas (KeyNav): todo control de la interfaz toma el foco; Tab entra en lo de arriba, flechas y Tab se mueven, Intro/Espacio pulsan, Esc cierra, F6 cambia de zona. El mapa y las salas, del ratón. Un clic no deja el foco; las flechas no mueven la cámara con foco; R y la cámara avisan dentro de un edificio. La A, sin cambios. El foco de los botones usa la pieza hover del kit; casillas y pestañas, un marco dorado.",
+      "por_que": "Decisión del manager (bloque C): meta de cobertura ratón ≥ 65 y teclado ≥ 60 órdenes."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "La letra del mundo y los recortes",
+      "decision": "Todos los rótulos de la ciudad y de las salas pasan por WorldLabels (game/world/world_labels.gd): Pixel Operator 16 (negrita en letreros y nombres) y Pixel Operator 8 en barras, insignias y burbujas, con contorno oscuro de 2 px; nunca la fuente por defecto de Godot ni tamaños intermedios. Los textos del HUD que no caben eligen una forma más corta (la entera, en el tooltip). La ayuda no queda bajo el velo del tutorial.",
+      "por_que": "Verificación por la interfaz, bloque B del manager."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Cartas que no pausan: pila lateral, no modales",
+      "decision": "Las cartas de la ciudad que no pausan (eventos, fiestas, bodas, sucesos, retos) van en pequeño (plantilla aviso, sin ilustración) a una pila a la derecha bajo el reloj, o al lado del panel de gestión abierto; nunca se solapan, la que no cabe espera, y se apartan mientras hay un modal. Solo las que pausan (dato modal) son modales: centradas y de una en una, con cola.",
+      "por_que": "Hallazgo de la verificación por la interfaz: la carta centrada se comía los clics de la sala (toque maestro perdido) y dos cartas se tapaban. Decisión del manager (bloque A)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "El que es llamado espera (orden hail)",
+      "decision": "Al ir a hablar, cortejar, retar o tratar con un testigo que está lejos, la UI da primero hail: el otro se para (state.town.holds) hasta que llegas y actúas, das otra orden o pasan data/town.json actions.hail.wait_minutes (90). Orden de gestión: se aplica al momento. Sin cambio de versión del guardado (vive dentro de town).",
+      "por_que": "Retar a quien anda acababa en «demasiado lejos» al llegar. Decisión del manager (bloque A, A8)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Reto recibido, limosna y botones apagados",
+      "decision": "Carta de reto recibido con Aceptar / Rechazar (duel_answer) y «Retirarse» en la carta de un reto propio aceptado (duel_withdraw); también al cargar una partida con un reto sin contestar. «Dar limosna» en la ficha de un mendigo (give_alms). Regla: todo botón apagado dice por qué (tooltip o línea de motivo); la verificación lo comprueba en cada pantalla (hallazgo «mute»). Las teclas 1-4 de las partidas pulsan el botón que llevan pintado, también en las apuestas.",
+      "por_que": "Órdenes sin interfaz y botones mudos encontrados por la verificación. Decisión del manager (bloque A)."
     },
     {
       "fecha": "2026-11-05",
@@ -1038,6 +1086,21 @@
       "tema": "Diversión y ritmo (03b §3b.7, O-D1–O-D5)",
       "detalle": "Se construye con las recomendaciones: Forja viva de 3 decisiones con Resolver sin jugar; desbloqueos por hito y calendario con carta; Saltar hasta…; obras maestras con nombre; encargos con especificaciones.",
       "opciones": "Ver 03b §3b.7."
+    },
+    {
+      "tema": "Jugador completo · obras maestras pronto y a menudo (forja viva)",
+      "detalle": "full_player juega bien las tres decisiones de la Forja viva (como el bot pacing). Con la Artesanía de inicio forja 3-6 obras maestras con nombre en 3 años, la primera entre los días 1 y 6 (3 semillas). 03b §3b.4 las pone en los años 3-5 («Artesanía 7»), como rareza que va a la crónica y se vende a nobles por ×3. El neto del año 1 sube de 75 a 84 de oro/día en la semilla 1.",
+      "opciones": "(a) menos probabilidad de obra maestra por pieza perfecta (data/live_forge.json masterwork) · (b) exigir Artesanía 8 o un número de piezas aprendidas · (c) dejarlo: es el premio de jugar bien"
+    },
+    {
+      "tema": "Jugador completo · el desbloqueo de mejoras llega tarde con un buen jugador",
+      "detalle": "data/unlocks.json abre las mejoras con 300 de oro (ventana de 03b: días 3-5). full_player contrata a su primer empleado en cuanto se abre «empleados» (día 1-2) y no junta 300 hasta el día 7 en las 3 semillas. Con un buen criterio, el desbloqueo llega tarde (unlocks_off ≥ 1 en todas). Ciudadano (ventana 8-15) llega el día 20 o nunca, y los cargos (16-23) nunca: es la decisión 3 (Ciudadano en el año 2).",
+      "opciones": "(a) disparador de mejoras por día (calendario 3) o por oro ganado, no por oro en mano · (b) bajar a 200 · (c) dejarlo y medir con el arreglo de Ciudadano"
+    },
+    {
+      "tema": "Jugador completo · la taberna arranca con pérdidas (sin juzgar aún)",
+      "detalle": "Comprada desde Ciudadano (días 20-24), en los pocos días que quedan hasta el final de los 3 años la taberna de full_player (llevada por la cónyuge con BotInnkeeper) pierde entre 115 y 334 de oro/día de operación: la existencia inicial, los primeros salarios y pocas noches. En una semilla anterior, comprada el día 20, ganaba 61/día de operación. Tres años no bastan para saber si compensa: se mide en la generación de la noche.",
+      "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
     }
   ],
   "proximos_pasos": [

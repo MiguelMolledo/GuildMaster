@@ -74,15 +74,18 @@ func test_chooses_the_best_margin_its_craft_allows() -> void:
 	check(RivalAI.choose_recipe(sim, BERNAT, "bld_0002") != "forge_armor", "armor needs craft 6")
 
 
+## Fiestas (4.25.4, manager 2026-11-05): under the reserve it does not stand still; recovery mode buys just the inputs
+## of one piece of its cheapest sellable recipe (with all its gold) instead of nothing.
 func test_without_gold_it_stops_buying() -> void:
 	var sim := _sim()
 	sim.state.families[FERRER]["gold"] = 15  # under the reserve of 20
 	(sim.state.buildings["bld_0002"]["inventory"]["stacks"] as Array).clear()
-	var bought := 0
+	var spent := 0
 	for e: Dictionary in _run(sim, Clock.MINUTES_PER_DAY):
 		if str(e["type"]) == "market_bought" and str(e["family"]) == FERRER:
-			bought += 1
-	eq(bought, 0, "keeps its reserve: buys nothing")
+			spent += int(e["cost"])
+		check(Money.gold(sim.state, FERRER) >= 0, "never under 0")
+	check(spent <= 15, "buys only what its 15 pay (%d)" % spent)
 	check(Contracts.accepted_of(sim, FERRER).is_empty(), "nor takes contracts it cannot pay the inputs of")
 
 

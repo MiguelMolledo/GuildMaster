@@ -71,7 +71,7 @@ func refresh(force: bool = false) -> void:
 		return
 	var t: Dictionary = v["trial"]
 	var sig := "%s|%s|%s|%s|%d" % [actor, t["status"], v["scale"], v["witnesses"], int(v["minutes_left"]) / 60]
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	var hearing := str(t["status"]) == "hearing"
@@ -232,9 +232,10 @@ func _fill_witnesses(v: Dictionary, hearing: bool) -> void:
 		box.remove_child(c)
 		c.queue_free()
 	for w: Dictionary in v["witnesses"]:
-		var row := HBoxContainer.new()
+		var row := HFlowContainer.new()   # a long reason goes to the next line instead of being squeezed
 		row.name = "W_" + str(w["character"])
-		row.add_theme_constant_override("separation", 5)
+		row.add_theme_constant_override("h_separation", 5)
+		row.add_theme_constant_override("v_separation", 2)
 		if sim.state.characters.has(str(w["character"])):
 			var pf := SocialKit.portrait(sim.state, str(w["character"]))
 			pf.scale = Vector2(0.75, 0.75)   # 30 px rows: five witnesses and the hearing's steps fit the modal
@@ -275,10 +276,13 @@ func _fill_witnesses(v: Dictionary, hearing: bool) -> void:
 				var why := str(w["actions"][k])
 				if off == "" and why != "" and why != "too_far":
 					off = SimQuery.t_("ui.npc.reason_line") % [SimQuery.t_("ui.trial.verb_" + k), _witness_reason(why, w)]
-			if off != "":
+			if off != "":   # whole: the row wraps it to its own line (at its end it was squeezed: verificación B10)
 				var r := SocialKit.label(off, &"ReasonLabel", "Why")
+				var fnt := r.get_theme_font("font")
+				r.custom_minimum_size = Vector2(minf(fnt.get_string_size(off, HORIZONTAL_ALIGNMENT_LEFT, -1,
+					r.get_theme_font_size("font_size")).x + 4.0, 600.0), 0)
 				r.clip_text = true
-				r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+				r.tooltip_text = off
 				row.add_child(r)
 		box.add_child(row)
 
@@ -330,7 +334,7 @@ func request(o: Dictionary, far: bool) -> void:
 ## Walks to the witness first and queues the action behind (like the townsperson's sheet).
 func _walk_then(o: Dictionary) -> void:
 	var spot := Courtship.spot(sim.state, str(o["witness"]))
-	var orders: Array = []
+	var orders: Array = [{"type": "hail", "actor": actor, "target": str(o["witness"])}]   # A8: the witness waits
 	if str(sim.state.characters[actor].get("location", "")) != "":
 		orders.append({"type": "exit_building", "actor": actor})
 		orders.append({"type": "move_to", "actor": actor, "tile": spot, "queued": true})

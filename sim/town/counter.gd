@@ -16,9 +16,11 @@ static func step(sim: Sim) -> void:
 	var open := Clock.phase(now, sim.catalog.time) in (cfg.get("phases", ["day"]) as Array)
 	var ids: Array = st.buildings.keys()
 	ids.sort()
+	var sellers: Array = []
 	for bld: String in ids:
 		if not _sells(sim, bld):
 			continue
+		sellers.append(bld)
 		var c: Dictionary = st.town["counters"].get(bld, {})
 		if not open:
 			if not c.is_empty():
@@ -32,6 +34,12 @@ static func step(sim: Sim) -> void:
 			c["next_at"] = now + _interval(sim, bld, now)
 			_call_customer(sim, bld, now)
 	_serve(sim, now, cfg)
+	Clientele.step(sim, now, open, sellers)  # 04g 4.6.5.7: the countryside's customers (off by default)
+
+
+## Whether `bld` sells at its counter (counter_sales and an owner family).
+static func sells(sim: Sim, bld: String) -> bool:
+	return _sells(sim, bld)
 
 
 ## Whether `bld` sells at its counter: counter_sales and an owner family.

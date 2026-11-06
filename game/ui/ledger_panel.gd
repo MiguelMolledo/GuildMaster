@@ -105,7 +105,7 @@ func refresh(force: bool = false) -> void:
 	var data: Variant = _data()
 	var sig := tab + "|" + str(data) + "|" + str(_gold()) + "|" + str(_pay) + "|" + SimQuery.events_line(sim) \
 		+ SimQuery.season_prices_line(sim)  # H13: the season and the events of the Today tab
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	(%GoldLabel as Label).text = SimQuery.t_("ui.market.gold") % _gold()

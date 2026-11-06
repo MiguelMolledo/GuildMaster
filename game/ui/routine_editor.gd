@@ -52,7 +52,7 @@ func refresh(force: bool = false) -> void:
 	if picked == "":
 		picked = str(v.get("phase", "day"))
 	var sig := "%s|%s|%s|%s|%s" % [who, ch.get("schedule"), actor, v.get("phase", ""), picked]
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	_build_strip(ch.get("schedule"), str(v.get("phase", "")))

@@ -100,6 +100,7 @@ const GOLD_ICON: String = "icon_oro"
 @onready var _building_hint: Label = %BuildingHint
 @onready var _manage_button: Button = %ManageButton
 @onready var _buy_button: Button = %BuyButton  # posada: a building for sale (the Taberna-Posada, buy_building)
+@onready var _table_button: Button = %TableButton  # posada: another family's tavern, its gaming table (InnVisitCard)
 @onready var _selection_action: Button = %SelectionAction
 # 7 · notices, toast, cards, help
 @onready var _notice_popups: VBoxContainer = %NoticePopups
@@ -138,6 +139,7 @@ func _ready() -> void:
 	_game = get_node_or_null("/root/Game")
 	HudKeys.ensure()
 	UiFeel.install(get_tree())
+	KeyNav.install(get_tree())   # the keyboard in menus, panels and cards (verificación C13)
 	TitleFit.install(get_tree())   # a panel title that does not fit in gothic takes the small letter
 	_title_label.text = tr("app.title")
 	_paused_label.text = tr("hud.paused")
@@ -185,6 +187,11 @@ func _ready() -> void:
 		var who := active_person()
 		if who != "" and _game != null:
 			_game.give({"type": "buy_building", "actor": who, "building": building_id}))
+	_table_button.pressed.connect(func() -> void:
+		var app := get_node_or_null("/root/App")
+		var card := app.get_node_or_null("%InnVisitCard") as InnVisitCard if app != null else null
+		if card != null and _game != null:
+			card.show_for(_game.sim, building_id, active_person()))
 	_selection_action.pressed.connect(toggle_character_panel)
 	_toast_label.visible = false
 	# panels: the orders go to Game; one management panel at a time (ManageSlot)
@@ -279,7 +286,10 @@ func _refresh() -> void:
 	_update_building_panel()   # the idle reason follows the queue
 	var t := sim.now()
 	_time_label.text = tr("hud.time") % [t["hour"], t["minute"]]
-	_date_label.text = tr("hud.date") % [t["day"], tr("season." + str(t["season"])), t["year"]]
+	var season := tr("season." + str(t["season"]))
+	_fit(_date_label, [tr("hud.date") % [t["day"], season, t["year"]], tr("hud.date_short") % [t["day"], season, t["year"]],
+		tr("hud.date_shortest") % [season, t["year"]]])   # the clock's line never cuts (verificación B10)
+	_date_label.tooltip_text = tr("hud.date") % [t["day"], season, t["year"]]
 	var night := str(t["phase"]) in ["dusk", "night"]
 	_sun_moon.texture = UiIcons.ui("icon_moon" if night else "icon_sun")
 	_clock_panel.tooltip_text = tr("hud.clock") % [t["day"], tr("season." + str(t["season"])), t["year"], t["hour"],
@@ -367,11 +377,24 @@ func _show_building(sim: Sim) -> void:
 	_selection_action.visible = false
 	var sale := bool(sim.state.buildings[building_id].get("for_sale", false))
 	_buy_button.visible = sale
+	_table_button.visible = show_table_button(sim, building_id)
+	_table_button.text = tr("hud.inn_table")
+	_table_button.tooltip_text = tr("hud.inn_table_tip")
 	if sale:
 		var price := Inn.sale_price(sim, building_id)
 		_buy_button.text = tr("hud.buy_building") % price
 		_buy_button.disabled = not Money.can_pay(sim.state, family(), price)
-		_buy_button.tooltip_text = tr("hud.buy_building_tip")
+		_buy_button.tooltip_text = tr("ui.why.bet_gold") % [price, Money.gold(sim.state, family())] \
+			if _buy_button.disabled else tr("hud.buy_building_tip")   # an off button says why (verificación A7)
+
+
+## posada: «Jugar en la mesa» for another family's Taberna-Posada with its gaming table (the card says whether one
+## can sit now: the turn, the door, the owner).
+func show_table_button(sim: Sim, bld: String) -> bool:
+	if not Inn.is_inn(sim, bld) or not InnGames.has_table(sim, bld):
+		return false
+	var owner := str(sim.state.buildings[bld].get("owner", ""))
+	return owner != "" and owner != family()
 
 
 ## The selected person (alive) or "".
@@ -390,6 +413,7 @@ func _show_person(sim: Sim, who: String) -> void:
 	_selection_icon.texture = UiIcons.ui("icon_working" if not lines.is_empty() else "icon_idle", false)
 	_manage_button.visible = false
 	_buy_button.visible = false
+	_table_button.visible = false
 	_selection_action.visible = str(ch.get("controlled_by", "")) == "human"
 	_selection_action.text = tr("hud.inventory")
 	_selection_action.tooltip_text = tr("hud.inventory_tip")
@@ -469,11 +493,55 @@ func _unhandled_input(event: InputEvent) -> void:
 		_build_denied()
 	elif HudKeys.pressed(event, "region_map") and not interior_open:
 		region_requested.emit()
+	elif HudKeys.pressed(event, "region_map") and interior_open:
+		show_toast(tr("ui.hud.map_not_inside"))   # verificación C13: say it instead of doing nothing
+	elif interior_open and _camera_key(event):
+		show_toast(tr("ui.hud.camera_not_inside"))
 	elif event.is_action_pressed("pause_toggle"):
 		_game.toggle_pause()
 	else:
 		return
 	get_viewport().set_input_as_handled()
+
+
+## The first of `forms` (longest first) that fits `l` as it is laid out now; the last one if none does.
+static func _fit(l: Label, forms: Array) -> void:
+	l.set_meta("fit_forms", forms)
+	if not l.resized.is_connected(_refit.bind(l)):   # the card lays out after the text: fit again when it does
+		l.resized.connect(_refit.bind(l))
+	var font := l.get_theme_font("font")
+	var size := l.get_theme_font_size("font_size")
+	var room := l.size.x if l.size.x > 1.0 else 9999.0
+	for f: Variant in forms:
+		if font.get_string_size(str(f), HORIZONTAL_ALIGNMENT_LEFT, -1, size).x <= room:
+			l.text = str(f)
+			return
+	l.text = str(forms[forms.size() - 1])
+
+
+static func _refit(l: Label) -> void:
+	var forms: Array = l.get_meta("fit_forms", [])
+	if forms.is_empty():
+		return
+	var font := l.get_theme_font("font")
+	var size := l.get_theme_font_size("font_size")
+	for f: Variant in forms:
+		if font.get_string_size(str(f), HORIZONTAL_ALIGNMENT_LEFT, -1, size).x <= l.size.x:
+			if l.text != str(f):
+				l.text = str(f)
+			return
+	l.text = str(forms[forms.size() - 1])
+
+
+## A camera key (WASD, arrows) that is not also a key of the building's panels (A is the storage there).
+func _camera_key(event: InputEvent) -> bool:
+	for a: String in ["cam_left", "cam_right", "cam_up", "cam_down"]:
+		if event.is_action_pressed(a, false, true):
+			for p: String in ["panel_production", "panel_storage", "panel_staff", "panel_upgrades"]:
+				if HudKeys.pressed(event, p):
+					return false
+			return true
+	return false
 
 
 func _speed_key(event: InputEvent) -> int:
@@ -586,7 +654,10 @@ func _refresh_family(sim: Sim) -> void:
 		_title_badge.texture = UiIcons.mark("badge_title_" + title)
 		# with two or three portraits the card has room for the reputation only (the title is in the badge and the tooltip)
 		var full := tr("hud.title_rep") % [SimQuery.title_name(title).capitalize(), rep]
-		_family_title.text = full if Kin.group(sim.state, fam).size() < 2 else tr("hud.rep_short") % rep
+		if Kin.group(sim.state, fam).size() < 2:
+			_fit(_family_title, [full, tr("hud.rep_short") % rep, tr("hud.rep_tight") % rep])
+		else:
+			_fit(_family_title, [tr("hud.rep_short") % rep, tr("hud.rep_tight") % rep, str(rep)])
 		_family_title.tooltip_text = full + "\n" + tr("hud.title_rep_tip")
 	_refresh_debt(sim, fam)
 	_refresh_objective(sim, fam)

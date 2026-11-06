@@ -35,8 +35,7 @@ class Sign:
 		color = c
 		_label = Label.new()
 		_label.text = t
-		_label.add_theme_font_size_override("font_size", 10)
-		_label.add_theme_color_override("font_color", Color(0.12, 0.08, 0.05))
+		WorldLabels.style(_label, "sign")
 		_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_label)
@@ -46,8 +45,8 @@ class Sign:
 	func _fit() -> void:
 		var w := maxf(60.0, ceilf(_label.get_minimum_size().x) + 8.0)
 		half_w = ceilf(w / 2.0)
-		_label.size = Vector2(half_w * 2.0, 14)
-		_label.position = Vector2(-half_w, -7)
+		_label.size = Vector2(half_w * 2.0, 16)
+		_label.position = Vector2(-half_w, -9)
 		queue_redraw()
 
 	func _ready() -> void:
@@ -97,10 +96,7 @@ class WorksBar:
 		width = float(cfg.get("width", 44))
 		_label = Label.new()
 		_label.name = "Left"
-		_label.add_theme_font_size_override("font_size", 8)
-		_label.add_theme_color_override("font_color", ViewConfig.color(str(cfg.get("text", "#f6ecd0"))))
-		_label.add_theme_color_override("font_outline_color", back)
-		_label.add_theme_constant_override("outline_size", 3)
+		WorldLabels.style(_label, "small", ViewConfig.color(str(cfg.get("text", "#f6ecd0"))))
 		_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_label.size = Vector2(width + 40.0, 10)

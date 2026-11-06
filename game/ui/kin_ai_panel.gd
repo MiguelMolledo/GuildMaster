@@ -71,7 +71,7 @@ func refresh(force: bool = false) -> void:
 	var dv := Directives.view(sim, target)
 	var nv := Needs.view(sim, target)
 	var sig := "%s|%s|%s|%s|%s" % [actor, target, members, dv, nv]
-	if sig == _sig and not force:
+	if (sig == _sig or UiFeel.hold_rebuild(self)) and not force:
 		return
 	_sig = sig
 	var st := sim.state
@@ -142,6 +142,8 @@ func _fill_directives(dv: Dictionary) -> void:
 			b.focus_mode = Control.FOCUS_NONE
 			var i := list.find(d)
 			b.disabled = not on or (dir < 0 and i == 0) or (dir > 0 and i == list.size() - 1)
+			if b.disabled:
+				b.tooltip_text = tr("ui.why.directive_off") if not on else tr("ui.why.first" if dir < 0 else "ui.why.last")
 			b.pressed.connect(func() -> void: _move(d, dir))
 			row.add_child(b)
 		box.add_child(row)

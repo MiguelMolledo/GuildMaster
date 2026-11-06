@@ -114,7 +114,12 @@ static func order_label(state: WorldState, catalog: Catalog, o: Dictionary) -> S
 			return line
 	var key := "ui.order." + t
 	var s := t_(key)
-	return t if s == key else s
+	if s == key:
+		return t
+	if s.contains("%s"):   # orders on somebody: their name (Conversar con Agnès, Pedir a Bernat que espere)
+		var who := str(o.get("target", o.get("witness", "")))
+		return s % str(state.characters.get(who, {}).get("name", who))
+	return s
 
 
 ## The order queue of `actor` as text lines, in order (GDD 4.1, active pause): what the sim holds in its order_queue,
@@ -375,6 +380,8 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["festival"] = festival_name(str(p["festival"]))
 	if p.has("part"):
 		p["part"] = t_("festival.part." + str(p["part"])).to_lower()
+	if p.has("privilege"):  # fiestas: the marquis's privilege
+		p["privilege"] = t_("festival.privilege." + str(p["privilege"]))
 	if p.has("event"):  # H13: a global event id (its name and the sentence of its effects)
 		var ek := str(catalog.world_events().get(str(p["event"]), {}).get("text_key", "event." + str(p["event"])))
 		p["desc"] = t_(ek + ".desc")

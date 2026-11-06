@@ -1,0 +1,24 @@
+{
+  "id": "fiesta_boda",
+  "title": "Fiesta con encargo de boda",
+  "about": "Tras la boda de Hugo (cortejo): la carta de la oferta de la fiesta de boda («Dar banquete» si hay oro, si no «Boda sencilla») y, con banquete, los encargos de la fiesta en el tablón (aceptar uno); si sale la víspera de una fiesta con patrocinio, patrocinar una parte.",
+  "start": {"scenario": "courtship"},
+  "covers": ["festival_host_wedding", "festival_sponsor", "accept_contract"],
+  "steps": [
+    {"id": "ficha", "key": "@inventory", "expect": ["q.visible('CharacterPanel')"]},
+    {"id": "cortejar", "click": {"node": "CourtButton"}, "expect": ["q.visible('CourtshipPanel')"]},
+    {"id": "hablar", "click": {"within": "CourtshipPanel", "node": "Talk"}, "until": "q.event('affinity_changed') or q.refused() != ''", "timeout": 20, "fast": 4},
+    {"id": "proponer", "click": {"within": "CourtshipPanel", "node": "Propose"}, "expect": ["q.visible('ConfirmModal')"]},
+    {"id": "si", "click": {"within": "ConfirmModal", "node": "ConfirmButton"}, "until": "q.married()", "timeout": 20, "fast": 4},
+    {"id": "esc", "key": "Escape"},
+    {"id": "oferta", "say": "La carta de la oferta de fiesta de boda", "until": "q.shown({'node': 'Button_host_wedding'})", "timeout": 30, "fast": 4},
+    {"id": "banquete", "say": "«Dar banquete» (80 de oro): con 30 sale apagado; tiene que decir por qué", "expect": ["q.disabled({'node': 'Button_host_wedding'})", "q.tip({'node': 'Button_host_wedding'}) != ''"], "soft": true},
+    {"id": "boda_sencilla", "say": "«Boda sencilla»", "when": "q.disabled({'node': 'Button_host_wedding'})", "click": {"node": "Button_plain"}, "expect": ["not q.shown({'node': 'Button_plain'})"]},
+    {"id": "banquete_si", "when": "q.shown({'node': 'Button_host_wedding', 'enabled': true})", "click": {"node": "Button_host_wedding"}, "expect": ["q.order('festival_host_wedding')"]},
+    {"id": "encargos", "say": "Los encargos de la fiesta salen en el tablón", "until": "q.board_festival() != ''", "timeout": 60, "fast": 6, "when": "q.flow_has('festival_host_wedding') or q.board_festival() != ''"},
+    {"id": "al_tablon", "world": {"service": "board"}, "button": "right", "until": "q.visible('BoardPanel')", "timeout": 30, "fast": 4, "when": "q.flow_has('festival_host_wedding') or q.board_festival() != ''"},
+    {"id": "aceptar", "say": "Aceptar un encargo de la fiesta", "click": {"within": {"node": "='Note_' + q.board_festival()"}, "node": "Accept"}, "expect": ["q.order('accept_contract')"], "when": "q.flow_has('festival_host_wedding') or q.board_festival() != ''"},
+    {"id": "cerrar", "key": "Escape", "expect": ["not q.visible('BoardPanel')"], "when": "q.flow_has('festival_host_wedding') or q.board_festival() != ''"},
+    {"id": "patrocinar", "say": "Si sale la víspera de una fiesta con patrocinio, patrocinar una parte", "when": "q.shown({'prefix': 'Button_sponsor', 'enabled': true})", "click": {"prefix": "Button_sponsor", "enabled": true}, "soft": true, "expect": ["q.order('festival_sponsor')"]}
+  ]
+}

@@ -129,7 +129,9 @@ Para apuestas que esperan a una competición futura (el calendario de las Fiesta
   "envite", opponents: [vecinos sentados o "preset:regular_…"], stake, opts: {house: <la taberna>}}` (App →
   `GameScreen.open`; `InnGames.request` / `offer_request`). La casa gana su parte por `game_played.house_cut` (nada si
   juega su dueño); sin licencia, jugar en la taberna es delito leve si lo ve el Alguacil: lo aplica la Posada al oír
-  `game_played` con su `house` (`InnGames.hear`, hecho `illegal_gaming`). Los parroquianos jugadores son fichas
+  `game_played` con su `house` (`InnGames.hear`, hecho `illegal_gaming` contra el dueño de la mesa, juegue quien
+  juegue). En la taberna de otra familia se juega desde su puerta (`InnGames.visitor_blocked`, `terms`: el perfil
+  de una dueña IA decide si deja jugar y la apuesta mínima). Los parroquianos jugadores son fichas
   (`presets`) o vecinos del estado; los forasteros que proponen partida, `regular_cheat`, `stranger_soldier` y
   `stranger_merchant` (añadidos a `presets`).
 - **Fiestas** (espectáculos, 4.25.3 `spectacle`): enganchado; ver §5 ter.
