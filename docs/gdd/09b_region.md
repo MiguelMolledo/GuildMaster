@@ -149,7 +149,7 @@ estaciones y cuesta una **cuota de firma** (oro o un regalo).
 |---|---|---|
 | **Exención de aranceles** | Tu familia no paga arancel en esa ciudad | Patricio · reputación ≥ 20 en esa ciudad · 4 estaciones |
 | **Exclusividad de un producto** | Solo tu familia vende ese objeto en esa ciudad: las caravanas de los demás no lo descargan | Barón · reputación ≥ 40 · 2 estaciones · cuota alta |
-| **Cuota fija a buen precio** | La ciudad te compra Q unidades por estación a un precio fijo (×1,2 del base): un encargo que se repite | Ciudadano · reputación ≥ 10 · 4 estaciones. Si no entregas: −10 de reputación y multa |
+| **Cuota fija a buen precio** | La ciudad te compra Q unidades por estación a un precio fijo (×1,5 del base, sin arancel; 9b.12): un encargo que se repite | Ciudadano · reputación ≥ 3 · 4 estaciones. Si no entregas: −10 de reputación y multa |
 
 - **Con los cargos:** el **Alcalde** puede firmar tratados **en nombre de su ciudad**, que valen para todas las
   familias de casa (por ejemplo, «los de Vilarrasa no pagan portazgo en Portvell»). Pasan por el concejo como una
@@ -233,7 +233,7 @@ En la línea catalana y castellana de `data/cast.json`. Todo es propuesta: los t
 | Viajar | `sim/region/travel.gd`: órdenes `travel` y `return` | Título de Ciudadano. Camino abierto más corto; cada tramo: horas × el ×1,5 de la guerra, su peaje (`toll` de la ruta) y la escolta (20) al empezarlo, la tirada de asalto al acabarlo (riesgo × 4 %, ÷ 2 con escolta). **Un asalto se lleva la carga sin herida: la herida llega con la salud de 4.22 (H12.3)**. Fuera del mapa: órdenes rechazadas salvo las de la región, sin rutina ni necesidades; vuelve por la puerta oeste. La vista pasa el control al siguiente del grupo |
 | Comerciar fuera | `sim/region/city_trade.gd`: `city_buy`, `city_sell`, `city_accept`, `city_deliver` | Arancel de 9b.3 sobre lo que vende un forastero (0 con exención). Reputación allí: +1 cada 2 unidades vendidas, +3 por encargo cumplido, −2 por encargo vencido |
 | Caravanas | `sim/region/caravans.gd`: `buy_cart`, `caravan_send` | Carro 120 de oro y 2 al día; como mucho 2; 6 lotes. El carretero es un empleado de la familia (fuera mientras va). Carga con precio mínimo por línea, lista de compra con precio máximo, escolta por tramo; entrega en destino los encargos que pueda; un asalto se lleva la carga, nunca el carro. Sin oro para un peaje, espera una hora y lo vuelve a intentar |
-| Tratados | `sim/region/treaties.gd`: `sign_treaty`, `propose_town_treaty`, `cancel_treaty` | Exención (Patricio, reputación 20, 60 de oro, 4 estaciones), exclusividad (Barón, 40, 150, 2) y cuota (Ciudadano, 5, 20, 4: 4 unidades por estación a 1,2 × base, sin arancel). Al empezar cada estación: cuota corta = roto (multa 20, −10 de reputación, termina); los demás, +2. El Alcalde firma la exención de la villa si el concejo vota sí (concejal: sí con afinidad ≥ 0 con el Alcalde; empate, el Alcalde): vale para todas las familias de casa |
+| Tratados | `sim/region/treaties.gd`: `sign_treaty`, `propose_town_treaty`, `cancel_treaty` | Exención (Patricio, reputación 20, 60 de oro, 4 estaciones), exclusividad (Barón, 40, 150, 2) y cuota (Ciudadano, 3, 20, 4: 4 unidades por estación a 1,5 × base, sin arancel; 9b.12). Al empezar cada estación: cuota corta = roto (multa 20, −10 de reputación, termina); los demás, +2. El Alcalde firma la exención de la villa si el concejo vota sí (concejal: sí con afinidad ≥ 0 con el Alcalde; empate, el Alcalde): vale para todas las familias de casa |
 | Vista | `game/ui/region_screen.gd`, `city_screen.gd`, `caravan_screen.gd` | Viajar y volver desde la ficha (motivo cuando no se puede); el emblema y los carros avanzan por la ruta; al llegar se abre la página de la ciudad (mercado, encargos, tratados). Arte de arte-fal-2 por `VisualPaths`: `city_art` (`illus_city_<id>`), `region_token` (el estandarte de la familia, con su tela teñida por `identity_swap.gdshader`; variante escudo), `region_caravan` (carro de bueyes, reflejado hacia el oeste; variante carreta) y `region_icon` (arancel, tratado, caravana, reputación de ciudad); sin un fichero, un provisional visible |
 | Tutorial | `data/tutorial/travel.json` y tres pistas de primera vez | Capítulo «Viajar y comerciar» (escenario `travel_start`); pistas al primer viaje, la primera caravana y el primer tratado |
 | Bot | `sim/bots/bot_merchant.gd`, diana `merchant` | Ver `data/targets.json` |
@@ -278,3 +278,27 @@ villa compraba todas sus espadas y la reputación de fuera casi solo subía con 
   es la decisión razonable (1,2 × precio base sin arancel, frente a ~0,7 × demanda en la plaza). Medido (3 años × 4
   semillas): caravanas 0 → 1,5 de mediana (0-5), ventas en la capital 296-599 → 438-2.259 de oro, cuotas rotas 3/4 → 1/4,
   neto del año 2 24 → 39 al día, oro final igual (990 → 957).
+
+### 9b.12 Equilibrio 7b: que la caravana y el tratado compensen (rama forja, 2026-11-06)
+
+Pendiente de full_player en `docs/decisiones.json`: «caravanas y tratados nunca compensan». Medido antes (8 semillas ×
+3 años): la caravana ya compensa por unidad, pero la cuota no, y llega tarde.
+
+- **La caravana por unidad** (`tools/region/trade_probe.gd`, de travel_start a Bellcaire, ya restados el arancel, los
+  dos peajes, el carro de los días fuera y el 12 % de perder la carga en un asalto): 4 espadas normales dan 172 en
+  casa con la demanda llena y 315 esperados fuera (+83 %); con la demanda de casa a 0,6, 99 frente a 315 (+218 %); las
+  buenas, +141 % y +315 %. Lo que el pueblo no quiere ya deja beneficio claro llevado fuera: no se toca.
+- **La cuota pagaba menos que el mercado de allí:** 1,2 × base = 78 por espada, cuando Bellcaire paga ~90 en bruto y
+  ~81 tras el arancel. Ahora **1,5 × base = 98** sin arancel: lo que vale una promesa de cuatro espadas cada estación.
+- **La cuota pedía reputación 5** (cinco espadas vendidas allí), y el jugador completo tardaba 8 días tras Ciudadano en
+  juntarlas: la villa se las lleva. Ahora **3**: un primer viaje con 3 espadas la firma (el bot: `TRIP_SWORDS` 3).
+- **El carro de la cuota:** con una cuota firmada y sin carro, el jugador completo guarda su precio en la reserva, y su
+  posadero tampoco lo gasta (`BotInnkeeper.kept`; antes se le iba en surtir la taberna y la cuota se rompía sin servirla).
+
+Medido (full_player, 3 años × 8 semillas, sobre main a98bd928, antes → después): caravanas 0,8 → 3,0 de media; lo que
+vendieron frente a lo que valían en casa al salir +11 → +281; tratado (cuota cobrada − su valor en casa − firmas −
+carro − multas) −59 → +105 de media, positivo en 1/8 → 5/8 (la octava no llega a firmar), roto 4/8 → 1/8; oro medio
+del año 3 490 → 645. El bot
+merchant (travel_start, 10 semillas × 16 días) sigue dentro de sus dianas, pero cerca del techo de una: ventas en la
+capital 710 → 858 de media (banda 450-900; por semilla 509-881 → 639-1.080), viajes 2,5 → 1,7 (firma la cuota en el
+primero), oro final 603 → 739.

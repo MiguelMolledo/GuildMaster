@@ -316,8 +316,8 @@ func _recipe_row(opt: Dictionary, can_pick: bool) -> VBoxContainer:
 	b.flat = true
 	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	b.text = SimQuery.recipe_name(sim.catalog, rid)
-	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	b.clip_text = true
+	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL   # the whole name: the menu widens for it (verifica, forja_viva:
+	# «Forjar armadu», «Forjar martill» were clipped)
 	b.icon = UiIcons.lock() if status == "locked" else VisualPaths.icon_small(str(rec.get("output", {}).get("item", "")))
 	if Production.is_service(rec) and status != "locked":
 		b.icon = UiIcons.ui("icon_patient")
