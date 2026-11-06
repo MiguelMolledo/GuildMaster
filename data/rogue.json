@@ -1,0 +1,56 @@
+{
+  "_doc": "El Pícaro: el Ladrón (docs/gdd/04d_otras_clases.md §4.22.6.4, O2 a: el Pícaro empieza como Ladrón). Lo lee sim/rogue/rogue.gd [balance]. stolen_suffix: lo robado entra como <item>@stolen (el catálogo quita el sufijo para peso, pila y precio; ningún puesto, receta ni encargo lo acepta). pickpocket: robar la bolsa de DÍA o al ATARDECER a una persona a range casillas o menos, una vez al día cada víctima; éxito = SkillCheck(destreza, empatía de la víctima) + crowd si hay crowd_people o más a crowd_tiles; cada fallo del día en la villa resta fail_penalty al siguiente; botín: vecino o forastero, loot de fuera; familia que juega, min(base + destreza ; share de su oro). burgle: robar un almacén de NOCHE desde su puerta, un edificio ajeno con almacén; cerradura = lock_base + lock_per_level × nivel de Seguridad; éxito = SkillCheck(sigilo, cerradura) + lockpicks con ganzúas; botín: hasta units_base + destreza ÷ 2 unidades de lo más valioso, sin pasar del peso; el edificio no se puede volver a robar en cooldown_days. witness: un guardia de servicio a view_day (de día) o view_night (de noche) casillas ve el delito y detiene; la víctima que lo ve grita. fence: el perista (en tu Guarida, o en la Taberna de NOCHE) paga share del precio de venta del mercado (+underworld_bonus con underworld ≥ underworld_min), hasta cap oro al día entre todos. launder: el banco de trabajo de la Guarida quita la marca a una unidad cada minutes (Destreza min_dexterity). arrest (4.22.6.3): quien juega una persona recibe la carta de la detención y responde en minutes (si no, se rinde): rendirse (juicio), huir (destreza contra la del guardia; si falla, cargo «resisting» además), luchar (un duelo contra el guardia: si gana escapa con un hecho «violent_crime», si pierde, juicio y «asustado»), sobornar (bribe_base + bribe_per_negotiation × la negociación del guardia; negociación contra bribe_against: si sale, le suelta y el hecho no se denuncia; si no, pierde el oro y cargo «bribery»). underworld: fama en los bajos fondos, 0-100: +success por robo con éxito, conviction por condena.",
+  "stolen_suffix": "@stolen",
+  "pickpocket": {
+    "phases": ["day", "dusk"],
+    "range": 1,
+    "crowd_tiles": 4,
+    "crowd_people": 3,
+    "crowd": 10,
+    "fail_penalty": 10,
+    "loot": [5, 12],
+    "family_base": 5,
+    "family_share": 0.05,
+    "relation": -30
+  },
+  "burgle": {
+    "phases": ["night"],
+    "lock_base": 2,
+    "lock_per_level": 2,
+    "lockpicks": 10,
+    "lockpick_item": "lockpicks",
+    "units_base": 2,
+    "cooldown_days": 2
+  },
+  "witness": {
+    "view_day": 8,
+    "view_night": 5,
+    "victim_relation": -30
+  },
+  "fence": {
+    "share": 0.5,
+    "underworld_min": 50,
+    "underworld_bonus": 0.1,
+    "cap": 150
+  },
+  "launder": {
+    "minutes": 30,
+    "min_dexterity": 5
+  },
+  "arrest": {
+    "minutes": 30,
+    "bribe_base": 20,
+    "bribe_per_negotiation": 5,
+    "bribe_against": 5,
+    "duel_kind": "first_blood"
+  },
+  "underworld": {
+    "success": 2,
+    "conviction": -5
+  },
+  "charges": {
+    "pickpocket": "petty_theft",
+    "burgle": "theft",
+    "receiving": "receiving"
+  }
+}

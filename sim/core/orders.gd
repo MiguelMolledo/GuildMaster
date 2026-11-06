@@ -207,6 +207,17 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 		# Vida (sim/life/*.gd, docs/gdd/04f_vida_y_fiestas.md §4.24, docs/contratos/vida.md)
 		"resolve_incident":
 			return Incidents.order_resolve(sim, order)
+		# The Rogue: the thief (sim/rogue/rogue.gd, docs/gdd/04d_otras_clases.md 4.22.6.4)
+		"pickpocket":
+			return Rogue.order_pickpocket(sim, order)
+		"burgle":
+			return Rogue.order_burgle(sim, order)
+		"fence_sell":
+			return Rogue.order_fence(sim, order)
+		"launder":
+			return Rogue.order_launder(sim, order)
+		"arrest_response":
+			return Rogue.order_arrest_response(sim, order)
 		"give_alms":
 			return Visitors.order_alms(sim, order)
 		# Posada · the Taberna-Posada (sim/inn/inn.gd, docs/gdd/04f_vida_y_fiestas.md §4.27)

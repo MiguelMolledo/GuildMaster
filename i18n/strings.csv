@@ -4075,3 +4075,59 @@ spectacle.arm_wrestling,Arm wrestling,Pulso
 reason.already_played,Already played,Ya la has jugado
 reason.already_bet,Already bet,Ya has apostado
 ui.order.festival_give_gift,Give a Christmas gift,Hacer un regalo de Navidad
+item.lockpicks,Lockpicks,Ganzúas
+charge.petty_theft,Pickpocketing,Robo de bolsa
+charge.theft,Burglary,Robo en un edificio
+charge.receiving,Receiving stolen goods,Receptación
+notice.rogue_arrested,The watch has arrested {name} ({charge}); {seized} stolen pieces seized: trial pending,La guardia ha detenido a {name} ({charge}); requisa {seized} piezas robadas: tiene juicio
+notice.rogue_purse,Somebody picked your purse in the street: {gold} gold,Te han robado la bolsa en la calle: {gold} de oro
+notice.rogue_burgled,Thieves broke into your storage at night: {count} pieces gone,Unos ladrones han entrado de noche en tu almacén: faltan {count} piezas
+reason.bad_target,Not somebody to rob,No es alguien a quien robar
+reason.wrong_time,Not at this hour,No a esta hora
+reason.already_picked,Already robbed today,Ya le has robado hoy
+reason.nothing_to_steal,Nothing to steal,No hay nada que robar
+reason.recently_robbed,Robbed recently: they are on guard,Lo robaron hace poco: están en guardia
+reason.no_fence,No fence here,Aquí no hay perista
+reason.fence_full,The fence has spent enough today,El perista ya ha gastado bastante hoy
+reason.no_den,Only in your den,Solo en tu guarida
+reason.low_dexterity,Not deft enough,Te falta destreza
+ui.order.pickpocket,Pick a purse,Robar una bolsa
+ui.order.burgle,Break into a storage,Robar un almacén
+ui.order.fence_sell,Sell to the fence,Vender al perista
+ui.order.launder,Launder a piece,Blanquear una pieza
+notice.rogue_caught,The watch has caught {name} ({charge}): answer before half an hour,La guardia ha pillado a {name} ({charge}): responde antes de media hora
+charge.resisting,Resisting the watch,Resistencia a la guardia
+reason.no_arrest,Nobody is arresting him,Nadie le está deteniendo
+reason.bad_choice,Not an answer,No es una respuesta
+ui.order.arrest_response,Answer the watch,Responder a la guardia
+building.den,Thieves' den,Guarida de ladrones
+profession.thief,Thief,Ladrón
+upgrade.den_capacity_1,Hidden cellar,Sótano escondido
+upgrade.den_capacity_2,Bigger cellar,Sótano grande
+upgrade.den_capacity_3,Smugglers' vault,Bóveda de contrabandistas
+upgrade.den_commerce_1,Fence's table,Mesa del perista
+upgrade.den_commerce_2,Known buyers,Compradores de confianza
+upgrade.den_commerce_3,Fence of renown,Perista de renombre
+upgrade.den_facade_1,Plain front,Fachada discreta
+upgrade.den_facade_2,Respectable front,Fachada respetable
+upgrade.den_facade_3,Merchant's front,Fachada de comerciante
+upgrade.den_production_1,Washing tub,Barreño de lavar
+upgrade.den_production_2,Engraver's bench,Banco de grabador
+upgrade.den_production_3,Forger's workshop,Taller de falsario
+upgrade.den_quality_1,Fine lockpicks,Ganzúas finas
+upgrade.den_quality_2,Lock collection,Colección de cerraduras
+upgrade.den_quality_3,Master picklock,Maestro ganzúa
+upgrade.den_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.den_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.den_secrets_3,Smuggling,Contrabando
+upgrade.den_security_1,Reinforced lock,Cerradura reforzada
+upgrade.den_security_2,Lookout,Vigía
+upgrade.den_security_3,Strongbox,Caja fuerte
+upgrade.den_staff_1,Gang's room,Cuarto de la banda
+upgrade.den_staff_2,Common table,Mesa común
+upgrade.den_staff_3,Master thief's den,Guarida de maestro
+effect.fence_bonus,The fence pays more,El perista paga más
+effect.lock_bonus,Locks open easier,Las cerraduras ceden antes
+client.discreet_buyer,A discreet buyer,Un comprador discreto
+client.pawnbroker,The pawnbroker,El prestamista de prendas
+client.collector,A collector,Un coleccionista

@@ -65,6 +65,8 @@ var portrait_pool: Dictionary = {}
 ## (the groups of customers); data/services.json, the demand of services of 4.22.3.2 (tavern and inn, for now).
 var inn: Dictionary = {}
 var services: Dictionary = {}
+var rogue: Dictionary = {}  # data/rogue.json (the Rogue, 4.22.6)
+const STOLEN: String = "@stolen"  # the mark of stolen goods (4.22.6.4)
 var errors: PackedStringArray = []  # files that could not be read
 var _goods_index: Dictionary = {}  # H13: item -> [goods groups] (goods_of)
 var _goods_built: bool = false
@@ -121,6 +123,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 		"menu": c._load_json(root_dir.path_join("inn/menu.json")),
 		"clientele": c._load_json(root_dir.path_join("inn/clientele.json"))}
 	c.services = c._load_json(root_dir.path_join("services.json"))
+	c.rogue = c._load_json(root_dir.path_join("rogue.json"))  # the Rogue: the thief (4.22.6.4)
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]
@@ -140,7 +143,10 @@ func buildings() -> Dictionary:
 
 
 func item(id: String) -> Dictionary:
-	return items().get(id, {})
+	var it: Dictionary = items().get(id, {})
+	if it.is_empty() and id.ends_with(STOLEN):  # the Rogue (4.22.6.4): <item>@stolen weighs, stacks and costs as <item>
+		return items().get(id.trim_suffix(STOLEN), {})
+	return it
 
 
 func maps() -> Dictionary:
