@@ -1244,18 +1244,18 @@
    "side": "inside",
    "zone": "housing",
    "origin": [
-    7,
-    8
+    16,
+    19
    ],
    "size": [
     3,
     2
    ],
    "front": [
-    10,
-    8
+    19,
+    19
    ],
-   "location": 0.76
+   "location": 0.63
   },
   {
    "id": "plot_04",
