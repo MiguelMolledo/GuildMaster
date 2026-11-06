@@ -304,7 +304,10 @@ func validate() -> PackedStringArray:
 		for inp: Dictionary in r.get("inputs", []):
 			if not items().has(str(inp.get("item", ""))):
 				out.append("recipes/%s: unknown input item %s" % [id, inp.get("item")])
-		if not items().has(str(r.get("output", {}).get("item", ""))):
+		if str(r.get("kind", "craft")) == "service":
+			if not (services.get("services", {}) as Dictionary).has(str(r.get("service", ""))):
+				out.append("recipes/%s: unknown service %s" % [id, r.get("service")])  # H12.2: no output
+		elif not items().has(str(r.get("output", {}).get("item", ""))):
 			out.append("recipes/%s: unknown output item %s" % [id, r.get("output", {}).get("item")])
 	for lvl: String in DIFFICULTIES:
 		if difficulty_levels(lvl).is_empty():

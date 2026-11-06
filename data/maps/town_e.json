@@ -26,7 +26,7 @@
   ".#####.=.##,##.PPPPPPPPPP#####.=#####...",
   "===============PPPP#PPPPP==========bb===",
   "===============PPPPPPPPPP==========bb===",
-  ".#####.=.#####.SPPPPPPPPP#####.=#####...",
+  ".#####.=.#####.SPPPPPPPPS#####.=#####...",
   ".#####.=.#####.PPPPPPPPPP#####.=#####...",
   ".#####.=.#####.PNPPPPPPPP#####.=#####...",
   ".......=.###...PPPPPPPPPP###...=...ww...",
@@ -115,6 +115,16 @@
     16,
     20
    ]
+  },
+  "apothecary": {
+   "tile": [
+    24,
+    20
+   ],
+   "service": [
+    23,
+    20
+   ]
   }
  },
  "board": {
@@ -192,6 +202,17 @@
   },
   "rival_tailor": {
    "type": "tailor_shop",
+   "origin": [
+    25,
+    20
+   ],
+   "door": [
+    26,
+    19
+   ]
+  },
+  "player_clinic": {
+   "type": "clinic",
    "origin": [
     25,
     20
@@ -1377,7 +1398,7 @@
     26,
     19
    ],
-   "location": 0.78,
+   "location": 0.79,
    "site": "player_forge",
    "for_sale": false
   },
@@ -1440,7 +1461,7 @@
     33,
     19
    ],
-   "location": 0.62,
+   "location": 0.61,
    "site": "house_e_south",
    "for_sale": false
   },
@@ -1482,7 +1503,7 @@
     10,
     25
    ],
-   "location": 0.45,
+   "location": 0.44,
    "site": "house_sw",
    "for_sale": false
   },
@@ -1545,7 +1566,7 @@
     24,
     29
    ],
-   "location": 0.36,
+   "location": 0.35,
    "site": "workshop_tailor",
    "for_sale": true
   },
@@ -1566,7 +1587,7 @@
     2,
     18
    ],
-   "location": 0.61,
+   "location": 0.6,
    "site": "house_w_north",
    "for_sale": false
   },
@@ -1587,7 +1608,7 @@
     2,
     19
    ],
-   "location": 0.6,
+   "location": 0.59,
    "site": "house_w_south",
    "for_sale": false
   },
@@ -1779,15 +1800,15 @@
    {"kind": "prop", "id": "barrel", "at": [19, 32], "site": "workshop_masonry"},
    {"kind": "prop", "id": "crate", "at": [25, 29], "site": "workshop_tailor"},
    {"kind": "prop", "id": "grain_sack", "at": [24, 28], "site": "workshop_tailor"},
+   {"kind": "prop", "id": "cart", "at": [24, 19]},
    {"kind": "prop", "id": "crate", "at": [14, 16]},
    {"kind": "prop", "id": "grain_sack", "at": [18, 13]},
    {"kind": "prop", "id": "cart", "at": [14, 20]},
    {"kind": "prop", "id": "cart", "at": [21, 13]},
    {"kind": "prop", "id": "cart", "at": [15, 13]},
    {"kind": "prop", "id": "bench", "at": [17, 24], "off": [-10, 5], "flip": true},
-   {"kind": "prop", "id": "bench", "at": [24, 21], "off": [10, 5]},
    {"kind": "prop", "id": "bench", "at": [19, 19], "off": [10, -5], "flip": true},
-   {"kind": "prop", "id": "bench", "at": [22, 24], "off": [-10, 5], "flip": true},
+   {"kind": "prop", "id": "bench", "at": [24, 24], "off": [-10, 5], "flip": true},
    {"kind": "fence", "id": "fence", "at": [1, 27], "off": [14, -7]},
    {"kind": "fence", "id": "fence", "at": [1, 27], "off": [-14, -7], "flip": true},
    {"kind": "fence", "id": "fence", "at": [2, 27], "off": [14, -7]},

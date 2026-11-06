@@ -1,6 +1,17 @@
 [
   {
     "fecha": "2026-11-06",
+    "titulo": "Un jugador nuevo juega el primer año por la interfaz, y lo que tropezaba se arregla",
+    "que": "Una pasada de jugador recorre el primer año de la partida por defecto (Vilarrasa, herrero, Normal) solo con ratón y teclado. Juega como un novato: el tutorial, los objetivos, las cartas «Nuevo», forjar, vender, encargos, contratar y pagar. Son 15 bloques cortos en una sola sesión, con capturas y la medida del ritmo de 03b. Lo que tropezaba, arreglado. El tutorial ya no ofrece capítulos de mecánicas cerradas (después de lo básico, cada capítulo llega con su carta «Nuevo»). Su tarjeta no tapa el panel que señala ni la pila de cartas (la pila se aparta mientras guía). «Vender» por fin pide vender, y la villa se llama Vilarrasa y no «Pueblo-calle». Las cartas «Nuevo» solo ofrecen «Ver capítulo» cuando vale. El reloj y la barra no cortan sus textos, el aviso repetido sale una vez, y contratar muestra primero al aprendiz. Hallazgo grave para equilibrio: el novato no llega a pagar la deuda el día 8 y acaba en prórroga y ruina el día 10. Para forja: los 41-43 s sin decisión al final de la Forja viva y los textos del toque de maestro. Para fiestas: las peleas urgentes a diario.",
+    "como_probar": "python3 tools/verifica/jugador.py --window (unos 15 min, una ventana por grimoire heavy). El informe con los hallazgos por gravedad y su dueño está en reports/jugador/2026-11-06/informe.md.",
+    "capturas": [
+      "verifica_jugador_tutorial.png",
+      "verifica_jugador_deuda.png",
+      "verifica_jugador_forja.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-06",
     "titulo": "Lo que se ordena en pausa se ve al momento, y cada edad con su retrato",
     "que": "El mapa de la región, las caravanas y la vista oral pausan el juego y ninguna orden se aplica hasta que corre el reloj, pero ya no se quedan mudos. El botón pulsado pasa a «Firmando… (al reanudar)», «Comprando un carro…», «Dictando…», «Interrogando…» o «Concluyendo…» y se apaga con su motivo. La pantalla enseña su tira de cola («En pausa · se hará al reanudar: 1. Proponer el tratado de la villa con Vilablat») y el libro (L, Avisos) la lista como «En espera». Al cerrar el mapa o pulsar Espacio, el concejo vota y llega su carta con el resultado; con el mapa abierto, la misma línea sale en su tira. Retratos: una niña de 8 ya no sale con el pelo blanco. El tono 5 de la paleta es el blanco que se reserva a la edad, y quien lo trae en los datos o lo hereda se dibuja con su tono natural; las canas salen solo por edad. Un retrato guardado que ya no es de la franja de edad o del sexo de la persona deja paso al que le toca ahora. Revisadas con capturas las edades 0, 8, 12, 16, 45 y 62. De paso, el panel del juicio ya no se encoge al rehacerse durante la vista, la carta que llega con otra apartada bajo una pantalla espera su turno en vez de pisarla, y la ficha del árbol dice «Casada con» para una mujer.",
     "como_probar": "python3 tools/verifica/verifica.py --window --flows=tratados,juez,tribunal,edades (escenarios patron_treaties y family_ages). A mano: abre el mapa (R), pulsa la aldea y «Tratado de la villa»: el botón dice «Firmando… (al reanudar)» y abajo sale la tira; cierra el mapa y llega la carta del concejo.",

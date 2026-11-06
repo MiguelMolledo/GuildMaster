@@ -1,0 +1,25 @@
+{
+  "id": "doctor_surgery",
+  "name_key": "recipe.doctor_surgery",
+  "building": "clinic",
+  "zone": "cot",
+  "kind": "service",
+  "service": "doctor",
+  "inputs": [
+    {
+      "item": "bandages",
+      "qty": 1
+    },
+    {
+      "item": "salve",
+      "qty": 1
+    }
+  ],
+  "max_severity": 7,
+  "price_mult": 1.75,
+  "duration_hours": 2.0,
+  "stat": "arcane",
+  "min_stat": 4,
+  "min_craft": 1,
+  "_doc": "H12.2 (04d 4.22.5.1): the surgery of a grave patient (severity 7): bandages and a salve; it pays price_mult × the consultation's price (35 at the reference) [balance]."
+}

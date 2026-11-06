@@ -1,0 +1,32 @@
+{
+  "id": "jugador/05_encargo",
+  "title": "Jugador 5 · El primer encargo (los martillos del carpintero)",
+  "about": "Lo básico hecho, el jugador sigue su objetivo: aceptar en el tablón el encargo de 2 martillos, forjarlos y entregarlos.",
+  "start": {"keep": true},
+  "steps": [
+    {"id": "cerrar_tutorial", "say": "La tarjeta del final: «Cerrar»", "when": "q.tut() != ''", "click": {"via": "Tutorial", "node": "Button_close"}, "expect": ["q.tut() == ''"]},
+    {"id": "cerrar_libro", "when": "q.visible('LedgerPanel')", "key": "Escape"},
+    {"id": "objetivo", "say": "El objetivo dice qué hacer: el encargo del carpintero", "expect": ["q.has_text('martillos')"]},
+    {"id": "al_tablon", "say": "Clic derecho en el tablón de encargos", "world": {"service": "board"}, "button": "right", "until": "q.visible('BoardPanel')", "timeout": 30},
+    {"id": "aceptar", "say": "Aceptar el de los martillos", "click": {"within": {"node": "='Note_' + q.board_id('hammer')"}, "node": "Accept"}, "expect": ["q.order('accept_contract')", "q.mine_id('hammer') != ''"]},
+    {"id": "cerrar_tablon", "key": "Escape", "expect": ["not q.visible('BoardPanel')"]},
+    {"id": "a_la_forja", "say": "A la forja", "world": {"own": "forge"}, "button": "right", "until": "q.interior() == q.own('forge') and q.location() == q.own('forge')", "timeout": 30},
+    {"id": "hay_lingotes", "say": "¿Quedan lingotes? Si no, el horno primero", "when": "q.storage('iron_ingot') < 2", "station": "furnace", "button": "right", "expect": ["q.visible('StationMenu')"]},
+    {"id": "lingotes", "when": "q.visible('StationMenu') and q.storage('iron_ingot') < 2", "click": {"via": "RecipeList", "fn": "get_node", "args": ["Row_forge_ingot"], "type": "Button"}, "expect": ["q.order('work_at')"]},
+    {"id": "x4", "say": "Mayús+3: ×4 mientras funde", "key": "@speed_3"},
+    {"id": "espera_lingotes", "say": "Esperar a dos lingotes", "when": "q.storage('iron_ingot') < 2", "until": "q.storage('iron_ingot') >= 2", "timeout": 180},
+    {"id": "menu_yunque", "say": "Clic derecho en el yunque", "station": "anvil", "button": "right", "expect": ["q.visible('StationMenu')"]},
+    {"id": "normal", "say": "Modo normal (los martillos no piden Forja viva)", "click": {"node": "NormalButton"}},
+    {"id": "martillo", "say": "El martillo", "click": {"via": "RecipeList", "fn": "get_node", "args": ["Row_forge_hammer"], "type": "Button"}, "expect": ["q.order('work_at')"]},
+    {"id": "espera_martillos", "say": "Esperar a los dos martillos (la receta se repite)", "until": "q.storage('hammer') >= 2", "timeout": 240},
+    {"id": "parar", "say": "Parar el yunque (si sigue)", "when": "q.working('anvil')", "station": "anvil", "button": "right"},
+    {"id": "parar_b", "when": "q.visible('StationMenu')", "click": {"node": "StopButton"}},
+    {"id": "almacen", "key": "@panel_storage", "expect": ["q.visible('StoragePanel')"]},
+    {"id": "coger", "say": "«Llevar productos»", "click": {"node": "TakeButton"}, "until": "q.bag('hammer') >= 2", "timeout": 8},
+    {"id": "salir", "click": {"node": "ExitButton"}, "until": "q.interior() == ''", "timeout": 20},
+    {"id": "tablon_2", "world": {"service": "board"}, "button": "right", "until": "q.visible('BoardPanel')", "timeout": 40},
+    {"id": "entregar", "say": "Entregar", "click": {"within": {"node": "='Row_' + q.mine_id('hammer')"}, "node": "Deliver"}, "expect": ["q.order('deliver_contract')"]},
+    {"id": "cerrar_tablon_2", "key": "Escape"},
+    {"id": "despues", "say": "Encargo cumplido: ¿qué propone ahora el objetivo?", "wait": 1.0}
+  ]
+}

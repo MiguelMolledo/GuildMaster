@@ -21940,6 +21940,303 @@
   "que": "image2pixel jug_crate_s10.png"
  },
  {
+  "fecha": "2026-11-06T10:22:47",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "referencia clinic_a (18 s)"
+ },
+ {
+  "fecha": "2026-11-06T10:23:26",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g28_l_clinic_a (4 piezas, 15 s)"
+ },
+ {
+  "fecha": "2026-11-06T10:23:26",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g27_s_clinic_a (9 piezas, 15 s)"
+ },
+ {
+  "fecha": "2026-11-06T10:23:28",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "rejilla g29_w_clinic_a (3 piezas, 17 s)"
+ },
+ {
+  "fecha": "2026-11-06T10:23:51",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0035,
+  "que": "image2pixel mortar_table_s9.png"
+ },
+ {
+  "fecha": "2026-11-06T10:23:51",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0035,
+  "que": "image2pixel examination_cot_s5.png"
+ },
+ {
+  "fecha": "2026-11-06T10:23:51",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0035,
+  "que": "image2pixel anatomy_chart_s9.png"
+ },
+ {
+  "fecha": "2026-11-06T10:23:54",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel medical_diploma_s13.png"
+ },
+ {
+  "fecha": "2026-11-06T10:23:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel operating_table_s5.png"
+ },
+ {
+  "fecha": "2026-11-06T10:23:55",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel apothecary_shelf_s6.png"
+ },
+ {
+  "fecha": "2026-11-06T10:23:58",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel herb_shelf_wall_s10.png"
+ },
+ {
+  "fecha": "2026-11-06T10:23:58",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel bandage_basket_s11.png"
+ },
+ {
+  "fecha": "2026-11-06T10:23:58",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel apothecary_counter_s5.png"
+ },
+ {
+  "fecha": "2026-11-06T10:24:01",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel washbasin_stand_s9.png"
+ },
+ {
+  "fecha": "2026-11-06T10:24:02",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel waiting_bench_s5.png"
+ },
+ {
+  "fecha": "2026-11-06T10:24:03",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel instrument_tray_s9.png"
+ },
+ {
+  "fecha": "2026-11-06T10:24:06",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel medicine_chest_s13.png"
+ },
+ {
+  "fecha": "2026-11-06T10:24:09",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel folding_screen_s7.png"
+ },
+ {
+  "fecha": "2026-11-06T10:24:11",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel leech_jars_s10.png"
+ },
+ {
+  "fecha": "2026-11-06T10:24:14",
+  "tanda": "interiores",
+  "pieza": "props_interior",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel herb_drying_frame_s7.png"
+ },
+ {
+  "fecha": "2026-11-06T10:25:51",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo clinic planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-06T10:26:09",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo clinic planta 1 (v1)"
+ },
+ {
+  "fecha": "2026-11-06T10:26:58",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "clinic"
+ },
+ {
+  "fecha": "2026-11-06T10:27:13",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.002,
+  "que": "image2pixel clinic_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T10:27:49",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "clinic_construction"
+ },
+ {
+  "fecha": "2026-11-06T10:27:54",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel clinic_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T10:28:13",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "clinic_damaged"
+ },
+ {
+  "fecha": "2026-11-06T10:28:17",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel clinic_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T10:30:10",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "e1"
+ },
+ {
+  "fecha": "2026-11-06T10:30:21",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0014,
+  "que": "image2pixel e1_salve_s16.png"
+ },
+ {
+  "fecha": "2026-11-06T10:30:24",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel e1_doctor_bag_s16.png"
+ },
+ {
+  "fecha": "2026-11-06T10:30:27",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel e1_patient_s16.png"
+ },
+ {
+  "fecha": "2026-11-06T10:30:30",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel e1_loan_s16.png"
+ },
+ {
   "fecha": "2026-11-06T10:17:18",
   "tanda": "produccion",
   "pieza": "ilustraciones",

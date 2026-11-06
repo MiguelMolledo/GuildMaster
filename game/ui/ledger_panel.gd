@@ -360,6 +360,12 @@ func _fill_debts(d: Variant) -> void:
 		if bool(l.get("extended", false)):
 			due.text = SimQuery.t_("ui.ledger.in_extension") % [owed, SimQuery.minute_label(int(l.get("due_minute", 0)) - 1)]
 			due.theme_type_variation = &"ReasonLabel"
+		elif int(l.get("installments_left", 0)) > 0:  # H12.2: a loan in installments says the next one
+			var nd := int(l.get("next_due", 0))
+			var ndays := maxi(0, ceili(float(nd - int(sim.state.clock["minute"])) / Clock.MINUTES_PER_DAY))
+			due.text = SimQuery.t_("ui.ledger.next_installment") % [int(l.get("next_amount", 0)), SimQuery.minute_label(nd - 1),
+				int(l.get("installments_left", 0))]
+			due.theme_type_variation = &"ReasonLabel" if ndays <= 1 else &"WarningLabel"
 		var fc := Ledger.forecast(sim, family, int(l.get("due_minute", 0)))
 		var gives := int(fc["gold_at"]) >= owed
 		var f := _label(SimQuery.t_("ui.ledger.forecast") % [signed(int(fc["avg_net"])), int(fc["days"]), int(fc["gold_at"]),
@@ -408,6 +414,7 @@ func _fill_debts(d: Variant) -> void:
 			short.theme_type_variation = &"ReasonLabel"
 			short.name = id + "_short"
 		(%Content as VBoxContainer).add_child(HSeparator.new())
+	_moneylender_card()
 	var upkeep: Array = (Ledger.summary(sim, family, "debts") as Dictionary).get("upkeep", [])
 	for u: Dictionary in upkeep:
 		var card := _label(SimQuery.t_("ui.ledger.upkeep_card") % [SimQuery.building_label(sim.state, sim.catalog,
@@ -488,6 +495,70 @@ func _emergency_card() -> void:
 	b.focus_mode = Control.FOCUS_NONE
 	b.pressed.connect(take_emergency)
 	row.add_child(b)
+
+
+## H12.2 (04d 4.22.5.6, O12 a): «Pedir préstamo» to the town's moneylender: how much it lends (half the family's
+## estimated wealth), an amount and one button per term with what would be owed; or why it does not lend.
+func _moneylender_card() -> void:
+	var cfg := Loans.moneylender(sim)
+	if cfg.is_empty():
+		return
+	(%Content as VBoxContainer).add_child(HSeparator.new())
+	var lim := Loans.borrow_limit(sim, family)
+	var top := int(lim["max"])
+	var minimum := int(cfg.get("min_amount", 20))
+	var head := _line(SimQuery.t_("ui.ledger.moneylender") % [top, roundi(float(cfg.get("annual_interest", 0.25)) * 100.0),
+		int(cfg.get("installment_days", 2))], "", "Moneylender")
+	head.get_child(0).set("theme_type_variation", &"BoldLabel")
+	if str(lim["reason"]) != "" or top < minimum:
+		var why := _label(SimQuery.reason_text(str(lim["reason"])) if str(lim["reason"]) != "" else
+			SimQuery.t_("ui.ledger.moneylender_too_poor") % minimum)
+		why.name = "MoneylenderWhy"
+		why.theme_type_variation = &"DimLabel"
+		return
+	var row := HBoxContainer.new()
+	row.name = "Borrow"
+	var amount := SpinBox.new()
+	amount.name = "BorrowAmount"
+	amount.min_value = minimum
+	amount.max_value = top
+	amount.value = clampi(int(_pay.get("_borrow", mini(top, 100))), minimum, top)
+	amount.custom_minimum_size = Vector2(64, 0)
+	amount.custom_arrow_step = 10.0
+	row.add_child(amount)
+	var terms: Array = cfg.get("terms_days", [8, 16])
+	var buttons: Array = []
+	for t: Variant in terms:
+		var term := int(t)
+		var b := Button.new()
+		b.name = "Borrow%d" % term
+		b.focus_mode = Control.FOCUS_NONE
+		b.pressed.connect(func() -> void: borrow(int(amount.value), term))
+		row.add_child(b)
+		buttons.append([b, term])
+	var label_terms := func(v: float) -> void:
+		_pay["_borrow"] = int(v)
+		for pair: Array in buttons:
+			var q := Loans.quote(sim, int(v), int(pair[1]))
+			(pair[0] as Button).text = SimQuery.t_("ui.ledger.borrow_term") % [int(pair[1]), int(q["owed"])]
+	label_terms.call(amount.value)
+	amount.value_changed.connect(label_terms)
+	(%Content as VBoxContainer).add_child(row)
+
+
+## Asks the moneylender for `amount` over `term` days (with a confirmation that says what is owed and when).
+func borrow(amount: int, term: int) -> void:
+	var q := Loans.quote(sim, amount, term)
+	var o := {"type": "request_loan", "actor": actor, "lender": "moneylender", "amount": amount, "term_days": term}
+	if is_inside_tree():
+		var inst: Array = q["installments"]
+		var asked := ConfirmModal.ask_in(get_tree(), {"title": SimQuery.t_("ui.ledger.borrow_q") % amount,
+			"body": SimQuery.t_("ui.ledger.borrow_body") % [int(q["owed"]), inst.size(),
+			int((inst[0] as Dictionary)["amount"]) if not inst.is_empty() else 0, term],
+			"action": SimQuery.t_("ui.ledger.borrow_take"), "seal": true}, func() -> void: _give(o))
+		if asked:
+			return
+	_give(o)
 
 
 func take_emergency() -> void:

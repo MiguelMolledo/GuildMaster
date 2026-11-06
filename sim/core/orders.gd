@@ -54,6 +54,10 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Market.order_sell(sim, order)
 		"repay_loan":
 			return Loans.order_repay(sim, order)
+		"set_service_price":  # H12.2 (04d 4.22.3.8): what a service building asks (sim/town/services.gd)
+			return Services.order_set_price(sim, order)
+		"request_loan":  # H12.2 (04d 4.22.5.6, O12 a): a loan from the town's moneylender (sim/econ/loans.gd)
+			return Loans.order_request(sim, order)
 		"take_emergency_loan":  # Equilibrio 2 (sim/balance/emergency.gd)
 			return Emergency.order_take(sim, order)
 		"read_notices":
@@ -207,6 +211,8 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 		# Vida (sim/life/*.gd, docs/gdd/04f_vida_y_fiestas.md §4.24, docs/contratos/vida.md)
 		"resolve_incident":
 			return Incidents.order_resolve(sim, order)
+		"buy_from_peddler":
+			return Peddler.order_buy(sim, order)
 		"give_alms":
 			return Visitors.order_alms(sim, order)
 		# Posada · the Taberna-Posada (sim/inn/inn.gd, docs/gdd/04f_vida_y_fiestas.md §4.27)
@@ -249,7 +255,8 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"resolve_incident", "hail", "live_forge", "unlock_seen",
 	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license",  # posada (Inn.MANAGEMENT)
 	"take_emergency_loan",  # equilibrio (Emergency)
-	"build", "demolish", "convert_building"]  # H6 (Plots)
+	"build", "demolish", "convert_building",  # H6 (Plots)
+	"set_service_price", "request_loan"]  # H12.2 (Services, Loans)
 
 
 static func is_management(type: String) -> bool:

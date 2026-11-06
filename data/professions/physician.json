@@ -1,0 +1,11 @@
+{
+  "id": "physician",
+  "name_key": "profession.physician",
+  "class": "scholar",
+  "order": 0,
+  "building": "clinic",
+  "tool": "doctor_bag",
+  "start": "scholar_physician",
+  "contracts": "physician",
+  "_doc": "H12.2: the physician, the scholar's start (04d 4.22.5.1, O2 a): the Consulta, its tool (the doctor's bag), its start and its contract table."
+}

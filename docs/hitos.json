@@ -419,13 +419,13 @@
         {
           "texto": "Cada profesión tiene un bot que gana dinero con ella",
           "estado": "pendiente",
-          "prueba": "parcial: con rival de su mismo oficio, carpenter_novice 38,4, mason_novice 38,0 y tailor_novice 46,6 de oro neto al día (30 semillas, Normal, diana 25-60; Fácil > Normal > Difícil); faltan Patrón, Erudito y Pícaro (Gate 4.22)",
+          "prueba": "parcial: con rival de su mismo oficio, carpenter_novice 38,4, mason_novice 38,0 y tailor_novice 46,6 de oro neto al día; H12.2 (Erudito): scholar_novice (el Médico) 51,4 (30 semillas, Normal, diana 25-60; Fácil 55,5 > Normal 51,4 > Difícil 47,9; deuda 30/30); faltan Patrón, el resto del Erudito (sacerdote, alquimista, escriba, banquero) y Pícaro",
           "fecha": null
         },
         {
           "texto": "Tests de reglas de combate, robo, servicio, préstamo y ciclo de cultivo",
-          "estado": "pendiente",
-          "prueba": null,
+          "estado": "en_curso",
+          "prueba": "parcial: servicio (tests/test_scholar_physician.gd: pacientes que llegan, esperan y se van; la consulta, su cobro y su tirada; los graves y la cirugía; precio y parte de la clientela; interrumpir; guardar y cargar) y préstamo (tests/test_econ_moneylender.gd: prestamista, límites, cuotas en orden, cuota impagada = prórroga de 4.16, la deuda del inicio sin cambios); faltan combate, robo y ciclo de cultivo",
           "fecha": null
         },
         {
@@ -479,20 +479,32 @@
     {
       "id": "H16",
       "nombre": "Ciudad viva II y fiestas",
-      "estado": "en_curso",
+      "estado": "hecho",
       "entregable": "04f_vida_y_fiestas.md: vida de los NPC, guardia y sucesos, fiestas, juegos y Taberna-Posada (v17-v19).",
       "criterios": [
         {
           "texto": "Bots festive, innkeeper, gambler y guard_watch en verde",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "prueba": "python3 tools/qa/run_all.py (rama fiestas sobre main 1f39d995, 32/32 en verde): festive 3 semillas × 8 días, fest_ai (idle_titles_fest, 5 × 8), inn (innkeeper, 5 × 16), gambler (3 × 8) y life (guard_watch, 3 × 16), 0 dianas fuera; tests 1139/1139 (tests/test_fiestas_*, test_life_*, test_games_*, test_posada_*)",
+          "fecha": "2026-11-06"
         },
         {
           "texto": "Dianas de hoy idénticas (población medida aparte)",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "prueba": "Misma QA: todas las dianas de data/targets.json en verde; las de antes corren con fiestas y vida apagadas (_festivals, _no_life) y salen iguales; los únicos cambios de banda son decisiones del manager (festive, equilibrio). La población con la vida se mide aparte: town_population_life [14, 32] (O-V2, decidido)",
+          "fecha": "2026-11-06"
         },
         {
           "texto": "Bench < 2 ms con la feria llena",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "prueba": "tools/sim_bench.gd --at-day=3 --days=1 --runs=3 (paso bench_fair, el día de la feria con forasteros ×5): media 1,31 ms, p99 4,95 ms",
+          "fecha": "2026-11-06"
+        },
+        {
+          "texto": "Capturas de cada fiesta y de la taberna llena",
+          "estado": "hecho",
+          "prueba": "game/smoke/smoke_fiestas.gd (--smoke-script=fiestas): fiesta_<id>_vista y _carta de las 17 fiestas, la corte, la boda, las afueras, el botón del reloj, el corro, los regalos, la ciudad en fiesta y el buhonero; la taberna llena, smoke de la rama posada (--smoke-script=posada: posada_noche y posada_clientela, la sala de noche con su clientela)",
+          "fecha": "2026-11-06"
         }
       ]
     },

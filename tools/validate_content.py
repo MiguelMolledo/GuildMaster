@@ -2609,8 +2609,22 @@ def main():
             if not isinstance(inp.get("qty"), int) or inp["qty"] < 1:
                 rep.error(w, f"cantidad no válida para {inp.get('item')}")
         out = r.get("output", {})
-        if out.get("item") not in items:
+        if r.get("kind") == "service":
+            # H12.2 (04d 4.22.3.1): a service recipe serves a waiting client of its service; no output, at a service station
+            svc = (load_json(os.path.join(DATA, "services.json"), rep) or {}).get("services", {})
+            if r.get("service") not in svc:
+                rep.error(w, f"servicio desconocido {r.get('service')} (data/services.json)")
+            if out:
+                rep.error(w, "una receta de servicio no tiene output")
+            zk = {z.get("id"): z.get("kind") for z in (b or {}).get("zones", [])}
+            if b is not None and zk.get(r.get("zone")) != "service":
+                rep.error(w, f"una receta de servicio va en un puesto de kind service ({r.get('zone')} es {zk.get(r.get('zone'))})")
+        elif out.get("item") not in items:
             rep.error(w, f"objeto de salida desconocido {out.get('item')}")
+        if r.get("stat") is not None and r["stat"] not in STATS:
+            rep.error(w, f"stat desconocido {r['stat']}")
+        if r.get("min_stat") is not None and (not isinstance(r["min_stat"], int) or not 1 <= r["min_stat"] <= 10):
+            rep.error(w, "min_stat debe estar entre 1 y 10")
         if not isinstance(r.get("duration_hours"), (int, float)) or r["duration_hours"] <= 0:
             rep.error(w, "duration_hours debe ser > 0 (horas de juego, nunca segundos)")
         if not isinstance(r.get("min_craft"), int) or not 1 <= r["min_craft"] <= 10:

@@ -200,6 +200,7 @@ static func _place_stack() -> void:
 			c.suspended = up
 			c.visible = not up
 		if up:
+			c.visible = false   # also a card shown again while the stack was aside (jugador J4: it sat at 0,0)
 			continue
 		var vp := c.get_viewport_rect().size if c.is_inside_tree() else Vector2(960, 540)
 		var right := vp.x - 4.0
@@ -207,16 +208,24 @@ static func _place_stack() -> void:
 		if open != null and open.is_visible_in_tree():
 			right = open.get_global_rect().position.x - STACK_GAP
 		y += c.ribbon_overhang
+		if y + c.size.y > STACK_BOTTOM and c != _stack[0]:   # grown after it was placed (its lines wrapped a frame
+			c.visible = false                                  # later): it waits for room (jugador J5)
+			_stack.erase(c)
+			_waiting.push_front([c, c.data])
+			continue
 		c.position = Vector2(right - c.size.x, y).round()
 		y += c.size.y + STACK_GAP
 
 
 ## A modal on screen that the stack must not cover: the confirmation, a big modal's veil, a menu screen, a game or a
-## duel, or a modal card.
+## duel, a modal card, or the tutorial's card (both would want the place beside the open panel).
 static func _modal_up(tree: SceneTree) -> bool:
 	if _modal != null and is_instance_valid(_modal) and _modal.visible:
 		return true
 	var root := tree.root
+	var tut := root.get_node_or_null("App/Tutorial/Overlay/Card") as CanvasItem
+	if tut != null and tut.is_visible_in_tree():   # the tutorial's card: the stack steps aside while it guides (jugador J3)
+		return true
 	for path: String in ["App/Hud/Root/ConfirmModal", "App/Hud/Root/Veil"]:
 		var n := root.get_node_or_null(path) as CanvasItem
 		if n != null and n.is_visible_in_tree():

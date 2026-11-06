@@ -113,6 +113,39 @@
       "advance": "next"
     },
     {
+      "id": "sell",
+      "text": "tutorial.market.sell",
+      "target": {
+        "ui": "SellOne",
+        "in": "MarketPanel",
+        "opener": {
+          "ui": "SellTab",
+          "in": "MarketPanel",
+          "opener": {
+            "world": "station",
+            "id": "counter",
+            "opener": {
+              "world": "building",
+              "type": "armory"
+            },
+            "opener_text": "tutorial.open.armory"
+          },
+          "opener_text": "tutorial.open.counter"
+        }
+      },
+      "done": {
+        "ui": "order_given",
+        "match": {
+          "type": "sell"
+        }
+      },
+      "advance": "action",
+      "if": {
+        "state": "carries",
+        "item": "sword"
+      }
+    },
+    {
       "id": "leave",
       "text": "tutorial.market.leave",
       "target": {
