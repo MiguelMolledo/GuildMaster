@@ -15,8 +15,8 @@
       "key": "señalar un puesto de la sala es del ratón (docs/ui/01 §9: clic)"
     },
     "master_touch": {
-      "mouse": "la Forja viva sustituye al toque maestro (decisión del manager, bloque D: pasa a la rama forja)",
-      "key": "la Forja viva sustituye al toque maestro (decisión del manager, bloque D: pasa a la rama forja)"
+      "mouse": "sustituida por la Forja viva (03b §3b.8, GDD 4.4.5): la interfaz ya no la da; el sim la conserva para partidas viejas y los bots de los oficios sin Forja viva",
+      "key": "sustituida por la Forja viva (03b §3b.8, GDD 4.4.5): la interfaz ya no la da; el sim la conserva para partidas viejas y los bots de los oficios sin Forja viva"
     },
     "inn_serve": {
       "key": "servir es señalar a un cliente en la sala (docs/ui/01 §9: clic)"

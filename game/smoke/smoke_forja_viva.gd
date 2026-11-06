@@ -3,7 +3,8 @@ extends Node
 ## --scenario=forge_live_ready --dev-time, through `grimoire heavy` and --always-on-top): Hugo goes into his forge, picks
 ## Forja viva at the anvil (fv_menu) and forges a sword by hand: the heat with the iron at cherry red (fv_calentar),
 ## two strikes of the template (fv_batir), the quench (fv_templar) and the result (fv_resultado). Then he forges
-## hammers well, at ×4, until one comes out a masterwork with its name (fv_obra_maestra). The game pauses for each
+## hammers well, at ×4, until one comes out a masterwork with its name (fv_obra_maestra); then the result's buttons
+## (fv_resultado_botones) and «Cerrar», back at the anvil with its menu (fv_cerrar). The game pauses for each
 ## shot (the decision waits: a paused game applies no orders). The festival, incident and microevent cards are
 ## cleared every frame (_clear_cards) and a frame drawn without them goes before the next shot. It plays through the real UI paths (the screen's own
 ## buttons) and gives orders only through them. Quits when done, or after `timeout` seconds with a shot.
@@ -154,7 +155,7 @@ func _process(delta: float) -> void:
 				if (_screen().get_node("%Masterwork") as PageCard).visible:
 					_go("masterwork")
 				else:
-					_screen().close()
+					_screen().next_piece()
 					Game.set_speed(4)
 					_go("hunt")
 		"hunt":   # well-forged pieces until a masterwork comes out (the screen opens again on each live cycle)
@@ -163,7 +164,7 @@ func _process(delta: float) -> void:
 				_go("masterwork")
 				return
 			if _screen().visible and not _screen().result.is_empty():
-				_screen().close()   # «Seguir»: on to the next piece, again by hand
+				_screen().next_piece()   # «Otra pieza»: on to the next piece, again by hand
 				return
 			var v := _view()
 			if v.is_empty() or not _screen().visible:
@@ -173,6 +174,29 @@ func _process(delta: float) -> void:
 		"masterwork":
 			if _t > 0.6:
 				app.save_shot("fv_obra_maestra")
+				(_screen().get_node("%Masterwork") as PageCard).visible = false   # «Seguir»: back to the result
+				_go("result_buttons")
+		"result_buttons":
+			if _t > 0.4:
+				app.save_shot("fv_resultado_botones")   # «Cerrar» and «Otra pieza»
+				_screen().close_to_station()
+				Game.set_paused(false)   # the stop_work given in pause waits in the queue (active pause): resume
+				Game.set_speed(1)
+				_go("closed")
+		"closed":
+			if app.unlock_card().visible:   # the unlock cards waited for the Forja viva to close: read them
+				app.unlock_card().close()
+				_t = 0.0
+				return
+			if _t > 0.8:
+				Game.set_paused(true)
+				_go("closed_shot")
+		"closed_shot":
+			if _t > 0.3:
+				app.save_shot("fv_cerrar")   # back at the anvil, its menu open, the next piece stopped
+				var job: Variant = Game.sim.state.buildings[BLD]["zones"]["anvil"].get("job")
+				print("[SmokeForjaViva] cerrar: screen=%s menu=%s job=%s" % [_screen().visible,
+					app.interior().station_menu().visible, job != null])
 				Game.set_paused(false)
 				print("[SmokeForjaViva] done: %d pieces, masterworks=%d" % [_pieces,
 					LiveForge.masterworks_of(Game.sim.state, "").size()])

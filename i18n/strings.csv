@@ -2699,7 +2699,7 @@ live.step.strike,2 Strike,2 Batir
 live.step.quench,3 Quench,3 Templar
 live.pull,Pull it out (Space),Sacar (Espacio)
 live.skip,Resolve without playing (Esc),Resolver sin jugar (Esc)
-live.close,Go on,Seguir
+live.close,Close (Esc),Cerrar (Esc)
 live.heat.dark_red,Dark red,Rojo oscuro
 live.heat.cherry,Cherry red,Rojo cereza
 live.heat.orange,Orange,Naranja
@@ -3881,6 +3881,8 @@ notice.inn.illegal_gaming,"The constable's men saw gaming without licence at you
 games.preset.stranger_soldier,The discharged soldier,El soldado licenciado
 games.preset.stranger_merchant,The passing merchant,El mercader de paso
 games.ui.in_own_house,"in your own house (it keeps nothing of yours)","en tu propia casa (no se queda nada de lo tuyo)"
+live.next,Another piece,Otra pieza
+live.masterwork.ok,Go on,Seguir
 combat.card.challenged,%s challenges you to a duel,%s te reta a duelo
 combat.card.challenged_text,%s demands satisfaction: %s.,%s pide satisfacción: %s.
 combat.card.answer_by,"Answer before %02d:%02d; without an answer, it counts as a refusal.","Contesta antes de las %02d:%02d; sin respuesta, cuenta como rechazo."

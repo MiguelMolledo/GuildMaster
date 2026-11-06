@@ -1,9 +1,9 @@
 {
   "id": "forja_viva",
   "title": "Forjar a mano: la Forja viva",
-  "about": "Hugo en su forja con lo que pide la espada (escenario forge_live_ready): el yunque en modo «Viva», calentar hasta el color que pide la receta y sacar, batir los golpes de la plantilla, templar en su medio, el resultado; luego parar para no forjar otra.",
+  "about": "Hugo en su forja con lo que pide la espada (escenario forge_live_ready): el yunque en modo «Viva», calentar hasta el color que pide la receta y sacar, batir los golpes de la plantilla, templar en su medio, el resultado con «Cerrar» y «Otra pieza»; «Cerrar» vuelve al yunque con su menú y para la pieza que la forja empezaba sola (03b §3b.8).",
   "start": {"scenario": "forge_live_ready"},
-  "covers": ["live_forge", "work_at", "stop_work"],
+  "covers": ["live_forge", "work_at"],
   "steps": [
     {"id": "a_la_forja", "world": {"own": "forge"}, "button": "right", "until": "q.interior() == q.own('forge') and q.location() == q.own('forge')", "timeout": 30, "fast": 4},
     {"id": "menu_yunque", "station": "anvil", "button": "right", "expect": ["q.visible('StationMenu')"]},
@@ -19,8 +19,7 @@
     {"id": "templar", "say": "Templar en el medio que pide", "until": "q.live_stage() == 'quench'", "timeout": 6},
     {"id": "templar_b", "click": {"node": "='Quench_' + q.live_quench()"}},
     {"id": "resultado", "say": "El resultado: la calidad y lo que dieron las decisiones", "until": "q.storage('sword') > 0", "timeout": 60, "fast": 6},
-    {"id": "parar_viva", "say": "Para no forjar otra a mano: clic derecho en el yunque y Parar", "when": "q.live_open()", "station": "anvil", "button": "right", "soft": true},
-    {"id": "parar_viva_b", "when": "q.visible('StationMenu')", "click": {"node": "StopButton"}, "expect": ["q.order('stop_work')"]},
-    {"id": "cerrar_forja", "say": "Cerrar la pantalla de la Forja viva", "when": "q.live_open()", "click": {"within": "LiveForgeScreen", "node": "CloseButton"}, "expect": ["not q.live_open()"]}
+    {"id": "resultado_botones", "say": "El resultado trae «Cerrar» (volver al yunque) y «Otra pieza» (seguir a mano)", "when": "q.live_open()", "expect": ["q.shown({'within': 'LiveForgeScreen', 'node': 'CloseButton'})", "q.shown({'within': 'LiveForgeScreen', 'node': 'NextButton'})"]},
+    {"id": "cerrar_forja", "say": "«Cerrar»: vuelve al yunque con su menú y para la pieza que la forja empezaba sola", "when": "q.live_open()", "click": {"within": "LiveForgeScreen", "node": "CloseButton"}, "expect": ["not q.live_open()", "q.visible('StationMenu')"]}
   ]
 }

@@ -3,8 +3,9 @@ extends SceneTree
 ## (artisan_blacksmith, normal, fixed cast, seed 1), so they are reproducible:
 ##   /opt/homebrew/bin/godot --headless --path . -s tools/scenarios/make_forja_scenarios.gd
 ## Same code + same data = same files. Re-run after changing the start, data/live_forge.json or data/unlocks.json.
-##   forge_live_ready  day 1, 08:00: Hugo (Artesanía 7) by his forge, with 40 ingots and 40 coal: the Forja viva
-##                     at the anvil (--smoke-script=forja_viva, the tutorial hint of the live forge).
+##   forge_live_ready  day 1, 08:00: Hugo (Artesanía 7) by his forge, with 40 ingots and 40 coal and the practice of
+##                     its recipes already made (masterworks.practice 30 each): the Forja viva at the anvil
+##                     (--smoke-script=forja_viva, the tutorial hint of the live forge, verifica's flow forja_viva).
 ##   pacing_day3       day 3, 09:00 of a game played by the pacing bot: unlocks of the first days already shown and
 ##                     the open goals (--smoke-script=ritmo: the unlock card, the goals zone, «Saltar hasta…»).
 
@@ -44,6 +45,10 @@ func _forge_live_ready() -> bool:
 	var inv: Dictionary = st.buildings[FORGE]["inventory"]
 	Inventory.add(inv, cat, "iron_ingot", Inventory.NORMAL, 40)
 	Inventory.add(inv, cat, "coal", Inventory.NORMAL, 40)
+	# The masterwork asks for practice (equilibrio: masterworks.practice, perfect pieces of the recipe made before): the
+	# family has it already, so the captures (--smoke-script=forja_viva) can still show a masterwork.
+	st.masterworks["practice"] = {str(st.characters[HERO]["family"]): {"forge_hammer": 30, "forge_sword": 30,
+		"forge_armor": 30}}
 	return _save(sim, "forge_live_ready", "Forja viva: la forja de Hugo con lingotes",
 		"Día 1, 08:00. Hugo (Artesanía 7) junto a su forja, que tiene 40 lingotes y 40 de carbón: el yunque ofrece la " +
 		"Forja viva (calentar, batir y templar). --smoke-script=forja_viva.")
