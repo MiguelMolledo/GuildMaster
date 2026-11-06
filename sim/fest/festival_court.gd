@@ -331,6 +331,8 @@ static func tick(sim: Sim, inst: Dictionary, now: int) -> void:
 ## (every hour until the judging, tick) when it had none then.
 static func ai_entries(sim: Sim, inst: Dictionary, at: String = "eve") -> void:
 	var kinds: Array = []
+	if at == "start":
+		ai_gifts(sim, inst)  # Christmas: the AI gives its gift when the feast starts
 	for k: String in (["town_gift", "audience"] if at == "eve" else ["contest"]):
 		if not effect(sim, inst, k).is_empty():
 			kinds.append(k)
@@ -491,6 +493,113 @@ static func _judge(sim: Sim, inst: Dictionary, e: Dictionary) -> void:
 	if OS.is_debug_build():
 		print("[FestivalCourt] concurso: gana %s con %s (calidad %d) entre %d" % [fam, w["item"], int(w["quality"]),
 			entries.size()])
+
+
+# --- Christmas gifts between families (owner, 2026-11-06) ---------------------------------------------------------------
+
+## The houses a family may give a Christmas gift to: the other families that play (the player's and the AI's with a
+## profile) with a living head (sorted). The townsfolk's families are not houses of the game.
+static func gift_targets(sim: Sim, fam: String) -> Array:
+	var out: Array = []
+	for f: String in Festivals._sorted_keys(sim.state.families):
+		var fd: Dictionary = sim.state.families[f]
+		if f != fam and Kin.head(sim.state, f) != "" and (str(fd.get("controlled_by", "")) == "human" \
+				or str(fd.get("ai_profile", "")) != ""):
+			out.append(f)
+	return out
+
+
+## The relation a gift of `value` gold buys with the receiver's head (rules.christmas_gifts).
+static func gift_relation(sim: Sim, value: int) -> int:
+	var r := _r(sim, "christmas_gifts")
+	return mini(int(r.get("relation_base", 5)) + roundi(value * float(r.get("relation_per_value", 0.05))),
+		int(r.get("relation_max", 20)))
+
+
+## Whether `fam` already gave its gift to `to` in this feast.
+static func gave(inst: Dictionary, fam: String, to: String) -> bool:
+	for g: Dictionary in inst.get("gifts", []):
+		if str(g["family"]) == fam and str(g["to"]) == to:
+			return true
+	return false
+
+
+## {"type": "festival_give_gift", "actor", "festival", "to" (a family), "item"?, "quality"?}: a Christmas gift (effect
+## gifts): the best piece the family has (of rules.christmas_gifts.items; empty, any product or equipment) leaves its
+## bag or its buildings for the receiver's house, and the receiver's head likes the giver's head more (gift_relation).
+## One gift per family and receiver. Reasons: the common ones, bad_family, already_given, no_piece, no_room.
+static func order_give_gift(sim: Sim, o: Dictionary) -> Dictionary:
+	var c := _common(sim, o, "gifts")
+	if c.has("fail"):
+		return Orders.fail(str(c["fail"]))
+	var inst: Dictionary = c["inst"]
+	var fam := str(c["fam"])
+	var to := str(o.get("to", ""))
+	if not to in gift_targets(sim, fam):
+		return Orders.fail("bad_family")
+	if gave(inst, fam, to):
+		return Orders.fail("already_given")
+	var p := best_piece(sim, fam, str(c["actor"]), _r(sim, "christmas_gifts").get("items", []), str(o.get("item", "")),
+		int(o.get("quality", -1)))
+	var inv := sim.state.inventory_of(str(p.get("from", "")))
+	if p.is_empty() or inv.is_empty() or Inventory.count(inv, str(p["item"]), int(p["quality"])) < 1:
+		return Orders.fail("no_piece")
+	var head := Kin.head(sim.state, to)
+	var dest: Dictionary = {}  # the receiver's house (its first building with room), else its head's bag
+	for b: String in Titles.business_ids(sim, to) + [head]:
+		var di := sim.state.inventory_of(str(b))
+		if not di.is_empty() and Inventory.can_add(di, sim.catalog, str(p["item"]), int(p["quality"]), 1):
+			dest = di
+			break
+	if dest.is_empty():
+		return Orders.fail("no_room")
+	Inventory.remove(inv, str(p["item"]), int(p["quality"]), 1)
+	Inventory.add(dest, sim.catalog, str(p["item"]), int(p["quality"]), 1)
+	var val := value(sim, str(p["item"]), int(p["quality"]))
+	var rel := gift_relation(sim, val)
+	var giver := Kin.head(sim.state, fam)
+	Emotions.change_relation(sim, head, giver if giver != "" else str(c["actor"]), rel, "christmas_gift")
+	if not inst.get("gifts") is Array:
+		inst["gifts"] = []
+	(inst["gifts"] as Array).append({"family": fam, "to": to, "item": str(p["item"]), "quality": int(p["quality"])})
+	sim.events.append({"type": "festival_gift_given", "festival": str(inst["id"]), "family": fam, "to": to,
+		"item": str(p["item"]), "quality": int(p["quality"]), "relation": rel})
+	if str(sim.state.families[to].get("controlled_by", "")) == "human":
+		Notices.add(sim, to, Notices.INFO, "notice.festival_gift_received", {"family": str(sim.state.families[fam].get(
+			"name", "")), "item": str(p["item"])})
+	if OS.is_debug_build():
+		print("[FestivalCourt] %s regala %s (calidad %d, %d de oro) a %s en %s: relación +%d" % [fam, p["item"],
+			int(p["quality"]), val, to, inst["id"], rel])
+	return Orders.ok()
+
+
+## The AI's Christmas gift (if it has gold to spare: the reserve of the festival contracts + rules.christmas_gifts.ai_spare):
+## its best piece to the family whose head its head likes most (a relation > 0), once.
+static func ai_gifts(sim: Sim, inst: Dictionary) -> void:
+	if effect(sim, inst, "gifts").is_empty():
+		return
+	var r := _r(sim, "christmas_gifts")
+	for fam: String in Festivals._sorted_keys(sim.state.families):
+		var f: Dictionary = sim.state.families[fam]
+		var prof := str(f.get("ai_profile", ""))
+		if prof == "" or str(f.get("controlled_by", "")) == "human":
+			continue
+		var head := Kin.head(sim.state, fam)
+		if head == "" or Region.is_away(sim.state, head):
+			continue
+		if Money.gold(sim.state, fam) < RivalAI.upkeep_reserve(sim, fam, sim.catalog.ai_profiles().get(prof, {})) \
+				+ int(r.get("ai_spare", 100)):
+			continue
+		var best := ""
+		var top := 0
+		for to: String in gift_targets(sim, fam):
+			var rel := Emotions.relation(sim.state, head, Kin.head(sim.state, to))
+			if rel > top:
+				top = rel
+				best = to
+		if best == "" or gave(inst, fam, best) or best_piece(sim, fam, head, r.get("items", [])).is_empty():
+			continue
+		sim.give({"type": "festival_give_gift", "actor": head, "festival": str(inst["id"]), "to": best})
 
 
 # --- The AI's sponsoring (04c's reputation use) ------------------------------------------------------------------------

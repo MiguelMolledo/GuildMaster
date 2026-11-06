@@ -289,7 +289,8 @@ func pick_bed(world: Vector2) -> int:
 
 ## The gaming table under `world` (only once it is built).
 func pick_table(world: Vector2) -> bool:
-	return _table_pos != Vector2.INF and InnGames.has_table(sim, building) and (world - _table_pos).length() < 22.0
+	return _table_pos != Vector2.INF and InnGames.has_table(sim, building) and shown_level == 0 \
+		and (world - _table_pos).length() < 22.0
 
 
 ## Left click in the room: serve a waiting guest, or make a dirty bed (by whoever of the family is inside). True if

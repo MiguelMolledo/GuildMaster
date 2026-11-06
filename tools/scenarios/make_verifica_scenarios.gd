@@ -16,6 +16,8 @@ extends SceneTree
 ##                    12:00 (sponsoring, entering the joust). The family is Citizen.
 ##   inn_chores       from inn_night: two of the inn's beds are left dirty (making a bed); guests wait to be served.
 ##   altercation_purse from life_altercation: the family has 200 gold (a bet on the brawl).
+##   family_ages      from founder_old: one of each portrait band in the tree (verificación E2): Jordi 0, Elvira 8
+##                    (white hair inherited from her mother: index 5), Clara 12, Pere 16, Agnès 45 and Hugo 62.
 ##   tavern_for_sale  a real new game (artisan_blacksmith, normal, fixed cast, seed 1) with 3000 gold: the
 ##                    Taberna-Posada of the town is for sale and the family can buy it.
 
@@ -42,6 +44,7 @@ func _init() -> void:
 	ok = _inn_chores() and ok
 	ok = _altercation_purse() and ok
 	ok = _tavern_for_sale() and ok
+	ok = _family_ages() and ok
 	quit(0 if ok else 1)
 
 
@@ -228,6 +231,34 @@ func _tavern_for_sale() -> bool:
 		return false
 	return _save(sim, "tavern_for_sale", "La posada en venta",
 		"Partida nueva (herrero, normal) con 3000 de oro: la Taberna-Posada del pueblo está en venta y la familia puede comprarla (verificación, bloque D).")
+
+
+func _family_ages() -> bool:
+	var sim := _from("founder_old")
+	if sim == null:
+		return false
+	var st := sim.state
+	var who := {}
+	for c: String in st.characters:
+		if str(st.characters[c].get("family", "")) == FAM:
+			who[str(st.characters[c].get("name", ""))] = c
+	if not (who.has("Hugo") and who.has("Agnès") and who.has("Pere") and who.has("Clara")):
+		print("make_verifica_scenarios: founder_old has not the four (%s)" % who)
+		return false
+	var minute := int(st.clock["minute"])
+	st.characters[who["Hugo"]]["birth_day"] = Kin.birth_day_for(62, minute, cat.time)
+	st.characters[who["Agnès"]]["birth_day"] = Kin.birth_day_for(45, minute, cat.time)
+	for pair: Array in [["Elvira", true, 8], ["Jordi", false, 0]]:
+		var id := Births.born(sim, who["Agnès"], who["Hugo"])
+		var ch: Dictionary = st.characters[id]
+		ch["name"] = str(pair[0])
+		ch["female"] = bool(pair[1])
+		ch["birth_day"] = Kin.birth_day_for(int(pair[2]), minute, cat.time)
+		(ch["visual"] as Dictionary)["hair"] = int(st.characters[who["Agnès"]]["visual"]["hair"])
+		(ch["visual"] as Dictionary)["portrait"] = {"id": "", "type": "artisan"}   # drawn for the sex it is given here
+	st.notices = []
+	return _save(sim, "family_ages", "Una edad de cada",
+		"founder_old con un retrato de cada franja en el árbol: Jordi (0), Elvira (8, el pelo de su madre), Clara (12), Pere (16), Agnès (45) y Hugo (62). Para revisar la elección del retrato por edad y sexo (verificación E2).")
 
 
 func _save(sim: Sim, id: String, title: String, description: String) -> bool:

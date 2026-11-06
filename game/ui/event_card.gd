@@ -25,6 +25,8 @@ func _ready() -> void:
 			for e: Dictionary in events:
 				if str(e.get("type", "")) == "world_event_started":
 					show_for(g.get("sim") as Sim, e)
+				elif str(e.get("type", "")) == "council_voted":
+					show_council(g.get("sim") as Sim, e)
 				elif str(e.get("type", "")) in ["festival_eve", "festival_started", "festival_wedding_offer",
 						"festival_gift_offers", "festival_gift_chosen", "festival_contest", "festival_audience"]:
 					show_festival(g.get("sim") as Sim, e))
@@ -61,7 +63,29 @@ func show_festival(sim: Sim, e: Dictionary) -> void:
 	if d.is_empty():
 		return
 	d["event"] = "festival:" + str(d.get("festival", ""))
-	if visible:
+	if visible or suspended:   # also set aside under a screen: the next waits its turn
+		_queue.append(d)
+		return
+	shown.append(str(d["event"]))
+	show_page(d)
+
+
+## The council's vote on the mayor's town treaty (verificación E1): the card that answers the order given on the map,
+## once the clock runs. Only when the mayor is of the player's family.
+func show_council(sim: Sim, e: Dictionary) -> void:
+	var fam := SimQuery.player_family(sim.state)
+	if str(sim.state.characters.get(str(e.get("actor", "")), {}).get("family", "")) != fam:
+		return
+	var city := SimQuery.t_(str(RegionView.settlement(str(e.get("city", ""))).get("name_key", e.get("city", ""))))
+	var passed := bool(e.get("passed", false))
+	var d := {"template": "card", "title": SimQuery.t_("ui.council.title"), "event": "council:" + str(e.get("city", "")),
+		"blocks": [{"type": "paragraph", "text": SimQuery.t_("ui.council.votes") % [city, int(e.get("yes", 0)),
+			int(e.get("no", 0))]}, {"type": "effects", "items": [{"text": SimQuery.t_("ui.council.passed") % city
+			if passed else SimQuery.t_("ui.council.failed"), "sign": "+" if passed else "-"}]}],
+		"buttons": [{"id": "ok", "text": SimQuery.t_("ui.council.ok"), "primary": true}]}
+	if OS.is_debug_build():
+		print("[EventCard] el concejo vota el tratado con %s: %s" % [city, e])
+	if visible or suspended:   # also set aside under a screen: the next waits its turn
 		_queue.append(d)
 		return
 	shown.append(str(d["event"]))
@@ -73,6 +97,19 @@ func _on_button(id: String) -> void:
 	if g == null or g.get("sim") == null:
 		return
 	var sim: Sim = g.get("sim")
+	if id == "gifts_menu":  # fiestas: the Christmas gifts, the families on a second card
+		var gm := FestivalPage.gifts_menu(sim, data)
+		(func() -> void: show_page(gm)).call_deferred()
+		return
+	if id == "corro_menu":  # fiestas: the corro in the plaza, its games on a second card
+		var cm := FestivalPage.corro_menu(sim, data)
+		(func() -> void: show_page(cm)).call_deferred()
+		return
+	var app0 := get_node_or_null("/root/App")
+	if id.begins_with("corro:") and app0 != null and app0.has_method("open_game"):
+		app0.call("open_game", FestivalPage.corro_request(sim, id, data,
+			SimQuery.family_actor(sim.state, SimQuery.player_family(sim.state))))
+		return
 	if id == "audience_menu":  # the privileges on a second card (after this one closes)
 		var menu := FestivalPage.audience_menu(sim, data)
 		(func() -> void: show_page(menu)).call_deferred()
@@ -101,7 +138,7 @@ func show_for(sim: Sim, e: Dictionary) -> void:
 	var d := EventPage.data_for(sim, e)
 	if d.is_empty():
 		return
-	if visible:
+	if visible or suspended:   # also set aside under a screen: the next waits its turn
 		_queue.append(d)
 		return
 	shown.append(str(d.get("event", "")))
@@ -109,7 +146,7 @@ func show_for(sim: Sim, e: Dictionary) -> void:
 
 
 func close() -> void:
-	var was := visible
+	var was := visible or suspended
 	super.close()
 	if was:
 		_next()

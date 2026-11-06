@@ -1,7 +1,7 @@
 {
   "id": "taberna",
   "title": "Comprar la taberna y llevar un turno",
-  "about": "En una partida nueva la Taberna-Posada está en venta: su barra de selección dice el precio y, sin oro bastante, por qué no se puede. Con la taberna ya comprada (escenario innkeeper_start, el protagonista dentro una hora antes de abrir): el panel de la taberna (botón de la barra), la carta (quitar y poner un plato, su precio, el plato del día), las habitaciones (hacer una cama), la licencia, y la noche a ×4 hasta el resumen del turno.",
+  "about": "En una partida nueva la Taberna-Posada está en venta: su barra de selección dice el precio y, sin oro bastante, por qué no se puede. Con la taberna ya comprada (escenario innkeeper_start, el protagonista dentro una hora antes de abrir): el panel de la taberna (botón de la barra), la carta (quitar y poner un plato, su precio, el plato del día), las habitaciones (hacer una cama si alguna está por hacer), la licencia, la noche a ×4 y, al alba, cuando los huéspedes se van, hacer una de sus camas (con el teclado: Tab hasta el botón e Intro); Esc cierra el panel.",
   "start": {"new_game": true},
   "covers": ["buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_make_bed", "inn_buy_license", "inn_serve"],
   "steps": [
@@ -28,6 +28,9 @@
     {"id": "turno", "click": {"node": "TabTurn"}},
     {"id": "x4", "key": "@speed_3"},
     {"id": "noche", "say": "La noche: entra la clientela", "until": "q.hour() >= 21", "timeout": 60, "fast": 6},
+    {"id": "habitaciones_alba", "say": "De vuelta a las habitaciones", "click": {"node": "TabRooms"}},
+    {"id": "alba", "say": "Al alba los huéspedes se van y sus camas quedan por hacer", "until": "q.shown({'within': 'InnPanel', 'tr': 'ui.inn.make_bed', 'enabled': true})", "timeout": 90, "fast": 6},
+    {"id": "cama_alba", "say": "Hacer una cama (con el teclado: Tab hasta ella e Intro)", "click": {"within": "InnPanel", "tr": "ui.inn.make_bed", "enabled": true}, "expect": ["q.order('inn_make_bed')"]},
     {"id": "esc", "key": "Escape", "expect": ["not q.visible('InnPanel')"]},
     {"id": "sala_escena", "say": "La sala llena con camas sin hacer (escenario inn_chores)", "restart": {"scenario": "inn_chores"}},
     {"id": "sala_dentro", "say": "Doble clic en la taberna propia (Hugo ya está dentro)", "when": "q.interior() == ''", "world": {"own": "tavern_inn"}, "double": true, "until": "q.interior() == q.own('tavern_inn')", "timeout": 6},

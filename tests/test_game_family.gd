@@ -57,7 +57,7 @@ func test_tree_layout_and_identity() -> void:
 	var frame := node.get_node("%Frame") as PortraitFrame
 	var portrait := frame.get_node("%Holder").get_child(0) as Portrait
 	var vis: Dictionary = st.characters[son]["visual"]
-	eq(portrait.hair, Identity.hair_color(int(vis["hair"])), "his hair from the palette")
+	eq(portrait.hair, Identity.hair_color(Identity.natural_hair(int(vis["hair"]))), "his hair from the palette (the white is for age: verificación E2)")
 	eq(portrait.skin, Identity.skin_color(int(vis["skin"])), "his skin from the palette")
 	eq(portrait.primary, ViewConfig.color(str(st.families[FAM]["colors"]["primary"])), "family colours")
 	var pv: Array = [st.characters[HERO]["visual"], st.characters[wife]["visual"]]

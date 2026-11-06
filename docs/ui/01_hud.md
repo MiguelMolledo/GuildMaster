@@ -21,8 +21,17 @@ Responde, sin abrir nada, a las cuatro preguntas que el jugador se hace cada min
 - El HUD está siempre. Solo se oculta en el menú de pausa, en las pantallas de título y de final, y en las capturas.
 - **Esc cierra lo de más arriba**, en este orden: modal → menú contextual → ayuda (F1) → panel de gestión (lateral) →
   ficha de persona → selección. Con nada abierto, **Esc abre el menú de pausa** (el único que pausa, GDD 4.1).
+  Un tooltip a la vista (el ratón parado sobre un botón) no cuenta: Godot gasta ese Esc en quitarlo y `KeyNav` lo
+  manda otra vez, así que el mismo Esc cierra también lo de arriba (antes el tooltip se comía el primer Esc).
 - Ningún panel del HUD pausa el juego. Con el juego en pausa se siguen dando órdenes (pausa activa): se encolan por
   personaje y se ven en la columna izquierda.
+- Lo que sí pausa por su cuenta (el mapa de la región y las caravanas encima, la vista oral del juicio) responde al
+  momento a cada orden aunque ninguna se aplique hasta que corra el reloj (GDD 4.1): el botón pulsado pasa a «… (al
+  reanudar)» y se apaga con ese motivo («Firmando…», «Comprando un carro…», «Enviando…», «Dictando…», «Interrogando…»,
+  «Concluyendo…»), la pantalla enseña su propia tira de cola («En pausa · se hará al reanudar: 1. …»; la del HUD queda
+  debajo) y el libro (L, Avisos) la lista como «En espera». Al correr el reloj se aplica y llega su carta (el tratado
+  de la villa: la carta del concejo con la votación; en el mapa abierto, la misma línea en su tira). Código:
+  `game/ui/paused_orders.gd`.
 
 ## 3. Jerarquía de información
 

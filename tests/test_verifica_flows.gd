@@ -204,3 +204,69 @@ func test_judge_family_can_rule() -> void:
 	sim.run_minutes(10)
 	eq(str(Tribunal.trial(sim.state, tid)["status"]), "hearing", "the hearing has started")
 	eq(Tribunal.verdict_status(sim, "chr_0001", tid, "innocent"), "", "Hugo may rule")
+
+
+class FakeGame extends Node:
+	var paused: bool = true
+	var orders: Array = []
+
+	func pending() -> Array:
+		return orders
+
+
+## An order given in pause (verificación E1): the screen that paused knows it waits, and lists it with its label; with
+## the clock running nothing waits.
+func test_paused_orders_wait_and_are_listed() -> void:
+	var r := NewGame.from_scenario("patron_treaties")
+	check(bool(r["ok"]), "patron_treaties loads")
+	if not bool(r["ok"]):
+		return
+	var sim := Sim.new(r["state"], Catalog.load_from())
+	var g := FakeGame.new()
+	g.orders = [{"type": "propose_town_treaty", "actor": "chr_0001", "city": "hamlet", "kind": "exemption", "queued": true}]
+	check(PausedOrders.waiting(g, "propose_town_treaty", {"city": "hamlet"}), "the town treaty waits")
+	check(not PausedOrders.waiting(g, "propose_town_treaty", {"city": "abbey"}), "not another city's")
+	var ls := PausedOrders.lines(g, sim, "fam_0001")
+	check(ls.size() == 1 and ls[0].contains("Vilablat"), "its line names the city (%s)" % [ls])
+	g.paused = false
+	check(not PausedOrders.waiting(g, "propose_town_treaty"), "with the clock running nothing waits")
+	g.free()
+
+
+## The portrait by age (verificación E2): each age takes its band, and a tone kept for age (the white, index 5) is
+## drawn with its natural one: a girl of 8 whose mother has it in the data is not white-haired.
+func test_portrait_band_and_no_white_hair_when_young() -> void:
+	for pair: Array in [[0, "child"], [8, "child"], [12, "youth"], [16, "youth"], [45, "mature"], [62, "elder"]]:
+		eq(Identity.stage(int(pair[0])), str(pair[1]), "age %d" % pair[0])
+	check(Identity.natural_hair(5) != 5, "the white is not a natural tone")
+	eq(Identity.natural_hair(2), 2, "a natural tone stays")
+	var r := NewGame.from_scenario("family_ages")
+	check(bool(r["ok"]), "family_ages loads")
+	if not bool(r["ok"]):
+		return
+	var st: WorldState = r["state"]
+	var grey := ViewConfig.color(str((ViewConfig.value("portraits", {}) as Dictionary).get("greying", {}).get("grey", "#d8d0c0")))
+	for c: String in st.characters:
+		var ch: Dictionary = st.characters[c]
+		if str(ch.get("family", "")) != "fam_0001" or str(ch.get("name", "")) != "Elvira":
+			continue
+		eq(int(ch["visual"]["hair"]), 5, "Elvira carries the white in the data")
+		var id := Identity.of(st, c)
+		eq(str(id["portrait"]["stage"]), "child", "Elvira's band")
+		check(not (id["hair"] as Color).is_equal_approx(grey), "Elvira is not drawn white-haired (%s)" % id["hair"])
+		var tex := Identity.portrait_texture(id, 64)
+		check(tex != null and tex.resource_path.contains("/f/child/"), "a girl's child portrait (%s)" % (tex.resource_path if tex else "null"))
+
+
+## A kept portrait id that is no longer of the person's sex or age band (it changes at the year change) gives way to one
+## of its band and sex now (verificación E2): a boy of 0 never shows a girl's portrait, a man of 62 never a child's.
+func test_kept_portrait_of_another_band_gives_way() -> void:
+	var boy := {"female": false, "portrait": {"id": "f_child_artisan_04", "type": "artisan", "stage": "child", "seed": 22}}
+	var tex := Identity.portrait_texture(boy, 64)
+	check(tex != null and tex.resource_path.contains("/m/child/"), "a boy's child portrait (%s)" % (tex.resource_path if tex else "null"))
+	var old := {"female": false, "portrait": {"id": "m_child_artisan_02", "type": "artisan", "stage": "elder", "seed": 1}}
+	tex = Identity.portrait_texture(old, 64)
+	check(tex != null and tex.resource_path.contains("/m/elder/"), "an elder's portrait (%s)" % (tex.resource_path if tex else "null"))
+	var same := {"female": true, "portrait": {"id": "f_child_artisan_04", "type": "artisan", "stage": "child", "seed": 9}}
+	tex = Identity.portrait_texture(same, 64)
+	check(tex != null and tex.resource_path.ends_with("f_child_artisan_04.png"), "a fitting id is kept")
