@@ -3,10 +3,11 @@ extends RefCounted
 ## H6 · the bankruptcy of an AI family (docs/gdd/04c_ia_rival.md §4.21.6.3, Q9 b; data/construction.json
 ## "bankruptcy" [balance]). Evaluated at dawn (Construction.step), for the AI families with a profile, on the maps of
 ## the AI's economy (data/ai.json economy.maps: the families that run their money there; elsewhere nothing changes):
-##   normal    -> austerity  the workshop's net of the last negative_days days is under 0, or its gold under its
-##                           reserve (Construction.budget < 0): no construction (Construction asks stage()), it lets
-##                           its least efficient employee go.
-##   austerity -> normal     after season_days, the season's net is >= 0 and its gold over the reserve again;
+##   normal    -> austerity  the workshop's net of the last negative_days days is under 0 and its gold under its
+##                           reserve (Construction.budget < 0) («neto negativo durante 2 años y la familia en
+##                           austeridad»; the moneylender's credit comes first): no construction (Construction asks
+##                           stage()), it lets its least efficient employee go.
+##   austerity -> normal     after season_days, the season's net is >= 0 or its gold over the reserve again;
 ##             -> for_sale   else: the «Se vende» sign, public: price = (build cost + its upgrades' gold) × sale_share;
 ##                           the player buys it with buy_building (Plots.order_buy_from at that price, no refusal) and
 ##                           so may another AI family (Construction's candidates).
@@ -104,8 +105,8 @@ static func _normal(sim: Sim, fam: String, m: Dictionary, today: int) -> void:
 		return
 	var days := int(cfg(sim).get("negative_days", 16))
 	var losing := today >= days and net(sim, fam, bld, today - days, today - 1) < 0
-	if not losing and Construction.budget(sim, fam) >= 0:
-		return
+	if not losing or Construction.budget(sim, fam) >= 0:
+		return   # «neto negativo durante 2 años y la familia en austeridad» (04c): both; the credit comes first
 	m["stage"] = AUSTERITY
 	m["since"] = today
 	m["building"] = bld
@@ -125,7 +126,7 @@ static func _austerity(sim: Sim, fam: String, m: Dictionary, today: int) -> void
 	if not sim.state.buildings.has(bld) or str(sim.state.buildings[bld].get("owner", "")) != fam:
 		_reset(m)
 		return
-	if net(sim, fam, bld, int(m["since"]), today - 1) >= 0 and Construction.budget(sim, fam) >= 0:
+	if net(sim, fam, bld, int(m["since"]), today - 1) >= 0 or Construction.budget(sim, fam) >= 0:
 		_reset(m)
 		sim.events.append({"type": "ai_recovered", "family": fam, "building": bld})
 		return

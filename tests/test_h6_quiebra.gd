@@ -31,16 +31,31 @@ func _forge(sim: Sim) -> String:
 	return Bankruptcy.workshop_of(sim, RIVAL)
 
 
+## The rival's workshop loses `amount` on `day` (an entry of its book).
+func _loses(sim: Sim, day: int, amount: int = 100) -> void:
+	sim.state.clock["minute"] = day * Clock.MINUTES_PER_DAY + 600
+	sim.state.families[RIVAL]["gold"] = maxi(int(sim.state.families[RIVAL]["gold"]), amount)
+	Money.change(sim, RIVAL, -amount, Money.UPKEEP, "test", _forge(sim))
+
+
+## The rival's workshop has lost money over the last 16 days (an entry of its book on day 17) and it has no gold.
+func _broke(sim: Sim) -> void:
+	sim.state.clock["minute"] = 17 * Clock.MINUTES_PER_DAY + 600
+	sim.state.families[RIVAL]["gold"] = 500
+	Money.change(sim, RIVAL, -500, Money.UPKEEP, "test", _forge(sim))
+
+
 func test_austerity_then_the_sign_and_the_player_buys_it() -> void:
 	var sim := _new()
-	sim.state.families[RIVAL]["gold"] = 0
 	var forge := _forge(sim)
-	_dawn(sim, 10)
-	eq(Bankruptcy.stage(sim, RIVAL), Bankruptcy.AUSTERITY, "under its reserve: austerity")
+	_broke(sim)
+	_dawn(sim, 18)
+	eq(Bankruptcy.stage(sim, RIVAL), Bankruptcy.AUSTERITY, "losing money 16 days and under its reserve: austerity")
 	eq(Construction.choose(sim, RIVAL), {}, "it builds nothing in austerity")
-	_dawn(sim, 11)
+	_loses(sim, 18)
+	_dawn(sim, 19)
 	eq(Bankruptcy.stage(sim, RIVAL), Bankruptcy.AUSTERITY, "a season lasts")
-	_dawn(sim, 12)
+	_dawn(sim, 20)
 	eq(Bankruptcy.stage(sim, RIVAL), Bankruptcy.FOR_SALE, "not recovered: the «Se vende» sign")
 	var b: Dictionary = sim.state.buildings[forge]
 	check(bool(b.get("for_sale", false)), "the building is for sale")
@@ -56,7 +71,7 @@ func test_austerity_then_the_sign_and_the_player_buys_it() -> void:
 	check(r["ok"], "the sign is public: even a family it hates may buy: %s" % r)
 	eq(int(r.get("price", 0)), int(b["sale_price"]), "at the sign's price")
 	check(Orders.apply(sim, {"type": "buy_building", "actor": HERO, "building": forge})["ok"], "bought with buy_building")
-	_dawn(sim, 13)
+	_dawn(sim, 21)
 	check(sim.state.families[RIVAL].has("fallen"), "no business left: venida a menos")
 	eq(str(sim.state.families[RIVAL]["after_sale"]["fate"]), "rebuilds", "it will put up a workshop again")
 	_off()
@@ -64,14 +79,16 @@ func test_austerity_then_the_sign_and_the_player_buys_it() -> void:
 
 func test_nobody_buys_it_so_it_is_pulled_down_and_the_family_falls() -> void:
 	var sim := _new()
-	sim.state.families[RIVAL]["gold"] = 0
 	var forge := _forge(sim)
 	var plot := Plots.plot_of(sim, forge)
-	for d: int in [10, 12, 14]:
+	_broke(sim)
+	_dawn(sim, 18)
+	_loses(sim, 19)
+	for d: int in [20, 22]:
 		_dawn(sim, d)
 	check(not sim.state.buildings.has(forge), "unsold a season: pulled down")
 	eq(str(Plots.get_plot(sim, plot)["kind"]), "lot", "its plot is a free lot again")
-	eq(int(sim.state.families[RIVAL]["gold"]), roundi(100.0 * 0.4), "40 % of its cost back")
+	eq(int(sim.state.families[RIVAL]["gold"]), roundi(100.0 * 0.4), "40 % of its cost back (it had nothing)")
 	check(sim.state.families[RIVAL].has("fallen"), "venida a menos")
 	var head := Kin.head(sim.state, RIVAL)
 	check(Staff.is_unemployed(sim, head), "its head can be hired now (Q9 b)")
@@ -85,8 +102,10 @@ func test_nobody_buys_it_so_it_is_pulled_down_and_the_family_falls() -> void:
 
 func test_a_fallen_family_with_gold_puts_up_a_workshop_again() -> void:
 	var sim := _new()
-	sim.state.families[RIVAL]["gold"] = 0
-	for d: int in [10, 12, 14]:
+	_broke(sim)
+	_dawn(sim, 18)
+	_loses(sim, 19)
+	for d: int in [20, 22]:
 		_dawn(sim, d)
 	cat.construction["valve"]["min_free"] = 0
 	sim.state.families[RIVAL]["gold"] = 600
@@ -107,11 +126,11 @@ func test_a_fallen_family_with_gold_puts_up_a_workshop_again() -> void:
 
 func test_it_recovers_when_the_money_comes_back() -> void:
 	var sim := _new()
-	sim.state.families[RIVAL]["gold"] = 0
-	_dawn(sim, 10)
+	_broke(sim)
+	_dawn(sim, 18)
 	eq(Bankruptcy.stage(sim, RIVAL), Bankruptcy.AUSTERITY, "austerity")
 	sim.state.families[RIVAL]["gold"] = 800
-	_dawn(sim, 12)
+	_dawn(sim, 20)
 	eq(Bankruptcy.stage(sim, RIVAL), Bankruptcy.NORMAL, "gold over its reserve and no loss: back to normal")
 	check(not bool(sim.state.buildings[_forge(sim)].get("for_sale", false)), "no sign")
 	_off()
@@ -119,9 +138,20 @@ func test_it_recovers_when_the_money_comes_back() -> void:
 
 func test_nothing_off_the_economy_maps() -> void:
 	var sim := _new(false)
-	sim.state.families[RIVAL]["gold"] = 0
-	for d: int in [10, 12, 14]:
+	_broke(sim)
+	_dawn(sim, 18)
+	_loses(sim, 19)
+	for d: int in [20, 22]:
 		_dawn(sim, d)
 	eq(Bankruptcy.stage(sim, RIVAL), Bankruptcy.NORMAL, "Vilarrasa (not an economy map): nothing")
 	check(sim.state.buildings.has(_forge(sim)), "its forge stands")
+	_off()
+
+
+
+func test_one_bad_dawn_is_not_a_bankruptcy() -> void:
+	var sim := _new()
+	sim.state.families[RIVAL]["gold"] = 0
+	_dawn(sim, 18)
+	eq(Bankruptcy.stage(sim, RIVAL), Bankruptcy.NORMAL, "no gold but not losing money for 16 days: the credit comes first")
 	_off()

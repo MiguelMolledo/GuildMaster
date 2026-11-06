@@ -274,8 +274,9 @@ flowchart TD
 **Implementado en H6 (rama posada, 2026-11-06; `sim/build/bankruptcy.gd`, `data/construction.json` bankruptcy)**
 [balance]: la máquina de arriba al amanecer, solo en los mapas de la economía de la IA (`data/ai.json` economy.maps,
 hoy Bellcaire; en Vilarrasa nada cambia hasta que su economía se encienda). Neto del taller negativo en los últimos
-16 días u oro bajo su reserva (`Construction.budget`) → austeridad 2 días (una estación): no construye y despide al
-empleado menos eficiente. Sin recuperarse (neto de la estación ≥ 0 y oro sobre la reserva) → cartel «Se vende» 2 días
+16 días **y** oro bajo su reserva (`Construction.budget`), como dice el texto («neto negativo durante 2 años y la
+familia en austeridad»; antes actúa el crédito de la economía) → austeridad 2 días (una estación): no construye y
+despide al empleado menos eficiente. Sin recuperarse (neto de la estación ≥ 0 u oro sobre la reserva) → cartel «Se vende» 2 días
 a `(coste + oro de sus mejoras) × 0,8`: lo compra el jugador con `buy_building` (o desde la carta de la parcela) a ese
 precio y sin negarse, y también otra familia IA de su oficio. Sin comprador → despide a todos, lo derriba (40 % de su
 coste) y la parcela vuelve a ser un solar. Sin negocio → **venida a menos** (Q9 b): conserva título y reputación, sus

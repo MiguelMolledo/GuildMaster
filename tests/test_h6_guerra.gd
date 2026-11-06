@@ -21,6 +21,7 @@ func _provoke(sim: Sim, day: int) -> void:
 	var sold := {}
 	for f: String in Hostility._ai_families(sim.state):
 		bk["values"][f + "|" + ME] = 95
+		sim.state.families[f]["gold"] = maxi(int(sim.state.families[f].get("gold", 0)), 2000)  # not in austerity
 		var home := Hostility._workshop_of(sim.state, f)
 		if home == "":
 			continue
