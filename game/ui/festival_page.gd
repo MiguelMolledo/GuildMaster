@@ -157,8 +157,17 @@ static func _feast(sim: Sim, e: Dictionary, fam: String) -> Dictionary:
 					or not FestivalGames._to_come(inst, spk):
 				continue
 			var entered := (g.get("entries", {}) as Dictionary).has(spk)
+			var ewhy := FestivalGames.enter_reason(sim, SimQuery.family_actor(sim.state, fam), inst, spk)
+			var fee := int(sim.catalog.games.get(str(FestivalGames.spectacle_cfg(sim, spk).get("game", "")), {}).get("entry_fee", 0))
+			var etip := SimQuery.t_("ui.festival_card.enter_tip")
+			if ewhy == "not_enough_gold":
+				etip = gold_reason(sim, fam, fee)
+			elif ewhy != "":
+				etip = SimQuery.reason_text(ewhy)
 			buttons.append({"id": "enter:" + spk, "text": SimQuery.t_("ui.festival_card.enter") % SimQuery.t_("spectacle." + spk),
-				"disabled": entered, "tip": SimQuery.t_("ui.festival_card.enter_tip")})
+				"disabled": ewhy != "", "tip": etip})
+			if ewhy in ["no_title", "not_enough_gold"]:  # said in the card too, like the payments
+				short = short if short != "" else "%s: %s" % [SimQuery.t_("spectacle." + spk), etip]
 			if not entered:
 				buttons.append({"id": "bet:" + spk, "text": SimQuery.t_("ui.festival_card.bet") % SimQuery.t_("spectacle." + spk),
 					"tip": SimQuery.t_("ui.festival_card.bet_tip")})

@@ -1041,6 +1041,70 @@
 					"occupant": ""
 				}
 			}
+		},
+		"bld_0023": {
+			"door": [
+				52,
+				50
+			],
+			"employee_slots": 1,
+			"footprint": [
+				3,
+				3
+			],
+			"id": "bld_0023",
+			"inspection": {
+				"caught": 0,
+				"escape_ready_day": 0,
+				"escaped": 0,
+				"fines": 0,
+				"last_day": -1
+			},
+			"inventory": {
+				"limit": 10,
+				"limit_kind": "stacks",
+				"stacks": [
+					{
+						"item": "wool",
+						"qty": 10,
+						"quality": 0
+					}
+				]
+			},
+			"origin": [
+				51,
+				47
+			],
+			"owner": "fam_0022",
+			"queue": {
+				"entries": [],
+				"loop": false,
+				"paused": false
+			},
+			"state": "normal",
+			"type": "tailor_shop",
+			"upgrade_work": null,
+			"upgrades": [],
+			"upkeep_debt": 0,
+			"upkeep_unpaid_since": -1,
+			"zones": {
+				"counter": {
+					"job": null,
+					"occupant": ""
+				},
+				"loom": {
+					"job": null,
+					"occupant": ""
+				},
+				"sewing_table": {
+					"job": null,
+					"occupant": ""
+				},
+				"storage": {
+					"job": null,
+					"occupant": ""
+				}
+			}
 		}
 	},
 	"cast": {
@@ -1234,7 +1298,7 @@
 			"life": {},
 			"location": "bld_0004",
 			"move_progress": 0,
-			"name": "Dalmau",
+			"name": "Gerard",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -1309,7 +1373,7 @@
 			"life": {},
 			"location": "bld_0004",
 			"move_progress": 0,
-			"name": "Clara",
+			"name": "Constanza",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -1384,7 +1448,7 @@
 			"life": {},
 			"location": "bld_0004",
 			"move_progress": 0,
-			"name": "Constanza",
+			"name": "Brunissenda",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -1459,7 +1523,7 @@
 			"life": {},
 			"location": "bld_0004",
 			"move_progress": 0,
-			"name": "Gerard",
+			"name": "Bermudo",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -1534,7 +1598,7 @@
 			"life": {},
 			"location": "bld_0004",
 			"move_progress": 0,
-			"name": "Bermudo",
+			"name": "Joan",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -1609,7 +1673,7 @@
 			"life": {},
 			"location": "bld_0005",
 			"move_progress": 0,
-			"name": "Joan",
+			"name": "Ramon",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -1684,7 +1748,7 @@
 			"life": {},
 			"location": "bld_0005",
 			"move_progress": 0,
-			"name": "Brunissenda",
+			"name": "Francesca",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -1759,7 +1823,7 @@
 			"life": {},
 			"location": "bld_0005",
 			"move_progress": 0,
-			"name": "Ramon",
+			"name": "Martín",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -1834,7 +1898,7 @@
 			"life": {},
 			"location": "bld_0005",
 			"move_progress": 0,
-			"name": "Francesca",
+			"name": "Isabel",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -1909,7 +1973,7 @@
 			"life": {},
 			"location": "bld_0005",
 			"move_progress": 0,
-			"name": "Isabel",
+			"name": "Ramona",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -1984,7 +2048,7 @@
 			"life": {},
 			"location": "bld_0006",
 			"move_progress": 0,
-			"name": "Martín",
+			"name": "Fruela",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2059,7 +2123,7 @@
 			"life": {},
 			"location": "bld_0006",
 			"move_progress": 0,
-			"name": "Ramona",
+			"name": "Estefanía",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2134,7 +2198,7 @@
 			"life": {},
 			"location": "bld_0006",
 			"move_progress": 0,
-			"name": "Fruela",
+			"name": "Arnau",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2209,7 +2273,7 @@
 			"life": {},
 			"location": "bld_0006",
 			"move_progress": 0,
-			"name": "Estefanía",
+			"name": "Juana",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2284,7 +2348,7 @@
 			"life": {},
 			"location": "bld_0006",
 			"move_progress": 0,
-			"name": "Arnau",
+			"name": "García",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2359,7 +2423,7 @@
 			"life": {},
 			"location": "bld_0007",
 			"move_progress": 0,
-			"name": "García",
+			"name": "Mateu",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2434,7 +2498,7 @@
 			"life": {},
 			"location": "bld_0007",
 			"move_progress": 0,
-			"name": "Juana",
+			"name": "Arsenda",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2509,7 +2573,7 @@
 			"life": {},
 			"location": "bld_0007",
 			"move_progress": 0,
-			"name": "Arsenda",
+			"name": "Dolça",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2584,7 +2648,7 @@
 			"life": {},
 			"location": "bld_0007",
 			"move_progress": 0,
-			"name": "Mateu",
+			"name": "Ramiro",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2659,7 +2723,7 @@
 			"life": {},
 			"location": "bld_0007",
 			"move_progress": 0,
-			"name": "Dolça",
+			"name": "Úrsula",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2734,7 +2798,7 @@
 			"life": {},
 			"location": "bld_0008",
 			"move_progress": 0,
-			"name": "Ramiro",
+			"name": "Lorenzo",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2809,7 +2873,7 @@
 			"life": {},
 			"location": "bld_0008",
 			"move_progress": 0,
-			"name": "Úrsula",
+			"name": "Ermessenda",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2884,7 +2948,7 @@
 			"life": {},
 			"location": "bld_0008",
 			"move_progress": 0,
-			"name": "Ermessenda",
+			"name": "Marta",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -2959,7 +3023,7 @@
 			"life": {},
 			"location": "bld_0008",
 			"move_progress": 0,
-			"name": "Lorenzo",
+			"name": "Galceran",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3034,7 +3098,7 @@
 			"life": {},
 			"location": "bld_0008",
 			"move_progress": 0,
-			"name": "Galceran",
+			"name": "Bertran",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3109,7 +3173,7 @@
 			"life": {},
 			"location": "bld_0009",
 			"move_progress": 0,
-			"name": "Bertran",
+			"name": "Nuño",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3184,7 +3248,7 @@
 			"life": {},
 			"location": "bld_0009",
 			"move_progress": 0,
-			"name": "Marta",
+			"name": "Aldonza",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3259,7 +3323,7 @@
 			"life": {},
 			"location": "bld_0009",
 			"move_progress": 0,
-			"name": "Nuño",
+			"name": "Jaume",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3334,7 +3398,7 @@
 			"life": {},
 			"location": "bld_0009",
 			"move_progress": 0,
-			"name": "Jaume",
+			"name": "Bernabé",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3409,7 +3473,7 @@
 			"life": {},
 			"location": "bld_0009",
 			"move_progress": 0,
-			"name": "Bernabé",
+			"name": "Rodrigo",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3484,7 +3548,7 @@
 			"life": {},
 			"location": "bld_0010",
 			"move_progress": 0,
-			"name": "Rodrigo",
+			"name": "Antoni",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3559,7 +3623,7 @@
 			"life": {},
 			"location": "bld_0010",
 			"move_progress": 0,
-			"name": "Aldonza",
+			"name": "Sança",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3634,7 +3698,7 @@
 			"life": {},
 			"location": "bld_0010",
 			"move_progress": 0,
-			"name": "Sança",
+			"name": "Godina",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3709,7 +3773,7 @@
 			"life": {},
 			"location": "bld_0010",
 			"move_progress": 0,
-			"name": "Antoni",
+			"name": "Bonanat",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3784,7 +3848,7 @@
 			"life": {},
 			"location": "bld_0010",
 			"move_progress": 0,
-			"name": "Godina",
+			"name": "Guisla",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3859,7 +3923,7 @@
 			"life": {},
 			"location": "bld_0011",
 			"move_progress": 0,
-			"name": "Bonanat",
+			"name": "Esteban",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -3934,7 +3998,7 @@
 			"life": {},
 			"location": "bld_0011",
 			"move_progress": 0,
-			"name": "Guisla",
+			"name": "Saurina",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4009,7 +4073,7 @@
 			"life": {},
 			"location": "bld_0011",
 			"move_progress": 0,
-			"name": "Esteban",
+			"name": "Climent",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4084,7 +4148,7 @@
 			"life": {},
 			"location": "bld_0011",
 			"move_progress": 0,
-			"name": "Climent",
+			"name": "Sancho",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4159,7 +4223,7 @@
 			"life": {},
 			"location": "bld_0011",
 			"move_progress": 0,
-			"name": "Saurina",
+			"name": "Margarida",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4234,7 +4298,7 @@
 			"life": {},
 			"location": "bld_0012",
 			"move_progress": 0,
-			"name": "Sancho",
+			"name": "Pere",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4309,7 +4373,7 @@
 			"life": {},
 			"location": "bld_0012",
 			"move_progress": 0,
-			"name": "Margarida",
+			"name": "Jimena",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4384,7 +4448,7 @@
 			"life": {},
 			"location": "bld_0012",
 			"move_progress": 0,
-			"name": "Pere",
+			"name": "Gil",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4459,7 +4523,7 @@
 			"life": {},
 			"location": "bld_0012",
 			"move_progress": 0,
-			"name": "Jimena",
+			"name": "Teresa",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4534,7 +4598,7 @@
 			"life": {},
 			"location": "bld_0012",
 			"move_progress": 0,
-			"name": "Gil",
+			"name": "Nalvillo",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4609,7 +4673,7 @@
 			"life": {},
 			"location": "bld_0013",
 			"move_progress": 0,
-			"name": "Teresa",
+			"name": "Romia",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4684,7 +4748,7 @@
 			"life": {},
 			"location": "bld_0013",
 			"move_progress": 0,
-			"name": "Nalvillo",
+			"name": "Martí",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4759,7 +4823,7 @@
 			"life": {},
 			"location": "bld_0013",
 			"move_progress": 0,
-			"name": "Martí",
+			"name": "Ordoño",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4834,7 +4898,7 @@
 			"life": {},
 			"location": "bld_0013",
 			"move_progress": 0,
-			"name": "Romia",
+			"name": "Bonadona",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4909,7 +4973,7 @@
 			"life": {},
 			"location": "bld_0013",
 			"move_progress": 0,
-			"name": "Bonadona",
+			"name": "Lucía",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -4984,7 +5048,7 @@
 			"life": {},
 			"location": "bld_0014",
 			"move_progress": 0,
-			"name": "Lucía",
+			"name": "Joana",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5059,7 +5123,7 @@
 			"life": {},
 			"location": "bld_0014",
 			"move_progress": 0,
-			"name": "Ordoño",
+			"name": "Oleguer",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5134,7 +5198,7 @@
 			"life": {},
 			"location": "bld_0014",
 			"move_progress": 0,
-			"name": "Joana",
+			"name": "Caterina",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5209,7 +5273,7 @@
 			"life": {},
 			"location": "bld_0014",
 			"move_progress": 0,
-			"name": "Caterina",
+			"name": "Inés",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5284,7 +5348,7 @@
 			"life": {},
 			"location": "bld_0014",
 			"move_progress": 0,
-			"name": "Inés",
+			"name": "Guillema",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5359,7 +5423,7 @@
 			"life": {},
 			"location": "bld_0015",
 			"move_progress": 0,
-			"name": "Guillema",
+			"name": "Olalla",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5434,7 +5498,7 @@
 			"life": {},
 			"location": "bld_0015",
 			"move_progress": 0,
-			"name": "Olalla",
+			"name": "Leonor",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5509,7 +5573,7 @@
 			"life": {},
 			"location": "bld_0015",
 			"move_progress": 0,
-			"name": "Leonor",
+			"name": "Floreta",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5584,7 +5648,7 @@
 			"life": {},
 			"location": "bld_0015",
 			"move_progress": 0,
-			"name": "Floreta",
+			"name": "Mafalda",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5659,7 +5723,7 @@
 			"life": {},
 			"location": "bld_0015",
 			"move_progress": 0,
-			"name": "Oleguer",
+			"name": "Tristán",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5734,7 +5798,7 @@
 			"life": {},
 			"location": "bld_0016",
 			"move_progress": 0,
-			"name": "Mafalda",
+			"name": "Valença",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5809,7 +5873,7 @@
 			"life": {},
 			"location": "bld_0016",
 			"move_progress": 0,
-			"name": "Valença",
+			"name": "Elisenda",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5884,7 +5948,7 @@
 			"life": {},
 			"location": "bld_0016",
 			"move_progress": 0,
-			"name": "Tristán",
+			"name": "Tomàs",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -5959,7 +6023,7 @@
 			"life": {},
 			"location": "bld_0016",
 			"move_progress": 0,
-			"name": "Elisenda",
+			"name": "Blanca",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6034,7 +6098,7 @@
 			"life": {},
 			"location": "bld_0016",
 			"move_progress": 0,
-			"name": "Tomàs",
+			"name": "Álvaro",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6109,7 +6173,7 @@
 			"life": {},
 			"location": "bld_0017",
 			"move_progress": 0,
-			"name": "Álvaro",
+			"name": "Bernat",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6184,7 +6248,7 @@
 			"life": {},
 			"location": "bld_0017",
 			"move_progress": 0,
-			"name": "Bernat",
+			"name": "Tello",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6259,7 +6323,7 @@
 			"life": {},
 			"location": "bld_0017",
 			"move_progress": 0,
-			"name": "Blanca",
+			"name": "Gaia",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6334,7 +6398,7 @@
 			"life": {},
 			"location": "bld_0017",
 			"move_progress": 0,
-			"name": "Gaia",
+			"name": "Aldonça",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6409,7 +6473,7 @@
 			"life": {},
 			"location": "bld_0017",
 			"move_progress": 0,
-			"name": "Tello",
+			"name": "Romeu",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6484,7 +6548,7 @@
 			"life": {},
 			"location": "bld_0018",
 			"move_progress": 0,
-			"name": "Romeu",
+			"name": "Bartomeu",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6559,7 +6623,7 @@
 			"life": {},
 			"location": "bld_0018",
 			"move_progress": 0,
-			"name": "Bartomeu",
+			"name": "Suero",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6634,7 +6698,7 @@
 			"life": {},
 			"location": "bld_0018",
 			"move_progress": 0,
-			"name": "Aldonça",
+			"name": "Guiomar",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6709,7 +6773,7 @@
 			"life": {},
 			"location": "bld_0018",
 			"move_progress": 0,
-			"name": "Suero",
+			"name": "Jordi",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6784,7 +6848,7 @@
 			"life": {},
 			"location": "bld_0018",
 			"move_progress": 0,
-			"name": "Guiomar",
+			"name": "Antònia",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6859,7 +6923,7 @@
 			"life": {},
 			"location": "bld_0019",
 			"move_progress": 0,
-			"name": "Antònia",
+			"name": "Elo",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -6934,7 +6998,7 @@
 			"life": {},
 			"location": "bld_0019",
 			"move_progress": 0,
-			"name": "Jordi",
+			"name": "Vicenç",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -7009,7 +7073,7 @@
 			"life": {},
 			"location": "bld_0019",
 			"move_progress": 0,
-			"name": "Vicenç",
+			"name": "Nicolau",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -7084,7 +7148,7 @@
 			"life": {},
 			"location": "bld_0019",
 			"move_progress": 0,
-			"name": "Elo",
+			"name": "Alamanda",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -7159,7 +7223,7 @@
 			"life": {},
 			"location": "bld_0019",
 			"move_progress": 0,
-			"name": "Alamanda",
+			"name": "Elena",
 			"needs": {
 				"fun": 80,
 				"hunger": 80,
@@ -7657,6 +7721,158 @@
 				},
 				"skin": 5
 			}
+		},
+		"chr_0089": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -272,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0022",
+			"female": false,
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0089",
+			"inventory": {
+				"limit": 60,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {},
+			"location": "bld_0023",
+			"move_progress": 0,
+			"name": "Dalmau",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				52,
+				50
+			],
+			"profession": "tailor",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "chr_0090",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 5,
+				"constitution": 5,
+				"craft": 5,
+				"dexterity": 4,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 4,
+				"stealth": 2
+			},
+			"town": {},
+			"visual": {
+				"hair": 6,
+				"portrait": {
+					"id": "m_adult_artisan_04",
+					"type": "artisan"
+				},
+				"skin": 1
+			}
+		},
+		"chr_0090": {
+			"ai": {},
+			"alive": true,
+			"assigned": "",
+			"banished_until": -1,
+			"birth_day": -296,
+			"children": [],
+			"class": "artisan",
+			"controlled_by": "ai",
+			"death_day": -1,
+			"directives": [
+				"work"
+			],
+			"equipment": {
+				"accessory": null,
+				"clothes": null,
+				"tool": null
+			},
+			"family": "fam_0022",
+			"female": true,
+			"hire_bans": {},
+			"home": "",
+			"id": "chr_0090",
+			"inventory": {
+				"limit": 60,
+				"limit_kind": "weight",
+				"stacks": []
+			},
+			"job": null,
+			"life": {
+				"wedding_day": -8
+			},
+			"location": "bld_0023",
+			"move_progress": 0,
+			"name": "Clara",
+			"needs": {
+				"fun": 80,
+				"hunger": 80,
+				"rest": 80,
+				"social": 80
+			},
+			"occupation": "",
+			"order_queue": [],
+			"parents": [],
+			"path": [],
+			"position": [
+				52,
+				50
+			],
+			"profession": "",
+			"rank": "",
+			"routine": {},
+			"schedule": null,
+			"spouse": "chr_0089",
+			"station": "",
+			"stats": {
+				"arcane": 1,
+				"charisma": 5,
+				"constitution": 5,
+				"craft": 5,
+				"dexterity": 4,
+				"empathy": 3,
+				"martial": 3,
+				"negotiation": 6,
+				"rhetoric": 4,
+				"stealth": 2
+			},
+			"town": {},
+			"visual": {
+				"hair": 3,
+				"portrait": {
+					"id": "f_adult_artisan_02",
+					"type": "artisan"
+				},
+				"skin": 5
+			}
 		}
 	},
 	"chronicle": [],
@@ -7786,8 +8002,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#2e4a6b",
-				"secondary": "#c8b8a0"
+				"primary": "#3a6a6a",
+				"secondary": "#e8d8b8"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0003",
@@ -7822,8 +8038,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#3a6a6a",
-				"secondary": "#e8d8b8"
+				"primary": "#3a3a5a",
+				"secondary": "#b8a078"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0008",
@@ -7858,8 +8074,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#3a3a5a",
-				"secondary": "#b8a078"
+				"primary": "#4a6a8a",
+				"secondary": "#e0d0b0"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0013",
@@ -7894,8 +8110,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#4a6a8a",
-				"secondary": "#e0d0b0"
+				"primary": "#7a6a5a",
+				"secondary": "#4a2e2e"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0018",
@@ -7930,8 +8146,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#7a6a5a",
-				"secondary": "#4a2e2e"
+				"primary": "#4a4f5c",
+				"secondary": "#b07a3a"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0023",
@@ -7966,8 +8182,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#4a4f5c",
-				"secondary": "#b07a3a"
+				"primary": "#5a3a5a",
+				"secondary": "#d0b890"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0028",
@@ -8002,8 +8218,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#5a3a5a",
-				"secondary": "#d0b890"
+				"primary": "#3f6b3a",
+				"secondary": "#b8b8b0"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0033",
@@ -8038,8 +8254,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#3f6b3a",
-				"secondary": "#b8b8b0"
+				"primary": "#5c4a7a",
+				"secondary": "#e0d0a0"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0038",
@@ -8074,8 +8290,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#5c4a7a",
-				"secondary": "#e0d0a0"
+				"primary": "#5a6b2e",
+				"secondary": "#c9a35a"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0043",
@@ -8110,8 +8326,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#5a6b2e",
-				"secondary": "#c9a35a"
+				"primary": "#4a5a2a",
+				"secondary": "#d8b878"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0048",
@@ -8146,8 +8362,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#4a5a2a",
-				"secondary": "#d8b878"
+				"primary": "#6a6a6a",
+				"secondary": "#c0a060"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0053",
@@ -8182,8 +8398,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#6a6a6a",
-				"secondary": "#c0a060"
+				"primary": "#6a7a3a",
+				"secondary": "#5a3a2a"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0058",
@@ -8218,8 +8434,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#6a7a3a",
-				"secondary": "#5a3a2a"
+				"primary": "#7a5230",
+				"secondary": "#d8c8a0"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0063",
@@ -8254,8 +8470,8 @@
 			"class": "artisan",
 			"class_reputation": {},
 			"colors": {
-				"primary": "#7a5230",
-				"secondary": "#d8c8a0"
+				"primary": "#5a6b2e",
+				"secondary": "#c9a35a"
 			},
 			"controlled_by": "ai",
 			"founder": "chr_0068",
@@ -8352,12 +8568,12 @@
 			"title": "common"
 		},
 		"fam_0019": {
-			"ai_profile": "rival_artisan",
+			"ai_profile": "merchant",
 			"ai_state": {},
 			"attitudes": {
-				"diplomacy": 10,
-				"generosity": 0,
-				"honesty": 20
+				"diplomacy": 20,
+				"generosity": -10,
+				"honesty": 0
 			},
 			"class": "artisan",
 			"class_reputation": {},
@@ -8385,12 +8601,12 @@
 			"title": "common"
 		},
 		"fam_0020": {
-			"ai_profile": "rival_artisan",
+			"ai_profile": "climber",
 			"ai_state": {},
 			"attitudes": {
-				"diplomacy": 10,
+				"diplomacy": 30,
 				"generosity": 0,
-				"honesty": 20
+				"honesty": 10
 			},
 			"class": "artisan",
 			"class_reputation": {},
@@ -8418,12 +8634,12 @@
 			"title": "common"
 		},
 		"fam_0021": {
-			"ai_profile": "rival_artisan",
+			"ai_profile": "ruthless",
 			"ai_state": {},
 			"attitudes": {
-				"diplomacy": 10,
-				"generosity": 0,
-				"honesty": 20
+				"diplomacy": -30,
+				"generosity": -30,
+				"honesty": -50
 			},
 			"class": "artisan",
 			"class_reputation": {},
@@ -8444,6 +8660,39 @@
 				"chr_0088"
 			],
 			"name": "Pelaire",
+			"regent": "",
+			"reputation": 0,
+			"reputation_caps": {},
+			"reputation_log": [],
+			"title": "common"
+		},
+		"fam_0022": {
+			"ai_profile": "politician",
+			"ai_state": {},
+			"attitudes": {
+				"diplomacy": 20,
+				"generosity": 0,
+				"honesty": -20
+			},
+			"class": "artisan",
+			"class_reputation": {},
+			"colors": {
+				"primary": "#2e4a6b",
+				"secondary": "#c8b8a0"
+			},
+			"controlled_by": "ai",
+			"founder": "chr_0089",
+			"generation": 1,
+			"goals_done": [],
+			"gold": 80,
+			"head": "chr_0089",
+			"heir": "",
+			"id": "fam_0022",
+			"members": [
+				"chr_0089",
+				"chr_0090"
+			],
+			"name": "Cardador",
 			"regent": "",
 			"reputation": 0,
 			"reputation_caps": {},
@@ -8498,10 +8747,10 @@
 		"pending": []
 	},
 	"next_ids": {
-		"bld": 23,
-		"chr": 89,
+		"bld": 24,
+		"chr": 91,
 		"ctr": 3,
-		"fam": 22,
+		"fam": 23,
 		"lon": 2
 	},
 	"notices": [],
@@ -8605,7 +8854,16 @@
 	"rng_state": "-1966449618399012673",
 	"seed": "1",
 	"town": {
-		"counters": {}
+		"counters": {},
+		"rivalry": {
+			"attacks": [],
+			"player_attacked_day": -100000,
+			"rose": {},
+			"sales": {},
+			"values": {
+				"fam_0002|fam_0001": 15
+			}
+		}
 	},
 	"trials": [],
 	"unlocks": {},

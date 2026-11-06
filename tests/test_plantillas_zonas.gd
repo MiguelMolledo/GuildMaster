@@ -49,7 +49,13 @@ func test_each_zone_has_what_makes_it() -> void:
 	var m := _cap()
 	var b: Dictionary = m["buildings"]
 	var in_artisans := 0
+	var extra := {}  # H13: the city's own businesses (region.json ai_families extra: the drapers at the Exchange)
+	for ex: Dictionary in NewGame.city(cat, "capital").get("ai_families", {}).get("extra", []):
+		extra[str(ex["building"]["site"])] = true
 	for id: String in b:
+		if extra.has(id):
+			eq(_zone_of(m, b[id]["door"]), "port", "%s at the Exchange" % id)
+			continue
 		if str(b[id]["type"]) in WORKSHOPS:
 			eq(_zone_of(m, b[id]["door"]), "artisans", "%s in the craftsmen's quarter" % id)
 			in_artisans += 1

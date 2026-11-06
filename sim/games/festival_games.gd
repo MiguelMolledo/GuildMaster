@@ -70,31 +70,44 @@ static func _of_festival(sim: Sim, inst: Dictionary, sp: String) -> bool:
 
 ## game_enter {actor, festival, spectacle}: the actor will fight the spectacle's competition (the entry fee and the
 ## requirements are the game's, checked now and paid when it is played).
-static func order_enter(sim: Sim, o: Dictionary) -> Dictionary:
+## "" if `actor` may enter spectacle `sp` of `inst` now, else why (unknown_actor, unknown_spectacle, too_late,
+## already_entered, bet_placed, no_title, not_enough_gold): game_enter's checks, also for the card's button (fiestas).
+static func enter_reason(sim: Sim, actor: String, inst: Dictionary, sp: String) -> String:
 	var st := sim.state
-	var actor := str(o.get("actor", ""))
 	var ch: Dictionary = st.characters.get(actor, {})
 	if ch.is_empty() or str(ch.get("family", "")) == "":
-		return Orders.fail("unknown_actor")
-	var inst := Festivals.find(sim, str(o.get("festival", "")))
-	var sp := str(o.get("spectacle", ""))
+		return "unknown_actor"
 	if inst.is_empty() or not is_game(sim, sp) or not _of_festival(sim, inst, sp):
-		return Orders.fail("unknown_spectacle")
+		return "unknown_spectacle"
 	if not _to_come(inst, sp):
-		return Orders.fail("too_late")
-	var g := _games(inst)
-	if (g["entries"] as Dictionary).has(sp):
-		return Orders.fail("already_entered")
+		return "too_late"
+	var g: Dictionary = inst["games"] if inst.get("games") is Dictionary else {}  # read only: the card asks it too
+	if (g.get("entries", {}) as Dictionary).has(sp):
+		return "already_entered"
 	var fam := str(ch["family"])
-	for b: Dictionary in g["bets"]:
+	for b: Dictionary in g.get("bets", []):
 		if str(b["spectacle"]) == sp and str(b["family"]) == fam:
-			return Orders.fail("bet_placed")  # who bet on the field does not then enter it
+			return "bet_placed"  # who bet on the field does not then enter it
 	var c: Dictionary = sim.catalog.games.get(str(spectacle_cfg(sim, sp).get("game", "")), {})
 	var req: Dictionary = c.get("requires", {})
 	if str(req.get("title", "")) != "" and Titles.rank(sim, Titles.current(sim, fam)) < Titles.rank(sim, str(req["title"])):
-		return Orders.fail("no_title")
+		return "no_title"
 	if not Money.can_pay(st, fam, int(c.get("entry_fee", 0))):
-		return Orders.fail("not_enough_gold")
+		return "not_enough_gold"
+	return ""
+
+
+static func order_enter(sim: Sim, o: Dictionary) -> Dictionary:
+	var st := sim.state
+	var actor := str(o.get("actor", ""))
+	var inst := Festivals.find(sim, str(o.get("festival", "")))
+	var sp := str(o.get("spectacle", ""))
+	var why := enter_reason(sim, actor, inst, sp)
+	if why != "":
+		return Orders.fail(why)
+	var ch: Dictionary = st.characters[actor]
+	var fam := str(ch["family"])
+	var g := _games(inst)
 	(g["entries"] as Dictionary)[sp] = {"actor": actor, "family": fam, "status": "entered"}
 	sim.events.append({"type": "game_entered", "actor": actor, "family": fam, "festival": str(inst["id"]),
 		"spectacle": sp, "game": str(spectacle_cfg(sim, sp).get("game", ""))})

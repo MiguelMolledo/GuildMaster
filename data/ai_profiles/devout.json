@@ -1,0 +1,71 @@
+{
+  "id": "devout",
+  "_doc": "H13 (04c 4.21.7.2) [balance]: Honrada y prudente; reputación. Una de las familias rivales de Bellcaire (data/world/region.json ai_families). Los campos de H3 como rival_artisan; weights, aggression, risk_aversion, rivalry_threshold, attack_bias, spouse_title_bonus y reserve_days son de 04c y los lee la hostilidad (sim/ai/hostility.gd) en los mapas de data/ai.json hostility_maps.",
+  "weights": {
+    "gold": 0.6,
+    "title": 0.5,
+    "office": 0.3
+  },
+  "aggression": 0.1,
+  "risk_aversion": 0.8,
+  "rivalry_threshold": 80,
+  "preferred_professions": [
+    "tailor",
+    "mason"
+  ],
+  "expansion": 0.7,
+  "reserve_days": 4,
+  "attack_bias": {
+    "price_war": 0.5,
+    "parcel": 0.8,
+    "office": 0.8,
+    "accuse": 0.7,
+    "sabotage": 0.0
+  },
+  "spouse_title_bonus": 0.1,
+  "sell_min_demand": 0.8,
+  "gold_reserve": 20,
+  "work_mode": "normal",
+  "work_phases": [
+    "day"
+  ],
+  "decide_on": [
+    "dawn",
+    "phase_change"
+  ],
+  "buy_days": 1,
+  "accepts_contracts": true,
+  "max_contracts": 1,
+  "accepts_scripted_contracts": false,
+  "tavern_table": {
+    "allow": true,
+    "refuse_below": -40,
+    "min_stake": 5,
+    "rival_below": -10,
+    "rival_min_stake": 10
+  },
+  "_tavern_table_doc": "posada (04f §4.27.4): si esta familia es dueña de una taberna, quién se sienta a su mesa de juego desde la puerta: no deja a quien su cabeza tenga en relación < refuse_below; pide rival_min_stake a quien tenga < rival_below, si no min_stake.",
+  "title_rule": {
+    "requests": true,
+    "spare_gold": 150
+  },
+  "office_rule": {
+    "runs": false,
+    "offices": [],
+    "level": "basic",
+    "spare_gold": 50
+  },
+  "initial_attitudes": {
+    "honesty": 60,
+    "generosity": 50,
+    "diplomacy": 20
+  },
+  "accuse_rule": {
+    "accuses": true,
+    "real_facts": true,
+    "fabricate_max_honesty": -30,
+    "fabricate_charge": "minor_fraud",
+    "protect_days": 8,
+    "cooldown_days": 8
+  }
+}

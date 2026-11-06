@@ -33,6 +33,7 @@ var tiles: Dictionary = {}   # data/tiles.json "tiles": kind -> {char, walk_cost
 var production: Dictionary = {}  # data/production.json: quality table, work modes, master touch, tool bonus
 var market: Dictionary = {}      # data/market.json: stalls, opening phases, demand, sell ratio, quality, errands, board
 var difficulty: Dictionary = {}  # data/difficulty.json: "levels" {easy|normal|hard -> levers} (GDD 4.23)
+var ai_rules: Dictionary = {}    # data/ai.json: H13, the rivalry and the attacks of the AI families (04c)
 var accounts: Dictionary = {}    # data/accounts.json: ledger and notices retention, loan warnings, unpaid upkeep (H3)
 var employees: Dictionary = {}   # data/employees.json: ranks, roles, loyalty, bands, wages, theft, hiring, schedule (H4)
 var upgrade_rules: Dictionary = {}  # data/upgrade_rules.json: branches, effect kinds, titles, inspections (H5)
@@ -80,6 +81,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 	c.market = c._load_json(root_dir.path_join("market.json"))
 	c.difficulty = c._load_json(root_dir.path_join("difficulty.json"))
 	c.accounts = c._load_json(root_dir.path_join("accounts.json"))
+	c.ai_rules = c._load_json(root_dir.path_join("ai.json"))
 	c.employees = c._load_json(root_dir.path_join("employees.json"))
 	c.upgrade_rules = c._load_json(root_dir.path_join("upgrade_rules.json"))
 	c._load_upgrades(root_dir.path_join("upgrades"))
