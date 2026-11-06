@@ -77,7 +77,9 @@ func test_living_opens_no_new_money_flow() -> void:
 			if not TownLife.is_household(sim.state, f):
 				continue
 			for e: Dictionary in sim.state.ledger.get("entries", []):
-				if str(e.get("family", "")) == f:
+				# Equilibrio 15: the houses' wages and food (Households, ref jornal / food) are the one flow the
+				# living town adds, by design (04g §4.6.5.7); the agenda itself still moves no gold
+				if str(e.get("family", "")) == f and not str(e.get("ref", "")) in ["jornal", "food"]:
 					seen[str(e.get("category", ""))] = true
 		cats[on] = seen.keys()
 		(cats[on] as Array).sort()

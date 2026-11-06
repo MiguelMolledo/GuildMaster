@@ -2,6 +2,30 @@
   "tomadas": [
     {
       "fecha": "2026-11-06",
+      "tema": "Fiestas: el corro de juego en la plaza (construido)",
+      "decision": "(b) Con una fiesta en curso, la carta de la fiesta trae «Corro de juego»: una segunda carta con pulso, azar, a la mayor y envite contra los parroquianos (data/festivals.json rules.corro: regular_even, regular_prudent, regular_boastful), con la misma pantalla de juegos y la apuesta pequeña de la plaza (5). Sin casa ni licencia: nadie se lleva parte (game_play con opts.corro; con casa, bad_option). Con el predicador en la villa está mal visto: cada partida cuesta 2 de reputación y la carta lo dice. Ni en la víspera ni después de la fiesta; no estando en la villa, no. sim/fest/festival_corro.gd.",
+      "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Fiestas: regalos de Navidad entre familias (construido)",
+      "decision": "(b) La carta de Navidad (desde el pregón hasta medianoche) trae «Regalos de Navidad»: una segunda carta con las otras casas que juegan (la del jugador y las de la IA con perfil); cada botón da la mejor pieza de la familia (producto o equipo) a esa casa, que la recibe en su taller, y su cabeza aprecia más a quien regala (5 + 5 % del valor, hasta 20). Una por casa. La IA regala al empezar la fiesta si le sobra el oro (la reserva de los encargos de fiesta + 100) a la casa cuyo cabeza aprecia más su cabeza (relación > 0); el jugador recibe un aviso. Orden festival_give_gift, efecto gifts, rules.christmas_gifts.",
+      "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Fiestas: la fiesta de otra ciudad, estando allí (construido)",
+      "decision": "(b) Quien está en una ciudad de la región el día de su patronal o de su feria ve en la página de la ciudad sus juegos («Jugar» y «Mirar y apostar»): los de patron_feast.games de data/world/region.json traducidos por rules.city_games (justas → la justa, la sortija, la carrera, el pulso de los mineros, los toros; la procesión de barcas y la romería no son juegos) y la carrera de caballos de las ferias. Jugar es una partida allí mismo contra el campo del espectáculo (game_play con opts.city_feast); mirar y apostar se paga al momento con el mismo id de partida (game_bet). Una vez cada cosa por juego y día (families[fam].city_feasts, leído con valor por defecto, sin versión de guardado). Sim deja pasar estas dos órdenes estando de viaje. sim/fest/festival_city.gd.",
+      "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Fiestas: las apuestas del torneo, al ganador",
+      "decision": "(a) Se sigue apostando al ganador del torneo, no a cada combate, hasta medir si se echa de menos.",
+      "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Fiestas: la carta de la fiesta, siempre a mano; la sortija en Carnaval y en el torneo",
       "decision": "Auditoría de H16 (lo de fiestas y minijuegos). Cerrado lo que más pesaba en la diversión: (1) la carta de la fiesta se cerraba sola a los 12-24 s y no había forma de volver a ella (patrocinar, pujar, inscribirse, apostar, la corte y los encargos solo se podían hacer en ese rato): ahora el reloj del HUD lleva un botón «Pregón» (fiesta anunciada) o «Fiesta» (en curso) con el nombre en su tooltip, y pulsarlo, o pulsar un aviso de la fiesta, la abre otra vez y se queda hasta que la cierras (SimQuery.festival_now, EventCard.reopen_festival). (2) Los botones «Inscribirse» dicen por qué están apagados (título, entrada, ya inscrito, apostaste) con las mismas reglas que game_enter (FestivalGames.enter_reason, solo lectura). (3) La sortija, construida pero sin fiesta, se corre en Carnaval (19:00) y en el torneo (12:00): es la justa de los que no tienen título (entrada 5).",
       "por_que": "Encargo del manager (auditar H16 y cerrar lo que más pese, decidiendo dentro de 04f). Sin la carta a mano, lo jugable de las fiestas pasaba sin que el jugador pudiera tocarlo; la justa pide Ciudadano y el jugador empieza sin título."
@@ -1006,6 +1030,156 @@
     },
     {
       "fecha": "2026-11-06",
+      "tema": "Teclado · Esc con un tooltip a la vista",
+      "decision": "Un tooltip a la vista (el ratón parado sobre un botón) no se queda el Esc: Godot gasta ese Esc en quitarlo (viewport.cpp lo da por usado) y KeyNav lo manda otra vez un fotograma después, así que el mismo Esc cierra también lo de arriba (docs/ui/01_hud.md §2). El panel de la taberna, además, se refresca después del paso que aplica su orden (Game.give la guarda hasta el paso siguiente), no antes.",
+      "por_que": "Verifica (2026-11-06): con el teclado, «inn_make_bed» no se llegaba y Esc no cerraba el panel de la taberna; el ratón se había quedado sobre un botón de la carta del suceso y su tooltip se comía el Esc. Y el refresco inmediato tras una orden leía el estado de antes: la casilla de un plato volvía a marcarse y la pulsación siguiente deshacía la del jugador."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Novato con Forja viva: las semillas a 0 eran del bot",
+      "decision": "Punto de rechazo (semilla 8, live_for_quality = 1): acepta 2 armaduras de calidad el día 3, 20 minutos después paga la deuda dejando 30 de reserva, se queda sin materiales, el encargo vence y con 33 de oro y el almacén vacío no compra nada (planea la receta de más margen y no le llega). Todas las piezas a mano salieron bien: no es el juego. Arreglos en BotArtisanNovice: la deuda pagada pronto guarda el coste de los materiales de los encargos aceptados (_committed) y, sin nada en el almacén, compra la pieza más barata que pueda pagar (_cheapest_affordable). Con live_for_quality = 1: 0 semillas a 0, 0 encargos fallados, oro del día 10 274-613; quedan 4 semillas por encima de 540. live_for_quality sigue apagado (owner). Con él apagado, todos los informes de los bots idénticos.",
+      "por_que": "«2 de 10 semillas con 0 de oro no es una banda que mover: es una señal» (manager, 2026-11-06)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "festive: banda por semilla de encargos de fiesta cumplidos a [3, null]",
+      "decision": "fest_contracts_done por semilla pasa de [4, null] a [3, null]; la media se queda en [5, null]. Medido (3 semillas × 8 días): main 4/9/8, equilibrio 3/9/9 (media 7). La causa, aislada apagando cada cambio de la rama: Equilibrio 9 (las obras ya no paran la forja: el jugador sigue produciendo durante las mejoras y el rival del oficio gana un encargo de fiesta menos en la semilla 1; con las obras cerradas vuelve a 4). Es la competencia que pide 03b, no un fallo.",
+      "por_que": "Delegación del owner («analiza una a una y toma la mejor decision»); decidido por el manager a propuesta del worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Equilibrio 14 · una clientela de comarca (construido)",
+      "decision": "sim/town/clientele.gd (de interiores) es la única: InnClientele lee su provider_appeal, su fama y su max_price_mult (mismas cifras de data/services.json); la fama de un taller es la de Equilibrio 13. Encendida para la forja; carpintería, cantería y sastrería a 0 hasta medirlas con un bot de su oficio con mostrador (cifras en _proposed_base_per_day). Equilibrio 8 cumplido: el mostrador con un empleado vende 113-120 de oro al día frente a 19-20 de salario (×5,8-6,2; antes ×0,34): el freno eran las existencias, no los clientes, y el experto en modo mostrador ahora guarda 2 piezas de cada producto (COUNTER_STOCK).",
+      "por_que": "Interiores en main (aviso del manager, 2026-11-06)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Obras maestras raras (03b §3b.2)",
+      "decision": "Además de Artesanía 7 y las tres decisiones bien, la obra maestra pide práctica: 30 piezas perfectas de esa receta hechas antes por la familia (data/live_forge.json masterwork.practice; estado masterworks.practice, sin versión nueva), y la tirada baja del 10 % al 5 %; antes del umbral no se tira el dado. Medido con el bot de ritmo, que juega bien (3 años × 5 semillas, ~85 piezas perfectas): de 8,5 obras maestras en 3 años a 0,9 (ninguna en un 38 % de partidas), la primera el día 20 de mediana y no antes del 16 en el 90 %: años 3-5. Toca sim/forge/live_forge.gd (forja): un contador y la condición, avisado.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Desbloqueo de mejoras con buen criterio (03b §3b.4)",
+      "decision": "Disparador: 300 de oro, o la deuda inicial saldada a partir del día 4 (índice 3); antes solo 300 en mano, y un jugador que contrata pronto no los tenía hasta el día 7-12. Medido: bot de ritmo 10 semillas, mejoras los días índice 2-3 (ventana 3-5 ±1); full_player 4 semillas, a tiempo en todas.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "El rival te nota el día 3 o 4 (03b §3b.4)",
+      "decision": "Ventana del desbloqueo rival [2, 3] (antes [2, 2]): el primer día en que vendes más que el rival depende del mercado y del dado (índices 2-4 en 10 semillas, también con las cifras de antes: con la ventana de un día fallaba 1 de 10 antes y 3 de 10 con las obras maestras raras, que mueven las tiradas). La diana de pacing no cambia (unlocks_off 0): 10 de 10 semillas en ventana, hueco máximo 30-41 s.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Cargos y tratados con Ciudadano desde el año 3 (03b §3b.4)",
+      "decision": "El desbloqueo offices pedía Patricio, que full_player no alcanza en 3 años, y no llegaba nunca. Ciudadano ya da los cargos menores (data/titles/citizen.json office_rank minor) y la cuota (09b): ahora se abre con Ciudadano desde el día índice 16 (ventana 16-23). La carta lo dice. Medido (full_player, 4 semillas × 3 años): cargos el día 16 en las 4, a tiempo; 0 desbloqueos fuera.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Concursos de fiestas en la fama del taller (Equilibrio 13)",
+      "decision": "WorkshopFame lee buildings[b].contests_won (FestivalCourt._judge, rama fiestas) con su evento festival_contest: cada victoria nueva +0,2 al renombre (contests_seen en la memoria de la fama). Funciona en cuanto fiestas entre en main.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Taberna comprada tarde: arranque, no pérdida",
+      "decision": "Medido desde innkeeper_start (la taberna recién comprada, con BotInnkeeper) 48 días × 3 semillas: neto de explotación 46-130/día el año 1, 85-171 el 2 y 200-404 del 3 al 6 (fama 5). Las pérdidas de 115-334/día de full_player en los días 22-24 (rama jugador) son el arranque comprimido en sus 2-4 últimos días (existencias, sueldos, pocas noches), no el negocio. Lo que sí apunta: a largo plazo la taberna rinde 3-4 veces la forja (sumidero de H6, Equilibrio 5). La generación con el full_player de jugador se mide cuando esa rama esté en main.",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Revisión de las dianas de full_player que movió jugador",
+      "decision": "Ciudadano: con Equilibrio 3 llega los días 11-15 en 4 de 4 semillas; propuesta al entrar jugador en main: volver a la diana por semilla con [1, 20] y la media [9, 16]. unlocks_off: con los cambios de hoy (mejoras, rival, cargos) full_player sale con 0 fuera en 4 de 4 semillas (reports/equilibrio/fin4.json); propuesta: de _proposed otra vez a diana, [0, 0]. Se aplica al juntar la rama jugador (sus cambios aún no están en main).",
+      "por_que": "Informes de la rama jugador (53398be) y de fiestas tras la parada; el manager delega la decisión dentro de 03b al worker de equilibrio."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Orden rechazada de full_player: la de artisan_expert (revisión del manager)",
+      "decision": "Era del bot artisan_expert: el minuto en que compraba una mejora (que se lleva sus materiales del almacén) pedía además forjar con esos materiales (work_at → missing_inputs; 1 de 16 partidas). Ahora ese minuto no planea trabajo. No es un hueco del juego: la orden rechazada ya dice el motivo en pantalla. Es otra que la del regateo en el mostrador (transfer → not_enough) que arregló el worker jugador en fb1e423: aquella es de full_player y esta de la clase artisan_expert que hereda; las dos hacían falta. Medido: 0 rechazos en 8 partidas de 3 años.",
+      "por_que": "Encargo del manager tras el informe de equilibrio."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Caravanas para la cuota (full_player)",
+      "decision": "No era el lote (4 espadas): las caravanas solo salían con espadas que la villa no quería y la villa se las lleva todas, y la cuota se firmaba y se rompía (3/4). full_player firma la cuota solo si puede servirla (un empleado de carretero, un carro o su oro) y, con ella en vigor, aparta cada estación las espadas que pide (normales primero), compra el carro y las manda (BOT_VARS=quota_caravans=0 juega como antes). Medido (3 años × 4 semillas): caravanas 0 → 1,5, cuotas rotas 3/4 → 1/4, ventas en la capital hasta 2.259 de oro, neto del año 2 24 → 39 al día, oro final igual. Ninguna banda cambia.",
+      "por_que": "Encargo del manager tras el informe de equilibrio: «si full_player debería producir para la caravana cuando tiene un tratado firmado»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "D19 · construido",
+      "decision": "data/family.json succession.voluntary_close true: «Retirarse…» en el menú de pausa (antes «Cerrar la dinastía», apagado), con confirmación («¿Retirarte y terminar la partida?»), abre la pantalla final («La dinastía se retira») con la puntuación de 4.17. Recorrido en tests/test_equilibrio_retire.gd y capturas del guion --smoke-script=equilibrio (no hay conductor de UI en main).",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 8 · medido, a la espera de interiores",
+      "decision": "Con la clientela de hoy, el mostrador con un empleado deja 6,6 de oro al día frente a un salario de 19,3 (×0,34; 0-0,74 por semilla, artisan_expert con counter_shop=1 y 1 empleado, 5 semillas × 24 días, tools/equilibrio/counter_probe.gd). La diana (≥ 2× salario) depende de la clientela de comarca de 04g §4.6.5.7 (sim/town/clientele.gd, rama interiores, Equilibrio 14), que aún no está en main.",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "D16 · construido",
+      "decision": "data/town.json counter.demand_drop_per_unit 0,025: cada unidad vendida en el mostrador baja la demanda del mercado (Counter.sell). Medido con la clientela de hoy (vecinos de la villa): el mostrador vende tan poco que la demanda de la espada no se mueve (1,0 al final en las 5 semillas).",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 15 · construido",
+      "decision": "sim/balance/households.gd, data/town.json households (con la vida encendida): jornal al atardecer a la bolsa de la casa (7; 9 puesto o tienda) por adulto con oficio y sin empleo; comida al alba (2 por adulto, 1 por niño) que sale de la economía; con lo que pudo pagar, la noche en casa y la comida de las 13:00 de sus empleados y niños (el hambre de la vida). La taberna solo con lo que sobra sobre la comida de mañana (Inn.neighbour_in y max_price). La comarca de la taberna baja de [4, 8] a [3, 6] por noche (los vecinos con jornal sustituyen parte de ella). Medido (innkeeper, 5 semillas × 16 días): vecinos por noche ~2 → 6,1 (diana 6-12), clientes 26,2 → 28,5, explotación 68 → 91/día, quejas 9,3 → 5,1; la fama de la taberna 1,76 → 3,70 sale de su banda [1,5, 3,5] (pregunta al manager: moverla a [1,5, 4,0]).",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 13 · construido",
+      "decision": "sim/balance/workshop_fame.gd, data/town.json workshop_fame, definida en 04g §4.6.5.7: fama 0,5-2,0 = 1 + calidad media vendida en 4 días × 0,25 + renombre (obra maestra +0,3, encargo +0,04, de fiesta +0,15, concurso +0,2, incumplido −0,1, queja −0,03; ±0,75; −15 % al alba). La lee el mostrador (clientes / fama; precio + (fama − 1) × 0,1). Gancho para fiestas: WorkshopFame.add(sim, taller, \"contest_won\") o el evento contest_won. Se ve en el título del panel de producción.",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 5 · construido (la parte de ahora)",
+      "decision": "sim/balance/pecha.gd, data/accounts.json pecha: al cerrar cada año, toda familia con negocio paga por su patrimonio (oro + mercancía) por tramos marginales: 0 hasta 1.000, 4 % hasta 3.000, 8 % hasta 10.000 y 12 % encima; lo que el oro no cubre se debe a la villa como una multa. Los sumideros grandes siguen en H6.",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 7 · construido",
+      "decision": "data/world/trade.json: city_market.quality_premium {capital: 0,3} (cada escalón de calidad paga un 30 % más en la capital) y reputación de fuera +1 por unidad vendida allí (antes 1 de cada 2) y +5 por encargo cumplido allí (antes 3). full_player guarda sus mejores espadas para el primer viaje como si fueran de un encargo y vende allí todas las calidades.",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 3 · construido",
+      "decision": "No hizo falta tocar los requisitos de Ciudadano (reputación 50, 1 negocio, 100 de oro): la reputación de 50 llega el día 10-11. Lo que lo retrasaba era el hábito del experto de pedir el título solo al acabar su plan de mejoras. full_player pide Ciudadano en cuanto puede (BOT_VARS=titles_early=0 juega como antes; el experto no cambia, por sus dianas de H5). Medido: Ciudadano los días 11-15 (mediana 12,5; antes 19-24, mediana 21).",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 9 · construido",
+      "decision": "data/upgrade_rules.json works: obra pequeña (build_days <= 1) = de noche, lista al alba siguiente, sin parar; grande = el edificio trabaja a medio ritmo (los ciclos que empiezan en la obra duran ×2). Las obras guardadas antes (sin modo) siguen cerradas hasta acabar. El panel de mejoras, la confirmación y el tutorial lo dicen. Los tests de reglas de H5 fijan la regla vieja en tests/balance_pins.gd. Medido (Equilibrio 12): full_player hueco máximo 136 → 37 s (año 1: 109 → 15 s), horas paradas por obras 68 → 0, atascos 7,5 → 0,5.",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 2 · construido",
+      "decision": "sim/balance/emergency.gd, data/accounts.json emergency. Sin oro (< 15) ni existencias (< 20 a precio de venta, con bolsas y recados) se ofrece 60 ahora / 90 en 4 días (2 al año como mucho; carta urgente y «Pedirlo» en Deudas, con confirmación; orden take_emergency_loan). Deuda de mantenimiento >= 100 al alba, o la prórroga del préstamo de urgencia sin cubrir: embargo del bien más caro que no sea la casa (otro edificio, que vuelve a la venta; un carro; una pieza de equipo) al 75 %; sin bienes, ruina. Solo familias humanas (la quiebra de la IA es de H6). Bot broke desde broke_forge (paso broke de la QA, diana broke): 5/5 semillas toman el préstamo, lo devuelven y acaban con 103-266 de oro, 0 ruinas.",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 1 · construido",
+      "decision": "data/family.json courtship.gift.per_day 1: solo el primer regalo del día a cada pretendiente suma; los demás se aceptan sin efecto (evento court_gift_no_effect). Pantalla: el botón dice «Regalar (hoy ya no cuenta)», la línea «ya le regalaste hoy · otro regalo cuenta mañana» y, antes de dar otro, una confirmación lo explica (panel de cortejo y ficha del NPC). full_player no da un segundo regalo el mismo día. Equilibrio 10 medido con el tope: full_player se casa igual (días 14-22) y su neto del año 1 no cambia (ya daba uno por visita).",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 11 · construido",
+      "decision": "artisan_novice y los bots de oficio (artisan_trade) miran las horas reales de un encargo de fiesta (due_at − ahora, × 0,6, solo las manos del cabeza); full_player ya no lo reimplementa, solo apunta why_not. El caótico sigue al azar (es su papel). RivalAI no se toca (es del worker de fiestas). Medido: pacing con fiestas y vida pasa de 4 de 5 semillas fuera (mejoras sin abrir; hueco máx. 198 s) a 0 fuera, neto/día del año 1 de 42 a 76; festive: encargos de fiesta fallidos 3 → 0,3, el bot ya no coge los que no llega a hacer.",
+      "por_que": "Construido en la rama equilibrio (worker de equilibrio), medido con full_player (3 años × 4 semillas) y pacing; informe en reports/equilibrio/."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "El tutorial: lo básico encadenado, lo demás con su carta",
       "decision": "Solo se encadenan los capítulos de lo básico (primeros pasos, producir, vender, deuda). Los demás llegan con la carta «Nuevo» de su desbloqueo o desde F1, y uno cuya mecánica no se ha abierto dice «Más adelante». La tarjeta del tutorial no tapa el panel que señala, y la pila de cartas se aparta mientras guía.",
       "por_que": "Pasada de jugador (verificación J): el tutorial ofrecía Empleados cerrado tras la deuda, y su tarjeta tapaba los botones que pedía."
@@ -1187,26 +1361,6 @@
       "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
     },
     {
-      "tema": "Fiestas · juegos en la plaza (pulso, dados, envite) los días de fiesta",
-      "detalle": "04f §4.26 dice que se juegan «en las fiestas, en la taberna»; hoy pulso, dados y naipes solo se juegan en la mesa de la Taberna-Posada (y en --games-test). En la plaza de una fiesta no hay corro de juego.",
-      "opciones": "(a) solo en la taberna, como hoy · (b) un corro en la plaza los días de fiesta con los parroquianos de data/games.json (la misma pantalla; sin casa ni licencia, mal visto con el predicador) [propuesta del worker de fiestas: b]"
-    },
-    {
-      "tema": "Fiestas · jugar la fiesta de otra ciudad al viajar",
-      "detalle": "04f §4.25.6: «en la página de la ciudad sale su fiesta con sus juegos (justa, carrera, dados) y sus encargos de fuera». Hoy la página y el mapa anuncian la patronal y la feria (arancel 0, sin portazgo), pero estando allí no hay juegos ni encargos de esa fiesta.",
-      "opciones": "(a) solo calendario, como hoy · (b) estando en la ciudad ese día, su página ofrece inscribirse y apostar en sus juegos (la justa de Sant Jordi en Bellcaire, la carrera de la feria) · (c) b y además sus encargos de fiesta en su tablón [propuesta: b]"
-    },
-    {
-      "tema": "Fiestas · regalos de Navidad entre familias",
-      "detalle": "04f §4.25.1 (Navidad): «regalos entre familias (+relación)». No está construido: Navidad trae aguinaldo, misa, belén y lujo ×1,3.",
-      "opciones": "(a) no · (b) en Navidad, una carta para regalar una pieza a otra familia (+relación con su cabeza, como el regalo de la villa; la IA regala si le sobra) [propuesta: b, pequeño]"
-    },
-    {
-      "tema": "Fiestas · apuestas a cada combate del torneo",
-      "detalle": "Simplificación de juegos (04f §4.26.2): en el torneo se apuesta al ganador, no a cada combate.",
-      "opciones": "(a) al ganador, como hoy · (b) también a cada combate de la eliminatoria [propuesta: a, hasta medir si se echa de menos]"
-    },
-    {
       "tema": "H13 · la economía de las familias IA de Bellcaire",
       "detalle": "Con el bot artisan_expert en Normal, 3 de las 5 familias IA pasan buena parte de los 80 días sin oro (82-152 días-familia por partida; en Difícil 215-243; en Fácil 0-2): el mantenimiento diario del taller (~19 de oro) se come el margen de sus ventas y solo las que toman encargos aguantan. Arruinadas, dejan de vender y la rivalidad entre familias IA se apaga antes de llegar a sus umbrales: en Normal no hubo ataques entre IA ni sabotajes (sí en Difícil). El mantenimiento es una constante compartida con Vilarrasa (Equilibrio).",
       "opciones": "(a) Que Equilibrio revise el mantenimiento o la demanda de los oficios de las familias IA con todo encendido. (b) La quiebra de 04c (P7: austeridad, venta, venida a menos) y Q9, que hoy no existen. (c) Perfiles de Bellcaire con más encargos (max_contracts 2) o menos días de compra."
@@ -1225,6 +1379,7 @@
     "La batería de tests tarda ~75 s por la prueba de equivalencia del A* (16 000 pares): reducirla si molesta.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner.",
     "Viajes: lo que queda (rama viajes, 2026-11-04): H13: O-R1 (la capital Bellcaire como casa por defecto, elegible al empezar, cuando exista su mapa EA) y O-R9 (población proporcional a las casas; hoy max_total 20 para todos). H12.3: el asalto en el camino hiere al viajero o al carretero (hoy solo se lleva la carga).",
-    "Nivel de detalle en Vilarrasa (town_e) con dianas nuevas, en un bloque aparte, si el owner lo aprueba tras ver el de la región."
+    "Nivel de detalle en Vilarrasa (town_e) con dianas nuevas, en un bloque aparte, si el owner lo aprueba tras ver el de la región.",
+    "Fiestas · los encargos de la fiesta de otra ciudad ((c) de la decisión del owner del 2026-11-06): estando en una ciudad el día de su fiesta, sus encargos de fiesta en su tablón, como los de la villa."
   ]
 }

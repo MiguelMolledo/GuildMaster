@@ -24,6 +24,16 @@ Continúa la sección 4 ([04_diseno_de_juego.md](04_diseno_de_juego.md)). Aproba
 - Se puede pagar en cualquier momento, entera o a plazos, desde el libro de cuentas (orden `RepayLoan(actor, loan, amount)`).
 - Avisos urgentes en el registro 2 días y 1 día antes de vencer.
 - **Si vence sin pagar:** reputación −10 y una **prórroga de 1 estación** con un recargo del 25 % sobre lo pendiente.
+- **Sin salida (Equilibrio 2, 2026-11-05): nunca una partida muerta.** Si la familia se queda con menos de 15 de oro y
+  existencias (almacén, bolsas y recados en camino, a precio de venta) que valen menos de 20, el prestamista ofrece un
+  **préstamo de urgencia**: 60 de oro ahora y 90 a devolver en 4 días (pequeño, caro, con plazo; como mucho 2 al año;
+  carta urgente y botón «Pedirlo» en el libro, pestaña Deudas, con confirmación). Si vence sin pagar, la prórroga de
+  siempre; si vence la prórroga y el oro y la mercancía no alcanzan, se **embarga un bien** antes de la ruina. Si no se
+  toma y la deuda de mantenimiento con la villa llega a **100**, al alba se embarga **el bien más caro que no sea la
+  casa** (otro edificio, que vuelve a estar en venta y pierde a sus empleados; un carro; una pieza del equipo) al 75 %
+  de su valor: paga la deuda de mantenimiento y la de urgencia, y lo que sobra es para la familia. **Sin bienes, ruina**
+  con la pantalla de fin. Cifras en `data/accounts.json` `emergency`; reglas en `sim/balance/emergency.gd`; bot `broke`
+  desde el escenario `broke_forge` (el bloqueo blando del caótico, día 9 sin oro y con 1 carbón).
 - **Si vence la prórroga:** embargo. El prestamista se cobra primero del oro y después de la mercancía del almacén de la Forja, valorada a precio de venta del mercado. Si no alcanza, se queda la Forja: **ruina**, la partida termina con la pantalla de final (4.17). Que la ruina termine la partida está pendiente de confirmar (D18).
 - La cantidad depende de la dificultad (4.23).
 
@@ -120,6 +130,16 @@ Todas las entradas y salidas de oro de una familia. La columna *Contraparte* dic
 | Impuestos (5-15 % de las ventas) | Sumidero | `taxes` | Ciudad | H10 |
 | Condenas y sobornos a testigos | Sumidero | `justice` | Ciudad / NPC | H11 |
 | Dote, adopción, donaciones | Sumidero | `family` / `donations` | NPC / ciudad | POST-MVP |
+| Préstamo de urgencia (Equilibrio 2) | Fuente diferida | `loans` | Prestamista | equilibrio |
+| Embargo de un bien: lo que sobra tras pagar (Equilibrio 2) | Fuente | `property` | Ciudad | equilibrio |
+| **Pecha** por patrimonio al cierre del año (Equilibrio 5) | Sumidero | `taxes` | Ciudad | equilibrio |
+
+**La pecha (Equilibrio 5, 2026-11-05).** Al cerrar cada año, toda familia con un negocio paga por su **patrimonio** (oro +
+mercancía de sus edificios a precio de venta) un impuesto **progresivo por tramos marginales**: nada hasta 1.000, 4 %
+de 1.000 a 3.000, 8 % de 3.000 a 10.000 y 12 % por encima [balance] (`data/accounts.json` `pecha`, `sim/balance/pecha.gd`).
+Lo que el oro no cubre se debe a la villa como una multa (conserva el oro de trabajo). Muerde poco en los años 1-3 (un
+herrero con 1.500-2.500 paga 20-60) y mucho en la generación (con 20.000, 1.840 al año). Los sumideros grandes
+(construir, restaurar ruinas, comprar negocios) son de H6.
 
 Los regalos no son un flujo propio (el oro ya salió al comprar el objeto). Las herencias tampoco (el oro cambia de manos dentro de la familia). Los robos de mercancía no mueven oro: salen en el registro de avisos con su valor estimado.
 

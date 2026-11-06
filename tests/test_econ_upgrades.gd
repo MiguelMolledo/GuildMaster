@@ -54,7 +54,7 @@ func test_buy_pays_and_starts_the_works() -> void:
 	eq(Money.gold(st, FAM), 992, "8 gold paid")
 	eq(Inventory.count(inv, "iron_ingot"), 5, "5 of the 10 ingots taken from the storage")
 	eq(st.buildings[FORGE]["upgrade_work"], {"upgrade": "forge_production_2", "actor": HERO, "start": now,
-		"end": now + 1440}, "works of 1 day")
+		"end": now + 1440, "mode": Upgrades.CLOSED}, "works of 1 day (closed: the rule pinned before Equilibrio 9)")
 	var e: Dictionary = st.ledger["entries"][entries]
 	eq([e["category"], e["amount"], e["ref"], e["building"], e["actor"]], ["upgrades", -8, "forge_production_2", FORGE,
 		HERO], "the ledger entry")

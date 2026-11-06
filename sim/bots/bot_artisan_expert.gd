@@ -58,6 +58,7 @@ var max_employees: int = 2           # employees it hires at most (sim_runner: a
 var asks_titles: int = 1             # H9: 0 = plays as in H5, never asks for a title (BOT_VARS=asks_titles=0)
 var crook: int = 0                   # H11: 1 = the bot crook (Secrets upgrades, defends itself at the hearing)
 var runs_office: int = 0             # H10: 1 = the bot politician (runs for minor offices, regulates prices)
+const COUNTER_STOCK: int = 2         # pieces of each product kept for the shop counter's customers (counter_shop)
 var counter_shop: int = 0            # H7 balance trial (BOT_VARS=counter_shop=1): buys the sales counter first and
                                      # puts its least skilled employee at it (GDD 4.5.4: customers come to the forge)
 var _bonus_day: Dictionary = {}       # employee -> last day it got a bonus
@@ -86,6 +87,9 @@ func orders(sim: Sim) -> Array:
 		if not batch.is_empty():
 			out.append_array(batch)
 			return out
+	for o: Dictionary in out:
+		if str(o.get("type", "")) == "buy_upgrade":
+			return out  # the upgrade takes its materials from the storage this minute: work is planned the next one
 	if _idle_until > _now(sim) and _trip.is_empty():
 		return out  # idle at home a moment ago: looks again every IDLE_EVERY minutes (cost of the bot)
 	var mine := super.orders(sim)
@@ -94,6 +98,31 @@ func orders(sim: Sim) -> Array:
 		_idle_until = _now(sim) + IDLE_EVERY
 	out.append_array(mine)
 	return out
+
+
+## With someone at the shop counter (counter_shop), up to COUNTER_STOCK pieces of each product stay in the storage for
+## its customers instead of going to the market (equilibrio, Equilibrio 8: an empty counter sends 3 of 4 customers
+## away with nothing).
+func _to_sell(sim: Sim) -> Array:
+	var out: Array = super._to_sell(sim)
+	if counter_shop != 1 or not Upgrades.flag(sim, FORGE, "counter_sales") or Counter.server_of(sim, FORGE) == "":
+		return out
+	var inv: Dictionary = sim.state.buildings[FORGE]["inventory"]
+	var keep := {}
+	var res: Array = []
+	for o: Dictionary in out:
+		var item := str(o["item"])
+		var have := 0
+		for q: int in Inventory.QUALITIES:
+			have += Inventory.count(inv, item, q)
+		var left := maxi(0, COUNTER_STOCK - int(keep.get(item, 0)))
+		var hold := mini(left, int(o["qty"]))
+		keep[item] = int(keep.get(item, 0)) + hold
+		if int(o["qty"]) - hold > 0:
+			var r := o.duplicate()
+			r["qty"] = int(o["qty"]) - hold
+			res.append(r)
+	return res
 
 
 ## Business mode: the start debt is paid (or no loan left open). Once on, it stays on.
@@ -153,7 +182,7 @@ func _promotion(sim: Sim) -> Dictionary:
 func _hire(sim: Sim) -> Dictionary:
 	if Staff.free_slots(sim.state, FORGE) <= 0 or Staff.employees_of(sim.state, FORGE).size() >= _max_staff(sim):
 		return {}
-	if Upgrades.under_works(sim.state, FORGE):
+	if Upgrades.blocks(sim.state, FORGE):
 		return {}
 	var gold := Money.gold(sim.state, _fam(sim))
 	var best := {}
@@ -697,7 +726,7 @@ func _max_held(sim: Sim, rid: String) -> int:
 ## Work by hand at a free station of the right kind (employees may hold the others; upgrades add copies such as
 ## anvil_2); nothing while the forge is under works.
 func _make(sim: Sim, rid: String, mode: String) -> Dictionary:
-	if rid == "" or Upgrades.under_works(sim.state, FORGE):
+	if rid == "" or Upgrades.blocks(sim.state, FORGE):
 		return {}
 	var anvil := _free_zone(sim, ANVIL)
 	var st := _status(sim, anvil, rid) if anvil != "" else ""

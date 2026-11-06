@@ -247,6 +247,9 @@ static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, 
 	var pm := WorldEvents.production_mult(sim, str(recipe.get("output", {}).get("item", "")))  # H13: season and events
 	if pm != 1.0:
 		d = maxi(1, roundi(float(d) / maxf(pm, 0.01)))
+	var ws := Upgrades.works_speed(sim, bld_id)  # Equilibrio 9: big works leave the building at half speed
+	if ws < 1.0:
+		d = maxi(1, roundi(float(d) / ws))
 	var job := {"actor": actor, "recipe": recipe_id, "mode": mode, "start": now, "end": now + d, "inputs": taken,
 		"window": cycle_window(sim.catalog, mode, now, d), "touched": false, "result": null, "blocked": false}
 	if mode == LiveForge.MODE:
@@ -293,12 +296,13 @@ static func interrupt(sim: Sim, bld_id: String, zone: String) -> Array:
 ## "" if the actor may work now, or the refusal reason. GDD 4.4.3: characters controlled by the player work, also at
 ## night. H4: an employee works only at the building it works at, while its job is active (Staff.is_active) and in
 ## the schedule's work_phases (data/employees.json): night_rest at night, off_hours in the other phases (dusk), never
-## at night whatever the building. H5: under_works for everybody while the building has works in progress.
+## at night whatever the building. H5: under_works for everybody while the building has closed works in progress
+## (Equilibrio 9: small works go at night and big ones at half speed, Upgrades.works_mode; closed is a save from before).
 ## Anybody else not controlled by the player is refused with not_controlled, except (H3) the members of an AI family with an ai_profile, who work their family's building (night_rest still applies in
 ## buildings whose night_production is "manual_only").
 static func may_work(sim: Sim, actor: String, bld_id: String) -> String:
-	if Upgrades.under_works(sim.state, bld_id):
-		return "under_works"  # H5 (GDD 4.8): nobody produces in a building under works, owner nor employees
+	if Upgrades.blocks(sim.state, bld_id):
+		return "under_works"  # H5 (GDD 4.8): closed works (Equilibrio 9: only a save from before; data otherwise)
 	var ch: Dictionary = sim.state.characters.get(actor, {})
 	if str(ch.get("controlled_by", "")) == "human":
 		return ""

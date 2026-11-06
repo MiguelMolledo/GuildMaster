@@ -1,12 +1,12 @@
 {
   "_doc": "La ciudad viva II (docs/gdd/04f_vida_y_fiestas.md §4.24; docs/contratos/vida.md). Catalog.life_tables.life. enabled: el interruptor de todo el bloque (agenda, corrillos y rumores, forasteros, guardia y sucesos); apagado, la ciudad es la de H7 tal cual (las dianas anteriores corren así: data/targets.json _no_life; sim_runner lo apaga para esos bots). Minutos y horas de juego; probabilidades en [0, 1]. [balance] en el GDD: se ajusta con bots.",
   "enabled": true,
-  "_needs_doc": "4.24.1. Necesidades de los vecinos (no las de la familia del jugador, que son las de H14 en data/family.json): 0-100, guardadas en décimas (enteros: un float no vuelve idéntico de un guardado) en character.town.needs con su minuto (needs_at); bajan per_hour décimas cada hora, se calculan al decidir. start: al encender la vida. night: al empezar su día, lo que suben la noche en casa (dormir, cenar y desayunar). pious_share: la parte de los vecinos «de mucha fe» (gusto por la misa), sacada por persona con su clave.",
+  "_needs_doc": "4.24.1. Necesidades de los vecinos (no las de la familia del jugador, que son las de H14 en data/family.json): 0-100, guardadas en décimas (enteros: un float no vuelve idéntico de un guardado) en character.town.needs con su minuto (needs_at); bajan per_hour décimas cada hora, se calculan al decidir. start: al encender la vida. night: al empezar su día, lo que suben la noche en casa (dormir, cenar y desayunar; y fun, la velada en casa: Equilibrio, 2026-11-05, la diversión media del pueblo estaba en 16-19 y pasa a ~37). pious_share: la parte de los vecinos «de mucha fe» (gusto por la misa), sacada por persona con su clave.",
   "needs": {
     "ids": ["hunger", "rest", "social", "fun", "faith"],
     "start": 700,
     "per_hour": {"hunger": 20, "rest": 15, "social": 10, "fun": 10, "faith": 5},
-    "night": {"rest": 1000, "hunger": 450},
+    "night": {"rest": 1000, "hunger": 450, "fun": 100},
     "pious_share": 0.3
   },
   "_agenda_doc": "4.24.1. utilidad(a) = (base + Σ urgencia(n) × sube(a, n) / raise_scale) × gusto × hora × evento × grupo − distancia × distance_cost; urgencia(n) = ((100 − n) / 100) ^ 2. gusto = liking_mult si el rasgo cuadra (stat_min o más; Fe alta = piadoso). random_share de las veces se elige al azar entre las random_top mejores. Trabajar es obligatorio de DÍA: cada hora en punto, con la probabilidad de descanso de data/town.json routine (break_chance_per_hour, ×elder_break_mult los ancianos), se elige una actividad de descanso (break: true) en vez del trabajo; el día de guardar (holy_day) work_mult. elder_age: desde esta edad, anciano. children_play: los niños salen a jugar de DÍA (H7 los dejaba en casa).",

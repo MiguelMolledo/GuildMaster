@@ -170,6 +170,44 @@ no porque necesiten algo. La respuesta es **dos capas de clientes**:
 - **Fiestas y feria:** suben las dos capas (más forasteros y más comarca), que es justo lo que se espera del día de
   feria.
 
+**La fama de un taller (Equilibrio 13, 2026-11-05).** El `fama(b)` de la fórmula, para los talleres (no la Taberna-Posada,
+que tiene la suya de 0-5, 4.27): un multiplicador **0,5-2,0** que empieza en 1.
+
+```
+fama(b)  = clamp(1 + calidad_media × 0,25 + renombre, 0,5, 2,0)
+calidad_media = la de lo vendido en los últimos 4 días (0 normal, 1 buena, 2 excelente), mercado y mostrador
+renombre = Σ puntos por hecho (±0,75 como mucho), que pierde un 15 % cada alba:
+           obra maestra +0,3 · encargo cumplido +0,04 · encargo de fiesta +0,15 · concurso ganado +0,2
+           encargo incumplido −0,1 · queja (cliente que se va sin atender o sin nada que comprar) −0,03
+```
+
+Hoy la lee el mostrador de 4.5.4 (clientes cada intervalo / fama y precio + (fama − 1) × 0,1); la clientela de
+comarca de la rama interiores la leerá como `fama(b)` cuando se unifique (Equilibrio 14). Los hechos de la familia sin
+edificio (ventas en la plaza, encargos, obras maestras) van a su taller principal. Los concursos ganados los apunta
+fiestas en `buildings[taller].contests_won` (`FestivalCourt._judge`), que la fama lee con su evento `festival_contest`
+(cada victoria nueva, +0,2). Se ve en el título del panel de
+producción («Forja · fama 1,25», con su explicación). Cifras en `data/town.json` `workshop_fame`; reglas en
+`sim/balance/workshop_fame.gd`; estado `buildings[b].fame` (sin versión nueva: se lee con su valor por defecto).
+
+**La bolsa de los hogares (Equilibrio 15, 2026-11-05).** Con la vida encendida, la capa de **Vecinos** tiene dinero
+propio: al empezar el atardecer, cada adulto con un oficio del mapa (y sin empleo con una familia) trae a la bolsa de
+su casa su **jornal** (7; 9 los del puesto o la tienda) [balance], dinero de fuera (P4). Al alba la casa paga **la
+comida** (2 por adulto, 1 por niño), que sale de la economía, y lo que pudo pagar alimenta a sus empleados y niños
+(4.24.1, el hambre). **La taberna es un capricho:** un vecino solo gasta allí lo que le sobra sobre la comida del día
+siguiente. Diana: **6-12 vecinos por noche** en la taberna un día normal (escenario de la posada). Cifras en
+`data/town.json` `households`; reglas en `sim/balance/households.gd`; estado `families[hogar].household`.
+
+**Una sola clientela de comarca (Equilibrio 14, 2026-11-06).** `sim/town/clientele.gd` es la clientela de comarca de
+los talleres y de la Taberna-Posada: el atractivo del proveedor de 4.22.3.2 (`Clientele.provider_appeal`: precio,
+reputación y el bonus de clientes de sus mejoras, cifras de `data/services.json`), la fama (`Clientele.fame`: la del taller
+de Equilibrio 13 o la de la taberna) y el factor de precio máximo (`Clientele.max_price_mult`) son una sola fórmula; la
+taberna (`InnClientele`) la lee y conserva su turno de noche y sus grupos. **Encendida para la forja** (`data/town.json`
+`counter.clientele.enabled`): medido con el experto en el mostrador (un empleado, 5 semillas × 24 días), el mostrador
+vende 113-120 de oro al día frente a un salario de 19-20 (×5,8-6,2, Equilibrio 8), con o sin la vida. Lo que lo limitaba
+no eran los clientes sino las existencias: el bot lo llevaba todo a la plaza y 3 de cada 4 clientes se iban sin nada;
+ahora guarda 2 piezas de cada producto para el mostrador mientras alguien lo atiende. Carpintería, cantería y sastrería
+quedan a 0 (sus cifras propuestas en `_proposed_base_per_day`) hasta que un bot del oficio con mostrador las mida.
+
 ### 4.6.5.8 Preguntas para el owner (decididas el 2026-11-04)
 
 | # | Pregunta | Opciones | Recomendación |

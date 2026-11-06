@@ -22,9 +22,9 @@
     "adult_carry_weight": 60.0
   },
   "courtship": {
-    "_doc": "Cortejo por afinidad (4.10.1). talk: +[mín, máx] una vez por pretendiente y día; gift: +gold_value / gold_per_point, entre min y max (valor = precio de venta del regalo en el mercado); work_near: +1 por día trabajando a la vez en el mismo edificio. Multiplicador × (1 + (carisma − 5) × charisma_step) y × same_title_mult si las dos familias tienen el mismo título. propose_min: afinidad para proponer. range_tiles: distancia en casillas para hablar, regalar o proponer (a la persona en el mapa o a la puerta del edificio donde está). blocking_emotions: estados de 4.11.5 (H7) del pretendido hacia el actor que bloquean el cortejo. opposite_sex: provisional (los hijos necesitan padre y madre). affinity_max: tope.",
+    "_doc": "Cortejo por afinidad (4.10.1). talk: +[mín, máx] una vez por pretendiente y día; gift: +gold_value / gold_per_point, entre min y max (valor = precio de venta del regalo en el mercado), solo el primer regalo del día a cada pretendiente (per_day 1; Equilibrio 1: los demás se aceptan sin efecto; 0 = sin tope); work_near: +1 por día trabajando a la vez en el mismo edificio. Multiplicador × (1 + (carisma − 5) × charisma_step) y × same_title_mult si las dos familias tienen el mismo título. propose_min: afinidad para proponer. range_tiles: distancia en casillas para hablar, regalar o proponer (a la persona en el mapa o a la puerta del edificio donde está). blocking_emotions: estados de 4.11.5 (H7) del pretendido hacia el actor que bloquean el cortejo. opposite_sex: provisional (los hijos necesitan padre y madre). affinity_max: tope.",
     "talk": [3, 5],
-    "gift": {"min": 5, "max": 15, "gold_per_point": 2},
+    "gift": {"min": 5, "max": 15, "gold_per_point": 2, "per_day": 1},
     "work_near": 1,
     "charisma_step": 0.1,
     "same_title_mult": 1.15,
@@ -106,8 +106,8 @@
     "cooldown_days": 1
   },
   "succession": {
-    "_doc": "Herencia (4.10.4): heredero válido = descendiente vivo del cabeza con >= majority_age, o menor si vive la pareja del muerto (regente hasta su mayoría). Por defecto el mayor. voluntary_close: cierre voluntario de la dinastía (4.17, D19 pendiente): desactivado hasta que el owner lo apruebe.",
-    "voluntary_close": false
+    "_doc": "Herencia (4.10.4): heredero válido = descendiente vivo del cabeza con >= majority_age, o menor si vive la pareja del muerto (regente hasta su mayoría). Por defecto el mayor. voluntary_close: cierre voluntario de la dinastía (4.17, D19 aprobado el 2026-11-05: «Retirarse» en el menú de pausa, con confirmación, abre la pantalla final con la puntuación).",
+    "voluntary_close": true
   },
   "ai_family": {
     "_doc": "Módulo de familia de las familias IA con perfil (4.21) [provisional, el diseño de 4.21 no está cerrado: lo mínimo]. Un cabeza soltero sin heredero corteja de noche (una visita por noche a la puerta del candidato con más afinidad, conversar) y propone al llegar a propose_min. Los hijos nacen con las mismas reglas que los del jugador.",
