@@ -1,0 +1,232 @@
+{
+  "id": "jugador/02_producir",
+  "title": "Jugador 2 · Producir: el primer lingote y la espada a mano",
+  "about": "El capítulo «Producir» tal como lo pide: el horno, dos lingotes, el yunque en Forja viva, la espada y el almacén.",
+  "start": {
+    "keep": true
+  },
+  "steps": [
+    {
+      "id": "capitulo",
+      "say": "El capítulo Producir empieza en el horno",
+      "expect": [
+        "q.tut() == 'produce:furnace'"
+      ]
+    },
+    {
+      "id": "horno",
+      "say": "El horno: Siguiente",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'produce:furnace'",
+      "timeout": 4
+    },
+    {
+      "id": "menu_horno",
+      "say": "Clic derecho en el horno",
+      "station": "furnace",
+      "button": "right",
+      "until": "q.tut() != 'produce:furnace_menu'",
+      "timeout": 6
+    },
+    {
+      "id": "modos",
+      "say": "Los modos: Siguiente",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'produce:modes'",
+      "timeout": 4
+    },
+    {
+      "id": "lingote",
+      "say": "El lingote de hierro",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_forge_ingot"
+        ],
+        "type": "Button"
+      },
+      "until": "q.tut() != 'produce:ingot'",
+      "timeout": 6,
+      "expect": [
+        "q.order('work_at')"
+      ]
+    },
+    {
+      "id": "esperar_lingotes",
+      "say": "Esperar a dos lingotes, a ×2 (la velocidad que dejó el tutorial)",
+      "until": "q.tut() != 'produce:wait_ingots'",
+      "timeout": 240
+    },
+    {
+      "id": "menu_yunque",
+      "say": "Clic derecho en el yunque",
+      "station": "anvil",
+      "button": "right",
+      "until": "q.tut() != 'produce:anvil_menu'",
+      "timeout": 6
+    },
+    {
+      "id": "viva",
+      "say": "Forja viva",
+      "click": {
+        "node": "CarefulButton"
+      },
+      "until": "q.tut() != 'produce:live'",
+      "timeout": 4
+    },
+    {
+      "id": "calidad",
+      "say": "La calidad esperada: Siguiente",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() != 'produce:quality'",
+      "timeout": 4
+    },
+    {
+      "id": "espada",
+      "say": "La espada",
+      "click": {
+        "via": "RecipeList",
+        "fn": "get_node",
+        "args": [
+          "Row_forge_sword"
+        ],
+        "type": "Button"
+      },
+      "until": "q.live_open()",
+      "timeout": 30,
+      "expect": [
+        "q.order('work_at')"
+      ]
+    },
+    {
+      "id": "calentar",
+      "say": "Calentar: mirar el color del hierro hasta el que pide",
+      "until": "q.live_heat_ok()",
+      "timeout": 30
+    },
+    {
+      "id": "sacar",
+      "say": "«Sacar»",
+      "click": {
+        "node": "PullButton"
+      },
+      "expect": [
+        "q.order('live_forge')"
+      ]
+    },
+    {
+      "id": "golpe_espera",
+      "until": "q.live_stage() == 'strike'",
+      "timeout": 8
+    },
+    {
+      "id": "golpe_1",
+      "say": "Batir siguiendo la plantilla",
+      "click": {
+        "node": "='Strike_' + q.live_strike()"
+      }
+    },
+    {
+      "id": "golpe_2",
+      "when": "q.live_stage() == 'strike'",
+      "click": {
+        "node": "='Strike_' + q.live_strike()"
+      }
+    },
+    {
+      "id": "golpe_3",
+      "when": "q.live_stage() == 'strike'",
+      "click": {
+        "node": "='Strike_' + q.live_strike()"
+      }
+    },
+    {
+      "id": "golpe_4",
+      "when": "q.live_stage() == 'strike'",
+      "click": {
+        "node": "='Strike_' + q.live_strike()"
+      }
+    },
+    {
+      "id": "golpe_5",
+      "when": "q.live_stage() == 'strike'",
+      "click": {
+        "node": "='Strike_' + q.live_strike()"
+      }
+    },
+    {
+      "id": "templar_espera",
+      "until": "q.live_stage() == 'quench'",
+      "timeout": 8
+    },
+    {
+      "id": "templar",
+      "say": "Templar en el medio que pide",
+      "click": {
+        "node": "='Quench_' + q.live_quench()"
+      }
+    },
+    {
+      "id": "resultado",
+      "say": "El resultado",
+      "until": "q.storage('sword') > 0",
+      "timeout": 60
+    },
+    {
+      "id": "cerrar_viva",
+      "say": "«Cerrar»: vuelve al yunque",
+      "when": "q.live_open()",
+      "click": {
+        "within": "LiveForgeScreen",
+        "node": "CloseButton"
+      },
+      "expect": [
+        "not q.live_open()"
+      ]
+    },
+    {
+      "id": "esc_menu",
+      "when": "q.visible('StationMenu')",
+      "key": "Escape"
+    },
+    {
+      "id": "almacen",
+      "say": "Abrir el almacén (A), como pide el tutorial",
+      "when": "q.tut() == 'produce:storage'",
+      "key": "@panel_storage",
+      "until": "q.tut() != 'produce:storage'",
+      "timeout": 4
+    },
+    {
+      "id": "resultado_tut",
+      "say": "La espada con su calidad: Siguiente",
+      "when": "q.tut() == 'produce:result'",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next"
+      },
+      "until": "q.tut() == 'produce:end'",
+      "timeout": 4
+    },
+    {
+      "id": "fin_capitulo",
+      "say": "Siguiente capítulo: Vender",
+      "click": {
+        "via": "Tutorial",
+        "node": "Button_next_chapter"
+      },
+      "until": "q.tut().begins_with('market:')",
+      "timeout": 4
+    }
+  ]
+}

@@ -251,6 +251,19 @@ siendo del ratón (su motivo, en `_coverage.json`). Sus resultados van a `<flujo
 pasadas: una orden cuenta por teclado si algún flujo la dio con el teclado. El modo noche (`run_all --night`) juega las
 dos.
 
+**Pasada de jugador** (`python3 tools/verifica/jugador.py [--window]`): el primer año de la partida por defecto
+(semilla 11), jugado como un novato:
+- el tutorial de lo básico;
+- los objetivos;
+- las cartas «Nuevo»;
+- medias jornadas de oficio.
+
+Son bloques cortos de `data/flows/jugador/` en una sola sesión: el bloque 2 y los siguientes empiezan con
+`start {"keep": true}`, la partida como la dejó el anterior. Los bloques 06-15 los genera `jugador_bloques.py`.
+Escribe `reports/jugador/<fecha>/`: las capturas de cada bloque y `ritmo.json`, con los tramos sin decisión en
+segundos reales a la velocidad del jugador, para compararlos con la diana de 03b §3b.6. El informe de cada pasada,
+con sus hallazgos por gravedad y su dueño, va en `reports/jugador/<fecha>/informe.md`.
+
 Reglas: un solo Godot con ventana a la vez (`grimoire heavy`), y se cierra al acabar; los ajustes y las partidas
 guardadas de los flujos van a `tmp/verifica_home` (nunca a los del owner). Si un flujo descubre que algo no se puede
 hacer por la interfaz o se ve mal, es un hallazgo: se apunta en el informe, no se tapa en el flujo.

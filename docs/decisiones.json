@@ -1255,6 +1255,48 @@
       "tema": "full_player · bandas nuevas tras el equilibrio",
       "decision": "Se aprueban las bandas propuestas por jugador en reports/full_player_ref/propuesta_bandas_equilibrio.md (deuda ≤ día 6, Ciudadano ≤ día 16, boda ≤ día 20, hijo en ≥ la mitad de las semillas, neto año 1 ≥ 40 y año 3 ≥ 25, ≥ 20 mecánicas, ritmo del año 1 mediana ≤ 30 s y peor hueco ≤ 60 s, ≤ 3 obras maestras en 3 años, hambre ≤ 10 %, ≥ 1 viaje y ≥ 1 tratado, ≤ 8 atascos). Las tres de la IA rival (subir título, presentarse a cargo, ≤ 4 días sin oro) siguen como propuesta hasta que cierre H13. Se sellan tools/full_compare.py y las copias de referencia.",
       "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Todas tienen margen sobre lo medido en las 4 semillas y fijan lo que el equilibrio ha ganado para que no se pierda."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "El tutorial: lo básico encadenado, lo demás con su carta",
+      "decision": "Solo se encadenan los capítulos de lo básico (primeros pasos, producir, vender, deuda). Los demás llegan con la carta «Nuevo» de su desbloqueo o desde F1, y uno cuya mecánica no se ha abierto dice «Más adelante». La tarjeta del tutorial no tapa el panel que señala, y la pila de cartas se aparta mientras guía.",
+      "por_que": "Pasada de jugador (verificación J): el tutorial ofrecía Empleados cerrado tras la deuda, y su tarjeta tapaba los botones que pedía."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Contratar: del más barato al más caro",
+      "decision": "Los candidatos de Empleados → Contratar salen ordenados por jornal, el más barato primero (el aprendiz que pide la meta).",
+      "por_que": "Pasada de jugador: el primer candidato era un oficial a 20 al día y la meta pide un aprendiz."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Dianas de la clientela de comarca (Equilibrio 14)",
+      "decision": "Bot counter_shop (artisan_expert con el mostrador, un empleado en él y 2 piezas de cada producto guardadas) y diana counter_shop: counter_ratio por semilla [2, null] y media [3, null] (Equilibrio 8), clientele_arrived_day de media [1,5, 4]; paso counter de la QA (3 semillas × 24 días). Medido (5 semillas): ×5,0-6,6 el salario; 2,4-2,8 clientes de comarca al día con 0,05-0,19 compras: el mostrador ya vende todo lo que forja el taller (con 4 o 6 piezas guardadas sale igual).",
+      "por_que": "Encargo del manager: encender la clientela como parte de Equilibrio 14, con sus dianas."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "La taberna comprada tarde: despensa del tabernero anterior",
+      "decision": "data/buildings/tavern_inn.json sale_stock: al comprarla trae las existencias del escenario innkeeper_start (Inn.order_buy_building). Medido con full_player (3 años × 4 semillas): la taberna pierde sus 7-10 primeros días (−595 de media antes, −523 con la despensa) y el neto del año 3 de la familia sube de 8-90 a 50-130 al día; a 6 años (2 semillas) deja 300-336 al día del año 5 al 6 con fama 4,6-5; en una generación (semilla 1) la familia gana 400-800 al día, máximo 42.000 de oro, 29.200 al final con la pecha (antes 56.854). La pérdida es el arranque; el largo plazo (3 veces la forja) queda para los sumideros de H6.",
+      "por_que": "Encargo del manager («la taberna comprada tarde que pierde dinero cada día»)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Verifica J · el novato que sigue el tutorial acaba arruinado",
+      "decision": "La partida por defecto (Vilarrasa, herrero, Normal) jugada siguiendo el tutorial y los objetivos tiene que salir: paga los 200 de la deuda como tarde el día 8 y le quedan ≥ 40 de oro para hierro; Fácil con holgura; solo un juego claramente malo acaba en ruina. Palancas por orden: recargo del recado, margen de la espada, costes fijos de los primeros días; el plazo de la deuda solo si no basta. Un bot juega esa ruta en run_all con su diana. Lo hace equilibrio, antes del Patrón.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Un jugador nuevo que hace lo que el juego le dice y pierde a los 10 días abandona; es el fallo más caro que puede tener la primera hora."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Verifica J · ritmo y cartas de forja (#14-19, #27)",
+      "decision": "La Forja viva acaba a la velocidad que llevaba el jugador y se la devuelve; caben los botones de golpe y temple; fuera las menciones al toque de maestro; el desbloqueo debt va al día 1; el del mostrador va con el de las mejoras; OpenGoals no repite «Objetivo cumplido»; pista del tutorial la primera noche para «Saltar hasta el amanecer». Lo hace forja.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Son esperas muertas y cartas que llevan a sitios cerrados: restan diversión y confunden en la primera hora."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Verifica J · peleas en la calle (#20)",
+      "decision": "Las peleas son aviso normal (no urgente) salvo que afecten a la familia o a su edificio, y su carta caduca al día siguiente. Lo hace fiestas.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Cinco urgentes en dos días entierran los avisos que sí importan."
     }
   ],
   "pendientes": [

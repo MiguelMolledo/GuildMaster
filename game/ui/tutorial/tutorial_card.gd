@@ -70,9 +70,16 @@ func show_card(d: Dictionary) -> void:
 	page.visible = true
 	page.layout_now()
 	reset_size()
+	_relayout.call_deferred()   # the wrapped lines (the keys at the foot) know their height a frame later (jugador J1)
 	if OS.is_debug_build():
 		print("[TutorialCard] %s · %s (buttons=%d, parts=%s)" % [str(d.get("step", "")), str(d.get("body", "")).left(48),
 			(d.get("buttons", []) as Array).size(), page.parts])
+
+
+func _relayout() -> void:
+	if page != null and page.visible:
+		page.layout_now()
+		reset_size()
 
 
 func _line(text: String, variation: StringName, node_name: String) -> Label:

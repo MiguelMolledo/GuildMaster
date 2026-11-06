@@ -2,6 +2,10 @@
   "id": "staff",
   "name_key": "tutorial.chapter.staff",
   "desc_key": "tutorial.chapter.staff.desc",
+  "requires": {
+    "state": "unlocked",
+    "is": "staff"
+  },
   "test": {
     "start": "artisan_blacksmith"
   },
