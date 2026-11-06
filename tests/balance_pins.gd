@@ -10,7 +10,8 @@ const RANKS: Dictionary = {"apprentice": [1, 0.5], "journeyman": [3, 1.0], "mast
 
 
 ## `cat` with the pre-H5 figures: recipe durations, wages and speeds, forge upkeep 2, demand -0.1 per unit and +0.1 per
-## dawn, carry 30 kg at the start, the upgrades' gold of GDD 4.8 (a fifth of data/). Returns the same catalog.
+## dawn, carry 30 kg at the start, the upgrades' gold of GDD 4.8 (a fifth of data/) and works that close the building
+## (before Equilibrio 9). Returns the same catalog.
 static func classic(cat: Catalog) -> Catalog:
 	for rid: String in DURATIONS:
 		if cat.recipes().has(rid):
@@ -29,4 +30,9 @@ static func classic(cat: Catalog) -> Catalog:
 	for id: String in cat.upgrades():
 		var cost: Dictionary = cat.upgrades()[id].get("cost", {})
 		cost["gold"] = int(cost.get("gold", 0)) / 5
+	# the works of 4.8 before Equilibrio 9: every works closes the building (tests/test_equilibrio_works.gd: the new rule)
+	cat.upgrade_rules["works"] = {"small_max_days": 1.0, "small_mode": "closed", "big_mode": "closed", "big_speed": 0.5}
+	# and no houses' wages nor food (Equilibrio 15): the tests of the employees' flows count only theirs
+	if cat.town.get("households") is Dictionary:
+		cat.town["households"]["enabled"] = false
 	return cat

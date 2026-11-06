@@ -50,12 +50,14 @@ static func _sells(sim: Sim, bld: String) -> bool:
 	return Upgrades.flag(sim, bld, "counter_sales")
 
 
-## Minutes until the next customer: interval_hours [min, max] / (1 + customer_bonus) / the events' customers effect (H13).
+## Minutes until the next customer: interval_hours [min, max] / (1 + customer_bonus) / the events' customers effect (H13)
+## / the workshop's fame (Equilibrio 13).
 static func _interval(sim: Sim, bld: String, now: int) -> int:
 	var span: Array = sim.catalog.town.get("counter", {}).get("interval_hours", [1, 2])
 	var mins := Kin.randi_range(sim.state, "cnt|next|%s|%d" % [bld, now], int(float(span[0]) * 60.0), int(float(span[1]) * 60.0))
 	var ev := maxf(WorldEvents.customers_mult(sim), 0.01)
-	return maxi(10, roundi(float(mins) / (1.0 + Upgrades.amount(sim, bld, "customer_bonus")) / ev))
+	var fame := maxf(WorkshopFame.of(sim, bld), 0.1)  # Equilibrio 13: a famous workshop gets more customers
+	return maxi(10, roundi(float(mins) / (1.0 + Upgrades.amount(sim, bld, "customer_bonus")) / ev / fame))
 
 
 ## An active employee with role counter inside goes to the counter station.
@@ -197,6 +199,8 @@ static func price(sim: Sim, bld: String, server: String, item: String, quality: 
 	var fam := str(st.buildings[bld].get("owner", ""))
 	var rep := float(st.families.get(fam, {}).get("reputation", 0))
 	bonus += clampf(rep / 100.0 * float(cfg.get("reputation_mult", 0.15)), 0.0, float(cfg.get("reputation_cap", 0.15)))
+	# Equilibrio 13 (04g §4.6.5.7): precio_máximo × (1 + fama × 0,1) over the fame of 1 at the start
+	bonus += (WorkshopFame.of(sim, bld) - 1.0) * float(sim.catalog.town.get("workshop_fame", {}).get("price_weight", 0.1))
 	var m := 1.0
 	if customer != "":
 		m = Emotions.price_mult(sim, customer, fam, "sell")
@@ -219,6 +223,12 @@ static func sell(sim: Sim, bld: String, customer: String, server: String, item: 
 	Money.change(sim, fam, p, Money.COUNTER_SALES, "counter", bld, server)
 	sim.events.append({"type": "counter_sold", "family": fam, "building": bld, "customer": customer, "seller": server,
 		"item": str(item["item"]), "quality": int(item["quality"]), "price": p})
+	# D16 (2026-11-05): a counter sale lowers the market's demand too, at half the market's drop (−0,025 a unit)
+	var drop := float(sim.catalog.town.get("counter", {}).get("demand_drop_per_unit", 0.0))
+	if drop > 0.0:
+		var it := str(item["item"])
+		Market._set_demand(sim, it, Market.demand(sim, it) - drop, false)
+		sim.events.append({"type": "demand_changed", "item": it, "demand": Market.demand(sim, it)})
 	if OS.is_debug_build():
 		print("[Counter] %s compra %s (q%d) en %s por %d (vende %s, descuento %.0f %%)" % [customer, item["item"],
 			int(item["quality"]), bld, p, server, discount * 100.0])

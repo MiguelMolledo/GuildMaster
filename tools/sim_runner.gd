@@ -22,8 +22,8 @@ extends SceneTree
 ## ledger entries of the window outside its excluded categories / days; its target is checked on the mean of the
 ## seeds, GDD 4.19 "media"), by_category_<a>_<b> (the window by category, for the report), contracts_done,
 ## contracts_failed, player_other_flows (ledger entries of the player's family that are not a payment of upkeep or
-## loans: an idle family must have 0, GDD 4.19). Fiestas (4.25.4): ai_broke_days_y1 (the most days of year 1 an AI family
-## with a profile ended without gold).
+## loans, nor the seizure of a good for the debts, Equilibrio 2: an idle family must have 0, GDD 4.19). Fiestas
+## (4.25.4): ai_broke_days_y1 (the most days of year 1 an AI family with a profile ended without gold).
 ## H5: sink_share_<a>_<b> (goldflow windows with sink_categories: those categories' expenses / gross income of the
 ## window, GDD 4.19 "30-60 %"; sink_base "revenue" = over the gross income, "margin" = over the gross income minus
 ## the input_categories (materials); both are written as sink_share_revenue_ / sink_share_margin_), net_year_<n> (net gold per day of each whole year of 8 days played, without the
@@ -34,7 +34,7 @@ extends SceneTree
 ## prod_gain_error (largest |gain / expected - 1| of the run), output_hours_<upgrade>_before / _after (standard hours
 ## of work produced per day in those windows, for the report).
 ## Targets per bot: {measure: [min, max]} checked on every run; "_mean": {measure: [min, max]} on the mean of the runs;
-## "_share": {measure: [min, max]} on the share of runs where the measure is 1.
+## "_share": {measure: [min, max]} on the share of runs where the measure is 1 (at least 1, for a count).
 ## H8: a bot with measures(sim) adds its own (dynasty: wedding_day, first_child_days, inherited, inherit_day,
 ## generation_days, game_over), e.g. --scenario=dynasty_start --bots=dynasty --days=320 --seeds=3.
 ## H7 (docs/contratos/h7_ciudad.md): for the player's family mev_<id> (microevents started, one per id of
@@ -73,7 +73,8 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
 	"merchant": BotMerchant, "pacing": BotPacing, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper,
-	"idle_titles_fest": BotIdle}
+	"idle_titles_fest": BotIdle,
+	"broke": BotBroke}  # equilibrio (Equilibrio 2: the emergency loan from broke_forge)
 	# artisan_expert_<n>: the expert hiring at most n employees (H4/H5: what the employees add, same seeds)
 	# idle_rival: idle with the rival's targets (10 days)
 	# idle_town: idle with the microevent targets (30 days, H7)
@@ -254,7 +255,8 @@ func _apply_set(cat: Catalog, spec: String) -> bool:
 		return false
 	var node: Variant = null
 	var i := 1
-	if keys[0] in ["market", "employees", "production", "difficulty", "accounts", "seasons", "events", "town"]:
+	if keys[0] in ["market", "employees", "production", "difficulty", "accounts", "seasons", "events", "town",
+			"upgrade_rules", "trade", "family", "inn", "live_forge"]:  # equilibrio: works, region trade, courtship
 		node = cat.get(keys[0])
 	elif keys[0] == "life" and keys.size() >= 3:  # vida: data/life/<file>.json
 		node = cat.life_tables.get(keys[1])
@@ -532,6 +534,8 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 		m["contracts_failed"] = int(m.get("contracts_failed", 0))
 		var other := 0
 		for e: Dictionary in sim.state.ledger.get("entries", []):
+			if str(e.get("ref", "")) == "seizure":
+				continue  # equilibrio (Equilibrio 2): a seized good paying the debts is part of the debt's rules
 			if str(e.get("family", "")) == player and (int(e["amount"]) > 0 or not str(e["category"]) in IDLE_OK):
 				other += 1
 		m["player_other_flows"] = other
@@ -755,7 +759,7 @@ func _aggregate(t: Dictionary, runs: Array) -> Dictionary:
 	for key: String in t.get("_share", {}):
 		var n := 0
 		for run: Dictionary in runs:
-			if int(run.get(key, 0)) == 1:
+			if int(run.get(key, 0)) >= 1:  # equilibrio: a count (treaties signed) is "at least one"; a flag, the same
 				n += 1
 		out["share_" + key] = snappedf(float(n) / runs.size(), 0.001)
 	return out

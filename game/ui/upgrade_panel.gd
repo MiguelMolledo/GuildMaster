@@ -565,10 +565,19 @@ func works_line(u: Dictionary) -> String:
 		return SimQuery.t_("ui.upgrades.works_done")
 	var w: Dictionary = _view.get("work", {})
 	if st == "in_works":
-		return SimQuery.t_("ui.upgrades.works_now") % [SimQuery.minutes_left_label(int(w.get("minutes_left", 0))),
-			SimQuery.minute_label(int(w.get("end", 0))).to_lower()]
-	return SimQuery.t_("ui.upgrades.works_line") % [days_label(float(u["build_days"])), bname,
-		SimQuery.minute_label(end_minute(str(u["id"]))).to_lower()]
+		var mode := Upgrades.mode_of(sim.state, building)  # Equilibrio 9: night, half or (a save from before) closed
+		if mode == Upgrades.NIGHT:
+			return SimQuery.t_("ui.upgrades.works_now_night") % [SimQuery.minute_label(int(w.get("end", 0))).to_lower(),
+				bname]
+		return SimQuery.t_("ui.upgrades.works_now_half" if mode == Upgrades.HALF else "ui.upgrades.works_now") % [
+			SimQuery.minutes_left_label(int(w.get("minutes_left", 0))), SimQuery.minute_label(int(w.get("end", 0))).to_lower()]
+	var end := SimQuery.minute_label(end_minute(str(u["id"]))).to_lower()
+	match Upgrades.works_mode(sim, str(u["id"])):
+		Upgrades.NIGHT:
+			return SimQuery.t_("ui.upgrades.works_line_night") % [end, bname]
+		Upgrades.HALF:
+			return SimQuery.t_("ui.upgrades.works_line_half") % [days_label(float(u["build_days"])), bname, end]
+	return SimQuery.t_("ui.upgrades.works_line") % [days_label(float(u["build_days"])), bname, end]
 
 
 ## «1 day», «1,5 days», «12 h» (under a day) of a works' length in days.
@@ -581,7 +590,7 @@ func days_label(days: float) -> String:
 
 ## When the works of `id` would end if started now.
 func end_minute(id: String) -> int:
-	return int(sim.state.clock["minute"]) + roundi(float(sim.catalog.upgrade(id).get("build_days", 0.0)) * Clock.MINUTES_PER_DAY)
+	return Upgrades.would_end(sim, id, int(sim.state.clock["minute"]))  # Equilibrio 9: the small ones at night
 
 
 ## «What you will see»: lit in gold in the room, on the facade, or nothing to see.
@@ -725,7 +734,9 @@ func buy_spec(id: String) -> Dictionary:
 	var cost: PackedStringArray = [SimQuery.t_("ui.upgrades.gold") % int(u.get("cost", {}).get("gold", 0))]
 	for c: Dictionary in u.get("cost", {}).get("items", []):
 		cost.append("%d %s" % [int(c["qty"]), SimQuery.item_name(sim.catalog, str(c["item"]))])
-	var body := SimQuery.t_("ui.upgrades.confirm_body") % [SimQuery.upgrade_name(sim.catalog, id), ", ".join(cost),
+	var keys := {Upgrades.NIGHT: "ui.upgrades.confirm_body_night", Upgrades.HALF: "ui.upgrades.confirm_body_half"}
+	var key := str(keys.get(Upgrades.works_mode(sim, id), "ui.upgrades.confirm_body"))
+	var body := SimQuery.t_(key) % [SimQuery.upgrade_name(sim.catalog, id), ", ".join(cost),
 		SimQuery.building_label(sim.state, sim.catalog, building), days_label(float(u.get("build_days", 0.0))),
 		SimQuery.minute_label(end_minute(id)).to_lower()]
 	return {"title": SimQuery.t_("ui.upgrades.confirm_title") % SimQuery.upgrade_name(sim.catalog, id), "body": body,

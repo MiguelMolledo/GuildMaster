@@ -23,7 +23,7 @@ func test_family_tables_load() -> void:
 		[2, 0.1, 8, 3], "children (4.10.3)")
 	eq(int(cat.family["courtship"]["propose_min"]), 80, "propose at 80 (4.10.1)")
 	eq(int(cat.family["group"]["max"]), 3, "3 controllable (4.10.5)")
-	eq(bool(cat.family["succession"]["voluntary_close"]), false, "voluntary close off until D19")
+	eq(bool(cat.family["succession"]["voluntary_close"]), true, "voluntary close on since D19 (2026-11-05)")
 	eq(int(cat.score["points"]["inheritance"]), 100, "new generation 100 points (4.17)")
 	eq((cat.goals["goals"] as Array).size(), 3, "3 goals")
 
