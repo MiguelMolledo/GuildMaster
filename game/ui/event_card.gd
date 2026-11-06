@@ -25,7 +25,8 @@ func _ready() -> void:
 			for e: Dictionary in events:
 				if str(e.get("type", "")) == "world_event_started":
 					show_for(g.get("sim") as Sim, e)
-				elif str(e.get("type", "")) in ["festival_eve", "festival_started", "festival_wedding_offer"]:
+				elif str(e.get("type", "")) in ["festival_eve", "festival_started", "festival_wedding_offer",
+						"festival_gift_offers", "festival_gift_chosen", "festival_contest", "festival_audience"]:
 					show_festival(g.get("sim") as Sim, e))
 	button_pressed.connect(_on_button)
 
@@ -35,6 +36,11 @@ func show_festival(sim: Sim, e: Dictionary) -> void:
 	var fam := SimQuery.player_family(sim.state)
 	if str(e.get("type", "")) == "festival_wedding_offer" and str(e.get("family", "")) != fam:
 		return
+	if str(e.get("type", "")) == "festival_audience" and str(e.get("family", "")) != fam:
+		return  # only the player's own audience
+	if str(e.get("type", "")) == "festival_gift_offers" and \
+			str(sim.state.characters.get(str(e.get("mayor", "")), {}).get("family", "")) != fam:
+		return  # only for the mayor
 	var d := FestivalPage.data_for(sim, e, fam)
 	if d.is_empty():
 		return
@@ -51,7 +57,13 @@ func _on_button(id: String) -> void:
 	if g == null or g.get("sim") == null:
 		return
 	var sim: Sim = g.get("sim")
+	if id == "audience_menu":  # the privileges on a second card (after this one closes)
+		var menu := FestivalPage.audience_menu(sim, data)
+		(func() -> void: show_page(menu)).call_deferred()
+		return
 	var actor := SimQuery.family_actor(sim.state, SimQuery.player_family(sim.state))
+	if id.begins_with("choose:"):  # the mayor's choice: the order is the mayor's
+		actor = FestivalCourt.mayor(sim)
 	var app := get_node_or_null("/root/App")
 	if id.begins_with("bet:") and app != null and app.has_method("open_game"):  # juegos: the bookmaker of the feast
 		app.call("open_game", {"game": str(FestivalGames.spectacle_cfg(sim, id.substr(4)).get("game", "")), "actor": actor,

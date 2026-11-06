@@ -380,6 +380,8 @@ static func notice_text(state: WorldState, catalog: Catalog, n: Dictionary) -> S
 		p["festival"] = festival_name(str(p["festival"]))
 	if p.has("part"):
 		p["part"] = t_("festival.part." + str(p["part"])).to_lower()
+	if p.has("privilege"):  # fiestas: the marquis's privilege
+		p["privilege"] = t_("festival.privilege." + str(p["privilege"]))
 	if p.has("event"):  # H13: a global event id (its name and the sentence of its effects)
 		var ek := str(catalog.world_events().get(str(p["event"]), {}).get("text_key", "event." + str(p["event"])))
 		p["desc"] = t_(ek + ".desc")

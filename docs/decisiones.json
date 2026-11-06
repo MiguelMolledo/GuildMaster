@@ -2,343 +2,6 @@
   "tomadas": [
     {
       "fecha": "2026-11-05",
-      "tema": "El teclado en la interfaz",
-      "decision": "Sí al camino por teclado en menús, paneles y cartas (KeyNav): todo control de la interfaz toma el foco; Tab entra en lo de arriba, flechas y Tab se mueven, Intro/Espacio pulsan, Esc cierra, F6 cambia de zona. El mapa y las salas, del ratón. Un clic no deja el foco; las flechas no mueven la cámara con foco; R y la cámara avisan dentro de un edificio. La A, sin cambios. El foco de los botones usa la pieza hover del kit; casillas y pestañas, un marco dorado.",
-      "por_que": "Decisión del manager (bloque C): meta de cobertura ratón ≥ 65 y teclado ≥ 60 órdenes."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "La letra del mundo y los recortes",
-      "decision": "Todos los rótulos de la ciudad y de las salas pasan por WorldLabels (game/world/world_labels.gd): Pixel Operator 16 (negrita en letreros y nombres) y Pixel Operator 8 en barras, insignias y burbujas, con contorno oscuro de 2 px; nunca la fuente por defecto de Godot ni tamaños intermedios. Los textos del HUD que no caben eligen una forma más corta (la entera, en el tooltip). La ayuda no queda bajo el velo del tutorial.",
-      "por_que": "Verificación por la interfaz, bloque B del manager."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Cartas que no pausan: pila lateral, no modales",
-      "decision": "Las cartas de la ciudad que no pausan (eventos, fiestas, bodas, sucesos, retos) van en pequeño (plantilla aviso, sin ilustración) a una pila a la derecha bajo el reloj, o al lado del panel de gestión abierto; nunca se solapan, la que no cabe espera, y se apartan mientras hay un modal. Solo las que pausan (dato modal) son modales: centradas y de una en una, con cola.",
-      "por_que": "Hallazgo de la verificación por la interfaz: la carta centrada se comía los clics de la sala (toque maestro perdido) y dos cartas se tapaban. Decisión del manager (bloque A)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "El que es llamado espera (orden hail)",
-      "decision": "Al ir a hablar, cortejar, retar o tratar con un testigo que está lejos, la UI da primero hail: el otro se para (state.town.holds) hasta que llegas y actúas, das otra orden o pasan data/town.json actions.hail.wait_minutes (90). Orden de gestión: se aplica al momento. Sin cambio de versión del guardado (vive dentro de town).",
-      "por_que": "Retar a quien anda acababa en «demasiado lejos» al llegar. Decisión del manager (bloque A, A8)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Reto recibido, limosna y botones apagados",
-      "decision": "Carta de reto recibido con Aceptar / Rechazar (duel_answer) y «Retirarse» en la carta de un reto propio aceptado (duel_withdraw); también al cargar una partida con un reto sin contestar. «Dar limosna» en la ficha de un mendigo (give_alms). Regla: todo botón apagado dice por qué (tooltip o línea de motivo); la verificación lo comprueba en cada pantalla (hallazgo «mute»). Las teclas 1-4 de las partidas pulsan el botón que llevan pintado, también en las apuestas.",
-      "por_que": "Órdenes sin interfaz y botones mudos encontrados por la verificación. Decisión del manager (bloque A)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Interiores: fondo pintado más piezas encima",
-      "decision": "Camino C de docs/arte/interiores.md: un fondo pintado con fal por sala y por planta sobre la plantilla de su geometría, piezas sueltas para lo que tiene altura y con lo que se interactúa, y capas de luz y partículas. Las paredes entre salas son piezas aparte, para que se puedan transparentar. Fondo y piezas con la misma paleta, la misma luz, el mismo contorno y la misma escala.",
-      "por_que": "Owner: «renderizarlo y luego los extras con los que interactuamos ponerlos encima puede estar bien; el tema es que case la estética»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Personajes con más detalle a la misma escala",
-      "decision": "Opción A: los personajes siguen a ~48-50 px de figura (escala B, docs/arte/escala.md) y se regeneran con PixelLab v3 «high detail» directamente a ese tamaño (lienzo ~52), sin reducir sprites más grandes. No se escala el mundo. Prueba: el herrero v3 de 80 px (figura 78) quedó mucho mejor que el de hoy; generar a su tamaño final cuando haya generaciones (bono diario de 5, o el ciclo del 15-nov).",
-      "por_que": "Owner: «vamos con la A»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Gate 04c · IA de las familias rivales",
-      "decision": "Aprobado el diseño de docs/gdd/04c_ia_rival.md con sus recomendaciones (4.21.14). Se abre H6 (parcelas y construcción, con la IA rival construyendo), que incluye la compra, restauración y reconversión de 4.9.1.",
-      "por_que": "Owner: «me parece bien ese diseño, pensaba que lo había aprobado»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Gate 4.22 · otras clases (O1–O15)",
-      "decision": "Aprobado el diseño de docs/gdd/04d_otras_clases.md con todas sus recomendaciones: O1 a, O2 a (Herrero, Granjero, Médico, Ladrón), O3 a, O4 a, O5 a, O6 a, O7 a, O8 a, O9 a, O10 a, O11 a, O12 a, O13 b, O14 a (con 04f §4.24.5 para los bandidos), O15 a. Se abre el resto de H12 (Patrón, Erudito, Pícaro). Guardado v21.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Ciudad viva II y fiestas (O-V1–O-V10)",
-      "decision": "Confirmadas las recomendaciones de 04f §4.29, tal como se construyeron.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Población de la villa (O-V2)",
-      "decision": "32 habitantes con la vida encendida (5 por casa); la diana town_population_life [14,32] pasa a definitiva y la banda de vecinos de idle_town será [15,22] el día que se mida con la vida.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Diversión y ritmo (O-D1–O-D5)",
-      "decision": "Confirmadas las recomendaciones de 03b §3b.7, tal como se construyeron.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Ropa y personalización",
-      "decision": "Sin capas. Tipos base de PixelLab (papel, sexo y edad), colores de identidad por shader, de 3 a 4 trajes por tipo como variantes completas (trabajo, fiesta, invierno, armadura) animados solo en lo que usan, armas solo en las poses que las usan, y la personalización fina en el retrato.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Orden de PixelLab",
-      "decision": "(1) Hugo a su tamaño final con el bono diario, para validar la opción A; desde el 15-nov: (2) los 6 personajes base con v3 de alto detalle y sus animaciones; (3) guardia y bandido; (4) animales (cerdo, toro, caballo y oveja); (5) poses del duelo; (6) el resto de tipos y los trajes. Se mide el coste de un traje antes de la tanda 6 y no se pasa del 80 % del ciclo sin revisar.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Poses del duelo",
-      "decision": "Dos juegos de poses: con espada y a puño. La herramienta usa el juego de la espada (la silueta casi no cambia y se ahorra un tercio). Así el arma que elige el retado se ve.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Emblema en el mapa de la región",
-      "decision": "Estandarte; el escudo queda como variante.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Regalo de la villa y audiencia del marqués",
-      "decision": "Sí, ya. El Alcalde (o la IA si es suyo el cargo) elige el regalo entre las piezas ofrecidas por calidad y valor; las familias con título de Ciudadano o más piden audiencia con un regalo y una tirada de Retórica, y pueden ganar los privilegios de 04f §4.25.2.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Patrocinios de las familias rivales",
-      "decision": "Sí: con 04c aprobado, el módulo de reputación de la IA patrocina una fiesta al año como mucho si le sobra el oro; compite con el patrocinio del jugador.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Taberna y límite de edificios (O-V11, O-V12)",
-      "decision": "No cuenta para el tope por título; con H6 se podrá construir una segunda en un solar y la del pueblo pasa a ser la rival.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Duelo O-C13–O-C17",
-      "decision": "Recomendaciones de 04e: O-C13 a (sin puntos aparte), O-C14 a (la calumnia como causa cuando el tribunal guarde la acusación falsa), O-C15 a, O-C16 a, O-C17 a ahora y b en la siguiente vuelta, con tope por estación.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Tutorial",
-      "decision": "Las 5 decisiones por defecto se quedan: el capítulo 1 pausa, el modo guiado apagado, «No volver a mostrar» apaga todas las pistas, Tab/Mayús+Tab/Retroceso y no se sigue el capítulo al cargar.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Dianas con eventos",
-      "decision": "Se mantienen. Los objetivos largos siguen en _no_events y los eventos se miden con sus propios bots (events, festive, full_player).",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Rama arte-fal",
-      "decision": "Se guarda con una etiqueta (arte-fal-raws) para conservar los originales en bruto y se borra la rama remota.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "D16 · Mostrador y demanda",
-      "decision": "Sí, a la mitad: cada unidad vendida en el mostrador baja la demanda del mercado −0,025 (la mitad que en el mercado). Se mide con los bots y se ajustan las bandas que muevan, con su motivo.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "D17 · Escala de los edificios",
-      "decision": "Cerrada por la escala B (docs/arte/escala.md): edificios a su tamaño final y escala entera.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "D19 · Cierre voluntario de la dinastía",
-      "decision": "Permitido: «Retirarse» en el menú de pausa abre la pantalla final con la puntuación de 4.17 (con confirmación).",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "D10 · Estilo de ciudad",
-      "decision": "Confirmado: villa de mercado (A) con río y puerto (C) para la capital Bellcaire (mapa EA), pueblo-calle (E) para Vilarrasa.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Estructura D · pintar mapas en el TileMap",
-      "decision": "No. Los mapas salen del generador de ciudades y de tools/city/ciudades.json; los retoques se hacen en datos.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Cifras de D1(b) fijadas por un subgrim",
-      "decision": "Se aceptan como punto de partida: las ajustan los bots y full_player, con sus bandas.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "ElevenLabs desde el 20-nov",
-      "decision": "Por orden, dentro del tope de 20.000 créditos: music_ending, la música de las 8 fiestas fijas, el ambiente de la taberna llena, los sonidos del duelo y de los juegos (dados, naipes, golpe), y el bullicio de la plaza y la feria. Se mide el gasto tras cada tanda.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Ideas del backlog",
-      "decision": "Entran: Crónica de la dinastía (H15), Gremios como facción (diseño propio, el siguiente gran sistema), Encargos con cadena de favores y Modo foto (para Steam). El mercado semanal y la feria ya los cubren las fiestas, y el concurso de calidad en la feria entra como añadido pequeño. El escaparate lo cubre el expositor de 04g. Rumores que viajan, después del espía de 4.22.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Astra",
-      "decision": "Se descarta: con fal y PixelLab basta; si el owner la recuerda, se mira.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Arte de los minijuegos (04f §4.26): medidas de los fondos y del galope",
-      "decision": "(1) Los fondos de tablero van a 440×192 nativos ×2 = 880×384 (21:9), no a 16:9 como la mesa: el tablero (404×180 como mínimo) recorta abajo y en el centro a ½, y en 16:9 perdería el tercio de arriba. (2) La pista de la carrera va a 404×192 ×2 = 808×384, sin recorte lateral, para que la salida y la meta queden dentro. (3) El galope se entrega en race/horse_run.png (tira de 4 de 28×18) y race/horse.png es el primer fotograma suelto, porque board_race.gd dibuja horse.png entero a 28×18 (una tira de 112 se aplastaría); el tablero puede pasar a la tira cuando quiera. (4) El cubilete se dibuja con Pillow (24×24, boca abajo): el de fal salía con la boca arriba. (5) En la calle de la sortija el travesaño va sin nada colgado (la anilla la pinta el tablero): con cuerda parecía una horca.",
-      "por_que": "Que el arte encaje con lo que el código de juegos ya hace (recorte a ½ abajo y al centro, tamaño de dibujo del caballo) sin pedirle cambios, y que se lea bien."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 1 · regalos de cortejo",
-      "decision": "Solo cuenta para la afinidad el primer regalo del día a cada pretendiente; los demás se aceptan sin efecto y la pantalla lo dice.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 2 · partida sin salida",
-      "decision": "Nunca puede quedar una partida muerta. Sin oro ni existencias se ofrece un préstamo de urgencia del prestamista (pequeño, caro, con plazo); si no se puede o no se toma y la deuda de mantenimiento pasa de su umbral, llega el embargo de un bien (lo más caro que no sea la casa) y, sin bienes, la ruina con la pantalla de fin.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 3 · Ciudadano",
-      "decision": "La mediana del título de Ciudadano debe caer en el año 2 (días 9-16), como pide 03b, para que viajar llegue a tiempo; se ajustan sus requisitos y se mide con full_player.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 4 · Barón",
-      "decision": "Lo resuelve H6 (parcelas, construir y comprar negocios, 4.9.1); diana: Barón alcanzable en una generación por full_player. La taberna sigue sin contar para el tope (O-V11) pero sí como negocio para el requisito.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 5 · sumidero de oro",
-      "decision": "Los sumideros grandes llegan con H6 (construir, restaurar ruinas, comprar negocios) y se añade una pecha progresiva por patrimonio al cierre del año; se mide el oro final de una generación después de H6.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 6 · tribunal",
-      "decision": "La IA rival de 04c (H6) comete faltas que pueden hacerse públicas (pesos falsos, impagos, contrabando) y dan hechos para acusar; diana: al menos un hecho acusable por año en full_player.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 7 · caravanas y tratados",
-      "decision": "Se reequilibran para que compensen en el año 2-3: más prima en la capital para las piezas de calidad y reputación en la capital también por encargos y ventas allí, no solo por caravanas; diana en el bot merchant y en full_player.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 8 · mostrador",
-      "decision": "Con la clientela de comarca de 04g §4.6.5.7 el mostrador con un empleado debe dejar al menos el doble de su salario; se mide junto con D16.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 9 · obras de mejora",
-      "decision": "Las mejoras pequeñas se hacen de noche sin parar la forja; las grandes la dejan trabajando al 50 % mientras duran.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 10 · cortejar a diario",
-      "decision": "Se deja: es un coste elegido (menos producción a cambio de boda antes). Se vuelve a medir con el tope del punto 1.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 11 · encargos de fiesta en los bots",
-      "decision": "Los bots miran el plazo real en horas, no redondeado al día; el arreglo va a todos los bots y sus dianas se miden de nuevo.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 12 · ritmo",
-      "decision": "El hueco máximo entre decisiones (< 60 s, 03b) debe cumplirse también en días de obras; se espera que lo arregle el punto 9 y se mide con pacing y full_player.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Posada: clientela en dos capas (04g §4.6.5.7) y fiestas",
-      "decision": "La taberna sigue el modelo de 04g: Vecinos de verdad por su agenda (Inn.neighbour_in en Agenda._go; pagan de la bolsa de su casa, +2 de relación si salen contentos, vuelven a su agenda) y la Gente de la comarca y los grupos de paso con dinero de fuera; precio máximo por cliente; fiestas por Festivals.hook_mult(service, tavern) y platos de temporada el día de su fiesta; «sin sitio» no resta fama.",
-      "detalle": "Choque con 04g a decidir: como casi todas las casas de la villa tienen 0-5 de oro (solo cobran las que tienen empleados), los vecinos que pagan de su bolsa son ~2 por noche; si se quiere más vida de vecinos en la taberna, hace falta que los hogares ganen algo (jornales de campo, H12) o que el vecino pague una parte de fuera.",
-      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Juegos en las fiestas",
-      "decision": "Los espectáculos de fiesta que son juegos (justa, torneo de lucha, carrera, toros) se corren a su hora con las reglas de 4.26: solos (Games.auto) o con el jugador si se apuntó (game_enter; la justa pide Ciudadano). Si el apuntado no juega, al acabar la fiesta se resuelve sin jugar en su nombre. Las apuestas de la feria se pagan con el resultado de la propia competición y se devuelven si no llega a correrse. Todo va dentro de la instancia de fiesta (v18): juegos sigue sin versión de guardado.",
-      "por_que": "Encargo del manager: enganchar festival_spectacle, la justa y el torneo del Alcalde y las apuestas en la feria. Guardarlo en la fiesta evita otra versión de guardado; resolver al final al que no juega evita que apuntarse y cerrar la pantalla sea una salida gratis."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Plantillas: empezar en cualquier ciudad de la región y su población por el bench",
-      "decision": "Partida nueva ofrece «Dónde empiezas» (Vilarrasa por defecto y las cinco de Valldaura; también --start-city=<id>): NewGame.from_start con choices.city juega el mismo inicio en el mapa de esa ciudad; sin ciudad o con Vilarrasa la partida es la de siempre, byte a byte (las dianas no se mueven). Peñarroja, Vilablat y Montsacre se regeneran con el generador para llevar los solares de los cuatro oficios (hitos y puntos de reunión idénticos). Cada ciudad empieza llena con per_house del plan (tools/city/ciudades.json) y su population_max: el objetivo era 5 por casa, recortado a lo que aguanta el bench (wanderer, vida encendida, mejor de 3 pasadas, intercalado con Vilarrasa como referencia porque la máquina estaba cargada: Vilarrasa dio 1,87-2,37 ms): Vilablat 5 (20 vecinos, 2,00 ms), Montsacre 5 (20, 2,04), Peñarroja 3 (18, 2,27; con 4, 2,44), Portvell 2 (20, 2,32; con 5, 4,30), Bellcaire 2 (32, la de antes: 4,13 ms; no aguanta con ninguna, ni con 1 por casa: 2,99). El peor paso pasa de 8 ms en todas, Vilarrasa incluida (16-20 ms con esta carga).",
-      "por_que": "El coste del bench crece con los personajes (~0,08 ms cada uno en un mapa de 40×40, más en el de 80×80 por las rutas largas del A*): con la diana de 2 ms caben unos 25 personajes. Para que Bellcaire aguante con muchos vecinos hace falta abaratar las rutas, no quitar gente (pendiente de decidir)."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Hugo v3: proporciones de adulto",
-      "decision": "Se mantienen las proporciones del v3 (cabeza de adulto, cara de 9×6 px a escala B); no se agranda la cabeza. A zoom 1 el personaje se lee por silueta, color de ropa y nombre; la cara, en el retrato y a zoom 2. Retoque a mano de ojos, boca y barbilla hecho (arte-fal-2 2786313). El v3 se cablea entero (idle, andar, forjar) cuando haya 8 generaciones de PixelLab para el andar; hasta entonces, nada más de arte: prioridad gameplay.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Decide el manager tras ver las comparativas a zoom 1 y 2."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 13 · fama de un taller",
-      "decision": "como la de la taberna, 0,5-2,0; sube con la calidad media de lo vendido en los últimos 4 días, obras maestras, encargos cumplidos y concursos ganados; baja con encargos incumplidos y quejas. Se define en 04g §4.6.5.7.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 14 · clientela de la comarca en los talleres",
-      "decision": "una sola implementación para mostrador y taberna (la de interiores, sim/town/clientele.gd, y la de la posada se unifican); se enciende cuando sus cifras por oficio estén medidas con los bots de cada oficio y el mostrador deje ≥2× salario (punto 8).",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Equilibrio 15 · bolsa de los hogares",
-      "decision": "los vecinos con trabajo cobran un jornal diario a la bolsa de su casa (según oficio), y la comida se paga de ella; el gasto en la taberna es discrecional. Diana: 6-12 vecinos por noche en la taberna un día normal.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Montsacre: dentro y fuera sin muralla de villa",
-      "decision": "El recinto de la abadía no es edificable (tierra de la Iglesia). En ciudades sin muralla de villa, «dentro» es el núcleo a un radio andando de la plaza (cifra en tools/city/reglas.json), con guardia y precio de situación de dentro.",
-      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Desbloqueos enganchados a fiestas (03b §3b.4)",
-      "decision": "La primera fiesta y la feria se abren por evento, no por fecha: cuando empieza la primera fiesta de la villa (festival_started de cualquiera: disparador event con anyone) y cuando empieza harvest_fair; solo con data/festivals.json enabled. Metas: cumplir un encargo de la fiesta (festival_contract_done) y vender 5 piezas en la feria (market_sold). La meta «vende en tu mostrador durante la fiesta» de 3b.4 se cambió por la del encargo: el mostrador pide una mejora que el año 1 no siempre tiene. El bot de ritmo sigue sin fiestas (no está en _festivals); con --festivals=on --life=on: mediana 4,6-4,7 s, máximo 37-44 s, la fiesta el día 2 y la feria el 4, y en 1 de 3 semillas las mejoras no llegan en el año (con fiestas el novato no junta 300 de oro).",
-      "por_que": "La fecha de cada fiesta la decide su calendario (data/festivals.json), no la tabla de desbloqueos; atarse al evento sigue al calendario si cambia."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Ventana de mejoras con fiestas (03b §3b.4)",
-      "decision": "El owner decide que la ventana de las mejoras (días 4-6) no se toca aunque, con fiestas, el novato no llegue a 300 de oro en el año 1 en 1 de 3 semillas: lo arregla el equilibrio (Ciudadano y oro del año 1-2 con fiestas). Queda como diana propuesta en data/targets.json pacing._proposed_festivals, que la QA no comprueba; el bot de ritmo sigue en _no_life.",
-      "por_que": "No tumbar la QA por un desajuste que es de equilibrio, no de ritmo."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Desbloqueo de la taberna enganchado a la posada (03b §3b.4)",
-      "decision": "El desbloqueo tavern pide data/inn/ (posada en main), llega el día 5 (otoño) y presenta la Taberna-Posada de la plaza, que está en venta, como segundo negocio; meta «Abre tu taberna» (building_bought). Guardado: la cadena queda 16 -> 17 (vida), 17 -> 18 (fiestas), 18 -> 19 (posada), 19 -> 20 (_to_v20), WorldState.VERSION 20.",
-      "por_que": "En el juego la taberna no tiene dueño al empezar (for_sale): no hay «taberna de otro» como cliente; comprarla no pide título, así que su carta llega con el calendario de 3b.4 y no con el de Ciudadano."
-    },
-    {
-      "fecha": "2026-11-05",
       "tema": "Plantillas: rendimiento de Bellcaire con 5 por casa, rumores por turnos y guardia por ciudad",
       "decision": "Las cinco ciudades de la región vuelven a 5 vecinos por casa. Rendimiento: (1) los mapas con routing (las cinco de la región; town_e no) buscan rutas con A* y heurística de hitos (ALT, 4 hitos, sim/world/route_atlas.gd): mismo coste que el A* de siempre, el doble de rápido; (2) optimizaciones exactas (mismo hash en todos los mapas, comprobado con un arnés de 15 partidas): los minutos quietos de TownLife (TownLife._quiet), la plantilla de cada taller una vez por paso en WorkQueue, la lista de vecinos, los asientos libres de los puntos de reunión y el peso de cada actividad una vez por minuto en Agenda, los precios del rumor de mercado una vez por recuento; (3) un tope de rutas nuevas por minuto en TownLife (routing.replans_per_minute: 6 en Bellcaire, 10 en las demás; el resto espera al minuto siguiente; solo en los mapas con routing). Bench oficial (wanderer, mejor de 3, carga 8-9): Vilarrasa 1,05 ms / 11 ms; Bellcaire 3,62 / 32 (con la vida real, bot idle, 2,57 / 30); Portvell 2,44 / 19; Peñarroja 1,59 / 13; Vilablat 1,20 / 13; Montsacre 1,22 / 15. Rumores: en un corrillo, como mucho 2 burbujas o frases a la vez (la segunda más alta y con el turno desfasado), las demás esperan su turno (WorldView._take_turns, vista). Guardia: el nombre de la de cada ciudad en tools/city/ciudades.json watch y strings.csv.",
       "por_que": "Encargo del manager. Bellcaire no llega a 2 ms con optimizaciones exactas: el coste es lógica por vecino repartida en muchos sistemas; para bajar más hace falta un nivel de detalle (vecinos que no se ven o están dentro, procesados menos a menudo), que cambia resultados en esas ciudades (no en Vilarrasa) y está pendiente de decidir."
@@ -351,33 +14,41 @@
     },
     {
       "fecha": "2026-11-05",
-      "tema": "Equilibrio 15b · fama de la taberna con la bolsa de los hogares",
-      "decision": "Con los jornales a la bolsa de cada casa, los vecinos llegan a 6,1 por noche (diana 6-12). La comarca baja de [4,8] a [3,6] por noche y el jornal queda en 7 (9 en puesto o tienda). La banda inn_fame pasa de [1,5, 3,5] a [1,5, 4,0], pero con una medida nueva: fame3_day, el día en que la fama llega a 3, con banda [8, null], para que los nobles no lleguen antes del año 2. Si llegan antes, se frena la subida por noche en vez de mover la banda.",
-      "por_que": "Decisión del manager por delegación del owner («las que no confío en ti decide tú, siempre pensando en que el juego sea completo, divertido y con calidad profesional»): la fama puede subir más con clientes contentos, pero el ascenso a los nobles tiene que ganarse a lo largo de la partida."
+      "tema": "Plantillas: empezar en cualquier ciudad de la región y su población por el bench",
+      "decision": "Partida nueva ofrece «Dónde empiezas» (Vilarrasa por defecto y las cinco de Valldaura; también --start-city=<id>): NewGame.from_start con choices.city juega el mismo inicio en el mapa de esa ciudad; sin ciudad o con Vilarrasa la partida es la de siempre, byte a byte (las dianas no se mueven). Peñarroja, Vilablat y Montsacre se regeneran con el generador para llevar los solares de los cuatro oficios (hitos y puntos de reunión idénticos). Cada ciudad empieza llena con per_house del plan (tools/city/ciudades.json) y su population_max: el objetivo era 5 por casa, recortado a lo que aguanta el bench (wanderer, vida encendida, mejor de 3 pasadas, intercalado con Vilarrasa como referencia porque la máquina estaba cargada: Vilarrasa dio 1,87-2,37 ms): Vilablat 5 (20 vecinos, 2,00 ms), Montsacre 5 (20, 2,04), Peñarroja 3 (18, 2,27; con 4, 2,44), Portvell 2 (20, 2,32; con 5, 4,30), Bellcaire 2 (32, la de antes: 4,13 ms; no aguanta con ninguna, ni con 1 por casa: 2,99). El peor paso pasa de 8 ms en todas, Vilarrasa incluida (16-20 ms con esta carga).",
+      "por_que": "El coste del bench crece con los personajes (~0,08 ms cada uno en un mapa de 40×40, más en el de 80×80 por las rutas largas del A*): con la diana de 2 ms caben unos 25 personajes. Para que Bellcaire aguante con muchos vecinos hace falta abaratar las rutas, no quitar gente (pendiente de decidir)."
     },
     {
       "fecha": "2026-11-05",
-      "tema": "Posada · lo que queda de 04f §4.27",
-      "decision": "Partidas simuladas entre clientes: no (la parte fija de la casa basta). La multa por jugar sin licencia la paga el dueño de la taberna, juegue quien juegue en su mesa; la familia visitante solo arriesga lo apostado. Se puede jugar en la taberna de otra familia como visitante: la parte de la casa va al dueño y, si es la IA rival, su perfil decide si te deja y la apuesta mínima.",
-      "por_que": "Decisión del manager por delegación del owner («las que no confío en ti decide tú, siempre pensando en que el juego sea completo, divertido y con calidad profesional»): lo que da decisiones al jugador entra; lo que solo añade cuentas, no."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Posada: la mesa de juego y la partida del forastero",
-      "decision": "La mesa de la taberna (mejora de ambiente 3) se juega solo durante el turno: azar, mayor o envite contra los vecinos sentados o las fichas regular_*, en la pantalla de los juegos con opts.house = la taberna. Un forastero (regular_cheat, stranger_soldier, stranger_merchant) propone azar o envite a 10/25 cuando hay jugadores y licencia; queda abierta hasta el cierre. Sin licencia: 30 % (50 % con alguacil) de hecho illegal_gaming (minor_fraud), −3 de reputación y aviso. Sin versión de guardado: night.offer y stats.games con su valor por defecto.",
-      "por_que": "Manager 2026-11-05 (contrato docs/contratos/juegos.md §5); las cifras son propuesta en data/inn/inn.json → games."
-    },
-    {
-      "fecha": "2026-11-05",
-      "tema": "Juegos: la casa propia no cobra; la posada no pasa opts.event",
-      "decision": "Games._apply no aplica el margen de la casa cuando la casa es de la familia que juega (antes se le restaba y ese oro no iba a nadie). La posada no pasa opts.event (FestivalGames.play_block rechaza el que no es de una fiesta) y reconoce sus partidas por house. Contrato de juegos y 04f actualizados.",
-      "por_que": "Bug visto al probar la mesa: el jugador perdía el 10 % de lo ganado en su propia taberna; y el contrato pedía un event que el código rechaza."
+      "tema": "Posada: clientela en dos capas (04g §4.6.5.7) y fiestas",
+      "decision": "La taberna sigue el modelo de 04g: Vecinos de verdad por su agenda (Inn.neighbour_in en Agenda._go; pagan de la bolsa de su casa, +2 de relación si salen contentos, vuelven a su agenda) y la Gente de la comarca y los grupos de paso con dinero de fuera; precio máximo por cliente; fiestas por Festivals.hook_mult(service, tavern) y platos de temporada el día de su fiesta; «sin sitio» no resta fama.",
+      "detalle": "Choque con 04g a decidir: como casi todas las casas de la villa tienen 0-5 de oro (solo cobran las que tienen empleados), los vecinos que pagan de su bolsa son ~2 por noche; si se quiere más vida de vecinos en la taberna, hace falta que los hogares ganen algo (jornales de campo, H12) o que el vecino pague una parte de fuera.",
+      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
     },
     {
       "fecha": "2026-11-04",
-      "tema": "Fiestas: regalo de la villa, audiencia del marqués y patrocinios de la IA (de momento, no)",
-      "decision": "Manager, a la espera del owner: no a las dos. El regalo de la villa sigue siendo un encargo de carrera (la primera espada excelente) y no hay audiencia con privilegios; las familias rivales no patrocinan fiestas. Las dos preguntas pasan al owner.",
-      "por_que": "Respuesta provisional del manager mientras el owner decide."
+      "tema": "Posada + vida: forasteros que duermen y rumores de la barra",
+      "decision": "Con la vida encendida la Taberna-Posada recibe a los forasteros de verdad: los tipos de cada grupo (data/inn/clientele.json visitor_kinds) que piden cama y la encuentran se quedan a dormir al acabar su plan o al atardecer, esperan a la puerta, entran como clientes con su cama pagada y salen al amanecer (Inn.lodge / lodger_step, gancho en Visitors._step_one); los grupos de forasteros ya no se sortean aparte y el generador de prueba solo corre con la vida apagada. Los rumores de la barra son los de vida (Rumors.candidates, temas del punto tavern) y entran en el libro de rumores. Guardado: v17 (vida) → 17→18 reservado a fiestas → v19 (posada). El punto tavern que vida pone a la puerta de la taberna (citylib.add_life, ahora también en town_e) solo cuenta cuando la taberna tiene dueño (Inn.closed_for_sale en Life.points): con ella en venta o en escenarios sin ella, los vecinos vuelven a casa de noche como antes.",
+      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Posada: huella 3×4 y el arte de arte-fal-2",
+      "decision": "La Taberna-Posada pasa de 4×4 a 3×4 (la huella de la carpintería) para usar su arte sin rehacerlo: fachada y espalda fal (192×230, Sprite offset (-104, -158), puertas SW (1, 4) y NE (1, -1)); en town_e, cols 26-28 × filas 34-37, puerta (27, 33) igual. El interior usa el kit de assets/art/interiors/tavern/ (suelo, paredes, barra, mesa, bancos, toneles, cocina, chimenea, cama, rincón del juglar) por VisualPaths.inn_art, y la carta los iconos food_* por VisualPaths.inn_dish_icon (cerveza fuerte y vino bueno para la calidad buena o mejor). Lo que no tiene arte sigue en greybox con etiqueta.",
+      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Taberna-Posada (posada, 04f §4.27)",
+      "decision": "La Taberna-Posada entra como segundo negocio de cualquier familia (O-V7 a): el solar de cada mapa con su taberna en venta (town_e: cols 26-29 × filas 34-37, puerta (27,33); 320 de oro, buy_building), solo en partidas nuevas. Carta de 10 platos (data/inn/menu.json) con precio de 0,5× a 2×, plato de la casa y platos de temporada; 6 grupos de clientes con su «por qué no vienen» (data/inn/clientele.json, fórmula de 4.22.3.2 en data/services.json); turno de noche del atardecer a las 02:00 con llegadas en corrillo, paciencia, servir a mano o por roles, cuenta y propina, camas que se cobran al llegar y se hacen por la mañana, pelea (portero), irse sin pagar (el mozo persigue), juglar, rumor y partida (ganchos), resumen del turno; fama 0-5; árbol de 18 mejoras en 6 ramas; licencia de tafurería (60, 1 año). Guardado v19 (SaveFile._to_v19).",
+      "detalle": "Cambios del diseño en 04f §4.27.7 (T1-T10): comprar la del pueblo y construir con H6; sin tope de edificios por título; turnos por rol (barra y mesas de noche, cocina y habitaciones de día); corrillos; recetas sin hierbas; la comida se estropea sin despensa fría; ramas inn_*; se sirve durante las obras; plato de la casa; ganchos a vida y juegos.",
+      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Posada: efectos nuevos, rol de servicio y el validador",
+      "decision": "upgrade_rules.json gana las ramas inn_hall, inn_kitchen, inn_cellar, inn_rooms, inn_ambience y 15 efectos inn_* (lector «inn»); el validador avisa de los niveles que faltan solo en las ramas que usa cada árbol. night_production admite «employees». Un empleado con rol en un puesto de tipo «service» (barra, mesas, habitaciones) no recibe trabajo de la cola (WorkQueue) ni sale como parado: lo lleva su sistema (Inn). TownLife no manda a mirar a la puerta de un edificio en venta. El validador ya no pisa la variable de las clases al recorrer las rutas de los personajes de un escenario (fallo latente que destapó inn_night).",
+      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
     },
     {
       "fecha": "2026-11-04",
@@ -428,197 +99,52 @@
       "por_que": "Medido con tools/duel_bench.gd: con Constitución 3 el 30 % de los lances acababan sin nada (ahora 19 %) y la espada apenas ganaba a puño limpio (46/44, ahora 54/38); las políticas fijas siguen perdiendo y «Resolver sin jugar» sigue igual que seguir la pista. Las dianas de antes no se mueven: ningún bot de antes ni ningún NPC reta."
     },
     {
-      "fecha": "2026-11-04",
-      "tema": "Región de Valldaura (P-R1, O-R1–O-R10, D9)",
-      "decision": "Aprobadas todas las recomendaciones de 09b.8: la capital Bellcaire es el mapa EA de 80×80 y los demás asentamientos son pequeños; casa elegible al empezar, capital por defecto en EA (cuando exista su mapa); viajar con el título de Ciudadano y caravanas con carro; viaje abstracto con página de la ciudad (cargar otra ciudad, después de EA); viaje propio y caravanas con carretero; aranceles por ciudad; tratados de familia y del Alcalde; reputación por ciudad; nieve y crecida al llegar los viajes; población proporcional a las casas; nombres de 9b.9 y D9 = Bellcaire. Guardado de los viajes: v16.",
-      "por_que": "El owner: «me parece bien lo que comentas, dale caña»."
+      "fecha": "2026-04-13",
+      "tema": "Juego",
+      "decision": "Simulador de vida y dinastía medieval (inspirado en The Guild II/III), PC Steam Early Access.",
+      "por_que": "Decisión del owner."
     },
     {
-      "fecha": "2026-11-04",
-      "tema": "Combate: duelo a tres tiempos (O-C1–O-C12)",
-      "decision": "Aprobadas las recomendaciones de 04e §4e.9: el duelo entra ya como mecánica social del Artesano, solo a primera sangre (hasta la rendición, con la salud de 4.22); el lance sustituye a los asaltos de 4.22.6.1; a muerte bloqueado; el retado elige armas; lee Empatía contra Arte Marcial; la IA rival solo responde retos hasta revisar 04c; rechazar es gratis 2+ títulos por encima; iniciativa a ciegas y luego alterna; resolver sin jugar = jugar siguiendo la pista; cualquier pretendiente reta, sea cual sea su sexo. Guardado del duelo: v15; 4.22 pasa a v17.",
-      "por_que": "El owner: «me parece bien lo que comentas, dale caña»."
+      "fecha": "2026-04-13",
+      "tema": "Clases",
+      "decision": "4 clases (Artesano, Patrón, Erudito, Pícaro) y 18 profesiones.",
+      "por_que": "Decisión del owner."
     },
     {
-      "fecha": "2026-11-04",
-      "tema": "Interiores II (04g)",
-      "decision": "Sótano, planta baja y planta alta (la guarida del Pícaro tendrá en el sótano jaula para secuestrados y contrabando); clientes que aparecen con fundido; paredes del frente bajas y las interiores transparentes cuando estás detrás. Clientela en dos capas: vecinos con su agenda y clientela de la comarca que viene por la fama del negocio, con dinero de fuera y precio máximo (04g §4.6.5.7).",
-      "por_que": "Owner: «hasta dos plantas y un sótano… clientes que aparezcan con fade in… que los atraigan porque el negocio es famoso, no porque necesiten nada… me parece bien»."
+      "fecha": "2026-04-13",
+      "tema": "Política",
+      "decision": "5 títulos, 6 cargos; tope del EA = Alcalde.",
+      "por_que": "Decisión del owner."
     },
     {
-      "fecha": "2026-11-04",
-      "tema": "Juegos y vida: el rescate jugado y las apuestas sobre altercados",
-      "decision": "El rescate de un secuestro (Incidents, elección rescue) se juega en la pantalla de juegos: RescueMatch es la cadena de duelos de Incidents._fights (sin jugadas da el mismo resultado tirada a tirada, medido en tests/test_games_town.gd); la orden resolve_incident lleva las jugadas (moves) y el sim la vuelve a jugar con Rescue.fight. Las apuestas sobre un altercado se hacen mientras los dos van a pegarse (fase gathering) con game_bet {incident}; el corredor cotiza con el duelo del propio suceso (BrawlMatch) y la apuesta viaja dentro del suceso (ya guardado en v17), se paga en incident_fight y se devuelve si no hay pelea. Juegos sigue sin versión de guardado propia.",
-      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+      "fecha": "2026-04-13",
+      "tema": "Mapa EA",
+      "decision": "1 mapa de ~80×80 casillas con 6 zonas; 30-40 NPC y 5 familias rivales.",
+      "por_que": "Decisión del owner."
     },
     {
-      "fecha": "2026-11-04",
-      "tema": "Juegos 5-8: justa, sortija, carrera y toros (04f §4.26.1, §4.26.3-5)",
-      "decision": "Justa: una sola decisión por pasada entre tres posturas que forman un triángulo (al yelmo: escudo medio; al pecho: escudo bajo; al escudo: escudo alto), con iniciativa alterna y lectura como el duelo; con apuntar y cubrirse por separado (9 combinaciones) la IA no castigaba una costumbre en tres pasadas («siempre al escudo, escudo bajo» empataba o ganaba el 81 %). Yelmo −25 (desmonta), pecho +5 (2 puntos), escudo +15 (1, medio seguro). Requiere Ciudadano (reason.no_title); caballo y lanza alquilados al entrar (10) hasta que existan como objetos; favor: +15 de afinidad con la persona más cortejada. Sortija: la anilla de cada carrera es grande, mediana o pequeña (±25) para que cada ritmo sea el mejor en una. Carrera: reservar recupera 2, apretar en la meta ×1,15, caballos parejos (9,8-10,5) y ruido ±1,5; la IA usa el plan exacto (programación dinámica); el palio se paga en oro (30) hasta que exista el objeto de lujo. Toros: casta bravo/manso/resabiado, quiebro +2, pase +1, fallo −2 (con −1 quebrar siempre empataba con leer la señal); fallo = «asustado» y −1 de reputación, nunca herida (O-V5 a); quiebro +2 de reputación.",
-      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+      "fecha": "2026-04-15",
+      "tema": "Estilo visual",
+      "decision": "Pixel art 16-bit SNES (tipo Graveyard Keeper), isométrico 2:1, paleta de tierras cálidas + paleta otoñal secundaria.",
+      "por_que": "Decisión del owner."
     },
     {
-      "fecha": "2026-11-04",
-      "tema": "Juegos 2-4: naipes, apuestas, dados cargados y torneo de lucha (04f §4.26.2, §4.26.6-8)",
-      "decision": "Envite: las tres bazas comparan las cartas en orden (la más alta contra la más alta…) y se descubren una a una, sin elegir carta: el juego está en los envites y el farol; el gesto «contento/inquieto» dice si la mano gana a una al azar la mitad de las veces y su fiabilidad tiene base 0,70 (con dos gestos 0,50 no informa); el templado farolea un 3 % (con un 12 % perdía contra quien lo lee); uno contra uno (la mesa de muchos queda para la Posada). Apuestas: cuota = 0,9 / probabilidad del sim (60 partidas automáticas con clave) redondeada abajo a 0,05; game_bet sobre partidas de otros (mismo id, mismo ganador para las Fiestas) y bets a la propia partida; apostar contra uno mismo en un uno contra uno y perder habiendo jugado es fraude (50 % de que se note). Dados cargados (O-V10 b): objeto loaded_dice sin puesto hasta que el buhonero de la rama vida lo venda; ventaja 61 % en el azar; te pillan con 25 + (Empatía del rival − tu Destreza) × 5: pierdes apuesta y dados, hecho «trampa» (cargo cheat, nuevo en justice.json), reputación −5 y el evento game_cheat_caught. Torneo: tipos de combate tourney (9 lances, por puntos) y tourney_sudden, jueces al final; +2 de aliento entre combates; forasteros de AM 4-7 si faltan luchadores; una apuesta al ganador del torneo (no por combate) hasta que el torneo viva en el calendario de las Fiestas. Duel.create acepta el aliento inicial (parámetro opcional al final; nada más cambia en el duelo).",
-      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+      "fecha": "2026-04-15",
+      "tema": "Arte con IA",
+      "decision": "PixelLab para sprites de producción; fal.ai Nano Banana / Nano Banana Pro para concepto (FLUX descartado).",
+      "por_que": "Decisión del owner."
     },
     {
-      "fecha": "2026-11-04",
-      "tema": "Juegos 1: dados y pulso (04f §4.26.7, §4.26.9)",
-      "decision": "Construidos el «azar», «tres dados a la mayor» y el pulso en sim/games/ (reglas puras, tiradas con clave, sin guardado: la partida llega al sim en una orden game_play con sus jugadas y el sim la vuelve a jugar). Cambios al construirlo: (1) azar con «reazar» (regla del Libro de los juegos: un azar al buscar la suerte propia pierde); sin él quien tiraba ganaba el 57 %, con él el 50 %; el doble es uno por partida, cuando ya se ven las dos suertes, y el otro quiere o no quiere. (2) A la mayor con un dado bajo el cubilete (con los tres a la vista la decisión era evidente); todos deciden a la vez. (3) Pulso: empujar gana a ceder, ceder a aguantar, aguantar a empujar; empujar y ceder gastan 1 y aguantar recupera 2 (con empujar a 2, «siempre ceder» ganaba el 57 %); todo empuje tiene ganador. Casa de juego: el 10 % de lo que gana el ganador para el dueño (O-V8, con tope de 50 también al doblar y aviso por perder más de 100 en el día). Medido con tools/games_bench.gd (04f §4.26.10): resolver sin jugar = jugar bien partida a partida; al azar y las políticas fijas pierden.",
-      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+      "fecha": "2026-04-21",
+      "tema": "Sprites de personaje",
+      "decision": "Monolíticos por profesión/NPC (sin capas) en el MVP; variación por paleta para la identidad de familia.",
+      "por_que": "Decisión del owner."
     },
     {
-      "fecha": "2026-11-04",
-      "tema": "Arte de H16-H17 (04f §4.28.3 y 03b §3b.2): cómo se entrega",
-      "decision": "(1) Batir en la Forja viva: los «3 golpes» son las tres clases de golpe de 03b (fuerte, medido y de acabado: strike_strong/measured/finish), con el yunque y el martillo también sueltos para animarlos; no tres fotogramas de un golpe. (2) La Taberna-Posada usa la huella y la puerta de la carpintería (3×4, Door (-40, 12)), pero su lienzo es 20 px más alto por las dos plantas (192×230, Sprite offset (-104, -158)). (3) Los props de fiesta llevan la huella en metadata/footprint del nodo raíz (no tienen Door) y Feet en el centro del rombo de la huella. (4) Los naipes (48×72) y los dados se componen con Pillow sobre piezas de fal (palos y figuras), para que el número de palos y de puntos sea exacto. (5) Los personajes nuevos van, hasta PixelLab, como paletas del shader de identidad en assets/art/characters/looks.json (sprite base por sexo y colores de ropa), fuera de data/ para no pisar al worker de vida.",
-      "por_que": "Lo pedía el encargo o lo exige el juego: legibilidad (golpes que se distinguen), encajar en las escenas que ya existen (lienzo, ancla, puerta y huella) y exactitud donde el modelo falla (contar palos y puntos)."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "Posada + vida: forasteros que duermen y rumores de la barra",
-      "decision": "Con la vida encendida la Taberna-Posada recibe a los forasteros de verdad: los tipos de cada grupo (data/inn/clientele.json visitor_kinds) que piden cama y la encuentran se quedan a dormir al acabar su plan o al atardecer, esperan a la puerta, entran como clientes con su cama pagada y salen al amanecer (Inn.lodge / lodger_step, gancho en Visitors._step_one); los grupos de forasteros ya no se sortean aparte y el generador de prueba solo corre con la vida apagada. Los rumores de la barra son los de vida (Rumors.candidates, temas del punto tavern) y entran en el libro de rumores. Guardado: v17 (vida) → 17→18 reservado a fiestas → v19 (posada). El punto tavern que vida pone a la puerta de la taberna (citylib.add_life, ahora también en town_e) solo cuenta cuando la taberna tiene dueño (Inn.closed_for_sale en Life.points): con ella en venta o en escenarios sin ella, los vecinos vuelven a casa de noche como antes.",
-      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "Posada: huella 3×4 y el arte de arte-fal-2",
-      "decision": "La Taberna-Posada pasa de 4×4 a 3×4 (la huella de la carpintería) para usar su arte sin rehacerlo: fachada y espalda fal (192×230, Sprite offset (-104, -158), puertas SW (1, 4) y NE (1, -1)); en town_e, cols 26-28 × filas 34-37, puerta (27, 33) igual. El interior usa el kit de assets/art/interiors/tavern/ (suelo, paredes, barra, mesa, bancos, toneles, cocina, chimenea, cama, rincón del juglar) por VisualPaths.inn_art, y la carta los iconos food_* por VisualPaths.inn_dish_icon (cerveza fuerte y vino bueno para la calidad buena o mejor). Lo que no tiene arte sigue en greybox con etiqueta.",
-      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "Taberna-Posada (posada, 04f §4.27)",
-      "decision": "La Taberna-Posada entra como segundo negocio de cualquier familia (O-V7 a): el solar de cada mapa con su taberna en venta (town_e: cols 26-29 × filas 34-37, puerta (27,33); 320 de oro, buy_building), solo en partidas nuevas. Carta de 10 platos (data/inn/menu.json) con precio de 0,5× a 2×, plato de la casa y platos de temporada; 6 grupos de clientes con su «por qué no vienen» (data/inn/clientele.json, fórmula de 4.22.3.2 en data/services.json); turno de noche del atardecer a las 02:00 con llegadas en corrillo, paciencia, servir a mano o por roles, cuenta y propina, camas que se cobran al llegar y se hacen por la mañana, pelea (portero), irse sin pagar (el mozo persigue), juglar, rumor y partida (ganchos), resumen del turno; fama 0-5; árbol de 18 mejoras en 6 ramas; licencia de tafurería (60, 1 año). Guardado v19 (SaveFile._to_v19).",
-      "detalle": "Cambios del diseño en 04f §4.27.7 (T1-T10): comprar la del pueblo y construir con H6; sin tope de edificios por título; turnos por rol (barra y mesas de noche, cocina y habitaciones de día); corrillos; recetas sin hierbas; la comida se estropea sin despensa fría; ramas inn_*; se sirve durante las obras; plato de la casa; ganchos a vida y juegos.",
-      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "Posada: efectos nuevos, rol de servicio y el validador",
-      "decision": "upgrade_rules.json gana las ramas inn_hall, inn_kitchen, inn_cellar, inn_rooms, inn_ambience y 15 efectos inn_* (lector «inn»); el validador avisa de los niveles que faltan solo en las ramas que usa cada árbol. night_production admite «employees». Un empleado con rol en un puesto de tipo «service» (barra, mesas, habitaciones) no recibe trabajo de la cola (WorkQueue) ni sale como parado: lo lleva su sistema (Inn). TownLife no manda a mirar a la puerta de un edificio en venta. El validador ya no pisa la variable de las clases al recorrer las rutas de los personajes de un escenario (fallo latente que destapó inn_night).",
-      "por_que": "Diseño de su rama (ver el tema), construido por el worker."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "Forja viva (03b §3b.2, O-D1 a, O-D4 a)",
-      "decision": "Construida como modo de trabajo `live` (sim/forge/live_forge.gd, data/live_forge.json): calentar, batir y templar como órdenes live_forge que se aplican al momento y quedan en la grabación; cada decisión sale bien, cerca o mal; tres bien +1 escalón, dos mal −1; sin decidir nada, exactamente el modo normal (mismos dados). En el yunque de la forja el tercer botón pasa de «Con cuidado» a «Forja viva»; `careful` y el toque de maestro siguen en el sim para los bots, los guardados y los otros oficios. Gracia de 0,5 h al final del ciclo; solo se repite en Forja viva si se jugó hasta el temple. La pantalla pone ×1 mientras está abierta. Obra maestra: Artesanía ≥ 7, las tres bien y una tirada del 10 % [balance]; con nombre (santo + apellido), en la crónica y en masterworks.pieces; la venta a nobles ×3, el regalo y la ventaja en justas y duelo quedan como ganchos.",
-      "por_que": "El owner temía que forjar fuera mirar una barra. Cambios sobre el diseño: (1) 03b decía «jugar mal no es peor que no jugar», que contradecía el −1 con dos mal y O-C10 («jugar mal pierde»): se sigue O-C10. (2) El Hugo del inicio ya tiene Artesanía 7, así que la obra maestra no puede esperar al año 3-5: su desbloqueo pasa a «la primera que salga» y la probabilidad baja al 10 % para que sea rara. (3) Los rasgos son descriptivos hasta que exista la durabilidad. Banco (tests/test_forja_live.gd, 60 martillos, Artesanía 7): normal 1,07 · sin jugar 1,07 · bien 1,83 · mal 0,33."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "Encargos con especificaciones (03b §3b.3, O-D5 a)",
-      "decision": "Algunos encargos del herrero (spec_chance 0,35 [balance]) piden variante: hoja corta o larga, guarnición sencilla o labrada y temple, dicho con palabras en el tablón. Cada pieza hecha a medida cobra +30 % [balance] (spec_pay) al entregarla; una pieza normal se sigue aceptando a la paga normal. Las que cumplen se apartan para el encargo (contract.made) y vuelven al almacén si el encargo falla. Hoja larga ×1,15 y un golpe medido más; guarnición labrada ×1,25 y un golpe de acabado más.",
-      "por_que": "«Tensión, no castigo» (§3b.5.5) y las dianas: como prima, ni el jugador que no juega ni los bots pierden nada. Qué encargo pide variante sale de un azar propio (semilla de la partida + id del encargo), no de state.rng, para que las dianas de hoy salgan iguales."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "Desbloqueos (03b §3b.4, O-D2 a)",
-      "decision": "data/unlocks.json con disparador (start, calendario, oro, título, empleados, edad, evento con cuenta, ganarle al rival un día, any/all), ventana de 3b.4, marca en el HUD, capítulo del tutorial y meta; sim/pacing/unlocks.gd escribe state.unlocks (v20) y no lee reglas ni tira dados. Lo que se esconde es solo UI: los botones de Empleados y Mejoras de la forja hasta su desbloqueo; el resto se anuncia con carta, marca y meta sin esconderlo. Empezar un capítulo del tutorial desde la ayuda abre lo que enseña. Las partidas de antes de v20 lo tienen todo abierto. Fiestas, feria, taberna y sucesos quedan como ganchos (requires) que se activan solos cuando exista su data/<id>.json o data/<id>/.",
-      "por_que": "«Lo que se desbloquea es acceso de la UI, no reglas del sim». Esconder más paneles rompería los capítulos del tutorial y los escenarios; los demás ya tenían su puerta en el sim (títulos, edad, la mejora del mostrador). Cambios en la tabla: la obra maestra con la primera que salga (Hugo ya tiene Artesanía 7), el tribunal con un juicio o una acusación (no hay medida de «rival hostil»), cargos y tratados con Patricio, boda y caravanas juntos; ventanas medidas con el bot de ritmo: encargos día 1-2 (el novato vende el primer día o el segundo), mejoras día 4-6 (300 de oro llega entre el 5 y el 6 si paga la deuda pronto)."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "Metas siempre abiertas (03b §3b.5.1)",
-      "decision": "sim/pacing/goals.gd sobre los objetivos que ya hay: hoy = el objetivo de la cadena de inicio (el panel de siempre), esta estación = la meta del último desbloqueo por cumplir, este año = la deuda en el año 1 y después la primera meta de dinastía. Las metas de los desbloqueos cuentan aparte de la cadena, desde que se abren (state.unlocks[fam]._goals). La zona de metas va debajo del objetivo.",
-      "por_que": "Siempre hay al menos dos metas (hoy y este año); el bot de ritmo lo mide cada hora (mínimo 2, media 2,8-3,0)."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "«Saltar hasta…» (03b §3b.5.2, O-D3 a)",
-      "decision": "Botón «»» junto a las velocidades: el próximo evento, el amanecer o que acabe la cola, a ×8 (data/view.json skip). Lo corta cualquier aviso de la familia, un desbloqueo, un evento global o microevento, una orden, la pausa, cambiar la velocidad o un día entero. Es de la sesión (Game), no se guarda.",
-      "por_que": "Contra la espera vacía sin tocar el sim: la velocidad no es estado de la partida."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "Bot de ritmo (03b §3b.6)",
-      "decision": "Bot pacing: el novato forjando en Forja viva y leyendo las cartas, 8 días. Diana en data/targets.json (pacing): mediana < 30 s y máximo < 60 s entre decisiones, siempre >= 2 metas, desbloqueos en su ventana ±1 día. Paso pacing en run_all (5 semillas). Lista de comprobación de la partida del owner en docs/partida_owner.json (sale en el cuaderno).",
-      "por_que": "Medido con 3 semillas: mediana 4,7 s, máximo 29-40 s, metas mín 2, 9 desbloqueos y 0 fuera de ventana. Las órdenes a menos de 3 s cuentan como una decisión (las paradas de un mismo viaje)."
-    },
-    {
-      "fecha": "2026-11-04",
-      "tema": "Desbloqueos enganchados a vida (03b §3b.4)",
-      "decision": "Al juntar main con vida: el desbloqueo de los sucesos pasa a requires life/incidents (día 9, meta: intervenir en un suceso, incident_choice) y nace el de los rumores (life/rumors, día 5, marca en el libro de cuentas, meta: oír tres rumores, rumor_heard). La taberna queda como gancho de la posada, sin la meta de los rumores. Los ganchos de life/ solo se abren con la ciudad viva encendida. El bot de ritmo entra en _no_life (su diana se fijó sin vida); con --life=on sigue en su diana (mediana 4,6-4,7 s, máximo 29-40 s, 11 desbloqueos, 0 fuera).",
-      "por_que": "En vida los rumores se oyen en los corrillos, no en la taberna; y el principio 4 de 04f: las dianas ya fijadas corren como se midieron."
-    },
-    {
-      "fecha": "2026-11-03",
-      "tema": "Población variada",
-      "decision": "Cada partida nueva genera con su semilla el reparto cosmético (nombres, apellidos de casa, edades en rango, aspecto, retrato base, colores de las familias IA y personalidad de los vecinos; data/cast.json). Lo que pesa en el balance sale de los datos y no varía; también el orden de edad de los vecinos (los cargos van al mayor). «Reparto fijo» (choices cast = fixed) conserva el de antes para pruebas, escenarios y dianas (sim_runner por defecto). «Otra familia» en Partida nueva usa una sub-semilla del reparto: la semilla del mundo no cambia. Guardado v14 (raíz cast y visual.portrait).",
-      "por_que": "Encargo del owner: que varias partidas no tengan siempre las mismas familias y vecinos, y que cada ciudad tenga su gente. La sub-semilla deja el mundo igual (mismos eventos y tiradas) y cambia solo quién vive en él."
-    },
-    {
-      "fecha": "2026-11-03",
-      "tema": "H13 · guerra regional",
-      "decision": "La guerra regional sube el precio de las armas ×1,5 en vez de ×2 (data/events.json, GDD 4.5.3 y 4.13). Probabilidades, cifras y producción por estación sin cambios. Las dianas largas siguen midiéndose sin eventos (_no_events); con eventos fallan solo casos de cola (novato normal semillas 1 y 12 con guerra; experto semilla 15 con cinco eventos).",
-      "por_que": "Aprobado por el owner a propuesta del worker de H13: con ×2 el rival inactivo llegaba a 763 de oro al día 10 en guerra (269 con ×1,5) y rompía el balance."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Objetivos de inicio con encargo guionizado",
-      "decision": "Si el encargo guionizado de un objetivo de inicio ya no se puede cumplir (caduca, se abandona o lo coge otra familia), el objetivo se da por fallado con un aviso (notice.objective_failed) y la cadena pasa al siguiente; no se repone el encargo. El objetivo de calidad buena no está atado al encargo del capitán (vale cualquier encargo con calidad mínima ≥ buena), así que no falla. En el panel de contratar salen primero los candidatos contratables.",
-      "por_que": "GDD 4.16: los objetivos «no bloquean nada»; en la prueba de la rebanada (H5) el objetivo del carpintero se quedaba bloqueado para siempre al caducar su encargo y recado y deuda ya no contaban. Reponer el encargo exigiría reglas nuevas de publicación; fallar y seguir es lo mínimo y el plazo incumplido también enseña."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Audio con ElevenLabs",
-      "decision": "Se genera el audio básico (efectos, loops de música y ambiente, alguna frase clave) con ElevenLabs, con un tope de 20.000 créditos por ahora. Los créditos se renuevan cada día 20 del mes; el owner ampliará el tope. Cada gasto queda apuntado en el MANIFEST. Gasto hasta ahora: 5.847 créditos (2026-11-02).",
-      "por_que": "Lo autorizó el owner el 2026-11-02."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Reuso del arte de Guild Renew",
-      "decision": "Los sprites de Guild Renew que encajen con la biblia sustituyen al greybox, que queda oculto y no se borra; los personajes se integran después de juntar H7 y H8. Al acabar los hitos de la lista se siguen inventando y haciendo mejoras.",
-      "por_que": "Lo pidió el owner el 2026-11-02."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "H5 · balance D14 (provisional)",
-      "decision": "«Ingresos brutos» de 4.19 = margen bruto (ventas + encargos − compras − recados). Cifras [balance]: demanda −0,1 → −0,04 por pieza y +0,1 → +0,4 por día; recetas ×1,3; mantenimiento de la Forja 2 → 20; salarios 1/3/6 → 7/20/40; velocidad de rango ×0,5/×1/×1,5 → ×1/×2/×3; carga 30 → 60 kg; oro de las mejoras ×5. artisan_expert (30 semillas, Normal): 71,9/día en días 9-24, sumideros 33 % del margen; novato 53,9/día; con 1 empleado +37 % en el año 3 frente a 0. El segundo empleado no compensa con un solo horno.",
-      "por_que": "Decisión del manager (opción A) y medida con bots: con las cifras de H3 el dueño solo llenaba el mercado y un empleado no añadía nada."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Parcelas (H6)",
-      "decision": "Un solo precio (build_cost) que incluye el suelo en el MVP; precio por zona con el mapa EA. Demoler devuelve un 40 % fijo. No se puede demoler la única casa de la familia. Al comprar un edificio, los empleados del vendedor se van con él. No se pueden cancelar obras. Los días de obra de la forja los fija el balance de H6.",
-      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Sucesión",
-      "decision": "La muerte del cabeza de familia pausa el juego hasta pulsar «Continuar» en la carta de sucesión (solo la vista).",
-      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Cortejo",
-      "decision": "Del pretendiente se ven sus 2 atributos más altos como «destaca en», sin número.",
-      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Elecciones",
-      "decision": "Sondeo por bandas (ventaja clara, reñido, por detrás) recalculado cada amanecer (consulta Elections.forecast).",
-      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Tribunal (H11)",
-      "decision": "Vista oral interactiva: el acusado puede interrogar una vez a cada testigo en contra con una tirada de Retórica. Las pruebas del acusador se ven como «?» hasta la vista, y la vista pausa el juego.",
-      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Interfaz",
-      "decision": "Panel de familias con la tecla G. Diseño de UI por pantalla en docs/ui (rama diseno-ui) con fuente Pixel Operator 16.",
-      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
-    },
-    {
-      "fecha": "2026-11-02",
-      "tema": "Escala del arte",
-      "decision": "Escala B: puerta 52 px, plantas 64 + 48 (casa de 2 plantas 176 px, 3,7 veces el personaje de 48), solares sin cambiar. Densidad única 1:1 sin excepciones (el ayuntamiento a 1,6 se rehace). Monumentos con tope de 400 px, hechos por módulos sobre la rejilla. Lámina de referencia para PixelLab: E pueblo-calle de cerca. Antes del 15-nov se prueba la escala B en el juego con las casas estiradas, sin créditos. La vista amplia se decide tras la prueba del 15-nov.",
-      "por_que": "Estudio docs/arte/escala.md; el owner aprobó todas las recomendaciones."
+      "fecha": "2026-05-03",
+      "tema": "MVP con un solo rol",
+      "decision": "Todos los sistemas core primero con Artesano / Herrero; el resto de clases después.",
+      "por_que": "Decisión del owner."
     },
     {
       "fecha": "2026-11-01",
@@ -849,52 +375,550 @@
       "por_que": "El owner: «paraleliza lo que consideres que no afecte a otros jobs». Sustituye a «un hito a la vez»."
     },
     {
-      "fecha": "2026-05-03",
-      "tema": "MVP con un solo rol",
-      "decision": "Todos los sistemas core primero con Artesano / Herrero; el resto de clases después.",
-      "por_que": "Decisión del owner."
+      "fecha": "2026-11-02",
+      "tema": "Objetivos de inicio con encargo guionizado",
+      "decision": "Si el encargo guionizado de un objetivo de inicio ya no se puede cumplir (caduca, se abandona o lo coge otra familia), el objetivo se da por fallado con un aviso (notice.objective_failed) y la cadena pasa al siguiente; no se repone el encargo. El objetivo de calidad buena no está atado al encargo del capitán (vale cualquier encargo con calidad mínima ≥ buena), así que no falla. En el panel de contratar salen primero los candidatos contratables.",
+      "por_que": "GDD 4.16: los objetivos «no bloquean nada»; en la prueba de la rebanada (H5) el objetivo del carpintero se quedaba bloqueado para siempre al caducar su encargo y recado y deuda ya no contaban. Reponer el encargo exigiría reglas nuevas de publicación; fallar y seguir es lo mínimo y el plazo incumplido también enseña."
     },
     {
-      "fecha": "2026-04-21",
-      "tema": "Sprites de personaje",
-      "decision": "Monolíticos por profesión/NPC (sin capas) en el MVP; variación por paleta para la identidad de familia.",
-      "por_que": "Decisión del owner."
+      "fecha": "2026-11-02",
+      "tema": "Audio con ElevenLabs",
+      "decision": "Se genera el audio básico (efectos, loops de música y ambiente, alguna frase clave) con ElevenLabs, con un tope de 20.000 créditos por ahora. Los créditos se renuevan cada día 20 del mes; el owner ampliará el tope. Cada gasto queda apuntado en el MANIFEST. Gasto hasta ahora: 5.847 créditos (2026-11-02).",
+      "por_que": "Lo autorizó el owner el 2026-11-02."
     },
     {
-      "fecha": "2026-04-15",
-      "tema": "Estilo visual",
-      "decision": "Pixel art 16-bit SNES (tipo Graveyard Keeper), isométrico 2:1, paleta de tierras cálidas + paleta otoñal secundaria.",
-      "por_que": "Decisión del owner."
+      "fecha": "2026-11-02",
+      "tema": "Reuso del arte de Guild Renew",
+      "decision": "Los sprites de Guild Renew que encajen con la biblia sustituyen al greybox, que queda oculto y no se borra; los personajes se integran después de juntar H7 y H8. Al acabar los hitos de la lista se siguen inventando y haciendo mejoras.",
+      "por_que": "Lo pidió el owner el 2026-11-02."
     },
     {
-      "fecha": "2026-04-15",
-      "tema": "Arte con IA",
-      "decision": "PixelLab para sprites de producción; fal.ai Nano Banana / Nano Banana Pro para concepto (FLUX descartado).",
-      "por_que": "Decisión del owner."
+      "fecha": "2026-11-02",
+      "tema": "H5 · balance D14 (provisional)",
+      "decision": "«Ingresos brutos» de 4.19 = margen bruto (ventas + encargos − compras − recados). Cifras [balance]: demanda −0,1 → −0,04 por pieza y +0,1 → +0,4 por día; recetas ×1,3; mantenimiento de la Forja 2 → 20; salarios 1/3/6 → 7/20/40; velocidad de rango ×0,5/×1/×1,5 → ×1/×2/×3; carga 30 → 60 kg; oro de las mejoras ×5. artisan_expert (30 semillas, Normal): 71,9/día en días 9-24, sumideros 33 % del margen; novato 53,9/día; con 1 empleado +37 % en el año 3 frente a 0. El segundo empleado no compensa con un solo horno.",
+      "por_que": "Decisión del manager (opción A) y medida con bots: con las cifras de H3 el dueño solo llenaba el mercado y un empleado no añadía nada."
     },
     {
-      "fecha": "2026-04-13",
-      "tema": "Juego",
-      "decision": "Simulador de vida y dinastía medieval (inspirado en The Guild II/III), PC Steam Early Access.",
-      "por_que": "Decisión del owner."
+      "fecha": "2026-11-02",
+      "tema": "Parcelas (H6)",
+      "decision": "Un solo precio (build_cost) que incluye el suelo en el MVP; precio por zona con el mapa EA. Demoler devuelve un 40 % fijo. No se puede demoler la única casa de la familia. Al comprar un edificio, los empleados del vendedor se van con él. No se pueden cancelar obras. Los días de obra de la forja los fija el balance de H6.",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
     },
     {
-      "fecha": "2026-04-13",
-      "tema": "Clases",
-      "decision": "4 clases (Artesano, Patrón, Erudito, Pícaro) y 18 profesiones.",
-      "por_que": "Decisión del owner."
+      "fecha": "2026-11-02",
+      "tema": "Sucesión",
+      "decision": "La muerte del cabeza de familia pausa el juego hasta pulsar «Continuar» en la carta de sucesión (solo la vista).",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
     },
     {
-      "fecha": "2026-04-13",
-      "tema": "Política",
-      "decision": "5 títulos, 6 cargos; tope del EA = Alcalde.",
-      "por_que": "Decisión del owner."
+      "fecha": "2026-11-02",
+      "tema": "Cortejo",
+      "decision": "Del pretendiente se ven sus 2 atributos más altos como «destaca en», sin número.",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
     },
     {
-      "fecha": "2026-04-13",
-      "tema": "Mapa EA",
-      "decision": "1 mapa de ~80×80 casillas con 6 zonas; 30-40 NPC y 5 familias rivales.",
-      "por_que": "Decisión del owner."
+      "fecha": "2026-11-02",
+      "tema": "Elecciones",
+      "decision": "Sondeo por bandas (ventaja clara, reñido, por detrás) recalculado cada amanecer (consulta Elections.forecast).",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Tribunal (H11)",
+      "decision": "Vista oral interactiva: el acusado puede interrogar una vez a cada testigo en contra con una tirada de Retórica. Las pruebas del acusador se ven como «?» hasta la vista, y la vista pausa el juego.",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Interfaz",
+      "decision": "Panel de familias con la tecla G. Diseño de UI por pantalla en docs/ui (rama diseno-ui) con fuente Pixel Operator 16.",
+      "por_que": "Aprobado por el owner («me valen las recomendaciones de momento»; se revisa cuando haya créditos de PixelLab)."
+    },
+    {
+      "fecha": "2026-11-02",
+      "tema": "Escala del arte",
+      "decision": "Escala B: puerta 52 px, plantas 64 + 48 (casa de 2 plantas 176 px, 3,7 veces el personaje de 48), solares sin cambiar. Densidad única 1:1 sin excepciones (el ayuntamiento a 1,6 se rehace). Monumentos con tope de 400 px, hechos por módulos sobre la rejilla. Lámina de referencia para PixelLab: E pueblo-calle de cerca. Antes del 15-nov se prueba la escala B en el juego con las casas estiradas, sin créditos. La vista amplia se decide tras la prueba del 15-nov.",
+      "por_que": "Estudio docs/arte/escala.md; el owner aprobó todas las recomendaciones."
+    },
+    {
+      "fecha": "2026-11-03",
+      "tema": "Población variada",
+      "decision": "Cada partida nueva genera con su semilla el reparto cosmético (nombres, apellidos de casa, edades en rango, aspecto, retrato base, colores de las familias IA y personalidad de los vecinos; data/cast.json). Lo que pesa en el balance sale de los datos y no varía; también el orden de edad de los vecinos (los cargos van al mayor). «Reparto fijo» (choices cast = fixed) conserva el de antes para pruebas, escenarios y dianas (sim_runner por defecto). «Otra familia» en Partida nueva usa una sub-semilla del reparto: la semilla del mundo no cambia. Guardado v14 (raíz cast y visual.portrait).",
+      "por_que": "Encargo del owner: que varias partidas no tengan siempre las mismas familias y vecinos, y que cada ciudad tenga su gente. La sub-semilla deja el mundo igual (mismos eventos y tiradas) y cambia solo quién vive en él."
+    },
+    {
+      "fecha": "2026-11-03",
+      "tema": "H13 · guerra regional",
+      "decision": "La guerra regional sube el precio de las armas ×1,5 en vez de ×2 (data/events.json, GDD 4.5.3 y 4.13). Probabilidades, cifras y producción por estación sin cambios. Las dianas largas siguen midiéndose sin eventos (_no_events); con eventos fallan solo casos de cola (novato normal semillas 1 y 12 con guerra; experto semilla 15 con cinco eventos).",
+      "por_que": "Aprobado por el owner a propuesta del worker de H13: con ×2 el rival inactivo llegaba a 763 de oro al día 10 en guerra (269 con ×1,5) y rompía el balance."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Región de Valldaura (P-R1, O-R1–O-R10, D9)",
+      "decision": "Aprobadas todas las recomendaciones de 09b.8: la capital Bellcaire es el mapa EA de 80×80 y los demás asentamientos son pequeños; casa elegible al empezar, capital por defecto en EA (cuando exista su mapa); viajar con el título de Ciudadano y caravanas con carro; viaje abstracto con página de la ciudad (cargar otra ciudad, después de EA); viaje propio y caravanas con carretero; aranceles por ciudad; tratados de familia y del Alcalde; reputación por ciudad; nieve y crecida al llegar los viajes; población proporcional a las casas; nombres de 9b.9 y D9 = Bellcaire. Guardado de los viajes: v16.",
+      "por_que": "El owner: «me parece bien lo que comentas, dale caña»."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Combate: duelo a tres tiempos (O-C1–O-C12)",
+      "decision": "Aprobadas las recomendaciones de 04e §4e.9: el duelo entra ya como mecánica social del Artesano, solo a primera sangre (hasta la rendición, con la salud de 4.22); el lance sustituye a los asaltos de 4.22.6.1; a muerte bloqueado; el retado elige armas; lee Empatía contra Arte Marcial; la IA rival solo responde retos hasta revisar 04c; rechazar es gratis 2+ títulos por encima; iniciativa a ciegas y luego alterna; resolver sin jugar = jugar siguiendo la pista; cualquier pretendiente reta, sea cual sea su sexo. Guardado del duelo: v15; 4.22 pasa a v17.",
+      "por_que": "El owner: «me parece bien lo que comentas, dale caña»."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Interiores II (04g)",
+      "decision": "Sótano, planta baja y planta alta (la guarida del Pícaro tendrá en el sótano jaula para secuestrados y contrabando); clientes que aparecen con fundido; paredes del frente bajas y las interiores transparentes cuando estás detrás. Clientela en dos capas: vecinos con su agenda y clientela de la comarca que viene por la fama del negocio, con dinero de fuera y precio máximo (04g §4.6.5.7).",
+      "por_que": "Owner: «hasta dos plantas y un sótano… clientes que aparezcan con fade in… que los atraigan porque el negocio es famoso, no porque necesiten nada… me parece bien»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Interiores: fondo pintado más piezas encima",
+      "decision": "Camino C de docs/arte/interiores.md: un fondo pintado con fal por sala y por planta sobre la plantilla de su geometría, piezas sueltas para lo que tiene altura y con lo que se interactúa, y capas de luz y partículas. Las paredes entre salas son piezas aparte, para que se puedan transparentar. Fondo y piezas con la misma paleta, la misma luz, el mismo contorno y la misma escala.",
+      "por_que": "Owner: «renderizarlo y luego los extras con los que interactuamos ponerlos encima puede estar bien; el tema es que case la estética»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Personajes con más detalle a la misma escala",
+      "decision": "Opción A: los personajes siguen a ~48-50 px de figura (escala B, docs/arte/escala.md) y se regeneran con PixelLab v3 «high detail» directamente a ese tamaño (lienzo ~52), sin reducir sprites más grandes. No se escala el mundo. Prueba: el herrero v3 de 80 px (figura 78) quedó mucho mejor que el de hoy; generar a su tamaño final cuando haya generaciones (bono diario de 5, o el ciclo del 15-nov).",
+      "por_que": "Owner: «vamos con la A»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Gate 04c · IA de las familias rivales",
+      "decision": "Aprobado el diseño de docs/gdd/04c_ia_rival.md con sus recomendaciones (4.21.14). Se abre H6 (parcelas y construcción, con la IA rival construyendo), que incluye la compra, restauración y reconversión de 4.9.1.",
+      "por_que": "Owner: «me parece bien ese diseño, pensaba que lo había aprobado»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Gate 4.22 · otras clases (O1–O15)",
+      "decision": "Aprobado el diseño de docs/gdd/04d_otras_clases.md con todas sus recomendaciones: O1 a, O2 a (Herrero, Granjero, Médico, Ladrón), O3 a, O4 a, O5 a, O6 a, O7 a, O8 a, O9 a, O10 a, O11 a, O12 a, O13 b, O14 a (con 04f §4.24.5 para los bandidos), O15 a. Se abre el resto de H12 (Patrón, Erudito, Pícaro). Guardado v21.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Ciudad viva II y fiestas (O-V1–O-V10)",
+      "decision": "Confirmadas las recomendaciones de 04f §4.29, tal como se construyeron.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Población de la villa (O-V2)",
+      "decision": "32 habitantes con la vida encendida (5 por casa); la diana town_population_life [14,32] pasa a definitiva y la banda de vecinos de idle_town será [15,22] el día que se mida con la vida.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Diversión y ritmo (O-D1–O-D5)",
+      "decision": "Confirmadas las recomendaciones de 03b §3b.7, tal como se construyeron.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Ropa y personalización",
+      "decision": "Sin capas. Tipos base de PixelLab (papel, sexo y edad), colores de identidad por shader, de 3 a 4 trajes por tipo como variantes completas (trabajo, fiesta, invierno, armadura) animados solo en lo que usan, armas solo en las poses que las usan, y la personalización fina en el retrato.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Orden de PixelLab",
+      "decision": "(1) Hugo a su tamaño final con el bono diario, para validar la opción A; desde el 15-nov: (2) los 6 personajes base con v3 de alto detalle y sus animaciones; (3) guardia y bandido; (4) animales (cerdo, toro, caballo y oveja); (5) poses del duelo; (6) el resto de tipos y los trajes. Se mide el coste de un traje antes de la tanda 6 y no se pasa del 80 % del ciclo sin revisar.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Poses del duelo",
+      "decision": "Dos juegos de poses: con espada y a puño. La herramienta usa el juego de la espada (la silueta casi no cambia y se ahorra un tercio). Así el arma que elige el retado se ve.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Emblema en el mapa de la región",
+      "decision": "Estandarte; el escudo queda como variante.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Regalo de la villa y audiencia del marqués",
+      "decision": "Sí, ya. El Alcalde (o la IA si es suyo el cargo) elige el regalo entre las piezas ofrecidas por calidad y valor; las familias con título de Ciudadano o más piden audiencia con un regalo y una tirada de Retórica, y pueden ganar los privilegios de 04f §4.25.2.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Patrocinios de las familias rivales",
+      "decision": "Sí: con 04c aprobado, el módulo de reputación de la IA patrocina una fiesta al año como mucho si le sobra el oro; compite con el patrocinio del jugador.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Taberna y límite de edificios (O-V11, O-V12)",
+      "decision": "No cuenta para el tope por título; con H6 se podrá construir una segunda en un solar y la del pueblo pasa a ser la rival.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Duelo O-C13–O-C17",
+      "decision": "Recomendaciones de 04e: O-C13 a (sin puntos aparte), O-C14 a (la calumnia como causa cuando el tribunal guarde la acusación falsa), O-C15 a, O-C16 a, O-C17 a ahora y b en la siguiente vuelta, con tope por estación.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Tutorial",
+      "decision": "Las 5 decisiones por defecto se quedan: el capítulo 1 pausa, el modo guiado apagado, «No volver a mostrar» apaga todas las pistas, Tab/Mayús+Tab/Retroceso y no se sigue el capítulo al cargar.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Dianas con eventos",
+      "decision": "Se mantienen. Los objetivos largos siguen en _no_events y los eventos se miden con sus propios bots (events, festive, full_player).",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Rama arte-fal",
+      "decision": "Se guarda con una etiqueta (arte-fal-raws) para conservar los originales en bruto y se borra la rama remota.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "D16 · Mostrador y demanda",
+      "decision": "Sí, a la mitad: cada unidad vendida en el mostrador baja la demanda del mercado −0,025 (la mitad que en el mercado). Se mide con los bots y se ajustan las bandas que muevan, con su motivo.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "D17 · Escala de los edificios",
+      "decision": "Cerrada por la escala B (docs/arte/escala.md): edificios a su tamaño final y escala entera.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "D19 · Cierre voluntario de la dinastía",
+      "decision": "Permitido: «Retirarse» en el menú de pausa abre la pantalla final con la puntuación de 4.17 (con confirmación).",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "D10 · Estilo de ciudad",
+      "decision": "Confirmado: villa de mercado (A) con río y puerto (C) para la capital Bellcaire (mapa EA), pueblo-calle (E) para Vilarrasa.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Estructura D · pintar mapas en el TileMap",
+      "decision": "No. Los mapas salen del generador de ciudades y de tools/city/ciudades.json; los retoques se hacen en datos.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Cifras de D1(b) fijadas por un subgrim",
+      "decision": "Se aceptan como punto de partida: las ajustan los bots y full_player, con sus bandas.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "ElevenLabs desde el 20-nov",
+      "decision": "Por orden, dentro del tope de 20.000 créditos: music_ending, la música de las 8 fiestas fijas, el ambiente de la taberna llena, los sonidos del duelo y de los juegos (dados, naipes, golpe), y el bullicio de la plaza y la feria. Se mide el gasto tras cada tanda.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Ideas del backlog",
+      "decision": "Entran: Crónica de la dinastía (H15), Gremios como facción (diseño propio, el siguiente gran sistema), Encargos con cadena de favores y Modo foto (para Steam). El mercado semanal y la feria ya los cubren las fiestas, y el concurso de calidad en la feria entra como añadido pequeño. El escaparate lo cubre el expositor de 04g. Rumores que viajan, después del espía de 4.22.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Astra",
+      "decision": "Se descarta: con fal y PixelLab basta; si el owner la recuerda, se mira.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Juegos y vida: el rescate jugado y las apuestas sobre altercados",
+      "decision": "El rescate de un secuestro (Incidents, elección rescue) se juega en la pantalla de juegos: RescueMatch es la cadena de duelos de Incidents._fights (sin jugadas da el mismo resultado tirada a tirada, medido en tests/test_games_town.gd); la orden resolve_incident lleva las jugadas (moves) y el sim la vuelve a jugar con Rescue.fight. Las apuestas sobre un altercado se hacen mientras los dos van a pegarse (fase gathering) con game_bet {incident}; el corredor cotiza con el duelo del propio suceso (BrawlMatch) y la apuesta viaja dentro del suceso (ya guardado en v17), se paga en incident_fight y se devuelve si no hay pelea. Juegos sigue sin versión de guardado propia.",
+      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Juegos 5-8: justa, sortija, carrera y toros (04f §4.26.1, §4.26.3-5)",
+      "decision": "Justa: una sola decisión por pasada entre tres posturas que forman un triángulo (al yelmo: escudo medio; al pecho: escudo bajo; al escudo: escudo alto), con iniciativa alterna y lectura como el duelo; con apuntar y cubrirse por separado (9 combinaciones) la IA no castigaba una costumbre en tres pasadas («siempre al escudo, escudo bajo» empataba o ganaba el 81 %). Yelmo −25 (desmonta), pecho +5 (2 puntos), escudo +15 (1, medio seguro). Requiere Ciudadano (reason.no_title); caballo y lanza alquilados al entrar (10) hasta que existan como objetos; favor: +15 de afinidad con la persona más cortejada. Sortija: la anilla de cada carrera es grande, mediana o pequeña (±25) para que cada ritmo sea el mejor en una. Carrera: reservar recupera 2, apretar en la meta ×1,15, caballos parejos (9,8-10,5) y ruido ±1,5; la IA usa el plan exacto (programación dinámica); el palio se paga en oro (30) hasta que exista el objeto de lujo. Toros: casta bravo/manso/resabiado, quiebro +2, pase +1, fallo −2 (con −1 quebrar siempre empataba con leer la señal); fallo = «asustado» y −1 de reputación, nunca herida (O-V5 a); quiebro +2 de reputación.",
+      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Juegos 2-4: naipes, apuestas, dados cargados y torneo de lucha (04f §4.26.2, §4.26.6-8)",
+      "decision": "Envite: las tres bazas comparan las cartas en orden (la más alta contra la más alta…) y se descubren una a una, sin elegir carta: el juego está en los envites y el farol; el gesto «contento/inquieto» dice si la mano gana a una al azar la mitad de las veces y su fiabilidad tiene base 0,70 (con dos gestos 0,50 no informa); el templado farolea un 3 % (con un 12 % perdía contra quien lo lee); uno contra uno (la mesa de muchos queda para la Posada). Apuestas: cuota = 0,9 / probabilidad del sim (60 partidas automáticas con clave) redondeada abajo a 0,05; game_bet sobre partidas de otros (mismo id, mismo ganador para las Fiestas) y bets a la propia partida; apostar contra uno mismo en un uno contra uno y perder habiendo jugado es fraude (50 % de que se note). Dados cargados (O-V10 b): objeto loaded_dice sin puesto hasta que el buhonero de la rama vida lo venda; ventaja 61 % en el azar; te pillan con 25 + (Empatía del rival − tu Destreza) × 5: pierdes apuesta y dados, hecho «trampa» (cargo cheat, nuevo en justice.json), reputación −5 y el evento game_cheat_caught. Torneo: tipos de combate tourney (9 lances, por puntos) y tourney_sudden, jueces al final; +2 de aliento entre combates; forasteros de AM 4-7 si faltan luchadores; una apuesta al ganador del torneo (no por combate) hasta que el torneo viva en el calendario de las Fiestas. Duel.create acepta el aliento inicial (parámetro opcional al final; nada más cambia en el duelo).",
+      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Juegos 1: dados y pulso (04f §4.26.7, §4.26.9)",
+      "decision": "Construidos el «azar», «tres dados a la mayor» y el pulso en sim/games/ (reglas puras, tiradas con clave, sin guardado: la partida llega al sim en una orden game_play con sus jugadas y el sim la vuelve a jugar). Cambios al construirlo: (1) azar con «reazar» (regla del Libro de los juegos: un azar al buscar la suerte propia pierde); sin él quien tiraba ganaba el 57 %, con él el 50 %; el doble es uno por partida, cuando ya se ven las dos suertes, y el otro quiere o no quiere. (2) A la mayor con un dado bajo el cubilete (con los tres a la vista la decisión era evidente); todos deciden a la vez. (3) Pulso: empujar gana a ceder, ceder a aguantar, aguantar a empujar; empujar y ceder gastan 1 y aguantar recupera 2 (con empujar a 2, «siempre ceder» ganaba el 57 %); todo empuje tiene ganador. Casa de juego: el 10 % de lo que gana el ganador para el dueño (O-V8, con tope de 50 también al doblar y aviso por perder más de 100 en el día). Medido con tools/games_bench.gd (04f §4.26.10): resolver sin jugar = jugar bien partida a partida; al azar y las políticas fijas pierden.",
+      "por_que": "Diseño de juegos (04f §4.26), construido por el worker de juegos."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Arte de H16-H17 (04f §4.28.3 y 03b §3b.2): cómo se entrega",
+      "decision": "(1) Batir en la Forja viva: los «3 golpes» son las tres clases de golpe de 03b (fuerte, medido y de acabado: strike_strong/measured/finish), con el yunque y el martillo también sueltos para animarlos; no tres fotogramas de un golpe. (2) La Taberna-Posada usa la huella y la puerta de la carpintería (3×4, Door (-40, 12)), pero su lienzo es 20 px más alto por las dos plantas (192×230, Sprite offset (-104, -158)). (3) Los props de fiesta llevan la huella en metadata/footprint del nodo raíz (no tienen Door) y Feet en el centro del rombo de la huella. (4) Los naipes (48×72) y los dados se componen con Pillow sobre piezas de fal (palos y figuras), para que el número de palos y de puntos sea exacto. (5) Los personajes nuevos van, hasta PixelLab, como paletas del shader de identidad en assets/art/characters/looks.json (sprite base por sexo y colores de ropa), fuera de data/ para no pisar al worker de vida.",
+      "por_que": "Lo pedía el encargo o lo exige el juego: legibilidad (golpes que se distinguen), encajar en las escenas que ya existen (lienzo, ancla, puerta y huella) y exactitud donde el modelo falla (contar palos y puntos)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Arte de los minijuegos (04f §4.26): medidas de los fondos y del galope",
+      "decision": "(1) Los fondos de tablero van a 440×192 nativos ×2 = 880×384 (21:9), no a 16:9 como la mesa: el tablero (404×180 como mínimo) recorta abajo y en el centro a ½, y en 16:9 perdería el tercio de arriba. (2) La pista de la carrera va a 404×192 ×2 = 808×384, sin recorte lateral, para que la salida y la meta queden dentro. (3) El galope se entrega en race/horse_run.png (tira de 4 de 28×18) y race/horse.png es el primer fotograma suelto, porque board_race.gd dibuja horse.png entero a 28×18 (una tira de 112 se aplastaría); el tablero puede pasar a la tira cuando quiera. (4) El cubilete se dibuja con Pillow (24×24, boca abajo): el de fal salía con la boca arriba. (5) En la calle de la sortija el travesaño va sin nada colgado (la anilla la pinta el tablero): con cuerda parecía una horca.",
+      "por_que": "Que el arte encaje con lo que el código de juegos ya hace (recorte a ½ abajo y al centro, tamaño de dibujo del caballo) sin pedirle cambios, y que se lea bien."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 1 · regalos de cortejo",
+      "decision": "Solo cuenta para la afinidad el primer regalo del día a cada pretendiente; los demás se aceptan sin efecto y la pantalla lo dice.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 2 · partida sin salida",
+      "decision": "Nunca puede quedar una partida muerta. Sin oro ni existencias se ofrece un préstamo de urgencia del prestamista (pequeño, caro, con plazo); si no se puede o no se toma y la deuda de mantenimiento pasa de su umbral, llega el embargo de un bien (lo más caro que no sea la casa) y, sin bienes, la ruina con la pantalla de fin.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 3 · Ciudadano",
+      "decision": "La mediana del título de Ciudadano debe caer en el año 2 (días 9-16), como pide 03b, para que viajar llegue a tiempo; se ajustan sus requisitos y se mide con full_player.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 4 · Barón",
+      "decision": "Lo resuelve H6 (parcelas, construir y comprar negocios, 4.9.1); diana: Barón alcanzable en una generación por full_player. La taberna sigue sin contar para el tope (O-V11) pero sí como negocio para el requisito.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 5 · sumidero de oro",
+      "decision": "Los sumideros grandes llegan con H6 (construir, restaurar ruinas, comprar negocios) y se añade una pecha progresiva por patrimonio al cierre del año; se mide el oro final de una generación después de H6.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 6 · tribunal",
+      "decision": "La IA rival de 04c (H6) comete faltas que pueden hacerse públicas (pesos falsos, impagos, contrabando) y dan hechos para acusar; diana: al menos un hecho acusable por año en full_player.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 7 · caravanas y tratados",
+      "decision": "Se reequilibran para que compensen en el año 2-3: más prima en la capital para las piezas de calidad y reputación en la capital también por encargos y ventas allí, no solo por caravanas; diana en el bot merchant y en full_player.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 8 · mostrador",
+      "decision": "Con la clientela de comarca de 04g §4.6.5.7 el mostrador con un empleado debe dejar al menos el doble de su salario; se mide junto con D16.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 9 · obras de mejora",
+      "decision": "Las mejoras pequeñas se hacen de noche sin parar la forja; las grandes la dejan trabajando al 50 % mientras duran.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 10 · cortejar a diario",
+      "decision": "Se deja: es un coste elegido (menos producción a cambio de boda antes). Se vuelve a medir con el tope del punto 1.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 11 · encargos de fiesta en los bots",
+      "decision": "Los bots miran el plazo real en horas, no redondeado al día; el arreglo va a todos los bots y sus dianas se miden de nuevo.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 12 · ritmo",
+      "decision": "El hueco máximo entre decisiones (< 60 s, 03b) debe cumplirse también en días de obras; se espera que lo arregle el punto 9 y se mide con pacing y full_player.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Hallazgo del bot full_player (07 §7.4)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Juegos en las fiestas",
+      "decision": "Los espectáculos de fiesta que son juegos (justa, torneo de lucha, carrera, toros) se corren a su hora con las reglas de 4.26: solos (Games.auto) o con el jugador si se apuntó (game_enter; la justa pide Ciudadano). Si el apuntado no juega, al acabar la fiesta se resuelve sin jugar en su nombre. Las apuestas de la feria se pagan con el resultado de la propia competición y se devuelven si no llega a correrse. Todo va dentro de la instancia de fiesta (v18): juegos sigue sin versión de guardado.",
+      "por_que": "Encargo del manager: enganchar festival_spectacle, la justa y el torneo del Alcalde y las apuestas en la feria. Guardarlo en la fiesta evita otra versión de guardado; resolver al final al que no juega evita que apuntarse y cerrar la pantalla sea una salida gratis."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Hugo v3: proporciones de adulto",
+      "decision": "Se mantienen las proporciones del v3 (cabeza de adulto, cara de 9×6 px a escala B); no se agranda la cabeza. A zoom 1 el personaje se lee por silueta, color de ropa y nombre; la cara, en el retrato y a zoom 2. Retoque a mano de ojos, boca y barbilla hecho (arte-fal-2 2786313). El v3 se cablea entero (idle, andar, forjar) cuando haya 8 generaciones de PixelLab para el andar; hasta entonces, nada más de arte: prioridad gameplay.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional». Decide el manager tras ver las comparativas a zoom 1 y 2."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 13 · fama de un taller",
+      "decision": "como la de la taberna, 0,5-2,0; sube con la calidad media de lo vendido en los últimos 4 días, obras maestras, encargos cumplidos y concursos ganados; baja con encargos incumplidos y quejas. Se define en 04g §4.6.5.7.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 14 · clientela de la comarca en los talleres",
+      "decision": "una sola implementación para mostrador y taberna (la de interiores, sim/town/clientele.gd, y la de la posada se unifican); se enciende cuando sus cifras por oficio estén medidas con los bots de cada oficio y el mostrador deje ≥2× salario (punto 8).",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 15 · bolsa de los hogares",
+      "decision": "los vecinos con trabajo cobran un jornal diario a la bolsa de su casa (según oficio), y la comida se paga de ella; el gasto en la taberna es discrecional. Diana: 6-12 vecinos por noche en la taberna un día normal.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Montsacre: dentro y fuera sin muralla de villa",
+      "decision": "El recinto de la abadía no es edificable (tierra de la Iglesia). En ciudades sin muralla de villa, «dentro» es el núcleo a un radio andando de la plaza (cifra en tools/city/reglas.json), con guardia y precio de situación de dentro.",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas, y las que no, decide tú, pensando en que el juego sea completo, divertido y con calidad profesional»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Interiores II · clientela de la comarca (04g 4.6.5.7)",
+      "decision": "La clientela de la comarca vive en el sim (sim/town/clientele.gd): registros en state.town.clientele, no personajes; vienen al mostrador que vende según base(tipo) × fama × estación × fiesta × reparto (atractivo de 4.22.3.2, que ya lleva la reputación), pagan con oro de fuera hasta su precio máximo (precio base × calidad × (1 + fama × 0,1) × gusto) y los atiende quien está en el mostrador. Apagada por defecto (data/town.json counter.clientele.enabled false): las dianas no se mueven. En el interior aparecen en su sitio con un fundido y se van igual; los vecinos entran andando desde la puerta. La fama de un taller vale 1 hasta que se implemente Equilibrio 13; la unificación con la clientela de la posada es Equilibrio 14.",
+      "por_que": "Encargo del manager con las decisiones O-I1 (b), O-I2 (a) y O-I3 (a) del owner. Apagada hasta medir su balance con los bots de cada oficio, como la vida del pueblo (_no_life)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Forja viva (03b §3b.2, O-D1 a, O-D4 a)",
+      "decision": "Construida como modo de trabajo `live` (sim/forge/live_forge.gd, data/live_forge.json): calentar, batir y templar como órdenes live_forge que se aplican al momento y quedan en la grabación; cada decisión sale bien, cerca o mal; tres bien +1 escalón, dos mal −1; sin decidir nada, exactamente el modo normal (mismos dados). En el yunque de la forja el tercer botón pasa de «Con cuidado» a «Forja viva»; `careful` y el toque de maestro siguen en el sim para los bots, los guardados y los otros oficios. Gracia de 0,5 h al final del ciclo; solo se repite en Forja viva si se jugó hasta el temple. La pantalla pone ×1 mientras está abierta. Obra maestra: Artesanía ≥ 7, las tres bien y una tirada del 10 % [balance]; con nombre (santo + apellido), en la crónica y en masterworks.pieces; la venta a nobles ×3, el regalo y la ventaja en justas y duelo quedan como ganchos.",
+      "por_que": "El owner temía que forjar fuera mirar una barra. Cambios sobre el diseño: (1) 03b decía «jugar mal no es peor que no jugar», que contradecía el −1 con dos mal y O-C10 («jugar mal pierde»): se sigue O-C10. (2) El Hugo del inicio ya tiene Artesanía 7, así que la obra maestra no puede esperar al año 3-5: su desbloqueo pasa a «la primera que salga» y la probabilidad baja al 10 % para que sea rara. (3) Los rasgos son descriptivos hasta que exista la durabilidad. Banco (tests/test_forja_live.gd, 60 martillos, Artesanía 7): normal 1,07 · sin jugar 1,07 · bien 1,83 · mal 0,33."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Encargos con especificaciones (03b §3b.3, O-D5 a)",
+      "decision": "Algunos encargos del herrero (spec_chance 0,35 [balance]) piden variante: hoja corta o larga, guarnición sencilla o labrada y temple, dicho con palabras en el tablón. Cada pieza hecha a medida cobra +30 % [balance] (spec_pay) al entregarla; una pieza normal se sigue aceptando a la paga normal. Las que cumplen se apartan para el encargo (contract.made) y vuelven al almacén si el encargo falla. Hoja larga ×1,15 y un golpe medido más; guarnición labrada ×1,25 y un golpe de acabado más.",
+      "por_que": "«Tensión, no castigo» (§3b.5.5) y las dianas: como prima, ni el jugador que no juega ni los bots pierden nada. Qué encargo pide variante sale de un azar propio (semilla de la partida + id del encargo), no de state.rng, para que las dianas de hoy salgan iguales."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Desbloqueos (03b §3b.4, O-D2 a)",
+      "decision": "data/unlocks.json con disparador (start, calendario, oro, título, empleados, edad, evento con cuenta, ganarle al rival un día, any/all), ventana de 3b.4, marca en el HUD, capítulo del tutorial y meta; sim/pacing/unlocks.gd escribe state.unlocks (v20) y no lee reglas ni tira dados. Lo que se esconde es solo UI: los botones de Empleados y Mejoras de la forja hasta su desbloqueo; el resto se anuncia con carta, marca y meta sin esconderlo. Empezar un capítulo del tutorial desde la ayuda abre lo que enseña. Las partidas de antes de v20 lo tienen todo abierto. Fiestas, feria, taberna y sucesos quedan como ganchos (requires) que se activan solos cuando exista su data/<id>.json o data/<id>/.",
+      "por_que": "«Lo que se desbloquea es acceso de la UI, no reglas del sim». Esconder más paneles rompería los capítulos del tutorial y los escenarios; los demás ya tenían su puerta en el sim (títulos, edad, la mejora del mostrador). Cambios en la tabla: la obra maestra con la primera que salga (Hugo ya tiene Artesanía 7), el tribunal con un juicio o una acusación (no hay medida de «rival hostil»), cargos y tratados con Patricio, boda y caravanas juntos; ventanas medidas con el bot de ritmo: encargos día 1-2 (el novato vende el primer día o el segundo), mejoras día 4-6 (300 de oro llega entre el 5 y el 6 si paga la deuda pronto)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Metas siempre abiertas (03b §3b.5.1)",
+      "decision": "sim/pacing/goals.gd sobre los objetivos que ya hay: hoy = el objetivo de la cadena de inicio (el panel de siempre), esta estación = la meta del último desbloqueo por cumplir, este año = la deuda en el año 1 y después la primera meta de dinastía. Las metas de los desbloqueos cuentan aparte de la cadena, desde que se abren (state.unlocks[fam]._goals). La zona de metas va debajo del objetivo.",
+      "por_que": "Siempre hay al menos dos metas (hoy y este año); el bot de ritmo lo mide cada hora (mínimo 2, media 2,8-3,0)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "«Saltar hasta…» (03b §3b.5.2, O-D3 a)",
+      "decision": "Botón «»» junto a las velocidades: el próximo evento, el amanecer o que acabe la cola, a ×8 (data/view.json skip). Lo corta cualquier aviso de la familia, un desbloqueo, un evento global o microevento, una orden, la pausa, cambiar la velocidad o un día entero. Es de la sesión (Game), no se guarda.",
+      "por_que": "Contra la espera vacía sin tocar el sim: la velocidad no es estado de la partida."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Bot de ritmo (03b §3b.6)",
+      "decision": "Bot pacing: el novato forjando en Forja viva y leyendo las cartas, 8 días. Diana en data/targets.json (pacing): mediana < 30 s y máximo < 60 s entre decisiones, siempre >= 2 metas, desbloqueos en su ventana ±1 día. Paso pacing en run_all (5 semillas). Lista de comprobación de la partida del owner en docs/partida_owner.json (sale en el cuaderno).",
+      "por_que": "Medido con 3 semillas: mediana 4,7 s, máximo 29-40 s, metas mín 2, 9 desbloqueos y 0 fuera de ventana. Las órdenes a menos de 3 s cuentan como una decisión (las paradas de un mismo viaje)."
+    },
+    {
+      "fecha": "2026-11-04",
+      "tema": "Desbloqueos enganchados a vida (03b §3b.4)",
+      "decision": "Al juntar main con vida: el desbloqueo de los sucesos pasa a requires life/incidents (día 9, meta: intervenir en un suceso, incident_choice) y nace el de los rumores (life/rumors, día 5, marca en el libro de cuentas, meta: oír tres rumores, rumor_heard). La taberna queda como gancho de la posada, sin la meta de los rumores. Los ganchos de life/ solo se abren con la ciudad viva encendida. El bot de ritmo entra en _no_life (su diana se fijó sin vida); con --life=on sigue en su diana (mediana 4,6-4,7 s, máximo 29-40 s, 11 desbloqueos, 0 fuera).",
+      "por_que": "En vida los rumores se oyen en los corrillos, no en la taberna; y el principio 4 de 04f: las dianas ya fijadas corren como se midieron."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Desbloqueos enganchados a fiestas (03b §3b.4)",
+      "decision": "La primera fiesta y la feria se abren por evento, no por fecha: cuando empieza la primera fiesta de la villa (festival_started de cualquiera: disparador event con anyone) y cuando empieza harvest_fair; solo con data/festivals.json enabled. Metas: cumplir un encargo de la fiesta (festival_contract_done) y vender 5 piezas en la feria (market_sold). La meta «vende en tu mostrador durante la fiesta» de 3b.4 se cambió por la del encargo: el mostrador pide una mejora que el año 1 no siempre tiene. El bot de ritmo sigue sin fiestas (no está en _festivals); con --festivals=on --life=on: mediana 4,6-4,7 s, máximo 37-44 s, la fiesta el día 2 y la feria el 4, y en 1 de 3 semillas las mejoras no llegan en el año (con fiestas el novato no junta 300 de oro).",
+      "por_que": "La fecha de cada fiesta la decide su calendario (data/festivals.json), no la tabla de desbloqueos; atarse al evento sigue al calendario si cambia."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Ventana de mejoras con fiestas (03b §3b.4)",
+      "decision": "El owner decide que la ventana de las mejoras (días 4-6) no se toca aunque, con fiestas, el novato no llegue a 300 de oro en el año 1 en 1 de 3 semillas: lo arregla el equilibrio (Ciudadano y oro del año 1-2 con fiestas). Queda como diana propuesta en data/targets.json pacing._proposed_festivals, que la QA no comprueba; el bot de ritmo sigue en _no_life.",
+      "por_que": "No tumbar la QA por un desajuste que es de equilibrio, no de ritmo."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Desbloqueo de la taberna enganchado a la posada (03b §3b.4)",
+      "decision": "El desbloqueo tavern pide data/inn/ (posada en main), llega el día 5 (otoño) y presenta la Taberna-Posada de la plaza, que está en venta, como segundo negocio; meta «Abre tu taberna» (building_bought). Guardado: la cadena queda 16 -> 17 (vida), 17 -> 18 (fiestas), 18 -> 19 (posada), 19 -> 20 (_to_v20), WorldState.VERSION 20.",
+      "por_que": "En el juego la taberna no tiene dueño al empezar (for_sale): no hay «taberna de otro» como cliente; comprarla no pide título, así que su carta llega con el calendario de 3b.4 y no con el de Ciudadano."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Equilibrio 15b · fama de la taberna con la bolsa de los hogares",
+      "decision": "Con los jornales a la bolsa de cada casa, los vecinos llegan a 6,1 por noche (diana 6-12). La comarca baja de [4,8] a [3,6] por noche y el jornal queda en 7 (9 en puesto o tienda). La banda inn_fame pasa de [1,5, 3,5] a [1,5, 4,0], pero con una medida nueva: fame3_day, el día en que la fama llega a 3, con banda [8, null], para que los nobles no lleguen antes del año 2. Si llegan antes, se frena la subida por noche en vez de mover la banda.",
+      "por_que": "Decisión del manager por delegación del owner («las que no confío en ti decide tú, siempre pensando en que el juego sea completo, divertido y con calidad profesional»): la fama puede subir más con clientes contentos, pero el ascenso a los nobles tiene que ganarse a lo largo de la partida."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Posada · lo que queda de 04f §4.27",
+      "decision": "Partidas simuladas entre clientes: no (la parte fija de la casa basta). La multa por jugar sin licencia la paga el dueño de la taberna, juegue quien juegue en su mesa; la familia visitante solo arriesga lo apostado. Se puede jugar en la taberna de otra familia como visitante: la parte de la casa va al dueño y, si es la IA rival, su perfil decide si te deja y la apuesta mínima.",
+      "por_que": "Decisión del manager por delegación del owner («las que no confío en ti decide tú, siempre pensando en que el juego sea completo, divertido y con calidad profesional»): lo que da decisiones al jugador entra; lo que solo añade cuentas, no."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Posada: la mesa de juego y la partida del forastero",
+      "decision": "La mesa de la taberna (mejora de ambiente 3) se juega solo durante el turno: azar, mayor o envite contra los vecinos sentados o las fichas regular_*, en la pantalla de los juegos con opts.house = la taberna. Un forastero (regular_cheat, stranger_soldier, stranger_merchant) propone azar o envite a 10/25 cuando hay jugadores y licencia; queda abierta hasta el cierre. Sin licencia: 30 % (50 % con alguacil) de hecho illegal_gaming (minor_fraud), −3 de reputación y aviso. Sin versión de guardado: night.offer y stats.games con su valor por defecto.",
+      "por_que": "Manager 2026-11-05 (contrato docs/contratos/juegos.md §5); las cifras son propuesta en data/inn/inn.json → games."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Juegos: la casa propia no cobra; la posada no pasa opts.event",
+      "decision": "Games._apply no aplica el margen de la casa cuando la casa es de la familia que juega (antes se le restaba y ese oro no iba a nadie). La posada no pasa opts.event (FestivalGames.play_block rechaza el que no es de una fiesta) y reconoce sus partidas por house. Contrato de juegos y 04f actualizados.",
+      "por_que": "Bug visto al probar la mesa: el jugador perdía el 10 % de lo ganado en su propia taberna; y el contrato pedía un event que el código rechaza."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Fiestas: las familias IA no se arruinan con los encargos de fiesta",
+      "decision": "La IA solo entra en un encargo de fiesta (carrera) si lo termina a tiempo con los minutos de trabajo reales de su taller hasta la hora de entrega (RivalAI.work_minutes_until, no el día redondeado), tras el ciclo en que está, el trabajo de sus otros encargos y ai_margin_minutes 120 para llevarlo al tablón; y si tras comprar la materia (también la de sus otros encargos) le queda su gold_reserve más ai_reserve_days 3 días de mantenimiento (Upkeep.due_next_dawn). En cuanto tiene las piezas de una carrera va al tablón sin esperar al cambio de fase. Bajo esa reserva y sin poder pagar un ciclo de su receta entra en recuperación: compra lo justo para una pieza de su receta vendible más barata (no por encargo, con puesto, margen > 0) con todo su oro y vende lo que el mercado tome sin mirar la demanda. El patrocinio de la IA usa la misma reserva más spare. La IA puede presentar su pieza al concurso cada hora hasta el juicio si al empezar la feria no tenía. Diana nueva ai_broke_days_y1 ≤ 2 (días del año 1 que una familia IA termina sin oro) en festive e idle_titles_fest (idle_titles con fiestas). El botón «Pagar el banquete (80)», y los de patrocinar y pujar, dicen por qué están apagados (tooltip y texto de la carta).",
+      "por_que": "Manager (Prioridad 0): con las fiestas el full_player dejaba a las cuatro familias IA sin oro; entraban en carreras que no podían terminar ni pagar."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Fiestas: regalo de la villa, audiencia, concurso de calidad y patrocinios de la IA (construido)",
+      "decision": "Construidas las decisiones del owner del 2026-11-05 (04f §4.25.7): regalo elegido por el Alcalde entre las piezas ofrecidas (la IA o nadie: la mejor por calidad y valor); audiencia con regalo y tirada de Retórica, con tres privilegios (favor para el próximo título en vez de «−1 año», que el juego no tiene; exención en Bellcaire un año; cargo menor vacante); concurso de calidad en la feria (60 de oro y +6 de reputación); la IA patrocina como mucho una fiesta grande al año y cada parte la paga una sola familia. Campos opcionales en v18 (sin versión nueva: ausentes = vacíos).",
+      "por_que": "Owner: «me gustan tus recomendaciones en todas…»."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Fiestas: los corrales de la feria, a las afueras",
+      "decision": "Los corrales (y el ganado) de la feria y de la feria de ganado se ponen en el prado libre más cercano a una puerta de la villa, nunca en caminos ni puertas, con una regla de la capa de decoración (rules.view_sites.outskirts: ground grass, radius 10, gate_margin 1) que vale para cualquier mapa con puertas.",
+      "por_que": "El owner: las ferias de ganado se hacían a las afueras, junto al camino; en la plaza de town_e no cabían."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "El teclado en la interfaz",
+      "decision": "Sí al camino por teclado en menús, paneles y cartas (KeyNav): todo control de la interfaz toma el foco; Tab entra en lo de arriba, flechas y Tab se mueven, Intro/Espacio pulsan, Esc cierra, F6 cambia de zona. El mapa y las salas, del ratón. Un clic no deja el foco; las flechas no mueven la cámara con foco; R y la cámara avisan dentro de un edificio. La A, sin cambios. El foco de los botones usa la pieza hover del kit; casillas y pestañas, un marco dorado.",
+      "por_que": "Decisión del manager (bloque C): meta de cobertura ratón ≥ 65 y teclado ≥ 60 órdenes."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "La letra del mundo y los recortes",
+      "decision": "Todos los rótulos de la ciudad y de las salas pasan por WorldLabels (game/world/world_labels.gd): Pixel Operator 16 (negrita en letreros y nombres) y Pixel Operator 8 en barras, insignias y burbujas, con contorno oscuro de 2 px; nunca la fuente por defecto de Godot ni tamaños intermedios. Los textos del HUD que no caben eligen una forma más corta (la entera, en el tooltip). La ayuda no queda bajo el velo del tutorial.",
+      "por_que": "Verificación por la interfaz, bloque B del manager."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Cartas que no pausan: pila lateral, no modales",
+      "decision": "Las cartas de la ciudad que no pausan (eventos, fiestas, bodas, sucesos, retos) van en pequeño (plantilla aviso, sin ilustración) a una pila a la derecha bajo el reloj, o al lado del panel de gestión abierto; nunca se solapan, la que no cabe espera, y se apartan mientras hay un modal. Solo las que pausan (dato modal) son modales: centradas y de una en una, con cola.",
+      "por_que": "Hallazgo de la verificación por la interfaz: la carta centrada se comía los clics de la sala (toque maestro perdido) y dos cartas se tapaban. Decisión del manager (bloque A)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "El que es llamado espera (orden hail)",
+      "decision": "Al ir a hablar, cortejar, retar o tratar con un testigo que está lejos, la UI da primero hail: el otro se para (state.town.holds) hasta que llegas y actúas, das otra orden o pasan data/town.json actions.hail.wait_minutes (90). Orden de gestión: se aplica al momento. Sin cambio de versión del guardado (vive dentro de town).",
+      "por_que": "Retar a quien anda acababa en «demasiado lejos» al llegar. Decisión del manager (bloque A, A8)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Reto recibido, limosna y botones apagados",
+      "decision": "Carta de reto recibido con Aceptar / Rechazar (duel_answer) y «Retirarse» en la carta de un reto propio aceptado (duel_withdraw); también al cargar una partida con un reto sin contestar. «Dar limosna» en la ficha de un mendigo (give_alms). Regla: todo botón apagado dice por qué (tooltip o línea de motivo); la verificación lo comprueba en cada pantalla (hallazgo «mute»). Las teclas 1-4 de las partidas pulsan el botón que llevan pintado, también en las apuestas.",
+      "por_que": "Órdenes sin interfaz y botones mudos encontrados por la verificación. Decisión del manager (bloque A)."
+    },
+    {
+      "fecha": "2026-11-05",
+      "tema": "Plantillas: nivel de detalle de los vecinos (solo los mapas de la región)",
+      "decision": "Los mapas con «detail» (las cinco ciudades de la región; town_e no, Vilarrasa intacta) procesan a sus vecinos asentados un minuto de cada N (detail.settled_every = 5, cada uno en su minuto por su número): dentro de un edificio (dormido en casa, en misa, en un taller) o trabajando en su puesto sin ruta. Ese minuto recoge lo que haya pasado mientras (fin de su actividad, hora de levantarse, fin del trabajo al cambiar de fase) y vuelve al detalle completo en cuanto sale, se despierta o cambia de actividad. Nunca se aplaza con algo de fuera esperando (día o edad nuevos, cliente, saludo) ni a la hora en punto si sus comprobaciones de la hora cambian algo (descanso del trabajo, actividad fuera de horario: TownLife._quiet_hour). El criterio es solo estado del sim, nunca la cámara: con ventana, sin ventana y con bots da lo mismo. Además, optimizaciones exactas (mismo hash con y sin ellas, Vilarrasa idéntica): los minutos quietos también a la hora en punto y con un suceso en marcha, los vecinos que caminan mientras esperan a pedir otra ruta (retry_at), un solo repaso por vecino, los precios de la región por ciudad de una vez (Region.prices) y la heurística de hitos desenrollada. Corregido un atajo que no era exacto desde 310855f: el vecino que espera en la puerta de la taberna hace en ese minuto su único intento de entrar en la Taberna-Posada (Inn.neighbour_in escribe inn_tried); con la posada y las fiestas, la partida de Vilarrasa cambiaba (paso inn de la QA: 84,8 con el fallo, 81,0 sin atajos y ahora, el mismo valor). Bench oficial (wanderer, mejor de 3, carga 10-12): Vilarrasa 1,51 ms / 12,8; Bellcaire 4,47 / 26,9 (bot idle 2,76 / 22,8); Portvell 2,67 / 18,1 (idle 1,85 / 16,2); Peñarroja 1,91 / 16,6; Vilablat 1,52 / 10,6; Montsacre 1,44 / 13,0.",
+      "por_que": "Owner: «el criterio no puede depender de la cámara ni de lo que se ve, porque el sim tiene que dar lo mismo con ventana, sin ventana y con los bots. Usa solo estado del sim … Al principio solo en los mapas de la región, con Vilarrasa intacta.» Diana para las ciudades grandes: media ≤ 2,5 ms y peor paso < 25 ms con 5 por casa. No se cumple con el wanderer en Bellcaire (4,47 ms, 3 veces Vilarrasa medida a la vez; las búsquedas al azar del propio bot son 1,06 ms del paso); sí con el bot idle a la vista de la proporción (2,76 ms con carga 11, 1,8 veces Vilarrasa). Portvell cumple con idle y queda cerca con el wanderer."
     },
     {
       "fecha": "2026-11-06",
@@ -1062,6 +1086,21 @@
       "tema": "Diversión y ritmo (03b §3b.7, O-D1–O-D5)",
       "detalle": "Se construye con las recomendaciones: Forja viva de 3 decisiones con Resolver sin jugar; desbloqueos por hito y calendario con carta; Saltar hasta…; obras maestras con nombre; encargos con especificaciones.",
       "opciones": "Ver 03b §3b.7."
+    },
+    {
+      "tema": "Jugador completo · obras maestras pronto y a menudo (forja viva)",
+      "detalle": "full_player juega bien las tres decisiones de la Forja viva (como el bot pacing). Con la Artesanía de inicio forja 3-6 obras maestras con nombre en 3 años, la primera entre los días 1 y 6 (3 semillas). 03b §3b.4 las pone en los años 3-5 («Artesanía 7»), como rareza que va a la crónica y se vende a nobles por ×3. El neto del año 1 sube de 75 a 84 de oro/día en la semilla 1.",
+      "opciones": "(a) menos probabilidad de obra maestra por pieza perfecta (data/live_forge.json masterwork) · (b) exigir Artesanía 8 o un número de piezas aprendidas · (c) dejarlo: es el premio de jugar bien"
+    },
+    {
+      "tema": "Jugador completo · el desbloqueo de mejoras llega tarde con un buen jugador",
+      "detalle": "data/unlocks.json abre las mejoras con 300 de oro (ventana de 03b: días 3-5). full_player contrata a su primer empleado en cuanto se abre «empleados» (día 1-2) y no junta 300 hasta el día 7 en las 3 semillas. Con un buen criterio, el desbloqueo llega tarde (unlocks_off ≥ 1 en todas). Ciudadano (ventana 8-15) llega el día 20 o nunca, y los cargos (16-23) nunca: es la decisión 3 (Ciudadano en el año 2).",
+      "opciones": "(a) disparador de mejoras por día (calendario 3) o por oro ganado, no por oro en mano · (b) bajar a 200 · (c) dejarlo y medir con el arreglo de Ciudadano"
+    },
+    {
+      "tema": "Jugador completo · la taberna arranca con pérdidas (sin juzgar aún)",
+      "detalle": "Comprada desde Ciudadano (días 20-24), en los pocos días que quedan hasta el final de los 3 años la taberna de full_player (llevada por la cónyuge con BotInnkeeper) pierde entre 115 y 334 de oro/día de operación: la existencia inicial, los primeros salarios y pocas noches. En una semilla anterior, comprada el día 20, ganaba 61/día de operación. Tres años no bastan para saber si compensa: se mide en la generación de la noche.",
+      "opciones": "(a) esperar a la generación · (b) un escenario largo de full_player con la taberna desde el año 2"
     }
   ],
   "proximos_pasos": [
@@ -1071,6 +1110,7 @@
     "Peor paso del bench al primer atardecer: 8,2-9,6 ms (diana 8).",
     "La batería de tests tarda ~75 s por la prueba de equivalencia del A* (16 000 pares): reducirla si molesta.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner.",
-    "Viajes: lo que queda (rama viajes, 2026-11-04): H13: O-R1 (la capital Bellcaire como casa por defecto, elegible al empezar, cuando exista su mapa EA) y O-R9 (población proporcional a las casas; hoy max_total 20 para todos). H12.3: el asalto en el camino hiere al viajero o al carretero (hoy solo se lleva la carga)."
+    "Viajes: lo que queda (rama viajes, 2026-11-04): H13: O-R1 (la capital Bellcaire como casa por defecto, elegible al empezar, cuando exista su mapa EA) y O-R9 (población proporcional a las casas; hoy max_total 20 para todos). H12.3: el asalto en el camino hiere al viajero o al carretero (hoy solo se lleva la carga).",
+    "Nivel de detalle en Vilarrasa (town_e) con dianas nuevas, en un bloque aparte, si el owner lo aprueba tras ver el de la región."
   ]
 }

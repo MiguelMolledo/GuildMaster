@@ -1,0 +1,11 @@
+{
+  "_doc": "Light of each room of an interior (docs/gdd/04g_interiores.md 4.6.5.3), over the day and night: a layer over the room's floor (and over whoever is in it). mode add = a warm glow (alpha = strength); mul = shade (alpha = how dark). A room names one with \"light\" in data/interiors/<building>.json. View only.",
+  "lights": {
+    "forge": {"color": "#ff7a30", "mode": "add", "alpha": 0.14},
+    "warm": {"color": "#ffb060", "mode": "add", "alpha": 0.07},
+    "kitchen": {"color": "#ff9a50", "mode": "add", "alpha": 0.1},
+    "dim": {"color": "#141428", "mode": "mul", "alpha": 0.32},
+    "dim_warm": {"color": "#2a1a14", "mode": "mul", "alpha": 0.18},
+    "cool": {"color": "#8ab0d8", "mode": "add", "alpha": 0.05}
+  }
+}

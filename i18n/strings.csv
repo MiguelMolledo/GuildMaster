@@ -741,6 +741,11 @@ notice.inspection_fined,"{building}: an inspection found irregularities, fine of
 notice.inspection_escaped,"{building}: an inspection came, the hidden passage saved you","{building}: ha venido una inspección, el pasadizo oculto te ha salvado"
 ui.interior.upgrades_tip,The building's upgrade tree,Árbol de mejoras del edificio
 ui.interior.works,Under construction: %s · %s left,En obras: %s · quedan %s
+ui.interior.floor_up,Upstairs,Planta alta
+ui.interior.floor_down,Downstairs,Planta baja
+ui.interior.floor_tip,See the other floor without moving anybody (wheel or PageUp / PageDown),Ver la otra planta sin mover a nadie (rueda o AvPág / RePág)
+ui.interior.counter_busy,Someone is already serving,Ya hay alguien atendiendo
+ui.interior.order_waiting,Waiting,Esperando
 ui.upgrades.title,%s · upgrades,%s · mejoras
 ui.upgrades.level,Lv %d,Nv %d
 ui.upgrades.status.owned,Built,Construida
@@ -3600,6 +3605,47 @@ games.rescue.result.won,The captive comes home,El cautivo vuelve a casa
 games.rescue.result.lost,No second try at a rescue,No hay otro intento de rescate
 games.rescue.ui.bout,%s beats %s,%s vence a %s
 games.rescue.ui.draw,%s and %s: both out,%s y %s: los dos fuera
+reason.not_in_this_festival,Not in this festival,Esta fiesta no lo tiene
+reason.already_offered,You already offered a piece,Ya ofreciste una pieza
+reason.no_piece,You have no piece for it,No tienes una pieza para eso
+reason.bad_offer,That offer does not exist,Esa oferta no existe
+reason.bad_privilege,The marquis cannot grant that now,El marqués no puede conceder eso ahora
+reason.already_asked,You already asked for an audience,Ya pediste audiencia
+reason.part_taken,Another house already pays for that,Eso ya lo paga otra casa
+notice.festival_gift_chosen,The town gives the marquis the {item} of the {family},La villa regala al marqués: {item} de los {family}
+notice.festival_audience_ok,The marquis grants you: {privilege},El marqués te concede: {privilege}
+notice.festival_audience_no,"The marquis heard you, but grants nothing ({privilege})","El marqués te escuchó, pero no concede nada ({privilege})"
+notice.festival_contest_won,Quality contest: the {item} of the {family} wins,Concurso de calidad: gana {item} de los {family}
+festival.privilege.title_favour,"favour for the next title (less reputation, half the cost)","favor para el próximo título (menos reputación, mitad de coste)"
+festival.privilege.exemption,no tariff in Bellcaire for a year,sin arancel en Bellcaire durante un año
+festival.privilege.minor_office,a minor office without election,un cargo menor sin elección
+festival.what.quality_contest,Quality contest,Concurso de calidad
+ui.festival_card.offer_gift,Offer %s as the town's gift,Ofrecer %s como regalo de la villa
+ui.festival_card.offer_gift_tip,The mayor chooses the best; the town pays it well,El Alcalde elige la mejor; la villa la paga bien
+ui.festival_card.audience,Audience: %s,Audiencia: %s
+ui.festival_card.audience_tip,A gift and your Rhetoric: the marquis may grant it,Un regalo y tu Retórica: el marqués puede concederlo
+ui.festival_card.contest,Present %s to the contest,Presentar %s al concurso
+ui.festival_card.contest_tip,Best quality of each trade: fame and reputation,La de más calidad: fama y reputación
+ui.festival_card.offer_line,%s (%s) · %s,%s (%s) · %s
+ui.festival_card.choose,Choose %d,Elegir %d
+ui.festival_card.gift_title,The town's gift,El regalo de la villa
+ui.festival_card.gift_body,"As mayor, choose the piece the town gives the marquis.","Como Alcalde, elige la pieza que la villa regala al marqués."
+ui.festival_card.gift_result,The town gives the marquis %s of the %s; it pays them %d gold.,La villa regala al marqués %s de los %s y les paga %d de oro.
+ui.festival_card.contest_title,The quality contest,El concurso de calidad
+ui.festival_card.contest_result,The %s win with %s (%s) among %d pieces: reputation +%d and fame among the artisans +%d.,Ganan los %s con %s (%s) entre %d piezas: reputación +%d y fama entre los artesanos +%d.
+ui.festival_card.audience_title,The audience,La audiencia
+ui.festival_card.audience_ok,The marquis grants you %s.,El marqués te concede %s.
+ui.festival_card.audience_no,"The marquis listens and keeps the gift, but grants nothing.","El marqués escucha y se queda el regalo, pero no concede nada."
+ui.festival_card.fx_town_gift,At %02d:00 the mayor chooses the town's gift among the pieces offered,A las %02d:00 el Alcalde elige el regalo de la villa entre las piezas ofrecidas
+ui.festival_card.fx_audience,"At %02d:00, audiences with the marquis (Citizen or more)","A las %02d:00, audiencias con el marqués (Ciudadano o más)"
+ui.festival_card.fx_contest,"At %02d:00, quality contest: each trade presents a piece; fame and reputation","A las %02d:00, concurso de calidad: cada oficio presenta una pieza; fama y reputación"
+ui.festival_card.offer_gift_short,Offer a gift,Ofrecer regalo
+ui.festival_card.contest_short,Enter the contest,Al concurso
+ui.festival_card.audience_menu,Ask for an audience…,Pedir audiencia…
+ui.festival_card.audience_ask,"With a gift and your Rhetoric, ask the marquis for:","Con un regalo y tu Retórica, pide al marqués:"
+festival.privilege_short.title_favour,Title favour,Favor del título
+festival.privilege_short.exemption,Exemption,Exención
+festival.privilege_short.minor_office,Minor office,Cargo menor
 reason.unknown_spectacle,No such competition in this feast,Esa competición no está en la fiesta
 reason.already_entered,Already entered,Ya estás inscrito
 reason.bet_placed,You have bet on it: you cannot enter,Has apostado en ella: no puedes inscribirte
@@ -3795,6 +3841,12 @@ inn.group.comarca,Folk from the countryside,Gente de la comarca
 inn.group.neighbours,Neighbours,Vecinos
 ui.inn.complaint.too_expensive,too dear,muy caro
 ui.inn.why.no_neighbours,no neighbour feels like the tavern tonight,ningún vecino tiene ganas de taberna esta noche
+ui.festival_card.bid,Bid for %s (%d),Pujar por %s (%d)
+ui.festival_card.bid_tip,The %s pay it now; they get their gold back,Ahora lo pagan los %s; recuperan su oro
+notice.festival_ai_sponsored,The {family} pay {part} of {festival}: you can bid {gold},Los {family} pagan {part} de {festival}: puedes pujar con {gold}
+notice.festival_outbid,The {family} outbid you for {part} of {festival}; your gold comes back,Los {family} te quitan {part} de {festival}; recuperas tu oro
+ui.festival_card.gold_short,"Not enough gold: it costs %d and you have %d","No te llega el oro: cuesta %d y tienes %d"
+ui.festival_card.host_wedding_tip,"Guests, dance, contracts for every trade and reputation","Invitados, baile, encargos para cada oficio y reputación"
 objective.open_tavern,Open your tavern,Abre tu taberna
 ui.inn.tab.games,Table,Mesa
 ui.inn.hint.games,Dice and cards with the regulars; the house keeps its cut of what others win.,Dados y naipes con los parroquianos; la casa se lleva su parte de lo que ganan otros.
@@ -3819,7 +3871,7 @@ ui.inn.incident.illegal_game,The constable's men saw a game without licence: lig
 ui.inn.offer.title,A game at the table,Una partida en la mesa
 ui.inn.offer.text,%s sits down with a full purse and proposes %s at %d.,%s se sienta con la bolsa llena y propone %s a %d.
 ui.inn.offer.later,Not now,Ahora no
-notice.inn.illegal_gaming,The constable's men saw gaming without licence in {building}: a light offence for the court.,Los del alguacil vieron jugar sin licencia en {building}: delito leve para el tribunal.
+notice.inn.illegal_gaming,"The constable's men saw gaming without licence at your table in {building}: the table is yours, a light offence for the court.",Los del alguacil vieron jugar sin licencia en tu mesa de {building}: la mesa es tuya y es delito leve para el tribunal.
 games.preset.stranger_soldier,The discharged soldier,El soldado licenciado
 games.preset.stranger_merchant,The passing merchant,El mercader de paso
 games.ui.in_own_house,"in your own house (it keeps nothing of yours)","en tu propia casa (no se queda nada de lo tuyo)"
@@ -3835,7 +3887,6 @@ combat.card.withdraw_tip,Take back the challenge before the hour.,Retirar el ret
 ui.npc.alms,Give alms (%d gold),Dar limosna (%d de oro)
 ui.npc.alms_tip,"A coin for whoever asks: a little reputation, once a day.","Una moneda a quien pide: un poco de reputación, una vez al día."
 ui.festival_card.host_wedding_short,The banquet costs %d gold and you have %d,El banquete cuesta %d de oro y tienes %d
-ui.festival_card.host_wedding_tip,"The town celebrates: guests, dance and contracts for each trade","La villa lo celebra: invitados, baile y encargos para cada oficio"
 ui.why.over,It is over,Ya ha terminado
 ui.why.busy_lance,Wait until the move in play is over,Espera a que acabe la jugada en curso
 ui.why.bet_gold,You need %d gold and you have %d,Necesitas %d de oro y tienes %d
@@ -3895,6 +3946,10 @@ ui.order.propose_town_treaty,Propose a treaty,Proponer un tratado
 ui.order.cancel_treaty,Cancel a treaty,Romper un tratado
 ui.order.festival_sponsor,Sponsor the feast,Patrocinar la fiesta
 ui.order.festival_host_wedding,Pay the wedding banquet,Pagar el banquete de boda
+ui.order.festival_offer_gift,Offer the town a gift,Ofrecer un regalo a la villa
+ui.order.festival_choose_gift,Choose the town's gift,Elegir el regalo de la villa
+ui.order.festival_audience,Ask the marquis for an audience,Pedir audiencia al marqués
+ui.order.festival_enter_contest,Enter the quality contest,Presentarse al concurso de calidad
 ui.order.game_play,Play a game,Jugar una partida
 ui.order.game_bet,Place a bet,Apostar
 ui.order.resolve_incident,Answer an incident,Responder a un suceso
@@ -3915,3 +3970,18 @@ ui.hud.map_not_inside,The region map is not available inside a building,El mapa 
 ui.hud.camera_not_inside,The camera does not move inside a building,La cámara no se mueve dentro de un edificio
 ui.order.live_forge,Forge by hand,Forjar a mano
 ui.order.unlock_seen,Read what is new,Leer lo nuevo
+hud.inn_table,Play at the table,Jugar en la mesa
+hud.inn_table_tip,"Sit at this tavern's gaming table from its door, during its night turn.","Siéntate a la mesa de juego de esta taberna desde su puerta, durante su turno de noche."
+ui.inn.visit.title,The table of %s,La mesa de %s
+ui.inn.visit.text,"The %s let you sit: the least stake is %d, and the house keeps its part of what you win.",Los %s te dejan sentarte: la apuesta mínima es %d y la casa se queda su parte de lo que ganes.
+ui.inn.visit.no_license,"It has no gaming licence: if the constable's men see it, the fine is the owner's; you only risk your stake.","No tiene licencia de tafurería: si lo ven los del alguacil, la multa es del dueño; tú solo arriesgas lo apostado."
+ui.inn.visit.play,%s at %d,%s a %d
+ui.inn.visit.why.refused,The %s do not let you sit at their table.,Los %s no te dejan sentarte a su mesa.
+ui.inn.visit.why.far,Go to its door first.,Primero ve a su puerta.
+ui.inn.visit.why.inside,Leave the building you are in first.,Sal antes del edificio en que estás.
+ui.inn.visit.why.closed,The table is played during the night turn.,La mesa se juega durante el turno de noche.
+ui.inn.visit.why.no_table,This tavern has no gaming table.,Esta taberna no tiene mesa de juego.
+ui.inn.visit.why.not_inn,This is not a tavern.,Esto no es una taberna.
+ui.inn.visit.why.unknown_actor,Select someone of your family first.,Elige antes a alguien de tu familia.
+notice.inn.illegal_gaming_visitor,The constable's men saw gaming without licence at {building}: the fine is its owner's; you only risked your stake.,Los del alguacil vieron jugar sin licencia en {building}: la multa es del dueño; tú solo arriesgabas lo apostado.
+ui.ending.fact.illegal_gaming,Fined for gaming without licence at the tavern (day %d),Multa por juego sin licencia en la taberna (día %d)

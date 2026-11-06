@@ -50,6 +50,20 @@ y luego corteja el heredero con su propio cuerpo; elige la Artesanía en la escu
 artesano. Los sucesos son `guard_watch` (las cartas de incidente) y sus propias respuestas a los microeventos. El duelo es
 `duelist` (los lances). Los viajes, las caravanas y los tratados salen de `merchant`. Añade lo que a ninguno le tocaba:
 acusar en el tribunal con un hecho público y defenderse o acusar en la vista.
+- **La Taberna-Posada** (posada, 04f §4.27) es `innkeeper`. Cuando ya es Ciudadano (el segundo negocio de 03b), el
+  negocio va solo y le sobra el precio sobre la reserva, compra la taberna en venta y se la asigna a un adulto libre
+  de la familia, primero el cónyuge (`assign_building`). `BotInnkeeper` la lleva con ese posadero. Las mejoras de la
+  taberna solo se compran si queda la reserva de la forja.
+- **La Forja viva y los desbloqueos** (forja, 03b §3b.2-§3b.4). Todo trabajo a mano en un yunque va en modo `live`, y
+  cada minuto toma la decisión del ciclo bien: el color de la receta, su plantilla de golpes (con los de la variante) y
+  el temple que pide el encargo, o si no el de la receta (como `pacing`). La pieza de un encargo con variante se hace a
+  ella (`work_at` con `contract` y `variant`). Lee cada carta de desbloqueo (`unlock_seen`) y no contrata ni compra
+  mejoras hasta que la interfaz las abre (`Unlocks.ui_open`): lo que el jugador no ve, el bot no lo usa. El caótico
+  toma la mitad de las decisiones de la forja viva al azar, o «Resolver sin jugar».
+- **Los juegos** (04f §4.26). En el último día antes de una competición de una fiesta (`FestivalGames`) se inscribe
+  (`game_enter`) si su probabilidad de ganar (`Games.win_odds`) supera en un 20 % la media del campo y cumple el título
+  y la entrada. Cuando le llaman, la juega con «Resolver sin jugar». Si no entra, apuesta 5 al favorito
+  (`game_bet`) mientras le sobre oro. El caótico juega dados por poco en la calle y se inscribe o apuesta al azar.
 
 Cada `DECIDE_EVERY` minutos, si el cabeza está libre (en casa, sin viaje ni ciclo en marcha, de día), puntúa las metas
 abiertas que necesitan su cuerpo (cortejar, viajar, retar) frente a seguir con el negocio y toma la mejor. Si una meta

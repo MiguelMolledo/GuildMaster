@@ -53,6 +53,9 @@ func setup(zone_id: String, text: String, cfg: Dictionary, look: Node2D = null) 
 	_label.position = Vector2(-60, 6)
 	_flash = _make_label("", Color(1.0, 0.9, 0.4), 10)
 	_flash.visible = false
+	# the name and the floating text stay readable over the atrezo, the upgrades and the people in front
+	_label.z_index = 2
+	_flash.z_index = 2
 	add_child(_label)
 	add_child(_flash)
 

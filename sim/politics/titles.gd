@@ -72,8 +72,9 @@ static func requirements(sim: Sim, fam: String, t: String) -> Array:
 	var def: Dictionary = sim.catalog.titles().get(t, {})
 	var out: Array = []
 	var rep := Reputation.of(sim.state, fam)
-	out.append({"kind": "reputation", "need": int(def.get("reputation", 0)), "have": rep,
-		"ok": rep >= int(def.get("reputation", 0))})
+	var fav := FestivalCourt.title_mults(sim.state, fam)  # fiestas: the marquis's favour (title_favour)
+	var rep_need := roundi(float(def.get("reputation", 0)) * float(fav.get("reputation_mult", 1.0)))
+	out.append({"kind": "reputation", "need": rep_need, "have": rep, "ok": rep >= rep_need})
 	var req: Dictionary = def.get("requires", {})
 	if req.has("businesses"):
 		var b := businesses(sim, fam)
@@ -85,9 +86,15 @@ static func requirements(sim: Sim, fam: String, t: String) -> Array:
 		var done := str(req["event"]) in (sim.state.families.get(fam, {}).get("events_done", []) as Array)
 		out.append({"kind": "event", "need": 1, "have": 1 if done else 0, "ok": done, "event": str(req["event"])})
 	var gold := Money.gold(sim.state, fam)
-	out.append({"kind": "gold", "need": int(def.get("cost_gold", 0)), "have": gold,
-		"ok": gold >= int(def.get("cost_gold", 0))})
+	var cost := cost_of(sim, fam, t)
+	out.append({"kind": "gold", "need": cost, "have": gold, "ok": gold >= cost})
 	return out
+
+
+## What title `t` costs `fam` (its cost_gold, × the marquis's favour if it has it).
+static func cost_of(sim: Sim, fam: String, t: String) -> int:
+	return roundi(float(sim.catalog.titles().get(t, {}).get("cost_gold", 0))
+		* float(FestivalCourt.title_mults(sim.state, fam).get("gold_mult", 1.0)))
 
 
 const REQ_REASON: Dictionary = {"reputation": "title_needs_reputation", "businesses": "title_needs_businesses",
@@ -103,7 +110,7 @@ static func ready(sim: Sim, fam: String, spare: int = 0) -> bool:
 	for r: Dictionary in requirements(sim, fam, t):
 		if not bool(r["ok"]):
 			return false
-	return Money.gold(sim.state, fam) >= int(sim.catalog.titles()[t].get("cost_gold", 0)) + spare
+	return Money.gold(sim.state, fam) >= cost_of(sim, fam, t) + spare
 
 
 ## The town hall's service tile of the current map ([] if it has none).
@@ -128,7 +135,7 @@ static func status(sim: Sim, actor: String) -> Dictionary:
 	var fam := str(sim.state.characters.get(actor, {}).get("family", ""))
 	var nx := next_of(sim, fam)
 	return {"family": fam, "current": current(sim, fam), "next": nx,
-		"cost": int(sim.catalog.titles().get(nx, {}).get("cost_gold", 0)),
+		"cost": cost_of(sim, fam, nx),
 		"requirements": requirements(sim, fam, nx) if nx != "" else [],
 		"at_town_hall": at_town_hall(sim, actor), "reason": _reason(sim, actor, "")}
 
@@ -201,9 +208,10 @@ static func order_request(sim: Sim, o: Dictionary) -> Dictionary:
 	var fam := str(st.characters[actor]["family"])
 	var from := current(sim, fam)
 	var t := next_of(sim, fam)
-	var cost := int(sim.catalog.titles()[t].get("cost_gold", 0))
+	var cost := cost_of(sim, fam, t)
 	if not Money.change(sim, fam, -cost, Money.TITLES, "title_" + t, "", actor):
 		return Orders.fail("not_enough_gold")
+	FestivalCourt.spend_title_favour(st, fam)  # fiestas: the marquis's favour is spent on this title
 	st.families[fam]["title"] = t
 	Chronicle.add(st, "title", {"family": fam, "title": t, "actor": actor})
 	sim.events.append({"type": "title_granted", "family": fam, "actor": actor, "title": t, "from": from})

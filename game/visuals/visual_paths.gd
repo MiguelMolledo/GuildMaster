@@ -325,6 +325,44 @@ const DUEL_ICON_ALIAS: Dictionary = {"yield": "surrender"}
 const DUEL_ILLUSTRATION_ALIAS: Dictionary = {"won": "victory", "win": "victory", "lost": "defeat", "lose": "defeat"}
 
 
+## A prop of the interior library (docs/gdd/04g_interiores.md 4.6.5.1, data/props/interior.json):
+## assets/art/props/interior/<id>.png, or null.
+static func interior_prop(id: String) -> Texture2D:
+	var p := "%s/props/interior/%s.png" % [ART_ROOT, id]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## The additive halo of a fire inside an interior (InteriorBuilder: a prop with "glow" in its data).
+static func interior_glow() -> Texture2D:
+	var p := "%s/interiors/forge/glow_hearth.png" % ART_ROOT
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## A library prop as it is used inside interior `type`: the copy with the palette of its painted rooms
+## (assets/art/interiors/<type>/props/<id>.png, tools/interiors/remap_props.py), else the library's.
+static func interior_prop_in(type: String, id: String) -> Texture2D:
+	var p := "%s/interiors/%s/props/%s.png" % [ART_ROOT, type, id]
+	if type != "" and ResourceLoader.exists(p):
+		return load(p) as Texture2D
+	return interior_prop(id)
+
+
+## The painted room of an interior built from data (4.6.5.1): assets/art/interiors/<type>/room_<floor>_<room>.png, the
+## size of the whole floor (tools/interiors/interiores.py canvas_box), or null until it is painted.
+static func interior_backdrop(type: String, level: int, room: String) -> Texture2D:
+	var p := "%s/interiors/%s/room_%d_%s.png" % [ART_ROOT, type, level, room]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## A wall segment cut from a room's painted wall (tools/art/fal_salas.py): kind "wall", "door" or "low" (the front
+## plinth); assets/art/interiors/<type>/{wall,low}_<floor>_<room>_<side>[_door].png, or null.
+static func interior_wall(type: String, level: int, room: String, side: String, kind: String) -> Texture2D:
+	var f := "low_%d_%s_%s" % [level, room, side] if kind == "low" else "wall_%d_%s_%s%s" % [level, room, side,
+		"_door" if kind == "door" else ""]
+	var p := "%s/interiors/%s/%s.png" % [ART_ROOT, type, f]
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
 ## Duelo: a duel effect (strike, parry, feint, hit) from assets/art/vfx/duel_<kind>/: the strip duel_<kind>.png and its
 ## duel_<kind>.json (frames, frame_w, frame_h, fps, loop, start_frame, offset {x, y}: the frame's top-left from the
 ## feet of who does it, facing: the side it looks to; the other side is drawn mirrored). {frames: [Texture2D], fps,

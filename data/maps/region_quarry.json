@@ -1450,6 +1450,9 @@
  "watch": {
   "name_key": "family.watch.quarry"
  },
+ "detail": {
+  "settled_every": 5
+ },
  "plots": [
   {
    "id": "plot_01",

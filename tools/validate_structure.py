@@ -172,9 +172,20 @@ def check_visuals(rep):
         inner = [u for u in mine if (u.get("visual") or {}).get("interior_node")]
         if not zones and not inner:
             continue
+        dpath = os.path.join(DATA, "interiors", bid + ".json")
+        if os.path.exists(dpath):  # 04g 4.6.5.2: interior por datos (tools/interiors/interiores.py valida el resto)
+            di = _json(dpath, rep) or {}
+            for z in zones:
+                if z not in (di.get("stations") or {}):
+                    rep.error(w, f"falta el puesto {z} en data/interiors/{bid}.json stations")
+            for u in inner:
+                node = u["visual"]["interior_node"]
+                if node not in (di.get("upgrades") or {}):
+                    rep.error(w, f"la mejora {u.get('id')} pide upgrades.{node} en data/interiors/{bid}.json")
+            continue
         path = scene("interiors", bid)
         if not exists_exact(path):
-            rep.error(w, f"tiene puestos y falta su interior game/visuals/interiors/{bid}.tscn")
+            rep.error(w, f"tiene puestos y falta su interior game/visuals/interiors/{bid}.tscn o data/interiors/{bid}.json")
             continue
         nodes = _nodes(path)
         markers = {n for n, t, p in nodes if p == "Stations" and t == "Marker2D"}

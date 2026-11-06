@@ -14,10 +14,10 @@ extends BotFullPlayer
 const CHAOS_ID: String = "chaos_player"
 const CHANCE_PER_MINUTE: float = 0.025  # a random order every ~40 game minutes (more and the head never ends a cycle)
 const SYSTEMS: Array[String] = ["move", "market", "work", "queue", "staff", "upgrades", "contracts", "courtship",
-	"heir", "offices", "tribunal", "duels", "travel", "caravans", "treaties", "festivals", "debt", "transfer"]
+	"heir", "offices", "tribunal", "duels", "travel", "caravans", "treaties", "festivals", "debt", "transfer", "games"]
 
 const SPENDING: Array[String] = ["market", "staff", "upgrades", "offices", "travel", "caravans", "treaties",
-	"festivals", "debt"]
+	"festivals", "debt", "games"]
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var chaos_uses: Dictionary = {}   # system -> random orders given
@@ -74,6 +74,27 @@ func _microevents(sim: Sim) -> Array:
 		out.append({"type": "resolve_microevent", "actor": ACTOR, "microevent": id,
 			"choice": str(choices[rng.randi_range(0, choices.size() - 1)])})
 	return out
+
+
+## Forja viva at random: half the decisions are any colour, strike or quench of data/live_forge.json, or «Resolver
+## sin jugar» (skip); the other half, the full player's good one.
+func _live(sim: Sim) -> Dictionary:
+	var o := super._live(sim)
+	if o.is_empty() or rng.randf() < 0.5:
+		return o
+	var c: Dictionary = sim.catalog.live_forge
+	if rng.randf() < 0.15:
+		o["step"] = "skip"
+		o.erase("choice")
+		return o
+	match str(o.get("step", "")):
+		"heat":
+			o["choice"] = _any(c.get("heat_colors", []))
+		"strike":
+			o["choice"] = _any(c.get("strike_kinds", []))
+		"quench":
+			o["choice"] = _any(c.get("quench_media", []))
+	return o
 
 
 ## One random valid order of a system picked with weight 1 / (1 + uses); {} if that system has nothing to do now.
@@ -367,6 +388,24 @@ func _order_of(sim: Sim, system: String) -> Dictionary:
 					return {"type": "repay_loan", "actor": me, "loan": id,
 						"amount": rng.randi_range(1, mini(int(s["outstanding"]), Money.gold(st, _fam_id)))}
 			return {}
+		"games":  # juegos (04f §4.26): dice in the street, a festival competition (enter or bet)
+			var roll := rng.randf()
+			if roll < 0.5:
+				var stake: int = [5, 10][rng.randi_range(0, 1)]
+				if Money.gold(st, _fam_id) < 2 * stake + 20:
+					return {}
+				return {"type": "game_play", "actor": me, "game": _any(["azar", "mayor"]),
+					"opponents": ["preset:regular_even"], "stake": stake, "opts": {}, "auto": true}
+			var sps: Array = Festivals.spectacles(sim).filter(func(x: Dictionary) -> bool:
+				return FestivalGames.is_game(sim, str(x["spectacle"])) and int(x["at"]) > _now(sim))
+			if sps.is_empty():
+				return {}
+			var sp: Dictionary = sps[rng.randi_range(0, sps.size() - 1)]
+			if roll < 0.7:
+				return {"type": "game_enter", "actor": me, "festival": str(sp["festival"]), "spectacle": str(sp["spectacle"])}
+			var size := int(FestivalGames.spectacle_cfg(sim, str(sp["spectacle"])).get("size", 2))
+			return {"type": "game_bet", "actor": me, "festival": str(sp["festival"]), "spectacle": str(sp["spectacle"]),
+				"on": rng.randi_range(0, maxi(0, size - 1)), "stake": 5}
 		"transfer":
 			var loc := str(ch.get("location", ""))
 			if loc == "" or not st.buildings.has(loc) or not Buildings.owns(st, me, loc):
