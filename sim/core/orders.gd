@@ -58,6 +58,12 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Services.order_set_price(sim, order)
 		"request_loan":  # H12.2 (04d 4.22.5.6, O12 a): a loan from the town's moneylender (sim/econ/loans.gd)
 			return Loans.order_request(sim, order)
+		"grant_loan":  # H12.2 (04d 4.22.5.6): the Banco (sim/econ/bank.gd)
+			return Bank.order_grant(sim, order)
+		"reject_application":
+			return Bank.order_reject(sim, order)
+		"claim_collateral":
+			return Bank.order_claim(sim, order)
 		"take_emergency_loan":  # Equilibrio 2 (sim/balance/emergency.gd)
 			return Emergency.order_take(sim, order)
 		"read_notices":
@@ -247,7 +253,7 @@ const MANAGEMENT: Array[String] = ["hire", "fire", "promote", "bonus", "set_role
 	"resolve_incident", "hail", "live_forge", "unlock_seen",
 	"buy_building", "inn_set_menu", "inn_set_price", "inn_set_special", "inn_buy_license",  # posada (Inn.MANAGEMENT)
 	"take_emergency_loan",  # equilibrio (Emergency)
-	"set_service_price", "request_loan"]  # H12.2 (Services, Loans)
+	"set_service_price", "request_loan", "grant_loan", "reject_application", "claim_collateral"]  # H12.2
 
 
 static func is_management(type: String) -> bool:

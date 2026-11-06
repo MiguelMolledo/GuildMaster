@@ -52,6 +52,8 @@ BUILDINGS = {
                   "windows, a wide open door at the same place as the reference's door, a hanging wooden sign with a "
                   "painted tankard (no letters), barrels and a bench outside, upper-floor windows for the rooms and a "
                   "small stable lean-to on one side",
+    "bank": "a money-changer's BANK: a two-storey house of dressed pale stone with a dark slate roof, a heavy iron-bound "
+            "door, barred windows, a hanging sign with a gold coin (no letters) and a small coat of arms over the door",
     "clinic": "a physician's practice: a timber-framed house with whitewashed plaster and a terracotta roof, bundles "
               "of herbs drying under the eaves, a small bench by the door and a hanging sign with a mortar and pestle "
               "(no letters on the sign)",

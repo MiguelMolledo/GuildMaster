@@ -9588,6 +9588,386 @@
       }
     },
     {
+      "id": "iprop_bank_counter",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/bank_counter.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g30_l_bank_a (ref: _referencias/bank_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a long carved wooden banking counter with a brass balance scale and stacks of coins",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          97,
+          78
+        ],
+        "feet": [
+          48,
+          53
+        ],
+        "height": 53,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "bank"
+        ],
+        "style": "rich"
+      }
+    },
+    {
+      "id": "iprop_ledger_cabinet",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/ledger_cabinet.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g30_l_bank_a (ref: _referencias/bank_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a tall wide carved cabinet full of ledgers and rolled contracts",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          93,
+          130
+        ],
+        "feet": [
+          46,
+          105
+        ],
+        "height": 105,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "bank"
+        ],
+        "style": "rich"
+      }
+    },
+    {
+      "id": "iprop_vault_door_wall",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/vault_door_wall.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g30_l_bank_a (ref: _referencias/bank_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a heavy iron vault door with rivets and a big ring handle, set in a stone wall",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          84,
+          130
+        ],
+        "feet": [
+          42,
+          105
+        ],
+        "height": 105,
+        "walkable": false,
+        "wall": true,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "bank"
+        ],
+        "style": "rich"
+      }
+    },
+    {
+      "id": "iprop_client_bench",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/client_bench.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g30_l_bank_a (ref: _referencias/bank_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.02,
+      "notas": "a carved wooden bench with a back, for clients to wait",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          2,
+          1
+        ],
+        "size": [
+          90,
+          90
+        ],
+        "feet": [
+          45,
+          65
+        ],
+        "height": 65,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "bank"
+        ],
+        "style": "rich"
+      }
+    },
+    {
+      "id": "iprop_banker_desk",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/banker_desk.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g31_s_bank_a (ref: _referencias/bank_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a small writing desk with a quill, an inkwell, a candle and a parchment",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          30,
+          33
+        ],
+        "feet": [
+          15,
+          21
+        ],
+        "height": 21,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "bank"
+        ],
+        "style": "rich"
+      }
+    },
+    {
+      "id": "iprop_coin_chest",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/coin_chest.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g31_s_bank_a (ref: _referencias/bank_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "an open wooden chest full of gold coins",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          22,
+          24
+        ],
+        "feet": [
+          11,
+          15
+        ],
+        "height": 15,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "bank"
+        ],
+        "style": "rich"
+      }
+    },
+    {
+      "id": "iprop_iron_strongbox",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/iron_strongbox.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g31_s_bank_a (ref: _referencias/bank_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a heavy grey iron strongbox with locks",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          29,
+          29
+        ],
+        "feet": [
+          14,
+          19
+        ],
+        "height": 19,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "bank"
+        ],
+        "style": "rich"
+      }
+    },
+    {
+      "id": "iprop_balance_table",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/balance_table.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g31_s_bank_a (ref: _referencias/bank_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a small table with a brass balance scale and small weights",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          28,
+          32
+        ],
+        "feet": [
+          14,
+          21
+        ],
+        "height": 21,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "bank"
+        ],
+        "style": "rich"
+      }
+    },
+    {
+      "id": "iprop_scroll_basket",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/scroll_basket.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g31_s_bank_a (ref: _referencias/bank_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "a wooden bucket full of rolled parchment scrolls",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          20,
+          27
+        ],
+        "feet": [
+          10,
+          17
+        ],
+        "height": 17,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "bank"
+        ],
+        "style": "rich"
+      }
+    },
+    {
+      "id": "iprop_money_bags",
+      "tipo": "prop",
+      "estado": "sprite",
+      "para": [
+        "interiores"
+      ],
+      "ruta": "assets/art/props/interior/money_bags.png",
+      "origen": "fal: nano-banana-2/edit, rejilla g31_s_bank_a (ref: _referencias/bank_a.png y la forja ×4) + image2pixel con la paleta de interiores (tools/art/fal_props.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.0089,
+      "notas": "three leather money bags tied with string, on the floor",
+      "prop": {
+        "category": "trade",
+        "footprint": [
+          1,
+          1
+        ],
+        "size": [
+          25,
+          21
+        ],
+        "feet": [
+          12,
+          13
+        ],
+        "height": 13,
+        "walkable": false,
+        "wall": false,
+        "on_top": false,
+        "hangs": false,
+        "mirror": true,
+        "trades": [
+          "bank"
+        ],
+        "style": "rich"
+      }
+    },
+    {
       "id": "int_armory",
       "tipo": "interior",
       "estado": "sprite",
@@ -18571,6 +18951,48 @@
       "coste_gen": 0,
       "coste_usd": 0.25,
       "notas": "H12.2: la Consulta médica (3×3), con hierbas secándose bajo el alero, un banco y el cartel del mortero; clinic_construction.png y clinic_damaged.png. En game/visuals/buildings/clinic.tscn. Pendiente para PixelLab (15-nov): la de espaldas (clinic_back) para las ciudades generadas."
+    },
+    {
+      "id": "icon_ledger_book_tool",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "objetos"
+      ],
+      "ruta": "assets/art/icons/ledger_book_tool.png",
+      "origen": "fal: nano-banana-2/edit, rejilla e2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "32×32 y small/. H12.2: el libro mayor, la herramienta del banquero."
+    },
+    {
+      "id": "icon_bank",
+      "tipo": "icono",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "ui"
+      ],
+      "ruta": "assets/art/ui/icons/icon_bank.png",
+      "origen": "fal: nano-banana-2/edit, rejilla e2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+      "coste_gen": 0,
+      "coste_usd": 0.04,
+      "notas": "H12.2: el Banco (botón y panel)."
+    },
+    {
+      "id": "bld_bank",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "bank"
+      ],
+      "ruta": "assets/art/buildings/fal/bank.png",
+      "origen": "fal: nano-banana-2/edit sobre la silueta de la armería de escala B (assets/art/buildings/escala_b/bank.png, copia de armory.png) + image2pixel a escala 4 (tools/art/fal_fachadas.py); obras y dañado con /edit",
+      "coste_gen": 0,
+      "coste_usd": 0.25,
+      "notas": "H12.2: el Banco (3×4, en el solar de la forja del jugador), de piedra con tejado de pizarra, el cartel de la moneda; bank_construction.png y bank_damaged.png. En game/visuals/buildings/bank.tscn. Para PixelLab (15-nov): sin los escudos apoyados que hereda de la armería, y la de espaldas."
     }
   ]
 }

@@ -70,7 +70,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
-	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice,
+	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "banker_novice": BotBankerNovice,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
 	"merchant": BotMerchant, "pacing": BotPacing, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper,
 	"idle_titles_fest": BotIdle,
@@ -83,6 +83,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# crook: artisan_expert with the Secrets upgrade that ends in court (H11, crook = 1, 40 days)
 	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
 	# scholar_novice: the physician of the scholar's start (H12.2, --start=scholar_physician): patients, bandages, debt
+	# banker_novice: the banker of the scholar's start (H12.2, --start=scholar_banker): lends to A and B, claims defaults
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
 	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
 	# duelist: challenges the rival of the trade by the rules and plays its duels (duelo, --scenario=duel_ready)
@@ -198,7 +199,10 @@ func _init() -> void:
 					print("sim_runner: %s: %s" % [label, r["error"]])
 					quit(2)
 					return
-				runs.append(_run(Sim.new(r["state"], cat), bot, bot_id, s, days, flows))
+				# H12.2: a bot measures its own goldflow windows when it has some (the banker excludes the capital it
+				# lends, the others only the debt); without any, all of them as before
+				var own := flows.filter(func(fl: Dictionary) -> bool: return str(fl.get("bot", "")) == bot_id)
+				runs.append(_run(Sim.new(r["state"], cat), bot, bot_id, s, days, own if not own.is_empty() else flows))
 			var t: Dictionary = (targets.get(bot_id, {}) as Dictionary).duplicate(true)
 			for fl: Dictionary in flows:  # the goldflow window of this bot (GDD 4.19: the mean over the seeds)
 				if str(fl.get("bot", "")) == bot_id and days >= int(fl["window_days"][1]):

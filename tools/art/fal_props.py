@@ -411,6 +411,23 @@ TARGET.update({"mortar_table": 30, "apothecary_shelf": 56, "bandage_basket": 20,
                "instrument_tray": 28, "medicine_chest": 24, "folding_screen": 46, "leech_jars": 30,
                "herb_drying_frame": 44, "examination_cot": 92, "operating_table": 92, "apothecary_counter": 96,
                "waiting_bench": 90, "anatomy_chart": 36, "medical_diploma": 24, "herb_shelf_wall": 24})
+# --- el Banco (H12.2, el Banquero: 04d 4.22.5.6) -------------------------------------------------------------------
+add("l", "bank_a", "trade", [
+    ("bank_counter", "2x1", "", "a long carved wooden banking counter with a brass balance scale and stacks of coins"),
+    ("ledger_cabinet", "2x1", "wall", "a tall wide carved cabinet full of ledgers and rolled contracts"),
+    ("vault_door_wall", "2x1", "wall", "a heavy iron vault door with rivets and a big ring handle, set in a stone wall"),
+    ("client_bench", "2x1", "", "a carved wooden bench with a back, for clients to wait"),
+], ["bank"], "rich")
+add("s", "bank_a", "trade", [
+    ("banker_desk", "1x1", "", "a small writing desk with a quill, an inkwell, a candle and a parchment"),
+    ("coin_chest", "1x1", "", "an open wooden chest full of gold coins"),
+    ("iron_strongbox", "1x1", "", "a heavy grey iron strongbox with locks"),
+    ("balance_table", "1x1", "", "a small table with a brass balance scale and small weights"),
+    ("scroll_basket", "1x1", "", "a wooden bucket full of rolled parchment scrolls"),
+    ("money_bags", "1x1", "", "three leather money bags tied with string, on the floor"),
+], ["bank"], "rich")
+TARGET.update({"bank_counter": 100, "ledger_cabinet": 96, "vault_door_wall": 92, "client_bench": 88, "banker_desk": 30,
+               "coin_chest": 22, "iron_strongbox": 26, "balance_table": 30, "scroll_basket": 24, "money_bags": 18})
 TARGET.update({"bar_shelf": 54, "cask_stand_big": 36, "tankard_rack": 34, "hall_firepit": 34, "hall_brazier": 34,
                "jug_crate": 24})
 TARGET.update({"engraving_bench": 34, "master_seal": 30, "hidden_passage": 30, "smuggler_cache": 26, "double_ledger": 32,

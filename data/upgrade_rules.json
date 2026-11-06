@@ -34,7 +34,13 @@
     "inn_minstrel": {"value": "flag", "stack": "all", "when": "query", "reader": "inn"},
     "inn_gaming_table": {"value": "flag", "stack": "all", "when": "query", "reader": "inn"},
     "inn_porter": {"value": "flag", "stack": "all", "when": "query", "reader": "inn"},
-    "inn_night_watch": {"value": "flag", "stack": "all", "when": "query", "reader": "inn"}
+    "inn_night_watch": {"value": "flag", "stack": "all", "when": "query", "reader": "inn"},
+    "bank_applications": {"value": "mult", "stack": "all", "when": "query", "reader": "bank"},
+    "bank_extra_applications": {"value": "amount", "stack": "all", "when": "query", "reader": "bank"},
+    "bank_amount": {"value": "mult", "stack": "all", "when": "query", "reader": "bank"},
+    "bank_exact_risk": {"value": "flag", "stack": "all", "when": "query", "reader": "bank"},
+    "bank_recovery": {"value": "amount", "stack": "all", "when": "query", "reader": "bank"},
+    "bank_default": {"value": "mult", "stack": "all", "when": "query", "reader": "bank"}
   },
   "_titles_doc": "GDD 4.12.2, lowest first. A family without a title field (until H9) is default_title. requires.title of an upgrade = the minimum title of the owner family.",
   "titles": ["common", "citizen", "patrician", "baron", "noble"],

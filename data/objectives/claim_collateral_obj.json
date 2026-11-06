@@ -1,0 +1,11 @@
+{
+  "id": "claim_collateral_obj",
+  "name_key": "objective.claim_collateral_obj",
+  "conditions": [
+    {
+      "event": "collateral_claimed",
+      "match": {},
+      "count": 1
+    }
+  ]
+}

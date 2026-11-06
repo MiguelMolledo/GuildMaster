@@ -65,6 +65,7 @@ var portrait_pool: Dictionary = {}
 ## (the groups of customers); data/services.json, the demand of services of 4.22.3.2 (tavern and inn, for now).
 var inn: Dictionary = {}
 var services: Dictionary = {}
+var bank: Dictionary = {}        # data/bank.json: the Banco of the banker (H12.2, 04d 4.22.5.6)
 var errors: PackedStringArray = []  # files that could not be read
 var _goods_index: Dictionary = {}  # H13: item -> [goods groups] (goods_of)
 var _goods_built: bool = false
@@ -121,6 +122,7 @@ static func load_from(root_dir: String = "res://data", dev_time: bool = false) -
 		"menu": c._load_json(root_dir.path_join("inn/menu.json")),
 		"clientele": c._load_json(root_dir.path_join("inn/clientele.json"))}
 	c.services = c._load_json(root_dir.path_join("services.json"))
+	c.bank = c._load_json(root_dir.path_join("bank.json"))
 	if dev_time and c.time.has("dev"):
 		for k: String in c.time["dev"]:
 			c.time[k] = c.time["dev"][k]

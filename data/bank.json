@@ -1,0 +1,50 @@
+{
+  "_doc": "The Banco of the banker (docs/gdd/04d_otras_clases.md 4.22.5.6; sim/econ/bank.gd) [balance]. applications: at each dawn, per Banco with an owner, chance_per_day (× the bank_applications upgrades; + bank_extra_applications more chances) of a loan application from a townsfolk household: amount in [amount] (× bank_amount upgrades, rounded to round_to), term_days among terms (multiples of installment_days), a risk drawn by its share; it waits expires_days and at most max_open wait at once. risks: what each one accepts as annual interest at most (max_interest, prorated to the term: a year = the days of a year) and its chance of not paying each installment (default, × bank_default upgrades). A granted loan is paid in equal installments every installment_days; a household pays from outside (P4). An unpaid installment: the loan is in default; each later dawn, late_payment.chance_per_day that the household pays all it owes plus late_payment.surcharge, unless the banker claims the collateral (claim_collateral, from claim_after_days in default): the town gives back recovery.notarized (a notarial loan: a «contract» in the Banco's storage was used when granting) or recovery.plain of what is owed (+ bank_recovery upgrades), and the rest is lost. Families (human or AI) ask a Banco with request_loan (lender = the Banco): their application waits there; an AI owner decides at dawn (accepts if the borrower's wealth covers ai_accepts_cover × the amount, at ai_interest of the risk's maximum); a family's loan follows the debt rules of 4.16 and what it pays goes to the banker. Category of the banker's ledger: bank_lent (what is lent and comes back), interest (what it earns), bank_losses (what is lost).",
+  "applications": {
+    "chance_per_day": 3.0,
+    "amount": [
+      250,
+      700
+    ],
+    "round_to": 10,
+    "terms": [
+      4,
+      8,
+      12
+    ],
+    "expires_days": 2,
+    "max_open": 8
+  },
+  "risks": {
+    "A": {
+      "share": 0.5,
+      "max_interest": 0.15,
+      "default": 0.02
+    },
+    "B": {
+      "share": 0.35,
+      "max_interest": 0.25,
+      "default": 0.06
+    },
+    "C": {
+      "share": 0.15,
+      "max_interest": 0.4,
+      "default": 0.15
+    }
+  },
+  "installment_days": 2,
+  "notarized_item": "contract",
+  "recovery": {
+    "notarized": 0.6,
+    "plain": 0.3,
+    "claim_after_days": 1
+  },
+  "late_payment": {
+    "chance_per_day": 0.2,
+    "surcharge": 0.1
+  },
+  "family": {
+    "ai_accepts_cover": 2.0,
+    "ai_interest": 1.0
+  }
+}

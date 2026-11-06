@@ -90,8 +90,10 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 	_set_kin(s, catalog, hero, int(pr.get("age", 20)), str(start.get("class", "artisan")),
 		str(start.get("profession", "")), c["visual"])
 	s.families[fam]["class"] = str(start.get("class", "artisan"))
+	if str(pr.get("title", "")) != "" and str(pr.get("title", "")) != str(s.families[fam].get("title", "")):
+		s.families[fam]["title"] = str(pr["title"])  # H12.2: the banker starts a Citizen (the title of a Banco)
 	var b: Dictionary = start["building"]
-	var forge := _add_building(s, catalog, sites, str(b["site"]), fam, b.get("inventory", []))
+	var forge := _add_building(s, catalog, sites, str(b["site"]), fam, b.get("inventory", []), str(b.get("type", "")))
 	# The rival family (GDD 4.5.5): its craft comes from the difficulty.
 	var rv: Dictionary = start.get("rival", {})
 	if not rv.is_empty():
@@ -439,17 +441,19 @@ static func _set_kin(s: WorldState, catalog: Catalog, chr: String, age: int, cha
 
 
 static func _add_building(s: WorldState, catalog: Catalog, sites: Dictionary, site: String, owner: String,
-		items: Array) -> String:
+		items: Array, type: String = "") -> String:
 	var id := Ids.next(s, "bld")
 	var m: Dictionary = sites[site]
-	var def: Dictionary = catalog.buildings().get(str(m["type"]), {})
+	if type == "":
+		type = str(m["type"])  # H12.2: a start may build another type on its site (the Banco on the forge's plot)
+	var def: Dictionary = catalog.buildings().get(type, {})
 	var zones := {}
 	for z: Dictionary in def.get("zones", []):
 		zones[str(z["id"])] = {"occupant": "", "job": null}
 	var inv := Inventory.create("stacks", float(def.get("storage_stacks", 0)))
 	for it: Dictionary in items:
 		Inventory.add(inv, catalog, str(it["item"]), int(it.get("quality", 0)), int(it.get("qty", 0)))
-	s.buildings[id] = {"id": id, "type": str(m["type"]), "owner": owner, "origin": (m["origin"] as Array).duplicate(),
+	s.buildings[id] = {"id": id, "type": type, "owner": owner, "origin": (m["origin"] as Array).duplicate(),
 		"footprint": (def.get("footprint", [1, 1]) as Array).duplicate(), "door": (m["door"] as Array).duplicate(),
 		"state": "normal", "inventory": inv, "zones": zones, "upkeep_debt": 0, "upkeep_unpaid_since": -1,
 		"employee_slots": int(def.get("base_employees", 0)), "queue": {"entries": [], "loop": false, "paused": false},

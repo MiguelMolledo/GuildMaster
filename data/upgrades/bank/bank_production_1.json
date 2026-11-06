@@ -1,0 +1,32 @@
+{
+  "id": "bank_production_1",
+  "name_key": "upgrade.bank_production_1",
+  "tree": "bank",
+  "branch": "production",
+  "level": 1,
+  "cost": {
+    "gold": 45,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 2
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 0.5,
+  "effects": [
+    {
+      "kind": "bank_applications",
+      "mult": 1.5
+    }
+  ],
+  "visual": {
+    "interior_node": "bank_clerk_desk",
+    "exterior_overlay": null
+  }
+}

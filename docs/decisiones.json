@@ -1207,6 +1207,12 @@
       "tema": "H12.2 · el prestamista de la ciudad y el Loan ampliado (04d 4.22.5.6, P8, O12 a)",
       "decision": "Orden request_loan (gestión, lender moneylender): cualquier familia pide entre 20 y la mitad de su patrimonio estimado (Dynasty.wealth: oro, coste de sus edificios y mejoras), a 8 o 16 días, al 25 % anual prorrateado (8 días = 25 %, 16 = 50 %), en cuotas iguales cada 2 días; no con otro préstamo del prestamista abierto ni con uno en impago (prórroga). Una cuota sin pagar en su día es el impago de 4.16: prórroga de una estación desde esa cuota, +25 % sobre lo que queda, −10 de reputación, y luego el embargo. Un pago cubre las cuotas en orden. Campos nuevos del Loan (kind, interest, installments, collateral, lender_family, notarized) leídos con valores por defecto: no hay versión de guardado nueva (no hace falta la v22). La deuda del inicio y las multas siguen con interés 0 y un solo pago. Libro, Deudas: la próxima cuota de cada préstamo y la tarjeta «Pedir al prestamista» (cantidad, un botón por plazo con lo que se deberá, confirmación). Los bots del Artesano no lo usan: sus dianas no se mueven.",
       "por_que": "«Servicios y préstamos» del encargo; O12 (a) aprobado. El Banco del Banquero (solicitudes de NPC, garantías notariales, reclamar) queda para el bloque siguiente del Erudito."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12.2 · el Banquero y el Banco (04d 4.22.5.6)",
+      "decision": "Inicio scholar_banker: Ferran Cambra, Ciudadano (el título del Banco), 3.000 de oro de capital y la deuda de la dificultad; el Banco (data/buildings/bank.json, 3×4, mantenimiento 15) se levanta en el solar de la forja del jugador (el inicio puede construir otro tipo en su sitio si cabe: NewGame, validador), así no hace falta sitio nuevo y cabe en todas las ciudades. Bank (sim/econ/bank.gd): cada amanecer, 3 solicitudes de hogares del pueblo de media (250-700 de oro, 4/8/12 días, riesgo A/B/C de 4.22.5.6, caducan a los 2 días, una por hogar); grant_loan al interés que elija el banquero hasta el máximo de la solicitud, cuotas iguales cada 2 días; un hogar paga desde fuera (P4) o entra en impago por su tirada; cada día, 20 % de que pague con un 10 % de recargo; claim_collateral desde el día siguiente: 60 % notarial (un «contrato» en la cámara del Banco) o 30 %, cubre primero el capital y el resto se pierde. Las familias piden al Banco con request_loan (lender = el Banco): su solicitud espera allí y su préstamo sigue las reglas de 4.16; lo que pagan va al banquero. Un dueño IA decide al amanecer (acepta si el patrimonio cubre el doble). Libro: bank_lent (el capital que sale y vuelve), interest, bank_losses (lo perdido, al reclamar). Árbol de 24 mejoras (Contable, Sucursal, Casa de cambio; Informe de solvencia, Avales, Fianzas). Panel del Banco en su interior: Solicitudes (interés con − / +), Cartera, Impagos. Bot banker_novice: concede A y B al máximo, rechaza C, reclama a la primera; su diana goldflow.start_banker en la banda de inicio 25-60 sin contar el capital prestado.",
+      "por_que": "Encargo del manager (2026-11-06): el Banquero con su edificio, interior, árbol y bot en la banda 25-60 de Normal. Con las tasas de 4.22.5.6 (año de 8 días), el interés rinde ~2,4 % del capital al día: la banda pide ~2.500-3.000 prestados, de ahí el capital del inicio, los préstamos de 250-700 y 3 solicitudes al día [balance]. 4×5 no cabe en una parcela de town_e: 3×4 hasta el mapa EA. El prestamista de la ciudad sigue aparte (lender moneylender, kind moneylender); el Banco usa el mismo Loan con kind bank y lender_family."
     }
   ],
   "pendientes": [
@@ -1392,6 +1398,11 @@
       "tema": "H12.2 · el Médico en las otras ciudades de la región",
       "detalle": "El inicio scholar_physician solo se juega en town_e: las seis ciudades de plantillas (y los mapas de la región) no tienen el sitio de la Consulta ni el puesto del Boticario, y en «Dónde empiezas» salen apagadas para el Médico (city_lacks_site). Regenerarlas con el inicio del Erudito cambia sus mapas (es terreno del worker de plantillas).",
       "opciones": "(a) Regenerar las ciudades de plantillas con scholar_physician entre los inicios (tools/city/generator.py start_ids) y el puesto apothecary; (b) dejar el Médico solo en town_e hasta el mapa EA. Recomendación: (a), en la rama de plantillas."
+    },
+    {
+      "tema": "H12.2 · el Banco: tamaño y contratos notariales",
+      "detalle": "(1) El Banco es 3×4 (el solar de la forja), no 4×5 como 4.22.5: ¿se queda así o se le da un solar propio en el mapa EA? (2) El «contrato» que hace notarial un préstamo lo fabrica el Escriba (aún sin hacer) y no se vende en el mercado: hasta entonces ningún préstamo es notarial (se recupera el 30 %).",
+      "opciones": "(1) (a) 3×4 hasta el mapa EA; (b) solar propio 4×5 ya. (2) (a) esperar al Escriba; (b) que el Boticario o el Ayuntamiento venda contratos. Recomendación: (1a) y (2a)."
     }
   ],
   "proximos_pasos": [

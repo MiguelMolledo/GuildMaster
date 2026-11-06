@@ -1,0 +1,11 @@
+{
+  "id": "banker",
+  "name_key": "profession.banker",
+  "class": "scholar",
+  "order": 1,
+  "building": "bank",
+  "tool": "ledger_book_tool",
+  "start": "scholar_banker",
+  "contracts": "banker",
+  "_doc": "H12.2: the banker (04d 4.22.5.6): the Banco, its tool (the bound ledger), its start and an empty contract table (a banker does not make things: the board offers it nothing)."
+}

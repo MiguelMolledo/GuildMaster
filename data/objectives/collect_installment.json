@@ -1,0 +1,13 @@
+{
+  "id": "collect_installment",
+  "name_key": "objective.collect_installment",
+  "conditions": [
+    {
+      "event": "installment_paid",
+      "match": {
+        "to_bank": true
+      },
+      "count": 3
+    }
+  ]
+}

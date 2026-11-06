@@ -1,0 +1,32 @@
+{
+  "id": "bank_quality_2",
+  "name_key": "upgrade.bank_quality_2",
+  "tree": "bank",
+  "branch": "quality",
+  "level": 2,
+  "cost": {
+    "gold": 180,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "bank_quality_1"
+    ],
+    "stat": {
+      "id": "negotiation",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "bank_recovery",
+      "amount": 0.15
+    }
+  ],
+  "visual": {
+    "interior_node": "bank_guarantees",
+    "exterior_overlay": null
+  }
+}

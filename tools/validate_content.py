@@ -367,7 +367,11 @@ def check_h3(items, recipes, buildings, maps, strings, rep):
             if site is None:
                 rep.error(w, f"{name}.site {b.get('site')} no es un edificio del mapa")
             elif site.get("type") != b.get("type"):
-                rep.error(w, f"{name}: tipo {b.get('type')} distinto del del mapa {site.get('type')}")
+                # H12.2: the protagonist may build another type on its site if it fits (the Banco on the forge's plot)
+                fs = (buildings.get(site.get("type")) or {}).get("footprint") or [0, 0]
+                fb = (buildings.get(b.get("type")) or {}).get("footprint") or [99, 99]
+                if name != "building" or fb[0] > fs[0] or fb[1] > fs[1]:
+                    rep.error(w, f"{name}: tipo {b.get('type')} distinto del del mapa {site.get('type')}")
             for st in b.get("inventory") or []:
                 if st.get("item") not in items:
                     rep.error(w, f"{name}: objeto desconocido {st.get('item')}")
@@ -610,7 +614,7 @@ UPGRADES = {}  # H5: id -> upgrade (data/upgrades/<tree>/<id>.json), loaded firs
 EFFECT_VALUES = {"mult", "amount", "zone", "recipe", "rank", "flag"}
 EFFECT_STACKS = {"branch_top", "all"}
 EFFECT_WHEN = {"query", "complete"}
-EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none", "inn"}
+EFFECT_READERS = {"production", "market", "counter", "staff", "inspections", "inventory", "family", "none", "inn", "bank"}
 
 
 def load_upgrades(rep):

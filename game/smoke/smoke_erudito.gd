@@ -33,6 +33,10 @@ func _ready() -> void:
 		["arriba", func() -> void: _upstairs(), 1.0],
 		["deudas", func() -> void: _debts(), 1.0],
 		["mejoras", func() -> void: _all_upgrades(), 1.5],
+		["banco_calle", func() -> void: _start_bank(), 1.5],
+		["banco", func() -> void: _bank_applications(), 1.5],
+		["banco_cartera", func() -> void: _bank_portfolio(), 1.0],
+		["banco_impagos", func() -> void: app.interior().bank_panel().show_tab("defaults"), 1.0],
 	]
 	print("[SmokeErudito] start (%d shots)" % _steps.size())
 
@@ -114,6 +118,55 @@ func _debts() -> void:
 	Game.sim.state.families[SimQuery.player_family(Game.sim.state)]["gold"] = 160
 	app.hud().open_ledger("debts")
 	_check(app.hud().ledger_panel().visible, "the ledger on Debts")
+
+
+## H12.2 · the banker: a new game as scholar_banker, its Banco on the forge's plot.
+func _start_bank() -> void:
+	app.close_interior()
+	app.hud().ledger_panel().close()
+	var r := NewGame.from_start(Game.sim.catalog, "scholar_banker", "normal", {"cast": "fixed"}, 7)
+	_check(bool(r["ok"]), "scholar_banker starts")
+	app.call("_on_new_game_started", r["state"])
+	Game.set_paused(true)
+	app.world().camera().center_on(Iso.tile_to_world(LOT))
+	_check(str(Game.sim.state.buildings[BLD]["type"]) == "bank", "the Banco is the player's")
+
+
+## Three households ask (a good, a fair and a poor solvency) and the Banco's panel shows them.
+func _bank_applications() -> void:
+	var st := Game.sim.state
+	var who: Array = []
+	var fams := {}
+	for id: String in st.characters:
+		var f := str(st.characters[id].get("family", ""))
+		if TownLife.is_townsperson(st, id) and TownLife.is_adult(st, Game.sim.catalog, id) and not fams.has(f):
+			fams[f] = true
+			who.append(id)
+	who.sort()
+	var plan := [["A", 300, 8], ["B", 450, 12], ["C", 250, 4], ["B", 600, 8]]
+	for k: int in mini(plan.size(), who.size()):
+		Bank._add(Game.sim, BLD, "household", str(st.characters[who[k]]["family"]), str(who[k]), int(plan[k][1]),
+			int(plan[k][2]), str(plan[k][0]))
+	app.open_interior(BLD, true)
+	app.interior().show_bank(true)
+	_check(app.interior().bank_panel().visible, "the Banco's panel")
+	_check(Bank.applications(st, BLD).size() >= 3, "applications waiting")
+
+
+## Two loans granted, a day on, one of them in default: the portfolio.
+func _bank_portfolio() -> void:
+	var st := Game.sim.state
+	var apps := Bank.applications(st, BLD)
+	for a: Dictionary in apps:
+		if str(a["risk"]) in ["A", "B"]:
+			Orders.apply(Game.sim, {"type": "grant_loan", "actor": DOC, "application": str(a["id"]),
+				"interest": float(a["max_interest"])})
+	var mine := Bank.portfolio(st, SimQuery.player_family(st))
+	_check(mine.size() >= 2, "loans granted (%d)" % mine.size())
+	if not mine.is_empty():
+		Bank._default(Game.sim, str(mine[-1]))
+		st.loans[str(mine[-1])]["defaulted_at"] = int(st.clock["minute"]) - Clock.MINUTES_PER_DAY
+	app.interior().bank_panel().show_tab("portfolio")
 
 
 func _check(cond: bool, what: String) -> void:

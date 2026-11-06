@@ -66,6 +66,7 @@ func step(orders: Array = []) -> Array:
 	Upkeep.step(self)       # daily upkeep at dawn (D12, D15)
 	Inspections.step(self)  # at dawn: Secrets inspections (fines), after wages and upkeep
 	Loans.step(self)        # debt warnings, due date, extension, seizure, ruin
+	Bank.step(self)         # H12.2 (04d 4.22.5.6): the Bancos' applications, the households' installments, defaults
 	Emergency.step(self)    # Equilibrio 2: the emergency loan of a family with nothing left; seizure for upkeep debt
 	Pecha.step(self)        # Equilibrio 5: at year_changed, the yearly tax on wealth by brackets
 	Births.step(self)       # H8: at dawn, children of the married couples

@@ -1,0 +1,13 @@
+{
+  "id": "grant_loan",
+  "name_key": "objective.grant_loan",
+  "conditions": [
+    {
+      "event": "loan_granted",
+      "match": {
+        "lender": "bank"
+      },
+      "count": 1
+    }
+  ]
+}
