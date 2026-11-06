@@ -785,7 +785,7 @@
     "idle_titles_fest"
   ],
   "festive": {
-    "_doc": "Fiestas (04f 4.28.4): artisan_expert un año entero (8 días) con las fiestas, en una partida nueva real (--start=artisan_blacksmith --bots=festive --days=8). Cada fiesta fija sale (fest_fixed_seen 8), cada una con su pregón, sus encargos se publican y se cumplen (los gana el jugador o el rival del oficio: un solo ganador), nada se queda colgado (fest_stuck 0) y ninguna orden de fiesta se rechaza. Medido (3 semillas, 2026-11-04): 27-37 encargos publicados, 5-9 cumplidos (casi todos por los rivales del oficio; la comida de los banquetes nadie la lleva hasta la posada), 0 colgados, 0 órdenes rechazadas. Bandas [provisional].",
+    "_doc": "Fiestas (04f 4.28.4): artisan_expert un año entero (8 días) con las fiestas, en una partida nueva real (--start=artisan_blacksmith --bots=festive --days=8). Cada fiesta fija sale (fest_fixed_seen 8), cada una con su pregón, sus encargos se publican y se cumplen (los gana el jugador o el rival del oficio: un solo ganador), nada se queda colgado (fest_stuck 0) y ninguna orden de fiesta se rechaza. Medido (3 semillas, 2026-11-04): 27-37 encargos publicados, 5-9 cumplidos (casi todos por los rivales del oficio; la comida de los banquetes nadie la lleva hasta la posada), 0 colgados, 0 órdenes rechazadas. Bandas [provisional]. Equilibrio (decisión del manager, 2026-11-06): fest_contracts_done por semilla [4, null] -> [3, null], la media sigue en [5, null]. Con Equilibrio 9 (la forja del jugador sigue produciendo durante las obras) el rival del oficio gana un encargo de fiesta menos en la semilla 1: main 4/9/8, equilibrio 3/9/9 (media 7); aislado apagando por partes (con las obras cerradas vuelve a 4). Es la competencia que pide 03b.",
     "days": [
       8,
       null
@@ -815,7 +815,7 @@
       null
     ],
     "fest_contracts_done": [
-      4,
+      3,
       null
     ],
     "fest_contests": [
