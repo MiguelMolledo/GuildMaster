@@ -1459,6 +1459,12 @@
       "tema": "El desbloqueo del tribunal llega con un caso (construido)",
       "decision": "data/unlocks.json court esperaba un evento accuse que no existe y trial_opened solo cuenta para la familia acusada: no llegaba nunca a quien acusa. Ahora: un juicio contra la familia, o Ciudadano y una falta vista de otra familia (Equilibrio 6, evento misdeed seen, de cualquiera); ventana [8, 40] (03b §3b.4, año 2-5); su carta dice que se puede llevar a juicio. Bandas de full_player aplicadas en data/targets.json con sus _doc (visitors_quiet_day y treaty_net/treaty_paid medidos por tools/full_watch.gd y tools/full_player.gd).",
       "por_que": "Hallado por forja al medir los pendientes de full_player; aprobado por el manager (2026-11-06)."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Jugador completo · el mostrador con un solo empleado no compensa (resuelto)",
+      "decision": "Resuelto: counter_shop (equilibrio, cdca6e52) vende 5,0-6,6 veces el salario con un empleado en el mostrador, y desde a1ca9062 (posada, 4.7.4) un empleado en rol «cualquiera» despacha si no hay nadie en «counter», así que con un único empleado el mostrador vende.",
+      "por_que": "Medido; ya no hay nada que decidir."
     }
   ],
   "pendientes": [
@@ -1484,11 +1490,6 @@
       "tema": "Pulido del MVP (provisional)",
       "detalle": "Trampa de pobreza: con 0 de oro y sin material, la deuda de mantenimiento (D15) se come las ventas hasta el embargo; es de balance. Multa: se deja 30 de oro y lo demás pasa a préstamo a 8 días. Contrabando: el mostrador cobra el doble con Secretos 3. Casillas tapadas: Mayús + clic derecho, o el clic normal si el edificio está transparente.",
       "opciones": "Confirmar o cambiar las cifras; la trampa de pobreza se decide con el balance."
-    },
-    {
-      "tema": "Jugador completo · el mostrador con un solo empleado no compensa",
-      "detalle": "El modo counter_shop de artisan_expert pone en el mostrador a su empleado menos hábil, aunque sea el único. Medido en full_player antes de corregirlo (semilla 1, año 3): la cola se para 68 h y el mostrador vende 67 de oro en 6 días, contra un salario de 20 al día; el neto del año 3 cae a ~1/día. Ahora full_player solo atiende el mostrador con 2 o más empleados (why_not: one_employee). Con un empleado, el mostrador no compensa nunca en 3 años. Cifra nueva (medido con full_player, 3 años × 4 semillas, sobre 1f39d995 (reports/full_player_ref/full_player_despues_eq.json; antes: full_player_antes_eq.json sobre b0616e72)): 0, 0, 0 y 1 ventas en el mostrador en 3 años; con un solo empleado el bot no lo atiende (why_not one_employee en 2 de 4). Sigue a la espera de interiores (Equilibrio 8: ×0,34 del salario).",
-      "opciones": "(a) el propio cabeza atiende el mostrador mientras está en casa · (b) más clientes o margen en el mostrador (4.5.4) · (c) dejarlo: es para dos o más empleados (y decirlo en la UI)"
     },
     {
       "tema": "Jugador completo · Barón inalcanzable con un solo negocio",
