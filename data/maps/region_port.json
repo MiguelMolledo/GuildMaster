@@ -2278,6 +2278,25 @@
   },
   {
    "id": "plot_11",
+   "state": "lot",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    5,
+    38
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    5,
+    41
+   ],
+   "location": 0.09
+  },
+  {
+   "id": "plot_12",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -2298,7 +2317,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_12",
+   "id": "plot_13",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -2319,7 +2338,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_13",
+   "id": "plot_14",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -2340,7 +2359,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_14",
+   "id": "plot_15",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -2361,7 +2380,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_15",
+   "id": "plot_16",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -2382,7 +2401,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_16",
+   "id": "plot_17",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -2403,7 +2422,7 @@
    "for_sale": true
   },
   {
-   "id": "plot_17",
+   "id": "plot_18",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2424,7 +2443,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_18",
+   "id": "plot_19",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2445,7 +2464,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_19",
+   "id": "plot_20",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2466,7 +2485,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_20",
+   "id": "plot_21",
    "state": "business",
    "side": "outside",
    "zone": "production",
@@ -2487,7 +2506,7 @@
    "for_sale": true
   },
   {
-   "id": "plot_21",
+   "id": "plot_22",
    "state": "business",
    "side": "outside",
    "zone": "production",
@@ -2508,7 +2527,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_22",
+   "id": "plot_23",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2529,7 +2548,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_23",
+   "id": "plot_24",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2550,7 +2569,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_24",
+   "id": "plot_25",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2571,7 +2590,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_25",
+   "id": "plot_26",
    "state": "business",
    "side": "outside",
    "zone": "housing",

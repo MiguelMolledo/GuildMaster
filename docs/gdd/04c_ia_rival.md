@@ -291,6 +291,14 @@ vuelve a montar taller (`Construction`, after_sale «rebuilds»); al terminar la
 de todo esto, el crédito de la economía (`ai_credit`, plantillas); la ruina de una familia IA no acaba la partida
 (forja: `Loans._seize`, `Emergency.ruin`). Aviso al jugador del cartel y de la caída, y a la crónica.
 
+**En los mapas de la economía de la IA (Bellcaire; decisión del manager, 2026-11-07, opciones a + b)**: (a) la
+quiebra empieza solo cuando el **crédito ya ha fallado**: un crédito `ai_credit` embargado en los últimos
+`negative_days` y el oro bajo `AIEconomy.reserve` (`Bankruptcy.in_trouble`); con oro sobre esa reserva sale de la
+austeridad. El neto del taller no cuenta lo invertido en él (`property`, `upgrades`) y un taller recién levantado espera
+sus `negative_days` (`built_day`). (b) Los adultos de una familia **venida a menos** son candidatos a empleado y, si
+nadie los contrata, cobran al amanecer un **jornal de peón** (`data/ai.json` `economy.fallen.day_wage`, 6): ingresan y
+pueden reconstruir. La diana de H13 no cambia (una familia venida a menos sin oro cuenta como sin oro).
+
 **Contrato con la economía de la IA** (decisión del manager, 2026-11-07): `families[f].ai_state.bankruptcy.stage` es
 `""` (normal), `"austerity"` o `"for_sale"`, y solo lo escribe `Bankruptcy`. Mientras no sea `""`, la economía
 (`sim/ai/economy.gd`, plantillas: `AIEconomy._manage`) **no contrata**; la quiebra no mira las contrataciones. La
@@ -575,7 +583,8 @@ dianas siguen byte a byte igual.
   familia sin salida). **Crédito** (4.21.6.3 en pequeño; `economy.credit`):
   al amanecer, tras el mantenimiento, la familia que no puede pagar el del día siguiente (mantenimiento y sueldos)
   pide 120 más lo que debe de mantenimiento (hasta 300) al prestamista y debe un 20 % más en 8 días (una abierta, una
-  cada 4 días); lo primero que paga es esa deuda, así que el taller dañado se repara (con el taller dañado no compra
+  cada 4 días; si vuelve a no llegar antes de que venza, otro adelanto de 120 sobre el mismo hasta deber 360,
+  `max_owed`); lo primero que paga es esa deuda, así que el taller dañado se repara (con el taller dañado no compra
   insumos: no podría usarlos); cada amanecer devuelve lo que tiene sobre su reserva. Vencido, la prórroga y el embargo de siempre; lo que el embargo no cubre se perdona: una familia IA
   no se arruina (la ruina acaba la partida del jugador). Sin él, una forja que cubría gastos justos (Ferrer frente al
   jugador, semilla 3) caía a 0 y el taller dañado la dejaba sin salida 68 días. La quiebra completa de 4.21.6.3

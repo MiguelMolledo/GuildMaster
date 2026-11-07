@@ -3,8 +3,8 @@ extends RefCounted
 ## H6 · the bankruptcy of an AI family (docs/gdd/04c_ia_rival.md §4.21.6.3, Q9 b; data/construction.json
 ## "bankruptcy" [balance]). Evaluated at dawn (Construction.step), for the AI families with a profile, on the maps of
 ## the AI's economy (data/ai.json economy.maps: the families that run their money there; elsewhere nothing changes):
-##   normal    -> austerity  the workshop's net of the last negative_days days is under 0 and its gold under its
-##                           reserve (Construction.budget < 0) («neto negativo durante 2 años y la familia en
+##   normal    -> austerity  the workshop's net of the last negative_days days is under 0, its gold under its
+##                           reserve (AIEconomy.reserve) and its credit seized in those days (in_trouble) («neto negativo durante 2 años y la familia en
 ##                           austeridad»; the moneylender's credit comes first): no construction (Construction asks
 ##                           stage()), it lets its least efficient employee go.
 ##   austerity -> normal     after season_days, the season's net is >= 0 or its gold over the reserve again;
@@ -103,6 +103,29 @@ static func step(sim: Sim) -> void:
 				_for_sale(sim, fam, m, today)
 
 
+## The gold the family keeps (manager, 2026-11-07: AIEconomy.reserve on the economy maps; Construction's elsewhere).
+static func _reserve(sim: Sim, fam: String) -> int:
+	if AIEconomy.on(sim):
+		return AIEconomy.reserve(sim, fam, Hostility._profile(sim, fam))
+	return Money.gold(sim.state, fam) - Construction.budget(sim, fam)
+
+
+## Whether the family is in trouble for the bankruptcy: under its reserve and, on the economy maps, with the
+## moneylender's credit already failed (a CREDIT loan seized since `since_day`): the credit comes first (manager,
+## 2026-11-07, option a).
+static func in_trouble(sim: Sim, fam: String, since_day: int) -> bool:
+	if Money.gold(sim.state, fam) >= _reserve(sim, fam):
+		return false
+	if not AIEconomy.on(sim):
+		return true
+	for id: String in sim.state.loans:
+		var l: Dictionary = sim.state.loans[id]
+		if str(l.get("family", "")) == fam and str(l.get("kind", "")) == AIEconomy.CREDIT \
+				and str(l.get("state", "")) == Loans.SEIZED and Clock.day(int(l.get("due_minute", 0))) >= since_day:
+			return true
+	return false
+
+
 static func _normal(sim: Sim, fam: String, m: Dictionary, today: int) -> void:
 	var bld := workshop_of(sim, fam)
 	if bld == "":
@@ -111,7 +134,7 @@ static func _normal(sim: Sim, fam: String, m: Dictionary, today: int) -> void:
 	if today - int(m.get("built_day", -days)) < days:
 		return   # a workshop just put up: «neto negativo durante 2 años» needs those years
 	var losing := today >= days and net(sim, fam, bld, today - days, today - 1) < 0
-	if not losing or Construction.budget(sim, fam) >= 0:
+	if not losing or not in_trouble(sim, fam, today - days):
 		return   # «neto negativo durante 2 años y la familia en austeridad» (04c): both; the credit comes first
 	m["stage"] = AUSTERITY
 	m["since"] = today
@@ -121,7 +144,7 @@ static func _normal(sim: Sim, fam: String, m: Dictionary, today: int) -> void:
 	sim.events.append({"type": "ai_austerity", "family": fam, "building": bld})
 	if OS.is_debug_build():
 		print("[Bankruptcy] %s entra en austeridad (%s: neto %d en %d días, presupuesto %d)" % [fam, bld,
-			net(sim, fam, bld, today - days, today - 1), days, Construction.budget(sim, fam)])
+			net(sim, fam, bld, today - days, today - 1), days, Money.gold(sim.state, fam) - _reserve(sim, fam)])
 
 
 static func _austerity(sim: Sim, fam: String, m: Dictionary, today: int) -> void:
@@ -132,7 +155,7 @@ static func _austerity(sim: Sim, fam: String, m: Dictionary, today: int) -> void
 	if not sim.state.buildings.has(bld) or str(sim.state.buildings[bld].get("owner", "")) != fam:
 		_reset(m)
 		return
-	if net(sim, fam, bld, int(m["since"]), today - 1) >= 0 or Construction.budget(sim, fam) >= 0:
+	if net(sim, fam, bld, int(m["since"]), today - 1) >= 0 or Money.gold(sim.state, fam) >= _reserve(sim, fam):
 		_reset(m)
 		sim.events.append({"type": "ai_recovered", "family": fam, "building": bld})
 		return

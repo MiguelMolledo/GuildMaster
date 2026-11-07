@@ -1501,6 +1501,12 @@
       "tema": "H12.2 · la Consulta médica y el Boticario en las ciudades de la región",
       "decision": "Las cinco ciudades de Valldaura traen, como Vilarrasa (make_town_e.py, interiores), el solar de la Consulta médica (player_clinic, tipo clinic, alternativa del solar de la forja del jugador: tools/city/organic.py pone scholar_physician en los inicios por defecto) y el puesto del Boticario (apothecary, en el borde este de la plaza: tools/city/generator.py TEMPLATE). El Médico se juega en todas (tests/test_plantillas_medico.gd: la partida nueva, la Consulta de la familia, las vendas en el boticario y pacientes el primer día).",
       "por_que": "Encargo del manager: que el Médico (rama erudito) se pueda jugar en todas las ciudades de plantilla."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "H6 × H13 · la quiebra de la IA en Bellcaire: el crédito primero y el jornal de la familia venida a menos",
+      "decision": "Por delegación del owner, el manager: (a) en economy.maps la quiebra (sim/build/bankruptcy.gd) empieza solo cuando el crédito de la IA ya ha fallado (un ai_credit embargado en los últimos negative_days) y mide la reserva con AIEconomy.reserve; (b) los adultos de una familia venida a menos son candidatos a empleado y, si nadie los contrata, cobran un jornal de peón al amanecer (data/ai.json economy.fallen.day_wage 6); (c) no: la diana de H13 no se toca. Además: mientras ai_state.bankruptcy.stage no sea vacío la economía no contrata (contrato de posada); vivienda a 4 por ciudad (tools/city/reglas.json plots.rule housing [4, 4]); una sonda H13 corta en tools/qa/run_all.py (paso h13: Normal y Difícil, 24 días); Difícil con su diana (≤ 20 días-familia sin oro y rachas ≤ 5 por semilla) sin bajar la presión; el bench de Bellcaire al sellar. Para que el crédito sea de verdad lo primero, una familia que vuelve a no llegar al amanecer con su crédito aún abierto recibe otro adelanto sobre el mismo (economy.credit.max_owed 360). Medido (h13_probe, 80 días, 3 semillas, sobre main 5ae0cf23): días-familia sin oro Normal 0/1/0, Fácil 0/0/0, Difícil 2/2/3, rachas ≤ 1; 0 órdenes de la IA rechazadas; ataques al jugador (mediana) Fácil 0 ≤ Normal 2 ≤ Difícil 2; oro neto 6503 > 4348 > 2333; títulos y cuota en diana. Paso h13 de run_all: 226 s.",
+      "por_que": "Decisión del manager por delegación del owner (2026-11-07): la quiebra de posada dejaba familias a 0 sin ingresos y H13 en rojo."
     }
   ],
   "pendientes": [

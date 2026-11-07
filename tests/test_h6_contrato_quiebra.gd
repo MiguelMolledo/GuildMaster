@@ -48,3 +48,50 @@ func test_no_hiring_while_bankrupt() -> void:
 			check(_hires(s, fam), "control: with the stage empty, rich and with a recipe, it hires")
 		else:
 			check(not _hires(s, fam), "stage %s: no hiring (ai_state.bankruptcy.stage)" % stage)
+
+
+## Manager, 2026-11-07 (option a): on the economy maps the bankruptcy starts only once the moneylender's credit has
+## failed (seized) and measures the reserve with AIEconomy.reserve.
+func test_the_credit_comes_first() -> void:
+	var sim := _capital()
+	var fam := ""
+	for f: String in Hostility._ai_families(sim.state):
+		if str(sim.state.families[f]["ai_profile"]) == "rival_smith":
+			fam = f
+	var forge := Bankruptcy.workshop_of(sim, fam)
+	sim.state.clock["minute"] = 17 * Clock.MINUTES_PER_DAY + 600
+	sim.state.families[fam]["gold"] = 500
+	Money.change(sim, fam, -500, Money.UPKEEP, "test", forge)
+	var dawn := func(day: int) -> void:
+		sim.state.clock["minute"] = day * Clock.MINUTES_PER_DAY + 360
+		sim.events = [{"type": "phase_changed", "phase": "dawn"}]
+		Bankruptcy.step(sim)
+	dawn.call(18)
+	eq(Bankruptcy.stage(sim, fam), Bankruptcy.NORMAL, "losing and without gold, but its credit has not failed: no bankruptcy")
+	var id := Loans.create(sim.state, fam, {"lender": "moneylender"}, 144, 16 * Clock.MINUTES_PER_DAY, forge)
+	sim.state.loans[id]["kind"] = AIEconomy.CREDIT
+	sim.state.loans[id]["state"] = Loans.SEIZED
+	dawn.call(19)
+	eq(Bankruptcy.stage(sim, fam), Bankruptcy.AUSTERITY, "its credit seized in those days: austerity")
+	check(Bankruptcy.in_trouble(sim, fam, 0), "under AIEconomy.reserve")
+	sim.state.families[fam]["gold"] = AIEconomy.reserve(sim, fam, Hostility._profile(sim, fam))
+	check(not Bankruptcy.in_trouble(sim, fam, 0), "at its reserve it is not in trouble")
+
+
+## Manager, 2026-11-07 (option b): the adults of a family venida a menos nobody hired earn a day labourer's wage.
+func test_a_fallen_family_earns_a_day_wage() -> void:
+	var sim := _capital()
+	var fam := Hostility._ai_families(sim.state)[0] as String
+	sim.state.families[fam]["fallen"] = {"day": 3}
+	sim.state.families[fam]["gold"] = 0
+	var adults := 0
+	for m: Variant in sim.state.families[fam]["members"]:
+		var c := str(m)
+		if Kin.alive(sim.state, c) and Kin.is_adult(sim, c):
+			sim.state.characters[c]["job"] = null
+			adults += 1
+	check(adults >= 1, "the family has adults (%d)" % adults)
+	sim.state.clock["minute"] = 4 * Clock.MINUTES_PER_DAY + 360
+	sim.events = [{"type": "phase_changed", "phase": "dawn"}]
+	AIEconomy._day_labour(sim, fam)
+	eq(Money.gold(sim.state, fam), adults * int(cat.ai_rules["economy"]["fallen"]["day_wage"]), "a day wage for each")

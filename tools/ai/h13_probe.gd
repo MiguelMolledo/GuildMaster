@@ -14,7 +14,11 @@ extends SceneTree
 ##                   one family (target: <= 5); employees_max, sabotages
 ##   rivalry_max     the highest rivalry of an AI family towards the player
 ##   /opt/homebrew/bin/godot --headless --quiet --path . -s tools/ai/h13_probe.gd -- [--days=80] [--seeds=3]
-##       [--difficulties=normal,easy,hard]
+##       [--difficulties=normal,easy,hard] [--short]
+## --short (the QA step of tools/qa/run_all.py): 1 seed of Normal and Hard, 24 days; it checks the refused AI orders,
+## the production share and the AI families without gold (Normal <= 10 days-family, Hard <= 20; streaks <= 5), not
+## what needs the 80 days (titles, attacks, their order); reports/sim/h13_probe_short.json.
+## Hard (manager, 2026-11-07): <= 20 days-family without gold and streaks <= 5 per seed too.
 ## Writes reports/sim/h13_probe.json; exits with 1 if a Normal target fails (production share, titles, attacks in
 ## at least 80 % of the seeds, refused AI orders, AI families without gold, attacks between AI families and a
 ## sabotage) or the order of net gold (easy > normal > hard) or of attacks (easy <= normal <= hard, medians) is broken.
@@ -26,6 +30,11 @@ func _init() -> void:
 	var days := 80
 	var seeds := 3
 	var diffs: PackedStringArray = ["normal", "easy", "hard"]
+	var short := "--short" in OS.get_cmdline_user_args()
+	if short:  # the QA step (tools/qa/run_all.py h13): one seed of Normal and Hard, 24 days
+		days = 24
+		seeds = 1
+		diffs = ["normal", "hard"]
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--days="):
 			days = a.substr(7).to_int()
@@ -58,8 +67,8 @@ func _init() -> void:
 				int(m["rivalry_max"]), float(m["seconds"])])
 	var bad: Array = []
 	var normal: Array = by_diff.get("normal", [])
+	var in_band := 0
 	if not normal.is_empty():
-		var in_band := 0
 		for m: Dictionary in normal:
 			if float(m["prod_share_max"]) > 0.6:
 				bad.append("seed %d: una familia con %.0f %% de las parcelas de producción" % [m["seed"], float(m["prod_share_max"]) * 100])
@@ -71,12 +80,26 @@ func _init() -> void:
 				bad.append("seed %d: %d días-familia IA sin oro (> 10)" % [m["seed"], m["ai_broke_days"]])
 			if int(m["ai_broke_streak"]) > 5:
 				bad.append("seed %d: una familia IA %d días seguidos sin oro (> 5)" % [m["seed"], m["ai_broke_streak"]])
+		if short:
+			normal = []  # the short run checks only what 24 days can say (below)
+	if short:
+		for m: Dictionary in by_diff.get("hard", []):
+			if float(m["prod_share_max"]) > 0.6:
+				bad.append("%s: una familia con %.0f %% de las parcelas de producción" % [m["difficulty"], float(m["prod_share_max"]) * 100])
+	if not normal.is_empty():
 		var titled: Array = normal.map(func(m: Dictionary) -> int: return int(m["ai_titled"]))
 		titled.sort()
 		if int(titled[titled.size() / 2]) < 2:
 			bad.append("mediana de familias IA que suben de título %d (< 2)" % titled[titled.size() / 2])
 		if float(in_band) / float(normal.size()) < 0.8:
 			bad.append("ataques al jugador entre 1 y 4 en %d de %d semillas (< 80 %%)" % [in_band, normal.size()])
+	for m: Dictionary in by_diff.get("hard", []):  # manager, 2026-11-07: Hard too, without lowering the pressure
+		if int(m["ai_broke_days"]) > 20:
+			bad.append("difícil seed %d: %d días-familia IA sin oro (> 20)" % [m["seed"], m["ai_broke_days"]])
+		if int(m["ai_broke_streak"]) > 5:
+			bad.append("difícil seed %d: una familia IA %d días seguidos sin oro (> 5)" % [m["seed"], m["ai_broke_streak"]])
+		if short and int(m["refused_ai"]) > 0:
+			bad.append("difícil: %d órdenes de la IA rechazadas" % m["refused_ai"])
 	var med := {}
 	for d: String in by_diff:
 		var g: Array = (by_diff[d] as Array).map(func(m: Dictionary) -> int: return int(m["net_gold"]))
@@ -94,7 +117,7 @@ func _init() -> void:
 	if att.has("easy") and att.has("normal") and att.has("hard") \
 			and not (int(att["easy"]) <= int(att["normal"]) and int(att["normal"]) <= int(att["hard"])):
 		bad.append("orden de ataques roto: fácil %d, normal %d, difícil %d" % [att["easy"], att["normal"], att["hard"]])
-	if not normal.is_empty():
+	if not normal.is_empty() and not short:
 		var ai_vs_ai := 0
 		var sab := 0
 		for m: Dictionary in normal:
@@ -109,7 +132,7 @@ func _init() -> void:
 		bad.append("orden de oro neto roto: fácil %d, normal %d, difícil %d" % [med["easy"], med["normal"], med["hard"]])
 	out["failures"] = bad
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://reports/sim"))
-	FileAccess.open("res://reports/sim/h13_probe.json", FileAccess.WRITE).store_string(JSON.stringify(out, "\t"))
+	FileAccess.open("res://reports/sim/h13_probe%s.json" % ("_short" if short else ""), FileAccess.WRITE).store_string(JSON.stringify(out, "\t"))
 	printerr("h13_probe: oro neto (mediana) %s · ataques al jugador (mediana) %s · %s" % [med, att, "todo bien" if bad.is_empty() else "FALLA: " + "; ".join(bad)])
 	quit(1 if not bad.is_empty() else 0)
 
