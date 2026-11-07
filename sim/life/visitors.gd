@@ -136,6 +136,8 @@ static func _arrive(sim: Sim, p: Dictionary) -> void:
 			"until": -1, "leaving": false, "arrived": int(st.clock["minute"])}})
 	if kd.has("wares"):  # the peddler's stall (Peddler): his stock for the day, keyed by his arrival
 		st.characters[id]["visitor"]["wares"] = Peddler.stock_for(st, kd, key)
+	if kd.has("trade") and Region.is_city(sim, str(p["city"])):  # the merchant trades for real (VisitingMerchant)
+		VisitingMerchant.setup(sim, st.characters[id]["visitor"], str(p["city"]), key)
 	var vis: Dictionary = st.characters[id]["visual"]
 	vis["hair"] = int(look.get("hair", vis.get("hair", 0)))
 	vis["skin"] = int(look.get("skin", vis.get("skin", 0)))

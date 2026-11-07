@@ -2,6 +2,18 @@
   "tomadas": [
     {
       "fecha": "2026-11-06",
+      "tema": "Vida: el mercader de paso comercia de verdad (construido)",
+      "decision": "El mercader forastero compra al jugador lo que su ciudad paga caro (dear) al 80 % del precio de allí y le vende lo barato de su ciudad (cheap, 2-4 de cada) al 115 %, desde su ficha y en persona (sell_to_merchant, buy_from_merchant). Límites: su bolsa (oro real), 3 unidades de cada cosa por visita; no toca los puestos de la villa ni su demanda, y el viaje siempre paga mejor. sim/life/merchant.gd.",
+      "por_que": "Encargo del manager (2026-11-06): cerrar lo que quedó a medias en la auditoría de vida."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Vida: la librea de la guardia, con placeholder visible",
+      "decision": "Mientras no llegue el sprite del guardia (assets/inventario.json, PixelLab), los guardias llevan sobre la figura del vecino teñida un tabardo con los colores del concejo (watch.livery) y una cruz dorada: se leen como guardia a primera vista. Se quita solo cuando exista la escena characters/guard_m.",
+      "por_que": "Encargo del manager (2026-11-06): cerrar lo que quedó a medias en la auditoría de vida."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Fiestas: el corro de juego en la plaza (construido)",
       "decision": "(b) Con una fiesta en curso, la carta de la fiesta trae «Corro de juego»: una segunda carta con pulso, azar, a la mayor y envite contra los parroquianos (data/festivals.json rules.corro: regular_even, regular_prudent, regular_boastful), con la misma pantalla de juegos y la apuesta pequeña de la plaza (5). Sin casa ni licencia: nadie se lleva parte (game_play con opts.corro; con casa, bad_option). Con el predicador en la villa está mal visto: cada partida cuesta 2 de reputación y la carta lo dice. Ni en la víspera ni después de la fiesta; no estando en la villa, no. sim/fest/festival_corro.gd.",
       "por_que": "Delegación del owner: analiza una a una y toma la mejor decision."
@@ -989,7 +1001,7 @@
     {
       "fecha": "2026-11-06",
       "tema": "H13 · la economía de las familias IA de Bellcaire",
-      "decision": "Las familias IA de Bellcaire llevan su taller como una de verdad (sim/ai/economy.gd, solo en data/ai.json economy.maps; Vilarrasa con hashes idénticos a main; ninguna constante compartida tocada): la pareja trabaja en el otro puesto y el cabeza cambia de puesto si el suyo está cogido; elige receta por su margen real por hora y fabrica el intermedio cuando le sale más barato que comprarlo; no compra para piezas que el mercado no se va a llevar; sale al mercado entre fases con un lote vendible o sin insumos; contrata un aprendiz solo con oro sobre su reserva y si su receta paga el sueldo, y lo despide bajo su reserva (gold_reserve + reserve_days de mantenimiento y sueldos, también el final de su guerra de precios); bajo su reserva vende en austeridad (hasta demanda 0,6), no ataca, y títulos y cargos no le tocan la reserva; pausa la cola con el taller dañado. Mira su taller cada tick_minutes (5; la gestión, en su minuto escalonado del amanecer) y, si no había nada que hacer, vuelve a mirar a los check_minutes (15): el coste por minuto de la IA en Bellcaire. Crédito (economy.credit): la que no puede pagar el amanecer siguiente pide 120 al prestamista, debe 144 en 8 días y devuelve lo que tiene sobre su reserva; lo que el embargo no cubra se perdona (una familia IA no se arruina: la ruina acaba la partida del jugador). Rivalidad: desahogo (−20 al atacante tras atacar), envidia del título (10 × (0,5 + agresividad)) y respiro de la víctima (4 días); Ferrer empieza con 30 hacia el recién llegado. Dianas (h13_probe, 80 días, 3 semillas, sobre main f68fe5cc): Normal días-familia sin oro 3/0/1 (≤ 10), racha 3/0/1 (≤ 5), ataques al jugador 2/2/1, entre IA 7/2/1 con 8 sabotajes, títulos 5/4/4, cuota 0,33, 0 órdenes rechazadas; medianas de ataques Fácil 0 ≤ Normal 2 ≤ Difícil 2; oro neto Fácil 7121 > Normal 4472 > Difícil 2210. En Difícil las familias IA aún pasan apuros (54-88 días-familia sin oro, rachas de 10: el crédito las rescata y vuelven a caer): sin diana en el encargo.",
+      "decision": "Las familias IA de Bellcaire llevan su taller como una de verdad (sim/ai/economy.gd, solo en data/ai.json economy.maps; Vilarrasa con hashes idénticos a main; ninguna constante compartida tocada): la pareja trabaja en el otro puesto y el cabeza cambia de puesto si el suyo está cogido; elige receta por su margen real por hora y fabrica el intermedio cuando le sale más barato que comprarlo; no compra para piezas que el mercado no se va a llevar; sale al mercado entre fases con un lote vendible o sin insumos; contrata un aprendiz solo con oro sobre su reserva y si su receta paga el sueldo, y lo despide bajo su reserva (gold_reserve + reserve_days de mantenimiento y sueldos, también el final de su guerra de precios); bajo su reserva vende en austeridad (hasta demanda 0,6), no ataca, y títulos y cargos no le tocan la reserva; pausa la cola con el taller dañado. Mira su taller cada tick_minutes (5; la gestión, en su minuto escalonado del amanecer) y, si no había nada que hacer, vuelve a mirar a los check_minutes (15): el coste por minuto de la IA en Bellcaire. Crédito (economy.credit): la que no puede pagar el amanecer siguiente pide 120 más lo que debe de mantenimiento (hasta 300) al prestamista, lo primero que paga es esa deuda (el taller dañado se repara), debe un 20 % más en 8 días y devuelve lo que tiene sobre su reserva; con el taller dañado no compra insumos; lo que el embargo no cubra se perdona (una familia IA no se arruina: la ruina acaba la partida del jugador). Rivalidad: desahogo (−20 al atacante tras atacar), envidia del título (10 × (0,5 + agresividad)) y respiro de la víctima (4 días); Ferrer empieza con 30 hacia el recién llegado. Dianas (h13_probe, 80 días, 3 semillas, sobre main c03163e9): Normal días-familia sin oro 3/1/1 (≤ 10), racha 3/1/1 (≤ 5), ataques al jugador 2/2/1, entre IA 7/4/1 con 8 sabotajes, títulos 5/4/4, cuota 0,33, 0 órdenes rechazadas; medianas de ataques Fácil 0 ≤ Normal 2 ≤ Difícil 3; oro neto Fácil 7035 > Normal 4472 > Difícil 2028. En Difícil aún hay apuros (37/2/49 días-familia sin oro, rachas de 8; antes del crédito que salda la deuda, 54-95 y rachas de 10): sin diana en el encargo.",
       "por_que": "Manager: «una capital de rivales arruinados no es divertida… arréglalo en la IA (sim/ai, perfiles, data/ai.json)… NO toques el mantenimiento ni otras constantes compartidas con Vilarrasa»."
     },
     {
@@ -1411,6 +1423,30 @@
       "tema": "H6 · cuántas parcelas libres trae cada ciudad",
       "decision": "Por ciudad: 4-5 parcelas libres de producción (solares y ruinas), al menos 2 de ≥ 3×4 o 4×3 (un taller), y 3-4 de vivienda de ≥ 3×3 (una casa). Vilarrasa la cumple en tools/maps/make_town_e.py (posada): producción plot_01 (ruina 3×3), plot_02 (3×2), plot_21 y plot_22 (3×4, al norte del callejón de arriba); vivienda plot_03 y plot_04 agrandados a 3×3 y plot_23 y plot_24 (3×3) en esa franja; no queda nada fuera, el corral de la feria sigue cabiendo junto a la puerta este. Las otras cinco ciudades, plantillas en tools/city/plots.py. Sustituye a la pendiente «H6 · los solares de los mapas no admiten talleres ni dejan sitio a la IA».",
       "por_que": "Delegación del owner por el manager («apruebo tu regla para todas, Vilarrasa incluida»), con el dato de la sonda de 60 días: con solo las 2 libres de la válvula y de 2×2-3×2, la IA no tenía dónde construir y no cabía ningún taller."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H6 · la quiebra de una familia IA (04c §4.21.6.3, Q9 b)",
+      "decision": "sim/build/bankruptcy.gd, al amanecer y solo en los mapas de la economía de la IA (data/ai.json economy.maps, hoy Bellcaire): neto del taller negativo 16 días y oro bajo la reserva (las dos, como dice el texto; antes, el crédito de la economía) → austeridad 2 días (no construye, despide al menos eficiente) → cartel «Se vende» 2 días a (coste + mejoras) × 0,8, que compra cualquiera (el jugador con buy_building, sin negarse; una familia IA de su oficio) → si nadie, despide y derriba (40 %) → sin negocio, venida a menos: título y reputación se quedan, sus adultos se pueden contratar y se alojan en una casa del pueblo, y con oro vuelve a montar taller. Derribar ya no se niega por tener a alguien dentro: sale por la puerta (solo bloquean los empleados y el único techo).",
+      "por_que": "Encargo del manager (H6, lo que queda), por delegación del owner. Reparto: la ruina de la IA que no acaba la partida es de forja (Loans._seize, Emergency.ruin) y el crédito antes de la quiebra de plantillas (ai_credit); esto no duplica ninguno de los dos."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H6 · full_player abre un segundo taller cuando le compensa",
+      "decision": "sim/bots/bot_branch.gd (BotBranch, para BotFullPlayer; BOT_VARS=builds=0 lo apaga): con sitio por título, la taberna antes (rinde 3-4 veces una forja), la forja principal ganando ≥ 300 en los últimos 8 días y oro para la obra con 1000 de colchón sobre la reserva, construye una forja en el solar más barato; la lleva sola: cola en bucle de la receta de más margen que sus materias primas del puesto de recursos permiten, mostrador y Personal 1, dos empleados (uno forja, otro despacha en el mostrador) y sus materias por recado. Si en 8 días pierde dinero, despide y derriba, y no abre otra.",
+      "por_que": "Pendientes de full_player «Barón inalcanzable con un solo negocio» y «el oro se acumula sin sumidero»: medidos a 5 años (3 semillas): sin taller, oro del año 5 985 / 575 / 5649; con la regla, 985 / 575 / 5512 (solo la semilla 3, la rica, lo abre, el día 38); Barón no llega en ninguna de las dos (la reputación, 137 como mucho, no llega ni a Patricio, 200). Una forja abierta antes, sin esa regla, perdía 100-170 al día (sueldos, mantenimiento y recados frente a 40 por venta en el mostrador) y dejaba el oro a 0."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Mostrador: un empleado en rol «cualquiera» atiende si no hay nadie en «counter» (4.7.4)",
+      "decision": "Se arregla el código para cumplir el GDD: deja su pieza en pausa, despacha y vuelve. Con un único empleado el mostrador vende. Lo hace posada, midiendo counter_shop, artisan_* y full_player antes y después.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». Un mostrador que no vende con tu único empleado parece un fallo; el texto del GDD es lo que espera el jugador."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Equilibrio · bandas ajenas para que la partida por defecto salga siguiendo el tutorial",
+      "decision": "artisan_novice oro del día 10 hasta 600 (antes 540) e innkeeper explotación diaria hasta 120 (antes 100), con el recado sin recargo solo en Recursos, la espada a 68 y la rampa de mantenimiento 25/50/75 % los días 1-3. Difícil, con deuda de 300, paga a tiempo el 27 %: aceptado, siempre que el que no paga tenga la prórroga y no la ruina directa.",
+      "por_que": "Delegación del owner: «me gustan tus recomendaciones en todas y las que no confio en ti decide tu, siempre pensando en que el juego sea completo divertido y con calidad profesional». La ruta del tutorial pasa del 17 % al 93 % de deudas pagadas a tiempo en Normal; el techo del novato sigue impidiendo que sea un paseo."
     },
     {
       "fecha": "2026-11-06",

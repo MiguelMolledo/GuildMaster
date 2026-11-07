@@ -255,7 +255,7 @@ static func order_build(sim: Sim, o: Dictionary) -> Dictionary:
 
 
 ## {"ok", "reason", "refund"} for `actor` pulling down `bld`. Reasons: unknown_actor, unknown_building, not_yours,
-## has_employees, someone_inside, only_home, under_construction.
+## has_employees, only_home, under_construction (whoever else is inside goes out of the door).
 static func can_demolish(sim: Sim, actor: String, bld: String) -> Dictionary:
 	var st := sim.state
 	if not st.characters.has(actor):
@@ -272,9 +272,6 @@ static func can_demolish(sim: Sim, actor: String, bld: String) -> Dictionary:
 		return Orders.fail("under_construction")
 	if not Staff.employees_of(st, bld).is_empty():
 		return Orders.fail("has_employees")
-	for c: String in st.characters:
-		if str(st.characters[c].get("location", "")) == bld:
-			return Orders.fail("someone_inside")
 	if _only_home(sim, fam, bld):
 		return Orders.fail("only_home")
 	var r := Orders.ok()
@@ -317,9 +314,13 @@ static func order_demolish(sim: Sim, o: Dictionary) -> Dictionary:
 	var type := str(st.buildings[bld]["type"])
 	if int(r["refund"]) > 0:
 		Money.change(sim, fam, int(r["refund"]), Money.PROPERTY, "demolish", bld, actor)
+	var door: Array = st.buildings[bld].get("door", [0, 0])
 	for c: String in st.characters:
 		if str(st.characters[c].get("home", "")) == bld:
 			st.characters[c]["home"] = ""
+		if str(st.characters[c].get("location", "")) == bld:   # whoever is inside (a customer) goes out of the door
+			st.characters[c]["location"] = ""
+			st.characters[c]["position"] = door.duplicate()
 	st.buildings.erase(bld)
 	st.parcels[plot_id] = {"state": "lot", "building": ""}
 	Reputation.change(sim, fam, int(rules(sim).get("demolish_reputation", -2)), "demolish")
@@ -435,13 +436,14 @@ static func can_buy_from(sim: Sim, actor: String, bld: String) -> Dictionary:
 		return Orders.fail("under_construction")
 	var rel := Emotions.relation(st, Kin.head(st, seller), actor)
 	var ns: Dictionary = rules(sim).get("npc_sale", {})
-	if rel < int(ns.get("refuse_below", -40)):
+	var sign := bool(b.get("for_sale", false)) and b.has("sale_price")   # a bankrupt family's «Se vende»: anybody
+	if not sign and rel < int(ns.get("refuse_below", -40)):
 		var no := Orders.fail("refuses")
 		no["relation"] = rel
 		return no
 	if not room_for(sim, fam, str(b["type"])):
 		return Orders.fail("title_limit")
-	var price := npc_price(sim, bld, rel)
+	var price := int(b["sale_price"]) if sign else npc_price(sim, bld, rel)
 	if not Money.can_pay(st, fam, price):
 		var f := Orders.fail("not_enough_gold")
 		f["price"] = price
@@ -493,6 +495,7 @@ static func order_buy_from(sim: Sim, o: Dictionary) -> Dictionary:
 			st.characters[c]["home"] = ""
 	b["owner"] = fam
 	b.erase("for_sale")
+	b.erase("sale_price")
 	b["queue"] = {"entries": [], "loop": false, "paused": false}
 	var after: Dictionary = rules(sim).get("npc_sale", {}).get("after", {})
 	var rel := int(r["relation"])

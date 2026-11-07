@@ -993,6 +993,50 @@ func _process(_delta: float) -> void:
 	if build_mode and build_layer != null:
 		build_layer.set_hovered(build_layer.plot_at(screen_to_tile(get_viewport().get_mouse_position())))
 	zone_layer.update(camera().current_zoom())
+	_keep_marks_size()
+
+
+var _lit_tint: Color = Color.WHITE
+var _lit_count: int = -1
+
+
+## The bubbles keep their daylight colours at night: the night tint would darken their cream and the ink glyph would
+## be lost (verificación: «!» at 1.3:1). Each is modulated by the inverse of the tint.
+func _light_bubbles() -> void:
+	if not is_inside_tree():
+		return
+	var bubbles := get_tree().get_nodes_in_group(WorldLabels.NIGHT_KEEP)
+	if tint_color == _lit_tint and bubbles.size() == _lit_count:
+		return
+	_lit_tint = tint_color
+	_lit_count = bubbles.size()
+	var inv := Color(1.0 / maxf(tint_color.r, 0.2), 1.0 / maxf(tint_color.g, 0.2), 1.0 / maxf(tint_color.b, 0.2), 1.0)
+	for n: Node in bubbles:
+		if n is CanvasItem and is_ancestor_of(n):
+			(n as CanvasItem).modulate = inv
+
+
+var _kept_zoom: int = 0
+var _kept_count: int = -1
+
+
+## The town's signs, names, phrases and bubbles keep their size on screen at any zoom (WorldLabels.ZOOM_KEEP): at ×2
+## they no longer pile up (jugador J25). Only when the zoom or the number of marks changes.
+func _keep_marks_size() -> void:
+	if not is_inside_tree():
+		return
+	var z := camera().current_zoom()
+	var marks := get_tree().get_nodes_in_group(WorldLabels.ZOOM_KEEP)
+	if z == _kept_zoom and marks.size() == _kept_count:
+		return
+	_kept_zoom = z
+	_kept_count = marks.size()
+	var k := Vector2.ONE / float(maxi(1, z))
+	for n: Node in marks:
+		if n is CanvasItem and is_ancestor_of(n):
+			if n is Control:
+				(n as Control).pivot_offset = Vector2((n as Control).size.x / 2.0, (n as Control).size.y)
+			n.set("scale", k)
 
 
 ## Follows the state: new or dead walkers, positions, the day/night tint. `frac` = how far towards the next step.
@@ -1040,6 +1084,7 @@ func sync(frac: float) -> void:
 		_refresh_festivals()
 	tint_color = DayNight.tint(int(state.clock["minute"]), frac, catalog.time, ViewConfig.value("day_night", {}))
 	(get_node("%Tint") as CanvasModulate).color = tint_color
+	_light_bubbles()
 	_update_see_through()
 
 

@@ -31,6 +31,11 @@ static func style(l: Label, role: String, color: Color = Color(0, 0, 0, 0)) -> v
 		"small":
 			font = SMALL
 			size = 8
+		"bubble":   # the glyph of a bubble: ink on the bubble's cream, no contour (a dark contour blurs it)
+			font = SMALL
+			size = 8
+			fg = INK
+			outline = 0
 	if color.a > 0.0:
 		fg = color
 	l.add_theme_font_override("font", font)
@@ -47,3 +52,16 @@ static func style_tree(n: Node, role: String = "small") -> void:
 		style(n as Label, role, (n as Label).get_theme_color("font_color") if (n as Label).has_theme_color_override("font_color") else Color(0, 0, 0, 0))
 	for c: Node in n.get_children():
 		style_tree(c, role)
+
+
+## The town's marks that keep their size on screen whatever the zoom (signs, names, phrases, bubbles): WorldView
+## scales them by 1 / zoom, so at ×2 they do not pile up over each other (jugador J25).
+const ZOOM_KEEP: StringName = &"zoom_keep"
+const NIGHT_KEEP: StringName = &"night_keep"   # bubbles: WorldView undoes the night tint on them
+
+
+static func keep_size(n: CanvasItem) -> void:
+	n.add_to_group(ZOOM_KEEP)
+	if n is Control:   # it shrinks towards its bottom middle: the point that sits over the head or the building
+		var c := n as Control
+		c.pivot_offset = Vector2(c.size.x / 2.0, c.size.y)

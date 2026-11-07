@@ -41,7 +41,8 @@ const MECH: Dictionary = {"work_at": "forge_hand", "master_touch": "forge_hand",
 	"unlock_seen": "unlocks", "buy_building": "tavern", "inn_set_menu": "tavern", "inn_set_price": "tavern",
 	"inn_set_special": "tavern", "inn_buy_license": "tavern", "inn_serve": "tavern", "inn_make_bed": "tavern",
 	"game_play": "games", "game_bet": "bets", "game_enter": "games", "npc_talk": "town_talk", "npc_gift": "town_talk",
-	"npc_flatter": "town_talk", "npc_insult": "town_talk", "npc_threaten": "town_talk"}
+	"npc_flatter": "town_talk", "npc_insult": "town_talk", "npc_threaten": "town_talk",
+	"build": "plots", "demolish": "plots", "convert_building": "plots"}  # H6
 ## Event -> mechanic, when the event (of the player's family) is what shows the use.
 const MECH_EVENTS: Dictionary = {"counter_sold": "counter", "wedding": "wedding", "child_born": "children",
 	"inheritance": "inheritance", "festival_contract_done": "festival_contracts", "caravan_arrived": "caravans",

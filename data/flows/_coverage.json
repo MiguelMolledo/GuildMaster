@@ -26,5 +26,14 @@
       "key": "apagado por diseño: data/family.json succession.voluntary_close = false (D19)"
     }
   },
-  "steps": []
+  "steps": [],
+  "keys": [
+    {
+      "actions": [
+        "cam_left",
+        "panel_storage"
+      ],
+      "why": "A mueve la cámara en el pueblo y abre el Almacén dentro de un edificio, donde la cámara no se mueve (HUD _camera_key; docs/ui/01_hud.md §9): nunca a la vez"
+    }
+  ]
 }

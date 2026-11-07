@@ -314,6 +314,16 @@ func _label(text: String, variation: StringName = &"") -> Label:
 	return l
 
 
+## A name that shrinks with «…» when the row is short (its whole text in the tooltip), so the rank beside it reads.
+func _squeezable(l: Label) -> void:
+	l.clip_text = true
+	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	l.custom_minimum_size = Vector2(40, 0)
+	l.tooltip_text = l.text
+	l.mouse_filter = Control.MOUSE_FILTER_PASS
+
+
 func _fixed(text: String, width: int, variation: StringName = &"", right: bool = false) -> Label:
 	var l := Label.new()
 	l.text = text
@@ -473,14 +483,12 @@ func _employee_row(d: Dictionary) -> Control:
 	top.name = "Top"
 	top.add_theme_constant_override("separation", 4)
 	var name_l := _fixed(str(d["name"]), 0, &"BoldLabel")
-	name_l.clip_text = false
+	_squeezable(name_l)   # the name gives way, not the rank (verificación: «Ofici…»)
 	top.add_child(name_l)
 	top.add_child(_mark(_rank_n(rk)))
 	var rank_l := _label(SimQuery.rank_name(cat, rk), &"SmallLabel")
 	rank_l.name = "Rank"
 	rank_l.autowrap_mode = TextServer.AUTOWRAP_OFF
-	rank_l.clip_text = true
-	rank_l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	if promo and nxt != "":
 		rank_l.text += " → " + SimQuery.rank_name(cat, nxt)
 	top.add_child(rank_l)
@@ -681,14 +689,12 @@ func _candidate_row(d: Dictionary) -> Control:
 	top.name = "Top"
 	top.add_theme_constant_override("separation", 4)
 	var nm := _fixed(str(d["name"]), 0, &"BoldLabel")
-	nm.clip_text = false
+	_squeezable(nm)   # the name gives way, not the rank (verificación: «Aprend…», «Ofici…»)
 	top.add_child(nm)
 	top.add_child(_mark(_rank_n(str(d["rank"]))))
 	var rank_l := _label(SimQuery.rank_name(cat, str(d["rank"])), &"SmallLabel")
 	rank_l.name = "Rank"
 	rank_l.autowrap_mode = TextServer.AUTOWRAP_OFF
-	rank_l.clip_text = true
-	rank_l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	top.add_child(rank_l)
 	top.add_child(_fixed(SimQuery.t_("ui.staff.per_day") % int(d["wage"]), 0, &"GoldLabel"))
 	var ok := str(d.get("status", "")) == "ok"
