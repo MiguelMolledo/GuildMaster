@@ -213,6 +213,17 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Incidents.order_resolve(sim, order)
 		"buy_from_peddler":
 			return Peddler.order_buy(sim, order)
+		# The Rogue: the thief (sim/rogue/rogue.gd, docs/gdd/04d_otras_clases.md 4.22.6.4)
+		"pickpocket":
+			return Rogue.order_pickpocket(sim, order)
+		"burgle":
+			return Rogue.order_burgle(sim, order)
+		"fence_sell":
+			return Rogue.order_fence(sim, order)
+		"launder":
+			return Rogue.order_launder(sim, order)
+		"arrest_response":
+			return Rogue.order_arrest_response(sim, order)
 		"sell_to_merchant":
 			return VisitingMerchant.order_sell(sim, order)
 		"buy_from_merchant":

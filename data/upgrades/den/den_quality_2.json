@@ -1,0 +1,32 @@
+{
+  "id": "den_quality_2",
+  "name_key": "upgrade.den_quality_2",
+  "tree": "den",
+  "branch": "quality",
+  "level": 2,
+  "cost": {
+    "gold": 60,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "den_quality_1"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "lock_bonus",
+      "amount": 10
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": null
+  }
+}
