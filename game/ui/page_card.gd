@@ -29,6 +29,7 @@ signal closed
 
 const WIDTH: Dictionary = {"card": 400, "notice": 236, "sheet": 356}
 const RIBBON_MIN: int = 160
+const COMPACT_RIBBON_CHARS: int = 24   # a docked card's ribbon text longer than this splits «Kind: name»
 const RIBBON_GAP: int = 4          # air between the ribbon's lower edge and the first block
 const RIBBON_SIDE: int = 12        # the ribbon keeps this far from the card's sides (more where the corners are)
 ## The ribbon's letter, from the largest down: Jacquard 24 on one line, Pixel Operator Bold on one line, then on two
@@ -160,6 +161,13 @@ static func compact(d: Dictionary, bare: bool = false) -> Dictionary:
 			para = true
 		elif t == "effects" and not bare:
 			keep.append(b)
+	# a long «Kind: name» does not fit the small ribbon (jugador J26: «Pregón: San Miguel y la vendim…»): the kind on
+	# the ribbon, the name as the first line of the page
+	var rt := str(out.get("ribbon", out.get("title", "")))
+	if rt.length() > COMPACT_RIBBON_CHARS and rt.contains(": "):
+		out["ribbon"] = rt.get_slice(": ", 0)
+		var name := rt.substr(rt.find(": ") + 2)
+		keep.push_front({"type": "paragraph", "text": name.left(1).to_upper() + name.substr(1)})
 	out["blocks"] = keep
 	return out
 

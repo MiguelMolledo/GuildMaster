@@ -361,6 +361,11 @@ func tutorial_step() -> String:
 	return "%s:%s" % [t.get("chapter_id"), t.get("index")]
 
 
+## The town camera's zoom (1 or 2).
+func zoom() -> int:
+	return int(app.world().camera().current_zoom())
+
+
 ## Whether unlock `id` of 03b is open for the player's family (the jugador pass waits for staff, upgrades...).
 func unlocked(id: String) -> bool:
 	return Game.sim != null and Unlocks.is_open(st(), fam(), id)

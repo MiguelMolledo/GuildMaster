@@ -1,6 +1,15 @@
 [
   {
     "fecha": "2026-11-06",
+    "titulo": "Con zoom ×2 los rótulos no se amontonan, y lo cortado de la pasada de jugador se lee entero",
+    "que": "Con el zoom ×2, los carteles de los edificios, los nombres, las frases y las burbujas guardan su tamaño en pantalla y ya no se pisan. Las frases largas van en dos líneas en vez de cruzar la pantalla. Las burbujas tienen su propio estilo (tinta sin contorno) y de noche conservan su color de día: «!», «+» y «~~» se leen. Una carta pequeña con un título largo («Pregón: San Miguel y la vendimia») lleva en la cinta «Pregón» y el nombre debajo. En el tablón, «8 × Comida preparada» pasa a dos líneas. En Empleados, el nombre cede y el rango («Aprendiz», «Oficial») se lee entero. La A que mueve la cámara en el pueblo y abre el almacén dentro queda apuntada como compartida a propósito.",
+    "como_probar": "python3 tools/verifica/verifica.py --window --flows=zoom_rotulos,fiesta_boda,contratar_cola (la plaza al atardecer a ×1 y ×2).",
+    "capturas": [
+      "verifica_zoom_rotulos.png"
+    ]
+  },
+  {
+    "fecha": "2026-11-06",
     "titulo": "Un jugador nuevo juega el primer año por la interfaz, y lo que tropezaba se arregla",
     "que": "Una pasada de jugador recorre el primer año de la partida por defecto (Vilarrasa, herrero, Normal) solo con ratón y teclado. Juega como un novato: el tutorial, los objetivos, las cartas «Nuevo», forjar, vender, encargos, contratar y pagar. Son 15 bloques cortos en una sola sesión, con capturas y la medida del ritmo de 03b. Lo que tropezaba, arreglado. El tutorial ya no ofrece capítulos de mecánicas cerradas (después de lo básico, cada capítulo llega con su carta «Nuevo»). Su tarjeta no tapa el panel que señala ni la pila de cartas (la pila se aparta mientras guía). «Vender» por fin pide vender, y la villa se llama Vilarrasa y no «Pueblo-calle». Las cartas «Nuevo» solo ofrecen «Ver capítulo» cuando vale. El reloj y la barra no cortan sus textos, el aviso repetido sale una vez, y contratar muestra primero al aprendiz. Hallazgo grave para equilibrio: el novato no llega a pagar la deuda el día 8 y acaba en prórroga y ruina el día 10. Para forja: los 41-43 s sin decisión al final de la Forja viva y los textos del toque de maestro. Para fiestas: las peleas urgentes a diario.",
     "como_probar": "python3 tools/verifica/jugador.py --window (unos 15 min, una ventana por grimoire heavy). El informe con los hallazgos por gravedad y su dueño está en reports/jugador/2026-11-06/informe.md.",
