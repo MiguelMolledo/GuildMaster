@@ -1,0 +1,7 @@
+{
+  "fecha": "2026-11-06",
+  "titulo": "Verifica #20 · Las peleas de la calle ya no llenan la esquina",
+  "que": "Una pelea entre vecinos que no son de los tuyos sale como aviso normal: «¡Pelea!» aparece abajo a la izquierda y se va sola, como los demás avisos, y queda en el libro. Solo es urgente (se queda hasta que la tocas) si pelea alguien de tu familia o uno de tus empleados, o si es delante de la puerta de un edificio tuyo. La carta «Pelea en la calle» sigue saliendo mientras se pegan (Separarlos, Mirar, Luego), pero se va cuando acaba la pelea o a la hora sin respuesta, aunque estuviera esperando sitio en la pila: ya no aparece días después.",
+  "como_probar": "Juega unas tardes en la plaza (entre las 18 y las 22 h hay peleas): el aviso «¡Pelea!» se va solo. Capturas: grimoire heavy --timeout 6m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=vida (reports/shots/vida_altercado_carta.png). Bot: godot --headless --path . -s tools/sim_runner.gd -- --scenario=life_bandits --bots=guard_watch --days=16 --seeds=3 (24 avisos de pelea, 0 urgentes). Pruebas: -s tests/run_tests.gd -- --only=test_life_incidents.",
+  "capturas": ["docs/novedades/vida_pelea_aviso.png"]
+}

@@ -29,6 +29,7 @@ signal closed
 
 const WIDTH: Dictionary = {"card": 400, "notice": 236, "sheet": 356}
 const RIBBON_MIN: int = 160
+const COMPACT_RIBBON_CHARS: int = 24   # a docked card's ribbon text longer than this splits «Kind: name»
 const RIBBON_GAP: int = 4          # air between the ribbon's lower edge and the first block
 const RIBBON_SIDE: int = 12        # the ribbon keeps this far from the card's sides (more where the corners are)
 ## The ribbon's letter, from the largest down: Jacquard 24 on one line, Pixel Operator Bold on one line, then on two
@@ -116,6 +117,20 @@ func show_page(d: Dictionary) -> void:
 			str(d.get("title", "")), parts, safe, size])
 
 
+## Whether the card waits for room in the stack (or behind a modal).
+func is_waiting() -> bool:
+	return _waiting.any(func(p: Array) -> bool: return p[0] == self)
+
+
+## Takes the card away for good: shown, or waiting for room in the stack (a card whose matter is over must not show
+## later; verifica #20, the brawl card that waited days).
+func withdraw() -> void:
+	for i: int in range(_waiting.size() - 1, -1, -1):
+		if (_waiting[i] as Array)[0] == self:
+			_waiting.remove_at(i)
+	close()
+
+
 func close() -> void:
 	if not visible and not suspended:
 		return
@@ -146,6 +161,13 @@ static func compact(d: Dictionary, bare: bool = false) -> Dictionary:
 			para = true
 		elif t == "effects" and not bare:
 			keep.append(b)
+	# a long «Kind: name» does not fit the small ribbon (jugador J26: «Pregón: San Miguel y la vendim…»): the kind on
+	# the ribbon, the name as the first line of the page
+	var rt := str(out.get("ribbon", out.get("title", "")))
+	if rt.length() > COMPACT_RIBBON_CHARS and rt.contains(": "):
+		out["ribbon"] = rt.get_slice(": ", 0)
+		var name := rt.substr(rt.find(": ") + 2)
+		keep.push_front({"type": "paragraph", "text": name.left(1).to_upper() + name.substr(1)})
 	out["blocks"] = keep
 	return out
 
