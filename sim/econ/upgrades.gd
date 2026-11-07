@@ -399,13 +399,14 @@ static func new_zones(sim: Sim, bld: String) -> Array:
 	return out
 
 
-## The station kind a zone works as: the zone itself for the building type's own zones ("anvil"), the `like` of an
+## The station kind a zone works as: the zone itself for the building type's own zones ("anvil") or their `like` (H12:
+## the farm's field_a..field_d work as "field"), the `like` of an
 ## upgrade's new station ("anvil_2" -> "anvil"), "" if the building has no such zone. Recipes name the kind.
 static func zone_kind(sim: Sim, bld: String, zone: String) -> String:
 	var b: Dictionary = sim.state.buildings.get(bld, {})
 	for z: Dictionary in sim.catalog.buildings().get(str(b.get("type", "")), {}).get("zones", []):
 		if str(z.get("id", "")) == zone:
-			return zone
+			return str(z.get("like", zone))  # H12: a building's own zones may work as another (field_b -> field)
 	for nz: Dictionary in new_zones(sim, bld):
 		if str(nz["zone"]) == zone:
 			return str(nz["like"])

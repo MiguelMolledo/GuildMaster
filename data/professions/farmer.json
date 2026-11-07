@@ -1,0 +1,11 @@
+{
+  "id": "farmer",
+  "name_key": "profession.farmer",
+  "class": "patron",
+  "order": 0,
+  "building": "farm",
+  "tool": "hoe",
+  "start": "patron_farmer",
+  "contracts": "farmer",
+  "_doc": "H12 Patrón: the farmer, the patron's start (04d 4.22.4.6, O2 a): the Granja, its tool (the hoe), its start and its contract table."
+}

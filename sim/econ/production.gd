@@ -21,6 +21,11 @@ extends RefCounted
 ## station (end -1, nothing taken) until Services.claim gives it a client it treats; then it takes the inputs and runs
 ## duration_hours; at the end Services.finish (the client pays, the roll) and it waits for the next one. The recipe's
 ## "stat" (default craft) is the one its min_stat (or min_craft) asks for and the one a craft recipe's quality reads.
+## H12 Patrón (04d 4.22.3.1, 4.22.4.1): a recipe of kind "field" (plow, sow, harvest) works a field station: Fields.reason
+## says whether the field allows it, the sowing takes its seed as inputs (interrupting gives it back, D11), the cycle
+## lasts duration / Fields.speed, in normal mode only; at the end plow and sow change the field (Fields.worked) and
+## harvest puts the crop's yield in the storage (blocked if it does not fit), then the field is fallow
+## (Fields.harvested). A field cycle never repeats on its own.
 
 const NIGHT: String = "night"
 
@@ -73,6 +78,12 @@ static func order_work_at(sim: Sim, o: Dictionary) -> Dictionary:
 	why = _lock_reason(sim, ch, bld, recipe)
 	if why != "":
 		return Orders.fail(why)
+	if Fields.is_field(recipe):
+		if mode != "normal":
+			return Orders.fail("field_normal_only")  # H12: a field is worked in normal mode
+		why = Fields.reason(sim, bld_id, zone, recipe)
+		if why != "":
+			return Orders.fail(why)
 	why = _stock_reason(sim.catalog, _storage_after_returns(sim, actor, bld_id), recipe)
 	if why != "":
 		return Orders.fail(why)
@@ -176,6 +187,15 @@ static func _step_job(sim: Sim, bld_id: String, zone: String, now: int) -> void:
 	if bool(job.get("service", false)):
 		_step_service(sim, bld_id, zone, job, now)
 		return
+	if bool(job.get("field", false)) and not job.get("result") is Dictionary:
+		if now < int(job["end"]):
+			return
+		var frec: Dictionary = sim.catalog.recipes()[str(job["recipe"])]
+		if str(frec.get("action", "")) != "harvest":
+			_field_done(sim, bld_id, zone, actor, frec, job)
+			return
+		var y := Fields.harvest_of(sim, bld_id, zone)
+		job["result"] = {"item": str(y.get("item", "")), "quality": Inventory.NORMAL, "qty": int(y.get("qty", 0))}
 	if not job.get("result") is Dictionary:
 		if now < int(job["end"]) or LiveForge.waiting(sim, job, now):
 			return
@@ -189,6 +209,8 @@ static func _step_job(sim: Sim, bld_id: String, zone: String, now: int) -> void:
 	var res: Dictionary = job["result"]
 	var inv: Dictionary = bld["inventory"]
 	var to_contract := LiveForge.contract_takes(sim, bld_id, job, res)  # §3b.3: made to a contract's spec
+	if bool(job.get("field", false)) and int(res["qty"]) <= 0:
+		to_contract = true  # a harvest with nothing to bring in (famine to nothing): the field is just cleared
 	if not to_contract and not Inventory.add(inv, sim.catalog, str(res["item"]), int(res["quality"]), int(res["qty"])):
 		if not bool(job.get("blocked", false)):
 			job["blocked"] = true
@@ -202,6 +224,11 @@ static func _step_job(sim: Sim, bld_id: String, zone: String, now: int) -> void:
 		print("[Production] %s termina %s en %s/%s (calidad=%d, modo=%s, toque=%s)" % [actor, res["item"], bld_id, zone,
 			int(res["quality"]), job["mode"], job.get("touched", false)])
 	z["job"] = null
+	if bool(job.get("field", false)):
+		Fields.harvested(sim, bld_id, zone, actor, int(res["qty"]))
+		if _is_employee_at(sim, actor, bld_id):
+			WorkQueue.cycle_done(sim, bld_id, zone, actor, str(job["recipe"]), 1)
+		return
 	if _is_employee_at(sim, actor, bld_id):
 		# H4: an employee does not repeat on its own; the queue hands it the next work (WorkQueue.step).
 		WorkQueue.cycle_done(sim, bld_id, zone, actor, str(job["recipe"]), int(res["qty"]))
@@ -253,6 +280,17 @@ static func _step_service(sim: Sim, bld_id: String, zone: String, job: Dictionar
 	_repeat_or_idle(sim, bld_id, zone, actor, recipe_id, str(job["mode"]))
 
 
+## H12: a plow or a sow cycle ended: the field changes (its seed stays in the ground) and the station is free.
+static func _field_done(sim: Sim, bld_id: String, zone: String, actor: String, recipe: Dictionary,
+		job: Dictionary) -> void:
+	sim.state.buildings[bld_id]["zones"][zone]["job"] = null
+	Fields.worked(sim, bld_id, zone, actor, recipe)
+	sim.events.append({"type": "work_done", "actor": actor, "building": bld_id, "zone": zone, "item": "",
+		"quality": Inventory.NORMAL, "qty": 0, "recipe": str(job["recipe"])})
+	if _is_employee_at(sim, actor, bld_id):
+		WorkQueue.cycle_done(sim, bld_id, zone, actor, str(job["recipe"]), 1)
+
+
 static func _repeat_or_idle(sim: Sim, bld_id: String, zone: String, actor: String, recipe_id: String,
 		mode: String, spec: Dictionary = {}) -> void:
 	var ch: Dictionary = sim.state.characters[actor]
@@ -299,6 +337,9 @@ static func _start_cycle(sim: Sim, bld_id: String, zone: String, actor: String, 
 	var d := _cycle_length(sim, bld_id, actor, recipe, mode, spec)
 	var job := {"actor": actor, "recipe": recipe_id, "mode": mode, "start": now, "end": now + d, "inputs": taken,
 		"window": cycle_window(sim.catalog, mode, now, d), "touched": false, "result": null, "blocked": false}
+	if Fields.is_field(recipe):
+		job["field"] = true  # H12: plow, sow or harvest a field (Fields)
+		job["window"] = null
 	if mode == LiveForge.MODE:
 		job["live"] = LiveForge.new_part(spec)
 	elif not spec.is_empty():
@@ -332,6 +373,8 @@ static func _cycle_length(sim: Sim, bld_id: String, actor: String, recipe: Dicti
 	var ws := Upgrades.works_speed(sim, bld_id)  # Equilibrio 9: big works leave the building at half speed
 	if ws < 1.0:
 		d = maxi(1, roundi(float(d) / ws))
+	if Fields.is_field(recipe):  # H12: the field tires (constitution) and the right tool helps
+		d = maxi(1, roundi(float(d) / maxf(Fields.speed(sim, actor, bld_id, recipe), 0.01)))
 	return d
 
 
@@ -357,6 +400,8 @@ static func interrupt(sim: Sim, bld_id: String, zone: String) -> Array:
 	var returned: Array = []
 	for s: Dictionary in _holdings(job):
 		returned.append_array(_give_back(sim, bld_id, zone, actor, str(s["item"]), int(s["quality"]), int(s["qty"])))
+	if bool(job.get("field", false)) and job.get("result") is Dictionary:
+		Fields.harvested(sim, bld_id, zone, actor, int(job["result"].get("qty", 0)))  # H12: the crop was gathered
 	if window_open(job, int(st.clock["minute"])) and not job.get("result") is Dictionary:
 		sim.events.append({"type": "master_window", "building": bld_id, "zone": zone, "open": false})
 	z["job"] = null
@@ -536,6 +581,8 @@ static func recipe_options(sim: Sim, actor: String, building: String, zone: Stri
 			continue  # fiestas (4.25.4): a festival piece shows once the family has accepted a contract that asks for it
 		var status := "ok"
 		var reason := _lock_reason(sim, ch, bld, r)
+		if reason == "" and Fields.is_field(r):
+			reason = Fields.reason(sim, building, zone, r)  # H12: the field's state, the season, the room
 		if reason != "":
 			status = "locked"
 		else:

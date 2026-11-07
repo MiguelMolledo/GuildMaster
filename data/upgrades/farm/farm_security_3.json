@@ -1,0 +1,34 @@
+{
+  "id": "farm_security_3",
+  "name_key": "upgrade.farm_security_3",
+  "tree": "farm",
+  "branch": "security",
+  "level": 3,
+  "cost": {
+    "gold": 150,
+    "items": [
+      {
+        "item": "iron",
+        "qty": 8
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "farm_security_2"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "protection",
+      "amount": 0.6
+    }
+  ],
+  "visual": {
+    "interior_node": "upgrade_strongbox",
+    "exterior_overlay": null
+  }
+}

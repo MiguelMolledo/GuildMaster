@@ -171,6 +171,36 @@ func test_no_staff_no_passive() -> void:
 	eq(_log_reasons(sim).count("passive"), before, "no employee, no passive reputation")
 
 
+## The tavern with an active employee is an operative business too (ap. A «por negocio operativo con empleados»;
+## the manager's decision 2026-11-07, Barón): +1 more at dawn than without it.
+func test_the_tavern_with_staff_gives_passive_too() -> void:
+	var quiet := Catalog.load_from()
+	quiet.town["microevents"]["base_chance"] = 0.0
+	var sim := Sim.new(NewGame.from_scenario("innkeeper_start", 1)["state"], quiet)
+	var st := sim.state
+	var t := ""
+	for b: String in st.buildings:
+		if Inn.is_inn(sim, b) and str(st.buildings[b]["owner"]) == FAM:
+			t = b
+	check(t != "", "the family runs the tavern")
+	for c: String in Staff.employees_of(st, t):
+		st.characters[c]["job"] = null
+	var rep := Reputation.of(st, FAM)
+	Reputation._passive(sim)
+	var without := Reputation.of(st, FAM) - rep
+	var hired := ""
+	for c: Dictionary in Staff.candidates(sim, HERO, t):
+		if hired == "" and str(c["status"]) == "ok":
+			check(Orders.apply(sim, {"type": "hire", "actor": HERO, "building": t, "candidate": str(c["character"])})["ok"],
+				"hire")
+			hired = str(c["character"])
+	st.characters[hired]["job"]["start_day"] = 0
+	check(Staff.is_active(sim, hired), "the new barkeeper is active")
+	rep = Reputation.of(st, FAM)
+	Reputation._passive(sim)
+	eq(Reputation.of(st, FAM) - rep, without + 1, "the tavern with its employee: +1 more")
+
+
 func test_microevent_reputation_effect() -> void:
 	var sim := _sim()
 	var rep := Reputation.of(sim.state, FAM)

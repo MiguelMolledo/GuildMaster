@@ -38,6 +38,7 @@ var _links: Dictionary = {}      # "level,c,r" -> [level, Vector2i] (stairs)
 var _shown_level: Variant = null
 var _display_sig: String = ""
 var _button: Button = null
+var _farm_t: float = 0.0          # H12 Patrón: seconds to the next refresh of the fields and the pen
 
 
 ## Fades `v` in from transparent (FADE_SECONDS): a person who appears (04g 4.6.5.4, O-I2).
@@ -261,6 +262,31 @@ func tick(delta: float) -> void:
 		_apply_level(want)
 	_focus()
 	_refresh_display()
+	_farm(delta)
+
+
+## H12 Patrón (04d 4.22.4.8): every half second the farm's stations draw what the sim says: each field its state
+## (FieldLook.show_field with its row of Fields.view), the pen its animals and its winter feed (PenLook.show_herd).
+func _farm(delta: float) -> void:
+	_farm_t -= delta
+	if _farm_t > 0.0:
+		return
+	_farm_t = 0.5
+	var sim: Sim = view.sim
+	if not Fields.has_fields(sim, view.building) and not Herds.has_pen(sim, view.building):
+		return
+	for row: Dictionary in Fields.view(sim, view.building):
+		var sv := view.station_view(str(row["zone"]))
+		if sv != null and sv.look() != null and sv.look().has_method("show_field"):
+			sv.look().call("show_field", row)
+	for z: String in (sim.state.buildings[view.building].get("zones", {}) as Dictionary).keys():
+		if Upgrades.zone_kind(sim, view.building, z) == Herds.PEN:
+			var pv := view.station_view(z)
+			if pv != null and pv.look() != null and pv.look().has_method("show_herd"):
+				var hv := Herds.view(sim, view.building)
+				pv.look().call("show_herd", hv)
+				var fd := int(hv.get("winter_feed_days", -1))
+				pv.set_caption("" if fd < 0 else SimQuery.t_("ui.farm.feed_days") % fd)
 
 
 func _place_people(delta: float) -> void:

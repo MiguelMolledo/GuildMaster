@@ -25,7 +25,7 @@ Carga máxima            = 60 + (constitución − 5) × 3 kg (implementado: 60 
 Inspección/día          = Σ inspection_risk × (1 − honestidad/200)
 Voto                    = afinidad × 0,3 + reputación_norm × 0,3 + mod_clase × 0,2 + campaña × 0,2
 Juicio                  = defensa: retórica×2 + a_favor×15 + rep×0,1  vs  acusación: retórica×2 + en_contra×15 + pruebas×20
-Reputación pasiva       = +1/día por negocio operativo con empleados
+Reputación pasiva       = +1/día por negocio operativo con empleados (talleres y la taberna)
 Utilidad IA rival       = Σ peso_obj × avance_obj − coste_oro_norm − riesgo × aversión + ruido
 Conservación del oro    = Σ asientos del libro de una familia = variación de su oro
 Puntuación de dinastía  = Σ puntos de los hechos de la crónica (data/score.json) + patrimonio_máx / 100

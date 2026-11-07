@@ -11,7 +11,7 @@ func _sim() -> Sim:
 
 func test_h3_data_loads() -> void:
 	eq(cat.validate(), PackedStringArray(), "no data problems")
-	eq((cat.market.get("stalls", {}) as Dictionary).keys().size(), 7, "3 stalls + the armory + (H12) the clothier and the goods stall + (H12.2) the apothecary")
+	eq((cat.market.get("stalls", {}) as Dictionary).keys().size(), 8, "3 stalls + the armory + (H12) the clothier and the goods stall + (H12.2) the apothecary + (H12 Patrón) the cattle fair")
 	eq(int(cat.difficulty_levels("normal")["start_debt"]), 200, "normal debt")
 	eq(int(cat.difficulty_levels("hard")["rival_craft"]), 6, "hard rival")
 	check(cat.ai_profiles().has("rival_smith"), "rival profile")
@@ -82,11 +82,13 @@ func test_h3_orders_are_wired() -> void:
 
 func test_market_price_and_hours() -> void:
 	var sim := _sim()
-	eq(Market.price(sim, "sword", 0, "buy"), 65, "base price at demand 1")
-	eq(Market.price(sim, "sword", 0, "sell"), 46, "round(65 × 0.7)")
-	eq(Market.price(sim, "sword", 2, "buy"), 104, "excellent ×1.6")
+	# equilibrio (2026-11-07): the sword at 68 (was 65), so that the default game played as the tutorial teaches pays
+	var sw := float(cat.item("sword")["base_price"])
+	eq(Market.price(sim, "sword", 0, "buy"), roundi(sw), "base price at demand 1")
+	eq(Market.price(sim, "sword", 0, "sell"), roundi(sw * 0.7), "round(sword × 0.7)")
+	eq(Market.price(sim, "sword", 2, "buy"), roundi(sw * 1.6), "excellent ×1.6")
 	sim.state.market["demand"]["sword"] = 0.5
-	eq(Market.price(sim, "sword", 1, "buy"), 42, "round(65 × 1.3 × 0.5)")
+	eq(Market.price(sim, "sword", 1, "buy"), roundi(sw * 1.3 * 0.5), "round(sword × 1.3 × 0.5)")
 	sim.state.difficulty = "hard"
 	var iron := float(cat.item("iron")["base_price"])
 	eq(Market.price(sim, "iron", 0, "buy"), roundi(iron * 1.1), "round(iron × 1.1)")

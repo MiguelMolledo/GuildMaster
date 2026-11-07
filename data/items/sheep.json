@@ -1,0 +1,12 @@
+{
+  "id": "sheep",
+  "name_key": "item.sheep",
+  "gender": "f",
+  "category": "raw",
+  "weight": 25.0,
+  "max_stack": 10,
+  "base_price": 40,
+  "market_stall": "livestock",
+  "demand_weight": 0.5,
+  "_doc": "H12 Patrón (04d 4.22.4.2, 4.22.8): an animal (data/animals/sheep.json); bought and sold at the livestock stall."
+}

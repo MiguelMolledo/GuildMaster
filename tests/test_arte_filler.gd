@@ -24,18 +24,19 @@ func test_free_blocks_become_house_lots_and_yards() -> void:
 		yards.append_array(th)
 	# the 6×4 block north of the plaza (cols 17-22, rows 8-11): the town builder's decor (data/maps "decor",
 	# tools/city/) puts two 3×3 lots on the plaza side (rows 9-11, doors to +row) and the yards behind (row 8); the
-	# west one is a house, the east one the town's best-located ruin (parcelas, 04 §4.9.1: data/maps "plots")
-	var west := v.prop_at(Vector2i(17, 9))
+	# west one is the town's best-located ruin (parcelas, 04 §4.9.1: data/maps "plots"), the east one a house (H12
+	# Patrón: the Granja's site on the forge's plot swapped them; before, the house was the west one)
+	var west := v.prop_at(Vector2i(18, 9))  # a ruin is broken walls: (17, 9) is bare ground
 	var east := v.prop_at(Vector2i(20, 9))
-	check(houses.has(_id(west)), "a house on the west lot of the 6×4 block: %s" % _id(west))
-	check(_id(east) == "ruin_wall" and str(v.plot_layer.shown.get("plot_01", "")) == "ruin",
-		"the east lot of the block is a ruin: %s" % _id(east))
+	check(houses.has(_id(east)), "a house on the east lot of the 6×4 block: %s" % _id(east))
+	check(_id(west) == "ruin_wall" and str(v.plot_layer.shown.get("plot_01", "")) == "ruin",
+		"the west lot of the block is a ruin: %s" % _id(west))
 	check(west != east, "one visual per lot")
-	eq(v.prop_at(Vector2i(19, 11)), west, "every tile of a lot points to its house")
+	eq(v.prop_at(Vector2i(22, 11)), east, "every tile of a lot points to its house")
 	for c: int in range(17, 23):
 		check(yards.has(_id(v.prop_at(Vector2i(c, 8)))), "yard behind the houses at (%d, 8)" % c)
-	var centre := (Iso.tile_to_world(Vector2i(17, 9)) + Iso.tile_to_world(Vector2i(19, 11))) / 2.0
-	eq(west.position + VisualPaths.feet(west) * west.scale, centre, "the house stands on the lot's centre")
+	var centre := (Iso.tile_to_world(Vector2i(20, 9)) + Iso.tile_to_world(Vector2i(22, 11))) / 2.0
+	eq(east.position + VisualPaths.feet(east) * east.scale, centre, "the house stands on the lot's centre")
 	# the 2×3 strip beside the forge is too narrow for a house: yards (low props, never over the forge's base)
 	for t: Vector2i in [Vector2i(28, 20), Vector2i(29, 22)]:
 		check(yards.has(_id(v.prop_at(t))), "yard at %s: %s" % [t, _id(v.prop_at(t))])

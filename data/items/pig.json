@@ -1,0 +1,12 @@
+{
+  "id": "pig",
+  "name_key": "item.pig",
+  "gender": "m",
+  "category": "raw",
+  "weight": 20.0,
+  "max_stack": 10,
+  "base_price": 24,
+  "market_stall": "livestock",
+  "demand_weight": 0.5,
+  "_doc": "H12 Patrón (04d 4.22.4.2, 4.22.8): an animal (data/animals/pig.json); bought and sold at the livestock stall."
+}

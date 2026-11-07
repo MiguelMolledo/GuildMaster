@@ -117,7 +117,7 @@ Todas las entradas y salidas de oro de una familia. La columna *Contraparte* dic
 | Salario de cargo, comisión del Recaudador | Fuente | `offices` | Ciudad | H10 |
 | Servicios, cosechas, botín y rescates, intereses cobrados | Fuente | `services` / `market_sales` / `loot` / `loans` | NPC / mercado | EA (4.22) |
 | Compras en el mercado | Sumidero | `purchases` | Mercado | H3 |
-| Sobrecoste de recados (+20 %) | Sumidero | `errands` | Mercado | H3 |
+| Sobrecoste de recados (+20 %; 0 en el puesto de Recursos desde el 2026-11-06: la partida por defecto jugada como enseña el tutorial se arruinaba, `docs/decisiones.json`) | Sumidero | `errands` | Mercado | H3 |
 | Devolución de deuda (+ recargo) | Sumidero | `loans` | Prestamista | H3 |
 | Mantenimiento de edificios | Sumidero | `upkeep` | Ciudad | H3 |
 | Salarios y bonus de empleados | Sumidero | `wages` | Empleado NPC | H4 |

@@ -1,0 +1,11 @@
+{
+  "id": "harvest_wheat",
+  "name_key": "objective.harvest_wheat",
+  "conditions": [
+    {
+      "event": "field_worked",
+      "match": {"action": "harvest", "crop": "wheat"},
+      "count": 1
+    }
+  ]
+}

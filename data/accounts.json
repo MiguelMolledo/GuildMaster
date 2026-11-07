@@ -5,6 +5,8 @@
   "notices_keep_years": 1,
   "loan_warn_days": [2, 1],
   "upkeep_damage_days": 3,
+  "_upkeep_ramp_doc": "Equilibrio (manager, 2026-11-06: the default game played as the tutorial teaches ended in ruin): the upkeep of each building at the dawns of days 1, 2, 3 of the game is × these (then the whole of it) while the workshop starts (sim/econ/upkeep.gd Upkeep.daily) [balance]. With the errand at no surcharge at the resources stall and the sword at 68, the tutorial route (bot tutorial_route) pays its debt before day 8.",
+  "upkeep_ramp": [0.25, 0.5, 0.75],
   "emergency": {
     "_doc": "Equilibrio 2 (docs/decisiones.json, GDD 4.16 «Sin salida», sim/balance/emergency.gd) [balance]. A human family with less than gold_below of gold and goods (storage, bags, errands at the sell price) worth less than stock_below, and no emergency loan open, is offered the moneylender's emergency loan: amount now, amount × (1 + interest) owed in term_days (then the usual extension: extension_seasons with extension_surcharge and overdue_reputation), at most max_per_year a year. Upkeep owed to the town of seize_upkeep_debt or more (at dawn), or an emergency loan whose extension is not covered, seizes the most valuable good that is not the home (another building, a cart, a piece of equipment) at seize_rate of its value; with nothing to seize, ruin (D18).",
     "gold_below": 15,

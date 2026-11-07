@@ -1,0 +1,32 @@
+{
+  "id": "farm_production_1",
+  "name_key": "upgrade.farm_production_1",
+  "tree": "farm",
+  "branch": "production",
+  "level": 1,
+  "cost": {
+    "gold": 15,
+    "items": [
+      {
+        "item": "iron",
+        "qty": 2
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 0.5,
+  "effects": [
+    {
+      "kind": "production_speed",
+      "mult": 1.25
+    }
+  ],
+  "visual": {
+    "interior_node": "farm_iron_plough",
+    "exterior_overlay": null
+  }
+}

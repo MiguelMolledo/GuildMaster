@@ -14,7 +14,7 @@ const H9_KINDS: Array[String] = ["titles"]
 ## H10 folders (docs/contratos/h10_cargos.md): the public offices of GDD 4.12.3, one file each.
 const H10_KINDS: Array[String] = ["offices"]
 ## H12 folders: the professions of each class (GDD 4.2.1), one file each: workshop, tool, start and contract table.
-const H12_KINDS: Array[String] = ["professions"]
+const H12_KINDS: Array[String] = ["professions", "crops", "animals"]  # H12 Patrón (04d 4.22.4.1-2): crops, animals
 ## H10: the office ranks, from the lowest (the title that opens them: unlocks.office_rank) to the mayor.
 const OFFICE_RANKS: Array[String] = ["minor", "middle", "major", "mayor"]
 ## H10: the passive effects and the active powers an office may have (data/offices/*.json).
@@ -149,6 +149,22 @@ func item(id: String) -> Dictionary:
 	if it.is_empty() and id.ends_with(STOLEN):  # the Rogue (4.22.6.4): <item>@stolen weighs, stacks and costs as <item>
 		return items().get(id.trim_suffix(STOLEN), {})
 	return it
+
+
+## H12 (04d 4.22.3.4, P3): how much one unit sold drops the item's demand, × drop_per_unit (1 by default: the artisan's
+## goods do not carry it).
+func demand_weight(id: String) -> float:
+	return float(item(id).get("demand_weight", 1.0))
+
+
+## H12 Patrón (04d 4.22.4.1): the crops of data/crops/ by id.
+func crops() -> Dictionary:
+	return tables.get("crops", {})
+
+
+## H12 Patrón (04d 4.22.4.2): the animals of data/animals/ by id (each is also an item of the same id).
+func animals() -> Dictionary:
+	return tables.get("animals", {})
 
 
 func maps() -> Dictionary:
@@ -304,13 +320,18 @@ func validate() -> PackedStringArray:
 		if not buildings().has(str(r.get("building", ""))):
 			out.append("recipes/%s: unknown building %s" % [id, r.get("building")])
 		else:
-			var zones: Array = buildings()[str(r["building"])].get("zones", []).map(func(z: Dictionary) -> String: return str(z["id"]))
+			var zones: Array = buildings()[str(r["building"])].get("zones", []).map(func(z: Dictionary) -> String: return str(z.get("like", z["id"])))
 			if not str(r.get("zone", "")) in zones:
 				out.append("recipes/%s: building %s has no zone %s" % [id, r["building"], r.get("zone")])
 		for inp: Dictionary in r.get("inputs", []):
 			if not items().has(str(inp.get("item", ""))):
 				out.append("recipes/%s: unknown input item %s" % [id, inp.get("item")])
-		if str(r.get("kind", "craft")) == "service":
+		if str(r.get("kind", "craft")) == "field":
+			if not str(r.get("action", "")) in ["plow", "sow", "harvest"]:
+				out.append("recipes/%s: unknown field action %s" % [id, r.get("action")])  # H12 Patrón: no output
+			elif str(r["action"]) == "sow" and not crops().has(str(r.get("crop", ""))):
+				out.append("recipes/%s: unknown crop %s" % [id, r.get("crop")])
+		elif str(r.get("kind", "craft")) == "service":
 			if not (services.get("services", {}) as Dictionary).has(str(r.get("service", ""))):
 				out.append("recipes/%s: unknown service %s" % [id, r.get("service")])  # H12.2: no output
 		elif not items().has(str(r.get("output", {}).get("item", ""))):
