@@ -124,7 +124,7 @@ Recordatorio: 1 año = 8 días = 40 min reales.
 | Año 2 · desde el día 9 | **Sucesos** de la ciudad: altercados (antes también, pero raros), bandidos y la primera visita del marqués posible | calendario | «Defiende la villa» |
 | Año 2-3 · 80-120 min | **Boda e hijos**, **caravanas** (carro), **encargos de boda rica** | boda o carro | «Forja la espada del novio» |
 | Año 3 · 2 h | **Cargos** (concejal), **tratados** (con Patricio), **torneo** | título | «Gana una elección», «Firma un tratado» |
-| Año 3-5 · 2-3 h | **Tribunal** contra el rival, **secuestros** | un rival hostil | «Lleva a juicio al rival» |
+| Año 2-5 · desde Ciudadano | **Tribunal**: acusar con un hecho público (una falta vista de otra familia, 4.12.5.1), y los **secuestros** | Ciudadano y una falta vista de otra familia, o un juicio contra ti | «Lleva a juicio al rival» |
 | Cuando salga (años 3-5 jugando bien) | **Obra maestra** con nombre | la primera obra maestra (Artesanía ≥ 7, las tres decisiones bien y 30 piezas perfectas de esa receta) | «Forja una obra maestra» |
 | Generación 2 · ~17 h | **Heredero**: el hijo forja con su propia Artesanía (aprendida contigo) | muerte o retiro | metas de dinastía (4.17) |
 
