@@ -679,7 +679,9 @@ tamaño, lugar (dentro o extramuros) y situación, y lo que se puede hacer con s
   2-3 sin tocar la válvula y siempre quedan 2 de cada zona para el jugador. Vilarrasa (town_e) la cumple con
   `tools/maps/make_town_e.py`: la ruina 3×3 y el solar 3×2 de dentro, dos solares de taller de 3×4 al norte del
   callejón de arriba (plot_21 extramuros y plot_22 dentro) y cuatro de vivienda de 3×3 en esa franja; las otras cinco
-  ciudades, `tools/city/plots.py` (plantillas). En un segundo solar de taller cabe también una segunda taberna (O-V12).
+  ciudades, `tools/city/plots.py` (plantillas, 2026-11-07: `tools/city/reglas.json` `plots.rule`, que el validador
+  exige en las seis): 5 de producción con 2 de 3×4 o 4×3 sobre hierba (dentro si cabe, si no junto a la villa) y 3 de
+  vivienda de 3×3. En un segundo solar de taller cabe también una segunda taberna (O-V12).
 - **Rústica**: las parcelas rústicas se ven en el modo, pero todavía no hay edificios que levantar en ellas (granjas,
   minas, aserraderos: 4.22).
 

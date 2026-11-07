@@ -30,6 +30,26 @@ def cfg():
     return citylib.rules().get("plots", {})
 
 
+def rule():
+    """The owner's rule (04 §4.9.1, 2026-11-06): free plots of production min-max with at least `big` of a workshop's
+    size (big_sizes), and of housing min-max of at least house_size (a house)."""
+    r = cfg().get("rule", {})
+    return {"production": tuple(r.get("production", [4, 5])), "big": int(r.get("big", 2)),
+            "big_sizes": [tuple(x) for x in r.get("big_sizes", [[3, 4], [4, 3]])],
+            "housing": tuple(r.get("housing", [3, 4])), "house_size": tuple(r.get("house_size", [3, 3])),
+            "by_hand": list(r.get("by_hand", []))}
+
+
+def _fits(size, need):
+    """Whether a plot of `size` [w, h] takes a footprint of `need` as drawn or turned a quarter."""
+    w, h = size
+    return (w >= need[0] and h >= need[1]) or (w >= need[1] and h >= need[0])
+
+
+def is_big(size, rl=None):
+    return any(_fits(size, b) for b in (rl or rule())["big_sizes"])
+
+
 # --- Situation ------------------------------------------------------------------------------------------------------
 
 def _bfs_dist(m, starts):
@@ -308,6 +328,25 @@ def plots(d, cat, keep=frozenset()):
         ruins = _pick([g for g in grass if g.get("pass", 0) == 0 and not g["field"]], 1, taken,
                       key=lambda g: (-g["location"], g["rect"][1], g["rect"][0]))
     taken += [x["rect"] for x in ruins]
+    # the owner's rule: `big` lots of a workshop's size (3×4 or 4×3), on open ground, inside first (best-located),
+    # then outside by the town (the nearest: the arrabal); production whatever the side
+    rr = rule()
+    by_hand = d.get("id", "") in rr["by_hand"]  # town_e: make_town_e.py meets the rule by hand on plots.py's old deal
+    big_passes = [{"sizes": [list(b) for b in rr["big_sizes"]], "gap": 1, "road": True},
+                  {"sizes": [list(b) for b in rr["big_sizes"]], "gap": 0, "road": True},
+                  {"sizes": [list(b) for b in rr["big_sizes"]], "gap": 0, "road": False}]
+    bigs_all = _grass_candidates(m, reachable, blocked, decor_tiles, ("grass", "field"), big_passes)
+    for g in bigs_all:
+        g["side"] = sides.side_of(g["rect"], g["front"])
+        g["location"] = sit.of(g["front"])
+        g["field"] = any(m.kind(t) == "field" for t in _rect_tiles(g["rect"]))
+    bigs_all = [g for g in bigs_all if not (g["field"] and g["side"] == "inside")]
+    bigs = [] if by_hand else _pick([g for g in bigs_all if g["side"] == "inside"], rr["big"], taken,
+                 key=lambda g: (-g["location"], g["rect"][1], g["rect"][0]))
+    if len(bigs) < rr["big"] and not by_hand:
+        bigs += _pick([g for g in bigs_all if g["side"] == "outside"], rr["big"] - len(bigs),
+                      taken + [x["rect"] for x in bigs], key=lambda g: (-g["location"], g["rect"][1], g["rect"][0]))
+    taken += [x["rect"] for x in bigs]
     lots_in = _pick([f for f in ins if f not in ruins], n_in, taken,
                     key=lambda f: (-f["location"], f["rect"][1], f["rect"][0]))
     if len(lots_in) < n_in:  # a town with few filler lots inside: open grass inside the town
@@ -325,29 +364,112 @@ def plots(d, cat, keep=frozenset()):
         out.append({"id": "", "state": state, "side": c["side"], "zone": zone, "origin": [x, y], "size": [w, h],
                     "front": list(c["front"]), "location": c["location"]})
 
-    # zones (the valve of 4.9: at least `valve` free plots of each): the free plots inside, best-located first, are
-    # production then housing; the ones outside are rustic, the best-located of them housing (the arrabal) when the
-    # inside left housing short and the rustic ones keep their valve
-    valve = int(rl.get("valve", 2))
-    inside_free = sorted(ruins + lots_in, key=lambda c: (-c["location"], c["rect"][1], c["rect"][0]))
-    n = len(inside_free)
-    n_prod = min(n, max(valve, (n + 1) // 2))
-    if n - n_prod < valve:
-        n_prod = max(min(valve, n), n - valve)
-    zone_of = {id(c): ("production" if i < n_prod else "housing") for i, c in enumerate(inside_free)}
-    for c in ruins:
-        add(c, "ruin", zone_of[id(c)])
-    for c in lots_in:
-        add(c, "lot", zone_of[id(c)])
-    housing = n - n_prod
-    lots_out_sorted = sorted(lots_out, key=lambda g: (-g["location"], g["rect"][1], g["rect"][0]))
-    for i, c in enumerate(lots_out_sorted):
-        rustic_after = len(lots_out_sorted) - i - 1
-        if housing < valve and rustic_after >= valve:
+    extra_h = []
+    if by_hand:
+        # zones (the valve of 4.9: at least `valve` free plots of each): the free plots inside, best-located first, are
+        # production then housing; the ones outside are rustic, the best-located of them housing (the arrabal) when the
+        # inside left housing short and the rustic ones keep their valve
+        valve = int(rl.get("valve", 2))
+        inside_free = sorted(ruins + lots_in, key=lambda c: (-c["location"], c["rect"][1], c["rect"][0]))
+        n = len(inside_free)
+        n_prod = min(n, max(valve, (n + 1) // 2))
+        if n - n_prod < valve:
+            n_prod = max(min(valve, n), n - valve)
+        zone_of = {id(c): ("production" if i < n_prod else "housing") for i, c in enumerate(inside_free)}
+        for c in ruins:
+            add(c, "ruin", zone_of[id(c)])
+        for c in lots_in:
+            add(c, "lot", zone_of[id(c)])
+        housing = n - n_prod
+        lots_out_sorted = sorted(lots_out, key=lambda g: (-g["location"], g["rect"][1], g["rect"][0]))
+        for i, c in enumerate(lots_out_sorted):
+            rustic_after = len(lots_out_sorted) - i - 1
+            if housing < valve and rustic_after >= valve:
+                add(c, "lot", "housing")
+                housing += 1
+            else:
+                add(c, "lot", "rustic")
+    else:
+        # zones by the owner's rule (and the valve of 4.9: at least `valve` free plots of each): the big lots are
+        # production; of the free plots inside, those too small for a house go to production first, then the
+        # best-located ones until production has its minimum; the ones that take a house are housing up to its maximum
+        # and the rest production up to its maximum (left over: housing). Outside, the best-located that take a house
+        # are housing while housing is short and the rustic ones keep their valve; the rest rustic.
+        valve = int(rl.get("valve", 2))
+        p_min, p_max = rr["production"]
+        h_min, h_max = rr["housing"]
+        house = rr["house_size"]
+        zone_of = {id(c): "production" for c in bigs}
+        n_prod = len(bigs)
+        inside_free = sorted(ruins + lots_in, key=lambda c: (-c["location"], c["rect"][1], c["rect"][0]))
+        small = [c for c in inside_free if not _fits(c["rect"][2:], house)]
+        roomy = [c for c in inside_free if _fits(c["rect"][2:], house)]
+        for c in small:
+            zone_of[id(c)] = "production"
+            n_prod += 1
+        housing = 0
+        for c in roomy:
+            need_prod = max(p_min, valve) - n_prod
+            if need_prod > 0 and len(roomy) - roomy.index(c) > max(h_min, valve) - housing:
+                zone_of[id(c)] = "production"
+                n_prod += 1
+            elif housing < h_max:
+                zone_of[id(c)] = "housing"
+                housing += 1
+            elif n_prod < p_max:
+                zone_of[id(c)] = "production"
+                n_prod += 1
+            else:
+                zone_of[id(c)] = "housing"
+                housing += 1
+        # too many for production: the worst-located small lots inside go (never a ruin; min_inside kept inside)
+        for c in [c for c in reversed(inside_free) if c in lots_in and not _fits(c["rect"][2:], house)]:
+            if n_prod <= p_max:
+                break
+            if len(lots_in) - 1 + sum(1 for b in bigs if b["side"] == "inside") < int(rl.get("min_inside", 2)):
+                break
+            lots_in.remove(c)
+            n_prod -= 1
+        # housing short of lots that take a house: more of them, a filler lot or open grass inside (best-located), then
+        # open grass outside by the town
+        extra_h = []
+        can_out = min(sum(1 for c in lots_out if _fits(c["rect"][2:], house)), max(0, len(lots_out) - valve))
+        short = max(h_min, valve) - housing - can_out
+        if short > 0:
+            hp = [{"sizes": [list(house)], "gap": 1, "road": True}, {"sizes": [list(house)], "gap": 0, "road": True},
+                  {"sizes": [list(house)], "gap": 0, "road": False}]
+            hs = _grass_candidates(m, reachable, blocked, decor_tiles, ("grass", "field"), hp)
+            for g in hs:
+                g["side"] = sides.side_of(g["rect"], g["front"])
+                g["location"] = sit.of(g["front"])
+            hs = [g for g in hs if g["side"] == "outside" or not any(m.kind(t) == "field" for t in _rect_tiles(g["rect"]))]
+            fill = [f for f in filler if _fits(f["rect"][2:], house) and f not in ruins and f not in lots_in]
+            key = lambda c: (-c["location"], c["rect"][1], c["rect"][0])
+            extra_h = _pick([c for c in fill + hs if c["side"] == "inside"], short, taken, key)
+            if len(extra_h) < short:
+                extra_h += _pick([g for g in hs if g["side"] == "outside"], short - len(extra_h),
+                                 taken + [x["rect"] for x in extra_h], key)
+            taken += [x["rect"] for x in extra_h]
+            housing += len(extra_h)
+        for c in bigs:
+            add(c, "lot", "production")
+        for c in extra_h:
             add(c, "lot", "housing")
-            housing += 1
-        else:
-            add(c, "lot", "rustic")
+        for c in ruins:
+            add(c, "ruin", zone_of[id(c)])
+        for c in lots_in:
+            add(c, "lot", zone_of[id(c)])
+        lots_out_sorted = sorted(lots_out, key=lambda g: (-g["location"], g["rect"][1], g["rect"][0]))
+        rustic_left = len(lots_out_sorted)
+        rustic = 0
+        for c in lots_out_sorted:
+            rustic_left -= 1
+            if housing < max(h_min, valve) and rustic + rustic_left >= valve and _fits(c["rect"][2:], house):
+                add(c, "lot", "housing")
+                housing += 1
+            else:
+                add(c, "lot", "rustic")
+                rustic += 1
     # the NPC businesses: every workshop and house site (the largest of its plot), its door the front
     biz = []
     for sid, s in sorted(m.sites.items()):
@@ -374,7 +496,7 @@ def plots(d, cat, keep=frozenset()):
     out.sort(key=lambda p: (order[p["state"]], p["side"], -p["location"], p["origin"][1], p["origin"][0]))
     for i, p in enumerate(out):
         p["id"] = "plot_%02d" % (i + 1)
-    drop = {c["decor"] for c in ruins + lots_in if c["decor"] is not None}
+    drop = {c["decor"] for c in ruins + lots_in + extra_h if c.get("decor") is not None}
     return out, drop
 
 
@@ -491,6 +613,9 @@ def validate_plots(m, rep, required=False):
     seen_ids, seen_tiles = set(), {}
     counts = {"lot_inside": 0, "lot_outside": 0, "ruin": 0}
     free_zone = {z: 0 for z in ZONES}
+    rr = rule()
+    big_prod = 0
+    small_housing = []
     for i, p in enumerate(ps):
         w = "plots[%d] %s" % (i, p.get("id", "?"))
         pid = str(p.get("id", ""))
@@ -533,6 +658,10 @@ def validate_plots(m, rep, required=False):
             continue
         counts["ruin" if st == "ruin" else "lot_" + side] += 1
         free_zone[zone] += 1
+        if zone == "production" and is_big(sz, rr):
+            big_prod += 1
+        if zone == "housing" and not _fits(sz, rr["house_size"]):
+            small_housing.append(pid)
         if zone == "rustic" and side != "outside":
             rep.error(f"{w}: una parcela rústica va fuera")
         if st == "ruin" and any(t not in free for t in tiles) and any(m.kind(t) != "grass" for t in tiles):
@@ -560,6 +689,16 @@ def validate_plots(m, rep, required=False):
             rep.error(f"plots: {counts['lot_outside']} solares fuera (mínimo {mo}, 4.9.1)")
         if not 1 <= counts["ruin"] <= 3:
             rep.error(f"plots: {counts['ruin']} ruinas (de 1 a 3, 4.9.1)")
+        p_min, p_max = rr["production"]
+        h_min, h_max = rr["housing"]
+        if not p_min <= free_zone["production"] <= p_max:
+            rep.error(f"plots: {free_zone['production']} parcelas libres de producción (la regla de 4.9.1 pide de {p_min} a {p_max})")
+        if big_prod < rr["big"]:
+            rep.error(f"plots: {big_prod} parcelas de producción del tamaño de un taller (≥ 3×4 o 4×3; la regla pide {rr['big']})")
+        if not h_min <= free_zone["housing"] <= h_max:
+            rep.error(f"plots: {free_zone['housing']} parcelas libres de vivienda (la regla de 4.9.1 pide de {h_min} a {h_max})")
+        if small_housing:
+            rep.error(f"plots: vivienda donde no cabe una casa (≥ 3×3): {', '.join(small_housing)}")
         valve = int(rl.get("valve", 2))
         for z, n in free_zone.items():
             if n < valve:

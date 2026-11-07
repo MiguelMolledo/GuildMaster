@@ -20,7 +20,7 @@
   "TTff.###..==.=.###=PPPPPPPPPPPPP###==#####.fffff",
   "T.f..###.==####...=PPPPP#PPPPPPP###.==.###.fffff",
   "==...###.=.####...P.PPPPPPPPPPPP#####==###..ffff",
-  ".====###==#####.....SPPPPPPPPPPP.=###.==....ffff",
+  ".====###==#####.....SPPPPPPPPSPP.=###.==....ffff",
   "f.##=====.#####.###.PPPPPPPPPPPP.=####.=####ffff",
   "f.##.##===#####.###.PNPPPPPPPPPP.=####.=####ffff",
   "ff##.##..===....###.PPPPPPPPPP====####.==...ffff",
@@ -129,6 +129,16 @@
    ],
    "service": [
     21,
+    14
+   ]
+  },
+  "apothecary": {
+   "tile": [
+    29,
+    14
+   ],
+   "service": [
+    28,
     14
    ]
   }
@@ -282,6 +292,17 @@
    "door": [
     16,
     39
+   ]
+  },
+  "player_clinic": {
+   "type": "clinic",
+   "origin": [
+    31,
+    6
+   ],
+   "door": [
+    32,
+    9
    ]
   },
   "player_forge": {
@@ -1934,7 +1955,8 @@
    "artisan_blacksmith",
    "artisan_carpenter",
    "artisan_mason",
-   "artisan_tailor"
+   "artisan_tailor",
+   "scholar_physician"
   ],
   "style": "C",
   "rivers": [
@@ -2087,7 +2109,7 @@
    "id": "plot_02",
    "state": "ruin",
    "side": "inside",
-   "zone": "housing",
+   "zone": "production",
    "origin": [
     26,
     24
@@ -2125,39 +2147,39 @@
    "id": "plot_04",
    "state": "lot",
    "side": "inside",
-   "zone": "production",
+   "zone": "housing",
    "origin": [
-    26,
-    20
+    8,
+    8
    ],
    "size": [
-    2,
+    3,
     3
    ],
    "front": [
-    28,
-    20
+    11,
+    9
    ],
-   "location": 0.66
+   "location": 0.63
   },
   {
    "id": "plot_05",
    "state": "lot",
    "side": "inside",
-   "zone": "housing",
+   "zone": "production",
    "origin": [
-    20,
-    20
+    34,
+    3
    ],
    "size": [
-    2,
-    2
+    3,
+    4
    ],
    "front": [
-    19,
-    20
+    34,
+    7
    ],
-   "location": 0.62
+   "location": 0.59
   },
   {
    "id": "plot_06",
@@ -2184,12 +2206,50 @@
    "side": "outside",
    "zone": "rustic",
    "origin": [
+    30,
+    29
+   ],
+   "size": [
+    2,
+    2
+   ],
+   "front": [
+    32,
+    29
+   ],
+   "location": 0.6
+  },
+  {
+   "id": "plot_08",
+   "state": "lot",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    38,
+    6
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    38,
+    9
+   ],
+   "location": 0.53
+  },
+  {
+   "id": "plot_09",
+   "state": "lot",
+   "side": "outside",
+   "zone": "production",
+   "origin": [
     39,
     28
    ],
    "size": [
     3,
-    3
+    4
    ],
    "front": [
     39,
@@ -2198,10 +2258,10 @@
    "location": 0.52
   },
   {
-   "id": "plot_08",
+   "id": "plot_10",
    "state": "lot",
    "side": "outside",
-   "zone": "rustic",
+   "zone": "housing",
    "origin": [
     18,
     36
@@ -2217,7 +2277,7 @@
    "location": 0.43
   },
   {
-   "id": "plot_09",
+   "id": "plot_11",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -2238,7 +2298,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_10",
+   "id": "plot_12",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -2259,7 +2319,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_11",
+   "id": "plot_13",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -2280,7 +2340,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_12",
+   "id": "plot_14",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -2301,7 +2361,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_13",
+   "id": "plot_15",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -2322,7 +2382,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_14",
+   "id": "plot_16",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -2343,7 +2403,7 @@
    "for_sale": true
   },
   {
-   "id": "plot_15",
+   "id": "plot_17",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2364,7 +2424,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_16",
+   "id": "plot_18",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2385,7 +2445,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_17",
+   "id": "plot_19",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2406,7 +2466,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_18",
+   "id": "plot_20",
    "state": "business",
    "side": "outside",
    "zone": "production",
@@ -2427,7 +2487,7 @@
    "for_sale": true
   },
   {
-   "id": "plot_19",
+   "id": "plot_21",
    "state": "business",
    "side": "outside",
    "zone": "production",
@@ -2448,7 +2508,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_20",
+   "id": "plot_22",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2469,7 +2529,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_21",
+   "id": "plot_23",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2490,7 +2550,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_22",
+   "id": "plot_24",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2511,7 +2571,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_23",
+   "id": "plot_25",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -2538,7 +2598,6 @@
    {"kind": "house", "id": "house_block", "at": [12, 6], "size": [2, 2], "facing": [0, 1], "height": 46},
    {"kind": "yard", "id": "yard_plot", "at": [12, 5]},
    {"kind": "yard", "id": "yard_plot", "at": [13, 5]},
-   {"kind": "house", "id": "lot_house_f", "at": [8, 8], "size": [3, 3], "flip": true, "facing": [1, 0]},
    {"kind": "house", "id": "lot_house_d", "at": [5, 12], "size": [3, 3], "flip": false, "facing": [0, 1]},
    {"kind": "yard", "id": "yard_plain", "at": [5, 11]},
    {"kind": "yard", "id": "yard_plain", "at": [6, 11]},
@@ -2568,6 +2627,8 @@
    {"kind": "yard", "id": "yard_plot_sack", "at": [11, 19]},
    {"kind": "yard", "id": "yard_plot", "at": [12, 19]},
    {"kind": "yard", "id": "yard_plot", "at": [10, 20]},
+   {"kind": "house", "id": "house_block", "at": [20, 20], "size": [2, 2], "facing": [-1, 0], "height": 43, "color": "#8a3b2a"},
+   {"kind": "house", "id": "house_block", "at": [26, 20], "size": [2, 3], "facing": [1, 0], "height": 48},
    {"kind": "house", "id": "house_block", "at": [34, 22], "size": [2, 2], "facing": [-1, 0], "height": 49, "color": "#8a3b2a"},
    {"kind": "house", "id": "house_block", "at": [38, 21], "size": [2, 2], "facing": [1, 0], "height": 39, "color": "#8a3b2a"},
    {"kind": "house", "id": "house_block", "at": [37, 24], "size": [3, 2], "facing": [0, 1], "height": 39, "color": "#8a3b2a"},
@@ -2649,12 +2710,12 @@
    {"kind": "prop", "id": "barrel", "at": [29, 24], "off": [-13, 7], "site": "workshop_masonry"},
    {"kind": "prop", "id": "crate", "at": [35, 21], "off": [13, 7], "site": "workshop_tailor"},
    {"kind": "prop", "id": "grain_sack", "at": [35, 19], "off": [13, 7], "site": "workshop_tailor"},
+   {"kind": "prop", "id": "cart", "at": [30, 14]},
    {"kind": "prop", "id": "crate", "at": [19, 10]},
    {"kind": "prop", "id": "grain_sack", "at": [25, 7]},
    {"kind": "prop", "id": "cart", "at": [19, 14]},
    {"kind": "prop", "id": "cart", "at": [28, 7]},
    {"kind": "prop", "id": "cart", "at": [20, 7]},
-   {"kind": "prop", "id": "bench", "at": [31, 13], "off": [10, 5]},
    {"kind": "prop", "id": "bench", "at": [24, 11], "off": [-10, 5], "flip": true},
    {"kind": "prop", "id": "bench", "at": [22, 20], "off": [-10, 5], "flip": true},
    {"kind": "fence", "id": "fence", "at": [11, 0], "off": [14, 7], "flip": true},
