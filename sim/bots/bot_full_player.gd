@@ -61,6 +61,7 @@ var quota_caravans: int = 1          # equilibrio (BOT_VARS=quota_caravans=0): 0
 var builds: int = 1                   # H6 (BOT_VARS=builds=0): 0 = never opens a second workshop on a plot, as before
 var facades: int = 1                  # Barón (BOT_VARS=facades=0): 0 = never buys the facades (+10/+20/+30 reputation)
 var bonuses_all: int = 1              # Barón (BOT_VARS=bonuses_all=0): 0 = bonuses only at the forge, as before
+var branch_mix: int = 1               # Barón (d) (BOT_VARS=branch_mix=0): 0 = the second workshop loops one recipe, as before
 const FACADES: Array = ["forge_facade_1", "forge_facade_2", "forge_facade_3"]
 const FACADE_SPARE: int = 300         # gold kept on top of the reserve and the facade's price
 var branch: BotBranch = BotBranch.new()  # H6: the second workshop (a forge on a free plot) when it pays
@@ -204,6 +205,7 @@ func _always(sim: Sim) -> Array:
 	if builds == 1 and _business(sim):  # H6: the second workshop, built when it pays and run by its own employee
 		var had := branch.bld
 		branch.raw = RAW
+		branch.mix = branch_mix == 1
 		var tavern_done := inn != null and str(st.buildings.get(inn._tavern, {}).get("owner", "")) == _fam_id \
 			or str(why_not.get("tavern", "")) == "none_for_sale"
 		out.append_array(branch.manage(sim, ACTOR, _fam_id, FORGE, _reserve(sim), tavern_done))

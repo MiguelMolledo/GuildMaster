@@ -469,6 +469,7 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 							and str(le["category"]) != "loans":
 						net += int(le["amount"])
 				m["net_year_%d" % y] = snappedf(float(net) / YEAR_DAYS, 0.01)
+				m["rep_y%d" % y] = Reputation.of(st, fam)  # the family's reputation as the year closes (Barón, 2026-11-07)
 			if roundtrip:
 				var r: Variant = _roundtrip(sim, rt, played)
 				if r is WorldState:
