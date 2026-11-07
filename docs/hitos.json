@@ -243,15 +243,15 @@
         },
         {
           "texto": "El herrero rival contrata, mejora o quiebra según su IA",
-          "estado": "pendiente",
-          "prueba": null,
+          "estado": "en_curso",
+          "prueba": "La quiebra (austeridad, cartel «Se vende», derribo y venida a menos, 04c §4.21.6.3 y Q9 b) está en sim/build/bankruptcy.gd con tests/test_h6_quiebra.gd; contratar y mejorar son de la economía de la IA de plantillas (sim/ai/economy.gd, Bellcaire). En Vilarrasa espera a que esa economía se encienda allí.",
           "fecha": null
         },
         {
           "texto": "Ninguna guerra de precios contra el jugador en el primer año (test)",
-          "estado": "pendiente",
-          "prueba": null,
-          "fecha": null
+          "estado": "hecho",
+          "prueba": "tests/test_h6_guerra.gd: en Bellcaire, todas las familias IA con rivalidad 95 hacia el jugador, que vendió cada día lo que ellas hacen: los 8 amaneceres del año 1 no dan ningún presagio ni ataque sobre el jugador (llamando a la decisión de cada familia y por el amanecer del sim), y el primero del año 2 anuncia una guerra de precios (la protección es la que los para)",
+          "fecha": "2026-11-06"
         }
       ],
       "nota": "Gate 04c aprobado el 2026-11-05: listo para empezar."
