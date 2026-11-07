@@ -6,7 +6,7 @@
 
 [ext_resource type="Script" uid="uid://4ajbo4o6uuuw" path="res://game/visuals/greybox/greybox_masonry.gd" id="3_masonry"]
 
-[ext_resource type="Texture2D" uid="uid://dci6hucng3kxv" path="res://assets/art/buildings/escala_b/clinic.png" id="4_sprite_b"]
+[ext_resource type="Texture2D" uid="uid://dby16v3iakbbj" path="res://assets/art/buildings/escala_b/den.png" id="4_sprite_b"]
 
 [ext_resource type="Texture2D" uid="uid://cj0na7fajw00y" path="res://assets/art/buildings/forge_works.png" id="art_works"]
 
@@ -26,11 +26,11 @@
 
 [ext_resource type="Texture2D" uid="uid://b1c7lhhs80a57" path="res://assets/art/props/garden.png" id="art_garden"]
 
-[ext_resource type="Texture2D" uid="uid://ur4s4dt6o1p7" path="res://assets/art/buildings/fal/clinic.png" id="fal_n"]
+[ext_resource type="Texture2D" uid="uid://c5elmx68b2tqo" path="res://assets/art/buildings/fal/den.png" id="fal_n"]
 
-[ext_resource type="Texture2D" uid="uid://debk2nq78p3tf" path="res://assets/art/buildings/fal/clinic_construction.png" id="fal_c"]
+[ext_resource type="Texture2D" uid="uid://b864xdv1ai8yj" path="res://assets/art/buildings/fal/den_construction.png" id="fal_c"]
 
-[ext_resource type="Texture2D" uid="uid://bfg7mvoetb71" path="res://assets/art/buildings/fal/clinic_damaged.png" id="fal_d"]
+[ext_resource type="Texture2D" uid="uid://dggevbhw3ihya" path="res://assets/art/buildings/fal/den_damaged.png" id="fal_d"]
 
 [node name="Den" type="Node2D"]
 y_sort_enabled = true
@@ -51,7 +51,8 @@ metadata/back = ""
 metadata/front = ""
 
 [node name="Greybox" type="Node2D" parent="."]
-editor_description = "The den's placeholder (dark slate) until its fal facade (assets/inventario.json building_den): the Sprite stays hidden."
+visible = false
+editor_description = "The den's greybox (dark slate), hidden since its fal facade (assets/art/buildings/fal/den.png)."
 y_sort_enabled = true
 script = ExtResource("1_greybox")
 footprint = Vector2i(3, 3)
@@ -59,7 +60,6 @@ height = 40.0
 color = Color(0.28, 0.24, 0.3, 1)
 
 [node name="Sprite" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 texture = ExtResource("fal_n")
 centered = false
@@ -97,7 +97,7 @@ y_sort_enabled = true
 y_sort_enabled = true
 visible = false
 position = Vector2(48, 40)
-editor_description = "clinic_commerce_2 (shop window)"
+editor_description = "den_commerce_2 (shop window)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_shop_window"]
 visible = false
@@ -117,7 +117,7 @@ editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_gui
 y_sort_enabled = true
 visible = false
 position = Vector2(112, 8)
-editor_description = "clinic_commerce_3 (trade sign)"
+editor_description = "den_commerce_3 (trade sign)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_trade_sign"]
 visible = false
@@ -136,7 +136,7 @@ editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_gui
 [node name="upgrade_stone_facade" type="Node2D" parent="Upgrades"]
 visible = false
 y_sort_enabled = true
-editor_description = "clinic_facade_1 (stone facade): stone rows over the two front faces of the footprint (GreyboxMasonry, origin = Feet). Replace with the facade sprite when the art arrives."
+editor_description = "den_facade_1 (stone facade): stone rows over the two front faces of the footprint (GreyboxMasonry, origin = Feet). Replace with the facade sprite when the art arrives."
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_stone_facade"]
 visible = false
@@ -155,7 +155,7 @@ editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_gui
 y_sort_enabled = true
 visible = false
 position = Vector2(-48, 56)
-editor_description = "clinic_facade_2 (garden)"
+editor_description = "den_facade_2 (garden)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_garden"]
 visible = false
@@ -183,7 +183,7 @@ editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_gui
 y_sort_enabled = true
 visible = false
 position = Vector2(-112, 24)
-editor_description = "clinic_facade_3 (noble facade)"
+editor_description = "den_facade_3 (noble facade)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_noble_facade"]
 visible = false
@@ -219,7 +219,7 @@ editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_gui
 y_sort_enabled = true
 visible = false
 position = Vector2(80, 24)
-editor_description = "clinic_security_1 (reinforced lock)"
+editor_description = "den_security_1 (reinforced lock)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_reinforced_lock"]
 visible = false
@@ -238,7 +238,7 @@ editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_gui
 [node name="upgrade_guard" type="Node2D" parent="Upgrades"]
 visible = false
 position = Vector2(16, 56)
-editor_description = "clinic_security_2 (hired guard)"
+editor_description = "den_security_2 (hired guard)"
 
 [node name="Greybox" type="Node2D" parent="Upgrades/upgrade_guard"]
 script = ExtResource("2_block")

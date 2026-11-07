@@ -18617,30 +18617,72 @@
     {
      "id": "bld_den",
      "tipo": "edificio",
-     "estado": "falta",
+     "estado": "sprite",
      "para": [
       "H12",
       "den"
      ],
      "ruta": "assets/art/buildings/fal/den.png",
-     "origen": "",
+     "origen": "fal: nano-banana-2/edit sobre la silueta de la sastrería de escala B (assets/art/buildings/escala_b/den.png, copia de tailor_shop.png) + image2pixel a escala 4 (tools/art/fal_fachadas.py); obras y dañado con /edit sobre ella",
      "coste_gen": 0,
-     "coste_usd": 0,
-     "notas": "H12 (el Pícaro): la Guarida de ladrones (3×3, en el solar de la forja del jugador), una casa venida a menos con postigos cerrados, una trampilla al sótano y un farol apagado; con obras y dañado. Hasta entonces game/visuals/buildings/den.tscn enseña su bloque gris oscuro (placeholder visible). Como la Consulta: nano-banana-2/edit sobre una silueta de escala B (tools/art/fal_fachadas.py)."
+     "coste_usd": 0.25,
+     "notas": "H12 (el Pícaro): la Guarida de ladrones (3×3), una casa venida a menos con el yeso desconchado, tejas que faltan, postigos cerrados, una trampilla al sótano, un farol apagado, cajas y un saco; den_construction.png y den_damaged.png. En game/visuals/buildings/den.tscn (el bloque gris oscuro queda oculto)."
     },
     {
      "id": "icon_lockpicks",
      "tipo": "icono",
-     "estado": "falta",
+     "estado": "sprite",
      "para": [
       "H12",
       "objetos"
      ],
      "ruta": "assets/art/icons/lockpicks.png",
-     "origen": "",
+     "origen": "fal: nano-banana-2/edit, rejilla 2×2 p2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
      "coste_gen": 0,
-     "coste_usd": 0,
-     "notas": "H12 (el Pícaro): las ganzúas del Ladrón (herramienta, +10 a robar un almacén). Hasta entonces el inventario enseña el icono genérico."
+     "coste_usd": 0.1,
+     "notas": "H12 (el Pícaro): las ganzúas del Ladrón (herramienta, +10 a robar un almacén), un estuche de cuero con las ganzúas asomando; la de p1 (un aro) salía como una mancha blanca y se rehízo sola en p2. 32×32 y assets/art/icons/small/lockpicks.png (16×16)."
+    },
+    {
+     "id": "icon_spy",
+     "tipo": "icono",
+     "estado": "sprite",
+     "para": [
+      "H12",
+      "ui"
+     ],
+     "ruta": "assets/art/ui/icons/icon_spy.png",
+     "origen": "fal: nano-banana-2/edit, rejilla 2×2 p1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.02,
+     "notas": "H12 (el Pícaro, Espía): espiar un edificio (un ojo tras el ojo de la cerradura)."
+    },
+    {
+     "id": "icon_intel",
+     "tipo": "icono",
+     "estado": "sprite",
+     "para": [
+      "H12",
+      "ui"
+     ],
+     "ruta": "assets/art/ui/icons/icon_intel.png",
+     "origen": "fal: nano-banana-2/edit, rejilla 2×2 p1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.02,
+     "notas": "H12 (el Pícaro, Espía): los expedientes, lo que han visto tus espías (un legajo atado)."
+    },
+    {
+     "id": "icon_blackmail",
+     "tipo": "icono",
+     "estado": "sprite",
+     "para": [
+      "H12",
+      "ui"
+     ],
+     "ruta": "assets/art/ui/icons/icon_blackmail.png",
+     "origen": "fal: nano-banana-2/edit, rejilla 2×2 p1 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py)",
+     "coste_gen": 0,
+     "coste_usd": 0.02,
+     "notas": "H12 (el Pícaro, Espía): el chantaje (una carta con lacre negro y una daga)."
     }
   ]
 }
