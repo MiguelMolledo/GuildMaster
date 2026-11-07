@@ -1456,7 +1456,6 @@
     }
   ],
   "pendientes": [
-    {"tema": "La partida por defecto siguiendo el tutorial (equilibrio, 2026-11-07)", "detalle": "Hecho en la rama equilibrio (variante D): recado sin recargo en el puesto de Recursos, espada 65 → 68, mantenimiento de los días 1-3 ×0,25/0,5/0,75 (accounts.upkeep_ramp); bot tutorial_route con diana debt_paid >= 0,9 y paso tutorial en run_all. La ruta del tutorial pasa de pagar a tiempo el 17 % al 93 % (30 semillas, Normal; Fácil 100 %). Dos bandas ajenas se salen por poco y esperan visto bueno: artisan_novice gold_day10 540 → 600 (semilla 9: 596) e innkeeper inn_operating_day 100 → 120 (109). Medidas en reports/equilibrio/informe.md.", "opciones": "(a) aprobar las dos bandas; (b) bajar la espada a 67 o la rampa a 0,5/0,75 y volver a medir; (c) otra palanca (plazo de la deuda)."},
     {"tema": "H12 Patrón: lo que espera a los siguientes oficios del Patrón", "detalle": "Para cuando entren Molino, Panadería y Carnicería: (1) la harina 12 → 15 (P10, O15 aprobado) y los demand_weight de harina, carne, pan y cerveza de 4.22.3.4, que mueven las cuentas de la Taberna-Posada y por eso no entran hoy; (2) la fiesta de la siega (Verano 2) con encargos de trigo y la feria con el ganado; (3) el calendario de siembra y el corral como panel (docs/ui/mecanicas/campos_y_ganado.md); hoy los campos y el corral se ven y se trabajan en el interior de la Granja.", "opciones": "(a) entrar con cada oficio, como propone 4.22.10; (b) adelantar la fiesta de la siega ya con el Granjero."},
     {
       "tema": "Cifras de balance",
