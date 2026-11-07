@@ -4516,3 +4516,4 @@ ui.station.spy_blackmail_tip,Once a season. Who pays keeps quiet; who does not m
 ui.station.spy_expose,Tell it,Destapar
 ui.station.spy_expose_tip,The whole town will know: that family loses %d of reputation,Lo sabrá toda la villa: esa familia pierde %d de reputación
 ui.new_game.preview_start.rogue_spy,"A thieves' den with a home, %d gold and %d of debt with the moneylender.","Guarida de ladrones con vivienda, %d de oro y %d de deuda con el prestamista."
+ui.market.plus_max,"That is the most you can buy now: %d (your gold, what you can carry or what the stall has)","Es lo más que puedes comprar ahora: %d (lo que llega tu oro, lo que puedes cargar o lo que hay)"

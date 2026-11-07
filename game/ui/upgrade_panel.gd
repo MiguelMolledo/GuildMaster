@@ -135,11 +135,18 @@ func refresh(force: bool = false) -> void:
 	_mark_prereqs(_hover if _hover != "" else selected)
 
 
-## The first available upgrade, else the first one not built, else the first.
+## The first available upgrade, else the first one not built, else the first; the Secrets branch (illegal profit, the
+## inspections and the court) is never the one proposed while another can be (jugador J: the novice, following the
+## tutorial, bought «Doble contabilidad» because it was the only one shown).
 func _default_selection() -> String:
 	var first := ""
 	var not_owned := ""
-	for br: Dictionary in _view.get("branches", []):
+	var branches: Array = (_view.get("branches", []) as Array).filter(func(b: Dictionary) -> bool:
+		return str(b.get("id", "")) != "secrets") + (_view.get("branches", []) as Array).filter(
+		func(b: Dictionary) -> bool: return str(b.get("id", "")) == "secrets")
+	for br: Dictionary in branches:
+		if str(br.get("id", "")) == "secrets" and not_owned != "":
+			break   # an honest upgrade not built yet goes first, even if it is not affordable now
 		for u: Dictionary in br.get("upgrades", []):
 			var st := str(u["status"])
 			if first == "":

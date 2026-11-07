@@ -45,12 +45,13 @@ def leave(p):
             {"id": f"{p}salir", "when": "q.interior() != ''", "click": {"node": "ExitButton"}, "until": "q.interior() == ''", "timeout": 20}]
 
 def buy_iron(p, n=4):
-    need = "q.storage('iron') < 4 and q.gold() >= 60"
+    need = "q.storage('iron') < 4 and q.gold() >= 30"
     return leave(p + "s") + [{"id": f"{p}espera_mercado", "say": "De noche el puesto cierra: esperar a que abra (×4)",
              "when": need + " and not q.market_open('resources')", "key": "@speed_3", "until": "q.market_open('resources')", "timeout": 120}] + [{"id": f"{p}hierro_falta", "say": "Queda poco hierro: al puesto de Recursos con recado",
-             "when": "q.storage('iron') < 4 and q.gold() >= 60",
+             "when": "q.storage('iron') < 4 and q.gold() >= 30",
              "world": {"service": "resources"}, "button": "right", "until": "q.visible('MarketPanel')", "timeout": 40},
-            {"id": f"{p}hierro_mas", "when": "q.visible('MarketPanel')", "click": {"within": {"within": "BuyList", "prefix": "iron_"}, "node": "Plus"}, "times": n - 1},
+            {"id": f"{p}hierro_mas", "say": "Tantos como dé el oro (4, u 8 con la bolsa llena)", "when": "q.visible('MarketPanel')", "click": {"within": {"within": "BuyList", "prefix": "iron_"}, "node": "Plus"}, "times": 3},
+            {"id": f"{p}hierro_mas_8", "when": "q.visible('MarketPanel') and q.gold() >= 90", "click": {"within": {"within": "BuyList", "prefix": "iron_"}, "node": "Plus"}, "times": n - 4},
             {"id": f"{p}hierro_enviar", "when": "q.visible('MarketPanel')", "click": {"within": {"within": "BuyList", "prefix": "iron_"}, "node": "Send"}},
             {"id": f"{p}hierro_destino", "when": "q.visible('MarketPanel')", "popup": {"within": {"within": "BuyList", "prefix": "iron_"}, "node": "Send"}, "item": 0, "expect": ["q.order('buy')"], "soft": True},
             {"id": f"{p}hierro_reintento", "say": "El menú no cogió el clic: otra vez", "when": "q.visible('MarketPanel') and not q.order('buy')", "click": {"within": {"within": "BuyList", "prefix": "iron_"}, "node": "Send"}},
@@ -186,6 +187,8 @@ for n in range(8, 16):
         {"id": "mejoras_fin", "when": "q.tut().begins_with('upgrades:')", "click": {"via": "Tutorial", "node": "Button_close"}, "soft": True},
         {"id": "mejoras_esc", "when": "q.visible('UpgradePanel')", "key": "Escape"},
     ] + pay_debt("d_") + board("t_") + buy_iron("h_", 8) + forge_swords("f_") + deliver("e_") + sell_swords("v_") + [
+        {"id": "pasa_el_dia", "say": "Sin nada más que hacer, el reloj corre (×4) hasta la siguiente media jornada", "key": "@speed_3",
+         "until": "q.minute() >= q.was('minute') + 360", "timeout": 90},
         {"id": "fin", "say": "Fin de la media jornada: el reloj", "expect": ["q.day() >= 0"]}]
     w(f"{n:02d}_jornada", f"Jugador {n} · Media jornada de oficio",
       "El oficio de cada día como lo juega un novato: las cartas que llegan, la mejora cuando se abre, pagar la deuda con oro de sobra, hierro con recado, espadas en el yunque y venderlas en la Armería.",
