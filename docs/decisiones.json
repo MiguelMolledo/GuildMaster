@@ -1453,6 +1453,12 @@
       "tema": "H6 · la agenda de la IA construye; la regla de parcelas en las cinco ciudades",
       "decision": "La construcción de las familias IA la decide su agenda (sim/ai/build.gd, AIBuild) al amanecer, justo después de Construction.step y con las cifras de data/construction.json ai (ai.enabled false: el paso de posada se calla): candidatas, válvula y tope por título de H6 (Construction.candidates / order_for); presupuesto = su oro sobre su reserva (AIEconomy.reserve en Bellcaire; Construction.budget fuera); elección por perfil con el bloque build opcional de data/ai_profiles ({buy, build: peso; min_score}); sin él, la de H6. ai.expand sigue apagado. Vilarrasa con hashes idénticos a main. Las cinco ciudades de la región, regeneradas con tools/city/plots.py y la regla de tools/city/reglas.json plots.rule (el validador la exige en las seis, town_e incluida): 5 parcelas libres de producción con 2 de 3×4 o 4×3 (la huella de forja, carpintería y cantería) y 3 de vivienda de 3×3.",
       "por_que": "Encargo del manager tras H6 de posada: la API de construcción para la agenda de la IA y la regla de parcelas del owner (04 §4.9.1) en las ciudades de plantillas."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "H12.2 · la Consulta médica y el Boticario en las ciudades de la región",
+      "decision": "Las cinco ciudades de Valldaura traen, como Vilarrasa (make_town_e.py, interiores), el solar de la Consulta médica (player_clinic, tipo clinic, alternativa del solar de la forja del jugador: tools/city/organic.py pone scholar_physician en los inicios por defecto) y el puesto del Boticario (apothecary, en el borde este de la plaza: tools/city/generator.py TEMPLATE). El Médico se juega en todas (tests/test_plantillas_medico.gd: la partida nueva, la Consulta de la familia, las vendas en el boticario y pacientes el primer día).",
+      "por_que": "Encargo del manager: que el Médico (rama erudito) se pueda jugar en todas las ciudades de plantilla."
     }
   ],
   "pendientes": [

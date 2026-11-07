@@ -20,7 +20,7 @@
   "TTff.###..==.=.###=PPPPPPPPPPPPP###==#####.fffff",
   "T.f..###.==####...=PPPPP#PPPPPPP###.==.###.fffff",
   "==...###.=.####...P.PPPPPPPPPPPP#####==###..ffff",
-  ".====###==#####.....SPPPPPPPPPPP.=###.==....ffff",
+  ".====###==#####.....SPPPPPPPPSPP.=###.==....ffff",
   "f.##=====.#####.###.PPPPPPPPPPPP.=####.=####ffff",
   "f.##.##===#####.###.PNPPPPPPPPPP.=####.=####ffff",
   "ff##.##..===....###.PPPPPPPPPP====####.==...ffff",
@@ -129,6 +129,16 @@
    ],
    "service": [
     21,
+    14
+   ]
+  },
+  "apothecary": {
+   "tile": [
+    29,
+    14
+   ],
+   "service": [
+    28,
     14
    ]
   }
@@ -282,6 +292,17 @@
    "door": [
     16,
     39
+   ]
+  },
+  "player_clinic": {
+   "type": "clinic",
+   "origin": [
+    31,
+    6
+   ],
+   "door": [
+    32,
+    9
    ]
   },
   "player_forge": {
@@ -1934,7 +1955,8 @@
    "artisan_blacksmith",
    "artisan_carpenter",
    "artisan_mason",
-   "artisan_tailor"
+   "artisan_tailor",
+   "scholar_physician"
   ],
   "style": "C",
   "rivers": [
@@ -2688,12 +2710,12 @@
    {"kind": "prop", "id": "barrel", "at": [29, 24], "off": [-13, 7], "site": "workshop_masonry"},
    {"kind": "prop", "id": "crate", "at": [35, 21], "off": [13, 7], "site": "workshop_tailor"},
    {"kind": "prop", "id": "grain_sack", "at": [35, 19], "off": [13, 7], "site": "workshop_tailor"},
+   {"kind": "prop", "id": "cart", "at": [30, 14]},
    {"kind": "prop", "id": "crate", "at": [19, 10]},
    {"kind": "prop", "id": "grain_sack", "at": [25, 7]},
    {"kind": "prop", "id": "cart", "at": [19, 14]},
    {"kind": "prop", "id": "cart", "at": [28, 7]},
    {"kind": "prop", "id": "cart", "at": [20, 7]},
-   {"kind": "prop", "id": "bench", "at": [31, 13], "off": [10, 5]},
    {"kind": "prop", "id": "bench", "at": [24, 11], "off": [-10, 5], "flip": true},
    {"kind": "prop", "id": "bench", "at": [22, 20], "off": [-10, 5], "flip": true},
    {"kind": "fence", "id": "fence", "at": [11, 0], "off": [14, 7], "flip": true},

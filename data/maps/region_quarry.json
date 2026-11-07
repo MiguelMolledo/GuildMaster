@@ -32,7 +32,7 @@
   "..###=##PPPPPPPPPPPPP##w.PPP===.####....",
   "..###=.PPPPPP#PPPPPPP.w...##=...........",
   "..###==PPPPPPPPPPPP=Pw...###==###......T",
-  ".........SPPPPPPPPP=w=######.=###....TTT",
+  ".........SPPPPPPPPS=w=######.=###....TTT",
   ".....###.PPPPPPPPPP=w=######==###....TTT",
   ".....###.PNPPPPPPPP===...###.==......TTT",
   "TT...###.PPPPPPPPPP======###..=.....TTTT",
@@ -113,6 +113,16 @@
    ],
    "service": [
     10,
+    26
+   ]
+  },
+  "apothecary": {
+   "tile": [
+    18,
+    26
+   ],
+   "service": [
+    17,
     26
    ]
   }
@@ -222,6 +232,17 @@
    "door": [
     34,
     10
+   ]
+  },
+  "player_clinic": {
+   "type": "clinic",
+   "origin": [
+    18,
+    12
+   ],
+   "door": [
+    19,
+    15
    ]
   },
   "player_forge": {
@@ -1391,7 +1412,8 @@
    "artisan_blacksmith",
    "artisan_carpenter",
    "artisan_mason",
-   "artisan_tailor"
+   "artisan_tailor",
+   "scholar_physician"
   ],
   "style": "B",
   "rivers": [],
@@ -1471,7 +1493,7 @@
     19,
     15
    ],
-   "location": 0.72
+   "location": 0.73
   },
   {
    "id": "plot_02",
@@ -1509,7 +1531,7 @@
     20,
     22
    ],
-   "location": 0.72
+   "location": 0.71
   },
   {
    "id": "plot_04",
@@ -1593,15 +1615,15 @@
    "side": "outside",
    "zone": "rustic",
    "origin": [
-    28,
+    27,
     13
    ],
    "size": [
-    2,
+    3,
     2
    ],
    "front": [
-    28,
+    27,
     15
    ],
    "location": 0.56
@@ -1680,7 +1702,7 @@
     19,
     15
    ],
-   "location": 0.72,
+   "location": 0.73,
    "site": "player_forge",
    "for_sale": false
   },
@@ -1848,33 +1870,12 @@
     31,
     32
    ],
-   "location": 0.4,
+   "location": 0.39,
    "site": "house_04",
    "for_sale": false
   },
   {
    "id": "plot_21",
-   "state": "business",
-   "side": "outside",
-   "zone": "production",
-   "origin": [
-    36,
-    14
-   ],
-   "size": [
-    3,
-    3
-   ],
-   "front": [
-    37,
-    17
-   ],
-   "location": 0.37,
-   "site": "workshop_tailor",
-   "for_sale": false
-  },
-  {
-   "id": "plot_22",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -1892,6 +1893,27 @@
    ],
    "location": 0.36,
    "site": "house_06",
+   "for_sale": false
+  },
+  {
+   "id": "plot_22",
+   "state": "business",
+   "side": "outside",
+   "zone": "production",
+   "origin": [
+    36,
+    14
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    37,
+    17
+   ],
+   "location": 0.36,
+   "site": "workshop_tailor",
    "for_sale": false
   }
  ],
@@ -1949,6 +1971,7 @@
    {"kind": "prop", "id": "barrel", "at": [1, 17], "off": [-13, 7], "site": "workshop_masonry"},
    {"kind": "prop", "id": "crate", "at": [38, 16], "off": [-13, 7], "site": "workshop_tailor"},
    {"kind": "prop", "id": "grain_sack", "at": [36, 16], "off": [-13, 7], "site": "workshop_tailor"},
+   {"kind": "prop", "id": "cart", "at": [18, 25]},
    {"kind": "prop", "id": "crate", "at": [8, 22]},
    {"kind": "prop", "id": "grain_sack", "at": [14, 19]},
    {"kind": "prop", "id": "cart", "at": [8, 26]},
