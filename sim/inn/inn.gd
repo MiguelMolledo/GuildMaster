@@ -1080,8 +1080,8 @@ static func order_buy_building(sim: Sim, o: Dictionary) -> Dictionary:
 	if not st.characters.has(actor):
 		return Orders.fail("unknown_actor")
 	var b: Dictionary = st.buildings.get(bld, {})
-	if not b.is_empty() and str(b.get("owner", "")) != "" and not bool(b.get("for_sale", false)):
-		return Plots.order_buy_from(sim, o)  # H6: a business of another family (04 §4.9)
+	if not b.is_empty() and str(b.get("owner", "")) != "":
+		return Plots.order_buy_from(sim, o)  # H6: a business of another family (04 §4.9), its «Se vende» sign too
 	if b.is_empty() or not bool(b.get("for_sale", false)) or str(b.get("owner", "")) != "":
 		return Orders.fail("not_for_sale")
 	var fam := str(st.characters[actor].get("family", ""))

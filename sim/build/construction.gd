@@ -36,8 +36,11 @@ static func step(sim: Sim) -> void:
 			"kind": str(w.get("kind", "")), "plot": str(w.get("plot", ""))})
 		if fam != "" and Plots.is_human(sim, fam):
 			Notices.add(sim, fam, Notices.INFO, "notice.plots.finished", {"building": b}, b)
+		elif fam != "" and st.families.has(fam):
+			Bankruptcy.rose(sim, fam)   # a fallen AI family has its workshop again
 		if OS.is_debug_build():
 			print("[Construction] %s: termina la obra de %s (%s)" % [b, bld["type"], w.get("kind", "")])
+	Bankruptcy.step(sim)   # H6 (04c 4.21.6.3): austerity, the «Se vende» sign, the closure, the fall
 	if Ledger.is_dawn(sim) and bool(ai_rules(sim).get("enabled", false)):
 		for o: Dictionary in ai_orders(sim):
 			sim.give(o)
@@ -157,9 +160,9 @@ static func candidates(sim: Sim, fam: String) -> Array:
 	ids.sort()
 	for b: String in ids:
 		var bld: Dictionary = st.buildings[b]
-		if not bool(bld.get("for_sale", false)) or str(bld.get("owner", "")) != "" or not str(bld["type"]) in ts:
+		if not bool(bld.get("for_sale", false)) or str(bld.get("owner", "")) == fam or not str(bld["type"]) in ts:
 			continue
-		var price := Inn.sale_price(sim, b)
+		var price := Inn.sale_price(sim, b) if str(bld.get("owner", "")) == "" else int(bld.get("sale_price", 0))
 		var daily := daily_net(sim, str(bld["type"]))
 		if price > 0 and Plots.room_for(sim, fam, str(bld["type"])):
 			out.append({"kind": "buy", "building": b, "building_type": str(bld["type"]), "price": price, "daily": daily,
@@ -174,6 +177,8 @@ static func candidates(sim: Sim, fam: String) -> Array:
 ## (it sold it) takes the best it can pay, whatever its score: it needs a trade.
 static func choose(sim: Sim, fam: String) -> Dictionary:
 	var money := budget(sim, fam)
+	if Bankruptcy.stage(sim, fam) != Bankruptcy.NORMAL:
+		return {}   # in austerity or with the «Se vende» sign: it builds nothing (04c 4.21.6.3)
 	var homeless := _homeless(sim, fam)
 	var fate := str(sim.state.families[fam].get("after_sale", {}).get("fate", ""))
 	if homeless and fate != "" and fate != "rebuilds":

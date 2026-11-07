@@ -4311,3 +4311,5 @@ misdeed.false_weights,false weights at the market,pesos falsos en el mercado
 misdeed.unpaid_supplier,a supplier left unpaid,un proveedor sin pagar
 misdeed.contraband,contraband,contrabando
 tutorial.hint.night_skip,Night: the market is closed until dawn. «Skip until…» (») by the clock: choose dawn and the night goes by at ×8 (any notice stops it).,Es de noche: el mercado cierra hasta el amanecer. «Saltar hasta…» (») junto al reloj: elige el amanecer y la noche pasa a ×8 (cualquier aviso la para).
+notice.plots.ai_for_sale,"{building} is for sale: {price} (its family cannot keep it)","{building} está en venta: {price} (su familia no puede mantenerlo)"
+notice.plots.ai_fallen,"{family} have lost their last business: they look for work","{family} ha perdido su último negocio: busca trabajo"

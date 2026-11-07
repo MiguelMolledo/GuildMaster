@@ -23,7 +23,7 @@ static func can_enter(sim: Sim, actor: String, building: String) -> Dictionary:
 	if not st.buildings.has(building):
 		return Orders.fail("unknown_building")
 	if not owns(st, actor, building) and not is_public(sim, building) and not Staff.works_at(st, actor, building) \
-			and not Counter.is_customer_of(st, actor, building):
+			and not Counter.is_customer_of(st, actor, building) and str(ch.get("home", "")) != building:
 		return Orders.fail("not_your_building")
 	if Market.shop_closed(sim, building) and str(ch.get("location", "")) != building:
 		return Orders.fail("market_closed")  # a public shop opens with the market (H3, GDD 4.5.1); Market puts out at closing

@@ -138,8 +138,7 @@ func test_demolish() -> void:
 	var sim := _new()
 	_rich(sim)
 	var forge := str(_plot(sim, "plot_08")["building"])
-	eq(str(Plots.can_demolish(sim, HERO, forge)["reason"]), "someone_inside" if str(sim.state.characters[HERO]["location"]) == forge
-		else "only_home", "the forge is the family's only roof")
+	eq(str(Plots.can_demolish(sim, HERO, forge)["reason"]), "only_home", "the forge is the family's only roof")
 	check(Orders.apply(sim, {"type": "build", "actor": HERO, "plot": "plot_01", "building_type": "tailor_shop"})["ok"], "build")
 	var shop := str(_plot(sim, "plot_01")["building"])
 	eq(str(Plots.can_demolish(sim, HERO, shop)["reason"]), "under_construction", "not while it is being built")
