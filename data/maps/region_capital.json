@@ -3245,7 +3245,7 @@
    "id": "plot_02",
    "state": "ruin",
    "side": "inside",
-   "zone": "housing",
+   "zone": "production",
    "origin": [
     61,
     53
@@ -3264,7 +3264,7 @@
    "id": "plot_03",
    "state": "lot",
    "side": "inside",
-   "zone": "production",
+   "zone": "housing",
    "origin": [
     48,
     31
@@ -3283,7 +3283,26 @@
    "id": "plot_04",
    "state": "lot",
    "side": "inside",
-   "zone": "production",
+   "zone": "housing",
+   "origin": [
+    66,
+    29
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    65,
+    29
+   ],
+   "location": 0.53
+  },
+  {
+   "id": "plot_05",
+   "state": "lot",
+   "side": "inside",
+   "zone": "housing",
    "origin": [
     60,
     45
@@ -3299,10 +3318,10 @@
    "location": 0.49
   },
   {
-   "id": "plot_05",
+   "id": "plot_06",
    "state": "lot",
    "side": "inside",
-   "zone": "housing",
+   "zone": "production",
    "origin": [
     60,
     50
@@ -3318,16 +3337,35 @@
    "location": 0.48
   },
   {
-   "id": "plot_06",
+   "id": "plot_07",
+   "state": "lot",
+   "side": "inside",
+   "zone": "production",
+   "origin": [
+    55,
+    48
+   ],
+   "size": [
+    3,
+    4
+   ],
+   "front": [
+    55,
+    47
+   ],
+   "location": 0.46
+  },
+  {
+   "id": "plot_08",
    "state": "lot",
    "side": "outside",
-   "zone": "rustic",
+   "zone": "production",
    "origin": [
-    45,
+    43,
     77
    ],
    "size": [
-    2,
+    4,
     3
    ],
    "front": [
@@ -3337,7 +3375,26 @@
    "location": 0.39
   },
   {
-   "id": "plot_07",
+   "id": "plot_09",
+   "state": "lot",
+   "side": "outside",
+   "zone": "rustic",
+   "origin": [
+    62,
+    12
+   ],
+   "size": [
+    3,
+    2
+   ],
+   "front": [
+    64,
+    14
+   ],
+   "location": 0.34
+  },
+  {
+   "id": "plot_10",
    "state": "lot",
    "side": "outside",
    "zone": "rustic",
@@ -3356,7 +3413,7 @@
    "location": 0.26
   },
   {
-   "id": "plot_08",
+   "id": "plot_11",
    "state": "lot",
    "side": "outside",
    "zone": "rustic",
@@ -3375,7 +3432,7 @@
    "location": 0.23
   },
   {
-   "id": "plot_09",
+   "id": "plot_12",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -3396,7 +3453,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_10",
+   "id": "plot_13",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -3417,7 +3474,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_11",
+   "id": "plot_14",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -3438,7 +3495,7 @@
    "for_sale": true
   },
   {
-   "id": "plot_12",
+   "id": "plot_15",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -3459,7 +3516,7 @@
    "for_sale": true
   },
   {
-   "id": "plot_13",
+   "id": "plot_16",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3480,7 +3537,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_14",
+   "id": "plot_17",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -3501,7 +3558,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_15",
+   "id": "plot_18",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3522,7 +3579,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_16",
+   "id": "plot_19",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3543,7 +3600,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_17",
+   "id": "plot_20",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3564,7 +3621,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_18",
+   "id": "plot_21",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3585,7 +3642,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_19",
+   "id": "plot_22",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3606,7 +3663,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_20",
+   "id": "plot_23",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3627,7 +3684,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_21",
+   "id": "plot_24",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3648,7 +3705,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_22",
+   "id": "plot_25",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -3669,7 +3726,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_23",
+   "id": "plot_26",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -3690,7 +3747,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_24",
+   "id": "plot_27",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -3711,7 +3768,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_25",
+   "id": "plot_28",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -3732,7 +3789,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_26",
+   "id": "plot_29",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -3753,7 +3810,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_27",
+   "id": "plot_30",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -3774,7 +3831,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_28",
+   "id": "plot_31",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -3795,7 +3852,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_29",
+   "id": "plot_32",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -3816,7 +3873,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_30",
+   "id": "plot_33",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -4011,7 +4068,6 @@
    {"kind": "yard", "id": "yard_sacks", "at": [39, 27]},
    {"kind": "yard", "id": "yard_barrels", "at": [39, 28]},
    {"kind": "yard", "id": "yard_crates", "at": [39, 29]},
-   {"kind": "house", "id": "lot_house_f_back", "at": [66, 29], "size": [3, 3], "flip": true, "facing": [-1, 0]},
    {"kind": "house", "id": "lot_house_c", "at": [67, 33], "size": [3, 3], "flip": false, "facing": [0, 1]},
    {"kind": "yard", "id": "yard_cart", "at": [67, 28]},
    {"kind": "yard", "id": "yard_plain", "at": [68, 32]},

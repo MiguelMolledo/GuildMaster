@@ -1242,7 +1242,7 @@
    "id": "plot_03",
    "state": "lot",
    "side": "inside",
-   "zone": "housing",
+   "zone": "production",
    "origin": [
     16,
     19
@@ -1260,21 +1260,21 @@
   {
    "id": "plot_04",
    "state": "lot",
-   "side": "inside",
-   "zone": "housing",
+   "side": "outside",
+   "zone": "production",
    "origin": [
-    18,
-    25
+    29,
+    10
    ],
    "size": [
-    2,
-    2
+    3,
+    4
    ],
    "front": [
-    18,
-    24
+    29,
+    14
    ],
-   "location": 0.49
+   "location": 0.41
   },
   {
    "id": "plot_05",
@@ -1282,18 +1282,18 @@
    "side": "outside",
    "zone": "rustic",
    "origin": [
-    29,
-    12
+    28,
+    15
    ],
    "size": [
     3,
     2
    ],
    "front": [
-    29,
-    14
+    28,
+    17
    ],
-   "location": 0.41
+   "location": 0.37
   },
   {
    "id": "plot_06",
@@ -1318,23 +1318,99 @@
    "id": "plot_07",
    "state": "lot",
    "side": "outside",
-   "zone": "rustic",
+   "zone": "housing",
    "origin": [
-    5,
-    27
+    29,
+    22
    ],
    "size": [
     3,
+    3
+   ],
+   "front": [
+    29,
+    25
+   ],
+   "location": 0.35
+  },
+  {
+   "id": "plot_08",
+   "state": "lot",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    17,
+    29
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    20,
+    29
+   ],
+   "location": 0.31
+  },
+  {
+   "id": "plot_09",
+   "state": "lot",
+   "side": "outside",
+   "zone": "housing",
+   "origin": [
+    1,
+    1
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "front": [
+    1,
+    4
+   ],
+   "location": 0.29
+  },
+  {
+   "id": "plot_10",
+   "state": "lot",
+   "side": "outside",
+   "zone": "rustic",
+   "origin": [
+    1,
+    23
+   ],
+   "size": [
+    2,
     2
    ],
    "front": [
-    5,
-    29
+    1,
+    25
+   ],
+   "location": 0.19
+  },
+  {
+   "id": "plot_11",
+   "state": "lot",
+   "side": "outside",
+   "zone": "production",
+   "origin": [
+    8,
+    28
+   ],
+   "size": [
+    4,
+    3
+   ],
+   "front": [
+    8,
+    31
    ],
    "location": 0.17
   },
   {
-   "id": "plot_08",
+   "id": "plot_12",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -1355,7 +1431,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_09",
+   "id": "plot_13",
    "state": "business",
    "side": "inside",
    "zone": "production",
@@ -1376,7 +1452,7 @@
    "for_sale": true
   },
   {
-   "id": "plot_10",
+   "id": "plot_14",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -1397,7 +1473,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_11",
+   "id": "plot_15",
    "state": "business",
    "side": "inside",
    "zone": "housing",
@@ -1418,7 +1494,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_12",
+   "id": "plot_16",
    "state": "business",
    "side": "outside",
    "zone": "production",
@@ -1439,7 +1515,7 @@
    "for_sale": true
   },
   {
-   "id": "plot_13",
+   "id": "plot_17",
    "state": "business",
    "side": "outside",
    "zone": "housing",
@@ -1460,7 +1536,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_14",
+   "id": "plot_18",
    "state": "business",
    "side": "outside",
    "zone": "production",
@@ -1481,7 +1557,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_15",
+   "id": "plot_19",
    "state": "business",
    "side": "outside",
    "zone": "production",
@@ -1502,7 +1578,7 @@
    "for_sale": false
   },
   {
-   "id": "plot_16",
+   "id": "plot_20",
    "state": "business",
    "side": "outside",
    "zone": "housing",
