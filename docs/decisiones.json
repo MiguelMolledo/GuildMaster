@@ -1567,6 +1567,12 @@
       "tema": "Desbloqueo del heredero: con el primogénito a los 16 o al nombrar heredero (construido)",
       "decision": "Opción (b), decidida por el manager por delegación del owner. El desbloqueo «heir» de data/unlocks.json llega con lo primero de: el hijo vivo mayor del cabeza cumple 16 (disparador nuevo child_age {min} en sim/pacing/unlocks.gd), el jugador nombra heredero (evento heir_designated) o, si el cabeza muere antes, la herencia (evento inheritance, el disparador de antes). La ventana [150, 250] no cambia. Texto unlock.heir.desc y fila «Generación 2» de 03b al día. Pruebas: tests/test_unlock_heir.gd (nombrar, cumpleaños, herencia y una gemela de test_the_memo_changes_nothing en el cumpleaños).",
       "por_que": "Que se aprenda a preparar la herencia antes de la muerte y no después (03b, «Generación 2»). Medido: full_player --generation, semilla 1, sobre d723ea72: antes «heir» el día 376 (tarde, la muerte del fundador); ahora el día 26 (temprano: el bot nombra heredero en cuanto nace el primogénito, el día 27 del informe); refused_orders 0, engine_errors 0, las demás dianas igual. Sin el nombramiento del bot llegaría con el primogénito a los 16, el día ~155, dentro de la ventana. Ritmo (pacing, 5 semillas × 8 días): 0 fallos. reports/full_player_ref/full_player_heir_b.json."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Jugador completo · el bot nombra heredero cuando hay a quién elegir (construido)",
+      "decision": "Opción (a), decidida por el manager por delegación del owner: full_player nombra heredero cuando el primogénito cumple 16 o el cabeza llega a la edad de morir (data/family.json life.death.from_age, 55), lo primero (BotFullPlayer._heir_time). Se ajusta el bot, no la regla: un jugador real puede nombrar heredero al nacer, toca la mecánica y es lógico que se desbloquee. Prueba: test_the_heir_is_named_when_there_is_someone_to_choose.",
+      "por_que": "«analiza una a una y toma la mejor decision» (delegación del owner). Nombrar a un recién nacido no protege de nada: el fundador no puede morir antes de los 55. Medido con full_player --generation, semilla 1, sin heavy: heredero nombrado el día 153 (antes el 27), «heir» el día 152 dentro de [150, 250] (antes el 26), unlocks_off de 1 a 0; las demás medidas iguales que antes del cambio (refused_orders 0, engine_errors 0, herencia el día 377). reports/full_player_ref/full_player_heir_a.json."
     }
   ],
   "pendientes": [
@@ -1679,9 +1685,9 @@
       "opciones": "Propuesta: (1) full_player title_patrician_day [1, 40] por semilla con _needs_days 40 (solo lo juzgan la generación y las partidas de 5 años); (2) full_player rep_y5 (reputación al final del año 5) [250, —] con _needs_days 40; (3) Barón sin banda hasta (d), el segundo taller que compense. Ninguna se mueve sin el visto bueno."
     },
     {
-      "tema": "Jugador completo · el bot nombra heredero al nacer el primogénito y el desbloqueo «heir» llega antes de su ventana",
-      "detalle": "Con la decisión (b), full_player --generation, semilla 1: el bot nombra heredero el día 27, en cuanto nace el primer hijo (sim/bots/bot_full_player.gd, la familia), y «heir» se abre el día 26 (índice), con la ventana [150, 250]: unlocks_off = 1 (verdict early). El fundador no puede morir antes de los 55 (día ~280), así que nombrar a un recién nacido no le protege de nada. Sin ese nombramiento, child_age lo abre el día ~155 (dentro).",
-      "opciones": "(a) el bot nombra heredero cuando hay a quién elegir: el primogénito cumple 16, o el fundador entra en la edad de morir (55), lo primero · (b) la ventana del heredero empieza con el primer hijo: [20, 250] · (c) dejarlo: un jugador real también puede nombrarlo al nacer"
+      "tema": "Jugador completo · la generación de la semilla 1 sale por debajo de net_year_2 [20, —]",
+      "detalle": "La diana nueva de forja (c9cc435a) es de media en corridas de 16 días o más. full_player --generation, semilla 1 (una sola semilla, como la mide la generación): net_year_2 = −25,4, igual antes y después del cambio del heredero (reports/full_player_ref/full_player_heir_b.json y full_player_heir_a.json); es la semilla −25 de la medida de forja (3 años × 8 semillas, media 35). La generación de tools/qa/noche.py (× 2 semillas) puede fallar por ella; el paso full de run_all (1 año) no la juzga.",
+      "opciones": "(a) juzgar net_year_2 solo en corridas de varias semillas (no en la generación) · (b) dejarla: la generación de la noche avisa si las dos semillas bajan de 20 de media · (c) otra banda para la generación"
     }
   ],
   "proximos_pasos": [

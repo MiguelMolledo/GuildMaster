@@ -289,7 +289,9 @@ func _microevents(sim: Sim) -> Array:
 	return out
 
 
-## School choice (craft: the heir will forge) and the heir: the best craftsman among those who can inherit.
+## School choice (craft: the heir will forge) and the heir: the best craftsman among those who can inherit, named
+## once there is someone to choose (the eldest child is of age) or the head can die (data/family.json life.death.from_age),
+## whichever is first: naming a newborn protects nothing (decision of 2026-11-07, the «heir» unlock's window).
 func _family(sim: Sim) -> Array:
 	var out: Array = []
 	var st := sim.state
@@ -299,7 +301,7 @@ func _family(sim: Sim) -> Array:
 		if Kin.alive(st, c) and str(st.characters[c].get("life", {}).get("school", "")) == "pending":
 			_use("school")
 			out.append({"type": "school_choice", "actor": ACTOR, "child": c, "stat": "craft"})
-	if h == "":
+	if h == "" or not _heir_time(sim, h):
 		return out
 	var best := ""
 	var key: Array = []
@@ -316,6 +318,17 @@ func _family(sim: Sim) -> Array:
 		_note(sim, "heir", best)
 		out.append({"type": "designate_heir", "actor": ACTOR, "heir": best})
 	return out
+
+
+## Whether the head names an heir now: its eldest living child is of age, or the head has reached the age of dying.
+func _heir_time(sim: Sim, h: String) -> bool:
+	var st := sim.state
+	if Kin.age(sim, h) >= int(sim.catalog.family.get("life", {}).get("death", {}).get("from_age", 55)):
+		return true
+	for c: Variant in st.characters.get(h, {}).get("children", []):
+		if Kin.alive(st, str(c)) and Kin.is_adult(sim, str(c)):
+			return true
+	return false
 
 
 ## Once Citizen: a public fact against another family is a case (the trial costs it nothing if it loses).

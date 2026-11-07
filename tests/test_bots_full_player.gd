@@ -97,3 +97,25 @@ func test_new_head_inside_another_building_walks_out_first() -> void:
 	eq(bot.ACTOR, heir, "the bot plays the new head")
 	eq(refused, 0, "no order of the heir refused")
 	check(str(sim.state.characters[heir].get("location", "")) != other, "the heir left the other building")
+
+
+func test_the_heir_is_named_when_there_is_someone_to_choose() -> void:
+	# Decision of 2026-11-07: the eldest of age or the head at the age of dying, whichever first (not a newborn).
+	var sim := Sim.new(NewGame.from_scenario("founder_old", 1)["state"], cat)
+	var st := sim.state
+	var kids: Array = st.characters["chr_0001"]["children"]
+	var now := int(st.clock["minute"])
+	st.characters["chr_0001"]["birth_day"] = Kin.birth_day_for(40, now, cat.time)
+	for i: int in kids.size():
+		st.characters[str(kids[i])]["birth_day"] = Kin.birth_day_for(10 - i, now, cat.time)
+	st.families["fam_0001"]["heir"] = ""
+	var bot := BotFullPlayer.new()
+	bot._fam_id = "fam_0001"
+	var named := func() -> bool:
+		return bot._family(sim).any(func(o: Dictionary) -> bool: return str(o["type"]) == "designate_heir")
+	check(not named.call(), "head of 40, children of 10 and less: not yet")
+	st.characters[str(kids[0])]["birth_day"] = Kin.birth_day_for(16, now, cat.time)
+	check(named.call(), "the eldest is 16: named")
+	st.characters[str(kids[0])]["birth_day"] = Kin.birth_day_for(10, now, cat.time)
+	st.characters["chr_0001"]["birth_day"] = Kin.birth_day_for(55, now, cat.time)
+	check(named.call(), "the head is 55: named")
