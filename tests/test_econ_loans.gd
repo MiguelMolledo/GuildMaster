@@ -155,6 +155,24 @@ func test_ruin_when_seizure_falls_short() -> void:
 	check(not sim.events.any(func(x: Dictionary) -> bool: return x["type"] == "game_over"), "only once (%d)" % again)
 
 
+## An AI family's ruin (a loan of the moneylender, H12.2) does not end the player's game: only the human family's does
+## (found by full_player at 5 years: fam_0012's ruin ended the game on day 25 and the bot stopped).
+func test_an_ai_familys_ruin_does_not_end_the_game() -> void:
+	var sim := _sim()
+	var l := _loan(sim)
+	l["state"] = "extended"
+	l["extended"] = true
+	l["outstanding"] = 250
+	sim.state.families[FAM]["controlled_by"] = "ai"
+	sim.state.clock["minute"] = int(l["due_minute"]) - 1
+	sim.step()
+	eq(str(l["state"]), "seized", "seized")
+	check(int(l["outstanding"]) > 0, "still owed: a ruin")
+	check("notice.ruin" in _keys(sim), "its notice")
+	check(sim.state.ending.is_empty(), "but the game goes on")
+	check(not sim.events.any(func(x: Dictionary) -> bool: return x["type"] == "game_over"), "no game_over")
+
+
 func test_debt_scenarios() -> void:
 	var r := NewGame.from_scenario("debt_due", 1)
 	check(r["ok"], "debt_due loads")

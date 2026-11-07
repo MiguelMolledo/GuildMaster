@@ -357,7 +357,16 @@ func measures(sim: Sim) -> Dictionary:
 	var days := maxi(1, _turns.size())
 	var net := 0
 	var operating := 0
-	for e: Dictionary in st.ledger.get("entries", []):
+	# the ledger keeps the detail of the last ledger_detail_years (Ledger.step): the net is of those days, so it is
+	# divided by the turns of those days (a long game, full_player at 5 years, divided all of them before)
+	var entries: Array = st.ledger.get("entries", [])
+	var first_kept := int(entries[0].get("day", 0)) if not entries.is_empty() else 0
+	var kept_turns := 0
+	for t: Dictionary in _turns:
+		if int(t.get("day", 0)) >= first_kept:
+			kept_turns += 1
+	var net_days := maxi(1, kept_turns)
+	for e: Dictionary in entries:
 		if str(e.get("family", "")) != _fam or str(e.get("building", "")) != _tavern:
 			continue
 		var cat := str(e.get("category", ""))
@@ -389,8 +398,8 @@ func measures(sim: Sim) -> Dictionary:
 			by_group[str(g)] = int(by_group.get(str(g), 0)) + int(t["by_group"][g].get("came", 0))
 	var inn: Dictionary = st.buildings[_tavern]["inn"]
 	bed_slots = (inn["beds"] as Array).size() * days
-	return {"inn_found": 1, "inn_turns": _turns.size(), "inn_net_day": snappedf(float(net) / days, 0.01),
-		"inn_operating_day": snappedf(float(operating) / days, 0.01), "inn_fame": snappedf(float(inn["fame"]), 0.01),
+	return {"inn_found": 1, "inn_turns": _turns.size(), "inn_net_day": snappedf(float(net) / net_days, 0.01),
+		"inn_operating_day": snappedf(float(operating) / net_days, 0.01), "inn_fame": snappedf(float(inn["fame"]), 0.01),
 		"inn_bed_share": snappedf(float(beds) / maxf(1.0, float(bed_slots)), 0.001),
 		"inn_guests_night": snappedf(float(guests) / days, 0.01),
 		"inn_complaints_night": snappedf(float(complaints) / days, 0.01), "inn_fights": fights,

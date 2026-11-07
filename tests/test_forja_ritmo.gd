@@ -182,6 +182,20 @@ func test_a_goal_of_the_chain_tells_once() -> void:
 		return str(e.get("key", "")) == "notice.objective_done").size(), 0, "and no second notice")
 
 
+## The court's card: a Citizen with a misdeed of another family seen (Equilibrio 6, a case to accuse with), or a trial
+## against the family; a Commoner who sees one waits for the title (the misdeed counts already).
+func test_the_court_comes_with_a_case() -> void:
+	var sim := _new_game()
+	sim.step()
+	sim.events = [{"type": "misdeed", "family": "fam_0002", "kind": "false_weights", "seen": true, "fact": "fct_0001"}]
+	Unlocks.step(sim)
+	check(not Unlocks.is_open(sim.state, FAM, "court"), "a commoner: not yet")
+	sim.state.families[FAM]["title"] = "citizen"
+	sim.events = []
+	Unlocks.step(sim)
+	check(Unlocks.is_open(sim.state, FAM, "court"), "a citizen with a case seen: the court")
+
+
 func test_skip_until_dawn_and_a_notice_cuts_it() -> void:
 	var g: Node = GameScript.new()
 	g.start(_new_game().state, cat)
