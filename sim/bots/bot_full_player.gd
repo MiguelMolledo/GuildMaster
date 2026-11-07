@@ -60,6 +60,8 @@ var _gifts_later: Array = []          # festival_offer_gift orders held a minute
 
 var goals: int = 1                    # trials (BOT_VARS=goals=0): 0 = never leaves the business for a goal
 var quota_caravans: int = 1          # equilibrio (BOT_VARS=quota_caravans=0): 0 = signs and breaks the quota, as before
+var builds: int = 1                   # H6 (BOT_VARS=builds=0): 0 = never opens a second workshop on a plot, as before
+var branch: BotBranch = BotBranch.new()  # H6: the second workshop (a forge on a free plot) when it pays
 var titles_early: int = 1             # Equilibrio 3 (BOT_VARS=titles_early=0): 0 = asks Citizen after the plan, as before
 var focus: String = "business"        # what the head's body does: business | court | duel | travel
 var why_not: Dictionary = {}          # mechanic -> why it did not use it the last time it looked
@@ -201,6 +203,16 @@ func _always(sim: Sim) -> Array:
 			out.append(o)
 	out.append_array(_festival_games(sim))
 	out.append_array(_inn(sim))
+	if builds == 1 and _business(sim):  # H6: the second workshop, built when it pays and run by its own employee
+		var had := branch.bld
+		branch.raw = RAW
+		var tavern_done := inn != null and str(st.buildings.get(inn._tavern, {}).get("owner", "")) == _fam_id \
+			or str(why_not.get("tavern", "")) == "none_for_sale"
+		out.append_array(branch.manage(sim, ACTOR, _fam_id, FORGE, _reserve(sim), tavern_done))
+		if branch.bld != "" and had == "":
+			_use("plots")
+		elif branch.bld == "" and branch.why_not != "":
+			why_not["plots"] = branch.why_not
 	var suitor := dyn._suitor(sim)
 	if suitor != "" and suitor != ACTOR and not Region.is_away(st, suitor):  # the heir courts with its own body
 		for o: Dictionary in dyn.orders(sim):
@@ -770,6 +782,14 @@ func _trip_swords(sim: Sim) -> int:
 ## the market like a contract's.
 ## With a quota in force and no cart yet (Equilibrio 7), the cart's price stays in the reserve: the quota is served by
 ## caravan, and a season without the cart breaks it.
+## H6: at a stall anyway, after its own forge's purchases, an errand of what the second workshop lacks.
+func _buy_raw(sim: Sim) -> Dictionary:
+	var o := super._buy_raw(sim)
+	if not o.is_empty() or builds != 1:
+		return o
+	return branch.supply(sim, ACTOR, _fam_id, _reserve(sim))
+
+
 func _reserve(sim: Sim) -> int:
 	var r := super._reserve(sim)
 	if Caravans.carts(sim, _fam_id) == 0 and not Treaties.quota_of(sim, CITY, _fam_id, "sword").is_empty():
