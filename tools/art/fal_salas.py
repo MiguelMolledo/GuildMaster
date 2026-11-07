@@ -57,7 +57,6 @@ REF_OF = {"forge": {0: "forge_b", 1: "house_b"}, "armory": {0: "armory_a"}, "car
           "town_hall": {0: "town_hall_b"}, "court": {0: "court_a"},
           "tavern_inn": {-1: "tavern_b", 0: "tavern_a", 1: "house_b"}, "clinic": {0: "clinic_a", 1: "house_b"},
           "den": {0: "house_b", 1: "house_b"},
-
           "farm": {0: "carpentry_b"}}  # H12 Patrón: la Granja (patio, granero y casa en una planta)
 HANG_OF = {  # H12.2: what hangs in a room of a building whose trade is not the forge's (by room type)
     "farm": {"yard": "a low fence of rough planks and wattle with a scythe, a pitchfork and a rake leaning on it, "

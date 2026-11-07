@@ -143,7 +143,7 @@ func refresh() -> void:
 	var field := field_station()
 	if field:
 		mode = "normal"  # H12 Patrón: a field is worked in normal mode, no quality
-	(%Modes as Control).visible = actor != "" and svc == "" and not _is_den() and not field
+	(%Modes as Control).visible = actor != "" and svc == "" and not field and not _is_den()
 	(%ModeLine as Label).visible = (actor != "" and svc == "" and not _is_den()) or field
 	(%ModeLine as Label).text = field_line() if field else _mode_line()
 	_build_recipes(can_pick)

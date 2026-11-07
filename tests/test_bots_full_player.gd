@@ -72,3 +72,28 @@ func test_a_chaotic_day_saves_and_loads_the_same() -> void:
 	check(bool(r["ok"]), "it loads")
 	eq(SaveFile.canonical((r["state"] as WorldState).to_dict()).md5_text(), SaveFile.canonical(d).md5_text(),
 		"same hash after save and load")
+
+
+func test_new_head_inside_another_building_walks_out_first() -> void:
+	# A generation of full_player (posada, 2026-11-07): the heir kept the tavern and was inside it when the founder
+	# died; as the new head it was sent into the forge from inside the tavern every minute (11 517 refusals).
+	var sim := Sim.new(NewGame.from_scenario("founder_old", 1)["state"], cat)
+	var bot := BotFullPlayer.new()
+	sim.step(bot.orders(sim))
+	var other := ""
+	for b: String in sim.state.buildings:
+		if b != "bld_0001" and (sim.state.buildings[b].get("door") is Array):
+			other = b
+			break
+	check(other != "", "a building to be in")
+	Lifecycle.die(sim, "chr_0001", "test")
+	var heir := Kin.head(sim.state, "fam_0001")
+	sim.state.characters[heir]["location"] = other
+	var refused := 0
+	for i: int in 240:
+		for e: Dictionary in sim.step(bot.orders(sim)):
+			if str(e["type"]) == "order_refused" and str(e.get("actor", "")) == heir:
+				refused += 1
+	eq(bot.ACTOR, heir, "the bot plays the new head")
+	eq(refused, 0, "no order of the heir refused")
+	check(str(sim.state.characters[heir].get("location", "")) != other, "the heir left the other building")

@@ -26,7 +26,9 @@ PLAZA_W, PLAZA_H = 10, 12
 # and the targets were tuned on (stalls along the top and the west side, the board, the well in the middle).
 TEMPLATE = {
     "stalls": {"resources": ((1, 1), (1, 2)), "food": ((4, 1), (4, 2)), "materials": ((7, 1), (7, 2)),
-               "clothier": ((0, 3), (1, 3)), "goods": ((0, 7), (1, 7))},
+               "clothier": ((0, 3), (1, 3)), "goods": ((0, 7), (1, 7)),
+               # H12.2 (04d 4.22.5): the apothecary (the Boticario of 4.5.1), on the plaza's east edge as in town_e
+               "apothecary": ((9, 7), (8, 7))},
     "board": ((1, 9), (1, 8)),
     "well": (4, 5),
     "social_points": [

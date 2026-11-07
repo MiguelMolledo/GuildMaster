@@ -217,9 +217,12 @@ static func _manage(sim: Sim, fam: String, head: String, home: String, profile: 
 	var staff := Staff.employees_of(st, home)
 	if not staff.is_empty():
 		if gold < reserve(sim, fam, profile):
-			out.append({"type": "fire", "actor": head, "employee": str(staff.back())})
-			if OS.is_debug_build():
-				print("[AIEconomy] %s despide a %s (oro %d, tendencia %d)" % [fam, staff.back(), gold, trend])
+			var staying: Array = staff.filter(func(e: Variant) -> bool:  # one already leaving (the austerity's) is gone
+				return int((st.characters[str(e)].get("job", {}) as Dictionary).get("end_day", -1)) < 0)
+			if not staying.is_empty():
+				out.append({"type": "fire", "actor": head, "employee": str(staying.back())})
+				if OS.is_debug_build():
+					print("[AIEconomy] %s despide a %s (oro %d, tendencia %d)" % [fam, staying.back(), gold, trend])
 			return out
 	var rid := str(st.families[fam].get("ai_state", {}).get("recipe", ""))
 	var maxe := int(profile.get("max_employees", c.get("max_employees", 1)))
