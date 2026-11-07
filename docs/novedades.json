@@ -1,11 +1,27 @@
 [
   {
+    "fecha": "2026-11-06",
+    "titulo": "H12 · El Patrón: el Granjero, su Granja, los campos por estación y el ganado",
+    "que": "Ya se puede empezar como Patrón: en Partida nueva, el botón Granjero (Pere Pagès, la misma deuda que la forja). Su Granja, de piedra y paja con su granero, está en la calle mayor, en el solar de la forja, con fachada propia (también de espaldas, en obras y dañada). Dentro, por datos como los demás interiores: el patio con cuatro campos ya arados y el corral, el granero con el almacén y la casa. Cada campo se ve como está: barbecho, surcos, brotes, trigo verde, trigo dorado o podrido, con su barra de crecimiento y los días que le quedan. Clic derecho en un campo: Arar, Sembrar trigo o Cosechar, con el motivo cuando no se puede, y una línea que hace de calendario («si lo siembras hoy, el trigo está listo en 4 días»). El trigo se siembra en primavera o verano con 5 de semilla, crece una vez por amanecer salvo en invierno y rinde 30; listo el día 5 si se siembra el día 1, y se pudre dos amaneceres después (el segundo día rinde un cuarto menos). Las ovejas dan lana cada mañana y los cerdos crían una cría por pareja cada dos días hasta llenar el corral; en invierno comen trigo, y dos días sin comer matan al animal de menos valor (el corral avisa de los días de pienso que quedan). Avisos de cosecha lista, último día, podrido, fin de la siembra y ganado sin comer. Nuevo puesto en la plaza: la Feria de ganado, para comprar y vender ovejas y cerdos; el recado de animales a la Granja no paga recargo y pide sitio en el corral. El trigo y la lana bajan la demanda diez veces menos que una espada por unidad vendida: vender una cosecha ya no hunde el mercado. Árbol de 24 mejoras de la Granja: arado de hierro, dos campos más, corral grande, abono, rotación, semilla selecta, y un Comercio propio que vende más caro lo de la granja. En Fácil la tierra rinde un 15 % más y en Difícil un 15 % menos. Objetivos: sembrar los cuatro campos, vender lana, el trigo del molinero, comprar dos ovejas, cosechar antes de que se pudra y devolver la deuda. El bot del granjero (patron_novice) gana 34 de oro netos al día en Normal (30 semillas; Fácil 40 > Normal 34 > Difícil 33), salda la deuda en 29 de 30 partidas (la otra, un año de hambruna) y no se le muere de hambre ningún animal. Sin versión de guardado nueva: los campos y el corral se leen con valores por defecto.",
+    "como_probar": "Partida nueva → Oficio: Granjero → Empezar; entra en la Granja, clic derecho en un campo → Sembrar trigo; mira el corral; en la plaza, la Feria de ganado (borde sur). Capturas: grimoire heavy --timeout 6m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=patron (reports/shots/patron_*.png). Bot: godot --headless --path . -s tools/sim_runner.gd -- --start=patron_farmer --bots=patron_novice --difficulty=easy,normal,hard --days=10 --seeds=30. Pruebas: -s tests/run_tests.gd -- --only=test_patron_farm.",
+    "capturas": [
+      "docs/novedades/patron_partida_nueva.png",
+      "docs/novedades/patron_calle.png",
+      "docs/novedades/patron_granja.png",
+      "docs/novedades/patron_campos.png",
+      "docs/novedades/patron_menu_campo.png",
+      "docs/novedades/patron_feria.png",
+      "docs/novedades/patron_invierno.png",
+      "docs/novedades/patron_mejoras.png"
+    ]
+  },
+  {
     "fecha": "2026-11-07",
     "titulo": "La taberna con empleados da reputación cada día, como un taller",
     "que": "Cada mañana, la reputación de la familia sube +1 por cada negocio operativo con al menos un empleado activo, y desde hoy la Taberna-Posada cuenta (antes solo los talleres). Junto con las fachadas y las primas que el jugador de prueba ya usa, un jugador que lleva la forja y la taberna llega a Patricio en el año 4-5.",
     "como_probar": "Una partida con la forja y la taberna con un empleado cada una: el registro de reputación de cada amanecer muestra «passive» +2 en vez de +1.",
     "capturas": [],
-    "falta": "Barón pide 3 negocios: llegará cuando el segundo taller compense solo.",
+    "falta": "Barón pide 3 negocios: el jugador de prueba ya llega (día 60 de la generación) con la forja, un segundo taller y la taberna.",
     "anterior": {
       "fecha": "2026-11-06",
       "titulo": "H6 · Parcelas y construcción: abrir un segundo negocio en un solar o una ruina",
