@@ -28,6 +28,7 @@
     "mason_novice",
     "tailor_novice",
     "scholar_novice",
+    "patron_novice",
     "artisan_expert",
     "artisan_expert_0",
     "artisan_expert_1",
@@ -122,7 +123,7 @@
     ]
   },
   "artisan_novice": {
-    "_doc": "GDD 4.16/4.19 (Normal, 30 semillas). Oro inicial 30, neto 25-60/día sin contar la deuda, deuda 200 antes del día 8, encargos guionizados de inicio ~153 de cobro (~110 netos). gold_day3 <= 30 + 3×60 + 110 = 320; gold_repaid_day3 (oro + lo ya devuelto) en [30 + 3×25 − 60 de capital (hierro y carbón de un lote) − 3×18 de mantenimiento añadido en H5 (2 → 20/día), 320] ≈ [0, 320]; gold_day10 en [30 + 10×25 − 200 − 72 (valor del almacén inicial como capital de trabajo), 30 + 10×60 − 200 + 110]. debt_paid: proporción de semillas que saldan la deuda a tiempo >= 0,9. El oro neto/día va en goldflow.start.",
+    "_doc": "GDD 4.16/4.19 (Normal, 30 semillas). Oro inicial 30, neto 25-60/día sin contar la deuda, deuda 200 antes del día 8, encargos guionizados de inicio ~153 de cobro (~110 netos). gold_day3 <= 30 + 3×60 + 110 = 320; gold_repaid_day3 (oro + lo ya devuelto) en [30 + 3×25 − 60 de capital (hierro y carbón de un lote) − 3×18 de mantenimiento añadido en H5 (2 → 20/día), 320] ≈ [0, 320]; gold_day10 en [30 + 10×25 − 200 − 72 (valor del almacén inicial como capital de trabajo), 30 + 10×60 − 200 + 110] = 540; 600 desde el 2026-11-07 (la espada a 68, el recado gratis en Recursos y la rampa de mantenimiento de la partida por defecto, docs/decisiones.json). debt_paid: proporción de semillas que saldan la deuda a tiempo >= 0,9. El oro neto/día va en goldflow.start.",
     "days": [
       10,
       null
@@ -145,7 +146,7 @@
     ],
     "gold_day10": [
       10,
-      540
+      600
     ],
     "_share": {
       "debt_paid": [
@@ -182,6 +183,60 @@
     ],
     "_share": {
       "debt_paid": [
+        0.9,
+        null
+      ]
+    }
+  },
+  "tutorial_route": {
+    "_doc": "Equilibrio (manager, 2026-11-06; verifica's player pass, reports/jugador/2026-11-06/informe.md): BotTutorialRoute (sim/bots/bot_tutorial_route.gd), the default game (artisan_blacksmith) played as a novice who follows the tutorial and the objectives, with the living town: one sword and the carpenter's hammers on day 1, the guard's good sword on day 2, then a jornada a day (the apprentice with a looping queue of ingots when Empleados opens, iron ×8 and coal by errand, two swords, sell them one by one at the armory, the board's sword contracts, the debt paid when the gold covers it plus 40). The default game must come out: debt_paid (before day 8, with 40 left) in >= 90 % of the seeds in Normal. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=artisan_blacksmith --bots=tutorial_route --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step tutorial, 10 seeds); the ledger by category: tools/equilibrio/tutorial_probe.gd.",
+    "days": [
+      10,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "_share": {
+      "debt_paid": [
+        0.9,
+        null
+      ]
+    }
+  },
+  "patron_novice": {
+    "_doc": "H12 Patrón (10/H12 «Cada profesión tiene un bot que gana dinero con ella»; docs/gdd/04d_otras_clases.md 4.22.4.9, the bot «farmer»): BotPatronNovice (sim/bots/bot_patron_novice.gd) in a new game as patron_farmer, Normal: it sows the four fields in spring, sells the wool and the pigs over a pair, harvests on the dawn of day 5, keeps the seed and the winter feed, sells the rest of the wheat and pays the debt. The same start as the forge (30 gold, 200 of debt before day 8) and the same targets as the trades; its net gold per day goes in goldflow.start_farmer. no_starved: no animal of its pen dies of hunger (4.22.4.9: >= 90 % of the seeds). gold_day10 from 0 (the trades: 10): a famine year (×0,5 harvest, 1 seed in 30) leaves it at 0 after paying the debt with the flock and the seed, the risk of 4.22.4.10 (the emergency loan of Equilibrio 2 covers what comes after). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=patron_farmer --bots=patron_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step farmer, 10 seeds). Medido (2026-11-06, 30 semillas, sin la vida del pueblo como los oficios): neto/día en Normal 33,6 [20,5-45,3], deuda saldada 29/30 (la que no, un año de hambruna: cosecha ×0,5), ningún animal muerto de hambre, 4 cosechas en todas; orden de dificultad easy 40,0 > normal 33,6 > hard 33,4 (Difícil salda a tiempo el 47 %: su coste es la prórroga).",
+    "days": [
+      10,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ],
+    "gold_day10": [
+      0,
+      1100
+    ],
+    "harvests": [
+      4,
+      null
+    ],
+    "_share": {
+      "debt_paid": [
+        0.9,
+        null
+      ],
+      "no_starved": [
         0.9,
         null
       ]
@@ -363,6 +418,21 @@
         "loans"
       ],
       "_doc": "H12: the start of the mason (artisan_mason), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)»)."
+    },
+    "start_farmer": {
+      "bot": "patron_novice",
+      "window_days": [
+        1,
+        8
+      ],
+      "net_per_day": [
+        25,
+        60
+      ],
+      "exclude_categories": [
+        "loans"
+      ],
+      "_doc": "H12 Patrón: the start of the farmer (patron_farmer), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)», O3 a of 04d; the bot «farmer» of 4.22.4.9)."
     },
     "start_physician": {
       "bot": "scholar_novice",
@@ -973,7 +1043,9 @@
       "facts_vs_others": 24,
       "trials_as_accuser": 24,
       "caravans": 24,
-      "treaty_paid": 24
+      "treaty_paid": 24,
+      "title_patrician_day": 40,
+      "rep_y5": 40
     },
     "refused_orders": [
       0,
@@ -1158,7 +1230,16 @@
     "trials_as_accuser": [
       1,
       null
-    ]
+    ],
+    "title_patrician_day": [
+      1,
+      40
+    ],
+    "rep_y5": [
+      250,
+      null
+    ],
+    "_patrician_doc": "Patricio y reputación (aprobadas por el manager el 2026-11-07, docs/decisiones.json): medido con full_player a 5 años × semillas 1-3 y una generación tras las fachadas, las primas a todos los empleados y la pasiva de la taberna (posada, e619d0b6; reports/full_player_ref/full_player_baron_*.json): Patricio los días 32-36 (34 en la generación), reputación al cerrar el año 5 (rep_y5) 282-301. Solo las juzgan las partidas de 5 años y la generación (_needs_days 40)."
   },
   "chaos_player": {
     "_doc": "Jugador caótico (docs/gdd/07_testing.md §7.4): sim/bots/bot_chaos_player.gd, la misma partida que full_player con decisiones al azar y una orden válida al azar cada ~40 minutos de juego (sesgo hacia los sistemas menos tocados; hasta saldar la deuda inicial, solo órdenes que no gastan). Guarda y carga cada día y sigue con lo cargado. Diana: nada se rompe: 0 errores del motor, 0 pasos de más de 2 s, ida y vuelta del guardado idéntica, nunca oro negativo ni nadie fuera del mapa, el libro cuadra. Ritual: godot --headless --path . -s tools/full_player.gd -- --bot=chaos_player --years=3 --seeds=3; en run_all, paso chaos (1 año, 1 semilla). Medido (2026-11-05, 2 semillas × 3 años): 24 idas y vueltas por semilla sin diferencias, 0 errores; una semilla se queda sin oro ni existencias el día 8 y ya no se recupera (bloqueo blando, docs/decisiones.json).",
@@ -1196,7 +1277,7 @@
     ]
   },
   "innkeeper": {
-    "_doc": "Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, §4.28.4): bot innkeeper (sim/bots/bot_innkeeper.gd) desde innkeeper_start (la familia del herrero con la Taberna-Posada recién comprada, 200 de oro y sus primeras existencias), 16 días (2 años), con eventos globales. Compra en el mercado por recado mañana y tarde, cocina por la cola (cocinero oficial, de día), contrata por roles (barra y mesas de noche, criada de día), atiende la barra a mano, mejora en orden fijo y amplía la carta. Medidas del bot: inn_net_day (lo que el libro apunta al edificio por día, sin la compra; incluye mejoras), inn_operating_day (sin mejoras ni licencia), inn_fame, inn_bed_share (camas alquiladas / camas × noches), inn_guests_night, inn_complaints_night. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=innkeeper_start --bots=innkeeper --days=16 --seeds=10 (en run_all, paso inn, 5 semillas). Medido (2026-11-05, 10 semillas, con vida y fiestas encendidas y la clientela en dos capas de 04g §4.6.5.7): neto 21,9/día (6,8-33,6), fama 1,8, 26,5 clientes por noche (las fiestas suben la taberna: San Juan y Carnaval ×2, feria ×3), 9,6 quejas por noche (sobre todo «sin sitio» en las fiestas y «se acabó»), camas al 17 % (duermen solo los forasteros que encuentran cama), 16 noches abiertas en las 10 semillas: el bot guarda 3 días de mantenimiento y sueldos (las plazas sin cubrir, a sueldo de aprendiz) antes de amortizar la deuda o de mejorar, y compra primero lo que más margen deja (el trigo y la madera de la cerveza; el pan y la sidra, al final). La media de explotación con 5 semillas (paso inn de la QA) baja a ~33: banda [30, 100]. Bandas de clientes [16, 30] y quejas [0, 12] aceptadas por el manager (2026-11-05). Equilibrio (owner, 2026-11-05): con la bolsa de los hogares (Equilibrio 15: vecinos ~2 -> 6,1 por noche, comarca [4,8] -> [3,6]) la fama subía el tope cada noche (16 × 0,25 = 4,0 en las 5 semillas; antes del equilibrio 1,76). Se frena dando a «no esperó» menos peso en la fama que a la satisfacción real (data/inn/inn.json fame.wait_share 0,5) y la banda de inn_fame pasa de [1,5, 3,5] a [1,5, 4,0], con la condición inn_fame3_day [8, null]: la fama no llega a 3 (vienen los nobles) antes del año 2 (inn_fame3_day = día del primer turno con fama >= 3; los días jugados + 1 si no llega). Medido (5 semillas × 16 días): fama 4,0 (4,0-4,0) -> 3,61 (3,15-3,96); fama 3 el día 11 en todas -> los días 12-15; clientes 28,3, vecinos 6,2, explotación 92/día, quejas 4,5.",
+    "_doc": "Posada (docs/gdd/04f_vida_y_fiestas.md §4.27, §4.28.4): bot innkeeper (sim/bots/bot_innkeeper.gd) desde innkeeper_start (la familia del herrero con la Taberna-Posada recién comprada, 200 de oro y sus primeras existencias), 16 días (2 años), con eventos globales. Compra en el mercado por recado mañana y tarde, cocina por la cola (cocinero oficial, de día), contrata por roles (barra y mesas de noche, criada de día), atiende la barra a mano, mejora en orden fijo y amplía la carta. Medidas del bot: inn_net_day (lo que el libro apunta al edificio por día, sin la compra; incluye mejoras), inn_operating_day (sin mejoras ni licencia), inn_fame, inn_bed_share (camas alquiladas / camas × noches), inn_guests_night, inn_complaints_night. Ritual: godot --headless --path . -s tools/sim_runner.gd -- --scenario=innkeeper_start --bots=innkeeper --days=16 --seeds=10 (en run_all, paso inn, 5 semillas). Medido (2026-11-05, 10 semillas, con vida y fiestas encendidas y la clientela en dos capas de 04g §4.6.5.7): neto 21,9/día (6,8-33,6), fama 1,8, 26,5 clientes por noche (las fiestas suben la taberna: San Juan y Carnaval ×2, feria ×3), 9,6 quejas por noche (sobre todo «sin sitio» en las fiestas y «se acabó»), camas al 17 % (duermen solo los forasteros que encuentran cama), 16 noches abiertas en las 10 semillas: el bot guarda 3 días de mantenimiento y sueldos (las plazas sin cubrir, a sueldo de aprendiz) antes de amortizar la deuda o de mejorar, y compra primero lo que más margen deja (el trigo y la madera de la cerveza; el pan y la sidra, al final). La media de explotación con 5 semillas (paso inn de la QA) baja a ~33: banda [30, 100]. Bandas de clientes [16, 30] y quejas [0, 12] aceptadas por el manager (2026-11-05). Equilibrio (owner, 2026-11-05): con la bolsa de los hogares (Equilibrio 15: vecinos ~2 -> 6,1 por noche, comarca [4,8] -> [3,6]) la fama subía el tope cada noche (16 × 0,25 = 4,0 en las 5 semillas; antes del equilibrio 1,76). Se frena dando a «no esperó» menos peso en la fama que a la satisfacción real (data/inn/inn.json fame.wait_share 0,5) y la banda de inn_fame pasa de [1,5, 3,5] a [1,5, 4,0], con la condición inn_fame3_day [8, null]: la fama no llega a 3 (vienen los nobles) antes del año 2 (inn_fame3_day = día del primer turno con fama >= 3; los días jugados + 1 si no llega). Medido (5 semillas × 16 días): fama 4,0 (4,0-4,0) -> 3,61 (3,15-3,96); fama 3 el día 11 en todas -> los días 12-15; clientes 28,3, vecinos 6,2, explotación 92/día, quejas 4,5. Equilibrio (2026-11-07, docs/decisiones.json): inn_operating_day hasta 120 (la taberna compra trigo y madera en Recursos, cuyo recado ya no tiene recargo: 86 -> 109/día).",
     "days": [
       16,
       null
@@ -1228,7 +1309,7 @@
       ],
       "inn_operating_day": [
         30,
-        100
+        120
       ],
       "inn_fame": [
         1.5,

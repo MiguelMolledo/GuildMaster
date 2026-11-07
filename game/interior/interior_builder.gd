@@ -236,8 +236,9 @@ static func _station(d: Dictionary, z: String, s: Dictionary) -> Marker2D:
 		m.position = Iso.tile_to_world(tile) + InteriorDefs.floor_offset(d, level) \
 			+ Vector2(0, -float(InteriorDefs.step_of(d, level, tile)) * InteriorDefs.STEP_PX)
 		var base := z
-		if not VisualPaths.has_scene("stations", z) and z.rfind("_") > 0 and z.substr(z.rfind("_") + 1).is_valid_int():
-			base = z.substr(0, z.rfind("_"))   # furnace_2 looks like furnace
+		if not VisualPaths.has_scene("stations", z) and z.rfind("_") > 0 and (z.substr(z.rfind("_") + 1).is_valid_int()
+				or VisualPaths.has_scene("stations", z.substr(0, z.rfind("_")))):
+			base = z.substr(0, z.rfind("_"))   # furnace_2 looks like furnace; H12 Patrón: field_a like field
 		if base != z:
 			m.add_child(VisualPaths.instantiate("stations", base))
 	return m

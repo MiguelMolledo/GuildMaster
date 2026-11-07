@@ -1,0 +1,32 @@
+{
+  "id": "farm_capacity_1",
+  "name_key": "upgrade.farm_capacity_1",
+  "tree": "farm",
+  "branch": "capacity",
+  "level": 1,
+  "cost": {
+    "gold": 50,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 8
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "extra_storage",
+      "amount": 6
+    }
+  ],
+  "visual": {
+    "interior_node": "farm_granary",
+    "exterior_overlay": null
+  }
+}

@@ -13,7 +13,7 @@ idle_town, 2 semillas), kin (H14: un familiar con Comerciar aprovisiona la forja
 80 días, de artisan_expert con estaciones y eventos globales, sin bloqueos; 2 semillas), carpenter / mason /
 tailor (H12: el novato de cada oficio del Artesano en su partida nueva real en Normal, 10 semillas × 10 días; las 30
 semillas y las tres dificultades, a mano), rogue (H12: el ladrón del Pícaro, rogue_novice en su partida nueva, 10 semillas × 10 días), spy (H12: el espía del Pícaro, spy_novice en rogue_spy, 10 semillas × 10 días), scholar (H12.2: el médico del Erudito, scholar_novice en su partida nueva,
-10 semillas × 10 días), cast (población: el novato con repartos generados, --cast=random, 10
+10 semillas × 10 días), farmer (H12 Patrón: el granjero, patron_novice en su partida nueva, 10 semillas × 10 días), tutorial (la partida por defecto jugada como enseña el tutorial, tutorial_route, 10 semillas × 10 días: paga la deuda antes del día 8), cast (población: el novato con repartos generados, --cast=random, 10
 semillas × 10 días; las demás pasos de partida nueva usan el reparto fijo), duel (duelo: el bot duelista desde
 duel_ready, 3 semillas × 8 días), merchant (viajes: el bot comerciante en travel_start, 10 semillas × 16 días), gambler (juegos: el bot jugador en
 games_gambler, 3 semillas × 8 días: pierde lo que marca el margen de la casa), life
@@ -70,6 +70,10 @@ STEPS = [
                    "--seeds=10"]),
     ("spy", G + ["-s", "tools/sim_runner.gd", "--", "--start=rogue_spy", "--bots=spy_novice", "--days=10",
                  "--seeds=10"]),
+    ("farmer", G + ["-s", "tools/sim_runner.gd", "--", "--start=patron_farmer", "--bots=patron_novice", "--days=10",
+                    "--seeds=10"]),
+    ("tutorial", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=tutorial_route",
+                      "--days=10", "--seeds=10"]),
 ] + [
     ("cast", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=artisan_novice", "--days=10",
                   "--seeds=10", "--cast=random", "--tag=cast_random"]),

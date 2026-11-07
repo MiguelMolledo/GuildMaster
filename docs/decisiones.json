@@ -2,6 +2,42 @@
   "tomadas": [
     {
       "fecha": "2026-11-06",
+      "tema": "H12 Patrón: la dificultad en el campo (harvest_mult)",
+      "decision": "Palanca nueva de data/difficulty.json, harvest_mult: la cosecha rinde ×1,15 en Fácil, ×1 en Normal y ×0,85 en Difícil (la tierra buena o mala), y la pantalla de Partida nueva del Patrón la enseña en lugar de la Artesanía del rival. Las palancas de hoy (deuda, precios de compra, rival herrero) apenas tocan a un granjero que no compra: sin ella, Difícil ganaba más que Normal (el bot vendía antes por la deuda). El bot no vende el rebaño ni la semilla del año siguiente para pagar: si no llega, la prórroga de 4.16.",
+      "por_que": "Fácil > Normal > Difícil, como pide el encargo y 4.23 (cada palanca entra con su sistema)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12 Patrón: el campo en el edificio y las recetas de campo",
+      "decision": "Los campos son puestos de la Granja con like \"field\" (field_a..field_d; field_e y field_f con la mejora «Dos campos más»): Upgrades.zone_kind devuelve el like de los puestos propios del edificio, así las recetas de campo (farm_plow, farm_sow_wheat, farm_harvest, kind field) usan el mismo work_at. Su estado vive en buildings[b].fields (sim/farm/fields.gd) y el corral en buildings[b].pen (sim/farm/herds.gd), ambos leídos con valores por defecto: sin versión de guardado (la v21 queda libre). El trabajo de campo es solo en modo normal (reason field_normal_only), no se repite solo, la siembra se lleva la semilla al empezar y la devuelve al interrumpir; la cosecha que no cabe bloquea el puesto, y la orden ya avisa storage_full antes de empezar.",
+      "por_que": "04d P1/P2 y O1 a; el manager pidió evitar la versión si se podía."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12 Patrón: el Comercio de la Granja",
+      "decision": "La rama de Comercio de la Granja no copia la de la Forja (el mostrador: la granja no tiene puesto de venta y sus cosas no son productos): Carro propio / Puesto en la feria / Granja de renombre dan market_price ×1,05 / ×1,10 / ×1,15 a lo que la familia vende en el mercado de su granja (trigo, lana, animales; Fields.sale_mult), la última con reputación +5. El resto de ramas comunes, como la Forja con build_cost 100 (mismo coste); Producción y Calidad, las de 4.22.7 (arado de hierro ×1,25, +2 campos, corral +4; abono, rotación y semilla selecta: cosecha ×1,15 / ×1,3 / ×1,5).",
+      "por_que": "4.22.7 dice «los mismos efectos que la Forja», pero el mostrador en una granja no vende nada: sería una rama muerta."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12 Patrón: peso de demanda (P3) solo en lo del Granjero",
+      "decision": "demand_weight entra en Market (vender y su previsión), el mostrador y las ciudades de la región: trigo 0,1, lana 0,1, oveja y cerdo 0,5. Harina, pan, carne y cerveza siguen en 1 hasta que entren el Molinero, el Panadero y el Carnicero (lo vende la Taberna-Posada: sus dianas no se mueven), y la harina sigue a 12 (P10 llega con el Molino). Los objetos del Artesano no cambian.",
+      "por_que": "Dianas de los oficios de hoy idénticas (encargo del manager)."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12 Patrón: feria de ganado y sitio de la Granja",
+      "decision": "Puesto exterior livestock (Feria de ganado) en el borde sur de la plaza de town_e, [22,24] servido desde [22,23] (delante del concejo, a la vista; en el borde este quedaba tapado por la Granja y en el oeste cortaba rutas de los escenarios de vida); el recado de animales no tiene recargo (errand_surcharge 0 por puesto) y exige un corral con sitio (pen_full / no_pen). La Granja se levanta en el solar de la forja del jugador como la Consulta, con el sitio player_homestead (el nombre ordena detrás de player_forge para que el solar siga siendo de la forja en plots.py). Añadir el sitio cambia el decorado del bloque al norte de la plaza (la ruina y la casa se cambian de solar; tests/test_arte_filler.gd lo sigue).",
+      "por_que": "4.22.4.2; el inicio vive en town_e como el del Médico."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "H12 Patrón: bot patron_novice y su diana",
+      "decision": "BotPatronNovice (el «farmer» de 4.22.4.9): cosecha primero, siembra en estación con semilla, ara lo que queda; guarda la semilla de los campos por sembrar, el pienso de invierno y el trigo de los encargos; vende el trigo desde otoño (o si la deuda aprieta), la lana siempre y los cerdos por encima de la pareja; con la deuda pagada y 220 de oro compra dos ovejas. Dianas: goldflow.start_farmer [25, 60] de neto en los días 1-8, harvests >= 4, deuda pagada y ningún animal muerto de hambre en >= 90 % de las semillas; paso farmer de la QA (10 semillas).",
+      "por_que": "Criterio 1 de H12 y 4.22.4.9."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Pícaro: el Ladrón, primera profesión jugable (construido)",
       "decision": "Inicio rogue_thief con la Guarida en el solar de la forja del jugador (como la Consulta del Médico), las ganzúas y la deuda de inicio de siempre. Carterista, robo en almacén de noche, mercancía robada <item>@stolen, perista con tope diario de la villa, blanqueo en la Guarida, fama en los bajos fondos, árbol de 24 mejoras, interior por datos, tabla de encargos de un comprador discreto que solo acepta piezas limpias, bot rogue_novice con su paso en run_all. Sin versión de guardado.",
       "por_que": "Encargo del manager (2026-11-06): empezar el Pícaro por su primera profesión jugable, decidiendo dentro de 04d."
@@ -1525,9 +1561,32 @@
       "tema": "H12.2 · la Consulta médica y el Boticario en las ciudades de la región",
       "decision": "Las cinco ciudades de Valldaura traen, como Vilarrasa (make_town_e.py, interiores), el solar de la Consulta médica (player_clinic, tipo clinic, alternativa del solar de la forja del jugador: tools/city/organic.py pone scholar_physician en los inicios por defecto) y el puesto del Boticario (apothecary, en el borde este de la plaza: tools/city/generator.py TEMPLATE). El Médico se juega en todas (tests/test_plantillas_medico.gd: la partida nueva, la Consulta de la familia, las vendas en el boticario y pacientes el primer día).",
       "por_que": "Encargo del manager: que el Médico (rama erudito) se pueda jugar en todas las ciudades de plantilla."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Jugador completo · bandas de Patricio y de la reputación (aplicadas)",
+      "decision": "data/targets.json full_player: title_patrician_day [1, 40] por semilla y rep_y5 (reputación al cerrar el año 5, nueva medida de tools/full_player.gd) [250, —], las dos con _needs_days 40: solo las juzgan las partidas de 5 años y la generación. Barón sin banda.",
+      "por_que": "Aprobadas por el manager por delegación del owner (2026-11-07) tras medir las palancas (a)-(c)."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Jugador completo · (d) el segundo taller compensa solo y Barón llega en la generación (construido)",
+      "decision": "Por qué perdía el segundo taller (−698 a −1351 en sus 8 días de prueba; −1417 a −2036 en total): era del bot, no del juego. (1) La receta: en las semillas 1-2 eligió la espada decorativa, cuyo acero pide oficio 6 y forge_production_3, y la cola se paró (skill_too_low, missing_inputs): 0 ventas. (2) Un solo producto: los clientes del campo piden cualquiera de los cinco de la forja (Clientele._products) y 31-32 se fueron sin comprar (no_product), con queja y fama a la baja. (3) Compraba lo mismo cada minuto: los recados en camino no contaban (semilla 2: 228 de carbón; semilla 3: 144 de hierro para ~24 piezas). (4) Dos sueldos y forge_staff_1, cuando desde 4.7.4 un «cualquiera» forja y despacha. BotBranch.mix (por defecto; BOT_VARS branch_mix=0 vuelve a lo de antes): COUNTER_STOCK = 2 de cada producto que su mejor mano puede hacer (cada paso dentro de su oficio y sus mejoras), el que menos tiene primero; los recados en camino cuentan; un empleado; solo forge_commerce_1. test_bot_branch. Del juego queda solo la demanda compartida: share = appeal / (Σ appeal de las forjas con mostrador + no_go), así que las dos forjas de la familia se reparten la clientela del campo (en los días 35-40 la principal vende 1567 / 769 / 1453 sin el taller y 1167 / 772 / 1549 con él), pero las ventas de mostrador de la familia suben de 3789 a 6450 y el taller gana solo: no hace falta tocar la regla. Medido con full_player (posada, sobre e619d0b6 + bandas; antes = branch_mix=0, reports/full_player_ref/full_player_baron_despues_*.json; después = reports/full_player_ref/full_player_baron_d_*.json). 5 años × semillas 1-3: el taller ya no se cierra (neto de los días 30-40 +160 / +404 / +300); oro final 3774 / 4002 / 4335 → 5463 / 6257 / 5606; neto/día del año 5 323 / 377 / 395 → 447 / 419 / 548; Patricio 33 / 31 / 35 → 31 / 33 / 33; rep_y5 317 / 281 / 303 (bandas nuevas dentro). Una generación (semilla 1, 383 días): Barón nunca → día 60 (año 8, reputación 500, 15 116 de oro, forja + taller + taberna); el taller gana +16 880 en la generación (~+47/día); oro final 30 947 → 32 179; reputación final 2535 → 2895.",
+      "por_que": "Decisión del manager por delegación del owner (2026-11-07): «que un segundo taller bien llevado compense es la base de toda la economía de largo plazo»; separar lo del bot de lo del juego y no mover reglas sin medir. Objetivo Barón dentro de la generación: cumplido (día 60 de 383)."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Jugador completo · la ruina de una familia IA acaba la partida del jugador · resuelto",
+      "decision": "Resuelto en main (tomada «La ruina de una familia IA no acaba la partida (construido)»): state.ending solo con la ruina de una familia humana.",
+      "por_que": "Medido por quien lo construyó con full_player, 5 años × 4 semillas: fin de partida por la ruina de una IA de 3/4 a 0/4. El informe de full_player lo vigila con ended_by_ai."
     }
   ],
   "pendientes": [
+    {
+      "tema": "H12 Patrón: lo que espera a los siguientes oficios del Patrón",
+      "detalle": "Para cuando entren Molino, Panadería y Carnicería: (1) la harina 12 → 15 (P10, O15 aprobado) y los demand_weight de harina, carne, pan y cerveza de 4.22.3.4, que mueven las cuentas de la Taberna-Posada y por eso no entran hoy; (2) la fiesta de la siega (Verano 2) con encargos de trigo y la feria con el ganado; (3) el calendario de siembra y el corral como panel (docs/ui/mecanicas/campos_y_ganado.md); hoy los campos y el corral se ven y se trabajan en el interior de la Granja.",
+      "opciones": "(a) entrar con cada oficio, como propone 4.22.10; (b) adelantar la fiesta de la siega ya con el Granjero."
+    },
     {
       "tema": "Cifras de balance",
       "detalle": "Todo lo marcado [balance] en el diseño (oro inicial, deuda, primas de encargos, precios, duraciones) se ajusta con bots y dianas en data/targets.json, no se decide a ojo.",
@@ -1630,6 +1689,11 @@
       "tema": "Jugador completo · bandas de Patricio y de la reputación (propuestas, sin aplicar)",
       "detalle": "Tras las fachadas, las primas y la pasiva de la taberna (posada, 2026-11-07), medido con full_player a 5 años × 3 semillas y una generación: Patricio los días 32-36 (y 34 en la generación), reputación del año 5 282-301. La QA de cada sello juega 1 año y la de la noche 3 años y la generación ×2: Patricio no se juzga en 3 años.",
       "opciones": "Propuesta: (1) full_player title_patrician_day [1, 40] por semilla con _needs_days 40 (solo lo juzgan la generación y las partidas de 5 años); (2) full_player rep_y5 (reputación al final del año 5) [250, —] con _needs_days 40; (3) Barón sin banda hasta (d), el segundo taller que compense. Ninguna se mueve sin el visto bueno."
+    },
+    {
+      "tema": "Jugador completo · el desbloqueo del heredero llega fuera de su ventana",
+      "detalle": "full_player --generation, semilla 1, sobre 1314e214 (main 541c6dcc): el fundador muere a los 67 años el día 377 y el desbloqueo «heir» de data/unlocks.json llega el día índice 376, con la ventana [150, 250] (03b: «Generación 2 · ~17 h»). El fundador empieza con 20 años y la muerte llega entre los 55 y los 75 (data/family.json death), es decir, entre los días ~280 y ~440: la ventana supone una muerte antes de lo que da la regla. Es la única diana que falla en la generación (unlocks_off = 1); refused_orders 0. reports/full_player_ref/full_player_gen_fix.json.",
+      "opciones": "(a) ventana del heredero [270, 450] (la de la regla de muerte) · (b) que el desbloqueo llegue antes, por la edad del primogénito (16) o al designar heredero · (c) dejar fuera de unlocks_off los desbloqueos de generación"
     }
   ],
   "proximos_pasos": [

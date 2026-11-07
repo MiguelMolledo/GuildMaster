@@ -12,7 +12,8 @@ extends RefCounted
 
 ## The orders an away character may give (Sim._apply_now refuses the rest).
 const AWAY_ORDERS: Array[String] = ["travel", "return", "city_buy", "city_sell", "city_accept", "city_deliver",
-	"sign_treaty", "cancel_treaty"]
+	"sign_treaty", "cancel_treaty",
+	"unlock_seen", "read_notices"]  # equilibrio: taking note of an unlock or a notice needs no presence in town
 
 
 static func trip(st: WorldState, chr: String) -> Dictionary:

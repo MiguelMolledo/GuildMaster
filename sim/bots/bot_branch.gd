@@ -4,10 +4,10 @@ extends RefCounted
 ## and «el oro se acumula sin sumidero»): the family's second workshop, for BotFullPlayer. When it pays (the title
 ## leaves room, the gold covers the works over the family's reserve and a spare, and a workshop of its trade is
 ## expected to make money: Construction.daily_net), the head builds one on the best free plot where it fits (Plots,
-## the same order as the player's build mode). Once it stands it runs on its own: the queue looping the best margin
-## recipe it can supply, the shop counter (commerce level 1) and a second slot (staff level 1), two employees (the
-## better craftsman forges, "any"; the other sells at the counter: Counter.server_of serves only with a «counter»
-## hand), and its inputs and the upgrades' materials sent by errand (buy with deliver_to) whenever the head is at
+## the same order as the player's build mode). Once it stands it runs on its own: with mix (the default), the
+## counter's stock of every product it can make, the shop counter (commerce level 1) and one «any» employee who forges
+## and serves (Counter.server_of, 4.7.4); without it, as at first, the queue looping the best margin recipe, a second
+## slot (staff level 1) and two employees (the better craftsman forges, the other sells at the counter); and its inputs and the upgrades' materials sent by errand (buy with deliver_to) whenever the head is at
 ## their stall anyway. After JUDGE_DAYS running, if it lost money it is closed (fired, pulled down) and no other opens.
 ## The Taberna-Posada comes first (it pays 3-4 times a forge).
 ## Only player orders; every one of them checked with the same rules first.
@@ -21,6 +21,9 @@ const STOCK_UNITS: int = 4            # pieces' worth of raw materials kept in t
 const COUNTER: String = "forge_commerce_1"
 const UPGRADES: Array = ["forge_commerce_1", "forge_staff_1"]  # the counter, then a second slot (its seller)
 const STAFF: int = 2                  # one forges ("any"), the other sells at the counter (Counter.server_of)
+const MIX_UPGRADES: Array = ["forge_commerce_1"]  # mix: one «any» hand forges and serves (4.7.4): no second slot
+const MIX_STAFF: int = 1
+const COUNTER_STOCK: int = 2          # mix: pieces of each product kept for the counter's customers
 
 var bld: String = ""                  # the branch's building once ordered
 var why_not: String = ""              # why it has none (the report)
@@ -28,6 +31,13 @@ var raw: Array = []                   # the items the head buys at its stall any
 var opened: int = -1                  # the day the branch was finished (its first day running)
 var closed: bool = false              # it closed one that lost money: it does not open another
 var home_bld: String = ""             # the family's main workshop (what its earnings say about the market)
+## (d) Barón (the manager's decision, 2026-11-07): the branch run as the counter asks. The countryside customers ask
+## for any product of the trade (Clientele._products), so it keeps COUNTER_STOCK of each it can make instead of looping
+## one recipe (customers left «no_product» and its fame fell); one «any» hand forges and serves; the errands on their
+## way count as stock (it bought the same coal every minute); the craft and the upgrade of every intermediate step are
+## checked (the decorative sword's steel, craft 6 and forge_production_3, stopped the queue). false = as before
+## (BOT_VARS branch_mix=0).
+var mix: bool = true
 
 
 ## The management orders of the branch this minute (no walking): build it, hire, roles, queue, counter.
@@ -115,7 +125,7 @@ func _build(sim: Sim, actor: String, fam: String, reserve: int) -> Dictionary:
 
 
 func _hire(sim: Sim, actor: String, fam: String, reserve: int) -> Dictionary:
-	if Staff.free_slots(sim.state, bld) <= 0 or Staff.employees_of(sim.state, bld).size() >= STAFF:
+	if Staff.free_slots(sim.state, bld) <= 0 or Staff.employees_of(sim.state, bld).size() >= (MIX_STAFF if mix else STAFF):
 		return {}
 	var best := {}
 	for c: Dictionary in Staff.candidates(sim, actor, bld):
@@ -167,8 +177,11 @@ func _close(sim: Sim, actor: String, n: int) -> Array:
 
 
 ## The recipe the branch loops: the best margin of its building that its employee's craft allows and whose raw
-## materials are all among `raw` (what the head buys anyway: an errand brings them).
+## materials are all among `raw` (what the head buys anyway: an errand brings them). With mix, the product of those
+## (every step within the forger's craft) the counter has fewest of, under COUNTER_STOCK; "" when all are stocked.
 func recipe(sim: Sim) -> String:
+	if mix:
+		return _restock(sim)
 	var craft := 99
 	for c: String in Staff.employees_of(sim.state, bld):
 		craft = mini(craft, int(sim.state.characters[c].get("stats", {}).get("craft", 0)))
@@ -196,6 +209,74 @@ func recipe(sim: Sim) -> String:
 	return best
 
 
+## mix: the products the branch can make: the forge's recipes of a «product» whose every step (the intermediate
+## pieces made here too) the best hand's craft allows, whose stations it has and whose raw materials are in `raw`.
+func products(sim: Sim) -> Array:
+	var craft := -1
+	for c: String in Staff.employees_of(sim.state, bld):
+		craft = maxi(craft, int(sim.state.characters[c].get("stats", {}).get("craft", 0)))
+	var out: Array = []
+	if craft < 0:
+		return out
+	var zones: Array = (sim.state.buildings[bld].get("zones", {}) as Dictionary).keys().map(
+		func(z: Variant) -> String: return str(z).trim_suffix("_2"))
+	var ids: Array = sim.catalog.recipes().keys()
+	ids.sort()
+	for rid: String in ids:
+		var r: Dictionary = sim.catalog.recipes()[rid]
+		var item := str(r.get("output", {}).get("item", ""))
+		if str(r.get("building", "")) != TYPE or str(sim.catalog.item(item).get("category", "")) != "product":
+			continue
+		if not _can_make(sim, rid, craft, zones, 0):
+			continue
+		var need := {}
+		_raw_of(sim, rid, 1.0, need, 0)
+		if not raw.is_empty() and need.keys().any(func(i: Variant) -> bool: return not str(i) in raw):
+			continue
+		out.append(rid)
+	return out
+
+
+func _can_make(sim: Sim, rid: String, craft: int, zones: Array, depth: int) -> bool:
+	var r: Dictionary = sim.catalog.recipes()[rid]
+	if int(r.get("min_stat", r.get("min_craft", 1))) > craft or not str(r.get("zone", "")) in zones:
+		return false
+	if str(r.get("requires_upgrade", "")) != "" and not str(r["requires_upgrade"]) in \
+			(sim.state.buildings[bld].get("upgrades", []) as Array):
+		return false
+	for inp: Dictionary in r.get("inputs", []):
+		var sub := _made_here(sim, str(inp["item"]))
+		if sub != "" and depth < 3 and not _can_make(sim, sub, craft, zones, depth + 1):
+			return false
+	return true
+
+
+func _made_here(sim: Sim, item: String) -> String:
+	var ids: Array = sim.catalog.recipes().keys()
+	ids.sort()
+	for k: String in ids:
+		var x: Dictionary = sim.catalog.recipes()[k]
+		if str(x.get("building", "")) == TYPE and str(x.get("output", {}).get("item", "")) == item:
+			return k
+	return ""
+
+
+## mix: the product the counter has fewest of (under COUNTER_STOCK), the better margin first on a tie.
+func _restock(sim: Sim) -> String:
+	var inv: Dictionary = sim.state.buildings[bld]["inventory"]
+	var best := ""
+	var best_n := COUNTER_STOCK
+	var best_m := -999999
+	for rid: String in products(sim):
+		var n := Inventory.count(inv, str(sim.catalog.recipes()[rid]["output"]["item"]))
+		var m := RivalAI.margin(sim, rid)
+		if n < best_n or (n == best_n and best != "" and m > best_m):
+			best = rid
+			best_n = n
+			best_m = m
+	return best
+
+
 func _queue(sim: Sim, actor: String) -> Dictionary:
 	if Staff.employees_of(sim.state, bld).is_empty():
 		return {}
@@ -205,6 +286,9 @@ func _queue(sim: Sim, actor: String) -> Dictionary:
 	var rid := recipe(sim)
 	if rid == "":
 		return {}
+	if mix:
+		var have := Inventory.count(sim.state.buildings[bld]["inventory"], str(sim.catalog.recipes()[rid]["output"]["item"]))
+		return {"type": "queue_add", "actor": actor, "building": bld, "recipe": rid, "qty": maxi(1, COUNTER_STOCK - have)}
 	return {"type": "queue_add", "actor": actor, "building": bld, "recipe": rid, "qty": WorkQueue.INFINITE}
 
 
@@ -212,7 +296,7 @@ func _queue(sim: Sim, actor: String) -> Dictionary:
 func _upgrade(sim: Sim, actor: String, fam: String, reserve: int) -> Dictionary:
 	if Upgrades.blocks(sim.state, bld):
 		return {}
-	for id: String in UPGRADES:
+	for id: String in (MIX_UPGRADES if mix else UPGRADES):
 		if id in (sim.state.buildings[bld].get("upgrades", []) as Array):
 			continue
 		var gold := int(sim.catalog.upgrade(id).get("cost", {}).get("gold", 0))
@@ -231,16 +315,26 @@ func needs(sim: Sim) -> Dictionary:
 	var inv: Dictionary = sim.state.buildings[bld]["inventory"]
 	var want := {}
 	var rid := recipe(sim)
+	if mix:
+		var q: Array = sim.state.buildings[bld].get("queue", {}).get("entries", [])
+		rid = str(q[0].get("recipe", "")) if not q.is_empty() else rid
+		if rid == "" and not products(sim).is_empty():
+			rid = str(products(sim)[0])
 	if rid != "":
 		_raw_of(sim, rid, float(STOCK_UNITS), want, 0)
-	for id: String in UPGRADES:
+	for id: String in (MIX_UPGRADES if mix else UPGRADES):
 		if id in (sim.state.buildings[bld].get("upgrades", []) as Array):
 			continue
 		for c: Dictionary in sim.catalog.upgrade(id).get("cost", {}).get("items", []):
 			want[str(c["item"])] = float(want.get(str(c["item"]), 0.0)) + float(c["qty"])
 		break   # one upgrade's materials at a time
+	var coming := {}
+	if mix:   # the errands on their way count (Market: state.deliveries)
+		for d: Dictionary in sim.state.deliveries:
+			if str(d.get("to", "")) == bld:
+				coming[str(d["item"])] = int(coming.get(str(d["item"]), 0)) + int(d["qty"])
 	for item: String in want:
-		var lack := ceili(float(want[item])) - Inventory.count(inv, item)
+		var lack := ceili(float(want[item])) - Inventory.count(inv, item) - int(coming.get(item, 0))
 		if lack > 0:
 			out[item] = lack
 	return out

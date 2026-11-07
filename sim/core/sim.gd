@@ -46,6 +46,8 @@ func step(orders: Array = []) -> Array:
 	Upgrades.step(self)     # works that end now finish: their effects apply before anyone reads them
 	Construction.step(self) # H6: building works that end now; at dawn, the AI families' construction (04 §4.9)
 	AIBuild.step(self)      # H6 + H13: at dawn, the AI families' agenda builds or buys (sim/ai/build.gd)
+	Fields.step(self)       # H12 Patrón (04d 4.22.4.1): at dawn the crops grow by the season, ripen and rot
+	Herds.step(self)        # H12 Patrón (04d 4.22.4.2): at dawn the animals eat (winter), produce and breed
 	# H4 · employees (docs/contratos/h4_empleados.md)
 	Staff.step(self)        # at dawn: day counted, leavers, hires start, wages, loyalty, quit/theft, promotions
 	Microevents.step(self)  # H7: dawn roll, the night thief, cards that time out (default choice)

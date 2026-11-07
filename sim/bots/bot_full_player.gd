@@ -55,12 +55,15 @@ var inn: BotInnkeeper = null          # posada (04f §4.27): the Taberna-Posada,
 var _keeper: String = ""
 var _spectacles: Dictionary = {}      # "<festival>|<spectacle>" -> looked at (enter or bet decided)
 var _calls: Dictionary = {}           # festival matches it was called to and played
+var _inn_bought: bool = false         # the tavern bought this minute: the forge's purchases wait a minute
+var _gifts_later: Array = []          # festival_offer_gift orders held a minute (the contest took the piece)
 
 var goals: int = 1                    # trials (BOT_VARS=goals=0): 0 = never leaves the business for a goal
 var quota_caravans: int = 1          # equilibrio (BOT_VARS=quota_caravans=0): 0 = signs and breaks the quota, as before
 var builds: int = 1                   # H6 (BOT_VARS=builds=0): 0 = never opens a second workshop on a plot, as before
 var facades: int = 1                  # Barón (BOT_VARS=facades=0): 0 = never buys the facades (+10/+20/+30 reputation)
 var bonuses_all: int = 1              # Barón (BOT_VARS=bonuses_all=0): 0 = bonuses only at the forge, as before
+var branch_mix: int = 1               # Barón (d) (BOT_VARS=branch_mix=0): 0 = the second workshop loops one recipe, as before
 const FACADES: Array = ["forge_facade_1", "forge_facade_2", "forge_facade_3"]
 const FACADE_SPARE: int = 300         # gold kept on top of the reserve and the facade's price
 var branch: BotBranch = BotBranch.new()  # H6: the second workshop (a forge on a free plot) when it pays
@@ -70,6 +73,7 @@ var why_not: Dictionary = {}          # mechanic -> why it did not use it the la
 var used: Dictionary = {}             # mechanic -> times it went for it
 var focus_minutes: Dictionary = {}    # focus -> minutes
 var decisions: Array = []             # [{day, minute, what, detail}] the focus changes and key choices (report)
+var _sim_now: Sim = null              # the sim of this minute (_enter has no sim of its own)
 var heads: Array = []                 # every character that played the forge, in order
 var _fam_id: String = ""
 var _focus_since: int = 0
@@ -92,6 +96,30 @@ func _init() -> void:
 
 
 func orders(sim: Sim) -> Array:
+	_sim_now = sim
+	var out: Array = []
+	var leaving := {}
+	for o: Dictionary in _orders_inner(sim):
+		if str(o.get("type", "")) == "exit_building":  # one exit a minute per character: two parts of the bot (the
+			var who := str(o.get("actor", ""))            # tavern and the heir's courting) may both send it out
+			if leaving.has(who):
+				continue
+			leaving[who] = true
+		out.append(o)
+	return out
+
+
+## The novice walks into the forge from the map; a new head may be inside another building (the tavern it kept, its
+## house): it leaves it first (an enter_building from inside another one is refused, inside_other_building).
+func _enter(b: String) -> Dictionary:
+	if _sim_now != null:
+		var loc := str(_sim_now.state.characters.get(ACTOR, {}).get("location", ""))
+		if loc != "" and loc != b:
+			return {"type": "exit_building", "actor": ACTOR}
+	return super._enter(b)
+
+
+func _orders_inner(sim: Sim) -> Array:
 	var st := sim.state
 	if _fam_id == "":
 		_fam_id = Life.player_family(st)
@@ -113,7 +141,11 @@ func orders(sim: Sim) -> Array:
 	if not Kin.alive(st, ACTOR):
 		return out
 	focus_minutes[focus] = int(focus_minutes.get(focus, 0)) + 1
+	_inn_bought = false
 	out.append_array(_always(sim))
+	if _inn_bought:  # the tavern's purchase and the forge's in the same minute could overrun the purse
+		_watch(sim)
+		return out
 	for o: Dictionary in out:
 		if str(o.get("type", "")) == "resolve_microevent":  # a card answered may sell or move what the body would
 			_watch(sim)                                     # carry this same minute: the body waits a minute
@@ -139,7 +171,7 @@ func orders(sim: Sim) -> Array:
 		"travel":
 			body = _travel_step(sim)
 	if focus == "business":
-		out.append_array(super.orders(sim))
+		out.append_array(_festive_fix(sim, super.orders(sim)))
 	else:
 		_watch(sim)  # the festive counters read every step
 		out.append_array(body)
@@ -204,6 +236,7 @@ func _always(sim: Sim) -> Array:
 	if builds == 1 and _business(sim):  # H6: the second workshop, built when it pays and run by its own employee
 		var had := branch.bld
 		branch.raw = RAW
+		branch.mix = branch_mix == 1
 		var tavern_done := inn != null and str(st.buildings.get(inn._tavern, {}).get("owner", "")) == _fam_id \
 			or str(why_not.get("tavern", "")) == "none_for_sale"
 		out.append_array(branch.manage(sim, ACTOR, _fam_id, FORGE, _reserve(sim), tavern_done))
@@ -835,6 +868,28 @@ func _city_contract(sim: Sim) -> bool:
 	return false
 
 
+## BotFestive enters the court's contest and offers the town's gift in the same minute, both with the family's best
+## piece: the contest takes it and the gift is refused (no_piece). Here the gift waits for the next minute and goes
+## only if a piece for it is still there (FestivalCourt.best_piece, the festive bot's own check).
+func _festive_fix(sim: Sim, orders_in: Array) -> Array:
+	var out: Array = []
+	var contest := orders_in.any(func(x: Dictionary) -> bool: return str(x.get("type", "")) == "festival_enter_contest")
+	for x: Dictionary in orders_in:
+		if str(x.get("type", "")) == "festival_offer_gift" and contest:
+			_gifts_later.append(x)
+			continue
+		out.append(x)
+	if not contest and not _gifts_later.is_empty():
+		var items: Array = Festivals.rules(sim).get("gift", {}).get("items", [])
+		for g: Dictionary in _gifts_later:
+			if not FestivalCourt.best_piece(sim, _fam_id, ACTOR, items).is_empty():
+				out.append(g)
+			else:
+				why_not["festival_gift"] = "no_piece"
+		_gifts_later.clear()
+	return out
+
+
 # --- Forja viva and the unlocks (03b §3b.2-§3b.4) -------------------------------------------------------------
 
 ## Every unlock card not read yet (unlock_seen, like the pacing bot): the player reads them as they come.
@@ -1003,6 +1058,11 @@ func _inn(sim: Sim) -> Array:
 			if str(x.get("type", "")) == "enter_building" and str(x.get("actor", "")) == _keeper and loc != "" \
 					and loc != str(x.get("building", "")):
 				x = {"type": "exit_building", "actor": _keeper}
+			if str(x.get("type", "")) == "buy":  # the pantry (taberna con despensa) shares the family's purse
+				var cost := Market.price(sim, str(x.get("item", "")), int(x.get("quality", 0)), "buy") * int(x.get("qty", 0))
+				if Money.gold(st, _fam_id) < roundi(cost * 1.2) + _reserve(sim):
+					continue  # not at the cost of the forge's raw materials and wages
+				_inn_bought = true
 			if str(x.get("type", "")) == "buy_upgrade" and Money.gold(st, _fam_id) < int(sim.catalog.upgrade(
 					str(x.get("upgrade", ""))).get("cost", {}).get("gold", 0)) + _reserve(sim) + INN_SPARE:
 				continue  # the tavern's upgrades never eat the forge's reserve (the purse is the family's)

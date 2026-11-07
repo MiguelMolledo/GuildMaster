@@ -18683,6 +18683,46 @@
      "coste_gen": 0,
      "coste_usd": 0.02,
      "notas": "H12 (el Pícaro, Espía): el chantaje (una carta con lacre negro y una daga)."
+    },
+    {
+      "id": "bld_farm",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "farm"
+      ],
+      "ruta": "assets/art/buildings/fal/farm.png",
+      "origen": "fal: nano-banana-2/edit sobre la silueta de la carpintería fal (3×4, NEW_FROM de tools/art/fal_fachadas.py) + image2pixel a escala 4; de espaldas, obras y dañado con /edit sobre ella",
+      "coste_gen": 0,
+      "coste_usd": 0.4,
+      "notas": "H12 Patrón: la Granja (3×4), de piedra y paja, con granero, carro, heno y sacos; farm_back.png (de espaldas, sin puertas), farm_construction / farm_damaged y las de espaldas. En game/visuals/buildings/farm.tscn y farm_back.tscn."
+    },
+    {
+      "id": "icon_sheep",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "H12",
+        "objetos"
+      ],
+      "ruta": "assets/art/icons/sheep.png",
+      "origen": "",
+      "coste_gen": 0,
+      "notas": "H12 Patrón: la oveja (data/items/sheep.json). Para el ciclo de PixelLab del 15-nov (04d 4.22.9 #6); hasta entonces la UI usa el icono genérico."
+    },
+    {
+      "id": "icon_pig",
+      "tipo": "icono",
+      "estado": "falta",
+      "para": [
+        "H12",
+        "objetos"
+      ],
+      "ruta": "assets/art/icons/pig.png",
+      "origen": "",
+      "coste_gen": 0,
+      "notas": "H12 Patrón: el cerdo (data/items/pig.json). Para el ciclo de PixelLab del 15-nov (04d 4.22.9 #6); hasta entonces la UI usa el icono genérico."
     }
   ]
 }

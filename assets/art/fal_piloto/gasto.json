@@ -22309,6 +22309,123 @@
   "que": "image2pixel ev_plot_building_i2p.png"
  },
  {
+  "fecha": "2026-11-06T15:06:17",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "farm"
+ },
+ {
+  "fecha": "2026-11-06T15:06:51",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0027,
+  "que": "image2pixel farm_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T15:07:18",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "farm_back"
+ },
+ {
+  "fecha": "2026-11-06T15:07:27",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0006,
+  "que": "image2pixel farm_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T15:07:47",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "farm_construction"
+ },
+ {
+  "fecha": "2026-11-06T15:07:55",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel farm_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T15:08:14",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "farm_damaged"
+ },
+ {
+  "fecha": "2026-11-06T15:08:21",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel farm_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T15:08:41",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "farm_back_construction"
+ },
+ {
+  "fecha": "2026-11-06T15:08:48",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel farm_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T15:09:08",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "farm_back_damaged"
+ },
+ {
+  "fecha": "2026-11-06T15:09:15",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel farm_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-06T18:22:05",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo farm planta 0 (v1)"
+ },
+ {
   "fecha": "2026-11-07T06:06:18",
   "tanda": "extra",
   "pieza": "fachadas",

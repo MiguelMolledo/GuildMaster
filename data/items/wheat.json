@@ -6,5 +6,6 @@
   "weight": 1.0,
   "max_stack": 99,
   "base_price": 4,
-  "market_stall": "resources"
+  "market_stall": "resources",
+  "demand_weight": 0.1
 }

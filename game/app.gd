@@ -33,6 +33,7 @@ extends Node
 ## H11: --smoke-script=tribunal: the accusation, the preparation, the hearing, the verdict, accusing and banishment.
 ## H12: --smoke-script=oficios: the trade buttons of the new game screen and the workshop of each artisan trade.
 ## H12.2: --smoke-script=erudito: the physician's start, the Consulta with its patients, the cot's menu, the moneylender.
+## H12 Patrón: --smoke-script=patron: the farmer's start, the Granja's fields and pen, a field's menu, the cattle fair.
 ## --smoke-script=interiores: each workshop without and with every upgrade, and the armory (docs/arte/interiores.md).
 ## Población: --smoke-script=poblacion: the new game screen and «Otra familia», then the sheets of a townsman, a
 ## townswoman and the rival with their base portraits.
@@ -69,7 +70,7 @@ const SMOKE_SCRIPTS: Dictionary = {"forja": "res://game/smoke/smoke_forja.gd",
 	"hud": "res://game/smoke/smoke_hud.gd", "paneles": "res://game/smoke/smoke_paneles.gd",
 	"economia": "res://game/smoke/smoke_economia.gd",
 	"menu": "res://game/smoke/smoke_menu.gd", "eventos": "res://game/smoke/smoke_eventos.gd",
-	"oficios": "res://game/smoke/smoke_oficios.gd", "erudito": "res://game/smoke/smoke_erudito.gd", "picaro": "res://game/smoke/smoke_picaro.gd", "espia": "res://game/smoke/smoke_espia.gd", "social": "res://game/smoke/smoke_social.gd",
+	"oficios": "res://game/smoke/smoke_oficios.gd", "erudito": "res://game/smoke/smoke_erudito.gd", "picaro": "res://game/smoke/smoke_picaro.gd", "patron": "res://game/smoke/smoke_patron.gd", "espia": "res://game/smoke/smoke_espia.gd", "social": "res://game/smoke/smoke_social.gd",
 	"poblacion": "res://game/smoke/smoke_poblacion.gd", "pagina": "res://game/smoke/smoke_pagina.gd",
 	"mapa": "res://game/smoke/smoke_mapa.gd", "region": "res://game/smoke/smoke_region.gd", "viajes": "res://game/smoke/smoke_viajes.gd",
 	"tutorial": "res://game/smoke/smoke_tutorial.gd", "tutorial_datos": "res://game/smoke/smoke_tutorial_datos.gd",
