@@ -849,7 +849,7 @@ Reacciones de corta duración, separadas de la relación permanente. Intensidad 
 #### 4.12.1 Reputación
 
 - Valor global por **familia** (0 a ∞) + modificador por clase social (`{artesano, patron, erudito, picaro} → int`).
-- **Gana:** comercio justo y salarios pagados (+1/+2), donaciones, eventos grandes (+20/+50), **+1/día por cada negocio operativo con empleados**, ocupar un cargo, fachadas, encargos cumplidos (+2).
+- **Gana:** comercio justo y salarios pagados (+1/+2), donaciones, eventos grandes (+20/+50), **+1/día por cada negocio operativo con empleados** (talleres y la taberna), ocupar un cargo, fachadas, encargos cumplidos (+2).
 - **Pierde:** estafas, salarios impagados (-2), actividad ilegal descubierta, condenas (multa -10, confiscación -30, pérdida de cargo -50), acusación falsa descubierta (-50), despedir a un leal (-2), rumores de empleados descontentos (-1), encargos incumplidos (-5), deuda inicial vencida (-10, ver 4.16).
 - [POST-EA] Reputación por zona del mapa.
 
