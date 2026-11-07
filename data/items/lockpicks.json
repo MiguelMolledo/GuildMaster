@@ -1,0 +1,11 @@
+{
+  "id": "lockpicks",
+  "name_key": "item.lockpicks",
+  "gender": "f",
+  "category": "tool",
+  "weight": 0.2,
+  "max_stack": 1,
+  "base_price": 20,
+  "market_stall": null,
+  "slot": "tool"
+}

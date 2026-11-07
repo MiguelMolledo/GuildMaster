@@ -1,0 +1,30 @@
+{
+  "id": "den_commerce_3",
+  "name_key": "upgrade.den_commerce_3",
+  "tree": "den",
+  "branch": "commerce",
+  "level": 3,
+  "cost": {
+    "gold": 125,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "den_commerce_2",
+      "den_facade_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "fence_bonus",
+      "amount": 0.15
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": "upgrade_trade_sign"
+  }
+}

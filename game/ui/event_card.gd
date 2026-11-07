@@ -33,6 +33,30 @@ func _ready() -> void:
 	button_pressed.connect(_on_button)
 
 
+## The Rogue (4.22.6.3): the arrest card. The watch caught `actor`: surrender, flee, fight or bribe, each with its
+## chance (Rogue.arrest_odds) in its tooltip; it stays until answered (unanswered in time, the sim surrenders him).
+func show_arrest(sim: Sim, e: Dictionary) -> void:
+	var actor := str(e.get("actor", ""))
+	var guard := str(e.get("guard", ""))
+	var odds := Rogue.arrest_odds(sim, actor, guard)
+	var fam := str(sim.state.characters.get(actor, {}).get("family", ""))
+	var price := int(odds["bribe_price"])
+	var d := {"template": "card", "title": SimQuery.t_("ui.arrest.title"),
+		"blocks": [{"type": "paragraph", "text": SimQuery.t_("ui.arrest.body") % [str(sim.state.characters.get(guard, {}).get("name", "")),
+			str(sim.state.characters.get(actor, {}).get("name", "")), SimQuery.t_("charge." + str(e.get("charge", "")))]}],
+		"buttons": [
+			{"id": "arrest:surrender", "text": SimQuery.t_("ui.arrest.surrender"), "primary": true, "tip": SimQuery.t_("ui.arrest.surrender_tip")},
+			{"id": "arrest:flee", "text": SimQuery.t_("ui.arrest.flee"), "tip": SimQuery.t_("ui.arrest.flee_tip") % roundi(float(odds["flee"]) * 100.0)},
+			{"id": "arrest:fight", "text": SimQuery.t_("ui.arrest.fight"), "tip": SimQuery.t_("ui.arrest.fight_tip")},
+			{"id": "arrest:bribe", "text": SimQuery.t_("ui.arrest.bribe") % price, "disabled": not Money.can_pay(sim.state, fam, price),
+				"tip": SimQuery.t_("ui.arrest.bribe_tip") % roundi(float(odds["bribe"]) * 100.0)}],
+		"sticky": true, "actor": actor, "event": "arrest:" + actor}
+	if visible:
+		_queue.append(d)
+		return
+	show_page(d)
+
+
 ## Fiestas (4.25.3): the feast's card opened again by the player (the clock's button, a notice of the feast): shown
 ## now (over another card it waits its turn), never twice if it is the one on screen.
 func reopen_festival(sim: Sim, e: Dictionary) -> void:
@@ -97,6 +121,13 @@ func _on_button(id: String) -> void:
 	if g == null or g.get("sim") == null:
 		return
 	var sim: Sim = g.get("sim")
+	if id.begins_with("arrest:"):  # the Rogue (4.22.6.3): the answer to the watch
+		var o := {"type": "arrest_response", "actor": str(data.get("actor", "")), "choice": id.substr(7)}
+		if order_sink.is_valid():
+			order_sink.call(o)
+		else:
+			g.call("give", o)
+		return
 	if id == "gifts_menu":  # fiestas: the Christmas gifts, the families on a second card
 		var gm := FestivalPage.gifts_menu(sim, data)
 		(func() -> void: show_page(gm)).call_deferred()

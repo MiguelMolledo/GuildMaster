@@ -1,0 +1,60 @@
+{
+  "id": "thief",
+  "profession": "thief",
+  "_doc": "The thief's contracts (04d 4.22.6): a discreet client asks for valuable pieces with no questions asked. They go on the board like any other trade's; they take only clean pieces (a stolen one is another item: laundered at the den, it counts). A different way to cash a good night than the fence [balance]. obtained: stolen (the validator does not ask the den to make them).",
+  "clients": [
+    {
+      "id": "discreet_buyer",
+      "name_key": "client.discreet_buyer"
+    },
+    {
+      "id": "pawnbroker",
+      "name_key": "client.pawnbroker"
+    },
+    {
+      "id": "collector",
+      "name_key": "client.collector"
+    }
+  ],
+  "items": [
+    {
+      "item": "candlestick",
+      "qty": [
+        1,
+        3
+      ],
+      "min_quality_chance": 0.0
+    },
+    {
+      "item": "sword",
+      "qty": [
+        1,
+        2
+      ],
+      "min_quality_chance": 0.0
+    },
+    {
+      "item": "fine_clothes",
+      "qty": [
+        1,
+        2
+      ],
+      "min_quality_chance": 0.0
+    }
+  ],
+  "min_qualities": [
+    1,
+    1
+  ],
+  "deadline_days": [
+    2,
+    4
+  ],
+  "premium": 0.3,
+  "reward_reputation": 0,
+  "reward_relation": 5,
+  "fail_reputation": -2,
+  "fail_relation": -15,
+  "client_cooldown_days": 8,
+  "obtained": "stolen"
+}

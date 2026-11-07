@@ -2,6 +2,24 @@
   "tomadas": [
     {
       "fecha": "2026-11-06",
+      "tema": "Pícaro: el Ladrón, primera profesión jugable (construido)",
+      "decision": "Inicio rogue_thief con la Guarida en el solar de la forja del jugador (como la Consulta del Médico), las ganzúas y la deuda de inicio de siempre. Carterista, robo en almacén de noche, mercancía robada <item>@stolen, perista con tope diario de la villa, blanqueo en la Guarida, fama en los bajos fondos, árbol de 24 mejoras, interior por datos, tabla de encargos de un comprador discreto que solo acepta piezas limpias, bot rogue_novice con su paso en run_all. Sin versión de guardado.",
+      "por_que": "Encargo del manager (2026-11-06): empezar el Pícaro por su primera profesión jugable, decidiendo dentro de 04d."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Pícaro: testigos, denuncia y detención (simplificación de 4.22.3.5)",
+      "decision": "Hasta Watch.observe completo: un guardia de servicio a 8 casillas de día o 5 de noche ve y detiene; si no, solo la víctima ve el fallo (relación −30) y el hecho queda oculto con ella de testigo. Al amanecer lo denuncia con la probabilidad de su relación (0,9 / 0,5 / 0,1 como el GDD) y la villa lleva a juicio uno denunciado de cada familia con un 3 % al día (≈ 70 % de llegar a un juicio en 40 días, la diana del GDD). La detención es una carta con rendirse / huir / luchar / sobornar para quien juega; la IA y los bots se rinden.",
+      "por_que": "Encargo del manager (2026-11-06): empezar el Pícaro por su primera profesión jugable, decidiendo dentro de 04d."
+    },
+    {
+      "fecha": "2026-11-06",
+      "tema": "Pícaro: la dificultad del Ladrón",
+      "decision": "data/difficulty.json levels.*.rogue: check_mod (+5 / 0 / −5 a las tiradas de bolsa, almacén y huida) y fence_mult (1,1 / 1 / 0,85 de lo que paga el perista). Sin ellas la dificultad solo movía la deuda, que el neto no cuenta, y Difícil ganaba como Normal.",
+      "por_que": "Encargo del manager (2026-11-06): empezar el Pícaro por su primera profesión jugable, decidiendo dentro de 04d."
+    },
+    {
+      "fecha": "2026-11-06",
       "tema": "Vida: el mercader de paso comercia de verdad (construido)",
       "decision": "El mercader forastero compra al jugador lo que su ciudad paga caro (dear) al 80 % del precio de allí y le vende lo barato de su ciudad (cheap, 2-4 de cada) al 115 %, desde su ficha y en persona (sell_to_merchant, buy_from_merchant). Límites: su bolsa (oro real), 3 unidades de cada cosa por visita; no toca los puestos de la villa ni su demanda, y el viaje siempre paga mejor. sim/life/merchant.gd.",
       "por_que": "Encargo del manager (2026-11-06): cerrar lo que quedó a medias en la auditoría de vida."

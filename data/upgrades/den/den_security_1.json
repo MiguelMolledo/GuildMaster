@@ -1,0 +1,32 @@
+{
+  "id": "den_security_1",
+  "name_key": "upgrade.den_security_1",
+  "tree": "den",
+  "branch": "security",
+  "level": 1,
+  "cost": {
+    "gold": 25,
+    "items": [
+      {
+        "item": "iron_ingot",
+        "qty": 2
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "protection",
+      "amount": 0.2
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": "upgrade_reinforced_lock"
+  }
+}

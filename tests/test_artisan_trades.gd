@@ -229,7 +229,7 @@ func test_new_game_screen_offers_the_trades() -> void:
 	var s: NewGameScreen = (load("res://game/ui/new_game_screen.tscn") as PackedScene).instantiate()
 	s.setup(cat, 7)
 	var box := s.get_node("%Profession") as HBoxContainer
-	eq(box.get_child_count(), 5, "a button per artisan trade and (H12.2) the scholar's physician")
+	eq(box.get_child_count(), 6, "a button per artisan trade, (H12.2) the scholar's physician and (H12) the rogue's thief")
 	check(box.visible, "shown")
 	var calls: Array = []
 	s.from_start = func(c: Catalog, start: String, diff: String, ch: Dictionary, sd: int) -> Dictionary:
