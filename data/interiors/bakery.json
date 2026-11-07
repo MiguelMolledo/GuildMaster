@@ -1,0 +1,78 @@
+{
+  "_doc": "H12 Patrón (04d 4.22.7, 04g 4.6.5): the bakery. The bakehouse holds the oven (the kitchen hearth piece; its station look is game/visuals/stations/oven.tscn), the shop its counter with the loaves, the storage the flour; upstairs, the home. Edit by hand, then python3 tools/interiors/interiores.py reglas bakery && python3 tools/interiors/interiores.py validar bakery.",
+  "size": [9, 7],
+  "wall_height": 64,
+  "floor_height": 80,
+  "seed": 43,
+  "entrance": {"floor": 0, "tile": [0, 6], "side": "nw"},
+  "rooms": [
+    {"id": "bakehouse", "floor": 0, "type": "kitchen", "rects": [[0, 0, 4, 3]], "floor_kind": "flagstone", "wall_style": "stone", "light": "kitchen"},
+    {"id": "store", "floor": 0, "type": "storage", "rects": [[5, 0, 8, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "shop", "floor": 0, "type": "shop", "rects": [[0, 4, 8, 6]], "floor_kind": "planks", "wall_style": "timber", "light": "warm"},
+    {"id": "bedroom", "floor": 1, "type": "bedroom", "rects": [[0, 0, 3, 3]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [5, 1], "side": "nw"},
+    {"floor": 0, "tile": [2, 4], "side": "ne"},
+    {"floor": 0, "tile": [7, 4], "side": "ne"}
+  ],
+  "levels": [],
+  "stairs": [
+    {"id": "stairs", "floor": 0, "prop": "staircase", "tile": [0, 3], "flip": false, "from": [1, 3], "to_floor": 1, "to": [1, 3]}
+  ],
+  "stations": {
+    "oven": {"floor": 0, "tile": [2, 0], "prop": "kitchen_hearth", "stand": [2, 1]},
+    "oven_2": {"floor": 0, "tile": [3, 0], "prop": "kitchen_hearth", "stand": [3, 1]},
+    "counter": {"floor": 0, "tile": [5, 5], "prop": "shop_counter", "stand": [4, 5]},
+    "storage": {"floor": 0, "tile": [8, 0], "prop": "sack_pile", "stand": [7, 1]}
+  },
+  "customers": {
+    "counter": [{"tile": [6, 5]}, {"tile": [6, 4]}],
+    "queue": [{"tile": [7, 5]}, {"tile": [8, 5]}, {"tile": [7, 6]}]
+  },
+  "idle": [
+    {"floor": 1, "tile": [2, 2]},
+    {"floor": 0, "tile": [1, 5]},
+    {"floor": 0, "tile": [1, 2]}
+  ],
+  "props": [
+    {"id": "firewood_pile", "floor": 0, "tile": [0, 0]},
+    {"id": "sack", "floor": 0, "tile": [6, 0]},
+    {"id": "display_shelf", "floor": 0, "tile": [3, 6], "flip": true, "display": 3},
+    {"id": "bed_double", "floor": 1, "tile": [3, 1], "flip": false},
+    {"id": "chest", "floor": 1, "tile": [3, 3]},
+    {"id": "cradle", "floor": 1, "tile": [1, 0]}
+  ],
+  "rules": [
+    {"rule": "wall_fill", "room": "store", "props": ["sack", "barrel", "wicker_basket"], "chance": 0.5},
+    {"rule": "on_top", "room": "shop", "under": ["shop_counter"], "props": ["bread_loaves", "coin_pile"], "max": 2, "chance": 1.0},
+    {"rule": "scatter", "room": "bakehouse", "props": ["bucket"], "count": 1}
+  ],
+  "upgrades": {
+    "bakery_capacity_1": [],
+    "upgrade_storage_shelves": [{"id": "pantry_shelf", "floor": 0, "tile": [8, 3]}],
+    "bakery_capacity_3": [],
+    "upgrade_counter": [{"id": "coin_pile", "floor": 0, "tile": [4, 6]}],
+    "bakery_production_1": [{"id": "cooking_pot", "floor": 0, "tile": [0, 1]}],
+    "bakery_production_2": [{"id": "bread_loaves", "floor": 0, "tile": [1, 4]}],
+    "bakery_production_3": [{"id": "plate_roast", "floor": 0, "tile": [6, 3]}],
+    "bakery_quality_1": [{"id": "balance_scale", "floor": 0, "tile": [4, 0]}],
+    "bakery_quality_2": [{"id": "herb_bundle", "floor": 0, "tile": [0, 5]}],
+    "bakery_quality_3": [],
+    "upgrade_double_ledger": [{"id": "double_ledger", "floor": 0, "tile": [8, 6]}],
+    "upgrade_hidden_passage": [{"id": "hidden_passage", "floor": 0, "tile": [3, 3]}],
+    "upgrade_smuggler_cache": [],
+    "upgrade_strongbox": [],
+    "upgrade_bunks": [],
+    "upgrade_dining_table": [],
+    "upgrade_master_bench": []
+  },
+  "resolved": [
+    {"id": "wicker_basket", "floor": 0, "tile": [5, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "wicker_basket", "floor": 0, "tile": [5, 3], "flip": false, "rule": "wall_fill"},
+    {"id": "barrel", "floor": 0, "tile": [7, 0], "flip": false, "rule": "wall_fill"},
+    {"id": "coin_pile", "floor": 0, "tile": [5, 5], "flip": true, "lift": 26, "shift": [5, 0], "rule": "on_top", "over": "shop_counter"},
+    {"id": "bread_loaves", "floor": 0, "tile": [5, 5], "flip": true, "lift": 26, "shift": [-13, 0], "rule": "on_top", "over": "shop_counter"},
+    {"id": "bucket", "floor": 0, "tile": [0, 1], "flip": true, "rule": "scatter"}
+  ]
+}

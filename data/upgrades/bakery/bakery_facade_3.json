@@ -1,0 +1,33 @@
+{
+  "id": "bakery_facade_3",
+  "name_key": "upgrade.bakery_facade_3",
+  "tree": "bakery",
+  "branch": "facade",
+  "level": 3,
+  "cost": {
+    "gold": 200,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "bakery_facade_2"
+    ],
+    "stat": null,
+    "title": "citizen"
+  },
+  "build_days": 2.0,
+  "effects": [
+    {
+      "kind": "reputation",
+      "amount": 30
+    },
+    {
+      "kind": "loyalty_bonus",
+      "amount": 5
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": "upgrade_noble_facade"
+  }
+}

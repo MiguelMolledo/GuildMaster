@@ -4393,3 +4393,119 @@ misdeed.contraband,contraband,contrabando
 tutorial.hint.night_skip,Night: the market is closed until dawn. «Skip until…» (») by the clock: choose dawn and the night goes by at ×8 (any notice stops it).,Es de noche: el mercado cierra hasta el amanecer. «Saltar hasta…» (») junto al reloj: elige el amanecer y la noche pasa a ×8 (cualquier aviso la para).
 notice.plots.ai_for_sale,"{building} is for sale: {price} (its family cannot keep it)","{building} está en venta: {price} (su familia no puede mantenerlo)"
 notice.plots.ai_fallen,"{family} have lost their last business: they look for work","{family} ha perdido su último negocio: busca trabajo"
+building.mill,Mill,Molino
+building.bakery,Bakery,Panadería
+building.butchery,Butcher's shop,Carnicería
+profession.miller,Miller,Molinero
+profession.baker,Baker,Panadero
+profession.butcher,Butcher,Carnicero
+start.patron_miller,Patron · miller,Patrón · molinero
+start.patron_baker,Patron · baker,Patrón · panadero
+start.patron_butcher,Patron · butcher,Patrón · carnicero
+item.flour_sieve,Flour sieve,Cedazo
+item.baker_peel,Baker's peel,Pala de horno
+item.cleaver,Cleaver,Cuchilla de carnicero
+recipe.mill_flour,Grind flour,Moler harina
+recipe.bakery_bread,Bake bread,Hornear pan
+recipe.bakery_pie,Bake meat pies,Hornear empanadas
+recipe.butcher_cut,Cut a pig,Despiezar un cerdo
+recipe.butcher_sausage,Smoke sausages,Ahumar salchichas
+ui.zone.millstone,Millstone,Muela
+ui.zone.millstone_2,Second millstone,Segunda muela
+ui.zone.oven,Oven,Horno
+ui.zone.oven_2,Second oven,Segundo horno
+ui.zone.chopping_block,Chopping block,Tajo
+ui.zone.chopping_block_2,Second chopping block,Segundo tajo
+ui.zone.smokehouse,Smokehouse,Ahumadero
+ui.zone.smokehouse_2,Second smokehouse,Segundo ahumadero
+ui.new_game.preview_start.patron_miller,"A mill with a home, %d gold and %d of debt.","Molino con vivienda, %d de oro y %d de deuda."
+ui.new_game.preview_start.patron_baker,"A bakery with a home, %d gold and %d of debt.","Panadería con vivienda, %d de oro y %d de deuda."
+ui.new_game.preview_start.patron_butcher,"A butcher's shop with a home, %d gold and %d of debt.","Carnicería con vivienda, %d de oro y %d de deuda."
+upgrade.mill_production_1,Stone millstone,Muela de piedra
+upgrade.mill_production_2,Second millstone,Segunda muela
+upgrade.mill_production_3,Fast grinding,Molienda rápida
+upgrade.mill_quality_1,Dry store,Almacén seco
+upgrade.mill_quality_2,Bigger dry store,Almacén seco grande
+upgrade.mill_quality_3,Granary loft,Sobrado del granero
+upgrade.mill_commerce_1,Own cart,Carro propio
+upgrade.mill_commerce_2,Flour stand,Puesto de harina
+upgrade.mill_commerce_3,Mill of renown,Molino de renombre
+upgrade.mill_capacity_1,Sack store,Almacén de sacos
+upgrade.mill_capacity_2,Larger storage,Almacén ampliado
+upgrade.mill_capacity_3,Grain loft,Desván del grano
+upgrade.mill_staff_1,Apprentice dormitory,Dormitorio de aprendiz
+upgrade.mill_staff_2,Dining room,Comedor
+upgrade.mill_staff_3,Master's workshop,Taller de maestro
+upgrade.mill_facade_1,Stone facade,Fachada de piedra
+upgrade.mill_facade_2,Garden and plants,Jardín y plantas
+upgrade.mill_facade_3,Noble facade,Fachada noble
+upgrade.mill_security_1,Reinforced lock,Cerradura reforzada
+upgrade.mill_security_2,Hired guard,Guardia contratado
+upgrade.mill_security_3,Strongbox,Caja fuerte
+upgrade.mill_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.mill_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.mill_secrets_3,Smuggling,Contrabando
+upgrade.bakery_production_1,Big oven,Horno grande
+upgrade.bakery_production_2,Second oven,Segundo horno
+upgrade.bakery_production_3,Pies and fast baking,Empanadas y horneado rápido
+upgrade.bakery_quality_1,Sourdough,Masa madre
+upgrade.bakery_quality_2,Fine sourdough,Masa madre fina
+upgrade.bakery_quality_3,Master's sourdough,Masa madre del maestro
+upgrade.bakery_commerce_1,Sales counter,Mostrador de venta
+upgrade.bakery_commerce_2,Shop window,Escaparate exterior
+upgrade.bakery_commerce_3,Trade reputation,Reputación comercial
+upgrade.bakery_capacity_1,Flour bins,Arcones de harina
+upgrade.bakery_capacity_2,Larger storage,Almacén ampliado
+upgrade.bakery_capacity_3,Bread racks,Paneras
+upgrade.bakery_staff_1,Apprentice dormitory,Dormitorio de aprendiz
+upgrade.bakery_staff_2,Dining room,Comedor
+upgrade.bakery_staff_3,Master's workshop,Taller de maestro
+upgrade.bakery_facade_1,Stone facade,Fachada de piedra
+upgrade.bakery_facade_2,Garden and plants,Jardín y plantas
+upgrade.bakery_facade_3,Noble facade,Fachada noble
+upgrade.bakery_security_1,Reinforced lock,Cerradura reforzada
+upgrade.bakery_security_2,Hired guard,Guardia contratado
+upgrade.bakery_security_3,Strongbox,Caja fuerte
+upgrade.bakery_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.bakery_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.bakery_secrets_3,Smuggling,Contrabando
+upgrade.butchery_production_1,Double chopping block,Tajo doble
+upgrade.butchery_production_2,Second smokehouse,Segundo ahumadero
+upgrade.butchery_production_3,Fast cutting,Despiece rápido
+upgrade.butchery_quality_1,Spices,Especias
+upgrade.butchery_quality_2,Fine spices,Especias finas
+upgrade.butchery_quality_3,Master's spices,Especias del maestro
+upgrade.butchery_commerce_1,Sales counter,Mostrador de venta
+upgrade.butchery_commerce_2,Shop window,Escaparate exterior
+upgrade.butchery_commerce_3,Trade reputation,Reputación comercial
+upgrade.butchery_capacity_1,Cold store,Fresquera
+upgrade.butchery_capacity_2,Larger storage,Almacén ampliado
+upgrade.butchery_capacity_3,Salting room,Saladero
+upgrade.butchery_staff_1,Apprentice dormitory,Dormitorio de aprendiz
+upgrade.butchery_staff_2,Dining room,Comedor
+upgrade.butchery_staff_3,Master's workshop,Taller de maestro
+upgrade.butchery_facade_1,Stone facade,Fachada de piedra
+upgrade.butchery_facade_2,Garden and plants,Jardín y plantas
+upgrade.butchery_facade_3,Noble facade,Fachada noble
+upgrade.butchery_security_1,Reinforced lock,Cerradura reforzada
+upgrade.butchery_security_2,Hired guard,Guardia contratado
+upgrade.butchery_security_3,Strongbox,Caja fuerte
+upgrade.butchery_secrets_1,Double bookkeeping,Doble contabilidad
+upgrade.butchery_secrets_2,Hidden passage,Pasadizo oculto
+upgrade.butchery_secrets_3,Smuggling,Contrabando
+ui.interior.farm,Fields,Campos
+ui.interior.farm_tip,"Sowing calendar, fields and pen","Calendario de siembra, campos y corral"
+ui.farm.calendar,Sowing calendar (8 days),Calendario de siembra (8 días)
+ui.farm.fields,Fields,Campos
+ui.farm.pen,Pen,Corral
+ui.farm.today,Today,Hoy
+ui.farm.day,Day %d,Día %d
+ui.farm.no_sowing,—,—
+ui.farm.sow_ready,%s → day %d,%s → día %d
+ui.farm.sow_never,%s: no,%s: no
+ui.farm.field_ready,%s ready,%s listo
+ui.farm.field_last,%s: last day,%s: último día
+ui.farm.herd,%s · %d of %d heads,%s · %d de %d cabezas
+ui.farm.winter_feed,Winter feed in the storage: %d days,Pienso de invierno en el almacén: %d días
+ui.farm.young,%s: young in %d days,%s: crías en %d días
+ui.farm.unfed,No feed for %d days: the weakest dies on the second,Sin pienso %d días: al segundo muere el más débil

@@ -1,0 +1,43 @@
+{
+  "id": "baker",
+  "profession": "baker",
+  "_doc": "H12 Patrón (04d 4.22.4.3-4): the baker's contract table [balance]; no quality asked.",
+  "clients": [
+    {
+      "id": "innkeeper",
+      "name_key": "client.innkeeper"
+    },
+    {
+      "id": "parish_priest",
+      "name_key": "client.parish_priest"
+    },
+    {
+      "id": "guard_captain",
+      "name_key": "client.guard_captain"
+    }
+  ],
+  "items": [
+    {
+      "item": "bread",
+      "qty": [
+        5,
+        15
+      ],
+      "min_quality_chance": 0.0
+    }
+  ],
+  "min_qualities": [
+    1,
+    2
+  ],
+  "deadline_days": [
+    1,
+    3
+  ],
+  "premium": 0.25,
+  "reward_reputation": 2,
+  "reward_relation": 5,
+  "fail_reputation": -5,
+  "fail_relation": -15,
+  "client_cooldown_days": 8
+}

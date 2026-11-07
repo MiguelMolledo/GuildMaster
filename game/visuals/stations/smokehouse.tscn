@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://ilur0n0w54vd"]
+
+[ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="1_block"]
+
+[node name="Smokehouse" type="Node2D"]
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -32)
+
+[node name="Greybox" type="Node2D" parent="."]
+editor_description = "H12 Patrón: greybox placeholder for the smokehouse station (no art yet; the interior draws its library piece, data/interiors/*.json)."
+script = ExtResource("1_block")
+color = Color(0.3, 0.27, 0.25, 1)
+height = 32.0

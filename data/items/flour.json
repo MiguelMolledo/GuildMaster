@@ -5,6 +5,7 @@
   "category": "material",
   "weight": 2.0,
   "max_stack": 50,
-  "base_price": 12,
-  "market_stall": "materials"
+  "base_price": 15,
+  "market_stall": "materials",
+  "demand_weight": 0.2
 }

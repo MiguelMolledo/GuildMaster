@@ -1,0 +1,12 @@
+{
+  "id": "baker_peel",
+  "name_key": "item.baker_peel",
+  "gender": "f",
+  "category": "tool",
+  "weight": 3.0,
+  "max_stack": 1,
+  "base_price": 25,
+  "market_stall": "armory",
+  "slot": "tool",
+  "_doc": "H12 Patrón (04d 4.22.4.3-4): la pala de horno del panadero, la herramienta de su oficio (GDD 4.3.4)."
+}

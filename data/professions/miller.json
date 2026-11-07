@@ -1,0 +1,12 @@
+{
+  "id": "miller",
+  "name_key": "profession.miller",
+  "class": "patron",
+  "order": 1,
+  "building": "mill",
+  "tool": "flour_sieve",
+  "start": "patron_miller",
+  "contracts": "miller",
+  "new_game": false,
+  "_doc": "H12 Patrón (04d 4.22.4.3-4, O2 a): a trade of the patron that does not open a new game (only the farmer does; new_game false): its start patron_miller is the scenario of its bot (4.22.4.9: the building open, 150 gold, no debt)."
+}

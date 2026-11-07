@@ -1,0 +1,23 @@
+{
+  "id": "butcher_sausage",
+  "name_key": "recipe.butcher_sausage",
+  "building": "butchery",
+  "zone": "smokehouse",
+  "inputs": [
+    {
+      "item": "meat",
+      "qty": 3
+    },
+    {
+      "item": "herbs",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "sausage",
+    "qty": 2
+  },
+  "duration_hours": 3.0,
+  "min_craft": 3,
+  "_doc": "H12 Patrón (04d 4.22.4.3-4) [balance]."
+}

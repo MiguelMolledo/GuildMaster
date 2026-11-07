@@ -1,0 +1,288 @@
+{
+  "id": "patron_baker",
+  "name_key": "start.patron_baker",
+  "_doc": "H12 Patrón (04d 4.22.4.9): the baker's start, the scenario of its bot (baker_novice): its bakery raised on the player forge's plot (site player_forge with type bakery, as the thief's den), 150 gold and no debt (loan empty), its first stock. Not offered in Partida nueva (data/professions/baker.json new_game false).",
+  "class": "patron",
+  "profession": "baker",
+  "map": "town_e",
+  "start": {
+    "day": 0,
+    "phase": "dawn"
+  },
+  "protagonist": {
+    "age": 20,
+    "title": "common",
+    "reputation": 0,
+    "spawn": "player",
+    "stats": {
+      "charisma": 5,
+      "empathy": 5,
+      "negotiation": 6,
+      "arcane": 1,
+      "dexterity": 3,
+      "craft": 4,
+      "martial": 2,
+      "constitution": 5,
+      "rhetoric": 5,
+      "stealth": 2
+    },
+    "free_points": 5,
+    "stat_min": 1,
+    "stat_max": 10,
+    "carry_weight": 60.0,
+    "equipment": {
+      "tool": {
+        "item": "baker_peel",
+        "quality": 0
+      }
+    }
+  },
+  "family": {
+    "gold": 150,
+    "reputation": 0
+  },
+  "_defaults_doc": "What the new-game screen proposes (and what from_start uses for a choice left out): protagonist name and gender, family name and colours; H8: the palette tones of hair and skin (indices of data/family.json visual, GDD 4.10.9).",
+  "defaults": {
+    "name": "Marta",
+    "female": false,
+    "family_name": "Forner",
+    "colors": {
+      "primary": "#6b5a2e",
+      "secondary": "#d8c890"
+    },
+    "visual": {
+      "hair": 1,
+      "skin": 2
+    }
+  },
+  "building": {
+    "site": "player_forge",
+    "type": "bakery",
+    "inventory": [
+      {
+        "item": "flour",
+        "quality": 0,
+        "qty": 4
+      },
+      {
+        "item": "wood",
+        "quality": 0,
+        "qty": 4
+      }
+    ]
+  },
+  "contracts": [],
+  "objectives": [],
+  "rival": {
+    "family_name": "Ferrer",
+    "colors": {
+      "primary": "#3f6b3a",
+      "secondary": "#b8b8b0"
+    },
+    "profile": "rival_smith",
+    "gold": 80,
+    "character": {
+      "name": "Bernat",
+      "female": false,
+      "age": 35,
+      "visual": {
+        "hair": 3,
+        "skin": 2
+      },
+      "stats": {
+        "charisma": 4,
+        "empathy": 3,
+        "negotiation": 6,
+        "arcane": 1,
+        "dexterity": 4,
+        "craft": 5,
+        "martial": 3,
+        "constitution": 5,
+        "rhetoric": 3,
+        "stealth": 2
+      }
+    },
+    "building": {
+      "site": "rival_forge",
+      "type": "forge",
+      "inventory": [
+        {
+          "item": "iron",
+          "quality": 0,
+          "qty": 8
+        },
+        {
+          "item": "coal",
+          "quality": 0,
+          "qty": 4
+        }
+      ]
+    }
+  },
+  "_competitors_doc": "H12: the other workshops of the town (GDD 4.5.5 style, no new AI): one AI family with the profile of each, its building on its map site with its stock. Added after the townsfolk and the offices (the ids of before do not move). spouse: they start married (a married head does not court: the town keeps its singles for the rival smith and the player).",
+  "competitors": [
+    {
+      "family_name": "Fuster",
+      "colors": {
+        "primary": "#5a6b2e",
+        "secondary": "#c9a35a"
+      },
+      "profile": "rival_artisan",
+      "gold": 80,
+      "profession": "carpenter",
+      "spouse": {
+        "name": "Teresa",
+        "female": true,
+        "age": 36,
+        "visual": {
+          "hair": 2,
+          "skin": 1
+        }
+      },
+      "character": {
+        "name": "Jaume",
+        "female": false,
+        "age": 38,
+        "visual": {
+          "hair": 4,
+          "skin": 1
+        },
+        "stats": {
+          "charisma": 4,
+          "empathy": 3,
+          "negotiation": 6,
+          "arcane": 1,
+          "dexterity": 4,
+          "craft": 5,
+          "martial": 3,
+          "constitution": 5,
+          "rhetoric": 3,
+          "stealth": 2
+        }
+      },
+      "building": {
+        "site": "workshop_carpentry",
+        "type": "carpentry",
+        "inventory": [
+          {
+            "item": "wood",
+            "quality": 0,
+            "qty": 8
+          },
+          {
+            "item": "iron",
+            "quality": 0,
+            "qty": 2
+          }
+        ]
+      }
+    },
+    {
+      "family_name": "Picapedrero",
+      "colors": {
+        "primary": "#4a4f5c",
+        "secondary": "#b07a3a"
+      },
+      "profile": "rival_artisan",
+      "gold": 80,
+      "profession": "mason",
+      "spouse": {
+        "name": "Mencía",
+        "female": true,
+        "age": 40,
+        "visual": {
+          "hair": 0,
+          "skin": 2
+        }
+      },
+      "character": {
+        "name": "Ramiro",
+        "female": false,
+        "age": 42,
+        "visual": {
+          "hair": 1,
+          "skin": 2
+        },
+        "stats": {
+          "charisma": 4,
+          "empathy": 3,
+          "negotiation": 6,
+          "arcane": 1,
+          "dexterity": 4,
+          "craft": 5,
+          "martial": 3,
+          "constitution": 5,
+          "rhetoric": 3,
+          "stealth": 2
+        }
+      },
+      "building": {
+        "site": "workshop_masonry",
+        "type": "masonry",
+        "inventory": [
+          {
+            "item": "stone",
+            "quality": 0,
+            "qty": 12
+          },
+          {
+            "item": "wood",
+            "quality": 0,
+            "qty": 2
+          }
+        ]
+      }
+    },
+    {
+      "family_name": "Tejedor",
+      "colors": {
+        "primary": "#2e4a6b",
+        "secondary": "#c8b8a0"
+      },
+      "profile": "rival_artisan",
+      "gold": 80,
+      "profession": "tailor",
+      "spouse": {
+        "name": "Fortún",
+        "female": false,
+        "age": 35,
+        "visual": {
+          "hair": 3,
+          "skin": 0
+        }
+      },
+      "character": {
+        "name": "Urraca",
+        "female": true,
+        "age": 33,
+        "visual": {
+          "hair": 5,
+          "skin": 0
+        },
+        "stats": {
+          "charisma": 4,
+          "empathy": 3,
+          "negotiation": 6,
+          "arcane": 1,
+          "dexterity": 4,
+          "craft": 5,
+          "martial": 3,
+          "constitution": 5,
+          "rhetoric": 3,
+          "stealth": 2
+        }
+      },
+      "building": {
+        "site": "workshop_tailor",
+        "type": "tailor_shop",
+        "inventory": [
+          {
+            "item": "wool",
+            "quality": 0,
+            "qty": 10
+          }
+        ]
+      }
+    }
+  ]
+}

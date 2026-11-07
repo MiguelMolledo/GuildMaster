@@ -1,0 +1,31 @@
+{
+  "id": "bakery_commerce_1",
+  "name_key": "upgrade.bakery_commerce_1",
+  "tree": "bakery",
+  "branch": "commerce",
+  "level": 1,
+  "cost": {
+    "gold": 30,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 4
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "counter_sales"
+    }
+  ],
+  "visual": {
+    "interior_node": "upgrade_counter",
+    "exterior_overlay": null
+  }
+}

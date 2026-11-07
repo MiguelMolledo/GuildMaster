@@ -1,0 +1,12 @@
+{
+  "id": "flour_sieve",
+  "name_key": "item.flour_sieve",
+  "gender": "m",
+  "category": "tool",
+  "weight": 2.0,
+  "max_stack": 1,
+  "base_price": 25,
+  "market_stall": "armory",
+  "slot": "tool",
+  "_doc": "H12 Patrón (04d 4.22.4.3-4): el cedazo del molinero, la herramienta de su oficio (GDD 4.3.4)."
+}

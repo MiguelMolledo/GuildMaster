@@ -1,0 +1,19 @@
+{
+  "id": "mill_flour",
+  "name_key": "recipe.mill_flour",
+  "building": "mill",
+  "zone": "millstone",
+  "inputs": [
+    {
+      "item": "wheat",
+      "qty": 2
+    }
+  ],
+  "output": {
+    "item": "flour",
+    "qty": 1
+  },
+  "duration_hours": 1.0,
+  "min_craft": 1,
+  "_doc": "H12 Patrón (04d 4.22.4.3-4) [balance]."
+}

@@ -1,0 +1,29 @@
+{
+  "id": "bakery_security_2",
+  "name_key": "upgrade.bakery_security_2",
+  "tree": "bakery",
+  "branch": "security",
+  "level": 2,
+  "cost": {
+    "gold": 75,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "bakery_security_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "protection",
+      "amount": 0.4
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": "upgrade_guard"
+  }
+}

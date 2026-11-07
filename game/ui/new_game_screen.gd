@@ -179,8 +179,8 @@ func _build_professions() -> void:
 	var group := ButtonGroup.new()
 	for p: String in ids:
 		var def: Dictionary = catalog.professions()[p]
-		if not catalog.starts().has(str(def.get("start", ""))):
-			continue
+		if not catalog.starts().has(str(def.get("start", ""))) or not bool(def.get("new_game", true)):
+			continue  # H12 Patrón: the patron's other trades start only as their bots' scenarios (O2 a)
 		var b := MenuKit.button(SimQuery.t_(str(def.get("name_key", "profession." + p))))
 		b.name = p.to_pascal_case()
 		b.toggle_mode = true

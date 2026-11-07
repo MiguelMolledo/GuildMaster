@@ -1,0 +1,24 @@
+{
+  "id": "bakery_pie",
+  "name_key": "recipe.bakery_pie",
+  "building": "bakery",
+  "zone": "oven",
+  "inputs": [
+    {
+      "item": "flour",
+      "qty": 1
+    },
+    {
+      "item": "meat",
+      "qty": 2
+    }
+  ],
+  "output": {
+    "item": "meat_pie",
+    "qty": 3
+  },
+  "duration_hours": 3.0,
+  "min_craft": 4,
+  "requires_upgrade": "bakery_production_3",
+  "_doc": "H12 Patrón (04d 4.22.4.3-4) [balance]."
+}

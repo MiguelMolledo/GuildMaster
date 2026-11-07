@@ -52,6 +52,15 @@ BUILDINGS = {
                   "windows, a wide open door at the same place as the reference's door, a hanging wooden sign with a "
                   "painted tankard (no letters), barrels and a bench outside, upper-floor windows for the rooms and a "
                   "small stable lean-to on one side",
+    "mill": "a WATERMILL-style grain MILL: a sturdy stone mill house with a tall timber gable, a big wooden "
+            "water wheel on one side, a small wooden chute and sacks of flour piled by the entrance door, a slate roof "
+            "(no sign, no letters)",
+    "bakery": "a BAKERY: a timber-framed house with whitewashed plaster and a terracotta roof, a big brick bread "
+              "oven bulging out of one side wall with a little chimney smoking, loaves on a wooden shelf by the "
+              "open shop window and a hanging sign with a painted loaf (no letters)",
+    "butchery": "a BUTCHER'S SHOP: a timber-framed house of stone and plaster with a terracotta roof, an open shop "
+                "counter with hams and strings of sausages hanging under the eaves, a small smokehouse lean-to with a "
+                "chimney on one side and a hanging sign with a painted pig (no letters)",
     "farm": "a FARMHOUSE: a long low farmhouse of rough stone and timber with a golden THATCHED straw roof, a "
             "small barn wing with a big wooden double door, a hay bale and a wooden hay cart beside it, a short "
             "wattle fence corner and sacks of grain by the entrance door (no sign, no letters)",
@@ -82,7 +91,9 @@ BACK = ("the SAME building seen from the OPPOSITE side, as if it were turned 180
 # Edificios nuevos sin sprite de escala B: parten del de otro con el mismo lienzo, ancla y puerta (la Taberna-Posada,
 # 3×4 casillas como la carpintería: Sprite offset (-104, -138), Door (-40, 12)).
 NEW_FROM = {"tavern_inn": os.path.join(OUT, "carpentry.png"),
-            "farm": os.path.join(OUT, "carpentry.png")}  # H12 Patrón: la Granja, 3×4 como la carpintería
+            "farm": os.path.join(OUT, "carpentry.png"),  # H12 Patrón: la Granja, 3×4 como la carpintería
+            "mill": os.path.join(OUT, "carpentry.png"), "bakery": os.path.join(OUT, "carpentry.png"),
+            "butchery": os.path.join(OUT, "carpentry.png")}  # H12 Patrón: los otros oficios, en el solar de la forja
 
 
 def base_of(bid, state=""):

@@ -1,0 +1,74 @@
+{
+  "_doc": "H12 Patrón (docs/gdd/04d_otras_clases.md 4.22.7, 04g_interiores.md 4.6.5): the mill. The milling room (stone floor) holds the millstone (no library piece: its look is game/visuals/stations/millstone.tscn); the storage keeps the sacks of wheat and flour; the house, the home. Edit by hand, then python3 tools/interiors/interiores.py reglas mill && python3 tools/interiors/interiores.py validar mill.",
+  "size": [9, 7],
+  "wall_height": 64,
+  "floor_height": 80,
+  "seed": 41,
+  "entrance": {"floor": 0, "tile": [0, 6], "side": "nw"},
+  "rooms": [
+    {"id": "millroom", "floor": 0, "type": "workshop", "rects": [[0, 0, 4, 6]], "floor_kind": "flagstone", "wall_style": "stone", "light": "warm"},
+    {"id": "store", "floor": 0, "type": "storage", "rects": [[5, 0, 8, 2]], "floor_kind": "planks", "wall_style": "timber", "light": "dim_warm"},
+    {"id": "house", "floor": 0, "type": "kitchen", "rects": [[5, 3, 8, 6]], "floor_kind": "planks", "wall_style": "timber", "light": "kitchen"}
+  ],
+  "doors": [
+    {"floor": 0, "tile": [5, 1], "side": "nw"},
+    {"floor": 0, "tile": [5, 5], "side": "nw"}
+  ],
+  "levels": [],
+  "stairs": [],
+  "stations": {
+    "millstone": {"floor": 0, "tile": [2, 2], "stand": [3, 2]},
+    "millstone_2": {"floor": 0, "tile": [2, 4], "stand": [3, 4]},
+    "storage": {"floor": 0, "tile": [8, 0], "prop": "sack_pile", "stand": [7, 1]}
+  },
+  "customers": {},
+  "idle": [
+    {"floor": 0, "tile": [7, 5]},
+    {"floor": 0, "tile": [1, 5]},
+    {"floor": 0, "tile": [6, 1]}
+  ],
+  "props": [
+    {"id": "sack_pile", "floor": 0, "tile": [0, 0]},
+    {"id": "sack", "floor": 0, "tile": [1, 0]},
+    {"id": "stone_block", "floor": 0, "tile": [4, 0]},
+    {"id": "crate_stack", "floor": 0, "tile": [5, 0]},
+    {"id": "sack", "floor": 0, "tile": [8, 2]},
+    {"id": "kitchen_hearth", "floor": 0, "tile": [8, 3]},
+    {"id": "dining_table", "floor": 0, "tile": [7, 4], "flip": false},
+    {"id": "bed_double", "floor": 0, "tile": [8, 6], "flip": false},
+    {"id": "chest", "floor": 0, "tile": [6, 6]}
+  ],
+  "rules": [
+    {"rule": "wall_fill", "room": "store", "props": ["sack", "barrel", "wicker_basket"], "chance": 0.5},
+    {"rule": "scatter", "room": "millroom", "props": ["bucket", "wicker_basket"], "count": 2},
+    {"rule": "hang", "room": "house", "props": ["herbs_hanging", "onion_string"], "count": 2}
+  ],
+  "upgrades": {
+    "mill_capacity_1": [],
+    "upgrade_storage_shelves": [{"id": "pantry_shelf", "floor": 0, "tile": [6, 0]}],
+    "mill_capacity_3": [],
+    "mill_commerce_1": [{"id": "ledger_book", "floor": 0, "tile": [4, 4]}],
+    "mill_commerce_2": [{"id": "banner_stand", "floor": 0, "tile": [0, 4]}],
+    "mill_commerce_3": [],
+    "mill_production_1": [{"id": "wicker_basket", "floor": 0, "tile": [0, 2]}],
+    "mill_production_2": [{"id": "sack", "floor": 0, "tile": [6, 3]}],
+    "mill_production_3": [{"id": "stone_block", "floor": 0, "tile": [4, 6]}],
+    "mill_quality_1": [{"id": "balance_scale", "floor": 0, "tile": [2, 0]}],
+    "mill_quality_2": [{"id": "sack_pile", "floor": 0, "tile": [3, 0]}],
+    "mill_quality_3": [],
+    "upgrade_double_ledger": [{"id": "double_ledger", "floor": 0, "tile": [3, 6]}],
+    "upgrade_hidden_passage": [{"id": "hidden_passage", "floor": 0, "tile": [4, 5]}],
+    "upgrade_smuggler_cache": [{"id": "smuggler_cache", "floor": 0, "tile": [8, 5]}],
+    "upgrade_strongbox": [],
+    "upgrade_bunks": [],
+    "upgrade_dining_table": [],
+    "upgrade_master_bench": []
+  },
+  "resolved": [
+    {"id": "sack", "floor": 0, "tile": [5, 2], "flip": false, "rule": "wall_fill"},
+    {"id": "bucket", "floor": 0, "tile": [1, 2], "flip": false, "rule": "scatter"},
+    {"id": "bucket", "floor": 0, "tile": [4, 2], "flip": true, "rule": "scatter"},
+    {"id": "onion_string", "floor": 0, "tile": [7, 3], "flip": true, "hang": "ne", "rule": "hang"},
+    {"id": "herbs_hanging", "floor": 0, "tile": [8, 3], "flip": true, "hang": "ne", "rule": "hang"}
+  ]
+}

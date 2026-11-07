@@ -17973,16 +17973,17 @@
     {
       "id": "icon_ale",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "posada",
         "04f-4.27"
       ],
       "ruta": "assets/art/icons/ale.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py, rejillas h12a-h12c)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (jarra de cerveza), 32×32, y el pequeño 16×16 en assets/art/icons/small/ale.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (jarra de cerveza), 32×32, y el pequeño 16×16 en assets/art/icons/small/ale.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén.",
+      "coste_usd": 0.02
     },
     {
       "id": "icon_cider",
@@ -18015,16 +18016,17 @@
     {
       "id": "icon_meat",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "posada",
         "04f-4.27"
       ],
       "ruta": "assets/art/icons/meat.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py, rejillas h12a-h12c)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (pieza de carne), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (pieza de carne), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén.",
+      "coste_usd": 0.02
     },
     {
       "id": "icon_garlic_soup",
@@ -18057,16 +18059,17 @@
     {
       "id": "icon_meat_pie",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "posada",
         "04f-4.27"
       ],
       "ruta": "assets/art/icons/meat_pie.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py, rejillas h12a-h12c)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (empanada), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat_pie.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (empanada), 32×32, y el pequeño 16×16 en assets/art/icons/small/meat_pie.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén.",
+      "coste_usd": 0.02
     },
     {
       "id": "icon_roast_lamb",
@@ -18085,16 +18088,17 @@
     {
       "id": "icon_sausage",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "posada",
         "04f-4.27"
       ],
       "ruta": "assets/art/icons/sausage.png",
-      "origen": null,
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py, rejillas h12a-h12c)",
       "origen_previo": null,
       "coste_gen": 0,
-      "notas": "Icono del objeto y plato de la Taberna-Posada (embutido), 32×32, y el pequeño 16×16 en assets/art/icons/small/sausage.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén."
+      "notas": "Icono del objeto y plato de la Taberna-Posada (embutido), 32×32, y el pequeño 16×16 en assets/art/icons/small/sausage.png: el almacén, la carta y el pedido sobre la cabeza del cliente (hasta entonces, un disco con sus dos primeras letras). En la carta y el pedido la taberna usa ya los de ui_icon_food_* (VisualPaths.inn_dish_icon); este es el del almacén.",
+      "coste_usd": 0.02
     },
     {
       "id": "icon_sweets",
@@ -18659,28 +18663,195 @@
     {
       "id": "icon_sheep",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H12",
         "objetos"
       ],
       "ruta": "assets/art/icons/sheep.png",
-      "origen": "",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py, rejillas h12a-h12c)",
       "coste_gen": 0,
-      "notas": "H12 Patrón: la oveja (data/items/sheep.json). Para el ciclo de PixelLab del 15-nov (04d 4.22.9 #6); hasta entonces la UI usa el icono genérico."
+      "notas": "H12 Patrón: la oveja (data/items/sheep.json). Icono fal del 2026-11-07; el animal dibujado del corral sigue para el ciclo de PixelLab (04d 4.22.9 #4).",
+      "coste_usd": 0.02
     },
     {
       "id": "icon_pig",
       "tipo": "icono",
-      "estado": "falta",
+      "estado": "sprite",
       "para": [
         "H12",
         "objetos"
       ],
       "ruta": "assets/art/icons/pig.png",
-      "origen": "",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py, rejillas h12a-h12c)",
       "coste_gen": 0,
-      "notas": "H12 Patrón: el cerdo (data/items/pig.json). Para el ciclo de PixelLab del 15-nov (04d 4.22.9 #6); hasta entonces la UI usa el icono genérico."
+      "notas": "H12 Patrón: el cerdo (data/items/pig.json). Icono fal del 2026-11-07; el animal dibujado del corral sigue para el ciclo de PixelLab (04d 4.22.9 #4).",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "icon_flour_sieve",
+      "tipo": "icono",
+      "para": [
+        "H12",
+        "objetos"
+      ],
+      "ruta": "assets/art/icons/flour_sieve.png",
+      "coste_gen": 0,
+      "notas": "H12 Patrón: herramienta del oficio (data/items/flour_sieve.json), 32×32 y small/flour_sieve.png 16×16.",
+      "estado": "sprite",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py, rejillas h12a-h12c)",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "icon_baker_peel",
+      "tipo": "icono",
+      "para": [
+        "H12",
+        "objetos"
+      ],
+      "ruta": "assets/art/icons/baker_peel.png",
+      "coste_gen": 0,
+      "notas": "H12 Patrón: herramienta del oficio (data/items/baker_peel.json), 32×32 y small/baker_peel.png 16×16.",
+      "estado": "sprite",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py, rejillas h12a-h12c)",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "icon_cleaver",
+      "tipo": "icono",
+      "para": [
+        "H12",
+        "objetos"
+      ],
+      "ruta": "assets/art/icons/cleaver.png",
+      "coste_gen": 0,
+      "notas": "H12 Patrón: herramienta del oficio (data/items/cleaver.json), 32×32 y small/cleaver.png 16×16.",
+      "estado": "sprite",
+      "origen": "fal: nano-banana-2/edit, rejilla 2×2 (ref: 8 iconos buenos del juego ×4) + image2pixel a escala 16 + contorno oscuro (tools/art/fal_iconos.py, rejillas h12a-h12c)",
+      "coste_usd": 0.02
+    },
+    {
+      "id": "bld_mill",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "mill"
+      ],
+      "ruta": "assets/art/buildings/fal/mill.png",
+      "origen": "fal: nano-banana-2/edit sobre la silueta de la carpintería fal (3×4, NEW_FROM de tools/art/fal_fachadas.py) + image2pixel a escala 4; obras y dañado con /edit sobre ella",
+      "coste_gen": 0,
+      "coste_usd": 0.2,
+      "notas": "H12 Patrón: el Molino: muela de piedra y rueda, con sus variantes _construction / _damaged. En game/visuals/buildings/mill.tscn."
+    },
+    {
+      "id": "bld_mill_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "mill"
+      ],
+      "ruta": "assets/art/buildings/fal/mill_back.png",
+      "origen": "fal: nano-banana-2/edit sobre la silueta de la carpintería fal (3×4, NEW_FROM de tools/art/fal_fachadas.py) + image2pixel a escala 4; obras y dañado con /edit sobre ella",
+      "coste_gen": 0,
+      "coste_usd": 0.2,
+      "notas": "H12 Patrón: el Molino: muela de piedra y rueda (de espaldas), con sus variantes _construction / _damaged. En game/visuals/buildings/mill_back.tscn."
+    },
+    {
+      "id": "int_mill",
+      "tipo": "interior",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "mill"
+      ],
+      "ruta": "data/interiors/mill.json",
+      "origen": "biblioteca de props (data/props/interior.json); sin fondos pintados",
+      "coste_gen": 0,
+      "notas": "Interior por datos (04g 4.6.5). Faltan los fondos por sala con tools/art/fal_salas.py y el dibujo propio de la muela, el horno y el ahumadero (hoy greybox en game/visuals/stations/)."
+    },
+    {
+      "id": "bld_bakery",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "bakery"
+      ],
+      "ruta": "assets/art/buildings/fal/bakery.png",
+      "origen": "fal: nano-banana-2/edit sobre la silueta de la carpintería fal (3×4, NEW_FROM de tools/art/fal_fachadas.py) + image2pixel a escala 4; obras y dañado con /edit sobre ella",
+      "coste_gen": 0,
+      "coste_usd": 0.2,
+      "notas": "H12 Patrón: la Panadería: horno de leña, con sus variantes _construction / _damaged. En game/visuals/buildings/bakery.tscn."
+    },
+    {
+      "id": "bld_bakery_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "bakery"
+      ],
+      "ruta": "assets/art/buildings/fal/bakery_back.png",
+      "origen": "fal: nano-banana-2/edit sobre la silueta de la carpintería fal (3×4, NEW_FROM de tools/art/fal_fachadas.py) + image2pixel a escala 4; obras y dañado con /edit sobre ella",
+      "coste_gen": 0,
+      "coste_usd": 0.2,
+      "notas": "H12 Patrón: la Panadería: horno de leña (de espaldas), con sus variantes _construction / _damaged. En game/visuals/buildings/bakery_back.tscn."
+    },
+    {
+      "id": "int_bakery",
+      "tipo": "interior",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "bakery"
+      ],
+      "ruta": "data/interiors/bakery.json",
+      "origen": "biblioteca de props (data/props/interior.json); sin fondos pintados",
+      "coste_gen": 0,
+      "notas": "Interior por datos (04g 4.6.5). Faltan los fondos por sala con tools/art/fal_salas.py y el dibujo propio de la muela, el horno y el ahumadero (hoy greybox en game/visuals/stations/)."
+    },
+    {
+      "id": "bld_butchery",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "butchery"
+      ],
+      "ruta": "assets/art/buildings/fal/butchery.png",
+      "origen": "fal: nano-banana-2/edit sobre la silueta de la carpintería fal (3×4, NEW_FROM de tools/art/fal_fachadas.py) + image2pixel a escala 4; obras y dañado con /edit sobre ella",
+      "coste_gen": 0,
+      "coste_usd": 0.2,
+      "notas": "H12 Patrón: la Carnicería: tajo y ahumadero, con sus variantes _construction / _damaged. En game/visuals/buildings/butchery.tscn."
+    },
+    {
+      "id": "bld_butchery_back",
+      "tipo": "edificio",
+      "estado": "sprite",
+      "para": [
+        "H12",
+        "butchery"
+      ],
+      "ruta": "assets/art/buildings/fal/butchery_back.png",
+      "origen": "fal: nano-banana-2/edit sobre la silueta de la carpintería fal (3×4, NEW_FROM de tools/art/fal_fachadas.py) + image2pixel a escala 4; obras y dañado con /edit sobre ella",
+      "coste_gen": 0,
+      "coste_usd": 0.2,
+      "notas": "H12 Patrón: la Carnicería: tajo y ahumadero (de espaldas), con sus variantes _construction / _damaged. En game/visuals/buildings/butchery_back.tscn."
+    },
+    {
+      "id": "int_butchery",
+      "tipo": "interior",
+      "estado": "greybox",
+      "para": [
+        "H12",
+        "butchery"
+      ],
+      "ruta": "data/interiors/butchery.json",
+      "origen": "biblioteca de props (data/props/interior.json); sin fondos pintados",
+      "coste_gen": 0,
+      "notas": "Interior por datos (04g 4.6.5). Faltan los fondos por sala con tools/art/fal_salas.py y el dibujo propio de la muela, el horno y el ahumadero (hoy greybox en game/visuals/stations/)."
     }
   ]
 }

@@ -1,0 +1,30 @@
+{
+  "id": "mill",
+  "name_key": "building.mill",
+  "category": "workshop",
+  "parcel_type": "production",
+  "footprint": [
+    3,
+    4
+  ],
+  "build_cost": 100,
+  "build_days": 1,
+  "upkeep": 12,
+  "storage_stacks": 10,
+  "base_employees": 1,
+  "zones": [
+    {
+      "id": "millstone",
+      "kind": "craft"
+    },
+    {
+      "id": "storage",
+      "kind": "storage"
+    }
+  ],
+  "upgrade_tree": "mill",
+  "night_production": "manual_only",
+  "includes_housing": true,
+  "tool": "flour_sieve",
+  "_doc": "H12 Patrón: the miller's Molino (04d 4.22.4.3): the millstone grinds wheat into flour. No counter: the flour goes to the materials stall, the board and the bakers. 3x4 with housing, on a production plot (the patron's other trades: data/starts patron_<trade>, raised on the player forge's plot). upkeep 12 [balance]. Its employees may start at dawn (the schedule's work_phases already open at dawn: the «turno del alba» of 4.22.4.3)."
+}

@@ -209,6 +209,51 @@
       ]
     }
   },
+  "miller_novice": {
+    "_doc": "H12 Patrón (04d 4.22.4.9): BotPatronTrade (sim/bots/bot_patron_trade.gd) from patron_miller (its mill on the player forge's plot, 150 gold, no debt): buys, makes and sells as the trade's novice. Its net gold per day of days 1-16 goes in goldflow.start_miller ([+20, +80], 4.22.4.9). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=patron_miller --bots=miller_novice --days=16 --seeds=30 (in run_all, step miller, 10 seeds).",
+    "days": [
+      16,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ]
+  },
+  "baker_novice": {
+    "_doc": "H12 Patrón (04d 4.22.4.9): BotPatronTrade (sim/bots/bot_patron_trade.gd) from patron_baker (its bakery on the player forge's plot, 150 gold, no debt): buys, makes and sells as the trade's novice. Its net gold per day of days 1-16 goes in goldflow.start_baker ([+20, +80], 4.22.4.9). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=patron_baker --bots=baker_novice --days=16 --seeds=30 (in run_all, step baker, 10 seeds).",
+    "days": [
+      16,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ]
+  },
+  "butcher_novice": {
+    "_doc": "H12 Patrón (04d 4.22.4.9): BotPatronTrade (sim/bots/bot_patron_trade.gd) from patron_butcher (its butchery on the player forge's plot, 150 gold, no debt): buys, makes and sells as the trade's novice. Its net gold per day of days 1-16 goes in goldflow.start_butcher ([+20, +80], 4.22.4.9). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=patron_butcher --bots=butcher_novice --days=16 --seeds=30 (in run_all, step butcher, 10 seeds).",
+    "days": [
+      16,
+      null
+    ],
+    "refused_orders": [
+      0,
+      0
+    ],
+    "ledger_mismatch": [
+      0,
+      0
+    ]
+  },
   "patron_novice": {
     "_doc": "H12 Patrón (10/H12 «Cada profesión tiene un bot que gana dinero con ella»; docs/gdd/04d_otras_clases.md 4.22.4.9, the bot «farmer»): BotPatronNovice (sim/bots/bot_patron_novice.gd) in a new game as patron_farmer, Normal: it sows the four fields in spring, sells the wool and the pigs over a pair, harvests on the dawn of day 5, keeps the seed and the winter feed, sells the rest of the wheat and pays the debt. The same start as the forge (30 gold, 200 of debt before day 8) and the same targets as the trades; its net gold per day goes in goldflow.start_farmer. no_starved: no animal of its pen dies of hunger (4.22.4.9: >= 90 % of the seeds). gold_day10 from 0 (the trades: 10): a famine year (×0,5 harvest, 1 seed in 30) leaves it at 0 after paying the debt with the flock and the seed, the risk of 4.22.4.10 (the emergency loan of Equilibrio 2 covers what comes after). Ritual: godot --headless --path . -s tools/sim_runner.gd -- --start=patron_farmer --bots=patron_novice --difficulty=easy,normal,hard --days=10 --seeds=30 (in run_all, step farmer, 10 seeds). Medido (2026-11-06, 30 semillas, sin la vida del pueblo como los oficios): neto/día en Normal 33,6 [20,5-45,3], deuda saldada 29/30 (la que no, un año de hambruna: cosecha ×0,5), ningún animal muerto de hambre, 4 cosechas en todas; orden de dificultad easy 40,0 > normal 33,6 > hard 33,4 (Difícil salda a tiempo el 47 %: su coste es la prórroga).",
     "days": [
@@ -417,6 +462,51 @@
         "loans"
       ],
       "_doc": "H12: the start of the mason (artisan_mason), the same window and range as the forge's start (GDD 4.19 «Inicio (H3)»)."
+    },
+    "start_miller": {
+      "bot": "miller_novice",
+      "window_days": [
+        1,
+        16
+      ],
+      "net_per_day": [
+        20,
+        80
+      ],
+      "exclude_categories": [
+        "loans"
+      ],
+      "_doc": "H12 Patrón: the miller from its start, the band of 4.22.4.9 for the patron's other trades ([+20, +80], days 1-16)."
+    },
+    "start_baker": {
+      "bot": "baker_novice",
+      "window_days": [
+        1,
+        16
+      ],
+      "net_per_day": [
+        20,
+        80
+      ],
+      "exclude_categories": [
+        "loans"
+      ],
+      "_doc": "H12 Patrón: the baker from its start, the band of 4.22.4.9 for the patron's other trades ([+20, +80], days 1-16)."
+    },
+    "start_butcher": {
+      "bot": "butcher_novice",
+      "window_days": [
+        1,
+        16
+      ],
+      "net_per_day": [
+        20,
+        80
+      ],
+      "exclude_categories": [
+        "loans"
+      ],
+      "_doc": "H12 Patrón: the butcher from its start, the band of 4.22.4.9 for the patron's other trades ([+20, +80], days 1-16)."
     },
     "start_farmer": {
       "bot": "patron_novice",

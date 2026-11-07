@@ -1,0 +1,298 @@
+[gd_scene load_steps=15 format=3 uid="uid://ddbcdibqe7jjc"]
+
+[ext_resource type="Script" uid="uid://dclcjwcrf4upw" path="res://game/visuals/greybox/greybox_blocks.gd" id="1_greybox"]
+
+[ext_resource type="Script" uid="uid://c5lirb3dxafgy" path="res://game/visuals/greybox/station_block.gd" id="2_block"]
+
+[ext_resource type="Script" uid="uid://4ajbo4o6uuuw" path="res://game/visuals/greybox/greybox_masonry.gd" id="3_masonry"]
+
+[ext_resource type="Texture2D" uid="uid://cmavdvnmnbvr3" path="res://assets/art/buildings/escala_b/forge_works.png" id="art_works_b"]
+
+[ext_resource type="Texture2D" uid="uid://c5p3narun8mwq" path="res://assets/art/buildings/forge_plinth.png" id="art_plinth"]
+
+[ext_resource type="Texture2D" uid="uid://d3ncg4s0e1yd8" path="res://assets/art/buildings/forge_plinth_noble.png" id="art_plinth_noble"]
+
+[ext_resource type="Texture2D" uid="uid://ds7cgxfolkrtl" path="res://assets/art/props/banner.png" id="art_banner"]
+
+[ext_resource type="Texture2D" uid="uid://du085vdphq8dj" path="res://assets/art/props/trade_sign.png" id="art_sign"]
+
+[ext_resource type="Texture2D" uid="uid://cdckpgk18ed8x" path="res://assets/art/props/lock.png" id="art_lock"]
+
+[ext_resource type="Texture2D" uid="uid://mgj8ygk11mpu" path="res://assets/art/props/shop_window.png" id="art_window"]
+
+[ext_resource type="Texture2D" uid="uid://b1c7lhhs80a57" path="res://assets/art/props/garden.png" id="art_garden"]
+
+[ext_resource type="Texture2D" uid="uid://6n4u4bwm138w" path="res://assets/art/buildings/fal/butchery_back.png" id="fal_n"]
+
+[ext_resource type="Texture2D" uid="uid://bjc30it5ib8ju" path="res://assets/art/buildings/fal/butchery_back_construction.png" id="fal_c"]
+
+[ext_resource type="Texture2D" uid="uid://dhymjtr68eco2" path="res://assets/art/buildings/fal/butchery_back_damaged.png" id="fal_d"]
+
+[node name="ButcheryBack" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Feet" type="Marker2D" parent="."]
+
+[node name="Top" type="Marker2D" parent="."]
+position = Vector2(0, -92)
+
+[node name="Door" type="Marker2D" parent="."]
+editor_description = "Threshold of the drawn door (docs/protocolos/generar-ciudad.md §Puertas): the generator, the validator and WorldView read where the door is from here (data/building_sprites.json is exported from it: python3 tools/city/sprites_catalog.py). side = face of the footprint (SW, SE, NE, NW), tile = door tile from the footprint origin."
+position = Vector2(40, -12)
+metadata/side = "NE"
+metadata/tile = Vector2i(1, -1)
+metadata/footprint = Vector2i(3, 4)
+metadata/mirror = true
+metadata/back = ""
+metadata/front = "butchery"
+
+
+[node name="Greybox" type="Node2D" parent="."]
+visible = false
+y_sort_enabled = true
+script = ExtResource("1_greybox")
+footprint = Vector2i(3, 4)
+height = 40.0
+color = Color(0.48627451, 0.498039216, 0.533333333, 1)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("fal_n")
+centered = false
+offset = Vector2(-104, -171)
+editor_description = "fal back view (assets/art/buildings/fal/butchery_back.png); LookConstruction / LookDamaged as on the front."
+
+[node name="Upgrades" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="upgrade_shop_window" type="Node2D" parent="Upgrades"]
+y_sort_enabled = true
+visible = false
+position = Vector2(48, 40)
+editor_description = "butchery_commerce_2 (shop window)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_shop_window"]
+visible = false
+script = ExtResource("2_block")
+color = Color(0.752941176, 0.784313725, 0.815686275, 1)
+height = 14.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_shop_window"]
+position = Vector2(12, -10)
+texture_filter = 1
+texture = ExtResource("art_window")
+centered = false
+offset = Vector2(-14, -22)
+editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). To go back to the greybox: hide this node and show the Greybox next to it."
+
+[node name="upgrade_trade_sign" type="Node2D" parent="Upgrades"]
+y_sort_enabled = true
+visible = false
+position = Vector2(112, 8)
+editor_description = "butchery_commerce_3 (trade sign)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_trade_sign"]
+visible = false
+script = ExtResource("2_block")
+color = Color(0.878431373, 0.564705882, 0.22745098, 1)
+height = 14.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_trade_sign"]
+position = Vector2(-34, -3)
+texture_filter = 1
+texture = ExtResource("art_sign")
+centered = false
+offset = Vector2(-12, -64)
+editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). To go back to the greybox: hide this node and show the Greybox next to it."
+
+[node name="upgrade_stone_facade" type="Node2D" parent="Upgrades"]
+visible = false
+y_sort_enabled = true
+editor_description = "butchery_facade_1 (stone facade): stone rows over the two front faces of the footprint (GreyboxMasonry, origin = Feet). Replace with the facade sprite when the art arrives."
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_stone_facade"]
+visible = false
+y_sort_enabled = true
+script = ExtResource("3_masonry")
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_stone_facade"]
+position = Vector2(0, 47)
+texture_filter = 1
+texture = ExtResource("art_plinth")
+centered = false
+offset = Vector2(-92, -50)
+editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). To go back to the greybox: hide this node and show the Greybox next to it."
+
+[node name="upgrade_garden" type="Node2D" parent="Upgrades"]
+y_sort_enabled = true
+visible = false
+position = Vector2(-48, 56)
+editor_description = "butchery_facade_2 (garden)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_garden"]
+visible = false
+script = ExtResource("2_block")
+color = Color(0.309803922, 0.541176471, 0.22745098, 1)
+height = 14.0
+
+[node name="Garden1" type="Sprite2D" parent="Upgrades/upgrade_garden"]
+position = Vector2(12, -32)
+texture_filter = 1
+texture = ExtResource("art_garden")
+centered = false
+offset = Vector2(-17, -8)
+editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). To go back to the greybox: hide this node and show the Greybox next to it."
+
+[node name="Garden2" type="Sprite2D" parent="Upgrades/upgrade_garden"]
+position = Vector2(18, -17)
+texture_filter = 1
+texture = ExtResource("art_garden")
+centered = false
+offset = Vector2(-17, -8)
+editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). To go back to the greybox: hide this node and show the Greybox next to it."
+
+[node name="upgrade_noble_facade" type="Node2D" parent="Upgrades"]
+y_sort_enabled = true
+visible = false
+position = Vector2(-112, 24)
+editor_description = "butchery_facade_3 (noble facade)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_noble_facade"]
+visible = false
+script = ExtResource("2_block")
+color = Color(0.784313725, 0.658823529, 0.305882353, 1)
+height = 14.0
+
+[node name="Plinth" type="Sprite2D" parent="Upgrades/upgrade_noble_facade"]
+position = Vector2(112, 23)
+texture_filter = 1
+texture = ExtResource("art_plinth_noble")
+centered = false
+offset = Vector2(-92, -50)
+editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). To go back to the greybox: hide this node and show the Greybox next to it."
+
+[node name="Banner1" type="Sprite2D" parent="Upgrades/upgrade_noble_facade"]
+position = Vector2(98, 20)
+texture_filter = 1
+texture = ExtResource("art_banner")
+centered = false
+offset = Vector2(-5, -33)
+editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). To go back to the greybox: hide this node and show the Greybox next to it."
+
+[node name="Banner2" type="Sprite2D" parent="Upgrades/upgrade_noble_facade"]
+position = Vector2(174, -12)
+texture_filter = 1
+texture = ExtResource("art_banner")
+centered = false
+offset = Vector2(-5, -33)
+editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). To go back to the greybox: hide this node and show the Greybox next to it."
+
+[node name="upgrade_reinforced_lock" type="Node2D" parent="Upgrades"]
+y_sort_enabled = true
+visible = false
+position = Vector2(80, 24)
+editor_description = "butchery_security_1 (reinforced lock)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_reinforced_lock"]
+visible = false
+script = ExtResource("2_block")
+color = Color(0.333333333, 0.345098039, 0.37254902, 1)
+height = 14.0
+
+[node name="Sprite" type="Sprite2D" parent="Upgrades/upgrade_reinforced_lock"]
+position = Vector2(-53, 0)
+texture_filter = 1
+texture = ExtResource("art_lock")
+centered = false
+offset = Vector2(-11, -54)
+editor_description = "Pixel art (tools/art/dibujar_pixel.py, docs/arte/reuso_guild.md). To go back to the greybox: hide this node and show the Greybox next to it."
+
+[node name="upgrade_guard" type="Node2D" parent="Upgrades"]
+visible = false
+position = Vector2(16, 56)
+editor_description = "butchery_security_2 (hired guard)"
+
+[node name="Greybox" type="Node2D" parent="Upgrades/upgrade_guard"]
+script = ExtResource("2_block")
+color = Color(0.545098039, 0.180392157, 0.180392157, 1)
+height = 14.0
+
+[node name="Works" type="Node2D" parent="."]
+visible = false
+position = Vector2(-16, 56)
+editor_description = "H5: scaffold shown while the building is under construction (upgrade works). Greybox poles and planks: replace them with a sprite when the art arrives. Its position is the front corner of the footprint, so it sorts in front of the building."
+
+[node name="Poles" type="Node2D" parent="Works"]
+visible = false
+
+[node name="PoleLeft" type="Line2D" parent="Works/Poles"]
+points = PackedVector2Array(-96, -48, -96, -104)
+width = 2.0
+default_color = Color(0.4, 0.29, 0.17, 1)
+
+[node name="PoleLeftMid" type="Line2D" parent="Works/Poles"]
+points = PackedVector2Array(-48, -24, -48, -80)
+width = 2.0
+default_color = Color(0.4, 0.29, 0.17, 1)
+
+[node name="PoleFront" type="Line2D" parent="Works/Poles"]
+points = PackedVector2Array(0, 0, 0, -56)
+width = 2.0
+default_color = Color(0.4, 0.29, 0.17, 1)
+
+[node name="PoleRightMid" type="Line2D" parent="Works/Poles"]
+points = PackedVector2Array(64, -32, 64, -88)
+width = 2.0
+default_color = Color(0.4, 0.29, 0.17, 1)
+
+[node name="PoleRight" type="Line2D" parent="Works/Poles"]
+points = PackedVector2Array(128, -64, 128, -120)
+width = 2.0
+default_color = Color(0.4, 0.29, 0.17, 1)
+
+[node name="Planks" type="Node2D" parent="Works"]
+visible = false
+
+[node name="PlankLow" type="Line2D" parent="Works/Planks"]
+points = PackedVector2Array(-98, -70, 0, -22, 130, -87)
+width = 3.0
+default_color = Color(0.72, 0.56, 0.34, 1)
+
+[node name="PlankHigh" type="Line2D" parent="Works/Planks"]
+points = PackedVector2Array(-98, -94, 0, -46, 130, -111)
+width = 3.0
+default_color = Color(0.72, 0.56, 0.34, 1)
+
+[node name="BraceLeft" type="Line2D" parent="Works/Planks"]
+points = PackedVector2Array(-96, -48, -48, -70, 0, -22)
+width = 1.0
+default_color = Color(0.55, 0.41, 0.24, 1)
+
+[node name="BraceRight" type="Line2D" parent="Works/Planks"]
+points = PackedVector2Array(0, 0, 64, -54, 128, -64)
+width = 1.0
+default_color = Color(0.55, 0.41, 0.24, 1)
+
+[node name="Scaffold" type="Sprite2D" parent="Works"]
+position = Vector2(16, -9)
+texture_filter = 1
+texture = ExtResource("art_works_b")
+centered = false
+offset = Vector2(-94, -186)
+editor_description = "Pixel art scaffold (tools/art/dibujar_pixel.py) over the sprite. To go back to the greybox: hide this node and show Poles and Planks."
+
+[node name="LookConstruction" type="Sprite2D" parent="."]
+visible = false
+editor_description = "Texture of Sprite while the building is under works (WorldView._apply_looks); never shown itself."
+texture_filter = 1
+texture = ExtResource("fal_c")
+centered = false
+offset = Vector2(-104, -174)
+
+[node name="LookDamaged" type="Sprite2D" parent="."]
+visible = false
+editor_description = "Texture of Sprite while the building is damaged (WorldView._apply_looks); never shown itself."
+texture_filter = 1
+texture = ExtResource("fal_d")
+centered = false
+offset = Vector2(-104, -172)

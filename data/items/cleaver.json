@@ -1,0 +1,12 @@
+{
+  "id": "cleaver",
+  "name_key": "item.cleaver",
+  "gender": "f",
+  "category": "tool",
+  "weight": 2.0,
+  "max_stack": 1,
+  "base_price": 30,
+  "market_stall": "armory",
+  "slot": "tool",
+  "_doc": "H12 Patrón (04d 4.22.4.3-4): la cuchilla del carnicero, la herramienta de su oficio (GDD 4.3.4)."
+}

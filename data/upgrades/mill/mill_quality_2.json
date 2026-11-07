@@ -1,0 +1,32 @@
+{
+  "id": "mill_quality_2",
+  "name_key": "upgrade.mill_quality_2",
+  "tree": "mill",
+  "branch": "quality",
+  "level": 2,
+  "cost": {
+    "gold": 60,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "mill_quality_1"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "extra_storage",
+      "amount": 6
+    }
+  ],
+  "visual": {
+    "interior_node": "mill_quality_2",
+    "exterior_overlay": null
+  }
+}

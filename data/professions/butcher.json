@@ -1,0 +1,12 @@
+{
+  "id": "butcher",
+  "name_key": "profession.butcher",
+  "class": "patron",
+  "order": 3,
+  "building": "butchery",
+  "tool": "cleaver",
+  "start": "patron_butcher",
+  "contracts": "butcher",
+  "new_game": false,
+  "_doc": "H12 Patrón (04d 4.22.4.3-4, O2 a): a trade of the patron that does not open a new game (only the farmer does; new_game false): its start patron_butcher is the scenario of its bot (4.22.4.9: the building open, 150 gold, no debt)."
+}

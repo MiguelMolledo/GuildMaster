@@ -1,0 +1,32 @@
+{
+  "id": "butchery_quality_1",
+  "name_key": "upgrade.butchery_quality_1",
+  "tree": "butchery",
+  "branch": "quality",
+  "level": 1,
+  "cost": {
+    "gold": 25,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "quality_bonus",
+      "amount": 1
+    }
+  ],
+  "visual": {
+    "interior_node": "butchery_quality_1",
+    "exterior_overlay": null
+  }
+}

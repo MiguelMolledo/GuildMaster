@@ -1,0 +1,37 @@
+{
+  "id": "bakery_capacity_3",
+  "name_key": "upgrade.bakery_capacity_3",
+  "tree": "bakery",
+  "branch": "capacity",
+  "level": 3,
+  "cost": {
+    "gold": 125,
+    "items": [
+      {
+        "item": "iron",
+        "qty": 10
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "bakery_capacity_2"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "extra_storage",
+      "amount": 10
+    }
+  ],
+  "visual": {
+    "interior_node": "bakery_capacity_3",
+    "exterior_overlay": null
+  }
+}

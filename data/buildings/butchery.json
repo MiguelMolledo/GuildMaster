@@ -1,0 +1,38 @@
+{
+  "id": "butchery",
+  "name_key": "building.butchery",
+  "category": "workshop",
+  "parcel_type": "production",
+  "footprint": [
+    3,
+    4
+  ],
+  "build_cost": 100,
+  "build_days": 1,
+  "upkeep": 12,
+  "storage_stacks": 10,
+  "base_employees": 1,
+  "zones": [
+    {
+      "id": "chopping_block",
+      "kind": "craft"
+    },
+    {
+      "id": "smokehouse",
+      "kind": "craft"
+    },
+    {
+      "id": "counter",
+      "kind": "sales"
+    },
+    {
+      "id": "storage",
+      "kind": "storage"
+    }
+  ],
+  "upgrade_tree": "butchery",
+  "night_production": "manual_only",
+  "includes_housing": true,
+  "tool": "cleaver",
+  "_doc": "H12 Patrón: the butcher's Carnicería (04d 4.22.4.4): the chopping block cuts a pig into meat, the smokehouse makes sausages; the counter as the bakery's. 3x4 with housing, on a production plot (the patron's other trades: data/starts patron_<trade>, raised on the player forge's plot). upkeep 12 [balance]. Its employees may start at dawn (the schedule's work_phases already open at dawn: the «turno del alba» of 4.22.4.3)."
+}

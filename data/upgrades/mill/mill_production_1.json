@@ -1,0 +1,32 @@
+{
+  "id": "mill_production_1",
+  "name_key": "upgrade.mill_production_1",
+  "tree": "mill",
+  "branch": "production",
+  "level": 1,
+  "cost": {
+    "gold": 15,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 2
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 0.5,
+  "effects": [
+    {
+      "kind": "production_speed",
+      "mult": 1.2
+    }
+  ],
+  "visual": {
+    "interior_node": "mill_production_1",
+    "exterior_overlay": null
+  }
+}

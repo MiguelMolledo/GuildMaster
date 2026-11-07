@@ -269,14 +269,25 @@ static func _notice(sim: Sim, fam: String, sev: String, key: String, params: Dic
 
 # --- Sales -----------------------------------------------------------------------------------------------------------
 
-## What `fam` gets at the market for `item` × this (the market_price upgrades of its farm, the Commerce branch): 1 for
-## anything that is not a farm good (a crop's yield, an animal, what an animal produces) or with no such upgrade.
+## What `fam` gets at the market for `item` × this: the market_price upgrades (the Commerce branch) of its building that
+## makes it: its farm for a farm good (a crop's yield, an animal, what an animal produces), the mill for its flour. 1
+## with no such upgrade.
 static func sale_mult(sim: Sim, fam: String, item: String) -> float:
-	if fam == "" or not is_farm_good(sim, item):
+	if fam == "":
 		return 1.0
 	var best := 1.0
+	var farm_good := is_farm_good(sim, item)
 	for b: String in _sorted(sim.state.buildings):
-		if str(sim.state.buildings[b].get("owner", "")) == fam and (has_fields(sim, b) or Herds.has_pen(sim, b)):
+		if str(sim.state.buildings[b].get("owner", "")) != fam:
+			continue
+		var makes := farm_good and (has_fields(sim, b) or Herds.has_pen(sim, b))
+		if not makes:  # the patron's other trades (the mill's flour): what the building's recipes make
+			var t := str(sim.state.buildings[b].get("type", ""))
+			for r: Dictionary in sim.catalog.recipes().values():
+				if str(r.get("building", "")) == t and str(r.get("output", {}).get("item", "")) == item:
+					makes = true
+					break
+		if makes:
 			best = maxf(best, Upgrades.mult(sim, b, "market_price"))
 	return best
 

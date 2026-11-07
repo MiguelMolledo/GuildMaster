@@ -4,7 +4,8 @@ extends Node
 ## patron_farmer: the Granja on the street; inside, the four fields as they start (plowed) with the pen and its
 ## animals; Pere sowing; a later yard with every state at once (fallow, plowed, sprouts, green, ready with its days
 ## left, rotten); a field's menu (plow, sow, harvest with their reasons); the cattle fair at the market; the winter
-## pen with its feed; and every upgrade of its tree with the two more fields. The state is edited directly for the
+## pen with its feed; the Campos panel (sowing calendar and pen); every upgrade of its tree with the two more fields;
+## and the bot trades' buildings inside (the mill, the bakery, the butchery) and the butchery on the street. The state is edited directly for the
 ## captures, as the erudito script. Shots reports/shots/patron_<what>.png. Prints "[SmokePatron] ok|FAIL ...";
 ## quits with 1 on a FAIL or a timeout.
 
@@ -34,7 +35,12 @@ func _ready() -> void:
 		["menu_campo", func() -> void: app.interior().open_station_menu("field_b", Vector2(300, 170)), 1.0],
 		["feria", func() -> void: _fair(), 1.5],
 		["invierno", func() -> void: _winter(), 1.5],
+		["panel_campos", func() -> void: _farm_panel(), 1.5],
 		["mejoras", func() -> void: _all_upgrades(), 2.0],
+		["molino", func() -> void: _trade("patron_miller", "mill"), 2.0],
+		["panaderia", func() -> void: _trade("patron_baker", "bakery"), 2.0],
+		["carniceria", func() -> void: _trade("patron_butcher", "butchery"), 2.0],
+		["carniceria_calle", func() -> void: _street(), 1.5],
 	]
 	print("[SmokePatron] start (%d shots)" % _steps.size())
 
@@ -119,6 +125,33 @@ func _winter() -> void:
 	st.characters[HERO]["location"] = BLD
 	app.open_interior(BLD, false)
 	_check(Herds.view(Game.sim, BLD)["winter_feed_days"] >= 0, "the winter feed counted")
+
+
+## The farm panel (Campos, key C): the sowing calendar of 8 days, the fields and the pen.
+func _farm_panel() -> void:
+	app.interior().show_farm(true)
+	_check(app.interior().farm_panel().visible, "the Campos panel open")
+	_check(app.interior().farm_panel().strip().size() == 8, "eight days on the calendar")
+
+
+## A bot trade's start (H12 Patrón: the mill, the bakery, the butchery on the player's plot), seen inside.
+func _trade(start: String, type: String) -> void:
+	if app.interior_building != "":
+		app.close_interior()
+	var r := NewGame.from_start(Game.sim.catalog, start, "normal", {"cast": "fixed"}, 7)
+	_check(bool(r["ok"]), "%s starts" % start)
+	app.call("_on_new_game_started", r["state"])
+	Game.set_paused(true)
+	if app.interior_building != "":
+		app.close_interior()
+	_check(str(Game.sim.state.buildings[BLD]["type"]) == type, "the %s is the player's" % type)
+	Game.sim.state.characters[HERO]["location"] = BLD
+	app.open_interior(BLD, false)
+
+
+func _street() -> void:
+	app.close_interior()
+	app.world().camera().center_on(Iso.tile_to_world(LOT))
 
 
 func _all_upgrades() -> void:

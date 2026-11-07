@@ -1,0 +1,36 @@
+{
+  "id": "bakery_production_3",
+  "name_key": "upgrade.bakery_production_3",
+  "tree": "bakery",
+  "branch": "production",
+  "level": 3,
+  "cost": {
+    "gold": 100,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "bakery_production_2"
+    ],
+    "stat": {
+      "id": "craft",
+      "min": 6
+    },
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "production_speed",
+      "mult": 1.6
+    },
+    {
+      "kind": "unlock_recipe",
+      "recipe": "bakery_pie"
+    }
+  ],
+  "visual": {
+    "interior_node": "bakery_production_3",
+    "exterior_overlay": null
+  }
+}

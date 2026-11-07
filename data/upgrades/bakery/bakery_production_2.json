@@ -1,0 +1,35 @@
+{
+  "id": "bakery_production_2",
+  "name_key": "upgrade.bakery_production_2",
+  "tree": "bakery",
+  "branch": "production",
+  "level": 2,
+  "cost": {
+    "gold": 40,
+    "items": [
+      {
+        "item": "iron",
+        "qty": 5
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "bakery_production_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "oven_2",
+      "like": "oven"
+    }
+  ],
+  "visual": {
+    "interior_node": "bakery_production_2",
+    "exterior_overlay": null
+  }
+}

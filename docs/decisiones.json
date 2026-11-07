@@ -1561,6 +1561,36 @@
       "tema": "Jugador completo · la ruina de una familia IA acaba la partida del jugador · resuelto",
       "decision": "Resuelto en main (tomada «La ruina de una familia IA no acaba la partida (construido)»): state.ending solo con la ruina de una familia humana.",
       "por_que": "Medido por quien lo construyó con full_player, 5 años × 4 semillas: fin de partida por la ruina de una IA de 3/4 a 0/4. El informe de full_player lo vigila con ended_by_ai."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "H12 Patrón · Molino, Panadería y Carnicería (oficios de bot)",
+      "decision": "Los tres oficios entran como edificios completos (datos, 24 mejoras cada uno, fachada fal, interior por datos) y profesiones con \"new_game\": false: no salen en Partida nueva, solo como inicios de bot (patron_miller, patron_baker, patron_butcher: el edificio en el solar de la forja, 150 de oro, sin deuda). La clave loan de un inicio pasa a ser opcional.",
+      "por_que": "04d 4.22.4.9 pide escenarios mill_open / bakery_open / butchery_open con 150 de oro y sin deuda para medir cada oficio; el jugador los usará cuando la cadena Granja → Molino → Panadería esté jugable entera, que es otra decisión del owner."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "H12 Patrón · pan ×6 en 2 h y despiece en 1,5 h [balance]",
+      "decision": "bakery_bread: harina + leña → pan ×6 en 2 h (04d: ×5 en 2,5 h). butcher_cut: cerdo → carne ×6 en 1,5 h (04d: 2 h).",
+      "por_que": "Con las cifras del GDD el panadero novato quedaba en +19,8 / −10 netos/día (año 1 / año 2) y el carnicero en +22,9 / +14,5, bajo la banda [+20, +80] de 4.22.4.9. Medido (5 semillas × 16 días): panadero +30,3 / +23,9, carnicero +21,3 / +31,3, molinero +52,2 / +46,5; en la QA (6 semillas): panadero 27,2 / 17,9, carnicero 24,1 / 32,4, molinero 51,9 / 45,3."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "H12 Patrón · pesos de demanda de la cadena y harina a 15 (P3, P10)",
+      "decision": "Peso de demanda 0,2 en harina y carne, 0,25 en pan, cerveza, empanada y embutido; harina a 15 de base. Nuevas: empanada de carne (18) y embutido (22) en el puesto de comida; herramientas cedazo, pala de horno y cuchilla.",
+      "por_que": "Lo que 4.22.4.9 dejó en espera hasta que entraran el Molino, la Panadería y la Carnicería: una venta de pan no debe hundir el precio como una espada."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "H12 Patrón · BotPatronTrade",
+      "decision": "Los bots miller_novice, baker_novice y butcher_novice son BotPatronTrade (hereda de BotArtisanTrade): también vende los intermedios que tienen puesto (la carne, la harina) y reparte por lote de receta.",
+      "por_que": "El bot genérico de oficio guardaba la carne como intermedio y el carnicero se quedaba parado."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "H12 Patrón · panel Campos de la Granja",
+      "decision": "Calendario de siembra y corral en un panel propio del interior (botón Campos, tecla C): franja de 8 días con estación, día de cosecha si se siembra ese día, campos que maduran o se pudren; líneas de cada campo y del corral (pienso de invierno, crías). Spec docs/ui/mecanicas/campos_y_ganado.md.",
+      "por_que": "4.22.4.8 lo dejaba en «falta»: la línea del menú del puesto solo enseñaba un campo y un día."
     }
   ],
   "pendientes": [
@@ -1676,6 +1706,10 @@
       "tema": "Jugador completo · el desbloqueo del heredero llega fuera de su ventana",
       "detalle": "full_player --generation, semilla 1, sobre 1314e214 (main 541c6dcc): el fundador muere a los 67 años el día 377 y el desbloqueo «heir» de data/unlocks.json llega el día índice 376, con la ventana [150, 250] (03b: «Generación 2 · ~17 h»). El fundador empieza con 20 años y la muerte llega entre los 55 y los 75 (data/family.json death), es decir, entre los días ~280 y ~440: la ventana supone una muerte antes de lo que da la regla. Es la única diana que falla en la generación (unlocks_off = 1); refused_orders 0. reports/full_player_ref/full_player_gen_fix.json.",
       "opciones": "(a) ventana del heredero [270, 450] (la de la regla de muerte) · (b) que el desbloqueo llegue antes, por la edad del primogénito (16) o al designar heredero · (c) dejar fuera de unlocks_off los desbloqueos de generación"
+    },
+    {
+      "tema": "Pacing · la meta del año (devolver la deuda) sale en un inicio sin deuda",
+      "detalle": "data/unlocks.json year_goal = repay_debt y el desbloqueo «debt» (día 0) no miran si la familia tiene préstamo: en patron_miller / patron_baker / patron_butcher (sin deuda, solo de bot) el HUD enseña «Devuelve la deuda antes del día 8» y la tarjeta «la deuda del año» (captura reports/shots/patron_carniceria.png). Propuesta: que year_goal y el desbloqueo debt solo cuenten si la familia empieza con un préstamo. No se toca ahora porque el ritmo de desbloqueos es común y estos inicios no salen en Partida nueva."
     }
   ],
   "proximos_pasos": [

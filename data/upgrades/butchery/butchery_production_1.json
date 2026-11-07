@@ -1,0 +1,33 @@
+{
+  "id": "butchery_production_1",
+  "name_key": "upgrade.butchery_production_1",
+  "tree": "butchery",
+  "branch": "production",
+  "level": 1,
+  "cost": {
+    "gold": 15,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 2
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 0.5,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "chopping_block_2",
+      "like": "chopping_block"
+    }
+  ],
+  "visual": {
+    "interior_node": "butchery_production_1",
+    "exterior_overlay": null
+  }
+}

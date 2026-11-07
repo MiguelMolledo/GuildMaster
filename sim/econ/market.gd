@@ -494,13 +494,12 @@ static func _errand_reason(sim: Sim, actor: String, to: String, item: String, qu
 	return _pen_reason(sim, to, item, qty)
 
 
-## H12 Patrón (04d 4.22.4.2): an animal sent to a building goes to its pen: "no_pen" if it has none, "pen_full" if the
-## herd, the animals on their way and `qty` exceed its capacity; "" otherwise (and for anything that is not an animal).
+## H12 Patrón (04d 4.22.4.2): an animal sent to a building with a pen goes to its pen: "pen_full" if the herd, the
+## animals on their way and `qty` exceed its capacity; "" otherwise (a building without a pen, the butchery, keeps it in
+## its storage; and anything that is not an animal).
 static func _pen_reason(sim: Sim, to: String, item: String, qty: int) -> String:
-	if to == "" or not sim.catalog.animals().has(item):
-		return ""
-	if not Herds.has_pen(sim, to):
-		return "no_pen"
+	if to == "" or not sim.catalog.animals().has(item) or not Herds.has_pen(sim, to):
+		return ""  # no pen (the butchery): the animal waits in the storage to be cut
 	var coming := 0
 	for d: Dictionary in sim.state.deliveries:
 		if str(d.get("to", "")) == to and sim.catalog.animals().has(str(d.get("item", ""))):

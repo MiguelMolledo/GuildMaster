@@ -1,0 +1,23 @@
+{
+  "id": "bakery_bread",
+  "name_key": "recipe.bakery_bread",
+  "building": "bakery",
+  "zone": "oven",
+  "inputs": [
+    {
+      "item": "flour",
+      "qty": 1
+    },
+    {
+      "item": "wood",
+      "qty": 1
+    }
+  ],
+  "output": {
+    "item": "bread",
+    "qty": 6
+  },
+  "duration_hours": 2.0,
+  "min_craft": 1,
+  "_doc": "H12 Patrón (04d 4.22.4.3) [balance]: bread ×6 in 2 h (the GDD's ×5 in 2,5 h left the baker under its band: normal bread sells at ~6 and the flour costs 15 or more)."
+}

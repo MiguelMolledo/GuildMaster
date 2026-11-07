@@ -162,6 +162,22 @@ ICONS.update({  # H12.2 · el Erudito (04d 4.22.5): el médico y los préstamos
     "loan": ("ui/icons/icon_loan.png", "a small leather purse of gold coins on a parchment with a red wax seal"),
 })
 
+# H12 Patrón (04d 4.22.7): the goods, tools and animals of the miller, the baker, the butcher and the farm
+ICONS.update({
+    "meat": ("icons/meat.png", "a raw red cut of meat with a white bone and a rim of fat, on a little brown paper"),
+    "ale": ("icons/ale.png", "a small wooden cask of ale lying on its side with iron hoops and a tap, a drop of amber"),
+    "meat_pie": ("icons/meat_pie.png", "a round golden baked meat pie with a crimped crust and a steam vent"),
+    "sausage": ("icons/sausage.png", "three plump dark red cured chorizo sausages lying side by side diagonally, "
+                                    "linked by short bits of white string, one cut showing marbled red slices"),
+    "flour_sieve": ("icons/flour_sieve.png", "a round wooden flour sieve with a fine mesh and a little white flour on it"),
+    "baker_peel": ("icons/baker_peel.png", "a baker's wooden peel: a flat wide paddle on a long handle, diagonal, "
+                                           "a small loaf on the blade"),
+    "cleaver": ("icons/cleaver.png", "a butcher's cleaver with a broad rectangular steel blade and a wooden handle, "
+                                     "diagonal"),
+    "sheep": ("icons/sheep.png", "a small white woolly sheep with a black face and legs, side view, standing"),
+    "pig": ("icons/pig.png", "a small pink pig with a curly tail, side view, standing"),
+})
+
 GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashlar", "grindstone", "trough"],
          "i3": ["millstone", "statue", "gavel", "ballot_box"], "i4": ["reputation", "menu", "save", "load"],
          "b1": ["emotion_grateful", "emotion_offended", "emotion_angry", "emotion_scared"],
@@ -180,7 +196,11 @@ GRIDS = {"i1": ["saw", "steel", "chest", "cabinet"], "i2": ["cart_wheel", "ashla
          "j2": ["game_tourney", "game_bets", "game_joust", "game_sortija"],
          "j3": ["game_race", "game_bulls", "trait_water_tempered", "trait_air_cooled"],
          "j4": ["game_azar", "game_sortija"],
-         "e1": ["salve", "doctor_bag", "patient", "loan"]}  # j4: el azar salía sin puntos y la anilla no se veía (el cubilete
+         "e1": ["salve", "doctor_bag", "patient", "loan"],
+         "h12a": ["meat", "ale", "meat_pie", "sausage"],
+         "h12b": ["flour_sieve", "baker_peel", "cleaver", "sheep"],
+         "h12c": ["pig"],
+         "h12d": ["sausage"]}  # j4: el azar salía sin puntos y la anilla no se veía (el cubilete
 #   de esa rejilla salió boca arriba: se dibuja con Pillow, tools/art/juegos_taberna.py cubilete)  # repetidas: el arancel no se leía y el aliento era una mancha  # repetida: la de i2 salió ilegible (la última rejilla manda)
 REDO_2 = {
     "tariff": "a toll gate: a horizontal red and white striped wooden barrier pole on a post, with a small stack "

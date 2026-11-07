@@ -1,0 +1,12 @@
+{
+  "id": "baker",
+  "name_key": "profession.baker",
+  "class": "patron",
+  "order": 2,
+  "building": "bakery",
+  "tool": "baker_peel",
+  "start": "patron_baker",
+  "contracts": "baker",
+  "new_game": false,
+  "_doc": "H12 Patrón (04d 4.22.4.3-4, O2 a): a trade of the patron that does not open a new game (only the farmer does; new_game false): its start patron_baker is the scenario of its bot (4.22.4.9: the building open, 150 gold, no debt)."
+}

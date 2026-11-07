@@ -419,7 +419,7 @@
         {
           "texto": "Cada profesión tiene un bot que gana dinero con ella",
           "estado": "pendiente",
-          "prueba": "parcial: con rival de su mismo oficio, carpenter_novice 38,4, mason_novice 38,0 y tailor_novice 46,6 de oro neto al día; H12.2 (Erudito): scholar_novice (el Médico) 51,4 (30 semillas, Normal, diana 25-60; Fácil 55,5 > Normal 51,4 > Difícil 47,9; deuda 30/30); H12 Patrón: patron_novice (el Granjero) 33,6 (30 semillas, Normal, diana 25-60; Fácil 40,0 > Normal 33,6 > Difícil 33,4; deuda 29/30; ningún animal muerto de hambre); faltan los otros oficios del Patrón (molinero, panadero, carnicero), el resto del Erudito (sacerdote, alquimista, escriba, banquero) y Pícaro",
+          "prueba": "parcial: con rival de su mismo oficio, carpenter_novice 38,4, mason_novice 38,0 y tailor_novice 46,6 de oro neto al día; H12.2 (Erudito): scholar_novice (el Médico) 51,4 (30 semillas, Normal, diana 25-60; Fácil 55,5 > Normal 51,4 > Difícil 47,9; deuda 30/30); H12 Patrón: patron_novice (el Granjero) 33,6 (30 semillas, Normal, diana 25-60; Fácil 40,0 > Normal 33,6 > Difícil 33,4; deuda 29/30; ningún animal muerto de hambre); oficios de bot del Patrón (inicio con el edificio, 150 de oro, sin deuda; diana 20-80 días 1-16, 6 semillas, Normal): miller_novice 51,9 / 45,3 (año 1 / año 2), baker_novice 27,2 / 17,9, butcher_novice 24,1 / 32,4; faltan el posadero comprando pan y carne y la cadena Granja → Molino → Panadería (patron_chain), el resto del Erudito (sacerdote, alquimista, escriba, banquero) y Pícaro",
           "fecha": null
         },
         {

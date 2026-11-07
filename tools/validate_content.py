@@ -379,7 +379,7 @@ def check_h3(items, recipes, buildings, maps, strings, rep):
                 if st.get("item") not in items:
                     rep.error(w, f"{name}: objeto desconocido {st.get('item')}")
         ln = s.get("loan") or {}
-        for k in ("term_days", "extension_seasons"):
+        for k in ("term_days", "extension_seasons") if "loan" in s else ():  # H12 Patrón: a bot's start without debt
             if not isinstance(ln.get(k), int) or ln[k] < 1:
                 rep.error(w, f"loan.{k} debe ser un entero >= 1")
         tables_items = {it.get("item") for ct in contract_tables.values() for it in ct.get("items") or []}

@@ -91,6 +91,10 @@
     "mortar": {
       "name_key": "ui.zone.mortar"
     },
+    "millstone": {"name_key": "ui.zone.millstone"},
+    "oven": {"name_key": "ui.zone.oven"},
+    "chopping_block": {"name_key": "ui.zone.chopping_block"},
+    "smokehouse": {"name_key": "ui.zone.smokehouse"},
     "forger_bench": {
       "name_key": "ui.zone.forger_bench"
     }

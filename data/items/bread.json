@@ -6,5 +6,6 @@
   "weight": 1.0,
   "max_stack": 20,
   "base_price": 8,
-  "market_stall": "food"
+  "market_stall": "food",
+  "demand_weight": 0.25
 }

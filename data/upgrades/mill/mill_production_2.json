@@ -1,0 +1,35 @@
+{
+  "id": "mill_production_2",
+  "name_key": "upgrade.mill_production_2",
+  "tree": "mill",
+  "branch": "production",
+  "level": 2,
+  "cost": {
+    "gold": 40,
+    "items": [
+      {
+        "item": "iron",
+        "qty": 5
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "mill_production_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "millstone_2",
+      "like": "millstone"
+    }
+  ],
+  "visual": {
+    "interior_node": "mill_production_2",
+    "exterior_overlay": null
+  }
+}

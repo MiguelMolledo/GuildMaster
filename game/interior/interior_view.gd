@@ -128,6 +128,11 @@ func inn_panel() -> InnPanel:
 	return get_node("%InnPanel")
 
 
+## H12 Patrón (04d 4.22.4.8): the farm's panel (sowing calendar, fields, pen) of a building with fields or a pen.
+func farm_panel() -> FarmPanel:
+	return get_node("%FarmPanel")
+
+
 func inn_layer() -> InnLayer:
 	return _inn
 
@@ -143,6 +148,9 @@ func _bind() -> void:
 	(%InnButton as Button).toggled.connect(func(on: bool) -> void: show_inn(on))
 	ManageSlot.join(inn_panel())
 	inn_panel().closed.connect(func() -> void: (%InnButton as Button).set_pressed_no_signal(false))
+	(%FarmButton as Button).toggled.connect(func(on: bool) -> void: show_farm(on))
+	ManageSlot.join(farm_panel())
+	farm_panel().closed.connect(func() -> void: (%FarmButton as Button).set_pressed_no_signal(false))
 	(%ExitButton as Button).pressed.connect(request_exit)
 	production_panel().panel_requested.connect(func(p: String) -> void:
 		if p == "staff":
@@ -230,6 +238,7 @@ func setup(s: Sim, bld: String, who: String, manage_mode: bool) -> void:
 	for n: String in ["StorageButton", "ProductionButton", "StaffButton", "UpgradesButton"]:
 		(get_node("%" + n) as Button).set_pressed_no_signal(false)
 	_setup_inn(s, bld, who)
+	_setup_farm(s, bld)
 	sync()
 	ViewConfig.info("Interior", "setup (building=%s, manage=%s, size=%s, door=%s, stations=%d, selected=%s)" % [bld,
 		manage_mode, size_tiles, door_tile, _stations.size(), who])
@@ -265,6 +274,28 @@ func _setup_inn(s: Sim, bld: String, who: String) -> void:
 
 
 ## The Taberna-Posada's panel (posada, 04f §4.27).
+## H12 Patrón: a building with fields or a pen gets the «Campos» button and its panel (key C).
+func _setup_farm(s: Sim, bld: String) -> void:
+	var is_farm := Fields.has_fields(s, bld) or Herds.has_pen(s, bld)
+	(%FarmButton as Button).visible = is_farm and shop_stall == ""
+	(%FarmButton as Button).set_pressed_no_signal(false)
+	(%FarmButton as Button).text = SimQuery.t_("ui.interior.farm")
+	(%FarmButton as Button).tooltip_text = SimQuery.t_("ui.interior.farm_tip") + " (C)"
+	farm_panel().close()
+	if is_farm:
+		farm_panel().setup(s, bld)
+	if OS.is_debug_build():
+		print("[Interior] farm panel %s (building=%s)" % ["on" if is_farm else "off", bld])
+
+
+func show_farm(on: bool) -> void:
+	(%FarmButton as Button).set_pressed_no_signal(on)
+	if on:
+		farm_panel().open()
+	else:
+		farm_panel().close()
+
+
 func show_inn(on: bool) -> void:
 	(%InnButton as Button).set_pressed_no_signal(on)
 	if on:
@@ -713,6 +744,9 @@ func handle_keys(event: InputEvent) -> bool:
 		return false
 	if _inn != null and event is InputEventKey and (event as InputEventKey).keycode == KEY_T:
 		(%InnButton as Button).button_pressed = not (%InnButton as Button).button_pressed  # posada: T = the tavern
+		return true
+	if (%FarmButton as Button).visible and (event as InputEventKey).keycode == KEY_C:
+		(%FarmButton as Button).button_pressed = not (%FarmButton as Button).button_pressed  # granja: C = the fields
 		return true
 	for pair: Array in [["panel_production", "ProductionButton"], ["panel_storage", "StorageButton"],
 			["panel_staff", "StaffButton"], ["panel_upgrades", "UpgradesButton"]]:

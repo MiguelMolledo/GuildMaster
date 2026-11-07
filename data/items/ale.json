@@ -7,5 +7,6 @@
   "max_stack": 10,
   "base_price": 4,
   "market_stall": "food",
-  "_doc": "Cerveza: se elabora en la cocina (tavern_brew_ale) o se compra en el puesto de comida."
+  "_doc": "Cerveza: se elabora en la cocina (tavern_brew_ale) o se compra en el puesto de comida.",
+  "demand_weight": 0.25
 }

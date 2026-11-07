@@ -1,0 +1,35 @@
+{
+  "id": "butchery_production_2",
+  "name_key": "upgrade.butchery_production_2",
+  "tree": "butchery",
+  "branch": "production",
+  "level": 2,
+  "cost": {
+    "gold": 40,
+    "items": [
+      {
+        "item": "iron",
+        "qty": 5
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "butchery_production_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "new_zone",
+      "zone": "smokehouse_2",
+      "like": "smokehouse"
+    }
+  ],
+  "visual": {
+    "interior_node": "butchery_production_2",
+    "exterior_overlay": null
+  }
+}

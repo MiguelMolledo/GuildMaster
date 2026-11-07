@@ -1,0 +1,34 @@
+{
+  "id": "mill_commerce_3",
+  "name_key": "upgrade.mill_commerce_3",
+  "tree": "mill",
+  "branch": "commerce",
+  "level": 3,
+  "cost": {
+    "gold": 125,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "mill_commerce_2",
+      "mill_facade_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "market_price",
+      "mult": 1.15
+    },
+    {
+      "kind": "reputation",
+      "amount": 5
+    }
+  ],
+  "visual": {
+    "interior_node": "mill_commerce_3",
+    "exterior_overlay": null
+  }
+}

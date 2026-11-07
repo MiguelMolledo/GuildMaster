@@ -388,8 +388,8 @@ molinero: trigo ×20 en 2 días; (4) compra dos ovejas; (5) cosecha antes de que
 | Cola de producción | [produccion.md](../ui/mecanicas/produccion.md) | existe |
 | Almacén, comprar y vender, recado | [almacen_y_personaje.md](../ui/mecanicas/almacen_y_personaje.md), [mercado_y_libro.md](../ui/mecanicas/mercado_y_libro.md) | existe; añadir el puesto `livestock` |
 | **Campos en el mapa**: cada campo dibuja su estado (tierra, surcos, brotes, trigo maduro, podrido) con barra de crecimiento y días hasta listo / hasta pudrirse; clic derecho = Arar / Sembrar / Cosechar | `docs/ui/mecanicas/campos_y_ganado.md` | **falta** |
-| **Calendario de siembra**: franja de 8 días con la estación, qué se puede sembrar y cuándo estará listo | el mismo | **falta** |
-| **Corral**: animales, pienso que queda para el invierno (días), crías que vienen | el mismo | **falta** |
+| **Calendario de siembra**: franja de 8 días con la estación, qué se puede sembrar y cuándo estará listo | el mismo | hecho (panel Campos, `game/ui/farm_panel.gd`) |
+| **Corral**: animales, pienso que queda para el invierno (días), crías que vienen | el mismo | hecho (panel Campos; animales dibujados con PixelLab, 4.22.9 #4) |
 | **Servicios**: precio con − / +, cola de clientes, ingresos del día por servicio, camas ocupadas | `docs/ui/mecanicas/servicios.md` | **falta** |
 
 #### 4.22.4.9 Bots y dianas
@@ -433,6 +433,23 @@ molinero: trigo ×20 en 2 días; (4) compra dos ovejas; (5) cosecha antes de que
 - **Dificultad en el campo**: palanca `harvest_mult` (×1,15 / ×1 / ×0,85 la cosecha): las de hoy apenas tocan a quien no compra.
 - Medido (30 semillas, Normal): **33,6 netos/día** (cuenta de 4.22.8: ~39), deuda 29/30, ningún animal muerto de
   hambre; Fácil 40,0 > Normal 33,6 > Difícil 33,4.
+
+**Hecho en H12 · Patrón: Molino, Panadería y Carnicería (2026-11-07)**:
+
+- **Edificios** `mill`, `bakery`, `butchery` (3×4 con vivienda, mantenimiento 12; fachada fal propia, interior por
+  datos `data/interiors/<id>.json`, 24 mejoras cada uno con Producción y Calidad de 4.22.7). Puestos: muela; horno y
+  mostrador; tajo, ahumadero y mostrador (y su segundo puesto con la mejora de capacidad).
+- **Recetas**: trigo ×2 → harina (1 h); harina + leña → pan ×6 en 2 h [balance: el GDD dice ×5 en 2,5 h]; harina +
+  carne ×2 → empanada ×3 (3 h, Producción 3); cerdo → carne ×6 en 1,5 h [balance: 2 h]; carne ×3 + hierbas → embutido
+  ×2 (3 h). Nuevos: empanada (18) y embutido (22) en el puesto de comida; cedazo, pala de horno y cuchilla.
+- **Peso de demanda** (P3): harina y carne 0,2; pan, cerveza, empanada y embutido 0,25; harina a 15 (P10).
+- **Inicios de bot** `patron_miller` / `patron_baker` / `patron_butcher` (el edificio en el solar de la forja, 150 de
+  oro, sin deuda): son los escenarios `mill_open` / `bakery_open` / `butchery_open` de la tabla. Las profesiones
+  llevan `"new_game": false`: no salen en Partida nueva hasta que la cadena se juegue entera.
+- **Bots** `miller_novice`, `baker_novice`, `butcher_novice` (`sim/bots/bot_patron_trade.gd`), dianas
+  `goldflow.start_miller|baker|butcher` ([+20, +80] días 1-16) y pasos `trades_patron`, `baker`, `butcher` de run_all.
+- **Panel Campos** (calendario de siembra y corral): [campos_y_ganado.md](../ui/mecanicas/campos_y_ganado.md).
+- Queda: `innkeeper` comprando pan y carne a estos oficios y `patron_chain` (Granja + Molino + Panadería).
 
 #### 4.22.4.10 Riesgos
 

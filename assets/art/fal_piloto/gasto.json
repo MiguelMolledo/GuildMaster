@@ -22424,5 +22424,590 @@
   "imagenes": 1,
   "usd": 0.08,
   "que": "fondo farm planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-07T09:53:50",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "mill"
+ },
+ {
+  "fecha": "2026-11-07T09:54:02",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0015,
+  "que": "image2pixel mill_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:54:21",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "mill_back"
+ },
+ {
+  "fecha": "2026-11-07T09:54:27",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel mill_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:54:46",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "mill_construction"
+ },
+ {
+  "fecha": "2026-11-07T09:54:51",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel mill_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:55:10",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "mill_damaged"
+ },
+ {
+  "fecha": "2026-11-07T09:55:16",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel mill_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:55:33",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "mill_back_construction"
+ },
+ {
+  "fecha": "2026-11-07T09:55:39",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel mill_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:55:56",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "mill_back_damaged"
+ },
+ {
+  "fecha": "2026-11-07T09:56:01",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel mill_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:56:18",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "bakery"
+ },
+ {
+  "fecha": "2026-11-07T09:56:24",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel bakery_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:56:43",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "bakery_back"
+ },
+ {
+  "fecha": "2026-11-07T09:56:48",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel bakery_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:57:09",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "bakery_construction"
+ },
+ {
+  "fecha": "2026-11-07T09:57:15",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel bakery_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:57:33",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "bakery_damaged"
+ },
+ {
+  "fecha": "2026-11-07T09:57:38",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel bakery_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:57:57",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "bakery_back_construction"
+ },
+ {
+  "fecha": "2026-11-07T09:58:03",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel bakery_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:58:21",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "bakery_back_damaged"
+ },
+ {
+  "fecha": "2026-11-07T09:58:27",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel bakery_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:58:43",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "butchery"
+ },
+ {
+  "fecha": "2026-11-07T09:58:49",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel butchery_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:59:06",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "butchery_back"
+ },
+ {
+  "fecha": "2026-11-07T09:59:12",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel butchery_back_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T09:59:37",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "butchery_construction"
+ },
+ {
+  "fecha": "2026-11-07T09:59:42",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel butchery_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T10:00:04",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "butchery_damaged"
+ },
+ {
+  "fecha": "2026-11-07T10:00:10",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel butchery_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T10:00:36",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "butchery_back_construction"
+ },
+ {
+  "fecha": "2026-11-07T10:00:42",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0005,
+  "que": "image2pixel butchery_back_construction_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T10:01:04",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "butchery_back_damaged"
+ },
+ {
+  "fecha": "2026-11-07T10:01:10",
+  "tanda": "extra",
+  "pieza": "fachadas",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0004,
+  "que": "image2pixel butchery_back_damaged_s4.png"
+ },
+ {
+  "fecha": "2026-11-07T10:55:08",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "p3"
+ },
+ {
+  "fecha": "2026-11-07T10:56:12",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0106,
+  "que": "image2pixel p1_meat_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:56:16",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel p1_ale_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:56:20",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel p1_meat_pie_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:56:24",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel p1_sausage_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:56:28",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel p2_flour_sieve_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:56:30",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel p2_baker_peel_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:56:33",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel p2_cleaver_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:56:35",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel p2_sheep_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:56:39",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel p3_pig_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:57:35",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "h12a"
+ },
+ {
+  "fecha": "2026-11-07T10:57:50",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "h12b"
+ },
+ {
+  "fecha": "2026-11-07T10:58:03",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "h12c"
+ },
+ {
+  "fecha": "2026-11-07T10:58:13",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0015,
+  "que": "image2pixel h12a_meat_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:58:17",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel h12a_ale_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:58:21",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel h12a_meat_pie_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:58:24",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel h12a_sausage_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:58:27",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel h12b_flour_sieve_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:58:30",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel h12b_baker_peel_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:58:34",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel h12b_cleaver_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:58:37",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0002,
+  "que": "image2pixel h12b_sheep_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:58:41",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel h12c_pig_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T10:59:08",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "h12d"
+ },
+ {
+  "fecha": "2026-11-07T10:59:12",
+  "tanda": "extra",
+  "pieza": "iconos",
+  "modelo": "fal-ai/image2pixel",
+  "imagenes": 1,
+  "usd": 0.0003,
+  "que": "image2pixel h12d_sausage_s16.png"
+ },
+ {
+  "fecha": "2026-11-07T11:03:45",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo mill planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-07T11:04:13",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo bakery planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-07T11:04:41",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo bakery planta 1 (v1)"
+ },
+ {
+  "fecha": "2026-11-07T11:05:04",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo butchery planta 0 (v1)"
+ },
+ {
+  "fecha": "2026-11-07T11:05:26",
+  "tanda": "interiores",
+  "pieza": "interiores",
+  "modelo": "fal-ai/nano-banana-2/edit",
+  "imagenes": 1,
+  "usd": 0.08,
+  "que": "fondo butchery planta 1 (v1)"
  }
 ]

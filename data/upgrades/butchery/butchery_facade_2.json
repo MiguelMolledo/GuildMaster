@@ -1,0 +1,38 @@
+{
+  "id": "butchery_facade_2",
+  "name_key": "upgrade.butchery_facade_2",
+  "tree": "butchery",
+  "branch": "facade",
+  "level": 2,
+  "cost": {
+    "gold": 100,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 5
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [
+      "butchery_facade_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.5,
+  "effects": [
+    {
+      "kind": "reputation",
+      "amount": 20
+    },
+    {
+      "kind": "loyalty_bonus",
+      "amount": 5
+    }
+  ],
+  "visual": {
+    "interior_node": null,
+    "exterior_overlay": "upgrade_garden"
+  }
+}
