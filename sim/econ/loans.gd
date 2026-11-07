@@ -399,7 +399,9 @@ static func _seize(sim: Sim, id: String) -> void:
 	if str(loan.get("kind", "")) == Emergency.KIND and Emergency.seize_good(sim, fam, "emergency_loan"):
 		return  # Equilibrio 2: an emergency loan takes a good (not the home) before the ruin
 	Notices.add(sim, fam, Notices.URGENT, "notice.ruin", {"loan": id, "missing": owed}, bld)
-	if st.ending.is_empty():
+	# only the human family's ruin ends the game (an AI family with a loan of the moneylender, H12.2, is left seized:
+	# its bankruptcy is H6's 4.21.6.3); before, an AI family's ruin ended the player's game
+	if st.ending.is_empty() and str(st.families.get(fam, {}).get("controlled_by", "")) == "human":
 		st.ending = {"kind": "ruin", "family": fam, "minute": int(st.clock["minute"]), "loan": id}
 		sim.events.append({"type": "game_over", "kind": "ruin", "family": fam})
 		if OS.is_debug_build():
