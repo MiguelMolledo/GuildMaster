@@ -15,10 +15,13 @@ extends RefCounted
 ##   profile's max_employees, else economy.max_employees) and queues the head's recipe for the employees (changing
 ##   the queue when the recipe changes) if its recipe pays the wage (what one more hand adds a day, as far as the
 ##   market takes it, × its margin ≥ hire_pay × the wage); under its reserve (reserve()) it lets the last one go.
+## - A family venida a menos (H6's bankruptcy): its adults nobody hired earn a day labourer's wage at dawn
+##   (economy.fallen.day_wage), so it has an income and can put up a workshop again.
 ## - Credit (step(), at dawn after the upkeep): a family that cannot pay the next dawn's upkeep and wages borrows
 ##   economy.credit.amount plus the upkeep it owes (up to max_amount) from the moneylender (a loan of kind CREDIT
 ##   owing amount × (1 + interest) in term_days,
-##   at most one open, every gap_days at most); at each dawn it repays what it has over its reserve. Due unpaid, the
+##   at most one open, every gap_days at most; short again before it is due, one more advance on it, up to max_owed);
+##   at each dawn it repays what it has over its reserve. Due unpaid, the
 ##   loan runs Loans' extension and seizure; a CREDIT loan the seizure does not cover is written off, never a ruin
 ##   (the ruin ends the player's game).
 ## - Buying: the cycles of a recipe are capped by what the market takes of its piece in the next absorb_days (the
@@ -227,7 +230,8 @@ static func _manage(sim: Sim, fam: String, head: String, home: String, profile: 
 	var rid := str(st.families[fam].get("ai_state", {}).get("recipe", ""))
 	var maxe := int(profile.get("max_employees", c.get("max_employees", 1)))
 	if staff.size() < maxe and today >= int(c.get("hire_after_days", 2)) and rid != "" \
-			and (hist.size() < 2 or trend >= 0) and Staff.free_slots(st, home) > 0:
+			and (hist.size() < 2 or trend >= 0) and Staff.free_slots(st, home) > 0 \
+			and Bankruptcy.stage(sim, fam) == Bankruptcy.NORMAL:  # H6 contract: no hiring in austerity or for sale
 		var cand := _cheapest(sim, head, home)
 		if cand != "" and gold >= reserve(sim, fam, profile) + Staff.wage(sim, cand) * int(c.get("buffer_days", 6)) \
 				and _pays(sim, fam, home, profile, rid, Staff.wage(sim, cand)):
@@ -431,12 +435,20 @@ static func step(sim: Sim) -> void:
 	var today := Clock.day(int(st.clock["minute"]))
 	for fam: String in Hostility._ai_families(st):
 		var profile := Hostility._profile(sim, fam)
+		if st.families[fam].has("fallen"):
+			_day_labour(sim, fam)
 		var open := ""
 		for id: String in Loans.of_family(sim, fam):
 			if str(st.loans[id].get("kind", "")) == CREDIT:
 				open = id
 		if open != "":
-			_repay(sim, fam, open, Money.gold(st, fam) - reserve(sim, fam, profile))
+			var ln: Dictionary = st.loans[open]
+			var add := roundi(int(c.get("amount", 120)) * (1.0 + float(c.get("interest", 0.2))))
+			if Money.gold(st, fam) < int(Upkeep.due_next_dawn(sim, fam)["total"]) and str(ln["state"]) == Loans.ACTIVE \
+					and int(ln["outstanding"]) + add <= int(c.get("max_owed", 360)):
+				_advance(sim, fam, open, c)  # short again before it is due: one more advance on the same credit
+			else:
+				_repay(sim, fam, open, Money.gold(st, fam) - reserve(sim, fam, profile))
 			continue
 		var gold := Money.gold(st, fam)
 		var due := int(Upkeep.due_next_dawn(sim, fam)["total"])
@@ -457,15 +469,51 @@ static func step(sim: Sim) -> void:
 		st.loans[id]["kind"] = CREDIT
 		Money.change(sim, fam, amount, Money.LOANS, id)
 		mem["credit_day"] = today
-		var ids: Array = st.buildings.keys()
-		ids.sort()
-		for b: String in ids:  # the upkeep it owes first: the town is paid and a damaged workshop repaired
-			if Money.family_of(st, b) == fam and int(st.buildings[b].get("upkeep_debt", 0)) > 0:
-				Upkeep._charge(sim, b, fam, 0)
+		_settle_upkeep(sim, fam)  # the upkeep it owes first: the town is paid and a damaged workshop repaired
 		sim.events.append({"type": "ai_credit_taken", "family": fam, "loan": id, "amount": amount, "owed": owed})
 		if OS.is_debug_build():
 			print("[AIEconomy] %s pide crédito: oro=%d < %d de mañana; recibe %d, devuelve %d en %d días (%s)" % [fam,
 				gold, due, amount, owed, int(c.get("term_days", 8)), id])
+
+
+## H6 × H13 (manager, 2026-11-07, option b): a family venida a menos earns: its adults are candidates to be hired
+## (Staff.is_unemployed) and each one nobody hired is paid economy.fallen.day_wage at dawn as a day labourer.
+static func _day_labour(sim: Sim, fam: String) -> void:
+	var st := sim.state
+	var w := int(cfg(sim).get("fallen", {}).get("day_wage", 6))
+	for m: Variant in st.families[fam].get("members", []):
+		var id := str(m)
+		var ch: Dictionary = st.characters.get(id, {})
+		if ch.is_empty() or not Kin.alive(st, id) or not Kin.is_adult(sim, id) or ch.get("job") is Dictionary:
+			continue
+		Money.change(sim, fam, w, Money.WAGES, "day_labour", "", id)
+		if OS.is_debug_build():
+			print("[AIEconomy] %s (%s, venida a menos) cobra su jornal de peón: %d" % [id, fam, w])
+
+
+## One more advance on an open credit (economy.credit.amount, owing it × (1 + interest) on the same loan, up to
+## max_owed): the upkeep it owes is paid first, as with a new credit.
+static func _advance(sim: Sim, fam: String, id: String, c: Dictionary) -> void:
+	var st := sim.state
+	var amount := int(c.get("amount", 120))
+	var add := roundi(amount * (1.0 + float(c.get("interest", 0.2))))
+	st.loans[id]["outstanding"] = int(st.loans[id]["outstanding"]) + add
+	st.loans[id]["principal"] = int(st.loans[id]["principal"]) + add
+	Money.change(sim, fam, amount, Money.LOANS, id)
+	_settle_upkeep(sim, fam)
+	sim.events.append({"type": "ai_credit_taken", "family": fam, "loan": id, "amount": amount, "owed": add})
+	if OS.is_debug_build():
+		print("[AIEconomy] %s recibe otro adelanto de %d sobre %s (debe %d)" % [fam, amount, id, int(st.loans[id]["outstanding"])])
+
+
+## The upkeep the family owes the town, paid now as far as its gold goes (a damaged workshop is repaired).
+static func _settle_upkeep(sim: Sim, fam: String) -> void:
+	var st := sim.state
+	var ids: Array = st.buildings.keys()
+	ids.sort()
+	for b: String in ids:
+		if Money.family_of(st, b) == fam and int(st.buildings[b].get("upkeep_debt", 0)) > 0:
+			Upkeep._charge(sim, b, fam, 0)
 
 
 static func _repay(sim: Sim, fam: String, id: String, spare: int) -> void:

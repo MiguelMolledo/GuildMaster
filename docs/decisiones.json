@@ -1534,6 +1534,12 @@
     },
     {
       "fecha": "2026-11-07",
+      "tema": "Mostrador (4.7.4): un «cualquiera» despacha si no hay nadie en «counter»",
+      "decision": "Counter.server_of: el ocupante del puesto del mostrador, si no un empleado activo dentro en rol «counter», y si no un empleado activo dentro en rol «cualquiera», que deja su pieza en pausa mientras despacha (el final de su ciclo se retrasa serve_minutes, Counter.pause_for) y vuelve a ella. Con un único empleado el mostrador vende. Medido antes y después (novice, expert, cast, carpenter, mason, tailor, scholar, counter_shop, full_player): idénticos; ninguna banda se mueve.",
+      "por_que": "Decisión del manager por delegación del owner: se arregla la regla, no el texto (GDD 4.7.4 ya lo decía). Lo destapó el segundo taller de full_player (H6): con un solo empleado forjando, 131 clientes se fueron sin comprar."
+    },
+    {
+      "fecha": "2026-11-07",
       "tema": "H6 · la agenda de la IA construye; la regla de parcelas en las cinco ciudades",
       "decision": "La construcción de las familias IA la decide su agenda (sim/ai/build.gd, AIBuild) al amanecer, justo después de Construction.step y con las cifras de data/construction.json ai (ai.enabled false: el paso de posada se calla): candidatas, válvula y tope por título de H6 (Construction.candidates / order_for); presupuesto = su oro sobre su reserva (AIEconomy.reserve en Bellcaire; Construction.budget fuera); elección por perfil con el bloque build opcional de data/ai_profiles ({buy, build: peso; min_score}); sin él, la de H6. ai.expand sigue apagado. Vilarrasa con hashes idénticos a main. Las cinco ciudades de la región, regeneradas con tools/city/plots.py y la regla de tools/city/reglas.json plots.rule (el validador la exige en las seis, town_e incluida): 5 parcelas libres de producción con 2 de 3×4 o 4×3 (la huella de forja, carpintería y cantería) y 3 de vivienda de 3×3.",
       "por_que": "Encargo del manager tras H6 de posada: la API de construcción para la agenda de la IA y la regla de parcelas del owner (04 §4.9.1) en las ciudades de plantillas."
@@ -1561,6 +1567,12 @@
       "tema": "Jugador completo · la ruina de una familia IA acaba la partida del jugador · resuelto",
       "decision": "Resuelto en main (tomada «La ruina de una familia IA no acaba la partida (construido)»): state.ending solo con la ruina de una familia humana.",
       "por_que": "Medido por quien lo construyó con full_player, 5 años × 4 semillas: fin de partida por la ruina de una IA de 3/4 a 0/4. El informe de full_player lo vigila con ended_by_ai."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "H6 × H13 · la quiebra de la IA en Bellcaire: el crédito primero y el jornal de la familia venida a menos",
+      "decision": "Por delegación del owner, el manager: (a) en economy.maps la quiebra (sim/build/bankruptcy.gd) empieza solo cuando el crédito de la IA ya ha fallado (un ai_credit embargado en los últimos negative_days) y mide la reserva con AIEconomy.reserve; (b) los adultos de una familia venida a menos son candidatos a empleado y, si nadie los contrata, cobran un jornal de peón al amanecer (data/ai.json economy.fallen.day_wage 6); (c) no: la diana de H13 no se toca. Además: mientras ai_state.bankruptcy.stage no sea vacío la economía no contrata (contrato de posada); vivienda a 4 por ciudad (tools/city/reglas.json plots.rule housing [4, 4]); una sonda H13 corta en tools/qa/run_all.py (paso h13: Normal y Difícil, 24 días); Difícil con su diana (≤ 20 días-familia sin oro y rachas ≤ 5 por semilla) sin bajar la presión; el bench de Bellcaire al sellar. Para que el crédito sea de verdad lo primero, una familia que vuelve a no llegar al amanecer con su crédito aún abierto recibe otro adelanto sobre el mismo (economy.credit.max_owed 360). Medido (h13_probe, 80 días, 3 semillas, sobre main 5ae0cf23): días-familia sin oro Normal 0/1/0, Fácil 0/0/0, Difícil 2/2/3, rachas ≤ 1; 0 órdenes de la IA rechazadas; ataques al jugador (mediana) Fácil 0 ≤ Normal 2 ≤ Difícil 2; oro neto 6503 > 4348 > 2333; títulos y cuota en diana. Paso h13 de run_all: 226 s.",
+      "por_que": "Decisión del manager por delegación del owner (2026-11-07): la quiebra de posada dejaba familias a 0 sin ingresos y H13 en rojo."
     }
   ],
   "pendientes": [

@@ -95,6 +95,8 @@ STEPS = [
                    "--seeds=3"]),  # equilibrio (Equilibrio 2): the emergency loan gets a broke forge going again
     ("counter", G + ["-s", "tools/sim_runner.gd", "--", "--start=artisan_blacksmith", "--bots=counter_shop",
                      "--days=24", "--seeds=3"]),  # equilibrio (Equilibrio 8, 14): the counter and the comarca's clientele
+    ("h13", G + ["--quiet", "-s", "tools/ai/h13_probe.gd", "--", "--short"]),  # plantillas: Bellcaire's AI families
+    # (Normal and Hard, 24 days, 1 seed: refused orders, production share, days without gold; the full probe is 80 days)
     ("full", G + ["-s", "tools/full_player.gd", "--", "--years=1", "--seed-list=1", "--tag=qa"]),
     ("chaos", G + ["-s", "tools/full_player.gd", "--", "--bot=chaos_player", "--years=1", "--seed-list=1", "--tag=qa"]),
     ("full_html", [sys.executable, "tools/full_report.py", "reports/full_player_qa", "reports/chaos_player_qa"]),
