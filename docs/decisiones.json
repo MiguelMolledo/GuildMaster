@@ -1572,7 +1572,7 @@
       "fecha": "2026-11-07",
       "tema": "Jugador completo · bandas de Patricio y de la reputación (aplicadas)",
       "decision": "data/targets.json full_player: title_patrician_day [1, 40] por semilla y rep_y5 (reputación al cerrar el año 5, nueva medida de tools/full_player.gd) [250, —], las dos con _needs_days 40: solo las juzgan las partidas de 5 años y la generación. Barón sin banda.",
-      "por_que": "Aprobadas por el manager por delegación del owner (2026-11-07) tras medir las palancas (a)-(c)."
+      "por_que": "Decisión del manager por delegación del owner («analiza una a una y toma la mejor decision», 2026-11-07): aprobadas tal cual se propusieron tras medir las palancas (a)-(c) de Barón (Patricio los días 31-35 a 5 años y 31-34 en la generación, rep_y5 281-317). Barón sigue sin banda."
     },
     {
       "fecha": "2026-11-07",
@@ -1597,6 +1597,18 @@
       "tema": "H12.2 · el Banquero y el Banco (04d 4.22.5.6)",
       "decision": "Inicio scholar_banker: Ferran Cambra, Ciudadano (el título del Banco), 3.000 de oro de capital y la deuda de la dificultad; el Banco (data/buildings/bank.json, 3×4, mantenimiento 15) se levanta en el solar de la forja del jugador (el inicio puede construir otro tipo en su sitio si cabe: NewGame, validador), así no hace falta sitio nuevo y cabe en todas las ciudades. Bank (sim/econ/bank.gd): cada amanecer, 3 solicitudes de hogares del pueblo de media (250-700 de oro, 4/8/12 días, riesgo A/B/C de 4.22.5.6, caducan a los 2 días, una por hogar); grant_loan al interés que elija el banquero hasta el máximo de la solicitud, cuotas iguales cada 2 días; un hogar paga desde fuera (P4) o entra en impago por su tirada; cada día, 20 % de que pague con un 10 % de recargo; claim_collateral desde el día siguiente: 60 % notarial (un «contrato» en la cámara del Banco) o 30 %, cubre primero el capital y el resto se pierde. Las familias piden al Banco con request_loan (lender = el Banco): su solicitud espera allí y su préstamo sigue las reglas de 4.16; lo que pagan va al banquero. Un dueño IA decide al amanecer (acepta si el patrimonio cubre el doble). Libro: bank_lent (el capital que sale y vuelve), interest, bank_losses (lo perdido, al reclamar). Árbol de 24 mejoras (Contable, Sucursal, Casa de cambio; Informe de solvencia, Avales, Fianzas). Panel del Banco en su interior: Solicitudes (interés con − / +), Cartera, Impagos. Bot banker_novice: concede A y B al máximo, rechaza C, reclama a la primera; su diana goldflow.start_banker en la banda de inicio 25-60 sin contar el capital prestado.",
       "por_que": "Encargo del manager (2026-11-06): el Banquero con su edificio, interior, árbol y bot en la banda 25-60 de Normal. Con las tasas de 4.22.5.6 (año de 8 días), el interés rinde ~2,4 % del capital al día: la banda pide ~2.500-3.000 prestados, de ahí el capital del inicio, los préstamos de 250-700 y 3 solicitudes al día [balance]. 4×5 no cabe en una parcela de town_e: 3×4 hasta el mapa EA. El prestamista de la ciudad sigue aparte (lender moneylender, kind moneylender); el Banco usa el mismo Loan con kind bank y lender_family."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Un «cualquiera» ocioso cede el puesto a uno de rol fijo (construido)",
+      "decision": "Se daba: tras un ciclo el empleado se queda en su puesto (Production guarda el ocupante) y WorkQueue._free_station solo daba un puesto libre o el propio, así que un «cualquiera» ocioso en el único yunque dejaba sin trabajo al de rol yunque (test_queue_station_yield: Agnès, «cualquiera» y oficio 2, parada en el yunque; Joan, rol yunque y oficio 5, no forjaba nunca la espada; ni después de que ella hiciera su martillo). Ahora, sin puesto libre de su tipo, el de rol fijo toma el primero (por id) que ocupe un «cualquiera» ocioso del mismo edificio, que se queda libre dentro y toma otro puesto cuando haya trabajo para él (evento station_yielded). Nunca un trabajo en curso ni el puesto de alguien de la familia. GDD 4.7.4.",
+      "por_que": "De proximos_pasos; decisión del manager por delegación del owner («analiza una a una y toma la mejor decision», 2026-11-07): si se da, el de rol libre cede el puesto al de rol fijo que solo puede trabajar ahí."
+    },
+    {
+      "fecha": "2026-11-07",
+      "tema": "Jugador completo · el heredero que no podía entrar tras la muerte del fundador (resuelto)",
+      "decision": "En las generaciones de posada sobre 089668b3 y e619d0b6, el heredero (chr_0189) acumulaba 11 517 entradas rechazadas (enter_building, inside_other_building) en los 6 días tras la muerte del fundador (día 377). Sobre main c9cc435a (con «el heredero que sale antes de entrar» de jugador, d723ea72) ya no pasa: full_player, una generación, semilla 1: el fundador muere el día 377 y hereda ese día, refused_orders 0, game_over 0; además Patricio el día 27, Barón el día 58 y rep_y5 366 (reports/full_player_ref/full_player_heredero_main_gen.json).",
+      "por_que": "Encargo del manager (2026-11-07): comprobarlo sobre main y, si ya no pasa, apuntarlo como resuelto."
     }
   ],
   "pendientes": [
@@ -1722,7 +1734,6 @@
   "proximos_pasos": [
     "H5 · Mejoras (en curso): empieza por game/visuals/ (decisiones A-C) y el validador sin rutas en data/.",
     "Revisar en H5 la diana del rival y el balance con bots (D14).",
-    "Empleado «cualquiera» ocioso puede bloquear un puesto a otro de rol fijo.",
     "Peor paso del bench al primer atardecer: 8,2-9,6 ms (diana 8).",
     "La batería de tests tarda ~75 s por la prueba de equivalencia del A* (16 000 pares): reducirla si molesta.",
     "Prueba de kit de ciudad con PixelLab cuando se renueven los créditos (2026-11-15), con el visto bueno del owner.",
