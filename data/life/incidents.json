@@ -1,5 +1,5 @@
 {
-  "_doc": "Sucesos de la ciudad (docs/gdd/04f_vida_y_fiestas.md §4.24.5; docs/contratos/vida.md), con su flujo de azar propio (claves events_city|..., nunca state.rng) y apagados en las dianas de antes (_no_life). Van aquí y no en data/events.json: WorldEvents tira por cada definición de events.json y un suceso nuevo allí movería sus tiradas y su max_active. Sin muertes ni heridas (O4): perder deja «asustado» (emotion scared) y la bolsa. Riesgo justo: avisan antes y nunca quitan más de max_gold_share del oro ni más de max_items objetos de un almacén. El incendio (O-V6) no se construye: la recomendación es (b). Cada uno: chance (por día, repartida en sus horas), hours [desde, hasta) del día (hasta > 24: pasada la medianoche), min_day (el primer día en que puede pasar), cooldown_days, timeout_hours (lo que espera la carta: luego la opción default), choices (lo que puede hacer el jugador). mult: el multiplicador de estado (state.town.incidents.mult) y los efectos incident de los eventos activos (data/events.json: {kind: incident, id, mult}) lo multiplican.",
+  "_doc": "Sucesos de la ciudad (docs/gdd/04f_vida_y_fiestas.md §4.24.5; docs/contratos/vida.md), con su flujo de azar propio (claves events_city|..., nunca state.rng) y apagados en las dianas de antes (_no_life). Van aquí y no en data/events.json: WorldEvents tira por cada definición de events.json y un suceso nuevo allí movería sus tiradas y su max_active. Sin muertes ni heridas (O4): perder deja «asustado» (emotion scared) y la bolsa. Riesgo justo: avisan antes y nunca quitan más de max_gold_share del oro ni más de max_items objetos de un almacén. El incendio (O-V6) no se construye: la recomendación es (b). Cada uno: chance (por día, repartida en sus horas), hours [desde, hasta) del día (hasta > 24: pasada la medianoche), min_day (el primer día en que puede pasar), cooldown_days, timeout_hours (lo que espera la carta: luego la opción default), choices (lo que puede hacer el jugador). altercation.own_building_tiles (verifica #20): la pelea es un aviso normal y solo urgente si toca a tu familia (uno de los tuyos o de tus empleados pelea, o a esas casillas o menos de la puerta de un edificio tuyo); su carta se retira cuando caduca, aunque esperase sitio en la pila. mult: el multiplicador de estado (state.town.incidents.mult) y los efectos incident de los eventos activos (data/events.json: {kind: incident, id, mult}) lo multiplican.",
   "altercation": {
     "text_key": "incident.altercation",
     "chance": 0.5,
@@ -7,6 +7,7 @@
     "min_day": 0,
     "cooldown_days": 0,
     "timeout_hours": 1,
+    "own_building_tiles": 3,
     "where": ["tavern", "chat", "well", "square", "dice"],
     "near_tiles": 8,
     "relation_max": -20,

@@ -379,3 +379,66 @@ func test_the_peddler_sells_his_wares() -> void:
 	eq(_refused(sim.step([o])), "sold_out", "only one")
 	eq(Peddler.reason(sim, me, Kin.head(sim.state, SimQuery.player_family(sim.state)), "loaded_dice"), "not_a_peddler",
 		"nobody else sells them")
+
+
+# --- The visiting merchant trades for real (vida) -------------------------------------------------------------------
+
+func _merchant(sim: Sim, near: String, city: String = "port") -> String:
+	Life.service_family(sim.state, Life.FAMILY_VISITORS, "family.visitors", {"primary": "#6a5a4a", "secondary": "#c8b8a0"})
+	var vis := {"kind": "merchant", "city": city, "gate": "", "purse": 60, "plan": [], "stop": -1, "until": -1,
+		"leaving": false, "arrived": 0}
+	var id := Life.add_person(sim, Life.FAMILY_VISITORS, "Mercader", false, 40, {}, {}, Life.tile_of(sim.state, near),
+		{"visitor": vis})
+	VisitingMerchant.setup(sim, sim.state.characters[id]["visitor"], city, "test|merchant")
+	Life.put_on(sim, id, Life.tile_of(sim.state, near))
+	return id
+
+
+func test_the_merchant_buys_what_his_city_pays_dear() -> void:
+	var sim := _game()
+	var fam := SimQuery.player_family(sim.state)
+	var me := Kin.head(sim.state, fam)
+	var m := _merchant(sim, me)
+	check("iron_ingot" in VisitingMerchant.buys(sim, m), "Portvell pays iron ingots dear: he buys them")
+	var offer := VisitingMerchant.offer(sim, m, "iron_ingot", Inventory.NORMAL)
+	check(offer > 0 and offer < Region.price(sim, "port", "iron_ingot", Inventory.NORMAL, "sell"),
+		"for less than in Portvell (%d)" % offer)
+	eq(VisitingMerchant.offer(sim, m, "bread", Inventory.NORMAL), 0, "not what his city does not want")
+	Inventory.add(sim.state.characters[me]["inventory"], cat, "iron_ingot", Inventory.NORMAL, 5)
+	var gold := Money.gold(sim.state, fam)
+	var o := {"type": "sell_to_merchant", "actor": me, "target": m, "item": "iron_ingot", "quality": Inventory.NORMAL}
+	var sold := 0
+	for i: int in 5:
+		if _refused(sim.step([o])) == "":
+			sold += 1
+	var limit := mini(int(VisitingMerchant.cfg(sim).get("max_units", 3)), 60 / offer)
+	eq(sold, limit, "at most his limit and his purse (%d)" % limit)
+	eq(Money.gold(sim.state, fam) - gold, sold * offer, "paid from his purse")
+	var why := VisitingMerchant.sell_reason(sim, me, m, "iron_ingot", Inventory.NORMAL)
+	check(why in ["merchant_full", "merchant_purse"], "then he stops (%s)" % why)
+	check(Inventory.count(sim.state.characters[me]["inventory"], "iron_ingot") == 5 - sold, "the units leave the bag")
+
+
+func test_the_merchant_sells_what_is_cheap_in_his_city() -> void:
+	var sim := _game()
+	var fam := SimQuery.player_family(sim.state)
+	var me := Kin.head(sim.state, fam)
+	var m := _merchant(sim, me)
+	var wares := VisitingMerchant.wares(sim.state, m)
+	var items: Array = wares.map(func(w: Dictionary) -> String: return str(w["item"]))
+	check("wood" in items and "barrel" in items, "Portvell's cheap goods (%s)" % [items])
+	var barrel: Dictionary = wares.filter(func(w: Dictionary) -> bool: return str(w["item"]) == "barrel")[0]
+	check(int(barrel["price"]) > Region.price(sim, "port", "barrel", Inventory.NORMAL, "buy"), "dearer than in Portvell")
+	sim.state.families[fam]["gold"] = 500
+	var o := {"type": "buy_from_merchant", "actor": me, "target": m, "item": "barrel"}
+	var n := int(barrel["qty"])
+	for i: int in n:
+		eq(_refused(sim.step([o])), "", "a barrel")
+	eq(_refused(sim.step([o])), "sold_out", "then sold out")
+	eq(Money.gold(sim.state, fam), 500 - n * int(barrel["price"]), "paid")
+	var far := _game()
+	var fme := Kin.head(far.state, SimQuery.player_family(far.state))
+	var fm := _merchant(far, fme)
+	Life.put_on(far, fm, [2, 2])
+	eq(_refused(far.step([{"type": "buy_from_merchant", "actor": fme, "target": fm, "item": "wood"}])), "too_far",
+		"in person: near him")

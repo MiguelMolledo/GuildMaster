@@ -224,6 +224,10 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Rogue.order_launder(sim, order)
 		"arrest_response":
 			return Rogue.order_arrest_response(sim, order)
+		"sell_to_merchant":
+			return VisitingMerchant.order_sell(sim, order)
+		"buy_from_merchant":
+			return VisitingMerchant.order_buy(sim, order)
 		"give_alms":
 			return Visitors.order_alms(sim, order)
 		# Posada · the Taberna-Posada (sim/inn/inn.gd, docs/gdd/04f_vida_y_fiestas.md §4.27)

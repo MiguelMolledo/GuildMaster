@@ -16,7 +16,8 @@ extends RefCounted
 ##   the queue when the recipe changes) if its recipe pays the wage (what one more hand adds a day, as far as the
 ##   market takes it, × its margin ≥ hire_pay × the wage); under its reserve (reserve()) it lets the last one go.
 ## - Credit (step(), at dawn after the upkeep): a family that cannot pay the next dawn's upkeep and wages borrows
-##   economy.credit.amount from the moneylender (a loan of kind CREDIT owing amount × (1 + interest) in term_days,
+##   economy.credit.amount plus the upkeep it owes (up to max_amount) from the moneylender (a loan of kind CREDIT
+##   owing amount × (1 + interest) in term_days,
 ##   at most one open, every gap_days at most); at each dawn it repays what it has over its reserve. Due unpaid, the
 ##   loan runs Loans' extension and seizure; a CREDIT loan the seizure does not cover is written off, never a ruin
 ##   (the ruin ends the player's game).
@@ -439,7 +440,11 @@ static func step(sim: Sim) -> void:
 		var mem := _mem(sim, fam)
 		if gold >= due or today - int(mem.get("credit_day", -9999)) < int(c.get("gap_days", 4)):
 			continue
-		var amount := int(c.get("amount", 120))
+		var debt := 0  # what it owes the town for upkeep: the credit clears it (a damaged workshop is repaired)
+		for b: String in st.buildings:
+			if Money.family_of(st, b) == fam:
+				debt += int(st.buildings[b].get("upkeep_debt", 0))
+		var amount := mini(int(c.get("amount", 120)) + debt, int(c.get("max_amount", 300)))
 		var owed := roundi(amount * (1.0 + float(c.get("interest", 0.2))))
 		var terms := {"lender": "moneylender", "overdue_reputation": int(c.get("overdue_reputation", -5)),
 			"extension_seasons": int(c.get("extension_seasons", 1)),
@@ -449,6 +454,11 @@ static func step(sim: Sim) -> void:
 		st.loans[id]["kind"] = CREDIT
 		Money.change(sim, fam, amount, Money.LOANS, id)
 		mem["credit_day"] = today
+		var ids: Array = st.buildings.keys()
+		ids.sort()
+		for b: String in ids:  # the upkeep it owes first: the town is paid and a damaged workshop repaired
+			if Money.family_of(st, b) == fam and int(st.buildings[b].get("upkeep_debt", 0)) > 0:
+				Upkeep._charge(sim, b, fam, 0)
 		sim.events.append({"type": "ai_credit_taken", "family": fam, "loan": id, "amount": amount, "owed": owed})
 		if OS.is_debug_build():
 			print("[AIEconomy] %s pide crédito: oro=%d < %d de mañana; recibe %d, devuelve %d en %d días (%s)" % [fam,

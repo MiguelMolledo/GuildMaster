@@ -48,6 +48,7 @@ var _name_label: Label
 var bubble_id: String = ""      # H7: the bubble shown ("" = none)
 var _bubble: Node2D = null
 var _phrase_label: Label = null
+const PHRASE_W: float = 168.0   # a phrase wraps at this width (two lines at most)
 const MARKS_Z: int = 20  # bubble, name, phrase and badge draw over every figure and building (no one cuts them)
 var _sprite: AnimatedSprite2D = null
 var motion: String = "idle"   # the sprite's motion now: idle, walk, work, forge
@@ -99,6 +100,8 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	VisualPaths.place(_visual, Vector2.ZERO)
 	fig_height = VisualPaths.top_height(_visual, 48.0)
 	add_child(_visual)
+	if str(ch.get("family", "")) == Life.FAMILY_WATCH and not VisualPaths.has_scene("characters", "guard_m"):
+		_add_livery()  # vida (04f 4.24.4): the town's livery, a visible placeholder until the guard's art
 	_badge_mark = Node2D.new()
 	_badge_mark.name = "Badge"
 	_badge_mark.draw.connect(_draw_badge)
@@ -117,11 +120,37 @@ func setup(ch: Dictionary, family: Dictionary) -> void:
 	_name_label.size = Vector2(160, 14)
 	_name_label.position = Vector2(-80, -fig_height - 20)
 	_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	WorldLabels.keep_size(_name_label)
 	_name_label.visible = selected
 	_name_label.name = "NameLabel"
 	_name_label.z_index = MARKS_Z
 	add_child(_name_label)
 	queue_redraw()
+
+
+## Vida (04f 4.24.4): the guard's tabard in the council's colours (the family's: data/life/life.json watch.livery) over
+## the townsfolk's figure, with a gold cross on the chest: a placeholder anyone reads as «the watch» until the guard's
+## sprite (assets/inventario.json, PixelLab) lands. The node «Livery», drawn over the figure.
+func _add_livery() -> void:
+	var tab := Node2D.new()
+	tab.name = "Livery"
+	tab.z_index = 1
+	var h := VisualPaths.top_height(_visual, 48.0)
+	var p := primary
+	var s := secondary
+	tab.draw.connect(func() -> void:
+		var top := -h * 0.62
+		var bottom := -h * 0.22
+		var w := fig_width * 0.42
+		tab.draw_colored_polygon(PackedVector2Array([Vector2(-w, top), Vector2(w, top), Vector2(w * 0.85, bottom),
+			Vector2(-w * 0.85, bottom)]), p)
+		tab.draw_polyline(PackedVector2Array([Vector2(-w, top), Vector2(w, top), Vector2(w * 0.85, bottom),
+			Vector2(-w * 0.85, bottom), Vector2(-w, top)]), s, 1.0)
+		var cy := (top + bottom) * 0.5
+		tab.draw_line(Vector2(0, top + 2), Vector2(0, bottom - 2), s, 2.0)
+		tab.draw_line(Vector2(-w * 0.55, cy - 1), Vector2(w * 0.55, cy - 1), s, 2.0))
+	add_child(tab)
+	tab.queue_redraw()
 
 
 ## Fiestas (04f 4.25.3): the clothes in the festival's palette (rules.view_looks: {color, amount, mask}; {} = the
@@ -182,7 +211,9 @@ func set_bubble(id: String) -> void:
 		return
 	_bubble = VisualPaths.instantiate("bubbles", id)
 	_bubble.name = "Bubble"
-	WorldLabels.style_tree(_bubble)   # a greybox bubble's glyph, in the project's small letter
+	WorldLabels.style_tree(_bubble, "bubble")   # a greybox bubble's glyph, in the project's small letter
+	WorldLabels.keep_size(_bubble)
+	_bubble.add_to_group(WorldLabels.NIGHT_KEEP)
 	_bubble.z_index = MARKS_Z
 	VisualPaths.place(_bubble, Vector2(bubble_shift, -fig_height - 12 - turn_raise))
 	_bubble.visible = turn_shown
@@ -250,7 +281,7 @@ func set_turn(shown: bool, raise: float) -> void:
 	if _bubble != null:
 		VisualPaths.place(_bubble, Vector2(bubble_shift, -fig_height - 12 - turn_raise))
 	if _phrase_label != null:
-		_phrase_label.position = Vector2(-90, -fig_height - 46 - turn_raise - phrase_raise)
+		_phrase_label.position = Vector2(-PHRASE_W / 2.0, -fig_height - 62 - turn_raise - phrase_raise)
 	_apply_turn()
 
 
@@ -271,7 +302,7 @@ func set_phrase_turn(shown: bool, raise: float) -> void:
 	phrase_shown = shown
 	phrase_raise = raise
 	if _phrase_label != null:
-		_phrase_label.position = Vector2(-90, -fig_height - 46 - turn_raise - phrase_raise)
+		_phrase_label.position = Vector2(-PHRASE_W / 2.0, -fig_height - 62 - turn_raise - phrase_raise)
 	_apply_turn()
 
 
@@ -306,10 +337,13 @@ func set_phrase(text: String) -> void:
 		_phrase_label.z_index = MARKS_Z + 1
 		WorldLabels.style(_phrase_label, "phrase")
 		_phrase_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_phrase_label.size = Vector2(240, 14)   # the project's letter is wider (WorldLabels)
-		_phrase_label.position = Vector2(-120, -fig_height - 46 - turn_raise - phrase_raise)
+		_phrase_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+		_phrase_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART   # two lines, not one across the screen (J25)
+		_phrase_label.size = Vector2(PHRASE_W, 30)
+		_phrase_label.position = Vector2(-PHRASE_W / 2.0, -fig_height - 62 - turn_raise - phrase_raise)
 		_phrase_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_phrase_label)
+		WorldLabels.keep_size(_phrase_label)
 	_phrase_label.text = text
 	_phrase_label.visible = text != "" and turn_shown and phrase_shown
 
