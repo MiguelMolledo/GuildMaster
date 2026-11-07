@@ -291,7 +291,7 @@ static func seize_good(sim: Sim, fam: String, why: String) -> bool:
 static func ruin(sim: Sim, fam: String, why: String, missing: int) -> void:
 	var st := sim.state
 	Notices.add(sim, fam, Notices.URGENT, "notice.ruin_goods", {"missing": missing, "why": why})
-	if st.ending.is_empty():
+	if st.ending.is_empty() and str(st.families.get(fam, {}).get("controlled_by", "")) == "human":  # only the player's
 		st.ending = {"kind": "ruin", "family": fam, "minute": int(st.clock["minute"]), "why": why}
 		sim.events.append({"type": "game_over", "kind": "ruin", "family": fam})
 		if OS.is_debug_build():

@@ -1,0 +1,20 @@
+{
+  "id": "underworld_known",
+  "name_key": "objective.underworld_known",
+  "conditions": [
+    {
+      "event": "underworld_changed",
+      "match": {
+        "reason": "pickpocket"
+      },
+      "count": 3
+    },
+    {
+      "event": "underworld_changed",
+      "match": {
+        "reason": "burgle"
+      },
+      "count": 2
+    }
+  ]
+}

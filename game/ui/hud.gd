@@ -106,6 +106,7 @@ var _festival_event: Dictionary = {}
 @onready var _building_hint: Label = %BuildingHint
 @onready var _manage_button: Button = %ManageButton
 @onready var _buy_button: Button = %BuyButton  # posada: a building for sale (the Taberna-Posada, buy_building)
+@onready var _burgle_button: Button = %BurgleButton  # the Rogue (4.22.6.4): another family's storage, at night
 @onready var _table_button: Button = %TableButton  # posada: another family's tavern, its gaming table (InnVisitCard)
 @onready var _selection_action: Button = %SelectionAction
 # 7 · notices, toast, cards, help
@@ -200,6 +201,17 @@ func _ready() -> void:
 		var card := app.get_node_or_null("%InnVisitCard") as InnVisitCard if app != null else null
 		if card != null and _game != null:
 			card.show_for(_game.sim, building_id, active_person()))
+	_burgle_button.pressed.connect(func() -> void:  # the Rogue: to its door, then in (no waiting at the door)
+		var who := active_person()
+		if who == "" or _game == null:
+			return
+		var door: Array = _game.sim.state.buildings[building_id].get("door", [])
+		if str(_game.sim.state.characters[who].get("location", "")) != "":
+			_game.give({"type": "exit_building", "actor": who})
+			_game.give({"type": "move_to", "actor": who, "tile": door, "queued": true})
+		else:
+			_game.give({"type": "move_to", "actor": who, "tile": door})
+		_game.give({"type": "burgle", "actor": who, "building": building_id, "queued": true}))
 	_selection_action.pressed.connect(toggle_character_panel)
 	_toast_label.visible = false
 	# panels: the orders go to Game; one management panel at a time (ManageSlot)
@@ -400,6 +412,16 @@ func _show_building(sim: Sim) -> void:
 	_selection_action.visible = false
 	var sale := bool(sim.state.buildings[building_id].get("for_sale", false))
 	_buy_button.visible = sale
+	_burgle_button.visible = false
+	var who := active_person()
+	if who != "" and Rogue.den_of(sim.state, family()) != "" and not own:  # the Rogue: «Robar el almacén»
+		var bwhy := Rogue.burgle_reason(sim, who, building_id)
+		_burgle_button.visible = bwhy != "bad_target"
+		_burgle_button.text = tr("hud.burgle")
+		_burgle_button.disabled = bwhy != ""
+		var lock := Rogue.lock_of(sim, building_id)
+		var p := SkillCheck.chance(sim, SkillCheck.stat(sim, who, "stealth"), lock)
+		_burgle_button.tooltip_text = SimQuery.reason_text(bwhy) if bwhy != "" else tr("hud.burgle_tip") % [lock, roundi(p * 100.0)]
 	_table_button.visible = show_table_button(sim, building_id)
 	_table_button.text = tr("hud.inn_table")
 	_table_button.tooltip_text = tr("hud.inn_table_tip")
@@ -446,6 +468,7 @@ func _show_person(sim: Sim, who: String) -> void:
 	_manage_button.visible = false
 	_buy_button.visible = false
 	_table_button.visible = false
+	_burgle_button.visible = false
 	_selection_action.visible = str(ch.get("controlled_by", "")) == "human"
 	_selection_action.text = tr("hud.inventory")
 	_selection_action.tooltip_text = tr("hud.inventory_tip")

@@ -1,0 +1,11 @@
+{
+  "id": "pick_purse",
+  "name_key": "objective.pick_purse",
+  "conditions": [
+    {
+      "event": "pickpocket_done",
+      "match": {},
+      "count": 1
+    }
+  ]
+}

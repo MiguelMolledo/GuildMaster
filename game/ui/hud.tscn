@@ -558,6 +558,14 @@ size_flags_vertical = 4
 focus_mode = 0
 text = "--"
 
+[node name="BurgleButton" type="Button" parent="Root/SelectionBar/HBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+text = "--"
+
 [node name="SelectionAction" type="Button" parent="Root/SelectionBar/HBox"]
 unique_name_in_owner = true
 visible = false

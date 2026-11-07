@@ -22,7 +22,7 @@ var npc_stalls: Array = []
 var _calls: Dictionary = {}         # incident -> minute the watch was called
 var guard: Dictionary = {"called": 0, "arrived": 0, "minutes": [], "outcomes": {}}
 var incidents: Dictionary = {}      # "<season index>|<def>" -> n
-var visitors: Dictionary = {"total": 0, "by_kind": {}, "by_day": {}}
+var visitors: Dictionary = {"total": 0, "by_kind": {}, "by_day": {}, "festive_days": {}}  # festive: a feast, a fair or an event that brings visitors
 var pop: Dictionary = {"weddings": 0, "births": 0, "deaths": 0, "newcomers": 0, "by_year": []}
 var activities: Dictionary = {}     # activity -> hourly samples
 var need_sum: Dictionary = {}       # need -> sum of the hourly samples
@@ -197,6 +197,8 @@ func _rival_event(sim: Sim, r: Dictionary, e: Dictionary, t: String, played: int
 func hour(sim: Sim, played: int) -> void:
 	var st := sim.state
 	var now := int(st.clock["minute"])
+	if Life.event_mult(sim, "visitors") > 1.01 or (Life.festival(sim) and not Festivals.on_today(sim)):
+		visitors["festive_days"][str(played)] = true  # a feast or an event multiplies the day's visitors (4.24: 2-4 else)
 	for c: String in Population.townsfolk(st):
 		var v := Agenda.view(sim, c)
 		if v.is_empty():
@@ -422,6 +424,14 @@ func measures(days: int, year_days: int) -> Dictionary:
 	m["town_deaths"] = int(pop["deaths"])
 	m["townsfolk_end"] = int(pop["by_year"].back()["townsfolk"]) if not (pop["by_year"] as Array).is_empty() else 0
 	m["visitors_per_day"] = snappedf(float(visitors["total"]) / maxf(1.0, float(days)), 0.01)
+	var quiet := 0
+	var quiet_n := 0
+	for d: int in range(1, days + 1):
+		if not (visitors["festive_days"] as Dictionary).has(str(d)):
+			quiet += 1
+			quiet_n += int(visitors["by_day"].get(str(d), 0))
+	m["visitors_quiet_day"] = snappedf(float(quiet_n) / maxf(1.0, float(quiet)), 0.01)  # days without a feast or event
+	m["quiet_days"] = quiet
 	m["watch_called"] = int(guard["called"])
 	m["watch_arrived_share"] = snappedf(float(guard["arrived"]) / maxf(1.0, float(guard["called"])), 0.001) \
 		if int(guard["called"]) > 0 else 1.0

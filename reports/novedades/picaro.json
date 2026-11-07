@@ -1,0 +1,14 @@
+{
+  "fecha": "2026-11-06",
+  "titulo": "H12 · El Pícaro: el Ladrón y su Guarida",
+  "que": "Ya se puede empezar como Pícaro: en Partida nueva, el botón Ladrón (Rodrigo Morell, Destreza 7, Sigilo 6, la misma deuda que la forja). Su Guarida de ladrones está en la calle mayor, en el solar de la forja: abajo el banco del falsario y la mesa del perista, arriba la vivienda. De día, en la ficha de cualquiera de otra familia, «Robar la bolsa» (con cuántas de cada 100 no se da cuenta): si sale, unas monedas; si no, te ha visto y mañana te denunciará. De noche, en el panel de un taller ajeno, «Robar el almacén» (su cerradura y tu probabilidad): te llevas lo más valioso, marcado como robado. Lo robado no lo compra ningún puesto: véndeselo al perista de tu Guarida (o al de la Taberna de noche), a mitad de precio y con un tope al día, o blanquéalo en el banco y véndelo limpio. Si un guardia te ve, te pilla: rendirte, huir, luchar o sobornarle, cada cosa con su probabilidad. Los robos denunciados acaban, a veces, en juicio. La Guarida tiene su árbol de 24 mejoras (mesa del perista, ganzúas finas, sótano escondido…). El bot del ladrón gana 49 de oro netos al día en Normal (Fácil 59 > Normal 49 > Difícil 40) y salda la deuda.",
+  "como_probar": "Partida nueva → Oficio: Ladrón → Empezar; selecciona a un vecino en la plaza de día → Robar la bolsa; de noche, selecciona un taller ajeno → Robar el almacén; entra en la Guarida → mesa del perista / banco del falsario. Capturas: grimoire heavy --timeout 5m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=picaro (reports/shots/picaro_*.png). Bot: godot --headless --path . -s tools/sim_runner.gd -- --start=rogue_thief --bots=rogue_novice --difficulty=easy,normal,hard --days=10 --seeds=5. Pruebas: -s tests/run_tests.gd -- --only=test_rogue_thief.",
+  "capturas": [
+    "docs/novedades/picaro_partida_nueva.png",
+    "docs/novedades/picaro_bolsa.png",
+    "docs/novedades/picaro_almacen.png",
+    "docs/novedades/picaro_perista.png",
+    "docs/novedades/picaro_banco.png",
+    "docs/novedades/picaro_detencion.png"
+  ]
+}

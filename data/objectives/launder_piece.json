@@ -1,0 +1,11 @@
+{
+  "id": "launder_piece",
+  "name_key": "objective.launder_piece",
+  "conditions": [
+    {
+      "event": "launder_done",
+      "match": {},
+      "count": 1
+    }
+  ]
+}

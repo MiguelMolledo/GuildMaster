@@ -91,7 +91,14 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 		str(start.get("profession", "")), c["visual"])
 	s.families[fam]["class"] = str(start.get("class", "artisan"))
 	var b: Dictionary = start["building"]
-	var forge := _add_building(s, catalog, sites, str(b["site"]), fam, b.get("inventory", []))
+	var psites := sites
+	if str(b.get("type", "")) != "" and str(b.get("type", "")) != str(sites.get(str(b["site"]), {}).get("type", "")):
+		# H12 (the Rogue): a start may raise another building of the same size on a plot of its map (the thief's den
+		# on the Consulta's plot): the map keeps one site per plot, so its plots and doors do not move
+		psites = sites.duplicate()
+		psites[str(b["site"])] = (sites[str(b["site"])] as Dictionary).duplicate()
+		psites[str(b["site"])]["type"] = str(b["type"])
+	var forge := _add_building(s, catalog, psites, str(b["site"]), fam, b.get("inventory", []))
 	# The rival family (GDD 4.5.5): its craft comes from the difficulty.
 	var rv: Dictionary = start.get("rival", {})
 	if not rv.is_empty():

@@ -90,6 +90,9 @@
     },
     "mortar": {
       "name_key": "ui.zone.mortar"
+    },
+    "forger_bench": {
+      "name_key": "ui.zone.forger_bench"
     }
   },
   "default_role": "any",
