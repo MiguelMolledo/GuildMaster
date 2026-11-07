@@ -1,0 +1,12 @@
+{
+  "fecha": "2026-11-07",
+  "titulo": "H12 · El Pícaro: el Espía, y la Guarida con fachada",
+  "que": "Segunda profesión del Pícaro: en Partida nueva, el botón Espía (Elvira Sabater, Sigilo 7, la misma deuda que la forja), en la misma Guarida de ladrones, que ya tiene su fachada (una casa venida a menos con los postigos cerrados y la trampilla del sótano). En el panel de cualquier edificio de otra familia sale «Espiar», con cuántas de cada 100 vuelves con un informe: te quedas dos horas junto a su puerta (de noche la guardia puede pillarte merodeando). El informe dice cuánto oro tiene esa familia, qué guarda en su almacén y sus secretos: un libro doble, contrabando o, en algunas casas del pueblo, un adulterio. En la mesa del perista de tu Guarida aparecen los encargos de espionaje («un informe de los Roca, 55»): espías a esa familia y lo entregas. Y tus secretos: chantajear (una vez por estación; quien paga calla, quien no puede ir a la guardia) o destaparlo para que lo sepa toda la villa. El bot del espía gana 41 de oro netos al día en Normal (Fácil 45 > Normal 41 > Difícil 32) y salda la deuda. Las ganzúas ya tienen icono.",
+  "como_probar": "Partida nueva → Oficio: Espía → Empezar; de día, selecciona la forja de Ferrer → Espiar; vuelve a la Guarida → mesa del perista. Capturas: grimoire heavy --timeout 5m -- /opt/homebrew/bin/godot --audio-driver Dummy --always-on-top --path . -- --smoke-script=espia (reports/shots/espia_*.png). Bot: godot --headless --path . -s tools/sim_runner.gd -- --start=rogue_spy --bots=spy_novice --difficulty=easy,normal,hard --days=10 --seeds=10. Pruebas: -s tests/run_tests.gd -- --only=test_rogue_spy.",
+  "capturas": [
+    "docs/novedades/espia_partida_nueva.png",
+    "docs/novedades/espia_espiar.png",
+    "docs/novedades/espia_perista.png",
+    "docs/novedades/picaro_guarida_fachada.png"
+  ]
+}

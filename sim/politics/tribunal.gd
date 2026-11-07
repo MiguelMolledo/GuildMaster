@@ -494,12 +494,19 @@ static func _actor_reason(sim: Sim, actor: String) -> String:
 
 
 ## What `actor` can accuse `target`'s family of: {facts: [fact ids usable], charges: [charge ids], reason}.
+## Whether a charge goes to court (the Rogue's adultery is a secret to blackmail with, never tried: «trial»: false).
+static func triable(sim: Sim, charge: String) -> bool:
+	return bool(cfg(sim).get("charges", {}).get(charge, {}).get("trial", true))
+
+
 static func accuse_options(sim: Sim, actor: String, target: String) -> Dictionary:
 	var facts: Array = []
 	var tf := str(sim.state.characters.get(target, {}).get("family", ""))
 	for f: Dictionary in facts_against(sim, tf):
-		facts.append(str(f["id"]))
-	var charges: Array = (cfg(sim).get("charges", {}) as Dictionary).keys()
+		if triable(sim, str(f.get("charge", ""))):
+			facts.append(str(f["id"]))
+	var charges: Array = (cfg(sim).get("charges", {}) as Dictionary).keys().filter(func(c: String) -> bool:
+		return triable(sim, c))
 	charges.sort()
 	return {"facts": facts, "charges": charges, "reason": accuse_status(sim, actor, target, "", "", false)}
 
@@ -526,10 +533,11 @@ static func accuse_status(sim: Sim, actor: String, target: String, fact_id: Stri
 		var f := fact(st, fact_id)
 		if f.is_empty():
 			return "unknown_fact"
-		if str(f.get("family", "")) != tf or bool(f.get("tried", false)) or not bool(f.get("public", true)):
+		if str(f.get("family", "")) != tf or bool(f.get("tried", false)) or not bool(f.get("public", true)) \
+				or not triable(sim, str(f.get("charge", ""))):
 			return "fact_not_usable"
 	elif fabricate:
-		if not (cfg(sim).get("charges", {}) as Dictionary).has(charge):
+		if not (cfg(sim).get("charges", {}) as Dictionary).has(charge) or not triable(sim, charge):
 			return "unknown_charge"
 	return ""
 

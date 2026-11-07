@@ -244,7 +244,6 @@ func _build_den(list: VBoxContainer) -> void:
 		var none := Label.new()
 		none.text = SimQuery.t_("ui.station.no_stolen")
 		list.add_child(none)
-		return
 	for s: Dictionary in stolen:
 		var it := str(s["item"])
 		var q := int(s["quality"])
@@ -266,6 +265,63 @@ func _build_den(list: VBoxContainer) -> void:
 			b.pressed.connect(func() -> void: _give({"type": "launder", "actor": actor, "building": building, "item": it,
 				"quality": q}))
 		list.add_child(b)
+	if zone == "fence":
+		_build_spy(list, fam)
+
+
+## The fence also passes the town's spying jobs and keeps the family's secrets (4.22.6.5): deliver a report, blackmail
+## or expose a secret.
+func _build_spy(list: VBoxContainer, fam: String) -> void:
+	var st := sim.state
+	var jhead := Label.new()
+	jhead.theme_type_variation = &"DimLabel"
+	jhead.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	jhead.custom_minimum_size = Vector2(260, 0)
+	var jobs := Spy.jobs_for(sim, fam)
+	jhead.text = SimQuery.t_("ui.station.spy_jobs_head") if not jobs.is_empty() else SimQuery.t_("ui.station.spy_no_jobs")
+	list.add_child(jhead)
+	for j: Dictionary in jobs:
+		var id := str(j["id"])
+		var who := str(st.families.get(str(j["about"]), {}).get("name", ""))
+		var why := Spy.deliver_reason(sim, actor, id)
+		var b := Button.new()
+		b.focus_mode = Control.FOCUS_NONE
+		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		b.text = SimQuery.t_("ui.station.spy_deliver") % [who, int(j["pay"])] if why == "" \
+			else SimQuery.t_("ui.station.spy_job") % [who, int(j["pay"]), int(j["until"]) + 1]
+		b.disabled = why != ""
+		b.tooltip_text = SimQuery.reason_text(why) if why != "" else SimQuery.t_("ui.station.spy_deliver_tip")
+		b.pressed.connect(func() -> void: _give({"type": "deliver_intel", "actor": actor, "job": id}))
+		list.add_child(b)
+	var facts := Spy.usable_facts(sim, fam)
+	var shead := Label.new()
+	shead.theme_type_variation = &"DimLabel"
+	shead.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	shead.custom_minimum_size = Vector2(260, 0)
+	shead.text = SimQuery.t_("ui.station.spy_secrets_head") if not facts.is_empty() else SimQuery.t_("ui.station.spy_no_secrets")
+	list.add_child(shead)
+	for f: Dictionary in facts:
+		var fid := str(f["id"])
+		var who := str(st.families.get(str(f["family"]), {}).get("name", ""))
+		var what := SimQuery.t_("charge." + str(f["charge"]))
+		var row := HBoxContainer.new()
+		var bm := Button.new()
+		bm.focus_mode = Control.FOCUS_NONE
+		bm.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		bm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var bwhy := Spy.blackmail_reason(sim, actor, fid)
+		bm.text = SimQuery.t_("ui.station.spy_blackmail") % [who, what, Spy.demand(sim, f)]
+		bm.disabled = bwhy != ""
+		bm.tooltip_text = SimQuery.reason_text(bwhy) if bwhy != "" else SimQuery.t_("ui.station.spy_blackmail_tip")
+		bm.pressed.connect(func() -> void: _give({"type": "blackmail", "actor": actor, "fact": fid}))
+		row.add_child(bm)
+		var ex := Button.new()
+		ex.focus_mode = Control.FOCUS_NONE
+		ex.text = SimQuery.t_("ui.station.spy_expose")
+		ex.tooltip_text = SimQuery.t_("ui.station.spy_expose_tip") % absi(int(sim.catalog.rogue.get("spy", {}).get("expose", {}).get("reputation", -10)))
+		ex.pressed.connect(func() -> void: _give({"type": "expose_fact", "actor": actor, "fact": fid}))
+		row.add_child(ex)
+		list.add_child(row)
 
 
 # --- 03b §3b.3 · made to a contract's spec ------------------------------------------------------------------------------

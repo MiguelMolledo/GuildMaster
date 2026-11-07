@@ -224,6 +224,15 @@ static func apply(sim: Sim, order: Dictionary) -> Dictionary:
 			return Rogue.order_launder(sim, order)
 		"arrest_response":
 			return Rogue.order_arrest_response(sim, order)
+		# The Rogue: the spy (sim/rogue/spy.gd, docs/gdd/04d_otras_clases.md 4.22.6.5)
+		"spy":
+			return Spy.order_spy(sim, order)
+		"deliver_intel":
+			return Spy.order_deliver(sim, order)
+		"blackmail":
+			return Spy.order_blackmail(sim, order)
+		"expose_fact":
+			return Spy.order_expose(sim, order)
 		"sell_to_merchant":
 			return VisitingMerchant.order_sell(sim, order)
 		"buy_from_merchant":

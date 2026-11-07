@@ -1,0 +1,11 @@
+{
+  "id": "spy_job",
+  "name_key": "objective.spy_job",
+  "conditions": [
+    {
+      "event": "spy_job_done",
+      "match": {},
+      "count": 1
+    }
+  ]
+}

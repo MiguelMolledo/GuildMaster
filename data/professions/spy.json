@@ -1,0 +1,11 @@
+{
+  "id": "spy",
+  "name_key": "profession.spy",
+  "class": "rogue",
+  "order": 1,
+  "building": "den",
+  "tool": "lockpicks",
+  "start": "rogue_spy",
+  "contracts": "spy",
+  "_doc": "The spy, the Rogue's second trade (04d 4.22.6.5): the den (its fence passes the town's spying jobs) and its tool, the den's (lockpicks). Its board table is empty: his jobs are data/rogue.json spy.jobs, not items."
+}

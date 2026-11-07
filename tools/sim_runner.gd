@@ -70,7 +70,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
-	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "rogue_novice": BotRogueNovice,
+	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "rogue_novice": BotRogueNovice, "spy_novice": BotSpyNovice,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
 	"merchant": BotMerchant, "pacing": BotPacing, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper,
 	"idle_titles_fest": BotIdle,
@@ -84,6 +84,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# crook: artisan_expert with the Secrets upgrade that ends in court (H11, crook = 1, 40 days)
 	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
 	# rogue_novice: the thief of the Rogue's start (H12, --start=rogue_thief): purses, storages, the fence, the debt
+	# spy_novice: the spy of the Rogue's second start (H12, --start=rogue_spy): the den's jobs, secrets, blackmail, debt
 	# scholar_novice: the physician of the scholar's start (H12.2, --start=scholar_physician): patients, bandages, debt
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
 	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
