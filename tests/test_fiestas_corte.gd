@@ -311,3 +311,40 @@ func test_one_pen_is_enough_in_vilablat() -> void:
 	check(not (hf["stalls"] as Array).any(func(x: Dictionary) -> bool: return str(x["stall"]) == "cattle"), "no cattle stall")
 	check(not home.state.chronicle.any(func(x: Dictionary) -> bool:
 		return str(x["kind"]) in ["fair_cattle_pens_short", "fair_cattle_stalls"]), "nor a line in the chronicle")
+
+
+## jugador (2026-11-07): the festive bot entered the fair's contest and offered the marquis's gift in the same minute
+## with the same piece: the contest took it and the gift was refused. Now the gift waits a minute and only goes if a
+## piece is left.
+func test_the_festive_bot_offers_the_gift_only_with_a_piece_left() -> void:
+	for spare: int in [0, 1]:
+		var sim := _game()
+		var st := sim.state
+		var fam := SimQuery.player_family(st)
+		var me := Kin.head(st, fam)
+		_to(sim, 2 * DAY + 11 * 60)
+		var marq := Festivals._schedule(sim, "marquis_visit", 4, "test")  # announced at noon, with the fair
+		_to(sim, 2 * DAY + 12 * 60 + 1)
+		var fairs: Array = Festivals.announced(sim).filter(func(i: Dictionary) -> bool: return str(i["def"]) == "harvest_fair")
+		var fair := str(fairs[0]["id"]) if not fairs.is_empty() else ""
+		var open: Array = (Festivals.announced(sim) + Festivals.active(sim)).map(func(i: Dictionary) -> String:
+			return str(i["id"]))
+		check(fair in open and marq in open, "the fair and the marquis announced at once (%s)" % [open])
+		for src: String in FestivalCourt._sources(sim, fam, me):
+			st.inventory_of(src)["stacks"] = []
+		Inventory.add(st.characters[me]["inventory"], cat, "sword", 0, 1 + spare)
+		var bot := BotFestive.new()
+		var got := {"festival_enter_contest": 0, "festival_offer_gift": 0, "refused": 0}
+		for i: int in 3:
+			for o: Dictionary in bot.orders(sim):
+				var t := str(o["type"])
+				if not t in ["festival_enter_contest", "festival_offer_gift"]:
+					continue
+				if bool(Orders.apply(sim, o)["ok"]):
+					got[t] = int(got[t]) + 1
+				else:
+					got["refused"] = int(got["refused"]) + 1
+			_to(sim, int(st.clock["minute"]) + 1)
+		eq(int(got["festival_enter_contest"]), 1, "into the contest (%d swords)" % (1 + spare))
+		eq(int(got["festival_offer_gift"]), spare, "the gift only with a sword left")
+		eq(int(got["refused"]), 0, "nothing refused")
