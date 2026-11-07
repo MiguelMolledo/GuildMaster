@@ -247,9 +247,14 @@ Cada módulo es un fichero en `sim/ai/modules/` con dos funciones: `propose(view
   (`Construction.budget`: oro − `gold_reserve` − `reserve_days` × coste fijo diario) y pasa `min_score`; una familia que
   vendió su taller y monta otro (`after_sale.fate` rebuilds) toma la mejor que pague. `{}` si ninguna.
 - `Construction.order_for(sim, fam, cand) -> Dictionary`: la orden de gestión del cabeza (`build` o `buy_building`).
-- Mientras la agenda de `sim/ai` no lo llame, `Construction.step` lo hace al amanecer (`ai_orders`: desde
-  `first_day`, `cooldown_days` por familia, `max_per_day` en el pueblo). Cuando la agenda lo llame, pone
-  `data/construction.json` `ai.enabled` a false y este paso se calla.
+- **La agenda lo llama** (plantillas, 2026-11-07; `sim/ai/build.gd`, `AIBuild`): al amanecer, justo después de
+  `Construction.step` (el mismo minuto, el mismo orden), con las cifras de `data/construction.json` `ai` (desde
+  `first_day`, `cooldown_days` por familia, `max_per_day` en el pueblo); `ai.enabled` está a false y el paso de
+  Construction se calla. Lo que pone la agenda: el **presupuesto**, su oro sobre su reserva (en los mapas de
+  `economy.maps`, la de `AIEconomy.reserve`; fuera, `Construction.budget`), y la **elección por perfil**: el bloque
+  `build` del perfil (`data/ai_profiles`) pesa cada candidata por su tipo (`{"buy": w, "build": w}`) y puede traer su
+  `min_score`; sin él, la de H6 (la mejor puntuación que pasa `min_score`). `ai.expand` sigue apagado: la economía de
+  4.21.6.1 lleva un taller por familia, no dos.
 
 #### 4.21.6.3 Quiebra (H6)
 
