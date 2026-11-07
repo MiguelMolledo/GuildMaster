@@ -500,6 +500,8 @@ func _play(sim: Sim, bot: Object, bot_id: String, s: int, days: int, generation:
 	m["title_rank"] = Titles.rank(sim, Titles.current(sim, fam))
 	m["inherited"] = 1 if int(m["inherit_day"]) >= 0 else 0
 	m["game_over"] = 0 if st.ending.is_empty() else 1
+	m["ended_by_ai"] = 1 if not st.ending.is_empty() and str(st.ending.get("family", "")) != fam else 0  # the ending
+	rep["ending"] = st.ending.duplicate(true)  # names another family's ruin: it should not end the player's game
 	for t: String in sim.catalog.title_ladder():  # days + 1 if never (as sim_runner); title_<id> 1 if it got it
 		m["title_" + t] = 1 if int(m["title_%s_day" % t]) >= 0 else 0
 		if int(m["title_%s_day" % t]) < 0:
