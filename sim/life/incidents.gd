@@ -228,8 +228,37 @@ static func _card(sim: Sim, inc: Dictionary, fam: String, choices: Array = []) -
 	inc["card"] = {"family": fam, "choices": choices if not choices.is_empty() else d.get("choices", []),
 		"default": str(d.get("default", "")), "started": now,
 		"expires": now + roundi(float(d.get("timeout_hours", 1)) * 60.0), "answered": false}
-	Notices.add(sim, fam, Notices.URGENT, "notice.life." + str(inc["def"]), params(sim, inc), str(inc.get("building", "")))
-	sim.events.append({"type": "incident_card", "incident": str(inc["id"]), "def": str(inc["def"]), "family": fam})
+	# verifica #20 (owner's decision): a brawl of others is a plain notice (it pops up and goes); urgent only when it
+	# touches the family: one of its people, one of its employees, or at the door of one of its buildings
+	var sev := Notices.URGENT
+	if str(inc["def"]) == "altercation" and not touches_family(sim, inc, fam):
+		sev = Notices.WARNING
+	Notices.add(sim, fam, sev, "notice.life." + str(inc["def"]), params(sim, inc), str(inc.get("building", "")))
+	sim.events.append({"type": "incident_card", "incident": str(inc["id"]), "def": str(inc["def"]), "family": fam,
+		"severity": sev})
+
+
+## Whether the brawl `inc` touches the family `fam`: a fighter of the family or employed in one of its buildings, or
+## the brawl at own_building_tiles or less from the door of one of its buildings (data/life/incidents.json).
+static func touches_family(sim: Sim, inc: Dictionary, fam: String) -> bool:
+	var st := sim.state
+	var people: Array = inc.get("people", [])
+	for c: Variant in people:
+		if str(st.characters.get(str(c), {}).get("family", "")) == fam:
+			return true
+	var near := int(def(sim, str(inc["def"])).get("own_building_tiles", 3))
+	var blds: Array = st.buildings.keys()
+	blds.sort()
+	for b: String in blds:
+		if Money.family_of(st, b) != fam:
+			continue
+		for e: Variant in Staff.employees_of(st, b):
+			if str(e) in people:
+				return true
+		var door: Array = st.buildings[b].get("door", [])
+		if door.size() == 2 and inc.get("tile") is Array and Life.dist(inc["tile"], door) <= near:
+			return true
+	return false
 
 
 # --- Altercation -------------------------------------------------------------------------------------------------
