@@ -4,7 +4,7 @@
   "que": "Cada mañana, la reputación de la familia sube +1 por cada negocio operativo con al menos un empleado activo, y desde hoy la Taberna-Posada cuenta (antes solo los talleres). Junto con las fachadas y las primas que el jugador de prueba ya usa, un jugador que lleva la forja y la taberna llega a Patricio en el año 4-5.",
   "como_probar": "Una partida con la forja y la taberna con un empleado cada una: el registro de reputación de cada amanecer muestra «passive» +2 en vez de +1.",
   "capturas": [],
-  "falta": "Barón pide 3 negocios: llegará cuando el segundo taller compense solo.",
+  "falta": "Barón pide 3 negocios: el jugador de prueba ya llega (día 60 de la generación) con la forja, un segundo taller y la taberna.",
   "anterior": {
     "fecha": "2026-11-06",
     "titulo": "H6 · Parcelas y construcción: abrir un segundo negocio en un solar o una ruina",

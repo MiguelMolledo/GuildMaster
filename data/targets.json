@@ -1041,7 +1041,9 @@
       "facts_vs_others": 24,
       "trials_as_accuser": 24,
       "caravans": 24,
-      "treaty_paid": 24
+      "treaty_paid": 24,
+      "title_patrician_day": 40,
+      "rep_y5": 40
     },
     "refused_orders": [
       0,
@@ -1226,7 +1228,16 @@
     "trials_as_accuser": [
       1,
       null
-    ]
+    ],
+    "title_patrician_day": [
+      1,
+      40
+    ],
+    "rep_y5": [
+      250,
+      null
+    ],
+    "_patrician_doc": "Patricio y reputación (aprobadas por el manager el 2026-11-07, docs/decisiones.json): medido con full_player a 5 años × semillas 1-3 y una generación tras las fachadas, las primas a todos los empleados y la pasiva de la taberna (posada, e619d0b6; reports/full_player_ref/full_player_baron_*.json): Patricio los días 32-36 (34 en la generación), reputación al cerrar el año 5 (rep_y5) 282-301. Solo las juzgan las partidas de 5 años y la generación (_needs_days 40)."
   },
   "chaos_player": {
     "_doc": "Jugador caótico (docs/gdd/07_testing.md §7.4): sim/bots/bot_chaos_player.gd, la misma partida que full_player con decisiones al azar y una orden válida al azar cada ~40 minutos de juego (sesgo hacia los sistemas menos tocados; hasta saldar la deuda inicial, solo órdenes que no gastan). Guarda y carga cada día y sigue con lo cargado. Diana: nada se rompe: 0 errores del motor, 0 pasos de más de 2 s, ida y vuelta del guardado idéntica, nunca oro negativo ni nadie fuera del mapa, el libro cuadra. Ritual: godot --headless --path . -s tools/full_player.gd -- --bot=chaos_player --years=3 --seeds=3; en run_all, paso chaos (1 año, 1 semilla). Medido (2026-11-05, 2 semillas × 3 años): 24 idas y vueltas por semilla sin diferencias, 0 errores; una semilla se queda sin oro ni existencias el día 8 y ya no se recupera (bloqueo blando, docs/decisiones.json).",
