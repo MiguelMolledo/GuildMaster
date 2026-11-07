@@ -68,6 +68,7 @@ var why_not: Dictionary = {}          # mechanic -> why it did not use it the la
 var used: Dictionary = {}             # mechanic -> times it went for it
 var focus_minutes: Dictionary = {}    # focus -> minutes
 var decisions: Array = []             # [{day, minute, what, detail}] the focus changes and key choices (report)
+var _sim_now: Sim = null              # the sim of this minute (_enter has no sim of its own)
 var heads: Array = []                 # every character that played the forge, in order
 var _fam_id: String = ""
 var _focus_since: int = 0
@@ -90,6 +91,30 @@ func _init() -> void:
 
 
 func orders(sim: Sim) -> Array:
+	_sim_now = sim
+	var out: Array = []
+	var leaving := {}
+	for o: Dictionary in _orders_inner(sim):
+		if str(o.get("type", "")) == "exit_building":  # one exit a minute per character: two parts of the bot (the
+			var who := str(o.get("actor", ""))            # tavern and the heir's courting) may both send it out
+			if leaving.has(who):
+				continue
+			leaving[who] = true
+		out.append(o)
+	return out
+
+
+## The novice walks into the forge from the map; a new head may be inside another building (the tavern it kept, its
+## house): it leaves it first (an enter_building from inside another one is refused, inside_other_building).
+func _enter(b: String) -> Dictionary:
+	if _sim_now != null:
+		var loc := str(_sim_now.state.characters.get(ACTOR, {}).get("location", ""))
+		if loc != "" and loc != b:
+			return {"type": "exit_building", "actor": ACTOR}
+	return super._enter(b)
+
+
+func _orders_inner(sim: Sim) -> Array:
 	var st := sim.state
 	if _fam_id == "":
 		_fam_id = Life.player_family(st)
