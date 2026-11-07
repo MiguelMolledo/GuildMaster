@@ -403,6 +403,37 @@ molinero: trigo ×20 en 2 días; (4) compra dos ovejas; (5) cosecha antes de que
 | `innkeeper` | escenario `tavern_open` (Taberna + Posada) | Elabora cerveza, compra pan y carne, ajusta precios, contrata para la noche | ídem; ocupación media de camas ≥ 50 % |
 | `patron_chain` | escenario `bread_chain` (Granja + Molino + Panadería) | Cadena completa | Gana más que `farmer` + `miller` + `baker` por separado con las mismas semillas |
 
+**Hecho en H12 · Patrón (2026-11-06)** y lo que precisa del borrador (`docs/decisiones.json`):
+
+- **Granja** (`data/buildings/farm.json`, 3×4 con vivienda, mantenimiento 15): puestos `field_a`…`field_d` con
+  `like: "field"` (las recetas de campo los ven como «field»), `pen` (corral de 8) y almacén de 12 pilas. Estado del
+  campo en `buildings[b].fields` (`sim/farm/fields.gd`) y del corral en `buildings[b].pen` (`sim/farm/herds.gd`),
+  **leídos con valores por defecto: sin versión de guardado**. Se levanta en el solar de la forja de `town_e`
+  (sitio `player_homestead`), con fachada fal propia (normal, de espaldas, obras y dañada).
+- **Ciclo del trigo** (`data/crops/wheat.json`) tal cual 4.22.4.1: sembrado el día 1 está listo al amanecer del 5, en
+  invierno no crece, se pudre dos amaneceres después; el segundo día rinde −25 %. Las órdenes de campo dan su motivo
+  (`field_not_fallow`, `field_not_plowed`, `not_sowing_season`, `field_not_ready`, `storage_full`, `field_normal_only`).
+  Avisos: listo, último día, podrido, fin de la siembra, ganado sin comer, pienso que no llega, animal muerto.
+- **Ganado** (`data/animals/`): ovejas (lana cada amanecer) y cerdos (+1 por pareja cada 2 días hasta llenar el
+  corral); en invierno, trigo ×1 por cabeza; dos días sin comer, muere el de menos valor. Se compran y venden en la
+  **Feria de ganado**, un puesto exterior nuevo de la plaza; el recado de animales va sin recargo y pide sitio en el
+  corral.
+- **Peso de demanda** (P3) solo en trigo y lana (0,1) y animales (0,5); harina, pan, carne y cerveza, y la harina a 15
+  (P10), esperan al Molino, la Panadería y la Carnicería para no mover las cuentas de la Taberna-Posada.
+- **Mejoras** (24): Producción y Calidad de 4.22.7; Comercio propio (`market_price` ×1,05 / ×1,10 / ×1,15 a lo que se
+  vende de la granja), porque el mostrador de la Forja no vende nada en una granja; el resto como la Forja.
+- **Interior por datos** (`data/interiors/farm.json`): el patio con los campos y el corral, el granero y la casa. Cada
+  campo dibuja su estado con las losetas de campo del mapa (barbecho, surcos, brotes, verde, dorado, podrido), la barra
+  de crecimiento y los días que quedan; el corral, sus animales (greybox) y los días de pienso de invierno. Se trabaja
+  desde el menú del puesto (clic derecho: Arar, Sembrar trigo, Cosechar). El panel del calendario de siembra queda para
+  `campos_y_ganado.md`.
+- **Cadena del grano**: la Taberna-Posada ya elabora cerveza con trigo ×3 del mercado y es cliente de los encargos de
+  trigo del Granjero (tabla `data/contracts/farmer.json`: molinero, posadera, tejedora, panadero). La fiesta de la
+  siega (04f, Verano 2) no la pide 04d: queda en `docs/decisiones.json` (pendientes) para cuando entre el Molino.
+- **Dificultad en el campo**: palanca `harvest_mult` (×1,15 / ×1 / ×0,85 la cosecha): las de hoy apenas tocan a quien no compra.
+- Medido (30 semillas, Normal): **33,6 netos/día** (cuenta de 4.22.8: ~39), deuda 29/30, ningún animal muerto de
+  hambre; Fácil 40,0 > Normal 33,6 > Difícil 33,4.
+
 #### 4.22.4.10 Riesgos
 
 | Riesgo | Qué pasa | Mitigación |

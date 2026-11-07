@@ -70,7 +70,7 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	"artisan_expert": BotArtisanExpert, "artisan_expert_0": BotArtisanExpert, "artisan_expert_1": BotArtisanExpert,
 	"artisan_expert_2": BotArtisanExpert, "dynasty": BotDynasty, "idle_town": BotIdle,
 	"expert_titles": BotArtisanExpert, "idle_titles": BotIdle, "politician": BotArtisanExpert, "crook": BotArtisanExpert,
-	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "rogue_novice": BotRogueNovice,
+	"kin_trader": BotIdle, "events": BotArtisanExpert, "carpenter_novice": BotArtisanTrade, "scholar_novice": BotScholarNovice, "rogue_novice": BotRogueNovice, "patron_novice": BotPatronNovice, "tutorial_route": BotTutorialRoute,
 	"mason_novice": BotArtisanTrade, "tailor_novice": BotArtisanTrade, "duelist": BotDuelist,
 	"merchant": BotMerchant, "pacing": BotPacing, "gambler": BotGambler, "guard_watch": BotGuardWatch, "festive": BotFestive, "innkeeper": BotInnkeeper,
 	"idle_titles_fest": BotIdle,
@@ -85,6 +85,8 @@ var BOTS: Dictionary = {"idle": BotIdle, "wanderer": BotWanderer, "smith": BotSm
 	# carpenter_novice / mason_novice / tailor_novice: the novice of any artisan trade (H12), with its --start
 	# rogue_novice: the thief of the Rogue's start (H12, --start=rogue_thief): purses, storages, the fence, the debt
 	# scholar_novice: the physician of the scholar's start (H12.2, --start=scholar_physician): patients, bandages, debt
+	# patron_novice: the farmer of the patron's start (H12 Patrón, --start=patron_farmer): fields, wool, pigs, debt
+	# tutorial_route: the default game as a novice who follows the tutorial and the objectives (verifica, 2026-11-06)
 	# kin_trader: idle from the scenario kin_trader: a family member with Trade supplies the forge (H14, 2 days)
 	# events: artisan_expert for 10 years with the global events on (H13 criterion 1: 80 days without getting stuck)
 	# duelist: challenges the rival of the trade by the rules and plays its duels (duelo, --scenario=duel_ready)
@@ -287,6 +289,8 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 		gold0[f] = Money.gold(sim.state, f) - Ledger.total(sim.state, f)
 	var player := _player_family(sim)
 	var start_minute := int(sim.state.clock["minute"])
+	if player != "" and Herds.has_pen(sim, Kin.workplace(sim, player)):  # H12 Patrón: the farm's measures
+		m.merge({"no_starved": 1, "starved": 0, "harvested": 0, "harvests": 0, "fields_rotten": 0})
 	var dues := {}  # loan -> due minute at the start (repaid before it and not in extension = paid in time)
 	for id: String in sim.state.loans:
 		if str(sim.state.loans[id].get("family", "")) == player:
@@ -460,6 +464,17 @@ func _run(sim: Sim, bot: Object, bot_id: String, s: int, days: int, flows: Array
 				"employee_hired":
 					if str(e.get("family", "")) == player:
 						m["hired"] = int(m.get("hired", 0)) + 1
+				"animal_died":  # H12 Patrón (04d 4.22.4.9): an animal of the player's pen starved
+					if str(e.get("family", "")) == player:
+						m["starved"] = int(m.get("starved", 0)) + 1
+						m["no_starved"] = 0
+				"field_worked":
+					if str(e.get("family", "")) == player and str(e.get("action", "")) == "harvest":
+						m["harvested"] = int(m.get("harvested", 0)) + int(e.get("qty", 0))
+						m["harvests"] = int(m.get("harvests", 0)) + 1
+				"field_rotten":
+					if str(e.get("family", "")) == player:
+						m["fields_rotten"] = int(m.get("fields_rotten", 0)) + 1
 				"work_started":
 					if player != "" and Money.family_of(sim.state, str(e["building"])) == player:
 						var rec: Dictionary = sim.catalog.recipes().get(str(e["recipe"]), {})

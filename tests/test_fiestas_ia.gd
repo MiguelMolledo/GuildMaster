@@ -6,7 +6,8 @@ extends "res://tests/test_case.gd"
 
 const DAY: int = 1440
 
-var cat := Catalog.load_from()
+const Pins = preload("res://tests/balance_pins.gd")
+var cat := Pins.no_ramp(Catalog.load_from())  # a whole day's upkeep from day 1: see tests/balance_pins.gd
 
 
 func _game(c: Catalog = null) -> Sim:

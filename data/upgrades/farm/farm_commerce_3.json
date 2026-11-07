@@ -1,0 +1,34 @@
+{
+  "id": "farm_commerce_3",
+  "name_key": "upgrade.farm_commerce_3",
+  "tree": "farm",
+  "branch": "commerce",
+  "level": 3,
+  "cost": {
+    "gold": 125,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "farm_commerce_2",
+      "farm_facade_1"
+    ],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "market_price",
+      "mult": 1.15
+    },
+    {
+      "kind": "reputation",
+      "amount": 5
+    }
+  ],
+  "visual": {
+    "interior_node": "farm_brand",
+    "exterior_overlay": null
+  }
+}

@@ -140,9 +140,12 @@ func refresh() -> void:
 		b.set_pressed_no_signal(str(pair[0]) == mode)
 		b.disabled = not can_pick
 	var svc := service()
-	(%Modes as Control).visible = actor != "" and svc == "" and not _is_den()
-	(%ModeLine as Label).visible = actor != "" and svc == "" and not _is_den()
-	(%ModeLine as Label).text = _mode_line()
+	var field := field_station()
+	if field:
+		mode = "normal"  # H12 Patrón: a field is worked in normal mode, no quality
+	(%Modes as Control).visible = actor != "" and svc == "" and not field and not _is_den()
+	(%ModeLine as Label).visible = (actor != "" and svc == "" and not _is_den()) or field
+	(%ModeLine as Label).text = field_line() if field else _mode_line()
 	_build_recipes(can_pick)
 	_show_quality()
 	_show_service(svc)
@@ -474,7 +477,7 @@ func _show_quality() -> void:
 				break
 	if rid == "" and not options.is_empty() and str(options[0].get("status", "")) != "locked":
 		rid = str(options[0]["recipe"])
-	box.visible = actor != "" and rid != "" and service() == ""
+	box.visible = actor != "" and rid != "" and service() == "" and not field_station()
 	if not box.visible:
 		return
 	var rec: Dictionary = sim.catalog.recipes().get(rid, {})
@@ -504,6 +507,33 @@ func _show_quality() -> void:
 		var tool := str(sim.catalog.buildings().get(str(sim.state.buildings[building].get("type", "")), {}).get("tool", ""))
 		tool_line.text = SimQuery.t_("ui.station.tool_bonus") % [SimQuery.item_name(sim.catalog, tool).to_lower(),
 			roundi(float(q.get("tool_chance", 0.0)) * 100.0)]
+
+
+## H12 Patrón (04d 4.22.4.8): whether this station is a field (its recipes are of kind field).
+func field_station() -> bool:
+	if sim == null:
+		return false
+	return Upgrades.zone_kind(sim, building, zone) == Fields.FIELD
+
+
+## The field's line instead of the modes: its state and when it will be ready (the sowing calendar of one field):
+## «Arado · sembrado hoy, listo en 4 días», «Crece: 2 de 4 · listo en 2 días», «Listo: 2 días para cosecharlo»...
+func field_line() -> String:
+	for row: Dictionary in Fields.view(sim, building):
+		if str(row["zone"]) != zone:
+			continue
+		match str(row["state"]):
+			"growing":
+				return SimQuery.t_("ui.field.growing") % [int(row["growth"]), int(row["grow"]), int(row["days_to_ready"])]
+			"ready":
+				return SimQuery.t_("ui.field.ready") % maxi(0, int(row["days_left"]))
+			"plowed":
+				var d := Fields.sow_preview(sim, "wheat")
+				return SimQuery.t_("ui.field.plowed_sow") % d if d >= 0 else SimQuery.t_("ui.field.plowed_wait")
+			"rotten":
+				return SimQuery.t_("ui.field.rotten")
+		return SimQuery.t_("ui.field.fallow")
+	return ""
 
 
 ## H12.2: the service of this station ("" if it makes things): the service of its first service recipe.

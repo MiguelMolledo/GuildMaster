@@ -99,6 +99,13 @@ static func from_start(catalog: Catalog, start_id: String, difficulty: String, c
 		psites[str(b["site"])] = (sites[str(b["site"])] as Dictionary).duplicate()
 		psites[str(b["site"])]["type"] = str(b["type"])
 	var forge := _add_building(s, catalog, psites, str(b["site"]), fam, b.get("inventory", []))
+	if b.get("fields") is Dictionary:  # H12 Patrón (04d 4.22.4.6): the farm's fields as the start leaves them
+		var fields := {}
+		for z: String in (b["fields"] as Dictionary):
+			var f := Fields.blank()
+			f.merge(b["fields"][z], true)
+			fields[z] = f
+		s.buildings[forge]["fields"] = fields
 	# The rival family (GDD 4.5.5): its craft comes from the difficulty.
 	var rv: Dictionary = start.get("rival", {})
 	if not rv.is_empty():

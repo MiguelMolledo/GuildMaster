@@ -1,0 +1,32 @@
+{
+  "id": "farm_quality_2",
+  "name_key": "upgrade.farm_quality_2",
+  "tree": "farm",
+  "branch": "quality",
+  "level": 2,
+  "cost": {
+    "gold": 60,
+    "items": []
+  },
+  "requires": {
+    "upgrades": [
+      "farm_quality_1"
+    ],
+    "stat": {
+      "id": "constitution",
+      "min": 5
+    },
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "field_yield",
+      "mult": 1.3
+    }
+  ],
+  "visual": {
+    "interior_node": "farm_rotation",
+    "exterior_overlay": null
+  }
+}

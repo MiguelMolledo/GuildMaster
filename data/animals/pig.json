@@ -1,0 +1,8 @@
+{
+  "id": "pig",
+  "name_key": "item.pig",
+  "_doc": "H12 Patrón (04d 4.22.4.2) [balance]: grazes from spring to autumn, wheat ×1 a head each winter dawn. Produces nothing: it breeds, +per_pair young per pair every every_days dawns it is fed, up to the pen's capacity; sold at the livestock stall or cut at the butcher's.",
+  "feed": {"winter": {"item": "wheat", "qty": 1}},
+  "produce": null,
+  "breed": {"every_days": 2, "per_pair": 1}
+}

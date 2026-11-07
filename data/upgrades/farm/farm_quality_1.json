@@ -1,0 +1,32 @@
+{
+  "id": "farm_quality_1",
+  "name_key": "upgrade.farm_quality_1",
+  "tree": "farm",
+  "branch": "quality",
+  "level": 1,
+  "cost": {
+    "gold": 25,
+    "items": [
+      {
+        "item": "wood",
+        "qty": 3
+      }
+    ]
+  },
+  "requires": {
+    "upgrades": [],
+    "stat": null,
+    "title": null
+  },
+  "build_days": 1.0,
+  "effects": [
+    {
+      "kind": "field_yield",
+      "mult": 1.15
+    }
+  ],
+  "visual": {
+    "interior_node": "farm_manure",
+    "exterior_overlay": null
+  }
+}

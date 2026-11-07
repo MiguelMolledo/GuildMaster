@@ -1,4 +1,5 @@
 extends "res://tests/test_case.gd"
+const Pins = preload("res://tests/balance_pins.gd")
 ## Selling several units at once is paid unit by unit (subgrim «balance», H3): each unit at the demand left by the
 ## one before, so selling 10 at once gives the same gold and the same demand as selling them one at a time.
 
@@ -6,7 +7,7 @@ const FAM: String = "fam_0001"
 const HUGO: String = "chr_0001"
 const ARMORY: String = "bld_0003"
 
-var cat := Catalog.load_from()
+var cat := Pins.prices(Catalog.load_from())  # the sword at 65: see tests/balance_pins.gd
 
 
 func _sim() -> Sim:
