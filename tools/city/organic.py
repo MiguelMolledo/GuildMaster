@@ -1358,7 +1358,9 @@ def build(map_id, plan, cat=None, variant=None):
     elif not plan.get("skeleton"):
         raise SystemExit(f"organic: {map_id} no tiene plano de imagen (\"skeleton\")")
     tw = Town(map_id, plan, cat)
-    start_ids = plan.get("starts") or ["artisan_blacksmith", "artisan_carpenter", "artisan_mason", "artisan_tailor"]
+    # H12.2: scholar_physician puts its Consulta médica (player_clinic) on the player forge's plot, as in town_e
+    start_ids = plan.get("starts") or ["artisan_blacksmith", "artisan_carpenter", "artisan_mason", "artisan_tailor",
+                                       "scholar_physician"]
     pop = citylib.load_json(os.path.join(citylib.DATA, "maps", "town_e.json"))
     households = gen.population_of(pop.get("population", []), int(plan["households"]))
     if plan.get("skeleton"):  # the skeleton from a semantic plan (an image: tools/city/esqueleto.py)

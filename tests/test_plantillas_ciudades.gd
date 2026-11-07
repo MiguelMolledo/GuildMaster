@@ -62,7 +62,7 @@ func test_every_city_is_full_governed_and_has_its_market_gates_and_watch() -> vo
 		check(folk <= houses_per * houses, "%s: at most %d per house (%d in %d)" % [id, houses_per, folk, houses])
 		eq(folk, int(m.get("population_max", -1)), "%s: the town starts full (population_max)" % id)
 		eq(Population.max_total(sim), folk, "%s: its cap is its own figure" % id)
-		eq((m.get("stalls", {}) as Dictionary).size(), 5, "%s: the five stalls of the market" % id)
+		eq((m.get("stalls", {}) as Dictionary).size(), 6, "%s: the six stalls of the market (H12.2: the apothecary)" % id)
 		check(not (m.get("board", {}) as Dictionary).is_empty(), "%s: the board" % id)
 		check(Offices.has_town_hall(st, cat) and not st.offices.is_empty(), "%s: the town hall and its offices" % id)
 		var rival := ""
