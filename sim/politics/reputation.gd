@@ -146,8 +146,9 @@ static func _take_cap(sim: Sim, fam: String, r: Dictionary) -> bool:
 	return true
 
 
-## At dawn (after Staff: today's employees are known): +per_business_with_staff for each operative workshop of every
-## family with at least one active employee (ap. A: «+1/día por negocio operativo con empleados»).
+## At dawn (after Staff: today's employees are known): +per_business_with_staff for each operative business of every
+## family with at least one active employee (ap. A: «+1/día por negocio operativo con empleados»): its workshops and,
+## since 2026-11-07 (the manager, the reputation that stopped Barón), its services (the tavern).
 static func _passive(sim: Sim) -> void:
 	var per := int(cfg(sim).get("passive", {}).get("per_business_with_staff", 0))
 	if per == 0:
@@ -156,7 +157,7 @@ static func _passive(sim: Sim) -> void:
 	fams.sort()
 	for fam: String in fams:
 		var n := 0
-		for b: String in Titles.business_ids(sim, fam):
+		for b: String in Titles.business_ids(sim, fam, true):   # the tavern with employees too (Barón, 2026-11-07)
 			for c: String in Staff.employees_of(sim.state, b):
 				if Staff.is_active(sim, c):
 					n += 1

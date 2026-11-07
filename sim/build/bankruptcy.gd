@@ -19,9 +19,10 @@ extends RefCounted
 ##   the family puts up a workshop (Construction, after_sale.fate «rebuilds»). With a business left, normal.
 ## Only the human family's ruin ends the game (forja, Loans._seize / Emergency.ruin); the moneylender's credit before
 ## all this is the AI's economy's (plantillas, ai_credit). Memory in families[f].ai_state.bankruptcy {stage, since,
-## building}. Contract with the AI's economy (manager, 2026-11-07): stage is "" | "austerity" | "for_sale", written only
-## here; while it is not "", sim/ai/economy.gd does not hire (tests/pending/test_h6_contrato_quiebra.gd, to tests/ once
-## plantillas reads it). Chronicle and notices: the sign («La forja de los Ferrer está en venta») and the fall.
+## building, built_day: the day its last workshop was finished}. Contract with the AI's economy (manager, 2026-11-07):
+## stage is "" | "austerity" | "for_sale", written only here; while it is not "", sim/ai/economy.gd does not hire
+## (tests/pending/test_h6_contrato_quiebra.gd, to tests/ once plantillas reads it). Chronicle and notices: the sign
+## («La forja de los Ferrer está en venta») and the fall.
 
 const NORMAL: String = ""
 const AUSTERITY: String = "austerity"
@@ -71,11 +72,12 @@ static func workshop_of(sim: Sim, fam: String) -> String:
 	return ""
 
 
-## The building's net in the family's book over days [from, to] (every entry tagged with the building).
+## The building's net in the family's book over days [from, to] (every entry tagged with the building), without
+## what was invested in it (property: building or buying it; upgrades): a workshop just put up is not losing money.
 static func net(sim: Sim, fam: String, bld: String, from_day: int, to_day: int) -> int:
 	var n := 0
 	for e: Dictionary in Ledger.entries(sim, fam, from_day, to_day):
-		if str(e.get("building", "")) == bld:
+		if str(e.get("building", "")) == bld and not str(e.get("category", "")) in [Money.PROPERTY, Money.UPGRADES]:
 			n += int(e.get("amount", 0))
 	return n
 
@@ -106,6 +108,8 @@ static func _normal(sim: Sim, fam: String, m: Dictionary, today: int) -> void:
 	if bld == "":
 		return
 	var days := int(cfg(sim).get("negative_days", 16))
+	if today - int(m.get("built_day", -days)) < days:
+		return   # a workshop just put up: «neto negativo durante 2 años» needs those years
 	var losing := today >= days and net(sim, fam, bld, today - days, today - 1) < 0
 	if not losing or Construction.budget(sim, fam) >= 0:
 		return   # «neto negativo durante 2 años y la familia en austeridad» (04c): both; the credit comes first
@@ -230,6 +234,8 @@ static func rose(sim: Sim, fam: String) -> void:
 	var f: Dictionary = sim.state.families[fam]
 	if f.has("fallen") and workshop_of(sim, fam) != "":
 		f.erase("fallen")
+	if on(sim):
+		mem(sim, fam)["built_day"] = Clock.day(int(sim.state.clock["minute"]))  # a new workshop has its 2 years
 
 
 static func sale_price(sim: Sim, bld: String) -> int:
